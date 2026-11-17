@@ -108,3 +108,20 @@ Set `POR_JOURNAL_PROFILE` to a JSON path in an existing directory to remember
 discovered leads across runner sessions. Reuse that path for the same party and
 choose a different one for a fresh party. The profile is independent of DOS
 save slots.
+
+### First council briefing replay
+
+After setting the original fresh-start keys above, append the following
+sequence instead of the shorter tour extension. The replay walks from the tour
+to City Hall, records the posted proclamations, and hears the first three
+commissions.
+
+```powershell
+$env:POR_ADVENTURE_LOG = '1'
+$env:POR_BOOT_STEPS = '1600000000'
+$env:POR_BOOT_KEYS += ',180000000:1c0d,260000000:1579,350000000:1c0d,430000000:1c0d,530000000:1c0d,610000000:1c0d,690000000:1c0d,750000000:1c0d,805000000:4d00,810000000:4d00,815000000:4800,820000000:4800,825000000:4800,830000000:4800,855000000:1c0d,875000000:4800,905000000:1c0d,940000000:4800,970000000:1c0d,1010000000:4800,1070000000:1c0d,1140000000:1c0d,1200000000:1579,1240000000:5000,1270000000:4b00,1300000000:4800,1350000000:1c0d,1390000000:1c0d,1460000000:1c0d,1530000000:1c0d'
+npx tsx tools/boot-translated.ts
+```
+
+The journal should show Clear the Slums as the current objective, with Sokal
+Keep and the recovery of historical records also offered.

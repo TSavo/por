@@ -141,5 +141,16 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       detail: `The party encountered a reference to entry ${number} in the Adventurer's Journal.`,
     });
   }
+  const proclamations = new Set<string>();
+  for (const match of text.matchAll(/\bPROCLAMATIONS? ([IVXLCDM]+\b(?:(?:,\s*(?:AND\s+)?|\s+AND\s+)[IVXLCDM]+\b)*)/g)) {
+    for (const numeral of match[1]!.match(/\b[IVXLCDM]+\b/g) ?? []) proclamations.add(numeral);
+  }
+  for (const numeral of proclamations) {
+    leads.push({
+      id: `proclamation-${numeral.toLowerCase()}`,
+      title: `Proclamation ${numeral}`,
+      detail: "The party recorded this council proclamation. Its text is in the Adventurer's Journal.",
+    });
+  }
   return leads;
 }
