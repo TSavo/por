@@ -54,7 +54,15 @@ Verified means a test ran it and checked a result. The entry point at image `0x6
 
 `src/runtime/overlay.ts` is the int 3Fh behaviour: the word after `CD 3F` is the procedure offset, the header at that segment names the slice, and the procedure runs with CS equal to the segment the slice's code was copied into. `src/runtime/dos.ts` answers the System unit's int 21h calls.
 
-The translated entry draws the title through planar EGA, reaches the character creation menus, and displays a generated character's stats and portrait. A smoke run with the supplied `SAVGAMA.DAT` loaded slot A, opened `GEO2.DAX`, `WALLDEF2.DAX`, and `8X8D2.DAX`, then moved west from (15,4) to (14,4). The location name and the flow from a newly created party to exploration still need verification. These manual checks are separate from the procedure counts above.
+The translated entry draws the title through planar EGA, creates a dwarf fighter, saves and adds him to the party, and reaches Phlan via Begin Adventuring. The fresh start loads `ECL3.DAX`, `GEO3.DAX`, `WALLDEF3.DAX`, `8X8D3.DAX`, and `SPRIT3.DAX`. The opening council greeting names Phlan on screen. A separate smoke run with the supplied `SAVGAMA.DAT` loaded slot A and moved west from (15,4) to (14,4). These manual checks are separate from the procedure counts above.
+
+To replay the fresh start with the original game data:
+
+```powershell
+$env:POR_BOOT_STEPS = '122000000'
+$env:POR_BOOT_KEYS = '31000000:1c0d,45000000:2e63,52000000:1c0d,56000000:1c0d,58000000:1c0d,60000000:1c0d,62000000:1c0d,64000000:1579,69000000:2d58,69100000:1245,69200000:1f53,69300000:1454,69400000:1c0d,72000000:256b,75000000:1265,78000000:1579,82000000:1e61,86000000:1c0d,90000000:1265,93000000:3062,115000000:1c0d,118000000:1c0d'
+npx tsx tools/boot-translated.ts
+```
 
 To replay the save-based smoke run, use a disposable copy of the game data with the supplied `SAVGAMA.DAT` placed in its `SAVE` directory. Point `POR_GAMEDATA` to that copy and run:
 
