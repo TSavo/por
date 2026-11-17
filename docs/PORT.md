@@ -27,23 +27,28 @@ That is the whole fixup format. The 38 descriptors that tile the file (232375 by
 
 Generated:
 
-- `src/translated/ovl07.ts` — 30 procedures in the overlay at `GAME.OVR+0x78b0`. Procedure `ovl07_0000` is the ECL operand fetch (codes `00`, `01`, `02`, `03`, `80`, `81`). Procedure `ovl07_01c8` stores `0x9900` into DS:`0x494e` before it starts reading. That is the PoR script base, and it is whatever the instruction says, not a value copied from the later game.
-- `src/translated/system5bb.ts` — five System-unit routines in `START.EXE` segment `0x5BB`: FillChar `16b5`, Move `1692`, string assign `634`, string append `6c1`, bounded string copy `64e`.
+- `src/translated/ovl00.ts` through `ovl37.ts` — every prologue in all 38 slices, including the 7-byte empty unit. Slice 7 (`ovl07.ts`, `GAME.OVR+0x78b0`) still has the ECL operand fetch `ovl07_0000` and the loader `ovl07_0353`.
+- `src/translated/exe.ts` — the entry at image `0x6` through `System.Halt`, plus the resident prologues and the non-prologue routines those call.
+- `src/translated/system5bb.ts` — System routines that do not use a stack frame: startup, FillChar, Move, strings, BlockRead, Dispose, Halt.
 
-`npm run verify` executes FillChar and `ovl07_0000` and checks the bytes they write.
+`npm run verify` executes FillChar and `ovl07_0000` and checks the bytes they write. `npx tsx tools/boot-translated.ts` runs the real entry against the game files.
 
 ## What is hand-written
 
 | Piece | Role |
 | --- | --- |
-| `src/cpu/machine.ts` | 8086 registers, flags, stack, the 1MB image that holds DS |
-| `src/runtime/far.ts` | far-call table; unknown targets throw with the segment:offset |
+| `src/cpu/machine.ts` | 8086 registers, flags, stack, the 1MB image. The BIOS timer byte at `0040:006C` advances with the instruction stream, because Crt waits until that byte changes |
+| `src/runtime/far.ts` | far calls, resident image lookup, and the `CD 3F` stub dispatch |
+| `src/runtime/overlay.ts` | copies each slice to its own segment and runs the translated procedure with that CS |
+| `src/runtime/dos.ts` | the `int 21h` services the System unit calls, plus keyboard `int 16h` and console output |
 | `src/lib/ega.ts`, `src/main.ts`, `src/style.css` | presentation, classic and upgraded |
 | `src/lib/assets.ts` | asset ids for the upgraded override manifest |
 
 ## What is still scaffolding
 
-`src/lib/dax.ts`, `picture.ts`, `ecl.ts`, `world.ts`, and `files.ts` are hand-written decoders. The browser still uses them to draw the title and the 3D window. They are marked as scaffolding at the top of each file and are not the port. The DAX file procedure `ovl07_0353` is translated but not yet executed: it calls other overlays through `int 3Fh` (`lcall 0x1d7:0x703` and others), and those slices are mapped but not translated.
+`src/lib/dax.ts`, `picture.ts`, `ecl.ts`, `world.ts`, and `files.ts` are hand-written decoders. The browser still uses them to draw the title and the 3D window. They are marked as scaffolding at the top of each file and are not the port.
+
+The translated entry does run. It opens `GAME.OVR`, `POOL.CFG`, `8X8D1.DAX`, and `SQRPACI.DAX`, then Dispose rejects a pointer in segment `0x5C` (below the heap, which starts at `2D92:0000`) and the runtime exits with code 204. The console text it prints is `Runtime"error 200 at 4EF9:02A2`. The exit code is 204 and the printed number is 200, so that number is not trustworthy yet. Calling `ovl07_0353` on a fresh machine, without that startup, walks an empty heap and stops on the step budget.
 
 ## REA
 
@@ -51,4 +56,4 @@ REA 6.9.0 with Ghidra 12.1.4 loaded `START.EXE` as `dos-mz` / `x86:LE:16:Real Mo
 
 ## Coverage
 
-See `docs/COVERAGE.md`. 35 procedures translated, 2 of them executed and checked, out of 803 prologues found in the EXE image and the 38 slices.
+See `docs/COVERAGE.md`. All 758 overlay prologues and the resident procedures the translator can close over are emitted. Two of them are checked byte-for-byte. The entry has been executed up to the runtime-error exit above.

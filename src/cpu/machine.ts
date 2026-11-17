@@ -18,12 +18,33 @@ export class Cpu {
   ds = 0;
   ss = 0;
   es = 0;
-  ip = 0;
   cf = false;
   zf = false;
   sf = false;
   of = false;
+  pf = false;
   df = false;
+  /** Instruction count for the current run. A tight loop trips stepBudget instead of hanging. */
+  steps = 0;
+  stepBudget = 0;
+  ip = 0;
+
+  tick(at: number): void {
+    this.ip = at;
+    this.steps += 1;
+    // Crt waits until the BIOS timer byte at 0040:006C changes. A frozen
+    // counter is an infinite loop, so the clock advances with the instruction
+    // stream. This is the platform timer, not game logic.
+    if ((this.steps & 15) === 0) {
+      const tick = 0x40 * 16 + 0x6c;
+      this.mem[tick] = ((this.mem[tick] ?? 0) + 1) & 0xff;
+    }
+    if (this.stepBudget !== 0 && this.steps > this.stepBudget) {
+      throw new Error(
+        `step budget ${this.stepBudget} at ${this.cs.toString(16)}:${at.toString(16)}`,
+      );
+    }
+  }
 
   linear(seg: number, off: number): number {
     return ((seg << 4) + (off & 0xffff)) & 0xfffff;
@@ -92,6 +113,38 @@ export class Cpu {
     this.ax = this.al & 0x80 ? this.al | 0xff00 : this.al;
   }
 
+  /** Sign-extend AX into DX:AX. Turbo Pascal emits this before 16-bit division. */
+  cwd(): void {
+    this.dx = this.ax & 0x8000 ? 0xffff : 0;
+  }
+
+  setAdcFlags(width: 8 | 16, a: number, b: number): number {
+    return this.setAddFlags(width, a, (b + (this.cf ? 1 : 0)) & (width === 8 ? 0xff : 0xffff));
+  }
+
+  setSbbFlags(width: 8 | 16, a: number, b: number): number {
+    return this.setSubFlags(width, a, (b + (this.cf ? 1 : 0)) & (width === 8 ? 0xff : 0xffff));
+  }
+
+  /** DOS/BIOS hook. The platform layer replaces this. */
+  intr(n: number): void {
+    if (this.onIntr) this.onIntr(this, n);
+    else throw new Error(`int ${n.toString(16)} with no handler`);
+  }
+
+  onIntr: ((cpu: Cpu, n: number) => void) | null = null;
+
+  portOut(port: number, value: number): void {
+    this.onPortOut?.(port, value);
+  }
+
+  portIn(port: number): number {
+    return this.onPortIn?.(port) ?? 0xff;
+  }
+
+  onPortOut: ((port: number, value: number) => void) | null = null;
+  onPortIn: ((port: number) => number) | null = null;
+
   setSubFlags(width: 8 | 16, a: number, b: number): number {
     const mask = width === 8 ? 0xff : 0xffff;
     const sign = width === 8 ? 0x80 : 0x8000;
@@ -100,6 +153,7 @@ export class Cpu {
     this.zf = result === 0;
     this.sf = (result & sign) !== 0;
     this.of = ((a ^ b) & (a ^ result) & sign) !== 0;
+    this.pf = parity(result);
     return result;
   }
 
@@ -112,6 +166,7 @@ export class Cpu {
     this.zf = result === 0;
     this.sf = (result & sign) !== 0;
     this.of = ((~(a ^ b)) & (a ^ result) & sign) !== 0;
+    this.pf = parity(result);
     return result;
   }
 
@@ -123,5 +178,14 @@ export class Cpu {
     this.of = false;
     this.zf = value === 0;
     this.sf = (value & sign) !== 0;
+    this.pf = parity(value);
   }
+}
+
+function parity(value: number): boolean {
+  let bits = value & 0xff;
+  bits ^= bits >> 4;
+  bits ^= bits >> 2;
+  bits ^= bits >> 1;
+  return (bits & 1) === 0;
 }
