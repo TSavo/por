@@ -6,11 +6,14 @@
 import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { Cpu } from "../src/cpu/machine.js";
-import { attachDos, consoleText, dosLog } from "../src/runtime/dos.js";
+import { attachDos, consoleText, dosLog, type BiosKey } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
-import { screen, videoSummary } from "../src/runtime/video.js";
+import { journalFrame, screen, videoSummary } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { findGameRoot } from "./gamedata.js";
+import { currentObjective, observeAdventureLog, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
+import { liveInput } from "./live-input.js";
+import { openJournalProfile } from "./journal-profile.js";
 import { callTrace, disposeHits, dosAssigns, farCall, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
 import { registerTranslated } from "../src/translated/register.js";
@@ -24,7 +27,7 @@ const files = readdirSync(root, { recursive: true, encoding: "utf8" })
 
 registerTranslated();
 
-function fresh(): Cpu {
+function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[]) => void): Cpu {
   const cpu = new Cpu();
   const exe = files.find((f) => f.name.toUpperCase() === "START.EXE");
   const ovr = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
@@ -35,7 +38,7 @@ function fresh(): Cpu {
     if (!match) throw new Error("POR_BOOT_KEYS expects comma-separated [step:]hex BIOS key words");
     return { step: Number(match[1] ?? 0), word: Number.parseInt(match[2]!, 16) };
   }).sort((a, b) => a.step - b.step);
-  attachDos(cpu, files, keys);
+  attachDos(cpu, files, keys, requestKey && (() => requestKey(cpu, keys)));
   cpu.ss = boot.ss;
   cpu.sp = boot.sp || 0xfffe;
   cpu.ds = 0x2000;
@@ -71,7 +74,22 @@ function report(label: string, error: unknown): void {
   if (cpu.driveWrites.length) console.log(`  drive byte writes: ${cpu.driveWrites.join(" | ")}`);
 }
 
-const cpu = fresh();
+let adventureLog: (() => string) | undefined;
+const profilePath = process.env.POR_JOURNAL_PROFILE;
+const updateJournal = openJournalProfile(profilePath);
+const journal = (transcript = adventureLog?.() ?? ""): JournalLead[] =>
+  updateJournal(transcript, (known) => questProgress(cpu, known, 0x740));
+const liveAt = process.env.POR_LIVE_AT;
+const liveStep = Number(liveAt);
+if (liveAt !== undefined && (!Number.isSafeInteger(liveStep) || liveStep < 0)) {
+  throw new Error("POR_LIVE_AT must be a nonnegative integer");
+}
+if (liveAt !== undefined) mkdirSync("out", { recursive: true });
+const cpu = fresh(liveAt === undefined ? undefined : liveInput(liveStep, journal));
+const journalSlice = loadedSlices.find((slice) => slice.index === 7);
+adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || liveAt !== undefined || profilePath) && journalSlice
+  ? observeAdventureLog(cpu, journalSlice)
+  : undefined;
 const boot = (cpu as Cpu & { boot: { cs: number; ip: number; ss: number; sp: number } }).boot;
 console.log(
   `image entry ${boot.cs.toString(16)}:${boot.ip.toString(16)} ss ${boot.ss.toString(16)} sp ${boot.sp.toString(16)} slices ${loadedSlices.length}`,
@@ -111,6 +129,15 @@ try {
   );
 }
 
+if (adventureLog) {
+  mkdirSync("out", { recursive: true });
+  const transcript = adventureLog();
+  const leads = journal(transcript);
+  writeFileSync(join("out", "adventure-log.txt"), transcript + "\n");
+  writeFileSync(join("out", "adventure-journal.json"), JSON.stringify({ objective: currentObjective(leads), leads }, null, 2) + "\n");
+  writeFileSync(join("out", "adventure-journal.png"), encodePng(journalFrame(leads)));
+}
+if (liveAt !== undefined) process.exit(0);
 const slice7 = loadedSlices.find((s) => s.index === 7);
 if (!slice7) throw new Error("slice 7 was not loaded");
 const loader = fresh();

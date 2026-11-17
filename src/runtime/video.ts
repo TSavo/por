@@ -1,5 +1,6 @@
 import { Frame } from "../lib/ega.js";
 import type { Cpu } from "../cpu/machine.js";
+import { currentObjective, type JournalLead } from "./adventure-log.js";
 
 /**
  * BIOS int 10h for the calls Pool of Radiance actually makes.
@@ -191,6 +192,41 @@ function drawChar(ch: number, col: number, line: number, color: number): void {
       }
     }
   }
+}
+
+/** Compose a host panel on a copy of the guest display. */
+export function journalFrame(leads: readonly JournalLead[], trackedId?: string): Frame {
+  const frame = new Frame(screen.width, screen.height);
+  frame.pixels.set(screen.pixels);
+  frame.fillRect(16, 16, 288, 168, 7);
+  frame.fillRect(17, 17, 286, 166, 1);
+  const line = (text: string, y: number, color: number) => {
+    for (let i = 0; i < Math.min(44, text.length); i++) {
+      const rows = glyphRows(text.charCodeAt(i));
+      rows?.forEach((row, dy) => {
+        for (let dx = 0; dx < row.length; dx++) {
+          if (row[dx] === "#") frame.fillRect(28 + i * 6 + dx * 2, y + dy * 2, 2, 2, color);
+        }
+      });
+    }
+  };
+  line("ADVENTURE JOURNAL", 27, 14);
+  frame.fillRect(28, 44, 264, 1, 7);
+  let y = 54;
+  const objective = currentObjective(leads, trackedId);
+  const sections = [{ title: objective.title, detail: objective.nextStep }, ...leads];
+  for (const lead of sections) {
+    const lines = lead.detail.match(/.{1,43}(?:\s|$)|\S{1,43}/g) ?? [];
+    if (y + 14 + lines.length * 12 > 174) break;
+    line(lead.title, y, 11);
+    y += 14;
+    for (const detail of lines) {
+      line(detail.trim(), y, 15);
+      y += 12;
+    }
+    y += 10;
+  }
+  return frame;
 }
 
 export function resetVideo(): void {

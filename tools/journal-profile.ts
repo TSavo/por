@@ -1,0 +1,46 @@
+import { readFileSync, renameSync, writeFileSync } from "node:fs";
+import { randomUUID } from "node:crypto";
+import { discoveredLeads, type JournalLead } from "../src/runtime/adventure-log.js";
+
+const statusRank = { offered: 1, accepted: 2, "ready-to-report": 3, "turned-in": 4 };
+
+/** An explicitly selected party's journal, stored outside DOS guest memory. */
+export function openJournalProfile(path?: string) {
+  const leads = new Map<string, JournalLead>();
+  if (path) {
+    let raw: string | undefined;
+    try {
+      raw = readFileSync(path, "utf8");
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
+    if (raw !== undefined) {
+      const data = JSON.parse(raw);
+      if (data.version !== 1 || !Array.isArray(data.leads)) throw new Error("Invalid journal profile");
+      for (const lead of data.leads) {
+        if (typeof lead?.id !== "string" || typeof lead.title !== "string" || typeof lead.detail !== "string") {
+          throw new Error("Invalid lead in journal profile");
+        }
+        leads.set(lead.id, lead);
+      }
+    }
+  }
+  return (transcript: string, readProgress?: (known: JournalLead[]) => JournalLead[]): JournalLead[] => {
+    let changed = false;
+    const observed = discoveredLeads(transcript);
+    const reported = readProgress?.([...leads.values(), ...observed]) ?? [];
+    for (const lead of [...observed, ...reported]) {
+      const prior = leads.get(lead.id);
+      if (prior && (!lead.status || (prior.status && statusRank[prior.status] >= statusRank[lead.status]))) continue;
+      leads.set(lead.id, lead);
+      changed = true;
+    }
+    const result = [...leads.values()];
+    if (path && changed) {
+      const pending = `${path}.${randomUUID()}.tmp`;
+      writeFileSync(pending, JSON.stringify({ version: 1, leads: result }, null, 2) + "\n", { flag: "wx" });
+      renameSync(pending, path);
+    }
+    return result;
+  };
+}

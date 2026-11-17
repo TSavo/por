@@ -73,3 +73,38 @@ npx tsx tools/boot-translated.ts
 ```
 
 The harness writes the entry-point capture to `out/por-boot.png`. Save writes in this runner are held in memory.
+
+Set `POR_ADVENTURE_LOG=1` to export observed ECL dialogue and discovered leads to
+`out/adventure-log.txt` and `out/adventure-journal.json`. The runner also
+composes the journal panel over the final game frame in
+`out/adventure-journal.png`. The fresh-start replay
+shows zero leads at the initial greeting. To witness both leads during Rolf's
+tour, extend that replay:
+
+```powershell
+$env:POR_ADVENTURE_LOG = '1'
+$env:POR_BOOT_STEPS = '500000000'
+$env:POR_BOOT_KEYS += ',180000000:1c0d,260000000:1579,350000000:1c0d,430000000:1c0d'
+npx tsx tools/boot-translated.ts
+```
+
+For live control after that replay, keep the keys above and raise the
+instruction budget. The first eligible BIOS keyboard call at or after
+`POR_LIVE_AT` pauses the guest and prompts for a command:
+
+```powershell
+$env:POR_BOOT_STEPS = '530000000'
+$env:POR_LIVE_AT = '500000000'
+npx tsx tools/boot-translated.ts
+```
+
+Type `j` and press Enter to open or close the journal. The runner prints its
+leads and updates `out/por-live.png` with the current game or journal frame.
+While the journal is open, type `track N` to follow a numbered objective.
+Enter a game key by name or use `key j` to send J to DOS. Type `:quit` to end
+the session. Clear `POR_LIVE_AT` to return to replay-only mode.
+
+Set `POR_JOURNAL_PROFILE` to a JSON path in an existing directory to remember
+discovered leads across runner sessions. Reuse that path for the same party and
+choose a different one for a fresh party. The profile is independent of DOS
+save slots.
