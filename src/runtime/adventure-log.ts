@@ -47,9 +47,14 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
   const commission = commissions.find(({ id }) => tracked?.id === `commission-${id}`);
   if (commission) {
     if (tracked?.status === "ready-to-report") return { title: commission.title, nextStep: tracked.detail };
-    const nextStep = commission.id === "sokal" && leads.some((lead) => lead.id === "passage-sokal")
-      ? "Take the boat to Sokal Keep, clear the keep, and report to the clerk."
-      : tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
+    let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
+    if (commission.id === "sokal") {
+      const knows = (id: string) => leads.some((lead) => lead.id === id);
+      if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
+      else if (knows("sokal-parchment")) nextStep = "Use the parchment to make sense of the keep's undead patrols.";
+      else if (knows("sokal-arrival")) nextStep = "Scout the keep and look for clues to the haunting.";
+      else if (knows("passage-sokal")) nextStep = "Catch the boat to Sokal Keep at the end of the pier.";
+    }
     return { title: commission.title, nextStep };
   }
   if (leads.some((lead) => lead.id === "commission-castle" && lead.status === "turned-in")) {
@@ -121,6 +126,28 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       id: "passage-sokal",
       title: "Passage to Sokal Keep",
       detail: "The harbor master says you can reach the keep by boat.",
+    });
+  }
+  if (text.includes("BOATS LEAVE FOR THE WEST, THE EAST, SOKAL KEEP, AND THE NORTH SIDE OF THE BAY")) {
+    leads.push({
+      id: "harbor-routes-reopened",
+      title: "The harbor routes are open",
+      detail: "The harbor master offers passage east, west, back to Sokal Keep, and to the north side of the bay.",
+    });
+  }
+  if (text.includes("THE BOAT DISEMBARKS YOU AT SOKAL KEEP")) {
+    leads.push({ id: "sokal-arrival", title: "Arrival at Sokal Keep", detail: "The party landed on Thorn Island." });
+  }
+  if (text.includes("IN A POUCH ON THE REMAINS IS A CRUMBLING PARCHMENT SCROLL")) {
+    leads.push({
+      id: "sokal-parchment", title: "The parchment at Sokal Keep",
+      detail: "The party found a damaged scroll on a dead elf outside the keep.",
+    });
+  }
+  if (text.includes("I AM THE LIFE FORM OF FERRAN MARTINEZ")) {
+    leads.push({
+      id: "sokal-ferran", title: "Ferran Martinez",
+      detail: "Ferran is bound to guard the keep and asks whether Phlan has been freed.",
     });
   }
   for (const commission of commissions) {
