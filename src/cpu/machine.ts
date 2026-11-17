@@ -63,7 +63,8 @@ export class Cpu {
   }
 
   read8(seg: number, off: number): number {
-    return this.mem[this.linear(seg, off)] ?? 0;
+    const address = this.linear(seg, off);
+    return this.onMemoryRead?.(address) ?? this.mem[address] ?? 0;
   }
 
   read16(seg: number, off: number): number {
@@ -74,6 +75,7 @@ export class Cpu {
 
   write8(seg: number, off: number, value: number): void {
     const lin = this.linear(seg, off);
+    if (this.onMemoryWrite?.(lin, value & 0xff)) return;
     this.mem[lin] = value & 0xff;
     if (lin === 0xc6db && this.driveWrites.length < 8) {
       this.driveWrites.push(`${this.cs.toString(16)}:${this.ip.toString(16)}=${(value & 0xff).toString(16)}`);
@@ -89,6 +91,8 @@ export class Cpu {
   }
 
   onWrite16: ((seg: number, off: number, value: number) => void) | null = null;
+  onMemoryRead: ((address: number) => number | undefined) | null = null;
+  onMemoryWrite: ((address: number, value: number) => boolean) | null = null;
   prevSp = -1;
   spJumps: string[] = [];
 

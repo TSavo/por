@@ -54,4 +54,14 @@ Verified means a test ran it and checked a result. The entry point at image `0x6
 
 `src/runtime/overlay.ts` is the int 3Fh behaviour: the word after `CD 3F` is the procedure offset, the header at that segment names the slice, and the procedure runs with CS equal to the segment the slice's code was copied into. `src/runtime/dos.ts` answers the System unit's int 21h calls.
 
-The translated entry currently opens the overlay, configuration, font, sprite, item, and title resources and reaches title rendering. This exercises substantially more code than the two byte-for-byte procedure checks above, but it is not counted as verified until the rendered result and state transition are asserted.
+The translated entry draws the title through planar EGA, reaches the character creation menus, and displays a generated character's stats and portrait. A smoke run with the supplied `SAVGAMA.DAT` loaded slot A, opened `GEO2.DAX`, `WALLDEF2.DAX`, and `8X8D2.DAX`, then moved west from (15,4) to (14,4). The location name and the flow from a newly created party to exploration still need verification. These manual checks are separate from the procedure counts above.
+
+To replay the save-based smoke run, use a disposable copy of the game data with the supplied `SAVGAMA.DAT` placed in its `SAVE` directory. Point `POR_GAMEDATA` to that copy and run:
+
+```powershell
+$env:POR_BOOT_STEPS = '65000000'
+$env:POR_BOOT_KEYS = '31000000:1c0d,45000000:266c,52000000:1e61,62000000:4800'
+npx tsx tools/boot-translated.ts
+```
+
+The harness writes the entry-point capture to `out/por-boot.png`. Save writes in this runner are held in memory.

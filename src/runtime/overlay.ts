@@ -54,7 +54,7 @@ export function installProgram(m: Cpu, exeFile: Uint8Array, ovr: Uint8Array): { 
   // procedures directly. Keep their backing bytes above Turbo Pascal's
   // emulated heap (which currently ends at segment 0x9000); otherwise normal
   // GetMem allocations overwrite later slices and their CS-relative constants.
-  let para = 0xa000;
+  let para = 0xc000;
   const seen = new Set<number>();
   for (let i = 0; i + 32 < image.length; i++) {
     if (image[i] !== 0xcd || image[i + 1] !== 0x3f) continue;

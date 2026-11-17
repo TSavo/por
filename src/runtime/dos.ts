@@ -1,5 +1,5 @@
 import type { Cpu } from "../cpu/machine.js";
-import { biosVideo, int10Count, resetVideo } from "./video.js";
+import { attachPlanarVideo, biosVideo, int10Count, resetVideo } from "./video.js";
 
 /**
  * The DOS calls Turbo Pascal's System unit makes. This is the platform
@@ -12,18 +12,40 @@ export interface DosFile {
 }
 
 interface OpenFile {
-  data: Uint8Array;
+  file: { data: Uint8Array };
   pos: number;
+  writable: boolean;
 }
 
 export const dosLog: string[] = [];
 export let consoleText = "";
 
-export function attachDos(m: Cpu, files: DosFile[]): void {
+export interface BiosKey {
+  step: number;
+  word: number;
+}
+
+export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = []): void {
   dosLog.length = 0;
   consoleText = "";
   resetVideo();
-  const byName = new Map(files.map((f) => [f.name.toUpperCase(), f.data]));
+  attachPlanarVideo(m);
+  let cwd = "";
+  const canonical = (name: string, base = cwd): string => {
+    const path = name.replaceAll("/", "\\").toUpperCase().replace(/^[A-Z]:/, "");
+    const parts = path.startsWith("\\") || !base ? [] : base.split("\\");
+    for (const part of path.split("\\")) {
+      if (part === "..") parts.pop();
+      else if (part && part !== ".") parts.push(part);
+    }
+    return parts.join("\\");
+  };
+  const byName = new Map(files.map((f) => [canonical(f.name, ""), { data: f.data }]));
+  const dirs = new Set([""]);
+  const parent = (path: string) => path.slice(0, Math.max(0, path.lastIndexOf("\\")));
+  for (const path of byName.keys()) {
+    for (let dir = parent(path); dir; dir = parent(dir)) dirs.add(dir);
+  }
   const handles = new Map<number, OpenFile>();
   let nextHandle = 5;
   let heap = 0x5000;
@@ -39,7 +61,6 @@ export function attachDos(m: Cpu, files: DosFile[]): void {
     return s;
   };
 
-  let interrupts = 0;
   m.onIntr = (cpu, n) => {
     if (n === 0x10) {
       if (dosLog.length < 24) dosLog.push(`int10 ah=${cpu.ah.toString(16)} al=${cpu.al.toString(16)} bx=${cpu.bx.toString(16)} cx=${cpu.cx.toString(16)} dx=${cpu.dx.toString(16)}`);
@@ -47,20 +68,21 @@ export function attachDos(m: Cpu, files: DosFile[]): void {
       if (int10Count > 400_000) throw new Error(`video storm ah=${cpu.ah.toString(16)} at ${int10Count}`);
       return;
     }
-    interrupts += 1;
-    if (interrupts > 20000) throw new Error(`interrupt storm at int ${n.toString(16)} ah=${cpu.ah.toString(16)}`);
     if (n === 0x16) {
+      const next = keyboard[0];
+      const key = next && next.step <= cpu.steps ? next.word : undefined;
       // BIOS keyboard. AH=1 polls; an empty buffer sets ZF.
       if (cpu.ah === 1 || cpu.ah === 0x11) {
-        cpu.zf = true;
-        cpu.ax = 0;
+        cpu.zf = key === undefined;
+        cpu.ax = key ?? 0;
         return;
       }
       if (cpu.ah === 2) {
         cpu.al = 0;
         return;
       }
-      cpu.ax = 0x1c0d;
+      if (key !== undefined) keyboard.shift();
+      cpu.ax = key ?? 0x1c0d;
       cpu.zf = false;
       return;
     }
@@ -148,19 +170,36 @@ export function attachDos(m: Cpu, files: DosFile[]): void {
       cpu.ax = 0;
       return;
     }
-    if (ah === 0x3d) {
-      const name = readAsciiz(cpu.ds, cpu.dx).toUpperCase();
-      const base = name.split("\\").pop() ?? name;
-      const data = byName.get(base);
+    if (ah === 0x39 || ah === 0x3b) {
+      const path = canonical(readAsciiz(cpu.ds, cpu.dx));
+      const exists = dirs.has(path);
+      cpu.cf = ah === 0x39 ? exists || byName.has(path) || !dirs.has(parent(path)) : !exists;
+      if (cpu.cf) cpu.ax = exists || byName.has(path) ? 5 : 3;
+      else if (ah === 0x39) dirs.add(path);
+      else cwd = path;
+      return;
+    }
+    if (ah === 0x47) {
+      for (let i = 0; i < cwd.length; i++) cpu.write8(cpu.ds, cpu.si + i, cwd.charCodeAt(i));
+      cpu.write8(cpu.ds, cpu.si + cwd.length, 0);
+      cpu.cf = false;
+      return;
+    }
+    if (ah === 0x3d || ah === 0x3c) {
+      const name = canonical(readAsciiz(cpu.ds, cpu.dx));
+      if (ah === 0x3c && dirs.has(parent(name)) && !dirs.has(name)) {
+        byName.set(name, { data: new Uint8Array() });
+      }
+      const file = byName.get(name);
       const hex = Array.from({ length: 64 }, (_, i) => cpu.read8(cpu.ds, cpu.dx - 0x30 + i).toString(16).padStart(2, "0")).join("");
-      dosLog.push(data ? `open ${base}` : `miss ${JSON.stringify(name)} ds ${cpu.ds.toString(16)}:${cpu.dx.toString(16)} at ${cpu.cs.toString(16)}:${cpu.ip.toString(16)} rec ${hex}`);
-      if (!data) {
+      dosLog.push(file ? `open ${name}` : `miss ${JSON.stringify(name)} ds ${cpu.ds.toString(16)}:${cpu.dx.toString(16)} at ${cpu.cs.toString(16)}:${cpu.ip.toString(16)} rec ${hex}`);
+      if (!file) {
         cpu.ax = 2;
         cpu.cf = true;
         return;
       }
       const handle = nextHandle++;
-      handles.set(handle, { data, pos: 0 });
+      handles.set(handle, { file, pos: 0, writable: ah === 0x3c || (cpu.al & 3) !== 0 });
       cpu.ax = handle;
       cpu.cf = false;
       return;
@@ -172,8 +211,8 @@ export function attachDos(m: Cpu, files: DosFile[]): void {
         cpu.cf = true;
         return;
       }
-      const count = Math.min(cpu.cx, file.data.length - file.pos);
-      for (let i = 0; i < count; i++) cpu.write8(cpu.ds, cpu.dx + i, file.data[file.pos + i] ?? 0);
+      const count = Math.min(cpu.cx, Math.max(0, file.file.data.length - file.pos));
+      for (let i = 0; i < count; i++) cpu.write8(cpu.ds, cpu.dx + i, file.file.data[file.pos + i] ?? 0);
       file.pos += count;
       cpu.ax = count;
       cpu.cf = false;
@@ -186,6 +225,23 @@ export function attachDos(m: Cpu, files: DosFile[]): void {
         cpu.cf = true;
         return;
       }
+      if (!file.writable) {
+        cpu.ax = 5;
+        cpu.cf = true;
+        return;
+      }
+      const end = file.pos + cpu.cx;
+      const size = cpu.cx ? Math.max(end, file.file.data.length) : end;
+      if (size > 0x1000000) {
+        cpu.ax = 112;
+        cpu.cf = true;
+        return;
+      }
+      const data = new Uint8Array(size);
+      data.set(file.file.data.subarray(0, size));
+      for (let i = 0; i < cpu.cx; i++) data[file.pos + i] = cpu.read8(cpu.ds, cpu.dx + i);
+      file.file.data = data;
+      file.pos = end;
       cpu.ax = cpu.cx;
       cpu.cf = false;
       return;
@@ -200,7 +256,7 @@ export function attachDos(m: Cpu, files: DosFile[]): void {
       const delta = (cpu.cx << 16) | cpu.dx;
       if (cpu.al === 0) file.pos = delta;
       else if (cpu.al === 1) file.pos += delta;
-      else file.pos = file.data.length + delta;
+      else file.pos = file.file.data.length + delta;
       if (file.pos < 0) file.pos = 0;
       cpu.ax = file.pos & 0xffff;
       cpu.dx = (file.pos >>> 16) & 0xffff;

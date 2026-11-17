@@ -18,7 +18,7 @@ import { ovl07_0353 } from "../src/translated/ovl07.js";
 
 const root = findGameRoot();
 if (!root) throw new Error("Pool of Radiance game data not found");
-const files = readdirSync(root)
+const files = readdirSync(root, { recursive: true, encoding: "utf8" })
   .filter((name) => !name.startsWith(".") && statSync(join(root, name)).isFile())
   .map((name) => ({ name, data: new Uint8Array(readFileSync(join(root, name))) }));
 
@@ -30,13 +30,18 @@ function fresh(): Cpu {
   const ovr = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
   if (!exe || !ovr) throw new Error("START.EXE and GAME.OVR are required");
   const boot = installProgram(cpu, exe.data, ovr.data);
-  attachDos(cpu, files);
+  const keys = (process.env.POR_BOOT_KEYS ?? "").split(",").filter(Boolean).map((key) => {
+    const match = /^(?:(\d+):)?([0-9a-f]{4})$/i.exec(key);
+    if (!match) throw new Error("POR_BOOT_KEYS expects comma-separated [step:]hex BIOS key words");
+    return { step: Number(match[1] ?? 0), word: Number.parseInt(match[2]!, 16) };
+  }).sort((a, b) => a.step - b.step);
+  attachDos(cpu, files, keys);
   cpu.ss = boot.ss;
   cpu.sp = boot.sp || 0xfffe;
   cpu.ds = 0x2000;
   // DOS passes the PSP in ES. Word at PSP:2 is the top of conventional memory.
-  cpu.es = 0xf000;
-  cpu.write16(0xf000, 2, 0xa000);
+  cpu.es = 0x9ff0;
+  cpu.write16(cpu.es, 2, 0x9ff0);
   return Object.assign(cpu, { boot });
 }
 
@@ -56,7 +61,7 @@ function report(label: string, error: unknown): void {
   const picture = videoSummary();
   if (picture.trim()) console.log(picture);
   mkdirSync("out", { recursive: true });
-  writeFileSync(join("out", "por-boot.png"), encodePng(screen));
+  if (label.startsWith("entry")) writeFileSync(join("out", "por-boot.png"), encodePng(screen));
   if (disposeHits.length) console.log(`  dispose:\n    ${disposeHits.join("\n    ")}`);
   if (dosAssigns.length) console.log(`  assign:\n    ${dosAssigns.join("\n    ")}`);
   if (getmemRing.length) console.log(`  getmem:\n    ${getmemRing.join("\n    ")}`);
@@ -78,8 +83,11 @@ cpu.onWrite16 = (seg, off, value) => {
     if (writes.length > 12) writes.shift();
   }
 };
-cpu.stepBudget = 30_000_000;
-resetFarBudget(1_000_000);
+cpu.stepBudget = Number(process.env.POR_BOOT_STEPS ?? 30_000_000);
+if (!Number.isSafeInteger(cpu.stepBudget) || cpu.stepBudget <= 0) {
+  throw new Error("POR_BOOT_STEPS must be a positive integer");
+}
+resetFarBudget(0);
 try {
   farCall(cpu, boot.cs, boot.ip);
   console.log(`entry returned ax=${cpu.ax.toString(16)} ds=${cpu.ds.toString(16)} steps=${cpu.steps}`);

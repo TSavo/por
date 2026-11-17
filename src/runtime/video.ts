@@ -16,6 +16,78 @@ let column = 0;
 let row = 0;
 export let int10Count = 0;
 
+const planes = Array.from({ length: 4 }, () => new Uint8Array(0x10000));
+const latches = new Uint8Array(4);
+const graphics = new Uint8Array(9);
+let graphicsIndex = 0;
+let sequencerIndex = 0;
+let mapMask = 15;
+
+function resetPlanarVideo(): void {
+  for (const plane of planes) plane.fill(0);
+  latches.fill(0);
+  graphics.fill(0);
+  graphics[8] = 255;
+  graphicsIndex = sequencerIndex = 0;
+  mapMask = 15;
+}
+
+/** EGA memory and indexed registers for planar mode 0Dh. */
+export function attachPlanarVideo(cpu: Cpu): void {
+  const start = 0xa0000;
+  const end = start + 0x10000;
+  cpu.onPortOut = (port, value) => {
+    if (port === 0x3c4) sequencerIndex = value;
+    if (port === 0x3c5 && sequencerIndex === 2) mapMask = value & 15;
+    if (port === 0x3ce) graphicsIndex = value;
+    if (port === 0x3cf && graphicsIndex < graphics.length) graphics[graphicsIndex] = value;
+  };
+  cpu.onMemoryRead = (address) => {
+    if (mode !== 0x0d || address < start || address >= end) return;
+    for (let p = 0; p < 4; p++) latches[p] = planes[p]![address - start]!;
+    if (!(graphics[5]! & 8)) return latches[graphics[4]! & 3]!;
+    let match = 255;
+    for (let p = 0; p < 4; p++) {
+      if (graphics[7]! & (1 << p)) match &= ~(latches[p]! ^ ((graphics[2]! & (1 << p)) ? 255 : 0));
+    }
+    return match;
+  };
+  cpu.onMemoryWrite = (address, value) => {
+    if (mode !== 0x0d || address < start || address >= end) return false;
+    const offset = address - start;
+    const writeMode = graphics[5]! & 3;
+    const rotate = graphics[3]! & 7;
+    const rotated = ((value >>> rotate) | (value << (8 - rotate))) & 255;
+    const mask = graphics[8]!;
+    for (let p = 0; p < 4; p++) {
+      const bit = 1 << p;
+      if (!(mapMask & bit)) continue;
+      const latch = latches[p]!;
+      if (writeMode === 1) {
+        planes[p]![offset] = latch;
+        continue;
+      }
+      let data = rotated;
+      if (writeMode === 2) data = value & bit ? 255 : 0;
+      else if (graphics[1]! & bit) data = graphics[0]! & bit ? 255 : 0;
+      switch ((graphics[3]! >> 3) & 3) {
+        case 1: data &= latch; break;
+        case 2: data |= latch; break;
+        case 3: data ^= latch; break;
+      }
+      planes[p]![offset] = (data & mask) | (latch & ~mask);
+    }
+    if (offset < 8000) {
+      for (let x = 0; x < 8; x++) {
+        let color = 0;
+        for (let p = 0; p < 4; p++) color |= ((planes[p]![offset]! >> (7 - x)) & 1) << p;
+        screen.pixels[offset * 8 + x] = color;
+      }
+    }
+    return true;
+  };
+}
+
 const FONT: Record<string, string[]> = {
   " ": ["...", "...", "...", "...", "..."],
   "!": [".#.", ".#.", ".#.", "...", ".#."],
@@ -122,6 +194,7 @@ function drawChar(ch: number, col: number, line: number, color: number): void {
 }
 
 export function resetVideo(): void {
+  resetPlanarVideo();
   mode = 3;
   column = 0;
   row = 0;
@@ -136,6 +209,7 @@ export function biosVideo(cpu: Cpu): void {
   const ah = cpu.ah;
   const al = cpu.al;
   if (ah === 0x00) {
+    resetPlanarVideo();
     mode = al;
     column = 0;
     row = 0;
