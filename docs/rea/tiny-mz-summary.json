@@ -1,0 +1,39 @@
+{
+  "evidence_id": "ev_cd275abc33d191e5ce35bd7f799cb6c07f26f805018bad26366480289ca4256d",
+  "subject": {
+    "name": "tiny.exe",
+    "digest": {
+      "sha256": "f1d0a31c262bd1605d4944cbe6f80e2b381cbaa2489dd3ab1b1941efe492b332"
+    },
+    "local_path": "/tmp/tiny.exe",
+    "format": "dos-mz",
+    "architecture": "x86"
+  },
+  "confidence": "derived",
+  "limitations": [
+    "Derived by an REA composed workflow.",
+    "Ghidra (ghidra 12.1.4) read_binary_inventory_summary: Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+    "Ghidra (ghidra 12.1.4) read_binary_inventory_summary: Counts use the complete defined-string inventory and the same local/external function inventory as list_strings and list_procedures. They do not establish discovery of undefined strings or unidentified functions.",
+    "Ghidra (ghidra 12.1.4) read_binary_inventory_summary: DOS MZ uses 16-bit x86 real mode with the Ghidra load segment 0x1000. Returned addresses are linear byte coordinates; they do not identify a unique segment:offset alias.",
+    "Ghidra (ghidra 12.1.4) read_binary_inventory_summary: Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+    "Ghidra (ghidra 12.1.4) read_binary_inventory_summary: Ghidra Program checkpoint mode is disabled: closing discards metadata edits; original executable bytes are unchanged. For stock ELF/PE/Mach-O on Linux/macOS, set REA_GHIDRA_CHECKPOINT_DIR to a private absolute directory before starting REA (restart MCP after changing its startup environment).",
+    "Ghidra (ghidra 12.1.4) read_binary_inventory_summary: Memory-block end addresses are exclusive; segment lengths use those observed address coordinates.",
+    "Ghidra (ghidra 12.1.4) read_binary_inventory_summary: Only Ghidra-defined string Data is observed; packed or undefined string bytes may be absent. Completeness applies to that inventory, and an empty search does not establish that text is absent from the artifact. If an address is known, use read_bytes and xrefs to inspect bytes and references.",
+    "Ghidra (ghidra 12.1.4) read_binary_inventory_summary: Static DOS analysis does not emulate BIOS, DOS interrupts, device ports, or self-modifying unpacking code. Packed targets require a separately identified unpacked artifact for original-program analysis; appended overlays are not the initialized load module.",
+    "Ghidra (ghidra 12.1.4) read_binary_inventory_summary: The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results."
+  ],
+  "provider": {
+    "id": "rea-workflow",
+    "name": "REA composed investigation workflow",
+    "version": "1"
+  },
+  "normalized_result_keys": [
+    "document",
+    "image_base",
+    "segments",
+    "segment_count",
+    "procedure_count",
+    "string_count",
+    "inventory_coverage"
+  ]
+}

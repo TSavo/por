@@ -1,0 +1,312 @@
+{
+  "magic": "TPOV",
+  "sha256Exe": "14ecf7584a43bd1ab36e04af12d9e9a3a00c5899533c853304e1e0e8af164fa2",
+  "overlayBytes": 232379,
+  "covered": 232375,
+  "slices": [
+    {
+      "exeOffset": 1296,
+      "fileOffset": 4,
+      "codeBytes": 109,
+      "relocBytes": 10,
+      "entries": 2,
+      "prev": 0
+    },
+    {
+      "exeOffset": 1344,
+      "fileOffset": 123,
+      "codeBytes": 2068,
+      "relocBytes": 206,
+      "entries": 4,
+      "prev": 22
+    },
+    {
+      "exeOffset": 1408,
+      "fileOffset": 2397,
+      "codeBytes": 864,
+      "relocBytes": 60,
+      "entries": 2,
+      "prev": 25
+    },
+    {
+      "exeOffset": 1456,
+      "fileOffset": 3321,
+      "codeBytes": 14745,
+      "relocBytes": 858,
+      "entries": 59,
+      "prev": 29
+    },
+    {
+      "exeOffset": 1792,
+      "fileOffset": 18924,
+      "codeBytes": 3860,
+      "relocBytes": 208,
+      "entries": 12,
+      "prev": 32
+    },
+    {
+      "exeOffset": 1888,
+      "fileOffset": 22992,
+      "codeBytes": 5654,
+      "relocBytes": 224,
+      "entries": 12,
+      "prev": 53
+    },
+    {
+      "exeOffset": 1984,
+      "fileOffset": 28870,
+      "codeBytes": 1928,
+      "relocBytes": 98,
+      "entries": 5,
+      "prev": 59
+    },
+    {
+      "exeOffset": 2048,
+      "fileOffset": 30896,
+      "codeBytes": 7886,
+      "relocBytes": 244,
+      "entries": 31,
+      "prev": 65
+    },
+    {
+      "exeOffset": 2240,
+      "fileOffset": 39026,
+      "codeBytes": 4710,
+      "relocBytes": 314,
+      "entries": 14,
+      "prev": 69
+    },
+    {
+      "exeOffset": 2352,
+      "fileOffset": 44050,
+      "codeBytes": 6433,
+      "relocBytes": 234,
+      "entries": 15,
+      "prev": 81
+    },
+    {
+      "exeOffset": 2464,
+      "fileOffset": 50717,
+      "codeBytes": 8261,
+      "relocBytes": 114,
+      "entries": 23,
+      "prev": 88
+    },
+    {
+      "exeOffset": 2624,
+      "fileOffset": 59092,
+      "codeBytes": 1870,
+      "relocBytes": 124,
+      "entries": 2,
+      "prev": 95
+    },
+    {
+      "exeOffset": 2672,
+      "fileOffset": 61086,
+      "codeBytes": 14530,
+      "relocBytes": 750,
+      "entries": 127,
+      "prev": 105
+    },
+    {
+      "exeOffset": 3344,
+      "fileOffset": 76366,
+      "codeBytes": 15421,
+      "relocBytes": 602,
+      "entries": 39,
+      "prev": 108
+    },
+    {
+      "exeOffset": 3584,
+      "fileOffset": 92389,
+      "codeBytes": 4363,
+      "relocBytes": 190,
+      "entries": 14,
+      "prev": 150
+    },
+    {
+      "exeOffset": 3696,
+      "fileOffset": 96942,
+      "codeBytes": 8118,
+      "relocBytes": 368,
+      "entries": 23,
+      "prev": 165
+    },
+    {
+      "exeOffset": 3856,
+      "fileOffset": 105428,
+      "codeBytes": 17440,
+      "relocBytes": 526,
+      "entries": 19,
+      "prev": 172
+    },
+    {
+      "exeOffset": 3984,
+      "fileOffset": 123394,
+      "codeBytes": 9079,
+      "relocBytes": 722,
+      "entries": 14,
+      "prev": 182
+    },
+    {
+      "exeOffset": 4096,
+      "fileOffset": 133195,
+      "codeBytes": 2300,
+      "relocBytes": 162,
+      "entries": 4,
+      "prev": 190
+    },
+    {
+      "exeOffset": 4160,
+      "fileOffset": 135657,
+      "codeBytes": 11004,
+      "relocBytes": 640,
+      "entries": 21,
+      "prev": 197
+    },
+    {
+      "exeOffset": 4304,
+      "fileOffset": 147301,
+      "codeBytes": 3601,
+      "relocBytes": 88,
+      "entries": 16,
+      "prev": 201
+    },
+    {
+      "exeOffset": 4416,
+      "fileOffset": 150990,
+      "codeBytes": 8874,
+      "relocBytes": 308,
+      "entries": 22,
+      "prev": 210
+    },
+    {
+      "exeOffset": 4560,
+      "fileOffset": 160172,
+      "codeBytes": 14194,
+      "relocBytes": 690,
+      "entries": 74,
+      "prev": 217
+    },
+    {
+      "exeOffset": 4976,
+      "fileOffset": 175056,
+      "codeBytes": 1112,
+      "relocBytes": 0,
+      "entries": 6,
+      "prev": 226
+    },
+    {
+      "exeOffset": 5040,
+      "fileOffset": 176168,
+      "codeBytes": 6457,
+      "relocBytes": 174,
+      "entries": 24,
+      "prev": 252
+    },
+    {
+      "exeOffset": 5200,
+      "fileOffset": 182799,
+      "codeBytes": 12481,
+      "relocBytes": 406,
+      "entries": 53,
+      "prev": 256
+    },
+    {
+      "exeOffset": 5504,
+      "fileOffset": 195686,
+      "codeBytes": 3219,
+      "relocBytes": 82,
+      "entries": 16,
+      "prev": 266
+    },
+    {
+      "exeOffset": 5616,
+      "fileOffset": 198987,
+      "codeBytes": 706,
+      "relocBytes": 12,
+      "entries": 6,
+      "prev": 285
+    },
+    {
+      "exeOffset": 5680,
+      "fileOffset": 199705,
+      "codeBytes": 658,
+      "relocBytes": 14,
+      "entries": 3,
+      "prev": 292
+    },
+    {
+      "exeOffset": 5728,
+      "fileOffset": 200377,
+      "codeBytes": 1940,
+      "relocBytes": 98,
+      "entries": 11,
+      "prev": 296
+    },
+    {
+      "exeOffset": 5824,
+      "fileOffset": 202415,
+      "codeBytes": 4655,
+      "relocBytes": 80,
+      "entries": 15,
+      "prev": 299
+    },
+    {
+      "exeOffset": 5936,
+      "fileOffset": 207150,
+      "codeBytes": 3046,
+      "relocBytes": 10,
+      "entries": 8,
+      "prev": 305
+    },
+    {
+      "exeOffset": 6016,
+      "fileOffset": 210206,
+      "codeBytes": 4844,
+      "relocBytes": 46,
+      "entries": 24,
+      "prev": 312
+    },
+    {
+      "exeOffset": 6176,
+      "fileOffset": 215096,
+      "codeBytes": 1610,
+      "relocBytes": 110,
+      "entries": 7,
+      "prev": 317
+    },
+    {
+      "exeOffset": 6272,
+      "fileOffset": 216816,
+      "codeBytes": 7,
+      "relocBytes": 0,
+      "entries": 2,
+      "prev": 327
+    },
+    {
+      "exeOffset": 7248,
+      "fileOffset": 216823,
+      "codeBytes": 692,
+      "relocBytes": 50,
+      "entries": 4,
+      "prev": 333
+    },
+    {
+      "exeOffset": 7312,
+      "fileOffset": 217565,
+      "codeBytes": 10873,
+      "relocBytes": 130,
+      "entries": 24,
+      "prev": 394
+    },
+    {
+      "exeOffset": 7472,
+      "fileOffset": 228568,
+      "codeBytes": 3705,
+      "relocBytes": 106,
+      "entries": 17,
+      "prev": 398
+    }
+  ]
+}

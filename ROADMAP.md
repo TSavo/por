@@ -1,0 +1,88 @@
+# Roadmap
+
+The goal is a full playthrough of Pool of Radiance, start to finish, with a second presentation the player can flip on with one key and no change to the story state. Phase 1 is the formats, the tools, and a shell that already keeps rules away from pixels. Everything under "not started" is still that: not started.
+
+Status words mean what they say. "Skeleton" means the data loads and one path runs. It does not mean the system is faithful yet.
+
+## Phase 1 — Map the binary and translate the first procedures
+
+Status: **started on the real Pool of Radiance files.** The archive hash is `6950e9ca62e8a034ecd300e2233a81135c52872bf3c564f74dd99edba004346b`.
+
+Done, from this game's bytes:
+
+- `GAME.OVR` is TPOV. 38 slices mapped in `docs/overlays.json`. The resident reader at `START.EXE` `0x591f` seeks, reads, and applies word fixups.
+- `START.EXE` is an unpacked MZ (no EXEPACK). REA/Ghidra lists 175 procedures.
+- Mechanical translator `tools/tp_translate.py`. 30 procedures in overlay slice 7 and 5 System-unit routines emitted as instruction switches.
+- Verified by execution: FillChar (`5bb:16b5`) and the ECL operand fetch (`ovl07_0000`).
+
+Still scaffolding, and still what the browser draws with: `src/lib/dax.ts`, `ecl.ts`, `picture.ts`, `world.ts`, `files.ts`. They are not the port.
+
+Not done:
+
+- Translate the other 37 slices, including the DAX file opener behind `int 3Fh` (`lcall 0x1d7:0x703`)
+- Run `ovl07_0353` (the procedure that builds `ECL` + area + `.dax` and copies the block) on a real file
+- Ghidra decompiler output for the overlays. REA's decompiler folded the stub table into `entry` and does not see `GAME.OVR` as part of the MZ. Disassembly is the path that is working.
+
+The pictures in a format-check run are only as good as the directory you point at. See the README.
+
+## Phase 2 — Character creation
+
+Status: **not started.**
+
+Roll attributes, race, class, alignment, and the portrait picker. Spells known at first level. The PoR character record is the thing CotAB later imports; its field layout should be taken from the unpacked save/load code, not invented from the later game. Creation is a session mutation. Both presentations read the same record.
+
+## Phase 3 — Exploration
+
+Status: **skeleton.**
+
+The shell already steps on a 16×16 map and blocks on a facing wall. Still missing: doors and secret doors (the two-bit extra field), stairs, area changes, wilderness (different map and no 3D window), the area map on symbol set 4, rest, time, and the encounter distance counter. `LOAD FILES` has to actually bind the GEO and WALLDEF the script names.
+
+## Phase 4 — ECL completeness
+
+Status: **partial.**
+
+Opcodes that run: GOTO, GOSUB, RETURN, COMPARE, the six IFs, ADD/SUB/MUL/DIV, SAVE, PRINT, PRINTCLEAR, and a few no-ops. Menus, input, pictures, new-script, treasure, and calls halt on purpose. Finishing this phase is implementing each halted opcode against the decompiled handler, then diffing PoR's dispatch so a CotAB-only opcode is not silently reused. The disassembler already stops when the bytes disagree.
+
+## Phase 5 — Tactical combat
+
+Status: **not started.**
+
+The combat icon decoder writes a PNG. The fight itself does not exist: initiative, the grid, movement, melee, ranged, morale, and the end-of-combat return into the script. `COMBAT`, `LOAD MONSTER`, and `DAMAGE` are the script edge. The map and the participants belong to the session. Classic draws the small icons in the 3D frame; upgraded may draw larger ones for the same participant id.
+
+## Phase 6 — Spells
+
+Status: **not started.**
+
+Books, memorization, components, and the area and combat effects. `SPELL` is an opcode and nothing more today. Saving throws and THAC0 live here too, because spells and attacks share them.
+
+## Phase 7 — Saves
+
+Status: **not started.**
+
+Read and write the original save so a party from the DOS game loads, and write a documented engine save that does not include presentation mode. The original record layout comes from the unpacked load routine.
+
+## Phase 8 — Classic audio and the real UI font
+
+Status: **not started.**
+
+PC speaker / ADL cues as sound ids. The 8×8 font used for messages, lifted from the EXE or from the symbol set, so classic mode does not depend on an HTML font for story text.
+
+## Phase 9 — Upgrade pipeline
+
+Status: **seam only.**
+
+Ids, manifest, and the F10 switch exist. The art pass is still ahead:
+
+- Author replacement PNGs keyed by `pic:`, `glyph:`, `scene:title`, and `scene:viewport`
+- A checker that fails the build when an override's pixel size is incompatible with the slot it fills
+- Upgraded combat frames and UI widgets that emit the same intents
+- Per-id fallback test: delete one PNG, confirm that id returns to EGA and the others stay upgraded
+- Audio replacements on the same ids
+
+No override ships in this repo. The manifest is empty.
+
+## Phase 10 — The whole campaign
+
+Status: **not started.**
+
+New Phlan through the end, including the slavelord chain, as a playthrough on the classic presentation, then the same save opened in upgraded mode at an arbitrary fight. After that, a second campaign that is only data and scripts. That last step is why the engine is not allowed to special-case Phlan in code.

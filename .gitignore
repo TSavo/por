@@ -1,0 +1,23 @@
+node_modules/
+dist/
+out/
+gamedata/
+*.log
+
+# Original SSI game files. Never commit these.
+*.DAX
+*.dax
+*.EXE
+*.exe
+*.OVR
+*.ovr
+*.EX_
+*.PIC
+*.pic
+*.CMP
+uploads/
+*.zip
+
+# Local upgrade art the player drops in. The manifest stays.
+upgrades/*.png
+upgrades/*.PNG

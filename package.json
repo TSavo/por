@@ -1,0 +1,22 @@
+{
+  "name": "pool-of-radiance",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Port of SSI Pool of Radiance: Turbo Pascal procedures translated from START.EXE and GAME.OVR, plus a classic/upgraded presentation.",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 43123 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "tools": "tsx tools/cli.ts",
+    "selftest": "tsx tools/cli.ts selftest",
+    "shots": "tsx tools/cli.ts shots",
+    "translate": "python3 tools/tp_translate.py",
+    "verify": "tsx tools/verify-translation.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.5"
+  }
+}
