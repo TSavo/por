@@ -10,12 +10,14 @@ import { attachDos, consoleText, dosLog } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
 import { screen, videoSummary } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
+import { findGameRoot } from "./gamedata.js";
 import { callTrace, disposeHits, dosAssigns, farCall, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
 import { registerTranslated } from "../src/translated/register.js";
 import { ovl07_0353 } from "../src/translated/ovl07.js";
 
-const root = process.env.POR_GAMEDATA ?? "/tmp/por-zip/pool";
+const root = findGameRoot();
+if (!root) throw new Error("Pool of Radiance game data not found");
 const files = readdirSync(root)
   .filter((name) => !name.startsWith(".") && statSync(join(root, name)).isFile())
   .map((name) => ({ name, data: new Uint8Array(readFileSync(join(root, name))) }));
@@ -53,8 +55,8 @@ function report(label: string, error: unknown): void {
   }
   const picture = videoSummary();
   if (picture.trim()) console.log(picture);
-  mkdirSync("/opt/cursor/artifacts", { recursive: true });
-  writeFileSync("/opt/cursor/artifacts/por-boot.png", encodePng(screen));
+  mkdirSync("out", { recursive: true });
+  writeFileSync(join("out", "por-boot.png"), encodePng(screen));
   if (disposeHits.length) console.log(`  dispose:\n    ${disposeHits.join("\n    ")}`);
   if (dosAssigns.length) console.log(`  assign:\n    ${dosAssigns.join("\n    ")}`);
   if (getmemRing.length) console.log(`  getmem:\n    ${getmemRing.join("\n    ")}`);

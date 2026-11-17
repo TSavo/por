@@ -27,6 +27,7 @@ export function attachDos(m: Cpu, files: DosFile[]): void {
   const handles = new Map<number, OpenFile>();
   let nextHandle = 5;
   let heap = 0x5000;
+  let clockHundredths = 12 * 60 * 60 * 100;
 
   const readAsciiz = (seg: number, off: number): string => {
     let s = "";
@@ -87,8 +88,13 @@ export function attachDos(m: Cpu, files: DosFile[]): void {
       return;
     }
     if (ah === 0x2c) {
-      cpu.cx = 0x0c00;
-      cpu.dx = 0;
+      const value = clockHundredths++ % (24 * 60 * 60 * 100);
+      const hours = Math.floor(value / 360000);
+      const minutes = Math.floor(value / 6000) % 60;
+      const seconds = Math.floor(value / 100) % 60;
+      const hundredths = value % 100;
+      cpu.cx = (hours << 8) | minutes;
+      cpu.dx = (seconds << 8) | hundredths;
       cpu.cf = false;
       return;
     }
@@ -147,7 +153,7 @@ export function attachDos(m: Cpu, files: DosFile[]): void {
       const base = name.split("\\").pop() ?? name;
       const data = byName.get(base);
       const hex = Array.from({ length: 64 }, (_, i) => cpu.read8(cpu.ds, cpu.dx - 0x30 + i).toString(16).padStart(2, "0")).join("");
-      dosLog.push(data ? `open ${base}` : `miss ds ${cpu.ds.toString(16)}:${cpu.dx.toString(16)} at ${cpu.cs.toString(16)}:${cpu.ip.toString(16)} rec ${hex}`);
+      dosLog.push(data ? `open ${base}` : `miss ${JSON.stringify(name)} ds ${cpu.ds.toString(16)}:${cpu.dx.toString(16)} at ${cpu.cs.toString(16)}:${cpu.ip.toString(16)} rec ${hex}`);
       if (!data) {
         cpu.ax = 2;
         cpu.cf = true;

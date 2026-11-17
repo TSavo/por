@@ -39,8 +39,8 @@ Generated:
 | --- | --- |
 | `src/cpu/machine.ts` | 8086 registers, flags, stack, the 1MB image. The BIOS timer byte at `0040:006C` advances with the instruction stream, because Crt waits until that byte changes |
 | `src/runtime/far.ts` | far calls, resident image lookup, and the `CD 3F` stub dispatch |
-| `src/runtime/overlay.ts` | copies each slice to its own segment and runs the translated procedure with that CS |
-| `src/runtime/dos.ts` | the `int 21h` services the System unit calls, plus keyboard `int 16h` and console output |
+| `src/runtime/overlay.ts` | copies each slice to its own segment above the emulated heap and runs the translated procedure with that CS |
+| `src/runtime/dos.ts` | the `int 21h` services the System unit calls, including an advancing DOS clock, plus keyboard `int 16h` and console output |
 | `src/lib/ega.ts`, `src/main.ts`, `src/style.css` | presentation, classic and upgraded |
 | `src/lib/assets.ts` | asset ids for the upgraded override manifest |
 
@@ -48,7 +48,7 @@ Generated:
 
 `src/lib/dax.ts`, `picture.ts`, `ecl.ts`, `world.ts`, and `files.ts` are hand-written decoders. The browser still uses them to draw the title and the 3D window. They are marked as scaffolding at the top of each file and are not the port.
 
-The translated entry does run. It opens `GAME.OVR`, `POOL.CFG`, `8X8D1.DAX`, and `SQRPACI.DAX`, then Dispose rejects a pointer in segment `0x5C` (below the heap, which starts at `2D92:0000`) and the runtime exits with code 204. The console text it prints is `Runtime"error 200 at 4EF9:02A2`. The exit code is 204 and the printed number is 200, so that number is not trustworthy yet. Calling `ovl07_0353` on a fresh machine, without that startup, walks an empty heap and stops on the step budget.
+The translated entry runs through the former insert-disk loop. It opens `GAME.OVR`, `POOL.CFG`, `8X8D1.DAX`, `SQRPACI.DAX`, `COMSPR.DAX`, `ITEMS`, and `TITLE.DAX`, then reaches title rendering. The filename corruption was caused by the translation harness preloading later overlay slices inside Turbo Pascal's heap; ordinary `GetMem` calls overwrote slice 36's CS-relative strings. Resident translated slices now use a backing arena above segment `0x9000`. DOS `Get Time` also advances deterministically so the game's delay loop can finish. The current boot guard is the 30-million-instruction budget during title work; the captured frame is still blank. Calling `ovl07_0353` on a fresh machine, without startup state, currently stops at an untranslated resident far call.
 
 ## REA
 
@@ -56,4 +56,4 @@ REA 6.9.0 with Ghidra 12.1.4 loaded `START.EXE` as `dos-mz` / `x86:LE:16:Real Mo
 
 ## Coverage
 
-See `docs/COVERAGE.md`. All 758 overlay prologues and the resident procedures the translator can close over are emitted. Two of them are checked byte-for-byte. The entry has been executed up to the runtime-error exit above.
+See `docs/COVERAGE.md`. All 758 overlay prologues and the resident procedures the translator can close over are emitted. Two of them are checked byte-for-byte. The entry has been executed through the initial resource loads and into title rendering.

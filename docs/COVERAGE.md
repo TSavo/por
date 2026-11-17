@@ -53,3 +53,5 @@ Verified means a test ran it and checked a result. The entry point at image `0x6
 | 37 | 0x37cd8 | 16 | 16 |
 
 `src/runtime/overlay.ts` is the int 3Fh behaviour: the word after `CD 3F` is the procedure offset, the header at that segment names the slice, and the procedure runs with CS equal to the segment the slice's code was copied into. `src/runtime/dos.ts` answers the System unit's int 21h calls.
+
+The translated entry currently opens the overlay, configuration, font, sprite, item, and title resources and reaches title rendering. This exercises substantially more code than the two byte-for-byte procedure checks above, but it is not counted as verified until the rendered result and state transition are asserted.
