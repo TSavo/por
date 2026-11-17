@@ -950,6 +950,7 @@ export function nearCall(m: Cpu, addr: number): void {
 
     reg = "\n".join(imports) + """
 import "./system5bb.js";
+import "../runtime/intr.js";
 import { procs as exeProcs } from "./exe.js";
 import { installExeProcs } from "../runtime/far.js";
 import { mountSlices, type SliceModule } from "../runtime/overlay.js";

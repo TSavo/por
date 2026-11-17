@@ -1,4 +1,5 @@
 import type { Cpu } from "../cpu/machine.js";
+import { biosVideo, int10Count, resetVideo } from "./video.js";
 
 /**
  * The DOS calls Turbo Pascal's System unit makes. This is the platform
@@ -21,6 +22,7 @@ export let consoleText = "";
 export function attachDos(m: Cpu, files: DosFile[]): void {
   dosLog.length = 0;
   consoleText = "";
+  resetVideo();
   const byName = new Map(files.map((f) => [f.name.toUpperCase(), f.data]));
   const handles = new Map<number, OpenFile>();
   let nextHandle = 5;
@@ -38,6 +40,12 @@ export function attachDos(m: Cpu, files: DosFile[]): void {
 
   let interrupts = 0;
   m.onIntr = (cpu, n) => {
+    if (n === 0x10) {
+      if (dosLog.length < 24) dosLog.push(`int10 ah=${cpu.ah.toString(16)} al=${cpu.al.toString(16)} bx=${cpu.bx.toString(16)} cx=${cpu.cx.toString(16)} dx=${cpu.dx.toString(16)}`);
+      biosVideo(cpu);
+      if (int10Count > 400_000) throw new Error(`video storm ah=${cpu.ah.toString(16)} at ${int10Count}`);
+      return;
+    }
     interrupts += 1;
     if (interrupts > 20000) throw new Error(`interrupt storm at int ${n.toString(16)} ah=${cpu.ah.toString(16)}`);
     if (n === 0x16) {
@@ -51,16 +59,11 @@ export function attachDos(m: Cpu, files: DosFile[]): void {
         cpu.al = 0;
         return;
       }
-      cpu.ax = 0x011b;
+      cpu.ax = 0x1c0d;
       cpu.zf = false;
       return;
     }
     if (n === 0x23 || n === 0x24 || n === 0x1b) return;
-    if (n === 0x10) {
-      cpu.cf = false;
-      if (cpu.ah === 0x0f) cpu.ax = 0x0e10;
-      return;
-    }
     if (n !== 0x21) throw new Error(`int ${n.toString(16)} ah=${cpu.ah.toString(16)}`);
     const ah = cpu.ah;
     if (ah === 0x30) {
@@ -143,7 +146,8 @@ export function attachDos(m: Cpu, files: DosFile[]): void {
       const name = readAsciiz(cpu.ds, cpu.dx).toUpperCase();
       const base = name.split("\\").pop() ?? name;
       const data = byName.get(base);
-      dosLog.push(data ? `open ${base}` : `miss ${name}`);
+      const hex = Array.from({ length: 64 }, (_, i) => cpu.read8(cpu.ds, cpu.dx - 0x30 + i).toString(16).padStart(2, "0")).join("");
+      dosLog.push(data ? `open ${base}` : `miss ds ${cpu.ds.toString(16)}:${cpu.dx.toString(16)} at ${cpu.cs.toString(16)}:${cpu.ip.toString(16)} rec ${hex}`);
       if (!data) {
         cpu.ax = 2;
         cpu.cf = true;

@@ -32,6 +32,18 @@ export class Cpu {
   tick(at: number): void {
     this.ip = at;
     this.steps += 1;
+    if (this.prevSp >= 0) {
+      const delta = (this.sp - this.prevSp) & 0xffff;
+      const signed = delta & 0x8000 ? delta - 0x10000 : delta;
+      if (signed > 0x800 || signed < -0x800) {
+        if (this.spJumps.length < 15) {
+          this.spJumps.push(
+            `${this.cs.toString(16)}:${at.toString(16)} sp ${this.prevSp.toString(16)}->${this.sp.toString(16)} (${signed})`,
+          );
+        }
+      }
+    }
+    this.prevSp = this.sp;
     // Crt waits until the BIOS timer byte at 0040:006C changes. A frozen
     // counter is an infinite loop, so the clock advances with the instruction
     // stream. This is the platform timer, not game logic.
@@ -61,13 +73,24 @@ export class Cpu {
   }
 
   write8(seg: number, off: number, value: number): void {
-    this.mem[this.linear(seg, off)] = value & 0xff;
+    const lin = this.linear(seg, off);
+    this.mem[lin] = value & 0xff;
+    if (lin === 0xc6db && this.driveWrites.length < 8) {
+      this.driveWrites.push(`${this.cs.toString(16)}:${this.ip.toString(16)}=${(value & 0xff).toString(16)}`);
+    }
   }
+
+  driveWrites: string[] = [];
 
   write16(seg: number, off: number, value: number): void {
     this.write8(seg, off, value);
     this.write8(seg, off + 1, value >> 8);
+    this.onWrite16?.(seg, off, value & 0xffff);
   }
+
+  onWrite16: ((seg: number, off: number, value: number) => void) | null = null;
+  prevSp = -1;
+  spJumps: string[] = [];
 
   get al(): number { return this.ax & 0xff; }
   set al(v: number) { this.ax = (this.ax & 0xff00) | (v & 0xff); }

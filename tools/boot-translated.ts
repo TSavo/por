@@ -3,11 +3,14 @@
  * procedure, against the game files in POR_GAMEDATA. Prints the first
  * place the translation still stops.
  */
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { Cpu } from "../src/cpu/machine.js";
 import { attachDos, consoleText, dosLog } from "../src/runtime/dos.js";
-import { callTrace, farCall, resetFarBudget } from "../src/runtime/far.js";
+import { intrCounts } from "../src/runtime/intr.js";
+import { screen, videoSummary } from "../src/runtime/video.js";
+import { encodePng } from "./png.js";
+import { callTrace, disposeHits, dosAssigns, farCall, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
 import { registerTranslated } from "../src/translated/register.js";
 import { ovl07_0353 } from "../src/translated/ovl07.js";
@@ -44,6 +47,21 @@ function report(label: string, error: unknown): void {
     console.log(`  dos (${dosLog.length}): ${names.join(" | ")}`);
   }
   if (consoleText.trim()) console.log(`  console: ${consoleText.trim()}`);
+  if (intrCounts.size) {
+    const ranked = [...intrCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
+    console.log(`  intr ${ranked.map(([k, v]) => `${k} x${v}`).join(" | ")}`);
+  }
+  const picture = videoSummary();
+  if (picture.trim()) console.log(picture);
+  mkdirSync("/opt/cursor/artifacts", { recursive: true });
+  writeFileSync("/opt/cursor/artifacts/por-boot.png", encodePng(screen));
+  if (disposeHits.length) console.log(`  dispose:\n    ${disposeHits.join("\n    ")}`);
+  if (dosAssigns.length) console.log(`  assign:\n    ${dosAssigns.join("\n    ")}`);
+  if (getmemRing.length) console.log(`  getmem:\n    ${getmemRing.join("\n    ")}`);
+  if (writes.length) console.log(`  writes of 9a50:\n    ${writes.join("\n    ")}`);
+  console.log(`  sp range ${spMin.toString(16)}..${spMax.toString(16)}`);
+  if (cpu.spJumps.length) console.log(`  sp jumps:\n    ${cpu.spJumps.join("\n    ")}`);
+  if (cpu.driveWrites.length) console.log(`  drive byte writes: ${cpu.driveWrites.join(" | ")}`);
 }
 
 const cpu = fresh();
@@ -51,8 +69,15 @@ const boot = (cpu as Cpu & { boot: { cs: number; ip: number; ss: number; sp: num
 console.log(
   `image entry ${boot.cs.toString(16)}:${boot.ip.toString(16)} ss ${boot.ss.toString(16)} sp ${boot.sp.toString(16)} slices ${loadedSlices.length}`,
 );
-cpu.stepBudget = 20_000_000;
-resetFarBudget(200_000);
+const writes: string[] = [];
+cpu.onWrite16 = (seg, off, value) => {
+  if (value === 0x9a50 || (value === 0x5c && writes.length && writes[writes.length - 1].includes("9a50"))) {
+    writes.push(`${seg.toString(16)}:${off.toString(16)}=${value.toString(16)} ip ${cpu.cs.toString(16)}:${cpu.ip.toString(16)}`);
+    if (writes.length > 12) writes.shift();
+  }
+};
+cpu.stepBudget = 30_000_000;
+resetFarBudget(1_000_000);
 try {
   farCall(cpu, boot.cs, boot.ip);
   console.log(`entry returned ax=${cpu.ax.toString(16)} ds=${cpu.ds.toString(16)} steps=${cpu.steps}`);
