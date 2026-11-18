@@ -713,6 +713,10 @@ the 352×352 dialogue portrait and 192×192 combat sprite, including the sprite'
 position, facing, and four-cell selection. The test toggles classic and
 enhanced in both scenes and checks the guest frame and save stay the same.
 
+Chrome checked the complete guest board, menu row, and browser status
+at 754×480, 960×540, 390×620, and 1366×768 in both display modes.
+Switching at these sizes preserved the same guest frame and save.
+
 Headless Chrome verified the presentation button and F10 against the live
 browser runner. A reloaded City Hall save displayed both palettes and let
 the journal remain open during a switch. A separate run switched palettes

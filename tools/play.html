@@ -8,9 +8,14 @@
     @font-face { font-family: Game Web Font; src: url(/font.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
     :root { color-scheme: dark; font: 16px system-ui, sans-serif; background: #111419; color: #edf0f5; }
     body { margin: 0; }
-    main { max-width: 960px; margin: auto; padding: 24px; }
-    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    h1 { font-size: clamp(1.25rem, 4vw, 1.9rem); }
+    main {
+      max-width: 960px;
+      max-width: min(960px, max(18rem, calc((100svh - 7.5rem) * 4 / 3)));
+      margin: auto;
+      padding: 16px clamp(12px, 3vw, 24px);
+    }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; }
+    h1 { font-size: clamp(1.25rem, 4vw, 1.9rem); margin: .4rem 0; }
     h2 { margin-top: 0; }
     button { background: #25303b; color: inherit; border: 1px solid #546577; padding: .55rem .8rem; border-radius: 5px; font: inherit; cursor: pointer; }
     button:disabled, button[aria-disabled="true"] { opacity: .5; cursor: default; }
@@ -31,7 +36,7 @@
     ul { list-style: none; padding: 0; }
     li { border-top: 1px solid #415164; padding: .7rem 0; }
     li button { font-size: .85rem; margin-left: .5rem; }
-    #status { min-height: 1.5em; color: #b7c5d3; }
+    #status { min-height: 1.5em; color: #b7c5d3; margin: .75rem 0 0; }
     [data-presentation="enhanced"] {
       background: radial-gradient(ellipse at top, #302820, #151310 75%);
       color: #f4ead5;
