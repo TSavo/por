@@ -8,6 +8,7 @@ import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 import { loadUpgradeArt } from "./upgrade-art.js";
+import { compositePortraitKey } from "./portrait-art.js";
 
 const families = [
   [/^(TITLE|FINAL\d+)\.DAX$/, "Title and ending"],
@@ -142,11 +143,16 @@ const replacements = [...loadUpgradeArt()].map(([id, { png, ...metadata }], inde
       source = { archive, block, directoryIndex: entry.directoryIndex, member, frame, x: picture.x, y: picture.y };
     }
   }
+  const composite = compositePortraitKey.exec(id);
+  const sourceParts = composite && [
+    { archive: composite[1], block: Number(composite[2]), frame: 0, x: 0, y: 0 },
+    { archive: composite[3], block: Number(composite[4]), frame: 0, x: 0, y: 40 },
+  ];
   const tileArea = /^tile:(\d+):/.exec(id)?.[1];
   const placement = metadata.encounter
-    ?? (source ? { x: source.x, y: source.y }
+    ?? (sourceParts ? { x: 24, y: 24 } : source ? { x: source.x, y: source.y }
       : tileArea !== undefined ? { area: Number(tileArea) } : undefined);
-  return { id, preview, source, placement, ...metadata };
+  return { id, preview, source, sourceParts: sourceParts ?? undefined, placement, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();
 const runtimeReplacements = [];

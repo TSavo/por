@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "portrait:HEAD3.DAX:24:BODY3.DAX:32": "council-clerk-portrait.png",
     "portrait:PIC1.DAX:16:0:0": "podal-auctioneer-portrait.png",
     "portrait:PIC4.DAX:19:0:0": "ferran-chapel-portrait.png",
     "encounter:SPRIT2.DAX:24:1:0": "ohlo-encounter.png",
