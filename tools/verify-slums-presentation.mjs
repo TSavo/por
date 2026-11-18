@@ -722,6 +722,14 @@ try {
       const image = document.querySelector(".encounter-portrait");
       return image?.naturalWidth === 352 && image?.naturalHeight === 352;
     })()`));
+    assert.ok(await run(`(() => {
+      const layer = document.querySelector("#tile-art").getBoundingClientRect();
+      const portrait = document.querySelector(".encounter-portrait").getBoundingClientRect();
+      return Math.abs(portrait.left - layer.left - layer.width * 8 / 320) < 1 &&
+        Math.abs(portrait.top - layer.top - layer.height * 8 / 200) < 1 &&
+        Math.abs(portrait.width - layer.width * 120 / 320) < 1 &&
+        Math.abs(portrait.height - layer.height * 120 / 200) < 1;
+    })()`), "Enhanced portrait should fill the outer picture panel");
     await switchBothWays();
     await checkJournal(["envoy-challenge", "packet-delivered"], ["quarters"]);
     for (let line = 0; line < 6; line++) await advance("enter");

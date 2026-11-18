@@ -48,7 +48,7 @@ function showScreen() {
   const sceneArt = useEnhanced && !view.journal && !failedSceneArt.has(view) && view.art;
   screen.src = sceneArt || `data:image/png;base64,${frame}`;
   const placements = [...(view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
-  if (view.portrait) placements.push([24, 24, view.portrait]);
+  if (view.portrait) placements.push([8, 8, view.portrait, undefined, undefined, 120, 120]);
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
   tileArt.hidden = !useEnhanced || Boolean(sceneArt || view.journal);
   if (!tileArt.hidden) {
