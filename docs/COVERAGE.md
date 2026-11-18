@@ -667,6 +667,9 @@ for the traced courtyard approach, west wing, and temple corridors. Chrome
 checked the merged pack in 40 live views (4,840 placements) across three
 checkpoint replays and verified state-preserving presentation switches.
 The temple approach also displayed the enhanced Grishnak portrait.
+Run the browser verifier with `textile-approach` (slot B inside the entrance),
+`textile-wing` (slot J after the courtyard fight), or `textile-temple`
+(slot I outside Grishnak's temple at `2,13 N`).
 
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_I PATH_TO_CHROME textile-altar`
 with a checkpoint outside Grishnak's temple at `2,13 N`. The replay checks

@@ -5,7 +5,21 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
-const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "castle-dragon", "castle-ending"];
+const textileRoutes = new Map([
+  ["textile-approach", {
+    slot: "B", boot: "3062", views: 16, patterns: 135,
+    walk: ["right", "right", "up", "up", "right", "up", "left", "up", "up", "right", ...Array(5).fill("up"), "left"],
+  }],
+  ["textile-wing", {
+    slot: "J", boot: "246a", views: 10, patterns: 82,
+    walk: ["left", "up", "right", ...Array(4).fill("up"), "left", "up"],
+  }],
+  ["textile-temple", {
+    slot: "I", boot: "1769", views: 14, patterns: 75,
+    walk: ["right", "right", "up", "b", "left", "up", "left", "up", "b", "right", "up", "b", "left", "up", "up", "left", "up", "enter", "enter"],
+  }],
+]);
+const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", ...textileRoutes.keys(), "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -13,6 +27,7 @@ const dragon = routeName === "castle-dragon";
 const altar = routeName === "textile-altar";
 const plaza = routeName === "podal-plaza";
 const trainer = routeName === "fighter-trainer";
+const textile = textileRoutes.get(routeName);
 const goblins = routeName === "goblins";
 const orcs = routeName === "orcs";
 const armory = routeName === "sokal-armory";
@@ -24,7 +39,9 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)), "Both options 
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : altar || plaza ? "I.json" : dragon ? "B.json" : orcs || ending ? "C.json" : "A.json");
+const slot = textile?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza ? "I" : dragon ? "B" : orcs || ending ? "C" : "A");
+const boot = textile?.boot ?? (landing ? "246a" : armory ? "2064" : altar || plaza ? "1769" : dragon ? "3062" : orcs || ending ? "2e63" : "1e61");
+const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
 const frameDirectory = resolve(directory, "tile-frames");
@@ -58,7 +75,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
-    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (landing ? "246a" : armory ? "2064" : altar || plaza ? "1769" : dragon ? "3062" : orcs || ending ? "2e63" : "1e61"),
+    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + boot,
     POR_LIVE_AT: "85000000", POR_BOOT_STEPS: "450000000",
   },
   stdio: ["ignore", "ignore", "inherit"],
@@ -157,7 +174,37 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  if (plaza) {
+  async function verifyTiledView(area, patterns) {
+    if (!frame.tileInventory?.length) return 0;
+    const expected = frame.tileInventory.map(([x, y, id]) => [x, y, id]);
+    assert.equal(expected.length, 121);
+    assert.deepEqual(frame.tiles, expected);
+    for (const [, , id] of expected) {
+      assert.ok(id.startsWith(`tile:${area}:`), id);
+      patterns.add(id);
+    }
+    await waitFor("121 individually anchored 4× tiles", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelectorAll("#tile-art img:not(.encounter-sprite)").length === 121 &&
+      [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
+    return 1;
+  }
+
+  if (textile) {
+    const patterns = new Set();
+    let views = await verifyTiledView(2, patterns);
+    for (const key of textile.walk) {
+      await advance(key);
+      views += await verifyTiledView(2, patterns);
+    }
+    assert.equal(views, textile.views);
+    assert.equal(patterns.size, textile.patterns);
+    if (routeName === "textile-temple") {
+      assert.equal(frame.portrait, "portrait:PIC4.DAX:9:0:0");
+      await waitFor("Grishnak's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    }
+    await switchBothWays();
+    console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
+  } else if (plaza) {
     let views = 0;
     const patterns = new Set();
     const route = [
@@ -166,18 +213,7 @@ try {
     ];
     for (const key of route) {
       await advance(key);
-      if (!frame.tileInventory?.length) continue;
-      const expected = frame.tileInventory.map(([x, y, id]) => [x, y, id]);
-      assert.equal(expected.length, 121);
-      assert.deepEqual(frame.tiles, expected);
-      for (const [, , id] of expected) {
-        assert.match(id, /^tile:18:/);
-        patterns.add(id);
-      }
-      await waitFor("the assembled Podal Plaza view", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelectorAll("#tile-art img").length === 121 &&
-        [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
-      views++;
+      views += await verifyTiledView(18, patterns);
     }
     assert.equal(views, 12);
     assert.equal(patterns.size, 48);
