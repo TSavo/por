@@ -43,7 +43,10 @@ export function attachQuickRecovery(
       restoreVideo();
     } finally {
       cpu.cs = cs;
-      cpu.stepBudget = budget;
+      // Quick can poll the keyboard and accept live input. Preserve any
+      // session budget extension made while the turn watchdog was active.
+      const extendedBudget = cpu.stepBudget > limit ? cpu.stepBudget : budget;
+      cpu.stepBudget = budget === 0 ? 0 : Math.max(budget, extendedBudget);
     }
     // Read the actor from the original far-call stack. The original
     // "disable Quick" loop at ovl08:04F3 uses this same type boundary.
