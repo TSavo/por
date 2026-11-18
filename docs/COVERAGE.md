@@ -829,6 +829,8 @@ now check all 19 views, including one skeleton approach per route. The
 The `graveyard-mystic` replay starts at `8,10 N` in controlled slot B with
 the graveyard encounter counter set to 3 and verifies the mystic portrait
 and a state-preserving switch in dialogue.
+The `graveyard-mystic-combat` replay uses the same controlled slot B, takes
+the hostile branch, and checks the 96×96 ready pose and reflected strike.
 The `graveyard-crypt-path` replay starts in controlled slot A at `10,3 E`.
 It checks 3,146 tile placements across 26 views of the crypt paths, including
 96 new 32×32 tiles among 146 patterns, and preserves the save when switching modes.
@@ -1032,6 +1034,14 @@ The `nomad-camp-approach` replay checks the overland camp illustration at
 the Enter / Leave choice. `nomad-tent-lane` and `nomad-camp-rim` start at
 `2,14 E` in a native save made after entering the camp. Chrome verifies
 1,573 placements across both branches, using 49 new 32×32 tiles.
+The `nomad-headman` and `nomad-headman-stay` replays start from the overland
+camp checkpoint. They verify the headman's portrait, the journal's feast
+invitation, entry 55, kobold warning, and overnight decision. Each replay
+selects a different response and checks that the journal records only the
+response witnessed by the party.
+The `podal-west-gate` replay starts in slot J at `7,6 S` and walks to the
+western arch. Chrome checks 1,573 placements across 13 views, using 17 new
+32×32 tiles among 61 patterns, and preserves the save when switching modes.
 The `phlan-city-hall-approach` replay starts from slot B inside New Phlan's
 original gateway at `1,4 E`. Chrome checks 1,815 placements across 15 views
 on the City Hall approach and adjacent streets. The route uses 83 patterns,

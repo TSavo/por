@@ -233,6 +233,16 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("swamp-drawbridge")) nextStep = "Use Enter to cross the drawbridge into the ruined castle. The surrounding quicksand makes the bridge the safe crossing.";
       else if (knows("river-pump-prisoners-freed")) nextStep = "Read journal entry 35 for the freed prisoners' advice on getting help from their tribe in the swamp.";
     }
+    if (commission.id === "nomads") {
+      if (knows("nomad-kobold-attack")) nextStep = "The kobolds are attacking the camp. Help the nomads repel them if you agreed to stay.";
+      else if (knows("nomad-declined-aid")) nextStep = "The party declined to defend the camp. Check with the council clerk about the commission.";
+      else if (knows("nomad-promised-aid")) nextStep = "Stay near the camp and prepare the party to defend it if the kobolds attack.";
+      else if (knows("nomad-stay-or-leave")) nextStep = "Choose Stay and Fight if you will defend the camp, or Leave if you decline.";
+      else if (knows("nomad-kobold-warning")) nextStep = "Hear out the headman and decide whether to stay and help against the kobolds.";
+      else if (knows("nomad-feast-invitation")) nextStep = "Accept the headman's feast invitation to speak with him further.";
+      else if (knows("nomad-sentries")) nextStep = "Parlay with the nomads at the camp so you can speak with their headman.";
+      else if (knows("nomad-camp-found")) nextStep = "Choose Enter at the camp and approach the nomads to speak with them.";
+    }
     if (commission.id === "zhentil") {
       if (knows("zhentil-envoy-left") && knows("zhentil-packet-delivered")) nextStep = "Return to the council clerk in New Phlan and report the delivery.";
       else if (knows("zhentil-climbable-wall")) nextStep = "Choose Climb Over Wall to leave the outpost.";
@@ -468,6 +478,33 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
+  if (text.includes("YOU HAVE STUMBLED UPON A LARGE NOMAD CAMP")) {
+    leads.push({ id: "nomad-camp-found", title: "The Nomad Camp", detail: "The party found a camp on the overland route and can choose Enter or Leave." });
+  }
+  if (text.includes("THE NOMADS WAIT FOR YOU TO MAKE THE FIRST MOVE")) {
+    leads.push({ id: "nomad-sentries", title: "The nomads wait", detail: "The nomads are watching the party and waiting to see how it approaches them." });
+  }
+  if (text.includes("WE WILL GIVE A FEAST IN YOUR HONOR")) {
+    leads.push({ id: "nomad-feast-invitation", title: "The headman's invitation", detail: "The headman invited the party to a feast in its honor." });
+  }
+  if (text.includes("YOU MAKE HASSAD AHWAL'S TALK ENTRY 55 IN YOUR JOURNAL")) {
+    leads.push({ id: "nomad-headman-talk", title: "Hassad Ahwal's account", detail: "The headman described the region's dangers. The party recorded his account as journal entry 55." });
+  }
+  if (text.includes("MY SCOUTS HAVE SEEN EVIDENCE OF A LARGE BAND OF KOBOLDS")) {
+    leads.push({ id: "nomad-kobold-warning", title: "The headman fears a raid", detail: "The headman's scouts found signs of kobolds nearby. He asked the party to stay until they pass." });
+  }
+  if (text.includes("ABOUT MY REQUEST OF LAST NIGHT, WHAT IS YOUR DECISION")) {
+    leads.push({ id: "nomad-stay-or-leave", title: "Stay or leave the camp", detail: "The headman asked the party for its answer. The choices are Stay and Fight or Leave." });
+  }
+  if (text.includes("LOOKING DISAPPOINTED THE HEADMAN SAYS, 'GOOD LUCK IN YOUR TRAVELS")) {
+    leads.push({ id: "nomad-declined-aid", title: "The party declined to stay", detail: "The headman wished the party well after it chose to leave." });
+  }
+  if (text.includes("YOU SHALL BE RICHLY REWARDED FOR YOUR GENEROUS AID")) {
+    leads.push({ id: "nomad-promised-aid", title: "The party agreed to defend the camp", detail: "The headman thanked the party for staying and promised a reward." });
+  }
+  if (text.includes("A HORDE OF KOBOLDS IS ATTACKING THE CAMP")) {
+    leads.push({ id: "nomad-kobold-attack", title: "The kobold attack", detail: "A band of kobolds attacked the Nomad Camp." });
+  }
   if (text.includes("AN ALTAR THAT IS SMEARED WITH BLOOD AND COVERED WITH CRUDE BLACK HAND PRINTS")) {
     leads.push({ id: "bane-defiled-altar", title: "The desecrated altar",
       detail: "The party reached the altar. The game offers Destroy Altar or Leave It." });

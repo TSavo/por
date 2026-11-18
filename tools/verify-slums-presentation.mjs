@@ -18,6 +18,10 @@ const combatPoseRoutes = new Map([
     stand: "combat:area:10:CPIC4.DAX:20", strike: "combat:area:10:CPIC4.DAX:148", width: 96, height: 96,
     inputs: ["up", "enter", "enter", "enter", "s", "enter", "enter"], strikeInputs: ["q", "q", "q"],
   }],
+  ["graveyard-mystic-combat", {
+    slot: "B", stand: "combat:area:10:CPIC4.DAX:24", strike: "combat:area:10:CPIC4.DAX:152", width: 96, height: 96,
+    inputs: ["up", "enter", "enter", "enter", "enter", "s", "enter", "enter"],
+  }],
   ["graveyard-ghoul", {
     stand: "combat:area:10:CPIC4.DAX:72", strike: "combat:area:10:CPIC4.DAX:200", width: 96, height: 96,
     inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", ...Array(4).fill("enter")], strikeInputs: ["enter"],
@@ -48,6 +52,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["podal-west-gate", {
+    slot: "J", area: 18, views: 13, patterns: 61,
+    walk: ["right", "right", "up", "up", "left", ...Array(7).fill("up")],
+  }],
   ["nomad-tent-lane", {
     slot: "A", area: 17, views: 6, patterns: 39,
     walk: Array(5).fill("up"),
@@ -162,7 +170,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -217,7 +225,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = environment?.slot ?? ferry?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader || koboldCave || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy ? "C" : "A");
+const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader || koboldCave || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -513,6 +521,10 @@ try {
     await switchBothWays();
     console.log(`Verified the crossroads illustration at ${routeName} in Chrome.`);
   } else if (routeName === "nomad-camp-approach") {
+    await advance("j");
+    assert.ok(frame.journal, "The journal should open before finding the camp");
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "nomad-camp-found"));
+    await advance("j");
     for (const key of ["up", "enter"]) await advance(key);
     const text = frame.text.toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join("");
@@ -521,7 +533,34 @@ try {
     assert.match(text, /ENTER.*LEAVE/i);
     await waitFor("the Nomad Camp approach illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    console.log("Verified the Nomad Camp approach illustration in Chrome.");
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "nomad-camp-found"));
+    console.log("Verified the Nomad Camp approach illustration and witnessed journal entry in Chrome.");
+  } else if (routeName === "nomad-headman" || routeName === "nomad-headman-stay") {
+    const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+    for (const key of ["up", "enter", "e", "e", "enter", ...Array(6).fill("up"), ...Array(3).fill("enter"), "j"]) await advance(key);
+    assert.ok(knows("nomad-camp-found") && knows("nomad-sentries"));
+    assert.ok(!knows("nomad-feast-invitation") && !knows("nomad-kobold-warning"));
+    for (const key of ["j", "p", "enter"]) await advance(key);
+    const chief = "portrait:HEAD7.DAX:74:BODY7.DAX:30";
+    assert.equal(frame.portrait, chief);
+    await waitFor("the Nomad headman portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    await advance("j");
+    assert.ok(knows("nomad-feast-invitation") && !knows("nomad-headman-talk"));
+    for (const key of ["j", "y", "enter", "enter", "j"]) await advance(key);
+    assert.ok(knows("nomad-headman-talk") && !knows("nomad-kobold-warning"));
+    for (const key of ["j", "enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, chief);
+    await advance("j");
+    assert.ok(knows("nomad-kobold-warning") && !knows("nomad-stay-or-leave"));
+    for (const key of ["j", ...Array(4).fill("enter"), "r", "h", ...Array(8).fill("i"), "r", "e", "j"]) await advance(key);
+    assert.ok(knows("nomad-stay-or-leave") && !knows("nomad-declined-aid") && !knows("nomad-kobold-attack"));
+    const stays = routeName === "nomad-headman-stay";
+    for (const key of ["j", stays ? "s" : "l", "j"]) await advance(key);
+    assert.ok(knows(stays ? "nomad-promised-aid" : "nomad-declined-aid"));
+    assert.ok(!knows(stays ? "nomad-declined-aid" : "nomad-promised-aid") && !knows("nomad-kobold-attack"));
+    console.log(`Verified the Nomad headman portrait and journal on ${routeName} in Chrome.`);
   } else if (routeName === "old-phlan-seer") {
     for (const key of ["up", "enter"]) await advance(key);
     const text = () => frame.text.toSorted(([left], [right]) => left - right)
