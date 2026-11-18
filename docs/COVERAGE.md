@@ -252,6 +252,14 @@ wins the smithy fight for 31 XP each, saves in the armory, and recovers
 the equipment for 400 XP each. Reloading slot E retains the hidden armory
 discoveries. This branch uses a landing save without a tracked Sokal
 commission. The separate armory replay checks the tracked objective.
+
+Run `node tools/verify-fresh-party.mjs --sokal-armory-reinforcement-checkpoint PATH_TO_SLOT_E`
+to continue with that party. Brin fell in the smithy. Alda takes and
+readies the recovered longsword, and the fallen fighters' armor goes
+to the Swordsman and Curate. The replay confirms those loadouts survive
+reload, follows the original boat back to New Phlan, and checks the
+Temple of Tyr's 5,500-gold Raise Dead quote for Brin. It declines the
+quote and reloads the party at the temple in slot G.
 From C, the party answers Yes when a second patrol asks for the password,
 then explores the ruined smithy. It wins the frog encounter for 31 XP per
 character. Alda falls to 0 HP during the fight. The party enters the old

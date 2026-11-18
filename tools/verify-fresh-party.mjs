@@ -1027,6 +1027,54 @@ if (process.argv[2] === "--sokal-patrol-victory-checkpoint") {
   process.exit(0);
 }
 
+const armoryToTemple = [
+  "right", "right", "up", "left", "up", "up", "up", "right", "up", "right", "up", "left",
+  ...Array(4).fill("up"), "right", "up", "left", "up", "right", "up", "up", "up", "left",
+  ...Array(4).fill("up"), "y", "up", "up", "right", "up", "up", "left", ...Array(5).fill("up"),
+  (text) => assert.match(text, /take a boat back to phlan/),
+  "y", "y", "enter", "enter", "enter",
+  (text) => assert.match(text, /15,1 w/),
+  ...Array(4).fill("up"), "left", "up", "up", "y", "y",
+  (text) => assert.match(text, /heal view pool appraise exit/),
+];
+
+if (process.argv[2] === "--sokal-armory-reinforcement-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot E from the reinforced party's hidden armory recovery.");
+  copyFileSync(process.argv[3], join(saveDir, "E.json"));
+  await replay(loadSlot("1265"), "85000000", [
+    (text) => assert.match(text, /brin 1 0.*swordsman 5 17.*curate 3 25.*12,0 n/),
+    // Brin collected the longsword, so trade it to Alda before readying it.
+    "end", "v", "i", ...Array(4).fill("end"), "t", "home", "enter", "e", "e", "home", "v", "i",
+    "end", "end", "end", "r", "end", "r", "e",
+    (text) => assert.match(text, /alda.*exp 1462.*damage 1d8\+1.*weapon long sword/),
+    "e",
+    // Move the fallen fighters' armor and shields to the two recruits.
+    "end", "end", "v", "i", "end", "r", "t", ...Array(4).fill("end"), "enter", "r", "t", "end", "enter", "e", "e",
+    "end", "v", "i", "end", "end", "r", "t", ...Array(3).fill("end"), "enter", "e", "e",
+    ...Array(3).fill("end"), "v", "i", "end", "r", "end", "end", "r", "end", "r",
+    (text) => assert.match(text, /swordsman's items.*no chain mail yes long sword yes banded mail yes shield/),
+    "e", "e", "end", "v", "i", "end", "end", "r",
+    (text) => assert.match(text, /curate's items.*yes plate mail yes shield/),
+    "e", "e", "e", "s", "s", "f",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2166"), "85000000", [
+    (text) => assert.match(text, /swordsman 3 17.*curate 2 25.*12,0 n/),
+    ...armoryToTemple, "end", "end", "h",
+    (text) => assert.match(text, /brin, how can we help you.*raise dead/),
+    ...Array(6).fill("end"), "h",
+    (text) => assert.match(text, /raise dead will only cost 5500 gold pieces/),
+    "n", "e", "e", "e", "s", "s", "g",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2267"), "85000000", [
+    (text) => assert.match(text, /brin 1 0.*swordsman 3 17.*curate 2 25.*11,3 s/),
+    "v", (text) => assert.match(text, /alda.*exp 1462.*weapon long sword/),
+  ]);
+  console.log("Equipped the patrol-winning party, returned to New Phlan and reloaded at the Temple of Tyr:", join(saveDir, "G.json"));
+  process.exit(0);
+}
+
 if (process.argv[2] === "--sokal-armory-checkpoint") {
   assert.ok(process.argv[3], "Pass a save in Sokal's old armory after defeating the smithy frogs.");
   copyFileSync(process.argv[3], join(saveDir, "D.json"));
@@ -1478,14 +1526,7 @@ await replay(loadSlotF, "85000000", [
 console.log("Found the hidden armory, collected its equipment, and verified Brin's inventory after reloading slot E.");
 console.log("Readied Brin's sword and shield, traded the mace to Cora, and verified both loadouts after reloading slot F.");
 const templeSave = await replay(loadSlotF, "85000000", [
-  "right", "right", "up", "left", "up", "up", "up", "right", "up", "right", "up", "left",
-  ...Array(4).fill("up"), "right", "up", "left", "up", "right", "up", "up", "up", "left",
-  ...Array(4).fill("up"), "y", "up", "up", "right", "up", "up", "left", ...Array(5).fill("up"),
-  (text) => assert.match(text, /take a boat back to phlan/),
-  "y", "y", "enter", "enter", "enter",
-  (text) => assert.match(text, /15,1 w/),
-  ...Array(4).fill("up"), "left", "up", "up", "y", "y",
-  (text) => assert.match(text, /heal view pool appraise exit/),
+  ...armoryToTemple,
   ...Array(4).fill("home"), "h", "end", "end", "h",
   (text) => assert.match(text, /cure light wounds will only cost 100 gold pieces/),
   "y", "e", "e", "e", "s", "s", "g",
