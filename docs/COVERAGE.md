@@ -674,6 +674,10 @@ It checks that the temple direction appears only after the recruiter
 mentions it, and that the two-hour meeting appears only after accepting.
 The replacement is scoped to area 18 because the original orc picture
 also appears in another archive with identical pixels.
+The `podal-shrine-return` replay loads a save made after accepting, with
+only the saved hour advanced from 18 to 21 to reach the meeting window.
+It verifies that an older journal entry can be tracked on reload and
+closes when the party witnesses the ambush.
 The Slums infantry and Textile House priestess share a guest image pattern.
 Area-scoped overrides keep their new artwork distinct, verified live in both fights.
 

@@ -67,6 +67,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     ?? unresolved.find((lead) => lead.status === "accepted")
     ?? unresolved.find((lead) => lead.id !== "commission-records")
     ?? unresolved[0];
+  if (tracked?.id === "podal-shrine-meeting") {
+    return { title: tracked.title, nextStep: tracked.detail };
+  }
   const commission = commissions.find(({ id }) => tracked?.id === `commission-${id}`);
   if (commission) {
     const knows = (id: string) => leads.some((lead) => lead.id === id);
@@ -326,6 +329,15 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     // distraction while the party is inside Buccaneer Base.
     progress.push({ ...stampede, rescueDistractionActive: global(0x4a04) === 255 });
   }
+  const shrineMeeting = known.find((lead) => lead.id === "podal-shrine-meeting");
+  if (shrineMeeting) {
+    if (known.some((lead) => lead.id === "podal-shrine-ambush")) {
+      progress.push({ ...shrineMeeting, status: "turned-in", title: "Shrine meeting ended in an ambush",
+        detail: "The recruiter turned the gathered creatures against the party." });
+    } else if (!shrineMeeting.status) {
+      progress.push({ ...shrineMeeting, status: "accepted" });
+    }
+  }
   // The Textile House script sets this state after the temple encounter returns successfully.
   if (global(0x4a74) === 2 && known.some(({ id }) => id === "textile-grishnak")) {
     progress.push({ id: "textile-grishnak-defeated", title: "Grishnak defeated",
@@ -443,7 +455,7 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("MEET HERE IN TWO HOURS. YOU MAY MEET HIGH PRIEST MACE")) {
     leads.push({ id: "podal-shrine-meeting", title: "Meeting at the shrine",
-      detail: "Return to the Bane shrine in Podal Plaza in two hours for the meeting." });
+      detail: "Return to the Bane shrine in Podal Plaza in two hours for the meeting.", status: "accepted" });
   }
   if (text.includes("IF YOU CHANGE YOUR MIND, RETURN IN TWO HOURS")) {
     leads.push({ id: "podal-shrine-declined", title: "Declined the recruiter's offer",
