@@ -1276,6 +1276,8 @@ if (process.argv[2] === "--sokal-patrol-word-checkpoint") {
 }
 
 async function verifySokalTrackedAmbush() {
+  const landingSave = join(saveDir, "J.json");
+  const savedLanding = readFileSync(landingSave);
   const checkAmbush = (seen) => (_text, frame) => {
     const journal = frame.journal;
     assert.equal(journal.trackedId, "commission-sokal");
@@ -1322,8 +1324,14 @@ async function verifySokalTrackedAmbush() {
     (text) => assert.match(text, /curate hitpoints 25 ac 2 mace/),
     "space",
     (text) => assert.match(text, /curate hitpoints 25 ac 2 mace move\/attack/),
+    ["q", /the monsters rejoice for the party has been destroyed/, 1400],
   ]);
-  console.log("Verified the Sokal ambush journal and Brin's manual mace attack.");
+  assert.deepEqual(readFileSync(landingSave), savedLanding);
+  await replay(loadSlot("246a"), "85000000", [
+    (text) => assert.match(text, /brin 1 6.*8,14 n/),
+    "j", checkAmbush(false),
+  ]);
+  console.log("Verified Brin's manual mace attack, then reloaded the unchanged Sokal landing after the courtyard defeat.");
 }
 
 if (process.argv[2] === "--sokal-tracked-ambush-checkpoint") {

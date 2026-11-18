@@ -212,7 +212,13 @@ and the recovered mace readied. The party hears the council commission, reloads 
 it tracked, returns to Thorn Island, and reaches the courtyard ambush.
 The replay confirms the journal advances from the armory to battle
 preparation, then uses the recovered mace against an adjacent orc.
-It stops after the Curate's first automatic move.
+After the Curate's first automatic move, the replay continues to the
+original defeat screen. It verifies that the landing save is byte-for-byte
+identical and reloads with Brin alive and the council commission still
+tracked. The unsaved ambush discovery is absent after reload.
+In a separate trial from the same landing save, the Curate cast Bless
+outside the courtyard and the spell appeared in the party's active magic
+list. The blessed party still lost with Quick combat.
 To repeat only the continuation, use
 `node tools/verify-fresh-party.mjs --sokal-armory-reinforcement-checkpoint PATH_TO_SLOT_E --equipped --return-to-courtyard`
 with the original run's equipped armory save.
