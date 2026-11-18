@@ -1054,6 +1054,8 @@ if (process.argv[2] === "--slums-orcs-checkpoint") {
 
 if (process.argv[2] === "--sokal-patrol-victory-checkpoint") {
   assert.ok(process.argv[3], "Pass the reinforced party's slot J landing save.");
+  const rejectedWord = process.argv[4] === "--reject-word";
+  assert.ok(!process.argv[4] || rejectedWord, "Expected --reject-word");
   copyFileSync(process.argv[3], join(saveDir, "J.json"));
   await replay(loadSlot("246a"), "85000000", [
     "up", "left", "up", "up", "enter", "enter", "end", "enter",
@@ -1061,7 +1063,9 @@ if (process.argv[2] === "--sokal-patrol-victory-checkpoint") {
     "enter", "enter", "enter", "right", "right", "up", "up", "left", "up", "up",
     "right", "up", "up", "left", "up", "up", "left", "enter",
     (text) => assert.match(text, /pack of undead suddenly appears.*combat wait flee parlay/),
-    "c", "enter", "enter", "enter", ["q", /continue battle|party has been destroyed/, 650],
+    ...(rejectedWord ? ["p", "n", ..."zzz", "enter",
+      (text) => assert.match(text, /they didn't like that word/)] : ["c"]),
+    "enter", "enter", "enter", ["q", /continue battle|party has been destroyed/, 650],
     (text) => assert.match(text, /continue battle/),
     "n", (text) => assert.match(text, /the party has won.*receives 40 experience points/),
     "enter", "enter", "e",
@@ -1074,6 +1078,7 @@ if (process.argv[2] === "--sokal-patrol-victory-checkpoint") {
     "j", (_text, frame) => {
       const leads = frame.journal.leads;
       assert.ok(leads.some(({ id }) => id === "sokal-parchment"));
+      assert.equal(leads.some(({ id }) => id === "sokal-patrol-rejected-word"), rejectedWord);
       assert.ok(!leads.some(({ id }) => id === "sokal-patrol-passed"));
       assert.ok(!leads.some(({ id }) => id === "sokal-ferran"));
     }, "j", "v",
@@ -1084,6 +1089,7 @@ if (process.argv[2] === "--sokal-patrol-victory-checkpoint") {
     (text) => assert.match(text, /12,7 e.*a pack of undead suddenly appears.*parlay/),
     "p", "n", ..."shestni", "enter",
     (text) => assert.match(text, /the undead leave/),
+    "j", (_text, frame) => assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-patrol-passed")), "j",
     "up", "left", "up", "right", "up", "left",
     (text) => assert.match(text, /croaking rises in volume/),
     "w", "enter", ["q", /continue battle|party has been destroyed/, 350],

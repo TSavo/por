@@ -595,6 +595,14 @@ parchment and tries an unrelated word at the first undead patrol. The
 original script rejects it and starts combat. The journal points back to
 the parchment and keeps the successful passage and altar discoveries hidden.
 
+Append `--reject-word` to
+`node tools/verify-fresh-party.mjs --sokal-patrol-victory-checkpoint PATH_TO_SLOT_J`
+to continue beyond the rejection with the reinforced party. The strict
+replay wins that patrol for 40 XP per character, saves and reloads with
+the rejection recorded, then gives the correct word to a later patrol.
+It wins the smithy battle for 31 XP per character and recovers the hidden
+armory equipment. Both patrol outcomes come from the original script.
+
 A controlled checkpoint placed the mixed party one step from Ferran's altar.
 From that save, the chapel replay walks back to the entrance at `8,6`,
 triggers the chapel description, tracks the Sokal objective, and
