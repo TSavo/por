@@ -589,6 +589,12 @@ scripts. It runs the translated ECL global setter to check the ready-to-report
 and rewarded states for 15 objectives. These checks exercise the journal
 against original script evidence. They do not run the quest scenarios.
 
+Run `node tools/verify-fresh-party.mjs --sokal-patrol-word-checkpoint PATH_TO_SLOT_F`
+from the fresh mixed party's Thorn Island landing. The party finds the
+parchment and tries an unrelated word at the first undead patrol. The
+original script rejects it and starts combat. The journal points back to
+the parchment and keeps the successful passage and altar discoveries hidden.
+
 A controlled checkpoint placed the mixed party one step from Ferran's altar.
 From that save, the chapel replay walks back to the entrance at `8,6`,
 triggers the chapel description, tracks the Sokal objective, and

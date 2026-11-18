@@ -127,6 +127,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("sokal-armory-stands")) nextStep = "Check the gear on the stands if you left it behind, then continue exploring Sokal Keep.";
       else if (knows("sokal-hidden-armory")) nextStep = "Follow the glow to the northwest corner of the hidden armory.";
       else if (knows("sokal-patrol-passed")) nextStep = "Explore the keep. If another undead patrol asks whether to give the password, choose Yes.";
+      else if (knows("sokal-patrol-rejected-word") && knows("sokal-parchment")) {
+        nextStep = "The patrol rejected the word. If you meet another patrol, try a different word from the parchment.";
+      }
       else if (knows("sokal-parchment")) nextStep = "Keep exploring. If you speak to an undead patrol, try a word from the parchment.";
       else if (knows("sokal-reeds")) nextStep = "Look through the mound of reeds west of the gates before entering the keep.";
       else if (knows("sokal-arrival")) nextStep = "Scout the keep and look for clues to the haunting.";
@@ -369,6 +372,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE OUTLINE OF A SAD-FACED MAN WAVERS AND FADES AWAY")) {
     leads.push({ id: "sokal-pale-form-wrong-word", title: "The pale figure vanished",
       detail: "The figure faded after the party spoke a word at the altar." });
+  }
+  if (text.includes("THEY DIDN'T LIKE THAT WORD")) {
+    leads.push({ id: "sokal-patrol-rejected-word", title: "The patrol rejected the word",
+      detail: "The undead patrol took offense at the word the party spoke." });
   }
   if (text.includes("I AM THE LIFE FORM OF FERRAN MARTINEZ")) {
     leads.push({
