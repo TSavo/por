@@ -54,7 +54,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -66,6 +66,7 @@ const vampire = routeName === "graveyard-vampire";
 const wolves = routeName === "graveyard-wolves";
 const envoy = routeName === "zhentil-envoy";
 const envoyEscape = routeName === "zhentil-escape";
+const envoyReward = routeName === "zhentil-reward";
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
 const altar = routeName === "textile-altar";
@@ -425,6 +426,15 @@ try {
     await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
+  } else if (envoyReward) {
+    const journalStatus = () => frame.journal?.leads.find(({ id }) => id === "commission-zhentil")?.status;
+    await advance("j");
+    assert.equal(journalStatus(), "ready-to-report");
+    for (const key of ["j", "right", "right", "up", "right", "right", "up", "enter", "enter", "j"]) await advance(key);
+    assert.equal(journalStatus(), "reward-pending");
+    for (const key of ["j", "enter", "enter", "enter", "s", "e", "j"]) await advance(key);
+    assert.equal(journalStatus(), "turned-in");
+    console.log("Verified that the Zhentil council reward marks the journal turned in only after the reward menu closes.");
   } else if (envoyEscape) {
     for (const key of ["right", "right", "up", "left", "up", "up", "right", "up", "up", "up", "left",
       "up", "up", "up", "up", "up"]) await advance(key);

@@ -701,12 +701,17 @@ It follows the original escort, paper handoff, tour, dinner, and nighttime
 ambush. It checks that the journal unlocks each discovery in order and the
 new 352×352 commandant portrait survives mode switching during the handoff.
 The translation verifier checks that escape flag 253 directs the party to
-the clerk before the council script advances the flag. The
+the clerk. The western overland script can advance it to 254, the value
+the council reward scan is looking for. The
 `zhentil-escape` Chrome replay uses the yard fixture with an accepted
 commission journal entry. It walks to the climbable wall at `1,7 S`,
 tracks the commission, climbs the wall, and checks that the journal
 records the escape and directs the party to the clerk after the original
-overland transition. The council turn-in still needs a live replay.
+overland transition. The separate `zhentil-reward` Chrome replay starts
+from controlled slot A at the clerk with flag 254 and the accepted journal
+entry. The live clerk script awards 12,750 XP per character. The replay
+checks that the journal goes from ready to report to reward pending and
+marks the commission turned in after closing the reward menu.
 
 Zhentil's quarters and outer yard have 51 individual 32×32 terrain
 replacements. The `zhentil-quarter` replay starts from a save made after
