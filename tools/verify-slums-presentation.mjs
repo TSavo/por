@@ -5,12 +5,13 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds"] = process.argv.slice(2);
-assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs|sokal-armory|sokal-landing|sokal-patrol-combat]");
-assert.ok(["kobolds", "orcs", "sokal-armory", "sokal-landing", "sokal-patrol-combat"].includes(routeName), "Unknown Slums replay route");
+assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs|sokal-armory|sokal-landing|sokal-patrol-combat|sokal-courtyard]");
+assert.ok(["kobolds", "orcs", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard"].includes(routeName), "Unknown Slums replay route");
 const orcs = routeName === "orcs";
 const armory = routeName === "sokal-armory";
 const patrolCombat = routeName === "sokal-patrol-combat";
-const landing = routeName === "sokal-landing" || patrolCombat;
+const courtyard = routeName === "sokal-courtyard";
+const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
 const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : orcs ? "C.json" : "A.json");
@@ -121,7 +122,11 @@ try {
 
   await run('document.querySelector("#presentation").click()');
   if (armory || landing) {
-    const route = landing ? [
+    const route = courtyard ? [
+      null, "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "enter",
+      "p", "n", ..."shestni", "enter",
+      ...Array(5).fill("up"), "enter", "y", "up", "left", "up", "y", "left", "y", "up", "enter",
+    ] : landing ? [
       null, "up", "left", "up", "up", "enter", "enter", "end", "enter", "enter", "enter", "enter",
       "right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up",
       "left", "enter", ...(patrolCombat ? [] : ["p", "n", ..."shestni", "enter"]),
@@ -132,7 +137,7 @@ try {
     let patrol = false;
     for (const [step, key] of route.entries()) {
       if (key) await advance(key);
-      if (landing && step === 9) {
+      if (landing && !courtyard && step === 9) {
         const parchment = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
         assert.match(parchment, /THELASTPARTISEATENAWAY/i);
       }
@@ -149,7 +154,7 @@ try {
       if (!frame.tileInventory?.length) continue;
       if (landing && frame.tileInventory.every(([, , , indices]) => /^0+$/.test(indices))) continue;
       views++;
-      assert.equal(frame.tiles.length, 121);
+      assert.equal(frame.tiles.length, 121, `Step ${step} (${key})`);
       for (const [, , id] of frame.tiles) {
         assert.match(id, /^tile:21:/);
         seen.add(id);
@@ -157,7 +162,8 @@ try {
       await waitFor("121 assembled Sokal tiles", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelectorAll("#tile-art img:not(.encounter-sprite)").length === 121 &&
         [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
-      if ((landing && (step === 0 || step === 21 || step === route.length - 1)) || (!landing && (step === 2 || step === 9))) {
+      if ((courtyard && step === route.length - 2) ||
+          (landing && !courtyard && (step === 0 || step === 21 || step === route.length - 1)) || (!landing && (step === 2 || step === 9))) {
         if (step === (landing ? 0 : 2)) await switchBothWays();
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, `${routeName}-${step}.png`), Buffer.from(shot.data, "base64"));
@@ -165,13 +171,14 @@ try {
     }
     const text = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
     assert.match(text, patrolCombat ? /APACKOFUNDEADSUDDENLYAPPEARS/i :
-      landing ? /THEUNDEADLEAVE/i : /ONSTANDSAREASHIELD/i);
+      courtyard ? /ALARGEFORCEOFORCSANDHOBGOBLINSRUSHESYOU/i :
+        landing ? /THEUNDEADLEAVE/i : /ONSTANDSAREASHIELD/i);
     if (landing) {
       assert.ok(patrol);
       if (!patrolCombat) assert.equal(frame.encounter, undefined);
     }
-    assert.equal(views, patrolCombat ? 18 : landing ? 19 : 12);
-    assert.equal(seen.size, landing ? 49 : 13);
+    assert.equal(views, courtyard ? 24 : patrolCombat ? 18 : landing ? 19 : 12);
+    assert.equal(seen.size, courtyard ? 56 : landing ? 49 : 13);
     console.log(`Verified ${seen.size} ${routeName} patterns across ${views} views. Captures: ${directory}`);
     if (patrolCombat) {
       await run(`(() => {
@@ -218,7 +225,7 @@ try {
       }
       assert.equal(strikes.size, 2);
       assert.deepEqual(await run("[...undeadArt].sort()"), ["162", "163", "34", "35"]);
-      console.log("Verified 4× skeleton and zombie guard and strike PNGs during original patrol combat.");
+      console.log("Verified 4ï¿½ skeleton and zombie guard and strike PNGs during original patrol combat.");
     }
   } else if (orcs) {
     const route = ["up", "left", "up", "up", "up", "right", "up", "right",

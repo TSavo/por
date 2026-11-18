@@ -175,3 +175,15 @@ Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_J PATH_TO_CHROME soka
 to choose Combat at the first patrol. Chrome verified both guard poses
 and both strike poses during ordinary combat, checked the cleared guest
 sprite cell, and verified that switching preserved the guest frame and save.
+
+## Sokal courtyard approach
+
+The route from the restored party's Thorn Island landing save to the
+courtyard ambush uses 56 distinct environment patterns. Twenty new
+32×32 tiles cover the arched door, ring hardware, weathered timber screen
+and posts, floor joints, and skyline details.
+
+Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_J PATH_TO_CHROME sokal-courtyard`
+with the landing save from the restored council replay. Chrome loaded all
+121 individual environment tiles in 24 views, including during the undead
+patrol approaches, and verified the original courtyard ambush prompt.

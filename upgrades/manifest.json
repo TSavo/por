@@ -63,7 +63,27 @@
     "combat:CPIC4.DAX:34": "sokal-skeleton-guard.png",
     "combat:CPIC4.DAX:162": "sokal-skeleton-strike.png",
     "combat:CPIC4.DAX:35": "sokal-zombie-guard.png",
-    "combat:CPIC4.DAX:163": "sokal-zombie-strike.png"
+    "combat:CPIC4.DAX:163": "sokal-zombie-strike.png",
+    "tile:21:8bd9dc9d33219cd5dde064af226d9301655b1ebdf4351211fefc2f85f63cd80c": "sokal-outer-jamb-cap.png",
+    "tile:21:7041882d54734f52b66d2334ec62779d485694e861327c4b4c765326d9fdc613": "sokal-outer-jamb-shaft.png",
+    "tile:21:d7f44e9ae57491d39a4a9f79cd2680acaa61cef66e57f530b763ed7229cd425b": "sokal-outer-jamb-foot.png",
+    "tile:21:37651233b21dded341165cb52077116145435a205f4b134b619a6957529b7f54": "sokal-skyline-birds.png",
+    "tile:21:1945ad390a46ceee44a7e746b60016ee3d9cfbb22764495a5a004b9be6fc88be": "sokal-overhead-bird.png",
+    "tile:21:030842a7169bde9ba0eadee993120008a48ebd1b6ed48d7ca4822fba37c4a2bf": "sokal-vault-shadow-mark.png",
+    "tile:21:3942f43683d8e1f76a10e9d3dc6f608c55938473823fa32514e1100b92f479dc": "sokal-court-arch-left.png",
+    "tile:21:5209507af737c23a4e4bd2d8f64d435e5acbb75074ab339a6944028470782798": "sokal-court-arch-right.png",
+    "tile:21:297ae58620a76aff7e45afd3c6c147f02104a51cd0202ea310ca5b2f4777faad": "sokal-court-door-ring.png",
+    "tile:21:00523fafd2db0dc71e99cbbbb82de731c4ef0791dc8b94b4ba552376e4e9c49f": "sokal-near-screen-top.png",
+    "tile:21:48fd80e22a28c94b0577bf17d1dc87fb5f464d3beba72d8699e35670db58ac03": "sokal-near-screen-lattice.png",
+    "tile:21:ed9a91fbb798c0805545a363aaa935f07cab4fdc0a5a0840424e56e92c54b5dc": "sokal-near-screen-joint.png",
+    "tile:21:0a90cfe773b44e09b30c74909117e20be5b9935717093c9f8bcbc49df86a2b08": "sokal-near-screen-foot-cap.png",
+    "tile:21:8ac2203085661062cea3dd8e207bc11d56ca6741c665730c0ed9d43097b05c69": "sokal-near-screen-foot-body.png",
+    "tile:21:f30eb31c5397cd6227a038e3aaf2b1e9cee6bb00f3e710d1a4a869dd27c98616": "sokal-near-screen-floor-joint.png",
+    "tile:21:8523d78d5aa28f44e624c61b1d219ad66fc1c0b6ac99ebe2918bcd2d05f54efa": "sokal-mid-screen-cap.png",
+    "tile:21:88e2e226677a2570e2701127d0c32f197cc4e2752e46e1269c9675874d36e2f0": "sokal-mid-screen-post.png",
+    "tile:21:0e38829ae8620b003b168018bf42e60b38dcd674d75db105a32743148e3ce381": "sokal-far-screen-cap.png",
+    "tile:21:180623371b1ff269245e257e69f7000ce0214d61ca119898ffc2b343881efef5": "sokal-far-screen-post.png",
+    "tile:21:e12770e90c2c5558bb077cd42a06fc573d7995652a64734a510319b8bcb2f54a": "sokal-vault-corner-scar.png"
   },
   "encounters": {
     "encounter:SPRIT4.DAX:34:0:0": {
