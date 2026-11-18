@@ -5,11 +5,29 @@ import { renderOriginalSoundDriver } from "../src/audio/original-driver.js";
 import { encodePcSpeakerWav, encodeTandyVgm } from "../src/audio/original-formats.js";
 import { findGameRoot } from "./gamedata.js";
 
+const manifest = JSON.parse(readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url), "utf8")) as {
+  events: Array<{ index: number; reachable?: boolean; reachableHardware?: Array<"pc-speaker" | "tandy"> }>;
+};
+
 const root = findGameRoot();
 assert(root, "Pool of Radiance game data not found");
 const executable = new Uint8Array(readFileSync(join(root, "START.EXE")));
 const header = new DataView(executable.buffer, executable.byteOffset, executable.byteLength);
 const image = executable.subarray(header.getUint16(8, true) * 16);
+const driverMemory = image.subarray(0x27f0);
+const driverView = new DataView(driverMemory.buffer, driverMemory.byteOffset, driverMemory.byteLength);
+
+// A browser asset may replace the current asset exactly when every reachable
+// event replaces all four original driver channel records on that hardware path.
+for (const event of manifest.events.filter(({ reachable }) => reachable !== false)) {
+  const hardwareModes = event.reachableHardware ?? ["pc-speaker", "tandy"] as const;
+  for (const hardware of hardwareModes) {
+    const table = hardware === "pc-speaker" ? 0x040b : 0x04ab;
+    const entries = Array.from({ length: 4 }, (_, channel) =>
+      driverView.getUint16(table + (event.index - 1) * 8 + channel * 2, true));
+    assert(entries.every(Boolean), `${hardware} event ${event.index} does not replace every channel`);
+  }
+}
 
 const pc = renderOriginalSoundDriver(image, "pc-speaker", 2);
 assert.equal(pc.stopped, true);

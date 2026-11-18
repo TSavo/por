@@ -7,11 +7,13 @@
   },
   "controls": {
     "initialize": 0,
-    "stop": 255
+    "driverSpecial": 1,
+    "stop": 255,
+    "note": "0 and 255 are called by the game; 1 takes a special dispatcher path and is not a table-dispatched gameplay effect"
   },
   "events": [
-    { "id": "por.original.initialize-tone", "index": 1, "kind": "control", "loop": false, "pcSeconds": 0.008450, "tandySeconds": 0.008450 },
-    { "id": "por.original.effect-02", "index": 2, "kind": "effect", "loop": false, "pcSeconds": 1.022411, "tandySeconds": 0.819618, "enhancedFile": "por-original-effect-02.wav", "enhancedStatus": "prototype-authored" },
+    { "id": "por.original.driver-special-01", "index": 1, "kind": "control", "loop": false, "reachable": false, "pcSeconds": 0.008450, "tandySeconds": 0.008450 },
+    { "id": "por.original.effect-02", "index": 2, "kind": "effect", "loop": false, "reachable": true, "pcSeconds": 1.022411, "tandySeconds": 0.819618, "enhancedFile": "por-original-effect-02.wav", "enhancedStatus": "prototype-authored" },
     { "id": "por.original.effect-03", "index": 3, "kind": "effect", "loop": false, "pcSeconds": 0.156319, "tandySeconds": 0.219692 },
     { "id": "por.original.effect-04", "index": 4, "kind": "effect", "loop": false, "pcSeconds": 0.895666, "tandySeconds": 1.022411 },
     { "id": "por.original.effect-05", "index": 5, "kind": "effect", "loop": false, "pcSeconds": 0.752021, "tandySeconds": 1.596989 },
@@ -22,17 +24,18 @@
     { "id": "por.original.effect-10", "index": 10, "kind": "effect", "loop": false, "pcSeconds": 0.042248, "tandySeconds": 0.076047 },
     { "id": "por.original.effect-11", "index": 11, "kind": "effect", "loop": false, "pcSeconds": 1.444894, "tandySeconds": 1.816680 },
     { "id": "por.original.effect-12", "index": 12, "kind": "effect", "loop": false, "pcSeconds": 0.135195, "tandySeconds": 0.135195 },
-    { "id": "por.original.score-13", "index": 13, "kind": "score", "loop": true, "pcSeconds": 60.837659, "tandySeconds": 60.837659 },
-    { "id": "por.original.score-14", "index": 14, "kind": "score", "loop": true, "pcSeconds": 60.837659, "tandySeconds": 60.837659 },
-    { "id": "por.original.score-15", "index": 15, "kind": "score", "loop": true, "pcSeconds": 60.837659, "tandySeconds": 60.837659 },
-    { "id": "por.original.score-16", "index": 16, "kind": "score", "loop": false, "pcSeconds": 53.545590, "tandySeconds": 53.545590 },
-    { "id": "por.original.score-17", "index": 17, "kind": "score", "loop": false, "pcSeconds": 46.447863, "tandySeconds": 46.447863 },
-    { "id": "por.original.score-18", "index": 18, "kind": "score", "loop": false, "pcSeconds": 32.252409, "tandySeconds": 32.252409 },
-    { "id": "por.original.score-19", "index": 19, "kind": "score", "loop": false, "pcSeconds": 22.518384, "tandySeconds": 22.518384 },
-    { "id": "por.original.score-20", "index": 20, "kind": "score", "loop": false, "pcSeconds": 12.784358, "tandySeconds": 12.784358 }
+    { "id": "por.original.score-13", "index": 13, "kind": "score", "loop": true, "reachable": true, "reachableHardware": ["tandy"], "pcSeconds": 60.837659, "tandySeconds": 60.837659 },
+    { "id": "por.original.score-14", "index": 14, "kind": "score", "loop": true, "reachable": true, "reachableHardware": ["tandy"], "pcSeconds": 60.837659, "tandySeconds": 60.837659 },
+    { "id": "por.original.score-15", "index": 15, "kind": "score", "loop": true, "reachable": false, "pcSeconds": 60.837659, "tandySeconds": 60.837659 },
+    { "id": "por.original.score-16", "index": 16, "kind": "score", "loop": false, "reachable": false, "pcSeconds": 53.545590, "tandySeconds": 53.545590 },
+    { "id": "por.original.score-17", "index": 17, "kind": "score", "loop": false, "reachable": false, "pcSeconds": 46.447863, "tandySeconds": 46.447863 },
+    { "id": "por.original.score-18", "index": 18, "kind": "score", "loop": false, "reachable": false, "pcSeconds": 32.252409, "tandySeconds": 32.252409 },
+    { "id": "por.original.score-19", "index": 19, "kind": "score", "loop": false, "reachable": false, "pcSeconds": 22.518384, "tandySeconds": 22.518384 },
+    { "id": "por.original.score-20", "index": 20, "kind": "score", "loop": false, "reachable": false, "pcSeconds": 12.784358, "tandySeconds": 12.784358 }
   ],
   "playback": {
     "onNewEvent": "replace-current",
+    "fidelityBasis": "Every reachable gameplay event replaces all four channel records on each hardware path where it can be called. PC table entries 13..20 leave channels 1..3 untouched, but 13 and 14 are Tandy-only call sites and 15..20 have no translated call sites.",
     "onInitializeOrStop": "stop-current",
     "enhancedFallback": "selected-classic-hardware",
     "preferences": "browser-local-not-campaign-save"
@@ -43,6 +46,7 @@
     "tandyVgm": "generated",
     "tandyWav": "libvgm-rendered",
     "originalIsrTraceComparison": "38/38 exact for events 2..20 across PC speaker and Tandy",
+    "reachableInterruptionRules": "verified from call-site inventory and original four-channel entry tables",
     "externalDosWaveformComparison": "pending"
   }
 }

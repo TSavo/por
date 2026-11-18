@@ -68,6 +68,21 @@ Event 1 is the dispatcher's initialization control rather than a normal numbered
 effect and is documented separately. The comparison caught and corrected a
 missing final Tandy silence frame; its report lives in por-assets inventory.
 
+The dispatcher controls are `0` (initialize), `1` (a special non-table driver
+path), and `255` (stop). Static translated call-site inventory finds gameplay
+calls for events 2 through 14 only. Events 13 and 14 are reached only inside
+Tandy-mode branches; events 15 through 20 have no call sites.
+
+The original event loader resets only channels whose table entry is nonzero.
+Every reachable effect (2 through 12) has four nonzero entries in both hardware
+tables, and the reachable score events (13 and 14) have four nonzero Tandy
+entries. Consequently every gameplay sound request replaces the complete active
+sound on the hardware path that can issue it. The PC entries for scores 13 through
+20 preserve channels 1 through 3, but those entries are never requested on the PC
+speaker path. This is why browser playback intentionally uses one current Classic
+asset and replaces it on a new request; it reproduces reachable interruption and
+stopping behavior rather than approximating it with additive mixing.
+
 `src/audio/original-sounds.json` is the stable event manifest consumed by both
 presentation modes. It records IDs, original indices, type, loop behavior,
 per-hardware durations, replacement/fallback rules, provenance, and verification
