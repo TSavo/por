@@ -334,9 +334,25 @@ async function verifyPodalFromCouncil(checkpoint) {
     (text) => assert.match(text, /the monsters rejoice for the party has been destroyed/),
   ]);
   console.log("Verified the Podal Plaza turn-in, Cadorna's commission, and the Textile House courtyard defeat.");
-  const armorSave = await replay(load("1e61"), "85000000", [
+  const equipmentShop = [
     "right", "right", "up", "up", "right", "up", "right", "up", "enter", "enter", "up", "up",
     "right", ...Array(7).fill("up"), "left", "up", "y", "y",
+  ];
+  const arrowsSave = await replay(load("1e61"), "85000000", [
+    ...equipmentShop, "end", "b", "n", "n", ...Array(8).fill("end"), "b", "e", "v", "i", "i",
+    (text) => assert.match(text, /brin's items.*no 10 arrows/),
+    "end", "end", "r",
+    (text) => assert.match(text, /brin's items.*yes 10 arrows/),
+    "e", "e", "e", "e", "e", "s", "s", "i",
+  ]);
+  assert.match(visibleText(arrowsSave), /quit to dos/);
+  await replay(load("1769"), "85000000", [
+    "end", "v", "i", "i",
+    (text) => assert.match(text, /brin's items.*yes 10 arrows/),
+  ]);
+  console.log("Bought and readied arrows in New Phlan, then verified them after reload.");
+  const armorSave = await replay(load("1e61"), "85000000", [
+    ...equipmentShop,
     ...names.slice(0, 5).flatMap((name, index) => [
       ...(index ? ["end"] : []),
       "b", "n", "n", ...Array(index ? 15 : 16).fill("end"), "b", "end", "end", "b",

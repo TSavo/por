@@ -515,7 +515,10 @@ preserves all nine movement points. Moving south to a free square costs
 one point, and Guard then hands control to Brin. In a separate replay,
 Alda and Brin took the prison guards' long bows and readied them. Brin
 could aim at Grishnak from one square away, but Aim offered no Target
-command with that loadout. The checkpoint check
+command with that loadout. The Podal checkpoint replay now verifies Brin
+can buy and ready ten arrows in New Phlan and retain them after reloading.
+In a diagnostic copy of the temple save, supplying those readied arrows
+still left Target unavailable in the tested opening. The checkpoint check
 fails if the watchdog intervenes. The recruitment
 checks still use the historical checkpoint and the supplied brass key.
 
