@@ -760,6 +760,11 @@ onlooker's Wand of Illumination claim and the ending where the buyer goes
 unseen. The completion flag alone leaves the report directions general.
 Use a save at the clerk with Sokal turned in and the auction accepted.
 The replay copies that save to a scratch directory.
+Use `--auction-only` with `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` and the
+default budget to verify the westbound trip, witnessed exchange, council
+reward, and next commission. The replay verifies that the exchange is
+hidden before it happens, appears in the report directions, and is still
+in the journal after collecting the reward and reloading.
 After the auction turn-in, the replay takes the east door to Cadorna,
 hears where his family's treasure was hidden, and reloads with the
 Textile House commission accepted. The party takes the westbound

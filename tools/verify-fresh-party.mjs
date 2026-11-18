@@ -363,11 +363,15 @@ async function verifyFighterTrainingJournal() {
   console.log("Verified the fighter trainer's directions are discovered in play and retained after reloading slot H.");
 }
 
-async function verifyPodalFromCouncil(checkpoint) {
+async function verifyPodalFromCouncil(checkpoint, auctionOnly = false) {
   copyFileSync(checkpoint, join(saveDir, "H.json"));
   const load = loadSlot;
   const checkAuction = (status) => (_text, frame) =>
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-auction")?.status, status);
+  const checkExchange = (_text, frame) => {
+    assert.ok(frame.journal.leads.some(({ id }) => id === "auction-exchange"));
+    assert.match(frame.journal.objective.nextStep, /exchanged the wand for a large bag.*council clerk/i);
+  };
   const sailWest = (payerSelection = []) => [
     (text) => assert.match(text, /sokal east west bay none/),
     "w", ...payerSelection, "enter", "enter", "right", ...Array(4).fill("up"), "enter", "enter", "enter", "s",
@@ -384,7 +388,13 @@ async function verifyPodalFromCouncil(checkpoint) {
   ];
   const arrival = await replay(load("2368"), "85000000", [
     (text) => assert.match(text, /5,5 e/),
-    "j", checkAuction("accepted"), "j",
+    "j", checkAuction("accepted"), (_text, frame) => {
+      assert.ok(!frame.journal.leads.some(({ id }) => id.startsWith("auction-")));
+      const index = frame.journal.leads.filter(({ status }) => status && status !== "turned-in")
+        .findIndex(({ id }) => id === "commission-auction");
+      assert.ok(index >= 0);
+      return `track ${index + 1}`;
+    }, "j",
     "right", "right", "up", ...westboundToGate,
     "n", "enter", "enter",
     (text) => assert.match(text, /the plaza ahead is crowded with monsters.*disguise/),
@@ -396,11 +406,11 @@ async function verifyPodalFromCouncil(checkpoint) {
     (text) => assert.match(text, /the auctioneer cries/),
     "enter", "enter", "enter", "enter", "end", "enter", "enter",
     (text) => assert.match(text, /a man and ogre exchange the wand/),
-    "enter", "j", checkAuction("ready-to-report"), "j", "e", "s", "s", "j",
+    "enter", "j", checkAuction("ready-to-report"), checkExchange, "j", "e", "s", "s", "j",
   ]);
   assert.match(visibleText(result), /quit to dos/);
   const cadornaSave = await replay(load("246a"), "85000000", [
-    "j", checkAuction("ready-to-report"), "j",
+    "j", checkAuction("ready-to-report"), checkExchange, "j",
     "right", "right", "up", "up", "left", ...Array(8).fill("up"), "enter", "enter",
     "l", ...Array(4).fill("left"), "down", "enter",
     (text) => assert.match(text, /take boat stay/),
@@ -416,6 +426,16 @@ async function verifyPodalFromCouncil(checkpoint) {
     "enter", "enter", "e", "s", "s", "a",
   ]);
   assert.match(visibleText(cadornaSave), /6,5 e.*quit to dos/);
+  if (auctionOnly) {
+    await replay(load("1e61"), "85000000", [
+      "j", checkAuction("turned-in"), (_text, frame) => {
+        assert.ok(frame.journal.leads.some(({ id, status }) => id === "commission-textile" && status === "accepted"));
+        assert.ok(frame.journal.leads.some(({ id }) => id === "auction-exchange"));
+      },
+    ]);
+    console.log("Verified the Podal Plaza exchange, council reward, and Textile House commission after reload.");
+    return;
+  }
   const textileArrival = await replay(load("1e61"), "85000000", [
     "j", (_text, frame) => {
       const textile = frame.journal?.leads.find(({ id }) => id === "commission-textile");
@@ -1791,7 +1811,8 @@ if (process.argv[2] === "--castle-ending-checkpoint") {
 
 if (process.argv[2] === "--podal-checkpoint") {
   assert.ok(process.argv[3], "Pass a save at the clerk with Sokal turned in and the auction accepted.");
-  await verifyPodalFromCouncil(process.argv[3]);
+  assert.ok(!process.argv[4] || process.argv[4] === "--auction-only", "Expected --auction-only after the checkpoint");
+  await verifyPodalFromCouncil(process.argv[3], process.argv[4] === "--auction-only");
   process.exit(0);
 }
 
