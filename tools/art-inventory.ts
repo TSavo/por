@@ -7,6 +7,7 @@ import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
+import { loadUpgradeArt } from "./upgrade-art.js";
 
 const families = [
   [/^(TITLE|FINAL\d+)\.DAX$/, "Title and ending"],
@@ -124,16 +125,45 @@ for (const reference of scriptReferences) {
   matches.push(reference);
   referencesByPicture.set(key, matches);
 }
+mkdirSync(join(output, "enhanced"), { recursive: true });
+const replacements = [...loadUpgradeArt()].map(([id, { png, ...metadata }], index) => {
+  const preview = `enhanced/${index}.png`;
+  writeFileSync(join(output, preview), png);
+  return { id, preview, ...metadata };
+});
+const replacementsByBlock = new Map<string, typeof replacements>();
+const runtimeReplacements = [];
+for (const replacement of replacements) {
+  const [, file, block] = /^(?:encounter|combat|portrait):([^:]+):(\d+)/.exec(replacement.id) ?? [];
+  if (!file || !archives.some((archive) => archive.file === file && archive.entries.some(({ id }) => id === Number(block)))) {
+    runtimeReplacements.push(replacement);
+    continue;
+  }
+  const key = `${file}:${block}`;
+  const matches = replacementsByBlock.get(key) ?? [];
+  matches.push(replacement);
+  replacementsByBlock.set(key, matches);
+}
+function replacementPreview({ id, preview, width, height, encounter, file }: typeof replacements[number]) {
+  return `<div class="preview"><a href="${preview}" target="_blank" rel="noopener"><img loading="lazy" src="${preview}" alt="${escape(file)}"></a>` +
+    `<small>Enhanced � ${width}�${height} � ${escape(id)}${encounter ? ` � area ${encounter.area} at (${encounter.x},${encounter.y})` : ""}</small>` +
+    `<small>${escape(file)}</small></div>`;
+}
+const runtimeGallery = runtimeReplacements.length ?
+  `<details data-category="Runtime artwork"><summary>Runtime artwork � ${runtimeReplacements.length} replacements</summary><div class="grid">` +
+  runtimeReplacements.map((entry) => `<figure data-visual="true" data-enhanced="true">${replacementPreview(entry)}</figure>`).join("") +
+  "</div></details>" : "";
 const gallery = archives.map(({ file, category, entries }) =>
   `<details data-category="${escape(category)}"><summary>${escape(file)} · ${category} · ${entries.length} blocks</summary><div class="grid">` +
   entries.map((entry) => {
     const monster = monsterNames.get(`${file}:${entry.id}`);
-    return `<figure data-visual="${Boolean(entry.pictures?.length)}"><figcaption>${file} #${entry.id} · ${entry.format}${monster ? ` · ${escape(monster)}` : ""}</figcaption>` +
+    const enhanced = replacementsByBlock.get(`${file}:${entry.id}`) ?? [];
+    return `<figure data-enhanced="${Boolean(enhanced.length)}" data-visual="${Boolean(entry.pictures?.length)}"><figcaption>${file} #${entry.id} · ${entry.format}${monster ? ` · ${escape(monster)}` : ""}</figcaption>` +
     (entry.pictures ?? []).map((pic, index) => {
       const target = entry.enhancedFrames?.[index];
       return `<div class="preview"><a href="${escape(pic.preview)}" target="_blank" rel="noopener"><img loading="lazy" src="${escape(pic.preview)}" alt="${file} #${entry.id}, ${pic.width}×${pic.height}, ${pic.frames} frames"></a>` +
         `<small>${pic.width}×${pic.height}${target ? ` → ${target.width}×${target.height} at 4×` : ""}${pic.frames > 1 ? ` per frame · ${pic.frames} frames` : ""}</small></div>`;
-    }).join("") +
+    }).join("") + enhanced.map(replacementPreview).join("") +
     (referencesByPicture.get(`${file}:${entry.id}`) ?? []).map((ref) =>
       `<p>Script candidate ${ref.file} #${ref.script} · ${ref.address.toString(16)}${ref.nearbyText ? ` · ${escape(ref.nearbyText)}` : ""}</p>`).join("") +
     "</figure>";
@@ -148,15 +178,18 @@ figure{margin:0;padding:.75rem;background:#242220;max-width:min(100%, 40rem);min
 figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image-rendering:pixelated;max-width:100%;vertical-align:middle;margin:.15rem}
 .preview{display:inline-block;vertical-align:top;max-width:100%;margin:0 .35rem .5rem 0}.preview small{display:block;color:#d6c9b4}
 </style><h1>Pool of Radiance art inventory</h1>
-<p>Click any preview to open the full sheet. Search by archive, block number, or nearby encounter dialogue.</p>
+<p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
-<label>Category <select id="category"><option value="">All categories</option>${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
+<label>Category <select id="category"><option value="">All categories</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
 <label><input id="include-data" type="checkbox"> Include composition and gameplay data</label>
+<label><input id="enhanced-only" type="checkbox"> Has enhanced artwork</label>
 <p id="matches" role="status"></p>
+${runtimeGallery}
 ${gallery}
 <script>
 const search = document.querySelector('#search');
 const category = document.querySelector('#category');
+const enhancedOnly = document.querySelector('#enhanced-only');
 const includeData = document.querySelector('#include-data');
 const archives = [...document.querySelectorAll('details')].map((archive) => ({ archive,
   entries: [...archive.querySelectorAll('figure')].map((figure) => ({ figure, text: figure.textContent.toLowerCase() })) }));
@@ -167,11 +200,11 @@ function filter() {
     const categoryMatches = !category.value || archive.dataset.category === category.value;
     let visible = 0;
     for (const {figure, text} of entries) {
-      figure.hidden = !categoryMatches || (!includeData.checked && figure.dataset.visual !== 'true') || !text.includes(query);
+      figure.hidden = !categoryMatches || (!includeData.checked && figure.dataset.visual !== 'true') || (enhancedOnly.checked && figure.dataset.enhanced !== 'true') || !text.includes(query);
       if (!figure.hidden) visible++;
     }
     archive.hidden = !visible;
-    if (query || category.value) archive.open = Boolean(visible);
+    if (query || category.value || enhancedOnly.checked) archive.open = Boolean(visible);
     blocks += visible;
   }
   document.querySelector('#matches').textContent = blocks + ' matching blocks';
@@ -179,9 +212,10 @@ function filter() {
 search.addEventListener('input', filter);
 category.addEventListener('change', filter);
 includeData.addEventListener('change', filter);
+enhancedOnly.addEventListener('change', filter);
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");

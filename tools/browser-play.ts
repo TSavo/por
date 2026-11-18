@@ -3,12 +3,12 @@ import { readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
 import { join } from "node:path";
-import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
+import { loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
 import { getKey, type CombatAnimationFrame, type TileInventoryCell } from "./live-input.js";
 import type { CombatArtPlacement } from "./combat-art.js";
 import { portraitKey } from "./portrait-art.js";
-import { encounterAnchor, type EncounterPlacement } from "./encounter-art.js";
+import type { EncounterPlacement } from "./encounter-art.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
@@ -18,8 +18,6 @@ const origin = `http://127.0.0.1:${port}`;
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
-const artworkDirectories = process.env.POR_UPGRADES_DIR === undefined
-  ? [join(upgrades, "slums"), upgrades] : [upgrades];
 const gameFont = (() => {
   for (const path of new Set([join(upgrades, "font.woff2"), join("upgrades", "font.woff2")])) {
     try {
@@ -29,36 +27,9 @@ const gameFont = (() => {
     }
   }
 })();
-const artwork = new Map<string, Buffer>();
-const encounters = new Map<string, EncounterAnchor>();
-for (const directory of artworkDirectories) {
-  try {
-    const manifest = JSON.parse(readFileSync(join(directory, "manifest.json"), "utf8")) as OverrideManifest;
-    if (manifest.version !== 1 || !manifest.assets) continue;
-    for (const id of Object.keys(manifest.assets)) {
-      const encounter = encounterAnchor(id, manifest.encounters?.[id]);
-      if (id !== "scene:title" && !/^viewport:[a-f0-9]{64}$/.test(id) && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
-          !/^combat:CPIC[1-8]\.DAX:\d{1,3}$/.test(id) && !portraitKey.test(id) && !encounter) continue;
-      const file = lookupOverride(manifest, id);
-      if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) continue;
-      try {
-        const png = readFileSync(join(directory, file));
-        if (!png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) continue;
-        const size = id.startsWith("tile:") ? 32 : id.startsWith("combat:") ? 96 : portraitKey.test(id) ? 352 : 0;
-        const width = encounter ? encounter.width * 4 : size;
-        const height = encounter ? encounter.height * 4 : size;
-        if (width && (png.length < 24 || png.toString("ascii", 12, 16) !== "IHDR" ||
-            png.readUInt32BE(16) !== width || png.readUInt32BE(20) !== height)) continue;
-        artwork.set(id, png);
-        if (encounter) encounters.set(id, encounter);
-      } catch (error) {
-        if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork", error);
-      }
-    }
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork manifest", error);
-  }
-}
+const artwork = loadUpgradeArt();
+const encounters = Object.fromEntries([...artwork].flatMap(([id, { encounter }]) =>
+  encounter ? [[id, encounter]] : []));
 const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
   env: {
     ...process.env,
@@ -66,7 +37,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
     POR_TILE_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("tile:")).join(","),
     POR_COMBAT_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("combat:")).join(","),
     POR_PORTRAIT_ART_KEYS: [...artwork.keys()].filter((key) => portraitKey.test(key)).join(","),
-    POR_ENCOUNTER_ART: JSON.stringify(Object.fromEntries(encounters)),
+    POR_ENCOUNTER_ART: JSON.stringify(encounters),
     POR_LIVE_AT: process.env.POR_LIVE_AT ?? "24000000",
     POR_BOOT_STEPS: process.env.POR_BOOT_STEPS ?? "100000000",
   },
@@ -124,7 +95,7 @@ const server = createServer(async (req, res) => {
   } else if (req.method === "GET" && req.url === "/font.woff2" && gameFont) {
     res.writeHead(200, { "content-type": "font/woff2" }).end(gameFont);
   } else if (req.method === "GET" && req.url?.startsWith("/art/")) {
-    const png = artwork.get(req.url.slice(5));
+    const png = artwork.get(req.url.slice(5))?.png;
     if (png) res.writeHead(200, { "content-type": "image/png" }).end(png);
     else res.writeHead(404).end();
   } else if (req.method === "GET" && (req.url === "/state" || /^\/state\?after=-?\d+$/.test(req.url ?? ""))) {

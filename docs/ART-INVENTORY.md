@@ -4,7 +4,12 @@ Run `npx tsx tools/art-inventory.ts` with the original game files installed.
 The command accepts an optional game-data directory and output directory. It
 writes `index.html`, `inventory.json`, and a `sheets/` directory to
 `out/art-inventory` by default. The previews are generated locally from the
-player's files.
+player's files. The gallery also copies the replacement PNGs accepted by
+the browser into `enhanced/`. Select **Has enhanced artwork** to review
+those replacements beside their original blocks. The **Runtime artwork**
+category groups tile IDs and other replacements that have no single archive
+block. The JSON lists the replacement IDs, PNG dimensions, and any
+configured encounter anchors.
 
 | Category | Archives | Blocks | Preview sheets | Frames or glyphs |
 | --- | ---: | ---: | ---: | ---: |
