@@ -4,11 +4,12 @@
  * sys5bb_16b5 is System.FillChar.
  */
 import { Cpu } from "../src/cpu/machine.js";
-import { ovl07_0000 } from "../src/translated/ovl07.js";
+import { ovl07_0000, ovl07_0c93 } from "../src/translated/ovl07.js";
 import "../src/translated/system5bb.js";
 import { farCall } from "../src/runtime/far.js";
 import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
 import type { LoadedSlice } from "../src/runtime/overlay.js";
+import { currentObjective, discoveredLeads, questProgress } from "../src/runtime/adventure-log.js";
 
 function fresh(): Cpu {
   const m = new Cpu();
@@ -66,7 +67,7 @@ function checkOperandFetch(): void {
 checkFillChar();
 checkOperandFetch();
 
-function checkQuickRecovery(): void {
+function checkQuickRecovery(partyMember: boolean): void {
   const m = fresh();
   const stack = m.sp;
   const actor = 0x100;
@@ -74,21 +75,55 @@ function checkQuickRecovery(): void {
   m.stepBudget = 100;
   m.write8(m.ss, m.bp - 2, 1);
   m.write8(m.ds, actor + 0x10f, 1);
+  m.write8(m.ds, actor + 0x84, partyMember ? 0 : 0x80);
   m.push(m.ds);
   m.push(actor);
   m.push(m.cs);
-  m.push(0x477);
+  m.push(partyMember ? 0x477 : 0x2b3);
   const slice = (index: number, headerPara: number, loadPara: number): LoadedSlice =>
     ({ index, headerPara, loadPara, fileOffset: 0, codeBytes: 0, procs: new Map() });
-  let recovered = false;
-  attachQuickRecovery(m, [slice(8, 0x51, m.cs), slice(9, 0x58, 0x4000)], () => { recovered = true; }, 1);
+  let recovered: boolean | undefined;
+  attachQuickRecovery(m, [slice(8, 0x51, m.cs), slice(9, 0x58, 0x4000)], (party) => { recovered = party; }, 1);
   farCall(m, 0x58, 0x25);
-  if (!recovered || m.sp !== stack || m.bp !== 0xff40 || m.cs !== 0x3000 || m.stepBudget !== 100 ||
-      m.read8(m.ss, m.bp - 2) !== 0 || m.read8(m.ds, actor + 0x10f) !== 0) {
-    throw new Error("Quick watchdog did not restore the original manual turn");
+  const expected = partyMember ? 0 : 1;
+  if (recovered !== partyMember || m.sp !== stack || m.bp !== 0xff40 || m.cs !== 0x3000 || m.stepBudget !== 100 ||
+      m.read8(m.ss, m.bp - 2) !== expected || m.read8(m.ds, actor + 0x10f) !== expected) {
+    throw new Error("Quick watchdog did not restore the expected combat control");
   }
-  console.log("verified Quick timeout returns to manual combat");
+  console.log(partyMember ? "verified Quick timeout returns to manual combat" : "verified enemy Quick timeout retains automatic control");
 }
 
-checkQuickRecovery();
+checkQuickRecovery(true);
+checkQuickRecovery(false);
+
+function checkSokalQuestProgress(): void {
+  const m = fresh();
+  m.write16(m.ds, 0x4933, 0x20);
+  m.write16(m.ds, 0x4935, 0x5000);
+  const offered = discoveredLeads("SOKAL KEEP ON THORN ISLAND MUST BE CLEARED.");
+
+  // Run the original ECL global setter used in the keep's success branch
+  // and the council's reward routine.
+  const saveSokalState = (value: number) => {
+    m.push(0x4aa7);
+    m.push(value);
+    m.push(m.cs);
+    m.push(0);
+    ovl07_0c93(m);
+  };
+
+  saveSokalState(254);
+  const ready = questProgress(m, offered, m.ds);
+  if (ready[0]?.status !== "ready-to-report" || !currentObjective(ready).nextStep.includes("council clerk") ||
+      questProgress(m, [], m.ds).length !== 0) {
+    throw new Error("The journal did not recognize the original keep-clear flag");
+  }
+  saveSokalState(255);
+  if (questProgress(m, offered, m.ds)[0]?.status !== "turned-in") {
+    throw new Error("The journal did not recognize the original reward flag");
+  }
+  console.log("verified Sokal journal progression against the translated ECL setter");
+}
+
+checkSokalQuestProgress();
 console.log("translation checks passed");

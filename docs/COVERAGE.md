@@ -133,5 +133,8 @@ selecting Begin Adventuring.
 
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
-for that character. The Sokal Keep courtyard replay verified that the menu
-returns and subsequent combat turns continue.
+for that character. If a hostile actor stalls, the runner restores its state
+and returns through the original turn cleanup. The Sokal Keep courtyard replay
+verified both paths, including control returning to a party member after an
+enemy stall. The automated check also runs the original translated ECL global
+setter to verify how the journal interprets the keep-clear and reward flags.

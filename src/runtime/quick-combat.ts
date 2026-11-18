@@ -5,11 +5,11 @@ import { farCallOverrides } from "./far.js";
 import type { LoadedSlice } from "./overlay.js";
 import { checkpointVideo } from "./video.js";
 
-/** Recover a stalled player Quick turn using the game's own manual turn. */
+/** Recover stalled Quick turns at the original combat dispatch boundary. */
 export function attachQuickRecovery(
   cpu: Cpu,
   slices: readonly LoadedSlice[],
-  onRecovery: () => void,
+  onRecovery: (partyMember: boolean) => void,
   instructionLimit = 5_000_000,
 ): void {
   const combat = slices.find((slice) => slice.index === 8);
@@ -45,12 +45,19 @@ export function attachQuickRecovery(
       cpu.cs = cs;
       cpu.stepBudget = budget;
     }
-    // Stack still holds the same far return and actor argument. This is
-    // the same byte the game's manual menu clears when disabling Quick.
+    // Read the actor from the original far-call stack. The original
+    // "disable Quick" loop at ovl08:04F3 uses this same type boundary.
     const actorOff = cpu.read16(ss, sp + 4);
     const actorSeg = cpu.read16(ss, sp + 6);
+    const partyMember = cpu.read8(actorSeg, actorOff + 0x84) < 0x80;
+    onRecovery(partyMember);
+    if (!partyMember) {
+      // Keep NPC control automatic. The caller continues through its
+      // normal end-of-turn cleanup with the pre-Quick state restored.
+      cpu.retf(4);
+      return true;
+    }
     cpu.write8(actorSeg, actorOff + 0x10f, 0);
-    onRecovery();
     if (returnIp === 0x477) {
       // The manual menu marked the turn finished before calling Quick.
       // Clear that local so its original loop asks for another action.

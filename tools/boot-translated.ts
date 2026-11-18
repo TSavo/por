@@ -90,7 +90,11 @@ if (liveAt !== undefined && (!Number.isSafeInteger(liveStep) || liveStep < 0)) {
 if (liveAt !== undefined) mkdirSync("out", { recursive: true });
 const cpu = fresh(liveAt === undefined ? undefined : liveInput(liveStep, journal));
 if (liveAt !== undefined) {
-  attachQuickRecovery(cpu, loadedSlices, () => console.log("Quick combat stalled. Returning control to the player."));
+  attachQuickRecovery(cpu, loadedSlices, (partyMember) => console.log(
+    partyMember
+      ? "Quick combat stalled. Returning control to the player."
+      : "An enemy's Quick combat stalled. Ending its turn.",
+  ));
 }
 const journalSlice = loadedSlices.find((slice) => slice.index === 7);
 adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || liveAt !== undefined || profilePath) && journalSlice
