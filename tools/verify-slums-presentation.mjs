@@ -319,6 +319,7 @@ try {
       await switchBothWays();
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, `${routeName}-battle.png`), Buffer.from(shot.data, "base64"));
+      let layeredAttack;
       const strikes = new Set();
       const terrainLayouts = new Set();
       for (let turn = 0; turn < 180 && strikes.size < attackIds.size; turn++) {
@@ -332,6 +333,7 @@ try {
           }
         }
         for (const view of frame.animation ?? []) {
+          if (view.battleTiles.length && view.combatArt.length) layeredAttack ??= view;
           for (const [, , id] of view.combatArt) {
             const prefix = `combat:${bank}:`;
             if (id.startsWith(prefix) && attackIds.has(id.slice(prefix.length))) strikes.add(id);
@@ -345,6 +347,29 @@ try {
       if (courtyard) {
         assert.ok(terrainLayouts.size >= 4, "Expected the battlefield to scroll");
         assert.ok(await run("window.partySpriteSeen"), "Expected the composed party sprite to render");
+        assert.ok(layeredAttack, "Expected a captured attack with terrain and actors");
+        await waitFor("the battle layers to use only the animation frame", () => run(`(() => {
+          const next = state;
+          try {
+            // The next input frame can already be back in exploration or dialogue.
+            state = { ...next, viewportArt: "/art/unused-during-attack",
+              portrait: "portrait:PIC2.DAX:0:0:0", tiles: [[24, 24, "tile:unused-during-attack"]] };
+            animationFrame = ${JSON.stringify(layeredAttack)};
+            showScreen();
+            const layer = document.querySelector("#tile-art");
+            const terrain = [...layer.querySelectorAll(".battle-tile")];
+            const actors = [...layer.querySelectorAll(".combat-sprite")];
+            return !layer.hidden && terrain.length === animationFrame.battleTiles.length &&
+              actors.length === animationFrame.combatArt.length &&
+              layer.children.length === terrain.length + actors.length &&
+              !document.querySelector("#game-text").hidden &&
+              terrain.at(-1).nextElementSibling === actors[0];
+          } finally {
+            state = next;
+            animationFrame = undefined;
+            showScreen();
+          }
+        })()`));
       }
       assert.equal(strikes.size, attackIds.size);
       assert.deepEqual(await run("[...combatSprites].sort()"), [...guards, ...attackIds].sort());

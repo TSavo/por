@@ -41,7 +41,7 @@ function togglePresentation() {
 
 function showScreen() {
   if (!state.frame) return;
-  const view = animationFrame ? { ...state, ...animationFrame } : state;
+  const view = animationFrame ?? state;
   const frame = enhanced ? view.enhancedFrame ?? view.frame : view.frame;
   screen.src = enhanced && !view.journal && view.art ? view.art : `data:image/png;base64,${frame}`;
   const replacement = enhanced && !view.journal && view.viewportArt;
@@ -78,7 +78,7 @@ function showScreen() {
       glyph.textContent = String.fromCharCode(character);
       glyph.style.left = `${(cell % 40) * 2.5}%`;
       glyph.style.top = `${Math.floor(cell / 40) * 4}%`;
-      glyph.style.color = `rgb(${view.textColors[color].join(",")})`;
+      glyph.style.color = `rgb(${state.textColors[color].join(",")})`;
       return glyph;
     }));
   }

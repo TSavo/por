@@ -223,6 +223,9 @@ terrain patterns continue to use the guest artwork.
 The courtyard Chrome replay verified the matched 32×32 terrain tiles
 alongside the six guard and strike poses and switched both displays
 without changing the guest frame or save bytes.
+The replay also renders a captured attack against a simulated next prompt
+with exploration artwork. The attack uses its own terrain, actors, and
+text until the browser advances to the next prompt.
 
 Twenty additional corner and coping fragments cover the wall as it rakes
 away from the party. The replay verifies the terrain layer in at least
