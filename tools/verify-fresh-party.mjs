@@ -8,10 +8,10 @@ const names = ["alda", "brin", "cora", "dorn", "enna", "fenn"];
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", "fresh-party-"));
 
-async function replay(bootKeys, startAt, actions) {
+async function replay(bootKeys, startAt, actions, checkpointDir = saveDir) {
   const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
     env: {
-      ...process.env, POR_PREGEN_PARTY: "0", POR_BROWSER_PLAY: "1", POR_SAVE_DIR: saveDir,
+      ...process.env, POR_PREGEN_PARTY: "0", POR_BROWSER_PLAY: "1", POR_SAVE_DIR: checkpointDir,
       POR_BOOT_KEY_FILE: "", POR_BOOT_KEYS: bootKeys, POR_LIVE_AT: startAt, POR_BOOT_STEPS: "450000000",
     },
     stdio: ["pipe", "pipe", "inherit"],
@@ -57,14 +57,14 @@ function expectParty(text) {
   for (const name of names) assert.match(text, new RegExp("\\b" + name + "\\b"));
 }
 
-const creation = names.flatMap((name, index) => [
+const createFighters = (roster) => roster.flatMap((name, index) => [
   ...(index ? ["c"] : []),
   "enter", "enter", "enter", "enter", "enter", "y", ...name, "enter", "k", "e", "y",
 ]);
 const added = ["a", "a", ...names.slice(1).flatMap(() => ["end", "a"])];
 const tour = ["b", "enter", "enter", "enter", "y", ...Array(8).fill("enter")];
 const camp = ["e", "s", "s", "a"];
-const saved = await replay("31000000:1c0d,45000000:2e63", "50000000", [...creation, ...added, ...tour, ...camp]);
+const saved = await replay("31000000:1c0d,45000000:2e63", "50000000", [...createFighters(names), ...added, ...tour, ...camp]);
 const savedText = visibleText(saved);
 expectParty(savedText);
 assert.match(savedText, /quit to dos/);
@@ -489,4 +489,33 @@ const evokerTurn = await replay(loadSlotH, "85000000", [
 ]);
 assert.match(visibleText(evokerTurn), /evoker hitpoints 6 ac 9/);
 console.log("Returned to Sokal Keep with the evoker and reached his first courtyard combat turn.");
+
+const spellSaveDir = mkdtempSync(join("out", "fresh-spell-party-"));
+const mageCreation = [
+  "c", ...Array(5).fill("end"), "enter", "enter", "end", "end",
+  "enter", "enter", "enter", "y", ..."mira", "enter", "k", "e", "y",
+];
+const mixedParty = await replay("31000000:1c0d,45000000:2e63", "50000000", [
+  ...createFighters(names.slice(0, -1)), ...mageCreation, ...added, ...tour, ...camp,
+], spellSaveDir);
+assert.match(visibleText(mixedParty), /alda.*brin.*cora.*dorn.*enna.*mira.*quit to dos/);
+const readySpell = await replay(loadSlotA, "85000000", [
+  "up", "enter", "enter", "enter", "e", "enter", ...Array(5).fill("end"), "m", "m",
+  (text) => assert.match(text, /mira's spells in spell book.*sleep/),
+  ...Array(4).fill("end"), "m", "e", "enter",
+  (text) => assert.match(text, /\*sleep.*memorize these spells/),
+  "y", "r", "r",
+  (text) => assert.match(text, /15,4 w 04:15/),
+  "e", "s", "s", "b",
+], spellSaveDir);
+assert.match(visibleText(readySpell), /quit to dos/);
+await replay(loadSlotB, "85000000", [
+  ...Array(24).fill("up"), "c", "enter", "d", "d", "c",
+  (text) => assert.match(text, /mira's spells in memory.*sleep/),
+  "enter", ...Array(5).fill("n"),
+  (text) => assert.match(text, /kobold hitpoints.*spell:sleep.*target/),
+  "t", ...Array(8).fill("q"), "n",
+  (text) => assert.match(text, /the party has won.*receives 5 experience points/),
+], spellSaveDir);
+console.log("Created a magic-user, memorized Sleep, reloaded, and cast it at a kobold before winning the encounter.");
 console.log("Replay save:", saveDir);
