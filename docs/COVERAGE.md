@@ -821,10 +821,16 @@ slot A at `4,0 S`, reached by ordinary overland travel. Chrome verified 5,929
 placements in 49 frames, including opening and crossing a house doorway.
 The `stojanow-briefing` browser route uses a controlled slot B at `5,8 N`
 to verify Urslingen's 352×352 mission portrait and a state-preserving switch.
+The `stojanow-riverwalk` replay starts from the native entrance save at
+`4,15 N`. Chrome checks 1,573 placements across 13 views, including 20
+new 32×32 tiles for the river rails, stonework, and covered doorway.
 The harbor master shares his original composite. `phlan-harbor-sokal` and
 `phlan-harbor-routes` verify New Phlan's area-scoped portrait with the initial
 Sokal passage and the later ferry menu. The Urslingen replay still verifies
 his portrait at Stojanow Gate with both images installed.
+The `phlan-priestess-joy` replay starts from controlled slot A at the
+Temple of Sune. It checks her 352×352 portrait through the healing menu
+and verifies that the journal learns about the service after her greeting.
 
 Valhingen Graveyard now has 108 individual 32×32 scenery tiles for its
 entrance routes. The slot A checkpoint at `0,4 E` was reached by traveling
@@ -1178,6 +1184,8 @@ Chrome checks both 192×192 combat poses, including the animated strike, and
 verifies that switching presentation preserves the game state and save.
 The `kobold-cave-troll` replay uses a controlled slot A near the throne room
 and checks the 96×192 ready pose and reflected strike during combat.
+The `kobold-cave-royal-guard` replay starts from the same throne-room
+checkpoint and checks the Kobold Leader's 96×96 ready and strike poses.
 The `slums-fortune` replay uses controlled slot B, checks the fortune teller's
 352×352 portrait, and reveals her journal clue only after the party pays for
 and hears the reading.

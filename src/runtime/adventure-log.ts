@@ -147,6 +147,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("sokal-ambush")) {
         nextStep = "Heal the party and ready weapons and spells before returning to the courtyard.";
         if (knows("phlan-temple-healing")) nextStep += " The Temple of Tyr in New Phlan offers paid healing.";
+        else if (knows("phlan-sune-healing")) nextStep += " Priestess Joy of Sune offers healing in New Phlan.";
         if (knows("sokal-arrival")) {
           nextStep += " At the landing, choose Encamp, then Magic and Memorize. Rest there to replenish spent spells before heading back to the courtyard.";
         }
@@ -722,6 +723,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       text.includes("A LARGE FORCE OF ORCS AND HOBGOBLINS RUSHES YOU")) {
     leads.push({ id: "sokal-ambush", title: "Sokal courtyard ambush",
       detail: "A large force of orcs and hobgoblins rushed the party through the courtyard door." });
+  }
+  if (text.includes("YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE") && text.includes("DO YOU SEEK HEALING?")) {
+    leads.push({ id: "phlan-sune-healing", title: "Healing at the Temple of Sune",
+      detail: "Priestess Joy of Sune offers healing in New Phlan." });
   }
   if (text.includes("THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE") && text.includes("DO YOU SEEK HEALING?")) {
     leads.push({ id: "phlan-temple-healing", title: "Healing at the Temple of Tyr",
