@@ -664,7 +664,8 @@ if (process.argv[2] === "--sokal-altar-checkpoint") {
   };
   await replay(loadSlot("2267"), "85000000", [
     (text) => assert.match(text, /8,10 s/),
-    "j", checkSokal("ready-to-report"), "j",
+    "j", checkSokal("ready-to-report"),
+    (_text, frame) => assert.match(frame.journal?.objective.nextStep, /SAMOSUD.*south gate.*boat to New Phlan/), "j",
     "left", "left", "up", "right", "up", "left", "up", "left", "up", "right", "up", "up", "up",
     "right", "up", "up", "right", ...Array(5).fill("up"),
     (text) => assert.match(text, /10,8 s.*pack of undead/),

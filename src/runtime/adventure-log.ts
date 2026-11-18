@@ -64,7 +64,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     const knows = (id: string) => leads.some((lead) => lead.id === id);
     if (tracked?.status === "ready-to-report" || tracked?.status === "reward-pending") {
       if (commission.id === "sokal" && tracked.status === "ready-to-report" && knows("sokal-departure")) {
-        return { title: commission.title, nextStep: "If the guards stop you on the way out, use Ferran's password. Take the boat back and report to the council clerk." };
+        return { title: commission.title, nextStep: "Use Ferran's password, SAMOSUD, if the undead stop you. Leave through the south gate, take the boat to New Phlan, and report to the council clerk." };
       }
       if (commission.id === "castle" && tracked.status === "ready-to-report") {
         return { title: commission.title, nextStep: "Return to City Hall and report Tyranthraxus's defeat to the council clerk." };
