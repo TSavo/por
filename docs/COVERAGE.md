@@ -507,7 +507,10 @@ raises Alda and Cora to 6 HP and the Curate to 15 HP before the party
 reaches Grishnak. The replay also approaches through the east entrance at
 `3,11` and verifies that the tracked journal names Grishnak after the
 party encounters her. Quick combat with alternate formations and the
-tested manual Sleep openings still ended in defeat. The checkpoint check
+tested manual Sleep openings still ended in defeat. The southern entrance
+replay also verifies Enna's manual Aim and Guard commands. Grishnak is
+three squares away, so Aim offers no Target command for Enna's sword.
+Guard then hands control to Brin. The checkpoint check
 fails if the watchdog intervenes. The recruitment
 checks still use the historical checkpoint and the supplied brass key.
 

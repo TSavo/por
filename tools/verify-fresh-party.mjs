@@ -220,6 +220,17 @@ async function verifyUninterruptedCourtyard(checkpoint) {
     ...templePreparation,
     "up", "enter", "enter",
     (text) => assert.match(text, /2,12 n.*i am the mighty grishnak/),
+    "enter", "enter", "space",
+    (text) => assert.match(text, /enna hitpoints 5.*long sword.*move view aim/),
+    "a", ...Array(11).fill("n"), "t",
+    (text) => {
+      assert.match(text, /grishnak hitpoints 24.*range = 3.*aim:next/);
+      assert.doesNotMatch(text, /manual target/);
+    },
+    "e", "d",
+    (text) => assert.match(text, /enna hitpoints.*guard delay quit/),
+    "g",
+    (text) => assert.match(text, /brin hitpoints 6.*long sword.*move view aim/),
   ]);
   await replay(loadSlot("1769"), "85000000", [
     ...templePreparation,
