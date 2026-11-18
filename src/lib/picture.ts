@@ -70,3 +70,19 @@ export function frameSlice(picture: Picture, index: number): Uint8Array {
   const start = index * n;
   return picture.pixels.subarray(start, start + n);
 }
+
+/** PIC and SPRIT containers prefix each picture record with a selector. */
+export function pictureMembers(block: Uint8Array): { data: Uint8Array; selector?: number }[] {
+  if (isPicture(block)) return [{ data: block }];
+  const members: { data: Uint8Array; selector: number }[] = [];
+  let offset = 1;
+  for (let i = 0; i < (block[0] ?? 0); i++) {
+    const data = block.subarray(offset + 4);
+    if (!isPicture(data)) return [];
+    const header = new DataView(block.buffer, block.byteOffset + offset);
+    const size = 17 + header.getUint16(4, true) * header.getUint16(6, true) * 4 * data[8]!;
+    members.push({ data: data.subarray(0, size), selector: header.getUint32(0, true) });
+    offset += 4 + size;
+  }
+  return offset === block.length ? members : [];
+}

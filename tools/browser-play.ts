@@ -7,6 +7,7 @@ import { lookupOverride, type OverrideManifest } from "../src/lib/assets.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
 import { getKey } from "./live-input.js";
 import type { CombatArtPlacement } from "./combat-art.js";
+import { portraitKey } from "./portrait-art.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
@@ -32,16 +33,15 @@ const artwork = (() => {
     if (manifest.version !== 1 || !manifest.assets) return images;
     for (const id of Object.keys(manifest.assets)) {
       if (id !== "scene:title" && !/^viewport:[a-f0-9]{64}$/.test(id) && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
-          !/^combat:CPIC[1-8]\.DAX:\d{1,3}$/.test(id)) continue;
+          !/^combat:CPIC[1-8]\.DAX:\d{1,3}$/.test(id) && !portraitKey.test(id)) continue;
       const file = lookupOverride(manifest, id);
       if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) continue;
       try {
         const png = readFileSync(join(upgrades, file));
         if (!png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) continue;
-        if (id.startsWith("tile:") && (png.length < 24 || png.toString("ascii", 12, 16) !== "IHDR" ||
-            png.readUInt32BE(16) !== 32 || png.readUInt32BE(20) !== 32)) continue;
-        if (id.startsWith("combat:") && (png.length < 24 || png.toString("ascii", 12, 16) !== "IHDR" ||
-            png.readUInt32BE(16) !== 96 || png.readUInt32BE(20) !== 96)) continue;
+        const size = id.startsWith("tile:") ? 32 : id.startsWith("combat:") ? 96 : portraitKey.test(id) ? 352 : 0;
+        if (size && (png.length < 24 || png.toString("ascii", 12, 16) !== "IHDR" ||
+            png.readUInt32BE(16) !== size || png.readUInt32BE(20) !== size)) continue;
         images.set(id, png);
       } catch (error) {
         if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork", error);
@@ -58,6 +58,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
     POR_BROWSER_PLAY: "1",
     POR_TILE_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("tile:")).join(","),
     POR_COMBAT_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("combat:")).join(","),
+    POR_PORTRAIT_ART_KEYS: [...artwork.keys()].filter((key) => portraitKey.test(key)).join(","),
     POR_LIVE_AT: process.env.POR_LIVE_AT ?? "24000000",
     POR_BOOT_STEPS: process.env.POR_BOOT_STEPS ?? "100000000",
   },

@@ -7,6 +7,7 @@ import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { loadCombatArtMatcher } from "./combat-art.js";
+import { loadPortraitArt } from "./portrait-art.js";
 
 const controls: Record<string, number> = {
   enter: 0x1c0d, escape: 0x011b, up: 0x4800, down: 0x5000, left: 0x4b00, right: 0x4d00,
@@ -51,17 +52,19 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
+  const portraitArt = loadPortraitArt((process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean));
   const traceTiles = process.env.POR_TRACE_TILES === "1";
   const showFrame = (leads?: JournalLead[]) => {
     if (browser) {
       const viewport = createHash("sha256");
       for (let y = 8; y < 128; y++) viewport.update(screen.pixels.subarray(y * screen.width + 8, y * screen.width + 120));
       const text = visibleGameText();
+      const portrait = !scene && !leads ? portraitArt(screen) : undefined;
       const tiles: [number, number, string][] = [];
       const tileInventory: [number, number, string][] | undefined = traceTiles ? [] : undefined;
       const explorationMenu = text.filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
         .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase();
-      if ((tileKeys.size || traceTiles) && area !== undefined && !scene && !leads && explorationMenu.startsWith("AREACASTVIEWENCAMP")) {
+      if ((tileKeys.size || traceTiles) && area !== undefined && !scene && !leads && !portrait && explorationMenu.startsWith("AREACASTVIEWENCAMP")) {
         const pixels = Buffer.alloc(64);
         // The first-person view has an 11-by-11 interior with an eight-pixel border.
         for (let y = 24; y < 112; y += 8) {
@@ -90,6 +93,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         scene,
         viewport: `viewport:${viewport.digest("hex")}`,
         text,
+        portrait,
         tiles,
         combatArt: !scene && !leads && !explorationMenu.startsWith("AREACASTVIEWENCAMP") ? combatArt(screen) : [],
         tileInventory,

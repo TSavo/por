@@ -63,6 +63,11 @@ The art sits on the native 24×24 anchor, with the feet just above the bottom
 row. The sprite uses a rust and slate palette and a compact silhouette so
 the head, knife, and stance read in the combat grid.
 
+Encounter portraits use `portrait:archive:block:member:frame` keys. The
+browser currently supports 352×352 replacements for 88×88 guest portraits
+at (24,24), inside the original frame. The Slums portrait is
+`portrait:PIC2.DAX:0:0:0`.
+
 Enhanced gameplay uses Geist Mono for text captured from the game's EGA
 character renderer. Use a local `font.woff2` in your upgrades directory to
 choose a different font. Letters remain in the game's original cells and

@@ -50,6 +50,7 @@ records by their payload offsets in the archives.
 | Record | Role | 4× dimensions |
 | --- | --- | --- |
 | `SPRIT2.DAX` block 0 | Three kobold encounter distances | 160×320, 96×260, 96×228 |
+| `PIC2.DAX` block 0, member 0, frame 0 | Kobold encounter portrait at (24,24) | 352×352 |
 | `CPIC2.DAX` blocks 0 and 128 | Two combat sprites | 96×96 each |
 | `MON2CHA.DAX` block 0 | Kobold character record | |
 
@@ -64,3 +65,8 @@ matching to allow the sprite to overlap background tiles.
 Block 128 was loaded, but its foreground did not match any of those six
 captures. The encounter distance anchors and the trigger for that combat
 frame still need tracing before the browser can select replacements for them.
+
+The portrait matched every pixel in the 88×88 image area across 17 successive
+encounter captures. The enhanced browser replay showed the replacement in
+those 17 frames and removed it on entry to combat. Switching to classic and
+back during dialogue preserved the same guest frame.

@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { parseDax } from "../src/lib/dax.js";
 import { Frame } from "../src/lib/ega.js";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
-import { decodePicture, frameSlice, isPicture } from "../src/lib/picture.js";
+import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 
@@ -61,23 +61,7 @@ const archives = listGameFiles(gameData).filter((name) => /\.dax$/i.test(name)).
     if (category === "Game data" || category === "Wall composition" || category === "Map geometry") {
       return { ...block, format: category === "Game data" ? "game data" : "composition data" };
     }
-    const members: { data: Uint8Array; selector?: number }[] = [];
-    if (isPicture(entry.data)) {
-      members.push({ data: entry.data });
-    } else {
-      // PIC and SPRIT records contain a byte count and a four-byte selector
-      // before each complete picture record.
-      let offset = 1;
-      for (let member = 0; member < entry.data[0]!; member++) {
-        const pictureData = entry.data.subarray(offset + 4);
-        if (!isPicture(pictureData)) break;
-        const header = new DataView(entry.data.buffer, entry.data.byteOffset + offset);
-        const size = 17 + header.getUint16(4, true) * header.getUint16(6, true) * 4 * pictureData[8]!;
-        members.push({ data: pictureData.subarray(0, size), selector: header.getUint32(0, true) });
-        offset += 4 + size;
-      }
-      if (offset !== entry.data.length || members.length !== entry.data[0]) members.length = 0;
-    }
+    const members = pictureMembers(entry.data);
     if (!members.length) return { ...block, format: "unresolved" };
     const pictures = members.map(({ data, selector }, member) => {
       const picture = decodePicture(data);
