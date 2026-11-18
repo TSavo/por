@@ -15,6 +15,8 @@ export function attachQuickRecovery(
   const combat = slices.find((slice) => slice.index === 8);
   const quick = slices.find((slice) => slice.index === 9);
   if (!combat || !quick) return;
+  const drawingSegments = new Set(slices.filter(({ index }) => index === 36 || index === 37)
+    .map(({ loadPara }) => loadPara));
 
   farCallOverrides.set(cpu, (seg, off) => {
     // The player can enter Quick either at the start of a turn (02AE) or
@@ -34,11 +36,16 @@ export function attachQuickRecovery(
     if (instructionLimit === undefined) {
       const ceiling = Math.min(budget || Infinity, limit + 15_000_000);
       cpu.onStepBudgetExceeded = () => {
-        // The resident calibrated delay reloads CX from BX for each of DX
-        // iterations. Let this known, finite loop finish within a hard cap.
-        if (cpu.stepBudget !== limit || cpu.cs !== 0x512 || cpu.ip < 0x53d3 || cpu.ip > 0x53e5) return;
-        const remaining = Math.max(1, cpu.dx) * (3 * (cpu.bx || 0x10000) + 5);
-        limit = Math.min(ceiling, limit + remaining);
+        if (cpu.stepBudget !== limit) return;
+        if (drawingSegments.has(cpu.cs)) {
+          // A battlefield redraw can exhaust the usual turn budget.
+          // Extend in bounded increments so even a stuck redraw expires.
+          limit = Math.min(ceiling, limit + 1_000_000);
+        } else if (cpu.cs === 0x512 && cpu.ip >= 0x53d3 && cpu.ip <= 0x53e5) {
+          // The calibrated delay reloads CX from BX for each of DX iterations.
+          const remaining = Math.max(1, cpu.dx) * (3 * (cpu.bx || 0x10000) + 5);
+          limit = Math.min(ceiling, limit + remaining);
+        } else return;
         cpu.stepBudget = limit;
       };
     }
