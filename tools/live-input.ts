@@ -114,6 +114,16 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const offset = Math.floor(cell / 40) * 8 * screen.width + x;
         for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * screen.width, offset + y * screen.width + 8);
       }
+      const combat = attack ?? (!scene && !leads && !explorationMenu.startsWith("AREACASTVIEWENCAMP")
+        ? combatArt(screen) : []);
+      // Each match covers an exact 24×24 guest sprite, including its black
+      // background. Clear the old pose under transparent replacement pixels.
+      for (const [x, y] of combat) {
+        for (let row = 0; row < 24; row++) {
+          const start = (y + row) * enhanced.width + x;
+          enhanced.pixels.fill(0, start, start + 24);
+        }
+      }
       const state = {
         frame: Buffer.from(encodePng(screen)).toString("base64"),
         enhancedFrame: Buffer.from(encodePng(enhanced, enhancedPalette)).toString("base64"),
@@ -123,7 +133,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         portrait,
         encounter,
         tiles,
-        combatArt: !scene && !leads && !explorationMenu.startsWith("AREACASTVIEWENCAMP") ? combatArt(screen) : [],
+        combatArt: combat,
         tileInventory,
         textColors: enhancedPalette,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,

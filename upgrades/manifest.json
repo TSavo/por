@@ -59,7 +59,11 @@
     "tile:21:8737539068992377d622a86a6ab259387e19fc5a846d63a4b75effc2a06fae8c": "sokal-far-postern-jamb.png",
     "encounter:SPRIT4.DAX:34:0:0": "sokal-undead-patrol-near.png",
     "encounter:SPRIT4.DAX:34:1:0": "sokal-undead-patrol-middle.png",
-    "encounter:SPRIT4.DAX:34:2:0": "sokal-undead-patrol-far.png"
+    "encounter:SPRIT4.DAX:34:2:0": "sokal-undead-patrol-far.png",
+    "combat:CPIC4.DAX:34": "sokal-skeleton-guard.png",
+    "combat:CPIC4.DAX:162": "sokal-skeleton-strike.png",
+    "combat:CPIC4.DAX:35": "sokal-zombie-guard.png",
+    "combat:CPIC4.DAX:163": "sokal-zombie-strike.png"
   },
   "encounters": {
     "encounter:SPRIT4.DAX:34:0:0": {

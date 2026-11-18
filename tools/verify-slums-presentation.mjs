@@ -5,11 +5,12 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds"] = process.argv.slice(2);
-assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs|sokal-armory|sokal-landing]");
-assert.ok(["kobolds", "orcs", "sokal-armory", "sokal-landing"].includes(routeName), "Unknown Slums replay route");
+assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs|sokal-armory|sokal-landing|sokal-patrol-combat]");
+assert.ok(["kobolds", "orcs", "sokal-armory", "sokal-landing", "sokal-patrol-combat"].includes(routeName), "Unknown Slums replay route");
 const orcs = routeName === "orcs";
 const armory = routeName === "sokal-armory";
-const landing = routeName === "sokal-landing";
+const patrolCombat = routeName === "sokal-patrol-combat";
+const landing = routeName === "sokal-landing" || patrolCombat;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
 const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : orcs ? "C.json" : "A.json");
@@ -123,7 +124,7 @@ try {
     const route = landing ? [
       null, "up", "left", "up", "up", "enter", "enter", "end", "enter", "enter", "enter", "enter",
       "right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up",
-      "left", "enter", "p", "n", ..."shestni", "enter",
+      "left", "enter", ...(patrolCombat ? [] : ["p", "n", ..."shestni", "enter"]),
     ] :
       ["up", "up", "up", "right", "up", "left", "up", "left", "up", "up", "up", "right", "up"];
     const seen = new Set();
@@ -163,14 +164,62 @@ try {
       }
     }
     const text = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
-    assert.match(text, landing ? /THEUNDEADLEAVE/i : /ONSTANDSAREASHIELD/i);
+    assert.match(text, patrolCombat ? /APACKOFUNDEADSUDDENLYAPPEARS/i :
+      landing ? /THEUNDEADLEAVE/i : /ONSTANDSAREASHIELD/i);
     if (landing) {
       assert.ok(patrol);
-      assert.equal(frame.encounter, undefined);
+      if (!patrolCombat) assert.equal(frame.encounter, undefined);
     }
-    assert.equal(views, landing ? 19 : 12);
+    assert.equal(views, patrolCombat ? 18 : landing ? 19 : 12);
     assert.equal(seen.size, landing ? 49 : 13);
     console.log(`Verified ${seen.size} ${routeName} patterns across ${views} views. Captures: ${directory}`);
+    if (patrolCombat) {
+      await run(`(() => {
+        window.undeadArt = new Set();
+        new MutationObserver(() => {
+          for (const image of document.querySelectorAll('.combat-sprite[src^="/art/combat:CPIC4.DAX:"]')) {
+            const record = () => {
+              if (image.naturalWidth === 96 && image.naturalHeight === 96) {
+                window.undeadArt.add(image.getAttribute("src").split(":").at(-1));
+              }
+            };
+            if (image.complete) record();
+            else image.addEventListener("load", record, { once: true });
+          }
+        }).observe(document.querySelector("#tile-art"), { childList: true });
+      })()`);
+      for (const key of ["c", "enter", "enter", "enter"]) await advance(key);
+      await waitFor("both undead guard sprites", () => run('undeadArt.has("34") && undeadArt.has("35")'));
+      const [x, y] = frame.combatArt.find(([, , id]) => id === "combat:CPIC4.DAX:34");
+      await waitFor("transparent artwork over a cleared guest cell", () => run(`(() => {
+        const image = document.querySelector("#screen");
+        if (!image.complete || image.naturalWidth !== 320) return false;
+        const context = document.createElement("canvas").getContext("2d");
+        context.canvas.width = context.canvas.height = 24;
+        context.drawImage(image, ${x}, ${y}, 24, 24, 0, 0, 24, 24);
+        return [...context.getImageData(0, 0, 24, 24).data].every(
+          (value, index) => value === [15, 14, 18, 255][index % 4]);
+      })()`));
+      await switchBothWays();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "sokal-patrol-combat.png"), Buffer.from(shot.data, "base64"));
+      const strikes = new Set();
+      for (let turn = 0; turn < 130 && strikes.size < 2; turn++) {
+        await advance("q");
+        for (const view of frame.animation ?? []) {
+          for (const [, , id] of view.combatArt) {
+            if (id === "combat:CPIC4.DAX:162" || id === "combat:CPIC4.DAX:163") strikes.add(id);
+          }
+        }
+        if (frame.animation?.length) {
+          await waitFor("the captured attack sequence", () => run(
+            `state.sequence === ${frame.sequence} && !animationFrame`));
+        }
+      }
+      assert.equal(strikes.size, 2);
+      assert.deepEqual(await run("[...undeadArt].sort()"), ["162", "163", "34", "35"]);
+      console.log("Verified 4× skeleton and zombie guard and strike PNGs during original patrol combat.");
+    }
   } else if (orcs) {
     const route = ["up", "left", "up", "up", "up", "right", "up", "right",
       ...Array(5).fill("up"), "right", "up", "left", "up", "left", "up"];

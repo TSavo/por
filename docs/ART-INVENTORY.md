@@ -164,3 +164,14 @@ Controlled Chrome replays passed each distance to the guest draw routine
 and verified the original anchor, the 121 restored terrain tiles, and
 the display switches. Both runs passed the patrol using the parchment
 word. The regular route selects the near pose.
+
+The patrol fight uses `CPIC4.DAX` blocks 34 and 162 for the skeleton,
+and 35 and 163 for the zombie. Each guard and strike pose has a separate
+96×96 PNG. In enhanced combat, the renderer clears each exact sprite
+match before layering its replacement so the original outline stays
+hidden through the transparent edges.
+
+Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_J PATH_TO_CHROME sokal-patrol-combat`
+to choose Combat at the first patrol. Chrome verified both guard poses
+and both strike poses during ordinary combat, checked the cleared guest
+sprite cell, and verified that switching preserved the guest frame and save.
