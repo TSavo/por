@@ -295,6 +295,22 @@ try {
     if (routeName === "buccaneer-pens") {
       assert.equal(frame.perspective, true, "The animal-pen menu should keep the first-person picture");
       await waitFor("outer picture panel at the animal pens", () => run('Boolean(document.querySelector(".perspective-backdrop"))'));
+      await waitFor("the Enhanced menu font", () => run(`[...document.fonts]
+        .some(font => font.family.includes("Game Web Font") && font.status === "loaded")`));
+      assert.ok(await run(`(() => {
+        const glyphs = [...document.querySelectorAll("#game-text span")];
+        const menu = glyphs.filter(glyph => parseFloat(glyph.style.top) >= 96)
+          .sort((left, right) => parseFloat(left.style.left) - parseFloat(right.style.left));
+        const twoColors = new Set(menu.map(glyph => getComputedStyle(glyph).color)).size >= 2;
+        const context = document.createElement("canvas").getContext("2d");
+        return menu.map(glyph => glyph.textContent).join("").includes("ReleaseanimalsLeave") &&
+          twoColors && glyphs.every(glyph => {
+            const style = getComputedStyle(glyph);
+            context.font = style.fontWeight + " " + style.fontSize + " " + style.fontFamily;
+            return style.textTransform === "none" &&
+              context.measureText(glyph.textContent).width <= glyph.getBoundingClientRect().width;
+          });
+      })()`), "The larger web font should fit the original cells and keep menu shortcuts highlighted");
       const capture = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "buccaneer-animal-pens.png"), Buffer.from(capture.data, "base64"));
       const hasLead = (id) => frame.journal?.leads.some((lead) => lead.id === id);
