@@ -892,6 +892,12 @@ watchdog now budgets calibrated delays separately from battlefield
 redraws. The same replay finishes with zero interventions. Winning the
 battle and acquiring the brass key through this route remain open.
 
+The translated ECL setter check also passes the sealed and opened box
+states through the same journal profile used by the browser. The
+objective updates when the box state changes during an accepted
+commission. Restoring the earlier snapshot restores the sealed-box
+directions.
+
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the
 harbor master offers new destinations as soon as the keep is cleared, and

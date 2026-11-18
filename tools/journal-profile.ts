@@ -33,8 +33,9 @@ export function openJournalProfile(path?: string) {
       const prior = leads.get(lead.id);
       const advancingCount = lead.clearedEncounters !== undefined &&
         lead.clearedEncounters > (prior?.clearedEncounters ?? 0);
+      const changedBox = lead.textileBox !== undefined && lead.textileBox !== prior?.textileBox;
       if (prior && (!lead.status || (prior.status && (statusRank[prior.status] > statusRank[lead.status] ||
-        (statusRank[prior.status] === statusRank[lead.status] && !advancingCount))))) continue;
+        (statusRank[prior.status] === statusRank[lead.status] && !advancingCount && !changedBox))))) continue;
       leads.set(lead.id, lead);
       changed = true;
     }

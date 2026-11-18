@@ -13,7 +13,7 @@ import { isPartyFile } from "./save-slots.js";
 import { openJournalProfile } from "./journal-profile.js";
 import { exe_056c0, exe_05e44, exe_06a35 } from "../src/translated/exe.js";
 import type { LoadedSlice } from "../src/runtime/overlay.js";
-import { currentObjective, discoveredLeads, progressAddresses, questProgress } from "../src/runtime/adventure-log.js";
+import { currentObjective, discoveredLeads, progressAddresses, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
 import { commissions } from "../src/runtime/commission-journal.js";
 import { parseDax } from "../src/lib/dax.js";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
@@ -371,14 +371,23 @@ function checkCampaignJournal(): void {
     throw new Error("Textile House journal clues did not follow the dialogue the party witnessed");
   }
   writeGlobal(textile, 0);
+  const treasureProfile = openJournalProfile();
+  treasureProfile(ironBox, (known) => questProgress(m, known, m.ds));
+  let sealedSnapshot: JournalLead[] = [];
   for (const [box, hint] of [[1, "sealed box"], [128, "seal is broken"]] as const) {
     writeGlobal(0x4ac8, box);
-    const progress = questProgress(m, boxLead, m.ds);
-    const merged = [...boxLead.filter((lead) => !progress.some(({ id }) => id === lead.id)), ...progress];
-    if (!currentObjective(merged).nextStep.includes(hint) ||
+    const live = treasureProfile("", (known) => questProgress(m, known, m.ds));
+    if (box === 1) sealedSnapshot = live;
+    if (!currentObjective(live, "commission-textile").nextStep.includes(hint) ||
         questProgress(m, [], m.ds).length) {
       throw new Error(`Cadorna's journal did not follow treasure state ${box}`);
     }
+  }
+  treasureProfile.restore(sealedSnapshot);
+  writeGlobal(0x4ac8, 1);
+  if (!currentObjective(treasureProfile("", (known) => questProgress(m, known, m.ds)),
+    "commission-textile").nextStep.includes("sealed box")) {
+    throw new Error("Restoring the earlier journal did not restore the sealed treasure objective");
   }
   writeGlobal(textile, 254);
   if (questProgress(m, boxLead, m.ds)[0]?.status !== "ready-to-report") {
