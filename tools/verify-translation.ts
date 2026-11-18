@@ -309,6 +309,13 @@ function checkCampaignJournal(): void {
   const textile = progressAddresses.textile!;
   const ironBox = lines.find((line) => line.includes("ACROSS THE LOCK IS THE SEAL OF THE FAMILY OF CADORNA"))!;
   const boxLead = discoveredLeads(ironBox);
+  const textileOffer = discoveredLeads(commissions.find(({ id }) => id === "textile")!.offer);
+  const skullcrusher = lines.find((line) => line.includes("MY NAME IS SKULLCRUSHER. THERE'S A SECRET DOOR"));
+  if (!skullcrusher || currentObjective(textileOffer).nextStep.includes("secret door") ||
+      !currentObjective([...textileOffer, ...discoveredLeads(skullcrusher)]).nextStep.includes("search southeast") ||
+      !currentObjective(boxLead).nextStep.includes("Take It Unopened")) {
+    throw new Error("Textile House journal clues did not follow the dialogue the party witnessed");
+  }
   writeGlobal(textile, 0);
   for (const [box, hint] of [[1, "sealed box"], [128, "seal is broken"]] as const) {
     writeGlobal(0x4ac8, box);

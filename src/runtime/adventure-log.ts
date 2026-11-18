@@ -65,7 +65,11 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
     if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
-    if (commission.id === "textile" && tracked?.status === "accepted") nextStep = tracked.detail;
+    if (commission.id === "textile") {
+      if (tracked?.status === "accepted") nextStep = tracked.detail;
+      else if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
+      else if (knows("textile-secret-door")) nextStep = "Follow Skullcrusher's clue and search southeast for the secret door to the hobgoblin leader.";
+    }
     if (commission.id === "ohlo" && tracked?.status === "accepted" && knows("ohlo-rope-guild")) {
       nextStep = knows("ohlo-booth")
         ? "At the booth, choose Speak and enter OHLO. Bring the package back to him."
@@ -287,6 +291,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("THE CITY WATCH STOPS YOU AND REMOVES CADORNA'S TREASURE")) {
     leads.push({ id: "textile-handoff", title: "The Watch took Cadorna's treasure", detail: "The Watch sent the party to the city clerk to collect its reward." });
+  }
+  if (text.includes("MY NAME IS SKULLCRUSHER. THERE'S A SECRET DOOR TO THE SOUTHEAST")) {
+    leads.push({ id: "textile-secret-door", title: "Skullcrusher's secret door",
+      detail: "Skullcrusher says he met the hobgoblin leader beyond a secret door to the southeast." });
+  }
+  if (text.includes("OPENING THE BOX WILL DAMAGE THE SEAL BEYOND REPAIR")) {
+    leads.push({ id: "textile-iron-box", title: "Cadorna's sealed iron box",
+      detail: "The family seal across the lock will break if the party opens the box." });
   }
   if (text.includes("COUNCILMAN CADORNA CONFRONTS YOU. 'YOU HAVE TAKEN MY FAMILY TREASURE")) {
     leads.push({ id: "textile-confrontation", title: "Cadorna confronted the party", detail: "Cadorna accused the party of taking his family treasure and left without paying." });
