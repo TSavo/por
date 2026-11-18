@@ -210,8 +210,9 @@ platinum balance, and his readied longsword.
 From G, the party boards the boat back to Sokal Keep, gives the parchment
 password to the undead patrol, and triggers the courtyard
 ambush. The replay checks that Brin enters combat with his healed HP and
-readied longsword, then processes 260 live combat inputs. The battle is
-still in progress at the end of this replay.
+readied longsword. The original combat runs to the party-destroyed screen
+after 302 inputs. Reloading G restores the party at the temple and Sokal
+Keep remains outstanding in the journal.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,

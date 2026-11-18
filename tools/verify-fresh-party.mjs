@@ -424,7 +424,7 @@ await replay(loadSlotG, "85000000", [
   (text) => assert.match(text, /brin.*platinum 7.*hp 6.*weapon long sword/),
 ]);
 console.log("Returned to New Phlan and verified Brin's paid temple healing after reloading slot G.");
-const courtyard = await replay(loadSlotG, "85000000", [
+const courtyardDefeat = await replay(loadSlotG, "85000000", [
   "right", "right", "up", "up", "enter", "enter", "right", ...Array(4).fill("up"),
   ...Array(5).fill("enter"),
   (text) => assert.match(text, /8,14 n/),
@@ -436,8 +436,15 @@ const courtyard = await replay(loadSlotG, "85000000", [
   (text) => assert.match(text, /large force of orcs and hobgoblins rushes you/),
   "enter", "enter", "enter", "q",
   (text) => assert.match(text, /brin hitpoints 6 ac 1 long sword/),
-  ...Array(259).fill("q"),
+  ...Array(301).fill("q"),
 ]);
-assert.match(visibleText(courtyard), /hitpoints/);
-console.log("Sailed back to Sokal Keep and sustained live input through 260 courtyard combat prompts.");
+assert.match(visibleText(courtyardDefeat), /the monsters rejoice for the party has been destroyed/);
+await replay(loadSlotG, "85000000", [
+  (text) => assert.match(text, /brin 1 6.*11,3 s/),
+  "j", (_text, frame) => {
+    checkSokal("", frame);
+    assert.ok(frame.journal.leads.some((lead) => lead.id === "commission-sokal" && lead.status === "offered"));
+  },
+]);
+console.log("Replayed the Sokal courtyard defeat and reloaded the party and outstanding commission from slot G.");
 console.log("Replay save:", saveDir);
