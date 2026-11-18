@@ -1013,6 +1013,12 @@ council reward dispatch and progress flag. These checks use original ECL
 fixtures and the translated setter.
 
 
+The `valjevo-tower-halls` replay starts from the controlled Valjevo Castle
+slot B. Chrome checks the transition from the outer castle to the tower and
+verifies 1,573 tile placements across 13 views before the dragon entrance.
+The route uses 114 keys, including 65 new bindings to 59 new 32×32 paintings.
+The save is preserved when switching presentation.
+
 Two Valjevo Castle threshold routes from the controlled slot B checkpoint
 displayed the new 32×32 assets across five views and 605 placements, then
 entered Tyranthraxus's dialogue. A separate controlled City Hall checkpoint

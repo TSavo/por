@@ -32,6 +32,11 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valjevo-tower-halls", {
+    slot: "B", area: 20, views: 13, patterns: 114,
+    transition: { afterViews: 4, area: 7 },
+    walk: ["right", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "left"],
+  }],
   ["graveyard-crypt-path", {
     slot: "A", area: 10, views: 26, patterns: 146, sceneryOnly: true,
     walk: ["up", "left", "up", "right", "up", "up", "up", "up", "right", "right", "up", "up", "up",
@@ -337,12 +342,14 @@ try {
     const actor = area === 10 && !environment.sceneryOnly ? "encounter:area:10:SPRIT4.DAX:34:0:0"
       : area === 9 ? "encounter:area:9:SPRIT2.DAX:63:0:0" : undefined;
     const patterns = new Set();
+    const transition = environment.transition;
     let views = await verifyTiledView(area, patterns);
     for (const key of environment.walk) {
       const previousTiles = frame.tiles;
       await advance(key);
       if (actor && frame.encounter) assert.deepEqual(frame.tiles, previousTiles);
-      views += await verifyTiledView(area, patterns);
+      const viewArea = transition && views >= transition.afterViews ? transition.area : area;
+      views += await verifyTiledView(viewArea, patterns);
     }
     if (routeName === "buccaneer-pens") {
       assert.equal(frame.perspective, true, "The animal-pen menu should keep the first-person picture");
