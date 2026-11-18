@@ -172,6 +172,21 @@ const courtyardOpening = [
   "enter", "e", "e", "up", "left", "enter", "enter",
 ];
 
+const templePreparation = [
+  "e", "m", "m", "m", "end", "m", "end", "end", "m", "m", "m", "m", "e", "enter",
+  (text) => assert.match(text, /memorized.*\*bless(?: \*cure light wounds){4}/),
+  "y", ...Array(6).fill("end"), "m", ...Array(4).fill("end"), "m", "e", "enter",
+  (text) => assert.match(text, /mira's spells to be memorized.*\*sleep/),
+  "y", "r", "r", "n", "n", "end", "end", "c",
+  "end", "enter", // Bless
+  "end", "enter", "end", "enter", // Alda
+  "end", "enter", "end", "end", "enter", // Cora
+  "end", "enter", "end", "enter", // Dorn
+  "end", "enter", ...Array(4).fill("home"), "enter", // Curate
+  "e", "e", "e",
+  (text) => assert.match(text, /curate 3 15.*alda 3 6.*brin 1 6.*cora 3 6.*dorn 3 5.*2,13 n/),
+];
+
 async function verifyUninterruptedCourtyard() {
   const recoveries = [...recoveryCounts.values()].reduce((sum, count) => sum + count, 0);
   const victory = await replay(loadSlot("2166"), "85000000", [
@@ -280,20 +295,6 @@ async function verifyUninterruptedCourtyard() {
     (text) => assert.match(text, new RegExp(`${name}'s items.*yes long sword`)),
     "e", "e",
   ]));
-  const templePreparation = [
-    "e", "m", "m", "m", "end", "m", "end", "end", "m", "m", "m", "m", "e", "enter",
-    (text) => assert.match(text, /memorized.*\*bless(?: \*cure light wounds){4}/),
-    "y", ...Array(6).fill("end"), "m", ...Array(4).fill("end"), "m", "e", "enter",
-    (text) => assert.match(text, /mira's spells to be memorized.*\*sleep/),
-    "y", "r", "r", "n", "n", "end", "end", "c",
-    "end", "enter", // Bless
-    "end", "enter", "end", "enter", // Alda
-    "end", "enter", "end", "end", "enter", // Cora
-    "end", "enter", "end", "enter", // Dorn
-    "end", "enter", ...Array(4).fill("home"), "enter", // Curate
-    "e", "e", "e",
-    (text) => assert.match(text, /curate 3 15.*alda 3 6.*brin 1 6.*cora 3 6.*dorn 3 5.*2,13 n/),
-  ];
   await replay(loadSlot("1769"), "85000000", [
     ...templePreparation,
     "up", "enter", "enter",
@@ -1599,12 +1600,16 @@ if (process.argv[2] === "--textile-prison-key-checkpoint") {
 
 if (process.argv[2] === "--textile-grishnak-checkpoint") {
   assert.ok(process.argv[3], "Pass slot I from outside Grishnak's temple at (2,13), facing north.");
+  const healedSleep = process.argv[4] === "--healed-sleep";
+  assert.ok(!process.argv[4] || healedSleep, "Expected --healed-sleep after the checkpoint");
   copyFileSync(process.argv[3], join(saveDir, "I.json"));
   await replay("31000000:1c0d,45000000:266c,52000000:1769", "85000000", [
-    "e", "m", "m", ...Array(6).fill("end"), "m", ...Array(4).fill("end"), "m", "e", "enter",
-    (text) => assert.match(text, /mira's spells to be memorized.*\*sleep/),
-    "y", "r", "r", "n", "e", "e",
-    (text) => assert.match(text, /2,13 n.*area cast view encamp/),
+    ...(healedSleep ? templePreparation : [
+      "e", "m", "m", ...Array(6).fill("end"), "m", ...Array(4).fill("end"), "m", "e", "enter",
+      (text) => assert.match(text, /mira's spells to be memorized.*\*sleep/),
+      "y", "r", "r", "n", "e", "e",
+      (text) => assert.match(text, /2,13 n.*area cast view encamp/),
+    ]),
     "j", "track 3", (_text, frame) => {
       assert.equal(frame.journal?.trackedId, "commission-textile");
       assert.match(frame.journal.objective.nextStep, /north through the guards' room.*choose unlock/i);
@@ -1617,11 +1622,19 @@ if (process.argv[2] === "--textile-grishnak-checkpoint") {
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
     }, "j",
     "enter", "enter",
-    ["q", /grishnak hitpoints 24 ac 5/, 60],
+    ...(healedSleep ? [
+      ...Array(6).fill("q"), "space", "space",
+      (text) => assert.match(text, /mira hitpoints 5.*move view aim cast/),
+      "c", "enter", ...Array(5).fill("n"),
+      (text) => assert.match(text, /grishnak hitpoints 24 ac 5 spell:sleep.*target/),
+      "t", (text) => assert.match(text, /grishnak hitpoints 24 ac 5 aim:next/),
+      "e",
+    ] : [["q", /grishnak hitpoints 24 ac 5/, 60]]),
     ["q", /party has been destroyed/, 300],
   ]);
   assert.equal(recoveryCounts.size, 0, "Grishnak's fight must end without watchdog recovery");
-  console.log("Verified Grishnak's full Quick battle without watchdog recovery. This party lost.");
+  console.log(healedSleep ? "Healed the party, cast Sleep on Grishnak, and reached the original defeat screen without watchdog recovery."
+    : "Verified Grishnak's full Quick battle without watchdog recovery. This party lost.");
   process.exit(0);
 }
 

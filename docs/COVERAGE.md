@@ -926,6 +926,10 @@ enemy turn in the original calibrated delay at `0512:53E3`. The default
 watchdog now budgets calibrated delays separately from battlefield
 redraws. The same replay finishes with zero interventions. Winning the
 battle and acquiring the brass key through this route remain open.
+With `--healed-sleep`, the temple checkpoint first heals the party and
+prepares Mira's Sleep. The replay takes manual control of Mira, targets
+Grishnak, and verifies that the cast leaves her at 24 HP without a
+helpless marker. The fight still ends in defeat without watchdog recovery.
 
 The translated ECL setter check also passes the sealed and opened box
 states through the same journal profile used by the browser. The
