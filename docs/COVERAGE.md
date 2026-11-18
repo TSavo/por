@@ -516,9 +516,11 @@ one point, and Guard then hands control to Brin. In a separate replay,
 Alda and Brin took the prison guards' long bows and readied them. Brin
 could aim at Grishnak from one square away, but Aim offered no Target
 command with that loadout. The Podal checkpoint replay now verifies Brin
-can buy and ready ten arrows in New Phlan and retain them after reloading.
-In a diagnostic copy of the temple save, supplying those readied arrows
-still left Target unavailable in the tested opening. The checkpoint check
+can buy and ready a long bow and ten arrows in New Phlan and retain both
+after reloading. In a diagnostic copy of the temple save, the shop-bought
+loadout and the looted bow with those arrows both left Target unavailable
+in the tested opening. Attempts to reposition with the looted bow did
+not open a shot. The checkpoint check
 fails if the watchdog intervenes. The recruitment
 checks still use the historical checkpoint and the supplied brass key.
 

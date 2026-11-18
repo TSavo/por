@@ -338,19 +338,20 @@ async function verifyPodalFromCouncil(checkpoint) {
     "right", "right", "up", "up", "right", "up", "right", "up", "enter", "enter", "up", "up",
     "right", ...Array(7).fill("up"), "left", "up", "y", "y",
   ];
-  const arrowsSave = await replay(load("1e61"), "85000000", [
-    ...equipmentShop, "end", "b", "n", "n", ...Array(8).fill("end"), "b", "e", "v", "i", "i",
-    (text) => assert.match(text, /brin's items.*no 10 arrows/),
-    "end", "end", "r",
-    (text) => assert.match(text, /brin's items.*yes 10 arrows/),
+  const archerySave = await replay(load("1e61"), "85000000", [
+    ...equipmentShop, "end", "b", "n", "n", ...Array(4).fill("end"), "b",
+    ...Array(4).fill("end"), "b", "e", "v", "i", "i",
+    (text) => assert.match(text, /brin's items.*no long bow no 10 arrows/),
+    "r", "end", "end", "r", "end", "r",
+    (text) => assert.match(text, /brin's items.*no hand axe.*yes long bow yes 10 arrows/),
     "e", "e", "e", "e", "e", "s", "s", "i",
   ]);
-  assert.match(visibleText(arrowsSave), /quit to dos/);
+  assert.match(visibleText(archerySave), /quit to dos/);
   await replay(load("1769"), "85000000", [
     "end", "v", "i", "i",
-    (text) => assert.match(text, /brin's items.*yes 10 arrows/),
+    (text) => assert.match(text, /brin's items.*yes long bow yes 10 arrows/),
   ]);
-  console.log("Bought and readied arrows in New Phlan, then verified them after reload.");
+  console.log("Bought and readied a long bow and arrows in New Phlan, then verified both after reload.");
   const armorSave = await replay(load("1e61"), "85000000", [
     ...equipmentShop,
     ...names.slice(0, 5).flatMap((name, index) => [
