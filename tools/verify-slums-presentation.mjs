@@ -453,6 +453,10 @@ try {
     assert.ok(frame.journal?.leads.some(({ id }) => id === "zhentil-envoy-left"));
     assert.equal(frame.journal.leads.find(({ id }) => id === commission)?.status, "ready-to-report");
     assert.match(frame.journal.objective.nextStep, /council clerk/);
+    for (const key of ["j", "e", "s", "s", "a"]) await advance(key);
+    const checkpointAfterEscape = JSON.parse(readFileSync(saved, "utf8"));
+    assert.equal(checkpointAfterEscape.leads.find(({ id }) => id === commission)?.status, "ready-to-report");
+    assert.ok(checkpointAfterEscape.leads.some(({ id }) => id === "zhentil-envoy-left"));
     console.log("Verified the Zhentil wall escape and the resulting council report objective in Chrome.");
   } else if (envoy) {
     const checkJournal = async (present, hidden) => {

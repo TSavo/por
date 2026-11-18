@@ -503,9 +503,8 @@ function checkCampaignJournal(): void {
   writeGlobal(0x4a98, 255);
   writeGlobal(envoyFlag, 253);
   const envoyEscaped = questProgress(m, envoyCommission, m.ds);
-  if (envoyEscaped.find(({ id }) => id === "commission-zhentil")?.status !== "ready-to-report" ||
-      !currentObjective(envoyEscaped, "commission-zhentil").nextStep.includes("council clerk")) {
-    throw new Error("The Zhentil escape flag did not prompt a report before visiting City Hall");
+  if (envoyEscaped.find(({ id }) => id === "commission-zhentil")?.status !== "accepted") {
+    throw new Error("The Zhentil journal should await the overland transition before marking the reward ready");
   }
   writeGlobal(envoyFlag, 0);
   const riverOffer = commissions.find(({ id }) => id === "river")!.offer;

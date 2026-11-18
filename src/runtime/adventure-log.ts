@@ -295,11 +295,6 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     const address = progressAddresses[commission.id];
     if (address === undefined) continue;
     const value = global(address);
-    if (commission.id === "zhentil" && value === 253 && global(0x4a98) === 255) {
-      progress.push({ id, title: `${commission.title} - ready to report`,
-        detail: "Return to the council clerk in New Phlan and report on the outpost.", status: "ready-to-report" });
-      continue;
-    }
     if (commission.id === "textile" && value === 255 && known.some((lead) => lead.id === "textile-confrontation")) {
       progress.push({ id, title: `${commission.title} - closed without payment`,
         detail: "Cadorna confronted the party over the opened box and left without paying.",
