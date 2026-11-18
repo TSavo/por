@@ -12,10 +12,15 @@ export interface DosFile {
 }
 
 interface OpenFile {
+  name: string;
   file: { data: Uint8Array };
   pos: number;
   writable: boolean;
+  written: boolean;
+  read: boolean;
 }
+
+export type DosFileClosed = (name: string, data: Uint8Array, written: boolean) => void;
 
 export const dosLog: string[] = [];
 export let consoleText = "";
@@ -25,7 +30,8 @@ export interface BiosKey {
   word: number;
 }
 
-export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [], requestKey?: (blocking: boolean) => void): void {
+export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
+  requestKey?: (blocking: boolean) => void, fileClosed?: DosFileClosed): void {
   dosLog.length = 0;
   consoleText = "";
   resetVideo();
@@ -201,7 +207,7 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [], re
         return;
       }
       const handle = nextHandle++;
-      handles.set(handle, { file, pos: 0, writable: ah === 0x3c || (cpu.al & 3) !== 0 });
+      handles.set(handle, { name, file, pos: 0, writable: ah === 0x3c || (cpu.al & 3) !== 0, written: ah === 0x3c, read: false });
       cpu.ax = handle;
       cpu.cf = false;
       return;
@@ -214,6 +220,7 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [], re
         return;
       }
       const count = Math.min(cpu.cx, Math.max(0, file.file.data.length - file.pos));
+      file.read ||= count > 0;
       for (let i = 0; i < count; i++) cpu.write8(cpu.ds, cpu.dx + i, file.file.data[file.pos + i] ?? 0);
       file.pos += count;
       cpu.ax = count;
@@ -243,9 +250,16 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [], re
       data.set(file.file.data.subarray(0, size));
       for (let i = 0; i < cpu.cx; i++) data[file.pos + i] = cpu.read8(cpu.ds, cpu.dx + i);
       file.file.data = data;
+      file.written = true;
       file.pos = end;
       cpu.ax = cpu.cx;
       cpu.cf = false;
+      return;
+    }
+    if (ah === 0x41) {
+      const name = canonical(readAsciiz(cpu.ds, cpu.dx));
+      cpu.cf = !byName.delete(name);
+      cpu.ax = cpu.cf ? 2 : 0;
       return;
     }
     if (ah === 0x42) {
@@ -266,8 +280,10 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [], re
       return;
     }
     if (ah === 0x3e) {
+      const file = handles.get(cpu.bx);
       handles.delete(cpu.bx);
       cpu.cf = false;
+      if (file && (file.written || file.read)) fileClosed?.(file.name, file.file.data, file.written);
       return;
     }
     if (ah === 0x4c) throw new Error(`dos exit ${cpu.al}`);

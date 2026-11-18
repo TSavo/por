@@ -25,7 +25,7 @@ export function openJournalProfile(path?: string) {
       }
     }
   }
-  return (transcript: string, readProgress?: (known: JournalLead[]) => JournalLead[]): JournalLead[] => {
+  const update = (transcript: string, readProgress?: (known: JournalLead[]) => JournalLead[]): JournalLead[] => {
     let changed = false;
     const observed = discoveredLeads(transcript);
     const reported = readProgress?.([...leads.values(), ...observed]) ?? [];
@@ -43,4 +43,11 @@ export function openJournalProfile(path?: string) {
     }
     return result;
   };
+  return Object.assign(update, {
+    restore(saved: readonly JournalLead[]) {
+      leads.clear();
+      for (const lead of saved) leads.set(lead.id, lead);
+      path = undefined;
+    },
+  });
 }

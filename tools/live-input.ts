@@ -103,5 +103,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[]) {
       return;
     }
   };
-  return { requestKey, openJournal, setCampMenu: (active: boolean) => { inCampMenu = active; } };
+  return {
+    requestKey,
+    openJournal,
+    setCampMenu: (active: boolean) => { inCampMenu = active; },
+    tracked: () => trackedId,
+    restoreTracked: (id: string | undefined) => { trackedId = id; },
+  };
 }

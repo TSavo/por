@@ -12,7 +12,9 @@ export POR_GAMEDATA=/path/to/pool    # the folder that contains START.EXE, ECL1.
 npm run play
 ```
 
-Open [the local game](http://127.0.0.1:43124) to play the translated game. In the game screen, choose **Encamp → Journal** to see what the party knows. **J** also opens the journal during play. Select **Track** next to a quest to make it the current objective. Press **J** or **Escape** to return to play. The journal persists in a separate party profile. Set `POR_JOURNAL_PROFILE` to select a different profile.
+Open [the local game](http://127.0.0.1:43124) to play the translated game. In the game screen, choose **Encamp → Journal** to see what the party knows. **J** also opens the journal during play. Select **Track** next to a quest to make it the current objective. Press **J** or **Escape** to return to play.
+
+Use **Encamp → Save** and **Load Saved Game** to save and restore the party and its journal in the same slot. The runner stores slots under `out/saves/` for each game-data directory. Set `POR_SAVE_DIR` to select a different folder.
 
 `npm run dev` launches the same game. If `POR_GAMEDATA` is unset, the runner checks `./gamedata`, including one nested folder such as `gamedata/pool`.
 

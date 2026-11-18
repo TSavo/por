@@ -3,10 +3,11 @@
  * procedure, against the game files in POR_GAMEDATA. Prints the first
  * place the translation still stops.
  */
-import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { mkdirSync, readdirSync, readFileSync, realpathSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { Cpu } from "../src/cpu/machine.js";
-import { attachDos, consoleText, dosLog, type BiosKey } from "../src/runtime/dos.js";
+import { attachDos, consoleText, dosLog, type BiosKey, type DosFileClosed } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
 import { journalFrame, screen, videoSummary } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
@@ -15,6 +16,7 @@ import { currentObjective, observeAdventureLog, questProgress, type JournalLead 
 import { liveInput } from "./live-input.js";
 import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
+import { openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
 import { callTrace, disposeHits, dosAssigns, farCall, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
@@ -30,7 +32,8 @@ const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles)
 
 registerTranslated();
 
-function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => void): Cpu {
+function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => void,
+  fileClosed?: DosFileClosed, savedFiles: typeof files = []): Cpu {
   const cpu = new Cpu();
   const exe = files.find((f) => f.name.toUpperCase() === "START.EXE");
   const ovr = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
@@ -41,7 +44,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
     if (!match) throw new Error("POR_BOOT_KEYS expects comma-separated [step:]hex BIOS key words");
     return { step: Number(match[1] ?? 0), word: Number.parseInt(match[2]!, 16) };
   }).sort((a, b) => a.step - b.step);
-  attachDos(cpu, files, keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)));
+  attachDos(cpu, [...files, ...savedFiles], keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)), fileClosed);
   cpu.ss = boot.ss;
   cpu.sp = boot.sp || 0xfffe;
   cpu.ds = 0x2000;
@@ -78,10 +81,11 @@ function report(label: string, error: unknown): void {
 }
 
 let adventureLog: (() => string) | undefined;
+let transcriptStart = 0;
 const profilePath = process.env.POR_JOURNAL_PROFILE;
 const updateJournal = openJournalProfile(profilePath);
 const journal = (transcript = adventureLog?.() ?? ""): JournalLead[] =>
-  updateJournal(transcript, (known) => questProgress(cpu, known, 0x740));
+  updateJournal(transcript.slice(transcriptStart), (known) => questProgress(cpu, known, 0x740));
 const liveAt = process.env.POR_LIVE_AT;
 const liveStep = Number(liveAt);
 if (liveAt !== undefined && (!Number.isSafeInteger(liveStep) || liveStep < 0)) {
@@ -89,7 +93,49 @@ if (liveAt !== undefined && (!Number.isSafeInteger(liveStep) || liveStep < 0)) {
 }
 if (liveAt !== undefined) mkdirSync("out", { recursive: true });
 const input = liveAt === undefined ? undefined : liveInput(liveStep, journal);
-const cpu = fresh(input?.requestKey);
+const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
+  join("out", "saves", createHash("sha256").update(realpathSync(root)).digest("hex").slice(0, 16)));
+let slotClosed: DosFileClosed | undefined;
+const cpu = fresh(input?.requestKey, (name, data, written) => slotClosed?.(name, data, written), saves?.files);
+if (input && saves) {
+  const disk = loadedSlices.find((slice) => slice.index === 17);
+  if (!disk) throw new Error("Missing translated save overlay");
+  disk.procs = new Map(disk.procs);
+  // Load, save, and save-and-exit entry points in the original disk overlay.
+  for (const offset of [0x159d, 0x1ced, 0x2265]) {
+    const procedure = disk.procs.get(offset);
+    if (!procedure) throw new Error(`Missing translated save procedure ${offset.toString(16)}`);
+    disk.procs.set(offset, (m) => {
+      const loading = offset === 0x159d;
+      const start = adventureLog?.().length ?? 0;
+      let slot: { name: string; data: Uint8Array } | undefined;
+      const previous = slotClosed;
+      slotClosed = (name, data, written) => {
+        if (saveSlotLetter(name) && data.length && written !== loading) slot = { name, data };
+      };
+      const finish = () => {
+        if (!slot) return;
+        if (loading) {
+          const saved = saves.get(slot.name);
+          transcriptStart = start;
+          updateJournal.restore(saved?.leads ?? []);
+          input.restoreTracked(saved?.tracked);
+        } else {
+          saves.save(slot.name, slot.data, journal(), input.tracked());
+        }
+      };
+      try {
+        procedure(m);
+        finish();
+      } catch (error) {
+        if (offset === 0x2265 && error instanceof Error && /^dos exit \d+$/.test(error.message)) finish();
+        throw error;
+      } finally {
+        slotClosed = previous;
+      }
+    });
+  }
+}
 if (input) {
   const camp = loadedSlices.find((slice) => slice.index === 15);
   const menus = loadedSlices.find((slice) => slice.index === 26);

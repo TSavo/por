@@ -72,7 +72,7 @@ $env:POR_BOOT_KEYS = '31000000:1c0d,45000000:266c,52000000:1e61,62000000:4800'
 npx tsx tools/boot-translated.ts
 ```
 
-The harness writes the entry-point capture to `out/por-boot.png`. Save writes in this runner are held in memory.
+The harness writes the entry-point capture to `out/por-boot.png`. Replay-only runs keep save writes in memory.
 
 Set `POR_ADVENTURE_LOG=1` to export observed ECL dialogue and discovered leads to
 `out/adventure-log.txt` and `out/adventure-journal.json`. The runner also
@@ -106,10 +106,10 @@ While the journal is open, type `track N` to follow a numbered objective.
 Enter a game key by name or use `key j` to send J to DOS. Type `:quit` to end
 the session. Clear `POR_LIVE_AT` to return to replay-only mode.
 
-Set `POR_JOURNAL_PROFILE` to a JSON path in an existing directory to remember
-discovered leads across runner sessions. Reuse that path for the same party and
-choose a different one for a fresh party. The profile is independent of DOS
-save slots.
+Live runs persist the DOS save bytes, discovered leads, and tracked quest
+together for each slot A–J. Loading one switches journal state to that slot.
+Set `POR_SAVE_DIR` to select the save directory. An existing
+`POR_JOURNAL_PROFILE` can seed the initial journal before any slot is loaded.
 
 ### First council briefing replay
 
