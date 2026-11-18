@@ -6,6 +6,10 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const environmentRoutes = new Map([
+  ["buccaneer-pens", {
+    slot: "A", area: 1, views: 14, patterns: 47,
+    walk: ["left", "left", ...Array(6).fill("up"), "right", "up", "up", "up", "right", "up"],
+  }],
   ["swamp-ruins", {
     slot: "A", area: 16, views: 12, patterns: 51,
     walk: ["up", "right", "up", "up", "left", "up", "up", "left", "up", "right", "up"],
@@ -536,6 +540,9 @@ try {
     for (const key of ["j", "e", "e"]) await advance(key);
     const entrance = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
     assert.match(entrance, /8,10S/i);
+    for (const key of ["right", "up", "right", "up", "enter", "enter", "j"]) await advance(key);
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-identified-heir"));
+    assert.match(frame.journal.objective.nextStep, /Choose Rescue Boy/);
     console.log("Verified the Buccaneer Base approach and rescue journal in Chrome.");
   } else if (routeName === "swamp-approach") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
