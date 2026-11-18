@@ -266,15 +266,20 @@ async function verifyPodalFromCouncil(checkpoint) {
     (text) => assert.match(text, /spells in memory.*bless cure light wounds cure light wounds cure light wounds/),
     ...Array(7).fill("end"), "c", "end", "enter",
     (text) => assert.match(text, /cast spell on whom/),
-    "home", "home", "home", "enter", "e", "e",
-    (text) => assert.match(text, /enna 2 5.*3,13 w 04:42/),
+    "home", "home", "home", "enter",
+    "end", "enter", "end", "enter", "e", "e",
+    (text) => assert.match(text, /enna 2 5.*mira 10 5.*3,13 w 04:42/),
     "s", "d",
   ]);
   assert.match(visibleText(restedBeforePrison), /quit to dos/);
   await replay(load("2064"), "85000000", [
-    (text) => assert.match(text, /brin 1 5.*cora 3 5.*enna 2 5.*3,13 w/),
+    (text) => assert.match(text, /brin 1 5.*cora 3 5.*enna 2 5.*mira 10 5.*3,13 w/),
+    "enter", "left", "up", "b", "enter", "p",
+    (text) => assert.match(text, /hobgoblins respond with a piercing battle cry/),
+    "enter",
+    (text) => assert.match(text, /a battle begins/),
   ]);
-  console.log("Rested to replenish the Curate's spells, cast Bless, and reloaded with Enna at 5 HP.");
+  console.log("Rested, cast Bless, and reloaded with Enna and Mira at 5 HP. Parlay led to combat.");
   console.log("Checkpoint replay saves:", saveDir);
 }
 

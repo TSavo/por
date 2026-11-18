@@ -435,9 +435,9 @@ Wounds spells to bring Brin and Cora from 0 to 5 HP. It saves outside the
 second door and confirms that both fighters retain the healing on reload.
 That branch continues through five hours of rest at the door after the
 Curate selects Bless and three Cure Light Wounds spells. The Curate
-then casts Bless and heals Enna from 0 to 5 HP. Reloading slot D verifies
-that all three recovered fighters still have 5 HP. The prison fight
-remains open.
+then casts Bless and heals Enna from 0 to 5 HP and Mira from 3 to 5 HP.
+Reloading slot D verifies their HP. Choosing Parlay at the prison door
+draws a battle cry and starts combat. Victory remains unverified.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the
