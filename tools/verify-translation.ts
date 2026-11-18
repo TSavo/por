@@ -363,7 +363,7 @@ function checkCampaignJournal(): void {
       questProgress(m, [], m.ds).some(({ id }) => id === "commission-bottle-vampire")) {
     throw new Error("The graveyard flag did not resolve the known bottle objective without revealing it");
   }
-  const acceptance = [["graveyard", 0x4a96, 255], ["auction", progressAddresses.auction!, 1],
+  const acceptance = [["graveyard", 0x4a96, 255], ["auction", progressAddresses.auction!, 1], ["textile", 0x4a97, 255],
     ["gate", 0x4a99, 255], ["castle", 0x4a9a, 255]] as const;
   for (const [id, address, value] of acceptance) {
     const commission = commissions.find((item) => item.id === id)!;

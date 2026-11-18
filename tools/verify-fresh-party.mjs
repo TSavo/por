@@ -62,16 +62,19 @@ async function verifyPodalFromCouncil(checkpoint) {
   const load = (key) => `31000000:1c0d,45000000:266c,52000000:${key}`;
   const checkAuction = (status) => (_text, frame) =>
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-auction")?.status, status);
-  const arrival = await replay(load("2368"), "85000000", [
-    (text) => assert.match(text, /5,5 e/),
-    "j", checkAuction("accepted"), "j",
-    "right", "right", "up", "right", "up", "up", "enter", "enter",
+  const westboundToGate = [
+    "right", "up", "up", "enter", "enter",
     "right", ...Array(6).fill("up"), "left", "up", "right", "up", "left", "up", "enter", "enter",
     (text) => assert.match(text, /sokal east west bay none/),
     "w", "enter", "enter", "right", ...Array(4).fill("up"), "enter", "enter", "enter", "s",
     (text) => assert.match(text, /20,29 e/),
     "enter", "enter", "up", ...Array(4).fill("right"), "enter",
     (text) => assert.match(text, /western edge of the city.*north south leave/),
+  ];
+  const arrival = await replay(load("2368"), "85000000", [
+    (text) => assert.match(text, /5,5 e/),
+    "j", checkAuction("accepted"), "j",
+    "right", "right", "up", ...westboundToGate,
     "n", "enter", "enter",
     (text) => assert.match(text, /the plaza ahead is crowded with monsters.*disguise/),
     "end", "enter", "enter", "enter", "e", "s", "s", "i",
@@ -85,7 +88,7 @@ async function verifyPodalFromCouncil(checkpoint) {
     "enter", "j", checkAuction("ready-to-report"), "j", "e", "s", "s", "j",
   ]);
   assert.match(visibleText(result), /quit to dos/);
-  await replay(load("246a"), "85000000", [
+  const cadornaSave = await replay(load("246a"), "85000000", [
     "j", checkAuction("ready-to-report"), "j",
     "right", "right", "up", "up", "left", ...Array(8).fill("up"), "enter", "enter",
     "l", ...Array(4).fill("left"), "down", "enter",
@@ -96,9 +99,26 @@ async function verifyPodalFromCouncil(checkpoint) {
     (text) => assert.match(text, /your success at podal plaza is noted/),
     "enter",
     (text) => assert.match(text, /each character receives \d+ experience points/),
-    "enter", "enter", "s", "e", "n", ...Array(8).fill("enter"), "j", checkAuction("turned-in"),
+    "enter", "enter", "s", "e", "n", ...Array(8).fill("enter"), "j", checkAuction("turned-in"), "j",
+    "up", "up",
+    (text) => assert.match(text, /family treasure was hidden in the western building/),
+    "enter", "enter", "e", "s", "s", "a",
   ]);
-  console.log("Verified ordinary travel, investigation, reload, and turn-in for Podal Plaza.");
+  assert.match(visibleText(cadornaSave), /6,5 e.*quit to dos/);
+  await replay(load("1e61"), "85000000", [
+    "j", (_text, frame) => {
+      const textile = frame.journal?.leads.find(({ id }) => id === "commission-textile");
+      assert.equal(textile?.status, "accepted");
+      assert.match(textile.detail, /south of Podal Plaza/);
+    }, "j",
+    "right", "right", "up", "up", ...westboundToGate,
+    "s", ...Array(4).fill("enter"),
+    (text) => assert.match(text, /0,4 w/),
+    "right", "right", "up", "up", "right", "up", "left", "up", "up", "right", "up", "up",
+    "enter", "up", "up",
+    (text) => assert.match(text, /4,7 s.*scorpions approach hungrily/),
+  ]);
+  console.log("Verified the Podal Plaza turn-in, Cadorna's commission, and the south entrance to the Textile House.");
 }
 
 if (process.argv[2] === "--podal-checkpoint") {

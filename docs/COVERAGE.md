@@ -395,6 +395,11 @@ the commission turned in. Run this segment with
 `node tools/verify-fresh-party.mjs --podal-checkpoint PATH_TO_SAVE_JSON`.
 Use a save at the clerk with Sokal turned in and the auction accepted.
 The replay copies that save to a scratch directory.
+After the auction turn-in, the replay takes the east door to Cadorna,
+hears where his family's treasure was hidden, and reloads with the
+Textile House commission accepted. The party takes the westbound
+boat again, uses the south entrance, and reaches the scorpion
+encounter inside the Textile House district.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the

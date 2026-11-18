@@ -200,6 +200,7 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
             : "Return to City Hall. The box was opened and its family seal is broken.",
           status: "accepted",
         });
+        continue;
       }
     }
     if (commission.id === "slums" && value > 0 && value < 25) {
@@ -212,6 +213,7 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     }
     const accepted = (commission.id === "graveyard" && global(0x4a96) === 255) ||
       (commission.id === "auction" && value === 1) ||
+      (commission.id === "textile" && global(0x4a97) === 255) ||
       (commission.id === "gate" && global(0x4a99) === 255) ||
       (commission.id === "castle" && global(0x4a9a) === 255);
     if (accepted && value !== 254 && value !== 255) {
