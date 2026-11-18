@@ -201,7 +201,15 @@ script with the assault already assigned and the two audience guards marked
 defeated. The party stepped into the hall, heard Tyranthraxus's offer, and
 selected Attack for all six votes. The translated combat opened against
 Tyranthraxus at 80 HP and AC -4. The replay exercised combat input and enemy
-turns through the original fight. It ended before a victory.
+turns through the original fight. An unmodified enemy defeated the
+low-level party. A follow-up replay gave the party 100 HP per character,
+raised its strength, and reduced Tyranthraxus to 1 HP in a disposable data
+copy. The party won through the translated combat menus and received
+7,340 experience points per character. The original script brought the
+party back to New Phlan and the journal made reporting to the clerk the
+current objective. The party walked to City Hall, collected its reward,
+and saw the original campaign ending. The journal then read Phlan is free.
+A victory with the original combat stats remains to be verified.
 
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
