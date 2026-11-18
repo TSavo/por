@@ -979,6 +979,10 @@ The `phlan-ferry-river` and `phlan-ferry-east` presentation replays start at
 the river and East Overland docks using controlled slots A and B. Both check
 the original Take Boat / Stay prompt, its shared 352×352 illustration, and
 state preservation across presentation switches.
+The `diogenes-cave` replay checks the 352×352 mountain cave illustration at
+the initial sighting and on a later approach from separate controlled slot A
+checkpoints. It verifies the picture clears as the party enters and Diogenes's
+magic mouth starts the dialogue.
 The `phlan-city-hall-approach` replay starts from slot B inside New Phlan's
 original gateway at `1,4 E`. Chrome checks 1,815 placements across 15 views
 on the City Hall approach and adjacent streets. The route uses 83 patterns,

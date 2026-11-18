@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "portrait:PIC6.DAX:32:0:0": "diogenes-mountain-cave.png",
     "tile:0:092256c86cef99877084f8d263b16051586a243198dc58b52323de56de4b608a": "new-phlan-civic-terrain-092256c86cef.png",
     "tile:0:0985d39a8794331b9a5c1e6fc4a461ddf0eab00604f5e42c850d9129f991d7b4": "new-phlan-civic-terrain-0985d39a8794.png",
     "tile:0:0da28796f3f66a72e2645e54a1f2897c80134436264ad00d76b1c07aa990cd37": "new-phlan-civic-terrain-0da28796f3f6.png",
