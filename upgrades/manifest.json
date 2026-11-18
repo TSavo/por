@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:0:HEAD3.DAX:16:BODY3.DAX:7": "new-phlan-harbor-master.png",
     "combat:area:13:CPIC8.DAX:121": "kobold-cave-wyvern-stand.png",
     "combat:area:13:CPIC8.DAX:249": "kobold-cave-wyvern-strike.png",
     "tile:24:00ae67298b06de5d02006d39c61c09b50fc12384587cdf53c2d6a6187fe32e96": "bane-north-court-terrain-00ae67298b06.png",

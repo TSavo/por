@@ -821,6 +821,10 @@ slot A at `4,0 S`, reached by ordinary overland travel. Chrome verified 5,929
 placements in 49 frames, including opening and crossing a house doorway.
 The `stojanow-briefing` browser route uses a controlled slot B at `5,8 N`
 to verify Urslingen's 352×352 mission portrait and a state-preserving switch.
+The harbor master shares his original composite. `phlan-harbor-sokal` and
+`phlan-harbor-routes` verify New Phlan's area-scoped portrait with the initial
+Sokal passage and the later ferry menu. The Urslingen replay still verifies
+his portrait at Stojanow Gate with both images installed.
 
 Valhingen Graveyard now has 108 individual 32×32 scenery tiles for its
 entrance routes. The slot A checkpoint at `0,4 E` was reached by traveling
