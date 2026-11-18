@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
-const routes = ["kobolds", "orcs", "fighter-trainer", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -13,6 +13,7 @@ const dragon = routeName === "castle-dragon";
 const altar = routeName === "textile-altar";
 const plaza = routeName === "podal-plaza";
 const trainer = routeName === "fighter-trainer";
+const goblins = routeName === "goblins";
 const orcs = routeName === "orcs";
 const armory = routeName === "sokal-armory";
 const patrolCombat = routeName === "sokal-patrol-combat";
@@ -184,6 +185,29 @@ try {
     await waitFor("the auctioneer portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified 48 Podal Plaza tiles across 12 views and the auctioneer portrait in Chrome.");
+  } else if (goblins) {
+    const route = [
+      "right", "right", "up", "right", "up", "right", ...Array(4).fill("up"),
+      "right", "up", "b", "enter", "enter", "enter", "enter", "enter",
+    ];
+    for (const key of route) await advance(key);
+    const guard = "combat:area:20:CPIC2.DAX:2";
+    const leader = "combat:area:20:CPIC2.DAX:3";
+    const strike = "combat:area:20:CPIC2.DAX:130";
+    const present = id => frame.combatArt.some(placement => placement[2] === id);
+    const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")]
+      .some(img => img.src.endsWith(${JSON.stringify(id)}) && img.naturalWidth === 96 && img.naturalHeight === 96)`);
+    assert.ok(present(guard));
+    await waitFor("the goblin infantry sprite", () => displayed(guard));
+    for (let turn = 0; turn < 8 && !present(leader); turn++) await advance("q");
+    assert.ok(present(leader));
+    await waitFor("the goblin veteran sprite", () => displayed(leader));
+    await switchBothWays();
+    const swung = () => frame.animation?.some(shot => shot.combatArt?.some(placement => placement[2] === strike));
+    for (let turn = 0; turn < 14 && !swung(); turn++) await advance("q");
+    assert.ok(swung(), "The infantry strike must appear in a guest animation");
+    await waitFor("the goblin infantry strike sprite", () => displayed(strike));
+    console.log("Verified the goblin infantry and veteran sprites and infantry strike in the Slums.");
   } else if (trainer) {
     const arenaRoute = [
       "right", "right", "up", "up", "right", "up", "up", "enter", "enter", "up", "up",

@@ -7,7 +7,7 @@ import { currentObjective, isOpenObjective, type JournalLead } from "../src/runt
 import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
-import { loadCombatArtMatcher, type CombatArtPlacement } from "./combat-art.js";
+import { loadCombatArtMatcher, monsterCombatKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadPortraitArt } from "./portrait-art.js";
 import { loadEncounterArt } from "./encounter-art.js";
 
@@ -79,7 +79,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
   const attackKeys = new Set((process.env.POR_COMBAT_ART_KEYS ?? "").split(",")
-    .filter((key) => key.startsWith("combat:CPIC") && Number(key.split(":").at(-1)) >= 128));
+    .filter((key) => Number(monsterCombatKey.exec(key)?.[3]) >= 128));
   const animation: CombatAnimationFrame[] = [];
   let lastAttack = "";
   const portraitArt = loadPortraitArt((process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean));

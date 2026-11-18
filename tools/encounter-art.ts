@@ -5,7 +5,7 @@ import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
 const encounterKey = /^encounter:(SPRIT[1-8]\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
-const legacyAnchors = new Map([
+const legacyAnchors = new Map<string, EncounterAnchor>([
   ["encounter:SPRIT2.DAX:0:0:0", { area: 20, x: 48, y: 32, width: 40, height: 80 }],
   ["encounter:SPRIT2.DAX:0:1:0", { area: 20, x: 56, y: 32, width: 24, height: 65 }],
   ["encounter:SPRIT2.DAX:0:2:0", { area: 20, x: 56, y: 32, width: 24, height: 57 }],
