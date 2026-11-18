@@ -56,6 +56,16 @@
     "tile:21:42945697e83023b58f9b0ab01e2b4629d8f5ec4d796b65e5d04be6ef442ab87f": "sokal-west-cornice-elbow.png",
     "tile:21:0bae672ff3e01f653ae7241fc075226c0865693834d5c45e6f2863678a2526da": "sokal-open-court-sky-slope.png",
     "tile:21:b505a5db5557ee2f019256d5b39e70aaeaa91433d73e896784e9962672192f85": "sokal-far-postern.png",
-    "tile:21:8737539068992377d622a86a6ab259387e19fc5a846d63a4b75effc2a06fae8c": "sokal-far-postern-jamb.png"
+    "tile:21:8737539068992377d622a86a6ab259387e19fc5a846d63a4b75effc2a06fae8c": "sokal-far-postern-jamb.png",
+    "encounter:SPRIT4.DAX:34:0:0": "sokal-undead-patrol-near.png"
+  },
+  "encounters": {
+    "encounter:SPRIT4.DAX:34:0:0": {
+      "area": 21,
+      "x": 48,
+      "y": 32,
+      "width": 40,
+      "height": 80
+    }
   }
 }

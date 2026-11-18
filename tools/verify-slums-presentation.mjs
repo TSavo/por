@@ -128,15 +128,25 @@ try {
       ["up", "up", "up", "right", "up", "left", "up", "left", "up", "up", "up", "right", "up"];
     const seen = new Set();
     let views = 0;
+    let patrol = false;
     for (const [step, key] of route.entries()) {
       if (key) await advance(key);
       if (landing && step === 9) {
         const parchment = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
         assert.match(parchment, /THELASTPARTISEATENAWAY/i);
       }
+      if (landing && frame.encounter && !patrol) {
+        assert.deepEqual(frame.encounter, [48, 32, "encounter:SPRIT4.DAX:34:0:0", 40, 80]);
+        await waitFor("Sokal patrol artwork", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector(".encounter-sprite")?.naturalWidth === 160 &&
+          document.querySelector(".encounter-sprite")?.naturalHeight === 320`));
+        await switchBothWays();
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "sokal-undead-patrol.png"), Buffer.from(shot.data, "base64"));
+        patrol = true;
+      }
       if (!frame.tileInventory?.length) continue;
       if (landing && frame.tileInventory.every(([, , , indices]) => /^0+$/.test(indices))) continue;
-      if (landing && step === 24) continue; // The original patrol sprite is already drawn.
       views++;
       assert.equal(frame.tiles.length, 121);
       for (const [, , id] of frame.tiles) {
@@ -144,8 +154,8 @@ try {
         seen.add(id);
       }
       await waitFor("121 assembled Sokal tiles", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelectorAll("#tile-art img").length === 121 &&
-        [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
+        document.querySelectorAll("#tile-art img:not(.encounter-sprite)").length === 121 &&
+        [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
       if ((landing && (step === 0 || step === 21 || step === route.length - 1)) || (!landing && (step === 2 || step === 9))) {
         if (step === (landing ? 0 : 2)) await switchBothWays();
         const shot = await command("Page.captureScreenshot", { format: "png" });
@@ -154,7 +164,11 @@ try {
     }
     const text = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
     assert.match(text, landing ? /THEUNDEADLEAVE/i : /ONSTANDSAREASHIELD/i);
-    assert.equal(views, landing ? 18 : 12);
+    if (landing) {
+      assert.ok(patrol);
+      assert.equal(frame.encounter, undefined);
+    }
+    assert.equal(views, landing ? 19 : 12);
     assert.equal(seen.size, landing ? 49 : 13);
     console.log(`Verified ${seen.size} ${routeName} patterns across ${views} views. Captures: ${directory}`);
   } else if (orcs) {
