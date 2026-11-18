@@ -1426,6 +1426,12 @@ if (process.argv[2] === "--sokal-funded-training-checkpoint") {
     assert.ok(!frame.journal.leads.some(({ id }) => id === "phlan-training-fee"));
   };
   await replay(loadSlot("2166"), "85000000", [
+    ...armoryToTemple, "end", "a", "j", "s", "p", "t", "end", "enter", "2", "0", "0", "enter",
+    (text) => assert.match(text, /platinum 1076.*select type of coin/),
+    "e", "v",
+    (text) => assert.match(text, /alda.*platinum 200.*level 1 exp 1462/),
+  ]);
+  await replay(loadSlot("2166"), "85000000", [
     ...armoryToTemple, "end", "a", "j",
     (text) => assert.match(text, /the jewel is valued at 5279 gp.*sell keep/),
     "s", "p", "s", "e", "v", "v",

@@ -11,7 +11,7 @@ import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
 import { attachDos } from "../src/runtime/dos.js";
 import { isPartyFile } from "./save-slots.js";
 import { openJournalProfile } from "./journal-profile.js";
-import { exe_056c0, exe_05e44 } from "../src/translated/exe.js";
+import { exe_056c0, exe_05e44, exe_06a35 } from "../src/translated/exe.js";
 import type { LoadedSlice } from "../src/runtime/overlay.js";
 import { currentObjective, discoveredLeads, progressAddresses, questProgress } from "../src/runtime/adventure-log.js";
 import { commissions } from "../src/runtime/commission-journal.js";
@@ -28,6 +28,31 @@ function fresh(): Cpu {
   m.sp = 0xff00;
   return m;
 }
+
+function checkVal(): void {
+  for (const [input, expected] of [["200", 200], ["+200", 200], ["-200", -200], ["$C8", 200]] as const) {
+    const m = fresh();
+    const inputOffset = 0x100;
+    const errorOffset = 0x200;
+    m.write8(m.ds, inputOffset, input.length);
+    for (let index = 0; index < input.length; index++) {
+      m.write8(m.ds, inputOffset + index + 1, input.charCodeAt(index));
+    }
+    m.push(m.ds);
+    m.push(inputOffset);
+    m.push(m.ds);
+    m.push(errorOffset);
+    m.push(m.cs);
+    m.push(0);
+    exe_06a35(m);
+    if ((m.dx << 16 | m.ax) !== expected || m.read16(m.ds, errorOffset) !== 0 || m.sp !== 0xff00) {
+      throw new Error(`Turbo Pascal Val did not parse ${input} as ${expected}`);
+    }
+  }
+  console.log("verified Turbo Pascal Val sign handling for numeric input");
+}
+
+checkVal();
 
 function checkFillChar(): void {
   const m = fresh();

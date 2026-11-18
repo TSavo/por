@@ -35201,7 +35201,7 @@ export function exe_06952(m: Cpu): void {
       case 0x69a4: {
         // 69a4: dec si
         m.tick(0x69a4);
-        m.si = (m.si - 1) & 0xffff;
+        { const saved = m.cf; m.si = m.setSubFlags(16, m.si, 1); m.cf = saved; }
         ip = 0x69a5;
         break;
       }

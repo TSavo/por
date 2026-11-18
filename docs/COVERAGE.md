@@ -530,6 +530,9 @@ the learned fee.
 
 The separate `--sokal-funded-training-checkpoint PATH_TO_SLOT_F` replay
 takes the armed party back from the hidden armory and sells its jewel.
+Withdrawing 200 platinum gives Alda exactly 200 and leaves 1,076 in
+the pool. The translated Turbo Pascal `Val` now updates the zero flag
+on `DEC SI`, so the sign check reads the sign marker correctly.
 Pooling and sharing gives Alda 213 platinum. With that amount the
 original trainer rejects the 1,462-XP fighter for insufficient
 experience. The replay verifies that he keeps the coins, and slot I
