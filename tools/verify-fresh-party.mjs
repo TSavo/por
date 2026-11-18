@@ -740,6 +740,38 @@ if (process.argv[2] === "--slums-armored-patrols-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--slums-goblin-checkpoint") {
+  assert.ok(process.argv[3], "Pass the rested slot A from the armored orc outpost replay.");
+  copyFileSync(process.argv[3], join(saveDir, "A.json"));
+  await replay(loadSlot("1e61"), "85000000", [
+    (text) => assert.match(text, /13,1 w/),
+    "right", "right", "up", "right", "up", "right", ...Array(4).fill("up"), "right", "up",
+    (text) => assert.match(text, /10,2 n.*locked.*bash exit/),
+    "b", "enter", "enter",
+    (text) => assert.match(text, /10,1 n.*healthy-looking goblin.*young warriors/),
+    "enter", "enter", "enter", ...Array(207).fill("q"),
+    (text) => assert.match(text, /continue battle:yes no/),
+    "n", (text) => assert.match(text, /the party has won.*receives 181 experience points/),
+    "enter", "enter", "s", "t",
+    (text) => assert.match(text, /loot leather armor short sword short sword/),
+    "t", "t", "t", "e", "e", "n", "e", "enter", "r", "y", ...Array(8).fill("i"), "r", ...Array(35).fill("n"),
+    (text) => assert.match(text, /alda 3 6.*brin 1 6.*cora 3 0.*dorn 3 0.*enna 2 6.*fenn 2 8.*10,1 n/),
+    "s", "s", "b",
+  ]);
+  await replay(loadSlot("3062"), "85000000", [
+    "v", "i", ...Array(4).fill("end"), "r", "e",
+    (text) => assert.match(text, /alda.*exp 991.*damage 1d6.*weapon short sword/),
+    "e", "end", "end", "v", (text) => assert.match(text, /cora.*status dead/),
+    "e", "end", "v", (text) => assert.match(text, /dorn.*status dead/),
+    "e", "e", "enter", "s", "s", "c",
+  ]);
+  await replay(loadSlot("2e63"), "85000000", [
+    "v", "i", (text) => assert.match(text, /alda's items.*leather armor yes short sword no short sword/),
+  ]);
+  console.log("Cleared the Slums goblin room and reloaded the salvaged gear:", join(saveDir, "C.json"));
+  process.exit(0);
+}
+
 if (process.argv[2] === "--ohlo-armor-checkpoint") {
   assert.ok(process.argv[3], "Pass a six-fighter save outside Ohlo's door after collecting his reward.");
   copyFileSync(process.argv[3], join(saveDir, "J.json"));

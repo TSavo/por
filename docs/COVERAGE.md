@@ -193,6 +193,12 @@ is down. From that save, the party wins the fixed orc outpost at (13,1)
 with five fighters still standing and collects the scroll. Eight days of
 rest in the cleared room restore all six fighters to full HP, including
 Fenn. Reloading slot A verifies their HP and Enna's scroll and 889 XP.
+Run `node tools/verify-fresh-party.mjs --slums-goblin-checkpoint PATH_TO_SLOT_A`
+from that rested save. The party bashes into the goblin training room at
+(10,1), wins for 181 XP without watchdog recovery, and takes leather
+armor and two short swords. Rest restores Brin. Cora and Dorn are dead
+on their character sheets after the battle. Alda has 991 XP and keeps
+one short sword readied after reloading slot C.
 From J, the party walks back to New Phlan, hears the first council commissions
 at City Hall, and follows the harbor master's directions to the pier. The
 original boat transition lands all six on Thorn Island at (8,14). The replay
