@@ -145,9 +145,12 @@ all six, completed Rolf's tour, saved from Encamp, and loaded all six in a new
 process before entering the Slums through the west gate.
 From that save, the party reached the original kobold encounter and entered
 combat with all six characters. A replay used Quick and manual Move/Attack
-to beat the kobolds. The guest awarded 480 experience points per character.
-After sharing the spoils, the party saved in slot B and all six characters
-reloaded in the Slums. The journal transcript captured the Slums
+to beat the kobolds. After the long-division fix, a replay from the same
+six-character save reached the fight through the west gate again. The guest
+displayed 8 experience points and shared 16 copper with each character.
+The saved XP gains reflected the characters' class splits. All six reloaded
+from slot B in the Slums. The earlier 480 XP result was from the faulty
+division routine. The journal transcript captured the Slums
 greeting once, even when the interpreter decoded it again to skip the
 conditional print. The council briefing still recorded the visible offers.
 
