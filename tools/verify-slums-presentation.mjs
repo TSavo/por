@@ -516,6 +516,12 @@ try {
       "up", "up", "enter", "enter", "up", "up", "up", "up", "enter", "left",
       "up", "up", "up", "up", "up", "enter", ...Array(26).fill("up"), "c", "enter", "m", "down",
     ];
+    assert.equal(frame.tiles.length, 121, "Every tile at the city gate needs a replacement");
+    await waitFor("the assembled New Phlan gate", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelectorAll("#tile-art img").length === 121 &&
+      [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
+    const cityGate = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "new-phlan-gate.png"), Buffer.from(cityGate.data, "base64"));
     for (const key of route) {
       await advance(key);
       if (frame.encounter && !encounter) {

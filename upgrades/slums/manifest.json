@@ -161,6 +161,19 @@
     "combat:CPIC2.DAX:5": "orc-leader-combat-guard.png",
     "combat:CPIC2.DAX:133": "orc-leader-combat-strike.png",
     "combat:CPIC2.DAX:6": "hobgoblin-combat-guard.png",
-    "combat:CPIC2.DAX:134": "hobgoblin-combat-strike.png"
+    "combat:CPIC2.DAX:134": "hobgoblin-combat-strike.png",
+    "tile:0:09be609429c4e2db72e68769253a40f08fe1e0bf65055f356ed165cefcb83c91": "new-phlan-gate-65cefcb83c91.png",
+    "tile:0:3fd07573913b8b367dd8a69a57c9550f715ab8a6ba59baf2c7533bb4d14fa749": "new-phlan-gate-3bb4d14fa749.png",
+    "tile:0:5b52670be92caf50b8a456a072b22f8a06279387eb20120d464ce4c70a50931e": "new-phlan-gate-e4c70a50931e.png",
+    "tile:0:92ccb4f65a1e573455d386a2986c6dad5b9d4e629110bd9bcbb6b6208dea253c": "new-phlan-gate-b6208dea253c.png",
+    "tile:0:a2e7e176f2c85d345e9b399418fc572563b0baf482691347c5d14bd361e2d184": "new-phlan-gate-4bd361e2d184.png",
+    "tile:0:a709a24cc9b6b6e327458b686dabf569d04684f62e502130d50ddfa64bbd493f": "new-phlan-gate-dfa64bbd493f.png",
+    "tile:0:af86e7c9eb5381ae57023c740c0d9c788d491ec24ed18487c0f2814547e972e1": "new-phlan-gate-814547e972e1.png",
+    "tile:0:b24a0082a3a043b8f572042b955363c4f154214f73877e027dd636eaa764e18b": "new-phlan-gate-36eaa764e18b.png",
+    "tile:0:b252776d8458fc6b748a55918b6888e037f2b9216b1328a727cdfc0943da91c5": "new-phlan-gate-fc0943da91c5.png",
+    "tile:0:b4045d005d3dc2b8406945d3af18f0dfe1e86a3eeef827c3c123906c75ba2a5a": "new-phlan-gate-906c75ba2a5a.png",
+    "tile:0:efdc8d933de212d5d88ac5d346f07eceecfa8a614ad77866a1acae51b6ecb6fb": "new-phlan-gate-ae51b6ecb6fb.png",
+    "tile:0:f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b": "new-phlan-gate-31a92759fb4b.png",
+    "tile:0:f6b189fa843260fec0ac9870717503b224c055211fd417213d26307c738f717c": "new-phlan-gate-307c738f717c.png"
   }
 }
