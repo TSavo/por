@@ -83,3 +83,10 @@ The portrait matched every pixel in the 88×88 image area across 17 successive
 encounter captures. The enhanced browser replay showed the replacement in
 those 17 frames and removed it on entry to combat. Switching to classic and
 back during dialogue preserved the same guest frame.
+
+The fixed Slums orc outpost uses `CPIC2.DAX` block 4 for the 24×24 guard
+sprite. The enhanced renderer matches the original footprint and displays
+the 96×96 replacement. Chrome observed it in 12 distinct positions across
+the first 15 combat frames. Block 132 has a separate swing PNG. A controlled
+framebuffer check verified its placement in both facings. The live replay
+did not observe a matching swing frame.
