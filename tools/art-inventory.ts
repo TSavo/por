@@ -142,7 +142,11 @@ const replacements = [...loadUpgradeArt()].map(([id, { png, ...metadata }], inde
       source = { archive, block, directoryIndex: entry.directoryIndex, member, frame, x: picture.x, y: picture.y };
     }
   }
-  return { id, preview, source, ...metadata };
+  const tileArea = /^tile:(\d+):/.exec(id)?.[1];
+  const placement = metadata.encounter
+    ?? (source ? { x: source.x, y: source.y }
+      : tileArea !== undefined ? { area: Number(tileArea) } : undefined);
+  return { id, preview, source, placement, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();
 const runtimeReplacements = [];
@@ -157,9 +161,11 @@ for (const replacement of replacements) {
   matches.push(replacement);
   replacementsByBlock.set(key, matches);
 }
-function replacementPreview({ id, preview, width, height, encounter, file, source }: typeof replacements[number]) {
+function replacementPreview({ id, preview, width, height, placement, file, source }: typeof replacements[number]) {
+  const area = placement && "area" in placement ? ` · area ${placement.area}` : "";
+  const origin = placement && "x" in placement ? ` · origin (${placement.x}, ${placement.y})` : "";
   return `<div class="preview"><a href="${preview}" target="_blank" rel="noopener"><img loading="lazy" src="${preview}" alt="${escape(file)}"></a>` +
-    `<small>Enhanced · ${width}×${height} · ${escape(id)}${encounter ? ` · area ${encounter.area} at (${encounter.x},${encounter.y})` : ""}</small>` +
+    `<small>Enhanced · ${width}×${height} · ${escape(id)}${area}${origin}</small>` +
     `<small>${escape(file)}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small></div>`;
 }
 const runtimeGallery = runtimeReplacements.length ?
