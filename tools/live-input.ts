@@ -61,7 +61,16 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     if (browser) {
       const viewport = createHash("sha256");
       for (let y = 8; y < 128; y++) viewport.update(screen.pixels.subarray(y * screen.width + 8, y * screen.width + 120));
-      const text = visibleGameText();
+      const glyphs = visibleGameText();
+      const dialogue = glyphs.filter(([cell]) => cell >= 640 && cell < 960).sort(([a], [b]) => a - b)
+        .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase();
+      // The parchment uses the original rune font inside the picture while
+      // the surrounding dialogue and party list use the normal game font.
+      const text = dialogue.includes("THELASTPARTISEATENAWAY") ? glyphs.filter(([cell]) => {
+        const column = cell % 40;
+        const row = Math.floor(cell / 40);
+        return column < 1 || column >= 16 || row < 1 || row >= 16;
+      }) : glyphs;
       const portrait = !scene && !leads ? portraitArt(screen) : undefined;
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);

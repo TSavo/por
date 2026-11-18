@@ -180,6 +180,12 @@ at City Hall, and follows the harbor master's directions to the pier. The
 original boat transition lands all six on Thorn Island at (8,14). The replay
 reuses slot A for this arrival and verifies that the council offer, island
 arrival, and completed Ohlo commission survive reload.
+At the gates, the party finds the clue pointing west to the reeds and
+searches the elf's remains at (6,13). Reloading slot B retains the parchment
+entry. The replay checks that the parchment appears after the search
+and the pale figure stays hidden at this checkpoint. Chrome verified that
+enhanced mode retains the original parchment rune shapes in the picture
+area while rendering the instructions and party text with the web font.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,

@@ -296,4 +296,34 @@ await replay(loadSlotA, "85000000", [
   "j", checkSokal,
 ]);
 console.log("Heard the council's commissions, took the boat to Sokal Keep and reloaded the arrival in slot A.");
+
+const parchmentSave = await replay(loadSlotA, "85000000", [
+  "up", (text) => assert.match(text, /gates of sokal keep.*west rises a mound of reeds/),
+  "j", (_text, frame) => {
+    assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-reeds"));
+    assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-parchment"));
+  }, "j",
+  "left", "up", "up", "enter", "enter",
+  (text) => assert.match(text, /what do you do\?.*leave search attack talk/),
+  "end", "enter",
+  (text) => assert.match(text, /crumbling parchment scroll/),
+  "enter",
+  (text, frame) => {
+    assert.match(text, /last part is eaten away/);
+    assert.ok(!frame.text.some(([cell]) => cell % 40 >= 1 && cell % 40 < 16 &&
+      Math.floor(cell / 40) >= 1 && Math.floor(cell / 40) < 16));
+  },
+  "enter", "enter",
+  "e", "s", "s", "b",
+]);
+assert.match(visibleText(parchmentSave), /quit to dos/);
+await replay(loadSlotB, "85000000", [
+  (text) => assert.match(text, /6,13 w/),
+  "j", (_text, frame) => {
+    checkSokal("", frame);
+    assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-parchment"));
+    assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-pale-form"));
+  },
+]);
+console.log("Searched the reeds, found the parchment and verified its journal entry after reloading slot B.");
 console.log("Replay save:", saveDir);

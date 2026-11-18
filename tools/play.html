@@ -15,7 +15,7 @@
     button { background: #25303b; color: inherit; border: 1px solid #546577; padding: .55rem .8rem; border-radius: 5px; font: inherit; cursor: pointer; }
     button:disabled { opacity: .5; cursor: default; }
     #screen, #viewport-art, #tile-art img { image-rendering: pixelated; }
-    #screen { display: block; width: 100%; aspect-ratio: 8 / 5; background: #000; }
+    #screen { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; background: #000; }
     #play { position: relative; border: 1px solid #546577; container-type: inline-size; }
     #viewport-art { position: absolute; left: 2.5%; top: 4%; width: 35%; height: 60%; pointer-events: none; }
     #tile-art { position: absolute; inset: 0; pointer-events: none; }
@@ -47,7 +47,6 @@
     }
     [data-presentation="enhanced"] #screen {
       aspect-ratio: 4 / 3;
-      height: auto;
     }
     [data-presentation="enhanced"] #journal {
       background: #231d17;
