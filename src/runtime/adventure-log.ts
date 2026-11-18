@@ -361,6 +361,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "phlan-training-magic-users", title: "Magic-user training door",
       detail: "Use the east door at the northern training school. Accept the trainer's offer, select the magic user, then choose Train Character." });
   }
+  if (text.includes("IT WILL COST YOU 1 PLATINUM PIECE TO REST HERE")) {
+    leads.push({ id: "phlan-paid-rest", title: "Paid lodging in New Phlan",
+      detail: "The lodging on the south side of New Phlan costs one platinum. Pay for a stay to rest and memorize spells." });
+  }
   if (text.includes("TRAINING COSTS 1000 GP") && text.includes("DO YOU WANT TO TRAIN?")) {
     leads.push({ id: "phlan-training-fee", title: "Training costs 1,000 gold",
       detail: "The trainer quoted a fee of 1,000 gold. Check the selected character's coins and experience under View Character before returning." });

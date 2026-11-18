@@ -1584,11 +1584,24 @@ if (process.argv[2] === "--mage-training-checkpoint") {
     ...Array(4).fill("end"), "v", "v", (text) => assert.match(text, trained),
     "e", "b", "enter", "e", "m", "m", "m",
     (text) => assert.match(text, /darkstar's spells in spell book.*magic missile/),
+    "e", "e", "e", "j", checkMageSchool, "j",
+    "right", "right", "up", "left", "up", "up", "right", "up", "enter", "enter",
+    "left", "up", "left", "up", "up", "right", ...Array(9).fill("up"), "right", "up", "enter",
+    (text) => assert.match(text, /6,12 w.*1 platinum piece to rest here/),
+    "y", "enter", "enter", "m", "m",
     "end", "end", "m", "e", "enter",
     (text) => assert.match(text, /spells to be memorized.*\*magic missile/),
-    "n", "e", "e", "j", checkMageSchool,
+    "y", "r", (text) => assert.match(text, /rest time: 00:04:15/), "r", "c",
+    (text) => assert.match(text, /darkstar's spells in memory.*magic missile/),
+    "e", "e", "v", "v", (text) => assert.match(text, /darkstar.*platinum 49.*level 2/),
+    "e", "j", (_text, frame) => assert.ok(frame.journal.leads.some(({ id }) => id === "phlan-paid-rest")),
+    "j", "s", "s", "d",
   ]);
-  console.log("Trained Darkstar to level 2 and reloaded her fee balance and newly learned Magic Missile.");
+  await replay(loadSlot("2064"), "85000000", [
+    ...Array(4).fill("end"), "v", "v", (text) => assert.match(text, /darkstar.*platinum 49.*level 2/),
+    "s", (text) => assert.match(text, /darkstar's spells in memory.*magic missile/),
+  ]);
+  console.log("Trained Darkstar to level 2, paid for lodging, and reloaded Magic Missile memorized.");
   process.exit(0);
 }
 
