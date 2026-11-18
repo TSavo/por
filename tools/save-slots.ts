@@ -16,17 +16,34 @@ export function saveSlotLetter(name: string): string | undefined {
   return /^(?:SAVE\\)?SAVGAM([A-J])\.DAT$/.exec(name)?.[1];
 }
 
+function readRecord(directory: string, name: string): string | undefined {
+  try {
+    return readFileSync(join(directory, name + ".json"), "utf8");
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+  }
+}
+
+function writeRecord(directory: string, name: string, data: unknown): void {
+  mkdirSync(directory, { recursive: true });
+  const pending = join(directory, `${name}.${randomUUID()}.tmp`);
+  try {
+    writeFileSync(pending, JSON.stringify(data), { flag: "wx" });
+    renameSync(pending, join(directory, name + ".json"));
+  } finally {
+    rmSync(pending, { force: true });
+  }
+}
+
+const rosterName = /^SAVE\\(?:CHARLIST\.TXT|[A-Z0-9_]{1,8}\.(?:CHA|ITM|SPC))$/;
+const canonicalName = (name: string) => name.replaceAll("/", "\\").toUpperCase();
+
 export function openSaveSlots(directory: string) {
   const slots = new Map<string, Slot>();
   const files: DosFile[] = [];
   for (const letter of "ABCDEFGHIJ") {
-    let raw: string;
-    try {
-      raw = readFileSync(join(directory, letter + ".json"), "utf8");
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === "ENOENT") continue;
-      throw error;
-    }
+    const raw = readRecord(directory, letter);
+    if (raw === undefined) continue;
     const slot = JSON.parse(raw) as Slot;
     if (slot.version !== 1 || saveSlotLetter(slot.name) !== letter ||
         typeof slot.data !== "string" || !Array.isArray(slot.leads)) {
@@ -35,8 +52,34 @@ export function openSaveSlots(directory: string) {
     slots.set(letter, slot);
     files.push({ name: slot.name, data: Buffer.from(slot.data, "base64") });
   }
+  const roster = new Map<string, string | null>();
+  const savedRoster = readRecord(directory, "roster");
+  if (savedRoster !== undefined) {
+    const data = JSON.parse(savedRoster);
+    if (data.version !== 1 || !data.files || typeof data.files !== "object") throw new Error("Invalid saved character roster");
+    for (const [name, bytes] of Object.entries(data.files)) {
+      if (!rosterName.test(name) || (bytes !== null && typeof bytes !== "string")) throw new Error("Invalid saved roster file");
+      roster.set(name, bytes);
+    }
+  }
   return {
     files,
+    mountRoster(base: DosFile[]): DosFile[] {
+      const mounted = new Map(base.map((file) => [canonicalName(file.name), file]));
+      for (const [name, data] of roster) {
+        if (data === null) mounted.delete(name);
+        else mounted.set(name, { name, data: Buffer.from(data, "base64") });
+      }
+      return [...mounted.values()];
+    },
+    saveRoster(name: string, bytes?: Uint8Array) {
+      if (!rosterName.test(name)) return;
+      const data = bytes === undefined ? null : Buffer.from(bytes).toString("base64");
+      if (roster.get(name) === data) return;
+      const next = new Map(roster).set(name, data);
+      writeRecord(directory, "roster", { version: 1, files: Object.fromEntries(next) });
+      roster.set(name, data);
+    },
     get(name: string) {
       const slot = slots.get(saveSlotLetter(name) ?? "");
       return slot?.name === name ? slot : undefined;
@@ -45,14 +88,7 @@ export function openSaveSlots(directory: string) {
       const letter = saveSlotLetter(name);
       if (!letter) throw new Error(`Invalid Pool of Radiance save filename ${name}`);
       const slot: Slot = { version: 1, name, data: Buffer.from(data).toString("base64"), leads, tracked };
-      mkdirSync(directory, { recursive: true });
-      const pending = join(directory, `${letter}.${randomUUID()}.tmp`);
-      try {
-        writeFileSync(pending, JSON.stringify(slot), { flag: "wx" });
-        renameSync(pending, join(directory, letter + ".json"));
-      } finally {
-        rmSync(pending, { force: true });
-      }
+      writeRecord(directory, letter, slot);
       slots.set(letter, slot);
     },
   };

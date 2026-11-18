@@ -50,14 +50,14 @@ const scheduledKeys = [replayKeys, process.env.POR_BOOT_KEYS ?? ""].join("\n")
   }).sort((a, b) => a.step - b.step);
 
 function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => void,
-  fileClosed?: DosFileClosed, savedFiles: typeof files = []): Cpu {
+  fileClosed?: DosFileClosed, mountedFiles = files, fileDeleted?: (name: string) => void): Cpu {
   const cpu = new Cpu();
   const exe = files.find((f) => f.name.toUpperCase() === "START.EXE");
   const ovr = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
   if (!exe || !ovr) throw new Error("START.EXE and GAME.OVR are required");
   const boot = installProgram(cpu, exe.data, ovr.data);
   const keys = [...scheduledKeys];
-  attachDos(cpu, [...files, ...savedFiles], keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)), fileClosed);
+  attachDos(cpu, mountedFiles, keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)), fileClosed, fileDeleted);
   cpu.ss = boot.ss;
   cpu.sp = boot.sp || 0xfffe;
   cpu.ds = 0x2000;
@@ -114,8 +114,11 @@ const input = liveAt === undefined ? undefined : liveInput(liveStep, journal, re
 const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
   join("out", "saves", createHash("sha256").update(realpathSync(root))
     .update(campaign ? "\0" + realpathSync(campaign) : "").digest("hex").slice(0, 16)));
-let slotClosed: DosFileClosed | undefined;
-const cpu = fresh(input?.requestKey, (name, data, written) => slotClosed?.(name, data, written), saves?.files);
+const rosterClosed: DosFileClosed = (name, data, written) => { if (written) saves?.saveRoster(name, data); };
+let slotClosed = rosterClosed;
+const mountedFiles = saves ? [...saves.mountRoster(files), ...saves.files] : files;
+const cpu = fresh(input?.requestKey, (name, data, written) => slotClosed(name, data, written), mountedFiles,
+  (name) => { if (slotClosed === rosterClosed) saves?.saveRoster(name); });
 if (input && saves) {
   const disk = loadedSlices.find((slice) => slice.index === 17);
   if (!disk) throw new Error("Missing translated save overlay");

@@ -31,7 +31,8 @@ export interface BiosKey {
 }
 
 export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
-  requestKey?: (blocking: boolean) => void, fileClosed?: DosFileClosed): void {
+  requestKey?: (blocking: boolean) => void, fileClosed?: DosFileClosed,
+  fileDeleted?: (name: string) => void): void {
   dosLog.length = 0;
   consoleText = "";
   resetVideo();
@@ -260,6 +261,7 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
       const name = canonical(readAsciiz(cpu.ds, cpu.dx));
       cpu.cf = !byName.delete(name);
       cpu.ax = cpu.cf ? 2 : 0;
+      if (!cpu.cf) fileDeleted?.(name);
       return;
     }
     if (ah === 0x42) {
