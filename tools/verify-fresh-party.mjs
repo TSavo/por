@@ -67,10 +67,26 @@ assert.match(savedText, /quit to dos/);
 const slot = JSON.parse(readFileSync(join(saveDir, "A.json"), "utf8"));
 assert.equal(Object.keys(slot.party).filter((name) => /\.SAV$/.test(name)).length, names.length);
 
-const reloaded = await replay("31000000:1c0d,45000000:266c,52000000:1e61", "85000000", ["up", "enter", "enter"]);
+const loadSlotA = "31000000:1c0d,45000000:266c,52000000:1e61";
+const reloaded = await replay(loadSlotA, "85000000", ["up", "enter", "enter"]);
 const reloadedText = visibleText(reloaded);
 expectParty(reloadedText);
 assert.match(reloadedText, /15,4 w/);
 assert.match(reloadedText, /slums of phlan/);
+const shopRoute = [
+  "right", "right", "up", "up", "up", "enter", "right", ...Array(7).fill("up"),
+  "left", ...Array(5).fill("up"), "y", "y",
+];
+const readyAxe = ["b", "b", "e", "v", "i", "i", "r"];
+const saveEquipment = ["e", "e", "e", "e", "e", "s", "s", "b"];
+const equippedSave = await replay(loadSlotA, "85000000", [...shopRoute, ...readyAxe, ...saveEquipment]);
+assert.match(visibleText(equippedSave), /quit to dos/);
+const equippedSlot = JSON.parse(readFileSync(join(saveDir, "B.json"), "utf8"));
+assert.ok(equippedSlot.party["SAVE\\CHRDATB1.ITM"]);
+
+const loadSlotB = "31000000:1c0d,45000000:266c,52000000:3062";
+const equippedReload = await replay(loadSlotB, "85000000", ["v", "v", "i", "i"]);
+assert.match(visibleText(equippedReload), /alda's items.*yes hand axe/);
 console.log("Created six characters, completed Rolf's tour, saved and reloaded, and entered the Slums.");
+console.log("Bought and readied Alda's hand axe at the New Phlan arms shop and verified it after reloading slot B.");
 console.log("Replay save:", saveDir);
