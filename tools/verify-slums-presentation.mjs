@@ -21,8 +21,20 @@ const environmentRoutes = new Map([
   ["graveyard-south", { slot: "A", area: 10, views: 4, patterns: 67, walk: ["right", "up", "up"] }],
   ["graveyard-east", { slot: "A", area: 10, views: 8, patterns: 81, walk: Array(7).fill("up") }],
   ["graveyard-north", { slot: "A", area: 10, views: 7, patterns: 68, walk: ["up", "up", "up", "left", "up", "right"] }],
+  ["north-gate-rampart", {
+    slot: "A", area: 14, views: 19, patterns: 41,
+    walk: ["up", "left", ...Array(11).fill("up"), "left", "up", "right", "right", "up"],
+  }],
+  ["north-gate-quarter", {
+    slot: "A", area: 14, views: 18, patterns: 22,
+    walk: ["up", "right", "up", "up", "left", ...Array(5).fill("up"), "left", "up", "right", "up", "up", "left", "up"],
+  }],
+  ["north-gate-houses", {
+    slot: "A", area: 14, views: 12, patterns: 49,
+    walk: ["up", "left", ...Array(6).fill("up"), "right", "up", "b", "up", "up", "right", "up", "left", "up"],
+  }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "stojanow-briefing", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -30,6 +42,7 @@ const dragon = routeName === "castle-dragon";
 const halls = routeName === "castle-halls";
 const assault = routeName === "assault-briefing";
 const mystic = routeName === "graveyard-mystic";
+const stojanow = routeName === "stojanow-briefing";
 const altar = routeName === "textile-altar";
 const plaza = routeName === "podal-plaza";
 const trainer = routeName === "fighter-trainer";
@@ -47,7 +60,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)), "Both options 
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = environment?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza ? "I" : ogre ? "H" : dragon || halls || assault || mystic ? "B" : orcs || ending || smithy ? "C" : "A");
+const slot = environment?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow ? "B" : orcs || ending || smithy ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -346,6 +359,12 @@ try {
     }
     assert.deepEqual({ moved, priestessSelected, swing }, { moved: true, priestessSelected: true, swing: true });
     console.log("Verified the Textile House altar portrait, selected priestess, moving captains, and captain strike.");
+  } else if (stojanow) {
+    for (const key of ["up", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:HEAD3.DAX:16:BODY3.DAX:7");
+    await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
   } else if (mystic) {
     for (const key of ["up", "enter", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:HEAD4.DAX:0:BODY4.DAX:2");

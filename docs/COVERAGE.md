@@ -677,6 +677,13 @@ the 352×352 altar portrait, the selected 96×96 priestess sprite, the captains'
 movement, and the captain's strike during browser animation playback. It
 also switches presentation in the dialogue and combat.
 
+Old Phlan's northern gate has 56 individual 32×32 terrain assets. The
+`north-gate-rampart`, `north-gate-quarter`, and `north-gate-houses` routes use
+slot A at `4,0 S`, reached by ordinary overland travel. Chrome verified 5,929
+placements in 49 frames, including opening and crossing a house doorway.
+The `stojanow-briefing` browser route uses a controlled slot B at `5,8 N`
+to verify Urslingen's 352×352 mission portrait and a state-preserving switch.
+
 Valhingen Graveyard now has 108 individual 32×32 scenery tiles for its
 entrance routes. The slot A checkpoint at `0,4 E` was reached by traveling
 overland after Podal Plaza. Three Chrome replays walked south, east, and north
