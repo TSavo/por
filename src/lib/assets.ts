@@ -22,6 +22,15 @@ export interface AssetOverride {
 export interface OverrideManifest {
   version: 1;
   assets: Record<string, string>;
+  encounters?: Record<string, EncounterAnchor>;
+}
+
+export interface EncounterAnchor {
+  area: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 export function assetId(kind: string, file: string, block?: number, index?: number): string {

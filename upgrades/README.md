@@ -69,6 +69,12 @@ browser currently supports 352×352 replacements for 88×88 guest portraits
 at (24,24), inside the original frame. The Slums portrait is
 `portrait:PIC2.DAX:0:0:0`.
 
+Encounter replacements use `encounter:archive:block:member:frame` keys.
+Add the key to `assets` and give it an entry under `encounters` with
+`area`, `x`, `y`, `width`, and `height` in original framebuffer units.
+The PNG must use four times the given width and height. The renderer
+matches the corresponding guest frame in that area before showing it.
+
 The kobold approach uses `encounter:SPRIT2.DAX:0:0:0`,
 `encounter:SPRIT2.DAX:0:1:0`, and `encounter:SPRIT2.DAX:0:2:0`.
 These transparent PNGs are 160×320, 96×260, and 96×228. Their native

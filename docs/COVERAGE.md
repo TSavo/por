@@ -455,6 +455,10 @@ PNGs per view. It checks alignment, pixelated scaling, and the loaded web
 font at 430px and 1100px. The button and F10 preserve the complete guest
 frame and save bytes during exploration, in the journal, at the kobold
 dialogue, and in combat. The journal retains focus on Return to game.
+The same Chrome replay passed with encounter anchors read from the Slums
+manifest. A framebuffer check moved the middle kobold pose to a different
+anchor and area, confirmed the old area's background was discarded, and
+verified restoration from a clean view in the new area.
 
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick

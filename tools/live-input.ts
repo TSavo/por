@@ -1,6 +1,7 @@
 import { appendFileSync, readSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { Frame } from "../src/lib/ega.js";
+import type { EncounterAnchor } from "../src/lib/assets.js";
 import type { Cpu } from "../src/cpu/machine.js";
 import { currentObjective, isOpenObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
@@ -55,8 +56,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
   const portraitArt = loadPortraitArt((process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean));
-  const encounterKeys = (process.env.POR_ENCOUNTER_ART_KEYS ?? "").split(",").filter(Boolean);
-  const encounterArt = loadEncounterArt(encounterKeys);
+  const encounterPlacements = JSON.parse(process.env.POR_ENCOUNTER_ART ?? "{}") as Record<string, EncounterAnchor>;
+  const encounterArt = loadEncounterArt(encounterPlacements);
+  const traceEncounterArea = Object.keys(encounterPlacements).length > 0;
   const traceTiles = process.env.POR_TRACE_TILES === "1";
   const showFrame = (leads?: JournalLead[]) => {
     if (browser) {
@@ -75,7 +77,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const portrait = !scene && !leads ? portraitArt(screen) : undefined;
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);
-      const encounter = encounterArt(screen, enhanced, area === 20 && !scene && !leads && !portrait);
+      const encounter = encounterArt(screen, enhanced, !scene && !leads && !portrait ? area : undefined);
       const tiles: [number, number, string][] = [];
       const tileInventory: [number, number, string][] | undefined = traceTiles ? [] : undefined;
       const explorationMenu = text.filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
@@ -159,7 +161,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
-    if (browser && (tileKeys.size || traceTiles || encounterKeys.length)) {
+    if (browser && (tileKeys.size || traceTiles || traceEncounterArea)) {
       const segment = cpu.read16(0x740, 0x4935);
       const offset = cpu.read16(0x740, 0x4933);
       area = segment || offset ? cpu.read16(segment, offset + 0x1e4) : undefined;
