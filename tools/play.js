@@ -25,6 +25,7 @@ let currentEffect;
 let lastSoundId = null;
 let blockedEffect;
 let voiceManifest = { lines: [] };
+let soundManifest = { events: [] };
 let currentVoice;
 let lastTextId = null;
 const narratedScenes = new Set();
@@ -63,7 +64,10 @@ function playSound(sound) {
   if (sound.index === 0 || sound.index === 0xff) { stopEffect(); return; }
   if (sound.index < 1 || sound.index > 20 || audioPreferences.hardware === "silent") return;
   stopEffect();
-  const effect = new Audio(`/audio/${audioPreferences.hardware}-${String(sound.index).padStart(2, "0")}.wav`);
+  const entry = soundManifest.events.find((candidate) => candidate.index === sound.index);
+  const source = enhanced && entry?.enhancedFile ? `/enhanced-audio/${entry.enhancedFile}`
+    : `/audio/${audioPreferences.hardware}-${String(sound.index).padStart(2, "0")}.wav`;
+  const effect = new Audio(source);
   effect.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences.effects;
   effect.loop = [13, 14, 15].includes(sound.index);
   currentEffect = effect;
@@ -87,6 +91,7 @@ function resumeBlockedAudio() {
 
 syncAudioControls();
 fetch("/voice-manifest.json").then((response) => response.json()).then((manifest) => { voiceManifest = manifest; }).catch(() => {});
+fetch("/sound-manifest.json").then((response) => response.json()).then((manifest) => { soundManifest = manifest; }).catch(() => {});
 audioToggle.addEventListener("click", () => {
   audioSettings.hidden = !audioSettings.hidden;
   audioToggle.setAttribute("aria-expanded", String(!audioSettings.hidden));

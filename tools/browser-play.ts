@@ -19,9 +19,13 @@ const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const voiceManifest = readFileSync(new URL("../src/audio/voices.json", import.meta.url));
 const voiceFiles = new Set((JSON.parse(voiceManifest.toString("utf8")) as { lines: { file: string }[] }).lines.map(({ file }) => file));
+const soundManifest = readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url));
+const enhancedSoundFiles = new Set((JSON.parse(soundManifest.toString("utf8")) as
+  { events: { enhancedFile?: string }[] }).events.flatMap(({ enhancedFile }) => enhancedFile ? [enhancedFile] : []));
 const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
 const audioDirectory = process.env.POR_AUDIO_DIR ?? join("..", "por-assets", "original");
 const voiceDirectory = process.env.POR_VOICE_DIR ?? join("..", "por-assets", "voices");
+const enhancedAudioDirectory = process.env.POR_ENHANCED_AUDIO_DIR ?? join("..", "por-assets", "enhanced");
 const gameFont = (() => {
   for (const path of new Set([join(upgrades, "font.woff2"), join("upgrades", "font.woff2")])) {
     try {
@@ -114,6 +118,15 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(script);
   } else if (req.method === "GET" && req.url === "/voice-manifest.json") {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(voiceManifest);
+  } else if (req.method === "GET" && req.url === "/sound-manifest.json") {
+    res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(soundManifest);
+  } else if (req.method === "GET" && req.url?.startsWith("/enhanced-audio/") && enhancedSoundFiles.has(req.url.slice(16))) {
+    try {
+      const wav = readFileSync(join(enhancedAudioDirectory, req.url.slice(16)));
+      res.writeHead(200, { "content-type": "audio/wav", "content-length": wav.length }).end(wav);
+    } catch {
+      res.writeHead(404).end();
+    }
   } else if (req.method === "GET" && req.url?.startsWith("/voice/") && voiceFiles.has(req.url.slice(7))) {
     try {
       const wav = readFileSync(join(voiceDirectory, req.url.slice(7)));

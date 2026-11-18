@@ -1,17 +1,18 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-interface EventEntry { id: string; index: number; kind: string; loop: boolean }
+interface EventEntry { id: string; index: number; kind: string; loop: boolean; enhancedFile?: string }
 const manifest = JSON.parse(readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url), "utf8")) as
   { events: EventEntry[]; verification: Record<string, string> };
 const assets = resolve(process.env.POR_AUDIO_DIR ?? "../por-assets/original");
+const enhanced = resolve(process.env.POR_ENHANCED_AUDIO_DIR ?? "../por-assets/enhanced");
 const rows = manifest.events.map((event) => ({
   ...event,
   pcWav: existsSync(resolve(assets, `pc-speaker-${String(event.index).padStart(2, "0")}.wav`)),
   tandyVgm: existsSync(resolve(assets, `tandy-${String(event.index).padStart(2, "0")}.vgm`)),
   tandyWav: existsSync(resolve(assets, `tandy-${String(event.index).padStart(2, "0")}.wav`)),
-  enhancedReplacement: false,
-  enhancedFallback: true,
+  enhancedReplacement: Boolean(event.enhancedFile && existsSync(resolve(enhanced, event.enhancedFile))),
+  enhancedFallback: !event.enhancedFile || !existsSync(resolve(enhanced, event.enhancedFile)),
 }));
 const report = {
   schema: 1,

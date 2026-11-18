@@ -11,7 +11,7 @@
   },
   "events": [
     { "id": "por.original.initialize-tone", "index": 1, "kind": "control", "loop": false, "pcSeconds": 0.008450, "tandySeconds": 0.008450 },
-    { "id": "por.original.effect-02", "index": 2, "kind": "effect", "loop": false, "pcSeconds": 1.022411, "tandySeconds": 0.819618 },
+    { "id": "por.original.effect-02", "index": 2, "kind": "effect", "loop": false, "pcSeconds": 1.022411, "tandySeconds": 0.819618, "enhancedFile": "por-original-effect-02.wav", "enhancedStatus": "prototype-authored" },
     { "id": "por.original.effect-03", "index": 3, "kind": "effect", "loop": false, "pcSeconds": 0.156319, "tandySeconds": 0.219692 },
     { "id": "por.original.effect-04", "index": 4, "kind": "effect", "loop": false, "pcSeconds": 0.895666, "tandySeconds": 1.022411 },
     { "id": "por.original.effect-05", "index": 5, "kind": "effect", "loop": false, "pcSeconds": 0.752021, "tandySeconds": 1.596989 },

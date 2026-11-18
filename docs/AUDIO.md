@@ -83,6 +83,12 @@ the title narrator. They verify the full event, subtitle, mixing, interruption,
 and fallback path but are explicitly marked for replacement by approved final
 performances. `npm run verify` validates their manifests and WAV assets.
 
+Enhanced effects use optional `enhancedFile` entries on that same original event
+manifest. The browser selects the replacement only in Enhanced mode; otherwise it
+uses the selected Classic hardware WAV. Missing or unavailable Enhanced files
+therefore fall back without changing the original trigger. The vertical slice's
+event 2 prototype is reproducible with `npm run generate-enhanced-audio`.
+
 ## Production pipeline
 
 Tandy traces will be converted to VGM register streams and rendered to canonical
