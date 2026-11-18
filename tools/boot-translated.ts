@@ -207,7 +207,7 @@ if (liveAt !== undefined) {
     console.log(process.env.POR_BROWSER_PLAY === "1" ? `POR_NOTICE ${message}` : message);
   });
 }
-const journalSlice = loadedSlices.find((slice) => slice.index === 7);
+const journalSlice = loadedSlices.find((slice) => slice.index === 3);
 adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || liveAt !== undefined || profilePath) && journalSlice
   ? observeAdventureLog(cpu, journalSlice)
   : undefined;

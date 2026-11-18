@@ -143,6 +143,10 @@ selecting Begin Adventuring. In Add Character, **End** moves down a name,
 **Home** moves up, and **A** adds the highlighted character. A live run added
 all six, completed Rolf's tour, saved from Encamp, and loaded all six in a new
 process before entering the Slums through the west gate.
+From that save, the party reached the original kobold encounter and entered
+combat with all six characters. The journal transcript captured the Slums
+greeting once, even when the interpreter decoded it again to skip the
+conditional print. The council briefing still recorded the visible offers.
 
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick

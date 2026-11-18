@@ -3,25 +3,24 @@ import { farCallObservers } from "./far.js";
 import type { LoadedSlice } from "./overlay.js";
 import { commissions } from "./commission-journal.js";
 
-/**
- * Observe text the original PoR ECL interpreter emits. Slice 7 adds the
- * character at [BP-7] to the message at 129E through System's Char-to-string
- * helper. At the far-call boundary the character is the first stack argument.
- */
+/** Observe the Pascal strings actually sent to the guest's text display. */
 export function observeAdventureLog(cpu: Cpu, slice: LoadedSlice): () => string {
-  if (slice.index !== 7) throw new Error("The PoR adventure log requires overlay slice 7");
+  if (slice.index !== 3) throw new Error("The PoR adventure log requires overlay slice 3");
   const chunks: string[] = [];
-  let lastStep = 0;
   farCallObservers.set(cpu, (seg, off) => {
-    if (seg !== 0x5bb || off !== 0x74f || cpu.cs !== slice.loadPara ||
-        cpu.read16(cpu.ss, cpu.sp) !== 0x12a3) return;
-    const char = cpu.read8(cpu.ss, cpu.sp + 4);
-    if (cpu.steps - lastStep > 100_000 && chunks.length) chunks.push("\n\n");
-    lastStep = cpu.steps;
-    if (char === 13) chunks.push("\n");
-    else if (char >= 32 && char <= 126) chunks.push(String.fromCharCode(char));
+    if (seg !== 0x198 || off !== 0x39 || cpu.cs !== slice.loadPara) return;
+    const offset = cpu.read16(cpu.ss, cpu.sp + 4);
+    const segment = cpu.read16(cpu.ss, cpu.sp + 6);
+    const length = cpu.read8(segment, offset);
+    let message = "";
+    for (let i = 1; i <= length; i++) {
+      const char = cpu.read8(segment, offset + i);
+      if (char === 13) message += "\n";
+      else if (char >= 32 && char <= 126) message += String.fromCharCode(char);
+    }
+    if (message.trim()) chunks.push(message);
   });
-  return () => chunks.join("").trim();
+  return () => chunks.join("\n").trim();
 }
 
 export interface JournalLead {
