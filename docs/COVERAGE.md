@@ -395,7 +395,10 @@ the party observes the wand exchange, it saves and reloads with the
 commission ready to report. It walks back to the landing, takes the
 return boat, and collects the clerk's reward. The journal then marks
 the commission turned in. Run this segment with
-`node tools/verify-fresh-party.mjs --podal-checkpoint PATH_TO_SAVE_JSON`.
+`node tools/verify-fresh-party.mjs --podal-checkpoint PATH_TO_SAVE_JSON`
+with `POR_QUICK_STEPS=5000000` to reproduce the historical courtyard win
+and check its downstream branches. The default watchdog no longer produces
+that assisted win (see below).
 Use a save at the clerk with Sokal turned in and the auction accepted.
 The replay copies that save to a scratch directory.
 After the auction turn-in, the replay takes the east door to Cadorna,
@@ -474,9 +477,10 @@ not establish a win without watchdog intervention.
 The party replay now summarizes watchdog interventions. Set
 `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` for a run that fails on the first
 intervention and reports the preceding input and displayed combat state.
-With the default watchdog, the Podal checkpoint run in this mode stops
-on input 53 (`q`) of the courtyard replay. Checkpoint runs that allow
-recovery can still verify the journal branches after the courtyard.
+With an explicit `POR_QUICK_STEPS=5000000`, the strict Podal checkpoint
+run stops on input 53 (`q`) of the courtyard replay. The default watchdog
+now gives the original calibrated delay bounded extra time. The same
+courtyard inputs end in defeat with no watchdog intervention.
 `POR_TRACE_QUICK=1` logs the guest budget location and translated call
 stack before rollback. The courtyard trace expires at `0512:53E1`, in
 the executable's calibrated delay loop called by overlay 25 at `2000`.

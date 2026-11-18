@@ -10,7 +10,7 @@ export function attachQuickRecovery(
   cpu: Cpu,
   slices: readonly LoadedSlice[],
   onRecovery: (partyMember: boolean, timeout: StepBudgetExceeded) => void,
-  instructionLimit = 5_000_000,
+  instructionLimit?: number,
 ): void {
   const combat = slices.find((slice) => slice.index === 8);
   const quick = slices.find((slice) => slice.index === 9);
@@ -24,12 +24,24 @@ export function attachQuickRecovery(
     if (returnIp !== 0x2b3 && returnIp !== 0x477) return false;
 
     const budget = cpu.stepBudget;
-    const limit = cpu.steps + instructionLimit;
+    let limit = cpu.steps + (instructionLimit ?? 5_000_000);
     if (budget !== 0 && budget <= limit) return false;
     const { ax, bx, cx, dx, si, di, bp, sp, cs, ds, es, ss, ip, cf, of, zf, sf, pf, df } = cpu;
     const registers = { ax, bx, cx, dx, si, di, bp, sp, cs, ds, es, ss, ip, cf, of, zf, sf, pf, df };
     const memory = cpu.mem.slice();
     const restoreVideo = checkpointVideo();
+    const previousBudgetHandler = cpu.onStepBudgetExceeded;
+    if (instructionLimit === undefined) {
+      const ceiling = Math.min(budget || Infinity, limit + 15_000_000);
+      cpu.onStepBudgetExceeded = () => {
+        // The resident calibrated delay reloads CX from BX for each of DX
+        // iterations. Let this known, finite loop finish within a hard cap.
+        if (cpu.stepBudget !== limit || cpu.cs !== 0x512 || cpu.ip < 0x53d3 || cpu.ip > 0x53e5) return;
+        const remaining = Math.max(1, cpu.dx) * (3 * (cpu.bx || 0x10000) + 5);
+        limit = Math.min(ceiling, limit + remaining);
+        cpu.stepBudget = limit;
+      };
+    }
     cpu.stepBudget = limit;
     cpu.cs = quick.loadPara;
     let timeout: StepBudgetExceeded;
@@ -45,6 +57,7 @@ export function attachQuickRecovery(
       restoreVideo();
     } finally {
       cpu.cs = cs;
+      cpu.onStepBudgetExceeded = previousBudgetHandler;
       // Quick can poll the keyboard and accept live input. Preserve any
       // session budget extension made while the turn watchdog was active.
       const extendedBudget = cpu.stepBudget > limit ? cpu.stepBudget : budget;

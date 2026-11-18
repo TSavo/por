@@ -29,6 +29,7 @@ export class Cpu {
   /** Instruction count for the current run. A tight loop trips stepBudget instead of hanging. */
   steps = 0;
   stepBudget = 0;
+  onStepBudgetExceeded?: () => void;
   ip = 0;
 
   tick(at: number): void {
@@ -54,6 +55,8 @@ export class Cpu {
       this.mem[tick] = ((this.mem[tick] ?? 0) + 1) & 0xff;
     }
     if (this.stepBudget !== 0 && this.steps > this.stepBudget) {
+      this.onStepBudgetExceeded?.();
+      if (this.stepBudget === 0 || this.steps <= this.stepBudget) return;
       throw new StepBudgetExceeded(
         `step budget ${this.stepBudget} at ${this.cs.toString(16)}:${at.toString(16)}`,
       );
