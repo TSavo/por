@@ -234,8 +234,8 @@ if (liveAt !== undefined) {
     const message = partyMember
       ? "Quick combat stalled. Choose a manual action."
       : "An enemy could not finish its turn. Combat continued.";
-    console.log(process.env.POR_BROWSER_PLAY === "1" ? `POR_NOTICE ${message}` : message);
     if (process.env.POR_TRACE_QUICK === "1") console.error(timeout.stack);
+    console.log(process.env.POR_BROWSER_PLAY === "1" ? `POR_NOTICE ${message}` : message);
   }, quickBudget);
 }
 const journalSlice = loadedSlices.find((slice) => slice.index === 3);

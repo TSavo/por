@@ -1275,7 +1275,7 @@ if (process.argv[2] === "--sokal-patrol-word-checkpoint") {
   process.exit(0);
 }
 
-async function verifySokalTrackedAmbush() {
+async function verifySokalTrackedAmbush(replenishCurate = false) {
   const landingSave = join(saveDir, "J.json");
   const savedLanding = readFileSync(landingSave);
   const checkAmbush = (seen) => (_text, frame) => {
@@ -1295,35 +1295,51 @@ async function verifySokalTrackedAmbush() {
   };
   await replay(loadSlot("246a"), "85000000", [
     (text) => assert.match(text, /brin 1 6.*8,14 n/),
+    ...(replenishCurate ? [
+      ...Array(7).fill("end"), "e", "m", "m", "m", "n", ...Array(7).fill("home"),
+      "end", "end", "m", "m", "e", "enter",
+      (text) => assert.match(text, /memorized.*\*hold person \*hold person.*memorize these spells/),
+      "y", "r", "r", "c",
+      (text) => assert.match(text, /curate's spells in memory.*hold person hold person/),
+      "e", "e", "e", "home",
+    ] : []),
     "j", checkAmbush(false), "j",
     "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "enter",
     "p", "n", ..."shestni", "enter",
     (text) => assert.match(text, /10,10 n.*the undead leave/),
-    ...Array(5).fill("up"), "enter", "y", "up", "left", "up", "y", "left",
-    (text) => assert.match(text, /9,5 w.*do you give the password/),
-    "y",
-    (text) => assert.match(text, /the undead leave/),
+    ...(replenishCurate ? [
+      "up", "up", "up", (text) => assert.match(text, /10,9 n.*do you give the password/), "y",
+      "up", "up", "up", "up", "left",
+      (text) => assert.match(text, /10,6 n.*do you give the password/), "y", "up", "left", "up",
+      (text) => assert.match(text, /9,5 w.*area cast view/),
+    ] : [
+      ...Array(5).fill("up"), "enter", "y", "up", "left", "up", "y", "left",
+      (text) => assert.match(text, /9,5 w.*do you give the password/),
+      "y", (text) => assert.match(text, /the undead leave/),
+    ]),
     "up", "enter",
     (text) => assert.match(text, /8,5 w.*a large force of orcs and hobgoblins rushes you/),
     "j", checkAmbush(true), "j",
     "enter", "enter", "enter",
-    ["space", /brin hitpoints 6 ac 1 mace move view aim use quick done/, 20],
-    "space", (text) => assert.match(text, /brin hitpoints 6 ac 1 mace move view aim use quick done/),
-    "a", "n", "n", "n",
-    (text) => {
-      assert.match(text, /orc hitpoints 2 ac 6 range = 3.*aim:next/);
-      assert.doesNotMatch(text, /manual target/);
-    },
-    "e", "m",
-    (text) => assert.match(text, /brin hitpoints.*move\/attack, move left = 3/),
-    "right",
-    (text) => assert.match(text, /brin hitpoints.*move\/attack, move left = 2/),
-    "pagedown", "a", "n", "n", "n",
-    (text) => assert.match(text, /orc hitpoints 2 ac 6 range = 1.*manual target/),
-    "t",
-    (text) => assert.match(text, /curate hitpoints 25 ac 2 mace/),
-    "space",
-    (text) => assert.match(text, /curate hitpoints 25 ac 2 mace move\/attack/),
+    ...(replenishCurate ? [] : [
+      ["space", /brin hitpoints 6 ac 1 mace move view aim use quick done/, 20],
+      "space", (text) => assert.match(text, /brin hitpoints 6 ac 1 mace move view aim use quick done/),
+      "a", "n", "n", "n",
+      (text) => {
+        assert.match(text, /orc hitpoints 2 ac 6 range = 3.*aim:next/);
+        assert.doesNotMatch(text, /manual target/);
+      },
+      "e", "m",
+      (text) => assert.match(text, /brin hitpoints.*move\/attack, move left = 3/),
+      "right",
+      (text) => assert.match(text, /brin hitpoints.*move\/attack, move left = 2/),
+      "pagedown", "a", "n", "n", "n",
+      (text) => assert.match(text, /orc hitpoints 2 ac 6 range = 1.*manual target/),
+      "t",
+      (text) => assert.match(text, /curate hitpoints 25 ac 2 mace/),
+      "space",
+      (text) => assert.match(text, /curate hitpoints 25 ac 2 mace move\/attack/),
+    ]),
     ["q", /the monsters rejoice for the party has been destroyed/, 1400],
   ]);
   assert.deepEqual(readFileSync(landingSave), savedLanding);
@@ -1331,13 +1347,16 @@ async function verifySokalTrackedAmbush() {
     (text) => assert.match(text, /brin 1 6.*8,14 n/),
     "j", checkAmbush(false),
   ]);
-  console.log("Verified Brin's manual mace attack, then reloaded the unchanged Sokal landing after the courtyard defeat.");
+  console.log(replenishCurate
+    ? "Replenished Hold Person at the Sokal landing and reloaded after the courtyard defeat."
+    : "Verified Brin's manual mace attack, then reloaded the unchanged Sokal landing after the courtyard defeat.");
 }
 
 if (process.argv[2] === "--sokal-tracked-ambush-checkpoint") {
   assert.ok(process.argv[3], "Pass slot J after the restored party hears the Sokal commission.");
+  assert.ok(!process.argv[4] || process.argv[4] === "--replenish-curate", "Expected --replenish-curate after the checkpoint");
   copyFileSync(process.argv[3], join(saveDir, "J.json"));
-  await verifySokalTrackedAmbush();
+  await verifySokalTrackedAmbush(process.argv[4] === "--replenish-curate");
   process.exit(0);
 }
 

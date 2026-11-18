@@ -219,6 +219,13 @@ tracked. The unsaved ambush discovery is absent after reload.
 In a separate trial from the same landing save, the Curate cast Bless
 outside the courtyard and the spell appeared in the party's active magic
 list. The blessed party still lost with Quick combat.
+The `--sokal-tracked-ambush-checkpoint PATH_TO_SLOT_J --replenish-curate`
+replay prepares two Hold Person spells by resting five hours at the
+landing. The later departure moves the password prompts to `10,9 N`
+and `10,6 N`. With `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` and
+`POR_QUICK_STEPS=60000000`, the party reaches defeat and reloads its
+unchanged landing save. The default watchdog interrupts this version
+at overlay 31, `0x09ca`, during a call from overlay 25, `0x25e8`.
 To repeat only the continuation, use
 `node tools/verify-fresh-party.mjs --sokal-armory-reinforcement-checkpoint PATH_TO_SLOT_E --equipped --return-to-courtyard`
 with the original run's equipped armory save.
