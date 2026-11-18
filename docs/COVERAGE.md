@@ -979,6 +979,10 @@ The `phlan-ferry-river` and `phlan-ferry-east` presentation replays start at
 the river and East Overland docks using controlled slots A and B. Both check
 the original Take Boat / Stay prompt, its shared 352×352 illustration, and
 state preservation across presentation switches.
+The `phlan-city-hall-approach` replay starts from slot B inside New Phlan's
+original gateway at `1,4 E`. Chrome checks 1,815 placements across 15 views
+on the City Hall approach and adjacent streets. The route uses 83 patterns,
+including 65 new 32×32 tiles, and preserves the save through mode switches.
 The `river-reward` replay uses a controlled City Hall save with the
 completion flag and witnessed clues from the fountain save. It checks the
 clerk's original river dialogue and verifies that the journal stays reward

@@ -12,6 +12,10 @@ const ferryRoutes = new Map([
 ]);
 const ferry = ferryRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["phlan-city-hall-approach", {
+    slot: "B", area: 0, views: 15, patterns: 83,
+    walk: ["up", "up", "enter", "left", "up", "up", "right", "up", "up", "right", "up", "left", "up", "right", "up"],
+  }],
   ["bane-sanctuary", {
     slot: "A", area: 24, views: 23, patterns: 69,
     walk: ["left", "up", "up", "left", "up", "left", "up", "up", "left", "up",
