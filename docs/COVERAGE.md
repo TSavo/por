@@ -151,6 +151,13 @@ reloaded in the Slums. The journal transcript captured the Slums
 greeting once, even when the interpreter decoded it again to skip the
 conditional print. The council briefing still recorded the visible offers.
 
+A controlled Slums replay loaded the six-character slot B and positioned the
+party outside Ohlo's door at (14, 10), facing west. In the guest menus, the
+party bashed the locked door, chose Talk, used the Nice approach, and accepted
+the commission. No quest flags were seeded for Ohlo. The live journal showed
+Fetch Ohlo's potion as accepted and directed the party to give Ohlo's name at
+the Old Rope Guild booth. This replay covered commission acceptance.
+
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
 for that character. If a hostile actor stalls, the runner restores its state
