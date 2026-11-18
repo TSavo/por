@@ -50,16 +50,28 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const exe = files.find((f) => f.name.toUpperCase() === "START.EXE");
   const ovr = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
   if (!exe || !ovr) throw new Error("START.EXE and GAME.OVR are required");
+  const boot = installProgram(cpu, exe.data, ovr.data);
   const captureCombatDelay = input?.captureCombatDelay;
-if (captureCombatDelay) {
-  const tick = cpu.tick;
-  cpu.tick = function (at) {
-    // The original executable holds the attack pose during this delay.
-    if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) captureCombatDelay();
-    tick.call(this, at);
-  };
-}
-const boot = installProgram(cpu, exe.data, ovr.data);
+  const terrainDrawSegment = process.env.POR_TRACE_BATTLE_DRAW === "1"
+    ? loadedSlices.find(({ index }) => index === 32)?.loadPara : undefined;
+  if (captureCombatDelay || terrainDrawSegment !== undefined) {
+    const tick = cpu.tick;
+    const terrainDraws = new Set<string>();
+    cpu.tick = function (at) {
+      // The original executable holds the attack pose during this delay.
+      if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) captureCombatDelay?.();
+      // Overlay 32 draws each map object before possible actor overlays.
+      if (at === 0x0208 && this.cs === terrainDrawSegment && this.steps >= liveStep) {
+        const argument = (offset: number) => this.read16(this.ss, this.sp + offset);
+        const draw = JSON.stringify({ x: argument(6), y: argument(4), picture: argument(2), flags: argument(0) });
+        if (!terrainDraws.has(draw)) {
+          terrainDraws.add(draw);
+          console.error(`POR_BATTLE_DRAW ${draw}`);
+        }
+      }
+      tick.call(this, at);
+    };
+  }
   const keys = [...scheduledKeys];
   attachDos(cpu, mountedFiles, keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)),
     fileClosed, fileDeleted, readCompanions);

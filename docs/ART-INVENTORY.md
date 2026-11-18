@@ -256,6 +256,15 @@ in `BACPAC.DAX` or `SQRPACI.DAX`. Use **Hide sprite candidates** in the
 HTML checklist to set those matches aside while reviewing terrain.
 Unmatched cells still need visual review.
 
+Set `POR_TRACE_BATTLE_DRAW=1` to log the original combat map picture
+calls separately from the final framebuffer trace. Each
+`POR_BATTLE_DRAW` line reports a distinct coordinate, picture number,
+and flags tuple from overlay 32 at `0208`. Coordinates use the guest
+draw routine's units. The manual courtyard replay reached this call for
+pictures 4, 10, 16, 22, 23, and 39. These are draw inputs for that
+redraw path. A complete terrain-only framebuffer still requires
+capturing the other drawing paths and accounting for overlaps.
+
 The courtyard also shows a composed party icon. Its source is
 `CHEAD.DAX` block 0 on `CBODY.DAX` block 0. Other head records contain
 identical pixels, so the manifest uses one key, `combat:party:0:0`, for
