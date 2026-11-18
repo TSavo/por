@@ -1057,9 +1057,15 @@ response witnessed by the party.
 The `kuto-well-approach` replay uses slot J saved after the original cross-
 district transition. Chrome verifies 1,815 placements across 15 views on
 the walk to the well, using 89 new 32×32 tiles.
+The `kuto-north-guard-approach` and `kuto-north-rubble-loop` replays branch
+from the same native entry save. Chrome verifies 3,388 placements across
+28 views, including 23 new 32×32 tiles for the northern ruins.
 The `cadorna-envoy-briefing` replay uses controlled slot A at City Hall.
 It verifies Cadorna's 352×352 portrait and checks that the sealed-packet
 journal clue appears after his instructions.
+The `braccio-dirten-briefing` replay uses controlled slot A and checks the
+portrait handoff from Bishop Braccio to Dirten. Chrome verifies the journal
+learns about the Temple of Bane invitation after it is spoken.
 The `nomad-reward` replay loads controlled slot A at City Hall with the
 original completion flag and the witnessed departure clue. It verifies that
 the journal asks the party to report what happened, becomes reward pending

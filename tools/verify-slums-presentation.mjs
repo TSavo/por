@@ -77,6 +77,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["kuto-north-guard-approach", {
+    slot: "J", area: 29, views: 10, patterns: 47,
+    walk: ["up", "up", "up", "left", "up", "up", "up", "right", "up"],
+  }],
+  ["kuto-north-rubble-loop", {
+    slot: "J", area: 29, views: 18, patterns: 53,
+    walk: ["up", "up", "up", "left", "up", "up", "up", "left", "up", "up", "right", "up", "right", "up", "up", "right", "up"],
+  }],
   ["kuto-well-approach", {
     slot: "J", area: 29, views: 15, patterns: 89,
     walk: ["up", "up", "up", "right", "up", "left", "up", "right", "up", "left", "up", "right", "up", "left"],
@@ -222,7 +230,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -649,6 +657,29 @@ try {
       assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-parchment"));
     } else assert.match(text, /LEAVE.*SEARCH.*ATTACK.*TALK/i);
     console.log(`Verified ${routeName} artwork and journal in Chrome.`);
+  } else if (routeName === "braccio-dirten-briefing") {
+    const braccio = "portrait:HEAD3.DAX:13:BODY3.DAX:1";
+    const dirten = "portrait:HEAD3.DAX:0:BODY3.DAX:4";
+    for (const key of ["up", "enter"]) await advance(key);
+    assert.equal(frame.portrait, braccio);
+    await waitFor("Bishop Braccio's introduction", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+    await advance("j");
+    assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "bane-dirten"));
+    await advance("j");
+    await advance("enter");
+    assert.equal(frame.portrait, dirten);
+    await waitFor("Dirten's portrait", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+    await switchBothWays();
+    await advance("enter");
+    assert.equal(frame.portrait, dirten);
+    const text = frame.text.toSorted(([left], [right]) => left - right)
+      .map(([, character]) => String.fromCharCode(character)).join("");
+    assert.match(text, /WILLYOUACCOMPANYDIRTEN/i);
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "bane-dirten"));
+    console.log("Verified the Braccio-to-Dirten portrait transition and quest invitation in Chrome.");
   } else if (routeName === "cadorna-envoy-briefing") {
     for (const key of ["up", "enter"]) await advance(key);
     const cadorna = "portrait:HEAD3.DAX:55:BODY3.DAX:1";
