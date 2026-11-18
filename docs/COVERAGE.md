@@ -824,6 +824,8 @@ to verify Urslingen's 352×352 mission portrait and a state-preserving switch.
 The `stojanow-riverwalk` replay starts from the native entrance save at
 `4,15 N`. Chrome checks 1,573 placements across 13 views, including 20
 new 32×32 tiles for the river rails, stonework, and covered doorway.
+The `stojanow-tower-ettin` replay starts at `4,8 N` in controlled slot A.
+Chrome checks both 96×192 combat frames and the reflected club swing.
 The harbor master shares his original composite. `phlan-harbor-sokal` and
 `phlan-harbor-routes` verify New Phlan's area-scoped portrait with the initial
 Sokal passage and the later ferry menu. The Urslingen replay still verifies
@@ -1052,6 +1054,12 @@ camp checkpoint. They verify the headman's portrait, the journal's feast
 invitation, entry 55, kobold warning, and overnight decision. Each replay
 selects a different response and checks that the journal records only the
 response witnessed by the party.
+The `kuto-well-approach` replay uses slot J saved after the original cross-
+district transition. Chrome verifies 1,815 placements across 15 views on
+the walk to the well, using 89 new 32×32 tiles.
+The `cadorna-envoy-briefing` replay uses controlled slot A at City Hall.
+It verifies Cadorna's 352×352 portrait and checks that the sealed-packet
+journal clue appears after his instructions.
 The `nomad-reward` replay loads controlled slot A at City Hall with the
 original completion flag and the witnessed departure clue. It verifies that
 the journal asks the party to report what happened, becomes reward pending

@@ -7,6 +7,10 @@ import { setTimeout as delay } from "node:timers/promises";
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["stojanow-tower-ettin", {
+    stand: "combat:area:9:CPIC2.DAX:71", strike: "combat:area:9:CPIC2.DAX:199", width: 96, height: 192,
+    inputs: ["up", ...Array(4).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(10).fill("q")],
+  }],
   ["kobold-cave-royal-guard", {
     stand: "combat:area:13:CPIC8.DAX:1", strike: "combat:area:13:CPIC8.DAX:129", width: 96, height: 96,
     inputs: ["up", ...Array(7).fill("enter"), ...Array(8).fill("q")],
@@ -73,6 +77,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["kuto-well-approach", {
+    slot: "J", area: 29, views: 15, patterns: 89,
+    walk: ["up", "up", "up", "right", "up", "left", "up", "right", "up", "left", "up", "right", "up", "left"],
+  }],
   ["stojanow-riverwalk", {
     slot: "A", area: 9, views: 13, patterns: 50, sceneryOnly: true,
     walk: ["left", ...Array(4).fill("up"), "right", "up", "up", "right", "up", "up", "left", "up"],
@@ -214,7 +222,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -641,6 +649,21 @@ try {
       assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-parchment"));
     } else assert.match(text, /LEAVE.*SEARCH.*ATTACK.*TALK/i);
     console.log(`Verified ${routeName} artwork and journal in Chrome.`);
+  } else if (routeName === "cadorna-envoy-briefing") {
+    for (const key of ["up", "enter"]) await advance(key);
+    const cadorna = "portrait:HEAD3.DAX:55:BODY3.DAX:1";
+    assert.equal(frame.portrait, cadorna);
+    await waitFor("Cadorna's envoy portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    await advance("j");
+    assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "zhentil-sealed-packet"));
+    for (const key of ["j", "enter"]) await advance(key);
+    assert.equal(frame.portrait, cadorna);
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "zhentil-sealed-packet"));
+    for (const key of ["j", "enter"]) await advance(key);
+    assert.notEqual(frame.portrait, cadorna);
+    console.log("Verified Cadorna's envoy portrait and sealed-packet clue in Chrome.");
   } else if (routeName === "phlan-priestess-joy") {
     await advance("j");
     assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "phlan-sune-healing"));
