@@ -191,9 +191,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
             : "Escort the boy out through the base gate and return him to New Phlan.";
       }
       else if (knows("rescue-captain-price")) nextStep = "Choose Buy the Boy if you accept the captain's price, or prepare to fight.";
+      else if (knows("rescue-animals-recaptured")) nextStep = "The animals were recaptured. Return to the animal pens and release them again if offered, or try the guarded slave pen.";
       else if (knows("rescue-inside-pen")) nextStep = "Choose Get Him and escort the boy out of the base.";
-      else if (knows("rescue-stampede") && !knows("rescue-animals-recaptured")) nextStep = "Head to the slave pen while the guards are rounding up the animals.";
-      else if (knows("rescue-animal-pens") && !knows("rescue-stampede")) nextStep = "Choose Release Animals at the animal pens to draw the guards away from the slave pen.";
+      else if (knows("rescue-stampede")) nextStep = "Head to the slave pen while the guards are rounding up the animals.";
+      else if (knows("rescue-animal-pens")) nextStep = "Choose Release Animals at the animal pens to draw the guards away from the slave pen.";
       else if (knows("rescue-sneak-blocked")) nextStep = "The guards spotted your approach. Choose Attack Guards or Leave to try another route.";
       else if (knows("rescue-pen-gate")) nextStep = "At the gate, choose Try to Sneak By or Attack.";
       else if (knows("rescue-pen-options")) nextStep = "Choose Sneak Into Pen or Attack Guards to reach the boy.";

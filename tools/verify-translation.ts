@@ -585,6 +585,22 @@ function checkCampaignJournal(): void {
     }
   }
   const rescueLost = lines.find((line) => line.includes("THE YOUNG BOY COULD NOT KEEP UP AND WAS LEFT BEHIND"));
+  const animalStages = [
+    ["YOU ARE AT THE GATE TO THE ANIMAL PENS", "Choose Release Animals"],
+    ["GUARDS ARE LEAVING THEIR POSTS IN ORDER TO CONTROL THE ANIMALS", "while the guards are rounding up"],
+    ["THE ANIMALS HAVE BEEN CAPTURED", "release them again if offered"],
+  ] as const;
+  let animalTranscript = rescueOffer;
+  for (const [trigger, instruction] of animalStages) {
+    const line = lines.find((text) => text.includes(trigger));
+    if (!line || currentObjective(discoveredLeads(animalTranscript), "commission-rescue").nextStep.includes(instruction)) {
+      throw new Error(`The rescue journal revealed animal-pen guidance before ${trigger}`);
+    }
+    animalTranscript += "\n" + line;
+    if (!currentObjective(discoveredLeads(animalTranscript), "commission-rescue").nextStep.includes(instruction)) {
+      throw new Error(`The rescue journal missed animal-pen guidance after ${trigger}`);
+    }
+  }
   const escapeGuards = lines.find((line) => line.includes("SOME OF THE GUARDS SPOT YOU WITH THE BOY"));
   if (!escapeGuards) throw new Error("Missing the original guard interception dialogue");
   const escapingRescue = discoveredLeads(`${rescueTranscript}\n${escapeGuards}`);
