@@ -381,6 +381,12 @@ diagnostic through 700 Quick inputs. Continuing with Quick reaches the
 game's party-defeat screen without watchdog recovery. The fresh-party
 verification checks that outcome for the northern approach with both
 recruits and Bless.
+From slot D after defeating the smithy frogs, a separate replay searches
+the ruined smithy at (15,6), takes the hammer for 80 XP per character,
+and readies it on Fenn. Reloading verifies his readied hammer and the
+journal discovery, which was hidden before the search. Run
+`node tools/verify-fresh-party.mjs --sokal-smithy-checkpoint PATH_TO_SLOT_D`
+to repeat the detour without replacing the main route's saves.
 On the mixed-party route through the smithy, Mira enters the courtyard
 from the north. The replay verifies that Aim lets her cycle to a
 hobgoblin without offering Target. Trying Target there leaves Sleep

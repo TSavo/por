@@ -86,6 +86,29 @@ function loadSlot(key) {
   return `31000000:1c0d,45000000:266c,52000000:${key}`;
 }
 
+async function verifySokalSmithy(checkpoint) {
+  const directory = mkdtempSync(join("out", "sokal-smithy-"));
+  copyFileSync(checkpoint, join(directory, "D.json"));
+  await replay(loadSlot("2064"), "85000000", [
+    (text) => assert.match(text, /14,5 n/),
+    "j", (_text, frame) => assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-smithy-hammer")), "j",
+    "right", "right", "up", "left", "up", "s", "l",
+    (text) => assert.match(text, /15,6 e.*one old hammer.*do you take it/),
+    "y", (text) => assert.match(text, /receives 80 experience points/),
+    "enter", "enter", ...Array(5).fill("end"), "t",
+    (text) => assert.match(text, /loot hammer/),
+    "t", "e", "s", ...Array(6).fill("end"), "v", "i", "end", "r", "e",
+    (text) => assert.match(text, /fenn.*thac0 19.*damage 1d4\+2.*weapon hammer/),
+    "e", "e", "s", "s", "e",
+  ], directory);
+  await replay(loadSlot("1265"), "85000000", [
+    "j", (_text, frame) => assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-smithy-hammer")), "j",
+    ...Array(5).fill("end"), "v", "i",
+    (text) => assert.match(text, /fenn's items.*yes hammer/),
+  ], directory);
+  console.log("Found and readied the smithy hammer, then reloaded its journal entry and Fenn's inventory.");
+}
+
 const courtyardOpening = [
   "right", "right", "up", "up", "right", "up", "left", "up", "up", "right", ...Array(4).fill("up"),
   ...Array(7).fill("end"), "c",
@@ -650,6 +673,12 @@ async function verifySkullcrusherRecruitment(load, checkpoint) {
   console.log("With the key supplied in a controlled copy, recruited Skullcrusher, reloaded his clue, and reached the ogre chief.");
 }
 
+if (process.argv[2] === "--sokal-smithy-checkpoint") {
+  assert.ok(process.argv[3], "Pass a save in Sokal's old armory after defeating the smithy frogs.");
+  await verifySokalSmithy(process.argv[3]);
+  process.exit(0);
+}
+
 if (process.argv[2] === "--textile-courtyard-checkpoint") {
   assert.ok(process.argv[3], "Pass a save with the armored and reinforced party at the Textile House entrance.");
   await verifyUninterruptedCourtyard(process.argv[3]);
@@ -1075,6 +1104,7 @@ await replay(loadSlotD, "85000000", [
   },
 ]);
 console.log("Passed a second undead patrol, won the frog encounter and reloaded in Sokal's old armory.");
+await verifySokalSmithy(join(saveDir, "D.json"));
 const equipmentSave = await replay(loadSlotD, "85000000", [
   "up", "up", "up", "right", "up", "left", "up",
   (text) => assert.match(text, /passing through an illusionary wall.*glow in the northwestern corner/),

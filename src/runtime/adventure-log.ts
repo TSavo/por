@@ -357,6 +357,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU ENTER THE KEEP'S OLD ARMORY")) {
     leads.push({ id: "sokal-old-armory", title: "The old armory", detail: "The weapons and armor in the old armory have decayed." });
   }
+  if (text.includes("AS YOU SEARCH THROUGH THE WRECKED SMITHY") && text.includes("WITH THE EXCEPTION OF ONE OLD HAMMER")) {
+    leads.push({ id: "sokal-smithy-hammer", title: "The smithy's hammer",
+      detail: "The party found an old hammer among the ruined tools in Sokal Keep's smithy." });
+  }
   if (text.includes("PASSING THROUGH AN ILLUSIONARY WALL, YOU ENTER A PORTION OF THE KEEP")) {
     leads.push({ id: "sokal-hidden-armory", title: "The hidden armory",
       detail: "The party passed through a wall in the northeastern armory and saw a glow in the northwest corner." });
