@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
@@ -117,6 +117,7 @@ try {
   await run('document.querySelector("#presentation").click()');
   let views = 0;
   const tileLayouts = new Set();
+  const routeTiles = [];
   let portrait = false;
   let encounter = false;
   const route = [
@@ -138,6 +139,7 @@ try {
       portrait = true;
     }
     if (!frame.tileInventory?.[0]?.[2].startsWith("tile:20:")) continue;
+    routeTiles.push(frame.tileInventory);
     assert.equal(frame.tiles.length, 121);
     tileLayouts.add(JSON.stringify(frame.tiles));
     await waitFor("121 individual tiles", () => run(`(() => {
@@ -182,6 +184,7 @@ try {
   await waitFor("the mirrored 4× combat sprite", () => run(`[...document.querySelectorAll(".combat-sprite")]
     .some(image => image.naturalWidth === 96 && image.style.transform === "scaleX(-1)")`));
   await switchBothWays();
+  await waitFor("Chrome to display the final combat frame", () => run(`state.ready && state.sequence === ${frame.sequence}`));
   await command("Input.dispatchKeyEvent", { type: "keyDown", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
   await command("Input.dispatchKeyEvent", { type: "keyUp", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
   await waitFor("the guest frame after Alt+Q", async () => {
@@ -189,6 +192,9 @@ try {
     return state.ready && state.sequence > frame.sequence;
   });
   console.log(`Verified ${views} Slums views and state-preserving switches in exploration, journal, dialogue, and combat.`);
+  const trace = resolve(directory, "slums-tiles.jsonl");
+  writeFileSync(trace, routeTiles.map((tiles) => JSON.stringify(tiles)).join("\n") + "\n");
+  console.log("Slums artwork trace:", trace);
 } finally {
   socket?.close();
   chrome.kill();

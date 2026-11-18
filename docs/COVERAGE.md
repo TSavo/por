@@ -455,6 +455,9 @@ PNGs per view. It checks alignment, pixelated scaling, and the loaded web
 font at 430px and 1100px. The button and F10 preserve the complete guest
 frame and save bytes during exploration, in the journal, at the kobold
 dialogue, and in combat. The journal retains focus on Return to game.
+The verifier exports the 22 Slums views as a local tile trace. Feeding
+that trace into the route artwork tool accounted for all 2,662 placements
+and found a 32×32 replacement for all 34 distinct patterns on this replay.
 The same Chrome replay passed with encounter anchors read from the Slums
 manifest. A framebuffer check moved the middle kobold pose to a different
 anchor and area, confirmed the old area's background was discarded, and

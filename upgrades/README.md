@@ -37,6 +37,9 @@ The report puts missing replacements first, checks that each replacement is
 a 32×32 PNG, and writes a companion HTML checklist with previews. It lists
 exact pixel matches from the original tile archives. Ambiguous matches remain
 candidates until the guest draw source is verified.
+The Chrome Slums verifier prints the path to its `slums-tiles.jsonl`
+capture. The report includes each pattern's target dimensions and the
+frequency of every observed framebuffer position.
 
 The browser loads the bundled Slums artwork in `upgrades/slums` by default.
 Press F10 while exploring the Slums to see it. The pack includes 59 individual tile replacements,

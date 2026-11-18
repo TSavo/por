@@ -45,19 +45,31 @@ for (const archive of listGameFiles(root).filter((name) => /^8X8D\d+\.DAX$/i.tes
   }
 }
 
-const cells = new Map<string, { area: number; occurrences: number; first: { frame: number; x: number; y: number } }>();
+type TilePosition = { x: number; y: number; occurrences: number };
+const cells = new Map<string, {
+  area: number;
+  occurrences: number;
+  first: { frame: number; x: number; y: number };
+  positions: Map<string, TilePosition>;
+}>();
 for (const [frame, inventory] of frames.entries()) {
   for (const [x, y, key] of inventory) {
     const match = /^tile:(\d+):[a-f0-9]{64}$/.exec(key);
     if (!match) throw new Error(`Invalid tile key at frame ${frame}: ${key}`);
-    const existing = cells.get(key);
-    if (existing) existing.occurrences++;
-    else cells.set(key, { area: Number(match[1]), occurrences: 1, first: { frame, x, y } });
+    const cell = cells.get(key) ?? { area: Number(match[1]), occurrences: 0, first: { frame, x, y }, positions: new Map<string, TilePosition>() };
+    cell.occurrences++;
+    const positionKey = `${x},${y}`;
+    const position = cell.positions.get(positionKey) ?? { x, y, occurrences: 0 };
+    position.occurrences++;
+    cell.positions.set(positionKey, position);
+    cells.set(key, cell);
   }
 }
 
-const tiles = [...cells].map(([key, cell]) => ({
-  key, ...cell, replacement: validImages.has(manifest.assets[key] ?? "") ? manifest.assets[key]! : null,
+const tiles = [...cells].map(([key, { positions, ...cell }]) => ({
+  key, ...cell, target: { width: 32, height: 32 },
+  positions: [...positions.values()].sort((a, b) => a.y - b.y || a.x - b.x),
+  replacement: validImages.has(manifest.assets[key] ?? "") ? manifest.assets[key]! : null,
   sourceCandidates: sourceByHash.get(key.split(":")[2]!) ?? [],
 })).sort((a, b) => a.area - b.area || Number(Boolean(a.replacement)) - Number(Boolean(b.replacement)) ||
   b.occurrences - a.occurrences || a.key.localeCompare(b.key));
@@ -72,12 +84,12 @@ const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
 writeFileSync(reportPath, JSON.stringify({ frames: frames.length, areas, tiles }, null, 2) + "\n");
 const galleryPath = reportPath + ".html";
 const sections = areas.map(({ area, patterns, matched }) => `<section><h2>Area ${area} · ${matched}/${patterns}</h2><div class="grid">` +
-  tiles.filter((tile) => tile.area === area).map(({ key, first, occurrences, replacement, sourceCandidates }) => {
+  tiles.filter((tile) => tile.area === area).map(({ key, first, occurrences, positions, replacement, sourceCandidates }) => {
     const src = replacement && relative(dirname(galleryPath), join(manifestDirectory, replacement))
       .split(/[\\/]/).map(encodeURIComponent).join("/");
     const candidates = sourceCandidates.map(({ archive, block, frame }) => `${archive} #${block} frame ${frame}`).join(", ");
     return `<article>${src ? `<img src="${src}" width="96" height="96" alt="Replacement tile">` : "<p>Replacement missing</p>"}` +
-      `<code>${key.slice(-12)}</code><p>First seen at trace frame ${first.frame}, (${first.x}, ${first.y}) · ${occurrences} placements</p>` +
+      `<code>${key.slice(-12)}</code><p>First seen at trace frame ${first.frame}, (${first.x}, ${first.y}) · ${occurrences} placements across ${positions.length} positions</p>` +
       `<p>${candidates || "Source tile unresolved"}</p></article>`;
   }).join("") + "</div></section>").join("");
 writeFileSync(galleryPath, `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
