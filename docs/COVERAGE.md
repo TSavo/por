@@ -765,6 +765,11 @@ then switched both ways and checked that the live frame and save were preserved.
 
 The river pollution journal records the rowboat, secret entrance, fountain
 machinery, and damage only after the party sees the corresponding ECL dialogue.
+The `river-approach` Chrome replay uses controlled slot A at `19,13 E`
+with the river offer tracked. It moves south to discover the rowboat, takes
+it to the pyramid, and enters through the secret door. The journal changes
+from boarding the boat to entering the door and then exploring the passage
+with the exit behind the party. The fountain remains undisclosed at that point.
 The translation verifier checks that the next step changes at each discovery
 and points back to New Phlan after destruction. It also checks the original
 council reward dispatch and progress flag. These checks use original ECL

@@ -169,6 +169,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (knows("river-equipment-destroyed")) nextStep = "Leave the pyramid and report the end of the river pollution to the council clerk in New Phlan.";
       else if (knows("river-equipment-damaged")) nextStep = "The damaged pipes are whining and the liquid is bubbling. Continue destroying the equipment or choose Move Quickly Away to retreat.";
       else if (knows("river-fountain")) nextStep = "At the fountain, choose Destroy the Equipment to shut down the machinery pumping the foul liquid.";
+      else if (knows("river-entrance-inside")) nextStep = "Explore the passage ahead for the source of the foul water. The secret door behind you marks the way back.";
       else if (knows("river-secret-door")) nextStep = "Enter the pyramid through the secret door and search for the source of the foul water.";
       else if (knows("river-rowboat")) nextStep = "Take the rowboat from the reeds to the pyramid.";
     }
@@ -663,6 +664,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("YOU HAVE FOUND A SECRET DOOR THAT LEADS INTO THE PYRAMID")) {
     leads.push({ id: "river-secret-door", title: "The pyramid's secret door", detail: "The party found a secret entrance at the front of the pyramid." });
+  }
+  if (text.includes("YOU HAVE FOUND A SECRET DOOR THAT LEADS INTO THE PYRAMID") &&
+      text.includes("A SECRET DOOR IS FOUND BEHIND YOU")) {
+    leads.push({ id: "river-entrance-inside", title: "Inside the pyramid", detail: "The secret entrance is behind the party." });
   }
   if (text.includes("YOU HAVE ENTERED THE FOUNTAIN CHAMBER")) {
     leads.push({ id: "river-fountain", title: "The fountain chamber", detail: "Pipes in the fountain chamber pump foul black water." });

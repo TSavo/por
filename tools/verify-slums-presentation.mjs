@@ -54,7 +54,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -68,6 +68,7 @@ const envoy = routeName === "zhentil-envoy";
 const envoyEscape = routeName === "zhentil-escape";
 const envoyReward = routeName === "zhentil-reward";
 const envoyReturn = routeName === "zhentil-return";
+const riverApproach = routeName === "river-approach";
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
 const altar = routeName === "textile-altar";
@@ -427,6 +428,27 @@ try {
     await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
+  } else if (riverApproach) {
+    const boat = "river-rowboat";
+    const door = "river-secret-door";
+    const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+    await advance("j");
+    assert.equal(frame.journal?.trackedId, "commission-river");
+    assert.ok(!knows(boat) && !knows(door));
+    for (const key of ["j", "down", "j"]) await advance(key);
+    assert.ok(knows(boat) && !knows(door));
+    assert.match(frame.journal.objective.nextStep, /Take the rowboat/);
+    for (const key of ["j", "y", "enter", "j"]) await advance(key);
+    assert.ok(knows(door) && !knows("river-fountain"));
+    assert.match(frame.journal.objective.nextStep, /through the secret door/);
+    for (const key of ["j", "e", "enter", "enter"]) await advance(key);
+    await waitFor("the pyramid entrance view", () => run(`state.sequence === ${frame.sequence}`));
+    const screenshot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "pyramid-entrance.png"), Buffer.from(screenshot.data, "base64"));
+    await advance("j");
+    assert.ok(knows("river-entrance-inside") && !knows("river-fountain"));
+    assert.match(frame.journal.objective.nextStep, /Explore the passage ahead/);
+    console.log("Verified the river rowboat and secret entrance in Chrome. Capture:", directory);
   } else if (envoyReturn) {
     const journalStatus = () => frame.journal?.leads.find(({ id }) => id === "commission-zhentil")?.status;
     await advance("j");
