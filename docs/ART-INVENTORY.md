@@ -252,4 +252,6 @@ The matcher checks the full highlighted cell and restores its bright
 rim, dark edge, and interior beneath the transparent replacement.
 Append `--manual-party` to the courtyard Chrome replay to verify Brin's
 selected icon, sample the restored colors, and switch display modes
-during his manual turn.
+during his manual turn. The replay also targets the wounded orc at range
+three and verifies that its replacement sprite stays aligned and the
+original white Aim cursor remains visible in the selection frame.
