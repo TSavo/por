@@ -202,7 +202,15 @@ with this party through the goblin room, sale of its enchanted armor,
 recruitment at the arena, and the boat to Sokal Keep. The replay checks
 manual sword and bow attacks in the courtyard, then reloads the landing
 save and verifies the recruits' improved armor and prepared Hold Person.
-A courtyard victory is outside this replay's coverage.
+From that equipped save, the same replay gives the wrong word, wins
+the patrol fight, and gives the correct word to a later patrol. It then
+wins the smithy fight, collects the hidden armory gear, and reloads.
+This branch finishes at the armory. Pass its slot E to
+`node tools/verify-fresh-party.mjs --sokal-armory-reinforcement-checkpoint PATH_TO_SLOT_E --equipped`
+to continue with the same party. The replay readies the recovered sword
+on Alda, sails back to New Phlan, sells the armory jewel, and pays the
+Temple of Tyr to raise and heal Brin. Slot G reloads with Brin at 6 HP
+and the recovered mace readied.
 Run `node tools/verify-fresh-party.mjs --slums-goblin-checkpoint PATH_TO_SLOT_A`
 from that rested save. The party bashes into the goblin training room at
 (10,1), wins for 181 XP without watchdog recovery, and takes leather
@@ -602,6 +610,8 @@ replay wins that patrol for 40 XP per character, saves and reloads with
 the rejection recorded, then gives the correct word to a later patrol.
 It wins the smithy battle for 31 XP per character and recovers the hidden
 armory equipment. Both patrol outcomes come from the original script.
+Pass `--equipped` with the slot A landing save to run the same route
+after trading armor to the recruits.
 
 A controlled checkpoint placed the mixed party one step from Ferran's altar.
 From that save, the chapel replay walks back to the entrance at `8,6`,

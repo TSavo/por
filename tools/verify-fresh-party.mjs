@@ -1052,12 +1052,11 @@ if (process.argv[2] === "--slums-orcs-checkpoint") {
   process.exit(0);
 }
 
-if (process.argv[2] === "--sokal-patrol-victory-checkpoint") {
-  assert.ok(process.argv[3], "Pass the reinforced party's slot J landing save.");
-  const rejectedWord = process.argv[4] === "--reject-word";
-  assert.ok(!process.argv[4] || rejectedWord, "Expected --reject-word");
-  copyFileSync(process.argv[3], join(saveDir, "J.json"));
-  await replay(loadSlot("246a"), "85000000", [
+async function verifySokalPatrolVictory({ rejectedWord = false, equipped = false } = {}) {
+  const patrolSurvivors = equipped
+    ? /brin 1 5.*swordsman 4 18.*curate 2 26.*10,10 n/
+    : /brin 1 5.*swordsman 5 18.*curate 3 26.*10,10 n/;
+  await replay(loadSlot(equipped ? "1e61" : "246a"), "85000000", [
     "up", "left", "up", "up", "enter", "enter", "end", "enter",
     (text) => assert.match(text, /crumbling parchment scroll/),
     "enter", "enter", "enter", "right", "right", "up", "up", "left", "up", "up",
@@ -1069,12 +1068,12 @@ if (process.argv[2] === "--sokal-patrol-victory-checkpoint") {
     (text) => assert.match(text, /continue battle/),
     "n", (text) => assert.match(text, /the party has won.*receives 40 experience points/),
     "enter", "enter", "e",
-    (text) => assert.match(text, /brin 1 5.*swordsman 5 18.*curate 3 26.*10,10 n/),
+    (text) => assert.match(text, patrolSurvivors),
     "e", "s", "s", "c",
     (text) => assert.match(text, /quit to dos/),
   ]);
   await replay(loadSlot("2e63"), "85000000", [
-    (text) => assert.match(text, /brin 1 5.*swordsman 5 18.*curate 3 26.*10,10 n/),
+    (text) => assert.match(text, patrolSurvivors),
     "j", (_text, frame) => {
       const leads = frame.journal.leads;
       assert.ok(leads.some(({ id }) => id === "sokal-parchment"));
@@ -1102,6 +1101,15 @@ if (process.argv[2] === "--sokal-patrol-victory-checkpoint") {
   ]);
   await verifySokalArmory(saveDir, false);
   console.log("Won the first patrol and the smithy fight, then recovered the hidden equipment:", join(saveDir, "E.json"));
+}
+
+if (process.argv[2] === "--sokal-patrol-victory-checkpoint") {
+  assert.ok(process.argv[3], "Pass the reinforced party's landing save.");
+  const options = process.argv.slice(4);
+  assert.ok(options.every((option) => ["--reject-word", "--equipped"].includes(option)), "Expected --reject-word or --equipped");
+  const equipped = options.includes("--equipped");
+  copyFileSync(process.argv[3], join(saveDir, equipped ? "A.json" : "J.json"));
+  await verifySokalPatrolVictory({ rejectedWord: options.includes("--reject-word"), equipped });
   process.exit(0);
 }
 
@@ -1118,22 +1126,30 @@ const armoryToTemple = [
 
 if (process.argv[2] === "--sokal-armory-reinforcement-checkpoint") {
   assert.ok(process.argv[3], "Pass slot E from the reinforced party's hidden armory recovery.");
+  const equipped = process.argv[4] === "--equipped";
+  assert.ok(!process.argv[4] || equipped, "Expected --equipped");
   copyFileSync(process.argv[3], join(saveDir, "E.json"));
+  const armoryParty = equipped
+    ? /brin 1 0.*swordsman 3 17.*curate 2 25.*12,0 n/
+    : /brin 1 0.*swordsman 5 17.*curate 3 25.*12,0 n/;
   await replay(loadSlot("1265"), "85000000", [
-    (text) => assert.match(text, /brin 1 0.*swordsman 5 17.*curate 3 25.*12,0 n/),
+    (text) => assert.match(text, armoryParty),
     // Brin collected the longsword, so trade it to Alda before readying it.
     "end", "v", "i", ...Array(4).fill("end"), "t", "home", "enter", "e", "e", "home", "v", "i",
     "end", "end", "end", "r", "end", "r", "e",
     (text) => assert.match(text, /alda.*exp 1462.*damage 1d8\+1.*weapon long sword/),
     "e",
     // Move the fallen fighters' armor and shields to the two recruits.
-    "end", "end", "v", "i", "end", "r", "t", ...Array(4).fill("end"), "enter", "r", "t", "end", "enter", "e", "e",
-    "end", "v", "i", "end", "end", "r", "t", ...Array(3).fill("end"), "enter", "e", "e",
-    ...Array(3).fill("end"), "v", "i", "end", "r", "end", "end", "r", "end", "r",
-    (text) => assert.match(text, /swordsman's items.*no chain mail yes long sword yes banded mail yes shield/),
-    "e", "e", "end", "v", "i", "end", "end", "r",
-    (text) => assert.match(text, /curate's items.*yes plate mail yes shield/),
-    "e", "e", "e", "s", "s", "f",
+    ...(equipped ? [] : [
+      "end", "end", "v", "i", "end", "r", "t", ...Array(4).fill("end"), "enter", "r", "t", "end", "enter", "e", "e",
+      "end", "v", "i", "end", "end", "r", "t", ...Array(3).fill("end"), "enter", "e", "e",
+      ...Array(3).fill("end"), "v", "i", "end", "r", "end", "end", "r", "end", "r",
+      (text) => assert.match(text, /swordsman's items.*no chain mail yes long sword yes banded mail yes shield/),
+      "e", "e", "end", "v", "i", "end", "end", "r",
+      (text) => assert.match(text, /curate's items.*yes plate mail yes shield/),
+      "e", "e",
+    ]),
+    "e", "s", "s", "f",
     (text) => assert.match(text, /quit to dos/),
   ]);
   await replay(loadSlot("2166"), "85000000", [
@@ -1836,6 +1852,7 @@ if (["--fresh-armored-slums", "--fresh-sokal-reinforced"].includes(process.argv[
     await verifyGoblinLootSale();
     await verifySokalReinforcement();
     await verifySokalRecruitEquipment();
+    await verifySokalPatrolVictory({ rejectedWord: true, equipped: true });
   }
   process.exit(0);
 }
