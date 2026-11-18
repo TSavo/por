@@ -19,7 +19,7 @@ const textileRoutes = new Map([
     walk: ["right", "right", "up", "b", "left", "up", "left", "up", "b", "right", "up", "b", "left", "up", "up", "left", "up", "enter", "enter"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", ...textileRoutes.keys(), "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", ...textileRoutes.keys(), "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -29,6 +29,7 @@ const plaza = routeName === "podal-plaza";
 const trainer = routeName === "fighter-trainer";
 const textile = textileRoutes.get(routeName);
 const goblins = routeName === "goblins";
+const smithy = routeName === "sokal-smithy";
 const orcs = routeName === "orcs";
 const armory = routeName === "sokal-armory";
 const patrolCombat = routeName === "sokal-patrol-combat";
@@ -39,8 +40,8 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)), "Both options 
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = textile?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza ? "I" : dragon ? "B" : orcs || ending ? "C" : "A");
-const boot = textile?.boot ?? (landing ? "246a" : armory ? "2064" : altar || plaza ? "1769" : dragon ? "3062" : orcs || ending ? "2e63" : "1e61");
+const slot = textile?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza ? "I" : dragon ? "B" : orcs || ending || smithy ? "C" : "A");
+const boot = textile?.boot ?? (landing ? "246a" : armory ? "2064" : altar || plaza ? "1769" : dragon ? "3062" : orcs || ending || smithy ? "2e63" : "1e61");
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
@@ -221,6 +222,21 @@ try {
     await waitFor("the auctioneer portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified 48 Podal Plaza tiles across 12 views and the auctioneer portrait in Chrome.");
+  } else if (smithy) {
+    const route = ["up", "up", "up", "right", "up", "up", "up", "b", "y", "up", "left", "up", "right", "up", "left", "w", "enter"];
+    for (const key of route) await advance(key);
+    const crouch = "combat:CPIC4.DAX:37";
+    const lunge = "combat:CPIC4.DAX:165";
+    const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")]
+      .some(img => img.src.endsWith(${JSON.stringify(id)}) && img.naturalWidth === 96 && img.naturalHeight === 96)`);
+    assert.ok(frame.combatArt.some(([, , id]) => id === crouch));
+    await waitFor("the crouching frog", () => displayed(crouch));
+    await switchBothWays();
+    const lunged = () => frame.animation?.some(shot => shot.combatArt?.some(([, , id]) => id === lunge));
+    for (let turn = 0; turn < 6 && !lunged(); turn++) await advance("q");
+    assert.ok(lunged());
+    await waitFor("the lunging frog", () => displayed(lunge));
+    console.log("Verified the enhanced poison frog crouch and attack in Sokal Keep.");
   } else if (goblins) {
     const route = [
       "right", "right", "up", "right", "up", "right", ...Array(4).fill("up"),

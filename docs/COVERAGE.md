@@ -677,6 +677,16 @@ the 352×352 altar portrait, the selected 96×96 priestess sprite, the captains'
 movement, and the captain's strike during browser animation playback. It
 also switches presentation in the dialogue and combat.
 
+Two Valjevo Castle threshold routes from the controlled slot B checkpoint
+displayed the new 32×32 assets across five views and 605 placements, then
+entered Tyranthraxus's dialogue. A separate controlled City Hall checkpoint
+verified Ulrich's 352×352 portrait during the assault briefing. These Chrome
+replays checked that presentation switches preserve the live frame and save.
+
+The `sokal-smithy` browser route loads a party at `10,10 N` in slot C and
+checks the 96×96 poison frog crouch and lunge in live combat. It switches
+presentation before the attack and checks that the selected save stays intact.
+
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_B PATH_TO_CHROME castle-dragon`
 with a castle checkpoint outside the audience hall at `14,7 S`. Chrome checks
 the 352×352 dialogue portrait and 192×192 combat sprite, including the sprite's
