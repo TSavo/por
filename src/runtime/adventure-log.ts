@@ -165,7 +165,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     if (commission.id === "bane") {
       if (knows("bane-temple-admitted")) nextStep = "Continue into the Temple of Bane and look for a way to cleanse it.";
+      else if (knows("bane-temple-guards-hostile")) nextStep = "Get past the temple guards or withdraw and look for another way in.";
       else if (knows("bane-temple-symbol")) nextStep = "Bring a holy symbol of Bane when you approach the temple entrance.";
+      else if (knows("bane-temple-guard-check")) nextStep = "At the entrance, decide whether to let the blind guard check the party.";
       else if (knows("bane-dirten")) nextStep = "Decide whether to accompany Dirten. If you agree, cross the river with him and cleanse the desecrated temple.";
     }
     if (commission.id === "records" && knows("sokal-mendor")) {
@@ -468,6 +470,15 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("TO ENTER THE TEMPLE YOU NEED A HOLY SYMBOL OF BANE")) {
     leads.push({ id: "bane-temple-symbol", title: "A holy symbol for the temple gate",
       detail: "The departing goblin said a holy symbol of Bane is needed to enter the temple." });
+  }
+  if (text.includes("THE AGED ORC COMES GRASPING TOWARD YOU. WILL YOU LET HIM TOUCH YOU")) {
+    leads.push({ id: "bane-temple-guard-check", title: "The blind guard's inspection",
+      detail: "The blind orc at the temple entrance asked to check the party." });
+  }
+  if (text.includes("GUARDS, IN THE NAME OF BANE, KILL THESE UNBELIEVERS") ||
+      text.includes("THE OLD BLIND ORC IS CONVINCED YOU ARE NOT WORSHIPPERS")) {
+    leads.push({ id: "bane-temple-guards-hostile", title: "The temple guards turned hostile",
+      detail: "The blind orc ordered the temple guards to attack." });
   }
   if (text.includes("FINDING THE LEATHER HOLY SYMBOL") && text.includes("WELCOME TO THE TEMPLE OF BANE")) {
     leads.push({ id: "bane-temple-admitted", title: "Admitted to the Temple of Bane",

@@ -74,7 +74,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -103,6 +103,8 @@ const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
 const altar = routeName === "textile-altar";
 const plaza = routeName === "podal-plaza";
+const baneGate = routeName === "bane-gate";
+const baneGoblins = routeName === "bane-goblins";
 const infirmary = routeName === "podal-infirmary";
 const shrine = routeName === "podal-shrine";
 const shrineReturn = routeName === "podal-shrine-return";
@@ -364,6 +366,27 @@ try {
     }
     await switchBothWays();
     console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
+  } else if (baneGate || baneGoblins) {
+    const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+    await advance("j");
+    assert.equal(frame.journal?.trackedId, "commission-bane");
+    assert.ok(!knows("bane-temple-symbol") && !knows("bane-temple-guard-check"));
+    for (const key of ["j", "up", "enter", "enter", "j"]) await advance(key);
+    assert.ok(!knows("bane-temple-symbol"));
+    if (baneGate) {
+      assert.ok(knows("bane-temple-guard-check"));
+      assert.match(frame.journal.objective.nextStep, /let the blind guard check/i);
+    }
+    for (const key of ["j", "l", "j"]) await advance(key);
+    if (baneGate) {
+      assert.ok(knows("bane-temple-guards-hostile"));
+      assert.ok(!knows("bane-temple-symbol") && !knows("bane-temple-admitted"));
+      assert.match(frame.journal.objective.nextStep, /get past the temple guards/i);
+    } else {
+      assert.ok(knows("bane-temple-symbol"));
+      assert.match(frame.journal.objective.nextStep, /bring a holy symbol of bane/i);
+    }
+    console.log(`Verified witnessed Temple of Bane guidance on the ${routeName} route.`);
   } else if (shrineReturn) {
     const meeting = () => frame.journal?.leads.find(({ id }) => id === "podal-shrine-meeting");
     await advance("j");

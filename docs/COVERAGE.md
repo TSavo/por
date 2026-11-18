@@ -678,6 +678,12 @@ The `podal-shrine-return` replay loads a save made after accepting, with
 only the saved hour advanced from 18 to 21 to reach the meeting window.
 It verifies that an older journal entry can be tracked on reload and
 closes when the party witnesses the ambush.
+
+The `bane-gate` and `bane-goblins` Chrome replays use controlled
+positions from the temple-district save. At the gate the journal records
+the inspection, then the guards turning hostile when the party submits
+without a symbol. Inside, choosing Let Them Go reveals the holy-symbol
+requirement and updates the tracked Temple of Tyr objective.
 The Slums infantry and Textile House priestess share a guest image pattern.
 Area-scoped overrides keep their new artwork distinct, verified live in both fights.
 
