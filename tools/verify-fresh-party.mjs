@@ -326,4 +326,21 @@ await replay(loadSlotB, "85000000", [
   },
 ]);
 console.log("Searched the reeds, found the parchment and verified its journal entry after reloading slot B.");
+const patrolSave = await replay(loadSlotB, "85000000", [
+  "right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "left",
+  (text) => assert.match(text, /pack of undead suddenly appears.*parlay/),
+  "p", "n", ..."shestni", "enter",
+  (text) => assert.match(text, /the undead leave/),
+  "e", "s", "s", "c",
+]);
+assert.match(visibleText(patrolSave), /quit to dos/);
+await replay(loadSlotC, "85000000", [
+  (text) => assert.match(text, /10,10 n/),
+  "j", (_text, frame) => {
+    assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-parchment"));
+    assert.ok(frame.journal.leads.some((lead) => lead.id === "sokal-patrol-passed"));
+    assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-pale-form"));
+  },
+]);
+console.log("Passed the undead patrol in Sokal Keep and verified the journal after reloading slot C.");
 console.log("Replay save:", saveDir);

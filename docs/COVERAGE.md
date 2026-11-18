@@ -186,6 +186,10 @@ entry. The replay checks that the parchment appears after the search
 and the pale figure stays hidden at this checkpoint. Chrome verified that
 enhanced mode retains the original parchment rune shapes in the picture
 area while rendering the instructions and party text with the web font.
+From B, the party enters the keep, chooses Parlay and Nice when an undead
+patrol approaches, and enters the word from the parchment. The patrol lets
+the party pass. Slot C reloads at (10,10) with the new patrol note, and the
+pale figure remains undisclosed at this checkpoint.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,

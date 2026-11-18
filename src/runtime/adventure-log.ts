@@ -95,6 +95,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "sokal") {
       if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
       else if (knows("sokal-pale-form") && knows("sokal-parchment")) nextStep = "Talk to the pale form. When asked for a word, try one from the parchment.";
+      else if (knows("sokal-patrol-passed")) nextStep = "Explore the keep. If another undead patrol asks for the password, give the word that worked.";
       else if (knows("sokal-parchment")) nextStep = "Keep exploring. If you speak to an undead patrol, try a word from the parchment.";
       else if (knows("sokal-reeds")) nextStep = "Look through the mound of reeds west of the gates before entering the keep.";
       else if (knows("sokal-arrival")) nextStep = "Scout the keep and look for clues to the haunting.";
@@ -294,6 +295,11 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       id: "sokal-parchment", title: "The parchment at Sokal Keep",
       detail: "The party found a damaged scroll on a dead elf outside the keep.",
     });
+  }
+  if (text.includes("THE UNDEAD LEAVE") && text.includes("WHAT DO YOU SAY? (TYPE A SINGLE WORD)") &&
+      text.includes("A PACK OF UNDEAD SUDDENLY APPEARS")) {
+    leads.push({ id: "sokal-patrol-passed", title: "Sokal Keep patrol",
+      detail: "The undead patrol accepted the word and let the party pass." });
   }
   if (text.includes("I AM THE LIFE FORM OF FERRAN MARTINEZ")) {
     leads.push({
