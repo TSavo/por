@@ -44,7 +44,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const state = {
         frame: Buffer.from(encodePng(screen)).toString("base64"),
         scene,
-        journal: leads && { objective: currentObjective(leads, trackedId), leads },
+        journal: leads && { objective: currentObjective(leads, trackedId), leads,
+          trackedId: leads.find((lead) => lead.id === trackedId && isOpenObjective(lead))?.id },
       };
       console.log(`POR_FRAME ${JSON.stringify(state)}`);
     } else {
@@ -67,10 +68,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const openJournal = () => {
     showJournal(journal());
     while (true) {
-      if (!browser) process.stdout.write("Journal [J to close, track N]> ");
+      if (!browser) process.stdout.write("Journal [J to close, track N, track auto]> ");
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
       if (command.toLowerCase() === "j" || command === "escape") return;
+      if (command.toLowerCase() === "track auto") {
+        trackedId = undefined;
+        showJournal(journal());
+        continue;
+      }
       const match = /^track (\d+)$/i.exec(command);
       if (!match) continue;
       const leads = journal();

@@ -38,7 +38,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
 interface FrameState {
   frame?: string;
   scene?: string;
-  journal?: { objective: JournalObjective; leads: JournalLead[] };
+  journal?: { objective: JournalObjective; leads: JournalLead[]; trackedId?: string };
 }
 
 let frame: FrameState = {};
@@ -98,7 +98,8 @@ const server = createServer(async (req, res) => {
       return;
     }
     const track = /^track ([1-9]\d{0,2})$/.exec(command);
-    const validTrack = track && Number(track[1]) <= (frame.journal?.leads.filter(isOpenObjective).length ?? 0);
+    const validTrack = frame.journal && (command === "track auto" ||
+      (track && Number(track[1]) <= frame.journal.leads.filter(isOpenObjective).length));
     const gameKey = command.startsWith("key ") ? command.slice(4) : command;
     if ((!validTrack && getKey(gameKey) === undefined) ||
         (frame.journal && command.toLowerCase() !== "j" && !validTrack)) {

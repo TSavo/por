@@ -1,6 +1,7 @@
 const screen = document.querySelector("#screen");
 const journal = document.querySelector("#journal");
 const closeJournal = document.querySelector("#close-journal");
+const autoTrack = document.querySelector("#auto-track");
 const objective = document.querySelector("#objective");
 const leads = document.querySelector("#leads");
 const status = document.querySelector("#status");
@@ -36,6 +37,8 @@ function render() {
     if (journal.contains(document.activeElement)) screen.focus();
     return;
   }
+  if (autoTrack === document.activeElement && !state.journal.trackedId) closeJournal.focus();
+  autoTrack.hidden = !state.journal.trackedId;
   const heading = document.createElement("strong");
   const directions = document.createElement("p");
   heading.textContent = state.journal.objective.title;
@@ -54,8 +57,10 @@ function render() {
       const number = ++index;
       const track = document.createElement("button");
       track.type = "button";
-      track.textContent = "Track";
-      track.setAttribute("aria-label", `Track ${lead.title}`);
+      const selected = lead.id === state.journal.trackedId;
+      track.textContent = selected ? "Tracking" : "Track";
+      track.setAttribute("aria-label", `${track.textContent} ${lead.title}`);
+      track.disabled = selected;
       track.addEventListener("click", () => send(`track ${number}`));
       item.append(track);
     }
@@ -88,6 +93,7 @@ async function poll() {
     state = changed ? next : { ...state, ...next };
     if (changed) render();
     closeJournal.disabled = !state.ready || Boolean(state.stopped);
+    autoTrack.disabled = closeJournal.disabled;
     status.textContent = state.stopped ?? state.notice ??
       (state.ready ? "Arrows to move or select. Enter to confirm." : "Game running…");
   } catch {
@@ -102,6 +108,7 @@ const commands = {
   Enter: "enter", Escape: "escape", " ": "space", Backspace: "backspace",
 };
 closeJournal.addEventListener("click", () => send("j"));
+autoTrack.addEventListener("click", () => send("track auto"));
 presentation.addEventListener("click", () => {
   togglePresentation();
   screen.focus();
