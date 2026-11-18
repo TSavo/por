@@ -116,7 +116,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("sokal-ambush")) {
         nextStep = "Heal the party and ready weapons and spells before returning to the courtyard.";
         if (knows("phlan-temple-healing")) nextStep += " The Temple of Tyr in New Phlan offers paid healing.";
-        if (knows("phlan-arena-recruits")) nextStep += " Ask the arena master for reinforcements if needed.";
+        if (knows("phlan-arena-recruits")) {
+          nextStep += " Ask the arena master for reinforcements if needed. Arena recruits act on their own in battle. Prepare spells on a character you control to choose their targets.";
+        }
       }
       else if (knows("sokal-armory-stands")) nextStep = "Check the gear on the stands if you left it behind, then continue exploring Sokal Keep.";
       else if (knows("sokal-hidden-armory")) nextStep = "Follow the glow to the northwest corner of the hidden armory.";

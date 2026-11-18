@@ -225,6 +225,13 @@ longbow. Strict verification reaches both attacks without intervention.
 Alt+Q forwards the original DOS shortcut to resume automatic combat for
 the party. The Sokal replay exercises it from Brin's manual menu, and the
 Chrome replay verifies that the browser forwards the key in combat.
+Space clears Quick for player characters. The translated loop at
+`ovl08:04F3` skips actors whose type is at least 128. The hired Swordsman
+and Curate have types 160 and 165 in the tested party, and the Curate
+continues to take automatic turns after Brin clears Quick. The Sokal
+journal explains this after the party learns about arena recruits and
+witnesses the ambush. Prepare spells on a player character to choose
+their targets in combat.
 Continuing with Quick after either that shot or a shot at an orc archer
 ended in defeat. The Quick-only opening and the two tested Curate
 placements at the head of the party also ended in defeat.

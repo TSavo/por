@@ -1231,6 +1231,9 @@ if (process.argv[2] === "--sokal-tracked-ambush-checkpoint") {
     if (seen) {
       assert.ok(journal.leads.some(({ id }) => id === "phlan-temple-healing"));
       assert.match(journal.objective.nextStep, /ready weapons and spells.*Temple of Tyr/);
+      if (journal.leads.some(({ id }) => id === "phlan-arena-recruits")) {
+        assert.match(journal.objective.nextStep, /arena recruits act on their own.*choose their targets/i);
+      }
     } else {
       assert.match(journal.objective.nextStep, /gear on the stands/);
     }
@@ -1250,6 +1253,7 @@ if (process.argv[2] === "--sokal-tracked-ambush-checkpoint") {
     "j", checkAmbush(true), "j",
     "enter", "enter", "enter",
     ["space", /brin hitpoints 6 ac 1 mace move view aim use quick done/, 20],
+    "space", (text) => assert.match(text, /brin hitpoints 6 ac 1 mace move view aim use quick done/),
     "a", "n", "n", "n",
     (text) => {
       assert.match(text, /orc hitpoints 2 ac 6 range = 3.*aim:next/);
