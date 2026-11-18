@@ -662,6 +662,12 @@ and the fighter trainer's dialogue, including switches at both prompts.
 The Slums infantry and Textile House priestess share a guest image pattern.
 Area-scoped overrides keep their new artwork distinct, verified live in both fights.
 
+The enhanced Textile House environment has 166 individual 32×32 PNGs
+for the traced courtyard approach, west wing, and temple corridors. Chrome
+checked the merged pack in 40 live views (4,840 placements) across three
+checkpoint replays and verified state-preserving presentation switches.
+The temple approach also displayed the enhanced Grishnak portrait.
+
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_I PATH_TO_CHROME textile-altar`
 with a checkpoint outside Grishnak's temple at `2,13 N`. The replay checks
 the 352×352 altar portrait, the selected 96×96 priestess sprite, the captains'
