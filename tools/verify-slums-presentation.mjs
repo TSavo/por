@@ -5,13 +5,28 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
-const giantSkeleton = routeName === "graveyard-giant-skeleton";
+const combatPoseRoutes = new Map([
+  ["graveyard-giant-skeleton", {
+    stand: "combat:area:10:CPIC4.DAX:22", strike: "combat:area:10:CPIC4.DAX:150", width: 96, height: 192,
+    inputs: ["up", "enter", "y", "enter", "enter", "enter", "q", "q"],
+  }],
+  ["swamp-giant-lizard", {
+    stand: "combat:area:16:CPIC8.DAX:59", strike: "combat:area:16:CPIC8.DAX:187", width: 192, height: 96,
+    inputs: ["up", "enter", "c", "c", "enter", "enter", "enter", "q", "q"],
+  }],
+]);
+const combatPose = combatPoseRoutes.get(routeName);
 const ferryRoutes = new Map([
   ["phlan-ferry-east", { slot: "B", prompt: /BOATDOCKEDHERETHATWILLRETURNYOU/i }],
   ["phlan-ferry-river", { slot: "A", prompt: /BOATHERETHATWILLTAKEYOUBACK/i }],
 ]);
 const ferry = ferryRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["graveyard-crypt-path", {
+    slot: "A", area: 10, views: 26, patterns: 146, sceneryOnly: true,
+    walk: ["up", "left", "up", "right", "up", "up", "up", "up", "right", "right", "up", "up", "up",
+      "right", "up", "up", "right", "right", "up", "up", "right", "up", "up", "left", "up"],
+  }],
   ["phlan-city-hall-approach", {
     slot: "B", area: 0, views: 15, patterns: 83,
     walk: ["up", "up", "enter", "left", "up", "up", "right", "up", "up", "right", "up", "left", "up", "right", "up"],
@@ -89,7 +104,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "diogenes-cave", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), "graveyard-mystic", "graveyard-giant-skeleton", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "diogenes-cave", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -298,7 +313,7 @@ try {
       assert.ok(id.startsWith(`tile:${area}:`), id);
       patterns.add(id);
     }
-    await waitFor("121 individually anchored 4Ã— tiles", () => run(`state.sequence === ${frame.sequence} &&
+    await waitFor("121 individually anchored 4× tiles", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelectorAll("#tile-art img:not(.encounter-sprite)").length === 121 &&
       [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
     return 1;
@@ -306,7 +321,7 @@ try {
 
   if (environment) {
     const area = environment.area ?? 2;
-    const actor = area === 10 ? "encounter:area:10:SPRIT4.DAX:34:0:0"
+    const actor = area === 10 && !environment.sceneryOnly ? "encounter:area:10:SPRIT4.DAX:34:0:0"
       : area === 9 ? "encounter:area:9:SPRIT2.DAX:63:0:0" : undefined;
     const patterns = new Set();
     let views = await verifyTiledView(area, patterns);
@@ -390,31 +405,30 @@ try {
     }
     await switchBothWays();
     console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
-  } else if (giantSkeleton) {
-    const standing = "combat:area:10:CPIC4.DAX:22";
-    const strike = "combat:area:10:CPIC4.DAX:150";
-    await run(`window.giantSkeletonStrikeLoaded = false;
+  } else if (combatPose) {
+    const { stand, strike, width, height, inputs } = combatPose;
+    await run(`window.strikeLoaded = false;
       new MutationObserver(() => {
         for (const image of document.querySelectorAll(".combat-sprite")) {
           if (!image.src.endsWith(${JSON.stringify(strike)})) continue;
           const check = () => {
-            if (image.naturalWidth === 96 && image.naturalHeight === 192) window.giantSkeletonStrikeLoaded = true;
+            if (image.naturalWidth === ${width} && image.naturalHeight === ${height}) window.strikeLoaded = true;
           };
           check();
           image.addEventListener("load", check, { once: true });
         }
       }).observe(document.querySelector("#tile-art"), { childList: true });`);
-    for (const key of ["up", "enter", "y", "enter", "enter", "enter", "q", "q"]) await advance(key);
-    assert.ok(frame.combatArt?.some(([, , id, , selected]) => id === standing && selected));
-    await waitFor("the selected Giant Skeleton", () => run(`state.sequence === ${frame.sequence} &&
-      [...document.querySelectorAll(".combat-sprite")].some(image => image.src.endsWith(${JSON.stringify(standing)}) &&
-        image.naturalWidth === 96 && image.naturalHeight === 192)`));
+    for (const key of inputs) await advance(key);
+    assert.ok(frame.combatArt?.some(([, , id, , selected]) => id === stand && selected));
+    await waitFor("the selected combat sprite", () => run(`state.sequence === ${frame.sequence} &&
+      [...document.querySelectorAll(".combat-sprite")].some(image => image.src.endsWith(${JSON.stringify(stand)}) &&
+        image.naturalWidth === ${width} && image.naturalHeight === ${height})`));
     await switchBothWays();
     await advance("q");
     assert.ok(frame.animation?.some(({ combatArt }) => combatArt?.some(([, , id]) => id === strike)));
-    await waitFor("the enhanced Giant Skeleton strike", () => run("window.giantSkeletonStrikeLoaded"));
+    await waitFor("the enhanced combat strike", () => run("window.strikeLoaded"));
     assert.deepEqual(readFileSync(saved), originalSave);
-    console.log("Verified the Giant Skeleton's standing and animated strike poses in Chrome.");
+    console.log(`Verified ${routeName} standing and animated strike poses in Chrome.`);
   } else if (ferry) {
     for (const key of ["down", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:PIC8.DAX:41:0:0");
@@ -698,7 +712,7 @@ try {
     assert.ok(swung());
     await waitFor("the rectangular ogre attack sprite", () => displayed(attack));
     assert.deepEqual(readFileSync(saved), originalSave);
-    console.log("Verified 96Ã—192 standing and attack sprites in the Textile House ogre fight.");
+    console.log("Verified 96×192 standing and attack sprites in the Textile House ogre fight.");
   } else if (altar) {
     for (const key of ["up", "enter", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:PIC4.DAX:9:0:0");
@@ -1214,7 +1228,7 @@ try {
       assert.equal(highlighted, true);
       assert.equal(width, 48);
       assert.equal(height, 48);
-      await waitFor("the selected 4Ã— dragon sprite", () => run(`(() => {
+      await waitFor("the selected 4× dragon sprite", () => run(`(() => {
         const img = [...document.querySelectorAll(".combat-sprite")].find(img => img.src.endsWith("CPIC5.DAX:66"));
         return state.sequence === ${frame.sequence} && img?.naturalWidth === 192 && img.naturalHeight === 192 &&
           parseFloat(img.style.left) === ${x / 3.2} && parseFloat(img.style.top) === ${y / 2} &&
@@ -1439,7 +1453,7 @@ try {
       })()`));
       if (courtyard) {
         assert.ok(frame.battleTiles.length > 0);
-        await waitFor("all matched 4ï¿½ battle terrain tiles", () => run(`state.sequence === ${frame.sequence} &&
+        await waitFor("all matched 4× battle terrain tiles", () => run(`state.sequence === ${frame.sequence} &&
           document.querySelectorAll(".battle-tile").length === ${frame.battleTiles.length} &&
           [...document.querySelectorAll(".battle-tile")].every(tile => tile.naturalWidth === 32 && tile.naturalHeight === 32)`));
       }
@@ -1574,7 +1588,7 @@ try {
     const displayedPositions = new Set(displayedSwings
       .filter(([, , width, height]) => width === 96 && height === 96).map(([x, y]) => `${x},${y}`));
     assert.ok([...attacks].every((position) => displayedPositions.has(position)),
-      "Chrome must display the 4ï¿½ swing at each original position");
+      "Chrome must display the 4× swing at each original position");
     assert.ok(positions.size > 4, "Guard artwork should follow moving units");
     console.log(`Verified ${route.length} Slums outpost views with guard sprites in ${positions.size} combat positions and swings in ${attacks.size}.`);
   } else {
@@ -1679,7 +1693,7 @@ try {
     })()`);
     const koboldPlacements = frame.combatArt.filter(([, , id]) => id === "combat:CPIC2.DAX:0");
     assert.ok(koboldPlacements.some((placement) => placement[3]) && koboldPlacements.some((placement) => !placement[3]));
-    await waitFor("the mirrored 4Ã— combat sprite", () => run(`[...document.querySelectorAll('.combat-sprite[src="/art/combat:CPIC2.DAX:0"]')]
+    await waitFor("the mirrored 4× combat sprite", () => run(`[...document.querySelectorAll('.combat-sprite[src="/art/combat:CPIC2.DAX:0"]')]
       .some(image => image.naturalWidth === 96 && image.style.transform === "scaleX(-1)")`));
     for (const width of [430, 1100]) {
       await command("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: false });

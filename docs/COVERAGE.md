@@ -825,6 +825,9 @@ now check all 19 views, including one skeleton approach per route. The
 The `graveyard-mystic` replay starts at `8,10 N` in controlled slot B with
 the graveyard encounter counter set to 3 and verifies the mystic portrait
 and a state-preserving switch in dialogue.
+The `graveyard-crypt-path` replay starts in controlled slot A at `10,3 E`.
+It checks 3,146 tile placements across 26 views of the crypt paths, including
+96 new 32×32 tiles among 146 patterns, and preserves the save when switching modes.
 The `graveyard-giant-skeleton` replay starts at `7,7 N` in controlled slot A.
 Chrome checks both 96×192 poses over the original 24×48 footprint, including
 the animated strike, and verifies that changing presentation preserves the save.
@@ -835,6 +838,10 @@ The `graveyard-wolves` Chrome replay from the western vampire approach verified 
 192×96 wolf poses from the default upgrade pack. It observed two wolves
 standing on their original 48×24 footprints and the bite frame during combat,
 then switched both ways and checked that the live frame and save were preserved.
+
+The `swamp-giant-lizard` replay uses the controlled Swamp Elder checkpoint in
+slot A. It checks the selected Giant Lizard and its animated bite at 192×96,
+including state preservation when switching the combat presentation.
 
 The river pollution journal records the rowboat, secret entrance, fountain
 machinery, and damage only after the party sees the corresponding ECL dialogue.
