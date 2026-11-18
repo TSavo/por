@@ -492,7 +492,25 @@ try {
     assert.ok(frame.combatArt.some((placement) => placement[3]) && frame.combatArt.some((placement) => !placement[3]));
     await waitFor("the mirrored 4× combat sprite", () => run(`[...document.querySelectorAll(".combat-sprite")]
       .some(image => image.naturalWidth === 96 && image.style.transform === "scaleX(-1)")`));
-    await switchBothWays();
+    for (const width of [430, 1100]) {
+      await command("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: false });
+      await waitFor(`kobold combat artwork aligned at ${width}px`, () => run(`(() => {
+        if (state.sequence !== ${frame.sequence}) return false;
+        const screen = document.querySelector("#screen").getBoundingClientRect();
+        const sprites = [...document.querySelectorAll('.combat-sprite[src="/art/combat:CPIC2.DAX:0"]')];
+        const placements = ${JSON.stringify(frame.combatArt.filter(([, , id]) => id === "combat:CPIC2.DAX:0"))};
+        return sprites.length === placements.length && placements.every(([x, y, , reflected]) => sprites.some(image => {
+          const rect = image.getBoundingClientRect();
+          return image.naturalWidth === 96 && image.naturalHeight === 96 &&
+            Math.abs(rect.left - screen.left - x * screen.width / 320) < 1 &&
+            Math.abs(rect.top - screen.top - y * screen.height / 200) < 1 &&
+            Math.abs(rect.width - 24 * screen.width / 320) < 1 &&
+            Math.abs(rect.height - 24 * screen.height / 200) < 1 &&
+            (image.style.transform === "scaleX(-1)") === reflected;
+        }));
+      })()`));
+      await switchBothWays();
+    }
     await waitFor("Chrome to display the final combat frame", () => run(`state.ready && state.sequence === ${frame.sequence}`));
     await command("Input.dispatchKeyEvent", { type: "keyDown", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
     await command("Input.dispatchKeyEvent", { type: "keyUp", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });

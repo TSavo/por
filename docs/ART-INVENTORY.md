@@ -67,6 +67,11 @@ in the original 320Ãƒâ€”200 framebuffer. Later frames retain exact matche
 the combat layout changes. The transparent black pixels were excluded from
 matching to allow the sprite to overlap background tiles.
 
+The Chrome kobold route now checks every visible guard sprite at 430px
+and 1100px. Each 96×96 PNG must occupy the original 24×24 guest cell
+at the correct scaled position and facing. The replay switches modes
+at both widths and compares the guest state and save bytes.
+
 Block 128 was loaded. The alternate VGA pose resolves in both facings in a
 controlled framebuffer check using the original block. Sampling during the
 recorded Slums fight yielded no exact 24Ãƒâ€”24 match for this block. Its draw
