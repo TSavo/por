@@ -579,7 +579,15 @@ await replay(loadSlotF, "85000000", [
   (text) => assert.match(text, /orc hitpoints.*spell:sleep.*target/),
   "t",
   (text) => assert.match(text, /orc leader hitpoints.*aim:next/),
+  ...Array(11).fill("q"),
+  (text) => assert.match(text, /cora hitpoints 6 ac 5.*hand axe.*quick done/),
+  "d",
+  (text) => assert.match(text, /cora hitpoints.*guard delay quit bandage speed exit/),
+  "b",
+  (text) => assert.match(text, /orc leader hitpoints/),
+  "enter",
+  (text) => assert.match(text, /orc hitpoints/),
 ], spellSaveDir);
-console.log("Cleared Quick with Space and cast Sleep at an orc in the Sokal courtyard.");
+console.log("Cleared Quick, cast Sleep, and used Cora's Bandage action in the Sokal courtyard.");
 console.log("Replay save:", saveDir);
 console.log("Mixed-party save:", spellSaveDir);

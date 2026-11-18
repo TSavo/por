@@ -237,7 +237,9 @@ The mixed party then finds the parchment, passes an undead patrol with
 its password, and enters the courtyard ambush. Pressing Space during
 combat clears Quick for player characters. Mira's manual Cast menu
 appears, and the replay selects Sleep and targets an orc. The battle
-continues after the cast.
+continues after the cast. Cora opens Done and chooses Bandage. Tracing
+the translated action verified that it changes Alda's combat status
+from dying to stable before the enemy turn resumes.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
