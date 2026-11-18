@@ -12,6 +12,25 @@ const presentation = document.querySelector("#presentation");
 let state = { sequence: -1 };
 let posting = false;
 let enhanced = false;
+let animationFrame;
+let animationTimer;
+
+function finishAnimation() {
+  clearTimeout(animationTimer);
+  animationFrame = undefined;
+}
+
+function playAnimation() {
+  finishAnimation();
+  const frames = state.animation ?? [];
+  let index = 0;
+  function advance() {
+    animationFrame = frames[index++];
+    showScreen();
+    if (animationFrame) animationTimer = setTimeout(advance, 120);
+  }
+  if (frames.length) advance();
+}
 
 function togglePresentation() {
   enhanced = !enhanced;
@@ -22,24 +41,25 @@ function togglePresentation() {
 
 function showScreen() {
   if (!state.frame) return;
-  const frame = enhanced ? state.enhancedFrame ?? state.frame : state.frame;
-  screen.src = enhanced && !state.journal && state.art ? state.art : `data:image/png;base64,${frame}`;
-  const replacement = enhanced && !state.journal && state.viewportArt;
+  const view = animationFrame ? { ...state, ...animationFrame } : state;
+  const frame = enhanced ? view.enhancedFrame ?? view.frame : view.frame;
+  screen.src = enhanced && !view.journal && view.art ? view.art : `data:image/png;base64,${frame}`;
+  const replacement = enhanced && !view.journal && view.viewportArt;
   viewportArt.hidden = !replacement;
   if (replacement && viewportArt.getAttribute("src") !== replacement) viewportArt.src = replacement;
-  tileArt.hidden = !enhanced || Boolean(state.art || state.journal || replacement);
+  tileArt.hidden = !enhanced || Boolean(view.art || view.journal || replacement);
   if (!tileArt.hidden) {
-    const placements = [...(state.tiles ?? []), ...(state.combatArt ?? [])];
-    if (state.portrait) placements.push([24, 24, state.portrait]);
-    if (state.encounter) placements.push(state.encounter.slice(0, 3));
+    const placements = [...(view.tiles ?? []), ...(view.combatArt ?? [])];
+    if (view.portrait) placements.push([24, 24, view.portrait]);
+    if (view.encounter) placements.push(view.encounter.slice(0, 3));
     tileArt.replaceChildren(...placements.map(([x, y, id, reflected]) => {
       const tile = document.createElement("img");
       tile.alt = "";
-      if (id === state.portrait) tile.className = "encounter-portrait";
-      if (id === state.encounter?.[2]) {
+      if (id === view.portrait) tile.className = "encounter-portrait";
+      if (id === view.encounter?.[2]) {
         tile.className = "encounter-sprite";
-        tile.style.width = `${state.encounter[3] / 3.2}%`;
-        tile.style.height = `${state.encounter[4] / 2}%`;
+        tile.style.width = `${view.encounter[3] / 3.2}%`;
+        tile.style.height = `${view.encounter[4] / 2}%`;
       }
       if (reflected !== undefined) tile.className = "combat-sprite";
       if (reflected) tile.style.transform = "scaleX(-1)";
@@ -50,14 +70,14 @@ function showScreen() {
       return tile;
     }));
   }
-  gameText.hidden = !enhanced || Boolean(state.art && !state.journal);
+  gameText.hidden = !enhanced || Boolean(view.art && !view.journal);
   if (!gameText.hidden) {
-    gameText.replaceChildren(...(state.text ?? []).map(([cell, character, color]) => {
+    gameText.replaceChildren(...(view.text ?? []).map(([cell, character, color]) => {
       const glyph = document.createElement("span");
       glyph.textContent = String.fromCharCode(character);
       glyph.style.left = `${(cell % 40) * 2.5}%`;
       glyph.style.top = `${Math.floor(cell / 40) * 4}%`;
-      glyph.style.color = `rgb(${state.textColors[color].join(",")})`;
+      glyph.style.color = `rgb(${view.textColors[color].join(",")})`;
       return glyph;
     }));
   }
@@ -118,6 +138,10 @@ function render() {
 
 async function send(key) {
   if (!state.ready || posting || state.stopped) return;
+  if (animationFrame) {
+    finishAnimation();
+    showScreen();
+  }
   posting = true;
   const sequence = state.sequence;
   try {
@@ -138,7 +162,10 @@ async function poll() {
     const next = await response.json();
     const changed = next.sequence !== state.sequence;
     state = changed ? next : { ...state, ...next };
-    if (changed) render();
+    if (changed) {
+      render();
+      playAnimation();
+    }
     closeJournal.disabled = !state.ready || Boolean(state.stopped);
     autoTrack.disabled = closeJournal.disabled;
     status.textContent = state.stopped ?? state.notice ??

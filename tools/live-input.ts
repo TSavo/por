@@ -7,7 +7,7 @@ import { currentObjective, isOpenObjective, type JournalLead } from "../src/runt
 import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
-import { loadCombatArtMatcher } from "./combat-art.js";
+import { loadCombatArtMatcher, type CombatArtPlacement } from "./combat-art.js";
 import { loadPortraitArt } from "./portrait-art.js";
 import { loadEncounterArt } from "./encounter-art.js";
 
@@ -20,6 +20,12 @@ const controls: Record<string, number> = {
 const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"];
 const firstScans = [2, 16, 30, 44];
 const liveIdleBudget = 150_000_000;
+export interface CombatAnimationFrame {
+  frame: string;
+  enhancedFrame: string;
+  combatArt: CombatArtPlacement[];
+  text: [number, number, number][];
+}
 export type TileInventoryCell = [x: number, y: number, key: string, indices: string];
 const enhancedPalette = [
   [15, 14, 18], [44, 59, 112], [49, 128, 74], [46, 133, 146],
@@ -56,12 +62,16 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
+  const attackKeys = new Set((process.env.POR_COMBAT_ART_KEYS ?? "").split(",")
+    .filter((key) => Number(key.split(":").at(-1)) >= 128));
+  const animation: CombatAnimationFrame[] = [];
+  let lastAttack = "";
   const portraitArt = loadPortraitArt((process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean));
   const encounterPlacements = JSON.parse(process.env.POR_ENCOUNTER_ART ?? "{}") as Record<string, EncounterAnchor>;
   const encounterArt = loadEncounterArt(encounterPlacements);
   const traceEncounterArea = Object.keys(encounterPlacements).length > 0;
   const traceTiles = process.env.POR_TRACE_TILES === "1";
-  const showFrame = (leads?: JournalLead[]) => {
+  const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[]) => {
     if (browser) {
       const viewport = createHash("sha256");
       for (let y = 8; y < 128; y++) viewport.update(screen.pixels.subarray(y * screen.width + 8, y * screen.width + 120));
@@ -119,7 +129,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
           trackedId: leads.find((lead) => lead.id === trackedId && isOpenObjective(lead))?.id },
       };
-      console.log(`POR_FRAME ${JSON.stringify(state)}`);
+      if (attack) {
+        animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame,
+          text: state.text, combatArt: attack });
+      } else {
+        console.log(`POR_FRAME ${JSON.stringify({ ...state,
+          animation: animation.length ? animation.splice(0) : undefined })}`);
+        lastAttack = "";
+      }
     } else {
       writeFileSync("out/por-live.png", encodePng(leads ? journalFrame(leads, trackedId) : screen));
     }
@@ -194,6 +211,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   return {
     requestKey,
+    captureCombatDelay: browser && attackKeys.size ? () => {
+      if (scene || animation.length >= 12) return;
+      const placements = combatArt(screen);
+      const attacks = placements.filter(([, , key]) => attackKeys.has(key));
+      const signature = attacks.length ? JSON.stringify(attacks) : "";
+      if (signature && signature !== lastAttack) showFrame(undefined, placements);
+      lastAttack = signature;
+    } : undefined,
     openJournal,
     setCampMenu: (active: boolean) => { inCampMenu = active; },
     enterDiskMenu: () => { diskMenuDepth++; },

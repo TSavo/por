@@ -151,15 +151,45 @@ try {
     await waitFor("the combat orcs", () => run(`state.sequence === ${frame.sequence} &&
       [...document.querySelectorAll(".combat-sprite")].filter(img => img.naturalWidth === 96).length >= 3`));
     await switchBothWays();
+    await run(`(() => {
+      window.swingPlacements = [];
+      new MutationObserver(() => {
+        for (const image of document.querySelectorAll('.combat-sprite[src="/art/combat:CPIC2.DAX:132"]')) {
+          const remember = () => window.swingPlacements.push([
+            Math.round(parseFloat(image.style.left) * 3.2),
+            Math.round(parseFloat(image.style.top) * 2),
+            image.naturalWidth, image.naturalHeight,
+          ]);
+          if (image.complete && image.naturalWidth) remember();
+          else image.addEventListener("load", remember, { once: true });
+        }
+      }).observe(document.querySelector("#tile-art"), { childList: true });
+    })()`);
     const positions = new Set();
+    const attacks = new Set();
     for (let turn = 0; turn < 15; turn++) {
       for (const [x, y, id] of frame.combatArt) {
         if (id === guard) positions.add(`${x},${y}`);
       }
       await advance("q");
+      for (const view of frame.animation ?? []) {
+        for (const [x, y, id] of view.combatArt) {
+          if (id === "combat:CPIC2.DAX:132") attacks.add(`${x},${y}`);
+        }
+      }
+      if (frame.animation?.length) {
+        await waitFor("Chrome to finish the recorded attacks", () => run(
+          `state.sequence === ${frame.sequence} && !animationFrame`));
+      }
     }
+    assert.ok(attacks.size >= 2, "Original combat must draw swings at multiple positions");
+    const displayedSwings = await run("window.swingPlacements");
+    const displayedPositions = new Set(displayedSwings
+      .filter(([, , width, height]) => width === 96 && height === 96).map(([x, y]) => `${x},${y}`));
+    assert.ok([...attacks].every((position) => displayedPositions.has(position)),
+      "Chrome must display the 4× swing at each original position");
     assert.ok(positions.size > 4, "Guard artwork should follow moving units");
-    console.log(`Verified ${route.length} Slums outpost views and guard sprites in ${positions.size} combat positions.`);
+    console.log(`Verified ${route.length} Slums outpost views with guard sprites in ${positions.size} combat positions and swings in ${attacks.size}.`);
   } else {
     let views = 0;
     const tileLayouts = new Set();

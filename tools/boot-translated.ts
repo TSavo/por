@@ -50,7 +50,16 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const exe = files.find((f) => f.name.toUpperCase() === "START.EXE");
   const ovr = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
   if (!exe || !ovr) throw new Error("START.EXE and GAME.OVR are required");
-  const boot = installProgram(cpu, exe.data, ovr.data);
+  const captureCombatDelay = input?.captureCombatDelay;
+if (captureCombatDelay) {
+  const tick = cpu.tick;
+  cpu.tick = function (at) {
+    // The original executable holds the attack pose during this delay.
+    if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) captureCombatDelay();
+    tick.call(this, at);
+  };
+}
+const boot = installProgram(cpu, exe.data, ovr.data);
   const keys = [...scheduledKeys];
   attachDos(cpu, mountedFiles, keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)),
     fileClosed, fileDeleted, readCompanions);
