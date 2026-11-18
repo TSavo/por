@@ -594,17 +594,20 @@ Ordinary input triggered the pale form, used Parlay and LUX, and chose to
 tell the truth. The original script taught SAMOSUD and completed the
 commission. Saving at the altar and reloading in the normal runner verified
 the ready-to-report status and the journal's password and return guidance.
-A separate run chose to lie and verified that Ferran faded without teaching
-the password or completing the commission. A third branch answers with
+The lie branch verifies that Ferran fades without teaching the departure
+password or completing the commission. After saving and reloading, the
+party steps away and returns to the altar, speaks the same word, and
+answers truthfully. This recovery leads to the normal council reward.
+The wrong-word branch answers with
 an unrelated word. It saves and reloads the vanished figure outcome,
 then leaves and reenters the altar square to verify that the encounter
 stays closed. The journal points to an earlier save and keeps Ferran's
 identity and the departure word hidden. The checkpoint bypassed the
 route to the altar.
 Run `node tools/verify-fresh-party.mjs --sokal-ferran-checkpoint PATH_TO_SLOT_F`
-from one step north of the altar, facing south. The verifier plays all
-three branches from the same checkpoint, then follows the truthful branch all
-the way through the council reward and reload.
+from one step north of the altar, facing south. The verifier plays the
+wrong-word and lie branches from the same checkpoint, then follows the
+recovered truthful branch through the council reward and reload.
 
 From the truthful altar save, the party walks through the chapel and
 past the undead using SAMOSUD, exits through the southern gate, and

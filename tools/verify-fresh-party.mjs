@@ -1482,9 +1482,18 @@ if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.a
         assert.equal(leads.find(({ id }) => id === "commission-sokal")?.status, statusBeforeParlay);
         assert.ok(leads.some(({ id }) => id === "sokal-ferran-lie"));
         assert.ok(!leads.some(({ id }) => id === "sokal-departure"));
-      },
+      }, "j", "enter", "e", "s", "s", "d",
+      (text) => assert.match(text, /quit to dos/),
     ]);
-    await replay(loadSlot("2166"), "85000000", [
+    await replay(loadSlot("2064"), "85000000", [
+      (text) => assert.match(text, /8,10 s/),
+      "j", (_text, frame) => {
+        assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-ferran-lie"));
+        assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-departure"));
+      }, trackSokal, (_text, frame) => {
+        assert.match(frame.journal.objective.nextStep, /step away from the altar and return.*same word.*truth about phlan/i);
+        assert.doesNotMatch(frame.journal.objective.nextStep, /samosud/i);
+      }, "j", "left", "left", "up", "left", "left",
       ...speakToFerran, "t", "enter", "enter", "enter",
       (text) => assert.match(text, /samosud/),
       "e", "s", "s", "g",
