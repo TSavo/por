@@ -655,6 +655,8 @@ ID, 32-by-32 PNG dimensions, and position against the guest tile trace.
 The full-viewport overlay is hidden in those views. The combat check
 requires both facings of the kobold's own sprite and verifies their
 placement at both browser widths.
+The combat menu check compares each web-font glyph and color against the
+guest menu cells after switching back to enhanced mode at both widths.
 The Chrome replay injects a prototype viewport image into the live
 battle frame and verifies that individual sprites take precedence.
 A frame with no individual replacements can use a prototype viewport

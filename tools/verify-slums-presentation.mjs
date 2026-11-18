@@ -580,6 +580,18 @@ try {
     const menu = frame.text.filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
       .map(([, character]) => String.fromCharCode(character)).join("");
     assert.match(menu, /move|attack|aim|quick/i);
+    const menuCells = frame.text.filter(([cell]) => cell >= 960);
+    const aim = menuCells.find(([, character]) => character === 65);
+    assert.equal(aim?.[2], 15, "Aim must have its original highlighted shortcut");
+    assert.deepEqual(menuCells.find(([cell]) => cell === aim[0] + 1), [aim[0] + 1, 105, 10],
+      "Aim's other letters must use the original normal menu color");
+    const menuColors = () => run(`(() => {
+      if (state.sequence !== ${frame.sequence} || document.querySelector("#game-text").hidden) return false;
+      const cells = [...document.querySelectorAll("#game-text span")].filter(glyph => parseFloat(glyph.style.top) === 96);
+      return cells.length === ${menuCells.length} && ${JSON.stringify(menuCells)}.every(([cell, char, color]) => cells.some(glyph =>
+        Math.abs(parseFloat(glyph.style.left) - (cell % 40) * 2.5) < 0.01 && glyph.textContent === String.fromCharCode(char) &&
+        getComputedStyle(glyph).color === "rgb(" + state.textColors[color].join(", ") + ")"));
+    })()`);
     const koboldPlacements = frame.combatArt.filter(([, , id]) => id === "combat:CPIC2.DAX:0");
     assert.ok(koboldPlacements.some((placement) => placement[3]) && koboldPlacements.some((placement) => !placement[3]));
     await waitFor("the mirrored 4× combat sprite", () => run(`[...document.querySelectorAll('.combat-sprite[src="/art/combat:CPIC2.DAX:0"]')]
@@ -602,6 +614,7 @@ try {
         }));
       })()`));
       await switchBothWays();
+      await waitFor(`original menu colors at ${width}px`, menuColors);
     }
     await waitFor("Chrome to display the final combat frame", () => run(`state.ready && state.sequence === ${frame.sequence}`));
     assert.deepEqual(await run(`(() => {
