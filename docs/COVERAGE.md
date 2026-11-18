@@ -222,9 +222,10 @@ from a Slums save. It followed the posted directions north and entered the
 east door for magic users. Darkstar had 5,000 XP and 250 platinum in the
 checkpoint. The guest training menu raised her to level 2 and opened the
 spell-learning menu. The character sheet still showed level 2 after saving
-to slot C and reloading. The same replay showed an unexpected 35,568
-platinum after training, so this verifies advancement and persistence.
-Training payment still needs verification.
+to slot C and reloading. The replay initially showed a spurious platinum
+balance. Correcting the translated long-division loop restored the fee
+calculation. The same checkpoint left Darkstar with 50 platinum plus
+change, and the translated quotient now has a regression check.
 
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick

@@ -248,6 +248,9 @@ def emit_insn(insn, next_ip: int, proc_name: dict[int, str], falls: bool = True,
         nxt(
             f"{{ const a = m.read16({seg}, {off}); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16({seg}, {off}, r); m.cf = saved; }}"
         )
+    elif mn == "dec" and parts[0] == "bp":
+        # Turbo Pascal's long division uses DEC BP / JNE without changing carry.
+        nxt(f"{{ const carry = m.cf; m.{parts[0]} = m.setSubFlags(16, m.{parts[0]}, 1); m.cf = carry; }}")
     elif mn == "dec" and parts[0] in REG16:
         nxt(f"m.{parts[0]} = (m.{parts[0]} - 1) & 0xffff;")
     elif mn == "dec" and "byte ptr" in parts[0]:

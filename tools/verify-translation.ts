@@ -11,7 +11,7 @@ import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
 import { attachDos } from "../src/runtime/dos.js";
 import { isPartyFile } from "./save-slots.js";
 import { openJournalProfile } from "./journal-profile.js";
-import { exe_056c0 } from "../src/translated/exe.js";
+import { exe_056c0, exe_05e44 } from "../src/translated/exe.js";
 import type { LoadedSlice } from "../src/runtime/overlay.js";
 import { currentObjective, discoveredLeads, progressAddresses, questProgress } from "../src/runtime/adventure-log.js";
 import { commissions } from "../src/runtime/commission-journal.js";
@@ -483,5 +483,16 @@ function checkCampaignJournal(): void {
   console.log(`verified ${commissions.length} journal definitions against original ECL dialogue and ${Object.keys(progressAddresses).length} progress flags through the translated setter`);
 }
 
+for (const [amount, divisor, quotient] of [[50552, 1000, 50], [200000, 1000, 200], [-50552, 1000, -50]]) {
+  const m = fresh();
+  m.ax = amount! & 0xffff;
+  m.dx = (amount! >> 16) & 0xffff;
+  m.cx = divisor!;
+  m.push(m.cs);
+  m.push(0);
+  exe_05e44(m);
+  if (((m.dx << 16) | m.ax) !== quotient) throw new Error(`Incorrect translated long division for ${amount}`);
+}
+console.log("verified Turbo Pascal long division used by training and coin conversion");
 checkCampaignJournal();
 console.log("translation checks passed");

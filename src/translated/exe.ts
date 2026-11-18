@@ -26644,7 +26644,7 @@ export function exe_05e44(m: Cpu): void {
       case 0x5e87: {
         // 5e87: dec bp
         m.tick(0x5e87);
-        m.bp = (m.bp - 1) & 0xffff;
+        { const carry = m.cf; m.bp = m.setSubFlags(16, m.bp, 1); m.cf = carry; }
         ip = 0x5e88;
         break;
       }
@@ -33213,7 +33213,7 @@ export function exe_06687(m: Cpu): void {
       case 0x66d0: {
         // 66d0: dec bp
         m.tick(0x66d0);
-        m.bp = (m.bp - 1) & 0xffff;
+        { const carry = m.cf; m.bp = m.setSubFlags(16, m.bp, 1); m.cf = carry; }
         ip = 0x66d1;
         break;
       }
