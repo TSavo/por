@@ -6,6 +6,10 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const environmentRoutes = new Map([
+  ["pyramid-entrance", {
+    slot: "A", area: 22, views: 20, patterns: 22,
+    walk: [...Array(15).fill("up"), "enter", "right", "up", "enter", "right", "up"],
+  }],
   ["zhentil-quarter", {
     slot: "A", area: 28, views: 7, patterns: 16,
     walk: ["up", "right", "up", "right", "up", "right", "up"],
@@ -460,7 +464,14 @@ try {
     await advance("j");
     assert.equal(frame.journal?.trackedId, "commission-river");
     assert.ok(!knows("river-fountain") && !knows("river-equipment-destroyed"));
-    for (const key of ["j", "up", "b", "j"]) await advance(key);
+    for (const key of ["j", "up", "b"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:PIC7.DAX:45:0:0");
+    await waitFor("the fountain illustration", () => run(`(() => {
+      const image = document.querySelector(".encounter-portrait");
+      return image?.naturalWidth === 352 && image?.naturalHeight === 352;
+    })()`));
+    await switchBothWays();
+    await advance("j");
     assert.ok(knows("river-fountain") && !knows("river-equipment-destroyed"));
     assert.match(frame.journal.objective.nextStep, /Destroy the Equipment/);
     for (const key of ["j", "enter", "enter", "d", "j"]) await advance(key);

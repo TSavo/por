@@ -785,6 +785,12 @@ at `1,1 E`, just outside the chamber. It enters through the original door,
 checks the witnessed fountain clue, selects Destroy the Equipment, and
 verifies that the journal switches to ready to report and saves that status.
 This covers the direct shutdown outcome in Chrome.
+The fountain replay also checks the new 352×352 illustration
+(`portrait:PIC7.DAX:45:0:0`) and both display switches during the encounter.
+The `pyramid-entrance` route checks 22 individual 32×32 sandstone,
+plaster, and floor tiles across 20 Chrome frames. Visual review across
+nine distinct views led to a quieter floor and ceiling and brighter
+doorway edges before the default pack was retested.
 The `river-exit` replay uses the upper-pyramid entrance save with the
 river completion flag and journal clues from the fountain save. It walks
 out through the original secret door and verifies that the recovery clue
