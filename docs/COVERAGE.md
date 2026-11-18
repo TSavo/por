@@ -143,9 +143,11 @@ completes Rolf's tour, and saves to slot A at the west gate. It checks the six
 character companion files, starts a new runner, reloads the same slot, and
 checks that all six arrive in the Slums at (15,4). The script prints the save
 directory so campaign play can resume there. A second branch from slot A
-walks from the west gate to the arms shop at (8,11), buys a hand axe for Alda,
-readies it through View and Items, and saves to slot B. A fresh runner loads B
-and verifies the weapon is still marked ready. That slot remains at the shop.
+walks from the west gate to the arms shop at (8,11), buys a hand axe and
+chain mail for each fighter, readies both through View and Items, and saves
+to slot B. A fresh runner loads B and verifies both items are still ready
+in every character's inventory. The equipped party then walks back through
+the west gate and saves in the Slums at (15,4), in slot C.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,

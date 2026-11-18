@@ -31,6 +31,10 @@ async function replay(bootKeys, startAt, actions) {
   try {
     let frame = await nextFrame();
     for (const key of actions) {
+      if (typeof key === "function") {
+        key(visibleText(frame));
+        continue;
+      }
       lastKey = key;
       runner.stdin.write(key + "\n");
       frame = await nextFrame();
@@ -77,16 +81,48 @@ const shopRoute = [
   "right", "right", "up", "up", "up", "enter", "right", ...Array(7).fill("up"),
   "left", ...Array(5).fill("up"), "y", "y",
 ];
-const readyAxe = ["b", "b", "e", "v", "i", "i", "r"];
-const saveEquipment = ["e", "e", "e", "e", "e", "s", "s", "b"];
-const equippedSave = await replay(loadSlotA, "85000000", [...shopRoute, ...readyAxe, ...saveEquipment]);
+const checkGear = (name) => (text) => {
+  assert.ok(text.includes(`${name}'s items`), `Expected inventory for ${name}: ${text}`);
+  assert.match(text, /yes hand axe.*yes chain mail/);
+};
+const shopForFighter = (index) => [
+  // After the first purchase, the last shop page starts one row later.
+  "b", "b", "n", "n", ...Array(index ? 13 : 14).fill("end"), "b", "e",
+  "v", "i", "i", "r", "end", "r",
+];
+const closeInventory = ["e", "e", "e"];
+const equipParty = names.flatMap((name, index) => [
+  ...(index ? ["end"] : []),
+  ...shopForFighter(index), checkGear(name), ...closeInventory,
+]);
+const saveEquipment = ["e", "e", "s", "s", "b"];
+const equippedSave = await replay(loadSlotA, "85000000", [...shopRoute, ...equipParty, ...saveEquipment]);
 assert.match(visibleText(equippedSave), /quit to dos/);
 const equippedSlot = JSON.parse(readFileSync(join(saveDir, "B.json"), "utf8"));
-assert.ok(equippedSlot.party["SAVE\\CHRDATB1.ITM"]);
+for (const index of names.keys()) assert.ok(equippedSlot.party[`SAVE\\CHRDATB${index + 1}.ITM`]);
 
 const loadSlotB = "31000000:1c0d,45000000:266c,52000000:3062";
-const equippedReload = await replay(loadSlotB, "85000000", ["v", "v", "i", "i"]);
-assert.match(visibleText(equippedReload), /alda's items.*yes hand axe/);
+const verifyReloadedGear = [
+  "v", ...names.flatMap((name, index) => [
+    ...(index ? ["end"] : []),
+    "v", "i", "i", checkGear(name), "e", "e",
+  ]),
+];
+const returnToSlums = [
+  "right", "right", ...Array(5).fill("up"), "right", ...Array(7).fill("up"),
+  "left", ...Array(4).fill("up"), "enter", "enter",
+  (text) => {
+    expectParty(text);
+    assert.match(text, /15,4 w.*slums of phlan/);
+  },
+];
+const slumsSave = await replay(loadSlotB, "85000000", [
+  ...verifyReloadedGear, ...returnToSlums, "e", "s", "s", "c",
+]);
+assert.match(visibleText(slumsSave), /quit to dos/);
+const slumsSlot = JSON.parse(readFileSync(join(saveDir, "C.json"), "utf8"));
+for (const index of names.keys()) assert.ok(slumsSlot.party[`SAVE\\CHRDATC${index + 1}.ITM`]);
 console.log("Created six characters, completed Rolf's tour, saved and reloaded, and entered the Slums.");
-console.log("Bought and readied Alda's hand axe at the New Phlan arms shop and verified it after reloading slot B.");
+console.log("Bought and readied hand axes and chain mail for all six fighters, then verified the gear after reloading slot B.");
+console.log("Returned to the Slums with the equipped party and saved at the gate in slot C.");
 console.log("Replay save:", saveDir);
