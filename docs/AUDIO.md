@@ -33,6 +33,20 @@ and hardware writes. Generated traces, VGM intermediates, WAV masters, and other
 derived audio belong in `TSavo/por-assets`. Only generators, manifests, tests, and
 documentation belong in this repository.
 
+## Original driver format
+
+The resident driver installs its timer interrupt at segment `027f`, offset `21bd`
+(START.EXE image offset `49ad`). It reprograms PIT channel 0 with divisor `13b1`,
+so its state machine advances at approximately 236.7 Hz and chains to the BIOS
+handler every thirteenth interrupt.
+
+There are 20 numbered effects. Each hardware mode has a four-channel entry table.
+Entries are offsets inside the resident segment, not file offsets. The streams use
+bytes below `fa` for note/duration records and `fa` through `ff` for state, call,
+return, channel-selection, loop, and field-assignment commands. Run
+`npm run sound-driver-data -- <output.json>` to export the exact tables, frequency
+data, duration multipliers, and timing constants from the original START.EXE.
+
 ## Production pipeline
 
 Tandy traces will be converted to VGM register streams and rendered to canonical

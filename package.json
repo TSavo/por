@@ -12,6 +12,7 @@
     "selftest": "tsx tools/cli.ts selftest",
     "shots": "tsx tools/cli.ts shots",
     "sound-inventory": "tsx tools/sound-inventory.ts",
+    "sound-driver-data": "tsx tools/sound-driver-data.ts",
     "translate": "python tools/tp_translate.py",
     "verify": "tsx tools/verify-translation.ts"
   },
