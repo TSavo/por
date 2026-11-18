@@ -230,3 +230,11 @@ references, and 32×32 replacements. The 46-frame courtyard run observed
 all 46 masonry replacements among 209 distinct nonblank framebuffer
 patterns. The remaining patterns can include party sprites, effects,
 and overlaps, so review them against the linked frames.
+
+The battlefield report also checks 8×8 fragments of the original 24×24
+terrain and combat archives. It records the block, frame, fragment origin,
+and reflection where applicable. In the courtyard trace, 33 patterns
+have sprite candidates and no patterns exactly match terrain fragments
+in `BACPAC.DAX` or `SQRPACI.DAX`. Use **Hide sprite candidates** in the
+HTML checklist to set those matches aside while reviewing terrain.
+Unmatched cells still need visual review.

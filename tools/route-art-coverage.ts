@@ -37,26 +37,57 @@ if ([...omittedFrames].some((frame) => frame >= frames.length) || omittedFrames.
   throw new Error("Omitted frames must be zero-based captured frame numbers and leave at least one frame");
 }
 
-const sourceByHash = new Map<string, {
-  pixels: Uint8Array;
-  candidates: { archive: string; block: number; frame: number }[];
-}>();
-for (const archive of listGameFiles(root).filter((name) => /^8X8D\d+\.DAX$/i.test(name))) {
+interface SourceCandidate {
+  archive: string;
+  block: number;
+  frame: number;
+  fragment?: { x: number; y: number };
+  role?: "terrain" | "sprite";
+  reflected?: boolean;
+}
+
+const sourceByHash = new Map<string, { pixels: Uint8Array; candidates: SourceCandidate[] }>();
+for (const archive of listGameFiles(root)) {
+  const terrain = /^(BACPAC|SQRPACI)\.DAX$/i.test(archive);
+  const sprite = /^(COMSPR|ICON|CPIC[1-8])\.DAX$/i.test(archive);
+  const battlefield = terrain || sprite;
+  if (!battlefield && !/^8X8D\d+\.DAX$/i.test(archive)) continue;
   for (const { id, data } of parseDax(archive, readGameFile(root, archive)).entries) {
     if (!isPicture(data)) continue;
     const picture = decodePicture(data);
-    if (picture.width !== 8 || picture.height !== 8) continue;
+    const size = battlefield ? 24 : 8;
+    if (picture.width !== size || picture.height !== size) continue;
     for (let frame = 0; frame < picture.itemCount; frame++) {
-      const pixels = frameSlice(picture, frame);
-      const hash = createHash("sha256").update(pixels).digest("hex");
-      const source = sourceByHash.get(hash) ?? { pixels, candidates: [] };
-      source.candidates.push({ archive, block: id, frame });
-      sourceByHash.set(hash, source);
+      const sourceFrame = frameSlice(picture, frame);
+      for (const reflected of sprite ? [false, true] : [false]) {
+        for (let y = 0; y < size; y += 8) {
+          for (let x = 0; x < size; x += 8) {
+            const pixels = new Uint8Array(64);
+            for (let row = 0; row < 8; row++) {
+              const start = (y + row) * size + x;
+              const strip = sourceFrame.subarray(start, start + 8);
+              pixels.set(reflected ? strip.slice().reverse() : strip, row * 8);
+            }
+            if (battlefield && !pixels.some(Boolean)) continue;
+            const hash = createHash("sha256").update(pixels).digest("hex");
+            const key = (battlefield ? "battle-tile:" : "tile:") + hash;
+            const source = sourceByHash.get(key) ?? { pixels, candidates: [] };
+            const candidate: SourceCandidate = { archive, block: id, frame };
+            if (battlefield) {
+              candidate.fragment = { x, y };
+              candidate.role = terrain ? "terrain" : "sprite";
+              if (reflected) candidate.reflected = true;
+            }
+            source.candidates.push(candidate);
+            sourceByHash.set(key, source);
+          }
+        }
+      }
     }
   }
 }
 
-const tileHash = (key: string) => key.slice(key.lastIndexOf(":") + 1);
+const sourceKey = (key: string) => key.replace(/^tile:\d+:/, "tile:");
 const areaLabel = (area: number | "battlefield") => area === "battlefield" ? "Battlefield cells" : `Area ${area}`;
 type TilePosition = { x: number; y: number; occurrences: number };
 const cells = new Map<string, {
@@ -92,8 +123,8 @@ const tiles = [...cells].map(([key, { positions, ...cell }]) => ({
   key, ...cell, target: { width: 32, height: 32 },
   positions: [...positions.values()].sort((a, b) => a.y - b.y || a.x - b.x),
   replacement: validImages.has(manifest.assets[key] ?? "") ? manifest.assets[key]! : null,
-  reference: tracedPixels.has(key) ? "framebuffer" : sourceByHash.has(tileHash(key)) ? "archive" : null,
-  sourceCandidates: sourceByHash.get(tileHash(key))?.candidates ?? [],
+  reference: tracedPixels.has(key) ? "framebuffer" : sourceByHash.has(sourceKey(key)) ? "archive" : null,
+  sourceCandidates: sourceByHash.get(sourceKey(key))?.candidates ?? [],
 })).sort((a, b) => (a.area === "battlefield" ? 256 : a.area) - (b.area === "battlefield" ? 256 : b.area) || Number(Boolean(a.replacement)) - Number(Boolean(b.replacement)) ||
   b.occurrences - a.occurrences || a.key.localeCompare(b.key));
 const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
@@ -102,6 +133,10 @@ const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
     area, patterns: entries.length,
     matched: entries.filter(({ replacement }) => replacement).length,
     withSourceCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.length).length,
+    ...(area === "battlefield" && {
+      withSpriteCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "sprite")).length,
+      withTerrainCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "terrain")).length,
+    }),
   };
 });
 const analyzedFrames = frames.length - omittedFrames.size;
@@ -116,8 +151,9 @@ const sections = areas.map(({ area, patterns, matched }) => `<section><h2>Area $
     const src = replacement && galleryLink(join(manifestDirectory, replacement));
     const framePath = join(frameDirectory, `${first.frame}.png`);
     const frameLabel = existsSync(framePath) ? `<a href="${galleryLink(framePath)}">frame ${first.frame}</a>` : `frame ${first.frame}`;
-    const candidates = sourceCandidates.map(({ archive, block, frame }) => `${archive} #${block} frame ${frame}`).join(", ");
-    const pixels = tracedPixels.get(key) ?? sourceByHash.get(tileHash(key))?.pixels;
+    const candidates = sourceCandidates.map(({ archive, block, frame, fragment, role, reflected }) =>
+      `${archive} #${block} frame ${frame}${fragment ? ` at (${fragment.x}, ${fragment.y})` : ""}${reflected ? " reflected" : ""}${role ? ` (${role})` : ""}`).join(", ");
+    const pixels = tracedPixels.get(key) ?? sourceByHash.get(sourceKey(key))?.pixels;
     let reference = "<p>Original reference unavailable</p>";
     if (pixels) {
       const frame = new Frame(8, 8);
@@ -125,7 +161,8 @@ const sections = areas.map(({ area, patterns, matched }) => `<section><h2>Area $
       const uri = `data:image/png;base64,${Buffer.from(encodePng(frame)).toString("base64")}`;
       reference = `<a href="${uri}" download="${key.replaceAll(":", "-")}.png"><img src="${uri}" width="96" height="96" alt="Download original 8×8 tile"></a>`;
     }
-    return `<article><div class="previews">${reference}${src ? `<img src="${src}" width="96" height="96" alt="Replacement tile">` : "<p>Replacement missing</p>"}</div>` +
+    const spriteCandidate = sourceCandidates.some(({ role }) => role === "sprite");
+    return `<article data-sprite-candidate="${spriteCandidate}"><div class="previews">${reference}${src ? `<img src="${src}" width="96" height="96" alt="Replacement tile">` : "<p>Replacement missing</p>"}</div>` +
       `<code>${key.slice(-12)}</code><p>First seen in ${frameLabel}, (${first.x}, ${first.y}) · ${occurrences} placements across ${positions.length} positions</p>` +
       `<p>${candidates || "Source tile unresolved"}</p></article>`;
   }).join("") + "</div></section>").join("");
@@ -135,9 +172,11 @@ body{font:16px system-ui;background:#191715;color:#efe4d0;margin:2rem}img{image-
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.65rem}article{background:#28241f;padding:.75rem;overflow-wrap:anywhere}
 .previews{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
 p{margin:.4rem 0;font-size:.9rem}code{color:#ffdcaa}
+body:has(#hide-sprite-candidates:checked) article[data-sprite-candidate="true"]{display:none}
 </style><h1>Route artwork checklist</h1><p>${analyzedFrames} captured frames analyzed. Archive entries are pixel-match candidates.</p>${
   areas.some(({ area }) => area === "battlefield") ?
-    "<p>Battlefield captures can include unmatched actors, effects, and partial tiles. Review each candidate in its frame.</p>" : ""}${
+    "<p>Battlefield captures can include unmatched actors, effects, and partial tiles. Review each candidate in its frame.</p>" +
+    '<label><input id="hide-sprite-candidates" type="checkbox"> Hide sprite candidates</label>' : ""}${
   omittedFrames.size ? `<p>Omitted frames ${[...omittedFrames].join(", ")}.</p>` : ""}${sections}</html>\n`);
 for (const { area, patterns, matched, withSourceCandidates } of areas) {
   console.log(`${areaLabel(area)}: ${matched}/${patterns} patterns with 32×32 PNGs, ${withSourceCandidates} with source candidates`);
