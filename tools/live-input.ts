@@ -112,7 +112,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
       const menu = menuText(text);
       const exploration = menu.startsWith("AREACASTVIEWENCAMP") || menu.startsWith("LOCKED.BASHEXIT") ||
-        (area === 1 && menu === "RELEASEANIMALSLEAVE");
+        (area === 1 && menu === "RELEASEANIMALSLEAVE") ||
+        (area === 24 && menu === "DESTROYALTARLEAVEIT");
       const perspective = !scene && !leads && picture === undefined && Boolean(encounter || exploration);
       if ((tileKeys.size || traceTiles) && area !== undefined && perspective) {
         const pixels = Buffer.alloc(64);

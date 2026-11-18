@@ -373,7 +373,18 @@ try {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     await advance("j");
     assert.ok(knows("bane-temple-admitted") && !knows("bane-defiled-altar"));
-    for (const key of ["j", "up", "j"]) await advance(key);
+    await advance("j");
+    const altarPatterns = new Set();
+    assert.equal(await verifyTiledView(24, altarPatterns), 1);
+    for (const key of ["left", "right", "right", "right", "right", "right", "up"]) {
+      await advance(key);
+      assert.equal(await verifyTiledView(24, altarPatterns), 1);
+    }
+    assert.equal(altarPatterns.size, 44);
+    await switchBothWays();
+    const altar = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "bane-altar-decision.png"), Buffer.from(altar.data, "base64"));
+    await advance("j");
     assert.ok(knows("bane-defiled-altar") && !knows("bane-altar-ambush"));
     assert.match(frame.journal.objective.nextStep, /Choose Destroy Altar/);
     for (const key of ["j", "d", "j"]) await advance(key);
