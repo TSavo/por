@@ -21,6 +21,13 @@
       "y": 32,
       "width": 24,
       "height": 57
+    },
+    "encounter:SPRIT2.DAX:4:0:0": {
+      "area": 20,
+      "x": 48,
+      "y": 32,
+      "width": 40,
+      "height": 80
     }
   },
   "assets": {
@@ -118,6 +125,7 @@
     "tile:20:ce13abf3874bf1742295c9181afd3559b8263f4ae3d25731c2214fd647da2110": "orc-door-4fd647da2110.png",
     "tile:20:f18136f91922d6527567552b066f06c8cb7d20e84a29007dd8f1305f40782da1": "orc-door-305f40782da1.png",
     "combat:CPIC2.DAX:4": "orc-combat-guard.png",
-    "combat:CPIC2.DAX:132": "orc-combat-swing.png"
+    "combat:CPIC2.DAX:132": "orc-combat-swing.png",
+    "encounter:SPRIT2.DAX:4:0:0": "orc-encounter-near.png"
   }
 }

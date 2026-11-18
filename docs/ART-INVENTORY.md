@@ -90,3 +90,11 @@ the 96×96 replacement. Chrome observed it in 12 distinct positions across
 the first 15 combat frames. Block 132 has a separate swing PNG. A controlled
 framebuffer check verified its placement in both facings. The live replay
 did not observe a matching swing frame.
+
+The fixed outpost's natural approach matches `SPRIT2.DAX` block 4,
+member 0, frame 0 at (48,32). Its 160×320 transparent replacement uses
+the same rust tunic, copper brow, and shield as the combat art, with a
+lowered blade for the approach. Chrome verified the sprite over the
+individually rendered corridor tiles, then verified its removal on entry
+to combat. The other source distances are 32×65 and 16×49. Their live
+anchors have yet to be verified.
