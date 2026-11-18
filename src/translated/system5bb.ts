@@ -1126,7 +1126,7 @@ export function sys5bb_00d1(m: Cpu): void {
       case 0x19e: {
         // 019e: inc bx
         m.tick(0x19e);
-        m.bx = (m.bx + 1) & 0xffff;
+        { const saved = m.cf; m.bx = m.setAddFlags(16, m.bx, 1); m.cf = saved; }
         ip = 0x19f;
         break;
       }
@@ -1284,14 +1284,14 @@ export function sys5bb_1692(m: Cpu): void {
       case 0x16ab: {
         // 16ab: dec si
         m.tick(0x16ab);
-        m.si = (m.si - 1) & 0xffff;
+        { const saved = m.cf; m.si = m.setSubFlags(16, m.si, 1); m.cf = saved; }
         ip = 0x16ac;
         break;
       }
       case 0x16ac: {
         // 16ac: dec di
         m.tick(0x16ac);
-        m.di = (m.di - 1) & 0xffff;
+        { const saved = m.cf; m.di = m.setSubFlags(16, m.di, 1); m.cf = saved; }
         ip = 0x16ad;
         break;
       }
@@ -1527,7 +1527,7 @@ export function sys5bb_06c1(m: Cpu): void {
       case 0x6e3: {
         // 06e3: inc di
         m.tick(0x6e3);
-        m.di = (m.di + 1) & 0xffff;
+        { const saved = m.cf; m.di = m.setAddFlags(16, m.di, 1); m.cf = saved; }
         ip = 0x6e4;
         break;
       }
@@ -2680,7 +2680,7 @@ export function sys5bb_00d8(m: Cpu): void {
       case 0x19e: {
         // 019e: inc bx
         m.tick(0x19e);
-        m.bx = (m.bx + 1) & 0xffff;
+        { const saved = m.cf; m.bx = m.setAddFlags(16, m.bx, 1); m.cf = saved; }
         ip = 0x19f;
         break;
       }

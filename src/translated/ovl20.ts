@@ -4078,7 +4078,7 @@ export function ovl20_05ad(m: Cpu): void {
       case 0x60c: {
         // 060c: inc ax
         m.tick(0x60c);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x60d;
         break;
       }
@@ -4249,7 +4249,7 @@ export function ovl20_05ad(m: Cpu): void {
       case 0x63e: {
         // 063e: inc ax
         m.tick(0x63e);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x63f;
         break;
       }
@@ -4392,7 +4392,7 @@ export function ovl20_05ad(m: Cpu): void {
       case 0x66c: {
         // 066c: inc ax
         m.tick(0x66c);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x66d;
         break;
       }

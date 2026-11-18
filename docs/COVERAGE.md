@@ -528,6 +528,18 @@ The journal captures the original 1,000 gold quote even though the
 trainer clears it before the next input prompt. Slot I reloads with
 the learned fee.
 
+The compiled runtime now updates the arithmetic flags for 333 more
+register `INC` and `DEC` instructions while preserving carry. The
+resident `DEC DX` at image `0x53d8` still uses the existing delay
+behavior. Restoring its flags in isolation shifts startup input timing
+enough that the fresh-character replay selects Exit to DOS.
+Use `npm run translate -- --output out/translation-check` to inspect
+the generator output while the runtime and replay timing are reconciled.
+With the flag changes, the strict fresh-party replay won the Slums and
+Sokal patrol fights and recovered the hidden equipment. The strict
+controlled castle replay still defeated the original Tyranthraxus and
+reloaded the council ending. The funded-training checkpoint also passed.
+
 The separate `--sokal-funded-training-checkpoint PATH_TO_SLOT_F` replay
 takes the armed party back from the hidden armory and sells its jewel.
 Withdrawing 200 platinum gives Alda exactly 200 and leaves 1,076 in

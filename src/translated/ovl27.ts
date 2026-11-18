@@ -459,7 +459,7 @@ export function ovl27_0000(m: Cpu): void {
       case 0xb7: {
         // 00b7: inc ax
         m.tick(0xb7);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0xb8;
         break;
       }

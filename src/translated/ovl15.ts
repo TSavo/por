@@ -4564,7 +4564,7 @@ export function ovl15_059a(m: Cpu): void {
       case 0x716: {
         // 0716: inc ax
         m.tick(0x716);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x717;
         break;
       }

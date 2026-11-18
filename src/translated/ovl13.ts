@@ -489,7 +489,7 @@ export function ovl13_0000(m: Cpu): void {
       case 0xcb: {
         // 00cb: inc ax
         m.tick(0xcb);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0xcc;
         break;
       }
@@ -2897,7 +2897,7 @@ export function ovl13_02fe(m: Cpu): void {
       case 0x4e4: {
         // 04e4: inc ax
         m.tick(0x4e4);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x4e5;
         break;
       }
@@ -14491,7 +14491,7 @@ export function ovl13_1404(m: Cpu): void {
       case 0x1745: {
         // 1745: inc ax
         m.tick(0x1745);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x1746;
         break;
       }
@@ -17079,7 +17079,7 @@ export function ovl13_1b15(m: Cpu): void {
       case 0x1b58: {
         // 1b58: dec ax
         m.tick(0x1b58);
-        m.ax = (m.ax - 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setSubFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x1b59;
         break;
       }
@@ -21849,7 +21849,7 @@ export function ovl13_20ae(m: Cpu): void {
       case 0x22d1: {
         // 22d1: inc ax
         m.tick(0x22d1);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x22d2;
         break;
       }
@@ -24555,7 +24555,7 @@ export function ovl13_268e(m: Cpu): void {
       case 0x270f: {
         // 270f: inc ax
         m.tick(0x270f);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x2710;
         break;
       }
@@ -24666,7 +24666,7 @@ export function ovl13_268e(m: Cpu): void {
       case 0x2730: {
         // 2730: inc ax
         m.tick(0x2730);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x2731;
         break;
       }
@@ -33961,7 +33961,7 @@ export function ovl13_352c(m: Cpu): void {
       case 0x3593: {
         // 3593: dec ax
         m.tick(0x3593);
-        m.ax = (m.ax - 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setSubFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x3594;
         break;
       }

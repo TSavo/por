@@ -1612,7 +1612,7 @@ export function ovl33_01ca(m: Cpu): void {
       case 0x262: {
         // 0262: dec ax
         m.tick(0x262);
-        m.ax = (m.ax - 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setSubFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x263;
         break;
       }

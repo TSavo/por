@@ -1805,7 +1805,7 @@ export function ovl22_028d(m: Cpu): void {
       case 0x300: {
         // 0300: dec ax
         m.tick(0x300);
-        m.ax = (m.ax - 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setSubFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x301;
         break;
       }
@@ -7586,7 +7586,7 @@ export function ovl22_0a88(m: Cpu): void {
       case 0xb7e: {
         // 0b7e: inc ax
         m.tick(0xb7e);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0xb7f;
         break;
       }
@@ -26354,7 +26354,7 @@ export function ovl22_262e(m: Cpu): void {
       case 0x264f: {
         // 264f: inc ax
         m.tick(0x264f);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x2650;
         break;
       }
@@ -34515,7 +34515,7 @@ export function ovl22_3092(m: Cpu): void {
       case 0x313a: {
         // 313a: inc ax
         m.tick(0x313a);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x313b;
         break;
       }
@@ -34577,7 +34577,7 @@ export function ovl22_3092(m: Cpu): void {
       case 0x314d: {
         // 314d: inc ax
         m.tick(0x314d);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x314e;
         break;
       }
@@ -36199,14 +36199,14 @@ export function ovl22_32d3(m: Cpu): void {
       case 0x3389: {
         // 3389: inc ax
         m.tick(0x3389);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x338a;
         break;
       }
       case 0x338a: {
         // 338a: inc ax
         m.tick(0x338a);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x338b;
         break;
       }

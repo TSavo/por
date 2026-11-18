@@ -4672,7 +4672,7 @@ export function ovl37_0619(m: Cpu): void {
       case 0x6c6: {
         // 06c6: inc ax
         m.tick(0x6c6);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x6c7;
         break;
       }
@@ -5099,7 +5099,7 @@ export function ovl37_0619(m: Cpu): void {
       case 0x76f: {
         // 076f: inc ax
         m.tick(0x76f);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x770;
         break;
       }
@@ -5133,7 +5133,7 @@ export function ovl37_0619(m: Cpu): void {
       case 0x77a: {
         // 077a: inc ax
         m.tick(0x77a);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x77b;
         break;
       }
@@ -6633,7 +6633,7 @@ export function ovl37_0894(m: Cpu): void {
       case 0x973: {
         // 0973: dec ax
         m.tick(0x973);
-        m.ax = (m.ax - 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setSubFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x974;
         break;
       }
@@ -9561,7 +9561,7 @@ export function ovl37_0c9a(m: Cpu): void {
       case 0xcd1: {
         // 0cd1: inc ax
         m.tick(0xcd1);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0xcd2;
         break;
       }
@@ -10177,7 +10177,7 @@ export function ovl37_0c9a(m: Cpu): void {
       case 0xd97: {
         // 0d97: inc ax
         m.tick(0xd97);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0xd98;
         break;
       }
@@ -10268,7 +10268,7 @@ export function ovl37_0c9a(m: Cpu): void {
       case 0xdb3: {
         // 0db3: inc ax
         m.tick(0xdb3);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0xdb4;
         break;
       }

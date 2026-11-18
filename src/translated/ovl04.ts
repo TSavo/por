@@ -2671,7 +2671,7 @@ export function ovl04_0401(m: Cpu): void {
       case 0x48b: {
         // 048b: inc ax
         m.tick(0x48b);
-        m.ax = (m.ax + 1) & 0xffff;
+        { const saved = m.cf; m.ax = m.setAddFlags(16, m.ax, 1); m.cf = saved; }
         ip = 0x48c;
         break;
       }
