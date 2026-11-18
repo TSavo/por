@@ -55,6 +55,11 @@ the original 3.579545 MHz PSG clock, and a duration/termination summary. Events
 limit; all other events must terminate naturally. `npm run verify` exercises every
 event and validates representative WAV and VGM headers and hardware output.
 
+Canonical Tandy WAV masters are rendered from those VGM files with upstream
+libvgm's `vgm2wav` and its MAME SN76489/SN76496 core. The reproducible Linux/WSL
+helpers are `tools/build-libvgm.sh` and `tools/render-tandy-libvgm.sh`; the assets
+repository records the exact upstream commit, renderer hash, clock, and arguments.
+
 ## Production pipeline
 
 Tandy traces will be converted to VGM register streams and rendered to canonical
