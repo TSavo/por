@@ -203,6 +203,10 @@ The party then readies the shield and longsword on Brin and trades the
 mace to Cora through the original inventory menu. The character sheets
 show Brin at AC 1 with 1d8+1 weapon damage and Cora with 1d6+3 weapon
 damage. Slot F reloads with those weapons and the shield still readied.
+From F, the party retraces its route through Sokal Keep and takes the original
+boat back to New Phlan. At the Temple of Tyr it pays 100 gold for Brin's
+Cure Light Wounds. Reloading slot G verifies his 6 HP, the resulting
+platinum balance, and his readied longsword.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,

@@ -401,4 +401,27 @@ await replay(loadSlotF, "85000000", [
 ]);
 console.log("Found the hidden armory, collected its equipment, and verified Brin's inventory after reloading slot E.");
 console.log("Readied Brin's sword and shield, traded the mace to Cora, and verified both loadouts after reloading slot F.");
+const templeSave = await replay(loadSlotF, "85000000", [
+  "right", "right", "up", "left", "up", "up", "up", "right", "up", "right", "up", "left",
+  ...Array(4).fill("up"), "right", "up", "left", "up", "right", "up", "up", "up", "left",
+  ...Array(4).fill("up"), "y", "up", "up", "right", "up", "up", "left", ...Array(5).fill("up"),
+  (text) => assert.match(text, /take a boat back to phlan/),
+  "y", "y", "enter", "enter", "enter",
+  (text) => assert.match(text, /15,1 w/),
+  ...Array(4).fill("up"), "left", "up", "up", "y", "y",
+  (text) => assert.match(text, /heal view pool appraise exit/),
+  ...Array(4).fill("home"), "h", "end", "end", "h",
+  (text) => assert.match(text, /cure light wounds will only cost 100 gold pieces/),
+  "y", "e", "e", "e", "s", "s", "g",
+]);
+assert.match(visibleText(templeSave), /quit to dos/);
+await replay(loadSlotG, "85000000", [
+  (text) => {
+    assert.match(text, /11,3 s/);
+    assert.match(text, /brin 1 6/);
+  },
+  "end", "v",
+  (text) => assert.match(text, /brin.*platinum 7.*hp 6.*weapon long sword/),
+]);
+console.log("Returned to New Phlan and verified Brin's paid temple healing after reloading slot G.");
 console.log("Replay save:", saveDir);
