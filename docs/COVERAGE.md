@@ -413,14 +413,14 @@ A separate run chose to lie and verified that Ferran faded without teaching
 the password or completing the commission. The checkpoint bypassed the
 route to the altar.
 
-To verify the handoff after the truthful branch, a second controlled
-reload moved that same saved party to the Sokal pier. The party took
-the boat to New Phlan and walked to the clerk. The clerk awarded 1,308
-XP per character. The journal showed reward pending during treasure
-distribution and turned in after leaving it. Reloading slot H at the
-clerk verified Alda's 1,313 total XP and 46 platinum, the turned-in
-Sokal commission, and the new Podal Plaza auction commission. The
-walk from the altar to the pier was bypassed by the checkpoint.
+From the truthful altar save, the party walks through the chapel and
+past the undead using SAMOSUD, exits through the southern gate, and
+takes the boat to New Phlan. The clerk awards 1,308 XP per character.
+The journal shows reward pending during treasure distribution and turned
+in after leaving it. Reloading slot H at the clerk verifies Alda's 1,313
+total XP and 46 platinum and the turned-in Sokal commission.
+Run `node tools/verify-fresh-party.mjs --sokal-altar-checkpoint PATH_TO_SLOT_G`
+with the truthful altar save.
 
 The Podal Plaza replay starts from that post-Sokal save at the clerk.
 It buys westbound passage, walks from the landing to the north entrance

@@ -656,6 +656,41 @@ if (process.argv[2] === "--textile-courtyard-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--sokal-altar-checkpoint") {
+  assert.ok(process.argv[3], "Pass a save at Ferran's altar after learning his password.");
+  copyFileSync(process.argv[3], join(saveDir, "G.json"));
+  const checkSokal = (status) => (_text, frame) => {
+    assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-sokal")?.status, status);
+  };
+  await replay(loadSlot("2267"), "85000000", [
+    (text) => assert.match(text, /8,10 s/),
+    "j", checkSokal("ready-to-report"), "j",
+    "left", "left", "up", "right", "up", "left", "up", "left", "up", "right", "up", "up", "up",
+    "right", "up", "up", "right", ...Array(5).fill("up"),
+    (text) => assert.match(text, /10,8 s.*pack of undead/),
+    "p", "n", ..."samosud", "enter",
+    (text) => assert.match(text, /the undead leave/),
+    "up", "up", "enter", "enter", "y", "up", "up", "right", "up", "up", "left",
+    "up", "up", "enter", "enter", "y", ...Array(4).fill("up"),
+    (text) => assert.match(text, /8,15 s.*take a boat back to phlan/),
+    "enter", "y", ...Array(4).fill("enter"),
+    (text) => assert.match(text, /15,1 w/),
+    ...Array(4).fill("up"), "left", "up", "right", "up", "left", "up", "right",
+    ...Array(6).fill("up"), "left", "up", "up", "left", "up", "left", "up", "up", "enter", "enter",
+    (text) => assert.match(text, /receives 1308 experience points/),
+    "enter", "enter", "j", checkSokal("reward-pending"), "j", "s", "e",
+    ...Array(4).fill("enter"), "j", checkSokal("turned-in"), "j",
+    "e", "s", "s", "h",
+  ]);
+  await replay(loadSlot("2368"), "85000000", [
+    (text) => assert.match(text, /5,5 e/),
+    "j", checkSokal("turned-in"), "j", "v",
+    (text) => assert.match(text, /alda.*platinum 46.*exp 1313/),
+  ]);
+  console.log("Walked from Ferran's altar to the pier, took the boat, and reloaded the Sokal reward at the clerk.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--podal-checkpoint") {
   assert.ok(process.argv[3], "Pass a save at the clerk with Sokal turned in and the auction accepted.");
   await verifyPodalFromCouncil(process.argv[3]);
