@@ -44,8 +44,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       leads.some((lead) => lead.id === "commission-gate" && lead.status === "turned-in") &&
       !leads.some((lead) => lead.id === "commission-castle")) {
     const summoned = leads.some((lead) => lead.id === "gate-assault-handoff");
+    const escorted = leads.some((lead) => lead.id === "gate-council-escort");
     return { title: "Prepare the assault on Valjevo Castle", nextStep: summoned
-      ? "Follow the City Hall guards to the council chambers for the assault briefing."
+      ? escorted ? "From the guard captain's hallway, go south, east, then south through the door to the council chambers."
+        : "Follow the City Hall guards to the council chambers for the assault briefing."
       : "Return to the stronghold to lead the attack, as the clerk requested." };
   }
   if (!selected && leads.some((lead) => lead.id === "commission-castle" && lead.status === "turned-in")) {
@@ -309,6 +311,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU ARE SUMMONED TO A SPECIAL COUNCIL MEETING")) {
     leads.push({ id: "gate-assault-handoff", title: "Summons to the council chambers",
       detail: "The city guards will show the party to a special council meeting." });
+  }
+  if (text.includes("THE GUARD CAPTAIN STEPS FORWARD. 'PLEASE LET US SHOW YOU THE WAY.'")) {
+    leads.push({ id: "gate-council-escort", title: "The council escort",
+      detail: "The guard captain escorted the party to the hall outside the council chambers." });
   }
   if (text.includes("YOUR TAKING THE GATE WILL ENABLE OUR FORCES TO ASSAULT THE ENEMY STRONGHOLD")) {
     leads.push({ id: "gate-reward-direction", title: "The council plans an assault",
