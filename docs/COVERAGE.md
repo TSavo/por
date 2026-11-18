@@ -704,6 +704,13 @@ The translation verifier checks that escape flag 253 directs the party to
 the clerk before the council script advances the flag. Escape and turn-in
 are still pending a live replay.
 
+Zhentil's quarters and outer yard have 51 individual 32×32 terrain
+replacements. The `zhentil-quarter` replay starts from a save made after
+the original escort. The `zhentil-yard` replay uses a copy with the guest
+restriction flag changed to allow movement into the outer yard. Chrome
+checked 2,783 tile placements across 23 frames using the default upgrade
+pack and verified that both presentation switches preserved the save.
+
 The Valhingen journal now uses witnessed clues for the lair, stairs, vampire
 escape, and northern wall. The original ECL text and completion flag are
 covered by the translation verifier. The vampire browser replay verifies

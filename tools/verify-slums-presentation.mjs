@@ -6,6 +6,14 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const environmentRoutes = new Map([
+  ["zhentil-quarter", {
+    slot: "A", area: 28, views: 7, patterns: 16,
+    walk: ["up", "right", "up", "right", "up", "right", "up"],
+  }],
+  ["zhentil-yard", {
+    slot: "A", area: 28, views: 16, patterns: 44,
+    walk: ["right", "right", "up", "b", "left", "up", "b", "up", "up", "up", "left", "up", "up", "right", "up"],
+  }],
   ["textile-approach", {
     slot: "B", views: 16, patterns: 135,
     walk: ["right", "right", "up", "up", "right", "up", "left", "up", "up", "right", ...Array(5).fill("up"), "left"],
