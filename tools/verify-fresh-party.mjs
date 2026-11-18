@@ -1555,6 +1555,31 @@ if (process.argv[2] === "--fighter-training-journal-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--mage-training-checkpoint") {
+  assert.ok(process.argv[3], "Pass the eligible Darkstar save in the Slums at (14,7), facing south.");
+  copyFileSync(process.argv[3], join(saveDir, "B.json"));
+  const trained = /darkstar.*magic-user.*platinum 50.*level 2 exp 5000.*hp 7/;
+  await replay(loadSlot("3062"), "85000000", [
+    (text) => assert.match(text, /darkstar 7 5.*14,7 s/),
+    "left", "left", "up", ...Array(4).fill("enter"),
+    (text) => assert.match(text, /magic users and clerics to go north/),
+    "up", "up", (text) => assert.match(text, /magic users to go through the east door/),
+    "right", "up", "enter", (text) => assert.match(text, /7,0 e.*we train only magic users here/),
+    "y", ...Array(4).fill("end"), "t",
+    (text) => assert.match(text, /darkstar will become: a level 2 magic-user/),
+    "y", (text) => assert.match(text, /darkstar's spells to choose from.*magic missile.*choose spell: learn/),
+    ...Array(6).fill("end"), "enter", "v", "v", (text) => assert.match(text, trained),
+    "e", "s", "s", "c",
+  ]);
+  await replay(loadSlot("2e63"), "85000000", [
+    ...Array(4).fill("end"), "v", "v", (text) => assert.match(text, trained),
+    "e", "b", "enter", "e", "m", "m", "m",
+    (text) => assert.match(text, /darkstar's spells in spell book.*magic missile/),
+  ]);
+  console.log("Trained Darkstar to level 2 and reloaded her fee balance and newly learned Magic Missile.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--textile-prison-alternates-checkpoint") {
   assert.ok(process.argv[3], "Pass slot E from the captive's key-search replay.");
   copyFileSync(process.argv[3], join(saveDir, "E.json"));

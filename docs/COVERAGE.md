@@ -541,6 +541,10 @@ to slot C and reloading. The replay initially showed a spurious platinum
 balance. Correcting the translated long-division loop restored the fee
 calculation. The same checkpoint left Darkstar with 50 platinum plus
 change, and the translated quotient now has a regression check.
+Run `node tools/verify-fresh-party.mjs --mage-training-checkpoint PATH_TO_SLOT_B`
+from the eligible Darkstar save at `14,7 S`. The replay selects Magic
+Missile in the training menu and verifies it in Encamp's spell book
+after saving and reloading slot C.
 
 The fighter school replay follows the posted directions east past the
 arena, reads the sign on the north door, and hears the fighter trainer's
