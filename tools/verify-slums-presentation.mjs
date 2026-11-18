@@ -386,7 +386,18 @@ try {
       assert.equal(patterns.size, 49);
       const approach = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "bane-temple-approach.png"), Buffer.from(approach.data, "base64"));
+      const scenery = frame.tiles;
       await advance("enter");
+      assert.deepEqual(frame.encounter, [48, 32, "encounter:area:24:SPRIT1.DAX:4:0:0", 40, 80]);
+      assert.deepEqual(frame.tiles, scenery, "The guard must sit over the same gate scenery");
+      await verifyTiledView(24, patterns);
+      await waitFor("the gatekeeper in the approach view", () => run(`(() => {
+        const image = document.querySelector(".encounter-sprite");
+        return image?.naturalWidth === 160 && image?.naturalHeight === 320;
+      })()`));
+      await switchBothWays();
+      const encounter = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-gatekeeper-approach.png"), Buffer.from(encounter.data, "base64"));
       await advance("enter");
     } else {
       for (const key of ["up", "enter", "enter"]) await advance(key);
