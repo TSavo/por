@@ -426,6 +426,10 @@ from 0 to 5 HP. The party crosses the courtyard and finds Skullcrusher's
 inscription on a north wall. Reloading slot G verifies Alda's HP and the
 inscription in the journal. Skullcrusher's secret-door clue stays hidden
 until the party learns it.
+At the next locked door, the Theurgist casts Knock and the party saves
+past the door in slot B. Reloading confirms Knock is spent and the
+second locked door offers Bash. Bashing it opens the way to the next
+hobgoblin encounter.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the

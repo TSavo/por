@@ -218,6 +218,28 @@ async function verifyPodalFromCouncil(checkpoint) {
     },
   ]);
   console.log("Healed Alda, found Skullcrusher's mark, and verified both after reloading.");
+  const openedLock = await replay(load("2267"), "85000000", [
+    "right", "right", "up", "right", "up", "left", "up", "up",
+    (text) => assert.match(text, /4,13 w.*locked.*bash knock exit/),
+    "k",
+    (text) => assert.match(text, /3,13 w/),
+    "e", "s", "s", "b",
+  ]);
+  assert.match(visibleText(openedLock), /quit to dos/);
+  await replay(load("3062"), "85000000", [
+    ...Array(6).fill("end"), "c",
+    (text) => {
+      assert.match(text, /theurgist's spells in memory.*stinking cloud/);
+      assert.doesNotMatch(text, /\bknock\b/);
+    },
+    "e", "left", "up",
+    (text) => assert.match(text, /3,13 s.*locked.*bash exit/),
+    "b",
+    (text) => assert.match(text, /3,14 s.*graffiti covers the walls/),
+    "enter",
+    (text) => assert.match(text, /you encounter hobgoblins/),
+  ]);
+  console.log("Used Knock at the first lock, reloaded with the spell spent, and bashed the next door open.");
   console.log("Checkpoint replay saves:", saveDir);
 }
 
