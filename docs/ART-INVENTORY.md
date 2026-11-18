@@ -53,6 +53,14 @@ records by their payload offsets in the archives.
 | `CPIC2.DAX` blocks 0 and 128 | Two combat sprites | 96×96 each |
 | `MON2CHA.DAX` block 0 | Kobold character record | |
 
-This trace identifies the blocks loaded by the original executable. The
-encounter draw position and the combat animation selection still need tracing
-before the browser can place replacements by source ID.
+In six captured combat frames, matching all 146 foreground pixels of
+`CPIC2.DAX` block 0 identified both horizontal facings. In one frame the five
+24×24 sprite origins were (80,104) and (80,128) facing one way, and
+(104,104), (104,128), and (128,128) reflected horizontally. Coordinates are
+in the original 320×200 framebuffer. Later frames retain exact matches as
+the combat layout changes. The transparent black pixels were excluded from
+matching to allow the sprite to overlap background tiles.
+
+Block 128 was loaded, but its foreground did not match any of those six
+captures. The encounter distance anchors and the trigger for that combat
+frame still need tracing before the browser can select replacements for them.
