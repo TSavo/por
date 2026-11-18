@@ -22,17 +22,6 @@ Press **F10** or select **Enhanced display** for a 4:3 view with a softer color 
 
 `npm run dev` launches the same game. If `POR_GAMEDATA` is unset, the runner checks `./gamedata`, including one nested folder such as `gamedata/pool`.
 
-## Original campaign data
-
-`POR_CAMPAIGN_DIR` adds or overrides DOS-named DAX files alongside the supplied game data. Each campaign directory gets its own save slots by default. The Watchtower demo is an original one-scene ECL scenario that uses the existing startup area and assets.
-
-```bash
-npm run campaign:watchtower
-POR_CAMPAIGN_DIR=out/campaigns/watchtower npm run play
-```
-
-Create and add a character, then choose **Begin Adventuring**. Choose **Light the Beacon** or **Ring the Bell** to signal the ferry.
-
 ## Tools
 
 ```bash

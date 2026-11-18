@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "npm run play",
     "play": "tsx tools/browser-play.ts",
-    "campaign:watchtower": "tsx tools/build-watchtower.ts",
     "typecheck": "tsc --noEmit",
     "tools": "tsx tools/cli.ts",
     "selftest": "tsx tools/cli.ts selftest",
