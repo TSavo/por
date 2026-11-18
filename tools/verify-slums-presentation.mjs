@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
-const textileRoutes = new Map([
+const environmentRoutes = new Map([
   ["textile-approach", {
     slot: "B", views: 16, patterns: 135,
     walk: ["right", "right", "up", "up", "right", "up", "left", "up", "up", "right", ...Array(5).fill("up"), "left"],
@@ -18,18 +18,22 @@ const textileRoutes = new Map([
     slot: "I", views: 14, patterns: 75,
     walk: ["right", "right", "up", "b", "left", "up", "left", "up", "b", "right", "up", "b", "left", "up", "up", "left", "up", "enter", "enter"],
   }],
+  ["graveyard-south", { slot: "A", area: 10, views: 4, patterns: 67, walk: ["right", "up", "up"] }],
+  ["graveyard-east", { slot: "A", area: 10, views: 8, patterns: 81, walk: Array(7).fill("up") }],
+  ["graveyard-north", { slot: "A", area: 10, views: 7, patterns: 68, walk: ["up", "up", "up", "left", "up", "right"] }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...textileRoutes.keys(), "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
 const dragon = routeName === "castle-dragon";
 const halls = routeName === "castle-halls";
 const assault = routeName === "assault-briefing";
+const mystic = routeName === "graveyard-mystic";
 const altar = routeName === "textile-altar";
 const plaza = routeName === "podal-plaza";
 const trainer = routeName === "fighter-trainer";
-const textile = textileRoutes.get(routeName);
+const environment = environmentRoutes.get(routeName);
 const ogre = routeName === "textile-ogre";
 const goblins = routeName === "goblins";
 const smithy = routeName === "sokal-smithy";
@@ -43,7 +47,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)), "Both options 
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = textile?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza ? "I" : ogre ? "H" : dragon || halls || assault ? "B" : orcs || ending || smithy ? "C" : "A");
+const slot = environment?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza ? "I" : ogre ? "H" : dragon || halls || assault || mystic ? "B" : orcs || ending || smithy ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -193,15 +197,28 @@ try {
     return 1;
   }
 
-  if (textile) {
+  if (environment) {
+    const area = environment.area ?? 2;
     const patterns = new Set();
-    let views = await verifyTiledView(2, patterns);
-    for (const key of textile.walk) {
+    let views = await verifyTiledView(area, patterns);
+    for (const key of environment.walk) {
+      const previousTiles = frame.tiles;
       await advance(key);
-      views += await verifyTiledView(2, patterns);
+      if (area === 10 && frame.encounter) assert.deepEqual(frame.tiles, previousTiles);
+      views += await verifyTiledView(area, patterns);
     }
-    assert.equal(views, textile.views);
-    assert.equal(patterns.size, textile.patterns);
+    assert.equal(views, environment.views);
+    assert.equal(patterns.size, environment.patterns);
+    if (area === 10) {
+      assert.ok(frame.encounter, "The graveyard actor must be drawn separately from the scenery");
+      const [, , id, width, height] = frame.encounter;
+      assert.equal(id, "encounter:area:10:SPRIT4.DAX:34:0:0");
+      await waitFor("the enhanced skeleton over the graveyard scenery", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector(".encounter-sprite")?.naturalWidth === ${width * 4} &&
+        document.querySelector(".encounter-sprite")?.naturalHeight === ${height * 4}`));
+      const capture = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, routeName + ".png"), Buffer.from(capture.data, "base64"));
+    }
     if (routeName === "textile-temple") {
       assert.equal(frame.portrait, "portrait:PIC4.DAX:9:0:0");
       await waitFor("Grishnak's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
@@ -329,6 +346,12 @@ try {
     }
     assert.deepEqual({ moved, priestessSelected, swing }, { moved: true, priestessSelected: true, swing: true });
     console.log("Verified the Textile House altar portrait, selected priestess, moving captains, and captain strike.");
+  } else if (mystic) {
+    for (const key of ["up", "enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:HEAD4.DAX:0:BODY4.DAX:2");
+    await waitFor("the Valhingen mystic portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    console.log("Verified the Valhingen mystic portrait and state-preserving switches.");
   } else if (assault) {
     const route = ["left", "left", "up", "right", "right", "up", "enter", "enter", "enter", "enter",
       "s", "e", "n", "enter", "enter", "enter", "enter", "right", "up", "left", "up", "right", "up", "enter"];

@@ -130,7 +130,7 @@ mkdirSync(join(output, "enhanced"), { recursive: true });
 const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
-  const match = /^(?:encounter|portrait):([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
+  const match = /^(?:encounter:(?:area:\d+:)?|portrait:)([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
     /^combat:(?:area:\d+:)?(CPIC\d+\.DAX):(\d+)$/.exec(id);
   let source;
   if (match) {

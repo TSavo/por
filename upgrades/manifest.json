@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "portrait:HEAD4.DAX:0:BODY4.DAX:2": "valhingen-mystic-portrait.png",
+    "encounter:area:10:SPRIT4.DAX:34:0:0": "valhingen-skeleton-lunge.png",
     "tile:10:0005babb0bfe980099c1a0148b5d5e48759df3ae4fbb09a7b02078cc6f10455f": "valhingen-graveyard-0005babb0bfe.png",
     "tile:10:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739": "valhingen-graveyard-0264796f9fa2.png",
     "tile:10:03c75c8eddaa3433cef78558331e240fe5649142ddba6a9a434073b28493160f": "valhingen-graveyard-03c75c8eddaa.png",
@@ -503,6 +505,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:10:SPRIT4.DAX:34:0:0": { "area": 10, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:SPRIT2.DAX:24:1:0": { "area": 20, "x": 56, "y": 32, "width": 24, "height": 65, "flatBackground": [0, 6] },
     "encounter:SPRIT4.DAX:34:0:0": {
       "area": 21,

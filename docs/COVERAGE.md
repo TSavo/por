@@ -681,8 +681,12 @@ Valhingen Graveyard now has 108 individual 32×32 scenery tiles for its
 entrance routes. The slot A checkpoint at `0,4 E` was reached by traveling
 overland after Podal Plaza. Three Chrome replays walked south, east, and north
 from that checkpoint and verified 1,936 placements in 16 static views and
-state-preserving mode switches. The three additional views with a skeleton
-in the viewport still require a separate actor replacement.
+state-preserving mode switches. The `graveyard-south`, `graveyard-east`, and `graveyard-north` browser replays
+now check all 19 views, including one skeleton approach per route. The
+160×320 skeleton PNG is drawn over the underlying tiles as a separate actor.
+The `graveyard-mystic` replay starts at `8,10 N` in controlled slot B with
+the graveyard encounter counter set to 3 and verifies the mystic portrait
+and a state-preserving switch in dialogue.
 
 Two Valjevo Castle threshold routes from the controlled slot B checkpoint
 displayed the new 32×32 assets across five views and 605 placements, then

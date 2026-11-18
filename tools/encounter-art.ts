@@ -4,7 +4,7 @@ import type { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
-const encounterKey = /^encounter:(SPRIT[1-8]\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
+export const encounterKey = /^encounter:(?:area:(\d{1,3}):)?(SPRIT[1-8]\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
 const legacyAnchors = new Map<string, EncounterAnchor>([
   ["encounter:SPRIT2.DAX:0:0:0", { area: 20, x: 48, y: 32, width: 40, height: 80 }],
   ["encounter:SPRIT2.DAX:0:1:0", { area: 20, x: 56, y: 32, width: 24, height: 65 }],
@@ -14,9 +14,11 @@ export type EncounterPlacement = [x: number, y: number, key: string, width: numb
 
 export function encounterAnchor(key: string, configured?: EncounterAnchor) {
   const anchor = configured ?? legacyAnchors.get(key);
-  if (!encounterKey.test(key) || !anchor) return;
+  const match = encounterKey.exec(key);
+  if (!match || !anchor) return;
   const { area, x, y, width, height, flatBackground } = anchor;
   if ([area, x, y, width, height].every(Number.isInteger) && area >= 0 && area <= 255 &&
+      (match[1] === undefined || Number(match[1]) === area) &&
       x >= 0 && y >= 0 && width > 0 && height > 0 && x + width <= 320 && y + height <= 200 &&
       (flatBackground === undefined || (Array.isArray(flatBackground) && flatBackground.length === 2 &&
         flatBackground.every(index => Number.isInteger(index) && index >= 0 && index < 16)))) return anchor;
@@ -29,7 +31,7 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>) {
   const patterns = [...new Map([...legacyAnchors, ...Object.entries(placements)])].flatMap(([key, anchor]) => {
     const match = encounterKey.exec(key);
     if (!root || !match) return [];
-    const [, name, blockIndex, memberIndex, frameIndex] = match;
+    const [, , name, blockIndex, memberIndex, frameIndex] = match;
     const file = files.get(name!);
     if (!file) return [];
     let archive = archives.get(file);
