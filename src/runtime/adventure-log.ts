@@ -46,14 +46,19 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     ?? unresolved[0];
   const commission = commissions.find(({ id }) => tracked?.id === `commission-${id}`);
   if (commission) {
+    const knows = (id: string) => leads.some((lead) => lead.id === id);
     if (tracked?.status === "ready-to-report" || tracked?.status === "reward-pending") {
+      if (commission.id === "sokal" && tracked.status === "ready-to-report" && knows("sokal-departure")) {
+        return { title: commission.title, nextStep: "If the guards stop you on the way out, use Ferran's password. Take the boat back and report to the council clerk." };
+      }
       return { title: commission.title, nextStep: tracked.detail };
     }
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
     if (commission.id === "sokal") {
-      const knows = (id: string) => leads.some((lead) => lead.id === id);
       if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
-      else if (knows("sokal-parchment")) nextStep = "Use the parchment to make sense of the keep's undead patrols.";
+      else if (knows("sokal-pale-form") && knows("sokal-parchment")) nextStep = "Talk to the pale form. When asked for a word, try one from the parchment.";
+      else if (knows("sokal-parchment")) nextStep = "Keep exploring. If you speak to an undead patrol, try a word from the parchment.";
+      else if (knows("sokal-reeds")) nextStep = "Look through the mound of reeds west of the gates before entering the keep.";
       else if (knows("sokal-arrival")) nextStep = "Scout the keep and look for clues to the haunting.";
       else if (knows("passage-sokal")) nextStep = "Catch the boat to Sokal Keep at the end of the pier.";
     }
@@ -152,6 +157,9 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE BOAT DISEMBARKS YOU AT SOKAL KEEP")) {
     leads.push({ id: "sokal-arrival", title: "Arrival at Sokal Keep", detail: "The party landed on Thorn Island." });
   }
+  if (text.includes("TO THE WEST RISES A MOUND OF REEDS")) {
+    leads.push({ id: "sokal-reeds", title: "Reeds by the keep gate", detail: "The party saw a mound of reeds west of the gates." });
+  }
   if (text.includes("IN A POUCH ON THE REMAINS IS A CRUMBLING PARCHMENT SCROLL")) {
     leads.push({
       id: "sokal-parchment", title: "The parchment at Sokal Keep",
@@ -163,6 +171,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       id: "sokal-ferran", title: "Ferran Martinez",
       detail: "Ferran is bound to guard the keep and asks whether Phlan has been freed.",
     });
+  }
+  if (text.includes("A PALE FORM RISES BEFORE YOU")) {
+    leads.push({ id: "sokal-pale-form", title: "The keep's pale figure", detail: "A pale figure appeared inside the keep. The party can try speaking to it." });
+  }
+  if (text.includes("MENDOR WORKED HARD TO GATHER RECORD OF ALL THESE THINGS")) {
+    leads.push({ id: "sokal-mendor", title: "Mendor's lost histories", detail: "Ferran says Mendor gathered accounts of the powers that brought down Phlan. His library was overrun." });
+  }
+  if (text.includes("THE ILLUSIONARY WALL IN THE ARMORY OF THIS KEEP")) {
+    leads.push({ id: "sokal-armory", title: "Sokal Keep armory", detail: "Ferran says help lies beyond an illusory wall in the armory." });
+  }
+  if (text.includes("TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'")) {
+    leads.push({ id: "sokal-departure", title: "Ferran's password", detail: "Ferran told the party to say SAMOSUD to his guards on the way out." });
   }
   for (const commission of commissions) {
     const reported = commission.report !== undefined && text.includes(commission.report);

@@ -190,6 +190,31 @@ function checkCampaignJournal(): void {
     id === "commission-bottle-vampire")) {
     throw new Error("The graveyard reward revealed an undiscovered bottle objective");
   }
+  const route = [
+    ["THE BOAT DISEMBARKS YOU AT SOKAL KEEP", "Scout the keep"],
+    ["TO THE WEST RISES A MOUND OF REEDS", "west of the gates"],
+    ["IN A POUCH ON THE REMAINS IS A CRUMBLING PARCHMENT SCROLL", "speak to an undead patrol"],
+    ["A PALE FORM RISES BEFORE YOU", "Talk to the pale form"],
+    ["I AM THE LIFE FORM OF FERRAN MARTINEZ", "answer him truthfully"],
+    ["TO PASS MY GUARDS ON THE WAY OUT", "answer him truthfully"],
+  ];
+  let transcript = commissions.find(({ id }) => id === "sokal")!.offer;
+  writeGlobal(progressAddresses.sokal!, 0);
+  for (const [trigger, instruction] of route) {
+    const line = lines.find((text) => text.includes(trigger!));
+    if (!line) throw new Error(`Missing Sokal route dialogue: ${trigger}`);
+    transcript += "\n" + line;
+    const leads = discoveredLeads(transcript);
+    if (!currentObjective(leads).nextStep.includes(instruction!) ||
+        leads.some(({ id }) => id === "sokal-departure") !== trigger?.startsWith("TO PASS MY GUARDS")) {
+      throw new Error(`Sokal journal route mismatch: ${trigger}`);
+    }
+  }
+  writeGlobal(progressAddresses.sokal!, 254);
+  const learned = discoveredLeads(transcript);
+  if (!currentObjective([...questProgress(m, learned, m.ds), ...learned]).nextStep.includes("Ferran's password")) {
+    throw new Error("Sokal journal lost Ferran's exit instruction on completion");
+  }
   console.log(`verified ${commissions.length} journal definitions against original ECL dialogue and ${Object.keys(progressAddresses).length} progress flags through the translated setter`);
 }
 
