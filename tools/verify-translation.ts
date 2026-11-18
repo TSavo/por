@@ -6,7 +6,8 @@
 import { Cpu } from "../src/cpu/machine.js";
 import { ovl07_0000, ovl07_0c93 } from "../src/translated/ovl07.js";
 import "../src/translated/system5bb.js";
-import { farCall } from "../src/runtime/far.js";
+import { farCall, registerFar } from "../src/runtime/far.js";
+import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { attachDos } from "../src/runtime/dos.js";
 import { isPartyFile } from "./save-slots.js";
 import { openJournalProfile } from "./journal-profile.js";
@@ -51,6 +52,32 @@ function checkVal(): void {
 }
 
 checkVal();
+
+function checkOriginalSoundTrace(): void {
+  const m = fresh();
+  m.write8(m.ds, 0x52d2, 1);
+  const recorder = new OriginalSoundTraceRecorder(m);
+  registerFar(0x27f, 0, (cpu) => cpu.retf(2));
+  m.push(7);
+  m.push(m.cs);
+  m.push(0x1234);
+  farCall(m, 0x27f, 0);
+  m.tick(0x2000);
+  m.portOut(0x43, 0xb6);
+  m.tick(0x2001);
+  m.portOut(0x42, 0x34);
+  m.portOut(0x3c4, 2);
+  const trace = recorder.snapshot();
+  recorder.detach();
+  if (trace.calls.length !== 1 || trace.calls[0]?.index !== 7 || trace.calls[0]?.mode !== 1 ||
+      trace.calls[0]?.callerOffset !== 0x1234 || trace.writes.length !== 2 ||
+      trace.writes[0]?.port !== 0x43 || trace.writes[1]?.value !== 0x34) {
+    throw new Error(`Original sound trace mismatch: ${JSON.stringify(trace)}`);
+  }
+  console.log("verified original sound calls and audio-port writes are recorded deterministically");
+}
+
+checkOriginalSoundTrace();
 
 function checkFillChar(): void {
   const m = fresh();

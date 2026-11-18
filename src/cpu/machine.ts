@@ -168,6 +168,7 @@ export class Cpu {
 
   portOut(port: number, value: number): void {
     this.onPortOut?.(port, value);
+    for (const observer of this.portOutObservers) observer(port & 0xffff, value & 0xff);
   }
 
   portIn(port: number): number {
@@ -176,6 +177,14 @@ export class Cpu {
 
   onPortOut: ((port: number, value: number) => void) | null = null;
   onPortIn: ((port: number) => number) | null = null;
+
+  private readonly portOutObservers = new Set<(port: number, value: number) => void>();
+
+  /** Observe hardware writes without taking ownership of the emulated port bus. */
+  addPortOutObserver(observer: (port: number, value: number) => void): () => void {
+    this.portOutObservers.add(observer);
+    return () => this.portOutObservers.delete(observer);
+  }
 
   setSubFlags(width: 8 | 16, a: number, b: number, borrow = 0): number {
     const mask = width === 8 ? 0xff : 0xffff;

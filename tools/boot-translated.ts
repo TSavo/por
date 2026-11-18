@@ -5,7 +5,7 @@
  */
 import { createHash } from "node:crypto";
 import { mkdirSync, readdirSync, readFileSync, realpathSync, statSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { Cpu } from "../src/cpu/machine.js";
 import { attachDos, consoleText, dosLog, type BiosKey, type DosFile, type DosFileClosed } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
@@ -21,6 +21,7 @@ import { callTrace, disposeHits, dosAssigns, farCall, farCallObservers, getmemRi
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
 import { registerTranslated } from "../src/translated/register.js";
 import { ovl07_0353 } from "../src/translated/ovl07.js";
+import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 
 const root = findGameRoot();
 if (!root) throw new Error("Pool of Radiance game data not found");
@@ -144,6 +145,16 @@ const mountedFiles = saves ? [...saves.mountRoster(files), ...saves.files] : fil
 const cpu = fresh(input?.requestKey, (name, data, written) => slotClosed(name, data, written), mountedFiles,
   (name) => { if (slotClosed === rosterClosed) saves?.saveRoster(name); },
   (name) => loadingSlot && saveSlotLetter(name) ? saves?.partyFiles(name) ?? [] : undefined);
+const soundTracePath = process.env.POR_SOUND_TRACE;
+const soundRecorder = soundTracePath ? new OriginalSoundTraceRecorder(cpu) : undefined;
+let soundTraceWritten = false;
+function writeSoundTrace(): void {
+  if (!soundTracePath || !soundRecorder || soundTraceWritten) return;
+  soundTraceWritten = true;
+  mkdirSync(dirname(soundTracePath), { recursive: true });
+  writeFileSync(soundTracePath, JSON.stringify(soundRecorder.snapshot(), null, 2) + "\n");
+}
+if (soundRecorder) process.once("exit", writeSoundTrace);
 if (input && saves) {
   const disk = loadedSlices.find((slice) => slice.index === 17);
   if (!disk) throw new Error("Missing translated save overlay");
