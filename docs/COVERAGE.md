@@ -376,6 +376,15 @@ A separate run chose to lie and verified that Ferran faded without teaching
 the password or completing the commission. The checkpoint bypassed the
 route to the altar.
 
+To verify the handoff after the truthful branch, a second controlled
+reload moved that same saved party to the Sokal pier. The party took
+the boat to New Phlan and walked to the clerk. The clerk awarded 1,308
+XP per character. The journal showed reward pending during treasure
+distribution and turned in after leaving it. Reloading slot H at the
+clerk verified Alda's 1,313 total XP and 46 platinum, the turned-in
+Sokal commission, and the new Podal Plaza auction commission. The
+walk from the altar to the pier was bypassed by the checkpoint.
+
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the
 harbor master offers new destinations as soon as the keep is cleared, and
