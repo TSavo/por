@@ -1,4 +1,4 @@
-import { readSync, writeFileSync } from "node:fs";
+import { appendFileSync, readSync, writeFileSync } from "node:fs";
 import type { Cpu } from "../src/cpu/machine.js";
 import { currentObjective, isOpenObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
@@ -33,7 +33,7 @@ function readCommand(): string | undefined {
 }
 
 /** Terminal control for the translated runner. Journal input stays on the host. */
-export function liveInput(startAt: number, journal: () => JournalLead[]) {
+export function liveInput(startAt: number, journal: () => JournalLead[], recording?: string) {
   let nextPrompt = startAt;
   let trackedId: string | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
@@ -95,6 +95,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[]) {
         console.log("Enter a letter, digit, arrow name, home, pageup, end, pagedown, enter, space, escape, tab, or backspace.");
         continue;
       }
+      if (recording) appendFileSync(recording, `${cpu.steps}:${key.toString(16).padStart(4, "0")}\n`);
       keys.push({ step: cpu.steps, word: key });
       // Keep the watchdog relative to the last live input. Long play sessions
       // can pass the boot budget while the guest is still making progress.

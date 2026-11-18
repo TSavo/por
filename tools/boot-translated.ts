@@ -32,6 +32,17 @@ const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles)
 
 registerTranslated();
 
+const replayPath = process.env.POR_BOOT_KEY_FILE;
+const replayKeys = replayPath ? readFileSync(replayPath, "utf8").trim() : "";
+const scheduledKeys = [replayKeys, process.env.POR_BOOT_KEYS ?? ""].join("\n")
+  .split(/[,\s]+/).filter(Boolean).map((key) => {
+    const match = /^(?:(\d+):)?([0-9a-f]{4})$/i.exec(key);
+    if (!match || !Number.isSafeInteger(Number(match[1] ?? 0))) {
+      throw new Error("Replay expects [step:]hex BIOS key words separated by commas or whitespace");
+    }
+    return { step: Number(match[1] ?? 0), word: Number.parseInt(match[2]!, 16) };
+  }).sort((a, b) => a.step - b.step);
+
 function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => void,
   fileClosed?: DosFileClosed, savedFiles: typeof files = []): Cpu {
   const cpu = new Cpu();
@@ -39,11 +50,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const ovr = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
   if (!exe || !ovr) throw new Error("START.EXE and GAME.OVR are required");
   const boot = installProgram(cpu, exe.data, ovr.data);
-  const keys = (process.env.POR_BOOT_KEYS ?? "").split(",").filter(Boolean).map((key) => {
-    const match = /^(?:(\d+):)?([0-9a-f]{4})$/i.exec(key);
-    if (!match) throw new Error("POR_BOOT_KEYS expects comma-separated [step:]hex BIOS key words");
-    return { step: Number(match[1] ?? 0), word: Number.parseInt(match[2]!, 16) };
-  }).sort((a, b) => a.step - b.step);
+  const keys = [...scheduledKeys];
   attachDos(cpu, [...files, ...savedFiles], keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)), fileClosed);
   cpu.ss = boot.ss;
   cpu.sp = boot.sp || 0xfffe;
@@ -92,7 +99,12 @@ if (liveAt !== undefined && (!Number.isSafeInteger(liveStep) || liveStep < 0)) {
   throw new Error("POR_LIVE_AT must be a nonnegative integer");
 }
 if (liveAt !== undefined) mkdirSync("out", { recursive: true });
-const input = liveAt === undefined ? undefined : liveInput(liveStep, journal);
+const recording = liveAt === undefined ? undefined : process.env.POR_RECORD_KEYS;
+if (recording) {
+  const prefix = scheduledKeys.map(({ step, word }) => `${step}:${word.toString(16).padStart(4, "0")}\n`).join("");
+  writeFileSync(recording, prefix, { flag: "wx" });
+}
+const input = liveAt === undefined ? undefined : liveInput(liveStep, journal, recording);
 const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
   join("out", "saves", createHash("sha256").update(realpathSync(root)).digest("hex").slice(0, 16)));
 let slotClosed: DosFileClosed | undefined;

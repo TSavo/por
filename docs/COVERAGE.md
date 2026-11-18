@@ -106,6 +106,12 @@ While the journal is open, type `track N` to follow a numbered objective.
 Enter a game key by name or use `key j` to send J to DOS. Type `:quit` to end
 the session. Clear `POR_LIVE_AT` to return to replay-only mode.
 
+Set `POR_RECORD_KEYS` to a new file path before a live run to capture its
+scheduled and live BIOS keys with their guest instruction counts. Journal
+commands stay on the host. Replay with `POR_BOOT_KEY_FILE` set to that file
+and the same game data and initial save state. For a live replay, put
+`POR_LIVE_AT` after the recorded keys to resume interactive input.
+
 Live runs persist the DOS save bytes, discovered leads, and tracked quest
 together for each slot A–J. Loading one switches journal state to that slot.
 Set `POR_SAVE_DIR` to select the save directory. An existing
