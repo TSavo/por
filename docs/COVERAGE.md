@@ -184,6 +184,15 @@ the reward. The journal marked the commission turned in after the treasure
 menu closed and kept the witnessed exchange in its notes. The controlled
 transitions bypassed travel to and from Podal Plaza.
 
+Two controlled Textile House replays used the same six-character save outside
+the hobgoblin chief's room. The saved event skipped the fight after the
+chief's dialogue and resumed at the iron box. The party chose Take It
+Unopened in one replay and Open It in the other. The original script set
+the resulting box state, and the live journal gave distinct directions for
+bringing back the sealed box or returning to City Hall with the seal broken.
+These replays verified the choice in the guest menu and its immediate
+journal updates.
+
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
 for that character. If a hostile actor stalls, the runner restores its state
