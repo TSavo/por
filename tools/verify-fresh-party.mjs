@@ -334,6 +334,24 @@ async function verifyPodalFromCouncil(checkpoint) {
     (text) => assert.match(text, /the monsters rejoice for the party has been destroyed/),
   ]);
   console.log("Verified the Podal Plaza turn-in, Cadorna's commission, and the Textile House courtyard defeat.");
+  const duelSave = await replay(load("1e61"), "85000000", [
+    "right", "right", "up", "up", "right", "up", "up", "enter", "enter", "up", "up",
+    "right", "up", "up", "up", "up", "enter", "enter", "up", "up", "enter", "enter",
+    (text) => assert.match(text, /7,1 e.*arena master asks if you wish to duel/),
+    "left", "up", "enter", "enter", "y",
+    (text) => assert.match(text, /who will duel\?/),
+    "enter", "enter", "enter", ...Array(22).fill("q"),
+    (text) => assert.match(text, /alda hitpoints 1.*continue battle:yes no/),
+    "n",
+    (text) => assert.match(text, /you have won the duel.*duelist receives 100 experience points/),
+    "enter", "enter", "s", "e", "n", "e", "s", "s", "g",
+  ]);
+  assert.match(visibleText(duelSave), /7,1 e.*quit to dos/);
+  await replay(load("2267"), "85000000", [
+    "v", "v",
+    (text) => assert.match(text, /alda.*level 1 exp 1621.*hp 1/),
+  ]);
+  console.log("Won a New Phlan arena duel and reloaded Alda with the earned 100 XP.");
   const equipmentShop = [
     "right", "right", "up", "up", "right", "up", "right", "up", "enter", "enter", "up", "up",
     "right", ...Array(7).fill("up"), "left", "up", "y", "y",

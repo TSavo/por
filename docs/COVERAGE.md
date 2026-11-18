@@ -346,6 +346,11 @@ balance. Correcting the translated long-division loop restored the fee
 calculation. The same checkpoint left Darkstar with 50 platinum plus
 change, and the translated quotient now has a regression check.
 
+The Podal checkpoint replay also takes Alda through the New Phlan arena
+duel. The original reward screen awards the duelist 100 XP, and reloading
+shows Alda at 1,621 XP and 1 HP. This duel used normal game inputs and
+finished without watchdog recovery.
+
 Headless Chrome verified the presentation button and F10 against the live
 browser runner. A reloaded City Hall save displayed both palettes and let
 the journal remain open during a switch. A separate run switched palettes
