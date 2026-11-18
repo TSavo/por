@@ -218,6 +218,41 @@ const potionSave = await replay(loadSlotG, "85000000", [
 ]);
 assert.match(visibleText(potionSave), /quit to dos/);
 const loadSlotH = "31000000:1c0d,45000000:266c,52000000:2368";
-await replay(loadSlotH, "85000000", ["j", checkPotion]);
+const leaveBooth = await replay(loadSlotH, "85000000", [
+  "j", checkPotion, "j",
+  "right", "right", "up", "right", "up", "left", "up", "up", "left", "up",
+  "right", "up", "up", "left", "up", "up", "right", "up", "right", "up", "up",
+  "left", "up", "left", "f", "e", "s", "s", "i",
+]);
+assert.match(visibleText(leaveBooth), /quit to dos/);
 console.log("Walked to the Rope Guild booth, picked up Ohlo's potion and verified the return objective after reloading slot H.");
+
+function checkOhloStatus(frame, status) {
+  const quest = frame.journal?.leads.find((lead) => lead.id === "commission-ohlo");
+  assert.equal(quest?.status, status);
+}
+const loadSlotI = "31000000:1c0d,45000000:266c,52000000:1769";
+const rewardSave = await replay(loadSlotI, "85000000", [
+  "left", "up", "up", "right", "up", "up", "right", ...Array(6).fill("up"),
+  "left", "up", "right", "up", "right", "up", "b", "up", "up", "left",
+  ...Array(5).fill("up"), "right", "up", "up", "right", "right", "f",
+  "right", "up", "right", "up", "left", ...Array(5).fill("up"), "left", "f",
+  "right", "right", "right", ...Array(5).fill("up"), "right", "up", "up", "right", "up", "b",
+  "g", (text) => assert.match(text, /give me the potion/),
+  "g", (text) => assert.match(text, /receives 691 experience points/),
+  "j", (_text, frame) => checkOhloStatus(frame, "reward-pending"), "j",
+  "enter", "enter", "s", "e", "n", "e", "f", "e", "s", "s", "key j",
+]);
+assert.match(visibleText(rewardSave), /quit to dos/);
+const loadSlotJ = "31000000:1c0d,45000000:266c,52000000:246a";
+await replay(loadSlotJ, "85000000", [
+  "j",
+  (_text, frame) => {
+    checkOhloStatus(frame, "turned-in");
+    assert.ok(frame.journal.leads.some((lead) => lead.id === "ohlo-delivered"));
+  },
+  "j", "v", "v",
+  (text) => assert.match(text, /alda.*exp 696/),
+]);
+console.log("Returned the potion, collected Ohlo's reward and verified the journal and XP after reloading slot J.");
 console.log("Replay save:", saveDir);

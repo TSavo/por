@@ -166,6 +166,12 @@ reaches the booth through its west entrance. It chooses Speak and enters
 OHLO to collect the package. Reloading slot H confirms that the journal
 marks the potion ready to report and directs the party to return and choose
 Give. The checkpoint reloads use the locations reached in normal play.
+The party retraces the Guild maze and the streets from slots H and I,
+re-enters Ohlo's room, and gives him the potion. The journal shows the reward
+pending while the original treasure screen awards 691 XP per character.
+After sharing the coins and closing the treasure menu, the party saves in
+slot J. A fresh runner confirms the journal marks the commission turned in,
+records what happened when Ohlo drank the potion, and shows Alda at 696 XP.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
