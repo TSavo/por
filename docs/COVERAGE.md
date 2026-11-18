@@ -677,6 +677,13 @@ the 352×352 altar portrait, the selected 96×96 priestess sprite, the captains'
 movement, and the captain's strike during browser animation playback. It
 also switches presentation in the dialogue and combat.
 
+Valhingen Graveyard now has 108 individual 32×32 scenery tiles for its
+entrance routes. The slot A checkpoint at `0,4 E` was reached by traveling
+overland after Podal Plaza. Three Chrome replays walked south, east, and north
+from that checkpoint and verified 1,936 placements in 16 static views and
+state-preserving mode switches. The three additional views with a skeleton
+in the viewport still require a separate actor replacement.
+
 Two Valjevo Castle threshold routes from the controlled slot B checkpoint
 displayed the new 32×32 assets across five views and 605 placements, then
 entered Tyranthraxus's dialogue. A separate controlled City Hall checkpoint
