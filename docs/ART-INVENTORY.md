@@ -27,5 +27,9 @@ data. The font sheet contains 177 original 8×8 glyphs.
 
 The archive inventory accounts for all DAX blocks in the supplied DOS set.
 It keeps executable and overlay visuals flagged for a separate audit, including
-interface drawing and any embedded graphics. Runtime uses of the cataloged
-assets, such as which encounter names share a portrait, still need mapping.
+interface drawing and any embedded graphics. The gallery supports category
+filters, text search, and full-size sheets. It also lists 68 literal `PICTURE`
+requests found in the ECL scripts. Of those, 43 have a candidate in the
+matching picture bank. The JSON retains all candidate banks and nearby script
+dialogue for each request. These are static references. Runtime bank changes,
+computed picture IDs, and embedded visuals still need tracing.
