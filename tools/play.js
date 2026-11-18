@@ -1,5 +1,4 @@
 const screen = document.querySelector("#screen");
-const viewportArt = document.querySelector("#viewport-art");
 const tileArt = document.querySelector("#tile-art");
 const gameText = document.querySelector("#game-text");
 const journal = document.querySelector("#journal");
@@ -15,7 +14,6 @@ let enhanced = false;
 let animationFrame;
 let animationTimer;
 const failedSceneArt = new WeakSet();
-const failedViewportArt = new WeakSet();
 const failedTileArt = new WeakSet();
 
 function finishAnimation() {
@@ -52,10 +50,7 @@ function showScreen() {
   const placements = [...(view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
   if (view.portrait) placements.push([24, 24, view.portrait]);
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
-  const replacement = useEnhanced && !view.journal && !placements.length && !failedViewportArt.has(view) && view.viewportArt;
-  viewportArt.hidden = !replacement;
-  if (replacement && viewportArt.getAttribute("src") !== replacement) viewportArt.src = replacement;
-  tileArt.hidden = !useEnhanced || Boolean(sceneArt || view.journal || replacement);
+  tileArt.hidden = !useEnhanced || Boolean(sceneArt || view.journal);
   if (!tileArt.hidden) {
     tileArt.replaceChildren(...placements.map(([x, y, id, reflected]) => {
       const tile = document.createElement("img");
@@ -101,14 +96,6 @@ screen.addEventListener("error", () => {
     showScreen();
   }
 });
-viewportArt.addEventListener("error", () => {
-  const view = animationFrame ?? state;
-  if (!view.viewportArt || viewportArt.getAttribute("src") !== view.viewportArt) return;
-  failedViewportArt.add(view);
-  viewportArt.removeAttribute("src");
-  showScreen();
-});
-
 function render() {
   showScreen();
   const focused = document.activeElement;

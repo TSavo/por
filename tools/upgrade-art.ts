@@ -27,7 +27,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[]) {
       if (manifest.version !== 1 || !manifest.assets) continue;
       for (const id of Object.keys(manifest.assets)) {
         const encounter = encounterAnchor(id, manifest.encounters?.[id]);
-        if (id !== "scene:title" && !/^viewport:[a-f0-9]{64}$/.test(id) && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
+        if (id !== "scene:title" && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
             !/^battle-tile:[a-f0-9]{64}$/.test(id) && !/^combat:(?:CPIC[1-8]\.DAX:\d{1,3}|party:\d{1,3}:\d{1,3})$/.test(id) && !portraitKey.test(id) && !encounter) continue;
         const file = lookupOverride(manifest, id);
         if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) continue;
@@ -39,7 +39,6 @@ export function loadUpgradeArtFromManifests(paths: readonly string[]) {
           let sourceHeight = 8;
           if (encounter) ({ width: sourceWidth, height: sourceHeight } = encounter);
           else if (id === "scene:title") [sourceWidth, sourceHeight] = [320, 200];
-          else if (id.startsWith("viewport:")) [sourceWidth, sourceHeight] = [112, 120];
           else if (id.startsWith("combat:")) sourceWidth = sourceHeight = 24;
           else if (portraitKey.test(id)) sourceWidth = sourceHeight = 88;
           const width = png.readUInt32BE(16);

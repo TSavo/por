@@ -90,8 +90,6 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const traceBattleTiles = process.env.POR_TRACE_BATTLE_TILES === "1";
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[]) => {
     if (browser) {
-      const viewport = createHash("sha256");
-      for (let y = 8; y < 128; y++) viewport.update(screen.pixels.subarray(y * screen.width + 8, y * screen.width + 120));
       const glyphs = visibleGameText();
       const dialogue = glyphs.filter(([cell]) => cell >= 640 && cell < 960).sort(([a], [b]) => a - b)
         .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase();
@@ -154,7 +152,6 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         frame: Buffer.from(encodePng(screen)).toString("base64"),
         enhancedFrame: Buffer.from(encodePng(enhanced, enhancedPalette)).toString("base64"),
         scene,
-        viewport: `viewport:${viewport.digest("hex")}`,
         text,
         portrait,
         encounter,

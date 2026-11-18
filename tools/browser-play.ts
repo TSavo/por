@@ -50,7 +50,6 @@ interface FrameState {
   frame?: string;
   enhancedFrame?: string;
   scene?: string;
-  viewport?: string;
   portrait?: string;
   encounter?: EncounterPlacement;
   tiles?: [number, number, string][];
@@ -105,7 +104,6 @@ const server = createServer(async (req, res) => {
     const snapshot = req.url === `/state?after=${sequence}` ? {} : {
       ...frame,
       art: frame.scene === "scene:title" && artwork.has(frame.scene) ? `/art/${frame.scene}` : undefined,
-      viewportArt: !frame.scene && frame.viewport && artwork.has(frame.viewport) ? `/art/${frame.viewport}` : undefined,
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
       ...snapshot, sequence, ready, stopped: stopped ?? null, notice: notice ?? null,

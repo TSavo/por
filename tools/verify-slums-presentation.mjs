@@ -409,7 +409,7 @@ try {
           const next = state;
           try {
             // The next input frame can already be back in exploration or dialogue.
-            state = { ...next, viewportArt: "/art/unused-during-attack",
+            state = { ...next,
               portrait: "portrait:PIC2.DAX:0:0:0", tiles: [[24, 24, "tile:unused-during-attack"]] };
             animationFrame = ${JSON.stringify(layeredAttack)};
             showScreen();
@@ -535,7 +535,7 @@ try {
       assert.deepEqual(frame.tiles, frame.tileInventory.map(([x, y, id]) => [x, y, id]));
       tileLayouts.add(JSON.stringify(frame.tiles));
       await waitFor("121 individual tiles", () => run(`(() => {
-        if (state.sequence !== ${frame.sequence} || !document.querySelector("#viewport-art").hidden) return false;
+        if (state.sequence !== ${frame.sequence}) return false;
         const tiles = [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")];
         const expected = ${JSON.stringify(frame.tiles)};
         return tiles.length === expected.length && tiles.every((tile, index) => {
@@ -621,29 +621,21 @@ try {
       const live = state;
       const screen = document.querySelector("#screen");
       const layer = document.querySelector("#tile-art");
-      const viewport = document.querySelector("#viewport-art");
       try {
-        state = { ...live, viewportArt: "/art/unavailable-viewport", combatArt: [], battleTiles: [], tiles: [] };
+        state = { ...live };
         showScreen();
-        const usesPrototype = !viewport.hidden && layer.hidden;
-        viewport.dispatchEvent(new Event("error"));
-        const clearsBrokenPrototype = viewport.hidden && !layer.hidden;
-        state = { ...live, viewportArt: "/art/unavailable-viewport" };
-        showScreen();
-        const keepsSprites = viewport.hidden && !layer.hidden &&
-          Boolean(layer.querySelector(".combat-sprite"));
         layer.querySelector(".combat-sprite").dispatchEvent(new Event("error"));
         const restoresGuest = layer.hidden && document.querySelector("#game-text").hidden &&
           screen.getAttribute("src") === "data:image/png;base64," + live.frame;
         state = { ...live };
         showScreen();
-        return { usesPrototype, clearsBrokenPrototype, keepsSprites, restoresGuest, resumesEnhancements: !layer.hidden &&
+        return { restoresGuest, resumesEnhancements: !layer.hidden &&
           Boolean(layer.querySelector(".combat-sprite")) };
       } finally {
         state = live;
         showScreen();
       }
-    })()`), { usesPrototype: true, clearsBrokenPrototype: true, keepsSprites: true, restoresGuest: true, resumesEnhancements: true });
+    })()`), { restoresGuest: true, resumesEnhancements: true });
     await command("Input.dispatchKeyEvent", { type: "keyDown", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
     await command("Input.dispatchKeyEvent", { type: "keyUp", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
     await waitFor("the guest frame after Alt+Q", async () => {
