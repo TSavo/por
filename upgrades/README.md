@@ -47,9 +47,9 @@ palette.
 
 A Chrome replay from a six-character New Phlan save walked through the west
 gate and into the Slums kobold encounter. All 22 Slums exploration frames
-drew 121 replacement PNGs at the recorded positions. The combat frame used
-the original combat art, and switching back to classic display preserved
-the frame sequence and the loaded save file.
+drew 121 replacement PNGs at the recorded positions. Combat displayed six
+instances of the new kobold sprite, including both facings. Switching back
+to classic display preserved the frame sequence and the loaded save file.
 
 Combat replacements use keys such as `combat:CPIC2.DAX:0` and 96×96
 PNGs. Enhanced mode draws them over the game's 24×24 footprints and mirrors
@@ -57,6 +57,11 @@ them when the original sprite faces the opposite direction. Use the enhanced
 background color (`#0f0e12`) for opaque background pixels. Cells that differ
 from the source footprint, including cells affected by some combat highlights,
 retain the game's sprite.
+
+The Slums pack ships `kobold-combat-0.png` for archive block 0, frame 0.
+The art sits on the native 24×24 anchor, with the feet just above the bottom
+row. The sprite uses a rust and slate palette and a compact silhouette so
+the head, knife, and stance read in the combat grid.
 
 Enhanced gameplay uses Geist Mono for text captured from the game's EGA
 character renderer. Use a local `font.woff2` in your upgrades directory to
