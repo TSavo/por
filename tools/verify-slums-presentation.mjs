@@ -540,9 +540,21 @@ try {
     for (const key of ["j", "e", "e"]) await advance(key);
     const entrance = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
     assert.match(entrance, /8,10S/i);
-    for (const key of ["right", "up", "right", "up", "enter", "enter", "j"]) await advance(key);
+    for (const key of ["right", "up", "right", "up", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:PIC6.DAX:42:0:0");
+    await waitFor("the Bivant pen illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    for (const key of ["enter", "j"]) await advance(key);
     assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-identified-heir"));
     assert.match(frame.journal.objective.nextStep, /Choose Rescue Boy/);
+    for (const key of ["j", "enter", "enter", "end", "end", "end", "enter", "j"]) await advance(key);
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-pen-options"));
+    assert.match(frame.journal.objective.nextStep, /Choose Sneak Into Pen/);
+    for (const key of ["j", "enter", "enter", "j"]) await advance(key);
+    assert.match(frame.journal.objective.nextStep, /Try to Sneak By/);
+    for (const key of ["j", "t", "j"]) await advance(key);
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-sneak-blocked"));
+    assert.match(frame.journal.objective.nextStep, /Attack Guards or Leave/);
     console.log("Verified the Buccaneer Base approach and rescue journal in Chrome.");
   } else if (routeName === "swamp-approach") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);

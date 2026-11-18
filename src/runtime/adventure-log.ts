@@ -186,6 +186,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("rescue-heir-purchased")) nextStep = "Escort the boy out through the base gate and return him to New Phlan.";
       else if (knows("rescue-captain-price")) nextStep = "Choose Buy the Boy if you accept the captain's price, or prepare to fight.";
       else if (knows("rescue-inside-pen")) nextStep = "Choose Get Him and escort the boy out of the base.";
+      else if (knows("rescue-sneak-blocked")) nextStep = "The guards spotted your approach. Choose Attack Guards or Leave to try another route.";
+      else if (knows("rescue-pen-gate")) nextStep = "At the gate, choose Try to Sneak By or Attack.";
       else if (knows("rescue-pen-options")) nextStep = "Choose Sneak Into Pen or Attack Guards to reach the boy.";
       else if (knows("rescue-identified-heir")) nextStep = "The boy with the heart-shaped birthmark is in the pen. Choose Rescue Boy when the merchant approaches.";
       else if (knows("rescue-buccaneer-base")) nextStep = "Enter the Buccaneer Base and find the pen where the slavers are holding prisoners.";
@@ -416,6 +418,12 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("HOW WILL YOU RESCUE THE BOY") || text.includes("YOU IGNORE THE SLEAZY MERCHANT AND CONCENTRATE ON RESCUING THE BOY")) {
     leads.push({ id: "rescue-pen-options", title: "A way into the pen", detail: "The party can sneak in or attack the guards." });
+  }
+  if (text.includes("TWO GUARDS GUARD THE DOOR")) {
+    leads.push({ id: "rescue-pen-gate", title: "The pen gate is guarded", detail: "Two guards are posted at the gate." });
+  }
+  if (text.includes("YOU CANNOT GET BY THE GUARDS INTO THE SLAVE PEN")) {
+    leads.push({ id: "rescue-sneak-blocked", title: "The guards blocked the way", detail: "The guards were too alert for the party to sneak by." });
   }
   if (text.includes("YOU ARE IN THE SLAVE PEN. STANDING NEAR YOU IS THE YOUNG BOY")) {
     leads.push({ id: "rescue-inside-pen", title: "Inside the pen", detail: "The boy is within reach." });

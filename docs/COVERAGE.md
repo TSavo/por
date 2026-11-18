@@ -851,6 +851,10 @@ base before showing any clue about the heir. The translation verifier
 covers the pen search and the separate unpaid outcome after a failed rescue.
 The approach replay continues into the camp and follows the pen fence to
 the first witness of the boy's birthmark at `7,9 N`. The separate
+`buccaneer-approach` checks the painted pen scene in both modes and uses
+End three times to select Rescue Boy in the original vertical menu. It
+tries to sneak past the guards and verifies the journal's updated choices
+when they block the attempt. The separate
 `buccaneer-pens` terrain replay starts from the merchants' camp at
 `8,11 S` and reaches the animal pens. Chrome checks 47 individual 32×32
 tiles over 14 views, including palisades, cage bars, and the night sky.
