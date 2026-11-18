@@ -558,6 +558,32 @@ function checkCampaignJournal(): void {
       currentObjective([...pumpingLeads, ...discoveredLeads(hostilePrisoners)], "commission-river").nextStep.includes("Advance until Parlay appears")) {
     throw new Error("The pumping-room branches should update only the choices and clues the party has witnessed");
   }
+  const swampStages = [
+    ["AN OLD LIZARDMAN APPEARS BEFORE YOU", "Parlay with the elder"],
+    ["YOU WILL HAVE BEEN SHOWN OUR TRIBAL FRIEND-WORD", "give the tribal friend-word"],
+    ["THE OLD LIZARD MAN RECOGNIZES THE WORD", "Read journal entry 31"],
+    ["OUR CAUSE IS ONE. WILL YOU CHAMPION ME", "choose a party member"],
+    ["MY PEOPLE WILL NOT JOIN TYRANTHRAXUS", "report his pledge"],
+  ] as const;
+  let swampTranscript = `${swampOffer}\n${freedPrisoners}`;
+  for (const [trigger, instruction] of swampStages) {
+    const line = lines.find((text) => text.includes(trigger));
+    if (!line || currentObjective(discoveredLeads(swampTranscript), "commission-lizardmen").nextStep.includes(instruction)) {
+      throw new Error(`The swamp journal revealed a clue before ${trigger}`);
+    }
+    swampTranscript += "\n" + line;
+    if (!currentObjective(discoveredLeads(swampTranscript), "commission-lizardmen").nextStep.includes(instruction)) {
+      throw new Error(`The swamp journal missed the clue after ${trigger}`);
+    }
+  }
+  const rejectedWord = lines.find((line) => line.includes("YOU ARE NOT THEY WHO RESCUED MY CHILDREN"));
+  const challenge = lines.find((line) => line.includes("OUR CAUSE IS ONE. WILL YOU CHAMPION ME"));
+  const declinedChallenge = lines.find((line) => line.includes("THEN I MUST FIGHT HIM MYSELF"));
+  if (!rejectedWord || !challenge || !declinedChallenge ||
+      !currentObjective(discoveredLeads(`${swampOffer}\n${rejectedWord}`), "commission-lizardmen").nextStep.includes("peaceful meeting ended") ||
+      !currentObjective(discoveredLeads(`${swampOffer}\n${challenge}\n${declinedChallenge}`), "commission-lizardmen").nextStep.includes("peaceful meeting ended")) {
+    throw new Error("The swamp journal kept offering peaceful choices after the meeting ended");
+  }
   const acceptance = [["graveyard", 0x4a96, 255], ["auction", progressAddresses.auction!, 1], ["textile", 0x4a97, 255], ["zhentil", 0x4a98, 255],
     ["gate", 0x4a99, 255], ["castle", 0x4a9a, 255]] as const;
   for (const [id, address, value] of acceptance) {

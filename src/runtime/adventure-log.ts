@@ -82,6 +82,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "river" && tracked.status === "ready-to-report" && knows("river-fountain-blast") && !knows("river-recovery")) {
         return { title: commission.title, nextStep: "Check the party after the blast, then leave the pyramid and report to the council clerk in New Phlan." };
       }
+      if (commission.id === "lizardmen" && tracked.status === "ready-to-report" && knows("swamp-alliance-averted")) {
+        return { title: commission.title, nextStep: "Return to the council clerk and report the elder's pledge that his people will stay out of Tyranthraxus's alliance." };
+      }
       if (commission.id === "auction" && tracked.status === "ready-to-report") {
         const result = knows("auction-cancelled") ? "Report that the auction was cancelled"
           : knows("auction-wand-of-fear") ? "Report that the weapon was a Wand of Fear"
@@ -178,8 +181,16 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("river-secret-door")) nextStep = "Enter the pyramid through the secret door and search for the source of the foul water.";
       else if (knows("river-rowboat")) nextStep = "Take the rowboat from the reeds to the pyramid.";
     }
-    if (commission.id === "lizardmen" && knows("river-pump-prisoners-freed")) {
-      nextStep = "Read journal entry 35 for the freed prisoners' advice on getting help from their tribe in the swamp.";
+    if (commission.id === "lizardmen") {
+      if (knows("swamp-alliance-averted")) nextStep = "Leave the swamp as the elder requested and report his pledge to the council clerk.";
+      else if (knows("swamp-challenge-hostile") || knows("swamp-friend-word-rejected") || knows("swamp-elder-attacked")) nextStep = "The peaceful meeting ended. Withdraw if necessary and look for another way to prevent the alliance.";
+      else if (knows("swamp-champion-requested")) nextStep = "Answer Yes to champion the elder, then choose a party member to face the challenger.";
+      else if (knows("swamp-elder-story")) nextStep = "Read journal entry 31 for the elder's story and hear out the challenge.";
+      else if (knows("swamp-friend-word")) nextStep = knows("river-pump-prisoners-freed")
+        ? "Read journal entry 35 and give the tribal friend-word the freed prisoners taught you."
+        : "The elder asks for a tribal friend-word. Find the people he says were rescued or ask the tribe about the alliance another way.";
+      else if (knows("swamp-peaceful-elder")) nextStep = "Parlay with the elder who raised his hand in peace.";
+      else if (knows("river-pump-prisoners-freed")) nextStep = "Read journal entry 35 for the freed prisoners' advice on getting help from their tribe in the swamp.";
     }
     if (commission.id === "zhentil") {
       if (knows("zhentil-envoy-left") && knows("zhentil-packet-delivered")) nextStep = "Return to the council clerk in New Phlan and report the delivery.";
@@ -800,7 +811,31 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "zhentil-envoy-left", title: "The party escaped Zhentil Outpost",
       detail: "The party made it out of the outpost." });
   }
-  const citedEntries = text.matchAll(/\b(?:JOURNAL ENTRY (\d{1,2})\b|ENTRY (\d{1,2}) OF YOUR JOURNAL\b)/g);
+  if (text.includes("AN OLD LIZARDMAN APPEARS BEFORE YOU, HAND RAISED IN A GESTURE OF PEACE")) {
+    leads.push({ id: "swamp-peaceful-elder", title: "A gesture of peace", detail: "A lizardfolk elder approached with his hand raised in peace." });
+  }
+  if (text.includes("YOU WILL HAVE BEEN SHOWN OUR TRIBAL FRIEND-WORD")) {
+    leads.push({ id: "swamp-friend-word", title: "The tribal friend-word", detail: "The elder asked for the word known to those who freed three of his people." });
+  }
+  if (text.includes("YOU ARE NOT THEY WHO RESCUED MY CHILDREN")) {
+    leads.push({ id: "swamp-friend-word-rejected", title: "The elder rejected the word", detail: "The elder fled after rejecting the word the party gave." });
+  }
+  if (text.includes("THE OLD LIZARD MAN TOTTERS FOR A MOMENT WITH A SURPRISED LOOK ON HIS FACE")) {
+    leads.push({ id: "swamp-elder-attacked", title: "The elder fell", detail: "The party struck down the elder during his approach." });
+  }
+  if (text.includes("THE OLD LIZARD MAN RECOGNIZES THE WORD")) {
+    leads.push({ id: "swamp-elder-story", title: "The elder welcomed the party", detail: "The elder recognized the friend-word and shared his story. Read journal entry 31." });
+  }
+  if (text.includes("OUR CAUSE IS ONE. WILL YOU CHAMPION ME")) {
+    leads.push({ id: "swamp-champion-requested", title: "A champion for the elder", detail: "The elder asked the party to champion him against his challenger." });
+  }
+  if (text.includes("DRYTHH TURNS TO HIS") && text.includes("'KILL THEM!'")) {
+    leads.push({ id: "swamp-challenge-hostile", title: "Drythh turned on the party", detail: "Drythh called on his followers to kill the party after the challenge." });
+  }
+  if (text.includes("MY PEOPLE WILL NOT JOIN TYRANTHRAXUS")) {
+    leads.push({ id: "swamp-alliance-averted", title: "The elder's pledge", detail: "The elder pledged that his people would stay out of Tyranthraxus's alliance." });
+  }
+  const citedEntries = text.matchAll(/\b(?:JOURNAL (?:AS )?ENTRY (\d{1,2})\b|ENTRY (\d{1,2}) OF YOUR JOURNAL\b)/g);
   for (const number of new Set([...citedEntries].map((match) => match[1] ?? match[2]))) {
     leads.push({
       id: `journal-entry-${number}`,

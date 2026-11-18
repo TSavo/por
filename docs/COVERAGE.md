@@ -803,6 +803,11 @@ The `river-pumping` replay enters at controlled slot A near `4,4 E`,
 advances twice to Parlay, and chooses Nice. It checks that the liberated
 prisoners' advice and entry 35 appear only after that choice. The
 translation checks also cover the hostile outcome.
+The lizardfolk commission now uses the pumping-room clue when the party
+knows it. The translation verifier checks the elder's approach, friend-word
+prompt, story, champion request, pledge, and hostile turns against the
+original swamp script. It verifies that the instructions change only
+after the corresponding dialogue is witnessed.
 The `yarash-combat` replay starts from the live fountain shutdown save
 and enters Yarash's room through the locked door. Chrome checks Yarash's
 selected stance, the mutant guard stance, and a guard strike during
