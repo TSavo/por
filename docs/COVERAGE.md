@@ -154,6 +154,12 @@ the west gate and saves in the Slums at (15,4), in slot C.
 The replay reloads C, wins the kobold encounter through the original combat
 menus, shares the coins, and saves to slot D. After reloading D it checks
 that all six fighters are present and that Alda retained 5 XP and 11 copper.
+A separate route from the Slums gate reaches the orc outpost at (13,1)
+and wins through Quick without watchdog recovery. The treasure screen
+awards 154 XP, and reloading confirms Enna has 169 total XP and the
+two-spell clerical scroll. Three fighters are down at the end of this
+replay. Run `node tools/verify-fresh-party.mjs --slums-orcs-checkpoint PATH_TO_SLOT_C`
+with the six-fighter gate save.
 From slot D, the fresh party walks around the blocked passages to Ohlo's
 door, leaves two wandering encounters through the original Flee option,
 bashes the lock, and accepts the commission through Talk and Nice. Slot E

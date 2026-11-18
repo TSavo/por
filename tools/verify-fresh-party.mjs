@@ -673,6 +673,31 @@ async function verifySkullcrusherRecruitment(load, checkpoint) {
   console.log("With the key supplied in a controlled copy, recruited Skullcrusher, reloaded his clue, and reached the ogre chief.");
 }
 
+if (process.argv[2] === "--slums-orcs-checkpoint") {
+  assert.ok(process.argv[3], "Pass a six-fighter save just inside the Slums gate.");
+  copyFileSync(process.argv[3], join(saveDir, "C.json"));
+  await replay(loadSlot("2e63"), "85000000", [
+    (text) => assert.match(text, /15,4 w/),
+    "up", "left", "up", "up", "up", "right", "up", "right", ...Array(5).fill("up"),
+    "right", "up", "left", "up", "left", "up", "enter", "enter",
+    (text) => assert.match(text, /13,1 w.*orcs are arguing over some papers/),
+    "enter", "enter", "enter", ...Array(47).fill("q"),
+    (text) => assert.match(text, /continue battle:yes no/),
+    "n", (text) => assert.match(text, /the party has won.*receives 154 experience points/),
+    "enter", "enter", "s", ...Array(4).fill("end"), "t", "i",
+    (text) => assert.match(text, /loot clerical scroll with 2 spells/),
+    "t", "e", "e", "e", "n", "e", "e", "s", "s", "a",
+  ]);
+  await replay(loadSlot("1e61"), "85000000", [
+    (text) => assert.match(text, /13,1 w/),
+    ...Array(4).fill("end"), "v",
+    (text) => assert.match(text, /enna.*exp 169.*hp 6/),
+    "i", (text) => assert.match(text, /enna's items.*clerical scroll with 2 spells/),
+  ]);
+  console.log("Won the Slums orc outpost fight and reloaded Enna with the earned XP and clerical scroll.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--sokal-smithy-checkpoint") {
   assert.ok(process.argv[3], "Pass a save in Sokal's old armory after defeating the smithy frogs.");
   await verifySokalSmithy(process.argv[3]);
