@@ -203,8 +203,9 @@ The enhanced combat renderer now supports individual 32×32 terrain
 tiles keyed by `battle-tile:<sha256>`, using the 64 original palette
 indices of an 8×8 battlefield cell. The courtyard includes 46 ashlar
 courses, coping pieces, and slope joints. The renderer matches within
-the left battlefield panel on frames with recognized combat sprites.
-It draws terrain beneath the units in steady and attack frames. Other
+the left panel when the original combat border is present. It draws
+terrain beneath the units in steady and attack frames, including when
+the visible units have no replacement sprites. Other
 terrain patterns continue to use the guest artwork.
 
 The courtyard Chrome replay verified the matched 32×32 terrain tiles
@@ -214,3 +215,8 @@ without changing the guest frame or save bytes.
 Twenty additional corner and coping fragments cover the wall as it rakes
 away from the party. The replay verifies the terrain layer in at least
 four battlefield layouts as the camera follows different turns.
+
+Append `--terrain-only` to the courtyard Chrome replay to build a local
+test pack without replacement combat sprites. The replay verified 76
+individual masonry placements during combat and checked that the ambush
+dialogue had no battlefield terrain overlays.

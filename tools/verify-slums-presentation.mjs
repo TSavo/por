@@ -4,13 +4,15 @@ import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } fro
 import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
-const [checkpoint, chromePath, routeName = "kobolds"] = process.argv.slice(2);
-assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs|sokal-armory|sokal-landing|sokal-patrol-combat|sokal-courtyard]");
+const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
+assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs|sokal-armory|sokal-landing|sokal-patrol-combat|sokal-courtyard] [--terrain-only]");
 assert.ok(["kobolds", "orcs", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard"].includes(routeName), "Unknown Slums replay route");
 const orcs = routeName === "orcs";
 const armory = routeName === "sokal-armory";
 const patrolCombat = routeName === "sokal-patrol-combat";
 const courtyard = routeName === "sokal-courtyard";
+const terrainOnly = option === "--terrain-only";
+assert.ok(!option || (courtyard && terrainOnly), "--terrain-only requires sokal-courtyard");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -22,6 +24,23 @@ const port = process.env.POR_PLAY_PORT ?? "43212";
 const origin = `http://127.0.0.1:${port}`;
 const browserEnvironment = { ...process.env };
 delete browserEnvironment.POR_UPGRADES_DIR;
+if (terrainOnly) {
+  const pack = resolve(directory, "terrain-only");
+  mkdirSync(pack);
+  const combined = { version: 1, assets: {}, encounters: {} };
+  for (const source of ["upgrades/slums", "upgrades"]) {
+    const manifest = JSON.parse(readFileSync(resolve(source, "manifest.json")));
+    for (const [id, file] of Object.entries(manifest.assets)) {
+      if (id.startsWith("combat:")) continue;
+      copyFileSync(resolve(source, file), resolve(pack, file));
+      combined.assets[id] = file;
+    }
+    Object.assign(combined.encounters, manifest.encounters);
+  }
+  writeFileSync(resolve(pack, "manifest.json"), JSON.stringify(combined));
+  browserEnvironment.POR_UPGRADES_DIR = pack;
+}
+
 const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.ts"], {
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
@@ -180,7 +199,19 @@ try {
     assert.equal(views, courtyard ? 24 : patrolCombat ? 18 : landing ? 19 : 12);
     assert.equal(seen.size, courtyard ? 56 : landing ? 49 : 13);
     console.log(`Verified ${seen.size} ${routeName} patterns across ${views} views. Captures: ${directory}`);
-    if (patrolCombat || courtyard) {
+    if (terrainOnly) {
+      assert.equal(frame.battleTiles.length, 0);
+      for (const key of ["enter", "enter", "enter"]) await advance(key);
+      for (let turn = 0; turn < 20 && !frame.battleTiles.length; turn++) await advance("q");
+      assert.equal(frame.combatArt.length, 0);
+      assert.ok(frame.battleTiles.length > 0);
+      await waitFor("masonry without combat sprite artwork", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelectorAll(".combat-sprite").length === 0 &&
+        document.querySelectorAll(".battle-tile").length === ${frame.battleTiles.length} &&
+        [...document.querySelectorAll(".battle-tile")].every(tile => tile.naturalWidth === 32)`));
+      await switchBothWays();
+      console.log(`Verified ${frame.battleTiles.length} masonry placements without combat sprite artwork.`);
+    } else if (patrolCombat || courtyard) {
       const bank = courtyard ? "CPIC2.DAX" : "CPIC4.DAX";
       const guards = courtyard ? ["4", "5", "6"] : ["34", "35"];
       const attackIds = new Set(guards.map((id) => String(Number(id) + 128)));

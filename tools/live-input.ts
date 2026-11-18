@@ -60,6 +60,14 @@ function menuText(glyphs: ReturnType<typeof visibleGameText>) {
     .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase();
 }
 
+function hasBattlefieldBorder(frame: Frame): boolean {
+  // The original combat panel has gold corner studs at x=176 and y=176.
+  // Exploration divides the screen at x=128 instead and ends at y=184.
+  const pixel = (x: number, y: number) => frame.pixels[y * frame.width + x];
+  return pixel(176, 0) === 14 && pixel(176, 176) === 14 && pixel(0, 176) === 14 &&
+    pixel(177, 88) === 12 && pixel(178, 88) === 4;
+}
+
 /** Terminal control for the translated runner. Journal input stays on the host. */
 export function liveInput(startAt: number, journal: () => JournalLead[], recording?: string) {
   let nextPrompt = startAt;
@@ -132,7 +140,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       const battleTiles: TilePlacement[] = [];
-      if (combat.length && battleTileKeys.size) {
+      if (battleTileKeys.size && !scene && !leads && hasBattlefieldBorder(screen)) {
         const pixels = Buffer.alloc(64);
         // Combat terrain appears within the guest's left-hand battle panel.
         for (let y = 8; y < 176; y += 8) {
