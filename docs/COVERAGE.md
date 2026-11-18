@@ -781,6 +781,11 @@ at `1,1 E`, just outside the chamber. It enters through the original door,
 checks the witnessed fountain clue, selects Destroy the Equipment, and
 verifies that the journal switches to ready to report and saves that status.
 This covers the direct shutdown outcome in Chrome.
+The `river-exit` replay uses the upper-pyramid entrance save with the
+river completion flag and journal clues from the fountain save. It walks
+out through the original secret door and verifies that the recovery clue
+first appears in the exit dialogue and is retained in the save made after
+returning to the reeds.
 The `river-reward` replay uses a controlled City Hall save with the
 completion flag and witnessed clues from the fountain save. It checks the
 clerk's original river dialogue and verifies that the journal stays reward
