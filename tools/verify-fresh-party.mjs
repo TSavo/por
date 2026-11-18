@@ -172,8 +172,7 @@ const courtyardOpening = [
   "enter", "e", "e", "up", "left", "enter", "enter",
 ];
 
-async function verifyUninterruptedCourtyard(checkpoint) {
-  copyFileSync(checkpoint, join(saveDir, "F.json"));
+async function verifyUninterruptedCourtyard() {
   const recoveries = [...recoveryCounts.values()].reduce((sum, count) => sum + count, 0);
   const victory = await replay(loadSlot("2166"), "85000000", [
     ...courtyardOpening, ...Array(8).fill("q"), "space",
@@ -363,7 +362,7 @@ async function verifyFighterTrainingJournal() {
   console.log("Verified the fighter trainer's directions are discovered in play and retained after reloading slot H.");
 }
 
-async function verifyPodalFromCouncil(auctionOnly = false) {
+async function verifyPodalFromCouncil(continuation) {
   const load = loadSlot;
   const checkAuction = (status) => (_text, frame) =>
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-auction")?.status, status);
@@ -425,7 +424,7 @@ async function verifyPodalFromCouncil(auctionOnly = false) {
     "enter", "enter", "e", "s", "s", "a",
   ]);
   assert.match(visibleText(cadornaSave), /6,5 e.*quit to dos/);
-  if (auctionOnly) {
+  if (continuation === "--auction-only") {
     await replay(load("1e61"), "85000000", [
       "j", checkAuction("turned-in"), (_text, frame) => {
         assert.ok(frame.journal.leads.some(({ id, status }) => id === "commission-sokal" && status === "turned-in"));
@@ -537,6 +536,10 @@ async function verifyPodalFromCouncil(auctionOnly = false) {
     "s", ...Array(4).fill("enter"), "e", "s", "s", "f",
   ]);
   assert.match(visibleText(reinforced), /theurgist 8 13.*curate 3 26.*0,4 w.*quit to dos/);
+  if (continuation === "--through-textile-prison") {
+    await verifyUninterruptedCourtyard();
+    return;
+  }
   const quietCourtyard = await replay(load("2166"), "85000000", [
     ...courtyardOpening, ...Array(118).fill("q"),
     (text) => assert.match(text, /continue battle/),
@@ -1624,14 +1627,16 @@ if (process.argv[2] === "--textile-grishnak-checkpoint") {
 
 if (process.argv[2] === "--textile-courtyard-checkpoint") {
   assert.ok(process.argv[3], "Pass a save with the armored and reinforced party at the Textile House entrance.");
-  await verifyUninterruptedCourtyard(process.argv[3]);
+  copyFileSync(process.argv[3], join(saveDir, "F.json"));
+  await verifyUninterruptedCourtyard();
   process.exit(0);
 }
 
 if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.argv[2])) {
   const beforeFerran = process.argv[2] === "--sokal-ferran-checkpoint";
-  const continueToAuction = process.argv[4] === "--continue-to-auction";
-  assert.ok(!process.argv[4] || continueToAuction, "Expected --continue-to-auction after the checkpoint");
+  const continuation = process.argv[4];
+  assert.ok(!continuation || ["--continue-to-auction", "--through-textile-prison"].includes(continuation),
+    "Expected --continue-to-auction or --through-textile-prison after the checkpoint");
   assert.ok(process.argv[3], beforeFerran ? "Pass a save one step before meeting Ferran."
     : "Pass a save at Ferran's altar after learning his password.");
   const checkSokal = (status) => (_text, frame) => {
@@ -1754,7 +1759,7 @@ if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.a
     (text) => assert.match(text, /alda.*platinum 46.*exp 1313/),
   ]);
   console.log("Walked from Ferran's altar to the pier, took the boat, and reloaded the Sokal reward at the clerk.");
-  if (continueToAuction) await verifyPodalFromCouncil(true);
+  if (continuation) await verifyPodalFromCouncil(continuation === "--continue-to-auction" ? "--auction-only" : continuation);
   process.exit(0);
 }
 
@@ -1814,9 +1819,11 @@ if (process.argv[2] === "--castle-ending-checkpoint") {
 
 if (process.argv[2] === "--podal-checkpoint") {
   assert.ok(process.argv[3], "Pass a save at the clerk with Sokal turned in and the auction accepted.");
-  assert.ok(!process.argv[4] || process.argv[4] === "--auction-only", "Expected --auction-only after the checkpoint");
+  const continuation = process.argv[4];
+  assert.ok(!continuation || ["--auction-only", "--through-textile-prison"].includes(continuation),
+    "Expected --auction-only or --through-textile-prison after the checkpoint");
   copyFileSync(process.argv[3], join(saveDir, "H.json"));
-  await verifyPodalFromCouncil(process.argv[4] === "--auction-only");
+  await verifyPodalFromCouncil(continuation);
   process.exit(0);
 }
 

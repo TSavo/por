@@ -747,6 +747,11 @@ Add `--continue-to-auction` to either Ferran or altar checkpoint command
 to continue in the same scratch save directory. The replay uses the
 newly earned Sokal turn-in save, completes Podal Plaza, and reloads with
 both commissions turned in and the Textile House commission accepted.
+Use `--through-textile-prison` on the Ferran, altar, or Podal checkpoint
+to continue through the Textile House with the same party. This route
+uses manual Sleep targeting to win the courtyard and prison fights with
+the default watchdog. It reloads the party's recovery and equipment
+before reaching Grishnak's temple.
 
 The Podal Plaza replay starts from that post-Sokal save at the clerk.
 It buys westbound passage, walks from the landing to the north entrance
