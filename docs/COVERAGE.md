@@ -240,6 +240,13 @@ the journal remain open during a switch. A separate run switched palettes
 during the original Tyranthraxus fight. Each switch retained the same guest
 frame sequence and left the save file byte-for-byte identical.
 
+A Chrome replay switched both ways during Slums exploration at 430px and
+1100px browser widths. The overlay tiles stayed aligned with the guest
+frame and used pixelated scaling. Menu text used the web font, and switching
+preserved the guest frame, tiles, and text. With the journal open, switching
+also preserved its content and focus on Return to game. The replay continued
+into the kobold dialogue and combat and verified display switching there.
+
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
 for that character. If a hostile actor stalls, the runner restores its state

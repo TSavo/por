@@ -158,7 +158,7 @@ closeJournal.addEventListener("click", () => send("j"));
 autoTrack.addEventListener("click", () => send("track auto"));
 presentation.addEventListener("click", () => {
   togglePresentation();
-  screen.focus();
+  if (journal.hidden) screen.focus({ preventScroll: true });
 });
 window.addEventListener("keydown", (event) => {
   if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
