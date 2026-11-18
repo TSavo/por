@@ -466,6 +466,27 @@ await replay(loadSlotH, "85000000", [
     expectParty(text);
     assert.match(text, /evoker 9 6.*7,1 w/);
   },
+  ...Array(6).fill("end"), "c",
+  (text) => assert.match(text, /evoker's spells in memory.*sleep sleep/),
+  "enter",
+  (text) => assert.match(text, /sleep is a combat-only spell.*lose it/),
+  "n",
+  (text) => assert.match(text, /evoker's spells in memory.*sleep sleep/),
 ]);
-console.log("Hired an evoker in the New Phlan arena and verified the seven-member party after reloading slot H.");
+console.log("Hired an evoker and verified his two memorized Sleep spells after reloading slot H.");
+const evokerTurn = await replay(loadSlotH, "85000000", [
+  "right", "right", "up", "up", "left", "up", "enter", "enter", "enter", "n",
+  "right", "up", "enter", "enter", "right", "up", "up", "left", "up", "left", "up",
+  "enter", "enter", "right", ...Array(4).fill("up"), ...Array(5).fill("enter"),
+  (text) => assert.match(text, /evoker 9 6.*8,14 n/),
+  "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "enter",
+  "p", "n", ..."shestni", "enter",
+  (text) => assert.match(text, /the undead leave/),
+  "up", "left", ...Array(6).fill("up"), "enter", "y",
+  "up", "enter", "enter", "y", "left", "up", "up", "enter", "y", "up", "enter",
+  (text) => assert.match(text, /large force of orcs and hobgoblins rushes you/),
+  ...Array(4).fill("enter"), ...Array(117).fill("d"),
+]);
+assert.match(visibleText(evokerTurn), /evoker hitpoints 6 ac 9/);
+console.log("Returned to Sokal Keep with the evoker and reached his first courtyard combat turn.");
 console.log("Replay save:", saveDir);

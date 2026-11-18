@@ -215,8 +215,11 @@ after 302 inputs. Reloading G restores the party at the temple and Sokal
 Keep remains outstanding in the journal.
 From G, a separate branch visits the New Phlan arena, declines the duel,
 and hires an evoker for two shares. The party saves at the arena and
-reloading slot H verifies that all six original party members and the
-evoker are present.
+reloading slot H verifies all seven party members and the evoker's two
+memorized Sleep spells. The replay declines to lose a combat-only spell
+outside battle and checks that both spells remain available. A separate
+run from H returns to Sokal Keep and reaches the evoker's first turn in
+the courtyard fight.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
