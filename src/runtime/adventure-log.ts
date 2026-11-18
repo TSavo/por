@@ -64,6 +64,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "auction" && tracked.status === "ready-to-report") {
         const result = knows("auction-cancelled") ? "Report that the auction was cancelled"
           : knows("auction-wand-of-fear") ? "Report that the weapon was a Wand of Fear"
+          : knows("auction-exchange") ? "Report that a man and an ogre exchanged the wand for a large bag"
           : "Report what the party saw at the auction";
         return { title: commission.title, nextStep: `${result} to the council clerk at City Hall.` };
       }
@@ -309,6 +310,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE AUCTION IS CANCELLED!")) {
     leads.push({ id: "auction-cancelled", title: "The auction was cancelled",
       detail: "The auctioneer called off the sale and fled when the crowd turned on the party." });
+  }
+  if (text.includes("A MAN AND OGRE EXCHANGE THE WAND AND A LARGE BAG")) {
+    leads.push({ id: "auction-exchange", title: "The auction exchange",
+      detail: "The party saw a man and an ogre exchange the wand and a large bag before disappearing into the crowd." });
   }
   if (text.includes("OPENING THE BOX WILL DAMAGE THE SEAL BEYOND REPAIR")) {
     leads.push({ id: "textile-iron-box", title: "Cadorna's sealed iron box",
