@@ -19,7 +19,7 @@ if (!tracePath || !manifestPath || !reportPath) {
 }
 const root = findGameRoot();
 if (!root) throw new Error("Original game data is required for source tile matching");
-const artwork = manifestPath === "--browser" ? loadUpgradeArt() : loadUpgradeArtFromManifests([manifestPath]);
+const artwork = manifestPath === "--browser" ? loadUpgradeArt(undefined, root) : loadUpgradeArtFromManifests([manifestPath], root);
 const trace = readFileSync(tracePath, "utf8").trim();
 if (!trace) throw new Error("The route trace contains no exploration frames");
 const frames = trace.split(/\r?\n/).map((line) => JSON.parse(line) as [number, number, string, string?][]);

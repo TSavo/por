@@ -7,27 +7,30 @@ import { setTimeout as delay } from "node:timers/promises";
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const textileRoutes = new Map([
   ["textile-approach", {
-    slot: "B", boot: "3062", views: 16, patterns: 135,
+    slot: "B", views: 16, patterns: 135,
     walk: ["right", "right", "up", "up", "right", "up", "left", "up", "up", "right", ...Array(5).fill("up"), "left"],
   }],
   ["textile-wing", {
-    slot: "J", boot: "246a", views: 10, patterns: 82,
+    slot: "J", views: 10, patterns: 82,
     walk: ["left", "up", "right", ...Array(4).fill("up"), "left", "up"],
   }],
   ["textile-temple", {
-    slot: "I", boot: "1769", views: 14, patterns: 75,
+    slot: "I", views: 14, patterns: 75,
     walk: ["right", "right", "up", "b", "left", "up", "left", "up", "b", "right", "up", "b", "left", "up", "up", "left", "up", "enter", "enter"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", ...textileRoutes.keys(), "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...textileRoutes.keys(), "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
 const dragon = routeName === "castle-dragon";
+const halls = routeName === "castle-halls";
+const assault = routeName === "assault-briefing";
 const altar = routeName === "textile-altar";
 const plaza = routeName === "podal-plaza";
 const trainer = routeName === "fighter-trainer";
 const textile = textileRoutes.get(routeName);
+const ogre = routeName === "textile-ogre";
 const goblins = routeName === "goblins";
 const smithy = routeName === "sokal-smithy";
 const orcs = routeName === "orcs";
@@ -40,8 +43,8 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)), "Both options 
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = textile?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza ? "I" : dragon ? "B" : orcs || ending || smithy ? "C" : "A");
-const boot = textile?.boot ?? (landing ? "246a" : armory ? "2064" : altar || plaza ? "1769" : dragon ? "3062" : orcs || ending || smithy ? "2e63" : "1e61");
+const slot = textile?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza ? "I" : ogre ? "H" : dragon || halls || assault ? "B" : orcs || ending || smithy ? "C" : "A");
+const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
@@ -274,6 +277,26 @@ try {
     await waitFor("the fighter trainer portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified the arena master and fighter trainer portraits with state-preserving mode switches.");
+  } else if (ogre) {
+    const idle = "combat:area:2:CPIC2.DAX:8";
+    const attack = "combat:area:2:CPIC2.DAX:136";
+    const route = ["enter", "right", "right", "up", "right", "up", "left", "up", "b", "right", "up", "b",
+      ...Array(5).fill("up"), "right", "up", "left", "up", "up", "enter", "s", "up", "enter", ...Array(5).fill("enter")];
+    for (const key of route) await advance(key);
+    const standing = () => frame.combatArt.find(([, , id]) => id === idle);
+    for (let turn = 0; turn < 8 && !standing(); turn++) await advance("q");
+    assert.deepEqual(standing()?.slice(5), [24, 48]);
+    const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")].some(img => img.src.endsWith(${JSON.stringify(id)}) &&
+      img.naturalWidth === 96 && img.naturalHeight === 192 &&
+      parseFloat(img.style.width) === 7.5 && parseFloat(img.style.height) === 24)`);
+    await waitFor("the rectangular ogre standing sprite", () => displayed(idle));
+    await switchBothWays();
+    const swung = () => frame.animation?.some(shot => shot.combatArt?.some(([, , id]) => id === attack));
+    for (let turn = 0; turn < 70 && !swung(); turn++) await advance("q");
+    assert.ok(swung());
+    await waitFor("the rectangular ogre attack sprite", () => displayed(attack));
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified 96×192 standing and attack sprites in the Textile House ogre fight.");
   } else if (altar) {
     for (const key of ["up", "enter", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:PIC4.DAX:9:0:0");
@@ -306,26 +329,50 @@ try {
     }
     assert.deepEqual({ moved, priestessSelected, swing }, { moved: true, priestessSelected: true, swing: true });
     console.log("Verified the Textile House altar portrait, selected priestess, moving captains, and captain strike.");
-  } else if (dragon) {
-    for (const key of ["right", ...Array(4).fill("up"), ...Array(3).fill("enter")]) await advance(key);
+  } else if (assault) {
+    const route = ["left", "left", "up", "right", "right", "up", "enter", "enter", "enter", "enter",
+      "s", "e", "n", "enter", "enter", "enter", "enter", "right", "up", "left", "up", "right", "up", "enter"];
+    for (const key of route.slice(0, 15)) await advance(key);
+    assert.equal(frame.portrait, "portrait:HEAD3.DAX:57:BODY3.DAX:1");
+    await waitFor("the council escort portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    for (const key of route.slice(15)) await advance(key);
+    assert.equal(frame.portrait, "portrait:HEAD3.DAX:16:BODY3.DAX:2");
+    await waitFor("Ulrich's assault briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    console.log("Verified Ulrich's assault briefing portrait and state-preserving switches.");
+  } else if (dragon || halls) {
+    const route = halls ? ["up", "up", ...Array(3).fill("enter")] : ["right", ...Array(4).fill("up"), ...Array(3).fill("enter")];
+    const patterns = new Set();
+    let views = await verifyTiledView(20, patterns);
+    for (const key of route) {
+      await advance(key);
+      views += await verifyTiledView(20, patterns);
+    }
+    assert.equal(views, halls ? 2 : 3);
     assert.equal(frame.portrait, "portrait:PIC5.DAX:66:0:0");
     await waitFor("the dragon dialogue portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    for (const key of ["enter", "enter", ...Array(6).fill("a"), "enter", "enter", "q"]) await advance(key);
-    const sprite = frame.combatArt.find(([, , id]) => id === "combat:CPIC5.DAX:66");
-    assert.ok(sprite);
-    const [x, y, , reflected, highlighted, size] = sprite;
-    assert.equal(highlighted, true);
-    assert.equal(size, 48);
-    await waitFor("the selected 4× dragon sprite", () => run(`(() => {
-      const img = [...document.querySelectorAll(".combat-sprite")].find(img => img.src.endsWith("CPIC5.DAX:66"));
-      return state.sequence === ${frame.sequence} && img?.naturalWidth === 192 && img.naturalHeight === 192 &&
-        parseFloat(img.style.left) === ${x / 3.2} && parseFloat(img.style.top) === ${y / 2} &&
-        parseFloat(img.style.width) === 15 && parseFloat(img.style.height) === 24 &&
-        img.style.transform === ${JSON.stringify(reflected ? "scaleX(-1)" : "")};
-    })()`));
-    await switchBothWays();
-    console.log("Verified the castle dragon in dialogue and selected combat, with state-preserving mode switches.");
+    if (halls) {
+      console.log("Verified enhanced Valjevo hall views and the dragon dialogue.");
+    } else {
+      for (const key of ["enter", "enter", ...Array(6).fill("a"), "enter", "enter", "q"]) await advance(key);
+      const sprite = frame.combatArt.find(([, , id]) => id === "combat:CPIC5.DAX:66");
+      assert.ok(sprite);
+      const [x, y, , reflected, highlighted, width, height] = sprite;
+      assert.equal(highlighted, true);
+      assert.equal(width, 48);
+      assert.equal(height, 48);
+      await waitFor("the selected 4× dragon sprite", () => run(`(() => {
+        const img = [...document.querySelectorAll(".combat-sprite")].find(img => img.src.endsWith("CPIC5.DAX:66"));
+        return state.sequence === ${frame.sequence} && img?.naturalWidth === 192 && img.naturalHeight === 192 &&
+          parseFloat(img.style.left) === ${x / 3.2} && parseFloat(img.style.top) === ${y / 2} &&
+          parseFloat(img.style.width) === 15 && parseFloat(img.style.height) === 24 &&
+          img.style.transform === ${JSON.stringify(reflected ? "scaleX(-1)" : "")};
+      })()`));
+      await switchBothWays();
+      console.log("Verified the castle dragon in dialogue and selected combat, with state-preserving mode switches.");
+    }
   } else if (ending) {
     await advance("j");
     assert.equal(frame.journal?.objective.title, "Phlan is free");

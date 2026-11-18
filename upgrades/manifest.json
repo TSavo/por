@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:2:CPIC2.DAX:8": "textile-ogre-war-chief-idle.png",
+    "combat:area:2:CPIC2.DAX:136": "textile-ogre-war-chief-strike.png",
+    "portrait:HEAD3.DAX:57:BODY3.DAX:1": "council-escort-captain-portrait.png",
     "portrait:HEAD3.DAX:16:BODY3.DAX:2": "ulrich-assault-portrait.png",
     "tile:20:0032c7e1ffe213bff6414d55ccbd3b206c3f5fa9e7c5eaf4747a6a5a63fa053d": "valjevo-threshold-0032c7e1ffe2.png",
     "tile:20:073678de9f80ec4b651d039ff237e85ba540a7ca11ddf2ea0ca4cb864d77731c": "valjevo-threshold-073678de9f80.png",

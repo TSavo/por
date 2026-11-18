@@ -127,7 +127,7 @@ for (const reference of scriptReferences) {
   referencesByPicture.set(key, matches);
 }
 mkdirSync(join(output, "enhanced"), { recursive: true });
-const replacements = [...loadUpgradeArt()].map(([id, { png, ...metadata }], index) => {
+const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
   const match = /^(?:encounter|portrait):([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??

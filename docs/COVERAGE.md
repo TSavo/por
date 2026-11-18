@@ -683,6 +683,15 @@ entered Tyranthraxus's dialogue. A separate controlled City Hall checkpoint
 verified Ulrich's 352×352 portrait during the assault briefing. These Chrome
 replays checked that presentation switches preserve the live frame and save.
 
+The `assault-briefing` route also checks the escort captain's 352×352 portrait
+before Ulrich appears. The `castle-halls` and `castle-dragon` routes check
+individual threshold tiles before the dragon dialogue.
+
+Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_H PATH_TO_CHROME textile-ogre`
+from the controlled prison-key checkpoint at `2,15 S`. Chrome verifies the
+ogre chief's 96×192 standing and mace-strike sprites, their rectangular
+placement, and a state-preserving presentation switch.
+
 The `sokal-smithy` browser route loads a party at `10,10 N` in slot C and
 checks the 96×96 poison frog crouch and lunge in live combat. It switches
 presentation before the attack and checks that the selected save stays intact.

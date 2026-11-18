@@ -3,7 +3,7 @@ import type { Frame } from "../src/lib/ega.js";
 import { decodePicture, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
-export type CombatArtPlacement = [x: number, y: number, key: string, reflected: boolean, highlighted?: boolean, size?: number];
+export type CombatArtPlacement = [x: number, y: number, key: string, reflected: boolean, highlighted?: boolean, width?: number, height?: number];
 
 /** Palette index under a selected guest unit's transparent pixels. */
 export function combatHighlightPixel(x: number, y: number): number {
@@ -41,30 +41,30 @@ export function loadCombatArtMatcher(keys: string[]) {
 }
 
 function buildCombatArtMatcher(keys: string[]) {
-  type Pose = { key: string; reflected: boolean; pixels: Uint8Array };
+  type Pose = { key: string; reflected: boolean; pixels: Uint8Array; width: number };
   const patterns = new Map<string, Pose | null>();
   const poses: Pose[] = [];
-  const sizes = new Set<number>();
-  const register = (pixels: Uint8Array, key: string, reflected: boolean) => {
-    const pattern = Buffer.from(pixels).toString("hex");
+  const sizes = new Map<string, { width: number; height: number }>();
+  const register = (pixels: Uint8Array, key: string, reflected: boolean, width: number) => {
+    const pattern = `${width}:${Buffer.from(pixels).toString("hex")}`;
     const previous = patterns.get(pattern);
-    const pose = { key, reflected, pixels };
+    const pose = { key, reflected, pixels, width };
     patterns.set(pattern, previous === undefined || previous?.key === key ? pose : null);
     poses.push(pose);
   };
-  const registerFacings = (pixels: Uint8Array, key: string, size = 24) => {
-    sizes.add(size);
+  const registerFacings = (pixels: Uint8Array, key: string, width = 24, height = 24) => {
+    sizes.set(`${width}:${height}`, { width, height });
     const reflected = Buffer.from(pixels);
-    for (let y = 0; y < size; y++) reflected.subarray(y * size, (y + 1) * size).reverse();
-    register(reflected, key, true);
-    register(pixels, key, false);
+    for (let y = 0; y < height; y++) reflected.subarray(y * width, (y + 1) * width).reverse();
+    register(reflected, key, true, width);
+    register(pixels, key, false, width);
   };
-  const selectedPose = (cell: Uint8Array, bevel: Uint8Array) => {
+  const selectedPose = (cell: Uint8Array, bevel: Uint8Array, width: number) => {
     // Aim draws white cursor pixels over the gray interior of the selection frame.
     if (cell[0] !== 15 || cell[cell.length - 1] !== 8) return;
     let match: Pose | undefined;
     for (const pose of poses) {
-      if (pose.pixels.length !== cell.length || !pose.pixels.every((color, index) => color ? cell[index] === color :
+      if (pose.width !== width || pose.pixels.length !== cell.length || !pose.pixels.every((color, index) => color ? cell[index] === color :
         cell[index] === bevel[index] || (bevel[index] === 7 && cell[index] === 15))) continue;
       if (match && match.key !== pose.key) return;
       match = pose;
@@ -84,8 +84,8 @@ function buildCombatArtMatcher(keys: string[]) {
         const key = monsters.get(`${archive}:${id}`);
         if (!key || !isPicture(data)) continue;
         const { width, height, itemCount, pixels } = decodePicture(data);
-        if ((width !== 24 && width !== 48) || height !== width || itemCount !== 1 || !pixels.some(Boolean)) continue;
-        registerFacings(pixels, key, width);
+        if (!isCombatExtent(width, height) || itemCount !== 1 || !pixels.some(Boolean)) continue;
+        registerFacings(pixels, key, width, height);
       }
     }
     const partyKeys = keys.flatMap((key) => {
@@ -118,29 +118,29 @@ function buildCombatArtMatcher(keys: string[]) {
   return (frame: Frame, enhanced?: Frame): CombatArtPlacement[] => {
     if (!patterns.size) return [];
     const placements: CombatArtPlacement[] = [];
-    for (const size of sizes) {
-      const cell = Buffer.alloc(size * size);
+    for (const { width, height } of sizes.values()) {
+      const cell = Buffer.alloc(width * height);
       // Large units span multiple guest selection squares.
       const bevel = Uint8Array.from({ length: cell.length }, (_, index) =>
-        combatHighlightPixel((index % size) % 24, Math.floor(index / size) % 24));
+        combatHighlightPixel((index % width) % 24, Math.floor(index / width) % 24));
       // The guest draws the combat field inside the left-hand panel.
-      for (let y = 8; y + size <= 176; y += 8) {
-        for (let x = 8; x + size <= 176; x += 8) {
-          for (let row = 0; row < size; row++) {
+      for (let y = 8; y + height <= 176; y += 8) {
+        for (let x = 8; x + width <= 176; x += 8) {
+          for (let row = 0; row < height; row++) {
             const start = (y + row) * frame.width + x;
-            cell.set(frame.pixels.subarray(start, start + size), row * size);
+            cell.set(frame.pixels.subarray(start, start + width), row * width);
           }
-          const plain = patterns.get(cell.toString("hex"));
-          const selected = plain === undefined ? selectedPose(cell, bevel) : undefined;
+          const plain = patterns.get(`${width}:${cell.toString("hex")}`);
+          const selected = plain === undefined ? selectedPose(cell, bevel, width) : undefined;
           const match = plain ?? selected;
           if (!match) continue;
-          placements.push(size === 48 ? [x, y, match.key, match.reflected, Boolean(selected), size]
+          placements.push(width !== 24 || height !== 24 ? [x, y, match.key, match.reflected, Boolean(selected), width, height]
             : selected ? [x, y, match.key, match.reflected, true] : [x, y, match.key, match.reflected]);
           if (!enhanced) continue;
-          for (let row = 0; row < size; row++) {
+          for (let row = 0; row < height; row++) {
             const start = (y + row) * enhanced.width + x;
-            for (let column = 0; column < size; column++) {
-              const index = row * size + column;
+            for (let column = 0; column < width; column++) {
+              const index = row * width + column;
               enhanced.pixels[start + column] = selected
                 ? match.pixels[index] ? bevel[index]! : cell[index]!
                 : 0;
@@ -151,4 +151,8 @@ function buildCombatArtMatcher(keys: string[]) {
     }
     return placements;
   };
+}
+
+export function isCombatExtent(width: number, height: number): boolean {
+  return [24, 48].includes(width) && [24, 48].includes(height);
 }
