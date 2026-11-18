@@ -168,6 +168,11 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     const address = progressAddresses[commission.id];
     if (address === undefined) continue;
     const value = global(address);
+    if (commission.id === "textile" && value === 255 && known.some((lead) => lead.id === "textile-confrontation")) {
+      progress.push({ id, title: `${commission.title} - closed without payment`,
+        detail: "Cadorna confronted the party over the opened box and left without paying.", status: "turned-in" });
+      continue;
+    }
     if (commission.id === "textile" && value < 254) {
       const box = global(0x4ac8);
       if (box === 1 || box === 128) {

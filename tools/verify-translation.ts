@@ -341,6 +341,11 @@ function checkCampaignJournal(): void {
   if (questProgress(m, boxLead, m.ds)[0]?.status !== "ready-to-report") {
     throw new Error("Cadorna's journal did not move on after the Watch handoff");
   }
+  const confrontation = lines.find((line) => line.includes("COUNCILMAN CADORNA CONFRONTS YOU"));
+  writeGlobal(textile, 255);
+  if (!confrontation || !questProgress(m, [...boxLead, ...discoveredLeads(confrontation)], m.ds)[0]?.title.includes("without payment")) {
+    throw new Error("Cadorna's journal did not distinguish the confrontation from the paid turn-in");
+  }
   if (discoveredLeads("A SPECIAL PRIZE FOR ENDING THE GRAVEYARD MENACE").some(({ id }) =>
     id === "commission-bottle-vampire")) {
     throw new Error("The graveyard reward revealed an undiscovered bottle objective");

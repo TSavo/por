@@ -190,8 +190,11 @@ chief's dialogue and resumed at the iron box. The party chose Take It
 Unopened in one replay and Open It in the other. The original script set
 the resulting box state, and the live journal gave distinct directions for
 bringing back the sealed box or returning to City Hall with the seal broken.
-These replays verified the choice in the guest menu and its immediate
-journal updates.
+Both outcomes were saved and reloaded. Controlled transitions bypassed the
+return trip. In the sealed-box branch, the Watch took the box and the party
+walked from the gate to the clerk to collect the reward. In the opened-box
+branch, Cadorna confronted the party at City Hall and the journal closed
+the quest without payment.
 
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
