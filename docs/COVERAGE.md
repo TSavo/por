@@ -490,9 +490,12 @@ After Bless, switch Mira to manual control on her first turn and target
 the hobgoblin leader with Sleep. The battle awards 54 XP per character,
 and slot J reloads with the drum silenced and the discovery in the journal.
 Run `node tools/verify-fresh-party.mjs --textile-courtyard-checkpoint PATH_TO_SLOT_F`
-with a reinforced party save at the district entrance. This check fails
-if the watchdog intervenes. The original 94 XP replay and its downstream
-branches still use the historical checkpoint described above.
+with a reinforced party save at the district entrance. The same run now
+heals Mira, Brin, and Cora after the victory, rests to prepare Sleep again,
+and records Skullcrusher's mark. The Theurgist opens the first lock with
+Knock, and slot B reloads outside the prison with Mira's Sleep ready.
+The check fails if the watchdog intervenes. The later prison victory and
+recruitment checks still use the historical checkpoint described above.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the

@@ -113,9 +113,39 @@ async function verifyUninterruptedCourtyard(checkpoint) {
   await replay(loadSlot("246a"), "85000000", [
     (text) => assert.match(text, /alda 3 6.*brin 1 1.*mira 10 0.*4,10 s/),
     "j", (_text, frame) => assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-courtyard-cleared")), "j",
+    ...Array(7).fill("end"), "c",
+    (text) => assert.match(text, /curate's spells in memory.*bless(?: cure light wounds){3}/),
+    ...Array(4).fill("home"), "enter", "home", "home", "enter", // Mira
+    "home", "home", "enter", ...Array(4).fill("home"), "enter", // Brin
+    "home", "home", "enter", "end", "enter", "e", // Cora
+    (text) => assert.match(text, /brin 1 6.*cora 3 6.*mira 10 5/),
+    "e", "m", "m", "home", "home", "m", ...Array(4).fill("end"), "m", "e", "enter",
+    (text) => assert.match(text, /mira's spells to be memorized.*\*sleep/),
+    "y", "r", "r", "e", "e",
+    "left", "up", "right", ...Array(4).fill("up"), "left", "up",
+    (text) => assert.match(text, /6,14 e.*skullcrusher was here.*north wall/),
+    "e", "s", "s", "g",
+  ]);
+  const opened = await replay(loadSlot("2267"), "85000000", [
+    "j", (_text, frame) => {
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-skullcrusher-mark"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+    }, "j",
+    "right", "right", "up", "right", "up", "left", "up", "up",
+    (text) => assert.match(text, /4,13 w.*locked.*bash knock exit/),
+    "k",
+    (text) => assert.match(text, /3,13 w/),
+    "e", "s", "s", "b",
+  ]);
+  assert.match(visibleText(opened), /quit to dos/);
+  await replay(loadSlot("3062"), "85000000", [
+    (text) => assert.match(text, /brin 1 6.*cora 3 6.*mira 10 5.*3,13 w/),
+    ...Array(5).fill("end"), "c",
+    (text) => assert.match(text, /mira's spells in memory.*sleep/),
+    "e",
   ]);
   assert.equal([...recoveryCounts.values()].reduce((sum, count) => sum + count, 0), recoveries);
-  console.log("Won the Textile House courtyard without watchdog intervention and reloaded the victory:", saveDir);
+  console.log("Won the courtyard without watchdog intervention and reloaded at the prison door with Sleep prepared:", saveDir);
 }
 
 async function verifyPodalFromCouncil(checkpoint) {
