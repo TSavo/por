@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "tile:1:2e55ca6e677e0dd7276ab67a7f5e07f9701a696c4ac8d9912568fa5f00593f1f": "buccaneer-base-terrain-2e55ca6e677e.png",
+    "tile:1:cf13aae2972cd9237b12bb064e7077d9b09469ee89ce918dced045c80190675c": "buccaneer-base-terrain-cf13aae2972c.png",
     "tile:1:0074a4a4e147d6b679cc508e8599c9c6aad4f0d13b833284e6c8161dfddba398": "buccaneer-base-terrain-0074a4a4e147.png",
     "tile:1:0604d6da4ceaea671ddfd530cbbe473d91a9742c4ad3696dc091f3e774ac451f": "buccaneer-base-terrain-0604d6da4cea.png",
     "tile:1:0952adb408d69577f7d4930f281ce02a499d84e2c0567ae5db413d28a3c22718": "buccaneer-base-terrain-0952adb408d6.png",

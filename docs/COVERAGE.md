@@ -856,8 +856,9 @@ End three times to select Rescue Boy in the original vertical menu. It
 tries to sneak past the guards and verifies the journal's updated choices
 when they block the attempt. The separate
 `buccaneer-pens` terrain replay starts from the merchants' camp at
-`8,11 S` and reaches the animal pens. Chrome checks 47 individual 32×32
-tiles over 14 views, including palisades, cage bars, and the night sky.
+`8,11 S` and reaches the animal pens. Chrome checks 49 individual 32×32
+tiles over 15 views, including palisades, cage bars, and the night sky.
+The Release Animals prompt uses the same full picture panel and all 121 scenery cells.
 The replay releases the animals, crosses to the slave pen, bashes open
 the locked gate and takes the boy. The journal reveals each discovery
 as it happens, including the guards leaving their posts and the boy

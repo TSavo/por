@@ -7,7 +7,7 @@ import { setTimeout as delay } from "node:timers/promises";
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const environmentRoutes = new Map([
   ["buccaneer-pens", {
-    slot: "A", area: 1, views: 14, patterns: 47,
+    slot: "A", area: 1, views: 15, patterns: 49,
     walk: ["left", "left", ...Array(6).fill("up"), "right", "up", "up", "up", "right", "up"],
   }],
   ["swamp-ruins", {
@@ -289,9 +289,11 @@ try {
       if (actor && frame.encounter) assert.deepEqual(frame.tiles, previousTiles);
       views += await verifyTiledView(area, patterns);
     }
-    assert.equal(views, environment.views);
-    assert.equal(patterns.size, environment.patterns);
     if (routeName === "buccaneer-pens") {
+      assert.equal(frame.perspective, true, "The animal-pen menu should keep the first-person picture");
+      await waitFor("outer picture panel at the animal pens", () => run('Boolean(document.querySelector(".perspective-backdrop"))'));
+      const capture = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "buccaneer-animal-pens.png"), Buffer.from(capture.data, "base64"));
       const hasLead = (id) => frame.journal?.leads.some((lead) => lead.id === id);
       await advance("j");
       assert.ok(hasLead("rescue-animal-pens"));
@@ -320,6 +322,8 @@ try {
       assert.ok(!hasLead("rescue-escape-alarm"));
       await advance("j");
     }
+    assert.equal(views, environment.views);
+    assert.equal(patterns.size, environment.patterns);
     if (actor) {
       assert.ok(frame.encounter, "The encounter actor must be drawn separately from the scenery");
       const [, , id, width, height] = frame.encounter;
