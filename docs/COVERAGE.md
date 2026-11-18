@@ -211,6 +211,12 @@ to continue with the same party. The replay readies the recovered sword
 on Alda, sails back to New Phlan, sells the armory jewel, and pays the
 Temple of Tyr to raise and heal Brin. Slot G reloads with Brin at 6 HP
 and the recovered mace readied.
+Add `--return-to-courtyard` to that same command to continue in one
+save directory. The party hears the council commission, reloads with
+it tracked, returns to Thorn Island, and reaches the courtyard ambush.
+The replay confirms the journal advances from the armory to battle
+preparation, then uses the recovered mace against an adjacent orc.
+It stops after the Curate's first automatic move.
 Run `node tools/verify-fresh-party.mjs --slums-goblin-checkpoint PATH_TO_SLOT_A`
 from that rested save. The party bashes into the goblin training room at
 (10,1), wins for 181 XP without watchdog recovery, and takes leather

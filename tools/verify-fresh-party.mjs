@@ -1124,11 +1124,7 @@ const armoryToTemple = [
   (text) => assert.match(text, /heal view pool appraise exit/),
 ];
 
-if (process.argv[2] === "--sokal-armory-reinforcement-checkpoint") {
-  assert.ok(process.argv[3], "Pass slot E from the reinforced party's hidden armory recovery.");
-  const equipped = process.argv[4] === "--equipped";
-  assert.ok(!process.argv[4] || equipped, "Expected --equipped");
-  copyFileSync(process.argv[3], join(saveDir, "E.json"));
+async function verifySokalTempleRecovery(equipped) {
   const armoryParty = equipped
     ? /brin 1 0.*swordsman 3 17.*curate 2 25.*12,0 n/
     : /brin 1 0.*swordsman 5 17.*curate 3 25.*12,0 n/;
@@ -1182,7 +1178,6 @@ if (process.argv[2] === "--sokal-armory-reinforcement-checkpoint") {
     (text) => assert.match(text, /brin.*platinum 26.*con 11.*hp 6.*weapon mace.*status okay/),
   ]);
   console.log("Raised and healed Brin, readied his mace, and reloaded at the Temple of Tyr:", join(saveDir, "G.json"));
-  process.exit(0);
 }
 
 const takeBoat = [
@@ -1193,9 +1188,7 @@ const takeBoat = [
   (text) => assert.match(text, /boat disembarks you at sokal keep/),
   "enter", "enter",
 ];
-if (process.argv[2] === "--sokal-restored-council-checkpoint") {
-  assert.ok(process.argv[3], "Pass the slot G temple save after raising Brin.");
-  copyFileSync(process.argv[3], join(saveDir, "G.json"));
+async function verifySokalRestoredCouncil() {
   const trackSokal = (_text, frame) => {
     const open = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
     const index = open.findIndex(({ id }) => id === "commission-sokal");
@@ -1239,6 +1232,12 @@ if (process.argv[2] === "--sokal-restored-council-checkpoint") {
     },
   ]);
   console.log("Heard and tracked the Sokal commission, then returned to Thorn Island:", join(saveDir, "J.json"));
+}
+
+if (process.argv[2] === "--sokal-restored-council-checkpoint") {
+  assert.ok(process.argv[3], "Pass the slot G temple save after raising Brin.");
+  copyFileSync(process.argv[3], join(saveDir, "G.json"));
+  await verifySokalRestoredCouncil();
   process.exit(0);
 }
 
@@ -1276,9 +1275,7 @@ if (process.argv[2] === "--sokal-patrol-word-checkpoint") {
   process.exit(0);
 }
 
-if (process.argv[2] === "--sokal-tracked-ambush-checkpoint") {
-  assert.ok(process.argv[3], "Pass slot J after the restored party hears the Sokal commission.");
-  copyFileSync(process.argv[3], join(saveDir, "J.json"));
+async function verifySokalTrackedAmbush() {
   const checkAmbush = (seen) => (_text, frame) => {
     const journal = frame.journal;
     assert.equal(journal.trackedId, "commission-sokal");
@@ -1327,6 +1324,26 @@ if (process.argv[2] === "--sokal-tracked-ambush-checkpoint") {
     (text) => assert.match(text, /curate hitpoints 25 ac 2 mace move\/attack/),
   ]);
   console.log("Verified the Sokal ambush journal and Brin's manual mace attack.");
+}
+
+if (process.argv[2] === "--sokal-tracked-ambush-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot J after the restored party hears the Sokal commission.");
+  copyFileSync(process.argv[3], join(saveDir, "J.json"));
+  await verifySokalTrackedAmbush();
+  process.exit(0);
+}
+
+if (process.argv[2] === "--sokal-armory-reinforcement-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot E from the reinforced party's hidden armory recovery.");
+  const options = process.argv.slice(4);
+  assert.ok(options.every((option) => ["--equipped", "--return-to-courtyard"].includes(option)),
+    "Expected --equipped or --return-to-courtyard");
+  copyFileSync(process.argv[3], join(saveDir, "E.json"));
+  await verifySokalTempleRecovery(options.includes("--equipped"));
+  if (options.includes("--return-to-courtyard")) {
+    await verifySokalRestoredCouncil();
+    await verifySokalTrackedAmbush();
+  }
   process.exit(0);
 }
 
