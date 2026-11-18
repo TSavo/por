@@ -32,7 +32,7 @@ async function replay(bootKeys, startAt, actions) {
     let frame = await nextFrame();
     for (const key of actions) {
       if (typeof key === "function") {
-        key(visibleText(frame));
+        key(visibleText(frame), frame);
         continue;
       }
       lastKey = key;
@@ -146,4 +146,28 @@ const battleReload = await replay(loadSlotD, "85000000", [
 ]);
 assert.match(visibleText(battleReload), /alda.*copper 11.*exp 5.*armor chain mail/);
 console.log("Won the kobold encounter and verified Alda's 5 XP and 11 copper after reloading slot D.");
+
+const toOhlo = [
+  "left", "up", "up", "up", "right", "up", "right", ...Array(5).fill("up"),
+  "left", "up", "up", "up", "left", "up", "up", "right", "up", "left",
+  ...Array(4).fill("up"), "left", "f", "left", ...Array(5).fill("up"),
+  "right", "up", "up", "right", "up", "f", "right", "up",
+  (text) => assert.match(text, /14,10 w.*locked.*bash/),
+];
+const acceptOhlo = [
+  "b", "t", "t", "n", "a", "enter", "enter",
+  (text) => assert.match(text, /14,10 e/),
+];
+const checkOhlo = (_text, frame) => {
+  const quest = frame.journal?.leads.find((lead) => lead.id === "commission-ohlo");
+  assert.equal(quest?.status, "accepted");
+  assert.match(frame.journal.objective.nextStep, /rope guild.*ohlo/i);
+};
+const ohloSave = await replay(loadSlotD, "85000000", [
+  ...toOhlo, ...acceptOhlo, "j", checkOhlo, "j", "e", "s", "s", "e",
+]);
+assert.match(visibleText(ohloSave), /quit to dos/);
+const loadSlotE = "31000000:1c0d,45000000:266c,52000000:1265";
+await replay(loadSlotE, "85000000", ["j", checkOhlo]);
+console.log("Walked to Ohlo, accepted his commission and verified the journal directions after reloading slot E.");
 console.log("Replay save:", saveDir);

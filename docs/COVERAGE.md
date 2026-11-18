@@ -151,6 +151,12 @@ the west gate and saves in the Slums at (15,4), in slot C.
 The replay reloads C, wins the kobold encounter through the original combat
 menus, shares the coins, and saves to slot D. After reloading D it checks
 that all six fighters are present and that Alda retained 5 XP and 11 copper.
+From slot D, the fresh party walks around the blocked passages to Ohlo's
+door, leaves two wandering encounters through the original Flee option,
+bashes the lock, and accepts the commission through Talk and Nice. Slot E
+reloads outside Ohlo's door with the journal still directing the party to
+give his name at the Rope Guild booth. This route uses normal movement and
+guest dialogue choices.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
