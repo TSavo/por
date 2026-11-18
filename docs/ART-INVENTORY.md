@@ -157,3 +157,10 @@ The near patrol is `SPRIT4.DAX` block 34, member 0, frame 0, rendered at
 sprite and places the 160×320 transparent replacement at the same anchor.
 Chrome verified the sprite, all 121 environment tiles in the approach
 view, and both display switches before the patrol departed.
+
+The middle and far patrol poses use members 1 and 2 of the same block,
+both at (56,32). Their transparent PNGs measure 96×260 and 96×196.
+Controlled Chrome replays passed each distance to the guest draw routine
+and verified the original anchor, the 121 restored terrain tiles, and
+the display switches. Both runs passed the patrol using the parchment
+word. The regular route selects the near pose.
