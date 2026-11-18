@@ -1,9 +1,27 @@
 {
   "version": 1,
   "encounters": {
-    "encounter:SPRIT2.DAX:0:0:0": { "area": 20, "x": 48, "y": 32, "width": 40, "height": 80 },
-    "encounter:SPRIT2.DAX:0:1:0": { "area": 20, "x": 56, "y": 32, "width": 24, "height": 65 },
-    "encounter:SPRIT2.DAX:0:2:0": { "area": 20, "x": 56, "y": 32, "width": 24, "height": 57 }
+    "encounter:SPRIT2.DAX:0:0:0": {
+      "area": 20,
+      "x": 48,
+      "y": 32,
+      "width": 40,
+      "height": 80
+    },
+    "encounter:SPRIT2.DAX:0:1:0": {
+      "area": 20,
+      "x": 56,
+      "y": 32,
+      "width": 24,
+      "height": 65
+    },
+    "encounter:SPRIT2.DAX:0:2:0": {
+      "area": 20,
+      "x": 56,
+      "y": 32,
+      "width": 24,
+      "height": 57
+    }
   },
   "assets": {
     "encounter:SPRIT2.DAX:0:0:0": "kobold-encounter-near.png",
@@ -70,6 +88,9 @@
     "tile:20:e05c49674f61413e958d8c57f241968c3e8574d6ae3f1ab06e30507b322d3aae": "route-e05c49674f61.png",
     "tile:20:e0a3abc3b4a8d171ac804ef60ea102f382d0189b8cd2be1c2a616fc8c2e8d86a": "route-e0a3abc3b4a8.png",
     "tile:20:f541cf8cccc87514254a79ad1a1f459e42bfcddad3f3b7683170e1df6015565c": "route-f541cf8cccc8.png",
-    "tile:20:ffdaaae4ccb00ac4c93c500ca5ac7c4be2428beb180d89b1f58902fd2baa34d0": "route-ffdaaae4ccb0.png"
+    "tile:20:ffdaaae4ccb00ac4c93c500ca5ac7c4be2428beb180d89b1f58902fd2baa34d0": "route-ffdaaae4ccb0.png",
+    "tile:20:119b68ac8957f9dfe365f0494103f781d6152a4223375fad851c22d41b590878": "orc-vault-soffit.png",
+    "tile:20:b1deabbf796c733e2b4be52ae0e51793679b67a07ef4997530aebe895ba50b02": "orc-vault-left-junction.png",
+    "tile:20:7253263eb77922bb09c681ff0168145a8d395af9756a5d8a2b4d5bce0fee1996": "orc-vault-right-junction.png"
   }
 }

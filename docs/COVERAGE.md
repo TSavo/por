@@ -465,6 +465,10 @@ The orc outpost replay produced 28 captures. Inspecting the original frames
 identified an orc overlay in frame 20 and a blank transition in frame 22.
 Omitting those two frames leaves 68 environment patterns, of which 40 have
 replacements. The HTML checklist links each pattern to its full guest frame.
+The new soffit and two sloped wall junctions bring the outpost route to
+43 of 68 patterns. Chrome loaded all three 32×32 PNGs as individual tiles
+while walking from the Slums gate to the outpost. The sloped joins and
+ceiling were inspected together in the assembled corridor view.
 The same Chrome replay passed with encounter anchors read from the Slums
 manifest. A framebuffer check moved the middle kobold pose to a different
 anchor and area, confirmed the old area's background was discarded, and
