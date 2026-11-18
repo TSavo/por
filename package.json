@@ -6,6 +6,7 @@
   "description": "Port of SSI Pool of Radiance: Turbo Pascal procedures translated from START.EXE and GAME.OVR, plus a classic/upgraded presentation.",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 43123 --strictPort",
+    "play": "tsx tools/browser-play.ts",
     "typecheck": "tsc --noEmit",
     "tools": "tsx tools/cli.ts",
     "selftest": "tsx tools/cli.ts selftest",

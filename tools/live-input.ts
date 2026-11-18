@@ -35,8 +35,21 @@ function readCommand(): string | undefined {
 export function liveInput(startAt: number, journal: () => JournalLead[]) {
   let nextPrompt = startAt;
   let trackedId: string | undefined;
+  const browser = process.env.POR_BROWSER_PLAY === "1";
+  const showFrame = (leads?: JournalLead[]) => {
+    if (browser) {
+      const state = {
+        frame: Buffer.from(encodePng(screen)).toString("base64"),
+        journal: leads && { objective: currentObjective(leads, trackedId), leads },
+      };
+      console.log(`POR_FRAME ${JSON.stringify(state)}`);
+    } else {
+      writeFileSync("out/por-live.png", encodePng(leads ? journalFrame(leads, trackedId) : screen));
+    }
+  };
   const showJournal = (leads: JournalLead[]) => {
-    writeFileSync("out/por-live.png", encodePng(journalFrame(leads, trackedId)));
+    showFrame(leads);
+    if (browser) return;
     const objective = currentObjective(leads, trackedId);
     console.log(`Adventure Journal\nCurrent objective: ${objective.title}\n  ${objective.nextStep}`);
     const available = leads.filter(isOpenObjective);
@@ -49,15 +62,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[]) {
   return (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
     let journalOpen = false;
-    writeFileSync("out/por-live.png", encodePng(screen));
+    showFrame();
     while (true) {
-      process.stdout.write(journalOpen ? "Journal [J to close, track N]> " : "Game [J journal, :quit, key]> ");
+      if (!browser) process.stdout.write(journalOpen ? "Journal [J to close, track N]> " : "Game [J journal, :quit, key]> ");
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
       if (command.toLowerCase() === "j") {
         journalOpen = !journalOpen;
         if (journalOpen) showJournal(journal());
-        else writeFileSync("out/por-live.png", encodePng(screen));
+        else showFrame();
         continue;
       }
       if (journalOpen) {
