@@ -184,7 +184,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "lizardmen") {
       if (knows("swamp-alliance-averted")) nextStep = "Leave the swamp as the elder requested and report his pledge to the council clerk.";
       else if (knows("swamp-challenge-hostile") || knows("swamp-friend-word-rejected") || knows("swamp-elder-attacked")) nextStep = "The peaceful meeting ended. Withdraw if necessary and look for another way to prevent the alliance.";
-      else if (knows("swamp-champion-requested")) nextStep = "Answer Yes to champion the elder, then choose a party member to face the challenger.";
+      else if (knows("swamp-champion-requested")) nextStep = "If you agree to champion the elder, choose a party member to face the challenger.";
       else if (knows("swamp-elder-story")) nextStep = "Read journal entry 31 for the elder's story and hear out the challenge.";
       else if (knows("swamp-friend-word")) nextStep = knows("river-pump-prisoners-freed")
         ? "Read journal entry 35 and give the tribal friend-word the freed prisoners taught you."

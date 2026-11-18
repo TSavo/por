@@ -70,7 +70,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -460,7 +460,7 @@ try {
     await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
-  } else if (routeName === "swamp-elder") {
+  } else if (routeName === "swamp-elder" || routeName === "swamp-elder-decline") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     const terrain = new Set();
     for (const key of ["up", "b"]) await advance(key);
@@ -488,6 +488,17 @@ try {
     for (const key of ["j", "enter", "enter", "j"]) await advance(key);
     assert.ok(knows("swamp-champion-requested") && !knows("swamp-alliance-averted"));
     assert.match(frame.journal.objective.nextStep, /choose a party member/);
+    if (routeName === "swamp-elder-decline") {
+      for (const key of ["j", "n", "j"]) await advance(key);
+      assert.ok(knows("swamp-challenge-hostile") && !knows("swamp-alliance-averted"));
+      assert.match(frame.journal.objective.nextStep, /peaceful meeting ended/);
+    } else {
+      for (const key of ["j", "y"]) await advance(key);
+      const selectionPrompt = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
+      assert.match(selectionPrompt, /WHOWILLBEMYCHAMPION/i);
+      await advance("j");
+      assert.ok(knows("swamp-champion-requested") && !knows("swamp-challenge-hostile"));
+    }
     console.log("Verified the swamp elder's layered terrain and journal updates in Chrome. Capture:", directory);
   } else if (routeName === "swamp-approach") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);

@@ -814,6 +814,9 @@ crosses it, and saves the anti-magic shell clue. The `swamp-elder`
 replay starts from a controlled save near the elder with the witnessed
 entry 35 clue carried forward from the pumping room. It verifies Parlay,
 the friend-word challenge, entry 31, and the request for a champion.
+The two Chrome branches verify that accepting opens the original chooser
+and declining records Drythh's reaction, replacing the champion prompt
+with guidance for a hostile encounter.
 It also checks the 192×320 elder sprite at the original 48×80 placement
 and verifies presentation switches in the encounter. The `swamp-ruins`
 replay loads the save made inside the ruins and checks 51 individual
