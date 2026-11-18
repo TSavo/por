@@ -266,6 +266,20 @@ function checkCampaignJournal(): void {
       questProgress(m, [], m.ds).some(({ id }) => id === "commission-bottle-vampire")) {
     throw new Error("The graveyard flag did not resolve the known bottle objective without revealing it");
   }
+  const acceptance = [["graveyard", 0x4a96, 255], ["auction", progressAddresses.auction!, 1]] as const;
+  for (const [id, address, value] of acceptance) {
+    const commission = commissions.find((item) => item.id === id)!;
+    if (!council.some(({ name, operands }) => name === "SAVE" &&
+      operands[0]?.low === value && operands[1]?.word === address)) {
+      throw new Error(`Missing original council assignment write for ${id}`);
+    }
+    writeGlobal(progressAddresses[id]!, 0);
+    writeGlobal(address, value);
+    const offered = discoveredLeads(commission.offer);
+    if (questProgress(m, offered, m.ds)[0]?.status !== "accepted" || questProgress(m, [], m.ds).length) {
+      throw new Error(`Journal assignment state mismatch for ${id}`);
+    }
+  }
   const route = [
     ["THE BOAT DISEMBARKS YOU AT SOKAL KEEP", "Scout the keep"],
     ["TO THE WEST RISES A MOUND OF REEDS", "west of the gates"],

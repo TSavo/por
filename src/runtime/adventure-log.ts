@@ -72,6 +72,12 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "bottle" && knows("bottle-recovered")) {
       nextStep = "Return to Diogenes with the bottle so he can explain how to use it.";
     }
+    if (commission.id === "bane" && knows("bane-dirten")) {
+      nextStep = "Decide whether to accompany Dirten. If you agree, cross the river with him and cleanse the desecrated temple.";
+    }
+    if (commission.id === "records" && knows("sokal-mendor")) {
+      nextStep = "Search Mendor's overrun library for records of old Phlan. Bring worthwhile finds to the council clerk.";
+    }
     if (commission.id === "bottle-vampire" && knows("graveyard-vampire-location")) {
       nextStep = "Go to the northeast corner of Valhingen Graveyard. Use the bottle when you confront the vampire.";
     }
@@ -108,6 +114,7 @@ export const progressAddresses: Readonly<Record<string, number>> = {
   lizardmen: 0x4ab5,
   kobolds: 0x4ab6,
   nomads: 0x4ab7,
+  textile: 0x4ab8,
   gate: 0x4ab9,
   castle: 0x4aba,
   bane: 0x4abd,
@@ -120,22 +127,32 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   const base = cpu.read16(dataSegment, 0x4933);
   const segment = cpu.read16(dataSegment, 0x4935);
   if ((base | segment) === 0) return [];
+  const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
   const progress: JournalLead[] = [];
   for (const commission of commissions) {
     const id = `commission-${commission.id}`;
     const address = progressAddresses[commission.id];
     if (address === undefined || !known.some((lead) => lead.id === id)) continue;
-    const value = cpu.read16(segment, base + 0x6e00 + address * 2);
+    const value = global(address);
+    const accepted = (commission.id === "graveyard" && global(0x4a96) === 255) ||
+      (commission.id === "auction" && value === 1);
+    if (accepted && value !== 254 && value !== 255) {
+      progress.push({
+        id, title: `${commission.title} - accepted`,
+        detail: commission.afterAcceptance ?? commission.next, status: "accepted",
+      });
+    }
     if (value !== 254 && value !== 255) continue;
     progress.push({
       id,
       title: `${commission.title} - ${value === 254 ? "ready to report" : "turned in"}`,
-      detail: value === 254 ? "Return to the council clerk at City Hall to report your success." : "The council acknowledged the result.",
+      detail: value === 254 ? "Return to the council clerk at City Hall to report your success."
+        : commission.id === "textile" ? "Cadorna's treasure affair is settled." : "The council acknowledged the result.",
       status: value === 254 ? "ready-to-report" : "turned-in",
     });
   }
   if (known.some(({ id }) => id === "commission-bottle-vampire")) {
-    const graveyard = cpu.read16(segment, base + 0x6e00 + progressAddresses.graveyard! * 2);
+    const graveyard = global(progressAddresses.graveyard!);
     if (graveyard === 254 || graveyard === 255) {
       progress.push({
         id: "commission-bottle-vampire",
@@ -222,6 +239,16 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("IF YOU JOIN ME I WILL MAKE YOU THE COMMANDERS OF THE ARMIES")) {
     leads.push({ id: "castle-vote", title: "Tyranthraxus's offer", detail: "Tyranthraxus offered command of his armies in exchange for joining him." });
+  }
+  if (text.includes("GO WITH HIM ACROSS THE RIVER AND HELP HIM TO CLEANSE THE TEMPLE")) {
+    leads.push({ id: "bane-dirten", title: "Dirten's mission", detail: "Bishop Braccio asked the party to help Dirten cleanse the temple across the river." });
+  }
+  if (text.includes("THE CITY WATCH STOPS YOU AND REMOVES CADORNA'S TREASURE")) {
+    leads.push({ id: "textile-handoff", title: "The Watch took Cadorna's treasure", detail: "The Watch sent the party to the city clerk to collect its reward." });
+  }
+  if (["WE FIND THESE DISCOURSES VALUABLE", "THESE MAPS SHOULD HELP US TO LOCATE",
+    "THESE HISTORIES CONTAIN MUCH USEFUL INFORMATION", "THE RECORDS PROVIDE INSIGHTS"].some((line) => text.includes(line))) {
+    leads.push({ id: "records-submitted", title: "Records delivered", detail: "The clerk acknowledged records the party recovered. Additional finds can still be brought to City Hall." });
   }
   for (const commission of commissions) {
     const reported = commission.report !== undefined && text.includes(commission.report);
