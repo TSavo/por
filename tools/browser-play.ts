@@ -18,6 +18,7 @@ const origin = `http://127.0.0.1:${port}`;
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
+const audioDirectory = process.env.POR_AUDIO_DIR ?? join("..", "por-assets", "original");
 const gameFont = (() => {
   for (const path of new Set([join(upgrades, "font.woff2"), join("upgrades", "font.woff2")])) {
     try {
@@ -71,6 +72,8 @@ let ready = false;
 let stopped: string | undefined;
 let notice: string | undefined;
 let lastDiagnostic = "";
+let soundId = 0;
+const sounds: Array<{ id: number; index: number; mode: number; step: number }> = [];
 createInterface({ input: runner.stdout }).on("line", (line) => {
   if (line.startsWith("POR_FRAME ")) {
     frame = JSON.parse(line.slice("POR_FRAME ".length)) as FrameState;
@@ -78,6 +81,10 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
     ready = true;
   } else if (line.startsWith("POR_NOTICE ")) {
     notice = line.slice("POR_NOTICE ".length);
+  } else if (line.startsWith("POR_SOUND ")) {
+    const sound = JSON.parse(line.slice("POR_SOUND ".length)) as { index: number; mode: number; step: number };
+    sounds.push({ id: ++soundId, index: sound.index, mode: sound.mode, step: sound.step });
+    if (sounds.length > 64) sounds.shift();
   } else if (line.startsWith("entry:")) {
     lastDiagnostic = line;
   }
@@ -98,6 +105,13 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(script);
   } else if (req.method === "GET" && req.url === "/font.woff2" && gameFont) {
     res.writeHead(200, { "content-type": "font/woff2" }).end(gameFont);
+  } else if (req.method === "GET" && /^\/audio\/(?:pc-speaker|tandy)-(?:0[1-9]|1\d|20)\.wav$/.test(req.url ?? "")) {
+    try {
+      const wav = readFileSync(join(audioDirectory, req.url!.slice(7)));
+      res.writeHead(200, { "content-type": "audio/wav", "content-length": wav.length }).end(wav);
+    } catch {
+      res.writeHead(404).end();
+    }
   } else if (req.method === "GET" && req.url?.startsWith("/art/")) {
     const png = artwork.get(req.url.slice(5))?.png;
     if (png) res.writeHead(200, { "content-type": "image/png" }).end(png);
@@ -108,7 +122,7 @@ const server = createServer(async (req, res) => {
       art: frame.scene === "scene:title" && artwork.has(frame.scene) ? `/art/${frame.scene}` : undefined,
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
-      ...snapshot, sequence, ready, stopped: stopped ?? null, notice: notice ?? null,
+      ...snapshot, sounds, soundId, sequence, ready, stopped: stopped ?? null, notice: notice ?? null,
     }));
   } else if (req.method === "POST" && req.url === "/key") {
     if (req.headers.origin !== origin) { res.writeHead(403).end(); return; }

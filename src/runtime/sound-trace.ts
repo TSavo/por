@@ -24,9 +24,12 @@ export class OriginalSoundTraceRecorder {
   readonly trace: OriginalSoundTrace = { schema: 1, calls: [], writes: [] };
   private readonly detachPortObserver: () => void;
 
-  constructor(private readonly cpu: Cpu) {
+  constructor(private readonly cpu: Cpu, onCall?: (call: OriginalSoundCall) => void) {
     if (originalSoundCallObservers.has(cpu)) throw new Error("a sound trace recorder is already attached");
-    originalSoundCallObservers.set(cpu, (call) => this.trace.calls.push(call));
+    originalSoundCallObservers.set(cpu, (call) => {
+      this.trace.calls.push(call);
+      onCall?.(call);
+    });
     this.detachPortObserver = cpu.addPortOutObserver((port, value) => {
       if (ORIGINAL_AUDIO_PORTS.has(port)) this.trace.writes.push({ step: cpu.steps, port, value });
     });

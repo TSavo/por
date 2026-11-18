@@ -146,7 +146,9 @@ const cpu = fresh(input?.requestKey, (name, data, written) => slotClosed(name, d
   (name) => { if (slotClosed === rosterClosed) saves?.saveRoster(name); },
   (name) => loadingSlot && saveSlotLetter(name) ? saves?.partyFiles(name) ?? [] : undefined);
 const soundTracePath = process.env.POR_SOUND_TRACE;
-const soundRecorder = soundTracePath ? new OriginalSoundTraceRecorder(cpu) : undefined;
+const browserSound = process.env.POR_BROWSER_PLAY === "1";
+const soundRecorder = soundTracePath || browserSound ? new OriginalSoundTraceRecorder(cpu, browserSound
+  ? (call) => console.log(`POR_SOUND ${JSON.stringify(call)}`) : undefined) : undefined;
 let soundTraceWritten = false;
 function writeSoundTrace(): void {
   if (!soundTracePath || !soundRecorder || soundTraceWritten) return;
