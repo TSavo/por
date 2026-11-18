@@ -234,6 +234,12 @@ balance. Correcting the translated long-division loop restored the fee
 calculation. The same checkpoint left Darkstar with 50 platinum plus
 change, and the translated quotient now has a regression check.
 
+Headless Chrome verified the presentation button and F10 against the live
+browser runner. A reloaded City Hall save displayed both palettes and let
+the journal remain open during a switch. A separate run switched palettes
+during the original Tyranthraxus fight. Each switch retained the same guest
+frame sequence and left the save file byte-for-byte identical.
+
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
 for that character. If a hostile actor stalls, the runner restores its state
