@@ -71,6 +71,10 @@ The near approach frame matches `SPRIT2.DAX` block 0, member 0, frame 0 at
 (48,32). Index zero is skipped and index 13 is drawn black. The browser replay
 displayed the 160×320 transparent replacement over the individually enhanced
 tiles, then replaced the approach view with the dialogue portrait.
+The same near sprite appeared in a controlled replay of the surprise branch.
+Sampling calls during both runs yielded no complete match for the middle or
+far source images. The near sprite also rendered with a standalone manifest
+containing no tile replacements and with tile tracing disabled.
 
 The portrait matched every pixel in the 88×88 image area across 17 successive
 encounter captures. The enhanced browser replay showed the replacement in

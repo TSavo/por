@@ -54,7 +54,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
   const portraitArt = loadPortraitArt((process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean));
-  const encounterArt = loadEncounterArt(process.env.POR_KOBOLD_ENCOUNTER_ART === "1");
+  const hasEncounterArt = process.env.POR_KOBOLD_ENCOUNTER_ART === "1";
+  const encounterArt = loadEncounterArt(hasEncounterArt);
   const traceTiles = process.env.POR_TRACE_TILES === "1";
   const showFrame = (leads?: JournalLead[]) => {
     if (browser) {
@@ -147,7 +148,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
-    if (browser && (tileKeys.size || traceTiles)) {
+    if (browser && (tileKeys.size || traceTiles || hasEncounterArt)) {
       const segment = cpu.read16(0x740, 0x4935);
       const offset = cpu.read16(0x740, 0x4933);
       area = segment || offset ? cpu.read16(segment, offset + 0x1e4) : undefined;
