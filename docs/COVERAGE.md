@@ -697,10 +697,12 @@ uses the original ECL text for each discovery and exercises acceptance
 through the translated setter. The `zhentil-envoy` Chrome replay uses
 controlled slot A in the western overland sector with the commission
 acceptance flag set and the party positioned near the mounted patrol.
-It follows the original escort, paper handoff, and tour, checks that the
-journal unlocks each discovery in order, and checks the new 352×352 commandant
-portrait and mode switching during the handoff. Ambush, escape, and turn-in are
-still pending a live replay.
+It follows the original escort, paper handoff, tour, dinner, and nighttime
+ambush. It checks that the journal unlocks each discovery in order and the
+new 352×352 commandant portrait survives mode switching during the handoff.
+The translation verifier checks that escape flag 253 directs the party to
+the clerk before the council script advances the flag. Escape and turn-in
+are still pending a live replay.
 
 The Valhingen journal now uses witnessed clues for the lair, stairs, vampire
 escape, and northern wall. The original ECL text and completion flag are

@@ -440,7 +440,15 @@ try {
     for (let line = 0; line < 6; line++) await advance("enter");
     await checkJournal(["envoy-challenge", "packet-delivered", "quarters"], ["quarters-attacked", "envoy-left"]);
     await switchBothWays();
-    console.log("Verified the Zhentil patrol, packet delivery, and quarters journal discoveries in Chrome.");
+    for (const key of ["up", "right", "up", "right", "up", "right", "up"]) await advance(key);
+    await checkJournal(["relax"], ["dinner", "night", "quarters-attacked"]);
+    for (const key of ["r", "enter"]) await advance(key);
+    await checkJournal(["dinner"], ["night", "quarters-attacked"]);
+    for (const key of ["enter", "n", "s"]) await advance(key);
+    await checkJournal(["night"], ["quarters-attacked"]);
+    await advance("enter");
+    await checkJournal(["quarters-attacked"], ["climbable-wall", "envoy-left"]);
+    console.log("Verified the Zhentil patrol, delivery, dinner, and quarters ambush journal discoveries in Chrome.");
   } else if (wolves) {
     const standing = "combat:area:10:CPIC4.DAX:106";
     const attack = "combat:area:10:CPIC4.DAX:234";

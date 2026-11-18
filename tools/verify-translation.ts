@@ -480,8 +480,11 @@ function checkCampaignJournal(): void {
     ["ARE YOU THE DIPLOMATIC ENVOYS FROM NEW PHLAN", "Answer Yes"],
     ["HE GREETS YOU AND YOU HAND HIM THE PAPERS", "commandant's tour"],
     ["HERE ARE YOUR QUARTERS", "assigned quarters"],
+    ["WILL YOU WALK AROUND OR WILL YOU JUST RELAX UNTIL DINNER", "Choose Relax"],
+    ["YOU ARRIVE AT THE OFFICERS MESS", "Speak with the commandant over dinner"],
+    ["IT IS NIGHT AND YOU ARE IN YOUR QUARTERS", "Sleep With a Watch"],
     ["YOU ARE ATTACKED BY FOUR GUARDS IN YOUR SLEEP", "Get past the guards"],
-    ["THE WALL IS CLIMBABLE HERE", "Choose Yes at the climbable wall"],
+    ["THE WALL IS CLIMBABLE HERE", "Choose Climb Over Wall"],
     ["YOU CLIMB OVER THE WALL AND LEAVE THE OUTPOST", "report the delivery"],
   ] as const;
   let envoyTranscript = envoyOffer;
@@ -495,6 +498,16 @@ function checkCampaignJournal(): void {
       throw new Error(`The Zhentil journal missed the clue after ${trigger}`);
     }
   }
+  const envoyFlag = progressAddresses.zhentil!;
+  const envoyCommission = discoveredLeads(envoyOffer);
+  writeGlobal(0x4a98, 255);
+  writeGlobal(envoyFlag, 253);
+  const envoyEscaped = questProgress(m, envoyCommission, m.ds);
+  if (envoyEscaped.find(({ id }) => id === "commission-zhentil")?.status !== "ready-to-report" ||
+      !currentObjective(envoyEscaped, "commission-zhentil").nextStep.includes("council clerk")) {
+    throw new Error("The Zhentil escape flag did not prompt a report before visiting City Hall");
+  }
+  writeGlobal(envoyFlag, 0);
   const riverOffer = commissions.find(({ id }) => id === "river")!.offer;
   const riverStages = [
     ["ROWBOAT HIDDEN AMOUNGST THE REEDS", "Take the rowboat"],

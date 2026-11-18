@@ -174,9 +174,12 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     if (commission.id === "zhentil") {
       if (knows("zhentil-envoy-left") && knows("zhentil-packet-delivered")) nextStep = "Return to the council clerk in New Phlan and report the delivery.";
-      else if (knows("zhentil-climbable-wall")) nextStep = "Choose Yes at the climbable wall to leave the outpost.";
+      else if (knows("zhentil-climbable-wall")) nextStep = "Choose Climb Over Wall to leave the outpost.";
       else if (knows("zhentil-quarters-attacked")) nextStep = "Get past the guards and look for a way out of the outpost.";
-      else if (knows("zhentil-quarters")) nextStep = "Wait in the assigned quarters as the guard instructed.";
+      else if (knows("zhentil-night")) nextStep = "Choose Goto Sleep or Sleep With a Watch in your quarters.";
+      else if (knows("zhentil-dinner")) nextStep = "Speak with the commandant over dinner and follow the guard back to your quarters.";
+      else if (knows("zhentil-relax")) nextStep = "Choose Relax in your quarters to wait for dinner.";
+      else if (knows("zhentil-quarters")) nextStep = "Return to the entrance of your assigned quarters for the choice to wait or walk around.";
       else if (knows("zhentil-packet-delivered")) nextStep = "Follow the guard on the commandant's tour of the outpost.";
       else if (knows("zhentil-envoy-challenge")) nextStep = "Answer Yes when asked if you are the diplomatic envoys. Present the sealed packet to the commandant.";
       else if (knows("zhentil-sealed-packet")) nextStep = "Travel west to Zhentil Outpost and present the packet to its commandant with the seals intact.";
@@ -292,6 +295,11 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     const address = progressAddresses[commission.id];
     if (address === undefined) continue;
     const value = global(address);
+    if (commission.id === "zhentil" && value === 253 && global(0x4a98) === 255) {
+      progress.push({ id, title: `${commission.title} - ready to report`,
+        detail: "Return to the council clerk in New Phlan and report on the outpost.", status: "ready-to-report" });
+      continue;
+    }
     if (commission.id === "textile" && value === 255 && known.some((lead) => lead.id === "textile-confrontation")) {
       progress.push({ id, title: `${commission.title} - closed without payment`,
         detail: "Cadorna confronted the party over the opened box and left without paying.",
@@ -737,6 +745,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("HERE ARE YOUR QUARTERS. DO NOT LEAVE THIS AREA")) {
     leads.push({ id: "zhentil-quarters", title: "Quarters at Zhentil Outpost",
       detail: "The guard showed the party its assigned quarters and told it to stay there." });
+  }
+  if (text.includes("WILL YOU WALK AROUND OR WILL YOU JUST RELAX UNTIL DINNER")) {
+    leads.push({ id: "zhentil-relax", title: "Waiting for dinner",
+      detail: "The party can use Relax in its quarters to wait for the dinner escort." });
+  }
+  if (text.includes("YOU ARRIVE AT THE OFFICERS MESS AND ARE SEATED WITH THE COMMANDANT")) {
+    leads.push({ id: "zhentil-dinner", title: "Dinner with the commandant",
+      detail: "The commandant and his advisors hosted the party at dinner." });
+  }
+  if (text.includes("IT IS NIGHT AND YOU ARE IN YOUR QUARTERS")) {
+    leads.push({ id: "zhentil-night", title: "Night at Zhentil Outpost",
+      detail: "The party returned to its quarters and can decide how to spend the night." });
   }
   if (text.includes("YOU ARE ATTACKED BY FOUR GUARDS IN YOUR SLEEP") || text.includes("FOUR ARMED GUARDS BURST IN AND ATTACK YOU")) {
     leads.push({ id: "zhentil-quarters-attacked", title: "Guards attacked the party",
