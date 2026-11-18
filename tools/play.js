@@ -52,10 +52,17 @@ function showScreen() {
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
   tileArt.hidden = !useEnhanced || Boolean(sceneArt || view.journal);
   if (!tileArt.hidden) {
-    tileArt.replaceChildren(...placements.map(([x, y, id, reflected, , width, height]) => {
+    const perspective = view.perspective && !view.portrait;
+    const backdrop = perspective ? document.createElement("div") : null;
+    if (backdrop) {
+      backdrop.className = "perspective-backdrop";
+      backdrop.style.backgroundImage = `url("data:image/png;base64,${frame}")`;
+    }
+    tileArt.replaceChildren(...(backdrop ? [backdrop] : []), ...placements.map(([x, y, id, reflected, , width, height]) => {
       const tile = document.createElement("img");
       tile.alt = "";
-      if (id.startsWith("tile:")) tile.classList.add("terrain-tile");
+      const terrain = id.startsWith("tile:");
+      if (terrain) tile.classList.add("terrain-tile");
       const sky = id.startsWith("tile:16:") ? "swamp" : id.startsWith("tile:28:") ? "zhentil" : undefined;
       if (sky) {
         tile.dataset.sky = sky;
@@ -65,14 +72,21 @@ function showScreen() {
       if (id === view.portrait) tile.className = "encounter-portrait";
       if (id === view.encounter?.[2]) {
         tile.className = "encounter-sprite";
-        tile.style.width = `${view.encounter[3] / 3.2}%`;
-        tile.style.height = `${view.encounter[4] / 2}%`;
+        width = view.encounter[3];
+        height = view.encounter[4];
       }
       if (id.startsWith("battle-tile:")) tile.className = "battle-tile";
       if (reflected !== undefined) tile.className = "combat-sprite";
+      if (perspective && (terrain || id === view.encounter?.[2])) {
+        const scale = 120 / 88;
+        x = 8 + (x - 24) * scale;
+        y = 8 + (y - 24) * scale;
+        width = (width ?? 8) * scale;
+        height = (height ?? 8) * scale;
+      }
       if (width !== undefined && height !== undefined) {
-        tile.style.width = `${width / 3.2}%`;
-        tile.style.height = `${height / 2}%`;
+        tile.style.width = terrain ? `calc(${width / 3.2}% + 0.5px)` : `${width / 3.2}%`;
+        tile.style.height = terrain ? `calc(${height / 2}% + 0.5px)` : `${height / 2}%`;
       }
       if (reflected) tile.style.transform = "scaleX(-1)";
       tile.style.left = `${x / 3.2}%`;

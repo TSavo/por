@@ -108,6 +108,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const tiles: [number, number, string][] = [];
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
       const explorationMenu = menuText(text);
+      const perspective = !scene && !leads && !portrait && Boolean(encounter || explorationMenu.startsWith("AREACASTVIEWENCAMP"));
       if ((tileKeys.size || traceTiles) && area !== undefined && !scene && !leads && !portrait &&
           (encounter || explorationMenu.startsWith("AREACASTVIEWENCAMP"))) {
         const pixels = Buffer.alloc(64);
@@ -156,6 +157,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         scene,
         text,
         portrait,
+        perspective,
         encounter,
         tiles,
         combatArt: combat,
