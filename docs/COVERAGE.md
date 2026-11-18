@@ -469,6 +469,11 @@ The new soffit and two sloped wall junctions bring the outpost route to
 43 of 68 patterns. Chrome loaded all three 32×32 PNGs as individual tiles
 while walking from the Slums gate to the outpost. The sloped joins and
 ceiling were inspected together in the assembled corridor view.
+The remaining 25 doorway, rubble, and material junction tiles bring the
+recorded outpost environment to 68 of 68 patterns. Six earlier rubble
+tiles were redrawn to match the new stonework. Chrome found all 25 new
+PNGs in 19 movement frames, each assembled from 121 individual tiles.
+The 22-view kobold presentation and switching replay also passed.
 The same Chrome replay passed with encounter anchors read from the Slums
 manifest. A framebuffer check moved the middle kobold pose to a different
 anchor and area, confirmed the old area's background was discarded, and
