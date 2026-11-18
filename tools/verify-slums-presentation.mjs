@@ -54,7 +54,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -65,6 +65,7 @@ const mystic = routeName === "graveyard-mystic";
 const vampire = routeName === "graveyard-vampire";
 const wolves = routeName === "graveyard-wolves";
 const envoy = routeName === "zhentil-envoy";
+const envoyEscape = routeName === "zhentil-escape";
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
 const altar = routeName === "textile-altar";
@@ -424,6 +425,25 @@ try {
     await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
+  } else if (envoyEscape) {
+    for (const key of ["right", "right", "up", "left", "up", "up", "right", "up", "up", "up", "left",
+      "up", "up", "up", "up", "up"]) await advance(key);
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "zhentil-climbable-wall"));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "zhentil-envoy-left"));
+    const commission = "commission-zhentil";
+    await waitFor("the Zhentil track button", () => run(`Boolean(document.querySelector('[data-lead-id="${commission}"]'))`));
+    await run(`document.querySelector('[data-lead-id="${commission}"]').click()`);
+    frame = await waitFor("the tracked Zhentil commission", async () => {
+      const next = await latest();
+      return next.ready && next.journal?.trackedId === commission && next;
+    });
+    assert.match(frame.journal.objective.nextStep, /Climb Over Wall/);
+    for (const key of ["j", "c", "enter", "j"]) await advance(key);
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "zhentil-envoy-left"));
+    assert.equal(frame.journal.leads.find(({ id }) => id === commission)?.status, "ready-to-report");
+    assert.match(frame.journal.objective.nextStep, /council clerk/);
+    console.log("Verified the Zhentil wall escape and the resulting council report objective in Chrome.");
   } else if (envoy) {
     const checkJournal = async (present, hidden) => {
       await advance("j");
