@@ -12,7 +12,7 @@
  *   directoryBytes/9 entries of:
  *     uint8  id
  *     uint32 offset          relative to the first payload byte
- *     int16  rawSize         decompressed length
+ *     uint16 rawSize         decompressed length
  *     uint16 compSize
  *   payload begins at directoryBytes + 2
  *
@@ -76,11 +76,11 @@ export function parseDax(name: string, bytes: Uint8Array): DaxFile {
     const at = 2 + i * 9;
     const id = bytes[at] ?? 0;
     const offset = view.getUint32(at + 1, true);
-    const rawSize = view.getInt16(at + 5, true);
+    const rawSize = view.getUint16(at + 5, true);
     const compSize = view.getUint16(at + 7, true);
     const start = dataOffset + offset;
     const end = start + compSize;
-    if (rawSize < 0 || end > bytes.length) {
+    if (end > bytes.length) {
       throw new Error(
         `${name}: entry id ${id} points outside the file (offset ${offset}, compressed ${compSize}, raw ${rawSize})`,
       );

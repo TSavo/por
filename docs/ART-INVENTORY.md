@@ -1,0 +1,31 @@
+# Original DOS art inventory
+
+Run `npx tsx tools/art-inventory.ts` with the original game files installed.
+The command accepts an optional game-data directory and output directory. It
+writes `index.html`, `inventory.json`, and a `sheets/` directory to
+`out/art-inventory` by default. The previews are generated locally from the
+player's files.
+
+| Category | Archives | Blocks | Preview sheets | Frames or glyphs |
+| --- | ---: | ---: | ---: | ---: |
+| Title and ending | 2 | 10 | 23 | 23 |
+| Scene illustrations | 8 | 92 | 325 | 325 |
+| Encounter sprites | 8 | 88 | 258 | 258 |
+| Character portrait parts | 18 | 293 | 293 | 293 |
+| Combat images and icons | 10 | 250 | 250 | 250 |
+| Tiles, interface graphics, and EGA font | 10 | 48 | 48 | 3,489 |
+| Wall composition | 8 | 38 | | |
+| Map geometry | 8 | 29 | | |
+| Gameplay data | 41 | 397 | | |
+| Total | 113 | 1,245 | 1,197 | 4,638 |
+
+The catalog identifies each block by file, directory index, block ID, and
+SHA-256. For multi-record pictures it includes each selector, source dimensions,
+frame count, offsets, and preview path. Wall definitions and map geometry
+build views from the tiles, so the catalog lists those records as composition
+data. The font sheet contains 177 original 8×8 glyphs.
+
+The archive inventory accounts for all DAX blocks in the supplied DOS set.
+It keeps executable and overlay visuals flagged for a separate audit, including
+interface drawing and any embedded graphics. Runtime uses of the cataloged
+assets, such as which encounter names share a portrait, still need mapping.
