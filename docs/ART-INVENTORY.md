@@ -136,7 +136,11 @@ angled and straight lintel pieces, weathered portal planks, and hardware.
 Five existing armory patterns also appear in these views.
 
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_J PATH_TO_CHROME sokal-landing`
-with the reinforced party at (8,14). Chrome loads all 121 individual tiles
-in each view, checks the original gate description, and compares the guest
-frame and save bytes across a display switch. The route west to the reeds
-and onward to the undead patrol has additional patterns.
+with the reinforced party at (8,14). The replay now turns west at the
+gate, walks to the reeds, and searches the elf's remains for the parchment.
+Twelve new tiles cover the gate viewed from the side, its hinges and
+sloping joins, and the angled parapet that frames the shore. Chrome loaded
+all 121 individual tiles in each of five views, covering 31 distinct
+patterns, verified the parchment dialogue, and compared the guest frame
+and save bytes across a display switch. The route onward to the undead
+patrol has additional patterns.

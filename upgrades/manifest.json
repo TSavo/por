@@ -27,6 +27,18 @@
     "tile:21:28082cb4614c1b75f311dc02a9bcfcec8c522d115bfeb1d170bf60bf53f2943a": "sokal-straight-impost.png",
     "tile:21:3aba0bc3a1f0358e649df430098738004297a0554176b8d049704de805a60256": "sokal-parapet-sky-cut.png",
     "tile:21:96c6214eeeffe75400cbf369415185d115fb3a3c1bd7607f5019cb3c97a66850": "sokal-parapet-rake.png",
-    "tile:21:d0a83bd71c8df140546833f463034917d2a4558950848f3c53576cc3dd781655": "sokal-impost-rake.png"
+    "tile:21:d0a83bd71c8df140546833f463034917d2a4558950848f3c53576cc3dd781655": "sokal-impost-rake.png",
+    "tile:21:f59a8b4ef53dca4b588a04b05a81d1c5a38fb9fa2354b6e64a4853bbbf7ad8f3": "sokal-raking-gate-head-start.png",
+    "tile:21:6182286c97e2af8cf47fcf4321d9b562df43cfb3c35ee22574e9528275ea8a7d": "sokal-raking-gate-head-end.png",
+    "tile:21:58aef8f26084a2aca7cc4f541ba0f78ee369e284686f8f6b89ccb7c228377477": "sokal-raking-cornice-to-gate.png",
+    "tile:21:919e7b9ba1269cd4c71644b92b2a02cb853bdee8bae3a7677c43c5824347ed60": "sokal-parapet-to-piers.png",
+    "tile:21:964c07ba606fb0dce8ded5eb607ca7e84243c983c10c52161c8e1fa1af6aae40": "sokal-parapet-to-sill.png",
+    "tile:21:3a3a128c42e891333672e2afe2f5b54df57cc147d478c373c68d5ee656e0fbef": "sokal-mitered-parapet-impost.png",
+    "tile:21:8f3581a37a37d80a394e310d82b46ab3fd19b341e0181b9dbbbed1a2a1bcad32": "sokal-near-gate-right-hinge.png",
+    "tile:21:33b51e82f012e7d91b96894cd582495df912d95b36989e787ee5f7885e92d5b7": "sokal-near-gate-left-hinge.png",
+    "tile:21:b784b8750b8adf3caafc9bb39eccbd31f78447d7268123fcf737875c487f9fea": "sokal-far-gate-right-hinge.png",
+    "tile:21:1180638ececd642b84551072d1f901f40c3f3d975f59049bd1aa8436be86beff": "sokal-raking-gate-foot.png",
+    "tile:21:11583121b2ac1a5771150de2b118c9675f522dedcd118833af481912bc3e24f6": "sokal-parapet-diagonal-in.png",
+    "tile:21:cfa4bda234e66d7f2a759b995f435fea64c2d7ed222fd494265f54af42d0fcc3": "sokal-parapet-diagonal-out.png"
   }
 }

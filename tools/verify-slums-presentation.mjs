@@ -120,7 +120,7 @@ try {
 
   await run('document.querySelector("#presentation").click()');
   if (armory || landing) {
-    const route = landing ? [null, "up"] :
+    const route = landing ? [null, "up", "left", "up", "up", "enter", "enter", "end", "enter", "enter"] :
       ["up", "up", "up", "right", "up", "left", "up", "left", "up", "up", "up", "right", "up"];
     const seen = new Set();
     let views = 0;
@@ -136,16 +136,16 @@ try {
       await waitFor("121 assembled Sokal tiles", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelectorAll("#tile-art img").length === 121 &&
         [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
-      if (landing || step === 2 || step === 9) {
+      if ((landing && (step === 0 || step === 3)) || (!landing && (step === 2 || step === 9))) {
         if (step === (landing ? 0 : 2)) await switchBothWays();
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, `${routeName}-${step}.png`), Buffer.from(shot.data, "base64"));
       }
     }
     const text = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
-    assert.match(text, landing ? /ROTTINGREMAINS/i : /ONSTANDSAREASHIELD/i);
-    assert.equal(views, landing ? 2 : 12);
-    assert.equal(seen.size, landing ? 19 : 13);
+    assert.match(text, landing ? /THELASTPARTISEATENAWAY/i : /ONSTANDSAREASHIELD/i);
+    assert.equal(views, landing ? 5 : 12);
+    assert.equal(seen.size, landing ? 31 : 13);
     console.log(`Verified ${seen.size} ${routeName} patterns across ${views} views. Captures: ${directory}`);
   } else if (orcs) {
     const route = ["up", "left", "up", "up", "up", "right", "up", "right",
