@@ -33,6 +33,7 @@ npm run tools -- extract          # out/dax/<file>/<id>.bin
 npm run tools -- disasm           # out/ecl.txt
 npm run tools -- images           # out/images/*.png
 npx tsx tools/art-inventory.ts    # out/art-inventory/index.html and inventory.json
+npx tsx tools/export-dos-save.ts path/to/browser/saves J  # export the DOS SAVE files for one slot
 npm run tools -- exe              # MZ header, packer signature, overlay stubs
 ```
 

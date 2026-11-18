@@ -609,6 +609,12 @@ reaches his first courtyard combat turn without watchdog recovery.
 With `--evoker-fight-to-end`, the recovered-courtyard checkpoint continues
 that party's attempt to defeat. A strict run reaches the original defeat
 screen and reloads Brin and the Evoker with both Sleep spells restored.
+For comparison with the DOS executable, `npx tsx tools/export-dos-save.ts
+PATH_TO_BROWSER_SAVE_DIRECTORY J` emits the main save and its party files
+to a new `SAVE` folder under `out`. The Sokal landing export verified all
+23 files byte-for-byte. Loading those raw files in the translated runner
+with an empty host save directory restored the expected party at the
+landing. A matching run in the original executable is still pending.
 In a separate branch from the same temple save, the party hires the
 Curate and Theurgist and reloads with both recruits. They take the boat
 to Sokal Keep, pass the undead patrol using the parchment password, and
