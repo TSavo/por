@@ -19,6 +19,19 @@ Add that value as a key in `assets` and supply a 448 × 480 PNG for the original
 text, and party panel visible. Each key matches an exact view, so frames with
 different positions or animation poses can use their own images.
 
+To replace individual exploration tiles, use manifest keys in the form
+`tile:<area>:<sha256>`. The hash covers the 64 original EGA palette indices
+in row order for one 8×8 cell. Each file must be a 32×32 PNG. The game places
+matching tiles independently as the party moves. Matches are scoped to the
+area and use the rendered tile pattern. Two source assets with identical
+rendered pixels in the same area share a replacement. Classic mode keeps the
+original pixels.
+
+The experimental Slums doorway pack is in `upgrades/slums`. Set
+`POR_UPGRADES_DIR=upgrades/slums` before starting the browser runner and use
+F10 while exploring the Slums. The pack includes 15 individually drawn
+replacements, and unmatched cells use the enhanced palette.
+
 Enhanced gameplay uses Geist Mono for text captured from the game's EGA
 character renderer. Use a local `font.woff2` in your upgrades directory to
 choose a different font. Letters remain in the game's original cells and

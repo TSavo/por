@@ -1,5 +1,6 @@
 const screen = document.querySelector("#screen");
 const viewportArt = document.querySelector("#viewport-art");
+const tileArt = document.querySelector("#tile-art");
 const gameText = document.querySelector("#game-text");
 const journal = document.querySelector("#journal");
 const closeJournal = document.querySelector("#close-journal");
@@ -26,6 +27,18 @@ function showScreen() {
   const replacement = enhanced && !state.journal && state.viewportArt;
   viewportArt.hidden = !replacement;
   if (replacement && viewportArt.getAttribute("src") !== replacement) viewportArt.src = replacement;
+  tileArt.hidden = !enhanced || Boolean(state.art || state.journal || replacement);
+  if (!tileArt.hidden) {
+    tileArt.replaceChildren(...(state.tiles ?? []).map(([x, y, id]) => {
+      const tile = document.createElement("img");
+      tile.alt = "";
+      tile.style.left = `${x / 3.2}%`;
+      tile.style.top = `${y / 2}%`;
+      tile.addEventListener("error", () => tile.remove(), { once: true });
+      tile.src = `/art/${id}`;
+      return tile;
+    }));
+  }
   gameText.hidden = !enhanced || Boolean(state.art && !state.journal);
   if (!gameText.hidden) {
     gameText.replaceChildren(...(state.text ?? []).map(([cell, character, color]) => {

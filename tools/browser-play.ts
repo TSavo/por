@@ -16,10 +16,12 @@ const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
 const gameFont = (() => {
-  try {
-    return readFileSync(join(upgrades, "font.woff2"));
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced font", error);
+  for (const path of new Set([join(upgrades, "font.woff2"), join("upgrades", "font.woff2")])) {
+    try {
+      return readFileSync(path);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced font", error);
+    }
   }
 })();
 const artwork = (() => {
@@ -28,12 +30,15 @@ const artwork = (() => {
     const manifest = JSON.parse(readFileSync(join(upgrades, "manifest.json"), "utf8")) as OverrideManifest;
     if (manifest.version !== 1 || !manifest.assets) return images;
     for (const id of Object.keys(manifest.assets)) {
-      if (id !== "scene:title" && !/^viewport:[a-f0-9]{64}$/.test(id)) continue;
+      if (id !== "scene:title" && !/^viewport:[a-f0-9]{64}$/.test(id) && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id)) continue;
       const file = lookupOverride(manifest, id);
       if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) continue;
       try {
         const png = readFileSync(join(upgrades, file));
-        if (png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) images.set(id, png);
+        if (!png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) continue;
+        if (id.startsWith("tile:") && (png.length < 24 || png.toString("ascii", 12, 16) !== "IHDR" ||
+            png.readUInt32BE(16) !== 32 || png.readUInt32BE(20) !== 32)) continue;
+        images.set(id, png);
       } catch (error) {
         if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork", error);
       }
@@ -47,6 +52,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
   env: {
     ...process.env,
     POR_BROWSER_PLAY: "1",
+    POR_TILE_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("tile:")).join(","),
     POR_LIVE_AT: process.env.POR_LIVE_AT ?? "24000000",
     POR_BOOT_STEPS: process.env.POR_BOOT_STEPS ?? "100000000",
   },
@@ -59,6 +65,7 @@ interface FrameState {
   enhancedFrame?: string;
   scene?: string;
   viewport?: string;
+  tiles?: [number, number, string][];
   text?: [number, number, number][];
   textColors?: [number, number, number][];
   journal?: { objective: JournalObjective; leads: JournalLead[]; trackedId?: string };

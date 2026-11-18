@@ -46,12 +46,31 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let nextPrompt = startAt;
   let trackedId: string | undefined;
   let scene: string | undefined;
+  let area: number | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
+  const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const showFrame = (leads?: JournalLead[]) => {
     if (browser) {
       const viewport = createHash("sha256");
       for (let y = 8; y < 128; y++) viewport.update(screen.pixels.subarray(y * screen.width + 8, y * screen.width + 120));
       const text = visibleGameText();
+      const tiles: [number, number, string][] = [];
+      const explorationMenu = text.filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
+        .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase();
+      if (tileKeys.size && area !== undefined && !scene && !leads && explorationMenu.startsWith("AREACASTVIEWENCAMP")) {
+        const pixels = Buffer.alloc(64);
+        // The first-person view has an 11-by-11 interior with an eight-pixel border.
+        for (let y = 24; y < 112; y += 8) {
+          for (let x = 24; x < 112; x += 8) {
+            for (let row = 0; row < 8; row++) {
+              const start = (y + row) * screen.width + x;
+              pixels.set(screen.pixels.subarray(start, start + 8), row * 8);
+            }
+            const key = `tile:${area}:${createHash("sha256").update(pixels).digest("hex")}`;
+            if (tileKeys.has(key)) tiles.push([x, y, key]);
+          }
+        }
+      }
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);
       for (const [cell] of text) {
@@ -65,6 +84,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         scene,
         viewport: `viewport:${viewport.digest("hex")}`,
         text,
+        tiles,
         textColors: enhancedPalette,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
           trackedId: leads.find((lead) => lead.id === trackedId && isOpenObjective(lead))?.id },
@@ -111,6 +131,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
+    if (browser && tileKeys.size) {
+      const segment = cpu.read16(0x740, 0x4935);
+      const offset = cpu.read16(0x740, 0x4933);
+      area = segment || offset ? cpu.read16(segment, offset + 0x1e4) : undefined;
+    }
     showFrame();
     while (true) {
       if (!browser) process.stdout.write("Game [J journal, :quit, key]> ");
