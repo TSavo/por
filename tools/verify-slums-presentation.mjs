@@ -54,7 +54,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-exit", "river-reward", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-exit", "river-return", "river-reward", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -73,6 +73,7 @@ const riverApproach = routeName === "river-approach";
 const riverPassage = routeName === "river-passage";
 const riverFountain = routeName === "river-fountain";
 const riverExit = routeName === "river-exit";
+const riverReturn = routeName === "river-return";
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
 const altar = routeName === "textile-altar";
@@ -497,12 +498,17 @@ try {
     for (const key of ["j", "e", "s", "s", "a"]) await advance(key);
     assert.ok(JSON.parse(readFileSync(saved, "utf8")).leads.some(({ id }) => id === "river-entrance-inside"));
     console.log("Verified the river rowboat and secret entrance in Chrome. Saved:", saved);
-  } else if (envoyReturn) {
-    const journalStatus = () => frame.journal?.leads.find(({ id }) => id === "commission-zhentil")?.status;
+  } else if (envoyReturn || riverReturn) {
+    const commission = riverReturn ? "commission-river" : "commission-zhentil";
+    const discovery = riverReturn ? "river-recovery" : "zhentil-envoy-left";
+    const journalStatus = () => frame.journal?.leads.find(({ id }) => id === commission)?.status;
     await advance("j");
     assert.equal(journalStatus(), "ready-to-report");
-    assert.ok(frame.journal.leads.some(({ id }) => id === "zhentil-envoy-left"));
-    for (const key of ["j", ...Array(5).fill("up"), ...Array(18).fill("right"), "down", "down", "enter",
+    assert.ok(frame.journal.leads.some(({ id }) => id === discovery));
+    const toLanding = riverReturn
+      ? ["right", "right", "right", ...Array(15).fill("down"), "left", "left"]
+      : [...Array(5).fill("up"), ...Array(18).fill("right"), "down", "down"];
+    for (const key of ["j", ...toLanding, "enter",
       "t", "enter", "enter", "enter", ...Array(4).fill("up"),
       "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
       "left", "up", "up", "left", "up", "left", "up", "up", "enter", "j"]) await advance(key);
@@ -512,7 +518,7 @@ try {
     assert.equal(journalStatus(), "reward-pending");
     for (const key of ["j", "enter", "enter", "enter", "s", "e", "j"]) await advance(key);
     assert.equal(journalStatus(), "turned-in");
-    console.log("Verified the reloaded Zhentil escape, return boat, and council turn-in in Chrome.");
+    console.log(`Verified ${commission} after reload, the return boat, and council turn-in in Chrome.`);
   } else if (envoyReward || riverReward) {
     const commission = riverReward ? "commission-river" : "commission-zhentil";
     const journalStatus = () => frame.journal?.leads.find(({ id }) => id === commission)?.status;
