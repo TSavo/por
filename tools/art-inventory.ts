@@ -240,6 +240,19 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
   return { id, preview, classicPreview, source, sourceCandidates, sourceParts, placement, capturedPlacement, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();
+const loadedIds = new Set(replacements.map(({ id }) => id));
+const missingTiles = [...capturedTiles].filter(([id]) => !loadedIds.has(id)).map(([id, { pixels, ...capture }], index) => {
+  const original = new Frame(8, 8);
+  original.pixels.set(pixels);
+  return { id, ...capture, preview: exportClassicFrame(original, replacements.length + index) };
+});
+const missingByArea = new Map<string, typeof missingTiles>();
+for (const tile of missingTiles) {
+  const area = /^tile:(\d+):/.exec(tile.id)?.[1] ?? "Battlefield";
+  const group = missingByArea.get(area) ?? [];
+  group.push(tile);
+  missingByArea.set(area, group);
+}
 const runtimeReplacements = [];
 for (const replacement of replacements) {
   if (!replacement.source) {
@@ -272,6 +285,14 @@ const runtimeGallery = runtimeReplacements.length ?
   `<details data-category="Runtime artwork"><summary>Runtime artwork · ${runtimeReplacements.length} replacements</summary><div class="grid">` +
   runtimeReplacements.map((entry) => `<figure data-visual="true" data-enhanced="true">${replacementPreview(entry)}</figure>`).join("") +
   "</div></details>" : "";
+const missingGallery = [...missingByArea].sort(([left], [right]) => left.localeCompare(right, "en", { numeric: true }))
+  .map(([area, tiles]) => `<details data-category="Captured tiles without replacements"><summary>` +
+    `${area === "Battlefield" ? area : `Area ${area}`} · ${tiles.length} captured tiles without replacements</summary><div class="grid">` +
+    tiles.map(({ id, trace, frame, x, y, preview }) =>
+      `<figure data-visual="true" data-enhanced="false" data-coverage="missing">` +
+      `<a href="${preview}" target="_blank" rel="noopener"><img width="32" height="32" loading="lazy" src="${preview}" alt="Classic tile"></a>` +
+      `<p>${escape(id)}</p><p>${escape(trace)} · frame ${frame} · (${x}, ${y})</p></figure>`).join("") +
+    "</div></details>").join("\n");
 const gallery = archives.map(({ file, category, entries }) =>
   `<details data-category="${escape(category)}"><summary>${escape(file)} · ${category} · ${entries.length} blocks</summary><div class="grid">` +
   entries.map((entry) => {
@@ -305,11 +326,12 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 </style><h1>Pool of Radiance art inventory</h1>
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
-<label>Category <select id="category"><option value="">All categories</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
+<label>Category <select id="category"><option value="">All categories</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
 <label><input id="include-data" type="checkbox"> Include composition and gameplay data</label>
 <label>Replacement <select id="replacement"><option value="">Any</option><option value="linked">Has linked artwork</option><option value="missing">No frames linked</option><option value="partial">Some frames linked</option><option value="complete">All frames linked</option></select></label>
 <p id="matches" role="status"></p>
 ${runtimeGallery}
+${missingGallery}
 ${gallery}
 <script>
 const search = document.querySelector('#search');
@@ -343,7 +365,7 @@ includeData.addEventListener('change', filter);
 replacement.addEventListener('change', filter);
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, missingTiles, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
