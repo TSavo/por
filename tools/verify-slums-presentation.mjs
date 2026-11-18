@@ -54,7 +54,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -70,6 +70,7 @@ const envoyReward = routeName === "zhentil-reward";
 const envoyReturn = routeName === "zhentil-return";
 const riverApproach = routeName === "river-approach";
 const riverPassage = routeName === "river-passage";
+const riverFountain = routeName === "river-fountain";
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
 const altar = routeName === "textile-altar";
@@ -429,6 +430,23 @@ try {
     await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
+  } else if (riverFountain) {
+    const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+    await advance("j");
+    assert.equal(frame.journal?.trackedId, "commission-river");
+    assert.ok(!knows("river-fountain") && !knows("river-equipment-destroyed"));
+    for (const key of ["j", "up", "b", "j"]) await advance(key);
+    assert.ok(knows("river-fountain") && !knows("river-equipment-destroyed"));
+    assert.match(frame.journal.objective.nextStep, /Destroy the Equipment/);
+    for (const key of ["j", "enter", "enter", "d", "j"]) await advance(key);
+    assert.ok(knows("river-equipment-destroyed") && !knows("river-recovery"));
+    assert.equal(frame.journal.leads.find(({ id }) => id === "commission-river")?.status, "ready-to-report");
+    assert.match(frame.journal.objective.nextStep, /council clerk/);
+    for (const key of ["j", "e", "s", "s", "a"]) await advance(key);
+    const completed = JSON.parse(readFileSync(saved, "utf8"));
+    assert.equal(completed.leads.find(({ id }) => id === "commission-river")?.status, "ready-to-report");
+    assert.ok(completed.leads.some(({ id }) => id === "river-equipment-destroyed"));
+    console.log("Verified the river fountain discovery and machinery shutdown in Chrome. Saved:", saved);
   } else if (riverPassage) {
     await advance("j");
     assert.equal(frame.journal?.trackedId, "commission-river");
