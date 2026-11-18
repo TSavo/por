@@ -163,8 +163,12 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("sokal-arrival")) nextStep = "Scout the keep and look for clues to the haunting.";
       else if (knows("passage-sokal")) nextStep = "Catch the boat to Sokal Keep at the end of the pier.";
     }
-    if (commission.id === "bottle" && knows("bottle-recovered")) {
-      nextStep = "Return to Diogenes with the bottle so he can explain how to use it.";
+    if (commission.id === "bottle") {
+      if (knows("bottle-recovered")) nextStep = "Return to Diogenes with the bottle so he can explain how to use it.";
+      else if (knows("kobold-cave-fork")) nextStep = "Choose Large or Small at the kobold caves. Search inside for the silver bottle, then bring it back to Diogenes.";
+    }
+    if (commission.id === "kobolds" && knows("kobold-cave-fork")) {
+      nextStep = "Explore the caves and look for the tribe that the enemy is recruiting.";
     }
     if (commission.id === "bane") {
       if (knows("bane-altar-ambush")) nextStep = "Defeat the half-orc cleric and the orcs who attacked when you destroyed the altar.";
@@ -479,6 +483,12 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
+  if (text.includes("WHAT CAVE WILL YOU ENTER?")) {
+    leads.push({ id: "kobold-cave-fork", title: "The kobold cave fork", detail: "The party found a concealed cave beside a larger entrance and can choose which to explore." });
+  }
+  if (text.includes("LOOK FOR FRIENDS WHERE YOU EXPECT ENEMIES AND ENEMIES WHERE YOU EXPECT ALLIES")) {
+    leads.push({ id: "slums-fortune-warning", title: "The fortune teller's warning", detail: "The fortune teller warned that people the party expects to be enemies may help, and apparent allies may turn against it." });
+  }
   if (text.includes("YOU HAVE STUMBLED UPON A LARGE NOMAD CAMP")) {
     leads.push({ id: "nomad-camp-found", title: "The Nomad Camp", detail: "The party found a camp on the overland route and can choose Enter or Leave." });
   }

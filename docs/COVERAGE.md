@@ -1074,6 +1074,9 @@ slot B. Chrome checks the transition from the outer castle to the tower and
 verifies 1,573 tile placements across 13 views before the dragon entrance.
 The route uses 114 keys, including 65 new bindings to 59 new 32×32 paintings.
 The save is preserved when switching presentation.
+The `valjevo-west-gallery` replay takes the other tower branch from the same
+slot B and checks 1,815 placements across 15 views. It adds 11 original
+32×32 tiles and five bindings to existing tower art during the transition.
 
 The `sokal-northeast-keep` replay loads slot D at `14,5 N` and walks the
 northeast halls. Chrome checks 3,025 placements across 25 views, using eight
@@ -1165,10 +1168,16 @@ PNGs in 19 movement frames, each assembled from 121 individual tiles.
 The 22-view kobold presentation and switching replay also passed.
 The `kobold-cave` replay uses a separate controlled slot B at the cave fork.
 It verifies the 352×352 illustration through the Large / Small / Exit decision
-and checks that switching presentation preserves the save.
+and checks that switching presentation preserves the save. The fork appears
+in the journal only after the party finds it.
 The `kobold-cave-wyvern` replay uses controlled slot A inside the large cave.
 Chrome checks both 192×192 combat poses, including the animated strike, and
 verifies that switching presentation preserves the game state and save.
+The `kobold-cave-troll` replay uses a controlled slot A near the throne room
+and checks the 96×192 ready pose and reflected strike during combat.
+The `slums-fortune` replay uses controlled slot B, checks the fortune teller's
+352×352 portrait, and reveals her journal clue only after the party pays for
+and hears the reading.
 The same Chrome replay passed with encounter anchors read from the Slums
 manifest. A framebuffer check moved the middle kobold pose to a different
 anchor and area, confirmed the old area's background was discarded, and
