@@ -270,7 +270,36 @@ function checkCampaignJournal(): void {
     throw new Error("Sokal journal lost Ferran's exit instruction on completion");
   }
   const castle = commissions.find(({ id }) => id === "castle")!;
-  const finale = questProgress(m, discoveredLeads(castle.offer), m.ds);
+  const castleFlag = progressAddresses.castle!;
+  writeGlobal(castleFlag, 0);
+  let castleTranscript = castle.offer;
+  const castleRoute = [
+    ["USE THESE CLOTHES AS A DISGUISE", "Use the clothes"],
+    ["HE JUST HIRED ME TO IMPERSONATE HIM", "real Tyranthraxus"],
+    ["AN ANCIENT BRONZE DRAGON", "Get past the guards"],
+    ["IF YOU JOIN ME I WILL MAKE YOU THE COMMANDERS", "Choose Attack"],
+  ] as const;
+  for (const [trigger, direction] of castleRoute) {
+    const line = lines.find((text) => text.includes(trigger));
+    if (!line) throw new Error(`Missing original Valjevo dialogue: ${trigger}`);
+    castleTranscript += "\n" + line;
+    if (!currentObjective(discoveredLeads(castleTranscript)).nextStep.includes(direction)) {
+      throw new Error(`Valjevo journal route mismatch: ${trigger}`);
+    }
+  }
+  const castleLeads = discoveredLeads(castleTranscript);
+  const battle = blocks.find((block) => block.some(({ operands }) =>
+    operands.some(({ text }) => text?.includes("TYRANTHRAXUS HAS FINALLY BEEN DEFEATED"))));
+  if (!battle?.some(({ name, operands }) =>
+    name === "SAVE" && operands[0]?.low === 254 && operands[1]?.word === castleFlag)) {
+    throw new Error("Original battle script did not contain the castle completion write");
+  }
+  writeGlobal(castleFlag, 254);
+  if (!currentObjective(questProgress(m, castleLeads, m.ds)).nextStep.includes("council clerk")) {
+    throw new Error("The journal did not direct the party to report the castle victory");
+  }
+  writeGlobal(castleFlag, 255);
+  const finale = questProgress(m, castleLeads, m.ds);
   const optional = discoveredLeads(commissions.find(({ id }) => id === "ohlo")!.offer);
   if (currentObjective([...finale, ...optional]).title !== "Phlan is free" ||
       currentObjective([...finale, ...optional], "commission-ohlo").title !== "Fetch Ohlo's potion") {

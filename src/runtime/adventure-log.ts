@@ -55,6 +55,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "sokal" && tracked.status === "ready-to-report" && knows("sokal-departure")) {
         return { title: commission.title, nextStep: "If the guards stop you on the way out, use Ferran's password. Take the boat back and report to the council clerk." };
       }
+      if (commission.id === "castle" && tracked.status === "ready-to-report") {
+        return { title: commission.title, nextStep: "Return to City Hall and report Tyranthraxus's defeat to the council clerk." };
+      }
       return { title: commission.title, nextStep: tracked.detail };
     }
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
@@ -71,6 +74,12 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     if (commission.id === "bottle-vampire" && knows("graveyard-vampire-location")) {
       nextStep = "Go to the northeast corner of Valhingen Graveyard. Use the bottle when you confront the vampire.";
+    }
+    if (commission.id === "castle") {
+      if (knows("castle-vote")) nextStep = "Choose Attack when each party member is asked to vote. Then defeat Tyranthraxus.";
+      else if (knows("castle-audience")) nextStep = "Get past the guards in the audience hall and confront the bronze dragon.";
+      else if (knows("castle-impostor")) nextStep = "Continue searching the castle for the real Tyranthraxus.";
+      else if (knows("castle-disguise")) nextStep = "Use the clothes offered by the resistance to move through the castle and find Tyranthraxus.";
     }
     return { title: commission.title, nextStep };
   }
@@ -201,6 +210,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'")) {
     leads.push({ id: "sokal-departure", title: "Ferran's password", detail: "Ferran told the party to say SAMOSUD to his guards on the way out." });
+  }
+  if (text.includes("USE THESE CLOTHES AS A DISGUISE AND YOU WILL ESCAPE NOTICE")) {
+    leads.push({ id: "castle-disguise", title: "Help inside Valjevo Castle", detail: "Rebels offered the party clothes to pass as castle inhabitants." });
+  }
+  if (text.includes("HE JUST HIRED ME TO IMPERSONATE HIM")) {
+    leads.push({ id: "castle-impostor", title: "Tyranthraxus's impostor", detail: "The figure on the throne admitted he was hired to impersonate Tyranthraxus." });
+  }
+  if (text.includes("AN ANCIENT BRONZE DRAGON, SURROUNDED BY A FIERY AURA")) {
+    leads.push({ id: "castle-audience", title: "The audience hall", detail: "The party saw a bronze dragon rise next to the glowing pool." });
+  }
+  if (text.includes("IF YOU JOIN ME I WILL MAKE YOU THE COMMANDERS OF THE ARMIES")) {
+    leads.push({ id: "castle-vote", title: "Tyranthraxus's offer", detail: "Tyranthraxus offered command of his armies in exchange for joining him." });
   }
   for (const commission of commissions) {
     const reported = commission.report !== undefined && text.includes(commission.report);
