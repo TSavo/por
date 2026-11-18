@@ -47,6 +47,14 @@ return, channel-selection, loop, and field-assignment commands. Run
 `npm run sound-driver-data -- <output.json>` to export the exact tables, frequency
 data, duration multipliers, and timing constants from the original START.EXE.
 
+Run `npm run render-original-sounds -- <output-directory>` to execute all 20
+events through the decoded driver in both hardware modes. It writes deterministic
+port traces, 44.1 kHz lossless PC-speaker WAV files, Tandy VGM 1.50 streams using
+the original 3.579545 MHz PSG clock, and a duration/termination summary. Events
+13 through 15 are looping sequences and are intentionally reported at the render
+limit; all other events must terminate naturally. `npm run verify` exercises every
+event and validates representative WAV and VGM headers and hardware output.
+
 ## Production pipeline
 
 Tandy traces will be converted to VGM register streams and rendered to canonical

@@ -13,8 +13,9 @@
     "shots": "tsx tools/cli.ts shots",
     "sound-inventory": "tsx tools/sound-inventory.ts",
     "sound-driver-data": "tsx tools/sound-driver-data.ts",
+    "render-original-sounds": "tsx tools/render-original-sounds.ts",
     "translate": "python tools/tp_translate.py",
-    "verify": "tsx tools/verify-translation.ts"
+    "verify": "tsx tools/verify-translation.ts && tsx tools/verify-original-audio.ts"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
