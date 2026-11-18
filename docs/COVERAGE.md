@@ -217,6 +217,15 @@ Hall. The journal again read Phlan is free. This verifies the fight and
 ending with the original enemy. A party trained by playing the campaign
 through from a fresh start remains to be verified.
 
+A controlled training replay sent the six-character party to the schools
+from a Slums save. It followed the posted directions north and entered the
+east door for magic users. Darkstar had 5,000 XP and 250 platinum in the
+checkpoint. The guest training menu raised her to level 2 and opened the
+spell-learning menu. The character sheet still showed level 2 after saving
+to slot C and reloading. The same replay showed an unexpected 35,568
+platinum after training, so this verifies advancement and persistence.
+Training payment still needs verification.
+
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
 for that character. If a hostile actor stalls, the runner restores its state
