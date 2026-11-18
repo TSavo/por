@@ -606,6 +606,9 @@ courtyard defeat screen appears, so it can reload the earlier save
 instead of acknowledging the defeat and exiting to DOS. The resumed
 replay hires an Evoker, confirms his two Sleep spells after reload, and
 reaches his first courtyard combat turn without watchdog recovery.
+With `--evoker-fight-to-end`, the recovered-courtyard checkpoint continues
+that party's attempt to defeat. A strict run reaches the original defeat
+screen and reloads Brin and the Evoker with both Sleep spells restored.
 In a separate branch from the same temple save, the party hires the
 Curate and Theurgist and reloads with both recruits. They take the boat
 to Sokal Keep, pass the undead patrol using the parchment password, and
