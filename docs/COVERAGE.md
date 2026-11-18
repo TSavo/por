@@ -514,6 +514,14 @@ duel. The original reward screen awards the duelist 100 XP, and reloading
 shows Alda at 1,621 XP and 1 HP. This duel used normal game inputs and
 finished without watchdog recovery.
 
+Run `node tools/verify-fresh-party.mjs --sokal-restored-arena-checkpoint PATH_TO_SLOT_G`
+to take the recovered Sokal party from the Temple of Tyr to the arena.
+The selection initially rests on the Curate, whom the arena master will
+refuse. Select Alda, fight with the recovered longsword, and decline to
+continue when the duel ends. Reloading slot H confirms Alda at level 1
+with 1,562 earned XP. Returning to the arena from the west after that
+reload did not offer another duel in the tested route.
+
 The fresh-party verifier stops feeding Quick inputs when the Sokal
 courtyard defeat screen appears, so it can reload the earlier save
 instead of acknowledging the defeat and exiting to DOS. The resumed

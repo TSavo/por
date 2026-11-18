@@ -1418,6 +1418,27 @@ if (process.argv[2] === "--sokal-smithy-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--sokal-restored-arena-checkpoint") {
+  assert.ok(process.argv[3], "Pass the slot G temple save after raising Brin.");
+  copyFileSync(process.argv[3], join(saveDir, "G.json"));
+  await replay(loadSlot("2267"), "85000000", [
+    (text) => assert.match(text, /brin 1 6.*11,3 s/),
+    "right", "right", "up", "left", "up", "right", "up", "up", "left", "up",
+    "enter", "enter", "enter", "n", "left", "up", "right", "up", "up", "enter", "enter",
+    (text) => assert.match(text, /7,1 w.*arena master asks if you wish to duel/),
+    "y", (text) => assert.match(text, /who will duel/),
+    ...Array(7).fill("home"), "enter", "enter", "enter", ["q", /continue battle:yes no/, 100],
+    "n", (text) => assert.match(text, /you have won the duel.*duelist receives 100 experience points/),
+    "enter", "enter", "s", "e", "n", "e", "s", "s", "h",
+    (text) => assert.match(text, /7,1 w.*quit to dos/),
+  ]);
+  await replay(loadSlot("2368"), "85000000", [
+    "v", "v", (text) => assert.match(text, /alda.*level 1 exp 1562/),
+  ]);
+  console.log("Won an arena duel with the recovered party and reloaded Alda's earned 100 XP.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--fighter-training-journal-checkpoint") {
   assert.ok(process.argv[3], "Pass slot A from the New Phlan Cadorna commission replay.");
   copyFileSync(process.argv[3], join(saveDir, "A.json"));
