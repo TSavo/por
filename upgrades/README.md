@@ -39,8 +39,10 @@ the guest draw source is verified.
 
 The experimental Slums doorway pack is in `upgrades/slums`. Set
 `POR_UPGRADES_DIR=upgrades/slums` before starting the browser runner and use
-F10 while exploring the Slums. The pack includes 15 individually drawn
-replacements, and unmatched cells use the enhanced palette.
+F10 while exploring the Slums. The pack includes 59 individual replacements,
+covering the doorway study and all 53 patterns observed on the recorded
+Slums route to the kobold encounter. New or unmatched cells use the enhanced
+palette.
 
 Enhanced gameplay uses Geist Mono for text captured from the game's EGA
 character renderer. Use a local `font.woff2` in your upgrades directory to
