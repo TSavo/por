@@ -507,6 +507,7 @@ try {
     console.log(`Verified ${route.length} Slums outpost views with guard sprites in ${positions.size} combat positions and swings in ${attacks.size}.`);
   } else {
     let views = 0;
+    let cityTiles = 0;
     const tileLayouts = new Set();
     const routeTiles = [];
     let portrait = false;
@@ -528,6 +529,12 @@ try {
         await waitFor("the kobold portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
         await switchBothWays();
         portrait = true;
+      }
+      if (frame.tileInventory?.[0]?.[2].startsWith("tile:0:") && frame.tiles.length) {
+        cityTiles += frame.tiles.length;
+        await waitFor("New Phlan entrance tiles", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelectorAll("#tile-art img").length === ${frame.tiles.length} &&
+          [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
       }
       if (!frame.tileInventory?.[0]?.[2].startsWith("tile:20:")) continue;
       routeTiles.push(frame.tileInventory);
@@ -642,7 +649,8 @@ try {
       const state = await latest();
       return state.ready && state.sequence > frame.sequence;
     });
-    console.log(`Verified ${views} Slums views and state-preserving switches in exploration, journal, dialogue, and combat.`);
+    assert.ok(cityTiles > 0, "The New Phlan entrance must render enhanced tiles");
+    console.log(`Verified ${cityTiles} New Phlan tile placements and ${views} Slums views and state-preserving switches in exploration, journal, dialogue, and combat.`);
     const trace = resolve(directory, "slums-tiles.jsonl");
     writeFileSync(trace, routeTiles.map((tiles) => JSON.stringify(tiles)).join("\n") + "\n");
     console.log("Slums artwork trace:", trace);
