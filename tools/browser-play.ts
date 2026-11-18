@@ -56,8 +56,11 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(page);
   } else if (req.method === "GET" && req.url === "/play.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(script);
-  } else if (req.method === "GET" && req.url === "/state") {
-    res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({ ...frame, sequence, ready, stopped, notice }));
+  } else if (req.method === "GET" && (req.url === "/state" || /^\/state\?after=-?\d+$/.test(req.url ?? ""))) {
+    const snapshot = req.url === `/state?after=${sequence}` ? {} : frame;
+    res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
+      ...snapshot, sequence, ready, stopped: stopped ?? null, notice: notice ?? null,
+    }));
   } else if (req.method === "POST" && req.url === "/key") {
     if (req.headers.origin !== origin) { res.writeHead(403).end(); return; }
     let command = "";
@@ -69,7 +72,11 @@ const server = createServer(async (req, res) => {
     } catch {
       return;
     }
-    if (!ready || stopped) { res.writeHead(409).end(); return; }
+    const expected = req.headers["x-por-frame"];
+    if (!ready || stopped || (expected !== undefined && expected !== String(sequence))) {
+      res.writeHead(409).end();
+      return;
+    }
     const track = /^track ([1-9]\d{0,2})$/.exec(command);
     const validTrack = track && Number(track[1]) <= (frame.journal?.leads.filter(isOpenObjective).length ?? 0);
     const gameKey = command.startsWith("key ") ? command.slice(4) : command;

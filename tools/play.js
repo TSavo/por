@@ -54,9 +54,14 @@ function render() {
 async function send(key) {
   if (!state.ready || posting || state.stopped) return;
   posting = true;
+  const sequence = state.sequence;
   try {
-    const result = await fetch("/key", { method: "POST", body: key });
-    if (result.ok) state.ready = false;
+    const result = await fetch("/key", {
+      method: "POST", headers: { "X-POR-Frame": String(sequence) }, body: key,
+    });
+    if (state.sequence === sequence && (result.ok || result.status === 409)) state.ready = false;
+  } catch {
+    status.textContent = "Waiting for the local game runner…";
   } finally {
     posting = false;
   }
@@ -64,10 +69,10 @@ async function send(key) {
 
 async function poll() {
   try {
-    const response = await fetch("/state");
+    const response = await fetch(`/state?after=${state.sequence}`);
     const next = await response.json();
     const changed = next.sequence !== state.sequence;
-    state = next;
+    state = changed ? next : { ...state, ...next };
     if (changed) render();
     closeJournal.disabled = !state.ready || Boolean(state.stopped);
     status.textContent = state.stopped ?? state.notice ??
