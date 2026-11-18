@@ -118,8 +118,17 @@ performances. `npm run verify` validates their manifests and WAV assets.
 Enhanced effects use optional `enhancedFile` entries on that same original event
 manifest. The browser selects the replacement only in Enhanced mode; otherwise it
 uses the selected Classic hardware WAV. Missing or unavailable Enhanced files
-therefore fall back without changing the original trigger. The vertical slice's
-event 2 prototype is reproducible with `npm run generate-enhanced-audio`.
+therefore fall back without changing the original trigger.
+
+Replacement effects are generated with ElevenLabs Sound Effects v3, not local
+procedural synthesis. `src/audio/enhanced-sounds.json` is the production prompt
+sheet for all reachable effect events and records stable IDs, filenames, target
+lengths, prompts, model, output format, and prompt influence. Preview the planned
+requests with `npm run generate-enhanced-audio`; generation requires both
+`ELEVENLABS_API_KEY` and the explicit `--generate` argument because it consumes
+ElevenLabs credits. The generator writes canonical WAV files plus a provenance
+report containing prompts, model settings, timestamps, response cost headers,
+and SHA-256 hashes. Every generated result remains subject to listening review.
 
 ## Production pipeline
 
