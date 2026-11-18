@@ -335,6 +335,13 @@ the slot and opening the journal still showed Phlan is free. This verifies
 the fight and ending with the original enemy and the edited checkpoint
 party. A party trained by playing the campaign through from a fresh
 start remains to be verified.
+Run `node tools/verify-fresh-party.mjs --castle-ending-checkpoint PATH_TO_SLOT_B`
+with the prepared party outside the audience hall at `14,7 S`. With
+`POR_REQUIRE_UNINTERRUPTED_COMBAT=1`, the replay verifies the original
+80 HP opponent and that Quick completes the fight without watchdog
+intervention. It also checks the 67,500 XP council award, the journal's
+ready-to-report, reward-pending, and turned-in states, and the ending
+objective after reloading slot C.
 
 A controlled training replay sent the six-character party to the schools
 from a Slums save. It followed the posted directions north and entered the

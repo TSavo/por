@@ -723,6 +723,41 @@ if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.a
   process.exit(0);
 }
 
+if (process.argv[2] === "--castle-ending-checkpoint") {
+  assert.ok(process.argv[3], "Pass a save outside Tyranthraxus's audience hall with the assault assigned.");
+  copyFileSync(process.argv[3], join(saveDir, "B.json"));
+  const checkCastle = (status) => (_text, frame) => {
+    assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-castle")?.status, status);
+  };
+  await replay(loadSlot("3062"), "85000000", [
+    "right", ...Array(4).fill("up"),
+    (text) => assert.match(text, /audience hall of tyranthraxus/),
+    ...Array(5).fill("enter"),
+    (text) => assert.match(text, /how do you vote.*attack join tyranthraxus/),
+    ...Array(6).fill("a"), "enter", "enter", "q",
+    (text) => assert.match(text, /tyrani?thraxus hitpoints 80 ac -4/),
+    ...Array(32).fill("q"),
+    (text) => assert.match(text, /continue battle:yes no/),
+    "n", (text) => assert.match(text, /the party has won.*receives 917 experience points/),
+    "enter", "enter", "e", ...Array(9).fill("enter"),
+    (text) => assert.match(text, /0,4 e.*gateway to the unsettled areas/),
+    "j", checkCastle("ready-to-report"), "j",
+    "up", "up", "up", "enter", "up", "right", "up", "enter", "enter", "enter",
+    "up", "left", "up", "up", "enter",
+    (text) => assert.match(text, /your quest is over.*tyranthraxus is defeated.*phlan is free/),
+    "enter", (text) => assert.match(text, /receives 67500 experience points/),
+    "enter", "enter", "j", checkCastle("reward-pending"), "j", "s", "e",
+    ...Array(4).fill("enter"), "j", checkCastle("turned-in"), "j",
+    "e", "s", "s", "c",
+  ]);
+  await replay(loadSlot("2e63"), "85000000", [
+    "j", checkCastle("turned-in"),
+    (_text, frame) => assert.equal(frame.journal.objective.title, "Phlan is free"),
+  ]);
+  console.log("Defeated the original Tyranthraxus, collected the council reward, and reloaded the completed campaign.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--podal-checkpoint") {
   assert.ok(process.argv[3], "Pass a save at the clerk with Sokal turned in and the auction accepted.");
   await verifyPodalFromCouncil(process.argv[3]);
