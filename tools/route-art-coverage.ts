@@ -6,28 +6,15 @@ import { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
+import { loadUpgradeArt, loadUpgradeArtFromManifests } from "./upgrade-art.js";
 
 const [tracePath, manifestPath, reportPath, omitted] = process.argv.slice(2);
 if (!tracePath || !manifestPath || !reportPath) {
-  throw new Error("Usage: tsx tools/route-art-coverage.ts <tile-inventory.jsonl> <manifest.json> <report.json> [--omit-frames=20,22]");
+  throw new Error("Usage: tsx tools/route-art-coverage.ts <tile-inventory.jsonl> <manifest.json|--browser> <report.json> [--omit-frames=20,22]");
 }
 const root = findGameRoot();
 if (!root) throw new Error("Original game data is required for source tile matching");
-const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as { assets: Record<string, string> };
-const manifestDirectory = dirname(manifestPath);
-const validImages = new Set<string>();
-for (const [key, name] of Object.entries(manifest.assets)) {
-  if ((!key.startsWith("tile:") && !key.startsWith("battle-tile:")) || !/^[a-z0-9_-]+\.png$/i.test(name)) continue;
-  try {
-    const png = readFileSync(join(manifestDirectory, name));
-    if (png.length >= 24 && png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])) &&
-        png.toString("ascii", 12, 16) === "IHDR" && png.readUInt32BE(16) === 32 && png.readUInt32BE(20) === 32) {
-      validImages.add(name);
-    }
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
-  }
-}
+const artwork = manifestPath === "--browser" ? loadUpgradeArt() : loadUpgradeArtFromManifests([manifestPath]);
 const trace = readFileSync(tracePath, "utf8").trim();
 if (!trace) throw new Error("The route trace contains no exploration frames");
 const frames = trace.split(/\r?\n/).map((line) => JSON.parse(line) as [number, number, string, string?][]);
@@ -122,7 +109,7 @@ for (const [frame, inventory] of frames.entries()) {
 const tiles = [...cells].map(([key, { positions, ...cell }]) => ({
   key, ...cell, target: { width: 32, height: 32 },
   positions: [...positions.values()].sort((a, b) => a.y - b.y || a.x - b.x),
-  replacement: validImages.has(manifest.assets[key] ?? "") ? manifest.assets[key]! : null,
+  replacement: artwork.get(key)?.file ?? null,
   reference: tracedPixels.has(key) ? "framebuffer" : sourceByHash.has(sourceKey(key)) ? "archive" : null,
   sourceCandidates: sourceByHash.get(sourceKey(key))?.candidates ?? [],
 })).sort((a, b) => (a.area === "battlefield" ? 256 : a.area) - (b.area === "battlefield" ? 256 : b.area) || Number(Boolean(a.replacement)) - Number(Boolean(b.replacement)) ||
@@ -146,9 +133,10 @@ const frameDirectory = join(dirname(tracePath), "tile-frames");
 function galleryLink(path: string) {
   return relative(dirname(galleryPath), path).split(/[\\/]/).map(encodeURIComponent).join("/");
 }
-const sections = areas.map(({ area, patterns, matched }) => `<section><h2>Area ${area} · ${matched}/${patterns}</h2><div class="grid">` +
-  tiles.filter((tile) => tile.area === area).map(({ key, first, occurrences, positions, replacement, sourceCandidates }) => {
-    const src = replacement && galleryLink(join(manifestDirectory, replacement));
+const sections = areas.map(({ area, patterns, matched }) => `<section><h2>${areaLabel(area)} · ${matched}/${patterns}</h2><div class="grid">` +
+  tiles.filter((tile) => tile.area === area).map(({ key, first, occurrences, positions, sourceCandidates }) => {
+    const placedArt = artwork.get(key);
+    const src = placedArt && galleryLink(placedArt.path);
     const framePath = join(frameDirectory, `${first.frame}.png`);
     const frameLabel = existsSync(framePath) ? `<a href="${galleryLink(framePath)}">frame ${first.frame}</a>` : `frame ${first.frame}`;
     const candidates = sourceCandidates.map(({ archive, block, frame, fragment, role, reflected }) =>

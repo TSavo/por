@@ -67,6 +67,13 @@ in the original 320Ãƒâ€”200 framebuffer. Later frames retain exact matche
 the combat layout changes. The transparent black pixels were excluded from
 matching to allow the sprite to overlap background tiles.
 
+Run `node --import tsx tools/route-art-coverage.ts PATH_TO_SLUMS_TILES_JSONL --browser out/slums-coverage.json`
+to produce the route checklist against the browser's active art packs.
+The 22-view kobold trace has 34 distinct environment patterns and a
+valid 32×32 replacement for each. The HTML report links to the resolved
+asset even when a route uses both packs. Pass a manifest path to check
+one pack in isolation.
+
 The Chrome kobold route now checks every visible guard sprite at 430px
 and 1100px. Each 96×96 PNG must occupy the original 24×24 guest cell
 at the correct scaled position and facing. The replay switches modes
