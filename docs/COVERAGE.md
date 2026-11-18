@@ -258,8 +258,13 @@ to continue with that party. Brin fell in the smithy. Alda takes and
 readies the recovered longsword, and the fallen fighters' armor goes
 to the Swordsman and Curate. The replay confirms those loadouts survive
 reload, follows the original boat back to New Phlan, and checks the
-Temple of Tyr's 5,500-gold Raise Dead quote for Brin. It declines the
-quote and reloads the party at the temple in slot G.
+Temple of Tyr's services. Alda sells a piece of jewelry for 5,279 gold
+and pools the party's remaining coins. Brin receives Raise Dead for 5,500
+gold and Cure Light Wounds for 100 gold. The party divides the remaining
+coins, and Brin readies the recovered mace. Reloading slot G verifies his
+6 HP, AC 1, constitution 11, mace, and 26 platinum. The replay presses the
+original J key for Jewelry in the appraisal menu, where it now takes
+precedence over the journal shortcut.
 From C, the party answers Yes when a second patrol asks for the password,
 then explores the ruined smithy. It wins the frog encounter for 31 XP per
 character. Alda falls to 0 HP during the fight. The party enters the old

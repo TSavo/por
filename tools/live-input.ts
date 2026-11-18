@@ -53,6 +53,11 @@ function readCommand(): string | undefined {
   return line.length ? line.trim() : undefined;
 }
 
+function menuText(glyphs: ReturnType<typeof visibleGameText>) {
+  return glyphs.filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
+    .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase();
+}
+
 /** Terminal control for the translated runner. Journal input stays on the host. */
 export function liveInput(startAt: number, journal: () => JournalLead[], recording?: string) {
   let nextPrompt = startAt;
@@ -91,8 +96,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const encounter = encounterArt(screen, enhanced, !scene && !leads && !portrait ? area : undefined);
       const tiles: [number, number, string][] = [];
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
-      const explorationMenu = text.filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
-        .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase();
+      const explorationMenu = menuText(text);
       if ((tileKeys.size || traceTiles) && area !== undefined && !scene && !leads && !portrait && explorationMenu.startsWith("AREACASTVIEWENCAMP")) {
         const pixels = Buffer.alloc(64);
         // The first-person view has an 11-by-11 interior with an eight-pixel border.
@@ -200,9 +204,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
       if (!inCampMenu && diskMenuDepth === 0 && command.toLowerCase() === "j") {
-        openJournal();
-        showFrame();
-        continue;
+        // The original appraisal menu uses J for Jewelry.
+        if (!/^APPRAISE:.*JEWELRY/.test(menuText(visibleGameText()))) {
+          openJournal();
+          showFrame();
+          continue;
+        }
       }
       const key = getKey(command === "" ? "enter" : command.startsWith("key ") ? command.slice(4) : command);
       if (key === undefined) {

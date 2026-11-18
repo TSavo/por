@@ -1060,18 +1060,34 @@ if (process.argv[2] === "--sokal-armory-reinforcement-checkpoint") {
   ]);
   await replay(loadSlot("2166"), "85000000", [
     (text) => assert.match(text, /swordsman 3 17.*curate 2 25.*12,0 n/),
-    ...armoryToTemple, "end", "end", "h",
+    ...armoryToTemple, "end", "a",
+    (text) => assert.match(text, /alda.*1 piece of jewelry.*appraise/),
+    "j", (text, frame) => {
+      assert.match(text, /the jewel is valued at 5279 gp.*sell keep/);
+      assert.equal(frame.journal, undefined);
+    },
+    "s", "p", "end", "h",
     (text) => assert.match(text, /brin, how can we help you.*raise dead/),
     ...Array(6).fill("end"), "h",
     (text) => assert.match(text, /raise dead will only cost 5500 gold pieces/),
-    "n", "e", "e", "e", "s", "s", "g",
+    "y", "e",
+    (text) => assert.match(text, /brin 1 1.*heal view take pool share appraise exit/),
+    "h", "end", "end", "h",
+    (text) => assert.match(text, /cure light wounds will only cost 100 gold pieces/),
+    "y", "e", "s", "e",
+    (text) => assert.match(text, /brin 1 6.*11,3 s/),
+    "end", "v", "i", "i", ...Array(5).fill("end"), "r", "e",
+    (text) => assert.match(text, /brin.*thac0 18.*hp 6.*damage 1d6\+3.*weapon mace/),
+    "e", "e", "s", "s", "g",
     (text) => assert.match(text, /quit to dos/),
   ]);
   await replay(loadSlot("2267"), "85000000", [
-    (text) => assert.match(text, /brin 1 0.*swordsman 3 17.*curate 2 25.*11,3 s/),
+    (text) => assert.match(text, /brin 1 6.*swordsman 3 17.*curate 2 25.*11,3 s/),
     "v", (text) => assert.match(text, /alda.*exp 1462.*weapon long sword/),
+    "e", "e", "end", "v",
+    (text) => assert.match(text, /brin.*platinum 26.*con 11.*hp 6.*weapon mace.*status okay/),
   ]);
-  console.log("Equipped the patrol-winning party, returned to New Phlan and reloaded at the Temple of Tyr:", join(saveDir, "G.json"));
+  console.log("Raised and healed Brin, readied his mace, and reloaded at the Temple of Tyr:", join(saveDir, "G.json"));
   process.exit(0);
 }
 
