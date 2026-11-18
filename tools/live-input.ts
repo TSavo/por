@@ -129,7 +129,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * screen.width, offset + y * screen.width + 8);
       }
       const combat = attack || (!scene && !leads && !explorationMenu.startsWith("AREACASTVIEWENCAMP"))
-        ? combatArt(screen, enhanced) : [];
+        ? combatArt(screen, enhanced, area) : [];
       const battleTiles: TilePlacement[] = [];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
       if ((battleTileKeys.size || battleTileInventory) && !scene && !leads && hasBattlefieldBorder(screen)) {
@@ -251,7 +251,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     requestKey,
     captureCombatDelay: browser && attackKeys.size ? () => {
       if (scene || animation.length >= 12) return;
-      const placements = combatArt(screen);
+      const placements = combatArt(screen, undefined, area);
       const attacks = placements.filter(([, , key]) => attackKeys.has(key));
       const signature = attacks.length ? JSON.stringify(attacks) : "";
       if (signature && signature !== lastAttack) showFrame(undefined, placements);

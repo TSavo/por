@@ -12,7 +12,35 @@ export function combatHighlightPixel(x: number, y: number): number {
   return x < 2 ? 15 : x >= 22 ? 8 : 7;
 }
 
+export const monsterCombatKey = /^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX):(\d{1,3})$/;
+
 export function loadCombatArtMatcher(keys: string[]) {
+  const areas = new Map<number, string[]>();
+  const global = keys.filter(key => {
+    const area = monsterCombatKey.exec(key)?.[1];
+    if (area === undefined) return true;
+    const id = Number(area);
+    const scoped = areas.get(id) ?? [];
+    scoped.push(key);
+    areas.set(id, scoped);
+    return false;
+  });
+  const fallback = buildCombatArtMatcher(global);
+  const matchers = new Map<number, ReturnType<typeof buildCombatArtMatcher>>();
+  return (frame: Frame, enhanced?: Frame, area?: number): CombatArtPlacement[] => {
+    const scoped = area === undefined ? undefined : areas.get(area);
+    if (!scoped || area === undefined) return fallback(frame, enhanced);
+    let matcher = matchers.get(area);
+    if (!matcher) {
+      const sources = new Set(scoped.map(key => key.replace(/^combat:area:\d+:/, "combat:")));
+      matcher = buildCombatArtMatcher([...global.filter(key => !sources.has(key)), ...scoped]);
+      matchers.set(area, matcher);
+    }
+    return matcher(frame, enhanced);
+  };
+}
+
+function buildCombatArtMatcher(keys: string[]) {
   type Pose = { key: string; reflected: boolean; pixels: Uint8Array };
   const patterns = new Map<string, Pose | null>();
   const poses: Pose[] = [];
@@ -45,12 +73,16 @@ export function loadCombatArtMatcher(keys: string[]) {
   };
   const root = keys.length ? findGameRoot() : null;
   if (root) {
+    const monsters = new Map(keys.flatMap(key => {
+      const parts = monsterCombatKey.exec(key);
+      return parts ? [[`${parts[2]}:${Number(parts[3])}`, key] as const] : [];
+    }));
     for (const file of listGameFiles(root)) {
       const archive = file.toUpperCase();
-      if (!keys.some((key) => key.startsWith(`combat:${archive}:`))) continue;
+      if (![...monsters.keys()].some(key => key.startsWith(`${archive}:`))) continue;
       for (const { id, data } of parseDax(archive, readGameFile(root, file)).entries) {
-        const key = `combat:${archive}:${id}`;
-        if (!keys.includes(key) || !isPicture(data)) continue;
+        const key = monsters.get(`${archive}:${id}`);
+        if (!key || !isPicture(data)) continue;
         const { width, height, itemCount, pixels } = decodePicture(data);
         if ((width !== 24 && width !== 48) || height !== width || itemCount !== 1 || !pixels.some(Boolean)) continue;
         registerFacings(pixels, key, width);

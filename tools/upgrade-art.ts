@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
 import { portraitKey } from "./portrait-art.js";
 import { encounterAnchor } from "./encounter-art.js";
+import { monsterCombatKey } from "./combat-art.js";
 
 interface LoadedArtwork {
   file: string;
@@ -27,8 +28,9 @@ export function loadUpgradeArtFromManifests(paths: readonly string[]) {
       if (manifest.version !== 1 || !manifest.assets) continue;
       for (const id of Object.keys(manifest.assets)) {
         const encounter = encounterAnchor(id, manifest.encounters?.[id]);
+        const monster = monsterCombatKey.exec(id);
         if (id !== "scene:title" && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
-            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !/^combat:(?:CPIC[1-8]\.DAX:\d{1,3}|party:\d{1,3}:\d{1,3})$/.test(id) && !portraitKey.test(id) && !encounter) continue;
+            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !/^combat:party:\d{1,3}:\d{1,3}$/.test(id) && !portraitKey.test(id) && !encounter) continue;
         const file = lookupOverride(manifest, id);
         if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) continue;
         try {
@@ -39,7 +41,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[]) {
           let sourceHeight = 8;
           if (encounter) ({ width: sourceWidth, height: sourceHeight } = encounter);
           else if (id === "scene:title") [sourceWidth, sourceHeight] = [320, 200];
-          else if (id.startsWith("combat:")) sourceWidth = sourceHeight = id === "combat:CPIC5.DAX:66" ? 48 : 24;
+          else if (id.startsWith("combat:")) sourceWidth = sourceHeight = monster?.[2] === "CPIC5.DAX" && monster[3] === "66" ? 48 : 24;
           else if (portraitKey.test(id)) sourceWidth = sourceHeight = 88;
           const width = png.readUInt32BE(16);
           const height = png.readUInt32BE(20);

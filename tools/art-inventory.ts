@@ -131,7 +131,7 @@ const replacements = [...loadUpgradeArt()].map(([id, { png, ...metadata }], inde
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
   const match = /^(?:encounter|portrait):([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
-    /^combat:(CPIC\d+\.DAX):(\d+)$/.exec(id);
+    /^combat:(?:area:\d+:)?(CPIC\d+\.DAX):(\d+)$/.exec(id);
   let source;
   if (match) {
     const [, archive, blockId, memberId = "0", frameId = "0"] = match;
@@ -148,10 +148,13 @@ const replacements = [...loadUpgradeArt()].map(([id, { png, ...metadata }], inde
     { archive: composite[1], block: Number(composite[2]), frame: 0, x: 0, y: 0 },
     { archive: composite[3], block: Number(composite[4]), frame: 0, x: 0, y: 40 },
   ];
-  const tileArea = /^tile:(\d+):/.exec(id)?.[1];
+  const area = /^(?:tile|combat:area):(\d+):/.exec(id)?.[1];
   const placement = metadata.encounter
-    ?? (sourceParts ? { x: 24, y: 24 } : source ? { x: source.x, y: source.y }
-      : tileArea !== undefined ? { area: Number(tileArea) } : undefined);
+    ?? (sourceParts ? { x: 24, y: 24 }
+      : source || area !== undefined ? {
+        ...(source && { x: source.x, y: source.y }),
+        ...(area !== undefined && { area: Number(area) }),
+      } : undefined);
   return { id, preview, source, sourceParts: sourceParts ?? undefined, placement, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();

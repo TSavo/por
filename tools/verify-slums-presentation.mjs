@@ -161,7 +161,7 @@ try {
     await switchBothWays();
     for (const key of ["enter", "enter"]) await advance(key);
     const captain = "combat:CPIC2.DAX:7";
-    const priestess = "combat:CPIC2.DAX:2";
+    const priestess = "combat:area:2:CPIC2.DAX:2";
     const strike = "combat:CPIC2.DAX:135";
     const positions = () => frame.combatArt.filter(([, , id]) => id === captain).map(([x, y]) => `${x},${y}`).sort();
     const initialPositions = positions();
