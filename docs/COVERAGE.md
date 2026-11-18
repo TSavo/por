@@ -356,6 +356,12 @@ courtyard defeat screen appears, so it can reload the earlier save
 instead of acknowledging the defeat and exiting to DOS. The resumed
 replay hires an Evoker, confirms his two Sleep spells after reload, and
 reaches his first courtyard combat turn without watchdog recovery.
+In a separate branch from the same temple save, the party hires the
+Curate and Theurgist and reloads with both recruits. They take the boat
+to Sokal Keep, pass the undead patrol using the parchment password, and
+reach the eastern hall at `10,6`. The Curate casts Bless there, and the
+original Magic display confirms the buff on the fighters. Alda remains dead
+in this branch.
 On the mixed-party route through the smithy, Mira enters the courtyard
 from the north. The replay verifies that Aim lets her cycle to a
 hobgoblin without offering Target. Trying Target there leaves Sleep

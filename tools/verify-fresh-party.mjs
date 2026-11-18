@@ -1095,6 +1095,36 @@ const evokerTurn = await replay(loadSlotH, "85000000", [
 assert.match(visibleText(evokerTurn), /evoker hitpoints 6 ac 9/);
 console.log("Returned to Sokal Keep with the evoker and reached his first courtyard combat turn.");
 
+const twoRecruits = await replay(loadSlotG, "85000000", [
+  "right", "right", "up", "left", "up", "right", "up", "up", "left", "up",
+  "enter", "enter", "enter", "n", "left", "up", "right", "up", "up", "up", "enter", "enter", "n",
+  "y", ...Array(4).fill(["n", "y"]).flat(),
+  (text) => assert.match(text, /a fine curate who will join you for 3 shares/),
+  "y", "y",
+  (text) => assert.match(text, /a fine theurgist who will join you for 4 shares/),
+  "y", "n", "e", "s", "s", "i",
+]);
+assert.match(visibleText(twoRecruits), /curate 3 26.*theurgist 8 13.*quit to dos/);
+const reinforcedLanding = await replay(loadSlotI, "85000000", [
+  "right", "right", "up", "up", "left", "up", "enter", "enter", "enter", "n",
+  "right", "up", "enter", "enter", "right", "up", "up", "left", "up", "left", "up",
+  "enter", "enter", "right", ...Array(4).fill("up"), ...Array(5).fill("enter"),
+  (text) => assert.match(text, /curate 3 26.*theurgist 8 13.*8,14 n/),
+  "e", "s", "s", "j",
+]);
+assert.match(visibleText(reinforcedLanding), /quit to dos/);
+await replay(loadSlotJ, "85000000", [
+  "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "enter",
+  (text) => assert.match(text, /pack of undead suddenly appears.*parlay/),
+  "p", "n", ..."shestni", "enter",
+  (text) => assert.match(text, /the undead leave/),
+  ...Array(4).fill("up"), ...Array(6).fill("end"), "c", ...Array(8).fill("home"), "enter", "e",
+  (text) => assert.match(text, /10,6 n/),
+  "e", "enter", "m", "d",
+  (text) => assert.match(text, /brin bless cora bless dorn bless enna bless fenn bless/),
+]);
+console.log("Returned to Sokal Keep with the Curate and Theurgist, passed the patrol, and verified Bless.");
+
 const spellSaveDir = mkdtempSync(join("out", "fresh-spell-party-"));
 const mageCreation = [
   "c", ...Array(5).fill("end"), "enter", "enter", "end", "end",
