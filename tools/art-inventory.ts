@@ -129,25 +129,38 @@ mkdirSync(join(output, "enhanced"), { recursive: true });
 const replacements = [...loadUpgradeArt()].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
-  return { id, preview, ...metadata };
+  const match = /^(?:encounter|portrait):([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
+    /^combat:(CPIC\d+\.DAX):(\d+)$/.exec(id);
+  let source;
+  if (match) {
+    const [, archive, blockId, memberId = "0", frameId = "0"] = match;
+    const block = Number(blockId), member = Number(memberId), frame = Number(frameId);
+    const entry = archives.find(({ file }) => file === archive)?.entries.find(({ id }) => id === block);
+    const picture = entry?.pictures?.[member];
+    if (entry && picture && frame < picture.frames && metadata.width === picture.width * artScale &&
+        metadata.height === picture.height * artScale) {
+      source = { archive, block, directoryIndex: entry.directoryIndex, member, frame, x: picture.x, y: picture.y };
+    }
+  }
+  return { id, preview, source, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();
 const runtimeReplacements = [];
 for (const replacement of replacements) {
-  const [, file, block] = /^(?:encounter|combat|portrait):([^:]+):(\d+)/.exec(replacement.id) ?? [];
-  if (!file || !archives.some((archive) => archive.file === file && archive.entries.some(({ id }) => id === Number(block)))) {
+  if (!replacement.source) {
     runtimeReplacements.push(replacement);
     continue;
   }
-  const key = `${file}:${block}`;
+  const { archive, directoryIndex } = replacement.source;
+  const key = `${archive}:${directoryIndex}`;
   const matches = replacementsByBlock.get(key) ?? [];
   matches.push(replacement);
   replacementsByBlock.set(key, matches);
 }
-function replacementPreview({ id, preview, width, height, encounter, file }: typeof replacements[number]) {
+function replacementPreview({ id, preview, width, height, encounter, file, source }: typeof replacements[number]) {
   return `<div class="preview"><a href="${preview}" target="_blank" rel="noopener"><img loading="lazy" src="${preview}" alt="${escape(file)}"></a>` +
     `<small>Enhanced · ${width}×${height} · ${escape(id)}${encounter ? ` · area ${encounter.area} at (${encounter.x},${encounter.y})` : ""}</small>` +
-    `<small>${escape(file)}</small></div>`;
+    `<small>${escape(file)}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small></div>`;
 }
 const runtimeGallery = runtimeReplacements.length ?
   `<details data-category="Runtime artwork"><summary>Runtime artwork · ${runtimeReplacements.length} replacements</summary><div class="grid">` +
@@ -157,8 +170,11 @@ const gallery = archives.map(({ file, category, entries }) =>
   `<details data-category="${escape(category)}"><summary>${escape(file)} · ${category} · ${entries.length} blocks</summary><div class="grid">` +
   entries.map((entry) => {
     const monster = monsterNames.get(`${file}:${entry.id}`);
-    const enhanced = replacementsByBlock.get(`${file}:${entry.id}`) ?? [];
-    return `<figure data-enhanced="${Boolean(enhanced.length)}" data-visual="${Boolean(entry.pictures?.length)}"><figcaption>${file} #${entry.id} · ${entry.format}${monster ? ` · ${escape(monster)}` : ""}</figcaption>` +
+    const enhanced = replacementsByBlock.get(`${file}:${entry.directoryIndex}`) ?? [];
+    const total = entry.enhancedFrames ? entry.pictures?.reduce((sum, picture) => sum + picture.frames, 0) ?? 0 : 0;
+    const linked = new Set(enhanced.map(({ source }) => `${source?.member}:${source?.frame}`)).size;
+    const coverage = total === 0 ? "" : linked === 0 ? "missing" : linked === total ? "complete" : "partial";
+    return `<figure data-enhanced="${Boolean(linked)}" data-coverage="${coverage}" data-visual="${Boolean(entry.pictures?.length)}"><figcaption>${file} #${entry.id} · ${entry.format}${monster ? ` · ${escape(monster)}` : ""}${total ? ` · ${linked}/${total} frames linked` : ""}</figcaption>` +
     (entry.pictures ?? []).map((pic, index) => {
       const target = entry.enhancedFrames?.[index];
       return `<div class="preview"><a href="${escape(pic.preview)}" target="_blank" rel="noopener"><img loading="lazy" src="${escape(pic.preview)}" alt="${file} #${entry.id}, ${pic.width}×${pic.height}, ${pic.frames} frames"></a>` +
@@ -183,7 +199,7 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
 <label>Category <select id="category"><option value="">All categories</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
 <label><input id="include-data" type="checkbox"> Include composition and gameplay data</label>
-<label>Replacement <select id="replacement"><option value="">Any</option><option value="linked">Has linked artwork</option><option value="missing">No linked artwork</option></select></label>
+<label>Replacement <select id="replacement"><option value="">Any</option><option value="linked">Has linked artwork</option><option value="missing">No frames linked</option><option value="partial">Some frames linked</option><option value="complete">All frames linked</option></select></label>
 <p id="matches" role="status"></p>
 ${runtimeGallery}
 ${gallery}
@@ -203,7 +219,7 @@ function filter() {
     for (const {figure, text} of entries) {
       const visual = figure.dataset.visual === 'true';
       const linked = figure.dataset.enhanced === 'true';
-      const replacementMatches = replacement.value === 'missing' ? visual && !linked : replacement.value !== 'linked' || linked;
+      const replacementMatches = !replacement.value || (replacement.value === 'linked' ? linked : figure.dataset.coverage === replacement.value);
       figure.hidden = !categoryMatches || (!includeData.checked && !visual) || !replacementMatches || !text.includes(query);
       if (!figure.hidden) visible++;
     }

@@ -38,6 +38,8 @@ npm run tools -- exe              # MZ header, packer signature, overlay stubs
 
 You can pass the game directory as the last argument instead of `POR_GAMEDATA`.
 
+The HTML art inventory counts linked source frames per archive block. Use the replacement filter to find blocks with zero, some, or all frames linked. Runtime artwork such as viewport tiles has its own section.
+
 Use `--output` to inspect a fresh translation alongside the checked-in runtime files. The translator writes its generated coverage report alongside that output. With the default TypeScript destination, the report goes to `out/translation-coverage.md`.
 
 `extract` and `images` write the original art into `out/`. That directory is gitignored. Do not commit it.
