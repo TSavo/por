@@ -683,6 +683,10 @@ ordinary travel from Podal Plaza. Three actor views were outside this terrain
 check. A separate replay from the same save verified the enhanced bugbear
 standing and sword strike poses. The New Phlan armorer portrait appeared at
 the shop greeting and Buy menu. Both replays checked presentation switches.
+The browser verifier exposes `stojanow-gate`, `stojanow-west`, and
+`stojanow-bugbears` for the gate entrance save. Use `armorer` with slot A
+at the New Phlan west gate (`0,4 W`).
+
 
 The Valhingen journal now uses witnessed clues for the lair, stairs, vampire
 escape, and northern wall. The original ECL text and completion flag are

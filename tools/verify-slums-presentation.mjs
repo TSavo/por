@@ -33,8 +33,16 @@ const environmentRoutes = new Map([
     slot: "A", area: 14, views: 12, patterns: 49,
     walk: ["up", "left", ...Array(6).fill("up"), "right", "up", "b", "up", "up", "right", "up", "left", "up"],
   }],
+  ["stojanow-gate", {
+    slot: "A", area: 9, views: 9, patterns: 40,
+    walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up"],
+  }],
+  ["stojanow-west", {
+    slot: "A", area: 9, views: 12, patterns: 43,
+    walk: ["up", "up", "up", "enter", "enter", "up", "left", "up", "up", "up", "right", "up", "up"],
+  }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "stojanow-briefing", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "stojanow-briefing", "stojanow-bugbears", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -360,6 +368,33 @@ try {
     }
     assert.deepEqual({ moved, priestessSelected, swing }, { moved: true, priestessSelected: true, swing: true });
     console.log("Verified the Textile House altar portrait, selected priestess, moving captains, and captain strike.");
+  } else if (routeName === "armorer") {
+    const route = ["right", "right", "up", "up", "up", "enter", "right", ...Array(7).fill("up"), "left", ...Array(5).fill("up"), "enter"];
+    for (const key of route) await advance(key);
+    const portrait = "portrait:HEAD3.DAX:42:BODY3.DAX:9";
+    assert.equal(frame.portrait, portrait);
+    await waitFor("the New Phlan armorer portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    await advance("y");
+    assert.equal(frame.portrait, portrait);
+    await waitFor("the armorer in the shop menu", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    console.log("Verified the armorer portrait in dialogue and the shop menu.");
+  } else if (routeName === "stojanow-bugbears") {
+    const route = ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left", "up", "a", "enter", "enter"];
+    for (const key of route) await advance(key);
+    const standing = "combat:area:9:CPIC2.DAX:63";
+    const attack = "combat:area:9:CPIC2.DAX:191";
+    const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")].filter(img =>
+      img.src.endsWith(${JSON.stringify(id)}) && img.naturalWidth === 96 && img.naturalHeight === 96).length`);
+    assert.ok(frame.combatArt.some(([, , id, , selected]) => id === standing && selected));
+    await waitFor("the bugbear guards", async () => await displayed(standing) >= 5);
+    await switchBothWays();
+    await advance("enter");
+    const swung = () => frame.animation?.some(shot => shot.combatArt.some(([, , id]) => id === attack));
+    for (let turn = 0; turn < 4 && !swung(); turn++) await advance("q");
+    assert.ok(swung());
+    await waitFor("the bugbear sword strike", () => displayed(attack));
+    console.log("Verified the bugbear guards and their sword strike in Stojanow Gate.");
   } else if (stojanow) {
     for (const key of ["up", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:HEAD3.DAX:16:BODY3.DAX:7");
