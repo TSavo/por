@@ -684,6 +684,9 @@ positions from the temple-district save. At the gate the journal records
 the inspection, then the guards turning hostile when the party submits
 without a symbol. Inside, choosing Let Them Go reveals the holy-symbol
 requirement and updates the tracked Temple of Tyr objective.
+The goblin dialogue also checks the separate 352×352 captive scene and
+switches modes at the original Kill Them / Let Them Go prompt. The
+replacement uses the shared source picture only in the temple interior.
 The `bane-symbol` replay loads a controlled gate save carrying the
 original leather symbol item record and the witnessed goblin clue. The
 journal sees the symbol in the live inventory, recommends Let Him Touch

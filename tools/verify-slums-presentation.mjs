@@ -402,7 +402,13 @@ try {
     } else {
       for (const key of ["up", "enter", "enter"]) await advance(key);
     }
-    if (baneGate || baneSymbol) {
+    if (baneGoblins) {
+      assert.equal(frame.portrait, "portrait:area:31:PIC1.DAX:2:0:0");
+      await waitFor("the captive goblins illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+      await switchBothWays();
+      const capture = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-captive-goblins.png"), Buffer.from(capture.data, "base64"));
+    } else if (baneGate || baneSymbol) {
       assert.equal(frame.portrait, "portrait:area:24:PIC1.DAX:4:0:0");
       await waitFor("the temple gatekeeper portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
       await switchBothWays();
