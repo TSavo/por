@@ -164,6 +164,8 @@ const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769",
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
+const environmentTrace = environment && process.env.POR_WRITE_ENVIRONMENT_TRACE === "1"
+  ? resolve(directory, "environment-tiles.jsonl") : undefined;
 const frameDirectory = resolve(directory, "tile-frames");
 let battleFrame = 0;
 if (battleTrace) mkdirSync(frameDirectory);
@@ -306,6 +308,7 @@ try {
   await run('document.querySelector("#presentation").click()');
   async function verifyTiledView(area, patterns) {
     if (!frame.tileInventory?.length) return 0;
+    if (environmentTrace) appendFileSync(environmentTrace, JSON.stringify(frame.tileInventory) + "\n");
     const expected = frame.tileInventory.map(([x, y, id]) => [x, y, id]);
     assert.equal(expected.length, 121);
     assert.deepEqual(frame.tiles, expected);
@@ -405,6 +408,7 @@ try {
     }
     await switchBothWays();
     console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
+    if (environmentTrace) console.log("Environment tile trace:", environmentTrace);
   } else if (combatPose) {
     const { stand, strike, width, height, inputs } = combatPose;
     await run(`window.strikeLoaded = false;

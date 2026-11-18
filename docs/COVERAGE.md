@@ -828,6 +828,10 @@ and a state-preserving switch in dialogue.
 The `graveyard-crypt-path` replay starts in controlled slot A at `10,3 E`.
 It checks 3,146 tile placements across 26 views of the crypt paths, including
 96 new 32×32 tiles among 146 patterns, and preserves the save when switching modes.
+Set `POR_WRITE_ENVIRONMENT_TRACE=1` on any presentation replay that walks an
+environment route to export `environment-tiles.jsonl` in its output directory.
+Pass that file to `tools/art-inventory.ts` to link the captured tile patterns
+to the classic and enhanced previews.
 The `graveyard-giant-skeleton` replay starts at `7,7 N` in controlled slot A.
 Chrome checks both 96×192 poses over the original 24×48 footprint, including
 the animated strike, and verifies that changing presentation preserves the save.
