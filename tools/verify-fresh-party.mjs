@@ -560,7 +560,7 @@ await replay(loadSlotF, "85000000", [
   (text) => assert.match(text, /mira's spells in memory.*sleep/),
 ], spellSaveDir);
 console.log("Equipped the mixed party, sailed to Sokal Keep, and reloaded at the landing with Sleep prepared.");
-await replay(loadSlotF, "85000000", [
+const mixedParchmentRoute = [
   "up", "left", "up", "up", "enter", "enter", "end", "enter",
   (text) => assert.match(text, /crumbling parchment scroll/),
   "enter", "enter", "enter",
@@ -569,7 +569,10 @@ await replay(loadSlotF, "85000000", [
   (text) => assert.match(text, /pack of undead suddenly appears.*parlay/),
   "p", "n", ..."shestni", "enter",
   (text) => assert.match(text, /the undead leave/),
-  ...Array(5).fill("up"), "left", "up", "up", "enter",
+  ...Array(5).fill("up"),
+];
+await replay(loadSlotF, "85000000", [
+  ...mixedParchmentRoute, "left", "up", "up", "enter",
   (text) => assert.match(text, /large force of orcs and hobgoblins rushes you/),
   ...Array(5).fill("enter"), ...Array(12).fill("space"),
   (text) => assert.match(text, /mira hitpoints 5 ac 10.*cast quick done/),
@@ -589,5 +592,19 @@ await replay(loadSlotF, "85000000", [
   (text) => assert.match(text, /orc hitpoints/),
 ], spellSaveDir);
 console.log("Cleared Quick, cast Sleep, and used Cora's Bandage action in the Sokal courtyard.");
+await replay(loadSlotF, "85000000", [
+  ...mixedParchmentRoute, "right", "up", "right", "up", "enter", "enter",
+  (text) => assert.match(text, /11,6 s.*do you give the password/),
+  "y", "left", "up", "right", "up", "left", "up", "left", "up", "right", "up", "left",
+  (text) => assert.match(text, /the croaking rises in volume/),
+  "w", "enter", ...Array(51).fill("q"),
+  (text) => assert.match(text, /continue battle/),
+  "n",
+  (text) => assert.match(text, /the party has won.*receives 31 experience points/),
+  "enter", "enter", "s", "e", "n", "left", ...Array(4).fill("up"),
+  "left", ...Array(6).fill("up"), "left", "up", "up", "enter",
+  (text) => assert.match(text, /8,4 s.*large force of orcs and hobgoblins rushes you/),
+], spellSaveDir);
+console.log("Won the smithy frog fight and triggered the courtyard ambush from the north.");
 console.log("Replay save:", saveDir);
 console.log("Mixed-party save:", spellSaveDir);

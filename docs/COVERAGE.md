@@ -240,6 +240,10 @@ appears, and the replay selects Sleep and targets an orc. The battle
 continues after the cast. Cora opens Done and chooses Bandage. Tracing
 the translated action verified that it changes Alda's combat status
 from dying to stable before the enemy turn resumes.
+An alternate replay from the same island save passes a second patrol,
+wins the smithy frog fight for 31 XP per character, and goes around the
+east side of the keep to trigger the courtyard ambush from the north.
+Alda reaches that entrance at 0 HP after the frog fight.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
