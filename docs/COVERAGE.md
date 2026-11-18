@@ -664,6 +664,14 @@ prisoner is freed. Run
 `node tools/verify-fresh-party.mjs --textile-prison-key-checkpoint PATH_TO_SLOT_E`
 to compare the original keyless slot with the controlled copy.
 
+The same keyless slot can replay the original Pick Lock, Break Chains,
+and Attack choices with
+`node tools/verify-fresh-party.mjs --textile-prison-alternates-checkpoint PATH_TO_SLOT_E`.
+The first two choices leave a key-search objective. Attack records the
+prisoner's death and directs the party to search the western textile
+building for Cadorna's treasure. Reloading slot D preserves that outcome
+and keeps the secret-door clue hidden.
+
 To verify the downstream branch, the replay makes a separate copy of slot E
 and supplies only the brass key from the local DOS treasure table. The party
 dismisses the Theurgist to open a slot, frees the captive, and chooses Parlay

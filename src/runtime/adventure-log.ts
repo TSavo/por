@@ -90,11 +90,12 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("textile-ogre-chief")) nextStep = "Defeat the ogre chief and search his room for Cadorna's treasure.";
       else if (knows("textile-east-wall")) nextStep = "Turn east where Skullcrusher pointed out the secret door. Use Search and move through the wall.";
       else if (knows("textile-secret-door")) nextStep = "Follow Skullcrusher's clue and search southeast for the secret door to the hobgoblin leader.";
+      else if (knows("textile-prisoner-killed")) nextStep = "Search the remaining rooms of the western textile building for Cadorna's treasure.";
       else if (knows("textile-prisoner-left")) nextStep = "Continue searching the western textile building for Cadorna's treasure.";
       else if (knows("textile-prisoner-freed")) nextStep = "Parlay with the freed prisoner. Make room in the party if you want him to join.";
       else if (carriedKey) nextStep = carriedKey.detail;
-      else if (knows("textile-grishnak") && knows("textile-prison-key-needed")) nextStep = "Overcome Grishnak at the bone altar and check the battle loot for a key. Return to the chained prisoner and choose Unlock.";
-      else if (knows("textile-prison-key-needed")) nextStep = "From the chained prisoner, head north through the guards' room and search the adjoining rooms for a key. Return to the prisoner and choose Unlock.";
+      else if (knows("textile-grishnak") && (knows("textile-prison-key-needed") || knows("textile-padlocks-resisted"))) nextStep = "Overcome Grishnak at the bone altar and check the battle loot for a key. Return to the chained prisoner and choose Unlock.";
+      else if (knows("textile-prison-key-needed") || knows("textile-padlocks-resisted")) nextStep = "From the chained prisoner, head north through the guards' room and search the adjoining rooms for a key. Return to the prisoner and choose Unlock.";
       else if (knows("textile-prisoner")) nextStep = "Speak with the prisoner in the western building and find a way to open his padlocks. Read journal entry 47.";
       else if (knows("textile-skullcrusher-mark")) nextStep = "Search the rooms near Skullcrusher's mark for whoever left it.";
       else if (knows("textile-courtyard-cleared")) nextStep = "Cross the quiet courtyard and search the western textile building for Cadorna's treasure.";
@@ -184,7 +185,7 @@ export const progressAddresses: Readonly<Record<string, number>> = {
 /** Live possession is checked again when the journal opens and after a reload. */
 export function textileKeyLead(cpu: Cpu, known: readonly JournalLead[], dataSegment: number): JournalLead | undefined {
   if (!known.some(({ id }) => id === "textile-prisoner") ||
-      known.some(({ id }) => id === "textile-prisoner-freed")) return;
+      known.some(({ id }) => id === "textile-prisoner-freed" || id === "textile-prisoner-killed")) return;
   // The prison script uses FIND ITEM 75. Overlay 3 at 287A walks
   // DS:5CF4 and the character +104 links, then +C8 inventories and item +2A links.
   const pointer = (segment: number, offset: number): number =>
@@ -476,6 +477,15 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU HAVE NO KEY TO UNLOCK THE PADLOCKS")) {
     leads.push({ id: "textile-prison-key-needed", title: "The prisoner's padlocks",
       detail: "The party tried to unlock the prisoner's padlocks and needs a key." });
+  }
+  if (text.includes("NO ONE IS ABLE TO PICK ALL THE PADLOCKS") ||
+      text.includes("DESPITE GREAT EFFORT, THE CHAINS HOLD")) {
+    leads.push({ id: "textile-padlocks-resisted", title: "The prisoner is still chained",
+      detail: "The attempt to free the prisoner failed. Search the adjoining rooms for a key." });
+  }
+  if (text.includes("THE MAN DIES A CRUEL DEATH")) {
+    leads.push({ id: "textile-prisoner-killed", title: "The prisoner was killed",
+      detail: "The party killed Cadorna's chained prisoner. Continue the search for Cadorna's treasure." });
   }
   if (text.includes("I AM THE MIGHTY GRISHNAK")) {
     leads.push({ id: "textile-grishnak", title: "Grishnak's temple",

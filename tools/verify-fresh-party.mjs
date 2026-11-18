@@ -1324,6 +1324,41 @@ if (process.argv[2] === "--fighter-training-journal-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--textile-prison-alternates-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot E from the captive's key-search replay.");
+  copyFileSync(process.argv[3], join(saveDir, "E.json"));
+  await replay(loadSlot("1265"), "85000000", [
+    "enter", "right", "right", "up", "right", "right", "up", "b", "enter", "enter",
+    "f", "p",
+    (text) => assert.match(text, /no one is able to pick all the padlocks/),
+    "enter", "f", "b",
+    (text) => assert.match(text, /despite great effort.*the chains hold/),
+    "enter", "j", "track 3", (_text, frame) => {
+      assert.equal(frame.journal.trackedId, "commission-textile");
+      assert.ok(frame.journal.leads.some(({ id }) => id === "textile-padlocks-resisted"));
+      assert.match(frame.journal.objective.nextStep, /search the adjoining rooms for a key/i);
+    }, "j",
+    "a",
+    (text) => assert.match(text, /the man dies a cruel death/),
+    "enter", "enter", "j", (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "textile-prisoner-killed"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+      assert.match(frame.journal.objective.nextStep, /search the remaining rooms.*cadorna's treasure/i);
+    }, "j", "e", "s", "s", "d",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2064"), "85000000", [
+    "j", (_text, frame) => {
+      assert.equal(frame.journal.trackedId, "commission-textile");
+      assert.ok(frame.journal.leads.some(({ id }) => id === "textile-prisoner-killed"));
+      assert.match(frame.journal.objective.nextStep, /search the remaining rooms/i);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+    },
+  ]);
+  console.log("Verified the lock-picking, chain-breaking, and attack outcomes and the journal after reload.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--textile-prison-key-checkpoint") {
   assert.ok(process.argv[3], "Pass slot E from the captive's key-search replay.");
   const checkpoint = join(saveDir, "E.json");
