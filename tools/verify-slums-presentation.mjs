@@ -159,10 +159,31 @@ try {
     const endingVisible = () => run(`!document.querySelector("#journal").hidden &&
       document.querySelector("#objective strong")?.textContent === "Phlan is free"`);
     await waitFor("the saved campaign ending", endingVisible);
+    assert.equal(await run("document.activeElement.id"), "close-journal");
     await switchBothWays();
     assert.ok(await endingVisible());
+    const available = frame.journal.leads.find(({ id, status }) =>
+      status && status !== "turned-in" && id !== frame.journal.trackedId);
+    if (available) {
+      const id = JSON.stringify(available.id);
+      const sequenceBeforeTrack = frame.sequence;
+      await run(`(() => {
+        const track = [...document.querySelectorAll('[data-lead-id]')].find(button => button.dataset.leadId === ${id});
+        track.focus();
+        track.click();
+      })()`);
+      frame = await waitFor("the selected objective", async () => {
+        const next = await latest();
+        return next.ready && next.sequence > sequenceBeforeTrack && next.journal?.trackedId === available.id && next;
+      });
+      await waitFor("focus on the tracked commission", () => run(`document.activeElement.dataset.leadId === ${id} &&
+        document.activeElement.getAttribute("aria-disabled") === "true"`));
+      await run('document.activeElement.click()');
+      assert.deepEqual(await latest(), frame);
+    }
     await advance("j");
     await waitFor("return to the loaded game", () => run('document.querySelector("#journal").hidden'));
+    assert.equal(await run("document.activeElement.id"), "screen");
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the completed campaign journal and mode switching in Chrome after reloading slot C.");
   } else if (armory || landing) {

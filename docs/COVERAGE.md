@@ -520,6 +520,9 @@ Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_C PATH_TO_CHROME cast
 with that completed save. Chrome reloads slot C, checks that the journal
 displays **Phlan is free**, switches both presentation modes while the
 journal is open, and returns to play with the save bytes unchanged.
+The replay checks that focus enters the journal on Return to game and
+returns to the game screen on close. With a remaining commission, it
+also verifies that tracking the commission keeps focus on its button.
 
 A controlled training replay sent the six-character party to the schools
 from a Slums save. It followed the posted directions north and entered the

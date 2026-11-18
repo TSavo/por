@@ -111,20 +111,24 @@ viewportArt.addEventListener("error", () => {
 
 function render() {
   showScreen();
+  const focused = document.activeElement;
+  const wasOpen = !journal.hidden;
   const open = Boolean(state.journal);
   journal.hidden = !open;
   if (!open) {
-    if (journal.contains(document.activeElement)) screen.focus();
+    if (journal.contains(focused)) screen.focus();
     return;
   }
-  if (autoTrack === document.activeElement && !state.journal.trackedId) closeJournal.focus();
+  if (!wasOpen || (autoTrack === focused && !state.journal.trackedId)) closeJournal.focus();
   autoTrack.hidden = !state.journal.trackedId;
   const heading = document.createElement("strong");
   const directions = document.createElement("p");
   heading.textContent = state.journal.objective.title;
   directions.textContent = state.journal.objective.nextStep;
   objective.replaceChildren(heading, directions);
+  const focusedLead = leads.contains(focused) ? focused.dataset.leadId : undefined;
   leads.replaceChildren();
+  let restoredFocus;
   let index = 0;
   for (const lead of state.journal.leads) {
     const item = document.createElement("li");
@@ -137,16 +141,19 @@ function render() {
       const number = ++index;
       const track = document.createElement("button");
       track.type = "button";
+      track.dataset.leadId = lead.id;
       const selected = lead.id === state.journal.trackedId;
       track.textContent = selected ? "Tracking" : "Track";
       track.setAttribute("aria-label", `${track.textContent} ${lead.title}`);
-      track.disabled = selected;
-      track.addEventListener("click", () => send(`track ${number}`));
+      track.setAttribute("aria-disabled", String(selected));
+      track.addEventListener("click", () => { if (!selected) void send(`track ${number}`); });
+      if (focusedLead === lead.id) restoredFocus = track;
       item.append(track);
     }
     item.append(detail);
     leads.append(item);
   }
+  if (focusedLead) (restoredFocus ?? closeJournal).focus({ preventScroll: true });
 }
 
 async function send(key) {
@@ -176,12 +183,12 @@ async function poll() {
     const changed = next.sequence !== state.sequence;
     if (changed) state = next;
     else Object.assign(state, next);
+    closeJournal.disabled = !state.ready || Boolean(state.stopped);
+    autoTrack.disabled = closeJournal.disabled;
     if (changed) {
       render();
       playAnimation();
     }
-    closeJournal.disabled = !state.ready || Boolean(state.stopped);
-    autoTrack.disabled = closeJournal.disabled;
     status.textContent = state.stopped ?? state.notice ??
       (state.ready ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
   } catch {
