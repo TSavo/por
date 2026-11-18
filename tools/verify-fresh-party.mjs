@@ -791,9 +791,7 @@ const returnToSlums = [
   },
 ];
 
-if (process.argv[2] === "--slums-armored-patrols-checkpoint") {
-  assert.ok(process.argv[3], "Pass slot B from the replay that buys armor with Ohlo's reward.");
-  copyFileSync(process.argv[3], join(saveDir, "B.json"));
+async function verifyArmoredPatrols() {
   const win = (turns, experience) => [
     ...Array(turns).fill("q"),
     (text) => assert.match(text, /continue battle:yes no/),
@@ -839,6 +837,12 @@ if (process.argv[2] === "--slums-armored-patrols-checkpoint") {
     "i", (text) => assert.match(text, /enna's items.*clerical scroll with 2 spells/),
   ]);
   console.log("Won three Slums patrols and the fixed orc outpost, then reloaded the fully rested party:", join(saveDir, "A.json"));
+}
+
+if (process.argv[2] === "--slums-armored-patrols-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot B from the replay that buys armor with Ohlo's reward.");
+  copyFileSync(process.argv[3], join(saveDir, "B.json"));
+  await verifyArmoredPatrols();
   process.exit(0);
 }
 
@@ -981,9 +985,7 @@ if (process.argv[2] === "--slums-goblin-checkpoint") {
   process.exit(0);
 }
 
-if (process.argv[2] === "--ohlo-armor-checkpoint") {
-  assert.ok(process.argv[3], "Pass a six-fighter save outside Ohlo's door after collecting his reward.");
-  copyFileSync(process.argv[3], join(saveDir, "J.json"));
+async function verifyOhloArmor() {
   const armorClass = /alda 3 6.*brin 1 6.*cora 3 6.*dorn 3 8.*enna 2 6.*fenn 2 8/;
   await replay(loadSlot("246a"), "85000000", [
     ...backToNewPhlan, "up", "up", "up", "enter", "right", ...Array(7).fill("up"),
@@ -1000,6 +1002,12 @@ if (process.argv[2] === "--ohlo-armor-checkpoint") {
   await replay(loadSlot("3062"), "85000000", [(text) => assert.match(text, armorClass)]);
   console.log("Bought banded mail and shields for all six fighters with Ohlo's reward and reloaded their improved armor class.");
   console.log("Armored party save:", join(saveDir, "B.json"));
+}
+
+if (process.argv[2] === "--ohlo-armor-checkpoint") {
+  assert.ok(process.argv[3], "Pass a six-fighter save outside Ohlo's door after collecting his reward.");
+  copyFileSync(process.argv[3], join(saveDir, "J.json"));
+  await verifyOhloArmor();
   process.exit(0);
 }
 
@@ -1699,6 +1707,12 @@ await replay(loadSlotJ, "85000000", [
   (text) => assert.match(text, /alda.*exp 696/),
 ]);
 console.log("Returned the potion, collected Ohlo's reward and verified the journal and XP after reloading slot J.");
+
+if (process.argv[2] === "--fresh-armored-slums") {
+  await verifyOhloArmor();
+  await verifyArmoredPatrols();
+  process.exit(0);
+}
 
 const hearCouncil = [
   "up", "up", "up", "enter", "up", "up", "up", "up", "left", "up", "up",

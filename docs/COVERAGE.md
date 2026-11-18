@@ -193,6 +193,10 @@ is down. From that save, the party wins the fixed orc outpost at (13,1)
 with five fighters still standing and collects the scroll. Eight days of
 rest in the cleared room restore all six fighters to full HP, including
 Fenn. Reloading slot A verifies their HP and Enna's scroll and 889 XP.
+Use `node tools/verify-fresh-party.mjs --fresh-armored-slums` with
+`POR_REQUIRE_UNINTERRUPTED_COMBAT=1` to run those segments as one
+playthrough from character creation. It uses one save directory for
+the Ohlo reward, the armor purchases, and the Slums victories.
 Run `node tools/verify-fresh-party.mjs --slums-goblin-checkpoint PATH_TO_SLOT_A`
 from that rested save. The party bashes into the goblin training room at
 (10,1), wins for 181 XP without watchdog recovery, and takes leather
