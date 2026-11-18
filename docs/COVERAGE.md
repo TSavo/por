@@ -897,6 +897,8 @@ states through the same journal profile used by the browser. The
 objective updates when the box state changes during an accepted
 commission. Restoring the earlier snapshot restores the sealed-box
 directions.
+The same profile check verifies that seeing Cadorna's confrontation
+refines an already closed commission to show that he left without paying.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the

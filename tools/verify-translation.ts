@@ -395,7 +395,12 @@ function checkCampaignJournal(): void {
   }
   const confrontation = lines.find((line) => line.includes("COUNCILMAN CADORNA CONFRONTS YOU"));
   writeGlobal(textile, 255);
-  if (!confrontation || !questProgress(m, [...boxLead, ...discoveredLeads(confrontation)], m.ds)[0]?.title.includes("without payment")) {
+  const textileProgress = (known: JournalLead[]) => questProgress(m, known, m.ds);
+  const textileCommission = (leads: JournalLead[]) => leads.find(({ id }) => id === "commission-textile");
+  const beforeConfrontation = textileCommission(treasureProfile("", textileProgress));
+  const afterConfrontation = confrontation && textileCommission(treasureProfile(confrontation, textileProgress));
+  if (beforeConfrontation?.status !== "turned-in" || beforeConfrontation.rewardOutcome !== undefined ||
+      !afterConfrontation || afterConfrontation.rewardOutcome !== "unpaid" || !afterConfrontation.title.includes("without payment")) {
     throw new Error("Cadorna's journal did not distinguish the confrontation from the paid turn-in");
   }
   if (discoveredLeads("A SPECIAL PRIZE FOR ENDING THE GRAVEYARD MENACE").some(({ id }) =>

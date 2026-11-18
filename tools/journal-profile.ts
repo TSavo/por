@@ -34,8 +34,9 @@ export function openJournalProfile(path?: string) {
       const advancingCount = lead.clearedEncounters !== undefined &&
         lead.clearedEncounters > (prior?.clearedEncounters ?? 0);
       const changedBox = lead.textileBox !== undefined && lead.textileBox !== prior?.textileBox;
+      const learnedRewardOutcome = lead.rewardOutcome !== undefined && lead.rewardOutcome !== prior?.rewardOutcome;
       if (prior && (!lead.status || (prior.status && (statusRank[prior.status] > statusRank[lead.status] ||
-        (statusRank[prior.status] === statusRank[lead.status] && !advancingCount && !changedBox))))) continue;
+        (statusRank[prior.status] === statusRank[lead.status] && !advancingCount && !changedBox && !learnedRewardOutcome))))) continue;
       leads.set(lead.id, lead);
       changed = true;
     }

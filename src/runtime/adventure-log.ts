@@ -36,6 +36,7 @@ export interface JournalLead {
   status?: "offered" | "accepted" | "ready-to-report" | "reward-pending" | "turned-in";
   clearedEncounters?: number;
   textileBox?: "sealed" | "opened";
+  rewardOutcome?: "unpaid";
 }
 
 export interface JournalObjective {
@@ -254,7 +255,8 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     const value = global(address);
     if (commission.id === "textile" && value === 255 && known.some((lead) => lead.id === "textile-confrontation")) {
       progress.push({ id, title: `${commission.title} - closed without payment`,
-        detail: "Cadorna confronted the party over the opened box and left without paying.", status: "turned-in" });
+        detail: "Cadorna confronted the party over the opened box and left without paying.",
+        status: "turned-in", rewardOutcome: "unpaid" });
       continue;
     }
     if (commission.id === "textile" && value < 254) {
