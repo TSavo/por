@@ -650,6 +650,12 @@ arena master once the party has heard that offer. A separate approach
 with the Swordsman and Warrior from the arena reached the courtyard at
 `8,5 W` and ended in defeat on Quick.
 
+Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_I PATH_TO_CHROME textile-altar`
+with a checkpoint outside Grishnak's temple at `2,13 N`. The replay checks
+the 352×352 altar portrait, the selected 96×96 priestess sprite, the captains'
+movement, and the captain's strike during browser animation playback. It
+also switches presentation in the dialogue and combat.
+
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_B PATH_TO_CHROME castle-dragon`
 with a castle checkpoint outside the audience hall at `14,7 S`. Chrome checks
 the 352×352 dialogue portrait and 192×192 combat sprite, including the sprite's

@@ -5,11 +5,12 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
-const routes = ["kobolds", "orcs", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "textile-altar", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
 const dragon = routeName === "castle-dragon";
+const altar = routeName === "textile-altar";
 const orcs = routeName === "orcs";
 const armory = routeName === "sokal-armory";
 const patrolCombat = routeName === "sokal-patrol-combat";
@@ -20,7 +21,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)), "Both options 
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : dragon ? "B.json" : orcs || ending ? "C.json" : "A.json");
+const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : altar ? "I.json" : dragon ? "B.json" : orcs || ending ? "C.json" : "A.json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
 const frameDirectory = resolve(directory, "tile-frames");
@@ -54,7 +55,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
-    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (landing ? "246a" : armory ? "2064" : dragon ? "3062" : orcs || ending ? "2e63" : "1e61"),
+    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (landing ? "246a" : armory ? "2064" : altar ? "1769" : dragon ? "3062" : orcs || ending ? "2e63" : "1e61"),
     POR_LIVE_AT: "85000000", POR_BOOT_STEPS: "450000000",
   },
   stdio: ["ignore", "ignore", "inherit"],
@@ -153,7 +154,39 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  if (dragon) {
+  if (altar) {
+    for (const key of ["up", "enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:PIC4.DAX:9:0:0");
+    await waitFor("the altar portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    for (const key of ["enter", "enter"]) await advance(key);
+    const captain = "combat:CPIC2.DAX:7";
+    const priestess = "combat:CPIC2.DAX:2";
+    const strike = "combat:CPIC2.DAX:135";
+    const positions = () => frame.combatArt.filter(([, , id]) => id === captain).map(([x, y]) => `${x},${y}`).sort();
+    const initialPositions = positions();
+    assert.ok(initialPositions.length >= 2);
+    let moved = false;
+    let priestessSelected = false;
+    let swing = false;
+    for (let turn = 0; turn < 250 && !(moved && priestessSelected && swing); turn++) {
+      await advance("q");
+      moved ||= positions().length >= 2 && initialPositions.join(";") !== positions().join(";");
+      if (!swing && frame.animation?.some(shot => shot.combatArt?.some(([, , id]) => id === strike))) {
+        await waitFor("the captain swing in Chrome", () => run(`[...document.querySelectorAll(".combat-sprite")]
+          .some(img => img.src.endsWith("CPIC2.DAX:135") && img.naturalWidth === 96)`));
+        swing = true;
+      }
+      if (!priestessSelected && frame.combatArt.some(([, , id, , selected]) => id === priestess && selected)) {
+        await waitFor("the selected priestess in Chrome", () => run(`state.sequence === ${frame.sequence} && !animationFrame &&
+          [...document.querySelectorAll(".combat-sprite")].some(img => img.src.endsWith("CPIC2.DAX:2") && img.naturalWidth === 96)`));
+        await switchBothWays();
+        priestessSelected = true;
+      }
+    }
+    assert.deepEqual({ moved, priestessSelected, swing }, { moved: true, priestessSelected: true, swing: true });
+    console.log("Verified the Textile House altar portrait, selected priestess, moving captains, and captain strike.");
+  } else if (dragon) {
     for (const key of ["right", ...Array(4).fill("up"), ...Array(3).fill("enter")]) await advance(key);
     assert.equal(frame.portrait, "portrait:PIC5.DAX:66:0:0");
     await waitFor("the dragon dialogue portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
