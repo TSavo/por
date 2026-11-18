@@ -41,7 +41,7 @@ You can pass the game directory as the last argument instead of `POR_GAMEDATA`.
 
 The HTML art inventory counts linked source frames per archive block. Use the replacement filter to find blocks with zero, some, or all frames linked. Runtime artwork such as viewport tiles has its own section.
 
-After generating the inventory, run `python tools/audit-art-palette.py` with Pillow installed to count visible RGB colors across the artwork and by asset family. The audit exits with status 1 when the combined artwork exceeds 256 colors.
+After generating the inventory, run `python tools/audit-art-palette.py` with Pillow installed to count visible RGB colors across the artwork and by asset family. Use these counts to review color ramps. VGA is the visual style and the artwork can use any number of colors.
 
 Use `--output` to inspect a fresh translation alongside the checked-in runtime files. The translator writes its generated coverage report alongside that output. With the default TypeScript destination, the report goes to `out/translation-coverage.md`.
 

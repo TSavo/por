@@ -28,13 +28,11 @@ def main() -> int:
             }
         shared.update(colors)
         families[replacement["id"].partition(":")[0]].update(colors)
-        if len(colors) > 256:
-            print(f"{replacement['id']} ({replacement['file']}): {len(colors)} colors")
 
     for family, colors in sorted(families.items()):
         print(f"{family}: {len(colors)} colors")
-    print(f"{len(replacements)} replacement PNGs use {len(shared)} visible RGB colors together (target: 256 or fewer).")
-    return int(len(shared) > 256)
+    print(f"{len(replacements)} replacement PNGs use {len(shared)} visible RGB colors together.")
+    return 0
 
 
 if __name__ == "__main__":

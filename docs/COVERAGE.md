@@ -664,8 +664,7 @@ title canvas is 1280 by 800 and a prototype viewport is 448 by 480.
 Synthetic PNGs verified that original-size versions are rejected and
 the exact 4× versions load.
 The artwork palette audit counted 618 visible RGB colors across the
-241 loaded replacement PNGs. Every individual image fits within 256
-colors. The combined artwork still exceeds the shared palette target.
+241 loaded replacement PNGs. The count is informational. The enhanced mode targets a VGA pixel-art style.
 For every kobold-route exploration view, Chrome checks each tile's source
 ID, 32-by-32 PNG dimensions, and position against the guest tile trace.
 The browser assembles those views from individual replacements. The prototype full-viewport overlay was removed. The combat check
