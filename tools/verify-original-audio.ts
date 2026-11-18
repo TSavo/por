@@ -1,12 +1,13 @@
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { strict as assert } from "node:assert";
 import { renderOriginalSoundDriver } from "../src/audio/original-driver.js";
 import { encodePcSpeakerWav, encodeTandyVgm } from "../src/audio/original-formats.js";
 import { findGameRoot } from "./gamedata.js";
 
 const manifest = JSON.parse(readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url), "utf8")) as {
-  events: Array<{ index: number; reachable?: boolean; reachableHardware?: Array<"pc-speaker" | "tandy"> }>;
+  events: Array<{ index: number; kind: string; reachable?: boolean;
+    reachableHardware?: Array<"pc-speaker" | "tandy">; enhancedFile?: string }>;
 };
 
 const root = findGameRoot();
@@ -59,4 +60,22 @@ for (const hardware of ["pc-speaker", "tandy"] as const) {
       `${hardware} event ${event} unexpectedly exceeded the one-minute render limit`);
   }
 }
-console.log("verified all 20 original events through PC-speaker and Tandy driver rendering");
+const enhancedDirectory = resolve(process.env.POR_ENHANCED_AUDIO_DIR ?? "../por-assets/enhanced");
+const reachableEffects = manifest.events.filter(({ kind, reachable }) => kind === "effect" && reachable !== false);
+for (const event of reachableEffects) {
+  assert(event.enhancedFile, `reachable effect ${event.index} has no Enhanced replacement`);
+  const wave = readFileSync(resolve(enhancedDirectory, event.enhancedFile));
+  const waveView = new DataView(wave.buffer, wave.byteOffset, wave.byteLength);
+  assert.equal(wave.subarray(0, 4).toString("ascii"), "RIFF");
+  assert.equal(wave.subarray(8, 12).toString("ascii"), "WAVE");
+  assert.equal(waveView.getUint16(20, true), 1, `${event.enhancedFile} must be PCM`);
+  assert.equal(waveView.getUint16(22, true), 1, `${event.enhancedFile} must be mono`);
+  assert.equal(waveView.getUint32(24, true), 48_000, `${event.enhancedFile} must be 48 kHz`);
+  assert.equal(waveView.getUint16(34, true), 16, `${event.enhancedFile} must be 16-bit`);
+  let peak = 0;
+  for (let offset = 44; offset + 1 < wave.length; offset += 2)
+    peak = Math.max(peak, Math.abs(waveView.getInt16(offset, true)));
+  assert(peak > 1_000, `${event.enhancedFile} is silent`);
+  assert(peak <= Math.ceil(32_767 * .83), `${event.enhancedFile} exceeds prototype peak target`);
+}
+console.log(`verified all 20 original hardware renders and ${reachableEffects.length} Enhanced effect replacements`);

@@ -118,8 +118,13 @@ performances. `npm run verify` validates their manifests and WAV assets.
 Enhanced effects use optional `enhancedFile` entries on that same original event
 manifest. The browser selects the replacement only in Enhanced mode; otherwise it
 uses the selected Classic hardware WAV. Missing or unavailable Enhanced files
-therefore fall back without changing the original trigger. The vertical slice's
-event 2 prototype is reproducible with `npm run generate-enhanced-audio`.
+therefore fall back without changing the original trigger. The deterministic
+prototype suite covers every reachable effect event (2 through 12) and is
+reproducible with `npm run generate-enhanced-audio`. These assets are 48 kHz mono
+PCM with bounded peaks and distinct designs for casting, damage, status effects,
+downed creatures, ranged attacks, impact, lightning, misses, steps, and fireball
+cues. They remain marked `prototype-authored`; final sound design can replace any
+file without changing its stable event or fallback path.
 
 ## Production pipeline
 
