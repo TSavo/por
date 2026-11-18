@@ -5,12 +5,13 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds"] = process.argv.slice(2);
-assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs]");
-assert.ok(["kobolds", "orcs"].includes(routeName), "Unknown Slums replay route");
+assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs|sokal-armory]");
+assert.ok(["kobolds", "orcs", "sokal-armory"].includes(routeName), "Unknown Slums replay route");
 const orcs = routeName === "orcs";
+const armory = routeName === "sokal-armory";
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const saved = resolve(directory, orcs ? "C.json" : "A.json");
+const saved = resolve(directory, armory ? "D.json" : orcs ? "C.json" : "A.json");
 const profile = resolve(directory, "chrome");
 copyFileSync(checkpoint, saved);
 const originalSave = readFileSync(saved);
@@ -22,7 +23,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
-    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (orcs ? "2e63" : "1e61"),
+    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (armory ? "2064" : orcs ? "2e63" : "1e61"),
     POR_LIVE_AT: "85000000", POR_BOOT_STEPS: "450000000",
   },
   stdio: ["ignore", "ignore", "inherit"],
@@ -117,7 +118,33 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  if (orcs) {
+  if (armory) {
+    const route = ["up", "up", "up", "right", "up", "left", "up", "left", "up", "up", "up", "right", "up"];
+    const seen = new Set();
+    let views = 0;
+    for (const [step, key] of route.entries()) {
+      await advance(key);
+      if (!frame.tileInventory?.length) continue;
+      views++;
+      assert.equal(frame.tiles.length, 121);
+      for (const [, , id] of frame.tiles) {
+        assert.match(id, /^tile:21:/);
+        seen.add(id);
+      }
+      await waitFor("121 assembled Sokal tiles", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelectorAll("#tile-art img").length === 121 &&
+        [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
+      if (step === 2 || step === 9) {
+        if (step === 2) await switchBothWays();
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `sokal-armory-${step}.png`), Buffer.from(shot.data, "base64"));
+      }
+    }
+    const text = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
+    assert.match(text, /ONSTANDSAREASHIELD/i);
+    assert.equal(seen.size, 13);
+    console.log(`Verified ${seen.size} Sokal armory patterns across ${views} views. Captures: ${directory}`);
+  } else if (orcs) {
     const route = ["up", "left", "up", "up", "up", "right", "up", "right",
       ...Array(5).fill("up"), "right", "up", "left", "up", "left", "up"];
     const manifest = JSON.parse(readFileSync("upgrades/slums/manifest.json"));
@@ -187,7 +214,7 @@ try {
     const displayedPositions = new Set(displayedSwings
       .filter(([, , width, height]) => width === 96 && height === 96).map(([x, y]) => `${x},${y}`));
     assert.ok([...attacks].every((position) => displayedPositions.has(position)),
-      "Chrome must display the 4× swing at each original position");
+      "Chrome must display the 4ï¿½ swing at each original position");
     assert.ok(positions.size > 4, "Guard artwork should follow moving units");
     console.log(`Verified ${route.length} Slums outpost views with guard sprites in ${positions.size} combat positions and swings in ${attacks.size}.`);
   } else {

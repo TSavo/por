@@ -1,4 +1,18 @@
 {
   "version": 1,
-  "assets": {}
+  "assets": {
+    "tile:21:858b73d63eb2439f5d3755fe6002d941fcc99e9a5fdb06fb568a21ff2599262f": "sokal-vault-stones.png",
+    "tile:21:72d0fd83d0d2dabd4d37e4737304e2831a18fb8a170a2b3c321d94c87e8f00a1": "sokal-falling-vault-join.png",
+    "tile:21:ed11a107e77bf23aaf5e3448407dcf969708c9aeaeedccef7135345f93117730": "sokal-left-recess-edge.png",
+    "tile:21:6cfeeb3aa25d3f411dae5eec17d7369ca7153e72dcf54bcf4c3daec0f5b21fc7": "sokal-ashlar-wall.png",
+    "tile:21:80e3c5025a5f43f7991f9fb1c372374d1d0c7cb666c72aa6115e3e381ccd814e": "sokal-far-corridor-courses.png",
+    "tile:21:1352286f7dddf65efce52c789476c7e917ecdd98d1c1ca9ab2dde1e4964caefe": "sokal-footworn-flags.png",
+    "tile:21:73f6e7f279141546a9e3ce407ed1f7b44359863cba76f14459bb4147e068ef87": "sokal-rising-floor-join.png",
+    "tile:21:aa6f4f9ce990cf65ed1292cb8198cd2752df6026bf588a996ef8d667cfafe1a6": "sokal-right-recess-edge.png",
+    "tile:21:b809967267807444db6a1b3da6cc1ff977c9cd68138f6ed6180a67256536a6f5": "sokal-rising-vault-join.png",
+    "tile:21:2d380f67989bef6c1c363c519e7001255f5accd9e8a5b2ad557312990469c7c4": "sokal-gate-head.png",
+    "tile:21:265fdfb327afb9171e5a4afaf526a304471572cc2dc02ba16b03a00049e8f541": "sokal-gate-bars.png",
+    "tile:21:202aefe6bbb76257e5a3fdb4ec8e2a102ef8ab28a63b1d507be1d284589ab202": "sokal-falling-floor-join.png",
+    "tile:21:110943e6a403b2235bba6335458085ad7e6948b823e00f8af7bd859e29c98c38": "sokal-gate-foot.png"
+  }
 }

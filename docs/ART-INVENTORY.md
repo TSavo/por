@@ -113,3 +113,17 @@ Use the fresh party's Slums entrance save at (15,4). The replay verifies all
 near approach sprite, and guard artwork across moving combat units. It also
 switches presentation in the corridor and in combat and compares both the
 guest frame and the save bytes across each switch.
+
+## Sokal Keep old armory
+
+The route from the old armory into the hidden equipment room uses 13
+distinct environment patterns. Each has its own 32×32 PNG, including ashlar
+walls, vault courses, worn floor flags, diagonal junctions, and three gate
+pieces. The route report excludes the all-black transition during the
+treasure sequence.
+
+Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_D PATH_TO_CHROME sokal-armory`
+with the save at (14,5) after the smithy fight. Chrome verified all 121
+individual tiles in each of 12 views, including turns and the passage
+through the hidden wall. It also verified the original equipment prompt
+and that switching presentation preserved the guest frame and save bytes.
