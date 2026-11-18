@@ -596,17 +596,28 @@ function checkCampaignJournal(): void {
     throw new Error("The rescue journal sent the party to the council before leaving the base");
   }
   writeGlobal(0x49f2, 25);
-  if (questProgress(m, escapingRescue, m.ds).find(({ id }) => id === "commission-rescue")?.status !== "ready-to-report") {
+  const reportProgress = questProgress(m, escapingRescue, m.ds);
+  if (reportProgress.find(({ id }) => id === "commission-rescue")?.status !== "ready-to-report") {
     throw new Error("The rescue journal did not recognize an escaped party");
   }
+  const rescueProfile = openJournalProfile();
+  const rescueJournal = (transcript = "") => rescueProfile(transcript, (known) => questProgress(m, known, m.ds));
+  rescueProfile.restore([...escapingRescue, ...reportProgress]);
+  writeGlobal(0x49f2, 1);
+  if (rescueJournal().find(({ id }) => id === "commission-rescue")?.status !== "accepted") {
+    throw new Error("The rescue journal retained a premature report objective from an older save");
+  }
+  writeGlobal(0x49f2, 25);
+  if (rescueJournal().find(({ id }) => id === "commission-rescue")?.status !== "ready-to-report") {
+    throw new Error("The restored rescue journal did not update after leaving the base");
+  }
   if (!rescueLost) throw new Error("Missing the original lost-heir dialogue");
-  const failedRescue = discoveredLeads(`${rescueTranscript}\n${rescueLost}`);
   writeGlobal(progressAddresses.rescue!, 128);
-  if (!currentObjective(questProgress(m, failedRescue, m.ds), "commission-rescue").nextStep.includes("what happened to the boy")) {
+  if (!currentObjective(rescueJournal(rescueLost), "commission-rescue").nextStep.includes("what happened to the boy")) {
     throw new Error("The journal did not distinguish reporting a failed rescue");
   }
   writeGlobal(progressAddresses.rescue!, 255);
-  if (questProgress(m, failedRescue, m.ds).find(({ id }) => id === "commission-rescue")?.rewardOutcome !== "unpaid") {
+  if (rescueJournal().find(({ id }) => id === "commission-rescue")?.rewardOutcome !== "unpaid") {
     throw new Error("The journal treated the failed rescue as paid after reporting it");
   }
   let swampTranscript = `${swampOffer}\n${freedPrisoners}`;

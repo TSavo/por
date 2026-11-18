@@ -35,7 +35,11 @@ export function openJournalProfile(path?: string) {
         lead.clearedEncounters > (prior?.clearedEncounters ?? 0);
       const changedBox = lead.textileBox !== undefined && lead.textileBox !== prior?.textileBox;
       const learnedRewardOutcome = lead.rewardOutcome !== undefined && lead.rewardOutcome !== prior?.rewardOutcome;
-      if (prior && (!lead.status || (prior.status && (statusRank[prior.status] > statusRank[lead.status] ||
+      // The rescue flag can mean "escort in progress", "ready to report", or
+      // "report a failed rescue". The current guest state resolves these cases.
+      const rescueChanged = lead.id === "commission-rescue" && lead.status && lead.status !== "offered" &&
+        (prior?.status !== lead.status || prior?.detail !== lead.detail);
+      if (prior && !rescueChanged && (!lead.status || (prior.status && (statusRank[prior.status] > statusRank[lead.status] ||
         (statusRank[prior.status] === statusRank[lead.status] && !advancingCount && !changedBox && !learnedRewardOutcome))))) continue;
       leads.set(lead.id, lead);
       changed = true;
