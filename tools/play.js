@@ -56,8 +56,9 @@ function showScreen() {
       const tile = document.createElement("img");
       tile.alt = "";
       if (id.startsWith("tile:")) tile.classList.add("terrain-tile");
-      if (id.startsWith("tile:28:")) {
-        tile.classList.add("zhentil-terrain");
+      const sky = id.startsWith("tile:16:") ? "swamp" : id.startsWith("tile:28:") ? "zhentil" : undefined;
+      if (sky) {
+        tile.dataset.sky = sky;
         // Align the sky across all eleven rows. The gradient travels 80 guest pixels.
         tile.style.backgroundPositionY = `${((y - 24) / 80) * 100}%`;
       }

@@ -814,6 +814,11 @@ crosses it, and saves the anti-magic shell clue. The `swamp-elder`
 replay starts from a controlled save near the elder with the witnessed
 entry 35 clue carried forward from the pumping room. It verifies Parlay,
 the friend-word challenge, entry 31, and the request for a champion.
+It also checks the 192×320 elder sprite at the original 48×80 placement
+and verifies presentation switches in the encounter. The `swamp-ruins`
+replay loads the save made inside the ruins and checks 51 individual
+32×32 tiles across 12 views. Visual review led to a continuous misty sky
+behind the ruin tiles.
 The `yarash-combat` replay starts from the live fountain shutdown save
 and enters Yarash's room through the locked door. Chrome checks Yarash's
 selected stance, the mutant guard stance, and a guard strike during

@@ -6,6 +6,10 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const environmentRoutes = new Map([
+  ["swamp-ruins", {
+    slot: "A", area: 16, views: 12, patterns: 51,
+    walk: ["up", "right", "up", "up", "left", "up", "up", "left", "up", "right", "up"],
+  }],
   ["pyramid-fountain-approach", {
     slot: "A", area: 23, views: 2, patterns: 19,
     walk: ["up", "right", "up", "enter"],
@@ -458,7 +462,14 @@ try {
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
   } else if (routeName === "swamp-elder") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
-    for (const key of ["up", "b", "j"]) await advance(key);
+    for (const key of ["up", "b"]) await advance(key);
+    assert.deepEqual(frame.encounter, [48, 32, "encounter:area:16:SPRIT8.DAX:57:0:0", 48, 80]);
+    await waitFor("the enhanced swamp elder", () => run(`(() => {
+      const image = document.querySelector(".encounter-sprite");
+      return image?.naturalWidth === 192 && image?.naturalHeight === 320;
+    })()`));
+    await switchBothWays();
+    await advance("j");
     assert.ok(knows("swamp-peaceful-elder") && !knows("swamp-friend-word"));
     assert.match(frame.journal.objective.nextStep, /Parlay with the elder/);
     for (const key of ["j", "p", "j"]) await advance(key);
