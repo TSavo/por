@@ -732,6 +732,10 @@ door edges, yard path, palisade and sky across the two routes. The review
 caught a repeating ceiling stripe and inconsistent masonry where indoor
 tiles met shared tiles. The replacement PNGs were revised and recaptured
 at the game's displayed size.
+The presentation switch checks measure the rendered game in Chrome.
+Classic uses its native 320×200 image at 8:5 and Enhanced displays at
+4:3. The quarter, commandant, and wolf replays cover the switch in
+exploration, dialogue, and combat.
 
 The Valhingen journal now uses witnessed clues for the lair, stairs, vampire
 escape, and northern wall. The original ECL text and completion flag are

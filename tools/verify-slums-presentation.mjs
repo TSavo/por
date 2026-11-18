@@ -217,12 +217,22 @@ try {
   }
 
   async function switchBothWays() {
+    const displayGeometry = () => run(`(() => {
+      const display = document.querySelector("#screen");
+      const { width, height } = display.getBoundingClientRect();
+      return { width, height, native: [display.naturalWidth, display.naturalHeight] };
+    })()`);
     const before = await latest();
     await run('document.querySelector("#presentation").click()');
     await waitFor("classic presentation", () => run('document.querySelector("#game-text").hidden && document.querySelector("#tile-art").hidden'));
+    const classic = await displayGeometry();
+    assert.deepEqual(classic.native, [320, 200]);
+    assert.ok(Math.abs(classic.height - classic.width * 5 / 8) < 1, "Classic should render at 8:5");
     assert.deepEqual(await latest(), before);
     await run('window.dispatchEvent(new KeyboardEvent("keydown", { key: "F10" }))');
     await waitFor("enhanced text", () => run('!document.querySelector("#game-text").hidden'));
+    const enhanced = await displayGeometry();
+    assert.ok(Math.abs(enhanced.height - enhanced.width * 3 / 4) < 1, "Enhanced should render at 4:3");
     assert.deepEqual(await latest(), before);
     assert.deepEqual(readFileSync(saved), originalSave);
   }
