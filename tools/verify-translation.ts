@@ -9,6 +9,7 @@ import "../src/translated/system5bb.js";
 import { farCall } from "../src/runtime/far.js";
 import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
 import { attachDos } from "../src/runtime/dos.js";
+import { isPartyFile } from "./save-slots.js";
 import { exe_056c0 } from "../src/translated/exe.js";
 import type { LoadedSlice } from "../src/runtime/overlay.js";
 import { currentObjective, discoveredLeads, progressAddresses, questProgress } from "../src/runtime/adventure-log.js";
@@ -121,6 +122,12 @@ function checkCrtRetrace(): void {
 checkCrtRetrace();
 
 function checkPartySaveFiles(): void {
+  for (const letter of "ABCDEFGHIJ") {
+    if (!isPartyFile(`SAVE\\CHRDAT${letter}6.SAV`, letter) || isPartyFile("SAVE\\CHRDATZ1.SAV") ||
+        isPartyFile("SAVE\\CHRDATA1.ITM", letter) !== (letter === "A")) {
+      throw new Error(`Invalid native party-file naming for slot ${letter}`);
+    }
+  }
   const m = fresh();
   const slotA = "SAVE\\SAVGAMA.DAT";
   const slotB = "SAVE\\SAVGAMB.DAT";

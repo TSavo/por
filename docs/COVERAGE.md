@@ -144,7 +144,10 @@ selecting Begin Adventuring. In Add Character, **End** moves down a name,
 all six, completed Rolf's tour, saved from Encamp, and loaded all six in a new
 process before entering the Slums through the west gate.
 From that save, the party reached the original kobold encounter and entered
-combat with all six characters. The journal transcript captured the Slums
+combat with all six characters. A replay used Quick and manual Move/Attack
+to beat the kobolds. The guest awarded 480 experience points per character.
+After sharing the spoils, the party saved in slot B and all six characters
+reloaded in the Slums. The journal transcript captured the Slums
 greeting once, even when the interpreter decoded it again to skip the
 conditional print. The council briefing still recorded the visible offers.
 

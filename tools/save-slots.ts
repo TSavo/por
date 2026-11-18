@@ -37,7 +37,10 @@ function writeRecord(directory: string, name: string, data: unknown): void {
 }
 
 const rosterName = /^SAVE\\(?:CHARLIST\.TXT|[A-Z0-9_]{1,8}\.(?:CHA|ITM|SPC))$/;
-export const isPartyFile = (name: string): boolean => /^(?:SAVE\\)?CHRDATA[1-8]\.(?:SAV|ITM|SPC)$/.test(name);
+export function isPartyFile(name: string, slot?: string): boolean {
+  const letter = /^(?:SAVE\\)?CHRDAT([A-J])[1-8]\.(?:SAV|ITM|SPC)$/.exec(name)?.[1];
+  return letter !== undefined && (slot === undefined || letter === slot);
+}
 const canonicalName = (name: string) => name.replaceAll("/", "\\").toUpperCase();
 
 export function openSaveSlots(directory: string) {
@@ -50,7 +53,7 @@ export function openSaveSlots(directory: string) {
     if (slot.version !== 1 || saveSlotLetter(slot.name) !== letter ||
         typeof slot.data !== "string" || !Array.isArray(slot.leads) ||
         (slot.party !== undefined && (!slot.party || typeof slot.party !== "object" ||
-          Object.entries(slot.party).some(([name, bytes]) => !isPartyFile(name) || typeof bytes !== "string")))) {
+          Object.entries(slot.party).some(([name, bytes]) => !isPartyFile(name, letter) || typeof bytes !== "string")))) {
       throw new Error(`Invalid Pool of Radiance save slot ${letter}`);
     }
     slots.set(letter, slot);
@@ -98,7 +101,8 @@ export function openSaveSlots(directory: string) {
       if (!letter) throw new Error(`Invalid Pool of Radiance save filename ${name}`);
       const slot: Slot = {
         version: 1, name, data: Buffer.from(data).toString("base64"), leads, tracked,
-        party: Object.fromEntries(party.map((file) => [file.name, Buffer.from(file.data).toString("base64")])),
+        party: Object.fromEntries(party.filter((file) => isPartyFile(file.name, letter))
+          .map((file) => [file.name, Buffer.from(file.data).toString("base64")])),
       };
       writeRecord(directory, letter, slot);
       slots.set(letter, slot);
