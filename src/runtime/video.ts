@@ -30,29 +30,6 @@ let graphicsIndex = 0;
 let sequencerIndex = 0;
 let mapMask = 15;
 
-/** Capture the adapter state so an interrupted guest call can be retried. */
-export function checkpointVideo(): () => void {
-  const pixels = screen.pixels.slice();
-  const planeBytes = planes.map((plane) => plane.slice());
-  const latched = latches.slice();
-  const registers = graphics.slice();
-  const characters = glyphs.slice();
-  const colors = attrs.slice();
-  const text = new Map(gameText);
-  const saved = { mode, column, row, graphicsIndex, sequencerIndex, mapMask, int10Count };
-  return () => {
-    ({ mode, column, row, graphicsIndex, sequencerIndex, mapMask, int10Count } = saved);
-    screen.pixels.set(pixels);
-    planes.forEach((plane, index) => plane.set(planeBytes[index]!));
-    latches.set(latched);
-    graphics.set(registers);
-    glyphs.set(characters);
-    attrs.set(colors);
-    gameText.clear();
-    for (const [cell, glyph] of text) gameText.set(cell, glyph);
-  };
-}
-
 function resetPlanarVideo(): void {
   gameText.clear();
   for (const plane of planes) plane.fill(0);

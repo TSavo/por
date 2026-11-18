@@ -986,3 +986,13 @@ ECL setter. From there, play through the original runner verified that the
 harbor master offers new destinations as soon as the keep is cleared, and
 that the journal waits for the clerk's reward flow to finish before marking
 the commission turned in. This test bypassed the courtyard battle.
+
+### Combat replay after removing turn recovery
+
+The browser runner now lets the translated combat routine finish each turn.
+The earlier per-turn budget, memory rollback, and enemy-turn skip were
+removed. The replay that targeted the tenth aim selection with Mira's Sleep
+from the mixed party's unedited Sokal landing save previously tripped that
+budget in overlay 31 at 05C7. The same inputs reached the ordinary party
+defeat screen after removal. That run verifies turn progression and does
+not establish a courtyard victory.

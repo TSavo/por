@@ -7,12 +7,10 @@ import { Cpu } from "../src/cpu/machine.js";
 import { ovl07_0000, ovl07_0c93 } from "../src/translated/ovl07.js";
 import "../src/translated/system5bb.js";
 import { farCall } from "../src/runtime/far.js";
-import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
 import { attachDos } from "../src/runtime/dos.js";
 import { isPartyFile } from "./save-slots.js";
 import { openJournalProfile } from "./journal-profile.js";
 import { exe_056c0, exe_05e44, exe_06a35 } from "../src/translated/exe.js";
-import type { LoadedSlice } from "../src/runtime/overlay.js";
 import { currentObjective, discoveredLeads, progressAddresses, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
 import { commissions } from "../src/runtime/commission-journal.js";
 import { parseDax } from "../src/lib/dax.js";
@@ -187,40 +185,6 @@ function checkPartySaveFiles(): void {
 }
 
 checkPartySaveFiles();
-
-function checkQuickRecovery(partyMember: boolean): void {
-  const m = fresh();
-  const stack = m.sp;
-  const actor = 0x100;
-  m.bp = 0xff40;
-  m.stepBudget = 100;
-  m.write8(m.ss, m.bp - 2, 1);
-  m.write8(m.ds, actor + 0x10f, 1);
-  m.write8(m.ds, actor + 0x84, partyMember ? 0 : 0x80);
-  m.push(m.ds);
-  m.push(actor);
-  m.push(m.cs);
-  m.push(partyMember ? 0x477 : 0x2b3);
-  const slice = (index: number, headerPara: number, loadPara: number): LoadedSlice =>
-    ({ index, headerPara, loadPara, fileOffset: 0, codeBytes: 0, procs: new Map() });
-  let recovered: boolean | undefined;
-  let timeoutLocation: string | undefined;
-  attachQuickRecovery(m, [slice(8, 0x51, m.cs), slice(9, 0x58, 0x4000)], (party, timeout) => {
-    recovered = party;
-    timeoutLocation = timeout.message;
-  }, 1);
-  farCall(m, 0x58, 0x25);
-  const expected = partyMember ? 0 : 1;
-  if (recovered !== partyMember || !timeoutLocation?.includes("at 4000:") ||
-      m.sp !== stack || m.bp !== 0xff40 || m.cs !== 0x3000 || m.stepBudget !== 100 ||
-      m.read8(m.ss, m.bp - 2) !== expected || m.read8(m.ds, actor + 0x10f) !== expected) {
-    throw new Error("Quick watchdog did not restore the expected combat control");
-  }
-  console.log(partyMember ? "verified Quick timeout returns to manual combat" : "verified enemy Quick timeout retains automatic control");
-}
-
-checkQuickRecovery(true);
-checkQuickRecovery(false);
 
 function checkSokalQuestProgress(): void {
   const m = fresh();

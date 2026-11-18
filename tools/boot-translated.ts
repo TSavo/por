@@ -17,7 +17,6 @@ import { liveInput } from "./live-input.js";
 import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
-import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
 import { callTrace, disposeHits, dosAssigns, farCall, farCallObservers, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
 import { registerTranslated } from "../src/translated/register.js";
@@ -223,20 +222,6 @@ if (input) {
       }
     });
   }
-}
-if (liveAt !== undefined) {
-  const quickBudget = process.env.POR_QUICK_STEPS === undefined
-    ? undefined : Number(process.env.POR_QUICK_STEPS);
-  if (quickBudget !== undefined && (!Number.isSafeInteger(quickBudget) || quickBudget <= 0)) {
-    throw new Error("POR_QUICK_STEPS must be a positive integer");
-  }
-  attachQuickRecovery(cpu, loadedSlices, (partyMember, timeout) => {
-    const message = partyMember
-      ? "Quick combat stalled. Choose a manual action."
-      : "An enemy could not finish its turn. Combat continued.";
-    if (process.env.POR_TRACE_QUICK === "1") console.error(timeout.stack);
-    console.log(process.env.POR_BROWSER_PLAY === "1" ? `POR_NOTICE ${message}` : message);
-  }, quickBudget);
 }
 const journalSlice = loadedSlices.find((slice) => slice.index === 3);
 adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || liveAt !== undefined || profilePath) && journalSlice
