@@ -205,18 +205,21 @@ save and verifies the recruits' improved armor and prepared Hold Person.
 From that equipped save, the same replay gives the wrong word, wins
 the patrol fight, and gives the correct word to a later patrol. It then
 wins the smithy fight, collects the hidden armory gear, and reloads.
-This branch finishes at the armory. Pass its slot E to
-`node tools/verify-fresh-party.mjs --sokal-armory-reinforcement-checkpoint PATH_TO_SLOT_E --equipped`
-to continue with the same party. The replay readies the recovered sword
+The same fresh-party run readies the recovered sword
 on Alda, sails back to New Phlan, sells the armory jewel, and pays the
 Temple of Tyr to raise and heal Brin. Slot G reloads with Brin at 6 HP
-and the recovered mace readied.
-Add `--return-to-courtyard` to that same command to continue in one
-save directory. The party hears the council commission, reloads with
+and the recovered mace readied. The party hears the council commission, reloads with
 it tracked, returns to Thorn Island, and reaches the courtyard ambush.
 The replay confirms the journal advances from the armory to battle
 preparation, then uses the recovered mace against an adjacent orc.
 It stops after the Curate's first automatic move.
+To repeat only the continuation, use
+`node tools/verify-fresh-party.mjs --sokal-armory-reinforcement-checkpoint PATH_TO_SLOT_E --equipped --return-to-courtyard`
+with the original run's equipped armory save.
+The resulting landing checkpoint also passed `sokal-courtyard --manual-party`
+in the Chrome presentation verifier. It checked 56 patterns across 24 views
+and verified Brin's selected combat icon and the orc under the Aim cursor
+in both display modes.
 Run `node tools/verify-fresh-party.mjs --slums-goblin-checkpoint PATH_TO_SLOT_A`
 from that rested save. The party bashes into the goblin training room at
 (10,1), wins for 181 XP without watchdog recovery, and takes leather

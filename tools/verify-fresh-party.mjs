@@ -1935,6 +1935,9 @@ if (["--fresh-armored-slums", "--fresh-sokal-reinforced"].includes(process.argv[
     await verifySokalReinforcement();
     await verifySokalRecruitEquipment();
     await verifySokalPatrolVictory({ rejectedWord: true, equipped: true });
+    await verifySokalTempleRecovery(true);
+    await verifySokalRestoredCouncil();
+    await verifySokalTrackedAmbush();
   }
   process.exit(0);
 }
