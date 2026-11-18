@@ -82,7 +82,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     .filter((key) => Number(monsterCombatKey.exec(key)?.[3]) >= 128));
   const animation: CombatAnimationFrame[] = [];
   let lastAttack = "";
-  const portraitArt = loadPortraitArt((process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean), browser);
+  const portraitKeys = (process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean);
+  const portraitArt = loadPortraitArt(portraitKeys, browser);
+  const scopedPortraits = portraitKeys.some((key) => key.startsWith("portrait:area:"));
   const encounterPlacements = JSON.parse(process.env.POR_ENCOUNTER_ART ?? "{}") as Record<string, EncounterAnchor>;
   const encounterArt = loadEncounterArt(encounterPlacements);
   const traceEncounterArea = Object.keys(encounterPlacements).length > 0;
@@ -100,7 +102,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const row = Math.floor(cell / 40);
         return column < 1 || column >= 16 || row < 1 || row >= 16;
       }) : glyphs;
-      const picture = !scene && !leads ? portraitArt(screen) : undefined;
+      const picture = !scene && !leads ? portraitArt(screen, area) : undefined;
       const portrait = picture ?? undefined;
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);
@@ -221,7 +223,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
-    if (browser && (tileKeys.size || traceTiles || traceEncounterArea)) {
+    if (browser && (tileKeys.size || traceTiles || traceEncounterArea || scopedPortraits)) {
       const segment = cpu.read16(0x740, 0x4935);
       const offset = cpu.read16(0x740, 0x4933);
       area = segment || offset ? cpu.read16(segment, offset + 0x1e4) : undefined;

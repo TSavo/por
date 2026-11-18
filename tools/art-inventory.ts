@@ -185,7 +185,7 @@ for (const path of tracePaths) {
 const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
-  const match = /^(?:encounter:(?:area:\d+:)?|portrait:)([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
+  const match = /^(?:encounter|portrait):(?:area:\d+:)?([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
     /^combat:(?:area:\d+:)?(CPIC\d+\.DAX):(\d+)$/.exec(id);
   let source;
   if (match) {
@@ -206,9 +206,9 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
     const entry = archives.find(({ file }) => file === part.archive)?.entries.find(({ id }) => id === part.block);
     return entry ? [{ ...part, directoryIndex: entry.directoryIndex, member: 0 }] : [];
   }) : undefined;
-  const area = /^(?:tile|combat:area):(\d+):/.exec(id)?.[1];
+  const area = /^(?:tile|combat:area|portrait:area):(\d+):/.exec(id)?.[1];
   const placement = metadata.encounter
-    ?? (id.startsWith("portrait:") ? { x: 8, y: 8, width: 120, height: 120 }
+    ?? (id.startsWith("portrait:") ? { x: 8, y: 8, width: 120, height: 120, ...(area !== undefined && { area: Number(area) }) }
       : id === "scene:title" ? { x: 0, y: 0, width: 320, height: 200 }
       : source || area !== undefined ? {
         ...(source && { x: source.x, y: source.y }),

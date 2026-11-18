@@ -74,7 +74,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -104,6 +104,7 @@ const trader = routeName === "stojanow-trader";
 const altar = routeName === "textile-altar";
 const plaza = routeName === "podal-plaza";
 const infirmary = routeName === "podal-infirmary";
+const shrine = routeName === "podal-shrine";
 const trainer = routeName === "fighter-trainer";
 const environment = environmentRoutes.get(routeName);
 const ogre = routeName === "textile-ogre";
@@ -121,7 +122,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = environment?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza || infirmary ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader ? "B" : orcs || ending || smithy ? "C" : "A");
+const slot = environment?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza || infirmary || shrine ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader ? "B" : orcs || ending || smithy ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -362,6 +363,17 @@ try {
     }
     await switchBothWays();
     console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
+  } else if (shrine) {
+    for (const key of ["up", "up", "enter", "enter", "g"]) await advance(key);
+    const prompt = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
+    assert.match(prompt, /GREETINGSFROMBANE/i);
+    assert.equal(frame.portrait, "portrait:area:18:PIC1.DAX:4:0:0");
+    await waitFor("the shrine recruiter portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    const capture = await command("Page.captureScreenshot", { format: "png" });
+    const screenshot = resolve(directory, "podal-shrine.png");
+    writeFileSync(screenshot, Buffer.from(capture.data, "base64"));
+    console.log("Verified the shrine recruiter portrait and mode switches in Chrome.", screenshot);
   } else if (infirmary) {
     for (const key of ["up", "enter"]) await advance(key);
     const prompt = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
