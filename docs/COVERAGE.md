@@ -510,7 +510,12 @@ party encounters her. Quick combat with alternate formations and the
 tested manual Sleep openings still ended in defeat. The southern entrance
 replay also verifies Enna's manual Aim and Guard commands. Grishnak is
 three squares away, so Aim offers no Target command for Enna's sword.
-Guard then hands control to Brin. The checkpoint check
+Moving north prompts Enna to confirm an attack on an ally. Declining
+preserves all nine movement points. Moving south to a free square costs
+one point, and Guard then hands control to Brin. In a separate replay,
+Alda and Brin took the prison guards' long bows and readied them. Brin
+could aim at Grishnak from one square away, but Aim offered no Target
+command with that loadout. The checkpoint check
 fails if the watchdog intervenes. The recruitment
 checks still use the historical checkpoint and the supplied brass key.
 

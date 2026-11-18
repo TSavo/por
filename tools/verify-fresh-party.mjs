@@ -227,7 +227,15 @@ async function verifyUninterruptedCourtyard(checkpoint) {
       assert.match(text, /grishnak hitpoints 24.*range = 3.*aim:next/);
       assert.doesNotMatch(text, /manual target/);
     },
-    "e", "d",
+    "e", "m",
+    (text) => assert.match(text, /enna hitpoints.*move\/attack, move left = 9/),
+    "up",
+    (text) => assert.match(text, /attack ally: yes no/),
+    "n",
+    (text) => assert.match(text, /enna hitpoints.*move\/attack, move left = 9/),
+    "down",
+    (text) => assert.match(text, /enna hitpoints.*move\/attack, move left = 8/),
+    "escape", "d",
     (text) => assert.match(text, /enna hitpoints.*guard delay quit/),
     "g",
     (text) => assert.match(text, /brin hitpoints 6.*long sword.*move view aim/),
