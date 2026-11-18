@@ -265,6 +265,13 @@ coins, and Brin readies the recovered mace. Reloading slot G verifies his
 6 HP, AC 1, constitution 11, mace, and 26 platinum. The replay presses the
 original J key for Jewelry in the appraisal menu, where it now takes
 precedence over the journal shortcut.
+
+Run `node tools/verify-fresh-party.mjs --sokal-recovered-courtyard-checkpoint PATH_TO_SLOT_G`
+with `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` to continue from the temple. The
+party makes room for the Evoker using the original Encamp menu, hires him
+at the arena, and reloads slot H with two Sleep spells in memory. It returns
+to Thorn Island by boat, passes the patrols with the parchment word, and
+reaches the Evoker's first turn in the courtyard with Brin in the roster.
 From C, the party answers Yes when a second patrol asks for the password,
 then explores the ruined smithy. It wins the frog encounter for 31 XP per
 character. Alda falls to 0 HP during the fight. The party enters the old

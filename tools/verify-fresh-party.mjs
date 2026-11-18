@@ -1091,6 +1091,43 @@ if (process.argv[2] === "--sokal-armory-reinforcement-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--sokal-recovered-courtyard-checkpoint") {
+  assert.ok(process.argv[3], "Pass the slot G temple save after raising Brin.");
+  copyFileSync(process.argv[3], join(saveDir, "G.json"));
+  await replay(loadSlot("2267"), "85000000", [
+    (text) => assert.match(text, /brin 1 6.*cora 10 0.*swordsman 3 17.*curate 2 25.*11,3 s/),
+    "e", "a", "a", "end", "end", "d",
+    (text) => assert.match(text, /cora will be gone.*drop from party/),
+    "y", "e", "e",
+    "right", "right", "up", "left", "up", "right", "up", "up", "left", "up",
+    "enter", "enter", "enter", "n", "left", "up", "right", "up", "up", "up", "enter", "enter", "n",
+    (text) => assert.match(text, /do you seek a partner for your adventuring/),
+    "y", ...Array(5).fill(["n", "y"]).flat(),
+    (text) => assert.match(text, /fine evoker who will join you for 2 shares/),
+    "y", "n", "e", "s", "s", "h",
+    (text) => assert.match(text, /evoker 9 6.*7,1 w.*quit to dos/),
+  ]);
+  await replay(loadSlot("2368"), "85000000", [
+    ...Array(7).fill("end"), "c",
+    (text) => assert.match(text, /evoker's spells in memory.*sleep sleep/),
+  ]);
+  await replay(loadSlot("2368"), "85000000", [
+    "right", "right", "up", "up", "left", "up", "enter", "enter", "enter", "n",
+    "right", "up", "enter", "enter", "right", "up", "up", "left", "up", "left", "up",
+    "enter", "enter", "right", ...Array(4).fill("up"), ...Array(5).fill("enter"),
+    (text) => assert.match(text, /brin 1 6.*evoker 9 6.*8,14 n/),
+    "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "enter",
+    "p", "n", ..."shestni", "enter",
+    (text) => assert.match(text, /9,11 e.*the undead leave/),
+    "up", "left", "up", ...Array(5).fill("up"), "enter", "y", "up", "left", "up", "y",
+    "left", "up", "up", "y", "y", "up", "enter",
+    (text) => assert.match(text, /8,5 w.*large force of orcs and hobgoblins rushes you/),
+    "enter", "enter", "enter", ["q", /evoker hitpoints 6 ac 9/, 100],
+  ]);
+  console.log("Recruited the Evoker and reached his first courtyard turn with Brin restored:", join(saveDir, "H.json"));
+  process.exit(0);
+}
+
 if (process.argv[2] === "--sokal-armory-checkpoint") {
   assert.ok(process.argv[3], "Pass a save in Sokal's old armory after defeating the smithy frogs.");
   copyFileSync(process.argv[3], join(saveDir, "D.json"));
