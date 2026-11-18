@@ -740,6 +740,34 @@ if (process.argv[2] === "--slums-armored-patrols-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--slums-goblin-sale-checkpoint") {
+  assert.ok(process.argv[3], "Pass the slot C with the swords and leather armor from the goblin room.");
+  copyFileSync(process.argv[3], join(saveDir, "C.json"));
+  await replay(loadSlot("2e63"), "85000000", [
+    "v", "i", ...Array(5).fill("end"), "t", ...Array(5).fill("end"), "enter", "e", "e",
+    ...Array(5).fill("end"), "v", "i", ...Array(3).fill("end"), "r",
+    (text) => assert.match(text, /fenn's items.*yes short sword/),
+    "e", "e", "end",
+    "right", "right", "up", "left", ...Array(3).fill("up"), "right", ...Array(5).fill("up"),
+    "left", "up", "left", ...Array(3).fill("up"), "right", "up", "up", "enter", "enter",
+    (text) => assert.match(text, /0,4 e.*gateway to the unsettled areas/),
+    "up", "up", "up", "enter", "right", ...Array(7).fill("up"), "left", ...Array(5).fill("up"),
+    "y", "y", "p", "v", "i", "i", ...Array(3).fill("end"), "i",
+    (text) => assert.match(text, /200 gold pieces.*identify your leather armor/),
+    "y", "s",
+    (text) => assert.match(text, /1000 gold pieces for your leather armor \+1/),
+    "y", "e", "e", "e", "p", "s", "e", "e", "s", "s", "d",
+  ]);
+  await replay(loadSlot("2064"), "85000000", [
+    (text) => assert.match(text, /8,11 e/),
+    "v", "v", (text) => assert.match(text, /alda.*platinum 39.*weapon short sword/),
+    "e", ...Array(5).fill("end"), "v", "i",
+    (text) => assert.match(text, /fenn's items.*yes short sword/),
+  ]);
+  console.log("Readied Fenn's sword and reloaded the shared proceeds of the goblin armor sale:", join(saveDir, "D.json"));
+  process.exit(0);
+}
+
 if (process.argv[2] === "--slums-goblin-checkpoint") {
   assert.ok(process.argv[3], "Pass the rested slot A from the armored orc outpost replay.");
   copyFileSync(process.argv[3], join(saveDir, "A.json"));

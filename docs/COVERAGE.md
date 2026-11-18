@@ -199,6 +199,11 @@ from that rested save. The party bashes into the goblin training room at
 armor and two short swords. Rest restores Brin. Cora and Dorn are dead
 on their character sheets after the battle. Alda has 991 XP and keeps
 one short sword readied after reloading slot C.
+From slot C, `node tools/verify-fresh-party.mjs --slums-goblin-sale-checkpoint PATH_TO_SLOT_C`
+trades and readies the second sword on Fenn and returns to New Phlan.
+The party pools its money to identify the armor for 200 gold, sells the
+Leather Armor +1 for 1,000 gold, and shares the proceeds. Slot D reloads
+at the armorer with Alda holding 39 platinum and both swords readied.
 From J, the party walks back to New Phlan, hears the first council commissions
 at City Hall, and follows the harbor master's directions to the pier. The
 original boat transition lands all six on Thorn Island at (8,14). The replay
