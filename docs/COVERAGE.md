@@ -668,7 +668,7 @@ The artwork palette audit counted 618 visible RGB colors across the
 colors. The combined artwork still exceeds the shared palette target.
 For every kobold-route exploration view, Chrome checks each tile's source
 ID, 32-by-32 PNG dimensions, and position against the guest tile trace.
-The full-viewport overlay is hidden in those views. The combat check
+The browser assembles those views from individual replacements. The prototype full-viewport overlay was removed. The combat check
 requires both facings of the kobold's own sprite and verifies their
 placement at both browser widths.
 The combat menu check compares each web-font glyph and color against the
