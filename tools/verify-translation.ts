@@ -8,6 +8,8 @@ import { ovl07_0000, ovl07_0c93 } from "../src/translated/ovl07.js";
 import "../src/translated/system5bb.js";
 import { farCall } from "../src/runtime/far.js";
 import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
+import { attachDos } from "../src/runtime/dos.js";
+import { exe_056c0 } from "../src/translated/exe.js";
 import type { LoadedSlice } from "../src/runtime/overlay.js";
 import { currentObjective, discoveredLeads, progressAddresses, questProgress } from "../src/runtime/adventure-log.js";
 import { commissions } from "../src/runtime/commission-journal.js";
@@ -97,6 +99,26 @@ function checkCarryArithmetic(): void {
 }
 
 checkCarryArithmetic();
+
+function checkCrtRetrace(): void {
+  const m = fresh();
+  attachDos(m, []);
+  m.write8(m.ds, 0x82bb, 1);
+  m.write8(m.ds, 0x82be, 7);
+  m.write8(m.es, 0x100, 0x41);
+  m.si = 0x100;
+  m.di = 0x101;
+  m.bx = 1;
+  m.stepBudget = 1000;
+  m.push(0);
+  exe_056c0(m);
+  if (m.read16(0xb800, 2) !== 0x0741 || m.steps < 100 || m.sp !== 0xff00) {
+    throw new Error("Translated Crt routine did not write the character after retrace");
+  }
+  console.log("verified original Crt retrace wait and text write");
+}
+
+checkCrtRetrace();
 
 function checkQuickRecovery(partyMember: boolean): void {
   const m = fresh();

@@ -53,10 +53,26 @@ function resetPlanarVideo(): void {
   mapMask = 15;
 }
 
+function publishVideoMode(cpu: Cpu): void {
+  cpu.write8(0x40, 0x49, mode);
+  cpu.write16(0x40, 0x4a, mode === 2 || mode === 3 || mode === 7 ? 80 : 40);
+  cpu.write16(0x40, 0x63, mode === 7 ? 0x3b4 : 0x3d4);
+}
+
 /** EGA memory and indexed registers for planar mode 0Dh. */
 export function attachPlanarVideo(cpu: Cpu): void {
   const start = 0xa0000;
   const end = start + 0x10000;
+  publishVideoMode(cpu);
+  const readOtherPort = cpu.onPortIn;
+  cpu.onPortIn = (port) => {
+    if (port !== 0x3da && port !== 0x3ba) return readOtherPort?.(port) ?? 0xff;
+    // Deterministic scan timing for the original CRT polling loops.
+    const scanline = Math.floor(cpu.steps / 128) % 262;
+    const blanked = scanline >= 200 || cpu.steps % 128 >= 100;
+    const verticalRetrace = scanline >= 224 && scanline < 228;
+    return Number(blanked) | (verticalRetrace ? 8 : 0);
+  };
   cpu.onPortOut = (port, value) => {
     if (port === 0x3c4) sequencerIndex = value;
     if (port === 0x3c5 && sequencerIndex === 2) mapMask = value & 15;
@@ -267,6 +283,7 @@ export function biosVideo(cpu: Cpu): void {
   if (ah === 0x00) {
     resetPlanarVideo();
     mode = al;
+    publishVideoMode(cpu);
     column = 0;
     row = 0;
     glyphs.fill(0);
