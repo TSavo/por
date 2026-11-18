@@ -209,7 +209,13 @@ copy. The party won through the translated combat menus and received
 party back to New Phlan and the journal made reporting to the clerk the
 current objective. The party walked to City Hall, collected its reward,
 and saw the original campaign ending. The journal then read Phlan is free.
-A victory with the original combat stats remains to be verified.
+A second victory used the original Tyranthraxus record (80 HP, AC -4) and
+a checkpoint party with edited character stats, including 127 HP per
+character. The translated combat ran to victory, returned the party to
+New Phlan, and played the clerk's ending after the party walked to City
+Hall. The journal again read Phlan is free. This verifies the fight and
+ending with the original enemy. A party trained by playing the campaign
+through from a fresh start remains to be verified.
 
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
