@@ -447,4 +447,25 @@ await replay(loadSlotG, "85000000", [
   },
 ]);
 console.log("Replayed the Sokal courtyard defeat and reloaded the party and outstanding commission from slot G.");
+
+const recruitSave = await replay(loadSlotG, "85000000", [
+  "right", "right", "up", "left", "up", "right", "up", "up", "left", "up",
+  "enter", "enter", "enter", "n",
+  "left", "up", "right", "up", "up", "up", "enter", "enter", "n",
+  (text) => assert.match(text, /do you seek a partner for your adventuring/),
+  "y", ...Array(5).fill(["n", "y"]).flat(),
+  (text) => assert.match(text, /a fine evoker who will join you for 2 shares/),
+  "y", "n",
+  (text) => assert.match(text, /evoker 9 6.*7,1 w/),
+  // Slot H's earlier checkpoint has already been verified.
+  "e", "s", "s", "h",
+]);
+assert.match(visibleText(recruitSave), /quit to dos/);
+await replay(loadSlotH, "85000000", [
+  (text) => {
+    expectParty(text);
+    assert.match(text, /evoker 9 6.*7,1 w/);
+  },
+]);
+console.log("Hired an evoker in the New Phlan arena and verified the seven-member party after reloading slot H.");
 console.log("Replay save:", saveDir);

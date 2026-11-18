@@ -213,6 +213,10 @@ ambush. The replay checks that Brin enters combat with his healed HP and
 readied longsword. The original combat runs to the party-destroyed screen
 after 302 inputs. Reloading G restores the party at the temple and Sokal
 Keep remains outstanding in the journal.
+From G, a separate branch visits the New Phlan arena, declines the duel,
+and hires an evoker for two shares. The party saves at the arena and
+reloading slot H verifies that all six original party members and the
+evoker are present.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
