@@ -271,7 +271,8 @@ with `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` to continue from the temple. The
 party makes room for the Evoker using the original Encamp menu, hires him
 at the arena, and reloads slot H with two Sleep spells in memory. It returns
 to Thorn Island by boat, passes the patrols with the parchment word, and
-reaches the Evoker's first turn in the courtyard with Brin in the roster.
+reaches the Evoker's first turn in the courtyard with Brin in the roster. A
+separate Quick-only run with that roster ended at the party-destroyed screen.
 From C, the party answers Yes when a second patrol asks for the password,
 then explores the ruined smithy. It wins the frog encounter for 31 XP per
 character. Alda falls to 0 HP during the fight. The party enters the old
