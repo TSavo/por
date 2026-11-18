@@ -4,6 +4,8 @@
  * This file is hand-written. It is not game logic.
  */
 
+export class StepBudgetExceeded extends Error {}
+
 export class Cpu {
   readonly mem = new Uint8Array(0x100000);
   ax = 0;
@@ -52,7 +54,7 @@ export class Cpu {
       this.mem[tick] = ((this.mem[tick] ?? 0) + 1) & 0xff;
     }
     if (this.stepBudget !== 0 && this.steps > this.stepBudget) {
-      throw new Error(
+      throw new StepBudgetExceeded(
         `step budget ${this.stepBudget} at ${this.cs.toString(16)}:${at.toString(16)}`,
       );
     }

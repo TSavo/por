@@ -16,6 +16,7 @@ export const disposeHits: string[] = [];
 export const getmemRing: string[] = [];
 export const dosAssigns: string[] = [];
 export const farCallObservers = new WeakMap<Cpu, (seg: number, off: number) => void>();
+export const farCallOverrides = new WeakMap<Cpu, (seg: number, off: number) => boolean>();
 export let spMin = 0xffff;
 export let spMax = 0;
 export let farBudget = 0;
@@ -56,6 +57,7 @@ export function farCall(m: Cpu, seg: number, off: number): void {
   off &= 0xffff;
   const label = farKey(seg, off);
   farCallObservers.get(m)?.(seg, off);
+  if (farCallOverrides.get(m)?.(seg, off)) return;
   farCount += 1;
   if (farBudget && farCount > farBudget) {
     throw new Error(`far-call budget ${farBudget} hit at ${label}`);

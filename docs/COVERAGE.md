@@ -130,3 +130,8 @@ Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
 item, and spell records in guest memory. Add them from the original menu before
 selecting Begin Adventuring.
+
+In live mode, a stalled player Quick action falls back to the original manual
+combat menu. The runner restores the pre-Quick guest state and turns off Quick
+for that character. The Sokal Keep courtyard replay verified that the menu
+returns and subsequent combat turns continue.

@@ -7,6 +7,8 @@ import { Cpu } from "../src/cpu/machine.js";
 import { ovl07_0000 } from "../src/translated/ovl07.js";
 import "../src/translated/system5bb.js";
 import { farCall } from "../src/runtime/far.js";
+import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
+import type { LoadedSlice } from "../src/runtime/overlay.js";
 
 function fresh(): Cpu {
   const m = new Cpu();
@@ -63,4 +65,30 @@ function checkOperandFetch(): void {
 
 checkFillChar();
 checkOperandFetch();
+
+function checkQuickRecovery(): void {
+  const m = fresh();
+  const stack = m.sp;
+  const actor = 0x100;
+  m.bp = 0xff40;
+  m.stepBudget = 100;
+  m.write8(m.ss, m.bp - 2, 1);
+  m.write8(m.ds, actor + 0x10f, 1);
+  m.push(m.ds);
+  m.push(actor);
+  m.push(m.cs);
+  m.push(0x477);
+  const slice = (index: number, headerPara: number, loadPara: number): LoadedSlice =>
+    ({ index, headerPara, loadPara, fileOffset: 0, codeBytes: 0, procs: new Map() });
+  let recovered = false;
+  attachQuickRecovery(m, [slice(8, 0x51, m.cs), slice(9, 0x58, 0x4000)], () => { recovered = true; }, 1);
+  farCall(m, 0x58, 0x25);
+  if (!recovered || m.sp !== stack || m.bp !== 0xff40 || m.cs !== 0x3000 || m.stepBudget !== 100 ||
+      m.read8(m.ss, m.bp - 2) !== 0 || m.read8(m.ds, actor + 0x10f) !== 0) {
+    throw new Error("Quick watchdog did not restore the original manual turn");
+  }
+  console.log("verified Quick timeout returns to manual combat");
+}
+
+checkQuickRecovery();
 console.log("translation checks passed");

@@ -15,6 +15,7 @@ import { currentObjective, observeAdventureLog, questProgress, type JournalLead 
 import { liveInput } from "./live-input.js";
 import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
+import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
 import { callTrace, disposeHits, dosAssigns, farCall, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
 import { registerTranslated } from "../src/translated/register.js";
@@ -88,6 +89,9 @@ if (liveAt !== undefined && (!Number.isSafeInteger(liveStep) || liveStep < 0)) {
 }
 if (liveAt !== undefined) mkdirSync("out", { recursive: true });
 const cpu = fresh(liveAt === undefined ? undefined : liveInput(liveStep, journal));
+if (liveAt !== undefined) {
+  attachQuickRecovery(cpu, loadedSlices, () => console.log("Quick combat stalled. Returning control to the player."));
+}
 const journalSlice = loadedSlices.find((slice) => slice.index === 7);
 adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || liveAt !== undefined || profilePath) && journalSlice
   ? observeAdventureLog(cpu, journalSlice)
