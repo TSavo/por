@@ -110,7 +110,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("sokal-pale-form") && knows("sokal-parchment")) nextStep = "Talk to the pale form. When asked for a word, try one from the parchment.";
       else if (knows("sokal-chapel")) nextStep = "Approach the altar on the south wall of the chapel.";
       else if (knows("sokal-courtyard-note")) nextStep = "Read journal entry 57 and continue exploring the keep beyond the courtyard.";
-      else if (knows("sokal-ambush")) nextStep = "Prepare for the orcs and hobgoblins before crossing the courtyard. Heal the party and ready spells and equipment.";
+      else if (knows("sokal-ambush")) nextStep = knows("phlan-arena-recruits")
+        ? "Heal and ready spells before returning to the courtyard. If you need reinforcements, ask the arena master in New Phlan for a partner."
+        : "Prepare for the orcs and hobgoblins before crossing the courtyard. Heal the party and ready spells and equipment.";
       else if (knows("sokal-patrol-passed")) nextStep = "Explore the keep. If another undead patrol asks whether to give the password, choose Yes.";
       else if (knows("sokal-parchment")) nextStep = "Keep exploring. If you speak to an undead patrol, try a word from the parchment.";
       else if (knows("sokal-reeds")) nextStep = "Look through the mound of reeds west of the gates before entering the keep.";
@@ -335,6 +337,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       text.includes("A LARGE FORCE OF ORCS AND HOBGOBLINS RUSHES YOU")) {
     leads.push({ id: "sokal-ambush", title: "Sokal courtyard ambush",
       detail: "A large force of orcs and hobgoblins rushed the party through the courtyard door." });
+  }
+  if (text.includes("DO YOU SEEK A PARTNER FOR YOUR ADVENTURING")) {
+    leads.push({ id: "phlan-arena-recruits", title: "Adventuring partners in New Phlan",
+      detail: "The arena master can introduce adventurers who take a share of the party's treasure." });
   }
   if (text.includes("ON A HOBGOBLIN BODY, YOU FIND A NOTE") && text.includes("AS ENTRY 57")) {
     leads.push({ id: "sokal-courtyard-note", title: "Note from the courtyard",

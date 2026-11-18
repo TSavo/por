@@ -1238,6 +1238,7 @@ const twoRecruits = await replay(loadSlotG, "85000000", [
 ]);
 assert.match(visibleText(twoRecruits), /curate 3 26.*theurgist 8 13.*quit to dos/);
 const reinforcedLanding = await replay(loadSlotI, "85000000", [
+  "j", (_text, frame) => assert.ok(frame.journal.leads.some(({ id }) => id === "phlan-arena-recruits")), "j",
   "right", "right", "up", "up", "left", "up", "enter", "enter", "enter", "n",
   "right", "up", "enter", "enter", "right", "up", "up", "left", "up", "left", "up",
   "enter", "enter", "right", ...Array(4).fill("up"), ...Array(5).fill("enter"),

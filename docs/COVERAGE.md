@@ -392,6 +392,11 @@ from the north. The replay verifies that Aim lets her cycle to a
 hobgoblin without offering Target. Trying Target there leaves Sleep
 selected. Cycling back to the preceding orc restores Target and casts
 the spell. The tested northern openings have yet to produce a victory.
+The arena replay also verifies that the offer of adventuring partners
+stays in the journal after reloading. The courtyard guidance names the
+arena master once the party has heard that offer. A separate approach
+with the Swordsman and Warrior from the arena reached the courtyard at
+`8,5 W` and ended in defeat on Quick.
 
 Headless Chrome verified the presentation button and F10 against the live
 browser runner. A reloaded City Hall save displayed both palettes and let

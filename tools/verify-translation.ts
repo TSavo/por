@@ -430,6 +430,13 @@ function checkCampaignJournal(): void {
         leads.some(({ id }) => id === "sokal-departure") !== trigger?.startsWith("TO PASS MY GUARDS")) {
       throw new Error(`Sokal journal route mismatch: ${trigger}`);
     }
+    if (trigger === "A LOUD COMMOTION RISES FROM THE COURTYARD") {
+      const recruitment = lines.find((dialogue) => dialogue.includes("DO YOU SEEK A PARTNER FOR YOUR ADVENTURING"));
+      if (!recruitment || currentObjective(leads).nextStep.includes("arena master") ||
+          !currentObjective(discoveredLeads(transcript + "\n" + recruitment)).nextStep.includes("arena master")) {
+        throw new Error("Sokal recruitment guidance must depend on hearing the arena master's offer");
+      }
+    }
   }
   writeGlobal(progressAddresses.sokal!, 254);
   const learned = discoveredLeads(transcript);
