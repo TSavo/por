@@ -54,7 +54,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -67,6 +67,7 @@ const wolves = routeName === "graveyard-wolves";
 const envoy = routeName === "zhentil-envoy";
 const envoyEscape = routeName === "zhentil-escape";
 const envoyReward = routeName === "zhentil-reward";
+const envoyReturn = routeName === "zhentil-return";
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
 const altar = routeName === "textile-altar";
@@ -426,6 +427,22 @@ try {
     await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
+  } else if (envoyReturn) {
+    const journalStatus = () => frame.journal?.leads.find(({ id }) => id === "commission-zhentil")?.status;
+    await advance("j");
+    assert.equal(journalStatus(), "ready-to-report");
+    assert.ok(frame.journal.leads.some(({ id }) => id === "zhentil-envoy-left"));
+    for (const key of ["j", ...Array(5).fill("up"), ...Array(18).fill("right"), "down", "down", "enter",
+      "t", "enter", "enter", "enter", ...Array(4).fill("up"),
+      "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
+      "left", "up", "up", "left", "up", "left", "up", "up", "enter", "j"]) await advance(key);
+    assert.equal(journalStatus(), "ready-to-report");
+    // This checkpoint still has its earlier Podal Plaza reward to collect.
+    for (const key of ["j", "enter", "enter", "enter", "s", "e", "j"]) await advance(key);
+    assert.equal(journalStatus(), "reward-pending");
+    for (const key of ["j", "enter", "enter", "enter", "s", "e", "j"]) await advance(key);
+    assert.equal(journalStatus(), "turned-in");
+    console.log("Verified the reloaded Zhentil escape, return boat, and council turn-in in Chrome.");
   } else if (envoyReward) {
     const journalStatus = () => frame.journal?.leads.find(({ id }) => id === "commission-zhentil")?.status;
     await advance("j");
@@ -457,7 +474,7 @@ try {
     const checkpointAfterEscape = JSON.parse(readFileSync(saved, "utf8"));
     assert.equal(checkpointAfterEscape.leads.find(({ id }) => id === commission)?.status, "ready-to-report");
     assert.ok(checkpointAfterEscape.leads.some(({ id }) => id === "zhentil-envoy-left"));
-    console.log("Verified the Zhentil wall escape and the resulting council report objective in Chrome.");
+    console.log("Verified the Zhentil wall escape and the resulting council report objective in Chrome. Saved:", saved);
   } else if (envoy) {
     const checkJournal = async (present, hidden) => {
       await advance("j");

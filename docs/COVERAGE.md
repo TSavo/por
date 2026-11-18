@@ -709,6 +709,12 @@ tracks the commission, climbs the wall, and checks that the journal
 records the escape and directs the party to the clerk after the original
 overland transition. It also saves in slot A and checks that the escape
 discovery and report objective were written. The separate
+`zhentil-return` replay loads the slot A save printed by `zhentil-escape`.
+It crosses the western overland sectors, takes the boat at `20,29 S`,
+walks to City Hall, and collects the earlier Podal Plaza reward followed
+by the Zhentil reward in the same clerk visit. Chrome verified the
+reloaded escape discovery and the final turned-in status.
+The isolated
 `zhentil-reward` Chrome replay starts
 from controlled slot A at the clerk with flag 254 and the accepted journal
 entry. The live clerk script awards 12,750 XP per character. The replay
