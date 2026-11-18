@@ -293,23 +293,30 @@ async function verifyPodalFromCouncil(checkpoint) {
     (text) => assert.match(text, /2,15 s.*muscular man locked in chains.*entry 47/),
     "enter", "p", "n",
     (text) => assert.match(text, /i almost killed the leader/),
+    "enter", "f", "u",
+    (text) => assert.match(text, /you have no key to unlock the padlocks/),
     "enter", "l", "enter", "j",
     (_text, frame) => {
       assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-prisoner"));
+      assert.ok(frame.journal.leads.some(({ id }) => id === "textile-prison-key-needed"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
     }, "track 3", (_text, frame) => {
       assert.equal(frame.journal.trackedId, "commission-textile");
-      assert.match(frame.journal.objective.nextStep, /padlocks/);
+      assert.match(frame.journal.objective.nextStep, /look for a key/i);
     }, "j", "e", "s", "s", "e",
   ]);
   await replay(load("1265"), "85000000", [
     (text) => assert.match(text, /2,15 s/),
     "j", (_text, frame) => {
       assert.equal(frame.journal?.trackedId, "commission-textile");
-      assert.match(frame.journal.objective.nextStep, /padlocks/);
+      assert.match(frame.journal.objective.nextStep, /look for a key/i);
     }, "j",
+    "enter", "right", "right", "up", "up", "b", "enter", "up",
+    (text) => assert.match(text, /2,12 n.*crude temple/),
+    "enter", "enter",
+    (text) => assert.match(text, /i am the mighty grishnak/),
   ]);
-  console.log("Won the Textile House prison fight and verified the journal's captive lead.");
+  console.log("Won the prison fight, reloaded the captive's key objective, and reached Grishnak's temple.");
   console.log("Checkpoint replay saves:", saveDir);
 }
 

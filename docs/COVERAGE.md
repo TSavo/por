@@ -442,7 +442,11 @@ first through Encamp → Alter → Order, then wins the prison fight for
 63 XP each. The party bashes the cell door, finds the captive and entry
 47, and speaks with him. Tracking Cadorna's commission in the journal
 directs the party to the captive's padlocks, with the secret-door clue
-still hidden. Reloading slot E verifies the tracked objective.
+still hidden. Trying Unlock without a key adds a search objective, and
+reloading slot E preserves it. From the cell, the party returns north
+through the guards' room and a locked door to reach Grishnak's temple.
+The encounter starts through original play. The original treasure table
+for that fight contains the brass key, and victory remains unverified.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the

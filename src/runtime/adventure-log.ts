@@ -85,6 +85,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "textile") {
       if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
       else if (knows("textile-secret-door")) nextStep = "Follow Skullcrusher's clue and search southeast for the secret door to the hobgoblin leader.";
+      else if (knows("textile-prison-key-needed")) nextStep = "Look for a key in the western building, then return to the chained prisoner and choose Unlock.";
       else if (knows("textile-prisoner")) nextStep = "Speak with the prisoner in the western building and find a way to open his padlocks. Read journal entry 47.";
       else if (knows("textile-skullcrusher-mark")) nextStep = "Search the rooms near Skullcrusher's mark for whoever left it.";
       else if (knows("textile-courtyard-cleared")) nextStep = "Cross the quiet courtyard and search the western textile building for Cadorna's treasure.";
@@ -408,6 +409,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("A MUSCULAR MAN LOCKED IN CHAINS LIES HERE")) {
     leads.push({ id: "textile-prisoner", title: "Prisoner in the Textile House",
       detail: "The party found a man in chains and recovered the page recorded as journal entry 47." });
+  }
+  if (text.includes("YOU HAVE NO KEY TO UNLOCK THE PADLOCKS")) {
+    leads.push({ id: "textile-prison-key-needed", title: "The prisoner's padlocks",
+      detail: "The party tried to unlock the prisoner's padlocks and needs a key." });
   }
   if (text.includes("IT'S ONLY A WAND OF FEAR")) {
     leads.push({ id: "auction-wand-of-fear", title: "The auction weapon",
