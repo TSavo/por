@@ -120,6 +120,41 @@ function checkCrtRetrace(): void {
 
 checkCrtRetrace();
 
+function checkPartySaveFiles(): void {
+  const m = fresh();
+  const slotA = "SAVE\\SAVGAMA.DAT";
+  const slotB = "SAVE\\SAVGAMB.DAT";
+  const character = "SAVE\\CHRDATA1.SAV";
+  const spells = "SAVE\\CHRDATA1.SPC";
+  const file = (name: string, byte: number) => ({ name, data: Uint8Array.of(byte) });
+  attachDos(m, [file(slotA, 1), file(slotB, 2), file(character, 3)], [], undefined, undefined, undefined,
+    (name) => name === slotA ? [file(character, 4), file(spells, 5)] : name === slotB ? [] : undefined);
+  const read = (name: string): number | undefined => {
+    const path = Buffer.from(name + "\0", "ascii");
+    m.mem.set(path, m.linear(m.ds, 0x100));
+    m.dx = 0x100;
+    m.ax = 0x3d00;
+    m.intr(0x21);
+    if (m.cf) return;
+    m.bx = m.ax;
+    m.ah = 0x3f;
+    m.cx = 1;
+    m.dx = 0x200;
+    m.intr(0x21);
+    if (m.cf || m.ax !== 1) throw new Error(`DOS fixture could not read ${name}`);
+    m.ah = 0x3e;
+    m.intr(0x21);
+    return m.read8(m.ds, 0x200);
+  };
+  if (read(slotA) !== 1 || read(character) !== 4 || read(spells) !== 5 ||
+      read(slotB) !== 2 || read(character) !== 3 || read(spells) !== undefined) {
+    throw new Error("A slot reused another party's character files");
+  }
+  console.log("verified DOS party files switch with the selected save slot");
+}
+
+checkPartySaveFiles();
+
 function checkQuickRecovery(partyMember: boolean): void {
   const m = fresh();
   const stack = m.sp;

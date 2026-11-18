@@ -7,7 +7,7 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readdirSync, readFileSync, realpathSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { Cpu } from "../src/cpu/machine.js";
-import { attachDos, consoleText, dosLog, type BiosKey, type DosFileClosed } from "../src/runtime/dos.js";
+import { attachDos, consoleText, dosLog, type BiosKey, type DosFile, type DosFileClosed } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
 import { journalFrame, screen, videoSummary } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
@@ -16,7 +16,7 @@ import { currentObjective, observeAdventureLog, questProgress, type JournalLead 
 import { liveInput } from "./live-input.js";
 import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
-import { openSaveSlots, saveSlotLetter } from "./save-slots.js";
+import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
 import { callTrace, disposeHits, dosAssigns, farCall, farCallObservers, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
@@ -50,14 +50,16 @@ const scheduledKeys = [replayKeys, process.env.POR_BOOT_KEYS ?? ""].join("\n")
   }).sort((a, b) => a.step - b.step);
 
 function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => void,
-  fileClosed?: DosFileClosed, mountedFiles = files, fileDeleted?: (name: string) => void): Cpu {
+  fileClosed?: DosFileClosed, mountedFiles = files, fileDeleted?: (name: string) => void,
+  readCompanions?: (name: string) => DosFile[] | undefined): Cpu {
   const cpu = new Cpu();
   const exe = files.find((f) => f.name.toUpperCase() === "START.EXE");
   const ovr = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
   if (!exe || !ovr) throw new Error("START.EXE and GAME.OVR are required");
   const boot = installProgram(cpu, exe.data, ovr.data);
   const keys = [...scheduledKeys];
-  attachDos(cpu, mountedFiles, keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)), fileClosed, fileDeleted);
+  attachDos(cpu, mountedFiles, keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)),
+    fileClosed, fileDeleted, readCompanions);
   cpu.ss = boot.ss;
   cpu.sp = boot.sp || 0xfffe;
   cpu.ds = 0x2000;
@@ -116,9 +118,11 @@ const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
     .update(campaign ? "\0" + realpathSync(campaign) : "").digest("hex").slice(0, 16)));
 const rosterClosed: DosFileClosed = (name, data, written) => { if (written) saves?.saveRoster(name, data); };
 let slotClosed = rosterClosed;
+let loadingSlot = false;
 const mountedFiles = saves ? [...saves.mountRoster(files), ...saves.files] : files;
 const cpu = fresh(input?.requestKey, (name, data, written) => slotClosed(name, data, written), mountedFiles,
-  (name) => { if (slotClosed === rosterClosed) saves?.saveRoster(name); });
+  (name) => { if (slotClosed === rosterClosed) saves?.saveRoster(name); },
+  (name) => loadingSlot && saveSlotLetter(name) ? saves?.partyFiles(name) ?? [] : undefined);
 if (input && saves) {
   const disk = loadedSlices.find((slice) => slice.index === 17);
   if (!disk) throw new Error("Missing translated save overlay");
@@ -131,9 +135,13 @@ if (input && saves) {
       const loading = offset === 0x159d;
       const start = adventureLog?.().length ?? 0;
       let slot: { name: string; data: Uint8Array } | undefined;
+      const party = new Map<string, DosFile>();
       const previous = slotClosed;
+      const wasLoading = loadingSlot;
+      loadingSlot = loading;
       slotClosed = (name, data, written) => {
         if (saveSlotLetter(name) && data.length && written !== loading) slot = { name, data };
+        if (!loading && written && isPartyFile(name)) party.set(name, { name, data });
       };
       const finish = () => {
         if (!slot) return;
@@ -143,7 +151,7 @@ if (input && saves) {
           updateJournal.restore(saved?.leads ?? []);
           input.restoreTracked(saved?.tracked);
         } else {
-          saves.save(slot.name, slot.data, journal(), input.tracked());
+          saves.save(slot.name, slot.data, journal(), input.tracked(), [...party.values()]);
         }
       };
       try {
@@ -154,6 +162,7 @@ if (input && saves) {
         throw error;
       } finally {
         slotClosed = previous;
+        loadingSlot = wasLoading;
       }
     });
   }

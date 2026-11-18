@@ -32,7 +32,7 @@ export interface BiosKey {
 
 export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
   requestKey?: (blocking: boolean) => void, fileClosed?: DosFileClosed,
-  fileDeleted?: (name: string) => void): void {
+  fileDeleted?: (name: string) => void, readCompanions?: (name: string) => DosFile[] | undefined): void {
   dosLog.length = 0;
   consoleText = "";
   resetVideo();
@@ -48,6 +48,19 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
     return parts.join("\\");
   };
   const byName = new Map(files.map((f) => [canonical(f.name, ""), { data: f.data }]));
+  const shadowed = new Map<string, { data: Uint8Array } | undefined>();
+  const mountCompanions = (files: DosFile[]) => {
+    for (const [name, prior] of shadowed) {
+      if (prior) byName.set(name, prior);
+      else byName.delete(name);
+    }
+    shadowed.clear();
+    for (const file of files) {
+      const name = canonical(file.name, "");
+      shadowed.set(name, byName.get(name));
+      byName.set(name, { data: file.data });
+    }
+  };
   const dirs = new Set([""]);
   const parent = (path: string) => path.slice(0, Math.max(0, path.lastIndexOf("\\")));
   for (const path of byName.keys()) {
@@ -221,6 +234,10 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
         return;
       }
       const count = Math.min(cpu.cx, Math.max(0, file.file.data.length - file.pos));
+      if (count > 0 && !file.read) {
+        const companions = readCompanions?.(file.name);
+        if (companions) mountCompanions(companions);
+      }
       file.read ||= count > 0;
       for (let i = 0; i < count; i++) cpu.write8(cpu.ds, cpu.dx + i, file.file.data[file.pos + i] ?? 0);
       file.pos += count;

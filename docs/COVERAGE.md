@@ -114,6 +114,8 @@ and the same game data and initial save state. For a live replay, put
 
 Live runs persist the DOS save bytes, discovered leads, and tracked quest
 together for each slot A–J. Loading one switches journal state to that slot.
+Each new save also includes the character, item, and spell companion files
+written by DOS for that party. Older browser saves may lack these files.
 Set `POR_SAVE_DIR` to select the save directory. An existing
 `POR_JOURNAL_PROFILE` can seed the initial journal before any slot is loaded.
 

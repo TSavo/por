@@ -10,6 +10,7 @@ interface Slot {
   data: string;
   leads: JournalLead[];
   tracked?: string;
+  party?: Record<string, string>;
 }
 
 export function saveSlotLetter(name: string): string | undefined {
@@ -36,6 +37,7 @@ function writeRecord(directory: string, name: string, data: unknown): void {
 }
 
 const rosterName = /^SAVE\\(?:CHARLIST\.TXT|[A-Z0-9_]{1,8}\.(?:CHA|ITM|SPC))$/;
+export const isPartyFile = (name: string): boolean => /^(?:SAVE\\)?CHRDATA[1-8]\.(?:SAV|ITM|SPC)$/.test(name);
 const canonicalName = (name: string) => name.replaceAll("/", "\\").toUpperCase();
 
 export function openSaveSlots(directory: string) {
@@ -46,7 +48,9 @@ export function openSaveSlots(directory: string) {
     if (raw === undefined) continue;
     const slot = JSON.parse(raw) as Slot;
     if (slot.version !== 1 || saveSlotLetter(slot.name) !== letter ||
-        typeof slot.data !== "string" || !Array.isArray(slot.leads)) {
+        typeof slot.data !== "string" || !Array.isArray(slot.leads) ||
+        (slot.party !== undefined && (!slot.party || typeof slot.party !== "object" ||
+          Object.entries(slot.party).some(([name, bytes]) => !isPartyFile(name) || typeof bytes !== "string")))) {
       throw new Error(`Invalid Pool of Radiance save slot ${letter}`);
     }
     slots.set(letter, slot);
@@ -84,10 +88,18 @@ export function openSaveSlots(directory: string) {
       const slot = slots.get(saveSlotLetter(name) ?? "");
       return slot?.name === name ? slot : undefined;
     },
-    save(name: string, data: Uint8Array, leads: JournalLead[], tracked: string | undefined) {
+    partyFiles(name: string): DosFile[] | undefined {
+      const slot = slots.get(saveSlotLetter(name) ?? "");
+      if (slot?.name !== name || slot.party === undefined) return;
+      return Object.entries(slot.party).map(([filename, data]) => ({ name: filename, data: Buffer.from(data, "base64") }));
+    },
+    save(name: string, data: Uint8Array, leads: JournalLead[], tracked: string | undefined, party: DosFile[]) {
       const letter = saveSlotLetter(name);
       if (!letter) throw new Error(`Invalid Pool of Radiance save filename ${name}`);
-      const slot: Slot = { version: 1, name, data: Buffer.from(data).toString("base64"), leads, tracked };
+      const slot: Slot = {
+        version: 1, name, data: Buffer.from(data).toString("base64"), leads, tracked,
+        party: Object.fromEntries(party.map((file) => [file.name, Buffer.from(file.data).toString("base64")])),
+      };
       writeRecord(directory, letter, slot);
       slots.set(letter, slot);
     },
