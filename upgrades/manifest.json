@@ -238,6 +238,7 @@
     "portrait:PIC8.DAX:24:0:0": "swamp-castle-drawbridge.png",
     "combat:area:16:CPIC8.DAX:57": "swamp-lizardfolk-combat.png",
     "combat:area:16:CPIC8.DAX:185": "swamp-lizardfolk-strike.png",
+    "battle-tile:1cf917b914de0e3719d768bdc14ab30a74b8286045e5e1264d799e829fc5108a": "swamp-duel-wall-broken-coping.png",
     "portrait:PIC7.DAX:36:0:0": "pyramid-river-concealed-door.png",
     "portrait:PIC7.DAX:45:0:0": "pyramid-fountain-chamber.png",
     "combat:area:23:CPIC7.DAX:14": "yarash-mage-combat.png",

@@ -823,6 +823,15 @@ Chrome also checks the two new 96×96 sprites for the swamp lizardfolk
 stance and spear thrust. Drythh and the other area-16 lizardfolk use the
 same original combat records. The drawbridge replay checks its new
 352×352 exterior illustration and the display switch before entering.
+The duel also uses a separate 32×32 broken wall cap. The trace identified
+an original wall fragment with the same pixels as a combat sprite fragment,
+so that hash still uses the original renderer.
+
+In the controlled defeat branch, the combat screen reports that Alda
+lost the duel, but the elder's original script then announces a victory
+and pledges to keep his people out of the alliance. Reproduce from the
+Alda selection with Enter, Enter, Quick, Quick, Enter, Enter, Exit.
+The source of the conflicting outcome is under investigation.
 It also checks the 192×320 elder sprite at the original 48×80 placement
 and verifies presentation switches in the encounter. The `swamp-ruins`
 replay loads the save made inside the ruins and checks 51 individual
