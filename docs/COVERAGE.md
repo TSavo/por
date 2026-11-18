@@ -498,7 +498,10 @@ The party blesses again, moves the Curate to the front, and has Mira cast
 Sleep on the leader with a long bow. The prison battle awards 94 XP each.
 The party takes a long sword, reaches the prisoner, and tries the padlocks.
 Reloading slot E confirms the key-search lead with the secret-door clue
-still hidden. The check fails if the watchdog intervenes. The recruitment
+still hidden. From slot E the Curate rests, heals four characters, and
+prepares Hold Person. Alda readies the looted sword and the party saves
+outside the temple. After reloading, Mira prepares Sleep again and the
+party reaches Grishnak. The check fails if the watchdog intervenes. The recruitment
 checks still use the historical checkpoint and the supplied brass key.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original

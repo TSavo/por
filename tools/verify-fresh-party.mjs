@@ -172,8 +172,33 @@ async function verifyUninterruptedCourtyard(checkpoint) {
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
     }, "j",
   ]);
+  const templeSave = await replay(loadSlot("1265"), "85000000", [
+    "e", "m", "m", "m", "n", ...Array(12).fill("end"), ...Array(7).fill("home"), "m", "m", "p",
+    ...Array(15).fill("home"), "end", "end", "m", "end", "end", "m", "m", "m", "m", "e", "enter",
+    (text) => assert.match(text, /memorized.*\*bless(?: \*cure light wounds){4}.*\*hold person \*hold person/),
+    "y", "r", "r", "n", "n", "c",
+    "end", "enter", // Bless
+    "end", "enter", "end", "end", "enter", // Brin
+    "end", "enter", "end", "enter", // Cora
+    "end", "enter", "end", "end", "enter", // Enna
+    "end", "enter", "end", "enter", // Mira
+    "e", "e", "e",
+    (text) => assert.match(text, /brin 1 6.*cora 3 1.*enna 2 5.*mira 10 5/),
+    "end", "v", "i", "end", "end", "end", "r",
+    (text) => assert.match(text, /alda's items.*yes long sword/),
+    "e", "e", "right", "right", "up", "up", "b",
+    (text) => assert.match(text, /2,13 n.*blood smeared/),
+    "e", "s", "s", "i",
+  ]);
+  assert.match(visibleText(templeSave), /quit to dos/);
+  await replay(loadSlot("1769"), "85000000", [
+    "e", "m", "m", ...Array(6).fill("end"), "m", ...Array(4).fill("end"), "m", "e", "enter",
+    (text) => assert.match(text, /mira's spells to be memorized.*\*sleep/),
+    "y", "r", "r", "n", "e", "e", "up", "enter", "enter",
+    (text) => assert.match(text, /2,12 n.*i am the mighty grishnak/),
+  ]);
   assert.equal([...recoveryCounts.values()].reduce((sum, count) => sum + count, 0), recoveries);
-  console.log("Won the courtyard and prison without watchdog intervention and reloaded at the captive's cell:", saveDir);
+  console.log("Won the courtyard and prison without watchdog intervention, then reached Grishnak's temple:", saveDir);
 }
 
 async function verifyPodalFromCouncil(checkpoint) {
