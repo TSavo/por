@@ -8,6 +8,7 @@ import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { loadCombatArtMatcher } from "./combat-art.js";
 import { loadPortraitArt } from "./portrait-art.js";
+import { loadEncounterArt } from "./encounter-art.js";
 
 const controls: Record<string, number> = {
   enter: 0x1c0d, escape: 0x011b, up: 0x4800, down: 0x5000, left: 0x4b00, right: 0x4d00,
@@ -53,6 +54,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
   const portraitArt = loadPortraitArt((process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean));
+  const encounterArt = loadEncounterArt(process.env.POR_KOBOLD_ENCOUNTER_ART === "1");
   const traceTiles = process.env.POR_TRACE_TILES === "1";
   const showFrame = (leads?: JournalLead[]) => {
     if (browser) {
@@ -60,6 +62,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       for (let y = 8; y < 128; y++) viewport.update(screen.pixels.subarray(y * screen.width + 8, y * screen.width + 120));
       const text = visibleGameText();
       const portrait = !scene && !leads ? portraitArt(screen) : undefined;
+      const enhanced = new Frame(screen.width, screen.height);
+      enhanced.pixels.set(screen.pixels);
+      const encounter = encounterArt(screen, enhanced, area === 20 && !scene && !leads && !portrait);
       const tiles: [number, number, string][] = [];
       const tileInventory: [number, number, string][] | undefined = traceTiles ? [] : undefined;
       const explorationMenu = text.filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
@@ -71,7 +76,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           for (let x = 24; x < 112; x += 8) {
             for (let row = 0; row < 8; row++) {
               const start = (y + row) * screen.width + x;
-              pixels.set(screen.pixels.subarray(start, start + 8), row * 8);
+              pixels.set(enhanced.pixels.subarray(start, start + 8), row * 8);
             }
             const key = `tile:${area}:${createHash("sha256").update(pixels).digest("hex")}`;
             const cell: [number, number, string] = [x, y, key];
@@ -80,8 +85,6 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           }
         }
       }
-      const enhanced = new Frame(screen.width, screen.height);
-      enhanced.pixels.set(screen.pixels);
       for (const [cell] of text) {
         const x = (cell % 40) * 8;
         const offset = Math.floor(cell / 40) * 8 * screen.width + x;
@@ -94,6 +97,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         viewport: `viewport:${viewport.digest("hex")}`,
         text,
         portrait,
+        encounter,
         tiles,
         combatArt: !scene && !leads && !explorationMenu.startsWith("AREACASTVIEWENCAMP") ? combatArt(screen) : [],
         tileInventory,

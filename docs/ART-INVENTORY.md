@@ -62,9 +62,13 @@ in the original 320×200 framebuffer. Later frames retain exact matches as
 the combat layout changes. The transparent black pixels were excluded from
 matching to allow the sprite to overlap background tiles.
 
-Block 128 was loaded, but its foreground did not match any of those six
-captures. The encounter distance anchors and the trigger for that combat
-frame still need tracing before the browser can select replacements for them.
+Block 128 was loaded, but its foreground did not match the recorded Slums
+fight. Its draw trigger and the middle and far encounter anchors remain unverified.
+
+The near approach frame matches `SPRIT2.DAX` block 0, member 0, frame 0 at
+(48,32). Index zero is skipped and index 13 is drawn black. The browser replay
+displayed the 160×320 transparent replacement over the individually enhanced
+tiles, then replaced the approach view with the dialogue portrait.
 
 The portrait matched every pixel in the 88×88 image area across 17 successive
 encounter captures. The enhanced browser replay showed the replacement in
