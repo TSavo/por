@@ -55,6 +55,7 @@ function showScreen() {
     tileArt.replaceChildren(...placements.map(([x, y, id, reflected, , width, height]) => {
       const tile = document.createElement("img");
       tile.alt = "";
+      if (id.startsWith("tile:")) tile.classList.add("terrain-tile");
       if (id.startsWith("tile:28:")) {
         tile.classList.add("zhentil-terrain");
         // Align the sky across all eleven rows. The gradient travels 80 guest pixels.

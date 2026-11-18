@@ -6,6 +6,14 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const environmentRoutes = new Map([
+  ["pyramid-fountain-approach", {
+    slot: "A", area: 23, views: 2, patterns: 19,
+    walk: ["up", "right", "up", "enter"],
+  }],
+  ["pyramid-lower-corridors", {
+    slot: "A", area: 23, views: 15, patterns: 35,
+    walk: ["up", "right", "up", "up", "left", "up", "right", "up", "left", "up", "left", "up", "right", "up"],
+  }],
   ["pyramid-entrance", {
     slot: "A", area: 22, views: 20, patterns: 22,
     walk: [...Array(15).fill("up"), "enter", "right", "up", "enter", "right", "up"],
@@ -58,7 +66,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-exit", "river-return", "river-reward", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -78,6 +86,7 @@ const riverPassage = routeName === "river-passage";
 const riverFountain = routeName === "river-fountain";
 const riverExit = routeName === "river-exit";
 const riverReturn = routeName === "river-return";
+const riverPumping = routeName === "river-pumping";
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
 const altar = routeName === "textile-altar";
@@ -447,6 +456,16 @@ try {
     await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
+  } else if (riverPumping) {
+    const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+    for (const key of ["up", "j"]) await advance(key);
+    assert.ok(knows("river-pump-prisoners") && !knows("river-pump-prisoners-freed"));
+    assert.match(frame.journal.objective.nextStep, /Advance until Parlay appears/);
+    for (const key of ["j", "enter", "enter", "enter", "a", "a", "p", "n", "j"]) await advance(key);
+    assert.ok(knows("river-pump-prisoners-freed") && knows("journal-entry-35"));
+    assert.ok(!knows("river-pump-prisoners-hostile"));
+    assert.match(frame.journal.objective.nextStep, /Read journal entry 35/);
+    console.log("Verified the pumping-room parlay and its journal clues in Chrome.");
   } else if (riverExit) {
     const knowsRecovery = () => frame.journal?.leads.some(({ id }) => id === "river-recovery");
     await advance("j");

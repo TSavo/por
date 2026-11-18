@@ -546,6 +546,18 @@ function checkCampaignJournal(): void {
       riverObjective(`${riverTranscript}\n${blast}\n${recovery}`).nextStep.includes("blast")) {
     throw new Error("The river objective should respond to a witnessed blast until the party sees the land recovering");
   }
+  const pumpingRoom = lines.find((line) => line.includes("YOU HAVE ENTERED A PUMPING ROOM"));
+  const freedPrisoners = lines.find((line) => line.includes("AS YOU FREE THEM THEY TELL YOU ALL ABOUT WHAT YARASH IS DOING"));
+  const hostilePrisoners = lines.find((line) => line.includes("THEY THROW THEIR BARRELS OF CONTAMINANT ON THE PARTY"));
+  const swampOffer = commissions.find(({ id }) => id === "lizardmen")!.offer;
+  if (!pumpingRoom || !freedPrisoners || !hostilePrisoners) throw new Error("Missing original pumping-room branches");
+  const pumpingLeads = discoveredLeads(`${riverOffer}\n${swampOffer}\n${pumpingRoom}`);
+  if (!currentObjective(pumpingLeads, "commission-river").nextStep.includes("Advance until Parlay appears") ||
+      currentObjective(pumpingLeads, "commission-lizardmen").nextStep.includes("entry 35") ||
+      !currentObjective([...pumpingLeads, ...discoveredLeads(freedPrisoners)], "commission-lizardmen").nextStep.includes("entry 35") ||
+      currentObjective([...pumpingLeads, ...discoveredLeads(hostilePrisoners)], "commission-river").nextStep.includes("Advance until Parlay appears")) {
+    throw new Error("The pumping-room branches should update only the choices and clues the party has witnessed");
+  }
   const acceptance = [["graveyard", 0x4a96, 255], ["auction", progressAddresses.auction!, 1], ["textile", 0x4a97, 255], ["zhentil", 0x4a98, 255],
     ["gate", 0x4a99, 255], ["castle", 0x4a9a, 255]] as const;
   for (const [id, address, value] of acceptance) {

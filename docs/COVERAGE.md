@@ -791,6 +791,14 @@ The `pyramid-entrance` route checks 22 individual 32×32 sandstone,
 plaster, and floor tiles across 20 Chrome frames. Visual review across
 nine distinct views led to a quieter floor and ceiling and brighter
 doorway edges before the default pack was retested.
+The fountain approach and lower corridors use 35 individual 32×32 tiles
+for cooler masonry and damp stone. Chrome verified 2,057 placements.
+Visual review caught thin lines of the classic framebuffer between tiles;
+terrain edges now overlap by half a CSS pixel to cover those gaps.
+The `river-pumping` replay enters at controlled slot A near `4,4 E`,
+advances twice to Parlay, and chooses Nice. It checks that the liberated
+prisoners' advice and entry 35 appear only after that choice. The
+translation checks also cover the hostile outcome.
 The `river-exit` replay uses the upper-pyramid entrance save with the
 river completion flag and journal clues from the fountain save. It walks
 out through the original secret door and verifies that the recovery clue

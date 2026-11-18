@@ -172,9 +172,14 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (knows("river-equipment-destroyed")) nextStep = "Leave the pyramid and report the end of the river pollution to the council clerk in New Phlan.";
       else if (knows("river-equipment-damaged")) nextStep = "The damaged pipes are whining and the liquid is bubbling. Continue destroying the equipment or choose Move Quickly Away to retreat.";
       else if (knows("river-fountain")) nextStep = "At the fountain, choose Destroy the Equipment to shut down the machinery pumping the foul liquid.";
+      else if (knows("river-pump-prisoners-freed")) nextStep = "Read journal entry 35 for what the prisoners told you about Yarash. Continue looking for the source of the foul water.";
+      else if (knows("river-pump-prisoners") && !knows("river-pump-prisoners-hostile")) nextStep = "Advance until Parlay appears, then try speaking kindly to the shackled workers about the pollution.";
       else if (knows("river-entrance-inside")) nextStep = "Explore the passage ahead for the source of the foul water. The secret door behind you marks the way back.";
       else if (knows("river-secret-door")) nextStep = "Enter the pyramid through the secret door and search for the source of the foul water.";
       else if (knows("river-rowboat")) nextStep = "Take the rowboat from the reeds to the pyramid.";
+    }
+    if (commission.id === "lizardmen" && knows("river-pump-prisoners-freed")) {
+      nextStep = "Read journal entry 35 for the freed prisoners' advice on getting help from their tribe in the swamp.";
     }
     if (commission.id === "zhentil") {
       if (knows("zhentil-envoy-left") && knows("zhentil-packet-delivered")) nextStep = "Return to the council clerk in New Phlan and report the delivery.";
@@ -675,6 +680,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU HAVE ENTERED THE FOUNTAIN CHAMBER")) {
     leads.push({ id: "river-fountain", title: "The fountain chamber", detail: "Pipes in the fountain chamber pump foul black water." });
   }
+  if (text.includes("YOU HAVE ENTERED A PUMPING ROOM") && text.includes("WHO ARE SHACKLED TO THE WALL BY LONG CHAINS")) {
+    leads.push({ id: "river-pump-prisoners", title: "Prisoners at the pumps",
+      detail: "Three shackled lizardfolk were forced to pump and pour the contaminant." });
+  }
+  if (text.includes("AS YOU FREE THEM THEY TELL YOU ALL ABOUT WHAT YARASH IS DOING")) {
+    leads.push({ id: "river-pump-prisoners-freed", title: "The prisoners' advice",
+      detail: "The freed prisoners told the party about Yarash and how to ask their tribe in the swamp for help. Read journal entry 35." });
+  }
+  if (text.includes("THEY THROW THEIR BARRELS OF CONTAMINANT ON THE PARTY")) {
+    leads.push({ id: "river-pump-prisoners-hostile", title: "The pumping room turned hostile",
+      detail: "The frightened prisoners turned on the party and threw barrels of contaminant." });
+  }
   if (text.includes("NOT ALL THE EQUIPMENT IS YET DESTROYED")) {
     leads.push({ id: "river-equipment-damaged", title: "The pipes are under pressure", detail: "The damaged machinery started whining and the black liquid bubbled." });
   }
@@ -783,7 +800,8 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "zhentil-envoy-left", title: "The party escaped Zhentil Outpost",
       detail: "The party made it out of the outpost." });
   }
-  for (const number of new Set([...text.matchAll(/\bJOURNAL ENTRY (\d{1,2})\b/g)].map((match) => match[1]))) {
+  const citedEntries = text.matchAll(/\b(?:JOURNAL ENTRY (\d{1,2})\b|ENTRY (\d{1,2}) OF YOUR JOURNAL\b)/g);
+  for (const number of new Set([...citedEntries].map((match) => match[1] ?? match[2]))) {
     leads.push({
       id: `journal-entry-${number}`,
       title: `Journal entry ${number}`,

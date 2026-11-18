@@ -24,9 +24,12 @@
     #play { position: relative; border: 1px solid #546577; container-type: inline-size; }
     #tile-art { position: absolute; inset: 0; pointer-events: none; }
     #tile-art img { position: absolute; width: 2.5%; height: 4%; display: block; }
-    #tile-art .zhentil-terrain {
+    /* Cover subpixel gaps where the browser rounds adjacent tile edges. */
+    #tile-art .terrain-tile {
       width: calc(2.5% + 0.5px);
       height: calc(4% + 0.5px);
+    }
+    #tile-art .zhentil-terrain {
       background-image: linear-gradient(#304763, #536d87 48%, #8c9ead 84%, #bbb9ad);
       background-size: 100% 1100%;
       background-repeat: no-repeat;
