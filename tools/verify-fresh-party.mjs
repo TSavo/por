@@ -56,13 +56,24 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
   }
   try {
     let frame = await nextFrame();
+    async function send(command) {
+      lastKey = command;
+      actionNumber++;
+      runner.stdin.write(command + "\n");
+      frame = await nextFrame();
+    }
     for (const action of actions) {
+      if (Array.isArray(action)) {
+        const [command, until, limit] = action;
+        for (let attempt = 0; attempt < limit && !until.test(lastText); attempt++) {
+          await send(command);
+        }
+        assert.match(lastText, until);
+        continue;
+      }
       const key = typeof action === "function" ? action(visibleText(frame), frame) : action;
       if (typeof key !== "string") continue;
-      lastKey = key;
-      actionNumber++;
-      runner.stdin.write(key + "\n");
-      frame = await nextFrame();
+      await send(key);
       if (stopAt?.test(lastText)) break;
     }
     return frame;
@@ -117,9 +128,10 @@ async function verifySokalSmithy(checkpoint) {
   console.log("Found and readied the smithy hammer, then reloaded its journal entry and Fenn's inventory.");
 }
 
-async function verifySokalArmory(directory) {
+async function verifySokalArmory(directory, trackCommission = true) {
   const { isOpenObjective } = await tsImport("../src/runtime/adventure-log.ts", import.meta.url);
   const trackSokal = (_text, frame) => {
+    if (!trackCommission) return;
     const index = frame.journal.leads.filter(isOpenObjective).findIndex(({ id }) => id === "commission-sokal");
     assert.ok(index >= 0, "Sokal Keep should be trackable");
     return `track ${index + 1}`;
@@ -128,7 +140,10 @@ async function verifySokalArmory(directory) {
     "up", "up", "up", "right", "up", "left", "up",
     (text) => assert.match(text, /passing through an illusionary wall.*glow in the northwestern corner/),
     "j", trackSokal, (_text, frame) => {
-      assert.equal(frame.journal.objective.nextStep, "Follow the glow to the northwest corner of the hidden armory.");
+      assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-hidden-armory"));
+      if (trackCommission) {
+        assert.equal(frame.journal.objective.nextStep, "Follow the glow to the northwest corner of the hidden armory.");
+      }
       assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-armory-stands"));
     }, "j",
     "left", "up", "up", "up", "right", "up",
@@ -140,9 +155,9 @@ async function verifySokalArmory(directory) {
   await replay(loadSlot("1265"), "85000000", [
     (text) => assert.match(text, /12,0 n/),
     "j", (_text, frame) => {
-      assert.equal(frame.journal.trackedId, "commission-sokal");
+      if (trackCommission) assert.equal(frame.journal.trackedId, "commission-sokal");
       assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-armory-stands"));
-      assert.match(frame.journal.objective.nextStep, /gear on the stands/);
+      if (trackCommission) assert.match(frame.journal.objective.nextStep, /gear on the stands/);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ferran"));
     },
   ], directory);
@@ -962,6 +977,53 @@ if (process.argv[2] === "--slums-orcs-checkpoint") {
     "i", (text) => assert.match(text, /enna's items.*clerical scroll with 2 spells/),
   ]);
   console.log("Won the Slums orc outpost fight and reloaded Enna with the earned XP and clerical scroll.");
+  process.exit(0);
+}
+
+if (process.argv[2] === "--sokal-patrol-victory-checkpoint") {
+  assert.ok(process.argv[3], "Pass the reinforced party's slot J landing save.");
+  copyFileSync(process.argv[3], join(saveDir, "J.json"));
+  await replay(loadSlot("246a"), "85000000", [
+    "up", "left", "up", "up", "enter", "enter", "end", "enter",
+    (text) => assert.match(text, /crumbling parchment scroll/),
+    "enter", "enter", "enter", "right", "right", "up", "up", "left", "up", "up",
+    "right", "up", "up", "left", "up", "up", "left", "enter",
+    (text) => assert.match(text, /pack of undead suddenly appears.*combat wait flee parlay/),
+    "c", "enter", "enter", "enter", ["q", /continue battle|party has been destroyed/, 650],
+    (text) => assert.match(text, /continue battle/),
+    "n", (text) => assert.match(text, /the party has won.*receives 40 experience points/),
+    "enter", "enter", "e",
+    (text) => assert.match(text, /brin 1 5.*swordsman 5 18.*curate 3 26.*10,10 n/),
+    "e", "s", "s", "c",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2e63"), "85000000", [
+    (text) => assert.match(text, /brin 1 5.*swordsman 5 18.*curate 3 26.*10,10 n/),
+    "j", (_text, frame) => {
+      const leads = frame.journal.leads;
+      assert.ok(leads.some(({ id }) => id === "sokal-parchment"));
+      assert.ok(!leads.some(({ id }) => id === "sokal-patrol-passed"));
+      assert.ok(!leads.some(({ id }) => id === "sokal-ferran"));
+    }, "j", "v",
+    (text) => assert.match(text, /alda.*exp 1031/),
+  ]);
+  await replay(loadSlot("2e63"), "85000000", [
+    "up", "up", "up", "right", "up", "up", "up", "b",
+    (text) => assert.match(text, /12,7 e.*a pack of undead suddenly appears.*parlay/),
+    "p", "n", ..."shestni", "enter",
+    (text) => assert.match(text, /the undead leave/),
+    "up", "left", "up", "right", "up", "left",
+    (text) => assert.match(text, /croaking rises in volume/),
+    "w", "enter", ["q", /continue battle|party has been destroyed/, 350],
+    (text) => assert.match(text, /continue battle/),
+    "n", (text) => assert.match(text, /the party has won.*receives 31 experience points/),
+    "enter", "enter", "e", "left", "up",
+    (text) => assert.match(text, /14,5 n.*keep's old armory/),
+    "enter", "enter", "e", "s", "s", "d",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await verifySokalArmory(saveDir, false);
+  console.log("Won the first patrol and the smithy fight, then recovered the hidden equipment:", join(saveDir, "E.json"));
   process.exit(0);
 }
 

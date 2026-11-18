@@ -241,6 +241,17 @@ From B, the party enters the keep, chooses Parlay and Nice when an undead
 patrol approaches, and enters the word from the parchment. The patrol lets
 the party pass. Slot C reloads at (10,10) with the new patrol note, and the
 pale figure remains undisclosed at this checkpoint.
+
+The reinforced party can also choose Combat at the first patrol. Run
+`node tools/verify-fresh-party.mjs --sokal-patrol-victory-checkpoint PATH_TO_SLOT_J`
+with `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` from its Thorn Island landing save.
+The original fight awards 40 XP each. Slot C reloads at (10,10) with the
+parchment discovery and no password-passage entry. At the second patrol
+the party must choose Parlay and say SHESTNI in full. The same party then
+wins the smithy fight for 31 XP each, saves in the armory, and recovers
+the equipment for 400 XP each. Reloading slot E retains the hidden armory
+discoveries. This branch uses a landing save without a tracked Sokal
+commission. The separate armory replay checks the tracked objective.
 From C, the party answers Yes when a second patrol asks for the password,
 then explores the ruined smithy. It wins the frog encounter for 31 XP per
 character. Alda falls to 0 HP during the fight. The party enters the old
