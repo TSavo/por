@@ -213,7 +213,7 @@ the cleared guest sprite cell, and switches both display modes in combat.
 
 The enhanced combat renderer now supports individual 32×32 terrain
 tiles keyed by `battle-tile:<sha256>`, using the 64 original palette
-indices of an 8×8 battlefield cell. The courtyard includes 46 ashlar
+indices of an 8×8 battlefield cell. The courtyard includes 53 ashlar
 courses, coping pieces, and slope joints. The renderer matches within
 the left panel when the original combat border is present. It draws
 terrain beneath the units in steady and attack frames, including when
@@ -228,6 +228,12 @@ Twenty additional corner and coping fragments cover the wall as it rakes
 away from the party. The replay verifies the terrain layer in at least
 four battlefield layouts as the camera follows different turns.
 
+Seven more 32×32 masonry pieces cover two raking wall junctions, a wall
+foot, and four pieces of the straight wall joint. Each is registered
+against one distinct observed 8×8 pattern. The browser replay loaded
+the enlarged art pack through the shifting courtyard views. The
+46-frame trace now matches 53 masonry patterns.
+
 Append `--terrain-only` to the courtyard Chrome replay to build a local
 test pack without replacement combat sprites. The replay verified 76
 individual masonry placements during combat and checked that the ambush
@@ -239,7 +245,7 @@ Pass that trace and `upgrades/manifest.json` to
 `tools/route-art-coverage.ts` to generate the same JSON and HTML
 checklist used for exploration. It lists positions, downloadable 8×8
 references, and 32×32 replacements. The 46-frame courtyard run observed
-all 46 masonry replacements among 209 distinct nonblank framebuffer
+all 53 masonry replacements among 209 distinct nonblank framebuffer
 patterns. The remaining patterns can include party sprites, effects,
 and overlaps, so review them against the linked frames.
 

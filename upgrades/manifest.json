@@ -130,7 +130,14 @@
     "battle-tile:e668bccffc3df9164d4a7e1a735c2a8c03b275035f82cd0f935e6c0ee13ed1f9": "courtyard-wall-cope-end-chip.png",
     "battle-tile:ba4085dd7fdd4e5675ac826dfc138a36a6b758920c6b9030e570b98086f65bd9": "courtyard-wall-cope-broken-end.png",
     "battle-tile:7c65890e55e9c2edab246c6c49f2bb097a16c24c639ca75533ec7904e97fa372": "courtyard-wall-cope-end-return.png",
-    "combat:party:0:0": "sokal-party-scout.png"
+    "combat:party:0:0": "sokal-party-scout.png",
+    "battle-tile:7ac3c2f1b91ed52c3f858e1ae3989d6931b7866a4853b25f386d9c52f7049fa6": "courtyard-wall-raking-wall-crossing.png",
+    "battle-tile:fe796d907de744efaa852a8394eb89bc4039f644ce5bc12245eeae46ac6ac489": "courtyard-wall-raking-wall-cutback.png",
+    "battle-tile:e137c5b25d8d419612a0478ffe3f3ae6ec88015e5adf6e6de224d5a908ece8bd": "courtyard-wall-raking-wall-toe.png",
+    "battle-tile:6405d2a9e54ca155620da12e312821ce44c220d77ba96190e5000334dcc18c23": "courtyard-wall-straight-wall-joint-cap.png",
+    "battle-tile:8985304486d5420dfcc6c6a3b7270d715e0cb692080117c00e4a8b8889d437a5": "courtyard-wall-straight-wall-joint-face.png",
+    "battle-tile:7017ad68e268dc8818fa81dff0b0d4306d07b061bacc008c0c98006bf5cad700": "courtyard-wall-straight-wall-joint-base.png",
+    "battle-tile:ea5fa2f1be82998ceb7f7902c14bef6518748c46fa95fa001c2b2eb63fa3098f": "courtyard-wall-straight-wall-joint-end.png"
   },
   "encounters": {
     "encounter:SPRIT4.DAX:34:0:0": {
