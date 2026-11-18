@@ -17,7 +17,7 @@
     "audio-coverage": "tsx tools/audio-coverage.ts",
     "generate-enhanced-audio": "tsx tools/generate-enhanced-audio.ts",
     "translate": "python tools/tp_translate.py",
-    "verify": "tsx tools/verify-translation.ts && tsx tools/verify-original-audio.ts && tsx tools/verify-voice.ts"
+    "verify": "tsx tools/verify-translation.ts && tsx tools/verify-original-audio.ts && tsx tools/verify-enhanced-audio.ts && tsx tools/verify-voice.ts"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
