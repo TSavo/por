@@ -110,9 +110,11 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("sokal-pale-form") && knows("sokal-parchment")) nextStep = "Talk to the pale form. When asked for a word, try one from the parchment.";
       else if (knows("sokal-chapel")) nextStep = "Approach the altar on the south wall of the chapel.";
       else if (knows("sokal-courtyard-note")) nextStep = "Read journal entry 57 and continue exploring the keep beyond the courtyard.";
-      else if (knows("sokal-ambush")) nextStep = knows("phlan-arena-recruits")
-        ? "Heal and ready spells before returning to the courtyard. If you need reinforcements, ask the arena master in New Phlan for a partner."
-        : "Prepare for the orcs and hobgoblins before crossing the courtyard. Heal the party and ready spells and equipment.";
+      else if (knows("sokal-ambush")) {
+        nextStep = "Heal the party and ready weapons and spells before returning to the courtyard.";
+        if (knows("phlan-temple-healing")) nextStep += " The Temple of Tyr in New Phlan offers paid healing.";
+        if (knows("phlan-arena-recruits")) nextStep += " Ask the arena master for reinforcements if needed.";
+      }
       else if (knows("sokal-armory-stands")) nextStep = "Check the gear on the stands if you left it behind, then continue exploring Sokal Keep.";
       else if (knows("sokal-hidden-armory")) nextStep = "Follow the glow to the northwest corner of the hidden armory.";
       else if (knows("sokal-patrol-passed")) nextStep = "Explore the keep. If another undead patrol asks whether to give the password, choose Yes.";
@@ -339,6 +341,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       text.includes("A LARGE FORCE OF ORCS AND HOBGOBLINS RUSHES YOU")) {
     leads.push({ id: "sokal-ambush", title: "Sokal courtyard ambush",
       detail: "A large force of orcs and hobgoblins rushed the party through the courtyard door." });
+  }
+  if (text.includes("THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE") && text.includes("DO YOU SEEK HEALING?")) {
+    leads.push({ id: "phlan-temple-healing", title: "Healing at the Temple of Tyr",
+      detail: "The priests at the Temple of Tyr in New Phlan offer healing." });
   }
   if (text.includes("DO YOU SEEK A PARTNER FOR YOUR ADVENTURING")) {
     leads.push({ id: "phlan-arena-recruits", title: "Adventuring partners in New Phlan",

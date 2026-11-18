@@ -412,7 +412,7 @@ function checkCampaignJournal(): void {
     ["THE BOAT DISEMBARKS YOU AT SOKAL KEEP", "Scout the keep"],
     ["TO THE WEST RISES A MOUND OF REEDS", "west of the gates"],
     ["IN A POUCH ON THE REMAINS IS A CRUMBLING PARCHMENT SCROLL", "speak to an undead patrol"],
-    ["A LOUD COMMOTION RISES FROM THE COURTYARD", "Prepare for the orcs and hobgoblins"],
+    ["A LOUD COMMOTION RISES FROM THE COURTYARD", "ready weapons and spells"],
     ["ON A HOBGOBLIN BODY, YOU FIND A NOTE", "Read journal entry 57"],
     ["THIS WAS ONCE THE CHAPEL OF THE KEEP", "Approach the altar"],
     ["A PALE FORM RISES BEFORE YOU", "Talk to the pale form"],
@@ -431,6 +431,12 @@ function checkCampaignJournal(): void {
       throw new Error(`Sokal journal route mismatch: ${trigger}`);
     }
     if (trigger === "A LOUD COMMOTION RISES FROM THE COURTYARD") {
+      const welcome = lines.find((line) => line.includes("THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE"));
+      const healing = lines.find((line) => line.includes("DO YOU SEEK HEALING?"));
+      if (!welcome || !healing || currentObjective(leads).nextStep.includes("Temple of Tyr") ||
+          !currentObjective(discoveredLeads(`${transcript}\n${welcome}\n${healing}`)).nextStep.includes("Temple of Tyr")) {
+        throw new Error("Sokal temple guidance must depend on hearing the priests' offer");
+      }
       const recruitment = lines.find((dialogue) => dialogue.includes("DO YOU SEEK A PARTNER FOR YOUR ADVENTURING"));
       if (!recruitment || currentObjective(leads).nextStep.includes("arena master") ||
           !currentObjective(discoveredLeads(transcript + "\n" + recruitment)).nextStep.includes("arena master")) {

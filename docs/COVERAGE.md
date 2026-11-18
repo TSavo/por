@@ -273,6 +273,13 @@ retains the tracked commission at the clerk. The original boat returns the
 party to Thorn Island, and slot J retains the commission and the armory
 discovery. Ferran remains undisclosed.
 
+Run `node tools/verify-fresh-party.mjs --sokal-tracked-ambush-checkpoint PATH_TO_SLOT_J`
+with a landing save produced by that replay after the party has heard the
+Temple of Tyr's offer. The verifier checks that the ambush stays hidden
+at the landing, passes the undead, and opens the journal as the courtyard
+force appears. The tracked objective then gives preparation advice and
+points to the known temple for paid healing. Ferran remains undisclosed.
+
 Run `node tools/verify-fresh-party.mjs --sokal-recovered-courtyard-checkpoint PATH_TO_SLOT_G`
 with `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` to continue from the temple. The
 party makes room for the Evoker using the original Encamp menu, hires him

@@ -1148,6 +1148,39 @@ if (process.argv[2] === "--sokal-restored-council-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--sokal-tracked-ambush-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot J after the restored party hears the Sokal commission.");
+  copyFileSync(process.argv[3], join(saveDir, "J.json"));
+  const checkAmbush = (seen) => (_text, frame) => {
+    const journal = frame.journal;
+    assert.equal(journal.trackedId, "commission-sokal");
+    assert.equal(journal.leads.some(({ id }) => id === "sokal-ambush"), seen);
+    assert.ok(!journal.leads.some(({ id }) => id === "sokal-ferran"));
+    if (seen) {
+      assert.ok(journal.leads.some(({ id }) => id === "phlan-temple-healing"));
+      assert.match(journal.objective.nextStep, /ready weapons and spells.*Temple of Tyr/);
+    } else {
+      assert.match(journal.objective.nextStep, /gear on the stands/);
+    }
+  };
+  await replay(loadSlot("246a"), "85000000", [
+    (text) => assert.match(text, /brin 1 6.*8,14 n/),
+    "j", checkAmbush(false), "j",
+    "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "enter",
+    "p", "n", ..."shestni", "enter",
+    (text) => assert.match(text, /10,10 n.*the undead leave/),
+    ...Array(5).fill("up"), "enter", "y", "up", "left", "up", "y", "left",
+    (text) => assert.match(text, /9,5 w.*do you give the password/),
+    "y",
+    (text) => assert.match(text, /the undead leave/),
+    "up", "enter",
+    (text) => assert.match(text, /8,5 w.*a large force of orcs and hobgoblins rushes you/),
+    "j", checkAmbush(true),
+  ]);
+  console.log("Verified the Sokal journal reveals the courtyard ambush and temple guidance when the party encounters it.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--sokal-recovered-courtyard-checkpoint") {
   assert.ok(process.argv[3], "Pass the slot G temple save after raising Brin.");
   const hireTwo = process.argv[4] === "--warrior-and-theurgist";
