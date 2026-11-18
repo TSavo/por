@@ -144,8 +144,36 @@ async function verifyUninterruptedCourtyard(checkpoint) {
     (text) => assert.match(text, /mira's spells in memory.*sleep/),
     "e",
   ]);
+  const prisoner = await replay(loadSlot("3062"), "85000000", [
+    ...Array(7).fill("end"), "c", "home", "home", "enter", "e",
+    "e", "a", "a", "o", "enter", ...Array(7).fill("home"), "enter",
+    (text) => assert.match(text, /name ac hp curate 3 21 alda/),
+    "e", "e", "e", "left", "up", "b", "enter", "c", "enter", "enter",
+    ...Array(10).fill("q"),
+    (text) => assert.match(text, /mira hitpoints 5.*move view aim cast/),
+    "c", "enter", ...Array(20).fill("n"),
+    (text) => assert.match(text, /hobgoblin ldr hitpoints.*long bow spell:sleep.*target/),
+    "t", ...Array(85).fill("q"),
+    (text) => assert.match(text, /continue battle:yes no/),
+    "n", "enter",
+    (text) => assert.match(text, /the party has won.*receives 94 experience points/),
+    "enter", "enter", "end", "t", "i",
+    (text) => assert.match(text, /loot long sword.*items: take exit/),
+    "t", "e", "e", "e", "n", "right", "up", "left", "up", "b", "enter",
+    (text) => assert.match(text, /2,15 s.*muscular man locked in chains.*entry 47/),
+    "enter", "f", "u",
+    (text) => assert.match(text, /you have no key to unlock the padlocks/),
+    "enter", "l", "e", "s", "s", "e",
+  ]);
+  assert.match(visibleText(prisoner), /2,15 s.*quit to dos/);
+  await replay(loadSlot("1265"), "85000000", [
+    "j", (_text, frame) => {
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-prison-key-needed"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+    }, "j",
+  ]);
   assert.equal([...recoveryCounts.values()].reduce((sum, count) => sum + count, 0), recoveries);
-  console.log("Won the courtyard without watchdog intervention and reloaded at the prison door with Sleep prepared:", saveDir);
+  console.log("Won the courtyard and prison without watchdog intervention and reloaded at the captive's cell:", saveDir);
 }
 
 async function verifyPodalFromCouncil(checkpoint) {
