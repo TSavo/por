@@ -105,7 +105,7 @@ async function verifyPodalFromCouncil(checkpoint) {
     "enter", "enter", "e", "s", "s", "a",
   ]);
   assert.match(visibleText(cadornaSave), /6,5 e.*quit to dos/);
-  await replay(load("1e61"), "85000000", [
+  const textileArrival = await replay(load("1e61"), "85000000", [
     "j", (_text, frame) => {
       const textile = frame.journal?.leads.find(({ id }) => id === "commission-textile");
       assert.equal(textile?.status, "accepted");
@@ -114,11 +114,21 @@ async function verifyPodalFromCouncil(checkpoint) {
     "right", "right", "up", "up", ...westboundToGate,
     "s", ...Array(4).fill("enter"),
     (text) => assert.match(text, /0,4 w/),
-    "right", "right", "up", "up", "right", "up", "left", "up", "up", "right", "up", "up",
-    "enter", "up", "up",
-    (text) => assert.match(text, /4,7 s.*scorpions approach hungrily/),
+    "e", "s", "s", "b",
   ]);
-  console.log("Verified the Podal Plaza turn-in, Cadorna's commission, and the south entrance to the Textile House.");
+  assert.match(visibleText(textileArrival), /quit to dos/);
+  await replay(load("3062"), "85000000", [
+    "right", "right", "up", "up", "right", "up", "left", "up", "up", "right", ...Array(5).fill("up"),
+    "left",
+    (text) => assert.match(text, /4,10 s.*a drum begins to beat and hobgoblins attack/),
+    "enter", "enter", "d", "d", "space", "d", "d", "c",
+    (text) => assert.match(text, /mira's spells in memory.*sleep/),
+    "enter", ...Array(5).fill("n"),
+    (text) => assert.match(text, /hobgoblin hitpoints.*spell:sleep.*target/),
+    "t", ...Array(35).fill("q"),
+    (text) => assert.match(text, /the monsters rejoice for the party has been destroyed/),
+  ]);
+  console.log("Verified the Podal Plaza turn-in, Cadorna's commission, and the Textile House courtyard defeat.");
 }
 
 if (process.argv[2] === "--podal-checkpoint") {

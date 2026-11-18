@@ -400,6 +400,12 @@ hears where his family's treasure was hidden, and reloads with the
 Textile House commission accepted. The party takes the westbound
 boat again, uses the south entrance, and reaches the scorpion
 encounter inside the Textile House district.
+Saving at the south entrance and reloading changes the encounter
+sequence in the tested run. The party reaches the drum ambush at
+(4,10), clears Quick, and casts Sleep at a hobgoblin before the
+party-defeat screen. The ambush dialogue gives the journal a warning
+for the courtyard. Recovering the treasure through ordinary play
+still needs verification.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the

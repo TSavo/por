@@ -323,6 +323,11 @@ function checkCampaignJournal(): void {
   const ironBox = lines.find((line) => line.includes("ACROSS THE LOCK IS THE SEAL OF THE FAMILY OF CADORNA"))!;
   const boxLead = discoveredLeads(ironBox);
   const textileOffer = discoveredLeads(commissions.find(({ id }) => id === "textile")!.offer);
+  const textileAmbush = lines.find((line) => line.includes("A DRUM BEGINS TO BEAT AND HOBGOBLINS ATTACK"));
+  if (!textileAmbush || textileOffer.some(({ id }) => id === "textile-courtyard-ambush") ||
+      !currentObjective([...textileOffer, ...discoveredLeads(textileAmbush)], "commission-textile").nextStep.includes("Prepare for the hobgoblin ambush")) {
+    throw new Error("The textile journal did not gate the courtyard warning on witnessed dialogue");
+  }
   const skullcrusher = lines.find((line) => line.includes("MY NAME IS SKULLCRUSHER. THERE'S A SECRET DOOR"));
   if (!skullcrusher || currentObjective(textileOffer).nextStep.includes("secret door") ||
       !currentObjective([...textileOffer, ...discoveredLeads(skullcrusher)]).nextStep.includes("search southeast") ||
