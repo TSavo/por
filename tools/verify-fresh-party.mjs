@@ -377,7 +377,7 @@ const equipmentSave = await replay(loadSlotD, "85000000", [
   "enter", "enter", "end", "t", "t", "t", "t", "t", "e", "e", "enter", "s", "e",
 ]);
 assert.match(visibleText(equipmentSave), /quit to dos/);
-await replay(loadSlotE, "85000000", [
+const readiedArmoryGear = await replay(loadSlotE, "85000000", [
   (text) => assert.match(text, /12,0 n/),
   "j", (_text, frame) => {
     assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-hidden-armory"));
@@ -385,6 +385,20 @@ await replay(loadSlotE, "85000000", [
   }, "j",
   "end", "v", "i", "i",
   (text) => assert.match(text, /brin's items.*shield.*long sword.*mace/),
+  "end", "r", "end", "r", "end", "end", "t", "end", "enter",
+  "e",
+  (text) => assert.match(text, /brin.*ac 1.*thac0 19.*damage 1d8\+1.*weapon long sword/),
+  "e", "end", "v", "i", "end", "r", "e",
+  (text) => assert.match(text, /cora.*thac0 18.*damage 1d6\+3.*weapon mace/),
+  "e", "e", "s", "s", "f",
+]);
+assert.match(visibleText(readiedArmoryGear), /quit to dos/);
+await replay(loadSlotF, "85000000", [
+  "end", "v", "i",
+  (text) => assert.match(text, /brin's items.*yes shield.*yes long sword/),
+  "e", "e", "end", "v", "i",
+  (text) => assert.match(text, /cora's items.*yes mace/),
 ]);
 console.log("Found the hidden armory, collected its equipment, and verified Brin's inventory after reloading slot E.");
+console.log("Readied Brin's sword and shield, traded the mace to Cora, and verified both loadouts after reloading slot F.");
 console.log("Replay save:", saveDir);
