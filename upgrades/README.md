@@ -33,9 +33,10 @@ cell's x and y coordinates and replacement key, including cells that have
 no artwork yet. Capture it alongside the classic frame as the party moves.
 Save one `tileInventory` array per line, then run
 `npx tsx tools/route-art-coverage.ts <trace.jsonl> <manifest.json> <report.json>`.
-The report puts missing replacements first and lists exact pixel matches
-from the original tile archives. Ambiguous matches remain candidates until
-the guest draw source is verified.
+The report puts missing replacements first, checks that each replacement is
+a 32×32 PNG, and writes a companion HTML checklist with previews. It lists
+exact pixel matches from the original tile archives. Ambiguous matches remain
+candidates until the guest draw source is verified.
 
 The experimental Slums doorway pack is in `upgrades/slums`. Set
 `POR_UPGRADES_DIR=upgrades/slums` before starting the browser runner and use

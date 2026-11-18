@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
+import { dirname, join, relative } from "node:path";
 import { parseDax } from "../src/lib/dax.js";
 import { decodePicture, frameSlice, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
@@ -11,6 +12,20 @@ if (!tracePath || !manifestPath || !reportPath) {
 const root = findGameRoot();
 if (!root) throw new Error("Original game data is required for source tile matching");
 const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as { assets: Record<string, string> };
+const manifestDirectory = dirname(manifestPath);
+const validImages = new Set<string>();
+for (const [key, name] of Object.entries(manifest.assets)) {
+  if (!key.startsWith("tile:") || !/^[a-z0-9_-]+\.png$/i.test(name)) continue;
+  try {
+    const png = readFileSync(join(manifestDirectory, name));
+    if (png.length >= 24 && png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])) &&
+        png.toString("ascii", 12, 16) === "IHDR" && png.readUInt32BE(16) === 32 && png.readUInt32BE(20) === 32) {
+      validImages.add(name);
+    }
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+  }
+}
 const trace = readFileSync(tracePath, "utf8").trim();
 if (!trace) throw new Error("The route trace contains no exploration frames");
 const frames = trace.split(/\r?\n/).map((line) => JSON.parse(line) as [number, number, string][]);
@@ -42,7 +57,7 @@ for (const [frame, inventory] of frames.entries()) {
 }
 
 const tiles = [...cells].map(([key, cell]) => ({
-  key, ...cell, replacement: manifest.assets[key] ?? null,
+  key, ...cell, replacement: validImages.has(manifest.assets[key] ?? "") ? manifest.assets[key]! : null,
   sourceCandidates: sourceByHash.get(key.split(":")[2]!) ?? [],
 })).sort((a, b) => a.area - b.area || Number(Boolean(a.replacement)) - Number(Boolean(b.replacement)) ||
   b.occurrences - a.occurrences || a.key.localeCompare(b.key));
@@ -55,6 +70,22 @@ const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
   };
 });
 writeFileSync(reportPath, JSON.stringify({ frames: frames.length, areas, tiles }, null, 2) + "\n");
+const galleryPath = reportPath + ".html";
+const sections = areas.map(({ area, patterns, matched }) => `<section><h2>Area ${area} · ${matched}/${patterns}</h2><div class="grid">` +
+  tiles.filter((tile) => tile.area === area).map(({ key, first, occurrences, replacement, sourceCandidates }) => {
+    const src = replacement && relative(dirname(galleryPath), join(manifestDirectory, replacement))
+      .split(/[\\/]/).map(encodeURIComponent).join("/");
+    const candidates = sourceCandidates.map(({ archive, block, frame }) => `${archive} #${block} frame ${frame}`).join(", ");
+    return `<article>${src ? `<img src="${src}" width="96" height="96" alt="Replacement tile">` : "<p>Replacement missing</p>"}` +
+      `<code>${key.slice(-12)}</code><p>First seen at trace frame ${first.frame}, (${first.x}, ${first.y}) · ${occurrences} placements</p>` +
+      `<p>${candidates || "Source tile unresolved"}</p></article>`;
+  }).join("") + "</div></section>").join("");
+writeFileSync(galleryPath, `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Route artwork checklist</title><style>
+body{font:16px system-ui;background:#191715;color:#efe4d0;margin:2rem}img{image-rendering:pixelated;display:block;margin-bottom:.5rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.65rem}article{background:#28241f;padding:.75rem;overflow-wrap:anywhere}
+p{margin:.4rem 0;font-size:.9rem}code{color:#ffdcaa}
+</style><h1>Route artwork checklist</h1><p>${frames.length} exploration frames. Archive entries are pixel-match candidates.</p>${sections}</html>\n`);
 for (const { area, patterns, matched, withSourceCandidates } of areas) {
-  console.log(`Area ${area}: ${matched}/${patterns} patterns listed in manifest, ${withSourceCandidates} with source candidates`);
+  console.log(`Area ${area}: ${matched}/${patterns} patterns with 32×32 PNGs, ${withSourceCandidates} with source candidates`);
 }
