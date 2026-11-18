@@ -181,6 +181,10 @@ pending while the original treasure screen awards 691 XP per character.
 After sharing the coins and closing the treasure menu, the party saves in
 slot J. A fresh runner confirms the journal marks the commission turned in,
 records what happened when Ohlo drank the potion, and shows Alda at 696 XP.
+From that reward save, `node tools/verify-fresh-party.mjs --ohlo-armor-checkpoint PATH_TO_SLOT_J`
+walks back to New Phlan, spends the earned money on banded mail and shields
+for all six fighters, and reloads their improved Armor Class in slot B.
+The tested checkpoint has a hand axe on Brin and chain mail on the full party.
 From J, the party walks back to New Phlan, hears the first council commissions
 at City Hall, and follows the harbor master's directions to the pier. The
 original boat transition lands all six on Thorn Island at (8,14). The replay

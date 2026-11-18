@@ -673,6 +673,36 @@ async function verifySkullcrusherRecruitment(load, checkpoint) {
   console.log("With the key supplied in a controlled copy, recruited Skullcrusher, reloaded his clue, and reached the ogre chief.");
 }
 
+const backToNewPhlan = [
+  "left", "up", "up", "left", ...Array(5).fill("up"), "right", ...Array(5).fill("up"),
+  "right", "up", "left", "up", "right", "up", "up", "up", "right", ...Array(4).fill("up"),
+  "f", "up", "up", "up", "left", "up", "left", "up", "up", "up", "right", "right", "f", "right", "up",
+  "up", "enter", "enter",
+  (text) => assert.match(text, /0,4 e/),
+];
+
+if (process.argv[2] === "--ohlo-armor-checkpoint") {
+  assert.ok(process.argv[3], "Pass a six-fighter save outside Ohlo's door after collecting his reward.");
+  copyFileSync(process.argv[3], join(saveDir, "J.json"));
+  const armorClass = /alda 3 6.*brin 1 6.*cora 3 6.*dorn 3 8.*enna 2 6.*fenn 2 8/;
+  await replay(loadSlot("246a"), "85000000", [
+    ...backToNewPhlan, "up", "up", "up", "enter", "right", ...Array(7).fill("up"),
+    "left", ...Array(5).fill("up"), "y", "y",
+    ...names.flatMap((name, index) => [
+      ...(index ? ["end"] : []),
+      "b", "n", "n", ...Array(index ? 15 : 16).fill("end"), "b", "end", "end", "b", "e", "v", "i", "i",
+      ...(name === "brin" ? ["end"] : []), "r", "end", "r", "end", "r",
+      (text) => assert.match(text, new RegExp(`${name}'s items.*no chain mail.*yes banded mail.*yes shield`)),
+      "e", "e", "e",
+    ]),
+    "e", "e", "s", "s", "b",
+  ]);
+  await replay(loadSlot("3062"), "85000000", [(text) => assert.match(text, armorClass)]);
+  console.log("Bought banded mail and shields for all six fighters with Ohlo's reward and reloaded their improved armor class.");
+  console.log("Armored party save:", join(saveDir, "B.json"));
+  process.exit(0);
+}
+
 if (process.argv[2] === "--slums-orcs-checkpoint") {
   assert.ok(process.argv[3], "Pass a six-fighter save just inside the Slums gate.");
   copyFileSync(process.argv[3], join(saveDir, "C.json"));
@@ -1017,13 +1047,6 @@ await replay(loadSlotJ, "85000000", [
 ]);
 console.log("Returned the potion, collected Ohlo's reward and verified the journal and XP after reloading slot J.");
 
-const backToNewPhlan = [
-  "left", "up", "up", "left", ...Array(5).fill("up"), "right", ...Array(5).fill("up"),
-  "right", "up", "left", "up", "right", "up", "up", "up", "right", ...Array(4).fill("up"),
-  "f", "up", "up", "up", "left", "up", "left", "up", "up", "up", "right", "right", "f", "right", "up",
-  "up", "enter", "enter",
-  (text) => assert.match(text, /0,4 e/),
-];
 const hearCouncil = [
   "up", "up", "up", "enter", "up", "up", "up", "up", "left", "up", "up",
   "enter", "enter", "enter",
