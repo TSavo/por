@@ -766,6 +766,10 @@ acceptance flag set and the party positioned near the mounted patrol.
 It follows the original escort, paper handoff, tour, dinner, and nighttime
 ambush. It checks that the journal unlocks each discovery in order and the
 new 352×352 commandant portrait survives mode switching during the handoff.
+The `zhentil-envoy` replay also checks the mounted patrol illustration at the
+initial diplomatic challenge. `zhentil-trespass` uses a controlled slot A with
+the envoy flag cleared and checks the same illustration at the Stay / Leave
+warning. Both replays check mode switching in the patrol scene.
 The translation verifier checks that escape flag 253 leaves the commission
 accepted. The western overland script advances it to 254, the value the
 council reward scan is looking for. The
@@ -839,6 +843,9 @@ The `graveyard-wraith` replay starts at `14,8 E` in controlled slot A and
 checks the 96×96 standing and reflected strike frames in the Paladin Crypt.
 The `graveyard-wight` replay starts in controlled slot A at `15,7 S` and
 checks the 96×96 standing pose and animated claw strike in the tower fight.
+The `graveyard-ghoul` replay loads the Valhingen entrance save in slot A.
+It camps until the original ambush and checks the Ghoul's 96×96 ready pose,
+reflected strike animation, and state-preserving presentation switch.
 The `graveyard-vampire` replay uses controlled slot A at `14,0 E` to check the
 128×320 threshold sprite, 352×352 dialogue portrait, and both 96×96 combat
 poses. It verifies presentation switches in approach, dialogue, and combat.
@@ -1027,6 +1034,9 @@ The save is preserved when switching presentation.
 The `sokal-northeast-keep` replay loads slot D at `14,5 N` and walks the
 northeast halls. Chrome checks 3,025 placements across 25 views, using eight
 new 32×32 fragments among 31 patterns, and verifies state-preserving mode switches.
+The `sokal-smithy-edge` replay uses a controlled slot C at `12,7 E`.
+Chrome checks 726 placements across six views, including the new skyline
+and ashlar transition tile, and preserves the save through mode switches.
 
 Two Valjevo Castle threshold routes from the controlled slot B checkpoint
 displayed the new 32×32 assets across five views and 605 placements, then

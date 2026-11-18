@@ -18,6 +18,10 @@ const combatPoseRoutes = new Map([
     stand: "combat:area:10:CPIC4.DAX:20", strike: "combat:area:10:CPIC4.DAX:148", width: 96, height: 96,
     inputs: ["up", "enter", "enter", "enter", "s", "enter", "enter"], strikeInputs: ["q", "q", "q"],
   }],
+  ["graveyard-ghoul", {
+    stand: "combat:area:10:CPIC4.DAX:72", strike: "combat:area:10:CPIC4.DAX:200", width: 96, height: 96,
+    inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", ...Array(4).fill("enter")], strikeInputs: ["enter"],
+  }],
   ["swamp-giant-lizard", {
     stand: "combat:area:16:CPIC8.DAX:59", strike: "combat:area:16:CPIC8.DAX:187", width: 192, height: 96,
     inputs: ["up", "enter", "c", "c", "enter", "enter", "enter", "q", "q"],
@@ -36,6 +40,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["sokal-smithy-edge", {
+    slot: "C", area: 21, views: 6, patterns: 33,
+    walk: ["up", "left", "up", "right", "up"],
+  }],
   ["sokal-northeast-keep", {
     slot: "D", area: 21, views: 25, patterns: 31,
     walk: ["left", "up", "right", "up", "left", "up", "right", "up", "right", "up", "up", "up",
@@ -128,7 +136,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -1147,6 +1155,16 @@ try {
     assert.equal(checkpointAfterEscape.leads.find(({ id }) => id === commission)?.status, "ready-to-report");
     assert.ok(checkpointAfterEscape.leads.some(({ id }) => id === "zhentil-envoy-left"));
     console.log("Verified the Zhentil wall escape and the resulting council report objective in Chrome. Saved:", saved);
+  } else if (routeName === "zhentil-trespass") {
+    for (const key of ["down", "enter"]) await advance(key);
+    const text = frame.text.toSorted(([left], [right]) => left - right)
+      .map(([, character]) => String.fromCharCode(character)).join("");
+    assert.equal(frame.portrait, "portrait:PIC6.DAX:33:0:0");
+    assert.match(text, /YOUARETRESSPASSINGONPRIVATELAND/i);
+    assert.match(text, /STAY.*LEAVE/i);
+    await waitFor("the mounted patrol at the trespass warning", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    console.log("Verified the Zhentil mounted patrol during the trespass warning in Chrome.");
   } else if (envoy) {
     const checkJournal = async (present, hidden) => {
       await advance("j");
@@ -1158,6 +1176,10 @@ try {
     };
     await checkJournal([], ["envoy-challenge", "packet-delivered", "quarters"]);
     for (const key of ["down", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:PIC6.DAX:33:0:0");
+    await waitFor("the Zhentil mounted patrol portrait", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+    await switchBothWays();
     await checkJournal(["envoy-challenge"], ["packet-delivered", "quarters"]);
     await advance("y");
     for (let line = 0; line < 6; line++) await advance("enter");

@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "tile:21:323c71332298aeae05cfee4eb5855d831835c8a068440a0f21f6f96ee43b2f9b": "sokal-smithy-ashlar-sky-cut.png",
     "tile:21:067e5b585dd24bcac143834da985ebebbcc25446db06ae546aeffaec0d2b9711": "sokal-northeast-hall-terrain-067e5b585dd2.png",
     "tile:21:195e9b93e8621946683a00161346595e0fa7b31ddbbf27fb0214ea3bfbe5c4dc": "sokal-northeast-hall-terrain-195e9b93e862.png",
     "tile:21:41ea3ceae0f6da8a29151985f9d6f70572dbd7d9e81b672fe759802e75a7d115": "sokal-northeast-hall-terrain-41ea3ceae0f6.png",
@@ -173,9 +174,12 @@
     "tile:10:f63bdabff1bd96de7b9e4a309e0063aa86f7c5f0f6ee6af0a525dc95b109690c": "valhingen-crypt-path-f63bdabff1bd.png",
     "tile:10:f88281ec28755d2cb88f905e938b256841362ea2682bfbe64e095c54c013a917": "valhingen-crypt-path-f88281ec2875.png",
     "portrait:PIC6.DAX:32:0:0": "diogenes-mountain-cave.png",
+    "portrait:PIC6.DAX:33:0:0": "zhentil-mounted-patrol.png",
     "portrait:PIC6.DAX:117:0:0": "diogenes-silver-dragon.png",
     "combat:area:10:CPIC4.DAX:20": "valhingen-wight-stand.png",
     "combat:area:10:CPIC4.DAX:148": "valhingen-wight-strike.png",
+    "combat:area:10:CPIC4.DAX:72": "valhingen-ghoul-stand.png",
+    "combat:area:10:CPIC4.DAX:200": "valhingen-ghoul-strike.png",
     "portrait:PIC7.DAX:40:0:0": "phlan-outskirts-crossroads.png",
     "combat:area:10:CPIC4.DAX:21": "valhingen-wraith-stand.png",
     "combat:area:10:CPIC4.DAX:149": "valhingen-wraith-strike.png",
