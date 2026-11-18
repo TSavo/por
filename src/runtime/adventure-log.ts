@@ -453,6 +453,7 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
       id,
       title: `${commission.title} - ${value === 254 ? "ready to report" : "turned in"}`,
       detail: value === 254 ? commission.id === "river" ? "Report the end of the river pollution to the council clerk in New Phlan."
+        : commission.id === "nomads" ? "Return to the council clerk at City Hall and report what happened at the Nomad Camp."
         : "Return to the council clerk at City Hall to report your success."
         : commission.id === "textile" ? "Cadorna's treasure affair is settled."
         : commission.id === "bane" ? "The council let the party keep what it found in the Temple of Bane."

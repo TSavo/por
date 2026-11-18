@@ -719,6 +719,9 @@ matcher, with its live animation still to be captured.
 From the same checkpoint, `bane-sanctuary` checks the side-hall route in
 Chrome. Its 23 views cover 2,783 placements across 69 patterns, including
 31 new 32×32 tiles. Switching presentation preserves the save.
+The `bane-north-court` replay walks the exterior courtyard from the gate
+checkpoint in slot A. Chrome checks all 2,904 placements across 24 views,
+including 19 new 32×32 tiles and openings that show the dynamic sky.
 The separate `bane-reward` replay loads a controlled City Hall checkpoint
 with the victory flag and dispatch recorded. It verifies the clerk's
 permission to keep the temple treasure, the journal transition after
@@ -1039,6 +1042,12 @@ camp checkpoint. They verify the headman's portrait, the journal's feast
 invitation, entry 55, kobold warning, and overnight decision. Each replay
 selects a different response and checks that the journal records only the
 response witnessed by the party.
+The `nomad-reward` replay loads controlled slot A at City Hall with the
+original completion flag and the witnessed departure clue. It verifies that
+the journal asks the party to report what happened, becomes reward pending
+when the clerk responds, and marks the commission turned in after the reward
+menu closes. A translated-setter check covers the same flag without exposing
+the commission when the party has never heard the offer.
 The `podal-west-gate` replay starts in slot J at `7,6 S` and walks to the
 western arch. Chrome checks 1,573 placements across 13 views, using 17 new
 32×32 tiles among 61 patterns, and preserves the save when switching modes.
@@ -1153,6 +1162,9 @@ The 22-view kobold presentation and switching replay also passed.
 The `kobold-cave` replay uses a separate controlled slot B at the cave fork.
 It verifies the 352×352 illustration through the Large / Small / Exit decision
 and checks that switching presentation preserves the save.
+The `kobold-cave-wyvern` replay uses controlled slot A inside the large cave.
+Chrome checks both 192×192 combat poses, including the animated strike, and
+verifies that switching presentation preserves the game state and save.
 The same Chrome replay passed with encounter anchors read from the Slums
 manifest. A framebuffer check moved the middle kobold pose to a different
 anchor and area, confirmed the old area's background was discarded, and

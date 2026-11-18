@@ -822,6 +822,18 @@ function checkCampaignJournal(): void {
       questProgress(m, ohloReward, m.ds)[0]?.status !== "turned-in") {
     throw new Error("Ohlo's hostile and successful paths were not distinguished");
   }
+  const nomads = commissions.find(({ id }) => id === "nomads")!;
+  const declined = lines.find((line) => line.includes("LOOKING DISAPPOINTED THE HEADMAN SAYS"));
+  if (!declined) throw new Error("Missing original Nomad Camp departure dialogue");
+  const knownNomads = discoveredLeads(`${nomads.offer}\n${declined}`);
+  const nomadFlag = progressAddresses.nomads!;
+  writeGlobal(nomadFlag, 254);
+  const nomadReport = questProgress(m, knownNomads, m.ds);
+  if (nomadReport[0]?.status !== "ready-to-report" ||
+      !currentObjective(nomadReport).nextStep.includes("report what happened") ||
+      questProgress(m, discoveredLeads(declined), m.ds).some(({ id }) => id === "commission-nomads")) {
+    throw new Error("The Nomad Camp report should describe the outcome of a known commission");
+  }
   const castle = commissions.find(({ id }) => id === "castle")!;
   const castleFlag = progressAddresses.castle!;
   writeGlobal(castleFlag, 0);
