@@ -233,7 +233,14 @@ try {
       await switchBothWays();
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "sokal-brin-selected.png"), Buffer.from(shot.data, "base64"));
-      console.log("Verified Brin's 4× combat icon and the original selection frame.");
+      for (const key of ["a", "n", "n", "n"]) await advance(key);
+      const aim = [...frame.text].sort(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join("");
+      assert.match(aim, /ORCHITPOINTS2AC6/i);
+      assert.match(aim, /RANGE=3/i);
+      await switchBothWays();
+      const aimShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "sokal-orc-aimed.png"), Buffer.from(aimShot.data, "base64"));
+      console.log("Verified Brin's selected combat icon and the original Aim menu in both modes.");
     } else if (terrainOnly) {
       assert.equal(frame.battleTiles.length, 0);
       for (const key of ["enter", "enter", "enter"]) await advance(key);
@@ -293,7 +300,7 @@ try {
       })()`));
       if (courtyard) {
         assert.ok(frame.battleTiles.length > 0);
-        await waitFor("all matched 4× battle terrain tiles", () => run(`state.sequence === ${frame.sequence} &&
+        await waitFor("all matched 4ï¿½ battle terrain tiles", () => run(`state.sequence === ${frame.sequence} &&
           document.querySelectorAll(".battle-tile").length === ${frame.battleTiles.length} &&
           [...document.querySelectorAll(".battle-tile")].every(tile => tile.naturalWidth === 32 && tile.naturalHeight === 32)`));
       }
