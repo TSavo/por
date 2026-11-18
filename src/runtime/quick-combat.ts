@@ -34,7 +34,8 @@ export function attachQuickRecovery(
     const restoreVideo = checkpointVideo();
     const previousBudgetHandler = cpu.onStepBudgetExceeded;
     if (instructionLimit === undefined) {
-      const ceiling = Math.min(budget || Infinity, limit + 15_000_000);
+      let drawingAllowance = 15_000_000;
+      let delayAllowance = 30_000_000;
       cpu.onStepBudgetExceeded = () => {
         if (cpu.stepBudget !== limit) return;
         const inDrawingHelper = cpu.cs === 0x5bb && cpu.ip >= 0x1692 && cpu.ip <= 0x16c6 &&
@@ -44,12 +45,19 @@ export function attachQuickRecovery(
           // Count those helpers as drawing only when a drawing overlay called them.
           // A battlefield redraw can exhaust the usual turn budget.
           // Extend in bounded increments so even a stuck redraw expires.
-          limit = Math.min(ceiling, limit + 1_000_000);
+          const extra = Math.min(drawingAllowance, 1_000_000);
+          drawingAllowance -= extra;
+          limit += extra;
         } else if (cpu.cs === 0x512 && cpu.ip >= 0x53d3 && cpu.ip <= 0x53e5) {
           // The calibrated delay reloads CX from BX for each of DX iterations.
           const remaining = Math.max(1, cpu.dx) * (3 * (cpu.bx || 0x10000) + 5);
-          limit = Math.min(ceiling, limit + remaining);
+          // A turn can play several effects. Keep time spent in their
+          // busy waits separate from the battlefield redraw allowance.
+          const extra = Math.min(delayAllowance, remaining);
+          delayAllowance -= extra;
+          limit += extra;
         } else return;
+        limit = Math.min(budget || Infinity, limit);
         cpu.stepBudget = limit;
       };
     }

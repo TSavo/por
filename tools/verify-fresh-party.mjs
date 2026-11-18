@@ -1269,6 +1269,25 @@ if (process.argv[2] === "--sokal-smithy-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--textile-grishnak-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot I from outside Grishnak's temple at (2,13), facing north.");
+  copyFileSync(process.argv[3], join(saveDir, "I.json"));
+  await replay("31000000:1c0d,45000000:266c,52000000:1769", "85000000", [
+    "e", "m", "m", ...Array(6).fill("end"), "m", ...Array(4).fill("end"), "m", "e", "enter",
+    (text) => assert.match(text, /mira's spells to be memorized.*\*sleep/),
+    "y", "r", "r", "n", "e", "e",
+    (text) => assert.match(text, /2,13 n.*area cast view encamp/),
+    "up", "enter", "enter",
+    (text) => assert.match(text, /2,12 n.*i am the mighty grishnak/),
+    "enter", "enter",
+    ["q", /grishnak hitpoints 24 ac 5/, 60],
+    ["q", /party has been destroyed/, 300],
+  ]);
+  assert.equal(recoveryCounts.size, 0, "Grishnak's fight must end without watchdog recovery");
+  console.log("Verified Grishnak's full Quick battle without watchdog recovery. This party lost.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--textile-courtyard-checkpoint") {
   assert.ok(process.argv[3], "Pass a save with the armored and reinforced party at the Textile House entrance.");
   await verifyUninterruptedCourtyard(process.argv[3]);

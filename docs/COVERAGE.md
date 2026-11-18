@@ -723,6 +723,16 @@ not open a shot. The checkpoint check
 fails if the watchdog intervenes. The recruitment
 checks still use the historical checkpoint and the supplied brass key.
 
+Run `node tools/verify-fresh-party.mjs --textile-grishnak-checkpoint PATH_TO_SLOT_I`
+with the party outside the southern temple door at `2,13 N`. This
+replay prepares Mira's Sleep, enters the original encounter, verifies
+Grishnak starts at 24 HP and AC 5, and runs Quick to the defeat screen.
+At input 76 a fixed 20-million-instruction limit still interrupts an
+enemy turn in the original calibrated delay at `0512:53E3`. The default
+watchdog now budgets calibrated delays separately from battlefield
+redraws. The same replay finishes with zero interventions. Winning the
+battle and acquiring the brass key through this route remain open.
+
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the
 harbor master offers new destinations as soon as the keep is cleared, and
