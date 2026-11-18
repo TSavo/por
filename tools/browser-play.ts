@@ -7,7 +7,10 @@ import { lookupOverride, type OverrideManifest } from "../src/lib/assets.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
 import { getKey } from "./live-input.js";
 
-const port = 43124;
+const port = Number(process.env.POR_PLAY_PORT ?? 43124);
+if (!Number.isInteger(port) || port < 1 || port > 65535) {
+  throw new Error("POR_PLAY_PORT must be a TCP port between 1 and 65535");
+}
 const origin = `http://127.0.0.1:${port}`;
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
