@@ -194,7 +194,7 @@ export function renderOriginalSoundDriver(image: Uint8Array, hardware: OriginalS
         writePort(0x42, divisor >>> 8);
       }
       writePort(0x61, selected ? word(selected + 0x0a) & 3 : 0);
-    } else if (any) {
+    } else {
       let latch = 0x80;
       for (let channel = 0; channel < 4; channel++, latch += 0x20) {
         const record = stateBase + channel * RECORD_SIZE;

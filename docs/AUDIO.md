@@ -60,6 +60,14 @@ libvgm's `vgm2wav` and its MAME SN76489/SN76496 core. The reproducible Linux/WSL
 helpers are `tools/build-libvgm.sh` and `tools/render-tandy-libvgm.sh`; the assets
 repository records the exact upstream commit, renderer hash, clock, and arguments.
 
+For independent driver validation, `tools/validate-original-driver-unicorn.py`
+executes the original 16-bit resident ISR bytes from START.EXE under Unicorn and
+compares its port writes against generated traces. Events 2 through 20 match
+exactly in both hardware modes: 38/38 cases, including every tick, port, and byte.
+Event 1 is the dispatcher's initialization control rather than a normal numbered
+effect and is documented separately. The comparison caught and corrected a
+missing final Tandy silence frame; its report lives in por-assets inventory.
+
 `src/audio/original-sounds.json` is the stable event manifest consumed by both
 presentation modes. It records IDs, original indices, type, loop behavior,
 per-hardware durations, replacement/fallback rules, provenance, and verification

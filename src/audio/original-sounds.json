@@ -42,6 +42,7 @@
     "pcWav": "generated",
     "tandyVgm": "generated",
     "tandyWav": "libvgm-rendered",
-    "dosReferenceComparison": "pending"
+    "originalIsrTraceComparison": "38/38 exact for events 2..20 across PC speaker and Tandy",
+    "externalDosWaveformComparison": "pending"
   }
 }
