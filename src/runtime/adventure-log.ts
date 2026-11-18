@@ -10,11 +10,11 @@ export function observeAdventureLog(cpu: Cpu, slice: LoadedSlice, trainer?: Load
   farCallObservers.set(cpu, (seg, off) => {
     if (seg !== 0x198) return;
     const adventureMessage = off === 0x39 && cpu.cs === slice.loadPara;
-    // The trainer reports an unaffordable fee through the colored text entry.
-    const trainingFee = off === 0x5c && cpu.cs === trainer?.loadPara &&
-      cpu.read16(cpu.ss, cpu.sp) === 0x2a02;
-    if (!adventureMessage && !trainingFee) return;
-    const argument = cpu.sp + (trainingFee ? 6 : 4);
+    // The trainer reports fee and experience refusals through the colored text entry.
+    const trainingMessage = off === 0x5c && cpu.cs === trainer?.loadPara &&
+      [0x2a02, 0x2ce1].includes(cpu.read16(cpu.ss, cpu.sp));
+    if (!adventureMessage && !trainingMessage) return;
+    const argument = cpu.sp + (trainingMessage ? 6 : 4);
     const offset = cpu.read16(cpu.ss, argument);
     const segment = cpu.read16(cpu.ss, argument + 2);
     const length = cpu.read8(segment, offset);
@@ -339,6 +339,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("TRAINING COSTS 1000 GP") && text.includes("DO YOU WANT TO TRAIN?")) {
     leads.push({ id: "phlan-training-fee", title: "Training costs 1,000 gold",
       detail: "The trainer quoted a fee of 1,000 gold. Check the selected character's coins and experience under View Character before returning." });
+  }
+  if (text.includes("NOT ENOUGH EXPERIENCE") && text.includes("DO YOU WANT TO TRAIN?")) {
+    leads.push({ id: "phlan-training-experience", title: "More experience needed",
+      detail: "The trainer refused advancement for lack of experience. Earn more XP and check the character's progress under View Character." });
   }
   if (text.includes("THE COUNCIL IS DEVELOPING A PLAN TO OPEN UP THE SEA LANES")) {
     leads.push({

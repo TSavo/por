@@ -1418,6 +1418,32 @@ if (process.argv[2] === "--sokal-smithy-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--sokal-funded-training-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot F from the hidden armory after reading Alda's recovered sword.");
+  copyFileSync(process.argv[3], join(saveDir, "F.json"));
+  const checkExperience = (_text, frame) => {
+    assert.ok(frame.journal.leads.some(({ id }) => id === "phlan-training-experience"));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "phlan-training-fee"));
+  };
+  await replay(loadSlot("2166"), "85000000", [
+    ...armoryToTemple, "end", "a", "j",
+    (text) => assert.match(text, /the jewel is valued at 5279 gp.*sell keep/),
+    "s", "p", "s", "e", "v", "v",
+    (text) => assert.match(text, /alda.*platinum 213.*level 1 exp 1462/),
+    "e",
+    "right", "right", "up", "left", "up", "right", "up", "up", "left", "up",
+    "enter", "enter", "enter", "n", "left", "up", "right", "up", "right", "up", "enter", "enter",
+    (text) => assert.match(text, /8,0 n.*we train only fighters here/),
+    "y", "t", "v",
+    (text) => assert.match(text, /alda.*platinum 213.*level 1 exp 1462/),
+    "escape", "b", "j", checkExperience, "j", "e", "s", "s", "i",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("1769"), "85000000", ["j", checkExperience]);
+  console.log("Funded training from the armory jewel and verified the original experience refusal after reload.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--sokal-restored-arena-checkpoint") {
   assert.ok(process.argv[3], "Pass the slot G temple save after raising Brin.");
   copyFileSync(process.argv[3], join(saveDir, "G.json"));

@@ -528,6 +528,13 @@ The journal captures the original 1,000 gold quote even though the
 trainer clears it before the next input prompt. Slot I reloads with
 the learned fee.
 
+The separate `--sokal-funded-training-checkpoint PATH_TO_SLOT_F` replay
+takes the armed party back from the hidden armory and sells its jewel.
+Pooling and sharing gives Alda 213 platinum. With that amount the
+original trainer rejects the 1,462-XP fighter for insufficient
+experience. The replay verifies that he keeps the coins, and slot I
+reloads with the experience refusal recorded in the journal.
+
 The fresh-party verifier stops feeding Quick inputs when the Sokal
 courtyard defeat screen appears, so it can reload the earlier save
 instead of acknowledging the defeat and exiting to DOS. The resumed
