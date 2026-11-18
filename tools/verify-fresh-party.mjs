@@ -1442,6 +1442,32 @@ if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.a
       "up", "enter", (text) => assert.match(text, /a pale form rises before you/),
       "p", "n", ..."lux", "enter", (text) => assert.match(text, /ferran martinez.*tell the truth.*lie/),
     ];
+    const trackSokal = (_text, frame) => {
+      const open = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
+      const index = open.findIndex(({ id }) => id === "commission-sokal");
+      assert.ok(index >= 0);
+      return `track ${index + 1}`;
+    };
+    const checkWrongWord = (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-pale-form-wrong-word"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ferran" || id === "sokal-departure"));
+      assert.match(frame.journal.objective.nextStep, /reload a save from before the encounter/i);
+      assert.doesNotMatch(frame.journal.objective.nextStep, /samosud|ferran/i);
+    };
+    await replay(loadSlot("2166"), "85000000", [
+      "up", "enter", "p", "n", ..."zzz", "enter",
+      (text) => assert.match(text, /the outline of a sad-faced man wavers and fades away/),
+      "j", trackSokal, checkWrongWord, "j", "enter", "e", "s", "s", "e",
+      (text) => assert.match(text, /quit to dos/),
+    ]);
+    await replay(loadSlot("1265"), "85000000", [
+      (text) => assert.match(text, /8,10 s/),
+      "j", checkWrongWord, "j", "left", "left", "up", "left", "left", "up", "enter",
+      (text) => {
+        assert.match(text, /8,10 s.*area cast view encamp/);
+        assert.doesNotMatch(text, /a pale form rises before you/);
+      },
+    ]);
     let statusBeforeParlay;
     await replay(loadSlot("2166"), "85000000", [
       "j", (_text, frame) => {

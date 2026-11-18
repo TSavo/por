@@ -109,6 +109,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     if (commission.id === "sokal") {
       if (knows("sokal-ferran-lie")) nextStep = "Ferran rejected the lie. If you meet him again, tell him the truth about Phlan.";
+      else if (knows("sokal-pale-form-wrong-word")) {
+        nextStep = "The pale figure vanished after hearing the word. Reload a save from before the encounter to try again.";
+        if (knows("sokal-parchment")) nextStep += " Check the parchment for another word.";
+      }
       else if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
       else if (knows("sokal-pale-form") && knows("sokal-parchment")) nextStep = "Talk to the pale form. When asked for a word, try one from the parchment.";
       else if (knows("sokal-chapel")) nextStep = "Approach the altar on the south wall of the chapel.";
@@ -361,6 +365,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       text.includes("A PACK OF UNDEAD SUDDENLY APPEARS")) {
     leads.push({ id: "sokal-patrol-passed", title: "Sokal Keep patrol",
       detail: "The undead patrol accepted the word and let the party pass." });
+  }
+  if (text.includes("THE OUTLINE OF A SAD-FACED MAN WAVERS AND FADES AWAY")) {
+    leads.push({ id: "sokal-pale-form-wrong-word", title: "The pale figure vanished",
+      detail: "The figure faded after the party spoke a word at the altar." });
   }
   if (text.includes("I AM THE LIFE FORM OF FERRAN MARTINEZ")) {
     leads.push({
