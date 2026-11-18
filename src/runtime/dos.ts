@@ -48,6 +48,18 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
     return parts.join("\\");
   };
   const byName = new Map(files.map((f) => [canonical(f.name, ""), { data: f.data }]));
+  const artBlocks = new Map<string, Map<number, number>>();
+  if (process.env.POR_TRACE_ART === "1") {
+    for (const [name, { data }] of byName) {
+      if (!/^(?:8X8D\d+|PIC\d+|SPRIT\d+|CPIC\d+|MON\d+CHA|TITLE|FINAL\d+|COMSPR|ICON|WALLDEF\d+)\.DAX$/.test(name) || data.length < 2) continue;
+      const view = new DataView(data.buffer, data.byteOffset, data.byteLength);
+      const end = 2 + view.getUint16(0, true);
+      if (end > data.length || (end - 2) % 9 !== 0) continue;
+      const blocks = new Map<number, number>();
+      for (let at = 2; at < end; at += 9) blocks.set(end + view.getUint32(at + 1, true), data[at]!);
+      artBlocks.set(name, blocks);
+    }
+  }
   const shadowed = new Map<string, { data: Uint8Array } | undefined>();
   const mountCompanions = (files: DosFile[]) => {
     for (const [name, prior] of shadowed) {
@@ -234,6 +246,8 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
         return;
       }
       const count = Math.min(cpu.cx, Math.max(0, file.file.data.length - file.pos));
+      const block = artBlocks.get(file.name)?.get(file.pos);
+      if (count > 0 && block !== undefined) dosLog.push(`art ${file.name}#${block}`);
       if (count > 0 && !file.read) {
         const companions = readCompanions?.(file.name);
         if (companions) mountCompanions(companions);

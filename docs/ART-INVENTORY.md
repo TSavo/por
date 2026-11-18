@@ -42,3 +42,17 @@ The gallery includes 78 creature name matches between character records and
 same-bank combat pictures with matching IDs. The catalog preserves both file
 names. Tyranthraxus is also searchable by his dialogue spelling, which differs
 from the original combat record.
+
+Set `POR_TRACE_ART=1` to record original art archive reads in the translated
+runner's DOS report. A live Slums replay into the kobold fight confirmed these
+records by their payload offsets in the archives.
+
+| Record | Role | 4× dimensions |
+| --- | --- | --- |
+| `SPRIT2.DAX` block 0 | Three kobold encounter distances | 160×320, 96×260, 96×228 |
+| `CPIC2.DAX` blocks 0 and 128 | Two combat sprites | 96×96 each |
+| `MON2CHA.DAX` block 0 | Kobold character record | |
+
+This trace identifies the blocks loaded by the original executable. The
+encounter draw position and the combat animation selection still need tracing
+before the browser can place replacements by source ID.
