@@ -165,6 +165,15 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("graveyard-vampire-stairs")) nextStep = "Return to the wooden stairs in the graveyard and choose Yes to descend into the pit.";
       else if (knows("graveyard-vampire-location")) nextStep = "Search the northeast corner of Valhingen Graveyard for the vampire's lair.";
     }
+    if (commission.id === "zhentil") {
+      if (knows("zhentil-envoy-left") && knows("zhentil-packet-delivered")) nextStep = "Return to the council clerk in New Phlan and report the delivery.";
+      else if (knows("zhentil-climbable-wall")) nextStep = "Choose Yes at the climbable wall to leave the outpost.";
+      else if (knows("zhentil-quarters-attacked")) nextStep = "Get past the guards and look for a way out of the outpost.";
+      else if (knows("zhentil-quarters")) nextStep = "Wait in the assigned quarters as the guard instructed.";
+      else if (knows("zhentil-packet-delivered")) nextStep = "Follow the guard on the commandant's tour of the outpost.";
+      else if (knows("zhentil-envoy-challenge")) nextStep = "Answer Yes when asked if you are the diplomatic envoys. Present the sealed packet to the commandant.";
+      else if (knows("zhentil-sealed-packet")) nextStep = "Travel west to Zhentil Outpost and present the packet to its commandant with the seals intact.";
+    }
     if (commission.id === "bottle-vampire" && knows("graveyard-vampire-location")) {
       nextStep = "Go to the northeast corner of Valhingen Graveyard. Use the bottle when you confront the vampire.";
     }
@@ -306,6 +315,7 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     const accepted = (commission.id === "graveyard" && global(0x4a96) === 255) ||
       (commission.id === "auction" && value === 1) ||
       (commission.id === "textile" && global(0x4a97) === 255) ||
+      (commission.id === "zhentil" && global(0x4a98) === 255) ||
       (commission.id === "gate" && global(0x4a99) === 255) ||
       (commission.id === "castle" && global(0x4a9a) === 255);
     if (accepted && value !== 254 && value !== 255) {
@@ -686,6 +696,34 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE VAMPIRE IS BEHIND THE NORTHERN WALL")) {
     leads.push({ id: "graveyard-vampire-north-wall", title: "Behind the northern wall",
       detail: "The mystic pointed out where the vampire is hiding." });
+  }
+  if (text.includes("PRESENT THIS PACKET TO ITS COMMANDANT") && text.includes("DO NOT BREAK THE SEALS")) {
+    leads.push({ id: "zhentil-sealed-packet", title: "Keep the packet sealed",
+      detail: "The council instructed the party to present the packet to the Zhentil commandant with its seals intact." });
+  }
+  if (text.includes("ARE YOU THE DIPLOMATIC ENVOYS FROM NEW PHLAN")) {
+    leads.push({ id: "zhentil-envoy-challenge", title: "Zhentil's mounted patrol",
+      detail: "The mounted patrol asked if the party was New Phlan's diplomatic delegation." });
+  }
+  if (text.includes("HE GREETS YOU AND YOU HAND HIM THE PAPERS")) {
+    leads.push({ id: "zhentil-packet-delivered", title: "The commandant received the packet",
+      detail: "The party handed the papers to the commandant inside his office." });
+  }
+  if (text.includes("HERE ARE YOUR QUARTERS. DO NOT LEAVE THIS AREA")) {
+    leads.push({ id: "zhentil-quarters", title: "Quarters at Zhentil Outpost",
+      detail: "The guard showed the party its assigned quarters and told it to stay there." });
+  }
+  if (text.includes("YOU ARE ATTACKED BY FOUR GUARDS IN YOUR SLEEP") || text.includes("FOUR ARMED GUARDS BURST IN AND ATTACK YOU")) {
+    leads.push({ id: "zhentil-quarters-attacked", title: "Guards attacked the party",
+      detail: "The outpost guards attacked the party in its quarters." });
+  }
+  if (text.includes("THE WALL IS CLIMBABLE HERE, WILL YOU SCALE OVER IT")) {
+    leads.push({ id: "zhentil-climbable-wall", title: "A way out over the wall",
+      detail: "The party found a section of the outpost wall it can climb." });
+  }
+  if (text.includes("YOU CLIMB OVER THE WALL AND LEAVE THE OUTPOST") || text.includes("YOU ESCAPE FROM THE OUTPOST")) {
+    leads.push({ id: "zhentil-envoy-left", title: "The party escaped Zhentil Outpost",
+      detail: "The party made it out of the outpost." });
   }
   for (const number of new Set([...text.matchAll(/\bJOURNAL ENTRY (\d{1,2})\b/g)].map((match) => match[1]))) {
     leads.push({

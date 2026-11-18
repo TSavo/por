@@ -473,7 +473,29 @@ function checkCampaignJournal(): void {
       questProgress(m, [], m.ds).some(({ id }) => id === "commission-bottle-vampire")) {
     throw new Error("The graveyard flag did not resolve the known bottle objective without revealing it");
   }
-  const acceptance = [["graveyard", 0x4a96, 255], ["auction", progressAddresses.auction!, 1], ["textile", 0x4a97, 255],
+  const envoyOffer = lines.find(line => line.includes("A MESSAGE BE DELIVERED TO THE ZHENTIL OUTPOST TO THE WEST"));
+  if (!envoyOffer) throw new Error("Missing the Zhentil envoy commission");
+  const envoyStages = [
+    ["DO NOT BREAK THE SEALS", "seals intact"],
+    ["ARE YOU THE DIPLOMATIC ENVOYS FROM NEW PHLAN", "Answer Yes"],
+    ["HE GREETS YOU AND YOU HAND HIM THE PAPERS", "commandant's tour"],
+    ["HERE ARE YOUR QUARTERS", "assigned quarters"],
+    ["YOU ARE ATTACKED BY FOUR GUARDS IN YOUR SLEEP", "Get past the guards"],
+    ["THE WALL IS CLIMBABLE HERE", "Choose Yes at the climbable wall"],
+    ["YOU CLIMB OVER THE WALL AND LEAVE THE OUTPOST", "report the delivery"],
+  ] as const;
+  let envoyTranscript = envoyOffer;
+  for (const [trigger, prompt] of envoyStages) {
+    const witnessed = lines.find(line => line.includes(trigger));
+    if (!witnessed || currentObjective(discoveredLeads(envoyTranscript), "commission-zhentil").nextStep.includes(prompt)) {
+      throw new Error(`The Zhentil journal leaked a clue before ${trigger}`);
+    }
+    envoyTranscript += "\n" + witnessed;
+    if (!currentObjective(discoveredLeads(envoyTranscript), "commission-zhentil").nextStep.includes(prompt)) {
+      throw new Error(`The Zhentil journal missed the clue after ${trigger}`);
+    }
+  }
+  const acceptance = [["graveyard", 0x4a96, 255], ["auction", progressAddresses.auction!, 1], ["textile", 0x4a97, 255], ["zhentil", 0x4a98, 255],
     ["gate", 0x4a99, 255], ["castle", 0x4a9a, 255]] as const;
   for (const [id, address, value] of acceptance) {
     const commission = commissions.find((item) => item.id === id)!;

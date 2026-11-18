@@ -688,6 +688,11 @@ The browser verifier exposes `stojanow-gate`, `stojanow-west`, and
 at the New Phlan west gate (`0,4 W`).
 
 
+The Zhentil journal follows the packet seal instructions, mounted patrol,
+commandant handoff, quarters, ambush, and escape. The translation verifier
+uses the original ECL text for each discovery and exercises acceptance
+through the translated setter. The full outpost route still needs a browser replay.
+
 The Valhingen journal now uses witnessed clues for the lair, stairs, vampire
 escape, and northern wall. The original ECL text and completion flag are
 covered by the translation verifier. The vampire browser replay verifies
