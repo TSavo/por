@@ -60,6 +60,13 @@ libvgm's `vgm2wav` and its MAME SN76489/SN76496 core. The reproducible Linux/WSL
 helpers are `tools/build-libvgm.sh` and `tools/render-tandy-libvgm.sh`; the assets
 repository records the exact upstream commit, renderer hash, clock, and arguments.
 
+`src/audio/original-sounds.json` is the stable event manifest consumed by both
+presentation modes. It records IDs, original indices, type, loop behavior,
+per-hardware durations, replacement/fallback rules, provenance, and verification
+state. `npm run audio-coverage -- <report.json>` verifies every manifest entry has
+PC WAV, Tandy VGM, and libvgm Tandy WAV assets and reports Enhanced replacement
+coverage separately from faithful fallback coverage.
+
 ## Production pipeline
 
 Tandy traces will be converted to VGM register streams and rendered to canonical

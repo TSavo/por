@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "provenance": {
+    "source": "Pool of Radiance DOS EGA START.EXE resident driver at image 0x27f0",
+    "generator": "npm run render-original-sounds",
+    "tandyRenderer": "libvgm vgm2wav; see por-assets/original/tandy-renderer.json"
+  },
+  "controls": {
+    "initialize": 0,
+    "stop": 255
+  },
+  "events": [
+    { "id": "por.original.initialize-tone", "index": 1, "kind": "control", "loop": false, "pcSeconds": 0.008450, "tandySeconds": 0.008450 },
+    { "id": "por.original.effect-02", "index": 2, "kind": "effect", "loop": false, "pcSeconds": 1.022411, "tandySeconds": 0.819618 },
+    { "id": "por.original.effect-03", "index": 3, "kind": "effect", "loop": false, "pcSeconds": 0.156319, "tandySeconds": 0.219692 },
+    { "id": "por.original.effect-04", "index": 4, "kind": "effect", "loop": false, "pcSeconds": 0.895666, "tandySeconds": 1.022411 },
+    { "id": "por.original.effect-05", "index": 5, "kind": "effect", "loop": false, "pcSeconds": 0.752021, "tandySeconds": 1.596989 },
+    { "id": "por.original.effect-06", "index": 6, "kind": "effect", "loop": false, "pcSeconds": 0.642175, "tandySeconds": 1.022411 },
+    { "id": "por.original.effect-07", "index": 7, "kind": "effect", "loop": false, "pcSeconds": 0.283064, "tandySeconds": 0.092946 },
+    { "id": "por.original.effect-08", "index": 8, "kind": "effect", "loop": false, "pcSeconds": 2.543352, "tandySeconds": 2.560251 },
+    { "id": "por.original.effect-09", "index": 9, "kind": "effect", "loop": false, "pcSeconds": 0.046473, "tandySeconds": 0.261940 },
+    { "id": "por.original.effect-10", "index": 10, "kind": "effect", "loop": false, "pcSeconds": 0.042248, "tandySeconds": 0.076047 },
+    { "id": "por.original.effect-11", "index": 11, "kind": "effect", "loop": false, "pcSeconds": 1.444894, "tandySeconds": 1.816680 },
+    { "id": "por.original.effect-12", "index": 12, "kind": "effect", "loop": false, "pcSeconds": 0.135195, "tandySeconds": 0.135195 },
+    { "id": "por.original.score-13", "index": 13, "kind": "score", "loop": true, "pcSeconds": 60.837659, "tandySeconds": 60.837659 },
+    { "id": "por.original.score-14", "index": 14, "kind": "score", "loop": true, "pcSeconds": 60.837659, "tandySeconds": 60.837659 },
+    { "id": "por.original.score-15", "index": 15, "kind": "score", "loop": true, "pcSeconds": 60.837659, "tandySeconds": 60.837659 },
+    { "id": "por.original.score-16", "index": 16, "kind": "score", "loop": false, "pcSeconds": 53.545590, "tandySeconds": 53.545590 },
+    { "id": "por.original.score-17", "index": 17, "kind": "score", "loop": false, "pcSeconds": 46.447863, "tandySeconds": 46.447863 },
+    { "id": "por.original.score-18", "index": 18, "kind": "score", "loop": false, "pcSeconds": 32.252409, "tandySeconds": 32.252409 },
+    { "id": "por.original.score-19", "index": 19, "kind": "score", "loop": false, "pcSeconds": 22.518384, "tandySeconds": 22.518384 },
+    { "id": "por.original.score-20", "index": 20, "kind": "score", "loop": false, "pcSeconds": 12.784358, "tandySeconds": 12.784358 }
+  ],
+  "playback": {
+    "onNewEvent": "replace-current",
+    "onInitializeOrStop": "stop-current",
+    "enhancedFallback": "selected-classic-hardware",
+    "preferences": "browser-local-not-campaign-save"
+  },
+  "verification": {
+    "driverExecution": "verified-all-events",
+    "pcWav": "generated",
+    "tandyVgm": "generated",
+    "tandyWav": "libvgm-rendered",
+    "dosReferenceComparison": "pending"
+  }
+}
