@@ -163,8 +163,11 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("castle-impostor")) nextStep = "Continue searching the castle for the real Tyranthraxus.";
       else if (knows("castle-disguise")) nextStep = "Use the clothes offered by the resistance to move through the castle and find Tyranthraxus.";
     }
-    if (commission.id === "gate" && knows("gate-garrison-defeated")) {
-      nextStep = "Defeat the outside guards before reinforcements arrive, then report to the clerk.";
+    if (commission.id === "gate") {
+      if (knows("gate-garrison-defeated")) nextStep = "Defeat the outside guards before reinforcements arrive, then report to the clerk.";
+      else if (knows("gate-toll-paid")) nextStep = "Continue through the gate and look for the garrison inside.";
+      else if (knows("gate-toll-demand")) nextStep = "The bugbear asked for 15 gold. If you can pay, choose Yes at the gate.";
+      else if (knows("gate-wagon-entry")) nextStep = "Approach the entrance where the wagon got through. Watch for an opportunity to get past the bugbear guards.";
     }
     return { title: commission.title, nextStep };
   }
@@ -558,6 +561,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("OPENING THE BOX WILL DAMAGE THE SEAL BEYOND REPAIR")) {
     leads.push({ id: "textile-iron-box", title: "Cadorna's sealed iron box",
       detail: "The family seal across the lock will break if the party opens the box." });
+  }
+  if (text.includes("A MAN WITH A WAGON OF GOODS") && text.includes("THE GATES OPEN")) {
+    leads.push({ id: "gate-wagon-entry", title: "A wagon entered Stojanow Gate",
+      detail: "The wagon driver handed something to the bugbear guards, who opened the gate." });
+  }
+  if (text.includes("A BUGBEAR WALKS UP TO YOU") && text.includes("HAVE THE 15 GOLD")) {
+    leads.push({ id: "gate-toll-demand", title: "The bugbear demanded a toll",
+      detail: "The guard asked the party for 15 gold." });
+  }
+  if (text.includes("THE BUGBEAR TAKES THE MONEY AND THE GATE OPENS")) {
+    leads.push({ id: "gate-toll-paid", title: "The bugbear opened the gate",
+      detail: "The guard took the payment and let the party through." });
   }
   if (text.includes("COUNCILMAN CADORNA CONFRONTS YOU. 'YOU HAVE TAKEN MY FAMILY TREASURE")) {
     leads.push({ id: "textile-confrontation", title: "Cadorna confronted the party", detail: "Cadorna accused the party of taking his family treasure and left without paying." });

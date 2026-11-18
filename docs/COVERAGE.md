@@ -900,6 +900,11 @@ directions.
 The same profile check verifies that seeing Cadorna's confrontation
 refines an already closed commission to show that he left without paying.
 
+The Stojanow Gate profile check uses the original wagon, toll demand,
+payment, and garrison dialogue in order. Each discovery updates the
+tracked objective. Setting the original gate capture flag through the
+translated ECL setter advances the objective to the council clerk.
+
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the
 harbor master offers new destinations as soon as the keep is cleared, and

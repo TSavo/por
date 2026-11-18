@@ -350,6 +350,29 @@ function checkCampaignJournal(): void {
       throw new Error(`Auction journal reported an incorrect outcome for ${fragment}`);
     }
   }
+  const gateCommission = commissions.find(({ id }) => id === "gate")!;
+  writeGlobal(progressAddresses.gate!, 0);
+  const gateProfile = openJournalProfile();
+  const gateJournal = (text: string) => gateProfile(text, (known) => questProgress(m, known, m.ds));
+  if (currentObjective(gateJournal(gateCommission.offer), "commission-gate").nextStep !== gateCommission.next) {
+    throw new Error("The Stojanow Gate offer revealed unobserved clues");
+  }
+  for (const [trigger, nextStep] of [
+    ["A MAN WITH A WAGON OF GOODS", "where the wagon got through"],
+    ["HAVE THE 15 GOLD", "asked for 15 gold"],
+    ["THE BUGBEAR TAKES THE MONEY", "look for the garrison inside"],
+    ["YOU HAVE SLAIN THE GARRISON", "outside guards"],
+  ] as const) {
+    const line = lines.find((text) => text.includes(trigger));
+    if (!line || !currentObjective(gateJournal(line), "commission-gate").nextStep.includes(nextStep)) {
+      throw new Error(`The Stojanow Gate journal did not advance after ${trigger}`);
+    }
+  }
+  writeGlobal(progressAddresses.gate!, 254);
+  if (!currentObjective(gateJournal(""), "commission-gate").nextStep.includes("council clerk")) {
+    throw new Error("The Stojanow Gate journal did not advance to reporting the capture");
+  }
+  writeGlobal(progressAddresses.gate!, 0);
   const ironBox = lines.find((line) => line.includes("ACROSS THE LOCK IS THE SEAL OF THE FAMILY OF CADORNA"))!;
   const boxLead = discoveredLeads(ironBox);
   const textileOffer = discoveredLeads(commissions.find(({ id }) => id === "textile")!.offer);
