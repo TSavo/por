@@ -374,7 +374,15 @@ try {
     assert.equal(knows("bane-temple-symbol"), baneSymbol);
     assert.equal(knows("bane-temple-symbol-carried"), baneSymbol);
     assert.ok(!knows("bane-temple-guard-check"));
-    for (const key of ["j", "up", "enter", "enter", "j"]) await advance(key);
+    for (const key of ["j", "up", "enter", "enter"]) await advance(key);
+    if (baneGate || baneSymbol) {
+      assert.equal(frame.portrait, "portrait:area:24:PIC1.DAX:4:0:0");
+      await waitFor("the temple gatekeeper portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+      await switchBothWays();
+      const capture = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-temple-gate.png"), Buffer.from(capture.data, "base64"));
+    }
+    await advance("j");
     assert.equal(knows("bane-temple-symbol"), baneSymbol);
     if (baneGate || baneSymbol) {
       assert.ok(knows("bane-temple-guard-check"));

@@ -689,6 +689,9 @@ original leather symbol item record and the witnessed goblin clue. The
 journal sees the symbol in the live inventory, recommends Let Him Touch
 You during the inspection, and switches to entering the temple after the
 guard admits the party.
+The gate replays also verify the original 352×352 gatekeeper illustration
+and switch modes during the inspection. The shared source picture
+selects separate Enhanced art in the temple district and in Podal Plaza.
 The Slums infantry and Textile House priestess share a guest image pattern.
 Area-scoped overrides keep their new artwork distinct, verified live in both fights.
 

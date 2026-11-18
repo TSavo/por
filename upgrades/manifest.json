@@ -2,6 +2,7 @@
   "version": 1,
   "assets": {
     "portrait:area:18:PIC1.DAX:4:0:0": "podal-shrine-recruiter.png",
+    "portrait:area:24:PIC1.DAX:4:0:0": "bane-temple-gatekeeper.png",
     "portrait:HEAD1.DAX:48:BODY1.DAX:25": "podal-infirmary-healer.png",
     "tile:1:2e55ca6e677e0dd7276ab67a7f5e07f9701a696c4ac8d9912568fa5f00593f1f": "buccaneer-base-terrain-2e55ca6e677e.png",
     "tile:1:cf13aae2972cd9237b12bb064e7077d9b09469ee89ce918dced045c80190675c": "buccaneer-base-terrain-cf13aae2972c.png",
