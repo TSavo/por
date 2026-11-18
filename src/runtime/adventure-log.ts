@@ -745,6 +745,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("HE JUST HIRED ME TO IMPERSONATE HIM")) {
     leads.push({ id: "castle-impostor", title: "Tyranthraxus's impostor", detail: "The figure on the throne admitted he was hired to impersonate Tyranthraxus." });
   }
+  if (text.includes("AN EVIL SPIRIT FROM AN UNHOLY POOL GUIDES YOUR ENEMIES")) {
+    leads.push({ id: "phlan-seer-prophecy", title: "The Old Phlan seer's prophecy",
+      detail: "The seer said an evil spirit from an unholy pool guides the party's enemies." });
+  }
   if (text.includes("AN ANCIENT BRONZE DRAGON, SURROUNDED BY A FIERY AURA")) {
     leads.push({ id: "castle-audience", title: "The audience hall", detail: "The party saw a bronze dragon rise next to the glowing pool." });
   }

@@ -849,6 +849,8 @@ reflected strike animation, and state-preserving presentation switch.
 The `graveyard-spectre` replay starts at `8,1 E` in controlled slot A. It
 checks the Spectre's 96×96 hovering pose and reflected strike during the
 brass-door encounter.
+The `graveyard-mummy` replay starts at `9,10 S` in controlled slot A. It
+checks supported 96×96 ready and punch frames during the sarcophagus fight.
 The `overland-graveyard-arrival` and `overland-north-gate-arrival` replays
 start from controlled slot A at the river fork. Chrome verifies all 605
 placements across five views. The arrival frames reuse 46 same-hash tiles
@@ -1020,7 +1022,16 @@ Ask Dragon for Advice. Chrome verifies the 352×352 silver dragon portrait
 when Diogenes appears and through the Silver Bottle quest briefing.
 The `old-phlan-seer` replay starts in controlled slot B just before the
 hidden seer. It verifies her new 352×352 portrait in Chrome and checks it
-clears as she departs after giving her prophecy.
+clears as she departs after giving her prophecy. It verifies the clue is
+hidden before the prophecy and saves it to slot B after the party hears it.
+`old-phlan-seer-reload` boots that save and checks the clue in the journal.
+The `diogenes-advice` replay also checks that the Silver Bottle quest is only
+offered in the journal after the briefing.
+
+The `nomad-camp-approach` replay checks the overland camp illustration at
+the Enter / Leave choice. `nomad-tent-lane` and `nomad-camp-rim` start at
+`2,14 E` in a native save made after entering the camp. Chrome verifies
+1,573 placements across both branches, using 49 new 32×32 tiles.
 The `phlan-city-hall-approach` replay starts from slot B inside New Phlan's
 original gateway at `1,4 E`. Chrome checks 1,815 placements across 15 views
 on the City Hall approach and adjacent streets. The route uses 83 patterns,
