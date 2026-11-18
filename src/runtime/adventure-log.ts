@@ -82,7 +82,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "auction" && tracked.status === "ready-to-report") {
         const result = knows("auction-cancelled") ? "Report that the auction was cancelled"
           : knows("auction-wand-of-fear") ? "Report that the weapon was a Wand of Fear"
+          : knows("auction-wand-of-illumination") ? "Report that an onlooker called it a Wand of Illumination"
           : knows("auction-exchange") ? "Report that a man and an ogre exchanged the wand for a large bag"
+          : knows("auction-buyer-unseen") ? "Report that the auction ended before the party could identify the buyer"
           : "Report what the party saw at the auction";
         return { title: commission.title, nextStep: `${result} to the council clerk at City Hall.` };
       }
@@ -562,6 +564,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("IT'S ONLY A WAND OF FEAR")) {
     leads.push({ id: "auction-wand-of-fear", title: "The auction weapon",
       detail: "A closer look revealed a Wand of Fear at the Podal Plaza auction." });
+  }
+  if (text.includes("IT'S A WAND OF ILLUMINATION. WHO CARES")) {
+    leads.push({ id: "auction-wand-of-illumination", title: "An onlooker identified the wand",
+      detail: "Someone in the auction crowd called the item a Wand of Illumination." });
+  }
+  if (text.includes("THE AUCTION ENDS. YOU DON'T SEE WHO BOUGHT THE ITEM")) {
+    leads.push({ id: "auction-buyer-unseen", title: "The buyer went unseen",
+      detail: "The auction ended without the party seeing who bought the item." });
   }
   if (text.includes("THE AUCTION IS CANCELLED!")) {
     leads.push({ id: "auction-cancelled", title: "The auction was cancelled",

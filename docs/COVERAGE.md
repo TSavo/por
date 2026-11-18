@@ -755,6 +755,9 @@ the commission turned in. Run this segment with
 with `POR_QUICK_STEPS=5000000` to reproduce the historical courtyard win
 and check its downstream branches. The default watchdog no longer produces
 that assisted win (see below).
+The journal check against the original auction dialogue also verifies the
+onlooker's Wand of Illumination claim and the ending where the buyer goes
+unseen. The completion flag alone leaves the report directions general.
 Use a save at the clerk with Sokal turned in and the auction accepted.
 The replay copies that save to a scratch directory.
 After the auction turn-in, the replay takes the east door to Cadorna,

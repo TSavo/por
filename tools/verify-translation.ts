@@ -341,10 +341,14 @@ function checkCampaignJournal(): void {
   const auctionOffer = discoveredLeads(auction.offer);
   writeGlobal(progressAddresses.auction!, 254);
   const auctionReady = questProgress(m, auctionOffer, m.ds);
+  if (!currentObjective(auctionReady).nextStep.includes("what the party saw")) {
+    throw new Error("The auction journal inferred an outcome from the completion flag alone");
+  }
   for (const [fragment, hint] of [["IT'S ONLY A WAND OF FEAR", "Wand of Fear"],
     ["THE AUCTION IS CANCELLED!", "was cancelled"],
     ["A MAN AND OGRE EXCHANGE THE WAND", "exchanged the wand"],
-    ["IT'S A WAND OF ILLUMINATION", "what the party saw"]]) {
+    ["IT'S A WAND OF ILLUMINATION", "an onlooker called it a Wand of Illumination"],
+    ["YOU DON'T SEE WHO BOUGHT THE ITEM", "before the party could identify the buyer"]]) {
     const line = lines.find((text) => text.includes(fragment!));
     if (!line || !currentObjective([...auctionReady, ...discoveredLeads(line)]).nextStep.includes(hint!)) {
       throw new Error(`Auction journal reported an incorrect outcome for ${fragment}`);
