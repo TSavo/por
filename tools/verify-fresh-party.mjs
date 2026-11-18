@@ -715,7 +715,28 @@ if (process.argv[2] === "--slums-armored-patrols-checkpoint") {
     "end", "v",
     (text) => assert.match(text, /brin.*exp 718/),
   ]);
-  console.log("Won three Slums patrol fights with the armored party and reloaded their progress:", join(saveDir, "D.json"));
+  const fullyRested = /alda 3 6.*brin 1 6.*cora 3 6.*dorn 3 8.*enna 2 6.*fenn 2 8.*13,1 w/;
+  await replay(loadSlot("2064"), "85000000", [
+    "up", "right", "up", "left", "up", "left", "up", "enter", "enter",
+    (text) => assert.match(text, /13,1 w.*orcs are arguing over some papers/),
+    "enter", "enter", "enter", ...Array(32).fill("q"),
+    (text) => assert.match(text, /continue battle:yes no/),
+    "n", (text) => assert.match(text, /the party has won.*receives 92 experience points/),
+    "enter", "enter",
+    (text) => assert.match(text, /alda 3 4.*brin 1 4.*cora 3 6.*dorn 3 8.*enna 2 6.*fenn 2 0/),
+    "s", ...Array(4).fill("end"), "t",
+    (text) => assert.match(text, /loot clerical scroll with 2 spells/),
+    "t", "e", "e", "enter", "r", "y", ...Array(8).fill("i"), "r", ...Array(35).fill("n"),
+    (text) => assert.match(text, fullyRested),
+    "s", "s", "a",
+  ]);
+  await replay(loadSlot("1e61"), "85000000", [
+    (text) => assert.match(text, fullyRested),
+    ...Array(4).fill("end"), "v",
+    (text) => assert.match(text, /enna.*exp 889.*hp 6/),
+    "i", (text) => assert.match(text, /enna's items.*clerical scroll with 2 spells/),
+  ]);
+  console.log("Won three Slums patrols and the fixed orc outpost, then reloaded the fully rested party:", join(saveDir, "A.json"));
   process.exit(0);
 }
 

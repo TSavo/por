@@ -189,7 +189,10 @@ Run `node tools/verify-fresh-party.mjs --slums-armored-patrols-checkpoint PATH_T
 using the upgraded save. The party reenters the Slums and wins two kobold
 patrols and one orc patrol. With strict combat verification enabled no
 watchdog intervenes. Reloading at (13,3) confirms Brin has 718 XP and Fenn
-is down. The fixed orc outpost is farther along the route.
+is down. From that save, the party wins the fixed orc outpost at (13,1)
+with five fighters still standing and collects the scroll. Eight days of
+rest in the cleared room restore all six fighters to full HP, including
+Fenn. Reloading slot A verifies their HP and Enna's scroll and 889 XP.
 From J, the party walks back to New Phlan, hears the first council commissions
 at City Hall, and follows the harbor master's directions to the pier. The
 original boat transition lands all six on Thorn Island at (8,14). The replay
