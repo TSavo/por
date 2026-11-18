@@ -66,6 +66,7 @@ interface FrameState {
   scene?: string;
   viewport?: string;
   tiles?: [number, number, string][];
+  tileInventory?: [number, number, string][];
   text?: [number, number, number][];
   textColors?: [number, number, number][];
   journal?: { objective: JournalObjective; leads: JournalLead[]; trackedId?: string };

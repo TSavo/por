@@ -27,6 +27,11 @@ area and use the rendered tile pattern. Two source assets with identical
 rendered pixels in the same area share a replacement. Classic mode keeps the
 original pixels.
 
+Set `POR_TRACE_TILES=1` when collecting references for a new route. The
+local runner's `/state` includes `tileInventory` with each exploration
+cell's x and y coordinates and replacement key, including cells that have
+no artwork yet. Capture it alongside the classic frame as the party moves.
+
 The experimental Slums doorway pack is in `upgrades/slums`. Set
 `POR_UPGRADES_DIR=upgrades/slums` before starting the browser runner and use
 F10 while exploring the Slums. The pack includes 15 individually drawn
