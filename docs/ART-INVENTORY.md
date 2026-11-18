@@ -96,5 +96,4 @@ member 0, frame 0 at (48,32). Its 160×320 transparent replacement uses
 the same rust tunic, copper brow, and shield as the combat art, with a
 lowered blade for the approach. Chrome verified the sprite over the
 individually rendered corridor tiles, then verified its removal on entry
-to combat. The other source distances are 32×65 and 16×49. Their live
-anchors have yet to be verified.
+to combat. A controlled replay passed the middle and far distance arguments to the original draw procedure. Chrome displayed the independently drawn 128×260 middle pose at (56,32) and the 64×196 far pose at (64,32), over the same corridor tiles. Both runs reached the original combat menus.
