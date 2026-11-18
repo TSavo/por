@@ -2,7 +2,7 @@ import { readFileSync, renameSync, writeFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import { discoveredLeads, type JournalLead } from "../src/runtime/adventure-log.js";
 
-const statusRank = { offered: 1, accepted: 2, "ready-to-report": 3, "turned-in": 4 };
+const statusRank = { offered: 1, accepted: 2, "ready-to-report": 3, "reward-pending": 4, "turned-in": 5 };
 
 /** An explicitly selected party's journal, stored outside DOS guest memory. */
 export function openJournalProfile(path?: string) {

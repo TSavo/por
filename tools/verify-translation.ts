@@ -118,6 +118,10 @@ function checkSokalQuestProgress(): void {
       questProgress(m, [], m.ds).length !== 0) {
     throw new Error("The journal did not recognize the original keep-clear flag");
   }
+  const announced = discoveredLeads("WITH SOKAL KEEP IN OUR HANDS, WE CAN USE BOATS TO BYPASS THE BARREN RIVER.");
+  if (announced[0]?.status !== "reward-pending") {
+    throw new Error("The journal closed the quest before the original reward flag was written");
+  }
   saveSokalState(255);
   if (questProgress(m, offered, m.ds)[0]?.status !== "turned-in") {
     throw new Error("The journal did not recognize the original reward flag");

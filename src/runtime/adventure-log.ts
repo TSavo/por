@@ -28,7 +28,7 @@ export interface JournalLead {
   id: string;
   title: string;
   detail: string;
-  status?: "offered" | "accepted" | "ready-to-report" | "turned-in";
+  status?: "offered" | "accepted" | "ready-to-report" | "reward-pending" | "turned-in";
 }
 
 export interface JournalObjective {
@@ -40,13 +40,15 @@ export interface JournalObjective {
 export function currentObjective(leads: readonly JournalLead[], trackedId?: string): JournalObjective {
   const unresolved = leads.filter(isOpenObjective);
   const tracked = unresolved.find((lead) => lead.id === trackedId)
-    ?? unresolved.find((lead) => lead.status === "ready-to-report")
+    ?? unresolved.find((lead) => lead.status === "ready-to-report" || lead.status === "reward-pending")
     ?? unresolved.find((lead) => lead.status === "accepted")
     ?? unresolved.find((lead) => lead.id !== "commission-records")
     ?? unresolved[0];
   const commission = commissions.find(({ id }) => tracked?.id === `commission-${id}`);
   if (commission) {
-    if (tracked?.status === "ready-to-report") return { title: commission.title, nextStep: tracked.detail };
+    if (tracked?.status === "ready-to-report" || tracked?.status === "reward-pending") {
+      return { title: commission.title, nextStep: tracked.detail };
+    }
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
     if (commission.id === "sokal") {
       const knows = (id: string) => leads.some((lead) => lead.id === id);
@@ -151,14 +153,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     });
   }
   for (const commission of commissions) {
-    const complete = commission.report !== undefined && text.includes(commission.report);
+    const reported = commission.report !== undefined && text.includes(commission.report);
+    const pendingReward = reported && progressAddresses[commission.id] !== undefined;
+    const complete = reported && !pendingReward;
     const accepted = commission.accepted !== undefined && text.includes(commission.accepted);
-    if (!complete && !accepted && !text.includes(commission.offer)) continue;
+    if (!reported && !accepted && !text.includes(commission.offer)) continue;
     leads.push({
       id: `commission-${commission.id}`,
-      title: `${commission.title} - ${complete ? "turned in" : accepted ? "accepted" : "offered"}`,
-      detail: complete ? "The result was acknowledged." : accepted ? commission.afterAcceptance ?? commission.next : commission.next,
-      status: complete ? "turned-in" : accepted ? "accepted" : "offered",
+      title: `${commission.title} - ${complete ? "turned in" : pendingReward ? "reward pending" : accepted ? "accepted" : "offered"}`,
+      detail: complete ? "The result was acknowledged."
+        : pendingReward ? "Finish collecting the council reward."
+        : accepted ? commission.afterAcceptance ?? commission.next : commission.next,
+      status: complete ? "turned-in" : pendingReward ? "reward-pending" : accepted ? "accepted" : "offered",
     });
   }
   for (const number of new Set([...text.matchAll(/\bJOURNAL ENTRY (\d{1,2})\b/g)].map((match) => match[1]))) {

@@ -138,3 +138,9 @@ and returns through the original turn cleanup. The Sokal Keep courtyard replay
 verified both paths, including control returning to a party member after an
 enemy stall. The automated check also runs the original translated ECL global
 setter to verify how the journal interprets the keep-clear and reward flags.
+
+A controlled Sokal Keep test set only the keep-clear flag using the original
+ECL setter. From there, play through the original runner verified that the
+harbor master offers new destinations as soon as the keep is cleared, and
+that the journal waits for the clerk's reward flow to finish before marking
+the commission turned in. This test bypassed the courtyard battle.
