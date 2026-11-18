@@ -279,6 +279,11 @@ Temple of Tyr's offer. The verifier checks that the ambush stays hidden
 at the landing, passes the undead, and opens the journal as the courtyard
 force appears. The tracked objective then gives preparation advice and
 points to the known temple for paid healing. Ferran remains undisclosed.
+With `POR_REQUIRE_UNINTERRUPTED_COMBAT=1`, the same replay uses Space to
+reach Brin's manual turn. Aim shows a wounded orc at range three, outside
+the mace's reach. Brin moves east and southeast, then uses Aim and Target
+at range one. The original combat hands the turn to the Curate without
+watchdog intervention.
 
 Run `node tools/verify-fresh-party.mjs --sokal-recovered-courtyard-checkpoint PATH_TO_SLOT_G`
 with `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` to continue from the temple. The

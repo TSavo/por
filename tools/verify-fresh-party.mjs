@@ -1175,9 +1175,26 @@ if (process.argv[2] === "--sokal-tracked-ambush-checkpoint") {
     (text) => assert.match(text, /the undead leave/),
     "up", "enter",
     (text) => assert.match(text, /8,5 w.*a large force of orcs and hobgoblins rushes you/),
-    "j", checkAmbush(true),
+    "j", checkAmbush(true), "j",
+    "enter", "enter", "enter",
+    ["space", /brin hitpoints 6 ac 1 mace move view aim use quick done/, 20],
+    "a", "n", "n", "n",
+    (text) => {
+      assert.match(text, /orc hitpoints 2 ac 6 range = 3.*aim:next/);
+      assert.doesNotMatch(text, /manual target/);
+    },
+    "e", "m",
+    (text) => assert.match(text, /brin hitpoints.*move\/attack, move left = 3/),
+    "right",
+    (text) => assert.match(text, /brin hitpoints.*move\/attack, move left = 2/),
+    "pagedown", "a", "n", "n", "n",
+    (text) => assert.match(text, /orc hitpoints 2 ac 6 range = 1.*manual target/),
+    "t",
+    (text) => assert.match(text, /curate hitpoints 25 ac 2 mace/),
+    "space",
+    (text) => assert.match(text, /curate hitpoints 25 ac 2 mace move\/attack/),
   ]);
-  console.log("Verified the Sokal journal reveals the courtyard ambush and temple guidance when the party encounters it.");
+  console.log("Verified the Sokal ambush journal and Brin's manual mace attack.");
   process.exit(0);
 }
 
