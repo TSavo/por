@@ -375,6 +375,7 @@ try {
     assert.equal(knows("bane-temple-symbol-carried"), baneSymbol);
     assert.ok(!knows("bane-temple-guard-check"));
     await advance("j");
+    const interiorPatterns = new Set();
     if (baneSymbol) {
       const patterns = new Set();
       let views = await verifyTiledView(24, patterns);
@@ -399,6 +400,15 @@ try {
       const encounter = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "bane-gatekeeper-approach.png"), Buffer.from(encounter.data, "base64"));
       await advance("enter");
+    } else if (baneGoblins) {
+      assert.equal(await verifyTiledView(31, interiorPatterns), 1);
+      for (const key of ["left", "right", "right", "right", "right", "right", "up"]) {
+        await advance(key);
+        assert.equal(await verifyTiledView(31, interiorPatterns), 1);
+      }
+      const corridor = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-interior-corridor.png"), Buffer.from(corridor.data, "base64"));
+      for (const key of ["enter", "enter"]) await advance(key);
     } else {
       for (const key of ["up", "enter", "enter"]) await advance(key);
     }
@@ -433,6 +443,13 @@ try {
     } else {
       assert.ok(knows("bane-temple-symbol"));
       assert.match(frame.journal.objective.nextStep, /bring a holy symbol of bane/i);
+      await advance("j");
+      assert.equal(await verifyTiledView(31, interiorPatterns), 1);
+      for (const key of ["right", "right", "up"]) {
+        await advance(key);
+        assert.equal(await verifyTiledView(31, interiorPatterns), 1);
+      }
+      assert.equal(interiorPatterns.size, 25);
     }
     console.log(`Verified witnessed Temple of Bane guidance on the ${routeName} route.`);
   } else if (shrineReturn) {
