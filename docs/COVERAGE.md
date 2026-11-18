@@ -692,6 +692,11 @@ guard admits the party.
 The gate replays also verify the original 352×352 gatekeeper illustration
 and switch modes during the inspection. The shared source picture
 selects separate Enhanced art in the temple district and in Podal Plaza.
+The `bane-symbol` replay also turns through all four directions at
+`1,7 E` and walks up to the gate. Chrome verifies 49 individual 32×32
+replacements across eight views, with all 121 cells covered in each.
+These captures stop before the escort sprite enters the picture, so the
+terrain pack contains only scenery.
 The Slums infantry and Textile House priestess share a guest image pattern.
 Area-scoped overrides keep their new artwork distinct, verified live in both fights.
 

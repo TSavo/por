@@ -374,7 +374,23 @@ try {
     assert.equal(knows("bane-temple-symbol"), baneSymbol);
     assert.equal(knows("bane-temple-symbol-carried"), baneSymbol);
     assert.ok(!knows("bane-temple-guard-check"));
-    for (const key of ["j", "up", "enter", "enter"]) await advance(key);
+    await advance("j");
+    if (baneSymbol) {
+      const patterns = new Set();
+      let views = await verifyTiledView(24, patterns);
+      for (const key of ["left", "right", "right", "right", "right", "right", "up"]) {
+        await advance(key);
+        views += await verifyTiledView(24, patterns);
+      }
+      assert.equal(views, 8);
+      assert.equal(patterns.size, 49);
+      const approach = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-temple-approach.png"), Buffer.from(approach.data, "base64"));
+      await advance("enter");
+      await advance("enter");
+    } else {
+      for (const key of ["up", "enter", "enter"]) await advance(key);
+    }
     if (baneGate || baneSymbol) {
       assert.equal(frame.portrait, "portrait:area:24:PIC1.DAX:4:0:0");
       await waitFor("the temple gatekeeper portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));

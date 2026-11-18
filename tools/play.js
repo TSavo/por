@@ -63,7 +63,8 @@ function showScreen() {
       tile.alt = "";
       const terrain = id.startsWith("tile:");
       if (terrain) tile.classList.add("terrain-tile");
-      const sky = id.startsWith("tile:16:") ? "swamp" : id.startsWith("tile:28:") ? "zhentil" : undefined;
+      const sky = id.startsWith("tile:16:") ? "swamp" : id.startsWith("tile:28:") ? "zhentil"
+        : id.startsWith("tile:24:") ? "bane" : undefined;
       if (sky) {
         tile.dataset.sky = sky;
         // Align the sky across all eleven rows. The gradient travels 80 guest pixels.
