@@ -363,8 +363,7 @@ async function verifyFighterTrainingJournal() {
   console.log("Verified the fighter trainer's directions are discovered in play and retained after reloading slot H.");
 }
 
-async function verifyPodalFromCouncil(checkpoint, auctionOnly = false) {
-  copyFileSync(checkpoint, join(saveDir, "H.json"));
+async function verifyPodalFromCouncil(auctionOnly = false) {
   const load = loadSlot;
   const checkAuction = (status) => (_text, frame) =>
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-auction")?.status, status);
@@ -429,6 +428,7 @@ async function verifyPodalFromCouncil(checkpoint, auctionOnly = false) {
   if (auctionOnly) {
     await replay(load("1e61"), "85000000", [
       "j", checkAuction("turned-in"), (_text, frame) => {
+        assert.ok(frame.journal.leads.some(({ id, status }) => id === "commission-sokal" && status === "turned-in"));
         assert.ok(frame.journal.leads.some(({ id, status }) => id === "commission-textile" && status === "accepted"));
         assert.ok(frame.journal.leads.some(({ id }) => id === "auction-exchange"));
       },
@@ -1630,6 +1630,8 @@ if (process.argv[2] === "--textile-courtyard-checkpoint") {
 
 if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.argv[2])) {
   const beforeFerran = process.argv[2] === "--sokal-ferran-checkpoint";
+  const continueToAuction = process.argv[4] === "--continue-to-auction";
+  assert.ok(!process.argv[4] || continueToAuction, "Expected --continue-to-auction after the checkpoint");
   assert.ok(process.argv[3], beforeFerran ? "Pass a save one step before meeting Ferran."
     : "Pass a save at Ferran's altar after learning his password.");
   const checkSokal = (status) => (_text, frame) => {
@@ -1752,6 +1754,7 @@ if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.a
     (text) => assert.match(text, /alda.*platinum 46.*exp 1313/),
   ]);
   console.log("Walked from Ferran's altar to the pier, took the boat, and reloaded the Sokal reward at the clerk.");
+  if (continueToAuction) await verifyPodalFromCouncil(true);
   process.exit(0);
 }
 
@@ -1812,7 +1815,8 @@ if (process.argv[2] === "--castle-ending-checkpoint") {
 if (process.argv[2] === "--podal-checkpoint") {
   assert.ok(process.argv[3], "Pass a save at the clerk with Sokal turned in and the auction accepted.");
   assert.ok(!process.argv[4] || process.argv[4] === "--auction-only", "Expected --auction-only after the checkpoint");
-  await verifyPodalFromCouncil(process.argv[3], process.argv[4] === "--auction-only");
+  copyFileSync(process.argv[3], join(saveDir, "H.json"));
+  await verifyPodalFromCouncil(process.argv[4] === "--auction-only");
   process.exit(0);
 }
 

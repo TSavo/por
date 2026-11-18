@@ -743,6 +743,10 @@ in after leaving it. Reloading slot H at the clerk verifies Alda's 1,313
 total XP and 46 platinum and the turned-in Sokal commission.
 Run `node tools/verify-fresh-party.mjs --sokal-altar-checkpoint PATH_TO_SLOT_G`
 with the truthful altar save.
+Add `--continue-to-auction` to either Ferran or altar checkpoint command
+to continue in the same scratch save directory. The replay uses the
+newly earned Sokal turn-in save, completes Podal Plaza, and reloads with
+both commissions turned in and the Textile House commission accepted.
 
 The Podal Plaza replay starts from that post-Sokal save at the clerk.
 It buys westbound passage, walks from the landing to the north entrance
