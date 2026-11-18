@@ -237,7 +237,9 @@ if (input) {
 }
 const journalSlice = loadedSlices.find((slice) => slice.index === 3);
 adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || liveAt !== undefined || profilePath) && journalSlice
-  ? observeAdventureLog(cpu, journalSlice, loadedSlices.find((slice) => slice.index === 16))
+  ? observeAdventureLog(cpu, journalSlice, loadedSlices.find((slice) => slice.index === 16),
+    process.env.POR_BROWSER_PLAY === "1"
+      ? (message) => console.log(`POR_TEXT ${JSON.stringify({ step: cpu.steps, message })}`) : undefined)
   : undefined;
 if (input && process.env.POR_BROWSER_PLAY === "1") {
   const title = loadedSlices.find((slice) => slice.index === 1);

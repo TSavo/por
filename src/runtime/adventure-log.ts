@@ -4,7 +4,8 @@ import type { LoadedSlice } from "./overlay.js";
 import { commissions } from "./commission-journal.js";
 
 /** Observe the Pascal strings actually sent to the guest's text display. */
-export function observeAdventureLog(cpu: Cpu, slice: LoadedSlice, trainer?: LoadedSlice): () => string {
+export function observeAdventureLog(cpu: Cpu, slice: LoadedSlice, trainer?: LoadedSlice,
+  onMessage?: (message: string) => void): () => string {
   if (slice.index !== 3) throw new Error("The PoR adventure log requires overlay slice 3");
   const chunks: string[] = [];
   farCallObservers.set(cpu, (seg, off) => {
@@ -24,7 +25,10 @@ export function observeAdventureLog(cpu: Cpu, slice: LoadedSlice, trainer?: Load
       if (char === 13) message += "\n";
       else if (char >= 32 && char <= 126) message += String.fromCharCode(char);
     }
-    if (message.trim()) chunks.push(message);
+    if (message.trim()) {
+      chunks.push(message);
+      onMessage?.(message);
+    }
   });
   return () => chunks.join("\n").trim();
 }

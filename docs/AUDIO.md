@@ -67,6 +67,22 @@ state. `npm run audio-coverage -- <report.json>` verifies every manifest entry h
 PC WAV, Tandy VGM, and libvgm Tandy WAV assets and reports Enhanced replacement
 coverage separately from faithful fallback coverage.
 
+## Enhanced voice layer
+
+`src/audio/voices.json` defines stable dialogue and narration IDs, speakers,
+conversation or scene triggers, subtitles, context, timing, casting direction,
+pronunciations, recording format, loudness targets, files, and verification
+status. Browser playback consumes copies of original display messages but never
+changes their execution: voice is Enhanced-only, starts asynchronously, stops on
+input or presentation changes, and falls back to the original text whenever a
+line or asset is missing. Page reload initializes at the current message cursor
+so previously displayed dialogue is not repeated.
+
+The vertical slice includes synthetic casting prototypes for Ferran Martinez and
+the title narrator. They verify the full event, subtitle, mixing, interruption,
+and fallback path but are explicitly marked for replacement by approved final
+performances. `npm run verify` validates their manifests and WAV assets.
+
 ## Production pipeline
 
 Tandy traces will be converted to VGM register streams and rendered to canonical

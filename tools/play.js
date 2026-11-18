@@ -8,6 +8,7 @@ const objective = document.querySelector("#objective");
 const leads = document.querySelector("#leads");
 const status = document.querySelector("#status");
 const presentation = document.querySelector("#presentation");
+const voiceSubtitle = document.querySelector("#voice-subtitle");
 const audioToggle = document.querySelector("#audio-toggle");
 const audioSettings = document.querySelector("#audio-settings");
 const audioControls = {
@@ -23,6 +24,10 @@ try { audioPreferences = { ...defaultAudioPreferences, ...JSON.parse(localStorag
 let currentEffect;
 let lastSoundId = null;
 let blockedEffect;
+let voiceManifest = { lines: [] };
+let currentVoice;
+let lastTextId = null;
+const narratedScenes = new Set();
 let state = { sequence: -1 };
 let posting = false;
 let enhanced = false;
@@ -37,6 +42,9 @@ function syncAudioControls() {
   audioControls.muted.checked = audioPreferences.muted;
   audioControls.subtitles.checked = audioPreferences.subtitles;
   if (currentEffect) currentEffect.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences.effects;
+  if (currentVoice) currentVoice.volume = audioPreferences.muted ? 0 :
+    audioPreferences.master * audioPreferences[currentVoice.dataset.voiceType];
+  if (!audioPreferences.subtitles) voiceSubtitle.hidden = true;
 }
 
 function saveAudioPreferences() {
@@ -78,6 +86,7 @@ function resumeBlockedAudio() {
 }
 
 syncAudioControls();
+fetch("/voice-manifest.json").then((response) => response.json()).then((manifest) => { voiceManifest = manifest; }).catch(() => {});
 audioToggle.addEventListener("click", () => {
   audioSettings.hidden = !audioSettings.hidden;
   audioToggle.setAttribute("aria-expanded", String(!audioSettings.hidden));
@@ -97,6 +106,43 @@ function finishAnimation() {
   animationFrame = undefined;
 }
 
+function stopVoice() {
+  if (currentVoice) currentVoice.pause();
+  currentVoice = undefined;
+  voiceSubtitle.hidden = true;
+  voiceSubtitle.textContent = "";
+}
+
+function playVoice(line) {
+  if (!enhanced) return;
+  stopVoice();
+  if (audioPreferences.subtitles) {
+    voiceSubtitle.textContent = line.subtitle;
+    voiceSubtitle.hidden = false;
+  }
+  const voice = new Audio(`/voice/${line.file}`);
+  voice.dataset.voiceType = line.type;
+  voice.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences[line.type];
+  currentVoice = voice;
+  voice.addEventListener("ended", () => { if (currentVoice === voice) stopVoice(); }, { once: true });
+  voice.play().catch(() => { if (currentVoice === voice) currentVoice = undefined; });
+}
+
+function playPendingVoice() {
+  if (lastTextId === null) lastTextId = state.textId ?? 0;
+  for (const message of state.messages ?? []) {
+    if (message.id <= lastTextId) continue;
+    lastTextId = message.id;
+    const normalized = message.message.replace(/\s+/g, " ").toUpperCase();
+    const line = voiceManifest.lines.find((candidate) => candidate.match && normalized.includes(candidate.match));
+    if (line) playVoice(line);
+  }
+  if (enhanced && state.scene && !narratedScenes.has(state.scene)) {
+    const line = voiceManifest.lines.find((candidate) => candidate.scene === state.scene);
+    if (line) { narratedScenes.add(state.scene); playVoice(line); }
+  }
+}
+
 function playAnimation() {
   finishAnimation();
   const frames = state.animation ?? [];
@@ -113,7 +159,9 @@ function togglePresentation() {
   enhanced = !enhanced;
   document.documentElement.dataset.presentation = enhanced ? "enhanced" : "classic";
   presentation.setAttribute("aria-pressed", String(enhanced));
+  if (!enhanced) stopVoice();
   showScreen();
+  playPendingVoice();
 }
 
 function showScreen() {
@@ -270,6 +318,7 @@ async function poll() {
     const response = await fetch(`/state?after=${state.sequence}`);
     const next = await response.json();
     if (lastSoundId === null) lastSoundId = next.soundId ?? 0;
+    if (lastTextId === null) lastTextId = next.textId ?? 0;
     const changed = next.sequence !== state.sequence;
     if (changed) state = next;
     else Object.assign(state, next);
@@ -280,6 +329,7 @@ async function poll() {
       playAnimation();
     }
     playPendingSounds();
+    playPendingVoice();
     status.textContent = state.stopped ?? state.notice ??
       (state.ready ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
   } catch {
@@ -306,6 +356,7 @@ presentation.addEventListener("click", () => {
 });
 window.addEventListener("keydown", (event) => {
   resumeBlockedAudio();
+  if (currentVoice && !["F10"].includes(event.key)) stopVoice();
   if (event.repeat || event.ctrlKey || event.metaKey) return;
   if (event.altKey) {
     if (!event.shiftKey && event.code === "KeyQ" && !state.journal) {
