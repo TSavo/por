@@ -67,7 +67,9 @@ export function loadPortraitArt(keys: string[], includeClassic = false) {
           if (picture.width !== size || picture.height !== size) continue;
           for (let frame = 0; frame < picture.itemCount; frame++) {
             const pixels = frameSlice(picture, frame);
-            if (!pixels.some(Boolean)) continue;
+            // Solid-color records are placeholders, and can also match a
+            // cleared perspective pane in the original menus.
+            if (pixels.every((color) => color === pixels[0])) continue;
             const signature = Buffer.from(pixels).toString("base64");
             if (!patterns.has(signature)) patterns.set(signature, null);
           }

@@ -74,6 +74,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let trackedId: string | undefined;
   let scene: string | undefined;
   let area: number | undefined;
+  let previousPerspective: { area: number; pixels: Buffer } | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
@@ -84,10 +85,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let lastAttack = "";
   const portraitKeys = (process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean);
   const portraitArt = loadPortraitArt(portraitKeys, browser);
-  const scopedPortraits = portraitKeys.some((key) => key.startsWith("portrait:area:"));
   const encounterPlacements = JSON.parse(process.env.POR_ENCOUNTER_ART ?? "{}") as Record<string, EncounterAnchor>;
   const encounterArt = loadEncounterArt(encounterPlacements);
-  const traceEncounterArea = Object.keys(encounterPlacements).length > 0;
   const traceTiles = process.env.POR_TRACE_TILES === "1";
   const traceBattleTiles = process.env.POR_TRACE_BATTLE_TILES === "1";
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[]) => {
@@ -111,10 +110,27 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const tiles: [number, number, string][] = [];
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
       const menu = menuText(text);
-      const exploration = menu.startsWith("AREACASTVIEWENCAMP") || menu.startsWith("LOCKED.BASHEXIT") ||
+      const exploration = menu.startsWith("AREACASTVIEWENCAMP") ||
         (area === 1 && menu === "RELEASEANIMALSLEAVE") ||
         (area === 24 && menu === "DESTROYALTARLEAVEIT");
-      const perspective = !scene && !leads && picture === undefined && Boolean(encounter || exploration);
+      let perspective = false;
+      if (!leads) {
+        // A guest prompt can replace the menu while leaving the perspective
+        // picture intact. Preserve its presentation until the picture changes.
+        if (area !== undefined && !scene && picture === undefined &&
+            (encounter || exploration || previousPerspective?.area === area)) {
+          const pixels = Buffer.alloc(88 * 88);
+          for (let row = 0; row < 88; row++) {
+            const start = (24 + row) * screen.width + 24;
+            pixels.set(screen.pixels.subarray(start, start + 88), row * 88);
+          }
+          perspective = Boolean(encounter || exploration ||
+            (previousPerspective?.area === area && previousPerspective.pixels.equals(pixels) && !hasBattlefieldBorder(screen)));
+          previousPerspective = perspective ? { area, pixels } : undefined;
+        } else {
+          previousPerspective = undefined;
+        }
+      }
       if ((tileKeys.size || traceTiles) && area !== undefined && perspective) {
         const pixels = Buffer.alloc(64);
         // The first-person view has an 11-by-11 interior with an eight-pixel border.
@@ -136,7 +152,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const offset = Math.floor(cell / 40) * 8 * screen.width + x;
         for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * screen.width, offset + y * screen.width + 8);
       }
-      const combat = attack || (!scene && !leads && !exploration)
+      const combat = attack || (!scene && !leads && !perspective)
         ? combatArt(screen, enhanced, area) : [];
       const battleTiles: TilePlacement[] = [];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
@@ -224,7 +240,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
-    if (browser && (tileKeys.size || traceTiles || traceEncounterArea || scopedPortraits)) {
+    if (browser) {
       const segment = cpu.read16(0x740, 0x4935);
       const offset = cpu.read16(0x740, 0x4933);
       area = segment || offset ? cpu.read16(segment, offset + 0x1e4) : undefined;

@@ -327,7 +327,12 @@ try {
       if (repeatStampede) assert.match(frame.journal.objective.nextStep, /release them again if offered/);
       else assert.ok(!hasLead("rescue-stampede"));
       await advance("j");
-      for (const key of ["r", "enter", "j"]) await advance(key);
+      const pensScenery = frame.tiles;
+      await advance("r");
+      assert.equal(frame.perspective, true, "The release acknowledgement should retain the full scenery");
+      assert.deepEqual(frame.tiles, pensScenery);
+      await switchBothWays();
+      for (const key of ["enter", "j"]) await advance(key);
       assert.ok(hasLead("rescue-stampede"));
       if (repeatStampede) assert.match(frame.journal.objective.nextStep, /while the guards are rounding up/);
       assert.ok(!hasLead("rescue-inside-pen"));

@@ -926,6 +926,9 @@ when they block the attempt. The separate
 `8,11 S` and reaches the animal pens. Chrome checks 49 individual 32×32
 tiles over 15 views, including palisades, cage bars, and the night sky.
 The Release Animals prompt uses the same full picture panel and all 121 scenery cells.
+Chrome also checks the acknowledgement after releasing the animals and
+the locked gate prompt. Both retain the Enhanced scenery because the
+original first-person picture remains the same across those prompts.
 The replay releases the animals, crosses to the slave pen, bashes open
 the locked gate and takes the boy. The journal reveals each discovery
 as it happens, including the guards leaving their posts and the boy
