@@ -1095,7 +1095,7 @@ const evokerTurn = await replay(loadSlotH, "85000000", [
 assert.match(visibleText(evokerTurn), /evoker hitpoints 6 ac 9/);
 console.log("Returned to Sokal Keep with the evoker and reached his first courtyard combat turn.");
 
-await replay(loadSlotG, "85000000", [
+const twoRecruits = await replay(loadSlotG, "85000000", [
   "right", "right", "up", "left", "up", "right", "up", "up", "left", "up",
   "enter", "enter", "enter", "n", "left", "up", "right", "up", "up", "up", "enter", "enter", "n",
   "y", ...Array(4).fill(["n", "y"]).flat(),
