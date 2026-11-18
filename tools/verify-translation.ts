@@ -343,7 +343,9 @@ function checkCampaignJournal(): void {
   writeGlobal(textile, 0);
   for (const [box, hint] of [[1, "sealed box"], [128, "seal is broken"]] as const) {
     writeGlobal(0x4ac8, box);
-    if (!currentObjective(questProgress(m, boxLead, m.ds)).nextStep.includes(hint) ||
+    const progress = questProgress(m, boxLead, m.ds);
+    const merged = [...boxLead.filter((lead) => !progress.some(({ id }) => id === lead.id)), ...progress];
+    if (!currentObjective(merged).nextStep.includes(hint) ||
         questProgress(m, [], m.ds).length) {
       throw new Error(`Cadorna's journal did not follow treasure state ${box}`);
     }

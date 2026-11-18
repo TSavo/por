@@ -29,6 +29,7 @@ export interface JournalLead {
   detail: string;
   status?: "offered" | "accepted" | "ready-to-report" | "reward-pending" | "turned-in";
   clearedEncounters?: number;
+  textileBox?: "sealed" | "opened";
 }
 
 export interface JournalObjective {
@@ -83,10 +84,12 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
     if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
     if (commission.id === "textile") {
-      if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
+      if (tracked?.textileBox) nextStep = tracked.detail;
+      else if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
       else if (knows("textile-ogre-chief")) nextStep = "Defeat the ogre chief and search his room for Cadorna's treasure.";
       else if (knows("textile-east-wall")) nextStep = "Turn east where Skullcrusher pointed out the secret door. Use Search and move through the wall.";
       else if (knows("textile-secret-door")) nextStep = "Follow Skullcrusher's clue and search southeast for the secret door to the hobgoblin leader.";
+      else if (knows("textile-prisoner-left")) nextStep = "Continue searching the western textile building for Cadorna's treasure.";
       else if (knows("textile-prisoner-freed")) nextStep = "Parlay with the freed prisoner. Make room in the party if you want him to join.";
       else if (knows("textile-prison-key-needed")) nextStep = "Look for a key in the western building, then return to the chained prisoner and choose Unlock.";
       else if (knows("textile-prisoner")) nextStep = "Speak with the prisoner in the western building and find a way to open his padlocks. Read journal entry 47.";
@@ -207,6 +210,7 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
           detail: box === 1 ? "Bring the sealed box back to New Phlan, then visit the council clerk."
             : "Return to City Hall. The box was opened and its family seal is broken.",
           status: "accepted",
+          textileBox: box === 1 ? "sealed" : "opened",
         });
         continue;
       }
@@ -420,6 +424,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE BRASS KEY YOU FOUND OPENS ALL OF THE PADLOCKS")) {
     leads.push({ id: "textile-prisoner-freed", title: "The prisoner is free",
       detail: "The party used a brass key to open the prisoner's padlocks." });
+  }
+  if (text.includes("'OH WELL.' HE LEAVES.")) {
+    leads.push({ id: "textile-prisoner-left", title: "The freed prisoner left",
+      detail: "Cadorna's servant went his own way after the party freed him." });
   }
   if (text.includes("IN THE EAST WALL IS THE SECRET DOOR")) {
     leads.push({ id: "textile-east-wall", title: "The secret door's entrance",

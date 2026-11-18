@@ -342,13 +342,26 @@ async function verifySkullcrusherRecruitment(load, checkpoint) {
   const inventory = "SAVE\\CHRDATE2.ITM";
   slot.party[inventory] = Buffer.concat([Buffer.from(slot.party[inventory], "base64"), key]).toString("base64");
   writeFileSync(join(directory, "E.json"), JSON.stringify(slot));
+  const freePrisoner = ["right", "right", "up", "right", "right", "up", "b", "enter", "enter",
+    "f", "u", (text) => assert.match(text, /brass key you found opens all of the padlocks/),
+    "enter", "p", "n", "enter"];
+  const declined = await replay(load("1265"), "85000000", [
+    "enter", ...freePrisoner, "n",
+    (text) => assert.match(text, /oh well.*he leaves/),
+    "e", "s", "s", "i",
+  ], directory);
+  assert.match(visibleText(declined), /2,15 s.*quit to dos/);
+  await replay(load("1769"), "85000000", [
+    "j", (_text, frame) => {
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-prisoner-left"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+      assert.match(frame.journal.objective.nextStep, /continue searching the western textile building/i);
+    }, "j",
+  ], directory);
   const recruited = await replay(load("1265"), "85000000", [
     "e", "a", "a", ...Array(7).fill("end"), "d",
     (text) => assert.match(text, /theurgist will be gone/),
-    "y", "e", "e", "right", "right", "up", "right", "right", "up", "b", "enter", "enter",
-    "f", "u",
-    (text) => assert.match(text, /brass key you found opens all of the padlocks/),
-    "enter", "p", "n", "enter", "y",
+    "y", "e", "e", ...freePrisoner, "y",
     (text) => assert.match(text, /my name is skullcrusher.*secret door to the southeast/),
     "enter", "enter", "e", "s", "s", "f",
   ], directory);

@@ -452,6 +452,10 @@ and supplies only the brass key from the local DOS treasure table. The party
 dismisses the Theurgist to open a slot, frees the captive, and chooses Parlay
 and Nice before recruiting Skullcrusher. Reloading that copy's slot F verifies
 his place in the party and the newly learned secret-door direction.
+Declining recruitment in a separate replay records that the freed prisoner
+left and keeps his clue hidden after reload. The translated ECL checks also
+verify that the choice prompt stops being the journal objective once either
+box outcome is recorded, even when the original discovery is still in the log.
 Alda trades the looted sword to Skullcrusher, and Cora trades him banded
 mail and a shield. Readying them gives Skullcrusher AC 1 and a long sword.
 Reloading the controlled copy's slot G verifies the armor and HP.
