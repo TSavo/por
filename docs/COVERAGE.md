@@ -421,6 +421,11 @@ The guest's spell display confirms the buff. The fight ends in
 victory for 94 XP each, with four fighters at 0 HP. Reloading slot J
 preserves the courtyard discovery and the journal directs the party
 toward the western building.
+The Curate casts Cure Light Wounds on Alda after the fight, raising him
+from 0 to 5 HP. The party crosses the courtyard and finds Skullcrusher's
+inscription on a north wall. Reloading slot G verifies Alda's HP and the
+inscription in the journal. Skullcrusher's secret-door clue stays hidden
+until the party learns it.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the

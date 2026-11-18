@@ -198,6 +198,26 @@ async function verifyPodalFromCouncil(checkpoint) {
       assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-courtyard-cleared")),
   ]);
   console.log("Hired a Theurgist and Curate, blessed the party, won the courtyard fight, and reloaded with the drum silenced.");
+  const westernBuilding = await replay(load("246a"), "85000000", [
+    (text) => assert.match(text, /alda 3 0.*4,10 s/),
+    ...Array(7).fill("end"), "c", ...Array(4).fill("home"), "enter",
+    (text) => assert.match(text, /cast spell on whom/),
+    ...Array(7).fill("home"), "enter", "e",
+    (text) => assert.match(text, /alda 3 5/),
+    "left", "up", "right", ...Array(4).fill("up"), "left", "up",
+    (text) => assert.match(text, /6,14 e.*skullcrusher was here.*north wall/),
+    "e", "s", "s", "g",
+  ]);
+  assert.match(visibleText(westernBuilding), /quit to dos/);
+  await replay(load("2267"), "85000000", [
+    (text) => assert.match(text, /alda 3 5.*6,14 e/),
+    "j", (_text, frame) => {
+      const leads = frame.journal?.leads ?? [];
+      assert.ok(leads.some(({ id }) => id === "textile-skullcrusher-mark"));
+      assert.ok(!leads.some(({ id }) => id === "textile-secret-door"));
+    },
+  ]);
+  console.log("Healed Alda, found Skullcrusher's mark, and verified both after reloading.");
   console.log("Checkpoint replay saves:", saveDir);
 }
 
