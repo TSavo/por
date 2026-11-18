@@ -73,12 +73,24 @@ export function isOpenObjective(lead: JournalLead): boolean {
 
 // The council reward table starts at ECL address 4AA6. The encounter scripts
 // write FE on success and the clerk changes that entry to FF after the reward.
-const progressAddresses: Record<string, number> = {
+// City Hall's reward dispatch indexes its ECL table at 0x4aa6. Only
+// commissions with a dedicated completion entry belong here.
+export const progressAddresses: Readonly<Record<string, number>> = {
   slums: 0x4abb,
   sokal: 0x4aa7,
+  rescue: 0x4aa9,
   auction: 0x4ab0,
+  graveyard: 0x4ab1,
   kovel: 0x4ab2,
+  river: 0x4ab3,
+  zhentil: 0x4ab4,
+  lizardmen: 0x4ab5,
   kobolds: 0x4ab6,
+  nomads: 0x4ab7,
+  gate: 0x4ab9,
+  castle: 0x4aba,
+  bane: 0x4abd,
+  cadorna: 0x4abf,
 };
 
 /** Refine already disclosed objectives using the translated VM's state. */

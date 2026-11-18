@@ -138,8 +138,11 @@ combat menu. The runner restores the pre-Quick guest state and turns off Quick
 for that character. If a hostile actor stalls, the runner restores its state
 and returns through the original turn cleanup. The Sokal Keep courtyard replay
 verified both paths, including control returning to a party member after an
-enemy stall. The automated check also runs the original translated ECL global
-setter to verify how the journal interprets the keep-clear and reward flags.
+enemy stall. With the original DAX files available, `npm run verify` checks all
+20 journal definitions against dialogue extracted from the supplied ECL
+scripts. It runs the translated ECL global setter to check the ready-to-report
+and rewarded states for 15 objectives. These checks exercise the journal
+against original script evidence. They do not run the quest scenarios.
 
 A controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the

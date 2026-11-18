@@ -9,7 +9,11 @@ import "../src/translated/system5bb.js";
 import { farCall } from "../src/runtime/far.js";
 import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
 import type { LoadedSlice } from "../src/runtime/overlay.js";
-import { currentObjective, discoveredLeads, questProgress } from "../src/runtime/adventure-log.js";
+import { currentObjective, discoveredLeads, progressAddresses, questProgress } from "../src/runtime/adventure-log.js";
+import { commissions } from "../src/runtime/commission-journal.js";
+import { parseDax } from "../src/lib/dax.js";
+import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
+import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
 function fresh(): Cpu {
   const m = new Cpu();
@@ -130,4 +134,64 @@ function checkSokalQuestProgress(): void {
 }
 
 checkSokalQuestProgress();
+
+function checkCampaignJournal(): void {
+  const root = findGameRoot();
+  if (!root) {
+    console.log("campaign dialogue checks skipped (original game data unavailable)");
+    return;
+  }
+  const lines = listGameFiles(root).filter((name) => /^ecl.*\.dax$/i.test(name)).flatMap((name) =>
+    parseDax(name, readGameFile(root, name)).entries.flatMap(({ data }) =>
+      disassemble(scriptFromBlock(data)).instructions.flatMap(({ operands }) =>
+        operands.flatMap(({ text }) => text === null ? [] : [text]))));
+  const m = fresh();
+  m.write16(m.ds, 0x4933, 0x20);
+  m.write16(m.ds, 0x4935, 0x5000);
+  const writeGlobal = (address: number, value: number) => {
+    m.push(address);
+    m.push(value);
+    m.push(m.cs);
+    m.push(0);
+    ovl07_0c93(m);
+  };
+  for (const commission of commissions) {
+    const id = `commission-${commission.id}`;
+    const lookup = (text: string) => discoveredLeads(text).find((lead) => lead.id === id);
+    const fromGame = (trigger: string) => {
+      const line = lines.find((text) => text.includes(trigger));
+      if (line === undefined) throw new Error(`Original dialogue trigger missing for ${id}: ${trigger}`);
+      return line;
+    };
+    const offer = lookup(fromGame(commission.offer));
+    if (offer?.status !== "offered" || currentObjective([offer]).nextStep !== commission.next) {
+      throw new Error(`Journal offer mismatch for ${id}`);
+    }
+    if (commission.accepted && lookup(fromGame(commission.accepted))?.status !== "accepted") {
+      throw new Error(`Journal acceptance mismatch for ${id}`);
+    }
+    const address = progressAddresses[commission.id];
+    if (commission.report && lookup(fromGame(commission.report))?.status !==
+        (address === undefined ? "turned-in" : "reward-pending")) {
+      throw new Error(`Journal reward dialogue mismatch for ${id}`);
+    }
+    if (address !== undefined) {
+      writeGlobal(address, 254);
+      if (questProgress(m, [offer], m.ds)[0]?.status !== "ready-to-report" || questProgress(m, [], m.ds).length) {
+        throw new Error(`Journal completion flag mismatch for ${id}`);
+      }
+      writeGlobal(address, 255);
+      if (questProgress(m, [offer], m.ds)[0]?.status !== "turned-in") {
+        throw new Error(`Journal reward flag mismatch for ${id}`);
+      }
+    }
+  }
+  if (discoveredLeads("A SPECIAL PRIZE FOR ENDING THE GRAVEYARD MENACE").some(({ id }) =>
+    id === "commission-bottle-vampire")) {
+    throw new Error("The graveyard reward revealed an undiscovered bottle objective");
+  }
+  console.log(`verified ${commissions.length} journal definitions against original ECL dialogue and ${Object.keys(progressAddresses).length} progress flags through the translated setter`);
+}
+
+checkCampaignJournal();
 console.log("translation checks passed");
