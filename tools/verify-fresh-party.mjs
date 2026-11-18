@@ -779,6 +779,34 @@ if (process.argv[2] === "--slums-armored-patrols-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--sokal-equip-recruits-checkpoint") {
+  assert.ok(process.argv[3], "Pass the slot J landing save from the reinforced Slums party.");
+  copyFileSync(process.argv[3], join(saveDir, "J.json"));
+  await replay(loadSlot("246a"), "85000000", [
+    (text) => assert.match(text, /cora 3 0 dorn 3 0.*swordsman 5 18.*curate 3 26.*8,14 n/),
+    // Trade Cora's banded mail to the Swordsman and her shield to the Curate.
+    "end", "end", "v", "i", "end", "r", "t", ...Array(4).fill("end"), "enter", "r", "t", "end", "enter", "e", "e",
+    "end", "v", "i", "end", "end", "r", "t", ...Array(3).fill("end"), "enter", "e", "e",
+    ...Array(3).fill("end"), "v", "i", "end", "end", "r", "end", "end", "r", "end", "r",
+    (text) => assert.match(text, /swordsman's items.*no chain mail yes long sword yes banded mail yes shield/),
+    "e", "e", "end", "v", "i", "end", "end", "r",
+    (text) => assert.match(text, /curate's items.*yes mace yes plate mail yes shield/),
+    "e", "e", "e", "s", "s", "a",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("1e61"), "85000000", [
+    (text) => assert.match(text, /swordsman 3 18.*curate 2 26.*8,14 n/),
+    ...Array(6).fill("end"), "v", "i",
+    (text) => assert.match(text, /swordsman's items.*yes banded mail yes shield/),
+    "e", "e", "end", "v", "i",
+    (text) => assert.match(text, /curate's items.*yes plate mail yes shield/),
+    "e", "e", "c",
+    (text) => assert.match(text, /curate's spells in memory.*bless bless.*hold person hold person/),
+  ]);
+  console.log("Reloaded the Swordsman at AC 3 and the Curate at AC 2 with Hold Person prepared:", join(saveDir, "A.json"));
+  process.exit(0);
+}
+
 if (process.argv[2] === "--sokal-reinforce-from-slums") {
   assert.ok(process.argv[3], "Pass the slot D from the goblin loot sale at the armorer.");
   copyFileSync(process.argv[3], join(saveDir, "D.json"));
