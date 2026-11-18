@@ -34,6 +34,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
   env: {
     ...process.env,
     POR_BROWSER_PLAY: "1",
+    POR_BATTLE_TILE_KEYS: [...artwork.keys()].filter((key) => key.startsWith("battle-tile:")).join(","),
     POR_TILE_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("tile:")).join(","),
     POR_COMBAT_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("combat:")).join(","),
     POR_PORTRAIT_ART_KEYS: [...artwork.keys()].filter((key) => portraitKey.test(key)).join(","),
@@ -54,6 +55,7 @@ interface FrameState {
   encounter?: EncounterPlacement;
   tiles?: [number, number, string][];
   combatArt?: CombatArtPlacement[];
+  battleTiles?: [number, number, string][];
   animation?: CombatAnimationFrame[];
   tileInventory?: TileInventoryCell[];
   text?: [number, number, number][];

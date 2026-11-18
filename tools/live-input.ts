@@ -24,8 +24,10 @@ export interface CombatAnimationFrame {
   frame: string;
   enhancedFrame: string;
   combatArt: CombatArtPlacement[];
+  battleTiles: TilePlacement[];
   text: [number, number, number][];
 }
+type TilePlacement = [x: number, y: number, key: string];
 export type TileInventoryCell = [x: number, y: number, key: string, indices: string];
 const enhancedPalette = [
   [15, 14, 18], [44, 59, 112], [49, 128, 74], [46, 133, 146],
@@ -66,6 +68,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let area: number | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
+  const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
   const attackKeys = new Set((process.env.POR_COMBAT_ART_KEYS ?? "").split(",")
     .filter((key) => Number(key.split(":").at(-1)) >= 128));
@@ -128,6 +131,21 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           enhanced.pixels.fill(0, start, start + 24);
         }
       }
+      const battleTiles: TilePlacement[] = [];
+      if (combat.length && battleTileKeys.size) {
+        const pixels = Buffer.alloc(64);
+        // Combat terrain appears within the guest's left-hand battle panel.
+        for (let y = 8; y < 176; y += 8) {
+          for (let x = 8; x < 176; x += 8) {
+            for (let row = 0; row < 8; row++) {
+              const start = (y + row) * enhanced.width + x;
+              pixels.set(enhanced.pixels.subarray(start, start + 8), row * 8);
+            }
+            const key = `battle-tile:${createHash("sha256").update(pixels).digest("hex")}`;
+            if (battleTileKeys.has(key)) battleTiles.push([x, y, key]);
+          }
+        }
+      }
       const state = {
         frame: Buffer.from(encodePng(screen)).toString("base64"),
         enhancedFrame: Buffer.from(encodePng(enhanced, enhancedPalette)).toString("base64"),
@@ -138,6 +156,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         encounter,
         tiles,
         combatArt: combat,
+        battleTiles,
         tileInventory,
         textColors: enhancedPalette,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
@@ -145,7 +164,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       };
       if (attack) {
         animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame,
-          text: state.text, combatArt: attack });
+          text: state.text, combatArt: attack, battleTiles });
       } else {
         console.log(`POR_FRAME ${JSON.stringify({ ...state,
           animation: animation.length ? animation.splice(0) : undefined })}`);

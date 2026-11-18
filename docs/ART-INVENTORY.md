@@ -198,3 +198,15 @@ with mail.
 The courtyard Chrome replay now enters the fight. It checks that all
 three guard sprites and all three strike sprites render at 96×96, checks
 the cleared guest sprite cell, and switches both display modes in combat.
+
+The enhanced combat renderer now supports individual 32×32 terrain
+tiles keyed by `battle-tile:<sha256>`, using the 64 original palette
+indices of an 8×8 battlefield cell. The courtyard includes 26 ashlar
+courses, coping pieces, and slope joints. The renderer matches within
+the left battlefield panel on frames with recognized combat sprites.
+It draws terrain beneath the units in steady and attack frames. Other
+terrain patterns continue to use the guest artwork.
+
+The courtyard Chrome replay verified the matched 32×32 terrain tiles
+alongside the six guard and strike poses and switched both displays
+without changing the guest frame or save bytes.

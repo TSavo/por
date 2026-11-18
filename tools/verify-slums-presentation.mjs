@@ -216,6 +216,12 @@ try {
         return [...context.getImageData(0, 0, 24, 24).data].every(
           (value, index) => value === [15, 14, 18, 255][index % 4]);
       })()`));
+      if (courtyard) {
+        assert.ok(frame.battleTiles.length > 0);
+        await waitFor("all matched 4× battle terrain tiles", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelectorAll(".battle-tile").length === ${frame.battleTiles.length} &&
+          [...document.querySelectorAll(".battle-tile")].every(tile => tile.naturalWidth === 32 && tile.naturalHeight === 32)`));
+      }
       await switchBothWays();
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, `${routeName}-battle.png`), Buffer.from(shot.data, "base64"));
