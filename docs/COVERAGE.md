@@ -679,12 +679,15 @@ also switches presentation in the dialogue and combat.
 
 Stojanow Gate has 47 individual 32×32 terrain replacements. Chrome checked
 3,630 placements across 30 clean views from slot A at `4,15 N`, reached by
-ordinary travel from Podal Plaza. Three actor views were outside this terrain
-check. A separate replay from the same save verified the enhanced bugbear
+ordinary travel from Podal Plaza. The three approach views now check a
+separate 96×292 bugbear sprite over the same 121 placements as the preceding
+clean view. A separate replay from the same save verified the enhanced bugbear
 standing and sword strike poses. The New Phlan armorer portrait appeared at
 the shop greeting and Buy menu. Both replays checked presentation switches.
-The browser verifier exposes `stojanow-gate`, `stojanow-west`, and
-`stojanow-bugbears` for the gate entrance save. Use `armorer` with slot A
+The browser verifier exposes `stojanow-gate`, `stojanow-west`,
+`stojanow-east`, and `stojanow-bugbears` for the gate entrance save.
+The `stojanow-trader` route uses a controlled daylight slot B at `4,15 N`
+and verifies the new wagon trader portrait in the parley. Use `armorer` with slot A
 at the New Phlan west gate (`0,4 W`).
 
 

@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:9:SPRIT2.DAX:63:0:0": "stojanow-bugbear-approach.png",
+    "portrait:HEAD2.DAX:5:BODY2.DAX:9": "stojanow-wagon-trader-portrait.png",
     "combat:area:9:CPIC2.DAX:191": "stojanow-bugbear-strike.png",
     "combat:area:9:CPIC2.DAX:63": "stojanow-bugbear-combat.png",
     "portrait:HEAD3.DAX:42:BODY3.DAX:9": "new-phlan-armorer-portrait.png",
@@ -616,6 +618,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:9:SPRIT2.DAX:63:0:0": { "area": 9, "x": 56, "y": 32, "width": 24, "height": 73 },
     "encounter:area:10:SPRIT4.DAX:23:0:0": { "area": 10, "x": 56, "y": 32, "width": 32, "height": 80 },
     "encounter:area:10:SPRIT4.DAX:34:0:0": { "area": 10, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:SPRIT2.DAX:24:1:0": { "area": 20, "x": 56, "y": 32, "width": 24, "height": 65, "flatBackground": [0, 6] },

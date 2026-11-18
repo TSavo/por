@@ -34,15 +34,19 @@ const environmentRoutes = new Map([
     walk: ["up", "left", ...Array(6).fill("up"), "right", "up", "b", "up", "up", "right", "up", "left", "up"],
   }],
   ["stojanow-gate", {
-    slot: "A", area: 9, views: 9, patterns: 40,
-    walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up"],
+    slot: "A", area: 9, views: 10, patterns: 40,
+    walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left"],
   }],
   ["stojanow-west", {
-    slot: "A", area: 9, views: 12, patterns: 43,
-    walk: ["up", "up", "up", "enter", "enter", "up", "left", "up", "up", "up", "right", "up", "up"],
+    slot: "A", area: 9, views: 13, patterns: 43,
+    walk: ["up", "up", "up", "enter", "enter", "up", "left", "up", "up", "up", "right", "up", "up", "right"],
+  }],
+  ["stojanow-east", {
+    slot: "A", area: 9, views: 10, patterns: 40,
+    walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "stojanow-briefing", "stojanow-bugbears", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -52,6 +56,7 @@ const assault = routeName === "assault-briefing";
 const mystic = routeName === "graveyard-mystic";
 const vampire = routeName === "graveyard-vampire";
 const stojanow = routeName === "stojanow-briefing";
+const trader = routeName === "stojanow-trader";
 const altar = routeName === "textile-altar";
 const plaza = routeName === "podal-plaza";
 const trainer = routeName === "fighter-trainer";
@@ -69,7 +74,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)), "Both options 
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = environment?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow ? "B" : orcs || ending || smithy ? "C" : "A");
+const slot = environment?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader ? "B" : orcs || ending || smithy ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -221,23 +226,25 @@ try {
 
   if (environment) {
     const area = environment.area ?? 2;
+    const actor = area === 10 ? "encounter:area:10:SPRIT4.DAX:34:0:0"
+      : area === 9 ? "encounter:area:9:SPRIT2.DAX:63:0:0" : undefined;
     const patterns = new Set();
     let views = await verifyTiledView(area, patterns);
     for (const key of environment.walk) {
       const previousTiles = frame.tiles;
       await advance(key);
-      if (area === 10 && frame.encounter) assert.deepEqual(frame.tiles, previousTiles);
+      if (actor && frame.encounter) assert.deepEqual(frame.tiles, previousTiles);
       views += await verifyTiledView(area, patterns);
     }
     assert.equal(views, environment.views);
     assert.equal(patterns.size, environment.patterns);
-    if (area === 10) {
-      assert.ok(frame.encounter, "The graveyard actor must be drawn separately from the scenery");
+    if (actor) {
+      assert.ok(frame.encounter, "The encounter actor must be drawn separately from the scenery");
       const [, , id, width, height] = frame.encounter;
-      assert.equal(id, "encounter:area:10:SPRIT4.DAX:34:0:0");
-      await waitFor("the enhanced skeleton over the graveyard scenery", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector(".encounter-sprite")?.naturalWidth === ${width * 4} &&
-        document.querySelector(".encounter-sprite")?.naturalHeight === ${height * 4}`));
+      assert.equal(id, actor);
+      await waitFor("the enhanced actor over the scenery", () => run(`state.sequence === ${frame.sequence} &&
+        [...document.querySelectorAll(".encounter-sprite")].some(img =>
+          img.src.endsWith(${JSON.stringify(id)}) && img.naturalWidth === ${width * 4} && img.naturalHeight === ${height * 4})`));
       const capture = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, routeName + ".png"), Buffer.from(capture.data, "base64"));
     }
@@ -395,6 +402,12 @@ try {
     assert.ok(swung());
     await waitFor("the bugbear sword strike", () => displayed(attack));
     console.log("Verified the bugbear guards and their sword strike in Stojanow Gate.");
+  } else if (trader) {
+    for (const key of ["up", "enter", "enter", "p"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:HEAD2.DAX:5:BODY2.DAX:9");
+    await waitFor("the wagon trader portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    console.log("Verified the wagon trader portrait and state-preserving switches.");
   } else if (stojanow) {
     for (const key of ["up", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:HEAD3.DAX:16:BODY3.DAX:7");
