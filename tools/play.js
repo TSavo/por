@@ -1,4 +1,5 @@
 const screen = document.querySelector("#screen");
+const viewportArt = document.querySelector("#viewport-art");
 const journal = document.querySelector("#journal");
 const closeJournal = document.querySelector("#close-journal");
 const autoTrack = document.querySelector("#auto-track");
@@ -21,6 +22,9 @@ function showScreen() {
   if (!state.frame) return;
   const frame = enhanced ? state.enhancedFrame ?? state.frame : state.frame;
   screen.src = enhanced && !state.journal && state.art ? state.art : `data:image/png;base64,${frame}`;
+  const replacement = enhanced && !state.journal && state.viewportArt;
+  viewportArt.hidden = !replacement;
+  if (replacement && viewportArt.getAttribute("src") !== replacement) viewportArt.src = replacement;
 }
 
 screen.addEventListener("error", () => {
@@ -28,6 +32,12 @@ screen.addEventListener("error", () => {
     state.art = undefined;
     showScreen();
   }
+});
+viewportArt.addEventListener("error", () => {
+  if (viewportArt.getAttribute("src") !== state.viewportArt) return;
+  state.viewportArt = undefined;
+  viewportArt.removeAttribute("src");
+  viewportArt.hidden = true;
 });
 
 function render() {

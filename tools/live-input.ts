@@ -1,4 +1,5 @@
 import { appendFileSync, readSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import type { Cpu } from "../src/cpu/machine.js";
 import { currentObjective, isOpenObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
@@ -47,10 +48,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const showFrame = (leads?: JournalLead[]) => {
     if (browser) {
+      const viewport = createHash("sha256");
+      for (let y = 8; y < 128; y++) viewport.update(screen.pixels.subarray(y * screen.width + 8, y * screen.width + 120));
       const state = {
         frame: Buffer.from(encodePng(screen)).toString("base64"),
         enhancedFrame: Buffer.from(encodePng(screen, enhancedPalette)).toString("base64"),
         scene,
+        viewport: `viewport:${viewport.digest("hex")}`,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
           trackedId: leads.find((lead) => lead.id === trackedId && isOpenObjective(lead))?.id },
       };

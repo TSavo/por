@@ -15,17 +15,26 @@ const origin = `http://127.0.0.1:${port}`;
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
-const titleArt = (() => {
+const artwork = (() => {
+  const images = new Map<string, Buffer>();
   try {
     const manifest = JSON.parse(readFileSync(join(upgrades, "manifest.json"), "utf8")) as OverrideManifest;
-    if (manifest.version !== 1 || !manifest.assets) return;
-    const file = lookupOverride(manifest, "scene:title");
-    if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) return;
-    const png = readFileSync(join(upgrades, file));
-    if (png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) return png;
+    if (manifest.version !== 1 || !manifest.assets) return images;
+    for (const id of Object.keys(manifest.assets)) {
+      if (id !== "scene:title" && !/^viewport:[a-f0-9]{64}$/.test(id)) continue;
+      const file = lookupOverride(manifest, id);
+      if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) continue;
+      try {
+        const png = readFileSync(join(upgrades, file));
+        if (png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) images.set(id, png);
+      } catch (error) {
+        if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork", error);
+      }
+    }
   } catch (error) {
-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced title artwork", error);
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork manifest", error);
   }
+  return images;
 })();
 const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
   env: {
@@ -42,6 +51,7 @@ interface FrameState {
   frame?: string;
   enhancedFrame?: string;
   scene?: string;
+  viewport?: string;
   journal?: { objective: JournalObjective; leads: JournalLead[]; trackedId?: string };
 }
 
@@ -76,11 +86,15 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(page);
   } else if (req.method === "GET" && req.url === "/play.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(script);
-  } else if (req.method === "GET" && req.url === "/art/title.png" && titleArt) {
-    res.writeHead(200, { "content-type": "image/png" }).end(titleArt);
+  } else if (req.method === "GET" && req.url?.startsWith("/art/")) {
+    const png = artwork.get(req.url.slice(5));
+    if (png) res.writeHead(200, { "content-type": "image/png" }).end(png);
+    else res.writeHead(404).end();
   } else if (req.method === "GET" && (req.url === "/state" || /^\/state\?after=-?\d+$/.test(req.url ?? ""))) {
     const snapshot = req.url === `/state?after=${sequence}` ? {} : {
-      ...frame, art: titleArt && frame.scene === "scene:title" ? "/art/title.png" : undefined,
+      ...frame,
+      art: frame.scene === "scene:title" && artwork.has(frame.scene) ? `/art/${frame.scene}` : undefined,
+      viewportArt: !frame.scene && frame.viewport && artwork.has(frame.viewport) ? `/art/${frame.viewport}` : undefined,
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
       ...snapshot, sequence, ready, stopped: stopped ?? null, notice: notice ?? null,

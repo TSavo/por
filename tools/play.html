@@ -15,6 +15,7 @@
     button:disabled { opacity: .5; cursor: default; }
     #screen { display: block; width: 100%; aspect-ratio: 8 / 5; image-rendering: pixelated; background: #000; }
     #play { position: relative; border: 1px solid #546577; }
+    #viewport-art { position: absolute; left: 2.5%; top: 4%; width: 35%; height: 60%; pointer-events: none; }
     #journal { position: absolute; inset: 4%; overflow: auto; padding: clamp(12px, 3vw, 26px); background: #17232e; border: 1px solid #8495a8; }
     #objective { border-left: 3px solid #edca79; padding-left: 12px; }
     #objective p, li p { margin: .35rem 0 .75rem; }
@@ -53,6 +54,7 @@
     </header>
     <div id="play">
       <img id="screen" width="320" height="200" alt="Original game screen" tabindex="-1">
+      <img id="viewport-art" alt="" hidden>
       <section id="journal" aria-label="Adventure journal" hidden>
         <h2>Adventure journal</h2>
         <button id="close-journal" type="button">Return to game</button>
