@@ -240,6 +240,9 @@ appears, and the replay selects Sleep and targets an orc. The battle
 continues after the cast. Cora opens Done and chooses Bandage. Tracing
 the translated action verified that it changes Alda's combat status
 from dying to stable before the enemy turn resumes.
+Chrome also verified that the physical keypad works with Num Lock on.
+In the Textile House Move/Attack menu, Numpad 9 reached the original
+diagonal attack prompt for an adjacent ally.
 An alternate replay from the same island save passes a second patrol,
 wins the smithy frog fight for 31 XP per character, and goes around the
 east side of the keep to trigger the courtyard ambush from the north.

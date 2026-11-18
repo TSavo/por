@@ -142,7 +142,7 @@ async function poll() {
     closeJournal.disabled = !state.ready || Boolean(state.stopped);
     autoTrack.disabled = closeJournal.disabled;
     status.textContent = state.stopped ?? state.notice ??
-      (state.ready ? "Arrows to move or select. Enter to confirm." : "Game running…");
+      (state.ready ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
   } catch {
     status.textContent = "Waiting for the local game runner…";
   }
@@ -153,6 +153,11 @@ const commands = {
   ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right",
   Home: "home", PageUp: "pageup", End: "end", PageDown: "pagedown",
   Enter: "enter", Escape: "escape", " ": "space", Backspace: "backspace",
+};
+const keypadDirections = {
+  Numpad1: "end", Numpad2: "down", Numpad3: "pagedown",
+  Numpad4: "left", Numpad6: "right",
+  Numpad7: "home", Numpad8: "up", Numpad9: "pageup",
 };
 closeJournal.addEventListener("click", () => send("j"));
 autoTrack.addEventListener("click", () => send("track auto"));
@@ -177,7 +182,7 @@ window.addEventListener("keydown", (event) => {
     if (event.key === "Escape") void send("j");
     return;
   }
-  const key = commands[event.key] ?? (/^[a-z0-9]$/i.test(event.key) ? event.key : null);
+  const key = keypadDirections[event.code] ?? commands[event.key] ?? (/^[a-z0-9]$/i.test(event.key) ? event.key : null);
   if (!key) return;
   event.preventDefault();
   void send(key === "J" ? "key J" : key);
