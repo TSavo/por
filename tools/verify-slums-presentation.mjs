@@ -496,10 +496,19 @@ try {
       if (!frame.tileInventory?.[0]?.[2].startsWith("tile:20:")) continue;
       routeTiles.push(frame.tileInventory);
       assert.equal(frame.tiles.length, 121);
+      assert.deepEqual(frame.tiles, frame.tileInventory.map(([x, y, id]) => [x, y, id]));
       tileLayouts.add(JSON.stringify(frame.tiles));
       await waitFor("121 individual tiles", () => run(`(() => {
+        if (state.sequence !== ${frame.sequence} || !document.querySelector("#viewport-art").hidden) return false;
         const tiles = [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")];
-        return tiles.length === 121 && tiles.every(tile => tile.naturalWidth === 32 && tile.naturalHeight === 32);
+        const expected = ${JSON.stringify(frame.tiles)};
+        return tiles.length === expected.length && tiles.every((tile, index) => {
+          const [x, y, id] = expected[index];
+          return tile.naturalWidth === 32 && tile.naturalHeight === 32 &&
+            tile.getAttribute("src") === "/art/" + id &&
+            Math.abs(parseFloat(tile.style.left) - x / 3.2) < 0.001 &&
+            Math.abs(parseFloat(tile.style.top) - y / 2) < 0.001;
+        });
       })()`));
       if (++views !== 3) continue;
 
@@ -535,8 +544,9 @@ try {
     const menu = frame.text.filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
       .map(([, character]) => String.fromCharCode(character)).join("");
     assert.match(menu, /move|attack|aim|quick/i);
-    assert.ok(frame.combatArt.some((placement) => placement[3]) && frame.combatArt.some((placement) => !placement[3]));
-    await waitFor("the mirrored 4× combat sprite", () => run(`[...document.querySelectorAll(".combat-sprite")]
+    const koboldPlacements = frame.combatArt.filter(([, , id]) => id === "combat:CPIC2.DAX:0");
+    assert.ok(koboldPlacements.some((placement) => placement[3]) && koboldPlacements.some((placement) => !placement[3]));
+    await waitFor("the mirrored 4× combat sprite", () => run(`[...document.querySelectorAll('.combat-sprite[src="/art/combat:CPIC2.DAX:0"]')]
       .some(image => image.naturalWidth === 96 && image.style.transform === "scaleX(-1)")`));
     for (const width of [430, 1100]) {
       await command("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: false });
@@ -544,7 +554,7 @@ try {
         if (state.sequence !== ${frame.sequence}) return false;
         const screen = document.querySelector("#screen").getBoundingClientRect();
         const sprites = [...document.querySelectorAll('.combat-sprite[src="/art/combat:CPIC2.DAX:0"]')];
-        const placements = ${JSON.stringify(frame.combatArt.filter(([, , id]) => id === "combat:CPIC2.DAX:0"))};
+        const placements = ${JSON.stringify(koboldPlacements)};
         return sprites.length === placements.length && placements.every(([x, y, , reflected]) => sprites.some(image => {
           const rect = image.getBoundingClientRect();
           return image.naturalWidth === 96 && image.naturalHeight === 96 &&

@@ -624,6 +624,11 @@ frame sequence and left the save file byte-for-byte identical.
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_A PATH_TO_CHROME`
 with a party saved at New Phlan's west gate before the kobold encounter.
 The test uses the browser's default artwork configuration.
+For every kobold-route exploration view, Chrome checks each tile's source
+ID, 32-by-32 PNG dimensions, and position against the guest tile trace.
+The full-viewport overlay is hidden in those views. The combat check
+requires both facings of the kobold's own sprite and verifies their
+placement at both browser widths.
 The replay verifies 22 Slums views assembled from 121 individual 32Ãƒâ€”32
 PNGs per view. It checks alignment, pixelated scaling, and the loaded web
 font at 430px and 1100px. The button and F10 preserve the complete guest
