@@ -51,6 +51,13 @@ drew 121 replacement PNGs at the recorded positions. The combat frame used
 the original combat art, and switching back to classic display preserved
 the frame sequence and the loaded save file.
 
+Combat replacements use keys such as `combat:CPIC2.DAX:0` and 96×96
+PNGs. Enhanced mode draws them over the game's 24×24 footprints and mirrors
+them when the original sprite faces the opposite direction. Use the enhanced
+background color (`#0f0e12`) for opaque background pixels. Cells that differ
+from the source footprint, including cells affected by some combat highlights,
+retain the game's sprite.
+
 Enhanced gameplay uses Geist Mono for text captured from the game's EGA
 character renderer. Use a local `font.woff2` in your upgrades directory to
 choose a different font. Letters remain in the game's original cells and

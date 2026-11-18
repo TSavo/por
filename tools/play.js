@@ -29,9 +29,12 @@ function showScreen() {
   if (replacement && viewportArt.getAttribute("src") !== replacement) viewportArt.src = replacement;
   tileArt.hidden = !enhanced || Boolean(state.art || state.journal || replacement);
   if (!tileArt.hidden) {
-    tileArt.replaceChildren(...(state.tiles ?? []).map(([x, y, id]) => {
+    const placements = [...(state.tiles ?? []), ...(state.combatArt ?? [])];
+    tileArt.replaceChildren(...placements.map(([x, y, id, reflected]) => {
       const tile = document.createElement("img");
       tile.alt = "";
+      if (reflected !== undefined) tile.className = "combat-sprite";
+      if (reflected) tile.style.transform = "scaleX(-1)";
       tile.style.left = `${x / 3.2}%`;
       tile.style.top = `${y / 2}%`;
       tile.addEventListener("error", () => tile.remove(), { once: true });

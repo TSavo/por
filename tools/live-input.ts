@@ -6,6 +6,7 @@ import { currentObjective, isOpenObjective, type JournalLead } from "../src/runt
 import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
+import { loadCombatArtMatcher } from "./combat-art.js";
 
 const controls: Record<string, number> = {
   enter: 0x1c0d, escape: 0x011b, up: 0x4800, down: 0x5000, left: 0x4b00, right: 0x4d00,
@@ -49,6 +50,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let area: number | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
+  const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
   const traceTiles = process.env.POR_TRACE_TILES === "1";
   const showFrame = (leads?: JournalLead[]) => {
     if (browser) {
@@ -89,6 +91,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         viewport: `viewport:${viewport.digest("hex")}`,
         text,
         tiles,
+        combatArt: !scene && !leads && !explorationMenu.startsWith("AREACASTVIEWENCAMP") ? combatArt(screen) : [],
         tileInventory,
         textColors: enhancedPalette,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
