@@ -238,3 +238,11 @@ have sprite candidates and no patterns exactly match terrain fragments
 in `BACPAC.DAX` or `SQRPACI.DAX`. Use **Hide sprite candidates** in the
 HTML checklist to set those matches aside while reviewing terrain.
 Unmatched cells still need visual review.
+
+The courtyard also shows a composed party icon. Its source is
+`CHEAD.DAX` block 0 on `CBODY.DAX` block 0. Other head records contain
+identical pixels, so the manifest uses one key, `combat:party:0:0`, for
+that composition. The matcher assembles and checks the original 24×24
+pixels in both facings. Chrome observed the 96×96 replacement in real
+courtyard combat. Other combinations, equipment poses, and recolors
+still fall back to the guest artwork.

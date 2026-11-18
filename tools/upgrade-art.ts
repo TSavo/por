@@ -23,7 +23,7 @@ export function loadUpgradeArt(upgrades = process.env.POR_UPGRADES_DIR) {
       for (const id of Object.keys(manifest.assets)) {
         const encounter = encounterAnchor(id, manifest.encounters?.[id]);
         if (id !== "scene:title" && !/^viewport:[a-f0-9]{64}$/.test(id) && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
-            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !/^combat:CPIC[1-8]\.DAX:\d{1,3}$/.test(id) && !portraitKey.test(id) && !encounter) continue;
+            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !/^combat:(?:CPIC[1-8]\.DAX:\d{1,3}|party:\d{1,3}:\d{1,3})$/.test(id) && !portraitKey.test(id) && !encounter) continue;
         const file = lookupOverride(manifest, id);
         if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) continue;
         try {

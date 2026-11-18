@@ -226,7 +226,16 @@ try {
       const attackIds = new Set(guards.map((id) => String(Number(id) + 128)));
       await run(`(() => {
         window.combatSprites = new Set();
+        window.partySpriteSeen = false;
         new MutationObserver(() => {
+          const party = document.querySelector('.combat-sprite[src="/art/combat:party:0:0"]');
+          if (party) {
+            const recordParty = () => {
+              if (party.naturalWidth === 96 && party.naturalHeight === 96) window.partySpriteSeen = true;
+            };
+            if (party.complete) recordParty();
+            else party.addEventListener("load", recordParty, { once: true });
+          }
           for (const image of document.querySelectorAll('.combat-sprite[src^="/art/combat:${bank}:"]')) {
             const record = () => {
               if (image.naturalWidth === 96 && image.naturalHeight === 96) {
@@ -288,7 +297,10 @@ try {
             `state.sequence === ${frame.sequence} && !animationFrame`));
         }
       }
-      if (courtyard) assert.ok(terrainLayouts.size >= 4, "Expected the battlefield to scroll");
+      if (courtyard) {
+        assert.ok(terrainLayouts.size >= 4, "Expected the battlefield to scroll");
+        assert.ok(await run("window.partySpriteSeen"), "Expected the composed party sprite to render");
+      }
       assert.equal(strikes.size, attackIds.size);
       assert.deepEqual(await run("[...combatSprites].sort()"), [...guards, ...attackIds].sort());
       console.log(`Verified ${guards.length} guard and ${strikes.size} strike PNGs in live ${routeName} combat.`);

@@ -79,7 +79,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
   const attackKeys = new Set((process.env.POR_COMBAT_ART_KEYS ?? "").split(",")
-    .filter((key) => Number(key.split(":").at(-1)) >= 128));
+    .filter((key) => key.startsWith("combat:CPIC") && Number(key.split(":").at(-1)) >= 128));
   const animation: CombatAnimationFrame[] = [];
   let lastAttack = "";
   const portraitArt = loadPortraitArt((process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean));
