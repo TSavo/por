@@ -362,6 +362,11 @@ to Sokal Keep, pass the undead patrol using the parchment password, and
 reach the eastern hall at `10,6`. The Curate casts Bless there, and the
 original Magic display confirms the buff on the fighters. Alda remains dead
 in this branch.
+Reloading the reinforced landing also lets the party pass the second
+patrol, win the smithy frog fight, and reach the northern courtyard at
+`8,4` after casting Bless one square before the entrance. The strict
+checkpoint replay verifies that approach. An exploratory Quick run
+intervened twice and had no verdict after 440 inputs.
 On the mixed-party route through the smithy, Mira enters the courtyard
 from the north. The replay verifies that Aim lets her cycle to a
 hobgoblin without offering Target. Trying Target there leaves Sleep
