@@ -192,9 +192,19 @@ async function verifyUninterruptedCourtyard(checkpoint) {
   ]);
   assert.match(visibleText(templeSave), /quit to dos/);
   await replay(loadSlot("1769"), "85000000", [
-    "e", "m", "m", ...Array(6).fill("end"), "m", ...Array(4).fill("end"), "m", "e", "enter",
+    "e", "m", "m", "m", "end", "m", "end", "end", "m", "m", "m", "m", "e", "enter",
+    (text) => assert.match(text, /memorized.*\*bless(?: \*cure light wounds){4}/),
+    "y", ...Array(6).fill("end"), "m", ...Array(4).fill("end"), "m", "e", "enter",
     (text) => assert.match(text, /mira's spells to be memorized.*\*sleep/),
-    "y", "r", "r", "n", "e", "e", "up", "enter", "enter",
+    "y", "r", "r", "n", "n", "end", "end", "c",
+    "end", "enter", // Bless
+    "end", "enter", "end", "enter", // Alda
+    "end", "enter", "end", "end", "enter", // Cora
+    "end", "enter", "end", "enter", // Dorn
+    "end", "enter", ...Array(4).fill("home"), "enter", // Curate
+    "e", "e", "e",
+    (text) => assert.match(text, /curate 3 15.*alda 3 6.*brin 1 6.*cora 3 6.*dorn 3 5.*2,13 n/),
+    "up", "enter", "enter",
     (text) => assert.match(text, /2,12 n.*i am the mighty grishnak/),
   ]);
   assert.equal([...recoveryCounts.values()].reduce((sum, count) => sum + count, 0), recoveries);

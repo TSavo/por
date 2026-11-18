@@ -500,8 +500,11 @@ The party takes a long sword, reaches the prisoner, and tries the padlocks.
 Reloading slot E confirms the key-search lead with the secret-door clue
 still hidden. From slot E the Curate rests, heals four characters, and
 prepares Hold Person. Alda readies the looted sword and the party saves
-outside the temple. After reloading, Mira prepares Sleep again and the
-party reaches Grishnak. The check fails if the watchdog intervenes. The recruitment
+outside the temple. After reloading, Mira prepares Sleep while the Curate
+prepares Bless and four cures in the same rest. The second healing round
+raises Alda and Cora to 6 HP and the Curate to 15 HP before the party
+reaches Grishnak. Both Quick combat and the tested manual Sleep openings
+still ended in defeat. The checkpoint check fails if the watchdog intervenes. The recruitment
 checks still use the historical checkpoint and the supplied brass key.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
