@@ -799,6 +799,11 @@ The `river-pumping` replay enters at controlled slot A near `4,4 E`,
 advances twice to Parlay, and chooses Nice. It checks that the liberated
 prisoners' advice and entry 35 appear only after that choice. The
 translation checks also cover the hostile outcome.
+The `yarash-combat` replay starts from the live fountain shutdown save
+and enters Yarash's room through the locked door. Chrome checks Yarash's
+selected stance, the mutant guard stance, and a guard strike during
+animation. All three are original 96×96 PNGs using the original combat
+anchors. Visual review covered the stance and strike at gameplay size.
 The `river-exit` replay uses the upper-pyramid entrance save with the
 river completion flag and journal clues from the fountain save. It walks
 out through the original secret door and verifies that the recovery clue

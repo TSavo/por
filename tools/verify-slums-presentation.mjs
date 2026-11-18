@@ -66,7 +66,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -456,6 +456,25 @@ try {
     await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
+  } else if (routeName === "yarash-combat") {
+    const mage = "combat:area:23:CPIC7.DAX:14";
+    const guard = "combat:area:23:CPIC7.DAX:57";
+    const strike = "combat:area:23:CPIC7.DAX:185";
+    const visible = (id) => run(`[...document.querySelectorAll(".combat-sprite")].filter(image =>
+      image.src.endsWith(${JSON.stringify(id)}) && image.naturalWidth === 96 && image.naturalHeight === 96).length`);
+    for (const key of ["up", "up", "b", "up", "enter", "f", "enter"]) await advance(key);
+    assert.ok(frame.combatArt.some(([, , id, , selected]) => id === mage && selected));
+    await waitFor("Yarash and his guards", async () => await visible(mage) === 1 && await visible(guard) >= 3);
+    await switchBothWays();
+    await waitFor("the enhanced combat sprites", async () => await visible(mage) === 1 && await visible(guard) >= 3);
+    const capture = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "yarash-combat.png"), Buffer.from(capture.data, "base64"));
+    await advance("enter");
+    const swung = () => frame.animation?.some((shot) => shot.combatArt?.some(([, , id]) => id === strike));
+    for (let turn = 0; turn < 20 && !swung(); turn++) await advance("q");
+    assert.ok(swung(), "A mutant guard must strike during the replay");
+    await waitFor("the mutant guard strike", () => visible(strike));
+    console.log("Verified the Yarash combat sprites and guard strike in Chrome. Capture:", directory);
   } else if (riverPumping) {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     for (const key of ["up", "j"]) await advance(key);
