@@ -831,7 +831,17 @@ In the controlled defeat branch, the combat screen reports that Alda
 lost the duel, but the elder's original script then announces a victory
 and pledges to keep his people out of the alliance. Reproduce from the
 Alda selection with Enter, Enter, Quick, Quick, Enter, Enter, Exit.
-The source of the conflicting outcome is under investigation.
+The runtime trace saw overlay 5 at `14d6` write zero to the combat
+result. The original `GAME.OVR` bytes at that offset encode the same
+write. After the loss screen the ECL interpreter read zero from
+`6DC7`. The original swamp script at `A350` branches to the hostile
+outcome only on 129, so zero falls through to the pledge and awards flag
+254. The route has no runtime correction for that mismatch.
+
+The `swamp-reward` replay uses a controlled City Hall save carrying flag
+254 and the witnessed pledge from the duel result save. Chrome checks the
+clerk's original lizardfolk reward dialogue and verifies the transition
+from ready to report through reward pending to turned in.
 It also checks the 192×320 elder sprite at the original 48×80 placement
 and verifies presentation switches in the encounter. The `swamp-ruins`
 replay loads the save made inside the ruins and checks 51 individual
