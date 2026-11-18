@@ -837,6 +837,8 @@ Chrome checks both 96×192 poses over the original 24×48 footprint, including
 the animated strike, and verifies that changing presentation preserves the save.
 The `graveyard-wraith` replay starts at `14,8 E` in controlled slot A and
 checks the 96×96 standing and reflected strike frames in the Paladin Crypt.
+The `graveyard-wight` replay starts in controlled slot A at `15,7 S` and
+checks the 96×96 standing pose and animated claw strike in the tower fight.
 The `graveyard-vampire` replay uses controlled slot A at `14,0 E` to check the
 128×320 threshold sprite, 352×352 dialogue portrait, and both 96×96 combat
 poses. It verifies presentation switches in approach, dialogue, and combat.
@@ -999,6 +1001,9 @@ The `diogenes-cave` replay checks the 352×352 mountain cave illustration at
 the initial sighting and on a later approach from separate controlled slot A
 checkpoints. It verifies the picture clears as the party enters and Diogenes's
 magic mouth starts the dialogue.
+The `diogenes-advice` replay continues from the initial sighting through
+Ask Dragon for Advice. Chrome verifies the 352×352 silver dragon portrait
+when Diogenes appears and through the Silver Bottle quest briefing.
 The `phlan-city-hall-approach` replay starts from slot B inside New Phlan's
 original gateway at `1,4 E`. Chrome checks 1,815 placements across 15 views
 on the City Hall approach and adjacent streets. The route uses 83 patterns,
@@ -1018,6 +1023,10 @@ slot B. Chrome checks the transition from the outer castle to the tower and
 verifies 1,573 tile placements across 13 views before the dragon entrance.
 The route uses 114 keys, including 65 new bindings to 59 new 32×32 paintings.
 The save is preserved when switching presentation.
+
+The `sokal-northeast-keep` replay loads slot D at `14,5 N` and walks the
+northeast halls. Chrome checks 3,025 placements across 25 views, using eight
+new 32×32 fragments among 31 patterns, and verifies state-preserving mode switches.
 
 Two Valjevo Castle threshold routes from the controlled slot B checkpoint
 displayed the new 32×32 assets across five views and 605 placements, then

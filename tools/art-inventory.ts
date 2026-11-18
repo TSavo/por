@@ -323,6 +323,7 @@ const inventoryCategories = [
   ["encounter", "Encounter frames"], ["scene", "Full-screen scenes"],
 ] as const;
 const battlefieldGaps = missingByArea.get("Battlefield")?.length ?? 0;
+const loadedPngs = new Set(replacements.map(({ path }) => path)).size;
 writeFileSync(join(output, "index.html"), `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pool of Radiance art inventory</title><style>
 body{font:16px system-ui;background:#181715;color:#f3e9d6;margin:2rem auto;padding:0 1rem;max-width:1200px}
@@ -336,7 +337,7 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 .comparison{display:grid;grid-template-columns:repeat(2,minmax(0,var(--preview-width)));gap:.75rem;margin-bottom:.5rem}
 .comparison img{display:block;width:100%;height:auto;margin:0}
 </style><h1>Pool of Radiance art inventory</h1>
-<p><strong>${replacements.length} loaded replacements</strong> · ${archives.length} source archives</p>
+<p><strong>${replacements.length} loaded replacement entries</strong> · ${loadedPngs} PNG files · ${archives.length} source archives</p>
 <dl class="inventory-totals">${inventoryCategories.map(([category, label]) =>
   `<div><dt>${label}</dt><dd>${replacementCounts.get(category) ?? 0}</dd></div>`).join("")}</dl>
 ${tracePaths.length ? `<p>Captured patterns awaiting art: ${missingTiles.length - battlefieldGaps} exploration tiles and ${battlefieldGaps} battlefield tiles.</p>` : ""}

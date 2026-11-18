@@ -14,6 +14,10 @@ const combatPoseRoutes = new Map([
     stand: "combat:area:10:CPIC4.DAX:21", strike: "combat:area:10:CPIC4.DAX:149", width: 96, height: 96,
     inputs: ["up", "b", "enter", "enter", "s", "enter", "enter", "q", "q"],
   }],
+  ["graveyard-wight", {
+    stand: "combat:area:10:CPIC4.DAX:20", strike: "combat:area:10:CPIC4.DAX:148", width: 96, height: 96,
+    inputs: ["up", "enter", "enter", "enter", "s", "enter", "enter"], strikeInputs: ["q", "q", "q"],
+  }],
   ["swamp-giant-lizard", {
     stand: "combat:area:16:CPIC8.DAX:59", strike: "combat:area:16:CPIC8.DAX:187", width: 192, height: 96,
     inputs: ["up", "enter", "c", "c", "enter", "enter", "enter", "q", "q"],
@@ -32,6 +36,11 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["sokal-northeast-keep", {
+    slot: "D", area: 21, views: 25, patterns: 31,
+    walk: ["left", "up", "right", "up", "left", "up", "right", "up", "right", "up", "up", "up",
+      "left", "up", "left", "up", "up", "left", "up", "left", "up", "right", "up", "right"],
+  }],
   ["valjevo-tower-halls", {
     slot: "B", area: 20, views: 13, patterns: 114,
     transition: { afterViews: 4, area: 7 },
@@ -119,7 +128,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "diogenes-cave", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -427,7 +436,7 @@ try {
     console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
     if (environmentTrace) console.log("Environment tile trace:", environmentTrace);
   } else if (combatPose) {
-    const { stand, strike, width, height, inputs } = combatPose;
+    const { stand, strike, width, height, inputs, strikeInputs = ["q"] } = combatPose;
     await run(`window.strikeLoaded = false;
       new MutationObserver(() => {
         for (const image of document.querySelectorAll(".combat-sprite")) {
@@ -445,7 +454,7 @@ try {
       [...document.querySelectorAll(".combat-sprite")].some(image => image.src.endsWith(${JSON.stringify(stand)}) &&
         image.naturalWidth === ${width} && image.naturalHeight === ${height})`));
     await switchBothWays();
-    await advance("q");
+    for (const key of strikeInputs) await advance(key);
     assert.ok(frame.animation?.some(({ combatArt }) => combatArt?.some(([, , id]) => id === strike)));
     await waitFor("the enhanced combat strike", () => run("window.strikeLoaded"));
     assert.deepEqual(readFileSync(saved), originalSave);
@@ -469,7 +478,7 @@ try {
     await waitFor("the Phlan outskirts illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log(`Verified the crossroads illustration at ${routeName} in Chrome.`);
-  } else if (routeName === "diogenes-cave") {
+  } else if (routeName === "diogenes-cave" || routeName === "diogenes-advice") {
     for (const key of ["up", "enter"]) await advance(key);
     const text = () => frame.text.toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join("");
@@ -480,7 +489,20 @@ try {
     for (const key of ["e", "enter"]) await advance(key);
     assert.notEqual(frame.portrait, "portrait:PIC6.DAX:32:0:0");
     assert.match(text(), /AMAGICMOUTHAPPEARS.*WHOENTERSTHEHOMEOFDIOGENES/i);
-    console.log("Verified the Diogenes cave illustration and transition into the cave in Chrome.");
+    if (routeName === "diogenes-advice") {
+      for (const key of ["s", "enter", "enter", "enter"]) await advance(key);
+      const dragonPortrait = "portrait:PIC6.DAX:117:0:0";
+      assert.equal(frame.portrait, dragonPortrait);
+      assert.match(text(), /STANDINGBEFOREYOUNOWISAGREATSILVERDRAGON/i);
+      await waitFor("the silver dragon portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+      await switchBothWays();
+      await advance("enter");
+      assert.equal(frame.portrait, dragonPortrait);
+      assert.match(text(), /THEREISASILVERBOTTLEOFGREATPOWERTHERE.*RETRIEVETHATBOTTLETHENRETURN/i);
+      await waitFor("the portrait through the bottle briefing", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+    }
+    console.log(`Verified ${routeName} artwork and dialogue in Chrome.`);
   } else if (koboldCave) {
     for (const key of ["down", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:PIC8.DAX:27:0:0");
