@@ -127,3 +127,16 @@ with the save at (14,5) after the smithy fight. Chrome verified all 121
 individual tiles in each of 12 views, including turns and the passage
 through the hidden wall. It also verified the original equipment prompt
 and that switching presentation preserved the guest frame and save bytes.
+
+## Thorn Island landing
+
+The landing and the first step toward Sokal Keep use 19 environment
+patterns. Fourteen new 32×32 PNGs cover the overcast sky, stone parapet,
+angled and straight lintel pieces, weathered portal planks, and hardware.
+Five existing armory patterns also appear in these views.
+
+Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_J PATH_TO_CHROME sokal-landing`
+with the reinforced party at (8,14). Chrome loads all 121 individual tiles
+in each view, checks the original gate description, and compares the guest
+frame and save bytes across a display switch. The route west to the reeds
+and onward to the undead patrol has additional patterns.

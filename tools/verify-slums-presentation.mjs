@@ -5,13 +5,14 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds"] = process.argv.slice(2);
-assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs|sokal-armory]");
-assert.ok(["kobolds", "orcs", "sokal-armory"].includes(routeName), "Unknown Slums replay route");
+assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs|sokal-armory|sokal-landing]");
+assert.ok(["kobolds", "orcs", "sokal-armory", "sokal-landing"].includes(routeName), "Unknown Slums replay route");
 const orcs = routeName === "orcs";
 const armory = routeName === "sokal-armory";
+const landing = routeName === "sokal-landing";
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const saved = resolve(directory, armory ? "D.json" : orcs ? "C.json" : "A.json");
+const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : orcs ? "C.json" : "A.json");
 const profile = resolve(directory, "chrome");
 copyFileSync(checkpoint, saved);
 const originalSave = readFileSync(saved);
@@ -23,7 +24,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
-    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (armory ? "2064" : orcs ? "2e63" : "1e61"),
+    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (landing ? "246a" : armory ? "2064" : orcs ? "2e63" : "1e61"),
     POR_LIVE_AT: "85000000", POR_BOOT_STEPS: "450000000",
   },
   stdio: ["ignore", "ignore", "inherit"],
@@ -118,12 +119,13 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  if (armory) {
-    const route = ["up", "up", "up", "right", "up", "left", "up", "left", "up", "up", "up", "right", "up"];
+  if (armory || landing) {
+    const route = landing ? [null, "up"] :
+      ["up", "up", "up", "right", "up", "left", "up", "left", "up", "up", "up", "right", "up"];
     const seen = new Set();
     let views = 0;
     for (const [step, key] of route.entries()) {
-      await advance(key);
+      if (key) await advance(key);
       if (!frame.tileInventory?.length) continue;
       views++;
       assert.equal(frame.tiles.length, 121);
@@ -134,16 +136,17 @@ try {
       await waitFor("121 assembled Sokal tiles", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelectorAll("#tile-art img").length === 121 &&
         [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
-      if (step === 2 || step === 9) {
-        if (step === 2) await switchBothWays();
+      if (landing || step === 2 || step === 9) {
+        if (step === (landing ? 0 : 2)) await switchBothWays();
         const shot = await command("Page.captureScreenshot", { format: "png" });
-        writeFileSync(resolve(directory, `sokal-armory-${step}.png`), Buffer.from(shot.data, "base64"));
+        writeFileSync(resolve(directory, `${routeName}-${step}.png`), Buffer.from(shot.data, "base64"));
       }
     }
     const text = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
-    assert.match(text, /ONSTANDSAREASHIELD/i);
-    assert.equal(seen.size, 13);
-    console.log(`Verified ${seen.size} Sokal armory patterns across ${views} views. Captures: ${directory}`);
+    assert.match(text, landing ? /ROTTINGREMAINS/i : /ONSTANDSAREASHIELD/i);
+    assert.equal(views, landing ? 2 : 12);
+    assert.equal(seen.size, landing ? 19 : 13);
+    console.log(`Verified ${seen.size} ${routeName} patterns across ${views} views. Captures: ${directory}`);
   } else if (orcs) {
     const route = ["up", "left", "up", "up", "up", "right", "up", "right",
       ...Array(5).fill("up"), "right", "up", "left", "up", "left", "up"];

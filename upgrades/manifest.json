@@ -13,6 +13,20 @@
     "tile:21:2d380f67989bef6c1c363c519e7001255f5accd9e8a5b2ad557312990469c7c4": "sokal-gate-head.png",
     "tile:21:265fdfb327afb9171e5a4afaf526a304471572cc2dc02ba16b03a00049e8f541": "sokal-gate-bars.png",
     "tile:21:202aefe6bbb76257e5a3fdb4ec8e2a102ef8ab28a63b1d507be1d284589ab202": "sokal-falling-floor-join.png",
-    "tile:21:110943e6a403b2235bba6335458085ad7e6948b823e00f8af7bd859e29c98c38": "sokal-gate-foot.png"
+    "tile:21:110943e6a403b2235bba6335458085ad7e6948b823e00f8af7bd859e29c98c38": "sokal-gate-foot.png",
+    "tile:21:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "sokal-overcast-sky.png",
+    "tile:21:2b189e32fb8cf14bccc4e230acdc7e87885e4ba1d93051e2861319877487c307": "sokal-portal-left-head.png",
+    "tile:21:5489a60945a1c69e6349b1dbbbfa55e6e0f2a04200f80cb2d4297b8177cee54c": "sokal-portal-right-head.png",
+    "tile:21:e05c49674f61413e958d8c57f241968c3e8574d6ae3f1ab06e30507b322d3aae": "sokal-portal-left-planks.png",
+    "tile:21:84a5e65150d3128b6e080ac8b952f40e90d82f40d0b3c345d2be51f4952c9f10": "sokal-portal-right-planks.png",
+    "tile:21:80365aff0ddcf91182a971781062979ea6fb274bdd0be01e236be5c240ec701b": "sokal-portal-pier.png",
+    "tile:21:8a69c0e8564e565884435ba1a08a6f282775d00ecb8af439bb001edeb3831ec2": "sokal-portal-latch.png",
+    "tile:21:a4bcca92e9935b6a5f236dd370c3d4823d6eb4e9412ec027e3a6c5b928e17cc1": "sokal-parapet.png",
+    "tile:21:24abf4f4b898f0afdc3b933a1669ba06e55a8e9de012587587ed174a054aff2b": "sokal-left-impost.png",
+    "tile:21:cf144496ed0681020df4d6981a47b47c94e986a0ed70f30b6120ad6998654aee": "sokal-right-impost.png",
+    "tile:21:28082cb4614c1b75f311dc02a9bcfcec8c522d115bfeb1d170bf60bf53f2943a": "sokal-straight-impost.png",
+    "tile:21:3aba0bc3a1f0358e649df430098738004297a0554176b8d049704de805a60256": "sokal-parapet-sky-cut.png",
+    "tile:21:96c6214eeeffe75400cbf369415185d115fb3a3c1bd7607f5019cb3c97a66850": "sokal-parapet-rake.png",
+    "tile:21:d0a83bd71c8df140546833f463034917d2a4558950848f3c53576cc3dd781655": "sokal-impost-rake.png"
   }
 }
