@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "portrait:HEAD1.DAX:48:BODY1.DAX:25": "podal-infirmary-healer.png",
     "tile:1:2e55ca6e677e0dd7276ab67a7f5e07f9701a696c4ac8d9912568fa5f00593f1f": "buccaneer-base-terrain-2e55ca6e677e.png",
     "tile:1:cf13aae2972cd9237b12bb064e7077d9b09469ee89ce918dced045c80190675c": "buccaneer-base-terrain-cf13aae2972c.png",
     "tile:1:0074a4a4e147d6b679cc508e8599c9c6aad4f0d13b833284e6c8161dfddba398": "buccaneer-base-terrain-0074a4a4e147.png",

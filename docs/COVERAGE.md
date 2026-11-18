@@ -659,6 +659,12 @@ Repeat the plaza check with `node tools/verify-slums-presentation.mjs PATH_TO_SL
 from the disguised party at `0,4 W`. The `fighter-trainer` route starts at the
 New Phlan west gate in slot A and checks both the arena master's duel prompt
 and the fighter trainer's dialogue, including switches at both prompts.
+
+The `podal-infirmary` Chrome replay uses a controlled slot I at `0,15 E`.
+It walks into the hidden infirmary and identifies the original picture from
+the exact `HEAD1.DAX:48` and `BODY1.DAX:25` pixels. It verifies the new
+352×352 healer portrait, mode switching at the healing question, and the
+portrait closing on No.
 The Slums infantry and Textile House priestess share a guest image pattern.
 Area-scoped overrides keep their new artwork distinct, verified live in both fights.
 
