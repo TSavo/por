@@ -83,12 +83,13 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
     if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
     if (commission.id === "textile") {
-      if (tracked?.status === "accepted") nextStep = tracked.detail;
-      else if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
+      if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
       else if (knows("textile-secret-door")) nextStep = "Follow Skullcrusher's clue and search southeast for the secret door to the hobgoblin leader.";
+      else if (knows("textile-prisoner")) nextStep = "Speak with the prisoner in the western building and find a way to open his padlocks. Read journal entry 47.";
       else if (knows("textile-skullcrusher-mark")) nextStep = "Search the rooms near Skullcrusher's mark for whoever left it.";
       else if (knows("textile-courtyard-cleared")) nextStep = "Cross the quiet courtyard and search the western textile building for Cadorna's treasure.";
       else if (knows("textile-courtyard-ambush")) nextStep = "Prepare for the hobgoblin ambush before crossing the courtyard toward the western textile building.";
+      else if (tracked?.status === "accepted") nextStep = tracked.detail;
     }
     if (commission.id === "ohlo" && tracked?.status === "accepted") {
       if (knows("ohlo-booth")) nextStep = "At the booth, choose Speak and enter OHLO. Bring the package back to him.";
@@ -403,6 +404,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("MY NAME IS SKULLCRUSHER. THERE'S A SECRET DOOR TO THE SOUTHEAST")) {
     leads.push({ id: "textile-secret-door", title: "Skullcrusher's secret door",
       detail: "Skullcrusher says he met the hobgoblin leader beyond a secret door to the southeast." });
+  }
+  if (text.includes("A MUSCULAR MAN LOCKED IN CHAINS LIES HERE")) {
+    leads.push({ id: "textile-prisoner", title: "Prisoner in the Textile House",
+      detail: "The party found a man in chains and recovered the page recorded as journal entry 47." });
   }
   if (text.includes("IT'S ONLY A WAND OF FEAR")) {
     leads.push({ id: "auction-wand-of-fear", title: "The auction weapon",

@@ -280,6 +280,36 @@ async function verifyPodalFromCouncil(checkpoint) {
     (text) => assert.match(text, /a battle begins/),
   ]);
   console.log("Rested, cast Bless, and reloaded with Enna and Mira at 5 HP. Parlay led to combat.");
+  await replay(load("2064"), "85000000", [
+    "e", "a", "a", "o", ...Array(7).fill("end"), "enter",
+    ...Array(7).fill("home"), "enter",
+    (text) => assert.match(text, /name ac hp curate 3 14 alda/),
+    "e", "e", "e", "left", "up", "b", "enter", "c", "enter", "enter",
+    ...Array(101).fill("q"),
+    (text) => assert.match(text, /continue battle:yes no/),
+    "n", "enter",
+    (text) => assert.match(text, /the party has won.*63 experience points/),
+    "enter", "enter", "e", "n", "right", "up", "left", "up", "b", "enter",
+    (text) => assert.match(text, /2,15 s.*muscular man locked in chains.*entry 47/),
+    "enter", "p", "n",
+    (text) => assert.match(text, /i almost killed the leader/),
+    "enter", "l", "enter", "j",
+    (_text, frame) => {
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-prisoner"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+    }, "track 3", (_text, frame) => {
+      assert.equal(frame.journal.trackedId, "commission-textile");
+      assert.match(frame.journal.objective.nextStep, /padlocks/);
+    }, "j", "e", "s", "s", "e",
+  ]);
+  await replay(load("1265"), "85000000", [
+    (text) => assert.match(text, /2,15 s/),
+    "j", (_text, frame) => {
+      assert.equal(frame.journal?.trackedId, "commission-textile");
+      assert.match(frame.journal.objective.nextStep, /padlocks/);
+    }, "j",
+  ]);
+  console.log("Won the Textile House prison fight and verified the journal's captive lead.");
   console.log("Checkpoint replay saves:", saveDir);
 }
 

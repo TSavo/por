@@ -437,7 +437,12 @@ That branch continues through five hours of rest at the door after the
 Curate selects Bless and three Cure Light Wounds spells. The Curate
 then casts Bless and heals Enna from 0 to 5 HP and Mira from 3 to 5 HP.
 Reloading slot D verifies their HP. Choosing Parlay at the prison door
-draws a battle cry and starts combat. Victory remains unverified.
+draws a battle cry and starts combat. A separate reload puts the Curate
+first through Encamp → Alter → Order, then wins the prison fight for
+63 XP each. The party bashes the cell door, finds the captive and entry
+47, and speaks with him. Tracking Cadorna's commission in the journal
+directs the party to the captive's padlocks, with the secret-door clue
+still hidden. Reloading slot E verifies the tracked objective.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the
