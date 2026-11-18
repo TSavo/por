@@ -116,7 +116,7 @@ and the same game data and initial save state. For a live replay, put
 `POR_LIVE_AT` after the recorded keys to resume interactive input.
 
 Live runs persist the DOS save bytes, discovered leads, and tracked quest
-together for each slot A–J. Loading one switches journal state to that slot.
+together for each slot Aâ€“J. Loading one switches journal state to that slot.
 Each new save also includes the character, item, and spell companion files
 written by DOS for that party. Older browser saves may lack these files.
 Set `POR_SAVE_DIR` to select the save directory. An existing
@@ -242,6 +242,11 @@ The party reloads D and walks through the apparent wall north of (15,2).
 It follows the glow to the equipment stands at (12,0), earns 400 XP per
 character, and takes the four items into Brin's inventory. Slot E reloads
 at the stands with the journal discovery and the recovered equipment.
+Run `node tools/verify-fresh-party.mjs --sokal-armory-checkpoint PATH_TO_SLOT_D`
+to replay this route. The journal directs the party toward the observed
+glow after crossing the wall. It adds the equipment lead when the party
+sees the stands. Reloading E preserves the lead and the tracked Sokal
+commission, with Ferran's identity still hidden.
 The party then readies the shield and longsword on Brin and trades the
 mace to Cora through the original inventory menu. The character sheets
 show Brin at AC 1 with 1d8+1 weapon damage and Cora with 1d6+3 weapon
@@ -450,15 +455,15 @@ frame sequence and left the save file byte-for-byte identical.
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_A PATH_TO_CHROME`
 with a party saved at New Phlan's west gate before the kobold encounter.
 The test uses the browser's default artwork configuration.
-The replay verifies 22 Slums views assembled from 121 individual 32×32
+The replay verifies 22 Slums views assembled from 121 individual 32Ã—32
 PNGs per view. It checks alignment, pixelated scaling, and the loaded web
 font at 430px and 1100px. The button and F10 preserve the complete guest
 frame and save bytes during exploration, in the journal, at the kobold
 dialogue, and in combat. The journal retains focus on Return to game.
 The verifier exports the 22 Slums views as a local tile trace. Feeding
 that trace into the route artwork tool accounted for all 2,662 placements
-and found a 32×32 replacement for all 34 distinct patterns on this replay.
-The report also exports all 34 original 8×8 references from the live
+and found a 32Ã—32 replacement for all 34 distinct patterns on this replay.
+The report also exports all 34 original 8Ã—8 references from the live
 framebuffer, including 11 patterns with no exact match in the tile archives.
 Older hash-only traces still show references when an archive match exists.
 The orc outpost replay produced 28 captures. Inspecting the original frames
@@ -466,7 +471,7 @@ identified an orc overlay in frame 20 and a blank transition in frame 22.
 Omitting those two frames leaves 68 environment patterns, of which 40 have
 replacements. The HTML checklist links each pattern to its full guest frame.
 The new soffit and two sloped wall junctions bring the outpost route to
-43 of 68 patterns. Chrome loaded all three 32×32 PNGs as individual tiles
+43 of 68 patterns. Chrome loaded all three 32Ã—32 PNGs as individual tiles
 while walking from the Slums gate to the outpost. The sloped joins and
 ceiling were inspected together in the assembled corridor view.
 The remaining 25 doorway, rubble, and material junction tiles bring the
@@ -565,7 +570,7 @@ Curate selects Bless and three Cure Light Wounds spells. The Curate
 then casts Bless and heals Enna from 0 to 5 HP and Mira from 3 to 5 HP.
 Reloading slot D verifies their HP. Choosing Parlay at the prison door
 draws a battle cry and starts combat. A separate reload puts the Curate
-first through Encamp → Alter → Order, then wins the prison fight for
+first through Encamp â†’ Alter â†’ Order, then wins the prison fight for
 63 XP each and takes a long sword from the loot. The party bashes the cell door, finds the captive and entry
 47, and speaks with him. Tracking Cadorna's commission in the journal
 directs the party to the captive's padlocks, with the secret-door clue

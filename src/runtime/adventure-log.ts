@@ -113,6 +113,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("sokal-ambush")) nextStep = knows("phlan-arena-recruits")
         ? "Heal and ready spells before returning to the courtyard. If you need reinforcements, ask the arena master in New Phlan for a partner."
         : "Prepare for the orcs and hobgoblins before crossing the courtyard. Heal the party and ready spells and equipment.";
+      else if (knows("sokal-armory-stands")) nextStep = "Check the gear on the stands if you left it behind, then continue exploring Sokal Keep.";
+      else if (knows("sokal-hidden-armory")) nextStep = "Follow the glow to the northwest corner of the hidden armory.";
       else if (knows("sokal-patrol-passed")) nextStep = "Explore the keep. If another undead patrol asks whether to give the password, choose Yes.";
       else if (knows("sokal-parchment")) nextStep = "Keep exploring. If you speak to an undead patrol, try a word from the parchment.";
       else if (knows("sokal-reeds")) nextStep = "Look through the mound of reeds west of the gates before entering the keep.";
@@ -370,6 +372,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("PASSING THROUGH AN ILLUSIONARY WALL, YOU ENTER A PORTION OF THE KEEP")) {
     leads.push({ id: "sokal-hidden-armory", title: "The hidden armory",
       detail: "The party passed through a wall in the northeastern armory and saw a glow in the northwest corner." });
+  }
+  if (text.includes("ON STANDS ARE A SHIELD, A MACE, A SWORD") && text.includes("DO YOU TAKE IT")) {
+    leads.push({ id: "sokal-armory-stands", title: "Equipment in the hidden armory",
+      detail: "The party found weapon and armor stands at the source of the glow." });
   }
   if (text.includes("TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'")) {
     leads.push({ id: "sokal-departure", title: "Ferran's password", detail: "Ferran told the party to say SAMOSUD to his guards on the way out." });

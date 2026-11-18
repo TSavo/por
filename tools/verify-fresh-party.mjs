@@ -56,11 +56,9 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
   }
   try {
     let frame = await nextFrame();
-    for (const key of actions) {
-      if (typeof key === "function") {
-        key(visibleText(frame), frame);
-        continue;
-      }
+    for (const action of actions) {
+      const key = typeof action === "function" ? action(visibleText(frame), frame) : action;
+      if (typeof key !== "string") continue;
       lastKey = key;
       actionNumber++;
       runner.stdin.write(key + "\n");
@@ -117,6 +115,37 @@ async function verifySokalSmithy(checkpoint) {
     (text) => assert.match(text, /fenn's items.*yes hammer/),
   ], directory);
   console.log("Found and readied the smithy hammer, then reloaded its journal entry and Fenn's inventory.");
+}
+
+async function verifySokalArmory(directory) {
+  const { isOpenObjective } = await tsImport("../src/runtime/adventure-log.ts", import.meta.url);
+  const trackSokal = (_text, frame) => {
+    const index = frame.journal.leads.filter(isOpenObjective).findIndex(({ id }) => id === "commission-sokal");
+    assert.ok(index >= 0, "Sokal Keep should be trackable");
+    return `track ${index + 1}`;
+  };
+  const equipmentSave = await replay(loadSlot("2064"), "85000000", [
+    "up", "up", "up", "right", "up", "left", "up",
+    (text) => assert.match(text, /passing through an illusionary wall.*glow in the northwestern corner/),
+    "j", trackSokal, (_text, frame) => {
+      assert.equal(frame.journal.objective.nextStep, "Follow the glow to the northwest corner of the hidden armory.");
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-armory-stands"));
+    }, "j",
+    "left", "up", "up", "up", "right", "up",
+    (text) => assert.match(text, /on stands are a shield, a mace, a sword.*do you take it/),
+    "y", (text) => assert.match(text, /receives 400 experience points/),
+    "enter", "enter", "end", "t", "t", "t", "t", "t", "e", "e", "enter", "s", "e",
+  ], directory);
+  assert.match(visibleText(equipmentSave), /quit to dos/);
+  await replay(loadSlot("1265"), "85000000", [
+    (text) => assert.match(text, /12,0 n/),
+    "j", (_text, frame) => {
+      assert.equal(frame.journal.trackedId, "commission-sokal");
+      assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-armory-stands"));
+      assert.match(frame.journal.objective.nextStep, /gear on the stands/);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ferran"));
+    },
+  ], directory);
 }
 
 const courtyardOpening = [
@@ -908,6 +937,14 @@ if (process.argv[2] === "--slums-orcs-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--sokal-armory-checkpoint") {
+  assert.ok(process.argv[3], "Pass a save in Sokal's old armory after defeating the smithy frogs.");
+  copyFileSync(process.argv[3], join(saveDir, "D.json"));
+  await verifySokalArmory(saveDir);
+  console.log("Followed the hidden-armory clue, took the equipment and verified the updated journal after reload.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--sokal-smithy-checkpoint") {
   assert.ok(process.argv[3], "Pass a save in Sokal's old armory after defeating the smithy frogs.");
   await verifySokalSmithy(process.argv[3]);
@@ -1325,15 +1362,7 @@ await replay(loadSlotD, "85000000", [
 ]);
 console.log("Passed a second undead patrol, won the frog encounter and reloaded in Sokal's old armory.");
 await verifySokalSmithy(join(saveDir, "D.json"));
-const equipmentSave = await replay(loadSlotD, "85000000", [
-  "up", "up", "up", "right", "up", "left", "up",
-  (text) => assert.match(text, /passing through an illusionary wall.*glow in the northwestern corner/),
-  "left", "up", "up", "up", "right", "up",
-  (text) => assert.match(text, /on stands are a shield, a mace, a sword.*do you take it/),
-  "y", (text) => assert.match(text, /receives 400 experience points/),
-  "enter", "enter", "end", "t", "t", "t", "t", "t", "e", "e", "enter", "s", "e",
-]);
-assert.match(visibleText(equipmentSave), /quit to dos/);
+await verifySokalArmory(saveDir);
 const readiedArmoryGear = await replay(loadSlotE, "85000000", [
   (text) => assert.match(text, /12,0 n/),
   "j", (_text, frame) => {
