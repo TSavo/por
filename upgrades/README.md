@@ -45,6 +45,12 @@ covering the doorway study and all 53 patterns observed on the recorded
 Slums route to the kobold encounter. New or unmatched cells use the enhanced
 palette.
 
+A Chrome replay from a six-character New Phlan save walked through the west
+gate and into the Slums kobold encounter. All 22 Slums exploration frames
+drew 121 replacement PNGs at the recorded positions. The combat frame used
+the original combat art, and switching back to classic display preserved
+the frame sequence and the loaded save file.
+
 Enhanced gameplay uses Geist Mono for text captured from the game's EGA
 character renderer. Use a local `font.woff2` in your upgrades directory to
 choose a different font. Letters remain in the game's original cells and
