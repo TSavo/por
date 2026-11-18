@@ -770,6 +770,9 @@ with the river offer tracked. It moves south to discover the rowboat, takes
 it to the pyramid, and enters through the secret door. The journal changes
 from boarding the boat to entering the door and then exploring the passage
 with the exit behind the party. The fountain remains undisclosed at that point.
+The `river-passage` replay loads the slot A save printed by
+`river-approach` and verifies both the journal's retained entrance clue
+and the first two original hidden-door discoveries in the passage.
 The translation verifier checks that the next step changes at each discovery
 and points back to New Phlan after destruction. It also checks the original
 council reward dispatch and progress flag. These checks use original ECL
