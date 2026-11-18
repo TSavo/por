@@ -1055,6 +1055,9 @@ the commission when the party has never heard the offer.
 The `podal-west-gate` replay starts in slot J at `7,6 S` and walks to the
 western arch. Chrome checks 1,573 placements across 13 views, using 17 new
 32×32 tiles among 61 patterns, and preserves the save when switching modes.
+The `podal-north-lane` replay leaves that gate and crosses into Stojanow.
+Chrome verifies 1,936 placements across 16 views. Eight new ivy tiles cover
+the lane and nine existing Stojanow tiles carry through the crossing.
 The `phlan-city-hall-approach` replay starts from slot B inside New Phlan's
 original gateway at `1,4 E`. Chrome checks 1,815 placements across 15 views
 on the City Hall approach and adjacent streets. The route uses 83 patterns,
@@ -1178,6 +1181,12 @@ and checks the 96×192 ready pose and reflected strike during combat.
 The `slums-fortune` replay uses controlled slot B, checks the fortune teller's
 352×352 portrait, and reveals her journal clue only after the party pays for
 and hears the reading.
+The `slums-potion-booth` replay from controlled slot B verifies the merchant
+portrait, the journal discovery, and the picture clearing on Ohlo's package
+handoff. The merchant's area-scoped composite also lets the Stojanow wagon
+trader keep his own portrait.
+The `buccaneer-captain-combat` replay uses controlled slot A at `8,12 W`
+and checks both 96×96 sword poses in the captain's quarters fight.
 The same Chrome replay passed with encounter anchors read from the Slums
 manifest. A framebuffer check moved the middle kobold pose to a different
 anchor and area, confirmed the old area's background was discarded, and

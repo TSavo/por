@@ -6,6 +6,10 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const combatPoseRoutes = new Map([
+  ["buccaneer-captain-combat", {
+    stand: "combat:area:1:CPIC6.DAX:16", strike: "combat:area:1:CPIC6.DAX:144", width: 96, height: 96,
+    inputs: ["up", "enter", "enter", "enter", "a", "enter", "enter"], strikeInputs: ["enter"],
+  }],
   ["graveyard-giant-skeleton", {
     stand: "combat:area:10:CPIC4.DAX:22", strike: "combat:area:10:CPIC4.DAX:150", width: 96, height: 192,
     inputs: ["up", "enter", "y", "enter", "enter", "enter", "q", "q"],
@@ -60,6 +64,11 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["podal-north-lane", {
+    slot: "J", area: 18, views: 16, patterns: 97,
+    transition: { afterViews: 15, area: 9 },
+    walk: ["right", "right", ...Array(4).fill("up"), "left", ...Array(5).fill("up"), "enter", "enter", "up"],
+  }],
   ["valjevo-west-gallery", {
     slot: "B", area: 20, views: 15, patterns: 110,
     transition: { afterViews: 4, area: 7 },
@@ -188,7 +197,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "slums-fortune", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -244,7 +253,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader || koboldCave || routeName === "slums-fortune" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy ? "C" : "A");
+const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader || koboldCave || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -591,6 +600,24 @@ try {
     await waitFor("the New Phlan harbor master", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log(`Verified the harbor master on ${routeName} in Chrome.`);
+  } else if (routeName === "slums-potion-booth") {
+    await advance("j");
+    assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "ohlo-booth"));
+    await advance("j");
+    for (const key of ["up", "enter"]) await advance(key);
+    const merchant = "portrait:area:20:HEAD2.DAX:5:BODY2.DAX:9";
+    assert.equal(frame.portrait, merchant);
+    await waitFor("the Slums potion merchant portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "ohlo-booth"));
+    await advance("j");
+    for (const key of ["s", "o", "h", "l", "o", "enter"]) await advance(key);
+    const text = frame.text.toSorted(([left], [right]) => left - right)
+      .map(([, character]) => String.fromCharCode(character)).join("");
+    assert.match(text, /RETURNSWITHAPACKAGE/i);
+    assert.notEqual(frame.portrait, merchant);
+    console.log("Verified the Slums potion booth portrait and package dialogue in Chrome.");
   } else if (routeName === "slums-fortune") {
     const portrait = "portrait:HEAD2.DAX:25:BODY2.DAX:13";
     for (const key of ["up", "enter"]) await advance(key);
