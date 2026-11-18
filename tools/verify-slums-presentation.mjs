@@ -291,6 +291,24 @@ try {
     }
     assert.equal(views, environment.views);
     assert.equal(patterns.size, environment.patterns);
+    if (routeName === "buccaneer-pens") {
+      const hasLead = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+      await advance("j");
+      assert.ok(hasLead("rescue-animal-pens"));
+      assert.ok(!hasLead("rescue-stampede"));
+      await advance("j");
+      for (const key of ["r", "enter", "j"]) await advance(key);
+      assert.ok(hasLead("rescue-stampede"));
+      assert.ok(!hasLead("rescue-inside-pen"));
+      await advance("j");
+      for (const key of ["right", "right", "up", "left", ...Array(4).fill("up"),
+        "left", "up", "up", "b", "enter", "j"]) await advance(key);
+      assert.ok(hasLead("rescue-inside-pen"));
+      assert.ok(!hasLead("rescue-heir-freed"));
+      for (const key of ["j", "g", "j"]) await advance(key);
+      assert.ok(hasLead("rescue-heir-freed"));
+      await advance("j");
+    }
     if (actor) {
       assert.ok(frame.encounter, "The encounter actor must be drawn separately from the scenery");
       const [, , id, width, height] = frame.encounter;

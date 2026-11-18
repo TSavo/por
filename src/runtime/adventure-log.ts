@@ -184,8 +184,11 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "rescue") {
       if (knows("rescue-heir-left-behind")) nextStep = "Return to the council clerk and report what happened to the boy.";
       else if (knows("rescue-heir-purchased")) nextStep = "Escort the boy out through the base gate and return him to New Phlan.";
+      else if (knows("rescue-heir-freed")) nextStep = "Escort the boy out through the base gate and return him to New Phlan.";
       else if (knows("rescue-captain-price")) nextStep = "Choose Buy the Boy if you accept the captain's price, or prepare to fight.";
       else if (knows("rescue-inside-pen")) nextStep = "Choose Get Him and escort the boy out of the base.";
+      else if (knows("rescue-stampede") && !knows("rescue-animals-recaptured")) nextStep = "Head to the slave pen while the guards are rounding up the animals.";
+      else if (knows("rescue-animal-pens") && !knows("rescue-stampede")) nextStep = "Choose Release Animals at the animal pens to draw the guards away from the slave pen.";
       else if (knows("rescue-sneak-blocked")) nextStep = "The guards spotted your approach. Choose Attack Guards or Leave to try another route.";
       else if (knows("rescue-pen-gate")) nextStep = "At the gate, choose Try to Sneak By or Attack.";
       else if (knows("rescue-pen-options")) nextStep = "Choose Sneak Into Pen or Attack Guards to reach the boy.";
@@ -425,8 +428,20 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU CANNOT GET BY THE GUARDS INTO THE SLAVE PEN")) {
     leads.push({ id: "rescue-sneak-blocked", title: "The guards blocked the way", detail: "The guards were too alert for the party to sneak by." });
   }
+  if (text.includes("YOU ARE AT THE GATE TO THE ANIMAL PENS")) {
+    leads.push({ id: "rescue-animal-pens", title: "Restless animals", detail: "The party found restless animals behind a gate at the base." });
+  }
+  if (text.includes("GUARDS ARE LEAVING THEIR POSTS IN ORDER TO CONTROL THE ANIMALS")) {
+    leads.push({ id: "rescue-stampede", title: "The guards left their posts", detail: "The animals stampeded through the compound and the guards went after them." });
+  }
+  if (text.includes("THE ANIMALS HAVE BEEN CAPTURED")) {
+    leads.push({ id: "rescue-animals-recaptured", title: "The stampede ended", detail: "The animals have been captured." });
+  }
   if (text.includes("YOU ARE IN THE SLAVE PEN. STANDING NEAR YOU IS THE YOUNG BOY")) {
     leads.push({ id: "rescue-inside-pen", title: "Inside the pen", detail: "The boy is within reach." });
+  }
+  if (text.includes("YOU TAKE THE YOUNG BOY AND LEAVE")) {
+    leads.push({ id: "rescue-heir-freed", title: "The boy is out of the pen", detail: "The boy left with the party, and the other prisoners ran out of the pen." });
   }
   if (text.includes("I CAN LET YOU BUY THE YOUNG BOY")) {
     leads.push({ id: "rescue-captain-price", title: "The captain named a price", detail: "The captain offered to sell the captive boy." });

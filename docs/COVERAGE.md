@@ -858,7 +858,11 @@ when they block the attempt. The separate
 `buccaneer-pens` terrain replay starts from the merchants' camp at
 `8,11 S` and reaches the animal pens. Chrome checks 47 individual 32×32
 tiles over 14 views, including palisades, cage bars, and the night sky.
-It also checks the 192×320 elder sprite at the original 48×80 placement
+The replay releases the animals, crosses to the slave pen, bashes open
+the locked gate and takes the boy. The journal reveals each discovery
+as it happens, including the guards leaving their posts and the boy
+leaving with the party.
+The swamp replay checks the 192×320 elder sprite at the original 48×80 placement
 and verifies presentation switches in the encounter. The `swamp-ruins`
 replay loads the save made inside the ruins and checks 51 individual
 32×32 tiles across 12 views. Visual review led to a continuous misty sky
