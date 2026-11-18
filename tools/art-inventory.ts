@@ -129,15 +129,15 @@ for (const reference of scriptReferences) {
 mkdirSync(join(output, "enhanced"), { recursive: true });
 mkdirSync(join(output, "comparison"), { recursive: true });
 const comparisonArchives = new Map<string, ReturnType<typeof parseDax>>();
-function exportClassicFrame(archive: string, directoryIndex: number, member: number, frame: number, index: number) {
+function classicPicture(archive: string, directoryIndex: number, member: number) {
   let dax = comparisonArchives.get(archive);
   if (!dax) {
     dax = parseDax(archive, readGameFile(gameData!, archive));
     comparisonArchives.set(archive, dax);
   }
-  const picture = decodePicture(pictureMembers(dax.entries[directoryIndex]!.data)[member]!.data);
-  const original = new Frame(picture.width, picture.height);
-  original.blit(frameSlice(picture, frame), picture.width, picture.height, 0, 0);
+  return decodePicture(pictureMembers(dax.entries[directoryIndex]!.data)[member]!.data);
+}
+function exportClassicFrame(original: Frame, index: number) {
   const preview = `comparison/${index}.png`;
   writeFileSync(join(output, preview), encodePng(original));
   return preview;
@@ -159,18 +159,35 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
     }
   }
   const composite = compositePortraitKey.exec(id);
-  const sourceParts = composite && [
-    { archive: composite[1], block: Number(composite[2]), frame: 0, x: 0, y: 0 },
-    { archive: composite[3], block: Number(composite[4]), frame: 0, x: 0, y: 40 },
-  ];
+  const sourceParts = composite ? [
+    { archive: composite[1]!, block: Number(composite[2]), frame: 0, x: 0, y: 0 },
+    { archive: composite[3]!, block: Number(composite[4]), frame: 0, x: 0, y: 40 },
+  ].flatMap((part) => {
+    const entry = archives.find(({ file }) => file === part.archive)?.entries.find(({ id }) => id === part.block);
+    return entry ? [{ ...part, directoryIndex: entry.directoryIndex, member: 0 }] : [];
+  }) : undefined;
   const area = /^(?:tile|combat:area):(\d+):/.exec(id)?.[1];
   const placement = metadata.encounter
-    ?? (sourceParts ? { x: 24, y: 24 }
+    ?? (id.startsWith("portrait:") ? { x: 8, y: 8, width: 120, height: 120 }
+      : id === "scene:title" ? { x: 0, y: 0, width: 320, height: 200 }
       : source || area !== undefined ? {
         ...(source && { x: source.x, y: source.y }),
         ...(area !== undefined && { area: Number(area) }),
       } : undefined);
-  const classicPreview = source && exportClassicFrame(source.archive, source.directoryIndex, source.member, source.frame, index);
+  let classicPreview;
+  if (source) {
+    const picture = classicPicture(source.archive, source.directoryIndex, source.member);
+    const original = new Frame(picture.width, picture.height);
+    original.blit(frameSlice(picture, source.frame), picture.width, picture.height, 0, 0);
+    classicPreview = exportClassicFrame(original, index);
+  } else if (sourceParts?.length === 2) {
+    const original = new Frame(88, 88);
+    for (const part of sourceParts) {
+      const picture = classicPicture(part.archive, part.directoryIndex, part.member);
+      original.blit(frameSlice(picture, part.frame), picture.width, picture.height, part.x, part.y);
+    }
+    classicPreview = exportClassicFrame(original, index);
+  }
   return { id, preview, classicPreview, source, sourceParts: sourceParts ?? undefined, placement, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();
@@ -189,12 +206,13 @@ for (const replacement of replacements) {
 function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source }: typeof replacements[number]) {
   const area = placement && "area" in placement ? ` · area ${placement.area}` : "";
   const origin = placement && "x" in placement ? ` · origin (${placement.x}, ${placement.y})` : "";
+  const extent = placement && "width" in placement ? ` · display ${placement.width}×${placement.height}` : "";
   const enhanced = `<a href="${preview}" target="_blank" rel="noopener"><img loading="lazy" src="${preview}" alt="${escape(file)}"></a>`;
   const images = !classicPreview ? enhanced : `<div class="comparison" style="--preview-width:${Math.min(width, 176)}px">` +
     `<div><a href="${classicPreview}" target="_blank" rel="noopener"><img loading="lazy" src="${classicPreview}" alt="Classic frame"></a><small>Classic</small></div>` +
     `<div>${enhanced}<small>Enhanced</small></div></div>`;
   return `<div class="preview">${images}` +
-    `<small>Enhanced · ${width}×${height} · ${escape(id)}${area}${origin}</small>` +
+    `<small>Enhanced · ${width}×${height} · ${escape(id)}${area}${origin}${extent}</small>` +
     `<small>${escape(file)}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small></div>`;
 }
 const runtimeGallery = runtimeReplacements.length ?
