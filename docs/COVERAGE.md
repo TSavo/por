@@ -590,6 +590,12 @@ and rewarded states for 15 objectives. These checks exercise the journal
 against original script evidence. They do not run the quest scenarios.
 
 A controlled checkpoint placed the mixed party one step from Ferran's altar.
+From that save, the chapel replay walks back to the entrance at `8,6`,
+triggers the chapel description, tracks the Sokal objective, and
+saves. After reloading, it confirms that a direct step south from
+`8,8` is blocked, then follows the journal's eastern detour to
+the altar. The pale figure appears at `8,10`. Its identity and
+the departure word stay hidden until the party learns them.
 Ordinary input triggered the pale form, used Parlay and LUX, and chose to
 tell the truth. The original script taught SAMOSUD and completed the
 commission. Saving at the altar and reloading in the normal runner verified

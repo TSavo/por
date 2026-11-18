@@ -115,7 +115,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       }
       else if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
       else if (knows("sokal-pale-form") && knows("sokal-parchment")) nextStep = "Talk to the pale form. When asked for a word, try one from the parchment.";
-      else if (knows("sokal-chapel")) nextStep = "Approach the altar on the south wall of the chapel.";
+      else if (knows("sokal-chapel")) nextStep = "Head south from the chapel entrance. At the blocked passage, go around it to the east, then turn back west and approach the altar on the south wall.";
       else if (knows("sokal-courtyard-note")) nextStep = "Read journal entry 57 and continue exploring the keep beyond the courtyard.";
       else if (knows("sokal-ambush")) {
         nextStep = "Heal the party and ready weapons and spells before returning to the courtyard.";

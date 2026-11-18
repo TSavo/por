@@ -414,7 +414,7 @@ function checkCampaignJournal(): void {
     ["IN A POUCH ON THE REMAINS IS A CRUMBLING PARCHMENT SCROLL", "speak to an undead patrol"],
     ["A LOUD COMMOTION RISES FROM THE COURTYARD", "ready weapons and spells"],
     ["ON A HOBGOBLIN BODY, YOU FIND A NOTE", "Read journal entry 57"],
-    ["THIS WAS ONCE THE CHAPEL OF THE KEEP", "Approach the altar"],
+    ["THIS WAS ONCE THE CHAPEL OF THE KEEP", "go around it to the east"],
     ["A PALE FORM RISES BEFORE YOU", "Talk to the pale form"],
     ["I AM THE LIFE FORM OF FERRAN MARTINEZ", "answer him truthfully"],
     ["TO PASS MY GUARDS ON THE WAY OUT", "answer him truthfully"],

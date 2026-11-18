@@ -1448,6 +1448,31 @@ if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.a
       assert.ok(index >= 0);
       return `track ${index + 1}`;
     };
+    await replay(loadSlot("2166"), "85000000", [
+      "left", "up", "left", "up", "left", "up", "right", "up", "up",
+      (text) => assert.match(text, /8,6 n.*once the chapel.*altar dominates the southern wall/),
+      "j", trackSokal, (_text, frame) => {
+        assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-chapel"));
+        assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-pale-form"));
+        assert.match(frame.journal.objective.nextStep, /go around it to the east.*altar on the south wall/i);
+      }, "j", "e", "s", "s", "c",
+      (text) => assert.match(text, /quit to dos/),
+    ]);
+    await replay(loadSlot("2e63"), "85000000", [
+      (text) => assert.match(text, /8,6 n/),
+      "j", (_text, frame) => {
+        assert.equal(frame.journal.trackedId, "commission-sokal");
+        assert.match(frame.journal.objective.nextStep, /go around it to the east.*altar on the south wall/i);
+      }, "j",
+      "left", "left", "up", "up", "up",
+      (text) => assert.match(text, /8,8 s/),
+      "left", "up", "right", "up", "right", "up", "left", "up", "enter",
+      (text) => assert.match(text, /8,10 s.*a pale form rises before you/),
+      "j", (_text, frame) => {
+        assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-pale-form"));
+        assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ferran" || id === "sokal-departure"));
+      },
+    ]);
     const checkWrongWord = (_text, frame) => {
       assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-pale-form-wrong-word"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ferran" || id === "sokal-departure"));
