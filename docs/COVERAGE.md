@@ -461,7 +461,12 @@ and heals Brin, Cora, Enna, and Mira. The replay checks the remaining Hold
 Person spells and reloads the recovered party from slot H.
 The party then follows his directions to the east wall, enters with
 Search active, and reaches the ogre chief. The tracked objective advances
-at each discovery. The ogre fight remains open.
+at each discovery. In this fight, the five-million-instruction Quick
+watchdog interrupted two enemy turns in battlefield redraws. Replaying
+the same inputs with `POR_QUICK_STEPS=20000000` let those turns finish
+without recovery. The party still lost. The courtyard replay also ended
+in defeat with this diagnostic override, so its existing victory does
+not establish a win without watchdog intervention.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the

@@ -195,12 +195,17 @@ if (input) {
   }
 }
 if (liveAt !== undefined) {
+  const quickBudget = process.env.POR_QUICK_STEPS === undefined
+    ? undefined : Number(process.env.POR_QUICK_STEPS);
+  if (quickBudget !== undefined && (!Number.isSafeInteger(quickBudget) || quickBudget <= 0)) {
+    throw new Error("POR_QUICK_STEPS must be a positive integer");
+  }
   attachQuickRecovery(cpu, loadedSlices, (partyMember) => {
     const message = partyMember
       ? "Quick combat stalled. Choose a manual action."
       : "An enemy could not finish its turn. Combat continued.";
     console.log(process.env.POR_BROWSER_PLAY === "1" ? `POR_NOTICE ${message}` : message);
-  });
+  }, quickBudget);
 }
 const journalSlice = loadedSlices.find((slice) => slice.index === 3);
 adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || liveAt !== undefined || profilePath) && journalSlice
