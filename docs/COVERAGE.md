@@ -170,6 +170,15 @@ the journal marked the quest turned in and recorded what happened when Ohlo
 drank the potion. Checkpoint placement bypassed travel between the two
 locations. The guest scripts set the quest flags in all three replays.
 
+A controlled Podal Plaza replay seeded the auction commission in a copy of
+the Slums save and redirected one saved movement event to the original area
+transition. The game loaded Podal Plaza from its original DAX files. The
+party disguised itself, walked into the auction, chose Stand and Listen, and
+then Wait for Winner. The original script completed the investigation, and
+the journal marked it ready to report with the witnessed wand exchange as
+the detail to tell the council clerk. This replay began with the commission
+already accepted and ended in Podal Plaza before the City Hall turn-in.
+
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
 for that character. If a hostile actor stalls, the runner restores its state
