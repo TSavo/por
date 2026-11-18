@@ -84,7 +84,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
     if (commission.id === "textile") {
       if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
+      else if (knows("textile-ogre-chief")) nextStep = "Defeat the ogre chief and search his room for Cadorna's treasure.";
+      else if (knows("textile-east-wall")) nextStep = "Turn east where Skullcrusher pointed out the secret door. Use Search and move through the wall.";
       else if (knows("textile-secret-door")) nextStep = "Follow Skullcrusher's clue and search southeast for the secret door to the hobgoblin leader.";
+      else if (knows("textile-prisoner-freed")) nextStep = "Parlay with the freed prisoner. Make room in the party if you want him to join.";
       else if (knows("textile-prison-key-needed")) nextStep = "Look for a key in the western building, then return to the chained prisoner and choose Unlock.";
       else if (knows("textile-prisoner")) nextStep = "Speak with the prisoner in the western building and find a way to open his padlocks. Read journal entry 47.";
       else if (knows("textile-skullcrusher-mark")) nextStep = "Search the rooms near Skullcrusher's mark for whoever left it.";
@@ -413,6 +416,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU HAVE NO KEY TO UNLOCK THE PADLOCKS")) {
     leads.push({ id: "textile-prison-key-needed", title: "The prisoner's padlocks",
       detail: "The party tried to unlock the prisoner's padlocks and needs a key." });
+  }
+  if (text.includes("THE BRASS KEY YOU FOUND OPENS ALL OF THE PADLOCKS")) {
+    leads.push({ id: "textile-prisoner-freed", title: "The prisoner is free",
+      detail: "The party used a brass key to open the prisoner's padlocks." });
+  }
+  if (text.includes("IN THE EAST WALL IS THE SECRET DOOR")) {
+    leads.push({ id: "textile-east-wall", title: "The secret door's entrance",
+      detail: "Skullcrusher pointed out the hidden entrance in the east wall." });
+  }
+  if (text.includes("YOU SEE THE CHIEF OF THE HOBGOBLINS, A HUGE OGRE")) {
+    leads.push({ id: "textile-ogre-chief", title: "The hobgoblins' chief",
+      detail: "The party found the ogre chief in a torchlit room beyond the secret door." });
   }
   if (text.includes("IT'S ONLY A WAND OF FEAR")) {
     leads.push({ id: "auction-wand-of-fear", title: "The auction weapon",

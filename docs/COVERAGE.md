@@ -447,6 +447,14 @@ reloading slot E preserves it. From the cell, the party returns north
 through the guards' room and a locked door to reach Grishnak's temple.
 The encounter starts through original play. The original treasure table
 for that fight contains the brass key, and victory remains unverified.
+To verify the downstream branch, the replay makes a separate copy of slot E
+and supplies only the brass key from the local DOS treasure table. The party
+dismisses the Theurgist to open a slot, frees the captive, and chooses Parlay
+and Nice before recruiting Skullcrusher. Reloading that copy's slot F verifies
+his place in the party and the newly learned secret-door direction.
+The party then follows his directions to the east wall, enters with
+Search active, and reaches the ogre chief. The tracked objective advances
+at each discovery. The ogre fight remains open.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the

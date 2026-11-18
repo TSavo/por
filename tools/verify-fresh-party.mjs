@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { createInterface } from "node:readline";
+import { tsImport } from "tsx/esm/api";
 
 const names = ["alda", "brin", "cora", "dorn", "enna", "fenn"];
 mkdirSync("out", { recursive: true });
@@ -317,7 +318,57 @@ async function verifyPodalFromCouncil(checkpoint) {
     (text) => assert.match(text, /i am the mighty grishnak/),
   ]);
   console.log("Won the prison fight, reloaded the captive's key objective, and reached Grishnak's temple.");
+  await verifySkullcrusherRecruitment(load, join(saveDir, "E.json"));
   console.log("Checkpoint replay saves:", saveDir);
+}
+
+async function verifySkullcrusherRecruitment(load, checkpoint) {
+  const { parseDax } = await tsImport("../src/lib/dax.ts", import.meta.url);
+  const { findGameRoot, readGameFile } = await tsImport("./gamedata.ts", import.meta.url);
+  const gameRoot = findGameRoot();
+  assert.ok(gameRoot);
+  const treasure = parseDax("ITEM4.DAX", readGameFile(gameRoot, "ITEM4.DAX"))
+    .entries.find(({ id }) => id === 38);
+  assert.ok(treasure);
+  const key = treasure.data.subarray(6 * 63, 7 * 63);
+  assert.equal(Buffer.from(key.subarray(1, 10)).toString("ascii"), "Brass Key");
+
+  // Supply only the key in a copy of slot E to exercise the post-battle branch.
+  const directory = join(saveDir, "controlled-prison-key");
+  mkdirSync(directory);
+  const slot = JSON.parse(readFileSync(checkpoint, "utf8"));
+  const inventory = "SAVE\\CHRDATE2.ITM";
+  slot.party[inventory] = Buffer.concat([Buffer.from(slot.party[inventory], "base64"), key]).toString("base64");
+  writeFileSync(join(directory, "E.json"), JSON.stringify(slot));
+  const recruited = await replay(load("1265"), "85000000", [
+    "e", "a", "a", ...Array(7).fill("end"), "d",
+    (text) => assert.match(text, /theurgist will be gone/),
+    "y", "e", "e", "right", "right", "up", "right", "right", "up", "b", "enter", "enter",
+    "f", "u",
+    (text) => assert.match(text, /brass key you found opens all of the padlocks/),
+    "enter", "p", "n", "enter", "y",
+    (text) => assert.match(text, /my name is skullcrusher.*secret door to the southeast/),
+    "enter", "enter", "e", "s", "s", "f",
+  ], directory);
+  assert.match(visibleText(recruited), /skullcrusher 8 39.*quit to dos/);
+  await replay(load("2166"), "85000000", [
+    (text) => assert.match(text, /skullcrusher 8 39.*2,15 s/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-prisoner-freed"));
+      assert.ok(frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+      assert.match(frame.journal.objective.nextStep, /search southeast/);
+    }, "j",
+    "enter", "right", "right", "up", "right", "up", "left", "up", "b", "right", "up", "b",
+    ...Array(5).fill("up"), "right", "up", "left", "up", "up",
+    (text) => assert.match(text, /11,14 e.*in the east wall is the secret door/),
+    "enter", "j", (_text, frame) => {
+      assert.match(frame.journal?.objective.nextStep, /use search.*through the wall/i);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-ogre-chief"));
+    }, "j", "s", "up", "enter",
+    (text) => assert.match(text, /12,14 s.*chief of the hobgoblins, a huge ogre/),
+    "j", (_text, frame) => assert.match(frame.journal?.objective.nextStep, /defeat the ogre chief/i), "j",
+  ], directory);
+  console.log("With the key supplied in a controlled copy, recruited Skullcrusher, reloaded his clue, and reached the ogre chief.");
 }
 
 if (process.argv[2] === "--podal-checkpoint") {
