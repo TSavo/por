@@ -31,6 +31,7 @@ export interface EncounterAnchor {
   y: number;
   width: number;
   height: number;
+  flatBackground?: [number, number];
 }
 
 export function assetId(kind: string, file: string, block?: number, index?: number): string {

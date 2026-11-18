@@ -15,9 +15,11 @@ export type EncounterPlacement = [x: number, y: number, key: string, width: numb
 export function encounterAnchor(key: string, configured?: EncounterAnchor) {
   const anchor = configured ?? legacyAnchors.get(key);
   if (!encounterKey.test(key) || !anchor) return;
-  const { area, x, y, width, height } = anchor;
+  const { area, x, y, width, height, flatBackground } = anchor;
   if ([area, x, y, width, height].every(Number.isInteger) && area >= 0 && area <= 255 &&
-      x >= 0 && y >= 0 && width > 0 && height > 0 && x + width <= 320 && y + height <= 200) return anchor;
+      x >= 0 && y >= 0 && width > 0 && height > 0 && x + width <= 320 && y + height <= 200 &&
+      (flatBackground === undefined || (Array.isArray(flatBackground) && flatBackground.length === 2 &&
+        flatBackground.every(index => Number.isInteger(index) && index >= 0 && index < 16)))) return anchor;
 }
 
 export function loadEncounterArt(placements: Record<string, EncounterAnchor>) {
@@ -59,12 +61,38 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>) {
       const address = (i: number) => (y + Math.floor(i / width)) * screen.width + x + i % width;
       // The perspective blitter skips index zero and draws light magenta as black.
       if (!pixels.every((color, i) => !color || screen.pixels[address(i)] === (color === 13 ? 0 : color))) continue;
-      const clean = background;
+      if (!Object.hasOwn(placements, key)) return;
+      const clean = background && pixels.every((color, i) => color || screen.pixels[address(i)] === background![address(i)])
+        ? background : undefined;
       // Keep the last clean view across successive distance frames.
-      if (!Object.hasOwn(placements, key) || !clean ||
-          !pixels.every((color, i) => color || screen.pixels[address(i)] === clean[address(i)])) return;
-      for (const [i, color] of pixels.entries()) {
-        if (color) enhanced.pixels[address(i)] = clean[address(i)]!;
+      if (clean) {
+        for (const [i, color] of pixels.entries()) {
+          if (color) enhanced.pixels[address(i)] = clean[address(i)]!;
+        }
+      } else if (anchor.flatBackground) {
+        // Some conversations draw the room and actor together. For explicitly
+        // mapped flat scenery, restore the colors on either side of each row.
+        const rows: { first: number; last: number; left: number; right: number }[] = [];
+        for (let row = 0; row < height; row++) {
+          const base = row * width;
+          const line = pixels.subarray(base, base + width);
+          const first = line.findIndex(Boolean);
+          if (first < 0) continue;
+          let last = width - 1;
+          while (!line[last]) last--;
+          if (first === 0 || last === width - 1) return;
+          const left = screen.pixels[address(base + first - 1)]!;
+          const right = screen.pixels[address(base + last + 1)]!;
+          if (!anchor.flatBackground.includes(left) || !anchor.flatBackground.includes(right)) return;
+          rows.push({ first: base + first, last: base + last, left, right });
+        }
+        for (const { first, last, left, right } of rows) {
+          for (let i = first; i <= last; i++) {
+            if (pixels[i]) enhanced.pixels[address(i)] = i - first <= last - i ? left : right;
+          }
+        }
+      } else {
+        return;
       }
       return [x, y, key, width, height];
     }
