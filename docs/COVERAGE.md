@@ -455,6 +455,10 @@ his place in the party and the newly learned secret-door direction.
 Alda trades the looted sword to Skullcrusher, and Cora trades him banded
 mail and a shield. Readying them gives Skullcrusher AC 1 and a long sword.
 Reloading the controlled copy's slot G verifies the armor and HP.
+The Curate then memorizes Bless, four Cure Light Wounds spells, and two
+Hold Person spells in the cell. After resting, the Curate blesses the party
+and heals Brin, Cora, Enna, and Mira. The replay checks the remaining Hold
+Person spells and reloads the recovered party from slot H.
 The party then follows his directions to the east wall, enters with
 Search active, and reaches the ogre chief. The tracked objective advances
 at each discovery. The ogre fight remains open.

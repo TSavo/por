@@ -373,6 +373,26 @@ async function verifySkullcrusherRecruitment(load, checkpoint) {
   ], directory);
   await replay(load("2267"), "85000000", [
     (text) => assert.match(text, /skullcrusher 1 39.*2,15 s/),
+    "e", "m", "m", "m", "n", ...Array(12).fill("end"), ...Array(7).fill("home"), "m", "m", "p",
+    ...Array(15).fill("home"), "end", "end", "m", "end", "end", "m", "m", "m", "m", "e", "enter",
+    (text) => assert.match(text, /memorized.*\*bless(?: \*cure light wounds){4}.*\*hold person \*hold person/),
+    "y", "r", "r", "n", "n", "c",
+    (text) => assert.match(text, /spells in memory.*bless(?: cure light wounds){4}.*hold person hold person/),
+    "end", "enter", // Bless
+    "end", "enter", "end", "end", "enter", // Brin
+    "end", "enter", "end", "enter", // Cora
+    "end", "enter", "end", "end", "enter", // Enna
+    "end", "enter", "end", "enter", // Mira
+    (text) => {
+      assert.match(text, /spells in memory.*hold person hold person/);
+      assert.doesNotMatch(text, /cure light wounds/);
+    },
+    "e", "e",
+    (text) => assert.match(text, /brin 1 6.*cora 5 3.*enna 2 5.*mira 10 5.*skullcrusher 1 39/),
+    "s", "s", "h",
+  ], directory);
+  await replay(load("2368"), "85000000", [
+    (text) => assert.match(text, /brin 1 6.*cora 5 3.*enna 2 5.*mira 10 5.*skullcrusher 1 39/),
     "enter", "right", "right", "up", "right", "up", "left", "up", "b", "right", "up", "b",
     ...Array(5).fill("up"), "right", "up", "left", "up", "up",
     (text) => assert.match(text, /11,14 e.*in the east wall is the secret door/),
