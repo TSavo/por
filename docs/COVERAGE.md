@@ -204,6 +204,12 @@ trades and readies the second sword on Fenn and returns to New Phlan.
 The party pools its money to identify the armor for 200 gold, sells the
 Leather Armor +1 for 1,000 gold, and shares the proceeds. Slot D reloads
 at the armorer with Alda holding 39 platinum and both swords readied.
+Run `node tools/verify-fresh-party.mjs --sokal-reinforce-from-slums PATH_TO_SLOT_D`
+from the armorer save. Enna buys and readies a long bow and arrows. The
+party hires the Swordsman and Curate, sails to Sokal Keep, and reloads at
+the landing. It then reads the parchment, passes the undead patrol, and
+casts Bless before the eastern approach to the courtyard. Quick combat
+was still active after 850 inputs in a separate run from that landing.
 From J, the party walks back to New Phlan, hears the first council commissions
 at City Hall, and follows the harbor master's directions to the pier. The
 original boat transition lands all six on Thorn Island at (8,14). The replay

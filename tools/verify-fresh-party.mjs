@@ -740,6 +740,43 @@ if (process.argv[2] === "--slums-armored-patrols-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--sokal-reinforce-from-slums") {
+  assert.ok(process.argv[3], "Pass the slot D from the goblin loot sale at the armorer.");
+  copyFileSync(process.argv[3], join(saveDir, "D.json"));
+  const recruits = /swordsman 5 18.*curate 3 26/;
+  await replay(loadSlot("2064"), "85000000", [
+    "left", "left", "up", "left", "left", "up", "enter", "enter", "y", "y", ...Array(4).fill("end"),
+    "b", "n", "n", ...Array(4).fill("end"), "b", ...Array(4).fill("end"), "b", "e", "v", "i", "i",
+    "end", "end", "r", "end", "end", "r", "end", "r",
+    (text) => assert.match(text, /enna's items.*no shield.*yes long bow yes 10 arrows/),
+    "e", "e", "e", "e", "right", "right", "up", "right", ...Array(8).fill("up"),
+    "left", "up", "up", "right", "up", "up", "right", "up", "up", "enter", "up", "enter", "enter", "n", "y",
+    "n", "y", (text) => assert.match(text, /fine swordsman.*3 shares/),
+    "y", "y", "n", "y", "n", "y", (text) => assert.match(text, /fine curate.*3 shares/),
+    "y", "n", "right", "right", "e", "s", "s", "i",
+  ]);
+  await replay(loadSlot("1769"), "85000000", [
+    (text) => assert.match(text, recruits),
+    "right", "right", "up", "up", "left", "up", "enter", "enter", "enter", "n", "right", "up", "enter", "enter",
+    "right", "up", "up", "left", "up", "left", "up", "enter", "enter", "right", ...Array(4).fill("up"),
+    ...Array(5).fill("enter"), "e", "s", "s", "j",
+  ]);
+  await replay(loadSlot("246a"), "85000000", [
+    (text) => assert.match(text, /swordsman 5 18.*curate 3 26.*8,14 n/),
+    "up", "left", "up", "up", "enter", "enter", "end", "enter",
+    (text) => assert.match(text, /crumbling parchment scroll/),
+    "enter", "enter", "enter", "right", "right", "up", "up", "left", "up", "up", "right", "up", "up",
+    "left", "up", "up", "left", "enter", "p", "n", ..."shestni", "enter",
+    (text) => assert.match(text, /the undead leave/),
+    ...Array(5).fill("up"), ...Array(7).fill("end"), "c", ...Array(8).fill("home"), "enter",
+    (text) => assert.match(text, /curate's spells in memory.*bless cure light wounds/),
+    "e", "left", "up", "up", "enter",
+    (text) => assert.match(text, /8,5 w.*a large force of orcs and hobgoblins rushes you/),
+  ]);
+  console.log("Equipped Enna, hired the Swordsman and Curate, and reached the Sokal courtyard:", join(saveDir, "J.json"));
+  process.exit(0);
+}
+
 if (process.argv[2] === "--slums-goblin-sale-checkpoint") {
   assert.ok(process.argv[3], "Pass the slot C with the swords and leather armor from the goblin room.");
   copyFileSync(process.argv[3], join(saveDir, "C.json"));
