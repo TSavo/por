@@ -216,9 +216,13 @@ A second victory used the original Tyranthraxus record (80 HP, AC -4) and
 a checkpoint party with edited character stats, including 127 HP per
 character. The translated combat ran to victory, returned the party to
 New Phlan, and played the clerk's ending after the party walked to City
-Hall. The journal again read Phlan is free. This verifies the fight and
-ending with the original enemy. A party trained by playing the campaign
-through from a fresh start remains to be verified.
+Hall. After the long-division fix, that same checkpoint beat the original
+enemy again and the battle screen displayed 917 XP per character. The
+party collected the final council reward and saved in slot C. Reloading
+the slot and opening the journal still showed Phlan is free. This verifies
+the fight and ending with the original enemy and the edited checkpoint
+party. A party trained by playing the campaign through from a fresh
+start remains to be verified.
 
 A controlled training replay sent the six-character party to the schools
 from a Slums save. It followed the posted directions north and entered the
