@@ -59,10 +59,10 @@ export function attachQuickRecovery(
           const extra = Math.min(delayAllowance, remaining);
           delayAllowance -= extra;
           limit += extra;
-        } else if (cpu.cs === tableSegment && cpu.ip >= 0x9c0 && cpu.ip <= 0xa45 &&
+        } else if (cpu.cs === tableSegment && cpu.ip >= 0x915 && cpu.ip <= 0xbdb &&
           cpu.read16(cpu.ss, cpu.bp + 2) === 0x25ed && cpu.read16(cpu.ss, cpu.bp + 4) === attackSegment) {
-          // The attack effect can exhaust the turn budget just before this
-          // four-entry guest table loop. Give its caller bounded headroom.
+          // The attack effect can exhaust the turn budget in the guest
+          // table routine. Check its caller and give it bounded headroom.
           limit += tableAllowance;
           tableAllowance = 0;
         } else return;

@@ -878,7 +878,7 @@ if (process.argv[2] === "--sokal-equip-recruits-checkpoint") {
   process.exit(0);
 }
 
-async function verifySokalReinforcement() {
+async function verifySokalReinforcement(fightToEnd = false) {
   const recruits = /swordsman 5 18.*curate 3 26/;
   await replay(loadSlot("2064"), "85000000", [
     "left", "left", "up", "left", "left", "up", "enter", "enter", "y", "y", ...Array(4).fill("end"),
@@ -922,14 +922,17 @@ async function verifySokalReinforcement() {
     (text) => assert.match(text, /brin hitpoints 6 ac 1.*move view aim use quick done/),
     "alt-q", "z",
     (text) => assert.match(text, /hobgoblin hitpoints 6 ac 5.*move\/attack/),
+    ...(fightToEnd ? [["q", /the monsters rejoice for the party has been destroyed/, 1400]] : []),
   ]);
   console.log("Equipped and recruited the party, then verified manual sword and bow attacks at Sokal:", join(saveDir, "J.json"));
+  if (fightToEnd) console.log("The first courtyard fight reached the original defeat screen.");
 }
 
 if (process.argv[2] === "--sokal-reinforce-from-slums") {
   assert.ok(process.argv[3], "Pass the slot D from the goblin loot sale at the armorer.");
+  assert.ok(!process.argv[4] || process.argv[4] === "--fight-to-end", "Expected --fight-to-end after the checkpoint");
   copyFileSync(process.argv[3], join(saveDir, "D.json"));
-  await verifySokalReinforcement();
+  await verifySokalReinforcement(process.argv[4] === "--fight-to-end");
   process.exit(0);
 }
 

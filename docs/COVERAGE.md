@@ -261,6 +261,11 @@ casts Bless before the eastern approach to the courtyard. Space interrupts
 Quick on Alda's first manual turn. Alda targets an adjacent orc with his
 sword and Enna targets a helpless hobgoblin three squares away with her
 longbow. Strict verification reaches both attacks without intervention.
+Add `--fight-to-end` to continue to the original defeat screen. This
+replay previously exhausted the watchdog at overlay 31, `0x099c`, in
+the same attack-effect routine as the prepared courtyard replay. The
+bounded allowance now covers that routine for the same verified caller,
+and the extended replay finishes without an intervention.
 Alt+Q forwards the original DOS shortcut to resume automatic combat for
 the party. The Sokal replay exercises it from Brin's manual menu, and the
 Chrome replay verifies that the browser forwards the key in combat.
