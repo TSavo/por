@@ -79,6 +79,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[]) {
         continue;
       }
       keys.push({ step: cpu.steps, word: key });
+      // Keep the watchdog relative to the last live input. Long play sessions
+      // can pass the boot budget while the guest is still making progress.
+      cpu.stepBudget = Math.max(cpu.stepBudget, cpu.steps + 30_000_000);
       // Let menu transitions and the scrolling dialogue draw before prompting again.
       nextPrompt = cpu.steps + 1_000_000;
       return;

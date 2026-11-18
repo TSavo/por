@@ -125,3 +125,8 @@ npx tsx tools/boot-translated.ts
 
 The journal should show Clear the Slums as the current objective, with Sokal
 Keep and the recovery of historical records also offered.
+
+Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
+release in Add Character to Party. The runner stages their original character,
+item, and spell records in guest memory. Add them from the original menu before
+selecting Begin Adventuring.

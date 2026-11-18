@@ -14,6 +14,7 @@ import { findGameRoot } from "./gamedata.js";
 import { currentObjective, observeAdventureLog, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
 import { liveInput } from "./live-input.js";
 import { openJournalProfile } from "./journal-profile.js";
+import { stagePregenParty } from "./pregen-party.js";
 import { callTrace, disposeHits, dosAssigns, farCall, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
 import { registerTranslated } from "../src/translated/register.js";
@@ -21,9 +22,10 @@ import { ovl07_0353 } from "../src/translated/ovl07.js";
 
 const root = findGameRoot();
 if (!root) throw new Error("Pool of Radiance game data not found");
-const files = readdirSync(root, { recursive: true, encoding: "utf8" })
+const gameFiles = readdirSync(root, { recursive: true, encoding: "utf8" })
   .filter((name) => !name.startsWith(".") && statSync(join(root, name)).isFile())
   .map((name) => ({ name, data: new Uint8Array(readFileSync(join(root, name))) }));
+const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles) : gameFiles;
 
 registerTranslated();
 
