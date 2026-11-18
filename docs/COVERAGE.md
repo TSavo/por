@@ -471,6 +471,13 @@ balance. Correcting the translated long-division loop restored the fee
 calculation. The same checkpoint left Darkstar with 50 platinum plus
 change, and the translated quotient now has a regression check.
 
+The fighter school replay follows the posted directions east past the
+arena, reads the sign on the north door, and hears the fighter trainer's
+offer at `8,0 N`. The journal adds the exact route and menu action after
+the offer. Saving in slot H and reloading preserves that discovery.
+Run `node tools/verify-fresh-party.mjs --fighter-training-journal-checkpoint PATH_TO_SLOT_A`
+with the New Phlan save from the Cadorna commission replay.
+
 The Podal checkpoint replay also takes Alda through the New Phlan arena
 duel. The original reward screen awards the duelist 100 XP, and reloading
 shows Alda at 1,621 XP and 1 HP. This duel used normal game inputs and

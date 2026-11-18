@@ -287,6 +287,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "phlan-training-north", title: "Doors at the northern training school",
       detail: "From the sign, use the east door for magic users and the west door for clerics." });
   }
+  if (text.includes("WE TRAIN ONLY FIGHTERS HERE. DO YOU WANT TO TRAIN?")) {
+    leads.push({ id: "phlan-training-fighters", title: "Fighter training door",
+      detail: "Go east past the arena in New Phlan, then take the north door marked Fighters. Accept the trainer's offer and select Train Character." });
+  }
   if (text.includes("THE COUNCIL IS DEVELOPING A PLAN TO OPEN UP THE SEA LANES")) {
     leads.push({
       id: "harbor-trade",

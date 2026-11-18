@@ -336,6 +336,33 @@ async function verifyUninterruptedCourtyard(checkpoint) {
   console.log("Won the courtyard and prison without watchdog intervention, then reached Grishnak's temple:", saveDir);
 }
 
+const arenaRoute = [
+  "right", "right", "up", "up", "right", "up", "up", "enter", "enter", "up", "up",
+  "right", "up", "up", "up", "up", "enter", "enter", "up", "up", "enter", "enter",
+];
+
+async function verifyFighterTrainingJournal() {
+  const trainingLead = "phlan-training-fighters";
+  await replay(loadSlot("1e61"), "85000000", [
+    ...arenaRoute,
+    (text) => assert.match(text, /7,1 e.*arena master asks if you wish to duel/),
+    "n", "n", "up", "enter", "enter", "left",
+    (text) => assert.match(text, /8,1 n.*north door reads 'fighters'/),
+    "j", (_text, frame) => assert.ok(!frame.journal?.leads.some(({ id }) => id === trainingLead)), "j",
+    "up", "enter", "enter",
+    (text) => assert.match(text, /8,0 n.*we train only fighters here/),
+    "n", "j", (_text, frame) => assert.match(
+      frame.journal?.leads.find(({ id }) => id === trainingLead)?.detail ?? "",
+      /east past the arena.*north door.*train character/i,
+    ), "j", "e", "s", "s", "h",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2368"), "85000000", [
+    "j", (_text, frame) => assert.ok(frame.journal?.leads.some(({ id }) => id === trainingLead)),
+  ]);
+  console.log("Verified the fighter trainer's directions are discovered in play and retained after reloading slot H.");
+}
+
 async function verifyPodalFromCouncil(checkpoint) {
   copyFileSync(checkpoint, join(saveDir, "H.json"));
   const load = loadSlot;
@@ -414,8 +441,7 @@ async function verifyPodalFromCouncil(checkpoint) {
   ]);
   console.log("Verified the Podal Plaza turn-in, Cadorna's commission, and the Textile House courtyard defeat.");
   const duelSave = await replay(load("1e61"), "85000000", [
-    "right", "right", "up", "up", "right", "up", "up", "enter", "enter", "up", "up",
-    "right", "up", "up", "up", "up", "enter", "enter", "up", "up", "enter", "enter",
+    ...arenaRoute,
     (text) => assert.match(text, /7,1 e.*arena master asks if you wish to duel/),
     "left", "up", "enter", "enter", "y",
     (text) => assert.match(text, /who will duel\?/),
@@ -1266,6 +1292,13 @@ if (process.argv[2] === "--sokal-armory-checkpoint") {
 if (process.argv[2] === "--sokal-smithy-checkpoint") {
   assert.ok(process.argv[3], "Pass a save in Sokal's old armory after defeating the smithy frogs.");
   await verifySokalSmithy(process.argv[3]);
+  process.exit(0);
+}
+
+if (process.argv[2] === "--fighter-training-journal-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot A from the New Phlan Cadorna commission replay.");
+  copyFileSync(process.argv[3], join(saveDir, "A.json"));
+  await verifyFighterTrainingJournal();
   process.exit(0);
 }
 
