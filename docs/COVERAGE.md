@@ -842,6 +842,13 @@ The `swamp-reward` replay uses a controlled City Hall save carrying flag
 254 and the witnessed pledge from the duel result save. Chrome checks the
 clerk's original lizardfolk reward dialogue and verifies the transition
 from ready to report through reward pending to turned in.
+
+The `buccaneer-approach` Chrome replay starts from a controlled
+overland save with the Bivant commission tracked. It verifies the new
+352×352 mounted escort scene at the Enter/Leave decision, mode switching,
+and the transition into the base. It checks that the journal records the
+base before showing any clue about the heir. The translation verifier
+covers the pen search and the separate unpaid outcome after a failed rescue.
 It also checks the 192×320 elder sprite at the original 48×80 placement
 and verifies presentation switches in the encounter. The `swamp-ruins`
 replay loads the save made inside the ruins and checks 51 individual

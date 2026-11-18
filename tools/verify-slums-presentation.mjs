@@ -70,7 +70,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -520,6 +520,23 @@ try {
       await waitFor("the swamp lizardfolk strike", () => loaded(strike));
     }
     console.log("Verified the swamp elder's layered terrain and journal updates in Chrome. Capture:", directory);
+  } else if (routeName === "buccaneer-approach") {
+    const base = "rescue-buccaneer-base";
+    await advance("j");
+    assert.equal(frame.journal?.trackedId, "commission-rescue");
+    assert.ok(!frame.journal.leads.some(({ id }) => id === base));
+    for (const key of ["j", "down", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:PIC6.DAX:39:0:0");
+    await waitFor("the mounted escort illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === base));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "rescue-identified-heir"));
+    assert.match(frame.journal.objective.nextStep, /Enter the Buccaneer Base/);
+    for (const key of ["j", "e", "e"]) await advance(key);
+    const entrance = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
+    assert.match(entrance, /8,10S/i);
+    console.log("Verified the Buccaneer Base approach and rescue journal in Chrome.");
   } else if (routeName === "swamp-approach") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     await advance("j");

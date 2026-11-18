@@ -565,6 +565,36 @@ function checkCampaignJournal(): void {
     ["OUR CAUSE IS ONE. WILL YOU CHAMPION ME", "choose a party member"],
     ["MY PEOPLE WILL NOT JOIN TYRANTHRAXUS", "report his pledge"],
   ] as const;
+  const rescueOffer = commissions.find(({ id }) => id === "rescue")!.offer;
+  const rescueStages = [
+    ["SLAVERS RIDE BY YOU TOWARD THE BUCCANEER BASE", "Follow the slavers"],
+    ["YOU HAVE REACHED THE BUCCANEER BASE", "find the pen"],
+    ["YOU SEE A BOY THAT HAS A HEART-SHAPED BIRTHMARK", "Choose Rescue Boy"],
+    ["YOU IGNORE THE SLEAZY MERCHANT AND CONCENTRATE ON RESCUING THE BOY", "Choose Sneak Into Pen"],
+    ["YOU ARE IN THE SLAVE PEN. STANDING NEAR YOU IS THE YOUNG BOY", "Choose Get Him"],
+  ] as const;
+  let rescueTranscript = rescueOffer;
+  for (const [trigger, instruction] of rescueStages) {
+    const line = lines.find((text) => text.replace(/\s+/g, " ").includes(trigger));
+    if (!line || currentObjective(discoveredLeads(rescueTranscript), "commission-rescue").nextStep.includes(instruction)) {
+      throw new Error(`The rescue journal revealed a clue before ${trigger}`);
+    }
+    rescueTranscript += "\n" + line;
+    if (!currentObjective(discoveredLeads(rescueTranscript), "commission-rescue").nextStep.includes(instruction)) {
+      throw new Error(`The rescue journal missed the clue after ${trigger}`);
+    }
+  }
+  const rescueLost = lines.find((line) => line.includes("THE YOUNG BOY COULD NOT KEEP UP AND WAS LEFT BEHIND"));
+  if (!rescueLost) throw new Error("Missing the original lost-heir dialogue");
+  const failedRescue = discoveredLeads(`${rescueTranscript}\n${rescueLost}`);
+  writeGlobal(progressAddresses.rescue!, 128);
+  if (!currentObjective(questProgress(m, failedRescue, m.ds), "commission-rescue").nextStep.includes("what happened to the boy")) {
+    throw new Error("The journal did not distinguish reporting a failed rescue");
+  }
+  writeGlobal(progressAddresses.rescue!, 255);
+  if (questProgress(m, failedRescue, m.ds).find(({ id }) => id === "commission-rescue")?.rewardOutcome !== "unpaid") {
+    throw new Error("The journal treated the failed rescue as paid after reporting it");
+  }
   let swampTranscript = `${swampOffer}\n${freedPrisoners}`;
   for (const [trigger, instruction] of swampStages) {
     const line = lines.find((text) => text.includes(trigger));

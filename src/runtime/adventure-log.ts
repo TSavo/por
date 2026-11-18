@@ -181,6 +181,16 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("river-secret-door")) nextStep = "Enter the pyramid through the secret door and search for the source of the foul water.";
       else if (knows("river-rowboat")) nextStep = "Take the rowboat from the reeds to the pyramid.";
     }
+    if (commission.id === "rescue") {
+      if (knows("rescue-heir-left-behind")) nextStep = "Return to the council clerk and report what happened to the boy.";
+      else if (knows("rescue-heir-purchased")) nextStep = "Escort the boy out through the base gate and return him to New Phlan.";
+      else if (knows("rescue-captain-price")) nextStep = "Choose Buy the Boy if you accept the captain's price, or prepare to fight.";
+      else if (knows("rescue-inside-pen")) nextStep = "Choose Get Him and escort the boy out of the base.";
+      else if (knows("rescue-pen-options")) nextStep = "Choose Sneak Into Pen or Attack Guards to reach the boy.";
+      else if (knows("rescue-identified-heir")) nextStep = "The boy with the heart-shaped birthmark is in the pen. Choose Rescue Boy when the merchant approaches.";
+      else if (knows("rescue-buccaneer-base")) nextStep = "Enter the Buccaneer Base and find the pen where the slavers are holding prisoners.";
+      else if (knows("rescue-slaver-trail")) nextStep = "Follow the slavers toward the Buccaneer Base.";
+    }
     if (commission.id === "lizardmen") {
       if (knows("swamp-alliance-averted")) nextStep = "Leave the swamp as the elder requested and report his pledge to the council clerk.";
       else if (knows("swamp-challenge-hostile") || knows("swamp-friend-word-rejected") || knows("swamp-elder-attacked")) nextStep = "The peaceful meeting ended. Withdraw if necessary and look for another way to prevent the alliance.";
@@ -317,6 +327,17 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     const address = progressAddresses[commission.id];
     if (address === undefined) continue;
     const value = global(address);
+    if (commission.id === "rescue" && (value === 128 || value === 255) &&
+        known.some(({ id }) => id === "rescue-heir-left-behind" || id === "rescue-reprimand")) {
+      progress.push({
+        id, title: value === 128 ? "Report the failed rescue" : "Rescue closed without payment",
+        detail: value === 128 ? "Return to the council clerk and report what happened to the boy."
+          : "The clerk acknowledged the failed rescue.",
+        status: value === 128 ? "ready-to-report" : "turned-in",
+        ...(value === 255 && { rewardOutcome: "unpaid" }),
+      });
+      continue;
+    }
     if (commission.id === "textile" && value === 255 && known.some((lead) => lead.id === "textile-confrontation")) {
       progress.push({ id, title: `${commission.title} - closed without payment`,
         detail: "Cadorna confronted the party over the opened box and left without paying.",
@@ -384,6 +405,33 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
+  if (text.includes("A SMALL CARAVAN OF SLAVERS RIDE BY YOU TOWARD THE BUCCANEER BASE")) {
+    leads.push({ id: "rescue-slaver-trail", title: "Slavers on the road", detail: "A caravan of slavers rode toward the Buccaneer Base." });
+  }
+  if (text.includes("YOU HAVE REACHED THE BUCCANEER BASE")) {
+    leads.push({ id: "rescue-buccaneer-base", title: "Buccaneer Base", detail: "A band of buccaneers rode out to escort the party inside." });
+  }
+  if (/HEART- ?SHAPED BIRTHMARK/.test(text)) {
+    leads.push({ id: "rescue-identified-heir", title: "The boy in the pen", detail: "The party saw a boy with a heart-shaped birthmark among the prisoners." });
+  }
+  if (text.includes("HOW WILL YOU RESCUE THE BOY") || text.includes("YOU IGNORE THE SLEAZY MERCHANT AND CONCENTRATE ON RESCUING THE BOY")) {
+    leads.push({ id: "rescue-pen-options", title: "A way into the pen", detail: "The party can sneak in or attack the guards." });
+  }
+  if (text.includes("YOU ARE IN THE SLAVE PEN. STANDING NEAR YOU IS THE YOUNG BOY")) {
+    leads.push({ id: "rescue-inside-pen", title: "Inside the pen", detail: "The boy is within reach." });
+  }
+  if (text.includes("I CAN LET YOU BUY THE YOUNG BOY")) {
+    leads.push({ id: "rescue-captain-price", title: "The captain named a price", detail: "The captain offered to sell the captive boy." });
+  }
+  if (text.includes("AFTER TALKING THE CAPTAIN MAKES A MOTION AND THE BOY IS BROUGHT TO YOU")) {
+    leads.push({ id: "rescue-heir-purchased", title: "The boy is in the party's care", detail: "The captain brought him to the party after the deal." });
+  }
+  if (text.includes("THE YOUNG BOY COULD NOT KEEP UP AND WAS LEFT BEHIND")) {
+    leads.push({ id: "rescue-heir-left-behind", title: "The boy was left behind", detail: "The party fled the fight, and the boy could not keep up." });
+  }
+  if (text.includes("YOUR BUNGLING THE BIVANT RESCUE HAS COST US")) {
+    leads.push({ id: "rescue-reprimand", title: "The council reprimanded the party", detail: "The clerk said the failed rescue had cost the council." });
+  }
   if (text.includes("THE CITY CLERK AWARDS THE COUNCIL'S COMMISSIONS")) {
     leads.push({
       id: "council-commissions",
