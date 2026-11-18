@@ -195,6 +195,10 @@ then explores the ruined smithy. It wins the frog encounter for 31 XP per
 character. Alda falls to 0 HP during the fight. The party enters the old
 armory and saves there at (14,5) in slot D. Reloading preserves the armory
 discovery without revealing Ferran's clue about the hidden wall.
+The party reloads D and walks through the apparent wall north of (15,2).
+It follows the glow to the equipment stands at (12,0), earns 400 XP per
+character, and takes the four items into Brin's inventory. Slot E reloads
+at the stands with the journal discovery and the recovered equipment.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,

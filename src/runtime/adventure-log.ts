@@ -319,6 +319,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU ENTER THE KEEP'S OLD ARMORY")) {
     leads.push({ id: "sokal-old-armory", title: "The old armory", detail: "The weapons and armor in the old armory have decayed." });
   }
+  if (text.includes("PASSING THROUGH AN ILLUSIONARY WALL, YOU ENTER A PORTION OF THE KEEP")) {
+    leads.push({ id: "sokal-hidden-armory", title: "The hidden armory",
+      detail: "The party passed through a wall in the northeastern armory and saw a glow in the northwest corner." });
+  }
   if (text.includes("TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'")) {
     leads.push({ id: "sokal-departure", title: "Ferran's password", detail: "Ferran told the party to say SAMOSUD to his guards on the way out." });
   }

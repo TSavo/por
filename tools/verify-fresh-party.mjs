@@ -368,4 +368,23 @@ await replay(loadSlotD, "85000000", [
   },
 ]);
 console.log("Passed a second undead patrol, won the frog encounter and reloaded in Sokal's old armory.");
+const equipmentSave = await replay(loadSlotD, "85000000", [
+  "up", "up", "up", "right", "up", "left", "up",
+  (text) => assert.match(text, /passing through an illusionary wall.*glow in the northwestern corner/),
+  "left", "up", "up", "up", "right", "up",
+  (text) => assert.match(text, /on stands are a shield, a mace, a sword.*do you take it/),
+  "y", (text) => assert.match(text, /receives 400 experience points/),
+  "enter", "enter", "end", "t", "t", "t", "t", "t", "e", "e", "enter", "s", "e",
+]);
+assert.match(visibleText(equipmentSave), /quit to dos/);
+await replay(loadSlotE, "85000000", [
+  (text) => assert.match(text, /12,0 n/),
+  "j", (_text, frame) => {
+    assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-hidden-armory"));
+    assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-ferran"));
+  }, "j",
+  "end", "v", "i", "i",
+  (text) => assert.match(text, /brin's items.*shield.*long sword.*mace/),
+]);
+console.log("Found the hidden armory, collected its equipment, and verified Brin's inventory after reloading slot E.");
 console.log("Replay save:", saveDir);
