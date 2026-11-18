@@ -716,6 +716,9 @@ dispatch for journal entry 25. The Chrome replay continues into combat
 and switches modes with the cleric's original 96×96 ready stance on the
 grid. The separately exported strike is verified through the combat
 matcher, with its live animation still to be captured.
+From the same checkpoint, `bane-sanctuary` checks the side-hall route in
+Chrome. Its 23 views cover 2,783 placements across 69 patterns, including
+31 new 32×32 tiles. Switching presentation preserves the save.
 The separate `bane-reward` replay loads a controlled City Hall checkpoint
 with the victory flag and dispatch recorded. It verifies the clerk's
 permission to keep the temple treasure, the journal transition after
@@ -972,6 +975,10 @@ east, heads south to the landing at `20,29`, and takes the original boat
 to New Phlan. It verifies that the recovery clue survives the reload and
 that the clerk's river reward moves the journal from ready to report
 through reward pending to turned in.
+The `phlan-ferry-river` and `phlan-ferry-east` presentation replays start at
+the river and East Overland docks using controlled slots A and B. Both check
+the original Take Boat / Stay prompt, its shared 352×352 illustration, and
+state preservation across presentation switches.
 The `river-reward` replay uses a controlled City Hall save with the
 completion flag and witnessed clues from the fountain save. It checks the
 clerk's original river dialogue and verifies that the journal stays reward
@@ -1063,6 +1070,9 @@ recorded outpost environment to 68 of 68 patterns. Six earlier rubble
 tiles were redrawn to match the new stonework. Chrome found all 25 new
 PNGs in 19 movement frames, each assembled from 121 individual tiles.
 The 22-view kobold presentation and switching replay also passed.
+The `kobold-cave` replay uses a separate controlled slot B at the cave fork.
+It verifies the 352×352 illustration through the Large / Small / Exit decision
+and checks that switching presentation preserves the save.
 The same Chrome replay passed with encounter anchors read from the Slums
 manifest. A framebuffer check moved the middle kobold pose to a different
 anchor and area, confirmed the old area's background was discarded, and
