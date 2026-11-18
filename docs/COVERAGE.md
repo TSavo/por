@@ -351,6 +351,12 @@ duel. The original reward screen awards the duelist 100 XP, and reloading
 shows Alda at 1,621 XP and 1 HP. This duel used normal game inputs and
 finished without watchdog recovery.
 
+The fresh-party verifier stops feeding Quick inputs when the Sokal
+courtyard defeat screen appears, so it can reload the earlier save
+instead of acknowledging the defeat and exiting to DOS. The resumed
+replay hires an Evoker, confirms his two Sleep spells after reload, and
+reaches his first courtyard combat turn without watchdog recovery.
+
 Headless Chrome verified the presentation button and F10 against the live
 browser runner. A reloaded City Hall save displayed both palettes and let
 the journal remain open during a switch. A separate run switched palettes

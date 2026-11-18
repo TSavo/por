@@ -11,7 +11,7 @@ const saveDir = mkdtempSync(join("out", "fresh-party-"));
 const strictCombat = process.env.POR_REQUIRE_UNINTERRUPTED_COMBAT === "1";
 const recoveryCounts = new Map();
 
-async function replay(bootKeys, startAt, actions, checkpointDir = saveDir) {
+async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopAt) {
   const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
     env: {
       ...process.env, POR_PREGEN_PARTY: "0", POR_BROWSER_PLAY: "1", POR_SAVE_DIR: checkpointDir,
@@ -28,8 +28,9 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir) {
   async function nextFrame() {
     for (;;) {
       const { value, done } = await iterator.next();
-      if (done) throw new Error("Runner stopped after " + lastKey);
-      if (value.startsWith("entry:")) throw new Error(value);
+      if (done || value.startsWith("entry:")) {
+        throw new Error(`${done ? "Runner stopped" : value} after input ${actionNumber} (${lastKey})\n${lastText.trim()}`);
+      }
       if (value.startsWith("POR_NOTICE ")) {
         const notice = value.slice("POR_NOTICE ".length);
         recoveryCounts.set(notice, (recoveryCounts.get(notice) ?? 0) + 1);
@@ -55,6 +56,7 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir) {
       actionNumber++;
       runner.stdin.write(key + "\n");
       frame = await nextFrame();
+      if (stopAt?.test(lastText)) break;
     }
     return frame;
   } finally {
@@ -1040,7 +1042,7 @@ const courtyardDefeat = await replay(loadSlotG, "85000000", [
   "enter", "enter", "enter", "q",
   (text) => assert.match(text, /brin hitpoints 6 ac 1 long sword/),
   ...Array(301).fill("q"),
-]);
+], saveDir, /the monsters rejoice for the party has been destroyed/);
 assert.match(visibleText(courtyardDefeat), /the monsters rejoice for the party has been destroyed/);
 await replay(loadSlotG, "85000000", [
   (text) => assert.match(text, /brin 1 6.*11,3 s/),
