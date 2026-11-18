@@ -39,7 +39,11 @@ export interface JournalObjective {
 /** Pick the first unresolved commission the party has heard about. */
 export function currentObjective(leads: readonly JournalLead[], trackedId?: string): JournalObjective {
   const unresolved = leads.filter(isOpenObjective);
-  const tracked = unresolved.find((lead) => lead.id === trackedId)
+  const selected = unresolved.find((lead) => lead.id === trackedId);
+  if (!selected && leads.some((lead) => lead.id === "commission-castle" && lead.status === "turned-in")) {
+    return { title: "Phlan is free", nextStep: "Explore any remaining uncleared areas if you wish." };
+  }
+  const tracked = selected
     ?? unresolved.find((lead) => lead.status === "ready-to-report" || lead.status === "reward-pending")
     ?? unresolved.find((lead) => lead.status === "accepted")
     ?? unresolved.find((lead) => lead.id !== "commission-records")
@@ -69,9 +73,6 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       nextStep = "Go to the northeast corner of Valhingen Graveyard. Use the bottle when you confront the vampire.";
     }
     return { title: commission.title, nextStep };
-  }
-  if (leads.some((lead) => lead.id === "commission-castle" && lead.status === "turned-in")) {
-    return { title: "Phlan is free", nextStep: "Explore any remaining uncleared areas if you wish." };
   }
   return leads.some((lead) => lead.id === "council-commissions")
     ? { title: "Find a commission", nextStep: "Visit City Hall and ask the council clerk about available work." }

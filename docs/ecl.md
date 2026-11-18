@@ -1,6 +1,6 @@
 # ECL bytecode
 
-ECL is the script language for maps, encounters, and story. A block inside `ECLn.DAX` is one script. The loader drops the first uint16 of the decompressed block and places the rest at address `0x8000`.
+ECL is the script language for maps, encounters, and story. A block inside `ECLn.DAX` is one script. The disassembler skips the first uint16 of the decompressed block and uses Pool of Radiance's script load address, `0x9900`. The separate Curse of the Azure Bonds example below uses `0x8000`.
 
 The opcode names and operand counts below are the Curse of the Azure Bonds interpreter, which is the public reconstruction of this engine. coab ships no license file (copyright 2013 Simeon Pilgrim), so this project reimplements the behavior and does not copy that source. Pool of Radiance is the earlier game. Where the two might differ is called out at the bottom, and it is not settled until `GAME.OVR` is disassembled.
 
@@ -14,7 +14,7 @@ On CotAB `ECL1.DAX` block 80 that vector is:
 806a  806b  9bf4  9c01  8014
 ```
 
-`0x8014` is the first real instruction, immediately after the vector. All five addresses sit inside the 7514-byte script. The disassembler prints the vector, then a linear walk from `0x8000`. The walk is valid code for a long stretch and then runs into data (the high entry points `0x9BF4` and `0x9C01` look like tables). It stops at the first operand code it does not recognize instead of guessing.
+`0x8014` is the first real instruction, immediately after the vector. All five addresses sit inside the 7514-byte script. The disassembler follows the vector, sequential instructions, and branch targets at the specified load address. Unknown operands mark a decoding boundary.
 
 ## Operands
 

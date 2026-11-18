@@ -69,7 +69,7 @@ function selftest(): void {
   scriptBytes.set([0x20, 0x53, 0x0c, 0x3c], 23);
   const block = new Uint8Array(2 + scriptBytes.length);
   block.set(scriptBytes, 2);
-  const script = scriptFromBlock(block);
+  const script = scriptFromBlock(block, 0x8000);
   const machine = new EclMachine(script);
   machine.init();
   const step = machine.step();

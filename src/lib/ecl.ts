@@ -29,7 +29,7 @@
  * still need to be checked against its interpreter in GAME.OVR.
  */
 
-export const ECL_BASE = 0x8000;
+export const ECL_BASE = 0x9900;
 
 export interface OpcodeInfo {
   name: string;
@@ -152,14 +152,14 @@ export function unpackString(packed: Uint8Array): string {
 }
 
 export class Script {
-  constructor(readonly bytes: Uint8Array) {}
+  constructor(readonly bytes: Uint8Array, readonly base = ECL_BASE) {}
 
   get length(): number {
     return this.bytes.length;
   }
 
   byte(address: number): number {
-    const i = address - ECL_BASE;
+    const i = address - this.base;
     if (i < 0 || i >= this.bytes.length) {
       throw new RangeError(`ECL address ${hex(address)} is outside the script`);
     }
@@ -167,7 +167,7 @@ export class Script {
   }
 
   inRange(address: number): boolean {
-    const i = address - ECL_BASE;
+    const i = address - this.base;
     return i >= 0 && i < this.bytes.length;
   }
 }
@@ -270,7 +270,7 @@ function jumpTargets(inst: Instruction): number[] {
 
 /** Five words the init routine parses before the first executed instruction. */
 export function readEntryVector(script: Script): number[] {
-  let address = ECL_BASE;
+  let address = script.base;
   const words: number[] = [];
   for (let n = 0; n < 5; n++) {
     const code = script.byte(address + 1);
@@ -290,7 +290,7 @@ export function readEntryVector(script: Script): number[] {
 export function disassemble(script: Script): Disassembly {
   const lines: string[] = [];
   const instructions: Instruction[] = [];
-  const queue: number[] = [ECL_BASE];
+  const queue: number[] = [script.base];
   const external: number[] = [];
   try {
     for (const word of readEntryVector(script)) {
@@ -298,7 +298,7 @@ export function disassemble(script: Script): Disassembly {
       else external.push(word);
     }
   } catch {
-    // The header is not five operands. The walk from 0x8000 still runs.
+    // The header is not five operands. The walk from the load address still runs.
   }
   const seen = new Set<number>();
   const boundaries: string[] = [];
@@ -321,7 +321,7 @@ export function disassemble(script: Script): Disassembly {
   }
   instructions.sort((a, b) => a.address - b.address);
   for (const inst of instructions) lines.push(formatInstruction(inst));
-  const end = ECL_BASE + script.length;
+  const end = script.base + script.length;
   const covered = instructions.reduce((sum, inst) => sum + (inst.next - inst.address), 0);
   lines.push(`; ${instructions.length} instructions, ${covered} bytes of ${script.length} decoded`);
   if (external.length > 0) {
@@ -371,22 +371,23 @@ export interface StepResult {
 export class EclMachine {
   readonly memory = new Uint16Array(0x10000);
   readonly compare = [false, false, false, false, false, false];
-  pc = ECL_BASE;
+  pc: number;
   readonly stack: number[] = [];
   halted = false;
   haltReason = "";
   readonly log: string[] = [];
-  entry = ECL_BASE;
+  entry: number;
 
   constructor(readonly script: Script) {
+    this.pc = this.entry = script.base;
     for (let i = 0; i < script.bytes.length; i++) {
-      this.memory[ECL_BASE + i] = script.bytes[i] ?? 0;
+      this.memory[script.base + i] = script.bytes[i] ?? 0;
     }
   }
 
   /** Parse the five-word header the same way the original init routine does. */
   init(): number[] {
-    let ecl = ECL_BASE;
+    let ecl = this.script.base;
     const words: number[] = [];
     for (let n = 0; n < 5; n++) {
       const code = this.script.byte(ecl + 1);
@@ -400,7 +401,7 @@ export class EclMachine {
       ecl += 1;
       words.push(low | (high << 8));
     }
-    this.entry = words[4] ?? ECL_BASE;
+    this.entry = words[4] ?? this.script.base;
     this.pc = this.entry;
     this.halted = false;
     this.haltReason = "";
@@ -535,7 +536,7 @@ export class EclMachine {
 }
 
 /** Drop the leading uint16 the loader skips. */
-export function scriptFromBlock(block: Uint8Array): Script {
+export function scriptFromBlock(block: Uint8Array, base = ECL_BASE): Script {
   if (block.length < 2) throw new Error("ECL block is shorter than its length word");
-  return new Script(block.subarray(2));
+  return new Script(block.subarray(2), base);
 }

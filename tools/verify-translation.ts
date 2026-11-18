@@ -168,10 +168,15 @@ function checkCampaignJournal(): void {
     console.log("campaign dialogue checks skipped (original game data unavailable)");
     return;
   }
-  const lines = listGameFiles(root).filter((name) => /^ecl.*\.dax$/i.test(name)).flatMap((name) =>
-    parseDax(name, readGameFile(root, name)).entries.flatMap(({ data }) =>
-      disassemble(scriptFromBlock(data)).instructions.flatMap(({ operands }) =>
-        operands.flatMap(({ text }) => text === null ? [] : [text]))));
+  const blocks = listGameFiles(root).filter((name) => /^ecl.*\.dax$/i.test(name)).flatMap((name) =>
+    parseDax(name, readGameFile(root, name)).entries.map(({ data }) =>
+      disassemble(scriptFromBlock(data)).instructions));
+  const lines = blocks.flatMap((block) => block.flatMap(({ operands }) =>
+    operands.flatMap(({ text }) => text === null ? [] : [text])));
+  const council = blocks.find((block) => block.some(({ name, operands }) =>
+    name === "GET TABLE" && operands[0]?.word === 0x4aa6 && operands[1]?.word === 0x6e79));
+  const rewardDispatch = council?.find(({ address, name }) => address === 0x9d63 && name === "ON GOSUB");
+  if (!council || !rewardDispatch) throw new Error("Original council reward dispatch missing");
   const m = fresh();
   m.write16(m.ds, 0x4933, 0x20);
   m.write16(m.ds, 0x4935, 0x5000);
@@ -206,6 +211,12 @@ function checkCampaignJournal(): void {
       throw new Error(`Journal reward dialogue mismatch for ${id}`);
     }
     if (address !== undefined) {
+      const entry = rewardDispatch.operands[2 + address - 0x4aa6]?.word;
+      const handler = council.findIndex(({ address: ip }) => ip === entry);
+      if (handler < 0 || !commission.report || !council.slice(handler, handler + 5).some(({ operands }) =>
+        operands.some(({ text }) => text?.includes(commission.report!)))) {
+        throw new Error(`Original council dispatch does not pair ${id} with its reward flag`);
+      }
       writeGlobal(address, 254);
       if (questProgress(m, [offer], m.ds)[0]?.status !== "ready-to-report" || questProgress(m, [], m.ds).length) {
         throw new Error(`Journal completion flag mismatch for ${id}`);
@@ -257,6 +268,13 @@ function checkCampaignJournal(): void {
   const learned = discoveredLeads(transcript);
   if (!currentObjective([...questProgress(m, learned, m.ds), ...learned]).nextStep.includes("Ferran's password")) {
     throw new Error("Sokal journal lost Ferran's exit instruction on completion");
+  }
+  const castle = commissions.find(({ id }) => id === "castle")!;
+  const finale = questProgress(m, discoveredLeads(castle.offer), m.ds);
+  const optional = discoveredLeads(commissions.find(({ id }) => id === "ohlo")!.offer);
+  if (currentObjective([...finale, ...optional]).title !== "Phlan is free" ||
+      currentObjective([...finale, ...optional], "commission-ohlo").title !== "Fetch Ohlo's potion") {
+    throw new Error("The journal did not recognize the campaign ending while preserving optional objectives");
   }
   console.log(`verified ${commissions.length} journal definitions against original ECL dialogue and ${Object.keys(progressAddresses).length} progress flags through the translated setter`);
 }
