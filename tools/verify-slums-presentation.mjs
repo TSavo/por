@@ -272,7 +272,26 @@ try {
       await run(`(() => {
         window.combatSprites = new Set();
         window.partySpriteSeen = false;
+        window.attackSwitch = null;
         new MutationObserver(() => {
+          if (${courtyard} && animationFrame?.battleTiles.length && animationFrame.combatArt.length && !attackSwitch) {
+            const attack = animationFrame;
+            const sequence = state.sequence;
+            const layer = document.querySelector("#tile-art");
+            const screen = document.querySelector("#screen");
+            const oldFrame = screen.getAttribute("src");
+            document.querySelector("#presentation").click();
+            const classic = layer.hidden && document.querySelector("#game-text").hidden &&
+              screen.getAttribute("src") === "data:image/png;base64," + attack.frame;
+            window.dispatchEvent(new KeyboardEvent("keydown", { key: "F10" }));
+            window.attackSwitch = {
+              classic,
+              enhanced: !layer.hidden && screen.getAttribute("src") === oldFrame &&
+                layer.querySelectorAll(".battle-tile").length === attack.battleTiles.length &&
+                layer.querySelectorAll(".combat-sprite").length === attack.combatArt.length,
+              sameAttack: animationFrame === attack && state.sequence === sequence,
+            };
+          }
           const party = document.querySelector('.combat-sprite[src="/art/combat:party:0:0"]');
           if (party) {
             const recordParty = () => {
@@ -347,6 +366,8 @@ try {
       if (courtyard) {
         assert.ok(terrainLayouts.size >= 4, "Expected the battlefield to scroll");
         assert.ok(await run("window.partySpriteSeen"), "Expected the composed party sprite to render");
+        assert.deepEqual(await run("window.attackSwitch"), { classic: true, enhanced: true, sameAttack: true });
+        assert.deepEqual(readFileSync(saved), originalSave);
         assert.ok(layeredAttack, "Expected a captured attack with terrain and actors");
         await waitFor("the battle layers to use only the animation frame", () => run(`(() => {
           const next = state;

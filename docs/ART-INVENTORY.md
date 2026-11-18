@@ -226,6 +226,10 @@ without changing the guest frame or save bytes.
 The replay also renders a captured attack against a simulated next prompt
 with exploration artwork. The attack uses its own terrain, actors, and
 text until the browser advances to the next prompt.
+During live playback the replay also switches to classic with the
+presentation button and back with F10. It checks the same animation
+frame and guest sequence in both modes, confirms that the enhanced
+terrain and actor layers return, and compares the save bytes.
 
 Twenty additional corner and coping fragments cover the wall as it rakes
 away from the party. The replay verifies the terrain layer in at least
