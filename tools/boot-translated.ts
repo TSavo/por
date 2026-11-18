@@ -25,9 +25,15 @@ import { ovl07_0353 } from "../src/translated/ovl07.js";
 
 const root = findGameRoot();
 if (!root) throw new Error("Pool of Radiance game data not found");
-const gameFiles = readdirSync(root, { recursive: true, encoding: "utf8" })
+const baseFiles = readdirSync(root, { recursive: true, encoding: "utf8" })
   .filter((name) => !name.startsWith(".") && statSync(join(root, name)).isFile())
   .map((name) => ({ name, data: new Uint8Array(readFileSync(join(root, name))) }));
+const campaign = process.env.POR_CAMPAIGN_DIR;
+const campaignFiles = campaign ? readdirSync(campaign, { withFileTypes: true })
+  .filter((entry) => entry.isFile() && /^[a-z0-9_]{1,8}\.dax$/i.test(entry.name))
+  .map(({ name }) => ({ name, data: new Uint8Array(readFileSync(join(campaign, name))) })) : [];
+if (campaign && !campaignFiles.length) throw new Error("Campaign directory contains no DOS-named DAX files");
+const gameFiles = [...baseFiles, ...campaignFiles];
 const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles) : gameFiles;
 
 registerTranslated();
@@ -106,7 +112,8 @@ if (recording) {
 }
 const input = liveAt === undefined ? undefined : liveInput(liveStep, journal, recording);
 const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
-  join("out", "saves", createHash("sha256").update(realpathSync(root)).digest("hex").slice(0, 16)));
+  join("out", "saves", createHash("sha256").update(realpathSync(root))
+    .update(campaign ? "\0" + realpathSync(campaign) : "").digest("hex").slice(0, 16)));
 let slotClosed: DosFileClosed | undefined;
 const cpu = fresh(input?.requestKey, (name, data, written) => slotClosed?.(name, data, written), saves?.files);
 if (input && saves) {

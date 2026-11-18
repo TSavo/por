@@ -155,3 +155,15 @@ ECL setter. From there, play through the original runner verified that the
 harbor master offers new destinations as soon as the keep is cleared, and
 that the journal waits for the clerk's reward flow to finish before marking
 the commission turned in. This test bypassed the courtyard battle.
+
+## Watchtower campaign-data proof
+
+The original Watchtower scenario replaces ECL3 block 0 through
+`POR_CAMPAIGN_DIR`. The translated runner mounted its DAX, executed the
+opening script, displayed both choices in the guest menu, and produced the
+distinct ferry response for each choice. To reproduce it, build the scenario
+with `npm run campaign:watchtower`, use the fresh-party replay above with
+`POR_CAMPAIGN_DIR=out/campaigns/watchtower` and `POR_ADVENTURE_LOG=1`, and
+set `POR_LIVE_AT` to 160000000 and `POR_BOOT_STEPS` to 250000000. Enter
+`l` or `r` at the live prompt. The guest dialogue appears in
+`out/adventure-log.txt` when the run ends.
