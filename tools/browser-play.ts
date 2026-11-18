@@ -51,6 +51,7 @@ interface FrameState {
   enhancedFrame?: string;
   scene?: string;
   portrait?: string;
+  classicPortrait?: boolean;
   perspective?: boolean;
   encounter?: EncounterPlacement;
   tiles?: [number, number, string][];

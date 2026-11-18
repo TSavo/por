@@ -115,7 +115,8 @@ const courtyard = routeName === "sokal-courtyard";
 const terrainOnly = option === "--terrain-only";
 const manualParty = option === "--manual-party";
 const repeatStampede = option === "--repeat-stampede" && routeName === "buccaneer-pens";
-assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede, "Option does not apply to this route");
+const classicPortrait = option === "--classic-portrait" && routeName === "buccaneer-approach";
+assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -134,14 +135,14 @@ const port = process.env.POR_PLAY_PORT ?? "43212";
 const origin = `http://127.0.0.1:${port}`;
 const browserEnvironment = { ...process.env };
 delete browserEnvironment.POR_UPGRADES_DIR;
-if (terrainOnly) {
-  const pack = resolve(directory, "terrain-only");
+if (terrainOnly || classicPortrait) {
+  const pack = resolve(directory, "test-art");
   mkdirSync(pack);
   const combined = { version: 1, assets: {}, encounters: {} };
   for (const source of ["upgrades/slums", "upgrades"]) {
     const manifest = JSON.parse(readFileSync(resolve(source, "manifest.json")));
     for (const [id, file] of Object.entries(manifest.assets)) {
-      if (id.startsWith("combat:")) continue;
+      if ((terrainOnly && id.startsWith("combat:")) || (classicPortrait && id === "portrait:PIC6.DAX:39:0:0")) continue;
       copyFileSync(resolve(source, file), resolve(pack, file));
       combined.assets[id] = file;
     }
@@ -567,8 +568,19 @@ try {
     assert.equal(frame.journal?.trackedId, "commission-rescue");
     assert.ok(!frame.journal.leads.some(({ id }) => id === base));
     for (const key of ["j", "down", "enter"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:PIC6.DAX:39:0:0");
-    await waitFor("the mounted escort illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    if (classicPortrait) {
+      assert.equal(frame.classicPortrait, true);
+      assert.equal(frame.portrait, undefined);
+      await waitFor("classic portrait filling the Enhanced panel", () => run(`(() => {
+        const layer = document.querySelector("#tile-art").getBoundingClientRect();
+        const portrait = document.querySelector(".perspective-backdrop")?.getBoundingClientRect();
+        return portrait && Math.abs(portrait.width - layer.width * 120 / 320) < 1 &&
+          Math.abs(portrait.height - layer.height * 120 / 200) < 1;
+      })()`));
+    } else {
+      assert.equal(frame.portrait, "portrait:PIC6.DAX:39:0:0");
+      await waitFor("the mounted escort illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    }
     await switchBothWays();
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === base));

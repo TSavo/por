@@ -53,7 +53,7 @@ function showScreen() {
   tileArt.hidden = !useEnhanced || Boolean(sceneArt || view.journal);
   if (!tileArt.hidden) {
     const perspective = view.perspective && !view.portrait;
-    const backdrop = perspective ? document.createElement("div") : null;
+    const backdrop = perspective || view.classicPortrait ? document.createElement("div") : null;
     if (backdrop) {
       backdrop.className = "perspective-backdrop";
       backdrop.style.backgroundImage = `url("data:image/png;base64,${frame}")`;

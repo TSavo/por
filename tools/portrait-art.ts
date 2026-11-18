@@ -10,20 +10,23 @@ const left = 24;
 const top = 24;
 const size = 88;
 
-export function loadPortraitArt(keys: string[]) {
-  const root = keys.length ? findGameRoot() : null;
+export function loadPortraitArt(keys: string[], includeClassic = false) {
+  const root = keys.length || includeClassic ? findGameRoot() : null;
   const files = new Map(root ? listGameFiles(root).map((file) => [file.toUpperCase(), file]) : []);
   const patterns = new Map<string, string | null>();
   const archiveCache = new Map<string, ReturnType<typeof parseDax>>();
   function entry(archive: string, id: string) {
     const file = files.get(archive);
     if (!root || !file) return;
+    return archiveData(file).entries.find(block => block.id === Number(id));
+  }
+  function archiveData(file: string) {
     let data = archiveCache.get(file);
     if (!data) {
-      data = parseDax(file, readGameFile(root, file));
+      data = parseDax(file, readGameFile(root!, file));
       archiveCache.set(file, data);
     }
-    return data.entries.find(block => block.id === Number(id));
+    return data;
   }
   function register(pixels: Uint8Array, key: string) {
     if (!pixels.some(Boolean)) return;
@@ -53,6 +56,23 @@ export function loadPortraitArt(keys: string[]) {
     if (picture.width !== size || picture.height !== size || Number(frame) >= picture.itemCount) continue;
     register(frameSlice(picture, Number(frame)), key);
   }
+  if (includeClassic) {
+    for (const [name, file] of files) {
+      if (!/^PIC\d+\.DAX$/.test(name)) continue;
+      for (const { data } of archiveData(file).entries) {
+        for (const member of pictureMembers(data)) {
+          const picture = decodePicture(member.data);
+          if (picture.width !== size || picture.height !== size) continue;
+          for (let frame = 0; frame < picture.itemCount; frame++) {
+            const pixels = frameSlice(picture, frame);
+            if (!pixels.some(Boolean)) continue;
+            const signature = Buffer.from(pixels).toString("base64");
+            if (!patterns.has(signature)) patterns.set(signature, null);
+          }
+        }
+      }
+    }
+  }
   return (screen: Frame) => {
     if (!patterns.size) return;
     const pixels = Buffer.alloc(size * size);
@@ -60,6 +80,6 @@ export function loadPortraitArt(keys: string[]) {
       const offset = (top + y) * screen.width + left;
       pixels.set(screen.pixels.subarray(offset, offset + size), y * size);
     }
-    return patterns.get(pixels.toString("base64")) ?? undefined;
+    return patterns.get(pixels.toString("base64"));
   };
 }

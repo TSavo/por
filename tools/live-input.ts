@@ -82,7 +82,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     .filter((key) => Number(monsterCombatKey.exec(key)?.[3]) >= 128));
   const animation: CombatAnimationFrame[] = [];
   let lastAttack = "";
-  const portraitArt = loadPortraitArt((process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean));
+  const portraitArt = loadPortraitArt((process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean), browser);
   const encounterPlacements = JSON.parse(process.env.POR_ENCOUNTER_ART ?? "{}") as Record<string, EncounterAnchor>;
   const encounterArt = loadEncounterArt(encounterPlacements);
   const traceEncounterArea = Object.keys(encounterPlacements).length > 0;
@@ -100,17 +100,18 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const row = Math.floor(cell / 40);
         return column < 1 || column >= 16 || row < 1 || row >= 16;
       }) : glyphs;
-      const portrait = !scene && !leads ? portraitArt(screen) : undefined;
+      const picture = !scene && !leads ? portraitArt(screen) : undefined;
+      const portrait = picture ?? undefined;
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);
       // Opening the journal does not replace the room behind an active encounter.
-      const encounter = !leads ? encounterArt(screen, enhanced, !scene && !portrait ? area : undefined) : undefined;
+      const encounter = !leads ? encounterArt(screen, enhanced, !scene && picture === undefined ? area : undefined) : undefined;
       const tiles: [number, number, string][] = [];
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
       const menu = menuText(text);
       const exploration = menu.startsWith("AREACASTVIEWENCAMP") || menu.startsWith("LOCKED.BASHEXIT") ||
         (area === 1 && menu === "RELEASEANIMALSLEAVE");
-      const perspective = !scene && !leads && !portrait && Boolean(encounter || exploration);
+      const perspective = !scene && !leads && picture === undefined && Boolean(encounter || exploration);
       if ((tileKeys.size || traceTiles) && area !== undefined && perspective) {
         const pixels = Buffer.alloc(64);
         // The first-person view has an 11-by-11 interior with an eight-pixel border.
@@ -158,6 +159,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         scene,
         text,
         portrait,
+        classicPortrait: picture === null,
         perspective,
         encounter,
         tiles,

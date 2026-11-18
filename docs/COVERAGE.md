@@ -849,6 +849,10 @@ overland save with the Bivant commission tracked. It verifies the new
 and the transition into the base. It checks that the journal records the
 base before showing any clue about the heir. The translation verifier
 covers the pen search and the separate unpaid outcome after a failed rescue.
+The `--classic-portrait` variant removes the mounted escort replacement
+from the test art pack. Chrome verifies that the original picture fills
+the Enhanced panel, switches back to native Classic geometry, and still
+loads the enhanced pen illustration later in the same session.
 The approach replay continues into the camp and follows the pen fence to
 the first witness of the boy's birthmark at `7,9 N`. The separate
 `buccaneer-approach` checks the painted pen scene in both modes and uses
