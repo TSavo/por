@@ -1070,6 +1070,13 @@ The `mendor-library-exterior` replay uses slot B saved after the original
 Textile House crossing. `mendor-library-vestibule` positions the party inside
 the locked entrance. Chrome checks 3,630 placements across 30 views using
 61 new 32×32 tiles across the two routes.
+The `mendor-library-basilisk` replay uses controlled slot B outside the
+Rhetoric stacks. Chrome checks the 192×96 ready pose and animated strike.
+The `kuto-catacomb-service-loop` replay uses controlled slot J below the
+well and turns away from Norris's ambush. Chrome checks 2,057 individual
+placements across 17 views, including 32 new 32×32 tiles.
+The `diogenes-advice` replay checks the 352×352 magic mouth through the
+intent menu, between the exterior illustration and the silver dragon portrait.
 The `textile-restal` replay uses a controlled slot C. It verifies Restal's
 352×352 portrait and that the Textile House shortcut appears in the journal
 after he offers it.

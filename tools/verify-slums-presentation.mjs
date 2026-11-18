@@ -9,6 +9,10 @@ const norrisSurrender = routeName === "kuto-norris-surrender";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["mendor-library-basilisk", {
+    slot: "B", stand: "combat:area:15:CPIC2.DAX:26", strike: "combat:area:15:CPIC2.DAX:154", width: 192, height: 96,
+    inputs: ["up", ...Array(4).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(10).fill("q")],
+  }],
   ["kuto-norris-combat", {
     slot: "J", stand: "combat:area:29:CPIC8.DAX:7", strike: "combat:area:29:CPIC8.DAX:135", width: 96, height: 96,
     inputs: ["up", "enter", "enter", "enter", "f", "enter", "enter", ...Array(9).fill("q")],
@@ -83,6 +87,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["kuto-catacomb-service-loop", {
+    slot: "J", area: 29, views: 17, patterns: 34,
+    walk: ["left", "up", "up", "right", "up", "right", "up", "right", "up", "right", "up", "left", "up", "up", "left", "up"],
+  }],
   ["mendor-library-exterior", {
     slot: "B", area: 15, views: 14, patterns: 32,
     walk: ["left", "up", "up", "up", "right", "up", "up", "up", "up", "up", "up", "up", "right"],
@@ -822,10 +830,16 @@ try {
     await waitFor("the Diogenes cave exterior", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     for (const key of ["e", "enter"]) await advance(key);
-    assert.notEqual(frame.portrait, "portrait:PIC6.DAX:32:0:0");
+    const magicMouth = "portrait:PIC6.DAX:12:0:0";
+    assert.equal(frame.portrait, magicMouth);
     assert.match(text(), /AMAGICMOUTHAPPEARS.*WHOENTERSTHEHOMEOFDIOGENES/i);
+    await waitFor("Diogenes's magic mouth", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+    await switchBothWays();
     if (routeName === "diogenes-advice") {
-      for (const key of ["s", "enter", "enter", "enter"]) await advance(key);
+      for (const key of ["s", "enter"]) await advance(key);
+      assert.equal(frame.portrait, magicMouth);
+      for (const key of ["enter", "enter"]) await advance(key);
       const dragonPortrait = "portrait:PIC6.DAX:117:0:0";
       assert.equal(frame.portrait, dragonPortrait);
       assert.match(text(), /STANDINGBEFOREYOUNOWISAGREATSILVERDRAGON/i);
