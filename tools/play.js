@@ -1,5 +1,6 @@
 const screen = document.querySelector("#screen");
 const viewportArt = document.querySelector("#viewport-art");
+const gameText = document.querySelector("#game-text");
 const journal = document.querySelector("#journal");
 const closeJournal = document.querySelector("#close-journal");
 const autoTrack = document.querySelector("#auto-track");
@@ -25,6 +26,17 @@ function showScreen() {
   const replacement = enhanced && !state.journal && state.viewportArt;
   viewportArt.hidden = !replacement;
   if (replacement && viewportArt.getAttribute("src") !== replacement) viewportArt.src = replacement;
+  gameText.hidden = !enhanced || Boolean(state.art && !state.journal);
+  if (!gameText.hidden) {
+    gameText.replaceChildren(...(state.text ?? []).map(([cell, character, color]) => {
+      const glyph = document.createElement("span");
+      glyph.textContent = String.fromCharCode(character);
+      glyph.style.left = `${(cell % 40) * 2.5}%`;
+      glyph.style.top = `${Math.floor(cell / 40) * 4}%`;
+      glyph.style.color = `rgb(${state.textColors[color].join(",")})`;
+      return glyph;
+    }));
+  }
 }
 
 screen.addEventListener("error", () => {

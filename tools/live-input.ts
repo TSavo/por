@@ -1,9 +1,10 @@
 import { appendFileSync, readSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { Frame } from "../src/lib/ega.js";
 import type { Cpu } from "../src/cpu/machine.js";
 import { currentObjective, isOpenObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
-import { journalFrame, screen } from "../src/runtime/video.js";
+import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 
 const controls: Record<string, number> = {
@@ -50,11 +51,21 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     if (browser) {
       const viewport = createHash("sha256");
       for (let y = 8; y < 128; y++) viewport.update(screen.pixels.subarray(y * screen.width + 8, y * screen.width + 120));
+      const text = visibleGameText();
+      const enhanced = new Frame(screen.width, screen.height);
+      enhanced.pixels.set(screen.pixels);
+      for (const [cell] of text) {
+        const x = (cell % 40) * 8;
+        const offset = Math.floor(cell / 40) * 8 * screen.width + x;
+        for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * screen.width, offset + y * screen.width + 8);
+      }
       const state = {
         frame: Buffer.from(encodePng(screen)).toString("base64"),
-        enhancedFrame: Buffer.from(encodePng(screen, enhancedPalette)).toString("base64"),
+        enhancedFrame: Buffer.from(encodePng(enhanced, enhancedPalette)).toString("base64"),
         scene,
         viewport: `viewport:${viewport.digest("hex")}`,
+        text,
+        textColors: enhancedPalette,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
           trackedId: leads.find((lead) => lead.id === trackedId && isOpenObjective(lead))?.id },
       };

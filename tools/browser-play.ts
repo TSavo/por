@@ -15,6 +15,13 @@ const origin = `http://127.0.0.1:${port}`;
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
+const gameFont = (() => {
+  try {
+    return readFileSync(join(upgrades, "font.woff2"));
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced font", error);
+  }
+})();
 const artwork = (() => {
   const images = new Map<string, Buffer>();
   try {
@@ -52,6 +59,8 @@ interface FrameState {
   enhancedFrame?: string;
   scene?: string;
   viewport?: string;
+  text?: [number, number, number][];
+  textColors?: [number, number, number][];
   journal?: { objective: JournalObjective; leads: JournalLead[]; trackedId?: string };
 }
 
@@ -86,6 +95,8 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(page);
   } else if (req.method === "GET" && req.url === "/play.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(script);
+  } else if (req.method === "GET" && req.url === "/font.woff2" && gameFont) {
+    res.writeHead(200, { "content-type": "font/woff2" }).end(gameFont);
   } else if (req.method === "GET" && req.url?.startsWith("/art/")) {
     const png = artwork.get(req.url.slice(5));
     if (png) res.writeHead(200, { "content-type": "image/png" }).end(png);

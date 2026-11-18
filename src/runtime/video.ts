@@ -1,6 +1,7 @@
 import { Frame } from "../lib/ega.js";
 import type { Cpu } from "../cpu/machine.js";
 import { currentObjective, type JournalLead } from "./adventure-log.js";
+import { loadedSlices } from "./overlay.js";
 
 /**
  * BIOS int 10h for the calls Pool of Radiance actually makes.
@@ -11,6 +12,11 @@ import { currentObjective, type JournalLead } from "./adventure-log.js";
 export const screen = new Frame(320, 200, 0);
 const glyphs = new Uint8Array(40 * 25);
 const attrs = new Uint8Array(40 * 25);
+const gameText = new Map<number, [number, number]>();
+
+export function visibleGameText(): [number, number, number][] {
+  return [...gameText].map(([cell, [character, color]]) => [cell, character, color]);
+}
 
 let mode = 3;
 let column = 0;
@@ -32,6 +38,7 @@ export function checkpointVideo(): () => void {
   const registers = graphics.slice();
   const characters = glyphs.slice();
   const colors = attrs.slice();
+  const text = new Map(gameText);
   const saved = { mode, column, row, graphicsIndex, sequencerIndex, mapMask, int10Count };
   return () => {
     ({ mode, column, row, graphicsIndex, sequencerIndex, mapMask, int10Count } = saved);
@@ -41,10 +48,13 @@ export function checkpointVideo(): () => void {
     graphics.set(registers);
     glyphs.set(characters);
     attrs.set(colors);
+    gameText.clear();
+    for (const [cell, glyph] of text) gameText.set(cell, glyph);
   };
 }
 
 function resetPlanarVideo(): void {
+  gameText.clear();
   for (const plane of planes) plane.fill(0);
   latches.fill(0);
   graphics.fill(0);
@@ -63,6 +73,7 @@ function publishVideoMode(cpu: Cpu): void {
 export function attachPlanarVideo(cpu: Cpu): void {
   const start = 0xa0000;
   const end = start + 0x10000;
+  const glyphSegment = loadedSlices.find((slice) => slice.index === 37)?.loadPara;
   publishVideoMode(cpu);
   const readOtherPort = cpu.onPortIn;
   cpu.onPortIn = (port) => {
@@ -115,6 +126,15 @@ export function attachPlanarVideo(cpu: Cpu): void {
       planes[p]![offset] = (data & mask) | (latch & ~mask);
     }
     if (offset < 8000) {
+      const cell = Math.floor(offset / 320) * 40 + offset % 40;
+      const glyphWrite = cpu.cs === glyphSegment && (cpu.ip === 0x2aa || cpu.ip === 0x2dd);
+      if (!glyphWrite) gameText.delete(cell);
+      else if (cpu.read8(cpu.ss, cpu.bp - 0xf) === 7 && cpu.read8(cpu.ss, cpu.bp - 0xc) === 3) {
+        const character = cpu.read8(cpu.ss, cpu.bp + 8);
+        const color = cpu.read8(cpu.ss, cpu.bp + 0xc) & 15;
+        if (character > 32 && character < 127 && color) gameText.set(cell, [character, color]);
+        else gameText.delete(cell);
+      }
       for (let x = 0; x < 8; x++) {
         let color = 0;
         for (let p = 0; p < 4; p++) color |= ((planes[p]![offset]! >> (7 - x)) & 1) << p;
