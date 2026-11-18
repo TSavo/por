@@ -290,7 +290,9 @@ async function verifyPodalFromCouncil(checkpoint) {
     (text) => assert.match(text, /continue battle:yes no/),
     "n", "enter",
     (text) => assert.match(text, /the party has won.*63 experience points/),
-    "enter", "enter", "e", "n", "right", "up", "left", "up", "b", "enter",
+    "enter", "enter", "end", "t", "i",
+    (text) => assert.match(text, /loot long sword.*items: take exit/),
+    "t", "e", "e", "e", "n", "right", "up", "left", "up", "b", "enter",
     (text) => assert.match(text, /2,15 s.*muscular man locked in chains.*entry 47/),
     "enter", "p", "n",
     (text) => assert.match(text, /i almost killed the leader/),
@@ -358,6 +360,19 @@ async function verifySkullcrusherRecruitment(load, checkpoint) {
       assert.ok(frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
       assert.match(frame.journal.objective.nextStep, /search southeast/);
     }, "j",
+    "end", "v", "i",
+    (text) => assert.match(text, /alda's items.*long sword/),
+    "end", "end", "end", "t", ...Array(6).fill("end"), "enter", "e", "e",
+    "end", "end", "v", "i", "end", "r", "t", ...Array(4).fill("end"), "enter",
+    "r", "t", "enter", "home", "r", "e", "e",
+    ...Array(4).fill("end"), "v", "i", "r", "end", "r", "end", "r",
+    (text) => assert.match(text, /skullcrusher's items.*yes long sword yes banded mail yes shield/),
+    "e",
+    (text) => assert.match(text, /skullcrusher.*ac 1.*hp 39.*weapon long sword/),
+    "e", "e", "s", "s", "g",
+  ], directory);
+  await replay(load("2267"), "85000000", [
+    (text) => assert.match(text, /skullcrusher 1 39.*2,15 s/),
     "enter", "right", "right", "up", "right", "up", "left", "up", "b", "right", "up", "b",
     ...Array(5).fill("up"), "right", "up", "left", "up", "up",
     (text) => assert.match(text, /11,14 e.*in the east wall is the secret door/),

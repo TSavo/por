@@ -439,7 +439,7 @@ then casts Bless and heals Enna from 0 to 5 HP and Mira from 3 to 5 HP.
 Reloading slot D verifies their HP. Choosing Parlay at the prison door
 draws a battle cry and starts combat. A separate reload puts the Curate
 first through Encamp → Alter → Order, then wins the prison fight for
-63 XP each. The party bashes the cell door, finds the captive and entry
+63 XP each and takes a long sword from the loot. The party bashes the cell door, finds the captive and entry
 47, and speaks with him. Tracking Cadorna's commission in the journal
 directs the party to the captive's padlocks, with the secret-door clue
 still hidden. Trying Unlock without a key adds a search objective, and
@@ -452,6 +452,9 @@ and supplies only the brass key from the local DOS treasure table. The party
 dismisses the Theurgist to open a slot, frees the captive, and chooses Parlay
 and Nice before recruiting Skullcrusher. Reloading that copy's slot F verifies
 his place in the party and the newly learned secret-door direction.
+Alda trades the looted sword to Skullcrusher, and Cora trades him banded
+mail and a shield. Readying them gives Skullcrusher AC 1 and a long sword.
+Reloading the controlled copy's slot G verifies the armor and HP.
 The party then follows his directions to the east wall, enters with
 Search active, and reaches the ogre chief. The tracked objective advances
 at each discovery. The ogre fight remains open.
