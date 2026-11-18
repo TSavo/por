@@ -394,7 +394,8 @@ during the original Tyranthraxus fight. Each switch retained the same guest
 frame sequence and left the save file byte-for-byte identical.
 
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_A PATH_TO_CHROME`
-with a party saved at the Slums entrance before the kobold encounter.
+with a party saved at New Phlan's west gate before the kobold encounter.
+The test uses the browser's default artwork configuration.
 The replay verifies 22 Slums views assembled from 121 individual 32×32
 PNGs per view. It checks alignment, pixelated scaling, and the loaded web
 font at 430px and 1100px. The button and F10 preserve the complete guest

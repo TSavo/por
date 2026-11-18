@@ -38,9 +38,8 @@ a 32×32 PNG, and writes a companion HTML checklist with previews. It lists
 exact pixel matches from the original tile archives. Ambiguous matches remain
 candidates until the guest draw source is verified.
 
-The experimental Slums doorway pack is in `upgrades/slums`. Set
-`POR_UPGRADES_DIR=upgrades/slums` before starting the browser runner and use
-F10 while exploring the Slums. The pack includes 59 individual replacements,
+The browser loads the bundled Slums artwork in `upgrades/slums` by default.
+Press F10 while exploring the Slums to see it. The pack includes 59 individual tile replacements,
 covering the doorway study and all 53 patterns observed on the recorded
 Slums route to the kobold encounter. New or unmatched cells use the enhanced
 palette.
@@ -84,6 +83,6 @@ choose a different font. Letters remain in the game's original cells and
 retain their menu highlight colors. Text embedded in art stays part of that
 image. The bundled font's license is in [Geist-OFL.txt](Geist-OFL.txt).
 
-The default manifest is in this directory. Use `POR_UPGRADES_DIR` to load the
-manifest and PNG from a different directory. Restart the browser runner after
-changing either file.
+Entries in this directory's manifest take precedence over the bundled Slums
+entries. Set `POR_UPGRADES_DIR` to use a single custom artwork directory.
+Restart the browser runner after changing manifests or PNGs.

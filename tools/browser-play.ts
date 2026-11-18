@@ -18,6 +18,8 @@ const origin = `http://127.0.0.1:${port}`;
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
+const artworkDirectories = process.env.POR_UPGRADES_DIR === undefined
+  ? [join(upgrades, "slums"), upgrades] : [upgrades];
 const gameFont = (() => {
   for (const path of new Set([join(upgrades, "font.woff2"), join("upgrades", "font.woff2")])) {
     try {
@@ -27,11 +29,11 @@ const gameFont = (() => {
     }
   }
 })();
-const artwork = (() => {
-  const images = new Map<string, Buffer>();
+const artwork = new Map<string, Buffer>();
+for (const directory of artworkDirectories) {
   try {
-    const manifest = JSON.parse(readFileSync(join(upgrades, "manifest.json"), "utf8")) as OverrideManifest;
-    if (manifest.version !== 1 || !manifest.assets) return images;
+    const manifest = JSON.parse(readFileSync(join(directory, "manifest.json"), "utf8")) as OverrideManifest;
+    if (manifest.version !== 1 || !manifest.assets) continue;
     for (const id of Object.keys(manifest.assets)) {
       const encounter = encounterAnchors.get(id);
       if (id !== "scene:title" && !/^viewport:[a-f0-9]{64}$/.test(id) && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
@@ -39,14 +41,14 @@ const artwork = (() => {
       const file = lookupOverride(manifest, id);
       if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) continue;
       try {
-        const png = readFileSync(join(upgrades, file));
+        const png = readFileSync(join(directory, file));
         if (!png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) continue;
         const size = id.startsWith("tile:") ? 32 : id.startsWith("combat:") ? 96 : portraitKey.test(id) ? 352 : 0;
         const width = encounter ? encounter.width * 4 : size;
         const height = encounter ? encounter.height * 4 : size;
         if (width && (png.length < 24 || png.toString("ascii", 12, 16) !== "IHDR" ||
             png.readUInt32BE(16) !== width || png.readUInt32BE(20) !== height)) continue;
-        images.set(id, png);
+        artwork.set(id, png);
       } catch (error) {
         if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork", error);
       }
@@ -54,8 +56,7 @@ const artwork = (() => {
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork manifest", error);
   }
-  return images;
-})();
+}
 const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
   env: {
     ...process.env,

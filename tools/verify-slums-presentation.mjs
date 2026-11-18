@@ -14,9 +14,11 @@ copyFileSync(checkpoint, saved);
 const originalSave = readFileSync(saved);
 const port = process.env.POR_PLAY_PORT ?? "43212";
 const origin = `http://127.0.0.1:${port}`;
+const browserEnvironment = { ...process.env };
+delete browserEnvironment.POR_UPGRADES_DIR;
 const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.ts"], {
   env: {
-    ...process.env, POR_PLAY_PORT: port, POR_SAVE_DIR: directory, POR_UPGRADES_DIR: "upgrades/slums",
+    ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
     POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:1e61",
     POR_LIVE_AT: "85000000", POR_BOOT_STEPS: "450000000",
