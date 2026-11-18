@@ -33,3 +33,8 @@ requests found in the ECL scripts. Of those, 43 have a candidate in the
 matching picture bank. The JSON retains all candidate banks and nearby script
 dialogue for each request. These are static references. Runtime bank changes,
 computed picture IDs, and embedded visuals still need tracing.
+
+The gallery includes 78 creature name matches between character records and
+same-bank combat pictures with matching IDs. The catalog preserves both file
+names. Tyranthraxus is also searchable by his dialogue spelling, which differs
+from the original combat record.

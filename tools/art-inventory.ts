@@ -96,6 +96,21 @@ const archives = listGameFiles(gameData).filter((name) => /\.dax$/i.test(name)).
 });
 
 const escape = (value: string) => value.replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]!);
+const monsterArt = archives.filter(({ file }) => /^MON\d+CHA\.DAX$/.test(file)).flatMap(({ file }) => {
+  const combatFile = file.replace(/^MON(\d+)CHA/, "CPIC$1");
+  const combat = archives.find(({ file }) => file === combatFile);
+  return parseDax(file, readGameFile(gameData, file)).entries.flatMap(({ id, data }) => {
+    const length = data[0] ?? 0;
+    if (!length || length > 15 || data.length !== 285) return [];
+    const name = new TextDecoder().decode(data.subarray(1, 1 + length)).replace(/\0+$/, "").trim();
+    if (!/^[ -~]+$/.test(name) || !combat?.entries.some((block) => block.id === id)) return [];
+    // The original combat record and the adventure dialogue spell this name differently.
+    const dialogueName = name === "TYRANITHRAXUS" ? "Tyranthraxus" : undefined;
+    return [{ characterFile: file, combatFile, id, name, dialogueName }];
+  });
+});
+const monsterNames = new Map(monsterArt.map(({ combatFile, id, name, dialogueName }) =>
+  [`${combatFile}:${id}`, dialogueName ? `${dialogueName} (${name} in the combat record)` : name]));
 const scriptReferences = archives.filter(({ file }) => /^ECL\d+\.DAX$/.test(file)).flatMap(({ file }) => {
   const bank = file.slice(3, -4);
   return parseDax(file, readGameFile(gameData, file)).entries.flatMap((script) => {
@@ -124,11 +139,14 @@ for (const reference of scriptReferences) {
 }
 const gallery = archives.map(({ file, category, entries }) =>
   `<details data-category="${escape(category)}"><summary>${escape(file)} · ${category} · ${entries.length} blocks</summary><div class="grid">` +
-  entries.map((entry) => `<figure data-visual="${Boolean(entry.pictures?.length)}"><figcaption>${file} #${entry.id} · ${entry.format}</figcaption>` +
+  entries.map((entry) => {
+    const monster = monsterNames.get(`${file}:${entry.id}`);
+    return `<figure data-visual="${Boolean(entry.pictures?.length)}"><figcaption>${file} #${entry.id} · ${entry.format}${monster ? ` · ${escape(monster)}` : ""}</figcaption>` +
     (entry.pictures ?? []).map((pic) => `<a href="${escape(pic.preview)}" target="_blank" rel="noopener"><img loading="lazy" src="${escape(pic.preview)}" alt="${file} #${entry.id}, ${pic.width}×${pic.height}, ${pic.frames} frames"></a>`).join("") +
     (referencesByPicture.get(`${file}:${entry.id}`) ?? []).map((ref) =>
       `<p>Script candidate ${ref.file} #${ref.script} · ${ref.address.toString(16)}${ref.nearbyText ? ` · ${escape(ref.nearbyText)}` : ""}</p>`).join("") +
-    "</figure>").join("") + "</div></details>").join("\n");
+    "</figure>";
+  }).join("") + "</div></details>").join("\n");
 writeFileSync(join(output, "index.html"), `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pool of Radiance art inventory</title><style>
 body{font:16px system-ui;background:#181715;color:#f3e9d6;margin:2rem auto;padding:0 1rem;max-width:1200px}
@@ -171,7 +189,7 @@ category.addEventListener('change', filter);
 includeData.addEventListener('change', filter);
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ archives, scriptReferences, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ archives, scriptReferences, monsterArt, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
