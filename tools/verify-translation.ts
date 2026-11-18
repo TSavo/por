@@ -328,6 +328,12 @@ function checkCampaignJournal(): void {
       !currentObjective([...textileOffer, ...discoveredLeads(textileAmbush)], "commission-textile").nextStep.includes("Prepare for the hobgoblin ambush")) {
     throw new Error("The textile journal did not gate the courtyard warning on witnessed dialogue");
   }
+  const quietCourtyard = lines.find((line) => line.includes("THE DRUM HAS FADED TO SILENCE"));
+  if (!quietCourtyard ||
+      !currentObjective([...textileOffer, ...discoveredLeads(textileAmbush + "\n" + quietCourtyard)],
+        "commission-textile").nextStep.includes("Cross the quiet courtyard")) {
+    throw new Error("The textile journal did not advance after the courtyard victory");
+  }
   const skullcrusher = lines.find((line) => line.includes("MY NAME IS SKULLCRUSHER. THERE'S A SECRET DOOR"));
   if (!skullcrusher || currentObjective(textileOffer).nextStep.includes("secret door") ||
       !currentObjective([...textileOffer, ...discoveredLeads(skullcrusher)]).nextStep.includes("search southeast") ||

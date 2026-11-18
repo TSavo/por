@@ -415,6 +415,13 @@ all five fighters. It verifies each inventory at the shop and each
 fighter's two-point Armor Class improvement after reloading back at
 the Textile House entrance.
 
+The replay also hires a Theurgist and a Curate at the arena, returns
+with both recruits, and uses the Curate's Bless before the courtyard.
+The guest's spell display confirms the buff. The fight ends in
+victory for 94 XP each, with four fighters at 0 HP. Reloading slot J
+preserves the courtyard discovery and the journal directs the party
+toward the western building.
+
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the
 harbor master offers new destinations as soon as the keep is cleared, and

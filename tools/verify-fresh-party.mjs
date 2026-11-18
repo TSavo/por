@@ -62,13 +62,15 @@ async function verifyPodalFromCouncil(checkpoint) {
   const load = (key) => `31000000:1c0d,45000000:266c,52000000:${key}`;
   const checkAuction = (status) => (_text, frame) =>
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-auction")?.status, status);
-  const westboundFromJunction = [
-    "left", "up", "right", "up", "left", "up", "enter", "enter",
+  const sailWest = (payerSelection = []) => [
     (text) => assert.match(text, /sokal east west bay none/),
-    "w", "enter", "enter", "right", ...Array(4).fill("up"), "enter", "enter", "enter", "s",
+    "w", ...payerSelection, "enter", "enter", "right", ...Array(4).fill("up"), "enter", "enter", "enter", "s",
     (text) => assert.match(text, /20,29 e/),
     "enter", "enter", "up", ...Array(4).fill("right"), "enter",
     (text) => assert.match(text, /western edge of the city.*north south leave/),
+  ];
+  const westboundFromJunction = [
+    "left", "up", "right", "up", "left", "up", "enter", "enter", ...sailWest(),
   ];
   const westboundToGate = [
     "right", "up", "up", "enter", "enter", "right", ...Array(6).fill("up"),
@@ -157,6 +159,45 @@ async function verifyPodalFromCouncil(checkpoint) {
   assert.match(visibleText(armoredArrival), /quit to dos/);
   await replay(load("1265"), "85000000", [(text) => assert.match(text, armoredParty)]);
   console.log("Readied banded mail and shields on all five fighters and reloaded at the Textile House entrance.");
+  const hired = await replay(load("2064"), "85000000", [
+    "right", "right", "up", "right", ...Array(8).fill("up"), "right", ...Array(3).fill("up"),
+    "left", ...Array(3).fill("up"), "left", "up", "enter", "enter", "enter", "n",
+    "left", "up", "right", "up", "up", "up", "enter", "enter", "n", "y",
+    ...Array(3).fill(["n", "y"]).flat(),
+    (text) => assert.match(text, /a fine theurgist who will join you for 4 shares/),
+    "y", "y",
+    (text) => assert.match(text, /a fine curate who will join you for 3 shares/),
+    "y", "n", "e", "s", "s", "c",
+  ]);
+  assert.match(visibleText(hired), /theurgist 8 13.*curate 3 26.*quit to dos/);
+  const reinforced = await replay(load("2e63"), "85000000", [
+    "right", "right", "up", "up", "left", "up", "enter", "enter", "enter", "n",
+    "right", "up", "enter", "enter", "right", "up", "up", "left", "up", "left", "up", "enter", "enter",
+    ...sailWest(Array(7).fill("home")),
+    "s", ...Array(4).fill("enter"), "e", "s", "s", "f",
+  ]);
+  assert.match(visibleText(reinforced), /theurgist 8 13.*curate 3 26.*0,4 w.*quit to dos/);
+  const quietCourtyard = await replay(load("2166"), "85000000", [
+    "right", "right", "up", "up", "right", "up", "left", "up", "up", "right", ...Array(4).fill("up"),
+    ...Array(7).fill("end"), "c",
+    (text) => assert.match(text, /curate's spells in memory.*bless bless/),
+    ...Array(8).fill("home"), "enter", "e", "e", "enter", "m", "d",
+    (text) => assert.match(text, /alda bless brin bless cora bless dorn bless enna bless mira bless/),
+    "enter", "e", "e", "up", "left", "enter", "enter", ...Array(118).fill("q"),
+    (text) => assert.match(text, /continue battle/),
+    "n", "enter",
+    (text) => assert.match(text, /the party has won.*receives 94 experience points/),
+    "enter", "s", "e", "n",
+    (text) => assert.match(text, /the drum has faded to silence/),
+    "e", "s", "s", "j",
+  ]);
+  assert.match(visibleText(quietCourtyard), /quit to dos/);
+  await replay(load("246a"), "85000000", [
+    (text) => assert.match(text, /4,10 s/),
+    "j", (_text, frame) =>
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-courtyard-cleared")),
+  ]);
+  console.log("Hired a Theurgist and Curate, blessed the party, won the courtyard fight, and reloaded with the drum silenced.");
   console.log("Checkpoint replay saves:", saveDir);
 }
 

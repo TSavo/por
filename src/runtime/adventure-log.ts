@@ -86,6 +86,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (tracked?.status === "accepted") nextStep = tracked.detail;
       else if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
       else if (knows("textile-secret-door")) nextStep = "Follow Skullcrusher's clue and search southeast for the secret door to the hobgoblin leader.";
+      else if (knows("textile-courtyard-cleared")) nextStep = "Cross the quiet courtyard and search the western textile building for Cadorna's treasure.";
       else if (knows("textile-courtyard-ambush")) nextStep = "Prepare for the hobgoblin ambush before crossing the courtyard toward the western textile building.";
     }
     if (commission.id === "ohlo" && tracked?.status === "accepted") {
@@ -389,6 +390,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("A DRUM BEGINS TO BEAT AND HOBGOBLINS ATTACK")) {
     leads.push({ id: "textile-courtyard-ambush", title: "Textile House courtyard ambush",
       detail: "A drum sounded as hobgoblins attacked the party in the courtyard." });
+  }
+  if (text.includes("THINGS SEEM STRANGELY QUIET. THE DRUM HAS FADED TO SILENCE")) {
+    leads.push({ id: "textile-courtyard-cleared", title: "Textile House courtyard cleared",
+      detail: "The drum fell silent after the party defeated the courtyard hobgoblins." });
   }
   if (text.includes("MY NAME IS SKULLCRUSHER. THERE'S A SECRET DOOR TO THE SOUTHEAST")) {
     leads.push({ id: "textile-secret-door", title: "Skullcrusher's secret door",
