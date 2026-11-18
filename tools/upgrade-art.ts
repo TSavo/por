@@ -35,11 +35,17 @@ export function loadUpgradeArtFromManifests(paths: readonly string[]) {
           const path = join(dirname(manifestPath), file);
           const png = readFileSync(path);
           if (png.length < 24 || png.toString("ascii", 12, 16) !== "IHDR" || !png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) continue;
-          const size = (id.startsWith("tile:") || id.startsWith("battle-tile:")) ? 32 : id.startsWith("combat:") ? 96 : portraitKey.test(id) ? 352 : 0;
-          const width = encounter ? encounter.width * 4 : size;
-          const height = encounter ? encounter.height * 4 : size;
-          if (width && (png.readUInt32BE(16) !== width || png.readUInt32BE(20) !== height)) continue;
-          artwork.set(id, { file, path, png, encounter, width: png.readUInt32BE(16), height: png.readUInt32BE(20) });
+          let sourceWidth = 8;
+          let sourceHeight = 8;
+          if (encounter) ({ width: sourceWidth, height: sourceHeight } = encounter);
+          else if (id === "scene:title") [sourceWidth, sourceHeight] = [320, 200];
+          else if (id.startsWith("viewport:")) [sourceWidth, sourceHeight] = [112, 120];
+          else if (id.startsWith("combat:")) sourceWidth = sourceHeight = 24;
+          else if (portraitKey.test(id)) sourceWidth = sourceHeight = 88;
+          const width = png.readUInt32BE(16);
+          const height = png.readUInt32BE(20);
+          if (width !== sourceWidth * 4 || height !== sourceHeight * 4) continue;
+          artwork.set(id, { file, path, png, encounter, width, height });
         } catch (error) {
           if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork", error);
         }

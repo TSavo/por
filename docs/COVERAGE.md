@@ -650,6 +650,10 @@ frame sequence and left the save file byte-for-byte identical.
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_A PATH_TO_CHROME`
 with a party saved at New Phlan's west gate before the kobold encounter.
 The test uses the browser's default artwork configuration.
+The shared artwork loader requires exact 4× source dimensions. The
+title canvas is 1280 by 800 and a prototype viewport is 448 by 480.
+Synthetic PNGs verified that original-size versions are rejected and
+the exact 4× versions load.
 For every kobold-route exploration view, Chrome checks each tile's source
 ID, 32-by-32 PNG dimensions, and position against the guest tile trace.
 The full-viewport overlay is hidden in those views. The combat check
