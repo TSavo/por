@@ -245,10 +245,12 @@ and overlaps, so review them against the linked frames.
 
 The battlefield report also checks 8×8 fragments of the original 24×24
 terrain and combat archives. It records the block, frame, fragment origin,
-and reflection where applicable. In the courtyard trace, 44 patterns
-have sprite candidates, including 11 matches from party heads and bodies.
-The report matches the top row of cells against `CHEAD.DAX` and the
-bottom row against `CBODY.DAX`. The middle row can contain both parts.
+and reflection where applicable. The courtyard trace has 46 patterns
+with sprite candidates, including 11 matches wholly within party heads
+or bodies and two mixed cells. The report checks the top row against
+`CHEAD.DAX`, the bottom row against `CBODY.DAX`, and the middle row
+against the two head rows and six body rows the guest combines. A mixed
+candidate records both source blocks when both contribute visible pixels.
 No patterns exactly match terrain fragments
 in `BACPAC.DAX` or `SQRPACI.DAX`. Use **Hide sprite candidates** in the
 HTML checklist to set those matches aside while reviewing terrain.

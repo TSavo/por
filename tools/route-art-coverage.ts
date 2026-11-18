@@ -31,8 +31,13 @@ interface SourceCandidate {
   fragment?: { x: number; y: number };
   role?: "terrain" | "sprite";
   reflected?: boolean;
+  body?: { archive: string; block: number; frame: number };
 }
 
+const battleKeys = new Set(frames.flatMap((inventory, frame) => omittedFrames.has(frame) ? [] :
+  inventory.map(([, , key]) => key).filter((key) => key.startsWith("battle-tile:"))));
+const partyHeads: { archive: string; block: number; frame: number; pixels: Uint8Array }[] = [];
+const partyBodies: typeof partyHeads = [];
 const sourceByHash = new Map<string, { pixels: Uint8Array; candidates: SourceCandidate[] }>();
 for (const archive of listGameFiles(root)) {
   const terrain = /^(BACPAC|SQRPACI)\.DAX$/i.test(archive);
@@ -52,6 +57,8 @@ for (const archive of listGameFiles(root)) {
     const rowEnd = partyHead ? 8 : size;
     for (let frame = 0; frame < picture.itemCount; frame++) {
       const sourceFrame = frameSlice(picture, frame);
+      if (partyHead) partyHeads.push({ archive, block: id, frame, pixels: sourceFrame });
+      if (partyBody) partyBodies.push({ archive, block: id, frame, pixels: sourceFrame });
       for (const reflected of sprite ? [false, true] : [false]) {
         for (let y = rowStart; y < rowEnd; y += 8) {
           for (let x = 0; x < size; x += 8) {
@@ -74,6 +81,35 @@ for (const archive of listGameFiles(root)) {
             source.candidates.push(candidate);
             sourceByHash.set(key, source);
           }
+        }
+      }
+    }
+  }
+}
+
+// The middle cell of a composed party icon takes two rows from the
+// head and six from the body. Require visible pixels from both parts.
+if (battleKeys.size) {
+  for (const { pixels: head, ...headRef } of partyHeads) {
+    for (const { pixels: body, ...bodyRef } of partyBodies) {
+      for (let x = 0; x < 24; x += 8) {
+        const pixels = new Uint8Array(64);
+        for (let row = 0; row < 8; row++) {
+          const start = (8 + row) * 24 + x;
+          const part = row < 2 ? head : body;
+          pixels.set(part.subarray(start, start + 8), row * 8);
+        }
+        if (!pixels.subarray(0, 16).some(Boolean) || !pixels.subarray(16).some(Boolean)) continue;
+        for (const reflected of [false, true]) {
+          const oriented = pixels.slice();
+          if (reflected) {
+            for (let row = 0; row < 64; row += 8) oriented.subarray(row, row + 8).reverse();
+          }
+          const key = "battle-tile:" + createHash("sha256").update(oriented).digest("hex");
+          if (!battleKeys.has(key)) continue;
+          const source = sourceByHash.get(key) ?? { pixels: oriented, candidates: [] };
+          source.candidates.push({ ...headRef, fragment: { x, y: 8 }, role: "sprite", reflected, body: bodyRef });
+          sourceByHash.set(key, source);
         }
       }
     }
@@ -145,8 +181,8 @@ const sections = areas.map(({ area, patterns, matched }) => `<section><h2>${area
     const src = placedArt && galleryLink(placedArt.path);
     const framePath = join(frameDirectory, `${first.frame}.png`);
     const frameLabel = existsSync(framePath) ? `<a href="${galleryLink(framePath)}">frame ${first.frame}</a>` : `frame ${first.frame}`;
-    const candidates = sourceCandidates.map(({ archive, block, frame, fragment, role, reflected }) =>
-      `${archive} #${block} frame ${frame}${fragment ? ` at (${fragment.x}, ${fragment.y})` : ""}${reflected ? " reflected" : ""}${role ? ` (${role})` : ""}`).join(", ");
+    const candidates = sourceCandidates.map(({ archive, block, frame, fragment, role, reflected, body }) =>
+      `${archive} #${block} frame ${frame}${fragment ? ` at (${fragment.x}, ${fragment.y})` : ""}${reflected ? " reflected" : ""}${body ? ` + ${body.archive} #${body.block} frame ${body.frame}` : ""}${role ? ` (${role})` : ""}`).join(", ");
     const pixels = tracedPixels.get(key) ?? sourceByHash.get(sourceKey(key))?.pixels;
     let reference = "<p>Original reference unavailable</p>";
     if (pixels) {
