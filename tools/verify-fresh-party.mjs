@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { mkdirSync, mkdtempSync, readFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { createInterface } from "node:readline";
 
@@ -55,6 +55,56 @@ function visibleText(frame) {
 
 function expectParty(text) {
   for (const name of names) assert.match(text, new RegExp("\\b" + name + "\\b"));
+}
+
+async function verifyPodalFromCouncil(checkpoint) {
+  copyFileSync(checkpoint, join(saveDir, "H.json"));
+  const load = (key) => `31000000:1c0d,45000000:266c,52000000:${key}`;
+  const checkAuction = (status) => (_text, frame) =>
+    assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-auction")?.status, status);
+  const arrival = await replay(load("2368"), "85000000", [
+    (text) => assert.match(text, /5,5 e/),
+    "j", checkAuction("accepted"), "j",
+    "right", "right", "up", "right", "up", "up", "enter", "enter",
+    "right", ...Array(6).fill("up"), "left", "up", "right", "up", "left", "up", "enter", "enter",
+    (text) => assert.match(text, /sokal east west bay none/),
+    "w", "enter", "enter", "right", ...Array(4).fill("up"), "enter", "enter", "enter", "s",
+    (text) => assert.match(text, /20,29 e/),
+    "enter", "enter", "up", ...Array(4).fill("right"), "enter",
+    (text) => assert.match(text, /western edge of the city.*north south leave/),
+    "n", "enter", "enter",
+    (text) => assert.match(text, /the plaza ahead is crowded with monsters.*disguise/),
+    "end", "enter", "enter", "enter", "e", "s", "s", "i",
+  ]);
+  assert.match(visibleText(arrival), /0,4 w.*quit to dos/);
+  const result = await replay(load("1769"), "85000000", [
+    "right", "right", ...Array(7).fill("up"), "right", "up", "up", "enter",
+    (text) => assert.match(text, /the auctioneer cries/),
+    "enter", "enter", "enter", "enter", "end", "enter", "enter",
+    (text) => assert.match(text, /a man and ogre exchange the wand/),
+    "enter", "j", checkAuction("ready-to-report"), "j", "e", "s", "s", "j",
+  ]);
+  assert.match(visibleText(result), /quit to dos/);
+  await replay(load("246a"), "85000000", [
+    "j", checkAuction("ready-to-report"), "j",
+    "right", "right", "up", "up", "left", ...Array(8).fill("up"), "enter", "enter",
+    "l", ...Array(4).fill("left"), "down", "enter",
+    (text) => assert.match(text, /take boat stay/),
+    "t", "enter", "enter", "enter", ...Array(4).fill("up"),
+    "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
+    "left", "up", "up", "left", "up", "left", "up", "up", "enter",
+    (text) => assert.match(text, /your success at podal plaza is noted/),
+    "enter",
+    (text) => assert.match(text, /each character receives \d+ experience points/),
+    "enter", "enter", "s", "e", "n", ...Array(8).fill("enter"), "j", checkAuction("turned-in"),
+  ]);
+  console.log("Verified ordinary travel, investigation, reload, and turn-in for Podal Plaza.");
+}
+
+if (process.argv[2] === "--podal-checkpoint") {
+  assert.ok(process.argv[3], "Pass a save at the clerk with Sokal turned in and the auction accepted.");
+  await verifyPodalFromCouncil(process.argv[3]);
+  process.exit(0);
 }
 
 const createFighters = (roster) => roster.flatMap((name, index) => [

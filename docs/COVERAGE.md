@@ -385,6 +385,17 @@ clerk verified Alda's 1,313 total XP and 46 platinum, the turned-in
 Sokal commission, and the new Podal Plaza auction commission. The
 walk from the altar to the pier was bypassed by the checkpoint.
 
+The Podal Plaza replay starts from that post-Sokal save at the clerk.
+It buys westbound passage, walks from the landing to the north entrance
+at the western edge of Phlan, and enters Podal Plaza in disguise. After
+the party observes the wand exchange, it saves and reloads with the
+commission ready to report. It walks back to the landing, takes the
+return boat, and collects the clerk's reward. The journal then marks
+the commission turned in. Run this segment with
+`node tools/verify-fresh-party.mjs --podal-checkpoint PATH_TO_SAVE_JSON`.
+Use a save at the clerk with Sokal turned in and the auction accepted.
+The replay copies that save to a scratch directory.
+
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the
 harbor master offers new destinations as soon as the keep is cleared, and
