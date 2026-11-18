@@ -781,6 +781,10 @@ at `1,1 E`, just outside the chamber. It enters through the original door,
 checks the witnessed fountain clue, selects Destroy the Equipment, and
 verifies that the journal switches to ready to report and saves that status.
 This covers the direct shutdown outcome in Chrome.
+The `river-reward` replay uses a controlled City Hall save with the
+completion flag and witnessed clues from the fountain save. It checks the
+clerk's original river dialogue and verifies that the journal stays reward
+pending until the player closes the reward menu.
 The translation verifier checks that the next step changes at each discovery
 and points back to New Phlan after destruction. It also checks the original
 council reward dispatch and progress flag. These checks use original ECL

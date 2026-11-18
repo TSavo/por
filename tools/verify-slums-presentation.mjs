@@ -54,7 +54,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-reward", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -67,6 +67,7 @@ const wolves = routeName === "graveyard-wolves";
 const envoy = routeName === "zhentil-envoy";
 const envoyEscape = routeName === "zhentil-escape";
 const envoyReward = routeName === "zhentil-reward";
+const riverReward = routeName === "river-reward";
 const envoyReturn = routeName === "zhentil-return";
 const riverApproach = routeName === "river-approach";
 const riverPassage = routeName === "river-passage";
@@ -499,15 +500,18 @@ try {
     for (const key of ["j", "enter", "enter", "enter", "s", "e", "j"]) await advance(key);
     assert.equal(journalStatus(), "turned-in");
     console.log("Verified the reloaded Zhentil escape, return boat, and council turn-in in Chrome.");
-  } else if (envoyReward) {
-    const journalStatus = () => frame.journal?.leads.find(({ id }) => id === "commission-zhentil")?.status;
+  } else if (envoyReward || riverReward) {
+    const commission = riverReward ? "commission-river" : "commission-zhentil";
+    const journalStatus = () => frame.journal?.leads.find(({ id }) => id === commission)?.status;
     await advance("j");
     assert.equal(journalStatus(), "ready-to-report");
     for (const key of ["j", "right", "right", "up", "right", "right", "up", "enter", "enter", "j"]) await advance(key);
     assert.equal(journalStatus(), "reward-pending");
+    const clerkDialogue = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
+    assert.match(clerkDialogue, riverReward ? /CLEARINGOFTHESTOJONOWRIVER/i : /CADORNAWASWAGERINGYOURRETURN/i);
     for (const key of ["j", "enter", "enter", "enter", "s", "e", "j"]) await advance(key);
     assert.equal(journalStatus(), "turned-in");
-    console.log("Verified that the Zhentil council reward marks the journal turned in only after the reward menu closes.");
+    console.log(`Verified that ${commission} is turned in only after the council reward menu closes.`);
   } else if (envoyEscape) {
     for (const key of ["right", "right", "up", "left", "up", "up", "right", "up", "up", "up", "left",
       "up", "up", "up", "up", "up"]) await advance(key);
