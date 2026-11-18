@@ -127,6 +127,21 @@ for (const reference of scriptReferences) {
   referencesByPicture.set(key, matches);
 }
 mkdirSync(join(output, "enhanced"), { recursive: true });
+mkdirSync(join(output, "comparison"), { recursive: true });
+const comparisonArchives = new Map<string, ReturnType<typeof parseDax>>();
+function exportClassicFrame(archive: string, directoryIndex: number, member: number, frame: number, index: number) {
+  let dax = comparisonArchives.get(archive);
+  if (!dax) {
+    dax = parseDax(archive, readGameFile(gameData!, archive));
+    comparisonArchives.set(archive, dax);
+  }
+  const picture = decodePicture(pictureMembers(dax.entries[directoryIndex]!.data)[member]!.data);
+  const original = new Frame(picture.width, picture.height);
+  original.blit(frameSlice(picture, frame), picture.width, picture.height, 0, 0);
+  const preview = `comparison/${index}.png`;
+  writeFileSync(join(output, preview), encodePng(original));
+  return preview;
+}
 const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
@@ -155,7 +170,8 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
         ...(source && { x: source.x, y: source.y }),
         ...(area !== undefined && { area: Number(area) }),
       } : undefined);
-  return { id, preview, source, sourceParts: sourceParts ?? undefined, placement, ...metadata };
+  const classicPreview = source && exportClassicFrame(source.archive, source.directoryIndex, source.member, source.frame, index);
+  return { id, preview, classicPreview, source, sourceParts: sourceParts ?? undefined, placement, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();
 const runtimeReplacements = [];
@@ -170,10 +186,14 @@ for (const replacement of replacements) {
   matches.push(replacement);
   replacementsByBlock.set(key, matches);
 }
-function replacementPreview({ id, preview, width, height, placement, file, source }: typeof replacements[number]) {
+function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source }: typeof replacements[number]) {
   const area = placement && "area" in placement ? ` · area ${placement.area}` : "";
   const origin = placement && "x" in placement ? ` · origin (${placement.x}, ${placement.y})` : "";
-  return `<div class="preview"><a href="${preview}" target="_blank" rel="noopener"><img loading="lazy" src="${preview}" alt="${escape(file)}"></a>` +
+  const enhanced = `<a href="${preview}" target="_blank" rel="noopener"><img loading="lazy" src="${preview}" alt="${escape(file)}"></a>`;
+  const images = !classicPreview ? enhanced : `<div class="comparison" style="--preview-width:${Math.min(width, 176)}px">` +
+    `<div><a href="${classicPreview}" target="_blank" rel="noopener"><img loading="lazy" src="${classicPreview}" alt="Classic frame"></a><small>Classic</small></div>` +
+    `<div>${enhanced}<small>Enhanced</small></div></div>`;
+  return `<div class="preview">${images}` +
     `<small>Enhanced · ${width}×${height} · ${escape(id)}${area}${origin}</small>` +
     `<small>${escape(file)}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small></div>`;
 }
@@ -209,6 +229,8 @@ summary{cursor:pointer;padding:.65rem 0;border-top:1px solid #514738}.grid{displ
 figure{margin:0;padding:.75rem;background:#242220;max-width:min(100%, 40rem);min-width:8rem}
 figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image-rendering:pixelated;max-width:100%;vertical-align:middle;margin:.15rem}
 .preview{display:inline-block;vertical-align:top;max-width:100%;margin:0 .35rem .5rem 0}.preview small{display:block;color:#d6c9b4}
+.comparison{display:grid;grid-template-columns:repeat(2,minmax(0,var(--preview-width)));gap:.75rem;margin-bottom:.5rem}
+.comparison img{display:block;width:100%;height:auto;margin:0}
 </style><h1>Pool of Radiance art inventory</h1>
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
