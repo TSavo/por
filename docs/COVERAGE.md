@@ -458,6 +458,9 @@ dialogue, and in combat. The journal retains focus on Return to game.
 The verifier exports the 22 Slums views as a local tile trace. Feeding
 that trace into the route artwork tool accounted for all 2,662 placements
 and found a 32×32 replacement for all 34 distinct patterns on this replay.
+The report also exports all 34 original 8×8 references from the live
+framebuffer, including 11 patterns with no exact match in the tile archives.
+Older hash-only traces still show references when an archive match exists.
 The same Chrome replay passed with encounter anchors read from the Slums
 manifest. A framebuffer check moved the middle kobold pose to a different
 anchor and area, confirmed the old area's background was discarded, and

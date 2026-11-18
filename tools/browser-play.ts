@@ -5,7 +5,7 @@ import { createInterface } from "node:readline";
 import { join } from "node:path";
 import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
-import { getKey } from "./live-input.js";
+import { getKey, type TileInventoryCell } from "./live-input.js";
 import type { CombatArtPlacement } from "./combat-art.js";
 import { portraitKey } from "./portrait-art.js";
 import { encounterAnchor, type EncounterPlacement } from "./encounter-art.js";
@@ -83,7 +83,7 @@ interface FrameState {
   encounter?: EncounterPlacement;
   tiles?: [number, number, string][];
   combatArt?: CombatArtPlacement[];
-  tileInventory?: [number, number, string][];
+  tileInventory?: TileInventoryCell[];
   text?: [number, number, number][];
   textColors?: [number, number, number][];
   journal?: { objective: JournalObjective; leads: JournalLead[]; trackedId?: string };

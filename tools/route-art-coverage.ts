@@ -2,8 +2,10 @@ import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { parseDax } from "../src/lib/dax.js";
+import { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
+import { encodePng } from "./png.js";
 
 const [tracePath, manifestPath, reportPath] = process.argv.slice(2);
 if (!tracePath || !manifestPath || !reportPath) {
@@ -28,19 +30,23 @@ for (const [key, name] of Object.entries(manifest.assets)) {
 }
 const trace = readFileSync(tracePath, "utf8").trim();
 if (!trace) throw new Error("The route trace contains no exploration frames");
-const frames = trace.split(/\r?\n/).map((line) => JSON.parse(line) as [number, number, string][]);
+const frames = trace.split(/\r?\n/).map((line) => JSON.parse(line) as [number, number, string, string?][]);
 
-const sourceByHash = new Map<string, { archive: string; block: number; frame: number }[]>();
+const sourceByHash = new Map<string, {
+  pixels: Uint8Array;
+  candidates: { archive: string; block: number; frame: number }[];
+}>();
 for (const archive of listGameFiles(root).filter((name) => /^8X8D\d+\.DAX$/i.test(name))) {
   for (const { id, data } of parseDax(archive, readGameFile(root, archive)).entries) {
     if (!isPicture(data)) continue;
     const picture = decodePicture(data);
     if (picture.width !== 8 || picture.height !== 8) continue;
     for (let frame = 0; frame < picture.itemCount; frame++) {
-      const hash = createHash("sha256").update(frameSlice(picture, frame)).digest("hex");
-      const sources = sourceByHash.get(hash) ?? [];
-      sources.push({ archive, block: id, frame });
-      sourceByHash.set(hash, sources);
+      const pixels = frameSlice(picture, frame);
+      const hash = createHash("sha256").update(pixels).digest("hex");
+      const source = sourceByHash.get(hash) ?? { pixels, candidates: [] };
+      source.candidates.push({ archive, block: id, frame });
+      sourceByHash.set(hash, source);
     }
   }
 }
@@ -52,10 +58,18 @@ const cells = new Map<string, {
   first: { frame: number; x: number; y: number };
   positions: Map<string, TilePosition>;
 }>();
+const tracedPixels = new Map<string, Buffer>();
 for (const [frame, inventory] of frames.entries()) {
-  for (const [x, y, key] of inventory) {
-    const match = /^tile:(\d+):[a-f0-9]{64}$/.exec(key);
+  for (const [x, y, key, indices] of inventory) {
+    const match = /^tile:(\d+):([a-f0-9]{64})$/.exec(key);
     if (!match) throw new Error(`Invalid tile key at frame ${frame}: ${key}`);
+    if (indices !== undefined) {
+      const pixels = Buffer.from(indices, "hex");
+      if (!/^(?:0[0-9a-f]){64}$/.test(indices) || createHash("sha256").update(pixels).digest("hex") !== match[2]) {
+        throw new Error(`Invalid tile pixels at frame ${frame}: ${key}`);
+      }
+      tracedPixels.set(key, pixels);
+    }
     const cell = cells.get(key) ?? { area: Number(match[1]), occurrences: 0, first: { frame, x, y }, positions: new Map<string, TilePosition>() };
     cell.occurrences++;
     const positionKey = `${x},${y}`;
@@ -70,7 +84,8 @@ const tiles = [...cells].map(([key, { positions, ...cell }]) => ({
   key, ...cell, target: { width: 32, height: 32 },
   positions: [...positions.values()].sort((a, b) => a.y - b.y || a.x - b.x),
   replacement: validImages.has(manifest.assets[key] ?? "") ? manifest.assets[key]! : null,
-  sourceCandidates: sourceByHash.get(key.split(":")[2]!) ?? [],
+  reference: tracedPixels.has(key) ? "framebuffer" : sourceByHash.has(key.split(":")[2]!) ? "archive" : null,
+  sourceCandidates: sourceByHash.get(key.split(":")[2]!)?.candidates ?? [],
 })).sort((a, b) => a.area - b.area || Number(Boolean(a.replacement)) - Number(Boolean(b.replacement)) ||
   b.occurrences - a.occurrences || a.key.localeCompare(b.key));
 const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
@@ -88,7 +103,15 @@ const sections = areas.map(({ area, patterns, matched }) => `<section><h2>Area $
     const src = replacement && relative(dirname(galleryPath), join(manifestDirectory, replacement))
       .split(/[\\/]/).map(encodeURIComponent).join("/");
     const candidates = sourceCandidates.map(({ archive, block, frame }) => `${archive} #${block} frame ${frame}`).join(", ");
-    return `<article>${src ? `<img src="${src}" width="96" height="96" alt="Replacement tile">` : "<p>Replacement missing</p>"}` +
+    const pixels = tracedPixels.get(key) ?? sourceByHash.get(key.split(":")[2]!)?.pixels;
+    let reference = "<p>Original reference unavailable</p>";
+    if (pixels) {
+      const frame = new Frame(8, 8);
+      frame.pixels.set(pixels);
+      const uri = `data:image/png;base64,${Buffer.from(encodePng(frame)).toString("base64")}`;
+      reference = `<a href="${uri}" download="${key.replaceAll(":", "-")}.png"><img src="${uri}" width="96" height="96" alt="Download original 8×8 tile"></a>`;
+    }
+    return `<article><div class="previews">${reference}${src ? `<img src="${src}" width="96" height="96" alt="Replacement tile">` : "<p>Replacement missing</p>"}</div>` +
       `<code>${key.slice(-12)}</code><p>First seen at trace frame ${first.frame}, (${first.x}, ${first.y}) · ${occurrences} placements across ${positions.length} positions</p>` +
       `<p>${candidates || "Source tile unresolved"}</p></article>`;
   }).join("") + "</div></section>").join("");
@@ -96,6 +119,7 @@ writeFileSync(galleryPath, `<!doctype html><html lang="en"><meta charset="utf-8"
 <title>Route artwork checklist</title><style>
 body{font:16px system-ui;background:#191715;color:#efe4d0;margin:2rem}img{image-rendering:pixelated;display:block;margin-bottom:.5rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.65rem}article{background:#28241f;padding:.75rem;overflow-wrap:anywhere}
+.previews{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
 p{margin:.4rem 0;font-size:.9rem}code{color:#ffdcaa}
 </style><h1>Route artwork checklist</h1><p>${frames.length} exploration frames. Archive entries are pixel-match candidates.</p>${sections}</html>\n`);
 for (const { area, patterns, matched, withSourceCandidates } of areas) {

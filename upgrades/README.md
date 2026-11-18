@@ -30,13 +30,16 @@ original pixels.
 Set `POR_TRACE_TILES=1` when collecting references for a new route. The
 local runner's `/state` includes `tileInventory` with each exploration
 cell's x and y coordinates and replacement key, including cells that have
-no artwork yet. Capture it alongside the classic frame as the party moves.
+no artwork yet. Each cell also contains the 64 rendered palette indices as
+hex, so the report can show tiles whose pixels have no exact archive match.
 Save one `tileInventory` array per line, then run
 `npx tsx tools/route-art-coverage.ts <trace.jsonl> <manifest.json> <report.json>`.
 The report puts missing replacements first, checks that each replacement is
 a 32×32 PNG, and writes a companion HTML checklist with previews. It lists
 exact pixel matches from the original tile archives. Ambiguous matches remain
 candidates until the guest draw source is verified.
+Click an original preview to download its individual 8×8 PNG. The previews
+and traces are local reference exports under `out/`.
 The Chrome Slums verifier prints the path to its `slums-tiles.jsonl`
 capture. The report includes each pattern's target dimensions and the
 frequency of every observed framebuffer position.

@@ -20,6 +20,7 @@ const controls: Record<string, number> = {
 const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"];
 const firstScans = [2, 16, 30, 44];
 const liveIdleBudget = 150_000_000;
+export type TileInventoryCell = [x: number, y: number, key: string, indices: string];
 const enhancedPalette = [
   [15, 14, 18], [44, 59, 112], [49, 128, 74], [46, 133, 146],
   [150, 55, 55], [126, 65, 134], [160, 104, 55], [174, 166, 153],
@@ -79,7 +80,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       enhanced.pixels.set(screen.pixels);
       const encounter = encounterArt(screen, enhanced, !scene && !leads && !portrait ? area : undefined);
       const tiles: [number, number, string][] = [];
-      const tileInventory: [number, number, string][] | undefined = traceTiles ? [] : undefined;
+      const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
       const explorationMenu = text.filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
         .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase();
       if ((tileKeys.size || traceTiles) && area !== undefined && !scene && !leads && !portrait && explorationMenu.startsWith("AREACASTVIEWENCAMP")) {
@@ -93,7 +94,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             }
             const key = `tile:${area}:${createHash("sha256").update(pixels).digest("hex")}`;
             const cell: [number, number, string] = [x, y, key];
-            tileInventory?.push(cell);
+            tileInventory?.push([x, y, key, pixels.toString("hex")]);
             if (tileKeys.has(key)) tiles.push(cell);
           }
         }
