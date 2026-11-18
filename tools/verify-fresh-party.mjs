@@ -1759,11 +1759,30 @@ if (process.argv[2] === "--castle-ending-checkpoint") {
     ...Array(4).fill("enter"), "j", checkCastle("turned-in"), "j",
     "e", "s", "s", "c",
   ]);
+  const completedSave = join(saveDir, "C.json");
+  const completedSnapshot = readFileSync(completedSave);
+  let trackedAfterEnding;
   await replay(loadSlot("2e63"), "85000000", [
     "j", checkCastle("turned-in"),
     (_text, frame) => assert.equal(frame.journal.objective.title, "Phlan is free"),
+    (_text, frame) => {
+      const open = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
+      const index = open.findIndex(({ id }) => id !== frame.journal.trackedId);
+      if (index < 0) return "track auto";
+      trackedAfterEnding = open[index].id;
+      return `track ${index + 1}`;
+    },
+    (_text, frame) => assert.equal(frame.journal.trackedId, trackedAfterEnding),
+    "j", "e", "s", "s", "d",
+    (text) => assert.match(text, /quit to dos/),
   ]);
+  await replay(loadSlot("2064"), "85000000", [
+    "j", checkCastle("turned-in"),
+    (_text, frame) => assert.equal(frame.journal.trackedId, trackedAfterEnding),
+  ]);
+  assert.deepEqual(readFileSync(completedSave), completedSnapshot);
   console.log("Defeated the original Tyranthraxus, collected the council reward, and reloaded the completed campaign.");
+  console.log(`Verified the journal saved to slot D with ${trackedAfterEnding ?? "automatic tracking"} selected.`);
   process.exit(0);
 }
 

@@ -516,6 +516,9 @@ with the prepared party outside the audience hall at `14,7 S`. With
 intervention. It also checks the 67,500 XP council award, the journal's
 ready-to-report, reward-pending, and turned-in states, and the ending
 objective after reloading slot C.
+The controlled replay then changes the tracked objective, saves through
+Encamp to slot D, and reloads that slot. The journal retains both the
+selection and the castle turn-in, and slot C remains byte-for-byte intact.
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_C PATH_TO_CHROME castle-ending`
 with that completed save. Chrome reloads slot C, checks that the journal
 displays **Phlan is free**, switches both presentation modes while the
