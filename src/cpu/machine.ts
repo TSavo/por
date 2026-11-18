@@ -148,11 +148,11 @@ export class Cpu {
   }
 
   setAdcFlags(width: 8 | 16, a: number, b: number): number {
-    return this.setAddFlags(width, a, (b + (this.cf ? 1 : 0)) & (width === 8 ? 0xff : 0xffff));
+    return this.setAddFlags(width, a, b, Number(this.cf));
   }
 
   setSbbFlags(width: 8 | 16, a: number, b: number): number {
-    return this.setSubFlags(width, a, (b + (this.cf ? 1 : 0)) & (width === 8 ? 0xff : 0xffff));
+    return this.setSubFlags(width, a, b, Number(this.cf));
   }
 
   /** DOS/BIOS hook. The platform layer replaces this. */
@@ -174,11 +174,12 @@ export class Cpu {
   onPortOut: ((port: number, value: number) => void) | null = null;
   onPortIn: ((port: number) => number) | null = null;
 
-  setSubFlags(width: 8 | 16, a: number, b: number): number {
+  setSubFlags(width: 8 | 16, a: number, b: number, borrow = 0): number {
     const mask = width === 8 ? 0xff : 0xffff;
     const sign = width === 8 ? 0x80 : 0x8000;
-    const result = (a - b) & mask;
-    this.cf = a < b;
+    const full = a - b - borrow;
+    const result = full & mask;
+    this.cf = full < 0;
     this.zf = result === 0;
     this.sf = (result & sign) !== 0;
     this.of = ((a ^ b) & (a ^ result) & sign) !== 0;
@@ -186,10 +187,10 @@ export class Cpu {
     return result;
   }
 
-  setAddFlags(width: 8 | 16, a: number, b: number): number {
+  setAddFlags(width: 8 | 16, a: number, b: number, carry = 0): number {
     const mask = width === 8 ? 0xff : 0xffff;
     const sign = width === 8 ? 0x80 : 0x8000;
-    const full = a + b;
+    const full = a + b + carry;
     const result = full & mask;
     this.cf = full > mask;
     this.zf = result === 0;

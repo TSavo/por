@@ -71,6 +71,33 @@ function checkOperandFetch(): void {
 checkFillChar();
 checkOperandFetch();
 
+function checkCarryArithmetic(): void {
+  const m = fresh();
+  for (const width of [8, 16] as const) {
+    const limit = 2 ** width;
+    const sign = limit / 2;
+    const signed = (value: number) => value < sign ? value : value - limit;
+    const values = width === 8 ? Array.from({ length: limit }, (_, i) => i)
+      : [0, 1, sign - 1, sign, sign + 1, limit - 2, limit - 1];
+    for (const a of values) for (const b of values) for (const carry of [0, 1]) {
+      for (const direction of [1, -1]) {
+        m.cf = carry === 1;
+        const result = direction === 1 ? m.setAdcFlags(width, a, b) : m.setSbbFlags(width, a, b);
+        const exact = a + direction * (b + carry);
+        const signedExact = signed(a) + direction * (signed(b) + carry);
+        if (result !== ((exact + limit) % limit) || m.cf !== (exact < 0 || exact >= limit) ||
+            m.of !== (signedExact < -sign || signedExact >= sign) || m.zf !== (result === 0) ||
+            m.sf !== (result >= sign)) {
+          throw new Error(`Incorrect ${width}-bit ${direction === 1 ? "ADC" : "SBB"} flags for ${a}, ${b}, carry ${carry}`);
+        }
+      }
+    }
+  }
+  console.log("verified ADC and SBB carry, borrow, and signed overflow");
+}
+
+checkCarryArithmetic();
+
 function checkQuickRecovery(partyMember: boolean): void {
   const m = fresh();
   const stack = m.sp;
