@@ -521,6 +521,12 @@ refuse. Select Alda, fight with the recovered longsword, and decline to
 continue when the duel ends. Reloading slot H confirms Alda at level 1
 with 1,562 earned XP. Returning to the arena from the west after that
 reload did not offer another duel in the tested route.
+The fighter trainer checks the selected character's funds before
+checking experience. The replay attempts to train Alda with 27 platinum
+and one gold and verifies that his level, XP, and coins are unchanged.
+The journal captures the original 1,000 gold quote even though the
+trainer clears it before the next input prompt. Slot I reloads with
+the learned fee.
 
 The fresh-party verifier stops feeding Quick inputs when the Sokal
 courtyard defeat screen appears, so it can reload the earlier save

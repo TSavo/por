@@ -4,13 +4,19 @@ import type { LoadedSlice } from "./overlay.js";
 import { commissions } from "./commission-journal.js";
 
 /** Observe the Pascal strings actually sent to the guest's text display. */
-export function observeAdventureLog(cpu: Cpu, slice: LoadedSlice): () => string {
+export function observeAdventureLog(cpu: Cpu, slice: LoadedSlice, trainer?: LoadedSlice): () => string {
   if (slice.index !== 3) throw new Error("The PoR adventure log requires overlay slice 3");
   const chunks: string[] = [];
   farCallObservers.set(cpu, (seg, off) => {
-    if (seg !== 0x198 || off !== 0x39 || cpu.cs !== slice.loadPara) return;
-    const offset = cpu.read16(cpu.ss, cpu.sp + 4);
-    const segment = cpu.read16(cpu.ss, cpu.sp + 6);
+    if (seg !== 0x198) return;
+    const adventureMessage = off === 0x39 && cpu.cs === slice.loadPara;
+    // The trainer reports an unaffordable fee through the colored text entry.
+    const trainingFee = off === 0x5c && cpu.cs === trainer?.loadPara &&
+      cpu.read16(cpu.ss, cpu.sp) === 0x2a02;
+    if (!adventureMessage && !trainingFee) return;
+    const argument = cpu.sp + (trainingFee ? 6 : 4);
+    const offset = cpu.read16(cpu.ss, argument);
+    const segment = cpu.read16(cpu.ss, argument + 2);
     const length = cpu.read8(segment, offset);
     let message = "";
     for (let i = 1; i <= length; i++) {
@@ -329,6 +335,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("WE TRAIN ONLY FIGHTERS HERE. DO YOU WANT TO TRAIN?")) {
     leads.push({ id: "phlan-training-fighters", title: "Fighter training door",
       detail: "Go east past the arena in New Phlan, then take the north door marked Fighters. Accept the trainer's offer and select Train Character." });
+  }
+  if (text.includes("TRAINING COSTS 1000 GP") && text.includes("DO YOU WANT TO TRAIN?")) {
+    leads.push({ id: "phlan-training-fee", title: "Training costs 1,000 gold",
+      detail: "The trainer quoted a fee of 1,000 gold. Check the selected character's coins and experience under View Character before returning." });
   }
   if (text.includes("THE COUNCIL IS DEVELOPING A PLAN TO OPEN UP THE SEA LANES")) {
     leads.push({

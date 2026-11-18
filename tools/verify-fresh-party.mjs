@@ -1434,6 +1434,18 @@ if (process.argv[2] === "--sokal-restored-arena-checkpoint") {
   ]);
   await replay(loadSlot("2368"), "85000000", [
     "v", "v", (text) => assert.match(text, /alda.*level 1 exp 1562/),
+    "e", "left", "left", "up", "left", "up", "enter", "enter",
+    (text) => assert.match(text, /8,0 n.*we train only fighters here/),
+    "j", (_text, frame) => assert.ok(!frame.journal.leads.some(({ id }) => id === "phlan-training-fee")), "j",
+    "y", "t", "v", (text) => assert.match(text, /alda.*platinum 27.*level 1 exp 1562/),
+    "escape", "b", "j", (_text, frame) => {
+      const outcome = frame.journal.leads.find(({ id }) => id === "phlan-training-fee");
+      assert.match(outcome?.detail ?? "", /1,000 gold.*view character/i);
+    }, "j", "e", "s", "s", "i",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("1769"), "85000000", [
+    "j", (_text, frame) => assert.ok(frame.journal.leads.some(({ id }) => id === "phlan-training-fee")),
   ]);
   console.log("Won an arena duel with the recovered party and reloaded Alda's earned 100 XP.");
   process.exit(0);

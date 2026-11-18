@@ -240,7 +240,7 @@ if (liveAt !== undefined) {
 }
 const journalSlice = loadedSlices.find((slice) => slice.index === 3);
 adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || liveAt !== undefined || profilePath) && journalSlice
-  ? observeAdventureLog(cpu, journalSlice)
+  ? observeAdventureLog(cpu, journalSlice, loadedSlices.find((slice) => slice.index === 16))
   : undefined;
 if (input && process.env.POR_BROWSER_PLAY === "1") {
   const title = loadedSlices.find((slice) => slice.index === 1);
