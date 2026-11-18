@@ -601,6 +601,20 @@ function checkCampaignJournal(): void {
       throw new Error(`The rescue journal missed animal-pen guidance after ${trigger}`);
     }
   }
+  const distractionProfile = openJournalProfile();
+  distractionProfile.restore(discoveredLeads(animalTranscript));
+  const distractionObjective = () => currentObjective(
+    distractionProfile("", (known) => questProgress(m, known, m.ds)), "commission-rescue").nextStep;
+  writeGlobal(progressAddresses.rescue!, 0);
+  writeGlobal(0x49f2, 1);
+  writeGlobal(0x4a04, 255);
+  if (!distractionObjective().includes("while the guards are rounding up")) {
+    throw new Error("The rescue journal did not recognize a second stampede after reload");
+  }
+  writeGlobal(0x4a04, 0);
+  if (!distractionObjective().includes("release them again if offered")) {
+    throw new Error("The rescue journal retained the second distraction after it expired");
+  }
   const escapeGuards = lines.find((line) => line.includes("SOME OF THE GUARDS SPOT YOU WITH THE BOY"));
   if (!escapeGuards) throw new Error("Missing the original guard interception dialogue");
   const escapingRescue = discoveredLeads(`${rescueTranscript}\n${escapeGuards}`);

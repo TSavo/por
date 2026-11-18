@@ -114,7 +114,8 @@ const patrolCombat = routeName === "sokal-patrol-combat";
 const courtyard = routeName === "sokal-courtyard";
 const terrainOnly = option === "--terrain-only";
 const manualParty = option === "--manual-party";
-assert.ok(!option || (courtyard && (terrainOnly || manualParty)), "Both options require sokal-courtyard");
+const repeatStampede = option === "--repeat-stampede" && routeName === "buccaneer-pens";
+assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -298,10 +299,12 @@ try {
       const hasLead = (id) => frame.journal?.leads.some((lead) => lead.id === id);
       await advance("j");
       assert.ok(hasLead("rescue-animal-pens"));
-      assert.ok(!hasLead("rescue-stampede"));
+      if (repeatStampede) assert.match(frame.journal.objective.nextStep, /release them again if offered/);
+      else assert.ok(!hasLead("rescue-stampede"));
       await advance("j");
       for (const key of ["r", "enter", "j"]) await advance(key);
       assert.ok(hasLead("rescue-stampede"));
+      if (repeatStampede) assert.match(frame.journal.objective.nextStep, /while the guards are rounding up/);
       assert.ok(!hasLead("rescue-inside-pen"));
       await advance("j");
       for (const key of ["right", "right", "up", "left", ...Array(4).fill("up"),

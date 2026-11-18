@@ -863,6 +863,10 @@ The replay releases the animals, crosses to the slave pen, bashes open
 the locked gate and takes the boy. The journal reveals each discovery
 as it happens, including the guards leaving their posts and the boy
 leaving with the party.
+The same replay with `--repeat-stampede` uses a controlled merchants' camp
+save whose journal records a prior release and recapture. It verifies that
+the original Release Animals choice changes the journal back to the active
+distraction and opens the route to the boy.
 The Chrome replay continues toward the front gate through the first
 guard interception. The translation verifier checks that the journal keeps
 the escort active inside the base and asks the party to report to the

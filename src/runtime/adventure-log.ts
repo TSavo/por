@@ -37,6 +37,7 @@ export interface JournalLead {
   clearedEncounters?: number;
   textileBox?: "sealed" | "opened";
   rewardOutcome?: "unpaid";
+  rescueDistractionActive?: boolean;
 }
 
 export interface JournalObjective {
@@ -191,7 +192,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
             : "Escort the boy out through the base gate and return him to New Phlan.";
       }
       else if (knows("rescue-captain-price")) nextStep = "Choose Buy the Boy if you accept the captain's price, or prepare to fight.";
-      else if (knows("rescue-animals-recaptured")) nextStep = "The animals were recaptured. Return to the animal pens and release them again if offered, or try the guarded slave pen.";
+      else if (knows("rescue-animals-recaptured") && !leads.some((lead) => lead.id === "rescue-stampede" && lead.rescueDistractionActive)) {
+        nextStep = "The animals were recaptured. Return to the animal pens and release them again if offered, or try the guarded slave pen.";
+      }
       else if (knows("rescue-inside-pen")) nextStep = "Choose Get Him and escort the boy out of the base.";
       else if (knows("rescue-stampede")) nextStep = "Head to the slave pen while the guards are rounding up the animals.";
       else if (knows("rescue-animal-pens")) nextStep = "Choose Release Animals at the animal pens to draw the guards away from the slave pen.";
@@ -315,6 +318,12 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   if ((base | segment) === 0) return [];
   const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
   const progress: JournalLead[] = [];
+  const stampede = known.find((lead) => lead.id === "rescue-stampede");
+  if (stampede && global(0x49f2) === 1) {
+    // This local flag is shared with other scripts and only identifies the
+    // distraction while the party is inside Buccaneer Base.
+    progress.push({ ...stampede, rescueDistractionActive: global(0x4a04) === 255 });
+  }
   // The Textile House script sets this state after the temple encounter returns successfully.
   if (global(0x4a74) === 2 && known.some(({ id }) => id === "textile-grishnak")) {
     progress.push({ id: "textile-grishnak-defeated", title: "Grishnak defeated",

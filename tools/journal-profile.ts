@@ -39,7 +39,9 @@ export function openJournalProfile(path?: string) {
       // "report a failed rescue". The current guest state resolves these cases.
       const rescueChanged = lead.id === "commission-rescue" && prior?.status === "ready-to-report" &&
         (lead.status === "accepted" || (lead.status === "ready-to-report" && lead.detail !== prior.detail));
-      if (prior && !rescueChanged && (!lead.status || (prior.status && (statusRank[prior.status] > statusRank[lead.status] ||
+      const distractionChanged = lead.rescueDistractionActive !== undefined &&
+        lead.rescueDistractionActive !== prior?.rescueDistractionActive;
+      if (prior && !rescueChanged && !distractionChanged && (!lead.status || (prior.status && (statusRank[prior.status] > statusRank[lead.status] ||
         (statusRank[prior.status] === statusRank[lead.status] && !advancingCount && !changedBox && !learnedRewardOutcome))))) continue;
       leads.set(lead.id, lead);
       changed = true;
