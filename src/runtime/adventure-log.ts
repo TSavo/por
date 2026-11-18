@@ -160,8 +160,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "bottle" && knows("bottle-recovered")) {
       nextStep = "Return to Diogenes with the bottle so he can explain how to use it.";
     }
-    if (commission.id === "bane" && knows("bane-dirten")) {
-      nextStep = "Decide whether to accompany Dirten. If you agree, cross the river with him and cleanse the desecrated temple.";
+    if (commission.id === "bane") {
+      if (knows("bane-temple-admitted")) nextStep = "Continue into the Temple of Bane and look for a way to cleanse it.";
+      else if (knows("bane-temple-symbol")) nextStep = "Bring a holy symbol of Bane when you approach the temple entrance.";
+      else if (knows("bane-dirten")) nextStep = "Decide whether to accompany Dirten. If you agree, cross the river with him and cleanse the desecrated temple.";
     }
     if (commission.id === "records" && knows("sokal-mendor")) {
       nextStep = "Search Mendor's overrun library for records of old Phlan. Bring worthwhile finds to the council clerk.";
@@ -430,6 +432,35 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
+  if (text.includes("THIS IS A HIDDEN TEMPLE OF ILMATER") ||
+      text.includes("WE PROVIDE HELP FOR THOSE WHO CAN REACH US. ARE YOU IN NEED OF HEALING")) {
+    leads.push({ id: "podal-ilmater-infirmary", title: "Hidden infirmary in Podal Plaza",
+      detail: "The healer offers help at the hidden Temple of Ilmater in Podal Plaza." });
+  }
+  if (text.includes("WE ARE RECRUITING CREATURES FOR OUR TEMPLE TO THE NORTHEAST")) {
+    leads.push({ id: "podal-bane-temple-location", title: "Bane's temple is northeast of the plaza",
+      detail: "The robed recruiter said his temple lies to the northeast." });
+  }
+  if (text.includes("MEET HERE IN TWO HOURS. YOU MAY MEET HIGH PRIEST MACE")) {
+    leads.push({ id: "podal-shrine-meeting", title: "Meeting at the shrine",
+      detail: "Return to the Bane shrine in Podal Plaza in two hours for the meeting." });
+  }
+  if (text.includes("IF YOU CHANGE YOUR MIND, RETURN IN TWO HOURS")) {
+    leads.push({ id: "podal-shrine-declined", title: "Declined the recruiter's offer",
+      detail: "The recruiter invited the party to return to the shrine in two hours if they change their minds." });
+  }
+  if (text.includes("TO SHOW YOUR LOYALTIES, KILL THE UNBELIEVERS")) {
+    leads.push({ id: "podal-shrine-ambush", title: "The shrine meeting turned hostile",
+      detail: "The recruiter ordered the gathered creatures to attack the party." });
+  }
+  if (text.includes("TO ENTER THE TEMPLE YOU NEED A HOLY SYMBOL OF BANE")) {
+    leads.push({ id: "bane-temple-symbol", title: "A holy symbol for the temple gate",
+      detail: "The departing goblin said a holy symbol of Bane is needed to enter the temple." });
+  }
+  if (text.includes("FINDING THE LEATHER HOLY SYMBOL") && text.includes("WELCOME TO THE TEMPLE OF BANE")) {
+    leads.push({ id: "bane-temple-admitted", title: "Admitted to the Temple of Bane",
+      detail: "The temple guard found the leather holy symbol and let the party in." });
+  }
   if (text.includes("A SMALL CARAVAN OF SLAVERS RIDE BY YOU TOWARD THE BUCCANEER BASE")) {
     leads.push({ id: "rescue-slaver-trail", title: "Slavers on the road", detail: "A caravan of slavers rode toward the Buccaneer Base." });
   }

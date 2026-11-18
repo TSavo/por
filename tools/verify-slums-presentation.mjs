@@ -364,6 +364,9 @@ try {
     await switchBothWays();
     console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
   } else if (shrine) {
+    await advance("j");
+    assert.ok(!frame.journal?.leads.some(({ id }) => id === "podal-bane-temple-location"));
+    await advance("j");
     for (const key of ["up", "up", "enter", "enter", "g"]) await advance(key);
     const prompt = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
     assert.match(prompt, /GREETINGSFROMBANE/i);
@@ -373,6 +376,13 @@ try {
     const capture = await command("Page.captureScreenshot", { format: "png" });
     const screenshot = resolve(directory, "podal-shrine.png");
     writeFileSync(screenshot, Buffer.from(capture.data, "base64"));
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "podal-bane-temple-location"));
+    assert.ok(!frame.journal?.leads.some(({ id }) => id === "podal-shrine-meeting" || id === "podal-shrine-ambush"));
+    for (const key of ["j", "y", "j"]) await advance(key);
+    const meeting = frame.journal?.leads.find(({ id }) => id === "podal-shrine-meeting");
+    assert.match(meeting?.detail ?? "", /return .* in two hours/i);
+    assert.ok(!frame.journal?.leads.some(({ id }) => id === "podal-shrine-declined" || id === "podal-shrine-ambush"));
     console.log("Verified the shrine recruiter portrait and mode switches in Chrome.", screenshot);
   } else if (infirmary) {
     for (const key of ["up", "enter"]) await advance(key);
@@ -384,6 +394,9 @@ try {
     const capture = await command("Page.captureScreenshot", { format: "png" });
     const screenshot = resolve(directory, "podal-infirmary.png");
     writeFileSync(screenshot, Buffer.from(capture.data, "base64"));
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "podal-ilmater-infirmary"));
+    await advance("j");
     await advance("n");
     assert.equal(frame.portrait, undefined);
     console.log("Verified the infirmary portrait, mode switches, and dialogue exit in Chrome.", screenshot);

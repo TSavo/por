@@ -665,10 +665,13 @@ It walks into the hidden infirmary and identifies the original picture from
 the exact `HEAD1.DAX:48` and `BODY1.DAX:25` pixels. It verifies the new
 352×352 healer portrait, mode switching at the healing question, and the
 portrait closing on No.
+The journal records the infirmary once the party hears the offer of healing.
 
 The `podal-shrine` Chrome replay starts from a controlled slot I at
 `12,8 E` and greets the recruiter at `14,8 E`. It checks the
 352×352 recruiter portrait and switches modes during the invitation.
+It checks that the temple direction appears only after the recruiter
+mentions it, and that the two-hour meeting appears only after accepting.
 The replacement is scoped to area 18 because the original orc picture
 also appears in another archive with identical pixels.
 The Slums infantry and Textile House priestess share a guest image pattern.
