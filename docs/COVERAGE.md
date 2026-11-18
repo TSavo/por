@@ -819,6 +819,10 @@ and verifies presentation switches in the encounter. The `swamp-ruins`
 replay loads the save made inside the ruins and checks 51 individual
 32×32 tiles across 12 views. Visual review led to a continuous misty sky
 behind the ruin tiles.
+The elder's restored background also supplies tile placements during
+Parlay. Twenty additional 32×32 tiles cover the approach and the ruins
+behind him. The replay checks all 121 terrain cells under the separately
+anchored sprite, including after opening and closing the journal.
 The `yarash-combat` replay starts from the live fountain shutdown save
 and enters Yarash's room through the locked door. Chrome checks Yarash's
 selected stance, the mutant guard stance, and a guard strike during

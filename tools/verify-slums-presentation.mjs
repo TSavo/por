@@ -462,8 +462,10 @@ try {
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
   } else if (routeName === "swamp-elder") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+    const terrain = new Set();
     for (const key of ["up", "b"]) await advance(key);
     assert.deepEqual(frame.encounter, [48, 32, "encounter:area:16:SPRIT8.DAX:57:0:0", 48, 80]);
+    assert.equal(await verifyTiledView(16, terrain), 1);
     await waitFor("the enhanced swamp elder", () => run(`(() => {
       const image = document.querySelector(".encounter-sprite");
       return image?.naturalWidth === 192 && image?.naturalHeight === 320;
@@ -472,7 +474,12 @@ try {
     await advance("j");
     assert.ok(knows("swamp-peaceful-elder") && !knows("swamp-friend-word"));
     assert.match(frame.journal.objective.nextStep, /Parlay with the elder/);
-    for (const key of ["j", "p", "j"]) await advance(key);
+    for (const key of ["j", "p"]) await advance(key);
+    assert.equal(await verifyTiledView(16, terrain), 1);
+    await waitFor("the elder above the Parlay terrain", () => run('document.querySelector(".encounter-sprite")?.naturalHeight === 320'));
+    const capture = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "swamp-elder-parlay.png"), Buffer.from(capture.data, "base64"));
+    await advance("j");
     assert.ok(knows("swamp-friend-word") && !knows("swamp-elder-story"));
     assert.match(frame.journal.objective.nextStep, /Read journal entry 35/);
     for (const key of ["j", "enter", ..."savior", "enter", "y", "j"]) await advance(key);
@@ -481,7 +488,7 @@ try {
     for (const key of ["j", "enter", "enter", "j"]) await advance(key);
     assert.ok(knows("swamp-champion-requested") && !knows("swamp-alliance-averted"));
     assert.match(frame.journal.objective.nextStep, /choose a party member/);
-    console.log("Verified the swamp elder's friend-word and challenge journal updates in Chrome.");
+    console.log("Verified the swamp elder's layered terrain and journal updates in Chrome. Capture:", directory);
   } else if (routeName === "swamp-approach") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     await advance("j");

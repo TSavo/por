@@ -103,11 +103,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const portrait = !scene && !leads ? portraitArt(screen) : undefined;
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);
-      const encounter = encounterArt(screen, enhanced, !scene && !leads && !portrait ? area : undefined);
+      // Opening the journal does not replace the room behind an active encounter.
+      const encounter = !leads ? encounterArt(screen, enhanced, !scene && !portrait ? area : undefined) : undefined;
       const tiles: [number, number, string][] = [];
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
       const explorationMenu = menuText(text);
-      if ((tileKeys.size || traceTiles) && area !== undefined && !scene && !leads && !portrait && explorationMenu.startsWith("AREACASTVIEWENCAMP")) {
+      if ((tileKeys.size || traceTiles) && area !== undefined && !scene && !leads && !portrait &&
+          (encounter || explorationMenu.startsWith("AREACASTVIEWENCAMP"))) {
         const pixels = Buffer.alloc(64);
         // The first-person view has an 11-by-11 interior with an eight-pixel border.
         for (let y = 24; y < 112; y += 8) {
