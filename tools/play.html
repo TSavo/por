@@ -22,6 +22,27 @@
     li { border-top: 1px solid #415164; padding: .7rem 0; }
     li button { font-size: .85rem; margin-left: .5rem; }
     #status { min-height: 1.5em; color: #b7c5d3; }
+    [data-presentation="enhanced"] {
+      background: radial-gradient(ellipse at top, #302820, #151310 75%);
+      color: #f4ead5;
+    }
+    [data-presentation="enhanced"] h1, [data-presentation="enhanced"] h2 {
+      font-family: Georgia, serif;
+      font-weight: 500;
+    }
+    [data-presentation="enhanced"] #play {
+      border-color: #886c42;
+      box-shadow: 0 12px 38px #0008;
+    }
+    [data-presentation="enhanced"] #screen {
+      aspect-ratio: 4 / 3;
+      height: auto;
+      filter: saturate(.76) contrast(1.05);
+    }
+    [data-presentation="enhanced"] #journal {
+      background: #231d17;
+      border-color: #a28658;
+    }
   </style>
   <script src="/play.js" defer></script>
 </head>
@@ -29,6 +50,7 @@
   <main>
     <header>
       <h1>Pool of Radiance</h1>
+      <button id="presentation" type="button" aria-pressed="false" aria-keyshortcuts="F10">Enhanced display</button>
     </header>
     <div id="play">
       <img id="screen" width="320" height="200" alt="Original game screen" tabindex="-1">

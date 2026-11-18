@@ -4,8 +4,16 @@ const closeJournal = document.querySelector("#close-journal");
 const objective = document.querySelector("#objective");
 const leads = document.querySelector("#leads");
 const status = document.querySelector("#status");
+const presentation = document.querySelector("#presentation");
 let state = { sequence: -1 };
 let posting = false;
+let enhanced = false;
+
+function togglePresentation() {
+  enhanced = !enhanced;
+  document.documentElement.dataset.presentation = enhanced ? "enhanced" : "classic";
+  presentation.setAttribute("aria-pressed", String(enhanced));
+}
 
 function render() {
   if (state.frame) screen.src = `data:image/png;base64,${state.frame}`;
@@ -75,8 +83,17 @@ const commands = {
   Enter: "enter", Escape: "escape", " ": "space", Backspace: "backspace",
 };
 closeJournal.addEventListener("click", () => send("j"));
+presentation.addEventListener("click", () => {
+  togglePresentation();
+  screen.focus();
+});
 window.addEventListener("keydown", (event) => {
   if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (event.key === "F10") {
+    event.preventDefault();
+    togglePresentation();
+    return;
+  }
   if (event.target instanceof HTMLButtonElement && ["Enter", " "].includes(event.key)) return;
   if (event.key.toLowerCase() === "j" && !event.shiftKey) {
     event.preventDefault();

@@ -18,6 +18,8 @@ Use **Encamp → Save** and **Load Saved Game** to save and restore the party an
 
 In combat, **Home**, **Page Up**, **End**, and **Page Down** move or aim diagonally. The numeric keypad provides these keys with Num Lock off.
 
+Press **F10** or select **Enhanced display** for a 4:3 view with a softer color grade and a different journal theme. Both views use the running game's framebuffer. The display switch leaves play and saves alone.
+
 `npm run dev` launches the same game. If `POR_GAMEDATA` is unset, the runner checks `./gamedata`, including one nested folder such as `gamedata/pool`.
 
 ## Tools
