@@ -904,6 +904,8 @@ The Stojanow Gate profile check uses the original wagon, toll demand,
 payment, and garrison dialogue in order. Each discovery updates the
 tracked objective. Setting the original gate capture flag through the
 translated ECL setter advances the objective to the council clerk.
+The profile check also covers being turned away, being exposed before
+entry, and encountering the bugbears waiting inside after payment.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the

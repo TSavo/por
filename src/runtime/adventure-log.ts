@@ -165,7 +165,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     if (commission.id === "gate") {
       if (knows("gate-garrison-defeated")) nextStep = "Defeat the outside guards before reinforcements arrive, then report to the clerk.";
+      else if (knows("gate-bugbear-ambush")) nextStep = "Get past the bugbears waiting just inside the gate, then look for the garrison.";
       else if (knows("gate-toll-paid")) nextStep = "Continue through the gate and look for the garrison inside.";
+      else if (knows("gate-imposters")) nextStep = "The guards have challenged you. The encounter offers Flee, Surrender, or Attack.";
+      else if (knows("gate-toll-refused")) nextStep = "The bugbear turned you away. Prepare for a fight before trying the gate again.";
       else if (knows("gate-toll-demand")) nextStep = "The bugbear asked for 15 gold. If you can pay, choose Yes at the gate.";
       else if (knows("gate-wagon-entry")) nextStep = "Approach the entrance where the wagon got through. Watch for an opportunity to get past the bugbear guards.";
     }
@@ -573,6 +576,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE BUGBEAR TAKES THE MONEY AND THE GATE OPENS")) {
     leads.push({ id: "gate-toll-paid", title: "The bugbear opened the gate",
       detail: "The guard took the payment and let the party through." });
+  }
+  if (text.includes("ALL RIGHT, GET OUT OF HERE THEN. COME BACK WHEN YOU'VE LEARNED THE RULES")) {
+    leads.push({ id: "gate-toll-refused", title: "Turned away from Stojanow Gate",
+      detail: "The bugbear ordered the party to leave." });
+  }
+  if (text.includes("THEY ARE IMPOSTERS! ALL RIGHT, THROW DOWN YOUR WEAPONS")) {
+    leads.push({ id: "gate-imposters", title: "Recognized at Stojanow Gate",
+      detail: "The bugbear guards called the party imposters and demanded their surrender." });
+  }
+  if (text.includes("BUGBEARS WERE WAITING ON THE OTHER SIDE OF THE GATE")) {
+    leads.push({ id: "gate-bugbear-ambush", title: "Bugbears inside Stojanow Gate",
+      detail: "Bugbears were waiting for the party inside the entrance." });
   }
   if (text.includes("COUNCILMAN CADORNA CONFRONTS YOU. 'YOU HAVE TAKEN MY FAMILY TREASURE")) {
     leads.push({ id: "textile-confrontation", title: "Cadorna confronted the party", detail: "Cadorna accused the party of taking his family treasure and left without paying." });

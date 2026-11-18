@@ -361,11 +361,24 @@ function checkCampaignJournal(): void {
     ["A MAN WITH A WAGON OF GOODS", "where the wagon got through"],
     ["HAVE THE 15 GOLD", "asked for 15 gold"],
     ["THE BUGBEAR TAKES THE MONEY", "look for the garrison inside"],
+    ["BUGBEARS WERE WAITING ON THE OTHER SIDE OF THE GATE", "bugbears waiting just inside the gate"],
     ["YOU HAVE SLAIN THE GARRISON", "outside guards"],
   ] as const) {
     const line = lines.find((text) => text.includes(trigger));
     if (!line || !currentObjective(gateJournal(line), "commission-gate").nextStep.includes(nextStep)) {
       throw new Error(`The Stojanow Gate journal did not advance after ${trigger}`);
+    }
+  }
+  const refusedGateProfile = openJournalProfile();
+  const refusedGateJournal = (text: string) => refusedGateProfile(text, (known) => questProgress(m, known, m.ds));
+  refusedGateJournal(gateCommission.offer);
+  for (const [trigger, nextStep] of [
+    ["COME BACK WHEN YOU'VE LEARNED THE RULES", "bugbear turned you away"],
+    ["THEY ARE IMPOSTERS", "Flee, Surrender, or Attack"],
+  ] as const) {
+    const line = lines.find((text) => text.includes(trigger));
+    if (!line || !currentObjective(refusedGateJournal(line), "commission-gate").nextStep.includes(nextStep)) {
+      throw new Error(`The Stojanow Gate journal missed the alternate outcome after ${trigger}`);
     }
   }
   writeGlobal(progressAddresses.gate!, 254);
