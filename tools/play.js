@@ -14,6 +14,9 @@ let posting = false;
 let enhanced = false;
 let animationFrame;
 let animationTimer;
+const failedSceneArt = new WeakSet();
+const failedViewportArt = new WeakSet();
+const failedTileArt = new WeakSet();
 
 function finishAnimation() {
   clearTimeout(animationTimer);
@@ -42,12 +45,14 @@ function togglePresentation() {
 function showScreen() {
   if (!state.frame) return;
   const view = animationFrame ?? state;
-  const frame = enhanced ? view.enhancedFrame ?? view.frame : view.frame;
-  screen.src = enhanced && !view.journal && view.art ? view.art : `data:image/png;base64,${frame}`;
-  const replacement = enhanced && !view.journal && view.viewportArt;
+  const useEnhanced = enhanced && !failedTileArt.has(view);
+  const frame = useEnhanced ? view.enhancedFrame ?? view.frame : view.frame;
+  const sceneArt = useEnhanced && !view.journal && !failedSceneArt.has(view) && view.art;
+  screen.src = sceneArt || `data:image/png;base64,${frame}`;
+  const replacement = useEnhanced && !view.journal && !failedViewportArt.has(view) && view.viewportArt;
   viewportArt.hidden = !replacement;
   if (replacement && viewportArt.getAttribute("src") !== replacement) viewportArt.src = replacement;
-  tileArt.hidden = !enhanced || Boolean(view.art || view.journal || replacement);
+  tileArt.hidden = !useEnhanced || Boolean(sceneArt || view.journal || replacement);
   if (!tileArt.hidden) {
     const placements = [...(view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
     if (view.portrait) placements.push([24, 24, view.portrait]);
@@ -66,12 +71,17 @@ function showScreen() {
       if (reflected) tile.style.transform = "scaleX(-1)";
       tile.style.left = `${x / 3.2}%`;
       tile.style.top = `${y / 2}%`;
-      tile.addEventListener("error", () => tile.remove(), { once: true });
+      tile.addEventListener("error", () => {
+        if (!tile.isConnected || view !== (animationFrame ?? state)) return;
+        // The enhanced framebuffer can omit the original actor under this tile.
+        failedTileArt.add(view);
+        showScreen();
+      }, { once: true });
       tile.src = `/art/${id}`;
       return tile;
     }));
   }
-  gameText.hidden = !enhanced || Boolean(view.art && !view.journal);
+  gameText.hidden = !useEnhanced || Boolean(sceneArt);
   if (!gameText.hidden) {
     gameText.replaceChildren(...(view.text ?? []).map(([cell, character, color]) => {
       const glyph = document.createElement("span");
@@ -85,16 +95,18 @@ function showScreen() {
 }
 
 screen.addEventListener("error", () => {
-  if (state.art && screen.getAttribute("src") === state.art) {
-    state.art = undefined;
+  const view = animationFrame ?? state;
+  if (view.art && screen.getAttribute("src") === view.art) {
+    failedSceneArt.add(view);
     showScreen();
   }
 });
 viewportArt.addEventListener("error", () => {
-  if (viewportArt.getAttribute("src") !== state.viewportArt) return;
-  state.viewportArt = undefined;
+  const view = animationFrame ?? state;
+  if (!view.viewportArt || viewportArt.getAttribute("src") !== view.viewportArt) return;
+  failedViewportArt.add(view);
   viewportArt.removeAttribute("src");
-  viewportArt.hidden = true;
+  showScreen();
 });
 
 function render() {
@@ -162,7 +174,8 @@ async function poll() {
     const response = await fetch(`/state?after=${state.sequence}`);
     const next = await response.json();
     const changed = next.sequence !== state.sequence;
-    state = changed ? next : { ...state, ...next };
+    if (changed) state = next;
+    else Object.assign(state, next);
     if (changed) {
       render();
       playAnimation();

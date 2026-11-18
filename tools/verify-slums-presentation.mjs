@@ -568,6 +568,27 @@ try {
       await switchBothWays();
     }
     await waitFor("Chrome to display the final combat frame", () => run(`state.ready && state.sequence === ${frame.sequence}`));
+    assert.deepEqual(await run(`(() => {
+      const live = state;
+      const screen = document.querySelector("#screen");
+      const layer = document.querySelector("#tile-art");
+      try {
+        state = { ...live, viewportArt: "/art/unavailable-viewport" };
+        showScreen();
+        document.querySelector("#viewport-art").dispatchEvent(new Event("error"));
+        const keepsSprites = !layer.hidden && Boolean(layer.querySelector(".combat-sprite"));
+        layer.querySelector(".combat-sprite").dispatchEvent(new Event("error"));
+        const restoresGuest = layer.hidden && document.querySelector("#game-text").hidden &&
+          screen.getAttribute("src") === "data:image/png;base64," + live.frame;
+        state = { ...live };
+        showScreen();
+        return { keepsSprites, restoresGuest, resumesEnhancements: !layer.hidden &&
+          Boolean(layer.querySelector(".combat-sprite")) };
+      } finally {
+        state = live;
+        showScreen();
+      }
+    })()`), { keepsSprites: true, restoresGuest: true, resumesEnhancements: true });
     await command("Input.dispatchKeyEvent", { type: "keyDown", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
     await command("Input.dispatchKeyEvent", { type: "keyUp", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
     await waitFor("the guest frame after Alt+Q", async () => {
