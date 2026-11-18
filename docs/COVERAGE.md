@@ -721,6 +721,17 @@ and a state-preserving switch in dialogue.
 The `graveyard-vampire` replay uses controlled slot A at `14,0 E` to check the
 128×320 threshold sprite, 352×352 dialogue portrait, and both 96×96 combat
 poses. It verifies presentation switches in approach, dialogue, and combat.
+An additional Chrome replay from the western vampire approach verified two
+192×96 wolf poses from the default upgrade pack. It observed two wolves
+standing on their original 48×24 footprints and the bite frame during combat,
+then switched both ways and checked that the live frame and save were preserved.
+
+The river pollution journal records the rowboat, secret entrance, fountain
+machinery, and damage only after the party sees the corresponding ECL dialogue.
+The translation verifier checks that the next step changes at each discovery
+and points back to New Phlan after destruction. It also checks the original
+council reward dispatch and progress flag. These checks use original ECL
+fixtures and the translated setter.
 
 
 Two Valjevo Castle threshold routes from the controlled slot B checkpoint

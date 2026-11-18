@@ -165,6 +165,13 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("graveyard-vampire-stairs")) nextStep = "Return to the wooden stairs in the graveyard and choose Yes to descend into the pit.";
       else if (knows("graveyard-vampire-location")) nextStep = "Search the northeast corner of Valhingen Graveyard for the vampire's lair.";
     }
+    if (commission.id === "river") {
+      if (knows("river-equipment-destroyed")) nextStep = "Leave the pyramid and report the end of the river pollution to the council clerk in New Phlan.";
+      else if (knows("river-equipment-damaged")) nextStep = "The damaged pipes are whining and the liquid is bubbling. Continue destroying the equipment or choose Move Quickly Away to retreat.";
+      else if (knows("river-fountain")) nextStep = "At the fountain, choose Destroy the Equipment to shut down the machinery pumping the foul liquid.";
+      else if (knows("river-secret-door")) nextStep = "Enter the pyramid through the secret door and search for the source of the foul water.";
+      else if (knows("river-rowboat")) nextStep = "Take the rowboat from the reeds to the pyramid.";
+    }
     if (commission.id === "zhentil") {
       if (knows("zhentil-envoy-left") && knows("zhentil-packet-delivered")) nextStep = "Return to the council clerk in New Phlan and report the delivery.";
       else if (knows("zhentil-climbable-wall")) nextStep = "Choose Yes at the climbable wall to leave the outpost.";
@@ -328,7 +335,8 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     progress.push({
       id,
       title: `${commission.title} - ${value === 254 ? "ready to report" : "turned in"}`,
-      detail: value === 254 ? "Return to the council clerk at City Hall to report your success."
+      detail: value === 254 ? commission.id === "river" ? "Report the end of the river pollution to the council clerk in New Phlan."
+        : "Return to the council clerk at City Hall to report your success."
         : commission.id === "textile" ? "Cadorna's treasure affair is settled." : "The council acknowledged the result.",
       status: value === 254 ? "ready-to-report" : "turned-in",
     });
@@ -646,6 +654,23 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (["WE FIND THESE DISCOURSES VALUABLE", "THESE MAPS SHOULD HELP US TO LOCATE",
     "THESE HISTORIES CONTAIN MUCH USEFUL INFORMATION", "THE RECORDS PROVIDE INSIGHTS"].some((line) => text.includes(line))) {
     leads.push({ id: "records-submitted", title: "Records delivered", detail: "The clerk acknowledged records the party recovered. Additional finds can still be brought to City Hall." });
+  }
+  if (text.includes("YOU HAVE FOUND A ROWBOAT HIDDEN AMOUNGST THE REEDS")) {
+    leads.push({ id: "river-rowboat", title: "A rowboat in the reeds", detail: "The party found a hidden boat that can reach the pyramid." });
+  }
+  if (text.includes("YOU HAVE FOUND A SECRET DOOR THAT LEADS INTO THE PYRAMID")) {
+    leads.push({ id: "river-secret-door", title: "The pyramid's secret door", detail: "The party found a secret entrance at the front of the pyramid." });
+  }
+  if (text.includes("YOU HAVE ENTERED THE FOUNTAIN CHAMBER")) {
+    leads.push({ id: "river-fountain", title: "The fountain chamber", detail: "Pipes in the fountain chamber pump foul black water." });
+  }
+  if (text.includes("NOT ALL THE EQUIPMENT IS YET DESTROYED")) {
+    leads.push({ id: "river-equipment-damaged", title: "The pipes are under pressure", detail: "The damaged machinery started whining and the black liquid bubbled." });
+  }
+  if (text.includes("YOU HAVE DESTROYED THE LAST PIECE OF EQUIPMENT") ||
+      text.includes("THE EQUIPMENT IS NOW CERTAINLY DESTROYED") ||
+      text.includes("ALCHEMICAL POLLUTION CAUSED BY THE PYRAMID")) {
+    leads.push({ id: "river-equipment-destroyed", title: "The river can recover", detail: "The party stopped the pyramid's pollution." });
   }
   for (const commission of commissions) {
     const reported = commission.report !== undefined && text.includes(commission.report);

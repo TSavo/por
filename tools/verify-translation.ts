@@ -495,6 +495,32 @@ function checkCampaignJournal(): void {
       throw new Error(`The Zhentil journal missed the clue after ${trigger}`);
     }
   }
+  const riverOffer = commissions.find(({ id }) => id === "river")!.offer;
+  const riverStages = [
+    ["ROWBOAT HIDDEN AMOUNGST THE REEDS", "Take the rowboat"],
+    ["YOU HAVE FOUND A SECRET DOOR THAT LEADS INTO THE PYRAMID", "through the secret door"],
+    ["YOU HAVE ENTERED THE FOUNTAIN CHAMBER", "choose Destroy the Equipment"],
+    ["NOT ALL THE EQUIPMENT IS YET DESTROYED", "choose Move Quickly Away"],
+  ] as const;
+  let riverTranscript = riverOffer;
+  for (const [trigger, instruction] of riverStages) {
+    const line = lines.find((text) => text.includes(trigger));
+    if (!line || currentObjective(discoveredLeads(riverTranscript), "commission-river").nextStep.includes(instruction)) {
+      throw new Error(`The river journal revealed a clue before ${trigger}`);
+    }
+    riverTranscript += "\n" + line;
+    if (!currentObjective(discoveredLeads(riverTranscript), "commission-river").nextStep.includes(instruction)) {
+      throw new Error(`The river journal missed the clue after ${trigger}`);
+    }
+  }
+  for (const ending of ["YOU HAVE DESTROYED THE LAST PIECE OF EQUIPMENT", "THE EQUIPMENT IS NOW CERTAINLY DESTROYED",
+    "ALCHEMICAL POLLUTION CAUSED BY THE PYRAMID"]) {
+    const line = lines.find((text) => text.includes(ending));
+    if (!line || !currentObjective(discoveredLeads(riverTranscript + "\n" + line), "commission-river")
+      .nextStep.includes("report the end of the river pollution")) {
+      throw new Error(`The river journal missed the outcome after ${ending}`);
+    }
+  }
   const acceptance = [["graveyard", 0x4a96, 255], ["auction", progressAddresses.auction!, 1], ["textile", 0x4a97, 255], ["zhentil", 0x4a98, 255],
     ["gate", 0x4a99, 255], ["castle", 0x4a9a, 255]] as const;
   for (const [id, address, value] of acceptance) {
