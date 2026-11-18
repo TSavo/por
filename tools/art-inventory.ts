@@ -21,6 +21,7 @@ const families = [
 const gameData = findGameRoot(process.argv[2]);
 if (!gameData) throw new Error("Supply the path to the original game files or set POR_GAMEDATA");
 const output = process.argv[3] ?? "out/art-inventory";
+const artScale = 4;
 mkdirSync(join(output, "sheets"), { recursive: true });
 
 interface Block {
@@ -30,6 +31,7 @@ interface Block {
   sha256: string;
   format: string;
   pictures?: { width: number; height: number; frames: number; x: number; y: number; selector?: number; preview: string }[];
+  enhancedFrames?: { width: number; height: number }[];
 }
 
 const archives = listGameFiles(gameData).filter((name) => /\.dax$/i.test(name)).sort().map((name) => {
@@ -90,7 +92,8 @@ const archives = listGameFiles(gameData).filter((name) => /\.dax$/i.test(name)).
       return { width: picture.width, height: picture.height, frames: picture.itemCount,
         x: picture.x, y: picture.y, selector, preview };
     });
-    return { ...block, format: "picture", pictures };
+    return { ...block, format: "picture", pictures,
+      enhancedFrames: pictures.map(({ width, height }) => ({ width: width * artScale, height: height * artScale })) };
   });
   return { file, category, entries };
 });
@@ -142,7 +145,11 @@ const gallery = archives.map(({ file, category, entries }) =>
   entries.map((entry) => {
     const monster = monsterNames.get(`${file}:${entry.id}`);
     return `<figure data-visual="${Boolean(entry.pictures?.length)}"><figcaption>${file} #${entry.id} · ${entry.format}${monster ? ` · ${escape(monster)}` : ""}</figcaption>` +
-    (entry.pictures ?? []).map((pic) => `<a href="${escape(pic.preview)}" target="_blank" rel="noopener"><img loading="lazy" src="${escape(pic.preview)}" alt="${file} #${entry.id}, ${pic.width}×${pic.height}, ${pic.frames} frames"></a>`).join("") +
+    (entry.pictures ?? []).map((pic, index) => {
+      const target = entry.enhancedFrames?.[index];
+      return `<div class="preview"><a href="${escape(pic.preview)}" target="_blank" rel="noopener"><img loading="lazy" src="${escape(pic.preview)}" alt="${file} #${entry.id}, ${pic.width}×${pic.height}, ${pic.frames} frames"></a>` +
+        `<small>${pic.width}×${pic.height}${target ? ` → ${target.width}×${target.height} at 4×` : ""}${pic.frames > 1 ? ` per frame · ${pic.frames} frames` : ""}</small></div>`;
+    }).join("") +
     (referencesByPicture.get(`${file}:${entry.id}`) ?? []).map((ref) =>
       `<p>Script candidate ${ref.file} #${ref.script} · ${ref.address.toString(16)}${ref.nearbyText ? ` · ${escape(ref.nearbyText)}` : ""}</p>`).join("") +
     "</figure>";
@@ -155,6 +162,7 @@ label{display:inline-block;margin:0 1rem .5rem 0}
 summary{cursor:pointer;padding:.65rem 0;border-top:1px solid #514738}.grid{display:flex;flex-wrap:wrap;gap:1rem;padding:.5rem 0 1rem}
 figure{margin:0;padding:.75rem;background:#242220;max-width:min(100%, 40rem);min-width:8rem}
 figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image-rendering:pixelated;max-width:100%;vertical-align:middle;margin:.15rem}
+.preview{display:inline-block;vertical-align:top;max-width:100%;margin:0 .35rem .5rem 0}.preview small{display:block;color:#d6c9b4}
 </style><h1>Pool of Radiance art inventory</h1>
 <p>Click any preview to open the full sheet. Search by archive, block number, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
@@ -189,7 +197,7 @@ category.addEventListener('change', filter);
 includeData.addEventListener('change', filter);
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ archives, scriptReferences, monsterArt, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");

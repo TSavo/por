@@ -1,6 +1,8 @@
 # Enhanced display artwork
 
 Place a PNG alongside a manifest and list its filename under `scene:title`.
+The enhanced art target is 4× the original pixel dimensions. Use 1280 × 800
+for a replacement title card.
 
 ```json
 {"version":1,"assets":{"scene:title":"my-title.png"}}
@@ -12,8 +14,8 @@ using an enhanced palette. Press F10 again to restore the original EGA colors.
 
 To replace the illustration inside a gameplay frame, read the `viewport`
 value from the local runner's `/state` endpoint while the view is visible.
-Add that value as a key in `assets` and supply a PNG for the 112 × 120 pixel
-viewport. The browser scales it to the viewport and keeps the guest menus,
+Add that value as a key in `assets` and supply a 448 × 480 PNG for the original
+112 × 120 viewport. The browser scales it to the viewport and keeps the guest menus,
 text, and party panel visible. Each key matches an exact view, so frames with
 different positions or animation poses can use their own images.
 

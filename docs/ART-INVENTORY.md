@@ -25,6 +25,10 @@ frame count, offsets, and preview path. Wall definitions and map geometry
 build views from the tiles, so the catalog lists those records as composition
 data. The font sheet contains 177 original 8×8 glyphs.
 
+Picture records show the 4× target width and height per frame. The source
+offsets are preserved in the catalog as stored in the archive. The browser
+handles text through the web font, so the font sheet has no raster target.
+
 The archive inventory accounts for all DAX blocks in the supplied DOS set.
 It keeps executable and overlay visuals flagged for a separate audit, including
 interface drawing and any embedded graphics. The gallery supports category
