@@ -58,6 +58,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "castle" && tracked.status === "ready-to-report") {
         return { title: commission.title, nextStep: "Return to City Hall and report Tyranthraxus's defeat to the council clerk." };
       }
+      if (commission.id === "ohlo" && tracked.status === "ready-to-report") {
+        return { title: commission.title, nextStep: "Take the package back to Ohlo and choose Give when he asks for the potion." };
+      }
       return { title: commission.title, nextStep: tracked.detail };
     }
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
@@ -132,8 +135,21 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   const progress: JournalLead[] = [];
   for (const commission of commissions) {
     const id = `commission-${commission.id}`;
+    if (!known.some((lead) => lead.id === id)) continue;
+    if (commission.id === "ohlo") {
+      const potion = global(0x4a81);
+      const request = global(0x4a04);
+      if (potion === 250 && request === 250) {
+        progress.push({ id, title: `${commission.title} - potion found`,
+          detail: "Return to Ohlo with the potion.", status: "ready-to-report" });
+      } else if (potion === 255 && request === 255 && known.some((lead) => lead.id === "ohlo-delivered")) {
+        progress.push({ id, title: `${commission.title} - turned in`,
+          detail: "Ohlo drank his potion and settled the reward.", status: "turned-in" });
+      }
+      continue;
+    }
     const address = progressAddresses[commission.id];
-    if (address === undefined || !known.some((lead) => lead.id === id)) continue;
+    if (address === undefined) continue;
     const value = global(address);
     if (commission.id === "slums" && value > 0 && value < 25) {
       const encounters = value === 1 ? "1 encounter cleared." : `${value} encounters cleared.`;
@@ -261,7 +277,7 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   for (const commission of commissions) {
     const reported = commission.report !== undefined && text.includes(commission.report);
-    const pendingReward = reported && progressAddresses[commission.id] !== undefined;
+    const pendingReward = reported && (progressAddresses[commission.id] !== undefined || commission.id === "ohlo");
     const complete = reported && !pendingReward;
     const accepted = commission.accepted !== undefined && text.includes(commission.accepted);
     if (!reported && !accepted && !text.includes(commission.offer) &&
@@ -270,10 +286,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       id: `commission-${commission.id}`,
       title: `${commission.title} - ${complete ? "turned in" : pendingReward ? "reward pending" : accepted ? "accepted" : "offered"}`,
       detail: complete ? "The result was acknowledged."
-        : pendingReward ? "Finish collecting the council reward."
+        : pendingReward ? (commission.id === "ohlo" ? "Finish collecting Ohlo's reward." : "Finish collecting the council reward.")
         : accepted ? commission.afterAcceptance ?? commission.next : commission.next,
       status: complete ? "turned-in" : pendingReward ? "reward-pending" : accepted ? "accepted" : "offered",
     });
+  }
+  if (text.includes("THE MAN TAKES THE POTION AND GULPS IT GREEDILY")) {
+    leads.push({ id: "ohlo-delivered", title: "Ohlo drank the potion",
+      detail: "Ohlo drank the potion, grew younger, and offered the promised reward." });
   }
   if (text.includes("SUMMON ME ONLY WHEN A VAMPIRE IS NEAR")) {
     leads.push({ id: "bottle-recovered", title: "The bottle's warning", detail: "Samir warned the party to summon him in the presence of a vampire, then returned to the bottle." });

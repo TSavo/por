@@ -286,7 +286,7 @@ function checkCampaignJournal(): void {
     }
     const address = progressAddresses[commission.id];
     if (commission.report && lookup(fromGame(commission.report))?.status !==
-        (address === undefined ? "turned-in" : "reward-pending")) {
+        (address === undefined && commission.id !== "ohlo" ? "turned-in" : "reward-pending")) {
       throw new Error(`Journal reward dialogue mismatch for ${id}`);
     }
     if (address !== undefined) {
@@ -361,6 +361,28 @@ function checkCampaignJournal(): void {
   const learned = discoveredLeads(transcript);
   if (!currentObjective([...questProgress(m, learned, m.ds), ...learned]).nextStep.includes("Ferran's password")) {
     throw new Error("Sokal journal lost Ferran's exit instruction on completion");
+  }
+  const ohlo = commissions.find(({ id }) => id === "ohlo")!;
+  const delivered = lines.find((text) => text.includes(ohlo.report!));
+  if (!delivered || !slumsCounter.some(({ address, name, operands }) =>
+    address === 0xb048 && name === "SAVE" && operands[0]?.low === 250 && operands[1]?.word === 0x4a81)) {
+    throw new Error("Original Ohlo pickup or delivery script missing");
+  }
+  const knownOhlo = discoveredLeads(ohlo.accepted!);
+  writeGlobal(0x4a04, 250);
+  writeGlobal(0x4a81, 250);
+  if (!currentObjective(questProgress(m, knownOhlo, m.ds)).nextStep.includes("choose Give")) {
+    throw new Error("Ohlo pickup did not change the journal objective");
+  }
+  const ohloReward = discoveredLeads(delivered);
+  if (!currentObjective(ohloReward).nextStep.includes("collecting Ohlo's reward")) {
+    throw new Error("Ohlo's dialogue closed his reward early");
+  }
+  writeGlobal(0x4a04, 255);
+  writeGlobal(0x4a81, 255);
+  if (questProgress(m, knownOhlo, m.ds).length ||
+      questProgress(m, ohloReward, m.ds)[0]?.status !== "turned-in") {
+    throw new Error("Ohlo's hostile and successful paths were not distinguished");
   }
   const castle = commissions.find(({ id }) => id === "castle")!;
   const castleFlag = progressAddresses.castle!;
