@@ -8,6 +8,8 @@ import { tsImport } from "tsx/esm/api";
 const names = ["alda", "brin", "cora", "dorn", "enna", "fenn"];
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", "fresh-party-"));
+const strictCombat = process.env.POR_REQUIRE_UNINTERRUPTED_COMBAT === "1";
+const recoveryCounts = new Map();
 
 async function replay(bootKeys, startAt, actions, checkpointDir = saveDir) {
   const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
@@ -20,13 +22,26 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir) {
   const lines = createInterface({ input: runner.stdout });
   const iterator = lines[Symbol.asyncIterator]();
   let lastKey = "(boot)";
+  let lastText = "";
+  let actionNumber = 0;
   const timer = setTimeout(() => runner.kill(), 90_000);
   async function nextFrame() {
     for (;;) {
       const { value, done } = await iterator.next();
       if (done) throw new Error("Runner stopped after " + lastKey);
       if (value.startsWith("entry:")) throw new Error(value);
-      if (value.startsWith("POR_FRAME ")) return JSON.parse(value.slice(10));
+      if (value.startsWith("POR_NOTICE ")) {
+        const notice = value.slice("POR_NOTICE ".length);
+        recoveryCounts.set(notice, (recoveryCounts.get(notice) ?? 0) + 1);
+        if (strictCombat) {
+          throw new Error(`Combat watchdog intervened after input ${actionNumber} (${lastKey}): ${notice}\n${lastText.trim()}`);
+        }
+      }
+      if (value.startsWith("POR_FRAME ")) {
+        const frame = JSON.parse(value.slice(10));
+        lastText = visibleText(frame);
+        return frame;
+      }
     }
   }
   try {
@@ -37,6 +52,7 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir) {
         continue;
       }
       lastKey = key;
+      actionNumber++;
       runner.stdin.write(key + "\n");
       frame = await nextFrame();
     }
@@ -47,6 +63,12 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir) {
     runner.kill();
   }
 }
+
+process.on("exit", () => {
+  for (const [notice, count] of recoveryCounts) {
+    console.warn(`Combat watchdog interventions (${count}): ${notice}`);
+  }
+});
 
 function visibleText(frame) {
   const cells = Array(1000).fill(" ");

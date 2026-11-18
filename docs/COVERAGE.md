@@ -471,6 +471,12 @@ the same inputs with `POR_QUICK_STEPS=20000000` let those turns finish
 without recovery. The party still lost. The courtyard replay also ended
 in defeat with this diagnostic override, so its existing victory does
 not establish a win without watchdog intervention.
+The party replay now summarizes watchdog interventions. Set
+`POR_REQUIRE_UNINTERRUPTED_COMBAT=1` for a run that fails on the first
+intervention and reports the preceding input and displayed combat state.
+With the default watchdog, the Podal checkpoint run in this mode stops
+on input 53 (`q`) of the courtyard replay. Checkpoint runs that allow
+recovery can still verify the journal branches after the courtyard.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the
