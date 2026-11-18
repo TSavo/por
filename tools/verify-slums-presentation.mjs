@@ -10,6 +10,10 @@ const combatPoseRoutes = new Map([
     stand: "combat:area:10:CPIC4.DAX:22", strike: "combat:area:10:CPIC4.DAX:150", width: 96, height: 192,
     inputs: ["up", "enter", "y", "enter", "enter", "enter", "q", "q"],
   }],
+  ["graveyard-wraith", {
+    stand: "combat:area:10:CPIC4.DAX:21", strike: "combat:area:10:CPIC4.DAX:149", width: 96, height: 96,
+    inputs: ["up", "b", "enter", "enter", "s", "enter", "enter", "q", "q"],
+  }],
   ["swamp-giant-lizard", {
     stand: "combat:area:16:CPIC8.DAX:59", strike: "combat:area:16:CPIC8.DAX:187", width: 192, height: 96,
     inputs: ["up", "enter", "c", "c", "enter", "enter", "enter", "q", "q"],
@@ -21,6 +25,12 @@ const ferryRoutes = new Map([
   ["phlan-ferry-river", { slot: "A", prompt: /BOATHERETHATWILLTAKEYOUBACK/i }],
 ]);
 const ferry = ferryRoutes.get(routeName);
+const outskirtsRoutes = new Map([
+  ["phlan-outskirts-north", { direction: "down", prompt: /NORTHEDGEOFTHECITY/i, menu: /CITY.*GRAVEYARD.*LEAVE/i }],
+  ["phlan-outskirts-east", { direction: "up", prompt: /EASTERNEDGEOFTHECITY/i, menu: /NORTH.*SOUTH.*BOAT.*LEAVE/i }],
+  ["phlan-outskirts-west", { direction: "down", prompt: /WESTERNEDGEOFTHECITY/i, menu: /NORTH.*SOUTH.*LEAVE/i }],
+]);
+const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
   ["graveyard-crypt-path", {
     slot: "A", area: 10, views: 26, patterns: 146, sceneryOnly: true,
@@ -104,7 +114,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "diogenes-cave", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "diogenes-cave", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -442,6 +452,16 @@ try {
     await waitFor("the Phlan ferry illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log(`Verified the return ferry artwork at ${routeName} in Chrome.`);
+  } else if (outskirts) {
+    for (const key of [outskirts.direction, "enter"]) await advance(key);
+    const text = frame.text.toSorted(([left], [right]) => left - right)
+      .map(([, character]) => String.fromCharCode(character)).join("");
+    assert.equal(frame.portrait, "portrait:PIC7.DAX:40:0:0");
+    assert.match(text, outskirts.prompt);
+    assert.match(text, outskirts.menu);
+    await waitFor("the Phlan outskirts illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    console.log(`Verified the crossroads illustration at ${routeName} in Chrome.`);
   } else if (routeName === "diogenes-cave") {
     for (const key of ["up", "enter"]) await advance(key);
     const text = () => frame.text.toSorted(([left], [right]) => left - right)

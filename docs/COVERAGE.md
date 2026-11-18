@@ -835,6 +835,8 @@ to the classic and enhanced previews.
 The `graveyard-giant-skeleton` replay starts at `7,7 N` in controlled slot A.
 Chrome checks both 96×192 poses over the original 24×48 footprint, including
 the animated strike, and verifies that changing presentation preserves the save.
+The `graveyard-wraith` replay starts at `14,8 E` in controlled slot A and
+checks the 96×96 standing and reflected strike frames in the Paladin Crypt.
 The `graveyard-vampire` replay uses controlled slot A at `14,0 E` to check the
 128×320 threshold sprite, 352×352 dialogue portrait, and both 96×96 combat
 poses. It verifies presentation switches in approach, dialogue, and combat.
@@ -990,6 +992,9 @@ The `phlan-ferry-river` and `phlan-ferry-east` presentation replays start at
 the river and East Overland docks using controlled slots A and B. Both check
 the original Take Boat / Stay prompt, its shared 352×352 illustration, and
 state preservation across presentation switches.
+The `phlan-outskirts-north`, `phlan-outskirts-east`, and `phlan-outskirts-west`
+replays use separate controlled slot A checkpoints. Chrome verifies the
+shared crossroads illustration at each original travel menu.
 The `diogenes-cave` replay checks the 352×352 mountain cave illustration at
 the initial sighting and on a later approach from separate controlled slot A
 checkpoints. It verifies the picture clears as the party enters and Diogenes's
