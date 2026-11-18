@@ -302,7 +302,14 @@ try {
       assert.ok(!hasLead("rescue-inside-pen"));
       await advance("j");
       for (const key of ["right", "right", "up", "left", ...Array(4).fill("up"),
-        "left", "up", "up", "b", "enter", "j"]) await advance(key);
+        "left", "up"]) await advance(key);
+      const approachTiles = frame.tiles;
+      await advance("up");
+      assert.equal(frame.perspective, true, "The locked-gate prompt should keep the first-person picture");
+      assert.deepEqual(frame.tiles, approachTiles, "Opening the locked-gate prompt should keep the scenery tiles");
+      await switchBothWays();
+      await waitFor("outer picture panel at the locked gate", () => run('Boolean(document.querySelector(".perspective-backdrop"))'));
+      for (const key of ["b", "enter", "j"]) await advance(key);
       assert.ok(hasLead("rescue-inside-pen"));
       assert.ok(!hasLead("rescue-heir-freed"));
       for (const key of ["j", "g", "j"]) await advance(key);

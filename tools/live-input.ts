@@ -107,10 +107,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const encounter = !leads ? encounterArt(screen, enhanced, !scene && !portrait ? area : undefined) : undefined;
       const tiles: [number, number, string][] = [];
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
-      const explorationMenu = menuText(text);
-      const perspective = !scene && !leads && !portrait && Boolean(encounter || explorationMenu.startsWith("AREACASTVIEWENCAMP"));
-      if ((tileKeys.size || traceTiles) && area !== undefined && !scene && !leads && !portrait &&
-          (encounter || explorationMenu.startsWith("AREACASTVIEWENCAMP"))) {
+      const menu = menuText(text);
+      const exploration = menu.startsWith("AREACASTVIEWENCAMP") || menu.startsWith("LOCKED.BASHEXIT");
+      const perspective = !scene && !leads && !portrait && Boolean(encounter || exploration);
+      if ((tileKeys.size || traceTiles) && area !== undefined && perspective) {
         const pixels = Buffer.alloc(64);
         // The first-person view has an 11-by-11 interior with an eight-pixel border.
         for (let y = 24; y < 112; y += 8) {
@@ -131,7 +131,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const offset = Math.floor(cell / 40) * 8 * screen.width + x;
         for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * screen.width, offset + y * screen.width + 8);
       }
-      const combat = attack || (!scene && !leads && !explorationMenu.startsWith("AREACASTVIEWENCAMP"))
+      const combat = attack || (!scene && !leads && !exploration)
         ? combatArt(screen, enhanced, area) : [];
       const battleTiles: TilePlacement[] = [];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
