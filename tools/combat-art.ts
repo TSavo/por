@@ -44,6 +44,7 @@ function buildCombatArtMatcher(keys: string[]) {
   type Pose = { key: string; reflected: boolean; pixels: Uint8Array; width: number };
   const patterns = new Map<string, Pose | null>();
   const poses: Pose[] = [];
+  const tallPoses: Pose[] = [];
   const sizes = new Map<string, { width: number; height: number }>();
   const register = (pixels: Uint8Array, key: string, reflected: boolean, width: number) => {
     const pattern = `${width}:${Buffer.from(pixels).toString("hex")}`;
@@ -51,6 +52,7 @@ function buildCombatArtMatcher(keys: string[]) {
     const pose = { key, reflected, pixels, width };
     patterns.set(pattern, previous === undefined || previous?.key === key ? pose : null);
     poses.push(pose);
+    if (pixels.length === width * 48 && monsterCombatKey.test(key)) tallPoses.push(pose);
   };
   const registerFacings = (pixels: Uint8Array, key: string, width = 24, height = 24) => {
     sizes.set(`${width}:${height}`, { width, height });
@@ -66,6 +68,18 @@ function buildCombatArtMatcher(keys: string[]) {
     for (const pose of poses) {
       if (pose.width !== width || pose.pixels.length !== cell.length || !pose.pixels.every((color, index) => color ? cell[index] === color :
         cell[index] === bevel[index] || (bevel[index] === 7 && cell[index] === 15))) continue;
+      if (match && match.key !== pose.key) return;
+      match = pose;
+    }
+    return match;
+  };
+  const terrainPose = (cell: Uint8Array, width: number) => {
+    // The guest draws tall monsters over both the backdrop and adjacent units.
+    // Every opaque pixel must match before we replace a composited pose.
+    let match: Pose | undefined;
+    for (const pose of tallPoses) {
+      if (pose.width !== width || !pose.pixels.every((color, index) =>
+        color === 0 || cell[index] === color)) continue;
       if (match && match.key !== pose.key) return;
       match = pose;
     }
@@ -132,7 +146,8 @@ function buildCombatArtMatcher(keys: string[]) {
           }
           const plain = patterns.get(`${width}:${cell.toString("hex")}`);
           const selected = plain === undefined ? selectedPose(cell, bevel, width) : undefined;
-          const match = plain ?? selected;
+          const terrain = height === 48 && plain === undefined && !selected ? terrainPose(cell, width) : undefined;
+          const match = plain ?? selected ?? terrain;
           if (!match) continue;
           placements.push(width !== 24 || height !== 24 ? [x, y, match.key, match.reflected, Boolean(selected), width, height]
             : selected ? [x, y, match.key, match.reflected, true] : [x, y, match.key, match.reflected]);
@@ -143,7 +158,7 @@ function buildCombatArtMatcher(keys: string[]) {
               const index = row * width + column;
               enhanced.pixels[start + column] = selected
                 ? match.pixels[index] ? bevel[index]! : cell[index]!
-                : 0;
+                : terrain && !match.pixels[index] ? cell[index]! : 0;
             }
           }
         }

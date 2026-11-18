@@ -822,6 +822,9 @@ now check all 19 views, including one skeleton approach per route. The
 The `graveyard-mystic` replay starts at `8,10 N` in controlled slot B with
 the graveyard encounter counter set to 3 and verifies the mystic portrait
 and a state-preserving switch in dialogue.
+The `graveyard-giant-skeleton` replay starts at `7,7 N` in controlled slot A.
+Chrome checks both 96×192 poses over the original 24×48 footprint, including
+the animated strike, and verifies that changing presentation preserves the save.
 The `graveyard-vampire` replay uses controlled slot A at `14,0 E` to check the
 128×320 threshold sprite, 352×352 dialogue portrait, and both 96×96 combat
 poses. It verifies presentation switches in approach, dialogue, and combat.

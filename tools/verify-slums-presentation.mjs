@@ -5,6 +5,7 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
+const giantSkeleton = routeName === "graveyard-giant-skeleton";
 const environmentRoutes = new Map([
   ["bane-sanctuary", {
     slot: "A", area: 24, views: 23, patterns: 69,
@@ -79,7 +80,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-giant-skeleton", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -380,6 +381,31 @@ try {
     }
     await switchBothWays();
     console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
+  } else if (giantSkeleton) {
+    const standing = "combat:area:10:CPIC4.DAX:22";
+    const strike = "combat:area:10:CPIC4.DAX:150";
+    await run(`window.giantSkeletonStrikeLoaded = false;
+      new MutationObserver(() => {
+        for (const image of document.querySelectorAll(".combat-sprite")) {
+          if (!image.src.endsWith(${JSON.stringify(strike)})) continue;
+          const check = () => {
+            if (image.naturalWidth === 96 && image.naturalHeight === 192) window.giantSkeletonStrikeLoaded = true;
+          };
+          check();
+          image.addEventListener("load", check, { once: true });
+        }
+      }).observe(document.querySelector("#tile-art"), { childList: true });`);
+    for (const key of ["up", "enter", "y", "enter", "enter", "enter", "q", "q"]) await advance(key);
+    assert.ok(frame.combatArt?.some(([, , id, , selected]) => id === standing && selected));
+    await waitFor("the selected Giant Skeleton", () => run(`state.sequence === ${frame.sequence} &&
+      [...document.querySelectorAll(".combat-sprite")].some(image => image.src.endsWith(${JSON.stringify(standing)}) &&
+        image.naturalWidth === 96 && image.naturalHeight === 192)`));
+    await switchBothWays();
+    await advance("q");
+    assert.ok(frame.animation?.some(({ combatArt }) => combatArt?.some(([, , id]) => id === strike)));
+    await waitFor("the enhanced Giant Skeleton strike", () => run("window.giantSkeletonStrikeLoaded"));
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the Giant Skeleton's standing and animated strike poses in Chrome.");
   } else if (koboldCave) {
     for (const key of ["down", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:PIC8.DAX:27:0:0");
