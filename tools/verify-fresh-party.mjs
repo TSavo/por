@@ -656,12 +656,43 @@ if (process.argv[2] === "--textile-courtyard-checkpoint") {
   process.exit(0);
 }
 
-if (process.argv[2] === "--sokal-altar-checkpoint") {
-  assert.ok(process.argv[3], "Pass a save at Ferran's altar after learning his password.");
-  copyFileSync(process.argv[3], join(saveDir, "G.json"));
+if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.argv[2])) {
+  const beforeFerran = process.argv[2] === "--sokal-ferran-checkpoint";
+  assert.ok(process.argv[3], beforeFerran ? "Pass a save one step before meeting Ferran."
+    : "Pass a save at Ferran's altar after learning his password.");
   const checkSokal = (status) => (_text, frame) => {
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-sokal")?.status, status);
   };
+  if (beforeFerran) {
+    copyFileSync(process.argv[3], join(saveDir, "F.json"));
+    const speakToFerran = [
+      "up", "enter", (text) => assert.match(text, /a pale form rises before you/),
+      "p", "n", ..."lux", "enter", (text) => assert.match(text, /ferran martinez.*tell the truth.*lie/),
+    ];
+    let statusBeforeParlay;
+    await replay(loadSlot("2166"), "85000000", [
+      "j", (_text, frame) => {
+        const lead = frame.journal.leads.find(({ id }) => id === "commission-sokal");
+        assert.match(lead?.status, /^(offered|accepted)$/);
+        statusBeforeParlay = lead.status;
+        assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-departure"));
+      }, "j",
+      ...speakToFerran, "l", (text) => assert.match(text, /you lie.*fades away/),
+      "j", (_text, frame) => {
+        const leads = frame.journal.leads;
+        assert.equal(leads.find(({ id }) => id === "commission-sokal")?.status, statusBeforeParlay);
+        assert.ok(leads.some(({ id }) => id === "sokal-ferran-lie"));
+        assert.ok(!leads.some(({ id }) => id === "sokal-departure"));
+      },
+    ]);
+    await replay(loadSlot("2166"), "85000000", [
+      ...speakToFerran, "t", "enter", "enter", "enter",
+      (text) => assert.match(text, /samosud/),
+      "e", "s", "s", "g",
+    ]);
+  } else {
+    copyFileSync(process.argv[3], join(saveDir, "G.json"));
+  }
   await replay(loadSlot("2267"), "85000000", [
     (text) => assert.match(text, /8,10 s/),
     "j", checkSokal("ready-to-report"),

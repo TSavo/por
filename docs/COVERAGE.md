@@ -413,6 +413,10 @@ the ready-to-report status and the journal's password and return guidance.
 A separate run chose to lie and verified that Ferran faded without teaching
 the password or completing the commission. The checkpoint bypassed the
 route to the altar.
+Run `node tools/verify-fresh-party.mjs --sokal-ferran-checkpoint PATH_TO_SLOT_F`
+from one step north of the altar, facing south. The verifier plays both
+answers from the same checkpoint, then follows the truthful branch all
+the way through the council reward and reload.
 
 From the truthful altar save, the party walks through the chapel and
 past the undead using SAMOSUD, exits through the southern gate, and
