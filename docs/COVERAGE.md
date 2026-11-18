@@ -697,8 +697,9 @@ uses the original ECL text for each discovery and exercises acceptance
 through the translated setter. The `zhentil-envoy` Chrome replay uses
 controlled slot A in the western overland sector with the commission
 acceptance flag set and the party positioned near the mounted patrol.
-It follows the original escort, paper handoff, and tour and checks that the
-journal unlocks each discovery in order. Ambush, escape, and turn-in are
+It follows the original escort, paper handoff, and tour, checks that the
+journal unlocks each discovery in order, and checks the new 352×352 commandant
+portrait and mode switching during the handoff. Ambush, escape, and turn-in are
 still pending a live replay.
 
 The Valhingen journal now uses witnessed clues for the lair, stairs, vampire
@@ -726,7 +727,7 @@ and a state-preserving switch in dialogue.
 The `graveyard-vampire` replay uses controlled slot A at `14,0 E` to check the
 128×320 threshold sprite, 352×352 dialogue portrait, and both 96×96 combat
 poses. It verifies presentation switches in approach, dialogue, and combat.
-An additional Chrome replay from the western vampire approach verified two
+The `graveyard-wolves` Chrome replay from the western vampire approach verified two
 192×96 wolf poses from the default upgrade pack. It observed two wolves
 standing on their original 48×24 footprints and the bite frame during combat,
 then switched both ways and checked that the live frame and save were preserved.

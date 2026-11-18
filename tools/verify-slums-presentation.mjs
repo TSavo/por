@@ -46,7 +46,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -55,6 +55,7 @@ const halls = routeName === "castle-halls";
 const assault = routeName === "assault-briefing";
 const mystic = routeName === "graveyard-mystic";
 const vampire = routeName === "graveyard-vampire";
+const wolves = routeName === "graveyard-wolves";
 const envoy = routeName === "zhentil-envoy";
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
@@ -429,11 +430,41 @@ try {
     await checkJournal(["envoy-challenge"], ["packet-delivered", "quarters"]);
     await advance("y");
     for (let line = 0; line < 6; line++) await advance("enter");
+    assert.equal(frame.portrait, "portrait:PIC6.DAX:50:0:0");
+    await waitFor("the Zhentil commandant portrait", () => run(`(() => {
+      const image = document.querySelector(".encounter-portrait");
+      return image?.naturalWidth === 352 && image?.naturalHeight === 352;
+    })()`));
+    await switchBothWays();
     await checkJournal(["envoy-challenge", "packet-delivered"], ["quarters"]);
     for (let line = 0; line < 6; line++) await advance("enter");
     await checkJournal(["envoy-challenge", "packet-delivered", "quarters"], ["quarters-attacked", "envoy-left"]);
     await switchBothWays();
     console.log("Verified the Zhentil patrol, packet delivery, and quarters journal discoveries in Chrome.");
+  } else if (wolves) {
+    const standing = "combat:area:10:CPIC4.DAX:106";
+    const attack = "combat:area:10:CPIC4.DAX:234";
+    await run(`window.wolfBiteLoaded = false;
+      new MutationObserver(() => {
+        for (const image of document.querySelectorAll(".combat-sprite")) {
+          if (!image.src.endsWith(${JSON.stringify(attack)})) continue;
+          const record = () => {
+            if (image.naturalWidth === 192 && image.naturalHeight === 96) window.wolfBiteLoaded = true;
+          };
+          record();
+          image.addEventListener("load", record, { once: true });
+        }
+      }).observe(document.querySelector("#tile-art"), { childList: true });`);
+    for (const key of ["up", "enter", "y", "enter", "enter", "enter", "q", "q", "q"]) await advance(key);
+    const hasFootprint = (placement, id) => placement[2] === id && placement[5] === 48 && placement[6] === 24;
+    assert.ok(frame.combatArt.filter((placement) => hasFootprint(placement, standing)).length >= 2);
+    assert.ok(frame.animation?.some((shot) => shot.combatArt?.some((placement) => hasFootprint(placement, attack))));
+    await waitFor("the wolf bite sprite", () => run("window.wolfBiteLoaded"));
+    await waitFor("two standing wolves", () => run(`!animationFrame &&
+      [...document.querySelectorAll(".combat-sprite")].filter(image =>
+        image.src.endsWith(${JSON.stringify(standing)}) && image.naturalWidth === 192 && image.naturalHeight === 96).length >= 2`));
+    await switchBothWays();
+    console.log("Verified the Valhingen wolf stance and bite in live Chrome combat.");
   } else if (vampire) {
     const stairs = "graveyard-vampire-stairs";
     await advance("j");

@@ -54,6 +54,7 @@
     "tile:9:f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b": "stojanow-gate-terrain-f5a5fd42d16a.png",
     "tile:9:f8ca3a417a1a3fd9d54e5c394f94b0f878b2f3aded71e1275305953be0257580": "stojanow-gate-terrain-f8ca3a417a1a.png",
     "encounter:area:10:SPRIT4.DAX:23:0:0": "valhingen-vampire-approach.png",
+    "portrait:PIC6.DAX:50:0:0": "zhentil-commandant-portrait.png",
     "combat:area:10:CPIC4.DAX:23": "valhingen-vampire-combat.png",
     "combat:area:10:CPIC4.DAX:106": "valhingen-wolf-prowl.png",
     "combat:area:10:CPIC4.DAX:151": "valhingen-vampire-strike.png",
