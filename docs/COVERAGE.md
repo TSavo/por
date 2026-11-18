@@ -731,6 +731,9 @@ Run `node tools/verify-fresh-party.mjs --sokal-ferran-checkpoint PATH_TO_SLOT_F`
 from one step north of the altar, facing south. The verifier plays the
 wrong-word and lie branches from the same checkpoint, then follows the
 recovered truthful branch through the council reward and reload.
+The journal checks against the original script also cover the spirit's
+floorboard clue and the separate discovery of the defenders' diary.
+The objective points to journal entry 3 only after the party finds it.
 
 From the truthful altar save, the party walks through the chapel and
 past the undead using SAMOSUD, exits through the southern gate, and

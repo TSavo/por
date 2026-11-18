@@ -494,6 +494,14 @@ function checkCampaignJournal(): void {
     ["I AM THE LIFE FORM OF FERRAN MARTINEZ", "answer him truthfully"],
     ["TO PASS MY GUARDS ON THE WAY OUT", "answer him truthfully"],
   ];
+  const hauntOffer = discoveredLeads(commissions.find(({ id }) => id === "sokal")!.offer);
+  const floorboard = lines.find((line) => line.includes("HE POINTS TO A FLOORBOARD"));
+  const diary = lines.find((line) => line.includes("BENEATH A FLOORBOARD YOU FIND SOME GEMS"));
+  if (!floorboard || !diary || currentObjective(hauntOffer).nextStep.includes("floorboard") ||
+      !currentObjective([...hauntOffer, ...discoveredLeads(floorboard)]).nextStep.includes("Check the floorboard") ||
+      !currentObjective([...hauntOffer, ...discoveredLeads(`${floorboard}\n${diary}`)]).nextStep.includes("Read journal entry 3")) {
+    throw new Error("The Sokal journal did not follow the defenders' diary discoveries");
+  }
   let transcript = commissions.find(({ id }) => id === "sokal")!.offer;
   writeGlobal(progressAddresses.sokal!, 0);
   for (const [trigger, instruction] of route) {

@@ -136,6 +136,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       }
       else if (knows("sokal-armory-stands")) nextStep = "Check the gear on the stands if you left it behind, then continue exploring Sokal Keep.";
       else if (knows("sokal-hidden-armory")) nextStep = "Follow the glow to the northwest corner of the hidden armory.";
+      else if (knows("sokal-haunt-diary")) nextStep = "Read journal entry 3, then continue searching the keep.";
+      else if (knows("sokal-haunt-floorboard")) nextStep = "Check the floorboard the spirit pointed out for the defenders' diary.";
       else if (knows("sokal-patrol-passed")) nextStep = "Explore the keep. If another undead patrol asks whether to give the password, choose Yes.";
       else if (knows("sokal-patrol-rejected-word") && knows("sokal-parchment")) {
         nextStep = "The patrol rejected the word. If you meet another patrol, try a different word from the parchment.";
@@ -450,6 +452,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("AS YOU SEARCH THROUGH THE WRECKED SMITHY") && text.includes("WITH THE EXCEPTION OF ONE OLD HAMMER")) {
     leads.push({ id: "sokal-smithy-hammer", title: "The smithy's hammer",
       detail: "The party found an old hammer among the ruined tools in Sokal Keep's smithy." });
+  }
+  if (text.includes("AN ACCOUNT OF OUR TRIALS IS WITHIN THE DIARY") && text.includes("HE POINTS TO A FLOORBOARD")) {
+    leads.push({ id: "sokal-haunt-floorboard", title: "A diary beneath the floorboard",
+      detail: "A spirit pointed out the floorboard where the old defenders left their account." });
+  }
+  if (text.includes("BENEATH A FLOORBOARD YOU FIND SOME GEMS") && text.includes("AS ENTRY 3")) {
+    leads.push({ id: "sokal-haunt-diary", title: "The defenders' diary",
+      detail: "The party copied the recovered diary pages as journal entry 3 and found gems under the floorboard." });
   }
   if (text.includes("PASSING THROUGH AN ILLUSIONARY WALL, YOU ENTER A PORTION OF THE KEEP")) {
     leads.push({ id: "sokal-hidden-armory", title: "The hidden armory",
