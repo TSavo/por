@@ -7,12 +7,13 @@ import { encodePng } from "./png.js";
 
 const controls: Record<string, number> = {
   enter: 0x1c0d, escape: 0x011b, up: 0x4800, down: 0x5000, left: 0x4b00, right: 0x4d00,
+  home: 0x4700, pageup: 0x4900, end: 0x4f00, pagedown: 0x5100,
   space: 0x3920, tab: 0x0f09, backspace: 0x0e08,
 };
 const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"];
 const firstScans = [2, 16, 30, 44];
 
-function getKey(command: string): number | undefined {
+export function getKey(command: string): number | undefined {
   if (Object.hasOwn(controls, command)) return controls[command];
   if (command.length !== 1) return;
   for (let row = 0; row < scanRows.length; row++) {
@@ -91,7 +92,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[]) {
       }
       const key = getKey(command === "" ? "enter" : command.startsWith("key ") ? command.slice(4) : command);
       if (key === undefined) {
-        console.log("Enter a letter, digit, arrow name, Enter, Space, Escape, Tab, or Backspace.");
+        console.log("Enter a letter, digit, arrow name, home, pageup, end, pagedown, enter, space, escape, tab, or backspace.");
         continue;
       }
       keys.push({ step: cpu.steps, word: key });

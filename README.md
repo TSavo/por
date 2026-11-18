@@ -16,6 +16,8 @@ Open [the local game](http://127.0.0.1:43124) to play the translated game. In th
 
 Use **Encamp → Save** and **Load Saved Game** to save and restore the party and its journal in the same slot. The runner stores slots under `out/saves/` for each game-data directory. Set `POR_SAVE_DIR` to select a different folder.
 
+In combat, **Home**, **Page Up**, **End**, and **Page Down** move or aim diagonally. The numeric keypad provides these keys with Num Lock off.
+
 `npm run dev` launches the same game. If `POR_GAMEDATA` is unset, the runner checks `./gamedata`, including one nested folder such as `gamedata/pool`.
 
 ## Tools

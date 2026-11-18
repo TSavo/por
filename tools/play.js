@@ -71,6 +71,7 @@ async function poll() {
 
 const commands = {
   ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right",
+  Home: "home", PageUp: "pageup", End: "end", PageDown: "pagedown",
   Enter: "enter", Escape: "escape", " ": "space", Backspace: "backspace",
 };
 closeJournal.addEventListener("click", () => send("j"));

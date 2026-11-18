@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
+import { getKey } from "./live-input.js";
 
 const port = 43124;
 const origin = `http://127.0.0.1:${port}`;
@@ -42,7 +43,6 @@ runner.on("error", (error) => { stopped = error.message; });
 runner.stdin.on("error", (error) => { stopped ??= error.message; });
 runner.on("close", (code) => { stopped ??= lastDiagnostic || `Game stopped (exit ${code}).`; });
 
-const allowedKey = /^(?:[a-zA-Z0-9]|key [a-zA-Z0-9]|enter|escape|up|down|left|right|space|tab|backspace|track [1-9]\d{0,2})$/;
 const server = createServer(async (req, res) => {
   res.setHeader("cache-control", "no-store");
   res.setHeader("x-content-type-options", "nosniff");
@@ -67,9 +67,10 @@ const server = createServer(async (req, res) => {
       return;
     }
     if (!ready || stopped) { res.writeHead(409).end(); return; }
-    const track = /^track (\d+)$/i.exec(command);
+    const track = /^track ([1-9]\d{0,2})$/.exec(command);
     const validTrack = track && Number(track[1]) <= (frame.journal?.leads.filter(isOpenObjective).length ?? 0);
-    if (!allowedKey.test(command) || (track && !validTrack) ||
+    const gameKey = command.startsWith("key ") ? command.slice(4) : command;
+    if ((!validTrack && getKey(gameKey) === undefined) ||
         (frame.journal && command.toLowerCase() !== "j" && !validTrack)) {
       res.writeHead(400).end();
       return;
