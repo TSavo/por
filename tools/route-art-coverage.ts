@@ -17,7 +17,7 @@ const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as { assets: Rec
 const manifestDirectory = dirname(manifestPath);
 const validImages = new Set<string>();
 for (const [key, name] of Object.entries(manifest.assets)) {
-  if (!key.startsWith("tile:") || !/^[a-z0-9_-]+\.png$/i.test(name)) continue;
+  if ((!key.startsWith("tile:") && !key.startsWith("battle-tile:")) || !/^[a-z0-9_-]+\.png$/i.test(name)) continue;
   try {
     const png = readFileSync(join(manifestDirectory, name));
     if (png.length >= 24 && png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])) &&
@@ -56,9 +56,11 @@ for (const archive of listGameFiles(root).filter((name) => /^8X8D\d+\.DAX$/i.tes
   }
 }
 
+const tileHash = (key: string) => key.slice(key.lastIndexOf(":") + 1);
+const areaLabel = (area: number | "battlefield") => area === "battlefield" ? "Battlefield cells" : `Area ${area}`;
 type TilePosition = { x: number; y: number; occurrences: number };
 const cells = new Map<string, {
-  area: number;
+  area: number | "battlefield";
   occurrences: number;
   first: { frame: number; x: number; y: number };
   positions: Map<string, TilePosition>;
@@ -67,7 +69,7 @@ const tracedPixels = new Map<string, Buffer>();
 for (const [frame, inventory] of frames.entries()) {
   if (omittedFrames.has(frame)) continue;
   for (const [x, y, key, indices] of inventory) {
-    const match = /^tile:(\d+):([a-f0-9]{64})$/.exec(key);
+    const match = /^(?:tile:(\d+):|battle-tile:)([a-f0-9]{64})$/.exec(key);
     if (!match) throw new Error(`Invalid tile key at frame ${frame}: ${key}`);
     if (indices !== undefined) {
       const pixels = Buffer.from(indices, "hex");
@@ -76,7 +78,7 @@ for (const [frame, inventory] of frames.entries()) {
       }
       tracedPixels.set(key, pixels);
     }
-    const cell = cells.get(key) ?? { area: Number(match[1]), occurrences: 0, first: { frame, x, y }, positions: new Map<string, TilePosition>() };
+    const cell = cells.get(key) ?? { area: match[1] === undefined ? "battlefield" : Number(match[1]), occurrences: 0, first: { frame, x, y }, positions: new Map<string, TilePosition>() };
     cell.occurrences++;
     const positionKey = `${x},${y}`;
     const position = cell.positions.get(positionKey) ?? { x, y, occurrences: 0 };
@@ -90,9 +92,9 @@ const tiles = [...cells].map(([key, { positions, ...cell }]) => ({
   key, ...cell, target: { width: 32, height: 32 },
   positions: [...positions.values()].sort((a, b) => a.y - b.y || a.x - b.x),
   replacement: validImages.has(manifest.assets[key] ?? "") ? manifest.assets[key]! : null,
-  reference: tracedPixels.has(key) ? "framebuffer" : sourceByHash.has(key.split(":")[2]!) ? "archive" : null,
-  sourceCandidates: sourceByHash.get(key.split(":")[2]!)?.candidates ?? [],
-})).sort((a, b) => a.area - b.area || Number(Boolean(a.replacement)) - Number(Boolean(b.replacement)) ||
+  reference: tracedPixels.has(key) ? "framebuffer" : sourceByHash.has(tileHash(key)) ? "archive" : null,
+  sourceCandidates: sourceByHash.get(tileHash(key))?.candidates ?? [],
+})).sort((a, b) => (a.area === "battlefield" ? 256 : a.area) - (b.area === "battlefield" ? 256 : b.area) || Number(Boolean(a.replacement)) - Number(Boolean(b.replacement)) ||
   b.occurrences - a.occurrences || a.key.localeCompare(b.key));
 const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
   const entries = tiles.filter((tile) => tile.area === area);
@@ -115,7 +117,7 @@ const sections = areas.map(({ area, patterns, matched }) => `<section><h2>Area $
     const framePath = join(frameDirectory, `${first.frame}.png`);
     const frameLabel = existsSync(framePath) ? `<a href="${galleryLink(framePath)}">frame ${first.frame}</a>` : `frame ${first.frame}`;
     const candidates = sourceCandidates.map(({ archive, block, frame }) => `${archive} #${block} frame ${frame}`).join(", ");
-    const pixels = tracedPixels.get(key) ?? sourceByHash.get(key.split(":")[2]!)?.pixels;
+    const pixels = tracedPixels.get(key) ?? sourceByHash.get(tileHash(key))?.pixels;
     let reference = "<p>Original reference unavailable</p>";
     if (pixels) {
       const frame = new Frame(8, 8);
@@ -134,7 +136,9 @@ body{font:16px system-ui;background:#191715;color:#efe4d0;margin:2rem}img{image-
 .previews{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
 p{margin:.4rem 0;font-size:.9rem}code{color:#ffdcaa}
 </style><h1>Route artwork checklist</h1><p>${analyzedFrames} captured frames analyzed. Archive entries are pixel-match candidates.</p>${
+  areas.some(({ area }) => area === "battlefield") ?
+    "<p>Battlefield captures can include unmatched actors, effects, and partial tiles. Review each candidate in its frame.</p>" : ""}${
   omittedFrames.size ? `<p>Omitted frames ${[...omittedFrames].join(", ")}.</p>` : ""}${sections}</html>\n`);
 for (const { area, patterns, matched, withSourceCandidates } of areas) {
-  console.log(`Area ${area}: ${matched}/${patterns} patterns with 32×32 PNGs, ${withSourceCandidates} with source candidates`);
+  console.log(`${areaLabel(area)}: ${matched}/${patterns} patterns with 32×32 PNGs, ${withSourceCandidates} with source candidates`);
 }

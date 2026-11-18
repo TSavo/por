@@ -220,3 +220,13 @@ Append `--terrain-only` to the courtyard Chrome replay to build a local
 test pack without replacement combat sprites. The replay verified 76
 individual masonry placements during combat and checked that the ambush
 dialogue had no battlefield terrain overlays.
+
+Set `POR_TRACE_BATTLE_TILES=1` for a courtyard Chrome replay to export
+`battle-tiles.jsonl` and the numbered guest screenshots beside it.
+Pass that trace and `upgrades/manifest.json` to
+`tools/route-art-coverage.ts` to generate the same JSON and HTML
+checklist used for exploration. It lists positions, downloadable 8×8
+references, and 32×32 replacements. The 46-frame courtyard run observed
+all 46 masonry replacements among 209 distinct nonblank framebuffer
+patterns. The remaining patterns can include party sprites, effects,
+and overlaps, so review them against the linked frames.

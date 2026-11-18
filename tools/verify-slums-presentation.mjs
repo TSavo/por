@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { appendFileSync, copyFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
@@ -17,6 +17,11 @@ const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
 const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : orcs ? "C.json" : "A.json");
+const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
+  ? resolve(directory, "battle-tiles.jsonl") : undefined;
+const frameDirectory = resolve(directory, "tile-frames");
+let battleFrame = 0;
+if (battleTrace) mkdirSync(frameDirectory);
 const profile = resolve(directory, "chrome");
 copyFileSync(checkpoint, saved);
 const originalSave = readFileSync(saved);
@@ -126,6 +131,10 @@ try {
       const state = await latest();
       return state.ready && state.sequence > sequence && state;
     });
+    if (battleTrace && frame.battleTileInventory?.length) {
+      appendFileSync(battleTrace, JSON.stringify(frame.battleTileInventory) + "\n");
+      writeFileSync(resolve(frameDirectory, `${battleFrame++}.png`), Buffer.from(frame.frame, "base64"));
+    }
   }
 
   async function switchBothWays() {
@@ -439,6 +448,7 @@ try {
     writeFileSync(trace, routeTiles.map((tiles) => JSON.stringify(tiles)).join("\n") + "\n");
     console.log("Slums artwork trace:", trace);
   }
+  if (battleFrame) console.log(`Battlefield artwork trace (${battleFrame} frames):`, battleTrace);
 } finally {
   socket?.close();
   chrome.kill();

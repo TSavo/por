@@ -58,6 +58,7 @@ interface FrameState {
   battleTiles?: [number, number, string][];
   animation?: CombatAnimationFrame[];
   tileInventory?: TileInventoryCell[];
+  battleTileInventory?: TileInventoryCell[];
   text?: [number, number, number][];
   textColors?: [number, number, number][];
   journal?: { objective: JournalObjective; leads: JournalLead[]; trackedId?: string };

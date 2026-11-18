@@ -87,6 +87,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const encounterArt = loadEncounterArt(encounterPlacements);
   const traceEncounterArea = Object.keys(encounterPlacements).length > 0;
   const traceTiles = process.env.POR_TRACE_TILES === "1";
+  const traceBattleTiles = process.env.POR_TRACE_BATTLE_TILES === "1";
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[]) => {
     if (browser) {
       const viewport = createHash("sha256");
@@ -140,7 +141,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       const battleTiles: TilePlacement[] = [];
-      if (battleTileKeys.size && !scene && !leads && hasBattlefieldBorder(screen)) {
+      const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
+      if ((battleTileKeys.size || battleTileInventory) && !scene && !leads && hasBattlefieldBorder(screen)) {
         const pixels = Buffer.alloc(64);
         // Combat terrain appears within the guest's left-hand battle panel.
         for (let y = 8; y < 176; y += 8) {
@@ -149,7 +151,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
               const start = (y + row) * enhanced.width + x;
               pixels.set(enhanced.pixels.subarray(start, start + 8), row * 8);
             }
+            if (!pixels.some(Boolean)) continue;
             const key = `battle-tile:${createHash("sha256").update(pixels).digest("hex")}`;
+            battleTileInventory?.push([x, y, key, pixels.toString("hex")]);
             if (battleTileKeys.has(key)) battleTiles.push([x, y, key]);
           }
         }
@@ -165,6 +169,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         tiles,
         combatArt: combat,
         battleTiles,
+        battleTileInventory,
         tileInventory,
         textColors: enhancedPalette,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
