@@ -12,6 +12,7 @@ const controls: Record<string, number> = {
 };
 const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"];
 const firstScans = [2, 16, 30, 44];
+const liveIdleBudget = 150_000_000;
 
 export function getKey(command: string): number | undefined {
   if (Object.hasOwn(controls, command)) return controls[command];
@@ -99,9 +100,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       if (recording) appendFileSync(recording, `${cpu.steps}:${key.toString(16).padStart(4, "0")}\n`);
       keys.push({ step: cpu.steps, word: key });
-      // Keep the watchdog relative to the last live input. Long play sessions
-      // can pass the boot budget while the guest is still making progress.
-      cpu.stepBudget = Math.max(cpu.stepBudget, cpu.steps + 30_000_000);
+      // Animated travel on Rolf's tour can exceed 30 million instructions
+      // between keyboard reads. Quick combat has its own shorter watchdog.
+      cpu.stepBudget = Math.max(cpu.stepBudget, cpu.steps + liveIdleBudget);
       // Let menu transitions and the scrolling dialogue draw before prompting again.
       nextPrompt = cpu.steps + 1_000_000;
       return;

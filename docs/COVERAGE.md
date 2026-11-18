@@ -139,7 +139,10 @@ Keep and the recovery of historical records also offered.
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
 item, and spell records in guest memory. Add them from the original menu before
-selecting Begin Adventuring.
+selecting Begin Adventuring. In Add Character, **End** moves down a name,
+**Home** moves up, and **A** adds the highlighted character. A live run added
+all six, completed Rolf's tour, saved from Encamp, and loaded all six in a new
+process before entering the Slums through the west gate.
 
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
