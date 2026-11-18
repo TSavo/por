@@ -706,6 +706,11 @@ The gatekeeper's separate 160×320 approach sprite uses the original
 `SPRIT1.DAX:4:0:0` anchor. Chrome checks that all 121 scenery placements
 stay identical when the sprite appears, and switches modes before the
 inspection opens.
+The `bane-altar` replay starts from an admitted party moved to the
+adjacent aisle. It walks up to the altar, chooses Destroy Altar, and
+checks that the journal points to the half-orc cleric as the fight
+begins. A translation check covers the original victory flag and the
+dispatch for journal entry 25. This replay stops at the ambush.
 The Slums infantry and Textile House priestess share a guest image pattern.
 Area-scoped overrides keep their new artwork distinct, verified live in both fights.
 

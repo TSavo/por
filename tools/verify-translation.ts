@@ -566,6 +566,18 @@ function checkCampaignJournal(): void {
     ["MY PEOPLE WILL NOT JOIN TYRANTHRAXUS", "report his pledge"],
   ] as const;
   const rescueOffer = commissions.find(({ id }) => id === "rescue")!.offer;
+  const baneOffer = commissions.find(({ id }) => id === "bane")!.offer;
+  const clericDispatch = lines.find((line) => line.includes("ON THE DEAD BODY OF THE HALF-ORC CLERIC"));
+  if (!clericDispatch) throw new Error("Missing the temple cleric's original dispatch dialogue");
+  const templeCleared = discoveredLeads(`${baneOffer}\n${clericDispatch}`);
+  writeGlobal(progressAddresses.bane!, 254);
+  const templeProgress = questProgress(m, templeCleared, m.ds);
+  if (!currentObjective([...templeProgress, ...templeCleared], "commission-bane").nextStep.includes("journal entry 25")) {
+    throw new Error("The temple journal did not connect the recovered dispatch to the council report");
+  }
+  if (discoveredLeads(baneOffer).some(({ id }) => id === "bane-cleric-dispatch")) {
+    throw new Error("The temple journal revealed the dispatch before the party found it");
+  }
   const rescueStages = [
     ["SLAVERS RIDE BY YOU TOWARD THE BUCCANEER BASE", "Follow the slavers"],
     ["YOU HAVE REACHED THE BUCCANEER BASE", "find the pen"],

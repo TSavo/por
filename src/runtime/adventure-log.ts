@@ -89,6 +89,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "lizardmen" && tracked.status === "ready-to-report" && knows("swamp-alliance-averted")) {
         return { title: commission.title, nextStep: "Return to the council clerk and report the elder's pledge that his people will stay out of Tyranthraxus's alliance." };
       }
+      if (commission.id === "bane" && tracked.status === "ready-to-report" && knows("bane-cleric-dispatch")) {
+        return { title: commission.title, nextStep: "Read journal entry 25, then tell the council clerk at City Hall that the temple was recovered." };
+      }
       if (commission.id === "auction" && tracked.status === "ready-to-report") {
         const result = knows("auction-cancelled") ? "Report that the auction was cancelled"
           : knows("auction-wand-of-fear") ? "Report that the weapon was a Wand of Fear"
@@ -164,7 +167,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       nextStep = "Return to Diogenes with the bottle so he can explain how to use it.";
     }
     if (commission.id === "bane") {
-      if (knows("bane-temple-admitted")) nextStep = "Continue into the Temple of Bane and look for a way to cleanse it.";
+      if (knows("bane-altar-ambush")) nextStep = "Defeat the half-orc cleric and the orcs who attacked when you destroyed the altar.";
+      else if (knows("bane-defiled-altar")) nextStep = "Choose Destroy Altar at the desecrated altar when the party is ready.";
+      else if (knows("bane-temple-admitted")) nextStep = "Continue into the Temple of Bane and look for a way to cleanse it.";
       else if (knows("bane-temple-guards-hostile")) nextStep = "Get past the temple guards or withdraw and look for another way in.";
       else if (knows("bane-temple-symbol-carried")) nextStep = knows("bane-temple-guard-check")
         ? "Choose Let Him Touch You so the guard can find the holy symbol the party is carrying."
@@ -461,6 +466,18 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
+  if (text.includes("AN ALTAR THAT IS SMEARED WITH BLOOD AND COVERED WITH CRUDE BLACK HAND PRINTS")) {
+    leads.push({ id: "bane-defiled-altar", title: "The desecrated altar",
+      detail: "The party reached the altar. The game offers Destroy Altar or Leave It." });
+  }
+  if (text.includes("AS YOU DESTROY THE ALTAR, THE TEMPLE DOORS FLY OPEN")) {
+    leads.push({ id: "bane-altar-ambush", title: "The cleric attacked at the altar",
+      detail: "A half-orc cleric led a group of orcs through the temple doors when the altar was destroyed." });
+  }
+  if (text.includes("ON THE DEAD BODY OF THE HALF-ORC CLERIC") && text.includes("YOU PUT THE PAPER IN YOUR JOURNAL UNDER ENTRY 25")) {
+    leads.push({ id: "bane-cleric-dispatch", title: "The cleric's dispatch",
+      detail: "The party recovered a paper from the defeated cleric and copied it as journal entry 25." });
+  }
   if (text.includes("THIS IS A HIDDEN TEMPLE OF ILMATER") ||
       text.includes("WE PROVIDE HELP FOR THOSE WHO CAN REACH US. ARE YOU IN NEED OF HEALING")) {
     leads.push({ id: "podal-ilmater-infirmary", title: "Hidden infirmary in Podal Plaza",
