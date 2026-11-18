@@ -27,7 +27,7 @@ const files = readdirSync(root, { recursive: true, encoding: "utf8" })
 
 registerTranslated();
 
-function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[]) => void): Cpu {
+function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => void): Cpu {
   const cpu = new Cpu();
   const exe = files.find((f) => f.name.toUpperCase() === "START.EXE");
   const ovr = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
@@ -38,7 +38,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[]) => void): Cpu {
     if (!match) throw new Error("POR_BOOT_KEYS expects comma-separated [step:]hex BIOS key words");
     return { step: Number(match[1] ?? 0), word: Number.parseInt(match[2]!, 16) };
   }).sort((a, b) => a.step - b.step);
-  attachDos(cpu, files, keys, requestKey && (() => requestKey(cpu, keys)));
+  attachDos(cpu, files, keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)));
   cpu.ss = boot.ss;
   cpu.sp = boot.sp || 0xfffe;
   cpu.ds = 0x2000;

@@ -46,8 +46,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[]) {
       console.log(`${number}${lead.title}\n  ${lead.detail}`);
     }
   };
-  return (cpu: Cpu, keys: BiosKey[]): void => {
-    if (cpu.steps < nextPrompt || keys.length) return;
+  return (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
+    if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
     let journalOpen = false;
     writeFileSync("out/por-live.png", encodePng(screen));
     while (true) {

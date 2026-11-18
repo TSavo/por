@@ -25,7 +25,7 @@ export interface BiosKey {
   word: number;
 }
 
-export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [], requestKey?: () => void): void {
+export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [], requestKey?: (blocking: boolean) => void): void {
   dosLog.length = 0;
   consoleText = "";
   resetVideo();
@@ -69,7 +69,8 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [], re
       return;
     }
     if (n === 0x16) {
-      if (cpu.ah === 0 || cpu.ah === 1 || cpu.ah === 0x10 || cpu.ah === 0x11) requestKey?.();
+      const blocking = cpu.ah === 0 || cpu.ah === 0x10;
+      if (blocking || cpu.ah === 1 || cpu.ah === 0x11) requestKey?.(blocking);
       const next = keyboard[0];
       const key = next && next.step <= cpu.steps ? next.word : undefined;
       // BIOS keyboard. AH=1 polls; an empty buffer sets ZF.
