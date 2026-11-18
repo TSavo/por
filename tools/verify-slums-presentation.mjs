@@ -46,7 +46,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -55,6 +55,7 @@ const halls = routeName === "castle-halls";
 const assault = routeName === "assault-briefing";
 const mystic = routeName === "graveyard-mystic";
 const vampire = routeName === "graveyard-vampire";
+const envoy = routeName === "zhentil-envoy";
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
 const altar = routeName === "textile-altar";
@@ -414,6 +415,25 @@ try {
     await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
+  } else if (envoy) {
+    const checkJournal = async (present, hidden) => {
+      await advance("j");
+      assert.ok(frame.journal, "The journal should open during the envoy route");
+      const hasLead = (id) => frame.journal.leads.some((lead) => lead.id === `zhentil-${id}`);
+      for (const id of present) assert.ok(hasLead(id), `Missing Zhentil discovery ${id}`);
+      for (const id of hidden) assert.ok(!hasLead(id), `Revealed Zhentil discovery early: ${id}`);
+      await advance("j");
+    };
+    await checkJournal([], ["envoy-challenge", "packet-delivered", "quarters"]);
+    for (const key of ["down", "enter"]) await advance(key);
+    await checkJournal(["envoy-challenge"], ["packet-delivered", "quarters"]);
+    await advance("y");
+    for (let line = 0; line < 6; line++) await advance("enter");
+    await checkJournal(["envoy-challenge", "packet-delivered"], ["quarters"]);
+    for (let line = 0; line < 6; line++) await advance("enter");
+    await checkJournal(["envoy-challenge", "packet-delivered", "quarters"], ["quarters-attacked", "envoy-left"]);
+    await switchBothWays();
+    console.log("Verified the Zhentil patrol, packet delivery, and quarters journal discoveries in Chrome.");
   } else if (vampire) {
     const stairs = "graveyard-vampire-stairs";
     await advance("j");

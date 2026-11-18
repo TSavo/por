@@ -694,7 +694,12 @@ at the New Phlan west gate (`0,4 W`).
 The Zhentil journal follows the packet seal instructions, mounted patrol,
 commandant handoff, quarters, ambush, and escape. The translation verifier
 uses the original ECL text for each discovery and exercises acceptance
-through the translated setter. The full outpost route still needs a browser replay.
+through the translated setter. The `zhentil-envoy` Chrome replay uses
+controlled slot A in the western overland sector with the commission
+acceptance flag set and the party positioned near the mounted patrol.
+It follows the original escort, paper handoff, and tour and checks that the
+journal unlocks each discovery in order. Ambush, escape, and turn-in are
+still pending a live replay.
 
 The Valhingen journal now uses witnessed clues for the lair, stairs, vampire
 escape, and northern wall. The original ECL text and completion flag are
