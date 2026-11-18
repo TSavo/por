@@ -176,8 +176,13 @@ transition. The game loaded Podal Plaza from its original DAX files. The
 party disguised itself, walked into the auction, chose Stand and Listen, and
 then Wait for Winner. The original script completed the investigation, and
 the journal marked it ready to report with the witnessed wand exchange as
-the detail to tell the council clerk. This replay began with the commission
-already accepted and ended in Podal Plaza before the City Hall turn-in.
+the detail to tell the council clerk. The party saved in slot C. A replay
+loaded a copy of that slot with a redirected movement event to bring the
+same party and auction result back to New Phlan. The party walked into the
+clerk's office, received 2,500 experience points per character, and shared
+the reward. The journal marked the commission turned in after the treasure
+menu closed and kept the witnessed exchange in its notes. The controlled
+transitions bypassed travel to and from Podal Plaza.
 
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
