@@ -777,6 +777,10 @@ with the river offer tracked. It moves south to discover the rowboat, takes
 it to the pyramid, and enters through the secret door. The journal changes
 from boarding the boat to entering the door and then exploring the passage
 with the exit behind the party. The fountain remains undisclosed at that point.
+The replay checks the new 352×352 exterior illustration
+(`portrait:PIC7.DAX:36:0:0`) in the secret-door decision and verifies
+both presentation switches. The recessed doorway and reeds were reviewed
+at native size and in the live Chrome view.
 The `river-passage` replay loads the slot A save printed by
 `river-approach` and verifies both the journal's retained entrance clue
 and the first two original hidden-door discoveries in the passage.

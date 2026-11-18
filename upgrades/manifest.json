@@ -163,6 +163,7 @@
     "tile:9:f8ca3a417a1a3fd9d54e5c394f94b0f878b2f3aded71e1275305953be0257580": "stojanow-gate-terrain-f8ca3a417a1a.png",
     "encounter:area:10:SPRIT4.DAX:23:0:0": "valhingen-vampire-approach.png",
     "portrait:PIC6.DAX:50:0:0": "zhentil-commandant-portrait.png",
+    "portrait:PIC7.DAX:36:0:0": "pyramid-river-concealed-door.png",
     "portrait:PIC7.DAX:45:0:0": "pyramid-fountain-chamber.png",
     "combat:area:23:CPIC7.DAX:14": "yarash-mage-combat.png",
     "combat:area:23:CPIC7.DAX:57": "yarash-mutant-guard-combat.png",

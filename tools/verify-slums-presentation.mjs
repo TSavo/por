@@ -544,7 +544,14 @@ try {
     for (const key of ["j", "down", "j"]) await advance(key);
     assert.ok(knows(boat) && !knows(door));
     assert.match(frame.journal.objective.nextStep, /Take the rowboat/);
-    for (const key of ["j", "y", "enter", "j"]) await advance(key);
+    for (const key of ["j", "y", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:PIC7.DAX:36:0:0");
+    await waitFor("the pyramid exterior illustration", () => run(`(() => {
+      const image = document.querySelector(".encounter-portrait");
+      return image?.naturalWidth === 352 && image?.naturalHeight === 352;
+    })()`));
+    await switchBothWays();
+    await advance("j");
     assert.ok(knows(door) && !knows("river-fountain"));
     assert.match(frame.journal.objective.nextStep, /through the secret door/);
     for (const key of ["j", "e", "enter", "enter"]) await advance(key);
