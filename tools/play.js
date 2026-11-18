@@ -31,12 +31,16 @@ function showScreen() {
   if (!tileArt.hidden) {
     const placements = [...(state.tiles ?? []), ...(state.combatArt ?? [])];
     if (state.portrait) placements.push([24, 24, state.portrait]);
-    if (state.encounter) placements.push([48, 32, state.encounter]);
+    if (state.encounter) placements.push(state.encounter.slice(0, 3));
     tileArt.replaceChildren(...placements.map(([x, y, id, reflected]) => {
       const tile = document.createElement("img");
       tile.alt = "";
       if (id === state.portrait) tile.className = "encounter-portrait";
-      if (id === state.encounter) tile.className = "encounter-sprite";
+      if (id === state.encounter?.[2]) {
+        tile.className = "encounter-sprite";
+        tile.style.width = `${state.encounter[3] / 3.2}%`;
+        tile.style.height = `${state.encounter[4] / 2}%`;
+      }
       if (reflected !== undefined) tile.className = "combat-sprite";
       if (reflected) tile.style.transform = "scaleX(-1)";
       tile.style.left = `${x / 3.2}%`;

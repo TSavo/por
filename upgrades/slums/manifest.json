@@ -2,6 +2,8 @@
   "version": 1,
   "assets": {
     "encounter:SPRIT2.DAX:0:0:0": "kobold-encounter-near.png",
+    "encounter:SPRIT2.DAX:0:1:0": "kobold-encounter-middle.png",
+    "encounter:SPRIT2.DAX:0:2:0": "kobold-encounter-far.png",
     "portrait:PIC2.DAX:0:0:0": "kobold-portrait.png",
     "combat:CPIC2.DAX:0": "kobold-combat-0.png",
     "combat:CPIC2.DAX:128": "kobold-combat-attack.png",

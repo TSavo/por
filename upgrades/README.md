@@ -70,8 +70,10 @@ browser currently supports 352×352 replacements for 88×88 guest portraits
 at (24,24), inside the original frame. The Slums portrait is
 `portrait:PIC2.DAX:0:0:0`.
 
-The near kobold approach uses `encounter:SPRIT2.DAX:0:0:0`, a transparent
-160×320 PNG anchored at (48,32). The runner restores the previous view's
+The kobold approach uses `encounter:SPRIT2.DAX:0:0:0`,
+`encounter:SPRIT2.DAX:0:1:0`, and `encounter:SPRIT2.DAX:0:2:0`.
+These transparent PNGs are 160×320, 96×260, and 96×228. Their native
+anchors are (48,32), (56,32), and (56,32). The runner restores the previous view's
 background when the source sprite and surrounding pixels match. Tile
 selection then uses the restored view, so the enhanced sprite draws over
 the enhanced masonry without retaining pixels from the original figure.

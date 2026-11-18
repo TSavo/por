@@ -65,16 +65,19 @@ matching to allow the sprite to overlap background tiles.
 Block 128 was loaded. The alternate VGA pose resolves in both facings in a
 controlled framebuffer check using the original block. Sampling during the
 recorded Slums fight yielded no exact 24×24 match for this block. Its draw
-trigger and the middle and far encounter anchors remain unverified.
+trigger remains unverified.
 
 The near approach frame matches `SPRIT2.DAX` block 0, member 0, frame 0 at
 (48,32). Index zero is skipped and index 13 is drawn black. The browser replay
 displayed the 160×320 transparent replacement over the individually enhanced
 tiles, then replaced the approach view with the dialogue portrait.
-The same near sprite appeared in a controlled replay of the surprise branch.
-Sampling calls during both runs yielded no complete match for the middle or
-far source images. The near sprite also rendered with a standalone manifest
-containing no tile replacements and with tile tracing disabled.
+The near sprite also rendered with a standalone manifest containing no tile
+replacements. For the middle and far checks, a controlled replay changed only
+the distance argument to overlay 29's original draw procedure at `06d5`.
+The matching original sprites appeared at (56,32), and Chrome drew the
+96×260 and 96×228 replacements there over the restored environment tiles.
+Both runs reached the portrait and original combat menus. This verifies
+placement in the renderer. The natural Slums replay selects the near frame.
 
 The portrait matched every pixel in the 88×88 image area across 17 successive
 encounter captures. The enhanced browser replay showed the replacement in

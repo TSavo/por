@@ -3,46 +3,46 @@ import type { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
-export const nearKoboldKey = "encounter:SPRIT2.DAX:0:0:0";
-export const nearKoboldAnchor = { x: 48, y: 32, width: 40, height: 80 };
+export const encounterAnchors = new Map([
+  ["encounter:SPRIT2.DAX:0:0:0", { x: 48, y: 32, width: 40, height: 80 }],
+  ["encounter:SPRIT2.DAX:0:1:0", { x: 56, y: 32, width: 24, height: 65 }],
+  ["encounter:SPRIT2.DAX:0:2:0", { x: 56, y: 32, width: 24, height: 57 }],
+]);
+export type EncounterPlacement = [x: number, y: number, key: string, width: number, height: number];
 
-export function loadEncounterArt(enabled: boolean) {
-  const root = enabled ? findGameRoot() : null;
+export function loadEncounterArt(keys: string[]) {
+  const root = keys.length ? findGameRoot() : null;
   const archive = root && listGameFiles(root).find((name) => name.toUpperCase() === "SPRIT2.DAX");
   const block = root && archive && parseDax(archive, readGameFile(root, archive)).entries.find(({ id }) => id === 0);
-  const member = block && pictureMembers(block.data)[0];
-  if (!member) return () => undefined;
-  const picture = decodePicture(member.data);
-  const { x, y, width, height } = nearKoboldAnchor;
-  if (picture.width !== width || picture.height !== height) return () => undefined;
-  const pixels = frameSlice(picture, 0);
+  if (!block) return () => undefined;
+  const members = pictureMembers(block.data);
+  const patterns = [...encounterAnchors].flatMap(([key, anchor], index) => {
+    const member = members[index];
+    if (!member) return [];
+    const picture = decodePicture(member.data);
+    if (picture.width !== anchor.width || picture.height !== anchor.height) return [];
+    return [{ key, anchor, pixels: frameSlice(picture, 0) }];
+  });
   let background: Uint8Array | undefined;
 
-  return (screen: Frame, enhanced: Frame, visible: boolean) => {
+  return (screen: Frame, enhanced: Frame, visible: boolean): EncounterPlacement | undefined => {
     if (!visible) {
       background = undefined;
       return;
     }
-    const current = new Uint8Array(width * height);
-    for (let row = 0; row < height; row++) {
-      const start = (y + row) * screen.width + x;
-      current.set(screen.pixels.subarray(start, start + width), row * width);
-    }
-    // The perspective blitter skips index zero and draws light magenta as black.
-    const matches = pixels.every((color, i) => !color || current[i] === (color === 13 ? 0 : color));
-    if (!matches) {
-      background = current;
-      return;
-    }
-    // Use the prior guest background only when the transparent pixels agree.
-    const clean = background;
-    if (!clean || !pixels.every((color, i) => color || current[i] === clean[i])) return;
-    for (let row = 0; row < height; row++) {
-      for (let col = 0; col < width; col++) {
-        const i = row * width + col;
-        if (pixels[i]) enhanced.pixels[(y + row) * screen.width + x + col] = clean[i]!;
+    for (const { key, anchor: { x, y, width, height }, pixels } of patterns) {
+      const address = (i: number) => (y + Math.floor(i / width)) * screen.width + x + i % width;
+      // The perspective blitter skips index zero and draws light magenta as black.
+      if (!pixels.every((color, i) => !color || screen.pixels[address(i)] === (color === 13 ? 0 : color))) continue;
+      const clean = background;
+      // Keep the last clean view across successive distance frames.
+      if (!keys.includes(key) || !clean ||
+          !pixels.every((color, i) => color || screen.pixels[address(i)] === clean[address(i)])) return;
+      for (const [i, color] of pixels.entries()) {
+        if (color) enhanced.pixels[address(i)] = clean[address(i)]!;
       }
+      return [x, y, key, width, height];
     }
-    return nearKoboldKey;
+    background = screen.pixels.slice();
   };
 }

@@ -8,7 +8,7 @@ import { isOpenObjective, type JournalLead, type JournalObjective } from "../src
 import { getKey } from "./live-input.js";
 import type { CombatArtPlacement } from "./combat-art.js";
 import { portraitKey } from "./portrait-art.js";
-import { nearKoboldAnchor, nearKoboldKey } from "./encounter-art.js";
+import { encounterAnchors, type EncounterPlacement } from "./encounter-art.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
@@ -33,16 +33,17 @@ const artwork = (() => {
     const manifest = JSON.parse(readFileSync(join(upgrades, "manifest.json"), "utf8")) as OverrideManifest;
     if (manifest.version !== 1 || !manifest.assets) return images;
     for (const id of Object.keys(manifest.assets)) {
+      const encounter = encounterAnchors.get(id);
       if (id !== "scene:title" && !/^viewport:[a-f0-9]{64}$/.test(id) && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
-          !/^combat:CPIC[1-8]\.DAX:\d{1,3}$/.test(id) && !portraitKey.test(id) && id !== nearKoboldKey) continue;
+          !/^combat:CPIC[1-8]\.DAX:\d{1,3}$/.test(id) && !portraitKey.test(id) && !encounter) continue;
       const file = lookupOverride(manifest, id);
       if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) continue;
       try {
         const png = readFileSync(join(upgrades, file));
         if (!png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) continue;
         const size = id.startsWith("tile:") ? 32 : id.startsWith("combat:") ? 96 : portraitKey.test(id) ? 352 : 0;
-        const width = id === nearKoboldKey ? nearKoboldAnchor.width * 4 : size;
-        const height = id === nearKoboldKey ? nearKoboldAnchor.height * 4 : size;
+        const width = encounter ? encounter.width * 4 : size;
+        const height = encounter ? encounter.height * 4 : size;
         if (width && (png.length < 24 || png.toString("ascii", 12, 16) !== "IHDR" ||
             png.readUInt32BE(16) !== width || png.readUInt32BE(20) !== height)) continue;
         images.set(id, png);
@@ -62,7 +63,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
     POR_TILE_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("tile:")).join(","),
     POR_COMBAT_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("combat:")).join(","),
     POR_PORTRAIT_ART_KEYS: [...artwork.keys()].filter((key) => portraitKey.test(key)).join(","),
-    POR_KOBOLD_ENCOUNTER_ART: artwork.has(nearKoboldKey) ? "1" : "0",
+    POR_ENCOUNTER_ART_KEYS: [...artwork.keys()].filter((key) => encounterAnchors.has(key)).join(","),
     POR_LIVE_AT: process.env.POR_LIVE_AT ?? "24000000",
     POR_BOOT_STEPS: process.env.POR_BOOT_STEPS ?? "100000000",
   },
@@ -76,7 +77,7 @@ interface FrameState {
   scene?: string;
   viewport?: string;
   portrait?: string;
-  encounter?: string;
+  encounter?: EncounterPlacement;
   tiles?: [number, number, string][];
   combatArt?: CombatArtPlacement[];
   tileInventory?: [number, number, string][];
