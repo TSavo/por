@@ -1091,6 +1091,63 @@ if (process.argv[2] === "--sokal-armory-reinforcement-checkpoint") {
   process.exit(0);
 }
 
+const takeBoat = [
+  "right", "right", "up", "right", "up", "up", "enter", "enter", "right",
+  ...Array(6).fill("up"), "left", "up", "right", "up", "left", "up", "enter", "enter",
+  (text) => assert.match(text, /only boat.*sokal keep.*end of the pier/),
+  "right", ...Array(4).fill("up"), "enter", "enter", "enter",
+  (text) => assert.match(text, /boat disembarks you at sokal keep/),
+  "enter", "enter",
+];
+if (process.argv[2] === "--sokal-restored-council-checkpoint") {
+  assert.ok(process.argv[3], "Pass the slot G temple save after raising Brin.");
+  copyFileSync(process.argv[3], join(saveDir, "G.json"));
+  const trackSokal = (_text, frame) => {
+    const open = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
+    const index = open.findIndex(({ id }) => id === "commission-sokal");
+    assert.ok(index >= 0, "The recovered party must hear the Sokal commission");
+    return `track ${index + 1}`;
+  };
+  await replay(loadSlot("2267"), "85000000", [
+    (text) => assert.match(text, /brin 1 6.*11,3 s/),
+    "right", "right", "up", "left", "up", "left", "up", "right", "up", "up", "up",
+    "left", "up", "right", "up", "up", "enter", "up", "enter", "enter", "up", "left", "up",
+    "enter", "enter", "enter", "enter",
+    (text) => assert.match(text, /sokal keep on thorn island must be cleared/),
+    "enter", "enter",
+    "j", trackSokal, (_text, frame) => {
+      assert.equal(frame.journal.trackedId, "commission-sokal");
+      assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-armory-stands"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ferran"));
+      assert.match(frame.journal.objective.nextStep, /gear on the stands/);
+    }, "j", "e", "s", "s", "i",
+    (text) => assert.match(text, /5,5 e.*quit to dos/),
+  ]);
+  await replay(loadSlot("1769"), "85000000", [
+    "j", (_text, frame) => {
+      assert.equal(frame.journal.trackedId, "commission-sokal");
+      assert.ok(frame.journal.leads.some(({ id, status }) => id === "commission-sokal" && status === "offered"));
+    }, "j",
+    ...takeBoat,
+    (text) => assert.match(text, /brin 1 6.*8,14 n/),
+    "j", (_text, frame) => {
+      assert.equal(frame.journal.trackedId, "commission-sokal");
+      assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-arrival"));
+    }, "j", "e", "s", "s", "j",
+    (text) => assert.match(text, /8,14 n.*quit to dos/),
+  ]);
+  await replay(loadSlot("246a"), "85000000", [
+    (text) => assert.match(text, /brin 1 6.*8,14 n/),
+    "j", (_text, frame) => {
+      assert.equal(frame.journal.trackedId, "commission-sokal");
+      assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-armory-stands"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ferran"));
+    },
+  ]);
+  console.log("Heard and tracked the Sokal commission, then returned to Thorn Island:", join(saveDir, "J.json"));
+  process.exit(0);
+}
+
 if (process.argv[2] === "--sokal-recovered-courtyard-checkpoint") {
   assert.ok(process.argv[3], "Pass the slot G temple save after raising Brin.");
   const hireTwo = process.argv[4] === "--warrior-and-theurgist";
@@ -1471,14 +1528,6 @@ const hearCouncil = [
   "up", "up", "up", "enter", "up", "up", "up", "up", "left", "up", "up",
   "enter", "enter", "enter",
   (text) => assert.match(text, /sokal keep on thorn island must be cleared/),
-  "enter", "enter",
-];
-const takeBoat = [
-  "right", "right", "up", "right", "up", "up", "enter", "enter", "right",
-  ...Array(6).fill("up"), "left", "up", "right", "up", "left", "up", "enter", "enter",
-  (text) => assert.match(text, /only boat.*sokal keep.*end of the pier/),
-  "right", ...Array(4).fill("up"), "enter", "enter", "enter",
-  (text) => assert.match(text, /boat disembarks you at sokal keep/),
   "enter", "enter",
 ];
 const checkSokal = (_text, frame) => {

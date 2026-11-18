@@ -266,6 +266,13 @@ coins, and Brin readies the recovered mace. Reloading slot G verifies his
 original J key for Jewelry in the appraisal menu, where it now takes
 precedence over the journal shortcut.
 
+Run `node tools/verify-fresh-party.mjs --sokal-restored-council-checkpoint PATH_TO_SLOT_G`
+to take the restored party from the temple to City Hall. The party hears
+the Sokal commission from the clerk and selects it in the journal. Slot I
+retains the tracked commission at the clerk. The original boat returns the
+party to Thorn Island, and slot J retains the commission and the armory
+discovery. Ferran remains undisclosed.
+
 Run `node tools/verify-fresh-party.mjs --sokal-recovered-courtyard-checkpoint PATH_TO_SLOT_G`
 with `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` to continue from the temple. The
 party makes room for the Evoker using the original Encamp menu, hires him
