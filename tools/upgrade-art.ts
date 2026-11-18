@@ -39,7 +39,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[]) {
           let sourceHeight = 8;
           if (encounter) ({ width: sourceWidth, height: sourceHeight } = encounter);
           else if (id === "scene:title") [sourceWidth, sourceHeight] = [320, 200];
-          else if (id.startsWith("combat:")) sourceWidth = sourceHeight = 24;
+          else if (id.startsWith("combat:")) sourceWidth = sourceHeight = id === "combat:CPIC5.DAX:66" ? 48 : 24;
           else if (portraitKey.test(id)) sourceWidth = sourceHeight = 88;
           const width = png.readUInt32BE(16);
           const height = png.readUInt32BE(20);

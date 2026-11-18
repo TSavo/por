@@ -52,7 +52,7 @@ function showScreen() {
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
   tileArt.hidden = !useEnhanced || Boolean(sceneArt || view.journal);
   if (!tileArt.hidden) {
-    tileArt.replaceChildren(...placements.map(([x, y, id, reflected]) => {
+    tileArt.replaceChildren(...placements.map(([x, y, id, reflected, , size]) => {
       const tile = document.createElement("img");
       tile.alt = "";
       if (id === view.portrait) tile.className = "encounter-portrait";
@@ -63,6 +63,10 @@ function showScreen() {
       }
       if (id.startsWith("battle-tile:")) tile.className = "battle-tile";
       if (reflected !== undefined) tile.className = "combat-sprite";
+      if (size !== undefined) {
+        tile.style.width = `${size / 3.2}%`;
+        tile.style.height = `${size / 2}%`;
+      }
       if (reflected) tile.style.transform = "scaleX(-1)";
       tile.style.left = `${x / 3.2}%`;
       tile.style.top = `${y / 2}%`;

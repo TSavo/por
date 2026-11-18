@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "combat:CPIC5.DAX:66": "bronze-dragon-combat.png",
     "portrait:PIC5.DAX:66:0:0": "bronze-dragon-portrait.png",
     "scene:title": "harbor-title.png",
     "tile:21:858b73d63eb2439f5d3755fe6002d941fcc99e9a5fdb06fb568a21ff2599262f": "sokal-vault-stones.png",
