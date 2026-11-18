@@ -268,6 +268,15 @@ to select the zero-based frame. The manual courtyard replay recorded
 identify source artwork even when clipping, overdraw, and actors keep
 the finished cells from matching archive fragments.
 
+Enable both trace variables on the same replay and redirect its output
+to a UTF-8 log. Add `--battle-draws=PATH_TO_LOG` to the report command
+alongside that replay's `battle-tiles.jsonl`. The JSON includes each
+observed source ID, guest draw coordinates and flags, and a 32×32 target
+for each of the nine 8×8 source pieces. The HTML assembles the pieces
+in order and lets you download each original PNG individually. The
+manual courtyard replay produced 20 source frames and 180 downloadable
+pieces, including blank cells used to preserve their placement.
+
 The courtyard also shows a composed party icon. Its source is
 `CHEAD.DAX` block 0 on `CBODY.DAX` block 0. Other head records contain
 identical pixels, so the manifest uses one key, `combat:party:0:0`, for

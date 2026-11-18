@@ -8,9 +8,14 @@ import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 import { loadUpgradeArt, loadUpgradeArtFromManifests } from "./upgrade-art.js";
 
-const [tracePath, manifestPath, reportPath, omitted] = process.argv.slice(2);
+const [tracePath, manifestPath, reportPath, ...options] = process.argv.slice(2);
+const omitted = options.find((option) => option.startsWith("--omit-frames="));
+const drawLog = options.find((option) => option.startsWith("--battle-draws="))?.slice("--battle-draws=".length);
+if (options.length !== Number(omitted !== undefined) + Number(drawLog !== undefined) || drawLog === "") {
+  throw new Error("Expected --omit-frames= and/or --battle-draws= once");
+}
 if (!tracePath || !manifestPath || !reportPath) {
-  throw new Error("Usage: tsx tools/route-art-coverage.ts <tile-inventory.jsonl> <manifest.json|--browser> <report.json> [--omit-frames=20,22]");
+  throw new Error("Usage: tsx tools/route-art-coverage.ts <tile-inventory.jsonl> <manifest.json|--browser> <report.json> [--omit-frames=20,22] [--battle-draws=runner.log]");
 }
 const root = findGameRoot();
 if (!root) throw new Error("Original game data is required for source tile matching");
@@ -33,6 +38,43 @@ interface SourceCandidate {
   reflected?: boolean;
   body?: { archive: string; block: number; frame: number };
 }
+
+interface BattlefieldDraw {
+  x: number;
+  y: number;
+  picture: number;
+  flags: number;
+  archive: "SQRPACI.DAX";
+  block: number;
+  frame: number;
+}
+const drawFrames = new Map<string, {
+  archive: string;
+  block: number;
+  frame: number;
+  placements: { x: number; y: number; flags: number }[];
+}>();
+if (drawLog) {
+  const prefix = "POR_BATTLE_DRAW ";
+  const lines = readFileSync(drawLog, "utf8").split(/\r?\n/).filter((line) => line.startsWith(prefix));
+  if (!lines.length) throw new Error("The draw log contains no terrain draws");
+  for (const line of lines) {
+    const { x, y, picture, flags, archive, block, frame } = JSON.parse(line.slice(prefix.length)) as BattlefieldDraw;
+    if (archive !== "SQRPACI.DAX" || ![x, y, picture, flags, block, frame].every(Number.isInteger) ||
+        picture < 0 || picture > 255 || flags < 0 || flags > 255 ||
+        x < -128 || x > 127 || y < -128 || y > 127 ||
+        block !== ((picture & 0x80) ? 2 : 1) || frame !== (picture & 0x7f)) {
+      throw new Error(`Invalid terrain draw: ${line}`);
+    }
+    const key = `${archive}:${block}:${frame}`;
+    const source = drawFrames.get(key) ?? { archive, block, frame, placements: [] };
+    if (!source.placements.some((position) => position.x === x && position.y === y && position.flags === flags)) {
+      source.placements.push({ x, y, flags });
+    }
+    drawFrames.set(key, source);
+  }
+}
+const drawnPieces = new Map<string, { x: number; y: number; key: string; pixels: Uint8Array }[]>();
 
 const battleKeys = new Set(frames.flatMap((inventory, frame) => omittedFrames.has(frame) ? [] :
   inventory.map(([, , key]) => key).filter((key) => key.startsWith("battle-tile:"))));
@@ -68,9 +110,15 @@ for (const archive of listGameFiles(root)) {
               const strip = sourceFrame.subarray(start, start + 8);
               pixels.set(reflected ? strip.slice().reverse() : strip, row * 8);
             }
-            if (battlefield && !pixels.some(Boolean)) continue;
             const hash = createHash("sha256").update(pixels).digest("hex");
             const key = (battlefield ? "battle-tile:" : "tile:") + hash;
+            const drawKey = `${archive.toUpperCase()}:${id}:${frame}`;
+            if (drawFrames.has(drawKey)) {
+              const pieces = drawnPieces.get(drawKey) ?? [];
+              pieces.push({ x, y, key, pixels });
+              drawnPieces.set(drawKey, pieces);
+            }
+            if (battlefield && !pixels.some(Boolean)) continue;
             const source = sourceByHash.get(key) ?? { pixels, candidates: [] };
             const candidate: SourceCandidate = { archive, block: id, frame };
             if (battlefield) {
@@ -168,8 +216,15 @@ const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
     }),
   };
 });
+const terrainSources = [...drawFrames].map(([id, source]) => {
+  const pieces = drawnPieces.get(id);
+  if (pieces?.length !== 9) throw new Error(`Could not decode the drawn terrain frame ${id}`);
+  return { id, ...source, pieces: pieces.map(({ pixels, ...piece }) => ({
+    ...piece, target: { width: 32, height: 32 }, blank: !pixels.some(Boolean),
+  })) };
+}).sort((a, b) => a.block - b.block || a.frame - b.frame);
 const analyzedFrames = frames.length - omittedFrames.size;
-writeFileSync(reportPath, JSON.stringify({ frames: analyzedFrames, omittedFrames: [...omittedFrames], areas, tiles }, null, 2) + "\n");
+writeFileSync(reportPath, JSON.stringify({ frames: analyzedFrames, omittedFrames: [...omittedFrames], areas, tiles, ...(drawLog && { terrainSources }) }, null, 2) + "\n");
 const galleryPath = reportPath + ".html";
 const frameDirectory = join(dirname(tracePath), "tile-frames");
 function galleryLink(path: string) {
@@ -196,10 +251,24 @@ const sections = areas.map(({ area, patterns, matched }) => `<section><h2>${area
       `<code>${key.slice(-12)}</code><p>First seen in ${frameLabel}, (${first.x}, ${first.y}) · ${occurrences} placements across ${positions.length} positions</p>` +
       `<p>${candidates || "Source tile unresolved"}</p></article>`;
   }).join("") + "</div></section>").join("");
+const terrainSection = terrainSources.length ? `<section><h2>Terrain frames used by the guest</h2>
+<p>Click a piece to download its original 8×8 pixels. Coordinates below each frame are guest draw arguments.</p>
+<div class="grid">${terrainSources.map(({ id, placements }) => {
+  const pieces = drawnPieces.get(id)!.map(({ x, y, pixels }) => {
+    const frame = new Frame(8, 8);
+    frame.pixels.set(pixels);
+    const uri = `data:image/png;base64,${Buffer.from(encodePng(frame)).toString("base64")}`;
+    return `<a href="${uri}" download="${id.replaceAll(":", "-")}-${x}-${y}.png"><img src="${uri}" width="32" height="32" alt="Original tile at ${x},${y}"></a>`;
+  }).join("");
+  return `<article><h3>${id}</h3><div class="terrain-pieces">${pieces}</div>
+  <details><summary>${placements.length} draw placements</summary><ul>${placements.map(({ x, y, flags }) =>
+    `<li>(${x}, ${y}) · flags ${flags}</li>`).join("")}</ul></details></article>`;
+}).join("")}</div></section>` : "";
 writeFileSync(galleryPath, `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Route artwork checklist</title><style>
 body{font:16px system-ui;background:#191715;color:#efe4d0;margin:2rem}img{image-rendering:pixelated;display:block;margin-bottom:.5rem}a{color:#ffdcaa}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.65rem}article{background:#28241f;padding:.75rem;overflow-wrap:anywhere}
+.terrain-pieces{display:grid;grid-template-columns:repeat(3,32px);width:max-content}.terrain-pieces img{margin:0}
 .previews{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
 p{margin:.4rem 0;font-size:.9rem}code{color:#ffdcaa}
 body:has(#hide-sprite-candidates:checked) article[data-sprite-candidate="true"]{display:none}
@@ -207,7 +276,7 @@ body:has(#hide-sprite-candidates:checked) article[data-sprite-candidate="true"]{
   areas.some(({ area }) => area === "battlefield") ?
     "<p>Battlefield captures can include unmatched actors, effects, and partial tiles. Review each candidate in its frame.</p>" +
     '<label><input id="hide-sprite-candidates" type="checkbox"> Hide sprite candidates</label>' : ""}${
-  omittedFrames.size ? `<p>Omitted frames ${[...omittedFrames].join(", ")}.</p>` : ""}${sections}</html>\n`);
+  omittedFrames.size ? `<p>Omitted frames ${[...omittedFrames].join(", ")}.</p>` : ""}${terrainSection}${sections}</html>\n`);
 for (const { area, patterns, matched, withSourceCandidates } of areas) {
   console.log(`${areaLabel(area)}: ${matched}/${patterns} patterns with 32×32 PNGs, ${withSourceCandidates} with source candidates`);
 }
