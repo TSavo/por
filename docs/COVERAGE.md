@@ -862,6 +862,11 @@ The replay releases the animals, crosses to the slave pen, bashes open
 the locked gate and takes the boy. The journal reveals each discovery
 as it happens, including the guards leaving their posts and the boy
 leaving with the party.
+The Chrome replay continues toward the front gate through the first
+guard interception. The translation verifier checks that the journal keeps
+the escort active inside the base and asks the party to report to the
+council once it is outside. The gate escape and council reward still need
+a continuous replay on this branch.
 The swamp replay checks the 192×320 elder sprite at the original 48×80 placement
 and verifies presentation switches in the encounter. The `swamp-ruins`
 replay loads the save made inside the ruins and checks 51 individual

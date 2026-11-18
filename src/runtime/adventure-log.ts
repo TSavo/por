@@ -183,8 +183,13 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     if (commission.id === "rescue") {
       if (knows("rescue-heir-left-behind")) nextStep = "Return to the council clerk and report what happened to the boy.";
-      else if (knows("rescue-heir-purchased")) nextStep = "Escort the boy out through the base gate and return him to New Phlan.";
-      else if (knows("rescue-heir-freed")) nextStep = "Escort the boy out through the base gate and return him to New Phlan.";
+      else if (knows("rescue-heir-purchased") || knows("rescue-heir-freed") || tracked?.status === "accepted") {
+        nextStep = knows("rescue-escape-alarm")
+          ? "Head straight for the front gate with the boy."
+          : knows("rescue-escape-guards")
+            ? "Fight off the guards, then escort the boy out through the front gate."
+            : "Escort the boy out through the base gate and return him to New Phlan.";
+      }
       else if (knows("rescue-captain-price")) nextStep = "Choose Buy the Boy if you accept the captain's price, or prepare to fight.";
       else if (knows("rescue-inside-pen")) nextStep = "Choose Get Him and escort the boy out of the base.";
       else if (knows("rescue-stampede") && !knows("rescue-animals-recaptured")) nextStep = "Head to the slave pen while the guards are rounding up the animals.";
@@ -332,6 +337,11 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     const address = progressAddresses[commission.id];
     if (address === undefined) continue;
     const value = global(address);
+    // The script can set 254 inside the base, before the party reaches the front gate.
+    if (commission.id === "rescue" && (value === 1 || value === 254) && global(0x49f2) === 1) {
+      progress.push({ id, title: "Escort the Bivant heir out", detail: "Take the boy out through the front gate.", status: "accepted" });
+      continue;
+    }
     if (commission.id === "rescue" && (value === 128 || value === 255) &&
         known.some(({ id }) => id === "rescue-heir-left-behind" || id === "rescue-reprimand")) {
       progress.push({
@@ -442,6 +452,12 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("YOU TAKE THE YOUNG BOY AND LEAVE")) {
     leads.push({ id: "rescue-heir-freed", title: "The boy is out of the pen", detail: "The boy left with the party, and the other prisoners ran out of the pen." });
+  }
+  if (text.includes("SOME OF THE GUARDS SPOT YOU WITH THE BOY")) {
+    leads.push({ id: "rescue-escape-guards", title: "Guards spotted the boy", detail: "Guards intercepted the party as it tried to leave with the boy." });
+  }
+  if (text.includes("YOUR ONLY HOPE IS TO RUN FOR THE FRONT GATE")) {
+    leads.push({ id: "rescue-escape-alarm", title: "The alarm sounded", detail: "The front gate is the way out of the compound." });
   }
   if (text.includes("I CAN LET YOU BUY THE YOUNG BOY")) {
     leads.push({ id: "rescue-captain-price", title: "The captain named a price", detail: "The captain offered to sell the captive boy." });

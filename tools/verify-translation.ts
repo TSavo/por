@@ -585,6 +585,20 @@ function checkCampaignJournal(): void {
     }
   }
   const rescueLost = lines.find((line) => line.includes("THE YOUNG BOY COULD NOT KEEP UP AND WAS LEFT BEHIND"));
+  const escapeGuards = lines.find((line) => line.includes("SOME OF THE GUARDS SPOT YOU WITH THE BOY"));
+  if (!escapeGuards) throw new Error("Missing the original guard interception dialogue");
+  const escapingRescue = discoveredLeads(`${rescueTranscript}\n${escapeGuards}`);
+  writeGlobal(progressAddresses.rescue!, 254);
+  writeGlobal(0x49f2, 1);
+  const escortProgress = questProgress(m, escapingRescue, m.ds);
+  if (escortProgress.find(({ id }) => id === "commission-rescue")?.status !== "accepted" ||
+      !currentObjective([...escortProgress, ...escapingRescue], "commission-rescue").nextStep.includes("Fight off the guards")) {
+    throw new Error("The rescue journal sent the party to the council before leaving the base");
+  }
+  writeGlobal(0x49f2, 25);
+  if (questProgress(m, escapingRescue, m.ds).find(({ id }) => id === "commission-rescue")?.status !== "ready-to-report") {
+    throw new Error("The rescue journal did not recognize an escaped party");
+  }
   if (!rescueLost) throw new Error("Missing the original lost-heir dialogue");
   const failedRescue = discoveredLeads(`${rescueTranscript}\n${rescueLost}`);
   writeGlobal(progressAddresses.rescue!, 128);

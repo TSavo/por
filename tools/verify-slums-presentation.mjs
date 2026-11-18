@@ -308,6 +308,10 @@ try {
       for (const key of ["j", "g", "j"]) await advance(key);
       assert.ok(hasLead("rescue-heir-freed"));
       await advance("j");
+      for (const key of ["right", "up", "right", ...Array(6).fill("up"), "j"]) await advance(key);
+      assert.ok(hasLead("rescue-escape-guards"));
+      assert.ok(!hasLead("rescue-escape-alarm"));
+      await advance("j");
     }
     if (actor) {
       assert.ok(frame.encounter, "The encounter actor must be drawn separately from the scenery");
