@@ -190,6 +190,11 @@ From B, the party enters the keep, chooses Parlay and Nice when an undead
 patrol approaches, and enters the word from the parchment. The patrol lets
 the party pass. Slot C reloads at (10,10) with the new patrol note, and the
 pale figure remains undisclosed at this checkpoint.
+From C, the party answers Yes when a second patrol asks for the password,
+then explores the ruined smithy. It wins the frog encounter for 31 XP per
+character. Alda falls to 0 HP during the fight. The party enters the old
+armory and saves there at (14,5) in slot D. Reloading preserves the armory
+discovery without revealing Ferran's clue about the hidden wall.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,

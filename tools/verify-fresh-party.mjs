@@ -343,4 +343,29 @@ await replay(loadSlotC, "85000000", [
   },
 ]);
 console.log("Passed the undead patrol in Sokal Keep and verified the journal after reloading slot C.");
+const armorySave = await replay(loadSlotC, "85000000", [
+  "up", "up", "up", "right", "up", "up", "up", "b",
+  (text) => assert.match(text, /do you give the password/),
+  "y", (text) => assert.match(text, /the undead leave/),
+  "up", "left", "up", "right", "up", "left",
+  (text) => assert.match(text, /croaking rises in volume/),
+  "w", "enter", ...Array(81).fill("q"),
+  (text) => assert.match(text, /continue battle/),
+  "n", (text) => assert.match(text, /party has won.*receives 31 experience points/),
+  "enter", "enter", "e", "n", "left", "up",
+  (text) => assert.match(text, /14,5 n.*keep's old armory/),
+  "enter", "enter", "e", "s", "s", "d",
+]);
+assert.match(visibleText(armorySave), /quit to dos/);
+await replay(loadSlotD, "85000000", [
+  (text) => {
+    expectParty(text);
+    assert.match(text, /14,5 n/);
+  },
+  "j", (_text, frame) => {
+    assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-old-armory"));
+    assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-armory"));
+  },
+]);
+console.log("Passed a second undead patrol, won the frog encounter and reloaded in Sokal's old armory.");
 console.log("Replay save:", saveDir);

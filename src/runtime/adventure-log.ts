@@ -95,7 +95,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "sokal") {
       if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
       else if (knows("sokal-pale-form") && knows("sokal-parchment")) nextStep = "Talk to the pale form. When asked for a word, try one from the parchment.";
-      else if (knows("sokal-patrol-passed")) nextStep = "Explore the keep. If another undead patrol asks for the password, give the word that worked.";
+      else if (knows("sokal-patrol-passed")) nextStep = "Explore the keep. If another undead patrol asks whether to give the password, choose Yes.";
       else if (knows("sokal-parchment")) nextStep = "Keep exploring. If you speak to an undead patrol, try a word from the parchment.";
       else if (knows("sokal-reeds")) nextStep = "Look through the mound of reeds west of the gates before entering the keep.";
       else if (knows("sokal-arrival")) nextStep = "Scout the keep and look for clues to the haunting.";
@@ -315,6 +315,9 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("THE ILLUSIONARY WALL IN THE ARMORY OF THIS KEEP")) {
     leads.push({ id: "sokal-armory", title: "Sokal Keep armory", detail: "Ferran says help lies beyond an illusory wall in the armory." });
+  }
+  if (text.includes("YOU ENTER THE KEEP'S OLD ARMORY")) {
+    leads.push({ id: "sokal-old-armory", title: "The old armory", detail: "The weapons and armor in the old armory have decayed." });
   }
   if (text.includes("TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'")) {
     leads.push({ id: "sokal-departure", title: "Ferran's password", detail: "Ferran told the party to say SAMOSUD to his guards on the way out." });
