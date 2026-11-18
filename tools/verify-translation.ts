@@ -834,6 +834,22 @@ function checkCampaignJournal(): void {
       questProgress(m, discoveredLeads(declined), m.ds).some(({ id }) => id === "commission-nomads")) {
     throw new Error("The Nomad Camp report should describe the outcome of a known commission");
   }
+  const records = commissions.find(({ id }) => id === "records")!;
+  const stacks = lines.find((line) => line.includes("THESE ARE THE LIBRARY STACKS"));
+  if (!stacks) throw new Error("Missing original library stacks dialogue");
+  const seenStacks = discoveredLeads(`${records.offer}\n${stacks}`);
+  if (!currentObjective(seenStacks, "commission-records").nextStep.includes("Use Search") ||
+      seenStacks.some(({ id }) => id.startsWith("mendor-book-"))) {
+    throw new Error("The library stacks should guide a search without revealing unread books");
+  }
+  for (const number of [7, 19, 37, 8, 21]) {
+    const book = lines.find((line) => line.startsWith("YOU FIND ") &&
+      (line.includes(`ENTRY ${number} IN YOUR JOURNAL`) || line.includes(`JOURNAL AS ENTRY ${number}`)));
+    const discoveries = book && discoveredLeads(book);
+    if (!discoveries || discoveries.filter(({ id }) => id.startsWith("mendor-book-")).map(({ id }) => id).join() !== `mendor-book-${number}`) {
+      throw new Error(`Missing or premature library discovery for journal entry ${number}`);
+    }
+  }
   const castle = commissions.find(({ id }) => id === "castle")!;
   const castleFlag = progressAddresses.castle!;
   writeGlobal(castleFlag, 0);

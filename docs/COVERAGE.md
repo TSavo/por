@@ -1072,6 +1072,15 @@ the locked entrance. Chrome checks 3,630 placements across 30 views using
 61 new 32×32 tiles across the two routes.
 The `mendor-library-basilisk` replay uses controlled slot B outside the
 Rhetoric stacks. Chrome checks the 192×96 ready pose and animated strike.
+The `mendor-rhetoric-stacks` and `mendor-history-stacks` replays check
+2,420 placements across 20 views, including 50 new 32×32 tiles. The
+`mendor-library-stacks` replay verifies that the stacks clue appears when
+the party sees the shelves. The translation verifier checks that only the
+book actually read appears in the journal for entries 7, 8, 19, 21, and 37.
+The `mendor-library-spectre` replay sets the book flag in controlled slot B
+to trigger the guardian. It checks both 96×96 poses and the witnessed clue.
+The `kobold-princess-fatima` replay uses controlled slot B to check her
+portrait and journal entry 16, then verifies that she joins the roster.
 The `kuto-catacomb-service-loop` replay uses controlled slot J below the
 well and turns away from Norris's ambush. Chrome checks 2,057 individual
 placements across 17 views, including 32 new 32×32 tiles.

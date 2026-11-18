@@ -187,8 +187,14 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("bane-temple-guard-check")) nextStep = "At the entrance, decide whether to let the blind guard check the party.";
       else if (knows("bane-dirten")) nextStep = "Decide whether to accompany Dirten. If you agree, cross the river with him and cleanse the desecrated temple.";
     }
-    if (commission.id === "records" && knows("sokal-mendor")) {
-      nextStep = "Search Mendor's overrun library for records of old Phlan. Bring worthwhile finds to the council clerk.";
+    if (commission.id === "records") {
+      if (leads.some(({ id }) => id.startsWith("mendor-book-"))) {
+        nextStep = "Read the passages you copied from Mendor's books. Search the other stacks for more accounts of old Phlan.";
+      } else if (knows("mendor-library-stacks")) {
+        nextStep = "Use Search in the library stacks and examine the books for accounts of old Phlan.";
+      } else if (knows("sokal-mendor")) {
+        nextStep = "Search Mendor's overrun library for records of old Phlan. Bring worthwhile finds to the council clerk.";
+      }
     }
     if (commission.id === "graveyard") {
       if (knows("graveyard-vampire-north-wall")) nextStep = "Search the northern wall the mystic pointed out, then confront the vampire.";
@@ -488,6 +494,26 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
+  if (text.includes("THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES")) {
+    leads.push({ id: "mendor-library-stacks", title: "Mendor's library stacks",
+      detail: "The party found rooms of books marked by subject. Use Search to examine the shelves." });
+  }
+  if (text.includes("I DEFENDED THESE BOOKS IN LIFE AND I WILL DEFEND THEM IN DEATH")) {
+    leads.push({ id: "mendor-book-guardian", title: "The library's guardian",
+      detail: "A spectre accused the party of taking the library's books and attacked it." });
+  }
+  for (const [entry, title] of [
+    [7, "Fyerdetha's Discourses on Power"],
+    [19, "Urgund's Description of Darkness"],
+    [37, "Lex Geographica"],
+    [8, "The History of the North"],
+    [21, "The Grand Historian's Records of the Arts of War"],
+  ] as const) {
+    if (text.includes(`YOU FIND ${title.toUpperCase()}`) &&
+        (text.includes(`ENTRY ${entry} IN YOUR JOURNAL`) || text.includes(`JOURNAL AS ENTRY ${entry}`))) {
+      leads.push({ id: `mendor-book-${entry}`, title, detail: `The party copied a passage into journal entry ${entry}.` });
+    }
+  }
   if (text.includes("YOU ARE SEEKING THE TEXTILE HOUSE. WE CAN GET YOU IN UNSEEN")) {
     leads.push({ id: "textile-restal-offer", title: "Restal's offer of a hidden route",
       detail: "Restal offered to get the party into the Textile House unseen." });
@@ -503,6 +529,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("WHAT CAVE WILL YOU ENTER?")) {
     leads.push({ id: "kobold-cave-fork", title: "The kobold cave fork", detail: "The party found a concealed cave beside a larger entrance and can choose which to explore." });
+  }
+  if (text.includes("I AM PRINCESS FATIMA") && text.includes("RECORD IT IN YOUR JOURNAL UNDER ENTRY 16")) {
+    leads.push({ id: "kobold-fatima-account", title: "Princess Fatima's account",
+      detail: "The party met Princess Fatima in the kobold caves and recorded her account as journal entry 16." });
   }
   if (text.includes("LOOK FOR FRIENDS WHERE YOU EXPECT ENEMIES AND ENEMIES WHERE YOU EXPECT ALLIES")) {
     leads.push({ id: "slums-fortune-warning", title: "The fortune teller's warning", detail: "The fortune teller warned that people the party expects to be enemies may help, and apparent allies may turn against it." });

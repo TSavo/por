@@ -6,9 +6,15 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const norrisSurrender = routeName === "kuto-norris-surrender";
+const mendorStacks = routeName === "mendor-library-stacks";
+const princessFatima = routeName === "kobold-princess-fatima";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["mendor-library-spectre", {
+    slot: "B", stand: "combat:area:15:CPIC2.DAX:17", strike: "combat:area:15:CPIC2.DAX:145", width: 96, height: 96,
+    inputs: ["up", "up", ...Array(4).fill("enter"), "q", "q"],
+  }],
   ["mendor-library-basilisk", {
     slot: "B", stand: "combat:area:15:CPIC2.DAX:26", strike: "combat:area:15:CPIC2.DAX:154", width: 192, height: 96,
     inputs: ["up", ...Array(4).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(10).fill("q")],
@@ -87,6 +93,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["mendor-rhetoric-stacks", {
+    slot: "B", area: 15, views: 8, patterns: 47,
+    walk: ["up", "up", "right", "up", "up", "up", "right", "up"],
+  }],
+  ["mendor-history-stacks", {
+    slot: "B", area: 15, views: 12, patterns: 80,
+    walk: ["up", "up", "left", "up", "up", "up", "left", "up", "enter", "s", "right", "up"],
+  }],
   ["kuto-catacomb-service-loop", {
     slot: "J", area: 29, views: 17, patterns: 34,
     walk: ["left", "up", "up", "right", "up", "right", "up", "right", "up", "right", "up", "left", "up", "up", "left", "up"],
@@ -252,7 +266,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "kuto-norris-surrender", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -308,7 +322,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader || koboldCave || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader || koboldCave || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -582,6 +596,11 @@ try {
       [...document.querySelectorAll(".combat-sprite")].some(image => image.src.endsWith(${JSON.stringify(stand)}) &&
         image.naturalWidth === ${width} && image.naturalHeight === ${height})`));
     await switchBothWays();
+    if (routeName === "mendor-library-spectre") {
+      await advance("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "mendor-book-guardian"));
+      await advance("j");
+    }
     for (const key of strikeInputs) await advance(key);
     assert.ok(frame.animation?.some(({ combatArt }) => combatArt?.some(([, , id]) => id === strike)));
     await waitFor("the enhanced combat strike", () => run("window.strikeLoaded"));
@@ -770,6 +789,29 @@ try {
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "slums-fortune-warning"));
     console.log("Verified the Slums fortune teller portrait and paid reading in Chrome.");
+  } else if (princessFatima) {
+    const fatima = "portrait:HEAD8.DAX:67:BODY8.DAX:37";
+    await advance("j");
+    assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "kobold-fatima-account"));
+    for (const key of ["j", "up", "enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, fatima);
+    await waitFor("Princess Fatima's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "kobold-fatima-account"));
+    for (const key of ["j", "enter", "y"]) await advance(key);
+    assert.notEqual(frame.portrait, fatima);
+    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /PRINCESSFATIMA/i);
+    console.log("Verified Princess Fatima's portrait, journal account, and recruitment in Chrome.");
+  } else if (mendorStacks) {
+    const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+    await advance("j");
+    assert.ok(frame.journal && !knows("mendor-library-stacks"));
+    for (const key of ["j", "up", "up", "right", "up", "up", "up", "right", "up", "j"]) await advance(key);
+    assert.ok(knows("mendor-library-stacks"));
+    assert.ok(!frame.journal.leads.some(({ id }) => id.startsWith("mendor-book-")));
+    await switchBothWays();
+    console.log("Verified the witnessed library stacks clue in Chrome.");
   } else if (restalGuide) {
     const restal = "portrait:HEAD4.DAX:52:BODY4.DAX:8";
     const knowsOffer = () => frame.journal?.leads.some(({ id }) => id === "textile-restal-offer");
