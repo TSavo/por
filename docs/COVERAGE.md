@@ -222,10 +222,12 @@ list. The blessed party still lost with Quick combat.
 The `--sokal-tracked-ambush-checkpoint PATH_TO_SLOT_J --replenish-curate`
 replay prepares two Hold Person spells by resting five hours at the
 landing. The later departure moves the password prompts to `10,9 N`
-and `10,6 N`. With `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` and
-`POR_QUICK_STEPS=60000000`, the party reaches defeat and reloads its
-unchanged landing save. The default watchdog interrupts this version
-at overlay 31, `0x09ca`, during a call from overlay 25, `0x25e8`.
+and `10,6 N`. The watchdog previously interrupted this version at
+overlay 31, `0x09ca`, during a call from overlay 25, `0x25e8`.
+The watchdog now gives that attack-effect table loop a bounded allowance.
+With `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` and the default turn budget,
+the party reaches defeat without intervention and reloads its unchanged
+landing save.
 To repeat only the continuation, use
 `node tools/verify-fresh-party.mjs --sokal-armory-reinforcement-checkpoint PATH_TO_SLOT_E --equipped --return-to-courtyard`
 with the original run's equipped armory save.

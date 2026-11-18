@@ -17,6 +17,8 @@ export function attachQuickRecovery(
   if (!combat || !quick) return;
   const drawingSegments = new Set(slices.filter(({ index }) => index === 36 || index === 37)
     .map(({ loadPara }) => loadPara));
+  const attackSegment = slices.find(({ index }) => index === 25)?.loadPara;
+  const tableSegment = slices.find(({ index }) => index === 31)?.loadPara;
 
   farCallOverrides.set(cpu, (seg, off) => {
     // The player can enter Quick either at the start of a turn (02AE) or
@@ -36,6 +38,7 @@ export function attachQuickRecovery(
     if (instructionLimit === undefined) {
       let drawingAllowance = 15_000_000;
       let delayAllowance = 30_000_000;
+      let tableAllowance = 1_000_000;
       cpu.onStepBudgetExceeded = () => {
         if (cpu.stepBudget !== limit) return;
         const inDrawingHelper = cpu.cs === 0x5bb && cpu.ip >= 0x1692 && cpu.ip <= 0x16c6 &&
@@ -56,6 +59,12 @@ export function attachQuickRecovery(
           const extra = Math.min(delayAllowance, remaining);
           delayAllowance -= extra;
           limit += extra;
+        } else if (cpu.cs === tableSegment && cpu.ip >= 0x9c0 && cpu.ip <= 0xa45 &&
+          cpu.read16(cpu.ss, cpu.bp + 2) === 0x25ed && cpu.read16(cpu.ss, cpu.bp + 4) === attackSegment) {
+          // The attack effect can exhaust the turn budget just before this
+          // four-entry guest table loop. Give its caller bounded headroom.
+          limit += tableAllowance;
+          tableAllowance = 0;
         } else return;
         limit = Math.min(budget || Infinity, limit);
         cpu.stepBudget = limit;
