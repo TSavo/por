@@ -120,13 +120,23 @@ try {
 
   await run('document.querySelector("#presentation").click()');
   if (armory || landing) {
-    const route = landing ? [null, "up", "left", "up", "up", "enter", "enter", "end", "enter", "enter"] :
+    const route = landing ? [
+      null, "up", "left", "up", "up", "enter", "enter", "end", "enter", "enter", "enter", "enter",
+      "right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up",
+      "left", "enter", "p", "n", ..."shestni", "enter",
+    ] :
       ["up", "up", "up", "right", "up", "left", "up", "left", "up", "up", "up", "right", "up"];
     const seen = new Set();
     let views = 0;
     for (const [step, key] of route.entries()) {
       if (key) await advance(key);
+      if (landing && step === 9) {
+        const parchment = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
+        assert.match(parchment, /THELASTPARTISEATENAWAY/i);
+      }
       if (!frame.tileInventory?.length) continue;
+      if (landing && frame.tileInventory.every(([, , , indices]) => /^0+$/.test(indices))) continue;
+      if (landing && step === 24) continue; // The original patrol sprite is already drawn.
       views++;
       assert.equal(frame.tiles.length, 121);
       for (const [, , id] of frame.tiles) {
@@ -136,16 +146,16 @@ try {
       await waitFor("121 assembled Sokal tiles", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelectorAll("#tile-art img").length === 121 &&
         [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
-      if ((landing && (step === 0 || step === 3)) || (!landing && (step === 2 || step === 9))) {
+      if ((landing && (step === 0 || step === 21 || step === route.length - 1)) || (!landing && (step === 2 || step === 9))) {
         if (step === (landing ? 0 : 2)) await switchBothWays();
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, `${routeName}-${step}.png`), Buffer.from(shot.data, "base64"));
       }
     }
     const text = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
-    assert.match(text, landing ? /THELASTPARTISEATENAWAY/i : /ONSTANDSAREASHIELD/i);
-    assert.equal(views, landing ? 5 : 12);
-    assert.equal(seen.size, landing ? 31 : 13);
+    assert.match(text, landing ? /THEUNDEADLEAVE/i : /ONSTANDSAREASHIELD/i);
+    assert.equal(views, landing ? 18 : 12);
+    assert.equal(seen.size, landing ? 49 : 13);
     console.log(`Verified ${seen.size} ${routeName} patterns across ${views} views. Captures: ${directory}`);
   } else if (orcs) {
     const route = ["up", "left", "up", "up", "up", "right", "up", "right",

@@ -39,6 +39,23 @@
     "tile:21:b784b8750b8adf3caafc9bb39eccbd31f78447d7268123fcf737875c487f9fea": "sokal-far-gate-right-hinge.png",
     "tile:21:1180638ececd642b84551072d1f901f40c3f3d975f59049bd1aa8436be86beff": "sokal-raking-gate-foot.png",
     "tile:21:11583121b2ac1a5771150de2b118c9675f522dedcd118833af481912bc3e24f6": "sokal-parapet-diagonal-in.png",
-    "tile:21:cfa4bda234e66d7f2a759b995f435fea64c2d7ed222fd494265f54af42d0fcc3": "sokal-parapet-diagonal-out.png"
+    "tile:21:cfa4bda234e66d7f2a759b995f435fea64c2d7ed222fd494265f54af42d0fcc3": "sokal-parapet-diagonal-out.png",
+    "tile:21:642de7080d4eaa04eae4856a132c0a8f4ecb586738b11bedc9fabc00be247bb6": "sokal-left-eave-sky.png",
+    "tile:21:48018de4a15ca8fd310ca08371ec420befea840eed2fd387fc7b7e2789539da7": "sokal-left-eave-masonry.png",
+    "tile:21:246f66c4e1032e6b33d74b506b32402c610419af7fd2345721eb9e9128b7a578": "sokal-left-impost-descent.png",
+    "tile:21:db67afe2d933e3220fa87b68464dee86aee2bfc0c5e047bfa5450ff3e5fea9a0": "sokal-left-impost-end.png",
+    "tile:21:6fdeadbca28fcf72a52e5b6c3090d589d272630354b8e9baa59fc9980cff0bf9": "sokal-left-impost-middle.png",
+    "tile:21:ba6dffecfcac31b31c0359d99617b3180552c982bef2087cb4995bccd9554ee7": "sokal-west-lintel-close.png",
+    "tile:21:fd5111f010b1eb27874d7173f3f881527f0a97a68535e574937a39274ae5fb87": "sokal-west-gate-cornice.png",
+    "tile:21:5f7ade4531d3bada00bc1c2d310f67d23a25dbe485f1d71a0c78936df93bbd13": "sokal-west-gate-hinge-cap.png",
+    "tile:21:8bcc06efdf06b3769418465aeb92a19e990cc54c212c2e7af5c4fe0897b17b35": "sokal-open-court-horizon.png",
+    "tile:21:215488a7ca18e31d90dd8bc2d00c5f3002c2801a983ba96bbb0ceb9b2b3bd498": "sokal-west-gate-sill-inner.png",
+    "tile:21:b99063b51996f32692877bfb0938e2ddee836bfd65b398cfad050106b7120d17": "sokal-west-gate-sill-outer.png",
+    "tile:21:2795a504ca67152aac8296d4f1e16f70523c5cf25af04d218c8cde895f0db0f0": "sokal-west-lintel-mid.png",
+    "tile:21:14d3757ae4f739077b25d4727195ea3f08c518f72d332bb55af6d09f750228cb": "sokal-west-lintel-corner.png",
+    "tile:21:42945697e83023b58f9b0ab01e2b4629d8f5ec4d796b65e5d04be6ef442ab87f": "sokal-west-cornice-elbow.png",
+    "tile:21:0bae672ff3e01f653ae7241fc075226c0865693834d5c45e6f2863678a2526da": "sokal-open-court-sky-slope.png",
+    "tile:21:b505a5db5557ee2f019256d5b39e70aaeaa91433d73e896784e9962672192f85": "sokal-far-postern.png",
+    "tile:21:8737539068992377d622a86a6ab259387e19fc5a846d63a4b75effc2a06fae8c": "sokal-far-postern-jamb.png"
   }
 }

@@ -144,3 +144,10 @@ all 121 individual tiles in each of five views, covering 31 distinct
 patterns, verified the parchment dialogue, and compared the guest frame
 and save bytes across a display switch. The route onward to the undead
 patrol has additional patterns.
+
+The same replay continues from the reeds through the gate and into the open
+court. Seventeen more 32×32 pieces add the opposite eave, raking lintels,
+weathered hinge caps, gate sills, and the distant postern. Chrome verified
+all 49 environment patterns across 18 views and used the parchment word
+to pass the undead patrol. The all-black transition and the frame with the
+original patrol sprite over the scenery are excluded from tile coverage.
