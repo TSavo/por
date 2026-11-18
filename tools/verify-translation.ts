@@ -443,7 +443,32 @@ function checkCampaignJournal(): void {
       currentObjective(discoveredLeads(vampireOffer)).nextStep.includes("northeast corner")) {
     throw new Error("The journal did not gate the vampire's location on witnessed dialogue");
   }
+  const graveyard = commissions.find(({ id }) => id === "graveyard")!;
+  const graveyardOffer = lines.find(line => line.includes(graveyard.offer));
+  if (!graveyardOffer) throw new Error("Missing graveyard commission dialogue");
+  const graveyardStages = [
+    ["A VAMPIRE WHO LURKS IN THE NORTHEAST CORNER", "northeast corner"],
+    ["WOODEN STAIRS LEAD INTO A PIT", "choose Yes"],
+    ["THE VAMPIRE TURNS INTO A VAPOR CLOUD", "where it fled"],
+    ["THE VAMPIRE IS BEHIND THE NORTHERN WALL", "Search the northern wall"],
+  ] as const;
+  let graveyardTranscript = graveyardOffer;
+  for (const [trigger, step] of graveyardStages) {
+    const witnessed = lines.find(line => line.includes(trigger));
+    if (!witnessed || currentObjective(discoveredLeads(graveyardTranscript), "commission-graveyard").nextStep.includes(step)) {
+      throw new Error(`The graveyard journal revealed a clue before ${trigger}`);
+    }
+    graveyardTranscript += "\n" + witnessed;
+    if (!currentObjective(discoveredLeads(graveyardTranscript), "commission-graveyard").nextStep.includes(step)) {
+      throw new Error(`The graveyard journal did not update after ${trigger}`);
+    }
+  }
   writeGlobal(progressAddresses.graveyard!, 254);
+  const graveyardProgress = questProgress(m, discoveredLeads(graveyardTranscript), m.ds);
+  if (graveyardProgress.find(({ id }) => id === "commission-graveyard")?.status !== "ready-to-report" ||
+      !currentObjective(graveyardProgress, "commission-graveyard").nextStep.includes("council clerk")) {
+    throw new Error("The graveyard journal did not direct the party to report the cleared crypt");
+  }
   if (questProgress(m, vampireLeads, m.ds).find(({ id }) => id === "commission-bottle-vampire")?.status !== "turned-in" ||
       questProgress(m, [], m.ds).some(({ id }) => id === "commission-bottle-vampire")) {
     throw new Error("The graveyard flag did not resolve the known bottle objective without revealing it");

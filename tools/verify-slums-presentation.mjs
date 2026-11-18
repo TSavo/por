@@ -367,7 +367,13 @@ try {
     await switchBothWays();
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
   } else if (vampire) {
-    for (const key of ["up", "enter", "y", "enter"]) await advance(key);
+    const stairs = "graveyard-vampire-stairs";
+    await advance("j");
+    assert.ok(frame.journal);
+    assert.ok(!frame.journal.leads.some(({ id }) => id === stairs));
+    for (const key of ["j", "up", "enter", "j"]) await advance(key);
+    assert.ok(frame.journal?.leads.some(({ id }) => id === stairs));
+    for (const key of ["j", "y", "enter"]) await advance(key);
     const encounter = "encounter:area:10:SPRIT4.DAX:23:0:0";
     assert.deepEqual(frame.encounter, [56, 32, encounter, 32, 80]);
     await waitFor("the vampire at the crypt threshold", () => run('document.querySelector(".encounter-sprite")?.naturalHeight === 320'));

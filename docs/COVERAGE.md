@@ -677,6 +677,18 @@ the 352×352 altar portrait, the selected 96×96 priestess sprite, the captains'
 movement, and the captain's strike during browser animation playback. It
 also switches presentation in the dialogue and combat.
 
+Stojanow Gate has 47 individual 32×32 terrain replacements. Chrome checked
+3,630 placements across 30 clean views from slot A at `4,15 N`, reached by
+ordinary travel from Podal Plaza. Three actor views were outside this terrain
+check. A separate replay from the same save verified the enhanced bugbear
+standing and sword strike poses. The New Phlan armorer portrait appeared at
+the shop greeting and Buy menu. Both replays checked presentation switches.
+
+The Valhingen journal now uses witnessed clues for the lair, stairs, vampire
+escape, and northern wall. The original ECL text and completion flag are
+covered by the translation verifier. The vampire browser replay verifies
+that the stairs clue appears only after the party sees the stairs.
+
 Old Phlan's northern gate has 56 individual 32×32 terrain assets. The
 `north-gate-rampart`, `north-gate-quarter`, and `north-gate-houses` routes use
 slot A at `4,0 S`, reached by ordinary overland travel. Chrome verified 5,929

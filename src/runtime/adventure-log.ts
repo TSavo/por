@@ -159,6 +159,12 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "records" && knows("sokal-mendor")) {
       nextStep = "Search Mendor's overrun library for records of old Phlan. Bring worthwhile finds to the council clerk.";
     }
+    if (commission.id === "graveyard") {
+      if (knows("graveyard-vampire-north-wall")) nextStep = "Search the northern wall the mystic pointed out, then confront the vampire.";
+      else if (knows("graveyard-vampire-escaped")) nextStep = "The vampire escaped as vapor. Search the crypts for where it fled.";
+      else if (knows("graveyard-vampire-stairs")) nextStep = "Return to the wooden stairs in the graveyard and choose Yes to descend into the pit.";
+      else if (knows("graveyard-vampire-location")) nextStep = "Search the northeast corner of Valhingen Graveyard for the vampire's lair.";
+    }
     if (commission.id === "bottle-vampire" && knows("graveyard-vampire-location")) {
       nextStep = "Go to the northeast corner of Valhingen Graveyard. Use the bottle when you confront the vampire.";
     }
@@ -668,6 +674,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("A VAMPIRE WHO LURKS IN THE NORTHEAST CORNER OF THE GRAVEYARD")) {
     leads.push({ id: "graveyard-vampire-location", title: "The vampire's lair", detail: "The party learned the vampire lurks in the northeast corner of the graveyard." });
+  }
+  if (text.includes("WOODEN STAIRS LEAD INTO A PIT")) {
+    leads.push({ id: "graveyard-vampire-stairs", title: "Stairs into the crypt",
+      detail: "Wooden stairs lead down into a pit in the graveyard." });
+  }
+  if (text.includes("THE VAMPIRE TURNS INTO A VAPOR CLOUD AND FLOATS AWAY")) {
+    leads.push({ id: "graveyard-vampire-escaped", title: "The vampire escaped",
+      detail: "After the fight, the vampire turned into vapor and floated away." });
+  }
+  if (text.includes("THE VAMPIRE IS BEHIND THE NORTHERN WALL")) {
+    leads.push({ id: "graveyard-vampire-north-wall", title: "Behind the northern wall",
+      detail: "The mystic pointed out where the vampire is hiding." });
   }
   for (const number of new Set([...text.matchAll(/\bJOURNAL ENTRY (\d{1,2})\b/g)].map((match) => match[1]))) {
     leads.push({
