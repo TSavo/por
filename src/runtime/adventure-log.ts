@@ -87,10 +87,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
       else if (knows("textile-secret-door")) nextStep = "Follow Skullcrusher's clue and search southeast for the secret door to the hobgoblin leader.";
     }
-    if (commission.id === "ohlo" && tracked?.status === "accepted" && knows("ohlo-rope-guild")) {
-      nextStep = knows("ohlo-booth")
-        ? "At the booth, choose Speak and enter OHLO. Bring the package back to him."
-        : "Look for the booth on the east side of the Rope Guild. Approach it from the west, then give Ohlo's name.";
+    if (commission.id === "ohlo" && tracked?.status === "accepted") {
+      if (knows("ohlo-booth")) nextStep = "At the booth, choose Speak and enter OHLO. Bring the package back to him.";
+      else if (knows("ohlo-rope-guild")) nextStep = "Look for the booth on the east side of the Rope Guild. Approach it from the west, then give Ohlo's name.";
+      else if (knows("ohlo-rope-guild-entry")) nextStep = "From the spot marked by the Rope Guild notice, go south into the building and look for the booth.";
     }
     if (commission.id === "sokal") {
       if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
@@ -393,6 +393,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE MAN TAKES THE POTION AND GULPS IT GREEDILY")) {
     leads.push({ id: "ohlo-delivered", title: "Ohlo drank the potion",
       detail: "Ohlo drank the potion, grew younger, and offered the promised reward." });
+  }
+  if (text.includes("YOU ARE JUST NORTH OF THE ENTRY TO THE OLD ROPE GUILD")) {
+    leads.push({ id: "ohlo-rope-guild-entry", title: "The Rope Guild entrance",
+      detail: "The party found the notice just north of the entrance to the Old Rope Guild." });
   }
   if (text.includes("YOU HAVE ENTERED THE MYSTERIOUS BUILDING THAT WAS ONCE THE ROPE GUILD")) {
     leads.push({ id: "ohlo-rope-guild", title: "The Old Rope Guild",

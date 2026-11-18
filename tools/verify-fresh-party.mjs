@@ -170,4 +170,33 @@ assert.match(visibleText(ohloSave), /quit to dos/);
 const loadSlotE = "31000000:1c0d,45000000:266c,52000000:1265";
 await replay(loadSlotE, "85000000", ["j", checkOhlo]);
 console.log("Walked to Ohlo, accepted his commission and verified the journal directions after reloading slot E.");
+
+const toRopeGuild = [
+  "left", "up", "up", "left", ...Array(5).fill("up"), "right", ...Array(5).fill("up"),
+  "right", "up", "left", "up", "left", "up", "up", "b", "left",
+  "up", "up", "up", "up", "f", "up", "b", "up", "up", "right", "up", "up", "up",
+  "left", "up", "left", "up", "right", "up", "f", "right", "up", "up",
+  (text) => assert.match(text, /6,10 s.*north of the entry.*rope guild/),
+];
+const ropeGuildSave = await replay(loadSlotE, "85000000", [
+  ...toRopeGuild, "e", "s", "s", "f",
+]);
+assert.match(visibleText(ropeGuildSave), /quit to dos/);
+const loadSlotF = "31000000:1c0d,45000000:266c,52000000:2166";
+await replay(loadSlotF, "85000000", [
+  (text) => assert.match(text, /6,10 s/),
+  "j",
+  (_text, frame) => {
+    assert.ok(frame.journal?.leads.some((lead) => lead.id === "ohlo-rope-guild-entry"));
+    assert.ok(!frame.journal.leads.some((lead) => lead.id === "ohlo-rope-guild"));
+    assert.match(frame.journal.objective.nextStep, /go south into the building/i);
+  },
+  "j",
+  "up", "j",
+  (_text, frame) => {
+    assert.ok(frame.journal?.leads.some((lead) => lead.id === "ohlo-rope-guild"));
+    assert.match(frame.journal.objective.nextStep, /east side.*approach it from the west/i);
+  },
+]);
+console.log("Reached the Rope Guild entrance, saved in slot F, and verified the journal update on entry.");
 console.log("Replay save:", saveDir);

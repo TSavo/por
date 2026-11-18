@@ -157,6 +157,10 @@ bashes the lock, and accepts the commission through Talk and Nice. Slot E
 reloads outside Ohlo's door with the journal still directing the party to
 give his name at the Rope Guild booth. This route uses normal movement and
 guest dialogue choices.
+From E, the same party takes the street route to (6,10), hears the entrance
+clue, and saves to F. Reloading F preserves the journal's direction to go
+south. Entering the Guild adds the discovery and changes the active guidance
+to approaching the booth on the east side from the west.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
