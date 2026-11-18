@@ -240,6 +240,24 @@ async function verifyPodalFromCouncil(checkpoint) {
     (text) => assert.match(text, /you encounter hobgoblins/),
   ]);
   console.log("Used Knock at the first lock, reloaded with the spell spent, and bashed the next door open.");
+  const healedBeforePrison = await replay(load("3062"), "85000000", [
+    ...Array(7).fill("end"), "c",
+    (text) => assert.match(text, /curate's spells in memory.*cure light wounds cure light wounds/),
+    ...Array(3).fill("home"), "enter", ...Array(6).fill("home"), "enter",
+    "home", "home", "enter", "end", "enter",
+    (text) => {
+      assert.match(text, /curate's spells in memory.*slow poison spiritual hammer/);
+      assert.doesNotMatch(text, /cure light wounds/);
+    },
+    "e",
+    (text) => assert.match(text, /brin 1 5.*cora 3 5.*3,13 w/),
+    "e", "s", "s", "c",
+  ]);
+  assert.match(visibleText(healedBeforePrison), /quit to dos/);
+  await replay(load("2e63"), "85000000", [
+    (text) => assert.match(text, /brin 1 5.*cora 3 5.*3,13 w/),
+  ]);
+  console.log("Healed Brin and Cora before the prison fight and reloaded with both fighters at 5 HP.");
   console.log("Checkpoint replay saves:", saveDir);
 }
 

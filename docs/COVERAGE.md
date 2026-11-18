@@ -430,6 +430,9 @@ At the next locked door, the Theurgist casts Knock and the party saves
 past the door in slot B. Reloading confirms Knock is spent and the
 second locked door offers Bash. Bashing it opens the way to the next
 hobgoblin encounter.
+An alternate branch from B uses the Curate's two remaining Cure Light
+Wounds spells to bring Brin and Cora from 0 to 5 HP. It saves outside the
+second door and confirms that both fighters retain the healing on reload.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the
