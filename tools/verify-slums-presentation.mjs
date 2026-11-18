@@ -6,6 +6,11 @@ import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const environmentRoutes = new Map([
+  ["bane-sanctuary", {
+    slot: "A", area: 24, views: 23, patterns: 69,
+    walk: ["left", "up", "up", "left", "up", "left", "up", "up", "left", "up",
+      "right", "up", "up", "right", "up", "right", "up", "up", "up", "up", "right", "up"],
+  }],
   ["buccaneer-pens", {
     slot: "A", area: 1, views: 15, patterns: 49,
     walk: ["left", "left", ...Array(6).fill("up"), "right", "up", "up", "up", "right", "up"],
@@ -74,7 +79,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -108,6 +113,7 @@ const baneGate = routeName === "bane-gate";
 const baneGoblins = routeName === "bane-goblins";
 const baneSymbol = routeName === "bane-symbol";
 const baneAltar = routeName === "bane-altar";
+const koboldCave = routeName === "kobold-cave";
 const infirmary = routeName === "podal-infirmary";
 const shrine = routeName === "podal-shrine";
 const shrineReturn = routeName === "podal-shrine-return";
@@ -128,7 +134,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = environment?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader ? "B" : orcs || ending || smithy ? "C" : "A");
+const slot = environment?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader || koboldCave ? "B" : orcs || ending || smithy ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -374,6 +380,17 @@ try {
     }
     await switchBothWays();
     console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
+  } else if (koboldCave) {
+    for (const key of ["down", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:PIC8.DAX:27:0:0");
+    const menu = frame.text.filter(([cell]) => cell >= 960).sort(([left], [right]) => left - right)
+      .map(([, character]) => String.fromCharCode(character)).join("");
+    assert.match(menu, /Large.*Small.*Exit/i);
+    await waitFor("the kobold cave fork illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    const capture = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "kobold-cave-fork.png"), Buffer.from(capture.data, "base64"));
+    console.log("Verified the illustrated cave choice in Chrome.", directory);
   } else if (baneAltar) {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     await advance("j");
