@@ -237,10 +237,22 @@ try {
       const aim = [...frame.text].sort(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join("");
       assert.match(aim, /ORCHITPOINTS2AC6/i);
       assert.match(aim, /RANGE=3/i);
+      const target = frame.combatArt.find(([, , id, , highlight]) => id === "combat:CPIC2.DAX:4" && highlight);
+      assert.deepEqual(target, [128, 128, "combat:CPIC2.DAX:4", false, true]);
+      await waitFor("the enhanced orc and preserved Aim cursor", () => run(`(() => {
+        if (state.sequence !== ${frame.sequence}) return false;
+        const sprite = [...document.querySelectorAll('.combat-sprite[src="/art/combat:CPIC2.DAX:4"]')]
+          .find(image => image.style.left === "40%" && image.style.top === "64%");
+        const image = document.querySelector("#screen");
+        if (sprite?.naturalWidth !== 96 || !image.complete) return false;
+        const context = document.createElement("canvas").getContext("2d");
+        context.drawImage(image, 131, 136, 1, 1, 0, 0, 1, 1);
+        return [...context.getImageData(0, 0, 1, 1).data].join(",") === "254,245,221,255";
+      })()`));
       await switchBothWays();
       const aimShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "sokal-orc-aimed.png"), Buffer.from(aimShot.data, "base64"));
-      console.log("Verified Brin's selected combat icon and the original Aim menu in both modes.");
+      console.log("Verified Brin's selected combat icon and the orc under the original Aim cursor in both modes.");
     } else if (terrainOnly) {
       assert.equal(frame.battleTiles.length, 0);
       for (const key of ["enter", "enter", "enter"]) await advance(key);
