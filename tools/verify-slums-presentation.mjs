@@ -5,12 +5,14 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
-const routes = ["kobolds", "orcs", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "textile-altar", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "fighter-trainer", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
 const dragon = routeName === "castle-dragon";
 const altar = routeName === "textile-altar";
+const plaza = routeName === "podal-plaza";
+const trainer = routeName === "fighter-trainer";
 const orcs = routeName === "orcs";
 const armory = routeName === "sokal-armory";
 const patrolCombat = routeName === "sokal-patrol-combat";
@@ -21,7 +23,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)), "Both options 
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : altar ? "I.json" : dragon ? "B.json" : orcs || ending ? "C.json" : "A.json");
+const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : altar || plaza ? "I.json" : dragon ? "B.json" : orcs || ending ? "C.json" : "A.json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
 const frameDirectory = resolve(directory, "tile-frames");
@@ -55,7 +57,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
-    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (landing ? "246a" : armory ? "2064" : altar ? "1769" : dragon ? "3062" : orcs || ending ? "2e63" : "1e61"),
+    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (landing ? "246a" : armory ? "2064" : altar || plaza ? "1769" : dragon ? "3062" : orcs || ending ? "2e63" : "1e61"),
     POR_LIVE_AT: "85000000", POR_BOOT_STEPS: "450000000",
   },
   stdio: ["ignore", "ignore", "inherit"],
@@ -154,7 +156,49 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  if (altar) {
+  if (plaza) {
+    let views = 0;
+    const patterns = new Set();
+    const route = [
+      "right", "right", ...Array(7).fill("up"), "right", "up", "up", "enter",
+      "enter", "enter", "enter", "enter", "end", "enter", "enter",
+    ];
+    for (const key of route) {
+      await advance(key);
+      if (!frame.tileInventory?.length) continue;
+      const expected = frame.tileInventory.map(([x, y, id]) => [x, y, id]);
+      assert.equal(expected.length, 121);
+      assert.deepEqual(frame.tiles, expected);
+      for (const [, , id] of expected) {
+        assert.match(id, /^tile:18:/);
+        patterns.add(id);
+      }
+      await waitFor("the assembled Podal Plaza view", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelectorAll("#tile-art img").length === 121 &&
+        [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
+      views++;
+    }
+    assert.equal(views, 12);
+    assert.equal(patterns.size, 48);
+    assert.equal(frame.portrait, "portrait:PIC1.DAX:16:0:0");
+    await waitFor("the auctioneer portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    console.log("Verified 48 Podal Plaza tiles across 12 views and the auctioneer portrait in Chrome.");
+  } else if (trainer) {
+    const arenaRoute = [
+      "right", "right", "up", "up", "right", "up", "up", "enter", "enter", "up", "up",
+      "right", "up", "up", "up", "up", "enter", "enter", "up", "up", "enter", "enter",
+    ];
+    for (const key of arenaRoute) await advance(key);
+    assert.equal(frame.portrait, "portrait:HEAD3.DAX:9:BODY3.DAX:1");
+    await waitFor("the arena master portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    for (const key of ["n", "n", "up", "enter", "enter", "left", "up", "enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:HEAD3.DAX:16:BODY3.DAX:1");
+    await waitFor("the fighter trainer portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    console.log("Verified the arena master and fighter trainer portraits with state-preserving mode switches.");
+  } else if (altar) {
     for (const key of ["up", "enter", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:PIC4.DAX:9:0:0");
     await waitFor("the altar portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));

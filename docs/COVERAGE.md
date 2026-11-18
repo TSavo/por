@@ -655,6 +655,10 @@ The Podal Plaza approach from the disguised slot I checkpoint displayed
 The same Chrome replay checked the auction portrait and save preservation
 when switching modes. Separate Chrome replays checked the fighter trainer's
 352×352 dialogue portrait and both 96×96 Slums goblin standing poses.
+Repeat the plaza check with `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_I PATH_TO_CHROME podal-plaza`
+from the disguised party at `0,4 W`. The `fighter-trainer` route starts at the
+New Phlan west gate in slot A and checks both the arena master's duel prompt
+and the fighter trainer's dialogue, including switches at both prompts.
 The Slums infantry and Textile House priestess share a guest image pattern.
 Area-scoped overrides keep their new artwork distinct, verified live in both fights.
 

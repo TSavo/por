@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "portrait:HEAD3.DAX:9:BODY3.DAX:1": "arena-master-portrait.png",
     "combat:area:20:CPIC2.DAX:2": "goblin-infantry-combat.png",
     "combat:area:20:CPIC2.DAX:3": "goblin-veteran-combat.png",
     "portrait:HEAD3.DAX:16:BODY3.DAX:1": "fighter-trainer-portrait.png",
