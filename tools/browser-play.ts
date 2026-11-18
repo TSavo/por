@@ -29,12 +29,15 @@ let frame: FrameState = {};
 let sequence = 0;
 let ready = false;
 let stopped: string | undefined;
+let notice: string | undefined;
 let lastDiagnostic = "";
 createInterface({ input: runner.stdout }).on("line", (line) => {
   if (line.startsWith("POR_FRAME ")) {
     frame = JSON.parse(line.slice("POR_FRAME ".length)) as FrameState;
     sequence++;
     ready = true;
+  } else if (line.startsWith("POR_NOTICE ")) {
+    notice = line.slice("POR_NOTICE ".length);
   } else if (line.startsWith("entry:")) {
     lastDiagnostic = line;
   }
@@ -54,7 +57,7 @@ const server = createServer(async (req, res) => {
   } else if (req.method === "GET" && req.url === "/play.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(script);
   } else if (req.method === "GET" && req.url === "/state") {
-    res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({ ...frame, sequence, ready, stopped }));
+    res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({ ...frame, sequence, ready, stopped, notice }));
   } else if (req.method === "POST" && req.url === "/key") {
     if (req.headers.origin !== origin) { res.writeHead(403).end(); return; }
     let command = "";
@@ -76,6 +79,7 @@ const server = createServer(async (req, res) => {
       return;
     }
     ready = false;
+    notice = undefined;
     runner.stdin.write((track ? `track ${track[1]}` : command) + "\n");
     res.writeHead(204).end();
   } else {

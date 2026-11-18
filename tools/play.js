@@ -70,7 +70,8 @@ async function poll() {
     state = next;
     if (changed) render();
     closeJournal.disabled = !state.ready || Boolean(state.stopped);
-    status.textContent = state.stopped ?? (state.ready ? "Arrows to move or select. Enter to confirm." : "Game running…");
+    status.textContent = state.stopped ?? state.notice ??
+      (state.ready ? "Arrows to move or select. Enter to confirm." : "Game running…");
   } catch {
     status.textContent = "Waiting for the local game runner…";
   }

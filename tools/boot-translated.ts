@@ -191,11 +191,12 @@ if (input) {
   }
 }
 if (liveAt !== undefined) {
-  attachQuickRecovery(cpu, loadedSlices, (partyMember) => console.log(
-    partyMember
-      ? "Quick combat stalled. Returning control to the player."
-      : "An enemy's Quick combat stalled. Ending its turn.",
-  ));
+  attachQuickRecovery(cpu, loadedSlices, (partyMember) => {
+    const message = partyMember
+      ? "Quick combat stalled. Choose a manual action."
+      : "An enemy could not finish its turn. Combat continued.";
+    console.log(process.env.POR_BROWSER_PLAY === "1" ? `POR_NOTICE ${message}` : message);
+  });
 }
 const journalSlice = loadedSlices.find((slice) => slice.index === 7);
 adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || liveAt !== undefined || profilePath) && journalSlice
