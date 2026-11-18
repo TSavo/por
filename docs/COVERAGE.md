@@ -1142,11 +1142,15 @@ The save is preserved when switching presentation.
 The `valjevo-west-gallery` replay takes the other tower branch from the same
 slot B and checks 1,815 placements across 15 views. It adds 11 original
 32×32 tiles and five bindings to existing tower art during the transition.
-The same tower-halls replay can reach the original Encamp save menu and
-write slot B inside area 7 at `4,8 S`. Reloading that native save currently
-exits the DOS guest before its first interactive frame. The DOS trace opens
-the slot and its party records, then `GEO5.DAX` and `WALLDEF5.DAX` before
-exiting. The area-20 checkpoint still loads and crosses into the tower.
+Use `valjevo-tower-save` with the same slot B checkpoint to enter area 7
+and write a native save through Encamp at `4,8 W`. Use the resulting `B.json`
+with `valjevo-tower-reload`. Chrome checks all 121 original tiles and the
+party and menu against the scene recorded immediately before saving. It also
+checks that switching presentation preserves that state and the save bytes.
+The tower inherits wall pieces 2 and 4 from the approach. A cold load asks
+for them in `WALLDEF5.DAX` and `8X8D5.DAX`, where the original archives lack
+those entries. The mounted copies expose the original compressed records
+from archive 2, and the guest uses those records through its own DAX loader.
 
 The `sokal-northeast-keep` replay loads slot D at `14,5 N` and walks the
 northeast halls. Chrome checks 3,025 placements across 25 views, using eight

@@ -11,7 +11,7 @@ import { attachDos, consoleText, dosLog, type BiosKey, type DosFile, type DosFil
 import { intrCounts } from "../src/runtime/intr.js";
 import { journalFrame, screen, videoSummary } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
-import { findGameRoot } from "./gamedata.js";
+import { findGameRoot, mountValjevoWallPieces } from "./gamedata.js";
 import { currentObjective, journalInventoryLeads, observeAdventureLog, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
 import { liveInput } from "./live-input.js";
 import { openJournalProfile } from "./journal-profile.js";
@@ -25,9 +25,9 @@ import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 
 const root = findGameRoot();
 if (!root) throw new Error("Pool of Radiance game data not found");
-const gameFiles = readdirSync(root, { recursive: true, encoding: "utf8" })
+const gameFiles = mountValjevoWallPieces(readdirSync(root, { recursive: true, encoding: "utf8" })
   .filter((name) => !name.startsWith(".") && statSync(join(root, name)).isFile())
-  .map((name) => ({ name, data: new Uint8Array(readFileSync(join(root, name))) }));
+  .map((name) => ({ name, data: new Uint8Array(readFileSync(join(root, name))) })));
 const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles) : gameFiles;
 
 registerTranslated();
