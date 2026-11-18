@@ -210,6 +210,10 @@ on Alda, sails back to New Phlan, sells the armory jewel, and pays the
 Temple of Tyr to raise and heal Brin. Slot G reloads with Brin at 6 HP
 and the recovered mace readied. The party hears the council commission, reloads with
 it tracked, returns to Thorn Island, and reaches the courtyard ambush.
+At City Hall, the journal shows seven cleared Slums encounters for this
+party. The replay tracks the Slums to verify that the objective shows the
+count, then switches to Sokal. Reloading retains both the Slums count and
+the selected Sokal objective.
 The replay confirms the journal advances from the armory to battle
 preparation, then uses the recovered mace against an adjacent orc.
 After the party discovers the ambush, the tracked objective names the

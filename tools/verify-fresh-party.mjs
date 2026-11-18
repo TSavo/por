@@ -1189,10 +1189,16 @@ const takeBoat = [
   "enter", "enter",
 ];
 async function verifySokalRestoredCouncil() {
-  const trackSokal = (_text, frame) => {
+  const checkSlumsProgress = (_text, frame) => {
+    const slums = frame.journal.leads.find(({ id }) => id === "commission-slums");
+    assert.equal(slums?.status, "accepted");
+    assert.equal(slums.clearedEncounters, 7);
+    assert.match(slums.detail, /7 encounters cleared/);
+  };
+  const trackCommission = (commissionId) => (_text, frame) => {
     const open = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
-    const index = open.findIndex(({ id }) => id === "commission-sokal");
-    assert.ok(index >= 0, "The recovered party must hear the Sokal commission");
+    const index = open.findIndex(({ id }) => id === commissionId);
+    assert.ok(index >= 0, `Expected an open commission for ${commissionId}`);
     return `track ${index + 1}`;
   };
   await replay(loadSlot("2267"), "85000000", [
@@ -1202,7 +1208,10 @@ async function verifySokalRestoredCouncil() {
     "enter", "enter", "enter", "enter",
     (text) => assert.match(text, /sokal keep on thorn island must be cleared/),
     "enter", "enter",
-    "j", trackSokal, (_text, frame) => {
+    "j", checkSlumsProgress, trackCommission("commission-slums"), (_text, frame) => {
+      assert.equal(frame.journal.trackedId, "commission-slums");
+      assert.match(frame.journal.objective.nextStep, /keep clearing encounters.*7 encounters cleared/i);
+    }, trackCommission("commission-sokal"), (_text, frame) => {
       assert.equal(frame.journal.trackedId, "commission-sokal");
       assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-armory-stands"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ferran"));
@@ -1211,7 +1220,7 @@ async function verifySokalRestoredCouncil() {
     (text) => assert.match(text, /5,5 e.*quit to dos/),
   ]);
   await replay(loadSlot("1769"), "85000000", [
-    "j", (_text, frame) => {
+    "j", checkSlumsProgress, (_text, frame) => {
       assert.equal(frame.journal.trackedId, "commission-sokal");
       assert.ok(frame.journal.leads.some(({ id, status }) => id === "commission-sokal" && status === "offered"));
     }, "j",
