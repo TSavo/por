@@ -215,7 +215,8 @@ export const progressAddresses: Readonly<Record<string, number>> = {
 /** Live possession is checked again when the journal opens and after a reload. */
 export function textileKeyLead(cpu: Cpu, known: readonly JournalLead[], dataSegment: number): JournalLead | undefined {
   if (!known.some(({ id }) => id === "textile-prisoner") ||
-      known.some(({ id }) => id === "textile-prisoner-freed" || id === "textile-prisoner-killed")) return;
+      known.some(({ id }) => id === "textile-prisoner-freed" || id === "textile-prisoner-left" ||
+        id === "textile-prisoner-killed")) return;
   // The prison script uses FIND ITEM 75. Overlay 3 at 287A walks
   // DS:5CF4 and the character +104 links, then +C8 inventories and item +2A links.
   const pointer = (segment: number, offset: number): number =>
