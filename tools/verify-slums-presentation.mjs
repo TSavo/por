@@ -66,7 +66,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -456,6 +456,36 @@ try {
     await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
+  } else if (routeName === "swamp-elder") {
+    const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+    for (const key of ["up", "b", "j"]) await advance(key);
+    assert.ok(knows("swamp-peaceful-elder") && !knows("swamp-friend-word"));
+    assert.match(frame.journal.objective.nextStep, /Parlay with the elder/);
+    for (const key of ["j", "p", "j"]) await advance(key);
+    assert.ok(knows("swamp-friend-word") && !knows("swamp-elder-story"));
+    assert.match(frame.journal.objective.nextStep, /Read journal entry 35/);
+    for (const key of ["j", "enter", ..."savior", "enter", "y", "j"]) await advance(key);
+    assert.ok(knows("swamp-elder-story") && knows("journal-entry-31"));
+    assert.ok(!knows("swamp-champion-requested"));
+    for (const key of ["j", "enter", "enter", "j"]) await advance(key);
+    assert.ok(knows("swamp-champion-requested") && !knows("swamp-alliance-averted"));
+    assert.match(frame.journal.objective.nextStep, /choose a party member/);
+    console.log("Verified the swamp elder's friend-word and challenge journal updates in Chrome.");
+  } else if (routeName === "swamp-approach") {
+    const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+    await advance("j");
+    assert.equal(frame.journal?.trackedId, "commission-lizardmen");
+    assert.ok(!knows("swamp-drawbridge") && !knows("swamp-anti-magic"));
+    for (const key of ["j", ...Array(11).fill("right"), "enter", "j"]) await advance(key);
+    assert.ok(knows("swamp-drawbridge") && !knows("swamp-anti-magic"));
+    assert.match(frame.journal.objective.nextStep, /cross the drawbridge/);
+    for (const key of ["j", "e", "enter", "j"]) await advance(key);
+    assert.ok(knows("swamp-anti-magic") && !knows("swamp-peaceful-elder"));
+    assert.match(frame.journal.objective.nextStep, /anti-magic shell/);
+    for (const key of ["j", "enter", "up", "e", "s", "s", "a"]) await advance(key);
+    const entered = JSON.parse(readFileSync(saved, "utf8"));
+    assert.ok(entered.leads.some(({ id }) => id === "swamp-anti-magic"));
+    console.log("Verified the swamp drawbridge and anti-magic shell in Chrome. Saved:", saved);
   } else if (routeName === "yarash-combat") {
     const mage = "combat:area:23:CPIC7.DAX:14";
     const guard = "combat:area:23:CPIC7.DAX:57";

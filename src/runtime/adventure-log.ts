@@ -190,6 +190,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
         ? "Read journal entry 35 and give the tribal friend-word the freed prisoners taught you."
         : "The elder asks for a tribal friend-word. Find the people he says were rescued or ask the tribe about the alliance another way.";
       else if (knows("swamp-peaceful-elder")) nextStep = "Parlay with the elder who raised his hand in peace.";
+      else if (knows("swamp-anti-magic")) nextStep = "Search the ruined castle for the tribe and keep the anti-magic shell in mind.";
+      else if (knows("swamp-drawbridge")) nextStep = "Use Enter to cross the drawbridge into the ruined castle. The surrounding quicksand makes the bridge the safe crossing.";
       else if (knows("river-pump-prisoners-freed")) nextStep = "Read journal entry 35 for the freed prisoners' advice on getting help from their tribe in the swamp.";
     }
     if (commission.id === "zhentil") {
@@ -811,10 +813,16 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "zhentil-envoy-left", title: "The party escaped Zhentil Outpost",
       detail: "The party made it out of the outpost." });
   }
+  if (text.includes("YOU FIND A RUINED CASTLE SURROUNDED BY QUICKSAND")) {
+    leads.push({ id: "swamp-drawbridge", title: "The castle drawbridge", detail: "An old drawbridge provides a safe crossing into the ruins." });
+  }
+  if (text.includes("YOU SENSE AN ANTI-MAGIC SHELL AROUND YOU")) {
+    leads.push({ id: "swamp-anti-magic", title: "Anti-magic in the ruins", detail: "The party sensed an anti-magic shell on entering the ruined castle." });
+  }
   if (text.includes("AN OLD LIZARDMAN APPEARS BEFORE YOU, HAND RAISED IN A GESTURE OF PEACE")) {
     leads.push({ id: "swamp-peaceful-elder", title: "A gesture of peace", detail: "A lizardfolk elder approached with his hand raised in peace." });
   }
-  if (text.includes("YOU WILL HAVE BEEN SHOWN OUR TRIBAL FRIEND-WORD")) {
+  if (/YOU WILL HAVE BEEN SHOWN OUR TRIBAL FRIEND- ?WORD/.test(text)) {
     leads.push({ id: "swamp-friend-word", title: "The tribal friend-word", detail: "The elder asked for the word known to those who freed three of his people." });
   }
   if (text.includes("YOU ARE NOT THEY WHO RESCUED MY CHILDREN")) {
