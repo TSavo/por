@@ -161,6 +161,11 @@ From E, the same party takes the street route to (6,10), hears the entrance
 clue, and saves to F. Reloading F preserves the journal's direction to go
 south. Entering the Guild adds the discovery and changes the active guidance
 to approaching the booth on the east side from the west.
+The party walks through the Guild maze, saves in slot G, then reloads and
+reaches the booth through its west entrance. It chooses Speak and enters
+OHLO to collect the package. Reloading slot H confirms that the journal
+marks the potion ready to report and directs the party to return and choose
+Give. The checkpoint reloads use the locations reached in normal play.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,

@@ -183,7 +183,7 @@ const ropeGuildSave = await replay(loadSlotE, "85000000", [
 ]);
 assert.match(visibleText(ropeGuildSave), /quit to dos/);
 const loadSlotF = "31000000:1c0d,45000000:266c,52000000:2166";
-await replay(loadSlotF, "85000000", [
+const insideGuild = await replay(loadSlotF, "85000000", [
   (text) => assert.match(text, /6,10 s/),
   "j",
   (_text, frame) => {
@@ -197,6 +197,27 @@ await replay(loadSlotF, "85000000", [
     assert.ok(frame.journal?.leads.some((lead) => lead.id === "ohlo-rope-guild"));
     assert.match(frame.journal.objective.nextStep, /east side.*approach it from the west/i);
   },
+  "j", "up", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up",
+  "right", "up", "up", "left", "up", "left", "up", "up",
+  (text) => assert.match(text, /surprised a party of kobolds/),
+  "f", "up", "e", "s", "s", "g",
 ]);
-console.log("Reached the Rope Guild entrance, saved in slot F, and verified the journal update on entry.");
+assert.match(visibleText(insideGuild), /quit to dos/);
+
+const checkPotion = (_text, frame) => {
+  const quest = frame.journal?.leads.find((lead) => lead.id === "commission-ohlo");
+  assert.equal(quest?.status, "ready-to-report");
+  assert.match(frame.journal.objective.nextStep, /take the package back to ohlo.*give/i);
+};
+const loadSlotG = "31000000:1c0d,45000000:266c,52000000:2267";
+const potionSave = await replay(loadSlotG, "85000000", [
+  "right", "up", "up", "left", "up", "right", "up", "up", "right", "up", "left", "up",
+  "s", "s", "o", "h", "l", "o", "enter",
+  (text) => assert.match(text, /returns with a package/),
+  "j", checkPotion, "j", "enter", "e", "s", "s", "h",
+]);
+assert.match(visibleText(potionSave), /quit to dos/);
+const loadSlotH = "31000000:1c0d,45000000:266c,52000000:2368";
+await replay(loadSlotH, "85000000", ["j", checkPotion]);
+console.log("Walked to the Rope Guild booth, picked up Ohlo's potion and verified the return objective after reloading slot H.");
 console.log("Replay save:", saveDir);
