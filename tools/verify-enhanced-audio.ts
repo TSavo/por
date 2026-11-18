@@ -32,7 +32,8 @@ for (const effect of plan.effects) {
   assert(original, `${effect.id} has no reachable original event`);
   assert.equal(effect.id, original.id);
   assert.equal(effect.file, original.enhancedFile);
-  assert.equal(original.enhancedStatus, "awaiting-elevenlabs-generation");
+  assert(["awaiting-elevenlabs-generation", "generated-elevenlabs-awaiting-review", "approved-elevenlabs"].includes(
+    original.enhancedStatus ?? ""));
 }
 
 const directory = resolve(process.env.POR_ENHANCED_AUDIO_DIR ?? "../por-assets/enhanced");

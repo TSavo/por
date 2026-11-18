@@ -5,7 +5,7 @@
   "model": "eleven_text_to_sound_v3",
   "outputFormat": "pcm_44100",
   "promptInfluence": 0.55,
-  "status": "awaiting-generation",
+  "status": "generated-awaiting-listening-review",
   "effects": [
     { "id": "por.original.spell-cast", "index": 2, "file": "por-spell-cast.wav", "targetSeconds": 1.15, "prompt": "A single fantasy wizard spell casting one-shot: focused arcane energy gathers with a crystalline shimmer, rises quickly, then releases in a compact magical pulse. No speech, no melody, no ambience, dry close sound, polished 1980s heroic fantasy game sound effect." },
     { "id": "por.original.damage", "index": 3, "file": "por-damage.wav", "targetSeconds": 0.34, "prompt": "A very short combat damage one-shot: padded medieval body impact with a sharp cloth-and-leather hit, restrained weight, no gore, no weapon swing, no voice, no ambience, dry close video game sound effect." },
