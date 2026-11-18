@@ -185,6 +185,11 @@ From that reward save, `node tools/verify-fresh-party.mjs --ohlo-armor-checkpoin
 walks back to New Phlan, spends the earned money on banded mail and shields
 for all six fighters, and reloads their improved Armor Class in slot B.
 The tested checkpoint has a hand axe on Brin and chain mail on the full party.
+Run `node tools/verify-fresh-party.mjs --slums-armored-patrols-checkpoint PATH_TO_SLOT_B`
+using the upgraded save. The party reenters the Slums and wins two kobold
+patrols and one orc patrol. With strict combat verification enabled no
+watchdog intervenes. Reloading at (13,3) confirms Brin has 718 XP and Fenn
+is down. The fixed orc outpost is farther along the route.
 From J, the party walks back to New Phlan, hears the first council commissions
 at City Hall, and follows the harbor master's directions to the pier. The
 original boat transition lands all six on Thorn Island at (8,14). The replay

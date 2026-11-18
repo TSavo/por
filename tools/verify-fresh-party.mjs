@@ -680,6 +680,44 @@ const backToNewPhlan = [
   "up", "enter", "enter",
   (text) => assert.match(text, /0,4 e/),
 ];
+const returnToSlums = [
+  "right", "right", ...Array(5).fill("up"), "right", ...Array(7).fill("up"),
+  "left", ...Array(4).fill("up"), "enter", "enter",
+  (text) => {
+    expectParty(text);
+    assert.match(text, /15,4 w.*slums of phlan/);
+  },
+];
+
+if (process.argv[2] === "--slums-armored-patrols-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot B from the replay that buys armor with Ohlo's reward.");
+  copyFileSync(process.argv[3], join(saveDir, "B.json"));
+  const win = (turns, experience) => [
+    ...Array(turns).fill("q"),
+    (text) => assert.match(text, /continue battle:yes no/),
+    "n", (text) => assert.match(text, new RegExp(`the party has won.*receives ${experience} experience points`)),
+    "enter", "enter", "s", "e", "n",
+  ];
+  await replay(loadSlot("3062"), "85000000", [
+    ...returnToSlums, "up", "left", "up", "up", "up",
+    (text) => assert.match(text, /14,6 s.*surprised a party of kobolds/),
+    "c", "enter", ...win(29, 5),
+    "up", "right", "up", "right", ...Array(4).fill("up"),
+    (text) => assert.match(text, /13,5 n.*surprised by kobolds/),
+    "enter", "enter", ...win(33, 5),
+    "up", "up", "up",
+    (text) => assert.match(text, /13,3 n.*surprised a party of orcs/),
+    "c", "enter", ...win(103, 12),
+    "e", "enter", "s", "s", "d",
+  ]);
+  await replay(loadSlot("2064"), "85000000", [
+    (text) => assert.match(text, /alda 3 4.*brin 1 6.*fenn 2 0.*13,3 n/),
+    "end", "v",
+    (text) => assert.match(text, /brin.*exp 718/),
+  ]);
+  console.log("Won three Slums patrol fights with the armored party and reloaded their progress:", join(saveDir, "D.json"));
+  process.exit(0);
+}
 
 if (process.argv[2] === "--ohlo-armor-checkpoint") {
   assert.ok(process.argv[3], "Pass a six-fighter save outside Ohlo's door after collecting his reward.");
@@ -898,14 +936,6 @@ const verifyReloadedGear = [
     ...(index ? ["end"] : []),
     "v", "i", "i", checkGear(name), "e", "e",
   ]),
-];
-const returnToSlums = [
-  "right", "right", ...Array(5).fill("up"), "right", ...Array(7).fill("up"),
-  "left", ...Array(4).fill("up"), "enter", "enter",
-  (text) => {
-    expectParty(text);
-    assert.match(text, /15,4 w.*slums of phlan/);
-  },
 ];
 const slumsSave = await replay(loadSlotB, "85000000", [
   ...verifyReloadedGear, ...returnToSlums, "e", "s", "s", "c",
