@@ -650,6 +650,14 @@ arena master once the party has heard that offer. A separate approach
 with the Swordsman and Warrior from the arena reached the courtyard at
 `8,5 W` and ended in defeat on Quick.
 
+The Podal Plaza approach from the disguised slot I checkpoint displayed
+48 individual 32×32 tiles in 1,452 placements across 12 walk and turn views.
+The same Chrome replay checked the auction portrait and save preservation
+when switching modes. Separate Chrome replays checked the fighter trainer's
+352×352 dialogue portrait and both 96×96 Slums goblin standing poses.
+The Slums infantry and Textile House priestess share a guest image pattern.
+Area-scoped overrides keep their new artwork distinct, verified live in both fights.
+
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_I PATH_TO_CHROME textile-altar`
 with a checkpoint outside Grishnak's temple at `2,13 N`. The replay checks
 the 352×352 altar portrait, the selected 96×96 priestess sprite, the captains'

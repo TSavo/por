@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:20:CPIC2.DAX:2": "goblin-infantry-combat.png",
+    "combat:area:20:CPIC2.DAX:3": "goblin-veteran-combat.png",
     "portrait:HEAD3.DAX:16:BODY3.DAX:1": "fighter-trainer-portrait.png",
     "tile:18:09be609429c4e2db72e68769253a40f08fe1e0bf65055f356ed165cefcb83c91": "podal-plaza-09be609429c4.png",
     "tile:18:0fe98ad9cca711b154fa54acc26ca865f6582a794910079509e512f212a9fdb8": "podal-plaza-0fe98ad9cca7.png",
