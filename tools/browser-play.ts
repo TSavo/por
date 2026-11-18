@@ -2,6 +2,8 @@ import { spawn } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
+import { join } from "node:path";
+import { lookupOverride, type OverrideManifest } from "../src/lib/assets.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
 import { getKey } from "./live-input.js";
 
@@ -9,11 +11,24 @@ const port = 43124;
 const origin = `http://127.0.0.1:${port}`;
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
+const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
+const titleArt = (() => {
+  try {
+    const manifest = JSON.parse(readFileSync(join(upgrades, "manifest.json"), "utf8")) as OverrideManifest;
+    if (manifest.version !== 1 || !manifest.assets) return;
+    const file = lookupOverride(manifest, "scene:title");
+    if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) return;
+    const png = readFileSync(join(upgrades, file));
+    if (png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) return png;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced title artwork", error);
+  }
+})();
 const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
   env: {
     ...process.env,
     POR_BROWSER_PLAY: "1",
-    POR_LIVE_AT: process.env.POR_LIVE_AT ?? "30000000",
+    POR_LIVE_AT: process.env.POR_LIVE_AT ?? "24000000",
     POR_BOOT_STEPS: process.env.POR_BOOT_STEPS ?? "100000000",
   },
   stdio: ["pipe", "pipe", "inherit"],
@@ -22,6 +37,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
 
 interface FrameState {
   frame?: string;
+  scene?: string;
   journal?: { objective: JournalObjective; leads: JournalLead[] };
 }
 
@@ -56,8 +72,12 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(page);
   } else if (req.method === "GET" && req.url === "/play.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(script);
+  } else if (req.method === "GET" && req.url === "/art/title.png" && titleArt) {
+    res.writeHead(200, { "content-type": "image/png" }).end(titleArt);
   } else if (req.method === "GET" && (req.url === "/state" || /^\/state\?after=-?\d+$/.test(req.url ?? ""))) {
-    const snapshot = req.url === `/state?after=${sequence}` ? {} : frame;
+    const snapshot = req.url === `/state?after=${sequence}` ? {} : {
+      ...frame, art: titleArt && frame.scene === "scene:title" ? "/art/title.png" : undefined,
+    };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
       ...snapshot, sequence, ready, stopped: stopped ?? null, notice: notice ?? null,
     }));

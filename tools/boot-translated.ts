@@ -18,22 +18,16 @@ import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
 import { openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
-import { callTrace, disposeHits, dosAssigns, farCall, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
+import { callTrace, disposeHits, dosAssigns, farCall, farCallObservers, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
 import { registerTranslated } from "../src/translated/register.js";
 import { ovl07_0353 } from "../src/translated/ovl07.js";
 
 const root = findGameRoot();
 if (!root) throw new Error("Pool of Radiance game data not found");
-const baseFiles = readdirSync(root, { recursive: true, encoding: "utf8" })
+const gameFiles = readdirSync(root, { recursive: true, encoding: "utf8" })
   .filter((name) => !name.startsWith(".") && statSync(join(root, name)).isFile())
   .map((name) => ({ name, data: new Uint8Array(readFileSync(join(root, name))) }));
-const campaign = process.env.POR_CAMPAIGN_DIR;
-const campaignFiles = campaign ? readdirSync(campaign, { withFileTypes: true })
-  .filter((entry) => entry.isFile() && /^[a-z0-9_]{1,8}\.dax$/i.test(entry.name))
-  .map(({ name }) => ({ name, data: new Uint8Array(readFileSync(join(campaign, name))) })) : [];
-if (campaign && !campaignFiles.length) throw new Error("Campaign directory contains no DOS-named DAX files");
-const gameFiles = [...baseFiles, ...campaignFiles];
 const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles) : gameFiles;
 
 registerTranslated();
@@ -202,6 +196,17 @@ const journalSlice = loadedSlices.find((slice) => slice.index === 7);
 adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || liveAt !== undefined || profilePath) && journalSlice
   ? observeAdventureLog(cpu, journalSlice)
   : undefined;
+if (input && process.env.POR_BROWSER_PLAY === "1") {
+  const title = loadedSlices.find((slice) => slice.index === 1);
+  const observe = farCallObservers.get(cpu);
+  farCallObservers.set(cpu, (segment, offset) => {
+    observe?.(segment, offset);
+    if (!title || cpu.cs !== title.loadPara || segment !== 0x18e) return;
+    // The first startup picture remains visible while the credits load.
+    if (offset === 0x5c && cpu.ip === 0x675) input.setScene("scene:title");
+    if (offset === 0x5c && cpu.ip === 0x6e9) input.setScene(undefined);
+  });
+}
 const boot = (cpu as Cpu & { boot: { cs: number; ip: number; ss: number; sp: number } }).boot;
 console.log(
   `image entry ${boot.cs.toString(16)}:${boot.ip.toString(16)} ss ${boot.ss.toString(16)} sp ${boot.sp.toString(16)} slices ${loadedSlices.length}`,

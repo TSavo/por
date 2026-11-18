@@ -1,7 +1,16 @@
-# Asset overrides
+# Enhanced display artwork
 
-Drop a PNG next to this file and name it in `manifest.json`.
+Place a PNG alongside a manifest and list its filename under `scene:title`.
 
-Ids look like `pic:TITLE.DAX:1` or `scene:viewport`. The value is a file name in this directory. Upgraded presentation uses the PNG when the id is listed. Classic presentation ignores the manifest. A missing file, or an id that is not listed, falls back to the EGA picture decoded from the game data.
+```json
+{"version":1,"assets":{"scene:title":"my-title.png"}}
+```
 
-The manifest ships empty. Nothing in this folder replaces SSI's art until you add it.
+Run `npm run play` and press **F10** on the first startup card. Enhanced mode
+shows the supplied picture on that card and returns to the game framebuffer
+for the credits and gameplay. The original framebuffer also serves as the
+fallback when the picture is unavailable.
+
+The default manifest is in this directory. Use `POR_UPGRADES_DIR` to load the
+manifest and PNG from a different directory. Restart the browser runner after
+changing either file.

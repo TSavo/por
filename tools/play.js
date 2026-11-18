@@ -13,10 +13,23 @@ function togglePresentation() {
   enhanced = !enhanced;
   document.documentElement.dataset.presentation = enhanced ? "enhanced" : "classic";
   presentation.setAttribute("aria-pressed", String(enhanced));
+  showScreen();
 }
 
+function showScreen() {
+  if (!state.frame) return;
+  screen.src = enhanced && !state.journal && state.art ? state.art : `data:image/png;base64,${state.frame}`;
+}
+
+screen.addEventListener("error", () => {
+  if (state.art && screen.getAttribute("src") === state.art) {
+    state.art = undefined;
+    showScreen();
+  }
+});
+
 function render() {
-  if (state.frame) screen.src = `data:image/png;base64,${state.frame}`;
+  showScreen();
   const open = Boolean(state.journal);
   journal.hidden = !open;
   if (!open) {

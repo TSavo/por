@@ -36,11 +36,13 @@ function readCommand(): string | undefined {
 export function liveInput(startAt: number, journal: () => JournalLead[], recording?: string) {
   let nextPrompt = startAt;
   let trackedId: string | undefined;
+  let scene: string | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const showFrame = (leads?: JournalLead[]) => {
     if (browser) {
       const state = {
         frame: Buffer.from(encodePng(screen)).toString("base64"),
+        scene,
         journal: leads && { objective: currentObjective(leads, trackedId), leads },
       };
       console.log(`POR_FRAME ${JSON.stringify(state)}`);
@@ -109,6 +111,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     requestKey,
     openJournal,
     setCampMenu: (active: boolean) => { inCampMenu = active; },
+    setScene: (id: string | undefined) => { scene = id; },
     tracked: () => trackedId,
     restoreTracked: (id: string | undefined) => { trackedId = id; },
   };
