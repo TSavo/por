@@ -369,6 +369,13 @@ function checkCampaignJournal(): void {
     throw new Error("Original Ohlo pickup or delivery script missing");
   }
   const knownOhlo = discoveredLeads(ohlo.accepted!);
+  const guild = lines.find((line) => line.includes("THAT WAS ONCE THE ROPE GUILD"));
+  const booth = lines.find((line) => line.includes("I AM SORRY, NOBLE ONES, BUT I HAVE NOTHING TO SELL"));
+  if (!guild || !booth || currentObjective(knownOhlo).nextStep.includes("from the west") ||
+      !currentObjective([...knownOhlo, ...discoveredLeads(guild)]).nextStep.includes("from the west") ||
+      !currentObjective([...knownOhlo, ...discoveredLeads(`${guild}\n${booth}`)]).nextStep.includes("choose Speak")) {
+    throw new Error("Ohlo's journal did not guide the party through the witnessed Rope Guild scenes");
+  }
   writeGlobal(0x4a04, 250);
   writeGlobal(0x4a81, 250);
   if (!currentObjective(questProgress(m, knownOhlo, m.ds)).nextStep.includes("choose Give")) {

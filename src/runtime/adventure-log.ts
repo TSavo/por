@@ -65,6 +65,11 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
     if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
+    if (commission.id === "ohlo" && tracked?.status === "accepted" && knows("ohlo-rope-guild")) {
+      nextStep = knows("ohlo-booth")
+        ? "At the booth, choose Speak and enter OHLO. Bring the package back to him."
+        : "Look for the booth on the east side of the Rope Guild. Approach it from the west, then give Ohlo's name.";
+    }
     if (commission.id === "sokal") {
       if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
       else if (knows("sokal-pale-form") && knows("sokal-parchment")) nextStep = "Talk to the pale form. When asked for a word, try one from the parchment.";
@@ -294,6 +299,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE MAN TAKES THE POTION AND GULPS IT GREEDILY")) {
     leads.push({ id: "ohlo-delivered", title: "Ohlo drank the potion",
       detail: "Ohlo drank the potion, grew younger, and offered the promised reward." });
+  }
+  if (text.includes("YOU HAVE ENTERED THE MYSTERIOUS BUILDING THAT WAS ONCE THE ROPE GUILD")) {
+    leads.push({ id: "ohlo-rope-guild", title: "The Old Rope Guild",
+      detail: "The party entered the former Rope Guild in the Slums." });
+  }
+  if (text.includes("A MAN HURRIES FORWARD. 'I AM SORRY, NOBLE ONES, BUT I HAVE NOTHING TO SELL.'")) {
+    leads.push({ id: "ohlo-booth", title: "The Rope Guild booth",
+      detail: "The man in the booth says he has nothing to sell." });
   }
   if (text.includes("SUMMON ME ONLY WHEN A VAMPIRE IS NEAR")) {
     leads.push({ id: "bottle-recovered", title: "The bottle's warning", detail: "Samir warned the party to summon him in the presence of a vampire, then returned to the bottle." });
