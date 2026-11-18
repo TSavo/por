@@ -93,7 +93,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("ohlo-rope-guild-entry")) nextStep = "From the spot marked by the Rope Guild notice, go south into the building and look for the booth.";
     }
     if (commission.id === "sokal") {
-      if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
+      if (knows("sokal-ferran-lie")) nextStep = "Ferran rejected the lie. If you meet him again, tell him the truth about Phlan.";
+      else if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
       else if (knows("sokal-pale-form") && knows("sokal-parchment")) nextStep = "Talk to the pale form. When asked for a word, try one from the parchment.";
       else if (knows("sokal-chapel")) nextStep = "Approach the altar on the south wall of the chapel.";
       else if (knows("sokal-courtyard-note")) nextStep = "Read journal entry 57 and continue exploring the keep beyond the courtyard.";
@@ -309,6 +310,11 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       id: "sokal-ferran", title: "Ferran Martinez",
       detail: "Ferran is bound to guard the keep and asks whether Phlan has been freed.",
     });
+  }
+  if (text.includes("I AM THE LIFE FORM OF FERRAN MARTINEZ") &&
+      text.includes("'YOU LIE,' THE SPIRIT MOANS AS IT FADES AWAY")) {
+    leads.push({ id: "sokal-ferran-lie", title: "Ferran rejected the lie",
+      detail: "Ferran saw through the party's answer and faded away." });
   }
   if (text.includes("A LOUD COMMOTION RISES FROM THE COURTYARD") &&
       text.includes("A LARGE FORCE OF ORCS AND HOBGOBLINS RUSHES YOU")) {

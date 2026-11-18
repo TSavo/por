@@ -418,6 +418,15 @@ function checkCampaignJournal(): void {
   if (!currentObjective([...questProgress(m, learned, m.ds), ...learned]).nextStep.includes("Ferran's password")) {
     throw new Error("Sokal journal lost Ferran's exit instruction on completion");
   }
+  const lie = lines.find((line) => line.includes("'YOU LIE,' THE SPIRIT MOANS AS IT FADES AWAY"));
+  if (!lie) throw new Error("Missing original Ferran rejection dialogue");
+  writeGlobal(progressAddresses.sokal!, 0);
+  const rejected = discoveredLeads(transcript.split("\n").slice(0, -1).join("\n") + "\n" + lie);
+  if (!currentObjective(rejected, "commission-sokal").nextStep.includes("Ferran rejected the lie") ||
+      rejected.some(({ id }) => id === "sokal-departure") ||
+      questProgress(m, rejected, m.ds).some(({ id, status }) => id === "commission-sokal" && status === "ready-to-report")) {
+    throw new Error("Sokal journal revealed completion after Ferran rejected the lie");
+  }
   const ohlo = commissions.find(({ id }) => id === "ohlo")!;
   const delivered = lines.find((text) => text.includes(ohlo.report!));
   if (!delivered || !slumsCounter.some(({ address, name, operands }) =>

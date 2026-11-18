@@ -367,7 +367,16 @@ scripts. It runs the translated ECL global setter to check the ready-to-report
 and rewarded states for 15 objectives. These checks exercise the journal
 against original script evidence. They do not run the quest scenarios.
 
-A controlled Sokal Keep test set only the keep-clear flag using the original
+A controlled checkpoint placed the mixed party one step from Ferran's altar.
+Ordinary input triggered the pale form, used Parlay and LUX, and chose to
+tell the truth. The original script taught SAMOSUD and completed the
+commission. Saving at the altar and reloading in the normal runner verified
+the ready-to-report status and the journal's password and return guidance.
+A separate run chose to lie and verified that Ferran faded without teaching
+the password or completing the commission. The checkpoint bypassed the
+route to the altar.
+
+A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the
 harbor master offers new destinations as soon as the keep is cleared, and
 that the journal waits for the clerk's reward flow to finish before marking
