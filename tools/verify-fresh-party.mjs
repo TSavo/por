@@ -772,8 +772,18 @@ if (process.argv[2] === "--sokal-reinforce-from-slums") {
     (text) => assert.match(text, /curate's spells in memory.*bless cure light wounds/),
     "e", "left", "up", "up", "enter",
     (text) => assert.match(text, /8,5 w.*a large force of orcs and hobgoblins rushes you/),
+    "enter", "enter", "enter", ...Array(38).fill("q"), "space",
+    (text) => assert.match(text, /alda hitpoints 6 ac 3 short sword.*move view aim/),
+    "a", "n", "n",
+    (text) => assert.match(text, /orc hitpoints 5 ac 6 range = 1.*manual target/),
+    "t",
+    (text) => assert.match(text, /enna hitpoints 3 ac 3 long bow.*move view aim/),
+    "a", ...Array(6).fill("n"),
+    (text) => assert.match(text, /hobgoblin hitpoints 6 ac 5 long sword \(helpless\) range = 3.*manual target/),
+    "t", "q",
+    (text) => assert.match(text, /orc hitpoints 5 ac 6 move\/attack/),
   ]);
-  console.log("Equipped Enna, hired the Swordsman and Curate, and reached the Sokal courtyard:", join(saveDir, "J.json"));
+  console.log("Equipped and recruited the party, then verified manual sword and bow attacks at Sokal:", join(saveDir, "J.json"));
   process.exit(0);
 }
 

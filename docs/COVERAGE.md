@@ -208,8 +208,13 @@ Run `node tools/verify-fresh-party.mjs --sokal-reinforce-from-slums PATH_TO_SLOT
 from the armorer save. Enna buys and readies a long bow and arrows. The
 party hires the Swordsman and Curate, sails to Sokal Keep, and reloads at
 the landing. It then reads the parchment, passes the undead patrol, and
-casts Bless before the eastern approach to the courtyard. Quick combat
-was still active after 850 inputs in a separate run from that landing.
+casts Bless before the eastern approach to the courtyard. Space interrupts
+Quick on Alda's first manual turn. Alda targets an adjacent orc with his
+sword and Enna targets a helpless hobgoblin three squares away with her
+longbow. Strict verification reaches both attacks without intervention.
+Continuing with Quick after either that shot or a shot at an orc archer
+ended in defeat. The Quick-only opening and the two tested Curate
+placements at the head of the party also ended in defeat.
 From J, the party walks back to New Phlan, hears the first council commissions
 at City Hall, and follows the harbor master's directions to the pier. The
 original boat transition lands all six on Thorn Island at (8,14). The replay
