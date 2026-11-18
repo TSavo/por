@@ -9,7 +9,13 @@ interface SoundCallSite {
   argumentInstruction?: string;
   argumentAddress?: string;
   originalIndex?: number;
+  semanticId?: string;
 }
+
+const soundManifest = JSON.parse(readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url), "utf8")) as {
+  events: Array<{ id: string; index: number }>;
+};
+const semanticIds = new Map(soundManifest.events.map(({ id, index }) => [index, id]));
 
 const translated = resolve(process.argv[2] ?? "src/translated");
 const output = process.argv[3];
@@ -43,12 +49,13 @@ for (const name of readdirSync(translated).filter((entry) => /^(?:exe|ovl\d+)\.t
       argumentInstruction: argument ? `${argument[1]}: ${argument[2]}` : undefined,
       argumentAddress: address === undefined ? undefined : `0x${address.toString(16)}`,
       originalIndex,
+      semanticId: originalIndex === undefined ? undefined : semanticIds.get(originalIndex),
     });
   }
 }
 
 const inventory = {
-  schema: 2,
+  schema: 3,
   residentSoundDispatcher: "START.EXE image 0x27f0",
   modes: { tandy: 0, pcSpeaker: 1, silent: 2 },
   ports: { timerChannel0: "0x40", pcSpeakerChannel2: "0x42", pitControl: "0x43", speakerControl: "0x61", tandyPsg: "0xc0" },

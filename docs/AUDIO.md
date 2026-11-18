@@ -90,6 +90,15 @@ state. `npm run audio-coverage -- <report.json>` verifies every manifest entry h
 PC WAV, Tandy VGM, and libvgm Tandy WAV assets and reports Enhanced replacement
 coverage separately from faithful fallback coverage.
 
+Semantic names are evidence-backed rather than inferred from waveform shape. The
+translated call sites were correlated with the byte-for-byte v1.1 source
+reconstruction at `talonius/bc-pool-of-radiance` tag `v1.1` (commit `45ce2ab`).
+The resulting mapping is: 2 spell cast, 3 damage, 4 status effect, 5 downed,
+6 ranged start, 7 impact, 8 lightning, 9 miss, 10 step, 11 fireball/script cue,
+12 ranged end, 13 title theme, and 14 battle sting. The inventory generator adds
+these stable IDs to every resolved translated call site so later code movement
+cannot separate numeric events from their gameplay meaning.
+
 ## Enhanced voice layer
 
 `src/audio/voices.json` defines stable dialogue and narration IDs, speakers,
