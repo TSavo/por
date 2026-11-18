@@ -273,6 +273,14 @@ at the arena, and reloads slot H with two Sleep spells in memory. It returns
 to Thorn Island by boat, passes the patrols with the parchment word, and
 reaches the Evoker's first turn in the courtyard with Brin in the roster. A
 separate Quick-only run with that roster ended at the party-destroyed screen.
+
+The same verifier accepts `--warrior-and-theurgist` after the slot G path.
+This branch removes both fallen fighters through Encamp and recruits a
+Warrior for one share and a Theurgist for four. Slot H reloads with the
+Theurgist's two Sleep spells, Knock, and Stinking Cloud. The strict
+replay reaches both new recruits' opening courtyard turns. In a longer
+Quick-only replay, an enemy turn triggered watchdog recovery and the
+party was defeated.
 From C, the party answers Yes when a second patrol asks for the password,
 then explores the ruined smithy. It wins the frog encounter for 31 XP per
 character. Alda falls to 0 HP during the fight. The party enters the old
