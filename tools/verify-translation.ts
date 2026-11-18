@@ -179,10 +179,15 @@ function checkQuickRecovery(partyMember: boolean): void {
   const slice = (index: number, headerPara: number, loadPara: number): LoadedSlice =>
     ({ index, headerPara, loadPara, fileOffset: 0, codeBytes: 0, procs: new Map() });
   let recovered: boolean | undefined;
-  attachQuickRecovery(m, [slice(8, 0x51, m.cs), slice(9, 0x58, 0x4000)], (party) => { recovered = party; }, 1);
+  let timeoutLocation: string | undefined;
+  attachQuickRecovery(m, [slice(8, 0x51, m.cs), slice(9, 0x58, 0x4000)], (party, timeout) => {
+    recovered = party;
+    timeoutLocation = timeout.message;
+  }, 1);
   farCall(m, 0x58, 0x25);
   const expected = partyMember ? 0 : 1;
-  if (recovered !== partyMember || m.sp !== stack || m.bp !== 0xff40 || m.cs !== 0x3000 || m.stepBudget !== 100 ||
+  if (recovered !== partyMember || !timeoutLocation?.includes("at 4000:") ||
+      m.sp !== stack || m.bp !== 0xff40 || m.cs !== 0x3000 || m.stepBudget !== 100 ||
       m.read8(m.ss, m.bp - 2) !== expected || m.read8(m.ds, actor + 0x10f) !== expected) {
     throw new Error("Quick watchdog did not restore the expected combat control");
   }

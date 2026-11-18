@@ -9,7 +9,7 @@ import { checkpointVideo } from "./video.js";
 export function attachQuickRecovery(
   cpu: Cpu,
   slices: readonly LoadedSlice[],
-  onRecovery: (partyMember: boolean) => void,
+  onRecovery: (partyMember: boolean, timeout: StepBudgetExceeded) => void,
   instructionLimit = 5_000_000,
 ): void {
   const combat = slices.find((slice) => slice.index === 8);
@@ -32,11 +32,13 @@ export function attachQuickRecovery(
     const restoreVideo = checkpointVideo();
     cpu.stepBudget = limit;
     cpu.cs = quick.loadPara;
+    let timeout: StepBudgetExceeded;
     try {
       ovl09_000f(cpu);
       return true;
     } catch (error) {
       if (!(error instanceof StepBudgetExceeded) || cpu.steps !== limit + 1) throw error;
+      timeout = error;
       cpu.mem.set(memory);
       Object.assign(cpu, registers);
       cpu.prevSp = sp;
@@ -53,7 +55,7 @@ export function attachQuickRecovery(
     const actorOff = cpu.read16(ss, sp + 4);
     const actorSeg = cpu.read16(ss, sp + 6);
     const partyMember = cpu.read8(actorSeg, actorOff + 0x84) < 0x80;
-    onRecovery(partyMember);
+    onRecovery(partyMember, timeout);
     if (!partyMember) {
       // Keep NPC control automatic. The caller continues through its
       // normal end-of-turn cleanup with the pre-Quick state restored.

@@ -200,11 +200,12 @@ if (liveAt !== undefined) {
   if (quickBudget !== undefined && (!Number.isSafeInteger(quickBudget) || quickBudget <= 0)) {
     throw new Error("POR_QUICK_STEPS must be a positive integer");
   }
-  attachQuickRecovery(cpu, loadedSlices, (partyMember) => {
+  attachQuickRecovery(cpu, loadedSlices, (partyMember, timeout) => {
     const message = partyMember
       ? "Quick combat stalled. Choose a manual action."
       : "An enemy could not finish its turn. Combat continued.";
     console.log(process.env.POR_BROWSER_PLAY === "1" ? `POR_NOTICE ${message}` : message);
+    if (process.env.POR_TRACE_QUICK === "1") console.error(timeout.stack);
   }, quickBudget);
 }
 const journalSlice = loadedSlices.find((slice) => slice.index === 3);
