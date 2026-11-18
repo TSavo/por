@@ -363,7 +363,8 @@ function checkCampaignJournal(): void {
       questProgress(m, [], m.ds).some(({ id }) => id === "commission-bottle-vampire")) {
     throw new Error("The graveyard flag did not resolve the known bottle objective without revealing it");
   }
-  const acceptance = [["graveyard", 0x4a96, 255], ["auction", progressAddresses.auction!, 1]] as const;
+  const acceptance = [["graveyard", 0x4a96, 255], ["auction", progressAddresses.auction!, 1],
+    ["gate", 0x4a99, 255], ["castle", 0x4a9a, 255]] as const;
   for (const [id, address, value] of acceptance) {
     const commission = commissions.find((item) => item.id === id)!;
     if (!council.some(({ name, operands }) => name === "SAVE" &&
@@ -376,6 +377,18 @@ function checkCampaignJournal(): void {
     if (questProgress(m, offered, m.ds)[0]?.status !== "accepted" || questProgress(m, [], m.ds).length) {
       throw new Error(`Journal assignment state mismatch for ${id}`);
     }
+  }
+  const gate = commissions.find(({ id }) => id === "gate")!;
+  const garrison = lines.find((line) => line.includes("YOU HAVE SLAIN THE GARRISON"));
+  const summons = lines.find((line) => line.includes("YOU ARE SUMMONED TO A SPECIAL COUNCIL MEETING"));
+  const gateLeads = discoveredLeads(gate.offer);
+  if (!garrison || !summons ||
+      !currentObjective([...gateLeads, ...discoveredLeads(garrison)]).nextStep.includes("outside guards")) {
+    throw new Error("The gate journal missed the garrison clue or assault summons");
+  }
+  writeGlobal(progressAddresses.gate!, 255);
+  if (!currentObjective([...questProgress(m, gateLeads, m.ds), ...discoveredLeads(summons)]).nextStep.includes("council chambers")) {
+    throw new Error("The gate journal did not direct the party to the assault briefing");
   }
   const route = [
     ["THE BOAT DISEMBARKS YOU AT SOKAL KEEP", "Scout the keep"],

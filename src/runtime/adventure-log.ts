@@ -40,6 +40,14 @@ export interface JournalObjective {
 export function currentObjective(leads: readonly JournalLead[], trackedId?: string): JournalObjective {
   const unresolved = leads.filter(isOpenObjective);
   const selected = unresolved.find((lead) => lead.id === trackedId);
+  if (!selected && leads.some((lead) => lead.id === "gate-reward-direction" || lead.id === "gate-assault-handoff") &&
+      leads.some((lead) => lead.id === "commission-gate" && lead.status === "turned-in") &&
+      !leads.some((lead) => lead.id === "commission-castle")) {
+    const summoned = leads.some((lead) => lead.id === "gate-assault-handoff");
+    return { title: "Prepare the assault on Valjevo Castle", nextStep: summoned
+      ? "Follow the City Hall guards to the council chambers for the assault briefing."
+      : "Return to the stronghold to lead the attack, as the clerk requested." };
+  }
   if (!selected && leads.some((lead) => lead.id === "commission-castle" && lead.status === "turned-in")) {
     return { title: "Phlan is free", nextStep: "Explore any remaining uncleared areas if you wish." };
   }
@@ -107,6 +115,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("castle-audience")) nextStep = "Get past the guards in the audience hall and confront the bronze dragon.";
       else if (knows("castle-impostor")) nextStep = "Continue searching the castle for the real Tyranthraxus.";
       else if (knows("castle-disguise")) nextStep = "Use the clothes offered by the resistance to move through the castle and find Tyranthraxus.";
+    }
+    if (commission.id === "gate" && knows("gate-garrison-defeated")) {
+      nextStep = "Defeat the outside guards before reinforcements arrive, then report to the clerk.";
     }
     return { title: commission.title, nextStep };
   }
@@ -193,7 +204,9 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
       });
     }
     const accepted = (commission.id === "graveyard" && global(0x4a96) === 255) ||
-      (commission.id === "auction" && value === 1);
+      (commission.id === "auction" && value === 1) ||
+      (commission.id === "gate" && global(0x4a99) === 255) ||
+      (commission.id === "castle" && global(0x4a9a) === 255);
     if (accepted && value !== 254 && value !== 255) {
       progress.push({
         id, title: `${commission.title} - accepted`,
@@ -288,6 +301,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("USE THESE CLOTHES AS A DISGUISE AND YOU WILL ESCAPE NOTICE")) {
     leads.push({ id: "castle-disguise", title: "Help inside Valjevo Castle", detail: "Rebels offered the party clothes to pass as castle inhabitants." });
+  }
+  if (text.includes("YOU HAVE SLAIN THE GARRISON. NOW IF YOU CAN BUT SLAY THE OUTSIDE GUARDS")) {
+    leads.push({ id: "gate-garrison-defeated", title: "The gate garrison fell",
+      detail: "The party defeated the garrison. The outside guards still have to be defeated before reinforcements arrive." });
+  }
+  if (text.includes("YOU ARE SUMMONED TO A SPECIAL COUNCIL MEETING")) {
+    leads.push({ id: "gate-assault-handoff", title: "Summons to the council chambers",
+      detail: "The city guards will show the party to a special council meeting." });
+  }
+  if (text.includes("YOUR TAKING THE GATE WILL ENABLE OUR FORCES TO ASSAULT THE ENEMY STRONGHOLD")) {
+    leads.push({ id: "gate-reward-direction", title: "The council plans an assault",
+      detail: "The clerk says securing the gate lets the council attack the stronghold and asks the party to lead the attack." });
   }
   if (text.includes("HE JUST HIRED ME TO IMPERSONATE HIM")) {
     leads.push({ id: "castle-impostor", title: "Tyranthraxus's impostor", detail: "The figure on the throne admitted he was hired to impersonate Tyranthraxus." });
