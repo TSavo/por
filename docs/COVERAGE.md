@@ -732,8 +732,12 @@ checks still use the historical checkpoint and the supplied brass key.
 
 Run `node tools/verify-fresh-party.mjs --textile-grishnak-checkpoint PATH_TO_SLOT_I`
 with the party outside the southern temple door at `2,13 N`. This
-replay prepares Mira's Sleep, enters the original encounter, verifies
-Grishnak starts at 24 HP and AC 5, and runs Quick to the defeat screen.
+replay prepares Mira's Sleep and checks that the tracked commission
+directs the party north through the guards' room. After hearing Grishnak
+at the altar, the objective switches to checking the battle loot and
+returning to Unlock the padlocks. Skullcrusher's later clue stays hidden.
+The replay verifies Grishnak starts at 24 HP and AC 5 and runs Quick to
+the defeat screen.
 At input 76 a fixed 20-million-instruction limit still interrupts an
 enemy turn in the original calibrated delay at `0512:53E3`. The default
 watchdog now budgets calibrated delays separately from battlefield

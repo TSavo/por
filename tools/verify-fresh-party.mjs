@@ -639,14 +639,14 @@ async function verifyPodalFromCouncil(checkpoint) {
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
     }, "track 3", (_text, frame) => {
       assert.equal(frame.journal.trackedId, "commission-textile");
-      assert.match(frame.journal.objective.nextStep, /look for a key/i);
+      assert.match(frame.journal.objective.nextStep, /north through the guards' room.*choose unlock/i);
     }, "j", "e", "s", "s", "e",
   ]);
   await replay(load("1265"), "85000000", [
     (text) => assert.match(text, /2,15 s/),
     "j", (_text, frame) => {
       assert.equal(frame.journal?.trackedId, "commission-textile");
-      assert.match(frame.journal.objective.nextStep, /look for a key/i);
+      assert.match(frame.journal.objective.nextStep, /north through the guards' room.*choose unlock/i);
     }, "j",
     "enter", "right", "right", "up", "up", "b", "enter", "up",
     (text) => assert.match(text, /2,12 n.*crude temple/),
@@ -1310,8 +1310,17 @@ if (process.argv[2] === "--textile-grishnak-checkpoint") {
     (text) => assert.match(text, /mira's spells to be memorized.*\*sleep/),
     "y", "r", "r", "n", "e", "e",
     (text) => assert.match(text, /2,13 n.*area cast view encamp/),
+    "j", "track 3", (_text, frame) => {
+      assert.equal(frame.journal?.trackedId, "commission-textile");
+      assert.match(frame.journal.objective.nextStep, /north through the guards' room.*choose unlock/i);
+      assert.doesNotMatch(frame.journal.objective.nextStep, /grishnak/i);
+    }, "j",
     "up", "enter", "enter",
     (text) => assert.match(text, /2,12 n.*i am the mighty grishnak/),
+    "j", (_text, frame) => {
+      assert.match(frame.journal?.objective.nextStep ?? "", /grishnak at the bone altar.*battle loot.*choose unlock/i);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+    }, "j",
     "enter", "enter",
     ["q", /grishnak hitpoints 24 ac 5/, 60],
     ["q", /party has been destroyed/, 300],
