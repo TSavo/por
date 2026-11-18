@@ -62,14 +62,17 @@ async function verifyPodalFromCouncil(checkpoint) {
   const load = (key) => `31000000:1c0d,45000000:266c,52000000:${key}`;
   const checkAuction = (status) => (_text, frame) =>
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-auction")?.status, status);
-  const westboundToGate = [
-    "right", "up", "up", "enter", "enter",
-    "right", ...Array(6).fill("up"), "left", "up", "right", "up", "left", "up", "enter", "enter",
+  const westboundFromJunction = [
+    "left", "up", "right", "up", "left", "up", "enter", "enter",
     (text) => assert.match(text, /sokal east west bay none/),
     "w", "enter", "enter", "right", ...Array(4).fill("up"), "enter", "enter", "enter", "s",
     (text) => assert.match(text, /20,29 e/),
     "enter", "enter", "up", ...Array(4).fill("right"), "enter",
     (text) => assert.match(text, /western edge of the city.*north south leave/),
+  ];
+  const westboundToGate = [
+    "right", "up", "up", "enter", "enter", "right", ...Array(6).fill("up"),
+    ...westboundFromJunction,
   ];
   const arrival = await replay(load("2368"), "85000000", [
     (text) => assert.match(text, /5,5 e/),
@@ -129,6 +132,32 @@ async function verifyPodalFromCouncil(checkpoint) {
     (text) => assert.match(text, /the monsters rejoice for the party has been destroyed/),
   ]);
   console.log("Verified the Podal Plaza turn-in, Cadorna's commission, and the Textile House courtyard defeat.");
+  const armorSave = await replay(load("1e61"), "85000000", [
+    "right", "right", "up", "up", "right", "up", "right", "up", "enter", "enter", "up", "up",
+    "right", ...Array(7).fill("up"), "left", "up", "y", "y",
+    ...names.slice(0, 5).flatMap((name, index) => [
+      ...(index ? ["end"] : []),
+      "b", "n", "n", ...Array(index ? 15 : 16).fill("end"), "b", "end", "end", "b",
+      "e", "v", "i", "i", "end", "r", "end", "r", "end", "r",
+      (text) => assert.match(text, new RegExp(`${name}'s items.*yes hand axe.*no chain mail.*yes banded mail.*yes shield`)),
+      "e", "e", "e",
+    ]),
+    "e", "e", "s", "s", "d",
+  ]);
+  assert.match(visibleText(armorSave), /quit to dos/);
+  const armoredParty = /alda 3 6.*brin 1 6.*cora 3 6.*dorn 3 8.*enna 2 6.*mira 10 5/;
+  const armoredArrival = await replay(load("2064"), "85000000", [
+    (text) => assert.match(text, armoredParty),
+    "right", "right", "up", "right", ...Array(8).fill("up"), "right", ...Array(3).fill("up"),
+    ...westboundFromJunction,
+    "s", ...Array(4).fill("enter"),
+    (text) => assert.match(text, /0,4 w/),
+    "e", "s", "s", "e",
+  ]);
+  assert.match(visibleText(armoredArrival), /quit to dos/);
+  await replay(load("1265"), "85000000", [(text) => assert.match(text, armoredParty)]);
+  console.log("Readied banded mail and shields on all five fighters and reloaded at the Textile House entrance.");
+  console.log("Checkpoint replay saves:", saveDir);
 }
 
 if (process.argv[2] === "--podal-checkpoint") {

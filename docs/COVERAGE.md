@@ -409,6 +409,11 @@ sequence in the tested run. The party reaches the drum ambush at
 party-defeat screen. The ambush dialogue gives the journal a warning
 for the courtyard. Recovering the treasure through ordinary play
 still needs verification.
+After the defeat, the replay reloads at Cadorna's office, buys banded
+mail and shields with the party's rewards, and readies the new gear on
+all five fighters. It verifies each inventory at the shop and each
+fighter's two-point Armor Class improvement after reloading back at
+the Textile House entrance.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the
