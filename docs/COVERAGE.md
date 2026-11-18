@@ -212,10 +212,13 @@ and the recovered mace readied. The party hears the council commission, reloads 
 it tracked, returns to Thorn Island, and reaches the courtyard ambush.
 The replay confirms the journal advances from the armory to battle
 preparation, then uses the recovered mace against an adjacent orc.
+After the party discovers the ambush, the tracked objective names the
+landing and the Encamp menu commands for replenishing spent spells.
 After the Curate's first automatic move, the replay continues to the
 original defeat screen. It verifies that the landing save is byte-for-byte
 identical and reloads with Brin alive and the council commission still
-tracked. The unsaved ambush discovery is absent after reload.
+tracked. The unsaved ambush discovery and its preparation advice are
+absent after reload.
 In a separate trial from the same landing save, the Curate cast Bless
 outside the courtyard and the spell appeared in the party's active magic
 list. The blessed party still lost with Quick combat.

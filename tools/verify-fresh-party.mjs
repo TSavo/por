@@ -1286,11 +1286,13 @@ async function verifySokalTrackedAmbush(replenishCurate = false) {
     if (seen) {
       assert.ok(journal.leads.some(({ id }) => id === "phlan-temple-healing"));
       assert.match(journal.objective.nextStep, /ready weapons and spells.*Temple of Tyr/);
+      assert.match(journal.objective.nextStep, /at the landing.*encamp.*magic and memorize.*replenish spent spells/i);
       if (journal.leads.some(({ id }) => id === "phlan-arena-recruits")) {
         assert.match(journal.objective.nextStep, /arena recruits act on their own.*choose their targets/i);
       }
     } else {
       assert.match(journal.objective.nextStep, /gear on the stands/);
+      assert.doesNotMatch(journal.objective.nextStep, /replenish spent spells/i);
     }
   };
   await replay(loadSlot("246a"), "85000000", [
