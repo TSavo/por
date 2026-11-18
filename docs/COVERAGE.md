@@ -819,6 +819,10 @@ and declining records Drythh's reaction, replacing the champion prompt
 with guidance for a hostile encounter.
 The acceptance replay selects Alda and reaches the original duel controls,
 then verifies that display switching preserves the opening combat state.
+Chrome also checks the two new 96×96 sprites for the swamp lizardfolk
+stance and spear thrust. Drythh and the other area-16 lizardfolk use the
+same original combat records. The drawbridge replay checks its new
+352×352 exterior illustration and the display switch before entering.
 It also checks the 192×320 elder sprite at the original 48×80 placement
 and verifies presentation switches in the encounter. The `swamp-ruins`
 replay loads the save made inside the ruins and checks 51 individual

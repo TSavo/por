@@ -502,6 +502,19 @@ try {
       const battleMenu = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
       assert.match(battleMenu, /ALDAHITPOINTS\d+AC\d+.*MOVEVIEWAIMUSEQUICKDONE/i);
       await switchBothWays();
+      const standing = "combat:area:16:CPIC8.DAX:57";
+      const strike = "combat:area:16:CPIC8.DAX:185";
+      await advance("enter");
+      assert.ok(frame.combatArt.some(([, , id]) => id === standing));
+      const loaded = (id) => run(`[...document.querySelectorAll(".combat-sprite")].some(image =>
+        image.src.endsWith(${JSON.stringify(id)}) && image.naturalWidth === 96 && image.naturalHeight === 96)`);
+      await waitFor("the swamp lizardfolk stance", () => loaded(standing));
+      const duel = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "swamp-duel.png"), Buffer.from(duel.data, "base64"));
+      const struck = () => frame.animation?.some((shot) => shot.combatArt?.some(([, , id]) => id === strike));
+      for (let action = 0; action < 5 && !struck(); action++) await advance("q");
+      assert.ok(struck(), "The lizardfolk strike should appear in the original duel");
+      await waitFor("the swamp lizardfolk strike", () => loaded(strike));
     }
     console.log("Verified the swamp elder's layered terrain and journal updates in Chrome. Capture:", directory);
   } else if (routeName === "swamp-approach") {
@@ -509,7 +522,14 @@ try {
     await advance("j");
     assert.equal(frame.journal?.trackedId, "commission-lizardmen");
     assert.ok(!knows("swamp-drawbridge") && !knows("swamp-anti-magic"));
-    for (const key of ["j", ...Array(11).fill("right"), "enter", "j"]) await advance(key);
+    for (const key of ["j", ...Array(11).fill("right"), "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:PIC8.DAX:24:0:0");
+    await waitFor("the enhanced swamp drawbridge", () => run(`(() => {
+      const image = document.querySelector(".encounter-portrait");
+      return image?.naturalWidth === 352 && image?.naturalHeight === 352;
+    })()`));
+    await switchBothWays();
+    await advance("j");
     assert.ok(knows("swamp-drawbridge") && !knows("swamp-anti-magic"));
     assert.match(frame.journal.objective.nextStep, /cross the drawbridge/);
     for (const key of ["j", "e", "enter", "j"]) await advance(key);
