@@ -278,9 +278,12 @@ The same verifier accepts `--warrior-and-theurgist` after the slot G path.
 This branch removes both fallen fighters through Encamp and recruits a
 Warrior for one share and a Theurgist for four. Slot H reloads with the
 Theurgist's two Sleep spells, Knock, and Stinking Cloud. The strict
-replay reaches both new recruits' opening courtyard turns. In a longer
-Quick-only replay, an enemy turn triggered watchdog recovery and the
-party was defeated.
+replay reaches both recruits' opening turns and plays the courtyard
+battle through to the original party-defeat screen. A previous replay
+timed out at `05BB:16AB` in Turbo Pascal's Move, called by overlay 36
+during a battlefield redraw. The watchdog now recognizes the drawing
+overlay on the helper's far return stack and applies the same bounded
+redraw allowance. The full replay completes without recovery.
 From C, the party answers Yes when a second patrol asks for the password,
 then explores the ruined smithy. It wins the frog encounter for 31 XP per
 character. Alda falls to 0 HP during the fight. The party enters the old

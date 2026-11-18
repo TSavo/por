@@ -37,7 +37,11 @@ export function attachQuickRecovery(
       const ceiling = Math.min(budget || Infinity, limit + 15_000_000);
       cpu.onStepBudgetExceeded = () => {
         if (cpu.stepBudget !== limit) return;
-        if (drawingSegments.has(cpu.cs)) {
+        const inDrawingHelper = cpu.cs === 0x5bb && cpu.ip >= 0x1692 && cpu.ip <= 0x16c6 &&
+          drawingSegments.has(cpu.read16(cpu.ss, cpu.sp + 2));
+        if (drawingSegments.has(cpu.cs) || inDrawingHelper) {
+          // Turbo Pascal's Move and FillChar preserve SP until their far return.
+          // Count those helpers as drawing only when a drawing overlay called them.
           // A battlefield redraw can exhaust the usual turn budget.
           // Extend in bounded increments so even a stuck redraw expires.
           limit = Math.min(ceiling, limit + 1_000_000);

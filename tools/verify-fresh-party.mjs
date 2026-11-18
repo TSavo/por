@@ -1140,9 +1140,10 @@ if (process.argv[2] === "--sokal-recovered-courtyard-checkpoint") {
     "enter", "enter", "enter", ...(hireTwo ? [
       ["q", /theurgist hitpoints 13 ac 8 dagger/, 100],
       ["q", /warrior hitpoints 13 ac 3 silver battle axe/, 40],
+      ["q", /party has been destroyed/, 1400],
     ] : [["q", /evoker hitpoints 6 ac 9/, 100]]),
   ]);
-  console.log(hireTwo ? "Recruited the Warrior and Theurgist and reached both courtyard turns:"
+  console.log(hireTwo ? "Recruited the Warrior and Theurgist and verified the full courtyard combat replay:"
     : "Recruited the Evoker and reached his first courtyard turn with Brin restored:", join(saveDir, "H.json"));
   process.exit(0);
 }
