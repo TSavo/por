@@ -25,7 +25,7 @@ Press **F10** or select **Enhanced display** for a 4:3 view with a softer color 
 ## Tools
 
 ```bash
-npm run translate        # tools/tp_translate.py -> src/translated/
+npm run translate -- --output out/translated  # requires Python and capstone
 npm run verify           # run FillChar and the ECL operand fetch
 npm run selftest
 npm run tools -- list
@@ -36,6 +36,8 @@ npm run tools -- exe              # MZ header, packer signature, overlay stubs
 ```
 
 You can pass the game directory as the last argument instead of `POR_GAMEDATA`.
+
+Use `--output` to inspect a fresh translation alongside the checked-in runtime files. The translator writes its generated coverage report alongside that output. With the default TypeScript destination, the report goes to `out/translation-coverage.md`.
 
 `extract` and `images` write the original art into `out/`. That directory is gitignored. Do not commit it.
 

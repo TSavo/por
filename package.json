@@ -11,7 +11,7 @@
     "tools": "tsx tools/cli.ts",
     "selftest": "tsx tools/cli.ts selftest",
     "shots": "tsx tools/cli.ts shots",
-    "translate": "python3 tools/tp_translate.py",
+    "translate": "python tools/tp_translate.py",
     "verify": "tsx tools/verify-translation.ts"
   },
   "devDependencies": {
