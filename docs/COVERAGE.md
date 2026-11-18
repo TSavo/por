@@ -719,6 +719,11 @@ the original escort. The `zhentil-yard` replay uses a copy with the guest
 restriction flag changed to allow movement into the outer yard. Chrome
 checked 2,783 tile placements across 23 frames using the default upgrade
 pack and verified that both presentation switches preserved the save.
+Visual review of the Chrome captures also checked the ceiling, masonry,
+door edges, yard path, palisade and sky across the two routes. The review
+caught a repeating ceiling stripe and inconsistent masonry where indoor
+tiles met shared tiles. The replacement PNGs were revised and recaptured
+at the game's displayed size.
 
 The Valhingen journal now uses witnessed clues for the lair, stairs, vampire
 escape, and northern wall. The original ECL text and completion flag are
