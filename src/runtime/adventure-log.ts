@@ -28,6 +28,7 @@ export interface JournalLead {
   title: string;
   detail: string;
   status?: "offered" | "accepted" | "ready-to-report" | "reward-pending" | "turned-in";
+  clearedEncounters?: number;
 }
 
 export interface JournalObjective {
@@ -60,6 +61,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       return { title: commission.title, nextStep: tracked.detail };
     }
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
+    if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
     if (commission.id === "sokal") {
       if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
       else if (knows("sokal-pale-form") && knows("sokal-parchment")) nextStep = "Talk to the pale form. When asked for a word, try one from the parchment.";
@@ -133,6 +135,14 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     const address = progressAddresses[commission.id];
     if (address === undefined || !known.some((lead) => lead.id === id)) continue;
     const value = global(address);
+    if (commission.id === "slums" && value > 0 && value < 25) {
+      const encounters = value === 1 ? "1 encounter cleared." : `${value} encounters cleared.`;
+      progress.push({
+        id, title: `${commission.title} - in progress`,
+        detail: `Keep clearing encounters in the Slums until the district is secure. ${encounters}`,
+        status: "accepted", clearedEncounters: value,
+      });
+    }
     const accepted = (commission.id === "graveyard" && global(0x4a96) === 255) ||
       (commission.id === "auction" && value === 1);
     if (accepted && value !== 254 && value !== 255) {

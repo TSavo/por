@@ -10,6 +10,7 @@ import { farCall } from "../src/runtime/far.js";
 import { attachQuickRecovery } from "../src/runtime/quick-combat.js";
 import { attachDos } from "../src/runtime/dos.js";
 import { isPartyFile } from "./save-slots.js";
+import { openJournalProfile } from "./journal-profile.js";
 import { exe_056c0 } from "../src/translated/exe.js";
 import type { LoadedSlice } from "../src/runtime/overlay.js";
 import { currentObjective, discoveredLeads, progressAddresses, questProgress } from "../src/runtime/adventure-log.js";
@@ -251,6 +252,20 @@ function checkCampaignJournal(): void {
     m.push(0);
     ovl07_0c93(m);
   };
+  const slums = commissions.find(({ id }) => id === "slums")!;
+  const slumsFlag = progressAddresses.slums!;
+  const slumsCounter = blocks.find((block) => block.some(({ address, name, operands }) =>
+    address === 0xb6ad && name === "COMPARE" && operands[0]?.word === slumsFlag && operands[1]?.low === 25));
+  if (!slumsCounter) throw new Error("Missing the original Slums encounter counter threshold");
+  const profile = openJournalProfile();
+  for (const count of [1, 2, 24, 254, 255]) {
+    writeGlobal(slumsFlag, count);
+    const lead = profile(slums.offer, (known) => questProgress(m, known, m.ds))[0];
+    if (count < 25 ? lead?.clearedEncounters !== count :
+      lead?.status !== (count === 254 ? "ready-to-report" : "turned-in")) {
+      throw new Error(`Slums journal did not follow counter value ${count}`);
+    }
+  }
   for (const commission of commissions) {
     const id = `commission-${commission.id}`;
     const lookup = (text: string) => discoveredLeads(text).find((lead) => lead.id === id);
