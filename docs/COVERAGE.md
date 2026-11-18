@@ -629,10 +629,12 @@ ID, 32-by-32 PNG dimensions, and position against the guest tile trace.
 The full-viewport overlay is hidden in those views. The combat check
 requires both facings of the kobold's own sprite and verifies their
 placement at both browser widths.
-The Chrome replay also injects image load failures on the live battle
-frame. A missing viewport image reveals the individual sprites, and
-a missing sprite restores the intact guest framebuffer for that frame.
-The next frame can display enhanced artwork again.
+The Chrome replay injects a prototype viewport image into the live
+battle frame and verifies that individual sprites take precedence.
+A frame with no individual replacements can use a prototype viewport
+image. The replay checks fallback from a failed viewport image and from
+a failed sprite, and verifies that the next frame can display enhanced
+artwork again.
 The replay verifies 22 Slums views assembled from 121 individual 32Ãƒâ€”32
 PNGs per view. It checks alignment, pixelated scaling, and the loaded web
 font at 430px and 1100px. The button and F10 preserve the complete guest

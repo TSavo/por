@@ -49,14 +49,14 @@ function showScreen() {
   const frame = useEnhanced ? view.enhancedFrame ?? view.frame : view.frame;
   const sceneArt = useEnhanced && !view.journal && !failedSceneArt.has(view) && view.art;
   screen.src = sceneArt || `data:image/png;base64,${frame}`;
-  const replacement = useEnhanced && !view.journal && !failedViewportArt.has(view) && view.viewportArt;
+  const placements = [...(view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
+  if (view.portrait) placements.push([24, 24, view.portrait]);
+  if (view.encounter) placements.push(view.encounter.slice(0, 3));
+  const replacement = useEnhanced && !view.journal && !placements.length && !failedViewportArt.has(view) && view.viewportArt;
   viewportArt.hidden = !replacement;
   if (replacement && viewportArt.getAttribute("src") !== replacement) viewportArt.src = replacement;
   tileArt.hidden = !useEnhanced || Boolean(sceneArt || view.journal || replacement);
   if (!tileArt.hidden) {
-    const placements = [...(view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
-    if (view.portrait) placements.push([24, 24, view.portrait]);
-    if (view.encounter) placements.push(view.encounter.slice(0, 3));
     tileArt.replaceChildren(...placements.map(([x, y, id, reflected]) => {
       const tile = document.createElement("img");
       tile.alt = "";

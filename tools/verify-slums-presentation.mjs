@@ -572,23 +572,29 @@ try {
       const live = state;
       const screen = document.querySelector("#screen");
       const layer = document.querySelector("#tile-art");
+      const viewport = document.querySelector("#viewport-art");
       try {
+        state = { ...live, viewportArt: "/art/unavailable-viewport", combatArt: [], battleTiles: [], tiles: [] };
+        showScreen();
+        const usesPrototype = !viewport.hidden && layer.hidden;
+        viewport.dispatchEvent(new Event("error"));
+        const clearsBrokenPrototype = viewport.hidden && !layer.hidden;
         state = { ...live, viewportArt: "/art/unavailable-viewport" };
         showScreen();
-        document.querySelector("#viewport-art").dispatchEvent(new Event("error"));
-        const keepsSprites = !layer.hidden && Boolean(layer.querySelector(".combat-sprite"));
+        const keepsSprites = viewport.hidden && !layer.hidden &&
+          Boolean(layer.querySelector(".combat-sprite"));
         layer.querySelector(".combat-sprite").dispatchEvent(new Event("error"));
         const restoresGuest = layer.hidden && document.querySelector("#game-text").hidden &&
           screen.getAttribute("src") === "data:image/png;base64," + live.frame;
         state = { ...live };
         showScreen();
-        return { keepsSprites, restoresGuest, resumesEnhancements: !layer.hidden &&
+        return { usesPrototype, clearsBrokenPrototype, keepsSprites, restoresGuest, resumesEnhancements: !layer.hidden &&
           Boolean(layer.querySelector(".combat-sprite")) };
       } finally {
         state = live;
         showScreen();
       }
-    })()`), { keepsSprites: true, restoresGuest: true, resumesEnhancements: true });
+    })()`), { usesPrototype: true, clearsBrokenPrototype: true, keepsSprites: true, restoresGuest: true, resumesEnhancements: true });
     await command("Input.dispatchKeyEvent", { type: "keyDown", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
     await command("Input.dispatchKeyEvent", { type: "keyUp", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
     await waitFor("the guest frame after Alt+Q", async () => {
