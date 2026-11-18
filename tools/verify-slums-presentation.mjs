@@ -498,6 +498,10 @@ try {
       assert.match(selectionPrompt, /WHOWILLBEMYCHAMPION/i);
       await advance("j");
       assert.ok(knows("swamp-champion-requested") && !knows("swamp-challenge-hostile"));
+      for (const key of ["j", "down", "s", "enter"]) await advance(key);
+      const battleMenu = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
+      assert.match(battleMenu, /ALDAHITPOINTS\d+AC\d+.*MOVEVIEWAIMUSEQUICKDONE/i);
+      await switchBothWays();
     }
     console.log("Verified the swamp elder's layered terrain and journal updates in Chrome. Capture:", directory);
   } else if (routeName === "swamp-approach") {

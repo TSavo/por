@@ -817,6 +817,8 @@ the friend-word challenge, entry 31, and the request for a champion.
 The two Chrome branches verify that accepting opens the original chooser
 and declining records Drythh's reaction, replacing the champion prompt
 with guidance for a hostile encounter.
+The acceptance replay selects Alda and reaches the original duel controls,
+then verifies that display switching preserves the opening combat state.
 It also checks the 192×320 elder sprite at the original 48×80 placement
 and verifies presentation switches in the encounter. The `swamp-ruins`
 replay loads the save made inside the ruins and checks 51 individual
