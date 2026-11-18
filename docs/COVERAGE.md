@@ -225,7 +225,9 @@ A fresh mixed-party replay creates five fighters and a human magic-user.
 At the Slums gate, the magic-user selects Sleep from her spell book and
 rests for four hours and fifteen minutes. The replay saves and reloads,
 casts Sleep at a kobold through the combat targeting menu, and verifies
-the party's victory and experience award.
+the party's victory and experience award. A second save and reload
+preserves the experience and the spent spell slot. The magic-user then
+memorizes Sleep again and rests to make it available for the next fight.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,

@@ -499,23 +499,36 @@ const mixedParty = await replay("31000000:1c0d,45000000:2e63", "50000000", [
   ...createFighters(names.slice(0, -1)), ...mageCreation, ...added, ...tour, ...camp,
 ], spellSaveDir);
 assert.match(visibleText(mixedParty), /alda.*brin.*cora.*dorn.*enna.*mira.*quit to dos/);
-const readySpell = await replay(loadSlotA, "85000000", [
-  "up", "enter", "enter", "enter", "e", "enter", ...Array(5).fill("end"), "m", "m",
-  (text) => assert.match(text, /mira's spells in spell book.*sleep/),
+const memorizeSleep = [
+  "m", "m",
+  (text) => assert.match(text, /mira's spells in spell book.*sleep.*can memorize: magic-user spells: 1/),
   ...Array(4).fill("end"), "m", "e", "enter",
   (text) => assert.match(text, /\*sleep.*memorize these spells/),
   "y", "r", "r",
+];
+const readySpell = await replay(loadSlotA, "85000000", [
+  "up", "enter", "enter", "enter", "e", "enter", ...Array(5).fill("end"), ...memorizeSleep,
   (text) => assert.match(text, /15,4 w 04:15/),
   "e", "s", "s", "b",
 ], spellSaveDir);
 assert.match(visibleText(readySpell), /quit to dos/);
-await replay(loadSlotB, "85000000", [
+const afterSpell = await replay(loadSlotB, "85000000", [
   ...Array(24).fill("up"), "c", "enter", "d", "d", "c",
   (text) => assert.match(text, /mira's spells in memory.*sleep/),
   "enter", ...Array(5).fill("n"),
   (text) => assert.match(text, /kobold hitpoints.*spell:sleep.*target/),
   "t", ...Array(8).fill("q"), "n",
   (text) => assert.match(text, /the party has won.*receives 5 experience points/),
+  "enter", "enter", "s", "e", "n", "e", "s", "s", "c",
 ], spellSaveDir);
-console.log("Created a magic-user, memorized Sleep, reloaded, and cast it at a kobold before winning the encounter.");
+assert.match(visibleText(afterSpell), /quit to dos/);
+await replay(loadSlotC, "85000000", [
+  ...Array(5).fill("end"), "v",
+  (text) => assert.match(text, /mira.*exp 5.*view:trade drop exit/),
+  "e", "e", "enter", ...memorizeSleep,
+  (text) => assert.match(text, /14,4 w 08:33/),
+  "c",
+  (text) => assert.match(text, /mira's spells in memory.*sleep/),
+], spellSaveDir);
+console.log("Cast Sleep at a kobold, won the encounter, and verified that reloading kept Sleep spent until the magic-user memorized it and rested again.");
 console.log("Replay save:", saveDir);
