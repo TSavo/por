@@ -1620,6 +1620,7 @@ if (process.argv[2] === "--textile-grishnak-checkpoint") {
     "j", (_text, frame) => {
       assert.match(frame.journal?.objective.nextStep ?? "", /grishnak at the bone altar.*battle loot.*choose unlock/i);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-grishnak-defeated"));
     }, "j",
     "enter", "enter",
     ...(healedSleep ? [

@@ -930,6 +930,12 @@ With `--healed-sleep`, the temple checkpoint first heals the party and
 prepares Mira's Sleep. The replay takes manual control of Mira, targets
 Grishnak, and verifies that the cast leaves her at 24 HP without a
 helpless marker. The fight still ends in defeat without watchdog recovery.
+The journal's post-victory objective was checked with the translated ECL
+setter and the original temple script. The battle points to treasure block
+38, which contains the brass key. The verified victory flag shifts the
+objective from fighting Grishnak to checking that loot and returning to
+the prisoner. The live encounter check keeps the victory hidden before
+combat. Claiming the key in a live victory remains open.
 
 The translated ECL setter check also passes the sealed and opened box
 states through the same journal profile used by the browser. The

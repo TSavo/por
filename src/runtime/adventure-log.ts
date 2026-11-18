@@ -103,6 +103,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("textile-prisoner-left")) nextStep = "Continue searching the western textile building for Cadorna's treasure.";
       else if (knows("textile-prisoner-freed")) nextStep = "Parlay with the freed prisoner. Make room in the party if you want him to join.";
       else if (carriedKey) nextStep = carriedKey.detail;
+      else if (knows("textile-grishnak-defeated") && (knows("textile-prison-key-needed") || knows("textile-padlocks-resisted"))) nextStep = "Check the loot from Grishnak's fight for the brass key. Take it back to the prisoner and choose Free, then Unlock.";
       else if (knows("textile-grishnak") && (knows("textile-prison-key-needed") || knows("textile-padlocks-resisted"))) nextStep = "Overcome Grishnak at the bone altar and check the battle loot for a key. Return to the chained prisoner and choose Unlock.";
       else if (knows("textile-prison-key-needed") || knows("textile-padlocks-resisted")) nextStep = "From the chained prisoner, head north through the guards' room and search the adjoining rooms for a key. Return to the prisoner and choose Unlock.";
       else if (knows("textile-prisoner")) nextStep = "Speak with the prisoner in the western building and find a way to open his padlocks. Read journal entry 47.";
@@ -245,6 +246,11 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   if ((base | segment) === 0) return [];
   const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
   const progress: JournalLead[] = [];
+  // The Textile House script sets this state after the temple encounter returns successfully.
+  if (global(0x4a74) === 2 && known.some(({ id }) => id === "textile-grishnak")) {
+    progress.push({ id: "textile-grishnak-defeated", title: "Grishnak defeated",
+      detail: "The fight at the bone altar is over. Check the battle loot for the key to the prisoner's padlocks." });
+  }
   for (const commission of commissions) {
     const id = `commission-${commission.id}`;
     if (!known.some((lead) => lead.id === id)) continue;

@@ -393,6 +393,30 @@ function checkCampaignJournal(): void {
   const ironBox = lines.find((line) => line.includes("ACROSS THE LOCK IS THE SEAL OF THE FAMILY OF CADORNA"))!;
   const boxLead = discoveredLeads(ironBox);
   const textileOffer = discoveredLeads(commissions.find(({ id }) => id === "textile")!.offer);
+  const grishnakScript = blocks.find((block) => block.some(({ operands }) =>
+    operands.some(({ text }) => text?.includes("I AM THE MIGHTY GRISHNAK"))));
+  const grishnakLine = lines.find((line) => line.includes("I AM THE MIGHTY GRISHNAK"));
+  const grishnakLoot = grishnakScript?.find(({ address, name }) => address === 0xa705 && name === "TREASURE");
+  const grishnakWin = grishnakScript?.find(({ address, name }) => address === 0xa722 && name === "SAVE");
+  if (!grishnakLine || grishnakLoot?.operands.at(-1)?.low !== 38 || grishnakWin?.operands[0]?.low !== 2 ||
+      grishnakWin.operands[1]?.word !== 0x4a74) {
+    throw new Error("Missing the original Grishnak treasure and completion records");
+  }
+  const treasure = parseDax("ITEM4.DAX", readGameFile(root, "ITEM4.DAX")).entries.find(({ id }) => id === 38);
+  if (Buffer.from(treasure?.data.subarray(6 * 63 + 1, 6 * 63 + 10) ?? []).toString("ascii") !== "Brass Key") {
+    throw new Error("The original Grishnak treasure does not contain the brass key");
+  }
+  const grishnakLeads = [...textileOffer, ...discoveredLeads(grishnakLine),
+    ...discoveredLeads("YOU HAVE NO KEY TO UNLOCK THE PADLOCKS.")];
+  for (const [state, instruction] of [[1, "Overcome Grishnak"], [2, "Check the loot from Grishnak's fight"]] as const) {
+    writeGlobal(0x4a74, state);
+    const objective = currentObjective([...grishnakLeads, ...questProgress(m, grishnakLeads, m.ds)], "commission-textile");
+    if (!objective.nextStep.startsWith(instruction) ||
+        questProgress(m, textileOffer, m.ds).some(({ id }) => id === "textile-grishnak-defeated")) {
+      throw new Error(`The Journal did not follow Grishnak's temple state ${state}`);
+    }
+  }
+  writeGlobal(0x4a74, 0);
   const textileAmbush = lines.find((line) => line.includes("A DRUM BEGINS TO BEAT AND HOBGOBLINS ATTACK"));
   if (!textileAmbush || textileOffer.some(({ id }) => id === "textile-courtyard-ambush") ||
       !currentObjective([...textileOffer, ...discoveredLeads(textileAmbush)], "commission-textile").nextStep.includes("Prepare for the hobgoblin ambush")) {
