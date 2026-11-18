@@ -13,8 +13,6 @@
     h2 { margin-top: 0; }
     button { background: #25303b; color: inherit; border: 1px solid #546577; padding: .55rem .8rem; border-radius: 5px; font: inherit; cursor: pointer; }
     button:disabled { opacity: .5; cursor: default; }
-    #game-menu { margin: .75rem 0; padding: 1rem; background: #17232e; border: 1px solid #8495a8; }
-    #game-menu button { margin-right: .5rem; }
     #screen { display: block; width: 100%; aspect-ratio: 8 / 5; image-rendering: pixelated; background: #000; }
     #play { position: relative; border: 1px solid #546577; }
     #journal { position: absolute; inset: 4%; overflow: auto; padding: clamp(12px, 3vw, 26px); background: #17232e; border: 1px solid #8495a8; }
@@ -31,16 +29,12 @@
   <main>
     <header>
       <h1>Pool of Radiance</h1>
-      <button id="menu-button" type="button" aria-controls="game-menu" aria-expanded="false" disabled>Game menu</button>
     </header>
-    <nav id="game-menu" aria-label="Game menu" hidden>
-      <button id="resume" type="button">Resume game</button>
-      <button id="toggle" type="button" aria-controls="journal" aria-expanded="false" disabled>Journal (J)</button>
-    </nav>
     <div id="play">
       <img id="screen" width="320" height="200" alt="Original game screen" tabindex="-1">
       <section id="journal" aria-label="Adventure journal" hidden>
         <h2>Adventure journal</h2>
+        <button id="close-journal" type="button">Return to game</button>
         <div id="objective"></div>
         <ul id="leads"></ul>
       </section>

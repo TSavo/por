@@ -1,30 +1,18 @@
 const screen = document.querySelector("#screen");
 const journal = document.querySelector("#journal");
-const menu = document.querySelector("#game-menu");
-const menuButton = document.querySelector("#menu-button");
-const resume = document.querySelector("#resume");
-const toggle = document.querySelector("#toggle");
+const closeJournal = document.querySelector("#close-journal");
 const objective = document.querySelector("#objective");
 const leads = document.querySelector("#leads");
 const status = document.querySelector("#status");
 let state = { sequence: -1 };
 let posting = false;
 
-function showMenu(open) {
-  menu.hidden = !open;
-  menuButton.setAttribute("aria-expanded", String(open));
-  (open ? resume : screen).focus();
-}
-
 function render() {
   if (state.frame) screen.src = `data:image/png;base64,${state.frame}`;
   const open = Boolean(state.journal);
   journal.hidden = !open;
-  toggle.setAttribute("aria-expanded", String(open));
-  toggle.textContent = open ? "Close journal (J)" : "Journal (J)";
-  if (open && !menu.hidden) showMenu(false);
   if (!open) {
-    if (document.activeElement === toggle || journal.contains(document.activeElement)) screen.focus();
+    if (journal.contains(document.activeElement)) screen.focus();
     return;
   }
   const heading = document.createElement("strong");
@@ -73,7 +61,7 @@ async function poll() {
     const changed = next.sequence !== state.sequence;
     state = next;
     if (changed) render();
-    menuButton.disabled = toggle.disabled = !state.ready || Boolean(state.stopped);
+    closeJournal.disabled = !state.ready || Boolean(state.stopped);
     status.textContent = state.stopped ?? (state.ready ? "Arrows to move or select. Enter to confirm." : "Game running…");
   } catch {
     status.textContent = "Waiting for the local game runner…";
@@ -85,29 +73,13 @@ const commands = {
   ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right",
   Enter: "enter", Escape: "escape", " ": "space", Backspace: "backspace",
 };
-toggle.addEventListener("click", () => {
-  showMenu(false);
-  void send("j");
-});
-menuButton.addEventListener("click", () => showMenu(menu.hidden));
-resume.addEventListener("click", () => {
-  showMenu(false);
-  if (state.journal) void send("j");
-});
+closeJournal.addEventListener("click", () => send("j"));
 window.addEventListener("keydown", (event) => {
   if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
   if (event.target instanceof HTMLButtonElement && ["Enter", " "].includes(event.key)) return;
   if (event.key.toLowerCase() === "j" && !event.shiftKey) {
     event.preventDefault();
-    if (!menu.hidden) showMenu(false);
     void send("j");
-    return;
-  }
-  if (!menu.hidden) {
-    if (event.key === "Escape") {
-      event.preventDefault();
-      showMenu(false);
-    }
     return;
   }
   if (state.journal) {

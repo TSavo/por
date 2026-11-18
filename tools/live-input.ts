@@ -59,31 +59,34 @@ export function liveInput(startAt: number, journal: () => JournalLead[]) {
       console.log(`${number}${lead.title}\n  ${lead.detail}`);
     }
   };
-  return (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
-    if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
-    let journalOpen = false;
-    showFrame();
+  let inCampMenu = false;
+  const openJournal = () => {
+    showJournal(journal());
     while (true) {
-      if (!browser) process.stdout.write(journalOpen ? "Journal [J to close, track N]> " : "Game [J journal, :quit, key]> ");
+      if (!browser) process.stdout.write("Journal [J to close, track N]> ");
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
-      if (command.toLowerCase() === "j") {
-        journalOpen = !journalOpen;
-        if (journalOpen) showJournal(journal());
-        else showFrame();
-        continue;
-      }
-      if (journalOpen) {
-        const match = /^track (\d+)$/i.exec(command);
-        if (match) {
-          const leads = journal();
-          const available = leads.filter(isOpenObjective);
-          const lead = available[Number(match[1]) - 1];
-          if (lead) {
-            trackedId = lead.id;
-            showJournal(leads);
-          } else console.log("Choose a number from the journal's active objectives.");
-        }
+      if (command.toLowerCase() === "j" || command === "escape") return;
+      const match = /^track (\d+)$/i.exec(command);
+      if (!match) continue;
+      const leads = journal();
+      const lead = leads.filter(isOpenObjective)[Number(match[1]) - 1];
+      if (lead) {
+        trackedId = lead.id;
+        showJournal(leads);
+      } else console.log("Choose a number from the journal's active objectives.");
+    }
+  };
+  const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
+    if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
+    showFrame();
+    while (true) {
+      if (!browser) process.stdout.write("Game [J journal, :quit, key]> ");
+      const command = readCommand();
+      if (command === undefined || command === ":quit") throw new Error("Live session closed");
+      if (!inCampMenu && command.toLowerCase() === "j") {
+        openJournal();
+        showFrame();
         continue;
       }
       const key = getKey(command === "" ? "enter" : command.startsWith("key ") ? command.slice(4) : command);
@@ -100,4 +103,5 @@ export function liveInput(startAt: number, journal: () => JournalLead[]) {
       return;
     }
   };
+  return { requestKey, openJournal, setCampMenu: (active: boolean) => { inCampMenu = active; } };
 }

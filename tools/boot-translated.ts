@@ -88,7 +88,40 @@ if (liveAt !== undefined && (!Number.isSafeInteger(liveStep) || liveStep < 0)) {
   throw new Error("POR_LIVE_AT must be a nonnegative integer");
 }
 if (liveAt !== undefined) mkdirSync("out", { recursive: true });
-const cpu = fresh(liveAt === undefined ? undefined : liveInput(liveStep, journal));
+const input = liveAt === undefined ? undefined : liveInput(liveStep, journal);
+const cpu = fresh(input?.requestKey);
+if (input) {
+  const camp = loadedSlices.find((slice) => slice.index === 15);
+  const menus = loadedSlices.find((slice) => slice.index === 26);
+  const select = menus?.procs.get(0xe4);
+  const address = 0x791c;
+  const prefixOffset = 0x1e31;
+  const menu = Buffer.from("Save View Magic Rest Alter Exit", "ascii");
+  const prefix = Buffer.from("Camp: ", "ascii");
+  if (camp && menus && select && cpu.mem[address] === menu.length &&
+      menu.every((byte, i) => cpu.mem[address + i + 1] === byte) &&
+      cpu.read8(camp.loadPara, prefixOffset) === prefix.length &&
+      prefix.every((byte, i) => cpu.read8(camp.loadPara, prefixOffset + i + 1) === byte)) {
+    const extended = Buffer.from(`${menu.toString()} Journal`, "ascii");
+    cpu.mem[address] = extended.length;
+    cpu.mem.set(extended, address + 1);
+    // The six-character Camp prefix would clip the last choice on the 40-column row.
+    cpu.write8(camp.loadPara, prefixOffset, 0);
+    menus.procs = new Map(menus.procs);
+    menus.procs.set(0xe4, (m) => {
+      const fromCamp = m.read16(m.ss, m.sp) === 0x1efa && m.read16(m.ss, m.sp + 2) === camp.loadPara;
+      if (!fromCamp) { select(m); return; }
+      input.setCampMenu(true);
+      try {
+        select(m);
+        // The shared selector returns the initial of the chosen item in AL.
+        if (m.al === 0x4a) input.openJournal();
+      } finally {
+        input.setCampMenu(false);
+      }
+    });
+  }
+}
 if (liveAt !== undefined) {
   attachQuickRecovery(cpu, loadedSlices, (partyMember) => console.log(
     partyMember

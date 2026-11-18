@@ -98,7 +98,9 @@ $env:POR_LIVE_AT = '500000000'
 npx tsx tools/boot-translated.ts
 ```
 
-Type `j` and press Enter to open or close the journal. The runner prints its
+The translated Encamp menu includes **Journal**. Press `j` while camped to
+select it through the guest menu. Closing the journal returns to the camp menu.
+Outside camp, `j` opens it as a shortcut. The runner prints its
 leads and updates `out/por-live.png` with the current game or journal frame.
 While the journal is open, type `track N` to follow a numbered objective.
 Enter a game key by name or use `key j` to send J to DOS. Type `:quit` to end
