@@ -146,11 +146,11 @@ for (const replacement of replacements) {
 }
 function replacementPreview({ id, preview, width, height, encounter, file }: typeof replacements[number]) {
   return `<div class="preview"><a href="${preview}" target="_blank" rel="noopener"><img loading="lazy" src="${preview}" alt="${escape(file)}"></a>` +
-    `<small>Enhanced � ${width}�${height} � ${escape(id)}${encounter ? ` � area ${encounter.area} at (${encounter.x},${encounter.y})` : ""}</small>` +
+    `<small>Enhanced · ${width}×${height} · ${escape(id)}${encounter ? ` · area ${encounter.area} at (${encounter.x},${encounter.y})` : ""}</small>` +
     `<small>${escape(file)}</small></div>`;
 }
 const runtimeGallery = runtimeReplacements.length ?
-  `<details data-category="Runtime artwork"><summary>Runtime artwork � ${runtimeReplacements.length} replacements</summary><div class="grid">` +
+  `<details data-category="Runtime artwork"><summary>Runtime artwork · ${runtimeReplacements.length} replacements</summary><div class="grid">` +
   runtimeReplacements.map((entry) => `<figure data-visual="true" data-enhanced="true">${replacementPreview(entry)}</figure>`).join("") +
   "</div></details>" : "";
 const gallery = archives.map(({ file, category, entries }) =>
@@ -162,7 +162,8 @@ const gallery = archives.map(({ file, category, entries }) =>
     (entry.pictures ?? []).map((pic, index) => {
       const target = entry.enhancedFrames?.[index];
       return `<div class="preview"><a href="${escape(pic.preview)}" target="_blank" rel="noopener"><img loading="lazy" src="${escape(pic.preview)}" alt="${file} #${entry.id}, ${pic.width}×${pic.height}, ${pic.frames} frames"></a>` +
-        `<small>${pic.width}×${pic.height}${target ? ` → ${target.width}×${target.height} at 4×` : ""}${pic.frames > 1 ? ` per frame · ${pic.frames} frames` : ""}</small></div>`;
+        `<small>${pic.width}×${pic.height}${target ? ` → ${target.width}×${target.height} at 4×` : ""}${pic.frames > 1 ? ` per frame · ${pic.frames} frames` : ""}</small>` +
+        `<small>Directory entry ${entry.directoryIndex} · member ${index}${pic.selector === undefined ? "" : ` · selector ${pic.selector}`} · origin (${pic.x}, ${pic.y})</small></div>`;
     }).join("") + enhanced.map(replacementPreview).join("") +
     (referencesByPicture.get(`${file}:${entry.id}`) ?? []).map((ref) =>
       `<p>Script candidate ${ref.file} #${ref.script} · ${ref.address.toString(16)}${ref.nearbyText ? ` · ${escape(ref.nearbyText)}` : ""}</p>`).join("") +
@@ -182,14 +183,14 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
 <label>Category <select id="category"><option value="">All categories</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
 <label><input id="include-data" type="checkbox"> Include composition and gameplay data</label>
-<label><input id="enhanced-only" type="checkbox"> Has enhanced artwork</label>
+<label>Replacement <select id="replacement"><option value="">Any</option><option value="linked">Has linked artwork</option><option value="missing">No linked artwork</option></select></label>
 <p id="matches" role="status"></p>
 ${runtimeGallery}
 ${gallery}
 <script>
 const search = document.querySelector('#search');
 const category = document.querySelector('#category');
-const enhancedOnly = document.querySelector('#enhanced-only');
+const replacement = document.querySelector('#replacement');
 const includeData = document.querySelector('#include-data');
 const archives = [...document.querySelectorAll('details')].map((archive) => ({ archive,
   entries: [...archive.querySelectorAll('figure')].map((figure) => ({ figure, text: figure.textContent.toLowerCase() })) }));
@@ -200,11 +201,14 @@ function filter() {
     const categoryMatches = !category.value || archive.dataset.category === category.value;
     let visible = 0;
     for (const {figure, text} of entries) {
-      figure.hidden = !categoryMatches || (!includeData.checked && figure.dataset.visual !== 'true') || (enhancedOnly.checked && figure.dataset.enhanced !== 'true') || !text.includes(query);
+      const visual = figure.dataset.visual === 'true';
+      const linked = figure.dataset.enhanced === 'true';
+      const replacementMatches = replacement.value === 'missing' ? visual && !linked : replacement.value !== 'linked' || linked;
+      figure.hidden = !categoryMatches || (!includeData.checked && !visual) || !replacementMatches || !text.includes(query);
       if (!figure.hidden) visible++;
     }
     archive.hidden = !visible;
-    if (query || category.value || enhancedOnly.checked) archive.open = Boolean(visible);
+    if (query || category.value || replacement.value) archive.open = Boolean(visible);
     blocks += visible;
   }
   document.querySelector('#matches').textContent = blocks + ' matching blocks';
@@ -212,7 +216,7 @@ function filter() {
 search.addEventListener('input', filter);
 category.addEventListener('change', filter);
 includeData.addEventListener('change', filter);
-enhancedOnly.addEventListener('change', filter);
+replacement.addEventListener('change', filter);
 filter();
 </script></html>\n`);
 writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, embeddedVisuals: [
