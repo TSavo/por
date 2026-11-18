@@ -249,6 +249,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       detail: "Rolf says to read the proclamations at City Hall and ask the clerk about commissions.",
     });
   }
+  if (text.includes("BEHIND THESE DOORS ARE THE SPECIAL TRAINING SCHOOLS")) {
+    leads.push({ id: "phlan-training-schools", title: "Training in New Phlan",
+      detail: "Rolf showed the party where adventurers train. Return to the training schools when a character is ready to advance." });
+  }
+  if (text.includes("MAGIC USERS AND CLERICS TO GO NORTH AND FIGHTERS AND 'ROGUES' TO GO EAST")) {
+    leads.push({ id: "phlan-training-directions", title: "Training school directions",
+      detail: "From the notices, go north to train magic users or clerics. Go east to train fighters or rogues." });
+  }
+  if (text.includes("MAGIC USERS TO GO THROUGH THE EAST DOOR AND CLERICS TO GO THROUGH THE WEST DOOR")) {
+    leads.push({ id: "phlan-training-north", title: "Doors at the northern training school",
+      detail: "From the sign, use the east door for magic users and the west door for clerics." });
+  }
   if (text.includes("THE COUNCIL IS DEVELOPING A PLAN TO OPEN UP THE SEA LANES")) {
     leads.push({
       id: "harbor-trade",
