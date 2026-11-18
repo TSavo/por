@@ -148,6 +148,9 @@ chain mail for each fighter, readies both through View and Items, and saves
 to slot B. A fresh runner loads B and verifies both items are still ready
 in every character's inventory. The equipped party then walks back through
 the west gate and saves in the Slums at (15,4), in slot C.
+The replay reloads C, wins the kobold encounter through the original combat
+menus, shares the coins, and saves to slot D. After reloading D it checks
+that all six fighters are present and that Alda retained 5 XP and 11 copper.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,

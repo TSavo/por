@@ -125,4 +125,25 @@ for (const index of names.keys()) assert.ok(slumsSlot.party[`SAVE\\CHRDATC${inde
 console.log("Created six characters, completed Rolf's tour, saved and reloaded, and entered the Slums.");
 console.log("Bought and readied hand axes and chain mail for all six fighters, then verified the gear after reloading slot B.");
 console.log("Returned to the Slums with the equipped party and saved at the gate in slot C.");
+
+const loadSlotC = "31000000:1c0d,45000000:266c,52000000:2e63";
+const battleSave = await replay(loadSlotC, "85000000", [
+  ...Array(24).fill("up"),
+  (text) => assert.match(text, /surprised a party of kobolds/),
+  "c", "enter",
+  (text) => assert.match(text, /hand axe.*move view aim use quick done/),
+  ...Array(13).fill("q"),
+  (text) => assert.match(text, /continue battle/),
+  "n",
+  (text) => assert.match(text, /the party has won.*receives 5 experience points/),
+  "enter", "enter", "s", "e", "n", "e", "s", "s", "d",
+]);
+assert.match(visibleText(battleSave), /quit to dos/);
+const loadSlotD = "31000000:1c0d,45000000:266c,52000000:2064";
+const battleReload = await replay(loadSlotD, "85000000", [
+  (text) => expectParty(text),
+  "v", "v",
+]);
+assert.match(visibleText(battleReload), /alda.*copper 11.*exp 5.*armor chain mail/);
+console.log("Won the kobold encounter and verified Alda's 5 XP and 11 copper after reloading slot D.");
 console.log("Replay save:", saveDir);
