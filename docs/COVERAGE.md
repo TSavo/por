@@ -496,11 +496,12 @@ and records Skullcrusher's mark. The Theurgist opens the first lock with
 Knock, and slot B reloads outside the prison with Mira's Sleep ready.
 The party blesses again, moves the Curate to the front, and has Mira cast
 Sleep on the leader with a long bow. The prison battle awards 94 XP each.
-The party takes a long sword, reaches the prisoner, and tries the padlocks.
+The party takes five long swords, reaches the prisoner, and tries the padlocks.
 Reloading slot E confirms the key-search lead with the secret-door clue
 still hidden. From slot E the Curate rests, heals four characters, and
-prepares Hold Person. Alda readies the looted sword and the party saves
-outside the temple. After reloading, Mira prepares Sleep while the Curate
+prepares Hold Person. Alda, Brin, Cora, Dorn, and Enna ready the looted
+swords and verify that all five remain readied after reloading outside the
+temple. Mira then prepares Sleep while the Curate
 prepares Bless and four cures in the same rest. The second healing round
 raises Alda and Cora to 6 HP and the Curate to 15 HP before the party
 reaches Grishnak. The replay also approaches through the east entrance at

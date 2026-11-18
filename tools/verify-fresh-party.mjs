@@ -159,7 +159,10 @@ async function verifyUninterruptedCourtyard(checkpoint) {
     (text) => assert.match(text, /the party has won.*receives 94 experience points/),
     "enter", "enter", "end", "t", "i",
     (text) => assert.match(text, /loot long sword.*items: take exit/),
-    "t", "e", "e", "e", "n", "right", "up", "left", "up", "b", "enter",
+    "t", "e", "e",
+    // The first two entries left in the loot list are bows.
+    ...Array.from({ length: 4 }, () => ["end", "t", "i", "end", "end", "t", "e", "e"]).flat(),
+    "e", "n", "right", "up", "left", "up", "b", "enter",
     (text) => assert.match(text, /2,15 s.*muscular man locked in chains.*entry 47/),
     "enter", "f", "u",
     (text) => assert.match(text, /you have no key to unlock the padlocks/),
@@ -184,13 +187,21 @@ async function verifyUninterruptedCourtyard(checkpoint) {
     "end", "enter", "end", "enter", // Mira
     "e", "e", "e",
     (text) => assert.match(text, /brin 1 6.*cora 3 1.*enna 2 5.*mira 10 5/),
-    "end", "v", "i", "end", "end", "end", "r",
-    (text) => assert.match(text, /alda's items.*yes long sword/),
-    "e", "e", "right", "right", "up", "up", "b",
+    ...names.slice(0, 5).flatMap((name) => [
+      "end", "v", "i", "end", "end", "end", "r",
+      (text) => assert.match(text, new RegExp(`${name}'s items.*yes long sword`)),
+      "e", "e",
+    ]),
+    "right", "right", "up", "up", "b",
     (text) => assert.match(text, /2,13 n.*blood smeared/),
     "e", "s", "s", "i",
   ]);
   assert.match(visibleText(templeSave), /quit to dos/);
+  await replay(loadSlot("1769"), "85000000", names.slice(0, 5).flatMap((name) => [
+    "end", "v", "i",
+    (text) => assert.match(text, new RegExp(`${name}'s items.*yes long sword`)),
+    "e", "e",
+  ]));
   const templePreparation = [
     "e", "m", "m", "m", "end", "m", "end", "end", "m", "m", "m", "m", "e", "enter",
     (text) => assert.match(text, /memorized.*\*bless(?: \*cure light wounds){4}/),
