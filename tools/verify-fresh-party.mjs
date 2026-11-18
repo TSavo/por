@@ -255,4 +255,45 @@ await replay(loadSlotJ, "85000000", [
   (text) => assert.match(text, /alda.*exp 696/),
 ]);
 console.log("Returned the potion, collected Ohlo's reward and verified the journal and XP after reloading slot J.");
+
+const backToNewPhlan = [
+  "left", "up", "up", "left", ...Array(5).fill("up"), "right", ...Array(5).fill("up"),
+  "right", "up", "left", "up", "right", "up", "up", "up", "right", ...Array(4).fill("up"),
+  "f", "up", "up", "up", "left", "up", "left", "up", "up", "up", "right", "right", "f", "right", "up",
+  "up", "enter", "enter",
+  (text) => assert.match(text, /0,4 e/),
+];
+const hearCouncil = [
+  "up", "up", "up", "enter", "up", "up", "up", "up", "left", "up", "up",
+  "enter", "enter", "enter",
+  (text) => assert.match(text, /sokal keep on thorn island must be cleared/),
+  "enter", "enter",
+];
+const takeBoat = [
+  "right", "right", "up", "right", "up", "up", "enter", "enter", "right",
+  ...Array(6).fill("up"), "left", "up", "right", "up", "left", "up", "enter", "enter",
+  (text) => assert.match(text, /only boat.*sokal keep.*end of the pier/),
+  "right", ...Array(4).fill("up"), "enter", "enter", "enter",
+  (text) => assert.match(text, /boat disembarks you at sokal keep/),
+  "enter", "enter",
+];
+const checkSokal = (_text, frame) => {
+  const leads = frame.journal?.leads ?? [];
+  assert.ok(leads.some((lead) => lead.id === "commission-sokal"));
+  assert.ok(leads.some((lead) => lead.id === "sokal-arrival"));
+  assert.ok(leads.some((lead) => lead.id === "commission-ohlo" && lead.status === "turned-in"));
+};
+const sokalSave = await replay(loadSlotJ, "85000000", [
+  ...backToNewPhlan, ...hearCouncil, ...takeBoat,
+  "j", checkSokal, "j", "e", "s", "s", "a",
+]);
+assert.match(visibleText(sokalSave), /quit to dos/);
+await replay(loadSlotA, "85000000", [
+  (text) => {
+    expectParty(text);
+    assert.match(text, /8,14 n/);
+  },
+  "j", checkSokal,
+]);
+console.log("Heard the council's commissions, took the boat to Sokal Keep and reloaded the arrival in slot A.");
 console.log("Replay save:", saveDir);

@@ -175,6 +175,11 @@ pending while the original treasure screen awards 691 XP per character.
 After sharing the coins and closing the treasure menu, the party saves in
 slot J. A fresh runner confirms the journal marks the commission turned in,
 records what happened when Ohlo drank the potion, and shows Alda at 696 XP.
+From J, the party walks back to New Phlan, hears the first council commissions
+at City Hall, and follows the harbor master's directions to the pier. The
+original boat transition lands all six on Thorn Island at (8,14). The replay
+reuses slot A for this arrival and verifies that the council offer, island
+arrival, and completed Ohlo commission survive reload.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
