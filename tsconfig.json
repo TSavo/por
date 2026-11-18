@@ -7,10 +7,10 @@
     "noEmit": true,
     "skipLibCheck": true,
     "lib": ["ES2022", "DOM"],
-    "types": ["vite/client", "node"],
+    "types": ["node"],
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "useDefineForClassFields": true
   },
-  "include": ["src", "tools", "vite.config.ts"]
+  "include": ["src", "tools"]
 }

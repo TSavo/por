@@ -15,7 +15,7 @@ Done, from this game's bytes:
 - Mechanical translator `tools/tp_translate.py`. 30 procedures in overlay slice 7 and 5 System-unit routines emitted as instruction switches.
 - Verified by execution: FillChar (`5bb:16b5`) and the ECL operand fetch (`ovl07_0000`).
 
-Still scaffolding, and still what the browser draws with: `src/lib/dax.ts`, `ecl.ts`, `picture.ts`, `world.ts`, `files.ts`. They are not the port.
+Asset inspection and export use the analysis tools in `src/lib/dax.ts`, `ecl.ts`, `picture.ts`, `world.ts`, and `files.ts`. The browser draws the translated runtime's EGA output.
 
 Not done:
 

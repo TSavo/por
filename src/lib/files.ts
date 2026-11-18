@@ -1,4 +1,4 @@
-/** SCAFFOLDING loader used by the browser shell. Not the port. */
+/** Game file loader for asset inspection and export tools. */
 import { parseDax, type DaxFile } from "./dax.js";
 import { scriptFromBlock, type Script } from "./ecl.js";
 import { decodePicture, isPicture, type Picture } from "./picture.js";

@@ -41,12 +41,12 @@ Generated:
 | `src/runtime/far.ts` | far calls, resident image lookup, and the `CD 3F` stub dispatch |
 | `src/runtime/overlay.ts` | copies each slice to its own segment above the emulated heap and runs the translated procedure with that CS |
 | `src/runtime/dos.ts` | the `int 21h` services the System unit calls, including an advancing DOS clock, plus keyboard `int 16h` and console output |
-| `src/lib/ega.ts`, `src/main.ts`, `src/style.css` | presentation, classic and upgraded |
+| `src/runtime/video.ts`, `tools/browser-play.ts`, `tools/play.html`, `tools/play.js` | EGA and browser presentation for the translated runtime |
 | `src/lib/assets.ts` | asset ids for the upgraded override manifest |
 
 ## What is still scaffolding
 
-`src/lib/dax.ts`, `picture.ts`, `ecl.ts`, `world.ts`, and `files.ts` are hand-written decoders. The browser still uses them to draw the title and the 3D window. They are marked as scaffolding at the top of each file and are not the port.
+`src/lib/dax.ts`, `picture.ts`, `ecl.ts`, `world.ts`, and `files.ts` support asset inspection, image export, and ECL analysis.
 
 The translated entry runs through the former insert-disk loop. It opens `GAME.OVR`, `POOL.CFG`, `8X8D1.DAX`, `SQRPACI.DAX`, `COMSPR.DAX`, `ITEMS`, and `TITLE.DAX`, then reaches title rendering. The filename corruption was caused by the translation harness preloading later overlay slices inside Turbo Pascal's heap; ordinary `GetMem` calls overwrote slice 36's CS-relative strings. Resident translated slices now use a backing arena above segment `0x9000`. DOS `Get Time` also advances deterministically so the game's delay loop can finish. The current boot guard is the 30-million-instruction budget during title work; the captured frame is still blank. Calling `ovl07_0353` on a fresh machine, without startup state, currently stops at an untranslated resident far call.
 

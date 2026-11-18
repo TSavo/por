@@ -2,7 +2,7 @@
 
 Pool of Radiance is one game. The rules, the script, and the save file do not know which way the screen is drawn. Classic mode and the later upgraded mode are two presentations of that same state, and the player can swap them at any moment, including mid-combat, without the party, the map, or the script noticing.
 
-This is the same idea as Secret of Monkey Island: Special Edition's F10 switch. Phase 1 builds the seam and the classic side. It does not ship new art.
+The browser player in `tools/browser-play.ts` displays the EGA framebuffer from the translated DOS runtime and feeds player input back to it. The design below describes the planned upgraded presentation over that same runtime.
 
 ## Two layers
 
@@ -22,7 +22,7 @@ pixels, sound, widgets
 
 `GameSession` is the only place that changes state. A presentation may ask it to move, turn, or step the script. It may not keep a second copy of those facts. F10 flips `mode` and redraws. The session object is the same object.
 
-The browser shell in `src/main.ts` is the host. It owns the key bindings. Arrow keys call `canStep` and then update `x`, `y`, and `dir` on the session. F10 only assigns `mode`. The ECL stepper calls `EclMachine.step` and does not look at which chrome is on screen.
+The browser player feeds game keys to the translated runtime as BIOS keyboard input. The guest owns movement, ECL execution, and combat.
 
 ## Asset ids
 
@@ -45,7 +45,7 @@ Every picture the classic renderer can show has an id that does not depend on pi
 
 A missing upgrade is not an error. The town still renders. New campaigns add art by dropping files into `upgrades/` and listing ids. They do not fork the renderer.
 
-Phase 1 wires the manifest and the lookup. The manifest ships empty, so upgraded mode is the same pixels inside different chrome. That is deliberate: the chrome swap is the proof that presentation can change while the viewport state stays put.
+The manifest and asset-id helpers are groundwork for integrating overrides with the translated renderer.
 
 ## What is allowed to know about pixels
 
@@ -55,7 +55,6 @@ Phase 1 wires the manifest and the lookup. The manifest ships empty, so upgraded
 | `src/lib/world.ts` `canStep`, `wallType`, `parseGeo` | No | Map |
 | `src/lib/world.ts` `renderViewport` | Yes | Reads the map, does not change it |
 | `src/lib/picture.ts`, `dax.ts` | Yes | No |
-| `src/main.ts` classic / upgraded class on `<body>` | Chrome only | Calls into the session |
 
 `renderViewport` is classic output. An upgraded viewport, when someone draws one, must call the same `wallType` queries and the same party position. It may replace glyphs via the asset id. It may not invent a different wall.
 

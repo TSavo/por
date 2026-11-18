@@ -1,10 +1,8 @@
 # Pool of Radiance
 
-A port of SSI's 1988 Turbo Pascal game. Game procedures are translated instruction by instruction from `START.EXE` and `GAME.OVR` (`TPOV` overlays). The hand-written pieces are the 8086/DOS stand-in and the two presentations (classic EGA and the upgraded chrome). See [docs/PORT.md](docs/PORT.md) and [docs/COVERAGE.md](docs/COVERAGE.md).
+A port of SSI's 1988 Turbo Pascal game. Game procedures are translated instruction by instruction from `START.EXE` and `GAME.OVR` (`TPOV` overlays). The browser player displays the translated game's EGA output and includes the party journal. See [docs/PORT.md](docs/PORT.md) and [docs/COVERAGE.md](docs/COVERAGE.md).
 
 The game files are copyrighted. They are not in this repository. Put them in a directory and point the tools at it. `gamedata/` is gitignored.
-
-This is phase 1: the DAX and ECL formats, a disassembler, image export, and a browser shell that shows the title page and one 3D area. The rules and the pixels are already separate, so a later upgraded presentation can replace art by id without a second copy of the game. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [ROADMAP.md](ROADMAP.md).
 
 ## Run it
 
@@ -16,24 +14,7 @@ npm run play
 
 Open [the local game](http://127.0.0.1:43124) to play the translated game. In the game screen, choose **Encamp → Journal** to see what the party knows. **J** also opens the journal during play. Select **Track** next to a quest to make it the current objective. Press **J** or **Escape** to return to play. The journal persists in a separate party profile. Set `POR_JOURNAL_PROFILE` to select a different profile.
 
-## Presentation prototype
-
-```bash
-npm run dev
-```
-
-The dev server listens on port **43123**. Open the URL it prints. If `POR_GAMEDATA` is unset, `./gamedata` is used, including one nested folder such as `gamedata/pool`.
-
-Keys:
-
-| Key | Action |
-| --- | --- |
-| F10 | Classic presentation / upgraded presentation. Same party, same square. |
-| Arrows | Turn and step. A wall blocks the step. |
-| T | Title page |
-| N | One ECL instruction |
-
-Upgraded mode reads `upgrades/manifest.json`. The file ships empty, so every picture falls back to the decoded EGA asset. Drop a PNG in `upgrades/` and name its asset id in the manifest to override just that picture. See [upgrades/README.md](upgrades/README.md).
+`npm run dev` launches the same game. If `POR_GAMEDATA` is unset, the runner checks `./gamedata`, including one nested folder such as `gamedata/pool`.
 
 ## Tools
 
