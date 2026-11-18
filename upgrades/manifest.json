@@ -137,7 +137,9 @@
     "battle-tile:6405d2a9e54ca155620da12e312821ce44c220d77ba96190e5000334dcc18c23": "courtyard-wall-straight-wall-joint-cap.png",
     "battle-tile:8985304486d5420dfcc6c6a3b7270d715e0cb692080117c00e4a8b8889d437a5": "courtyard-wall-straight-wall-joint-face.png",
     "battle-tile:7017ad68e268dc8818fa81dff0b0d4306d07b061bacc008c0c98006bf5cad700": "courtyard-wall-straight-wall-joint-base.png",
-    "battle-tile:ea5fa2f1be82998ceb7f7902c14bef6518748c46fa95fa001c2b2eb63fa3098f": "courtyard-wall-straight-wall-joint-end.png"
+    "battle-tile:ea5fa2f1be82998ceb7f7902c14bef6518748c46fa95fa001c2b2eb63fa3098f": "courtyard-wall-straight-wall-joint-end.png",
+    "battle-tile:cc359e487d9ad567f3d002b7781ac888c42b3b6e8638af676af0e73b11a8c7dd": "courtyard-wall-coping-return-foot.png",
+    "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
     "encounter:SPRIT4.DAX:34:0:0": {
