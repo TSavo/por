@@ -41,6 +41,8 @@ You can pass the game directory as the last argument instead of `POR_GAMEDATA`.
 
 The HTML art inventory counts linked source frames per archive block. Use the replacement filter to find blocks with zero, some, or all frames linked. Runtime artwork such as viewport tiles has its own section.
 
+Pass local gameplay traces after the game directory and output directory to add classic comparisons from captured exploration and battle tiles. For example, run `npx tsx tools/art-inventory.ts gamedata/pool out/art-inventory out/run/tile-inventory.jsonl`. The inventory checks each captured tile against its runtime hash and records its position and frame. Keep the traces and generated previews outside version control.
+
 After generating the inventory, run `python tools/audit-art-palette.py` with Pillow installed to count visible RGB colors across the artwork and by asset family. Use these counts to review color ramps. VGA is the visual style and the artwork can use any number of colors.
 
 Use `--output` to inspect a fresh translation alongside the checked-in runtime files. The translator writes its generated coverage report alongside that output. With the default TypeScript destination, the report goes to `out/translation-coverage.md`.

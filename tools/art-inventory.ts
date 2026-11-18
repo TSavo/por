@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseDax } from "../src/lib/dax.js";
 import { Frame } from "../src/lib/ega.js";
@@ -23,6 +23,7 @@ const families = [
 const gameData = findGameRoot(process.argv[2]);
 if (!gameData) throw new Error("Supply the path to the original game files or set POR_GAMEDATA");
 const output = process.argv[3] ?? "out/art-inventory";
+const tracePaths = process.argv.slice(4);
 const artScale = 4;
 mkdirSync(join(output, "sheets"), { recursive: true });
 
@@ -159,6 +160,28 @@ for (const { file: archive, entries } of archives) {
     }
   }
 }
+type TraceCell = [x: number, y: number, id: string, pixels?: string];
+const capturedTiles = new Map<string, { x: number; y: number; trace: string; frame: number; pixels: Buffer }>();
+for (const path of tracePaths) {
+  const raw = readFileSync(path, "utf8").trim();
+  if (!raw) continue;
+  const frames: (TraceCell[] | { cells?: TraceCell[] })[] = path.endsWith(".jsonl")
+    ? raw.split(/\r?\n/).map((line) => JSON.parse(line))
+    : JSON.parse(raw);
+  for (const [frame, record] of frames.entries()) {
+    for (const [x, y, id, hex] of Array.isArray(record) ? record : record.cells ?? []) {
+      if (!Number.isInteger(x) || !Number.isInteger(y) || !hex ||
+          !/^(?:0[0-9a-f]){64}$/.test(hex) || capturedTiles.has(id)) continue;
+      const hash = /^(?:tile:\d+:|battle-tile:)([a-f0-9]{64})$/.exec(id)?.[1];
+      if (!hash) continue;
+      const pixels = Buffer.from(hex, "hex");
+      if (createHash("sha256").update(pixels).digest("hex") !== hash) {
+        throw new Error(`Tile pixels do not match ${id} in ${path}, frame ${frame}`);
+      }
+      capturedTiles.set(id, { x, y, trace: path, frame, pixels });
+    }
+  }
+}
 const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
@@ -193,6 +216,8 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
       } : undefined);
   const tileHash = /^tile:\d+:(.+)$/.exec(id)?.[1];
   const sourceCandidates = tileHash && tileSources.get(tileHash) || undefined;
+  const capture = capturedTiles.get(id);
+  const capturedPlacement = capture && { x: capture.x, y: capture.y, trace: capture.trace, frame: capture.frame };
   let classicPreview;
   const reference = source ?? sourceCandidates?.[0];
   if (reference) {
@@ -207,8 +232,12 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
       original.blit(frameSlice(picture, part.frame), picture.width, picture.height, part.x, part.y);
     }
     classicPreview = exportClassicFrame(original, index);
+  } else if (capture) {
+    const original = new Frame(8, 8);
+    original.pixels.set(capture.pixels);
+    classicPreview = exportClassicFrame(original, index);
   }
-  return { id, preview, classicPreview, source, sourceCandidates, sourceParts, placement, ...metadata };
+  return { id, preview, classicPreview, source, sourceCandidates, sourceParts, placement, capturedPlacement, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();
 const runtimeReplacements = [];
@@ -223,7 +252,7 @@ for (const replacement of replacements) {
   matches.push(replacement);
   replacementsByBlock.set(key, matches);
 }
-function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source, sourceCandidates }: typeof replacements[number]) {
+function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source, sourceCandidates, capturedPlacement }: typeof replacements[number]) {
   const area = placement && "area" in placement ? ` · area ${placement.area}` : "";
   const origin = placement && "x" in placement ? ` · origin (${placement.x}, ${placement.y})` : "";
   const extent = placement && "width" in placement ? ` · display ${placement.width}×${placement.height}` : "";
@@ -234,6 +263,7 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
   return `<div class="preview">${images}` +
     `<small>Enhanced · ${width}×${height} · ${escape(id)}${area}${origin}${extent}</small>` +
     `<small>${escape(file)}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small>` +
+    (capturedPlacement ? `<small>Captured at (${capturedPlacement.x}, ${capturedPlacement.y}) · ${escape(capturedPlacement.trace)} frame ${capturedPlacement.frame}</small>` : "") +
     (sourceCandidates ? `<details class="sources"><summary>Exact pixel matches (${sourceCandidates.length})</summary>` +
       sourceCandidates.map(({ archive, block, member, frame }) =>
         `<small>${escape(archive)} #${block} · member ${member}, frame ${frame}</small>`).join("") + "</details>" : "") + "</div>";
