@@ -5,10 +5,11 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
-const routes = ["kobolds", "orcs", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "castle-ending"];
+const routes = ["kobolds", "orcs", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
+const dragon = routeName === "castle-dragon";
 const orcs = routeName === "orcs";
 const armory = routeName === "sokal-armory";
 const patrolCombat = routeName === "sokal-patrol-combat";
@@ -19,7 +20,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)), "Both options 
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : orcs || ending ? "C.json" : "A.json");
+const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : dragon ? "B.json" : orcs || ending ? "C.json" : "A.json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
 const frameDirectory = resolve(directory, "tile-frames");
@@ -53,7 +54,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
-    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (landing ? "246a" : armory ? "2064" : orcs || ending ? "2e63" : "1e61"),
+    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (landing ? "246a" : armory ? "2064" : dragon ? "3062" : orcs || ending ? "2e63" : "1e61"),
     POR_LIVE_AT: "85000000", POR_BOOT_STEPS: "450000000",
   },
   stdio: ["ignore", "ignore", "inherit"],
@@ -152,7 +153,27 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  if (ending) {
+  if (dragon) {
+    for (const key of ["right", ...Array(4).fill("up"), ...Array(3).fill("enter")]) await advance(key);
+    assert.equal(frame.portrait, "portrait:PIC5.DAX:66:0:0");
+    await waitFor("the dragon dialogue portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    for (const key of ["enter", "enter", ...Array(6).fill("a"), "enter", "enter", "q"]) await advance(key);
+    const sprite = frame.combatArt.find(([, , id]) => id === "combat:CPIC5.DAX:66");
+    assert.ok(sprite);
+    const [x, y, , reflected, highlighted, size] = sprite;
+    assert.equal(highlighted, true);
+    assert.equal(size, 48);
+    await waitFor("the selected 4× dragon sprite", () => run(`(() => {
+      const img = [...document.querySelectorAll(".combat-sprite")].find(img => img.src.endsWith("CPIC5.DAX:66"));
+      return state.sequence === ${frame.sequence} && img?.naturalWidth === 192 && img.naturalHeight === 192 &&
+        parseFloat(img.style.left) === ${x / 3.2} && parseFloat(img.style.top) === ${y / 2} &&
+        parseFloat(img.style.width) === 15 && parseFloat(img.style.height) === 24 &&
+        img.style.transform === ${JSON.stringify(reflected ? "scaleX(-1)" : "")};
+    })()`));
+    await switchBothWays();
+    console.log("Verified the castle dragon in dialogue and selected combat, with state-preserving mode switches.");
+  } else if (ending) {
     await advance("j");
     assert.equal(frame.journal?.objective.title, "Phlan is free");
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-castle")?.status, "turned-in");

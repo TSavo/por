@@ -650,6 +650,12 @@ arena master once the party has heard that offer. A separate approach
 with the Swordsman and Warrior from the arena reached the courtyard at
 `8,5 W` and ended in defeat on Quick.
 
+Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_B PATH_TO_CHROME castle-dragon`
+with a castle checkpoint outside the audience hall at `14,7 S`. Chrome checks
+the 352×352 dialogue portrait and 192×192 combat sprite, including the sprite's
+position, facing, and four-cell selection. The test toggles classic and
+enhanced in both scenes and checks the guest frame and save stay the same.
+
 Headless Chrome verified the presentation button and F10 against the live
 browser runner. A reloaded City Hall save displayed both palettes and let
 the journal remain open during a switch. A separate run switched palettes
