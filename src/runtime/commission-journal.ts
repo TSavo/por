@@ -2,6 +2,7 @@ interface Commission {
   id: string;
   title: string;
   offer: string;
+  alternateOffers?: readonly string[];
   accepted?: string;
   report?: string;
   next: string;
@@ -36,6 +37,14 @@ export const commissions: readonly Commission[] = [
     next: "Decide whether to accept the man's offer to fetch his potion.",
     afterAcceptance: "Go southeast to the Old Rope Guild, give Ohlo's name at the booth, and bring the potion back.",
   },
-  { id: "bottle", title: "Recover the silver bottle", offer: "THEY HAVE POSSESION OF A POWERFUL SILVER BOTTLE", report: "YOU HAVE RECOVERED THE SILVER BOTTLE FROM THE KOBOLD CAVES", next: "Search the kobold settlement far to the east for the bottle and bring it back to the dragon." },
+  {
+    id: "bottle",
+    title: "Recover the silver bottle",
+    offer: "THEY HAVE POSSESION OF A POWERFUL SILVER BOTTLE",
+    alternateOffers: ["THERE IS A SILVER BOTTLE OF GREAT POWER THERE", "THERE YOU SHALL FIND A MAGICAL BOTTLE"],
+    accepted: "I ACCEPT YOUR PLEDGE. FOR YOUR FIRST DUTY",
+    report: "YOU HAVE RECOVERED THE SILVER BOTTLE FROM THE KOBOLD CAVES",
+    next: "Search the kobold settlement far to the east for the bottle and bring it back to the dragon.",
+  },
   { id: "bottle-vampire", title: "Use the bottle against the vampire", offer: "WHEN YOU MEET THE VAMPIRE USE THE BOTTLE", next: "Take the bottle to Valhingen Graveyard and use it when you confront the vampire." },
 ];

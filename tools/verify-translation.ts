@@ -159,7 +159,7 @@ function checkCampaignJournal(): void {
     const id = `commission-${commission.id}`;
     const lookup = (text: string) => discoveredLeads(text).find((lead) => lead.id === id);
     const fromGame = (trigger: string) => {
-      const line = lines.find((text) => text.includes(trigger));
+      const line = lines.find((text) => text.replace(/\s+/g, " ").includes(trigger));
       if (line === undefined) throw new Error(`Original dialogue trigger missing for ${id}: ${trigger}`);
       return line;
     };
@@ -169,6 +169,9 @@ function checkCampaignJournal(): void {
     }
     if (commission.accepted && lookup(fromGame(commission.accepted))?.status !== "accepted") {
       throw new Error(`Journal acceptance mismatch for ${id}`);
+    }
+    for (const alternate of commission.alternateOffers ?? []) {
+      if (lookup(fromGame(alternate))?.status !== "offered") throw new Error(`Journal alternate offer mismatch for ${id}`);
     }
     const address = progressAddresses[commission.id];
     if (commission.report && lookup(fromGame(commission.report))?.status !==
@@ -189,6 +192,19 @@ function checkCampaignJournal(): void {
   if (discoveredLeads("A SPECIAL PRIZE FOR ENDING THE GRAVEYARD MENACE").some(({ id }) =>
     id === "commission-bottle-vampire")) {
     throw new Error("The graveyard reward revealed an undiscovered bottle objective");
+  }
+  const vampireOffer = lines.find((line) => line.includes("WHEN YOU MEET THE VAMPIRE USE THE BOTTLE"));
+  const vampireLocation = lines.find((line) => line.includes("A VAMPIRE WHO LURKS IN THE NORTHEAST CORNER"));
+  if (!vampireOffer || !vampireLocation) throw new Error("Missing graveyard clues in original scripts");
+  const vampireLeads = discoveredLeads(vampireOffer + "\n" + vampireLocation);
+  if (!currentObjective(vampireLeads, "commission-bottle-vampire").nextStep.includes("northeast corner") ||
+      currentObjective(discoveredLeads(vampireOffer)).nextStep.includes("northeast corner")) {
+    throw new Error("The journal did not gate the vampire's location on witnessed dialogue");
+  }
+  writeGlobal(progressAddresses.graveyard!, 254);
+  if (questProgress(m, vampireLeads, m.ds).find(({ id }) => id === "commission-bottle-vampire")?.status !== "turned-in" ||
+      questProgress(m, [], m.ds).some(({ id }) => id === "commission-bottle-vampire")) {
+    throw new Error("The graveyard flag did not resolve the known bottle objective without revealing it");
   }
   const route = [
     ["THE BOAT DISEMBARKS YOU AT SOKAL KEEP", "Scout the keep"],

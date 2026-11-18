@@ -62,6 +62,12 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("sokal-arrival")) nextStep = "Scout the keep and look for clues to the haunting.";
       else if (knows("passage-sokal")) nextStep = "Catch the boat to Sokal Keep at the end of the pier.";
     }
+    if (commission.id === "bottle" && knows("bottle-recovered")) {
+      nextStep = "Return to Diogenes with the bottle so he can explain how to use it.";
+    }
+    if (commission.id === "bottle-vampire" && knows("graveyard-vampire-location")) {
+      nextStep = "Go to the northeast corner of Valhingen Graveyard. Use the bottle when you confront the vampire.";
+    }
     return { title: commission.title, nextStep };
   }
   if (leads.some((lead) => lead.id === "commission-castle" && lead.status === "turned-in")) {
@@ -117,6 +123,17 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
       detail: value === 254 ? "Return to the council clerk at City Hall to report your success." : "The council acknowledged the result.",
       status: value === 254 ? "ready-to-report" : "turned-in",
     });
+  }
+  if (known.some(({ id }) => id === "commission-bottle-vampire")) {
+    const graveyard = cpu.read16(segment, base + 0x6e00 + progressAddresses.graveyard! * 2);
+    if (graveyard === 254 || graveyard === 255) {
+      progress.push({
+        id: "commission-bottle-vampire",
+        title: "Vampire threat resolved",
+        detail: "The party ended the graveyard menace.",
+        status: "turned-in",
+      });
+    }
   }
   return progress;
 }
@@ -189,7 +206,8 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     const pendingReward = reported && progressAddresses[commission.id] !== undefined;
     const complete = reported && !pendingReward;
     const accepted = commission.accepted !== undefined && text.includes(commission.accepted);
-    if (!reported && !accepted && !text.includes(commission.offer)) continue;
+    if (!reported && !accepted && !text.includes(commission.offer) &&
+        !commission.alternateOffers?.some((offer) => text.includes(offer))) continue;
     leads.push({
       id: `commission-${commission.id}`,
       title: `${commission.title} - ${complete ? "turned in" : pendingReward ? "reward pending" : accepted ? "accepted" : "offered"}`,
@@ -198,6 +216,12 @@ export function discoveredLeads(transcript: string): JournalLead[] {
         : accepted ? commission.afterAcceptance ?? commission.next : commission.next,
       status: complete ? "turned-in" : pendingReward ? "reward-pending" : accepted ? "accepted" : "offered",
     });
+  }
+  if (text.includes("SUMMON ME ONLY WHEN A VAMPIRE IS NEAR")) {
+    leads.push({ id: "bottle-recovered", title: "The bottle's warning", detail: "Samir warned the party to summon him in the presence of a vampire, then returned to the bottle." });
+  }
+  if (text.includes("A VAMPIRE WHO LURKS IN THE NORTHEAST CORNER OF THE GRAVEYARD")) {
+    leads.push({ id: "graveyard-vampire-location", title: "The vampire's lair", detail: "The party learned the vampire lurks in the northeast corner of the graveyard." });
   }
   for (const number of new Set([...text.matchAll(/\bJOURNAL ENTRY (\d{1,2})\b/g)].map((match) => match[1]))) {
     leads.push({
