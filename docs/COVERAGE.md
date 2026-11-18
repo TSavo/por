@@ -1187,6 +1187,15 @@ handoff. The merchant's area-scoped composite also lets the Stojanow wagon
 trader keep his own portrait.
 The `buccaneer-captain-combat` replay uses controlled slot A at `8,12 W`
 and checks both 96×96 sword poses in the captain's quarters fight.
+The `buccaneer-guard-combat` replay uses the same checkpoint and checks
+the guards' 96×96 ready stance and sword thrust alongside the captain.
+The `sokal-elven-scout` and `sokal-elven-scout-search` replays use controlled
+slot C with the parchment clue absent from the journal. Chrome checks the
+scout illustration, the two paths, and that the parchment clue appears
+only after the search reveals it.
+The `pyramid-cistern-loop` replay starts in the lower Pyramid in slot A.
+Chrome checks 2,541 placements across 21 views, including three new cistern
+tiles, and verifies that the presentation switch preserves the save.
 The same Chrome replay passed with encounter anchors read from the Slums
 manifest. A framebuffer check moved the middle kobold pose to a different
 anchor and area, confirmed the old area's background was discarded, and

@@ -1,6 +1,12 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:1:CPIC6.DAX:11": "buccaneer-guard-stand.png",
+    "combat:area:1:CPIC6.DAX:139": "buccaneer-guard-strike.png",
+    "tile:23:41ea3ceae0f6da8a29151985f9d6f70572dbd7d9e81b672fe759802e75a7d115": "lower-pyramid-cistern-terrain-41ea3ceae0f6.png",
+    "tile:23:a54a22cfabadf3d87a0d29821dac782c1f6ff842af8e41be65b4578a712c5485": "lower-pyramid-cistern-terrain-a54a22cfabad.png",
+    "tile:23:d7f44e9ae57491d39a4a9f79cd2680acaa61cef66e57f530b763ed7229cd425b": "lower-pyramid-cistern-terrain-d7f44e9ae574.png",
+    "portrait:PIC4.DAX:3:0:0": "sokal-elven-scout.png",
     "combat:area:1:CPIC6.DAX:16": "buccaneer-captain-stand.png",
     "combat:area:1:CPIC6.DAX:144": "buccaneer-captain-strike.png",
     "portrait:area:20:HEAD2.DAX:5:BODY2.DAX:9": "slums-potion-merchant.png",
