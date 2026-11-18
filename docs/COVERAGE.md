@@ -694,6 +694,10 @@ now check all 19 views, including one skeleton approach per route. The
 The `graveyard-mystic` replay starts at `8,10 N` in controlled slot B with
 the graveyard encounter counter set to 3 and verifies the mystic portrait
 and a state-preserving switch in dialogue.
+The `graveyard-vampire` replay uses controlled slot A at `14,0 E` to check the
+128×320 threshold sprite, 352×352 dialogue portrait, and both 96×96 combat
+poses. It verifies presentation switches in approach, dialogue, and combat.
+
 
 Two Valjevo Castle threshold routes from the controlled slot B checkpoint
 displayed the new 32×32 assets across five views and 605 placements, then

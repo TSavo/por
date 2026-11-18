@@ -34,7 +34,7 @@ const environmentRoutes = new Map([
     walk: ["up", "left", ...Array(6).fill("up"), "right", "up", "b", "up", "up", "right", "up", "left", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "stojanow-briefing", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), "graveyard-mystic", "graveyard-vampire", "stojanow-briefing", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -42,6 +42,7 @@ const dragon = routeName === "castle-dragon";
 const halls = routeName === "castle-halls";
 const assault = routeName === "assault-briefing";
 const mystic = routeName === "graveyard-mystic";
+const vampire = routeName === "graveyard-vampire";
 const stojanow = routeName === "stojanow-briefing";
 const altar = routeName === "textile-altar";
 const plaza = routeName === "podal-plaza";
@@ -365,6 +366,29 @@ try {
     await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
+  } else if (vampire) {
+    for (const key of ["up", "enter", "y", "enter"]) await advance(key);
+    const encounter = "encounter:area:10:SPRIT4.DAX:23:0:0";
+    assert.deepEqual(frame.encounter, [56, 32, encounter, 32, 80]);
+    await waitFor("the vampire at the crypt threshold", () => run('document.querySelector(".encounter-sprite")?.naturalHeight === 320'));
+    await switchBothWays();
+    await advance("enter");
+    assert.equal(frame.portrait, "portrait:PIC4.DAX:23:0:0");
+    await waitFor("the vampire dialogue portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    for (const key of ["enter", "q", "q"]) await advance(key);
+    const standing = "combat:area:10:CPIC4.DAX:23";
+    assert.ok(frame.combatArt.some(([, , id]) => id === standing));
+    const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")]
+      .some(img => img.src.endsWith(${JSON.stringify(id)}) && img.naturalWidth === 96 && img.naturalHeight === 96)`);
+    await waitFor("the vampire combat sprite", () => displayed(standing));
+    await switchBothWays();
+    const attack = "combat:area:10:CPIC4.DAX:151";
+    const struck = () => frame.animation?.some(shot => shot.combatArt?.some(([, , id]) => id === attack));
+    for (let turn = 0; turn < 15 && !struck(); turn++) await advance("q");
+    assert.ok(struck(), "The vampire strike must occur during the replay");
+    await waitFor("the vampire strike sprite", () => displayed(attack));
+    console.log("Verified the Valhingen vampire in approach, dialogue, stance, and strike.");
   } else if (mystic) {
     for (const key of ["up", "enter", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:HEAD4.DAX:0:BODY4.DAX:2");

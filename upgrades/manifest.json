@@ -1,6 +1,10 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:10:SPRIT4.DAX:23:0:0": "valhingen-vampire-approach.png",
+    "combat:area:10:CPIC4.DAX:23": "valhingen-vampire-combat.png",
+    "combat:area:10:CPIC4.DAX:151": "valhingen-vampire-strike.png",
+    "portrait:PIC4.DAX:23:0:0": "valhingen-vampire-portrait.png",
     "tile:14:09be609429c4e2db72e68769253a40f08fe1e0bf65055f356ed165cefcb83c91": "old-phlan-north-gate-09be609429c4.png",
     "tile:14:110943e6a403b2235bba6335458085ad7e6948b823e00f8af7bd859e29c98c38": "old-phlan-north-gate-110943e6a403.png",
     "tile:14:1180638ececd642b84551072d1f901f40c3f3d975f59049bd1aa8436be86beff": "old-phlan-north-gate-1180638ececd.png",
@@ -562,6 +566,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:10:SPRIT4.DAX:23:0:0": { "area": 10, "x": 56, "y": 32, "width": 32, "height": 80 },
     "encounter:area:10:SPRIT4.DAX:34:0:0": { "area": 10, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:SPRIT2.DAX:24:1:0": { "area": 20, "x": 56, "y": 32, "width": 24, "height": 65, "flatBackground": [0, 6] },
     "encounter:SPRIT4.DAX:34:0:0": {
