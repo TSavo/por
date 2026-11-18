@@ -1559,12 +1559,21 @@ if (process.argv[2] === "--mage-training-checkpoint") {
   assert.ok(process.argv[3], "Pass the eligible Darkstar save in the Slums at (14,7), facing south.");
   copyFileSync(process.argv[3], join(saveDir, "B.json"));
   const trained = /darkstar.*magic-user.*platinum 50.*level 2 exp 5000.*hp 7/;
+  const checkMageSchool = (_text, frame) => {
+    const school = frame.journal.leads.find(({ id }) => id === "phlan-training-magic-users");
+    assert.match(school?.detail ?? "", /east door at the northern training school.*train character/i);
+  };
   await replay(loadSlot("3062"), "85000000", [
     (text) => assert.match(text, /darkstar 7 5.*14,7 s/),
     "left", "left", "up", ...Array(4).fill("enter"),
     (text) => assert.match(text, /magic users and clerics to go north/),
     "up", "up", (text) => assert.match(text, /magic users to go through the east door/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "phlan-training-north"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "phlan-training-magic-users"));
+    }, "j",
     "right", "up", "enter", (text) => assert.match(text, /7,0 e.*we train only magic users here/),
+    "j", checkMageSchool, "j",
     "y", ...Array(4).fill("end"), "t",
     (text) => assert.match(text, /darkstar will become: a level 2 magic-user/),
     "y", (text) => assert.match(text, /darkstar's spells to choose from.*magic missile.*choose spell: learn/),
@@ -1575,6 +1584,9 @@ if (process.argv[2] === "--mage-training-checkpoint") {
     ...Array(4).fill("end"), "v", "v", (text) => assert.match(text, trained),
     "e", "b", "enter", "e", "m", "m", "m",
     (text) => assert.match(text, /darkstar's spells in spell book.*magic missile/),
+    "end", "end", "m", "e", "enter",
+    (text) => assert.match(text, /spells to be memorized.*\*magic missile/),
+    "n", "e", "e", "j", checkMageSchool,
   ]);
   console.log("Trained Darkstar to level 2 and reloaded her fee balance and newly learned Magic Missile.");
   process.exit(0);

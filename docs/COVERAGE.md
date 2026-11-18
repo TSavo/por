@@ -545,6 +545,10 @@ Run `node tools/verify-fresh-party.mjs --mage-training-checkpoint PATH_TO_SLOT_B
 from the eligible Darkstar save at `14,7 S`. The replay selects Magic
 Missile in the training menu and verifies it in Encamp's spell book
 after saving and reloading slot C.
+The replay verifies that the journal records the posted east-door clue
+first, then adds the exact Train Character action after meeting the
+magic-user trainer. The latter entry survives the slot C reload. The
+replay also selects Magic Missile for memorization after reload.
 
 The fighter school replay follows the posted directions east past the
 arena, reads the sign on the north door, and hears the fighter trainer's
