@@ -241,7 +241,7 @@ const rewardSave = await replay(loadSlotI, "85000000", [
   "g", (text) => assert.match(text, /give me the potion/),
   "g", (text) => assert.match(text, /receives 691 experience points/),
   "j", (_text, frame) => checkOhloStatus(frame, "reward-pending"), "j",
-  "enter", "enter", "s", "e", "n", "e", "f", "e", "s", "s", "key j",
+  "enter", "enter", "s", "e", "n", "e", "f", "e", "s", "s", "j",
 ]);
 assert.match(visibleText(rewardSave), /quit to dos/);
 const loadSlotJ = "31000000:1c0d,45000000:266c,52000000:246a";

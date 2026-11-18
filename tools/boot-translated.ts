@@ -147,6 +147,7 @@ if (input && saves) {
           saves.save(slot.name, slot.data, journal(), input.tracked(), [...party.values()]);
         }
       };
+      input.enterDiskMenu();
       try {
         procedure(m);
         finish();
@@ -154,6 +155,7 @@ if (input && saves) {
         if (offset === 0x2265 && error instanceof Error && /^dos exit \d+$/.test(error.message)) finish();
         throw error;
       } finally {
+        input.leaveDiskMenu();
         slotClosed = previous;
         loadingSlot = wasLoading;
       }

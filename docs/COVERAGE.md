@@ -103,7 +103,10 @@ select it through the guest menu. Closing the journal returns to the camp menu.
 Outside camp, `j` opens it as a shortcut. The runner prints its
 leads and updates `out/por-live.png` with the current game or journal frame.
 While the journal is open, type `track N` to follow a numbered objective.
-Enter a game key by name or use `key j` to send J to DOS. Type `:quit` to end
+The original save and load menus accept `j` for slot J. Chrome verified
+saving to J with the ordinary key, and the fresh-party replay verified
+the saved journal and reward after reload. Use `key j` to send J to DOS
+when the journal shortcut is active elsewhere. Type `:quit` to end
 the session. Clear `POR_LIVE_AT` to return to replay-only mode.
 
 Set `POR_RECORD_KEYS` to a new file path before a live run to capture its

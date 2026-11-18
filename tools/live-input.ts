@@ -124,6 +124,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     }
   };
   let inCampMenu = false;
+  let diskMenuDepth = 0;
   const openJournal = () => {
     showJournal(journal());
     while (true) {
@@ -158,7 +159,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (!browser) process.stdout.write("Game [J journal, :quit, key]> ");
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
-      if (!inCampMenu && command.toLowerCase() === "j") {
+      if (!inCampMenu && diskMenuDepth === 0 && command.toLowerCase() === "j") {
         openJournal();
         showFrame();
         continue;
@@ -182,6 +183,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     requestKey,
     openJournal,
     setCampMenu: (active: boolean) => { inCampMenu = active; },
+    enterDiskMenu: () => { diskMenuDepth++; },
+    leaveDiskMenu: () => { diskMenuDepth--; },
     setScene: (id: string | undefined) => { scene = id; },
     tracked: () => trackedId,
     restoreTracked: (id: string | undefined) => { trackedId = id; },
