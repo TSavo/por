@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { parseDax } from "../src/lib/dax.js";
 import { Frame } from "../src/lib/ega.js";
@@ -7,9 +7,9 @@ import { decodePicture, frameSlice, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 
-const [tracePath, manifestPath, reportPath] = process.argv.slice(2);
+const [tracePath, manifestPath, reportPath, omitted] = process.argv.slice(2);
 if (!tracePath || !manifestPath || !reportPath) {
-  throw new Error("Usage: tsx tools/route-art-coverage.ts <tile-inventory.jsonl> <manifest.json> <report.json>");
+  throw new Error("Usage: tsx tools/route-art-coverage.ts <tile-inventory.jsonl> <manifest.json> <report.json> [--omit-frames=20,22]");
 }
 const root = findGameRoot();
 if (!root) throw new Error("Original game data is required for source tile matching");
@@ -31,6 +31,11 @@ for (const [key, name] of Object.entries(manifest.assets)) {
 const trace = readFileSync(tracePath, "utf8").trim();
 if (!trace) throw new Error("The route trace contains no exploration frames");
 const frames = trace.split(/\r?\n/).map((line) => JSON.parse(line) as [number, number, string, string?][]);
+if (omitted && !/^--omit-frames=\d+(,\d+)*$/.test(omitted)) throw new Error("Expected --omit-frames with comma-separated frame numbers");
+const omittedFrames = new Set(omitted?.slice("--omit-frames=".length).split(",").map(Number));
+if ([...omittedFrames].some((frame) => frame >= frames.length) || omittedFrames.size === frames.length) {
+  throw new Error("Omitted frames must be zero-based captured frame numbers and leave at least one frame");
+}
 
 const sourceByHash = new Map<string, {
   pixels: Uint8Array;
@@ -60,6 +65,7 @@ const cells = new Map<string, {
 }>();
 const tracedPixels = new Map<string, Buffer>();
 for (const [frame, inventory] of frames.entries()) {
+  if (omittedFrames.has(frame)) continue;
   for (const [x, y, key, indices] of inventory) {
     const match = /^tile:(\d+):([a-f0-9]{64})$/.exec(key);
     if (!match) throw new Error(`Invalid tile key at frame ${frame}: ${key}`);
@@ -96,12 +102,18 @@ const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
     withSourceCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.length).length,
   };
 });
-writeFileSync(reportPath, JSON.stringify({ frames: frames.length, areas, tiles }, null, 2) + "\n");
+const analyzedFrames = frames.length - omittedFrames.size;
+writeFileSync(reportPath, JSON.stringify({ frames: analyzedFrames, omittedFrames: [...omittedFrames], areas, tiles }, null, 2) + "\n");
 const galleryPath = reportPath + ".html";
+const frameDirectory = join(dirname(tracePath), "tile-frames");
+function galleryLink(path: string) {
+  return relative(dirname(galleryPath), path).split(/[\\/]/).map(encodeURIComponent).join("/");
+}
 const sections = areas.map(({ area, patterns, matched }) => `<section><h2>Area ${area} · ${matched}/${patterns}</h2><div class="grid">` +
   tiles.filter((tile) => tile.area === area).map(({ key, first, occurrences, positions, replacement, sourceCandidates }) => {
-    const src = replacement && relative(dirname(galleryPath), join(manifestDirectory, replacement))
-      .split(/[\\/]/).map(encodeURIComponent).join("/");
+    const src = replacement && galleryLink(join(manifestDirectory, replacement));
+    const framePath = join(frameDirectory, `${first.frame}.png`);
+    const frameLabel = existsSync(framePath) ? `<a href="${galleryLink(framePath)}">frame ${first.frame}</a>` : `frame ${first.frame}`;
     const candidates = sourceCandidates.map(({ archive, block, frame }) => `${archive} #${block} frame ${frame}`).join(", ");
     const pixels = tracedPixels.get(key) ?? sourceByHash.get(key.split(":")[2]!)?.pixels;
     let reference = "<p>Original reference unavailable</p>";
@@ -112,16 +124,17 @@ const sections = areas.map(({ area, patterns, matched }) => `<section><h2>Area $
       reference = `<a href="${uri}" download="${key.replaceAll(":", "-")}.png"><img src="${uri}" width="96" height="96" alt="Download original 8×8 tile"></a>`;
     }
     return `<article><div class="previews">${reference}${src ? `<img src="${src}" width="96" height="96" alt="Replacement tile">` : "<p>Replacement missing</p>"}</div>` +
-      `<code>${key.slice(-12)}</code><p>First seen at trace frame ${first.frame}, (${first.x}, ${first.y}) · ${occurrences} placements across ${positions.length} positions</p>` +
+      `<code>${key.slice(-12)}</code><p>First seen in ${frameLabel}, (${first.x}, ${first.y}) · ${occurrences} placements across ${positions.length} positions</p>` +
       `<p>${candidates || "Source tile unresolved"}</p></article>`;
   }).join("") + "</div></section>").join("");
 writeFileSync(galleryPath, `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Route artwork checklist</title><style>
-body{font:16px system-ui;background:#191715;color:#efe4d0;margin:2rem}img{image-rendering:pixelated;display:block;margin-bottom:.5rem}
+body{font:16px system-ui;background:#191715;color:#efe4d0;margin:2rem}img{image-rendering:pixelated;display:block;margin-bottom:.5rem}a{color:#ffdcaa}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.65rem}article{background:#28241f;padding:.75rem;overflow-wrap:anywhere}
 .previews{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
 p{margin:.4rem 0;font-size:.9rem}code{color:#ffdcaa}
-</style><h1>Route artwork checklist</h1><p>${frames.length} exploration frames. Archive entries are pixel-match candidates.</p>${sections}</html>\n`);
+</style><h1>Route artwork checklist</h1><p>${analyzedFrames} captured frames analyzed. Archive entries are pixel-match candidates.</p>${
+  omittedFrames.size ? `<p>Omitted frames ${[...omittedFrames].join(", ")}.</p>` : ""}${sections}</html>\n`);
 for (const { area, patterns, matched, withSourceCandidates } of areas) {
   console.log(`Area ${area}: ${matched}/${patterns} patterns with 32×32 PNGs, ${withSourceCandidates} with source candidates`);
 }

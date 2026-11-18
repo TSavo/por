@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { appendFileSync, copyFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import { createInterface } from "node:readline";
 import { tsImport } from "tsx/esm/api";
 
@@ -10,6 +10,10 @@ mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", "fresh-party-"));
 const strictCombat = process.env.POR_REQUIRE_UNINTERRUPTED_COMBAT === "1";
 const recoveryCounts = new Map();
+const tileTrace = process.env.POR_TRACE_TILES === "1" ? resolve(saveDir, "tile-inventory.jsonl") : undefined;
+const tileFrames = tileTrace && join(saveDir, "tile-frames");
+if (tileFrames) mkdirSync(tileFrames);
+let tracedFrames = 0;
 
 async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopAt) {
   const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
@@ -41,6 +45,11 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
       if (value.startsWith("POR_FRAME ")) {
         const frame = JSON.parse(value.slice(10));
         lastText = visibleText(frame);
+        if (tileTrace && tileFrames && frame.tileInventory?.length) {
+          writeFileSync(join(tileFrames, `${tracedFrames}.png`), Buffer.from(frame.frame, "base64"));
+          appendFileSync(tileTrace, JSON.stringify(frame.tileInventory) + "\n");
+          tracedFrames++;
+        }
         return frame;
       }
     }
@@ -67,6 +76,7 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
 }
 
 process.on("exit", () => {
+  if (tracedFrames) console.log(`Artwork trace (${tracedFrames} frames):`, tileTrace);
   for (const [notice, count] of recoveryCounts) {
     console.warn(`Combat watchdog interventions (${count}): ${notice}`);
   }

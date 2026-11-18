@@ -461,6 +461,10 @@ and found a 32×32 replacement for all 34 distinct patterns on this replay.
 The report also exports all 34 original 8×8 references from the live
 framebuffer, including 11 patterns with no exact match in the tile archives.
 Older hash-only traces still show references when an archive match exists.
+The orc outpost replay produced 28 captures. Inspecting the original frames
+identified an orc overlay in frame 20 and a blank transition in frame 22.
+Omitting those two frames leaves 68 environment patterns, of which 40 have
+replacements. The HTML checklist links each pattern to its full guest frame.
 The same Chrome replay passed with encounter anchors read from the Slums
 manifest. A framebuffer check moved the middle kobold pose to a different
 anchor and area, confirmed the old area's background was discarded, and

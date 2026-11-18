@@ -43,6 +43,11 @@ and traces are local reference exports under `out/`.
 The Chrome Slums verifier prints the path to its `slums-tiles.jsonl`
 capture. The report includes each pattern's target dimensions and the
 frequency of every observed framebuffer position.
+Set `POR_TRACE_TILES=1` when running `tools/verify-fresh-party.mjs` to
+capture other routes. Its report links each pattern to the original guest
+frame at its first placement. Pass `--omit-frames=20,22` with the relevant
+zero-based frame numbers to exclude inspected transitions or creature
+overlays from an environment checklist.
 
 The browser loads the bundled Slums artwork in `upgrades/slums` by default.
 Press F10 while exploring the Slums to see it. The pack includes 59 individual tile replacements,
