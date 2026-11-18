@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "portrait:PIC1.DAX:16:0:0": "podal-auctioneer-portrait.png",
     "portrait:PIC4.DAX:19:0:0": "ferran-chapel-portrait.png",
     "encounter:SPRIT2.DAX:24:1:0": "ohlo-encounter.png",
     "combat:CPIC2.DAX:7": "hobgoblin-captain-combat.png",
