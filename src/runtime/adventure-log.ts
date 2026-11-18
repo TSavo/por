@@ -95,6 +95,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "sokal") {
       if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
       else if (knows("sokal-pale-form") && knows("sokal-parchment")) nextStep = "Talk to the pale form. When asked for a word, try one from the parchment.";
+      else if (knows("sokal-chapel")) nextStep = "Approach the altar on the south wall of the chapel.";
+      else if (knows("sokal-courtyard-note")) nextStep = "Read journal entry 57 and continue exploring the keep beyond the courtyard.";
+      else if (knows("sokal-ambush")) nextStep = "Prepare for the orcs and hobgoblins before crossing the courtyard. Heal the party and ready spells and equipment.";
       else if (knows("sokal-patrol-passed")) nextStep = "Explore the keep. If another undead patrol asks whether to give the password, choose Yes.";
       else if (knows("sokal-parchment")) nextStep = "Keep exploring. If you speak to an undead patrol, try a word from the parchment.";
       else if (knows("sokal-reeds")) nextStep = "Look through the mound of reeds west of the gates before entering the keep.";
@@ -306,6 +309,20 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       id: "sokal-ferran", title: "Ferran Martinez",
       detail: "Ferran is bound to guard the keep and asks whether Phlan has been freed.",
     });
+  }
+  if (text.includes("A LOUD COMMOTION RISES FROM THE COURTYARD") &&
+      text.includes("A LARGE FORCE OF ORCS AND HOBGOBLINS RUSHES YOU")) {
+    leads.push({ id: "sokal-ambush", title: "Sokal courtyard ambush",
+      detail: "A large force of orcs and hobgoblins rushed the party through the courtyard door." });
+  }
+  if (text.includes("ON A HOBGOBLIN BODY, YOU FIND A NOTE") && text.includes("AS ENTRY 57")) {
+    leads.push({ id: "sokal-courtyard-note", title: "Note from the courtyard",
+      detail: "The party found a note on a fallen hobgoblin and copied it as journal entry 57." });
+  }
+  if (text.includes("THIS WAS ONCE THE CHAPEL OF THE KEEP") &&
+      text.includes("A LARGE ALTAR DOMINATES THE SOUTHERN WALL")) {
+    leads.push({ id: "sokal-chapel", title: "Sokal Keep chapel",
+      detail: "The party found the remains of two orcs in the doorway and a large altar against the south wall." });
   }
   if (text.includes("A PALE FORM RISES BEFORE YOU")) {
     leads.push({ id: "sokal-pale-form", title: "The keep's pale figure", detail: "A pale figure appeared inside the keep. The party can try speaking to it." });
