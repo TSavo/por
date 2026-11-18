@@ -4,11 +4,13 @@ import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } fro
 import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
-const [checkpoint, chromePath] = process.argv.slice(2);
-assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <slot A checkpoint> <Chrome executable>");
+const [checkpoint, chromePath, routeName = "kobolds"] = process.argv.slice(2);
+assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs]");
+assert.ok(["kobolds", "orcs"].includes(routeName), "Unknown Slums replay route");
+const orcs = routeName === "orcs";
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const saved = resolve(directory, "A.json");
+const saved = resolve(directory, orcs ? "C.json" : "A.json");
 const profile = resolve(directory, "chrome");
 copyFileSync(checkpoint, saved);
 const originalSave = readFileSync(saved);
@@ -20,7 +22,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
-    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:1e61",
+    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (orcs ? "2e63" : "1e61"),
     POR_LIVE_AT: "85000000", POR_BOOT_STEPS: "450000000",
   },
   stdio: ["ignore", "ignore", "inherit"],
@@ -115,86 +117,131 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  let views = 0;
-  const tileLayouts = new Set();
-  const routeTiles = [];
-  let portrait = false;
-  let encounter = false;
-  const route = [
-    "up", "up", "enter", "enter", "up", "up", "up", "up", "enter", "left",
-    "up", "up", "up", "up", "up", "enter", ...Array(26).fill("up"), "c", "enter", "m", "down",
-  ];
-  for (const key of route) {
-    await advance(key);
-    if (frame.encounter && !encounter) {
-      assert.equal(frame.encounter[2], "encounter:SPRIT2.DAX:0:0:0");
-      await waitFor("the near encounter sprite", () => run('document.querySelector(".encounter-sprite")?.naturalHeight === 320'));
-      encounter = true;
+  if (orcs) {
+    const route = ["up", "left", "up", "up", "up", "right", "up", "right",
+      ...Array(5).fill("up"), "right", "up", "left", "up", "left", "up"];
+    const manifest = JSON.parse(readFileSync("upgrades/slums/manifest.json"));
+    const junctions = new Set(Object.entries(manifest.assets)
+      .filter(([, name]) => /^orc-(door|joint|rubble)-/.test(name)).map(([id]) => id));
+    assert.ok(junctions.size > 0);
+    for (const [step, key] of route.entries()) {
+      await advance(key);
+      assert.equal(frame.tiles.length, 121);
+      await waitFor("all 121 corridor tiles", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelectorAll("#tile-art img").length === 121 &&
+        [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
+      for (const [, , id] of frame.tiles) junctions.delete(id);
+      if (step === 5) await switchBothWays();
     }
-    if (frame.portrait && !portrait) {
-      assert.equal(frame.portrait, "portrait:PIC2.DAX:0:0:0");
-      assert.equal(frame.tiles.length, 0);
-      await waitFor("the kobold portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
-      await switchBothWays();
-      portrait = true;
+    assert.deepEqual([...junctions], []);
+    let approach = false;
+    for (let step = 0; step < 5; step++) {
+      await advance("enter");
+      if (!frame.encounter) continue;
+      assert.deepEqual(frame.encounter, [48, 32, "encounter:SPRIT2.DAX:4:0:0", 40, 80]);
+      await waitFor("the near orc", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector(".encounter-sprite")?.naturalWidth === 160 &&
+        document.querySelector(".encounter-sprite")?.naturalHeight === 320`));
+      approach = true;
     }
-    if (!frame.tileInventory?.[0]?.[2].startsWith("tile:20:")) continue;
-    routeTiles.push(frame.tileInventory);
-    assert.equal(frame.tiles.length, 121);
-    tileLayouts.add(JSON.stringify(frame.tiles));
-    await waitFor("121 individual tiles", () => run(`(() => {
-      const tiles = [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")];
-      return tiles.length === 121 && tiles.every(tile => tile.naturalWidth === 32 && tile.naturalHeight === 32);
-    })()`));
-    if (++views !== 3) continue;
-
-    await waitFor("the loaded web font", () => run(`Array.from(document.fonts)
-      .some(font => font.family.includes("Game Web Font") && font.status === "loaded")`));
-    for (const width of [430, 1100]) {
-      await command("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: false });
-      assert.ok(await run(`(() => {
-        const screen = document.querySelector("#screen").getBoundingClientRect();
-        const tile = document.querySelector("#tile-art img");
-        const rect = tile.getBoundingClientRect();
-        const glyph = document.querySelector("#game-text span");
-        return getComputedStyle(tile).imageRendering === "pixelated" &&
-          Math.abs(rect.width - screen.width * .025) < 1 && Math.abs(rect.height - screen.height * .04) < 1 &&
-          Math.abs(rect.left - screen.left - screen.width * .075) < 1 &&
-          Math.abs(rect.top - screen.top - screen.height * .12) < 1 &&
-          getComputedStyle(glyph).fontFamily.includes("Game Web Font");
-      })()`), `Overlay alignment and web font at ${width}px`);
-      await switchBothWays();
-    }
-    await advance("j");
-    assert.ok(frame.journal);
-    await waitFor("the journal", () => run('!document.querySelector("#journal").hidden'));
-    await run('document.querySelector("#close-journal").focus()');
+    assert.ok(approach);
+    assert.equal(frame.encounter, undefined);
+    const guard = "combat:CPIC2.DAX:4";
+    assert.ok(frame.combatArt.filter(([, , id]) => id === guard).length >= 3);
+    await waitFor("the combat orcs", () => run(`state.sequence === ${frame.sequence} &&
+      [...document.querySelectorAll(".combat-sprite")].filter(img => img.naturalWidth === 96).length >= 3`));
     await switchBothWays();
-    assert.equal(await run("document.activeElement.id"), "close-journal");
-    await advance("j");
-  }
+    const positions = new Set();
+    for (let turn = 0; turn < 15; turn++) {
+      for (const [x, y, id] of frame.combatArt) {
+        if (id === guard) positions.add(`${x},${y}`);
+      }
+      await advance("q");
+    }
+    assert.ok(positions.size > 4, "Guard artwork should follow moving units");
+    console.log(`Verified ${route.length} Slums outpost views and guard sprites in ${positions.size} combat positions.`);
+  } else {
+    let views = 0;
+    const tileLayouts = new Set();
+    const routeTiles = [];
+    let portrait = false;
+    let encounter = false;
+    const route = [
+      "up", "up", "enter", "enter", "up", "up", "up", "up", "enter", "left",
+      "up", "up", "up", "up", "up", "enter", ...Array(26).fill("up"), "c", "enter", "m", "down",
+    ];
+    for (const key of route) {
+      await advance(key);
+      if (frame.encounter && !encounter) {
+        assert.equal(frame.encounter[2], "encounter:SPRIT2.DAX:0:0:0");
+        await waitFor("the near encounter sprite", () => run('document.querySelector(".encounter-sprite")?.naturalHeight === 320'));
+        encounter = true;
+      }
+      if (frame.portrait && !portrait) {
+        assert.equal(frame.portrait, "portrait:PIC2.DAX:0:0:0");
+        assert.equal(frame.tiles.length, 0);
+        await waitFor("the kobold portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+        await switchBothWays();
+        portrait = true;
+      }
+      if (!frame.tileInventory?.[0]?.[2].startsWith("tile:20:")) continue;
+      routeTiles.push(frame.tileInventory);
+      assert.equal(frame.tiles.length, 121);
+      tileLayouts.add(JSON.stringify(frame.tiles));
+      await waitFor("121 individual tiles", () => run(`(() => {
+        const tiles = [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")];
+        return tiles.length === 121 && tiles.every(tile => tile.naturalWidth === 32 && tile.naturalHeight === 32);
+      })()`));
+      if (++views !== 3) continue;
 
-  assert.ok(encounter && portrait, "The kobold encounter and dialogue must both render");
-  assert.ok(tileLayouts.size > 1, "Walking and turning must change the assembled view");
-  assert.equal(frame.tiles.length, 0);
-  const menu = frame.text.filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
-    .map(([, character]) => String.fromCharCode(character)).join("");
-  assert.match(menu, /move|attack|aim|quick/i);
-  assert.ok(frame.combatArt.some((placement) => placement[3]) && frame.combatArt.some((placement) => !placement[3]));
-  await waitFor("the mirrored 4× combat sprite", () => run(`[...document.querySelectorAll(".combat-sprite")]
-    .some(image => image.naturalWidth === 96 && image.style.transform === "scaleX(-1)")`));
-  await switchBothWays();
-  await waitFor("Chrome to display the final combat frame", () => run(`state.ready && state.sequence === ${frame.sequence}`));
-  await command("Input.dispatchKeyEvent", { type: "keyDown", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
-  await command("Input.dispatchKeyEvent", { type: "keyUp", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
-  await waitFor("the guest frame after Alt+Q", async () => {
-    const state = await latest();
-    return state.ready && state.sequence > frame.sequence;
-  });
-  console.log(`Verified ${views} Slums views and state-preserving switches in exploration, journal, dialogue, and combat.`);
-  const trace = resolve(directory, "slums-tiles.jsonl");
-  writeFileSync(trace, routeTiles.map((tiles) => JSON.stringify(tiles)).join("\n") + "\n");
-  console.log("Slums artwork trace:", trace);
+      await waitFor("the loaded web font", () => run(`Array.from(document.fonts)
+        .some(font => font.family.includes("Game Web Font") && font.status === "loaded")`));
+      for (const width of [430, 1100]) {
+        await command("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: false });
+        assert.ok(await run(`(() => {
+          const screen = document.querySelector("#screen").getBoundingClientRect();
+          const tile = document.querySelector("#tile-art img");
+          const rect = tile.getBoundingClientRect();
+          const glyph = document.querySelector("#game-text span");
+          return getComputedStyle(tile).imageRendering === "pixelated" &&
+            Math.abs(rect.width - screen.width * .025) < 1 && Math.abs(rect.height - screen.height * .04) < 1 &&
+            Math.abs(rect.left - screen.left - screen.width * .075) < 1 &&
+            Math.abs(rect.top - screen.top - screen.height * .12) < 1 &&
+            getComputedStyle(glyph).fontFamily.includes("Game Web Font");
+        })()`), `Overlay alignment and web font at ${width}px`);
+        await switchBothWays();
+      }
+      await advance("j");
+      assert.ok(frame.journal);
+      await waitFor("the journal", () => run('!document.querySelector("#journal").hidden'));
+      await run('document.querySelector("#close-journal").focus()');
+      await switchBothWays();
+      assert.equal(await run("document.activeElement.id"), "close-journal");
+      await advance("j");
+    }
+
+    assert.ok(encounter && portrait, "The kobold encounter and dialogue must both render");
+    assert.ok(tileLayouts.size > 1, "Walking and turning must change the assembled view");
+    assert.equal(frame.tiles.length, 0);
+    const menu = frame.text.filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
+      .map(([, character]) => String.fromCharCode(character)).join("");
+    assert.match(menu, /move|attack|aim|quick/i);
+    assert.ok(frame.combatArt.some((placement) => placement[3]) && frame.combatArt.some((placement) => !placement[3]));
+    await waitFor("the mirrored 4× combat sprite", () => run(`[...document.querySelectorAll(".combat-sprite")]
+      .some(image => image.naturalWidth === 96 && image.style.transform === "scaleX(-1)")`));
+    await switchBothWays();
+    await waitFor("Chrome to display the final combat frame", () => run(`state.ready && state.sequence === ${frame.sequence}`));
+    await command("Input.dispatchKeyEvent", { type: "keyDown", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
+    await command("Input.dispatchKeyEvent", { type: "keyUp", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
+    await waitFor("the guest frame after Alt+Q", async () => {
+      const state = await latest();
+      return state.ready && state.sequence > frame.sequence;
+    });
+    console.log(`Verified ${views} Slums views and state-preserving switches in exploration, journal, dialogue, and combat.`);
+    const trace = resolve(directory, "slums-tiles.jsonl");
+    writeFileSync(trace, routeTiles.map((tiles) => JSON.stringify(tiles)).join("\n") + "\n");
+    console.log("Slums artwork trace:", trace);
+  }
 } finally {
   socket?.close();
   chrome.kill();

@@ -97,3 +97,11 @@ the same rust tunic, copper brow, and shield as the combat art, with a
 lowered blade for the approach. Chrome verified the sprite over the
 individually rendered corridor tiles, then verified its removal on entry
 to combat. A controlled replay passed the middle and far distance arguments to the original draw procedure. Chrome displayed the independently drawn 128×260 middle pose at (56,32) and the 64×196 far pose at (64,32), over the same corridor tiles. Both runs reached the original combat menus.
+
+Reproduce the natural orc outpost art check with
+`node tools/verify-slums-presentation.mjs PATH_TO_SLOT_C PATH_TO_CHROME orcs`.
+Use the fresh party's Slums entrance save at (15,4). The replay verifies all
+121 tile images per corridor view, door and rubble junction coverage, the
+near approach sprite, and guard artwork across moving combat units. It also
+switches presentation in the corridor and in combat and compares both the
+guest frame and the save bytes across each switch.
