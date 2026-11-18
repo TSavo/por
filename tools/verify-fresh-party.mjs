@@ -846,9 +846,7 @@ if (process.argv[2] === "--slums-armored-patrols-checkpoint") {
   process.exit(0);
 }
 
-if (process.argv[2] === "--sokal-equip-recruits-checkpoint") {
-  assert.ok(process.argv[3], "Pass the slot J landing save from the reinforced Slums party.");
-  copyFileSync(process.argv[3], join(saveDir, "J.json"));
+async function verifySokalRecruitEquipment() {
   await replay(loadSlot("246a"), "85000000", [
     (text) => assert.match(text, /cora 3 0 dorn 3 0.*swordsman 5 18.*curate 3 26.*8,14 n/),
     // Trade Cora's banded mail to the Swordsman and her shield to the Curate.
@@ -871,12 +869,16 @@ if (process.argv[2] === "--sokal-equip-recruits-checkpoint") {
     (text) => assert.match(text, /curate's spells in memory.*bless bless.*hold person hold person/),
   ]);
   console.log("Reloaded the Swordsman at AC 3 and the Curate at AC 2 with Hold Person prepared:", join(saveDir, "A.json"));
+}
+
+if (process.argv[2] === "--sokal-equip-recruits-checkpoint") {
+  assert.ok(process.argv[3], "Pass the slot J landing save from the reinforced Slums party.");
+  copyFileSync(process.argv[3], join(saveDir, "J.json"));
+  await verifySokalRecruitEquipment();
   process.exit(0);
 }
 
-if (process.argv[2] === "--sokal-reinforce-from-slums") {
-  assert.ok(process.argv[3], "Pass the slot D from the goblin loot sale at the armorer.");
-  copyFileSync(process.argv[3], join(saveDir, "D.json"));
+async function verifySokalReinforcement() {
   const recruits = /swordsman 5 18.*curate 3 26/;
   await replay(loadSlot("2064"), "85000000", [
     "left", "left", "up", "left", "left", "up", "enter", "enter", "y", "y", ...Array(4).fill("end"),
@@ -922,12 +924,16 @@ if (process.argv[2] === "--sokal-reinforce-from-slums") {
     (text) => assert.match(text, /hobgoblin hitpoints 6 ac 5.*move\/attack/),
   ]);
   console.log("Equipped and recruited the party, then verified manual sword and bow attacks at Sokal:", join(saveDir, "J.json"));
+}
+
+if (process.argv[2] === "--sokal-reinforce-from-slums") {
+  assert.ok(process.argv[3], "Pass the slot D from the goblin loot sale at the armorer.");
+  copyFileSync(process.argv[3], join(saveDir, "D.json"));
+  await verifySokalReinforcement();
   process.exit(0);
 }
 
-if (process.argv[2] === "--slums-goblin-sale-checkpoint") {
-  assert.ok(process.argv[3], "Pass the slot C with the swords and leather armor from the goblin room.");
-  copyFileSync(process.argv[3], join(saveDir, "C.json"));
+async function verifyGoblinLootSale() {
   await replay(loadSlot("2e63"), "85000000", [
     "v", "i", ...Array(5).fill("end"), "t", ...Array(5).fill("end"), "enter", "e", "e",
     ...Array(5).fill("end"), "v", "i", ...Array(3).fill("end"), "r",
@@ -950,12 +956,16 @@ if (process.argv[2] === "--slums-goblin-sale-checkpoint") {
     (text) => assert.match(text, /fenn's items.*yes short sword/),
   ]);
   console.log("Readied Fenn's sword and reloaded the shared proceeds of the goblin armor sale:", join(saveDir, "D.json"));
+}
+
+if (process.argv[2] === "--slums-goblin-sale-checkpoint") {
+  assert.ok(process.argv[3], "Pass the slot C with the swords and leather armor from the goblin room.");
+  copyFileSync(process.argv[3], join(saveDir, "C.json"));
+  await verifyGoblinLootSale();
   process.exit(0);
 }
 
-if (process.argv[2] === "--slums-goblin-checkpoint") {
-  assert.ok(process.argv[3], "Pass the rested slot A from the armored orc outpost replay.");
-  copyFileSync(process.argv[3], join(saveDir, "A.json"));
+async function verifyGoblinRoom() {
   await replay(loadSlot("1e61"), "85000000", [
     (text) => assert.match(text, /13,1 w/),
     "right", "right", "up", "right", "up", "right", ...Array(4).fill("up"), "right", "up",
@@ -982,6 +992,12 @@ if (process.argv[2] === "--slums-goblin-checkpoint") {
     "v", "i", (text) => assert.match(text, /alda's items.*leather armor yes short sword no short sword/),
   ]);
   console.log("Cleared the Slums goblin room and reloaded the salvaged gear:", join(saveDir, "C.json"));
+}
+
+if (process.argv[2] === "--slums-goblin-checkpoint") {
+  assert.ok(process.argv[3], "Pass the rested slot A from the armored orc outpost replay.");
+  copyFileSync(process.argv[3], join(saveDir, "A.json"));
+  await verifyGoblinRoom();
   process.exit(0);
 }
 
@@ -1708,9 +1724,15 @@ await replay(loadSlotJ, "85000000", [
 ]);
 console.log("Returned the potion, collected Ohlo's reward and verified the journal and XP after reloading slot J.");
 
-if (process.argv[2] === "--fresh-armored-slums") {
+if (["--fresh-armored-slums", "--fresh-sokal-reinforced"].includes(process.argv[2])) {
   await verifyOhloArmor();
   await verifyArmoredPatrols();
+  if (process.argv[2] === "--fresh-sokal-reinforced") {
+    await verifyGoblinRoom();
+    await verifyGoblinLootSale();
+    await verifySokalReinforcement();
+    await verifySokalRecruitEquipment();
+  }
   process.exit(0);
 }
 

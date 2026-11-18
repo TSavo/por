@@ -197,6 +197,12 @@ Use `node tools/verify-fresh-party.mjs --fresh-armored-slums` with
 `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` to run those segments as one
 playthrough from character creation. It uses one save directory for
 the Ohlo reward, the armor purchases, and the Slums victories.
+Use `--fresh-sokal-reinforced` with the same strict setting to continue
+with this party through the goblin room, sale of its enchanted armor,
+recruitment at the arena, and the boat to Sokal Keep. The replay checks
+manual sword and bow attacks in the courtyard, then reloads the landing
+save and verifies the recruits' improved armor and prepared Hold Person.
+A courtyard victory is outside this replay's coverage.
 Run `node tools/verify-fresh-party.mjs --slums-goblin-checkpoint PATH_TO_SLOT_A`
 from that rested save. The party bashes into the goblin training room at
 (10,1), wins for 181 XP without watchdog recovery, and takes leather
