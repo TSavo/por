@@ -485,6 +485,14 @@ courtyard inputs end in defeat with no watchdog intervention.
 stack before rollback. The courtyard trace expires at `0512:53E1`, in
 the executable's calibrated delay loop called by overlay 25 at `2000`.
 That trace is distinct from the ogre-room expirations in the redraw code.
+The reinforced party has since won an uninterrupted courtyard replay.
+After Bless, switch Mira to manual control on her first turn and target
+the hobgoblin leader with Sleep. The battle awards 54 XP per character,
+and slot J reloads with the drum silenced and the discovery in the journal.
+Run `node tools/verify-fresh-party.mjs --textile-courtyard-checkpoint PATH_TO_SLOT_F`
+with a reinforced party save at the district entrance. This check fails
+if the watchdog intervenes. The original 94 XP replay and its downstream
+branches still use the historical checkpoint described above.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original
 ECL setter. From there, play through the original runner verified that the

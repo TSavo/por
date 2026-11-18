@@ -80,9 +80,47 @@ function expectParty(text) {
   for (const name of names) assert.match(text, new RegExp("\\b" + name + "\\b"));
 }
 
+function loadSlot(key) {
+  return `31000000:1c0d,45000000:266c,52000000:${key}`;
+}
+
+const courtyardOpening = [
+  "right", "right", "up", "up", "right", "up", "left", "up", "up", "right", ...Array(4).fill("up"),
+  ...Array(7).fill("end"), "c",
+  (text) => assert.match(text, /curate's spells in memory.*bless bless/),
+  ...Array(8).fill("home"), "enter", "e", "e", "enter", "m", "d",
+  (text) => assert.match(text, /alda bless brin bless cora bless dorn bless enna bless mira bless/),
+  "enter", "e", "e", "up", "left", "enter", "enter",
+];
+
+async function verifyUninterruptedCourtyard(checkpoint) {
+  copyFileSync(checkpoint, join(saveDir, "F.json"));
+  const recoveries = [...recoveryCounts.values()].reduce((sum, count) => sum + count, 0);
+  const victory = await replay(loadSlot("2166"), "85000000", [
+    ...courtyardOpening, ...Array(8).fill("q"), "space",
+    (text) => assert.match(text, /mira hitpoints 5.*move view aim cast/),
+    "c", "enter", ...Array(11).fill("n"),
+    (text) => assert.match(text, /hobgoblin ldr hitpoints.*spell:sleep.*target/),
+    "t", ...Array(67).fill("q"),
+    (text) => assert.match(text, /continue battle:yes no/),
+    "n", "enter",
+    (text) => assert.match(text, /the party has won.*receives 54 experience points/),
+    "enter", "s", "e", "n",
+    (text) => assert.match(text, /drum has faded to silence/),
+    "e", "s", "s", "j",
+  ]);
+  assert.match(visibleText(victory), /quit to dos/);
+  await replay(loadSlot("246a"), "85000000", [
+    (text) => assert.match(text, /alda 3 6.*brin 1 1.*mira 10 0.*4,10 s/),
+    "j", (_text, frame) => assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-courtyard-cleared")), "j",
+  ]);
+  assert.equal([...recoveryCounts.values()].reduce((sum, count) => sum + count, 0), recoveries);
+  console.log("Won the Textile House courtyard without watchdog intervention and reloaded the victory:", saveDir);
+}
+
 async function verifyPodalFromCouncil(checkpoint) {
   copyFileSync(checkpoint, join(saveDir, "H.json"));
-  const load = (key) => `31000000:1c0d,45000000:266c,52000000:${key}`;
+  const load = loadSlot;
   const checkAuction = (status) => (_text, frame) =>
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-auction")?.status, status);
   const sailWest = (payerSelection = []) => [
@@ -201,12 +239,7 @@ async function verifyPodalFromCouncil(checkpoint) {
   ]);
   assert.match(visibleText(reinforced), /theurgist 8 13.*curate 3 26.*0,4 w.*quit to dos/);
   const quietCourtyard = await replay(load("2166"), "85000000", [
-    "right", "right", "up", "up", "right", "up", "left", "up", "up", "right", ...Array(4).fill("up"),
-    ...Array(7).fill("end"), "c",
-    (text) => assert.match(text, /curate's spells in memory.*bless bless/),
-    ...Array(8).fill("home"), "enter", "e", "e", "enter", "m", "d",
-    (text) => assert.match(text, /alda bless brin bless cora bless dorn bless enna bless mira bless/),
-    "enter", "e", "e", "up", "left", "enter", "enter", ...Array(118).fill("q"),
+    ...courtyardOpening, ...Array(118).fill("q"),
     (text) => assert.match(text, /continue battle/),
     "n", "enter",
     (text) => assert.match(text, /the party has won.*receives 94 experience points/),
@@ -439,6 +472,12 @@ async function verifySkullcrusherRecruitment(load, checkpoint) {
     "j", (_text, frame) => assert.match(frame.journal?.objective.nextStep, /defeat the ogre chief/i), "j",
   ], directory);
   console.log("With the key supplied in a controlled copy, recruited Skullcrusher, reloaded his clue, and reached the ogre chief.");
+}
+
+if (process.argv[2] === "--textile-courtyard-checkpoint") {
+  assert.ok(process.argv[3], "Pass a save with the armored and reinforced party at the Textile House entrance.");
+  await verifyUninterruptedCourtyard(process.argv[3]);
+  process.exit(0);
 }
 
 if (process.argv[2] === "--podal-checkpoint") {
