@@ -5,14 +5,15 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
-assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs|sokal-armory|sokal-landing|sokal-patrol-combat|sokal-courtyard] [--terrain-only]");
+assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs|sokal-armory|sokal-landing|sokal-patrol-combat|sokal-courtyard] [--terrain-only|--manual-party]");
 assert.ok(["kobolds", "orcs", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard"].includes(routeName), "Unknown Slums replay route");
 const orcs = routeName === "orcs";
 const armory = routeName === "sokal-armory";
 const patrolCombat = routeName === "sokal-patrol-combat";
 const courtyard = routeName === "sokal-courtyard";
 const terrainOnly = option === "--terrain-only";
-assert.ok(!option || (courtyard && terrainOnly), "--terrain-only requires sokal-courtyard");
+const manualParty = option === "--manual-party";
+assert.ok(!option || (courtyard && (terrainOnly || manualParty)), "Both options require sokal-courtyard");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -208,7 +209,32 @@ try {
     assert.equal(views, courtyard ? 24 : patrolCombat ? 18 : landing ? 19 : 12);
     assert.equal(seen.size, courtyard ? 56 : landing ? 49 : 13);
     console.log(`Verified ${seen.size} ${routeName} patterns across ${views} views. Captures: ${directory}`);
-    if (terrainOnly) {
+    if (manualParty) {
+      for (const key of ["enter", "enter", "enter"]) await advance(key);
+      const brin = () => /BRINHITPOINTS6AC1MACEMOVEVIEWAIMUSEQUICKDONE/i.test(
+        frame.text.map(([, character]) => String.fromCharCode(character)).join(""));
+      for (let turn = 0; turn < 20 && !brin(); turn++) await advance("space");
+      assert.ok(brin(), "Expected Brin's manual combat menu");
+      const party = frame.combatArt.find(([, , id, , highlight]) => id === "combat:party:0:0" && highlight);
+      assert.deepEqual(party, [80, 80, "combat:party:0:0", true, true]);
+      await waitFor("Brin's rendered icon and restored selection frame", () => run(`(() => {
+        if (state.sequence !== ${frame.sequence}) return false;
+        const sprite = [...document.querySelectorAll('.combat-sprite[src="/art/combat:party:0:0"]')]
+          .find(image => image.style.left === "25%" && image.style.top === "40%");
+        const image = document.querySelector("#screen");
+        if (sprite?.naturalWidth !== 96 || !image.complete) return false;
+        const context = document.createElement("canvas").getContext("2d");
+        context.canvas.width = context.canvas.height = 24;
+        context.drawImage(image, 80, 80, 24, 24, 0, 0, 24, 24);
+        const color = (x, y) => [...context.getImageData(x, y, 1, 1).data].slice(0, 3).join(",");
+        return color(0, 0) === "254,245,221" && color(23, 23) === "87,81,82" &&
+          color(10, 6) === "174,166,153";
+      })()`));
+      await switchBothWays();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "sokal-brin-selected.png"), Buffer.from(shot.data, "base64"));
+      console.log("Verified Brin's 4× combat icon and the original selection frame.");
+    } else if (terrainOnly) {
       assert.equal(frame.battleTiles.length, 0);
       for (const key of ["enter", "enter", "enter"]) await advance(key);
       for (let turn = 0; turn < 20 && !frame.battleTiles.length; turn++) await advance("q");

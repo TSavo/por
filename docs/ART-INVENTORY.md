@@ -246,3 +246,10 @@ that composition. The matcher assembles and checks the original 24×24
 pixels in both facings. Chrome observed the 96×96 replacement in real
 courtyard combat. Other combinations, equipment poses, and recolors
 still fall back to the guest artwork.
+
+The composed icon also renders when the party member is selected.
+The matcher checks the full highlighted cell and restores its bright
+rim, dark edge, and interior beneath the transparent replacement.
+Append `--manual-party` to the courtyard Chrome replay to verify Brin's
+selected icon, sample the restored colors, and switch display modes
+during his manual turn.

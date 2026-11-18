@@ -7,7 +7,7 @@ import { currentObjective, isOpenObjective, type JournalLead } from "../src/runt
 import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
-import { loadCombatArtMatcher, type CombatArtPlacement } from "./combat-art.js";
+import { combatHighlightPixel, loadCombatArtMatcher, type CombatArtPlacement } from "./combat-art.js";
 import { loadPortraitArt } from "./portrait-art.js";
 import { loadEncounterArt } from "./encounter-art.js";
 
@@ -132,12 +132,18 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       const combat = attack ?? (!scene && !leads && !explorationMenu.startsWith("AREACASTVIEWENCAMP")
         ? combatArt(screen) : []);
-      // Each match covers an exact 24×24 guest sprite, including its black
-      // background. Clear the old pose under transparent replacement pixels.
-      for (const [x, y] of combat) {
+      // Replace the old 24×24 pose with its original cell background.
+      // Preserve the selection frame behind transparent artwork.
+      for (const [x, y, , , highlighted] of combat) {
         for (let row = 0; row < 24; row++) {
           const start = (y + row) * enhanced.width + x;
-          enhanced.pixels.fill(0, start, start + 24);
+          if (highlighted) {
+            for (let column = 0; column < 24; column++) {
+              enhanced.pixels[start + column] = combatHighlightPixel(column, row);
+            }
+          } else {
+            enhanced.pixels.fill(0, start, start + 24);
+          }
         }
       }
       const battleTiles: TilePlacement[] = [];

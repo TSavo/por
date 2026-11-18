@@ -3,20 +3,33 @@ import type { Frame } from "../src/lib/ega.js";
 import { decodePicture, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
-export type CombatArtPlacement = [x: number, y: number, key: string, reflected: boolean];
+export type CombatArtPlacement = [x: number, y: number, key: string, reflected: boolean, highlighted?: boolean];
+
+/** Palette index under a selected guest unit's transparent pixels. */
+export function combatHighlightPixel(x: number, y: number): number {
+  if (y === 0) return x < 23 ? 15 : 8;
+  if (y === 23) return x === 0 ? 15 : 8;
+  return x < 2 ? 15 : x >= 22 ? 8 : 7;
+}
 
 export function loadCombatArtMatcher(keys: string[]) {
-  const patterns = new Map<string, { key: string; reflected: boolean } | null>();
-  const register = (pixels: Uint8Array, key: string, reflected: boolean) => {
+  const patterns = new Map<string, { key: string; reflected: boolean; highlighted: boolean } | null>();
+  const register = (pixels: Uint8Array, key: string, reflected: boolean, highlighted = false) => {
     const pattern = Buffer.from(pixels).toString("hex");
     const previous = patterns.get(pattern);
-    patterns.set(pattern, previous === undefined || previous?.key === key ? { key, reflected } : null);
+    patterns.set(pattern, previous === undefined || previous?.key === key ? { key, reflected, highlighted } : null);
   };
-  const registerFacings = (pixels: Uint8Array, key: string) => {
+  const registerFacings = (pixels: Uint8Array, key: string, party = false) => {
     const reflected = Buffer.from(pixels);
     for (let y = 0; y < 24; y++) reflected.subarray(y * 24, (y + 1) * 24).reverse();
     register(reflected, key, true);
     register(pixels, key, false);
+    if (party) {
+      const highlighted = (pose: Uint8Array) => pose.map((color, index) =>
+        color || combatHighlightPixel(index % 24, Math.floor(index / 24)));
+      register(highlighted(reflected), key, true, true);
+      register(highlighted(pixels), key, false, true);
+    }
   };
   const root = keys.length ? findGameRoot() : null;
   if (root) {
@@ -54,7 +67,7 @@ export function loadCombatArtMatcher(keys: string[]) {
         if (!face || !torso) continue;
         const pixels = torso.slice();
         pixels.set(face);
-        registerFacings(pixels, key);
+        registerFacings(pixels, key, true);
       }
     }
   }
@@ -70,7 +83,9 @@ export function loadCombatArtMatcher(keys: string[]) {
           cell.set(frame.pixels.subarray(start, start + 24), row * 24);
         }
         const match = patterns.get(cell.toString("hex"));
-        if (match) placements.push([x, y, match.key, match.reflected]);
+        if (match) placements.push(match.highlighted
+          ? [x, y, match.key, match.reflected, true]
+          : [x, y, match.key, match.reflected]);
       }
     }
     return placements;
