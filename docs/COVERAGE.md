@@ -1077,10 +1077,23 @@ The `mendor-rhetoric-stacks` and `mendor-history-stacks` replays check
 `mendor-library-stacks` replay verifies that the stacks clue appears when
 the party sees the shelves. The translation verifier checks that only the
 book actually read appears in the journal for entries 7, 8, 19, 21, and 37.
+The verifier also checks each record's original report and acknowledgment
+flags independently. `mendor-records-reward` uses controlled slot A at
+City Hall to report Lex Geographica. Chrome verifies that the atlas is
+turned in and the council's standing records offer remains available.
+The `mendor-library-fighter` replay uses controlled slot B and checks the
+fighter's 96×96 ready pose and reflected sword strike in Chrome.
 The `mendor-library-spectre` replay sets the book flag in controlled slot B
 to trigger the guardian. It checks both 96×96 poses and the witnessed clue.
 The `kobold-princess-fatima` replay uses controlled slot B to check her
 portrait and journal entry 16, then verifies that she joins the roster.
+The `kobold-cave-guide` replay checks the area-scoped guard portrait and
+the escort clue when the party wakes the guide. `kobold-small-cave-pool`
+and `kobold-large-cave-loop` start from slot B saves made through the
+original cave entrances and check 2,541 placements across 21 views,
+including 43 new individual tiles.
+The `kobold-cave-guide` replay verifies the scoped portrait and confirms
+that the journal learns about the escort only after the offer.
 The `kuto-catacomb-service-loop` replay uses controlled slot J below the
 well and turns away from Norris's ambush. Chrome checks 2,057 individual
 placements across 17 views, including 32 new 32×32 tiles.
@@ -1129,6 +1142,11 @@ The save is preserved when switching presentation.
 The `valjevo-west-gallery` replay takes the other tower branch from the same
 slot B and checks 1,815 placements across 15 views. It adds 11 original
 32×32 tiles and five bindings to existing tower art during the transition.
+The same tower-halls replay can reach the original Encamp save menu and
+write slot B inside area 7 at `4,8 S`. Reloading that native save currently
+exits the DOS guest before its first interactive frame. The DOS trace opens
+the slot and its party records, then `GEO5.DAX` and `WALLDEF5.DAX` before
+exiting. The area-20 checkpoint still loads and crosses into the tower.
 
 The `sokal-northeast-keep` replay loads slot D at `14,5 N` and walks the
 northeast halls. Chrome checks 3,025 placements across 25 views, using eight

@@ -842,13 +842,26 @@ function checkCampaignJournal(): void {
       seenStacks.some(({ id }) => id.startsWith("mendor-book-"))) {
     throw new Error("The library stacks should guide a search without revealing unread books");
   }
-  for (const number of [7, 19, 37, 8, 21]) {
+  for (const [number, rewardFlag] of [[7, 0x4aaa], [19, 0x4aab], [37, 0x4aac], [8, 0x4aad], [21, 0x4aae]] as const) {
     const book = lines.find((line) => line.startsWith("YOU FIND ") &&
       (line.includes(`ENTRY ${number} IN YOUR JOURNAL`) || line.includes(`JOURNAL AS ENTRY ${number}`)));
     const discoveries = book && discoveredLeads(book);
     if (!discoveries || discoveries.filter(({ id }) => id.startsWith("mendor-book-")).map(({ id }) => id).join() !== `mendor-book-${number}`) {
       throw new Error(`Missing or premature library discovery for journal entry ${number}`);
     }
+    const id = `mendor-book-${number}`;
+    writeGlobal(rewardFlag, 254);
+    const toReport = questProgress(m, discoveries, m.ds);
+    if (toReport.find((lead) => lead.id === id)?.status !== "ready-to-report" ||
+        !currentObjective(toReport, id).nextStep.includes("City Hall") ||
+        questProgress(m, seenStacks, m.ds).some((lead) => lead.id === id)) {
+      throw new Error(`Library reward flag should guide reporting only for known entry ${number}`);
+    }
+    writeGlobal(rewardFlag, 255);
+    if (questProgress(m, discoveries, m.ds).find((lead) => lead.id === id)?.status !== "turned-in") {
+      throw new Error(`Library acknowledgment did not close entry ${number}`);
+    }
+    writeGlobal(rewardFlag, 0);
   }
   const castle = commissions.find(({ id }) => id === "castle")!;
   const castleFlag = progressAddresses.castle!;

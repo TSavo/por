@@ -3,6 +3,14 @@ import { farCallObservers } from "./far.js";
 import type { LoadedSlice } from "./overlay.js";
 import { commissions } from "./commission-journal.js";
 
+const libraryRecords = [
+  { entry: 7, title: "Fyerdetha's Discourses on Power", rewardFlag: 0x4aaa },
+  { entry: 19, title: "Urgund's Description of Darkness", rewardFlag: 0x4aab },
+  { entry: 37, title: "Lex Geographica", rewardFlag: 0x4aac },
+  { entry: 8, title: "The History of the North", rewardFlag: 0x4aad },
+  { entry: 21, title: "The Grand Historian's Records of the Arts of War", rewardFlag: 0x4aae },
+] as const;
+
 /** Observe the Pascal strings actually sent to the guest's text display. */
 export function observeAdventureLog(cpu: Cpu, slice: LoadedSlice, trainer?: LoadedSlice,
   onMessage?: (message: string) => void): () => string {
@@ -74,6 +82,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
   if (tracked?.id === "podal-shrine-meeting") {
     return { title: tracked.title, nextStep: tracked.detail };
   }
+  if (tracked?.id.startsWith("mendor-book-")) return { title: tracked.title, nextStep: tracked.detail };
   const commission = commissions.find(({ id }) => tracked?.id === `commission-${id}`);
   if (commission) {
     const knows = (id: string) => leads.some((lead) => lead.id === id);
@@ -188,7 +197,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("bane-dirten")) nextStep = "Decide whether to accompany Dirten. If you agree, cross the river with him and cleanse the desecrated temple.";
     }
     if (commission.id === "records") {
-      if (leads.some(({ id }) => id.startsWith("mendor-book-"))) {
+      if (leads.some(({ id, status }) => id.startsWith("mendor-book-") && status === "ready-to-report")) {
+        nextStep = "Bring the recovered records to the council clerk at City Hall. You can return to the stacks for more.";
+      } else if (leads.some(({ id }) => id.startsWith("mendor-book-"))) {
         nextStep = "Read the passages you copied from Mendor's books. Search the other stacks for more accounts of old Phlan.";
       } else if (knows("mendor-library-stacks")) {
         nextStep = "Use Search in the library stacks and examine the books for accounts of old Phlan.";
@@ -370,6 +381,15 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   if ((base | segment) === 0) return [];
   const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
   const progress: JournalLead[] = [];
+  for (const { entry, rewardFlag } of libraryRecords) {
+    const record = known.find(({ id }) => id === `mendor-book-${entry}`);
+    if (!record) continue;
+    const state = global(rewardFlag);
+    if (state === 254) progress.push({ ...record, status: "ready-to-report",
+      detail: `Bring the record copied as journal entry ${entry} to the council clerk at City Hall.` });
+    else if (state === 255) progress.push({ ...record, status: "turned-in",
+      detail: `The council clerk acknowledged the record copied as journal entry ${entry}.` });
+  }
   const stampede = known.find((lead) => lead.id === "rescue-stampede");
   if (stampede && global(0x49f2) === 1) {
     // This local flag is shared with other scripts and only identifies the
@@ -502,13 +522,7 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "mendor-book-guardian", title: "The library's guardian",
       detail: "A spectre accused the party of taking the library's books and attacked it." });
   }
-  for (const [entry, title] of [
-    [7, "Fyerdetha's Discourses on Power"],
-    [19, "Urgund's Description of Darkness"],
-    [37, "Lex Geographica"],
-    [8, "The History of the North"],
-    [21, "The Grand Historian's Records of the Arts of War"],
-  ] as const) {
+  for (const { entry, title } of libraryRecords) {
     if (text.includes(`YOU FIND ${title.toUpperCase()}`) &&
         (text.includes(`ENTRY ${entry} IN YOUR JOURNAL`) || text.includes(`JOURNAL AS ENTRY ${entry}`))) {
       leads.push({ id: `mendor-book-${entry}`, title, detail: `The party copied a passage into journal entry ${entry}.` });
@@ -529,6 +543,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("WHAT CAVE WILL YOU ENTER?")) {
     leads.push({ id: "kobold-cave-fork", title: "The kobold cave fork", detail: "The party found a concealed cave beside a larger entrance and can choose which to explore." });
+  }
+  if (text.includes("DO YOU WISH AN ESCORT TO THE KING?")) {
+    leads.push({ id: "kobold-guide-offer", title: "An escort to the kobold king",
+      detail: "When awakened, the kobold mistook the party for envoys and offered to take it to the king." });
   }
   if (text.includes("I AM PRINCESS FATIMA") && text.includes("RECORD IT IN YOUR JOURNAL UNDER ENTRY 16")) {
     leads.push({ id: "kobold-fatima-account", title: "Princess Fatima's account",
