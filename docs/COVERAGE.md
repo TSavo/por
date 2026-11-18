@@ -765,6 +765,9 @@ then switched both ways and checked that the live frame and save were preserved.
 
 The river pollution journal records the rowboat, secret entrance, fountain
 machinery, and damage only after the party sees the corresponding ECL dialogue.
+The translation verifier also checks the chamber explosion and the land's
+recovery using the original dialogue. After a witnessed blast, the journal
+reminds the party to check for injuries until they have left the pyramid.
 The `river-approach` Chrome replay uses controlled slot A at `19,13 E`
 with the river offer tracked. It moves south to discover the rowboat, takes
 it to the pyramid, and enters through the secret door. The journal changes

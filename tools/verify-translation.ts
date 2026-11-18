@@ -526,12 +526,25 @@ function checkCampaignJournal(): void {
     }
   }
   for (const ending of ["YOU HAVE DESTROYED THE LAST PIECE OF EQUIPMENT", "THE EQUIPMENT IS NOW CERTAINLY DESTROYED",
-    "ALCHEMICAL POLLUTION CAUSED BY THE PYRAMID"]) {
+    "BITS OF PIPE AND OTHER PLUMBING FIXTURES FLY IN ALL DIRECTIONS", "ALCHEMICAL POLLUTION CAUSED BY THE PYRAMID"]) {
     const line = lines.find((text) => text.includes(ending));
     if (!line || !currentObjective(discoveredLeads(riverTranscript + "\n" + line), "commission-river")
       .nextStep.includes("report the end of the river pollution")) {
       throw new Error(`The river journal missed the outcome after ${ending}`);
     }
+  }
+  const blast = lines.find((line) => line.includes("BITS OF PIPE AND OTHER PLUMBING FIXTURES FLY IN ALL DIRECTIONS"));
+  const recovery = lines.find((line) => line.includes("THE LAND IS ALREADY BEGINNING TO RECOVER"));
+  if (!blast || !recovery) throw new Error("Missing the original fountain blast or recovery dialogue");
+  writeGlobal(progressAddresses.river!, 254);
+  const riverObjective = (transcript: string) => {
+    const known = discoveredLeads(transcript);
+    return currentObjective([...questProgress(m, known, m.ds), ...known], "commission-river");
+  };
+  if (riverObjective(riverTranscript).nextStep.includes("blast") ||
+      !riverObjective(`${riverTranscript}\n${blast}`).nextStep.includes("Check the party after the blast") ||
+      riverObjective(`${riverTranscript}\n${blast}\n${recovery}`).nextStep.includes("blast")) {
+    throw new Error("The river objective should respond to a witnessed blast until the party sees the land recovering");
   }
   const acceptance = [["graveyard", 0x4a96, 255], ["auction", progressAddresses.auction!, 1], ["textile", 0x4a97, 255], ["zhentil", 0x4a98, 255],
     ["gate", 0x4a99, 255], ["castle", 0x4a9a, 255]] as const;

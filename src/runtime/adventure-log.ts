@@ -79,6 +79,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "ohlo" && tracked.status === "ready-to-report") {
         return { title: commission.title, nextStep: "Take the package back to Ohlo and choose Give when he asks for the potion." };
       }
+      if (commission.id === "river" && tracked.status === "ready-to-report" && knows("river-fountain-blast") && !knows("river-recovery")) {
+        return { title: commission.title, nextStep: "Check the party after the blast, then leave the pyramid and report to the council clerk in New Phlan." };
+      }
       if (commission.id === "auction" && tracked.status === "ready-to-report") {
         const result = knows("auction-cancelled") ? "Report that the auction was cancelled"
           : knows("auction-wand-of-fear") ? "Report that the weapon was a Wand of Fear"
@@ -675,9 +678,19 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("NOT ALL THE EQUIPMENT IS YET DESTROYED")) {
     leads.push({ id: "river-equipment-damaged", title: "The pipes are under pressure", detail: "The damaged machinery started whining and the black liquid bubbled." });
   }
+  const fountainBlast = text.includes("BITS OF PIPE AND OTHER PLUMBING FIXTURES FLY IN ALL DIRECTIONS");
+  const riverRecovery = text.includes("THE LAND IS ALREADY BEGINNING TO RECOVER FROM THE ALCHEMICAL POLLUTION");
+  if (fountainBlast) {
+    leads.push({ id: "river-fountain-blast", title: "The pipes exploded",
+      detail: "The machinery exploded inside the fountain chamber. Check the party before leaving." });
+  }
+  if (riverRecovery) {
+    leads.push({ id: "river-recovery", title: "The land is recovering",
+      detail: "On leaving the pyramid, the party saw the land beginning to recover." });
+  }
   if (text.includes("YOU HAVE DESTROYED THE LAST PIECE OF EQUIPMENT") ||
       text.includes("THE EQUIPMENT IS NOW CERTAINLY DESTROYED") ||
-      text.includes("ALCHEMICAL POLLUTION CAUSED BY THE PYRAMID")) {
+      fountainBlast || riverRecovery) {
     leads.push({ id: "river-equipment-destroyed", title: "The river can recover", detail: "The party stopped the pyramid's pollution." });
   }
   for (const commission of commissions) {
