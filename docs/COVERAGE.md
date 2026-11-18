@@ -710,7 +710,10 @@ The `bane-altar` replay starts from an admitted party moved to the
 adjacent aisle. It walks up to the altar, chooses Destroy Altar, and
 checks that the journal points to the half-orc cleric as the fight
 begins. A translation check covers the original victory flag and the
-dispatch for journal entry 25. This replay stops at the ambush.
+dispatch for journal entry 25. The Chrome replay continues into combat
+and switches modes with the cleric's original 96×96 ready stance on the
+grid. The separately exported strike is verified through the combat
+matcher, with its live animation still to be captured.
 The separate `bane-reward` replay loads a controlled City Hall checkpoint
 with the victory flag and dispatch recorded. It verifies the clerk's
 permission to keep the temple treasure, the journal transition after

@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:24:CPIC1.DAX:33": "bane-cleric-ready.png",
+    "combat:area:24:CPIC1.DAX:161": "bane-cleric-strike.png",
     "tile:31:1180638ececd642b84551072d1f901f40c3f3d975f59049bd1aa8436be86beff": "bane-interior-terrain-1180638ececd.png",
     "tile:31:1352286f7dddf65efce52c789476c7e917ecdd98d1c1ca9ab2dde1e4964caefe": "bane-interior-terrain-1352286f7ddd.png",
     "tile:31:14d5a9f4171a4bb9a504c999d4626eaa4928c68764022cd1c96c8b200ea88a56": "bane-interior-terrain-14d5a9f4171a.png",

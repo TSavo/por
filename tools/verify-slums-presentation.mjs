@@ -380,7 +380,15 @@ try {
     assert.ok(knows("bane-altar-ambush") && !knows("bane-cleric-dispatch"));
     assert.match(frame.journal.objective.nextStep, /Defeat the half-orc cleric/);
     assert.notEqual(frame.journal.leads.find(({ id }) => id === "commission-bane")?.status, "ready-to-report");
-    console.log("Verified the altar decision and the journal's response to the original ambush.");
+    for (const key of ["j", "enter", "enter", "enter", "enter", "q"]) await advance(key);
+    const cleric = "combat:area:24:CPIC1.DAX:33";
+    assert.ok(frame.combatArt.some(([, , id]) => id === cleric));
+    await waitFor("the half-orc cleric in combat", () => run(`[...document.querySelectorAll(".combat-sprite")].some(img =>
+      img.src.endsWith(${JSON.stringify(cleric)}) && img.naturalWidth === 96 && img.naturalHeight === 96)`));
+    await switchBothWays();
+    const combat = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "bane-altar-combat.png"), Buffer.from(combat.data, "base64"));
+    console.log("Verified the altar decision, journal guidance, and the cleric's Enhanced combat stance.");
   } else if (baneGate || baneGoblins || baneSymbol) {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     await advance("j");
