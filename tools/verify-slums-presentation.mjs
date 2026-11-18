@@ -5,8 +5,10 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
-assert.ok(checkpoint && chromePath, "Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [kobolds|orcs|sokal-armory|sokal-landing|sokal-patrol-combat|sokal-courtyard] [--terrain-only|--manual-party]");
-assert.ok(["kobolds", "orcs", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard"].includes(routeName), "Unknown Slums replay route");
+const routes = ["kobolds", "orcs", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "castle-ending"];
+assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
+assert.ok(routes.includes(routeName), "Unknown presentation replay route");
+const ending = routeName === "castle-ending";
 const orcs = routeName === "orcs";
 const armory = routeName === "sokal-armory";
 const patrolCombat = routeName === "sokal-patrol-combat";
@@ -17,7 +19,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)), "Both options 
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : orcs ? "C.json" : "A.json");
+const saved = resolve(directory, landing ? "J.json" : armory ? "D.json" : orcs || ending ? "C.json" : "A.json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
 const frameDirectory = resolve(directory, "tile-frames");
@@ -51,7 +53,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
-    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (landing ? "246a" : armory ? "2064" : orcs ? "2e63" : "1e61"),
+    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + (landing ? "246a" : armory ? "2064" : orcs || ending ? "2e63" : "1e61"),
     POR_LIVE_AT: "85000000", POR_BOOT_STEPS: "450000000",
   },
   stdio: ["ignore", "ignore", "inherit"],
@@ -150,7 +152,20 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  if (armory || landing) {
+  if (ending) {
+    await advance("j");
+    assert.equal(frame.journal?.objective.title, "Phlan is free");
+    assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-castle")?.status, "turned-in");
+    const endingVisible = () => run(`!document.querySelector("#journal").hidden &&
+      document.querySelector("#objective strong")?.textContent === "Phlan is free"`);
+    await waitFor("the saved campaign ending", endingVisible);
+    await switchBothWays();
+    assert.ok(await endingVisible());
+    await advance("j");
+    await waitFor("return to the loaded game", () => run('document.querySelector("#journal").hidden'));
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the completed campaign journal and mode switching in Chrome after reloading slot C.");
+  } else if (armory || landing) {
     const route = courtyard ? [
       null, "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "enter",
       "p", "n", ..."shestni", "enter",

@@ -516,6 +516,10 @@ with the prepared party outside the audience hall at `14,7 S`. With
 intervention. It also checks the 67,500 XP council award, the journal's
 ready-to-report, reward-pending, and turned-in states, and the ending
 objective after reloading slot C.
+Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_C PATH_TO_CHROME castle-ending`
+with that completed save. Chrome reloads slot C, checks that the journal
+displays **Phlan is free**, switches both presentation modes while the
+journal is open, and returns to play with the save bytes unchanged.
 
 A controlled training replay sent the six-character party to the schools
 from a Slums save. It followed the posted directions north and entered the
