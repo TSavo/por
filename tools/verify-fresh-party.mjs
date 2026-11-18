@@ -560,5 +560,26 @@ await replay(loadSlotF, "85000000", [
   (text) => assert.match(text, /mira's spells in memory.*sleep/),
 ], spellSaveDir);
 console.log("Equipped the mixed party, sailed to Sokal Keep, and reloaded at the landing with Sleep prepared.");
+await replay(loadSlotF, "85000000", [
+  "up", "left", "up", "up", "enter", "enter", "end", "enter",
+  (text) => assert.match(text, /crumbling parchment scroll/),
+  "enter", "enter", "enter",
+  "right", "right", "up", "up", "left", "up", "up", "right", "up", "up",
+  "left", "up", "up", "left",
+  (text) => assert.match(text, /pack of undead suddenly appears.*parlay/),
+  "p", "n", ..."shestni", "enter",
+  (text) => assert.match(text, /the undead leave/),
+  ...Array(5).fill("up"), "left", "up", "up", "enter",
+  (text) => assert.match(text, /large force of orcs and hobgoblins rushes you/),
+  ...Array(5).fill("enter"), ...Array(12).fill("space"),
+  (text) => assert.match(text, /mira hitpoints 5 ac 10.*cast quick done/),
+  "c",
+  (text) => assert.match(text, /mira's spells in memory.*sleep/),
+  "enter", ...Array(5).fill("n"),
+  (text) => assert.match(text, /orc hitpoints.*spell:sleep.*target/),
+  "t",
+  (text) => assert.match(text, /orc leader hitpoints.*aim:next/),
+], spellSaveDir);
+console.log("Cleared Quick with Space and cast Sleep at an orc in the Sokal courtyard.");
 console.log("Replay save:", saveDir);
 console.log("Mixed-party save:", spellSaveDir);
