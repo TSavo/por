@@ -1,4 +1,5 @@
 import { strict as assert } from "node:assert";
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
@@ -9,7 +10,7 @@ const plan = JSON.parse(readFileSync(new URL("../src/audio/enhanced-sounds.json"
 };
 const originals = JSON.parse(readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url), "utf8")) as {
   events: Array<{ id: string; index: number; kind: string; reachable?: boolean; enhancedFile?: string;
-    enhancedStatus?: string }>;
+    enhancedStatus?: string; enhancedSha256?: string }>;
 };
 
 assert.equal(plan.provider, "ElevenLabs Sound Effects");
@@ -32,21 +33,17 @@ for (const effect of plan.effects) {
   assert(original, `${effect.id} has no reachable original event`);
   assert.equal(effect.id, original.id);
   assert.equal(effect.file, original.enhancedFile);
-  assert(["awaiting-elevenlabs-generation", "generated-elevenlabs-awaiting-review", "approved-elevenlabs"].includes(
+  assert(["awaiting-elevenlabs-generation", "generated-elevenlabs-awaiting-review", "approved-elevenlabs",
+    "approved-elevenlabs-edited"].includes(
     original.enhancedStatus ?? ""));
 }
 
 const directory = resolve(process.env.POR_ENHANCED_AUDIO_DIR ?? "../por-assets/enhanced");
 const present = plan.effects.filter(({ file }) => existsSync(resolve(directory, file)));
-assert(present.length === 0 || present.length === plan.effects.length,
-  `partial ElevenLabs suite: ${present.length}/${plan.effects.length} files exist`);
-if (present.length) {
-  const provenancePath = resolve(directory, "elevenlabs-generation.json");
-  assert(existsSync(provenancePath), "generated ElevenLabs suite needs provenance");
-  const provenance = JSON.parse(readFileSync(provenancePath, "utf8")) as {
-    effects: Array<{ id: string; file: string; sha256: string }>;
-  };
-  for (const effect of plan.effects) {
+for (const effect of plan.effects) {
+  const original = reachableEffects.find(({ index }) => index === effect.index)!;
+  const path = resolve(directory, effect.file);
+  if (existsSync(path)) {
     const wave = readFileSync(resolve(directory, effect.file));
     const view = new DataView(wave.buffer, wave.byteOffset, wave.byteLength);
     assert.equal(wave.subarray(0, 4).toString("ascii"), "RIFF");
@@ -55,8 +52,11 @@ if (present.length) {
     assert.equal(view.getUint32(24, true), 44_100); assert.equal(view.getUint16(34, true), 16);
     const seconds = view.getUint32(40, true) / 2 / 44_100;
     assert(Math.abs(seconds - effect.targetSeconds) <= 1 / 44_100, `${effect.id} duration mismatch`);
-    assert(provenance.effects.some(({ id, file, sha256 }) => id === effect.id && file === effect.file && sha256.length === 64),
-      `${effect.id} missing provenance`);
+    assert(original.enhancedStatus?.startsWith("approved-"), `${effect.id} exists without approval`);
+    assert.equal(createHash("sha256").update(wave).digest("hex"), original.enhancedSha256,
+      `${effect.id} hash does not match approved master`);
+  } else {
+    assert(!original.enhancedStatus?.startsWith("approved-"), `${effect.id} approved master is missing`);
   }
 }
-console.log(`verified ElevenLabs plan for ${plan.effects.length} effects${present.length ? " and generated WAV suite" : " (awaiting generation)"}`);
+console.log(`verified ElevenLabs plan for ${plan.effects.length} effects and ${present.length} approved master(s)`);
