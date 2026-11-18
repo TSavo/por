@@ -142,6 +142,23 @@ function exportClassicFrame(original: Frame, index: number) {
   writeFileSync(join(output, preview), encodePng(original));
   return preview;
 }
+const tileSources = new Map<string, { archive: string; block: number; directoryIndex: number; member: number; frame: number }[]>();
+for (const { file: archive, entries } of archives) {
+  if (!/^8X8D\d+\.DAX$/.test(archive)) continue;
+  for (const entry of entries) {
+    if (entry.format !== "picture") continue;
+    for (const [member, metadata] of (entry.pictures ?? []).entries()) {
+      if (metadata.width !== 8 || metadata.height !== 8) continue;
+      const picture = classicPicture(archive, entry.directoryIndex, member);
+      for (let frame = 0; frame < metadata.frames; frame++) {
+        const hash = createHash("sha256").update(frameSlice(picture, frame)).digest("hex");
+        const candidates = tileSources.get(hash) ?? [];
+        candidates.push({ archive, block: entry.id, directoryIndex: entry.directoryIndex, member, frame });
+        tileSources.set(hash, candidates);
+      }
+    }
+  }
+}
 const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
@@ -174,11 +191,14 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
         ...(source && { x: source.x, y: source.y }),
         ...(area !== undefined && { area: Number(area) }),
       } : undefined);
+  const tileHash = /^tile:\d+:(.+)$/.exec(id)?.[1];
+  const sourceCandidates = tileHash && tileSources.get(tileHash) || undefined;
   let classicPreview;
-  if (source) {
-    const picture = classicPicture(source.archive, source.directoryIndex, source.member);
+  const reference = source ?? sourceCandidates?.[0];
+  if (reference) {
+    const picture = classicPicture(reference.archive, reference.directoryIndex, reference.member);
     const original = new Frame(picture.width, picture.height);
-    original.blit(frameSlice(picture, source.frame), picture.width, picture.height, 0, 0);
+    original.blit(frameSlice(picture, reference.frame), picture.width, picture.height, 0, 0);
     classicPreview = exportClassicFrame(original, index);
   } else if (sourceParts?.length === 2) {
     const original = new Frame(88, 88);
@@ -188,7 +208,7 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
     }
     classicPreview = exportClassicFrame(original, index);
   }
-  return { id, preview, classicPreview, source, sourceParts: sourceParts ?? undefined, placement, ...metadata };
+  return { id, preview, classicPreview, source, sourceCandidates, sourceParts, placement, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();
 const runtimeReplacements = [];
@@ -203,7 +223,7 @@ for (const replacement of replacements) {
   matches.push(replacement);
   replacementsByBlock.set(key, matches);
 }
-function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source }: typeof replacements[number]) {
+function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source, sourceCandidates }: typeof replacements[number]) {
   const area = placement && "area" in placement ? ` · area ${placement.area}` : "";
   const origin = placement && "x" in placement ? ` · origin (${placement.x}, ${placement.y})` : "";
   const extent = placement && "width" in placement ? ` · display ${placement.width}×${placement.height}` : "";
@@ -213,7 +233,10 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
     `<div>${enhanced}<small>Enhanced</small></div></div>`;
   return `<div class="preview">${images}` +
     `<small>Enhanced · ${width}×${height} · ${escape(id)}${area}${origin}${extent}</small>` +
-    `<small>${escape(file)}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small></div>`;
+    `<small>${escape(file)}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small>` +
+    (sourceCandidates ? `<details class="sources"><summary>Exact pixel matches (${sourceCandidates.length})</summary>` +
+      sourceCandidates.map(({ archive, block, member, frame }) =>
+        `<small>${escape(archive)} #${block} · member ${member}, frame ${frame}</small>`).join("") + "</details>" : "") + "</div>";
 }
 const runtimeGallery = runtimeReplacements.length ?
   `<details data-category="Runtime artwork"><summary>Runtime artwork · ${runtimeReplacements.length} replacements</summary><div class="grid">` +
@@ -263,7 +286,7 @@ const search = document.querySelector('#search');
 const category = document.querySelector('#category');
 const replacement = document.querySelector('#replacement');
 const includeData = document.querySelector('#include-data');
-const archives = [...document.querySelectorAll('details')].map((archive) => ({ archive,
+const archives = [...document.querySelectorAll('details[data-category]')].map((archive) => ({ archive,
   entries: [...archive.querySelectorAll('figure')].map((figure) => ({ figure, text: figure.textContent.toLowerCase() })) }));
 function filter() {
   const query = search.value.trim().toLowerCase();
