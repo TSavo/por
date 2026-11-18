@@ -1095,7 +1095,7 @@ const evokerTurn = await replay(loadSlotH, "85000000", [
 assert.match(visibleText(evokerTurn), /evoker hitpoints 6 ac 9/);
 console.log("Returned to Sokal Keep with the evoker and reached his first courtyard combat turn.");
 
-const twoRecruits = await replay(loadSlotG, "85000000", [
+await replay(loadSlotG, "85000000", [
   "right", "right", "up", "left", "up", "right", "up", "up", "left", "up",
   "enter", "enter", "enter", "n", "left", "up", "right", "up", "up", "up", "enter", "enter", "n",
   "y", ...Array(4).fill(["n", "y"]).flat(),
@@ -1124,7 +1124,8 @@ await replay(loadSlotJ, "85000000", [
   (text) => assert.match(text, /brin bless cora bless dorn bless enna bless fenn bless/),
 ]);
 console.log("Returned to Sokal Keep with the Curate and Theurgist, passed the patrol, and verified Bless.");
-await replay(loadSlotJ, "85000000", [
+const northCourtyardDefeat = /the monsters rejoice for the party has been destroyed/;
+const northCourtyardBattle = await replay(loadSlotJ, "85000000", [
   "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "enter",
   "p", "n", ..."shestni", "enter", ...Array(5).fill("up"),
   "right", "up", "right", "up", "enter", "enter",
@@ -1140,8 +1141,10 @@ await replay(loadSlotJ, "85000000", [
   (text) => assert.match(text, /curate 3 26.*theurgist 8 13.*8,3 s/),
   ...Array(6).fill("end"), "c", ...Array(8).fill("home"), "enter", "e", "up", "enter",
   (text) => assert.match(text, /8,4 s.*large force of orcs and hobgoblins rushes you/),
-]);
-console.log("Won the smithy fight with both recruits and reached the north courtyard with Bless.");
+  "enter", "enter", "enter", ...Array(800).fill("q"),
+], saveDir, northCourtyardDefeat);
+assert.match(visibleText(northCourtyardBattle), northCourtyardDefeat);
+console.log("Won the smithy fight with both recruits and reproduced the north courtyard defeat with Bless and Quick.");
 
 const spellSaveDir = mkdtempSync(join("out", "fresh-spell-party-"));
 const mageCreation = [

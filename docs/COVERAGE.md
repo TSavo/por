@@ -369,9 +369,11 @@ checkpoint replay verifies that approach. The original Quick watchdog
 interrupted two redraws in overlay 36 at `14BE` and `154E`. The default
 watchdog now extends its deadline during redraws in overlays 36 and 37,
 up to the same hard cap as the calibrated delay. With that change, the
-replay ran for 700 Quick inputs without recovery and matched the frames
-from the explicit 20-million-instruction diagnostic. The battle was still
-in progress at that point.
+replay matched the frames from the explicit 20-million-instruction
+diagnostic through 700 Quick inputs. Continuing with Quick reaches the
+game's party-defeat screen without watchdog recovery. The fresh-party
+verification checks that outcome for the northern approach with both
+recruits and Bless.
 On the mixed-party route through the smithy, Mira enters the courtyard
 from the north. The replay verifies that Aim lets her cycle to a
 hobgoblin without offering Target. Trying Target there leaves Sleep
