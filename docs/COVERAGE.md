@@ -223,8 +223,9 @@ with the reinforced party's landing save. The party uses the original
 inventory menus to trade Cora's banded mail and Dorn's shield to the
 Swordsman and Cora's shield to the Curate. Reloading slot A verifies
 the Swordsman at AC 3, the Curate at AC 2, and both of the Curate's
-prepared Hold Person spells. The courtyard opening with the Swordsman
-alone re-equipped still ended in defeat under Quick combat.
+prepared Hold Person spells. Quick combat ended in defeat with either the
+Swordsman alone or both recruits re-equipped. Neither replay logged a
+watchdog intervention.
 From J, the party walks back to New Phlan, hears the first council commissions
 at City Hall, and follows the harbor master's directions to the pier. The
 original boat transition lands all six on Thorn Island at (8,14). The replay
