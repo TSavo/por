@@ -258,12 +258,15 @@ Unmatched cells still need visual review.
 
 Set `POR_TRACE_BATTLE_DRAW=1` to log the original combat map picture
 calls separately from the final framebuffer trace. Each
-`POR_BATTLE_DRAW` line reports a distinct coordinate, picture number,
-and flags tuple from overlay 32 at `0208`. Coordinates use the guest
-draw routine's units. The manual courtyard replay reached this call for
-pictures 4, 10, 16, 22, 23, and 39. These are draw inputs for that
-redraw path. A complete terrain-only framebuffer still requires
-capturing the other drawing paths and accounting for overlaps.
+`POR_BATTLE_DRAW` line reports the archive, block, frame, coordinates,
+and flags passed to the guest draw routine. Coordinates are signed and
+use the guest's drawing units. Overlay 11 loads `SQRPACI.DAX` blocks
+1 and 2, and the terrain draw entry at overlay 33 `00F1` uses the high
+bit of the picture number to select the block and the low seven bits
+to select the zero-based frame. The manual courtyard replay recorded
+201 distinct draw tuples spanning 20 frames of block 1. These calls
+identify source artwork even when clipping, overdraw, and actors keep
+the finished cells from matching archive fragments.
 
 The courtyard also shows a composed party icon. Its source is
 `CHEAD.DAX` block 0 on `CBODY.DAX` block 0. Other head records contain

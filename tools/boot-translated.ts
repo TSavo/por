@@ -53,17 +53,22 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const boot = installProgram(cpu, exe.data, ovr.data);
   const captureCombatDelay = input?.captureCombatDelay;
   const terrainDrawSegment = process.env.POR_TRACE_BATTLE_DRAW === "1"
-    ? loadedSlices.find(({ index }) => index === 32)?.loadPara : undefined;
+    ? loadedSlices.find(({ index }) => index === 33)?.loadPara : undefined;
   if (captureCombatDelay || terrainDrawSegment !== undefined) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
     cpu.tick = function (at) {
       // The original executable holds the attack pose during this delay.
       if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) captureCombatDelay?.();
-      // Overlay 32 draws each map object before possible actor overlays.
-      if (at === 0x0208 && this.cs === terrainDrawSegment && this.steps >= liveStep) {
-        const argument = (offset: number) => this.read16(this.ss, this.sp + offset);
-        const draw = JSON.stringify({ x: argument(6), y: argument(4), picture: argument(2), flags: argument(0) });
+      // The far entry draws a frame from one of the two SQRPACI blocks.
+      if (at === 0x00f1 && this.cs === terrainDrawSegment && this.steps >= liveStep) {
+        const argument = (offset: number) => this.read8(this.ss, this.sp + offset);
+        const signed = (value: number) => (value << 24) >> 24;
+        const picture = argument(6);
+        const draw = JSON.stringify({
+          x: signed(argument(10)), y: signed(argument(8)), picture, flags: argument(4),
+          archive: "SQRPACI.DAX", block: picture & 0x80 ? 2 : 1, frame: picture & 0x7f,
+        });
         if (!terrainDraws.has(draw)) {
           terrainDraws.add(draw);
           console.error(`POR_BATTLE_DRAW ${draw}`);
