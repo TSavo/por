@@ -488,6 +488,19 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
+  if (text.includes("YOU ARE SEEKING THE TEXTILE HOUSE. WE CAN GET YOU IN UNSEEN")) {
+    leads.push({ id: "textile-restal-offer", title: "Restal's offer of a hidden route",
+      detail: "Restal offered to get the party into the Textile House unseen." });
+  }
+  if (text.includes("YOU ARE SURROUNDED BY THE BANDIT BAND OF THE INFAMOUS NORRIS THE GRAY")) {
+    leads.push({ id: "kuto-norris-ambush", title: "Norris the Gray's ambush",
+      detail: "Norris and his bandits surrounded the party beneath Kuto's Well and demanded its surrender." });
+  }
+  if (text.includes("YOU ARE STRIPPED OF ALL VALUABLES AND BLINDFOLDED") &&
+      text.includes("THE BANDITS RELEASE YOU SOMEWHERE ABOVE GROUND")) {
+    leads.push({ id: "kuto-norris-surrender", title: "Released by the bandits",
+      detail: "The party surrendered. The bandits took its valuables and released it above ground." });
+  }
   if (text.includes("WHAT CAVE WILL YOU ENTER?")) {
     leads.push({ id: "kobold-cave-fork", title: "The kobold cave fork", detail: "The party found a concealed cave beside a larger entrance and can choose which to explore." });
   }

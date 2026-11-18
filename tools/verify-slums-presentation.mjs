@@ -5,8 +5,14 @@ import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
+const norrisSurrender = routeName === "kuto-norris-surrender";
+const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["kuto-norris-combat", {
+    slot: "J", stand: "combat:area:29:CPIC8.DAX:7", strike: "combat:area:29:CPIC8.DAX:135", width: 96, height: 96,
+    inputs: ["up", "enter", "enter", "enter", "f", "enter", "enter", ...Array(9).fill("q")],
+  }],
   ["stojanow-tower-ettin", {
     stand: "combat:area:9:CPIC2.DAX:71", strike: "combat:area:9:CPIC2.DAX:199", width: 96, height: 192,
     inputs: ["up", ...Array(4).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(10).fill("q")],
@@ -77,6 +83,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["mendor-library-exterior", {
+    slot: "B", area: 15, views: 14, patterns: 32,
+    walk: ["left", "up", "up", "up", "right", "up", "up", "up", "up", "up", "up", "up", "right"],
+  }],
+  ["mendor-library-vestibule", {
+    slot: "B", area: 15, views: 16, patterns: 38,
+    walk: ["up", "left", "up", "right", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up"],
+  }],
   ["kuto-north-guard-approach", {
     slot: "J", area: 29, views: 10, patterns: 47,
     walk: ["up", "up", "up", "left", "up", "up", "up", "right", "up"],
@@ -230,7 +244,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "kuto-norris-surrender", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -286,7 +300,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader || koboldCave || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout ? "C" : "A");
+const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader || koboldCave || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -553,7 +567,9 @@ try {
         }
       }).observe(document.querySelector("#tile-art"), { childList: true });`);
     for (const key of inputs) await advance(key);
-    assert.ok(frame.combatArt?.some(([, , id, , selected]) => id === stand && selected));
+    assert.ok(frame.combatArt?.some(([, , id, , selected]) => id === stand && selected),
+      `Expected selected ${stand}. Combat placements: ${JSON.stringify(frame.combatArt)}. ` +
+      `Guest text: ${frame.text.map(([, character]) => String.fromCharCode(character)).join("")}`);
     await waitFor("the selected combat sprite", () => run(`state.sequence === ${frame.sequence} &&
       [...document.querySelectorAll(".combat-sprite")].some(image => image.src.endsWith(${JSON.stringify(stand)}) &&
         image.naturalWidth === ${width} && image.naturalHeight === ${height})`));
@@ -746,6 +762,31 @@ try {
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "slums-fortune-warning"));
     console.log("Verified the Slums fortune teller portrait and paid reading in Chrome.");
+  } else if (restalGuide) {
+    const restal = "portrait:HEAD4.DAX:52:BODY4.DAX:8";
+    const knowsOffer = () => frame.journal?.leads.some(({ id }) => id === "textile-restal-offer");
+    for (const key of ["up", "c", ...Array(5).fill("end"), ...Array(3).fill("enter")]) await advance(key);
+    assert.equal(frame.portrait, restal);
+    await waitFor("Restal's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    await advance("j");
+    assert.ok(frame.journal && !knowsOffer());
+    for (const key of ["j", "enter"]) await advance(key);
+    assert.equal(frame.portrait, restal);
+    assert.match(frame.text.toSorted(([left], [right]) => left - right)
+      .map(([, character]) => String.fromCharCode(character)).join(""), /WECANGETYOUINUNSEEN/i);
+    await advance("j");
+    assert.ok(knowsOffer());
+    console.log("Verified Restal's illustration and the witnessed Textile House shortcut in Chrome.");
+  } else if (norrisSurrender) {
+    const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+    await advance("j");
+    assert.ok(frame.journal && !knows("kuto-norris-ambush"));
+    for (const key of ["j", "up", "enter", "enter", "enter", "j"]) await advance(key);
+    assert.ok(knows("kuto-norris-ambush") && !knows("kuto-norris-surrender"));
+    for (const key of ["j", "s", "j"]) await advance(key);
+    assert.ok(knows("kuto-norris-surrender"));
+    console.log("Verified Norris's ambush and surrender journal discoveries in Chrome.");
   } else if (routeName === "old-phlan-seer") {
     for (const key of ["up", "enter"]) await advance(key);
     const text = () => frame.text.toSorted(([left], [right]) => left - right)

@@ -41,18 +41,12 @@ export function loadCombatArtMatcher(keys: string[]) {
 }
 
 function buildCombatArtMatcher(keys: string[]) {
-  type Pose = { key: string; reflected: boolean; pixels: Uint8Array; width: number };
-  const patterns = new Map<string, Pose | null>();
-  const poses: Pose[] = [];
-  const tallPoses: Pose[] = [];
+  type Pose = { key: string; pattern: string; scoped: boolean; reflected: boolean; pixels: Uint8Array; width: number };
+  const registered: Pose[] = [];
   const sizes = new Map<string, { width: number; height: number }>();
   const register = (pixels: Uint8Array, key: string, reflected: boolean, width: number) => {
     const pattern = `${width}:${Buffer.from(pixels).toString("hex")}`;
-    const previous = patterns.get(pattern);
-    const pose = { key, reflected, pixels, width };
-    patterns.set(pattern, previous === undefined || previous?.key === key ? pose : null);
-    poses.push(pose);
-    if (pixels.length === width * 48 && monsterCombatKey.test(key)) tallPoses.push(pose);
+    registered.push({ key, pattern, scoped: key.startsWith("combat:area:"), reflected, pixels, width });
   };
   const registerFacings = (pixels: Uint8Array, key: string, width = 24, height = 24) => {
     sizes.set(`${width}:${height}`, { width, height });
@@ -128,6 +122,16 @@ function buildCombatArtMatcher(keys: string[]) {
         registerFacings(pixels, key);
       }
     }
+  }
+  // Different CPIC archives can contain the same native pose. A local binding
+  // takes precedence over the matching global bitmap in this area's matcher.
+  const scopedPatterns = new Set(registered.filter(({ scoped }) => scoped).map(({ pattern }) => pattern));
+  const poses = registered.filter(({ scoped, pattern }) => scoped || !scopedPatterns.has(pattern));
+  const tallPoses = poses.filter(({ pixels, width, key }) => pixels.length === width * 48 && monsterCombatKey.test(key));
+  const patterns = new Map<string, Pose | null>();
+  for (const pose of poses) {
+    const previous = patterns.get(pose.pattern);
+    patterns.set(pose.pattern, previous === undefined || previous?.key === pose.key ? pose : null);
   }
   return (frame: Frame, enhanced?: Frame): CombatArtPlacement[] => {
     if (!patterns.size) return [];

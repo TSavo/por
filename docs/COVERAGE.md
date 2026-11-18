@@ -1060,6 +1060,19 @@ the walk to the well, using 89 new 32×32 tiles.
 The `kuto-north-guard-approach` and `kuto-north-rubble-loop` replays branch
 from the same native entry save. Chrome verifies 3,388 placements across
 28 views, including 23 new 32×32 tiles for the northern ruins.
+The `kuto-norris-surrender` replay uses a controlled slot J beneath the well.
+It verifies that the journal learns of the ambush, then independently records
+surrender only after the party sees the outcome. `kuto-norris-combat` uses
+an extra-health party to capture both 96×96 combat poses. Kuto's scoped
+bindings take precedence over the byte-identical global pose in the CPIC2
+archive, which remains available in other districts.
+The `mendor-library-exterior` replay uses slot B saved after the original
+Textile House crossing. `mendor-library-vestibule` positions the party inside
+the locked entrance. Chrome checks 3,630 placements across 30 views using
+61 new 32×32 tiles across the two routes.
+The `textile-restal` replay uses a controlled slot C. It verifies Restal's
+352×352 portrait and that the Textile House shortcut appears in the journal
+after he offers it.
 The `cadorna-envoy-briefing` replay uses controlled slot A at City Hall.
 It verifies Cadorna's 352×352 portrait and checks that the sealed-packet
 journal clue appears after his instructions.
