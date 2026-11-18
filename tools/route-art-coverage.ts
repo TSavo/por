@@ -36,18 +36,24 @@ interface SourceCandidate {
 const sourceByHash = new Map<string, { pixels: Uint8Array; candidates: SourceCandidate[] }>();
 for (const archive of listGameFiles(root)) {
   const terrain = /^(BACPAC|SQRPACI)\.DAX$/i.test(archive);
-  const sprite = /^(COMSPR|ICON|CPIC[1-8])\.DAX$/i.test(archive);
+  const partyHead = /^CHEAD\.DAX$/i.test(archive);
+  const partyBody = /^CBODY\.DAX$/i.test(archive);
+  const sprite = partyHead || partyBody || /^(COMSPR|ICON|CPIC[1-8])\.DAX$/i.test(archive);
   const battlefield = terrain || sprite;
   if (!battlefield && !/^8X8D\d+\.DAX$/i.test(archive)) continue;
   for (const { id, data } of parseDax(archive, readGameFile(root, archive)).entries) {
     if (!isPicture(data)) continue;
     const picture = decodePicture(data);
     const size = battlefield ? 24 : 8;
-    if (picture.width !== size || picture.height !== size) continue;
+    if (picture.width !== size || picture.height !== (partyHead ? 10 : size)) continue;
+    // The guest places the ten head rows over the body. The intervening
+    // eight-pixel cell spans both records, so neither archive alone proves it.
+    const rowStart = partyBody ? 16 : 0;
+    const rowEnd = partyHead ? 8 : size;
     for (let frame = 0; frame < picture.itemCount; frame++) {
       const sourceFrame = frameSlice(picture, frame);
       for (const reflected of sprite ? [false, true] : [false]) {
-        for (let y = 0; y < size; y += 8) {
+        for (let y = rowStart; y < rowEnd; y += 8) {
           for (let x = 0; x < size; x += 8) {
             const pixels = new Uint8Array(64);
             for (let row = 0; row < 8; row++) {
