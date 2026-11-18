@@ -156,7 +156,19 @@ party outside Ohlo's door at (14, 10), facing west. In the guest menus, the
 party bashed the locked door, chose Talk, used the Nice approach, and accepted
 the commission. No quest flags were seeded for Ohlo. The live journal showed
 Fetch Ohlo's potion as accepted and directed the party to give Ohlo's name at
-the Old Rope Guild booth. This replay covered commission acceptance.
+the Old Rope Guild booth. The party saved the accepted commission in slot C.
+
+A second replay loaded slot C and began inside the Rope Guild at (15, 11),
+facing south. The party reached the booth at (15, 12) via (14, 11) and
+(14, 12), chose Speak, and entered Ohlo's name in the guest prompt. The
+journal made returning the package and choosing Give the current objective.
+The party saved the pickup in slot D. A third replay loaded slot D, started at
+Ohlo's door, and chose Give in the original menu. The journal showed the
+reward as pending while the guest treasure screen awarded 6,700 XP per
+character. After the party shared the reward and exited the treasure menu,
+the journal marked the quest turned in and recorded what happened when Ohlo
+drank the potion. Checkpoint placement bypassed travel between the two
+locations. The guest scripts set the quest flags in all three replays.
 
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
