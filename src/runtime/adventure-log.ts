@@ -61,6 +61,12 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "ohlo" && tracked.status === "ready-to-report") {
         return { title: commission.title, nextStep: "Take the package back to Ohlo and choose Give when he asks for the potion." };
       }
+      if (commission.id === "auction" && tracked.status === "ready-to-report") {
+        const result = knows("auction-cancelled") ? "Report that the auction was cancelled"
+          : knows("auction-wand-of-fear") ? "Report that the weapon was a Wand of Fear"
+          : "Report what the party saw at the auction";
+        return { title: commission.title, nextStep: `${result} to the council clerk at City Hall.` };
+      }
       return { title: commission.title, nextStep: tracked.detail };
     }
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
@@ -295,6 +301,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("MY NAME IS SKULLCRUSHER. THERE'S A SECRET DOOR TO THE SOUTHEAST")) {
     leads.push({ id: "textile-secret-door", title: "Skullcrusher's secret door",
       detail: "Skullcrusher says he met the hobgoblin leader beyond a secret door to the southeast." });
+  }
+  if (text.includes("IT'S ONLY A WAND OF FEAR")) {
+    leads.push({ id: "auction-wand-of-fear", title: "The auction weapon",
+      detail: "A closer look revealed a Wand of Fear at the Podal Plaza auction." });
+  }
+  if (text.includes("THE AUCTION IS CANCELLED!")) {
+    leads.push({ id: "auction-cancelled", title: "The auction was cancelled",
+      detail: "The auctioneer called off the sale and fled when the crowd turned on the party." });
   }
   if (text.includes("OPENING THE BOX WILL DAMAGE THE SEAL BEYOND REPAIR")) {
     leads.push({ id: "textile-iron-box", title: "Cadorna's sealed iron box",
