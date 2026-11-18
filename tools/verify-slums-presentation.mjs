@@ -22,6 +22,10 @@ const combatPoseRoutes = new Map([
     stand: "combat:area:10:CPIC4.DAX:72", strike: "combat:area:10:CPIC4.DAX:200", width: 96, height: 96,
     inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", ...Array(4).fill("enter")], strikeInputs: ["enter"],
   }],
+  ["graveyard-spectre", {
+    stand: "combat:area:10:CPIC4.DAX:17", strike: "combat:area:10:CPIC4.DAX:145", width: 96, height: 96,
+    inputs: ["up", "enter", "enter", "enter", ...Array(6).fill("q")],
+  }],
   ["swamp-giant-lizard", {
     stand: "combat:area:16:CPIC8.DAX:59", strike: "combat:area:16:CPIC8.DAX:187", width: 192, height: 96,
     inputs: ["up", "enter", "c", "c", "enter", "enter", "enter", "q", "q"],
@@ -40,6 +44,16 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["overland-graveyard-arrival", {
+    slot: "A", area: 26, views: 3, patterns: 74,
+    transition: { afterViews: 2, area: 10 },
+    walk: ["down", "enter", "g", "enter", "enter", "enter", "enter", "up"],
+  }],
+  ["overland-north-gate-arrival", {
+    slot: "A", area: 26, views: 2, patterns: 16,
+    transition: { afterViews: 1, area: 14 },
+    walk: ["down", "enter", "c", "enter", "enter", "up"],
+  }],
   ["sokal-smithy-edge", {
     slot: "C", area: 21, views: 6, patterns: 33,
     walk: ["up", "left", "up", "right", "up"],
@@ -136,7 +150,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "sokal-smithy", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "old-phlan-seer", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -191,7 +205,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = environment?.slot ?? ferry?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader || koboldCave ? "B" : orcs || ending || smithy ? "C" : "A");
+const slot = environment?.slot ?? ferry?.slot ?? (landing ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || assault || mystic || stojanow || trader || koboldCave || routeName === "old-phlan-seer" ? "B" : orcs || ending || smithy ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -486,6 +500,18 @@ try {
     await waitFor("the Phlan outskirts illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log(`Verified the crossroads illustration at ${routeName} in Chrome.`);
+  } else if (routeName === "old-phlan-seer") {
+    for (const key of ["up", "enter"]) await advance(key);
+    const text = () => frame.text.toSorted(([left], [right]) => left - right)
+      .map(([, character]) => String.fromCharCode(character)).join("");
+    assert.equal(frame.portrait, "portrait:PIC8.DAX:5:0:0");
+    assert.match(text(), /AWIDE.EYEDWOMANISSEATEDONARUG/i);
+    await waitFor("the Old Phlan seer portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    await advance("enter");
+    assert.match(text(), /ANEVILSPIRITFROMANUNHOLYPOOLGUIDESYOURENEMIES/i);
+    assert.notEqual(frame.portrait, "portrait:PIC8.DAX:5:0:0");
+    console.log("Verified the Old Phlan seer illustration and prophecy in Chrome.");
   } else if (routeName === "diogenes-cave" || routeName === "diogenes-advice") {
     for (const key of ["up", "enter"]) await advance(key);
     const text = () => frame.text.toSorted(([left], [right]) => left - right)

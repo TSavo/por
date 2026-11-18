@@ -846,6 +846,13 @@ checks the 96×96 standing pose and animated claw strike in the tower fight.
 The `graveyard-ghoul` replay loads the Valhingen entrance save in slot A.
 It camps until the original ambush and checks the Ghoul's 96×96 ready pose,
 reflected strike animation, and state-preserving presentation switch.
+The `graveyard-spectre` replay starts at `8,1 E` in controlled slot A. It
+checks the Spectre's 96×96 hovering pose and reflected strike during the
+brass-door encounter.
+The `overland-graveyard-arrival` and `overland-north-gate-arrival` replays
+start from controlled slot A at the river fork. Chrome verifies all 605
+placements across five views. The arrival frames reuse 46 same-hash tiles
+from the destination packs while the guest still reports the overland area.
 The `graveyard-vampire` replay uses controlled slot A at `14,0 E` to check the
 128×320 threshold sprite, 352×352 dialogue portrait, and both 96×96 combat
 poses. It verifies presentation switches in approach, dialogue, and combat.
@@ -1011,6 +1018,9 @@ magic mouth starts the dialogue.
 The `diogenes-advice` replay continues from the initial sighting through
 Ask Dragon for Advice. Chrome verifies the 352×352 silver dragon portrait
 when Diogenes appears and through the Silver Bottle quest briefing.
+The `old-phlan-seer` replay starts in controlled slot B just before the
+hidden seer. It verifies her new 352×352 portrait in Chrome and checks it
+clears as she departs after giving her prophecy.
 The `phlan-city-hall-approach` replay starts from slot B inside New Phlan's
 original gateway at `1,4 E`. Chrome checks 1,815 placements across 15 views
 on the City Hall approach and adjacent streets. The route uses 83 patterns,

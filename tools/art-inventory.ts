@@ -340,7 +340,7 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 <p><strong>${replacements.length} loaded replacement entries</strong> · ${loadedPngs} PNG files · ${archives.length} source archives</p>
 <dl class="inventory-totals">${inventoryCategories.map(([category, label]) =>
   `<div><dt>${label}</dt><dd>${replacementCounts.get(category) ?? 0}</dd></div>`).join("")}</dl>
-${tracePaths.length ? `<p>Captured patterns awaiting art: ${missingTiles.length - battlefieldGaps} exploration tiles and ${battlefieldGaps} battlefield tiles.</p>` : ""}
+${tracePaths.length ? `<p>Unmatched captured patterns: ${missingTiles.length - battlefieldGaps} exploration and ${battlefieldGaps} battlefield. These include composited sprites and transition frames.</p>` : ""}
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
 <label>Category <select id="category"><option value="">All categories</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
