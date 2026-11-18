@@ -424,4 +424,20 @@ await replay(loadSlotG, "85000000", [
   (text) => assert.match(text, /brin.*platinum 7.*hp 6.*weapon long sword/),
 ]);
 console.log("Returned to New Phlan and verified Brin's paid temple healing after reloading slot G.");
+const courtyard = await replay(loadSlotG, "85000000", [
+  "right", "right", "up", "up", "enter", "enter", "right", ...Array(4).fill("up"),
+  ...Array(5).fill("enter"),
+  (text) => assert.match(text, /8,14 n/),
+  "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "enter",
+  (text) => assert.match(text, /pack of undead suddenly appears.*parlay/),
+  "p", "n", ..."shestni", "enter",
+  (text) => assert.match(text, /the undead leave/),
+  ...Array(4).fill("up"), "left", "up", "up", "enter",
+  (text) => assert.match(text, /large force of orcs and hobgoblins rushes you/),
+  "enter", "enter", "enter", "q",
+  (text) => assert.match(text, /brin hitpoints 6 ac 1 long sword/),
+  ...Array(259).fill("q"),
+]);
+assert.match(visibleText(courtyard), /hitpoints/);
+console.log("Sailed back to Sokal Keep and sustained live input through 260 courtyard combat prompts.");
 console.log("Replay save:", saveDir);

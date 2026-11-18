@@ -207,6 +207,11 @@ From F, the party retraces its route through Sokal Keep and takes the original
 boat back to New Phlan. At the Temple of Tyr it pays 100 gold for Brin's
 Cure Light Wounds. Reloading slot G verifies his 6 HP, the resulting
 platinum balance, and his readied longsword.
+From G, the party boards the boat back to Sokal Keep, gives the parchment
+password to the undead patrol, and triggers the courtyard
+ambush. The replay checks that Brin enters combat with his healed HP and
+readied longsword, then processes 260 live combat inputs. The battle is
+still in progress at the end of this replay.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
