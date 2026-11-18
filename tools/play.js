@@ -19,7 +19,8 @@ function togglePresentation() {
 
 function showScreen() {
   if (!state.frame) return;
-  screen.src = enhanced && !state.journal && state.art ? state.art : `data:image/png;base64,${state.frame}`;
+  const frame = enhanced ? state.enhancedFrame ?? state.frame : state.frame;
+  screen.src = enhanced && !state.journal && state.art ? state.art : `data:image/png;base64,${frame}`;
 }
 
 screen.addEventListener("error", () => {

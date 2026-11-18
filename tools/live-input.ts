@@ -13,6 +13,12 @@ const controls: Record<string, number> = {
 const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"];
 const firstScans = [2, 16, 30, 44];
 const liveIdleBudget = 150_000_000;
+const enhancedPalette = [
+  [15, 14, 18], [44, 59, 112], [49, 128, 74], [46, 133, 146],
+  [150, 55, 55], [126, 65, 134], [160, 104, 55], [174, 166, 153],
+  [87, 81, 82], [119, 153, 237], [136, 219, 138], [140, 224, 227],
+  [255, 135, 121], [233, 162, 231], [255, 223, 127], [254, 245, 221],
+] as const;
 
 export function getKey(command: string): number | undefined {
   if (Object.hasOwn(controls, command)) return controls[command];
@@ -43,6 +49,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     if (browser) {
       const state = {
         frame: Buffer.from(encodePng(screen)).toString("base64"),
+        enhancedFrame: Buffer.from(encodePng(screen, enhancedPalette)).toString("base64"),
         scene,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
           trackedId: leads.find((lead) => lead.id === trackedId && isOpenObjective(lead))?.id },

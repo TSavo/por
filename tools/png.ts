@@ -27,7 +27,7 @@ function chunk(type: string, data: Uint8Array): Uint8Array {
   return out;
 }
 
-export function encodePng(frame: Frame): Uint8Array {
+export function encodePng(frame: Frame, palette = EGA_RGB): Uint8Array {
   const signature = Uint8Array.from([137, 80, 78, 71, 13, 10, 26, 10]);
   const ihdr = new Uint8Array(13);
   const view = new DataView(ihdr.buffer);
@@ -41,7 +41,7 @@ export function encodePng(frame: Frame): Uint8Array {
     raw[offset++] = 0;
     for (let x = 0; x < frame.width; x++) {
       const color = frame.pixels[y * frame.width + x] ?? 0;
-      const rgb = EGA_RGB[color] ?? EGA_RGB[0];
+      const rgb = palette[color] ?? EGA_RGB[0];
       raw[offset++] = rgb[0];
       raw[offset++] = rgb[1];
       raw[offset++] = rgb[2];

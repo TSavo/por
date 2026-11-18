@@ -40,6 +40,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
 
 interface FrameState {
   frame?: string;
+  enhancedFrame?: string;
   scene?: string;
   journal?: { objective: JournalObjective; leads: JournalLead[]; trackedId?: string };
 }
