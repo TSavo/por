@@ -187,3 +187,14 @@ Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_J PATH_TO_CHROME soka
 with the landing save from the restored council replay. Chrome loaded all
 121 individual environment tiles in 24 views, including during the undead
 patrol approaches, and verified the original courtyard ambush prompt.
+
+The courtyard uses `CPIC4.DAX` blocks 4–6 and 132–134 for its orc,
+orc leader, and hobgoblin. These six records decode to the same pixels as
+their `CPIC2.DAX` counterparts, so the framebuffer matcher uses one
+replacement per pose across both banks. The leader carries an axe and
+wears a red sash. The hobgoblin carries a sword and wears a teal coat
+with mail.
+
+The courtyard Chrome replay now enters the fight. It checks that all
+three guard sprites and all three strike sprites render at 96×96, checks
+the cleared guest sprite cell, and switches both display modes in combat.

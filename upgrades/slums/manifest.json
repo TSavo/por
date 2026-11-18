@@ -142,6 +142,10 @@
     "combat:CPIC2.DAX:132": "orc-combat-swing.png",
     "encounter:SPRIT2.DAX:4:0:0": "orc-encounter-near.png",
     "encounter:SPRIT2.DAX:4:1:0": "orc-encounter-middle.png",
-    "encounter:SPRIT2.DAX:4:2:0": "orc-encounter-far.png"
+    "encounter:SPRIT2.DAX:4:2:0": "orc-encounter-far.png",
+    "combat:CPIC2.DAX:5": "orc-leader-combat-guard.png",
+    "combat:CPIC2.DAX:133": "orc-leader-combat-strike.png",
+    "combat:CPIC2.DAX:6": "hobgoblin-combat-guard.png",
+    "combat:CPIC2.DAX:134": "hobgoblin-combat-strike.png"
   }
 }

@@ -180,14 +180,17 @@ try {
     assert.equal(views, courtyard ? 24 : patrolCombat ? 18 : landing ? 19 : 12);
     assert.equal(seen.size, courtyard ? 56 : landing ? 49 : 13);
     console.log(`Verified ${seen.size} ${routeName} patterns across ${views} views. Captures: ${directory}`);
-    if (patrolCombat) {
+    if (patrolCombat || courtyard) {
+      const bank = courtyard ? "CPIC2.DAX" : "CPIC4.DAX";
+      const guards = courtyard ? ["4", "5", "6"] : ["34", "35"];
+      const attackIds = new Set(guards.map((id) => String(Number(id) + 128)));
       await run(`(() => {
-        window.undeadArt = new Set();
+        window.combatSprites = new Set();
         new MutationObserver(() => {
-          for (const image of document.querySelectorAll('.combat-sprite[src^="/art/combat:CPIC4.DAX:"]')) {
+          for (const image of document.querySelectorAll('.combat-sprite[src^="/art/combat:${bank}:"]')) {
             const record = () => {
               if (image.naturalWidth === 96 && image.naturalHeight === 96) {
-                window.undeadArt.add(image.getAttribute("src").split(":").at(-1));
+                window.combatSprites.add(image.getAttribute("src").split(":").at(-1));
               }
             };
             if (image.complete) record();
@@ -195,9 +198,15 @@ try {
           }
         }).observe(document.querySelector("#tile-art"), { childList: true });
       })()`);
-      for (const key of ["c", "enter", "enter", "enter"]) await advance(key);
-      await waitFor("both undead guard sprites", () => run('undeadArt.has("34") && undeadArt.has("35")'));
-      const [x, y] = frame.combatArt.find(([, , id]) => id === "combat:CPIC4.DAX:34");
+      for (const key of courtyard ? ["enter", "enter", "enter"] : ["c", "enter", "enter", "enter"]) await advance(key);
+      for (let turn = 0; courtyard && turn < 20; turn++) {
+        const visible = new Set(frame.combatArt.map(([, , id]) => id));
+        if (guards.every(id => visible.has(`combat:${bank}:${id}`))) break;
+        await advance("q");
+      }
+      await waitFor("all guard sprites", () => run(
+        `${JSON.stringify(guards)}.every(id => combatSprites.has(id))`));
+      const [x, y] = frame.combatArt.find(([, , id]) => id === `combat:${bank}:${guards[0]}`);
       await waitFor("transparent artwork over a cleared guest cell", () => run(`(() => {
         const image = document.querySelector("#screen");
         if (!image.complete || image.naturalWidth !== 320) return false;
@@ -209,13 +218,14 @@ try {
       })()`));
       await switchBothWays();
       const shot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, "sokal-patrol-combat.png"), Buffer.from(shot.data, "base64"));
+      writeFileSync(resolve(directory, `${routeName}-battle.png`), Buffer.from(shot.data, "base64"));
       const strikes = new Set();
-      for (let turn = 0; turn < 130 && strikes.size < 2; turn++) {
+      for (let turn = 0; turn < 180 && strikes.size < attackIds.size; turn++) {
         await advance("q");
         for (const view of frame.animation ?? []) {
           for (const [, , id] of view.combatArt) {
-            if (id === "combat:CPIC4.DAX:162" || id === "combat:CPIC4.DAX:163") strikes.add(id);
+            const prefix = `combat:${bank}:`;
+            if (id.startsWith(prefix) && attackIds.has(id.slice(prefix.length))) strikes.add(id);
           }
         }
         if (frame.animation?.length) {
@@ -223,9 +233,9 @@ try {
             `state.sequence === ${frame.sequence} && !animationFrame`));
         }
       }
-      assert.equal(strikes.size, 2);
-      assert.deepEqual(await run("[...undeadArt].sort()"), ["162", "163", "34", "35"]);
-      console.log("Verified 4� skeleton and zombie guard and strike PNGs during original patrol combat.");
+      assert.equal(strikes.size, attackIds.size);
+      assert.deepEqual(await run("[...combatSprites].sort()"), [...guards, ...attackIds].sort());
+      console.log(`Verified ${guards.length} guard and ${strikes.size} strike PNGs in live ${routeName} combat.`);
     }
   } else if (orcs) {
     const route = ["up", "left", "up", "up", "up", "right", "up", "right",
