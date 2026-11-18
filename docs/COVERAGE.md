@@ -503,8 +503,11 @@ prepares Hold Person. Alda readies the looted sword and the party saves
 outside the temple. After reloading, Mira prepares Sleep while the Curate
 prepares Bless and four cures in the same rest. The second healing round
 raises Alda and Cora to 6 HP and the Curate to 15 HP before the party
-reaches Grishnak. Both Quick combat and the tested manual Sleep openings
-still ended in defeat. The checkpoint check fails if the watchdog intervenes. The recruitment
+reaches Grishnak. The replay also approaches through the east entrance at
+`3,11` and verifies that the tracked journal names Grishnak after the
+party encounters her. Quick combat with alternate formations and the
+tested manual Sleep openings still ended in defeat. The checkpoint check
+fails if the watchdog intervenes. The recruitment
 checks still use the historical checkpoint and the supplied brass key.
 
 A separate controlled Sokal Keep test set only the keep-clear flag using the original

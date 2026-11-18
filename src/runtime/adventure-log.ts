@@ -91,6 +91,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("textile-secret-door")) nextStep = "Follow Skullcrusher's clue and search southeast for the secret door to the hobgoblin leader.";
       else if (knows("textile-prisoner-left")) nextStep = "Continue searching the western textile building for Cadorna's treasure.";
       else if (knows("textile-prisoner-freed")) nextStep = "Parlay with the freed prisoner. Make room in the party if you want him to join.";
+      else if (knows("textile-grishnak") && knows("textile-prison-key-needed")) nextStep = "Overcome Grishnak in the temple and search it for a way to open the prisoner's padlocks.";
       else if (knows("textile-prison-key-needed")) nextStep = "Look for a key in the western building, then return to the chained prisoner and choose Unlock.";
       else if (knows("textile-prisoner")) nextStep = "Speak with the prisoner in the western building and find a way to open his padlocks. Read journal entry 47.";
       else if (knows("textile-skullcrusher-mark")) nextStep = "Search the rooms near Skullcrusher's mark for whoever left it.";
@@ -420,6 +421,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU HAVE NO KEY TO UNLOCK THE PADLOCKS")) {
     leads.push({ id: "textile-prison-key-needed", title: "The prisoner's padlocks",
       detail: "The party tried to unlock the prisoner's padlocks and needs a key." });
+  }
+  if (text.includes("I AM THE MIGHTY GRISHNAK")) {
+    leads.push({ id: "textile-grishnak", title: "Grishnak's temple",
+      detail: "The party encountered Grishnak at a bone altar in the Textile House." });
   }
   if (text.includes("THE BRASS KEY YOU FOUND OPENS ALL OF THE PADLOCKS")) {
     leads.push({ id: "textile-prisoner-freed", title: "The prisoner is free",

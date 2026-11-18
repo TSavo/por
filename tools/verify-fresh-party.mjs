@@ -191,7 +191,7 @@ async function verifyUninterruptedCourtyard(checkpoint) {
     "e", "s", "s", "i",
   ]);
   assert.match(visibleText(templeSave), /quit to dos/);
-  await replay(loadSlot("1769"), "85000000", [
+  const templePreparation = [
     "e", "m", "m", "m", "end", "m", "end", "end", "m", "m", "m", "m", "e", "enter",
     (text) => assert.match(text, /memorized.*\*bless(?: \*cure light wounds){4}/),
     "y", ...Array(6).fill("end"), "m", ...Array(4).fill("end"), "m", "e", "enter",
@@ -204,8 +204,24 @@ async function verifyUninterruptedCourtyard(checkpoint) {
     "end", "enter", ...Array(4).fill("home"), "enter", // Curate
     "e", "e", "e",
     (text) => assert.match(text, /curate 3 15.*alda 3 6.*brin 1 6.*cora 3 6.*dorn 3 5.*2,13 n/),
+  ];
+  await replay(loadSlot("1769"), "85000000", [
+    ...templePreparation,
     "up", "enter", "enter",
     (text) => assert.match(text, /2,12 n.*i am the mighty grishnak/),
+  ]);
+  await replay(loadSlot("1769"), "85000000", [
+    ...templePreparation,
+    "right", "right", "up", "b", "left", "up", "left", "up", "b", "right", "up", "b",
+    "left", "up", "up", "left", "up", "enter", "enter",
+    (text) => assert.match(text, /3,11 w.*i am the mighty grishnak/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-grishnak"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+    }, "track 3", (_text, frame) => {
+      assert.equal(frame.journal?.trackedId, "commission-textile");
+      assert.match(frame.journal.objective.nextStep, /overcome grishnak/i);
+    }, "j",
   ]);
   assert.equal([...recoveryCounts.values()].reduce((sum, count) => sum + count, 0), recoveries);
   console.log("Won the courtyard and prison without watchdog intervention, then reached Grishnak's temple:", saveDir);
