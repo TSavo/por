@@ -12,7 +12,7 @@ import { intrCounts } from "../src/runtime/intr.js";
 import { journalFrame, screen, videoSummary } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { findGameRoot } from "./gamedata.js";
-import { currentObjective, observeAdventureLog, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
+import { currentObjective, observeAdventureLog, questProgress, textileKeyLead, type JournalLead } from "../src/runtime/adventure-log.js";
 import { liveInput } from "./live-input.js";
 import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
@@ -115,7 +115,11 @@ if (recording) {
   const prefix = scheduledKeys.map(({ step, word }) => `${step}:${word.toString(16).padStart(4, "0")}\n`).join("");
   writeFileSync(recording, prefix, { flag: "wx" });
 }
-const input = liveAt === undefined ? undefined : liveInput(liveStep, journal, recording);
+const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
+  const known = journal();
+  const key = textileKeyLead(cpu, known, 0x740);
+  return key ? [...known, key] : known;
+}, recording);
 const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
   join("out", "saves", createHash("sha256").update(realpathSync(root)).digest("hex").slice(0, 16)));
 const rosterClosed: DosFileClosed = (name, data, written) => { if (written) saves?.saveRoster(name, data); };

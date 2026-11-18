@@ -658,7 +658,7 @@ async function verifyPodalFromCouncil(checkpoint) {
   console.log("Checkpoint replay saves:", saveDir);
 }
 
-async function verifySkullcrusherRecruitment(load, checkpoint) {
+async function verifySkullcrusherRecruitment(load, checkpoint, verifyOgreRoute = true) {
   const { parseDax } = await tsImport("../src/lib/dax.ts", import.meta.url);
   const { findGameRoot, readGameFile } = await tsImport("./gamedata.ts", import.meta.url);
   const gameRoot = findGameRoot();
@@ -676,11 +676,28 @@ async function verifySkullcrusherRecruitment(load, checkpoint) {
   const inventory = "SAVE\\CHRDATE2.ITM";
   slot.party[inventory] = Buffer.concat([Buffer.from(slot.party[inventory], "base64"), key]).toString("base64");
   writeFileSync(join(directory, "E.json"), JSON.stringify(slot));
+  const trackTextile = (_text, frame) => {
+    const objectives = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
+    const index = objectives.findIndex(({ id }) => id === "commission-textile");
+    assert.ok(index >= 0);
+    return `track ${index + 1}`;
+  };
+  await replay(load("1265"), "85000000", [
+    "j", (_text, frame) => assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-prison-key-carried")),
+  ], saveDir);
+  await replay(load("1265"), "85000000", [
+    "j", trackTextile, (_text, frame) => {
+      assert.equal(frame.journal.trackedId, "commission-textile");
+      assert.ok(frame.journal.leads.some(({ id }) => id === "textile-prison-key-carried"));
+      assert.match(frame.journal.objective.nextStep, /brass key.*choose free, then unlock/i);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+    },
+  ], directory);
   const freePrisoner = ["right", "right", "up", "right", "right", "up", "b", "enter", "enter",
     "f", "u", (text) => assert.match(text, /brass key you found opens all of the padlocks/),
     "enter", "p", "n", "enter"];
   const declined = await replay(load("1265"), "85000000", [
-    "enter", ...freePrisoner, "n",
+    "j", trackTextile, "j", "enter", ...freePrisoner, "n",
     (text) => assert.match(text, /oh well.*he leaves/),
     "e", "s", "s", "i",
   ], directory);
@@ -693,7 +710,7 @@ async function verifySkullcrusherRecruitment(load, checkpoint) {
     }, "j",
   ], directory);
   const recruited = await replay(load("1265"), "85000000", [
-    "e", "a", "a", ...Array(7).fill("end"), "d",
+    "j", trackTextile, "j", "e", "a", "a", ...Array(7).fill("end"), "d",
     (text) => assert.match(text, /theurgist will be gone/),
     "y", "e", "e", ...freePrisoner, "y",
     (text) => assert.match(text, /my name is skullcrusher.*secret door to the southeast/),
@@ -704,6 +721,7 @@ async function verifySkullcrusherRecruitment(load, checkpoint) {
     (text) => assert.match(text, /skullcrusher 8 39.*2,15 s/),
     "j", (_text, frame) => {
       assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-prisoner-freed"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-prison-key-carried"));
       assert.ok(frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
       assert.match(frame.journal.objective.nextStep, /search southeast/);
     }, "j",
@@ -718,6 +736,10 @@ async function verifySkullcrusherRecruitment(load, checkpoint) {
     (text) => assert.match(text, /skullcrusher.*ac 1.*hp 39.*weapon long sword/),
     "e", "e", "s", "s", "g",
   ], directory);
+  if (!verifyOgreRoute) {
+    console.log("Verified the inventory-aware key objective, both recruitment choices, and the journal after reload.");
+    return;
+  }
   await replay(load("2267"), "85000000", [
     (text) => assert.match(text, /skullcrusher 1 39.*2,15 s/),
     "e", "m", "m", "m", "n", ...Array(12).fill("end"), ...Array(7).fill("home"), "m", "m", "p",
@@ -1299,6 +1321,14 @@ if (process.argv[2] === "--fighter-training-journal-checkpoint") {
   assert.ok(process.argv[3], "Pass slot A from the New Phlan Cadorna commission replay.");
   copyFileSync(process.argv[3], join(saveDir, "A.json"));
   await verifyFighterTrainingJournal();
+  process.exit(0);
+}
+
+if (process.argv[2] === "--textile-prison-key-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot E from the captive's key-search replay.");
+  const checkpoint = join(saveDir, "E.json");
+  copyFileSync(process.argv[3], checkpoint);
+  await verifySkullcrusherRecruitment(loadSlot, checkpoint, false);
   process.exit(0);
 }
 

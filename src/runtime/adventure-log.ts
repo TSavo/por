@@ -84,6 +84,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
     if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
     if (commission.id === "textile") {
+      const carriedKey = leads.find(({ id }) => id === "textile-prison-key-carried");
       if (tracked?.textileBox) nextStep = tracked.detail;
       else if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
       else if (knows("textile-ogre-chief")) nextStep = "Defeat the ogre chief and search his room for Cadorna's treasure.";
@@ -91,6 +92,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("textile-secret-door")) nextStep = "Follow Skullcrusher's clue and search southeast for the secret door to the hobgoblin leader.";
       else if (knows("textile-prisoner-left")) nextStep = "Continue searching the western textile building for Cadorna's treasure.";
       else if (knows("textile-prisoner-freed")) nextStep = "Parlay with the freed prisoner. Make room in the party if you want him to join.";
+      else if (carriedKey) nextStep = carriedKey.detail;
       else if (knows("textile-grishnak") && knows("textile-prison-key-needed")) nextStep = "Overcome Grishnak at the bone altar and check the battle loot for a key. Return to the chained prisoner and choose Unlock.";
       else if (knows("textile-prison-key-needed")) nextStep = "From the chained prisoner, head north through the guards' room and search the adjoining rooms for a key. Return to the prisoner and choose Unlock.";
       else if (knows("textile-prisoner")) nextStep = "Speak with the prisoner in the western building and find a way to open his padlocks. Read journal entry 47.";
@@ -179,6 +181,33 @@ export const progressAddresses: Readonly<Record<string, number>> = {
 };
 
 /** Refine already disclosed objectives using the translated VM's state. */
+/** Live possession is checked again when the journal opens and after a reload. */
+export function textileKeyLead(cpu: Cpu, known: readonly JournalLead[], dataSegment: number): JournalLead | undefined {
+  if (!known.some(({ id }) => id === "textile-prisoner") ||
+      known.some(({ id }) => id === "textile-prisoner-freed")) return;
+  // The prison script uses FIND ITEM 75. Overlay 3 at 287A walks
+  // DS:5CF4 and the character +104 links, then +C8 inventories and item +2A links.
+  const pointer = (segment: number, offset: number): number =>
+    (cpu.read16(segment, offset + 2) << 16) | cpu.read16(segment, offset);
+  const visited = new Set<number>();
+  for (let actor = pointer(dataSegment, 0x5cf4); actor && !visited.has(actor);) {
+    visited.add(actor);
+    const segment = actor >>> 16;
+    const offset = actor & 0xffff;
+    for (let item = pointer(segment, offset + 0xc8); item && !visited.has(item);) {
+      visited.add(item);
+      const itemSegment = item >>> 16;
+      const itemOffset = item & 0xffff;
+      if (cpu.read8(itemSegment, itemOffset + 0x2e) === 75) {
+        return { id: "textile-prison-key-carried", title: "Brass key in the party's pack",
+          detail: "Bring the brass key to the chained prisoner and choose Free, then Unlock." };
+      }
+      item = pointer(itemSegment, itemOffset + 0x2a);
+    }
+    actor = pointer(segment, offset + 0x104);
+  }
+}
+
 export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegment: number): JournalLead[] {
   // ovl07:0E4C–0E57 resolves global ECL addresses through DS:4933.
   const base = cpu.read16(dataSegment, 0x4933);

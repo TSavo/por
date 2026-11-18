@@ -656,6 +656,14 @@ reloading slot E preserves it. From the cell, the party returns north
 through the guards' room and a locked door to reach Grishnak's temple.
 The encounter starts through original play. The original treasure table
 for that fight contains the brass key, and victory remains unverified.
+The journal now checks the party's live inventory using the item code
+from the original prison script. Once the party has met the prisoner,
+carrying the key changes the objective to Free, then Unlock. The
+objective is recalculated on reload and the key prompt clears once the
+prisoner is freed. Run
+`node tools/verify-fresh-party.mjs --textile-prison-key-checkpoint PATH_TO_SLOT_E`
+to compare the original keyless slot with the controlled copy.
+
 To verify the downstream branch, the replay makes a separate copy of slot E
 and supplies only the brass key from the local DOS treasure table. The party
 dismisses the Theurgist to open a slot, frees the captive, and chooses Parlay
