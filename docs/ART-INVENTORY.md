@@ -62,8 +62,10 @@ in the original 320×200 framebuffer. Later frames retain exact matches as
 the combat layout changes. The transparent black pixels were excluded from
 matching to allow the sprite to overlap background tiles.
 
-Block 128 was loaded, but its foreground did not match the recorded Slums
-fight. Its draw trigger and the middle and far encounter anchors remain unverified.
+Block 128 was loaded. The alternate VGA pose resolves in both facings in a
+controlled framebuffer check using the original block. Sampling during the
+recorded Slums fight yielded no exact 24×24 match for this block. Its draw
+trigger and the middle and far encounter anchors remain unverified.
 
 The near approach frame matches `SPRIT2.DAX` block 0, member 0, frame 0 at
 (48,32). Index zero is skipped and index 13 is drawn black. The browser replay

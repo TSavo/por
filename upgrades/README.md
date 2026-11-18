@@ -62,6 +62,8 @@ The Slums pack ships `kobold-combat-0.png` for archive block 0, frame 0.
 The art sits on the native 24×24 anchor, with the feet just above the bottom
 row. The sprite uses a rust and slate palette and a compact silhouette so
 the head, knife, and stance read in the combat grid.
+`kobold-combat-attack.png` provides the raised-blade pose for
+`combat:CPIC2.DAX:128`, with both facings using the same 96×96 image.
 
 Encounter portraits use `portrait:archive:block:member:frame` keys. The
 browser currently supports 352×352 replacements for 88×88 guest portraits

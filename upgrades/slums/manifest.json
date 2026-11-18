@@ -4,6 +4,7 @@
     "encounter:SPRIT2.DAX:0:0:0": "kobold-encounter-near.png",
     "portrait:PIC2.DAX:0:0:0": "kobold-portrait.png",
     "combat:CPIC2.DAX:0": "kobold-combat-0.png",
+    "combat:CPIC2.DAX:128": "kobold-combat-attack.png",
     "tile:20:323c71332298aeae05cfee4eb5855d831835c8a068440a0f21f6f96ee43b2f9b": "room-tile-00.png",
     "tile:20:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "room-tile-01.png",
     "tile:20:0bae672ff3e01f653ae7241fc075226c0865693834d5c45e6f2863678a2526da": "room-tile-02.png",
