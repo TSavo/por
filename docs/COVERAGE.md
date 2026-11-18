@@ -684,6 +684,11 @@ positions from the temple-district save. At the gate the journal records
 the inspection, then the guards turning hostile when the party submits
 without a symbol. Inside, choosing Let Them Go reveals the holy-symbol
 requirement and updates the tracked Temple of Tyr objective.
+The `bane-symbol` replay loads a controlled gate save carrying the
+original leather symbol item record and the witnessed goblin clue. The
+journal sees the symbol in the live inventory, recommends Let Him Touch
+You during the inspection, and switches to entering the temple after the
+guard admits the party.
 The Slums infantry and Textile House priestess share a guest image pattern.
 Area-scoped overrides keep their new artwork distinct, verified live in both fights.
 

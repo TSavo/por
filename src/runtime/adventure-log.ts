@@ -166,6 +166,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "bane") {
       if (knows("bane-temple-admitted")) nextStep = "Continue into the Temple of Bane and look for a way to cleanse it.";
       else if (knows("bane-temple-guards-hostile")) nextStep = "Get past the temple guards or withdraw and look for another way in.";
+      else if (knows("bane-temple-symbol-carried")) nextStep = knows("bane-temple-guard-check")
+        ? "Choose Let Him Touch You so the guard can find the holy symbol the party is carrying."
+        : "Take the holy symbol the party is carrying to the Temple of Bane entrance.";
       else if (knows("bane-temple-symbol")) nextStep = "Bring a holy symbol of Bane when you approach the temple entrance.";
       else if (knows("bane-temple-guard-check")) nextStep = "At the entrance, decide whether to let the blind guard check the party.";
       else if (knows("bane-dirten")) nextStep = "Decide whether to accompany Dirten. If you agree, cross the river with him and cleanse the desecrated temple.";
@@ -289,13 +292,21 @@ export const progressAddresses: Readonly<Record<string, number>> = {
   cadorna: 0x4abf,
 };
 
-/** Refine already disclosed objectives using the translated VM's state. */
 /** Live possession is checked again when the journal opens and after a reload. */
-export function textileKeyLead(cpu: Cpu, known: readonly JournalLead[], dataSegment: number): JournalLead | undefined {
-  if (!known.some(({ id }) => id === "textile-prisoner") ||
-      known.some(({ id }) => id === "textile-prisoner-freed" || id === "textile-prisoner-left" ||
-        id === "textile-prisoner-killed")) return;
-  // The prison script uses FIND ITEM 75. Overlay 3 at 287A walks
+export function journalInventoryLeads(cpu: Cpu, known: readonly JournalLead[], dataSegment: number): JournalLead[] {
+  const wanted = new Map<number, JournalLead>();
+  const knows = (id: string) => known.some((lead) => lead.id === id);
+  if (knows("textile-prisoner") && !["textile-prisoner-freed", "textile-prisoner-left", "textile-prisoner-killed"].some(knows)) {
+    wanted.set(75, { id: "textile-prison-key-carried", title: "Brass key in the party's pack",
+      detail: "Bring the brass key to the chained prisoner and choose Free, then Unlock." });
+  }
+  if (knows("bane-temple-symbol") && !knows("bane-temple-admitted")) {
+    wanted.set(74, { id: "bane-temple-symbol-carried", title: "The party has the holy symbol",
+      detail: "The party is carrying the leather holy symbol needed at the Temple of Bane." });
+  }
+  if (!wanted.size) return [];
+  const leads: JournalLead[] = [];
+  // Overlay 3 at 287A implements FIND ITEM by walking
   // DS:5CF4 and the character +104 links, then +C8 inventories and item +2A links.
   const pointer = (segment: number, offset: number): number =>
     (cpu.read16(segment, offset + 2) << 16) | cpu.read16(segment, offset);
@@ -308,14 +319,18 @@ export function textileKeyLead(cpu: Cpu, known: readonly JournalLead[], dataSegm
       visited.add(item);
       const itemSegment = item >>> 16;
       const itemOffset = item & 0xffff;
-      if (cpu.read8(itemSegment, itemOffset + 0x2e) === 75) {
-        return { id: "textile-prison-key-carried", title: "Brass key in the party's pack",
-          detail: "Bring the brass key to the chained prisoner and choose Free, then Unlock." };
+      const type = cpu.read8(itemSegment, itemOffset + 0x2e);
+      const lead = wanted.get(type);
+      if (lead) {
+        leads.push(lead);
+        wanted.delete(type);
+        if (!wanted.size) return leads;
       }
       item = pointer(itemSegment, itemOffset + 0x2a);
     }
     actor = pointer(segment, offset + 0x104);
   }
+  return leads;
 }
 
 export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegment: number): JournalLead[] {

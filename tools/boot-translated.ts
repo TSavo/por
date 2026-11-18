@@ -12,7 +12,7 @@ import { intrCounts } from "../src/runtime/intr.js";
 import { journalFrame, screen, videoSummary } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { findGameRoot } from "./gamedata.js";
-import { currentObjective, observeAdventureLog, questProgress, textileKeyLead, type JournalLead } from "../src/runtime/adventure-log.js";
+import { currentObjective, journalInventoryLeads, observeAdventureLog, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
 import { liveInput } from "./live-input.js";
 import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
@@ -133,8 +133,7 @@ if (recording) {
 }
 const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
   const known = journal();
-  const key = textileKeyLead(cpu, known, 0x740);
-  return key ? [...known, key] : known;
+  return [...known, ...journalInventoryLeads(cpu, known, 0x740)];
 }, recording);
 const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
   join("out", "saves", createHash("sha256").update(realpathSync(root)).digest("hex").slice(0, 16)));
