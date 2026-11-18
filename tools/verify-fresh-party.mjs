@@ -91,12 +91,12 @@ const shopForFighter = (index) => [
   "v", "i", "i", "r", "end", "r",
 ];
 const closeInventory = ["e", "e", "e"];
-const equipParty = names.flatMap((name, index) => [
+const equipFighters = (roster) => roster.flatMap((name, index) => [
   ...(index ? ["end"] : []),
   ...shopForFighter(index), checkGear(name), ...closeInventory,
 ]);
 const saveEquipment = ["e", "e", "s", "s", "b"];
-const equippedSave = await replay(loadSlotA, "85000000", [...shopRoute, ...equipParty, ...saveEquipment]);
+const equippedSave = await replay(loadSlotA, "85000000", [...shopRoute, ...equipFighters(names), ...saveEquipment]);
 assert.match(visibleText(equippedSave), /quit to dos/);
 const equippedSlot = JSON.parse(readFileSync(join(saveDir, "B.json"), "utf8"));
 for (const index of names.keys()) assert.ok(equippedSlot.party[`SAVE\\CHRDATB${index + 1}.ITM`]);
@@ -531,4 +531,34 @@ await replay(loadSlotC, "85000000", [
   (text) => assert.match(text, /mira's spells in memory.*sleep/),
 ], spellSaveDir);
 console.log("Cast Sleep at a kobold, won the encounter, and verified that reloading kept Sleep spent until the magic-user memorized it and rested again.");
+
+const mixedEquipment = await replay(loadSlotC, "85000000", [
+  "right", "right", "up", "up", "enter", "enter",
+  (text) => assert.match(text, /0,4 e/),
+  ...shopRoute.slice(2), ...equipFighters(names.slice(0, -1)),
+  "e", "e", "s", "s", "d",
+], spellSaveDir);
+assert.match(visibleText(mixedEquipment), /quit to dos/);
+const mixedArrival = await replay(loadSlotD, "85000000", [
+  (text) => assert.match(text, /alda 5 6.*brin 3 6.*cora 5 6.*dorn 5 8.*enna 4 6.*mira 10 5.*8,11 e/),
+  "right", "right", ...Array(5).fill("up"), "right", ...Array(7).fill("up"),
+  "right", ...hearCouncil.slice(3), ...takeBoat, "e", "s", "s", "e",
+], spellSaveDir);
+assert.match(visibleText(mixedArrival), /8,14 n.*quit to dos/);
+const islandCamp = await replay(loadSlotE, "85000000", [
+  ...Array(5).fill("end"), "e", "enter", ...memorizeSleep,
+  (text) => assert.match(text, /8,14 n 09:20/),
+  "e", "s", "s", "f",
+], spellSaveDir);
+assert.match(visibleText(islandCamp), /quit to dos/);
+await replay(loadSlotF, "85000000", [
+  "j", (_text, frame) => {
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "commission-sokal"));
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-arrival"));
+  }, "j",
+  ...Array(5).fill("end"), "c",
+  (text) => assert.match(text, /mira's spells in memory.*sleep/),
+], spellSaveDir);
+console.log("Equipped the mixed party, sailed to Sokal Keep, and reloaded at the landing with Sleep prepared.");
 console.log("Replay save:", saveDir);
+console.log("Mixed-party save:", spellSaveDir);

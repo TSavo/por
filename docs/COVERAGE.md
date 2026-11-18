@@ -228,6 +228,11 @@ casts Sleep at a kobold through the combat targeting menu, and verifies
 the party's victory and experience award. A second save and reload
 preserves the experience and the spent spell slot. The magic-user then
 memorizes Sleep again and rests to make it available for the next fight.
+From the post-battle save, the same party buys and readies an axe and
+chain mail for each fighter, hears the Sokal commission, and takes the
+boat to Thorn Island. At the landing, the magic-user rests to prepare
+Sleep. Reloading verifies the spell and the journal's commission and
+arrival entries.
 
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
