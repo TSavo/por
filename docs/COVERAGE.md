@@ -196,6 +196,13 @@ walked from the gate to the clerk to collect the reward. In the opened-box
 branch, Cadorna confronted the party at City Hall and the journal closed
 the quest without payment.
 
+A controlled Valjevo Castle replay used the original map and audience-hall
+script with the assault already assigned and the two audience guards marked
+defeated. The party stepped into the hall, heard Tyranthraxus's offer, and
+selected Attack for all six votes. The translated combat opened against
+Tyranthraxus at 80 HP and AC -4. The replay exercised combat input and enemy
+turns through the original fight. It ended before a victory.
+
 In live mode, a stalled player Quick action falls back to the original manual
 combat menu. The runner restores the pre-Quick guest state and turns off Quick
 for that character. If a hostile actor stalls, the runner restores its state
