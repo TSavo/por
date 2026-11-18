@@ -312,11 +312,23 @@ const gallery = archives.map(({ file, category, entries }) =>
       `<p>Script candidate ${ref.file} #${ref.script} · ${ref.address.toString(16)}${ref.nearbyText ? ` · ${escape(ref.nearbyText)}` : ""}</p>`).join("") +
     "</figure>";
   }).join("") + "</div></details>").join("\n");
+const replacementCounts = new Map<string, number>();
+for (const { id } of replacements) {
+  const category = id.split(":", 1)[0]!;
+  replacementCounts.set(category, (replacementCounts.get(category) ?? 0) + 1);
+}
+const inventoryCategories = [
+  ["tile", "Exploration tiles"], ["battle-tile", "Battlefield tiles"],
+  ["portrait", "Portraits and illustrations"], ["combat", "Combat frames"],
+  ["encounter", "Encounter frames"], ["scene", "Full-screen scenes"],
+] as const;
+const battlefieldGaps = missingByArea.get("Battlefield")?.length ?? 0;
 writeFileSync(join(output, "index.html"), `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pool of Radiance art inventory</title><style>
 body{font:16px system-ui;background:#181715;color:#f3e9d6;margin:2rem auto;padding:0 1rem;max-width:1200px}
 input,select{font:inherit;color:inherit;background:#242220;border:1px solid #8a7654;padding:.4em}
 label{display:inline-block;margin:0 1rem .5rem 0}
+.inventory-totals{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;margin:1rem 0}.inventory-totals dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
 summary{cursor:pointer;padding:.65rem 0;border-top:1px solid #514738}.grid{display:flex;flex-wrap:wrap;gap:1rem;padding:.5rem 0 1rem}
 figure{margin:0;padding:.75rem;background:#242220;max-width:min(100%, 40rem);min-width:8rem}
 figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image-rendering:pixelated;max-width:100%;vertical-align:middle;margin:.15rem}
@@ -324,6 +336,10 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 .comparison{display:grid;grid-template-columns:repeat(2,minmax(0,var(--preview-width)));gap:.75rem;margin-bottom:.5rem}
 .comparison img{display:block;width:100%;height:auto;margin:0}
 </style><h1>Pool of Radiance art inventory</h1>
+<p><strong>${replacements.length} loaded replacements</strong> · ${archives.length} source archives</p>
+<dl class="inventory-totals">${inventoryCategories.map(([category, label]) =>
+  `<div><dt>${label}</dt><dd>${replacementCounts.get(category) ?? 0}</dd></div>`).join("")}</dl>
+${tracePaths.length ? `<p>Captured patterns awaiting art: ${missingTiles.length - battlefieldGaps} exploration tiles and ${battlefieldGaps} battlefield tiles.</p>` : ""}
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
 <label>Category <select id="category"><option value="">All categories</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
@@ -357,7 +373,7 @@ function filter() {
     if (query || category.value || replacement.value) archive.open = Boolean(visible);
     blocks += visible;
   }
-  document.querySelector('#matches').textContent = blocks + ' matching blocks';
+  document.querySelector('#matches').textContent = blocks + ' matching entries';
 }
 search.addEventListener('input', filter);
 category.addEventListener('change', filter);
