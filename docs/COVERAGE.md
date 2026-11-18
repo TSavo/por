@@ -212,6 +212,9 @@ casts Bless before the eastern approach to the courtyard. Space interrupts
 Quick on Alda's first manual turn. Alda targets an adjacent orc with his
 sword and Enna targets a helpless hobgoblin three squares away with her
 longbow. Strict verification reaches both attacks without intervention.
+Alt+Q forwards the original DOS shortcut to resume automatic combat for
+the party. The Sokal replay exercises it from Brin's manual menu, and the
+Chrome replay verifies that the browser forwards the key in combat.
 Continuing with Quick after either that shot or a shot at an orc archer
 ended in defeat. The Quick-only opening and the two tested Curate
 placements at the head of the party also ended in defeat.

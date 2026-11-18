@@ -782,6 +782,10 @@ if (process.argv[2] === "--sokal-reinforce-from-slums") {
     (text) => assert.match(text, /hobgoblin hitpoints 6 ac 5 long sword \(helpless\) range = 3.*manual target/),
     "t", "q",
     (text) => assert.match(text, /orc hitpoints 5 ac 6 move\/attack/),
+    ...Array(9).fill("q"),
+    (text) => assert.match(text, /brin hitpoints 6 ac 1.*move view aim use quick done/),
+    "alt-q", "z",
+    (text) => assert.match(text, /hobgoblin hitpoints 6 ac 5.*move\/attack/),
   ]);
   console.log("Equipped and recruited the party, then verified manual sword and bow attacks at Sokal:", join(saveDir, "J.json"));
   process.exit(0);

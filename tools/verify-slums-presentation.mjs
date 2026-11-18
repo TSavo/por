@@ -182,6 +182,12 @@ try {
   await waitFor("the mirrored 4× combat sprite", () => run(`[...document.querySelectorAll(".combat-sprite")]
     .some(image => image.naturalWidth === 96 && image.style.transform === "scaleX(-1)")`));
   await switchBothWays();
+  await command("Input.dispatchKeyEvent", { type: "keyDown", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
+  await command("Input.dispatchKeyEvent", { type: "keyUp", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
+  await waitFor("the guest frame after Alt+Q", async () => {
+    const state = await latest();
+    return state.ready && state.sequence > frame.sequence;
+  });
   console.log(`Verified ${views} Slums views and state-preserving switches in exploration, journal, dialogue, and combat.`);
 } finally {
   socket?.close();

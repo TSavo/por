@@ -14,6 +14,7 @@ const controls: Record<string, number> = {
   enter: 0x1c0d, escape: 0x011b, up: 0x4800, down: 0x5000, left: 0x4b00, right: 0x4d00,
   home: 0x4700, pageup: 0x4900, end: 0x4f00, pagedown: 0x5100,
   space: 0x3920, tab: 0x0f09, backspace: 0x0e08,
+  "alt-q": 0x1000,
 };
 const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"];
 const firstScans = [2, 16, 30, 44];

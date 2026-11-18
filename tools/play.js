@@ -166,7 +166,14 @@ presentation.addEventListener("click", () => {
   if (journal.hidden) screen.focus({ preventScroll: true });
 });
 window.addEventListener("keydown", (event) => {
-  if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+  if (event.repeat || event.ctrlKey || event.metaKey) return;
+  if (event.altKey) {
+    if (!event.shiftKey && event.code === "KeyQ" && !state.journal) {
+      event.preventDefault();
+      void send("alt-q");
+    }
+    return;
+  }
   if (event.key === "F10") {
     event.preventDefault();
     togglePresentation();
