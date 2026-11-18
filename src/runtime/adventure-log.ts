@@ -65,6 +65,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
     if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
+    if (commission.id === "textile" && tracked?.status === "accepted") nextStep = tracked.detail;
     if (commission.id === "ohlo" && tracked?.status === "accepted" && knows("ohlo-rope-guild")) {
       nextStep = knows("ohlo-booth")
         ? "At the booth, choose Speak and enter OHLO. Bring the package back to him."
@@ -156,6 +157,17 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     const address = progressAddresses[commission.id];
     if (address === undefined) continue;
     const value = global(address);
+    if (commission.id === "textile" && value < 254) {
+      const box = global(0x4ac8);
+      if (box === 1 || box === 128) {
+        progress.push({
+          id, title: `${commission.title} - ${box === 1 ? "recovered" : "seal broken"}`,
+          detail: box === 1 ? "Bring the sealed box back to New Phlan, then visit the council clerk."
+            : "Return to City Hall. The box was opened and its family seal is broken.",
+          status: "accepted",
+        });
+      }
+    }
     if (commission.id === "slums" && value > 0 && value < 25) {
       const encounters = value === 1 ? "1 encounter cleared." : `${value} encounters cleared.`;
       progress.push({
@@ -275,6 +287,9 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("THE CITY WATCH STOPS YOU AND REMOVES CADORNA'S TREASURE")) {
     leads.push({ id: "textile-handoff", title: "The Watch took Cadorna's treasure", detail: "The Watch sent the party to the city clerk to collect its reward." });
+  }
+  if (text.includes("COUNCILMAN CADORNA CONFRONTS YOU. 'YOU HAVE TAKEN MY FAMILY TREASURE")) {
+    leads.push({ id: "textile-confrontation", title: "Cadorna confronted the party", detail: "Cadorna accused the party of taking his family treasure and left without paying." });
   }
   if (["WE FIND THESE DISCOURSES VALUABLE", "THESE MAPS SHOULD HELP US TO LOCATE",
     "THESE HISTORIES CONTAIN MUCH USEFUL INFORMATION", "THE RECORDS PROVIDE INSIGHTS"].some((line) => text.includes(line))) {

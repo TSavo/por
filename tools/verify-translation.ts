@@ -306,6 +306,21 @@ function checkCampaignJournal(): void {
       }
     }
   }
+  const textile = progressAddresses.textile!;
+  const ironBox = lines.find((line) => line.includes("ACROSS THE LOCK IS THE SEAL OF THE FAMILY OF CADORNA"))!;
+  const boxLead = discoveredLeads(ironBox);
+  writeGlobal(textile, 0);
+  for (const [box, hint] of [[1, "sealed box"], [128, "seal is broken"]] as const) {
+    writeGlobal(0x4ac8, box);
+    if (!currentObjective(questProgress(m, boxLead, m.ds)).nextStep.includes(hint) ||
+        questProgress(m, [], m.ds).length) {
+      throw new Error(`Cadorna's journal did not follow treasure state ${box}`);
+    }
+  }
+  writeGlobal(textile, 254);
+  if (questProgress(m, boxLead, m.ds)[0]?.status !== "ready-to-report") {
+    throw new Error("Cadorna's journal did not move on after the Watch handoff");
+  }
   if (discoveredLeads("A SPECIAL PRIZE FOR ENDING THE GRAVEYARD MENACE").some(({ id }) =>
     id === "commission-bottle-vampire")) {
     throw new Error("The graveyard reward revealed an undiscovered bottle objective");
