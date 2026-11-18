@@ -1275,3 +1275,10 @@ from the mixed party's unedited Sokal landing save previously tripped that
 budget in overlay 31 at 05C7. The same inputs reached the ordinary party
 defeat screen after removal. That run verifies turn progression and does
 not establish a courtyard victory.
+
+The local HTML inventory was regenerated with classic comparisons for all
+914 shipped tile overrides, including 56 battlefield tiles. The audit
+combined exact archive pixel matches, runtime tile traces, and two classic
+screenshots. Every imported tile matched the
+SHA-256 hash in its runtime key, and every classic preview measured 8×8.
+This measures comparison coverage for the shipped override set.
