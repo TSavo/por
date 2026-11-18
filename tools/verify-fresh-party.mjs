@@ -1209,7 +1209,18 @@ await replay(loadSlotF, "85000000", [
   "enter", "enter", "s", "e", "n", "left", ...Array(4).fill("up"),
   "left", ...Array(6).fill("up"), "left", "up", "up", "enter",
   (text) => assert.match(text, /8,4 s.*large force of orcs and hobgoblins rushes you/),
+  "enter", "enter", "enter", ...Array(16).fill("q"), "space",
+  (text) => assert.match(text, /mira hitpoints 5.*move view aim cast/),
+  "c", "enter", ...Array(6).fill("n"), "t",
+  (text) => {
+    assert.match(text, /hobgoblin hitpoints.*spell:sleep.*aim:next/);
+    assert.doesNotMatch(text, /manual target/);
+  },
+  "p",
+  (text) => assert.match(text, /orc hitpoints.*spell:sleep.*manual target/),
+  "t",
+  (text) => assert.doesNotMatch(text, /spell:sleep/),
 ], spellSaveDir);
-console.log("Won the smithy frog fight and triggered the courtyard ambush from the north.");
+console.log("Won the smithy frog fight and verified Sleep targeting in the courtyard from the north.");
 console.log("Replay save:", saveDir);
 console.log("Mixed-party save:", spellSaveDir);

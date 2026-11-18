@@ -356,6 +356,11 @@ courtyard defeat screen appears, so it can reload the earlier save
 instead of acknowledging the defeat and exiting to DOS. The resumed
 replay hires an Evoker, confirms his two Sleep spells after reload, and
 reaches his first courtyard combat turn without watchdog recovery.
+On the mixed-party route through the smithy, Mira enters the courtyard
+from the north. The replay verifies that Aim lets her cycle to a
+hobgoblin without offering Target. Trying Target there leaves Sleep
+selected. Cycling back to the preceding orc restores Target and casts
+the spell. The tested northern openings have yet to produce a victory.
 
 Headless Chrome verified the presentation button and F10 against the live
 browser runner. A reloaded City Hall save displayed both palettes and let
