@@ -136,6 +136,14 @@ npx tsx tools/boot-translated.ts
 The journal should show Clear the Slums as the current objective, with Sokal
 Keep and the recovery of historical records also offered.
 
+Run `node tools/verify-fresh-party.mjs` with the original game data to
+verify a six-character start from an empty host save directory. The replay
+creates six dwarf fighters through the guest menus, adds them to the party,
+completes Rolf's tour, and saves to slot A at the west gate. It checks the six
+character companion files, starts a new runner, reloads the same slot, and
+checks that all six arrive in the Slums at (15,4). The script prints the save
+directory so campaign play can resume there.
+
 Set `POR_PREGEN_PARTY=1` to list the six characters supplied with the DOS
 release in Add Character to Party. The runner stages their original character,
 item, and spell records in guest memory. Add them from the original menu before
