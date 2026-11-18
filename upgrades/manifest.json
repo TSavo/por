@@ -109,7 +109,27 @@
     "battle-tile:6bed4bf0f2cc299349b68612629dcceab18fab3d5b7d32a040816bc6e75712f3": "courtyard-wall-first-raking-joint.png",
     "battle-tile:5910c90aa4c924f8bb0ae64b2b2edd4dd291f14c708ee6f7f8c69741c27350ff": "courtyard-wall-second-raking-joint.png",
     "battle-tile:eef58904adfeba083bbdb14ae46b22269a3d95f0ca27d9111708667fb9f264c5": "courtyard-wall-third-raking-joint.png",
-    "battle-tile:b895149757d8714765402e524005035de2876195dcafcdffbcdf004993f36079": "courtyard-wall-straight-side-cap-miter.png"
+    "battle-tile:b895149757d8714765402e524005035de2876195dcafcdffbcdf004993f36079": "courtyard-wall-straight-side-cap-miter.png",
+    "battle-tile:01e9e2c9a0ac6e493cd1f172454e0ae0743e311b2124d8c1991ae650da1de443": "courtyard-wall-reverse-slope-interior.png",
+    "battle-tile:18de36194eb742b229c70451273376b3a41862bdae529fd9d3ff007f7a5a8ee0": "courtyard-wall-reverse-slope-joint.png",
+    "battle-tile:ae77d745ebdf8e6ba641f3907419276c0157cb9fa79e2ec5975fbdf5fc635002": "courtyard-wall-reverse-slope-foot.png",
+    "battle-tile:fd90afc9b2ca15c3fe592b36d50ca207ada1b7c56426781c5d1c03ddc736a426": "courtyard-wall-side-sliver.png",
+    "battle-tile:f50d8ee552f4cce53bf7594285295ed5a2cdeeb12550c08f484c5e60b5dd93a4": "courtyard-wall-cope-turn-shallow.png",
+    "battle-tile:dffa7ab7c17f3d53b97f561974eae9de5485c3aab0d15e5421434b0f58b92279": "courtyard-wall-cope-turn-deep.png",
+    "battle-tile:66519f10a48200d23acc0571ec5ca5603d509fca15ab3771c3e682beaccbdea6": "courtyard-wall-sill-transition-west.png",
+    "battle-tile:0354ceacc05929367aa8f910104b80e4bc2c258308cdb4c1e5e8578da8b3f9a5": "courtyard-wall-sill-transition-east.png",
+    "battle-tile:7ee9d2e1ad2bb0c0d3e027a7319ea086e433fe73d8f5256fc869217bc2bea741": "courtyard-wall-diagonal-arris-inner.png",
+    "battle-tile:bad9f653b8b99bf35f952ef8d77c53e52d20908974d95f334885ffd78453e987": "courtyard-wall-coping-foot-west.png",
+    "battle-tile:241f6ca2ab332afeb8192af17c9c0578628d58d304f99b54de2978a55f31fbeb": "courtyard-wall-coping-foot-east.png",
+    "battle-tile:33774d057a9a286dc3f676facd530e6e3386623c9cc163401dcf3c6984c30de0": "courtyard-wall-diagonal-reveal-east.png",
+    "battle-tile:add9dffad1567ae6ada41a677edbc18d45410d068781b6277531a1045a79e5d3": "courtyard-wall-diagonal-reveal-west.png",
+    "battle-tile:e532b9e8c9d299895b82b6ef61d48f662155b47cf126459bb8687235474e27f0": "courtyard-wall-thickened-corner.png",
+    "battle-tile:f0f929d3e2c75c2080fd8399ab55275acd5932ddd12a275bfeeecdc7d976ca9f": "courtyard-wall-cap-outside-corner.png",
+    "battle-tile:d1807a040d20b76d0a8fea27d8e79ad57e76ab9442d215daf6954f1eb088b9ad": "courtyard-wall-cap-falling-reveal.png",
+    "battle-tile:5dcecb5a165d496bafd2c1582e9aa0f77629fdfeafba15e2b52d57cdec4b6f5e": "courtyard-wall-cap-falling-nose.png",
+    "battle-tile:e668bccffc3df9164d4a7e1a735c2a8c03b275035f82cd0f935e6c0ee13ed1f9": "courtyard-wall-cope-end-chip.png",
+    "battle-tile:ba4085dd7fdd4e5675ac826dfc138a36a6b758920c6b9030e570b98086f65bd9": "courtyard-wall-cope-broken-end.png",
+    "battle-tile:7c65890e55e9c2edab246c6c49f2bb097a16c24c639ca75533ec7904e97fa372": "courtyard-wall-cope-end-return.png"
   },
   "encounters": {
     "encounter:SPRIT4.DAX:34:0:0": {

@@ -226,8 +226,17 @@ try {
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, `${routeName}-battle.png`), Buffer.from(shot.data, "base64"));
       const strikes = new Set();
+      const terrainLayouts = new Set();
       for (let turn = 0; turn < 180 && strikes.size < attackIds.size; turn++) {
         await advance("q");
+        if (courtyard && frame.battleTiles.length) {
+          terrainLayouts.add(JSON.stringify(frame.battleTiles));
+          if (!frame.animation?.length && terrainLayouts.size <= 4) {
+            await waitFor("masonry after the combat view changes", () => run(`state.sequence === ${frame.sequence} &&
+              document.querySelectorAll(".battle-tile").length === ${frame.battleTiles.length} &&
+              [...document.querySelectorAll(".battle-tile")].every(tile => tile.naturalWidth === 32)`));
+          }
+        }
         for (const view of frame.animation ?? []) {
           for (const [, , id] of view.combatArt) {
             const prefix = `combat:${bank}:`;
@@ -239,6 +248,7 @@ try {
             `state.sequence === ${frame.sequence} && !animationFrame`));
         }
       }
+      if (courtyard) assert.ok(terrainLayouts.size >= 4, "Expected the battlefield to scroll");
       assert.equal(strikes.size, attackIds.size);
       assert.deepEqual(await run("[...combatSprites].sort()"), [...guards, ...attackIds].sort());
       console.log(`Verified ${guards.length} guard and ${strikes.size} strike PNGs in live ${routeName} combat.`);
