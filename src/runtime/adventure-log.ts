@@ -444,7 +444,9 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
       title: `${commission.title} - ${value === 254 ? "ready to report" : "turned in"}`,
       detail: value === 254 ? commission.id === "river" ? "Report the end of the river pollution to the council clerk in New Phlan."
         : "Return to the council clerk at City Hall to report your success."
-        : commission.id === "textile" ? "Cadorna's treasure affair is settled." : "The council acknowledged the result.",
+        : commission.id === "textile" ? "Cadorna's treasure affair is settled."
+        : commission.id === "bane" ? "The council let the party keep what it found in the Temple of Bane."
+        : "The council acknowledged the result.",
       status: value === 254 ? "ready-to-report" : "turned-in",
     });
   }
@@ -917,7 +919,9 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       id: `commission-${commission.id}`,
       title: `${commission.title} - ${complete ? "turned in" : pendingReward ? "reward pending" : accepted ? "accepted" : "offered"}`,
       detail: complete ? "The result was acknowledged."
-        : pendingReward ? (commission.id === "ohlo" ? "Finish collecting Ohlo's reward." : "Finish collecting the council reward.")
+        : pendingReward ? (commission.id === "ohlo" ? "Finish collecting Ohlo's reward."
+          : commission.id === "bane" ? "The clerk says you may keep the temple treasure. Press Enter to acknowledge the report."
+          : "Finish collecting the council reward.")
         : accepted ? commission.afterAcceptance ?? commission.next : commission.next,
       status: complete ? "turned-in" : pendingReward ? "reward-pending" : accepted ? "accepted" : "offered",
     });

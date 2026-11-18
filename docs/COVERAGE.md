@@ -711,6 +711,12 @@ adjacent aisle. It walks up to the altar, chooses Destroy Altar, and
 checks that the journal points to the half-orc cleric as the fight
 begins. A translation check covers the original victory flag and the
 dispatch for journal entry 25. This replay stops at the ambush.
+The separate `bane-reward` replay loads a controlled City Hall checkpoint
+with the victory flag and dispatch recorded. It verifies the clerk's
+permission to keep the temple treasure, the journal transition after
+acknowledging the report, and the saved completion state. A fresh browser
+session reloaded that save and confirmed the settled commission and
+journal entry 25.
 The Slums infantry and Textile House priestess share a guest image pattern.
 Area-scoped overrides keep their new artwork distinct, verified live in both fights.
 
