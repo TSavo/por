@@ -162,8 +162,9 @@ for (const { file: archive, entries } of archives) {
   }
 }
 type TraceCell = [x: number, y: number, id: string, pixels?: string];
-type TraceRecord = { cells?: TraceCell[]; type?: string; area?: number; cursor?: number; dialogue?: string; sources?: string[]; sequence?: number };
+type TraceRecord = { cells?: TraceCell[]; type?: string; picture?: number; area?: number; cursor?: number; dialogue?: string; sources?: string[]; sequence?: number };
 const capturedTiles = new Map<string, { x: number; y: number; trace: string; frame: number; pixels: Buffer }>();
+const nativeBattleTiles = new Map<string, Set<number>>();
 const observedPortraitFallbacks: { area?: number; cursor?: number; dialogue?: string; sources: string[]; sequence: number; trace: string }[] = [];
 const portraitTraceFrames: { area: number; sources: string[]; frame: number; trace: string }[] = [];
 const matchTracePortrait = tracePaths.length ? loadPortraitArt([], true, gameData) : undefined;
@@ -214,6 +215,11 @@ for (const path of tracePaths) {
       }
     }
     for (const [x, y, id, pixels] of validated) {
+      if (!Array.isArray(record) && record.picture !== undefined && Number.isInteger(record.picture) && id.startsWith("battle-tile:")) {
+        const pictures = nativeBattleTiles.get(id) ?? new Set<number>();
+        pictures.add(record.picture);
+        nativeBattleTiles.set(id, pictures);
+      }
       if (!capturedTiles.has(id)) capturedTiles.set(id, { x, y, trace: path, frame, pixels });
     }
   }
@@ -367,6 +373,7 @@ const missingTiles = [...capturedTiles].filter(([id]) => !loadedIds.has(id)).map
   const hash = /^tile:\d+:([a-f0-9]{64})$/.exec(id)?.[1];
   return { id, ...capture, sourceCandidates: hash ? tileSources.get(hash) : undefined,
     enhancedCandidates: hash ? enhancedTilesByHash.get(hash) : undefined,
+    nativeBattlePictures: [...(nativeBattleTiles.get(id) ?? [])].sort((a, b) => a - b),
     preview: exportClassicFrame(original, replacements.length + index) };
 });
 const missingByArea = new Map<string, typeof missingTiles>();
@@ -418,10 +425,11 @@ const runtimeGallery = runtimeReplacements.length ?
 const missingGallery = [...missingByArea].sort(([left], [right]) => left.localeCompare(right, "en", { numeric: true }))
   .map(([area, tiles]) => `<details id="unmatched-${area.toLowerCase()}" data-category="Captured tiles without replacements"><summary>` +
     `${area === "Battlefield" ? area : `Area ${area}`} · ${tiles.length} captured tiles without replacements</summary><div class="grid">` +
-    tiles.map(({ id, trace, frame, x, y, preview, sourceCandidates, enhancedCandidates }) =>
+    tiles.map(({ id, trace, frame, x, y, preview, sourceCandidates, enhancedCandidates, nativeBattlePictures }) =>
       `<figure data-visual="true" data-enhanced="false" data-coverage="missing">` +
       `<a href="${preview}" target="_blank" rel="noopener"><img width="32" height="32" loading="lazy" src="${preview}" alt="Classic tile"></a>` +
       `<p>${escape(id)}</p><p>${escape(trace)} · frame ${frame} · (${x}, ${y})</p>` +
+      (nativeBattlePictures.length ? `<p>Native battlefield pictures ${nativeBattlePictures.join(", ")}</p>` : "") +
       (sourceCandidates?.length ? `<details><summary>Matching atlas frames</summary>${sourceCandidates.map(
         ({ archive, block, member, frame }) => `<p>${escape(archive)} #${block} · member ${member} · frame ${frame}</p>`).join("")}</details>` : "") +
       (enhancedCandidates?.length ? `<details><summary>Enhanced tiles with identical source pixels</summary>${enhancedCandidates.map(
@@ -480,6 +488,8 @@ const explorationTotals = explorationCoverage.reduce((totals, { captured, matche
 }), { captured: 0, matched: 0 });
 const battlefieldCaptured = capturedTiles.size - explorationTotals.captured;
 const battlefieldTotals = { captured: battlefieldCaptured, matched: battlefieldCaptured - battlefieldGaps };
+const nativeBattlefieldTotals = { captured: nativeBattleTiles.size,
+  matched: [...nativeBattleTiles.keys()].filter(id => loadedIds.has(id)).length };
 const portraitFrame = new Frame(320, 200);
 const combatFrame = new Frame(320, 200);
 const replacementsById = new Map(replacements.map(replacement => [replacement.id, replacement]));
@@ -565,6 +575,7 @@ ${portraitMatchIssues.length ? `<details><summary>${portraitMatchIssues.length} 
   `<div><dt>${label}</dt><dd>${replacementCounts.get(category) ?? 0}</dd></div>`).join("")}</dl>
 ${capturedTiles.size ? `<p>Captured exploration patterns: ${explorationTotals.matched} of ${explorationTotals.captured} replaced, ${explorationTotals.captured - explorationTotals.matched} unmatched.</p>
 ${battlefieldCaptured ? `<p>Captured battlefield patterns: ${battlefieldTotals.matched} of ${battlefieldCaptured} replaced, ${battlefieldGaps} unmatched.</p>` : ""}
+${nativeBattlefieldTotals.captured ? `<p>Native battlefield draws: ${nativeBattlefieldTotals.matched} of ${nativeBattlefieldTotals.captured} replaced, ${nativeBattlefieldTotals.captured - nativeBattlefieldTotals.matched} unmatched.</p>` : ""}
 <p>Captured patterns can include composited sprites and transition frames.</p>` : ""}
 ${observedPortraitFallbacks.length ? `<details><summary>Portrait fallbacks observed during play · ${observedPortraitFallbacks.length}</summary>
 <table class="coverage-table"><thead><tr><th>Area</th><th>ECL cursor</th><th>Source candidates</th><th>Linked candidates now</th><th>Dialogue</th><th>Trace frame</th></tr></thead><tbody>
@@ -675,7 +686,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
