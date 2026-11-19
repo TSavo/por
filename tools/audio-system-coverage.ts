@@ -48,10 +48,13 @@ const unresolved = master.units.filter((unit: any) => !unit.generationEligible).
 const missingClassic = originalRows.filter(row => !row.pcSpeakerWav || !row.tandyVgm || !row.tandyWav);
 const missingEnhanced = originalRows.filter(row => events.find(event => event.id === row.id)?.enhancedFile && !row.enhancedReplacement);
 const missingNarration = queued.filter(item => !item.mp3 || !item.exactTranscript);
-const dialogue = (voices.lines as any[]).map(line => ({
+const runtimeVoiceLines = (voices.lines as any[]).map(line => ({
   id: line.id, file: line.file, status: line.status,
+  type: line.type,
   exists: existsSync(join(assets, "voices", line.file)),
 }));
+const dialogue = runtimeVoiceLines.filter(line => line.type === "dialogue");
+const matchedNarration = runtimeVoiceLines.filter(line => line.type === "narration");
 
 const report = {
   schema: 1,
@@ -77,6 +80,8 @@ const report = {
     finiteVariantFamilies: master.counts.finiteRuntimeVariantFamilies,
     finiteVariantRecordings: master.counts.finiteRuntimeVariantAssets,
     staticSharedTriggerSelectors: master.staticSelectors.length,
+    originalTownDialogueRecordings: matchedNarration.length,
+    missingOriginalTownDialogue: matchedNarration.filter(line => !line.exists),
     runtimeOnlyTextFallbacks: unresolved,
     missing: missingNarration,
   },

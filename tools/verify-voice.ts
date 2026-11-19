@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 interface VoiceLine { id: string; type: "dialogue" | "narration"; speaker: string; subtitle: string;
-  file: string; match?: string; scene?: string; timing: { startMs: number; endMs: number }; status: string }
+  file: string; match?: string; scene?: string; timing?: { startMs: number; endMs: number }; status: string }
 const manifest = JSON.parse(readFileSync(new URL("../src/audio/voices.json", import.meta.url), "utf8")) as
   { enhancedOnly: boolean; lines: VoiceLine[]; casting: { speaker: string }[] };
 const inventory = JSON.parse(readFileSync(new URL("../src/audio/voice-inventory.json", import.meta.url), "utf8")) as {
@@ -53,11 +53,14 @@ for (const line of manifest.lines) {
   assert(speakers.has(line.speaker), `missing casting entry for ${line.speaker}`);
   assert(line.subtitle.trim());
   assert(line.match || line.scene, `${line.id} needs a runtime trigger`);
-  assert(line.timing.endMs > line.timing.startMs);
+  if (line.timing) assert(line.timing.endMs > line.timing.startMs);
   const path = resolve(directory, line.file);
   assert(existsSync(path), `missing voice asset ${path}`);
-  const wave = readFileSync(path);
-  assert.equal(wave.subarray(0, 4).toString("ascii"), "RIFF");
+  const audio = readFileSync(path);
+  const isWav = audio.subarray(0, 4).toString("ascii") === "RIFF";
+  const isMp3 = audio.subarray(0, 3).toString("ascii") === "ID3" ||
+    (audio[0] === 0xff && (audio[1]! & 0xe0) === 0xe0);
+  assert(isWav || isMp3, `${line.id} has no valid WAV/MP3 signature`);
 }
 assert.equal(inventory.enhancedOnly, true);
 assert.equal(inventory.lineCount, inventory.lines.length);
@@ -149,4 +152,4 @@ for (const entry of dispositions.entries) {
   assert(["selected", "unvoiced-routine-interface", "pending-editorial-review"].includes(entry.disposition));
   if (entry.disposition === "unvoiced-routine-interface") assert(entry.ruleId);
 }
-console.log(`verified ${inventory.lines.length} source entries, ${fishPrompts.promptCount} annotated Drama 3 prompts, and ${manifest.lines.length} prototype assets`);
+console.log(`verified ${inventory.lines.length} legacy source entries, ${fishPrompts.promptCount} archived Drama 3 prompts, and ${manifest.lines.length} production runtime recordings`);
