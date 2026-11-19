@@ -739,6 +739,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valhingen-west-wall", {
+    slot: "A", area: 10, views: 3, patterns: 68, sceneryOnly: true,
+    walk: ["left", "up"],
+  }],
   ["stojanow-west-rampart", {
     slot: "A", area: 9, views: 10, patterns: 52, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "up", "right", "up", "up"],
