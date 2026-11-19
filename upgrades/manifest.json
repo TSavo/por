@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:21:PIC4.DAX:17:0:0": "sokal-barracks-ghosts-dialogue.png",
+    "encounter:area:21:SPRIT4.DAX:17:0:0": "sokal-barracks-ghosts-approach-near.png",
+    "encounter:area:21:SPRIT4.DAX:17:1:0": "sokal-barracks-ghosts-approach-middle.png",
     "tile:10:b1deabbf796c733e2b4be52ae0e51793679b67a07ef4997530aebe895ba50b02": "valhingen-ossuary-path-b1deabbf796c.png",
     "tile:10:7253263eb77922bb09c681ff0168145a8d395af9756a5d8a2b4d5bce0fee1996": "valhingen-ossuary-path-7253263eb779.png",
     "tile:10:35a46b377b9ae9cb1aaefe46a799b3427a910973d7a19e5a2e13ea2b8c3e1c17": "valhingen-ossuary-path-35a46b377b9a.png",
@@ -3798,6 +3801,8 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:21:SPRIT4.DAX:17:0:0": { "area": 21, "x": 56, "y": 32, "width": 32, "height": 80 },
+    "encounter:area:21:SPRIT4.DAX:17:1:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:6:SPRIT5.DAX:16:1:0": { "area": 6, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:5:SPRIT5.DAX:56:0:0": { "area": 5, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:3:SPRIT5.DAX:16:1:0": { "area": 3, "x": 56, "y": 32, "width": 24, "height": 65 },
