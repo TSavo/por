@@ -33,6 +33,7 @@ const arenaApproach = ["right", "right", "up", "up", "right", "up", "up", "enter
   "up", "up", "right", "up", "up", "up", "up", "enter", "enter", "up", "up", "enter"];
 const arenaWatchApproach = [...arenaApproach, "enter", "n", "n", "e", "e", "r", "h",
   ...Array(8).fill("i"), "r", "enter"];
+const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter", "enter"];
 const encounterRoutes = new Map([
   ["new-phlan-city-watch-approach", {
     slot: "A",
@@ -420,6 +421,21 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["new-phlan-watch-fighter", {
+    slot: "A", stand: "combat:area:11:CPIC3.DAX:11:ecl:a07a", strike: "combat:area:11:CPIC3.DAX:139:ecl:a07a",
+    width: 96, height: 96, strikeReflected: true,
+    inputs: [...arenaWatchBattle, ...Array(1).fill("q")],
+  }],
+  ["new-phlan-watch-aide", {
+    slot: "A", stand: "combat:area:11:CPIC3.DAX:16:ecl:a07a", strike: "combat:area:11:CPIC3.DAX:144:ecl:a07a",
+    width: 96, height: 96, strikeReflected: true,
+    inputs: [...arenaWatchBattle, ...Array(2).fill("q")],
+  }],
+  ["new-phlan-watch-auxiliary", {
+    slot: "A", stand: "combat:area:11:CPIC3.DAX:15:ecl:a07a", strike: "combat:area:11:CPIC3.DAX:143:ecl:a07a",
+    width: 96, height: 96, strikeReflected: true,
+    inputs: [...arenaWatchBattle, ...Array(6).fill("q")],
+  }],
   ["valjevo-tower-fire-giant", {
     slot: "B", stand: "combat:area:5:CPIC5.DAX:56:ecl:a83f", strike: "combat:area:5:CPIC5.DAX:184:ecl:a83f",
     width: 96, height: 192, readyPrompt: /FIREGIANTHITPOINTS57/i, strikeReflected: false,
@@ -773,6 +789,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valhingen-south-memorial", {
+    slot: "A", area: 10, views: 7, patterns: 72, sceneryOnly: true,
+    walk: ["up", "up", "up", "up", "up", "right"],
+  }],
   ["valhingen-memorial-turns-north", {
     slot: "A", area: 10, views: 8, patterns: 91, sceneryOnly: true,
     walk: ["up", "up", "up", "up", "up", "left", "up"],
