@@ -51,8 +51,8 @@ even when several areas have their own replacement. The table inventories
 archive contents. The live routes establish which frames are drawn.
 **Exact portrait and combat matches** lists original frames whose pixels
 already resolve to global enhanced artwork through the browser's matchers.
-The current inventory reports 336 linked frames, 16 exact portrait matches,
-12 exact combat matches, and 437 unlinked frames.
+The current inventory reports 338 linked frames, 16 exact portrait matches,
+12 exact combat matches, and 435 unlinked frames.
 **Unlinked source frames** lists the individual unlinked PIC, SPRIT, and
 CPIC frames by archive, directory index, member, and frame. Each entry
 includes its 4× dimensions and links to the local source sheet. The JSON
@@ -163,6 +163,11 @@ The Slums goblin lesson also has separate middle and far sprites from
 replays selected each distance in the original draw routine and continued
 to the goblin lesson portrait. The ordinary encounter still uses its
 original near draw.
+
+The swamp giant lizard has separate middle and far sprites from
+`SPRIT8.DAX` block 59, members 1 and 2. Controlled Chrome replays drew
+the 192×260 and 160×228 sprites at (48,32) and continued to the enhanced
+dialogue portrait. The ordinary swamp replay selects the near pose.
 
 The portrait matched every pixel in the 88×88 image area across 17 successive
 encounter captures. The enhanced browser replay showed the replacement in
