@@ -5,9 +5,9 @@
   "model": "eleven_text_to_sound_v3",
   "outputFormat": "pcm_44100",
   "promptInfluence": 0.9,
-  "status": "first-batch-rejected-awaiting-curated-candidates",
+  "status": "approved",
   "effects": [
-    { "id": "por.original.spell-cast", "index": 2, "file": "por-spell-cast.wav", "targetSeconds": 1.15, "prompt": "A single fantasy wizard spell casting one-shot: focused arcane energy gathers with a crystalline shimmer, rises quickly, then releases in a compact magical pulse. No speech, no melody, no ambience, dry close sound, polished 1980s heroic fantasy game sound effect." },
+    { "id": "por.original.spell-cast", "index": 2, "file": "por-spell-cast.wav", "targetSeconds": 2.24, "status": "approved-elevenlabs", "sourceBatch": "spell-cast-review-02", "prompt": "One brief, gentle magical shimmer." },
     { "id": "por.original.damage", "index": 3, "file": "por-damage.wav", "targetSeconds": 0.96, "status": "approved-elevenlabs", "sourceBatch": "damage-review-01", "prompt": "One short, solid combat hit against leather armor, with a single weighty impact. No weapon swing, voice, echo, or metal ringing." },
     { "id": "por.original.status-effect", "index": 4, "file": "por-status-effect.wav", "targetSeconds": 2.24, "status": "approved-elevenlabs", "sourceBatch": "status-review-01", "prompt": "One brief magical status-effect pulse: a bright glassy shimmer that swells and resolves cleanly. No melody, voice, impact, or background ambience." },
     { "id": "por.original.downed", "index": 5, "file": "por-downed.wav", "targetSeconds": 1.44, "status": "approved-elevenlabs", "sourceBatch": "downed-review-05", "prompt": "One close-miked heavy thud at full volume, immediate attack and quick stop." },
