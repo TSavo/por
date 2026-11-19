@@ -1,6 +1,11 @@
 {
   "version": 1,
   "assets": {
+    "tile:9:f59a8b4ef53dca4b588a04b05a81d1c5a38fb9fa2354b6e64a4853bbbf7ad8f3": "stojanow-guard-wing-terrain-f59a8b4ef53d.png",
+    "tile:9:755bda5b825770559bb1bca3b1582f2f4788da7f1a3b9cbb0b2ec3f4c2052f71": "stojanow-guard-wing-terrain-755bda5b8257.png",
+    "tile:9:b784b8750b8adf3caafc9bb39eccbd31f78447d7268123fcf737875c487f9fea": "stojanow-guard-wing-terrain-b784b8750b8a.png",
+    "tile:9:58aef8f26084a2aca7cc4f541ba0f78ee369e284686f8f6b89ccb7c228377477": "stojanow-guard-wing-terrain-58aef8f26084.png",
+    "tile:9:8f3581a37a37d80a394e310d82b46ab3fd19b341e0181b9dbbbed1a2a1bcad32": "stojanow-guard-wing-terrain-8f3581a37a37.png",
     "combat:area:21:CPIC4.DAX:6:ecl:aed4": "sokal-hobgoblin-line-stand.png",
     "combat:area:21:CPIC4.DAX:134:ecl:aed4": "sokal-hobgoblin-line-strike.png",
     "tile:9:2b189e32fb8cf14bccc4e230acdc7e87885e4ba1d93051e2861319877487c307": "stojanow-tower-lanes-terrain-2b189e32fb8c.png",
