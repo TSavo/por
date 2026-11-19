@@ -1707,6 +1707,15 @@ const environmentRoutes = new Map([
     slot: "J", area: 18, views: 13, patterns: 61,
     walk: ["right", "right", "up", "up", "left", ...Array(7).fill("up")],
   }],
+  ["podal-west-gate-north-reentry", {
+    slot: "J", area: 18, views: 4, patterns: 17, sceneryOnly: true,
+    walk: ["up", "up", "enter", "n", "enter", "up"],
+  }],
+  ["podal-west-gate-south-reentry", {
+    slot: "J", area: 18, views: 3, patterns: 46, sceneryOnly: true,
+    transition: { afterViews: 2, area: 26 },
+    walk: ["up", "up", "up", "s", "up"],
+  }],
   ["nomad-tent-lane", {
     slot: "A", area: 17, views: 6, patterns: 39,
     walk: Array(5).fill("up"),
