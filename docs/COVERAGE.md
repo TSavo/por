@@ -2774,6 +2774,8 @@ Four neighboring Slums routes check another 14 courtyard joins across
 52 views, including the guild corners and side arcades.
 Two Valhingen graveyard walks check 52 new slate path tiles across 13
 views. The eastern walk ends before the encounter overlay.
+Three adjoining graveyard walks check 162 slate joins through the north
+gravestones and south and west vaults, with 3,267 placements in Chrome.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
@@ -2862,6 +2864,8 @@ through the original Parlay prompt on an isolated encounter checkpoint.
 The Kobold King's first horde has its own 4× infantry ready and strike
 sprites. Chrome checks the strike during the original report of Brin
 taking damage from a controlled throne checkpoint.
+The second-wave siege checkpoint also checks the boars' new ready and
+reflected charge sprites during the original damage report.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.

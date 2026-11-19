@@ -703,6 +703,13 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["kobold-cave-siege-boar-combat", {
+    slot: "A", stand: "combat:area:13:CPIC8.DAX:120:ecl:a1d4", strike: "combat:area:13:CPIC8.DAX:248:ecl:a1d4",
+    width: 192, height: 96, readyPrompt: /WILDBOARHITPOINTS18AC7/i, strikeReflected: true,
+    strikeReport: /WILDBOARATTACKSBRINHITTINGFOR9POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(6).fill("enter")],
+    strikeInputs: [...Array(6).fill("enter"), ...Array(17).fill("q")],
+  }],
   ["kobold-cave-first-horde-combat", {
     slot: "A", stand: "combat:area:13:CPIC2.DAX:0:ecl:a14b", strike: "combat:area:13:CPIC2.DAX:128:ecl:a14b",
     width: 96, height: 96, readyPrompt: /KOBOLDHITPOINTS3AC7/i, strikeReflected: false,
