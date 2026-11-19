@@ -982,6 +982,15 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["new-phlan-landmark-inn", {
+    slot: "A", area: 0, views: 2, patterns: 16, sceneryOnly: true, walk: ["right"],
+  }],
+  ["new-phlan-landmark-tavern", {
+    slot: "A", area: 0, views: 2, patterns: 20, sceneryOnly: true, walk: ["right"],
+  }],
+  ["new-phlan-landmark-pier", {
+    slot: "A", area: 0, views: 1, patterns: 12, sceneryOnly: true, walk: [],
+  }],
   ["stojanow-guard-wing-upper", {
     slot: "A", area: 9, views: 16, patterns: 54, sceneryOnly: true,
     walk: ["right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up"],
