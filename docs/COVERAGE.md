@@ -2732,6 +2732,12 @@ facing north. The three outer-courts and three east-passage routes verify
 `kuto-norris-approach` now verifies the far, middle, and near poses before
 the surrender prompt. `new-phlan-tavern-corporal-ready` verifies the
 scoped 96×96 ready sprite in the brawl.
+The two `mendor-annex-floor` replays verify six floor, threshold, and
+wall-join tiles over 3,630 placements across 30 views.
+`valhingen-paladin-wraith-dialogue` checks the animated wraith approach
+over all 121 crypt tiles before the portrait. The Tempus line-fighter
+and captain replays verify their distinct ready poses in the same
+reinforcement battle as the existing cleric strike.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.

@@ -579,6 +579,7 @@ const illustrationRoutes = new Map([
   ["valhingen-paladin-wraith-dialogue", {
     slot: "A", inputs: ["up", "b"],
     portrait: "portrait:PIC4.DAX:21:0:0", prompt: /IAMTHEPROTECTOROFTHEPALADIN/i,
+    approachSequence: [[56, 32, "encounter:area:10:SPRIT4.DAX:21:0:0", 32, 80]],
   }],
   ["buccaneer-guardroom-dialogue", {
     slot: "A", inputs: ["up", "enter"],
@@ -940,6 +941,16 @@ const combatPoseRoutes = new Map([
     slot: "A", stand: "combat:area:0:CPIC3.DAX:12:ecl:aac7", strike: "combat:area:0:CPIC3.DAX:140:ecl:aac7",
     width: 96, height: 96, readyPrompt: /7THLVLCLERIC/i,
     inputs: ["up", "enter", "enter", ...Array(19).fill("q")],
+  }],
+  ["tempus-temple-line-fighter-ready", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:11:ecl:aac7", width: 96, height: 96,
+    readyPrompt: /4THLVLFIGHTER/i, strikeInputs: [],
+    inputs: ["up", "enter", "enter", ...Array(4).fill("q")],
+  }],
+  ["tempus-temple-captain-ready", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:aac7", width: 96, height: 96,
+    readyPrompt: /8THLVLFIGHTER/i, strikeInputs: [],
+    inputs: ["up", "enter", "enter", ...Array(6).fill("q")],
   }],
   ["new-phlan-tavern-cutpurse-combat", {
     slot: "A", stand: "combat:area:0:CPIC3.DAX:13:ecl:a7d3", strike: "combat:area:0:CPIC3.DAX:141:ecl:a7d3",
@@ -1751,6 +1762,14 @@ const environmentRoutes = new Map([
     slot: "A", area: 17, views: 16, patterns: 43,
     walk: ["right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up"],
   }],
+  ["mendor-annex-floor-small", {
+    slot: "B", area: 15, views: 15, patterns: 36, sceneryOnly: true,
+    walk: ["right", "right", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up"],
+  }],
+  ["mendor-annex-floor-large", {
+    slot: "B", area: 15, views: 15, patterns: 28, sceneryOnly: true,
+    walk: ["right", "right", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up"],
+  }],
   ["zhentil-east-yard", {
     slot: "A", area: 28, views: 17, patterns: 46,
     walk: ["up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "right", "up"],
@@ -2353,6 +2372,25 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
+  function observeApproach(approachSequence) {
+    return run(`(() => {
+      window.observedApproach = new Set();
+      const layer = document.querySelector("#tile-art");
+      new MutationObserver(() => {
+        const img = layer.querySelector(".encounter-sprite");
+        if (!img || layer.querySelectorAll(".terrain-tile").length !== 121) return;
+        for (const [x, y, id, w, h] of ${JSON.stringify(approachSequence)}) {
+          const left = (8 + (x - 24) * 120 / 88) / 3.2;
+          const top = (8 + (y - 24) * 120 / 88) / 2;
+          if (img.getAttribute("src") === "/art/" + id && img.naturalWidth === w * 4 && img.naturalHeight === h * 4 &&
+              Math.abs(parseFloat(img.style.left) - left) < .001 && Math.abs(parseFloat(img.style.top) - top) < .001) {
+            window.observedApproach.add(id);
+          }
+        }
+      }).observe(layer, { childList: true });
+    })()`);
+  }
+
   async function verifyTiledView(area, patterns) {
     if (!frame.tileInventory?.length) return 0;
     if (environmentTrace) appendFileSync(environmentTrace, JSON.stringify(frame.tileInventory) + "\n");
@@ -2986,22 +3024,7 @@ try {
     }
   } else if (encounterRoute) {
     const approachSequence = encounterRoute.approachSequence;
-    if (approachSequence) await run(`(() => {
-      window.observedApproach = new Set();
-      const layer = document.querySelector("#tile-art");
-      new MutationObserver(() => {
-        const img = layer.querySelector(".encounter-sprite");
-        if (!img || layer.querySelectorAll(".terrain-tile").length !== 121) return;
-        for (const [x, y, id, w, h] of ${JSON.stringify(approachSequence)}) {
-          const left = (8 + (x - 24) * 120 / 88) / 3.2;
-          const top = (8 + (y - 24) * 120 / 88) / 2;
-          if (img.getAttribute("src") === "/art/" + id && img.naturalWidth === w * 4 && img.naturalHeight === h * 4 &&
-              Math.abs(parseFloat(img.style.left) - left) < .001 && Math.abs(parseFloat(img.style.top) - top) < .001) {
-            window.observedApproach.add(id);
-          }
-        }
-      }).observe(layer, { childList: true });
-    })()`);
+    if (approachSequence) await observeApproach(approachSequence);
     const terrainPatterns = new Set();
     let terrainViews = 0;
     const terrain = encounterRoute.terrain;
@@ -3493,7 +3516,8 @@ try {
     await switchBothWays();
     console.log(`Verified ${routeName} in Chrome.`);
   } else if (illustration) {
-    const { inputs, portrait, prompt, continuation, journalLead } = illustration;
+    const { inputs, portrait, prompt, continuation, journalLead, approachSequence } = illustration;
+    if (approachSequence) await observeApproach(approachSequence);
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
@@ -3555,6 +3579,9 @@ try {
     })()`));
     await switchBothWays();
     await verifyPortraitPanel();
+    if (approachSequence) {
+      assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
     if (routeName === "new-phlan-tavern-brawl") {
       for (let page = 0; page < 2; page++) {
         await advance("enter");
