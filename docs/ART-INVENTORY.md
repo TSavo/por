@@ -42,6 +42,9 @@ even when several areas have their own replacement. The table inventories
 archive contents. The live routes establish which frames are drawn.
 The browser and inventory validate approach sprites against their original
 archive member and frame, including the dimensions in the placement record.
+The named monster pose table checks whether shared source pixels already
+resolve through the browser's global combat matcher. Area-specific art
+for identical pixels is listed as a reuse candidate where applicable.
 The report skips cleared all-black views between scenes. When auditing older
 traces, review encounter frames for actors drawn over the terrain before
 using their unmatched patterns as a redraw checklist.

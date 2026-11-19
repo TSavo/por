@@ -30,7 +30,7 @@ export function partyCombatPart(data: Uint8Array, height: 10 | 24) {
       picture.itemCount === 1) return picture.pixels;
 }
 
-export function loadCombatArtMatcher(keys: string[]) {
+export function loadCombatArtMatcher(keys: string[], root = keys.length ? findGameRoot() : null) {
   const scopes = new Map<string, string[]>();
   const global = keys.filter(key => {
     const [, area, , , cursor] = monsterCombatKey.exec(key) ?? [];
@@ -41,7 +41,7 @@ export function loadCombatArtMatcher(keys: string[]) {
     scopes.set(id, scoped);
     return false;
   });
-  const fallback = buildCombatArtMatcher(global);
+  const fallback = buildCombatArtMatcher(global, root);
   const matchers = new Map<string, ReturnType<typeof buildCombatArtMatcher>>();
   return (frame: Frame, enhanced?: Frame, area?: number, cursor?: number): CombatArtPlacement[] => {
     if (area === undefined) return fallback(frame, enhanced);
@@ -58,14 +58,14 @@ export function loadCombatArtMatcher(keys: string[]) {
         const monster = monsterCombatKey.exec(key);
         sources.set(monster ? `${monster[2]}:${monster[3]}` : key, key);
       }
-      matcher = buildCombatArtMatcher([...sources.values()]);
+      matcher = buildCombatArtMatcher([...sources.values()], root);
       matchers.set(scope, matcher);
     }
     return matcher(frame, enhanced);
   };
 }
 
-function buildCombatArtMatcher(keys: string[]) {
+function buildCombatArtMatcher(keys: string[], root: string | null) {
   type Pose = { key: string; pattern: string; scoped: boolean; reflected: boolean; pixels: Uint8Array; width: number };
   const registered: Pose[] = [];
   const sizes = new Map<string, { width: number; height: number }>();
@@ -108,8 +108,7 @@ function buildCombatArtMatcher(keys: string[]) {
     }
     return match;
   };
-  const root = keys.length ? findGameRoot() : null;
-  if (root) {
+  if (root && keys.length) {
     const randomFrames = keys.flatMap(key => {
       const match = randomCombatKey.exec(key);
       return match ? [{ key, frame: Number(match[4]) }] : [];
