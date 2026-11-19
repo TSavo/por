@@ -63,6 +63,10 @@ Older tile traces can contain full-screen portrait crops. The inventory
 recognizes exact source matches and lists those frames under **Portraits in
 tile traces**, outside the terrain coverage counts.
 
+Open **Illustrated atlas** in the inventory to review every atlas plate,
+its dimensions, and the areas or floor where it appears. The previews
+link directly to the artwork in the checkout.
+
 Pass local gameplay traces after the game directory and output directory to add classic comparisons from captured exploration and battle tiles. For example, run `npx tsx tools/art-inventory.ts gamedata/pool out/art-inventory out/run/tile-inventory.jsonl`. The inventory checks each captured tile against its runtime hash and records its position and frame. Select **Captured tiles without replacements** to review unmatched patterns by area. A pattern can contain part of a moving sprite or another overlay, so check its source frame before assigning it as a terrain tile. Keep the traces and generated previews outside version control.
 
 After generating the inventory, run `python tools/audit-art-palette.py` with Pillow installed to count visible RGB colors across the artwork and by asset family. Use these counts to review color ramps. VGA is the visual style and the artwork can use any number of colors.

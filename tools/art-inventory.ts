@@ -1,12 +1,12 @@
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, relative } from "node:path";
 import { parseDax } from "../src/lib/dax.js";
 import { Frame } from "../src/lib/ega.js";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
-import { encodePng } from "./png.js";
+import { encodePng, pngDimensions } from "./png.js";
 import { loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
 import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, portraitKey } from "./portrait-art.js";
 import { isCombatExtent, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
@@ -26,6 +26,13 @@ if (!gameData) throw new Error("Supply the path to the original game files or se
 const output = process.argv[3] ?? "out/art-inventory";
 const tracePaths = process.argv.slice(4);
 const artScale = 4;
+const atlasSheets = (JSON.parse(readFileSync(new URL("../src/maps/atlas.json", import.meta.url), "utf8")) as
+  { title: string; file: string; areas: number[]; mapId?: number }[]).map(sheet => {
+  const path = join("upgrades", "maps", sheet.file);
+  const dimensions = pngDimensions(readFileSync(path));
+  if (!dimensions) throw new Error(`Invalid atlas illustration: ${path}`);
+  return { ...sheet, ...dimensions, preview: relative(output, path).replaceAll("\\", "/") };
+});
 mkdirSync(join(output, "sheets"), { recursive: true });
 
 interface Block {
@@ -615,6 +622,12 @@ ${portraitMatchIssues.length ? `<details><summary>${portraitMatchIssues.length} 
 }</ul></details>` : ""}
 <dl class="inventory-totals">${inventoryCategories.map(([category, label]) =>
   `<div><dt>${label}</dt><dd>${replacementCounts.get(category) ?? 0}</dd></div>`).join("")}</dl>
+<details><summary>Illustrated atlas · ${atlasSheets.length} plates</summary><div class="grid">
+${atlasSheets.map(({ title, preview, width, height, areas, mapId }) => `<figure>
+  <figcaption>${escape(title)} · ${width}×${height}</figcaption>
+  <a href="${escape(preview)}"><img src="${escape(preview)}" alt="${escape(title)}" loading="lazy" width="320"></a>
+  <p>Areas ${areas.join(", ")}${mapId === undefined ? "" : ` · Map ${mapId}`}</p>
+</figure>`).join("")}</div></details>
 ${capturedTiles.size ? `<p>Captured exploration patterns: ${explorationTotals.matched} of ${explorationTotals.captured} replaced, ${explorationTotals.captured - explorationTotals.matched} unmatched.</p>
 ${battlefieldCaptured ? `<p>Captured battlefield patterns: ${battlefieldTotals.matched} of ${battlefieldCaptured} replaced, ${battlefieldGaps} unmatched.</p>` : ""}
 ${nativeBattlefieldTotals.captured ? `<p>Native battlefield draws: ${nativeBattlefieldTotals.matched} of ${nativeBattlefieldTotals.captured} replaced, ${nativeBattlefieldTotals.captured - nativeBattlefieldTotals.matched} unmatched.</p>` : ""}
@@ -743,7 +756,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, dwarfIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, monsterArt, monsterPoseCoverage, dwarfIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");

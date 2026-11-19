@@ -37,6 +37,21 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["kuto-sickly-kobold-scouts", {
+    slot: "B",
+    requireTiledApproach: false,
+    inputs: [...Array.from({ length: 3 }, () => ["up", "enter", "down", "up", "down"]).flat(), "up", "enter"],
+    placement: [48, 32, "encounter:area:29:SPRIT8.DAX:0:0:0", 40, 80],
+    approachSequence: [
+      [56, 32, "encounter:area:29:ecl:a683:SPRIT8.DAX:0:1:0", 24, 65],
+      [56, 32, "encounter:area:29:ecl:a684:SPRIT8.DAX:0:1:0", 24, 65],
+      [48, 32, "encounter:area:29:SPRIT8.DAX:0:0:0", 40, 80],
+    ],
+    dialogue: {
+      key: "down", portrait: "portrait:area:29:PIC8.DAX:0:0:0",
+      prompt: /ASMALLBANDOFSICKLYKOBOLDS/i,
+    },
+  }],
   ["buccaneer-pen-guard-gate", {
     slot: "A", inputs: ["up", "up"],
     placement: [48, 32, "encounter:area:1:ecl:a2f2:SPRIT6.DAX:16:0:0", 40, 80],
@@ -3369,13 +3384,13 @@ try {
       document.querySelector("#screen").src === ${source} &&
       document.querySelector(".street-viewport")?.isConnected`));
   }
-  function observeApproach(approachSequence) {
+  function observeApproach(approachSequence, requireTiles = true) {
     return run(`(() => {
       window.observedApproach = new Set();
       const layer = document.querySelector("#tile-art");
       function recordApproach() {
         const img = layer.querySelector(".encounter-sprite");
-        if (!img || layer.querySelectorAll(".terrain-tile").length !== 121) return;
+        if (!img || (${requireTiles} && layer.querySelectorAll(".terrain-tile").length !== 121)) return;
         for (const [x, y, id, w, h] of ${JSON.stringify(approachSequence)}) {
           const left = (8 + (x - 24) * 120 / 88) / 3.2;
           const top = (8 + (y - 24) * 120 / 88) / 2;
@@ -4092,7 +4107,7 @@ try {
     }
   } else if (encounterRoute) {
     const approachSequence = encounterRoute.transient ? [encounterRoute.placement] : encounterRoute.approachSequence;
-    if (approachSequence) await observeApproach(approachSequence);
+    if (approachSequence) await observeApproach(approachSequence, encounterRoute.requireTiledApproach);
     const terrainPatterns = new Set();
     let terrainViews = 0;
     const terrain = encounterRoute.terrain;
