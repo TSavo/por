@@ -1,6 +1,14 @@
 {
   "version": 1,
   "assets": {
+    "tile:16:5745bb7f429a1afa52a11ab57f7148ee24f79b3805d2c6a95d8c1ee9e779be01": "lizard-keep-rubble-terrain-5745bb7f429a.png",
+    "tile:16:94ef59d6815741a8e9fd75af7869f4d11e8efac2546ef6513ab81d0f800a20d3": "lizard-keep-rubble-terrain-94ef59d68157.png",
+    "combat:area:0:CPIC3.DAX:16:ecl:ae09": "new-phlan-watch-fighter-stand.png",
+    "combat:area:0:CPIC3.DAX:144:ecl:ae09": "new-phlan-watch-fighter-strike.png",
+    "combat:area:0:CPIC3.DAX:11:ecl:ae09": "new-phlan-watch-aide-stand.png",
+    "combat:area:0:CPIC3.DAX:139:ecl:ae09": "new-phlan-watch-aide-strike.png",
+    "combat:area:0:CPIC3.DAX:15:ecl:ae09": "new-phlan-watch-auxiliary-stand.png",
+    "combat:area:0:CPIC3.DAX:143:ecl:ae09": "new-phlan-watch-auxiliary-strike.png",
     "tile:16:3b2b8525412e2d30a8fde49ac74657e7c7853ec465834790a005a869d956a3ec": "lizard-bank-arch-terrain-3b2b8525412e.png",
     "tile:16:dda2c7412133b0176572e6e07036131bbe1dcda089bbd1863088aa57f12a6e64": "lizard-bank-arch-terrain-dda2c7412133.png",
     "tile:16:a1237831a95ca1d374d4646331c5ca621f8b965ba0a6011896682ebe4e8b5afa": "lizard-bank-arch-terrain-a1237831a95c.png",

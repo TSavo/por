@@ -34,6 +34,8 @@ const arenaApproach = ["right", "right", "up", "up", "right", "up", "up", "enter
 const arenaWatchApproach = [...arenaApproach, "enter", "n", "n", "e", "e", "r", "h",
   ...Array(8).fill("i"), "r", "enter"];
 const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter", "enter"];
+const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
+const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
   ["new-phlan-city-watch-approach", {
     slot: "A",
@@ -220,7 +222,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:0:PIC3.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
   }],
   ["new-phlan-harbor-city-watch", {
-    slot: "A", inputs: ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"],
+    slot: "A", inputs: harborWatchApproach,
     portrait: "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7", prompt: /GO.*STAY/i,
   }],
   ["lizard-wilds-kobold-prisoners", {
@@ -426,6 +428,21 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["new-phlan-harbor-watch-fighter", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:ae09", strike: "combat:area:0:CPIC3.DAX:144:ecl:ae09",
+    width: 96, height: 96, strikeReflected: false,
+    inputs: harborWatchBattle,
+  }],
+  ["new-phlan-harbor-watch-aide", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:11:ecl:ae09", strike: "combat:area:0:CPIC3.DAX:139:ecl:ae09",
+    width: 96, height: 96, strikeReflected: false,
+    inputs: [...harborWatchBattle, ...Array(18).fill("q")],
+  }],
+  ["new-phlan-harbor-watch-auxiliary", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:15:ecl:ae09", strike: "combat:area:0:CPIC3.DAX:143:ecl:ae09",
+    width: 96, height: 96, strikeReflected: false,
+    inputs: [...harborWatchBattle, "q"],
+  }],
   ["new-phlan-watch-fighter", {
     slot: "A", stand: "combat:area:11:CPIC3.DAX:11:ecl:a07a", strike: "combat:area:11:CPIC3.DAX:139:ecl:a07a",
     width: 96, height: 96, strikeReflected: true,
@@ -794,6 +811,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["lizard-keep-rubble", {
+    slot: "A", area: 16, views: 12, patterns: 44, sceneryOnly: true,
+    walk: ["left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up"],
+  }],
   ["lizard-bank-arch", {
     slot: "A", area: 16, views: 10, patterns: 37, sceneryOnly: true,
     walk: ["right", "up", "up", "left", "up", "up", "right", "up", "up"],
