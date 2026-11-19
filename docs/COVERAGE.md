@@ -3224,6 +3224,12 @@ animals, rescued Bivant, and followed the original route to the guard
 interception. It checked both production replacements and verified that
 the display toggle preserved the game state and save.
 
+The Textile House drum courtyard has dedicated ready and attack sprites
+for the longbow leader and longsword guard. Chrome replays verified both
+poses against the native attack reports, checked the bow shot's fixed
+position and the guard's moving strike, and preserved the save through
+Classic and Enhanced toggles.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
