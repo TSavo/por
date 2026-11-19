@@ -3082,3 +3082,6 @@ scoped bindings, both original dialogues, and state-preserving mode switches.
 Paired blades, greatsword, and crossbow player icons have 4x ready and
 action sprites. Three production Chrome replays check the original
 combat actions from saves made through the native icon editor.
+
+The wandering Podal Plaza orc uses a dedicated close approach sprite.
+Chrome verifies placement, the original walk-on dialogue, and mode switching.
