@@ -987,6 +987,7 @@ const combatPoseRoutes = new Map([
   ...[4, 5, 7, 8, 10].flatMap(head =>
     [["axe", 2], ["crossbow", 16]].map(([weapon, body]) => [
       `party-dwarf-${head}-${weapon}-icon-combat`, {
+        manualPolling: true,
         slot: "B", stand: `combat:party:${head}:${body}`, strike: `combat:party:${head}:${body + 128}`,
         width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
         strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
@@ -3173,7 +3174,7 @@ try {
   });
   await command("Page.navigate", { url: origin });
   await waitFor("the game display", () => run('document.querySelector("#screen")?.naturalWidth === 320'));
-  if (routeName === "slums-mage-orc-ready" || routeName === "slums-mage-orc-leader") {
+  if (combatPose?.manualPolling || routeName === "slums-mage-orc-ready" || routeName === "slums-mage-orc-leader") {
     // This replay steps every combat pause explicitly through advance().
     await run(`(() => {
       const fetchOriginal = window.fetch.bind(window);
