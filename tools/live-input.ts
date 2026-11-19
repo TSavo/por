@@ -226,6 +226,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         portrait,
         classicPortrait: Array.isArray(picture),
         classicPortraitSources: Array.isArray(picture) && picture.length ? picture : undefined,
+        classicPortraitArea: Array.isArray(picture) ? area : undefined,
         perspective,
         encounter,
         tiles,

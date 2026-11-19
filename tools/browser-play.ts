@@ -61,6 +61,8 @@ const gameFont = (() => {
 const artwork = loadUpgradeArt();
 let tileTrace = process.env.POR_TILE_TRACE_FILE;
 let lastTileTrace: string | undefined;
+let portraitTrace = process.env.POR_PORTRAIT_TRACE_FILE;
+const tracedPortraits = new Set<string>();
 const encounters = Object.fromEntries([...artwork].flatMap(([id, { encounter }]) =>
   encounter ? [[id, encounter]] : []));
 const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
@@ -87,6 +89,7 @@ interface FrameState {
   portrait?: string;
   classicPortrait?: boolean;
   classicPortraitSources?: string[];
+  classicPortraitArea?: number;
   perspective?: boolean;
   encounter?: EncounterPlacement;
   tiles?: [number, number, string][];
@@ -131,6 +134,19 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
       }
     }
     sequence++;
+    if (portraitTrace && frame.classicPortraitSources?.length) {
+      const { classicPortraitArea: area, classicPortraitSources: sources } = frame;
+      const signature = JSON.stringify([area, sources]);
+      if (!tracedPortraits.has(signature)) {
+        try {
+          appendFileSync(portraitTrace, JSON.stringify({ type: "portrait-fallback", area, sources, sequence }) + "\n");
+          tracedPortraits.add(signature);
+        } catch (error) {
+          console.error("Cannot write portrait fallback trace", error);
+          portraitTrace = undefined;
+        }
+      }
+    }
     ready = true;
   } else if (line.startsWith("POR_NOTICE ")) {
     notice = line.slice("POR_NOTICE ".length);

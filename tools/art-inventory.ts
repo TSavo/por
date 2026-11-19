@@ -8,7 +8,7 @@ import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 import { loadUpgradeArt } from "./upgrade-art.js";
-import { compositePortraitKey } from "./portrait-art.js";
+import { compositePortraitKey, portraitKey } from "./portrait-art.js";
 import { loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
 const families = [
@@ -162,14 +162,24 @@ for (const { file: archive, entries } of archives) {
   }
 }
 type TraceCell = [x: number, y: number, id: string, pixels?: string];
+type TraceRecord = { cells?: TraceCell[]; type?: string; area?: number; sources?: string[]; sequence?: number };
 const capturedTiles = new Map<string, { x: number; y: number; trace: string; frame: number; pixels: Buffer }>();
+const observedPortraitFallbacks: { area?: number; sources: string[]; sequence: number; trace: string }[] = [];
 for (const path of tracePaths) {
   const raw = readFileSync(path, "utf8").trim();
   if (!raw) continue;
-  const frames: (TraceCell[] | { cells?: TraceCell[] })[] = path.endsWith(".jsonl")
+  const frames: (TraceCell[] | TraceRecord)[] = path.endsWith(".jsonl")
     ? raw.split(/\r?\n/).map((line) => JSON.parse(line))
     : JSON.parse(raw);
   for (const [frame, record] of frames.entries()) {
+    if (!Array.isArray(record) && record.type === "portrait-fallback") {
+      const { area, sources, sequence } = record;
+      if (sequence !== undefined && Number.isInteger(sequence) && Array.isArray(sources) &&
+          sources.length && sources.every(id => typeof id === "string" && portraitKey.test(id))) {
+        observedPortraitFallbacks.push({ area: Number.isInteger(area) ? area : undefined, sources, sequence, trace: path });
+      }
+      continue;
+    }
     const cells = Array.isArray(record) ? record : record.cells ?? [];
     // A cleared 11×11 view between scenes has no terrain to replace.
     if (cells.length === 121 && cells.every(([, , id, hex]) => id.startsWith("tile:") && hex === "00".repeat(64))) continue;
@@ -467,9 +477,15 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 <p><strong>${replacements.length} loaded replacement entries</strong> · ${loadedPngs} PNG files · ${archives.length} source archives</p>
 <dl class="inventory-totals">${inventoryCategories.map(([category, label]) =>
   `<div><dt>${label}</dt><dd>${replacementCounts.get(category) ?? 0}</dd></div>`).join("")}</dl>
-${tracePaths.length ? `<p>Captured exploration patterns: ${explorationTotals.matched} of ${explorationTotals.captured} replaced, ${explorationTotals.captured - explorationTotals.matched} unmatched.</p>
+${capturedTiles.size ? `<p>Captured exploration patterns: ${explorationTotals.matched} of ${explorationTotals.captured} replaced, ${explorationTotals.captured - explorationTotals.matched} unmatched.</p>
 ${battlefieldCaptured ? `<p>Captured battlefield patterns: ${battlefieldTotals.matched} of ${battlefieldCaptured} replaced, ${battlefieldGaps} unmatched.</p>` : ""}
 <p>Captured patterns can include composited sprites and transition frames.</p>` : ""}
+${observedPortraitFallbacks.length ? `<details><summary>Portrait fallbacks observed during play · ${observedPortraitFallbacks.length}</summary>
+<table class="coverage-table"><thead><tr><th>Area</th><th>Source candidates</th><th>Trace frame</th></tr></thead><tbody>
+${observedPortraitFallbacks.map(({ area, sources, sequence, trace }) =>
+  `<tr><td>${area ?? "Unknown"}</td><td>${sources.map(id => `<code>${escape(id)}</code>`).join("<br>")}</td>
+  <td>${escape(trace)} #${sequence}</td></tr>`).join("")}
+</tbody></table></details>` : ""}
 ${explorationCoverage.length ? `<details><summary>Exploration coverage by area</summary>
 <table class="coverage-table"><thead><tr><th>Area</th><th>Captured</th><th>With replacements</th><th>Unmatched</th></tr></thead><tbody>
 ${explorationCoverage.map(({ area, captured, matched }) => {
@@ -562,7 +578,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, missingTiles, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, missingTiles, observedPortraitFallbacks, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
