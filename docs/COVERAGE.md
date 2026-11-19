@@ -3201,6 +3201,11 @@ the orc. It reuses the duelist's two sprites for the drunken buccaneer.
 The Chrome replay checks the orc's reflected attack and the buccaneer's
 unreflected attack against their native combat reports.
 
+Podal Plaza's goblin and hobgoblin patrols have dedicated ready and strike
+sprites. Chrome replays with the production artwork checked the original
+combat roll for each patrol, the reflected ready pose, the strike at the
+same position, and state preservation across display modes.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
