@@ -312,6 +312,10 @@ From B, the party enters the keep, chooses Parlay and Nice when an undead
 patrol approaches, and enters the word from the parchment. The patrol lets
 the party pass. Slot C reloads at (10,10) with the new patrol note, and the
 pale figure remains undisclosed at this checkpoint.
+The objective remembers SHESTNI after the first patrol accepts it and
+explains how to repeat it at later patrols. The journal verification
+checks that it remains hidden while the party has only the parchment
+or is still answering the patrol.
 
 The reinforced party can also choose Combat at the first patrol. Run
 `node tools/verify-fresh-party.mjs --sokal-patrol-victory-checkpoint PATH_TO_SLOT_J`

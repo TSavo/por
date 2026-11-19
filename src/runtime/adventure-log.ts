@@ -218,7 +218,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("sokal-hidden-armory")) nextStep = "Follow the glow to the northwest corner of the hidden armory.";
       else if (knows("sokal-haunt-diary")) nextStep = "Read journal entry 3, then continue searching the keep.";
       else if (knows("sokal-haunt-floorboard")) nextStep = "Check the floorboard the spirit pointed out for the defenders' diary.";
-      else if (knows("sokal-patrol-passed")) nextStep = "Explore the keep. If another undead patrol asks whether to give the password, choose Yes.";
+      else if (knows("sokal-patrol-passed") && !knows("sokal-departure")) {
+        nextStep = "Explore the keep. Give the patrols SHESTNI again when they ask for a word, or choose Yes if they offer to repeat the password.";
+      }
       else if (knows("sokal-patrol-rejected-word") && knows("sokal-parchment")) {
         nextStep = "The patrol rejected the word. If you meet another patrol, try a different word from the parchment.";
       }

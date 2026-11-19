@@ -917,6 +917,9 @@ function checkCampaignJournal(): void {
     ["THE BOAT DISEMBARKS YOU AT SOKAL KEEP", "Scout the keep"],
     ["TO THE WEST RISES A MOUND OF REEDS", "west of the gates"],
     ["IN A POUCH ON THE REMAINS IS A CRUMBLING PARCHMENT SCROLL", "speak to an undead patrol"],
+    ["A PACK OF UNDEAD SUDDENLY APPEARS", "speak to an undead patrol"],
+    ["WHAT DO YOU SAY? (TYPE A SINGLE WORD)", "speak to an undead patrol"],
+    ["THE UNDEAD LEAVE", "SHESTNI again"],
     ["A LOUD COMMOTION RISES FROM THE COURTYARD", "ready weapons and spells"],
     ["ON A HOBGOBLIN BODY, YOU FIND A NOTE", "Read journal entry 57"],
     ["THIS WAS ONCE THE CHAPEL OF THE KEEP", "go around it to the east"],
@@ -939,6 +942,10 @@ function checkCampaignJournal(): void {
     if (!line) throw new Error(`Missing Sokal route dialogue: ${trigger}`);
     transcript += "\n" + line;
     const leads = discoveredLeads(transcript);
+    if ((trigger === "A PACK OF UNDEAD SUDDENLY APPEARS" || trigger === "WHAT DO YOU SAY? (TYPE A SINGLE WORD)") &&
+        currentObjective(leads).nextStep.includes("SHESTNI")) {
+      throw new Error("The Sokal journal revealed the patrol password before the party used it");
+    }
     if (!currentObjective(leads).nextStep.includes(instruction!) ||
         leads.some(({ id }) => id === "sokal-departure") !== trigger?.startsWith("TO PASS MY GUARDS")) {
       throw new Error(`Sokal journal route mismatch: ${trigger}`);
