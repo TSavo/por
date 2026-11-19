@@ -1,6 +1,14 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:27:PIC8.DAX:59:0:0": "wild-cave-giant-lizard-dialogue.png",
+    "tile:8:b809967267807444db6a1b3da6cc1ff977c9cd68138f6ed6180a67256536a6f5": "new-phlan-east-ward-terrain-b80996726780.png",
+    "tile:8:858b73d63eb2439f5d3755fe6002d941fcc99e9a5fdb06fb568a21ff2599262f": "new-phlan-east-ward-terrain-858b73d63eb2.png",
+    "tile:8:72d0fd83d0d2dabd4d37e4737304e2831a18fb8a170a2b3c321d94c87e8f00a1": "new-phlan-east-ward-terrain-72d0fd83d0d2.png",
+    "tile:8:3942f43683d8e1f76a10e9d3dc6f608c55938473823fa32514e1100b92f479dc": "new-phlan-civic-terrain-3942f43683d8.png",
+    "tile:8:e05c49674f61413e958d8c57f241968c3e8574d6ae3f1ab06e30507b322d3aae": "new-phlan-civic-terrain-e05c49674f61.png",
+    "tile:8:1180638ececd642b84551072d1f901f40c3f3d975f59049bd1aa8436be86beff": "new-phlan-civic-terrain-1180638ececd.png",
+    "portrait:area:26:PIC7.DAX:61:0:0": "lizard-wilds-stirge-dialogue.png",
     "portrait:area:25:PIC6.DAX:118:0:0": "wild-cave-thri-kreen-dialogue.png",
     "portrait:area:27:PIC8.DAX:73:0:0": "wild-cave-gnoll-dialogue.png",
     "combat:area:31:CPIC1.DAX:5": "bane-orc-veteran-stand.png",

@@ -1365,6 +1365,10 @@ that the journal records the encounter after the party discovers him.
 from a checkpoint positioned one step before that encounter.
 `wild-cave-thri-kreen-dialogue` and `wild-cave-gnoll-dialogue` check
 the enhanced cave illustrations at the original encounter prompts.
+`lizard-wilds-stirge-dialogue` and `wild-cave-giant-lizard-dialogue`
+check the full-panel swarm and giant lizard illustrations.
+`new-phlan-east-ward` checks six additional mappings across 16 live
+views and 1,936 placements, including three redrawn ceiling tiles.
 `bane-ogre-combat` checks the ogre's 96×192 ready and animated strike
 poses from a checkpoint with increased party HP to reach the strike.
 `lizardfolk-east-ruins` checks five redrawn tiles across 16 live views

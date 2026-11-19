@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["wild-cave-giant-lizard-dialogue", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:27:PIC8.DAX:59:0:0", prompt: /FOURGIANTLIZARDSANDTWOMINOTAURS/i,
+  }],
+  ["lizard-wilds-stirge-dialogue", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:26:PIC7.DAX:61:0:0", prompt: /ASWARMOFSTIRGESSWOOPSDOWN/i,
+  }],
   ["wild-cave-thri-kreen-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:25:PIC6.DAX:118:0:0", prompt: /FOURTHRI.KREENWARRIORS/i,
@@ -493,6 +501,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["new-phlan-east-ward", {
+    slot: "A", area: 8, views: 16, patterns: 52, sceneryOnly: true,
+    walk: ["left", "up", "right", "up", "up", "right", "up", "up", "left", "up", "left", "up", "up", "right", "up"],
+  }],
   ["lizardfolk-reed-breach", {
     slot: "A", area: 16, views: 21, patterns: 76, sceneryOnly: true,
     walk: ["left", "left", "up", "up", "up", "left", "up", "up", "up", "up", "up", "left", "up", "up", "up", "up", "up", "right", "left", "left"],
