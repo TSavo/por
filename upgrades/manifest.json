@@ -1,6 +1,10 @@
 {
   "version": 1,
   "assets": {
+    "tile:22:7f73301b6573dfe6b06da5cfb0cd788e913c0c11788fe0a250ce62ce7f13fd89": "yarash-side-cell-terrain-7f73301b6573.png",
+    "tile:22:e2206c18c4f3ecfcd56698585bced454d5e385a2117a5f6be07d9d368b319256": "yarash-side-cell-terrain-e2206c18c4f3.png",
+    "tile:22:5c7ed406dddb69cb7e046ff9099db74a0e9825739925a018890667722051d481": "yarash-side-cell-terrain-5c7ed406dddb.png",
+    "tile:22:6f143115ba868ff9a37b228ea5900af4af8c3a5a6a8f5bae5425c851b8dc3c29": "yarash-side-cell-terrain-6f143115ba86.png",
     "combat:area:15:CPIC2.DAX:0:ecl:ae94": "mendor-kobold-stand.png",
     "combat:area:15:CPIC2.DAX:128:ecl:ae94": "mendor-kobold-strike.png",
     "tile:17:328b77100d34f2d76a0917618c033859d1fc8cbe732d3265c4770a1993d459fe": "nomad-tent-lane-terrain-328b77100d34.png",
