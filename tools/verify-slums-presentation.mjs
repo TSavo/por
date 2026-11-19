@@ -2309,6 +2309,14 @@ try {
     if (routeName === "new-phlan-arena-manual-report") {
       const miss = /ALDA.*ATTACKS.*ROLF.*ANDMISSES/i;
       await run(`window.reportSwitch = null;
+        const decode = HTMLImageElement.prototype.decode;
+        HTMLImageElement.prototype.decode = function () {
+          const glyphs = animationFrame?.text.toSorted(([a], [b]) => a - b);
+          const text = glyphs?.map(([, char]) => String.fromCharCode(char)).join("");
+          if (!text || !${miss}.test(text)) return decode.call(this);
+          HTMLImageElement.prototype.decode = decode;
+          return new Promise(resolve => setTimeout(resolve, 1200)).then(() => decode.call(this));
+        };
         const panel = document.querySelector("#game-text");
         const observer = new MutationObserver(async () => {
           if (!animationFrame || !${miss}.test(panel.textContent)) return;

@@ -2420,6 +2420,13 @@ subsequent misses and damage and stops at the original Continue Battle
 choice. The test drops the first automatic poll request and checks that
 Chrome retries, advances to the choice, and preserves the save bytes.
 
+The `new-phlan-arena-manual-report` replay uses the same checkpoint. It
+delays the browser's image decode for Alda's next miss beyond the report's
+display time and checks that the combat panel still shows the report.
+It also switches to Classic and back during that report. The animation
+timer starts after the frame renders, and Quick waits for the report
+animation to finish before polling the guest for the next turn.
+
 The `kobold-king-return-council` replay starts from the slot B emitted by
 `kobold-king-leave-caves`. It walks to the East Overland dock at (35,29),
 takes the original ferry, and walks from the New Phlan pier to the council

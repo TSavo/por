@@ -39,6 +39,7 @@ let quickPollAfter = 0;
 let enhanced = false;
 let animationFrame;
 let animationTimer;
+let advanceAnimation;
 let screenRender = 0;
 const failedSceneArt = new WeakSet();
 const failedTileArt = new WeakSet();
@@ -120,6 +121,8 @@ for (const key of ["hardware", "master", "effects", "dialogue", "narration", "mu
 
 function finishAnimation() {
   clearTimeout(animationTimer);
+  animationTimer = undefined;
+  advanceAnimation = undefined;
   animationFrame = undefined;
 }
 
@@ -221,12 +224,21 @@ function playAnimation() {
   finishAnimation();
   const frames = state.animation ?? [];
   let index = 0;
-  function advance() {
+  if (!frames.length) return;
+  advanceAnimation = () => {
     animationFrame = frames[index++];
-    showScreen();
-    if (animationFrame) animationTimer = setTimeout(advance, animationFrame.durationMs ?? 120);
-  }
-  if (frames.length) advance();
+    if (!animationFrame) finishAnimation();
+    void showScreen();
+  };
+  advanceAnimation();
+}
+
+function holdAnimationFrame(view) {
+  if (view !== animationFrame || animationTimer !== undefined || !advanceAnimation) return;
+  animationTimer = setTimeout(() => {
+    animationTimer = undefined;
+    advanceAnimation?.();
+  }, view.durationMs ?? 120);
 }
 
 function togglePresentation() {
@@ -339,7 +351,10 @@ async function showScreen() {
     if (render !== screenRender) return;
     if (sceneArt) failedSceneArt.add(view);
     else if (showArt && layers.length) failedTileArt.add(view);
-    else return;
+    else {
+      holdAnimationFrame(view);
+      return;
+    }
     void showScreen();
     return;
   }
@@ -358,6 +373,7 @@ async function showScreen() {
       return glyph;
     }));
   }
+  holdAnimationFrame(view);
 }
 
 function render() {
@@ -451,7 +467,7 @@ async function poll() {
         quickCombat = false;
       }
     }
-    if (quickCombat && state.automaticCombat && state.ready && performance.now() >= quickPollAfter) {
+    if (quickCombat && state.automaticCombat && state.ready && !animationFrame && performance.now() >= quickPollAfter) {
       void send(":poll");
     }
     playPendingSounds();
