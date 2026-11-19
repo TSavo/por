@@ -2110,3 +2110,21 @@ that switching presentation preserves live state and the save.
 check four new graveyard tiles across eight views and 968 placements.
 Both routes end before the skeleton encounter and check save
 preservation when switching presentation.
+
+Valhingen's west arch, north and south gravestones, east memorial,
+north and south memorial turns, and south memorial replays cover 48
+views and 5,808 placements before the encounters. The Lizardfolk bank
+arch and keep rubble replays cover 22 views and 2,662 placements.
+`stojanow-gate-coping` checks 484 placements across four views.
+
+`new-phlan-arena-master-approach` and `new-phlan-city-watch-approach`
+check the original encounter anchors. `new-phlan-harbor-city-watch`
+checks the Go/Stay portrait. The arena and harbor Watch combat replays
+check the fighter, aide, and auxiliary ready and strike poses. Both
+encounters use the same artwork with mappings for their own sprite IDs.
+
+`new-phlan-rolf-tour` checks the opening portrait and its removal
+at the Temple of Tyr stop. `new-phlan-outbound-ferry` checks boarding
+in New Phlan, and `sokal-keep-departure-ferry` checks boarding at the keep
+and the return to New Phlan. These replays check presentation switching
+and save preservation.
