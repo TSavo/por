@@ -1054,6 +1054,9 @@ The south route reaches the ambush and changes the objective to fighting
 off the thieves. `kovel-chase-east` reaches the guildmaster, checks that
 the journal explains the Attack and Release choices, then verifies the
 new search objective after the party releases him and he escapes.
+The east route saves to slot B through Encamp. `kovel-chase-east-reload`
+loads that save through the native menu and checks the tracked commission,
+the four witnessed clues, and the objective to resume searching.
 The translation verifier also checks the file discovery and chase in both
 orders, including with the first clue restored from a save. The tracked
 objective uses the most recent discovery in each case.

@@ -1931,7 +1931,7 @@ routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload")
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
-routes.push("kovel-chase", "kovel-chase-east");
+routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload");
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
@@ -2002,7 +2002,8 @@ const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
 const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneReturn || koboldCaveExit;
 const saveSlot = routeName === "textile-return-art" || councilFinale ? "D" :
-  mageWand || koboldKingDoor || koboldKingFall || koboldReturn || routeName === "stojanow-wall-warning-reload" ? "B" : slot;
+  mageWand || koboldKingDoor || koboldKingFall || koboldReturn ||
+    ["stojanow-wall-warning-reload", "kovel-chase-east-reload"].includes(routeName) ? "B" : slot;
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[saveSlot];
 const saved = resolve(directory, saveSlot + ".json");
 const battleTrace = process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -4631,6 +4632,16 @@ try {
     assert.equal(patterns.size, 174);
     await switchBothWays();
     console.log(`Verified ${patterns.size} Textile House tile patterns across ${views} views, including both reflected tiles. Captures:`, directory);
+  } else if (routeName === "kovel-chase-east-reload") {
+    await advance("j");
+    assert.equal(frame.journal?.trackedId, "commission-kovel");
+    for (const id of ["kovel-chase", "kovel-thieves-split", "kovel-guildmaster", "kovel-guildmaster-escaped"]) {
+      assert.ok(frame.journal.leads.some(lead => lead.id === id), `Expected saved journal lead ${id}`);
+    }
+    assert.match(frame.journal.objective.nextStep, /guildmaster fled after being released/i);
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the tracked Kovel Mansion journal after loading slot B.");
   } else if (routeName === "kovel-chase" || routeName === "kovel-chase-east") {
     const chase = "kovel-chase";
     const split = "kovel-thieves-split";
@@ -4662,6 +4673,14 @@ try {
       for (const key of ["j", "r", "j"]) await advance(key);
       assert.ok(knows("kovel-guildmaster-escaped"));
       assert.match(frame.journal.objective.nextStep, /guildmaster fled after being released/i);
+      for (const key of ["j", "enter", "e", "s", "s"]) await advance(key);
+      assert.match(textOf(frame), /SAVEWHICHGAME/i);
+      await advance("b");
+      const eastSave = resolve(directory, "B.json");
+      const escaped = JSON.parse(readFileSync(eastSave, "utf8"));
+      assert.equal(escaped.tracked, "commission-kovel");
+      assert.ok(escaped.leads.some(({ id }) => id === "kovel-guildmaster-escaped"));
+      console.log("Kovel Mansion escape checkpoint:", eastSave);
     } else {
       for (const key of ["j", "s"]) await advance(key);
       assert.match(textOf(frame), /8,13S.*AMBUSHEDBYSOMETHIEVES/i);
