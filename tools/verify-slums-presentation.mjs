@@ -1403,6 +1403,18 @@ const environmentRoutes = new Map([
     slot: "A", area: 0, views: 6, patterns: 29, sceneryOnly: true,
     walk: ["up", "enter", "n", "enter", "right", "up"],
   }],
+  ["new-phlan-west-shop-exit", {
+    slot: "A", area: 0, views: 9, patterns: 54, sceneryOnly: true,
+    walk: ["up", "enter", "n", "enter", "right", "up", "left", "up"],
+  }],
+  ["new-phlan-training-exit", {
+    slot: "A", area: 0, views: 9, patterns: 59, sceneryOnly: true,
+    walk: ["up", "enter", "n", "enter", "left", "up", "right", "up"],
+  }],
+  ["new-phlan-tavern-back-exit", {
+    slot: "A", area: 0, views: 9, patterns: 49, sceneryOnly: true,
+    walk: ["up", "enter", "n", "enter", "right", "up", "left", "up"],
+  }],
   ["new-phlan-canal-room", {
     slot: "A", area: 0, views: 15, patterns: 45, sceneryOnly: true,
     walk: ["left", "right", "up", "up", "right", "up", "left", "up", "right", "up", "right", "up", "left", "up"],

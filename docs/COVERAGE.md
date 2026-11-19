@@ -2320,6 +2320,14 @@ facing west. Chrome verifies the shopkeeper portrait at the offer and all
 The replay checks 29 tile patterns across six views and preserves the save
 through mode switches.
 
+Three more slot A replays exercise building exits with the browser's
+default art packs. `new-phlan-west-shop-exit` starts at (12,8) east,
+`new-phlan-training-exit` at (5,1) west, and
+`new-phlan-tavern-back-exit` at (14,9) south. Chrome verified all 121
+individual enhanced tiles in each of nine frames per route, including
+the prompts before the exploration menu returns. Each replay also
+checked that switching presentation preserved state and save bytes.
+
 The `new-phlan-canal-room` replay starts from slot A at (6,1) facing
 north. Chrome checks all 1,815 placements across 15 first-person frames
 using 45 tile patterns, including turns inside the room, the walk out, and
