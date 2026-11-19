@@ -3273,7 +3273,8 @@ the reflected ready pose, the unreflected lunge at (104, 104), and
 the native attack on Rhiannon.
 
 Valjevo's barracks hill giants use dedicated 96×192 ready and strike
-sprites. Chrome checks the mirrored ready pose at (56, 80) and the
+sprites. `valjevo-barracks-hill-giant-combat` checks the mirrored ready pose
+in a native animation frame at (56, 80) and the
 mirrored attack on Bakshi at (128, 80). The controlled slot B fixture
 starts outside the barracks with the lower-wing encounters reset.
 

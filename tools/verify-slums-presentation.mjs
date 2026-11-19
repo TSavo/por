@@ -967,6 +967,13 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-barracks-hill-giant-combat", {
+    slot: "B", stand: "combat:area:3:CPIC5.DAX:55:ecl:a839", strike: "combat:area:3:CPIC5.DAX:183:ecl:a839",
+    width: 96, height: 192, manualPolling: true, standInAnimation: true, standAnchor: [56, 80, true],
+    strikeAnchor: [128, 80], strikeReflected: true, strikeReport: /HILLGIANTATTACKSBAKSHI/i,
+    inputs: ["up", "enter", "enter", "enter", "c", "enter", "enter", "enter", ...Array(12).fill("q")],
+    strikeInputs: Array(7).fill("q"),
+  }],
   ["valjevo-lower-snake-combat", {
     slot: "B", stand: "combat:area:3:CPIC5.DAX:60:ecl:b37c", strike: "combat:area:3:CPIC5.DAX:188:ecl:b37c",
     width: 192, height: 96, manualPolling: true, standAnchor: [32, 104, true],
@@ -4320,7 +4327,7 @@ try {
     console.log("Verified the enhanced mage wand pose during the native report and the return to ready art.");
   } else if (combatPose) {
     const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, strikeReport,
-      journalLead, excluded, readyPrompt, standAnchor, strikeAnchor, followingStrikeReport } = combatPose;
+      journalLead, excluded, readyPrompt, standAnchor, strikeAnchor, followingStrikeReport, standInAnimation } = combatPose;
     function verifyCombatScope() {
       if (!excluded) return;
       for (const view of [frame, ...(frame.animation ?? [])]) {
@@ -4332,14 +4339,15 @@ try {
       assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
       await advance("j");
     }
-    if (strikeInputs.length) await run(`window.strikeLoaded = false;
+    if (strikeInputs.length) await run(`window.strikeLoaded = window.standLoaded = false;
       new MutationObserver(() => {
         for (const image of document.querySelectorAll(".combat-sprite")) {
-          if (!image.src.endsWith(${JSON.stringify(strike)})) continue;
+          const isStrike = image.src.endsWith(${JSON.stringify(strike)});
+          if (!isStrike && !(${Boolean(standInAnimation)} && image.src.endsWith(${JSON.stringify(stand)}))) continue;
           const check = () => {
-            if (image.naturalWidth === ${width} && image.naturalHeight === ${height} &&
-                (${strikeReflected === undefined} || (image.style.transform === "scaleX(-1)") === ${strikeReflected ?? false})) {
-              window.strikeLoaded = true;
+            if (image.naturalWidth === ${width} && image.naturalHeight === ${height}) {
+              if (!isStrike) window.standLoaded = true;
+              else if (${strikeReflected === undefined} || (image.style.transform === "scaleX(-1)") === ${strikeReflected ?? false}) window.strikeLoaded = true;
             }
           };
           check();
@@ -4351,12 +4359,13 @@ try {
       verifyCombatScope();
     }
     if (readyPrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), readyPrompt);
-    assert.ok(frame.combatArt?.some(([x, y, id, reflected, selected]) => id === stand &&
+    const readyPlacements = standInAnimation ? frame.animation?.flatMap(({ combatArt }) => combatArt ?? []) : frame.combatArt;
+    assert.ok(readyPlacements?.some(([x, y, id, reflected, selected]) => id === stand &&
       (standAnchor ? x === standAnchor[0] && y === standAnchor[1] && reflected === standAnchor[2]
         : selected || readyPrompt !== undefined)),
       `Expected ${stand}. Combat placements: ${JSON.stringify(frame.combatArt)}. ` +
       `Guest text: ${frame.text.map(([, character]) => String.fromCharCode(character)).join("")}`);
-    await waitFor("the selected combat sprite", () => run(`state.sequence === ${frame.sequence} &&
+    await waitFor("the ready combat sprite", () => run(standInAnimation ? "window.standLoaded" : `state.sequence === ${frame.sequence} &&
       [...document.querySelectorAll(".combat-sprite")].some(image => image.src.endsWith(${JSON.stringify(stand)}) &&
         image.naturalWidth === ${width} && image.naturalHeight === ${height})`));
     await switchBothWays();
