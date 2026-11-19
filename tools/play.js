@@ -27,6 +27,9 @@ let blockedEffect;
 let voiceManifest = { lines: [] };
 let soundManifest = { events: [] };
 let currentVoice;
+let blockedVoice;
+let visibilityPausedEffect;
+let visibilityPausedVoice;
 let lastTextId = null;
 const narratedScenes = new Set();
 let state = { sequence: -1 };
@@ -58,6 +61,8 @@ function stopEffect() {
   currentEffect.pause();
   currentEffect.removeAttribute("src");
   currentEffect = undefined;
+  blockedEffect = undefined;
+  visibilityPausedEffect = undefined;
 }
 
 function playSound(sound) {
@@ -83,10 +88,16 @@ function playPendingSounds() {
 }
 
 function resumeBlockedAudio() {
-  if (!blockedEffect) return;
-  const sound = blockedEffect;
-  blockedEffect = undefined;
-  playSound(sound);
+  if (blockedEffect) {
+    const sound = blockedEffect;
+    blockedEffect = undefined;
+    playSound(sound);
+  }
+  if (blockedVoice && enhanced) {
+    const line = blockedVoice;
+    blockedVoice = undefined;
+    playVoice(line);
+  }
 }
 
 syncAudioControls();
@@ -114,6 +125,8 @@ function finishAnimation() {
 function stopVoice() {
   if (currentVoice) currentVoice.pause();
   currentVoice = undefined;
+  blockedVoice = undefined;
+  visibilityPausedVoice = undefined;
   voiceSubtitle.hidden = true;
   voiceSubtitle.textContent = "";
 }
@@ -126,12 +139,41 @@ function playVoice(line) {
     voiceSubtitle.hidden = false;
   }
   const voice = new Audio(`/voice/${line.file}`);
+  voice.preload = "auto";
   voice.dataset.voiceType = line.type;
   voice.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences[line.type];
   currentVoice = voice;
   voice.addEventListener("ended", () => { if (currentVoice === voice) stopVoice(); }, { once: true });
-  voice.play().catch(() => { if (currentVoice === voice) currentVoice = undefined; });
+  voice.play().catch(() => {
+    if (currentVoice !== voice) return;
+    currentVoice = undefined;
+    blockedVoice = line;
+  });
 }
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    if (currentEffect && !currentEffect.paused) {
+      currentEffect.pause();
+      visibilityPausedEffect = currentEffect;
+    }
+    if (currentVoice && !currentVoice.paused) {
+      currentVoice.pause();
+      visibilityPausedVoice = currentVoice;
+    }
+    return;
+  }
+  if (visibilityPausedEffect === currentEffect) {
+    const effect = visibilityPausedEffect;
+    visibilityPausedEffect = undefined;
+    effect.play().catch(() => {});
+  }
+  if (enhanced && visibilityPausedVoice === currentVoice) {
+    const voice = visibilityPausedVoice;
+    visibilityPausedVoice = undefined;
+    voice.play().catch(() => {});
+  }
+});
 
 function playPendingVoice() {
   if (lastTextId === null) lastTextId = state.textId ?? 0;

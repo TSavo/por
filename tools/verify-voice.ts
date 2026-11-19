@@ -11,6 +11,13 @@ const inventory = JSON.parse(readFileSync(new URL("../src/audio/voice-inventory.
   lines: { id: string; text: string; source: { archive: string; block: number; address: string };
     reviewStatus: string; assetStatus: string }[];
 };
+const plan = JSON.parse(readFileSync(new URL("../src/audio/voice-plan.json", import.meta.url), "utf8")) as {
+  enhancedOnly: boolean; generationOwner: string;
+  runtimePolicy: { originalTextAuthoritative: boolean; blocksGame: boolean; interruptible: boolean;
+    skippable: boolean; textFallback: boolean; duplicatePolicy: string };
+  selections: { id: string; type: string; speaker: string; conversation: string; sourceId: string;
+    text: string; status: string }[];
+};
 assert.equal(manifest.enhancedOnly, true);
 assert(manifest.lines.some(({ type }) => type === "dialogue"));
 assert(manifest.lines.some(({ type }) => type === "narration"));
@@ -39,4 +46,17 @@ for (const line of inventory.lines) {
   assert(line.source.address.startsWith("0x"));
   assert.equal(line.assetStatus, "not-requested");
 }
-console.log(`verified ${inventory.lines.length} source voice entries and ${manifest.lines.length} prototype assets`);
+assert.equal(plan.enhancedOnly, true);
+assert.equal(plan.generationOwner, "project-owner");
+assert.deepEqual(plan.runtimePolicy, { originalTextAuthoritative: true, blocksGame: false, interruptible: true,
+  skippable: true, textFallback: true, duplicatePolicy: "once-per-original-message-id" });
+const inventoryById = new Map(inventory.lines.map((line) => [line.id, line]));
+for (const selection of plan.selections) {
+  const source = inventoryById.get(selection.sourceId);
+  assert(source, `${selection.id} references missing source ${selection.sourceId}`);
+  assert(source.text.includes(selection.text), `${selection.id} text is not present verbatim in its original source`);
+  assert(speakers.has(selection.speaker));
+  assert(selection.conversation);
+  assert.equal(selection.status, "selected-awaiting-recording");
+}
+console.log(`verified ${inventory.lines.length} source entries, ${plan.selections.length} selected lines, and ${manifest.lines.length} prototype assets`);

@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "enhancedOnly": true,
+  "generationOwner": "project-owner",
+  "runtimePolicy": {
+    "originalTextAuthoritative": true,
+    "blocksGame": false,
+    "interruptible": true,
+    "skippable": true,
+    "textFallback": true,
+    "duplicatePolicy": "once-per-original-message-id"
+  },
+  "selections": [
+    {
+      "id": "por.narration.sokal.chapel",
+      "type": "narration",
+      "speaker": "narrator",
+      "conversation": "sokal-chapel",
+      "sourceId": "por.voice.ecl-4.block-21.at-a972.operand-0",
+      "text": "THIS WAS ONCE THE CHAPEL OF THE KEEP. INSIDE THE DOORWAY ARE THE DRIED HUSKS OF TWO ORCS, THEIR FACES TWISTED WITH TERROR. A LARGE ALTAR DOMINATES THE SOUTHERN WALL.",
+      "context": { "area": "Sokal Keep", "scene": "chapel" },
+      "portrait": null,
+      "status": "selected-awaiting-recording"
+    },
+    {
+      "id": "por.dialogue.sokal.ferran-introduction",
+      "type": "dialogue",
+      "speaker": "ferran-martinez",
+      "conversation": "sokal-ferran",
+      "sourceId": "por.voice.ecl-4.block-21.at-aad6.operand-0",
+      "text": "I AM THE LIFE FORM OF FERRAN MARTINEZ, BOUND WITH THE UNDEAD SPIRITS OF ALL WHO DIE WITHIN THESE WALLS TO GUARD THE KEEP. TELL ME, HAS THE CITY BEEN FREED?",
+      "context": { "area": "Sokal Keep", "scene": "chapel altar" },
+      "portrait": null,
+      "status": "selected-awaiting-recording"
+    }
+  ]
+}
