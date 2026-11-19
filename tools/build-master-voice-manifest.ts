@@ -1,0 +1,165 @@
+import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+
+interface SourceEvent {
+  id: string;
+  source: { archive: string; block: number; address: string; instruction: string; instructionIndex: number };
+  outputParts: unknown[];
+  rawLiteralText: string;
+  normalizedText: string;
+  sourceDigest: string;
+}
+interface QueueItem {
+  id?: string;
+  unitId?: string;
+  triggerSourceId?: string;
+  coveredSourceIds?: string[];
+  sourceIds?: string[];
+  output: string;
+  text: string;
+  direction: string;
+}
+interface ReviewUnit {
+  id: string;
+  triggerSourceId: string;
+  coveredSourceIds: string[];
+  spokenText?: string;
+  text?: string;
+  direction?: string;
+  variant?: string | null;
+  characterId?: string | null;
+  performedCharacterId?: string | null;
+  status?: string;
+  reviewStatus?: string;
+  generationEligible?: boolean;
+  sourceTexts?: unknown[];
+  sourceTextParts?: unknown[];
+  rawSourceTexts?: unknown[];
+  asset?: string;
+  model?: string;
+}
+
+const audio = new URL("../src/audio/", import.meta.url);
+const extraction = JSON.parse(readFileSync(new URL("voice-review-extraction.json", audio), "utf8")) as { events: SourceEvent[] };
+const extractionById = new Map(extraction.events.map(event => [event.id, event]));
+const queueFiles = readdirSync(audio).filter(name => /^ecl\d+-generation-queue.*\.json$/i.test(name)).sort();
+const queuedById = new Map<string, QueueItem>();
+const queuedBySources = new Map<string, QueueItem>();
+const sourceKey = (trigger: string, covered: string[]) => `${trigger}|${covered.join("|")}`;
+for (const name of queueFiles) {
+  const queue = JSON.parse(readFileSync(new URL(name, audio), "utf8")) as { items: QueueItem[] };
+  for (const item of queue.items) {
+    const id = item.id ?? item.unitId;
+    if (!id) throw new Error(`${name} has a queue item without an id`);
+    const covered = item.coveredSourceIds ?? item.sourceIds;
+    const trigger = item.triggerSourceId ?? covered?.[0];
+    if (!covered?.length || !trigger) throw new Error(`${name} item ${id} has no sources`);
+    item.coveredSourceIds = covered;
+    item.triggerSourceId = trigger;
+    if (queuedById.has(id)) throw new Error(`duplicate queued unit ${id}`);
+    queuedById.set(id, item);
+    queuedBySources.set(sourceKey(trigger, covered), item);
+  }
+}
+
+const reviews: Array<{ archive: string; events: any[]; units: ReviewUnit[] }> = [];
+for (let number = 1; number <= 8; number++) {
+  const review = JSON.parse(readFileSync(new URL(`ecl${number}-voice-review.json`, audio), "utf8"));
+  reviews.push({ archive: `ECL${number}.DAX`, events: review.events, units: review.units ?? review.narrationUnits });
+}
+const sokal = JSON.parse(readFileSync(new URL("sokal-voice-manifest.json", audio), "utf8")) as { units: ReviewUnit[] };
+
+const normalizedUnits: any[] = [];
+const unitIds = new Set<string>();
+const sourceToUnits = new Map<string, string[]>();
+const addUnit = (archive: string, unit: ReviewUnit) => {
+  if (unitIds.has(unit.id)) throw new Error(`duplicate narration unit ${unit.id}`);
+  unitIds.add(unit.id);
+  if (!extractionById.has(unit.triggerSourceId)) throw new Error(`${unit.id} has unknown trigger ${unit.triggerSourceId}`);
+  for (const sourceId of unit.coveredSourceIds) {
+    if (!extractionById.has(sourceId)) throw new Error(`${unit.id} covers unknown source ${sourceId}`);
+    const ids = sourceToUnits.get(sourceId) ?? [];
+    ids.push(unit.id);
+    sourceToUnits.set(sourceId, ids);
+  }
+  const queued = queuedById.get(unit.id) ?? queuedBySources.get(sourceKey(unit.triggerSourceId, unit.coveredSourceIds));
+  const asset = unit.asset ?? queued?.output.replace(/^\.\.\/por-assets\//, "");
+  const sourceParts = unit.rawSourceTexts ?? unit.sourceTextParts ?? unit.sourceTexts ?? unit.coveredSourceIds.map(sourceId => {
+    const event = extractionById.get(sourceId)!;
+    return { sourceId, rawText: event.rawLiteralText, outputParts: event.outputParts, sourceDigest: event.sourceDigest };
+  });
+  normalizedUnits.push({
+    id: unit.id,
+    archive,
+    triggerSourceId: unit.triggerSourceId,
+    coveredSourceIds: unit.coveredSourceIds,
+    variant: unit.variant ?? null,
+    spokenText: unit.spokenText ?? unit.text ?? queued?.text ?? "",
+    direction: unit.direction ?? queued?.direction ?? "measured, expressive fantasy narration",
+    characterId: unit.characterId ?? unit.performedCharacterId ?? null,
+    sourceParts,
+    resolution: asset ? "resolved" : "unresolved-dynamic",
+    generationEligible: Boolean(asset),
+    model: unit.model ?? (asset ? "eleven_v4" : null),
+    asset: asset ?? null,
+    playback: { attachOnlyToTrigger: true, queueAfterCurrentNarration: true }
+  });
+};
+for (const review of reviews) for (const unit of review.units) addUnit(review.archive, unit);
+for (const unit of sokal.units) addUnit("ECL4.DAX", unit);
+
+const reviewedEventIds = new Set<string>();
+for (const review of reviews) {
+  for (const event of review.events) {
+    if (reviewedEventIds.has(event.sourceId)) throw new Error(`event reviewed more than once: ${event.sourceId}`);
+    reviewedEventIds.add(event.sourceId);
+  }
+}
+const sokalEvents = extraction.events.filter(event => event.source.archive === "ECL4.DAX" && event.source.block === 21);
+for (const event of sokalEvents) {
+  if (reviewedEventIds.has(event.id)) throw new Error(`Sokal event reviewed more than once: ${event.id}`);
+  reviewedEventIds.add(event.id);
+}
+const missing = extraction.events.filter(event => !reviewedEventIds.has(event.id));
+const extra = [...reviewedEventIds].filter(id => !extractionById.has(id));
+if (missing.length || extra.length) throw new Error(`review coverage mismatch: ${missing.length} missing, ${extra.length} extra`);
+
+const events = extraction.events.map(event => ({
+  sourceId: event.id,
+  source: event.source,
+  outputParts: event.outputParts,
+  rawText: event.rawLiteralText,
+  normalizedText: event.normalizedText,
+  sourceDigest: event.sourceDigest,
+  classification: sourceToUnits.has(event.id) ? "voiced-source" : "unvoiced-interface-layout",
+  narrationUnitIds: sourceToUnits.get(event.id) ?? []
+}));
+normalizedUnits.sort((a, b) => a.archive.localeCompare(b.archive) || a.triggerSourceId.localeCompare(b.triggerSourceId) || a.id.localeCompare(b.id));
+const resolved = normalizedUnits.filter(unit => unit.generationEligible).length;
+const manifest = {
+  schema: 1,
+  enhancedOnly: true,
+  sourceExtraction: "src/audio/voice-review-extraction.json",
+  narratorVoiceId: "9UwacDmdjpXy5tUGJhDA",
+  model: "eleven_v4",
+  policy: {
+    manualSequenceReviewRequired: true,
+    audioAttachesOnlyToTrigger: true,
+    coveredPrintsDoNotRetrigger: true,
+    subsequentNarrationQueuesAfterCurrent: true,
+    exactSourceTextPreservedInSourceParts: true
+  },
+  counts: {
+    sourceEvents: events.length,
+    classifiedEvents: reviewedEventIds.size,
+    voicedSourceEvents: events.filter(event => event.classification === "voiced-source").length,
+    unvoicedEvents: events.filter(event => event.classification === "unvoiced-interface-layout").length,
+    narrationUnits: normalizedUnits.length,
+    resolvedUnits: resolved,
+    unresolvedDynamicUnits: normalizedUnits.length - resolved
+  },
+  events,
+  units: normalizedUnits
+};
+writeFileSync(new URL("voice-master-manifest.json", audio), `${JSON.stringify(manifest, null, 2)}\n`);
+console.log(`wrote ${events.length} classified events and ${normalizedUnits.length} narration units (${resolved} resolved)`);
+

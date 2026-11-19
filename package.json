@@ -21,6 +21,8 @@
     "generate-narrator-anchor": "tsx tools/generate-narrator-anchor.ts",
     "voice-inventory": "tsx tools/voice-inventory.ts",
     "voice-review-extraction": "tsx tools/voice-review-extraction.ts",
+    "voice-master-manifest": "tsx tools/build-master-voice-manifest.ts",
+    "verify-voice-master": "tsx tools/verify-master-voice-manifest.ts",
     "compile-fish-prompts": "tsx tools/compile-fish-prompts.ts",
     "voice-dispositions": "tsx tools/voice-dispositions.ts",
     "voice-coverage": "tsx tools/voice-coverage.ts",
