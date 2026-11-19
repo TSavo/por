@@ -2007,7 +2007,9 @@ before reaching Grishnak's temple.
 The Podal Plaza replay starts from that post-Sokal save at the clerk.
 It buys westbound passage, walks from the landing to the north entrance
 at the western edge of Phlan, and enters Podal Plaza in disguise. After
-the party observes the wand exchange, it saves and reloads with the
+the entrance choice, reloading verifies that the journal directs the
+party east along the entrance lane and south toward the auctioneer.
+After the party observes the wand exchange, it saves and reloads with the
 commission ready to report. It walks back to the landing, takes the
 return boat, and collects the clerk's reward. The journal then marks
 the commission turned in. Run this segment with

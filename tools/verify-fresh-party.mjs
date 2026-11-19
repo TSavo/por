@@ -394,6 +394,7 @@ async function verifyPodalFromCouncil(continuation) {
     (text) => assert.match(text, /the plaza ahead is crowded with monsters.*disguise/),
     "j", (_text, frame) => {
       assert.ok(frame.journal.leads.some(({ id }) => id === "auction-plaza-entry"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-plaza-approach-chosen"));
       assert.match(frame.journal.objective.nextStep, /disguise the party or sneak/i);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-exchange"));
     }, "j",
@@ -406,6 +407,11 @@ async function verifyPodalFromCouncil(continuation) {
   ];
   const plazaSave = readFileSync(join(saveDir, "I.json"));
   await replay(load("1769"), "85000000", [
+    "j", checkAuction("accepted"), (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "auction-plaza-approach-chosen"));
+      assert.match(frame.journal.objective.nextStep, /head east.*then turn south toward the auctioneer/i);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-started"));
+    }, "j",
     ...reachAuction, "enter", "enter",
     (text) => assert.match(text, /stand and listen move in closer listen to comments leave/),
     "j", (_text, frame) => {

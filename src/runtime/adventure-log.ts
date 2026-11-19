@@ -172,6 +172,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "auction" && tracked?.status === "accepted") {
       if (knows("auction-bidding")) nextStep = "Stay to see who wins the bidding. Report what you witness to the council clerk.";
       else if (knows("auction-started")) nextStep = "Stay and watch the bidding. Choose Stand and Listen to follow the sale, Listen to Comments to hear the crowd, or Move In Closer to try to identify the item.";
+      else if (knows("auction-plaza-approach-chosen")) nextStep = "From the plaza entrance, head east along the lane, then turn south toward the auctioneer.";
       else if (knows("auction-plaza-entry")) nextStep = "Disguise the party or sneak past the crowd. Find the auctioneer in Podal Plaza and observe the sale.";
       else if (knows("harbor-routes-reopened")) nextStep = "Choose West at the harbor master's ferry menu, then look for Podal Plaza.";
     }
@@ -471,6 +472,12 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   if ((base | segment) === 0) return [];
   const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
   const progress: JournalLead[] = [];
+  // Podal's entry menu stores the chosen approach in the local crowd state.
+  if (cpu.read8(dataSegment, 0x82a2) === 18 && global(0x4a35) !== 0 &&
+      known.some(({ id }) => id === "auction-plaza-entry")) {
+    progress.push({ id: "auction-plaza-approach-chosen", title: "An approach to the auction",
+      detail: "The party chose how to cross the crowd at Podal Plaza." });
+  }
   if (global(progressAddresses.sokal!) === 254 && cpu.read8(dataSegment, 0x82a2) === 0 &&
       known.some(({ id }) => id === "sokal-return-pier")) {
     progress.push({ id: "sokal-back-in-phlan", title: "Back in New Phlan",
