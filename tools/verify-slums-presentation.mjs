@@ -525,6 +525,7 @@ const illustrationRoutes = new Map([
   }],
   ["stojanow-plotting-mage", {
     slot: "A", inputs: ["up", "enter", "enter", "enter", "enter"],
+    approachSequence: [[48, 32, "encounter:area:9:ecl:a270:SPRIT2.DAX:24:0:0", 32, 73]],
     portrait: "portrait:HEAD2.DAX:52:BODY2.DAX:31", prompt: /THEYSEEMUNAWAREOFYOU/i, journalLead: "stojanow-assault-plans",
   }],
   ["stojanow-plotting-fighter", {

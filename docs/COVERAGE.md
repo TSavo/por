@@ -2760,12 +2760,16 @@ Chrome walks checked 24 floor and edge bindings across 48 live views.
 The Pyramid cistern passages use stained limestone underfoot, with
 mineral veins distinct from the dark teal walls. Three Chrome walks
 exercised all five revised bindings across 58 live views.
+The upper cistern route also checks the new outer doorway footing,
+with all 121 tiles rendered in each of 21 Chrome views.
 Stojanow's barracks and coping routes use weathered oak boards beneath
 the sandstone walls. Two Chrome walks checked 12 revised tile bindings
 across 26 views.
 The Stojanow plotting fighter replay also checks his brief 4× approach
 sprite before the existing close-up and dialogue. The binding is scoped
 to the fighter's script so Ohlo keeps his own art.
+The plotting mage has his own 4× approach keyed to his script. The
+Chrome replay checks the approach before the mage's portrait and dialogue.
 
 `bane-altar` checks the three orc approach distances before combat. The
 near pose is scoped to the altar script, and `bane-gate` verifies the
