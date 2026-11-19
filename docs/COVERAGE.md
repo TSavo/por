@@ -816,6 +816,10 @@ warning, the bugbear confrontation, and the decision to take the punch.
 The journal records each event only after the party sees it. The route
 also checks the Enhanced portrait and the return to all 121 scenery
 placements after the bugbears let the party go.
+It saves the outcome to slot B through Encamp. Use the printed slot B
+path with `stojanow-wall-warning-reload` to verify that all three clues
+and the Enhanced view return after loading. The original slot A remains
+byte-for-byte intact.
 The `stojanow-trader` route uses a controlled daylight slot B at `4,15 N`
 and verifies the new wagon trader portrait in the parley. Use `armorer` with slot A
 at the New Phlan west gate (`0,4 W`).
