@@ -489,3 +489,17 @@ reflection while walking from the chief's room toward the west gate.
 The remaining fourteen patterns have individual 32×32 replacements for
 ivy, wall returns, and skyline edges. Chrome checked all 174 patterns
 across 30 views, with 3,630 placements at their native positions.
+
+The raw combat archive audit found 14 unlinked directory entries before
+the Tyrmor priest update. They contain ten distinct cel payloads. The
+Tyrmor replay verified native use of CPIC7 block 141 and the replacement
+attack sprite. Script references also identify these cases for live checks:
+
+- New Phlan reserve combat can select CPIC3 blocks 24 and 152 through the
+  encounter table in ECL3 block 0.
+- Overland thieves can select CPIC6 blocks 12 and 140 through ECL6 block 25.
+- The Zhentil commandant reinforcements can select CPIC6 blocks 14 and 142
+  in ECL6 block 28.
+
+Those three script references establish candidate playback paths. Their
+exact ready and action frames still need to be observed in-game.
