@@ -2743,7 +2743,10 @@ and captain replays verify their distinct ready poses in the same
 reinforcement battle as the existing cleric strike.
 `valhingen-wight-tower-approach` checks the far, middle, and near sprites
 before the tower portrait. `valjevo-floor-reveals` checks five doorstep
-and floor-to-timber joins across eight live views.
+and floor-to-timber joins across eight live views. The Valjevo hall and
+merchant wing use fired-clay octagons with ochre insets on the floor,
+vertical timber on the walls, and gray masonry on the ceiling. The
+floor update covers 14 tile bindings checked across both Chrome routes.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.
