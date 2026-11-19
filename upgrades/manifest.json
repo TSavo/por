@@ -1,6 +1,12 @@
 {
   "version": 1,
   "assets": {
+    "tile:16:6fdeadbca28fcf72a52e5b6c3090d589d272630354b8e9baa59fc9980cff0bf9": "lizard-southwest-trail-terrain-6fdeadbca28f.png",
+    "tile:16:db67afe2d933e3220fa87b68464dee86aee2bfc0c5e047bfa5450ff3e5fea9a0": "lizard-southwest-trail-terrain-db67afe2d933.png",
+    "tile:16:ad61bac35b92386062336c1bb68e8e125cc549b2a721ad2c86f1025f1a87555d": "lizard-southwest-trail-terrain-ad61bac35b92.png",
+    "tile:16:235c0b3a319cb533366b0f2a124a948e61d12ea65e1a4bd90f160d6365dcb3bd": "lizard-southwest-trail-terrain-235c0b3a319c.png",
+    "tile:16:c561330cede75a1a2e83e6843a63513476635ebbaf9502498ffdd526426e1bfb": "lizard-southwest-trail-terrain-c561330cede7.png",
+    "tile:16:a872a29842be2973576c7479620d6e5dedc9d048288700af41df720a377b7313": "lizard-southwest-trail-terrain-a872a29842be.png",
     "combat:area:27:CPIC8.DAX:62": "wild-cave-minotaur-stand.png",
     "combat:area:27:CPIC8.DAX:190": "wild-cave-minotaur-strike.png",
     "combat:area:27:CPIC8.DAX:73": "wild-cave-gnoll-stand.png",

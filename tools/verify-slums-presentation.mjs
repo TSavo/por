@@ -295,6 +295,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["lizardfolk-southwest-trail", {
+    slot: "A", area: 16, views: 14, patterns: 51, sceneryOnly: true,
+    walk: ["left", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up"],
+  }],
   ["new-phlan-west-garden-lanes", {
     slot: "B", area: 0, views: 17, patterns: 70, sceneryOnly: true,
     walk: ["right", "up", "up", "up", "up", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up"],

@@ -1336,6 +1336,8 @@ the middle and near poses at their original anchors in separate encounters.
 `kobold-cave-wyvern-dialogue` verify the Mummy approach sprite and two
 pre-combat illustrations. Chrome checks the artwork and state-preserving
 mode switches on all five encounter replays.
+`lizardfolk-southwest-trail` checks six new masonry and reed junction
+tiles across 14 live views from the unchanged ruin-route save.
 `new-phlan-west-garden-lanes` checks 13 new ivy, courtyard, and standard
 tiles across 17 live views and 2,057 placements.
 `valhingen-tower-wight-dialogue` checks the tower ambush illustration,
