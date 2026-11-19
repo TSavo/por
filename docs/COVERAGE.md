@@ -2991,3 +2991,6 @@ The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.
 The browser uses the overland menu to keep that frame out of the
 first-person tile renderer and exploration tile inventory.
+
+The Old Phlan jail thugs now use enhanced ready and strike sprites. The
+Chrome replay verifies both poses during the longsword exchange.

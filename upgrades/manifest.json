@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:14:CPIC3.DAX:12:ecl:b0d0": "old-phlan-jail-thug-ready.png",
+    "combat:area:14:CPIC3.DAX:140:ecl:b0d0": "old-phlan-jail-thug-strike.png",
     "encounter:area:13:ecl:9b8a:SPRIT8.DAX:0:1:0": "kobold-white-flag-approach-middle.png",
     "encounter:area:13:ecl:9bb1:SPRIT8.DAX:0:1:0": "kobold-white-flag-approach-middle.png",
     "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:1:0": "kobold-white-flag-approach-middle.png",

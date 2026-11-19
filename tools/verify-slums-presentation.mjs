@@ -761,6 +761,12 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["old-phlan-jail-thug-combat", {
+    slot: "A", stand: "combat:area:14:CPIC3.DAX:12:ecl:b0d0", strike: "combat:area:14:CPIC3.DAX:140:ecl:b0d0",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: true,
+    strikeReport: /1STLVLTHIEFATTACKSALDAHITTINGFOR8POINTSOFDAMAGE/i,
+    inputs: ["up", "enter", "enter", "enter"], strikeInputs: ["enter"],
+  }],
   ["textile-hobgoblin-archer-combat", {
     slot: "B", stand: "combat:area:2:CPIC2.DAX:7:ecl:a900", strike: "combat:area:2:CPIC2.DAX:135:ecl:a900",
     width: 96, height: 96, readyPrompt: /HOBGOBLINLDRHITPOINTS6AC5/i, strikeReflected: false,
