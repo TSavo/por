@@ -34,7 +34,7 @@ interface SourceCandidate {
   block: number;
   frame: number;
   fragment?: { x: number; y: number };
-  role?: "terrain" | "sprite";
+  role?: "terrain" | "sprite" | "effect";
   reflected?: boolean;
   body?: { archive: string; block: number; frame: number };
 }
@@ -85,8 +85,9 @@ for (const archive of listGameFiles(root)) {
   const terrain = /^(BACPAC|SQRPACI)\.DAX$/i.test(archive);
   const partyHead = /^CHEAD\.DAX$/i.test(archive);
   const partyBody = /^CBODY\.DAX$/i.test(archive);
-  const sprite = partyHead || partyBody || /^(COMSPR|ICON|CPIC[1-8])\.DAX$/i.test(archive);
-  const battlefield = terrain || sprite;
+  const effect = /^COMSPR\.DAX$/i.test(archive);
+  const sprite = partyHead || partyBody || /^(ICON|CPIC[1-8])\.DAX$/i.test(archive);
+  const battlefield = terrain || sprite || effect;
   if (!battlefield && !/^8X8D\d+\.DAX$/i.test(archive)) continue;
   for (const { id, data } of parseDax(archive, readGameFile(root, archive)).entries) {
     if (!isPicture(data)) continue;
@@ -101,7 +102,7 @@ for (const archive of listGameFiles(root)) {
       const sourceFrame = frameSlice(picture, frame);
       if (partyHead) partyHeads.push({ archive, block: id, frame, pixels: sourceFrame });
       if (partyBody) partyBodies.push({ archive, block: id, frame, pixels: sourceFrame });
-      for (const reflected of sprite ? [false, true] : [false]) {
+      for (const reflected of sprite || effect ? [false, true] : [false]) {
         for (let y = rowStart; y < rowEnd; y += 8) {
           for (let x = 0; x < size; x += 8) {
             const pixels = new Uint8Array(64);
@@ -123,7 +124,7 @@ for (const archive of listGameFiles(root)) {
             const candidate: SourceCandidate = { archive, block: id, frame };
             if (battlefield) {
               candidate.fragment = { x, y };
-              candidate.role = terrain ? "terrain" : "sprite";
+              candidate.role = terrain ? "terrain" : effect ? "effect" : "sprite";
               if (reflected) candidate.reflected = true;
             }
             source.candidates.push(candidate);
@@ -212,9 +213,12 @@ const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
     withSourceCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.length).length,
     ...(area === "battlefield" && {
       withSpriteCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "sprite")).length,
+      withEffectCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "effect")).length,
       withTerrainCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "terrain")).length,
       unmatchedWithoutSpriteCandidates: entries.filter(({ replacement, sourceCandidates }) =>
         !replacement && !sourceCandidates.some(({ role }) => role === "sprite")).length,
+      unmatchedWithoutActorOrEffectCandidates: entries.filter(({ replacement, sourceCandidates }) =>
+        !replacement && !sourceCandidates.some(({ role }) => role === "sprite" || role === "effect")).length,
     }),
   };
 });
@@ -232,8 +236,8 @@ const frameDirectory = join(dirname(tracePath), "tile-frames");
 function galleryLink(path: string) {
   return relative(dirname(galleryPath), path).split(/[\\/]/).map(encodeURIComponent).join("/");
 }
-const sections = areas.map(({ area, patterns, matched, unmatchedWithoutSpriteCandidates }) => `<section><h2>${areaLabel(area)} · ${matched}/${patterns}</h2>` +
-  (unmatchedWithoutSpriteCandidates === undefined ? "" : `<p>${unmatchedWithoutSpriteCandidates} unmatched patterns without an exact sprite candidate.</p>`) + `<div class="grid">` +
+const sections = areas.map(({ area, patterns, matched, unmatchedWithoutActorOrEffectCandidates }) => `<section><h2>${areaLabel(area)} · ${matched}/${patterns}</h2>` +
+  (unmatchedWithoutActorOrEffectCandidates === undefined ? "" : `<p>${unmatchedWithoutActorOrEffectCandidates} unmatched patterns without an exact actor or effect candidate.</p>`) + `<div class="grid">` +
   tiles.filter((tile) => tile.area === area).map(({ key, first, occurrences, positions, sourceCandidates }) => {
     const placedArt = artwork.get(key);
     const src = placedArt && galleryLink(placedArt.path);
@@ -249,7 +253,7 @@ const sections = areas.map(({ area, patterns, matched, unmatchedWithoutSpriteCan
       const uri = `data:image/png;base64,${Buffer.from(encodePng(frame)).toString("base64")}`;
       reference = `<a href="${uri}" download="${key.replaceAll(":", "-")}.png"><img src="${uri}" width="96" height="96" alt="Download original 8×8 tile"></a>`;
     }
-    const spriteCandidate = sourceCandidates.some(({ role }) => role === "sprite");
+    const spriteCandidate = sourceCandidates.some(({ role }) => role === "sprite" || role === "effect");
     return `<article data-sprite-candidate="${spriteCandidate}" data-replacement="${Boolean(src)}"><div class="previews">${reference}${src ? `<img src="${src}" width="96" height="96" alt="Replacement tile">` : "<p>Replacement missing</p>"}</div>` +
       `<code>${key.slice(-12)}</code><p>First seen in ${frameLabel}, (${first.x}, ${first.y}) · ${occurrences} placements across ${positions.length} positions</p>` +
       `<p>${candidates || "Source tile unresolved"}</p></article>`;
@@ -279,7 +283,7 @@ body:has(#hide-replacements:checked) article[data-replacement="true"]{display:no
 </style><h1>Route artwork checklist</h1><p>${analyzedFrames} captured frames analyzed. Archive entries are pixel-match candidates.</p>${
   areas.some(({ area }) => area === "battlefield") ?
     "<p>Battlefield captures can include unmatched actors, effects, and partial tiles. Review each candidate in its frame.</p>" +
-    '<label><input id="hide-sprite-candidates" type="checkbox"> Hide sprite candidates</label>' : ""}
+    '<label><input id="hide-sprite-candidates" type="checkbox"> Hide actor and effect candidates</label>' : ""}
 <label><input id="hide-replacements" type="checkbox"> Hide patterns with replacements</label>${
   omittedFrames.size ? `<p>Omitted frames ${[...omittedFrames].join(", ")}.</p>` : ""}${terrainSection}${sections}</html>\n`);
 for (const { area, patterns, matched, withSourceCandidates } of areas) {

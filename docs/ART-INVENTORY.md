@@ -293,8 +293,10 @@ or bodies and two mixed cells. The report checks the top row against
 against the two head rows and six body rows the guest combines. A mixed
 candidate records both source blocks when both contribute visible pixels.
 No patterns exactly match terrain fragments
-in `BACPAC.DAX` or `SQRPACI.DAX`. Use **Hide sprite candidates** in the
-HTML checklist to set those matches aside while reviewing terrain.
+in `BACPAC.DAX` or `SQRPACI.DAX`. Use **Hide actor and effect candidates**
+in the HTML checklist to set those matches aside while reviewing terrain.
+The report labels `COMSPR.DAX` fragments as effects, including the
+selection frame, which uses block 25 in the Sokal patrol capture.
 Unmatched cells still need visual review.
 
 Set `POR_TRACE_BATTLE_DRAW=1` to log the original combat map picture
