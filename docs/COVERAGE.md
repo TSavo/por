@@ -2679,6 +2679,8 @@ route at (7,0) facing west, the east route at (8,0) facing west, or the
 south route at (6,1) facing south. Chrome loaded all 3,630 enhanced
 placements across the three walks using the default art packs. Each replay
 also checked that toggling presentation preserved the save.
+The canal-bank and canal-room replays save Chrome captures at the start
+and end for visual review.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.

@@ -2551,6 +2551,14 @@ try {
     const patterns = new Set();
     const transition = environment.transition;
     let views = await verifyTiledView(area, patterns);
+    const canalWalk = routeName.startsWith("new-phlan-canal-");
+    async function captureCanalView(point) {
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      const screenshot = resolve(directory, `${routeName}-${point}.png`);
+      writeFileSync(screenshot, Buffer.from(shot.data, "base64"));
+      console.log("Canal capture:", screenshot);
+    }
+    if (canalWalk) await captureCanalView("start");
     if (routeName === "nomad-camp-rim") {
       await advance("j");
       assert.ok(!frame.journal.leads.some(({ id }) => id === "nomad-swords-ready"));
@@ -2687,6 +2695,7 @@ try {
     }
     assert.equal(views, environment.views);
     assert.equal(patterns.size, environment.patterns);
+    if (canalWalk) await captureCanalView("end");
     if (routeName === "new-phlan-canal-room") {
       const text = frame.text.map(([, char]) => String.fromCharCode(char)).join("");
       assert.match(text, /6,1S/i);
