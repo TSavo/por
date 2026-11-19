@@ -2972,6 +2972,11 @@ try {
     for (const key of ["j", stays ? "s" : "l", "j"]) await advance(key);
     assert.ok(knows(stays ? "nomad-promised-aid" : "nomad-declined-aid"));
     assert.ok(!knows(stays ? "nomad-declined-aid" : "nomad-promised-aid") && !knows("nomad-kobold-attack"));
+    assert.ok(!knows("nomad-rest-offer"));
+    if (stays) {
+      for (const key of ["j", "enter", "j"]) await advance(key);
+      assert.ok(knows("nomad-rest-offer") && !knows("nomad-kobold-attack"));
+    }
     console.log(`Verified the Nomad headman portrait and journal on ${routeName} in Chrome.`);
   } else if (routeName === "phlan-harbor-sokal" || routeName === "phlan-harbor-routes") {
     for (const key of ["up", "enter"]) await advance(key);

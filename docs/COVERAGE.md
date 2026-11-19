@@ -1152,7 +1152,9 @@ The `nomad-headman` and `nomad-headman-stay` replays start from the overland
 camp checkpoint. They verify the headman's portrait, the journal's feast
 invitation, entry 55, kobold warning, and overnight decision. Each replay
 selects a different response and checks that the journal records only the
-response witnessed by the party.
+response witnessed by the party. On the Stay and Fight branch, the next
+Enter reveals the headman's permission to rest and study. The journal
+then directs the party to prepare through Encamp.
 The `kuto-well-approach` replay uses slot J saved after the original cross-
 district transition. Chrome verifies 1,936 placements across 16 views on
 the walk to the well, using 89 distinct 32×32 tiles. The final view checks

@@ -352,7 +352,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "nomads") {
       if (knows("nomad-kobold-attack")) nextStep = "The kobolds are attacking the camp. Help the nomads repel them if you agreed to stay.";
       else if (knows("nomad-declined-aid")) nextStep = "The party declined to defend the camp. Check with the council clerk about the commission.";
-      else if (knows("nomad-promised-aid")) nextStep = "Stay near the camp and prepare the party to defend it if the kobolds attack.";
+      else if (knows("nomad-rest-offer")) nextStep = "Stay in the camp. Use Encamp to memorize spells, then rest to prepare for the possible attack.";
+      else if (knows("nomad-promised-aid")) nextStep = "Press Enter to hear the headman's instructions before you prepare to defend the camp.";
       else if (knows("nomad-stay-or-leave")) nextStep = "Choose Stay and Fight if you will defend the camp, or Leave if you decline.";
       else if (knows("nomad-kobold-warning")) nextStep = "Hear out the headman and decide whether to stay and help against the kobolds.";
       else if (knows("nomad-feast-invitation")) nextStep = "Accept the headman's feast invitation to speak with him further.";
@@ -785,6 +786,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("YOU SHALL BE RICHLY REWARDED FOR YOUR GENEROUS AID")) {
     leads.push({ id: "nomad-promised-aid", title: "The party agreed to defend the camp", detail: "The headman thanked the party for staying and promised a reward." });
+  }
+  if (text.includes("YOU MAY WANDER AS YOU WILL OR YOU MAY STAY HERE AND REST AND STUDY")) {
+    leads.push({ id: "nomad-rest-offer", title: "Permission to rest in camp",
+      detail: "The headman said the party could wander the camp or stay to rest and study." });
   }
   if (text.includes("A HORDE OF KOBOLDS IS ATTACKING THE CAMP")) {
     leads.push({ id: "nomad-kobold-attack", title: "The kobold attack", detail: "A band of kobolds attacked the Nomad Camp." });
