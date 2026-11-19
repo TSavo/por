@@ -7,6 +7,22 @@ const gameData = findGameRoot(process.argv[2]);
 if (!gameData) throw new Error("Supply the path to the original game files or set POR_GAMEDATA");
 const output = process.argv[3] ?? "src/audio/voice-inventory.json";
 
+function suggestClassification(text: string) {
+  const quotePositions = [...text].flatMap((character, index) => {
+    if (character !== "'") return [];
+    const before = text[index - 1] ?? "";
+    const after = text[index + 1] ?? "";
+    return /[A-Z]/.test(before) && /[A-Z]/.test(after) ? [] : [index];
+  });
+  if (quotePositions.length < 2) return { suggestedDelivery: "narrator-prose", deliveryConfidence: "medium" };
+  const first = quotePositions[0]!;
+  const last = quotePositions.at(-1)!;
+  const before = text.slice(0, first).trim();
+  const after = text.slice(last + 1).replace(/^[\s.!?,;:-]+/, "").trim();
+  if (!before && !after) return { suggestedDelivery: "narrator-performed-quotation", deliveryConfidence: "medium" };
+  return { suggestedDelivery: "narrator-with-quoted-character", deliveryConfidence: "medium" };
+}
+
 const lines = listGameFiles(gameData).filter((name) => /^ECL\d+\.DAX$/i.test(name)).sort().flatMap((name) => {
   const archive = name.toUpperCase();
   return parseDax(name, readGameFile(gameData, name)).entries.flatMap((entry) => {
@@ -23,6 +39,7 @@ const lines = listGameFiles(gameData).filter((name) => /^ECL\d+\.DAX$/i.test(nam
           source: { archive, block: entry.id, address: `0x${address}`, instruction: instruction.name, operand: operandIndex },
           text,
           classification: "unclassified",
+          ...suggestClassification(text),
           speaker: null,
           conversation: null,
           reviewStatus: "needs-editorial-review",

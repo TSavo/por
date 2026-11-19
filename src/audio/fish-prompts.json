@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "provider": "Fish Audio",
+  "model": "drama-3",
+  "generatedFrom": "src/audio/voice-plan.json annotations",
+  "promptCount": 2,
+  "prompts": [
+    {
+      "id": "por.narration.sokal.chapel",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-4.block-21.at-a972.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[measured historical fantasy narration, ominous but restrained] THIS WAS ONCE THE CHAPEL OF THE KEEP. INSIDE THE DOORWAY ARE THE DRIED HUSKS OF TWO ORCS, THEIR FACES TWISTED WITH TERROR. A LARGE ALTAR DOMINATES THE SOUTHERN WALL.",
+      "spokenText": "THIS WAS ONCE THE CHAPEL OF THE KEEP. INSIDE THE DOORWAY ARE THE DRIED HUSKS OF TWO ORCS, THEIR FACES TWISTED WITH TERROR. A LARGE ALTAR DOMINATES THE SOUTHERN WALL.",
+      "spokenTextSha256": "c58f634e8a5c963f2e5e5e072ab4ea5e009be6eba5197924cb4479a24749db8d",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.ferran-introduction",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-4.block-21.at-aad6.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[measured historical fantasy narration] THE SHAPE SPEAKS, [in a weary, honorable spirit's voice, solemn and restrained; remain the same narrator speaker] 'I AM THE LIFE FORM OF FERRAN MARTINEZ, BOUND WITH THE UNDEAD SPIRITS OF ALL WHO DIE WITHIN THESE WALLS TO GUARD THE KEEP. TELL ME, HAS THE CITY BEEN FREED?'",
+      "spokenText": "THE SHAPE SPEAKS, 'I AM THE LIFE FORM OF FERRAN MARTINEZ, BOUND WITH THE UNDEAD SPIRITS OF ALL WHO DIE WITHIN THESE WALLS TO GUARD THE KEEP. TELL ME, HAS THE CITY BEEN FREED?'",
+      "spokenTextSha256": "a0b127d5da45be261e88fe3b989edd08dc05e182e9f199dbbd1abb5724af2df4",
+      "status": "annotated-prompt-ready"
+    }
+  ]
+}

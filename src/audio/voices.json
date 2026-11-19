@@ -1,12 +1,13 @@
 {
-  "schema": 1,
+  "schema": 2,
   "enhancedOnly": true,
-  "recording": {
+  "synthesis": {
+    "provider": "Fish Audio",
+    "model": "drama-3",
     "masterFormat": "WAV PCM, mono, 48 kHz, 24-bit preferred",
     "browserFormat": "Opus, 48 kHz, mono",
     "dialogueLoudness": "-18 LUFS integrated, -2 dBTP maximum",
     "narrationLoudness": "-20 LUFS integrated, -2 dBTP maximum",
-    "roomTone": "500 ms per recording session",
     "fileNaming": "stable voice ID with dots replaced by hyphens"
   },
   "casting": [

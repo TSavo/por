@@ -2,6 +2,15 @@
   "schema": 1,
   "enhancedOnly": true,
   "generationOwner": "project-owner",
+  "provider": "Fish Audio",
+  "model": "drama-3",
+  "promptPolicy": {
+    "defaultSpeaker": "narrator",
+    "defaultSpeakerTag": "<|speaker:0|>",
+    "quotedDialogue": "The narrator performs quoted character speech without changing speaker tags.",
+    "separateCharacterVoices": "Use additional <|speaker:N|> tags only when explicitly authored by the project owner.",
+    "directions": "Use restrained free-form bracket directions; never rewrite or paraphrase the original text."
+  },
   "runtimePolicy": {
     "originalTextAuthoritative": true,
     "blocksGame": false,
@@ -20,18 +29,35 @@
       "text": "THIS WAS ONCE THE CHAPEL OF THE KEEP. INSIDE THE DOORWAY ARE THE DRIED HUSKS OF TWO ORCS, THEIR FACES TWISTED WITH TERROR. A LARGE ALTAR DOMINATES THE SOUTHERN WALL.",
       "context": { "area": "Sokal Keep", "scene": "chapel" },
       "portrait": null,
-      "status": "selected-awaiting-recording"
+      "annotations": [
+        {
+          "text": "THIS WAS ONCE THE CHAPEL OF THE KEEP. INSIDE THE DOORWAY ARE THE DRIED HUSKS OF TWO ORCS, THEIR FACES TWISTED WITH TERROR. A LARGE ALTAR DOMINATES THE SOUTHERN WALL.",
+          "direction": "measured historical fantasy narration, ominous but restrained"
+        }
+      ],
+      "status": "annotated-prompt-ready"
     },
     {
-      "id": "por.dialogue.sokal.ferran-introduction",
-      "type": "dialogue",
-      "speaker": "ferran-martinez",
+      "id": "por.narration.sokal.ferran-introduction",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "ferran-martinez",
       "conversation": "sokal-ferran",
       "sourceId": "por.voice.ecl-4.block-21.at-aad6.operand-0",
-      "text": "I AM THE LIFE FORM OF FERRAN MARTINEZ, BOUND WITH THE UNDEAD SPIRITS OF ALL WHO DIE WITHIN THESE WALLS TO GUARD THE KEEP. TELL ME, HAS THE CITY BEEN FREED?",
+      "text": "THE SHAPE SPEAKS, 'I AM THE LIFE FORM OF FERRAN MARTINEZ, BOUND WITH THE UNDEAD SPIRITS OF ALL WHO DIE WITHIN THESE WALLS TO GUARD THE KEEP. TELL ME, HAS THE CITY BEEN FREED?'",
       "context": { "area": "Sokal Keep", "scene": "chapel altar" },
       "portrait": null,
-      "status": "selected-awaiting-recording"
+      "annotations": [
+        {
+          "text": "THE SHAPE SPEAKS, ",
+          "direction": "measured historical fantasy narration"
+        },
+        {
+          "text": "'I AM THE LIFE FORM OF FERRAN MARTINEZ, BOUND WITH THE UNDEAD SPIRITS OF ALL WHO DIE WITHIN THESE WALLS TO GUARD THE KEEP. TELL ME, HAS THE CITY BEEN FREED?'",
+          "direction": "in a weary, honorable spirit's voice, solemn and restrained; remain the same narrator speaker"
+        }
+      ],
+      "status": "annotated-prompt-ready"
     }
   ]
 }

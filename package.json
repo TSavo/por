@@ -17,6 +17,8 @@
     "audio-coverage": "tsx tools/audio-coverage.ts",
     "generate-enhanced-audio": "tsx tools/generate-enhanced-audio.ts",
     "voice-inventory": "tsx tools/voice-inventory.ts",
+    "compile-fish-prompts": "tsx tools/compile-fish-prompts.ts",
+    "voice-coverage": "tsx tools/voice-coverage.ts",
     "translate": "python tools/tp_translate.py",
     "verify": "tsx tools/verify-translation.ts && tsx tools/verify-original-audio.ts && tsx tools/verify-enhanced-audio.ts && tsx tools/verify-voice.ts"
   },
