@@ -1726,6 +1726,9 @@ It also checks the 96×96 fallen combatant and loose stones at their guest
 positions and facings. The artwork inventory links them to `RANDCOM.DAX`,
 block 1, frames 5 and 1. The patrol trace no longer counts their visible
 fragments among the missing terrain tiles.
+The same replay also requests an unavailable combat sprite. Chrome uses
+the original pixels in that actor's rectangle and keeps the surrounding
+enhanced terrain, other sprites, and combat text visible.
 
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_B PATH_TO_CHROME castle-dragon`
 with a castle checkpoint outside the audience hall at `14,7 S`. Chrome checks

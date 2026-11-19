@@ -4495,6 +4495,29 @@ try {
       await switchBothWays();
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, `${routeName}-battle.png`), Buffer.from(shot.data, "base64"));
+      if (patrolCombat) {
+        await waitFor("the combat frame after its reports", () => run(`state.sequence === ${frame.sequence} && !animationFrame`));
+        assert.ok(frame.combatArt.length > 1 && frame.battleTiles.length > 0);
+        const result = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true, expression: `(async () => {
+          const original = state;
+          const [x, y, , reflected, selected, width = 24, height = 24] = original.combatArt[0];
+          state = { ...original, combatArt: [[x, y, "combat:missing-patrol-test", reflected, selected, width, height],
+            ...original.combatArt.slice(1)] };
+          try {
+            await showScreen();
+            const fallback = document.querySelector(".combat-sprite-fallback");
+            return fallback?.style.backgroundImage.includes(original.frame) &&
+              parseFloat(fallback.style.left) === x / 3.2 && parseFloat(fallback.style.top) === y / 2 &&
+              !document.querySelector("#game-text").hidden &&
+              document.querySelectorAll(".combat-sprite").length === original.combatArt.length - 1 &&
+              document.querySelectorAll(".battle-tile").length === original.battleTiles.length;
+          } finally {
+            state = original;
+            await showScreen();
+          }
+        })()` });
+        assert.equal(result.result.value, true, result.exceptionDetails?.text ?? "A missing combat sprite should preserve the other layers");
+      }
       let layeredAttack;
       const strikes = new Set();
       const terrainLayouts = new Set();

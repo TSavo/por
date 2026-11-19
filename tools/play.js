@@ -253,6 +253,17 @@ async function showScreen() {
     backdrop.style.backgroundImage = `url("data:image/png;base64,${frame}")`;
     return backdrop;
   }
+  function combatBackdrop(image) {
+    const backdrop = document.createElement("div");
+    backdrop.className = "combat-sprite-fallback";
+    const width = parseFloat(image.style.width || "7.5%");
+    const height = parseFloat(image.style.height || "12%");
+    backdrop.style.cssText = `left:${image.style.left};top:${image.style.top};width:${width}%;height:${height}%`;
+    backdrop.style.backgroundImage = `url("data:image/png;base64,${view.frame}")`;
+    backdrop.style.backgroundSize = `${10000 / width}% ${10000 / height}%`;
+    backdrop.style.backgroundPosition = `${parseFloat(image.style.left) * 100 / (100 - width)}% ${parseFloat(image.style.top) * 100 / (100 - height)}%`;
+    return backdrop;
+  }
   let layers = [];
   const placements = [...(view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
   if (view.portrait) placements.push([8, 8, view.portrait, undefined, undefined, 120, 120]);
@@ -312,6 +323,7 @@ async function showScreen() {
         // Terrain remains in the enhanced framebuffer underneath its PNGs.
         if (layer.matches(".terrain-tile, .battle-tile")) return null;
         if (layer.matches(".encounter-portrait")) return pictureBackdrop();
+        if (layer.matches(".combat-sprite")) return combatBackdrop(layer);
         throw error;
       }
     };
