@@ -36,6 +36,7 @@ interface SourceCandidate {
   fragment?: { x: number; y: number };
   role?: "terrain" | "sprite" | "effect";
   reflected?: boolean;
+  observed?: boolean;
   body?: { archive: string; block: number; frame: number };
 }
 
@@ -54,9 +55,10 @@ const drawFrames = new Map<string, {
   frame: number;
   placements: { x: number; y: number; flags: number }[];
 }>();
+const drawLines = drawLog ? readFileSync(drawLog, "utf8").split(/\r?\n/) : [];
 if (drawLog) {
   const prefix = "POR_BATTLE_DRAW ";
-  const lines = readFileSync(drawLog, "utf8").split(/\r?\n/).filter((line) => line.startsWith(prefix));
+  const lines = drawLines.filter((line) => line.startsWith(prefix));
   if (!lines.length) throw new Error("The draw log contains no terrain draws");
   for (const line of lines) {
     const { x, y, picture, flags, archive, block, frame } = JSON.parse(line.slice(prefix.length)) as BattlefieldDraw;
@@ -165,6 +167,30 @@ if (battleKeys.size) {
   }
 }
 
+const terrainPrefix = "POR_BATTLE_TERRAIN ";
+for (const line of drawLines.filter(line => line.startsWith(terrainPrefix))) {
+  const { picture, cells } = JSON.parse(line.slice(terrainPrefix.length)) as {
+    picture: number; cells: [number, number, string, string][];
+  };
+  const block = picture & 0x80 ? 2 : 1, frame = picture & 0x7f;
+  if (!Number.isInteger(picture) || picture < 0 || picture > 255 || !drawFrames.has(`SQRPACI.DAX:${block}:${frame}`)) {
+    throw new Error(`Unknown guest terrain draw: ${picture}`);
+  }
+  for (const [x, y, key, indices] of cells) {
+    const pixels = Buffer.from(indices, "hex");
+    if (![0, 8, 16].includes(x) || ![0, 8, 16].includes(y) || !/^(?:0[0-9a-f]){64}$/.test(indices) ||
+        key !== `battle-tile:${createHash("sha256").update(pixels).digest("hex")}`) {
+      throw new Error(`Invalid guest terrain fragment: ${key}`);
+    }
+    const source = sourceByHash.get(key) ?? { pixels, candidates: [] as SourceCandidate[] };
+    if (!source.candidates.some(candidate => candidate.observed && candidate.block === block && candidate.frame === frame &&
+        candidate.fragment?.x === x && candidate.fragment.y === y)) {
+      source.candidates.push({ archive: "SQRPACI.DAX", block, frame, role: "terrain", fragment: { x, y }, observed: true });
+      sourceByHash.set(key, source);
+    }
+  }
+}
+
 const sourceKey = (key: string) => key.replace(/^tile:\d+:/, "tile:");
 const areaLabel = (area: number | "battlefield") => area === "battlefield" ? "Battlefield cells" : `Area ${area}`;
 type TilePosition = { x: number; y: number; occurrences: number };
@@ -215,6 +241,7 @@ const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
       withSpriteCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "sprite")).length,
       withEffectCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "effect")).length,
       withTerrainCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "terrain")).length,
+      withObservedTerrainSources: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ observed }) => observed)).length,
       unmatchedWithoutSpriteCandidates: entries.filter(({ replacement, sourceCandidates }) =>
         !replacement && !sourceCandidates.some(({ role }) => role === "sprite")).length,
       unmatchedWithoutActorOrEffectCandidates: entries.filter(({ replacement, sourceCandidates }) =>
@@ -243,8 +270,8 @@ const sections = areas.map(({ area, patterns, matched, unmatchedWithoutActorOrEf
     const src = placedArt && galleryLink(placedArt.path);
     const framePath = join(frameDirectory, `${first.frame}.png`);
     const frameLabel = existsSync(framePath) ? `<a href="${galleryLink(framePath)}">frame ${first.frame}</a>` : `frame ${first.frame}`;
-    const candidates = sourceCandidates.map(({ archive, block, frame, fragment, role, reflected, body }) =>
-      `${archive} #${block} frame ${frame}${fragment ? ` at (${fragment.x}, ${fragment.y})` : ""}${reflected ? " reflected" : ""}${body ? ` + ${body.archive} #${body.block} frame ${body.frame}` : ""}${role ? ` (${role})` : ""}`).join(", ");
+    const candidates = sourceCandidates.map(({ archive, block, frame, fragment, role, reflected, body, observed }) =>
+      `${archive} #${block} frame ${frame}${fragment ? ` at (${fragment.x}, ${fragment.y})` : ""}${reflected ? " reflected" : ""}${body ? ` + ${body.archive} #${body.block} frame ${body.frame}` : ""}${role ? ` (${observed ? "guest-drawn " : ""}${role})` : ""}`).join(", ");
     const pixels = tracedPixels.get(key) ?? sourceByHash.get(sourceKey(key))?.pixels;
     let reference = "<p>Original reference unavailable</p>";
     if (pixels) {

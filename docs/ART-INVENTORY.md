@@ -340,6 +340,13 @@ to select the zero-based frame. The manual courtyard replay recorded
 identify source artwork even when clipping, overdraw, and actors keep
 the finished cells from matching archive fragments.
 
+The same flag records `POR_BATTLE_TERRAIN` fragments from the native
+offscreen surface before combatants are drawn. With `--battle-draws`,
+the report links matching live cells to their observed SQRPACI block,
+frame, and fragment coordinates. The Lizardfolk ruin replay matched all
+45 live battlefield patterns to guest-drawn terrain, with a 32×32
+replacement for each pattern.
+
 The Chrome verifier captures battlefield cells from any replay with
 `POR_TRACE_BATTLE_TILES=1`. The Sokal undead patrol replay captured 23
 combat frames and verified its two standing poses and two strikes. After

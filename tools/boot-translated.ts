@@ -76,7 +76,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       if (at === 0x014d && this.cs === terrainDrawSegment && this.steps >= liveStep && captureBattleTerrain &&
           this.read8(this.ds, 0x497e) === 1 && this.read8(this.ss, (this.sp + 4) & 0xffff) === 1) {
         captureBattleTerrain(this, this.read8(this.ss, (this.sp + 10) & 0xffff),
-          this.read8(this.ss, (this.sp + 8) & 0xffff));
+          this.read8(this.ss, (this.sp + 8) & 0xffff), this.read8(this.ss, (this.sp + 6) & 0xffff));
       }
       // The far entry draws a frame from one of the two SQRPACI blocks.
       if (traceBattleDraw && at === 0x00f1 && this.cs === terrainDrawSegment && this.steps >= liveStep) {

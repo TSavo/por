@@ -85,7 +85,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
-  const battleTerrain = browser && battleTileKeys.size ? new Frame(screen.width, screen.height) : undefined;
+  const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
+  const battleTerrain = browser && (battleTileKeys.size || traceBattleDraw) ? new Frame(screen.width, screen.height) : undefined;
+  const tracedBattleTerrain = new Set<string>();
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
   const attackKeys = new Set((process.env.POR_COMBAT_ART_KEYS ?? "").split(",")
     .filter((key) => Number((monsterCombatKey.exec(key) ?? partyCombatKey.exec(key))?.[3]) >= 128));
@@ -351,7 +353,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   return {
     requestKey,
-    captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number) => {
+    captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;
       const x = 8 + column * 8;
       const y = 8 + row * 8;
@@ -373,6 +375,22 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             battleTerrain.pixels[start + group * 8 + pixel] = planes.reduce((color, bits, plane) =>
               bits & bit ? color | planeMasks[plane]! : color, 0);
           }
+        }
+      }
+      if (traceBattleDraw) {
+        const cells: TileInventoryCell[] = [];
+        const pixels = Buffer.alloc(64);
+        for (let dy = 0; dy < 24; dy += 8) for (let dx = 0; dx < 24; dx += 8) {
+          for (let scan = 0; scan < 8; scan++) {
+            const start = (y + dy + scan) * screen.width + x + dx;
+            pixels.set(battleTerrain.pixels.subarray(start, start + 8), scan * 8);
+          }
+          if (pixels.some(Boolean)) cells.push([dx, dy, `battle-tile:${createHash("sha256").update(pixels).digest("hex")}`, pixels.toString("hex")]);
+        }
+        const draw = JSON.stringify({ picture, cells });
+        if (cells.length && !tracedBattleTerrain.has(draw)) {
+          tracedBattleTerrain.add(draw);
+          console.error(`POR_BATTLE_TERRAIN ${draw}`);
         }
       }
     } : undefined,
