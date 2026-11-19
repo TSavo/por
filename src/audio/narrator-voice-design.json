@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "purpose": "Create one stable synthetic narrator identity for Fish Audio Drama 3 conditioning.",
+  "designProvider": "ElevenLabs Voice Design",
+  "designModel": "eleven_ttv_v3",
+  "status": "awaiting-owner-approval",
+  "voiceDescription": "Native American English. Male, 45–60. Excellent studio quality. Persona: seasoned fantasy storyteller. Emotion: dramatic, mysterious, authoritative, but restrained. A low, resonant baritone with clear diction, measured natural pacing, and warm, controlled intensity. He should carry dark medieval fantasy narration naturally without sounding like a movie-trailer announcer.",
+  "previewText": "This was once the chapel of the keep. Inside the doorway are the dried husks of two orcs, their faces twisted with terror. A large altar dominates the southern wall. The shape speaks, 'I am the life form of Ferran Martinez, bound with the undead spirits of all who die within these walls to guard the keep. Tell me, has the city been freed?'",
+  "designParameters": {
+    "guidanceScale": 25,
+    "loudness": 0.5,
+    "seed": null,
+    "previewCount": 3
+  },
+  "selection": {
+    "generatedVoiceId": null,
+    "approvedByOwner": false
+  },
+  "fishAnchor": {
+    "targetSeconds": "20-30",
+    "source": "Generate a clean neutral anchor from the owner-approved saved ElevenLabs voice.",
+    "audioFile": null,
+    "transcriptFile": null,
+    "fishSpeaker": 0,
+    "status": "not-generated"
+  }
+}

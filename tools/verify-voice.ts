@@ -24,6 +24,13 @@ const fishPrompts = JSON.parse(readFileSync(new URL("../src/audio/fish-prompts.j
   provider: string; model: string; promptCount: number;
   prompts: { id: string; sourceId: string; prompt: string; spokenText: string; spokenTextSha256: string; status: string }[];
 };
+const narratorDesign = JSON.parse(readFileSync(new URL("../src/audio/narrator-voice-design.json", import.meta.url), "utf8")) as {
+  designProvider: string; designModel: string; status: string; voiceDescription: string; previewText: string;
+  designParameters: { guidanceScale: number; loudness: number; previewCount: number };
+  selection: { generatedVoiceId: string | null; approvedByOwner: boolean };
+  fishAnchor: { targetSeconds: string; audioFile: string | null; transcriptFile: string | null;
+    fishSpeaker: number; status: string };
+};
 assert.equal(manifest.enhancedOnly, true);
 assert(manifest.lines.some(({ type }) => type === "dialogue"));
 assert(manifest.lines.some(({ type }) => type === "narration"));
@@ -81,4 +88,16 @@ for (const prompt of fishPrompts.prompts) {
   assert(prompt.prompt.startsWith("<|speaker:0|>"));
   assert.equal(prompt.status, "annotated-prompt-ready");
 }
+assert.equal(narratorDesign.designProvider, "ElevenLabs Voice Design");
+assert.equal(narratorDesign.designModel, "eleven_ttv_v3");
+assert.equal(narratorDesign.status, "awaiting-owner-approval");
+assert(narratorDesign.voiceDescription.length >= 20 && narratorDesign.voiceDescription.length <= 1000);
+assert(narratorDesign.previewText.length >= 100 && narratorDesign.previewText.length <= 1000);
+assert(narratorDesign.designParameters.guidanceScale >= 0 && narratorDesign.designParameters.guidanceScale <= 100);
+assert(narratorDesign.designParameters.loudness >= -1 && narratorDesign.designParameters.loudness <= 1);
+assert.equal(narratorDesign.designParameters.previewCount, 3);
+assert.equal(narratorDesign.selection.generatedVoiceId, null);
+assert.equal(narratorDesign.selection.approvedByOwner, false);
+assert.equal(narratorDesign.fishAnchor.fishSpeaker, 0);
+assert.equal(narratorDesign.fishAnchor.status, "not-generated");
 console.log(`verified ${inventory.lines.length} source entries, ${fishPrompts.promptCount} annotated Drama 3 prompts, and ${manifest.lines.length} prototype assets`);

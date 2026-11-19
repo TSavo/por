@@ -27,6 +27,14 @@ Compiled prompt shape:
 
 Use another `<|speaker:N|>` only when the project owner explicitly authors a truly separate character voice. Do not infer speaker changes from quotation marks alone.
 
+## Narrator identity
+
+The narrator timbre is designed once with ElevenLabs Voice Design and approved by the project owner. That saved synthetic voice then produces a clean 20–30 second neutral anchor passage. Every Drama 3 narration request conditions `<|speaker:0|>` on the same anchor audio and its exact transcript. ElevenLabs establishes the stable identity; Drama 3 supplies the passage-specific directed performance.
+
+`narrator-voice-design.json` contains the reviewed voice description, preview text, design parameters, selected generated voice ID, and Fish anchor provenance. No voice is generated until the owner approves the design prompt.
+
+The official full Drama 3 checkpoint requires at least 48 GB of VRAM. A 24 GB RTX 3090 therefore needs a quantized or expert-offloaded build for local batch synthesis; the selected local runtime and weight digest must be recorded before production generation.
+
 ## Annotation rules
 
 1. `voice-inventory.json` preserves every source string and its ECL location.

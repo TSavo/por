@@ -4,6 +4,11 @@
   "generationOwner": "project-owner",
   "provider": "Fish Audio",
   "model": "drama-3",
+  "narratorIdentity": {
+    "designManifest": "src/audio/narrator-voice-design.json",
+    "designProvider": "ElevenLabs Voice Design",
+    "fishConditioning": "Use the same owner-approved synthetic anchor audio and exact transcript as speaker 0 for every narration request."
+  },
   "promptPolicy": {
     "defaultSpeaker": "narrator",
     "defaultSpeakerTag": "<|speaker:0|>",
