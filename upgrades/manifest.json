@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:0:SPRIT3.DAX:7:0:0": "new-phlan-tavern-brawl-approach.png",
     "encounter:area:27:SPRIT8.DAX:0:0:0": "wild-cave-feral-kobolds-approach.png",
     "portrait:area:27:PIC8.DAX:0:0:0": "wild-cave-feral-kobolds-dialogue.png",
     "tile:13:68148839fd8c61a821bf81c69686e0617b35dc4221ca6241550f0473325391cf": "kobold-west-gallery-terrain-68148839fd8c.png",
@@ -3528,6 +3529,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:0:SPRIT3.DAX:7:0:0": { "area": 0, "x": 56, "y": 32, "width": 32, "height": 80 },
     "encounter:area:27:SPRIT8.DAX:0:0:0": { "area": 27, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:25:SPRIT6.DAX:60:1:0": { "area": 25, "x": 48, "y": 32, "width": 40, "height": 65 },
     "encounter:area:2:SPRIT4.DAX:18:1:0": { "area": 2, "x": 40, "y": 32, "width": 56, "height": 73 },
