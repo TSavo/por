@@ -5,6 +5,9 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "tile:26:a2b1f397aa5d01caff96ae0c819f70cda1133f68122aa93bad9bf4d07abf138e": "wilderness-lizardfolk-palisade-a2b1f397aa5d.png",
+    "encounter:area:26:ecl:a8a0:SPRIT7.DAX:57:0:0": "old-phlan-mutant-hut-approach.png",
+    "portrait:area:26:ecl:a91c:PIC7.DAX:57:0:0": "old-phlan-mutant-hut-dialogue.png",
     "encounter:area:26:ecl:a9a9:SPRIT7.DAX:57:0:0": "old-phlan-large-lizardfolk-approach.png",
     "portrait:area:26:ecl:aa06:PIC7.DAX:57:0:0": "old-phlan-large-lizardfolk-dialogue.png",
     "combat:area:5:CPIC5.DAX:14:ecl:a3a8": "valjevo-al-hyam-ready.png",
@@ -4487,6 +4490,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:26:ecl:a8a0:SPRIT7.DAX:57:0:0": { "area": 26, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:26:ecl:a9a9:SPRIT7.DAX:57:0:0": { "area": 26, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:26:ecl:a944:SPRIT7.DAX:57:0:0": { "area": 26, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:0:0": { "area": 23, "x": 48, "y": 32, "width": 48, "height": 80 },

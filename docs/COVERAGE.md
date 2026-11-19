@@ -2847,6 +2847,9 @@ group illustration before the original attack prompt.
 The larger Old Phlan lizardfolk in the hall use a separate approach and
 illustration. The Chrome replay checks the scoped sprite before the
 portrait, and the hut replay still checks its own artwork.
+The hall approach also checks all 121 enhanced terrain tiles after
+restoring the missing palisade square. The mutant hut has its own
+approach and flooded-hut illustration, both checked in Chrome.
 The Zhentil east yard replay checks 12 refined floor joins across 17
 views, including the wall bases, rails, and door feet.
 The Nomad inner trail uses wind-scoured sand across 38 revised tiles.

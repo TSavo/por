@@ -499,9 +499,15 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
   }],
+  ["old-phlan-mutant-hut", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    approachBeforePortrait: [48, 32, "encounter:area:26:ecl:a8a0:SPRIT7.DAX:57:0:0", 48, 80],
+    portrait: "portrait:area:26:ecl:a91c:PIC7.DAX:57:0:0", prompt: /TWOHORRIBLYMUTATEDLIZARDMEN/i,
+  }],
   ["old-phlan-large-lizardfolk", {
     slot: "A", inputs: ["up", "enter", "enter"],
     approachBeforePortrait: [48, 32, "encounter:area:26:ecl:a9a9:SPRIT7.DAX:57:0:0", 48, 80],
+    approachTerrainArea: 26,
     portrait: "portrait:area:26:ecl:aa06:PIC7.DAX:57:0:0", prompt: /INTHISROOMTHEREAREFOURLARGELIZARDMEN/i,
   }],
   ["old-phlan-hut-lizardfolk", {
@@ -3750,6 +3756,9 @@ try {
             return !animationFrame && image?.getAttribute("src") === ${JSON.stringify("/art/" + id)} &&
               image.naturalWidth === ${width * 4} && image.naturalHeight === ${height * 4};
           })()`));
+          if (illustration.approachTerrainArea !== undefined) {
+            assert.equal(await verifyTiledView(illustration.approachTerrainArea, new Set()), 1);
+          }
         }
         await advance(key);
       }
