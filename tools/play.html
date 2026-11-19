@@ -59,6 +59,8 @@
     #automap .floor { fill: #6f5b3b55; }
     #automap .wall { stroke: #e2c587; stroke-width: .13; stroke-linecap: square; }
     #automap .party { fill: #f3d36d; stroke: #3a2813; stroke-width: .08; }
+    #automap .landmark { fill: #cf765a; stroke: #2d180f; stroke-width: .06; }
+    #automap .landmark-label { fill: #f4ead5; font: .42px Georgia, serif; paint-order: stroke; stroke: #17120d; stroke-width: .08px; }
     #objective { border-left: 3px solid #edca79; padding-left: 12px; }
     #objective p, li p { margin: .35rem 0 .75rem; }
     ul { list-style: none; padding: 0; }
@@ -123,7 +125,7 @@
         <ul id="leads"></ul>
       </section>
       <section id="automap" aria-label="Automap" hidden>
-        <header><h2 id="automap-title">Automap</h2><button id="close-map" type="button">Return to game</button></header>
+        <header><h2 id="automap-title">Automap</h2><div><button id="mark-map" type="button">Mark location</button> <button id="close-map" type="button">Return to game</button></div></header>
         <svg id="automap-svg" viewBox="-0.5 -0.5 17 17" role="img" aria-label="Discovered area map"></svg>
       </section>
     </div>

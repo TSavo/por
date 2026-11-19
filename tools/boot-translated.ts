@@ -211,6 +211,7 @@ if (input && saves) {
       };
       const finish = () => {
         if (!slot) return;
+        const letter = saveSlotLetter(slot.name);
         if (loading) {
           const saved = saves.get(slot.name);
           transcriptStart = start;
@@ -219,6 +220,7 @@ if (input && saves) {
         } else {
           saves.save(slot.name, slot.data, journal(), input.tracked(), [...party.values()]);
         }
+        if (letter) console.log(`POR_SAVE_SLOT ${loading ? "load" : "save"} ${letter}`);
       };
       input.enterDiskMenu();
       try {

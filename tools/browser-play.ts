@@ -123,6 +123,9 @@ let sequence = 0;
 let ready = false;
 let stopped: string | undefined;
 let notice: string | undefined;
+let saveSlot: string | undefined;
+let saveSlotEvent = 0;
+let saveSlotAction: "load" | "save" | undefined;
 let lastDiagnostic = "";
 let soundId = 0;
 const sounds: Array<{ id: number; index: number; mode: number; step: number }> = [];
@@ -174,6 +177,13 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
     ready = true;
   } else if (line.startsWith("POR_NOTICE ")) {
     notice = line.slice("POR_NOTICE ".length);
+  } else if (line.startsWith("POR_SAVE_SLOT ")) {
+    const match = /^(load|save) ([A-J])$/.exec(line.slice("POR_SAVE_SLOT ".length));
+    if (match) {
+      saveSlotAction = match[1] as "load" | "save";
+      saveSlot = match[2];
+      saveSlotEvent++;
+    }
   } else if (line.startsWith("POR_SOUND ")) {
     const sound = JSON.parse(line.slice("POR_SOUND ".length)) as { index: number; mode: number; step: number };
     sounds.push({ id: ++soundId, index: sound.index, mode: sound.mode, step: sound.step });
@@ -270,7 +280,8 @@ const server = createServer(async (req, res) => {
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
       ...snapshot, sounds, soundId, messages, textId, narrations, narrationId,
-      sequence, ready, stopped: stopped ?? null, notice: notice ?? null,
+      sequence, ready, saveSlot: saveSlot ?? null, saveSlotEvent, saveSlotAction: saveSlotAction ?? null,
+      stopped: stopped ?? null, notice: notice ?? null,
     }));
   } else if (req.method === "POST" && req.url === "/key") {
     if (req.headers.origin !== origin) { res.writeHead(403).end(); return; }

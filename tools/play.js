@@ -12,6 +12,7 @@ const automapSvg = document.querySelector("#automap-svg");
 const automapTitle = document.querySelector("#automap-title");
 const mapToggle = document.querySelector("#map-toggle");
 const closeMap = document.querySelector("#close-map");
+const markMap = document.querySelector("#mark-map");
 const presentation = document.querySelector("#presentation");
 const audioToggle = document.querySelector("#audio-toggle");
 const audioSettings = document.querySelector("#audio-settings");
@@ -42,7 +43,21 @@ let posting = false;
 let quickPollAfter = 0;
 let enhanced = false;
 let discoveredMaps = {};
-try { discoveredMaps = JSON.parse(localStorage.getItem("por.automap.v1") ?? "{}"); } catch {}
+let discoveredMapSlot;
+let lastSaveSlotEvent = 0;
+function automapStorageKey(slot = state.saveSlot) { return `por.automap.v2.${slot ?? "unsaved"}`; }
+function loadDiscoveredMaps(slot = state.saveSlot) {
+  discoveredMapSlot = slot ?? null;
+  const stored = localStorage.getItem(automapStorageKey(slot)) ??
+    (slot == null ? localStorage.getItem("por.automap.v1") : null);
+  try { discoveredMaps = JSON.parse(stored ?? "{}"); }
+  catch { discoveredMaps = {}; }
+}
+loadDiscoveredMaps(null);
+const areaNames = {
+  0: "New Phlan", 3: "Valjevo Castle", 5: "Valjevo Castle",
+  17: "Nomad Camp", 18: "Podal Plaza", 26: "West Overland", 27: "East Overland",
+};
 let animationFrame;
 let animationTimer;
 let advanceAnimation;
@@ -270,12 +285,19 @@ function togglePresentation() {
 
 function rememberExploration() {
   if (!enhanced || !state.exploration?.walls) return;
+  if (state.saveSlotEvent > lastSaveSlotEvent) {
+    lastSaveSlotEvent = state.saveSlotEvent;
+    if (state.saveSlotAction === "save") {
+      localStorage.setItem(automapStorageKey(state.saveSlot), JSON.stringify(discoveredMaps));
+      discoveredMapSlot = state.saveSlot;
+    } else loadDiscoveredMaps(state.saveSlot);
+  } else if ((state.saveSlot ?? null) !== discoveredMapSlot) loadDiscoveredMaps(state.saveSlot);
   const { area, x, y, facing, walls } = state.exploration;
   if (x < 0 || x > 15 || y < 0 || y > 15) return;
   const map = discoveredMaps[area] ??= { cells: {} };
   map.cells[`${x},${y}`] = { x, y, walls };
   map.position = { x, y, facing };
-  localStorage.setItem("por.automap.v1", JSON.stringify(discoveredMaps));
+  localStorage.setItem(automapStorageKey(), JSON.stringify(discoveredMaps));
   if (!automap.hidden) renderAutomap();
 }
 
@@ -283,7 +305,7 @@ function renderAutomap() {
   const position = state.exploration;
   if (!position) return;
   const map = discoveredMaps[position.area] ?? { cells: {} };
-  automapTitle.textContent = `Area ${position.area} — discovered map`;
+  automapTitle.textContent = `${areaNames[position.area] ?? `Area ${position.area}`} — discovered map`;
   const lines = [];
   for (const cell of Object.values(map.cells)) {
     const { x, y, walls } = cell;
@@ -292,11 +314,31 @@ function renderAutomap() {
     if (walls[1]) lines.push(`<line class="wall" x1="${x + 1}" y1="${y}" x2="${x + 1}" y2="${y + 1}"/>`);
     if (walls[2]) lines.push(`<line class="wall" x1="${x}" y1="${y + 1}" x2="${x + 1}" y2="${y + 1}"/>`);
     if (walls[3]) lines.push(`<line class="wall" x1="${x}" y1="${y}" x2="${x}" y2="${y + 1}"/>`);
+    if (cell.label) {
+      lines.push(`<circle class="landmark" cx="${x + .5}" cy="${y + .5}" r=".18"/>`);
+      lines.push(`<text class="landmark-label" x="${x + .75}" y="${y + .37}">${escapeMapText(cell.label)}</text>`);
+    }
   }
   const p = map.position ?? position;
   const angle = [0, 45, 90, 135, 180, 225, 270, 315][p.facing & 7];
   lines.push(`<path class="party" d="M .5 .12 L .82 .82 L .5 .68 L .18 .82 Z" transform="translate(${p.x} ${p.y}) rotate(${angle} .5 .5)"/>`);
   automapSvg.innerHTML = lines.join("");
+}
+
+function escapeMapText(text) {
+  return String(text).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+}
+
+function markCurrentLocation() {
+  const position = state.exploration;
+  if (!position) return;
+  const current = discoveredMaps[position.area]?.cells?.[`${position.x},${position.y}`];
+  const label = window.prompt("Map label", current?.label ?? "");
+  if (label === null || !current) return;
+  const clean = label.replace(/\s+/g, " ").trim().slice(0, 40);
+  if (clean) current.label = clean; else delete current.label;
+  localStorage.setItem(automapStorageKey(), JSON.stringify(discoveredMaps));
+  renderAutomap();
 }
 
 function toggleAutomap() {
@@ -561,6 +603,7 @@ presentation.addEventListener("click", () => {
 });
 mapToggle.addEventListener("click", toggleAutomap);
 closeMap.addEventListener("click", toggleAutomap);
+markMap.addEventListener("click", markCurrentLocation);
 window.addEventListener("keydown", (event) => {
   resumeBlockedAudio();
   if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#audio-settings")) return;
