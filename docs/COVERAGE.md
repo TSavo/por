@@ -1972,6 +1972,9 @@ then leaves and reenters the altar square to verify that the encounter
 stays closed. The journal points to an earlier save and keeps Ferran's
 identity and the departure word hidden. The checkpoint bypassed the
 route to the altar.
+The replay also reloads after a lie and gives the wrong word on the next
+visit. The journal remembers both events and advises restoring a save
+from before the failed attempt.
 Run `node tools/verify-fresh-party.mjs --sokal-ferran-checkpoint PATH_TO_SLOT_F`
 from one step north of the altar, facing south. The verifier plays the
 wrong-word and lie branches from the same checkpoint, then follows the

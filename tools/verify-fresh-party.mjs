@@ -1851,6 +1851,18 @@ if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.a
       }, "j", "enter", "e", "s", "s", "d",
       (text) => assert.match(text, /quit to dos/),
     ]);
+    // Recoverable lie followed by the separate wrong-word outcome.
+    await replay(loadSlot("2064"), "85000000", [
+      "left", "left", "up", "left", "left", "up", "enter",
+      "p", "n", ..."zzz", "enter",
+      (text) => assert.match(text, /the outline of a sad-faced man wavers and fades away/),
+      "j", trackSokal, (_text, frame) => {
+        for (const id of ["sokal-ferran-lie", "sokal-pale-form-wrong-word"]) {
+          assert.ok(frame.journal.leads.some(lead => lead.id === id));
+        }
+        assert.match(frame.journal.objective.nextStep, /reload a save from before the encounter/i);
+      },
+    ]);
     await replay(loadSlot("2064"), "85000000", [
       (text) => assert.match(text, /8,10 s/),
       "j", (_text, frame) => {

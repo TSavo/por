@@ -196,11 +196,11 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("ohlo-rope-guild-entry")) nextStep = "From the spot marked by the Rope Guild notice, go south into the building and look for the booth.";
     }
     if (commission.id === "sokal") {
-      if (knows("sokal-ferran-lie")) nextStep = "Ferran rejected the lie. Step away from the altar and return. Speak the same word, then tell him the truth about Phlan.";
-      else if (knows("sokal-pale-form-wrong-word")) {
+      if (knows("sokal-pale-form-wrong-word")) {
         nextStep = "The pale figure vanished after hearing the word. Reload a save from before the encounter to try again.";
         if (knows("sokal-parchment")) nextStep += " Check the parchment for another word.";
       }
+      else if (knows("sokal-ferran-lie")) nextStep = "Ferran rejected the lie. Step away from the altar and return. Speak the same word, then tell him the truth about Phlan.";
       else if (knows("sokal-ferran")) nextStep = "Hear Ferran out and answer him truthfully about Phlan.";
       else if (knows("sokal-pale-form") && knows("sokal-parchment")) nextStep = "Talk to the pale form. When asked for a word, try one from the parchment.";
       else if (knows("sokal-chapel")) nextStep = "Head south from the chapel entrance. At the blocked passage, go around it to the east, then turn back west and approach the altar on the south wall.";
