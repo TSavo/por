@@ -16,6 +16,7 @@
     "render-original-sounds": "tsx tools/render-original-sounds.ts",
     "audio-coverage": "tsx tools/audio-coverage.ts",
     "generate-enhanced-audio": "tsx tools/generate-enhanced-audio.ts",
+    "generate-narrator-previews": "tsx tools/generate-narrator-previews.ts",
     "voice-inventory": "tsx tools/voice-inventory.ts",
     "compile-fish-prompts": "tsx tools/compile-fish-prompts.ts",
     "voice-dispositions": "tsx tools/voice-dispositions.ts",
