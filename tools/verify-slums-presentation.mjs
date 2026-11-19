@@ -501,6 +501,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valhingen-juju-zombie", {
+    slot: "A", stand: "combat:area:10:CPIC4.DAX:35:ecl:a022", strike: "combat:area:10:CPIC4.DAX:163:ecl:a022",
+    width: 96, height: 96, readyPrompt: /JUJUZOMBIEHITPOINTS24/i, strikeReflected: true,
+    inputs: ["up", ...Array(9).fill("enter"), ...Array(6).fill("q")],
+  }],
   ["sokal-orc-line", {
     slot: "C", stand: "combat:area:21:CPIC4.DAX:4:ecl:aed4", strike: "combat:area:21:CPIC4.DAX:132:ecl:aed4",
     width: 96, height: 96, readyPrompt: /ORCHITPOINTS5/i, strikeReflected: true,
