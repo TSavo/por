@@ -213,6 +213,8 @@ const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
     ...(area === "battlefield" && {
       withSpriteCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "sprite")).length,
       withTerrainCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "terrain")).length,
+      unmatchedWithoutSpriteCandidates: entries.filter(({ replacement, sourceCandidates }) =>
+        !replacement && !sourceCandidates.some(({ role }) => role === "sprite")).length,
     }),
   };
 });
@@ -230,7 +232,8 @@ const frameDirectory = join(dirname(tracePath), "tile-frames");
 function galleryLink(path: string) {
   return relative(dirname(galleryPath), path).split(/[\\/]/).map(encodeURIComponent).join("/");
 }
-const sections = areas.map(({ area, patterns, matched }) => `<section><h2>${areaLabel(area)} · ${matched}/${patterns}</h2><div class="grid">` +
+const sections = areas.map(({ area, patterns, matched, unmatchedWithoutSpriteCandidates }) => `<section><h2>${areaLabel(area)} · ${matched}/${patterns}</h2>` +
+  (unmatchedWithoutSpriteCandidates === undefined ? "" : `<p>${unmatchedWithoutSpriteCandidates} unmatched patterns without an exact sprite candidate.</p>`) + `<div class="grid">` +
   tiles.filter((tile) => tile.area === area).map(({ key, first, occurrences, positions, sourceCandidates }) => {
     const placedArt = artwork.get(key);
     const src = placedArt && galleryLink(placedArt.path);
@@ -247,7 +250,7 @@ const sections = areas.map(({ area, patterns, matched }) => `<section><h2>${area
       reference = `<a href="${uri}" download="${key.replaceAll(":", "-")}.png"><img src="${uri}" width="96" height="96" alt="Download original 8×8 tile"></a>`;
     }
     const spriteCandidate = sourceCandidates.some(({ role }) => role === "sprite");
-    return `<article data-sprite-candidate="${spriteCandidate}"><div class="previews">${reference}${src ? `<img src="${src}" width="96" height="96" alt="Replacement tile">` : "<p>Replacement missing</p>"}</div>` +
+    return `<article data-sprite-candidate="${spriteCandidate}" data-replacement="${Boolean(src)}"><div class="previews">${reference}${src ? `<img src="${src}" width="96" height="96" alt="Replacement tile">` : "<p>Replacement missing</p>"}</div>` +
       `<code>${key.slice(-12)}</code><p>First seen in ${frameLabel}, (${first.x}, ${first.y}) · ${occurrences} placements across ${positions.length} positions</p>` +
       `<p>${candidates || "Source tile unresolved"}</p></article>`;
   }).join("") + "</div></section>").join("");
@@ -272,10 +275,12 @@ body{font:16px system-ui;background:#191715;color:#efe4d0;margin:2rem}img{image-
 .previews{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
 p{margin:.4rem 0;font-size:.9rem}code{color:#ffdcaa}
 body:has(#hide-sprite-candidates:checked) article[data-sprite-candidate="true"]{display:none}
+body:has(#hide-replacements:checked) article[data-replacement="true"]{display:none}
 </style><h1>Route artwork checklist</h1><p>${analyzedFrames} captured frames analyzed. Archive entries are pixel-match candidates.</p>${
   areas.some(({ area }) => area === "battlefield") ?
     "<p>Battlefield captures can include unmatched actors, effects, and partial tiles. Review each candidate in its frame.</p>" +
-    '<label><input id="hide-sprite-candidates" type="checkbox"> Hide sprite candidates</label>' : ""}${
+    '<label><input id="hide-sprite-candidates" type="checkbox"> Hide sprite candidates</label>' : ""}
+<label><input id="hide-replacements" type="checkbox"> Hide patterns with replacements</label>${
   omittedFrames.size ? `<p>Omitted frames ${[...omittedFrames].join(", ")}.</p>` : ""}${terrainSection}${sections}</html>\n`);
 for (const { area, patterns, matched, withSourceCandidates } of areas) {
   console.log(`${areaLabel(area)}: ${matched}/${patterns} patterns with 32×32 PNGs, ${withSourceCandidates} with source candidates`);
