@@ -1354,25 +1354,35 @@ const firstSokalPatrol = [
 if (process.argv[2] === "--sokal-patrol-word-checkpoint") {
   assert.ok(process.argv[3], "Pass slot F at the Thorn Island landing with the Sokal commission.");
   copyFileSync(process.argv[3], join(saveDir, "F.json"));
+  const trackSokal = (_text, frame) => {
+    const objectives = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
+    const index = objectives.findIndex(({ id }) => id === "commission-sokal");
+    assert.ok(index >= 0);
+    return `track ${index + 1}`;
+  };
+  await replay(loadSlot("2166"), "85000000", [
+    ...firstSokalPatrol, "p", "n", ..."shestni", "enter",
+    (text) => assert.match(text, /the undead leave/),
+    "j", trackSokal, (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-patrol-passed"));
+      assert.match(frame.journal.objective.nextStep, /SHESTNI again/);
+      assert.doesNotMatch(frame.journal.objective.nextStep, /SAMOSUD/);
+    },
+  ]);
   await replay(loadSlot("2166"), "85000000", [
     ...firstSokalPatrol, "j", (_text, frame) => {
       assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-parchment"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-patrol-rejected-word"));
     }, "j", "p", "n", ..."zzz", "enter",
     (text) => assert.match(text, /they didn't like that word/),
-    "j", (_text, frame) => {
-      const objectives = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
-      const index = objectives.findIndex(({ id }) => id === "commission-sokal");
-      assert.ok(index >= 0);
-      return `track ${index + 1}`;
-    }, (_text, frame) => {
+    "j", trackSokal, (_text, frame) => {
       assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-patrol-rejected-word"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-patrol-passed" || id === "sokal-ferran"));
       assert.match(frame.journal.objective.nextStep, /different word from the parchment/);
     }, "j", "enter",
     (text) => assert.match(text, /a battle begins/),
   ]);
-  console.log("Verified that a rejected patrol word changes the journal and leads to the original battle.");
+  console.log("Verified both patrol word outcomes and their journal guidance.");
   process.exit(0);
 }
 

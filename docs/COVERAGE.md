@@ -1983,9 +1983,11 @@ against original script evidence. They do not run the quest scenarios.
 
 Run `node tools/verify-fresh-party.mjs --sokal-patrol-word-checkpoint PATH_TO_SLOT_F`
 from the fresh mixed party's Thorn Island landing. The party finds the
-parchment and tries an unrelated word at the first undead patrol. The
-original script rejects it and starts combat. The journal points back to
-the parchment and keeps the successful passage and altar discoveries hidden.
+parchment and tries either its password or an unrelated word at the
+first undead patrol. The journal records passage only after acceptance.
+On rejection, it points back to the parchment and the script starts
+combat. Without a witnessed parchment, the journal refers to the accepted
+word without spelling it out.
 
 Append `--reject-word` to
 `node tools/verify-fresh-party.mjs --sokal-patrol-victory-checkpoint PATH_TO_SLOT_J`
