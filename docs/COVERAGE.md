@@ -1722,6 +1722,10 @@ The `sokal-patrol-combat` Chrome replay checks the two diagonal wall tips
 and the chipped sill return where the diagonal meets the lower wall. All
 three 32×32 masonry PNGs load at their guest coordinates as the battlefield
 scrolls. The same replay passed the skeleton and zombie guard and strike checks.
+It also checks the 96×96 fallen combatant at the guest position and facing.
+The artwork inventory links the sprite to `RANDCOM.DAX`, block 1, frame 5.
+In the 23-frame patrol trace, the fallen sprite's gray fragments no longer
+appear among the candidate terrain tiles.
 
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_B PATH_TO_CHROME castle-dragon`
 with a castle checkpoint outside the audience hall at `14,7 S`. Chrome checks

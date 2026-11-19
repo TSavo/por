@@ -1,6 +1,6 @@
 import { parseDax } from "../src/lib/dax.js";
 import type { Frame } from "../src/lib/ega.js";
-import { decodePicture, isPicture } from "../src/lib/picture.js";
+import { decodePicture, frameSlice, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
 export type CombatArtPlacement = [x: number, y: number, key: string, reflected: boolean, highlighted?: boolean, width?: number, height?: number];
@@ -14,6 +14,13 @@ export function combatHighlightPixel(x: number, y: number): number {
 
 export const monsterCombatKey = /^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX):(\d{1,3})(?::ecl:([a-f0-9]{4}))?$/;
 export const partyCombatKey = /^combat:party:(\d{1,3}):(\d{1,3})$/;
+export const fallenCombatKey = "combat:RANDCOM.DAX:1:0:5";
+
+export function fallenCombatPixels(data: Uint8Array) {
+  if (!isPicture(data)) return;
+  const picture = decodePicture(data);
+  if (picture.width === 24 && picture.height === 24 && picture.itemCount > 5) return frameSlice(picture, 5);
+}
 
 export function partyCombatPart(data: Uint8Array, height: 10 | 24) {
   if (!isPicture(data)) return;
@@ -101,6 +108,12 @@ function buildCombatArtMatcher(keys: string[]) {
   };
   const root = keys.length ? findGameRoot() : null;
   if (root) {
+    if (keys.includes(fallenCombatKey)) {
+      const file = listGameFiles(root).find(name => name.toUpperCase() === "RANDCOM.DAX");
+      const record = file ? parseDax(file, readGameFile(root, file)).entries.find(({ id }) => id === 1) : undefined;
+      const pixels = record && fallenCombatPixels(record.data);
+      if (pixels?.some(Boolean)) registerFacings(pixels, fallenCombatKey);
+    }
     const monsters = new Map(keys.flatMap(key => {
       const parts = monsterCombatKey.exec(key);
       return parts ? [[`${parts[2]}:${Number(parts[3])}`, key] as const] : [];
@@ -148,7 +161,8 @@ function buildCombatArtMatcher(keys: string[]) {
   const terrainPoses = new Map<string, Pose[]>();
   for (const pose of poses) {
     const { width, pixels, key } = pose;
-    if (!monsterCombatKey.test(key) || (width !== 48 && pixels.length !== width * 48 && !key.includes(":ecl:"))) continue;
+    const overlapsTerrain = monsterCombatKey.test(key) && (width === 48 || pixels.length === width * 48 || key.includes(":ecl:"));
+    if (key !== fallenCombatKey && !overlapsTerrain) continue;
     const extent = `${width}:${pixels.length}`;
     const matching = terrainPoses.get(extent) ?? [];
     matching.push(pose);

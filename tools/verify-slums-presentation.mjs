@@ -2028,6 +2028,7 @@ try {
     "battle-tile:238366db6f519d123c0368f079f5022ca613b098716521c63dba487382dfd706",
     "battle-tile:773ab665f6d64f65a695c511203ed333dab9170afb944b2159fe8deec7b592a7",
   ] : []);
+  let fallenSpriteSeen = false;
   async function advance(key) {
     const sequence = frame.sequence;
     const response = await fetch(origin + "/key", {
@@ -2050,6 +2051,19 @@ try {
           tile.getAttribute("src") === "/art/" + id && tile.naturalWidth === 32 && tile.naturalHeight === 32 &&
           parseFloat(tile.style.left) === x / 3.2 && parseFloat(tile.style.top) === y / 2))`));
       for (const [, , id] of wallTiles) patrolWallTiles.delete(id);
+    }
+    if (patrolCombat && !fallenSpriteSeen) {
+      const fallen = frame.combatArt?.find(([, , id]) => id === "combat:RANDCOM.DAX:1:0:5");
+      if (fallen) {
+        const [x, y, id, reflected] = fallen;
+        await waitFor("the enhanced fallen combatant", () => run(`state.sequence === ${frame.sequence} &&
+          !animationFrame && [...document.querySelectorAll(".combat-sprite")].some(sprite =>
+            sprite.getAttribute("src") === ${JSON.stringify(`/art/${id}`)} &&
+            sprite.naturalWidth === 96 && sprite.naturalHeight === 96 &&
+            parseFloat(sprite.style.left) === ${x / 3.2} && parseFloat(sprite.style.top) === ${y / 2} &&
+            sprite.style.transform === ${JSON.stringify(reflected ? "scaleX(-1)" : "")})`));
+        fallenSpriteSeen = true;
+      }
     }
   }
 
@@ -4484,6 +4498,7 @@ try {
       }
       assert.equal(strikes.size, attackIds.size);
       assert.deepEqual([...patrolWallTiles], [], "Expected the Sokal masonry tiles in the scrolling battlefield");
+      if (patrolCombat) assert.ok(fallenSpriteSeen, "Expected the fallen combatant in the scrolling battlefield");
       assert.deepEqual(await run("[...combatSprites].sort()"), [...guards, ...attackIds].sort());
       console.log(`Verified ${guards.length} guard and ${strikes.size} strike PNGs in live ${routeName} combat.`);
     }

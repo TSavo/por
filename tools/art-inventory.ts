@@ -9,13 +9,14 @@ import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 import { loadUpgradeArt } from "./upgrade-art.js";
 import { compositePortraitKey } from "./portrait-art.js";
+import { fallenCombatKey } from "./combat-art.js";
 
 const families = [
   [/^(TITLE|FINAL\d+)\.DAX$/, "Title and ending"],
   [/^PIC\d+\.DAX$/, "Scene illustrations"],
   [/^SPRIT\d+\.DAX$/, "Encounter sprites"],
   [/^(CHEAD|CBODY|HEAD\d+|BODY\d+)\.DAX$/, "Character portraits"],
-  [/^(CPIC\d+|COMSPR|ICON)\.DAX$/, "Combat images and icons"],
+  [/^(CPIC\d+|COMSPR|ICON|RANDCOM)\.DAX$/, "Combat images and icons"],
   [/^(8X8D\d+|SQRPACI|BACPAC)\.DAX$/, "Tiles and interface graphics"],
   [/^WALLDEF\d+\.DAX$/, "Wall composition"],
   [/^GEO\d+\.DAX$/, "Map geometry"],
@@ -40,7 +41,7 @@ interface Block {
 const archives = listGameFiles(gameData).filter((name) => /\.dax$/i.test(name)).sort().map((name) => {
   const file = name.toUpperCase();
   const category = families.find(([pattern]) => pattern.test(file))?.[1] ??
-    (/^(ECL\d+|ITEM\d+|MON\d+(CHA|ITM|SPC)|DUNGCOM|RANDCOM|WILDCOM)\.DAX$/.test(file)
+    (/^(ECL\d+|ITEM\d+|MON\d+(CHA|ITM|SPC)|DUNGCOM|WILDCOM)\.DAX$/.test(file)
       ? "Game data" : "Unclassified");
   const entries = parseDax(name, readGameFile(gameData, name)).entries.map((entry, index): Block => {
     const digest = createHash("sha256").update(entry.data).digest("hex");
@@ -188,7 +189,8 @@ for (const path of tracePaths) {
 const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
-  const match = /^(?:encounter|portrait):(?:area:\d+:)?([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
+  const match = (id === fallenCombatKey ? /^combat:(RANDCOM\.DAX):(\d+):(\d+):(\d+)$/.exec(id) : undefined) ??
+    /^(?:encounter|portrait):(?:area:\d+:)?([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
     /^combat:(?:area:\d+:)?(CPIC\d+\.DAX):(\d+)(?::ecl:[a-f0-9]{4})?$/.exec(id);
   let source;
   if (match) {
