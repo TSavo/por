@@ -2143,3 +2143,12 @@ check both ready and strike poses in the native shrine fight and duel.
 The Buccaneer captain's hall, pen spur, and east and south pen court
 routes verify 5,203 placements across 43 views. The pen routes cover
 day and night. These replays check presentation switching and saves.
+
+`slums-ohlo-study-approach` checks the writing-stand sprite through
+the potion directions and verifies that the journal records acceptance.
+`new-phlan-innkeeper` checks the lodging portrait and its removal when
+the party declines. The Podal recruit replays check both orc and ogre
+combat poses. The ogre checkpoint uses higher party HP to reach the strike.
+The Buccaneer guard approach and side gate replays cover 40 views
+and 4,840 tile placements. These replays check presentation switching
+and save preservation.
