@@ -1,6 +1,17 @@
 {
   "version": 1,
   "assets": {
+    "tile:8:e94e6359851d14c4f6bc834fc067a79067c3927899820c2dc5239dc8e01e125d": "new-phlan-civic-terrain-e94e6359851d.png",
+    "tile:8:b525b489a8bd7af2ce9a0a7e18f3e34317757f604503b5cf1aa2638c11b6431b": "new-phlan-civic-terrain-b525b489a8bd.png",
+    "tile:8:57c487d15f5686782fe77e2fc4655a461569d31f534afd3b9eceba8e509488f5": "new-phlan-civic-terrain-57c487d15f56.png",
+    "tile:8:cfe7867133fc3d27a053fa0a4575a9d6cb5490c32b05276f6cefca81bf32b1e2": "new-phlan-civic-terrain-cfe7867133fc.png",
+    "tile:8:56d437010922e2491fd52ab5a11720856ef7be017d97cdb02c37308592793d7e": "new-phlan-civic-terrain-56d437010922.png",
+    "tile:8:8ca2144dc7b6314a110c44e27481681e5d6ecce3e173c6abf1fc960ab9929527": "new-phlan-civic-terrain-8ca2144dc7b6.png",
+    "tile:8:9b6a784556735dc9816f557fcc3d3b175499f936df6fee43202260dad8931b52": "new-phlan-civic-terrain-9b6a78455673.png",
+    "tile:8:70c743d36fac7ba264f8429715a31655da223abf5e841ae991755efdec71f93d": "new-phlan-civic-terrain-70c743d36fac.png",
+    "tile:8:e5e13822707ce82bd17dd53379e11b8f7e3d25ae955e6afa8a02547ea77171e8": "new-phlan-civic-terrain-e5e13822707c.png",
+    "portrait:area:26:PIC7.DAX:0:0:0": "lizard-wilds-kobold-prisoners.png",
+    "portrait:area:26:PIC7.DAX:57:0:0": "lizard-wilds-pool-dialogue.png",
     "combat:area:2:CPIC4.DAX:72": "textile-ghoul-stand.png",
     "combat:area:2:CPIC4.DAX:200": "textile-ghoul-strike.png",
     "combat:area:2:CPIC4.DAX:20": "textile-wight-stand.png",

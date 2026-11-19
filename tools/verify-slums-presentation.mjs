@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["lizard-wilds-kobold-prisoners", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:26:PIC7.DAX:0:0:0", prompt: /RELEASEUS/i,
+  }],
+  ["lizard-wilds-pool-dialogue", {
+    slot: "A", inputs: ["up", "a", "enter"],
+    portrait: "portrait:area:26:PIC7.DAX:57:0:0", prompt: /LIZARDMENSWIMMINGINTHEPOOL/i,
+  }],
   ["wild-cave-giant-snake-dialogue", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:25:PIC6.DAX:60:0:0", prompt: /AGIANTSNAKEFALLSONTOPOFTHEPARTY/i,
@@ -521,6 +529,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["new-phlan-civic-square", {
+    slot: "A", area: 8, views: 13, patterns: 76, sceneryOnly: true,
+    walk: ["up", "left", "up", "up", "up", "up", "right", "up", "up", "up", "up", "up"],
+  }],
   ["new-phlan-market-stalls", {
     slot: "A", area: 8, views: 27, patterns: 85, sceneryOnly: true,
     walk: ["up", "left", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up"],
