@@ -2776,6 +2776,9 @@ Two Valhingen graveyard walks check 52 new slate path tiles across 13
 views. The eastern walk ends before the encounter overlay.
 Three adjoining graveyard walks check 162 slate joins through the north
 gravestones and south and west vaults, with 3,267 placements in Chrome.
+The central courts, memorial turns, and ossuary entrance add 81 slate
+joins checked across 39 Chrome views. The ossuary walk ends before the
+encounter overlay.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
@@ -2861,6 +2864,8 @@ The isolated displacer beast encounter checks its approach pose and
 corridor illustration before the original Parlay prompt.
 The Tyrmor drider replay checks its own approach and dialogue artwork
 through the original Parlay prompt on an isolated encounter checkpoint.
+The minotaur's isolated encounter also checks the new approach and
+illustration before the original Parlay prompt.
 The Kobold King's first horde has its own 4× infantry ready and strike
 sprites. Chrome checks the strike during the original report of Brin
 taking damage from a controlled throne checkpoint.
