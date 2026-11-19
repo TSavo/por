@@ -1718,9 +1718,9 @@ The `sokal-smithy` browser route loads a party at `10,10 N` in slot C and
 checks the 96×96 poison frog crouch and lunge in live combat. It switches
 presentation before the attack and checks that the selected save stays intact.
 
-The `sokal-patrol-combat` Chrome replay captured two original diagonal wall
-tips in its battlefield trace. The replay now checks that both individual
-32×32 masonry PNGs load at their guest coordinates as the battlefield
+The `sokal-patrol-combat` Chrome replay checks the two diagonal wall tips
+and the chipped sill return where the diagonal meets the lower wall. All
+three 32×32 masonry PNGs load at their guest coordinates as the battlefield
 scrolls. The same replay passed the skeleton and zombie guard and strike checks.
 
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_B PATH_TO_CHROME castle-dragon`
