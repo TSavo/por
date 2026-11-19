@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "portrait:HEAD5.DAX:59:BODY5.DAX:31": "valjevo-genheeris.png",
+    "combat:area:4:CPIC5.DAX:14": "valjevo-scriptorium-officer-stand.png",
+    "combat:area:4:CPIC5.DAX:142": "valjevo-scriptorium-officer-strike.png",
     "tile:4:6a31f8112a44a50377f8425ac2fde4f502b684c316174a4bdbd9d61f4c2b2d4b": "valjevo-scriptorium-terrain-01.png",
     "tile:4:d95ee11282e4e744494473ad77ef9f9eae15e697a6c9b6fbac0dedbcd9289fc7": "valjevo-scriptorium-terrain-02.png",
     "tile:4:7a62f42874a318807e50c5f76958ec89a88041ebcdbe85f63c86b39a4adb37d7": "valjevo-scriptorium-terrain-03.png",

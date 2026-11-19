@@ -908,6 +908,22 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "castle-hedge-gate-password", title: "Password for the hedge gate",
       detail: "A freed captive gave the party a slip from the overseer's pouch with today's password for the main gate into the hedge maze." });
   }
+  if (text.includes("THE RED WIZARDS OF THAY ARE ALLIED TO TYRANTHRAXUS")) {
+    leads.push({ id: "castle-records-thay", title: "The Red Wizards' alliance",
+      detail: "Records in Valjevo Castle showed that the Red Wizards of Thay are allied to Tyranthraxus." });
+  }
+  if (text.includes("HIS ULTIMATE GOAL IS TO CONQUER ALL LANDS SOUTH OF THE MOONSEA")) {
+    leads.push({ id: "castle-records-moonsea", title: "Tyranthraxus's plans for the Moonsea",
+      detail: "The castle records show how Tyranthraxus built his following. He plans to conquer the lands south of the Moonsea." });
+  }
+  if (text.includes("IF YOU KILL HIM INSTEAD OF ME I WILL MAKE YOU ALL GENERALS")) {
+    leads.push({ id: "castle-genheeris-offer", title: "Genheeris's bargain",
+      detail: "Genheeris offered to make the party generals if they killed Tyranthraxus instead of him." });
+  }
+  if (text.includes("TELL AL-HYAM DHAZID TO EXECUTE PHASE 2 OF PLAN A")) {
+    leads.push({ id: "castle-genheeris-orders", title: "Orders for Al-Hyam Dhazid",
+      detail: "Genheeris told the party to relay orders to Al-Hyam Dhazid to execute phase 2 of Plan A." });
+  }
   if (text.includes("AN EVIL SPIRIT FROM AN UNHOLY POOL GUIDES YOUR ENEMIES")) {
     leads.push({ id: "phlan-seer-prophecy", title: "The Old Phlan seer's prophecy",
       detail: "The seer said an evil spirit from an unholy pool guides the party's enemies." });

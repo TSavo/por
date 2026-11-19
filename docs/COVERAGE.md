@@ -1192,6 +1192,15 @@ and verifies it clears after the guard lets the party pass.
 only in starting coordinates and facing. `valjevo-maze-watch` verifies
 the separate watch fighter's 352×352 portrait at his password challenge,
 mode switching, and its removal when the party passes peacefully.
+`valjevo-scriptorium-combat` takes the officer's combat branch. Chrome
+checks the selected 96×96 ready pose and the reflected sword strike in
+the animation stream. `valjevo-records` starts at the adjoining records
+building. It checks the Thay alliance and Moonsea plans appear separately
+as the party reads them.
+`valjevo-genheeris-bargain` and `valjevo-genheeris-orders` verify the
+352×352 illustration, mode switching, and the distinct journal lead
+from each choice of parlay tone. The bargain replay also confirms
+that accepting the offer adds Genheeris to the original party roster.
 `valjevo-giant-snake` uses controlled slot B on the Valjevo approach with
 the alarm running. It verifies both 192×96 snake poses at the guest's actual
 combat placements, including the animated lunge and state-preserving mode
