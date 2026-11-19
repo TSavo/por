@@ -463,4 +463,6 @@ each mapped tile at its route position. Two additional patterns are exact
 horizontal reflections of existing Textile House pieces. The
 `textile-return-art` Chrome replay checks their 32×32 PNGs, positions, and
 reflection while walking from the chief's room toward the west gate.
-Fourteen patterns remain unlinked in that trace.
+The remaining fourteen patterns have individual 32×32 replacements for
+ivy, wall returns, and skyline edges. Chrome checked all 174 patterns
+across 30 views, with 3,630 placements at their native positions.

@@ -1980,7 +1980,7 @@ const saved = resolve(directory, saveSlot + ".json");
 const battleTrace = process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
 const kovelMap = routeName.startsWith("kovel-castle-map-");
-const environmentTrace = (environment || dragon || halls || kovelMap || koboldEscort) && process.env.POR_WRITE_ENVIRONMENT_TRACE === "1"
+const environmentTrace = (environment || dragon || halls || kovelMap || koboldEscort || routeName === "textile-return-art") && process.env.POR_WRITE_ENVIRONMENT_TRACE === "1"
   ? resolve(directory, "environment-tiles.jsonl") : undefined;
 const frameDirectory = resolve(directory, "tile-frames");
 let battleFrame = 0;
@@ -4367,9 +4367,18 @@ try {
       "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea",
     ]);
     const observed = new Set();
+    const patterns = new Set();
+    let views = await verifyTiledView(2, patterns);
     for (const key of ["right", "up", "up", "up", "right", "up", "left", "up", "right", ...Array(8).fill("up"),
       "left", ...Array(6).fill("up"), "right", "up", "left", "up", "up"]) {
       await advance(key);
+      if (frame.tileInventory?.some(([, , , indices]) => /[1-9a-f]/i.test(indices))) {
+        views += await verifyTiledView(2, patterns);
+        if (views === 9 || views === 27) {
+          const shot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, `textile-return-view-${views}.png`), Buffer.from(shot.data, "base64"));
+        }
+      }
       for (const [x, y, id] of frame.tiles.filter(([, , id]) => mirrors.has(id))) {
         await waitFor("the reflected 32×32 Textile House tile", () => run(`
           state.sequence === ${frame.sequence} && [...document.querySelectorAll(".terrain-tile")].some(img =>
@@ -4381,8 +4390,9 @@ try {
       }
     }
     assert.deepEqual(observed, mirrors);
+    assert.equal(patterns.size, 174);
     await switchBothWays();
-    console.log("Verified both reflected Textile House tiles in Chrome.");
+    console.log(`Verified ${patterns.size} Textile House tile patterns across ${views} views, including both reflected tiles. Captures:`, directory);
   } else if (routeName === "kovel-guild-files") {
     const files = "kovel-guild-files";
     await advance("j");
