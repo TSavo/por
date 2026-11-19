@@ -2188,3 +2188,10 @@ transition from approach to close-up. The Valjevo outer patrol replays
 check the hill giant's club and captain's longsword strikes in the
 same fight. These replays preserve game state and save data during
 presentation switches.
+
+The Slums trade-row, shop-frontage, and side-arcade replays check 47
+new tiles across 52 views, including doorways and covered passages.
+`valjevo-forge-smith-combat` and `valjevo-forge-fire-giant` check both
+combatants' ready poses and reflected sword strikes in the same forge
+fight. All of these replays check game state and save preservation
+when switching presentation.
