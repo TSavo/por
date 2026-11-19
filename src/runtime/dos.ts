@@ -69,7 +69,8 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
     shadowed.clear();
     for (const file of files) {
       const name = canonical(file.name, "");
-      shadowed.set(name, byName.get(name));
+      // Keep the pre-load file even if the slot supplies two names for the same path.
+      if (!shadowed.has(name)) shadowed.set(name, byName.get(name));
       byName.set(name, { data: file.data });
     }
   };

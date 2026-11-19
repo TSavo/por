@@ -259,7 +259,7 @@ function checkPartySaveFiles(): void {
   const spells = "SAVE\\CHRDATA1.SPC";
   const file = (name: string, byte: number) => ({ name, data: Uint8Array.of(byte) });
   attachDos(m, [file(slotA, 1), file(slotB, 2), file(character, 3)], [], undefined, undefined, undefined,
-    (name) => name === slotA ? [file(character, 4), file(spells, 5)] : name === slotB ? [] : undefined);
+    (name) => name === slotA ? [file(character, 4), file(spells, 5), file("save/chRdata1.sav", 6)] : name === slotB ? [] : undefined);
   const read = (name: string): number | undefined => {
     const path = Buffer.from(name + "\0", "ascii");
     m.mem.set(path, m.linear(m.ds, 0x100));
@@ -277,7 +277,7 @@ function checkPartySaveFiles(): void {
     m.intr(0x21);
     return m.read8(m.ds, 0x200);
   };
-  if (read(slotA) !== 1 || read(character) !== 4 || read(spells) !== 5 ||
+  if (read(slotA) !== 1 || read(character) !== 6 || read(spells) !== 5 ||
       read(slotB) !== 2 || read(character) !== 3 || read(spells) !== undefined) {
     throw new Error("A slot reused another party's character files");
   }
