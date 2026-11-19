@@ -90,7 +90,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const tracedBattleTerrain = new Set<string>();
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
   const attackKeys = new Set((process.env.POR_COMBAT_ART_KEYS ?? "").split(",")
-    .filter((key) => Number((monsterCombatKey.exec(key) ?? partyCombatKey.exec(key))?.[3]) >= 128));
+    .filter((key) => Number(monsterCombatKey.exec(key)?.[3] ?? partyCombatKey.exec(key)?.[2]) >= 128));
   const animation: PresentationAnimationFrame[] = [];
   let lastAttack = "";
   let lastCombatReport = "";
@@ -402,12 +402,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     capturePresentationDelay: browser ? (cpu: Cpu) => {
       if (scene || animation.length >= 12) return;
       battleCursor = cpu.read16(0x740, 0x494e);
-      const placements = combatArt(screen, undefined, area, battleCursor);
+      const battlefield = hasBattlefieldBorder(screen);
+      const placements = combatArt(screen, undefined, area, battleCursor, battlefield ? battleTerrain : undefined);
       const attacks = placements.filter(([, , key]) => attackKeys.has(key));
       const signature = attacks.length ? JSON.stringify(attacks) : "";
       // Combat prints action and result text below the actor's stats in
       // the right-hand panel. The guest clears it before the next key read.
-      const battleGlyphs = hasBattlefieldBorder(screen) ? visibleGameText() : [];
+      const battleGlyphs = battlefield ? visibleGameText() : [];
       const reportGlyphs = battleGlyphs
         .filter(([cell, char]) => cell >= 423 && cell < 860 && cell % 40 >= 23 && char > 32)
         .sort(([a], [b]) => a - b);
