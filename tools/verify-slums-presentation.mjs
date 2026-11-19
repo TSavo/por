@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["stojanow-plotting-mage", {
+    slot: "A", inputs: ["up", "enter", "enter", "enter", "enter"],
+    portrait: "portrait:HEAD2.DAX:52:BODY2.DAX:31", prompt: /THEYSEEMUNAWAREOFYOU/i, journalLead: "stojanow-assault-plans",
+  }],
+  ["stojanow-plotting-fighter", {
+    slot: "A", inputs: ["up", "enter", "enter", "enter", "enter"],
+    portrait: "portrait:HEAD2.DAX:11:BODY2.DAX:2", prompt: /THEYSEEMUNAWAREOFYOU/i, journalLead: "stojanow-medusa-trapdoor",
+  }],
   ["stojanow-patrol-leader-dialogue", {
     slot: "A", inputs: ["up", "enter", "a", "a"],
     portrait: "portrait:HEAD2.DAX:8:BODY2.DAX:5", prompt: /WHATAREYOUDOINGHERE/i,
@@ -176,6 +184,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["nomad-warrior-combat", {
+    slot: "A", stand: "combat:area:17:CPIC7.DAX:12", strike: "combat:area:17:CPIC7.DAX:140",
+    width: 96, height: 96, strikeReflected: true,
+    inputs: [...Array(6).fill("up"), "enter", "c", "enter", "enter"], strikeInputs: ["enter"],
+  }],
   ["zhentil-guard-combat", {
     slot: "A", stand: "combat:area:28:CPIC6.DAX:11", strike: "combat:area:28:CPIC6.DAX:139",
     width: 96, height: 96, strikeReflected: false,
@@ -1321,7 +1334,12 @@ try {
     await switchBothWays();
     console.log(`Verified ${routeName} in Chrome.`);
   } else if (illustration) {
-    const { inputs, portrait, prompt, continuation } = illustration;
+    const { inputs, portrait, prompt, continuation, journalLead } = illustration;
+    if (journalLead) {
+      await advance("j");
+      assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
+      await advance("j");
+    }
     for (const key of inputs) await advance(key);
     assert.equal(frame.portrait, portrait);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), prompt);
@@ -1337,6 +1355,11 @@ try {
       assert.equal(frame.portrait, portrait);
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       await verifyPortraitPanel();
+    }
+    if (journalLead) {
+      await advance("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead), "Expected witnessed dialogue lead");
+      await advance("j");
     }
     console.log(`Verified ${routeName} illustration, panel fit, and mode switching in Chrome.`);
   } else if (routeName === "pyramid-lizardfolk-vats") {

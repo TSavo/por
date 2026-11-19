@@ -297,6 +297,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     if (commission.id === "gate") {
       if (knows("gate-garrison-defeated")) nextStep = "Defeat the outside guards before reinforcements arrive, then report to the clerk.";
+      else if (knows("stojanow-medusa-trapdoor")) nextStep = "Look for the garrison deeper in Stojanow Gate. Watch for the trapdoor the guards said leads to a medusa.";
+      else if (knows("stojanow-assault-plans")) nextStep = "Find the garrison inside Stojanow Gate. The mage you overheard said they are preparing to attack Phlan.";
       else if (knows("gate-bugbear-ambush")) nextStep = "Get past the bugbears waiting just inside the gate, then look for the garrison.";
       else if (knows("gate-toll-paid")) nextStep = "Continue through the gate and look for the garrison inside.";
       else if (knows("gate-imposters")) nextStep = "The guards have challenged you. The encounter offers Flee, Surrender, or Attack.";
@@ -519,6 +521,14 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
+  if (text.includes("HOW MUCH LONGER MUST WE WAIT BEFORE ASSAULTING PHLAN")) {
+    leads.push({ id: "stojanow-assault-plans", title: "A planned assault on Phlan",
+      detail: "At Stojanow Gate, the party overheard a mage asking how long the garrison must wait before attacking Phlan." });
+  }
+  if (text.includes("WAS THROWN THROUGH THE TRAPDOOR TO THE MEDUSA")) {
+    leads.push({ id: "stojanow-medusa-trapdoor", title: "Stojanow's medusa trapdoor",
+      detail: "The party overheard a fighter say that the garrison threw a man through a trapdoor to the medusa. Be careful around trapdoors in the fortress." });
+  }
   if (text.includes("I AM THE EFREETI SAMIR AHWAHL")) {
     leads.push({ id: "kobold-efreeti", title: "Samir Ahwahl",
       detail: "The efreeti in the brass bottle asked whether the party were vampires." });

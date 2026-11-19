@@ -1342,6 +1342,9 @@ at the original gas cloud prompt and during presentation switches.
 challenge, including panel fit and state-preserving mode switches.
 `zhentil-guard-combat` checks the ready and animated attack poses
 in the original nighttime outpost battle.
+`stojanow-plotting-mage` and `stojanow-plotting-fighter` verify both
+portraits and prove the journal gains each lead only after hearing it.
+`nomad-warrior-combat` checks the ready pose and reflected sword strike.
 `valjevo-eastern-hedges` checks 11 new tile bindings, including three
 redrawn hedge and limestone transitions, across 17 live views.
 `bane-east-ramparts` checks 15 new gate, wall, and ivy tiles across
