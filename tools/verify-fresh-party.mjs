@@ -2117,6 +2117,25 @@ if (process.argv[2] === "--podal-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--character-sheet") {
+  const { loadUpgradeArt } = await tsImport("./upgrade-art.ts", import.meta.url);
+  process.env.POR_CHARACTER_SHEET_ART_KEYS = [...loadUpgradeArt().keys()].filter(key => key.startsWith("character-sheet:")).join(",");
+  const checkPortrait = (head, body) => (text, frame) => {
+    assert.match(text, /male dwarf.*fighter.*head body keep/);
+    assert.deepEqual(frame.characterSheet, [
+      [224, 8, `character-sheet:HEAD3.DAX:${head}`, 88, 40],
+      [224, 48, `character-sheet:BODY3.DAX:${body}`, 88, 48],
+    ]);
+  };
+  await replay("31000000:1c0d,45000000:2e63", "50000000", [
+    ...Array(5).fill("enter"), "y", ..."test", "enter", checkPortrait(0, 1),
+    ...[8, 9, 13].flatMap(head => ["h", checkPortrait(head, 1)]),
+    ...[2, 3, 4].flatMap(body => ["b", checkPortrait(13, body)]),
+  ]);
+  console.log("Verified the enhanced character sheet tracks native head and body choices.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--character-icon-editor") {
   const { loadUpgradeArt } = await tsImport("./upgrade-art.ts", import.meta.url);
   process.env.POR_COMBAT_ART_KEYS = [...loadUpgradeArt().keys()].filter(key => key.startsWith("combat:")).join(",");
