@@ -30,6 +30,11 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["valjevo-medusa-approach", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    placement: [48, 32, "encounter:area:7:SPRIT5.DAX:49:0:0", 48, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:7:PIC5.DAX:49:0:0", prompt: /AMEDUSACOMESRUNNINGTOWARDYOU/i },
+  }],
   ["valjevo-fire-giant-approach", {
     slot: "B", inputs: ["up", "enter", "enter"],
     placement: [56, 32, "encounter:area:4:SPRIT5.DAX:56:1:0", 32, 73],

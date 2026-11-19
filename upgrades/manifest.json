@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:7:SPRIT5.DAX:49:0:0": "valjevo-medusa-approach.png",
     "combat:area:25:CPIC6.DAX:120": "wild-cave-boar-stand.png",
     "combat:area:25:CPIC6.DAX:248": "wild-cave-boar-strike.png",
     "combat:area:25:CPIC6.DAX:60": "wild-cave-snake-stand.png",
@@ -2865,6 +2866,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:7:SPRIT5.DAX:49:0:0": { "area": 7, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:4:SPRIT5.DAX:56:1:0": { "area": 4, "x": 56, "y": 32, "width": 32, "height": 73 },
     "encounter:area:4:SPRIT5.DAX:56:0:0": { "area": 4, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:25:SPRIT6.DAX:65:1:0": { "area": 25, "x": 48, "y": 32, "width": 48, "height": 65 },
