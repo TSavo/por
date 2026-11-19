@@ -1,6 +1,14 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:15:SPRIT2.DAX:15:0:0": "mendor-fighter-approach.png",
+    "tile:24:bc2bf1391f5b5d0e8e71b30a99675da8bca9d879354b071c19432f5f172d472e": "bane-altar-approach-terrain-bc2bf1391f5b.png",
+    "tile:24:c61703df5658b60ae2c2d23bd0d584030969fdbbc10fbe56b531b48e6348378b": "bane-altar-approach-terrain-c61703df5658.png",
+    "tile:24:edadac4e16775a226240148d5a36e848e2334afae0e2592dccd20b1480446507": "bane-altar-approach-terrain-edadac4e1677.png",
+    "tile:24:9b88f7a7329f3899fd4fdfcf0f17706a3995730c04dda467a643111d36f507df": "bane-altar-approach-terrain-9b88f7a7329f.png",
+    "tile:24:b41b8352eae61850bf9be786d9c18aecee304cbdb3e7b7d268e510e8c53a72b3": "bane-altar-approach-terrain-b41b8352eae6.png",
+    "tile:24:947a0fb3e20ee928ec232553003a76851246b61a7165ecec40aaea1f10ba9e0c": "bane-altar-approach-terrain-947a0fb3e20e.png",
+    "tile:24:f5443661220d2ba77b8ff796df64dee74699a602f5a75bad20906b73b4ad35a7": "bane-altar-approach-terrain-f5443661220d.png",
     "tile:24:d2a1558a9fb15d0375e5ac4f9064eb9d8c2841add52610be61031d2a08190fef": "bane-treasure-walk-terrain-d2a1558a9fb1.png",
     "tile:24:ae229021c890bcfa256d91638c7eca469fa51e8bf68f1dbff14b6b49bbcfb01c": "bane-treasure-walk-terrain-ae229021c890.png",
     "tile:24:d0f56d87eee16a503cf0bc41fdbb1249c62652b42841d109989084b691b44f0d": "bane-treasure-walk-terrain-d0f56d87eee1.png",
@@ -3012,6 +3020,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:15:SPRIT2.DAX:15:0:0": { "area": 15, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:23:SPRIT7.DAX:57:0:0": { "area": 23, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:9:SPRIT2.DAX:16:2:0": { "area": 9, "x": 56, "y": 32, "width": 16, "height": 49 },
     "encounter:area:9:SPRIT2.DAX:16:1:0": { "area": 9, "x": 56, "y": 32, "width": 24, "height": 65 },

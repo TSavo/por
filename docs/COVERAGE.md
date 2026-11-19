@@ -1401,6 +1401,10 @@ in Kuto's patrol fight from a controlled checkpoint with original party HP.
 `bane-treasure-walk` checks 12 redrawn Temple of Bane tiles across 16 views
 and 1,936 placements. Both replays verify presentation switching and
 save preservation.
+`bane-altar-approach` checks seven redrawn tiles across 23 views and
+2,783 placements through the original altar prompt.
+`mendor-fighter-approach` checks the anchored approach and the transition
+to the battered fighter's portrait. Both replays verify presentation switching.
 `kuto-inner-lane` checks ten redrawn rubble, doorstep, and wall-edge
 tiles across 19 views and 2,299 placements from the slot J entry
 checkpoint. Presentation switching preserves game state and the save.

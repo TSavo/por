@@ -30,6 +30,11 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["mendor-fighter-approach", {
+    slot: "B", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:15:SPRIT2.DAX:15:0:0", 40, 73],
+    dialogue: { key: "enter", portrait: "portrait:area:15:PIC2.DAX:25:0:0", prompt: /YOUFINDAFIGHTERWITHBATTEREDARMOR/i },
+  }],
   ["pyramid-vats-lizard-approach", {
     slot: "A", inputs: ["s", "up", "enter"],
     placement: [48, 32, "encounter:area:23:SPRIT7.DAX:57:0:0", 48, 80],
@@ -679,6 +684,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["bane-altar-approach", {
+    slot: "A", area: 24, views: 23, patterns: 64, sceneryOnly: true,
+    walk: ["right", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "right", "up", "up", "right", "up"],
+  }],
   ["bane-treasure-walk", {
     slot: "A", area: 24, views: 16, patterns: 49, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up"],
