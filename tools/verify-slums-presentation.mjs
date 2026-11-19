@@ -750,6 +750,12 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["bane-barrack-guard-combat", {
+    slot: "A", stand: "combat:area:31:CPIC1.DAX:4:ecl:a1c8", strike: "combat:area:31:CPIC1.DAX:132:ecl:a1c8",
+    width: 96, height: 96, readyPrompt: /ORCHITPOINTS5AC6/i, strikeReflected: false,
+    strikeReport: /ORCATTACKSCORAANDMISSES/i,
+    inputs: ["up", ...Array(4).fill("enter")], strikeInputs: ["enter"],
+  }],
   ["bane-door-guard-combat", {
     slot: "A", stand: "combat:area:24:CPIC1.DAX:4:ecl:a6bf", strike: "combat:area:24:CPIC1.DAX:132:ecl:a6bf",
     width: 96, height: 96, readyPrompt: /ORCHITPOINTS5AC6/i, strikeReflected: true,

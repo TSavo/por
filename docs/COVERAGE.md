@@ -2930,6 +2930,8 @@ The Wild Cave kobold replay checks the new middle-distance sprite
 before the existing close approach and ambush illustration.
 The Temple of Bane gate's Attack branch uses its own guard ready and
 cleaver-strike sprites. Chrome checks the reflected hit on Alda.
+The Bane barracks guard replay checks the uniformed orc ready sprites
+and the hatchet strike during the original attack report against Cora.
 The Giant Skeleton's retainers have a separate ready and sword-strike
 pair. Chrome checks the native attack on Cora from a controlled
 checkpoint for the retinue branch.
