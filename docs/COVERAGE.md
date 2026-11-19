@@ -3230,6 +3230,18 @@ switching from the local slot A ogre checkpoint.
 the full-panel counterattack illustration, and its persistence into the
 battle prompt. The controlled slot A checkpoint starts inside the temple.
 
+The Nomad shaman's reward scene has a dedicated 352×352 portrait.
+Chrome verified the original line, the portrait's panel fit, and
+display switching in a controlled replay that bypasses battle and
+holds the brief shaman dialogue for inspection. The journal records
+the shaman's confirmation when the dialogue is witnessed. A translation
+check verifies the earlier promise alone does not reveal that entry.
+
+The Temple of Bane rampart hobgoblin has ready and longsword strike
+sprites for the outside patrol. Chrome checked the reflected strike at
+(128, 104) and the original attack on Brin. The local fixture raises
+party HP and selects the original patrol roll.
+
 The Lizard Wilds nomad scout uses a ready and longbow strike pair in
 the nomad encounter. Chrome verifies the loaded frames at (80, 152)
 and the native attack on Enna. The scratch fixture selects the

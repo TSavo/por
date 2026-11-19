@@ -1101,6 +1101,11 @@ function checkCampaignJournal(): void {
     throw new Error("Ohlo's hostile and successful paths were not distinguished");
   }
   const nomads = commissions.find(({ id }) => id === "nomads")!;
+  const shamanReward = lines.find((line) => line.includes("A REWARD WAS PROMISED AND SO SHALL IT BE"));
+  const headmanPromise = lines.find((line) => line.includes("YOU SHALL BE RICHLY REWARDED FOR YOUR GENEROUS AID"));
+  if (!shamanReward || !headmanPromise) throw new Error("Missing original Nomad Camp reward dialogue");
+  deepStrictEqual(discoveredLeads(headmanPromise).some(({ id }) => id === "nomad-shaman-reward"), false);
+  deepStrictEqual(discoveredLeads(shamanReward).map(({ id }) => id), ["nomad-shaman-reward"]);
   const declined = lines.find((line) => line.includes("LOOKING DISAPPOINTED THE HEADMAN SAYS"));
   if (!declined) throw new Error("Missing original Nomad Camp departure dialogue");
   const knownNomads = discoveredLeads(`${nomads.offer}\n${declined}`);

@@ -828,6 +828,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("A HORDE OF KOBOLDS IS ATTACKING THE CAMP")) {
     leads.push({ id: "nomad-kobold-attack", title: "The kobold attack", detail: "A band of kobolds attacked the Nomad Camp." });
   }
+  if (text.includes("THE SHAMAN WALKS UP TO YOU") && text.includes("A REWARD WAS PROMISED AND SO SHALL IT BE")) {
+    leads.push({ id: "nomad-shaman-reward", title: "The shaman honors the promise",
+      detail: "After the raid, the shaman praised the party and confirmed the reward for defending the camp." });
+  }
   if (text.includes("AN ALTAR THAT IS SMEARED WITH BLOOD AND COVERED WITH CRUDE BLACK HAND PRINTS")) {
     leads.push({ id: "bane-defiled-altar", title: "The desecrated altar",
       detail: "The party reached the altar. The game offers Destroy Altar or Leave It." });
