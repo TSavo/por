@@ -1352,6 +1352,8 @@ tiles across 17 live views and 2,057 placements.
 original dialogue, edge-to-edge panel fit, and mode switching.
 `valhingen-ghoul-ambush` checks the resting ambush illustration and
 its original prompt with the same panel and mode switch checks.
+`lizard-wilds-displacer-beast` verifies the 192×96 ready and animated
+strike poses in the native area 26 battle.
 `wild-cave-ankheg` checks the 192×96 ready and reflected strike poses.
 The original attack overlaps the selection bevel, which remains visible
 through the transparent pixels of the replacement.

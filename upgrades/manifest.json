@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:26:CPIC7.DAX:68": "lizard-wilds-displacer-beast-stand.png",
+    "combat:area:26:CPIC7.DAX:196": "lizard-wilds-displacer-beast-strike.png",
     "battle-tile:7879edde6815d1ab90d632600724e52de5034dd5cc0d386ef1d35b2023fbe12f": "swamp-lizard-crooked-coping.png",
     "battle-tile:6a6b3a6a8bd1d15c819b33ac9f2fc99ad2d2e83e2c7b2ccf3fec96f24609b00c": "swamp-lizard-end-wall-rubble.png",
     "portrait:HEAD3.DAX:16:BODY3.DAX:4": "new-phlan-cleric-trainer.png",
