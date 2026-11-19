@@ -45,6 +45,9 @@ archive member and frame, including the dimensions in the placement record.
 The named monster pose table checks whether shared source pixels already
 resolve through the browser's global combat matcher. Area-specific art
 for identical pixels is listed as a reuse candidate where applicable.
+The goblin leader, ogre, kobold leader, and minotaur use existing
+ready and strike artwork as global fallbacks for identical native poses.
+The combat matcher still gives encounter-specific artwork priority.
 The report skips cleared all-black views between scenes. When auditing older
 traces, review encounter frames for actors drawn over the terrain before
 using their unmatched patterns as a redraw checklist.

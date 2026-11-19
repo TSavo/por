@@ -23,6 +23,8 @@ import { findGameRoot, listGameFiles, mountValjevoWallPieces, readGameFile } fro
 import { loadUpgradeArtFromManifests } from "./upgrade-art.js";
 import { encodePng, pngDimensions } from "./png.js";
 import { Frame } from "../src/lib/ega.js";
+import { decodePicture } from "../src/lib/picture.js";
+import { loadCombatArtMatcher } from "./combat-art.js";
 
 function checkBrowserArtPacks(): void {
   const png = Buffer.from(encodePng(new Frame(32, 32)));
@@ -39,6 +41,24 @@ function checkBrowserArtPacks(): void {
   const loaded = loadUpgradeArtFromManifests(paths, root);
   const missing = [...declared].filter(id => !loaded.has(id));
   deepStrictEqual(missing, [], "The browser could not load the listed art mappings");
+  const match = loadCombatArtMatcher([...loaded.keys()].filter(id => id.startsWith("combat:")), root);
+  for (const [archive, ready] of [
+    ["CPIC1.DAX", 3], ["CPIC4.DAX", 8], ["CPIC7.DAX", 1], ["CPIC7.DAX", 62],
+  ] as const) {
+    const { entries } = parseDax(archive, readGameFile(root, archive));
+    for (const id of [ready, ready + 128]) {
+      const block = entries.find(entry => entry.id === id)!;
+      const picture = decodePicture(block.data);
+      const frame = new Frame(320, 200);
+      frame.blit(picture.pixels, picture.width, picture.height, 8, 8);
+      const atOrigin = ([x, y]: [number, number, ...unknown[]]) => x === 8 && y === 8;
+      deepStrictEqual(match(frame).find(atOrigin)?.[2], `combat:${archive}:${id}`);
+      if (archive === "CPIC4.DAX") {
+        deepStrictEqual(match(frame, undefined, 31).find(atOrigin)?.[2], `combat:area:31:CPIC1.DAX:${id}`,
+          "The Bane ogre keeps its encounter-specific artwork");
+      }
+    }
+  }
   console.log(`verified ${declared.size} browser art mappings against the game data, PNG dimensions, and chunk checksums`);
 }
 
