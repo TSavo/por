@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:20:CPIC2.DAX:6:ecl:a0b4": "slums-mage-hobgoblin-stand.png",
+    "combat:area:20:CPIC2.DAX:134:ecl:a0b4": "slums-mage-hobgoblin-strike.png",
     "tile:8:110943e6a403b2235bba6335458085ad7e6948b823e00f8af7bd859e29c98c38": "new-phlan-envoy-arcade-terrain-110943e6a403.png",
     "tile:8:7041882d54734f52b66d2334ec62779d485694e861327c4b4c765326d9fdc613": "new-phlan-envoy-arcade-terrain-7041882d5473.png",
     "tile:8:7b0f4c5e0342aae5e5b92d18186442fae0da889105bf04bd0d2e4aa23aa1e6a7": "new-phlan-envoy-arcade-terrain-7b0f4c5e0342.png",
