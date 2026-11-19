@@ -2801,6 +2801,9 @@ brushed silt under the basalt walls. Three Chrome walks check all 25
 revised tiles across 52 views and 6,292 placements.
 Four short cave walks verify 16 additional silt joins at the cave
 thresholds, turn, and east tunnels across 15 views.
+Old Phlan's east street and locked lane use broad worn flagstones
+distinct from the walls. Two Chrome walks check 18 tiles across 32
+views and 3,872 placements.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
