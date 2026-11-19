@@ -961,6 +961,18 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["slums-side-arcades-fortune", {
+    slot: "B", area: 20, views: 13, patterns: 49, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "b", "up", "left", "up", "up", "right", "up"],
+  }],
+  ["slums-side-arcades-potion", {
+    slot: "B", area: 20, views: 13, patterns: 80, sceneryOnly: true,
+    walk: ["right", "right", "up", "up", "right", "up", "up", "left", "up", "up", "left", "up"],
+  }],
+  ["slums-side-arcades-west", {
+    slot: "B", area: 20, views: 11, patterns: 60, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "left"],
+  }],
   ["slums-shop-frontage-fortune", {
     slot: "B", area: 20, views: 2, patterns: 35, sceneryOnly: true,
     walk: ["left"],

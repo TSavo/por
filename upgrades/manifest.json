@@ -1,6 +1,15 @@
 {
   "version": 1,
   "assets": {
+    "tile:20:29dd326a72a4907df53a3de02d07f3f83097a0e3fa7d8fe292a70b6a89355a6d": "slums-side-arcades-terrain-29dd326a72a4.png",
+    "tile:20:3baae3f64098d88e9d9dfc0a874c8852a1b5a5f73852aa2ba8b30ea198805ef2": "slums-side-arcades-terrain-3baae3f64098.png",
+    "tile:20:86551ba6c8aa1db27a72f21e7b3acfe0f3914b8672eba38b00c2480193be089c": "slums-side-arcades-terrain-86551ba6c8aa.png",
+    "tile:20:e9e6a6fa6a9c36c5a43dca56ada96e1fdf95750c43accee9f99c8f3e088a3855": "slums-side-arcades-terrain-e9e6a6fa6a9c.png",
+    "tile:20:0278d7e045751e4d542f6ee204b6c2642c5b13bc94db84eccfbb33928e6a2f81": "slums-side-arcades-terrain-0278d7e04575.png",
+    "tile:20:78593d4afc03a870c5de5d00ac605a20fb84e973c3a2e373e28e2f8d7de235a4": "slums-side-arcades-terrain-78593d4afc03.png",
+    "tile:20:abc4061d929e8f51b9f3aed41285a1160a6bd0b2c72d03efde017a57567efdd0": "slums-side-arcades-terrain-abc4061d929e.png",
+    "tile:20:bfdde368c474f611b5fd15865814de090566c58210b302a779b9f3855500bd63": "slums-side-arcades-terrain-bfdde368c474.png",
+    "tile:20:4c7c3b2be1a3cbf6494a5f4771d30a0af2392eea994aea26766866b6ff1ba28a": "slums-side-arcades-terrain-4c7c3b2be1a3.png",
     "combat:area:6:CPIC5.DAX:56:ecl:a2b8": "valjevo-forge-fire-giant-stand.png",
     "combat:area:6:CPIC5.DAX:184:ecl:a2b8": "valjevo-forge-fire-giant-strike.png",
     "tile:20:624c54394650999904d165e8083586d2c5d9dea1cfb089dcbb22e946cbbf6f37": "slums-shop-frontage-terrain-624c54394650.png",
