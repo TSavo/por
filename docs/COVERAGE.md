@@ -2778,6 +2778,8 @@ before the password dialogue.
 Both Stojanow tower charge branches show the new 4× charge before the
 fighter portrait and original encounter menu. Both passed the Chrome
 presentation switch and save checks.
+The Stojanow wall ambush uses that same charge sprite at its own script
+cursor. Chrome verifies the charge before the fighter's close-up.
 
 `bane-altar` checks the three orc approach distances before combat. The
 near pose is scoped to the altar script, and `bane-gate` verifies the

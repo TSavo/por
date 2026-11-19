@@ -528,6 +528,11 @@ const illustrationRoutes = new Map([
     approachSequence: [[48, 32, "encounter:area:9:ecl:a577:SPRIT2.DAX:24:0:0", 32, 73]],
     portrait: "portrait:HEAD2.DAX:11:BODY2.DAX:2", prompt: /COMBATWAITFLEEPARLAY/i,
   }],
+  ["stojanow-wall-ambush", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    approachSequence: [[48, 32, "encounter:area:9:ecl:b0f9:SPRIT2.DAX:24:0:0", 32, 73]],
+    portrait: "portrait:HEAD2.DAX:11:BODY2.DAX:2", prompt: /THEYRUSHTOWARDYOU/i,
+  }],
   ["stojanow-plotting-mage", {
     slot: "A", inputs: ["up", "enter", "enter", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:9:ecl:a270:SPRIT2.DAX:24:0:0", 32, 73]],
