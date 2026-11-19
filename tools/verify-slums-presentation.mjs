@@ -3179,6 +3179,14 @@ try {
       assert.equal(frame.portrait, scout);
       await advance("enter");
       assert.notEqual(frame.portrait, scout);
+      assert.match(frame.text.toSorted(([left], [right]) => left - right)
+        .map(([, character]) => String.fromCharCode(character)).join(""), /THELASTPARTISEATENAWAY/i);
+      assert.ok(frame.text.every(([cell]) => {
+        const column = cell % 40;
+        const row = Math.floor(cell / 40);
+        return column < 1 || column >= 16 || row < 1 || row >= 16;
+      }), "The parchment runes should remain in the illustration's native font");
+      await switchBothWays();
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-parchment"));
     } else assert.match(text, /LEAVE.*SEARCH.*ATTACK.*TALK/i);

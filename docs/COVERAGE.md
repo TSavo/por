@@ -2047,7 +2047,9 @@ the guards' 96×96 ready stance and sword thrust alongside the captain.
 The `sokal-elven-scout` and `sokal-elven-scout-search` replays use controlled
 slot C with the parchment clue absent from the journal. Chrome checks the
 scout illustration, the two paths, and that the parchment clue appears
-only after the search reveals it.
+only after the search reveals it. The search replay also switches modes
+while the parchment is open and verifies that the web-font layer leaves
+the runes inside the picture untouched.
 The `pyramid-cistern-loop` replay starts in the lower Pyramid in slot A.
 Chrome checks 2,541 placements across 21 views, including three new cistern
 tiles, and verifies that the presentation switch preserves the save.
