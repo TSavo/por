@@ -1751,6 +1751,10 @@ const environmentRoutes = new Map([
     slot: "D", area: 20, views: 17, patterns: 44, sceneryOnly: true,
     walk: ["up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up"],
   }],
+  ["wilderness-waystone", {
+    slot: "A", area: 26, views: 10, patterns: 80, sceneryOnly: true, captureView: 5,
+    walk: ["left", "up", "right", "up", "left", "up", "up", "right", "up"],
+  }],
   ["valjevo-dungeon-doorways", {
     slot: "B", area: 3, views: 10, patterns: 38, sceneryOnly: true, captureView: 10,
     walk: ["left", "up", "up", "right", "up", "left", "up", "right", "up"],
