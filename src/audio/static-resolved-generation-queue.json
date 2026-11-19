@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "model": "eleven_v4",
+  "sourceSelectors": [
+    "src/audio/static-narration-selectors-ecl1-3.json"
+  ],
+  "items": [
+    {
+      "unitId": "ecl1-b18-a14a-a165-a169-a197",
+      "sourceIds": ["por.review.ecl-1.block-18.at-a14a", "por.review.ecl-1.block-18.at-a165", "por.review.ecl-1.block-18.at-a169", "por.review.ecl-1.block-18.at-a197"],
+      "output": "../por-assets/voices/narration/static-resolved/ecl1-b18-a14a-a165-a169-a197.mp3",
+      "text": "AS YOU MOVE YOU OVERHEAR SOME SAY, 'DO YOU THINK HE'LL REALLY SHOW UP -- THE BOSS I MEAN?'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b18-a14a-a165-a169-a1c8",
+      "sourceIds": ["por.review.ecl-1.block-18.at-a14a", "por.review.ecl-1.block-18.at-a165", "por.review.ecl-1.block-18.at-a169", "por.review.ecl-1.block-18.at-a1c8"],
+      "output": "../por-assets/voices/narration/static-resolved/ecl1-b18-a14a-a165-a169-a1c8.mp3",
+      "text": "AS YOU MOVE YOU OVERHEAR SOME SAY, 'MORE OGRES ON THE STREET, SINCE THE GIANTS TOOK OVER THE CASTLE.'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b18-a14a-a165-a169-a201",
+      "sourceIds": ["por.review.ecl-1.block-18.at-a14a", "por.review.ecl-1.block-18.at-a165", "por.review.ecl-1.block-18.at-a169", "por.review.ecl-1.block-18.at-a201"],
+      "output": "../por-assets/voices/narration/static-resolved/ecl1-b18-a14a-a165-a169-a201.mp3",
+      "text": "AS YOU MOVE YOU OVERHEAR SOME SAY, 'HE MELTED INTO A PUDDLE OF LARD WHEN HE TOUCHED THE THING!'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b18-a14a-a165-a169-a235",
+      "sourceIds": ["por.review.ecl-1.block-18.at-a14a", "por.review.ecl-1.block-18.at-a165", "por.review.ecl-1.block-18.at-a169", "por.review.ecl-1.block-18.at-a235"],
+      "output": "../por-assets/voices/narration/static-resolved/ecl1-b18-a14a-a165-a169-a235.mp3",
+      "text": "AS YOU MOVE YOU OVERHEAR SOME SAY, 'THE BOSS WILL BE THE GUY BIDDING UP THE PRICE.'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b18-a14a-a165-a169-a260",
+      "sourceIds": ["por.review.ecl-1.block-18.at-a14a", "por.review.ecl-1.block-18.at-a165", "por.review.ecl-1.block-18.at-a169", "por.review.ecl-1.block-18.at-a260"],
+      "output": "../por-assets/voices/narration/static-resolved/ecl1-b18-a14a-a165-a169-a260.mp3",
+      "text": "AS YOU MOVE YOU OVERHEAR SOME SAY, 'THE PLAZA'S BANE TEMPLE IS RECRUITING FOR MACE AGAIN. GRISHNAK WON'T BE HAPPY.'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    }
+  ]
+}

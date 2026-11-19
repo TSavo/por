@@ -17,8 +17,8 @@
     "voicedSourceEvents": 1688,
     "unvoicedEvents": 337,
     "narrationUnits": 1433,
-    "resolvedUnits": 1392,
-    "unresolvedDynamicUnits": 41,
+    "resolvedUnits": 1397,
+    "unresolvedDynamicUnits": 36,
     "finiteRuntimeVariantFamilies": 43,
     "finiteRuntimeVariantAssets": 329
   },
@@ -52475,10 +52475,10 @@
           "sourceDigest": "efe3de0ad31710cb2ebc30711b88f22b834983f91c43f00eb318f10817e0b79c"
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/ecl1-b18-a14a-a165-a169-a197.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -52521,10 +52521,10 @@
           "sourceDigest": "36e35c54b00813d0695b0ea2f38006bf5e7accbf7fbb3d99c1cf52e66556dc33"
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/ecl1-b18-a14a-a165-a169-a1c8.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -52567,10 +52567,10 @@
           "sourceDigest": "769297c87b3e0cda7d4efef86f9f7ffa2577b9df4300a2020bfb6f471f4cf099"
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/ecl1-b18-a14a-a165-a169-a201.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -52613,10 +52613,10 @@
           "sourceDigest": "709a7f86e60a407d12a2445d080499574335a13930dc9f804044b304bacd1d2c"
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/ecl1-b18-a14a-a165-a169-a235.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -52659,10 +52659,10 @@
           "sourceDigest": "718df363305012bb2735f541762cc6e73fa1cb1ecf69db379da04115f2c6be7a"
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/ecl1-b18-a14a-a165-a169-a260.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,

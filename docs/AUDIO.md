@@ -115,7 +115,8 @@ currently accounts for all 2,025 extracted events exactly once as 1,433 reviewed
 narration units plus interface/layout exclusions. Finite runtime strings are
 enumerated rather than synthesized during play: 43 dynamic families expand into
 329 selector-driven recordings, including distinct bugbear-party lines for
-KOBOLDS, GOBLINS, and ORCS. Forty-one genuinely runtime-only families remain
+KOBOLDS, GOBLINS, and ORCS. Five additional complete passages resolved by the
+manual static branch audit are also generated. Thirty-six genuinely runtime-only families remain
 explicitly unresolved and fall back to displayed text. Rebuild and validate the
 master with `npm run voice-master-manifest` and `npm run verify-voice-master`.
 
@@ -143,7 +144,7 @@ narration controls remain browser preferences rather than campaign-save state.
 observation, joined continuation suppression, finite dynamic selection, queueing,
 interruption, and Classic-mode gating. `npm run verify-narration-generation`
 checks every queued MP3/transcript pair, exact text, signatures, duplicates, and
-pending generation. The production inventory currently verifies all 1,678 queued
+pending generation. The production inventory currently verifies all 1,683 queued
 recordings complete, with zero pending, failed, duplicate, or untracked outputs.
 On November 18, 2026, Chrome verified Enhanced activation,
 subtitle playback, the independent audio controls, and state-preserving return

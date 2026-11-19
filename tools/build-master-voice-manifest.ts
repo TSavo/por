@@ -44,7 +44,7 @@ interface ReviewUnit {
 const audio = new URL("../src/audio/", import.meta.url);
 const extraction = JSON.parse(readFileSync(new URL("voice-review-extraction.json", audio), "utf8")) as { events: SourceEvent[] };
 const extractionById = new Map(extraction.events.map(event => [event.id, event]));
-const queueFiles = readdirSync(audio).filter(name => /^ecl\d+-generation-queue.*\.json$/i.test(name)).sort();
+const queueFiles = readdirSync(audio).filter(name => /^(?:ecl\d+|static-resolved)-generation-queue.*\.json$/i.test(name)).sort();
 const queuedById = new Map<string, QueueItem>();
 const queuedBySources = new Map<string, QueueItem>();
 const sourceKey = (trigger: string, covered: string[]) => `${trigger}|${covered.join("|")}`;

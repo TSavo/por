@@ -15,6 +15,7 @@
     "sound-driver-data": "tsx tools/sound-driver-data.ts",
     "render-original-sounds": "tsx tools/render-original-sounds.ts",
     "audio-coverage": "tsx tools/audio-coverage.ts",
+    "audio-system-coverage": "tsx tools/audio-system-coverage.ts",
     "generate-enhanced-audio": "tsx tools/generate-enhanced-audio.ts",
     "generate-narrator-previews": "tsx tools/generate-narrator-previews.ts",
     "select-narrator-voice": "tsx tools/select-narrator-voice.ts",
