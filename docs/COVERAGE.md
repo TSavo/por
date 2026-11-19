@@ -1328,6 +1328,14 @@ save and the sanctuary uses a copy with only position and facing changed.
 `kobold-cave-east-tunnels` checks 10 new rubble and timber-edge tiles
 across nine live views, with all 1,089 placements verified. The route
 uses a position-only copy of the large-cave entry save.
+`stojanow-upper-road` checks 15 new stair and tower tiles, with 1,936
+placements across 16 views from a position-only copy of the entrance save.
+`valhingen-spectre-approach` and `valhingen-spectre-approach-near` verify
+the middle and near poses at their original anchors in separate encounters.
+`valhingen-mummy-approach`, `valhingen-mummy-sarcophagi`, and
+`kobold-cave-wyvern-dialogue` verify the Mummy approach sprite and two
+pre-combat illustrations. Chrome checks the artwork and state-preserving
+mode switches on all five encounter replays.
 `valjevo-giant-snake-approach` checks the middle and near sprites, their
 original screen anchors, and all 121 terrain cells across the approach.
 `mendor-basilisk-approach` checks the Basilisk's near sprite.
