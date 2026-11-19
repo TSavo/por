@@ -555,6 +555,11 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "mendor-library-stacks", title: "Mendor's library stacks",
       detail: "The party found rooms of books marked by subject. Use Search to examine the shelves." });
   }
+  if (text.includes("THEY DESCRIBE THE SURROUNDING AREA TO YOU") &&
+      text.includes("SKETCH A MAP INTO YOUR JOURNAL CALLING IT ENTRY 10")) {
+    leads.push({ id: "mendor-storeroom-map", title: "The kobolds' map of the library",
+      detail: "The party spared the storeroom kobolds and sketched their description of the surrounding area as journal entry 10." });
+  }
   if (text.includes("I DEFENDED THESE BOOKS IN LIFE AND I WILL DEFEND THEM IN DEATH")) {
     leads.push({ id: "mendor-book-guardian", title: "The library's guardian",
       detail: "A spectre accused the party of taking the library's books and attacked it." });

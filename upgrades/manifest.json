@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:15:SPRIT2.DAX:17:0:0": "mendor-spectre-approach.png",
     "tile:18:fbb3153eaaa5dec2029f7f73ec8bea20a5f52be253fb5e1b8b60ad45482785f6": "podal-shrine-side-lanes-terrain-fbb3153eaaa5.png",
     "tile:18:df1a7dc7e5ee5dc9cb316e587c626701f8e4915ee56b250acf5b30ec7a91a7c8": "podal-shrine-side-lanes-terrain-df1a7dc7e5ee.png",
     "tile:18:7ef87e5548a82e7c211613cc0266aefa8c3abc711afad60ec9d4cf3b7192c502": "podal-shrine-side-lanes-terrain-7ef87e5548a8.png",
@@ -3964,6 +3965,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:15:SPRIT2.DAX:17:0:0": { "area": 15, "x": 56, "y": 32, "width": 32, "height": 80 },
     "encounter:area:15:SPRIT2.DAX:0:0:0": { "area": 15, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:21:SPRIT4.DAX:18:0:0": { "area": 21, "x": 24, "y": 32, "width": 88, "height": 80 },
     "encounter:area:21:SPRIT4.DAX:17:0:0": { "area": 21, "x": 56, "y": 32, "width": 32, "height": 80 },
