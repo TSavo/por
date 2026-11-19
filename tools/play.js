@@ -673,8 +673,10 @@ async function showScreen() {
     }));
     if (view.panelFrame?.length) {
       const panelFrame = drawPanelFrame(view.panelFrame);
-      // The enhanced portrait fills the outer panel, including its native inner frame.
-      if (view.portrait) panelFrame.getContext("2d").clearRect(8 * 4, 8 * 4, 120 * 4, 120 * 4);
+      // The expanded view fills the outer panel, including its native inner frame.
+      if (view.portrait || view.classicPortrait || perspective || streetCanvas) {
+        panelFrame.getContext("2d").clearRect(8 * 4, 8 * 4, 120 * 4, 120 * 4);
+      }
       layers.push(panelFrame);
     }
   }
