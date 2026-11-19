@@ -83,6 +83,8 @@ const illustrationRoutes = new Map([
   ["lizard-wilds-kobold-prisoners", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:26:PIC7.DAX:0:0:0", prompt: /RELEASEUS/i,
+    continuation: { inputs: ["r"], prompt: /WATCHOUTFORTHEMUTANTLIZARDMEN/i, clearsPortrait: true },
+    journalLead: "lizard-wilds-mutant-warning",
   }],
   ["lizard-wilds-pool-dialogue", {
     slot: "A", inputs: ["up", "a", "enter"],
@@ -1591,10 +1593,15 @@ try {
     await switchBothWays();
     await verifyPortraitPanel();
     if (continuation) {
+      if (journalLead) {
+        await advance("j");
+        assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
+        await advance("j");
+      }
       for (const key of continuation.inputs) await advance(key);
-      assert.equal(frame.portrait, portrait);
+      assert.equal(frame.portrait, continuation.clearsPortrait ? undefined : portrait);
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
-      await verifyPortraitPanel();
+      if (!continuation.clearsPortrait) await verifyPortraitPanel();
     }
     if (journalLead) {
       await advance("j");

@@ -1378,6 +1378,8 @@ including two redrawn stall tiles, across 27 views and 3,267 placements.
 `new-phlan-civic-square` checks nine City Hall facade tile mappings
 across 13 views and 1,573 placements. `lizard-wilds-kobold-prisoners`
 and `lizard-wilds-pool-dialogue` verify both grove scenes in Chrome.
+The captive replay checks that the mutant lizardfolk warning appears
+in the journal only after the party releases the kobolds and hears it.
 `textile-wight-combat` checks the Wight's ready and animated strike
 poses from a controlled wandering encounter checkpoint.
 `textile-ghoul-combat` checks the Ghoul's ready and strike poses

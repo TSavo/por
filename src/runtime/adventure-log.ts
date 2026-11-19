@@ -521,6 +521,10 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
+  if (text.includes("WATCH OUT FOR THE MUTANT LIZARD MEN")) {
+    leads.push({ id: "lizard-wilds-mutant-warning", title: "The freed kobolds' warning",
+      detail: "The freed kobolds warned that the mutant lizardfolk are dangerous. Ready weapons and spells before exploring further in the grove." });
+  }
   if (text.includes("HOW MUCH LONGER MUST WE WAIT BEFORE ASSAULTING PHLAN")) {
     leads.push({ id: "stojanow-assault-plans", title: "A planned assault on Phlan",
       detail: "At Stojanow Gate, the party overheard a mage asking how long the garrison must wait before attacking Phlan." });
