@@ -1693,6 +1693,8 @@
     "encounter:area:13:SPRIT8.DAX:0:1:0": "kobold-cave-approach-middle.png",
     "encounter:area:13:SPRIT8.DAX:0:0:0": "kobold-cave-approach-near.png",
     "encounter:area:7:SPRIT5.DAX:49:0:0": "valjevo-medusa-approach.png",
+    "combat:area:25:CPIC6.DAX:140:ecl:a29f": "combat-party-wilderness-thief-strike.png",
+    "combat:area:25:CPIC6.DAX:12:ecl:a29f": "combat-party-wilderness-thief-ready.png",
     "combat:area:25:CPIC6.DAX:120": "wild-cave-boar-stand.png",
     "combat:area:25:CPIC6.DAX:248": "wild-cave-boar-strike.png",
     "combat:area:25:CPIC6.DAX:60": "wild-cave-snake-stand.png",

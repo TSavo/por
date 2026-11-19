@@ -3116,3 +3116,7 @@ verify both poses from original icon editor selections.
 
 The Council restricted-wing guard has a dedicated halt sprite and
 portrait. Chrome verifies the challenge and return after agreeing to leave.
+
+The overland thieves use scoped ready and longsword attack sprites.
+Chrome verified five ready placements and the reflected attack. The
+local test fixture selects the thieves roll deterministically.
