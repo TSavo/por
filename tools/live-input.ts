@@ -7,7 +7,7 @@ import { currentObjective, isOpenObjective, type JournalLead } from "../src/runt
 import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
-import { loadCombatArtMatcher, monsterCombatKey, type CombatArtPlacement } from "./combat-art.js";
+import { combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadPortraitArt } from "./portrait-art.js";
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 
@@ -180,9 +180,24 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if ((battleTileKeys.size || battleTileInventory) && !scene && !leads && hasBattlefieldBorder(screen)) {
         const pixels = Buffer.alloc(64);
         const selectedActors = battleTileInventory ? combat.filter(([, , , , highlighted]) => highlighted) : [];
+        const selectionCells = new Set<number>();
         // Combat terrain appears within the guest's left-hand battle panel.
         for (let y = 8; y < 176; y += 8) {
           for (let x = 8; x < 176; x += 8) {
+            if (battleTileInventory && x <= 152 && y <= 152 && screen.get(x, y) === 15) {
+              let borderMatches = true;
+              for (let offset = 0; offset < 24 && borderMatches; offset++) {
+                borderMatches = screen.get(x + offset, y) === combatHighlightPixel(offset, 0) &&
+                  screen.get(x + offset, y + 23) === combatHighlightPixel(offset, 23) &&
+                  screen.get(x, y + offset) === combatHighlightPixel(0, offset) &&
+                  screen.get(x + 23, y + offset) === combatHighlightPixel(23, offset);
+              }
+              if (borderMatches) {
+                for (let row = 0; row < 24; row += 8) {
+                  for (let column = 0; column < 24; column += 8) selectionCells.add((y + row) * screen.width + x + column);
+                }
+              }
+            }
             for (let row = 0; row < 8; row++) {
               const start = (y + row) * enhanced.width + x;
               pixels.set(enhanced.pixels.subarray(start, start + 8), row * 8);
@@ -191,7 +206,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             const key = `battle-tile:${createHash("sha256").update(pixels).digest("hex")}`;
             // The selection bevel is drawn into the guest cell. It remains
             // on screen, but its pixels cannot identify the terrain below it.
-            if (battleTileInventory && !selectedActors.some(([left, top, , , , width = 24, height = 24]) =>
+            if (battleTileInventory && !selectionCells.has(y * screen.width + x) && !selectedActors.some(([left, top, , , , width = 24, height = 24]) =>
               x < left + width && x + 8 > left && y < top + height && y + 8 > top)) {
               battleTileInventory.push([x, y, key, pixels.toString("hex")]);
             }
