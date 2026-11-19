@@ -2256,7 +2256,9 @@ try {
         const image = document.querySelector(".encounter-sprite");
         const id = image?.getAttribute("src");
         if (!id?.startsWith(${JSON.stringify("/art/" + approach)})) return;
-        const frame = [id, image.naturalWidth, image.naturalHeight];
+        const frame = [id, image.naturalWidth, image.naturalHeight,
+          document.querySelectorAll(".terrain-tile").length,
+          Boolean(document.querySelector(".encounter-portrait"))];
         if (window.rolfFrames.at(-1)?.[0] !== id) window.rolfFrames.push(frame);
       }).observe(document.querySelector("#tile-art"), { childList: true });
     `);
@@ -2265,14 +2267,16 @@ try {
     assert.deepEqual(frame.animation.map(({ encounter }) => encounter), [
       [64, 32, approach + "2:0", 8, 49],
       [56, 32, approach + "1:0", 24, 65],
+      [56, 32, approach + "0:0", 24, 80],
     ]);
     const frames = [
-      ["/art/" + approach + "2:0", 32, 196],
-      ["/art/" + approach + "1:0", 96, 260],
-      ["/art/" + approach + "0:0", 96, 320],
+      ["/art/" + approach + "2:0", 32, 196, 121, false],
+      ["/art/" + approach + "1:0", 96, 260, 121, false],
+      ["/art/" + approach + "0:0", 96, 320, 121, false],
     ];
     await waitFor("Rolf's three approach sprites", () => run("window.rolfFrames.length === 3"));
     assert.deepEqual(await run("window.rolfFrames"), frames);
+    await waitFor("the completed approach at the input prompt", () => run("!animationFrame"));
     assert.equal(await verifyTiledView(0, new Set()), 1);
     const missingApproach = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true, expression: `(async () => {
       const original = state;
@@ -2321,11 +2325,13 @@ try {
     await switchBothWays();
     for (const key of ["enter", "up", "enter", "up", "up", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:HEAD3.DAX:57:BODY3.DAX:1");
+    assert.equal(frame.classicPortrait, false);
     await waitFor("the enhanced council guard", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
     await verifyPortraitPanel();
     await advance("y");
     assert.equal(frame.portrait, undefined);
+    assert.equal(frame.classicPortrait, false);
     assert.equal(frame.perspective, true);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /4,5N.*AREACASTVIEWENCAMP/i);
     assert.equal(await verifyTiledView(8, tourPatterns), 1);
