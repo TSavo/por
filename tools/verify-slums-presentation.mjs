@@ -951,6 +951,14 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["slums-trade-row-fortune", {
+    slot: "B", area: 20, views: 5, patterns: 37, sceneryOnly: true,
+    walk: ["right", "up", "up", "left"],
+  }],
+  ["slums-trade-row-potion", {
+    slot: "B", area: 20, views: 3, patterns: 59, sceneryOnly: true,
+    walk: ["right", "up"],
+  }],
   ["mendor-ruin-crossing-east", {
     slot: "A", area: 20, views: 13, patterns: 42, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up"],
