@@ -2023,6 +2023,10 @@ try {
   await command("Page.navigate", { url: origin });
   await waitFor("the game display", () => run('document.querySelector("#screen")?.naturalWidth === 320'));
 
+  const patrolWallTips = new Set(patrolCombat ? [
+    "battle-tile:40c40bfff532a623cbed6d12294d91c254cca2ef45f37aa2677314f4bea113ff",
+    "battle-tile:238366db6f519d123c0368f079f5022ca613b098716521c63dba487382dfd706",
+  ] : []);
   async function advance(key) {
     const sequence = frame.sequence;
     const response = await fetch(origin + "/key", {
@@ -2036,6 +2040,15 @@ try {
     if (battleTrace && frame.battleTileInventory?.length) {
       appendFileSync(battleTrace, JSON.stringify(frame.battleTileInventory) + "\n");
       writeFileSync(resolve(frameDirectory, `${battleFrame++}.png`), Buffer.from(frame.frame, "base64"));
+    }
+    const tips = (frame.battleTiles ?? []).filter(([, , id]) => patrolWallTips.has(id));
+    if (tips.length) {
+      await waitFor("the enhanced wall tips at their battlefield positions", () => run(`
+        state.sequence === ${frame.sequence} && !animationFrame &&
+        ${JSON.stringify(tips)}.every(([x, y, id]) => [...document.querySelectorAll(".battle-tile")].some(tile =>
+          tile.getAttribute("src") === "/art/" + id && tile.naturalWidth === 32 && tile.naturalHeight === 32 &&
+          parseFloat(tile.style.left) === x / 3.2 && parseFloat(tile.style.top) === y / 2))`));
+      for (const [, , id] of tips) patrolWallTips.delete(id);
     }
   }
 
@@ -4469,6 +4482,7 @@ try {
         })()`));
       }
       assert.equal(strikes.size, attackIds.size);
+      assert.deepEqual([...patrolWallTips], [], "Expected both Sokal masonry tips in the scrolling battlefield");
       assert.deepEqual(await run("[...combatSprites].sort()"), [...guards, ...attackIds].sort());
       console.log(`Verified ${guards.length} guard and ${strikes.size} strike PNGs in live ${routeName} combat.`);
     }
