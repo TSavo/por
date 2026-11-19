@@ -130,13 +130,17 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const tiles: [number, number, string][] = [];
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
       const menu = menuText(text);
+      // The overland map shares the native viewport blit with first-person
+      // scenes. Its exploration menu omits Area, even during the cave exit
+      // when the area record still names the dungeon.
+      const overlandMap = menu === "CASTVIEWENCAMPSEARCHLOOK";
       const exploration = menu.startsWith("AREACASTVIEWENCAMP") ||
         (area === 1 && menu === "RELEASEANIMALSLEAVE") ||
         (area === 24 && menu === "DESTROYALTARLEAVEIT");
       let perspective = false;
       let tileArea = area;
       if (!leads) {
-        if (area !== undefined && !scene && picture === undefined && !hasBattlefieldBorder(screen)) {
+        if (area !== undefined && !scene && !overlandMap && picture === undefined && !hasBattlefieldBorder(screen)) {
           const pixels = perspectivePixels();
           // The original game can redraw scenery while the menu is hidden,
           // including mid-transition at a doorway.

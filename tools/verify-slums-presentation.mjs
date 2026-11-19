@@ -3100,9 +3100,11 @@ try {
       assert.match(text(), /WHATCAVEWILLYOUENTER/i);
       await advance("e");
       assert.match(text(), /32,15S/i);
+      assert.equal(frame.perspective, false, "The overland map should not use the first-person tile renderer");
+      assert.deepEqual(frame.tiles, []);
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "kobold-caves-left"));
-      assert.match(frame.journal.objective.nextStep, /Return to New Phlan and tell the council clerk/);
+      assert.match(frame.journal.objective.nextStep, /New Phlan.*tell the council clerk/i);
       await switchBothWays();
       for (const key of ["j", "e", "s", "s", "b"]) await advance(key);
       const escaped = JSON.parse(readFileSync(saved, "utf8"));
