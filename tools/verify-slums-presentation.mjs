@@ -691,6 +691,12 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["yarash-pump-prisoner-combat", {
+    slot: "A", stand: "combat:area:23:CPIC7.DAX:57:ecl:ab35", strike: "combat:area:23:CPIC7.DAX:185:ecl:ab35",
+    width: 96, height: 96, readyPrompt: /LIZARDMANHITPOINTS11AC4/i, strikeReflected: true,
+    strikeReport: /LIZARDMANATTACKSBRINHITTINGFOR6POINTSOFDAMAGE/i,
+    inputs: ["up", "enter", "enter", "enter", "a", "a", "c", "enter", "enter", "enter", "q", "q"],
+  }],
   ["valjevo-bucket-giants-combat", {
     slot: "B", stand: "combat:area:3:CPIC5.DAX:56:ecl:a74e", strike: "combat:area:3:CPIC5.DAX:184:ecl:a74e",
     width: 96, height: 192, readyPrompt: /FIREGIANTHITPOINTS59AC3/i,

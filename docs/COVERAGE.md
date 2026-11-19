@@ -2860,6 +2860,8 @@ The replay pairs the attack frame with the original report of the
 corporal hitting Enna. The `river-pumping` replay checks the middle and
 close bound lizardfolk sprites, then the pumping-room illustration
 before parlay and the journal update.
+The hostile pumping-room branch checks the prisoners' ready and
+reflected attack poses during the original combat report.
 The Pyramid patrol has a separate scout sprite and group illustration.
 The Chrome replay checks the approach and the original wary dialogue.
 The Old Phlan hut replay checks the four lizardfolk's own approach and

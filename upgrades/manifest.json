@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:23:CPIC7.DAX:57:ecl:ab35": "yarash-pump-prisoner-ready.png",
+    "combat:area:23:CPIC7.DAX:185:ecl:ab35": "yarash-pump-prisoner-strike.png",
     "encounter:area:22:ecl:a2f9:SPRIT7.DAX:0:0:0": "tyrmor-prison-kobolds-approach.png",
     "portrait:area:22:ecl:a2f9:PIC7.DAX:0:0:0": "tyrmor-prison-kobolds-dialogue.png",
     "tile:26:f71b3a59f7fdbb3626d058662618f92bbd31ce180199c49f0c93cf6d48ded849": "waystone-boundary-terrain-f71b3a59f7fd.png",
