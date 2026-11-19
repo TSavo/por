@@ -2783,6 +2783,8 @@ ground, which it shares with the north gate.
 The north and ridge branches add five missing scenery tiles. Their
 Chrome replays check all 1,089 placements across nine views before
 the departure prompts.
+Four boundary replays check another seven foliage, rail, and ground
+tiles across 23 views, including the first departure prompt where visible.
 The Temple of Bane side galleries and eastern outer courts use angled
 olive-slate paving beneath the gray masonry. Four Chrome walks checked
 the 12 revised tile bindings across 43 views, including the arches and
@@ -2844,6 +2846,8 @@ The Tyrmor prison priest replay checks the middle and near approach
 sprites at each stop and the portrait at his benediction.
 The Tyrmor prison lizardfolk use a separate approach and group
 illustration, verified through the original Parlay prompt in Chrome.
+The hungry kobolds have their own approach and group illustration,
+also checked through Parlay on the isolated encounter checkpoint.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.

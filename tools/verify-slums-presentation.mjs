@@ -499,6 +499,12 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
   }],
+  ["tyrmor-prison-kobolds-dialogue", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 4 }, () => ["up", "down"]).flat(),
+      "up", "enter", "down", "up"],
+    approachStops: { 12: [48, 32, "encounter:area:22:ecl:a2f9:SPRIT7.DAX:0:0:0", 40, 80] },
+    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:0:0:0", prompt: /ONELICKSITSLIPS/i,
+  }],
   ["tyrmor-prison-lizardfolk-dialogue", {
     slot: "B",
     inputs: ["s", ...Array.from({ length: 8 }, () => ["up", "enter", "down"]).flat(),
@@ -1825,6 +1831,22 @@ const environmentRoutes = new Map([
     slot: "A", area: 16, views: 19, patterns: 72, sceneryOnly: true,
     walk: ["left", "left", "up", "up", "up", "left", "up", "up", "up", "up", "up", "left",
       "up", "up", "up", "up", "up", "right"],
+  }],
+  ["wilderness-waystone-boundary-east", {
+    slot: "A", area: 26, views: 6, patterns: 58, sceneryOnly: true,
+    walk: ["down", "up", "up", "left", "up"],
+  }],
+  ["wilderness-waystone-boundary-north", {
+    slot: "A", area: 26, views: 10, patterns: 61, sceneryOnly: true,
+    walk: ["left", "left", "up", "up", "right", "up", "up", "right", "up"],
+  }],
+  ["wilderness-waystone-boundary-south", {
+    slot: "A", area: 26, views: 3, patterns: 48, sceneryOnly: true,
+    walk: ["right", "up"],
+  }],
+  ["wilderness-waystone-boundary-west", {
+    slot: "A", area: 26, views: 4, patterns: 50, sceneryOnly: true,
+    walk: ["down", "left", "up"],
   }],
   ["wilderness-waystone-north", {
     slot: "A", area: 26, views: 4, patterns: 43, sceneryOnly: true,
