@@ -223,8 +223,11 @@ function playPendingNarration() {
 function playAnimation() {
   finishAnimation();
   const frames = state.animation ?? [];
+  if (!frames.length) {
+    void showScreen();
+    return;
+  }
   let index = 0;
-  if (!frames.length) return;
   advanceAnimation = () => {
     animationFrame = frames[index++];
     if (!animationFrame) finishAnimation();
@@ -385,8 +388,7 @@ async function showScreen() {
   holdAnimationFrame(view);
 }
 
-function render() {
-  showScreen();
+function renderJournal() {
   const focused = document.activeElement;
   const wasOpen = !journal.hidden;
   const open = Boolean(state.journal);
@@ -465,7 +467,7 @@ async function poll() {
     closeJournal.disabled = !state.ready || Boolean(state.stopped);
     autoTrack.disabled = closeJournal.disabled;
     if (changed) {
-      render();
+      renderJournal();
       playAnimation();
       if (state.automaticCombat) {
         quickPollAfter = performance.now() + 160 +
