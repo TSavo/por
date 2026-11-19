@@ -8,6 +8,8 @@
     "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:0:0": "pyramid-lizardfolk-patrol-approach.png",
     "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0": "pyramid-lizardfolk-patrol-dialogue.png",
     "combat:area:20:CPIC2.DAX:4:ecl:a0b4": "slums-mage-orc-ready.png",
+    "combat:area:20:CPIC2.DAX:5:ecl:a0b4": "slums-mage-orc-leader-ready.png",
+    "combat:area:20:CPIC2.DAX:133:ecl:a0b4": "slums-mage-orc-leader-strike.png",
     "encounter:area:23:ecl:aa03:SPRIT7.DAX:57:1:0": "pyramid-pump-prisoner-approach.png",
     "encounter:area:23:ecl:aa03:SPRIT7.DAX:57:0:0": "pyramid-pump-prisoner-close.png",
     "portrait:area:23:ecl:aa03:PIC7.DAX:57:0:0": "pyramid-pump-prisoners-dialogue.png",

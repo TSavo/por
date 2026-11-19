@@ -717,6 +717,11 @@ const combatPoseRoutes = new Map([
     width: 96, height: 96, readyPrompt: /ORCHITPOINTS5/i, strikeReflected: false,
     inputs: ["up", ...Array(9).fill("enter"), ...Array(13).fill("q")],
   }],
+  ["slums-mage-orc-leader", {
+    slot: "B", stand: "combat:area:20:CPIC2.DAX:5:ecl:a0b4", strike: "combat:area:20:CPIC2.DAX:133:ecl:a0b4",
+    width: 96, height: 96, readyPrompt: /ORCLEADERHITPOINTS8AC5/i, strikeReflected: false,
+    inputs: ["up", "b", "up", "enter", "enter", "a", ...Array(4).fill("enter"), "d", "g", ...Array(9).fill("q")],
+  }],
   ["slums-mage-orc-ready", {
     slot: "B", stand: "combat:area:20:CPIC2.DAX:4:ecl:a0b4",
     width: 96, height: 96, readyPrompt: /ORCHITPOINTS5AC6/i, strikeInputs: [],
@@ -2419,7 +2424,7 @@ try {
   });
   await command("Page.navigate", { url: origin });
   await waitFor("the game display", () => run('document.querySelector("#screen")?.naturalWidth === 320'));
-  if (routeName === "slums-mage-orc-ready") {
+  if (routeName === "slums-mage-orc-ready" || routeName === "slums-mage-orc-leader") {
     // This replay steps every combat pause explicitly through advance().
     await run(`(() => {
       const fetchOriginal = window.fetch.bind(window);

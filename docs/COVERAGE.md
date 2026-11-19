@@ -2844,6 +2844,8 @@ The Pyramid patrol has a separate scout sprite and group illustration.
 The Chrome replay checks the approach and the original wary dialogue.
 The Slums potion-lab replay verifies the scoped orc ready sprite. It
 steps combat pauses explicitly to keep the replay deterministic.
+The matching potion-lab orc leader replay checks the 4× ready and
+longbow attack frames in the same encounter.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.
