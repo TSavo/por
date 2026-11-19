@@ -711,6 +711,7 @@ const combatPoseRoutes = new Map([
   ["slums-mage-combat", {
     slot: "B", stand: "combat:area:20:CPIC2.DAX:94:ecl:a0b4",
     width: 96, height: 96, readyPrompt: /LEVEL3MUHITPOINTS9/i,
+    excluded: ["combat:area:10:CPIC4.DAX:152"],
     inputs: ["up", "b", "up", "enter", "enter", "a", ...Array(4).fill("enter"), ...Array(181).fill("q")],
     strikeInputs: [],
   }],

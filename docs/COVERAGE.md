@@ -2141,7 +2141,9 @@ sprite before combat.
 `old-phlan-mutant-lizardfolk-combat` and `old-phlan-lizardfolk-combat`
 check separately scoped ready and strike poses for the mutated and
 regular lizardfolk. `slums-mage-combat` verifies the ready pose in the
-potion-commission encounter. The mage's native strike remains unverified.
+potion-commission encounter and checks that it never uses the Valhingen
+mystic strike override. In 183 captured combat frames, two tile fragments
+matched parts of the mage strike record, but no full pose matched.
 
 `buccaneer-pen-loop` checks 11 picket, railing, and timber tiles across
 16 views as the native clock crosses midnight. `stojanow-west-rampart`
