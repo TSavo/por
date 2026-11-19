@@ -44,3 +44,12 @@ for New Phlan, where the harbor master can arrange onward passage. Press
 Escape to stop a route. **Map** enlarges the illustration and **Travel art**
 switches between the illustration and the overhead terrain view.
 
+Chrome verification loaded every current atlas plate, selected New Phlan
+and Phlan, switched between Atlas, Local and Region, and checked that
+Classic closes the map without sending a game input. A Catacombs
+checkpoint selected Kuto’s map 32 sheet automatically. The Moonsea
+replay clicked the Lizardman Keep landmark, walked across a sector
+boundary, and stopped at the native drawbridge prompt. Accepting the
+entry and dismissing the anti-magic warning restored Enhanced WebGL
+exploration.
+

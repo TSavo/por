@@ -3209,6 +3209,16 @@ After the jail binding was added, `old-phlan-sword-thief-approach`
 passed from the east-street slot A checkpoint, including all three
 distances and the existing dialogue portrait.
 
+The `north-gate-weapon-cache-ambush` Chrome replay checks the dedicated
+olive-hooded approach sprite before the original gas-trap portrait.
+The `eastern-marches-kobold-leader-combat` replay checks the scoped
+leader's ready and reflected shortbow strike, the native attack report,
+and state preservation across displays. Its slot B checkpoint is staged
+one square west of the fixed horde encounter.
+The Ferran Martinez replay uses a controlled slot C chapel checkpoint
+and verifies his new ready and strike sprites at (80, 104) during the
+original attack on Alda.
+
 The `new-phlan-council-archer-combat` Chrome replay refuses the
 Council guard's order to leave. It verifies the ready archer at
 (80, 80), his longbow strike at the same anchor, and the damage

@@ -5,6 +5,10 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:21:CPIC4.DAX:17:ecl:aed4": "sokal-ferran-combat-ready.png",
+    "combat:area:21:CPIC4.DAX:145:ecl:aed4": "sokal-ferran-combat-strike.png",
+    "combat:area:27:CPIC8.DAX:1:ecl:9c61": "eastern-marches-kobold-leader-ready.png",
+    "combat:area:27:CPIC8.DAX:129:ecl:9c61": "eastern-marches-kobold-leader-strike.png",
     "character-sheet:HEAD3.DAX:9": "character-sheet-dwarf-head-9.png",
     "character-sheet:HEAD3.DAX:13": "character-sheet-dwarf-head-13.png",
     "character-sheet:BODY3.DAX:3": "character-sheet-dwarf-body-3.png",
@@ -966,6 +970,7 @@
     "encounter:area:14:SPRIT3.DAX:11:0:0": "old-phlan-sword-thief-approach.png",
     "encounter:area:14:ecl:b051:SPRIT3.DAX:11:0:0": "old-phlan-jail-thug-approach.png",
     "encounter:area:14:ecl:af19:SPRIT3.DAX:11:0:0": "old-phlan-guild-ambush-approach.png",
+    "encounter:area:14:ecl:aa2b:SPRIT3.DAX:11:0:0": "old-phlan-weapon-cache-ambusher-approach.png",
     "encounter:area:14:SPRIT3.DAX:11:1:0": "old-phlan-sword-thief-approach-middle.png",
     "encounter:area:14:SPRIT3.DAX:11:2:0": "old-phlan-sword-thief-approach-far.png",
     "encounter:area:17:SPRIT7.DAX:11:0:0": "nomad-sword-ready-approach.png",
@@ -5242,6 +5247,7 @@
     "encounter:area:14:SPRIT3.DAX:11:0:0": { "area": 14, "x": 40, "y": 32, "width": 48, "height": 80 },
     "encounter:area:14:ecl:b051:SPRIT3.DAX:11:0:0": { "area": 14, "x": 40, "y": 32, "width": 48, "height": 80 },
     "encounter:area:14:ecl:af19:SPRIT3.DAX:11:0:0": { "area": 14, "x": 40, "y": 32, "width": 48, "height": 80 },
+    "encounter:area:14:ecl:aa2b:SPRIT3.DAX:11:0:0": { "area": 14, "x": 40, "y": 32, "width": 48, "height": 80 },
     "encounter:area:14:SPRIT3.DAX:11:1:0": { "area": 14, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:14:SPRIT3.DAX:11:2:0": { "area": 14, "x": 56, "y": 32, "width": 16, "height": 49 },
     "encounter:area:17:SPRIT7.DAX:11:0:0": { "area": 17, "x": 40, "y": 32, "width": 48, "height": 80 },

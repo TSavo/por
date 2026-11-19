@@ -794,6 +794,7 @@ const illustrationRoutes = new Map([
   }],
   ["north-gate-weapon-cache-ambush", {
     slot: "A", inputs: ["up", "enter", "t", "enter"],
+    approachSequence: [[40, 32, "encounter:area:14:ecl:aa2b:SPRIT3.DAX:11:0:0", 48, 80]],
     portrait: "portrait:HEAD3.DAX:71:BODY3.DAX:8", prompt: /ANAWFULSMELLINGCLOUDOFGASFORMS/i,
   }],
   ["north-gate-jail-thugs", {
@@ -918,6 +919,12 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["eastern-marches-kobold-leader-combat", {
+    slot: "B", stand: "combat:area:27:CPIC8.DAX:1:ecl:9c61", strike: "combat:area:27:CPIC8.DAX:129:ecl:9c61",
+    width: 96, height: 96, manualPolling: true, standAnchor: [80, 56, true],
+    strikeAnchor: [80, 80], strikeReflected: true, followingStrikeReport: /KOBOLDLEADERATTACKSCORAANDMISSES/i,
+    inputs: ["right", "enter", "enter", "enter", "q"], strikeInputs: Array(12).fill("q"),
+  }],
   ["new-phlan-council-archer-combat", {
     slot: "A", stand: "combat:area:8:CPIC3.DAX:11:ecl:b48a", strike: "combat:area:8:CPIC3.DAX:139:ecl:b48a",
     width: 96, height: 96, manualPolling: true, standAnchor: [80, 80, true],
