@@ -1942,7 +1942,9 @@ const courtyard = routeName === "sokal-courtyard";
 const terrainOnly = option === "--terrain-only";
 const manualParty = option === "--manual-party";
 const repeatStampede = option === "--repeat-stampede" && routeName === "buccaneer-pens";
-const classicPortrait = option === "--classic-portrait" && routeName === "buccaneer-approach";
+const classicPortrait = option === "--classic-portrait" &&
+  ["buccaneer-approach", "new-phlan-south-shop-exit"].includes(routeName);
+const southShopkeeper = "portrait:HEAD3.DAX:42:BODY3.DAX:9";
 const ogreApproachOnly = ogre && option === "--approach-only";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait || ogreApproachOnly, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
@@ -1975,10 +1977,11 @@ if (terrainOnly || classicPortrait) {
   const pack = resolve(directory, "test-art");
   mkdirSync(pack);
   const combined = { version: 1, assets: {}, encounters: {} };
+  const missingPortrait = routeName === "new-phlan-south-shop-exit" ? southShopkeeper : "portrait:PIC6.DAX:39:0:0";
   for (const source of ["upgrades/slums", "upgrades"]) {
     const manifest = JSON.parse(readFileSync(resolve(source, "manifest.json")));
     for (const [id, file] of Object.entries(manifest.assets)) {
-      if ((terrainOnly && id.startsWith("combat:")) || (classicPortrait && id === "portrait:PIC6.DAX:39:0:0")) continue;
+      if ((terrainOnly && id.startsWith("combat:")) || (classicPortrait && id === missingPortrait)) continue;
       copyFileSync(resolve(source, file), resolve(pack, file));
       combined.assets[id] = file;
     }
@@ -2408,9 +2411,17 @@ try {
       await advance(key);
       if (actor && frame.encounter) assert.deepEqual(frame.tiles, previousTiles);
       if (routeName === "new-phlan-south-shop-exit") {
-        if (key === "enter" && views === 2) {
+        if (classicPortrait && key === "enter" && views === 2) {
           assert.equal(frame.perspective, false);
-          assert.equal(frame.portrait, "portrait:HEAD3.DAX:42:BODY3.DAX:9");
+          assert.equal(frame.portrait, undefined);
+          assert.equal(frame.classicPortrait, true);
+          assert.ok(frame.classicPortraitSources?.includes(southShopkeeper));
+          await waitFor("the classic shopkeeper in Enhanced layout", () => run(`state.sequence === ${frame.sequence} &&
+            !document.querySelector("#game-text").hidden && Boolean(document.querySelector(".perspective-backdrop"))`));
+        }
+        if (!classicPortrait && key === "enter" && views === 2) {
+          assert.equal(frame.perspective, false);
+          assert.equal(frame.portrait, southShopkeeper);
           await waitFor("the enhanced shopkeeper", () => run(`state.sequence === ${frame.sequence} &&
             document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
           const result = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true, expression: `(async () => {

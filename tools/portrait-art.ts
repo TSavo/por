@@ -10,12 +10,15 @@ const areaPortraitKey = /^portrait:area:(\d+):(?:ecl:([a-f0-9]{4}):)?/;
 const left = 24;
 const top = 24;
 const size = 88;
+const headHeight = 40;
 
 export function loadPortraitArt(keys: string[], includeClassic = false) {
   const root = keys.length || includeClassic ? findGameRoot() : null;
   const files = new Map(root ? listGameFiles(root).map((file) => [file.toUpperCase(), file]) : []);
   const patterns = new Map<string, string | null>();
   const classicSources = new Map<string, string[]>();
+  const classicHeads = new Map<string, string[]>();
+  const classicBodies = new Map<string, string[]>();
   const archiveCache = new Map<string, ReturnType<typeof parseDax>>();
   function entry(archive: string, id: string) {
     const file = files.get(archive);
@@ -45,7 +48,7 @@ export function loadPortraitArt(keys: string[], includeClassic = false) {
       const body = entry(bodyArchive, bodyId);
       if (!head || !body) continue;
       const [top, bottom] = [head, body].map(part => decodePicture(part.data));
-      if (top.width !== size || bottom.width !== size || top.height !== 40 || bottom.height !== 48 ||
+      if (top.width !== size || bottom.width !== size || top.height !== headHeight || bottom.height !== size - headHeight ||
           top.itemCount !== 1 || bottom.itemCount !== 1) continue;
       register(Buffer.concat([frameSlice(top, 0), frameSlice(bottom, 0)]), key);
       continue;
@@ -62,6 +65,20 @@ export function loadPortraitArt(keys: string[], includeClassic = false) {
   }
   if (includeClassic) {
     for (const [name, file] of files) {
+      if (/^(?:HEAD|BODY)\d+\.DAX$/.test(name)) {
+        const head = name.startsWith("HEAD");
+        const parts = head ? classicHeads : classicBodies;
+        for (const { id, data } of archiveData(file).entries) {
+          const picture = decodePicture(data);
+          if (picture.width !== size || picture.height !== (head ? headHeight : size - headHeight) ||
+              picture.itemCount !== 1 || picture.pixels.every(color => color === picture.pixels[0])) continue;
+          const signature = Buffer.from(picture.pixels).toString("base64");
+          const matches = parts.get(signature) ?? [];
+          matches.push(`${name}:${id}`);
+          parts.set(signature, matches);
+        }
+        continue;
+      }
       if (!/^PIC\d+\.DAX$/.test(name)) continue;
       for (const { id, data } of archiveData(file).entries) {
         for (const [memberIndex, member] of pictureMembers(data).entries()) {
@@ -82,21 +99,25 @@ export function loadPortraitArt(keys: string[], includeClassic = false) {
     }
   }
   return (screen: Frame, area?: number, cursor?: number) => {
-    if (!patterns.size && !classicSources.size) return;
+    if (!patterns.size && !classicSources.size && !classicHeads.size) return;
     const pixels = Buffer.alloc(size * size);
     for (let y = 0; y < size; y++) {
       const offset = (top + y) * screen.width + left;
       pixels.set(screen.pixels.subarray(offset, offset + size), y * size);
     }
     const signature = pixels.toString("base64");
-    const sources = classicSources.get(signature);
+    let match: string | null | undefined;
     if (area !== undefined && cursor !== undefined) {
-      const encounter = patterns.get(`${area}:${cursor.toString(16).padStart(4, "0")}:${signature}`);
-      if (encounter !== undefined) return encounter ?? sources ?? [];
+      match = patterns.get(`${area}:${cursor.toString(16).padStart(4, "0")}:${signature}`);
     }
-    const scoped = area === undefined ? undefined : patterns.get(`${area}:${signature}`);
-    const match = scoped === undefined ? patterns.get(signature) : scoped;
-    if (match === null) return sources ?? [];
-    return match ?? sources;
+    if (match === undefined && area !== undefined) match = patterns.get(`${area}:${signature}`);
+    if (match === undefined) match = patterns.get(signature);
+    if (typeof match === "string") return match;
+    const sources = classicSources.get(signature);
+    if (sources) return sources;
+    const heads = classicHeads.get(pixels.subarray(0, size * headHeight).toString("base64"));
+    const bodies = classicBodies.get(pixels.subarray(size * headHeight).toString("base64"));
+    if (heads && bodies) return heads.flatMap(head => bodies.map(body => `portrait:${head}:${body}`));
+    if (match === null) return [];
   };
 }

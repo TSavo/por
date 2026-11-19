@@ -14,7 +14,8 @@ The browser and inventory both check each PNG's dimensions and chunk
 checksums. A truncated or corrupt export does not count as a replacement.
 When a live illustration falls back to classic art, the browser's
 `/state` response lists matching archive IDs in `classicPortraitSources`.
-Identical classic frames may produce more than one candidate ID.
+It also lists matching head/body combinations for composed portraits.
+Identical classic pixels may produce more than one candidate ID.
 
 Pass captured route traces after the output directory to include placements
 and unmatched patterns. Environment routes in the Chrome verifier write a
