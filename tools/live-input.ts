@@ -334,7 +334,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (recording) appendFileSync(recording, `${cpu.steps}:${key.toString(16).padStart(4, "0")}\n`);
       keys.push({ step: cpu.steps, word: key });
       // Animated travel on Rolf's tour can exceed 30 million instructions
-      // between keyboard reads. Quick combat has its own shorter watchdog.
+      // between keyboard reads.
       cpu.stepBudget = Math.max(cpu.stepBudget, cpu.steps + liveIdleBudget);
       // Let menu transitions and the scrolling dialogue draw before prompting again.
       nextPrompt = cpu.steps + 1_000_000;

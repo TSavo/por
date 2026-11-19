@@ -1,5 +1,11 @@
 # Translation coverage
 
+Combat verification on the current runtime runs every translated turn.
+Commit `4fcc70e` removed the earlier Quick rollback and turn skipping.
+References below to the former watchdog and its environment variables
+describe historical replay diagnostics. Current replays use the standard
+runtime and verify the guest's battle outcome directly.
+
 A procedure counts as found when it starts with `push bp; mov bp, sp` (`55 89 E5` or `55 8B EC`).
 Translated means `tools/tp_translate.py` emitted it with no unsupported instruction.
 Verified means a test ran it and checked a result. The entry point at image `0x6` is translated in addition to the prologue count.

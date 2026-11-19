@@ -319,7 +319,7 @@ async function verifyUninterruptedCourtyard() {
       assert.match(frame.journal.objective.nextStep, /overcome grishnak/i);
     }, "j",
   ]);
-  console.log("Won the courtyard and prison without watchdog intervention, then reached Grishnak's temple:", saveDir);
+  console.log("Won the courtyard and prison, then reached Grishnak's temple:", saveDir);
 }
 
 const arenaRoute = [
@@ -1750,8 +1750,8 @@ if (process.argv[2] === "--textile-grishnak-checkpoint") {
     ] : [["q", /grishnak hitpoints 24 ac 5/, 60]]),
     ["q", /party has been destroyed/, 300],
   ]);
-  console.log(healedSleep ? "Healed the party, cast Sleep on Grishnak, and reached the original defeat screen without watchdog recovery."
-    : "Verified Grishnak's full Quick battle without watchdog recovery. This party lost.");
+  console.log(healedSleep ? "Healed the party, cast Sleep on Grishnak, and reached the original defeat screen."
+    : "Replayed Grishnak's full Quick battle through the original defeat screen.");
   process.exit(0);
 }
 
