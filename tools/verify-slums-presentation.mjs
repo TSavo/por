@@ -30,6 +30,18 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["sokal-poison-frog-approach", {
+    slot: "C", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:21:SPRIT4.DAX:37:1:0", 40, 57],
+  }],
+  ["valhingen-wight-approach", {
+    slot: "A", inputs: ["up", "b"],
+    placement: [48, 32, "encounter:area:10:SPRIT4.DAX:20:0:0", 40, 80],
+  }],
+  ["valhingen-wight-tower-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:10:SPRIT4.DAX:20:0:0", 40, 80],
+  }],
   ["valhingen-spectre-approach-near", {
     slot: "A", inputs: ["up", "enter"],
     placement: [56, 32, "encounter:area:10:SPRIT4.DAX:17:0:0", 32, 80],
@@ -238,6 +250,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["textile-north-yard", {
+    slot: "H", area: 2, views: 16, patterns: 71, sceneryOnly: true,
+    walk: ["up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "left", "up", "up", "right", "up"],
+  }],
+  ["kuto-east-rubble-lanes", {
+    slot: "J", area: 29, views: 10, patterns: 46, sceneryOnly: true,
+    walk: ["up", "up", "left", "up", "up", "right", "up", "up", "right"],
+  }],
   ["old-phlan-east-lanes", {
     slot: "A", area: 14, views: 17, patterns: 28, sceneryOnly: true,
     walk: ["up", "up", "right", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up"],

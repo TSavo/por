@@ -1336,6 +1336,13 @@ the middle and near poses at their original anchors in separate encounters.
 `kobold-cave-wyvern-dialogue` verify the Mummy approach sprite and two
 pre-combat illustrations. Chrome checks the artwork and state-preserving
 mode switches on all five encounter replays.
+`kuto-east-rubble-lanes` checks 29 new rubble, masonry, and doorway
+tiles across 10 views, and `textile-north-yard` checks 16 new wall,
+ivy, and doorway tiles across 16 views.
+`sokal-poison-frog-approach` checks the middle-distance frog sprite.
+`valhingen-wight-approach` and `valhingen-wight-tower-approach` check the
+near Wight sprite in the crypt and tower. Both sprites use the original
+screen anchors. All five replays verify state-preserving mode switches.
 `old-phlan-east-lanes` checks six new door and junction details,
 with 2,057 placements across 17 views from a position-only copy of
 the north-gate entrance save.
