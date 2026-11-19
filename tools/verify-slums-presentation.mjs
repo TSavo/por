@@ -2299,13 +2299,6 @@ try {
     console.log("Verified the enhanced dock, Rolf's approach, all seven tour stops, and the return to scenery after the City Hall guard in one fresh Chrome game.");
   } else if (routeName === "new-phlan-building-exit") {
     const patterns = new Set();
-    const beforeAudio = await latest();
-    await run('document.querySelector("#audio-toggle").click(); document.querySelector("#audio-master").focus()');
-    await command("Input.dispatchKeyEvent", { type: "keyDown", key: "ArrowLeft", code: "ArrowLeft", windowsVirtualKeyCode: 37 });
-    await command("Input.dispatchKeyEvent", { type: "keyUp", key: "ArrowLeft", code: "ArrowLeft", windowsVirtualKeyCode: 37 });
-    await waitFor("keyboard adjustment of the audio slider", () => run('Number(document.querySelector("#audio-master").value) < 0.8'));
-    assert.deepEqual(await latest(), beforeAudio);
-    await run('document.querySelector("#audio-toggle").click()');
     for (const key of ["up", "right", "up", "right", "up", "left", "up"]) {
       await advance(key);
       assert.equal(await verifyTiledView(Number(frame.tiles[0][2].split(":")[1]), patterns), 1);
@@ -2327,7 +2320,20 @@ try {
     assert.deepEqual(frame.text, doorway.text);
     assert.equal(frame.frame, doorway.frame);
     assert.deepEqual(frame.tiles, doorway.tiles);
-    await advance("enter");
+    const beforeAudio = await latest();
+    await run('document.querySelector("#audio-toggle").click(); document.querySelector("#audio-master").focus()');
+    await command("Input.dispatchKeyEvent", { type: "keyDown", key: "ArrowLeft", code: "ArrowLeft", windowsVirtualKeyCode: 37 });
+    await command("Input.dispatchKeyEvent", { type: "keyUp", key: "ArrowLeft", code: "ArrowLeft", windowsVirtualKeyCode: 37 });
+    await waitFor("keyboard adjustment of the audio slider", () => run('Number(document.querySelector("#audio-master").value) < 0.8'));
+    assert.deepEqual(await latest(), beforeAudio);
+    await run('document.querySelector("#audio-toggle").focus(); document.activeElement.click()');
+    assert.equal(await run("document.activeElement.id"), "screen");
+    await command("Input.dispatchKeyEvent", { type: "keyDown", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13 });
+    await command("Input.dispatchKeyEvent", { type: "keyUp", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13 });
+    frame = await waitFor("Enter to advance the doorway after closing Audio", async () => {
+      const next = await latest();
+      return next.ready && next.sequence > beforeAudio.sequence && next;
+    });
     assert.equal(await verifyTiledView(11, patterns), 1);
     await advance("enter");
     assert.match(textOf(frame), /AREACASTVIEWENCAMP/i);

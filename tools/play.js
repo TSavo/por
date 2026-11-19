@@ -107,6 +107,7 @@ fetch("/sound-manifest.json").then((response) => response.json()).then((manifest
 audioToggle.addEventListener("click", () => {
   audioSettings.hidden = !audioSettings.hidden;
   audioToggle.setAttribute("aria-expanded", String(!audioSettings.hidden));
+  if (audioSettings.hidden) (journal.hidden ? screen : closeJournal).focus({ preventScroll: true });
   resumeBlockedAudio();
 });
 for (const key of ["hardware", "master", "effects", "dialogue", "narration", "muted"]) {

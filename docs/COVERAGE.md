@@ -2470,6 +2470,8 @@ recognizes the output of the original scenery draw routine during this pause.
 The replay opens the journal before Enter, checks the 121 enhanced tiles
 behind it, and switches display modes. Closing the journal restores the
 same guest frame, text, and tile placements.
+It also adjusts the Audio slider while the doorway is paused, closes the
+panel, and presses Enter through Chrome to advance the original prompt.
 
 The `new-phlan-south-shop-exit` replay starts from slot A at (9,11)
 facing west. Chrome verifies the shopkeeper portrait at the offer and all
