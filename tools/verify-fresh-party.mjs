@@ -2007,6 +2007,9 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
   } else {
     console.log("Returned from the Textile House via the west ferry, handed off the sealed box, and collected the council reward.");
     if (trainAfterReward) {
+      const trainedSlot = join(saveDir, "F.json");
+      assert.equal(JSON.parse(readFileSync(trainedSlot, "utf8")).tracked, undefined,
+        "The completed Textile House objective should no longer be tracked in the saved slot.");
       await replay(loadSlot("2166"), "85000000", [
         "v", "v", (text) => assert.match(text, trained), "e", "j", (_text, frame) => {
           assert.equal(textile(frame)?.status, "turned-in");
@@ -2014,7 +2017,13 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
           assert.ok(frame.journal.leads.some(({ id }) => id === "phlan-training-thieves"));
         },
       ]);
-      console.log("Sold gems, paid for Thrender Grone's level-two training, and reloaded the result:", join(saveDir, "F.json"));
+      await replay(loadSlot("2064"), "85000000", [
+        "j", (_text, frame) => {
+          assert.equal(textile(frame)?.status, "accepted");
+          assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-handoff"));
+        },
+      ]);
+      console.log("Sold gems, paid for Thrender Grone's level-two training, and reloaded the result:", trainedSlot);
     }
   }
   process.exit(0);

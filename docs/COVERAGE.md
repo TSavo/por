@@ -521,6 +521,9 @@ level 2. Reloading slot F verifies 2,388 XP, 23 HP, 14 platinum, and the
 journal entries for the Textile House turn-in and both eastern training
 doors. The Chrome cleric and thief trainer replays check that each door's
 directions appear only after the party hears that trainer's offer.
+The training replay also checks that slot F drops the finished objective
+from tracking and that reloading slot D still shows the accepted quest
+before the City Watch handoff.
 The `--textile-opened-return-checkpoint` variant starts from the equivalent
 slot E with the broken seal. The same ferry route reaches City Hall, where
 Cadorna confronts the party. Reloading slot F verifies that the commission
