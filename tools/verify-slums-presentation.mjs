@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valhingen-paladin-wraith-dialogue", {
+    slot: "A", inputs: ["up", "b"],
+    portrait: "portrait:PIC4.DAX:21:0:0", prompt: /IAMTHEPROTECTOROFTHEPALADIN/i,
+  }],
+  ["buccaneer-guardroom-dialogue", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:area:1:HEAD6.DAX:6:BODY6.DAX:3", prompt: /FOURGUARDSINGLEAMINGCHAINMAIL/i,
+  }],
   ["buccaneer-pass-seller", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:1:HEAD6.DAX:10:BODY6.DAX:9", prompt: /WANTTOBUYAPASSTOSEETHECAPTAIN/i,
@@ -269,6 +277,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["kuto-west-arcade", {
+    slot: "J", area: 29, views: 16, patterns: 112, sceneryOnly: true,
+    walk: ["up", "up", "up", "right", "up", "up", "up", "up", "up", "up", "left", "up", "up", "left", "up"],
+  }],
   ["new-phlan-west-covered-lanes", {
     slot: "B", area: 0, views: 16, patterns: 32, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up"],

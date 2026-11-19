@@ -1340,7 +1340,14 @@ mode switches on all five encounter replays.
 street tiles with 1,936 placements across 16 views.
 `buccaneer-captain-dialogue` checks the captain's greeting, original
 portrait source and 352×352 replacement, and state-preserving switches.
+`buccaneer-guardroom-dialogue` verifies the guards' illustration on the
+way to the captain.
 `buccaneer-pass-seller` verifies the pass offer and its distinct portrait.
+`valhingen-paladin-wraith-dialogue` verifies the paladin's guardian
+portrait, the original dialogue, and state-preserving mode switches.
+`kuto-west-arcade` follows the original arrival save to the well basin,
+checking 35 new arch, rubble, and basin tiles with 1,936 placements
+across 16 views and state-preserving mode switches.
 `kuto-east-rubble-lanes` checks 29 new rubble, masonry, and doorway
 tiles across 10 views, and `textile-north-yard` checks 16 new wall,
 ivy, and doorway tiles across 16 views.
