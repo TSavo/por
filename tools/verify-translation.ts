@@ -521,7 +521,11 @@ function checkCampaignJournal(): void {
     throw new Error("Restoring the earlier journal did not restore the sealed treasure objective");
   }
   writeGlobal(textile, 254);
-  if (questProgress(m, boxLead, m.ds)[0]?.status !== "ready-to-report") {
+  const watchHandoff = lines.find(line => line.includes("THE CITY WATCH STOPS YOU AND REMOVES CADORNA'S TREASURE"));
+  const boxProgress = questProgress(m, boxLead, m.ds);
+  if (!watchHandoff || boxProgress[0]?.status !== "ready-to-report" ||
+      currentObjective(boxProgress, "commission-textile").nextStep.includes("City Watch") ||
+      !currentObjective([...boxProgress, ...discoveredLeads(watchHandoff)], "commission-textile").nextStep.includes("collect the reward they mentioned")) {
     throw new Error("Cadorna's journal did not move on after the Watch handoff");
   }
   const confrontation = lines.find((line) => line.includes("COUNCILMAN CADORNA CONFRONTS YOU"));

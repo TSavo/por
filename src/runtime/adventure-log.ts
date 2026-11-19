@@ -105,6 +105,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "bane" && tracked.status === "ready-to-report" && knows("bane-cleric-dispatch")) {
         return { title: commission.title, nextStep: "Read journal entry 25, then tell the council clerk at City Hall that the temple was recovered." };
       }
+      if (commission.id === "textile" && tracked.status === "ready-to-report" && knows("textile-handoff")) {
+        return { title: commission.title, nextStep: "The City Watch took the treasure. Go to the council clerk at City Hall to collect the reward they mentioned." };
+      }
       if (commission.id === "auction" && tracked.status === "ready-to-report") {
         const result = knows("auction-cancelled") ? "Report that the auction was cancelled"
           : knows("auction-wand-of-fear") ? "Report that the weapon was a Wand of Fear"
