@@ -37,6 +37,14 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["slums-ohlo-study-approach", {
+    slot: "B", inputs: ["up", "b", "b"],
+    placement: [56, 32, "encounter:area:20:SPRIT2.DAX:24:1:0", 24, 65],
+    approachSteps: [{
+      inputs: ["t", "n", "a"], placement: [56, 32, "encounter:area:20:SPRIT2.DAX:24:1:0", 24, 65],
+    }],
+    acceptedCommission: "commission-ohlo",
+  }],
   ["yarash-study", {
     slot: "A", inputs: ["up", "up", "b", "up"],
     placement: [64, 24, "encounter:area:23:SPRIT7.DAX:24:2:0", 48, 57],
@@ -853,6 +861,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["buccaneer-guard-approach", {
+    slot: "A", area: 1, views: 18, patterns: 77, sceneryOnly: true,
+    walk: ["left", "up", "right", "up", "up", "left", "left", "up", "up", "right", "up", "up", "left", "up", "left", "up", "up"],
+  }],
   ["buccaneer-pen-courts-east", {
     slot: "A", area: 1, views: 15, patterns: 66, sceneryOnly: true,
     walk: ["left", "up", "right", "up", "up", "left", "left", "up", "up", "right", "up", "up", "left", "up"],
@@ -1861,6 +1873,11 @@ try {
       assert.match(text, prompt);
       await waitFor("the enhanced encounter dialogue", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
       await switchBothWays();
+    }
+    if (encounterRoute.acceptedCommission) {
+      await advance("j");
+      assert.equal(frame.journal?.leads.find(({ id }) => id === encounterRoute.acceptedCommission)?.status, "accepted");
+      await advance("j");
     }
     console.log(`Verified ${routeName} source frame, screen anchor, and mode switching in Chrome.`);
   } else if (routeName === "lizardfolk-battle-wall") {

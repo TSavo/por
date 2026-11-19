@@ -1,6 +1,10 @@
 {
   "version": 1,
   "assets": {
+    "tile:1:5489a60945a1c69e6349b1dbbbfa55e6e0f2a04200f80cb2d4297b8177cee54c": "buccaneer-guard-approach-terrain-5489a60945a1.png",
+    "tile:1:297ae58620a76aff7e45afd3c6c147f02104a51cd0202ea310ca5b2f4777faad": "buccaneer-guard-approach-terrain-297ae58620a7.png",
+    "tile:1:9e23ea0fdb7a101530a3d4837088cd9fdd4a85e01ff96b422ec027b486078ffe": "buccaneer-guard-approach-terrain-9e23ea0fdb7a.png",
+    "encounter:area:20:SPRIT2.DAX:24:1:0": "slums-ohlo-study-approach.png",
     "tile:1:89df930146c0d4434aa212d21c4e003dc235845c653f9907dcaf99bc2949f43b": "buccaneer-pen-courts-terrain-89df930146c0.png",
     "tile:1:de88ae2fda80902fc7a533c464374cdda40c8d748ac5a6e0ee32c004b1349170": "buccaneer-pen-courts-terrain-de88ae2fda80.png",
     "tile:1:30afc84439ed620ceabe3f9581edef7e85315d157b00dd7071f3552f368a4e9d": "buccaneer-pen-courts-terrain-30afc84439ed.png",
@@ -3273,6 +3277,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:20:SPRIT2.DAX:24:1:0": { "area": 20, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:23:SPRIT7.DAX:24:2:0": { "area": 23, "x": 64, "y": 24, "width": 48, "height": 57 },
     "encounter:area:23:SPRIT7.DAX:24:1:0": { "area": 23, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:23:SPRIT7.DAX:24:0:0": { "area": 23, "x": 48, "y": 32, "width": 32, "height": 73 },
