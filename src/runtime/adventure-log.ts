@@ -117,6 +117,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       return { title: commission.title, nextStep: tracked.detail };
     }
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
+    if (commission.id === "auction" && tracked?.status === "accepted") {
+      if (knows("auction-plaza-entry")) nextStep = "Disguise the party or sneak past the crowd. Find the auctioneer in Podal Plaza and observe the sale.";
+      else if (knows("harbor-routes-reopened")) nextStep = "Choose West at the harbor master's ferry menu, then look for Podal Plaza.";
+    }
     if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
     if (commission.id === "textile") {
       const carriedKey = leads.find(({ id }) => id === "textile-prison-key-carried");
@@ -1039,6 +1043,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU SEE THE CHIEF OF THE HOBGOBLINS, A HUGE OGRE")) {
     leads.push({ id: "textile-ogre-chief", title: "The hobgoblins' chief",
       detail: "The party found the ogre chief in a torchlit room beyond the secret door." });
+  }
+  if (text.includes("THE PLAZA AHEAD IS CROWDED WITH MONSTERS")) {
+    leads.push({ id: "auction-plaza-entry", title: "The crowd at Podal Plaza",
+      detail: "The party can disguise itself as monsters or sneak past the crowd." });
   }
   if (text.includes("IT'S ONLY A WAND OF FEAR")) {
     leads.push({ id: "auction-wand-of-fear", title: "The auction weapon",

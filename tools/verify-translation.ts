@@ -382,6 +382,18 @@ function checkCampaignJournal(): void {
     throw new Error("Mendor objective should follow witnessed map and book discoveries");
   }
   const auctionOffer = discoveredLeads(auction.offer);
+  writeGlobal(progressAddresses.auction!, 1);
+  const auctionAccepted = questProgress(m, auctionOffer, m.ds);
+  if (!currentObjective(auctionAccepted, "commission-auction").nextStep.includes("ask the harbor master")) {
+    throw new Error("The auction journal missed the departure step");
+  }
+  for (const [fragment, hint] of [["BOATS LEAVE FOR THE WEST, THE EAST, SOKAL KEEP, AND THE NORTH SIDE OF THE BAY", "Choose West"],
+    ["THE PLAZA AHEAD IS CROWDED WITH MONSTERS", "Disguise the party or sneak"]]) {
+    const line = lines.find(text => text.includes(fragment!));
+    if (!line || !currentObjective([...auctionAccepted, ...discoveredLeads(line)], "commission-auction").nextStep.includes(hint!)) {
+      throw new Error(`Auction journal missed the next step after ${fragment}`);
+    }
+  }
   writeGlobal(progressAddresses.auction!, 254);
   const auctionReady = questProgress(m, auctionOffer, m.ds);
   if (!currentObjective(auctionReady).nextStep.includes("what the party saw")) {
