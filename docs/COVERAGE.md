@@ -2831,6 +2831,8 @@ weapon-neutral lunge shared by the sword and bow attacks.
 `tyrmor-prison-kobold-combat` exercises the ready pose and reflected bow
 attack with the installed pack and checks that display switching leaves
 the selected save intact.
+The Tyrmor prison priest replay checks the middle and near approach
+sprites at each stop and the portrait at his benediction.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.

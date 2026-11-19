@@ -5,6 +5,9 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:1:0": "tyrmor-prison-priest-approach-middle.png",
+    "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:0:0": "tyrmor-prison-priest-approach-near.png",
+    "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30": "tyrmor-prison-priest-dialogue.png",
     "tile:26:de8a467e8a583141f13dc6fe0722d0fb93bd8ac0f7d5207c1149e35287d3d5f1": "wilderness-branch-terrain-de8a467e8a58.png",
     "tile:26:bf43d1aae6a289fca465e43486946bed967fc6ae0ae0756885b1f585fd54a425": "wilderness-branch-terrain-bf43d1aae6a2.png",
     "tile:26:51c0f6d53f16516a54c3a91347715661e7cb6bf57c615cb2f3e732431a590795": "wilderness-branch-terrain-51c0f6d53f16.png",
@@ -4495,6 +4498,8 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:1:0": { "area": 22, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:0:0": { "area": 22, "x": 56, "y": 32, "width": 24, "height": 80 },
     "encounter:area:26:ecl:a8a0:SPRIT7.DAX:57:0:0": { "area": 26, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:26:ecl:a9a9:SPRIT7.DAX:57:0:0": { "area": 26, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:26:ecl:a944:SPRIT7.DAX:57:0:0": { "area": 26, "x": 48, "y": 32, "width": 48, "height": 80 },

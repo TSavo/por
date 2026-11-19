@@ -499,14 +499,22 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
   }],
+  ["tyrmor-prison-priest", {
+    slot: "B", inputs: ["up", "enter", "a", "a"],
+    approachStops: {
+      2: [56, 32, "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:1:0", 24, 65],
+      3: [56, 32, "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:0:0", 24, 80],
+    },
+    portrait: "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30", prompt: /RAISESHISHANDINBENEDICTION/i,
+  }],
   ["old-phlan-mutant-hut", {
     slot: "A", inputs: ["up", "enter", "enter"],
-    approachBeforePortrait: [48, 32, "encounter:area:26:ecl:a8a0:SPRIT7.DAX:57:0:0", 48, 80],
+    approachStops: { 2: [48, 32, "encounter:area:26:ecl:a8a0:SPRIT7.DAX:57:0:0", 48, 80] },
     portrait: "portrait:area:26:ecl:a91c:PIC7.DAX:57:0:0", prompt: /TWOHORRIBLYMUTATEDLIZARDMEN/i,
   }],
   ["old-phlan-large-lizardfolk", {
     slot: "A", inputs: ["up", "enter", "enter"],
-    approachBeforePortrait: [48, 32, "encounter:area:26:ecl:a9a9:SPRIT7.DAX:57:0:0", 48, 80],
+    approachStops: { 2: [48, 32, "encounter:area:26:ecl:a9a9:SPRIT7.DAX:57:0:0", 48, 80] },
     approachTerrainArea: 26,
     portrait: "portrait:area:26:ecl:aa06:PIC7.DAX:57:0:0", prompt: /INTHISROOMTHEREAREFOURLARGELIZARDMEN/i,
   }],
@@ -3755,8 +3763,8 @@ try {
       await run('window.releasePortrait()');
     } else {
       for (const [index, key] of inputs.entries()) {
-        if (illustration.approachBeforePortrait && index === inputs.length - 1) {
-          const placement = illustration.approachBeforePortrait;
+        const placement = illustration.approachStops?.[index];
+        if (placement) {
           const [, , id, width, height] = placement;
           assert.deepEqual(frame.encounter, placement);
           await waitFor("the enhanced approach before the portrait", () => run(`(() => {
