@@ -212,6 +212,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["new-phlan-tavern-spinner", {
+    slot: "A", inputs: ["up", "enter", "y"],
+    portrait: "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:7", prompt: /WESPINTHISTOP/i,
+  }],
+  ["new-phlan-tavern-brawl", {
+    slot: "A", inputs: ["up", "enter", "enter", "n", "enter", "enter"],
+    portrait: "portrait:area:0:HEAD3.DAX:53:BODY3.DAX:7", prompt: /ADRUNKENBRAWLBREAKSOUT/i,
+  }],
   ["new-phlan-rolf-tour", {
     slot: "A", inputs: [],
     portrait: "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9", prompt: /IAMROLF/i,
@@ -433,6 +441,16 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["new-phlan-watch-mage", {
+    slot: "A", stand: "combat:area:11:CPIC3.DAX:14:ecl:a07a",
+    width: 96, height: 96, readyPrompt: /LEVEL3MUHITPOINTS9/i,
+    inputs: [...arenaWatchBattle, ...Array(17).fill("q")], strikeInputs: [],
+  }],
+  ["new-phlan-harbor-watch-mage", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:14:ecl:ae09",
+    width: 96, height: 96, readyPrompt: /LEVEL3MUHITPOINTS9/i,
+    inputs: [...harborWatchBattle, ...Array(17).fill("q")], strikeInputs: [],
+  }],
   ["new-phlan-harbor-watch-fighter", {
     slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:ae09", strike: "combat:area:0:CPIC3.DAX:144:ecl:ae09",
     width: 96, height: 96, strikeReflected: false,
@@ -816,6 +834,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["buccaneer-stockade", {
+    slot: "A", area: 1, views: 7, patterns: 33, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up"],
+  }],
   ["stojanow-west-watch", {
     slot: "A", area: 9, views: 12, patterns: 34, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "up", "right", "up", "up", "right", "up"],
