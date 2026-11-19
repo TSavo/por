@@ -1163,7 +1163,11 @@ and floor pieces. The `kobold-king-return-throne` replay follows the new
 journal directions from the pit back to the throne room. It verifies all
 1,331 tile placements across eleven views, including four new door jamb
 and sill tiles, and saves at (5,1) facing south with the report pending.
-The remaining walk from the throne room to the cave exit needs verification.
+The `kobold-king-leave-caves` replay loads that throne-room save and follows
+the southern route past the tables and pool. Chrome checks 3,993 tile
+placements across 33 views, including 15 new 32×32 pieces. It exits at
+overland (32,15) south, checks the journal's New Phlan report objective,
+and saves the witnessed cave exit in slot B.
 It also tests the surrender demand, restores the prison escort clue from a
 saved journal, and checks the separate cell and Fatima outcomes against
 their original dialogue. The surrender branch still needs a live replay.

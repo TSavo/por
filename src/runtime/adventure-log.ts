@@ -117,9 +117,13 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
         return { title: commission.title, nextStep: "Return to City Hall and report Tyranthraxus's defeat to the council clerk." };
       }
       if (commission.id === "kobolds" && tracked.status === "ready-to-report" && knows("kobold-king-fell")) {
+        if (knows("kobold-caves-left")) {
+          return { title: commission.title, nextStep: "Return to New Phlan and tell the council clerk at City Hall that the king fell into his own pit." };
+        }
         const report = "Leave the kobold caves and tell the council clerk at City Hall that the king fell into his own pit.";
         const passage = "If you're still at the pit, retrace the secret passage: one square west, one north, four west, then south into the throne room.";
-        return { title: commission.title, nextStep: knows("kobold-king-secret-door") ? `${passage} ${report}` : report };
+        const exit = "From the throne, go south five squares, west one, south one, then west to the tables. From the tables, go south two, east one, south two, west one, south one, east three, then south to the exit.";
+        return { title: commission.title, nextStep: knows("kobold-king-secret-door") ? `${passage} ${exit} ${report}` : report };
       }
       if (commission.id === "ohlo" && tracked.status === "ready-to-report") {
         return { title: commission.title, nextStep: "Take the package back to Ohlo and choose Give when he asks for the potion." };
@@ -452,6 +456,10 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   if ((base | segment) === 0) return [];
   const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
   const progress: JournalLead[] = [];
+  if (cpu.read8(dataSegment, 0x82a2) === 27 && known.some(({ id }) => id === "kobold-king-fell")) {
+    progress.push({ id: "kobold-caves-left", title: "Out of the kobold caves",
+      detail: "The party returned to the overland route after the king fell." });
+  }
   if (cpu.read8(dataSegment, 0x82a2) === 13 && global(0x4a0b) === 2 && known.some(({ id }) => id === "kobold-king-escaped")) {
     progress.push({ id: "kobold-king-secret-door", title: "Secret door in the north wall",
       detail: "The party found a hidden door in the kobold caves after the king escaped." });
