@@ -853,6 +853,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["buccaneer-pen-courts-east", {
+    slot: "A", area: 1, views: 15, patterns: 66, sceneryOnly: true,
+    walk: ["left", "up", "right", "up", "up", "left", "left", "up", "up", "right", "up", "up", "left", "up"],
+  }],
+  ["buccaneer-pen-courts-south", {
+    slot: "A", area: 1, views: 13, patterns: 72, sceneryOnly: true,
+    walk: ["right", "right", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up"],
+  }],
   ["buccaneer-pen-spur", {
     slot: "A", area: 1, views: 9, patterns: 36, sceneryOnly: true,
     walk: ["left", "up", "right", "up", "up", "left", "up", "up"],
