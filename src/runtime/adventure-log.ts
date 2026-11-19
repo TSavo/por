@@ -388,6 +388,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("castle-impostor")) nextStep = knows("castle-flaming-aura")
         ? "Continue searching the castle for the real Tyranthraxus. His own note says to recognize him by his flaming aura."
         : "Continue searching the castle for the real Tyranthraxus.";
+      else if (knows("castle-giant-sentries-passed")) nextStep = "Continue past the giant sentries and search the castle for Tyranthraxus.";
+      else if (knows("castle-giant-sentries")) nextStep = "The giant sentries demand a password. Give it if you know it, or withdraw and look for a way around them.";
       else if (knows("castle-hedge-gate-password") && knows("castle-cadorna-hedge")) nextStep = "Use the password from the kitchen at the main gate, then take Cadorna's route through the hedge: left, right, right.";
       else if (knows("castle-hedge-gate-password")) nextStep = "Use the password from the kitchen at the main gate into the hedge maze.";
       else if (knows("castle-cadorna-hedge")) nextStep = "Follow Cadorna's directions through the hedge: left, right, right.";
@@ -1181,6 +1183,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("IT IS TODAY'S PASSWORD AT THE MAIN GATE INTO THE HEDGE MAZE")) {
     leads.push({ id: "castle-hedge-gate-password", title: "Password for the hedge gate",
       detail: "A freed captive gave the party a slip from the overseer's pouch with today's password for the main gate into the hedge maze." });
+  }
+  if (text.includes("TELL ME PASSWORD OR I KILL YOU")) {
+    leads.push({ id: "castle-giant-sentries", title: "The giant sentries demand a password",
+      detail: "The giant blocking the way demanded that the party give a password." });
+  }
+  if (text.includes("OKAY, BUT NO HANGING AROUND") || text.includes("SORRY ME NOT KNOW! JUST DOING JOB! YOU GO NOW")) {
+    leads.push({ id: "castle-giant-sentries-passed", title: "The giant sentries let you pass",
+      detail: "The sentries agreed to let the party through." });
   }
   if (text.includes("YOU ARE IN A BUILDING FULL OF RECORDS") && text.includes("DO YOU WISH TO SPEND HOURS READING THE RECORDS")) {
     leads.push({ id: "castle-records-room", title: "Valjevo records room",

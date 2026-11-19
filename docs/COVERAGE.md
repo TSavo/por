@@ -3211,6 +3211,13 @@ sprite at (48, 32) and a dialogue illustration. Chrome verified the
 production replacements in both frames and preserved the party state
 and save across the display toggle.
 
+The lower-keep giant checkpoint has two dedicated illustrations across
+the password and parlay prompts. Chrome verified the production artwork,
+Classic and Enhanced toggles, and passage after the accepted password.
+The journal records the giant's demand and advances when the sentries
+grant passage. The translation verifier checks both transitions against
+the original ECL dialogue.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the

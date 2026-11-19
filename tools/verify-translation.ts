@@ -1152,6 +1152,8 @@ function checkCampaignJournal(): void {
   let castleTranscript = castle.offer;
   const castleRoute = [
     ["USE THESE CLOTHES AS A DISGUISE", "Use the clothes"],
+    ["TELL ME PASSWORD OR I KILL YOU", "demand a password"],
+    ["OKAY, BUT NO HANGING AROUND", "Continue past the giant sentries"],
     ["HE JUST HIRED ME TO IMPERSONATE HIM", "real Tyranthraxus"],
     ["DO NOT BE FOOLED BY OUTWARD FORMS", "flaming aura"],
     ["AN ANCIENT BRONZE DRAGON", "Get past the guards"],
