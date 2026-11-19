@@ -36,6 +36,7 @@ const kovelClues = [
 ];
 const kovelObjectives = new Map(kovelClues.map(({ id, nextStep }) => [id, nextStep]));
 kovelObjectives.set("kovel-guildmaster-confronted", "After the fight with the guildmaster, continue searching Kovel Mansion for the thieves.");
+kovelObjectives.set("kovel-chase-ended", "Continue searching Kovel Mansion for the thieves.");
 kovelObjectives.set("kovel-thief-ambush-cleared", "Continue searching the mansion for the remaining thieves.");
 
 /** Observe the Pascal strings actually sent to the guest's text display. */
@@ -480,9 +481,11 @@ export function journalInventoryLeads(cpu: Cpu, known: readonly JournalLead[], d
   return leads;
 }
 
-export function atKovelGuildmasterCombat(cpu: Cpu, dataSegment: number): boolean {
-  // Kovel's Attack branch runs COMBAT at 9C91, suspending at 9C92.
-  return cpu.read8(dataSegment, 0x82a2) === 14 && cpu.read16(dataSegment, 0x494e) === 0x9c92;
+export function kovelJournalTransition(cpu: Cpu, dataSegment: number): number | undefined {
+  if (cpu.read8(dataSegment, 0x82a2) !== 14) return;
+  const cursor = cpu.read16(dataSegment, 0x494e);
+  // The original COMBAT and EXIT instructions leave the cursor at these addresses.
+  if (cursor === 0x9c92 || cursor === 0xb359) return cursor;
 }
 
 export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegment: number): JournalLead[] {
@@ -492,6 +495,7 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   if ((base | segment) === 0) return [];
   const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
   const progress: JournalLead[] = [];
+  const kovelTransition = kovelJournalTransition(cpu, dataSegment);
   // Podal's entry menu stores the chosen approach in the local crowd state.
   if (cpu.read8(dataSegment, 0x82a2) === 18 && global(0x4a35) !== 0 &&
       known.some(({ id }) => id === "auction-plaza-entry")) {
@@ -516,10 +520,17 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     progress.push({ id: "kobold-king-secret-door", title: "Secret door in the north wall",
       detail: "The party found a hidden door in the kobold caves after the king escaped." });
   }
-  if (atKovelGuildmasterCombat(cpu, dataSegment) &&
+  if (kovelTransition === 0x9c92 &&
       known.some(({ id }) => id === "kovel-guildmaster") && !known.some(({ id }) => id === "kovel-guildmaster-escaped")) {
     progress.push({ id: "kovel-guildmaster-confronted", title: "Guildmaster confronted",
       detail: "The party chose to fight the guildmaster." });
+  }
+  if (kovelTransition === 0xb359) {
+    const lastClue = known.filter(({ id }) => kovelObjectives.has(id)).at(-1);
+    if (lastClue?.id === "kovel-chase" || lastClue?.id === "kovel-thieves-split") {
+      progress.push({ id: "kovel-chase-ended", title: "Chase ended",
+        detail: "The party stopped pursuing the fleeing thieves." });
+    }
   }
   // Other ECL scripts reuse this variable for unrelated local events.
   if (cpu.read8(dataSegment, 0x82a2) === 14 && global(0x4a19) === 1 && known.some(({ id }) => id === "kovel-thief-ambush")) {

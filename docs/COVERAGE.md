@@ -1059,6 +1059,8 @@ loads that save through the native menu and checks the tracked commission,
 the four witnessed clues, and the objective to resume searching.
 `kovel-chase-attack` checks that choosing Attack records the confrontation
 when the native battle starts and replaces the Attack or Release objective.
+`kovel-chase-decline` chooses Don't Follow at the fork and checks that the
+journal returns to searching without revealing either branch's outcome.
 The translation verifier also checks the file discovery and chase in both
 orders, including with the first clue restored from a save. The tracked
 objective uses the most recent discovery in each case.

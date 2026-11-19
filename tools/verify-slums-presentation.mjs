@@ -1931,7 +1931,7 @@ routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload")
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
-routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack");
+routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline");
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
@@ -4664,7 +4664,14 @@ try {
     assert.equal(frame.journal.trackedId, "commission-kovel");
     assert.match(frame.journal.objective.nextStep, /south or east door/i);
     await switchBothWays();
-    if (routeName !== "kovel-chase") {
+    if (routeName === "kovel-chase-decline") {
+      assert.ok(!knows("kovel-chase-ended"));
+      for (const key of ["j", "d"]) await advance(key);
+      assert.match(textOf(frame), /AREACASTVIEWENCAMP/i);
+      await advance("j");
+      assert.ok(knows("kovel-chase-ended") && !knows(ambush) && !knows("kovel-guildmaster"));
+      assert.match(frame.journal.objective.nextStep, /^Continue searching Kovel Mansion/i);
+    } else if (routeName !== "kovel-chase") {
       for (const key of ["j", "e"]) await advance(key);
       assert.match(textOf(frame), /IAMTHEGUILDMASTER.*ATTACKRELEASE/i);
       await advance("j");

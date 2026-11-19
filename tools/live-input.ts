@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { Frame } from "../src/lib/ega.js";
 import type { EncounterAnchor } from "../src/lib/assets.js";
 import type { Cpu } from "../src/cpu/machine.js";
-import { atKovelGuildmasterCombat, currentObjective, isOpenObjective, type JournalLead } from "../src/runtime/adventure-log.js";
+import { currentObjective, isOpenObjective, kovelJournalTransition, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
@@ -275,7 +275,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   let inCampMenu = false;
   let diskMenuDepth = 0;
-  let guildmasterCombat = false;
+  let previousKovelTransition: number | undefined;
   const openJournal = () => {
     showJournal(journal());
     while (true) {
@@ -300,9 +300,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
-    const enteringGuildmasterCombat = atKovelGuildmasterCombat(cpu, 0x740);
-    if (enteringGuildmasterCombat && !guildmasterCombat) journal();
-    guildmasterCombat = enteringGuildmasterCombat;
+    const kovelTransition = kovelJournalTransition(cpu, 0x740);
+    if (kovelTransition !== undefined && kovelTransition !== previousKovelTransition) journal();
+    previousKovelTransition = kovelTransition;
     let automaticCombat = false;
     if (browser) {
       const segment = cpu.read16(0x740, 0x4935);
