@@ -246,6 +246,11 @@ function togglePresentation() {
   document.documentElement.dataset.presentation = enhanced ? "enhanced" : "classic";
   presentation.setAttribute("aria-pressed", String(enhanced));
   if (!enhanced) stopVoice();
+  if (animationFrame) {
+    // Let the new presentation finish decoding before timing the frame again.
+    clearTimeout(animationTimer);
+    animationTimer = undefined;
+  }
   showScreen();
   playPendingVoice();
 }

@@ -2426,11 +2426,12 @@ try {
           observer.disconnect();
           const report = animationFrame;
           document.querySelector("#presentation").click();
+          const pausedDuringDecode = animationTimer === undefined;
           await showScreen();
           const classic = panel.hidden;
           window.dispatchEvent(new KeyboardEvent("keydown", { key: "F10" }));
           await showScreen();
-          window.reportSwitch = classic && animationFrame === report && !panel.hidden && ${miss}.test(panel.textContent);
+          window.reportSwitch = pausedDuringDecode && classic && animationFrame === report && !panel.hidden && ${miss}.test(panel.textContent);
         });
         observer.observe(panel, { childList: true });`);
       for (const key of ["m", "right", "right", "down"]) await advance(key);

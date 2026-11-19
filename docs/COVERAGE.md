@@ -2623,7 +2623,9 @@ The `new-phlan-arena-manual-report` replay uses the same checkpoint. It
 delays the browser's image decode for Alda's next miss beyond the report's
 display time and checks that the combat panel still shows the report.
 It also switches to Classic and back during that report. The animation
-timer starts after the frame renders, and Quick waits for the report
+timer starts after the frame renders and restarts after the selected
+presentation renders, so decoding cannot consume the display time.
+Quick waits for the report
 animation to finish before polling the guest for the next turn.
 
 The `kobold-king-return-council` replay starts from the slot B emitted by
