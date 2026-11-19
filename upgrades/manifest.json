@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:31:CPIC1.DAX:4": "bane-orc-stand.png",
+    "combat:area:31:CPIC1.DAX:132": "bane-orc-strike.png",
     "portrait:HEAD4.DAX:32:BODY4.DAX:3": "textile-skullcrusher-chained.png",
     "tile:16:326785667f8ebc9565683c4d102f8199fbad185afd3eaa4feebfe72540872826": "lizard-north-canal-terrain-326785667f8e.png",
     "tile:16:8702ad6f6409e5d76690001a6f1a39e6541a0b7e3b2c7203ddac7cc4cecbdc83": "lizard-north-canal-terrain-8702ad6f6409.png",

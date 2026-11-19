@@ -237,6 +237,10 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["bane-orc-combat", {
+    slot: "A", stand: "combat:area:31:CPIC1.DAX:4", strike: "combat:area:31:CPIC1.DAX:132",
+    width: 96, height: 96, inputs: ["up", ...Array(4).fill("enter")], strikeInputs: ["enter"],
+  }],
   ["kobold-rematch-infantry", {
     slot: "A", stand: "combat:area:13:CPIC2.DAX:0:ecl:a2a4", strike: "combat:area:13:CPIC2.DAX:128:ecl:a2a4",
     width: 96, height: 96,
