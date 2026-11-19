@@ -980,8 +980,10 @@ party sees it in the next dialogue.
 The translation verifier checks the Kovel Mansion journal against the
 original chase, split, guildmaster, release, and ambush dialogue. It also
 checks that the mansion's local victory flag updates the objective and
-that the same flag in another area has no effect. A live mansion replay
-is still pending.
+that the same flag in another area has no effect. The `kovel-guild-files`
+Chrome replay starts inside the mansion at (7,14) east with the commission
+tracked. It checks that entries 38 and 51 are only suggested after the party
+finds the files on the floor. The chase branch still needs a live replay.
 The `--classic-portrait` variant removes the mounted escort replacement
 from the test art pack. Chrome verifies that the original picture fills
 the Enhanced panel, switches back to native Classic geometry, and still

@@ -230,6 +230,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("kovel-guildmaster")) nextStep = "Choose Attack to confront the guildmaster, or Release to take him at his word.";
       else if (knows("kovel-thieves-split")) nextStep = "Follow the thieves through the south or east door, or resume searching the mansion.";
       else if (knows("kovel-chase")) nextStep = "Choose Yes to chase the thieves through the east door, or continue searching the mansion.";
+      else if (knows("kovel-guild-files")) nextStep = "Read journal entries 38 and 51, then continue searching the mansion for the thieves.";
     }
     if (commission.id === "graveyard") {
       if (knows("graveyard-vampire-north-wall")) nextStep = "Search the northern wall the mystic pointed out, then confront the vampire.";
