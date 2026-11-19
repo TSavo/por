@@ -63,6 +63,134 @@
         }
       ],
       "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.haunts-diary",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "sokal-spirit",
+      "conversation": "sokal-haunts",
+      "sourceId": "por.voice.ecl-4.block-21.at-a463.operand-0",
+      "text": "BEFORE THE CLERIC'S SPELLS INADVERTENTLY BOUND THEM TO THIS PLACE. ONE SPIRIT'S VOICE RISES ABOVE THE REST, 'AN ACCOUNT OF OUR TRIALS IS WITHIN THE DIARY.' HE POINTS TO A FLOORBOARD.",
+      "context": { "area": "Sokal Keep", "scene": "haunted barracks" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "BEFORE THE CLERIC'S SPELLS INADVERTENTLY BOUND THEM TO THIS PLACE. ONE SPIRIT'S VOICE RISES ABOVE THE REST, ",
+          "direction": "measured historical fantasy narration, sorrowful and restrained"
+        },
+        {
+          "text": "'AN ACCOUNT OF OUR TRIALS IS WITHIN THE DIARY.'",
+          "direction": "as the same narrator, perform a mournful spirit whose voice rises above a distant chorus"
+        },
+        {
+          "text": " HE POINTS TO A FLOORBOARD.",
+          "direction": "return to the narrator's measured normal voice"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.ferran-rebukes-lie",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "ferran-martinez",
+      "conversation": "sokal-ferran",
+      "sourceId": "por.voice.ecl-4.block-21.at-ab98.operand-0",
+      "text": "'YOU LIE,' THE SPIRIT MOANS AS IT FADES AWAY.",
+      "context": { "area": "Sokal Keep", "scene": "chapel altar" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "'YOU LIE,'",
+          "direction": "as the same narrator, perform Ferran's weary spirit with wounded accusation"
+        },
+        {
+          "text": " THE SPIRIT MOANS AS IT FADES AWAY.",
+          "direction": "return to restrained narration"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.ferran-history-one",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "ferran-martinez",
+      "conversation": "sokal-ferran-history",
+      "sourceId": "por.voice.ecl-4.block-21.at-abc7.operand-0",
+      "text": "FERRAN SPEAKS: 'THE CITY FELL LONG AGO TO THE UNBLESSED CREATURES IMBUED WITH THE MIGHT OF A MAGICAL POOL. CHIEF AMONG THESE WERE TYRANTHRAXUS, EDRANKA, AND TORATH.",
+      "context": { "area": "Sokal Keep", "scene": "chapel altar" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "FERRAN SPEAKS: ",
+          "direction": "measured historical fantasy narration"
+        },
+        {
+          "text": "'THE CITY FELL LONG AGO TO THE UNBLESSED CREATURES IMBUED WITH THE MIGHT OF A MAGICAL POOL. CHIEF AMONG THESE WERE TYRANTHRAXUS, EDRANKA, AND TORATH.",
+          "direction": "as the same narrator, perform Ferran's weary, honorable spirit recounting a grave history"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.ferran-history-two",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "ferran-martinez",
+      "conversation": "sokal-ferran-history",
+      "sourceId": "por.voice.ecl-4.block-21.at-ac4a.operand-0",
+      "text": "WITH THEIR POWERS THEY RULED AND UNITED ALL ELSE, DRIVING FORWARD TO DESTROY US ALL. THE SAGE MENDOR WORKED HARD TO GATHER RECORD OF ALL THESE THINGS, BUT THEY ARE LOST NOW, HIS LIBRARY OVERRUN.",
+      "context": { "area": "Sokal Keep", "scene": "chapel altar" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "WITH THEIR POWERS THEY RULED AND UNITED ALL ELSE, DRIVING FORWARD TO DESTROY US ALL. THE SAGE MENDOR WORKED HARD TO GATHER RECORD OF ALL THESE THINGS, BUT THEY ARE LOST NOW, HIS LIBRARY OVERRUN.",
+          "direction": "continue Ferran's weary, honorable spirit voice, grave and deliberate; remain the same narrator speaker"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.ferran-history-three",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "ferran-martinez",
+      "conversation": "sokal-ferran-history",
+      "sourceId": "por.voice.ecl-4.block-21.at-acf1.operand-0",
+      "text": "TO FIND HELP FOR YOUR BATTLES, YOU SHOULD PASS THROUGH THE ILLUSIONARY WALL IN THE ARMORY OF THIS KEEP.",
+      "context": { "area": "Sokal Keep", "scene": "chapel altar" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "TO FIND HELP FOR YOUR BATTLES, YOU SHOULD PASS THROUGH THE ILLUSIONARY WALL IN THE ARMORY OF THIS KEEP.",
+          "direction": "continue Ferran's weary, honorable spirit voice, now quietly instructive; remain the same narrator speaker"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.ferran-farewell",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "ferran-martinez",
+      "conversation": "sokal-ferran-history",
+      "sourceId": "por.voice.ecl-4.block-21.at-ad42.operand-0",
+      "text": "TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'. NOW WE ARE FREED, OUR DUTY DONE!' FERRAN FADES AWAY.",
+      "context": { "area": "Sokal Keep", "scene": "chapel altar" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'. NOW WE ARE FREED, OUR DUTY DONE!'",
+          "direction": "continue Ferran's weary spirit voice, becoming relieved and peaceful at the farewell; remain the same narrator speaker"
+        },
+        {
+          "text": " FERRAN FADES AWAY.",
+          "direction": "return to the narrator's measured normal voice, quiet and final"
+        }
+      ],
+      "status": "annotated-prompt-ready"
     }
   ]
 }

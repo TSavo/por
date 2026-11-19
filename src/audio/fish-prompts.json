@@ -3,7 +3,7 @@
   "provider": "Fish Audio",
   "model": "drama-3",
   "generatedFrom": "src/audio/voice-plan.json annotations",
-  "promptCount": 2,
+  "promptCount": 8,
   "prompts": [
     {
       "id": "por.narration.sokal.chapel",
@@ -25,6 +25,72 @@
       "prompt": "<|speaker:0|>[measured historical fantasy narration] THE SHAPE SPEAKS, [in a weary, honorable spirit's voice, solemn and restrained; remain the same narrator speaker] 'I AM THE LIFE FORM OF FERRAN MARTINEZ, BOUND WITH THE UNDEAD SPIRITS OF ALL WHO DIE WITHIN THESE WALLS TO GUARD THE KEEP. TELL ME, HAS THE CITY BEEN FREED?'",
       "spokenText": "THE SHAPE SPEAKS, 'I AM THE LIFE FORM OF FERRAN MARTINEZ, BOUND WITH THE UNDEAD SPIRITS OF ALL WHO DIE WITHIN THESE WALLS TO GUARD THE KEEP. TELL ME, HAS THE CITY BEEN FREED?'",
       "spokenTextSha256": "a0b127d5da45be261e88fe3b989edd08dc05e182e9f199dbbd1abb5724af2df4",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.haunts-diary",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-4.block-21.at-a463.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[measured historical fantasy narration, sorrowful and restrained] BEFORE THE CLERIC'S SPELLS INADVERTENTLY BOUND THEM TO THIS PLACE. ONE SPIRIT'S VOICE RISES ABOVE THE REST, [as the same narrator, perform a mournful spirit whose voice rises above a distant chorus] 'AN ACCOUNT OF OUR TRIALS IS WITHIN THE DIARY.'[return to the narrator's measured normal voice]  HE POINTS TO A FLOORBOARD.",
+      "spokenText": "BEFORE THE CLERIC'S SPELLS INADVERTENTLY BOUND THEM TO THIS PLACE. ONE SPIRIT'S VOICE RISES ABOVE THE REST, 'AN ACCOUNT OF OUR TRIALS IS WITHIN THE DIARY.' HE POINTS TO A FLOORBOARD.",
+      "spokenTextSha256": "79f800eaa4feaa2ed73d9fad2a31c936a52aec20366b3f6a3a9aa3fd4133e812",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.ferran-rebukes-lie",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-4.block-21.at-ab98.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[as the same narrator, perform Ferran's weary spirit with wounded accusation] 'YOU LIE,'[return to restrained narration]  THE SPIRIT MOANS AS IT FADES AWAY.",
+      "spokenText": "'YOU LIE,' THE SPIRIT MOANS AS IT FADES AWAY.",
+      "spokenTextSha256": "723525643e9918b0bc21f7606e8a7124167251985f571c2057fdcc9b31cbce69",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.ferran-history-one",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-4.block-21.at-abc7.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[measured historical fantasy narration] FERRAN SPEAKS: [as the same narrator, perform Ferran's weary, honorable spirit recounting a grave history] 'THE CITY FELL LONG AGO TO THE UNBLESSED CREATURES IMBUED WITH THE MIGHT OF A MAGICAL POOL. CHIEF AMONG THESE WERE TYRANTHRAXUS, EDRANKA, AND TORATH.",
+      "spokenText": "FERRAN SPEAKS: 'THE CITY FELL LONG AGO TO THE UNBLESSED CREATURES IMBUED WITH THE MIGHT OF A MAGICAL POOL. CHIEF AMONG THESE WERE TYRANTHRAXUS, EDRANKA, AND TORATH.",
+      "spokenTextSha256": "bc72c977ab0c873dd7c24b9b481babbcdf3a46a4e23271228c2a3b255e116bbe",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.ferran-history-two",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-4.block-21.at-ac4a.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[continue Ferran's weary, honorable spirit voice, grave and deliberate; remain the same narrator speaker] WITH THEIR POWERS THEY RULED AND UNITED ALL ELSE, DRIVING FORWARD TO DESTROY US ALL. THE SAGE MENDOR WORKED HARD TO GATHER RECORD OF ALL THESE THINGS, BUT THEY ARE LOST NOW, HIS LIBRARY OVERRUN.",
+      "spokenText": "WITH THEIR POWERS THEY RULED AND UNITED ALL ELSE, DRIVING FORWARD TO DESTROY US ALL. THE SAGE MENDOR WORKED HARD TO GATHER RECORD OF ALL THESE THINGS, BUT THEY ARE LOST NOW, HIS LIBRARY OVERRUN.",
+      "spokenTextSha256": "b114f363a29bfaa526b828e191e3d9e858a9133e7cc6b35c0b39ef04b0058744",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.ferran-history-three",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-4.block-21.at-acf1.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[continue Ferran's weary, honorable spirit voice, now quietly instructive; remain the same narrator speaker] TO FIND HELP FOR YOUR BATTLES, YOU SHOULD PASS THROUGH THE ILLUSIONARY WALL IN THE ARMORY OF THIS KEEP.",
+      "spokenText": "TO FIND HELP FOR YOUR BATTLES, YOU SHOULD PASS THROUGH THE ILLUSIONARY WALL IN THE ARMORY OF THIS KEEP.",
+      "spokenTextSha256": "8619dd06f71797296620b14a08767966f5c3acc4b6257096ca000d27971e61b4",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.sokal.ferran-farewell",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-4.block-21.at-ad42.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[continue Ferran's weary spirit voice, becoming relieved and peaceful at the farewell; remain the same narrator speaker] TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'. NOW WE ARE FREED, OUR DUTY DONE!'[return to the narrator's measured normal voice, quiet and final]  FERRAN FADES AWAY.",
+      "spokenText": "TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'. NOW WE ARE FREED, OUR DUTY DONE!' FERRAN FADES AWAY.",
+      "spokenTextSha256": "b436abff35d92fd9efa1f335f2a9cf6cb0177cdb61b0cd55e9dcdb520b51745b",
       "status": "annotated-prompt-ready"
     }
   ]
