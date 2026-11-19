@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:11:SPRIT3.DAX:15:0:0": "new-phlan-city-watch-approach.png",
     "tile:10:7c45d5cabb74696f1bc9a79a20a18687a46f116c272537db40f8119defcf8c91": "valhingen-west-arch-terrain-7c45d5cabb74.png",
     "tile:10:fb6b407908d489c0c30c88f8e6ec954abf7c7d57549ff8b0f707f033a51ef3b8": "valhingen-west-arch-terrain-fb6b407908d4.png",
     "tile:10:760a25ac2197544ead8192a3626238ac2cabd20606f5f41f88864bdcd86dbda4": "valhingen-west-arch-terrain-760a25ac2197.png",
@@ -3176,6 +3177,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:11:SPRIT3.DAX:15:0:0": { "area": 11, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:11:SPRIT3.DAX:16:0:0": { "area": 11, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:31:SPRIT1.DAX:2:0:0": { "area": 31, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:31:SPRIT1.DAX:4:0:0": { "area": 31, "x": 48, "y": 32, "width": 40, "height": 80 },

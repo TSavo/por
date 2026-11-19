@@ -30,6 +30,13 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["new-phlan-city-watch-approach", {
+    slot: "A",
+    inputs: ["right", "right", "up", "up", "right", "up", "up", "enter", "enter",
+      "up", "up", "right", "up", "up", "up", "up", "enter", "enter", "up", "up", "enter",
+      "enter", "n", "n", "e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"],
+    placement: [48, 32, "encounter:area:11:SPRIT3.DAX:15:0:0", 40, 73],
+  }],
   ["new-phlan-arena-master-approach", {
     slot: "A",
     inputs: ["right", "right", "up", "up", "right", "up", "up", "enter", "enter",
