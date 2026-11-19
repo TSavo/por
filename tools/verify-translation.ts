@@ -788,8 +788,15 @@ function checkCampaignJournal(): void {
   const escapedParty = discoveredLeads(`${koboldOffer}\n${surrender}\n${partyEscape}`);
   if (!escapedParty.some(({ id }) => id === "kobold-party-escaped") ||
       escapedParty.some(({ id }) => id === "kobold-king-escaped" || id.startsWith("kobold-prison-")) ||
-      !currentObjective(escapedParty, "commission-kobolds").nextStep.includes("Regroup after escaping")) {
+      !currentObjective(escapedParty, "commission-kobolds").nextStep.includes("Regroup if needed")) {
     throw new Error("The kobold journal did not distinguish the party's escape from the king's escape or capture");
+  }
+  const returned = openJournalProfile();
+  returned.restore(escapedParty);
+  const rematch = returned(koboldLine("THE TWO ENVOYS WAIT AT THE THRONE"));
+  if (!rematch.some(({ id }) => id === "kobold-throne-envoys") ||
+      !currentObjective(rematch, "commission-kobolds").nextStep.includes("confront the king at the throne")) {
+    throw new Error("The kobold journal did not give a next step at the rematch after retreating");
   }
   for (const [trigger, expected, hidden] of [
     ["YOU ARE THROWN INTO A CELL BEREFT OF EQUIPMENT", "Look for a way out of the cell", "kobold-fatima-intervened"],

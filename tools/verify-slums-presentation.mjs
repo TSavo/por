@@ -3437,6 +3437,9 @@ try {
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead), "Expected witnessed dialogue lead");
+      if (routeName === "kobold-cave-envoys-rematch" && frame.journal.trackedId === "commission-kobolds") {
+        assert.match(frame.journal.objective.nextStep, /confront the king.*at the throne/i);
+      }
       await advance("j");
     }
     console.log(`Verified ${routeName} illustration, panel fit, and mode switching in Chrome.`);

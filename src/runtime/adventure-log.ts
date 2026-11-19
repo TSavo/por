@@ -255,7 +255,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (knows("kobold-king-quarters")) nextStep = "Defeat the king's guards and find him in his quarters.";
       else if (knows("kobold-king-secret-door")) nextStep = "Go through the secret door in the north wall. On the other side, turn east and go two squares to the king's quarters.";
       else if (knows("kobold-king-escaped")) nextStep = "Use Search in the throne room to look for the route the king took.";
-      else if (knows("kobold-party-escaped")) nextStep = "Regroup after escaping the kobolds. Return to the throne room when the party is ready.";
+      else if (knows("kobold-party-escaped")) nextStep = "Regroup if needed, then confront the king at the throne.";
       else if (knows("kobold-fatima-intervened")) nextStep = "Help Princess Fatima fight the kobolds who took the party prisoner.";
       else if (knows("kobold-prison-cell")) nextStep = "Look for a way out of the cell. Check the party's equipment before returning to the throne.";
       else if (knows("kobold-prison-escort")) nextStep = "See where the kobolds take the party and watch for a chance to escape.";
