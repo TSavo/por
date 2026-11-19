@@ -89,6 +89,17 @@ const encounterRoutes = new Map([
     slot: "B", inputs: ["s", "up", "up", "down", "up", "down"],
     placement: [40, 32, "encounter:area:2:SPRIT4.DAX:18:1:0", 56, 73],
   }],
+  ["podal-plaza-wandering-goblin", {
+    slot: "I", inputs: ["up", "up", "up", "left", "up", "up", "left", "up", "up", "left", "up", "up"],
+    placement: [48, 32, "encounter:area:18:ecl:9bce:SPRIT1.DAX:2:0:0", 48, 80],
+    approachSequence: [
+      [56, 32, "encounter:area:18:ecl:9b76:SPRIT1.DAX:2:2:0", 24, 49],
+      [56, 32, "encounter:area:18:ecl:9b77:SPRIT1.DAX:2:2:0", 24, 49],
+      [56, 32, "encounter:area:18:ecl:9b7b:SPRIT1.DAX:2:1:0", 32, 65],
+      [56, 32, "encounter:area:18:ecl:9bce:SPRIT1.DAX:2:1:0", 32, 65],
+      [48, 32, "encounter:area:18:ecl:9bce:SPRIT1.DAX:2:0:0", 48, 80],
+    ],
+  }],
   ["podal-recruit-assembly", {
     slot: "I", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:18:ecl:b0ce:SPRIT1.DAX:4:0:0", 40, 80],

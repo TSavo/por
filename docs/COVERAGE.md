@@ -3063,3 +3063,7 @@ The player axe icon passed the Chrome ready and action replay.
 
 The gold-shield icon uses the guest's bitwise head/body blend. Chrome
 verifies its ready pose and animated action after loading an editor-created save.
+
+The wandering Podal Plaza goblin uses three distance sprites across five
+observed approach frames. Chrome verifies their order, anchors, and
+state-preserving presentation switches.
