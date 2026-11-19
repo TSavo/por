@@ -2055,6 +2055,10 @@ choose **Free**, then **Unlock**.
 Pass the emitted slot I to the Chrome `textile-temple-native` replay.
 It verifies 363 terrain placements across three views, Grishnak's
 approach sprite and portrait, and the live quest guidance at the altar.
+It continues into combat and checks the two 96×96 blue and ochre
+swordsmen at their original grid positions. With both sprites separated
+from the terrain, the opening combat trace matches all 93 captured
+battlefield terrain cells.
 
 The Podal Plaza replay starts from that post-Sokal save at the clerk.
 It buys westbound passage, walks from the landing to the north entrance

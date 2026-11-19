@@ -2652,6 +2652,21 @@ try {
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-grishnak-defeated"));
       await advance("j");
       console.log("Enhanced Grishnak dialogue:", screenshot);
+      for (const key of ["enter", "enter", "space"]) await advance(key);
+      const partySprites = [
+        [80, 104, "combat:party:64:64"],
+        [152, 104, "combat:party:64:64:palette:062645678eaecdef"],
+      ];
+      for (const [x, y, id] of partySprites) {
+        assert.ok(frame.combatArt.some(([left, top, key]) => left === x && top === y && key === id));
+      }
+      await waitFor("both enhanced swordsmen in Grishnak's battle", () => run(`state.sequence === ${frame.sequence} &&
+        ${JSON.stringify(partySprites.map(([, , id]) => "/art/" + id))}.every(src =>
+          [...document.querySelectorAll(".combat-sprite")].some(img => img.getAttribute("src") === src && img.naturalWidth === 96))`));
+      const battle = await command("Page.captureScreenshot", { format: "png" });
+      const battleScreenshot = resolve(directory, "grishnak-combat.png");
+      writeFileSync(battleScreenshot, Buffer.from(battle.data, "base64"));
+      console.log("Enhanced Grishnak combat:", battleScreenshot);
     }
     console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
     if (towerSave) {

@@ -4169,6 +4169,8 @@
     "battle-tile:7c65890e55e9c2edab246c6c49f2bb097a16c24c639ca75533ec7904e97fa372": "courtyard-wall-cope-end-return.png",
     "combat:party:0:0": "sokal-party-scout.png",
     "combat:party:0:128": "combat-party-scout-strike.png",
+    "combat:party:64:64": "combat-party-swordsman-blue.png",
+    "combat:party:64:64:palette:062645678eaecdef": "combat-party-swordsman-ochre.png",
     "combat:party:64:64:palette:044645678ccecdef": "combat-party-swordsman-rust.png",
     "combat:party:64:64:palette:065345678edbcdef": "combat-party-swordsman-plum.png",
     "combat:party:64:192:palette:044645678ccecdef": "combat-party-swordsman-rust-strike.png",
