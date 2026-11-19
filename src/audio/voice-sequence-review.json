@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "sourceExtraction": "src/audio/voice-review-extraction.json",
+  "policy": {
+    "manualApprovalRequired": true,
+    "noAutomatedJoins": true,
+    "exactSourceTextRequired": true,
+    "characterContinuityReviewRequired": true
+  },
+  "playback": {
+    "attachment": "trigger-print-only",
+    "continuation": "audio-continues-across-covered-prints-while-player-advances"
+  },
+  "sequences": []
+}

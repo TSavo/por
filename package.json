@@ -20,6 +20,7 @@
     "select-narrator-voice": "tsx tools/select-narrator-voice.ts",
     "generate-narrator-anchor": "tsx tools/generate-narrator-anchor.ts",
     "voice-inventory": "tsx tools/voice-inventory.ts",
+    "voice-review-extraction": "tsx tools/voice-review-extraction.ts",
     "compile-fish-prompts": "tsx tools/compile-fish-prompts.ts",
     "voice-dispositions": "tsx tools/voice-dispositions.ts",
     "voice-coverage": "tsx tools/voice-coverage.ts",
