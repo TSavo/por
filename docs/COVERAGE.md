@@ -2806,6 +2806,8 @@ Four Chrome walks check 19 revised tiles across 90 views, and the
 entrance walk checks two matching edges across 22 more views.
 The Bane ramparts, ivy loop, and north court use wide sandstone paving.
 Three Chrome walks checked all 40 revised tiles across 60 views.
+Five related altar, crypt, and treasure walks check another 17 paving
+joins across 98 Chrome views.
 Old Phlan's east street and locked lane use broad worn flagstones
 distinct from the walls. Two Chrome walks check 18 tiles across 32
 views and 3,872 placements.
@@ -2936,6 +2938,8 @@ The Temple of Bane gate's Attack branch uses its own guard ready and
 cleaver-strike sprites. Chrome checks the reflected hit on Alda.
 The Bane barracks guard replay checks the uniformed orc ready sprites
 and the hatchet strike during the original attack report against Cora.
+The Textile House poison frog replay checks the crouch and reflected
+lunge beside the original attack report against Alda.
 The Giant Skeleton's retainers have a separate ready and sword-strike
 pair. Chrome checks the native attack on Cora from a controlled
 checkpoint for the retinue branch.

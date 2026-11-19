@@ -750,6 +750,13 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["textile-poison-frog-combat", {
+    slot: "B", stand: "combat:area:2:CPIC4.DAX:37:ecl:9aeb", strike: "combat:area:2:CPIC4.DAX:165:ecl:9aeb",
+    width: 96, height: 96, readyPrompt: /POISONOUSFROGHITPOINTS4AC8/i, strikeReflected: true,
+    strikeReport: /POISONOUSFROGATTACKSALDAANDMISSES/i,
+    inputs: ["s", "up", "up", "down", "up", "down", ...Array(4).fill("enter")],
+    strikeInputs: ["enter", "enter", "enter"],
+  }],
   ["bane-barrack-guard-combat", {
     slot: "A", stand: "combat:area:31:CPIC1.DAX:4:ecl:a1c8", strike: "combat:area:31:CPIC1.DAX:132:ecl:a1c8",
     width: 96, height: 96, readyPrompt: /ORCHITPOINTS5AC6/i, strikeReflected: false,
