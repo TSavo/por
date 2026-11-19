@@ -236,6 +236,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["old-phlan-east-lanes", {
+    slot: "A", area: 14, views: 17, patterns: 28, sceneryOnly: true,
+    walk: ["up", "up", "right", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up"],
+  }],
   ["stojanow-upper-road", {
     slot: "A", area: 9, views: 16, patterns: 40, sceneryOnly: true,
     walk: ["up", "up", "left", "up", "up", "right", "up", "right", "up", "up", "left", "up", "up", "right", "up"],

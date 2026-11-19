@@ -1336,6 +1336,9 @@ the middle and near poses at their original anchors in separate encounters.
 `kobold-cave-wyvern-dialogue` verify the Mummy approach sprite and two
 pre-combat illustrations. Chrome checks the artwork and state-preserving
 mode switches on all five encounter replays.
+`old-phlan-east-lanes` checks six new door and junction details,
+with 2,057 placements across 17 views from a position-only copy of
+the north-gate entrance save.
 `valjevo-giant-snake-approach` checks the middle and near sprites, their
 original screen anchors, and all 121 terrain cells across the approach.
 `mendor-basilisk-approach` checks the Basilisk's near sprite.
