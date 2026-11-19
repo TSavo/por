@@ -1222,6 +1222,10 @@ ready pose and reflected club strike from controlled slot B.
 `valjevo-bane-chaplain` checks the 352×352 portrait on the Talk branch,
 and confirms the chapel lead appears after the priest explains who
 established it. Both Chrome replays verify state-preserving mode switches.
+`valjevo-bane-cleric-combat` takes the chapel fight branch and checks
+the ready stance and reflected mace strike at 96×96. The forge replays
+`valjevo-forge-smith` and `valjevo-forge-authorization` check the 352×352
+portrait and its removal when each peaceful dialogue returns to exploration.
 `valjevo-genheeris-bargain` and `valjevo-genheeris-orders` verify the
 352×352 illustration, mode switching, and the distinct journal lead
 from each choice of parlay tone. The bargain replay also confirms

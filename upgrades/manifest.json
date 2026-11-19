@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:6:CPIC5.DAX:13": "valjevo-bane-cleric-stand.png",
+    "combat:area:6:CPIC5.DAX:141": "valjevo-bane-cleric-strike.png",
+    "portrait:HEAD5.DAX:13:BODY5.DAX:9": "valjevo-forge-smith.png",
     "tile:0:624c54394650999904d165e8083586d2c5d9dea1cfb089dcbb22e946cbbf6f37": "new-phlan-south-market-terrain-0-624c54394650.png",
     "tile:0:34c8e1f49742be249357aba1a5180b7fbd7dff4350ff758ba579534fcd9cdb70": "new-phlan-south-market-terrain-0-34c8e1f49742.png",
     "tile:0:c5e2f7ff8d6b146f5520b9e77b107cfc1d8403f75c10befcf30bb317944e2303": "new-phlan-south-market-terrain-0-c5e2f7ff8d6b.png",
