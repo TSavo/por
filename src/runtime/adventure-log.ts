@@ -926,6 +926,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "phlan-training-magic-users", title: "Magic-user training door",
       detail: "Use the east door at the northern training school. Accept the trainer's offer, select the magic user, then choose Train Character." });
   }
+  if (text.includes("WE TRAIN ONLY CLERICS HERE. DO YOU WANT TO TRAIN?")) {
+    leads.push({ id: "phlan-training-clerics", title: "Cleric training door",
+      detail: "Use the west door at the northern training school. Accept the trainer's offer, select the cleric, then choose Train Character." });
+  }
+  if (text.includes("WE TRAIN ONLY THIEVES HERE. DO YOU WANT TO TRAIN?")) {
+    leads.push({ id: "phlan-training-thieves", title: "Thief training door",
+      detail: "Go east past the arena to the north door marked Rogues, next to the fighter school. Accept the trainer's offer, select the thief, then choose Train Character." });
+  }
   if (text.includes("IT WILL COST YOU 1 PLATINUM PIECE TO REST HERE")) {
     leads.push({ id: "phlan-paid-rest", title: "Paid lodging in New Phlan",
       detail: "The lodging on the south side of New Phlan costs one platinum. Pay for a stay to rest and memorize spells." });

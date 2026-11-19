@@ -2011,6 +2011,7 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
         "v", "v", (text) => assert.match(text, trained), "e", "j", (_text, frame) => {
           assert.equal(textile(frame)?.status, "turned-in");
           assert.ok(frame.journal.leads.some(({ id }) => id === "phlan-training-fighters"));
+          assert.ok(frame.journal.leads.some(({ id }) => id === "phlan-training-thieves"));
         },
       ]);
       console.log("Sold gems, paid for Thrender Grone's level-two training, and reloaded the result:", join(saveDir, "F.json"));

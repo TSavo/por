@@ -459,10 +459,12 @@ const illustrationRoutes = new Map([
   ["new-phlan-cleric-trainer", {
     slot: "I", inputs: ["up", "enter"],
     portrait: "portrait:HEAD3.DAX:16:BODY3.DAX:4", prompt: /WETRAINONLYCLERICSHERE/i,
+    journalLead: "phlan-training-clerics",
   }],
   ["new-phlan-thieves-trainer", {
     slot: "I", inputs: ["up", "enter"],
     portrait: "portrait:HEAD3.DAX:16:BODY3.DAX:8", prompt: /WETRAINONLYTHIEVESHERE/i,
+    journalLead: "phlan-training-thieves",
   }],
   ["zhentil-quarters-guard-dialogue", {
     slot: "A", inputs: ["up", "enter"],
