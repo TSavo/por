@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:27:CPIC8.DAX:128": "eastern-marches-kobolds-strike.png",
+    "combat:area:27:CPIC8.DAX:0": "eastern-marches-kobolds-stand.png",
     "tile:29:ebd5b6d6a041b3c0d9159254167b48f7aa91ba6c72dc308513ecdcca31d726a4": "kuto-perimeter-lanes-terrain-ebd5b6d6a041.png",
     "tile:29:76c21367bdab1058f13dc9367ac4815d7a47a8256d5af35bc4002d823814a07c": "kuto-perimeter-lanes-terrain-76c21367bdab.png",
     "tile:29:2e5f7f48f8140b7c0377690b826be203cb2f92efc5e4d65d9b09f645c4bc60f6": "kuto-perimeter-lanes-terrain-2e5f7f48f814.png",
