@@ -955,6 +955,12 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-lower-snake-combat", {
+    slot: "B", stand: "combat:area:3:CPIC5.DAX:60:ecl:b37c", strike: "combat:area:3:CPIC5.DAX:188:ecl:b37c",
+    width: 192, height: 96, manualPolling: true, standAnchor: [32, 104, true],
+    strikeAnchor: [104, 104], strikeReflected: false, strikeReport: /GIANTSNAKEATTACKSRHIANNON/i,
+    inputs: ["up", "enter", "enter", "enter", "c", "enter"], strikeInputs: ["enter", "enter", ...Array(7).fill("q")],
+  }],
   ["valjevo-inner-armed-guard-combat", {
     slot: "B", stand: "combat:area:3:CPIC5.DAX:11:ecl:a002", strike: "combat:area:3:CPIC5.DAX:139:ecl:a002",
     width: 96, height: 96, manualPolling: true, standAnchor: [80, 104, true],

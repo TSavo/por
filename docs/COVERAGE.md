@@ -3258,6 +3258,11 @@ selects the original lizardfolk roll.
 checkpoint. It checks the reflected ready pose and unreflected sword
 strike at (80, 104), the native attack on Phineas, and display switching.
 
+`valjevo-lower-snake-combat` verifies the 192×96 giant snake sprites
+from a controlled slot B checkpoint near the encounter. Chrome checks
+the reflected ready pose, the unreflected lunge at (104, 104), and
+the native attack on Rhiannon.
+
 `kuto-sickly-kobold-scouts` replays the middle-distance scouts at
 both native script positions, then the close approach and dialogue.
 It checks the individual sprite anchors in Chrome and display switching

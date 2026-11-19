@@ -7,6 +7,8 @@
   "assets": {
     "combat:area:3:CPIC5.DAX:11:ecl:a002": "valjevo-inner-armed-guard-ready.png",
     "combat:area:3:CPIC5.DAX:139:ecl:a002": "valjevo-inner-armed-guard-strike.png",
+    "combat:area:3:CPIC5.DAX:60:ecl:b37c": "valjevo-lower-snake-ready.png",
+    "combat:area:3:CPIC5.DAX:188:ecl:b37c": "valjevo-lower-snake-strike.png",
     "combat:area:26:CPIC7.DAX:12:ecl:a2c7": "lizard-wilds-nomad-scout-ready.png",
     "combat:area:26:CPIC7.DAX:140:ecl:a2c7": "lizard-wilds-nomad-scout-strike.png",
     "combat:area:26:CPIC7.DAX:11:ecl:a2c7": "lizard-wilds-frontier-bandit-ready.png",
