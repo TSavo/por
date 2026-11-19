@@ -1,6 +1,17 @@
 {
   "version": 1,
   "assets": {
+    "tile:6:df30f16f431986f2cd1656a4b4e52c16bef9f85d526fc012b5b3718ca3694c8f": "valjevo-east-screen-terrain-01.png",
+    "tile:6:5073fed19218b31e25fe949a437664fe32b7c96cbaa20c93e5e796af062a2ecb": "valjevo-east-screen-terrain-02.png",
+    "tile:6:a72cd795273e9928eaf87725b5550fff71b45e59ccd15c470831dcc9722049f5": "valjevo-dungeon-briar-terrain-27.png",
+    "tile:6:b2387150b8b37b8747391045eb8e7e3aad8ff6c36dc1fb6e410c434faf31368d": "valjevo-dungeon-briar-terrain-25.png",
+    "tile:6:a92b522baf70206e794b2a1953184928f00971bf98cea7a2830f171ce1791fee": "valjevo-east-screen-terrain-03.png",
+    "tile:6:a7d58f2e585a10f6423aa78da8d965e76f7aee6fcdf964a34c367e7ff57dd5ce": "valjevo-dungeon-briar-terrain-29.png",
+    "tile:6:a8ed6d6150e8b242b1142b13dcee6be84fefbeac21ef725b37b80cd018dea6a6": "valjevo-kitchen-corridor-terrain-21.png",
+    "tile:6:c109062bae81c00497c44a59d1a66885bdc4315d382df7c88791f17886541ad0": "valjevo-kitchen-corridor-terrain-23.png",
+    "tile:6:c6c238d6832c50eb322fcf219d1ed5b19c1e59e4da05cc0f76e9053155ad4e1d": "valjevo-kitchen-corridor-terrain-22.png",
+    "tile:6:542aa3de288bfb705a13cf971acc398ce6f17f10c113a97d2339053598b2cce3": "valjevo-kitchen-corridor-terrain-26.png",
+    "tile:6:db57986c636ff54578b5d2a864e2bab3b66c4e6e4347add855153b4614000ffb": "valjevo-kitchen-corridor-terrain-25.png",
     "portrait:HEAD2.DAX:8:BODY2.DAX:5": "stojanow-patrol-leader-dialogue.png",
     "combat:area:28:CPIC6.DAX:11": "zhentil-guard-stand.png",
     "combat:area:28:CPIC6.DAX:139": "zhentil-guard-strike.png",

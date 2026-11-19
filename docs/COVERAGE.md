@@ -1342,6 +1342,8 @@ at the original gas cloud prompt and during presentation switches.
 challenge, including panel fit and state-preserving mode switches.
 `zhentil-guard-combat` checks the ready and animated attack poses
 in the original nighttime outpost battle.
+`valjevo-eastern-hedges` checks 11 new tile bindings, including three
+redrawn hedge and limestone transitions, across 17 live views.
 `bane-east-ramparts` checks 15 new gate, wall, and ivy tiles across
 17 live views and 2,057 placements from the temple entrance save.
 `valhingen-central-courts` checks 32 new fence, tomb, and masonry
