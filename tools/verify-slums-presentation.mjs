@@ -769,6 +769,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valhingen-memorial-turns-north", {
+    slot: "A", area: 10, views: 8, patterns: 91, sceneryOnly: true,
+    walk: ["up", "up", "up", "up", "up", "left", "up"],
+  }],
+  ["valhingen-memorial-turns-south", {
+    slot: "A", area: 10, views: 7, patterns: 82, sceneryOnly: true,
+    walk: ["up", "up", "up", "up", "right", "up"],
+  }],
   ["valhingen-east-memorial", {
     slot: "A", area: 10, views: 7, patterns: 77, sceneryOnly: true,
     walk: ["up", "up", "up", "up", "left", "up"],
