@@ -34,6 +34,13 @@ function checkBrowserArtPacks(): void {
   const corrupt = Buffer.from(png);
   corrupt[41] = corrupt[41]! ^ 1; // First byte of the encoded IDAT payload.
   deepStrictEqual(pngDimensions(corrupt), undefined, "Corrupt image data");
+  const atlas = JSON.parse(readFileSync(new URL("../src/maps/atlas.json", import.meta.url), "utf8")) as
+    { file: string }[];
+  for (const { file } of atlas) {
+    const artwork = readFileSync(new URL(`../upgrades/maps/${file}`, import.meta.url));
+    if (!pngDimensions(artwork)) throw new Error(`Invalid atlas illustration: ${file}`);
+  }
+  console.log(`verified ${atlas.length} illustrated atlas plates`);
   const paths = ["upgrades/slums/manifest.json", "upgrades/manifest.json"];
   const declared = new Set(paths.flatMap(path => {
     const text = readFileSync(path, "utf8");
