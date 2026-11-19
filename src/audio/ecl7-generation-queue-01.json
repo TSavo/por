@@ -1,0 +1,462 @@
+{
+  "model": "eleven_v4",
+  "sourceReview": "src/audio/ecl7-voice-review.json",
+  "items": [
+    {
+      "unitId": "por.voice.ecl7.b17-9c26-9c8d",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-9c26",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-9c26",
+        "por.review.ecl-7.block-17.at-9c8d",
+        "por.review.ecl-7.block-17.at-9c66"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-9c26-9c8d.mp3",
+      "text": "YOU HEAR WAR CRIES AND THE CLANG OF METAL TO YOUR LEFT. YOU SPIN TO FACE THE SOUND.",
+      "direction": "Urgent dramatic fantasy narration with clear danger and action"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-9c26-9c9b",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-9c26",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-9c26",
+        "por.review.ecl-7.block-17.at-9c9b",
+        "por.review.ecl-7.block-17.at-9c66"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-9c26-9c9b.mp3",
+      "text": "YOU HEAR WAR CRIES AND THE CLANG OF METAL BEHIND YOU. YOU SPIN TO FACE THE SOUND.",
+      "direction": "Urgent dramatic fantasy narration with clear danger and action"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-9c26-9ca8",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-9c26",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-9c26",
+        "por.review.ecl-7.block-17.at-9ca8",
+        "por.review.ecl-7.block-17.at-9c66"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-9c26-9ca8.mp3",
+      "text": "YOU HEAR WAR CRIES AND THE CLANG OF METAL TO YOUR RIGHT. YOU SPIN TO FACE THE SOUND.",
+      "direction": "Urgent dramatic fantasy narration with clear danger and action"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-9c26-9cb7",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-9c26",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-9c26",
+        "por.review.ecl-7.block-17.at-9cb7"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-9c26-9cb7.mp3",
+      "text": "YOU HEAR WAR CRIES AND THE CLANG OF METAL IN FRONT OF YOU.",
+      "direction": "Urgent dramatic fantasy narration with clear danger and action"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-a21a-a2e8",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-a21a",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-a21a",
+        "por.review.ecl-7.block-17.at-a289",
+        "por.review.ecl-7.block-17.at-a2e8"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-a21a-a2e8.mp3",
+      "text": "A CROWD OF SCRUFFY LOOKING NOMADS GATHERS AS HIDDEN SENTRIES GIVE WORD OF YOUR APPROACH. THERE ARE ABOUT AN EQUAL NUMBER OF MEN AND WOMEN. ALL THE NOMADS HOLD THEIR SWORDS AT THE READY, WATCHING YOU WARILY. MORE NOMADS APPEAR FROM OUT OF TENTS IN THE CAMP. YOU CAN SEE CHILDREN PEERING OUT OF THE TENT OPENINGS, ONLY TO BE PUSHED BACK INSIDE BY THEIR MOTHERS.",
+      "direction": "One continuous wary approach to the nomad camp, building tension across page advances"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-a435-a494-tonight",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-a435",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-a435",
+        "por.review.ecl-7.block-17.at-a490",
+        "por.review.ecl-7.block-17.at-a494"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-a435-a494-tonight.mp3",
+      "text": "THE BIGGEST NOMAD, APPARENTLY THE CHIEF OR HEADMAN, ACKNOWLEDGES YOU WITH A NOD, 'WE WILL GIVE A FEAST IN YOUR HONOR TONIGHT. WILL YOU JOIN US?'",
+      "direction": "The headman speaks with rough dignity and guarded hospitality"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-a435-a494-tomorrow",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-a435",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-a435",
+        "por.review.ecl-7.block-17.at-a490",
+        "por.review.ecl-7.block-17.at-a494"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-a435-a494-tomorrow.mp3",
+      "text": "THE BIGGEST NOMAD, APPARENTLY THE CHIEF OR HEADMAN, ACKNOWLEDGES YOU WITH A NOD, 'WE WILL GIVE A FEAST IN YOUR HONOR TOMORROW. WILL YOU JOIN US?'",
+      "direction": "The headman speaks with rough dignity and guarded hospitality"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-a53e-a5c0",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-a53e",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-a53e",
+        "por.review.ecl-7.block-17.at-a5c0"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-a53e-a5c0.mp3",
+      "text": "'YOU MUST BE TIRED FROM YOUR TRAVELS. WE WILL PROVIDE YOU WITH LODGING.' HE LEADS THE WAY TO A HUT WHICH IS HURRIEDLY BEING CLEARED OF ITS OCCUPANTS. 'HERE YOU MAY REST.'",
+      "direction": "The headman offers lodging with practical hospitality; one continuous arrival at the hut"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-a609-a928",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-a609",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-a609",
+        "por.review.ecl-7.block-17.at-a660",
+        "por.review.ecl-7.block-17.at-a6b4",
+        "por.review.ecl-7.block-17.at-a71b",
+        "por.review.ecl-7.block-17.at-a7b1",
+        "por.review.ecl-7.block-17.at-a82f",
+        "por.review.ecl-7.block-17.at-a8ac",
+        "por.review.ecl-7.block-17.at-a928"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-a609-a928.mp3",
+      "text": "THE HEADMAN WALKS UP TO YOU WITH HIS GUARDS. 'GOOD MORNING. THERE ARE CELEBRATIONS PLANNED TODAY.' 'COME, LET THERE BE GAMES FOR OUR GUESTS.' HE LEADS YOU TO THE CAMP'S CENTRAL CLEARING. YOU ARE TREATED AS HONORED GUESTS FOR THE REST OF THE DAY. THERE ARE CONTESTS OF STRENGTH AND SKILL IN YOUR HONOR. AS NIGHT FALLS, THE NOMADS BUILD A HUGE CAMPFIRE IN THE CENTER OF THE CAMP. THE WHOLE TRIBE GATHERS FOR THE FEAST. AFTER THE FEAST THERE IS DANCING AND WILD CELEBRATIONS. DURING THE FESTIVITIES THE CHIEF (HIS TONGUE LOOSENED BY DRINK) TELLS YOU OF THE DANGERS OF THE REGION. YOU MAKE HASSAD AHWAL'S TALK ENTRY 55 IN YOUR JOURNAL. THE HEADMAN SEEMS VERY UNEASY AS HE CONTINUES TO SPEAK. HE PRACTICALLY BEGS YOU TO STAY FOR A FEW MORE DAYS, RATHER THAN LEAVE IN THE MORNING AS YOU PLANNED. 'MY SCOUTS HAVE SEEN EVIDENCE OF A LARGE BAND OF KOBOLDS IN THE VICINITY. I WORRY ABOUT MY PEOPLE. IF YOU WOULD STAY UNTIL THEY PASS I WOULD APPRECIATE IT.' 'PLEASE THINK ABOUT IT OVERNIGHT.' AFTER A WHILE THE FESTIVITIES END AND YOU ARE ESCORTED TO YOUR LODGING.",
+      "direction": "A continuous day-and-night nomad sequence; keep Headman Hassad Ahwal consistent, shifting from festive warmth to drunken unease and earnest pleading"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-aa07-aa6d",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-aa07",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-aa07",
+        "por.review.ecl-7.block-17.at-aa6d"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-aa07-aa6d.mp3",
+      "text": "AS THE GUARD TURNS TO ESCORT YOU BACK TO YOUR TENT, YOU SMILE AND STICK HIM IN THE BACK. WITH A CHOKED CRY HE COLLAPSES. HOWEVER, AWAKENED BY THE TALK SOMEONE IN THE TENT HAS SEEN YOUR ACT AND A SCREAM GOES OUT 'TREACHERY! THEY HAVE SLAIN SAMIR!' THE CAMP BEGINS TO STIR.",
+      "direction": "A continuous treacherous murder and immediate discovery, escalating rapidly into alarm"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-b08a-b0fb",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-b08a",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-b08a",
+        "por.review.ecl-7.block-17.at-b0fb"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-b08a-b0fb.mp3",
+      "text": "YOU SEE A HUGE GROUP OF KOBOLDS MOVING RELUNCTANTLY FORWARD UNDER THE CURSES OF THEIR LEADER. THE HEADMAN WALKS UP AND SLAPS YOU ON THE BACK. 'WELL DONE! WHAT SAY WE FINISH THIS TOGETHER?'",
+      "direction": "Battlefield narration flowing directly into the headman's vigorous invitation"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-b146-b2e7",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-b146",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-b146",
+        "por.review.ecl-7.block-17.at-b1b6",
+        "por.review.ecl-7.block-17.at-b245",
+        "por.review.ecl-7.block-17.at-b2e7"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-b146-b2e7.mp3",
+      "text": "THE HEADMAN SNEERS, 'COWARDS!' HE TURNS TO THE TWO GUARDS STILL LIVING AND YELLS, 'FOR HYRNKA!' HE AND HIS TWO GUARDS CHARGE INTO THE PACK. AS THEY REACH THE PACK A FLURRY OF ARROWS STRIKE THEM. UNDAUNTED THEY STRIKE. KOBOLDS DIE LIKE FLIES AROUND THESE HEROES. A GUARD FALLS WITH A SCORE OF WOUNDS. WITHIN TEN MINUTES THE KOBOLDS BREAK, HALF THEIR NUMBER DEAD. THE CHIEF COMES BACK, 'I PROMISED YOU REWARD FOR YOUR AID. SO IT SHALL BE... EQUAL TO YOUR HONOR.' 'NOW LEAVE. WE HAVE OUR WOUNDED TO LOOK TO.'",
+      "direction": "One continuous heroic but condemning battle sequence; keep the headman proud, bitter, and physically exhausted"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-b3d4-b43c",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-b3d4",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-b3d4",
+        "por.review.ecl-7.block-17.at-b43c"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-b3d4-b43c.mp3",
+      "text": "THE SHAMAN WALKS UP TO YOU. 'YOU FOUGHT AS THE HEROES OF LEGEND. A REWARD WAS PROMISED AND SO SHALL IT BE.' 'NOW PLEASE LEAVE US TO OUR MOURNING. IT IS A PERSONAL THING FOR OUR PEOPLE.'",
+      "direction": "The shaman speaks with solemn gratitude and grief throughout"
+    },
+    {
+      "unitId": "por.voice.ecl7.b22-9a81-9ade",
+      "triggerSourceId": "por.review.ecl-7.block-22.at-9a81",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-22.at-9a81",
+        "por.review.ecl-7.block-22.at-9ade"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b22-9a81-9ade.mp3",
+      "text": "A SECRET DOOR IS FOUND IN FRONT OF YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b22-9a81-9aef",
+      "triggerSourceId": "por.review.ecl-7.block-22.at-9a81",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-22.at-9a81",
+        "por.review.ecl-7.block-22.at-9aef"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b22-9a81-9aef.mp3",
+      "text": "A SECRET DOOR IS FOUND TO YOUR RIGHT.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b22-9a81-9aff",
+      "triggerSourceId": "por.review.ecl-7.block-22.at-9a81",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-22.at-9a81",
+        "por.review.ecl-7.block-22.at-9aff"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b22-9a81-9aff.mp3",
+      "text": "A SECRET DOOR IS FOUND BEHIND YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b22-9a81-9b0c",
+      "triggerSourceId": "por.review.ecl-7.block-22.at-9a81",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-22.at-9a81",
+        "por.review.ecl-7.block-22.at-9b0c"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b22-9a81-9b0c.mp3",
+      "text": "A SECRET DOOR IS FOUND TO YOUR LEFT.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b22-9efa-9f61",
+      "triggerSourceId": "por.review.ecl-7.block-22.at-9efa",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-22.at-9efa",
+        "por.review.ecl-7.block-22.at-9f61"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b22-9efa-9f61.mp3",
+      "text": "YOU FIND THE CORPSE OF A MAN. THE BODY HAS BEEN STRIPPED OF WEAPONS AND ARMOR, AS WELL AS ANY USEFUL GEAR. HOWEVER, YOU FIND A BOOK UNDER THE BODY. IT IS THE JOURNAL OF TYRMOR. IT IS FACINATING AND YOU INCLUDE MUCH OF ITS INFORMATION IN YOUR JOURNAL AS ENTRY 26.",
+      "direction": "Continuous corpse search and discovery of Tyrmor's journal"
+    },
+    {
+      "unitId": "por.voice.ecl7.b22-9fe7-a05e",
+      "triggerSourceId": "por.review.ecl-7.block-22.at-9fe7",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-22.at-9fe7",
+        "por.review.ecl-7.block-22.at-a05e"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b22-9fe7-a05e.mp3",
+      "text": "YOU SEE ROCKS SCATTERED ABOUT THE SMOOTH FLAGSTONES. AS YOU CAREFULLY SEARCH THE ROOM, YOU FEEL A STRANGE TINGLE WHEN YOU GET CLOSE TO A BARE AREA.",
+      "direction": "Continuous room search, moving from scattered rocks to an uncanny magical sensation"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-9a70-9ace",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-9a70",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-9a70",
+        "por.review.ecl-7.block-23.at-9ace"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-9a70-9ace.mp3",
+      "text": "A SECRET DOOR IS FOUND IN FRONT OF YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-9a70-9ade",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-9a70",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-9a70",
+        "por.review.ecl-7.block-23.at-9ade"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-9a70-9ade.mp3",
+      "text": "A SECRET DOOR IS FOUND TO YOUR RIGHT.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-9a70-9aed",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-9a70",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-9a70",
+        "por.review.ecl-7.block-23.at-9aed"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-9a70-9aed.mp3",
+      "text": "A SECRET DOOR IS FOUND BEHIND YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-9a70-9afa",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-9a70",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-9a70",
+        "por.review.ecl-7.block-23.at-9afa"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-9a70-9afa.mp3",
+      "text": "A SECRET DOOR IS FOUND TO YOUR LEFT.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-9c54-9ced",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-9c54",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-9c54",
+        "por.review.ecl-7.block-23.at-9ced"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-9c54-9ced.mp3",
+      "text": "YOU SEE ROCKS SCATTERED ABOUT THE SMOOTH FLAGSTONES. AS YOU CAREFULLY SEARCH THE ROOM YOU FEEL A STRANGE TINGLE AS YOU GET CLOSE TO A BARE AREA.",
+      "direction": "Continuous room search, moving from scattered rocks to an uncanny magical sensation"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-a344-a38f",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-a344",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-a344",
+        "por.review.ecl-7.block-23.at-a38f"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-a344-a38f.mp3",
+      "text": "YOU ARE IN A STOREROOM HOLDING A VAST COLLECTION OF MAGICAL JUNK. HOWEVER, HIDDEN AMIDST ALL THIS JUNK YOU FIND SOME TREASURE.",
+      "direction": "Continuous storeroom description resolving in the discovery of treasure"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-a58f-a5ff",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-a58f",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-a58f",
+        "por.review.ecl-7.block-23.at-a5ff"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-a58f-a5ff.mp3",
+      "text": "YOU HAVE ENTERED THE FOUNTAIN CHAMBER. IN THE CENTER OF THE ROOM A COLUMN OF BLACK FOUL WATER JETS UP THROUGH A CLEAR PIPE AND OUT THE ROOF. ANOTHER PIPE, RUNNING FROM THE WALL ACROSS AND TO YOUR RIGHT, PUMPS IN STREAMS OF THE FOUL LIQUID. ALL ABOUT THE ROOM ARE VALVES, GAUGES, PETCOCKS, AND PIPES.",
+      "direction": "One continuous, foul and mechanical fountain-chamber description"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-a773-a7a9",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-a773",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-a773",
+        "por.review.ecl-7.block-23.at-a7a9"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-a773-a7a9.mp3",
+      "text": "YOU HAVE DESTROYED THE LAST PIECE OF EQUIPMENT. THE WHINE SUBSIDES AS THE PRESSURE IS RELEASED.",
+      "direction": "Continuous destruction result, moving from final impact into released pressure"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-a8fa-a97b",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-a8fa",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-a8fa",
+        "por.review.ecl-7.block-23.at-a97b"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-a8fa-a97b.mp3",
+      "text": "YOU HAVE ENTERED A PUMPING ROOM. WORKING AS SLAVES IN THIS ROOM ARE THREE LIZARD MEN WITH WHIP CUTS ACROSS THEIR BACK WHO ARE SHACKLED TO THE WALL BY LONG CHAINS. TWO OF THEM ARE POURING BARRELS OF THE BLACK CONTAMINANT INTO A LARGE VAT. THE OTHER IS WORKING A BELLOWS PUMP.",
+      "direction": "Continuous pumping-room reveal, emphasizing the enslaved lizard men and their labor"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-ac5a-ad1b-acc3",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-ac5a",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-ac5a",
+        "por.review.ecl-7.block-23.at-ad1b",
+        "por.review.ecl-7.block-23.at-acc3"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-ac5a-ad1b-acc3.mp3",
+      "text": "YOU SEE A DIAL THAT CAN BE SET TO FOUR DIFFERENT COLORS: BLUE, COPPER, SILVER, AND GOLD. IT IS CURRENTLY SET TO BLUE. DO YOU WISH TO CHANGE THE SETTING?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-ac5a-ad23-acc3",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-ac5a",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-ac5a",
+        "por.review.ecl-7.block-23.at-ad23",
+        "por.review.ecl-7.block-23.at-acc3"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-ac5a-ad23-acc3.mp3",
+      "text": "YOU SEE A DIAL THAT CAN BE SET TO FOUR DIFFERENT COLORS: BLUE, COPPER, SILVER, AND GOLD. IT IS CURRENTLY SET TO COPPER. DO YOU WISH TO CHANGE THE SETTING?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-ac5a-ad2d-acc3",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-ac5a",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-ac5a",
+        "por.review.ecl-7.block-23.at-ad2d",
+        "por.review.ecl-7.block-23.at-acc3"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-ac5a-ad2d-acc3.mp3",
+      "text": "YOU SEE A DIAL THAT CAN BE SET TO FOUR DIFFERENT COLORS: BLUE, COPPER, SILVER, AND GOLD. IT IS CURRENTLY SET TO SILVER. DO YOU WISH TO CHANGE THE SETTING?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-ac5a-ad37-acc3",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-ac5a",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-ac5a",
+        "por.review.ecl-7.block-23.at-ad37",
+        "por.review.ecl-7.block-23.at-acc3"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-ac5a-ad37-acc3.mp3",
+      "text": "YOU SEE A DIAL THAT CAN BE SET TO FOUR DIFFERENT COLORS: BLUE, COPPER, SILVER, AND GOLD. IT IS CURRENTLY SET TO GOLD. DO YOU WISH TO CHANGE THE SETTING?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl7.b23-ad4d-aed0",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-ad4d",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-ad4d",
+        "por.review.ecl-7.block-23.at-ada3",
+        "por.review.ecl-7.block-23.at-ade9",
+        "por.review.ecl-7.block-23.at-ae21",
+        "por.review.ecl-7.block-23.at-ae48",
+        "por.review.ecl-7.block-23.at-ae89",
+        "por.review.ecl-7.block-23.at-aed0"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b23-ad4d-aed0.mp3",
+      "text": "THIS IS THE DESK OF YARASH. ON IT IS A LITTER OF PAPERS. AMONG THE PAPERS ON THE DESK YOU FIND THE FOLLOWING AND SLIP THEM INTO YOUR JOURNAL: A LETTER FROM THE BOSS, TELLING YARASH TO JOIN OR DIE. (ENTRY 33) AN UNSENT REPLY TO THIS LETTER. (ENTRY 49) A MESSAGE TO THE BUCCANEERS OFFERING A BOUNTY FOR A REAL SAHUAGIN. (ENTRY 27) A WARNING TO AN AGENT ABOUT THE DANGERS IN THE MOUNTAINS TO THE NORTHWEST. (ENTRY 56) A NOTE TO A TRAPPER ABOUT KOBOLDS AND HOBGOBLINS. (ENTRY 40)",
+      "direction": "One continuous examination of Yarash's desk and papers, clearly enumerating each discovered document"
+    },
+    {
+      "unitId": "por.voice.ecl7.b17-a33c-operand-9",
+      "triggerSourceId": "por.review.ecl-7.block-17.at-a33c",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-17.at-a33c"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b17-a33c-operand-9.mp3",
+      "text": "THE NOMADS WAIT FOR YOU TO MAKE THE FIRST MOVE.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b22-9cf3-operand-9",
+      "triggerSourceId": "por.review.ecl-7.block-22.at-9cf3",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-22.at-9cf3"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b22-9cf3-operand-9.mp3",
+      "text": "HE SMILES AT YOU AND RAISES HIS HAND IN BENEDICTION.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b22-a264-operand-9",
+      "triggerSourceId": "por.review.ecl-7.block-22.at-a264",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-22.at-a264"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b22-a264-operand-9.mp3",
+      "text": "THEY SMILE AT YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b22-a264-operand-10",
+      "triggerSourceId": "por.review.ecl-7.block-22.at-a264",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-22.at-a264"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b22-a264-operand-10.mp3",
+      "text": "THEY WAVE AND SAY 'SAVED!'",
+      "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl7.b22-a264-operand-11",
+      "triggerSourceId": "por.review.ecl-7.block-22.at-a264",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-22.at-a264"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b22-a264-operand-11.mp3",
+      "text": "THE LEADER WAVES AND CALLS TO YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b22-a2c7-operand-9",
+      "triggerSourceId": "por.review.ecl-7.block-22.at-a2c7",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-22.at-a2c7"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b22-a2c7-operand-9.mp3",
+      "text": "ONE LICKS ITS LIPS.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl7.b22-a2fd-operand-9",
+      "triggerSourceId": "por.review.ecl-7.block-22.at-a2fd",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-22.at-a2fd"
+      ],
+      "output": "../por-assets/voices/narration/ecl7/b22-a2fd-operand-9.mp3",
+      "text": "THEY FLY TOWARD YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    }
+  ]
+}
