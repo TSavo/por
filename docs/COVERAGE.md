@@ -3246,6 +3246,11 @@ The exterior rampart ogre patrol has dedicated 96×192 ready and
 cudgel strike sprites. Chrome checks both mirrored poses at (128, 104)
 and the original attack on Brin from a controlled patrol roll.
 
+The rampart goblin and orc patrols also have separate ready and strike
+pairs. Chrome checks their mirrored poses at (128, 104), the original
+attacks on Brin, and display switching. Each replay uses a controlled
+roll to select its patrol.
+
 The Textile House skeleton ambush has a dedicated ready and strike
 pair. The controlled slot B fixture selects the original skeletal
 ambush branch. Chrome verifies the mirrored ready pose at (8, 128)
