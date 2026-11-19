@@ -3201,9 +3201,9 @@ the orc. It reuses the duelist's two sprites for the drunken buccaneer.
 The Chrome replay checks the orc's reflected attack and the buccaneer's
 unreflected attack against their native combat reports.
 
-Podal Plaza's goblin and hobgoblin patrols have dedicated ready and strike
+Podal Plaza's goblin, hobgoblin, orc, and ogre patrols have dedicated ready and strike
 sprites. Chrome replays with the production artwork checked the original
-combat roll for each patrol, the reflected ready pose, the strike at the
+combat roll for each patrol, the orientation of the ready pose, the strike at the
 same position, and state preservation across display modes.
 
 The Valjevo barracks waking giants use an encounter-specific approach
