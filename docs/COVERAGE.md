@@ -3125,6 +3125,14 @@ report using controlled copies of the Slums checkpoint. These replays
 step automatic combat explicitly so the browser cannot advance the
 battle during the state-preservation assertion.
 
+The crested dwarf now has both combat poses for all 18 weapon choices.
+Chrome checked each ready and strike image in the original icon editor.
+The flail, greatsword, and sabre checks load saves made with those editor
+selections and exercise Alda's attack and Classic switching in combat.
+The HTML and JSON artwork inventories list both sprite bindings for
+each distinct dwarf head and body, with identical source heads shown
+as aliases.
+
 The `textile-skullcrusher-approach` Chrome replay uses the Textile
 House slot B checkpoint. It checks the chained prisoner's 96×320
 approach sprite at the guest anchor during the brief animation, then
