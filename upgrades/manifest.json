@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:23:CPIC7.DAX:185:ecl:9ffe": "yarash-river-tribe-strike.png",
+    "combat:area:23:CPIC7.DAX:57:ecl:9ffe": "yarash-river-tribe-stand.png",
     "tile:31:b24a0082a3a043b8f572042b955363c4f154214f73877e027dd636eaa764e18b": "bane-side-galleries-terrain-b24a0082a3a0.png",
     "tile:31:a2e7e176f2c85d345e9b399418fc572563b0baf482691347c5d14bd361e2d184": "bane-side-galleries-terrain-a2e7e176f2c8.png",
     "tile:31:f6b189fa843260fec0ac9870717503b224c055211fd417213d26307c738f717c": "bane-side-galleries-terrain-f6b189fa8432.png",
