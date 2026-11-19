@@ -168,20 +168,28 @@ if (battleKeys.size) {
 }
 
 const terrainPrefix = "POR_BATTLE_TERRAIN ";
+const observedDraws = new Map<string, Map<number, Map<string, Buffer>>>();
 for (const line of drawLines.filter(line => line.startsWith(terrainPrefix))) {
   const { picture, cells } = JSON.parse(line.slice(terrainPrefix.length)) as {
     picture: number; cells: [number, number, string, string][];
   };
   const block = picture & 0x80 ? 2 : 1, frame = picture & 0x7f;
-  if (!Number.isInteger(picture) || picture < 0 || picture > 255 || !drawFrames.has(`SQRPACI.DAX:${block}:${frame}`)) {
+  const id = `SQRPACI.DAX:${block}:${frame}`;
+  if (!Number.isInteger(picture) || picture < 0 || picture > 255 || !drawFrames.has(id)) {
     throw new Error(`Unknown guest terrain draw: ${picture}`);
   }
+  const observed = observedDraws.get(id) ?? new Map<number, Map<string, Buffer>>();
+  observedDraws.set(id, observed);
   for (const [x, y, key, indices] of cells) {
     const pixels = Buffer.from(indices, "hex");
     if (![0, 8, 16].includes(x) || ![0, 8, 16].includes(y) || !/^(?:0[0-9a-f]){64}$/.test(indices) ||
         key !== `battle-tile:${createHash("sha256").update(pixels).digest("hex")}`) {
       throw new Error(`Invalid guest terrain fragment: ${key}`);
     }
+    const position = y * 24 + x;
+    const variants = observed.get(position) ?? new Map<string, Buffer>();
+    variants.set(key, pixels);
+    observed.set(position, variants);
     const source = sourceByHash.get(key) ?? { pixels, candidates: [] as SourceCandidate[] };
     if (!source.candidates.some(candidate => candidate.observed && candidate.block === block && candidate.frame === frame &&
         candidate.fragment?.x === x && candidate.fragment.y === y)) {
@@ -254,6 +262,9 @@ const terrainSources = [...drawFrames].map(([id, source]) => {
   if (pieces?.length !== 9) throw new Error(`Could not decode the drawn terrain frame ${id}`);
   return { id, ...source, pieces: pieces.map(({ pixels, ...piece }) => ({
     ...piece, target: { width: 32, height: 32 }, blank: !pixels.some(Boolean),
+    observed: Array.from(observedDraws.get(id)?.get(piece.y * 24 + piece.x)?.keys() ?? [], key => ({
+      key, replacement: artwork.get(key)?.file ?? null,
+    })),
   })) };
 }).sort((a, b) => a.block - b.block || a.frame - b.frame);
 const analyzedFrames = frames.length - omittedFrames.size;
@@ -285,16 +296,21 @@ const sections = areas.map(({ area, patterns, matched, unmatchedWithoutActorOrEf
       `<code>${key.slice(-12)}</code><p>First seen in ${frameLabel}, (${first.x}, ${first.y}) · ${occurrences} placements across ${positions.length} positions</p>` +
       `<p>${candidates || "Source tile unresolved"}</p></article>`;
   }).join("") + "</div></section>").join("");
-const terrainSection = terrainSources.length ? `<section><h2>Terrain frames used by the guest</h2>
-<p>Click a piece to download its original 8×8 pixels. Coordinates below each frame are guest draw arguments.</p>
-<div class="grid">${terrainSources.map(({ id, placements }) => {
-  const pieces = drawnPieces.get(id)!.map(({ x, y, pixels }) => {
-    const frame = new Frame(8, 8);
-    frame.pixels.set(pixels);
-    const uri = `data:image/png;base64,${Buffer.from(encodePng(frame)).toString("base64")}`;
-    return `<a href="${uri}" download="${id.replaceAll(":", "-")}-${x}-${y}.png"><img src="${uri}" width="32" height="32" alt="Original tile at ${x},${y}"></a>`;
+const terrainSection = terrainSources.length ? `<section><h2>Battlefield picture draws</h2>
+<p>Click a piece to download its 8×8 pixels. Coordinates below each frame are guest draw arguments.</p>
+<div class="grid">${terrainSources.map(({ id, placements, pieces }) => {
+  const observations = observedDraws.get(id);
+  const previews = drawnPieces.get(id)!.map(({ x, y, pixels }, index) => {
+    const variants = observations?.get(y * 24 + x);
+    const sources = observations ? [...(variants ?? [])] : [[pieces[index]!.key, pixels] as const];
+    return `<div class="terrain-piece">${sources.map(([key, source]) => {
+      const frame = new Frame(8, 8);
+      frame.pixels.set(source);
+      const uri = `data:image/png;base64,${Buffer.from(encodePng(frame)).toString("base64")}`;
+      return `<a href="${uri}" download="${id.replaceAll(":", "-")}-${x}-${y}-${key.slice(-12)}.png"><img src="${uri}" width="32" height="32" alt="Original tile at ${x},${y}"></a>`;
+    }).join("")}</div>`;
   }).join("");
-  return `<article><h3>${id}</h3><div class="terrain-pieces">${pieces}</div>
+  return `<article><h3>${id}</h3><p>${observations ? "Guest-drawn pixels" : "Archive preview"}</p><div class="terrain-pieces">${previews}</div>
   <details><summary>${placements.length} draw placements</summary><ul>${placements.map(({ x, y, flags }) =>
     `<li>(${x}, ${y}) · flags ${flags}</li>`).join("")}</ul></details></article>`;
 }).join("")}</div></section>` : "";
@@ -302,7 +318,7 @@ writeFileSync(galleryPath, `<!doctype html><html lang="en"><meta charset="utf-8"
 <title>Route artwork checklist</title><style>
 body{font:16px system-ui;background:#191715;color:#efe4d0;margin:2rem}img{image-rendering:pixelated;display:block;margin-bottom:.5rem}a{color:#ffdcaa}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.65rem}article{background:#28241f;padding:.75rem;overflow-wrap:anywhere}
-.terrain-pieces{display:grid;grid-template-columns:repeat(3,32px);width:max-content}.terrain-pieces img{margin:0}
+.terrain-pieces{display:grid;grid-template-columns:repeat(3,32px);width:max-content}.terrain-pieces img{margin:0}.terrain-piece{min-height:32px;background:#000}
 .previews{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
 p{margin:.4rem 0;font-size:.9rem}code{color:#ffdcaa}
 body:has(#hide-sprite-candidates:checked) article[data-sprite-candidate="true"]{display:none}

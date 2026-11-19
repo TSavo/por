@@ -347,6 +347,15 @@ frame, and fragment coordinates. The Lizardfolk ruin replay matched all
 45 live battlefield patterns to guest-drawn terrain, with a 32×32
 replacement for each pattern.
 
+The **Battlefield picture draws** section previews the captured pixels
+when available. A single draw can have several observed patterns at the
+same fragment coordinate. The JSON lists those variants and their
+replacement files under `terrainSources[].pieces[].observed`, including
+draws between input prompts. The Sokal patrol replay had replacement
+art for all 39 terrain patterns in its 23 input frames. In the broader
+draw trace, the 19 fragments without replacements came from block 1
+frames 34, 35, and 39. Those previews show combat debris and effects.
+
 The Chrome verifier captures battlefield cells from any replay with
 `POR_TRACE_BATTLE_TILES=1`. The Sokal undead patrol replay captured 23
 combat frames and verified its two standing poses and two strikes. After
