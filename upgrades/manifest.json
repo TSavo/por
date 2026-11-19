@@ -1,6 +1,10 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:29:CPIC8.DAX:1": "kuto-kobold-leader-stand.png",
+    "combat:area:29:CPIC8.DAX:129": "kuto-kobold-leader-strike.png",
+    "combat:area:29:CPIC8.DAX:57": "kuto-lizardman-stand.png",
+    "combat:area:29:CPIC8.DAX:185": "kuto-lizardman-strike.png",
     "encounter:area:26:SPRIT7.DAX:68:0:0": "lizard-wilds-displacer-approach.png",
     "encounter:area:26:SPRIT7.DAX:61:0:0": "lizard-wilds-stirge-approach.png",
     "tile:20:4b60842e2334c1049ad4bca15fb9a7105665b6b0903ee984f80bda3989b72ef6": "mendor-locked-wing-terrain-4b60842e2334.png",
