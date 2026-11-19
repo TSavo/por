@@ -338,6 +338,18 @@ const inventoryCategories = [
 ] as const;
 const battlefieldGaps = missingByArea.get("Battlefield")?.length ?? 0;
 const loadedPngs = new Set(replacements.map(({ path }) => path)).size;
+const capturedByArea = new Map<number, { captured: number; matched: number }>();
+for (const id of capturedTiles.keys()) {
+  const area = /^tile:(\d+):/.exec(id)?.[1];
+  if (area === undefined) continue;
+  const number = Number(area);
+  const row = capturedByArea.get(number) ?? { captured: 0, matched: 0 };
+  row.captured++;
+  if (loadedIds.has(id)) row.matched++;
+  capturedByArea.set(number, row);
+}
+const explorationCoverage = [...capturedByArea].map(([area, counts]) => ({ area, ...counts }))
+  .sort((a, b) => (b.captured - b.matched) - (a.captured - a.matched) || a.area - b.area);
 writeFileSync(join(output, "index.html"), `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pool of Radiance art inventory</title><style>
 body{font:16px system-ui;background:#181715;color:#f3e9d6;margin:2rem auto;padding:0 1rem;max-width:1200px}
@@ -350,11 +362,17 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 .preview{display:inline-block;vertical-align:top;max-width:100%;margin:0 .35rem .5rem 0}.preview small{display:block;color:#d6c9b4}
 .comparison{display:grid;grid-template-columns:repeat(2,minmax(0,var(--preview-width)));gap:.75rem;margin-bottom:.5rem}
 .comparison img{display:block;width:100%;height:auto;margin:0}
+.coverage-table{border-collapse:collapse;margin:.75rem 0}.coverage-table th,.coverage-table td{padding:.25rem .75rem;text-align:right;border-bottom:1px solid #514738}
 </style><h1>Pool of Radiance art inventory</h1>
 <p><strong>${replacements.length} loaded replacement entries</strong> · ${loadedPngs} PNG files · ${archives.length} source archives</p>
 <dl class="inventory-totals">${inventoryCategories.map(([category, label]) =>
   `<div><dt>${label}</dt><dd>${replacementCounts.get(category) ?? 0}</dd></div>`).join("")}</dl>
 ${tracePaths.length ? `<p>Unmatched captured patterns: ${missingTiles.length - battlefieldGaps} exploration and ${battlefieldGaps} battlefield. These include composited sprites and transition frames.</p>` : ""}
+${explorationCoverage.length ? `<details><summary>Exploration coverage by area</summary>
+<table class="coverage-table"><thead><tr><th>Area</th><th>Captured</th><th>With replacements</th><th>Unmatched</th></tr></thead><tbody>
+${explorationCoverage.map(({ area, captured, matched }) =>
+  `<tr><th scope="row">${area}</th><td>${captured}</td><td>${matched}</td><td>${captured - matched}</td></tr>`).join("")}
+</tbody></table></details>` : ""}
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
 <label>Category <select id="category"><option value="">All categories</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
@@ -396,7 +414,7 @@ includeData.addEventListener('change', filter);
 replacement.addEventListener('change', filter);
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, missingTiles, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, missingTiles, explorationCoverage, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");

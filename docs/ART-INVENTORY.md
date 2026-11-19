@@ -23,6 +23,9 @@ node --import tsx tools/art-inventory.ts gamedata out/art-inventory PATH_TO_ENVI
 The captured gaps show coordinates, trace frame, and matching 8×8 atlas
 frames where available. Identical atlas pixels can occur in several banks
 and areas. Use the captured area-scoped ID to assign an in-game replacement.
+Open **Exploration coverage by area** to see the distinct captured patterns,
+loaded replacements, and remaining gaps. These counts reflect the supplied
+traces. Areas and viewpoints outside those traces still need live coverage.
 
 | Category | Archives | Blocks | Preview sheets | Frames or glyphs |
 | --- | ---: | ---: | ---: | ---: |
