@@ -210,6 +210,11 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["sokal-keep-departure-ferry", {
+    slot: "C", inputs: ["up", "up", "enter", "y", "enter"],
+    portrait: "portrait:area:21:PIC4.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
+    continuation: { inputs: ["enter", "enter", "enter"], prompt: /15,1W/i, clearsPortrait: true },
+  }],
   ["new-phlan-outbound-ferry", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:0:PIC3.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
@@ -789,6 +794,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["lizard-bank-arch", {
+    slot: "A", area: 16, views: 10, patterns: 37, sceneryOnly: true,
+    walk: ["right", "up", "up", "left", "up", "up", "right", "up", "up"],
+  }],
   ["valhingen-south-memorial", {
     slot: "A", area: 10, views: 7, patterns: 72, sceneryOnly: true,
     walk: ["up", "up", "up", "up", "up", "right"],
