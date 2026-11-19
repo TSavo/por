@@ -3258,6 +3258,11 @@ strike sprites. Chrome verifies the reflected strike at (56, 56),
 the native attack on Cora, and display switching. The local fixture
 selects the original lizardfolk roll.
 
+Eastern Marches ridge lizardfolk have their own ready and claw strike
+sprites. Chrome verified the reflected ready pose at (80, 128), the
+strike at (56, 104), and the native two-point hit on Brin. The local
+fixture selects the original lizardfolk encounter roll.
+
 `valjevo-inner-armed-guard-combat` loads the local slot B guard
 checkpoint. It checks the reflected ready pose and unreflected sword
 strike at (80, 104), the native attack on Phineas, and display switching.

@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:27:CPIC8.DAX:57:ecl:a087": "eastern-marches-ridge-lizardfolk-ready.png",
+    "combat:area:27:CPIC8.DAX:185:ecl:a087": "eastern-marches-ridge-lizardfolk-strike.png",
     "combat:area:3:CPIC5.DAX:11:ecl:a002": "valjevo-inner-armed-guard-ready.png",
     "combat:area:3:CPIC5.DAX:139:ecl:a002": "valjevo-inner-armed-guard-strike.png",
     "combat:area:3:CPIC5.DAX:60:ecl:b37c": "valjevo-lower-snake-ready.png",
