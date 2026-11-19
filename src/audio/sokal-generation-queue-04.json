@@ -1,0 +1,18 @@
+{
+  "model": "eleven_v4",
+  "items": [
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9923.mp3", "text": "DO YOU WANT TO TAKE A BOAT BACK TO PHLAN?", "direction": "clear, direct narrator question" },
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9963.mp3", "text": "YOU BOARD A BOAT.", "direction": "brief, measured fantasy narration" },
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9aae.mp3", "text": "THE BOAT DISEMBARKS YOU AT SOKAL KEEP.", "direction": "measured fantasy narration with quiet foreboding" },
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9af8.mp3", "text": "THE SKELETON OF A LONG-DEAD ELF LIES HIDDEN BY ROCKS AND REEDS. ITS WEAPONS AND EQUIPMENT ARE BADLY RUSTED AND CORRODED BY SALT, ITS LEATHERS ARE WORM EATEN AND CRUSTED IN DIRT.", "direction": "somber, descriptive fantasy narration" },
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9b90.mp3", "text": "IN A POUCH ON THE REMAINS IS A CRUMBLING PARCHMENT SCROLL WITH THE WORDS ...", "direction": "measured fantasy narration; discovery leading into an unfinished quotation" },
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9be6.mp3", "text": "...THE LAST PART IS EATEN AWAY.", "direction": "quiet, disappointed fantasy narration" },
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9c64.mp3", "text": "THE ELF IS LONG DEAD.", "direction": "brief, grave fantasy narration" },
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9c7b.mp3", "text": "YOU HACK THE BODY TO BITS.", "direction": "blunt, grim fantasy narration" },
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9c9c.mp3", "text": "YOU SEE THE PITIFUL REMAINS OF A DEAD ELF. EVERYTHING OF VALUE HAS BEEN TAKEN OR DESTROYED.", "direction": "somber fantasy narration with restrained pity" },
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9e08-menu.mp3", "text": "A PACK OF UNDEAD SUDDENLY APPEARS.", "direction": "sudden, urgent fantasy narration" },
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-a092-menu.mp3", "text": "THE CROAKING RISES IN VOLUME.", "direction": "ominous fantasy narration with escalating tension" },
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-a2d2-menu.mp3", "text": "GHOSTLY SHAPES SCREECH OUT A DREADFUL KEENING HOWL", "direction": "dramatic fantasy narration; perform the dreadful ghostly outcry with supernatural intensity" },
+    { "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-aa0a-menu.mp3", "text": "A PALE FORM RISES BEFORE YOU.", "direction": "hushed, ominous fantasy narration" }
+  ]
+}

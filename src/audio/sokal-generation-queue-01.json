@@ -1,0 +1,35 @@
+{
+  "model": "eleven_v4",
+  "items": [
+    {
+      "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9f19.mp3",
+      "text": "UNWHOLESOME MOLD AND FUNGI COVER THE DECAYING RUINS OF THE KEEP'S STABLE. A PUTRID SMELL OF SICKNESS RISES AS YOU ENTER THE BUILDING.",
+      "direction": "disgusted, ominous fantasy narration; vivid but controlled"
+    },
+    {
+      "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9f9d.mp3",
+      "text": "A THICK CARPET OF FUNGUS COVERS THE FLOOR OF THIS ROOM.",
+      "direction": "uneasy, measured fantasy narration"
+    },
+    {
+      "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-9fe9.mp3",
+      "text": "A BROKEN HEARTH AND BELLOWS DOMINATES THE COLLAPSED REMAINS OF A BLACKSMITH'S SHOP. THE FLOOR IS SPONGEY AND DAMP. THE CROAKING OF FROGS GREETS YOUR ENTRY.",
+      "direction": "atmospheric fantasy narration; build quiet unease toward the croaking"
+    },
+    {
+      "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-a0e6.mp3",
+      "text": "CROAK!",
+      "direction": "perform a single abrupt, unnatural frog-like croak in the narrator's voice"
+    },
+    {
+      "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-a11b-a17a.mp3",
+      "text": "AS YOU SEARCH THROUGH THE WRECKED SMITHY, YOU FIND THAT TIME HAS CRUMBLED EVERYTHING WITH THE EXCEPTION OF ONE OLD HAMMER. DO YOU TAKE IT?",
+      "direction": "measured fantasy narration with mild discovery; finish with a clear direct question"
+    },
+    {
+      "output": "../por-assets/voices/narration/sokal-keep/ecl4-b21-a1dd.mp3",
+      "text": "THIS BUILDING IS FILLED WITH BROKEN AND SPLINTERED WOOD, THE REMAINS OF THE BUNKS AND CHESTS OF THE ORIGINAL DEFENDERS. IT SEEMS EVERYTHING HAS BEEN WELL LOOTED.",
+      "direction": "somber, observant fantasy narration"
+    }
+  ]
+}
