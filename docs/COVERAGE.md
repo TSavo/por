@@ -1336,6 +1336,10 @@ the middle and near poses at their original anchors in separate encounters.
 `kobold-cave-wyvern-dialogue` verify the Mummy approach sprite and two
 pre-combat illustrations. Chrome checks the artwork and state-preserving
 mode switches on all five encounter replays.
+`valjevo-fire-giant-dialogue` checks the barracks portrait at the
+original encounter and through the password dialogue after Parlay.
+`zhentil-quarters-guard-dialogue` checks the portrait at the guards’
+quarters restriction, including panel fit and mode switching.
 `lizardfolk-southwest-trail` checks six new masonry and reed junction
 tiles across 14 live views from the unchanged ruin-route save.
 `new-phlan-west-garden-lanes` checks 13 new ivy, courtyard, and standard

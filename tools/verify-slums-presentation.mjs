@@ -80,6 +80,15 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["zhentil-quarters-guard-dialogue", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:area:28:HEAD6.DAX:57:BODY6.DAX:6", prompt: /YOUARERESTRICTEDTOYOURQUARTERS/i,
+  }],
+  ["valjevo-fire-giant-dialogue", {
+    slot: "B", inputs: ["up", "enter", "enter", "a", "a"],
+    portrait: "portrait:area:4:PIC5.DAX:56:0:0", prompt: /THEGIANTSLOOKUPATYOU/i,
+    continuation: { inputs: ["p", "s", "enter"], prompt: /TODAY'SPASSWORDIS/i },
+  }],
   ["valhingen-ghoul-ambush", {
     slot: "A", inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", "enter", "enter"],
     portrait: "portrait:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i,
@@ -1209,7 +1218,7 @@ try {
     await switchBothWays();
     console.log(`Verified ${routeName} in Chrome.`);
   } else if (illustration) {
-    const { inputs, portrait, prompt } = illustration;
+    const { inputs, portrait, prompt, continuation } = illustration;
     for (const key of inputs) await advance(key);
     assert.equal(frame.portrait, portrait);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), prompt);
@@ -1220,6 +1229,12 @@ try {
     })()`));
     await switchBothWays();
     await verifyPortraitPanel();
+    if (continuation) {
+      for (const key of continuation.inputs) await advance(key);
+      assert.equal(frame.portrait, portrait);
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
+      await verifyPortraitPanel();
+    }
     console.log(`Verified ${routeName} illustration, panel fit, and mode switching in Chrome.`);
   } else if (routeName === "pyramid-lizardfolk-vats") {
     for (const key of ["s", "up", "enter", "enter"]) await advance(key);
