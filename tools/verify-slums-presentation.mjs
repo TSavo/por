@@ -3608,7 +3608,13 @@ try {
       const { input, prompt, portrait } = encounterRoute.battleStart;
       await advance(input);
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), prompt);
-      if (portrait) assert.equal(frame.portrait, portrait);
+      if (portrait) {
+        assert.equal(frame.portrait, portrait);
+        await waitFor("the battle opening illustration", () => run(`state.sequence === ${frame.sequence} &&
+          [...document.querySelectorAll(".encounter-portrait")].some(image =>
+            image.getAttribute("src") === ${JSON.stringify("/art/" + portrait)} &&
+            image.naturalWidth === 352 && image.naturalHeight === 352 && image.getClientRects().length > 0)`));
+      }
     }
     if (encounterRoute.acceptedCommission) {
       await advance("j");
