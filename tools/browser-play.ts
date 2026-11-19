@@ -59,6 +59,7 @@ const gameFont = (() => {
   }
 })();
 const artwork = loadUpgradeArt();
+const reflectedTiles = [...artwork].filter(([, art]) => art.reflected).map(([id]) => id);
 let tileTrace = process.env.POR_TILE_TRACE_FILE;
 let lastTileTrace: string | undefined;
 let portraitTrace = process.env.POR_PORTRAIT_TRACE_FILE;
@@ -241,6 +242,7 @@ const server = createServer(async (req, res) => {
   } else if (req.method === "GET" && (req.url === "/state" || /^\/state\?after=-?\d+$/.test(req.url ?? ""))) {
     const snapshot = req.url === `/state?after=${sequence}` ? {} : {
       ...frame,
+      reflectedTiles,
       art: frame.scene === "scene:title" && artwork.has(frame.scene) ? `/art/${frame.scene}` : undefined,
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({

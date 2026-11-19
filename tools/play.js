@@ -319,7 +319,7 @@ async function showScreen() {
         tile.style.width = overlapRight ? `calc(${width / 3.2}% + 0.5px)` : `${width / 3.2}%`;
         tile.style.height = overlapBottom ? `calc(${height / 2}% + 0.5px)` : `${height / 2}%`;
       }
-      if (reflected) tile.style.transform = "scaleX(-1)";
+      if (reflected || (terrain && state.reflectedTiles?.includes(id))) tile.style.transform = "scaleX(-1)";
       tile.style.left = `${x / 3.2}%`;
       tile.style.top = `${y / 2}%`;
       tile.src = `/art/${id}`;

@@ -353,17 +353,17 @@ for (const replacement of replacements) {
   matches.push(replacement);
   replacementsByBlock.set(key, matches);
 }
-function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source, sourceParts, sourceCandidates, capturedPlacement }: typeof replacements[number]) {
+function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source, sourceParts, sourceCandidates, capturedPlacement, reflected }: typeof replacements[number]) {
   const area = placement && "area" in placement ? ` · area ${placement.area}` : "";
   const origin = placement && "x" in placement ? ` · origin (${placement.x}, ${placement.y})` : "";
   const extent = placement && "width" in placement ? ` · display ${placement.width}×${placement.height}` : "";
-  const enhanced = `<a href="${preview}" target="_blank" rel="noopener"><img loading="lazy" src="${preview}" alt="${escape(file)}"></a>`;
+  const enhanced = `<a href="${preview}" target="_blank" rel="noopener"><img loading="lazy" src="${preview}" alt="${escape(file)}"${reflected ? ' style="transform:scaleX(-1)"' : ""}></a>`;
   const images = !classicPreview ? enhanced : `<div class="comparison" style="--preview-width:${Math.min(width, 176)}px">` +
     `<div><a href="${classicPreview}" target="_blank" rel="noopener"><img loading="lazy" src="${classicPreview}" alt="Classic frame"></a><small>Classic</small></div>` +
     `<div>${enhanced}<small>Enhanced</small></div></div>`;
   return `<div class="preview">${images}` +
     `<small>Enhanced · ${width}×${height} · ${escape(id)}${area}${origin}${extent}</small>` +
-    `<small>${escape(file)}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small>` +
+    `<small>${escape(file)}${reflected ? " · reflected in game" : ""}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small>` +
     (sourceParts?.length ? `<small>${sourceParts.map(({ archive, block }) => `${escape(archive)} #${block}`).join(" + ")}</small>` : "") +
     (capturedPlacement ? `<small>Captured at (${capturedPlacement.x}, ${capturedPlacement.y}) · ${escape(capturedPlacement.trace)} frame ${capturedPlacement.frame}</small>` : "") +
     (sourceCandidates ? `<details class="sources"><summary>Exact pixel matches (${sourceCandidates.length})</summary>` +

@@ -1883,6 +1883,7 @@ const environmentRoutes = new Map([
 const freshRolf = routeName === "new-phlan-rolf-approach";
 const routes = ["new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 routes.push("new-phlan-council-reward-reload", "slums-mage-wand");
+routes.push("textile-return-art");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
@@ -1955,7 +1956,8 @@ const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
 const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneReturn || koboldCaveExit;
-const saveSlot = mageWand || koboldKingDoor || koboldKingFall || koboldReturn ? "B" : slot;
+const saveSlot = routeName === "textile-return-art" ? "D" :
+  mageWand || koboldKingDoor || koboldKingFall || koboldReturn ? "B" : slot;
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[saveSlot];
 const saved = resolve(directory, saveSlot + ".json");
 const battleTrace = process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -1976,7 +1978,7 @@ delete browserEnvironment.POR_UPGRADES_DIR;
 if (terrainOnly || classicPortrait) {
   const pack = resolve(directory, "test-art");
   mkdirSync(pack);
-  const combined = { version: 1, assets: {}, encounters: {} };
+  const combined = { version: 1, assets: {}, encounters: {}, reflectedTiles: [] };
   const missingPortrait = routeName === "new-phlan-south-shop-exit" ? southShopkeeper : "portrait:PIC6.DAX:39:0:0";
   for (const source of ["upgrades/slums", "upgrades"]) {
     const manifest = JSON.parse(readFileSync(resolve(source, "manifest.json")));
@@ -1986,6 +1988,7 @@ if (terrainOnly || classicPortrait) {
       combined.assets[id] = file;
     }
     Object.assign(combined.encounters, manifest.encounters);
+    combined.reflectedTiles.push(...(manifest.reflectedTiles ?? []));
   }
   writeFileSync(resolve(pack, "manifest.json"), JSON.stringify(combined));
   browserEnvironment.POR_UPGRADES_DIR = pack;
@@ -4100,6 +4103,28 @@ try {
     assert.equal(manual.stopped, null);
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified that Kovel jail enemy turns advance to the party's manual menu without pressing Q.");
+  } else if (routeName === "textile-return-art") {
+    const mirrors = new Set([
+      "tile:2:62e2c42641f8f6fd55dd84978d2f0d201d8f2fed55123205f1c8cdb1dc4ddf68",
+      "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea",
+    ]);
+    const observed = new Set();
+    for (const key of ["right", "up", "up", "up", "right", "up", "left", "up", "right", ...Array(8).fill("up"),
+      "left", ...Array(6).fill("up"), "right", "up", "left", "up", "up"]) {
+      await advance(key);
+      for (const [x, y, id] of frame.tiles.filter(([, , id]) => mirrors.has(id))) {
+        await waitFor("the reflected 32×32 Textile House tile", () => run(`
+          state.sequence === ${frame.sequence} && [...document.querySelectorAll(".terrain-tile")].some(img =>
+            img.getAttribute("src") === ${JSON.stringify("/art/" + id)} &&
+            img.naturalWidth === 32 && img.naturalHeight === 32 && img.style.transform === "scaleX(-1)" &&
+            Math.abs(parseFloat(img.style.left) - ${(8 + (x - 24) * 120 / 88) / 3.2}) < .001 &&
+            Math.abs(parseFloat(img.style.top) - ${(8 + (y - 24) * 120 / 88) / 2}) < .001)`));
+        observed.add(id);
+      }
+    }
+    assert.deepEqual(observed, mirrors);
+    await switchBothWays();
+    console.log("Verified both reflected Textile House tiles in Chrome.");
   } else if (routeName === "kovel-guild-files") {
     const files = "kovel-guild-files";
     await advance("j");

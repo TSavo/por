@@ -441,5 +441,8 @@ preserved game state and save bytes in the Chrome replays.
 The Textile House return trace includes 174 distinct area 2 patterns from
 the chief's room to the west gate. Eleven bindings reuse existing door,
 masonry, and ivy artwork with matching original pixels. Chrome loaded
-each mapped tile at its route position. Sixteen patterns remain unlinked
-in that trace.
+each mapped tile at its route position. Two additional patterns are exact
+horizontal reflections of existing Textile House pieces. The
+`textile-return-art` Chrome replay checks their 32×32 PNGs, positions, and
+reflection while walking from the chief's room toward the west gate.
+Fourteen patterns remain unlinked in that trace.

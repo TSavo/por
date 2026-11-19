@@ -15,6 +15,7 @@ interface LoadedArtwork {
   png: Buffer;
   width: number;
   height: number;
+  reflected?: boolean;
   encounter?: EncounterAnchor;
 }
 
@@ -42,6 +43,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
     try {
       const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as OverrideManifest;
       if (manifest.version !== 1 || !manifest.assets) continue;
+      const reflectedTiles = new Set(manifest.reflectedTiles ?? []);
       for (const id of Object.keys(manifest.assets)) {
         const encounter = encounterAnchor(id, manifest.encounters?.[id]);
         const monster = monsterCombatKey.exec(id);
@@ -82,7 +84,8 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
           else if (portraitKey.test(id)) sourceWidth = sourceHeight = 88;
           const { width, height } = dimensions;
           if (width !== sourceWidth * 4 || height !== sourceHeight * 4) continue;
-          artwork.set(id, { file, path, png, encounter, width, height });
+          artwork.set(id, { file, path, png, encounter, width, height,
+            reflected: id.startsWith("tile:") && reflectedTiles.has(id) || undefined });
         } catch (error) {
           if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork", error);
         }

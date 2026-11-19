@@ -1,6 +1,12 @@
 {
   "version": 1,
+  "reflectedTiles": [
+    "tile:2:62e2c42641f8f6fd55dd84978d2f0d201d8f2fed55123205f1c8cdb1dc4ddf68",
+    "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
+  ],
   "assets": {
+    "tile:2:62e2c42641f8f6fd55dd84978d2f0d201d8f2fed55123205f1c8cdb1dc4ddf68": "textile-house-f26befbc755d.png",
+    "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea": "textile-house-af843d7ba4d7.png",
     "tile:2:7a6a35c15661f02c8b9267cac4373bb686c0295e27c916af98dab1286dfe2b34": "kuto-south-lane-terrain-7a6a35c15661.png",
     "tile:2:6cd44166e8613cbf3a72f68b26cddc6e05b10fe3c92f75a69ca29e6fbb19ba01": "kuto-south-lane-terrain-6cd44166e861.png",
     "tile:2:86f54fa83e5a4b30fbf7225590bfd45b3c68fbc8a7a59e757437fae19a51aa8b": "lizard-swamp-ruin-terrain-86f54fa83e5a.png",
