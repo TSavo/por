@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["slums-grain-sack-ambush", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:20:PIC2.DAX:31:0:0", prompt: /SOMEMONSTERSARETOSSINGASACKOFGRAIN/i,
+  }],
+  ["bane-ogre-led-guards", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:31:PIC1.DAX:8:0:0", prompt: /SIXORCSLEDBYALARGEOGRE/i,
+  }],
   ["stojanow-plotting-mage", {
     slot: "A", inputs: ["up", "enter", "enter", "enter", "enter"],
     portrait: "portrait:HEAD2.DAX:52:BODY2.DAX:31", prompt: /THEYSEEMUNAWAREOFYOU/i, journalLead: "stojanow-assault-plans",

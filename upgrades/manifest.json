@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:20:PIC2.DAX:31:0:0": "slums-grain-sack-ambush.png",
+    "portrait:area:31:PIC1.DAX:8:0:0": "bane-ogre-led-guards.png",
     "tile:4:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447": "valjevo-kitchen-yard-terrain-01.png",
     "tile:4:7870e9a9d014d5af73d6846dd36c122b941c5efafee1e099b135da968e0216b1": "valjevo-kitchen-yard-terrain-02.png",
     "tile:4:e661bce0938e73b6610229ae27e6f1e51de4af50b1df92a3ae665507ff3a15f7": "valjevo-kitchen-yard-terrain-03.png",

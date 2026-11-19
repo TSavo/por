@@ -1345,6 +1345,10 @@ in the original nighttime outpost battle.
 `stojanow-plotting-mage` and `stojanow-plotting-fighter` verify both
 portraits and prove the journal gains each lead only after hearing it.
 `nomad-warrior-combat` checks the ready pose and reflected sword strike.
+`bane-ogre-led-guards` checks the ogre and orcs illustration at the
+original temple interior prompt, including panel fit and mode switching.
+`slums-grain-sack-ambush` checks the illustration at the original
+grain sack prompt with the same panel and presentation switch checks.
 `valjevo-south-kitchen-yard` checks six rubble and doorway tiles across
 17 live views and 2,057 placements from the existing courtyard save.
 `valjevo-west-chapel-corridors` checks 16 redrawn plaster, limestone,
