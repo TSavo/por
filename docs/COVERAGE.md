@@ -1853,6 +1853,10 @@ native anchor, then the full-panel 352×352 portrait at the challenge and
 failed sneak prompts. The replay verifies both display modes and an
 unchanged save. The separate `buccaneer-pen-guard-combat` replay verifies
 the existing ready and reflected strike artwork on the attack branch.
+With the scoped pen bindings loaded, `buccaneer-guardroom-dialogue` and
+`buccaneer-captain-dialogue` pass from the captain-side slot A checkpoint
+at (8, 12), facing west. The guardroom still selects its chain-mail
+portrait, and the captain still selects his approach and greeting art.
 `buccaneer-pass-seller` verifies the pass offer and its distinct portrait.
 `valhingen-paladin-wraith-dialogue` verifies the paladin's guardian
 portrait, the original dialogue, and state-preserving mode switches.
