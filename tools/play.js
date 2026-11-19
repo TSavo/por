@@ -18,7 +18,7 @@ const audioControls = {
   subtitles: document.querySelector("#audio-subtitles"),
 };
 const defaultAudioPreferences = { hardware: "pc-speaker", master: 0.8, effects: 1,
-  dialogue: 1, narration: 1, muted: false, subtitles: true };
+  dialogue: 1, narration: 1, muted: false, subtitles: false };
 let audioPreferences = defaultAudioPreferences;
 try { audioPreferences = { ...defaultAudioPreferences, ...JSON.parse(localStorage.getItem("por.audio.v1") ?? "{}") }; } catch {}
 let currentEffect;
