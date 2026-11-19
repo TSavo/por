@@ -13,6 +13,13 @@ export function combatHighlightPixel(x: number, y: number): number {
 }
 
 export const monsterCombatKey = /^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX):(\d{1,3})(?::ecl:([a-f0-9]{4}))?$/;
+export const partyCombatKey = /^combat:party:(\d{1,3}):(\d{1,3})$/;
+
+export function partyCombatPart(data: Uint8Array, height: 10 | 24) {
+  if (!isPicture(data)) return;
+  const picture = decodePicture(data);
+  if (picture.width === 24 && picture.height === height && picture.itemCount === 1) return picture.pixels;
+}
 
 export function loadCombatArtMatcher(keys: string[]) {
   const scopes = new Map<string, string[]>();
@@ -110,18 +117,16 @@ function buildCombatArtMatcher(keys: string[]) {
       }
     }
     const partyKeys = keys.flatMap((key) => {
-      const ids = /^combat:party:(\d{1,3}):(\d{1,3})$/.exec(key);
+      const ids = partyCombatKey.exec(key);
       return ids ? [{ key, head: Number(ids[1]), body: Number(ids[2]) }] : [];
     });
     if (partyKeys.length) {
       const files = listGameFiles(root);
-      const parts = (archive: string, height: number) => {
+      const parts = (archive: string, height: 10 | 24) => {
         const file = files.find(name => name.toUpperCase() === archive);
         return new Map(file ? parseDax(archive, readGameFile(root, file)).entries.flatMap(({ id, data }) => {
-          if (!isPicture(data)) return [];
-          const picture = decodePicture(data);
-          return picture.width === 24 && picture.height === height && picture.itemCount === 1 ?
-            [[id, picture.pixels] as const] : [];
+          const pixels = partyCombatPart(data, height);
+          return pixels ? [[id, pixels] as const] : [];
         }) : []);
       };
       const heads = parts("CHEAD.DAX", 10);

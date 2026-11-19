@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
 import { portraitKey } from "./portrait-art.js";
 import { encounterAnchor, encounterKey, encounterPixels } from "./encounter-art.js";
-import { isCombatExtent, monsterCombatKey } from "./combat-art.js";
+import { isCombatExtent, monsterCombatKey, partyCombatKey, partyCombatPart } from "./combat-art.js";
 import { parseDax } from "../src/lib/dax.js";
 import { decodePicture, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
@@ -44,8 +44,9 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
       for (const id of Object.keys(manifest.assets)) {
         const encounter = encounterAnchor(id, manifest.encounters?.[id]);
         const monster = monsterCombatKey.exec(id);
+        const party = partyCombatKey.exec(id);
         if (id !== "scene:title" && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
-            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !/^combat:party:\d{1,3}:\d{1,3}$/.test(id) && !portraitKey.test(id) && !encounter) continue;
+            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !portraitKey.test(id) && !encounter) continue;
         const file = lookupOverride(manifest, id);
         if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) continue;
         try {
@@ -65,7 +66,12 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
             const picture = decodePicture(entry.data);
             if (picture.itemCount !== 1 || !isCombatExtent(picture.width, picture.height)) continue;
             ({ width: sourceWidth, height: sourceHeight } = picture);
-          } else if (id.startsWith("combat:party:")) sourceWidth = sourceHeight = 24;
+          } else if (party) {
+            const head = originalArchive("CHEAD.DAX")?.entries.find(({ id }) => id === Number(party[1]));
+            const body = originalArchive("CBODY.DAX")?.entries.find(({ id }) => id === Number(party[2]));
+            if (!head || !body || !partyCombatPart(head.data, 10) || !partyCombatPart(body.data, 24)) continue;
+            sourceWidth = sourceHeight = 24;
+          }
           else if (portraitKey.test(id)) sourceWidth = sourceHeight = 88;
           const width = png.readUInt32BE(16);
           const height = png.readUInt32BE(20);
