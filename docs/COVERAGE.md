@@ -1245,7 +1245,8 @@ the ready stance and reflected mace strike at 96×96. The forge replays
 `valjevo-forge-smith` and `valjevo-forge-authorization` check the 352×352
 portrait and its removal when each peaceful dialogue returns to exploration.
 `valjevo-genheeris-bargain` and `valjevo-genheeris-orders` verify the
-352×352 illustration, mode switching, and the distinct journal lead
+middle and near approach sprites, the 352×352 illustration, mode
+switching, and the distinct journal lead
 from each choice of parlay tone. The bargain replay also confirms
 that accepting the offer adds Genheeris to the original party roster.
 `valjevo-genheeris-combat` declines his offer and verifies the 96×96

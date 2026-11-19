@@ -2035,7 +2035,19 @@ try {
     await switchBothWays();
     console.log("Verified the Valjevo dungeon sentry portrait in Chrome.");
   } else if (genheeris) {
-    for (const key of ["up", "enter", "enter", "a", "a", "p", genheerisOrders ? "n" : "h"]) await advance(key);
+    for (const key of ["up", "enter", "enter"]) await advance(key);
+    for (const placement of [
+      [56, 32, "encounter:area:7:SPRIT5.DAX:24:1:0", 24, 65],
+      [48, 32, "encounter:area:7:SPRIT5.DAX:24:0:0", 32, 73],
+    ]) {
+      assert.deepEqual(frame.encounter, placement);
+      const [, , , width, height] = placement;
+      await waitFor("Genheeris's approach sprite", () => run(
+        `document.querySelector(".encounter-sprite")?.naturalWidth === ${width * 4} && document.querySelector(".encounter-sprite")?.naturalHeight === ${height * 4}`));
+      await switchBothWays();
+      await advance("a");
+    }
+    for (const key of ["p", genheerisOrders ? "n" : "h"]) await advance(key);
     assert.equal(frame.portrait, "portrait:HEAD5.DAX:59:BODY5.DAX:31");
     await waitFor("Genheeris's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
