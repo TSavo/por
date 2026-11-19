@@ -1874,6 +1874,11 @@ const environmentRoutes = new Map([
     transition: { afterViews: 8, area: 29 },
     walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "right"],
   }],
+  ["kuto-inner-western-edge", {
+    slot: "J", area: 29, views: 12, patterns: 48, sceneryOnly: true,
+    requiredTile: "tile:29:5745bb7f429a1afa52a11ab57f7148ee24f79b3805d2c6a95d8c1ee9e779be01",
+    walk: ["up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up"],
+  }],
   ["kuto-inner-lane", {
     slot: "J", area: 29, views: 19, patterns: 54, sceneryOnly: true,
     walk: ["up", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up"],
@@ -3336,6 +3341,7 @@ try {
     }
     assert.equal(views, environment.views);
     assert.equal(patterns.size, environment.patterns);
+    if (environment.requiredTile) assert.ok(patterns.has(environment.requiredTile), environment.requiredTile);
     if (canalWalk) await captureCanalView("end");
     if (routeName === "new-phlan-canal-room") {
       const text = frame.text.map(([, char]) => String.fromCharCode(char)).join("");

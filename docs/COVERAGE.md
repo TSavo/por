@@ -2997,3 +2997,7 @@ Chrome replay verifies both poses during the longsword exchange.
 
 The Kobold throne rematch uses separate middle and near approach art.
 The Chrome replay checks both placements, portrait panel fit, and mode switching.
+
+Kuto's perimeter and western inner lane use 18 additional packed-earth
+joins. The western Chrome replay checks 12 views across 48 distinct tile
+patterns, including the floor edge, and verifies state-preserving mode switches.
