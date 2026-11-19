@@ -1349,6 +1349,10 @@ portraits and prove the journal gains each lead only after hearing it.
 original temple interior prompt, including panel fit and mode switching.
 `slums-grain-sack-ambush` checks the illustration at the original
 grain sack prompt with the same panel and presentation switch checks.
+`valjevo-medusa-dialogue` verifies the charging Medusa at the original
+precombat prompt, with full panel fit and mode switching.
+`sokal-ceiling-insects` checks the swarm illustration at the original
+ceiling encounter, including panel fit and mode switching.
 `valjevo-south-service-lane` checks 11 new limestone, rubble, and sky
 transition tiles across 16 live views and 1,936 placements.
 `zhentil-north-lanes` checks eight new 32×32 tiles and the sky joins

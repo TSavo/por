@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["sokal-ceiling-insects", {
+    slot: "C", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:21:PIC4.DAX:18:0:0", prompt: /THEINTERIORISOVERRUNWITHINSECTS/i,
+  }],
+  ["valjevo-medusa-dialogue", {
+    slot: "B", inputs: ["up", "enter", "enter", "enter"],
+    portrait: "portrait:area:7:PIC5.DAX:49:0:0", prompt: /AMEDUSACOMESRUNNINGTOWARDYOU/i,
+  }],
   ["podal-pitt-drunken-buccaneer", {
     slot: "I", inputs: ["up", "enter", "enter"],
     portrait: "portrait:HEAD1.DAX:6:BODY1.DAX:3", prompt: /ONEOFYOUSHALLPAYFORTHISINSULT/i,
