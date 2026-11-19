@@ -3215,9 +3215,12 @@ The `eastern-marches-kobold-leader-combat` replay checks the scoped
 leader's ready and reflected shortbow strike, the native attack report,
 and state preservation across displays. Its slot B checkpoint is staged
 one square west of the fixed horde encounter.
-The Ferran Martinez replay uses a controlled slot C chapel checkpoint
+`sokal-ferran-combat` uses a controlled slot C chapel checkpoint
 and verifies his new ready and strike sprites at (80, 104) during the
 original attack on Alda.
+`sokal-armory-scorpion-combat` loads the slot C insects checkpoint.
+Chrome verifies the 192×96 scorpion ready at (56, 32) and reflected
+sting at (80, 56), the attack report, and display switching.
 
 The `new-phlan-council-archer-combat` Chrome replay refuses the
 Council guard's order to leave. It verifies the ready archer at

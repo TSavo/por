@@ -7,6 +7,8 @@
   "assets": {
     "combat:area:21:CPIC4.DAX:17:ecl:aed4": "sokal-ferran-combat-ready.png",
     "combat:area:21:CPIC4.DAX:145:ecl:aed4": "sokal-ferran-combat-strike.png",
+    "combat:area:21:CPIC4.DAX:18:ecl:aed4": "sokal-armory-scorpion-ready.png",
+    "combat:area:21:CPIC4.DAX:146:ecl:aed4": "sokal-armory-scorpion-strike.png",
     "combat:area:27:CPIC8.DAX:1:ecl:9c61": "eastern-marches-kobold-leader-ready.png",
     "combat:area:27:CPIC8.DAX:129:ecl:9c61": "eastern-marches-kobold-leader-strike.png",
     "character-sheet:HEAD3.DAX:9": "character-sheet-dwarf-head-9.png",

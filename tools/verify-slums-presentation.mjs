@@ -919,6 +919,18 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["sokal-ferran-combat", {
+    slot: "C", stand: "combat:area:21:CPIC4.DAX:17:ecl:aed4", strike: "combat:area:21:CPIC4.DAX:145:ecl:aed4",
+    width: 96, height: 96, manualPolling: true, standAnchor: [80, 104, true],
+    strikeAnchor: [80, 104], strikeReflected: false, strikeReport: /FERRANMARTINEZATTACKSALDA/i,
+    inputs: ["up", "enter", "c", "enter"], strikeInputs: ["enter", "enter"],
+  }],
+  ["sokal-armory-scorpion-combat", {
+    slot: "C", stand: "combat:area:21:CPIC4.DAX:18:ecl:aed4", strike: "combat:area:21:CPIC4.DAX:146:ecl:aed4",
+    width: 192, height: 96, manualPolling: true, standAnchor: [56, 32, false],
+    strikeAnchor: [80, 56], strikeReflected: true, strikeReport: /HUGESCORPIONATTACKSALDA/i,
+    inputs: ["up", "enter", "enter", "enter", "enter"], strikeInputs: Array(4).fill("q"),
+  }],
   ["eastern-marches-kobold-leader-combat", {
     slot: "B", stand: "combat:area:27:CPIC8.DAX:1:ecl:9c61", strike: "combat:area:27:CPIC8.DAX:129:ecl:9c61",
     width: 96, height: 96, manualPolling: true, standAnchor: [80, 56, true],
