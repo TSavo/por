@@ -3096,3 +3096,6 @@ replays verify the ten new pairs from native editor saves.
 
 The undisguised Podal Plaza goblin challenge has a dedicated illustration.
 Chrome checks the approach, encounter menu, and state-preserving mode switches.
+
+The Podal Plaza orc uses far, middle, and near artwork for the auction
+clue and parlay approaches. Chrome verifies both branches and mode switching.
