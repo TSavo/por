@@ -2129,6 +2129,13 @@ in New Phlan, and `sokal-keep-departure-ferry` checks boarding at the keep
 and the return to New Phlan. These replays check presentation switching
 and save preservation.
 
+`buccaneer-east-run` checks five new fence and corner tiles across
+21 views and 2,541 placements. `nomad-inner-tent-lane` checks 11 new
+canvas, foliage, and doorway tiles across 13 views and 1,573 placements.
+`stojanow-tower-aide-combat` checks the 96×96 ready and longsword
+strike poses. `textile-ogre-war-chief-approach` checks the sprite at
+its original anchor on both dialogue pages.
+
 `new-phlan-tavern-spinner` and `new-phlan-tavern-brawl` check both new
 illustrations at their original prompts. The arena and harbor Watch mage
 replays check the shared ready sprite. Neither replay observed a native
