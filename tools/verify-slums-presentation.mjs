@@ -2507,6 +2507,8 @@ try {
       await advance("j");
     }
     const grishnakTemple = routeName === "textile-temple" || routeName === "textile-temple-native";
+    const phlanExit = /^new-phlan-(?:south-shop|west-shop|training|tavern-back)-exit$/.test(routeName);
+    let exitPauseTiles;
     let sawGrishnakApproach = false;
     for (const key of environment.walk) {
       const previousTiles = frame.tiles;
@@ -2549,13 +2551,23 @@ try {
           })()` });
           assert.equal(result.result.value, true, result.exceptionDetails?.text ?? "A missing portrait should preserve the enhanced picture panel");
         }
-        if (key === "n") {
-          assert.equal(frame.portrait, undefined);
-          assert.equal(frame.perspective, true);
-        }
       }
       const viewArea = transition && views >= transition.afterViews ? transition.area : area;
-      views += await verifyTiledView(viewArea, patterns);
+      const tiledView = await verifyTiledView(viewArea, patterns);
+      views += tiledView;
+      if (phlanExit && (key === "n" || exitPauseTiles)) {
+        assert.equal(tiledView, 1, "The doorway should render enhanced scenery on both sides of Enter");
+        assert.equal(frame.portrait, undefined);
+        assert.equal(frame.classicPortrait, false);
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        const stage = exitPauseTiles ? "after-enter" : "before-enter";
+        if (exitPauseTiles) {
+          assert.equal(key, "enter");
+          assert.deepEqual(frame.tiles, exitPauseTiles);
+        }
+        writeFileSync(resolve(directory, `${routeName}-${stage}.png`), Buffer.from(shot.data, "base64"));
+        exitPauseTiles = exitPauseTiles ? undefined : frame.tiles;
+      }
     }
     if (routeName === "buccaneer-pens") {
       assert.equal(frame.perspective, true, "The animal-pen menu should keep the first-person picture");
