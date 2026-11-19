@@ -25,6 +25,17 @@ illustration as the ink, watercolor, and palette reference:
 The illustrations use artist-designed footprints and paths. The Atlas does
 not show a tile-level party position on the artwork.
 
+The district and destination plates also cover Buccaneer Base, Zhentil Keep
+Outpost, Nomad Camp, Podol Plaza, Mendor’s Library, the Cadorna Textile House,
+Kuto’s Well, the Temple of Bane, and the Kobold Caves. The atlas defaults to
+the most specific illustration for the party’s current location.
+
+Kuto’s Catacombs and the Temple of Bane Interior appear in the atlas after
+the party reaches their respective maps. The Local view remembers their
+explored tiles and markings separately from the surface. The Kobold Caves
+plate shows the hillside approaches, with the Local view recording the
+tunnels as the party explores them.
+
 In Enhanced overland play, the Moonsea plate also serves as the travel map.
 Available destinations glow on hover or keyboard focus. Click one or press
 Enter while focused to walk there using the original game controls. Travel

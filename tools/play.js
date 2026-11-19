@@ -531,8 +531,9 @@ function rememberExploration() {
       discoveredMapSlot = state.saveSlot;
     } else loadDiscoveredMaps(state.saveSlot);
   } else if ((state.saveSlot ?? null) !== discoveredMapSlot) loadDiscoveredMaps(state.saveSlot);
-  const { area, x, y, facing, walls } = state.exploration;
-  const map = discoveredMaps[area] ??= { cells: {} };
+  const { area, mapId, x, y, facing, walls } = state.exploration;
+  const areaMap = discoveredMaps[area] ??= { cells: {} };
+  const map = mapId === undefined ? areaMap : (areaMap.floors ??= {})[mapId] ??= { cells: {} };
   if (walls && x >= 0 && x <= 15 && y >= 0 && y <= 15) {
     const key = `${x},${y}`;
     map.cells[key] = { ...map.cells[key], x, y, walls };
@@ -542,10 +543,17 @@ function rememberExploration() {
   if (!automap.hidden) renderAutomap();
 }
 
+function discoveredLocalMap({ area, mapId }) {
+  const map = discoveredMaps[area];
+  return mapId === undefined ? map : map?.floors?.[mapId];
+}
+
 function renderAutomap() {
   const position = state.exploration;
   if (!position) return;
-  const sheets = atlas.filter((sheet) => sheet.areas.some((area) => area === position.area || discoveredMaps[area]));
+  const sheets = atlas.filter(sheet => sheet.areas.some(area => sheet.mapId === undefined
+    ? area === position.area || discoveredMaps[area]
+    : discoveredMaps[area]?.floors?.[sheet.mapId] || (area === position.area && sheet.mapId === position.mapId)));
   atlasMap.hidden = !sheets.length;
   if (mapMode === "atlas" && !sheets.length) mapMode = "local";
   localMap.setAttribute("aria-pressed", String(mapMode === "local"));
@@ -554,12 +562,13 @@ function renderAutomap() {
   atlasView.hidden = mapMode !== "atlas";
   automapSvg.toggleAttribute("hidden", mapMode === "atlas");
   markMap.hidden = mapMode !== "local";
-  if (mapMode === "atlas") { renderAtlas(sheets, position.area); return; }
+  if (mapMode === "atlas") { renderAtlas(sheets, position); return; }
   if (mapMode === "region") { renderRegionMap(position); return; }
   automapSvg.setAttribute("viewBox", "-0.5 -0.5 17 17");
   automapSvg.setAttribute("aria-label", "Discovered area map");
-  const map = discoveredMaps[position.area] ?? { cells: {} };
-  automapTitle.textContent = `${areaNames[position.area] ?? `Area ${position.area}`} — discovered map`;
+  const map = discoveredLocalMap(position) ?? { cells: {} };
+  const title = preferredAtlasSheet(sheets, position)?.title;
+  automapTitle.textContent = `${title ?? areaNames[position.area] ?? `Area ${position.area}`} — discovered map`;
   const lines = [];
   for (const cell of Object.values(map.cells)) {
     const { x, y, walls } = cell;
@@ -579,14 +588,20 @@ function renderAutomap() {
   automapSvg.innerHTML = lines.join("");
 }
 
-function renderAtlas(sheets, area) {
+function preferredAtlasSheet(sheets, { area, mapId }) {
+  return sheets.find(sheet => sheet.areas.includes(area) && sheet.mapId === mapId &&
+    (mapId !== undefined || sheet.areas.length === 1));
+}
+
+function renderAtlas(sheets, position) {
   const selection = atlasSheet.value;
   if (atlasSheet.options.length !== sheets.length || sheets.some((sheet, index) =>
     atlasSheet.options[index].value !== sheet.file)) {
     atlasSheet.replaceChildren(...sheets.map(({ title, file }) => new Option(title, file)));
   }
   const sheet = sheets.find(({ file }) => file === selection) ??
-    sheets.find(({ areas }) => areas.includes(area)) ?? sheets[0];
+    preferredAtlasSheet(sheets, position) ??
+    sheets.find(sheet => sheet.areas.includes(position.area) && sheet.mapId === undefined) ?? sheets[0];
   atlasSheet.value = sheet.file;
   automapTitle.textContent = "Illustrated atlas";
   const url = `/atlas/${encodeURIComponent(sheet.file)}`;
@@ -656,7 +671,7 @@ function escapeMapText(text) {
 function markCurrentLocation() {
   const position = state.exploration;
   if (!position) return;
-  const current = discoveredMaps[position.area]?.cells?.[`${position.x},${position.y}`];
+  const current = discoveredLocalMap(position)?.cells?.[`${position.x},${position.y}`];
   const label = window.prompt("Map label", current?.label ?? "");
   if (label === null || !current) return;
   const clean = label.replace(/\s+/g, " ").trim().slice(0, 40);

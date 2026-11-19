@@ -6,5 +6,16 @@
   { "title": "Sorcerer’s Island", "file": "sorcerers-island-concept-v1.png", "areas": [22, 23] },
   { "title": "Lizardman Keep", "file": "lizardman-keep-concept-v1.png", "areas": [16] },
   { "title": "Valhingen Graveyard", "file": "valhingen-graveyard-concept-v1.png", "areas": [10] },
+  { "title": "Buccaneer Base", "file": "buccaneer-base-concept-v1.png", "areas": [1] },
+  { "title": "Zhentil Keep Outpost", "file": "zhentil-keep-outpost-concept-v1.png", "areas": [28] },
+  { "title": "Nomad Camp", "file": "nomad-camp-concept-v1.png", "areas": [17] },
+  { "title": "Podol Plaza", "file": "podol-plaza-concept-v1.png", "areas": [18] },
+  { "title": "Mendor’s Library", "file": "mendors-library-concept-v1.png", "areas": [15] },
+  { "title": "Cadorna Textile House", "file": "cadorna-textile-house-concept-v1.png", "areas": [2] },
+  { "title": "Kuto’s Well", "file": "kutos-well-concept-v1.png", "areas": [29] },
+  { "title": "Kuto’s Catacombs", "file": "kutos-catacombs-concept-v1.png", "areas": [29], "mapId": 32 },
+  { "title": "Temple of Bane", "file": "temple-of-bane-concept-v1.png", "areas": [24] },
+  { "title": "Temple of Bane Interior", "file": "temple-of-bane-interior-concept-v1.png", "areas": [24, 31], "mapId": 31 },
+  { "title": "Kobold Caves", "file": "kobold-caves-concept-v1.png", "areas": [13] },
   { "title": "The Moonsea around Phlan", "file": "phlan-region-concept-v2-geography.png", "areas": [25, 26, 27] }
 ]

@@ -61,7 +61,8 @@ for (const event of parsedNarrationManifest.events) {
 const soundManifest = readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url));
 const geographyModel = readFileSync(new URL("../src/maps/geography-model.json", import.meta.url));
 const atlasManifest = readFileSync(new URL("../src/maps/atlas.json", import.meta.url));
-const atlasFiles = new Set((JSON.parse(atlasManifest.toString("utf8")) as { file: string }[]).map(({ file }) => file));
+const atlasSheets = JSON.parse(atlasManifest.toString("utf8")) as { file: string; areas: number[]; mapId?: number }[];
+const atlasFiles = new Set(atlasSheets.map(({ file }) => file));
 const enhancedSoundFiles = new Set((JSON.parse(soundManifest.toString("utf8")) as
   { events: { enhancedFile?: string }[] }).events.flatMap(({ enhancedFile }) => enhancedFile ? [enhancedFile] : []));
 const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
@@ -83,7 +84,7 @@ let streetMaterials: string | undefined;
 const localMaterialSets = new Map<string, string>();
 type ExplorationFrame = {
   nativeScenery?: NativeExploration & { area: number };
-  scenery?: Pick<NativeExploration, "x" | "y" | "facing" | "walls"> & { materialId: string; area: number };
+  scenery?: Pick<NativeExploration, "x" | "y" | "facing" | "walls" | "mapId"> & { materialId: string; area: number };
   overlandMap?: boolean;
 };
 
@@ -91,14 +92,14 @@ function prepareScenery(view: ExplorationFrame) {
   const native = view.nativeScenery;
   if (!native) return;
   delete view.nativeScenery;
-  const { x, y, facing, walls, area } = native;
+  const { x, y, facing, walls, area, mapId } = native;
   const materialId = area === 0 ? "phlan" : createHash("sha256")
     .update(JSON.stringify([area,native.frontSlots,native.glyphs,native.skyColor,native.groundColor])).digest("hex");
   if (area !== 0 && !localMaterialSets.has(materialId)) {
     if (localMaterialSets.size >= 32) localMaterialSets.delete(localMaterialSets.keys().next().value!);
     localMaterialSets.set(materialId, JSON.stringify(buildExplorationMaterials(native, artwork)));
   }
-  view.scenery = { x, y, facing, walls, materialId, area };
+  view.scenery = { x, y, facing, walls, materialId, area, mapId };
 }
 const reflectedTiles = [...artwork].filter(([, art]) => art.reflected).map(([id]) => id);
 let tileTrace = process.env.POR_TILE_TRACE_FILE;
@@ -140,7 +141,7 @@ interface FrameState extends ExplorationFrame {
   classicPortraitArea?: number;
   classicPortraitCursor?: number;
   perspective?: boolean;
-  exploration?: { area: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number;
+  exploration?: { area: number; mapId?: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number;
     walls?: [number, number, number, number] };
   encounter?: EncounterPlacement;
   tiles?: [number, number, string][];
@@ -183,9 +184,19 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
     prepareScenery(frame);
     frame.animation?.forEach(prepareScenery);
     const position = frame.exploration;
-    const map = position && geometry.get(position.area);
-    if (position && map && position.x >= 0 && position.x < 16 && position.y >= 0 && position.y < 16) {
-      position.walls = map.cells[position.y * 16 + position.x]?.wall;
+    if (position) {
+      const scenery = frame.scenery;
+      if (scenery?.area === position.area && scenery.mapId !== undefined &&
+        atlasSheets.some(sheet => sheet.mapId === scenery.mapId && sheet.areas.includes(position.area))) {
+        const { mapId, x, y, facing, walls } = scenery;
+        const bytes = Buffer.from(walls, "base64");
+        const cell = y * 16 + x;
+        const northEast = bytes[cell]!, southWest = bytes[cell + 256]!;
+        Object.assign(position, { mapId, x, y, facing,
+          walls: [northEast >> 4, northEast & 15, southWest >> 4, southWest & 15] });
+      } else if (position.x >= 0 && position.x < 16 && position.y >= 0 && position.y < 16) {
+        position.walls = geometry.get(position.area)?.cells[position.y * 16 + position.x]?.wall;
+      }
     }
     // A cleared viewport between scenes has no terrain to inventory.
     if (tileTrace && frame.tileInventory?.some(([, , , indices]) => /[1-9a-f]/i.test(indices))) {

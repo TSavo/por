@@ -4,6 +4,7 @@ export interface NativeExploration {
   x: number;
   y: number;
   facing: number;
+  mapId?: number;
   walls: string;
   frontSlots: string;
   glyphs: Record<number, string>;
@@ -22,6 +23,10 @@ export function captureNativeExploration(cpu: Cpu): NativeExploration | undefine
   const y = cpu.read8(ds, 0x6a0c);
   const facing = cpu.read8(ds, 0x6a0d);
   if (!geoSegment || !wallSegment || x > 15 || y > 15 || facing > 6 || facing % 2) return;
+  const partyOffset = cpu.read16(ds, 0x4933);
+  const partySegment = cpu.read16(ds, 0x4935);
+  // The active GEO block is guest ECL variable 0x49c5 in the party record.
+  const mapId = partySegment ? cpu.read16(partySegment, partyOffset + 0x18a) : undefined;
 
   // The first two planes contain the four wall nibbles for each tile.
   const walls = Buffer.from(Array.from({ length: 512 }, (_, i) => cpu.read8(geoSegment, geoOffset + i)));
@@ -49,6 +54,6 @@ export function captureNativeExploration(cpu: Cpu): NativeExploration | undefine
     glyphs[symbol] = pixels.toString("hex");
   }
   // The native backdrop fills behind the transparent portions of the glyphs.
-  return { x, y, facing, walls: walls.toString("base64"), frontSlots: slots.toString("base64"), glyphs,
+  return { x, y, facing, mapId, walls: walls.toString("base64"), frontSlots: slots.toString("base64"), glyphs,
     skyColor: 11, groundColor: 6 };
 }
