@@ -4852,22 +4852,23 @@ try {
     if (halls) {
       console.log("Verified enhanced Valjevo hall views and the dragon dialogue.");
     } else {
-      const traveler = "combat:party:73:93";
-      let travelerVisible = false;
+      const partyArt = new Set(["combat:party:73:93", "combat:party:73:81", "combat:party:69:90"]);
       for (const key of ["enter", "enter", ...Array(6).fill("a"), "enter", "enter", "q"]) {
         await advance(key);
-        const placement = frame.combatArt?.find(([, , id]) => id === traveler);
-        if (travelerVisible || !placement) continue;
-        const [left, top] = placement;
-        await waitFor("the enhanced teal-robed party member", () => run(`state.sequence === ${frame.sequence} &&
-          [...document.querySelectorAll('.combat-sprite[src="/art/${traveler}"]')].some(img =>
-            img.naturalWidth === 96 && img.naturalHeight === 96 &&
-            parseFloat(img.style.left) === ${left / 3.2} && parseFloat(img.style.top) === ${top / 2})`));
+        const placements = frame.combatArt?.filter(([, , id]) => partyArt.has(id)) ?? [];
+        if (!placements.length) continue;
+        await waitFor("the enhanced party sprites in the dragon fight", () => run(`state.sequence === ${frame.sequence} &&
+          ${JSON.stringify(placements)}.every(([left, top, id, reflected]) =>
+            [...document.querySelectorAll(".combat-sprite")].some(img =>
+              img.getAttribute("src") === "/art/" + id && img.naturalWidth === 96 && img.naturalHeight === 96 &&
+              parseFloat(img.style.left) === left / 3.2 && parseFloat(img.style.top) === top / 2 &&
+              img.style.transform === (reflected ? "scaleX(-1)" : "")))`));
+        for (const [, , id] of placements) partyArt.delete(id);
+        if (partyArt.size) continue;
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "dragon-fight-party.png"), Buffer.from(shot.data, "base64"));
-        travelerVisible = true;
       }
-      assert.ok(travelerVisible, "Expected the teal-robed party member at the opening of the dragon fight");
+      assert.deepEqual([...partyArt], [], "Expected all three enhanced party poses at the opening of the dragon fight");
       const sprite = frame.combatArt.find(([, , id]) => id === "combat:CPIC5.DAX:66");
       assert.ok(sprite);
       const [x, y, , reflected, highlighted, width, height] = sprite;

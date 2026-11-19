@@ -159,7 +159,9 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
         const torso = bodies.get(body);
         if (!face || !torso) continue;
         const pixels = torso.slice();
-        pixels.set(face);
+        // The head is a masked overlay. Its clear pixels leave the sword,
+        // bow, or shield already drawn in the top rows of the body visible.
+        face.forEach((color, index) => { if (color) pixels[index] = color; });
         registerFacings(palette ? pixels.map(color => Number.parseInt(palette[color]!, 16)) : pixels, key);
       }
     }

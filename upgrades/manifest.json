@@ -4178,6 +4178,8 @@
     "combat:party:0:0": "sokal-party-scout.png",
     "combat:party:0:128": "combat-party-scout-strike.png",
     "combat:party:73:93": "combat-party-teal-traveler.png",
+    "combat:party:73:81": "combat-party-copper-shield.png",
+    "combat:party:69:90": "combat-party-gilt-hammer.png",
     "combat:party:64:64": "combat-party-swordsman-blue.png",
     "combat:party:64:64:palette:062645678eaecdef": "combat-party-swordsman-ochre.png",
     "combat:party:64:64:palette:044645678ccecdef": "combat-party-swordsman-rust.png",

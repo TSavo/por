@@ -1909,9 +1909,11 @@ The same replay checks the 192×192 bite at its position in the live
 combat animation and confirms that the enhanced combat panel shows the hit
 and then the fire damage as separate reports. With
 `POR_TRACE_BATTLE_TILES=1`, it captured 22 frames.
-The opening combat sequence also verifies the 96×96 teal-robed party
-member at the native position. The standing pose matches the original
-`CHEAD.DAX` block 73 and `CBODY.DAX` block 93 combination.
+The opening combat sequence also verifies three 96×96 party poses at
+their native positions and facings. The `CHEAD.DAX` and `CBODY.DAX`
+combinations are 73/93 for the teal-robed traveler, 73/81 for the sword
+and shield, and 69/90 for the hammer and shield. The matcher preserves
+weapon pixels behind transparent portions of the head overlay.
 With `POR_WRITE_ENVIRONMENT_TRACE=1`, it exports all eight approach views
 for the art inventory, including the positions of the six new hall tiles.
 
