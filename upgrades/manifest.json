@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:18:SPRIT1.DAX:4:0:0": "podal-shrine-recruiter-approach.png",
     "combat:area:10:CPIC4.DAX:35:ecl:b5c7": "graveyard-stair-zombie-stand.png",
     "combat:area:10:CPIC4.DAX:163:ecl:b5c7": "graveyard-stair-zombie-strike.png",
     "tile:0:939dbafda4caaa444005584fd93736157f88ffc526159e98e87777b6192d807f": "new-phlan-pier-branch-terrain-939dbafda4ca.png",
@@ -3472,6 +3473,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:18:SPRIT1.DAX:4:0:0": { "area": 18, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:20:SPRIT2.DAX:2:0:0": { "area": 20, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:16:SPRIT8.DAX:59:0:0": { "area": 16, "x": 32, "y": 32, "width": 80, "height": 80 },
     "encounter:area:27:SPRIT8.DAX:121:0:0": { "area": 27, "x": 24, "y": 32, "width": 88, "height": 80 },

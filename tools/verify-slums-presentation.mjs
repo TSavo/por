@@ -37,6 +37,11 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["podal-shrine-recruiter-approach", {
+    slot: "I", inputs: ["up", "up"],
+    placement: [48, 32, "encounter:area:18:SPRIT1.DAX:4:0:0", 40, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:18:PIC1.DAX:4:0:0", prompt: /AROBEDORCISSITTINGHERE/i },
+  }],
   ["slums-orc-clash", {
     slot: "B", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:SPRIT2.DAX:4:0:0", 40, 80],
