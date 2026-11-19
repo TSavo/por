@@ -75,6 +75,25 @@ function checkBrowserArtPacks(): void {
       }
     }
   }
+  const pittArchive = "CPIC1.DAX";
+  const pittBlocks = parseDax(pittArchive, readGameFile(root, pittArchive)).entries;
+  for (const [id, reflected] of [[6, false], [134, true]] as const) {
+    const { pixels, width, height } = decodePicture(pittBlocks.find(block => block.id === id)!.data);
+    const underlay = new Frame(320, 200, 7);
+    const frame = new Frame(320, 200, 7);
+    const enhanced = new Frame(320, 200, 7);
+    for (let row = 0; row < height; row++) {
+      for (let column = 0; column < width; column++) {
+        const color = pixels[row * width + (reflected ? width - 1 - column : column)];
+        if (color) frame.set(56 + column, 56 + row, color);
+      }
+    }
+    enhanced.pixels.set(frame.pixels);
+    const placements = match(frame, enhanced, 18, 0xaab5, underlay);
+    deepStrictEqual(placements.find(([x, y]) => x === 56 && y === 56),
+      [56, 56, `combat:area:18:${pittArchive}:${id}:ecl:aab5`, reflected]);
+    deepStrictEqual(enhanced.pixels, underlay.pixels, "Removing a scoped sprite should restore the battlefield");
+  }
   console.log(`verified ${declared.size} browser art mappings against the game data, PNG dimensions, and chunk checksums`);
 }
 
