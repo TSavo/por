@@ -2198,3 +2198,11 @@ new tiles across 52 views, including doorways and covered passages.
 combatants' ready poses and reflected sword strikes in the same forge
 fight. All of these replays check game state and save preservation
 when switching presentation.
+
+`slums-guild-corners-potion` and `slums-guild-corners-grain` check
+two new tiles across 20 views. The Stojanow tower warning, tower lanes,
+and guard wing replays check 13 new tiles across 56 views, including
+the tower warning acknowledgements. `textile-hobgoblin-line` and
+`sokal-hobgoblin-line` check each area's 96×96 infantry ready and
+reflected strike poses in its native fight. The Podal recruit leader
+replay checks the longbow ready pose from the increased-HP checkpoint.
