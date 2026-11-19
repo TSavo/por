@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:16:SPRIT8.DAX:59:0:0": "swamp-giant-lizard-approach.png",
+    "portrait:area:16:PIC8.DAX:59:0:0": "swamp-giant-lizard-dialogue.png",
     "tile:22:0d2e0d812f7dc3c9ee7a5bab17469c2963e072b186b7427d4a1ffb9a552ba0ee": "yarash-inner-court-terrain-0d2e0d812f7d.png",
     "tile:22:3fac91ee9d1b24c2e56fcbe21729beb84a920355197406acbbe3102e64ef83a9": "yarash-inner-court-terrain-3fac91ee9d1b.png",
     "tile:22:cb404f7ed71e3c8c5a855c3af2e0b70086988c8b0fcc7b7e11f6b64992cff365": "yarash-inner-court-terrain-cb404f7ed71e.png",
@@ -3323,6 +3325,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:16:SPRIT8.DAX:59:0:0": { "area": 16, "x": 32, "y": 32, "width": 80, "height": 80 },
     "encounter:area:27:SPRIT8.DAX:121:0:0": { "area": 27, "x": 24, "y": 32, "width": 88, "height": 80 },
     "encounter:area:20:SPRIT2.DAX:6:0:0": { "area": 20, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:21:SPRIT4.DAX:6:1:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 65 },

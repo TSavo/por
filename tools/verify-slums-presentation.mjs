@@ -37,6 +37,11 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["swamp-giant-lizard-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [32, 32, "encounter:area:16:SPRIT8.DAX:59:0:0", 80, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:16:PIC8.DAX:59:0:0", prompt: /3GIANTLIZARDSCHARGETOWARDYOU/i },
+  }],
   ["wild-cave-wyvern-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [24, 32, "encounter:area:27:SPRIT8.DAX:121:0:0", 88, 80],
