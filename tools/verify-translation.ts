@@ -388,7 +388,9 @@ function checkCampaignJournal(): void {
     throw new Error("The auction journal missed the departure step");
   }
   for (const [fragment, hint] of [["BOATS LEAVE FOR THE WEST, THE EAST, SOKAL KEEP, AND THE NORTH SIDE OF THE BAY", "Choose West"],
-    ["THE PLAZA AHEAD IS CROWDED WITH MONSTERS", "Disguise the party or sneak"]]) {
+    ["THE PLAZA AHEAD IS CROWDED WITH MONSTERS", "Disguise the party or sneak"],
+    ["THE AUCTIONEER CRIES 'CREATURES OF ALL AGES", "watch the bidding"],
+    ["THE BIDDING ESCALATES TO 5,000 GOLD PIECES", "see who wins"]]) {
     const line = lines.find(text => text.includes(fragment!));
     if (!line || !currentObjective([...auctionAccepted, ...discoveredLeads(line)], "commission-auction").nextStep.includes(hint!)) {
       throw new Error(`Auction journal missed the next step after ${fragment}`);

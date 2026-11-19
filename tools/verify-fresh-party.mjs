@@ -398,6 +398,10 @@ async function verifyPodalFromCouncil(continuation) {
   const result = await replay(load("1769"), "85000000", [
     "right", "right", ...Array(7).fill("up"), "right", "up", "up", "enter",
     (text) => assert.match(text, /the auctioneer cries/),
+    "j", (_text, frame) => {
+      assert.match(frame.journal.objective.nextStep, /watch the bidding/i);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-bidding" || id === "auction-exchange"));
+    }, "j",
     "enter", "enter", "enter", "enter", "end", "enter", "enter",
     (text) => assert.match(text, /a man and ogre exchange the wand/),
     "enter", "j", checkAuction("ready-to-report"), checkExchange, "j", "e", "s", "s", "j",

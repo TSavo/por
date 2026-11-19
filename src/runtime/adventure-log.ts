@@ -118,7 +118,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
     if (commission.id === "auction" && tracked?.status === "accepted") {
-      if (knows("auction-plaza-entry")) nextStep = "Disguise the party or sneak past the crowd. Find the auctioneer in Podal Plaza and observe the sale.";
+      if (knows("auction-bidding")) nextStep = "Stay to see who wins the bidding. Report what you witness to the council clerk.";
+      else if (knows("auction-started")) nextStep = "Stay at the auction and watch the bidding. Try to identify the item and who buys it.";
+      else if (knows("auction-plaza-entry")) nextStep = "Disguise the party or sneak past the crowd. Find the auctioneer in Podal Plaza and observe the sale.";
       else if (knows("harbor-routes-reopened")) nextStep = "Choose West at the harbor master's ferry menu, then look for Podal Plaza.";
     }
     if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
@@ -1047,6 +1049,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE PLAZA AHEAD IS CROWDED WITH MONSTERS")) {
     leads.push({ id: "auction-plaza-entry", title: "The crowd at Podal Plaza",
       detail: "The party can disguise itself as monsters or sneak past the crowd." });
+  }
+  if (text.includes("THE AUCTIONEER CRIES 'CREATURES OF ALL AGES")) {
+    leads.push({ id: "auction-started", title: "The auction has begun",
+      detail: "The auctioneer announced a powerful magical item to the crowd." });
+  }
+  if (text.includes("THE BIDDING ESCALATES TO 5,000 GOLD PIECES")) {
+    leads.push({ id: "auction-bidding", title: "The high bid",
+      detail: "A man in plain clothes standing next to an ogre bid 5,000 gold pieces." });
   }
   if (text.includes("IT'S ONLY A WAND OF FEAR")) {
     leads.push({ id: "auction-wand-of-fear", title: "The auction weapon",
