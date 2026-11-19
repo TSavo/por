@@ -2782,6 +2782,8 @@ encounter overlay.
 Four crypt approaches extend the slate surface through 25 additional
 tiles. Chrome checks 3,146 placements across 26 views. The stairs and
 grave-claw walks end before their encounter overlays.
+The deep crypt, memorial routes, and north vault add 24 slate joins
+checked across 50 Chrome views and 6,050 placements.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
@@ -2869,6 +2871,8 @@ The Tyrmor drider replay checks its own approach and dialogue artwork
 through the original Parlay prompt on an isolated encounter checkpoint.
 The minotaur's isolated encounter also checks the new approach and
 illustration before the original Parlay prompt.
+The Tyrmor stirge replay checks the approach sprite and swarm
+illustration through the original flight dialogue.
 The Kobold King's first horde has its own 4× infantry ready and strike
 sprites. Chrome checks the strike during the original report of Brin
 taking damage from a controlled throne checkpoint.
