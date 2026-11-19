@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:6:CPIC5.DAX:11:ecl:a2b8": "valjevo-forge-smith-combat-stand.png",
+    "combat:area:6:CPIC5.DAX:139:ecl:a2b8": "valjevo-forge-smith-combat-strike.png",
     "tile:20:15450d2266965cb35a6f45fd06dbf087e58bdd114e2cf88e56dba3e596898eb1": "slums-trade-row-terrain-15450d226696.png",
     "tile:20:5b786e63e19e9e670c1f1c5e88c35e2a13f2d0706d213c1aae0f2473145467ca": "slums-trade-row-terrain-5b786e63e19e.png",
     "tile:20:3fd07573913b8b367dd8a69a57c9550f715ab8a6ba59baf2c7533bb4d14fa749": "slums-trade-row-terrain-3fd07573913b.png",
