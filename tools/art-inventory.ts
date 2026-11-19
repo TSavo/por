@@ -432,13 +432,19 @@ const battlefieldTotals = { captured: battlefieldCaptured, matched: battlefieldC
 const encounterCoverage = archives.filter(({ file }) => /^(?:PIC|SPRIT|CPIC)\d+\.DAX$/.test(file))
   .map(({ file, entries }) => {
     let frames = 0;
-    let matched = 0;
-    for (const entry of entries) {
-      frames += entry.pictures?.reduce((sum, picture) => sum + picture.frames, 0) ?? 0;
-      const replacements = replacementsByBlock.get(`${file}:${entry.directoryIndex}`) ?? [];
-      matched += new Set(replacements.map(({ source }) => `${source?.member}:${source?.frame}`)).size;
-    }
-    return { file, frames, matched };
+    const unlinkedFrames = entries.flatMap(({ id, directoryIndex, pictures }) => {
+      const linked = new Set((replacementsByBlock.get(`${file}:${directoryIndex}`) ?? [])
+        .map(({ source }) => `${source?.member}:${source?.frame}`));
+      return (pictures ?? []).flatMap((picture, member) => {
+        frames += picture.frames;
+        return Array.from({ length: picture.frames }, (_, frame) => ({
+          id: `${file}:${directoryIndex}:${member}:${frame}`,
+          block: id, directoryIndex, member, frame,
+          width: picture.width * artScale, height: picture.height * artScale, preview: picture.preview,
+        })).filter(({ frame }) => !linked.has(`${member}:${frame}`));
+      });
+    });
+    return { file, frames, matched: frames - unlinkedFrames.length, unlinkedFrames };
   }).filter(({ frames }) => frames > 0);
 const encounterTotals = encounterCoverage.reduce((total, row) => ({
   frames: total.frames + row.frames,
@@ -478,6 +484,16 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
 ${encounterCoverage.map(({ file, frames, matched }) =>
   `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${frames > matched ? `<a href="#archive-${escape(file)}">${frames - matched}</a>` : "0"}</td></tr>`).join("")}
 </tbody></table></details>
+<details><summary>Unlinked source frames · ${encounterTotals.frames - encounterTotals.matched}</summary>
+<p>Each source ID contains the archive, directory entry, member, and zero-based frame number. The preview opens the source sheet. Some archive frames may have no verified in-game use.</p>
+${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({ file, unlinkedFrames }) =>
+  `<details><summary>${escape(file)} · ${unlinkedFrames.length}</summary>
+  <table class="coverage-table"><thead><tr><th>Source ID</th><th>Block</th><th>4× target</th><th>Preview</th></tr></thead><tbody>
+  ${unlinkedFrames.map(({ id, block, width, height, preview }) =>
+    `<tr><th scope="row"><code>${escape(id)}</code></th><td>${block}</td><td>${width}×${height}</td>
+    <td><a href="${escape(preview)}" target="_blank" rel="noopener">Source sheet</a></td></tr>`).join("")}
+  </tbody></table></details>`).join("")}
+</details>
 <details><summary>Named monster combat poses · ${missingMonsterPoses} without matching art · ${scopedMonsterPoseCandidates} with reuse candidates</summary>
 <p>Links open the enhanced PNG. A global match is confirmed by the browser's combat matcher. Other identical source frames are candidates for reuse. Replacement IDs show area and encounter restrictions.</p>
 <table class="coverage-table"><thead><tr><th scope="col">Monster</th><th scope="col">Archive</th><th scope="col">Ready</th><th scope="col">Strike</th></tr></thead><tbody>

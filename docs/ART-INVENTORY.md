@@ -40,6 +40,10 @@ traces. Areas and viewpoints outside those traces still need live coverage.
 encounter sprite, and combat picture archives. It counts each frame once
 even when several areas have their own replacement. The table inventories
 archive contents. The live routes establish which frames are drawn.
+**Unlinked source frames** lists the individual unlinked PIC, SPRIT, and
+CPIC frames by archive, directory index, member, and frame. Each entry
+includes its 4× dimensions and links to the local source sheet. The JSON
+includes these entries in `encounterCoverage[].unlinkedFrames`.
 The browser and inventory validate approach sprites against their original
 archive member and frame, including the dimensions in the placement record.
 The named monster pose table checks whether shared source pixels already
