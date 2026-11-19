@@ -1275,6 +1275,14 @@ The Sokal Keep area 21 audit reviewed four legacy terrain frames with
 visible skeletons and one cleared view between scenes. With those frames
 excluded from the terrain checklist, all 85 captured terrain patterns in
 the remaining area 21 views have replacements.
+The Stojanow terrain audit identified 19 unmatched patterns from two old
+frames with bugbears drawn over the scenery. Replaying `stojanow-west`
+with the current art pack verifies the bugbear separately and checks the
+terrain underneath. The audited area 9 traces now resolve all 67 distinct
+terrain patterns.
+`textile-ivy-lane` reproduces all nine Textile House terrain gaps from
+controlled slot H. Chrome checks the original 32×32 replacements against
+their placement in all ten views, with 1,210 verified placements.
 
 `graveyard-northeast-west` and `graveyard-northeast-east` verify 14 new
 Valhingen tiles with 1,694 placements across 14 views. The terrain audit

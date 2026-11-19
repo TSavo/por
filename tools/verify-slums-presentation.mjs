@@ -189,6 +189,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["textile-ivy-lane", {
+    slot: "H", area: 2, views: 10, patterns: 71,
+    walk: ["up", "up", "up", "right", "up", "right", "up", "left", "up"],
+  }],
   ["bane-south-colonnade", {
     slot: "A", area: 24, views: 16, patterns: 68,
     walk: ["up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "left", "up", "up", "right", "up"],
