@@ -94,6 +94,8 @@
     "encounter:area:18:ecl:a181:SPRIT1.DAX:6:0:0": "podal-plaza-hobgoblin-near.png",
     "encounter:area:8:ecl:b3e0:SPRIT6.DAX:27:0:0": "new-phlan-council-guard-halt-approach.png",
     "portrait:area:8:ecl:b564:HEAD3.DAX:57:BODY3.DAX:1": "new-phlan-council-guard-halt.png",
+    "combat:area:8:CPIC3.DAX:11:ecl:b48a": "new-phlan-council-archer-combat-ready.png",
+    "combat:area:8:CPIC3.DAX:139:ecl:b48a": "new-phlan-council-archer-combat-strike.png",
     "encounter:area:28:ecl:a534:SPRIT5.DAX:16:0:0": "zhentil-quarters-ambush-approach.png",
     "portrait:area:28:ecl:a53d:HEAD6.DAX:57:BODY6.DAX:6": "zhentil-quarters-ambush-dialogue.png",
     "encounter:area:3:ecl:9e32:SPRIT5.DAX:16:0:0": "valjevo-giant-patrol-captain-approach-near.png",

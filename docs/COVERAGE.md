@@ -3205,6 +3205,15 @@ The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
 sword-thief encounter keeps its own artwork.
+After the jail binding was added, `old-phlan-sword-thief-approach`
+passed from the east-street slot A checkpoint, including all three
+distances and the existing dialogue portrait.
+
+The `new-phlan-council-archer-combat` Chrome replay refuses the
+Council guard's order to leave. It verifies the ready archer at
+(80, 80), his longbow strike at the same anchor, and the damage
+report in the next animation frame. The local slot A fixture raises
+party HP to reach the attack. The encounter script and enemy stay native.
 
 The combat matcher checks one opaque foreground pixel before comparing
 the full sprite and its background. A before-and-after check on

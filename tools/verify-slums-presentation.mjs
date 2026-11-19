@@ -913,6 +913,13 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["new-phlan-council-archer-combat", {
+    slot: "A", stand: "combat:area:8:CPIC3.DAX:11:ecl:b48a", strike: "combat:area:8:CPIC3.DAX:139:ecl:b48a",
+    width: 96, height: 96, manualPolling: true, standAnchor: [80, 80, true],
+    strikeAnchor: [80, 80], strikeReflected: false,
+    followingStrikeReport: /AIDESATTACKSXHITTINGFOR3POINTSOFDAMAGE/i,
+    inputs: ["up", "enter", "n", "enter", "enter", "enter", ...Array(22).fill("q")],
+  }],
   ["old-phlan-guild-ambusher-combat", {
     slot: "A", stand: "combat:area:14:CPIC3.DAX:12:ecl:af62", strike: "combat:area:14:CPIC3.DAX:140:ecl:af62",
     width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
@@ -4140,7 +4147,7 @@ try {
     console.log("Verified the enhanced mage wand pose during the native report and the return to ready art.");
   } else if (combatPose) {
     const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, strikeReport,
-      journalLead, excluded, readyPrompt, standAnchor, strikeAnchor } = combatPose;
+      journalLead, excluded, readyPrompt, standAnchor, strikeAnchor, followingStrikeReport } = combatPose;
     function verifyCombatScope() {
       if (!excluded) return;
       for (const view of [frame, ...(frame.animation ?? [])]) {
@@ -4221,11 +4228,16 @@ try {
         await advance(key);
         verifyCombatScope();
       }
-      assert.ok(frame.animation?.some(({ combatArt, text }) =>
+      const strikeAnimation = frame.animation?.findIndex(({ combatArt, text }) =>
         combatArt?.some(([x, y, id, reflected]) =>
           id === strike && (strikeReflected === undefined || reflected === strikeReflected) &&
           (!strikeAnchor || (x === strikeAnchor[0] && y === strikeAnchor[1]))) &&
-        (!strikeReport || strikeReport.test(text.map(([, char]) => String.fromCharCode(char)).join("")))));
+        (!strikeReport || strikeReport.test(text.map(([, char]) => String.fromCharCode(char)).join("")))) ?? -1;
+      assert.ok(strikeAnimation >= 0, `Expected the native ${strike} strike animation`);
+      if (followingStrikeReport) {
+        assert.ok(frame.animation.slice(strikeAnimation + 1).some(({ text }) =>
+          followingStrikeReport.test(text.map(([, char]) => String.fromCharCode(char)).join(""))));
+      }
       await waitFor("the enhanced combat strike", () => run("window.strikeLoaded"));
       console.log(`Verified ${routeName} standing and animated strike poses in Chrome.`);
     } else if (strike) {
