@@ -4888,28 +4888,39 @@ try {
       })()`));
       await switchBothWays();
       const bite = "combat:area:7:CPIC5.DAX:194";
-      const skirmisherStrike = "combat:party:2:133";
+      const partyStrikes = ["combat:party:2:133", "combat:party:69:218", "combat:party:73:209", "combat:party:74:216"];
+      const checkedStrikes = new Set();
       await run(`window.dragonReports = [];
-        window.skirmisherStrikeShown = false;
+        window.dragonFightPartyStrikes = new Set();
         const panel = document.querySelector("#game-text");
         new MutationObserver(() => {
           if (animationFrame && !panel.hidden) window.dragonReports.push(panel.textContent);
           if (animationFrame && animationFrame.durationMs === undefined) {
-            const placement = animationFrame.combatArt.find(([, , id]) => id === ${JSON.stringify(skirmisherStrike)});
-            if (!placement) return;
-            const [x, y, id, reflected] = placement;
-            window.skirmisherStrikeShown ||= [...document.querySelectorAll(".combat-sprite")].some(img =>
-              img.getAttribute("src") === "/art/" + id && img.naturalWidth === 96 && img.naturalHeight === 96 &&
-              parseFloat(img.style.left) === x / 3.2 && parseFloat(img.style.top) === y / 2 &&
-              img.style.transform === (reflected ? "scaleX(-1)" : ""));
+            const sprites = [...document.querySelectorAll(".combat-sprite")];
+            for (const [x, y, id, reflected] of animationFrame.combatArt) {
+              if (!${JSON.stringify(partyStrikes)}.includes(id)) continue;
+              const shown = sprites.some(img => img.getAttribute("src") === "/art/" + id &&
+                img.naturalWidth === 96 && img.naturalHeight === 96 &&
+                parseFloat(img.style.left) === x / 3.2 && parseFloat(img.style.top) === y / 2 &&
+                img.style.transform === (reflected ? "scaleX(-1)" : ""));
+              if (shown) window.dragonFightPartyStrikes.add(id);
+            }
           }
         }).observe(panel, { childList: true });`);
       const bitePlacement = () => frame.animation?.flatMap(shot => shot.combatArt ?? []).find(([, , id]) => id === bite);
       for (let turn = 0; turn < 32 && !bitePlacement(); turn++) {
         await advance("q");
         await checkNewPartyPoses();
+        const briefPoses = (frame.animation ?? []).filter(shot => shot.durationMs === undefined)
+          .flatMap(shot => shot.combatArt.map(([, , id]) => id));
+        for (const id of partyStrikes) {
+          if (!briefPoses.includes(id) || checkedStrikes.has(id)) continue;
+          await waitFor(`the independent strike frame for ${id}`, () => run(`window.dragonFightPartyStrikes.has(${JSON.stringify(id)})`));
+          checkedStrikes.add(id);
+        }
       }
       assert.deepEqual([...partyArt], [], "Expected all six enhanced party poses during the dragon fight");
+      assert.deepEqual([...checkedStrikes].sort(), partyStrikes.toSorted(), "Expected four independent party strike frames before the dragon's bite");
       const strike = bitePlacement();
       assert.ok(strike, "Expected a Tyranthraxus bite in the original fight");
       assert.deepEqual(strike.slice(5), [48, 48]);
@@ -4922,7 +4933,6 @@ try {
         window.dragonReports.some((text, index, reports) =>
           /TYRANITHRAXUSAttacksBAKSHIHittingfor[0-9]+points?ofdamage/i.test(text) &&
           reports.slice(index + 1).some(report => /BAKSHItakes[0-9]+points?ofdamagefromFire/i.test(report)))`));
-      await waitFor("the skirmisher's independent strike frame", () => run("window.skirmisherStrikeShown"));
       console.log("Verified the castle dragon portrait, combat placement, bite animation, and attack and fire damage reports. Captures:", directory);
     }
   } else if (councilFinale) {

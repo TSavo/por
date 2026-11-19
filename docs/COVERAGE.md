@@ -1916,9 +1916,9 @@ preserves weapon pixels behind transparent portions of the head overlay.
 For sprites overlapping scenery, it checks the visible background against
 the original offscreen terrain before replacing the sprite.
 Each of those six combinations also has separate 96×96 action art.
-The replay checks the skirmisher's blade action as its own browser
-animation frame, in addition to the longer combat report frames. The
-other five poses passed native bitmap matching in both facings.
+Chrome verifies four brief party strike frames before the dragon's bite,
+checking the asset, original position, and facing of each. The flail and
+teal-robed action poses passed native bitmap matching in both facings.
 With `POR_WRITE_ENVIRONMENT_TRACE=1`, it exports all eight approach views
 for the art inventory, including the positions of the six new hall tiles.
 
