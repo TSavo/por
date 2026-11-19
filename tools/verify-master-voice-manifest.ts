@@ -17,18 +17,30 @@ for (const unit of master.units) {
   assert(sourceIds.has(unit.triggerSourceId), `${unit.id} trigger does not exist`);
   assert(unit.coveredSourceIds.includes(unit.triggerSourceId), `${unit.id} does not cover its trigger`);
   for (const sourceId of unit.coveredSourceIds) assert(sourceIds.has(sourceId), `${unit.id} source does not exist: ${sourceId}`);
-  assert(unit.spokenText || !unit.generationEligible, `${unit.id} has no spoken text`);
+  assert(unit.spokenText || unit.runtimeVariants?.length || !unit.generationEligible, `${unit.id} has no spoken text`);
   if (unit.generationEligible) {
     resolved++;
     assert.equal(unit.model, "eleven_v4");
-    assert.match(unit.asset, /^voices\/narration\/.+\.mp3$/);
+    if (unit.asset) assert.match(unit.asset, /^voices\/narration\/.+\.mp3$/);
+    else {
+      assert.equal(unit.resolution, "finite-runtime-variants");
+      assert(unit.runtimeVariants.length > 0);
+      for (const variant of unit.runtimeVariants) {
+        assert(variant.condition);
+        assert(variant.text);
+        assert.equal(variant.model, "eleven_v4");
+        assert.match(variant.asset, /^voices\/narration\/.+\.mp3$/);
+      }
+    }
   } else {
     assert.equal(unit.asset, null);
+    assert.equal(unit.runtimeVariants.length, 0);
   }
 }
 assert.equal(master.counts.narrationUnits, master.units.length);
 assert.equal(master.counts.resolvedUnits, resolved);
 assert.equal(master.counts.unresolvedDynamicUnits, master.units.length - resolved);
+assert.equal(master.counts.finiteRuntimeVariantAssets, master.units.flatMap((unit: any) => unit.runtimeVariants).length);
 for (const event of master.events) {
   assert(["voiced-source", "unvoiced-interface-layout"].includes(event.classification));
   for (const id of event.narrationUnitIds) assert(unitIds.has(id), `${event.sourceId} references unknown unit ${id}`);

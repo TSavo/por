@@ -17,6 +17,9 @@ interface QueueItem {
   output: string;
   text: string;
   direction: string;
+  sourceUnitId?: string;
+  condition?: string;
+  dynamicValue?: string;
 }
 interface ReviewUnit {
   id: string;
@@ -67,6 +70,14 @@ for (let number = 1; number <= 8; number++) {
   reviews.push({ archive: `ECL${number}.DAX`, events: review.events, units: review.units ?? review.narrationUnits });
 }
 const sokal = JSON.parse(readFileSync(new URL("sokal-voice-manifest.json", audio), "utf8")) as { units: ReviewUnit[] };
+const dynamicQueue = JSON.parse(readFileSync(new URL("dynamic-resolved-generation-queue.json", audio), "utf8")) as { items: QueueItem[] };
+const dynamicVariantsByUnit = new Map<string, QueueItem[]>();
+for (const item of dynamicQueue.items) {
+  if (!item.sourceUnitId || !item.condition || item.dynamicValue === undefined) throw new Error(`invalid dynamic queue item ${item.id}`);
+  const variants = dynamicVariantsByUnit.get(item.sourceUnitId) ?? [];
+  variants.push(item);
+  dynamicVariantsByUnit.set(item.sourceUnitId, variants);
+}
 
 const normalizedUnits: any[] = [];
 const unitIds = new Set<string>();
@@ -82,6 +93,15 @@ const addUnit = (archive: string, unit: ReviewUnit) => {
     sourceToUnits.set(sourceId, ids);
   }
   const queued = queuedById.get(unit.id) ?? queuedBySources.get(sourceKey(unit.triggerSourceId, unit.coveredSourceIds));
+  const runtimeVariants = (dynamicVariantsByUnit.get(unit.id) ?? []).map(item => ({
+    id: item.id,
+    condition: item.condition,
+    dynamicValue: item.dynamicValue,
+    text: item.text,
+    direction: item.direction,
+    model: "eleven_v4",
+    asset: item.output.replace(/^\.\.\/por-assets\//, "")
+  }));
   const asset = unit.asset ?? queued?.output.replace(/^\.\.\/por-assets\//, "");
   const sourceParts = unit.rawSourceTexts ?? unit.sourceTextParts ?? unit.sourceTexts ?? unit.coveredSourceIds.map(sourceId => {
     const event = extractionById.get(sourceId)!;
@@ -97,10 +117,11 @@ const addUnit = (archive: string, unit: ReviewUnit) => {
     direction: unit.direction ?? queued?.direction ?? "measured, expressive fantasy narration",
     characterId: unit.characterId ?? unit.performedCharacterId ?? null,
     sourceParts,
-    resolution: asset ? "resolved" : "unresolved-dynamic",
-    generationEligible: Boolean(asset),
-    model: unit.model ?? (asset ? "eleven_v4" : null),
+    resolution: asset ? "resolved" : runtimeVariants.length ? "finite-runtime-variants" : "unresolved-dynamic",
+    generationEligible: Boolean(asset || runtimeVariants.length),
+    model: unit.model ?? (asset || runtimeVariants.length ? "eleven_v4" : null),
     asset: asset ?? null,
+    runtimeVariants,
     playback: { attachOnlyToTrigger: true, queueAfterCurrentNarration: true }
   });
 };
@@ -155,7 +176,8 @@ const manifest = {
     unvoicedEvents: events.filter(event => event.classification === "unvoiced-interface-layout").length,
     narrationUnits: normalizedUnits.length,
     resolvedUnits: resolved,
-    unresolvedDynamicUnits: normalizedUnits.length - resolved
+    unresolvedDynamicUnits: normalizedUnits.length - resolved,
+    finiteRuntimeVariantAssets: dynamicQueue.items.length
   },
   events,
   units: normalizedUnits
