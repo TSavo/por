@@ -785,8 +785,8 @@ movement, and the captain's strike during browser animation playback. It
 also switches presentation in the dialogue and combat.
 
 Stojanow Gate has 47 individual 32×32 terrain replacements. Chrome checked
-3,630 placements across 30 clean views from slot A at `4,15 N`, reached by
-ordinary travel from Podal Plaza. The three approach views now check a
+4,719 placements across 39 views from slot A at `4,15 N`, reached by
+ordinary travel from Podal Plaza. The three route endings check a
 separate 96×292 bugbear sprite over the same 121 placements as the preceding
 clean view. A separate replay from the same save verified the enhanced bugbear
 standing and sword strike poses. The New Phlan armorer portrait appeared at

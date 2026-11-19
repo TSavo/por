@@ -1873,16 +1873,19 @@ const environmentRoutes = new Map([
     walk: ["up", "left", ...Array(6).fill("up"), "right", "up", "b", "up", "up", "right", "up", "left", "up"],
   }],
   ["stojanow-gate", {
-    slot: "A", area: 9, views: 10, patterns: 40,
+    slot: "A", area: 9, views: 12, patterns: 40,
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left"],
+    finalEncounter: [56, 32, "encounter:area:9:SPRIT2.DAX:63:0:0", 24, 73],
   }],
   ["stojanow-west", {
-    slot: "A", area: 9, views: 13, patterns: 43,
+    slot: "A", area: 9, views: 15, patterns: 43,
     walk: ["up", "up", "up", "enter", "enter", "up", "left", "up", "up", "up", "right", "up", "up", "right"],
+    finalEncounter: [56, 32, "encounter:area:9:SPRIT2.DAX:63:0:0", 24, 73],
   }],
   ["stojanow-east", {
-    slot: "A", area: 9, views: 10, patterns: 40,
+    slot: "A", area: 9, views: 12, patterns: 40,
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
+    finalEncounter: [56, 32, "encounter:area:9:SPRIT2.DAX:63:0:0", 24, 73],
   }],
 ]);
 const freshRolf = routeName === "new-phlan-rolf-approach";
