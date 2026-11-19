@@ -398,6 +398,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valhingen-efreeti-combat", {
+    slot: "A", stand: "combat:area:10:CPIC4.DAX:70:ecl:b271", strike: "combat:area:10:CPIC4.DAX:198:ecl:b271",
+    width: 96, height: 192, readyPrompt: /EFREETIHITPOINTS55/i, strikeReflected: true,
+    inputs: ["up", "enter", "y", ...Array(5).fill("enter"), "q"], strikeInputs: ["q"],
+  }],
   ["old-phlan-lizardfolk-combat", {
     slot: "A", stand: "combat:area:26:CPIC7.DAX:57:ecl:a982", strike: "combat:area:26:CPIC7.DAX:185:ecl:a982",
     width: 96, height: 96, readyPrompt: /LIZARDMANHITPOINTS11/i, strikeReflected: false,
@@ -734,6 +739,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["stojanow-west-rampart", {
+    slot: "A", area: 9, views: 10, patterns: 52, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "right", "up", "up"],
+  }],
   ["buccaneer-pen-loop", {
     slot: "A", area: 1, views: 16, patterns: 53, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up"],

@@ -1,6 +1,17 @@
 {
   "version": 1,
   "assets": {
+    "tile:9:246f66c4e1032e6b33d74b506b32402c610419af7fd2345721eb9e9128b7a578": "stojanow-west-rampart-terrain-246f66c4e103.png",
+    "tile:9:db67afe2d933e3220fa87b68464dee86aee2bfc0c5e047bfa5450ff3e5fea9a0": "stojanow-west-rampart-terrain-db67afe2d933.png",
+    "tile:9:9fb217c9d87375988f0a4bfe6ed0ed5df1dabb3d5301b4410f163e72ddedcb0c": "stojanow-west-rampart-terrain-9fb217c9d873.png",
+    "tile:9:1a0dfab20ddd54d612ffb12175d632859d32e97be62e6eb473715674473547de": "stojanow-west-rampart-terrain-1a0dfab20ddd.png",
+    "tile:9:8e4e495407f094508c6c358ba241bf1946da32e0ab2eff5fec8ab2cd82ac2998": "stojanow-west-rampart-terrain-8e4e495407f0.png",
+    "tile:9:b38bb090ffc6ff28fd87d9752a69d3a271dbc6d5c12ef2bef8d273d5718e1701": "stojanow-west-rampart-terrain-b38bb090ffc6.png",
+    "tile:9:bbce287c6ee78ffeb335f96aa0495fd20d9f1188892a017452b2592b0bf1f997": "stojanow-west-rampart-terrain-bbce287c6ee7.png",
+    "tile:9:c1703ae17aff024be5fa1603c19a3d65cdfe2b61e20be7cd68214ea1e2a36585": "stojanow-west-rampart-terrain-c1703ae17aff.png",
+    "tile:9:abf4a264e67412e3e24a2b51727b24e0d063340fe6343e232ed3ab8abd123f60": "stojanow-west-rampart-terrain-abf4a264e674.png",
+    "combat:area:10:CPIC4.DAX:70:ecl:b271": "kobold-cave-efreeti-stand.png",
+    "combat:area:10:CPIC4.DAX:198:ecl:b271": "kobold-cave-efreeti-strike.png",
     "tile:1:2a4677780f0922d4322d052dab866d4e17f96dc6ee00a99ab267f52e33071423": "buccaneer-pen-loop-terrain-2a4677780f09.png",
     "tile:1:402f5db342ede67cf9c043f03ed10424de7a67f836e44227b0af2273a9aea08d": "buccaneer-pen-loop-terrain-402f5db342ed.png",
     "tile:1:e5737228ffc92614a78f9b9cd71a294707586eff7d7e1b42980693b1df5373ef": "buccaneer-pen-loop-terrain-e5737228ffc9.png",
