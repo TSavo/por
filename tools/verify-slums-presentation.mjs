@@ -632,6 +632,19 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["tyrmor-prison-displacer-combat", {
+    slot: "B", stand: "combat:area:22:CPIC7.DAX:68:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:196:ecl:a36f",
+    width: 192, height: 96, readyPrompt: /DISPLACERBEASTHITPOINTS30AC2/i, strikeReflected: false,
+    inputs: ["s", ...Array.from({ length: 27 }, () => ["up", "enter", "down"]).flat(),
+      "up", "enter", "enter", "down", "up", "c", "enter"],
+  }],
+  ["tyrmor-prison-drider-combat", {
+    slot: "B", stand: "combat:area:22:CPIC7.DAX:69:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:197:ecl:a36f",
+    width: 192, height: 96, readyPrompt: /DRIDERHITPOINTS35AC2/i, strikeReflected: true,
+    inputs: ["s", ...Array.from({ length: 26 }, () => ["up", "enter", "down"]).flat(),
+      "up", "enter", "enter", "down", "up", "c", "enter", ...Array(5).fill("q")],
+    strikeInputs: Array(6).fill("q"),
+  }],
   ["tyrmor-prison-thief-combat", {
     slot: "B", stand: "combat:area:22:CPIC7.DAX:12:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:140:ecl:a36f",
     width: 96, height: 96, readyPrompt: /7THLVLTHIEFHITPOINTS28AC4/i, strikeReflected: true,

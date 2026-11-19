@@ -2774,6 +2774,9 @@ live battles, including the reflected lizardman and thief strikes. The human and
 dwarven fighters share the original frame IDs and use the same prison
 fighter art. The lizardman and thief checkpoints isolate their native
 encounters by marking the other wandering encounters defeated.
+The displacer beast and drider replays use the same checkpoint technique.
+They check the 192×96 ready and strike poses and the drider's reflected
+bow attack in the live Chrome renderer.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.
