@@ -209,6 +209,10 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["new-phlan-outbound-ferry", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:area:0:PIC3.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
+  }],
   ["new-phlan-harbor-city-watch", {
     slot: "A", inputs: ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"],
     portrait: "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7", prompt: /GO.*STAY/i,
