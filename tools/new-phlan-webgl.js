@@ -1,4 +1,4 @@
-export function createNewPhlanViewport(canvas, walls, atlas) {
+export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
     const gl = canvas.getContext("webgl", { antialias: true, preserveDrawingBuffer: true });
     if (!gl)
         throw new Error("WebGL is unavailable");
@@ -93,37 +93,41 @@ export function createNewPhlanViewport(canvas, walls, atlas) {
         for (const p of [a, b, c, a, c, d])
             vertices.push(...p, ...surface, tile);
     }
-    quad([-5, 0, -5], [13, 0, -5], [13, 0, 21], [-5, 0, 21], [0, 0, .7, .5], 16);
-    quad([13, -.09, -5], [24, -.09, -5], [24, -.09, 21], [13, -.09, 21], [0, 0, 0, 0], 17);
-    quad([13, -.16, -5], [13, -.16, 21], [13, 0, 21], [13, 0, -5], [1, 1, .5, .5], 2);
-    function piling(x, z) {
-        const radius = .055, bottom = -.18, top = .46;
-        const ns = [1, 0, top, .89], ew = [1, 1, top, .54];
-        quad([x - radius, bottom, z - radius], [x + radius, bottom, z - radius], [x + radius, top, z - radius], [x - radius, top, z - radius], ns, 18);
-        quad([x - radius, bottom, z + radius], [x + radius, bottom, z + radius], [x + radius, top, z + radius], [x - radius, top, z + radius], ns, 18);
-        quad([x - radius, bottom, z - radius], [x - radius, bottom, z + radius], [x - radius, top, z + radius], [x - radius, top, z - radius], ew, 18);
-        quad([x + radius, bottom, z - radius], [x + radius, bottom, z + radius], [x + radius, top, z + radius], [x + radius, top, z - radius], ew, 18);
-        quad([x - radius, top, z - radius], [x + radius, top, z - radius], [x + radius, top, z + radius], [x - radius, top, z + radius], ns, 18);
-    }
-    for (const z of [1, 3, 5, 7]) {
-        quad([13, 0, z], [16, 0, z], [16, 0, z + 1], [13, 0, z + 1], [0, 0, .7, .5], 16);
-        quad([16, 0, z], [16, -.12, z], [16, -.12, z + 1], [16, 0, z + 1], [1, 1, 0, 0], 18);
-        for (const x of [13.15, 13.86, 14.57, 15.28, 15.92]) {
-            piling(x, z + .03);
-            piling(x, z + .97);
+    if (layout !== "phlan") {
+        quad([-5, 0, -5], [21, 0, -5], [21, 0, 21], [-5, 0, 21], [0, 0, .7, .5], 16);
+    } else {
+        quad([-5, 0, -5], [13, 0, -5], [13, 0, 21], [-5, 0, 21], [0, 0, .7, .5], 16);
+        quad([13, -.09, -5], [24, -.09, -5], [24, -.09, 21], [13, -.09, 21], [0, 0, 0, 0], 17);
+        quad([13, -.16, -5], [13, -.16, 21], [13, 0, 21], [13, 0, -5], [1, 1, .5, .5], 2);
+        function piling(x, z) {
+            const radius = .055, bottom = -.18, top = .46;
+            const ns = [1, 0, top, .89], ew = [1, 1, top, .54];
+            quad([x - radius, bottom, z - radius], [x + radius, bottom, z - radius], [x + radius, top, z - radius], [x - radius, top, z - radius], ns, 18);
+            quad([x - radius, bottom, z + radius], [x + radius, bottom, z + radius], [x + radius, top, z + radius], [x - radius, top, z + radius], ns, 18);
+            quad([x - radius, bottom, z - radius], [x - radius, bottom, z + radius], [x - radius, top, z + radius], [x - radius, top, z - radius], ew, 18);
+            quad([x + radius, bottom, z - radius], [x + radius, bottom, z + radius], [x + radius, top, z + radius], [x + radius, top, z - radius], ew, 18);
+            quad([x - radius, top, z - radius], [x + radius, top, z - radius], [x + radius, top, z + radius], [x - radius, top, z + radius], ns, 18);
+        }
+        for (const z of [1, 3, 5, 7]) {
+            quad([13, 0, z], [16, 0, z], [16, 0, z + 1], [13, 0, z + 1], [0, 0, .7, .5], 16);
+            quad([16, 0, z], [16, -.12, z], [16, -.12, z + 1], [16, 0, z + 1], [1, 1, 0, 0], 18);
+            for (const x of [13.15, 13.86, 14.57, 15.28, 15.92]) {
+                piling(x, z + .03);
+                piling(x, z + .97);
+            }
         }
     }
     const step = [[0, 0, 1, 0], [1, 0, 1, 1], [0, 1, 1, 1], [0, 0, 0, 1]];
     for (let z = 0; z < 16; z++)
         for (let x = 0; x < 16; x++) {
             walls[z * 16 + x].forEach((type, side) => {
-                if (!type || (type === 14 && x >= 12 && z < 8))
+                if (!type || (layout === "phlan" && type === 14 && x >= 12 && z < 8))
                     return;
                 const [sx, sz, ex, ez] = step[side];
                 const ax = x + sx, az = z + sz, bx = x + ex, bz = z + ez;
                 const seed = ((ax * 53 + az * 37 + type * 17) % 61) / 60;
                 const axis = sx === ex ? 1 : 0;
-                const isGate = type === 1 && (ax === 0 || ax === 13);
+                const isGate = layout === "phlan" && type === 1 && (ax === 0 || ax === 13);
                 const height = (isGate ? 1.52 : 1.19) + (seed - .5) * .29;
                 const lit = axis ? .25 : .92;
                 const dx = (bx - ax) * .027, dz = (bz - az) * .027;
@@ -192,14 +196,16 @@ export function createNewPhlanViewport(canvas, walls, atlas) {
     };
 }
 
-export async function createNewPhlanAtlas(materials, artUrl, highlight = false) {
+export async function createNewPhlanAtlas(materials, artUrl, highlight = false, palette) {
   const atlas = document.createElement("canvas");
   atlas.width = 2048;
   atlas.height = 1024;
   const context = atlas.getContext("2d");
   if (!context) throw new Error("Canvas is unavailable");
   const overrides = new Map(materials.materialOverrides.map(source => [source.type, source]));
-  const assets = [materials.ground, materials.sky, materials.water.art, materials.dockPiling.art];
+  const assets = [materials.ground, materials.sky];
+  if (materials.water) assets.push(materials.water.art);
+  if (materials.dockPiling) assets.push(materials.dockPiling.art);
   for (const {type, parts} of materials.wallFaces) {
     const override = overrides.get(type);
     if (override) assets.push(override.art);
@@ -210,6 +216,18 @@ export async function createNewPhlanAtlas(materials, artUrl, highlight = false) 
   }
   const images = new Map();
   await Promise.all([...new Map(assets.map(art => [art.key, art])).values()].map(async art => {
+    if (art.pixels) {
+      const image = document.createElement("canvas");
+      image.width = image.height = 8;
+      const pixels = image.getContext("2d");
+      for (const [index,color] of art.pixels.entries()) {
+        if (color === 16) continue;
+        pixels.fillStyle = `rgb(${palette[color].join(",")})`;
+        pixels.fillRect(index%8,Math.floor(index/8),1,1);
+      }
+      images.set(art.key, image);
+      return;
+    }
     const image = new Image();
     image.src = artUrl(art);
     await image.decode();
@@ -264,7 +282,68 @@ export async function createNewPhlanAtlas(materials, artUrl, highlight = false) 
     }
   }
   paint(materials.ground,0,512,256,256);
-  paint(highlight ? null : materials.water.art,256,512,256,256,materials.water.crop);
-  paint(highlight ? null : materials.dockPiling.art,512,512,256,256,materials.dockPiling.crop);
-  return {atlas, skyUrl: artUrl(materials.sky)};
+  if (materials.water) paint(highlight ? null : materials.water.art,256,512,256,256,materials.water.crop);
+  if (materials.dockPiling) paint(highlight ? null : materials.dockPiling.art,512,512,256,256,materials.dockPiling.crop);
+  const skyUrl = materials.sky.pixels ? images.get(materials.sky.key).toDataURL() : artUrl(materials.sky);
+  return {atlas, skyUrl};
+}
+
+/** The world camera remains overhead, using the guest's current map and markers. */
+export function createOverlandViewport(canvas) {
+  const gl = canvas.getContext("webgl", { preserveDrawingBuffer: true });
+  if (!gl) throw new Error("WebGL is unavailable");
+  const program = gl.createProgram();
+  for (const [type, source] of [
+    [gl.VERTEX_SHADER, `
+      attribute vec2 position;
+      varying vec2 uv;
+      void main() {
+        uv = vec2(position.x + 1.0, 1.0 - position.y) * 0.5;
+        gl_Position = vec4(position, 0.0, 1.0);
+      }
+    `],
+    [gl.FRAGMENT_SHADER, `
+      precision mediump float;
+      varying vec2 uv;
+      uniform sampler2D map;
+      void main() {
+        gl_FragColor = texture2D(map, uv);
+      }
+    `],
+  ]) {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader,source);
+    gl.compileShader(shader);
+    gl.attachShader(program,shader);
+    gl.deleteShader(shader);
+  }
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program,gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program) ?? "Overland shader failed");
+  gl.useProgram(program);
+  const buffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  const position = gl.getAttribLocation(program,"position");
+  gl.enableVertexAttribArray(position);
+  gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
+  const texture = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D,texture);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+  const tile = document.createElement("canvas");
+  tile.width = tile.height = 88;
+  const paint = tile.getContext("2d");
+  return {
+    draw(frame) {
+      if (gl.isContextLost()) throw new Error("WebGL context lost");
+      paint.clearRect(0,0,88,88);
+      paint.drawImage(frame,24,24,88,88,0,0,88,88);
+      gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,tile);
+      gl.viewport(0,0,canvas.width,canvas.height);
+      gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+      if (gl.getError() !== gl.NO_ERROR) throw new Error("Overland WebGL draw failed");
+    },
+  };
 }

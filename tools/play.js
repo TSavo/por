@@ -54,6 +54,12 @@ let enhanced = false;
 let streetEnabled = true;
 let streetLoading;
 let streetViewport;
+let streetModule;
+let streetAtlas;
+let overlandViewport;
+let overlandLoading;
+const failedSurfaces = new Set();
+const skyByArea = {16: "swamp", 24: "bane", 28: "zhentil"};
 let discoveredMaps = {};
 let discoveredMapSlot;
 let geographyModel = { areas: [] };
@@ -299,7 +305,7 @@ function togglePresentation() {
   document.documentElement.dataset.presentation = enhanced ? "enhanced" : "classic";
   presentation.setAttribute("aria-pressed", String(enhanced));
   mapToggle.hidden = !enhanced;
-  streetToggle.hidden = !enhanced || !useNewPhlanViewport(state);
+  streetToggle.hidden = !enhanced || !explorationSurface(state);
   if (!enhanced && !automap.hidden) toggleAutomap();
   if (enhanced) rememberExploration();
   if (!enhanced) stopVoice();
@@ -312,12 +318,17 @@ function togglePresentation() {
   playPendingVoice();
 }
 
-function useNewPhlanViewport(view) {
+function explorationSurface(view) {
+  if (view.art || view.portrait || view.classicPortrait || view.characterSheet ||
+    view.combatArt?.length || view.battleTiles?.length || view.journal) return;
+  if (view.overlandMap) return { materialId: "overland" };
+  if (!view.perspective) return;
+  if (view.scenery) return view.scenery;
+  // Some old title/tour handoffs report position before the draw hook fires.
   const pose = view.exploration;
-  return view.perspective && pose?.area === 0 &&
-    [pose.cameraX, pose.cameraY].every(value => Number.isInteger(value) && value >= 0 && value < 16) &&
-    !view.art && !view.portrait && !view.classicPortrait && !view.characterSheet &&
-    !view.encounter && !view.combatArt?.length && !view.battleTiles?.length && !view.journal;
+  if (pose?.area === 0 && [pose.cameraX, pose.cameraY].every(value => Number.isInteger(value) && value >= 0 && value < 16)) {
+    return { materialId: "phlan", x: pose.cameraX, y: pose.cameraY, facing: pose.facing };
+  }
 }
 
 function disableStreetPreview(error) {
@@ -330,37 +341,85 @@ function disableStreetPreview(error) {
   streetToggle.disabled = true;
 }
 
-async function loadStreetPreview() {
+function rendererModule() {
+  return streetModule ??= import("/new-phlan-webgl.js");
+}
+
+async function loadStreetAtlas(materialId) {
   const [module, materials] = await Promise.all([
-    import("/new-phlan-webgl.js"),
-    fetch("/new-phlan-3d.json").then(response => {
-      if (!response.ok) throw new Error("New Phlan materials could not be loaded");
+    rendererModule(),
+    fetch(`/exploration-materials/${materialId}`).then(response => {
+      if (!response.ok) throw new Error("Exploration materials could not be loaded");
       return response.json();
     }),
   ]);
-  const {atlas, skyUrl} = await module.createNewPhlanAtlas(materials, art => `/art/${art.key}`);
+  const {atlas, skyUrl} = await module.createNewPhlanAtlas(materials, art => `/art/${art.key}`, false, state.textColors);
+  return {materialId, module, atlas, skyUrl, walls: materials.walls};
+}
+
+function makeViewportCanvas(className, width, height) {
   const canvas = document.createElement("canvas");
-  canvas.className = "street-viewport";
-  canvas.width = 480;
-  canvas.height = 576;
-  canvas.style.backgroundImage = `url("${skyUrl}")`;
+  canvas.className = className;
+  canvas.width = width;
+  canvas.height = height;
   canvas.addEventListener("webglcontextlost", () => {
     disableStreetPreview(new Error("The WebGL context was lost"));
     void showScreen();
   }, {once: true});
-  return {canvas, renderer: module.createNewPhlanViewport(canvas, materials.walls, atlas)};
+  return canvas;
 }
 
-function ensureStreetViewport() {
-  if (streetViewport || streetLoading) return;
-  streetToggle.textContent = "Loading 3D…";
-  streetLoading = loadStreetPreview().then(viewport => {
-    streetViewport = viewport;
-    streetToggle.textContent = "3D view";
-  }).catch(disableStreetPreview).finally(() => {
-    streetLoading = undefined;
-    void showScreen();
-  });
+function ensureStreetViewport(surface) {
+  const {materialId, walls: packed} = surface;
+  if (failedSurfaces.has(materialId)) return;
+  if (materialId === "overland") {
+    if (!overlandViewport && !overlandLoading) {
+      overlandLoading = rendererModule().then(module => {
+        const canvas = makeViewportCanvas("overland-viewport", 88, 88);
+        overlandViewport = {canvas, renderer:module.createOverlandViewport(canvas)};
+      }).catch(error => {
+        failedSurfaces.add(materialId);
+        console.warn(error);
+      }).finally(() => {
+        overlandLoading = undefined;
+        void showScreen();
+      });
+    }
+    return overlandViewport;
+  }
+  if (streetAtlas?.materialId !== materialId) {
+    if (!streetLoading) {
+      streetLoading = loadStreetAtlas(materialId).then(atlas => {
+        streetAtlas = atlas;
+      }).catch(error => {
+        failedSurfaces.add(materialId);
+        console.warn(error);
+      }).finally(() => {
+        streetLoading = undefined;
+        void showScreen();
+      });
+    }
+    return;
+  }
+  if (streetViewport?.materialId !== materialId || streetViewport.packed !== packed) {
+    const canvas = streetViewport?.canvas ?? makeViewportCanvas("street-viewport", 480, 576);
+    streetViewport?.renderer.dispose();
+    streetViewport = undefined;
+    canvas.style.setProperty("--sky-texture", `url("${streetAtlas.skyUrl}")`);
+    const sky = skyByArea[surface.area];
+    if (sky) canvas.dataset.sky = sky;
+    else delete canvas.dataset.sky;
+    const bytes = packed && atob(packed);
+    const walls = bytes ? Array.from({length:256}, (_, i) => {
+      const a = bytes.charCodeAt(i), b = bytes.charCodeAt(i+256);
+      return [a >> 4, a & 15, b >> 4, b & 15];
+    }) : streetAtlas.walls;
+    if (!walls) return;
+    const renderer = streetAtlas.module.createNewPhlanViewport(canvas, walls, streetAtlas.atlas,
+      materialId === "phlan" ? "phlan" : "local");
+    streetViewport = {canvas, renderer, materialId, packed};
+  }
+  return streetViewport;
 }
 
 streetToggle.addEventListener("click", () => {
@@ -603,13 +662,16 @@ async function showScreen() {
   }
   let layers = [];
   let streetCanvas;
-  const streetScene = showArt && streetEnabled && !animationFrame && useNewPhlanViewport(view);
-  if (streetScene) ensureStreetViewport();
-  if (streetScene && streetViewport) {
+  let overland;
+  const streetScene = showArt && streetEnabled && explorationSurface(view);
+  if (streetScene) {
     try {
-      const {cameraX, cameraY, facing} = view.exploration;
-      streetViewport.renderer.draw({x:cameraX, y:cameraY, facing});
-      streetCanvas = streetViewport.canvas;
+      const viewport = ensureStreetViewport(streetScene);
+      if (viewport && streetScene.materialId === "overland") overland = viewport;
+      else if (viewport) {
+        viewport.renderer.draw(streetScene);
+        streetCanvas = viewport.canvas;
+      }
     } catch (error) {
       disableStreetPreview(error);
     }
@@ -626,7 +688,7 @@ async function showScreen() {
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
   if (showArt) {
     const perspective = view.perspective && !view.portrait;
-    if (streetCanvas) layers.push(streetCanvas);
+    if (streetCanvas || overland) layers.push(streetCanvas ?? overland.canvas);
     else if (perspective || view.classicPortrait) layers.push(pictureBackdrop());
     layers.push(...placements.map(([x, y, id, reflected, highlighted, width, height]) => {
       const tile = document.createElement("img");
@@ -637,8 +699,7 @@ async function showScreen() {
       const overlapRight = terrain && x < 104;
       const overlapBottom = terrain && y < 104;
       if (terrain) tile.classList.add("terrain-tile");
-      const sky = id.startsWith("tile:16:") ? "swamp" : id.startsWith("tile:28:") ? "zhentil"
-        : id.startsWith("tile:24:") ? "bane" : undefined;
+      const sky = terrain && skyByArea[Number(id.split(":", 2)[1])];
       if (sky) {
         tile.dataset.sky = sky;
         // Align the sky across all eleven rows. The gradient travels 80 guest pixels.
@@ -703,6 +764,15 @@ async function showScreen() {
       }
     };
     const [, decodedLayers] = await Promise.all([nextFrame.decode(), Promise.all(layers.map(decodeLayer))]);
+    if (render !== screenRender) return;
+    if (overland) {
+      try { overland.renderer.draw(nextFrame); }
+      catch (error) {
+        failedSurfaces.add("overland");
+        decodedLayers.splice(decodedLayers.indexOf(overland.canvas),1);
+        console.warn(error);
+      }
+    }
     layers = [];
     for (const layer of decodedLayers) {
       if (!layer) continue;
@@ -731,7 +801,7 @@ async function showScreen() {
   }
   if (render !== screenRender) return;
   screen.src = source;
-  streetToggle.hidden = !enhanced || !useNewPhlanViewport(state);
+  streetToggle.hidden = !enhanced || !explorationSurface(state);
   tileArt.replaceChildren(...layers);
   tileArt.hidden = !showArt;
   gameText.hidden = !useEnhanced || Boolean(sceneArt);

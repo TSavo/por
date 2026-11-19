@@ -1,13 +1,16 @@
 # New Phlan 3D prototype
 
-In browser play, Enhanced display automatically uses WebGL for supported
-New Phlan exploration. The **3D view** button can switch back to tiles for
-the current tab. The renderer uses the party camera from the game and the
-same WebGL code as the comparison page. It covers area 0 scenery. Combat,
-portraits, journal views, and other areas use their current presentation.
-The browser restores the enhanced tile view if WebGL or an asset fails.
-Walls use the static GEO layout in this first pass. Script-driven geometry
-updates and 3D placement of encounter sprites are outside this preview.
+Enhanced browser play uses WebGL by default for exploration. The 3D view
+reads the camera and wall layout from the active game map, including level
+changes and walls changed by scripts. It uses existing enhanced textures
+where they match and the native wall art on individual surfaces without a
+match. New Phlan retains its harbor and gate details. Overland travel keeps
+its overhead map and markers on a WebGL canvas. Encounter sprites remain
+over the scenery, and portraits, combat, the journal, and Classic retain
+their existing presentation.
+
+The **3D view** button switches back to the enhanced tile view for the
+current tab. The browser also uses that view if WebGL or an asset fails.
 
 ## Compare the renderers
 

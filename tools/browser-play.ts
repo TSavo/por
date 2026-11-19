@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { createHash } from "node:crypto";
 import { appendFileSync, readdirSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
@@ -14,6 +15,8 @@ import { NarrationCatalog, type NarrationTrigger, type RuntimeNarrationManifest 
 import { parseDax } from "../src/lib/dax.js";
 import { parseGeo } from "../src/lib/world.js";
 import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
+import { buildExplorationMaterials } from "./exploration-materials.js";
+import type { NativeExploration } from "./native-exploration.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
@@ -75,6 +78,26 @@ const gameFont = (() => {
 })();
 const artwork = loadUpgradeArt(undefined, gameRoot);
 let streetMaterials: string | undefined;
+const localMaterialSets = new Map<string, string>();
+type ExplorationFrame = {
+  nativeScenery?: NativeExploration & { area: number };
+  scenery?: Pick<NativeExploration, "x" | "y" | "facing" | "walls"> & { materialId: string; area: number };
+  overlandMap?: boolean;
+};
+
+function prepareScenery(view: ExplorationFrame) {
+  const native = view.nativeScenery;
+  if (!native) return;
+  delete view.nativeScenery;
+  const { x, y, facing, walls, area } = native;
+  const materialId = area === 0 ? "phlan" : createHash("sha256")
+    .update(JSON.stringify([area,native.frontSlots,native.glyphs,native.skyColor,native.groundColor])).digest("hex");
+  if (area !== 0 && !localMaterialSets.has(materialId)) {
+    if (localMaterialSets.size >= 32) localMaterialSets.delete(localMaterialSets.keys().next().value!);
+    localMaterialSets.set(materialId, JSON.stringify(buildExplorationMaterials(native, artwork)));
+  }
+  view.scenery = { x, y, facing, walls, materialId, area };
+}
 const reflectedTiles = [...artwork].filter(([, art]) => art.reflected).map(([id]) => id);
 let tileTrace = process.env.POR_TILE_TRACE_FILE;
 let lastTileTrace: string | undefined;
@@ -101,7 +124,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
   windowsHide: true,
 });
 
-interface FrameState {
+interface FrameState extends ExplorationFrame {
   frame?: string;
   enhancedFrame?: string;
   scene?: string;
@@ -118,7 +141,7 @@ interface FrameState {
   tiles?: [number, number, string][];
   combatArt?: CombatArtPlacement[];
   battleTiles?: [number, number, string][];
-  animation?: PresentationAnimationFrame[];
+  animation?: (PresentationAnimationFrame & ExplorationFrame)[];
   automaticCombat?: boolean;
   tileInventory?: TileInventoryCell[];
   battleTileInventory?: TileInventoryCell[];
@@ -147,6 +170,8 @@ const narrations: Array<{ id: number; step: number; unitId: string; variantId?: 
 createInterface({ input: runner.stdout }).on("line", (line) => {
   if (line.startsWith("POR_FRAME ")) {
     frame = JSON.parse(line.slice("POR_FRAME ".length)) as FrameState;
+    prepareScenery(frame);
+    frame.animation?.forEach(prepareScenery);
     const position = frame.exploration;
     const map = position && geometry.get(position.area);
     if (position && map && position.x >= 0 && position.x < 16 && position.y >= 0 && position.y < 16) {
@@ -244,7 +269,7 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(script);
   } else if (req.method === "GET" && req.url === "/new-phlan-webgl.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(streetRenderer);
-  } else if (req.method === "GET" && req.url === "/new-phlan-3d.json") {
+  } else if (req.method === "GET" && req.url === "/exploration-materials/phlan") {
     try {
       streetMaterials ??= JSON.stringify(buildNewPhlanMaterials(gameRoot, new Map(
         [...artwork].map(([key, art]) => [key, { file: art.path, reflected: Boolean(art.reflected) }]))));
@@ -253,6 +278,10 @@ const server = createServer(async (req, res) => {
       console.error("Cannot prepare New Phlan 3D materials", error);
       res.writeHead(503).end();
     }
+  } else if (req.method === "GET" && /^\/exploration-materials\/[0-9a-f]{64}$/.test(req.url ?? "")) {
+    const materials = localMaterialSets.get(req.url!.slice("/exploration-materials/".length));
+    if (materials) res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(materials);
+    else res.writeHead(404).end();
   } else if (req.method === "GET" && req.url === "/voice-manifest.json") {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(voiceManifest);
   } else if (req.method === "GET" && req.url === "/sound-manifest.json") {

@@ -2933,7 +2933,9 @@ const classicPortrait = option === "--classic-portrait" &&
   ["buccaneer-approach", "new-phlan-south-shop-exit"].includes(routeName);
 const southShopkeeper = "portrait:HEAD3.DAX:42:BODY3.DAX:9";
 const ogreApproachOnly = ogre && option === "--approach-only";
-assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait || ogreApproachOnly || councilFinale, "Option does not apply to this route");
+const verifyHallsWebGL = halls && option === "--webgl";
+assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
+  ogreApproachOnly || councilFinale || verifyHallsWebGL, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -3160,8 +3162,17 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  // These replays verify the individual PNG placements in the enhanced tile renderer.
-  await run(`document.querySelector('#street-toggle[aria-pressed="true"]')?.click()`);
+  const verifyDefaultWebGL = verifyHallsWebGL || ["new-phlan-rolf-tour", "lizardfolk-battle-wall"].includes(routeName);
+  if (!verifyDefaultWebGL) {
+    // The tile replays verify individual PNG placements.
+    await run(`document.querySelector('#street-toggle[aria-pressed="true"]')?.click()`);
+  }
+  function waitForExplorationViewport() {
+    const source = JSON.stringify(`data:image/png;base64,${frame.enhancedFrame}`);
+    return waitFor("the default WebGL exploration viewport", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector("#screen").src === ${source} &&
+      document.querySelector(".street-viewport")?.isConnected`));
+  }
   function observeApproach(approachSequence) {
     return run(`(() => {
       window.observedApproach = new Set();
@@ -3901,6 +3912,7 @@ try {
     }
     console.log(`Verified ${routeName} source frame, screen anchor, and mode switching in Chrome.`);
   } else if (routeName === "lizardfolk-battle-wall") {
+    await waitForExplorationViewport();
     for (const key of ["left", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "right", "up", "c"]) {
       await advance(key);
     }
@@ -3921,6 +3933,7 @@ try {
         x >= ax + width || x + 8 <= ax || y >= ay + height || y + 8 <= ay)));
       await waitFor("the complete enhanced battlefield tile layer", () => run(`(() => {
         if (state.sequence !== ${frame.sequence} || animationFrame) return false;
+        if (document.querySelector(".street-viewport, .overland-viewport")) return false;
         const tiles = new Map([...document.querySelectorAll(".battle-tile")].map(image =>
           [image.style.left + "," + image.style.top, image]));
         return ${JSON.stringify(frame.battleTiles)}.every(([x, y, id]) => {
@@ -4480,6 +4493,7 @@ try {
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
+      if (routeName === "new-phlan-rolf-tour") await waitForExplorationViewport();
     }
     if (journalLead) {
       await advance("j");
@@ -6256,19 +6270,29 @@ try {
   } else if (dragon || halls) {
     const route = halls ? ["up", "up", ...Array(3).fill("enter")] : ["right", ...Array(4).fill("up"), ...Array(3).fill("enter")];
     const patterns = new Set();
-    let views = await verifyTiledView(20, patterns);
+    const sceneryAreas = new Set();
+    async function verifyHallView(area) {
+      if (!verifyHallsWebGL) return verifyTiledView(area, patterns);
+      if (!frame.perspective) return 0;
+      assert.equal(frame.scenery?.area, area);
+      sceneryAreas.add(frame.scenery.area);
+      await waitForExplorationViewport();
+      return 1;
+    }
+    let views = await verifyHallView(20);
     for (const key of route) {
       await advance(key);
       // The final audience draws area 7 before the dialogue portrait appears.
-      views += await verifyTiledView(views >= (halls ? 2 : 3) ? 7 : 20, patterns);
+      views += await verifyHallView(views >= (halls ? 2 : 3) ? 7 : 20);
     }
     assert.equal(views, halls ? 5 : 8);
+    if (verifyHallsWebGL) assert.deepEqual([...sceneryAreas], [20, 7]);
     assert.equal(frame.portrait, "portrait:PIC5.DAX:66:0:0");
     await waitFor("the dragon dialogue portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await verifyPortraitPanel();
     await switchBothWays();
     if (halls) {
-      console.log("Verified enhanced Valjevo hall views and the dragon dialogue.");
+      console.log(`Verified enhanced Valjevo hall views and the dragon dialogue${verifyHallsWebGL ? " with default WebGL exploration" : ""}.`);
     } else {
       const partyArt = new Set(["combat:party:73:93", "combat:party:73:81", "combat:party:69:90", "combat:party:0:3",
         "combat:party:2:5", "combat:party:74:88"]);

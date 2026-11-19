@@ -1,4 +1,5 @@
 import { appendFileSync, readSync, writeFileSync } from "node:fs";
+import { captureNativeExploration, type NativeExploration } from "./native-exploration.js";
 import { createHash } from "node:crypto";
 import { Frame } from "../src/lib/ega.js";
 import type { EncounterAnchor } from "../src/lib/assets.js";
@@ -28,6 +29,8 @@ export interface PresentationAnimationFrame {
   panelFrame?: PanelFrameStamp[];
   text: [number, number, number][];
   perspective?: boolean;
+  nativeScenery?: NativeExploration & { area: number };
+  overlandMap?: boolean;
   encounter?: EncounterPlacement;
   tiles?: TilePlacement[];
   durationMs?: number;
@@ -103,7 +106,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let area: number | undefined;
   let explorationPosition: { area: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number } | undefined;
   let battleCursor: number | undefined;
-  let drawnPerspective: { pixels: Buffer; localEcl?: number } | undefined;
+  let drawnPerspective: { pixels: Buffer; localEcl?: number; native?: NativeExploration } | undefined;
   let priorPerspectiveDraw: Buffer | undefined;
   let previousPerspective: { area: number; pixels: Buffer } | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
@@ -170,6 +173,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // scenes. Its exploration menu omits Area, even during the cave exit
       // when the area record still names the dungeon.
       const overlandMap = menu === "CASTVIEWENCAMPSEARCHLOOK";
+      const battlefield = hasBattlefieldBorder(screen);
       // The icon editor also uses the viewport blit. Its two preview labels
       // stay in place while the player changes parts, palette, and size.
       const iconEditor = text.filter(([cell]) =>
@@ -181,7 +185,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         (area === 24 && menu === "DESTROYALTARLEAVEIT");
       let perspective = false;
       let tileArea = area;
-      if (area !== undefined && !scene && !overlandMap && !iconEditor && picture === undefined && !hasBattlefieldBorder(screen)) {
+      let nativeScenery: PresentationAnimationFrame["nativeScenery"];
+      if (area !== undefined && !scene && !overlandMap && !iconEditor && picture === undefined && !battlefield) {
         const pixels = perspectivePixels();
         // The original game can redraw scenery while the menu is hidden,
         // including mid-transition at a doorway.
@@ -198,6 +203,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         if ((area === 26 || area === 27) && nativeDraw?.localEcl === 0) tileArea = 0;
         perspective = Boolean(encounter || exploration || nativeDraw ||
           (previousPerspective?.area === area && previousPerspective.pixels.equals(pixels)));
+        const native = nativeDraw ?? (drawnPerspective?.localEcl === tileArea ? drawnPerspective : undefined);
+        if (perspective && native?.native) nativeScenery = { ...native.native, area: tileArea ?? area };
         if (!leads) previousPerspective = perspective ? { area, pixels } : undefined;
       } else if (!leads) {
         previousPerspective = undefined;
@@ -223,10 +230,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * screen.width, offset + y * screen.width + 8);
       }
       const combat = attack || (!scene && !perspective)
-        ? combatArt(screen, enhanced, area, battleCursor, hasBattlefieldBorder(screen) ? battleTerrain : undefined, iconEditor) : [];
+        ? combatArt(screen, enhanced, area, battleCursor, battlefield ? battleTerrain : undefined, iconEditor) : [];
       const battleTiles: TilePlacement[] = [];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
-      if ((battleTileKeys.size || battleTileInventory) && !scene && hasBattlefieldBorder(screen)) {
+      if ((battleTileKeys.size || battleTileInventory) && !scene && battlefield) {
         const pixels = Buffer.alloc(64);
         const selectedActors = battleTileInventory ? combat.filter(([, , , , highlighted]) => highlighted) : [];
         const selectionCells = new Set<number>();
@@ -275,6 +282,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         classicPortraitArea: Array.isArray(picture) ? area : undefined,
         classicPortraitCursor: Array.isArray(picture) ? battleCursor : undefined,
         perspective,
+        overlandMap: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield || undefined,
+        nativeScenery,
         exploration: perspective && explorationPosition && explorationPosition.area === tileArea
           ? explorationPosition : undefined,
         encounter,
@@ -291,7 +300,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       };
       if (attack || captureApproach) {
         animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame,
-          text: state.text, combatArt: attack ?? [], battleTiles, panelFrame: state.panelFrame, perspective, encounter, tiles, durationMs });
+          text: state.text, combatArt: attack ?? [], battleTiles, panelFrame: state.panelFrame, perspective,
+          nativeScenery: state.nativeScenery, overlandMap: state.overlandMap, encounter, tiles, durationMs });
       } else {
         console.log(`POR_FRAME ${JSON.stringify({ ...state,
           animation: animation.length ? animation.splice(0) : undefined })}`);
@@ -458,7 +468,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     capturePerspective: browser ? (cpu: Cpu, localScenery: boolean) => {
       const pixels = perspectivePixels();
       if (drawnPerspective && !drawnPerspective.pixels.equals(pixels)) priorPerspectiveDraw = drawnPerspective.pixels;
-      drawnPerspective = { pixels, localEcl: localScenery ? cpu.read8(0x740, 0x82a2) : undefined };
+      drawnPerspective = { pixels, localEcl: localScenery ? cpu.read8(0x740, 0x82a2) : undefined,
+        native: localScenery ? captureNativeExploration(cpu) : undefined };
     } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu) => {
       if (scene || animation.length >= 12) return;
