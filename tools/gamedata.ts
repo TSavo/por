@@ -118,6 +118,19 @@ export function listGameFiles(root: string): string[] {
     .sort((a, b) => a.localeCompare(b));
 }
 
+export function requireBrowserGameRoot(): string {
+  const root = findGameRoot();
+  if (!root) {
+    throw new Error("Pool of Radiance data not found. Set POR_GAMEDATA to the unpacked DOS game directory or place it under gamedata/.");
+  }
+  const names = new Set(listGameFiles(root).map(name => name.toUpperCase()));
+  const missing = ["START.EXE", "GAME.OVR", "ECL1.DAX"].filter(name => !names.has(name));
+  if (missing.length) {
+    throw new Error(`Incomplete Pool of Radiance data in ${path.resolve(root)}. Missing ${missing.join(", ")}. Use the complete unpacked DOS game directory.`);
+  }
+  return path.resolve(root);
+}
+
 export function readGameFile(root: string, name: string): Uint8Array {
   const safe = path.basename(name);
   const bytes = fs.readFileSync(path.join(root, safe));

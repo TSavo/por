@@ -2,14 +2,24 @@
 
 A port of SSI's 1988 Turbo Pascal game. Game procedures are translated instruction by instruction from `START.EXE` and `GAME.OVR` (`TPOV` overlays). The browser player displays the translated game's EGA output and includes the party journal. See [docs/PORT.md](docs/PORT.md) and [docs/COVERAGE.md](docs/COVERAGE.md).
 
-The game files are copyrighted. They are not in this repository. Put them in a directory and point the tools at it. `gamedata/` is gitignored.
+Supply your own complete set of original DOS game files. Unpack them so
+`START.EXE`, `GAME.OVR`, and the `*.DAX` files are in the same folder.
+`gamedata/` is gitignored.
 
 ## Run it
 
+Use Node.js 22 or newer. With the unpacked files in `gamedata/pool/`,
+run `npm ci` followed by `npm run play` from the repository root.
+To keep the files elsewhere, set `POR_GAMEDATA` first.
+
 ```bash
-npm install
-export POR_GAMEDATA=/path/to/pool    # the folder that contains START.EXE, ECL1.DAX, GEO*.DAX, ...
-npm run play
+export POR_GAMEDATA=/path/to/pool
+```
+
+In PowerShell:
+
+```powershell
+$env:POR_GAMEDATA = 'C:\Games\pool'
 ```
 
 Open [the local game](http://127.0.0.1:43124) to play the translated game. In the game screen, choose **Encamp → Journal** to see what the party knows. **J** also opens the journal during play. Select **Track** next to a quest to make it the current objective. Press **J** or **Escape** to return to play.
@@ -18,7 +28,9 @@ Use **Encamp → Save** and **Load Saved Game** to save and restore the party an
 
 In combat, **Home**, **Page Up**, **End**, and **Page Down** move or aim diagonally. The numeric keypad provides these keys with Num Lock off.
 
-Press **F10** or select **Enhanced display** for a 4:3 view with a softer color grade and a different journal theme. Both views use the running game's framebuffer. The display switch leaves play and saves alone.
+Press **F10** or select **Enhanced display** to use replacement art where
+available and the web font for game text. Both display modes share the
+running game and save slots.
 
 `npm run dev` launches the same game. If `POR_GAMEDATA` is unset, the runner checks `./gamedata`, including one nested folder such as `gamedata/pool`.
 

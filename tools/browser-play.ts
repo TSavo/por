@@ -3,6 +3,7 @@ import { appendFileSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
 import { join } from "node:path";
+import { requireBrowserGameRoot } from "./gamedata.js";
 import { loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
 import { getKey, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
@@ -16,6 +17,7 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) {
   throw new Error("POR_PLAY_PORT must be a TCP port between 1 and 65535");
 }
 const origin = `http://127.0.0.1:${port}`;
+const gameRoot = requireBrowserGameRoot();
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const voiceManifest = readFileSync(new URL("../src/audio/voices.json", import.meta.url));
@@ -58,7 +60,7 @@ const gameFont = (() => {
     }
   }
 })();
-const artwork = loadUpgradeArt();
+const artwork = loadUpgradeArt(undefined, gameRoot);
 const reflectedTiles = [...artwork].filter(([, art]) => art.reflected).map(([id]) => id);
 let tileTrace = process.env.POR_TILE_TRACE_FILE;
 let lastTileTrace: string | undefined;
@@ -69,6 +71,7 @@ const encounters = Object.fromEntries([...artwork].flatMap(([id, { encounter }])
 const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
   env: {
     ...process.env,
+    POR_GAMEDATA: gameRoot,
     POR_BROWSER_PLAY: "1",
     POR_BATTLE_TILE_KEYS: [...artwork.keys()].filter((key) => key.startsWith("battle-tile:")).join(","),
     POR_TILE_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("tile:")).join(","),
