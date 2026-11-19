@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:23:CPIC7.DAX:185:ecl:a23f": "yarash-vat-mutant-strike.png",
+    "combat:area:23:CPIC7.DAX:57:ecl:a23f": "yarash-vat-mutant-stand.png",
     "tile:10:1b8725f69b7dd086491d7dedf1831bf8cea5c06f0b3f8483a11b052e6591e0f4": "valhingen-crypt-approaches-path-1b8725f69b7d.png",
     "tile:10:058294bd13437d5457a6d702d4e625fa90b7bd42344cd863bcf7796cd3365b9d": "valhingen-crypt-approaches-path-058294bd1343.png",
     "tile:10:a24fa37ba247373627bc3757d2e05f7a630cca2d6b3f0dd17e10b6c16e5d0ac0": "valhingen-crypt-approaches-path-a24fa37ba247.png",
