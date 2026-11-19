@@ -1965,6 +1965,8 @@ to compare the original keyless slot with the controlled copy.
 Append `--through-ogre` to equip Skullcrusher, reload his clue, and follow
 it through the secret door. The replay verifies that the journal switches
 to the ogre chief objective only after the party encounters him.
+With the resulting controlled slot H, `textile-ogre --approach-only` checks
+the 96×260 approach sprite over all 121 enhanced tiles in Chrome.
 
 The same keyless slot can replay the original Pick Lock, Break Chains,
 and Attack choices with

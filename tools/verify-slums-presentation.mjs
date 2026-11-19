@@ -1906,7 +1906,8 @@ const terrainOnly = option === "--terrain-only";
 const manualParty = option === "--manual-party";
 const repeatStampede = option === "--repeat-stampede" && routeName === "buccaneer-pens";
 const classicPortrait = option === "--classic-portrait" && routeName === "buccaneer-approach";
-assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait, "Option does not apply to this route");
+const ogreApproachOnly = ogre && option === "--approach-only";
+assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait || ogreApproachOnly, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -3547,22 +3548,34 @@ try {
     const idle = "combat:area:2:CPIC2.DAX:8";
     const attack = "combat:area:2:CPIC2.DAX:136";
     const route = ["enter", "right", "right", "up", "right", "up", "left", "up", "b", "right", "up", "b",
-      ...Array(5).fill("up"), "right", "up", "left", "up", "up", "enter", "s", "up", "enter", ...Array(5).fill("enter")];
+      ...Array(5).fill("up"), "right", "up", "left", "up", "up", "enter", "s", "up", "enter"];
     for (const key of route) await advance(key);
-    const standing = () => frame.combatArt.find(([, , id]) => id === idle);
-    for (let turn = 0; turn < 8 && !standing(); turn++) await advance("q");
-    assert.deepEqual(standing()?.slice(5), [24, 48]);
-    const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")].some(img => img.src.endsWith(${JSON.stringify(id)}) &&
-      img.naturalWidth === 96 && img.naturalHeight === 192 &&
-      parseFloat(img.style.width) === 7.5 && parseFloat(img.style.height) === 24)`);
-    await waitFor("the rectangular ogre standing sprite", () => displayed(idle));
+    const approach = "encounter:area:2:SPRIT4.DAX:6:1:0";
+    assert.deepEqual(frame.encounter, [56, 32, approach, 24, 65]);
+    assert.equal(await verifyTiledView(2, new Set()), 1);
+    await waitFor("the enhanced ogre chief approach", () => run(`state.sequence === ${frame.sequence} &&
+      [...document.querySelectorAll(".encounter-sprite")].some(image =>
+        image.getAttribute("src") === ${JSON.stringify("/art/" + approach)} &&
+        image.naturalWidth === 96 && image.naturalHeight === 260)`));
     await switchBothWays();
-    const swung = () => frame.animation?.some(shot => shot.combatArt?.some(([, , id]) => id === attack));
-    for (let turn = 0; turn < 70 && !swung(); turn++) await advance("q");
-    assert.ok(swung());
-    await waitFor("the rectangular ogre attack sprite", () => displayed(attack));
-    assert.deepEqual(readFileSync(saved), originalSave);
-    console.log("Verified 96×192 standing and attack sprites in the Textile House ogre fight.");
+    console.log("Verified the enhanced ogre chief over the Textile House scenery after the secret door.");
+    if (!ogreApproachOnly) {
+      for (let prompt = 0; prompt < 5; prompt++) await advance("enter");
+      const standing = () => frame.combatArt.find(([, , id]) => id === idle);
+      for (let turn = 0; turn < 8 && !standing(); turn++) await advance("q");
+      assert.deepEqual(standing()?.slice(5), [24, 48]);
+      const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")].some(img => img.src.endsWith(${JSON.stringify(id)}) &&
+        img.naturalWidth === 96 && img.naturalHeight === 192 &&
+        parseFloat(img.style.width) === 7.5 && parseFloat(img.style.height) === 24)`);
+      await waitFor("the rectangular ogre standing sprite", () => displayed(idle));
+      await switchBothWays();
+      const swung = () => frame.animation?.some(shot => shot.combatArt?.some(([, , id]) => id === attack));
+      for (let turn = 0; turn < 70 && !swung(); turn++) await advance("q");
+      assert.ok(swung());
+      await waitFor("the rectangular ogre attack sprite", () => displayed(attack));
+      assert.deepEqual(readFileSync(saved), originalSave);
+      console.log("Verified 96×192 standing and attack sprites in the Textile House ogre fight.");
+    }
   } else if (altar) {
     for (const key of ["up", "enter", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:PIC4.DAX:9:0:0");
