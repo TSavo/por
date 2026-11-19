@@ -3,7 +3,7 @@
   "provider": "Fish Audio",
   "model": "drama-3",
   "generatedFrom": "src/audio/voice-plan.json annotations",
-  "promptCount": 8,
+  "promptCount": 17,
   "prompts": [
     {
       "id": "por.narration.sokal.chapel",
@@ -91,6 +91,105 @@
       "prompt": "<|speaker:0|>[continue Ferran's weary spirit voice, becoming relieved and peaceful at the farewell; remain the same narrator speaker] TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'. NOW WE ARE FREED, OUR DUTY DONE!'[return to the narrator's measured normal voice, quiet and final]  FERRAN FADES AWAY.",
       "spokenText": "TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'. NOW WE ARE FREED, OUR DUTY DONE!' FERRAN FADES AWAY.",
       "spokenTextSha256": "b436abff35d92fd9efa1f335f2a9cf6cb0177cdb61b0cd55e9dcdb520b51745b",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes.magic-mouth",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-6.block-19.at-999c.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[measured fantasy narration, alert and mysterious] AS YOU ARE ENTERING THE CAVE, A MAGIC MOUTH APPEARS ON ONE OF THE WALLS. IN A BOOMING VOICE IT SAYS, [as the same narrator, perform an immense disembodied magical voice, resonant and commanding without shouting] 'WHO ENTERS THE HOME OF DIOGENES? SPEAK NOW AND DECLARE YOUR INTENT!'",
+      "spokenText": "AS YOU ARE ENTERING THE CAVE, A MAGIC MOUTH APPEARS ON ONE OF THE WALLS. IN A BOOMING VOICE IT SAYS, 'WHO ENTERS THE HOME OF DIOGENES? SPEAK NOW AND DECLARE YOUR INTENT!'",
+      "spokenTextSha256": "9137d90f0b8b83343c4e18c58844d6f19f0cc7e5e62f98770411f833a04a6d55",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes.arrival",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-6.block-19.at-9aef.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[measured fantasy narration building to restrained awe; leave the final pause unresolved] YOU HEAR A GREAT FLAPPING SOUND. A STRONG WHOOSH OF AIR COMES DOWN UPON THE ADVENTURERS. A LARGE SILVER DRAGON STANDS BEFORE YOU. IN A BOOMING VOICE IT SAYS...",
+      "spokenText": "YOU HEAR A GREAT FLAPPING SOUND. A STRONG WHOOSH OF AIR COMES DOWN UPON THE ADVENTURERS. A LARGE SILVER DRAGON STANDS BEFORE YOU. IN A BOOMING VOICE IT SAYS...",
+      "spokenTextSha256": "9eed0448a28082d17347d65c17bf6ff160dbb56c62a9d369024c04c18c03d34b",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes.first-task",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-6.block-19.at-9b70.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[as the same narrator, perform Diogenes in a deep, resonant dragon voice: ancient, benevolent, and unmistakably authoritative; deliberate pacing] 'I ACCEPT YOUR PLEDGE. FOR YOUR FIRST DUTY, I COMMAND YOU TO RECOVER A POWERFUL MAGICAL BOTTLE FROM A KOBOLD SETTLEMENT IN THE HILLS FAR TO THE EAST. THEN RETURN TO ME AND I SHALL GIVE YOU ANOTHER TASK.'",
+      "spokenText": "'I ACCEPT YOUR PLEDGE. FOR YOUR FIRST DUTY, I COMMAND YOU TO RECOVER A POWERFUL MAGICAL BOTTLE FROM A KOBOLD SETTLEMENT IN THE HILLS FAR TO THE EAST. THEN RETURN TO ME AND I SHALL GIVE YOU ANOTHER TASK.'",
+      "spokenTextSha256": "7b2d72a17d41d7fa4d3cef3e49ff506bfccc6885cc934f2600f14446d44835d4",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes-departure",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-6.block-19.at-9c11.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[return to measured fantasy narration, quietly purposeful] AFTER SPEAKING, THE DRAGON FLYS THROUGH AN OPENNING IN THE CEILING OF THE CAVE. YOU EXIT THE CAVE TO CONTINUE YOUR QUEST.",
+      "spokenText": "AFTER SPEAKING, THE DRAGON FLYS THROUGH AN OPENNING IN THE CEILING OF THE CAVE. YOU EXIT THE CAVE TO CONTINUE YOUR QUEST.",
+      "spokenTextSha256": "6ca04947b3693619e77e0c336b3f455c8c7af3f6314b11641019d5651f2d2c40",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes-council",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-6.block-19.at-a145.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[measured fantasy narration, conveying the dragon's immense presence with restrained awe] THE CHARACTERS HEAR A LOUD FLAPPING NOISE AND THEN A WARM RUSH OF AIR HITS THEIR FACES. STANDING BEFORE YOU NOW IS A GREAT SILVER DRAGON. HE SAYS, [as the same narrator, perform Diogenes in a deep, warm dragon voice, wise and calmly authoritative; let the ellipsis invite attention] 'YOU ARE WISE TO SEEK MY COUNCIL AND I CAN HELP YOU...'",
+      "spokenText": "THE CHARACTERS HEAR A LOUD FLAPPING NOISE AND THEN A WARM RUSH OF AIR HITS THEIR FACES. STANDING BEFORE YOU NOW IS A GREAT SILVER DRAGON. HE SAYS, 'YOU ARE WISE TO SEEK MY COUNCIL AND I CAN HELP YOU...'",
+      "spokenTextSha256": "2527f481925b85feaa504fef91bf779d5c11e1bf317f84d53b5355b903d7fd41",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes-bottle-quest",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-6.block-19.at-a1e5.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[continue Diogenes's deep, warm dragon voice as the same narrator, grave and instructive] 'FAR TO THE EAST THERE IS A LARGE KOBOLD COMPLEX. THERE IS A SILVER BOTTLE OF GREAT POWER THERE THAT WILL HELP YOU ON YOUR QUEST. RETRIEVE THAT BOTTLE THEN RETURN AND I WILL SEND YOU ON ANOTHER QUEST.'",
+      "spokenText": "'FAR TO THE EAST THERE IS A LARGE KOBOLD COMPLEX. THERE IS A SILVER BOTTLE OF GREAT POWER THERE THAT WILL HELP YOU ON YOUR QUEST. RETRIEVE THAT BOTTLE THEN RETURN AND I WILL SEND YOU ON ANOTHER QUEST.'",
+      "spokenTextSha256": "9dd612fe5554d098e334fab3359c1f8b790657e17d0acbe8909613f2c85a6cce",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes-bottle-return",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-6.block-19.at-a3c7.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[measured fantasy narration, welcoming but dignified] AS YOU ENTER THE CAVE YOU ARE GREETED BY DIOGENES, THE SILVER DRAGON. HE SAYS [as the same narrator, perform Diogenes's deep dragon voice with restrained approval] 'I SEE YOU HAVE RECOVERED THE SILVER BOTTLE FROM THE KOBOLD CAVES. I CONGRADULATE YOU.'",
+      "spokenText": "AS YOU ENTER THE CAVE YOU ARE GREETED BY DIOGENES, THE SILVER DRAGON. HE SAYS 'I SEE YOU HAVE RECOVERED THE SILVER BOTTLE FROM THE KOBOLD CAVES. I CONGRADULATE YOU.'",
+      "spokenTextSha256": "df32ea82e333655b4bffcd60a89d1b698ef944e0afa8554089e7faf27ecae475",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes-efreet-warning",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-6.block-19.at-a44c.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[continue Diogenes's deep dragon voice as the same narrator, lowering into a grave warning] 'THAT BOTTLE CONTAINS A POWERFUL EFREET WHO WAS SUMMONED TO KILL VAMPIRES. HE WILL BE A VALUABLE ALLY IN OLD PHLAN. IN VALHINGEN GRAVEYARD THERE IS A VAMPIRE.'",
+      "spokenText": "'THAT BOTTLE CONTAINS A POWERFUL EFREET WHO WAS SUMMONED TO KILL VAMPIRES. HE WILL BE A VALUABLE ALLY IN OLD PHLAN. IN VALHINGEN GRAVEYARD THERE IS A VAMPIRE.'",
+      "spokenTextSha256": "5447a524f21a2364e9edcf5caca2777883684bdd529094248b785dbe09010e15",
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes-vampire-farewell",
+      "type": "narration",
+      "speaker": "narrator",
+      "sourceId": "por.voice.ecl-6.block-19.at-a4cc.operand-0",
+      "model": "drama-3",
+      "prompt": "<|speaker:0|>[continue Diogenes's deep dragon voice as the same narrator, solemn and encouraging] 'WHEN YOU MEET THE VAMPIRE USE THE BOTTLE AND YOU MAY HAVE A CHANCE IN DEFEATING HIM. I WISH YOU LUCK.'[return to the narrator's measured normal voice, ending with quiet finality]  AFTER SPEAKING DIOGENES FLIES THROUGH A HOLE IN THE CEILING AND DISSAPPEARS.",
+      "spokenText": "'WHEN YOU MEET THE VAMPIRE USE THE BOTTLE AND YOU MAY HAVE A CHANCE IN DEFEATING HIM. I WISH YOU LUCK.' AFTER SPEAKING DIOGENES FLIES THROUGH A HOLE IN THE CEILING AND DISSAPPEARS.",
+      "spokenTextSha256": "16fbd575399c0745af4bd12311920cf33bf3afb898bc3859d8a10ff32d66c419",
       "status": "annotated-prompt-ready"
     }
   ]

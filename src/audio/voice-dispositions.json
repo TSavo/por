@@ -4,8 +4,8 @@
   "policy": "Only narrowly defined routine interface text is excluded automatically. Story prose and apparent character speech remain pending editorial review unless explicitly selected.",
   "sourceEntries": 1551,
   "counts": {
-    "pending-editorial-review": 1527,
-    "selected": 8,
+    "pending-editorial-review": 1518,
+    "selected": 17,
     "unvoiced-routine-interface": 16
   },
   "entries": [
@@ -7284,8 +7284,8 @@
     },
     {
       "sourceId": "por.voice.ecl-6.block-19.at-999c.operand-0",
-      "disposition": "pending-editorial-review",
-      "selectionId": null,
+      "disposition": "selected",
+      "selectionId": "por.narration.diogenes.magic-mouth",
       "ruleId": null,
       "reason": null
     },
@@ -7298,22 +7298,22 @@
     },
     {
       "sourceId": "por.voice.ecl-6.block-19.at-9aef.operand-0",
-      "disposition": "pending-editorial-review",
-      "selectionId": null,
+      "disposition": "selected",
+      "selectionId": "por.narration.diogenes.arrival",
       "ruleId": null,
       "reason": null
     },
     {
       "sourceId": "por.voice.ecl-6.block-19.at-9b70.operand-0",
-      "disposition": "pending-editorial-review",
-      "selectionId": null,
+      "disposition": "selected",
+      "selectionId": "por.narration.diogenes.first-task",
       "ruleId": null,
       "reason": null
     },
     {
       "sourceId": "por.voice.ecl-6.block-19.at-9c11.operand-0",
-      "disposition": "pending-editorial-review",
-      "selectionId": null,
+      "disposition": "selected",
+      "selectionId": "por.narration.diogenes-departure",
       "ruleId": null,
       "reason": null
     },
@@ -7382,15 +7382,15 @@
     },
     {
       "sourceId": "por.voice.ecl-6.block-19.at-a145.operand-0",
-      "disposition": "pending-editorial-review",
-      "selectionId": null,
+      "disposition": "selected",
+      "selectionId": "por.narration.diogenes-council",
       "ruleId": null,
       "reason": null
     },
     {
       "sourceId": "por.voice.ecl-6.block-19.at-a1e5.operand-0",
-      "disposition": "pending-editorial-review",
-      "selectionId": null,
+      "disposition": "selected",
+      "selectionId": "por.narration.diogenes-bottle-quest",
       "ruleId": null,
       "reason": null
     },
@@ -7417,22 +7417,22 @@
     },
     {
       "sourceId": "por.voice.ecl-6.block-19.at-a3c7.operand-0",
-      "disposition": "pending-editorial-review",
-      "selectionId": null,
+      "disposition": "selected",
+      "selectionId": "por.narration.diogenes-bottle-return",
       "ruleId": null,
       "reason": null
     },
     {
       "sourceId": "por.voice.ecl-6.block-19.at-a44c.operand-0",
-      "disposition": "pending-editorial-review",
-      "selectionId": null,
+      "disposition": "selected",
+      "selectionId": "por.narration.diogenes-efreet-warning",
       "ruleId": null,
       "reason": null
     },
     {
       "sourceId": "por.voice.ecl-6.block-19.at-a4cc.operand-0",
-      "disposition": "pending-editorial-review",
-      "selectionId": null,
+      "disposition": "selected",
+      "selectionId": "por.narration.diogenes-vampire-farewell",
       "ruleId": null,
       "reason": null
     },

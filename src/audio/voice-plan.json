@@ -191,6 +191,183 @@
         }
       ],
       "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes.magic-mouth",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "diogenes-magic-mouth",
+      "conversation": "diogenes-first-audience",
+      "sourceId": "por.voice.ecl-6.block-19.at-999c.operand-0",
+      "text": "AS YOU ARE ENTERING THE CAVE, A MAGIC MOUTH APPEARS ON ONE OF THE WALLS. IN A BOOMING VOICE IT SAYS, 'WHO ENTERS THE HOME OF DIOGENES? SPEAK NOW AND DECLARE YOUR INTENT!'",
+      "context": { "area": "Diogenes's Cave", "scene": "entrance" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "AS YOU ARE ENTERING THE CAVE, A MAGIC MOUTH APPEARS ON ONE OF THE WALLS. IN A BOOMING VOICE IT SAYS, ",
+          "direction": "measured fantasy narration, alert and mysterious"
+        },
+        {
+          "text": "'WHO ENTERS THE HOME OF DIOGENES? SPEAK NOW AND DECLARE YOUR INTENT!'",
+          "direction": "as the same narrator, perform an immense disembodied magical voice, resonant and commanding without shouting"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes.arrival",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "diogenes",
+      "conversation": "diogenes-first-audience",
+      "sourceId": "por.voice.ecl-6.block-19.at-9aef.operand-0",
+      "text": "YOU HEAR A GREAT FLAPPING SOUND. A STRONG WHOOSH OF AIR COMES DOWN UPON THE ADVENTURERS. A LARGE SILVER DRAGON STANDS BEFORE YOU. IN A BOOMING VOICE IT SAYS...",
+      "context": { "area": "Diogenes's Cave", "scene": "dragon arrival" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "YOU HEAR A GREAT FLAPPING SOUND. A STRONG WHOOSH OF AIR COMES DOWN UPON THE ADVENTURERS. A LARGE SILVER DRAGON STANDS BEFORE YOU. IN A BOOMING VOICE IT SAYS...",
+          "direction": "measured fantasy narration building to restrained awe; leave the final pause unresolved"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes.first-task",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "diogenes",
+      "conversation": "diogenes-first-audience",
+      "sourceId": "por.voice.ecl-6.block-19.at-9b70.operand-0",
+      "text": "'I ACCEPT YOUR PLEDGE. FOR YOUR FIRST DUTY, I COMMAND YOU TO RECOVER A POWERFUL MAGICAL BOTTLE FROM A KOBOLD SETTLEMENT IN THE HILLS FAR TO THE EAST. THEN RETURN TO ME AND I SHALL GIVE YOU ANOTHER TASK.'",
+      "context": { "area": "Diogenes's Cave", "scene": "first commission" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "'I ACCEPT YOUR PLEDGE. FOR YOUR FIRST DUTY, I COMMAND YOU TO RECOVER A POWERFUL MAGICAL BOTTLE FROM A KOBOLD SETTLEMENT IN THE HILLS FAR TO THE EAST. THEN RETURN TO ME AND I SHALL GIVE YOU ANOTHER TASK.'",
+          "direction": "as the same narrator, perform Diogenes in a deep, resonant dragon voice: ancient, benevolent, and unmistakably authoritative; deliberate pacing"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes-departure",
+      "type": "narration",
+      "speaker": "narrator",
+      "conversation": "diogenes-first-audience",
+      "sourceId": "por.voice.ecl-6.block-19.at-9c11.operand-0",
+      "text": "AFTER SPEAKING, THE DRAGON FLYS THROUGH AN OPENNING IN THE CEILING OF THE CAVE. YOU EXIT THE CAVE TO CONTINUE YOUR QUEST.",
+      "context": { "area": "Diogenes's Cave", "scene": "departure" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "AFTER SPEAKING, THE DRAGON FLYS THROUGH AN OPENNING IN THE CEILING OF THE CAVE. YOU EXIT THE CAVE TO CONTINUE YOUR QUEST.",
+          "direction": "return to measured fantasy narration, quietly purposeful"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes-council",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "diogenes",
+      "conversation": "diogenes-council",
+      "sourceId": "por.voice.ecl-6.block-19.at-a145.operand-0",
+      "text": "THE CHARACTERS HEAR A LOUD FLAPPING NOISE AND THEN A WARM RUSH OF AIR HITS THEIR FACES. STANDING BEFORE YOU NOW IS A GREAT SILVER DRAGON. HE SAYS, 'YOU ARE WISE TO SEEK MY COUNCIL AND I CAN HELP YOU...'",
+      "context": { "area": "Diogenes's Cave", "scene": "council" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "THE CHARACTERS HEAR A LOUD FLAPPING NOISE AND THEN A WARM RUSH OF AIR HITS THEIR FACES. STANDING BEFORE YOU NOW IS A GREAT SILVER DRAGON. HE SAYS, ",
+          "direction": "measured fantasy narration, conveying the dragon's immense presence with restrained awe"
+        },
+        {
+          "text": "'YOU ARE WISE TO SEEK MY COUNCIL AND I CAN HELP YOU...'",
+          "direction": "as the same narrator, perform Diogenes in a deep, warm dragon voice, wise and calmly authoritative; let the ellipsis invite attention"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes-bottle-quest",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "diogenes",
+      "conversation": "diogenes-council",
+      "sourceId": "por.voice.ecl-6.block-19.at-a1e5.operand-0",
+      "text": "'FAR TO THE EAST THERE IS A LARGE KOBOLD COMPLEX. THERE IS A SILVER BOTTLE OF GREAT POWER THERE THAT WILL HELP YOU ON YOUR QUEST. RETRIEVE THAT BOTTLE THEN RETURN AND I WILL SEND YOU ON ANOTHER QUEST.'",
+      "context": { "area": "Diogenes's Cave", "scene": "council" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "'FAR TO THE EAST THERE IS A LARGE KOBOLD COMPLEX. THERE IS A SILVER BOTTLE OF GREAT POWER THERE THAT WILL HELP YOU ON YOUR QUEST. RETRIEVE THAT BOTTLE THEN RETURN AND I WILL SEND YOU ON ANOTHER QUEST.'",
+          "direction": "continue Diogenes's deep, warm dragon voice as the same narrator, grave and instructive"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes-bottle-return",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "diogenes",
+      "conversation": "diogenes-bottle-return",
+      "sourceId": "por.voice.ecl-6.block-19.at-a3c7.operand-0",
+      "text": "AS YOU ENTER THE CAVE YOU ARE GREETED BY DIOGENES, THE SILVER DRAGON. HE SAYS 'I SEE YOU HAVE RECOVERED THE SILVER BOTTLE FROM THE KOBOLD CAVES. I CONGRADULATE YOU.'",
+      "context": { "area": "Diogenes's Cave", "scene": "bottle returned" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "AS YOU ENTER THE CAVE YOU ARE GREETED BY DIOGENES, THE SILVER DRAGON. HE SAYS ",
+          "direction": "measured fantasy narration, welcoming but dignified"
+        },
+        {
+          "text": "'I SEE YOU HAVE RECOVERED THE SILVER BOTTLE FROM THE KOBOLD CAVES. I CONGRADULATE YOU.'",
+          "direction": "as the same narrator, perform Diogenes's deep dragon voice with restrained approval"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes-efreet-warning",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "diogenes",
+      "conversation": "diogenes-bottle-return",
+      "sourceId": "por.voice.ecl-6.block-19.at-a44c.operand-0",
+      "text": "'THAT BOTTLE CONTAINS A POWERFUL EFREET WHO WAS SUMMONED TO KILL VAMPIRES. HE WILL BE A VALUABLE ALLY IN OLD PHLAN. IN VALHINGEN GRAVEYARD THERE IS A VAMPIRE.'",
+      "context": { "area": "Diogenes's Cave", "scene": "bottle returned" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "'THAT BOTTLE CONTAINS A POWERFUL EFREET WHO WAS SUMMONED TO KILL VAMPIRES. HE WILL BE A VALUABLE ALLY IN OLD PHLAN. IN VALHINGEN GRAVEYARD THERE IS A VAMPIRE.'",
+          "direction": "continue Diogenes's deep dragon voice as the same narrator, lowering into a grave warning"
+        }
+      ],
+      "status": "annotated-prompt-ready"
+    },
+    {
+      "id": "por.narration.diogenes-vampire-farewell",
+      "type": "narration",
+      "speaker": "narrator",
+      "performedCharacter": "diogenes",
+      "conversation": "diogenes-bottle-return",
+      "sourceId": "por.voice.ecl-6.block-19.at-a4cc.operand-0",
+      "text": "'WHEN YOU MEET THE VAMPIRE USE THE BOTTLE AND YOU MAY HAVE A CHANCE IN DEFEATING HIM. I WISH YOU LUCK.' AFTER SPEAKING DIOGENES FLIES THROUGH A HOLE IN THE CEILING AND DISSAPPEARS.",
+      "context": { "area": "Diogenes's Cave", "scene": "farewell" },
+      "portrait": null,
+      "annotations": [
+        {
+          "text": "'WHEN YOU MEET THE VAMPIRE USE THE BOTTLE AND YOU MAY HAVE A CHANCE IN DEFEATING HIM. I WISH YOU LUCK.'",
+          "direction": "continue Diogenes's deep dragon voice as the same narrator, solemn and encouraging"
+        },
+        {
+          "text": " AFTER SPEAKING DIOGENES FLIES THROUGH A HOLE IN THE CEILING AND DISSAPPEARS.",
+          "direction": "return to the narrator's measured normal voice, ending with quiet finality"
+        }
+      ],
+      "status": "annotated-prompt-ready"
     }
   ]
 }

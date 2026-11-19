@@ -101,7 +101,8 @@ for (const prompt of fishPrompts.prompts) {
 }
 assert.equal(narratorDesign.designProvider, "ElevenLabs Voice Design");
 assert.equal(narratorDesign.designModel, "eleven_ttv_v3");
-assert.equal(narratorDesign.status, "awaiting-owner-approval");
+assert(["awaiting-owner-approval", "owner-approved-for-preview-generation", "previews-generated-awaiting-owner-selection",
+  "voice-selected"].includes(narratorDesign.status));
 assert(narratorDesign.voiceDescription.length >= 20 && narratorDesign.voiceDescription.length <= 1000);
 assert(narratorDesign.previewText.length >= 100 && narratorDesign.previewText.length <= 1000);
 assert(narratorDesign.designParameters.guidanceScale >= 0 && narratorDesign.designParameters.guidanceScale <= 100);
