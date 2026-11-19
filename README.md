@@ -32,7 +32,9 @@ Press **F10** or select **Enhanced display** to use replacement art where
 available and the web font for game text. Both display modes share the
 running game and save slots.
 
-`npm run dev` launches the same game. If `POR_GAMEDATA` is unset, the runner checks `./gamedata`, including one nested folder such as `gamedata/pool`.
+`npm run dev` launches the same game. The launcher checks the selected
+directory and one level of subdirectories. If `POR_GAMEDATA` is unset
+it checks `./gamedata`, including layouts such as `gamedata/pool`.
 
 ## Tools
 

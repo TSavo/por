@@ -87,26 +87,26 @@ export function mountValjevoWallPieces(files: readonly { name: string; data: Uin
 }
 
 function hasGameFiles(dir: string): boolean {
-  if (!fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) return false;
   return fs.readdirSync(dir).some((name) => GAME_FILE.test(name));
+}
+
+const defaultGameRoots = () => [path.resolve("gamedata"), "/workspace/gamedata", "/workspace/uploads/pool"];
+
+function* gameDirectories(candidates: (string | undefined)[]) {
+  for (const candidate of candidates) {
+    if (!candidate || !fs.statSync(candidate, { throwIfNoEntry: false })?.isDirectory()) continue;
+    yield candidate;
+    for (const child of fs.readdirSync(candidate, { withFileTypes: true })) {
+      const nested = path.join(candidate, child.name);
+      if (child.isDirectory() || (child.isSymbolicLink() && fs.statSync(nested, { throwIfNoEntry: false })?.isDirectory())) yield nested;
+    }
+  }
 }
 
 /** First directory that actually contains Gold Box files. Never searches outside the candidates. */
 export function findGameRoot(explicit?: string): string | null {
-  const candidates = [
-    explicit,
-    process.env.POR_GAMEDATA,
-    path.resolve("gamedata"),
-    "/workspace/gamedata",
-    "/workspace/uploads/pool",
-  ].filter((value): value is string => Boolean(value));
-  for (const candidate of candidates) {
-    if (hasGameFiles(candidate)) return candidate;
-    if (!fs.existsSync(candidate) || !fs.statSync(candidate).isDirectory()) continue;
-    for (const child of fs.readdirSync(candidate)) {
-      const nested = path.join(candidate, child);
-      if (hasGameFiles(nested)) return nested;
-    }
+  for (const directory of gameDirectories([explicit, process.env.POR_GAMEDATA, ...defaultGameRoots()])) {
+    if (hasGameFiles(directory)) return directory;
   }
   return null;
 }
@@ -119,16 +119,22 @@ export function listGameFiles(root: string): string[] {
 }
 
 export function requireBrowserGameRoot(): string {
-  const root = findGameRoot();
-  if (!root) {
-    throw new Error("Pool of Radiance data not found. Set POR_GAMEDATA to the unpacked DOS game directory or place it under gamedata/.");
+  const explicit = process.env.POR_GAMEDATA;
+  const required = ["START.EXE", "GAME.OVR", "ECL1.DAX"];
+  let incomplete: { root: string; missing: string[] } | undefined;
+  for (const directory of gameDirectories(explicit ? [explicit] : defaultGameRoots())) {
+    const names = new Set(listGameFiles(directory).map(name => name.toUpperCase()));
+    const missing = required.filter(name => !names.has(name));
+    if (!missing.length) return path.resolve(directory);
+    if (missing.length < required.length && (!incomplete || missing.length < incomplete.missing.length)) {
+      incomplete = { root: path.resolve(directory), missing };
+    }
   }
-  const names = new Set(listGameFiles(root).map(name => name.toUpperCase()));
-  const missing = ["START.EXE", "GAME.OVR", "ECL1.DAX"].filter(name => !names.has(name));
-  if (missing.length) {
-    throw new Error(`Incomplete Pool of Radiance data in ${path.resolve(root)}. Missing ${missing.join(", ")}. Use the complete unpacked DOS game directory.`);
+  if (incomplete) {
+    throw new Error(`Incomplete Pool of Radiance data in ${incomplete.root}. Missing ${incomplete.missing.join(", ")}. Use the complete unpacked DOS game directory.`);
   }
-  return path.resolve(root);
+  const location = explicit ? ` in ${path.resolve(explicit)}` : "";
+  throw new Error(`Pool of Radiance data not found${location}. Set POR_GAMEDATA to the unpacked DOS game directory or place it under gamedata/.`);
 }
 
 export function readGameFile(root: string, name: string): Uint8Array {
