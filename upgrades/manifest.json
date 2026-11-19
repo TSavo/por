@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:24:CPIC1.DAX:132:ecl:abbd": "bane-altar-orc-strike.png",
+    "combat:area:24:CPIC1.DAX:4:ecl:abbd": "bane-altar-orc-stand.png",
     "portrait:PIC3.DAX:29:0:0": "campaign-campfire.png",
     "tile:13:fc3fa1490fa932744f194d3d32a5aac1bcc9d2c5ffcb677eee5c17afc02e127b": "kobold-pool-spur-terrain-fc3fa1490fa9.png",
     "tile:13:e510f228d95b25f5d705e4d02985f39ae32d54a283dfbb38d8c0a6bcd74fc740": "kobold-pool-spur-terrain-e510f228d95b.png",
