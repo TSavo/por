@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { appendFileSync, readFileSync } from "node:fs";
+import { appendFileSync, readdirSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
 import { join } from "node:path";
@@ -11,6 +11,8 @@ import type { CombatArtPlacement } from "./combat-art.js";
 import { portraitKey } from "./portrait-art.js";
 import type { EncounterPlacement } from "./encounter-art.js";
 import { NarrationCatalog, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
+import { parseDax } from "../src/lib/dax.js";
+import { parseGeo } from "../src/lib/world.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
@@ -18,6 +20,12 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) {
 }
 const origin = `http://127.0.0.1:${port}`;
 const gameRoot = requireBrowserGameRoot();
+const geometry = new Map<number, ReturnType<typeof parseGeo>>();
+for (const name of readdirSync(gameRoot).filter(name => /^GEO\d+\.DAX$/i.test(name))) {
+  for (const entry of parseDax(name, new Uint8Array(readFileSync(join(gameRoot, name)))).entries) {
+    if (entry.rawSize === 0x402) geometry.set(entry.id, parseGeo(entry.data, entry.id));
+  }
+}
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const voiceManifest = readFileSync(new URL("../src/audio/voices.json", import.meta.url));
@@ -96,6 +104,7 @@ interface FrameState {
   classicPortraitArea?: number;
   classicPortraitCursor?: number;
   perspective?: boolean;
+  exploration?: { area: number; x: number; y: number; facing: number; walls?: [number, number, number, number] };
   encounter?: EncounterPlacement;
   tiles?: [number, number, string][];
   combatArt?: CombatArtPlacement[];
@@ -125,6 +134,11 @@ const narrations: Array<{ id: number; step: number; unitId: string; variantId?: 
 createInterface({ input: runner.stdout }).on("line", (line) => {
   if (line.startsWith("POR_FRAME ")) {
     frame = JSON.parse(line.slice("POR_FRAME ".length)) as FrameState;
+    const position = frame.exploration;
+    const map = position && geometry.get(position.area);
+    if (position && map && position.x >= 0 && position.x < 16 && position.y >= 0 && position.y < 16) {
+      position.walls = map.cells[position.y * 16 + position.x]?.wall;
+    }
     // A cleared viewport between scenes has no terrain to inventory.
     if (tileTrace && frame.tileInventory?.some(([, , , indices]) => /[1-9a-f]/i.test(indices))) {
       const trace = JSON.stringify(frame.tileInventory);

@@ -7,6 +7,11 @@ const autoTrack = document.querySelector("#auto-track");
 const objective = document.querySelector("#objective");
 const leads = document.querySelector("#leads");
 const status = document.querySelector("#status");
+const automap = document.querySelector("#automap");
+const automapSvg = document.querySelector("#automap-svg");
+const automapTitle = document.querySelector("#automap-title");
+const mapToggle = document.querySelector("#map-toggle");
+const closeMap = document.querySelector("#close-map");
 const presentation = document.querySelector("#presentation");
 const audioToggle = document.querySelector("#audio-toggle");
 const audioSettings = document.querySelector("#audio-settings");
@@ -36,6 +41,8 @@ let state = { sequence: -1 };
 let posting = false;
 let quickPollAfter = 0;
 let enhanced = false;
+let discoveredMaps = {};
+try { discoveredMaps = JSON.parse(localStorage.getItem("por.automap.v1") ?? "{}"); } catch {}
 let animationFrame;
 let animationTimer;
 let advanceAnimation;
@@ -249,6 +256,8 @@ function togglePresentation() {
   enhanced = !enhanced;
   document.documentElement.dataset.presentation = enhanced ? "enhanced" : "classic";
   presentation.setAttribute("aria-pressed", String(enhanced));
+  mapToggle.hidden = !enhanced;
+  if (!enhanced) automap.hidden = true;
   if (!enhanced) stopVoice();
   if (animationFrame) {
     // Let the new presentation finish decoding before timing the frame again.
@@ -257,6 +266,45 @@ function togglePresentation() {
   }
   showScreen();
   playPendingVoice();
+}
+
+function rememberExploration() {
+  if (!enhanced || !state.exploration?.walls) return;
+  const { area, x, y, facing, walls } = state.exploration;
+  if (x < 0 || x > 15 || y < 0 || y > 15) return;
+  const map = discoveredMaps[area] ??= { cells: {} };
+  map.cells[`${x},${y}`] = { x, y, walls };
+  map.position = { x, y, facing };
+  localStorage.setItem("por.automap.v1", JSON.stringify(discoveredMaps));
+  if (!automap.hidden) renderAutomap();
+}
+
+function renderAutomap() {
+  const position = state.exploration;
+  if (!position) return;
+  const map = discoveredMaps[position.area] ?? { cells: {} };
+  automapTitle.textContent = `Area ${position.area} — discovered map`;
+  const lines = [];
+  for (const cell of Object.values(map.cells)) {
+    const { x, y, walls } = cell;
+    lines.push(`<rect class="floor" x="${x}" y="${y}" width="1" height="1"/>`);
+    if (walls[0]) lines.push(`<line class="wall" x1="${x}" y1="${y}" x2="${x + 1}" y2="${y}"/>`);
+    if (walls[1]) lines.push(`<line class="wall" x1="${x + 1}" y1="${y}" x2="${x + 1}" y2="${y + 1}"/>`);
+    if (walls[2]) lines.push(`<line class="wall" x1="${x}" y1="${y + 1}" x2="${x + 1}" y2="${y + 1}"/>`);
+    if (walls[3]) lines.push(`<line class="wall" x1="${x}" y1="${y}" x2="${x}" y2="${y + 1}"/>`);
+  }
+  const p = map.position ?? position;
+  const angle = [0, 45, 90, 135, 180, 225, 270, 315][p.facing & 7];
+  lines.push(`<path class="party" d="M .5 .12 L .82 .82 L .5 .68 L .18 .82 Z" transform="translate(${p.x} ${p.y}) rotate(${angle} .5 .5)"/>`);
+  automapSvg.innerHTML = lines.join("");
+}
+
+function toggleAutomap() {
+  if (!enhanced || !state.exploration) return;
+  automap.hidden = !automap.hidden;
+  mapToggle.setAttribute("aria-expanded", String(!automap.hidden));
+  if (!automap.hidden) renderAutomap();
+  (automap.hidden ? screen : closeMap).focus({ preventScroll: true });
 }
 
 async function showScreen() {
@@ -470,7 +518,9 @@ async function poll() {
     else Object.assign(state, next);
     closeJournal.disabled = !state.ready || Boolean(state.stopped);
     autoTrack.disabled = closeJournal.disabled;
+    mapToggle.disabled = !state.exploration;
     if (changed) {
+      rememberExploration();
       renderJournal();
       playAnimation();
       if (state.automaticCombat) {
@@ -509,6 +559,8 @@ presentation.addEventListener("click", () => {
   togglePresentation();
   if (journal.hidden) screen.focus({ preventScroll: true });
 });
+mapToggle.addEventListener("click", toggleAutomap);
+closeMap.addEventListener("click", toggleAutomap);
 window.addEventListener("keydown", (event) => {
   resumeBlockedAudio();
   if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#audio-settings")) return;
@@ -525,6 +577,15 @@ window.addEventListener("keydown", (event) => {
   if (event.key === "F10") {
     event.preventDefault();
     togglePresentation();
+    return;
+  }
+  if (enhanced && event.key.toLowerCase() === "m" && !event.shiftKey) {
+    event.preventDefault();
+    toggleAutomap();
+    return;
+  }
+  if (!automap.hidden) {
+    if (event.key === "Escape") toggleAutomap();
     return;
   }
   if (event.target instanceof HTMLButtonElement && ["Enter", " "].includes(event.key)) return;

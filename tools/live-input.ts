@@ -78,6 +78,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let trackedId: string | undefined;
   let scene: string | undefined;
   let area: number | undefined;
+  let explorationPosition: { area: number; x: number; y: number; facing: number } | undefined;
   let battleCursor: number | undefined;
   let drawnPerspective: { pixels: Buffer; localEcl?: number } | undefined;
   let priorPerspectiveDraw: Buffer | undefined;
@@ -236,6 +237,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         classicPortraitArea: Array.isArray(picture) ? area : undefined,
         classicPortraitCursor: Array.isArray(picture) ? battleCursor : undefined,
         perspective,
+        exploration: perspective && explorationPosition && explorationPosition.area === tileArea
+          ? explorationPosition : undefined,
         encounter,
         tiles,
         combatArt: combat,
@@ -311,6 +314,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // Valjevo draws the dungeon hedge before copying the selected ECL
       // back to the area record. Other transition art uses the record's scope.
       if (area === 5 && cpu.read8(0x740, 0x82a2) === 3) area = 3;
+      const positionArea = area;
+      explorationPosition = (segment || offset) && positionArea !== undefined ? {
+        area: positionArea,
+        x: cpu.read16(segment, offset + 0x1e0),
+        y: cpu.read16(segment, offset + 0x1e2),
+        facing: cpu.read8(cpu.ds, 0x6a0d) & 7,
+      } : undefined;
       // The ECL interpreter suspends at this cursor while the battle runs.
       battleCursor = cpu.read16(0x740, 0x494e);
       if (!blocking && cpu.cs === 0x512 && cpu.ip === 0x5423 && hasBattlefieldBorder(screen)) {
