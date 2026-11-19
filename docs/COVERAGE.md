@@ -2807,6 +2807,9 @@ both 96×96 poses, including the elf's reflected strike.
 The Tyrmor kobold replay checks three ready-pose placements from an
 isolated wandering encounter. A Guard/Done replay also checks the
 weapon-neutral lunge shared by the sword and bow attacks.
+`tyrmor-prison-kobold-combat` exercises the ready pose and reflected bow
+attack with the installed pack and checks that display switching leaves
+the selected save intact.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.

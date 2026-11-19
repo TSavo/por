@@ -645,6 +645,13 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["tyrmor-prison-kobold-combat", {
+    slot: "B", stand: "combat:area:22:CPIC7.DAX:0:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:128:ecl:a36f",
+    width: 96, height: 96, readyPrompt: /BRINHITPOINTS45AC3HANDAXE/i, strikeReflected: true,
+    inputs: ["s", ...Array.from({ length: 4 }, () => ["up", "down"]).flat(),
+      "up", "enter", "down", "up", "c", "enter", "d"],
+    strikeInputs: ["d", "g", "d", "d", "d", "g", "d", "g", "d", "d", "d", "d", "d", "g", "d"],
+  }],
   ["tyrmor-prison-elf-combat", {
     slot: "B", stand: "combat:area:22:CPIC7.DAX:14:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:142:ecl:a36f",
     width: 96, height: 96, readyPrompt: /DIANEHITPOINTS20AC9/i, strikeReflected: true,
