@@ -3099,3 +3099,7 @@ Chrome checks the approach, encounter menu, and state-preserving mode switches.
 
 The Podal Plaza orc uses far, middle, and near artwork for the auction
 clue and parlay approaches. Chrome verifies both branches and mode switching.
+
+Plumed, braided, and bald dwarf combat icon heads have separate ready
+and attack sprites for the default body. Chrome verifies each pair from
+a save made through the original icon editor.

@@ -870,6 +870,27 @@ const combatPoseRoutes = new Map([
     inputs: ["up", ...Array(3).fill("enter")],
     strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
   }],
+  ["party-plumed-dwarf-icon-combat", {
+    slot: "B", stand: "combat:party:6:0", strike: "combat:party:6:128",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
+    strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(3).fill("enter")],
+    strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
+  }],
+  ["party-braided-dwarf-icon-combat", {
+    slot: "B", stand: "combat:party:8:0", strike: "combat:party:8:128",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
+    strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(3).fill("enter")],
+    strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
+  }],
+  ["party-bald-dwarf-icon-combat", {
+    slot: "B", stand: "combat:party:9:0", strike: "combat:party:9:128",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
+    strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(3).fill("enter")],
+    strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
+  }],
   ["party-crook-icon-combat", {
     slot: "B", stand: "combat:party:0:6", strike: "combat:party:0:134",
     width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
