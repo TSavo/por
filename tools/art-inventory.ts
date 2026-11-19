@@ -294,7 +294,7 @@ const runtimeGallery = runtimeReplacements.length ?
   runtimeReplacements.map((entry) => `<figure data-visual="true" data-enhanced="true">${replacementPreview(entry)}</figure>`).join("") +
   "</div></details>" : "";
 const missingGallery = [...missingByArea].sort(([left], [right]) => left.localeCompare(right, "en", { numeric: true }))
-  .map(([area, tiles]) => `<details data-category="Captured tiles without replacements"><summary>` +
+  .map(([area, tiles]) => `<details id="unmatched-${area.toLowerCase()}" data-category="Captured tiles without replacements"><summary>` +
     `${area === "Battlefield" ? area : `Area ${area}`} · ${tiles.length} captured tiles without replacements</summary><div class="grid">` +
     tiles.map(({ id, trace, frame, x, y, preview, sourceCandidates }) =>
       `<figure data-visual="true" data-enhanced="false" data-coverage="missing">` +
@@ -370,8 +370,11 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 ${tracePaths.length ? `<p>Unmatched captured patterns: ${missingTiles.length - battlefieldGaps} exploration and ${battlefieldGaps} battlefield. These include composited sprites and transition frames.</p>` : ""}
 ${explorationCoverage.length ? `<details><summary>Exploration coverage by area</summary>
 <table class="coverage-table"><thead><tr><th>Area</th><th>Captured</th><th>With replacements</th><th>Unmatched</th></tr></thead><tbody>
-${explorationCoverage.map(({ area, captured, matched }) =>
-  `<tr><th scope="row">${area}</th><td>${captured}</td><td>${matched}</td><td>${captured - matched}</td></tr>`).join("")}
+${explorationCoverage.map(({ area, captured, matched }) => {
+  const missing = captured - matched;
+  const gap = missing ? `<a href="#unmatched-${area}" aria-label="${missing} unmatched patterns in area ${area}">${missing}</a>` : "0";
+  return `<tr><th scope="row">${area}</th><td>${captured}</td><td>${matched}</td><td>${gap}</td></tr>`;
+}).join("")}
 </tbody></table></details>` : ""}
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
@@ -412,6 +415,17 @@ search.addEventListener('input', filter);
 category.addEventListener('change', filter);
 includeData.addEventListener('change', filter);
 replacement.addEventListener('change', filter);
+document.querySelector('.coverage-table')?.addEventListener('click', (event) => {
+  const link = event.target.closest('a[href^="#unmatched-"]');
+  if (!link) return;
+  const group = document.getElementById(link.hash.slice(1));
+  if (!group) return;
+  search.value = '';
+  category.value = group.dataset.category;
+  replacement.value = 'missing';
+  filter();
+  group.open = true;
+});
 filter();
 </script></html>\n`);
 writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, missingTiles, explorationCoverage, embeddedVisuals: [
