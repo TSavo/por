@@ -5,8 +5,13 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:9:SPRIT2.DAX:16:0:0": "stojanow-patrol-fighter-near-approach.png",
     "tile:23:71c858f7e6de451eb4a77c5f3e442f50738421472a239bbcd1afe85ced791161": "pyramid-outer-threshold-terrain-71c858f7e6de.png",
     "combat:area:22:CPIC7.DAX:62:ecl:a36f": "tyrmor-prison-minotaur-ready.png",
+    "combat:area:22:CPIC7.DAX:14:ecl:a36f": "tyrmor-prison-elf-ready.png",
+    "combat:area:22:CPIC7.DAX:142:ecl:a36f": "tyrmor-prison-elf-strike.png",
+    "combat:area:22:CPIC7.DAX:61:ecl:a36f": "tyrmor-prison-stirge-ready.png",
+    "combat:area:22:CPIC7.DAX:189:ecl:a36f": "tyrmor-prison-stirge-strike.png",
     "combat:area:22:CPIC7.DAX:190:ecl:a36f": "tyrmor-prison-minotaur-strike.png",
     "encounter:area:9:ecl:a3a3:SPRIT2.DAX:24:0:0": "stojanow-plotting-fighter-approach.png",
     "encounter:area:9:ecl:a270:SPRIT2.DAX:24:0:0": "stojanow-plotting-mage-approach.png",
@@ -4348,6 +4353,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:9:SPRIT2.DAX:16:0:0": { "area": 9, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:9:ecl:a3a3:SPRIT2.DAX:24:0:0": { "area": 9, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:9:ecl:a270:SPRIT2.DAX:24:0:0": { "area": 9, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:24:SPRIT1.DAX:4:2:0": { "area": 24, "x": 64, "y": 32, "width": 16, "height": 49 },

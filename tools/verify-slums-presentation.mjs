@@ -535,6 +535,7 @@ const illustrationRoutes = new Map([
   }],
   ["stojanow-patrol-leader-dialogue", {
     slot: "A", inputs: ["up", "enter", "a", "a"],
+    approachSequence: [[48, 32, "encounter:area:9:SPRIT2.DAX:16:0:0", 40, 80]],
     portrait: "portrait:HEAD2.DAX:8:BODY2.DAX:5", prompt: /WHATAREYOUDOINGHERE/i,
   }],
   ["north-gate-weapon-cache-ambush", {
@@ -634,6 +635,20 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["tyrmor-prison-elf-combat", {
+    slot: "B", stand: "combat:area:22:CPIC7.DAX:14:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:142:ecl:a36f",
+    width: 96, height: 96, readyPrompt: /DIANEHITPOINTS20AC9/i, strikeReflected: true,
+    inputs: ["s", ...Array.from({ length: 11 }, () => ["up", "down"]).flat(),
+      "up", "enter", "down", "c", "enter", "q"],
+    strikeInputs: Array(14).fill("q"),
+  }],
+  ["tyrmor-prison-stirge-combat", {
+    slot: "B", stand: "combat:area:22:CPIC7.DAX:61:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:189:ecl:a36f",
+    width: 96, height: 96, readyPrompt: /STIRGEHITPOINTS5AC8/i, strikeReflected: false,
+    inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "down"]).flat(),
+      "up", "enter", "down", "c", "enter", "enter", ...Array(6).fill("q")],
+    strikeInputs: ["q", "q"],
+  }],
   ["tyrmor-prison-minotaur-combat", {
     slot: "B", stand: "combat:area:22:CPIC7.DAX:62:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:190:ecl:a36f",
     width: 96, height: 192, readyPrompt: /MINOTAURHITPOINTS33AC6/i, strikeReflected: true,

@@ -2770,6 +2770,8 @@ sprite before the existing close-up and dialogue. The binding is scoped
 to the fighter's script so Ohlo keeps his own art.
 The plotting mage has his own 4× approach keyed to his script. The
 Chrome replay checks the approach before the mage's portrait and dialogue.
+The patrol leader replay checks the 4× near pose on the second Advance
+before the password dialogue.
 
 `bane-altar` checks the three orc approach distances before combat. The
 near pose is scoped to the altar script, and `bane-gate` verifies the
@@ -2789,6 +2791,8 @@ They check the 192×96 ready and strike poses and the drider's reflected
 bow attack in the live Chrome renderer.
 The Tyrmor minotaur replay verifies the 96×192 ready pose and reflected
 charge at the native combat anchor from an isolated prison checkpoint.
+The elf and stirge replays likewise use isolated checkpoints and check
+both 96×96 poses, including the elf's reflected strike.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.
