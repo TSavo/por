@@ -1,6 +1,12 @@
 {
   "version": 1,
   "assets": {
+    "tile:2:7b8772a162e24dbbfab628febba4c8018354d1997675d518b44e749fa71e1b6b": "textile-waterfront-side-lanes-terrain-7b8772a162e2.png",
+    "tile:2:d20d585641c6d76d5fdd15d21d1f0fe0f6663d6aded22bc96508569ac0bd84f7": "textile-waterfront-side-lanes-terrain-d20d585641c6.png",
+    "tile:2:ac3fc5b516262de186669469e4ac5840a8cd0325aee0c66f155c78df7d785f52": "textile-waterfront-side-lanes-terrain-ac3fc5b51626.png",
+    "tile:2:194316b53c02c00520f8a284a247966404d3bd3c6dde1745733d3ea41a00e458": "textile-waterfront-side-lanes-terrain-194316b53c02.png",
+    "combat:area:9:CPIC2.DAX:14:ecl:a2b4": "stojanow-plotting-mage-stand.png",
+    "combat:area:9:CPIC2.DAX:142:ecl:a2b4": "stojanow-plotting-mage-strike.png",
     "encounter:area:3:SPRIT5.DAX:16:1:0": "valjevo-giant-patrol-captain-approach-middle.png",
     "encounter:area:3:SPRIT5.DAX:16:2:0": "valjevo-giant-patrol-captain-approach-far.png",
     "tile:2:348d7f1204ae5fe8dc23ef0acda7918ecc4e37cc7ebbe99ed1a69428d6704ec7": "textile-waterfront-crossing-terrain-348d7f1204ae.png",
