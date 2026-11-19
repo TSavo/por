@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:29:PIC8.DAX:57:0:0": "old-phlan-lizard-patrol.png",
     "tile:16:b99063b51996f32692877bfb0938e2ddee836bfd65b398cfad050106b7120d17": "lizard-south-gate-terrain-b99063b51996.png",
     "tile:16:705d57853ff228c98a8295de5fe82887cff35bf4faca64eeab67b354ca762017": "lizard-south-gate-terrain-705d57853ff2.png",
     "tile:16:6a2d26727f17565df9b9c71e9238b7b9f5f2a166433b18dfd2daa052eb536c72": "lizard-south-gate-terrain-6a2d26727f17.png",

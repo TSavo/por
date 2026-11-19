@@ -80,6 +80,10 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["old-phlan-lizard-patrol", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:29:PIC8.DAX:57:0:0", prompt: /ALIZARDMANLEADSAPACKOFGIANTLIZARDS/i,
+  }],
   ["textile-skullcrusher-chained", {
     slot: "B", inputs: ["up", "b", "up", "enter"],
     portrait: "portrait:HEAD4.DAX:32:BODY4.DAX:3", prompt: /WHATDOYOUDOWITHTHEMAN/i,

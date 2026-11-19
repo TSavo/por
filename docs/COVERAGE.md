@@ -1365,6 +1365,8 @@ that the journal records the encounter after the party discovers him.
 from the post-duel save, with state-preserving presentation switches.
 `lizardfolk-south-gate` checks ten redrawn tiles across 16 live views
 from the same save, including 1,936 placements and mode switching.
+`old-phlan-lizard-patrol` checks the new full-panel illustration at
+the original boarded-door encounter and verifies presentation switching.
 `kobold-rematch-infantry` checks the 96×96 kobold ready and animated
 strike poses during that same battle. `kobold-cave-envoys-rematch` and
 `valjevo-messenger-dialogue` verify the new illustrations at the
