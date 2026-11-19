@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["wild-cave-thri-kreen-dialogue", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:25:PIC6.DAX:118:0:0", prompt: /FOURTHRI.KREENWARRIORS/i,
+  }],
+  ["wild-cave-gnoll-dialogue", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:27:PIC8.DAX:73:0:0", prompt: /SOMEGNOLLSANDTROLLS/i,
+  }],
   ["kuto-norris-dialogue", {
     slot: "J", inputs: ["up", "enter", "enter", "enter"],
     portrait: "portrait:HEAD8.DAX:10:BODY8.DAX:6", prompt: /SURRENDER.*FIGHT/i,

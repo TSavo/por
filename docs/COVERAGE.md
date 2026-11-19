@@ -1363,6 +1363,8 @@ that the journal records the encounter after the party discovers him.
 `bane-orc-combat` checks the temple orc's ready and animated strike poses.
 `bane-orc-leader-combat` checks both poses for the temple orc leader
 from a checkpoint positioned one step before that encounter.
+`wild-cave-thri-kreen-dialogue` and `wild-cave-gnoll-dialogue` check
+the enhanced cave illustrations at the original encounter prompts.
 `bane-ogre-combat` checks the ogre's 96×192 ready and animated strike
 poses from a checkpoint with increased party HP to reach the strike.
 `lizardfolk-east-ruins` checks five redrawn tiles across 16 live views
