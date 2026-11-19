@@ -558,6 +558,7 @@ const encounterFamilies = [
   { label: "Scene illustrations", prefix: "PIC" },
   { label: "Encounter sprites", prefix: "SPRIT" },
   { label: "Combat poses", prefix: "CPIC" },
+  { label: "Battlefield props", prefix: "RANDCOM" },
 ].map(({ label, prefix }) => ({
   label,
   ...encounterCoverage.filter(({ file }) => file.startsWith(prefix)).reduce((total, row) => ({
