@@ -7,7 +7,7 @@
   "production": {
     "provider": "ElevenLabs",
     "model": "eleven_v4",
-    "delivery": "direct text-to-speech with inline performance directions"
+    "delivery": "pre-generated full-passage speech recordings with inline performance directions"
   },
   "voiceDescription": "Native American English. Male, 45–60. Excellent studio quality. Persona: a master fantasy audiobook storyteller performing an adventure for an intimate audience. A rich, low, resonant baritone with clear diction and natural authority. Highly expressive rather than restrained or monotone: varied pitch, rhythm, emphasis, and emotional color; able to move from ominous scene-setting into wonder, urgency, warmth, and distinct character delivery while remaining recognizably the same narrator. Dramatic and alive, never a movie-trailer announcer and never flat.",
   "previewText": "[Ominous, vivid narration] This was once the chapel of the keep. Inside the doorway are the dried husks of two orcs, their faces twisted with terror. A large altar dominates the southern wall. [With startled awe] The shape speaks. [As a weary, haunted spirit; deeper and more intimate] 'I am the life form of Ferran Martinez, bound with the undead spirits of all who die within these walls to guard the keep. Tell me, has the city been freed?'",

@@ -120,10 +120,11 @@ explicitly unresolved and fall back to displayed text. Rebuild and validate the
 master with `npm run voice-master-manifest` and `npm run verify-voice-master`.
 
 The approved narrator is the saved ElevenLabs Voice Design identity recorded in
-`src/audio/narrator-voice-design.json`. Production narration uses `eleven_v4`
-with inline performance direction. The narrator performs quoted characters in
-audiobook style while character IDs and directions preserve continuity. The
-project owner handles any later separate character-voice casting.
+`src/audio/narrator-voice-design.json`. Production uses `eleven_v4` to create
+complete, pre-generated passage recordings with inline performance direction;
+there is no live runtime speech synthesis. The narrator performs quoted
+characters in audiobook style while character IDs and directions preserve
+continuity. The project owner handles any later separate character-voice casting.
 
 The translated ECL runtime emits the exact archive, block, instruction address,
 and operand identity observed from the original interpreter state. The browser
