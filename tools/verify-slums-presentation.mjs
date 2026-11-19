@@ -30,6 +30,14 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["wild-cave-ankheg-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:25:SPRIT6.DAX:65:1:0", 48, 65],
+  }],
+  ["textile-hobgoblin-approach", {
+    slot: "B", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:2:SPRIT4.DAX:6:0:0", 48, 80],
+  }],
   ["sokal-poison-frog-approach", {
     slot: "C", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:21:SPRIT4.DAX:37:1:0", 40, 57],
