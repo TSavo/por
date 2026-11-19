@@ -1395,6 +1395,11 @@ Both replays use the same slot J checkpoint and verify mode switching.
 `kuto-inner-lane` checks ten redrawn rubble, doorstep, and wall-edge
 tiles across 19 views and 2,299 placements from the slot J entry
 checkpoint. Presentation switching preserves game state and the save.
+`podal-gate-fountain` checks 30 new terrain tiles across 11 views and
+1,331 placements, including the transition from Podal Plaza into Kuto.
+`zhentil-dwarf-combat` checks the 96×96 longsword fighter poses in
+the native alarm encounter from a controlled checkpoint with original
+party HP. Both replays check presentation switching and save preservation.
 `valhingen-zombie-approach` and `valhingen-ghoul-approach` check the
 stairway and rest ambush sprites at their native anchors, followed by
 their dialogue portraits. Both replays switch presentation in each view.
