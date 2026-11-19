@@ -1318,6 +1318,9 @@ checks that his warning is learned only after the party hears it.
 `valjevo-hill-giant-dialogue` checks the hill giant illustration at the
 ready-weapons choice. `lizardfolk-east-bank` checks seven new tiles across
 16 views and 1,936 placements from a position-only copy of the ruin route.
+`podal-south-arcade` checks 12 new night-time arcade tiles and 1,331
+placements across 11 views. The position-only slot I checkpoint stops
+before the goblin encounter starts.
 
 `graveyard-northeast-west` and `graveyard-northeast-east` verify 14 new
 Valhingen tiles with 1,694 placements across 14 views. The terrain audit

@@ -215,6 +215,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["podal-south-arcade", {
+    slot: "I", area: 18, views: 11, patterns: 53,
+    walk: ["up", "up", "right", "up", "up", "right", "up", "up", "right", "up"],
+  }],
   ["lizardfolk-east-bank", {
     slot: "A", area: 16, views: 16, patterns: 52,
     walk: ["up", "up", "left", "up", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up"],
