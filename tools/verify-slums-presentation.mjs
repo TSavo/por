@@ -529,6 +529,7 @@ const illustrationRoutes = new Map([
   }],
   ["stojanow-plotting-fighter", {
     slot: "A", inputs: ["up", "enter", "enter", "enter", "enter"],
+    approachSequence: [[48, 32, "encounter:area:9:ecl:a3a3:SPRIT2.DAX:24:0:0", 32, 73]],
     portrait: "portrait:HEAD2.DAX:11:BODY2.DAX:2", prompt: /THEYSEEMUNAWAREOFYOU/i, journalLead: "stojanow-medusa-trapdoor",
   }],
   ["stojanow-patrol-leader-dialogue", {

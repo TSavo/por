@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:9:ecl:a3a3:SPRIT2.DAX:24:0:0": "stojanow-plotting-fighter-approach.png",
     "encounter:area:24:SPRIT1.DAX:4:2:0": "bane-altar-orc-approach-far.png",
     "encounter:area:24:SPRIT1.DAX:4:1:0": "bane-altar-orc-approach-middle.png",
     "encounter:area:24:ecl:b605:SPRIT1.DAX:4:0:0": "bane-altar-orc-approach-near.png",
@@ -4343,6 +4344,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:9:ecl:a3a3:SPRIT2.DAX:24:0:0": { "area": 9, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:24:SPRIT1.DAX:4:2:0": { "area": 24, "x": 64, "y": 32, "width": 16, "height": 49 },
     "encounter:area:24:SPRIT1.DAX:4:1:0": { "area": 24, "x": 56, "y": 32, "width": 32, "height": 65 },
     "encounter:area:24:ecl:b605:SPRIT1.DAX:4:0:0": { "area": 24, "x": 48, "y": 32, "width": 40, "height": 80 },

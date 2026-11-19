@@ -2760,6 +2760,9 @@ Chrome walks checked 24 floor and edge bindings across 48 live views.
 Stojanow's barracks and coping routes use weathered oak boards beneath
 the sandstone walls. Two Chrome walks checked 12 revised tile bindings
 across 26 views.
+The Stojanow plotting fighter replay also checks his brief 4× approach
+sprite before the existing close-up and dialogue. The binding is scoped
+to the fighter's script so Ohlo keeps his own art.
 
 `bane-altar` checks the three orc approach distances before combat. The
 near pose is scoped to the altar script, and `bane-gate` verifies the
