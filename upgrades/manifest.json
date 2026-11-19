@@ -1,6 +1,10 @@
 {
   "version": 1,
   "assets": {
+    "tile:1:39e66a6704cfe451c50fece080807285ee3182b92c116aae026935ffbda8926e": "buccaneer-pen-spur-terrain-39e66a6704cf.png",
+    "tile:1:2f5562c8c9befaefcf49b893414a7e615143bb686656b8134889ae99e7a38ab8": "buccaneer-pen-spur-terrain-2f5562c8c9be.png",
+    "tile:1:e77f9d573e085f4f1ed8897ef744bc31c10be2c364cd0f6e3a733be3d9ae83ef": "buccaneer-pen-spur-terrain-e77f9d573e08.png",
+    "tile:1:87d08cb7c1ac9c41eee7344f5a2f51d30b740f65c67f71d5f25fea06f85e2652": "buccaneer-pen-spur-terrain-87d08cb7c1ac.png",
     "combat:area:18:CPIC1.DAX:5:ecl:b1a1": "podal-robed-orc-stand.png",
     "combat:area:18:CPIC1.DAX:133:ecl:b1a1": "podal-robed-orc-strike.png",
     "tile:1:1f761a98a1fe476324ccf656e46f379350a4b377a2f76c4ede719bea54800495": "buccaneer-captains-hall-terrain-1f761a98a1fe.png",
