@@ -1175,6 +1175,9 @@ It verifies that the journal first records the war cries, then identifies
 the attackers only after the original script reveals them. Choosing
 Combat opens the original raid battle. At the attack prompt, Chrome
 checks the new 96×260 kobold raider and all 121 underlying terrain tiles.
+Controlled Chrome runs also verify the 160×320 near and 96×228 far raider
+sprites from `SPRIT7.DAX` block 0 at their native anchors. Each run
+selects a distance in the original draw call and continues into combat.
 The renderer restores the native scenery draw captured just before the
 actor was painted, even when both draws occur between input frames.
 The replay continues to Alda's first manual combat turn and verifies
