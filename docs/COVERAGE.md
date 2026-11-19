@@ -1166,6 +1166,9 @@ Combat opens the original raid battle. At the attack prompt, Chrome
 checks the new 96×260 kobold raider and all 121 underlying terrain tiles.
 The renderer restores the native scenery draw captured just before the
 actor was painted, even when both draws occur between input frames.
+The replay continues to Alda's first manual combat turn and verifies
+all 66 battlefield placements, including three new 32×32 wall pieces.
+Both presentation modes preserve that turn.
 The `kuto-well-approach` replay uses slot J saved after the original cross-
 district transition. Chrome verifies 1,936 placements across 16 views on
 the walk to the well, using 89 distinct 32×32 tiles. The final view checks

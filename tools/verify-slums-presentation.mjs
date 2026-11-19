@@ -2978,7 +2978,22 @@ try {
       writeFileSync(screenshot, Buffer.from(shot.data, "base64"));
       await advance("c");
       assert.match(visibleText(), /ABATTLEBEGINS/i);
+      const manualTurn = /ALDAHITPOINTS.*MOVEVIEWAIMUSEQUICKDONE/i;
+      for (let step = 0; step < 10 && !manualTurn.test(visibleText()); step++) await advance("enter");
+      assert.match(visibleText(), manualTurn);
+      assert.equal(frame.battleTiles.length, 66);
+      for (const [x, y] of [[32, 128], [40, 128], [40, 136]]) {
+        assert.ok(frame.battleTiles.some(([left, top]) => x === left && y === top));
+      }
+      await waitFor("the enhanced opening raid battlefield", () => run(`state.sequence === ${frame.sequence} &&
+        [...document.querySelectorAll(".battle-tile")].length === 66 &&
+        [...document.querySelectorAll(".battle-tile")].every(img => img.naturalWidth === 32)`));
+      await switchBothWays();
+      const combat = await command("Page.captureScreenshot", { format: "png" });
+      const combatScreenshot = resolve(directory, "nomad-raid-combat.png");
+      writeFileSync(combatScreenshot, Buffer.from(combat.data, "base64"));
       console.log("Verified the enhanced Nomad Camp raid approach and journal in Chrome:", screenshot);
+      console.log("Enhanced opening raid battlefield:", combatScreenshot);
     } else {
       await advance("e");
       assert.match(visibleText(), /08:29.*AREACASTVIEWENCAMP/i);
