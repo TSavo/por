@@ -999,6 +999,9 @@ a controlled City Hall save with the rescue flag at 254. It verifies the
 clerk's dialogue, claiming the sword and scrolls, and the turned-in
 journal entry in the resulting save. The gate escape through the council
 reward still needs a continuous replay.
+The current Chrome replay also checks the intermediate reward-pending
+state before the reward menu closes and reads the turned-in state from
+the resulting save.
 The swamp replay checks the 192×320 elder sprite at the original 48×80 placement
 and verifies presentation switches in the encounter. The `swamp-ruins`
 replay loads the save made inside the ruins and checks 51 individual
