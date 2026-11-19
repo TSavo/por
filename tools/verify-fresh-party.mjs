@@ -2131,10 +2131,11 @@ if (process.argv[2] === "--character-icon-editor") {
     ...Array(5).fill("enter"), "y", ..."test", "enter",
     ...editorKeys.flatMap((key, index) => [key, (text, frame) => {
       checkEditor(text, frame);
-      if (index === 0) {
+      if (index === 0 || index === 6) {
+        const weapon = index === 0 ? 0 : 1;
         assert.deepEqual(frame.combatArt?.map(placement => placement.slice(0, 3)), [
           [32, 56, "combat:party:0:0"], [104, 56, "combat:party:0:128"],
-          [32, 104, "combat:party:0:0"], [104, 104, "combat:party:0:128"],
+          [32, 104, `combat:party:0:${weapon}`], [104, 104, `combat:party:0:${128 + weapon}`],
         ]);
       }
     }]),
