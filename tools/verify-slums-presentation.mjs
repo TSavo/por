@@ -4127,7 +4127,18 @@ try {
           img.style.transform === ${JSON.stringify(reflected ? "scaleX(-1)" : "")};
       })()`));
       await switchBothWays();
-      console.log("Verified the castle dragon in dialogue and selected combat, with state-preserving mode switches.");
+      const bite = "combat:area:7:CPIC5.DAX:194";
+      const bitePlacement = () => frame.animation?.flatMap(shot => shot.combatArt ?? []).find(([, , id]) => id === bite);
+      for (let turn = 0; turn < 32 && !bitePlacement(); turn++) await advance("q");
+      const strike = bitePlacement();
+      assert.ok(strike, "Expected a Tyranthraxus bite in the original fight");
+      assert.deepEqual(strike.slice(5), [48, 48]);
+      await waitFor("the 4× dragon bite at its guest position", () => run(`
+        state.sequence === ${frame.sequence} && [...document.querySelectorAll(".combat-sprite")].some(image =>
+          image.getAttribute("src") === ${JSON.stringify("/art/" + bite)} && image.naturalWidth === 192 && image.naturalHeight === 192 &&
+          parseFloat(image.style.left) === ${strike[0] / 3.2} && parseFloat(image.style.top) === ${strike[1] / 2})`));
+      assert.deepEqual(readFileSync(saved), originalSave);
+      console.log("Verified the castle dragon in dialogue, selected combat, and the original bite animation.");
     }
   } else if (ending) {
     await advance("j");
