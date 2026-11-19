@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:10:CPIC4.DAX:35:ecl:b5c7": "graveyard-stair-zombie-stand.png",
+    "combat:area:10:CPIC4.DAX:163:ecl:b5c7": "graveyard-stair-zombie-strike.png",
     "tile:0:939dbafda4caaa444005584fd93736157f88ffc526159e98e87777b6192d807f": "new-phlan-pier-branch-terrain-939dbafda4ca.png",
     "tile:0:20409ca485f27438f453e4173ff6e8bed78d2790d6e2290e283d2ab976933f17": "new-phlan-pier-branch-terrain-20409ca485f2.png",
     "tile:0:2664dc15ad2de4e4cd785189423f0e069c7665da05b1ee2ac3a647d163c62caa": "new-phlan-pier-branch-terrain-2664dc15ad2d.png",
