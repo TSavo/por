@@ -379,6 +379,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["kuto-giant-lizard-combat", {
+    slot: "J", stand: "combat:area:29:CPIC8.DAX:59", strike: "combat:area:29:CPIC8.DAX:187",
+    width: 192, height: 96, readyPrompt: /GIANTLIZARDHITPOINTS16/i, strikeReflected: false,
+    inputs: ["s", "up", ...Array(4).fill("enter")], strikeInputs: ["enter"],
+  }],
   ["zhentil-dwarf-combat", {
     slot: "A", stand: "combat:area:28:CPIC6.DAX:15:ecl:a232", strike: "combat:area:28:CPIC6.DAX:143:ecl:a232",
     width: 96, height: 96, readyPrompt: /DWARVENFIGHTERHITPOINTS50/i, strikeReflected: false,
@@ -674,6 +679,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["bane-treasure-walk", {
+    slot: "A", area: 24, views: 16, patterns: 49, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up"],
+  }],
   ["kuto-south-lane", {
     slot: "J", area: 18, views: 21, patterns: 121, sceneryOnly: true,
     transition: { afterViews: 6, area: 29 },
