@@ -1165,6 +1165,16 @@ cold loading. The original renderer draws the dungeon hedge before the
 area record catches up with the ECL selection. The browser uses the
 destination's tile keys for that transition, and Chrome verifies all 121
 enhanced placements on the first interactive dungeon view.
+Replacing the older capture with a replay of the same inputs moves 21
+previously unmatched hedge patterns out of area 5. All 29 captured area 3
+patterns are covered. The six unmatched area 5 patterns belong to the
+timber doorway in the lower wing before the transition.
+
+`bane-south-colonnade` verifies 20 new 32×32 tiles across 16 views
+and 1,936 placements, including awnings, columns, and ivy. The area 24
+terrain inventory omits one older frame with an actor composited over it.
+`nomad-camp-sentries` verifies the 352×352 sentry illustration at the
+standoff and the portrait change to the headman after Parlay.
 
 `phlan-city-hall-interior` covers 80 new terrain tiles across 16 native views.
 `valjevo-elite-guard` checks the original standing and two-handed strike
