@@ -1,6 +1,13 @@
 {
   "version": 1,
   "assets": {
+    "tile:2:dbbc059703406eebe292dc08c4e8cbab7b8128557d03c439e0b59ce14387af27": "textile-library-link-terrain-dbbc05970340.png",
+    "tile:2:a9b30fb68d1002ad5ff0a4688cead33059b8a9391ade5b56065c931141d42df5": "textile-library-link-terrain-a9b30fb68d10.png",
+    "tile:2:45c2d0d520c3648f8e794f2a079ec47d47fd44027b20288a0fb0271ed306cb2c": "textile-library-link-terrain-45c2d0d520c3.png",
+    "tile:2:f64a590f4187d542e7a93ecbaa5b414254fd608c50754c453c628b4043891b88": "textile-library-link-terrain-f64a590f4187.png",
+    "tile:15:b03fbca109ab749692421d27e7e24a728523604f8fd1580a98748b76cb2ce15c": "textile-library-link-terrain-b03fbca109ab.png",
+    "tile:15:ac3fc5b516262de186669469e4ac5840a8cd0325aee0c66f155c78df7d785f52": "textile-library-link-terrain-ac3fc5b51626.png",
+    "tile:15:f7587e57272c38abd0b65fd5bb0e06ebb1a3211616e01aefa1f6bd802f9a106e": "textile-library-link-terrain-f7587e57272c.png",
     "portrait:area:20:PIC2.DAX:0:0:0": "slums-feeding-kobolds.png",
     "combat:area:5:CPIC5.DAX:11:ecl:abe2": "false-throne-impersonator-stand.png",
     "combat:area:5:CPIC5.DAX:139:ecl:abe2": "false-throne-impersonator-strike.png",

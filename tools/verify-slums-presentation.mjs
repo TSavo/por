@@ -932,6 +932,11 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["textile-library-link", {
+    slot: "B", area: 2, views: 7, patterns: 39, sceneryOnly: true,
+    transition: { afterViews: 3, area: 15 },
+    walk: ["up", "up", "up", "right", "up", "up"],
+  }],
   ["old-phlan-locked-lane", {
     slot: "A", area: 14, views: 15, patterns: 31, sceneryOnly: true,
     walk: ["right", "up", "right", "up", "b", "b", "up", "right", "up", "up", "left", "up", "up", "left"],
