@@ -2369,6 +2369,7 @@ try {
     assert.deepEqual(frame.text, doorway.text);
     assert.equal(frame.frame, doorway.frame);
     assert.deepEqual(frame.tiles, doorway.tiles);
+    await waitFor("the closed journal", () => run(`state.sequence === ${frame.sequence} && document.querySelector("#journal").hidden`));
     const beforeAudio = await latest();
     await run('document.querySelector("#audio-toggle").click(); document.querySelector("#audio-master").focus()');
     await command("Input.dispatchKeyEvent", { type: "keyDown", key: "ArrowLeft", code: "ArrowLeft", windowsVirtualKeyCode: 37 });
@@ -2390,6 +2391,25 @@ try {
     assert.equal(frame.classicPortrait, false);
     await captureDoorway("dueling-room-after-enter.png");
     await switchBothWays();
+    const street = frame;
+    await advance("e");
+    if (/AREACASTVIEWENCAMP/i.test(textOf(frame))) await advance("e");
+    const campMenu = ({ text }) => text.toSorted(([a], [b]) => a - b)
+      .map(([, char]) => String.fromCharCode(char)).join("").replace(/\s/g, "");
+    assert.match(campMenu(frame), /SAVEVIEWMAGICRESTALTEREXITJOURNAL/i);
+    await advance("j");
+    assert.ok(frame.journal?.objective.nextStep);
+    await waitFor("the journal from the Encamp menu", () => run(`state.sequence === ${frame.sequence} &&
+      !document.querySelector("#journal").hidden`));
+    await advance("j");
+    assert.equal(frame.journal, undefined);
+    assert.match(campMenu(frame), /SAVEVIEWMAGICRESTALTEREXITJOURNAL/i);
+    await advance("e");
+    assert.match(textOf(frame), /AREACASTVIEWENCAMP/i);
+    assert.equal(await verifyTiledView(0, patterns), 1);
+    const scenery = ({ tiles }) => tiles.map(([x, y, id]) => [x, y, id.split(":")[2]]);
+    assert.deepEqual(scenery(frame), scenery(street));
+    assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the enhanced street stays visible while exiting the New Phlan dueling room. Captures:", directory);
   } else if (routeName === "new-phlan-arena-quick" || routeName === "new-phlan-arena-manual-report") {
     await run(`window.combatReports = [];
