@@ -622,12 +622,6 @@ ${portraitMatchIssues.length ? `<details><summary>${portraitMatchIssues.length} 
 }</ul></details>` : ""}
 <dl class="inventory-totals">${inventoryCategories.map(([category, label]) =>
   `<div><dt>${label}</dt><dd>${replacementCounts.get(category) ?? 0}</dd></div>`).join("")}</dl>
-<details><summary>Illustrated atlas · ${atlasSheets.length} plates</summary><div class="grid">
-${atlasSheets.map(({ title, preview, width, height, areas, mapId }) => `<figure>
-  <figcaption>${escape(title)} · ${width}×${height}</figcaption>
-  <a href="${escape(preview)}"><img src="${escape(preview)}" alt="${escape(title)}" loading="lazy" width="320"></a>
-  <p>Areas ${areas.join(", ")}${mapId === undefined ? "" : ` · Map ${mapId}`}</p>
-</figure>`).join("")}</div></details>
 ${capturedTiles.size ? `<p>Captured exploration patterns: ${explorationTotals.matched} of ${explorationTotals.captured} replaced, ${explorationTotals.captured - explorationTotals.matched} unmatched.</p>
 ${battlefieldCaptured ? `<p>Captured battlefield patterns: ${battlefieldTotals.matched} of ${battlefieldCaptured} replaced, ${battlefieldGaps} unmatched.</p>` : ""}
 ${nativeBattlefieldTotals.captured ? `<p>Native battlefield draws: ${nativeBattlefieldTotals.matched} of ${nativeBattlefieldTotals.captured} replaced, ${nativeBattlefieldTotals.captured - nativeBattlefieldTotals.matched} unmatched.</p>` : ""}
@@ -692,10 +686,16 @@ ${dwarfIconCoverage.map(({ head, aliases, body, ready, strike }) => `<tr><th sco
 </tbody></table></details>
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
-<label>Category <select id="category"><option value="">All categories</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
+<label>Category <select id="category"><option value="">All categories</option><option>Illustrated atlas</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
 <label><input id="include-data" type="checkbox"> Include composition and gameplay data</label>
 <label>Replacement <select id="replacement"><option value="">Any</option><option value="linked">Has linked artwork</option><option value="unfinished">Has unmatched frames</option><option value="missing">No frames linked</option><option value="partial">Some frames linked</option><option value="complete">All frames linked</option></select></label>
 <p id="matches" role="status"></p>
+<details data-category="Illustrated atlas"><summary>Illustrated atlas · ${atlasSheets.length} plates</summary><div class="grid">
+${atlasSheets.map(({ title, file, preview, width, height, areas, mapId }) => `<figure data-visual="true" data-enhanced="true" data-coverage="complete">
+  <figcaption>${escape(title)} · ${width}×${height}</figcaption>
+  <a href="${escape(preview)}"><img src="${escape(preview)}" alt="${escape(title)}" loading="lazy" width="320"></a>
+  <p>${escape(file)} · Areas ${areas.join(", ")}${mapId === undefined ? "" : ` · Map ${mapId}`}</p>
+</figure>`).join("")}</div></details>
 ${runtimeGallery}
 ${missingGallery}
 ${gallery}
