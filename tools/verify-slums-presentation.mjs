@@ -159,6 +159,7 @@ const encounterRoutes = new Map([
   ["wild-cave-giant-lizard-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [32, 32, "encounter:area:27:SPRIT8.DAX:59:0:0", 80, 80],
+    terrainArea: 27,
     dialogue: { key: "enter", portrait: "portrait:area:27:PIC8.DAX:59:0:0", prompt: /FOURGIANTLIZARDSANDTWOMINOTAURS/i },
   }],
   ["wild-cave-gnoll-approach", {
@@ -2705,7 +2706,13 @@ try {
       console.log("Native save:", saved);
     }
   } else if (encounterRoute) {
-    for (const key of encounterRoute.inputs) await advance(key);
+    const terrainPatterns = new Set();
+    let terrainViews = 0;
+    if (encounterRoute.terrainArea !== undefined) terrainViews += await verifyTiledView(encounterRoute.terrainArea, terrainPatterns);
+    for (const key of encounterRoute.inputs) {
+      await advance(key);
+      if (encounterRoute.terrainArea !== undefined) terrainViews += await verifyTiledView(encounterRoute.terrainArea, terrainPatterns);
+    }
     async function verifyApproach(placement) {
       assert.deepEqual(frame.encounter, placement);
       const [x, y, id, width, height] = placement;
@@ -2721,6 +2728,14 @@ try {
       await switchBothWays();
     }
     await verifyApproach(encounterRoute.placement);
+    if (encounterRoute.terrainArea !== undefined) {
+      assert.equal(terrainViews, 3);
+      assert.equal(terrainPatterns.size, 15);
+      const capture = await command("Page.captureScreenshot", { format: "png" });
+      const screenshot = resolve(directory, `${routeName}.png`);
+      writeFileSync(screenshot, Buffer.from(capture.data, "base64"));
+      console.log(`Verified ${terrainPatterns.size} cave terrain patterns across ${terrainViews} views:`, screenshot);
+    }
     const approachSteps = encounterRoute.approachSteps ?? (encounterRoute.closer
       ? [{ inputs: [encounterRoute.closerKey ?? "a"], placement: encounterRoute.closer }]
       : []);

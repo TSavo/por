@@ -1599,6 +1599,10 @@ animated strike in the area 27 gnoll-room encounter.
 `wild-cave-gnoll-approach` and `wild-cave-giant-lizard-approach` check
 the native placements and transitions to dialogue in the gnoll and
 minotaur encounters, including presentation switching.
+The giant lizard route additionally verifies 15 cave terrain patterns
+across three views. Controlled replays check its middle and far cave
+sprites at (48,32) over the same 121 enhanced tiles and continue to the
+minotaur encounter dialogue.
 `stojanow-patrol-fighter-approach` checks the far and middle patrol
 sprites through the transition to dialogue. `pyramid-vats-lizard-approach`
 checks the vat ambush's approach sprite and dialogue portrait. Both
