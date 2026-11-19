@@ -388,6 +388,10 @@ to replay this route. The journal directs the party toward the observed
 glow after crossing the wall. It adds the equipment lead when the party
 sees the stands. Reloading E preserves the lead and the tracked Sokal
 commission, with Ferran's identity still hidden.
+The journal checks the original treasure flag before recording the cache
+as opened. After it opens, the objective tells the party where to ready
+any gear it took. The council replay also checks this guidance when
+loading an older New Phlan save made after the armory visit.
 The party then readies the shield and longsword on Brin and trades the
 mace to Cora through the original inventory menu. The character sheets
 show Brin at AC 1 with 1d8+1 weapon damage and Cora with 1d6+3 weapon

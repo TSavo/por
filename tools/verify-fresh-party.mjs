@@ -136,6 +136,10 @@ async function verifySokalArmory(directory, trackCommission = true) {
     }, "j",
     "left", "up", "up", "up", "right", "up",
     (text) => assert.match(text, /on stands are a shield, a mace, a sword.*do you take it/),
+    "j", (_text, frame) => {
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-armory-opened"));
+      if (trackCommission) assert.match(frame.journal.objective.nextStep, /take the gear on the stands/);
+    }, "j",
     "y", (text) => assert.match(text, /receives 400 experience points/),
     "enter", "enter", "end", "t", "t", "t", "t", "t", "e", "e", "enter", "s", "e",
   ], directory);
@@ -145,7 +149,8 @@ async function verifySokalArmory(directory, trackCommission = true) {
     "j", (_text, frame) => {
       if (trackCommission) assert.equal(frame.journal.trackedId, "commission-sokal");
       assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-armory-stands"));
-      if (trackCommission) assert.match(frame.journal.objective.nextStep, /gear on the stands/);
+      assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-armory-opened"));
+      if (trackCommission) assert.match(frame.journal.objective.nextStep, /ready any gear you took/i);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ferran"));
     },
   ], directory);
@@ -1296,7 +1301,7 @@ async function verifySokalRestoredCouncil() {
       assert.equal(frame.journal.trackedId, "commission-sokal");
       assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-armory-stands"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ferran"));
-      assert.match(frame.journal.objective.nextStep, /gear on the stands/);
+      assert.match(frame.journal.objective.nextStep, /ready any gear you took/i);
     }, "j", "e", "s", "s", "i",
     (text) => assert.match(text, /5,5 e.*quit to dos/),
   ]);
@@ -1381,7 +1386,7 @@ async function verifySokalTrackedAmbush(replenishCurate = false) {
         assert.match(journal.objective.nextStep, /arena recruits act on their own.*choose their targets/i);
       }
     } else {
-      assert.match(journal.objective.nextStep, /gear on the stands/);
+      assert.match(journal.objective.nextStep, /ready any gear you took/i);
       assert.doesNotMatch(journal.objective.nextStep, /replenish spent spells/i);
     }
   };

@@ -213,7 +213,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
           nextStep += " Ask the arena master for reinforcements if needed. Arena recruits act on their own in battle. Prepare spells on a character you control to choose their targets.";
         }
       }
-      else if (knows("sokal-armory-stands")) nextStep = "Check the gear on the stands if you left it behind, then continue exploring Sokal Keep.";
+      else if (knows("sokal-armory-opened")) nextStep = "Ready any gear you took under View and Items, then explore beyond the armory.";
+      else if (knows("sokal-armory-stands")) nextStep = "Decide whether to take the gear on the stands, then continue exploring Sokal Keep.";
       else if (knows("sokal-hidden-armory")) nextStep = "Follow the glow to the northwest corner of the hidden armory.";
       else if (knows("sokal-haunt-diary")) nextStep = "Read journal entry 3, then continue searching the keep.";
       else if (knows("sokal-haunt-floorboard")) nextStep = "Check the floorboard the spirit pointed out for the defenders' diary.";
@@ -459,6 +460,11 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   if ((base | segment) === 0) return [];
   const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
   const progress: JournalLead[] = [];
+  // The Sokal equipment script sets this flag after the treasure menu.
+  if (global(0x4a21) === 255 && known.some(({ id }) => id === "sokal-armory-stands")) {
+    progress.push({ id: "sokal-armory-opened", title: "Hidden armory treasure opened",
+      detail: "The party opened the equipment cache in the hidden armory." });
+  }
   if (cpu.read8(dataSegment, 0x82a2) === 27 && known.some(({ id }) => id === "kobold-king-fell")) {
     progress.push({ id: "kobold-caves-left", title: "Out of the kobold caves",
       detail: "The party returned to the overland route after the king fell." });
