@@ -3218,6 +3218,12 @@ The journal records the giant's demand and advances when the sentries
 grant passage. The translation verifier checks both transitions against
 the original ECL dialogue.
 
+The Buccaneer Base guards who intercept Bivant's escort use a dedicated
+approach sprite and dialogue illustration. A Chrome replay freed the
+animals, rescued Bivant, and followed the original route to the guard
+interception. It checked both production replacements and verified that
+the display toggle preserved the game state and save.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
