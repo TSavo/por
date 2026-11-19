@@ -5,11 +5,24 @@ The command accepts an optional game-data directory and output directory. It
 writes `index.html`, `inventory.json`, and a `sheets/` directory to
 `out/art-inventory` by default. The previews are generated locally from the
 player's files. The gallery also copies the replacement PNGs accepted by
-the browser into `enhanced/`. Select **Has enhanced artwork** to review
+the browser into `enhanced/`. Select **Has linked artwork** to review
 those replacements beside their original blocks. The **Runtime artwork**
 category groups tile IDs and other replacements that have no single archive
 block. The JSON lists the replacement IDs, PNG dimensions, and any
 configured encounter anchors.
+
+Pass captured route traces after the output directory to include placements
+and unmatched patterns. Environment routes in the Chrome verifier write a
+trace when `POR_WRITE_ENVIRONMENT_TRACE=1` is set. The path is printed after
+the run. For example:
+
+```powershell
+node --import tsx tools/art-inventory.ts gamedata out/art-inventory PATH_TO_ENVIRONMENT_TILES_JSONL
+```
+
+The captured gaps show coordinates, trace frame, and matching 8×8 atlas
+frames where available. Identical atlas pixels can occur in several banks
+and areas. Use the captured area-scoped ID to assign an in-game replacement.
 
 | Category | Archives | Blocks | Preview sheets | Frames or glyphs |
 | --- | ---: | ---: | ---: | ---: |
@@ -28,9 +41,9 @@ The catalog identifies each block by file, directory index, block ID, and
 SHA-256. For multi-record pictures it includes each selector, source dimensions,
 frame count, offsets, and preview path. Wall definitions and map geometry
 build views from the tiles, so the catalog lists those records as composition
-data. The font sheet contains 177 original 8Ãƒâ€”8 glyphs.
+data. The font sheet contains 177 original 8×8 glyphs.
 
-Picture records show the 4Ãƒâ€” target width and height per frame. The source
+Picture records show the 4× target width and height per frame. The source
 offsets are preserved in the catalog as stored in the archive. The browser
 handles text through the web font, so the font sheet has no raster target.
 
@@ -52,18 +65,18 @@ Set `POR_TRACE_ART=1` to record original art archive reads in the translated
 runner's DOS report. A live Slums replay into the kobold fight confirmed these
 records by their payload offsets in the archives.
 
-| Record | Role | 4Ãƒâ€” dimensions |
+| Record | Role | 4× dimensions |
 | --- | --- | --- |
-| `SPRIT2.DAX` block 0 | Three kobold encounter distances | 160Ãƒâ€”320, 96Ãƒâ€”260, 96Ãƒâ€”228 |
-| `PIC2.DAX` block 0, member 0, frame 0 | Kobold encounter portrait at (24,24) | 352Ãƒâ€”352 |
-| `CPIC2.DAX` blocks 0 and 128 | Two combat sprites | 96Ãƒâ€”96 each |
+| `SPRIT2.DAX` block 0 | Three kobold encounter distances | 160×320, 96×260, 96×228 |
+| `PIC2.DAX` block 0, member 0, frame 0 | Kobold encounter portrait at (24,24) | 352×352 |
+| `CPIC2.DAX` blocks 0 and 128 | Two combat sprites | 96×96 each |
 | `MON2CHA.DAX` block 0 | Kobold character record | |
 
 In six captured combat frames, matching all 146 foreground pixels of
 `CPIC2.DAX` block 0 identified both horizontal facings. In one frame the five
-24Ãƒâ€”24 sprite origins were (80,104) and (80,128) facing one way, and
+24×24 sprite origins were (80,104) and (80,128) facing one way, and
 (104,104), (104,128), and (128,128) reflected horizontally. Coordinates are
-in the original 320Ãƒâ€”200 framebuffer. Later frames retain exact matches as
+in the original 320×200 framebuffer. Later frames retain exact matches as
 the combat layout changes. The transparent black pixels were excluded from
 matching to allow the sprite to overlap background tiles.
 
@@ -81,42 +94,42 @@ at both widths and compares the guest state and save bytes.
 
 Block 128 was loaded. The alternate VGA pose resolves in both facings in a
 controlled framebuffer check using the original block. Sampling during the
-recorded Slums fight yielded no exact 24Ãƒâ€”24 match for this block. Its draw
+recorded Slums fight yielded no exact 24×24 match for this block. Its draw
 trigger remains unverified.
 
 The near approach frame matches `SPRIT2.DAX` block 0, member 0, frame 0 at
 (48,32). Index zero is skipped and index 13 is drawn black. The browser replay
-displayed the 160Ãƒâ€”320 transparent replacement over the individually enhanced
+displayed the 160×320 transparent replacement over the individually enhanced
 tiles, then replaced the approach view with the dialogue portrait.
 The near sprite also rendered with a standalone manifest containing no tile
 replacements. For the middle and far checks, a controlled replay changed only
 the distance argument to overlay 29's original draw procedure at `06d5`.
 The matching original sprites appeared at (56,32), and Chrome drew the
-96Ãƒâ€”260 and 96Ãƒâ€”228 replacements there over the restored environment tiles.
+96×260 and 96×228 replacements there over the restored environment tiles.
 Both runs reached the portrait and original combat menus. This verifies
 placement in the renderer. The natural Slums replay selects the near frame.
 
-The portrait matched every pixel in the 88Ãƒâ€”88 image area across 17 successive
+The portrait matched every pixel in the 88×88 image area across 17 successive
 encounter captures. The enhanced browser replay showed the replacement in
 those 17 frames and removed it on entry to combat. Switching to classic and
 back during dialogue preserved the same guest frame.
 
-The fixed Slums orc outpost uses `CPIC2.DAX` block 4 for the 24Ãƒâ€”24 guard
+The fixed Slums orc outpost uses `CPIC2.DAX` block 4 for the 24×24 guard
 sprite. The enhanced renderer matches the original footprint and displays
-the 96Ãƒâ€”96 replacement. Chrome observed it in 12 distinct positions across
+the 96×96 replacement. Chrome observed it in 12 distinct positions across
 the first 15 combat frames. Block 132 has a separate swing PNG. A controlled
 framebuffer check verified its placement in both facings. The original attack
 pose appears during a calibrated delay between keyboard prompts. The browser
 now plays the captured delay frames before showing the next prompt. In the
-natural outpost replay, Chrome loaded the 96Ã—96 swing at four separate guest
+natural outpost replay, Chrome loaded the 96×96 swing at four separate guest
 positions and returned to the stable combat screen after each sequence.
 
 The fixed outpost's natural approach matches `SPRIT2.DAX` block 4,
-member 0, frame 0 at (48,32). Its 160Ãƒâ€”320 transparent replacement uses
+member 0, frame 0 at (48,32). Its 160×320 transparent replacement uses
 the same rust tunic, copper brow, and shield as the combat art, with a
 lowered blade for the approach. Chrome verified the sprite over the
 individually rendered corridor tiles, then verified its removal on entry
-to combat. A controlled replay passed the middle and far distance arguments to the original draw procedure. Chrome displayed the independently drawn 128Ãƒâ€”260 middle pose at (56,32) and the 64Ãƒâ€”196 far pose at (64,32), over the same corridor tiles. Both runs reached the original combat menus.
+to combat. A controlled replay passed the middle and far distance arguments to the original draw procedure. Chrome displayed the independently drawn 128×260 middle pose at (56,32) and the 64×196 far pose at (64,32), over the same corridor tiles. Both runs reached the original combat menus.
 
 Reproduce the natural orc outpost art check with
 `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_C PATH_TO_CHROME orcs`.
@@ -129,7 +142,7 @@ guest frame and the save bytes across each switch.
 ## Sokal Keep old armory
 
 The route from the old armory into the hidden equipment room uses 13
-distinct environment patterns. Each has its own 32Ã—32 PNG, including ashlar
+distinct environment patterns. Each has its own 32×32 PNG, including ashlar
 walls, vault courses, worn floor flags, diagonal junctions, and three gate
 pieces. The route report excludes the all-black transition during the
 treasure sequence.
@@ -143,7 +156,7 @@ and that switching presentation preserved the guest frame and save bytes.
 ## Thorn Island landing
 
 The landing and the first step toward Sokal Keep use 19 environment
-patterns. Fourteen new 32Ã—32 PNGs cover the overcast sky, stone parapet,
+patterns. Fourteen new 32×32 PNGs cover the overcast sky, stone parapet,
 angled and straight lintel pieces, weathered portal planks, and hardware.
 Five existing armory patterns also appear in these views.
 
@@ -158,7 +171,7 @@ and save bytes across a display switch. The route onward to the undead
 patrol has additional patterns.
 
 The same replay continues from the reeds through the gate and into the open
-court. Seventeen more 32Ã—32 pieces add the opposite eave, raking lintels,
+court. Seventeen more 32×32 pieces add the opposite eave, raking lintels,
 weathered hinge caps, gate sills, and the distant postern. Chrome verified
 all 49 environment patterns across 19 views and used the parchment word
 to pass the undead patrol. The all-black parchment transition is excluded

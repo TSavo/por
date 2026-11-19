@@ -45,6 +45,10 @@
     }
   },
   "assets": {
+    "tile:11:3fd07573913b8b367dd8a69a57c9550f715ab8a6ba59baf2c7533bb4d14fa749": "new-phlan-gate-3bb4d14fa749.png",
+    "tile:11:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "room-tile-01.png",
+    "tile:11:0bae672ff3e01f653ae7241fc075226c0865693834d5c45e6f2863678a2526da": "room-tile-02.png",
+    "tile:11:b252776d8458fc6b748a55918b6888e037f2b9216b1328a727cdfc0943da91c5": "new-phlan-gate-fc0943da91c5.png",
     "tile:0:0bae672ff3e01f653ae7241fc075226c0865693834d5c45e6f2863678a2526da": "room-tile-02.png",
     "tile:0:1352286f7dddf65efce52c789476c7e917ecdd98d1c1ca9ab2dde1e4964caefe": "room-tile-11.png",
     "tile:0:202aefe6bbb76257e5a3fdb4ec8e2a102ef8ab28a63b1d507be1d284589ab202": "room-tile-14.png",

@@ -1224,6 +1224,17 @@ that accepting the offer adds Genheeris to the original party roster.
 rooms. It declines the duel and recruit offers and continues into the rogues'
 hall. Chrome verifies all 1,452 placements of 24 individual 32×32 tiles
 across 12 views, and checks that presentation switches preserve state and saves.
+`phlan-training-civic` follows the western exit to Civic Square. Chrome
+verifies 1,815 tile placements across 15 views on both sides of the
+transition. The route adds 14 original tiles and 25 area-specific aliases
+for matching civic artwork.
+
+`valjevo-records-scribe` replays the original chance encounter in the
+records building. It checks the scribe artwork at the ambush decision and
+compares state and save bytes through both presentation switches.
+`valjevo-tower-troll` exercises the ruined tower fight from controlled slot
+B. Chrome checks the 96×192 ready pose and reflected claw strike and
+verifies the save bytes stay unchanged.
 `valjevo-giant-snake` uses controlled slot B on the Valjevo approach with
 the alarm running. It verifies both 192×96 snake poses at the guest's actual
 combat placements, including the animated lunge and state-preserving mode
