@@ -240,11 +240,13 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
   return { id, preview, classicPreview, source, sourceCandidates, sourceParts, placement, capturedPlacement, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();
+const tileFramesByBlock = new Map<string, Set<string>>();
 const loadedIds = new Set(replacements.map(({ id }) => id));
 const missingTiles = [...capturedTiles].filter(([id]) => !loadedIds.has(id)).map(([id, { pixels, ...capture }], index) => {
   const original = new Frame(8, 8);
   original.pixels.set(pixels);
-  return { id, ...capture, preview: exportClassicFrame(original, replacements.length + index) };
+  return { id, ...capture, sourceCandidates: id.startsWith("tile:") ? tileSources.get(id.slice(id.lastIndexOf(":") + 1)) : undefined,
+    preview: exportClassicFrame(original, replacements.length + index) };
 });
 const missingByArea = new Map<string, typeof missingTiles>();
 for (const tile of missingTiles) {
@@ -255,6 +257,12 @@ for (const tile of missingTiles) {
 }
 const runtimeReplacements = [];
 for (const replacement of replacements) {
+  for (const { archive, directoryIndex, member, frame } of replacement.sourceCandidates ?? []) {
+    const key = `${archive}:${directoryIndex}`;
+    const matches = tileFramesByBlock.get(key) ?? new Set<string>();
+    matches.add(`${member}:${frame}`);
+    tileFramesByBlock.set(key, matches);
+  }
   if (!replacement.source) {
     runtimeReplacements.push(replacement);
     continue;
@@ -282,26 +290,32 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
         `<small>${escape(archive)} #${block} · member ${member}, frame ${frame}</small>`).join("") + "</details>" : "") + "</div>";
 }
 const runtimeGallery = runtimeReplacements.length ?
-  `<details data-category="Runtime artwork"><summary>Runtime artwork · ${runtimeReplacements.length} replacements</summary><div class="grid">` +
+  `<details id="runtime-artwork" data-category="Runtime artwork"><summary>Runtime artwork · ${runtimeReplacements.length} replacements</summary><div class="grid">` +
   runtimeReplacements.map((entry) => `<figure data-visual="true" data-enhanced="true">${replacementPreview(entry)}</figure>`).join("") +
   "</div></details>" : "";
 const missingGallery = [...missingByArea].sort(([left], [right]) => left.localeCompare(right, "en", { numeric: true }))
   .map(([area, tiles]) => `<details data-category="Captured tiles without replacements"><summary>` +
     `${area === "Battlefield" ? area : `Area ${area}`} · ${tiles.length} captured tiles without replacements</summary><div class="grid">` +
-    tiles.map(({ id, trace, frame, x, y, preview }) =>
+    tiles.map(({ id, trace, frame, x, y, preview, sourceCandidates }) =>
       `<figure data-visual="true" data-enhanced="false" data-coverage="missing">` +
       `<a href="${preview}" target="_blank" rel="noopener"><img width="32" height="32" loading="lazy" src="${preview}" alt="Classic tile"></a>` +
-      `<p>${escape(id)}</p><p>${escape(trace)} · frame ${frame} · (${x}, ${y})</p></figure>`).join("") +
+      `<p>${escape(id)}</p><p>${escape(trace)} · frame ${frame} · (${x}, ${y})</p>` +
+      (sourceCandidates?.length ? `<details><summary>Matching atlas frames</summary>${sourceCandidates.map(
+        ({ archive, block, member, frame }) => `<p>${escape(archive)} #${block} · member ${member} · frame ${frame}</p>`).join("")}</details>` : "") +
+      "</figure>").join("") +
     "</div></details>").join("\n");
 const gallery = archives.map(({ file, category, entries }) =>
   `<details data-category="${escape(category)}"><summary>${escape(file)} · ${category} · ${entries.length} blocks</summary><div class="grid">` +
   entries.map((entry) => {
     const monster = monsterNames.get(`${file}:${entry.id}`);
-    const enhanced = replacementsByBlock.get(`${file}:${entry.directoryIndex}`) ?? [];
+    const key = `${file}:${entry.directoryIndex}`;
+    const enhanced = replacementsByBlock.get(key) ?? [];
     const total = entry.enhancedFrames ? entry.pictures?.reduce((sum, picture) => sum + picture.frames, 0) ?? 0 : 0;
-    const linked = new Set(enhanced.map(({ source }) => `${source?.member}:${source?.frame}`)).size;
+    const tileFrames = tileFramesByBlock.get(key);
+    const linked = new Set([...enhanced.map(({ source }) => `${source?.member}:${source?.frame}`), ...(tileFrames ?? [])]).size;
     const coverage = total === 0 ? "" : linked === 0 ? "missing" : linked === total ? "complete" : "partial";
     return `<figure data-enhanced="${Boolean(linked)}" data-coverage="${coverage}" data-visual="${Boolean(entry.pictures?.length)}"><figcaption>${file} #${entry.id} · ${entry.format}${monster ? ` · ${escape(monster)}` : ""}${total ? ` · ${linked}/${total} frames linked` : ""}</figcaption>` +
+    (tileFrames ? '<p>Atlas pixel matches count area-specific tiles in <a href="#runtime-artwork">Runtime artwork</a>.</p>' : "") +
     (entry.pictures ?? []).map((pic, index) => {
       const target = entry.enhancedFrames?.[index];
       return `<div class="preview"><a href="${escape(pic.preview)}" target="_blank" rel="noopener"><img loading="lazy" src="${escape(pic.preview)}" alt="${file} #${entry.id}, ${pic.width}×${pic.height}, ${pic.frames} frames"></a>` +

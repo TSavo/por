@@ -1180,6 +1180,13 @@ alternate outcomes and check that the journal records the actual choice.
 `valjevo-cadorna-hedge` also writes a native slot B with the learned
 directions. `valjevo-cadorna-reload` checks that the captive, directions, and
 release entries survive a cold load of that save.
+
+`valjevo-kitchen-corridor` checks 40 individual tiles across 17 views of
+the service route, including the arched doors and both stone wall families.
+`valjevo-scriptorium-password` and `valjevo-scriptorium-authority` start
+from controlled slot B in disguise and exercise the officer's two peaceful
+dialogue branches. Chrome checks the 352×352 portrait during each challenge
+and verifies it clears after the guard lets the party pass.
 The `valjevo-south-gallery` replay starts from that native tower save.
 `valjevo-covered-gallery` and `valjevo-statue-approach` use copies with only
 the party's position and facing changed. Chrome checks 4,114 placements
