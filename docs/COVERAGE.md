@@ -724,6 +724,9 @@ positions from the temple-district save. At the gate the journal records
 the inspection, then the guards turning hostile when the party submits
 without a symbol. Inside, choosing Let Them Go reveals the holy-symbol
 requirement and updates the tracked Temple of Tyr objective.
+Once the party also hears the Podal shrine recruiter's directions, the
+Temple of Tyr objective names the entrance northeast of Podal Plaza.
+The entrance direction stays hidden until the recruiter gives it.
 The goblin dialogue also checks the separate 352×352 captive scene and
 switches modes at the original Kill Them / Let Them Go prompt. The
 replacement uses the shared source picture only in the temple interior.

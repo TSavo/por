@@ -264,16 +264,19 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("kobold-cave-fork")) nextStep = "Explore the caves and look for the tribe that the enemy is recruiting.";
     }
     if (commission.id === "bane") {
+      const templeEntrance = knows("podal-bane-temple-location")
+        ? "the temple entrance northeast of Podal Plaza"
+        : "the Temple of Bane entrance";
       if (knows("bane-altar-ambush")) nextStep = "Defeat the half-orc cleric and the orcs who attacked when you destroyed the altar.";
       else if (knows("bane-defiled-altar")) nextStep = "Choose Destroy Altar at the desecrated altar when the party is ready.";
       else if (knows("bane-temple-admitted")) nextStep = "Continue into the Temple of Bane and look for a way to cleanse it.";
       else if (knows("bane-temple-guards-hostile")) nextStep = "Get past the temple guards or withdraw and look for another way in.";
       else if (knows("bane-temple-symbol-carried")) nextStep = knows("bane-temple-guard-check")
         ? "Choose Let Him Touch You so the guard can find the holy symbol the party is carrying."
-        : "Take the holy symbol the party is carrying to the Temple of Bane entrance.";
-      else if (knows("bane-temple-symbol")) nextStep = "Bring a holy symbol of Bane when you approach the temple entrance.";
+        : `Take the holy symbol the party is carrying to ${templeEntrance}.`;
+      else if (knows("bane-temple-symbol")) nextStep = `Bring a holy symbol of Bane to ${templeEntrance}.`;
       else if (knows("bane-temple-guard-check")) nextStep = "At the entrance, decide whether to let the blind guard check the party.";
-      else if (knows("bane-dirten")) nextStep = "Decide whether to accompany Dirten. If you agree, cross the river with him and cleanse the desecrated temple.";
+      else if (knows("bane-dirten")) nextStep = `Decide whether to accompany Dirten. If you agree, cross the river with him and head to ${templeEntrance}.`;
     }
     if (commission.id === "records") {
       if (leads.some(({ id, status }) => /^mendor-book-\d+$/.test(id) && status === "ready-to-report")) {
