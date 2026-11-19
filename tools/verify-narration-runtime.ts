@@ -132,6 +132,14 @@ loadBlock(4, 2);
 selectCpu.write8(selectCpu.ds, 0x6e7b, 255);
 assert.equal(reach(0x9f6a, 0x12)?.unitId, "ecl4-b2-9f6a-9fca-9ff2-skullcrusher-present", "at-trigger memory selector");
 
+loadBlock(1, 18);
+selectCpu.write8(selectCpu.ds, 0x4a36, 0);
+const staticRecording = reach(0xa14a, 0x12);
+assert.equal(staticRecording?.unitId, "ecl1-b18-a14a-a165-a169-a197");
+const staticResolution = realCatalog.resolve(staticRecording!);
+assert.equal(staticResolution.status, "resolved", "a statically selected passage must have a complete recording");
+if (staticResolution.status === "resolved") assert.match(staticResolution.narration.asset, /static-resolved\/ecl1-b18-a14a/);
+
 loadBlock(5, 3);
 selectCpu.write8(selectCpu.ds, 0x4a6a, 0);
 selectCpu.write8(selectCpu.ds, 0x4a65, 1);
