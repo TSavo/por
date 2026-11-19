@@ -10,6 +10,8 @@ those replacements beside their original blocks. The **Runtime artwork**
 category groups tile IDs and other replacements that have no single archive
 block. The JSON lists the replacement IDs, PNG dimensions, and any
 configured encounter anchors.
+The browser and inventory both check each PNG's dimensions and chunk
+checksums. A truncated or corrupt export does not count as a replacement.
 
 Pass captured route traces after the output directory to include placements
 and unmatched patterns. Environment routes in the Chrome verifier write a

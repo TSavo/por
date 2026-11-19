@@ -21,8 +21,16 @@ import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import { findGameRoot, listGameFiles, mountValjevoWallPieces, readGameFile } from "./gamedata.js";
 
 import { loadUpgradeArtFromManifests } from "./upgrade-art.js";
+import { encodePng, pngDimensions } from "./png.js";
+import { Frame } from "../src/lib/ega.js";
 
 function checkBrowserArtPacks(): void {
+  const png = Buffer.from(encodePng(new Frame(32, 32)));
+  deepStrictEqual(pngDimensions(png), { width: 32, height: 32 });
+  deepStrictEqual(pngDimensions(png.subarray(0, -1)), undefined, "Missing end of PNG");
+  const corrupt = Buffer.from(png);
+  corrupt[41] = corrupt[41]! ^ 1; // First byte of the encoded IDAT payload.
+  deepStrictEqual(pngDimensions(corrupt), undefined, "Corrupt image data");
   const root = findGameRoot();
   if (!root) return;
   const paths = ["upgrades/slums/manifest.json", "upgrades/manifest.json"];
@@ -31,7 +39,7 @@ function checkBrowserArtPacks(): void {
   const loaded = loadUpgradeArtFromManifests(paths, root);
   const missing = [...declared].filter(id => !loaded.has(id));
   deepStrictEqual(missing, [], "The browser could not load the listed art mappings");
-  console.log(`verified ${declared.size} browser art mappings against the game data and PNG dimensions`);
+  console.log(`verified ${declared.size} browser art mappings against the game data, PNG dimensions, and chunk checksums`);
 }
 
 function checkValjevoWallMount(): void {

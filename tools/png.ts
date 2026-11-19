@@ -1,6 +1,8 @@
 import { deflateSync } from "node:zlib";
 import { EGA_RGB, type Frame } from "../src/lib/ega.js";
 
+const signature = Uint8Array.from([137, 80, 78, 71, 13, 10, 26, 10]);
+
 function crc32(data: Uint8Array): number {
   let crc = 0xffffffff;
   for (const byte of data) {
@@ -28,7 +30,6 @@ function chunk(type: string, data: Uint8Array): Uint8Array {
 }
 
 export function encodePng(frame: Frame, palette = EGA_RGB): Uint8Array {
-  const signature = Uint8Array.from([137, 80, 78, 71, 13, 10, 26, 10]);
   const ihdr = new Uint8Array(13);
   const view = new DataView(ihdr.buffer);
   view.setUint32(0, frame.width);
@@ -57,4 +58,25 @@ export function encodePng(frame: Frame, palette = EGA_RGB): Uint8Array {
     cursor += part.length;
   }
   return png;
+}
+
+/** Read dimensions only from a complete PNG with intact chunks. */
+export function pngDimensions(png: Buffer) {
+  if (png.length < 33 || !png.subarray(0, 8).equals(signature) ||
+      png.readUInt32BE(8) !== 13 || png.toString("ascii", 12, 16) !== "IHDR") return;
+  const width = png.readUInt32BE(16);
+  const height = png.readUInt32BE(20);
+  if (!width || !height) return;
+
+  let hasImageData = false;
+  for (let offset = 8; offset + 12 <= png.length;) {
+    const length = png.readUInt32BE(offset);
+    const dataEnd = offset + 8 + length;
+    if (dataEnd + 4 > png.length ||
+        crc32(png.subarray(offset + 4, dataEnd)) !== png.readUInt32BE(dataEnd)) return;
+    const type = png.toString("ascii", offset + 4, offset + 8);
+    offset = dataEnd + 4;
+    if (type === "IDAT" && length > 0) hasImageData = true;
+    if (type === "IEND") return hasImageData && length === 0 && offset === png.length ? { width, height } : undefined;
+  }
 }

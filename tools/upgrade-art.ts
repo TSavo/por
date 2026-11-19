@@ -7,6 +7,7 @@ import { isCombatExtent, monsterCombatKey, partyCombatKey, partyCombatPart, rand
 import { parseDax } from "../src/lib/dax.js";
 import { decodePicture, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
+import { pngDimensions } from "./png.js";
 
 interface LoadedArtwork {
   file: string;
@@ -53,7 +54,8 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         try {
           const path = join(dirname(manifestPath), file);
           const png = readFileSync(path);
-          if (png.length < 24 || png.toString("ascii", 12, 16) !== "IHDR" || !png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) continue;
+          const dimensions = pngDimensions(png);
+          if (!dimensions) continue;
           let sourceWidth = 8;
           let sourceHeight = 8;
           if (encounter) {
@@ -78,8 +80,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
             sourceWidth = sourceHeight = 24;
           }
           else if (portraitKey.test(id)) sourceWidth = sourceHeight = 88;
-          const width = png.readUInt32BE(16);
-          const height = png.readUInt32BE(20);
+          const { width, height } = dimensions;
           if (width !== sourceWidth * 4 || height !== sourceHeight * 4) continue;
           artwork.set(id, { file, path, png, encounter, width, height });
         } catch (error) {
