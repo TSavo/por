@@ -1187,6 +1187,11 @@ the service route, including the arched doors and both stone wall families.
 from controlled slot B in disguise and exercise the officer's two peaceful
 dialogue branches. Chrome checks the 352×352 portrait during each challenge
 and verifies it clears after the guard lets the party pass.
+`valjevo-scriptorium-west` and `valjevo-scriptorium-east` together verify
+12 new individual tiles in 30 live views. The kitchen slot B copies vary
+only in starting coordinates and facing. `valjevo-maze-watch` verifies
+the separate watch fighter's 352×352 portrait at his password challenge,
+mode switching, and its removal when the party passes peacefully.
 `valjevo-giant-snake` uses controlled slot B on the Valjevo approach with
 the alarm running. It verifies both 192×96 snake poses at the guest's actual
 combat placements, including the animated lunge and state-preserving mode
