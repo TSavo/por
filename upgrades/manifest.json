@@ -1,6 +1,12 @@
 {
   "version": 1,
   "assets": {
+    "tile:20:07bf0631e85138c90862672b19e3029293e886973f71b47494489d320fe4fd33": "mendor-ruin-crossing-terrain-07bf0631e851.png",
+    "tile:20:f6267d0f88c5dd1e0cb488a42a04434beea6e6a9ac67f2a0d0a896b6a4dd39a8": "mendor-ruin-crossing-terrain-f6267d0f88c5.png",
+    "tile:20:049cec4cd0fcbea17c3bf9246f3a68036b0bed597a4392bbbbefe60a98be3f75": "mendor-ruin-crossing-terrain-049cec4cd0fc.png",
+    "tile:20:30a49411e45f51c307970357ef283ec90c8288afb7742c70b4d71bbe9f705f82": "mendor-ruin-crossing-terrain-30a49411e45f.png",
+    "combat:area:3:CPIC5.DAX:11:ecl:9e98": "valjevo-outer-patrol-captain-stand.png",
+    "combat:area:3:CPIC5.DAX:139:ecl:9e98": "valjevo-outer-patrol-captain-strike.png",
     "portrait:area:20:PIC2.DAX:6:0:0": "slums-hobgoblin-ringleader-dialogue.png",
     "combat:area:3:CPIC5.DAX:55:ecl:9e98": "valjevo-outer-patrol-giant-stand.png",
     "combat:area:3:CPIC5.DAX:183:ecl:9e98": "valjevo-outer-patrol-giant-strike.png",
