@@ -1336,6 +1336,14 @@ the middle and near poses at their original anchors in separate encounters.
 `kobold-cave-wyvern-dialogue` verify the Mummy approach sprite and two
 pre-combat illustrations. Chrome checks the artwork and state-preserving
 mode switches on all five encounter replays.
+`new-phlan-west-garden-lanes` checks 13 new ivy, courtyard, and standard
+tiles across 17 live views and 2,057 placements.
+`valhingen-tower-wight-dialogue` checks the tower ambush illustration,
+original dialogue, edge-to-edge panel fit, and mode switching.
+`valhingen-ghoul-ambush` checks the resting ambush illustration and
+its original prompt with the same panel and mode switch checks.
+`wild-cave-minotaur` and `wild-cave-gnoll` verify the original area 27
+battles, separate 96×192 ready and attack frames, and mode switching.
 `new-phlan-west-covered-lanes` checks 13 new ceiling, doorway, and
 street tiles with 1,936 placements across 16 views.
 `buccaneer-captain-dialogue` checks the captain's greeting, original

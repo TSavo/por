@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valhingen-ghoul-ambush", {
+    slot: "A", inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", "enter", "enter"],
+    portrait: "portrait:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i,
+  }],
+  ["valhingen-tower-wight-dialogue", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:PIC4.DAX:20:0:0", prompt: /WIGHTSAPPEARFROMBEHINDTHETOWER/i,
+  }],
   ["valhingen-paladin-wraith-dialogue", {
     slot: "A", inputs: ["up", "b"],
     portrait: "portrait:PIC4.DAX:21:0:0", prompt: /IAMTHEPROTECTOROFTHEPALADIN/i,
@@ -123,6 +131,16 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["wild-cave-minotaur", {
+    slot: "B", stand: "combat:area:27:CPIC8.DAX:62", strike: "combat:area:27:CPIC8.DAX:190",
+    width: 96, height: 192,
+    inputs: ["up", "enter", "enter", "enter", ...Array(8).fill("q")],
+  }],
+  ["wild-cave-gnoll", {
+    slot: "B", stand: "combat:area:27:CPIC8.DAX:73", strike: "combat:area:27:CPIC8.DAX:201",
+    width: 96, height: 192, strikeReflected: false,
+    inputs: ["up", "enter", "enter", "enter", ...Array(8).fill("q")],
+  }],
   ["kobold-cave-efreeti", {
     stand: "combat:area:13:CPIC8.DAX:70", strike: "combat:area:13:CPIC8.DAX:198",
     width: 96, height: 192, strikeReflected: false,
@@ -277,6 +295,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["new-phlan-west-garden-lanes", {
+    slot: "B", area: 0, views: 17, patterns: 70, sceneryOnly: true,
+    walk: ["right", "up", "up", "up", "up", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up"],
+  }],
   ["kuto-west-arcade", {
     slot: "J", area: 29, views: 16, patterns: 112, sceneryOnly: true,
     walk: ["up", "up", "up", "right", "up", "up", "up", "up", "up", "up", "left", "up", "up", "left", "up"],
