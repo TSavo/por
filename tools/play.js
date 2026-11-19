@@ -253,15 +253,17 @@ async function showScreen() {
     backdrop.style.backgroundImage = `url("data:image/png;base64,${frame}")`;
     return backdrop;
   }
-  function combatBackdrop(image) {
+  function spriteBackdrop(image, sourceRect) {
     const backdrop = document.createElement("div");
-    backdrop.className = "combat-sprite-fallback";
-    const width = parseFloat(image.style.width || "7.5%");
-    const height = parseFloat(image.style.height || "12%");
-    backdrop.style.cssText = `left:${image.style.left};top:${image.style.top};width:${width}%;height:${height}%`;
+    backdrop.className = "sprite-fallback";
+    const displayWidth = image.style.width || "7.5%";
+    const displayHeight = image.style.height || "12%";
+    const [left, top, width, height] = sourceRect ??
+      [image.style.left, image.style.top, displayWidth, displayHeight].map(parseFloat);
+    Object.assign(backdrop.style, { left: image.style.left, top: image.style.top, width: displayWidth, height: displayHeight });
     backdrop.style.backgroundImage = `url("data:image/png;base64,${view.frame}")`;
     backdrop.style.backgroundSize = `${10000 / width}% ${10000 / height}%`;
-    backdrop.style.backgroundPosition = `${parseFloat(image.style.left) * 100 / (100 - width)}% ${parseFloat(image.style.top) * 100 / (100 - height)}%`;
+    backdrop.style.backgroundPosition = `${left * 100 / (100 - width)}% ${top * 100 / (100 - height)}%`;
     return backdrop;
   }
   let layers = [];
@@ -323,7 +325,11 @@ async function showScreen() {
         // Terrain remains in the enhanced framebuffer underneath its PNGs.
         if (layer.matches(".terrain-tile, .battle-tile")) return null;
         if (layer.matches(".encounter-portrait")) return pictureBackdrop();
-        if (layer.matches(".combat-sprite")) return combatBackdrop(layer);
+        if (layer.matches(".combat-sprite")) return spriteBackdrop(layer);
+        if (layer.matches(".encounter-sprite")) {
+          const [x, y, , width, height] = view.encounter;
+          return spriteBackdrop(layer, [x / 3.2, y / 2, width / 3.2, height / 2]);
+        }
         throw error;
       }
     };

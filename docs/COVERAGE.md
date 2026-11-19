@@ -2302,6 +2302,9 @@ the council guard portrait. At each tour stop it checks all 121 enhanced
 tile placements before pressing Enter. After accepting the guard's request
 to leave, it checks the enhanced hallway on the first frame at (4,5) facing
 north and verifies a state-preserving mode switch there.
+When the close approach PNG is unavailable, the replay checks that the
+original sprite rectangle fills the same position and size over all 121
+enhanced scenery tiles, with the web font still visible.
 
 `new-phlan-council-entry` uses a controlled slot A with Sokal complete.
 The journal gains the Sokal entry after the clerk announces the reward.

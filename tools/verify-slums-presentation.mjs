@@ -2192,6 +2192,23 @@ try {
     await waitFor("Rolf's three approach sprites", () => run("window.rolfFrames.length === 3"));
     assert.deepEqual(await run("window.rolfFrames"), frames);
     assert.equal(await verifyTiledView(0, new Set()), 1);
+    const missingApproach = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true, expression: `(async () => {
+      const original = state;
+      const image = document.querySelector(".encounter-sprite");
+      const geometry = node => [node.style.left, node.style.top, node.style.width, node.style.height].join(",");
+      const [x, y, , width, height] = original.encounter;
+      state = { ...original, encounter: [x, y, "encounter:missing-rolf-test", width, height] };
+      try {
+        await showScreen();
+        const fallback = document.querySelector(".sprite-fallback");
+        return fallback?.style.backgroundImage.includes(original.frame) && geometry(fallback) === geometry(image) &&
+          document.querySelectorAll(".terrain-tile").length === 121 && !document.querySelector("#game-text").hidden;
+      } finally {
+        state = original;
+        await showScreen();
+      }
+    })()` });
+    assert.equal(missingApproach.result.value, true, missingApproach.exceptionDetails?.text ?? "A missing encounter sprite should preserve the enhanced scenery");
     await switchBothWays();
     await advance("enter");
     assert.equal(frame.portrait, "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9");
@@ -4505,7 +4522,7 @@ try {
             ...original.combatArt.slice(1)] };
           try {
             await showScreen();
-            const fallback = document.querySelector(".combat-sprite-fallback");
+            const fallback = document.querySelector(".sprite-fallback");
             return fallback?.style.backgroundImage.includes(original.frame) &&
               parseFloat(fallback.style.left) === x / 3.2 && parseFloat(fallback.style.top) === y / 2 &&
               !document.querySelector("#game-text").hidden &&
