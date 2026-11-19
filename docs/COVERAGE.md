@@ -2750,6 +2750,9 @@ floor update covers 14 tile bindings checked across both Chrome routes.
 `valjevo-dungeon-doorways` walks the separate dungeon area and verifies
 all 1,210 placements across ten views, including 35 new wall, door, and
 threshold tiles.
+The Valjevo transition hall and stone chamber add 14 oak and ashlar
+tiles. Their Chrome replays check 1,331 placements across 11 views,
+including the hall's area 5 to area 3 transition.
 The Valjevo kitchen corridor, jamb, and south yard now use tamped-clay
 floor tiles. Three Chrome walks checked their wall and doorway joins
 across 39 views.

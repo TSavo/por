@@ -1825,6 +1825,15 @@ const environmentRoutes = new Map([
     slot: "A", area: 26, views: 10, patterns: 80, sceneryOnly: true, captureView: 5,
     walk: ["left", "up", "right", "up", "left", "up", "up", "right", "up"],
   }],
+  ["valjevo-transition-hall", {
+    slot: "B", area: 5, views: 4, patterns: 48, sceneryOnly: true,
+    transition: { afterViews: 1, area: 3 },
+    walk: ["up", "left", "up"],
+  }],
+  ["valjevo-transition-chamber", {
+    slot: "B", area: 3, views: 7, patterns: 24, sceneryOnly: true,
+    walk: ["left", "right", "up", "up", "left", "up"],
+  }],
   ["valjevo-dungeon-doorways", {
     slot: "B", area: 3, views: 10, patterns: 38, sceneryOnly: true, captureView: 10,
     walk: ["left", "up", "up", "right", "up", "left", "up", "right", "up"],
