@@ -44,8 +44,6 @@ const dispositions = JSON.parse(readFileSync(new URL("../src/audio/voice-disposi
   entries: { sourceId: string; disposition: string; selectionId: string | null; ruleId: string | null }[];
 };
 assert.equal(manifest.enhancedOnly, true);
-assert(manifest.lines.some(({ type }) => type === "dialogue"));
-assert(manifest.lines.some(({ type }) => type === "narration"));
 assert.equal(new Set(manifest.lines.map(({ id }) => id)).size, manifest.lines.length);
 const speakers = new Set(manifest.casting.map(({ speaker }) => speaker));
 const directory = resolve(process.env.POR_VOICE_DIR ?? "../por-assets/voices");

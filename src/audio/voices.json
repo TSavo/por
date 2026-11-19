@@ -2,8 +2,8 @@
   "schema": 2,
   "enhancedOnly": true,
   "synthesis": {
-    "provider": "Fish Audio",
-    "model": "drama-3",
+    "provider": "project-owner",
+    "model": "not-selected",
     "masterFormat": "WAV PCM, mono, 48 kHz, 24-bit preferred",
     "browserFormat": "Opus, 48 kHz, mono",
     "dialogueLoudness": "-18 LUFS integrated, -2 dBTP maximum",
@@ -11,8 +11,8 @@
     "fileNaming": "stable voice ID with dots replaced by hyphens"
   },
   "casting": [
-    { "speaker": "ferran-martinez", "role": "Ferran Martinez", "direction": "A weary, honorable spirit bound to Sokal Keep", "castingStatus": "prototype-synthetic" },
-    { "speaker": "narrator", "role": "Narrator", "direction": "Measured historical fantasy narration; clear and restrained", "castingStatus": "prototype-synthetic" }
+    { "speaker": "ferran-martinez", "role": "Ferran Martinez", "direction": "A weary, honorable spirit bound to Sokal Keep", "castingStatus": "project-owner-pending" },
+    { "speaker": "narrator", "role": "Narrator", "direction": "Expressive low fantasy storyteller using ElevenLabs v4", "castingStatus": "owner-approved" }
   ],
   "pronunciations": [
     { "term": "Phlan", "pronunciation": "flan" },
@@ -20,30 +20,5 @@
     { "term": "Samosud", "pronunciation": "SAM-oh-sood" },
     { "term": "Tyranthraxus", "pronunciation": "tie-RAN-thrak-sus" }
   ],
-  "lines": [
-    {
-      "id": "por.dialogue.sokal.ferran-introduction",
-      "type": "dialogue",
-      "speaker": "ferran-martinez",
-      "conversation": "sokal-ferran",
-      "match": "I AM THE LIFE FORM OF FERRAN MARTINEZ",
-      "subtitle": "I am the life form of Ferran Martinez.",
-      "context": { "area": "Sokal Keep", "scene": "chapel altar" },
-      "file": "por-dialogue-sokal-ferran-introduction.wav",
-      "timing": { "startMs": 0, "endMs": 3700 },
-      "status": "prototype-synthetic"
-    },
-    {
-      "id": "por.narration.title",
-      "type": "narration",
-      "speaker": "narrator",
-      "conversation": "title",
-      "scene": "scene:title",
-      "subtitle": "Pool of Radiance. A forgotten realm waits beyond New Phlan's walls.",
-      "context": { "scene": "title" },
-      "file": "por-narration-title.wav",
-      "timing": { "startMs": 0, "endMs": 6065 },
-      "status": "prototype-synthetic"
-    }
-  ]
+  "lines": []
 }
