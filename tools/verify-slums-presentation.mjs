@@ -153,6 +153,11 @@ const encounterRoutes = new Map([
   ["kuto-norris-approach", {
     slot: "J", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:29:SPRIT8.DAX:16:0:0", 40, 80],
+    approachSequence: [
+      [56, 32, "encounter:area:29:SPRIT8.DAX:16:2:0", 16, 49],
+      [56, 32, "encounter:area:29:SPRIT8.DAX:16:1:0", 24, 65],
+      [48, 32, "encounter:area:29:SPRIT8.DAX:16:0:0", 40, 80],
+    ],
     dialogue: { keys: ["enter", "enter"], portrait: "portrait:HEAD8.DAX:10:BODY8.DAX:6", prompt: /SURRENDER.*FIGHT/i },
   }],
   ["mendor-fighter-approach", {
@@ -945,6 +950,11 @@ const combatPoseRoutes = new Map([
     slot: "A", stand: "combat:area:0:CPIC3.DAX:11:ecl:a7d3", strike: "combat:area:0:CPIC3.DAX:139:ecl:a7d3",
     width: 96, height: 96, readyPrompt: /NOMAD.*ShortSword/i, strikeInputs: ["space"], strikeReflected: false,
     inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter"), ...Array(8).fill("space")],
+  }],
+  ["new-phlan-tavern-corporal-ready", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:a7d3", width: 96, height: 96,
+    readyPrompt: /CORPORAL/i, strikeInputs: [],
+    inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter"), ...Array(6).fill("space")],
   }],
   ["lizard-wilds-caravan-merchant-combat", {
     slot: "A", stand: "combat:area:26:CPIC7.DAX:14:ecl:a2c7", strike: "combat:area:26:CPIC7.DAX:142:ecl:a2c7",
@@ -1756,6 +1766,18 @@ const environmentRoutes = new Map([
   ["zhentil-east-passage-north", {
     slot: "A", area: 28, views: 10, patterns: 32, sceneryOnly: true,
     walk: ["up", "left", "up", "up", "left", "up", "right", "up", "up"],
+  }],
+  ["zhentil-outer-courts-hall", {
+    slot: "A", area: 28, views: 14, patterns: 38, sceneryOnly: true,
+    walk: ["up", "left", "up", "up", "left", "up", "right", "up", "up", "down", "up", "left", "up"],
+  }],
+  ["zhentil-outer-courts-north", {
+    slot: "A", area: 28, views: 11, patterns: 38, sceneryOnly: true,
+    walk: ["up", "right", "up", "up", "left", "up", "left", "up", "right", "up"],
+  }],
+  ["zhentil-outer-courts-east", {
+    slot: "A", area: 28, views: 11, patterns: 28, sceneryOnly: true,
+    walk: ["up", "right", "up", "up", "left", "up", "left", "up", "right", "up"],
   }],
   ["yarash-upper-pyramid", {
     slot: "A", area: 22, views: 15, patterns: 31,
@@ -2737,6 +2759,13 @@ try {
       const viewArea = transition && views >= transition.afterViews ? transition.area : area;
       const tiledView = await verifyTiledView(viewArea, patterns);
       views += tiledView;
+      if (routeName === "zhentil-east-passage-north" && views === 6 && tiledView) {
+        assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /15,5N/i);
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        const screenshot = resolve(directory, "zhentil-corridor-floor.png");
+        writeFileSync(screenshot, Buffer.from(shot.data, "base64"));
+        console.log("Zhentil corridor capture:", screenshot);
+      }
       if (phlanExit && (key === "n" || exitPauseTiles)) {
         assert.equal(tiledView, 1, "The doorway should render enhanced scenery on both sides of Enter");
         assert.equal(frame.portrait, undefined);

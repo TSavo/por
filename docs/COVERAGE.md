@@ -2724,6 +2724,14 @@ checks the ready pose and reflected strike in the overland patrol battle.
 order before the ghoul portrait. The three `zhentil-east-passage` replays
 verify four new timber and masonry joins across 4,114 placements in
 34 views.
+The floor revision replaces five Zhentil tile bindings with worn
+flagstones, continuous wall joins, and matching threshold and door-foot
+pieces. The north-passage replay captures the corrected view at (15,5)
+facing north. The three outer-courts and three east-passage routes verify
+8,470 placements across 70 views with the revised floor.
+`kuto-norris-approach` now verifies the far, middle, and near poses before
+the surrender prompt. `new-phlan-tavern-corporal-ready` verifies the
+scoped 96×96 ready sprite in the brawl.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.
