@@ -1373,6 +1373,8 @@ the original boarded-door encounter and verifies presentation switching.
 redrawn ruins tiles across 21 live views and 2,541 placements.
 `lizardfolk-outer-yard` checks nine redrawn courtyard tiles across
 19 views and 2,299 placements, with state-preserving mode switches.
+`kuto-norris-dialogue` and `lizard-wilds-displacer-dialogue` verify
+the new full-panel illustrations at their original encounter prompts.
 `kobold-rematch-infantry` checks the 96×96 kobold ready and animated
 strike poses during that same battle. `kobold-cave-envoys-rematch` and
 `valjevo-messenger-dialogue` verify the new illustrations at the

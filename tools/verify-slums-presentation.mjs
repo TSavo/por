@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["kuto-norris-dialogue", {
+    slot: "J", inputs: ["up", "enter", "enter", "enter"],
+    portrait: "portrait:HEAD8.DAX:10:BODY8.DAX:6", prompt: /SURRENDER.*FIGHT/i,
+  }],
+  ["lizard-wilds-displacer-dialogue", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:26:PIC7.DAX:68:0:0", prompt: /AMBUSHEDBYTWODISPLACERBEASTS/i,
+  }],
   ["old-phlan-lizard-patrol", {
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:29:PIC8.DAX:57:0:0", prompt: /ALIZARDMANLEADSAPACKOFGIANTLIZARDS/i,

@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "portrait:HEAD8.DAX:10:BODY8.DAX:6": "kuto-norris-dialogue.png",
+    "portrait:area:26:PIC7.DAX:68:0:0": "lizard-wilds-displacer-dialogue.png",
     "tile:16:e973f4949b625b4cba8ed79444ff6422d8dabbb69afd79d59a7fd27ea7f5ac37": "lizard-outer-yard-terrain-e973f4949b62.png",
     "tile:16:6124b4b018ec008e7d8e43de6adffdc26f646d906e9abfc6f4f3cb158b2cdbe1": "lizard-outer-yard-terrain-6124b4b018ec.png",
     "tile:16:b2bdaafee704190ccaf37f38405a797b48089b645c51bfefbb00132e02b4b25e": "lizard-outer-yard-terrain-b2bdaafee704.png",
