@@ -1361,6 +1361,8 @@ tiles across 16 live views from the original camp entry save.
 `textile-skullcrusher-chained` checks the captive's portrait and verifies
 that the journal records the encounter after the party discovers him.
 `bane-orc-combat` checks the temple orc's ready and animated strike poses.
+`bane-orc-leader-combat` checks both poses for the temple orc leader
+from a checkpoint positioned one step before that encounter.
 `bane-ogre-combat` checks the ogre's 96×192 ready and animated strike
 poses from a checkpoint with increased party HP to reach the strike.
 `lizardfolk-east-ruins` checks five redrawn tiles across 16 live views
@@ -1373,6 +1375,8 @@ the original boarded-door encounter and verifies presentation switching.
 redrawn ruins tiles across 21 live views and 2,541 placements.
 `lizardfolk-outer-yard` checks nine redrawn courtyard tiles across
 19 views and 2,299 placements, with state-preserving mode switches.
+`lizardfolk-reed-breach` checks three new tiles across 21 live
+views and 2,541 placements along the outer yard and reed breach.
 `kuto-norris-dialogue` and `lizard-wilds-displacer-dialogue` verify
 the new full-panel illustrations at their original encounter prompts.
 `kobold-rematch-infantry` checks the 96×96 kobold ready and animated

@@ -1,6 +1,11 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:31:CPIC1.DAX:5": "bane-orc-veteran-stand.png",
+    "combat:area:31:CPIC1.DAX:133": "bane-orc-veteran-strike.png",
+    "tile:16:58aef8f26084a2aca7cc4f541ba0f78ee369e284686f8f6b89ccb7c228377477": "lizard-reed-breach-terrain-58aef8f26084.png",
+    "tile:16:0b220019cefc8d5d48cf7b12ea9244513b2fa27b4d02dcd4439e215ec43d8b01": "lizard-reed-breach-terrain-0b220019cefc.png",
+    "tile:16:355072c538904782a0dfdc3a746ae4337b7db7ecb9c4329cd6f348e80d3ed19e": "lizard-reed-breach-terrain-355072c53890.png",
     "portrait:HEAD8.DAX:10:BODY8.DAX:6": "kuto-norris-dialogue.png",
     "portrait:area:26:PIC7.DAX:68:0:0": "lizard-wilds-displacer-dialogue.png",
     "tile:16:e973f4949b625b4cba8ed79444ff6422d8dabbb69afd79d59a7fd27ea7f5ac37": "lizard-outer-yard-terrain-e973f4949b62.png",
