@@ -60,3 +60,11 @@ boundary, and stopped at the native drawbridge prompt. Accepting the
 entry and dismissing the anti-magic warning restored Enhanced WebGL
 exploration.
 
+Select **Phlan** on the Moonsea map to choose the north gate, east or west
+approach, or a ferry dock. The chooser shows which districts each approach
+serves. Valhingen Graveyard has its own landmark and takes the party to the
+north-gate choice between the city and the graveyard. Each route hands
+control back to the player at the original gate or ferry menu.
+Run the `phlan-outskirts-*` Chrome replays with `--map-travel` to check
+these routes through the Moonsea map.
+

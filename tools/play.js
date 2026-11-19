@@ -25,6 +25,9 @@ const travelMap = document.querySelector("#travel-map");
 const travelArt = document.querySelector("#travel-art");
 const closeTravelMap = document.querySelector("#close-travel-map");
 const travelLandmarks = [...travelMap.querySelectorAll("[data-destination]")];
+const phlanLandmark = travelMap.querySelector('[data-destination="phlan"]');
+const phlanApproaches = document.querySelector("#phlan-approaches");
+const approachButtons = [...phlanApproaches.querySelectorAll("[data-approach]")];
 const presentation = document.querySelector("#presentation");
 const streetToggle = document.querySelector("#street-toggle");
 const audioToggle = document.querySelector("#audio-toggle");
@@ -357,38 +360,66 @@ function renderTravelMap(view = animationFrame ?? state) {
   streetToggle.textContent = illustrated ? "Travel art" : streetUnavailable ? "3D unavailable" : "3D view";
   streetToggle.disabled = !illustrated && streetUnavailable;
   streetToggle.setAttribute("aria-pressed", String(illustrated ? travelArtEnabled : streetEnabled));
+  const routes = visible && state.ready && !state.stopped ? view.travel.routes : {};
   for (const landmark of travelLandmarks) {
-    const enabled = Boolean(visible && state.ready && !state.stopped && view.travel.routes[landmark.dataset.destination]);
+    const enabled = Boolean(phlanApproaches.hidden && routes[landmark.dataset.destination]);
     landmark.setAttribute("aria-disabled", String(!enabled));
     landmark.setAttribute("tabindex", enabled ? "0" : "-1");
   }
+  for (const button of approachButtons) button.disabled = !routes[button.dataset.approach];
 }
 
 function setTravelExpanded(expanded) {
   travelExpanded = expanded;
+  if (!expanded) setPhlanApproaches(false);
   travelMap.classList.toggle("expanded", expanded);
   closeTravelMap.hidden = !expanded;
   mapToggle.setAttribute("aria-expanded", String(expanded));
   (expanded ? closeTravelMap : screen).focus({ preventScroll: true });
 }
 
-function selectTravel(landmark) {
-  if (landmark.getAttribute("aria-disabled") !== "false" || activeTravel || posting || !state.ready) return;
+function setPhlanApproaches(open) {
+  phlanApproaches.hidden = !open;
+  phlanLandmark.setAttribute("aria-expanded", String(open));
+}
+
+function closePhlanApproaches() {
+  setPhlanApproaches(false);
+  renderTravelMap();
+  phlanLandmark.focus({ preventScroll: true });
+}
+
+function selectTravel(destination, label) {
+  if (!state.travel?.routes[destination] || activeTravel || posting || !state.ready || state.stopped) return;
   resumeBlockedAudio();
-  activeTravel = { destination: landmark.dataset.destination, label: landmark.getAttribute("aria-label") };
+  activeTravel = { destination, label };
   setTravelExpanded(false);
   renderTravelMap();
   followTravel();
 }
 
 for (const landmark of travelLandmarks) {
-  landmark.addEventListener("click", () => selectTravel(landmark));
+  const activate = () => {
+    if (landmark.getAttribute("aria-disabled") !== "false") return;
+    if (landmark === phlanLandmark) {
+      setTravelExpanded(true);
+      setPhlanApproaches(true);
+      renderTravelMap();
+      approachButtons.find(button => !button.disabled)?.focus({ preventScroll: true });
+    } else {
+      selectTravel(landmark.dataset.destination, landmark.getAttribute("aria-label"));
+    }
+  };
+  landmark.addEventListener("click", activate);
   landmark.addEventListener("keydown", event => {
     if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();
     event.stopPropagation();
-    selectTravel(landmark);
+    activate();
   });
+}
+for (const button of approachButtons) {
+  button.addEventListener("click", () => selectTravel(button.dataset.approach, button.getAttribute("aria-label")));
 }
 
 function followTravel() {
@@ -1056,6 +1087,7 @@ presentation.addEventListener("click", () => {
 mapToggle.addEventListener("click", toggleAutomap);
 closeMap.addEventListener("click", toggleAutomap);
 closeTravelMap.addEventListener("click", () => setTravelExpanded(false));
+document.querySelector("#close-phlan-approaches").addEventListener("click", closePhlanApproaches);
 markMap.addEventListener("click", markCurrentLocation);
 localMap.addEventListener("click", () => { mapMode = "local"; renderAutomap(); });
 regionMap.addEventListener("click", () => { mapMode = "region"; renderAutomap(); });
@@ -1090,7 +1122,11 @@ window.addEventListener("keydown", (event) => {
     return;
   }
   if (travelExpanded) {
-    if (event.key === "Escape") setTravelExpanded(false);
+    if (event.key === "Escape") {
+      event.preventDefault();
+      if (phlanApproaches.hidden) setTravelExpanded(false);
+      else closePhlanApproaches();
+    }
     return;
   }
   if (!automap.hidden) {

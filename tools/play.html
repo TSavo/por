@@ -45,7 +45,7 @@
       position: absolute; left: 2.5%; top: 4%; width: 37.5%; height: 60%; z-index: 2;
       display: grid; align-items: center; background: #19140f;
     }
-    #travel-map[hidden], #close-travel-map[hidden] { display: none; }
+    #travel-map[hidden], #close-travel-map[hidden], #phlan-approaches[hidden] { display: none; }
     #travel-map.expanded {
       inset: 3%; width: auto; height: auto; z-index: 5; grid-template-rows: auto minmax(0, 1fr);
       border: 1px solid #a28658; box-shadow: 0 10px 30px #000a;
@@ -54,11 +54,26 @@
     #close-travel-map { justify-self: end; margin-bottom: .4rem; }
     #travel-map svg { display: block; width: 100%; height: 100%; min-height: 0; }
     #travel-map polygon { fill: transparent; stroke: transparent; stroke-width: 1.5; }
-    #travel-map polygon[aria-disabled="false"] { cursor: pointer; stroke: #ffdf8755; }
-    #travel-map polygon[aria-disabled="false"]:is(:hover, :focus-visible) {
-      outline: none; fill: #ffda7721; stroke: #ffeb9f;
+    #travel-map [data-destination][aria-disabled="false"] { cursor: pointer; stroke: #ffdf8755; }
+    #travel-map [data-destination][aria-disabled="false"]:is(:hover, :focus-visible) {
+      outline: none; stroke: #ffeb9f;
       filter: drop-shadow(0 0 4px #f7b13e);
     }
+    #travel-map polygon[aria-disabled="false"]:is(:hover, :focus-visible) { fill: #ffda7721; }
+    #travel-map .travel-marker[aria-disabled="true"] { opacity: .75; }
+    #travel-map .travel-marker rect { fill: #e9c995; stroke-width: 1; }
+    #travel-map .travel-marker text {
+      fill: #4c2720; stroke: none; font: bold 8px Georgia, serif; text-anchor: middle;
+    }
+    #phlan-approaches {
+      position: absolute; inset: 10%; z-index: 1; overflow: auto;
+      background: #211910f5; border: 1px solid #a28658; padding: clamp(12px, 3vw, 24px);
+    }
+    #phlan-approaches header { min-height: 0; flex-wrap: wrap; margin-bottom: .65rem; }
+    #phlan-approaches h2 { margin: 0; }
+    .phlan-travel-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr)); gap: .45rem; }
+    .phlan-travel-options button { text-align: left; }
+    .phlan-travel-options small { display: block; margin-top: .18rem; }
     #tile-art img { position: absolute; width: 2.5%; height: 4%; display: block; }
     /* Cover subpixel gaps where the browser rounds adjacent tile edges. */
     #tile-art .terrain-tile {
@@ -190,13 +205,32 @@
           <polygon data-destination="zhentil" points="33,139 74,125 129,127 128,151 99,172 37,174" role="button" aria-label="Zhentil Keep Outpost"><title>Zhentil Keep Outpost</title></polygon>
           <polygon data-destination="buccaneers" points="30,223 59,201 89,203 107,227 108,269 35,266" role="button" aria-label="Buccaneer Base"><title>Buccaneer Base</title></polygon>
           <polygon data-destination="valjevo" points="274,69 303,52 402,64 397,95 369,127 309,139 275,115" role="button" aria-label="Valjevo Castle via the north gate"><title>Valjevo Castle via the north gate</title></polygon>
-          <polygon data-destination="phlan" points="207,135 274,128 309,145 368,129 412,165 453,217 449,263 380,282 346,251 312,231 264,252 222,240 187,213" role="button" aria-label="Phlan"><title>Phlan</title></polygon>
+          <polygon data-destination="phlan" points="207,135 274,128 309,145 368,129 412,165 453,217 449,263 380,282 346,251 312,231 264,252 222,240 187,213" role="button" aria-label="Phlan approaches" aria-controls="phlan-approaches" aria-expanded="false"><title>Choose a Phlan approach</title></polygon>
+          <g class="travel-marker" data-destination="graveyard" role="button" aria-label="Valhingen Graveyard">
+            <title>Valhingen Graveyard via the north gate</title>
+            <rect x="167" y="103" width="69" height="23" rx="3" />
+            <text x="201.5" y="113">VALHINGEN</text>
+            <text x="201.5" y="122">GRAVEYARD</text>
+          </g>
           <polygon data-destination="nomads" points="439,44 467,27 550,25 569,54 541,88 469,85 435,61" role="button" aria-label="Nomad Camp"><title>Nomad Camp</title></polygon>
           <polygon data-destination="kobolds" points="542,122 570,102 629,98 633,130 617,165 570,158" role="button" aria-label="Kobold Caves"><title>Kobold Caves</title></polygon>
           <polygon data-destination="lizardmen" points="553,207 582,181 609,181 627,213 639,225 632,252 558,250 550,224" role="button" aria-label="Lizardman Keep"><title>Lizardman Keep</title></polygon>
           <polygon data-destination="island" points="194,317 241,301 275,292 308,306 314,340 281,361 211,362" role="button" aria-label="Sorcerer's Island via the rowboat"><title>Sorcerer's Island via the rowboat</title></polygon>
           <polygon data-destination="sokal" points="436,325 463,296 501,283 540,294 560,326 552,351 487,367 434,344" role="button" aria-label="Sokal Keep via the New Phlan ferry"><title>Sokal Keep via the New Phlan ferry</title></polygon>
         </svg>
+        <section id="phlan-approaches" aria-labelledby="phlan-approaches-title" hidden>
+          <header>
+            <h2 id="phlan-approaches-title">Phlan approaches</h2>
+            <button id="close-phlan-approaches" type="button">Back to map</button>
+          </header>
+          <div class="phlan-travel-options">
+            <button type="button" data-approach="northGate" aria-label="North gate" aria-describedby="phlan-north-districts">North gate<small id="phlan-north-districts">Old Phlan and Valhingen Graveyard</small></button>
+            <button type="button" data-approach="eastApproach" aria-label="East approach" aria-describedby="phlan-east-districts">East approach<small id="phlan-east-districts">Kovel Mansion and Temple of Bane</small></button>
+            <button type="button" data-approach="westApproach" aria-label="West approach" aria-describedby="phlan-west-districts">West approach<small id="phlan-west-districts">Podol Plaza and Cadorna Textile House</small></button>
+            <button type="button" data-approach="docks" aria-label="New Phlan ferry docks" aria-describedby="phlan-docks-district">Ferry docks<small id="phlan-docks-district">Passage to New Phlan</small></button>
+            <button type="button" data-approach="phlan" aria-label="Nearest Phlan approach">Nearest approach</button>
+          </div>
+        </section>
       </section>
       <section id="journal" aria-label="Adventure journal" hidden>
         <h2>Adventure journal</h2>

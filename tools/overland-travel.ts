@@ -30,22 +30,26 @@ export function captureOverlandTravel(cpu: Cpu, segment: number, offset: number)
 // Wilderness ECL arrival triggers, in the world coordinates shown on screen.
 type Coordinate = readonly [number, number];
 const northGate = [[25, 26], [26, 26]] as const;
+const eastApproach = [[26, 27]] as const;
+const westApproach = [[24, 28]] as const;
 const docks = [[20, 29], [35, 29]] as const;
 const landmarks: Record<string, readonly Coordinate[]> = {
   diogenes: [[10, 9]], buccaneers: [[12, 31]], zhentil: [[3, 32]], nomads: [[25, 11]],
   island: [[19, 14], [19, 16]], kobolds: [[32, 15]], lizardmen: [[37, 8]],
-  phlan: [...northGate, ...docks, [26, 27], [24, 28]], valjevo: northGate, sokal: docks,
+  phlan: [...northGate, ...eastApproach, ...westApproach, ...docks],
+  northGate, eastApproach, westApproach, docks, graveyard: northGate,
+  valjevo: northGate, sokal: docks,
 };
 
 const directions = [[0, -1, "up"], [1, 0, "right"], [0, 1, "down"], [-1, 0, "left"]] as const;
 const cell = (x: number, y: number) => y * width + x;
 const entranceCells = new Set(Object.values(landmarks).flat().map(([x, y]) => cell(x, y)));
+// The original movement accepts the east and west crossroads despite their ECL terrain bans.
+const phlanCrossroads = new Set([...eastApproach, ...westApproach].map(([x, y]) => cell(x, y)));
 
 export function loadOverlandTravel(root: string) {
   // OVL28 reads the world terrain table at DS:35E2. It is initialized by START.EXE.
   const exe = readFileSync(join(root, "START.EXE"));
-// The guest accepts the west crossroads as a scripted arrival on terrain 0x57.
-const westCrossroads = cell(24, 28);
   const mapOffset = exe.readUInt16LE(8) * 16 + 0x7400 + 0x35e2;
   const terrain = exe.subarray(mapOffset, mapOffset + width * height);
   const nativeBarrier = new Set([0x4e, 0x7e, 0x7f, 0x80, 0x82, 0x83, 0x84, 0xa8, 0xa9, 0xaa, 0xab, 0xac,
@@ -82,10 +86,11 @@ const westCrossroads = cell(24, 28);
         if (dx === -1 && localX === 2 && sector > 0) sector--;
         const next = { x, y, sector };
         const fingerprint = keyFor(next);
-        const tile = terrain[cell(x, y)]!;
+        const destination = cell(x, y);
+        const tile = terrain[destination]!;
         const blockedTypes = sector === 1 && start.riverCleared ? clearRiver : blocked[sector]!;
         if (visited.has(fingerprint) || nativeBarrier.has(tile) ||
-          (blockedTypes.has(tile) && cell(x, y) !== westCrossroads)) continue;
+          (blockedTypes.has(tile) && !phlanCrossroads.has(destination))) continue;
         visited.add(fingerprint);
         queue.push({ ...next, first: current.first ?? { ...next, key } });
       }
