@@ -2784,6 +2784,9 @@ tiles. Chrome checks 3,146 placements across 26 views. The stairs and
 grave-claw walks end before their encounter overlays.
 The deep crypt, memorial routes, and north vault add 24 slate joins
 checked across 50 Chrome views and 6,050 placements.
+Eight more routes check the last 21 old-gravel tiles identified in the
+archived clean scenery, across 36 Chrome views and 4,356 placements.
+The vault and ossuary walks end before the encounter overlays.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
