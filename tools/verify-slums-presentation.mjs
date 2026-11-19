@@ -3065,10 +3065,13 @@ try {
       assert.ok(atThrone(), "The guide should announce the party at the throne");
       await advance("j");
       assert.ok(frame.journal.leads.some(({ id }) => id === "kobold-guide-arrived"));
-      assert.match(frame.journal.objective.nextStep, /entrance to the throne room nearby/);
+      assert.match(frame.journal.objective.nextStep, /one square north, two squares west, then north to the throne room/);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "kobold-throne-envoys"));
+      for (const key of ["j", "up", "left", "up", "up", "right", "up", "up", "up", "j"]) await advance(key);
+      assert.ok(frame.journal.leads.some(({ id }) => id === "kobold-throne-envoys"));
+      assert.match(frame.journal.objective.nextStep, /Confront the king and the envoys/);
     }
-    console.log(koboldEscort ? "Verified the kobold escort offer, guided walk, and journal update at the throne room."
+    console.log(koboldEscort ? "Verified the guided walk, journal directions, and first meeting at the kobold throne."
       : "Verified the kobold guide portrait and witnessed escort offer in Chrome.");
   } else if (princessFatima) {
     const fatima = "portrait:HEAD8.DAX:67:BODY8.DAX:37";

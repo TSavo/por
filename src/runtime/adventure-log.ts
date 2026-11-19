@@ -222,7 +222,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (knows("kobold-king-quarters")) nextStep = "Defeat the king's guards and find him in his quarters.";
       else if (knows("kobold-king-escaped")) nextStep = "Search the caves for the escaped king and his quarters.";
       else if (knows("kobold-throne-envoys")) nextStep = "Confront the king and the envoys at the throne.";
-      else if (knows("kobold-guide-arrived")) nextStep = "Look for the entrance to the throne room nearby. The king told the guide to send the party in.";
+      else if (knows("kobold-guide-arrived")) nextStep = "From where the guide stopped, go one square north, two squares west, then north to the throne room.";
       else if (knows("kobold-guide-follow")) nextStep = "Follow the kobold guide to the king.";
       else if (knows("kobold-guide-asleep")) nextStep = "The guide went back to sleep. Explore the caves for another way to the king.";
       else if (knows("kobold-guide-offer")) nextStep = "Choose Yes if you want the guide to escort you to the king.";

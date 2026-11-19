@@ -1130,8 +1130,10 @@ The `mendor-library-spectre` replay sets the book flag in controlled slot B
 to trigger the guardian. It checks both 96×96 poses and the witnessed clue.
 The `kobold-cave-escort` replay uses controlled slot B with the kobold
 commission tracked. Chrome checks the offer, the accepted escort, and
-the guide's announcement at the throne. The envoys remain hidden until
-the party sees them. The separate envoys rematch replay checks that clue.
+the guide's announcement outside the throne room. It then follows the
+journal's route from (7,5) north to (5,1) and verifies that the envoys
+remain hidden until the first meeting. The separate rematch replay
+also checks the envoy clue.
 The translation verifier checks the later escape and quarters guidance
 against the original dialogue.
 
