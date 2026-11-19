@@ -1,6 +1,13 @@
 {
   "version": 1,
   "assets": {
+    "tile:0:45f5e38f7219ffc606ba569d2abe5be146d8630bf8dcde674e3c28c3ce4e621a": "new-phlan-training-hall-terrain-45f5e38f7219.png",
+    "tile:0:b03fbca109ab749692421d27e7e24a728523604f8fd1580a98748b76cb2ce15c": "new-phlan-training-hall-terrain-b03fbca109ab.png",
+    "tile:0:a981c2e4290d3cfab1275af7b186649c90a2307191e93fd98b463e413040c010": "new-phlan-training-hall-terrain-a981c2e4290d.png",
+    "tile:0:f6613a058106db88c64183aa031f0c43f9f33676f27b6bf26e5600c0126ae92d": "new-phlan-training-hall-terrain-f6613a058106.png",
+    "tile:0:7d5ab1c59744abe792931bc786031748d98200578c6ad096b4c79af85514134d": "new-phlan-training-civic-terrain-11-7d5ab1c59744.png",
+    "tile:0:7b8772a162e24dbbfab628febba4c8018354d1997675d518b44e749fa71e1b6b": "new-phlan-training-hall-terrain-7b8772a162e2.png",
+    "tile:0:d356ab3a068af8d71f953dc85699005053abc5012267e706ef6280b202da0cc8": "new-phlan-training-hall-terrain-d356ab3a068a.png",
     "tile:8:f64a590f4187d542e7a93ecbaa5b414254fd608c50754c453c628b4043891b88": "new-phlan-civic-terrain-f64a590f4187.png",
     "tile:8:a9b30fb68d1002ad5ff0a4688cead33059b8a9391ade5b56065c931141d42df5": "new-phlan-civic-terrain-a9b30fb68d10.png",
     "tile:8:fee2bf7d4aa298eaa18005d975789932241fcb6f5e9fa2e5bb33a5528dead203": "new-phlan-civic-terrain-fee2bf7d4aa2.png",
