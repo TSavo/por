@@ -5,6 +5,11 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "tile:26:de8a467e8a583141f13dc6fe0722d0fb93bd8ac0f7d5207c1149e35287d3d5f1": "wilderness-branch-terrain-de8a467e8a58.png",
+    "tile:26:bf43d1aae6a289fca465e43486946bed967fc6ae0ae0756885b1f585fd54a425": "wilderness-branch-terrain-bf43d1aae6a2.png",
+    "tile:26:51c0f6d53f16516a54c3a91347715661e7cb6bf57c615cb2f3e732431a590795": "wilderness-branch-terrain-51c0f6d53f16.png",
+    "tile:26:371dde7d5916bc865439e1381e6f62d64ce510fcde37c7100534e6f92af73dba": "wilderness-branch-terrain-371dde7d5916.png",
+    "tile:26:6480445c6d862d32183c98d6cc4ed0e120250c6a2769b809854e1cddfa8210b5": "wilderness-branch-terrain-6480445c6d86.png",
     "tile:26:a2b1f397aa5d01caff96ae0c819f70cda1133f68122aa93bad9bf4d07abf138e": "wilderness-lizardfolk-palisade-a2b1f397aa5d.png",
     "encounter:area:26:ecl:a8a0:SPRIT7.DAX:57:0:0": "old-phlan-mutant-hut-approach.png",
     "portrait:area:26:ecl:a91c:PIC7.DAX:57:0:0": "old-phlan-mutant-hut-dialogue.png",

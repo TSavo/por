@@ -2771,6 +2771,9 @@ walks end before the turn that draws a composite frame.
 `wilderness-waystone` checks 80 patterns across ten views, including
 77 new foliage and palisade tiles. The route uses the existing area 26
 ground, which it shares with the north gate.
+The north and ridge branches add five missing scenery tiles. Their
+Chrome replays check all 1,089 placements across nine views before
+the departure prompts.
 The Temple of Bane side galleries and eastern outer courts use angled
 olive-slate paving beneath the gray masonry. Four Chrome walks checked
 the 12 revised tile bindings across 43 views, including the arches and

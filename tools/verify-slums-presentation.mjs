@@ -1805,6 +1805,14 @@ const environmentRoutes = new Map([
     walk: ["left", "left", "up", "up", "up", "left", "up", "up", "up", "up", "up", "left",
       "up", "up", "up", "up", "up", "right"],
   }],
+  ["wilderness-waystone-north", {
+    slot: "A", area: 26, views: 4, patterns: 43, sceneryOnly: true,
+    walk: ["up", "up", "right"],
+  }],
+  ["wilderness-waystone-ridge", {
+    slot: "A", area: 26, views: 5, patterns: 53, sceneryOnly: true,
+    walk: ["right", "right", "up", "left"],
+  }],
   ["wilderness-waystone", {
     slot: "A", area: 26, views: 10, patterns: 80, sceneryOnly: true, captureView: 5,
     walk: ["left", "up", "right", "up", "left", "up", "up", "right", "up"],
