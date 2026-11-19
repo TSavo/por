@@ -900,6 +900,7 @@ function checkCampaignJournal(): void {
   const castleRoute = [
     ["USE THESE CLOTHES AS A DISGUISE", "Use the clothes"],
     ["HE JUST HIRED ME TO IMPERSONATE HIM", "real Tyranthraxus"],
+    ["DO NOT BE FOOLED BY OUTWARD FORMS", "flaming aura"],
     ["AN ANCIENT BRONZE DRAGON", "Get past the guards"],
     ["IF YOU JOIN ME I WILL MAKE YOU THE COMMANDERS", "Choose Attack"],
   ] as const;

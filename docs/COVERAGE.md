@@ -1197,6 +1197,16 @@ checks the selected 96×96 ready pose and the reflected sword strike in
 the animation stream. `valjevo-records` starts at the adjoining records
 building. It checks the Thay alliance and Moonsea plans appear separately
 as the party reads them.
+`valjevo-scriptorium-reports` searches the room on a controlled copy
+with the officer fight marked cleared. The Raven Clan report and the
+flaming-aura clue appear separately as their text is shown. The translation
+verifier checks that the aura clue changes the journal directions after
+the party discovers the impostor.
+`valjevo-dungeon-sentry` checks the custom portrait when the original
+sentry sounds the alarm. `valjevo-outer-service` uses controlled slot B
+staged at the area's original arrival coordinates. Chrome checks all
+2,057 placements across 17 views. Four new boundary tiles join limestone,
+hedge, and path, and 30 pixel-identical patterns use existing artwork.
 `valjevo-genheeris-bargain` and `valjevo-genheeris-orders` verify the
 352×352 illustration, mode switching, and the distinct journal lead
 from each choice of parlay tone. The bargain replay also confirms

@@ -287,7 +287,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "castle") {
       if (knows("castle-vote")) nextStep = "Choose Attack when each party member is asked to vote. Then defeat Tyranthraxus.";
       else if (knows("castle-audience")) nextStep = "Get past the guards in the audience hall and confront the bronze dragon.";
-      else if (knows("castle-impostor")) nextStep = "Continue searching the castle for the real Tyranthraxus.";
+      else if (knows("castle-impostor")) nextStep = knows("castle-flaming-aura")
+        ? "Continue searching the castle for the real Tyranthraxus. His own note says to recognize him by his flaming aura."
+        : "Continue searching the castle for the real Tyranthraxus.";
       else if (knows("castle-hedge-gate-password") && knows("castle-cadorna-hedge")) nextStep = "Use the password from the kitchen at the main gate, then take Cadorna's route through the hedge: left, right, right.";
       else if (knows("castle-hedge-gate-password")) nextStep = "Use the password from the kitchen at the main gate into the hedge maze.";
       else if (knows("castle-cadorna-hedge")) nextStep = "Follow Cadorna's directions through the hedge: left, right, right.";
@@ -915,6 +917,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("HIS ULTIMATE GOAL IS TO CONQUER ALL LANDS SOUTH OF THE MOONSEA")) {
     leads.push({ id: "castle-records-moonsea", title: "Tyranthraxus's plans for the Moonsea",
       detail: "The castle records show how Tyranthraxus built his following. He plans to conquer the lands south of the Moonsea." });
+  }
+  if (text.includes("DO NOT BE FOOLED BY OUTWARD FORMS FOR YOU SHALL KNOW ME BY MY FLAMING AURA")) {
+    leads.push({ id: "castle-flaming-aura", title: "How to recognize Tyranthraxus",
+      detail: "A note signed by Tyranthraxus says his form can deceive and that his flaming aura identifies him." });
+  }
+  if (text.includes("THE CHIEF OF THE RAVEN CLAN IS ALLIED TO TYRANTHRAXUS")) {
+    leads.push({ id: "castle-raven-clan", title: "The Raven Clan alliance",
+      detail: "A report says the Raven Clan chief is allied with Tyranthraxus and that the northern barbarians could follow a strong leader." });
   }
   if (text.includes("IF YOU KILL HIM INSTEAD OF ME I WILL MAKE YOU ALL GENERALS")) {
     leads.push({ id: "castle-genheeris-offer", title: "Genheeris's bargain",
