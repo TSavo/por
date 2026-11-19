@@ -1336,10 +1336,14 @@ the middle and near poses at their original anchors in separate encounters.
 `kobold-cave-wyvern-dialogue` verify the Mummy approach sprite and two
 pre-combat illustrations. Chrome checks the artwork and state-preserving
 mode switches on all five encounter replays.
+`new-phlan-cleric-trainer` and `new-phlan-thieves-trainer` verify the
+class-specific training prompts, distinct portraits, and panel fit.
 `valjevo-fire-giant-dialogue` checks the barracks portrait at the
 original encounter and through the password dialogue after Parlay.
 `zhentil-quarters-guard-dialogue` checks the portrait at the guards’
 quarters restriction, including panel fit and mode switching.
+`lizardfolk-battle-wall` checks two independent wall tiles across four
+giant-lizard combat turns, outside the live actor bounds.
 `lizardfolk-southwest-trail` checks six new masonry and reed junction
 tiles across 14 live views from the unchanged ruin-route save.
 `new-phlan-west-garden-lanes` checks 13 new ivy, courtyard, and standard

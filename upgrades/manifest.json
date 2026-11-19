@@ -1,6 +1,10 @@
 {
   "version": 1,
   "assets": {
+    "battle-tile:7879edde6815d1ab90d632600724e52de5034dd5cc0d386ef1d35b2023fbe12f": "swamp-lizard-crooked-coping.png",
+    "battle-tile:6a6b3a6a8bd1d15c819b33ac9f2fc99ad2d2e83e2c7b2ccf3fec96f24609b00c": "swamp-lizard-end-wall-rubble.png",
+    "portrait:HEAD3.DAX:16:BODY3.DAX:4": "new-phlan-cleric-trainer.png",
+    "portrait:HEAD3.DAX:16:BODY3.DAX:8": "new-phlan-thieves-trainer.png",
     "combat:area:25:CPIC6.DAX:65": "wild-cave-ankheg-stand.png",
     "combat:area:25:CPIC6.DAX:193": "wild-cave-ankheg-strike.png",
     "combat:area:25:CPIC6.DAX:118": "wild-cave-thri-kreen-stand.png",
