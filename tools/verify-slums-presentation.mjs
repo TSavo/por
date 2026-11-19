@@ -404,6 +404,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valjevo-south-service-lane", {
+    slot: "B", area: 6, views: 16, patterns: 36, sceneryOnly: true,
+    walk: ["left", "up", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up"],
+  }],
   ["zhentil-north-lanes", {
     slot: "A", area: 28, views: 17, patterns: 57, sceneryOnly: true,
     walk: ["left", "up", "up", "left", "up", "up", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up"],

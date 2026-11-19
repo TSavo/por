@@ -1349,6 +1349,8 @@ portraits and prove the journal gains each lead only after hearing it.
 original temple interior prompt, including panel fit and mode switching.
 `slums-grain-sack-ambush` checks the illustration at the original
 grain sack prompt with the same panel and presentation switch checks.
+`valjevo-south-service-lane` checks 11 new limestone, rubble, and sky
+transition tiles across 16 live views and 1,936 placements.
 `zhentil-north-lanes` checks eight new 32×32 tiles and the sky joins
 across 17 live views. The two `podal-pitt-*` routes verify the drunken
 buccaneer and monster patrons at their original tavern prompts.
