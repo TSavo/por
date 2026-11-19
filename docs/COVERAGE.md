@@ -1518,11 +1518,12 @@ placements from a position-only copy of the quarters checkpoint.
 `valjevo-troll-approach` verifies the original near-distance frame and
 the 160×320 replacement at the guest's screen anchor. This replay does
 not present the middle or far frames.
-`kobold-cave-efreeti-approach` and `kobold-cave-wyvern-approach` verify
-the close-distance replacements at 160×320 and 352×320 respectively.
-Chrome checks the exact source ID and screen anchor for each and switches
-presentation with the same frame and save. These inputs reach the close
-pose for each creature.
+`kobold-cave-efreeti-approach` verifies the 160×320 close-distance
+replacement at its native anchor. `kobold-cave-wyvern-approach` verifies
+the native far, middle, and near draws in order, with 128×196, 224×260,
+and 352×320 replacements at their original anchors. The wyvern approach
+uses 12 scenery patterns across three views, with 121 enhanced terrain
+tiles per view. Both replays switch presentation on the same game state.
 `kobold-cave-efreeti-dialogue` verifies Samir's custom illustration and
 checks that his warning is learned only after the party hears it.
 `valjevo-hill-giant-dialogue` checks the hill giant illustration at the

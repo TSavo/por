@@ -292,6 +292,12 @@ const encounterRoutes = new Map([
   ["kobold-cave-wyvern-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [24, 32, "encounter:area:13:SPRIT8.DAX:121:0:0", 88, 80],
+    terrain: { area: 13, views: 3, patterns: 12 },
+    approachSequence: [
+      [56, 32, "encounter:area:13:SPRIT8.DAX:121:2:0", 32, 49],
+      [40, 32, "encounter:area:13:SPRIT8.DAX:121:1:0", 56, 65],
+      [24, 32, "encounter:area:13:SPRIT8.DAX:121:0:0", 88, 80],
+    ],
   }],
   ["valjevo-troll-approach", {
     slot: "B", inputs: ["up", "b"],
