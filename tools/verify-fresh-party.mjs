@@ -792,6 +792,8 @@ async function verifySkullcrusherRecruitment(load, checkpoint, verifyOgreRoute =
     console.log("Verified the inventory-aware key objective, both recruitment choices, and the journal after reload.");
     return;
   }
+  let coraHitPoints;
+  const equippedParty = /brin 1 6.*cora 5 (\d+).*enna 2 5.*mira 10 5.*skullcrusher 1 39/;
   await replay(load("2267"), "85000000", [
     (text) => assert.match(text, /skullcrusher 1 39.*2,15 s/),
     "e", "m", "m", "m", "n", ...Array(12).fill("end"), ...Array(7).fill("home"), "m", "m", "p",
@@ -809,11 +811,18 @@ async function verifySkullcrusherRecruitment(load, checkpoint, verifyOgreRoute =
       assert.doesNotMatch(text, /cure light wounds/);
     },
     "e", "e",
-    (text) => assert.match(text, /brin 1 6.*cora 5 3.*enna 2 5.*mira 10 5.*skullcrusher 1 39/),
+    (text) => {
+      assert.match(text, equippedParty);
+      coraHitPoints = Number(equippedParty.exec(text)[1]);
+      assert.ok(coraHitPoints > 0);
+    },
     "s", "s", "h",
   ], directory);
   await replay(load("2368"), "85000000", [
-    (text) => assert.match(text, /brin 1 6.*cora 5 3.*enna 2 5.*mira 10 5.*skullcrusher 1 39/),
+    (text) => {
+      assert.match(text, equippedParty);
+      assert.equal(Number(equippedParty.exec(text)[1]), coraHitPoints);
+    },
     "enter", "right", "right", "up", "right", "up", "left", "up", "b", "right", "up", "b",
     ...Array(5).fill("up"), "right", "up", "left", "up", "up",
     (text) => assert.match(text, /11,14 e.*in the east wall is the secret door/),
@@ -1681,9 +1690,11 @@ if (process.argv[2] === "--textile-prison-alternates-checkpoint") {
 
 if (process.argv[2] === "--textile-prison-key-checkpoint") {
   assert.ok(process.argv[3], "Pass slot E from the captive's key-search replay.");
+  const throughOgre = process.argv[4] === "--through-ogre";
+  assert.ok(!process.argv[4] || throughOgre, "Expected --through-ogre after the checkpoint");
   const checkpoint = join(saveDir, "E.json");
   copyFileSync(process.argv[3], checkpoint);
-  await verifySkullcrusherRecruitment(loadSlot, checkpoint, false);
+  await verifySkullcrusherRecruitment(loadSlot, checkpoint, throughOgre);
   process.exit(0);
 }
 

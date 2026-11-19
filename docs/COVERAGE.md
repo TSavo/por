@@ -1962,6 +1962,9 @@ objective is recalculated on reload and the key prompt clears once the
 prisoner is freed. Run
 `node tools/verify-fresh-party.mjs --textile-prison-key-checkpoint PATH_TO_SLOT_E`
 to compare the original keyless slot with the controlled copy.
+Append `--through-ogre` to equip Skullcrusher, reload his clue, and follow
+it through the secret door. The replay verifies that the journal switches
+to the ogre chief objective only after the party encounters him.
 
 The same keyless slot can replay the original Pick Lock, Break Chains,
 and Attack choices with
