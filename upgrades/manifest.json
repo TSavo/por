@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:25:CPIC6.DAX:65": "wild-cave-ankheg-stand.png",
+    "combat:area:25:CPIC6.DAX:193": "wild-cave-ankheg-strike.png",
     "combat:area:25:CPIC6.DAX:118": "wild-cave-thri-kreen-stand.png",
     "combat:area:25:CPIC6.DAX:246": "wild-cave-thri-kreen-strike.png",
     "portrait:area:28:HEAD6.DAX:57:BODY6.DAX:6": "zhentil-quarters-guard-dialogue.png",

@@ -140,6 +140,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["wild-cave-ankheg", {
+    slot: "A", stand: "combat:area:25:CPIC6.DAX:65", strike: "combat:area:25:CPIC6.DAX:193",
+    width: 192, height: 96, strikeReflected: true,
+    inputs: ["up", "enter", "enter", "enter", ...Array(10).fill("q")],
+  }],
   ["wild-cave-thri-kreen", {
     slot: "A", stand: "combat:area:25:CPIC6.DAX:118", strike: "combat:area:25:CPIC6.DAX:246",
     width: 96, height: 96, strikeReflected: false,

@@ -68,12 +68,17 @@ function buildCombatArtMatcher(keys: string[]) {
     return match;
   };
   const terrainPose = (cell: Uint8Array, width: number) => {
-    // The guest draws tall monsters over both the backdrop and adjacent units.
-    // Every opaque pixel must match before we replace a composited pose.
+    // Tall monsters can overlap the backdrop and adjacent units. Wide
+    // monsters can overlap the black field and the combat selection bevel.
     let match: Pose | undefined;
-    for (const pose of tallPoses) {
-      if (pose.width !== width || !pose.pixels.every((color, index) =>
-        color === 0 || cell[index] === color)) continue;
+    const wide = cell.length === width * 24;
+    for (const pose of rectangularPoses) {
+      if (pose.width !== width || pose.pixels.length !== cell.length ||
+          !pose.pixels.every((color, index) => {
+            const pixel = cell[index];
+            if (color) return pixel === color;
+            return !wide || pixel === 0 || pixel === 7 || pixel === 8 || pixel === 15;
+          })) continue;
       if (match && match.key !== pose.key) return;
       match = pose;
     }
@@ -127,7 +132,8 @@ function buildCombatArtMatcher(keys: string[]) {
   // takes precedence over the matching global bitmap in this area's matcher.
   const scopedPatterns = new Set(registered.filter(({ scoped }) => scoped).map(({ pattern }) => pattern));
   const poses = registered.filter(({ scoped, pattern }) => scoped || !scopedPatterns.has(pattern));
-  const tallPoses = poses.filter(({ pixels, width, key }) => pixels.length === width * 48 && monsterCombatKey.test(key));
+  const rectangularPoses = poses.filter(({ pixels, width, key }) =>
+    (width === 48 || pixels.length === width * 48) && monsterCombatKey.test(key));
   const patterns = new Map<string, Pose | null>();
   for (const pose of poses) {
     const previous = patterns.get(pose.pattern);
@@ -150,7 +156,8 @@ function buildCombatArtMatcher(keys: string[]) {
           }
           const plain = patterns.get(`${width}:${cell.toString("hex")}`);
           const selected = plain === undefined ? selectedPose(cell, bevel, width) : undefined;
-          const terrain = height === 48 && plain === undefined && !selected ? terrainPose(cell, width) : undefined;
+          const terrain = (width === 48 || height === 48) && plain === undefined && !selected
+            ? terrainPose(cell, width) : undefined;
           const match = plain ?? selected ?? terrain;
           if (!match) continue;
           placements.push(width !== 24 || height !== 24 ? [x, y, match.key, match.reflected, Boolean(selected), width, height]

@@ -1348,6 +1348,9 @@ tiles across 17 live views and 2,057 placements.
 original dialogue, edge-to-edge panel fit, and mode switching.
 `valhingen-ghoul-ambush` checks the resting ambush illustration and
 its original prompt with the same panel and mode switch checks.
+`wild-cave-ankheg` checks the 192×96 ready and reflected strike poses.
+The original attack overlaps the selection bevel, which remains visible
+through the transparent pixels of the replacement.
 `wild-cave-thri-kreen` checks the 96×96 ready and native-facing
 strike poses in the original area 25 battle.
 `wild-cave-minotaur` and `wild-cave-gnoll` verify the original area 27
