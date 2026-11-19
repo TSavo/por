@@ -628,6 +628,18 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["tyrmor-prison-fighter-combat", {
+    slot: "B", stand: "combat:area:22:CPIC7.DAX:11:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:139:ecl:a36f",
+    width: 96, height: 96, readyPrompt: /7THLVLDWFIGH/i, strikeReflected: false,
+    inputs: ["s", ...Array.from({ length: 5 }, () => ["up", "enter", "down"]).flat(),
+      "up", "enter", "enter", "down", "c", "enter", ...Array(6).fill("q")],
+  }],
+  ["tyrmor-prison-lizard-combat", {
+    slot: "B", stand: "combat:area:22:CPIC7.DAX:57:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:185:ecl:a36f",
+    width: 96, height: 96, readyPrompt: /LIZARDMANHITPOINTS11/i, strikeReflected: true,
+    inputs: ["s", ...Array.from({ length: 8 }, () => ["up", "enter", "down"]).flat(),
+      "up", "enter", "enter", "down", "up", "c", "enter", "q"],
+  }],
   ["slums-orc-guard", {
     slot: "B", stand: "combat:area:20:CPIC2.DAX:4:ecl:ab91", strike: "combat:area:20:CPIC2.DAX:132:ecl:ab91",
     width: 96, height: 96, readyPrompt: /ORCHITPOINTS5/i, strikeReflected: false,

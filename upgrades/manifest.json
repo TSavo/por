@@ -5,6 +5,10 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:22:CPIC7.DAX:11:ecl:a36f": "tyrmor-prison-fighter-ready.png",
+    "combat:area:22:CPIC7.DAX:139:ecl:a36f": "tyrmor-prison-fighter-strike.png",
+    "combat:area:22:CPIC7.DAX:57:ecl:a36f": "tyrmor-prison-lizard-ready.png",
+    "combat:area:22:CPIC7.DAX:185:ecl:a36f": "tyrmor-prison-lizard-strike.png",
     "encounter:area:1:SPRIT6.DAX:16:0:0": "buccaneer-captain-approach.png",
     "encounter:area:17:SPRIT7.DAX:11:1:0": "nomad-sword-ready-approach-middle.png",
     "encounter:area:17:SPRIT7.DAX:11:2:0": "nomad-sword-ready-approach-far.png",

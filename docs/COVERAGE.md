@@ -2752,6 +2752,12 @@ floor update covers 14 tile bindings checked across both Chrome routes.
 before the swords-ready prompt. `buccaneer-captain-dialogue` checks the
 enhanced approach sprite before the captain's portrait.
 
+The two Tyrmor Prison combat replays check 4× ready and strike sprites in
+the live battle, including the reflected lizardman strike. The human and
+dwarven fighters share the original frame IDs and use the same prison
+fighter art. The lizardman checkpoint isolates its native encounter by
+marking the other wandering encounters defeated.
+
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.
 The browser uses the overland menu to keep that frame out of the
