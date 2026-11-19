@@ -1035,6 +1035,11 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["old-phlan-south-jail-approach", {
+    slot: "A", area: 14, views: 5, patterns: 19, sceneryOnly: true,
+    walk: ["up", "up", "right", "up", "left"],
+    finalPortrait: "portrait:area:14:HEAD3.DAX:32:BODY3.DAX:8",
+  }],
   ["kobold-cave-thresholds-large", {
     slot: "B", area: 13, views: 2, patterns: 23, sceneryOnly: true, walk: ["right"],
   }],
@@ -2310,6 +2315,14 @@ try {
     }
     assert.equal(views, environment.views);
     assert.equal(patterns.size, environment.patterns);
+    if (environment.finalPortrait) {
+      assert.equal(frame.portrait, environment.finalPortrait);
+      assert.equal(frame.perspective, false);
+      await waitFor("the enhanced portrait after walking the route", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector(".encounter-portrait")?.getAttribute("src") === ${JSON.stringify("/art/" + environment.finalPortrait)} &&
+        document.querySelector(".encounter-portrait").naturalWidth === 352`));
+      await verifyPortraitPanel();
+    }
     if (environment.finalEncounter) {
       assert.deepEqual(frame.encounter, environment.finalEncounter);
       const [, , id, width, height] = environment.finalEncounter;

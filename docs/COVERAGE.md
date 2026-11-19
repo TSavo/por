@@ -1558,6 +1558,9 @@ redrawn hedge and limestone transitions, across 17 live views.
 tiles across 28 live views from the native save.
 `north-gate-jail-thugs` and `north-gate-thieves-guild` verify both
 illustrations at their original prompts and at full panel size.
+`old-phlan-south-jail-approach` starts from slot A at (11,13) facing west.
+Chrome checks 605 terrain placements across five views and the transition
+to the enhanced jail portrait at (10,12), including panel fit and mode switching.
 `phlan-ruins-scorpion` checks the ready and reflected strike poses in
 the original area 2 fight.
 `new-phlan-harbor-lanes` checks 16 individually redrawn water, piling,
