@@ -2169,3 +2169,12 @@ The Slums ringleader replay checks both the gold dispute and leaders'
 gathering. The Sokal courtyard replay checks the raider at its original
 anchor. `wild-cave-wyvern-approach` checks the approach and close-up.
 All of these replays verify presentation switching and save preservation.
+
+The Pyramid inner-court and inner-return routes check seven new tiles
+across 68 views. The Old Phlan locked lane and the Textile House
+passage into Mendor's Library check nine new tiles across 22 views.
+`swamp-giant-lizard-approach` checks the approach and charge
+illustration at their native prompts. The false throne thief and
+impersonator replays check their own ready and strike poses within
+the same battle. The Slums goblin lesson and feeding-room kobold
+replays check the instructor sprite and the meal illustration.
