@@ -223,6 +223,14 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
         nextStep = "Search Mendor's overrun library for records of old Phlan. Bring worthwhile finds to the council clerk.";
       }
     }
+    if (commission.id === "kovel") {
+      if (knows("kovel-thief-ambush-cleared")) nextStep = "Continue searching the mansion for the remaining thieves.";
+      else if (knows("kovel-thief-ambush")) nextStep = "Fight off the ambush and continue searching Kovel Mansion for the thieves.";
+      else if (knows("kovel-guildmaster-escaped")) nextStep = "The guildmaster fled after being released. Search the remaining rooms for the thieves.";
+      else if (knows("kovel-guildmaster")) nextStep = "Choose Attack to confront the guildmaster, or Release to take him at his word.";
+      else if (knows("kovel-thieves-split")) nextStep = "Follow the thieves through the south or east door, or resume searching the mansion.";
+      else if (knows("kovel-chase")) nextStep = "Choose Yes to chase the thieves through the east door, or continue searching the mansion.";
+    }
     if (commission.id === "graveyard") {
       if (knows("graveyard-vampire-north-wall")) nextStep = "Search the northern wall the mystic pointed out, then confront the vampire.";
       else if (knows("graveyard-vampire-escaped")) nextStep = "The vampire escaped as vapor. Search the crypts for where it fled.";
@@ -406,6 +414,11 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   if ((base | segment) === 0) return [];
   const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
   const progress: JournalLead[] = [];
+  // Other ECL scripts reuse this variable for unrelated local events.
+  if (cpu.read8(dataSegment, 0x82a2) === 14 && global(0x4a19) === 1 && known.some(({ id }) => id === "kovel-thief-ambush")) {
+    progress.push({ id: "kovel-thief-ambush-cleared", title: "Mansion ambush cleared",
+      detail: "The party defeated the thieves who set the ambush." });
+  }
   for (const { entry, rewardFlag } of libraryRecords) {
     const record = known.find(({ id }) => id === `mendor-book-${entry}`);
     if (!record) continue;
@@ -694,6 +707,24 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("A SMALL CARAVAN OF SLAVERS RIDE BY YOU TOWARD THE BUCCANEER BASE")) {
     leads.push({ id: "rescue-slaver-trail", title: "Slavers on the road", detail: "A caravan of slavers rode toward the Buccaneer Base." });
+  }
+  if (text.includes("RUN OUT THE EAST DOOR. WILL YOU CHASE THEM?")) {
+    leads.push({ id: "kovel-chase", title: "Thieves in Kovel Mansion", detail: "Two thieves fled through the east door after their attack failed." });
+  }
+  if (text.includes("THE TWO THIEVES SPLIT; ONE GOING THROUGH THE EAST DOOR")) {
+    leads.push({ id: "kovel-thieves-split", title: "The thieves split up", detail: "One ran east and the other ran south." });
+  }
+  if (text.includes("I AM THE GUILD MASTER. IF YOU RELEASE ME")) {
+    leads.push({ id: "kovel-guildmaster", title: "The guildmaster asks for mercy", detail: "He claims his thieves will stop attacking if the party releases him." });
+  }
+  if (text.includes("AFTER YOU RELEASE HIM THE THIEF SLOWLY WALKS TOWARD THE FAR DOOR")) {
+    leads.push({ id: "kovel-guildmaster-escaped", title: "The guildmaster escaped", detail: "The thief taunted the party and ran away after being released." });
+  }
+  if (text.includes("AS YOU ENTER THE ROOM YOU ARE AMBUSHED BY SOME THIEVES")) {
+    leads.push({ id: "kovel-thief-ambush", title: "Mansion ambush", detail: "Thieves attacked the party inside the mansion." });
+  }
+  if (text.includes("YOU STUFF THE FILES INTO YOUR JOURNAL UNDER ENTRIES 38 AND 51")) {
+    leads.push({ id: "kovel-guild-files", title: "Files found in the mansion", detail: "Read journal entries 38 and 51 for the papers found on the floor." });
   }
   if (text.includes("YOU HAVE REACHED THE BUCCANEER BASE")) {
     leads.push({ id: "rescue-buccaneer-base", title: "Buccaneer Base", detail: "A band of buccaneers rode out to escort the party inside." });

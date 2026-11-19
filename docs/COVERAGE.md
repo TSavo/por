@@ -976,6 +976,12 @@ The Chrome replay checks that the merchants' camp announcement changes the
 objective to following the fence. The first slave-pen description changes it
 to looking among the prisoners. The boy's birthmark stays hidden until the
 party sees it in the next dialogue.
+
+The translation verifier checks the Kovel Mansion journal against the
+original chase, split, guildmaster, release, and ambush dialogue. It also
+checks that the mansion's local victory flag updates the objective and
+that the same flag in another area has no effect. A live mansion replay
+is still pending.
 The `--classic-portrait` variant removes the mounted escort replacement
 from the test art pack. Chrome verifies that the original picture fills
 the Enhanced panel, switches back to native Classic geometry, and still

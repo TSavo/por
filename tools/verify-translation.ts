@@ -696,6 +696,37 @@ function checkCampaignJournal(): void {
   if (discoveredLeads(baneOffer).some(({ id }) => id === "bane-cleric-dispatch")) {
     throw new Error("The temple journal revealed the dispatch before the party found it");
   }
+  const kovelStages = [
+    ["RUN OUT THE EAST DOOR. WILL YOU CHASE THEM?", "Choose Yes"],
+    ["THE TWO THIEVES SPLIT; ONE GOING THROUGH THE EAST DOOR", "south or east door"],
+    ["I AM THE GUILD MASTER. IF YOU RELEASE ME", "Choose Attack"],
+    ["AFTER YOU RELEASE HIM THE THIEF SLOWLY WALKS TOWARD THE FAR DOOR", "guildmaster fled"],
+    ["AS YOU ENTER THE ROOM YOU ARE AMBUSHED BY SOME THIEVES", "Fight off the ambush"],
+  ] as const;
+  let kovelTranscript = commissions.find(({ id }) => id === "kovel")!.offer;
+  for (const [trigger, instruction] of kovelStages) {
+    const line = lines.find(text => text.replace(/\s+/g, " ").includes(trigger));
+    if (!line || currentObjective(discoveredLeads(kovelTranscript), "commission-kovel").nextStep.includes(instruction)) {
+      throw new Error(`The Kovel journal revealed or could not locate the clue before ${trigger}`);
+    }
+    kovelTranscript += "\n" + line;
+    if (!currentObjective(discoveredLeads(kovelTranscript), "commission-kovel").nextStep.includes(instruction)) {
+      throw new Error(`The Kovel journal missed the clue after ${trigger}`);
+    }
+  }
+  const kovelLeads = discoveredLeads(kovelTranscript);
+  writeGlobal(0x4a19, 1);
+  const priorEcl = m.read8(m.ds, 0x82a2);
+  m.write8(m.ds, 0x82a2, 20);
+  if (questProgress(m, kovelLeads, m.ds).some(({ id }) => id === "kovel-thief-ambush-cleared")) {
+    throw new Error("The Kovel journal accepted the same variable from another area");
+  }
+  m.write8(m.ds, 0x82a2, 14);
+  if (!currentObjective([...kovelLeads, ...questProgress(m, kovelLeads, m.ds)], "commission-kovel").nextStep.includes("remaining thieves")) {
+    throw new Error("The Kovel journal did not advance after the ambush was cleared");
+  }
+  writeGlobal(0x4a19, 0);
+  m.write8(m.ds, 0x82a2, priorEcl);
   const rescueStages = [
     ["SLAVERS RIDE BY YOU TOWARD THE BUCCANEER BASE", "Follow the slavers"],
     ["YOU HAVE REACHED THE BUCCANEER BASE", "find the pen"],
