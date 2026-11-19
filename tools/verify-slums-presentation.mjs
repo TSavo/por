@@ -30,6 +30,11 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["kuto-norris-approach", {
+    slot: "J", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:29:SPRIT8.DAX:16:0:0", 40, 80],
+    dialogue: { keys: ["enter", "enter"], portrait: "portrait:HEAD8.DAX:10:BODY8.DAX:6", prompt: /SURRENDER.*FIGHT/i },
+  }],
   ["mendor-fighter-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:15:SPRIT2.DAX:15:0:0", 40, 73],
@@ -384,6 +389,16 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["slums-ogre-combat", {
+    slot: "B", stand: "combat:area:20:CPIC2.DAX:8:ecl:b10d", strike: "combat:area:20:CPIC2.DAX:136:ecl:b10d",
+    width: 96, height: 192, readyPrompt: /OGREHITPOINTS21/i, strikeReflected: true,
+    inputs: ["up", ...Array(6).fill("enter"), "q"], strikeInputs: ["q"],
+  }],
+  ["slums-troll-combat", {
+    slot: "B", stand: "combat:area:20:CPIC2.DAX:31:ecl:b10d", strike: "combat:area:20:CPIC2.DAX:159:ecl:b10d",
+    width: 96, height: 192, readyPrompt: /TROLLHITPOINTS36/i, strikeReflected: true,
+    inputs: ["up", ...Array(6).fill("enter"), "q", "q", "q"], strikeInputs: ["q", "q"],
+  }],
   ["kuto-giant-lizard-combat", {
     slot: "J", stand: "combat:area:29:CPIC8.DAX:59", strike: "combat:area:29:CPIC8.DAX:187",
     width: 192, height: 96, readyPrompt: /GIANTLIZARDHITPOINTS16/i, strikeReflected: false,
@@ -684,6 +699,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["bane-altar-return", {
+    slot: "A", area: 24, views: 28, patterns: 74, sceneryOnly: true,
+    walk: ["right", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "right", "up", "up", "right", "up", "l", "right", "up", "up", "right"],
+  }],
   ["bane-altar-approach", {
     slot: "A", area: 24, views: 23, patterns: 64, sceneryOnly: true,
     walk: ["right", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "right", "up", "up", "right", "up"],
@@ -1544,8 +1563,8 @@ try {
       await verifyApproach(encounterRoute.closer);
     }
     if (encounterRoute.dialogue) {
-      const { key, portrait, prompt } = encounterRoute.dialogue;
-      await advance(key);
+      const { key, keys = [key], portrait, prompt } = encounterRoute.dialogue;
+      for (const input of keys) await advance(input);
       assert.equal(frame.encounter, undefined);
       assert.equal(frame.portrait, portrait);
       const text = frame.text.toSorted(([left], [right]) => left - right)

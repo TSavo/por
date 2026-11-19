@@ -1,6 +1,13 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:20:CPIC2.DAX:8:ecl:b10d": "slums-ogre-stand.png",
+    "combat:area:20:CPIC2.DAX:136:ecl:b10d": "slums-ogre-strike.png",
+    "tile:24:185aabb65845f72434920477aca8840a620ac3b4a1b88cbe4c8017bf03e2c52c": "bane-altar-return-terrain-185aabb65845.png",
+    "tile:24:97ff4f78b15e4481b61bed70d5dffe6e9ab47632e36ac34439b23705f1f723b5": "bane-altar-return-terrain-97ff4f78b15e.png",
+    "combat:area:20:CPIC2.DAX:31:ecl:b10d": "slums-troll-stand.png",
+    "combat:area:20:CPIC2.DAX:159:ecl:b10d": "slums-troll-strike.png",
+    "encounter:area:29:SPRIT8.DAX:16:0:0": "kuto-norris-approach.png",
     "encounter:area:15:SPRIT2.DAX:15:0:0": "mendor-fighter-approach.png",
     "tile:24:bc2bf1391f5b5d0e8e71b30a99675da8bca9d879354b071c19432f5f172d472e": "bane-altar-approach-terrain-bc2bf1391f5b.png",
     "tile:24:c61703df5658b60ae2c2d23bd0d584030969fdbbc10fbe56b531b48e6348378b": "bane-altar-approach-terrain-c61703df5658.png",
@@ -3020,6 +3027,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:29:SPRIT8.DAX:16:0:0": { "area": 29, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:15:SPRIT2.DAX:15:0:0": { "area": 15, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:23:SPRIT7.DAX:57:0:0": { "area": 23, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:9:SPRIT2.DAX:16:2:0": { "area": 9, "x": 56, "y": 32, "width": 16, "height": 49 },

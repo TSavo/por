@@ -1403,6 +1403,12 @@ and 1,936 placements. Both replays verify presentation switching and
 save preservation.
 `bane-altar-approach` checks seven redrawn tiles across 23 views and
 2,783 placements through the original altar prompt.
+`bane-altar-return` checks two more stair and threshold tiles across
+28 views and 3,388 placements after choosing Leave It.
+`kuto-norris-approach` verifies the anchored approach sprite through the
+surrender-or-fight prompt. `slums-troll-combat` and `slums-ogre-combat`
+verify the 96×192 ready and reflected strike poses in the grain-sack
+ambush. These Chrome replays check presentation switching.
 `mendor-fighter-approach` checks the anchored approach and the transition
 to the battered fighter's portrait. Both replays verify presentation switching.
 `kuto-inner-lane` checks ten redrawn rubble, doorstep, and wall-edge
