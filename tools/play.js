@@ -579,6 +579,9 @@ async function showScreen() {
   const sceneArt = useEnhanced && !failedSceneArt.has(view) && view.art;
   const source = sceneArt || `data:image/png;base64,${frame}`;
   const showArt = useEnhanced && !sceneArt;
+  const aimMenu = view.combatArt?.some(([, , , , highlighted]) => highlighted) &&
+    /^AIM\s*:/i.test((view.text ?? []).filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
+      .map(([, character]) => String.fromCharCode(character)).join(""));
   function pictureBackdrop() {
     const backdrop = document.createElement("div");
     backdrop.className = "perspective-backdrop";
@@ -625,7 +628,7 @@ async function showScreen() {
     const perspective = view.perspective && !view.portrait;
     if (streetCanvas) layers.push(streetCanvas);
     else if (perspective || view.classicPortrait) layers.push(pictureBackdrop());
-    layers.push(...placements.map(([x, y, id, reflected, , width, height]) => {
+    layers.push(...placements.map(([x, y, id, reflected, highlighted, width, height]) => {
       const tile = document.createElement("img");
       tile.alt = "";
       const terrain = id.startsWith("tile:");
@@ -650,6 +653,7 @@ async function showScreen() {
       }
       if (id.startsWith("battle-tile:")) tile.className = "battle-tile";
       if (reflected !== undefined) tile.className = "combat-sprite";
+      if (aimMenu && highlighted) tile.classList.add("combat-aimed");
       if (perspective && (terrain || id === view.encounter?.[2])) {
         const scale = 120 / 88;
         x = 8 + (x - 24) * scale;
@@ -692,7 +696,20 @@ async function showScreen() {
       }
     };
     const [, decodedLayers] = await Promise.all([nextFrame.decode(), Promise.all(layers.map(decodeLayer))]);
-    layers = decodedLayers.filter(Boolean);
+    layers = [];
+    for (const layer of decodedLayers) {
+      if (!layer) continue;
+      if (layer.matches(".combat-aimed")) {
+        const reticle = document.createElement("div");
+        reticle.className = "combat-aim-reticle";
+        Object.assign(reticle.style, {
+          left: layer.style.left, top: layer.style.top,
+          width: layer.style.width || "7.5%", height: layer.style.height || "12%",
+        });
+        layers.push(reticle);
+      }
+      layers.push(layer);
+    }
   } catch {
     if (render !== screenRender) return;
     if (sceneArt) failedSceneArt.add(view);
