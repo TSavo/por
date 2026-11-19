@@ -12,29 +12,38 @@ export function combatHighlightPixel(x: number, y: number): number {
   return x < 2 ? 15 : x >= 22 ? 8 : 7;
 }
 
-export const monsterCombatKey = /^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX):(\d{1,3})$/;
+export const monsterCombatKey = /^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX):(\d{1,3})(?::ecl:([a-f0-9]{4}))?$/;
 
 export function loadCombatArtMatcher(keys: string[]) {
-  const areas = new Map<number, string[]>();
+  const scopes = new Map<string, string[]>();
   const global = keys.filter(key => {
-    const area = monsterCombatKey.exec(key)?.[1];
+    const [, area, , , cursor] = monsterCombatKey.exec(key) ?? [];
     if (area === undefined) return true;
-    const id = Number(area);
-    const scoped = areas.get(id) ?? [];
+    const id = cursor === undefined ? area : `${area}:${cursor}`;
+    const scoped = scopes.get(id) ?? [];
     scoped.push(key);
-    areas.set(id, scoped);
+    scopes.set(id, scoped);
     return false;
   });
   const fallback = buildCombatArtMatcher(global);
-  const matchers = new Map<number, ReturnType<typeof buildCombatArtMatcher>>();
-  return (frame: Frame, enhanced?: Frame, area?: number): CombatArtPlacement[] => {
-    const scoped = area === undefined ? undefined : areas.get(area);
-    if (!scoped || area === undefined) return fallback(frame, enhanced);
-    let matcher = matchers.get(area);
+  const matchers = new Map<string, ReturnType<typeof buildCombatArtMatcher>>();
+  return (frame: Frame, enhanced?: Frame, area?: number, cursor?: number): CombatArtPlacement[] => {
+    if (area === undefined) return fallback(frame, enhanced);
+    const areaScope = String(area);
+    const battleScope = `${area}:${cursor?.toString(16).padStart(4, "0")}`;
+    const scoped = scopes.get(areaScope);
+    const battle = scopes.get(battleScope);
+    if (!scoped && !battle) return fallback(frame, enhanced);
+    const scope = battle ? battleScope : areaScope;
+    let matcher = matchers.get(scope);
     if (!matcher) {
-      const sources = new Set(scoped.map(key => key.replace(/^combat:area:\d+:/, "combat:")));
-      matcher = buildCombatArtMatcher([...global.filter(key => !sources.has(key)), ...scoped]);
-      matchers.set(area, matcher);
+      const sources = new Map<string, string>();
+      for (const key of [...global, ...(scoped ?? []), ...(battle ?? [])]) {
+        const monster = monsterCombatKey.exec(key);
+        sources.set(monster ? `${monster[2]}:${monster[3]}` : key, key);
+      }
+      matcher = buildCombatArtMatcher([...sources.values()]);
+      matchers.set(scope, matcher);
     }
     return matcher(frame, enhanced);
   };

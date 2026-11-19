@@ -59,7 +59,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
     const terrainDraws = new Set<string>();
     cpu.tick = function (at) {
       // The original executable holds the attack pose during this delay.
-      if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) captureCombatDelay?.();
+      if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) captureCombatDelay?.(this);
       // The far entry draws a frame from one of the two SQRPACI blocks.
       if (at === 0x00f1 && this.cs === terrainDrawSegment && this.steps >= liveStep) {
         const argument = (offset: number) => this.read8(this.ss, this.sp + offset);

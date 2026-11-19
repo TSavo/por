@@ -189,7 +189,7 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
   const match = /^(?:encounter|portrait):(?:area:\d+:)?([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
-    /^combat:(?:area:\d+:)?(CPIC\d+\.DAX):(\d+)$/.exec(id);
+    /^combat:(?:area:\d+:)?(CPIC\d+\.DAX):(\d+)(?::ecl:[a-f0-9]{4})?$/.exec(id);
   let source;
   if (match) {
     const [, archive, blockId, memberId = "0", frameId = "0"] = match;

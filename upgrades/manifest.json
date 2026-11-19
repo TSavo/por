@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:13:CPIC8.DAX:11:ecl:a856": "kobold-fatima-stand.png",
+    "combat:area:13:CPIC8.DAX:139:ecl:a856": "kobold-fatima-strike.png",
     "portrait:area:21:PIC4.DAX:18:0:0": "sokal-ceiling-insects.png",
     "portrait:area:7:PIC5.DAX:49:0:0": "valjevo-medusa-dialogue.png",
     "tile:6:323c71332298aeae05cfee4eb5855d831835c8a068440a0f21f6f96ee43b2f9b": "valjevo-south-service-terrain-01.png",

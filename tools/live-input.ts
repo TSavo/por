@@ -74,6 +74,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let trackedId: string | undefined;
   let scene: string | undefined;
   let area: number | undefined;
+  let battleCursor: number | undefined;
   let previousPerspective: { area: number; pixels: Buffer } | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
@@ -153,7 +154,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * screen.width, offset + y * screen.width + 8);
       }
       const combat = attack || (!scene && !leads && !perspective)
-        ? combatArt(screen, enhanced, area) : [];
+        ? combatArt(screen, enhanced, area, battleCursor) : [];
       const battleTiles: TilePlacement[] = [];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
       if ((battleTileKeys.size || battleTileInventory) && !scene && !leads && hasBattlefieldBorder(screen)) {
@@ -247,6 +248,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // Valjevo draws the dungeon hedge before copying the selected ECL
       // back to the area record. Other transition art uses the record's scope.
       if (area === 5 && cpu.read8(0x740, 0x82a2) === 3) area = 3;
+      // The ECL interpreter suspends at this cursor while the battle runs.
+      battleCursor = cpu.read16(0x740, 0x494e);
     }
     showFrame();
     while (true) {
@@ -278,9 +281,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   return {
     requestKey,
-    captureCombatDelay: browser && attackKeys.size ? () => {
+    captureCombatDelay: browser && attackKeys.size ? (cpu: Cpu) => {
       if (scene || animation.length >= 12) return;
-      const placements = combatArt(screen, undefined, area);
+      battleCursor = cpu.read16(0x740, 0x494e);
+      const placements = combatArt(screen, undefined, area, battleCursor);
       const attacks = placements.filter(([, , key]) => attackKeys.has(key));
       const signature = attacks.length ? JSON.stringify(attacks) : "";
       if (signature && signature !== lastAttack) showFrame(undefined, placements);

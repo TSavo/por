@@ -208,6 +208,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["kobold-fatima-combat", {
+    slot: "B", stand: "combat:area:13:CPIC8.DAX:11:ecl:a856", strike: "combat:area:13:CPIC8.DAX:139:ecl:a856",
+    width: 96, height: 96, strikeReflected: true,
+    inputs: ["up", "enter", "enter", "enter", "a", "enter", "enter", "enter", ...Array(3).fill("q")],
+  }],
   ["nomad-veteran-ready", {
     slot: "A", stand: "combat:area:17:CPIC7.DAX:13", width: 96, height: 96, strikeInputs: [],
     inputs: ["up", "down", "enter", "enter", "c", ...Array(4).fill("enter"), ...Array(11).fill("q")],
@@ -264,6 +269,7 @@ const combatPoseRoutes = new Map([
     inputs: ["s", "up", "p", "enter", "enter", "enter", "a", "enter", "enter", "enter", ...Array(4).fill("q")],
   }],
   ["kobold-cave-boar", {
+    excluded: ["combat:area:13:CPIC8.DAX:11:ecl:a856", "combat:area:13:CPIC8.DAX:139:ecl:a856"],
     stand: "combat:area:13:CPIC8.DAX:120", strike: "combat:area:13:CPIC8.DAX:248",
     width: 192, height: 96, strikeReflected: true,
     inputs: ["up", ...Array(6).fill("enter")], strikeInputs: ["enter"],
@@ -1197,7 +1203,13 @@ try {
     await switchBothWays();
     console.log("Verified both wall tiles across four live giant-lizard combat turns.");
   } else if (combatPose) {
-    const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, journalLead } = combatPose;
+    const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, journalLead, excluded } = combatPose;
+    function verifyCombatScope() {
+      if (!excluded) return;
+      for (const view of [frame, ...(frame.animation ?? [])]) {
+        assert.ok(view.combatArt.every(([, , id]) => !excluded.includes(id)), "Unexpected art from a different battle");
+      }
+    }
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
@@ -1217,7 +1229,10 @@ try {
           image.addEventListener("load", check, { once: true });
         }
       }).observe(document.querySelector("#tile-art"), { childList: true });`);
-    for (const key of inputs) await advance(key);
+    for (const key of inputs) {
+      await advance(key);
+      verifyCombatScope();
+    }
     assert.ok(frame.combatArt?.some(([, , id, , selected]) => id === stand && selected),
       `Expected selected ${stand}. Combat placements: ${JSON.stringify(frame.combatArt)}. ` +
       `Guest text: ${frame.text.map(([, character]) => String.fromCharCode(character)).join("")}`);
@@ -1231,7 +1246,10 @@ try {
       await advance("j");
     }
     if (strikeInputs.length) {
-      for (const key of strikeInputs) await advance(key);
+      for (const key of strikeInputs) {
+        await advance(key);
+        verifyCombatScope();
+      }
       assert.ok(frame.animation?.some(({ combatArt }) => combatArt?.some(([, , id, reflected]) =>
         id === strike && (strikeReflected === undefined || reflected === strikeReflected))));
       await waitFor("the enhanced combat strike", () => run("window.strikeLoaded"));
