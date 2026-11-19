@@ -3085,3 +3085,7 @@ combat actions from saves made through the native icon editor.
 
 The wandering Podal Plaza orc uses a dedicated close approach sprite.
 Chrome verifies placement, the original walk-on dialogue, and mode switching.
+
+Character-sheet heads now overlap the collars as transparent layers.
+Body 4 restores the prominent steel axe. Production Chrome verified 35
+frames, including both chooser cycles and six Body 4 pairings.

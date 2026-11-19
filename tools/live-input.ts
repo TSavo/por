@@ -128,6 +128,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);
+      for (const [x, y, , width, height] of characterSheet ?? []) {
+        for (let row = y; row < y + height; row++) {
+          const start = row * screen.width + x;
+          enhanced.pixels.fill(0, start, start + width);
+        }
+      }
       const encounter = encounterArt(screen, enhanced, !scene && picture === undefined ? area : undefined,
         !captureApproach, battleCursor, [drawnPerspective?.pixels, priorPerspectiveDraw]);
       if (captureApproach) {

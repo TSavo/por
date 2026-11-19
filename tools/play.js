@@ -492,8 +492,12 @@ async function showScreen() {
   }
   let layers = [];
   const placements = [...(view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
-  for (const [x, y, id, width, height] of view.characterSheet ?? []) {
-    placements.push([x, y, id, undefined, undefined, width, height]);
+  if (view.characterSheet) {
+    const [head, body] = view.characterSheet;
+    placements.push([body[0], body[1], body[2], undefined, undefined, body[3], body[4]]);
+    // Seat the transparent neck inside the collar rather than cutting the
+    // assembled portrait on the original bitmap boundary.
+    placements.push([head[0], head[1] + 4, head[2], undefined, undefined, head[3], head[4]]);
   }
   if (view.portrait) placements.push([8, 8, view.portrait, undefined, undefined, 120, 120]);
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
