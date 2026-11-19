@@ -3014,3 +3014,6 @@ The Chrome replay checks the longsword strike alongside its damage report.
 
 The Kobold throne ballista ambush uses middle and close charge art. The
 Chrome replay checks the animated anchors, mode switching, and battle start.
+
+The Old Phlan Sword Thief has distinct standing and reflected longsword
+poses. The Chrome replay checks the strike and the report that it misses Brin.

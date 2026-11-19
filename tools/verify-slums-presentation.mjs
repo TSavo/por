@@ -793,6 +793,12 @@ const combatPoseRoutes = new Map([
     strikeReport: /1STLVLTHIEFATTACKSALDAHITTINGFOR7POINTSOFDAMAGE/i,
     inputs: ["up", "enter", "enter", "enter"], strikeInputs: ["enter", "enter"],
   }],
+  ["old-phlan-sword-thief-combat", {
+    slot: "A", stand: "combat:area:14:CPIC3.DAX:12:ecl:9c92", strike: "combat:area:14:CPIC3.DAX:140:ecl:9c92",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: true,
+    strikeReport: /ATTACKSBRIN.*MISS/i,
+    inputs: ["up", "b", "b", "b", "up", "enter", "enter", "enter", "a", "enter"], strikeInputs: ["enter"],
+  }],
   ["old-phlan-jail-thug-combat", {
     slot: "A", stand: "combat:area:14:CPIC3.DAX:12:ecl:b0d0", strike: "combat:area:14:CPIC3.DAX:140:ecl:b0d0",
     width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: true,

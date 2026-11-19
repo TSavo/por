@@ -7,6 +7,8 @@
   "assets": {
     "combat:area:14:CPIC3.DAX:140:ecl:af62": "old-phlan-guild-ambusher-strike.png",
     "combat:area:14:CPIC3.DAX:12:ecl:af62": "old-phlan-guild-ambusher-ready.png",
+    "combat:area:14:CPIC3.DAX:140:ecl:9c92": "old-phlan-sword-thief-combat-strike.png",
+    "combat:area:14:CPIC3.DAX:12:ecl:9c92": "old-phlan-sword-thief-combat-ready.png",
     "combat:area:14:CPIC3.DAX:12:ecl:b0d0": "old-phlan-jail-thug-ready.png",
     "combat:area:14:CPIC3.DAX:140:ecl:b0d0": "old-phlan-jail-thug-strike.png",
     "encounter:area:13:ecl:9b8a:SPRIT8.DAX:0:1:0": "kobold-white-flag-approach-middle.png",
