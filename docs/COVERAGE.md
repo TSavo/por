@@ -2208,7 +2208,7 @@ reflected strike poses in its native fight. The Podal recruit leader
 replay checks the longbow ready pose from the increased-HP checkpoint.
 
 The New Phlan landmark, pier, south market, and envoy replays check
-37 views around the inn, tavern, waterfront, market, and gate.
+47 views around the inn, tavern, waterfront, market, and gate.
 The Valhingen Juju, staircase zombie, and enclave skeleton replays
 check their own ready and strike poses. The Sokal courtyard orc and
 Slums papers-dispute orc replays check both combat poses in each fight.
