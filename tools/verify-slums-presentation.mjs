@@ -499,6 +499,12 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
   }],
+  ["tyrmor-prison-displacer-dialogue", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 27 }, () => ["up", "enter", "down"]).flat(),
+      "up", "enter", "enter", "down", "up"],
+    approachStops: { 86: [40, 32, "encounter:area:22:ecl:a2f9:SPRIT7.DAX:68:0:0", 64, 80] },
+    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:68:0:0", prompt: /ONELICKSITSLIPS/i,
+  }],
   ["tyrmor-prison-kobolds-dialogue", {
     slot: "B", inputs: ["s", ...Array.from({ length: 4 }, () => ["up", "down"]).flat(),
       "up", "enter", "down", "up"],

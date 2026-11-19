@@ -2770,6 +2770,8 @@ verified all 2,662 placements across 22 views.
 The fortune-teller and potion-shop courtyards in the Slums use worn
 earth beneath the masonry. Four Chrome routes check all 16 revised
 floor tiles across 33 views.
+Four neighboring Slums routes check another 14 courtyard joins across
+52 views, including the guild corners and side arcades.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
@@ -2851,6 +2853,8 @@ The Tyrmor prison lizardfolk use a separate approach and group
 illustration, verified through the original Parlay prompt in Chrome.
 The hungry kobolds have their own approach and group illustration,
 also checked through Parlay on the isolated encounter checkpoint.
+The isolated displacer beast encounter checks its approach pose and
+corridor illustration before the original Parlay prompt.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.
