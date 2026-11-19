@@ -2630,8 +2630,8 @@ both ends of the north passage, and returns to (6,1) facing south.
 Switching modes preserves the save.
 
 The canal-room replay also measures the enhanced picture boundary in
-Chrome. Adjacent tiles overlap to cover rounding seams, and the outer
-row and column stop at the picture edge.
+Chrome at 375, 768, and 1100 pixels wide. It checks the 4:3 display ratio,
+every tile join, and all four edges of the picture panel.
 The same replay requests one unavailable tile PNG on the last view.
 Chrome keeps the other 120 enhanced tiles, the first-person panel, and
 the enhanced font. The original pixels fill the affected tile position.

@@ -2699,14 +2699,23 @@ try {
     if (routeName === "new-phlan-canal-room") {
       const text = frame.text.map(([, char]) => String.fromCharCode(char)).join("");
       assert.match(text, /6,1S/i);
-      assert.ok(await run(`(() => {
+      const checkCanalGeometry = () => run(`(() => {
+        const screen = document.querySelector("#screen").getBoundingClientRect();
         const panel = document.querySelector(".perspective-backdrop").getBoundingClientRect();
         const tiles = [...document.querySelectorAll(".terrain-tile")].map(tile => tile.getBoundingClientRect());
-        const last = tiles.at(-1);
-        return tiles.length === 121 && Math.abs(last.right - panel.right) < 0.05 &&
-          Math.abs(last.bottom - panel.bottom) < 0.05 &&
-          tiles[0].right >= tiles[1].left && tiles[0].bottom >= tiles[11].top;
-      })()`), "Tiles should cover internal seams and stop at the picture edge");
+        const near = (a, b) => Math.abs(a - b) < 0.05;
+        return near(screen.width, screen.height * 4 / 3) && tiles.length === 121 && tiles.every((tile, i) =>
+          (i % 11 === 0 ? near(tile.left, panel.left) : tiles[i - 1].right >= tile.left) &&
+          (i % 11 !== 10 || near(tile.right, panel.right)) &&
+          (i < 11 ? near(tile.top, panel.top) : tiles[i - 11].bottom >= tile.top) &&
+          (i < 110 || near(tile.bottom, panel.bottom)));
+      })()`);
+      assert.ok(await checkCanalGeometry(), "Tiles should cover internal seams and stop at the picture edge");
+      for (const width of [375, 768, 1100]) {
+        await command("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: false });
+        assert.ok(await checkCanalGeometry(), `Canal geometry and aspect ratio at ${width}px`);
+      }
+      await command("Emulation.clearDeviceMetricsOverride");
       // Simulate a single unavailable PNG in an otherwise valid live view.
       const result = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true, expression: `(async () => {
         const original = state;
