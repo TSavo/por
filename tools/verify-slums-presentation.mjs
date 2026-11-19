@@ -1418,8 +1418,9 @@ const environmentRoutes = new Map([
     walk: ["up", "enter", "n", "enter", "right", "up", "left", "up"],
   }],
   ["new-phlan-canal-room", {
-    slot: "A", area: 0, views: 15, patterns: 45, sceneryOnly: true,
-    walk: ["left", "right", "up", "up", "right", "up", "left", "up", "right", "up", "right", "up", "left", "up"],
+    slot: "A", area: 0, views: 24, patterns: 63, sceneryOnly: true,
+    walk: ["left", "right", "up", "up", "right", "up", "left", "up", "right", "up", "right", "up", "left", "up",
+      "right", "right", "up", "up", "left", "left", "up", "right", "up"],
   }],
   ["new-phlan-east-terrace", {
     slot: "A", area: 8, views: 20, patterns: 92, sceneryOnly: true,
@@ -2476,6 +2477,8 @@ try {
     assert.equal(views, environment.views);
     assert.equal(patterns.size, environment.patterns);
     if (routeName === "new-phlan-canal-room") {
+      const text = frame.text.map(([, char]) => String.fromCharCode(char)).join("");
+      assert.match(text, /6,1S/i);
       // Simulate a single unavailable PNG in an otherwise valid live view.
       const result = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true, expression: `(async () => {
         const original = state;

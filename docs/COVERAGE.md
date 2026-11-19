@@ -2405,9 +2405,10 @@ the prompts before the exploration menu returns. Each replay also
 checked that switching presentation preserved state and save bytes.
 
 The `new-phlan-canal-room` replay starts from slot A at (6,1) facing
-north. Chrome checks all 1,815 placements across 15 first-person frames
-using 45 tile patterns, including turns inside the room, the walk out, and
-looking back toward the passage. Switching modes preserves the save.
+north. Chrome checks all 2,904 placements across 24 first-person frames
+using 63 tile patterns. The route turns inside the room, walks out, checks
+both ends of the north passage, and returns to (6,1) facing south.
+Switching modes preserves the save.
 The same replay requests one unavailable tile PNG on the last view.
 Chrome keeps the other 120 enhanced tiles, the first-person panel, and
 the enhanced font. The original pixels fill the affected tile position.
