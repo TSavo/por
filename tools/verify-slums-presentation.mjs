@@ -2028,7 +2028,11 @@ try {
     await switchBothWays();
     console.log(`Verified the Valhingen conjurer portrait on ${routeName} in Chrome.`);
   } else if (forgeSmith) {
-    for (const key of ["up", "enter", "a"]) await advance(key);
+    for (const key of ["up", "enter"]) await advance(key);
+    assert.deepEqual(frame.encounter, [56, 32, "encounter:area:6:SPRIT5.DAX:12:1:0", 24, 65]);
+    await waitFor("the forge smith approach", () => run('document.querySelector(".encounter-sprite")?.naturalWidth === 96'));
+    await switchBothWays();
+    await advance("a");
     assert.equal(frame.portrait, "portrait:HEAD5.DAX:13:BODY5.DAX:9");
     await waitFor("the Valjevo forge smith portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
@@ -2039,7 +2043,11 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log(`Verified the forge smith portrait and ${routeName} dialogue in Chrome.`);
   } else if (castleChaplain) {
-    for (const key of ["up", "enter", "enter", "j"]) await advance(key);
+    for (const key of ["up", "enter"]) await advance(key);
+    assert.deepEqual(frame.encounter, [48, 32, "encounter:area:6:SPRIT5.DAX:29:0:0", 40, 80]);
+    await waitFor("the chaplain approach", () => run('document.querySelector(".encounter-sprite")?.naturalWidth === 160'));
+    await switchBothWays();
+    for (const key of ["enter", "j"]) await advance(key);
     const knows = () => frame.journal?.leads.some(({ id }) => id === "castle-bane-chapel");
     assert.ok(frame.journal && !knows());
     for (const key of ["j", "t"]) await advance(key);
