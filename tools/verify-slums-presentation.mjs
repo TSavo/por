@@ -1035,6 +1035,11 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["slums-textile-threshold", {
+    slot: "B", area: 20, views: 5, patterns: 30, sceneryOnly: true,
+    transition: { afterViews: 4, area: 2 },
+    walk: ["up", "enter", "up", "up"],
+  }],
   ["old-phlan-south-jail-approach", {
     slot: "A", area: 14, views: 5, patterns: 19, sceneryOnly: true,
     walk: ["up", "up", "right", "up", "left"],

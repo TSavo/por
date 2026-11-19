@@ -1061,6 +1061,9 @@ The `kuto-well-approach` replay uses slot J saved after the original cross-
 district transition. Chrome verifies 1,936 placements across 16 views on
 the walk to the well, using 89 distinct 32×32 tiles. The final view checks
 the enhanced kobold scout sprite separately from the terrain underneath it.
+The `slums-textile-threshold` replay starts from slot B at (15,11) facing
+east. Chrome verifies all 605 placements across five views, including two
+wall-edge patterns that reuse matching 32×32 masonry tiles on the Slums side.
 The `kuto-south-court` replay starts from the same slot J entrance. It checks
 2,057 placements across 17 views and verifies the reused gnoll approach sprite
 over the full terrain grid at (4,13) facing east.

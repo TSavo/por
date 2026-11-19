@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "tile:20:45f5e38f7219ffc606ba569d2abe5be146d8630bf8dcde674e3c28c3ce4e621a": "new-phlan-training-hall-terrain-45f5e38f7219.png",
+    "tile:20:b03fbca109ab749692421d27e7e24a728523604f8fd1580a98748b76cb2ce15c": "new-phlan-training-hall-terrain-b03fbca109ab.png",
     "encounter:area:18:SPRIT1.DAX:2:0:0": "podal-pitt-monster-patrons-approach.png",
     "tile:26:323c71332298aeae05cfee4eb5855d831835c8a068440a0f21f6f96ee43b2f9b": "podal-west-boundary-terrain-323c71332298.png",
     "tile:26:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "podal-west-boundary-terrain-7885d9787cff.png",
