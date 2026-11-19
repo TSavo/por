@@ -3107,3 +3107,7 @@ a save made through the original icon editor.
 All distinct dwarf combat heads have ready and attack art with the
 default body. Chrome verifies the original editor's fourteen choices,
 including three aliases, and both combat poses for each distinct head.
+
+The plumed and bald dwarf combat heads each have axe and crossbow
+combinations with ready and action art. Four production Chrome replays
+verify both poses from original icon editor selections.
