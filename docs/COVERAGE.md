@@ -2089,3 +2089,13 @@ sprite before combat.
 check separately scoped ready and strike poses for the mutated and
 regular lizardfolk. `slums-mage-combat` verifies the ready pose in the
 potion-commission encounter. The mage's native strike remains unverified.
+
+`buccaneer-pen-loop` checks 11 picket, railing, and timber tiles across
+16 views as the native clock crosses midnight. `stojanow-west-rampart`
+checks nine wall and coping tiles across ten views before the upstairs
+decision. Both replays verify state and save preservation.
+
+`valhingen-efreeti-combat` uses a controlled checkpoint with the native
+bottle in the party inventory. It checks the summoned efreeti's ready
+pose and reflected strike in the vampire fight, using the same art as
+the Kobold Cave encounter. Both presentation modes preserve the save.
