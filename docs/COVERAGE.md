@@ -1303,6 +1303,8 @@ loot chamber and verifies the treasure illustration through the original
 loot menu, with state and save preserved during presentation switches.
 `zhentil-east-yard` verifies 13 new terrain tiles, 17 views and 2,057
 placements from a position-only copy of the quarters checkpoint.
+`nomad-central-grove` verifies 21 new tiles across 16 views and
+1,936 placements from a position-only copy of the camp entry save.
 `valjevo-troll-approach` verifies the original near-distance frame and
 the 160×320 replacement at the guest's screen anchor. This replay does
 not present the middle or far frames.

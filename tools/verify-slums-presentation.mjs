@@ -207,6 +207,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["nomad-central-grove", {
+    slot: "A", area: 17, views: 16, patterns: 43,
+    walk: ["right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up"],
+  }],
   ["zhentil-east-yard", {
     slot: "A", area: 28, views: 17, patterns: 46,
     walk: ["up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "right", "up"],
