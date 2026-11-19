@@ -37,6 +37,11 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["swamp-ruin-defenders", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:16:ecl:a65a:SPRIT8.DAX:57:0:0", 48, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:16:ecl:a65a:PIC8.DAX:57:0:0", prompt: /2LIZARDMENANDAGIANTLIZARDCHARGEATYOU/i },
+  }],
   ["kobold-net-trap", {
     slot: "B", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:13:ecl:9dd4:SPRIT8.DAX:0:0:0", 40, 80],

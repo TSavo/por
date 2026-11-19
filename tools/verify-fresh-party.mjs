@@ -2117,6 +2117,22 @@ if (process.argv[2] === "--podal-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--character-icon-editor") {
+  const checkEditor = (text, frame) => {
+    assert.match(text, /old ready action new ready action/);
+    assert.equal(frame.perspective, false);
+    assert.deepEqual(frame.tiles, []);
+    assert.equal(frame.exploration, undefined);
+  };
+  const editorKeys = ["k", "p", "h", "n", "e", "w", "n", "e", "e", "1", "n", "e", "2", "n", "e", "s", "n", "e"];
+  await replay("31000000:1c0d,45000000:2e63", "50000000", [
+    ...Array(5).fill("enter"), "y", ..."test", "enter",
+    ...editorKeys.flatMap(key => [key, checkEditor]),
+  ]);
+  console.log("Verified 18 native character icon editor frames stay out of the perspective renderer.");
+  process.exit(0);
+}
+
 const createFighters = (roster) => roster.flatMap((name, index) => [
   ...(index ? ["c"] : []),
   "enter", "enter", "enter", "enter", "enter", "y", ...name, "enter", "k", "e", "y",

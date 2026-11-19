@@ -3042,3 +3042,7 @@ Chrome verifies the approach anchor and rendered illustration at battle entry.
 
 The Slums orc household defenders have matching ready and hatchet sprites.
 Chrome verifies the reflected strike and its eight-point damage report.
+
+The swamp ruin defenders use a charging lizardfolk sprite and a group
+illustration. Chrome verifies the anchor and the transition into parlay.
+The fresh-party icon editor regression covers 18 native editor frames.
