@@ -1,0 +1,8 @@
+FROM voicelab-gpu:latest
+
+# Triton JIT compiles a small CUDA driver helper and generated kernels on first use.
+USER root
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential \
+    && rm -rf /var/lib/apt/lists/*
+USER lab

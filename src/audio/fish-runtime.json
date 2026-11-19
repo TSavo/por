@@ -14,13 +14,14 @@
       "vramMiB": 8192,
       "systemRamGiB": 64
     },
-    "runtime": "ComfyUI-drama3-small",
+    "runtime": "Shared voice-stack Fish HTTP service",
+    "endpoint": "http://127.0.0.1:8881/drama/tts",
     "repository": "https://github.com/pentaCoxian/ComfyUI-drama3-small",
     "weights": "pentacoxian-dev/drama3-small-GGUF/drama3-small-IQ3_XXS.gguf",
     "approximateWeightGiB": 9.7,
     "expertOffload": true,
     "expectedVramGiB": 4.4,
-    "status": "planned-not-installed",
+    "status": "installed-and-smoke-tested-on-battleaxe",
     "limitations": [
       "Unofficial quantized derivative, not endorsed by Fish Audio.",
       "Quality and instruction following must be compared with hosted Drama 3.",

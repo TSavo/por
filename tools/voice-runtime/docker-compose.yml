@@ -1,0 +1,87 @@
+# Battleaxe's voice-stack (~/voice-stack/docker-compose.yml): the local voices table reads use (studio/table_read.py).
+# Install: scp deploy/voice-stack/docker-compose.yml battleaxe:voice-stack/ then on Battleaxe
+#   cd ~/voice-stack && DOCKER_CONFIG=/tmp/dcfg docker compose up -d fish chatterbox
+# (DOCKER_CONFIG: the credential helper fails over ssh). The RTX 3070 holds ONE voice model at a time: the studio's
+# table read unloads the other one through its HTTP API before it uses one (Chatterbox POST /api/unload, Fish
+# POST /unload), so both containers can stay up.
+services:
+  whisper:                         # never started: 8787 is taken on Battleaxe; nothing uses it
+    build: ../whisper-server
+    profiles: ["whisper"]
+    ports:
+      - "8787:8787"
+    volumes:
+      - whisper-cache:/root/.cache
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  chatterbox:                      # Chatterbox-Turbo (~/chatterbox-server), loads at start; table-read backend "chatterbox"
+    build:
+      context: ../chatterbox-server
+      dockerfile: Dockerfile
+    ports:
+      - "8880:8004"
+    volumes:
+      - chatterbox-hf-cache:/app/hf_cache
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment:
+      - HF_HUB_ENABLE_HF_TRANSFER=1
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    restart: unless-stopped
+    healthcheck:                   # the image has no curl
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8004/get_reference_files', timeout=4)"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 120s
+
+  fish:                            # Fish Audio Drama 3 Small, full expert offload for the RTX 3070
+    image: voice-stack-fish-drama3:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.fish-drama3
+    command: ["python3", "-u", "/app/studio/engines/fish_server.py"]
+    ports:
+      - "8881:8881"
+    volumes:
+      - /home/tsavo/persona-studio:/app:ro         # the studio checkout: the server code and personas/<slug>/voice refs
+      - /data/persona-models:/models               # HF_HOME: the s2-pro snapshot
+      - /data/persona-voice-envs:/envs:ro
+    environment:
+      - TZ=America/Los_Angeles
+      - FISH_PORT=8881
+      - FISH_IDLE_UNLOAD=900       # seconds without a request, then the card is freed
+      - PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+      - DRAMA3_LOAD_TIMEOUT=600
+      - DRAMA3_SPEAK_TIMEOUT=600
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8881/health', timeout=4)"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  whisper-cache:
+  chatterbox-hf-cache:
