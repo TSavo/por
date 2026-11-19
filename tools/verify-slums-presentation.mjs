@@ -1371,6 +1371,11 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "right", ...Array(9).fill("up"), "left", "up", "up"],
     finalEncounter: [40, 32, "encounter:area:29:SPRIT8.DAX:73:0:0", 56, 80],
   }],
+  ["old-phlan-east-jail", {
+    slot: "A", area: 14, views: 5, patterns: 19,
+    walk: ["up", "up", "right", "up", "left"],
+    finalPortrait: "portrait:area:14:HEAD3.DAX:32:BODY3.DAX:8",
+  }],
   ["kuto-south-passage", {
     slot: "J", area: 18, views: 18, patterns: 107, sceneryOnly: true,
     transition: { afterViews: 6, area: 29 },

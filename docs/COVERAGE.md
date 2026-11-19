@@ -1147,6 +1147,11 @@ including the mirrored masonry edge when turning toward the fountain.
 The `kuto-south-court` replay starts from the same slot J entrance. It checks
 2,057 placements across 17 views and verifies the reused gnoll approach sprite
 over the full terrain grid at (4,13) facing east.
+The `old-phlan-east-jail` replay starts from a position-only slot A
+checkpoint at (11,13) facing west. Chrome checks all 605 placements over
+five street views and then the enhanced jail portrait at the original
+dialogue break. Earlier pixel traces counted the native portrait as 82
+unmatched terrain patterns.
 The `kuto-north-guard-approach` and `kuto-north-rubble-loop` replays branch
 from the same native entry save. Chrome verifies 3,388 placements across
 28 views, including 23 new 32×32 tiles for the northern ruins.
