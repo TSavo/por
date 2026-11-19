@@ -2801,6 +2801,9 @@ brushed silt under the basalt walls. Three Chrome walks check all 25
 revised tiles across 52 views and 6,292 placements.
 Four short cave walks verify 16 additional silt joins at the cave
 thresholds, turn, and east tunnels across 15 views.
+The upper Pyramid floor uses irregular weathered sandstone slabs.
+Four Chrome walks check 19 revised tiles across 90 views, and the
+entrance walk checks two matching edges across 22 more views.
 Old Phlan's east street and locked lane use broad worn flagstones
 distinct from the walls. Two Chrome walks check 18 tiles across 32
 views and 3,872 placements.
