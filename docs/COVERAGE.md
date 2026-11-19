@@ -3056,3 +3056,7 @@ both sprites and Alda's two-point hit report.
 
 The Podal recruitment assembly has an animated orc approach and a shrine
 assembly illustration. Chrome verifies both and state-preserving mode switches.
+
+The character sheet draws enhanced dwarf head and body choices separately.
+Chrome verifies the default, independent choices, and native fallback.
+The player axe icon passed the Chrome ready and action replay.

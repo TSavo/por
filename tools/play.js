@@ -492,6 +492,9 @@ async function showScreen() {
   }
   let layers = [];
   const placements = [...(view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
+  for (const [x, y, id, width, height] of view.characterSheet ?? []) {
+    placements.push([x, y, id, undefined, undefined, width, height]);
+  }
   if (view.portrait) placements.push([8, 8, view.portrait, undefined, undefined, 120, 120]);
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
   if (showArt) {
@@ -514,6 +517,7 @@ async function showScreen() {
         tile.style.backgroundPositionY = `${((y - 24) / 80) * 100}%`;
       }
       if (id === view.portrait) tile.className = "encounter-portrait";
+      if (id.startsWith("character-sheet:")) tile.className = "character-sheet-part";
       if (id === view.encounter?.[2]) {
         tile.className = "encounter-sprite";
         width = view.encounter[3];

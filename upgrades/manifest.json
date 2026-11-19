@@ -5,6 +5,10 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "character-sheet:HEAD3.DAX:0": "character-sheet-dwarf-head-0.png",
+    "character-sheet:HEAD3.DAX:8": "character-sheet-dwarf-head-8.png",
+    "character-sheet:BODY3.DAX:1": "character-sheet-dwarf-body-1.png",
+    "character-sheet:BODY3.DAX:2": "character-sheet-dwarf-body-2.png",
     "combat:area:14:CPIC3.DAX:140:ecl:af62": "old-phlan-guild-ambusher-strike.png",
     "combat:area:14:CPIC3.DAX:12:ecl:af62": "old-phlan-guild-ambusher-ready.png",
     "combat:area:14:CPIC3.DAX:140:ecl:9c92": "old-phlan-sword-thief-combat-strike.png",
@@ -4600,6 +4604,8 @@
     "battle-tile:7c65890e55e9c2edab246c6c49f2bb097a16c24c639ca75533ec7904e97fa372": "courtyard-wall-cope-end-return.png",
     "combat:party:0:129": "combat-party-bow-strike.png",
     "combat:party:0:1": "combat-party-bow-ready.png",
+    "combat:party:0:2": "combat-party-axe-ready.png",
+    "combat:party:0:130": "combat-party-axe-strike.png",
     "combat:party:0:0": "sokal-party-scout.png",
     "combat:party:0:128": "combat-party-scout-strike.png",
     "combat:party:0:3": "combat-party-steel-flail.png",

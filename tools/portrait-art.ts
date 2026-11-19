@@ -6,11 +6,58 @@ import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 const pictureKey = /^portrait:(PIC\d+\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
 export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:)?)?(HEAD\d+\.DAX):(\d{1,3}):(BODY\d+\.DAX):(\d{1,3})$/;
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
+export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 const areaPortraitKey = /^portrait:area:(\d+):(?:ecl:([a-f0-9]{4}):)?/;
 const left = 24;
 const top = 24;
 const size = 88;
 const headHeight = 40;
+export type CharacterSheetPart = [x: number, y: number, key: string, width: number, height: number];
+
+export function characterSheetPartPixels(data: Uint8Array, part: string) {
+  const height = part === "HEAD" ? headHeight : size - headHeight;
+  const picture = decodePicture(data);
+  if (picture.width === size && picture.height === height && picture.itemCount === 1) {
+    return frameSlice(picture, 0);
+  }
+}
+
+export function loadCharacterSheetArt(keys: string[], root = keys.length ? findGameRoot() : null) {
+  const files = new Map(root ? listGameFiles(root).map(file => [file.toUpperCase(), file]) : []);
+  const archives = new Map<string, ReturnType<typeof parseDax>>();
+  const parts = new Map<string, string | null>();
+  for (const key of keys) {
+    const match = characterSheetPartKey.exec(key);
+    const file = match && files.get(match[1]!);
+    if (!root || !match || !file) continue;
+    let archive = archives.get(file);
+    if (!archive) {
+      archive = parseDax(file, readGameFile(root, file));
+      archives.set(file, archive);
+    }
+    const entry = archive.entries.find(({ id }) => id === Number(match[3]));
+    const pixels = entry && characterSheetPartPixels(entry.data, match[2]!);
+    if (!pixels?.some(Boolean)) continue;
+    const signature = Buffer.from(pixels).toString("base64");
+    parts.set(signature, parts.has(signature) ? null : key);
+  }
+  return (screen: Frame): CharacterSheetPart[] | undefined => {
+    if (!parts.size || screen.get(216, 0) !== 14 || screen.get(312, 0) !== 14 ||
+        screen.get(216, 96) !== 14 || screen.get(312, 96) !== 14) return;
+    const placements: CharacterSheetPart[] = [];
+    for (const [top, height] of [[8, headHeight], [48, size - headHeight]] as const) {
+      const source = Buffer.alloc(size * height);
+      for (let row = 0; row < height; row++) {
+        const offset = (top + row) * screen.width + 224;
+        source.set(screen.pixels.subarray(offset, offset + size), row * size);
+      }
+      const key = parts.get(source.toString("base64"));
+      if (!key) return;
+      placements.push([224, top, key, size, height]);
+    }
+    return placements;
+  };
+}
 
 export function loadPortraitArt(keys: string[], includeClassic = false,
   root = keys.length || includeClassic ? findGameRoot() : null,

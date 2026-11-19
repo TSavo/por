@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
-import { portraitKey } from "./portrait-art.js";
+import { characterSheetPartKey, characterSheetPartPixels, portraitKey } from "./portrait-art.js";
 import { encounterAnchor, encounterKey, encounterPixels } from "./encounter-art.js";
 import { isCombatExtent, monsterCombatKey, partyCombatKey, partyCombatPart, randomCombatKey, randomCombatPixels } from "./combat-art.js";
 import { parseDax } from "../src/lib/dax.js";
@@ -61,8 +61,9 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         const monster = monsterCombatKey.exec(id);
         const party = partyCombatKey.exec(id);
         const random = randomCombatKey.exec(id);
+        const sheetPart = characterSheetPartKey.exec(id);
         if (id !== "scene:title" && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
-            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !random && !portraitKey.test(id) && !encounter) {
+            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !random && !sheetPart && !portraitKey.test(id) && !encounter) {
           reject("Unsupported asset ID or invalid encounter placement.", id);
           continue;
         }
@@ -113,7 +114,16 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
             }
             sourceWidth = sourceHeight = 24;
           }
-          else if (portraitKey.test(id)) sourceWidth = sourceHeight = 88;
+          else if (sheetPart) {
+            const entry = originalArchive(sheetPart[1]!)?.entries.find(({ id }) => id === Number(sheetPart[3]));
+            const pixels = entry && characterSheetPartPixels(entry.data, sheetPart[2]!);
+            if (!pixels?.some(Boolean)) {
+              reject("Character sheet source part is missing or invalid.", id);
+              continue;
+            }
+            sourceWidth = 88;
+            sourceHeight = pixels.length / sourceWidth;
+          } else if (portraitKey.test(id)) sourceWidth = sourceHeight = 88;
           const { width, height } = dimensions;
           if (width !== sourceWidth * 4 || height !== sourceHeight * 4) {
             reject(`Expected ${sourceWidth * 4}×${sourceHeight * 4} PNG, found ${width}×${height}.`, id);

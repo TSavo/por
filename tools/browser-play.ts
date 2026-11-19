@@ -8,7 +8,7 @@ import { loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
 import { getKey, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
 import type { CombatArtPlacement } from "./combat-art.js";
-import { portraitKey } from "./portrait-art.js";
+import { characterSheetPartKey, portraitKey, type CharacterSheetPart } from "./portrait-art.js";
 import type { EncounterPlacement } from "./encounter-art.js";
 import { NarrationCatalog, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
 import { parseDax } from "../src/lib/dax.js";
@@ -89,6 +89,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
     POR_TRACE_TILES: tileTrace ? "1" : process.env.POR_TRACE_TILES,
     POR_COMBAT_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("combat:")).join(","),
     POR_PORTRAIT_ART_KEYS: [...artwork.keys()].filter((key) => portraitKey.test(key)).join(","),
+    POR_CHARACTER_SHEET_ART_KEYS: [...artwork.keys()].filter((key) => characterSheetPartKey.test(key)).join(","),
     POR_ENCOUNTER_ART: JSON.stringify(encounters),
     POR_LIVE_AT: process.env.POR_LIVE_AT ?? "24000000",
     POR_BOOT_STEPS: process.env.POR_BOOT_STEPS ?? "100000000",
@@ -102,6 +103,7 @@ interface FrameState {
   enhancedFrame?: string;
   scene?: string;
   portrait?: string;
+  characterSheet?: CharacterSheetPart[];
   classicPortrait?: boolean;
   classicPortraitSources?: string[];
   classicPortraitArea?: number;

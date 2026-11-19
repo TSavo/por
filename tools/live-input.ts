@@ -8,7 +8,7 @@ import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, type CombatArtPlacement } from "./combat-art.js";
-import { loadPortraitArt } from "./portrait-art.js";
+import { loadCharacterSheetArt, loadPortraitArt } from "./portrait-art.js";
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 
 const controls: Record<string, number> = {
@@ -98,6 +98,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let lastApproach: string | undefined;
   const portraitKeys = (process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean);
   const portraitArt = loadPortraitArt(portraitKeys, browser);
+  const characterSheetArt = loadCharacterSheetArt((process.env.POR_CHARACTER_SHEET_ART_KEYS ?? "").split(",").filter(Boolean));
   const encounterPlacements = JSON.parse(process.env.POR_ENCOUNTER_ART ?? "{}") as Record<string, EncounterAnchor>;
   const encounterArt = loadEncounterArt(encounterPlacements);
   const traceTiles = process.env.POR_TRACE_TILES === "1";
@@ -124,6 +125,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }) : glyphs;
       const picture = !scene ? portraitArt(screen, area, battleCursor) : undefined;
       const portrait = typeof picture === "string" ? picture : undefined;
+      const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);
       const encounter = encounterArt(screen, enhanced, !scene && picture === undefined ? area : undefined,
@@ -238,6 +240,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         scene,
         text,
         portrait,
+        characterSheet,
         classicPortrait: Array.isArray(picture),
         classicPortraitSources: Array.isArray(picture) && picture.length ? picture : undefined,
         classicPortraitArea: Array.isArray(picture) ? area : undefined,
