@@ -2765,6 +2765,9 @@ appears.
 The Lizardfolk outer yard uses wet peat and subdued puddles under the
 reeds and masonry. `lizard-outer-yard` checks 38 revised tiles across
 19 live views and verifies that switching presentation preserves the save.
+Six additional Chrome walks check 38 wet-ground joins at the banks,
+ruins, lower approaches, Sunken Keep, and reed breach. Two Sunken Keep
+walks end before the turn that draws a composite frame.
 `wilderness-waystone` checks 80 patterns across ten views, including
 77 new foliage and palisade tiles. The route uses the existing area 26
 ground, which it shares with the north gate.
@@ -2837,6 +2840,8 @@ The replay pairs the attack frame with the original report of the
 corporal hitting Enna. The `river-pumping` replay checks the middle and
 close bound lizardfolk sprites, then the pumping-room illustration
 before parlay and the journal update.
+The Pyramid patrol has a separate scout sprite and group illustration.
+The Chrome replay checks the approach and the original wary dialogue.
 The Slums potion-lab replay verifies the scoped orc ready sprite. It
 steps combat pauses explicitly to keep the replay deterministic.
 
