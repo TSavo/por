@@ -2159,3 +2159,13 @@ combat poses. The ogre checkpoint uses higher party HP to reach the strike.
 The Buccaneer guard approach and side gate replays cover 40 views
 and 4,840 tile placements. These replays check presentation switching
 and save preservation.
+
+The Pyramid side-cell, back-cell, and braced-passage replays check
+eight new tiles across 55 views and 6,655 placements.
+`mendor-storeroom-kobold` and `valjevo-outer-sentinel` check the
+native combat poses and strikes. The sentinel replay starts from a
+checkpoint staged one tile before the encounter.
+The Slums ringleader replay checks both the gold dispute and leaders'
+gathering. The Sokal courtyard replay checks the raider at its original
+anchor. `wild-cave-wyvern-approach` checks the approach and close-up.
+All of these replays verify presentation switching and save preservation.
