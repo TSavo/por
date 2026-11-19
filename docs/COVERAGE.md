@@ -1371,6 +1371,11 @@ the enhanced cave illustrations at the original encounter prompts.
 check the full-panel swarm and giant lizard illustrations.
 `wild-cave-giant-snake-dialogue` and `wild-cave-boar-dialogue` check
 the falling-snake ambush and boar charge at their original prompts.
+`wild-cave-boar-approach` and `wild-cave-thri-kreen-approach` check the
+4× approach sprites at their native anchors through the transition to
+dialogue. `bane-ivy-loop` checks three ivy, masonry, and doorway tiles
+across 19 views and 2,299 placements. All three replays verify that
+switching presentation preserves game state and save data.
 `wild-cave-snake-combat` checks the giant snake's 192×96 ready and
 animated strike poses from a controlled pre-encounter checkpoint.
 `wild-cave-boar-combat` checks the boar's ready pose and reflected

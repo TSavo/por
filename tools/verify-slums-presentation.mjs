@@ -30,6 +30,16 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["wild-cave-thri-kreen-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [56, 32, "encounter:area:25:SPRIT6.DAX:118:0:0", 32, 73],
+    dialogue: { key: "enter", portrait: "portrait:area:25:PIC6.DAX:118:0:0", prompt: /FOURTHRI.KREENWARRIORS/i },
+  }],
+  ["wild-cave-boar-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:25:SPRIT6.DAX:120:0:0", 40, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:25:PIC6.DAX:120:0:0", prompt: /THREELARGEWILDBOARS/i },
+  }],
   ["lizard-wilds-displacer-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [40, 32, "encounter:area:26:SPRIT7.DAX:68:0:0", 64, 80],
@@ -628,6 +638,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["bane-ivy-loop", {
+    slot: "A", area: 24, views: 19, patterns: 70, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up"],
+  }],
   ["mendor-locked-wing", {
     slot: "A", area: 20, views: 16, patterns: 39, sceneryOnly: true,
     walk: ["up", "up", "up", "up", "up", "b", "b", "up", "left", "up", "up", "right", "up", "up", "right"],

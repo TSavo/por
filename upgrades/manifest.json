@@ -1,6 +1,11 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:25:SPRIT6.DAX:118:0:0": "wild-cave-thri-kreen-approach.png",
+    "tile:24:8cf3cea60a07a9d7bfe51b29ce5252f640c3bf3caeee2d2301c670f21fc55803": "bane-ivy-loop-terrain-8cf3cea60a07.png",
+    "tile:24:c2b9b89fe07262973e1608f442f5e0ffd943f878b4a31642f0e6a52848a0c44d": "bane-ivy-loop-terrain-c2b9b89fe072.png",
+    "tile:24:a42700fea5fc42908d4fdccd8ba4656d4e4ec432332f2b74ac7d672e8c11ecf5": "bane-ivy-loop-terrain-a42700fea5fc.png",
+    "encounter:area:25:SPRIT6.DAX:120:0:0": "wild-cave-boar-approach.png",
     "combat:area:29:CPIC8.DAX:1": "kuto-kobold-leader-stand.png",
     "combat:area:29:CPIC8.DAX:129": "kuto-kobold-leader-strike.png",
     "combat:area:29:CPIC8.DAX:57": "kuto-lizardman-stand.png",
@@ -2925,6 +2930,8 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:25:SPRIT6.DAX:118:0:0": { "area": 25, "x": 56, "y": 32, "width": 32, "height": 73 },
+    "encounter:area:25:SPRIT6.DAX:120:0:0": { "area": 25, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:26:SPRIT7.DAX:68:0:0": { "area": 26, "x": 40, "y": 32, "width": 64, "height": 80 },
     "encounter:area:26:SPRIT7.DAX:61:0:0": { "area": 26, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:29:SPRIT8.DAX:57:0:0": { "area": 29, "x": 48, "y": 32, "width": 48, "height": 80 },
