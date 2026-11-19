@@ -37,6 +37,18 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["bane-temple-exit-retaliation", {
+    slot: "A", inputs: ["up", "up", "enter"],
+    placement: [48, 32, "encounter:area:24:ecl:aa6e:SPRIT1.DAX:4:0:0", 40, 80],
+    dialogue: {
+      key: "enter", portrait: "portrait:area:24:ecl:aba7:PIC1.DAX:4:0:0",
+      prompt: /ASYOUEXITTHETEMPLEYOUAREATTACKED.*LEADINGTHEMISAHALF.ORC/i,
+    },
+    battleStart: {
+      input: "enter", portrait: "portrait:area:24:ecl:abbd:PIC1.DAX:4:0:0",
+      prompt: /ABATTLEBEGINS/i,
+    },
+  }],
   ["lizard-wilds-drider-approach", {
     slot: "A",
     inputs: [...Array.from({ length: 16 }, () => ["up", "down"]).flat(), "up", "p", "down", "up", "down", "up"],

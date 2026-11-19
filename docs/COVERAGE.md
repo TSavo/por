@@ -3226,6 +3226,10 @@ sting at (80, 56), the attack report, and display switching.
 reflected strike at (56, 56), the native attack on Cora, and display
 switching from the local slot A ogre checkpoint.
 
+`bane-temple-exit-retaliation` verifies the half-orc cleric's approach,
+the full-panel counterattack illustration, and its persistence into the
+battle prompt. The controlled slot A checkpoint starts inside the temple.
+
 The Lizard Wilds nomad scout uses a ready and longbow strike pair in
 the nomad encounter. Chrome verifies the loaded frames at (80, 152)
 and the native attack on Enna. The scratch fixture selects the
