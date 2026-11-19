@@ -2492,6 +2492,8 @@ and damage report before choosing Quick, then verifies that one Q displays
 subsequent misses and damage and stops at the original Continue Battle
 choice. The test drops the first automatic poll request and checks that
 Chrome retries, advances to the choice, and preserves the save bytes.
+The replay allows up to 90 seconds for this sequence because it shows the
+combat reports for their full display durations.
 
 The `new-phlan-arena-manual-report` replay uses the same checkpoint. It
 delays the browser's image decode for Alda's next miss beyond the report's

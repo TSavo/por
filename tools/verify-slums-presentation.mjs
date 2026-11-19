@@ -2018,8 +2018,8 @@ const chrome = spawn(chromePath, [
   `--user-data-dir=${profile}`, "about:blank",
 ], { stdio: "ignore" });
 
-async function waitFor(description, read) {
-  const deadline = Date.now() + 30_000;
+async function waitFor(description, read, timeoutMs = 30_000) {
+  const deadline = Date.now() + timeoutMs;
   let lastError;
   do {
     try {
@@ -2407,11 +2407,12 @@ try {
         const state = await latest();
         return state.automaticCombat && state;
       });
+      // This end-to-end wait includes the real display time of every combat report.
       const decision = await waitFor("the arena decision after one Quick key", async () => {
         const state = await latest();
         return state.sequence > automatic.sequence + 1 && !state.automaticCombat &&
           /CONTINUEBATTLE:YESNO/i.test(textOf(state)) && state;
-      });
+      }, 90_000);
       assert.equal(decision.stopped, null);
       assert.ok(await run("window.quickPollAttempts > 2"));
       const reports = await run("window.combatReports");
