@@ -2509,6 +2509,14 @@ try {
     if (routeName === "new-phlan-canal-room") {
       const text = frame.text.map(([, char]) => String.fromCharCode(char)).join("");
       assert.match(text, /6,1S/i);
+      assert.ok(await run(`(() => {
+        const panel = document.querySelector(".perspective-backdrop").getBoundingClientRect();
+        const tiles = [...document.querySelectorAll(".terrain-tile")].map(tile => tile.getBoundingClientRect());
+        const last = tiles.at(-1);
+        return tiles.length === 121 && Math.abs(last.right - panel.right) < 0.05 &&
+          Math.abs(last.bottom - panel.bottom) < 0.05 &&
+          tiles[0].right >= tiles[1].left && tiles[0].bottom >= tiles[11].top;
+      })()`), "Tiles should cover internal seams and stop at the picture edge");
       // Simulate a single unavailable PNG in an otherwise valid live view.
       const result = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true, expression: `(async () => {
         const original = state;

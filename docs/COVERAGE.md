@@ -2433,6 +2433,10 @@ north. Chrome checks all 2,904 placements across 24 first-person frames
 using 63 tile patterns. The route turns inside the room, walks out, checks
 both ends of the north passage, and returns to (6,1) facing south.
 Switching modes preserves the save.
+
+The canal-room replay also measures the enhanced picture boundary in
+Chrome. Adjacent tiles overlap to cover rounding seams, and the outer
+row and column stop at the picture edge.
 The same replay requests one unavailable tile PNG on the last view.
 Chrome keeps the other 120 enhanced tiles, the first-person panel, and
 the enhanced font. The original pixels fill the affected tile position.

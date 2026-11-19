@@ -288,6 +288,10 @@ async function showScreen() {
       const tile = document.createElement("img");
       tile.alt = "";
       const terrain = id.startsWith("tile:");
+      // Interior tiles overlap by half a CSS pixel to cover rounding seams.
+      // The final column and row stop at the edge of the picture panel.
+      const overlapRight = terrain && x < 104;
+      const overlapBottom = terrain && y < 104;
       if (terrain) tile.classList.add("terrain-tile");
       const sky = id.startsWith("tile:16:") ? "swamp" : id.startsWith("tile:28:") ? "zhentil"
         : id.startsWith("tile:24:") ? "bane" : undefined;
@@ -312,8 +316,8 @@ async function showScreen() {
         height = (height ?? 8) * scale;
       }
       if (width !== undefined && height !== undefined) {
-        tile.style.width = terrain ? `calc(${width / 3.2}% + 0.5px)` : `${width / 3.2}%`;
-        tile.style.height = terrain ? `calc(${height / 2}% + 0.5px)` : `${height / 2}%`;
+        tile.style.width = overlapRight ? `calc(${width / 3.2}% + 0.5px)` : `${width / 3.2}%`;
+        tile.style.height = overlapBottom ? `calc(${height / 2}% + 0.5px)` : `${height / 2}%`;
       }
       if (reflected) tile.style.transform = "scaleX(-1)";
       tile.style.left = `${x / 3.2}%`;
