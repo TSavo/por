@@ -5,6 +5,10 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "character-sheet:HEAD3.DAX:9": "character-sheet-dwarf-head-9.png",
+    "character-sheet:HEAD3.DAX:13": "character-sheet-dwarf-head-13.png",
+    "character-sheet:BODY3.DAX:3": "character-sheet-dwarf-body-3.png",
+    "character-sheet:BODY3.DAX:4": "character-sheet-dwarf-body-4.png",
     "character-sheet:HEAD3.DAX:0": "character-sheet-dwarf-head-0.png",
     "character-sheet:HEAD3.DAX:8": "character-sheet-dwarf-head-8.png",
     "character-sheet:BODY3.DAX:1": "character-sheet-dwarf-body-1.png",

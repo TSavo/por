@@ -3067,3 +3067,7 @@ verifies its ready pose and animated action after loading an editor-created save
 The wandering Podal Plaza goblin uses three distance sprites across five
 observed approach frames. Chrome verifies their order, anchors, and
 state-preserving presentation switches.
+
+Four more dwarf portrait parts extend the enhanced character sheet to the
+first four heads and bodies. Chrome checks seven live combinations and
+falling back to the guest portrait when the selected head lacks a redraw.
