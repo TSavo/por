@@ -4365,6 +4365,7 @@ try {
       const pictures = courtyard ? [4, 5, 6] : [34, 35];
       const guards = pictures.map(combatId);
       const attackIds = new Set(pictures.map(picture => combatId(picture + 128)));
+      const partyAttacks = patrolCombat ? ["combat:party:0:128", "combat:party:64:192:palette:044645678ccecdef"] : [];
       await run(`(() => {
         window.combatSprites = new Set();
         window.partySpriteSeen = false;
@@ -4402,7 +4403,10 @@ try {
           }
           for (const image of document.querySelectorAll('.combat-sprite')) {
             const id = image.getAttribute("src")?.slice(5);
-            if (!${JSON.stringify([...guards, ...attackIds])}.includes(id)) continue;
+            if (!${JSON.stringify([...guards, ...attackIds, ...partyAttacks])}.includes(id)) continue;
+            if (${JSON.stringify(partyAttacks)}.includes(id) && !animationFrame?.combatArt.some(([x, y, key, reflected]) =>
+              key === id && parseFloat(image.style.left) === x / 3.2 && parseFloat(image.style.top) === y / 2 &&
+              image.style.transform === (reflected ? "scaleX(-1)" : ""))) continue;
             const record = () => {
               if (image.naturalWidth === 96 && image.naturalHeight === 96) {
                 window.combatSprites.add(id);
@@ -4498,7 +4502,7 @@ try {
       assert.equal(strikes.size, attackIds.size);
       assert.deepEqual([...patrolWallTiles], [], "Expected the Sokal masonry tiles in the scrolling battlefield");
       assert.deepEqual([...patrolCombatSprites], [], "Expected the Sokal battlefield sprites");
-      assert.deepEqual(await run("[...combatSprites].sort()"), [...guards, ...attackIds].sort());
+      assert.deepEqual(await run("[...combatSprites].sort()"), [...guards, ...attackIds, ...partyAttacks].sort());
       console.log(`Verified ${guards.length} guard and ${strikes.size} strike PNGs in live ${routeName} combat.`);
     }
   } else if (orcs) {

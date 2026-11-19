@@ -334,8 +334,10 @@ pixels in both facings. Chrome observed the 96×96 replacement in real
 courtyard combat. The patrol also uses an eight-row head from `CHEAD.DAX`
 block 64 on `CBODY.DAX` block 64. The manifest's `:palette:` suffix gives
 the 16 guest color indices in order. Chrome verified both recolors at the
-original battlefield positions and facings. Other combinations and poses
-can still use the guest artwork.
+original battlefield positions and facings. The same replay verifies two
+party strike poses using `CBODY.DAX` blocks 128 and 192. Each strike loads
+at the original position and facing during the guest's combat animation.
+Other combinations and poses can still use the guest artwork.
 
 The composed icon also renders when the party member is selected.
 The matcher checks the full highlighted cell and restores its bright
