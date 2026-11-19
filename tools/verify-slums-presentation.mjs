@@ -37,6 +37,15 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["kobold-throne-ballista", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    placement: [48, 32, "encounter:area:13:ecl:a1b6:SPRIT8.DAX:0:0:0", 40, 80],
+    approachSequence: [
+      [56, 32, "encounter:area:13:ecl:a1b6:SPRIT8.DAX:0:1:0", 24, 65],
+      [48, 32, "encounter:area:13:ecl:a1b6:SPRIT8.DAX:0:0:0", 40, 80],
+    ],
+    battleStart: { input: "enter", prompt: /ABATTLEBEGINS/i },
+  }],
   ["podal-pitt-monster-patrons", {
     slot: "I", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:18:SPRIT1.DAX:2:0:0", 48, 80],
@@ -3569,6 +3578,11 @@ try {
       assert.match(text, prompt);
       await waitFor("the enhanced encounter dialogue", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
       await switchBothWays();
+    }
+    if (encounterRoute.battleStart) {
+      const { input, prompt } = encounterRoute.battleStart;
+      await advance(input);
+      assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), prompt);
     }
     if (encounterRoute.acceptedCommission) {
       await advance("j");

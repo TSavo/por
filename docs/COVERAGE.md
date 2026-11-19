@@ -3011,3 +3011,6 @@ dueling interior transition, with state-preserving presentation switches.
 
 The Old Phlan thieves' guild ambush uses distinct ready and strike poses.
 The Chrome replay checks the longsword strike alongside its damage report.
+
+The Kobold throne ballista ambush uses middle and close charge art. The
+Chrome replay checks the animated anchors, mode switching, and battle start.
