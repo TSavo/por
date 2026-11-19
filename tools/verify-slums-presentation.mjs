@@ -37,6 +37,13 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["kobold-roof-collapse", {
+    slot: "B", inputs: ["up", "enter", "enter", "r", "enter", "enter"],
+    placement: [48, 32, "encounter:area:13:ecl:9d05:SPRIT8.DAX:0:0:0", 40, 80],
+    approachSequence: [[48, 32, "encounter:area:13:ecl:9d05:SPRIT8.DAX:0:0:0", 40, 80]],
+    dialogue: { key: "enter", portrait: "portrait:area:13:ecl:9d49:PIC8.DAX:0:0:0", prompt: /BEFOREYOURECOVER.KOBOLDSARRIVE/i },
+    battleStart: { input: "enter", prompt: /ABATTLEBEGINS/i, portrait: "portrait:area:13:ecl:9d4a:PIC8.DAX:0:0:0" },
+  }],
   ["kobold-kings-quarters", {
     slot: "B", inputs: ["s", "up", "up", "right", "up", "up", "enter"],
     placement: [48, 32, "encounter:area:13:ecl:a496:SPRIT8.DAX:0:0:0", 40, 80],
@@ -3598,9 +3605,10 @@ try {
       await switchBothWays();
     }
     if (encounterRoute.battleStart) {
-      const { input, prompt } = encounterRoute.battleStart;
+      const { input, prompt, portrait } = encounterRoute.battleStart;
       await advance(input);
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), prompt);
+      if (portrait) assert.equal(frame.portrait, portrait);
     }
     if (encounterRoute.acceptedCommission) {
       await advance("j");

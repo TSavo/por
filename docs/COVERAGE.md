@@ -3030,3 +3030,6 @@ New Phlan's eastern ward, avenues, warehouse square, and south market
 use 13 additional paving joins, verified over 83 Chrome views. The
 Buccaneer stockade guards use 4x ready and punch sprites. Chrome verifies
 the reflected punch and the attack report that it misses Cora.
+
+The Kobold truce-refusal cave-in uses a distinct approach sprite and
+illustration. The Chrome replay checks both and the portrait at battle entry.
