@@ -26,6 +26,7 @@ import { encodePng, pngDimensions } from "./png.js";
 import { Frame } from "../src/lib/ega.js";
 import { decodePicture } from "../src/lib/picture.js";
 import { loadCombatArtMatcher } from "./combat-art.js";
+import { loadOverlandTravel } from "./overland-travel.js";
 
 function checkBrowserArtPacks(): void {
   const png = Buffer.from(encodePng(new Frame(32, 32)));
@@ -61,6 +62,12 @@ function checkBrowserArtPacks(): void {
   }));
   const root = findGameRoot();
   if (!root) return;
+  const planTravel = loadOverlandTravel(root);
+  for (const riverCleared of [false, true]) {
+    deepStrictEqual(planTravel({
+      x: 24, y: 27, sector: 1, riverCleared, nomads: false, buccaneers: false, zhentil: false,
+    }).phlan, { x: 24, y: 28, sector: 1, key: "down" }, "Phlan travel should reach the scripted west crossroads");
+  }
   const loaded = loadUpgradeArtFromManifests(paths, root);
   const missing = [...declared].filter(id => !loaded.has(id));
   deepStrictEqual(missing, [], "The browser could not load the listed art mappings");

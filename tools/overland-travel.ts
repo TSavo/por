@@ -44,6 +44,8 @@ const entranceCells = new Set(Object.values(landmarks).flat().map(([x, y]) => ce
 export function loadOverlandTravel(root: string) {
   // OVL28 reads the world terrain table at DS:35E2. It is initialized by START.EXE.
   const exe = readFileSync(join(root, "START.EXE"));
+// The guest accepts the west crossroads as a scripted arrival on terrain 0x57.
+const westCrossroads = cell(24, 28);
   const mapOffset = exe.readUInt16LE(8) * 16 + 0x7400 + 0x35e2;
   const terrain = exe.subarray(mapOffset, mapOffset + width * height);
   const nativeBarrier = new Set([0x4e, 0x7e, 0x7f, 0x80, 0x82, 0x83, 0x84, 0xa8, 0xa9, 0xaa, 0xab, 0xac,
@@ -82,7 +84,8 @@ export function loadOverlandTravel(root: string) {
         const fingerprint = keyFor(next);
         const tile = terrain[cell(x, y)]!;
         const blockedTypes = sector === 1 && start.riverCleared ? clearRiver : blocked[sector]!;
-        if (visited.has(fingerprint) || nativeBarrier.has(tile) || blockedTypes.has(tile)) continue;
+        if (visited.has(fingerprint) || nativeBarrier.has(tile) ||
+          (blockedTypes.has(tile) && cell(x, y) !== westCrossroads)) continue;
         visited.add(fingerprint);
         queue.push({ ...next, first: current.first ?? { ...next, key } });
       }
