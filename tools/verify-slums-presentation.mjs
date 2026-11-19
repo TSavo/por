@@ -1916,7 +1916,7 @@ const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769",
 const saved = resolve(directory, slot + ".json");
 const battleTrace = process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
-const environmentTrace = environment && process.env.POR_WRITE_ENVIRONMENT_TRACE === "1"
+const environmentTrace = (environment || dragon || halls) && process.env.POR_WRITE_ENVIRONMENT_TRACE === "1"
   ? resolve(directory, "environment-tiles.jsonl") : undefined;
 const frameDirectory = resolve(directory, "tile-frames");
 let battleFrame = 0;
@@ -2413,7 +2413,6 @@ try {
     }
     await switchBothWays();
     console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
-    if (environmentTrace) console.log("Environment tile trace:", environmentTrace);
     if (towerSave) {
       const expected = { tiles: frame.tileInventory, text: frame.text.toSorted(([left], [right]) => left - right) };
       for (const key of ["e", "s", "s", "b"]) await advance(key);
@@ -4665,6 +4664,7 @@ try {
     writeFileSync(trace, routeTiles.map((tiles) => JSON.stringify(tiles)).join("\n") + "\n");
     console.log("Slums artwork trace:", trace);
   }
+  if (environmentTrace && existsSync(environmentTrace)) console.log("Environment tile trace:", environmentTrace);
   if (battleFrame) console.log(`Battlefield artwork trace (${battleFrame} frames):`, battleTrace);
 } finally {
   socket?.close();

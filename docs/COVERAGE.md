@@ -1724,6 +1724,8 @@ position, facing, and four-cell selection. The test toggles classic and
 enhanced in both scenes and checks the guest frame and save stay the same.
 The same replay now checks the 192×192 bite at its position in the live
 combat animation. With `POR_TRACE_BATTLE_TILES=1`, it captured 22 frames.
+With `POR_WRITE_ENVIRONMENT_TRACE=1`, it exports all eight approach views
+for the art inventory, including the positions of the six new hall tiles.
 
 Chrome checked the complete guest board, menu row, and browser status
 at 754×480, 960×540, 390×620, and 1366×768 in both display modes.
