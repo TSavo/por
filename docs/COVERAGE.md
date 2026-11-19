@@ -1128,6 +1128,13 @@ The `mendor-library-fighter` replay uses controlled slot B and checks the
 fighter's 96×96 ready pose and reflected sword strike in Chrome.
 The `mendor-library-spectre` replay sets the book flag in controlled slot B
 to trigger the guardian. It checks both 96×96 poses and the witnessed clue.
+The `kobold-cave-escort` replay uses controlled slot B with the kobold
+commission tracked. Chrome checks the offer, the accepted escort, and
+the guide's announcement at the throne. The envoys remain hidden until
+the party sees them. The separate envoys rematch replay checks that clue.
+The translation verifier checks the later escape and quarters guidance
+against the original dialogue.
+
 The `kobold-princess-fatima` replay uses controlled slot B to check her
 portrait and journal entry 16, then verifies that she joins the roster.
 The `kobold-cave-guide` replay checks the area-scoped guard portrait and

@@ -741,6 +741,22 @@ function checkCampaignJournal(): void {
   }
   writeGlobal(0x4a19, 0);
   m.write8(m.ds, 0x82a2, priorEcl);
+  const koboldOffer = commissions.find(({ id }) => id === "kobolds")!.offer;
+  let koboldTranscript = koboldOffer;
+  for (const [trigger, instruction] of [
+    ["THE TWO ENVOYS WAIT AT THE THRONE", "Confront the king and the envoys"],
+    ["THE KING HAS ESCAPED DURING THE FIGHT", "Search the caves for the escaped king"],
+    ["YOU REACH THE KING'S QUARTERS AND CONFRONT HIS GUARDS", "Defeat the king's guards"],
+  ]) {
+    const line = lines.find(text => text.replace(/\s+/g, " ").includes(trigger));
+    if (!line || currentObjective(discoveredLeads(koboldTranscript), "commission-kobolds").nextStep.includes(instruction)) {
+      throw new Error(`Missing or premature kobold journal guidance for ${trigger}`);
+    }
+    koboldTranscript += "\n" + line;
+    if (!currentObjective(discoveredLeads(koboldTranscript), "commission-kobolds").nextStep.includes(instruction)) {
+      throw new Error(`The kobold journal missed the clue after ${trigger}`);
+    }
+  }
   const rescueStages = [
     ["SLAVERS RIDE BY YOU TOWARD THE BUCCANEER BASE", "Follow the slavers"],
     ["YOU HAVE REACHED THE BUCCANEER BASE", "find the pen"],

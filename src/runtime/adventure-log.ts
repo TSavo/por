@@ -218,8 +218,15 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (knows("bottle-recovered")) nextStep = "Return to Diogenes with the bottle so he can explain how to use it.";
       else if (knows("kobold-cave-fork")) nextStep = "Choose Large or Small at the kobold caves. Search inside for the silver bottle, then bring it back to Diogenes.";
     }
-    if (commission.id === "kobolds" && knows("kobold-cave-fork")) {
-      nextStep = "Explore the caves and look for the tribe that the enemy is recruiting.";
+    if (commission.id === "kobolds") {
+      if (knows("kobold-king-quarters")) nextStep = "Defeat the king's guards and find him in his quarters.";
+      else if (knows("kobold-king-escaped")) nextStep = "Search the caves for the escaped king and his quarters.";
+      else if (knows("kobold-throne-envoys")) nextStep = "Confront the king and the envoys at the throne.";
+      else if (knows("kobold-guide-arrived")) nextStep = "Look for the entrance to the throne room nearby. The king told the guide to send the party in.";
+      else if (knows("kobold-guide-follow")) nextStep = "Follow the kobold guide to the king.";
+      else if (knows("kobold-guide-asleep")) nextStep = "The guide went back to sleep. Explore the caves for another way to the king.";
+      else if (knows("kobold-guide-offer")) nextStep = "Choose Yes if you want the guide to escort you to the king.";
+      else if (knows("kobold-cave-fork")) nextStep = "Explore the caves and look for the tribe that the enemy is recruiting.";
     }
     if (commission.id === "bane") {
       if (knows("bane-altar-ambush")) nextStep = "Defeat the half-orc cleric and the orcs who attacked when you destroyed the altar.";
@@ -641,6 +648,24 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("DO YOU WISH AN ESCORT TO THE KING?")) {
     leads.push({ id: "kobold-guide-offer", title: "An escort to the kobold king",
       detail: "When awakened, the kobold mistook the party for envoys and offered to take it to the king." });
+    if (text.includes("'THEN FOLLOW ME.'")) {
+      leads.push({ id: "kobold-guide-follow", title: "Following the kobold guide", detail: "The party accepted the guide's escort." });
+    }
+  }
+  if (text.includes("THE KOBOLD PROMPTLY RETURNS TO SLEEP")) {
+    leads.push({ id: "kobold-guide-asleep", title: "The guide went back to sleep", detail: "The kobold returned to sleep without escorting the party." });
+  }
+  if (text.includes("THE ENVOYS ARE HERE, GREAT KING")) {
+    leads.push({ id: "kobold-guide-arrived", title: "At the kobold throne", detail: "The guide announced the party and the king told them to come forward." });
+  }
+  if (text.includes("TWO MEN AND AN ANCIENT KOBOLD ON A WOODEN THRONE") || text.includes("THE TWO ENVOYS WAIT AT THE THRONE")) {
+    leads.push({ id: "kobold-throne-envoys", title: "Envoys at the throne", detail: "The party found two envoys at the kobold throne." });
+  }
+  if (text.includes("THE KING HAS ESCAPED DURING THE FIGHT")) {
+    leads.push({ id: "kobold-king-escaped", title: "The king escaped", detail: "The kobold king slipped away during the fight at the throne." });
+  }
+  if (text.includes("YOU REACH THE KING'S QUARTERS AND CONFRONT HIS GUARDS")) {
+    leads.push({ id: "kobold-king-quarters", title: "The king's quarters", detail: "The party reached the king's quarters and encountered his guards." });
   }
   if (text.includes("I AM PRINCESS FATIMA") && text.includes("RECORD IT IN YOUR JOURNAL UNDER ENTRY 16")) {
     leads.push({ id: "kobold-fatima-account", title: "Princess Fatima's account",
