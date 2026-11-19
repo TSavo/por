@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:9:CPIC2.DAX:11:ecl:a2b4": "stojanow-aide-stand.png",
+    "combat:area:9:CPIC2.DAX:139:ecl:a2b4": "stojanow-aide-strike.png",
     "tile:1:d3aa5b24be02b3027ac4c78ebcb2e735be09a707ca5e53bcf280a0939eda9146": "buccaneer-east-run-terrain-d3aa5b24be02.png",
     "tile:1:dd80d9731aa6ae7fd27ef969cfbe60e3e9804144b9f2943f21817c29ba63f8f5": "buccaneer-east-run-terrain-dd80d9731aa6.png",
     "tile:1:42567013c7f94a0143e056d6e50f444f33e479e2d569864b9acf675ea8c65f34": "buccaneer-east-run-terrain-42567013c7f9.png",

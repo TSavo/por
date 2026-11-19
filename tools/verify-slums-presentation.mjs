@@ -463,6 +463,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["stojanow-tower-aide-combat", {
+    slot: "A", stand: "combat:area:9:CPIC2.DAX:11:ecl:a2b4", strike: "combat:area:9:CPIC2.DAX:139:ecl:a2b4",
+    width: 96, height: 96, readyPrompt: /AIDESHITPOINTS18/i, strikeReflected: false,
+    inputs: ["up", ...Array(4).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(6).fill("q")],
+  }],
   ["podal-recruit-orc", {
     slot: "I", stand: "combat:area:18:CPIC1.DAX:4:ecl:b16f", strike: "combat:area:18:CPIC1.DAX:132:ecl:b16f",
     width: 96, height: 96, readyPrompt: /ORCHITPOINTS5/i, strikeReflected: false,
