@@ -24,6 +24,19 @@ export function encounterAnchor(key: string, configured?: EncounterAnchor) {
         flatBackground.every(index => Number.isInteger(index) && index >= 0 && index < 16)))) return anchor;
 }
 
+export function encounterPixels(archive: ReturnType<typeof parseDax>, key: string, anchor: EncounterAnchor) {
+  const match = encounterKey.exec(key);
+  if (!match) return;
+  const [, , , blockIndex, memberIndex, frameIndex] = match;
+  const block = archive.entries.find(({ id }) => id === Number(blockIndex));
+  const member = block && pictureMembers(block.data)[Number(memberIndex)];
+  if (!member) return;
+  const picture = decodePicture(member.data);
+  if (picture.width !== anchor.width || picture.height !== anchor.height || Number(frameIndex) >= picture.itemCount) return;
+  const pixels = frameSlice(picture, Number(frameIndex));
+  if (pixels.some(Boolean)) return pixels;
+}
+
 export function loadEncounterArt(placements: Record<string, EncounterAnchor>) {
   const root = Object.keys(placements).length ? findGameRoot() : null;
   const files = new Map(root ? listGameFiles(root).map((file) => [file.toUpperCase(), file]) : []);
@@ -31,7 +44,7 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>) {
   const patterns = [...new Map([...legacyAnchors, ...Object.entries(placements)])].flatMap(([key, anchor]) => {
     const match = encounterKey.exec(key);
     if (!root || !match) return [];
-    const [, , name, blockIndex, memberIndex, frameIndex] = match;
+    const [, , name] = match;
     const file = files.get(name!);
     if (!file) return [];
     let archive = archives.get(file);
@@ -39,13 +52,8 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>) {
       archive = parseDax(file, readGameFile(root, file));
       archives.set(file, archive);
     }
-    const block = archive.entries.find(({ id }) => id === Number(blockIndex));
-    const member = block && pictureMembers(block.data)[Number(memberIndex)];
-    if (!member) return [];
-    const picture = decodePicture(member.data);
-    if (picture.width !== anchor.width || picture.height !== anchor.height || Number(frameIndex) >= picture.itemCount) return [];
-    const pixels = frameSlice(picture, Number(frameIndex));
-    return pixels.some(Boolean) ? [{ key, anchor, pixels }] : [];
+    const pixels = encounterPixels(archive, key, anchor);
+    return pixels ? [{ key, anchor, pixels }] : [];
   });
   let background: Uint8Array | undefined;
   let backgroundArea: number | undefined;

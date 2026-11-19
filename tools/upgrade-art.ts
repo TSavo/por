@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
 import { portraitKey } from "./portrait-art.js";
-import { encounterAnchor } from "./encounter-art.js";
+import { encounterAnchor, encounterKey, encounterPixels } from "./encounter-art.js";
 import { isCombatExtent, monsterCombatKey } from "./combat-art.js";
 import { parseDax } from "../src/lib/dax.js";
 import { decodePicture, isPicture } from "../src/lib/picture.js";
@@ -26,7 +26,17 @@ export function loadUpgradeArt(upgrades = process.env.POR_UPGRADES_DIR, gameRoot
 export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot = findGameRoot()) {
   const artwork = new Map<string, LoadedArtwork>();
   const gameFiles = new Map(gameRoot ? listGameFiles(gameRoot).map(file => [file.toUpperCase(), file]) : []);
-  const combatArchives = new Map<string, ReturnType<typeof parseDax>>();
+  const archives = new Map<string, ReturnType<typeof parseDax>>();
+  function originalArchive(name: string) {
+    const file = gameFiles.get(name);
+    if (!file || !gameRoot) return;
+    let parsed = archives.get(file);
+    if (!parsed) {
+      parsed = parseDax(file, readGameFile(gameRoot, file));
+      archives.set(file, parsed);
+    }
+    return parsed;
+  }
   for (const manifestPath of paths) {
     try {
       const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as OverrideManifest;
@@ -44,17 +54,13 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
           if (png.length < 24 || png.toString("ascii", 12, 16) !== "IHDR" || !png.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) continue;
           let sourceWidth = 8;
           let sourceHeight = 8;
-          if (encounter) ({ width: sourceWidth, height: sourceHeight } = encounter);
-          else if (id === "scene:title") [sourceWidth, sourceHeight] = [320, 200];
+          if (encounter) {
+            const archive = originalArchive(encounterKey.exec(id)![2]!);
+            if (!archive || !encounterPixels(archive, id, encounter)) continue;
+            ({ width: sourceWidth, height: sourceHeight } = encounter);
+          } else if (id === "scene:title") [sourceWidth, sourceHeight] = [320, 200];
           else if (monster) {
-            const archive = gameFiles.get(monster[2]);
-            if (!gameRoot || !archive) continue;
-            let parsed = combatArchives.get(archive);
-            if (!parsed) {
-              parsed = parseDax(archive, readGameFile(gameRoot, archive));
-              combatArchives.set(archive, parsed);
-            }
-            const entry = parsed.entries.find(({ id: block }) => block === Number(monster[3]));
+            const entry = originalArchive(monster[2])?.entries.find(({ id: block }) => block === Number(monster[3]));
             if (!entry || !isPicture(entry.data)) continue;
             const picture = decodePicture(entry.data);
             if (picture.itemCount !== 1 || !isCombatExtent(picture.width, picture.height)) continue;

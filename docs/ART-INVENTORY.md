@@ -30,6 +30,8 @@ traces. Areas and viewpoints outside those traces still need live coverage.
 encounter sprite, and combat picture archives. It counts each frame once
 even when several areas have their own replacement. The table inventories
 archive contents. The live routes establish which frames are drawn.
+The browser and inventory validate approach sprites against their original
+archive member and frame, including the dimensions in the placement record.
 The report skips cleared all-black views between scenes. When auditing older
 traces, review encounter frames for actors drawn over the terrain before
 using their unmatched patterns as a redraw checklist.
