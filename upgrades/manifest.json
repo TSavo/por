@@ -1,6 +1,11 @@
 {
   "version": 1,
   "assets": {
+    "tile:22:0d2e0d812f7dc3c9ee7a5bab17469c2963e072b186b7427d4a1ffb9a552ba0ee": "yarash-inner-court-terrain-0d2e0d812f7d.png",
+    "tile:22:3fac91ee9d1b24c2e56fcbe21729beb84a920355197406acbbe3102e64ef83a9": "yarash-inner-court-terrain-3fac91ee9d1b.png",
+    "tile:22:cb404f7ed71e3c8c5a855c3af2e0b70086988c8b0fcc7b7e11f6b64992cff365": "yarash-inner-court-terrain-cb404f7ed71e.png",
+    "tile:22:1c659927f8d8de37f347cb9923c62ff8b121cb4496abd7139fb0b6ad8ebcbd36": "yarash-inner-court-terrain-1c659927f8d8.png",
+    "tile:22:87f723061f5a55c5a86757e1634672fbd33447f098e13728a0fb38fed2026152": "yarash-inner-court-terrain-87f723061f5a.png",
     "tile:22:56b54aa911c164b42e26282f23a6198458c1749a91d2cb029e9a645cd3d207c0": "yarash-braced-passage-terrain-56b54aa911c1.png",
     "tile:22:f9094a93d959e138af7ced5c8f8fdc573a6e59eeb7e3da34bd5bd6d6964e14be": "yarash-braced-passage-terrain-f9094a93d959.png",
     "tile:22:db0db526433e898528c6f97a8ed2b870fc5b6b8432390075aff6f72608c7a061": "yarash-braced-passage-terrain-db0db526433e.png",
