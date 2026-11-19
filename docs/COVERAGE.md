@@ -2810,6 +2810,8 @@ weapon-neutral lunge shared by the sword and bow attacks.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.
+`graveyard-mystic` checks all three lantern-bearing approach poses in
+order over the enhanced terrain before the mystic's portrait appears.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.

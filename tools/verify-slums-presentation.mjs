@@ -5478,7 +5478,16 @@ try {
     await waitFor("the vampire strike sprite", () => displayed(attack));
     console.log("Verified the Valhingen vampire in approach, dialogue, stance, and strike.");
   } else if (mystic) {
-    for (const key of ["up", "enter", "enter"]) await advance(key);
+    const approachSequence = [
+      [64, 32, "encounter:area:10:SPRIT4.DAX:14:2:0", 8, 49],
+      [56, 32, "encounter:area:10:SPRIT4.DAX:14:1:0", 24, 65],
+      [56, 32, "encounter:area:10:SPRIT4.DAX:14:0:0", 24, 80],
+    ];
+    await observeApproach(approachSequence);
+    for (const key of ["up", "enter"]) await advance(key);
+    await waitFor("all three enhanced mystic distances", () => run("window.observedApproach.size === 3"));
+    assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    await advance("enter");
     assert.equal(frame.portrait, "portrait:HEAD4.DAX:0:BODY4.DAX:2");
     await waitFor("the Valhingen mystic portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();

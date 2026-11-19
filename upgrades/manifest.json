@@ -5,6 +5,9 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:10:SPRIT4.DAX:14:2:0": "valhingen-mystic-approach-far.png",
+    "encounter:area:10:SPRIT4.DAX:14:1:0": "valhingen-mystic-approach-middle.png",
+    "encounter:area:10:SPRIT4.DAX:14:0:0": "valhingen-mystic-approach-near.png",
     "tile:26:ea0abcb0328e6595d551dc7cb0f41853b20f2dac1f7cbf5f823903a8f30477bf": "wilderness-waystone-terrain-ea0abcb0328e.png",
     "tile:26:78536bbeb2fb828654efb8f58a4e63a34b1dbdfd6c26791de2066ab5abfaa352": "wilderness-waystone-terrain-78536bbeb2fb.png",
     "tile:26:e56c1b1e9d88c979fb26972b11c9c908ac11aaf1fdfd1f21b3a549041bef275c": "wilderness-waystone-terrain-e56c1b1e9d88.png",
@@ -4469,6 +4472,9 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:10:SPRIT4.DAX:14:2:0": { "area": 10, "x": 64, "y": 32, "width": 8, "height": 49 },
+    "encounter:area:10:SPRIT4.DAX:14:1:0": { "area": 10, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:10:SPRIT4.DAX:14:0:0": { "area": 10, "x": 56, "y": 32, "width": 24, "height": 80 },
     "encounter:area:9:ecl:a577:SPRIT2.DAX:24:0:0": { "area": 9, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:9:ecl:b0f9:SPRIT2.DAX:24:0:0": { "area": 9, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:9:SPRIT2.DAX:16:0:0": { "area": 9, "x": 48, "y": 32, "width": 40, "height": 80 },
