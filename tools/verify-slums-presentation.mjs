@@ -1011,6 +1011,14 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["new-phlan-envoy-arcade", {
+    slot: "A", area: 8, views: 5, patterns: 20, sceneryOnly: true,
+    walk: ["right", "up", "up", "left"],
+  }],
+  ["new-phlan-envoy-gate", {
+    slot: "B", area: 8, views: 5, patterns: 25, sceneryOnly: true,
+    walk: ["right", "up", "up", "left"],
+  }],
   ["new-phlan-market-turn", {
     slot: "B", area: 0, views: 13, patterns: 63, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up"],
