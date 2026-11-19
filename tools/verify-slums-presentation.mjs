@@ -2098,7 +2098,25 @@ try {
     assert.equal(frame.portrait, "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9");
     await waitFor("Rolf portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await verifyPortraitPanel();
-    console.log("Verified the enhanced dock, all three Rolf distances, and his portrait in a fresh Chrome game.");
+    const tourPatterns = new Set();
+    for (let stop = 0; stop < 7; stop++) {
+      await advance("enter");
+      assert.equal(frame.portrait, undefined);
+      assert.equal(frame.perspective, true);
+      assert.equal(await verifyTiledView(0, tourPatterns), 1);
+    }
+    for (const key of ["enter", "right", "right", "up", "up", "up"]) await advance(key);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /OUTSIDETHECITYHALL/i);
+    assert.equal(await verifyTiledView(0, tourPatterns), 1);
+    for (const key of ["up", "enter", "up"]) await advance(key);
+    assert.equal(await verifyTiledView(0, tourPatterns), 1);
+    await switchBothWays();
+    for (const key of ["enter", "up", "enter", "up", "up", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:HEAD3.DAX:57:BODY3.DAX:1");
+    await waitFor("the enhanced council guard", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    console.log("Verified the enhanced dock, Rolf's approach, all seven tour stops, and the City Hall guard in one fresh Chrome game.");
   } else if (routeName === "new-phlan-building-exit") {
     const patterns = new Set();
     for (const key of ["up", "right", "up", "right", "up", "left", "up"]) {

@@ -2232,7 +2232,10 @@ node tools/verify-slums-presentation.mjs - PATH_TO_CHROME new-phlan-rolf-approac
 ```
 
 The verifier checks all 121 dock tile placements, the three approach sprites
-in order, and the close-up filling the portrait panel.
+in order, and the close-up filling the portrait panel. The same fresh game
+continues through seven tour stops, the City Hall approach and entry, and
+the council guard portrait. At each tour stop it checks all 121 enhanced
+tile placements before pressing Enter.
 
 Pass a slot A checkpoint in the dueling room at (7,2) facing west to
 `new-phlan-building-exit`. The replay verifies the enhanced street at (5,1)
