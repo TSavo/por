@@ -4707,8 +4707,18 @@ try {
     assert.equal(castleStatus(), "ready-to-report");
     assert.match(frame.journal.objective.nextStep, /east from the west gate.*south into City Hall/i);
     await advance("j");
+    const patterns = new Set();
+    let views = await verifyTiledView(0, patterns);
     for (const key of ["up", "up", "up", "enter", "up", "right", "up", "enter", "enter", "enter",
-      "up", "left", "up", "up", "enter"]) await advance(key);
+      "up", "left", "up", "up", "enter"]) {
+      await advance(key);
+      if (!frame.tileInventory?.length) continue;
+      const area = Number(frame.tileInventory[0][2].split(":")[1]);
+      assert.ok(area === 0 || area === 8);
+      views += await verifyTiledView(area, patterns);
+    }
+    assert.equal(views, 14);
+    assert.ok([...patterns].some(id => id.startsWith("tile:8:")), "The route should reach the City Hall district");
     assert.match(text(), /YOURQUESTISOVER.*TYRANTHRAXUSISDEFEATED.*PHLANISFREE/i);
     assert.equal(frame.portrait, "portrait:HEAD3.DAX:24:BODY3.DAX:32");
     await waitFor("enhanced clerk at the campaign finale", () => run(`state.sequence === ${frame.sequence} &&
@@ -4722,7 +4732,12 @@ try {
     for (const key of ["j", "s", "e", "enter", "enter", "enter", "enter", "j"]) await advance(key);
     assert.equal(castleStatus(), "turned-in");
     assert.equal(frame.journal.objective.title, "Phlan is free");
-    console.log("Verified the enhanced council finale and journal turn-in in Chrome.");
+    for (const key of ["j", "e", "s", "s", "c"]) await advance(key);
+    const completed = resolve(directory, "C.json");
+    const savedCastle = JSON.parse(readFileSync(completed, "utf8")).leads.find(({ id }) => id === "commission-castle");
+    assert.equal(savedCastle?.status, "turned-in");
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log(`Verified ${views} enhanced street and City Hall views and saved the council turn-in in Chrome:`, completed);
   } else if (ending) {
     await advance("j");
     assert.equal(frame.journal?.objective.title, "Phlan is free");

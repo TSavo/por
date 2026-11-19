@@ -576,8 +576,10 @@ castle turn-in, and moves focus to Return to game.
 Add `--save-at-west-gate` to the native ending replay to save slot D just
 after the battle and return to New Phlan. Pass that slot to the Chrome
 replay with `castle-ending --council-finale` to walk the journal's route,
-see the enhanced clerk during the ending, switch display modes, and
-verify the journal's reward-pending and turned-in states.
+verify all 1,694 enhanced tile placements across 14 views, see the
+enhanced clerk during the ending, and switch display modes. This replay
+saves the turn-in to slot C through the original menus. The standard
+`castle-ending` replay also accepts that browser-produced slot C.
 
 A controlled training replay sent the six-character party to the schools
 from a Slums save. It followed the posted directions north and entered the
