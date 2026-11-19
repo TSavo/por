@@ -359,6 +359,13 @@ function checkCampaignJournal(): void {
   }
   const textile = progressAddresses.textile!;
   const auction = commissions.find(({ id }) => id === "auction")!;
+  const recordsOffer = discoveredLeads(commissions.find(({ id }) => id === "records")!.offer);
+  const guardian = discoveredLeads("I DEFENDED THESE BOOKS IN LIFE AND I WILL DEFEND THEM IN DEATH");
+  const map = discoveredLeads("THEY DESCRIBE THE SURROUNDING AREA TO YOU. YOU LISTEN CAREFULLY, QUESTION THEM AND FROM THIS, SKETCH A MAP INTO YOUR JOURNAL CALLING IT ENTRY 10.");
+  if (currentObjective([...recordsOffer, ...guardian], "commission-records").nextStep.includes("passages you copied") ||
+      !currentObjective([...recordsOffer, ...guardian, ...map], "commission-records").nextStep.includes("journal entry 10")) {
+    throw new Error("Mendor objective should follow witnessed map and book discoveries");
+  }
   const auctionOffer = discoveredLeads(auction.offer);
   writeGlobal(progressAddresses.auction!, 254);
   const auctionReady = questProgress(m, auctionOffer, m.ds);

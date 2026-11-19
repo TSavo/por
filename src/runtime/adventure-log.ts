@@ -197,12 +197,14 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("bane-dirten")) nextStep = "Decide whether to accompany Dirten. If you agree, cross the river with him and cleanse the desecrated temple.";
     }
     if (commission.id === "records") {
-      if (leads.some(({ id, status }) => id.startsWith("mendor-book-") && status === "ready-to-report")) {
+      if (leads.some(({ id, status }) => /^mendor-book-\d+$/.test(id) && status === "ready-to-report")) {
         nextStep = "Bring the recovered records to the council clerk at City Hall. You can return to the stacks for more.";
-      } else if (leads.some(({ id }) => id.startsWith("mendor-book-"))) {
+      } else if (leads.some(({ id }) => /^mendor-book-\d+$/.test(id))) {
         nextStep = "Read the passages you copied from Mendor's books. Search the other stacks for more accounts of old Phlan.";
       } else if (knows("mendor-library-stacks")) {
         nextStep = "Use Search in the library stacks and examine the books for accounts of old Phlan.";
+      } else if (knows("mendor-storeroom-map")) {
+        nextStep = "Use the kobolds' map in journal entry 10 to find the library stacks. Search the shelves for records of old Phlan.";
       } else if (knows("sokal-mendor")) {
         nextStep = "Search Mendor's overrun library for records of old Phlan. Bring worthwhile finds to the council clerk.";
       }
