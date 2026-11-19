@@ -829,6 +829,13 @@ const combatPoseRoutes = new Map([
     strikeReport: /ATTACKSBRIN.*MISS/i,
     inputs: ["up", "b", "b", "b", "up", "enter", "enter", "enter", "a", "enter"], strikeInputs: ["enter"],
   }],
+  ["party-bow-icon-combat", {
+    slot: "B", stand: "combat:party:0:1", strike: "combat:party:0:129",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
+    strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(3).fill("enter")],
+    strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
+  }],
   ["buccaneer-pen-guard-combat", {
     slot: "A", stand: "combat:area:1:CPIC6.DAX:11:ecl:a391", strike: "combat:area:1:CPIC6.DAX:139:ecl:a391",
     width: 96, height: 96, readyPrompt: /HITPOINTS4AC10/i, strikeReflected: true,

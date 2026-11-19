@@ -4596,6 +4596,8 @@
     "battle-tile:e668bccffc3df9164d4a7e1a735c2a8c03b275035f82cd0f935e6c0ee13ed1f9": "courtyard-wall-cope-end-chip.png",
     "battle-tile:ba4085dd7fdd4e5675ac826dfc138a36a6b758920c6b9030e570b98086f65bd9": "courtyard-wall-cope-broken-end.png",
     "battle-tile:7c65890e55e9c2edab246c6c49f2bb097a16c24c639ca75533ec7904e97fa372": "courtyard-wall-cope-end-return.png",
+    "combat:party:0:129": "combat-party-bow-strike.png",
+    "combat:party:0:1": "combat-party-bow-ready.png",
     "combat:party:0:0": "sokal-party-scout.png",
     "combat:party:0:128": "combat-party-scout-strike.png",
     "combat:party:0:3": "combat-party-steel-flail.png",
