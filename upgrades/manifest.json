@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:4:SPRIT5.DAX:24:1:0": "valjevo-scriptorium-officer-approach-middle.png",
+    "encounter:area:4:SPRIT5.DAX:24:0:0": "valjevo-scriptorium-officer-approach-near.png",
     "encounter:area:5:SPRIT5.DAX:12:2:0": "valjevo-al-hyam-approach-far.png",
     "encounter:area:5:SPRIT5.DAX:12:1:0": "valjevo-al-hyam-approach-middle.png",
     "tile:22:83a47be8f7541c55e4af4555aef88155720e0c7e664b78d7182822ecc183dce7": "yarash-inner-angles-terrain-83a47be8f754.png",
@@ -3042,6 +3044,8 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:4:SPRIT5.DAX:24:1:0": { "area": 4, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:4:SPRIT5.DAX:24:0:0": { "area": 4, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:5:SPRIT5.DAX:12:2:0": { "area": 5, "x": 64, "y": 32, "width": 8, "height": 49 },
     "encounter:area:5:SPRIT5.DAX:12:1:0": { "area": 5, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:4:SPRIT5.DAX:16:0:0": { "area": 4, "x": 48, "y": 32, "width": 40, "height": 80 },

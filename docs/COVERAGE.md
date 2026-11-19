@@ -1207,6 +1207,9 @@ only in starting coordinates and facing. `valjevo-maze-watch` verifies
 the watch fighter's 4× approach sprite and 352×352 portrait at his
 password challenge, switching at both frames and its removal when
 the party passes peacefully.
+Both Scriptorium parlay replays also check the officer's middle and near
+approach sprites at their original anchors and switch presentation at
+each distance before answering the guard.
 `valjevo-scriptorium-combat` takes the officer's combat branch. Chrome
 checks the selected 96×96 ready pose and the reflected sword strike in
 the animation stream. `valjevo-records` starts at the adjoining records

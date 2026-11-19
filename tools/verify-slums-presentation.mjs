@@ -2102,7 +2102,20 @@ try {
       await switchBothWays();
     }
     await advance("enter");
-    if (scriptorium || giantPatrol) for (const key of ["a", "a"]) await advance(key);
+    if (scriptorium) {
+      for (const placement of [
+        [56, 32, "encounter:area:4:SPRIT5.DAX:24:1:0", 24, 65],
+        [48, 32, "encounter:area:4:SPRIT5.DAX:24:0:0", 32, 73],
+      ]) {
+        assert.deepEqual(frame.encounter, placement);
+        const [, , , width, height] = placement;
+        await waitFor("the Scriptorium officer's approach sprite", () => run(
+          `document.querySelector(".encounter-sprite")?.naturalWidth === ${width * 4} && document.querySelector(".encounter-sprite")?.naturalHeight === ${height * 4}`));
+        await switchBothWays();
+        await advance("a");
+      }
+    }
+    if (giantPatrol) for (const key of ["a", "a"]) await advance(key);
     for (const key of ["p", scriptoriumAuthority ? "h" : "m"]) await advance(key);
     const portrait = mazeWatch ? "portrait:HEAD5.DAX:52:BODY5.DAX:1"
       : giantPatrol ? "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1" : "portrait:HEAD5.DAX:53:BODY5.DAX:7";
