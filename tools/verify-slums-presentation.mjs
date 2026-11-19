@@ -914,6 +914,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["pyramid-inner-return", {
+    slot: "A", area: 22, views: 36, patterns: 61, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "right", "up", "up", "left", "up", "left", "up", "up", "right", "up", "up", "up", "right", "up", "up", "left", "up", "left", "up", "up", "right", "up", "up", "left", "up"],
+  }],
   ["pyramid-inner-court", {
     slot: "A", area: 22, views: 32, patterns: 58, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "right", "up", "up", "left", "up", "left", "up", "up", "right", "up", "up", "up", "right", "up", "up", "left", "up", "left", "up", "up", "right"],
