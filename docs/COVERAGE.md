@@ -242,6 +242,10 @@ The resulting landing checkpoint also passed `sokal-courtyard --manual-party`
 in the Chrome presentation verifier. It checked 56 patterns across 25 views,
 the hobgoblin approach sprite, and Brin's selected combat icon and the
 encounter-specific orc under the Aim cursor in both display modes.
+The full `sokal-courtyard` replay also verifies all three standing and
+strike poses, scrolling terrain, and switching modes during an attack.
+The leader uses the existing enhanced Slums pair because both native
+source records match byte for byte.
 Run `node tools/verify-fresh-party.mjs --slums-goblin-checkpoint PATH_TO_SLOT_A`
 from that rested save. The party bashes into the goblin training room at
 (10,1), wins for 181 XP without watchdog recovery, and takes leather

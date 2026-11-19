@@ -164,6 +164,8 @@
     "encounter:SPRIT2.DAX:4:2:0": "orc-encounter-far.png",
     "combat:CPIC2.DAX:5": "orc-leader-combat-guard.png",
     "combat:CPIC2.DAX:133": "orc-leader-combat-strike.png",
+    "combat:area:21:CPIC4.DAX:5:ecl:aed4": "orc-leader-combat-guard.png",
+    "combat:area:21:CPIC4.DAX:133:ecl:aed4": "orc-leader-combat-strike.png",
     "combat:CPIC2.DAX:6": "hobgoblin-combat-guard.png",
     "combat:CPIC2.DAX:134": "hobgoblin-combat-strike.png",
     "tile:0:09be609429c4e2db72e68769253a40f08fe1e0bf65055f356ed165cefcb83c91": "new-phlan-gate-65cefcb83c91.png",

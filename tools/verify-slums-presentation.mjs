@@ -4193,24 +4193,29 @@ try {
       await switchBothWays();
       console.log(`Verified ${frame.battleTiles.length} masonry placements without combat sprite artwork.`);
     } else if (patrolCombat || courtyard) {
-      const bank = courtyard ? "CPIC2.DAX" : "CPIC4.DAX";
-      const guards = courtyard ? ["4", "5", "6"] : ["34", "35"];
-      const attackIds = new Set(guards.map((id) => String(Number(id) + 128)));
+      const combatId = picture => courtyard ? `combat:area:21:CPIC4.DAX:${picture}:ecl:aed4` : `combat:CPIC4.DAX:${picture}`;
+      const pictures = courtyard ? [4, 5, 6] : [34, 35];
+      const guards = pictures.map(combatId);
+      const attackIds = new Set(pictures.map(picture => combatId(picture + 128)));
       await run(`(() => {
         window.combatSprites = new Set();
         window.partySpriteSeen = false;
         window.attackSwitch = null;
-        new MutationObserver(() => {
-          if (${courtyard} && animationFrame?.battleTiles.length && animationFrame.combatArt.length && !attackSwitch) {
+        let checkingAttack = false;
+        new MutationObserver(async () => {
+          if (${courtyard} && animationFrame?.battleTiles.length && animationFrame.combatArt.length && !attackSwitch && !checkingAttack) {
+            checkingAttack = true;
             const attack = animationFrame;
             const sequence = state.sequence;
             const layer = document.querySelector("#tile-art");
             const screen = document.querySelector("#screen");
             const oldFrame = screen.getAttribute("src");
             document.querySelector("#presentation").click();
+            await showScreen();
             const classic = layer.hidden && document.querySelector("#game-text").hidden &&
               screen.getAttribute("src") === "data:image/png;base64," + attack.frame;
             window.dispatchEvent(new KeyboardEvent("keydown", { key: "F10" }));
+            await showScreen();
             window.attackSwitch = {
               classic,
               enhanced: !layer.hidden && screen.getAttribute("src") === oldFrame &&
@@ -4227,10 +4232,12 @@ try {
             if (party.complete) recordParty();
             else party.addEventListener("load", recordParty, { once: true });
           }
-          for (const image of document.querySelectorAll('.combat-sprite[src^="/art/combat:${bank}:"]')) {
+          for (const image of document.querySelectorAll('.combat-sprite')) {
+            const id = image.getAttribute("src")?.slice(5);
+            if (!${JSON.stringify([...guards, ...attackIds])}.includes(id)) continue;
             const record = () => {
               if (image.naturalWidth === 96 && image.naturalHeight === 96) {
-                window.combatSprites.add(image.getAttribute("src").split(":").at(-1));
+                window.combatSprites.add(id);
               }
             };
             if (image.complete) record();
@@ -4241,12 +4248,12 @@ try {
       for (const key of courtyard ? ["enter", "enter", "enter"] : ["c", "enter", "enter", "enter"]) await advance(key);
       for (let turn = 0; courtyard && turn < 20; turn++) {
         const visible = new Set(frame.combatArt.map(([, , id]) => id));
-        if (guards.every(id => visible.has(`combat:${bank}:${id}`))) break;
+        if (guards.every(id => visible.has(id))) break;
         await advance("q");
       }
       await waitFor("all guard sprites", () => run(
         `${JSON.stringify(guards)}.every(id => combatSprites.has(id))`));
-      const [x, y] = frame.combatArt.find(([, , id]) => id === `combat:${bank}:${guards[0]}`);
+      const [x, y] = frame.combatArt.find(([, , id]) => id === guards[0]);
       await waitFor("transparent artwork over a cleared guest cell", () => run(`(() => {
         const image = document.querySelector("#screen");
         if (!image.complete || image.naturalWidth !== 320) return false;
@@ -4281,8 +4288,7 @@ try {
         for (const view of frame.animation ?? []) {
           if (view.battleTiles.length && view.combatArt.length) layeredAttack ??= view;
           for (const [, , id] of view.combatArt) {
-            const prefix = `combat:${bank}:`;
-            if (id.startsWith(prefix) && attackIds.has(id.slice(prefix.length))) strikes.add(id);
+            if (attackIds.has(id)) strikes.add(id);
           }
         }
         if (frame.animation?.length) {
@@ -4296,14 +4302,14 @@ try {
         assert.deepEqual(await run("window.attackSwitch"), { classic: true, enhanced: true, sameAttack: true });
         assert.deepEqual(readFileSync(saved), originalSave);
         assert.ok(layeredAttack, "Expected a captured attack with terrain and actors");
-        await waitFor("the battle layers to use only the animation frame", () => run(`(() => {
+        await waitFor("the battle layers to use only the animation frame", () => run(`(async () => {
           const next = state;
           try {
             // The next input frame can already be back in exploration or dialogue.
             state = { ...next,
               portrait: "portrait:PIC2.DAX:0:0:0", tiles: [[24, 24, "tile:unused-during-attack"]] };
             animationFrame = ${JSON.stringify(layeredAttack)};
-            showScreen();
+            await showScreen();
             const layer = document.querySelector("#tile-art");
             const terrain = [...layer.querySelectorAll(".battle-tile")];
             const actors = [...layer.querySelectorAll(".combat-sprite")];
