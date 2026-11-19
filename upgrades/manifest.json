@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:17:CPIC7.DAX:11:ecl:a1a6": "nomad-hassad-stand.png",
     "encounter:area:14:SPRIT3.DAX:11:0:0": "old-phlan-sword-thief-approach.png",
     "portrait:area:14:HEAD3.DAX:32:BODY3.DAX:8": "old-phlan-sword-thief-dialogue.png",
     "combat:area:24:CPIC1.DAX:133:ecl:abbd": "bane-altar-veteran-strike.png",
