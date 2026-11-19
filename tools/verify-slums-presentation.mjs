@@ -2251,6 +2251,16 @@ try {
     assert.equal(frame.portrait, "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9");
     await waitFor("Rolf portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await verifyPortraitPanel();
+    const rolfDialogue = frame;
+    await advance("j");
+    assert.ok(frame.journal?.objective.nextStep);
+    assert.equal(frame.portrait, rolfDialogue.portrait);
+    await waitFor("Rolf's enhanced portrait behind the journal", () => run(`state.sequence === ${frame.sequence} &&
+      !document.querySelector("#journal").hidden && document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+    await advance("j");
+    assert.equal(frame.journal, undefined);
+    assert.equal(frame.frame, rolfDialogue.frame);
+    assert.deepEqual(frame.text, rolfDialogue.text);
     const tourPatterns = new Set();
     for (let stop = 0; stop < 7; stop++) {
       await advance("enter");
@@ -2287,6 +2297,18 @@ try {
     assert.doesNotMatch(textOf(frame), /AREACASTVIEWENCAMP/i);
     assert.equal(frame.portrait, undefined);
     assert.equal(frame.perspective, true);
+    const doorway = frame;
+    await advance("j");
+    assert.ok(frame.journal?.objective.nextStep);
+    assert.deepEqual(frame.tiles, doorway.tiles);
+    await waitFor("enhanced doorway behind the open journal", () => run(`state.sequence === ${frame.sequence} &&
+      !document.querySelector("#journal").hidden && document.querySelectorAll(".terrain-tile").length === 121`));
+    await switchBothWays();
+    await advance("j");
+    assert.equal(frame.journal, undefined);
+    assert.deepEqual(frame.text, doorway.text);
+    assert.equal(frame.frame, doorway.frame);
+    assert.deepEqual(frame.tiles, doorway.tiles);
     await advance("enter");
     assert.equal(await verifyTiledView(11, patterns), 1);
     await advance("enter");

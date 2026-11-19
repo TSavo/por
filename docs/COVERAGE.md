@@ -2437,6 +2437,9 @@ Pass a slot A checkpoint in the dueling room at (7,2) facing west to
 while the exploration menu is absent and before the next Enter, then checks
 the same tile placement after advancing through the transition. The browser
 recognizes the output of the original scenery draw routine during this pause.
+The replay opens the journal before Enter, checks the 121 enhanced tiles
+behind it, and switches display modes. Closing the journal restores the
+same guest frame, text, and tile placements.
 
 The `new-phlan-south-shop-exit` replay starts from slot A at (9,11)
 facing west. Chrome verifies the shopkeeper portrait at the offer and all

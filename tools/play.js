@@ -255,9 +255,9 @@ async function showScreen() {
   const view = animationFrame ?? state;
   const useEnhanced = enhanced && !failedTileArt.has(view);
   const frame = useEnhanced ? view.enhancedFrame ?? view.frame : view.frame;
-  const sceneArt = useEnhanced && !view.journal && !failedSceneArt.has(view) && view.art;
+  const sceneArt = useEnhanced && !failedSceneArt.has(view) && view.art;
   const source = sceneArt || `data:image/png;base64,${frame}`;
-  const showArt = useEnhanced && !sceneArt && !view.journal;
+  const showArt = useEnhanced && !sceneArt;
   function pictureBackdrop() {
     const backdrop = document.createElement("div");
     backdrop.className = "perspective-backdrop";

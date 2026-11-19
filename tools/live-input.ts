@@ -117,12 +117,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const row = Math.floor(cell / 40);
         return column < 1 || column >= 16 || row < 1 || row >= 16;
       }) : glyphs;
-      const picture = !scene && !leads ? portraitArt(screen, area, battleCursor) : undefined;
+      const picture = !scene ? portraitArt(screen, area, battleCursor) : undefined;
       const portrait = typeof picture === "string" ? picture : undefined;
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);
-      // Opening the journal does not replace the room behind an active encounter.
-      const encounter = !leads ? encounterArt(screen, enhanced, !scene && picture === undefined ? area : undefined, !captureApproach) : undefined;
+      const encounter = encounterArt(screen, enhanced, !scene && picture === undefined ? area : undefined, !captureApproach);
       if (captureApproach) {
         if (!encounter || encounter[2] === lastApproach) return;
         lastApproach = encounter[2];
@@ -139,26 +138,24 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         (area === 24 && menu === "DESTROYALTARLEAVEIT");
       let perspective = false;
       let tileArea = area;
-      if (!leads) {
-        if (area !== undefined && !scene && !overlandMap && picture === undefined && !hasBattlefieldBorder(screen)) {
-          const pixels = perspectivePixels();
-          // The original game can redraw scenery while the menu is hidden,
-          // including mid-transition at a doorway.
-          const nativeDraw = drawnPerspective?.pixels.equals(pixels) ? drawnPerspective : undefined;
-          // At Podal's west boundary the destination ECL draws the scenery
-          // before the guest copies that area's number into the area record.
-          if ((area === 18 && nativeDraw?.localEcl === 26) || (area === 26 && nativeDraw?.localEcl === 18)) {
-            tileArea = nativeDraw.localEcl;
-          }
-          // The return ferry draws the New Phlan pier while the area record
-          // still points to West or East Overland.
-          if ((area === 26 || area === 27) && nativeDraw?.localEcl === 0) tileArea = 0;
-          perspective = Boolean(encounter || exploration || nativeDraw ||
-            (previousPerspective?.area === area && previousPerspective.pixels.equals(pixels)));
-          previousPerspective = perspective ? { area, pixels } : undefined;
-        } else {
-          previousPerspective = undefined;
+      if (area !== undefined && !scene && !overlandMap && picture === undefined && !hasBattlefieldBorder(screen)) {
+        const pixels = perspectivePixels();
+        // The original game can redraw scenery while the menu is hidden,
+        // including mid-transition at a doorway.
+        const nativeDraw = drawnPerspective?.pixels.equals(pixels) ? drawnPerspective : undefined;
+        // At Podal's west boundary the destination ECL draws the scenery
+        // before the guest copies that area's number into the area record.
+        if ((area === 18 && nativeDraw?.localEcl === 26) || (area === 26 && nativeDraw?.localEcl === 18)) {
+          tileArea = nativeDraw.localEcl;
         }
+        // The return ferry draws the New Phlan pier while the area record
+        // still points to West or East Overland.
+        if ((area === 26 || area === 27) && nativeDraw?.localEcl === 0) tileArea = 0;
+        perspective = Boolean(encounter || exploration || nativeDraw ||
+          (previousPerspective?.area === area && previousPerspective.pixels.equals(pixels)));
+        if (!leads) previousPerspective = perspective ? { area, pixels } : undefined;
+      } else if (!leads) {
+        previousPerspective = undefined;
       }
       if ((tileKeys.size || traceTiles) && tileArea !== undefined && perspective) {
         const pixels = Buffer.alloc(64);
@@ -180,11 +177,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const offset = Math.floor(cell / 40) * 8 * screen.width + x;
         for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * screen.width, offset + y * screen.width + 8);
       }
-      const combat = attack || (!scene && !leads && !perspective)
+      const combat = attack || (!scene && !perspective)
         ? combatArt(screen, enhanced, area, battleCursor) : [];
       const battleTiles: TilePlacement[] = [];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
-      if ((battleTileKeys.size || battleTileInventory) && !scene && !leads && hasBattlefieldBorder(screen)) {
+      if ((battleTileKeys.size || battleTileInventory) && !scene && hasBattlefieldBorder(screen)) {
         const pixels = Buffer.alloc(64);
         const selectedActors = battleTileInventory ? combat.filter(([, , , , highlighted]) => highlighted) : [];
         const selectionCells = new Set<number>();
