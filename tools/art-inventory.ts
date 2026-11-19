@@ -7,7 +7,7 @@ import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
-import { loadUpgradeArt } from "./upgrade-art.js";
+import { loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
 import { compositePortraitKey, portraitKey } from "./portrait-art.js";
 import { loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
@@ -196,7 +196,8 @@ for (const path of tracePaths) {
     }
   }
 }
-const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, ...metadata }], index) => {
+const artworkLoadIssues: ArtworkLoadIssue[] = [];
+const replacements = [...loadUpgradeArt(undefined, gameData, issue => artworkLoadIssues.push(issue))].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
   const match = randomCombatKey.exec(id) ??
@@ -475,6 +476,10 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 .coverage-table{border-collapse:collapse;margin:.75rem 0}.coverage-table th,.coverage-table td{padding:.25rem .75rem;text-align:right;border-bottom:1px solid #514738}
 </style><h1>Pool of Radiance art inventory</h1>
 <p><strong>${replacements.length} loaded replacement entries</strong> · ${loadedPngs} PNG files · ${archives.length} source archives</p>
+${artworkLoadIssues.length ? `<details><summary>${artworkLoadIssues.length} artwork loading issues</summary><ul>${
+  artworkLoadIssues.map(({ manifest, id, reason }) =>
+    `<li>${escape(manifest)}${id ? ` · <code>${escape(id)}</code>` : ""} · ${escape(reason)}</li>`).join("")
+}</ul></details>` : ""}
 <dl class="inventory-totals">${inventoryCategories.map(([category, label]) =>
   `<div><dt>${label}</dt><dd>${replacementCounts.get(category) ?? 0}</dd></div>`).join("")}</dl>
 ${capturedTiles.size ? `<p>Captured exploration patterns: ${explorationTotals.matched} of ${explorationTotals.captured} replaced, ${explorationTotals.captured - explorationTotals.matched} unmatched.</p>
@@ -578,7 +583,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, missingTiles, observedPortraitFallbacks, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, artworkLoadIssues, missingTiles, observedPortraitFallbacks, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");

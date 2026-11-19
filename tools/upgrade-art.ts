@@ -19,13 +19,21 @@ interface LoadedArtwork {
   encounter?: EncounterAnchor;
 }
 
-/** Resolve the same assets for the browser and the production inventory. */
-export function loadUpgradeArt(upgrades = process.env.POR_UPGRADES_DIR, gameRoot = findGameRoot()) {
-  const artworkDirectories = upgrades === undefined ? [join("upgrades", "slums"), "upgrades"] : [upgrades];
-  return loadUpgradeArtFromManifests(artworkDirectories.map((directory) => join(directory, "manifest.json")), gameRoot);
+export interface ArtworkLoadIssue {
+  manifest: string;
+  id?: string;
+  reason: string;
 }
 
-export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot = findGameRoot()) {
+/** Resolve the same assets for the browser and the production inventory. */
+export function loadUpgradeArt(upgrades = process.env.POR_UPGRADES_DIR, gameRoot = findGameRoot(),
+  report?: (issue: ArtworkLoadIssue) => void) {
+  const artworkDirectories = upgrades === undefined ? [join("upgrades", "slums"), "upgrades"] : [upgrades];
+  return loadUpgradeArtFromManifests(artworkDirectories.map((directory) => join(directory, "manifest.json")), gameRoot, report);
+}
+
+export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot = findGameRoot(),
+  report?: (issue: ArtworkLoadIssue) => void) {
   const artwork = new Map<string, LoadedArtwork>();
   const gameFiles = new Map(gameRoot ? listGameFiles(gameRoot).map(file => [file.toUpperCase(), file]) : []);
   const archives = new Map<string, ReturnType<typeof parseDax>>();
@@ -40,9 +48,13 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
     return parsed;
   }
   for (const manifestPath of paths) {
+    const reject = (reason: string, id?: string) => report?.({ manifest: manifestPath, id, reason });
     try {
       const manifest = JSON.parse(readFileSync(manifestPath, "utf8")) as OverrideManifest;
-      if (manifest.version !== 1 || !manifest.assets) continue;
+      if (manifest.version !== 1 || !manifest.assets) {
+        reject("Unsupported manifest version or missing assets.");
+        continue;
+      }
       const reflectedTiles = new Set(manifest.reflectedTiles ?? []);
       for (const id of Object.keys(manifest.assets)) {
         const encounter = encounterAnchor(id, manifest.encounters?.[id]);
@@ -50,47 +62,72 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         const party = partyCombatKey.exec(id);
         const random = randomCombatKey.exec(id);
         if (id !== "scene:title" && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
-            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !random && !portraitKey.test(id) && !encounter) continue;
+            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !random && !portraitKey.test(id) && !encounter) {
+          reject("Unsupported asset ID or invalid encounter placement.", id);
+          continue;
+        }
         const file = lookupOverride(manifest, id);
-        if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) continue;
+        if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) {
+          reject("Invalid PNG filename.", id);
+          continue;
+        }
         try {
           const path = join(dirname(manifestPath), file);
           const png = readFileSync(path);
           const dimensions = pngDimensions(png);
-          if (!dimensions) continue;
+          if (!dimensions) {
+            reject("Invalid PNG header.", id);
+            continue;
+          }
           let sourceWidth = 8;
           let sourceHeight = 8;
           if (encounter) {
             const archive = originalArchive(encounterKey.exec(id)![2]!);
-            if (!archive || !encounterPixels(archive, id, encounter)) continue;
+            if (!archive || !encounterPixels(archive, id, encounter)) {
+              reject("Encounter source frame does not match its placement.", id);
+              continue;
+            }
             ({ width: sourceWidth, height: sourceHeight } = encounter);
           } else if (id === "scene:title") [sourceWidth, sourceHeight] = [320, 200];
           else if (random) {
             const entry = originalArchive(random[1])?.entries.find(({ id }) => id === Number(random[2]));
-            if (!entry || !randomCombatPixels(entry.data, Number(random[4]))) continue;
+            if (!entry || !randomCombatPixels(entry.data, Number(random[4]))) {
+              reject("Random combat source frame is missing or invalid.", id);
+              continue;
+            }
             sourceWidth = sourceHeight = 24;
           } else if (monster) {
             const entry = originalArchive(monster[2])?.entries.find(({ id: block }) => block === Number(monster[3]));
-            if (!entry || !isPicture(entry.data)) continue;
-            const picture = decodePicture(entry.data);
-            if (picture.itemCount !== 1 || !isCombatExtent(picture.width, picture.height)) continue;
+            const picture = entry && isPicture(entry.data) ? decodePicture(entry.data) : undefined;
+            if (!picture || picture.itemCount !== 1 || !isCombatExtent(picture.width, picture.height)) {
+              reject("Monster combat source frame is missing or invalid.", id);
+              continue;
+            }
             ({ width: sourceWidth, height: sourceHeight } = picture);
           } else if (party) {
             const head = originalArchive("CHEAD.DAX")?.entries.find(({ id }) => id === Number(party[1]));
             const body = originalArchive("CBODY.DAX")?.entries.find(({ id }) => id === Number(party[2]));
-            if (!head || !body || !partyCombatPart(head.data, 10) || !partyCombatPart(body.data, 24)) continue;
+            if (!head || !body || !partyCombatPart(head.data, 10) || !partyCombatPart(body.data, 24)) {
+              reject("Party combat source parts are missing or invalid.", id);
+              continue;
+            }
             sourceWidth = sourceHeight = 24;
           }
           else if (portraitKey.test(id)) sourceWidth = sourceHeight = 88;
           const { width, height } = dimensions;
-          if (width !== sourceWidth * 4 || height !== sourceHeight * 4) continue;
+          if (width !== sourceWidth * 4 || height !== sourceHeight * 4) {
+            reject(`Expected ${sourceWidth * 4}×${sourceHeight * 4} PNG, found ${width}×${height}.`, id);
+            continue;
+          }
           artwork.set(id, { file, path, png, encounter, width, height,
             reflected: id.startsWith("tile:") && reflectedTiles.has(id) || undefined });
         } catch (error) {
+          reject(`Cannot read ${file} (${(error as NodeJS.ErrnoException).code ?? "invalid artwork"}).`, id);
           if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork", error);
         }
       }
     } catch (error) {
+      reject(`Cannot read manifest (${(error as NodeJS.ErrnoException).code ?? "invalid JSON"}).`);
       if ((error as NodeJS.ErrnoException).code !== "ENOENT") console.error("Cannot load enhanced artwork manifest", error);
     }
   }
