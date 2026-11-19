@@ -4253,15 +4253,17 @@ try {
       }
       await waitFor("all guard sprites", () => run(
         `${JSON.stringify(guards)}.every(id => combatSprites.has(id))`));
-      const [x, y] = frame.combatArt.find(([, , id]) => id === guards[0]);
+      const guardPositions = frame.combatArt.filter(([, , id]) => id === guards[0]).map(([x, y]) => [x, y]);
       await waitFor("transparent artwork over a cleared guest cell", () => run(`(() => {
         const image = document.querySelector("#screen");
         if (!image.complete || image.naturalWidth !== 320) return false;
         const context = document.createElement("canvas").getContext("2d");
         context.canvas.width = context.canvas.height = 24;
-        context.drawImage(image, ${x}, ${y}, 24, 24, 0, 0, 24, 24);
-        return [...context.getImageData(0, 0, 24, 24).data].every(
-          (value, index) => value === [15, 14, 18, 255][index % 4]);
+        return ${JSON.stringify(guardPositions)}.some(([x, y]) => {
+          context.drawImage(image, x, y, 24, 24, 0, 0, 24, 24);
+          return [...context.getImageData(0, 0, 24, 24).data].every(
+            (value, index) => value === [15, 14, 18, 255][index % 4]);
+        });
       })()`));
       if (courtyard) {
         assert.ok(frame.battleTiles.length > 0);

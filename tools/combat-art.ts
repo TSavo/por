@@ -78,12 +78,11 @@ function buildCombatArtMatcher(keys: string[]) {
   };
   const terrainPose = (cell: Uint8Array, width: number) => {
     // Tall monsters can overlap the backdrop and adjacent units. Wide
-    // monsters can overlap the black field and the combat selection bevel.
+    // and encounter-specific monsters can overlap grayscale terrain.
     let match: Pose | undefined;
     const wide = cell.length === width * 24;
-    for (const pose of rectangularPoses) {
-      if (pose.width !== width || pose.pixels.length !== cell.length ||
-          !pose.pixels.every((color, index) => {
+    for (const pose of terrainPoses.get(`${width}:${cell.length}`) ?? []) {
+      if (!pose.pixels.every((color, index) => {
             const pixel = cell[index];
             if (color) return pixel === color;
             return !wide || pixel === 0 || pixel === 7 || pixel === 8 || pixel === 15;
@@ -141,8 +140,15 @@ function buildCombatArtMatcher(keys: string[]) {
   // takes precedence over the matching global bitmap in this area's matcher.
   const scopedPatterns = new Set(registered.filter(({ scoped }) => scoped).map(({ pattern }) => pattern));
   const poses = registered.filter(({ scoped, pattern }) => scoped || !scopedPatterns.has(pattern));
-  const rectangularPoses = poses.filter(({ pixels, width, key }) =>
-    (width === 48 || pixels.length === width * 48) && monsterCombatKey.test(key));
+  const terrainPoses = new Map<string, Pose[]>();
+  for (const pose of poses) {
+    const { width, pixels, key } = pose;
+    if (!monsterCombatKey.test(key) || (width !== 48 && pixels.length !== width * 48 && !key.includes(":ecl:"))) continue;
+    const extent = `${width}:${pixels.length}`;
+    const matching = terrainPoses.get(extent) ?? [];
+    matching.push(pose);
+    terrainPoses.set(extent, matching);
+  }
   const patterns = new Map<string, Pose | null>();
   for (const pose of poses) {
     const previous = patterns.get(pose.pattern);
@@ -165,7 +171,7 @@ function buildCombatArtMatcher(keys: string[]) {
           }
           const plain = patterns.get(`${width}:${cell.toString("hex")}`);
           const selected = plain === undefined ? selectedPose(cell, bevel, width) : undefined;
-          const terrain = (width === 48 || height === 48) && plain === undefined && !selected
+          const terrain = plain === undefined && !selected
             ? terrainPose(cell, width) : undefined;
           const match = plain ?? selected ?? terrain;
           if (!match) continue;
