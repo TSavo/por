@@ -455,6 +455,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["nomad-south-trail", {
+    slot: "A", area: 17, views: 16, patterns: 54, sceneryOnly: true,
+    walk: ["up", "up", "up", "right", "up", "left", "up", "up", "up", "up", "up", "up", "up", "left", "up"],
+  }],
   ["new-phlan-proclamation-walk", {
     slot: "B", area: 0, views: 15, patterns: 62, sceneryOnly: true,
     walk: ["up", "up", "enter", "right", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up"],
