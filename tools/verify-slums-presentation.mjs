@@ -490,6 +490,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["false-throne-impersonator-combat", {
+    slot: "B", stand: "combat:area:5:CPIC5.DAX:11:ecl:abe2", strike: "combat:area:5:CPIC5.DAX:139:ecl:abe2",
+    width: 96, height: 96, readyPrompt: /TYRANITHRAXUSHITPOINTS40/i, strikeReflected: true,
+    inputs: ["up", "enter", "enter", "c", "enter", "enter", "enter"], strikeInputs: ["enter"],
+  }],
   ["false-throne-thief-combat", {
     slot: "B", stand: "combat:area:5:CPIC5.DAX:12:ecl:abe2", strike: "combat:area:5:CPIC5.DAX:140:ecl:abe2",
     width: 96, height: 96, readyPrompt: /6THLVLTHIEFHITPOINTS28/i, strikeReflected: false,

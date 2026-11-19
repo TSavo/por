@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:5:CPIC5.DAX:11:ecl:abe2": "false-throne-impersonator-stand.png",
+    "combat:area:5:CPIC5.DAX:139:ecl:abe2": "false-throne-impersonator-strike.png",
     "tile:14:067e5b585dd24bcac143834da985ebebbcc25446db06ae546aeffaec0d2b9711": "old-phlan-locked-lane-terrain-067e5b585dd2.png",
     "tile:14:7041882d54734f52b66d2334ec62779d485694e861327c4b4c765326d9fdc613": "old-phlan-locked-lane-terrain-7041882d5473.png",
     "encounter:area:20:SPRIT2.DAX:2:0:0": "slums-goblin-lesson-approach.png",
