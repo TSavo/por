@@ -2261,7 +2261,10 @@ north and verifies a state-preserving mode switch there.
 `new-phlan-council-entry` uses a controlled slot A with Sokal complete.
 The journal gains the Sokal entry after the clerk announces the reward.
 It shows reward pending in the treasure menu and turned in after sharing
-and exiting. The replay also checks that the saved checkpoint is unchanged.
+and exiting. The replay checks that the checkpoint stays unchanged until
+the party saves through Encamp. Pass the emitted slot A to
+`new-phlan-council-reward-reload` to verify the Sokal turn-in, the Slums
+and records offers, and the accepted Podal auction commission after load.
 
 Pass a slot A checkpoint in the dueling room at (7,2) facing west to
 `new-phlan-building-exit`. The replay verifies the enhanced street at (5,1)

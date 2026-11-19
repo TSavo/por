@@ -1854,6 +1854,7 @@ const environmentRoutes = new Map([
 ]);
 const freshRolf = routeName === "new-phlan-rolf-approach";
 const routes = ["new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+routes.push("new-phlan-council-reward-reload");
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -2095,7 +2096,17 @@ try {
     return 1;
   }
 
-  if (freshRolf) {
+  if (routeName === "new-phlan-council-reward-reload") {
+    await advance("j");
+    assert.ok(frame.journal);
+    const statuses = new Map(frame.journal.leads.map(({ id, status }) => [id, status]));
+    assert.equal(statuses.get("commission-sokal"), "turned-in");
+    assert.equal(statuses.get("commission-slums"), "offered");
+    assert.equal(statuses.get("commission-records"), "offered");
+    assert.equal(statuses.get("commission-auction"), "accepted");
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the Sokal reward and newly heard commissions after loading slot A.");
+  } else if (freshRolf) {
     for (const key of ["enter", "enter", "enter", "enter", "enter", "y", "t", "s", "t",
       "enter", "k", "e", "y", "a", "a", "e", "b", "enter"]) await advance(key);
     assert.equal(await verifyTiledView(0, new Set()), 1);
@@ -2759,6 +2770,11 @@ try {
       assert.equal(sokal()?.status, "turned-in");
       await advance("j");
       assert.deepEqual(readFileSync(saved), originalSave);
+      for (const key of ["enter", "enter", "enter", "enter", "e", "s", "s", "a"]) await advance(key);
+      assert.notDeepEqual(readFileSync(saved), originalSave);
+      const checkpoint = JSON.parse(readFileSync(saved, "utf8"));
+      assert.equal(checkpoint.leads.find(({ id }) => id === "commission-sokal")?.status, "turned-in");
+      console.log("Sokal reward checkpoint:", saved);
     }
     if (continuation) {
       if (journalLead) {
