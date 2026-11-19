@@ -816,6 +816,9 @@ warning, the bugbear confrontation, and the decision to take the punch.
 The journal records each event only after the party sees it. The route
 also checks the Enhanced portrait and the return to all 121 scenery
 placements after the bugbears let the party go.
+The original approach draws far, middle, and near bugbear sprites in
+that order. Chrome checks all three Enhanced assets at (56,32), each
+over the complete scenery layer, before the confrontation portrait.
 It saves the outcome to slot B through Encamp. Use the printed slot B
 path with `stojanow-wall-warning-reload` to verify that all three clues
 and the Enhanced view return after loading. The original slot A remains

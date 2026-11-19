@@ -4242,7 +4242,22 @@ try {
     assert.ok(!known(warning) && !known(punch) && !known(released));
     for (const key of ["j", "up", "up", "up", "enter", "enter", "up", "right", "up", "up", "j"]) await advance(key);
     assert.ok(known(warning) && !known(punch) && !known(released));
-    for (const key of ["j", "up", "left", "up"]) await advance(key);
+    await run(`window.bugbearDistances = new Set();
+      const layer = document.querySelector("#tile-art");
+      new MutationObserver(() => {
+        const image = layer.querySelector(".encounter-sprite");
+        const id = image?.getAttribute("src")?.match(/SPRIT2\\.DAX:63:([012]):0$/)?.[1];
+        if (id !== undefined && image.naturalWidth === 96 && image.naturalHeight === [292, 260, 228][Number(id)] &&
+            Math.abs(parseFloat(image.style.left) - ${(8 + (56 - 24) * 120 / 88) / 3.2}) < .001 &&
+            Math.abs(parseFloat(image.style.top) - ${(8 + (32 - 24) * 120 / 88) / 2}) < .001 &&
+            layer.querySelectorAll(".terrain-tile").length === 121) {
+          window.bugbearDistances.add(id);
+        }
+      }).observe(layer, { childList: true });`);
+    for (const key of ["j", "up", "left"]) await advance(key);
+    await waitFor("all three bugbear approach distances", () => run("window.bugbearDistances.size === 3"));
+    assert.deepEqual(await run("[...window.bugbearDistances]"), ["2", "1", "0"]);
+    await advance("up");
     assert.equal(frame.portrait, "portrait:area:9:PIC2.DAX:63:0:0");
     await waitFor("the enhanced bugbear warning portrait", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
