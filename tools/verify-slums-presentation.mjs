@@ -803,7 +803,12 @@ const illustrationRoutes = new Map([
   }],
   ["north-gate-thieves-guild", {
     slot: "A", inputs: ["up", "enter"],
-    portrait: "portrait:HEAD3.DAX:44:BODY3.DAX:8", prompt: /AMBUSHEDBYSOMETHIEVES/i,
+    approachSequence: [[40, 32, "encounter:area:14:ecl:af19:SPRIT3.DAX:11:0:0", 48, 80]],
+    portrait: "portrait:area:14:ecl:af5a:HEAD3.DAX:44:BODY3.DAX:8", prompt: /AMBUSHEDBYSOMETHIEVES/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:14:ecl:af62:HEAD3.DAX:44:BODY3.DAX:8",
+      prompt: /ABATTLEBEGINS/i,
+    },
   }],
   ["new-phlan-jeweler", {
     slot: "A", inputs: ["up", "enter"],
