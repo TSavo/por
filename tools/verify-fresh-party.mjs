@@ -401,6 +401,20 @@ async function verifyPodalFromCouncil(continuation) {
   ];
   const plazaSave = readFileSync(join(saveDir, "I.json"));
   await replay(load("1769"), "85000000", [
+    ...reachAuction, "enter", "enter",
+    (text) => assert.match(text, /stand and listen move in closer listen to comments leave/),
+    "end", "end", "enter",
+    (text) => assert.match(text, /wand of illumination/),
+    "j", checkAuction("accepted"), (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "auction-wand-of-illumination"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-wand-of-fear" || id === "auction-exchange"));
+    }, "j", "enter", "enter", "end", "enter", "enter", "enter",
+    "j", checkAuction("ready-to-report"), checkExchange, (_text, frame) => {
+      assert.match(frame.journal.objective.nextStep, /an onlooker called it a Wand of Illumination/i);
+      assert.doesNotMatch(frame.journal.objective.nextStep, /Wand of Fear/i);
+    },
+  ]);
+  await replay(load("1769"), "85000000", [
     ...reachAuction, ...Array(4).fill("enter"),
     (text) => assert.match(text, /make a bid wait for winner try to leave/),
     "end", "end", "enter", "enter",

@@ -1909,6 +1909,9 @@ the journal first records the options to disguise the party or sneak in.
 From the same plaza checkpoint, the replay tries to leave during the sale.
 It verifies that the cancellation is ready to report before combat starts
 and that the saved checkpoint can still be used for the witnessed exchange.
+The replay also chooses Listen to Comments and waits for the winner. The
+journal attributes the Wand of Illumination claim to an onlooker and adds
+the witnessed exchange without claiming a positive item identification.
 After the auction turn-in, the replay takes the east door to Cadorna,
 hears where his family's treasure was hidden, and reloads with the
 Textile House commission accepted. The party takes the westbound
