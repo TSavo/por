@@ -41,7 +41,7 @@ let animationTimer;
 let advanceAnimation;
 let screenRender = 0;
 const failedSceneArt = new WeakSet();
-const failedTileArt = new WeakSet();
+const failedEnhancedFrames = new WeakSet();
 
 function syncAudioControls() {
   for (const key of ["hardware", "master", "effects", "dialogue", "narration"])
@@ -254,7 +254,7 @@ async function showScreen() {
   if (!state.frame) return;
   const render = ++screenRender;
   const view = animationFrame ?? state;
-  const useEnhanced = enhanced && !failedTileArt.has(view);
+  const useEnhanced = enhanced && !failedEnhancedFrames.has(view);
   const frame = useEnhanced ? view.enhancedFrame ?? view.frame : view.frame;
   const sceneArt = useEnhanced && !failedSceneArt.has(view) && view.art;
   const source = sceneArt || `data:image/png;base64,${frame}`;
@@ -354,7 +354,7 @@ async function showScreen() {
   } catch {
     if (render !== screenRender) return;
     if (sceneArt) failedSceneArt.add(view);
-    else if (showArt && layers.length) failedTileArt.add(view);
+    else if (useEnhanced) failedEnhancedFrames.add(view);
     else {
       holdAnimationFrame(view);
       return;
