@@ -2178,3 +2178,13 @@ illustration at their native prompts. The false throne thief and
 impersonator replays check their own ready and strike poses within
 the same battle. The Slums goblin lesson and feeding-room kobold
 replays check the instructor sprite and the meal illustration.
+
+The Mendor waterfront routes check 22 new tiles across 44 views.
+The ruin doors and east and south ruin crossings check seven more
+tiles across 36 views. The Slums orc clash uses the same close-up in
+the papers dispute, home confrontation, and guard interception.
+The goblin lesson and both hobgoblin ringleader replays check the
+transition from approach to close-up. The Valjevo outer patrol replays
+check the hill giant's club and captain's longsword strikes in the
+same fight. These replays preserve game state and save data during
+presentation switches.
