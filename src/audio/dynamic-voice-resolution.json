@@ -1,0 +1,1331 @@
+{
+  "schema": 1,
+  "policy": "No dynamic value is guessed. Values are either proven from local ECL assignments, runtime-only, or left for encounter-table tracing.",
+  "unresolvedUnitCountBeforeTrace": 84,
+  "unitsResolvedToFiniteVariants": 5,
+  "unitsStillRuntimeDependent": 79,
+  "slotSemantics": {
+    "0x6b00": {
+      "meaning": "selected party-member name",
+      "resolution": "runtime-only",
+      "reason": "Value comes from the player's save roster; the possible spelling is not bounded by original game data.",
+      "strategy": "Keep withheld unless runtime synthesis or recorded generic fallback is explicitly approved."
+    },
+    "0x6e79": {
+      "meaning": "player-entered input string in the unresolved voice unit",
+      "resolution": "runtime-only",
+      "reason": "For the affected unit it is the six-character password just typed by the player.",
+      "strategy": "Keep confirmation unvoiced or use runtime synthesis; never pre-render guessed inputs."
+    },
+    "0x6e7e": {
+      "meaning": "random tavern-tale number",
+      "resolution": "enumerated",
+      "values": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24"
+      ],
+      "evidence": "RANDOM 23 followed by ADD 1 before PRINT."
+    },
+    "0x985e": {
+      "meaning": "single proclamation number text",
+      "resolution": "enumerated",
+      "values": [
+        "CI.",
+        "CXXVI AND CX.",
+        "CXXXIV.",
+        "CLIV.",
+        "CXIV.",
+        "CCIV.",
+        "CXXIX.",
+        "CCI."
+      ],
+      "evidence": "Nine ON GOSUB targets assign these strings; CXIV occurs twice."
+    },
+    "0x980e": {
+      "meaning": "runtime encounter actor name",
+      "resolution": "encounter-table-dependent",
+      "strategy": "Enumerate from the encounter's monster table and grammatical-number metadata before rendering."
+    },
+    "0x980f": {
+      "meaning": "runtime encounter group name",
+      "resolution": "encounter-table-dependent",
+      "strategy": "Enumerate from the encounter's monster table before rendering."
+    },
+    "0x9809": {
+      "meaning": "runtime encounter group name",
+      "resolution": "encounter-table-dependent",
+      "strategy": "Enumerate from the block's wilderness encounter table before rendering."
+    },
+    "0x982c": {
+      "meaning": "context-dependent composed string, commonly monster/group/class text",
+      "resolution": "context-dependent",
+      "strategy": "Trace the local SAVE/GET TABLE chain per unit; do not apply one global value list."
+    },
+    "0x9890": {
+      "meaning": "context-dependent composed string, commonly area/group/reward text",
+      "resolution": "context-dependent",
+      "strategy": "Trace the local SAVE chain per unit; do not apply one global value list."
+    }
+  },
+  "resolvedUnitVariants": {
+    "por.voice.ecl3.b0-a413-a438": [
+      "YOU OVERHEAR TAVERN TALE 1",
+      "YOU OVERHEAR TAVERN TALE 2",
+      "YOU OVERHEAR TAVERN TALE 3",
+      "YOU OVERHEAR TAVERN TALE 4",
+      "YOU OVERHEAR TAVERN TALE 5",
+      "YOU OVERHEAR TAVERN TALE 6",
+      "YOU OVERHEAR TAVERN TALE 7",
+      "YOU OVERHEAR TAVERN TALE 8",
+      "YOU OVERHEAR TAVERN TALE 9",
+      "YOU OVERHEAR TAVERN TALE 10",
+      "YOU OVERHEAR TAVERN TALE 11",
+      "YOU OVERHEAR TAVERN TALE 12",
+      "YOU OVERHEAR TAVERN TALE 13",
+      "YOU OVERHEAR TAVERN TALE 14",
+      "YOU OVERHEAR TAVERN TALE 15",
+      "YOU OVERHEAR TAVERN TALE 16",
+      "YOU OVERHEAR TAVERN TALE 17",
+      "YOU OVERHEAR TAVERN TALE 18",
+      "YOU OVERHEAR TAVERN TALE 19",
+      "YOU OVERHEAR TAVERN TALE 20",
+      "YOU OVERHEAR TAVERN TALE 21",
+      "YOU OVERHEAR TAVERN TALE 22",
+      "YOU OVERHEAR TAVERN TALE 23",
+      "YOU OVERHEAR TAVERN TALE 24"
+    ],
+    "por.voice.ecl3.b0-ac22-ac8a-ac96": [
+      "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCI.",
+      "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCXXVI AND CX.",
+      "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCXXXIV.",
+      "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCLIV.",
+      "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCXIV.",
+      "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCCIV.",
+      "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCXXIX.",
+      "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCCI."
+    ],
+    "por.voice.ecl3.b8-9e4a-9e68": [
+      "'THERE IS A REWARD FOR CLEARING THE LIBRARY.'",
+      "'THERE IS A REWARD FOR CLEARING THE PODAL PLAZA.'",
+      "'THERE IS A REWARD FOR CLEARING THE CADORNA TEXTILE HOUSE.'"
+    ],
+    "por.voice.ecl3.b11-a00e-a021": [
+      "'WE TRAIN ONLY FIGHTERS HERE. DO YOU WANT TO TRAIN?'",
+      "'WE TRAIN ONLY THIEVES HERE. DO YOU WANT TO TRAIN?'"
+    ],
+    "por.voice.ecl3.b11-9eab-9ed8": [
+      "'THERE IS A FINE ACOLYTE WHO WILL JOIN YOU FOR 1 SHARE. IS THIS ACCEPTABLE?'",
+      "'THERE IS A FINE WARRIOR WHO WILL JOIN YOU FOR 1 SHARE. IS THIS ACCEPTABLE?'",
+      "'THERE IS A FINE EVOKER WHO WILL JOIN YOU FOR 2 SHARES. IS THIS ACCEPTABLE?'",
+      "'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
+      "'THERE IS A FINE ROBBER WHO WILL JOIN YOU FOR 3 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
+      "'THERE IS A FINE CURATE WHO WILL JOIN YOU FOR 3 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
+      "'THERE IS A FINE HERO WHO WILL JOIN YOU FOR 4 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
+      "'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'"
+    ]
+  },
+  "units": [
+    {
+      "archive": "ECL1.DAX",
+      "unitId": "ecl1-b18-a0ab-a0af-a0b3",
+      "status": "requires-runtime-template",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-value",
+          "address": "0x6e79"
+        },
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9800"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL1.DAX",
+      "unitId": "ecl1-b18-a105-a117-a11b",
+      "status": "requires-runtime-template",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9800"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL1.DAX",
+      "unitId": "ecl1-b18-a14a-a165-a169-a197",
+      "status": "requires-runtime-template",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9800"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL1.DAX",
+      "unitId": "ecl1-b18-a14a-a165-a169-a1c8",
+      "status": "requires-runtime-template",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9800"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL1.DAX",
+      "unitId": "ecl1-b18-a14a-a165-a169-a201",
+      "status": "requires-runtime-template",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9800"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL1.DAX",
+      "unitId": "ecl1-b18-a14a-a165-a169-a235",
+      "status": "requires-runtime-template",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9800"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL1.DAX",
+      "unitId": "ecl1-b18-a14a-a165-a169-a260",
+      "status": "requires-runtime-template",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9800"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL1.DAX",
+      "unitId": "ecl1-b24-adbf-add1-add5",
+      "status": "requires-runtime-template",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9800"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL1.DAX",
+      "unitId": "ecl1-b24-af0c-af1f-af23",
+      "status": "requires-runtime-template",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9800"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL1.DAX",
+      "unitId": "ecl1-b24-af35-af47-af4b",
+      "status": "requires-runtime-template",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9800"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL1.DAX",
+      "unitId": "ecl1-b24-afb9-afdf-afe3",
+      "status": "requires-runtime-template",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9800"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL2.DAX",
+      "unitId": "ecl2-b9-9de5-9def-9e01",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980f"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL2.DAX",
+      "unitId": "ecl2-b20-9c2a-9c43-9c5c",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9890"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL2.DAX",
+      "unitId": "ecl2-b20-b25a-b276-b286-b292",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9890"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL2.DAX",
+      "unitId": "ecl2-b20-b65b-b66d-b671",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9890"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL2.DAX",
+      "unitId": "ecl2-b20-9cc5-runtime-text",
+      "status": "unresolved-dynamic",
+      "variant": "runtime-text",
+      "slots": [
+        {
+          "operandIndex": 9,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL2.DAX",
+      "unitId": "ecl2-b20-9d1d-runtime-text",
+      "status": "unresolved-dynamic",
+      "variant": "runtime-text",
+      "slots": [
+        {
+          "operandIndex": 9,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL2.DAX",
+      "unitId": "ecl2-b20-9d7e-runtime-text",
+      "status": "unresolved-dynamic",
+      "variant": "runtime-text",
+      "slots": [
+        {
+          "operandIndex": 9,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL2.DAX",
+      "unitId": "ecl2-b20-9dde-runtime-text",
+      "status": "unresolved-dynamic",
+      "variant": "runtime-text",
+      "slots": [
+        {
+          "operandIndex": 9,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL3.DAX",
+      "unitId": "por.voice.ecl3.b0-a413-a438",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-tavern-tale-number",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-value",
+          "address": "0x6e7e"
+        }
+      ],
+      "resolution": "finite-variants-proven"
+    },
+    {
+      "archive": "ECL3.DAX",
+      "unitId": "por.voice.ecl3.b0-ac22-ac8a-ac96",
+      "status": "unresolved-dynamic-template",
+      "variant": "single-runtime-proclamation-number",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x985e"
+        }
+      ],
+      "resolution": "finite-variants-proven"
+    },
+    {
+      "archive": "ECL3.DAX",
+      "unitId": "por.voice.ecl3.b8-9e4a-9e68",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-cleared-area-name",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9890"
+        }
+      ],
+      "resolution": "finite-variants-proven"
+    },
+    {
+      "archive": "ECL3.DAX",
+      "unitId": "por.voice.ecl3.b11-9eab-9ed8",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-companion-class-and-price",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        },
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9890"
+        }
+      ],
+      "resolution": "finite-variants-proven"
+    },
+    {
+      "archive": "ECL3.DAX",
+      "unitId": "por.voice.ecl3.b11-a00e-a021",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-training-class",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "finite-variants-proven"
+    },
+    {
+      "archive": "ECL3.DAX",
+      "unitId": "por.voice.ecl3.b14-9f26-9f2a",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-party-member-name",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x6b00"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL4.DAX",
+      "unitId": "ecl4-b10-a5d7",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL4.DAX",
+      "unitId": "ecl4-b10-a7d5",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL4.DAX",
+      "unitId": "ecl4-b10-aaf2",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL4.DAX",
+      "unitId": "ecl4-b10-b4e9-runtime-text",
+      "status": "unresolved-dynamic",
+      "variant": "runtime-text",
+      "slots": [
+        {
+          "operandIndex": 9,
+          "kind": "dynamic-string",
+          "address": "0x9890"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b3-9cb7-9cbb",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-surprising-actor",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980e"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b3-9d1f-9d3b",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-sacrilegious-scum",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980f"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b3-9d1f-9d6e",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-intruders",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980f"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b3-9de2-9dec",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-sighting",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980f"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b4-9c0c-9c10",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-surprising-actor",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980e"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b4-9c74-9c90",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-sacrilegious-scum",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980f"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b4-9c74-9cc3",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-intruders",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980f"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b4-9d37-9d41",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-sighting",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980f"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b6-a558-a55c",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-party-member-doubles-in-agony",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x6b00"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b6-a90c-a910",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-surprising-actor",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980e"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b6-a974-a990",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-sacrilegious-scum",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980f"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b6-a974-a9c3",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-intruders",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980f"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b6-aa37-aa41",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-sighting",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x980f"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b7-9c69-9c81",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-party-member-warns-of-statues",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x6b00"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b7-9cd0-9cfc",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-party-member-petrified-and-trapdoor-question",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x6b00"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL5.DAX",
+      "unitId": "por.voice.ecl5.b7-a738-a73c",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-party-member-vote",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x6b00"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL6.DAX",
+      "unitId": "ecl6-b25-a128-a13a",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL6.DAX",
+      "unitId": "ecl6-b25-a172-a18d-a191",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL6.DAX",
+      "unitId": "ecl6-b25-a1c7-a1dc-a1e0",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL6.DAX",
+      "unitId": "ecl6-b25-a216-a23c-a240",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL6.DAX",
+      "unitId": "ecl6-b25-a2fe-a304-a308",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL6.DAX",
+      "unitId": "ecl6-b25-a34e-a35e-a362",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL6.DAX",
+      "unitId": "ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL6.DAX",
+      "unitId": "ecl6-b25-a3d0-a3d6-a3da-a401-a405",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL7.DAX",
+      "unitId": "por.voice.ecl7.b22-a222-a20b",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-seen",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9809"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL7.DAX",
+      "unitId": "por.voice.ecl7.b22-a22c-a20b",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-surprises-party",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9809"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL7.DAX",
+      "unitId": "por.voice.ecl7.b22-a24e-a20b",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-party-surprises-group",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9809"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL7.DAX",
+      "unitId": "por.voice.ecl7.b23-a4a7-a4bd",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-password-confirmation",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x6e79"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL7.DAX",
+      "unitId": "por.voice.ecl7.b26-a15c-a16e",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-spotted",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL7.DAX",
+      "unitId": "por.voice.ecl7.b26-a1a6-a1c1",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-surprises-party",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL7.DAX",
+      "unitId": "por.voice.ecl7.b26-a1f7-a20c",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-party-surprises-group",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL7.DAX",
+      "unitId": "por.voice.ecl7.b26-a242-a268",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-face-to-face-group",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL7.DAX",
+      "unitId": "por.voice.ecl7.b26-a326-a330",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-charmed",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL7.DAX",
+      "unitId": "por.voice.ecl7.b26-a376-a38a",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-convinced",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL7.DAX",
+      "unitId": "por.voice.ecl7.b26-a3b9-a3df",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-group-insulted",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL7.DAX",
+      "unitId": "por.voice.ecl7.b26-a3f8-a42c",
+      "status": "unresolved-dynamic-template",
+      "variant": "runtime-groups-exchange-pleasantries",
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b13-9ab7-9abb",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x6b00"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b13-9ad7-9af2",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x6b00"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b13-b512",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b16-a0cf-a0e1-a0e5",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x6e79"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b27-9f1c-9f2e",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b27-9f66-9f81",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b27-9fb7-9fcc",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b27-a002-a028",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b27-a0e6-a0ec-a0f0",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b27-a136-a146-a14a",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b27-a179-a18d-a191-a195-a19b-a19f",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b29-9cf6-9d10",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b29-a47a-a48d",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9890"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b29-ae15-ae29-ae2d",
+      "status": "unresolved-dynamic",
+      "variant": null,
+      "slots": [
+        {
+          "operandIndex": 0,
+          "kind": "dynamic-string",
+          "address": "0x9890"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b29-a500-runtime-text",
+      "status": "unresolved-dynamic",
+      "variant": "runtime-text",
+      "slots": [
+        {
+          "operandIndex": 9,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b29-a56b-runtime-text",
+      "status": "unresolved-dynamic",
+      "variant": "runtime-text",
+      "slots": [
+        {
+          "operandIndex": 9,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b29-a5c4-runtime-text",
+      "status": "unresolved-dynamic",
+      "variant": "runtime-text",
+      "slots": [
+        {
+          "operandIndex": 9,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    },
+    {
+      "archive": "ECL8.DAX",
+      "unitId": "ecl8-b29-a627-runtime-text",
+      "status": "unresolved-dynamic",
+      "variant": "runtime-text",
+      "slots": [
+        {
+          "operandIndex": 9,
+          "kind": "dynamic-string",
+          "address": "0x982c"
+        }
+      ],
+      "resolution": "withheld-pending-runtime-resolution"
+    }
+  ]
+}
