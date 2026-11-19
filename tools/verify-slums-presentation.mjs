@@ -2075,6 +2075,11 @@ try {
     if (environmentTrace) appendFileSync(environmentTrace, JSON.stringify(frame.tileInventory) + "\n");
     const expected = frame.tileInventory.map(([x, y, id]) => [x, y, id]);
     assert.equal(expected.length, 121);
+    if (frame.tiles.length < expected.length) {
+      const placed = new Set(frame.tiles.map(([x, y, id]) => `${x},${y},${id}`));
+      const missing = expected.filter(([x, y, id]) => !placed.has(`${x},${y},${id}`));
+      assert.fail(`Missing ${missing.length} tile placements in ${routeName}: ${missing.map(([x, y, id]) => `(${x},${y}) ${id}`).join(", ")}`);
+    }
     assert.deepEqual(frame.tiles, expected);
     for (const [, , id] of expected) {
       assert.ok(id.startsWith(`tile:${area}:`), id);
@@ -4097,11 +4102,12 @@ try {
     let views = await verifyTiledView(20, patterns);
     for (const key of route) {
       await advance(key);
-      views += await verifyTiledView(20, patterns);
+      views += await verifyTiledView(dragon && views >= 3 ? 7 : 20, patterns);
     }
-    assert.equal(views, halls ? 2 : 3);
+    assert.equal(views, halls ? 2 : 8);
     assert.equal(frame.portrait, "portrait:PIC5.DAX:66:0:0");
     await waitFor("the dragon dialogue portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await verifyPortraitPanel();
     await switchBothWays();
     if (halls) {
       console.log("Verified enhanced Valjevo hall views and the dragon dialogue.");

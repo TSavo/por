@@ -1717,6 +1717,8 @@ presentation before the attack and checks that the selected save stays intact.
 
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_B PATH_TO_CHROME castle-dragon`
 with a castle checkpoint outside the audience hall at `14,7 S`. Chrome checks
+all 968 placements across eight approach views, including the six original
+timber and window tiles in the audience hall. It then checks
 the 352×352 dialogue portrait and 192×192 combat sprite, including the sprite's
 position, facing, and four-cell selection. The test toggles classic and
 enhanced in both scenes and checks the guest frame and save stay the same.

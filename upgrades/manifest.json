@@ -1,6 +1,12 @@
 {
   "version": 1,
   "assets": {
+    "tile:7:073bed6ce208bae09aa922cc701b2e85d31b89cb815bf9741c330a855b7f23ab": "valjevo-audience-hall-terrain-073bed6ce208.png",
+    "tile:7:ce7a775bfc2e583018da6f17f4f8679bfc0805c8d73f19770e05e048a8b75d62": "valjevo-audience-hall-terrain-ce7a775bfc2e.png",
+    "tile:7:9eec5ff0f33a6c72ec2878a6f5a2d8eee35fb5e99d44acd7fe625205a69d238d": "valjevo-audience-hall-terrain-9eec5ff0f33a.png",
+    "tile:7:f57627006ba7f1682659e0dace099df9cdc3aad43e1da0f1263bdd2ca426dac8": "valjevo-audience-hall-terrain-f57627006ba7.png",
+    "tile:7:5b545ea61d854c0086b598dece7e13ff94eea34d6332231adf0408d0908fcadf": "valjevo-audience-hall-terrain-5b545ea61d85.png",
+    "tile:7:aadb7179967b871a1537140e62e72f4efe80518ac8c85bc3e913b3efa47d884a": "valjevo-audience-hall-terrain-aadb7179967b.png",
     "tile:2:406da55d1a72e549ae7fe0665e6d168052b754822170656e5ac2ae7a64a65b4c": "textile-house-406da55d1a72.png",
     "tile:20:45f5e38f7219ffc606ba569d2abe5be146d8630bf8dcde674e3c28c3ce4e621a": "new-phlan-training-hall-terrain-45f5e38f7219.png",
     "tile:20:b03fbca109ab749692421d27e7e24a728523604f8fd1580a98748b76cb2ce15c": "new-phlan-training-hall-terrain-b03fbca109ab.png",
