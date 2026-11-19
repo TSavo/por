@@ -3139,6 +3139,12 @@ The HTML and JSON artwork inventories list both sprite bindings for
 each distinct dwarf head and body, with identical source heads shown
 as aliases.
 
+The braided dwarf now also has ready and strike art for all 18 weapon
+choices. The original icon editor sweep loaded both 96×96 frames for
+each choice. Production combat replays use saves from the editor for
+paired blades, spear, and double axe, then check Alda's attack and
+preservation of the battle state when switching display modes.
+
 The `textile-skullcrusher-approach` Chrome replay uses the Textile
 House slot B checkpoint. It checks the chained prisoner's 96×320
 approach sprite at the guest anchor during the brief animation, then
