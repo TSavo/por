@@ -1308,6 +1308,11 @@ placements from a position-only copy of the quarters checkpoint.
 `valjevo-troll-approach` verifies the original near-distance frame and
 the 160×320 replacement at the guest's screen anchor. This replay does
 not present the middle or far frames.
+`kobold-cave-efreeti-approach` and `kobold-cave-wyvern-approach` verify
+the close-distance replacements at 160×320 and 352×320 respectively.
+Chrome checks the exact source ID and screen anchor for each and switches
+presentation with the same frame and save. These inputs reach the close
+pose for each creature.
 
 `graveyard-northeast-west` and `graveyard-northeast-east` verify 14 new
 Valhingen tiles with 1,694 placements across 14 views. The terrain audit

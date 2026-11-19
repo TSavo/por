@@ -30,6 +30,14 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["kobold-cave-efreeti-approach", {
+    slot: "A", inputs: ["s", "up", "p", "enter"],
+    placement: [48, 32, "encounter:area:13:SPRIT8.DAX:70:0:0", 40, 80],
+  }],
+  ["kobold-cave-wyvern-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [24, 32, "encounter:area:13:SPRIT8.DAX:121:0:0", 88, 80],
+  }],
   ["valjevo-troll-approach", {
     slot: "B", inputs: ["up", "b"],
     placement: [48, 32, "encounter:area:5:SPRIT5.DAX:31:0:0", 40, 80],
