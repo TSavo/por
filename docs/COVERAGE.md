@@ -1705,6 +1705,9 @@ Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_H PATH_TO_CHROME text
 from the controlled prison-key checkpoint at `2,15 S`. Chrome verifies the
 ogre chief's 96×192 standing and mace-strike sprites, their rectangular
 placement, and a state-preserving presentation switch.
+The full replay passed from the checkpoint with Alda at 5 HP and Cora at
+3 HP. A later checkpoint with both at 1 HP reached the same encounter and
+standing sprite, but did not produce an observed strike within the replay.
 
 The `sokal-smithy` browser route loads a party at `10,10 N` in slot C and
 checks the 96×96 poison frog crouch and lunge in live combat. It switches

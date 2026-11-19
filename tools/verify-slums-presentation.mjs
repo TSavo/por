@@ -3569,9 +3569,11 @@ try {
         parseFloat(img.style.width) === 7.5 && parseFloat(img.style.height) === 24)`);
       await waitFor("the rectangular ogre standing sprite", () => displayed(idle));
       await switchBothWays();
-      const swung = () => frame.animation?.some(shot => shot.combatArt?.some(([, , id]) => id === attack));
-      for (let turn = 0; turn < 70 && !swung(); turn++) await advance("q");
-      assert.ok(swung());
+      const strikePlacement = () => frame.animation?.flatMap(shot => shot.combatArt ?? []).find(([, , id]) => id === attack);
+      for (let turn = 0; turn < 70 && !strikePlacement(); turn++) await advance("q");
+      const strike = strikePlacement();
+      assert.ok(strike, `No ogre strike observed from this checkpoint. Last guest text: ${frame.text.map(([, char]) => String.fromCharCode(char)).join("")}`);
+      assert.deepEqual(strike.slice(5), [24, 48]);
       await waitFor("the rectangular ogre attack sprite", () => displayed(attack));
       assert.deepEqual(readFileSync(saved), originalSave);
       console.log("Verified 96×192 standing and attack sprites in the Textile House ogre fight.");
