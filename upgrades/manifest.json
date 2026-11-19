@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "tile:3:f334e30f41ee930aac82e47eb491ecea71cdedabda9b3049ca0fdb3fb08fc912": "valjevo-timber-window-terrain-f334e30f41ee.png",
     "encounter:area:22:ecl:a2f9:SPRIT7.DAX:57:0:0": "tyrmor-prison-lizardfolk-approach.png",
     "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0": "tyrmor-prison-lizardfolk-dialogue.png",
     "tile:5:c02d6f9d4991f63c33411579059bfdde13712828acf206b4b8bd22fb8a008c3e": "valjevo-lower-trim-c02d6f9d4991.png",

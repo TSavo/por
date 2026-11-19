@@ -2753,6 +2753,8 @@ threshold tiles.
 The Valjevo transition hall and stone chamber add 14 oak and ashlar
 tiles. Their Chrome replays check 1,331 placements across 11 views,
 including the hall's area 5 to area 3 transition.
+The alternate east walk checks the blue-window edge across 12 views
+and 1,452 placements.
 Two lower-wing routes check ten new wall, doorway, and window tiles
 across 14 Chrome views.
 The Valjevo bucket-trap battle uses scoped 4× fire giant ready and attack
