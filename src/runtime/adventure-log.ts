@@ -118,7 +118,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       }
       if (commission.id === "kobolds" && tracked.status === "ready-to-report" && knows("kobold-king-fell")) {
         if (knows("kobold-caves-left")) {
-          return { title: commission.title, nextStep: "Return to New Phlan and tell the council clerk at City Hall that the king fell into his own pit." };
+          const route = knows("phlan-return-ferry")
+            ? "If you're still outside New Phlan, choose Take Boat at the return dock."
+            : "Head back to New Phlan.";
+          return { title: commission.title, nextStep: `${route} Tell the council clerk at City Hall that the king fell into his own pit.` };
         }
         const report = "Leave the kobold caves and tell the council clerk at City Hall that the king fell into his own pit.";
         const passage = "If you're still at the pit, retrace the secret passage: one square west, one north, four west, then south into the throne room.";
@@ -925,6 +928,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("THE BOAT DISEMBARKS YOU AT SOKAL KEEP")) {
     leads.push({ id: "sokal-arrival", title: "Arrival at Sokal Keep", detail: "The party landed on Thorn Island." });
+  }
+  if (text.includes("THERE IS A BOAT DOCKED HERE THAT WILL RETURN YOU TO THE CIVILIZED SECTION OF PHLAN")) {
+    leads.push({ id: "phlan-return-ferry", title: "Return ferry to New Phlan",
+      detail: "Choose Take Boat at the dock to return to the civilized part of Phlan." });
   }
   if (text.includes("TO THE WEST RISES A MOUND OF REEDS")) {
     leads.push({ id: "sokal-reeds", title: "Reeds by the keep gate", detail: "The party saw a mound of reeds west of the gates." });

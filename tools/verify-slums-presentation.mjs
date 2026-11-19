@@ -4232,6 +4232,7 @@ try {
     await advance("j");
     assert.equal(journalStatus(), "ready-to-report");
     assert.ok(frame.journal.leads.some(({ id }) => id === discovery));
+    if (koboldReturn) assert.ok(!frame.journal.leads.some(({ id }) => id === "phlan-return-ferry"));
     const toLanding = koboldReturn
       ? [...Array(3).fill("right"), ...Array(14).fill("down")]
       : riverReturn
@@ -4241,6 +4242,10 @@ try {
     if (koboldReturn) {
       assert.equal(frame.portrait, "portrait:PIC8.DAX:41:0:0");
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /TAKEBOAT.*STAY/i);
+      await advance("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "phlan-return-ferry"));
+      assert.match(frame.journal.objective.nextStep, /choose Take Boat/i);
+      await advance("j");
     }
     for (const key of ["t", "enter", "enter", koboldReturn ? "right" : "enter", ...Array(4).fill("up"),
       "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),

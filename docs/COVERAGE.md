@@ -2426,3 +2426,7 @@ clerk through ordinary game inputs. The clerk pays the outstanding Podal
 Plaza and envoy rewards first. The replay checks that the kobold commission
 stays ready to report until the clerk announces the kobold reward, then
 moves from reward pending to turned in after the treasure menu closes.
+
+The same replay checks that the journal records the return ferry when the
+party reads the dock's offer, then directs the party to choose Take Boat
+before reporting to City Hall.
