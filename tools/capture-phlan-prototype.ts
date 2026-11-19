@@ -41,12 +41,11 @@ for (const {name,slot,file,pose} of runs) {
     .filter(line=>line.startsWith("POR_FRAME ")).map(line=>JSON.parse(line.slice(10)));
   const frame = frames.reverse().find(item=>item.exploration?.area===0 && item.perspective && !item.portrait);
   if (!frame) throw new Error("No New Phlan frame for "+name);
-  if (frame.exploration.facing !== pose[2] || frame.tiles?.length !== 121) {
-    throw new Error(`Incomplete reference for ${name}`);
+  const {cameraX, cameraY, facing} = frame.exploration;
+  if (cameraX !== pose[0] || cameraY !== pose[1] || facing !== pose[2] || frame.tiles?.length !== 121) {
+    throw new Error(`Incomplete reference for ${name} at ${cameraX},${cameraY},${facing}`);
   }
   console.log(name,pose,frame.tiles.length);
-  // Report coordinates from the staged camera in the save. At a loaded
-  // prompt the exploration snapshot can still report its pre-load X/Y.
   results.push({name,pose,...frame});
 }
 if (new Set(results.map(frame=>JSON.stringify(frame.tiles))).size !== runs.length) {

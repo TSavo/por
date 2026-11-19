@@ -1,5 +1,15 @@
 # New Phlan 3D prototype
 
+In browser play, switch to Enhanced display and select **3D preview** while
+exploring New Phlan. The preview uses the party camera from the game and the
+same WebGL code as the comparison page. It covers area 0 scenery. Combat,
+portraits, journal views, and other areas use their current presentation.
+The browser restores the enhanced tile view if WebGL or an asset fails.
+Walls use the static GEO layout in this first pass. Script-driven geometry
+updates and 3D placement of encounter sprites are outside this preview.
+
+## Compare the renderers
+
 From the repository root, use a browser save exported from New Phlan on its
 normal exploration screen. The original DOS data must be available to the
 existing game-data loader.

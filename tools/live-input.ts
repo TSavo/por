@@ -78,7 +78,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let trackedId: string | undefined;
   let scene: string | undefined;
   let area: number | undefined;
-  let explorationPosition: { area: number; x: number; y: number; facing: number } | undefined;
+  let explorationPosition: { area: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number } | undefined;
   let battleCursor: number | undefined;
   let drawnPerspective: { pixels: Buffer; localEcl?: number } | undefined;
   let priorPerspectiveDraw: Buffer | undefined;
@@ -335,6 +335,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         x: cpu.read16(segment, offset + 0x1e0),
         y: cpu.read16(segment, offset + 0x1e2),
         facing: cpu.read8(cpu.ds, 0x6a0d) & 7,
+        // The native viewport reads these camera bytes during movement and
+        // load. The area record can lag behind on the first frame of a save.
+        ...(positionArea === 0 ? { cameraX: cpu.read8(cpu.ds, 0x6a0b), cameraY: cpu.read8(cpu.ds, 0x6a0c) } : {}),
       } : undefined;
       // The ECL interpreter suspends at this cursor while the battle runs.
       battleCursor = cpu.read16(0x740, 0x494e);

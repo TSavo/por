@@ -13,6 +13,7 @@ import type { EncounterPlacement } from "./encounter-art.js";
 import { NarrationCatalog, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
 import { parseDax } from "../src/lib/dax.js";
 import { parseGeo } from "../src/lib/world.js";
+import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
@@ -28,6 +29,7 @@ for (const name of readdirSync(gameRoot).filter(name => /^GEO\d+\.DAX$/i.test(na
 }
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
+const streetRenderer = readFileSync(new URL("./new-phlan-webgl.js", import.meta.url));
 const voiceManifest = readFileSync(new URL("../src/audio/voices.json", import.meta.url));
 const parsedVoiceManifest = JSON.parse(voiceManifest.toString("utf8")) as { lines: { file: string; match?: string }[] };
 const voiceFiles = new Set(parsedVoiceManifest.lines.map(({ file }) => file));
@@ -72,6 +74,7 @@ const gameFont = (() => {
   }
 })();
 const artwork = loadUpgradeArt(undefined, gameRoot);
+let streetMaterials: string | undefined;
 const reflectedTiles = [...artwork].filter(([, art]) => art.reflected).map(([id]) => id);
 let tileTrace = process.env.POR_TILE_TRACE_FILE;
 let lastTileTrace: string | undefined;
@@ -109,7 +112,8 @@ interface FrameState {
   classicPortraitArea?: number;
   classicPortraitCursor?: number;
   perspective?: boolean;
-  exploration?: { area: number; x: number; y: number; facing: number; walls?: [number, number, number, number] };
+  exploration?: { area: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number;
+    walls?: [number, number, number, number] };
   encounter?: EncounterPlacement;
   tiles?: [number, number, string][];
   combatArt?: CombatArtPlacement[];
@@ -237,6 +241,17 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(page);
   } else if (req.method === "GET" && req.url === "/play.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(script);
+  } else if (req.method === "GET" && req.url === "/new-phlan-webgl.js") {
+    res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(streetRenderer);
+  } else if (req.method === "GET" && req.url === "/new-phlan-3d.json") {
+    try {
+      streetMaterials ??= JSON.stringify(buildNewPhlanMaterials(gameRoot, new Map(
+        [...artwork].map(([key, art]) => [key, { file: art.path, reflected: Boolean(art.reflected) }]))));
+      res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(streetMaterials);
+    } catch (error) {
+      console.error("Cannot prepare New Phlan 3D materials", error);
+      res.writeHead(503).end();
+    }
   } else if (req.method === "GET" && req.url === "/voice-manifest.json") {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(voiceManifest);
   } else if (req.method === "GET" && req.url === "/sound-manifest.json") {
