@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1": "valjevo-giant-patrol-captain.png",
+    "combat:area:13:CPIC8.DAX:120": "kobold-cave-boar-stand.png",
+    "combat:area:13:CPIC8.DAX:248": "kobold-cave-boar-strike.png",
     "tile:2:9ac33380c39afce48e407e01c663a32dfc37c048c03c911accd29efbdb475032": "textile-ivy-court-terrain-9ac33380c39a.png",
     "tile:2:e0a3abc3b4a8d171ac804ef60ea102f382d0189b8cd2be1c2a616fc8c2e8d86a": "textile-ivy-court-terrain-e0a3abc3b4a8.png",
     "tile:2:3df247a59ff18323be4631a63c96cf8ab98193f543ef4003a72a7c1e856e15f8": "textile-ivy-court-terrain-3df247a59ff1.png",

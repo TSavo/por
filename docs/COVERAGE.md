@@ -1283,6 +1283,11 @@ terrain patterns.
 `textile-ivy-lane` reproduces all nine Textile House terrain gaps from
 controlled slot H. Chrome checks the original 32×32 replacements against
 their placement in all ten views, with 1,210 verified placements.
+`valjevo-giant-patrol` checks the captain's area-scoped portrait
+at the password challenge and confirms it clears after peaceful passage.
+`kobold-cave-boar` uses a controlled rematch checkpoint to verify the
+192×96 ready frame and reflected charge. Both replays switch presentation
+and verify the save remains unchanged.
 
 `graveyard-northeast-west` and `graveyard-northeast-east` verify 14 new
 Valhingen tiles with 1,694 placements across 14 views. The terrain audit
