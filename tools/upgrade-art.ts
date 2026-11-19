@@ -62,7 +62,8 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         const party = partyCombatKey.exec(id);
         const random = randomCombatKey.exec(id);
         const sheetPart = characterSheetPartKey.exec(id);
-        if (id !== "scene:title" && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
+        const startupScene = id === "scene:title" || id === "scene:publisher";
+        if (!startupScene && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
             !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !random && !sheetPart && !portraitKey.test(id) && !encounter) {
           reject("Unsupported asset ID or invalid encounter placement.", id);
           continue;
@@ -89,7 +90,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
               continue;
             }
             ({ width: sourceWidth, height: sourceHeight } = encounter);
-          } else if (id === "scene:title") [sourceWidth, sourceHeight] = [320, 200];
+          } else if (startupScene) [sourceWidth, sourceHeight] = [320, 200];
           else if (random) {
             const entry = originalArchive(random[1])?.entries.find(({ id }) => id === Number(random[2]));
             if (!entry || !randomCombatPixels(entry.data, Number(random[4]))) {

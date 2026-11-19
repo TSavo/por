@@ -278,7 +278,7 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
   const placement = metadata.encounter
     ?? (id.startsWith("portrait:") ? { x: 8, y: 8, width: 120, height: 120, ...(area !== undefined && { area: Number(area) }) }
       : sheetPart && source ? { x: 224, y: sheetPart[2] === "HEAD" ? 8 : 48, width: metadata.width / artScale, height: metadata.height / artScale }
-      : id === "scene:title" ? { x: 0, y: 0, width: 320, height: 200 }
+      : id === "scene:title" || id === "scene:publisher" ? { x: 0, y: 0, width: 320, height: 200 }
       : source || area !== undefined ? {
         ...(source && { x: source.x, y: source.y }),
         ...(area !== undefined && { area: Number(area) }),

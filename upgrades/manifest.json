@@ -4529,6 +4529,7 @@
     "portrait:PIC4.DAX:9:0:0": "altar-priestess-portrait.png",
     "combat:CPIC5.DAX:66": "bronze-dragon-combat.png",
     "portrait:PIC5.DAX:66:0:0": "bronze-dragon-portrait.png",
+    "scene:publisher": "publisher-splash.png",
     "scene:title": "harbor-title.png",
     "tile:21:858b73d63eb2439f5d3755fe6002d941fcc99e9a5fdb06fb568a21ff2599262f": "sokal-vault-stones.png",
     "tile:21:72d0fd83d0d2dabd4d37e4737304e2831a18fb8a170a2b3c321d94c87e8f00a1": "sokal-falling-vault-join.png",

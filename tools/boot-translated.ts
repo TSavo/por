@@ -283,10 +283,12 @@ if (input && process.env.POR_BROWSER_PLAY === "1") {
   const observe = farCallObservers.get(cpu);
   farCallObservers.set(cpu, (segment, offset) => {
     observe?.(segment, offset);
-    if (!title || cpu.cs !== title.loadPara || segment !== 0x18e) return;
-    // The first startup picture remains visible while the credits load.
-    if (offset === 0x5c && cpu.ip === 0x675) input.setScene("scene:title");
-    if (offset === 0x5c && cpu.ip === 0x6e9) input.setScene(undefined);
+    if (!title || cpu.cs !== title.loadPara) return;
+    if (segment === 0x18e && offset === 0x5c) {
+      if (cpu.ip === 0x675) input.setScene("scene:publisher");
+      if (cpu.ip === 0x6e9) input.setScene("scene:title");
+    }
+    if (segment === 0x26b && offset === 0xf6 && cpu.ip === 0x7f7) input.setScene(undefined);
   });
 }
 const boot = (cpu as Cpu & { boot: { cs: number; ip: number; ss: number; sp: number } }).boot;

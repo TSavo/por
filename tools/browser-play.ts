@@ -307,7 +307,7 @@ const server = createServer(async (req, res) => {
     const snapshot = req.url === `/state?after=${sequence}` ? {} : {
       ...frame,
       reflectedTiles,
-      art: frame.scene === "scene:title" && artwork.has(frame.scene) ? `/art/${frame.scene}` : undefined,
+      art: frame.scene && artwork.has(frame.scene) ? `/art/${frame.scene}` : undefined,
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
       ...snapshot, sounds, soundId, messages, textId, narrations, narrationId,
