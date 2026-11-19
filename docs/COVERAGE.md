@@ -1159,8 +1159,11 @@ the observed result. Chrome checks the clerk's dialogue, the intermediate
 reward-pending status, and the turned-in result in the resulting save.
 The reload replay also turns and walks beyond the pit. Chrome checks all
 484 tile placements across four views, including nine new 32×32 wall
-and floor pieces. The continuous walk from the pit to the cave exit
-still needs verification.
+and floor pieces. The `kobold-king-return-throne` replay follows the new
+journal directions from the pit back to the throne room. It verifies all
+1,331 tile placements across eleven views, including four new door jamb
+and sill tiles, and saves at (5,1) facing south with the report pending.
+The remaining walk from the throne room to the cave exit needs verification.
 It also tests the surrender demand, restores the prison escort clue from a
 saved journal, and checks the separate cell and Fatima outcomes against
 their original dialogue. The surrender branch still needs a live replay.

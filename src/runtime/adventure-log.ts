@@ -117,7 +117,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
         return { title: commission.title, nextStep: "Return to City Hall and report Tyranthraxus's defeat to the council clerk." };
       }
       if (commission.id === "kobolds" && tracked.status === "ready-to-report" && knows("kobold-king-fell")) {
-        return { title: commission.title, nextStep: "Leave the kobold caves and tell the council clerk at City Hall that the king fell into his own pit." };
+        const report = "Leave the kobold caves and tell the council clerk at City Hall that the king fell into his own pit.";
+        const passage = "If you're still at the pit, retrace the secret passage: one square west, one north, four west, then south into the throne room.";
+        return { title: commission.title, nextStep: knows("kobold-king-secret-door") ? `${passage} ${report}` : report };
       }
       if (commission.id === "ohlo" && tracked.status === "ready-to-report") {
         return { title: commission.title, nextStep: "Take the package back to Ohlo and choose Give when he asks for the potion." };
