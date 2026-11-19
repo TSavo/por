@@ -1,6 +1,10 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:31:CPIC1.DAX:8": "bane-ogre-stand.png",
+    "combat:area:31:CPIC1.DAX:136": "bane-ogre-strike.png",
+    "tile:16:a10df7430167c22b3f1eff52239edd09b0fa00ebc51497606ea80972c0b54668": "lizard-west-turn-terrain-a10df7430167.png",
+    "tile:16:3689c4715468180847b9f0186a1d0e496735679fa5d4c43ef9e1dffd24f6ce2b": "lizard-west-turn-terrain-3689c4715468.png",
     "portrait:area:29:PIC8.DAX:57:0:0": "old-phlan-lizard-patrol.png",
     "tile:16:b99063b51996f32692877bfb0938e2ddee836bfd65b398cfad050106b7120d17": "lizard-south-gate-terrain-b99063b51996.png",
     "tile:16:705d57853ff228c98a8295de5fe82887cff35bf4faca64eeab67b354ca762017": "lizard-south-gate-terrain-705d57853ff2.png",

@@ -241,6 +241,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["bane-ogre-combat", {
+    slot: "A", stand: "combat:area:31:CPIC1.DAX:8", strike: "combat:area:31:CPIC1.DAX:136",
+    width: 96, height: 192, inputs: ["up", ...Array(8).fill("enter"), ...Array(9).fill("q")],
+    strikeInputs: Array(54).fill("q"),
+  }],
   ["bane-orc-combat", {
     slot: "A", stand: "combat:area:31:CPIC1.DAX:4", strike: "combat:area:31:CPIC1.DAX:132",
     width: 96, height: 96, inputs: ["up", ...Array(4).fill("enter")], strikeInputs: ["enter"],
@@ -468,6 +473,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["lizardfolk-west-turn", {
+    slot: "A", area: 16, views: 16, patterns: 63, sceneryOnly: true,
+    walk: ["left", "left", "up", "up", "up", "left", "up", "up", "up", "up", "up", "right", "up", "up", "left"],
+  }],
+  ["lizardfolk-west-turn-short", {
+    slot: "A", area: 16, views: 5, patterns: 40, sceneryOnly: true,
+    walk: ["left", "up", "up", "left"],
+  }],
   ["lizardfolk-south-gate", {
     slot: "A", area: 16, views: 16, patterns: 69, sceneryOnly: true,
     walk: ["left", "left", "up", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up", "right"],
