@@ -2105,3 +2105,8 @@ axe strike in the native duel from a fresh-party checkpoint.
 `valhingen-crossway` checks two new graveyard tiles across five views
 and 605 placements before the skeleton encounter. Both replays check
 that switching presentation preserves live state and the save.
+
+`valhingen-grave-rows-north` and `valhingen-grave-rows-south` together
+check four new graveyard tiles across eight views and 968 placements.
+Both routes end before the skeleton encounter and check save
+preservation when switching presentation.

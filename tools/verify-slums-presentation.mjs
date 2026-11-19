@@ -747,6 +747,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valhingen-grave-rows-north", {
+    slot: "A", area: 10, views: 4, patterns: 63, sceneryOnly: true,
+    walk: ["up", "up", "left"],
+  }],
+  ["valhingen-grave-rows-south", {
+    slot: "A", area: 10, views: 4, patterns: 69, sceneryOnly: true,
+    walk: ["up", "right", "up"],
+  }],
   ["valhingen-crossway", {
     slot: "A", area: 10, views: 5, patterns: 66, sceneryOnly: true,
     walk: ["up", "up", "right", "up"],
