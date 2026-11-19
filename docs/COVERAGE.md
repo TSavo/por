@@ -1204,8 +1204,9 @@ and verifies it clears after the guard lets the party pass.
 `valjevo-scriptorium-west` and `valjevo-scriptorium-east` together verify
 12 new individual tiles in 30 live views. The kitchen slot B copies vary
 only in starting coordinates and facing. `valjevo-maze-watch` verifies
-the separate watch fighter's 352×352 portrait at his password challenge,
-mode switching, and its removal when the party passes peacefully.
+the watch fighter's 4× approach sprite and 352×352 portrait at his
+password challenge, switching at both frames and its removal when
+the party passes peacefully.
 `valjevo-scriptorium-combat` takes the officer's combat branch. Chrome
 checks the selected 96×96 ready pose and the reflected sword strike in
 the animation stream. `valjevo-records` starts at the adjoining records
@@ -1408,6 +1409,8 @@ save preservation.
 `pyramid-cross-gallery` checks five new sandstone and plaster tiles
 across 11 views and 1,331 placements from a controlled upper-pyramid
 checkpoint. Switching presentation preserves game state and the save.
+`pyramid-inner-angles` extends that route with four new tiles and
+checks 3,025 placements across 25 views.
 `kuto-norris-approach` verifies the anchored approach sprite through the
 surrender-or-fight prompt. `slums-troll-combat` and `slums-ogre-combat`
 verify the 96×192 ready and reflected strike poses in the grain-sack
@@ -1626,11 +1629,13 @@ The `valjevo-medusa` replay starts just before the trapdoor in controlled
 slot B. It checks both 96×96 poses and that the journal records the broken
 statues after the party sees them.
 The `valjevo-false-throne` replay uses controlled slot B at the false
-throne. Chrome checks the 352×352 portrait through the parlay and verifies
+throne. Chrome checks the 4× approach sprite and 352×352 portrait through
+the parlay, including mode switching. It verifies
 the impostor clue appears only after his confession. Letting him go adds
 the witnessed outcome without marking the final commission complete.
-The `valjevo-al-hyam` replay checks the area-scoped portrait and the
-entry 30 discovery after the mage hands over his notes.
+The `valjevo-al-hyam` replay checks both approach distances, mode
+switching, the area-scoped portrait, and the entry 30 discovery after
+the mage hands over his notes.
 The `valjevo-tyranthraxus-strike` replay reopens a tower slot B, votes to
 attack, and checks the 192×192 ready pose and animated bite in Chrome.
 The `valjevo-lower-wing` route uses an area-5 save made after using the
