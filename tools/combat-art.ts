@@ -99,6 +99,7 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
     const wide = cell.length === width * 24;
     for (const pose of terrainPoses.get(`${width}:${cell.length}`) ?? []) {
       const matchesBackground = background && pose.pixels.every((color, index) => color || cell[index] === background[index]);
+      if (partyCombatKey.test(pose.key) && !matchesBackground) continue;
       if (!pose.pixels.every((color, index) => {
             const pixel = cell[index];
             if (color) return pixel === color;
@@ -174,7 +175,7 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
   for (const pose of poses) {
     const { width, pixels, key } = pose;
     const overlapsTerrain = monsterCombatKey.test(key) && (width === 48 || pixels.length === width * 48 || key.includes(":ecl:"));
-    if (key !== fallenCombatKey && !overlapsTerrain) continue;
+    if (key !== fallenCombatKey && !overlapsTerrain && !partyCombatKey.test(key)) continue;
     const extent = `${width}:${pixels.length}`;
     const matching = terrainPoses.get(extent) ?? [];
     matching.push(pose);

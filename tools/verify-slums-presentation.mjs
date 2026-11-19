@@ -4852,11 +4852,11 @@ try {
     if (halls) {
       console.log("Verified enhanced Valjevo hall views and the dragon dialogue.");
     } else {
-      const partyArt = new Set(["combat:party:73:93", "combat:party:73:81", "combat:party:69:90"]);
-      for (const key of ["enter", "enter", ...Array(6).fill("a"), "enter", "enter", "q"]) {
-        await advance(key);
+      const partyArt = new Set(["combat:party:73:93", "combat:party:73:81", "combat:party:69:90", "combat:party:0:3",
+        "combat:party:2:5", "combat:party:74:88"]);
+      async function checkNewPartyPoses() {
         const placements = frame.combatArt?.filter(([, , id]) => partyArt.has(id)) ?? [];
-        if (!placements.length) continue;
+        if (!placements.length) return;
         await waitFor("the enhanced party sprites in the dragon fight", () => run(`state.sequence === ${frame.sequence} &&
           ${JSON.stringify(placements)}.every(([left, top, id, reflected]) =>
             [...document.querySelectorAll(".combat-sprite")].some(img =>
@@ -4864,11 +4864,15 @@ try {
               parseFloat(img.style.left) === left / 3.2 && parseFloat(img.style.top) === top / 2 &&
               img.style.transform === (reflected ? "scaleX(-1)" : "")))`));
         for (const [, , id] of placements) partyArt.delete(id);
-        if (partyArt.size) continue;
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "dragon-fight-party.png"), Buffer.from(shot.data, "base64"));
       }
-      assert.deepEqual([...partyArt], [], "Expected all three enhanced party poses at the opening of the dragon fight");
+      for (const key of ["enter", "enter", ...Array(6).fill("a"), "enter", "enter", "q"]) {
+        await advance(key);
+        await checkNewPartyPoses();
+      }
+      assert.deepEqual([...partyArt].filter(id => id !== "combat:party:2:5" && id !== "combat:party:74:88"), [],
+        "Expected the four unoccluded enhanced party poses at the opening of the dragon fight");
       const sprite = frame.combatArt.find(([, , id]) => id === "combat:CPIC5.DAX:66");
       assert.ok(sprite);
       const [x, y, , reflected, highlighted, width, height] = sprite;
@@ -4890,7 +4894,11 @@ try {
           if (animationFrame && !panel.hidden) window.dragonReports.push(panel.textContent);
         }).observe(panel, { childList: true });`);
       const bitePlacement = () => frame.animation?.flatMap(shot => shot.combatArt ?? []).find(([, , id]) => id === bite);
-      for (let turn = 0; turn < 32 && !bitePlacement(); turn++) await advance("q");
+      for (let turn = 0; turn < 32 && !bitePlacement(); turn++) {
+        await advance("q");
+        await checkNewPartyPoses();
+      }
+      assert.deepEqual([...partyArt], [], "Expected all six enhanced party poses during the dragon fight");
       const strike = bitePlacement();
       assert.ok(strike, "Expected a Tyranthraxus bite in the original fight");
       assert.deepEqual(strike.slice(5), [48, 48]);
