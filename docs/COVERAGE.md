@@ -2747,6 +2747,9 @@ and floor-to-timber joins across eight live views. The Valjevo hall and
 merchant wing use fired-clay octagons with ochre insets on the floor,
 vertical timber on the walls, and gray masonry on the ceiling. The
 floor update covers 14 tile bindings checked across both Chrome routes.
+`valjevo-dungeon-doorways` walks the separate dungeon area and verifies
+all 1,210 placements across ten views, including 35 new wall, door, and
+threshold tiles.
 The Temple of Bane side galleries and eastern outer courts use angled
 olive-slate paving beneath the gray masonry. Four Chrome walks checked
 the 12 revised tile bindings across 43 views, including the arches and
@@ -2793,6 +2796,8 @@ The Tyrmor minotaur replay verifies the 96×192 ready pose and reflected
 charge at the native combat anchor from an isolated prison checkpoint.
 The elf and stirge replays likewise use isolated checkpoints and check
 both 96×96 poses, including the elf's reflected strike.
+The Tyrmor kobold replay checks three ready-pose placements from an
+isolated wandering encounter. The replay showed only the ready pose.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.
