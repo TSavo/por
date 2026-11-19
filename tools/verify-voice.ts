@@ -31,6 +31,13 @@ const narratorDesign = JSON.parse(readFileSync(new URL("../src/audio/narrator-vo
   fishAnchor: { targetSeconds: string; audioFile: string | null; transcriptFile: string | null;
     fishSpeaker: number; status: string };
 };
+const fishRuntime = JSON.parse(readFileSync(new URL("../src/audio/fish-runtime.json", import.meta.url), "utf8")) as {
+  productionModel: string;
+  qualityBaseline: { runtime: string; model: string; status: string };
+  localProfile: { hardware: { gpu: string; vramMiB: number; systemRamGiB: number }; runtime: string;
+    repository: string; weights: string; expertOffload: boolean; expectedVramGiB: number; status: string; limitations: string[] };
+  acceptance: { sameAnchorReference: boolean; exactPromptText: boolean; compareAgainstHosted: boolean; checks: string[] };
+};
 assert.equal(manifest.enhancedOnly, true);
 assert(manifest.lines.some(({ type }) => type === "dialogue"));
 assert(manifest.lines.some(({ type }) => type === "narration"));
@@ -100,4 +107,18 @@ assert.equal(narratorDesign.selection.generatedVoiceId, null);
 assert.equal(narratorDesign.selection.approvedByOwner, false);
 assert.equal(narratorDesign.fishAnchor.fishSpeaker, 0);
 assert.equal(narratorDesign.fishAnchor.status, "not-generated");
+assert.equal(fishRuntime.productionModel, "Fish Audio Drama 3");
+assert.equal(fishRuntime.qualityBaseline.model, "drama-3");
+assert.equal(fishRuntime.localProfile.hardware.gpu, "NVIDIA GeForce RTX 3070");
+assert.equal(fishRuntime.localProfile.hardware.vramMiB, 8192);
+assert(fishRuntime.localProfile.hardware.systemRamGiB >= 64);
+assert.equal(fishRuntime.localProfile.runtime, "ComfyUI-drama3-small");
+assert(fishRuntime.localProfile.repository.startsWith("https://github.com/"));
+assert.equal(fishRuntime.localProfile.expertOffload, true);
+assert(fishRuntime.localProfile.expectedVramGiB < fishRuntime.localProfile.hardware.vramMiB / 1024);
+assert.equal(fishRuntime.localProfile.status, "planned-not-installed");
+assert(fishRuntime.localProfile.limitations.length >= 3);
+assert.deepEqual([fishRuntime.acceptance.sameAnchorReference, fishRuntime.acceptance.exactPromptText,
+  fishRuntime.acceptance.compareAgainstHosted], [true, true, true]);
+assert(fishRuntime.acceptance.checks.length >= 6);
 console.log(`verified ${inventory.lines.length} source entries, ${fishPrompts.promptCount} annotated Drama 3 prompts, and ${manifest.lines.length} prototype assets`);

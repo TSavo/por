@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "productionModel": "Fish Audio Drama 3",
+  "qualityBaseline": {
+    "runtime": "Fish Audio hosted API",
+    "model": "drama-3",
+    "status": "comparison-required-before-production"
+  },
+  "localProfile": {
+    "name": "rtx-3070-drama3-small",
+    "purpose": "Offline prompt and narrator-reference evaluation on the project workstation",
+    "hardware": {
+      "gpu": "NVIDIA GeForce RTX 3070",
+      "vramMiB": 8192,
+      "systemRamGiB": 64
+    },
+    "runtime": "ComfyUI-drama3-small",
+    "repository": "https://github.com/pentaCoxian/ComfyUI-drama3-small",
+    "weights": "pentacoxian-dev/drama3-small-GGUF/drama3-small-IQ3_XXS.gguf",
+    "approximateWeightGiB": 9.7,
+    "expertOffload": true,
+    "expectedVramGiB": 4.4,
+    "status": "planned-not-installed",
+    "limitations": [
+      "Unofficial quantized derivative, not endorsed by Fish Audio.",
+      "Quality and instruction following must be compared with hosted Drama 3.",
+      "Offline generation speed on the RTX 3070 must be measured before campaign-scale synthesis."
+    ]
+  },
+  "acceptance": {
+    "sameAnchorReference": true,
+    "exactPromptText": true,
+    "compareAgainstHosted": true,
+    "checks": [
+      "narrator timbre consistency",
+      "directed quotation performance",
+      "word accuracy",
+      "premature truncation",
+      "silence or non-finite output",
+      "generation time and peak VRAM"
+    ]
+  }
+}

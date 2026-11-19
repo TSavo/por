@@ -33,7 +33,7 @@ The narrator timbre is designed once with ElevenLabs Voice Design and approved b
 
 `narrator-voice-design.json` contains the reviewed voice description, preview text, design parameters, selected generated voice ID, and Fish anchor provenance. No voice is generated until the owner approves the design prompt.
 
-The official full Drama 3 checkpoint requires at least 48 GB of VRAM. A 24 GB RTX 3090 therefore needs a quantized or expert-offloaded build for local batch synthesis; the selected local runtime and weight digest must be recorded before production generation.
+The official full Drama 3 checkpoint requires at least 48 GB of VRAM. The project workstation has an RTX 3070 with 8 GB of VRAM and 64 GB of system RAM, so it cannot run that checkpoint directly. The initial local evaluation profile uses the unofficial 9.7 GiB `drama3-small` quantization with expert offload; its authors report about 4.4 GB of VRAM in that mode. Local results must be compared against hosted Drama 3 before production use. The chosen runtime, exact weight digest, peak memory, speed, word accuracy, and direction-following results must be recorded.
 
 ## Annotation rules
 
