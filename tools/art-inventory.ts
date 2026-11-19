@@ -308,7 +308,7 @@ const missingGallery = [...missingByArea].sort(([left], [right]) => left.localeC
       "</figure>").join("") +
     "</div></details>").join("\n");
 const gallery = archives.map(({ file, category, entries }) =>
-  `<details data-category="${escape(category)}"><summary>${escape(file)} · ${category} · ${entries.length} blocks</summary><div class="grid">` +
+  `<details id="archive-${escape(file)}" data-category="${escape(category)}"><summary>${escape(file)} · ${category} · ${entries.length} blocks</summary><div class="grid">` +
   entries.map((entry) => {
     const monster = monsterNames.get(`${file}:${entry.id}`);
     const key = `${file}:${entry.directoryIndex}`;
@@ -394,13 +394,13 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
 <p>Counts compare original picture and sprite frames with loaded replacements. An area-specific replacement counts once for the source frame. Composite portraits are listed under Runtime artwork.</p>
 <table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>With replacements</th><th>Unmatched</th></tr></thead><tbody>
 ${encounterCoverage.map(({ file, frames, matched }) =>
-  `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${frames - matched}</td></tr>`).join("")}
+  `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${frames > matched ? `<a href="#archive-${escape(file)}">${frames - matched}</a>` : "0"}</td></tr>`).join("")}
 </tbody></table></details>
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
 <label>Category <select id="category"><option value="">All categories</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
 <label><input id="include-data" type="checkbox"> Include composition and gameplay data</label>
-<label>Replacement <select id="replacement"><option value="">Any</option><option value="linked">Has linked artwork</option><option value="missing">No frames linked</option><option value="partial">Some frames linked</option><option value="complete">All frames linked</option></select></label>
+<label>Replacement <select id="replacement"><option value="">Any</option><option value="linked">Has linked artwork</option><option value="unfinished">Has unmatched frames</option><option value="missing">No frames linked</option><option value="partial">Some frames linked</option><option value="complete">All frames linked</option></select></label>
 <p id="matches" role="status"></p>
 ${runtimeGallery}
 ${missingGallery}
@@ -410,18 +410,23 @@ const search = document.querySelector('#search');
 const category = document.querySelector('#category');
 const replacement = document.querySelector('#replacement');
 const includeData = document.querySelector('#include-data');
+let selectedArchive;
 const archives = [...document.querySelectorAll('details[data-category]')].map((archive) => ({ archive,
   entries: [...archive.querySelectorAll('figure')].map((figure) => ({ figure, text: figure.textContent.toLowerCase() })) }));
 function filter() {
   const query = search.value.trim().toLowerCase();
   let blocks = 0;
   for (const {archive, entries} of archives) {
-    const categoryMatches = !category.value || archive.dataset.category === category.value;
+    const categoryMatches = (!category.value || archive.dataset.category === category.value) &&
+      (!selectedArchive || archive.id === selectedArchive);
     let visible = 0;
     for (const {figure, text} of entries) {
       const visual = figure.dataset.visual === 'true';
       const linked = figure.dataset.enhanced === 'true';
-      const replacementMatches = !replacement.value || (replacement.value === 'linked' ? linked : figure.dataset.coverage === replacement.value);
+      const coverage = figure.dataset.coverage;
+      const replacementMatches = !replacement.value || replacement.value === coverage ||
+        (replacement.value === 'linked' && linked) ||
+        (replacement.value === 'unfinished' && (coverage === 'missing' || coverage === 'partial'));
       figure.hidden = !categoryMatches || (!includeData.checked && !visual) || !replacementMatches || !text.includes(query);
       if (!figure.hidden) visible++;
     }
@@ -431,18 +436,23 @@ function filter() {
   }
   document.querySelector('#matches').textContent = blocks + ' matching entries';
 }
-search.addEventListener('input', filter);
-category.addEventListener('change', filter);
+function clearArchiveFilter() {
+  selectedArchive = undefined;
+  filter();
+}
+search.addEventListener('input', clearArchiveFilter);
+category.addEventListener('change', clearArchiveFilter);
 includeData.addEventListener('change', filter);
-replacement.addEventListener('change', filter);
-document.querySelector('.coverage-table')?.addEventListener('click', (event) => {
-  const link = event.target.closest('a[href^="#unmatched-"]');
+replacement.addEventListener('change', clearArchiveFilter);
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('.coverage-table a');
   if (!link) return;
   const group = document.getElementById(link.hash.slice(1));
   if (!group) return;
   search.value = '';
   category.value = group.dataset.category;
-  replacement.value = 'missing';
+  selectedArchive = group.id.startsWith('archive-') ? group.id : undefined;
+  replacement.value = selectedArchive ? 'unfinished' : 'missing';
   filter();
   group.open = true;
 });
