@@ -2495,8 +2495,9 @@ try {
     for (let turn = 0; turn < 75 && !action(); turn++) await advance("q");
     const shot = action();
     assert.ok(shot, "Expected the original mage wand-use report");
-    const report = shot.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
-    assert.match(report, /LEVEL3MUUSESANITEMITEM:WAND/i);
+    const textOf = ({ text }) => text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+    assert.match(textOf(shot), /LEVEL3MUUSESANITEMITEM:WAND/i);
+    assert.ok(frame.animation.some(report => /BAKSHITAKES8POINTSOFDAMAGEFROMMAGICITEM:WAND/i.test(textOf(report))));
     const [x, y, , , selected] = shot.combatArt.find(([, , id]) => id === wand);
     assert.ok(selected);
     assert.ok(frame.combatArt.some(([, , id]) => id === ready));
@@ -2504,6 +2505,19 @@ try {
       state.sequence === ${frame.sequence} && [...document.querySelectorAll(".combat-sprite")].some(image =>
         image.getAttribute("src") === ${JSON.stringify("/art/" + wand)} && image.naturalWidth === 96 && image.naturalHeight === 96 &&
         parseFloat(image.style.left) === ${x / 3.2} && parseFloat(image.style.top) === ${y / 2})`));
+    assert.ok(await run(`(async () => {
+      const report = animationFrame;
+      const sequence = state.sequence;
+      const panel = document.querySelector("#game-text");
+      if (!report?.combatArt.some(([, , id]) => id === ${JSON.stringify(wand)})) return false;
+      const reportText = panel.textContent;
+      document.querySelector("#presentation").click();
+      await showScreen();
+      const classic = panel.hidden && document.querySelector("#screen").src === "data:image/png;base64," + report.frame;
+      window.dispatchEvent(new KeyboardEvent("keydown", { key: "F10" }));
+      await showScreen();
+      return classic && state.sequence === sequence && animationFrame === report && !panel.hidden && panel.textContent === reportText;
+    })()`), "The same wand report should survive a presentation switch");
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the enhanced mage wand pose during the native report and the return to ready art.");
   } else if (combatPose) {
