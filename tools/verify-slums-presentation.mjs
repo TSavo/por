@@ -486,6 +486,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["false-throne-thief-combat", {
+    slot: "B", stand: "combat:area:5:CPIC5.DAX:12:ecl:abe2", strike: "combat:area:5:CPIC5.DAX:140:ecl:abe2",
+    width: 96, height: 96, readyPrompt: /6THLVLTHIEFHITPOINTS28/i, strikeReflected: false,
+    inputs: ["up", "enter", "enter", "c", ...Array(5).fill("enter"), "q", "q", "q"],
+  }],
   ["valjevo-outer-sentinel", {
     slot: "B", stand: "combat:area:4:CPIC5.DAX:11:ecl:9f58", strike: "combat:area:4:CPIC5.DAX:139:ecl:9f58",
     width: 96, height: 96, readyPrompt: /6THLVLFIGHTERHITPOINTS41/i, strikeReflected: true,
