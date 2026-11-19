@@ -245,10 +245,20 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
 const replacementsByBlock = new Map<string, typeof replacements>();
 const tileFramesByBlock = new Map<string, Set<string>>();
 const loadedIds = new Set(replacements.map(({ id }) => id));
+const enhancedTilesByHash = new Map<string, { id: string; file: string; preview: string }[]>();
+for (const { id, file, preview } of replacements) {
+  const hash = /^tile:\d+:([a-f0-9]{64})$/.exec(id)?.[1];
+  if (!hash) continue;
+  const matches = enhancedTilesByHash.get(hash) ?? [];
+  matches.push({ id, file, preview });
+  enhancedTilesByHash.set(hash, matches);
+}
 const missingTiles = [...capturedTiles].filter(([id]) => !loadedIds.has(id)).map(([id, { pixels, ...capture }], index) => {
   const original = new Frame(8, 8);
   original.pixels.set(pixels);
-  return { id, ...capture, sourceCandidates: id.startsWith("tile:") ? tileSources.get(id.slice(id.lastIndexOf(":") + 1)) : undefined,
+  const hash = /^tile:\d+:([a-f0-9]{64})$/.exec(id)?.[1];
+  return { id, ...capture, sourceCandidates: hash ? tileSources.get(hash) : undefined,
+    enhancedCandidates: hash ? enhancedTilesByHash.get(hash) : undefined,
     preview: exportClassicFrame(original, replacements.length + index) };
 });
 const missingByArea = new Map<string, typeof missingTiles>();
@@ -299,12 +309,14 @@ const runtimeGallery = runtimeReplacements.length ?
 const missingGallery = [...missingByArea].sort(([left], [right]) => left.localeCompare(right, "en", { numeric: true }))
   .map(([area, tiles]) => `<details id="unmatched-${area.toLowerCase()}" data-category="Captured tiles without replacements"><summary>` +
     `${area === "Battlefield" ? area : `Area ${area}`} · ${tiles.length} captured tiles without replacements</summary><div class="grid">` +
-    tiles.map(({ id, trace, frame, x, y, preview, sourceCandidates }) =>
+    tiles.map(({ id, trace, frame, x, y, preview, sourceCandidates, enhancedCandidates }) =>
       `<figure data-visual="true" data-enhanced="false" data-coverage="missing">` +
       `<a href="${preview}" target="_blank" rel="noopener"><img width="32" height="32" loading="lazy" src="${preview}" alt="Classic tile"></a>` +
       `<p>${escape(id)}</p><p>${escape(trace)} · frame ${frame} · (${x}, ${y})</p>` +
       (sourceCandidates?.length ? `<details><summary>Matching atlas frames</summary>${sourceCandidates.map(
         ({ archive, block, member, frame }) => `<p>${escape(archive)} #${block} · member ${member} · frame ${frame}</p>`).join("")}</details>` : "") +
+      (enhancedCandidates?.length ? `<details><summary>Enhanced tiles with identical source pixels</summary>${enhancedCandidates.map(
+        ({ id, file, preview }) => `<p><a href="${preview}" target="_blank" rel="noopener"><img width="32" height="32" loading="lazy" src="${preview}" alt="Enhanced tile"></a> ${escape(file)} � ${escape(id)}</p>`).join("")}</details>` : "") +
       "</figure>").join("") +
     "</div></details>").join("\n");
 const gallery = archives.map(({ file, category, entries }) =>
