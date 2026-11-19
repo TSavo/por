@@ -37,6 +37,15 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["yarash-study", {
+    slot: "A", inputs: ["up", "up", "b", "up"],
+    placement: [64, 24, "encounter:area:23:SPRIT7.DAX:24:2:0", 48, 57],
+    approachSteps: [
+      { inputs: ["enter", "a"], placement: [56, 32, "encounter:area:23:SPRIT7.DAX:24:1:0", 24, 65] },
+      { inputs: ["a"], placement: [48, 32, "encounter:area:23:SPRIT7.DAX:24:0:0", 32, 73] },
+    ],
+    dialogue: { key: "p", portrait: "portrait:area:23:HEAD7.DAX:56:BODY7.DAX:30", prompt: /COMBATWAITFLEEPARLAY/i },
+  }],
   ["new-phlan-city-watch-approach", {
     slot: "A",
     inputs: arenaWatchApproach,
@@ -1819,12 +1828,15 @@ try {
       await switchBothWays();
     }
     await verifyApproach(encounterRoute.placement);
-    if (encounterRoute.closer) {
+    const approachSteps = encounterRoute.approachSteps ?? (encounterRoute.closer
+      ? [{ inputs: [encounterRoute.closerKey ?? "a"], placement: encounterRoute.closer }]
+      : []);
+    for (const { inputs, placement } of approachSteps) {
       const terrain = frame.tileInventory;
       assert.equal(terrain?.length, 121);
-      await advance(encounterRoute.closerKey ?? "a");
+      for (const input of inputs) await advance(input);
       assert.deepEqual(frame.tileInventory, terrain);
-      await verifyApproach(encounterRoute.closer);
+      await verifyApproach(placement);
     }
     if (encounterRoute.dialogue) {
       const { key, keys = [key], portrait, prompt } = encounterRoute.dialogue;

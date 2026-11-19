@@ -1,6 +1,10 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:23:HEAD7.DAX:56:BODY7.DAX:30": "yarash-study-portrait.png",
+    "encounter:area:23:SPRIT7.DAX:24:2:0": "yarash-study-approach-far.png",
+    "encounter:area:23:SPRIT7.DAX:24:1:0": "yarash-study-approach-middle.png",
+    "encounter:area:23:SPRIT7.DAX:24:0:0": "yarash-study-approach-near.png",
     "tile:1:39e66a6704cfe451c50fece080807285ee3182b92c116aae026935ffbda8926e": "buccaneer-pen-spur-terrain-39e66a6704cf.png",
     "tile:1:2f5562c8c9befaefcf49b893414a7e615143bb686656b8134889ae99e7a38ab8": "buccaneer-pen-spur-terrain-2f5562c8c9be.png",
     "tile:1:e77f9d573e085f4f1ed8897ef744bc31c10be2c364cd0f6e3a733be3d9ae83ef": "buccaneer-pen-spur-terrain-e77f9d573e08.png",
@@ -3246,6 +3250,9 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:23:SPRIT7.DAX:24:2:0": { "area": 23, "x": 64, "y": 24, "width": 48, "height": 57 },
+    "encounter:area:23:SPRIT7.DAX:24:1:0": { "area": 23, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:23:SPRIT7.DAX:24:0:0": { "area": 23, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:11:SPRIT3.DAX:15:0:0": { "area": 11, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:11:SPRIT3.DAX:16:0:0": { "area": 11, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:31:SPRIT1.DAX:2:0:0": { "area": 31, "x": 48, "y": 32, "width": 48, "height": 80 },
