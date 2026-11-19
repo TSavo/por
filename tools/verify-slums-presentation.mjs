@@ -3060,8 +3060,16 @@ try {
     assert.match(frame.journal.objective.nextStep, /tell the council clerk at City Hall that the king fell/);
     await advance("j");
     if (reload) {
+      const patterns = new Set();
+      for (const key of ["right", "up", "right", "up"]) {
+        await advance(key);
+        assert.equal(await verifyTiledView(13, patterns), 1);
+      }
+      await advance("j");
+      assert.match(frame.journal?.objective.nextStep ?? "", /tell the council clerk at City Hall that the king fell/);
+      await advance("j");
       await switchBothWays();
-      console.log("Verified the kobold commission report objective after reload.");
+      console.log("Verified the kobold report objective after reload and four enhanced views beyond the pit.");
     } else {
       for (const key of ["e", "s", "s", "b"]) await advance(key);
       const savedResult = JSON.parse(readFileSync(saved, "utf8"));
