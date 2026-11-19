@@ -1386,6 +1386,9 @@ reflected lunge from a controlled area 27 checkpoint.
 and reflected strike from a controlled area 27 checkpoint.
 `wild-cave-troll-combat` checks the troll's 96×192 ready pose and
 animated strike in the area 27 gnoll-room encounter.
+`wild-cave-gnoll-approach` and `wild-cave-giant-lizard-approach` check
+the native placements and transitions to dialogue in the gnoll and
+minotaur encounters, including presentation switching.
 `kuto-lizardman-combat` and `kuto-kobold-leader-combat` check the 96×96
 ready and strike poses for both opponents in Norris's native fight.
 Both replays use the same slot J checkpoint and verify mode switching.

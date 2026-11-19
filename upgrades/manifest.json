@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:27:SPRIT8.DAX:59:0:0": "wild-cave-giant-lizard-approach.png",
     "encounter:area:27:SPRIT8.DAX:73:0:0": "wild-cave-gnoll-approach.png",
     "tile:29:1a6da4631b68f9486257449a164bba8394ba5f8f91ebb204eea6e6a75b453705": "kuto-inner-lane-terrain-1a6da4631b68.png",
     "tile:29:9b0bf37c3c7ed368410e6a466a1e12ca0242219585369589cf01ae8c4c31aa38": "kuto-inner-lane-terrain-9b0bf37c3c7e.png",
@@ -2941,6 +2942,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:27:SPRIT8.DAX:59:0:0": { "area": 27, "x": 32, "y": 32, "width": 80, "height": 80 },
     "encounter:area:27:SPRIT8.DAX:73:0:0": { "area": 27, "x": 40, "y": 32, "width": 56, "height": 80 },
     "encounter:area:25:SPRIT6.DAX:118:0:0": { "area": 25, "x": 56, "y": 32, "width": 32, "height": 73 },
     "encounter:area:25:SPRIT6.DAX:120:0:0": { "area": 25, "x": 48, "y": 32, "width": 40, "height": 80 },

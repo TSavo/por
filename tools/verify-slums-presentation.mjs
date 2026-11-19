@@ -30,6 +30,11 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["wild-cave-giant-lizard-approach", {
+    slot: "B", inputs: ["up", "enter"],
+    placement: [32, 32, "encounter:area:27:SPRIT8.DAX:59:0:0", 80, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:27:PIC8.DAX:59:0:0", prompt: /FOURGIANTLIZARDSANDTWOMINOTAURS/i },
+  }],
   ["wild-cave-gnoll-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [40, 32, "encounter:area:27:SPRIT8.DAX:73:0:0", 56, 80],
