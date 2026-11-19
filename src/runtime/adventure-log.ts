@@ -114,7 +114,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
           : knows("auction-buyer-unseen") ? "that the auction ended before the party could identify the buyer"
           : undefined;
         const item = knows("auction-wand-of-fear") ? "that the weapon was a Wand of Fear"
+          : knows("auction-wand-of-illumination") && knows("auction-staff-of-command")
+            ? "that onlookers disagreed, calling it a Wand of Illumination or a Staff of Command"
           : knows("auction-wand-of-illumination") ? "that an onlooker called it a Wand of Illumination"
+          : knows("auction-staff-of-command") ? "that an onlooker called it a Staff of Command"
           : undefined;
         const nextStep = `Report ${outcome ?? item ?? "what the party saw at the auction"} to the council clerk at City Hall.`;
         return { title: commission.title, nextStep: outcome && item ? `${nextStep} Also report ${item}.` : nextStep };
@@ -1070,6 +1073,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("IT'S A WAND OF ILLUMINATION. WHO CARES")) {
     leads.push({ id: "auction-wand-of-illumination", title: "An onlooker identified the wand",
       detail: "Someone in the auction crowd called the item a Wand of Illumination." });
+  }
+  if (text.includes("IT'S A STAFF OF COMMAND. I COULD HAVE MY OWN ARMY")) {
+    leads.push({ id: "auction-staff-of-command", title: "Another claim about the auction item",
+      detail: "Someone in the auction crowd called the item a Staff of Command." });
   }
   if (text.includes("THE AUCTION ENDS. YOU DON'T SEE WHO BOUGHT THE ITEM")) {
     leads.push({ id: "auction-buyer-unseen", title: "The buyer went unseen",

@@ -405,19 +405,21 @@ function checkCampaignJournal(): void {
     ["THE AUCTION IS CANCELLED!", "was cancelled"],
     ["A MAN AND OGRE EXCHANGE THE WAND", "exchanged the wand"],
     ["IT'S A WAND OF ILLUMINATION", "an onlooker called it a Wand of Illumination"],
+    ["IT'S A STAFF OF COMMAND", "an onlooker called it a Staff of Command"],
     ["YOU DON'T SEE WHO BOUGHT THE ITEM", "before the party could identify the buyer"]]) {
     const line = lines.find((text) => text.includes(fragment!));
     if (!line || !currentObjective([...auctionReady, ...discoveredLeads(line)]).nextStep.includes(hint!)) {
       throw new Error(`Auction journal reported an incorrect outcome for ${fragment}`);
     }
   }
-  const auctionClues = ["A MAN AND OGRE EXCHANGE THE WAND", "IT'S A WAND OF ILLUMINATION", "IT'S ONLY A WAND OF FEAR"]
+  const auctionClues = ["A MAN AND OGRE EXCHANGE THE WAND", "IT'S A WAND OF ILLUMINATION", "IT'S ONLY A WAND OF FEAR", "IT'S A STAFF OF COMMAND"]
     .map(fragment => discoveredLeads(lines.find(text => text.includes(fragment))!));
   const exchangeWithRumor = currentObjective([...auctionReady, ...auctionClues[0]!, ...auctionClues[1]!]).nextStep;
   const exchangeWithIdentification = currentObjective([...auctionReady, ...auctionClues.flat()]).nextStep;
   if (!exchangeWithRumor.includes("exchanged the wand") || !exchangeWithRumor.includes("an onlooker called it") ||
       !exchangeWithIdentification.includes("exchanged the wand") || !exchangeWithIdentification.includes("Wand of Fear") ||
-      exchangeWithIdentification.includes("Wand of Illumination")) {
+      exchangeWithIdentification.includes("Wand of Illumination") || exchangeWithIdentification.includes("Staff of Command") ||
+      !currentObjective([...auctionReady, ...auctionClues[1]!, ...auctionClues[3]!]).nextStep.includes("onlookers disagreed")) {
     throw new Error("The auction report did not combine the exchange with the best item identification");
   }
   const gateCommission = commissions.find(({ id }) => id === "gate")!;
