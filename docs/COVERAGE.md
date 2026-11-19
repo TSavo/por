@@ -1050,6 +1050,10 @@ facing east with the same commission tracked. The journal first points to
 the east door when the chase is offered. After the party chooses Yes and
 sees the thieves split, it gives both routes. Chrome checks that neither
 clue appears before the corresponding prompt.
+The south route reaches the ambush and changes the objective to fighting
+off the thieves. `kovel-chase-east` reaches the guildmaster, checks that
+the journal explains the Attack and Release choices, then verifies the
+new search objective after the party releases him and he escapes.
 The translation verifier also checks the file discovery and chase in both
 orders, including with the first clue restored from a save. The tracked
 objective uses the most recent discovery in each case.

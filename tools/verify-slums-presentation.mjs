@@ -1931,7 +1931,7 @@ routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload")
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
-routes.push("kovel-chase");
+routes.push("kovel-chase", "kovel-chase-east");
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
@@ -4631,9 +4631,10 @@ try {
     assert.equal(patterns.size, 174);
     await switchBothWays();
     console.log(`Verified ${patterns.size} Textile House tile patterns across ${views} views, including both reflected tiles. Captures:`, directory);
-  } else if (routeName === "kovel-chase") {
+  } else if (routeName === "kovel-chase" || routeName === "kovel-chase-east") {
     const chase = "kovel-chase";
     const split = "kovel-thieves-split";
+    const ambush = "kovel-thief-ambush";
     const knows = id => frame.journal.leads.some(lead => lead.id === id);
     const textOf = ({ text }) => text.toSorted(([a], [b]) => a - b)
       .map(([, char]) => String.fromCharCode(char)).join("");
@@ -4648,12 +4649,30 @@ try {
     for (const key of ["j", "y"]) await advance(key);
     assert.match(textOf(frame), /WHICHPATHWILLYOUTAKE/i);
     await advance("j");
-    assert.ok(knows(chase) && knows(split));
+    assert.ok(knows(chase) && knows(split) && !knows(ambush));
     assert.equal(frame.journal.trackedId, "commission-kovel");
     assert.match(frame.journal.objective.nextStep, /south or east door/i);
     await switchBothWays();
+    if (routeName === "kovel-chase-east") {
+      for (const key of ["j", "e"]) await advance(key);
+      assert.match(textOf(frame), /IAMTHEGUILDMASTER.*ATTACKRELEASE/i);
+      await advance("j");
+      assert.ok(knows("kovel-guildmaster") && !knows("kovel-guildmaster-escaped"));
+      assert.match(frame.journal.objective.nextStep, /Choose Attack.*or Release/i);
+      for (const key of ["j", "r", "j"]) await advance(key);
+      assert.ok(knows("kovel-guildmaster-escaped"));
+      assert.match(frame.journal.objective.nextStep, /guildmaster fled after being released/i);
+    } else {
+      for (const key of ["j", "s"]) await advance(key);
+      assert.match(textOf(frame), /8,13S.*AMBUSHEDBYSOMETHIEVES/i);
+      await advance("j");
+      assert.ok(knows(ambush));
+      assert.match(frame.journal.objective.nextStep, /fight off the ambush/i);
+      for (const key of ["j", "enter"]) await advance(key);
+      assert.match(textOf(frame), /ABATTLEBEGINS/i);
+    }
     assert.deepEqual(readFileSync(saved), originalSave);
-    console.log("Verified that the Kovel Mansion chase and split update the journal as the party witnesses them.");
+    console.log(`Verified witnessed journal updates on ${routeName} in Chrome.`);
   } else if (routeName === "kovel-guild-files") {
     const files = "kovel-guild-files";
     await advance("j");
