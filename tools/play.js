@@ -247,18 +247,19 @@ async function showScreen() {
   const sceneArt = useEnhanced && !view.journal && !failedSceneArt.has(view) && view.art;
   const source = sceneArt || `data:image/png;base64,${frame}`;
   const showArt = useEnhanced && !sceneArt && !view.journal;
+  function pictureBackdrop() {
+    const backdrop = document.createElement("div");
+    backdrop.className = "perspective-backdrop";
+    backdrop.style.backgroundImage = `url("data:image/png;base64,${frame}")`;
+    return backdrop;
+  }
   let layers = [];
   const placements = [...(view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
   if (view.portrait) placements.push([8, 8, view.portrait, undefined, undefined, 120, 120]);
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
   if (showArt) {
     const perspective = view.perspective && !view.portrait;
-    const backdrop = perspective || view.classicPortrait ? document.createElement("div") : null;
-    if (backdrop) {
-      backdrop.className = "perspective-backdrop";
-      backdrop.style.backgroundImage = `url("data:image/png;base64,${frame}")`;
-    }
-    if (backdrop) layers.push(backdrop);
+    if (perspective || view.classicPortrait) layers.push(pictureBackdrop());
     layers.push(...placements.map(([x, y, id, reflected, , width, height]) => {
       const tile = document.createElement("img");
       tile.alt = "";
@@ -310,6 +311,7 @@ async function showScreen() {
       } catch (error) {
         // Terrain remains in the enhanced framebuffer underneath its PNGs.
         if (layer.matches(".terrain-tile, .battle-tile")) return null;
+        if (layer.matches(".encounter-portrait")) return pictureBackdrop();
         throw error;
       }
     };

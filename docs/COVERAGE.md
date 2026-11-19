@@ -2318,7 +2318,9 @@ The `new-phlan-south-shop-exit` replay starts from slot A at (9,11)
 facing west. Chrome verifies the shopkeeper portrait at the offer and all
 121 enhanced street tiles immediately after declining, before pressing Enter.
 The replay checks 29 tile patterns across six views and preserves the save
-through mode switches.
+through mode switches. A separate check at the offer requests an unavailable
+portrait PNG and verifies that the original picture still fills the enhanced
+picture panel while the web font remains visible.
 
 Three more slot A replays exercise building exits with the browser's
 default art packs. `new-phlan-west-shop-exit` starts at (12,8) east,

@@ -2356,6 +2356,23 @@ try {
         if (key === "enter" && views === 2) {
           assert.equal(frame.perspective, false);
           assert.equal(frame.portrait, "portrait:HEAD3.DAX:42:BODY3.DAX:9");
+          await waitFor("the enhanced shopkeeper", () => run(`state.sequence === ${frame.sequence} &&
+            document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+          const result = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true, expression: `(async () => {
+            const original = state;
+            state = { ...original, portrait: "portrait:missing-shop-test" };
+            try {
+              await showScreen();
+              const picture = document.querySelector(".perspective-backdrop");
+              return !document.querySelector("#tile-art").hidden && !document.querySelector("#game-text").hidden &&
+                picture?.style.backgroundImage.includes(original.enhancedFrame) &&
+                !document.querySelector(".encounter-portrait");
+            } finally {
+              state = original;
+              await showScreen();
+            }
+          })()` });
+          assert.equal(result.result.value, true, result.exceptionDetails?.text ?? "A missing portrait should preserve the enhanced picture panel");
         }
         if (key === "n") {
           assert.equal(frame.portrait, undefined);
