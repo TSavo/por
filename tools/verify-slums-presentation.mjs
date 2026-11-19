@@ -256,6 +256,10 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["slums-feeding-kobolds", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:20:PIC2.DAX:0:0:0", prompt: /YOUINTERRUPTSOMEFEEDINGKOBOLDS/i,
+  }],
   ["new-phlan-innkeeper", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:0:HEAD3.DAX:45:BODY3.DAX:24", prompt: /ITWILLCOSTYOU1PLATINUMPIECETORESTHERE/i,

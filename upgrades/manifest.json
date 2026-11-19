@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:20:PIC2.DAX:0:0:0": "slums-feeding-kobolds.png",
     "combat:area:5:CPIC5.DAX:11:ecl:abe2": "false-throne-impersonator-stand.png",
     "combat:area:5:CPIC5.DAX:139:ecl:abe2": "false-throne-impersonator-strike.png",
     "tile:14:067e5b585dd24bcac143834da985ebebbcc25446db06ae546aeffaec0d2b9711": "old-phlan-locked-lane-terrain-067e5b585dd2.png",
