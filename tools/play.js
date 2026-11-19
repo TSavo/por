@@ -499,6 +499,7 @@ presentation.addEventListener("click", () => {
 });
 window.addEventListener("keydown", (event) => {
   resumeBlockedAudio();
+  if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#audio-settings")) return;
   const advancingCoveredPrint = currentVoice?.dataset.queuedNarration === "true" && ["Enter", " "].includes(event.key);
   if (currentVoice && event.key !== "F10" && !advancingCoveredPrint) stopVoice();
   if (event.repeat || event.ctrlKey || event.metaKey) return;
