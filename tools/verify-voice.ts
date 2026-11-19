@@ -6,6 +6,11 @@ interface VoiceLine { id: string; type: "dialogue" | "narration"; speaker: strin
   file: string; match?: string; scene?: string; timing: { startMs: number; endMs: number }; status: string }
 const manifest = JSON.parse(readFileSync(new URL("../src/audio/voices.json", import.meta.url), "utf8")) as
   { enhancedOnly: boolean; lines: VoiceLine[]; casting: { speaker: string }[] };
+const inventory = JSON.parse(readFileSync(new URL("../src/audio/voice-inventory.json", import.meta.url), "utf8")) as {
+  enhancedOnly: boolean; lineCount: number; generationPolicy: string;
+  lines: { id: string; text: string; source: { archive: string; block: number; address: string };
+    reviewStatus: string; assetStatus: string }[];
+};
 assert.equal(manifest.enhancedOnly, true);
 assert(manifest.lines.some(({ type }) => type === "dialogue"));
 assert(manifest.lines.some(({ type }) => type === "narration"));
@@ -23,4 +28,15 @@ for (const line of manifest.lines) {
   const wave = readFileSync(path);
   assert.equal(wave.subarray(0, 4).toString("ascii"), "RIFF");
 }
-console.log(`verified ${manifest.lines.length} Enhanced-only voice lines and assets`);
+assert.equal(inventory.enhancedOnly, true);
+assert.equal(inventory.lineCount, inventory.lines.length);
+assert.equal(new Set(inventory.lines.map(({ id }) => id)).size, inventory.lines.length);
+assert(inventory.generationPolicy.includes("project owner"));
+for (const line of inventory.lines) {
+  assert(line.id.startsWith("por.voice.ecl-"));
+  assert(line.text.trim());
+  assert(/^ECL\d+\.DAX$/.test(line.source.archive));
+  assert(line.source.address.startsWith("0x"));
+  assert.equal(line.assetStatus, "not-requested");
+}
+console.log(`verified ${inventory.lines.length} source voice entries and ${manifest.lines.length} prototype assets`);
