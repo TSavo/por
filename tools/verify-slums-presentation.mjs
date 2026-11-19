@@ -2191,11 +2191,26 @@ try {
     assert.match(textOf(frame), /HITPOINTS.*QUICKDONE/i);
     assert.equal(frame.automaticCombat, undefined);
     if (routeName === "new-phlan-arena-manual-report") {
-      for (const key of ["m", "right", "right", "down"]) await advance(key);
       const miss = /ALDA.*ATTACKS.*ROLF.*ANDMISSES/i;
+      await run(`window.reportSwitch = null;
+        const panel = document.querySelector("#game-text");
+        const observer = new MutationObserver(async () => {
+          if (!animationFrame || !${miss}.test(panel.textContent)) return;
+          observer.disconnect();
+          const report = animationFrame;
+          document.querySelector("#presentation").click();
+          await showScreen();
+          const classic = panel.hidden;
+          window.dispatchEvent(new KeyboardEvent("keydown", { key: "F10" }));
+          await showScreen();
+          window.reportSwitch = classic && animationFrame === report && !panel.hidden && ${miss}.test(panel.textContent);
+        });
+        observer.observe(panel, { childList: true });`);
+      for (const key of ["m", "right", "right", "down"]) await advance(key);
       assert.ok(frame.animation?.some(report => report.durationMs >= 1000 && miss.test(textOf(report))));
       await waitFor("the player-directed miss in the original panel", () =>
         run(`window.combatReports.some(text => ${miss}.test(text))`));
+      await waitFor("the same combat report after switching modes", () => run("window.reportSwitch === true"));
       assert.deepEqual(readFileSync(saved), originalSave);
       console.log("Verified the player-directed combat report in Chrome.");
     } else {
