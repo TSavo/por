@@ -2135,3 +2135,11 @@ replays check the shared ready sprite. Neither replay observed a native
 mage strike. `stojanow-west-watch` and `buccaneer-stockade` check 12 new
 tiles across 19 views and 2,299 placements. All six replays verify
 presentation switching and save preservation.
+
+`yarash-study` verifies the far, middle, and near approach sprites
+at their native anchors, then the parlay portrait from the fountain
+shutdown save. `podal-robed-orc-combat` and `podal-pitt-duelist`
+check both ready and strike poses in the native shrine fight and duel.
+The Buccaneer captain's hall, pen spur, and east and south pen court
+routes verify 5,203 placements across 43 views. The pen routes cover
+day and night. These replays check presentation switching and saves.
