@@ -1254,6 +1254,15 @@ local inventory uses terrain-only copies of two older traces, omitting
 the frames with fighters and spectres composited over the scenery. All
 118 distinct area 20 terrain patterns in the audited traces now resolve.
 
+`graveyard-northeast-west` and `graveyard-northeast-east` verify 14 new
+Valhingen tiles with 1,694 placements across 14 views. The terrain audit
+excludes three older frames with skeletons composited over the scene.
+The three `valhingen-conjurer-*` routes verify the same 352×352 portrait
+on the skeleton, zombie, and wight branches of the original script.
+`valjevo-messenger` checks the 96×96 ready and reflected strike poses,
+using Aim to select the messenger. The art depicts the dagger from his
+introduction. The combat status displays Long Sword.
+
 `valjevo-records-scribe` replays the original chance encounter in the
 records building. It checks the scribe artwork at the ambush decision and
 compares state and save bytes through both presentation switches.
