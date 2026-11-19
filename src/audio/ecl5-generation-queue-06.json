@@ -1,0 +1,406 @@
+{
+  "model": "eleven_v4",
+  "sourceReview": "src/audio/ecl5-voice-review.json",
+  "items": [
+    {
+      "unitId": "por.voice.ecl5.b5-a7e7",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-a7e7",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-a7e7"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-a7e7.mp3",
+      "text": "'OH WELL. CAN'T LET HERDREK HAVE ALL FUN.' THEY PICK UP THEIR CLUBS AND ATTACK.",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-a84d",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-a84d",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-a84d"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-a84d.mp3",
+      "text": "YOU SEE FOUR GIANTS. 'HEY, THEM THE GUYS WHAT STEAL FROM LORD BANE. GET 'EM!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-a88e",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-a88e",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-a88e"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-a88e.mp3",
+      "text": "YOU SEE FOUR GIANTS. 'THEM THE NOT BELONG HERE! GET THEM!",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-a8cf",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-a8cf",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-a8cf"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-a8cf.mp3",
+      "text": "YOU ENTER A CHAMBER WHICH IS LAVISHLY APPOINTED WITH HANGINGS, CARPETS AND FURNITURE. SITTING ON A THRONE IS A POWERFUL LOOKING MAN CLAD IN BARBARIC SPLENDOR.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-a95a",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-a95a",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-a95a"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-a95a.mp3",
+      "text": "'WHAT IS YOUR BUSINESS WITH TYRANTHRAXUS, LORD OF PHLAN?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-a9f3",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-a9f3",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-a9f3"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-a9f3.mp3",
+      "text": "HE SEEMS TO COLLAPSE. 'ALL RIGHT. I'M NOT TYRANTHRAXUS. HE JUST HIRED ME TO IMPERSONATE HIM. IT'S NOT A BAD LIFE, BUT, HEY! I CAN TELL WHICH WAY THE WIND'S BLOWING.'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-aa76",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-aa76",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-aa76"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-aa76.mp3",
+      "text": "'JUST LET ME GO, OKAY?",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-aa93",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-aa93",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-aa93"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-aa93.mp3",
+      "text": "HE RUNS OUT OF THE HALL. THERE IS TREASURE ALL ABOUT.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-aae5",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-aae5",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-aae5"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-aae5.mp3",
+      "text": "'ARROGANT KNAVE FEEL THE POWER OF TYRANTHRAXUS!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-ab10",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-ab10",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-ab10"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-ab10.mp3",
+      "text": "'BOY, THIS CROWN IS HEAVY. OH, WELL IT'S A LIVING. WHAT DOES TYRANTHRAXUS WAN... OOPS! GET THEM!",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-ab5f",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-ab5f",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-ab5f"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-ab5f.mp3",
+      "text": "'BEGONE OR FEEL THE WRATH AND POWER OF TYRANTHRAXUS!' DO YOU LEAVE?",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-ab9e",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-ab9e",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-ab9e"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-ab9e.mp3",
+      "text": "THEN FEEL MY WRATH!",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9914",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9914",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9914"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9914.mp3",
+      "text": "THE WOMAN SAYS 'TYRANTHRAXUS IS LEADING OUR MEN TO THEIR DEATHS. IF YOU INTEND TO KILL HIM WE WILL HELP. USE THESE CLOTHES AS A DISGUISE AND YOU WILL ESCAPE NOTICE.",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9996",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9996",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9996"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9996.mp3",
+      "text": "WILL YOU USE THE CLOTHING AS A DISGUISE?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9a79",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9a79",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9a79"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9a79.mp3",
+      "text": "AN ALARM IS SOUNDING.",
+      "direction": "Urgent dramatic fantasy narration with clear danger and action"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9a9a",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9a9a",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9a9a"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9a9a.mp3",
+      "text": "AN ALARM STARTS RINGING!",
+      "direction": "Urgent dramatic fantasy narration with clear danger and action"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9ac8",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9ac8",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9ac8"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9ac8.mp3",
+      "text": "DO YOU TAKE IT?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9c80",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9c80",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9c80"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9c80.mp3",
+      "text": "YOU ENTER A BUILDING WHERE WOMEN ARE WASHING CLOTHES. AS YOU COME IN, THEY RETREAT TO THE CORNER LOOKING FEARFULLY AT YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9ce3",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9ce3",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9ce3"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9ce3.mp3",
+      "text": "YOU HEAR ONE OF THEM WHISPER, 'THEY DON'T BELONG HERE; THEY MUST HAVE COME TO KILL TYRANTHRAXUS'. A HALF-ORC WOMAN STEPS FORWARD 'WHAT DO YOU WANT OF US?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9d74",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9d74",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9d74"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9d74.mp3",
+      "text": "'PLEASE DON'T KILL US,' SHE SAYS. 'IF YOU DON'T WE WILL GIVE YOU THESE CLOTHES TO USE AS A DISGUISE. WE SWEAR WE WON'T SAY ANYTHING!",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9df1",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9df1",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9df1"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9df1.mp3",
+      "text": "'WELL THEN, GOOD LUCK. BEST YOU LEAVE BEFORE YOU ARE FOUND HERE.",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9eb6",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9eb6",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9eb6"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9eb6.mp3",
+      "text": "AMID THEIR PROTESTS YOU TIE THEM UP. THESE PROTESTS DIMINSH IN VOLUME AS YOU GAG THE WOMEN AND HIDE THEM IN A CORNER.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9f1e",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9f1e",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9f1e"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9f1e.mp3",
+      "text": "THE WOMEN SHRIEK AND FLEE BEFORE YOU AS YOU CHOP THEM DOWN. THE HALF-ORC WOMAN WITH HATE IN HER EYES SNARLS 'HEROES! HAH!' THEN HER EYES GLAZE AS SHE DIES.",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9fa7",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9fa7",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9fa7"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9fa7.mp3",
+      "text": "IT SEEMS THAT THEIR SCREAMS WERE HEARD...",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a107",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a107",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a107"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a107.mp3",
+      "text": "THE SMITHY WIPES HIS BROW AND SAYS, 'NO, YOU NEVER GET TOTALLY USED TO THE HEAT, BUT IT'S NOT THAT BAD. NOW, IF YOU'LL EXCUSE ME I NEED TO GET BACK TO WORK.'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a184",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a184",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a184"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a184.mp3",
+      "text": "WHAT? EVERYONE KNOWS THAT... HEY, YOU DON'T BELONG HERE!",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a1bb",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a1bb",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a1bb"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a1bb.mp3",
+      "text": "'I'M SORRY, I CAN'T TAKE ANYMORE ORDERS JUST NOW. IF IT'S IMPORTANT GET AUTHORIZATION. NOW IF YOU'LL EXCUSE ME I HAVE TO GET BACK TO WORK'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a235",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a235",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a235"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a235.mp3",
+      "text": "PILED UP OUT OF THE WAY ARE AN ASSORTMENT OF WEAPONS AND ARMOR.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a2d1",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a2d1",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a2d1"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a2d1.mp3",
+      "text": "YOU ARE IN A STOREROOM FULL OF COAL.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a304",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a304",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a304"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a304.mp3",
+      "text": "YOU ARE IN A STANDARD MEAT SMOKEHOUSE... WELL MAYBE NOT QUITE STANDARD. YOU FEEL A LITTLE SICK AS YOU LOOK AT THE MEAT. THE SMELL AND THE SMOKE DON'T HELP EITHER.",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a38b",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a38b",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a38b"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a38b.mp3",
+      "text": "YOU ARE IN A BUILDING THAT WAS ONCE A BARRACKS BUT HAS NOW BEEN CONVERTED TO A TEMPLE OF BANE. AT THE FAR END OF THE ROOM IS A CRUDE ALTER.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a41d",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a41d",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a41d"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a41d.mp3",
+      "text": "A PRIEST AND TWO ACOLYTES TURN FROM THE ALTER, 'WELCOME MY CHILDREN. COME FORWARD AND ACCEPT THE BLESSING OF LORD BANE.'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a4ed",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a4ed",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a4ed"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a4ed.mp3",
+      "text": "YOU GO FORWARD AND KNEEL. 'IN THE NAME OF LORD BANE, GOD OF GODS, I BLESS YOU.'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a5a6",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a5a6",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a5a6"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a5a6.mp3",
+      "text": "THE PRIEST SHOUTS, 'WHAT'S THIS? YOU AREN'T WORSHIPPERS OF LORD BANE! DIE IMPOSTERS!' HE GRABS THE LAST RHINESTONE FROM A NECKLACE AND THROWS IT AT YOU. A FIREBALL EXPLODES!",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a646",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a646",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a646"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a646.mp3",
+      "text": "THEY ATTACK YOU.",
+      "direction": "Urgent dramatic fantasy narration with clear danger and action"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a667",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a667",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a667"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a667.mp3",
+      "text": "'I HAVE NO MORE TIME TO TALK WITH YOU, THE LORD BANE REQUIRES MY CONSTANT DEVOTION. COME, BEFORE YOU LEAVE ACCEPT THE BLESSING OF OUR LORD.",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a6d7",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a6d7",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a6d7"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a6d7.mp3",
+      "text": "'HIS IMMENSITY, TYRANTHRAXUS, HAS SEEN FIT TO ESTABLISH THIS TEMPLE TO OUR LORD BANE. THEREFORE IT IS RIGHT THAT YOU ACCEPT THE LORD BANE'S BLESSING.'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a7cc",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a7cc",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a7cc"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a7cc.mp3",
+      "text": "THERE IS A FEELING OF SOMETHING IMMENSE AND EVIL STARING DOWN AT YOU...",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a822",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a822",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a822"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a822.mp3",
+      "text": "BEHIND THE ALTER ARE TWO CROSSED SWORDS. DO YOU TAKE THEM?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a93b",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a93b",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a93b"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a93b.mp3",
+      "text": "'THAT'S THEM! GET THEM!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    }
+  ]
+}

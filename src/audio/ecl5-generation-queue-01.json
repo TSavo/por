@@ -1,0 +1,432 @@
+{
+  "model": "eleven_v4",
+  "sourceReview": "src/audio/ecl5-voice-review.json",
+  "items": [
+    {
+      "unitId": "por.voice.ecl5.b3-9f06-9f24",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9f06",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9f06",
+        "por.review.ecl-5.block-3.at-9f24"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9f06-9f24.mp3",
+      "text": "'I'M SORRY, SIR, THERE'S AN ALERT. ON WHOSE AUTHORITY ARE YOU HERE?'",
+      "direction": "The same guard speaks both halves with formal suspicion"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-ae2b-ae5b",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-ae2b",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-ae2b",
+        "por.review.ecl-5.block-3.at-ae5b"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-ae2b-ae5b.mp3",
+      "text": "YOU REACH THE BOTTOM AND FEEL AROUND... AND YOU FIND A SWORD!",
+      "direction": "Underwater discovery, building from strained searching to sudden triumph"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-af19-af40",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-af19",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-af19",
+        "por.review.ecl-5.block-3.at-af40"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-af19-af40.mp3",
+      "text": "YOU ARE RUNNING OUT OF AIR... YOU BREAK THE SURFACE GASPING FOR AIR.",
+      "direction": "Urgent breathless narration, resolving in relief"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-af19-af65",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-af19",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-af19",
+        "por.review.ecl-5.block-3.at-af65"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-af19-af65.mp3",
+      "text": "YOU ARE RUNNING OUT OF AIR... YOU BREAK THE SURFACE JUST AS YOU BREATHE IN SOME WATER.",
+      "direction": "Urgent breathless narration, ending in choking danger"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-9e5d-9e7b",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-9e5d",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-9e5d",
+        "por.review.ecl-5.block-4.at-9e7b"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-9e5d-9e7b.mp3",
+      "text": "'I'M SORRY, SIR, THERE'S AN ALERT. ON WHOSE AUTHORITY ARE YOU HERE?'",
+      "direction": "The same guard speaks both halves with formal suspicion"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-a2b5-a304",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-a2b5",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-a2b5",
+        "por.review.ecl-5.block-4.at-a304"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-a2b5-a304.mp3",
+      "text": "YOU ENTER A ROOM THAT MORE RESEMBLES A PIGSTY THAN THE BARRACKS IT IS. IN THE ROOM ARE FOUR GIANTS.",
+      "direction": "Disgusted room description continuing into the giants' reveal"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-a547-a559",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-a547",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-a547",
+        "por.review.ecl-5.block-4.at-a559"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-a547-a559.mp3",
+      "text": "'I SAID GET LOST!' THE GIANT READIES HIS WEAPON AND ADVANCES. THE OTHERS FOLLOW SUIT.",
+      "direction": "The giant's angry warning flows directly into the narrator's combat movement"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-a866-a8d3",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-a866",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-a866",
+        "por.review.ecl-5.block-4.at-a8d3"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-a866-a8d3.mp3",
+      "text": "TWO OF THE SLAVES RUN QUICKLY OUT THE DOOR. THE THIRD APPROACHES YOU WITH TEARS OF GRATITUDE IN HIS EYES. 'I THANK YOU FOR FREEING ME. BEFORE I LEAVE LET ME HELP YOU AS BEST I CAN.' HE TAKES A SLIP OF PAPER FROM THE POUCH OF THE DEAD GNOLL. 'HERE, YOU WILL NEED THIS.'",
+      "direction": "The freed slave speaks with tearful gratitude across the page break; same character throughout"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-ae2a-ae7f",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-ae2a",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-ae2a",
+        "por.review.ecl-5.block-4.at-ae7f"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-ae2a-ae7f.mp3",
+      "text": "THE FOLLOWING CATCHES YOUR EYE, 'DO NOT BE FOOLED BY OUTWARD FORMS FOR YOU SHALL KNOW ME BY MY FLAMING AURA.--TYRANTHRAXUS'",
+      "direction": "Measured discovery followed by the ominous Tyranthraxus signature"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-af30-af51",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-af30",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-af30",
+        "por.review.ecl-5.block-4.at-af51"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-af30-af51.mp3",
+      "text": "YOU ARE IN A BUILDING FULL OF RECORDS. DO YOU WISH TO SPEND HOURS READING THE RECORDS?",
+      "direction": "Measured room description ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-b014-b087",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-b014",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-b014",
+        "por.review.ecl-5.block-4.at-b087"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-b014-b087.mp3",
+      "text": "YOU ARE FINDING A PATTERN TO TYRANTHRAXUS' ACTIVITIES. AT FIRST TYRANTHRAXUS' FOLLOWERS WERE AN UNSOPHISTICATED HORDE OF ILL ORGANIZED UNHUMANS.NOW THEY ARE MUCH MORE SINISTER. THE WEB OF CORRUPTION HE HAS SPREAD IS INCREDIBLE IN ITS SCOPE. HIS ULTIMATE GOAL IS TO CONQUER ALL LANDS SOUTH OF THE MOONSEA.",
+      "direction": "Continuous analytical narration, growing in alarm at Tyranthraxus's expanding power"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-a4be-a540",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-a4be",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-a4be",
+        "por.review.ecl-5.block-5.at-a540"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-a4be-a540.mp3",
+      "text": "THIS TOWER IS OCCUPIED BY FOUR GIANTS. AS YOU COME IN THEY ARE IN THE MIDST OF AN ARGUMENT. THE BIGGEST ONE TURNS TO YOU AND SAYS, 'THEM LOOK SMART. THEM TELL US.''FROGS AND TOADS NOT SAME THING. THEY NOT SAME, THEY DIF... THEY NOT SAME! ME RIGHT?'",
+      "direction": "Comic giant argument; keep the largest giant's blunt, confused character consistent"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9e28-9e4f",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9e28",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9e28",
+        "por.review.ecl-5.block-6.at-9e4f"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9e28-9e4f.mp3",
+      "text": "THEY HELP YOU PUT ON THE CLOTHES. 'HAVE NO FEAR. WE WILL KEEP SILENCE.'",
+      "direction": "The half-orc woman reassures the party softly while the disguise is fitted"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-9fce-9ff9",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-9fce",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-9fce",
+        "por.review.ecl-5.block-6.at-9ff9"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-9fce-9ff9.mp3",
+      "text": "YOU ARE IN A SMITHY. THE SMITH (A HUMAN) AND THREE FIRE GIANTS ARE WORKING ON A SUIT OF ARMOR. PILED UP OUT OF THE WAY ARE AN ASSORTMENT OF WEAPONS AND ARMOR.",
+      "direction": "One continuous smithy description"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a758-a77d",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a758",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a758",
+        "por.review.ecl-5.block-6.at-a77d"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a758-a77d.mp3",
+      "text": "YOU ARE BEFORE THE ALTER. NEAR IT IS THE OFFERING BOX WITH SOME CHANGE IN IT.",
+      "direction": "One continuous ominous altar description"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9b74-9ba0",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9b74",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9b74",
+        "por.review.ecl-5.block-7.at-9ba0"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9b74-9ba0.mp3",
+      "text": "A SECRET DOOR IS FOUND IN FRONT OF YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9b74-9bb0",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9b74",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9b74",
+        "por.review.ecl-5.block-7.at-9bb0"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9b74-9bb0.mp3",
+      "text": "A SECRET DOOR IS FOUND TO YOUR LEFT.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9b74-9bbe",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9b74",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9b74",
+        "por.review.ecl-5.block-7.at-9bbe"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9b74-9bbe.mp3",
+      "text": "A SECRET DOOR IS FOUND BEHIND YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9b74-9bcb",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9b74",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9b74",
+        "por.review.ecl-5.block-7.at-9bcb"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9b74-9bcb.mp3",
+      "text": "A SECRET DOOR IS FOUND TO YOUR RIGHT.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9e74-9eed",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9e74",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9e74",
+        "por.review.ecl-5.block-7.at-9eba",
+        "por.review.ecl-5.block-7.at-9eed"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9e74-9eed.mp3",
+      "text": "YOU ARE IN A ROOM FURNISHED WITH CHAIRS AND BENCHES. WAITING HERE IS A MAN PLAYING WITH A DAGGER. AS YOU COME IN HE NODS AT YOU.",
+      "direction": "One continuous room and messenger introduction"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-a0e9-a144",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a0e9",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a0e9",
+        "por.review.ecl-5.block-7.at-a144"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-a0e9-a144.mp3",
+      "text": "YOU ENTER A ROOM FURNISHED AS THE APARTMENT OF A WEALTHY IF ECCENTRIC MERCHANT. A MIDDLE AGED MAN IN ROBES LOOKS UP FROM A DESK.",
+      "direction": "One continuous wealthy apartment and robed man introduction"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-a25c-a2ea",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a25c",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a25c",
+        "por.review.ecl-5.block-7.at-a2ea"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-a25c-a2ea.mp3",
+      "text": "A SUDDEN LOOK OF FEAR COMES OVER HIS FACE. 'IF YOU'VE COME FROM TYRANTHRAXUS I CAN OFFER A BETTER DEAL. IF YOU KILL HIM INSTEAD OF ME I WILL MAKE YOU ALL GENERALS!''IN FACT I WILL JOIN YOU. IS IT A DEAL?'",
+      "direction": "The frightened robed man continues the same desperate bargain across the page break"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-a463-a4dd",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a463",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a463",
+        "por.review.ecl-5.block-7.at-a4dd"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-a463-a4dd.mp3",
+      "text": "YOU ARE IN THE AUDIENCE HALL OF TYRANTHRAXUS, CONQUEROR OF PHLAN. THE CEILING HAS BEEN TORN AWAY LEAVING THE ENTIRE SECTION OF THE TOWER OPEN TO THE SKY.IN THE CENTER OF THE ROOM IS A GLOWING POOL. AN ANCIENT BRONZE DRAGON, SURROUNDED BY A FIERY AURA, RISES FROM WHERE IT WAS COILED NEARBY.",
+      "direction": "Grand ominous throne-room reveal, building from ruined hall to fiery dragon"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-a63a-a6a7",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a63a",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a63a",
+        "por.review.ecl-5.block-7.at-a6a7"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-a63a-a6a7.mp3",
+      "text": "THE DRAGON LOOKS AT YOU WITH INTEREST. 'YOU ARE INDEED MIGHTY WARRIORS. EVEN SO, THERE IS NO HOPE OF YOUR SUCCESS. BUT YOU INTEREST ME.''IF YOU JOIN ME I WILL MAKE YOU THE COMMANDERS OF THE ARMIES THAT WILL SWEEP THE MOONSEA. I CAN NOT BE DEFEATED, YOU KNOW. WILL YOU JOIN ME?'",
+      "direction": "Tyranthraxus speaks with ancient, controlled menace and seductive authority throughout"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-a82d-a8b2",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a82d",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a82d",
+        "por.review.ecl-5.block-7.at-a8b2"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-a82d-a8b2.mp3",
+      "text": "KNOWING THAT TYRANTHRAXUS HAS FINALLY BEEN DEFEATED, YOU LEAVE THE CASTLE. MOVING THROUGH THE STREETS YOU CATCH OCCASIONAL GLIMPSES OF MONSTERS IN HIDING. NONE ATTACK.FINALLY YOU ENTER THE CIVILIZED AREA OF PHLAN.",
+      "direction": "Concluding narration moving from wary escape into relief"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-9d91-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9d91",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9d91"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9d91-operand-9.mp3",
+      "text": "THEY ADVANCE, WEAPONS READY",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-9df1-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9df1",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9df1"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9df1-operand-9.mp3",
+      "text": "'WHAT ARE YOU DOING HERE?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-9df1-operand-10",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9df1",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9df1"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9df1-operand-10.mp3",
+      "text": "THE LEADER ADVANCES.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a09e-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a09e",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a09e"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a09e-operand-9.mp3",
+      "text": "'WHAT ARE YOU DOING HERE?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a371-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a371",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a371"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a371-operand-9.mp3",
+      "text": "THE GIANTS STAND IN FRONT OF YOU LOOKING SUSPICIOUS.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a371-operand-10",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a371",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a371"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a371-operand-10.mp3",
+      "text": "THE GIANTS ARE WALKING TOWARD YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a621-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a621",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a621"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a621-operand-9.mp3",
+      "text": "THE GIANTS WHO PLACED THE BUCKET THERE CHARGE!",
+      "direction": "Urgent dramatic fantasy narration with clear danger and action"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a77f-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a77f",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a77f"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a77f-operand-9.mp3",
+      "text": "YOU SEE SOME GIANTS PUTTING ON THEIR ARMOR.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a7d7-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a7d7",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a7d7"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a7d7-operand-9.mp3",
+      "text": "YOU SEE SOME GIANTS STRUGGLING OUT OF BED.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-abf4-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-abf4",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-abf4"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-abf4-operand-9.mp3",
+      "text": "'WHAT PASSWORD?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-b330-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-b330",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-b330"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-b330-operand-9.mp3",
+      "text": "YOU SEE GIANT SNAKES.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-9ce6-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-9ce6",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-9ce6"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-9ce6-operand-9.mp3",
+      "text": "THEY ADVANCE, WEAPONS READY",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-9d49-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-9d49",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-9d49"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-9d49-operand-9.mp3",
+      "text": "'WHAT ARE YOU DOING HERE?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-9d49-operand-10",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-9d49",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-9d49"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-9d49-operand-10.mp3",
+      "text": "THE LEADER ADVANCES.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-9ffa-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-9ffa",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-9ffa"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-9ffa-operand-9.mp3",
+      "text": "'WHAT ARE YOU DOING HERE?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    }
+  ]
+}

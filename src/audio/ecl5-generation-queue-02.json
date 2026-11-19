@@ -1,0 +1,406 @@
+{
+  "model": "eleven_v4",
+  "sourceReview": "src/audio/ecl5-voice-review.json",
+  "items": [
+    {
+      "unitId": "por.voice.ecl5.b4-a255-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-a255",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-a255"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-a255-operand-9.mp3",
+      "text": "THEY COME RUNNING TOWARD YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-a339-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-a339",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-a339"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-a339-operand-9.mp3",
+      "text": "THE GIANTS LOOK UP AT YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-a609-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-a609",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-a609"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-a609-operand-9.mp3",
+      "text": "'GET EM!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-ab95-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-ab95",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-ab95"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-ab95-operand-9.mp3",
+      "text": "'YOU DON'T BELONG HERE!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-abde-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-abde",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-abde"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-abde-operand-9.mp3",
+      "text": "AN OFFICER LOOKS AT YOU, 'WHAT ARE YOU DOING HERE?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-9d8b-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-9d8b",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-9d8b"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-9d8b-operand-9.mp3",
+      "text": "THEY HOLD THEIR WEAPONS READY.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-9f71-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-9f71",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-9f71"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-9f71-operand-9.mp3",
+      "text": "YOU SEE A PACK OF TROLLS.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-9fb4-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-9fb4",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-9fb4"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-9fb4-operand-9.mp3",
+      "text": "YOU SEE A PACK OF TROLLS. THEY SEEM UNAWARE OF YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-a256-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-a256",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-a256"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-a256-operand-9.mp3",
+      "text": "YOU SEE A HARMLESS, MIDDLE AGED MAN.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-abf4-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-abf4",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-abf4"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-abf4-operand-9.mp3",
+      "text": "YOU SEE GIANT SNAKES.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a06e-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a06e",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a06e"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a06e-operand-9.mp3",
+      "text": "THE SMITH LOOKS UP FROM HIS WORK. 'WHAT DO YOU NEED?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a06e-operand-10",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a06e",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a06e"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a06e-operand-10.mp3",
+      "text": "THE SMITH IGNORES YOU AS HE HAMMERS ON A GREAVE.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-a9e6-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a9e6",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a9e6"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a9e6-operand-9.mp3",
+      "text": "THEY ADVANCE, WEAPONS READY",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-aa49-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-aa49",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-aa49"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-aa49-operand-9.mp3",
+      "text": "'WHAT ARE YOU DOING HERE?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-aa49-operand-10",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-aa49",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-aa49"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-aa49-operand-10.mp3",
+      "text": "THE LEADER ADVANCES.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9de2-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9de2",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9de2"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9de2-operand-9.mp3",
+      "text": "A MEDUSA COMES RUNNING TOWARD YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9f12-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9f12",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9f12"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9f12-operand-9.mp3",
+      "text": "HE STARES MOODILY AT HIS FEET.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-a184-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a184",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a184"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-a184-operand-9.mp3",
+      "text": "'SO WHAT MESSAGE FROM TYRANTHRAXUS REQUIRES ALL OF YOU TO DELIVER IT?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-a56c-operand-9",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a56c",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a56c"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-a56c-operand-9.mp3",
+      "text": "TWO GUARDS MOVE TO BAR YOUR PATH. THE DRAGON LOOKS AT YOU WITH MALEVOLENCE. 'GUARDS, KILL THESE PESTS.'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a8d0-prompt",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a8d0",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a8d0"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a8d0-prompt.mp3",
+      "text": "A DEEP VOICE CALLS DOWN, 'WHAT IS THE PASSWORD?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b5-a098-prompt",
+      "triggerSourceId": "por.review.ecl-5.block-5.at-a098",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-5.at-a098"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b5-a098-prompt.mp3",
+      "text": "A DEEP VOICE CALLS DOWN, 'WHAT IS THE PASSWORD?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b4-b1cf-prompt",
+      "triggerSourceId": "por.review.ecl-5.block-4.at-b1cf",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-4.at-b1cf"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b4-b1cf-prompt.mp3",
+      "text": "YOU SEE A SCRIBE COMING TOWARD THE BUILDING WITH AN ARM FULL OF BOOKS.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-99be",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-99be",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-99be"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-99be.mp3",
+      "text": "AN ALARM IS SOUNDING.",
+      "direction": "Urgent dramatic fantasy narration with clear danger and action"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-99e0",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-99e0",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-99e0"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-99e0.mp3",
+      "text": "AN ALARM STARTS RINGING!",
+      "direction": "Urgent dramatic fantasy narration with clear danger and action"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-9a0e",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9a0e",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9a0e"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9a0e.mp3",
+      "text": "DO YOU TAKE IT?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-9ce6",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9ce6",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9ce6"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9ce6.mp3",
+      "text": "'THAT'S THEM! GET THEM!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-9d00",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9d00",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9d00"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9d00.mp3",
+      "text": "'BLASPHEMERS! GET THEM!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-9e47",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9e47",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9e47"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9e47.mp3",
+      "text": "WHAT ARE YOU DOING HERE?",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-9e9d",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9e9d",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9e9d"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9e9d.mp3",
+      "text": "'WELL BOYS, I THINK WE HAVE THE INTRUDERS HERE. GET THEM!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-9ecd",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9ecd",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9ecd"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9ecd.mp3",
+      "text": "'ALL RIGHT THEN. WHAT IS TODAY'S PASSWORD?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-9f5b",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9f5b",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9f5b"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9f5b.mp3",
+      "text": "WITH A NOD OF THE HEAD YOU ARE LEFT ALONE.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-9f82",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9f82",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9f82"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9f82.mp3",
+      "text": "'WHAT? I THINK THESE SCUM ARE IMPOSTERS!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-9fc3",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9fc3",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9fc3"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-9fc3.mp3",
+      "text": "YOU CONFRONT AN ARMED MAN WHO IMMEDIATELY ATTACKS YOU.",
+      "direction": "Urgent dramatic fantasy narration with clear danger and action"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a034",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a034",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a034"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a034.mp3",
+      "text": "THE DOOR OF THE BUILDING YOU ARE PASSING SLAMS.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a066",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a066",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a066"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a066.mp3",
+      "text": "A FIGHTER EMERGES FROM THE BUILDING NEARBY AND CONFRONTS YOU.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a0e5",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a0e5",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a0e5"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a0e5.mp3",
+      "text": "'WHAT ARE YOU DOING HERE?' HE REPEATS.",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a12d",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a12d",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a12d"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a12d.mp3",
+      "text": "HE LUNGES FOR THE DOOR AND HITS A BUTTON. THEN HE TURNS AND FACES THE PARTY WITH SWORD DRAWN. 'IN A MOMENT A PATROL WILL BE HERE. IF YOU STAY TO FIGHT ME YOU WILL DIE.'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a1ff",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a1ff",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a1ff"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a1ff.mp3",
+      "text": "A PATROL ROUNDS THE CORNER..",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a21b",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a21b",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a21b"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a21b.mp3",
+      "text": "HE QUICKLY RETREATS THROUGH THE DOOR AND SLAMS IT, YELLING, 'INTRUDERS!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b3-a267",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a267",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-a267"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b3-a267.mp3",
+      "text": "YOU ARE IN A HALL WITH LONG TABLES, BENCHES AND A GREAT HEARTH AT ONE END. IN THE CORNERS ARE HEAPS OF GARBAGE BEING PICKED OVER BY SOME RATS WHICH FLEE AT YOUR ENTRANCE.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    }
+  ]
+}

@@ -1,0 +1,206 @@
+{
+  "model": "eleven_v4",
+  "sourceReview": "src/audio/ecl5-voice-review.json",
+  "items": [
+    {
+      "unitId": "por.voice.ecl5.b6-a955",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a955",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a955"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-a955.mp3",
+      "text": "'BLASPHEMERS! GET THEM!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-aa9f",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-aa9f",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-aa9f"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-aa9f.mp3",
+      "text": "WHAT ARE YOU DOING HERE?",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-aace",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-aace",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-aace"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-aace.mp3",
+      "text": "'ALL RIGHT, THEN. WHAT IS TODAY'S PASSWORD?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-ab07",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-ab07",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-ab07"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-ab07.mp3",
+      "text": "'I'M SORRY, SIR, THERE'S AN ALERT. ON WHOSE AUTHORITY ARE YOU HERE?'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-ab58",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-ab58",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-ab58"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-ab58.mp3",
+      "text": "WITH A NOD OF THE HEAD YOU ARE LEFT ALONE.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-ab7f",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-ab7f",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-ab7f"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-ab7f.mp3",
+      "text": "'WHAT? I THINK THESE SCUM ARE IMPOSTERS!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b6-aba5",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-aba5",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-aba5"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b6-aba5.mp3",
+      "text": "'WELL BOYS, I THINK WE HAVE THE INTRUDERS HERE. GET THEM!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9914",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9914",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9914"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9914.mp3",
+      "text": "DO YOU TAKE IT?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9a52",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9a52",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9a52"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9a52.mp3",
+      "text": "DO YOU WANT TO GO DOWN THESE STAIRS?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9a74",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9a74",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9a74"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9a74.mp3",
+      "text": "DO YOU WANT TO GO UP THESE STAIRS?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9bda",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9bda",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9bda"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9bda.mp3",
+      "text": "YOU ARE IN AN EMPTY ROOM. THE ONLY FEATURE IS A TRAP DOOR IN THE CENTER. DO YOU OPEN IT?",
+      "direction": "Clear measured fantasy narration ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9d26",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9d26",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9d26"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9d26.mp3",
+      "text": "THE PARTY JUMPS DOWN THROUGH THE TRAP DOOR...",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9d75",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9d75",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9d75"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9d75.mp3",
+      "text": "YOU ARE IN A ROOM FILLED WITH BROKEN STATUES. A HEAD BROKEN LOOSE FROM THE TORSO SHOWS A FACE FILLED WITH TERROR.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9f73",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9f73",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9f73"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9f73.mp3",
+      "text": "'HEY LOOK, COULD YOU KEEP QUIET? I JUST GOT BACK FROM THE NORTH AND I'M TIRED. OKAY?' A MOMENT LATER A VOICE FROM CALLS FROM THE OTHER DOORWAY, 'MESSENGER!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-9ff8",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9ff8",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9ff8"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-9ff8.mp3",
+      "text": "THE MAN GETS UP WITH A SIGH AND GOES INTO THE OFFICE. A MINUTE LATER HE COMES OUT PUTTING PAPERS INTO A POUCH AND GOES OUT THE DOOR. THE VOICE CALLS, 'MESSENGER!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-a08f",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a08f",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a08f"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-a08f.mp3",
+      "text": "THE THIEF SHOUTS 'BLASPHEMERS!' AND ATTACKS.",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-a203",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a203",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a203"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-a203.mp3",
+      "text": "'TELL AL-HYAM DHAZID TO EXECUTE PHASE 2 OF PLAN A. DISMISSED.'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-a31a",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a31a",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a31a"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-a31a.mp3",
+      "text": "GOOD.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-a333",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a333",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a333"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-a333.mp3",
+      "text": "'IS IT A DEAL?",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl5.b7-a359",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a359",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a359"
+      ],
+      "output": "../por-assets/voices/narration/ecl5/b7-a359.mp3",
+      "text": "'GOOD. I WILL NOTIFY SOME OTHERS. YOU GO KILL HIM.' HE QUICKLY GETS UP AND LEAVES THE ROOM.",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech"
+    }
+  ]
+}
