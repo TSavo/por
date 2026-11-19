@@ -2437,3 +2437,10 @@ same cave-exit slot B. It emits a native save made through Encamp at the
 New Phlan pier. Pass that save to `kobold-king-return-council-reload` to
 check that the journal remembers the ferry across a fresh browser session
 and that the party can still collect the council reward.
+
+The `new-phlan-canal-west-bank`, `new-phlan-canal-east-bank`, and
+`new-phlan-canal-south-bank` replays use slot A in area 8. Start the west
+route at (7,0) facing west, the east route at (8,0) facing west, or the
+south route at (6,1) facing south. Chrome loaded all 3,630 enhanced
+placements across the three walks using the default art packs. Each replay
+also checked that toggling presentation preserved the save.

@@ -1422,6 +1422,18 @@ const environmentRoutes = new Map([
     walk: ["left", "right", "up", "up", "right", "up", "left", "up", "right", "up", "right", "up", "left", "up",
       "right", "right", "up", "up", "left", "left", "up", "right", "up"],
   }],
+  ["new-phlan-canal-west-bank", {
+    slot: "A", area: 8, views: 12, patterns: 21, sceneryOnly: true,
+    walk: ["up", "up", "left", "up", "up", "right", "up", "left", "up", "right", "up"],
+  }],
+  ["new-phlan-canal-east-bank", {
+    slot: "A", area: 8, views: 9, patterns: 23, sceneryOnly: true,
+    walk: ["left", "up", "up", "left", "up", "up", "right", "up"],
+  }],
+  ["new-phlan-canal-south-bank", {
+    slot: "A", area: 8, views: 9, patterns: 48, sceneryOnly: true,
+    walk: ["up", "up", "left", "up", "right", "up", "right", "up"],
+  }],
   ["new-phlan-east-terrace", {
     slot: "A", area: 8, views: 20, patterns: 92, sceneryOnly: true,
     walk: ["up", "left", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "up"],
