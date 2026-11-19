@@ -316,7 +316,7 @@ const missingGallery = [...missingByArea].sort(([left], [right]) => left.localeC
       (sourceCandidates?.length ? `<details><summary>Matching atlas frames</summary>${sourceCandidates.map(
         ({ archive, block, member, frame }) => `<p>${escape(archive)} #${block} · member ${member} · frame ${frame}</p>`).join("")}</details>` : "") +
       (enhancedCandidates?.length ? `<details><summary>Enhanced tiles with identical source pixels</summary>${enhancedCandidates.map(
-        ({ id, file, preview }) => `<p><a href="${preview}" target="_blank" rel="noopener"><img width="32" height="32" loading="lazy" src="${preview}" alt="Enhanced tile"></a> ${escape(file)} � ${escape(id)}</p>`).join("")}</details>` : "") +
+        ({ id, file, preview }) => `<p><a href="${preview}" target="_blank" rel="noopener"><img width="32" height="32" loading="lazy" src="${preview}" alt="Enhanced tile"></a> ${escape(file)} · ${escape(id)}</p>`).join("")}</details>` : "") +
       "</figure>").join("") +
     "</div></details>").join("\n");
 const gallery = archives.map(({ file, category, entries }) =>
@@ -365,6 +365,12 @@ for (const id of capturedTiles.keys()) {
 }
 const explorationCoverage = [...capturedByArea].map(([area, counts]) => ({ area, ...counts }))
   .sort((a, b) => (b.captured - b.matched) - (a.captured - a.matched) || a.area - b.area);
+const explorationTotals = explorationCoverage.reduce((totals, { captured, matched }) => ({
+  captured: totals.captured + captured,
+  matched: totals.matched + matched,
+}), { captured: 0, matched: 0 });
+const battlefieldCaptured = capturedTiles.size - explorationTotals.captured;
+const battlefieldTotals = { captured: battlefieldCaptured, matched: battlefieldCaptured - battlefieldGaps };
 const encounterCoverage = archives.filter(({ file }) => /^(?:PIC|SPRIT|CPIC)\d+\.DAX$/.test(file))
   .map(({ file, entries }) => {
     let frames = 0;
@@ -397,7 +403,9 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 <p><strong>${replacements.length} loaded replacement entries</strong> · ${loadedPngs} PNG files · ${archives.length} source archives</p>
 <dl class="inventory-totals">${inventoryCategories.map(([category, label]) =>
   `<div><dt>${label}</dt><dd>${replacementCounts.get(category) ?? 0}</dd></div>`).join("")}</dl>
-${tracePaths.length ? `<p>Unmatched captured patterns: ${missingTiles.length - battlefieldGaps} exploration and ${battlefieldGaps} battlefield. These include composited sprites and transition frames.</p>` : ""}
+${tracePaths.length ? `<p>Captured exploration patterns: ${explorationTotals.matched} of ${explorationTotals.captured} replaced, ${explorationTotals.captured - explorationTotals.matched} unmatched.</p>
+${battlefieldCaptured ? `<p>Captured battlefield patterns: ${battlefieldTotals.matched} of ${battlefieldCaptured} replaced, ${battlefieldGaps} unmatched.</p>` : ""}
+<p>Captured patterns can include composited sprites and transition frames.</p>` : ""}
 ${explorationCoverage.length ? `<details><summary>Exploration coverage by area</summary>
 <table class="coverage-table"><thead><tr><th>Area</th><th>Captured</th><th>With replacements</th><th>Unmatched</th></tr></thead><tbody>
 ${explorationCoverage.map(({ area, captured, matched }) => {
@@ -406,7 +414,7 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
   return `<tr><th scope="row">${area}</th><td>${captured}</td><td>${matched}</td><td>${gap}</td></tr>`;
 }).join("")}
 </tbody></table></details>` : ""}
-<details><summary>Scene, encounter, and combat archives � ${encounterTotals.matched} of ${encounterTotals.frames} original frames replaced � ${encounterTotals.frames - encounterTotals.matched} remaining</summary>
+<details><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} of ${encounterTotals.frames} original frames replaced · ${encounterTotals.frames - encounterTotals.matched} remaining</summary>
 <p>Counts compare original picture and sprite frames with loaded replacements. An area-specific replacement counts once for the source frame. Composite portraits are listed under Runtime artwork.</p>
 <table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>With replacements</th><th>Unmatched</th></tr></thead><tbody>
 ${encounterCoverage.map(({ file, frames, matched }) =>
@@ -474,7 +482,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, missingTiles, explorationCoverage, encounterCoverage, encounterTotals, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, missingTiles, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
