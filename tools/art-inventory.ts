@@ -9,7 +9,7 @@ import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 import { loadUpgradeArt } from "./upgrade-art.js";
 import { compositePortraitKey } from "./portrait-art.js";
-import { partyCombatKey, randomCombatKey } from "./combat-art.js";
+import { monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
 const families = [
   [/^(TITLE|FINAL\d+)\.DAX$/, "Title and ending"],
@@ -255,6 +255,38 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
   return { id, preview, classicPreview, source, sourceCandidates, sourceParts, placement, capturedPlacement, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();
+const monsterPosesBySource = new Map<string, typeof replacements>();
+const monsterPosesByPixels = new Map<string, typeof replacements>();
+function monsterPoseSignature(file: string, directoryIndex: number) {
+  const picture = classicPicture(file, directoryIndex, 0);
+  return `${picture.width}×${picture.height}:${createHash("sha256").update(picture.pixels).digest("hex")}`;
+}
+for (const replacement of replacements) {
+  if (!monsterCombatKey.test(replacement.id) || !replacement.source) continue;
+  const { archive, block, directoryIndex } = replacement.source;
+  const source = `${archive}:${block}`;
+  const signature = monsterPoseSignature(archive, directoryIndex);
+  for (const [index, key] of [[monsterPosesBySource, source], [monsterPosesByPixels, signature]] as const) {
+    const poses = index.get(key) ?? [];
+    poses.push(replacement);
+    index.set(key, poses);
+  }
+}
+const monsterPoseCoverage = monsterArt.map(monster => {
+  const archive = archives.find(({ file }) => file === monster.combatFile);
+  const poses = [monster.id, monster.id + 128].map(block => {
+    const entry = archive?.entries.find(({ id }) => id === block);
+    const native = entry?.pictures?.[0];
+    const direct = monsterPosesBySource.get(`${monster.combatFile}:${block}`) ?? [];
+    const equivalent = native && !direct.length ?
+      monsterPosesByPixels.get(monsterPoseSignature(monster.combatFile, entry.directoryIndex)) ?? [] : [];
+    const links = (direct.length ? direct : equivalent).map(({ id, preview }) => ({ id, preview }));
+    const status = direct.length ? "Linked" : equivalent.length ? "Identical source pixels in another frame" : native ? "Missing" : "No source frame";
+    return { block, status, links };
+  });
+  return { ...monster, poses };
+});
+const missingMonsterPoses = monsterPoseCoverage.flatMap(({ poses }) => poses).filter(({ status }) => status === "Missing").length;
 const tileFramesByBlock = new Map<string, Set<string>>();
 const loadedIds = new Set(replacements.map(({ id }) => id));
 const enhancedTilesByHash = new Map<string, { id: string; file: string; preview: string }[]>();
@@ -433,6 +465,12 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
 ${encounterCoverage.map(({ file, frames, matched }) =>
   `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${frames > matched ? `<a href="#archive-${escape(file)}">${frames - matched}</a>` : "0"}</td></tr>`).join("")}
 </tbody></table></details>
+<details><summary>Named monster combat poses · ${missingMonsterPoses} without matching art</summary>
+<p>Links open the enhanced PNG. Replacement IDs show area and encounter restrictions. Identical source pixels indicate that the art could be reused.</p>
+<table class="coverage-table"><thead><tr><th scope="col">Monster</th><th scope="col">Archive</th><th scope="col">Ready</th><th scope="col">Strike</th></tr></thead><tbody>
+${monsterPoseCoverage.map(({ name, dialogueName, combatFile, poses }) => `<tr><th scope="row">${escape(dialogueName ?? name)}</th><td>${escape(combatFile)}</td>${poses.map(({ block, status, links }) =>
+  `<td>${block} · ${status}${links.map(({ id, preview }) => `<br><a href="${escape(preview)}">${escape(id)}</a>`).join("")}</td>`).join("")}</tr>`).join("")}
+</tbody></table></details>
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
 <label>Category <select id="category"><option value="">All categories</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
@@ -495,7 +533,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, missingTiles, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, missingTiles, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
