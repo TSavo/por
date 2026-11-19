@@ -1134,6 +1134,9 @@ the guide's announcement outside the throne room. It then follows the
 journal's route from (7,5) north to (5,1) and verifies that the envoys
 remain hidden until the first meeting. The separate rematch replay
 also checks the envoy clue.
+The escort replay checks 121 individually positioned tiles in each of 15
+views, including the prompt when the guide taps the cave wall. Seventeen
+new 32×32 tiles cover the doorway jambs, cave wall ribs, and floor joins.
 The translation verifier checks the later escape and quarters guidance
 against the original dialogue.
 

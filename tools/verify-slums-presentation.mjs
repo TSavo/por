@@ -1936,7 +1936,7 @@ const saved = resolve(directory, saveSlot + ".json");
 const battleTrace = process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
 const kovelMap = routeName.startsWith("kovel-castle-map-");
-const environmentTrace = (environment || dragon || halls || kovelMap) && process.env.POR_WRITE_ENVIRONMENT_TRACE === "1"
+const environmentTrace = (environment || dragon || halls || kovelMap || koboldEscort) && process.env.POR_WRITE_ENVIRONMENT_TRACE === "1"
   ? resolve(directory, "environment-tiles.jsonl") : undefined;
 const frameDirectory = resolve(directory, "tile-frames");
 let battleFrame = 0;
@@ -2049,6 +2049,8 @@ try {
     "combat:RANDCOM.DAX:1:0:5", "combat:RANDCOM.DAX:1:0:1",
     "combat:party:64:64:palette:044645678ccecdef", "combat:party:64:64:palette:065345678edbcdef",
   ] : []);
+  const escortTilePatterns = new Set();
+  let escortViews = 0;
   async function advance(key) {
     const sequence = frame.sequence;
     const response = await fetch(origin + "/key", {
@@ -2063,6 +2065,7 @@ try {
       appendFileSync(battleTrace, JSON.stringify(frame.battleTileInventory) + "\n");
       writeFileSync(resolve(frameDirectory, `${battleFrame++}.png`), Buffer.from(frame.frame, "base64"));
     }
+    if (koboldEscort && !frame.journal) escortViews += await verifyTiledView(13, escortTilePatterns);
     const wallTiles = (frame.battleTiles ?? []).filter(([, , id]) => patrolWallTiles.has(id));
     if (wallTiles.length) {
       await waitFor("the enhanced wall tiles at their battlefield positions", () => run(`
@@ -3071,7 +3074,11 @@ try {
       assert.ok(frame.journal.leads.some(({ id }) => id === "kobold-throne-envoys"));
       assert.match(frame.journal.objective.nextStep, /Confront the king and the envoys/);
     }
-    console.log(koboldEscort ? "Verified the guided walk, journal directions, and first meeting at the kobold throne."
+    if (koboldEscort) {
+      assert.equal(escortViews, 15);
+      assert.equal(escortTilePatterns.size, 69);
+    }
+    console.log(koboldEscort ? `Verified ${escortViews} enhanced views, the guided walk, journal directions, and first meeting at the kobold throne.`
       : "Verified the kobold guide portrait and witnessed escort offer in Chrome.");
   } else if (princessFatima) {
     const fatima = "portrait:HEAD8.DAX:67:BODY8.DAX:37";
