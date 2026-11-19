@@ -28,9 +28,11 @@ let voiceManifest = { lines: [] };
 let soundManifest = { events: [] };
 let currentVoice;
 let blockedVoice;
+let narrationQueue = [];
 let visibilityPausedEffect;
 let visibilityPausedVoice;
 let lastTextId = null;
+let lastNarrationId = null;
 const narratedScenes = new Set();
 let state = { sequence: -1 };
 let posting = false;
@@ -96,7 +98,7 @@ function resumeBlockedAudio() {
   if (blockedVoice && enhanced) {
     const line = blockedVoice;
     blockedVoice = undefined;
-    playVoice(line);
+    beginVoice(line);
   }
 }
 
@@ -122,33 +124,58 @@ function finishAnimation() {
   animationFrame = undefined;
 }
 
-function stopVoice() {
+function stopVoice(clearNarrationQueue = true) {
   if (currentVoice) currentVoice.pause();
   currentVoice = undefined;
   blockedVoice = undefined;
   visibilityPausedVoice = undefined;
+  if (clearNarrationQueue) narrationQueue = [];
   voiceSubtitle.hidden = true;
   voiceSubtitle.textContent = "";
 }
 
-function playVoice(line) {
+function beginVoice(line) {
   if (!enhanced) return;
-  stopVoice();
   if (audioPreferences.subtitles) {
     voiceSubtitle.textContent = line.subtitle;
     voiceSubtitle.hidden = false;
   }
-  const voice = new Audio(`/voice/${line.file}`);
+  const voice = new Audio(line.url ?? `/voice/${line.file}`);
   voice.preload = "auto";
   voice.dataset.voiceType = line.type;
+  if (line.queuedNarration) voice.dataset.queuedNarration = "true";
   voice.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences[line.type];
   currentVoice = voice;
-  voice.addEventListener("ended", () => { if (currentVoice === voice) stopVoice(); }, { once: true });
+  voice.addEventListener("ended", () => {
+    if (currentVoice !== voice) return;
+    currentVoice = undefined;
+    visibilityPausedVoice = undefined;
+    voiceSubtitle.hidden = true;
+    voiceSubtitle.textContent = "";
+    playNextNarration();
+  }, { once: true });
   voice.play().catch(() => {
     if (currentVoice !== voice) return;
     currentVoice = undefined;
     blockedVoice = line;
   });
+}
+
+function playVoice(line) {
+  stopVoice();
+  beginVoice(line);
+}
+
+function playNextNarration() {
+  if (!enhanced || currentVoice || blockedVoice) return;
+  const line = narrationQueue.shift();
+  if (line) beginVoice(line);
+}
+
+function enqueueNarration(narration) {
+  narrationQueue.push({ type: "narration", queuedNarration: true, subtitle: narration.text,
+    url: `/narration/${encodeURIComponent(narration.asset)}` });
+  playNextNarration();
 }
 
 document.addEventListener("visibilitychange", () => {
@@ -187,6 +214,15 @@ function playPendingVoice() {
   if (enhanced && state.scene && !narratedScenes.has(state.scene)) {
     const line = voiceManifest.lines.find((candidate) => candidate.scene === state.scene);
     if (line) { narratedScenes.add(state.scene); playVoice(line); }
+  }
+}
+
+function playPendingNarration() {
+  if (lastNarrationId === null) lastNarrationId = state.narrationId ?? 0;
+  for (const narration of state.narrations ?? []) {
+    if (narration.id <= lastNarrationId) continue;
+    lastNarrationId = narration.id;
+    if (enhanced) enqueueNarration(narration);
   }
 }
 
@@ -366,6 +402,7 @@ async function poll() {
     const next = await response.json();
     if (lastSoundId === null) lastSoundId = next.soundId ?? 0;
     if (lastTextId === null) lastTextId = next.textId ?? 0;
+    if (lastNarrationId === null) lastNarrationId = next.narrationId ?? 0;
     const changed = next.sequence !== state.sequence;
     if (changed) state = next;
     else Object.assign(state, next);
@@ -377,6 +414,7 @@ async function poll() {
     }
     playPendingSounds();
     playPendingVoice();
+    playPendingNarration();
     status.textContent = state.stopped ?? state.notice ??
       (state.ready ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
   } catch {
@@ -403,7 +441,8 @@ presentation.addEventListener("click", () => {
 });
 window.addEventListener("keydown", (event) => {
   resumeBlockedAudio();
-  if (currentVoice && !["F10"].includes(event.key)) stopVoice();
+  const advancingCoveredPrint = currentVoice?.dataset.queuedNarration === "true" && ["Enter", " "].includes(event.key);
+  if (currentVoice && event.key !== "F10" && !advancingCoveredPrint) stopVoice();
   if (event.repeat || event.ctrlKey || event.metaKey) return;
   if (event.altKey) {
     if (!event.shiftKey && event.code === "KeyQ" && !state.journal) {

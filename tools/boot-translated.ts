@@ -18,10 +18,11 @@ import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { callTrace, disposeHits, dosAssigns, farCall, farCallObservers, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
-import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
+import { installProgram, loadedSlices, overlayCallObservers } from "../src/runtime/overlay.js";
 import { registerTranslated } from "../src/translated/register.js";
 import { ovl07_0353 } from "../src/translated/ovl07.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
+import { EclNarrationObserver, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 
 const root = findGameRoot();
 if (!root) throw new Error("Pool of Radiance game data not found");
@@ -147,6 +148,14 @@ const cpu = fresh(input?.requestKey, (name, data, written) => slotClosed(name, d
   (name) => loadingSlot && saveSlotLetter(name) ? saves?.partyFiles(name) ?? [] : undefined);
 const soundTracePath = process.env.POR_SOUND_TRACE;
 const browserSound = process.env.POR_BROWSER_PLAY === "1";
+if (browserSound) {
+  const manifest = JSON.parse(readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url), "utf8")) as ObserverManifest;
+  const narration = new EclNarrationObserver(manifest);
+  overlayCallObservers.set(cpu, ({ sliceIndex, procedure }) => {
+    const event = narration.observe(cpu, sliceIndex, procedure);
+    if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
+  });
+}
 const soundRecorder = soundTracePath || browserSound ? new OriginalSoundTraceRecorder(cpu, browserSound
   ? (call) => console.log(`POR_SOUND ${JSON.stringify(call)}`) : undefined) : undefined;
 let soundTraceWritten = false;

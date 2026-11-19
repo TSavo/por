@@ -9,6 +9,7 @@ import { getKey, type CombatAnimationFrame, type TileInventoryCell } from "./liv
 import type { CombatArtPlacement } from "./combat-art.js";
 import { portraitKey } from "./portrait-art.js";
 import type { EncounterPlacement } from "./encounter-art.js";
+import { NarrationCatalog, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
@@ -19,12 +20,16 @@ const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const voiceManifest = readFileSync(new URL("../src/audio/voices.json", import.meta.url));
 const voiceFiles = new Set((JSON.parse(voiceManifest.toString("utf8")) as { lines: { file: string }[] }).lines.map(({ file }) => file));
+const narrationManifest = readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url));
+const narrationCatalog = new NarrationCatalog(JSON.parse(narrationManifest.toString("utf8")) as RuntimeNarrationManifest);
+const narrationFiles = narrationCatalog.assetFiles();
 const soundManifest = readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url));
 const enhancedSoundFiles = new Set((JSON.parse(soundManifest.toString("utf8")) as
   { events: { enhancedFile?: string }[] }).events.flatMap(({ enhancedFile }) => enhancedFile ? [enhancedFile] : []));
 const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
 const audioDirectory = process.env.POR_AUDIO_DIR ?? join("..", "por-assets", "original");
 const voiceDirectory = process.env.POR_VOICE_DIR ?? join("..", "por-assets", "voices");
+const assetDirectory = process.env.POR_ASSETS_DIR ?? join("..", "por-assets");
 const enhancedAudioDirectory = process.env.POR_ENHANCED_AUDIO_DIR ?? join("..", "por-assets", "enhanced");
 const gameFont = (() => {
   for (const path of new Set([join(upgrades, "font.woff2"), join("upgrades", "font.woff2")])) {
@@ -83,6 +88,9 @@ let soundId = 0;
 const sounds: Array<{ id: number; index: number; mode: number; step: number }> = [];
 let textId = 0;
 const messages: Array<{ id: number; step: number; message: string }> = [];
+let narrationId = 0;
+const narrations: Array<{ id: number; step: number; unitId: string; variantId?: string;
+  sourceId: string; coveredSourceIds: string[]; asset: string; text: string }> = [];
 createInterface({ input: runner.stdout }).on("line", (line) => {
   if (line.startsWith("POR_FRAME ")) {
     frame = JSON.parse(line.slice("POR_FRAME ".length)) as FrameState;
@@ -98,6 +106,18 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
     const text = JSON.parse(line.slice("POR_TEXT ".length)) as { step: number; message: string };
     messages.push({ id: ++textId, ...text });
     if (messages.length > 64) messages.shift();
+  } else if (line.startsWith("POR_NARRATION ")) {
+    const event = JSON.parse(line.slice("POR_NARRATION ".length)) as NarrationTrigger & { step?: number };
+    const resolved = narrationCatalog.resolve(event);
+    if (resolved.status === "resolved") {
+      const narration = resolved.narration;
+      narrations.push({ id: ++narrationId, step: event.step ?? 0, unitId: narration.unitId,
+        ...(narration.variantId ? { variantId: narration.variantId } : {}), sourceId: narration.triggerSourceId,
+        coveredSourceIds: narration.coveredSourceIds, asset: narration.asset, text: narration.text });
+      if (narrations.length > 256) narrations.shift();
+    } else if (resolved.status === "ambiguous" || resolved.status === "selector-required") {
+      console.error(`Narration ${event.sourceId}: ${resolved.status}`);
+    }
   } else if (line.startsWith("entry:")) {
     lastDiagnostic = line;
   }
@@ -127,6 +147,15 @@ const server = createServer(async (req, res) => {
     } catch {
       res.writeHead(404).end();
     }
+  } else if (req.method === "GET" && req.url?.startsWith("/narration/")) {
+    const asset = decodeURIComponent(req.url.slice(11));
+    if (!narrationFiles.has(asset)) { res.writeHead(404).end(); return; }
+    try {
+      const mp3 = readFileSync(join(assetDirectory, asset));
+      res.writeHead(200, { "content-type": "audio/mpeg", "content-length": mp3.length }).end(mp3);
+    } catch {
+      res.writeHead(404).end();
+    }
   } else if (req.method === "GET" && req.url?.startsWith("/voice/") && voiceFiles.has(req.url.slice(7))) {
     try {
       const wav = readFileSync(join(voiceDirectory, req.url.slice(7)));
@@ -153,7 +182,8 @@ const server = createServer(async (req, res) => {
       art: frame.scene === "scene:title" && artwork.has(frame.scene) ? `/art/${frame.scene}` : undefined,
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
-      ...snapshot, sounds, soundId, messages, textId, sequence, ready, stopped: stopped ?? null, notice: notice ?? null,
+      ...snapshot, sounds, soundId, messages, textId, narrations, narrationId,
+      sequence, ready, stopped: stopped ?? null, notice: notice ?? null,
     }));
   } else if (req.method === "POST" && req.url === "/key") {
     if (req.headers.origin !== origin) { res.writeHead(403).end(); return; }

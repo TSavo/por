@@ -29,6 +29,8 @@ export interface LoadedSlice {
 }
 
 export const loadedSlices: LoadedSlice[] = [];
+export interface OverlayCall { sliceIndex: number; procedure: number }
+export const overlayCallObservers = new WeakMap<Cpu, (call: OverlayCall) => void>();
 
 const byHeader = new Map<number, LoadedSlice>();
 
@@ -101,6 +103,7 @@ function dispatch(m: Cpu, seg: number, off: number): boolean {
       `overlay ${slice.index} file+${slice.fileOffset.toString(16)} has no translated procedure ${proc.toString(16)}`,
     );
   }
+  overlayCallObservers.get(m)?.({ sliceIndex: slice.index, procedure: proc });
   m.cs = slice.loadPara;
   fn(m);
   return true;
