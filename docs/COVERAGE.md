@@ -1092,7 +1092,9 @@ through reward pending to turned in.
 The `phlan-ferry-river` and `phlan-ferry-east` presentation replays start at
 the river and East Overland docks using controlled slots A and B. Both check
 the original Take Boat / Stay prompt, its shared 352×352 illustration, and
-state preservation across presentation switches.
+state preservation across presentation switches. Each takes the boat and
+checks all 121 New Phlan tiles in both landing frames. The renderer uses
+the destination scenery draw while the area record still names overland.
 The `phlan-outskirts-north`, `phlan-outskirts-east`, and `phlan-outskirts-west`
 replays use separate controlled slot A checkpoints. Chrome verifies the
 shared crossroads illustration at each original travel menu.

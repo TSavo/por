@@ -150,6 +150,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           if ((area === 18 && nativeDraw?.localEcl === 26) || (area === 26 && nativeDraw?.localEcl === 18)) {
             tileArea = nativeDraw.localEcl;
           }
+          // The return ferry draws the New Phlan pier while the area record
+          // still points to West or East Overland.
+          if ((area === 26 || area === 27) && nativeDraw?.localEcl === 0) tileArea = 0;
           perspective = Boolean(encounter || exploration || nativeDraw ||
             (previousPerspective?.area === area && previousPerspective.pixels.equals(pixels)));
           previousPerspective = perspective ? { area, pixels } : undefined;

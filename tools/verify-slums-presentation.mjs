@@ -2774,7 +2774,15 @@ try {
     assert.match(text, /TAKEBOAT.*STAY/i);
     await waitFor("the Phlan ferry illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    console.log(`Verified the return ferry artwork at ${routeName} in Chrome.`);
+    await advance("t");
+    const patterns = new Set();
+    let pierViews = 0;
+    for (const key of ["enter", "enter", "enter"]) {
+      await advance(key);
+      if (frame.perspective) pierViews += await verifyTiledView(0, patterns);
+    }
+    assert.ok(pierViews > 0 && /15,1[SW]/i.test(frame.text.map(([, char]) => String.fromCharCode(char)).join("")));
+    console.log(`Verified the return ferry artwork and ${pierViews} enhanced New Phlan landing views at ${routeName} in Chrome.`);
   } else if (outskirts) {
     for (const key of [outskirts.direction, "enter"]) await advance(key);
     const text = frame.text.toSorted(([left], [right]) => left - right)
