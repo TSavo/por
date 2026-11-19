@@ -1,6 +1,16 @@
 {
   "version": 1,
   "assets": {
+    "tile:16:b99063b51996f32692877bfb0938e2ddee836bfd65b398cfad050106b7120d17": "lizard-south-gate-terrain-b99063b51996.png",
+    "tile:16:705d57853ff228c98a8295de5fe82887cff35bf4faca64eeab67b354ca762017": "lizard-south-gate-terrain-705d57853ff2.png",
+    "tile:16:6a2d26727f17565df9b9c71e9238b7b9f5f2a166433b18dfd2daa052eb536c72": "lizard-south-gate-terrain-6a2d26727f17.png",
+    "tile:16:0c5c55c4ba08c546d0c056dfef8f354bdab67396b6ba2b056e2d54c6f4b0ee2f": "lizard-south-gate-terrain-0c5c55c4ba08.png",
+    "tile:16:b505a5db5557ee2f019256d5b39e70aaeaa91433d73e896784e9962672192f85": "lizard-south-gate-terrain-b505a5db5557.png",
+    "tile:16:7a62f42874a318807e50c5f76958ec89a88041ebcdbe85f63c86b39a4adb37d7": "lizard-south-gate-terrain-7a62f42874a3.png",
+    "tile:16:ec14cab2c8dff903c302278d76ab920d9486e3a59feaa0fbe3c6dc95546c50b9": "lizard-south-gate-terrain-ec14cab2c8df.png",
+    "tile:16:f6471fd4f91a95e26e014f4f6b7ec0521552900fe27832effabd13d4d7decb9f": "lizard-south-gate-terrain-f6471fd4f91a.png",
+    "tile:16:110943e6a403b2235bba6335458085ad7e6948b823e00f8af7bd859e29c98c38": "lizard-south-gate-terrain-110943e6a403.png",
+    "tile:16:056a94045759cc73d9ca62123a1f6abdd10c46f171b345a8440ca2899492c22c": "lizard-south-gate-terrain-056a94045759.png",
     "tile:16:1180638ececd642b84551072d1f901f40c3f3d975f59049bd1aa8436be86beff": "lizard-east-ruin-terrain-1180638ececd.png",
     "tile:16:ebd5b6d6a041b3c0d9159254167b48f7aa91ba6c72dc308513ecdcca31d726a4": "lizard-east-ruin-terrain-ebd5b6d6a041.png",
     "tile:16:cfa4bda234e66d7f2a759b995f435fea64c2d7ed222fd494265f54af42d0fcc3": "lizard-east-ruin-terrain-cfa4bda234e6.png",
