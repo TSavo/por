@@ -321,7 +321,7 @@ async function verifyUninterruptedCourtyard() {
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
     }, "track 3", (_text, frame) => {
       assert.equal(frame.journal?.trackedId, "commission-textile");
-      assert.match(frame.journal.objective.nextStep, /overcome grishnak/i);
+      assert.match(frame.journal.objective.nextStep, /overcome grishnak.*choose free, then unlock/i);
     }, "j",
   ]);
   console.log("Won the courtyard and prison, then reached Grishnak's temple:", saveDir);
@@ -714,14 +714,14 @@ async function verifyPodalFromCouncil(continuation) {
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
     }, "track 3", (_text, frame) => {
       assert.equal(frame.journal.trackedId, "commission-textile");
-      assert.match(frame.journal.objective.nextStep, /north through the guards' room.*choose unlock/i);
+      assert.match(frame.journal.objective.nextStep, /north through the guards' room.*choose free, then unlock/i);
     }, "j", "e", "s", "s", "e",
   ]);
   await replay(load("1265"), "85000000", [
     (text) => assert.match(text, /2,15 s/),
     "j", (_text, frame) => {
       assert.equal(frame.journal?.trackedId, "commission-textile");
-      assert.match(frame.journal.objective.nextStep, /north through the guards' room.*choose unlock/i);
+      assert.match(frame.journal.objective.nextStep, /north through the guards' room.*choose free, then unlock/i);
     }, "j",
     "enter", "right", "right", "up", "up", "b", "enter", "up",
     (text) => assert.match(text, /2,12 n.*crude temple/),
@@ -1750,13 +1750,13 @@ if (process.argv[2] === "--textile-grishnak-checkpoint") {
     ]),
     "j", "track 3", (_text, frame) => {
       assert.equal(frame.journal?.trackedId, "commission-textile");
-      assert.match(frame.journal.objective.nextStep, /north through the guards' room.*choose unlock/i);
+      assert.match(frame.journal.objective.nextStep, /north through the guards' room.*choose free, then unlock/i);
       assert.doesNotMatch(frame.journal.objective.nextStep, /grishnak/i);
     }, "j",
     "up", "enter", "enter",
     (text) => assert.match(text, /2,12 n.*i am the mighty grishnak/),
     "j", (_text, frame) => {
-      assert.match(frame.journal?.objective.nextStep ?? "", /grishnak at the bone altar.*battle loot.*choose unlock/i);
+      assert.match(frame.journal?.objective.nextStep ?? "", /grishnak at the bone altar.*battle loot.*choose free, then unlock/i);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-grishnak-defeated"));
     }, "j",
