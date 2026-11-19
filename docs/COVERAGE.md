@@ -1235,6 +1235,10 @@ across 12 views, and checks that presentation switches preserve state and saves.
 verifies 1,815 tile placements across 15 views on both sides of the
 transition. The route adds 14 original tiles and 25 area-specific aliases
 for matching civic artwork.
+`phlan-south-market` starts from a controlled New Phlan slot B. Chrome
+checks all 1,936 placements of 66 tile patterns across 16 views, including
+45 new 32×32 tiles for market awnings, bay windows, shopfronts, and lanes.
+Switching presentation preserves the guest frame and save.
 
 `valjevo-records-scribe` replays the original chance encounter in the
 records building. It checks the scribe artwork at the ambush decision and

@@ -164,6 +164,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["phlan-south-market", {
+    slot: "B", area: 0, views: 16, patterns: 66,
+    walk: ["up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "left", "up", "up", "right", "up"],
+  }],
   ["phlan-training-civic", {
     slot: "I", area: 11, views: 15, patterns: 104,
     transition: { afterViews: 6, area: 0 },
