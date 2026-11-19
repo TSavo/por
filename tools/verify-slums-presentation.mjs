@@ -501,6 +501,12 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["textile-hobgoblin-line", {
+    slot: "B", stand: "combat:area:2:CPIC2.DAX:6:ecl:a900", strike: "combat:area:2:CPIC2.DAX:134:ecl:a900",
+    width: 96, height: 96, readyPrompt: /HOBGOBLINHITPOINTS6/i, strikeReflected: true,
+    inputs: ["up", ...Array(5).fill("enter")],
+    strikeInputs: [...Array(4).fill("enter"), ...Array(9).fill("q")],
+  }],
   ["podal-recruit-leader", {
     slot: "I", stand: "combat:area:18:CPIC1.DAX:5:ecl:b16f",
     width: 96, height: 96, readyPrompt: /ORCLEADERHITPOINTS8/i,
@@ -966,6 +972,10 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["stojanow-tower-warning", {
+    slot: "A", area: 9, views: 15, patterns: 47, sceneryOnly: true,
+    walk: ["up", "up", "right", "up", "b", "up", "up", "enter", "enter", "up", "up", "up", "up", "left", "up", "up"],
+  }],
   ["slums-guild-corners-potion", {
     slot: "B", area: 20, views: 15, patterns: 81, sceneryOnly: true,
     walk: ["right", "right", "up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right"],

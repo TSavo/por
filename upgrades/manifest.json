@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:2:CPIC2.DAX:6:ecl:a900": "textile-hobgoblin-line-stand.png",
+    "combat:area:2:CPIC2.DAX:134:ecl:a900": "textile-hobgoblin-line-strike.png",
+    "tile:9:a1b8baf4059c3a18ecd999f94f44fbba3630c87a33820ec33a092d52785d83bd": "stojanow-tower-warning-terrain-a1b8baf4059c.png",
     "combat:area:18:CPIC1.DAX:5:ecl:b16f": "podal-recruit-leader-stand.png",
     "tile:20:855b49dffed8253adb115cb6f85566bd865fba688cad7435b0b08fdd3ba3c885": "slums-guild-corners-terrain-855b49dffed8.png",
     "tile:20:83a47be8f7541c55e4af4555aef88155720e0c7e664b78d7182822ecc183dce7": "slums-guild-corners-terrain-83a47be8f754.png",
