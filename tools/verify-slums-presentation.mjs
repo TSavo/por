@@ -464,6 +464,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["lizardfolk-east-ruins", {
+    slot: "A", area: 16, views: 16, patterns: 47, sceneryOnly: true,
+    walk: ["right", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "left"],
+  }],
   ["lizardfolk-north-canal", {
     slot: "A", area: 16, views: 11, patterns: 38, sceneryOnly: true,
     walk: ["up", "up", "right", "up", "up", "up", "right", "up", "up", "left"],

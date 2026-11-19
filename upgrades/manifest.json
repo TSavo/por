@@ -1,6 +1,11 @@
 {
   "version": 1,
   "assets": {
+    "tile:16:1180638ececd642b84551072d1f901f40c3f3d975f59049bd1aa8436be86beff": "lizard-east-ruin-terrain-1180638ececd.png",
+    "tile:16:ebd5b6d6a041b3c0d9159254167b48f7aa91ba6c72dc308513ecdcca31d726a4": "lizard-east-ruin-terrain-ebd5b6d6a041.png",
+    "tile:16:cfa4bda234e66d7f2a759b995f435fea64c2d7ed222fd494265f54af42d0fcc3": "lizard-east-ruin-terrain-cfa4bda234e6.png",
+    "tile:16:007c9f39d12577530fe7ec4822d842d46a75f135fdb29e9d90b94776fac03734": "lizard-east-ruin-terrain-007c9f39d125.png",
+    "tile:16:abe3071db9f52765465d9d5556a79c161713ab3b3b60061ea661efbf67a15792": "lizard-east-ruin-terrain-abe3071db9f5.png",
     "combat:area:31:CPIC1.DAX:4": "bane-orc-stand.png",
     "combat:area:31:CPIC1.DAX:132": "bane-orc-strike.png",
     "portrait:HEAD4.DAX:32:BODY4.DAX:3": "textile-skullcrusher-chained.png",

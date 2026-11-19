@@ -1361,6 +1361,8 @@ tiles across 16 live views from the original camp entry save.
 `textile-skullcrusher-chained` checks the captive's portrait and verifies
 that the journal records the encounter after the party discovers him.
 `bane-orc-combat` checks the temple orc's ready and animated strike poses.
+`lizardfolk-east-ruins` checks five redrawn tiles across 16 live views
+from the post-duel save, with state-preserving presentation switches.
 `kobold-rematch-infantry` checks the 96×96 kobold ready and animated
 strike poses during that same battle. `kobold-cave-envoys-rematch` and
 `valjevo-messenger-dialogue` verify the new illustrations at the
