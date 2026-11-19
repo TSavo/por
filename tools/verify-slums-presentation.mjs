@@ -774,6 +774,15 @@ const illustrationRoutes = new Map([
     portrait: "portrait:HEAD3.DAX:16:BODY3.DAX:8", prompt: /WETRAINONLYTHIEVESHERE/i,
     journalLead: "phlan-training-thieves",
   }],
+  ["valjevo-forge-patrol", {
+    slot: "B", inputs: ["up", "enter", "enter", "a", "a"],
+    approachSequence: [
+      [56, 32, "encounter:area:6:SPRIT5.DAX:16:2:0", 16, 49],
+      [56, 32, "encounter:area:6:SPRIT5.DAX:16:1:0", 24, 65],
+      [48, 32, "encounter:area:6:ecl:aa19:SPRIT5.DAX:16:0:0", 40, 80],
+    ],
+    portrait: "portrait:area:6:HEAD5.DAX:9:BODY5.DAX:1", prompt: /THEYADVANCE,?WEAPONSREADY/i,
+  }],
   ["zhentil-quarters-ambush", {
     slot: "A", inputs: ["up", "enter", "s", "enter"],
     approachSequence: [[48, 32, "encounter:area:28:ecl:a534:SPRIT5.DAX:16:0:0", 40, 80]],
