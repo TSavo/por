@@ -1051,6 +1051,7 @@ const combatPoseRoutes = new Map([
   ["new-phlan-tavern-corporal-ready", {
     slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:a7d3", strike: "combat:area:0:CPIC3.DAX:144:ecl:a7d3",
     width: 96, height: 96, readyPrompt: /CORPORAL/i, strikeInputs: ["space"], strikeReflected: false,
+    strikeReport: /CORPORALATTACKSENNAHITTINGFOR7POINTSOFDAMAGE/i,
     inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter"), ...Array(6).fill("space")],
   }],
   ["lizard-wilds-caravan-merchant-combat", {
@@ -3275,7 +3276,8 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the enhanced mage wand pose during the native report and the return to ready art.");
   } else if (combatPose) {
-    const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, journalLead, excluded, readyPrompt } = combatPose;
+    const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, strikeReport,
+      journalLead, excluded, readyPrompt } = combatPose;
     function verifyCombatScope() {
       if (!excluded) return;
       for (const view of [frame, ...(frame.animation ?? [])]) {
@@ -3354,8 +3356,10 @@ try {
         await advance(key);
         verifyCombatScope();
       }
-      assert.ok(frame.animation?.some(({ combatArt }) => combatArt?.some(([, , id, reflected]) =>
-        id === strike && (strikeReflected === undefined || reflected === strikeReflected))));
+      assert.ok(frame.animation?.some(({ combatArt, text }) =>
+        combatArt?.some(([, , id, reflected]) =>
+          id === strike && (strikeReflected === undefined || reflected === strikeReflected)) &&
+        (!strikeReport || strikeReport.test(text.map(([, char]) => String.fromCharCode(char)).join("")))));
       await waitFor("the enhanced combat strike", () => run("window.strikeLoaded"));
       console.log(`Verified ${routeName} standing and animated strike poses in Chrome.`);
     } else if (strike) {
@@ -5165,7 +5169,14 @@ try {
     for (const key of ["up", "j"]) await advance(key);
     assert.ok(knows("river-pump-prisoners") && !knows("river-pump-prisoners-freed"));
     assert.match(frame.journal.objective.nextStep, /Advance until Parlay appears/);
-    for (const key of ["j", "enter", "enter", "enter", "a", "a", "p", "n", "j"]) await advance(key);
+    const prisoner = "encounter:area:23:ecl:aa03:SPRIT7.DAX:57:1:0";
+    for (const key of ["j", "enter", "enter", "enter"]) await advance(key);
+    assert.deepEqual(frame.encounter, [56, 32, prisoner, 32, 65]);
+    await waitFor("the enhanced shackled lizardfolk", () => run(`
+      document.querySelector('.encounter-sprite[src="/art/${prisoner}"]')?.naturalWidth === 128
+    `));
+    await switchBothWays();
+    for (const key of ["a", "a", "p", "n", "j"]) await advance(key);
     assert.ok(knows("river-pump-prisoners-freed") && knows("journal-entry-35"));
     assert.ok(!knows("river-pump-prisoners-hostile"));
     assert.match(frame.journal.objective.nextStep, /Read journal entry 35/);

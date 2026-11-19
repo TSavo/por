@@ -2753,6 +2753,8 @@ threshold tiles.
 The Valjevo kitchen corridor, jamb, and south yard now use tamped-clay
 floor tiles. Three Chrome walks checked their wall and doorway joins
 across 39 views.
+The Textile north yard uses damp earth beneath the brick walls. Its
+Chrome walk checks 30 revised tiles across 16 views.
 `wilderness-waystone` checks 80 patterns across ten views, including
 77 new foliage and palisade tiles. The route uses the existing area 26
 ground, which it shares with the north gate.
@@ -2821,6 +2823,9 @@ order over the enhanced terrain before the mystic's portrait appears.
 The Valhingen skeleton enclave replay checks the new middle pose before
 the close approach and portrait. The New Phlan tavern corporal replay
 checks his enhanced attack animation alongside the existing ready pose.
+The replay pairs the attack frame with the original report of the
+corporal hitting Enna. The `river-pumping` replay now checks the bound
+lizardfolk sprite before parlay and the journal update.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.
