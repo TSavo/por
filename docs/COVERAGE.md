@@ -2787,6 +2787,8 @@ checked across 50 Chrome views and 6,050 placements.
 Eight more routes check the last 21 old-gravel tiles identified in the
 archived clean scenery, across 36 Chrome views and 4,356 placements.
 The vault and ossuary walks end before the encounter overlays.
+The Buccaneer stockade and pens use packed sand with shell fragments.
+Three Chrome routes check 89 tiles across 35 views.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
@@ -2876,6 +2878,8 @@ The minotaur's isolated encounter also checks the new approach and
 illustration before the original Parlay prompt.
 The Tyrmor stirge replay checks the approach sprite and swarm
 illustration through the original flight dialogue.
+The Tyrmor elf replay checks the brief approach animation before the
+group portrait and native Parlay prompt.
 The Kobold King's first horde has its own 4× infantry ready and strike
 sprites. Chrome checks the strike during the original report of Brin
 taking damage from a controlled throne checkpoint.
