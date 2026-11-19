@@ -35,6 +35,7 @@ const kovelClues = [
     nextStep: "Read journal entry 48 for the jailed thief's papers, then continue searching Kovel Mansion." },
 ];
 const kovelObjectives = new Map(kovelClues.map(({ id, nextStep }) => [id, nextStep]));
+kovelObjectives.set("kovel-guildmaster-confronted", "After the fight with the guildmaster, continue searching Kovel Mansion for the thieves.");
 kovelObjectives.set("kovel-thief-ambush-cleared", "Continue searching the mansion for the remaining thieves.");
 
 /** Observe the Pascal strings actually sent to the guest's text display. */
@@ -479,6 +480,11 @@ export function journalInventoryLeads(cpu: Cpu, known: readonly JournalLead[], d
   return leads;
 }
 
+export function atKovelGuildmasterCombat(cpu: Cpu, dataSegment: number): boolean {
+  // Kovel's Attack branch runs COMBAT at 9C91, suspending at 9C92.
+  return cpu.read8(dataSegment, 0x82a2) === 14 && cpu.read16(dataSegment, 0x494e) === 0x9c92;
+}
+
 export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegment: number): JournalLead[] {
   // ovl07:0E4C–0E57 resolves global ECL addresses through DS:4933.
   const base = cpu.read16(dataSegment, 0x4933);
@@ -509,6 +515,11 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   if (cpu.read8(dataSegment, 0x82a2) === 13 && global(0x4a0b) === 2 && known.some(({ id }) => id === "kobold-king-escaped")) {
     progress.push({ id: "kobold-king-secret-door", title: "Secret door in the north wall",
       detail: "The party found a hidden door in the kobold caves after the king escaped." });
+  }
+  if (atKovelGuildmasterCombat(cpu, dataSegment) &&
+      known.some(({ id }) => id === "kovel-guildmaster") && !known.some(({ id }) => id === "kovel-guildmaster-escaped")) {
+    progress.push({ id: "kovel-guildmaster-confronted", title: "Guildmaster confronted",
+      detail: "The party chose to fight the guildmaster." });
   }
   // Other ECL scripts reuse this variable for unrelated local events.
   if (cpu.read8(dataSegment, 0x82a2) === 14 && global(0x4a19) === 1 && known.some(({ id }) => id === "kovel-thief-ambush")) {

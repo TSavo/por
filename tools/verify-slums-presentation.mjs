@@ -1931,7 +1931,7 @@ routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload")
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
-routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload");
+routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack");
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
@@ -4642,7 +4642,7 @@ try {
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the tracked Kovel Mansion journal after loading slot B.");
-  } else if (routeName === "kovel-chase" || routeName === "kovel-chase-east") {
+  } else if (routeName.startsWith("kovel-chase")) {
     const chase = "kovel-chase";
     const split = "kovel-thieves-split";
     const ambush = "kovel-thief-ambush";
@@ -4664,23 +4664,32 @@ try {
     assert.equal(frame.journal.trackedId, "commission-kovel");
     assert.match(frame.journal.objective.nextStep, /south or east door/i);
     await switchBothWays();
-    if (routeName === "kovel-chase-east") {
+    if (routeName !== "kovel-chase") {
       for (const key of ["j", "e"]) await advance(key);
       assert.match(textOf(frame), /IAMTHEGUILDMASTER.*ATTACKRELEASE/i);
       await advance("j");
       assert.ok(knows("kovel-guildmaster") && !knows("kovel-guildmaster-escaped"));
       assert.match(frame.journal.objective.nextStep, /Choose Attack.*or Release/i);
-      for (const key of ["j", "r", "j"]) await advance(key);
-      assert.ok(knows("kovel-guildmaster-escaped"));
-      assert.match(frame.journal.objective.nextStep, /guildmaster fled after being released/i);
-      for (const key of ["j", "enter", "e", "s", "s"]) await advance(key);
-      assert.match(textOf(frame), /SAVEWHICHGAME/i);
-      await advance("b");
-      const eastSave = resolve(directory, "B.json");
-      const escaped = JSON.parse(readFileSync(eastSave, "utf8"));
-      assert.equal(escaped.tracked, "commission-kovel");
-      assert.ok(escaped.leads.some(({ id }) => id === "kovel-guildmaster-escaped"));
-      console.log("Kovel Mansion escape checkpoint:", eastSave);
+      if (routeName === "kovel-chase-attack") {
+        assert.ok(!knows("kovel-guildmaster-confronted"));
+        for (const key of ["j", "a"]) await advance(key);
+        assert.match(textOf(frame), /ABATTLEBEGINS/i);
+        await advance("j");
+        assert.ok(knows("kovel-guildmaster-confronted") && !knows("kovel-guildmaster-escaped"));
+        assert.match(frame.journal.objective.nextStep, /after the fight with the guildmaster.*continue searching/i);
+      } else {
+        for (const key of ["j", "r", "j"]) await advance(key);
+        assert.ok(knows("kovel-guildmaster-escaped") && !knows("kovel-guildmaster-confronted"));
+        assert.match(frame.journal.objective.nextStep, /guildmaster fled after being released/i);
+        for (const key of ["j", "enter", "e", "s", "s"]) await advance(key);
+        assert.match(textOf(frame), /SAVEWHICHGAME/i);
+        await advance("b");
+        const eastSave = resolve(directory, "B.json");
+        const escaped = JSON.parse(readFileSync(eastSave, "utf8"));
+        assert.equal(escaped.tracked, "commission-kovel");
+        assert.ok(escaped.leads.some(({ id }) => id === "kovel-guildmaster-escaped"));
+        console.log("Kovel Mansion escape checkpoint:", eastSave);
+      }
     } else {
       for (const key of ["j", "s"]) await advance(key);
       assert.match(textOf(frame), /8,13S.*AMBUSHEDBYSOMETHIEVES/i);
