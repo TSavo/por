@@ -17,7 +17,7 @@ import { parseGeo } from "../src/lib/world.js";
 import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
 import { buildExplorationMaterials } from "./exploration-materials.js";
 import type { NativeExploration } from "./native-exploration.js";
-import { loadOverlandTravel, type TravelState } from "./overland-travel.js";
+import { loadOverlandTravel, type PhlanApproach, type TravelState } from "./overland-travel.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
@@ -130,6 +130,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
 interface FrameState extends ExplorationFrame {
   travelPosition?: TravelState;
   travelPolling?: boolean;
+  phlanArrival?: PhlanApproach;
   travel?: Pick<TravelState, "x" | "y" | "sector"> & { routes: ReturnType<typeof planTravel> };
   frame?: string;
   enhancedFrame?: string;

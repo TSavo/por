@@ -39,7 +39,7 @@ tunnels as the party explores them.
 In Enhanced overland play, the Moonsea plate also serves as the travel map.
 Available destinations glow on hover or keyboard focus. Click one or press
 Enter while focused to walk there using the original game controls. Travel
-stops at encounters, gates, and boat prompts. Sokal Keep points to a dock
+stops at encounters and story prompts. Sokal Keep points to a dock
 for New Phlan, where the harbor master can arrange onward passage. Press
 Escape to stop a route. **Map** enlarges the illustration and **Travel art**
 switches between the illustration and the overhead terrain view.
@@ -60,11 +60,11 @@ boundary, and stopped at the native drawbridge prompt. Accepting the
 entry and dismissing the anti-magic warning restored Enhanced WebGL
 exploration.
 
-Select **Phlan** on the Moonsea map to choose the north gate, east or west
-approach, or a ferry dock. The chooser shows which districts each approach
-serves. Valhingen Graveyard has its own landmark and takes the party to the
-north-gate choice between the city and the graveyard. Each route hands
-control back to the player at the original gate or ferry menu.
-Run the `phlan-outskirts-*` Chrome replays with `--map-travel` to check
-these routes through the Moonsea map.
+Select **Phlan** on the Moonsea map to choose New Phlan, Kovel Mansion, the
+Temple of Bane, Podol Plaza, the Cadorna Textile House, or Valhingen Graveyard.
+The graveyard also has its own landmark. A named route selects the matching
+option at the original crossroads or ferry menu. **Entrances and ferry docks**
+contains routes that hand control back at those menus.
+Run the `phlan-outskirts-*` Chrome replays with `--map-destination` to check
+named arrivals or with `--map-travel` to check the approach menus.
 

@@ -1,6 +1,6 @@
 import { appendFileSync, readSync, writeFileSync } from "node:fs";
 import { captureNativeExploration, type NativeExploration } from "./native-exploration.js";
-import { captureOverlandTravel, type TravelState } from "./overland-travel.js";
+import { captureOverlandTravel, identifyPhlanPrompt, type TravelState } from "./overland-travel.js";
 import { createHash } from "node:crypto";
 import { Frame } from "../src/lib/ega.js";
 import type { EncounterAnchor } from "../src/lib/assets.js";
@@ -22,6 +22,7 @@ const controls: Record<string, number> = {
 const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"];
 const firstScans = [2, 16, 30, 44];
 const liveIdleBudget = 150_000_000;
+const phlanArrivalAreas = new Set([0, 2, 10, 14, 18, 24, 31]);
 export interface PresentationAnimationFrame {
   frame: string;
   enhancedFrame: string;
@@ -106,7 +107,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let scene: string | undefined;
   let area: number | undefined;
   let travelPosition: TravelState | undefined;
-  let travelPolling = false;
+  let nonblockingPoll = false;
+  let overlandScript = false;
   let explorationPosition: { area: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number } | undefined;
   let battleCursor: number | undefined;
   let drawnPerspective: { pixels: Buffer; localEcl?: number; native?: NativeExploration } | undefined;
@@ -172,6 +174,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const tiles: [number, number, string][] = [];
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
       const menu = menuText(text);
+      const phlanArrival = overlandScript ? identifyPhlanPrompt(dialogue, menu) : undefined;
       // The overland map shares the native viewport blit with first-person
       // scenes. Its exploration menu omits Area, even during the cave exit
       // when the area record still names the dungeon.
@@ -189,6 +192,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       let perspective = false;
       let tileArea = area;
       let nativeScenery: PresentationAnimationFrame["nativeScenery"];
+      let arrivalPosition: typeof explorationPosition;
       if (area !== undefined && !scene && !overlandMap && !iconEditor && picture === undefined && !battlefield) {
         const pixels = perspectivePixels();
         // The original game can redraw scenery while the menu is hidden,
@@ -207,7 +211,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         perspective = Boolean(encounter || exploration || nativeDraw ||
           (previousPerspective?.area === area && previousPerspective.pixels.equals(pixels)));
         const native = nativeDraw ?? (drawnPerspective?.localEcl === tileArea ? drawnPerspective : undefined);
-        if (perspective && native?.native) nativeScenery = { ...native.native, area: tileArea ?? area };
+        if (perspective && native?.native) {
+          const { localEcl } = native;
+          // The first destination view can precede the update to the party's area record.
+          if ((area === 26 || area === 27) && localEcl !== undefined && phlanArrivalAreas.has(localEcl)) {
+            const { x, y, facing } = native.native;
+            arrivalPosition = { area: localEcl, x, y, facing };
+          }
+          nativeScenery = { ...native.native, area: arrivalPosition?.area ?? tileArea ?? area };
+        }
         if (!leads) previousPerspective = perspective ? { area, pixels } : undefined;
       } else if (!leads) {
         previousPerspective = undefined;
@@ -288,10 +300,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         overlandMap: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield || undefined,
         travelPosition: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield && !leads && !attack
           ? travelPosition : undefined,
-        travelPolling: travelPolling && !menu && !dialogue && !scene && picture === undefined && !battlefield && !leads && !attack || undefined,
+        phlanArrival: !scene && !battlefield && !leads && !attack ? phlanArrival : undefined,
+        travelPolling: nonblockingPoll && !menu && !scene && picture === undefined && !battlefield && !leads && !attack &&
+          ((overlandScript && !dialogue) || identifyPhlanPrompt(dialogue) !== undefined) || undefined,
         nativeScenery,
-        exploration: perspective && explorationPosition && explorationPosition.area === tileArea
-          ? explorationPosition : undefined,
+        exploration: arrivalPosition ?? (perspective && explorationPosition?.area === tileArea
+          ? explorationPosition : undefined),
         encounter,
         tiles,
         combatArt: combat,
@@ -367,8 +381,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const offset = cpu.read16(0x740, 0x4933);
       travelPosition = captureOverlandTravel(cpu, segment, offset);
       const ecl = cpu.read8(0x740, 0x82a2);
-      // Sector loads can yield at a nonblocking keyboard check before the next travel menu.
-      travelPolling = !blocking && cpu.cs === 0x512 && cpu.ip === 0x5423 && ecl >= 25 && ecl <= 27;
+      // Map and sector loads can yield before the next menu is drawn.
+      nonblockingPoll = !blocking && cpu.cs === 0x512 && cpu.ip === 0x5423;
+      overlandScript = ecl >= 25 && ecl <= 27;
       area = segment || offset ? cpu.read16(segment, offset + 0x1e4) : undefined;
       // Valjevo draws the dungeon hedge before copying the selected ECL
       // back to the area record. Other transition art uses the record's scope.
@@ -400,7 +415,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (!browser) process.stdout.write("Game [J journal, :quit, key]> ");
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
-      if (command === ":poll" && automaticCombat || command === ":travel-poll" && travelPolling) {
+      if (command === ":poll" && automaticCombat || command === ":travel-poll" && nonblockingPoll) {
         nextPrompt = cpu.steps + 1_000_000;
         return;
       }

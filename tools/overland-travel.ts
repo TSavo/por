@@ -12,7 +12,7 @@ const sectors = [
 ];
 type Position = { x: number; y: number; sector: number };
 export type TravelState = Position & { nomads: boolean; buccaneers: boolean; zhentil: boolean; riverCleared: boolean };
-type Step = Position & { key: string };
+type Step = Position & { key: string; arrival?: { approach: PhlanApproach; key: string } };
 
 /** Positions and quest flags used by the original overland scripts. */
 export function captureOverlandTravel(cpu: Cpu, segment: number, offset: number): TravelState | undefined {
@@ -33,12 +33,39 @@ const northGate = [[25, 26], [26, 26]] as const;
 const eastApproach = [[26, 27]] as const;
 const westApproach = [[24, 28]] as const;
 const docks = [[20, 29], [35, 29]] as const;
+const approaches = { northGate, eastApproach, westApproach, docks };
+export type PhlanApproach = keyof typeof approaches;
+const phlanDestinations: Record<string, Partial<Record<PhlanApproach, string>>> = {
+  graveyard: { northGate: "g" },
+  kovelMansion: { eastApproach: "n", northGate: "c" },
+  templeOfBane: { eastApproach: "s" },
+  podolPlaza: { westApproach: "n" },
+  textileHouse: { westApproach: "s" },
+  newPhlan: { docks: "t", eastApproach: "b" },
+};
+const approachIds = Object.keys(approaches) as PhlanApproach[];
+const phlanPrompts: Record<PhlanApproach, { menu: string; dialogue: RegExp }> = {
+  northGate: { menu: "CITYGRAVEYARDLEAVE", dialogue: /^YOUAREONTHENORTHEDGEOFTHECITY\./ },
+  eastApproach: { menu: "NORTHSOUTHBOATLEAVE", dialogue: /^YOUAREONTHEEASTERNEDGEOFTHECITY\./ },
+  westApproach: { menu: "NORTHSOUTHLEAVE", dialogue: /^YOUAREONTHEWESTERNEDGEOFTHECITY\./ },
+  docks: { menu: "TAKEBOATSTAY", dialogue: /^THEREISA(?:BOATHERETHATWILLTAKEYOUBACK|BOATDOCKEDHERETHATWILLRETURNYOU)/ },
+};
+
+export function identifyPhlanPrompt(dialogue: string, menu?: string): PhlanApproach | undefined {
+  return approachIds.find(approach => {
+    const prompt = phlanPrompts[approach];
+    return (menu === undefined || menu === prompt.menu) && prompt.dialogue.test(dialogue);
+  });
+}
+
 const landmarks: Record<string, readonly Coordinate[]> = {
   diogenes: [[10, 9]], buccaneers: [[12, 31]], zhentil: [[3, 32]], nomads: [[25, 11]],
   island: [[19, 14], [19, 16]], kobolds: [[32, 15]], lizardmen: [[37, 8]],
   phlan: [...northGate, ...eastApproach, ...westApproach, ...docks],
-  northGate, eastApproach, westApproach, docks, graveyard: northGate,
+  ...approaches,
   valjevo: northGate, sokal: docks,
+  ...Object.fromEntries(Object.entries(phlanDestinations).map(([destination, choices]) =>
+    [destination, approachIds.filter(approach => choices[approach]).flatMap<Coordinate>(approach => approaches[approach])])),
 };
 
 const directions = [[0, -1, "up"], [1, 0, "right"], [0, 1, "down"], [-1, 0, "left"]] as const;
@@ -99,7 +126,10 @@ export function loadOverlandTravel(root: string) {
       if (id === "nomads" && !start.nomads || id === "buccaneers" && !start.buccaneers || id === "zhentil" && !start.zhentil) continue;
       const targets = new Set(positions.map(([x, y]) => cell(x, y)));
       if (targets.has(cell(start.x, start.y))) {
-        routes[id] = { x: start.x, y: start.y, sector: start.sector, key: "enter" };
+        const approach = approachIds.find(name => approaches[name].some(([x, y]) => x === start.x && y === start.y));
+        const key = approach && phlanDestinations[id]?.[approach];
+        const arrival = approach && key ? { approach, key } : undefined;
+        routes[id] = { x: start.x, y: start.y, sector: start.sector, key: "enter", arrival };
         continue;
       }
       for (const [position, step] of arrivals) {

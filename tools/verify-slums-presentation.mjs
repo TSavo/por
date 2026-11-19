@@ -2086,9 +2086,12 @@ const ferryRoutes = new Map([
 ]);
 const ferry = ferryRoutes.get(routeName);
 const outskirtsRoutes = new Map([
-  ["phlan-outskirts-north", { approach: "northGate", direction: "down", prompt: /NORTHEDGEOFTHECITY/i, menu: /CITY.*GRAVEYARD.*LEAVE/i }],
-  ["phlan-outskirts-east", { approach: "eastApproach", direction: "up", prompt: /EASTERNEDGEOFTHECITY/i, menu: /NORTH.*SOUTH.*BOAT.*LEAVE/i }],
-  ["phlan-outskirts-west", { approach: "westApproach", direction: "down", prompt: /WESTERNEDGEOFTHECITY/i, menu: /NORTH.*SOUTH.*LEAVE/i }],
+  ["phlan-outskirts-north", { approach: "northGate", destination: "graveyard", choice: "g", area: 10, map: 10,
+    direction: "down", prompt: /NORTHEDGEOFTHECITY/i, menu: /CITY.*GRAVEYARD.*LEAVE/i }],
+  ["phlan-outskirts-east", { approach: "eastApproach", destination: "templeOfBane", choice: "s", area: 24, map: 31,
+    direction: "up", prompt: /EASTERNEDGEOFTHECITY/i, menu: /NORTH.*SOUTH.*BOAT.*LEAVE/i }],
+  ["phlan-outskirts-west", { approach: "westApproach", destination: "podolPlaza", choice: "n", area: 18, map: 18,
+    direction: "down", prompt: /WESTERNEDGEOFTHECITY/i, menu: /NORTH.*SOUTH.*LEAVE/i }],
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
@@ -3194,8 +3197,9 @@ const southShopkeeper = "portrait:HEAD3.DAX:42:BODY3.DAX:9";
 const ogreApproachOnly = ogre && option === "--approach-only";
 const verifyHallsWebGL = halls && option === "--webgl";
 const verifyApproachTravel = outskirts && option === "--map-travel";
+const verifyDistrictTravel = outskirts && option === "--map-destination";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
-  ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel, "Option does not apply to this route");
+  ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -3422,7 +3426,7 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  const verifyDefaultWebGL = moonseaTravel || verifyHallsWebGL || verifyApproachTravel ||
+  const verifyDefaultWebGL = moonseaTravel || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
     ["new-phlan-rolf-tour", "lizardfolk-battle-wall"].includes(routeName);
   if (!verifyDefaultWebGL) {
     // The tile replays verify individual PNG placements.
@@ -4450,40 +4454,60 @@ try {
     assert.ok(pierViews > 0 && /15,1[SW]/i.test(frame.text.map(([, char]) => String.fromCharCode(char)).join("")));
     console.log(`Verified the return ferry artwork and ${pierViews} enhanced New Phlan landing views at ${routeName} in Chrome.`);
   } else if (outskirts) {
-    if (verifyApproachTravel) {
+    if (verifyApproachTravel || verifyDistrictTravel) {
       const marker = 'document.querySelector("[data-destination=phlan]")';
-      const button = `document.querySelector('[data-approach="${outskirts.approach}"]')`;
+      const target = verifyDistrictTravel ? outskirts.destination : outskirts.approach;
+      const button = `document.querySelector('[data-approach="${target}"]')`;
       await waitFor("the Phlan landmark to become available", () => run(`${marker}.getAttribute("aria-disabled") === "false"`));
       await run(`${marker}.dispatchEvent(new MouseEvent("click"))`);
       assert.equal(await run(`document.querySelector("#phlan-approaches").hidden`), false);
       assert.equal(await run(`${button}.disabled`), false);
       assert.deepEqual(await latest(), frame, "Opening the chooser should preserve the current frame");
-      if (outskirts.approach === "northGate") {
+      await run(`(() => {
+        window.phlanTravelKeys = [];
+        const gameFetch = window.fetch.bind(window);
+        window.fetch = (url, options) => {
+          if (url === "/key") phlanTravelKeys.push(options.body);
+          return gameFetch(url, options);
+        };
+      })()`);
+      if (verifyDistrictTravel && target === "graveyard") {
         await run(`window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", cancelable: true }))`);
         assert.equal(await run(`document.querySelector("#phlan-approaches").hidden && document.activeElement === ${marker}`), true);
         const graveyard = 'document.querySelector("[data-destination=graveyard]")';
         assert.equal(await run(`${graveyard}.getAttribute("aria-disabled")`), "false");
         await run(`${graveyard}.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true }))`);
       } else {
+        if (verifyApproachTravel) await run(`document.querySelector("#phlan-approaches summary").click()`);
         await run(`${button}.click()`);
       }
       const firstSequence = frame.sequence;
       frame = await waitFor("travel stopping at the native outskirts prompt", async () => {
         const current = await latest();
-        return current.ready && current.sequence > firstSequence && current.portrait === "portrait:PIC7.DAX:40:0:0" && current;
+        const arrived = verifyDistrictTravel ? current.scenery?.mapId === outskirts.map
+          : current.portrait === "portrait:PIC7.DAX:40:0:0";
+        return current.ready && current.sequence > firstSequence && arrived && current;
       });
       await waitFor("travel handing control back at the crossroads", () => run(`state.sequence === ${frame.sequence} && !activeTravel`));
+      const keys = await run("phlanTravelKeys.filter(key => key !== ':travel-poll')");
+      assert.deepEqual(keys.slice(keys.indexOf("enter")), verifyDistrictTravel ? ["enter", outskirts.choice] : ["enter"]);
     } else {
       for (const key of [outskirts.direction, "enter"]) await advance(key);
     }
     const text = frame.text.toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join("");
-    assert.equal(frame.portrait, "portrait:PIC7.DAX:40:0:0");
-    assert.match(text, outskirts.prompt);
-    assert.match(text, outskirts.menu);
-    await waitFor("the Phlan outskirts illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    if (verifyDistrictTravel) {
+      assert.equal(frame.exploration?.area, outskirts.area);
+      if (outskirts.destination === "graveyard") assert.match(text, /PRESS.*TOCONTINUE/i);
+    } else {
+      assert.equal(frame.portrait, "portrait:PIC7.DAX:40:0:0");
+      assert.match(text, outskirts.prompt);
+      assert.match(text, outskirts.menu);
+      await waitFor("the Phlan outskirts illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    }
     await switchBothWays();
-    console.log(`Verified the crossroads illustration at ${routeName} in Chrome${verifyApproachTravel ? " via the Moonsea map" : ""}.`);
+    console.log(verifyDistrictTravel ? `Verified the native arrival for ${outskirts.destination} via the Moonsea map.`
+      : `Verified the crossroads illustration at ${routeName} in Chrome${verifyApproachTravel ? " via the Moonsea map" : ""}.`);
   } else if (routeName === "nomad-camp-approach") {
     await advance("j");
     assert.ok(frame.journal, "The journal should open before finding the camp");

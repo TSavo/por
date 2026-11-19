@@ -405,7 +405,7 @@ for (const landmark of travelLandmarks) {
       setTravelExpanded(true);
       setPhlanApproaches(true);
       renderTravelMap();
-      approachButtons.find(button => !button.disabled)?.focus({ preventScroll: true });
+      approachButtons.find(button => !button.disabled && button.getClientRects().length)?.focus({ preventScroll: true });
     } else {
       selectTravel(landmark.dataset.destination, landmark.getAttribute("aria-label"));
     }
@@ -419,7 +419,7 @@ for (const landmark of travelLandmarks) {
   });
 }
 for (const button of approachButtons) {
-  button.addEventListener("click", () => selectTravel(button.dataset.approach, button.getAttribute("aria-label")));
+  button.addEventListener("click", () => selectTravel(button.dataset.approach, button.textContent));
 }
 
 function followTravel() {
@@ -429,22 +429,28 @@ function followTravel() {
   const next = travel?.routes[route.destination];
   const here = travel && `${travel.x},${travel.y},${travel.sector}`;
   const handoff = !travel && state.travelPolling && route.handoffBudget > 0;
-  // Enter opens the destination's original prompt once. A prompt or an
-  // unexpected position ends the route and hands control back to the player.
+  const choice = route.arrivalSent && route.arrival && route.arrival.approach === state.phlanArrival
+    ? route.arrival.key : undefined;
+  // Only select a district at its verified native prompt. Story prompts and
+  // unexpected movement return control to the player.
   if (!enhanced || state.stopped || state.animation?.length ||
-    (!handoff && (route.arrivalSent || !next || route.expected && here !== route.expected))) {
+    (!choice && !handoff && (route.arrivalSent || !next || route.expected && here !== route.expected))) {
     activeTravel = undefined;
     renderTravelMap();
     return;
   }
   route.sequence = state.sequence;
-  if (handoff) route.handoffBudget--;
+  if (choice) {
+    route.arrival = undefined;
+    route.handoffBudget = 3;
+  } else if (handoff) route.handoffBudget--;
   else {
     route.expected = `${next.x},${next.y},${next.sector}`;
     route.arrivalSent = next.key === "enter";
-    route.handoffBudget = next.sector !== travel.sector ? 3 : 0;
+    route.arrival = next.arrival;
+    route.handoffBudget = next.arrival || next.sector !== travel.sector ? 3 : 0;
   }
-  void send(handoff ? ":travel-poll" : next.key).then(sent => {
+  void send(choice ?? (handoff ? ":travel-poll" : next.key)).then(sent => {
     if (sent || activeTravel !== route) return;
     activeTravel = undefined;
     renderTravelMap();
