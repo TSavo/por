@@ -2204,6 +2204,14 @@ try {
       });
       assert.equal(manual.status, 400);
       await waitFor("the manual combat menu", () => run(`state.sequence === ${frame.sequence} && state.ready`));
+      await run(`window.quickPollAttempts = 0;
+        const fetchGame = window.fetch.bind(window);
+        window.fetch = (url, options) => {
+          if (url === "/key" && options?.body === ":poll" && ++window.quickPollAttempts === 1) {
+            return Promise.reject(new TypeError("Simulated connection interruption"));
+          }
+          return fetchGame(url, options);
+        };`);
       await run('window.dispatchEvent(new KeyboardEvent("keydown", { key: "q", code: "KeyQ" }))');
       const automatic = await waitFor("native Quick poll", async () => {
         const state = await latest();
@@ -2215,6 +2223,7 @@ try {
           /CONTINUEBATTLE:YESNO/i.test(textOf(state)) && state;
       });
       assert.equal(decision.stopped, null);
+      assert.ok(await run("window.quickPollAttempts > 1"));
       const reports = await run("window.combatReports");
       assert.ok(reports.some(text => /ALDA.*ATTACKS.*ROLF.*MISSES/i.test(text)));
       assert.ok(reports.some(text => /ALDA.*ATTACKS.*ROLF.*HITTINGFOR2.*DAMAGE/i.test(text)));

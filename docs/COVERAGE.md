@@ -2279,4 +2279,5 @@ The `new-phlan-arena-quick` route starts from the council checkpoint at
 (6,5) facing east and uses Alda for the arena duel. Chrome checks the attack
 and damage report before choosing Quick, then verifies that one Q displays
 subsequent misses and damage and stops at the original Continue Battle
-choice. The test also checks that the save bytes are unchanged.
+choice. The test drops the first automatic poll request and checks that
+Chrome retries, advances to the choice, and preserves the save bytes.

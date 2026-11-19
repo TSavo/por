@@ -35,6 +35,7 @@ const narratedScenes = new Set();
 let state = { sequence: -1 };
 let posting = false;
 let quickCombat = false;
+let quickPollAfter = 0;
 let enhanced = false;
 let animationFrame;
 let animationTimer;
@@ -412,13 +413,14 @@ async function poll() {
       render();
       playAnimation();
       if (quickCombat && state.automaticCombat) {
-        const sequence = state.sequence;
-        setTimeout(() => {
-          if (quickCombat && state.sequence === sequence) void send(":poll");
-        }, 160 + (state.animation ?? []).reduce((total, frame) => total + (frame.durationMs ?? 120), 0));
+        quickPollAfter = performance.now() + 160 +
+          (state.animation ?? []).reduce((total, frame) => total + (frame.durationMs ?? 120), 0);
       } else if (!state.journal) {
         quickCombat = false;
       }
+    }
+    if (quickCombat && state.automaticCombat && state.ready && performance.now() >= quickPollAfter) {
+      void send(":poll");
     }
     playPendingSounds();
     playPendingVoice();
