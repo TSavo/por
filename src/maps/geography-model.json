@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "purpose": "Schematic geography for the enhanced illustrated map; coordinates are relative composition guides, never dungeon-grid coordinates.",
+  "coordinateSystem": {
+    "origin": "northwest",
+    "units": "normalized composition units",
+    "extent": { "width": 100, "height": 100 },
+    "northIsUp": true
+  },
+  "sources": [
+    {
+      "kind": "primary",
+      "title": "Pool of Radiance Adventurer's Journal",
+      "use": "City of Phlan, Area Near Phlan, and Moonsea overview maps"
+    },
+    {
+      "kind": "primary",
+      "title": "Pool of Radiance Clue Book",
+      "url": "https://www.mocagh.org/ssi/pool-hintbook.pdf",
+      "use": "area descriptions, entrances, city relationships, wilderness terrain, and travel modes"
+    },
+    {
+      "kind": "primary-data",
+      "title": "Original DOS ECL and GEO blocks",
+      "use": "reachable-area graph, transition direction, and internal relative scale"
+    }
+  ],
+  "layers": [
+    {
+      "id": "phlan",
+      "name": "Phlan and the Barren River mouth",
+      "bounds": { "x": 34, "y": 49, "width": 28, "height": 30 },
+      "terrain": ["walled ruined city", "Barren River", "Moonsea shoreline", "harbor", "Thorn Island"],
+      "notes": "Old Phlan is composed as adjoining districts. New Phlan occupies the reclaimed southeastern corner; Valjevo Castle lies beyond Stojanow Gate across the river defense."
+    },
+    {
+      "id": "near-wilderness",
+      "name": "Area near Phlan",
+      "bounds": { "x": 5, "y": 8, "width": 90, "height": 86 },
+      "terrain": ["mountains", "hills", "forest", "swamp", "river", "scoured lands", "Moonsea water"],
+      "notes": "The three wilderness ECL windows form one continuous regional travel layer and must not be drawn as three separate places."
+    }
+  ],
+  "areas": [
+    { "id": 0, "label": "New Phlan", "layer": "phlan", "role": "district", "position": { "x": 51, "y": 70 }, "footprint": { "width": 10, "height": 8 }, "confidence": "primary", "terrain": ["reclaimed streets", "harbor", "city wall"], "contains": [8, 11], "touches": [20, 26, 27], "routes": [{ "to": 21, "mode": "boat", "feature": "harbor to Thorn Island" }] },
+    { "id": 8, "label": "Phlan City Hall", "layer": "phlan", "role": "building", "position": { "x": 52, "y": 68 }, "footprint": { "width": 2, "height": 1 }, "confidence": "primary", "containedBy": 0 },
+    { "id": 11, "label": "Training Hall", "layer": "phlan", "role": "building", "position": { "x": 55, "y": 72 }, "footprint": { "width": 2, "height": 1 }, "confidence": "primary", "containedBy": 0 },
+    { "id": 20, "label": "The Slums", "layer": "phlan", "role": "district", "position": { "x": 47, "y": 64 }, "footprint": { "width": 9, "height": 8 }, "confidence": "topology", "terrain": ["dense ruined streets"], "touches": [0, 29] },
+    { "id": 29, "label": "Kuto's Well", "layer": "phlan", "role": "district", "position": { "x": 43, "y": 58 }, "footprint": { "width": 9, "height": 8 }, "confidence": "topology", "terrain": ["ruined quarter", "central well", "catacombs"], "touches": [20, 18] },
+    { "id": 18, "label": "Podol Plaza", "layer": "phlan", "role": "district", "position": { "x": 47, "y": 52 }, "footprint": { "width": 10, "height": 8 }, "confidence": "primary", "terrain": ["open plaza", "river crossing", "ruined blocks"], "touches": [29, 2, 9, 26] },
+    { "id": 2, "label": "Cadorna Textile House", "layer": "phlan", "role": "district", "position": { "x": 55, "y": 53 }, "footprint": { "width": 8, "height": 8 }, "confidence": "topology", "terrain": ["mercantile ruins", "dry well"], "touches": [18, 15, 26] },
+    { "id": 15, "label": "Mendor's Library", "layer": "phlan", "role": "district", "position": { "x": 60, "y": 48 }, "footprint": { "width": 7, "height": 7 }, "confidence": "primary", "terrain": ["sealed library", "garden"], "touches": [2] },
+    { "id": 14, "label": "Kovel Mansion", "layer": "phlan", "role": "estate", "position": { "x": 39, "y": 50 }, "footprint": { "width": 7, "height": 7 }, "confidence": "topology", "terrain": ["wealthy quarter", "walled mansion"], "touches": [24, 26] },
+    { "id": 24, "label": "Temple of Bane", "layer": "phlan", "role": "district", "position": { "x": 35, "y": 54 }, "footprint": { "width": 8, "height": 8 }, "confidence": "primary", "terrain": ["wealthy quarter", "temple precinct"], "touches": [14] },
+    { "id": 10, "label": "Valhingen Graveyard", "layer": "phlan", "role": "district", "position": { "x": 35, "y": 63 }, "footprint": { "width": 10, "height": 9 }, "confidence": "primary", "terrain": ["graveyard", "mausoleums", "towers"], "touches": [26] },
+    { "id": 9, "label": "Stojanow Gate", "layer": "phlan", "role": "fortification", "position": { "x": 47, "y": 44 }, "footprint": { "width": 10, "height": 5 }, "confidence": "primary", "terrain": ["earthen dam", "Stojanow River", "twin towers"], "touches": [18, 6] },
+    { "id": 6, "label": "Valjevo Castle, southern approach", "layer": "phlan", "role": "castle-quarter", "position": { "x": 46, "y": 37 }, "footprint": { "width": 10, "height": 7 }, "confidence": "primary", "terrain": ["outer buildings", "castle wall"] },
+    { "id": 3, "label": "Valjevo Castle, southwest", "layer": "phlan", "role": "castle-quarter", "position": { "x": 43, "y": 32 }, "footprint": { "width": 8, "height": 7 }, "confidence": "primary", "touches": [4, 5, 6] },
+    { "id": 4, "label": "Valjevo Castle, northwest", "layer": "phlan", "role": "castle-quarter", "position": { "x": 43, "y": 26 }, "footprint": { "width": 8, "height": 7 }, "confidence": "primary", "touches": [3, 5] },
+    { "id": 5, "label": "Valjevo Castle, northeast/southeast", "layer": "phlan", "role": "castle-quarter", "position": { "x": 51, "y": 28 }, "footprint": { "width": 8, "height": 10 }, "confidence": "primary", "touches": [3, 4, 7] },
+    { "id": 7, "label": "Valjevo Castle maze and Pool", "layer": "phlan", "role": "castle-core", "position": { "x": 48, "y": 30 }, "footprint": { "width": 4, "height": 4 }, "confidence": "primary", "terrain": ["hedge maze", "inner tower", "Pool of Radiance"], "containedBy": 5 },
+    { "id": 25, "label": "Western wilderness", "layer": "near-wilderness", "role": "travel-window", "position": { "x": 20, "y": 52 }, "footprint": { "width": 30, "height": 60 }, "confidence": "game-data", "terrain": ["western forest", "hills", "roads"], "contains": [1, 19, 28], "touches": [26] },
+    { "id": 26, "label": "Central wilderness", "layer": "near-wilderness", "role": "travel-window", "position": { "x": 50, "y": 52 }, "footprint": { "width": 30, "height": 60 }, "confidence": "game-data", "terrain": ["Barren River", "forest", "swamp", "scoured lands", "Moonsea"], "contains": [0, 10, 14, 17, 18, 22, 24], "touches": [25, 27] },
+    { "id": 27, "label": "Eastern wilderness", "layer": "near-wilderness", "role": "travel-window", "position": { "x": 80, "y": 52 }, "footprint": { "width": 30, "height": 60 }, "confidence": "game-data", "terrain": ["eastern swamp", "forest", "hills", "mountains"], "contains": [13, 16], "touches": [26] },
+    { "id": 1, "label": "Buccaneer Base", "layer": "near-wilderness", "role": "destination", "position": { "x": 10, "y": 69 }, "footprint": { "width": 5, "height": 4 }, "confidence": "regional", "terrain": ["hidden stockade", "woodland"], "containedBy": 25 },
+    { "id": 19, "label": "Cave of Diogenes", "layer": "near-wilderness", "role": "destination", "position": { "x": 23, "y": 41 }, "footprint": { "width": 3, "height": 2 }, "confidence": "regional", "terrain": ["cave", "western wilds"], "containedBy": 25 },
+    { "id": 28, "label": "Zhentil Keep Outpost", "layer": "near-wilderness", "role": "destination", "position": { "x": 7, "y": 30 }, "footprint": { "width": 5, "height": 4 }, "confidence": "primary", "terrain": ["western road", "fortified outpost"], "containedBy": 25 },
+    { "id": 17, "label": "Nomad Camp", "layer": "near-wilderness", "role": "destination", "position": { "x": 67, "y": 26 }, "footprint": { "width": 5, "height": 4 }, "confidence": "primary", "terrain": ["open grassland", "hills"], "containedBy": 26 },
+    { "id": 22, "label": "Yarash's Pyramid / Sorcerer's Island", "layer": "near-wilderness", "role": "destination", "position": { "x": 54, "y": 84 }, "footprint": { "width": 5, "height": 4 }, "confidence": "primary", "terrain": ["island", "lake or widened river", "marsh"], "containedBy": 26, "contains": [23] },
+    { "id": 23, "label": "Yarash's Pyramid, lower level", "layer": "near-wilderness", "role": "interior", "position": { "x": 54, "y": 84 }, "footprint": { "width": 2, "height": 2 }, "confidence": "primary", "containedBy": 22 },
+    { "id": 13, "label": "Kobold Caves", "layer": "near-wilderness", "role": "destination", "position": { "x": 77, "y": 42 }, "footprint": { "width": 4, "height": 3 }, "confidence": "regional", "terrain": ["cave mouth", "eastern hills"], "containedBy": 27 },
+    { "id": 16, "label": "Lizardman Keep", "layer": "near-wilderness", "role": "destination", "position": { "x": 87, "y": 69 }, "footprint": { "width": 6, "height": 5 }, "confidence": "primary", "terrain": ["swamp", "small forest", "ruined keep", "catacombs"], "containedBy": 27 },
+    { "id": 21, "label": "Sokal Keep", "layer": "near-wilderness", "role": "destination", "position": { "x": 59, "y": 73 }, "footprint": { "width": 5, "height": 4 }, "confidence": "primary", "terrain": ["Thorn Island", "Moonsea channel", "dock"], "routes": [{ "to": 0, "mode": "boat", "feature": "narrow Moonsea passage" }] }
+  ],
+  "compositionRules": [
+    "Draw district borders as irregular urban blocks, not 16-by-16 squares.",
+    "Draw wilderness windows as one continuous terrain field; their seams are implementation details.",
+    "Treat direct ECL transitions as topology evidence, not proof that two places share a physical border.",
+    "Boat transitions, interiors, stairs, catacombs, and long overland travel do not imply touching footprints.",
+    "Use footprint size to communicate narrative scale and visual importance, not exact tile count.",
+    "Preserve uncertainty: positions marked topology or regional may move when the primary overview maps are traced."
+  ]
+}

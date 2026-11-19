@@ -74,6 +74,7 @@ Use `--output` to inspect a fresh translation alongside the checked-in runtime f
 ## Formats
 
 - [docs/dax.md](docs/dax.md) — container, runs, pictures, maps, wall tables
+- [docs/MAP-GEOGRAPHY.md](docs/MAP-GEOGRAPHY.md) — enhanced illustrated-map geography and evidence model
 - [docs/ecl.md](docs/ecl.md) — bytecode, the opcode table, what the stepper will and will not do
 - [docs/start-exe.md](docs/start-exe.md) — EXEPACK and the overlay stubs
 - [docs/game-ovr.md](docs/game-ovr.md) — the overlay file
