@@ -30,6 +30,11 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["bane-captive-goblin-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:31:SPRIT1.DAX:2:0:0", 48, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:31:PIC1.DAX:2:0:0", prompt: /GOBLIN/i },
+  }],
   ["bane-orc-guardroom-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:31:SPRIT1.DAX:4:0:0", 40, 80],
@@ -729,6 +734,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valjevo-kitchen-jamb", {
+    slot: "B", area: 4, views: 5, patterns: 31, sceneryOnly: true,
+    walk: ["left", "up", "up", "right"],
+  }],
   ["valjevo-merchant-west", {
     slot: "B", area: 7, views: 12, patterns: 61, sceneryOnly: true,
     walk: ["right", "right", "up", "up", "right", "up", "up", "left", "up", "up", "left"],
