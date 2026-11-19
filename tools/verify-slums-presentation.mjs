@@ -1879,6 +1879,14 @@ const environmentRoutes = new Map([
     slot: "A", area: 26, views: 10, patterns: 80, sceneryOnly: true, captureView: 5,
     walk: ["left", "up", "right", "up", "left", "up", "up", "right", "up"],
   }],
+  ["graveyard-moon-path-west", {
+    slot: "A", area: 10, views: 10, patterns: 54, sceneryOnly: true,
+    walk: ["right", "up", "left", "up", "left", "up", "up", "left", "up"],
+  }],
+  ["graveyard-moon-path-east", {
+    slot: "A", area: 10, views: 3, patterns: 20, sceneryOnly: true,
+    walk: ["left", "up"],
+  }],
   ["slums-courtyard-east", {
     slot: "B", area: 20, views: 9, patterns: 40, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "right", "up", "up"],

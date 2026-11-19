@@ -2772,6 +2772,8 @@ earth beneath the masonry. Four Chrome routes check all 16 revised
 floor tiles across 33 views.
 Four neighboring Slums routes check another 14 courtyard joins across
 52 views, including the guild corners and side arcades.
+Two Valhingen graveyard walks check 52 new slate path tiles across 13
+views. The eastern walk ends before the encounter overlay.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
