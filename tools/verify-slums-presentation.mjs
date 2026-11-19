@@ -37,6 +37,12 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["kobold-net-trap", {
+    slot: "B", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:13:ecl:9dd4:SPRIT8.DAX:0:0:0", 40, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:13:ecl:9e0c:PIC8.DAX:0:0:0", prompt: /ANETENTANGLESYOU/i },
+    battleStart: { input: "enter", prompt: /ABATTLEBEGINS/i, portrait: "portrait:area:13:ecl:9e0d:PIC8.DAX:0:0:0" },
+  }],
   ["kobold-roof-collapse", {
     slot: "B", inputs: ["up", "enter", "enter", "r", "enter", "enter"],
     placement: [48, 32, "encounter:area:13:ecl:9d05:SPRIT8.DAX:0:0:0", 40, 80],

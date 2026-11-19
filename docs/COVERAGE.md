@@ -3036,3 +3036,6 @@ illustration. The Chrome replay checks both and the portrait at battle entry.
 
 Slums orc household leaders use distinct ready and broadsword art. Chrome
 verified the reflected swing and the combat report that it misses Thrend'r Grone.
+
+The Kobold net ambush has a rope-puller sprite and a net-trap illustration.
+Chrome verifies the approach anchor and rendered illustration at battle entry.
