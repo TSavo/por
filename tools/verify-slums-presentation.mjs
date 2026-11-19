@@ -283,6 +283,12 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["textile-skullcrusher-combat", {
+    slot: "B", stand: "combat:area:2:CPIC4.DAX:11:ecl:a466", strike: "combat:area:2:CPIC4.DAX:139:ecl:a466",
+    width: 96, height: 96, readyPrompt: /SKULLCRUSHERHITPOINTS32/i,
+    inputs: ["up", "b", "up", "enter", "a", ...Array(9).fill("enter")],
+    strikeInputs: ["enter"],
+  }],
   ["textile-ghoul-combat", {
     slot: "B", stand: "combat:area:2:CPIC4.DAX:72", strike: "combat:area:2:CPIC4.DAX:200",
     readyPrompt: /GHOULHITPOINTS10/i,

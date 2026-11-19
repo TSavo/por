@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:2:CPIC4.DAX:11:ecl:a466": "textile-skullcrusher-stand.png",
+    "combat:area:2:CPIC4.DAX:139:ecl:a466": "textile-skullcrusher-strike.png",
     "tile:8:e94e6359851d14c4f6bc834fc067a79067c3927899820c2dc5239dc8e01e125d": "new-phlan-civic-terrain-e94e6359851d.png",
     "tile:8:b525b489a8bd7af2ce9a0a7e18f3e34317757f604503b5cf1aa2638c11b6431b": "new-phlan-civic-terrain-b525b489a8bd.png",
     "tile:8:57c487d15f5686782fe77e2fc4655a461569d31f534afd3b9eceba8e509488f5": "new-phlan-civic-terrain-57c487d15f56.png",

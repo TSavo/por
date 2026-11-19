@@ -1360,6 +1360,8 @@ tiles across 16 live views from the original camp entry save.
 11 live views from the post-duel save.
 `textile-skullcrusher-chained` checks the captive's portrait and verifies
 that the journal records the encounter after the party discovers him.
+`textile-skullcrusher-combat` verifies his ready and strike poses
+in the released-prisoner branch from a controlled checkpoint.
 `bane-orc-combat` checks the temple orc's ready and animated strike poses.
 `bane-orc-leader-combat` checks both poses for the temple orc leader
 from a checkpoint positioned one step before that encounter.
