@@ -818,6 +818,13 @@ const combatPoseRoutes = new Map([
     strikeReport: /ATTACKSCORAANDMISSES/i,
     inputs: ["up", "up", "enter", "enter", "a", "enter", "enter"], strikeInputs: ["enter"],
   }],
+  ["slums-orc-home-leader-combat", {
+    slot: "B", stand: "combat:area:20:CPIC2.DAX:5:ecl:aa02", strike: "combat:area:20:CPIC2.DAX:133:ecl:aa02",
+    width: 96, height: 96, readyPrompt: /THRENDERGRONEHITPOINTS11AC1FLAIL/i, strikeReflected: true,
+    strikeReport: /ORCLEADERATTACKSTHRENDERGRONEANDMISSES/i,
+    inputs: ["up", ...Array(5).fill("enter")],
+    strikeInputs: [...Array(4).fill("enter"), ...Array(27).fill("q")],
+  }],
   ["old-phlan-jail-thug-combat", {
     slot: "A", stand: "combat:area:14:CPIC3.DAX:12:ecl:b0d0", strike: "combat:area:14:CPIC3.DAX:140:ecl:b0d0",
     width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: true,

@@ -3033,3 +3033,6 @@ the reflected punch and the attack report that it misses Cora.
 
 The Kobold truce-refusal cave-in uses a distinct approach sprite and
 illustration. The Chrome replay checks both and the portrait at battle entry.
+
+Slums orc household leaders use distinct ready and broadsword art. Chrome
+verified the reflected swing and the combat report that it misses Thrend'r Grone.

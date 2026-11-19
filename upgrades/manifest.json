@@ -11,6 +11,8 @@
     "combat:area:14:CPIC3.DAX:12:ecl:9c92": "old-phlan-sword-thief-combat-ready.png",
     "combat:area:1:CPIC6.DAX:139:ecl:a391": "buccaneer-pen-guard-strike.png",
     "combat:area:1:CPIC6.DAX:11:ecl:a391": "buccaneer-pen-guard-ready.png",
+    "combat:area:20:CPIC2.DAX:133:ecl:aa02": "slums-orc-home-leader-strike.png",
+    "combat:area:20:CPIC2.DAX:5:ecl:aa02": "slums-orc-home-leader-ready.png",
     "combat:area:14:CPIC3.DAX:12:ecl:b0d0": "old-phlan-jail-thug-ready.png",
     "combat:area:14:CPIC3.DAX:140:ecl:b0d0": "old-phlan-jail-thug-strike.png",
     "encounter:area:13:ecl:9b8a:SPRIT8.DAX:0:1:0": "kobold-white-flag-approach-middle.png",
