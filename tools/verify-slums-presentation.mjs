@@ -37,6 +37,12 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["lizard-wilds-drider-approach", {
+    slot: "A",
+    inputs: [...Array.from({ length: 16 }, () => ["up", "down"]).flat(), "up", "p", "down", "up", "down", "up"],
+    placement: [48, 32, "encounter:area:26:ecl:a230:SPRIT7.DAX:69:1:0", 40, 65],
+    battleStart: { input: "c", prompt: /ABATTLEBEGINS/i },
+  }],
   ["lizard-wilds-merchant-approach", {
     slot: "A",
     inputs: [...Array.from({ length: 16 }, () => ["up", "down"]).flat(), "up"],

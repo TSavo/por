@@ -3243,6 +3243,12 @@ combat. The Buccaneer Wilds patrol corporal uses a dedicated ready
 and sword strike pair. Chrome verified the reflected attack on Alda
 and display switching from a checkpoint with a controlled patrol roll.
 
+`lizard-wilds-drider-approach` passes the merchants and verifies the
+drider sprite at (48, 32), display switching, and the original battle
+prompt. The Lizard Wilds kobold archer uses a dedicated ready and
+shortbow strike pair. From a fixture that selects the native kobold
+roll, Chrome verifies the strike at (80, 152) and the attack on Enna.
+
 `kuto-sickly-kobold-scouts` replays the middle-distance scouts at
 both native script positions, then the close approach and dialogue.
 It checks the individual sprite anchors in Chrome and display switching
