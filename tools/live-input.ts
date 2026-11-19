@@ -179,6 +179,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
       if ((battleTileKeys.size || battleTileInventory) && !scene && !leads && hasBattlefieldBorder(screen)) {
         const pixels = Buffer.alloc(64);
+        const selectedActors = battleTileInventory ? combat.filter(([, , , , highlighted]) => highlighted) : [];
         // Combat terrain appears within the guest's left-hand battle panel.
         for (let y = 8; y < 176; y += 8) {
           for (let x = 8; x < 176; x += 8) {
@@ -188,7 +189,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             }
             if (!pixels.some(Boolean)) continue;
             const key = `battle-tile:${createHash("sha256").update(pixels).digest("hex")}`;
-            battleTileInventory?.push([x, y, key, pixels.toString("hex")]);
+            // The selection bevel is drawn into the guest cell. It remains
+            // on screen, but its pixels cannot identify the terrain below it.
+            if (battleTileInventory && !selectedActors.some(([left, top, , , , width = 24, height = 24]) =>
+              x < left + width && x + 8 > left && y < top + height && y + 8 > top)) {
+              battleTileInventory.push([x, y, key, pixels.toString("hex")]);
+            }
             if (battleTileKeys.has(key)) battleTiles.push([x, y, key]);
           }
         }
