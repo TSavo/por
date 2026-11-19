@@ -1064,6 +1064,9 @@ the enhanced kobold scout sprite separately from the terrain underneath it.
 The `slums-textile-threshold` replay starts from slot B at (15,11) facing
 east. Chrome verifies all 605 placements across five views, including two
 wall-edge patterns that reuse matching 32×32 masonry tiles on the Slums side.
+The `textile-fountain-turn` replay walks from a position-only slot H at
+(4,10) facing south. Chrome checks 605 placements across five views,
+including the mirrored masonry edge when turning toward the fountain.
 The `kuto-south-court` replay starts from the same slot J entrance. It checks
 2,057 placements across 17 views and verifies the reused gnoll approach sprite
 over the full terrain grid at (4,13) facing east.

@@ -1035,6 +1035,10 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["textile-fountain-turn", {
+    slot: "H", area: 2, views: 5, patterns: 53, sceneryOnly: true,
+    walk: ["left", "up", "up", "right"],
+  }],
   ["slums-textile-threshold", {
     slot: "B", area: 20, views: 5, patterns: 30, sceneryOnly: true,
     transition: { afterViews: 4, area: 2 },
