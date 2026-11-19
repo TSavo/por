@@ -3039,3 +3039,6 @@ verified the reflected swing and the combat report that it misses Thrend'r Grone
 
 The Kobold net ambush has a rope-puller sprite and a net-trap illustration.
 Chrome verifies the approach anchor and rendered illustration at battle entry.
+
+The Slums orc household defenders have matching ready and hatchet sprites.
+Chrome verifies the reflected strike and its eight-point damage report.

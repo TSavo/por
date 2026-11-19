@@ -824,6 +824,13 @@ const combatPoseRoutes = new Map([
     strikeReport: /ATTACKSCORAANDMISSES/i,
     inputs: ["up", "up", "enter", "enter", "a", "enter", "enter"], strikeInputs: ["enter"],
   }],
+  ["slums-orc-home-defender-combat", {
+    slot: "B", stand: "combat:area:20:CPIC2.DAX:4:ecl:aa02", strike: "combat:area:20:CPIC2.DAX:132:ecl:aa02",
+    width: 96, height: 96, readyPrompt: /THRENDERGRONEHITPOINTS11AC1FLAIL/i, strikeReflected: true,
+    strikeReport: /ORCATTACKSTHRENDERGRONEHITTINGFOR8POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(5).fill("enter")],
+    strikeInputs: [...Array(4).fill("enter"), ...Array(16).fill("q")],
+  }],
   ["slums-orc-home-leader-combat", {
     slot: "B", stand: "combat:area:20:CPIC2.DAX:5:ecl:aa02", strike: "combat:area:20:CPIC2.DAX:133:ecl:aa02",
     width: 96, height: 96, readyPrompt: /THRENDERGRONEHITPOINTS11AC1FLAIL/i, strikeReflected: true,
