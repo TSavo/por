@@ -30,6 +30,16 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["wild-grove-pool-lizard-approach", {
+    slot: "A", inputs: ["up", "a"],
+    placement: [48, 32, "encounter:area:26:SPRIT7.DAX:57:0:0", 48, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:26:PIC7.DAX:57:0:0", prompt: /LIZARDMENSWIMMINGINTHEPOOL/i },
+  }],
+  ["wild-grove-captive-kobold-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:26:SPRIT7.DAX:0:0:0", 40, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:26:PIC7.DAX:0:0:0", prompt: /RELEASEUS/i },
+  }],
   ["wild-cave-giant-lizard-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [32, 32, "encounter:area:27:SPRIT8.DAX:59:0:0", 80, 80],
@@ -653,6 +663,11 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["kuto-south-passage", {
+    slot: "J", area: 18, views: 18, patterns: 107, sceneryOnly: true,
+    transition: { afterViews: 6, area: 29 },
+    walk: ["up", "up", "left", "right", "right", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up"],
+  }],
   ["podal-gate-fountain", {
     slot: "J", area: 18, views: 11, patterns: 89, sceneryOnly: true,
     transition: { afterViews: 8, area: 29 },

@@ -1441,6 +1441,11 @@ across 13 views and 1,573 placements. `lizard-wilds-kobold-prisoners`
 and `lizard-wilds-pool-dialogue` verify both grove scenes in Chrome.
 The captive replay checks that the mutant lizardfolk warning appears
 in the journal only after the party releases the kobolds and hears it.
+`wild-grove-captive-kobold-approach` and `wild-grove-pool-lizard-approach`
+verify the anchored approach sprites and transitions to both grove
+illustrations. `kuto-south-passage` checks 16 terrain replacements
+across 18 views and 2,178 placements, including the crossing from Podal
+into Kuto. All three replays check presentation switching.
 `textile-wight-combat` checks the Wight's ready and animated strike
 poses from a controlled wandering encounter checkpoint.
 `textile-ghoul-combat` checks the Ghoul's ready and strike poses

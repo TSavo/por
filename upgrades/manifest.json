@@ -1,6 +1,24 @@
 {
   "version": 1,
   "assets": {
+    "tile:18:d46241306c8fa8cb736fa216c7d1ab56e62b6495d92843bfcda972f5162d6158": "kuto-south-passage-terrain-d46241306c8f.png",
+    "tile:18:d9b51cc9360d17737eebf2fc825d7cc895e96ea1d6f2020a5a7c8d54e5228dea": "kuto-south-passage-terrain-d9b51cc9360d.png",
+    "tile:18:2641de725160bed3ccf83642677807161ae17c04ec7f0201d24c4444cea4309c": "kuto-south-passage-terrain-2641de725160.png",
+    "tile:18:a98541eb98d04b70525e398883915b338262458223739687d40ba50900a89567": "kuto-south-passage-terrain-a98541eb98d0.png",
+    "tile:29:7abe97c60f5637ca374ae8ce7c40a5c6775877bc046220fb76005544eaeccabd": "kuto-south-passage-terrain-7abe97c60f56.png",
+    "tile:29:85ea5d4ba67c859b8e8bad8f9ae734c030ef69d485250b4a1c4d48fe4041073e": "kuto-south-passage-terrain-85ea5d4ba67c.png",
+    "tile:29:2cbf4fbbda98edfb3b5f3543072319ce3f72b98aa9b47a57e7bddd262fbf60e5": "kuto-south-passage-terrain-2cbf4fbbda98.png",
+    "tile:29:ca1541e7ab53d62c783da12a27ae27e7d6709b3fbb5bf859b56a632d465d7b07": "kuto-south-passage-terrain-ca1541e7ab53.png",
+    "tile:29:3eca294b17980004bf7dd9e8cd660cd1b6ac8179ac53d8e8c6643f176de4540b": "kuto-south-passage-terrain-3eca294b1798.png",
+    "tile:29:195dba250fc2a8a290f63f054091315caf23fb35c7ed4f1124971dcea1239564": "kuto-south-passage-terrain-195dba250fc2.png",
+    "tile:29:9be45db86d617cd9cb143a1e7b71405b254c0647bf7b4e45d143348303806924": "kuto-south-passage-terrain-9be45db86d61.png",
+    "tile:29:b6d8cf528e84d3abaa95a41f2d778e406ae1cd4a82c6e801321904894f13fe13": "kuto-south-passage-terrain-b6d8cf528e84.png",
+    "tile:29:5c7e08fc7b3435ecf174cd23c7b62c4fcae1b3ff9e19a51222c331c5ed0d8ac2": "kuto-south-passage-terrain-5c7e08fc7b34.png",
+    "tile:29:5a103283234a50229ab6b2bff874b97252f16d93826ad7144a6243a89ff34a0b": "kuto-south-passage-terrain-5a103283234a.png",
+    "tile:29:5ea33b314d6a559649dcdcb928b9da3c62d661fa6f496eaba32df44752996fed": "kuto-south-passage-terrain-5ea33b314d6a.png",
+    "tile:29:25fe94559966ae9beacb3a39b152218ecde79135bd7dfe616407e6942caea02c": "kuto-south-passage-terrain-25fe94559966.png",
+    "encounter:area:26:SPRIT7.DAX:57:0:0": "wild-grove-pool-lizard-approach.png",
+    "encounter:area:26:SPRIT7.DAX:0:0:0": "wild-grove-captive-kobold-approach.png",
     "combat:area:28:CPIC6.DAX:15:ecl:a232": "zhentil-dwarf-stand.png",
     "combat:area:28:CPIC6.DAX:143:ecl:a232": "zhentil-dwarf-strike.png",
     "tile:18:c8c4461579fcf1223414b9ff6910f3109d630bcb9764cf8787e68d29757fe786": "podal-gate-fountain-terrain-c8c4461579fc.png",
@@ -2974,6 +2992,8 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:26:SPRIT7.DAX:57:0:0": { "area": 26, "x": 48, "y": 32, "width": 48, "height": 80 },
+    "encounter:area:26:SPRIT7.DAX:0:0:0": { "area": 26, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:27:SPRIT8.DAX:59:0:0": { "area": 27, "x": 32, "y": 32, "width": 80, "height": 80 },
     "encounter:area:27:SPRIT8.DAX:73:0:0": { "area": 27, "x": 40, "y": 32, "width": 56, "height": 80 },
     "encounter:area:25:SPRIT6.DAX:118:0:0": { "area": 25, "x": 56, "y": 32, "width": 32, "height": 73 },
