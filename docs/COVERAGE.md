@@ -2878,6 +2878,9 @@ sprites. Chrome checks the strike during the original report of Brin
 taking damage from a controlled throne checkpoint.
 The second-wave siege checkpoint also checks the boars' new ready and
 reflected charge sprites during the original damage report.
+The swamp ruin defenders have their own ready and claw-strike sprites.
+The controlled Chrome replay verifies the reflected strike during the
+original report of the defender hitting Brin.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.

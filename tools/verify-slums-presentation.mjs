@@ -713,6 +713,12 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["swamp-ruin-defender-combat", {
+    slot: "A", stand: "combat:area:16:CPIC8.DAX:57:ecl:a6ce", strike: "combat:area:16:CPIC8.DAX:185:ecl:a6ce",
+    width: 96, height: 96, readyPrompt: /LIZARDMANHITPOINTS11AC4/i, strikeReflected: true,
+    strikeReport: /LIZARDMANATTACKSBRINHITTINGFOR4POINTSOFDAMAGE/i,
+    inputs: ["up", "up", "enter", "enter", "enter", "c", "enter", "enter", "enter", ...Array(4).fill("q")],
+  }],
   ["kobold-cave-siege-boar-combat", {
     slot: "A", stand: "combat:area:13:CPIC8.DAX:120:ecl:a1d4", strike: "combat:area:13:CPIC8.DAX:248:ecl:a1d4",
     width: 192, height: 96, readyPrompt: /WILDBOARHITPOINTS18AC7/i, strikeReflected: true,
