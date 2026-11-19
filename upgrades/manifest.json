@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:18:CPIC1.DAX:16:ecl:a9df": "podal-pitt-duelist-stand.png",
+    "combat:area:18:CPIC1.DAX:144:ecl:a9df": "podal-pitt-duelist-strike.png",
     "portrait:area:23:HEAD7.DAX:56:BODY7.DAX:30": "yarash-study-portrait.png",
     "encounter:area:23:SPRIT7.DAX:24:2:0": "yarash-study-approach-far.png",
     "encounter:area:23:SPRIT7.DAX:24:1:0": "yarash-study-approach-middle.png",
