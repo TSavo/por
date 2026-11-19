@@ -1,6 +1,18 @@
 {
   "version": 1,
   "assets": {
+    "tile:20:624c54394650999904d165e8083586d2c5d9dea1cfb089dcbb22e946cbbf6f37": "slums-shop-frontage-terrain-624c54394650.png",
+    "tile:20:34c8e1f49742be249357aba1a5180b7fbd7dff4350ff758ba579534fcd9cdb70": "slums-shop-frontage-terrain-34c8e1f49742.png",
+    "tile:20:78d49be0ec8d85548a56d9b83e8384b76643e1d87889ea01c72df92930638ba6": "slums-shop-frontage-terrain-78d49be0ec8d.png",
+    "tile:20:4e24210255ed185eb54a70dc98aae7c1beeeb78e5107d1d01b5a931dcae9a8ae": "slums-shop-frontage-terrain-4e24210255ed.png",
+    "tile:20:5795b1b70c9b48e493751effcb0f24b088c03b0cd37d6bbabaddf30f832eafdc": "slums-shop-frontage-terrain-5795b1b70c9b.png",
+    "tile:20:e64d4bb2078216ff1f2a0b804d81736f2d63ccbf6d1bb38608eb817557e43c39": "slums-shop-frontage-terrain-e64d4bb20782.png",
+    "tile:20:989907034dc5a8ccb668b5a282a334713bceb7eca7c6f5ce8b5590ee1052877f": "slums-shop-frontage-terrain-989907034dc5.png",
+    "tile:20:6e93f4c5f7098197a506cad9800b371c6ff5cd621d0702c06ede77cab3c0baf6": "slums-shop-frontage-terrain-6e93f4c5f709.png",
+    "tile:20:6bba2fad7e746d2b4af98abef842c46852f1546ccac13bc505aa2165aefcd6d2": "slums-shop-frontage-terrain-6bba2fad7e74.png",
+    "tile:20:86fbaae65bd279d82012bdd39443a56b193d4991389660da374c9fa4eefb4c61": "slums-shop-frontage-terrain-86fbaae65bd2.png",
+    "tile:20:1d5f028720c397eebec44a05c3fb079af04afa290fc95d834b2e00438cd6819c": "slums-shop-frontage-terrain-1d5f028720c3.png",
+    "tile:20:03717ceb6287da8455029f347687325360605e237b2f8b70b068e28f3160633b": "slums-shop-frontage-terrain-03717ceb6287.png",
     "combat:area:6:CPIC5.DAX:11:ecl:a2b8": "valjevo-forge-smith-combat-stand.png",
     "combat:area:6:CPIC5.DAX:139:ecl:a2b8": "valjevo-forge-smith-combat-strike.png",
     "tile:20:15450d2266965cb35a6f45fd06dbf087e58bdd114e2cf88e56dba3e596898eb1": "slums-trade-row-terrain-15450d226696.png",
