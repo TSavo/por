@@ -495,8 +495,8 @@ the Tyrmor priest update. They contain ten distinct cel payloads. The
 Tyrmor replay verified native use of CPIC7 block 141 and the replacement
 attack sprite. Script references also identify these cases for live checks:
 
-- New Phlan reserve combat can select CPIC3 blocks 24 and 152 through the
-  encounter table in ECL3 block 0.
+- The New Phlan tavern brawl can select CPIC3 blocks 24 and 152 through
+  the encounter table in ECL3 block 0.
 - Overland thieves use CPIC6 blocks 12 and 140 through ECL6 block 25.
   Chrome verified the enhanced ready and attack pair with a local fixture
   that selects the original thieves branch deterministically.
