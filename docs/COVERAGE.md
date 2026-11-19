@@ -2779,6 +2779,9 @@ gravestones and south and west vaults, with 3,267 placements in Chrome.
 The central courts, memorial turns, and ossuary entrance add 81 slate
 joins checked across 39 Chrome views. The ossuary walk ends before the
 encounter overlay.
+Four crypt approaches extend the slate surface through 25 additional
+tiles. Chrome checks 3,146 placements across 26 views. The stairs and
+grave-claw walks end before their encounter overlays.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
