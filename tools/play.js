@@ -39,6 +39,7 @@ let posting = false;
 let enhanced = false;
 let animationFrame;
 let animationTimer;
+let screenRender = 0;
 const failedSceneArt = new WeakSet();
 const failedTileArt = new WeakSet();
 
@@ -247,25 +248,28 @@ function togglePresentation() {
   playPendingVoice();
 }
 
-function showScreen() {
+async function showScreen() {
   if (!state.frame) return;
+  const render = ++screenRender;
   const view = animationFrame ?? state;
   const useEnhanced = enhanced && !failedTileArt.has(view);
   const frame = useEnhanced ? view.enhancedFrame ?? view.frame : view.frame;
   const sceneArt = useEnhanced && !view.journal && !failedSceneArt.has(view) && view.art;
-  screen.src = sceneArt || `data:image/png;base64,${frame}`;
+  const source = sceneArt || `data:image/png;base64,${frame}`;
+  const showArt = useEnhanced && !sceneArt && !view.journal;
+  const layers = [];
   const placements = [...(view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
   if (view.portrait) placements.push([8, 8, view.portrait, undefined, undefined, 120, 120]);
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
-  tileArt.hidden = !useEnhanced || Boolean(sceneArt || view.journal);
-  if (!tileArt.hidden) {
+  if (showArt) {
     const perspective = view.perspective && !view.portrait;
     const backdrop = perspective || view.classicPortrait ? document.createElement("div") : null;
     if (backdrop) {
       backdrop.className = "perspective-backdrop";
       backdrop.style.backgroundImage = `url("data:image/png;base64,${frame}")`;
     }
-    tileArt.replaceChildren(...(backdrop ? [backdrop] : []), ...placements.map(([x, y, id, reflected, , width, height]) => {
+    if (backdrop) layers.push(backdrop);
+    layers.push(...placements.map(([x, y, id, reflected, , width, height]) => {
       const tile = document.createElement("img");
       tile.alt = "";
       const terrain = id.startsWith("tile:");
@@ -299,16 +303,29 @@ function showScreen() {
       if (reflected) tile.style.transform = "scaleX(-1)";
       tile.style.left = `${x / 3.2}%`;
       tile.style.top = `${y / 2}%`;
-      tile.addEventListener("error", () => {
-        if (!tile.isConnected || view !== (animationFrame ?? state)) return;
-        // The enhanced framebuffer can omit the original actor under this tile.
-        failedTileArt.add(view);
-        showScreen();
-      }, { once: true });
       tile.src = `/art/${id}`;
       return tile;
     }));
   }
+  // Keep the last complete view on screen until the replacement layers
+  // are ready. The raw framebuffer can still contain the original art.
+  try {
+    const nextFrame = new Image();
+    nextFrame.src = source;
+    await Promise.all([nextFrame.decode(), ...layers.filter(layer => layer instanceof HTMLImageElement)
+      .map(image => image.decode())]);
+  } catch {
+    if (render !== screenRender) return;
+    if (sceneArt) failedSceneArt.add(view);
+    else if (showArt && layers.length) failedTileArt.add(view);
+    else return;
+    void showScreen();
+    return;
+  }
+  if (render !== screenRender) return;
+  screen.src = source;
+  tileArt.replaceChildren(...layers);
+  tileArt.hidden = !showArt;
   gameText.hidden = !useEnhanced || Boolean(sceneArt);
   if (!gameText.hidden) {
     gameText.replaceChildren(...(view.text ?? []).map(([cell, character, color]) => {
@@ -322,13 +339,6 @@ function showScreen() {
   }
 }
 
-screen.addEventListener("error", () => {
-  const view = animationFrame ?? state;
-  if (view.art && screen.getAttribute("src") === view.art) {
-    failedSceneArt.add(view);
-    showScreen();
-  }
-});
 function render() {
   showScreen();
   const focused = document.activeElement;

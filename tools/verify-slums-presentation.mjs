@@ -292,6 +292,13 @@ const illustrationRoutes = new Map([
   ["new-phlan-tavern-brawl", {
     slot: "A", inputs: ["up", "enter", "enter", "n", "enter", "enter"],
     portrait: "portrait:area:0:HEAD3.DAX:53:BODY3.DAX:7", prompt: /ADRUNKENBRAWLBREAKSOUT/i,
+    verifyImageSwap: true,
+  }],
+  ["new-phlan-council-entry", {
+    slot: "A", inputs: [...Array(8).fill("enter"), "right", "right", "up", "up", "up",
+      "enter", "up", "up", "up", "up", "left", "up", "up"],
+    portrait: "portrait:HEAD3.DAX:24:BODY3.DAX:32", prompt: /THECOUNCILCLERKBEGINS/i,
+    verifyImageSwap: true,
   }],
   ["new-phlan-rolf-tour", {
     slot: "A", inputs: [],
@@ -2468,7 +2475,31 @@ try {
       assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
       await advance("j");
     }
-    for (const key of inputs) await advance(key);
+    if (illustration.verifyImageSwap) {
+      for (const key of inputs.slice(0, -1)) await advance(key);
+      const prior = "data:image/png;base64," + frame.enhancedFrame;
+      await waitFor("the previous frame", () => run(`document.querySelector("#screen").src === ${JSON.stringify(prior)}`));
+      await run(`(() => {
+        const decode = HTMLImageElement.prototype.decode;
+        HTMLImageElement.prototype.decode = function () {
+          if (this.getAttribute("src") !== ${JSON.stringify("/art/" + portrait)}) return decode.call(this);
+          return new Promise(resolve => {
+            window.releasePortrait = () => {
+              HTMLImageElement.prototype.decode = decode;
+              resolve(decode.call(this));
+            };
+          });
+        };
+      })()`);
+      await advance(inputs.at(-1));
+      await waitFor("the portrait decode to be pending", () => run('Boolean(window.releasePortrait)'));
+      assert.equal(await run('document.querySelector("#screen").src'), prior,
+        "The previous frame should stay visible while the portrait loads");
+      assert.equal(await run('Boolean(document.querySelector(".encounter-portrait"))'), false);
+      await run('window.releasePortrait()');
+    } else {
+      for (const key of inputs) await advance(key);
+    }
     assert.equal(frame.portrait, portrait);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), prompt);
     await waitFor("the enhanced dialogue illustration", () => run(`(() => {
