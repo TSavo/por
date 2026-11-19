@@ -1373,6 +1373,12 @@ the falling-snake ambush and boar charge at their original prompts.
 views and 1,936 placements, including three redrawn ceiling tiles.
 `new-phlan-covered-market` checks six redrawn cap and doorway
 transitions across 15 live views and 1,815 placements.
+`new-phlan-market-stalls` checks nine additional tile mappings,
+including two redrawn stall tiles, across 27 views and 3,267 placements.
+`textile-wight-combat` checks the Wight's ready and animated strike
+poses from a controlled wandering encounter checkpoint.
+`textile-ghoul-combat` checks the Ghoul's ready and strike poses
+from the same checkpoint.
 `bane-ogre-combat` checks the ogre's 96×192 ready and animated strike
 poses from a checkpoint with increased party HP to reach the strike.
 `lizardfolk-east-ruins` checks five redrawn tiles across 16 live views

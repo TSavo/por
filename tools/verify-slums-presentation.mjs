@@ -273,6 +273,18 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["textile-ghoul-combat", {
+    slot: "B", stand: "combat:area:2:CPIC4.DAX:72", strike: "combat:area:2:CPIC4.DAX:200",
+    readyPrompt: /GHOULHITPOINTS10/i,
+    width: 96, height: 96, inputs: ["s", "up", "up", "down", "up", "down", "enter", "enter"],
+    strikeInputs: [...Array(8).fill("enter"), ...Array(15).fill("q")],
+  }],
+  ["textile-wight-combat", {
+    slot: "B", stand: "combat:area:2:CPIC4.DAX:20", strike: "combat:area:2:CPIC4.DAX:148",
+    readyPrompt: /WIGHTHITPOINTS23/i,
+    width: 96, height: 96, inputs: ["s", "up", "up", "down", "up", "down", ...Array(6).fill("enter")],
+    strikeInputs: [...Array(4).fill("enter"), ...Array(14).fill("q")],
+  }],
   ["bane-orc-leader-combat", {
     slot: "A", stand: "combat:area:31:CPIC1.DAX:5", strike: "combat:area:31:CPIC1.DAX:133",
     width: 96, height: 96, inputs: ["up", ...Array(8).fill("enter"), ...Array(4).fill("q")],
@@ -509,6 +521,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["new-phlan-market-stalls", {
+    slot: "A", area: 8, views: 27, patterns: 85, sceneryOnly: true,
+    walk: ["up", "left", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up"],
+  }],
   ["new-phlan-covered-market", {
     slot: "A", area: 8, views: 15, patterns: 59, sceneryOnly: true,
     walk: ["up", "left", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up"],
@@ -1342,7 +1358,7 @@ try {
     await switchBothWays();
     console.log("Verified both wall tiles across four live giant-lizard combat turns.");
   } else if (combatPose) {
-    const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, journalLead, excluded } = combatPose;
+    const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, journalLead, excluded, readyPrompt } = combatPose;
     function verifyCombatScope() {
       if (!excluded) return;
       for (const view of [frame, ...(frame.animation ?? [])]) {
@@ -1372,7 +1388,8 @@ try {
       await advance(key);
       verifyCombatScope();
     }
-    assert.ok(frame.combatArt?.some(([, , id, , selected]) => id === stand && selected),
+    if (readyPrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), readyPrompt);
+    assert.ok(frame.combatArt?.some(([, , id, , selected]) => id === stand && (selected || readyPrompt !== undefined)),
       `Expected selected ${stand}. Combat placements: ${JSON.stringify(frame.combatArt)}. ` +
       `Guest text: ${frame.text.map(([, character]) => String.fromCharCode(character)).join("")}`);
     await waitFor("the selected combat sprite", () => run(`state.sequence === ${frame.sequence} &&
