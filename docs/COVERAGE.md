@@ -2715,6 +2715,11 @@ short-sword strike in the original caravan battle.
 `buccaneer-palisade-day` and `buccaneer-palisade-night` verify the
 wood-and-horizon junction in both lighting conditions, with 2,541
 enhanced tile placements across 21 views.
+`nomad-east-rail` verifies two rail and soil junction tiles across 11 views.
+`valjevo-bane-chaplain-approach` checks three approach distances before the
+chaplain's portrait. `valhingen-mummy-approach` checks the middle and near
+poses before the sarcophagi illustration. `zhentil-trespass-patrol-combat`
+checks the ready pose and reflected strike in the overland patrol battle.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.

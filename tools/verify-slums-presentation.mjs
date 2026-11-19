@@ -131,6 +131,25 @@ const encounterRoutes = new Map([
     slot: "A", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:31:SPRIT1.DAX:4:0:0", 40, 80],
   }],
+  ["valjevo-bane-chaplain-approach", {
+    slot: "B", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:6:SPRIT5.DAX:29:0:0", 40, 80],
+    approachSequence: [
+      [56, 32, "encounter:area:6:SPRIT5.DAX:29:2:0", 16, 49],
+      [56, 32, "encounter:area:6:SPRIT5.DAX:29:1:0", 24, 65],
+      [48, 32, "encounter:area:6:SPRIT5.DAX:29:0:0", 40, 80],
+    ],
+    dialogue: { key: "enter", portrait: "portrait:HEAD5.DAX:14:BODY5.DAX:7", prompt: /BANE/i },
+  }],
+  ["valhingen-mummy-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:10:SPRIT4.DAX:114:0:0", 40, 80],
+    approachSequence: [
+      [56, 32, "encounter:area:10:SPRIT4.DAX:114:1:0", 24, 65],
+      [48, 32, "encounter:area:10:SPRIT4.DAX:114:0:0", 40, 80],
+    ],
+    dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:114:0:0", prompt: /MUMMIESOPENTHEIRSARCOPH/i },
+  }],
   ["kuto-norris-approach", {
     slot: "J", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:29:SPRIT8.DAX:16:0:0", 40, 80],
@@ -927,6 +946,11 @@ const combatPoseRoutes = new Map([
     width: 96, height: 96, readyPrompt: /MERCHANT.*SHORTSWORD/i, strikeReflected: false,
     inputs: [...Array.from({ length: 16 }, () => ["up", "down"]).flat(), "up", "c", "enter", "enter", ...Array(21).fill("q")],
   }],
+  ["zhentil-trespass-patrol-combat", {
+    slot: "A", stand: "combat:area:25:CPIC6.DAX:11:ecl:a06b", strike: "combat:area:25:CPIC6.DAX:139:ecl:a06b",
+    width: 96, height: 96, readyPrompt: /CORPORAL/i, strikeReflected: true,
+    inputs: ["down", "enter", "s", "enter"], strikeInputs: ["enter", ...Array(46).fill("q")],
+  }],
   ["nomad-warrior-combat", {
     slot: "A", stand: "combat:area:17:CPIC7.DAX:12", strike: "combat:area:17:CPIC7.DAX:140",
     width: 96, height: 96, strikeReflected: true,
@@ -1524,6 +1548,10 @@ const environmentRoutes = new Map([
   ["stojanow-barracks-side", {
     slot: "A", area: 9, views: 10, patterns: 29, sceneryOnly: true,
     walk: ["right", "up", "up", "left", "up", "left", "up", "right", "up"],
+  }],
+  ["nomad-east-rail", {
+    slot: "A", area: 17, views: 11, patterns: 57, sceneryOnly: true,
+    walk: ["up", "right", "up", "up", "left", "up", "left", "up", "right", "up"],
   }],
   ["stojanow-coping-reveal", {
     slot: "A", area: 9, views: 16, patterns: 59, sceneryOnly: true,
