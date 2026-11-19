@@ -2747,6 +2747,10 @@ and floor-to-timber joins across eight live views. The Valjevo hall and
 merchant wing use fired-clay octagons with ochre insets on the floor,
 vertical timber on the walls, and gray masonry on the ceiling. The
 floor update covers 14 tile bindings checked across both Chrome routes.
+The Temple of Bane side galleries and eastern outer courts use angled
+olive-slate paving beneath the gray masonry. Four Chrome walks checked
+the 12 revised tile bindings across 43 views, including the arches and
+wall-to-floor joins, with state and saves preserved when switching modes.
 
 `nomad-camp-rim` checks all three enhanced sentry distances in order
 before the swords-ready prompt. `buccaneer-captain-dialogue` checks the
