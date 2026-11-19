@@ -364,6 +364,10 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:PIC|SPRIT|CPIC)\d+\
     }
     return { file, frames, matched };
   }).filter(({ frames }) => frames > 0);
+const encounterTotals = encounterCoverage.reduce((total, row) => ({
+  frames: total.frames + row.frames,
+  matched: total.matched + row.matched,
+}), { frames: 0, matched: 0 });
 writeFileSync(join(output, "index.html"), `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pool of Radiance art inventory</title><style>
 body{font:16px system-ui;background:#181715;color:#f3e9d6;margin:2rem auto;padding:0 1rem;max-width:1200px}
@@ -390,7 +394,7 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
   return `<tr><th scope="row">${area}</th><td>${captured}</td><td>${matched}</td><td>${gap}</td></tr>`;
 }).join("")}
 </tbody></table></details>` : ""}
-<details><summary>Encounter artwork coverage by archive</summary>
+<details><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} of ${encounterTotals.frames} original frames replaced · ${encounterTotals.frames - encounterTotals.matched} remaining</summary>
 <p>Counts compare original picture and sprite frames with loaded replacements. An area-specific replacement counts once for the source frame. Composite portraits are listed under Runtime artwork.</p>
 <table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>With replacements</th><th>Unmatched</th></tr></thead><tbody>
 ${encounterCoverage.map(({ file, frames, matched }) =>
@@ -458,7 +462,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, missingTiles, explorationCoverage, encounterCoverage, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, missingTiles, explorationCoverage, encounterCoverage, encounterTotals, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
