@@ -697,6 +697,13 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["kobold-cave-first-horde-combat", {
+    slot: "A", stand: "combat:area:13:CPIC2.DAX:0:ecl:a14b", strike: "combat:area:13:CPIC2.DAX:128:ecl:a14b",
+    width: 96, height: 96, readyPrompt: /KOBOLDHITPOINTS3AC7/i, strikeReflected: false,
+    strikeReport: /KOBOLDATTACKSBRINHITTINGFOR3POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(5).fill("enter")],
+    strikeInputs: ["enter", "enter", ...Array(5).fill("q")],
+  }],
   ["yarash-pump-prisoner-combat", {
     slot: "A", stand: "combat:area:23:CPIC7.DAX:57:ecl:ab35", strike: "combat:area:23:CPIC7.DAX:185:ecl:ab35",
     width: 96, height: 96, readyPrompt: /LIZARDMANHITPOINTS11AC4/i, strikeReflected: true,

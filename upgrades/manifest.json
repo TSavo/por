@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:13:CPIC2.DAX:0:ecl:a14b": "kobold-cave-horde-infantry-ready.png",
+    "combat:area:13:CPIC2.DAX:128:ecl:a14b": "kobold-cave-horde-infantry-strike.png",
     "encounter:area:22:ecl:a2f9:SPRIT7.DAX:68:0:0": "tyrmor-prison-displacer-approach.png",
     "portrait:area:22:ecl:a2f9:PIC7.DAX:68:0:0": "tyrmor-prison-displacer-dialogue.png",
     "tile:20:73f6e7f279141546a9e3ce407ed1f7b44359863cba76f14459bb4147e068ef87": "slums-worn-courtyard-73f6e7f27914.png",

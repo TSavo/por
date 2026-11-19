@@ -2855,6 +2855,9 @@ The hungry kobolds have their own approach and group illustration,
 also checked through Parlay on the isolated encounter checkpoint.
 The isolated displacer beast encounter checks its approach pose and
 corridor illustration before the original Parlay prompt.
+The Kobold King's first horde has its own 4× infantry ready and strike
+sprites. Chrome checks the strike during the original report of Brin
+taking damage from a controlled throne checkpoint.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.
