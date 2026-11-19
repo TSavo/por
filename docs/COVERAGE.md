@@ -1827,8 +1827,10 @@ timber and window tiles in the audience hall. It then checks
 the 352×352 dialogue portrait and 192×192 combat sprite, including the sprite's
 position, facing, and four-cell selection. The test toggles classic and
 enhanced in both scenes and checks the guest frame and save stay the same.
-The same replay now checks the 192×192 bite at its position in the live
-combat animation. With `POR_TRACE_BATTLE_TILES=1`, it captured 22 frames.
+The same replay checks the 192×192 bite at its position in the live
+combat animation and confirms that the enhanced combat panel shows the hit
+and then the fire damage as separate reports. With
+`POR_TRACE_BATTLE_TILES=1`, it captured 22 frames.
 With `POR_WRITE_ENVIRONMENT_TRACE=1`, it exports all eight approach views
 for the art inventory, including the positions of the six new hall tiles.
 

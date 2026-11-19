@@ -4557,6 +4557,11 @@ try {
       })()`));
       await switchBothWays();
       const bite = "combat:area:7:CPIC5.DAX:194";
+      await run(`window.dragonReports = [];
+        const panel = document.querySelector("#game-text");
+        new MutationObserver(() => {
+          if (animationFrame && !panel.hidden) window.dragonReports.push(panel.textContent);
+        }).observe(panel, { childList: true });`);
       const bitePlacement = () => frame.animation?.flatMap(shot => shot.combatArt ?? []).find(([, , id]) => id === bite);
       for (let turn = 0; turn < 32 && !bitePlacement(); turn++) await advance("q");
       const strike = bitePlacement();
@@ -4567,7 +4572,11 @@ try {
           image.getAttribute("src") === ${JSON.stringify("/art/" + bite)} && image.naturalWidth === 192 && image.naturalHeight === 192 &&
           parseFloat(image.style.left) === ${strike[0] / 3.2} && parseFloat(image.style.top) === ${strike[1] / 2})`));
       assert.deepEqual(readFileSync(saved), originalSave);
-      console.log("Verified the castle dragon in dialogue, selected combat, and the original bite animation.");
+      await waitFor("the dragon's attack and fire damage in the combat panel", () => run(`
+        window.dragonReports.some((text, index, reports) =>
+          /TYRANITHRAXUSAttacksBAKSHIHittingfor[0-9]+points?ofdamage/i.test(text) &&
+          reports.slice(index + 1).some(report => /BAKSHItakes[0-9]+points?ofdamagefromFire/i.test(report)))`));
+      console.log("Verified the castle dragon portrait, combat placement, bite animation, and attack and fire damage reports.");
     }
   } else if (ending) {
     await advance("j");
