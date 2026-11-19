@@ -3012,9 +3012,20 @@ try {
       const combat = await command("Page.captureScreenshot", { format: "png" });
       const combatScreenshot = resolve(directory, "nomad-raid-combat.png");
       writeFileSync(combatScreenshot, Buffer.from(combat.data, "base64"));
+      const strike = "combat:area:17:CPIC2.DAX:128:ecl:afa3";
+      for (const key of ["q", "enter", "enter"]) await advance(key);
+      const strikeFrame = frame.animation?.find(shot => shot.combatArt.some(([, , id]) => id === strike));
+      assert.ok(strikeFrame, "Expected the guest to draw the kobold's strike");
+      assert.ok(strikeFrame.combatArt.some(([x, y, id]) => x === 80 && y === 80 && id === strike));
+      await waitFor("the enhanced strike at the guest's combat anchor", () => run(`state.sequence === ${frame.sequence} &&
+        [...document.querySelectorAll('.combat-sprite[src="/art/${strike}"]')].some(img =>
+          img.naturalWidth === 96 && img.naturalHeight === 96 && img.style.left === "25%" && img.style.top === "40%")`));
+      await waitFor("the strike animation to finish", () => run(`state.sequence === ${frame.sequence} &&
+        animationFrame === undefined && !document.querySelector('.combat-sprite[src="/art/${strike}"]')`));
       console.log("Verified the enhanced Nomad Camp raid approach and journal in Chrome:", screenshot);
       console.log("Enhanced Nomad raiders at the wall:", enemyScreenshot);
       console.log("Enhanced opening raid battlefield:", combatScreenshot);
+      console.log("Verified the enhanced kobold strike at (80,80) and its return to the live combat frame.");
     } else {
       await advance("e");
       assert.match(visibleText(), /08:29.*AREACASTVIEWENCAMP/i);

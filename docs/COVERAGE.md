@@ -1173,8 +1173,9 @@ The preceding enemy view uses the Nomad raid's own 96×96 kobold poses,
 selected by the original combat script position. Chrome verifies the
 standing pose and six enhanced wall tiles underneath it. The renderer reads
 the terrain from the native offscreen surface before the actor draws and
-checks the visible pixels before restoring the covered wall. The live strike
-still needs coverage.
+checks the visible pixels before restoring the covered wall. The replay
+advances Alda's Quick turn and verifies the distinct 96×96 kobold strike at
+(80,80) in Chrome, then checks that the animation clears from the live view.
 The `kuto-well-approach` replay uses slot J saved after the original cross-
 district transition. Chrome verifies 1,936 placements across 16 views on
 the walk to the well, using 89 distinct 32×32 tiles. The final view checks
