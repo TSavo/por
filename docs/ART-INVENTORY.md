@@ -26,6 +26,9 @@ and areas. Use the captured area-scoped ID to assign an in-game replacement.
 Open **Exploration coverage by area** to see the distinct captured patterns,
 loaded replacements, and remaining gaps. These counts reflect the supplied
 traces. Areas and viewpoints outside those traces still need live coverage.
+The report skips cleared all-black views between scenes. When auditing older
+traces, review encounter frames for actors drawn over the terrain before
+using their unmatched patterns as a redraw checklist.
 
 | Category | Archives | Blocks | Preview sheets | Frames or glyphs |
 | --- | ---: | ---: | ---: | ---: |

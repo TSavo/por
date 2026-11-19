@@ -169,7 +169,10 @@ for (const path of tracePaths) {
     ? raw.split(/\r?\n/).map((line) => JSON.parse(line))
     : JSON.parse(raw);
   for (const [frame, record] of frames.entries()) {
-    for (const [x, y, id, hex] of Array.isArray(record) ? record : record.cells ?? []) {
+    const cells = Array.isArray(record) ? record : record.cells ?? [];
+    // A cleared 11×11 view between scenes has no terrain to replace.
+    if (cells.length === 121 && cells.every(([, , id, hex]) => id.startsWith("tile:") && hex === "00".repeat(64))) continue;
+    for (const [x, y, id, hex] of cells) {
       if (!Number.isInteger(x) || !Number.isInteger(y) || !hex ||
           !/^(?:0[0-9a-f]){64}$/.test(hex) || capturedTiles.has(id)) continue;
       const hash = /^(?:tile:\d+:|battle-tile:)([a-f0-9]{64})$/.exec(id)?.[1];

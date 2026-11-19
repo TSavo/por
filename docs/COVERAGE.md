@@ -1253,6 +1253,10 @@ new 32×32 rubble-gallery tiles across 19 views and 2,299 placements. The
 local inventory uses terrain-only copies of two older traces, omitting
 the frames with fighters and spectres composited over the scenery. All
 118 distinct area 20 terrain patterns in the audited traces now resolve.
+The Sokal Keep area 21 audit reviewed four legacy terrain frames with
+visible skeletons and one cleared view between scenes. With those frames
+excluded from the terrain checklist, all 85 captured terrain patterns in
+the remaining area 21 views have replacements.
 
 `graveyard-northeast-west` and `graveyard-northeast-east` verify 14 new
 Valhingen tiles with 1,694 placements across 14 views. The terrain audit
