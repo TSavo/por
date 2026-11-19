@@ -3447,10 +3447,25 @@ try {
     assert.equal(frame.overlandMap, true);
     assert.deepEqual([frame.travel.x, frame.travel.y, frame.travel.sector], [27, 8, 1]);
     await command("Emulation.setDeviceMetricsOverride", { width: 1200, height: 900, deviceScaleFactor: 1, mobile: false });
+    const landmark = 'document.querySelector("[data-destination=lizardmen]")';
     await waitFor("the illustrated Moonsea map", () => run(`
       !document.querySelector("#travel-map").hidden && !document.querySelector("#map-toggle").disabled`));
+    await run(`(() => {
+      const marker = ${landmark};
+      marker.focus();
+      marker.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true }));
+      if (!activeTravel) throw new Error("Enter did not start Moonsea travel");
+      window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", cancelable: true }));
+      if (activeTravel) throw new Error("Escape did not cancel Moonsea travel");
+    })()`);
+    const stopped = await waitFor("the in-flight step after Escape", async () => {
+      const current = await latest();
+      return current.ready && current.sequence === frame.sequence + 1 && current;
+    });
+    assert.deepEqual([stopped.travel.x, stopped.travel.y, stopped.travel.sector], [27, 9, 1]);
+    await waitFor("map controls returning after cancellation", () => run(`state.sequence === ${stopped.sequence} &&
+      !activeTravel && !document.querySelector("#map-toggle").disabled`));
     await run('document.querySelector("#map-toggle").click()');
-    const landmark = 'document.querySelector("[data-destination=lizardmen]")';
     const point = await waitFor("the expanded Lizardman Keep landmark", () => run(`(() => {
       const marker = ${landmark};
       if (!document.querySelector("#travel-map").classList.contains("expanded") ||
@@ -3477,7 +3492,7 @@ try {
     assert.ok(frame.exploration && !frame.overlandMap);
     await waitForExplorationViewport();
     await switchBothWays();
-    console.log("Verified illustrated Moonsea click-to-travel, the drawbridge stop, and the return to WebGL.");
+    console.log("Verified Moonsea keyboard travel, Escape cancellation, click-to-travel, and the return to WebGL.");
   } else if (atlasRoute) {
     const { areas, mapId, file } = atlasRoute;
     assert.ok(areas.includes(frame.exploration?.area));
