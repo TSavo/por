@@ -1900,7 +1900,9 @@ Use `--auction-only` with `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` and the
 default budget to verify the westbound trip, witnessed exchange, council
 reward, and next commission. The replay verifies that the exchange is
 hidden before it happens, appears in the report directions, and is still
-in the journal after collecting the reward and reloading.
+in the journal after collecting the reward and reloading. It also checks
+the tracked objective at the ferry menu and at the plaza entrance, where
+the journal first records the options to disguise the party or sneak in.
 After the auction turn-in, the replay takes the east door to Cadorna,
 hears where his family's treasure was hidden, and reloads with the
 Textile House commission accepted. The party takes the westbound

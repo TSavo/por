@@ -357,8 +357,12 @@ async function verifyPodalFromCouncil(continuation) {
     assert.ok(frame.journal.leads.some(({ id }) => id === "auction-exchange"));
     assert.match(frame.journal.objective.nextStep, /exchanged the wand for a large bag.*council clerk/i);
   };
-  const sailWest = (payerSelection = []) => [
+  const sailWest = (payerSelection = [], verifyAuction = true) => [
     (text) => assert.match(text, /sokal east west bay none/),
+    ...(verifyAuction ? ["j", (_text, frame) => {
+      assert.match(frame.journal.objective.nextStep, /choose west.*ferry menu/i);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-plaza-entry"));
+    }, "j"] : []),
     "w", ...payerSelection, "enter", "enter", "right", ...Array(4).fill("up"), "enter", "enter", "enter", "s",
     (text) => assert.match(text, /20,29 e/),
     "enter", "enter", "up", ...Array(4).fill("right"), "enter",
@@ -383,6 +387,11 @@ async function verifyPodalFromCouncil(continuation) {
     "right", "right", "up", ...westboundToGate,
     "n", "enter", "enter",
     (text) => assert.match(text, /the plaza ahead is crowded with monsters.*disguise/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "auction-plaza-entry"));
+      assert.match(frame.journal.objective.nextStep, /disguise the party or sneak/i);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-exchange"));
+    }, "j",
     "end", "enter", "enter", "enter", "e", "s", "s", "i",
   ]);
   assert.match(visibleText(arrival), /0,4 w.*quit to dos/);
@@ -519,7 +528,7 @@ async function verifyPodalFromCouncil(continuation) {
   const reinforced = await replay(load("2e63"), "85000000", [
     "right", "right", "up", "up", "left", "up", "enter", "enter", "enter", "n",
     "right", "up", "enter", "enter", "right", "up", "up", "left", "up", "left", "up", "enter", "enter",
-    ...sailWest(Array(7).fill("home")),
+    ...sailWest(Array(7).fill("home"), false),
     "s", ...Array(4).fill("enter"), "e", "s", "s", "f",
   ]);
   assert.match(visibleText(reinforced), /theurgist 8 13.*curate 3 26.*0,4 w.*quit to dos/);
