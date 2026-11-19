@@ -2758,6 +2758,10 @@ Chrome walk checks 30 revised tiles across 16 views.
 The ivy lane, library link, and fountain turn carry the same earth
 through 26 additional wall and threshold joins. Their Chrome walks
 verified all 2,662 placements across 22 views.
+The Textile waterfront and approach extend the damp-earth floor through
+18 more joins. Four waterfront Chrome routes checked 74 views. The
+approach scenery was checked through the last view before the hobgoblin
+appears.
 `wilderness-waystone` checks 80 patterns across ten views, including
 77 new foliage and palisade tiles. The route uses the existing area 26
 ground, which it shares with the north gate.
