@@ -2793,6 +2793,9 @@ Five adjoining Buccaneer walks check 21 more packed-sand joins across
 78 views and 9,438 placements.
 The quay adds five more packed-sand transitions, checked across 18
 Chrome views and 2,178 placements.
+Sokal Keep's gallery and smithy now use broad worn flagstones.
+The two walks check 11 revised tiles across 31 views. A west-reeds
+walk checks the matching edge tile through 16 more views.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
@@ -2886,6 +2889,8 @@ The Tyrmor elf replay checks the brief approach animation before the
 group portrait and native Parlay prompt.
 The Tyrmor dwarven fighters also have their own approach sprite and
 group portrait, checked in Chrome before Parlay.
+The Tyrmor thieves replay checks their brief approach animation
+and group portrait through the original Parlay prompt.
 The Kobold King's first horde has its own 4× infantry ready and strike
 sprites. Chrome checks the strike during the original report of Brin
 taking damage from a controlled throne checkpoint.
