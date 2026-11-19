@@ -42,6 +42,7 @@ export function isPartyFile(name: string, slot?: string): boolean {
   return letter !== undefined && (slot === undefined || letter === slot);
 }
 const canonicalName = (name: string) => name.replaceAll("/", "\\").toUpperCase();
+const savePath = (name: string) => name.startsWith("SAVE\\") ? name : `SAVE\\${name}`;
 
 export function openSaveSlots(directory: string) {
   const slots = new Map<string, Slot>();
@@ -57,7 +58,7 @@ export function openSaveSlots(directory: string) {
       throw new Error(`Invalid Pool of Radiance save slot ${letter}`);
     }
     slots.set(letter, slot);
-    files.push({ name: slot.name, data: Buffer.from(slot.data, "base64") });
+    files.push({ name: savePath(slot.name), data: Buffer.from(slot.data, "base64") });
   }
   const roster = new Map<string, string | null>();
   const savedRoster = readRecord(directory, "roster");
@@ -88,13 +89,12 @@ export function openSaveSlots(directory: string) {
       roster.set(name, data);
     },
     get(name: string) {
-      const slot = slots.get(saveSlotLetter(name) ?? "");
-      return slot?.name === name ? slot : undefined;
+      return slots.get(saveSlotLetter(name) ?? "");
     },
     partyFiles(name: string): DosFile[] | undefined {
       const slot = slots.get(saveSlotLetter(name) ?? "");
-      if (slot?.name !== name || slot.party === undefined) return;
-      return Object.entries(slot.party).map(([filename, data]) => ({ name: filename, data: Buffer.from(data, "base64") }));
+      if (!slot?.party) return;
+      return Object.entries(slot.party).map(([filename, data]) => ({ name: savePath(filename), data: Buffer.from(data, "base64") }));
     },
     save(name: string, data: Uint8Array, leads: JournalLead[], tracked: string | undefined, party: DosFile[]) {
       const letter = saveSlotLetter(name);

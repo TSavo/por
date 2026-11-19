@@ -2401,6 +2401,9 @@ try {
     assert.ok(frame.journal?.objective.nextStep);
     await waitFor("the journal from the Encamp menu", () => run(`state.sequence === ${frame.sequence} &&
       !document.querySelector("#journal").hidden`));
+    for (const { id } of JSON.parse(originalSave).leads) {
+      assert.ok(frame.journal.leads.some(lead => lead.id === id), `Expected saved journal lead ${id}`);
+    }
     await advance("j");
     assert.equal(frame.journal, undefined);
     assert.match(campMenu(frame), /SAVEVIEWMAGICRESTALTEREXITJOURNAL/i);
