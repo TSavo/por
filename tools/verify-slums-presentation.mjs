@@ -972,6 +972,14 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["stojanow-tower-lanes-upper", {
+    slot: "A", area: 9, views: 13, patterns: 51, sceneryOnly: true,
+    walk: ["right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up"],
+  }],
+  ["stojanow-tower-lanes-tower", {
+    slot: "A", area: 9, views: 10, patterns: 21, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up"],
+  }],
   ["stojanow-tower-warning", {
     slot: "A", area: 9, views: 15, patterns: 47, sceneryOnly: true,
     walk: ["up", "up", "right", "up", "b", "up", "up", "enter", "enter", "up", "up", "up", "up", "left", "up", "up"],

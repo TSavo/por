@@ -1,6 +1,13 @@
 {
   "version": 1,
   "assets": {
+    "tile:9:2b189e32fb8cf14bccc4e230acdc7e87885e4ba1d93051e2861319877487c307": "stojanow-tower-lanes-terrain-2b189e32fb8c.png",
+    "tile:9:fd5111f010b1eb27874d7173f3f881527f0a97a68535e574937a39274ae5fb87": "stojanow-tower-lanes-terrain-fd5111f010b1.png",
+    "tile:9:33b51e82f012e7d91b96894cd582495df912d95b36989e787ee5f7885e92d5b7": "stojanow-tower-lanes-terrain-33b51e82f012.png",
+    "tile:9:80365aff0ddcf91182a971781062979ea6fb274bdd0be01e236be5c240ec701b": "stojanow-tower-lanes-terrain-80365aff0ddc.png",
+    "tile:9:8a69c0e8564e565884435ba1a08a6f282775d00ecb8af439bb001edeb3831ec2": "stojanow-tower-lanes-terrain-8a69c0e8564e.png",
+    "tile:9:7abe418f0257c620e0e3c25ad46827bdbfbb5d8c9e989dc38b427ac1d94582b1": "stojanow-tower-lanes-terrain-7abe418f0257.png",
+    "tile:9:2e8e1a6434ab7d9394e67d91aae936dfb24a4968c0b8dc729943b4fde921a820": "stojanow-tower-lanes-terrain-2e8e1a6434ab.png",
     "combat:area:2:CPIC2.DAX:6:ecl:a900": "textile-hobgoblin-line-stand.png",
     "combat:area:2:CPIC2.DAX:134:ecl:a900": "textile-hobgoblin-line-strike.png",
     "tile:9:a1b8baf4059c3a18ecd999f94f44fbba3630c87a33820ec33a092d52785d83bd": "stojanow-tower-warning-terrain-a1b8baf4059c.png",
