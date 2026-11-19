@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { appendFileSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
 import { join } from "node:path";
@@ -59,6 +59,8 @@ const gameFont = (() => {
   }
 })();
 const artwork = loadUpgradeArt();
+let tileTrace = process.env.POR_TILE_TRACE_FILE;
+let lastTileTrace: string | undefined;
 const encounters = Object.fromEntries([...artwork].flatMap(([id, { encounter }]) =>
   encounter ? [[id, encounter]] : []));
 const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
@@ -67,6 +69,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
     POR_BROWSER_PLAY: "1",
     POR_BATTLE_TILE_KEYS: [...artwork.keys()].filter((key) => key.startsWith("battle-tile:")).join(","),
     POR_TILE_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("tile:")).join(","),
+    POR_TRACE_TILES: tileTrace ? "1" : process.env.POR_TRACE_TILES,
     POR_COMBAT_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("combat:")).join(","),
     POR_PORTRAIT_ART_KEYS: [...artwork.keys()].filter((key) => portraitKey.test(key)).join(","),
     POR_ENCOUNTER_ART: JSON.stringify(encounters),
@@ -113,6 +116,18 @@ const narrations: Array<{ id: number; step: number; unitId: string; variantId?: 
 createInterface({ input: runner.stdout }).on("line", (line) => {
   if (line.startsWith("POR_FRAME ")) {
     frame = JSON.parse(line.slice("POR_FRAME ".length)) as FrameState;
+    if (tileTrace && frame.tileInventory?.length) {
+      const trace = JSON.stringify(frame.tileInventory);
+      if (trace !== lastTileTrace) {
+        try {
+          appendFileSync(tileTrace, trace + "\n");
+          lastTileTrace = trace;
+        } catch (error) {
+          console.error("Cannot write exploration tile trace", error);
+          tileTrace = undefined;
+        }
+      }
+    }
     sequence++;
     ready = true;
   } else if (line.startsWith("POR_NOTICE ")) {

@@ -20,6 +20,13 @@ the run. For example:
 node --import tsx tools/art-inventory.ts gamedata out/art-inventory PATH_TO_ENVIRONMENT_TILES_JSONL
 ```
 
+To capture a route during regular browser play, start the server with
+`POR_TILE_TRACE_FILE` set to a JSONL path in an existing local directory.
+Walk through the area, then pass that file to the inventory command above.
+The server appends the original tile IDs and positions from each changed
+exploration view, including tiles that lack replacements. Use a fresh trace
+file for each route and keep the captures outside version control.
+
 The captured gaps show coordinates, trace frame, and matching 8×8 atlas
 frames where available. Identical atlas pixels can occur in several banks
 and areas. Use the captured area-scoped ID to assign an in-game replacement.
