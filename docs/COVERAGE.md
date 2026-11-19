@@ -1153,11 +1153,23 @@ those entries. The mounted copies expose the original compressed records
 from archive 2, and the guest uses those records through its own DAX loader.
 The original dungeon transition also asks for wall set 25 by itself. Its
 780-byte table is the second half of wall record 24, with the original tile
-atlas at 242. The mounted archives expose both under 25 while keeping the
-combined record available. `valjevo-dungeon-save` crosses the lower-wing
+atlas at 242. The mounted archives expose both under 25 and account for the
+guest adding 70 to standalone slot 2 tile indices. Two shared references
+are swapped with other slot 1 indices in both the table and its atlas so
+they survive the guest's rebasing. The translation verifier compares all
+2,340 grouped and standalone wall-cell references against the supplied
+tiles. `valjevo-dungeon-save` crosses the lower-wing
 threshold from controlled slot B and saves in Encamp. `valjevo-dungeon-reload`
 compares all 121 native tile placements and pixels, party, and menu after
 cold loading. The transition frame uses the previous area's tile key prefix.
+
+`phlan-city-hall-interior` covers 80 new terrain tiles across 16 native views.
+`valjevo-elite-guard` checks the original standing and two-handed strike
+placements with two 96×96 replacement sprites. The controlled
+`valjevo-cadorna-captive` and `valjevo-cadorna-hedge` replays check the 352×352
+portrait, release dialogue, and that the journal only adds Cadorna's hedge
+directions on a branch where he says them. All four Chrome checks switch
+presentation while preserving the authoritative game frame and save.
 The `valjevo-south-gallery` replay starts from that native tower save.
 `valjevo-covered-gallery` and `valjevo-statue-approach` use copies with only
 the party's position and facing changed. Chrome checks 4,114 placements

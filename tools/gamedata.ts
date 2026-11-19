@@ -26,7 +26,19 @@ function literalRecord(id: number, data: Uint8Array) {
 export function mountValjevoWallPieces(files: readonly { name: string; data: Uint8Array }[]) {
   const archives = new Map(files.map(file => [file.name.toUpperCase(), file.data]));
   const walls = archives.get("WALLDEF5.DAX");
-  const groupedWalls = walls && parseDax("WALLDEF5.DAX", walls).entries.find(({ id, rawSize }) => id === 24 && rawSize === 1560);
+  const wallEntries = walls && parseDax("WALLDEF5.DAX", walls).entries;
+  const groupedWalls = wallEntries?.find(({ id, rawSize }) => id === 24 && rawSize === 1560);
+  const tiles = archives.get("8X8D5.DAX");
+  const valjevoAtlases = tiles && parseDax("8X8D5.DAX", tiles).entries;
+  const firstAtlas = valjevoAtlases?.find(({ id, rawSize }) => id === 241 && rawSize === 2257);
+  const secondAtlas = valjevoAtlases?.find(({ id, rawSize }) => id === 242 && rawSize === 2257);
+  // The guest adds 70 to every local wall index >= 45 when loading slot 2.
+  // Move the two cross-bank references in its unreachable 70–114 range
+  // into reachable positions in slot 1, keeping both sets' pixels intact.
+  const split = groupedWalls && firstAtlas && secondAtlas &&
+    !wallEntries?.some(({ id }) => id === 25) &&
+    !valjevoAtlases?.some(({ id }) => id === 25);
+  const renumber = new Map([[111, 50], [50, 111], [112, 51], [51, 112]]);
   return files.map(file => {
     const name = file.name.toUpperCase();
     if (name !== "WALLDEF5.DAX" && name !== "8X8D5.DAX") return file;
@@ -37,18 +49,25 @@ export function mountValjevoWallPieces(files: readonly { name: string; data: Uin
     const extra = donor ? parseDax(donorName, donor).entries
       .filter(({ id }) => (id === 2 || id === 4) && !has(id))
       .map(entry => storedRecord(entry, donor)) : [];
-    if (groupedWalls && !has(25)) {
-      // Block 24 loads two consecutive 780-byte wall sets. The scripts also
-      // request set 25 directly, which uses the second set and its atlas 242.
-      if (name === "WALLDEF5.DAX") extra.push(literalRecord(25, groupedWalls.data.subarray(780)));
-      else {
-        const atlas = existing.find(({ id }) => id === 242);
-        if (atlas) extra.push(storedRecord(atlas, file.data, 25));
+    const replacement = new Map<number, ReturnType<typeof literalRecord>>();
+    if (split && groupedWalls && firstAtlas && secondAtlas) {
+      if (name === "WALLDEF5.DAX") {
+        const remapped = groupedWalls.data.map(tile => renumber.get(tile) ?? tile);
+        replacement.set(24, literalRecord(24, remapped));
+        extra.push(literalRecord(25, remapped.subarray(780).map(tile => tile < 45 ? tile : (tile - 70) & 0xff)));
+      } else {
+        const remapped = firstAtlas.data.slice();
+        for (const [from, to] of renumber) {
+          const start = 17 + (from - 46) * 32;
+          remapped.set(firstAtlas.data.subarray(start, start + 32), 17 + (to - 46) * 32);
+        }
+        replacement.set(241, literalRecord(241, remapped));
+        extra.push(storedRecord(secondAtlas, file.data, 25));
       }
     }
     if (!extra.length) return file;
 
-    const records = [...existing.map(entry => storedRecord(entry, file.data)), ...extra];
+    const records = [...existing.map(entry => replacement.get(entry.id) ?? storedRecord(entry, file.data)), ...extra];
     const directorySize = records.length * 9;
     const data = new Uint8Array(2 + directorySize + records.reduce((size, { compressed }) => size + compressed.length, 0));
     const directory = new DataView(data.buffer);

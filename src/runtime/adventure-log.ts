@@ -288,6 +288,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (knows("castle-vote")) nextStep = "Choose Attack when each party member is asked to vote. Then defeat Tyranthraxus.";
       else if (knows("castle-audience")) nextStep = "Get past the guards in the audience hall and confront the bronze dragon.";
       else if (knows("castle-impostor")) nextStep = "Continue searching the castle for the real Tyranthraxus.";
+      else if (knows("castle-cadorna-hedge")) nextStep = "Follow Cadorna's directions through the hedge: left, right, right.";
       else if (knows("castle-disguise")) nextStep = "Use the clothes offered by the resistance to move through the castle and find Tyranthraxus.";
     }
     if (commission.id === "gate") {
@@ -876,6 +877,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       leads.push({ id: "castle-impostor-released", title: "The impostor fled",
         detail: "The party let the impostor go. He fled the throne room, leaving treasure behind." });
     }
+  }
+  if (text.includes("THE MAN IS PORPHYRYS CADORNA")) {
+    leads.push({ id: "castle-cadorna-captive", title: "Cadorna in the dungeon",
+      detail: "The party found Porphyrys Cadorna chained to a wall in Valjevo Castle." });
+  }
+  if (text.includes("I KNOW THE WAY THROUGH THE HEDGE") && text.includes("LEFT RIGHT RIGHT")) {
+    leads.push({ id: "castle-cadorna-hedge", title: "Directions through the hedge",
+      detail: "Cadorna said to take left, right, right through the hedge." });
+  }
+  if (text.includes("I JUST THOUGHT THAT THE POOL WAS HERE") && text.includes("TAKE ME WITH YOU")) {
+    leads.push({ id: "castle-cadorna-released", title: "Cadorna freed",
+      detail: "The party freed Cadorna. He said he thought the pool was here and asked to come with the party." });
   }
   if (text.includes("AN EVIL SPIRIT FROM AN UNHOLY POOL GUIDES YOUR ENEMIES")) {
     leads.push({ id: "phlan-seer-prophecy", title: "The Old Phlan seer's prophecy",

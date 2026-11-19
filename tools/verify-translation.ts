@@ -3,6 +3,7 @@
  * ovl07_0000 is the ECL operand fetch at the start of overlay slice 7.
  * sys5bb_16b5 is System.FillChar.
  */
+import { deepStrictEqual } from "node:assert";
 import { Cpu } from "../src/cpu/machine.js";
 import { ovl07_0000, ovl07_0c93 } from "../src/translated/ovl07.js";
 import "../src/translated/system5bb.js";
@@ -16,7 +17,36 @@ import { currentObjective, discoveredLeads, progressAddresses, questProgress, ty
 import { commissions } from "../src/runtime/commission-journal.js";
 import { parseDax } from "../src/lib/dax.js";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
-import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
+import { findGameRoot, listGameFiles, mountValjevoWallPieces, readGameFile } from "./gamedata.js";
+
+function checkValjevoWallMount(): void {
+  const root = findGameRoot();
+  if (!root) return;
+  const files = ["WALLDEF5.DAX", "8X8D5.DAX"].map(name => ({ name, data: readGameFile(root, name) }));
+  const [walls, atlas] = files.map(({ name, data }) => parseDax(name, data).entries);
+  const grouped = walls!.find(({ id, rawSize }) => id === 24 && rawSize === 1560);
+  if (!grouped || walls!.some(({ id }) => id === 25) || atlas!.some(({ id }) => id === 25)) return;
+  const [mountedWalls, mountedAtlas] = mountValjevoWallPieces(files)
+    .map(({ name, data }) => parseDax(name, data).entries);
+  const tilePixels = (index: number, entries: typeof atlas, secondId: number) => {
+    if (index < 46) return index;
+    const second = index >= 116;
+    const start = 17 + 32 * (index - (second ? 116 : 46));
+    return entries!.find(({ id }) => id === (second ? secondId : 241))!.data.slice(start, start + 32);
+  };
+  const mountedGroup = mountedWalls!.find(({ id }) => id === 24)!.data;
+  const standalone = mountedWalls!.find(({ id }) => id === 25)!.data;
+  for (const [offset, index] of grouped.data.entries()) {
+    const expected = tilePixels(index, atlas, 242);
+    deepStrictEqual(tilePixels(mountedGroup[offset]!, mountedAtlas, 242), expected, `Grouped wall cell ${offset}`);
+    if (offset >= 780) {
+      const local = standalone[offset - 780]!;
+      const rebased = local >= 45 ? (local + 70) & 0xff : local;
+      deepStrictEqual(tilePixels(rebased, mountedAtlas, 25), expected, `Standalone wall cell ${offset - 780}`);
+    }
+  }
+  console.log("verified Valjevo wall pixels for grouped and standalone loads");
+}
 
 function fresh(): Cpu {
   const m = new Cpu();
@@ -914,4 +944,5 @@ for (const [amount, divisor, quotient] of [[50552, 1000, 50], [200000, 1000, 200
 }
 console.log("verified Turbo Pascal long division used by training and coin conversion");
 checkCampaignJournal();
+checkValjevoWallMount();
 console.log("translation checks passed");
