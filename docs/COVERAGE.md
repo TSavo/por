@@ -3008,3 +3008,6 @@ Chrome replay verifies the three approach frames and the throne portrait.
 New Phlan's training, dueling, and canal rooms use 49 diagonal terracotta
 floor tiles. Four production Chrome routes cover 36 views, including the
 dueling interior transition, with state-preserving presentation switches.
+
+The Old Phlan thieves' guild ambush uses distinct ready and strike poses.
+The Chrome replay checks the longsword strike alongside its damage report.

@@ -778,6 +778,12 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["old-phlan-guild-ambusher-combat", {
+    slot: "A", stand: "combat:area:14:CPIC3.DAX:12:ecl:af62", strike: "combat:area:14:CPIC3.DAX:140:ecl:af62",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
+    strikeReport: /1STLVLTHIEFATTACKSALDAHITTINGFOR7POINTSOFDAMAGE/i,
+    inputs: ["up", "enter", "enter", "enter"], strikeInputs: ["enter", "enter"],
+  }],
   ["old-phlan-jail-thug-combat", {
     slot: "A", stand: "combat:area:14:CPIC3.DAX:12:ecl:b0d0", strike: "combat:area:14:CPIC3.DAX:140:ecl:b0d0",
     width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: true,
