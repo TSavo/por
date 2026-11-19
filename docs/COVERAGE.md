@@ -2464,7 +2464,10 @@ strike poses. `textile-ogre-war-chief-approach` checks the sprite at
 its original anchor on both dialogue pages.
 
 `new-phlan-tavern-spinner` and `new-phlan-tavern-brawl` check both new
-illustrations at their original prompts. The arena and harbor Watch mage
+illustrations at their original prompts. The brawl replay checks the
+portrait through the introductory prompts, then verifies the enhanced
+battlefield and five visible attack reports, including misses and damage.
+The arena and harbor Watch mage
 replays check the shared ready sprite. Neither replay observed a native
 mage strike. `stojanow-west-watch` and `buccaneer-stockade` check 12 new
 tiles across 19 views and 2,299 placements. All six replays verify

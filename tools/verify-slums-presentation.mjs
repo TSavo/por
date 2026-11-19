@@ -3316,6 +3316,36 @@ try {
     })()`));
     await switchBothWays();
     await verifyPortraitPanel();
+    if (routeName === "new-phlan-tavern-brawl") {
+      for (let page = 0; page < 2; page++) {
+        await advance("enter");
+        assert.equal(frame.portrait, portrait);
+        await verifyPortraitPanel();
+      }
+      await advance("enter");
+      assert.equal(frame.portrait, undefined);
+      assert.equal(frame.classicPortrait, false);
+      assert.equal(frame.perspective, false);
+      await waitFor("enhanced battlefield after the tavern portrait", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector(".combat-sprite") && !document.querySelector(".encounter-portrait")`));
+      await run(`(() => {
+        window.brawlReports = [];
+        const text = document.querySelector("#game-text");
+        new MutationObserver(() => {
+          if (text.hidden || !document.querySelector(".combat-sprite") || document.querySelector(".encounter-portrait")) return;
+          const report = text.textContent.replace(/\\s+/g, "");
+          if (/1STLVLTHIEFAttacks[A-Z]+(?:andMisses|Hittingfor)/i.test(report)) window.brawlReports.push(report);
+        }).observe(text, { childList: true });
+      })()`);
+      for (let turn = 0; turn < 5; turn++) {
+        const reportCount = await run("window.brawlReports.length");
+        await advance("space");
+        await waitFor("a visible tavern attack report", () => run(`window.brawlReports.length > ${reportCount}`));
+      }
+      const reports = (await run("window.brawlReports")).join("\n");
+      assert.match(reports, /Attacks[A-Z]+andMisses/i);
+      assert.match(reports, /Attacks[A-Z]+Hittingfor\d+points?ofdamage/i);
+    }
     if (routeName === "new-phlan-council-entry") {
       const sokal = () => frame.journal?.leads.find(({ id }) => id === "commission-sokal");
       await advance("j");
