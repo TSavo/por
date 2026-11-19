@@ -347,7 +347,9 @@ ogre leader still needs a live encounter replay.
 The giant mantis has 192×96 ready and strike PNGs from `CPIC6.DAX`
 blocks 74 and 202. The matcher check placed both native facings on a gray
 background and verified that it preserves the terrain behind transparent
-pixels. Live encounter verification is pending.
+pixels. The 192×96 phase spider replacements use `CPIC8.DAX` blocks
+116 and 244. They passed the same matcher and transparency checks. Both
+creatures still need live encounter verification.
 
 The composed icon also renders when the party member is selected.
 The matcher checks the full highlighted cell and restores its bright
