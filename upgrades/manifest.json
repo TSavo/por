@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:13:CPIC8.DAX:11:ecl:a2a4": "kobold-envoy-stand.png",
     "tile:0:bdc2846eeb75d16b7e334279cc32c448aae109f3c5fcdf2fb2cb9f1f1588ce52": "new-phlan-proclamation-walk-terrain-bdc2846eeb75.png",
     "tile:0:86ba657c5e38ad07f30066dd1c810ad2552c5383b57c9ddd71c56c2dd5302d1e": "new-phlan-proclamation-walk-terrain-86ba657c5e38.png",
     "tile:0:e72913a89f9d3daef62dc19e63acc5d329e89789dbe44e1e0e3099927e06f034": "new-phlan-proclamation-walk-terrain-e72913a89f9d.png",

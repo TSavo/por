@@ -224,7 +224,14 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["kobold-envoy-ready", {
+    slot: "A", stand: "combat:area:13:CPIC8.DAX:11:ecl:a2a4",
+    excluded: ["combat:area:13:CPIC8.DAX:11:ecl:a856", "combat:area:13:CPIC8.DAX:139:ecl:a856"],
+    width: 96, height: 96, strikeInputs: [],
+    inputs: ["up", ...Array(7).fill("enter"), ...Array(11).fill("q")],
+  }],
   ["kobold-fatima-combat", {
+    excluded: ["combat:area:13:CPIC8.DAX:11:ecl:a2a4"],
     slot: "B", stand: "combat:area:13:CPIC8.DAX:11:ecl:a856", strike: "combat:area:13:CPIC8.DAX:139:ecl:a856",
     width: 96, height: 96, strikeReflected: true,
     inputs: ["up", "enter", "enter", "enter", "a", "enter", "enter", "enter", ...Array(3).fill("q")],
