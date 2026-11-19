@@ -45,6 +45,7 @@ const encounterRoutes = new Map([
   ["slums-goblin-lesson-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:20:SPRIT2.DAX:2:0:0", 48, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:20:PIC2.DAX:2:0:0", prompt: /GOBLINISINSTRUCTINGAGROUPOFYOUNGWARRIORS/i },
   }],
   ["swamp-giant-lizard-approach", {
     slot: "A", inputs: ["up", "enter"],
@@ -59,6 +60,7 @@ const encounterRoutes = new Map([
   ["slums-hobgoblin-ringleader-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:20:SPRIT2.DAX:6:0:0", 48, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:20:PIC2.DAX:6:0:0", prompt: /SOMEHOBGOBLINSAREARGUINGOVERAPILEOFGOLD|YOUINTRUDEONAGATHERINGOFMONSTERLEADERS/i },
   }],
   ["sokal-courtyard-hobgoblin-approach", {
     slot: "C", inputs: ["up", "enter"],
@@ -499,6 +501,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-outer-patrol-giant", {
+    slot: "B", stand: "combat:area:3:CPIC5.DAX:55:ecl:9e98", strike: "combat:area:3:CPIC5.DAX:183:ecl:9e98",
+    width: 96, height: 192, strikeReflected: true,
+    inputs: ["s", "enter", "up", "enter", "enter", "up", "enter", "enter", "c", "enter", "enter", ...Array(15).fill("q")],
+  }],
   ["false-throne-impersonator-combat", {
     slot: "B", stand: "combat:area:5:CPIC5.DAX:11:ecl:abe2", strike: "combat:area:5:CPIC5.DAX:139:ecl:abe2",
     width: 96, height: 96, readyPrompt: /TYRANITHRAXUSHITPOINTS40/i, strikeReflected: true,
@@ -938,6 +945,10 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["mendor-ruin-doors", {
+    slot: "A", area: 20, views: 10, patterns: 33, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up"],
+  }],
   ["mendor-library-waterfront-east", {
     slot: "B", area: 2, views: 15, patterns: 54, sceneryOnly: true,
     transition: { afterViews: 3, area: 15 },
