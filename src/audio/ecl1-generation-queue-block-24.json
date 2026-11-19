@@ -1,0 +1,483 @@
+{
+  "schema": 1,
+  "model": "eleven_v4",
+  "sourceReview": "src/audio/ecl1-voice-review.json",
+  "items": [
+    {
+      "unitId": "ecl1-b24-9a31",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-9a31"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-9a31.mp3",
+      "text": "AS YOU ENTER THE BUILDING YOU SEE A LARGE GROUP OF FOUL ORCS.  THEY SNARL AT YOU AND ATTACK!",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-9a7d",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-9a7d"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-9a7d.mp3",
+      "text": "AS YOU ENTER THE BUILDING YOU SEE A LARGE GROUP OF ORCS WHO ARE SURPRISED THAT YOU'RE HERE.  WITH CONFUSED LOOKS ON THEIR FACES THEY STARE AT YOU",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-9f1e",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-9f1e"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-9f1e.mp3",
+      "text": "AS YOU ENTER THE ROOM YOU SEE SIX ORCS LED BY A LARGE OGRE.  THEY LUNGE FOWARD AND ATTACK.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-9f8f",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-9f8f"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-9f8f.mp3",
+      "text": "YOU FIND A PIECE OF PAPER ON THE FLOOR IN THE ROOM.  YOU PLACE IT IN YOUR JOURNAL UNDER ENTRY 53",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-9ff9",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-9ff9"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-9ff9.mp3",
+      "text": "IN THIS ROOM ARE SOME GOBLIN SLAVES THAT ARE COWERING IN THE CORNER.  THEY ALL SCREAM 'PLEASE DON'T KILL US.'  WHAT WILL YOU DO?",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a082",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a082"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a082.mp3",
+      "text": "YOU COLDLY KILL THE DEFENCELESS GOBLINS.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a0b0",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a0b0"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a0b0.mp3",
+      "text": "YOU LET THE GOBLINS GO.  AS THEY LEAVE ONE OF THEM SAYS 'TO ENTER THE TEMPLE YOU NEED A HOLY SYMBOL OF BANE.'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a112",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a112"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a112.mp3",
+      "text": "YOU STAND OUTSIDE A LARGE MANSION.  ON THE WALLS OF THE MANSION ARE CRUDE BLACK HAND PRINTS.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a179",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a179"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a179.mp3",
+      "text": "YOU ENTER INTO A FILTHY ROOM.  EIGHT ORC GUARDS ATTACK YOU IMMEDIATELY.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a1f1",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a1f1"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a1f1.mp3",
+      "text": "YOU ENTER A ROOM THAT HAS SOME CRUDE HAY BEDS. WHAT WILL YOU DO?",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a269",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a269"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a269.mp3",
+      "text": "AS YOU SEARCH THE BEDS A GROUP OF ORCS COMES INTO THE ROOM.  THEY ATTACK IMMEDIATELY.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a2cf",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a2cf"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a2cf.mp3",
+      "text": "YOU FINISH SEARCHING THE BEDS BUT YOU FIND NOTHING BUT LICE AND HAIR.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a30a",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a30a"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a30a.mp3",
+      "text": "YOU SEARCH THE BEDS BUT FIND NOTHING.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a33e",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a33e"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a33e.mp3",
+      "text": "YOU ENTER A ROOM THAT HAS BEEN COVERTED INTO A CELL.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a502",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a502"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a502.mp3",
+      "text": "AS YOU BACK AWAY THE BLIND ORC SAYS, 'I MUST CHECK IF YOU ARE WORTHY TO ENTER THE TEMPLE OF BANE, DO NEED NOT BE AFRAID.'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a595",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a595"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a595.mp3",
+      "text": "  AS YOU APPROACH THEY MOVE, ALLOWING YOU ENTRANCE INTO THE TEMPLE.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a5d7",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a5d7"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a5d7.mp3",
+      "text": "THE OLD BLIND ORC PAWS THE PARTY AS IF LOOKING FOR SOMETHING.  AFTER A CAREFULL PAWING, HE BACKS AWAY AND YELLS 'GUARDS, IN THE NAME OF BANE, KILL THESE UNBELIEVERS!'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a65b",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a65b"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a65b.mp3",
+      "text": "AS YOU BACK AWAY AGAIN THE OLD BLIND ORC IS CONVINCED YOU ARE NOT WORSHIPPERS.  HE GRUNTS AN ORDER TO ATTACK.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a6d4",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a6d4"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a6d4.mp3",
+      "text": "THE OLD BLIND ORC PAWS THE CHARACTERS LOOKING FOR SOMETHING.  FINDING THE LEATHER HOLY SYMBOL, HE SMILES THEN GRUNTS 'WELCOME TO THE TEMPLE OF BANE, SUPREME GOD OF THE REALMS.'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a865",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a865"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a865.mp3",
+      "text": "ON THE FLOOR YOU FIND A TRAP DOOR.  WILL YOU OPEN IT?",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a8bb",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a8bb"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a8bb.mp3",
+      "text": "IN FRONT OF YOU IS AN ALTAR THAT IS SMEARED WITH BLOOD AND COVERED WITH CRUDE BLACK HAND PRINTS.  WHAT WILL YOU DO?",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a946",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a946"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a946.mp3",
+      "text": "AS YOU DESTROY THE ALTAR, THE TEMPLE DOORS FLY OPEN AND A SCREAMING HORDE OF ORCS LED BY A HALF-ORC CLERIC ATTACK.  YOU TURN TO FACE THEM.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a9d0",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a9d0"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a9d0.mp3",
+      "text": "YOU DESTROY THE EVIL ALTAR AND THE UNEASY FEELING LEAVES YOU.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-aa0b",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-aa0b"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-aa0b.mp3",
+      "text": "THE REMAINS OF AN EVIL ALTAR ARE NEARBY.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-aa6e",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-aa6e"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-aa6e.mp3",
+      "text": "AS YOU EXIT THE TEMPLE YOU ARE ATTACKED BY A VERY LARGE GROUP OF ORCS.  LEADING THEM IS A HALF-ORC WHO IS SCREAMING 'KILL!  KILL, THE UNBELIEVING TOADS.  KILL THEM OR SUFFER MY WRATH!'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-ab06",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-ab06"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-ab06.mp3",
+      "text": "THE MINUTE YOU FIND THE TREASURE A LARGE GROUP OF ORCS CHARGE THROUGH THE TEMPLE DOORS.  LEADING THEM IS A HALF-ORC WHO IS SCREAMING 'KILL!  KILL, THESE SCUM WHO WOULD STEAL FROM OUR TEMPLE.'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-abce",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-abce"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-abce.mp3",
+      "text": "ON THE DEAD BODY OF THE HALF-ORC CLERIC YOU FIND A PIECE OF PAPER.  YOU PUT THE PAPER IN YOUR JOURNAL UNDER ENTRY 25.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-ac73",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-ac73"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-ac73.mp3",
+      "text": "DIRTEN SAYS, 'THANK YOU FOR HELPING US REGAIN OUR TEMPLE.  I MUST STAY HERE NOW.  I BID YOU FAREWELL.'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-ae26",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-ae26"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-ae26.mp3",
+      "text": "YOU SEE A GROUP OF FOUR ORCS WHOSE SHIELDS BEAR A BLACK HAND ON A RED FIELD.  THEY CAUTIOSLY LOOK YOU OVER.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-b10f",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-b10f"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-b10f.mp3",
+      "text": "YOU INTIMIDATE THE MONSTERS SO MUCH THEY RUN AWAY!",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-b147",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-b147"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-b147.mp3",
+      "text": "'WE GOTTA KEEP ALL YOU NONBELIVERS OUTA HERE' THE MONSTERS SAY AS THEY BEGIN TO LEAVE.  'SO HIT THE ROAD YA BUMS.'  THE MONSTERS TURN AND LEAVE.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-b1c5",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-b1c5"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-b1c5.mp3",
+      "text": "'GET OUTA HERE BEFORE WE MAKE YOU LEAVE' THE MONSTERS YELL.  'AND YOU WONT COME BACK IF YOU KNOW WHATS GOOD FER YA'  THE MONSTERS THEN LEAVE.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-b236",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-b236"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-b236.mp3",
+      "text": "THE MONSTERS SCREAM 'OH YEAH, WELL I GUESS WERE JUST GONNA HAVE TO TEACH YOUSE GUYS A LESSON OR TWO'  THEY RUSH FOWARD TO ATTACK.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-b2bb",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-b2bb"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-b2bb.mp3",
+      "text": "THE ORCS YELL OUT, 'WE HAVE ORDERS TO CHECK OUT SUSPICIOUS INDIVIDUALS, BUT YOUSE GUYS LOOK HARMLESS ENOUGH.'  AFTER TALKING THE FOUR ORCS WANDER AWAY.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-b334",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-b334"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-b334.mp3",
+      "text": "IN A DEEP THREATENING VOICE ONE OF THE ORCS SAYS 'YOU MOLES BETTER WATCH YOUR STEP OR YOU SHALL FEEL THE WRATH OF BANE!'  AFTER SAYING THIS HE SPITS AND LEAVES.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-b3b3",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-b3b3"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-b3b3.mp3",
+      "text": "ONE OF THE ORCS SAYS, 'OH, YEAH YOUSE THEM GUYS WHO KNOW WHERE DE TREASURE IS.  WE NOT SUPPOSED TO KILL YOU YET.'  THE ORCS THEN WANDER AWAY.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-b66b",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-b66b"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-b66b.mp3",
+      "text": "WHILE IN CAMP YOU ARE SUDDENLY ATTACKED BY ORCS.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-add9-narration",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-add9"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-add9-narration.mp3",
+      "text": "THE MONSTERS STAND READY",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-aea2-narration",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-aea2"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-aea2-narration.mp3",
+      "text": "THE ORCS READY THEIR SPEARS",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-af4f-narration",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-af4f"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-af4f-narration.mp3",
+      "text": "YOU HAVE SURPRISED THEM.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-afe7-narration",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-afe7"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-afe7-narration.mp3",
+      "text": "THEY ARE AS SURPRISED AS YOU.",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-9b85-9bcb",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-9b85",
+        "por.review.ecl-1.block-24.at-9bcb"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-9b85-9bcb.mp3",
+      "text": "YOU ARE IN A ROOM FILLED WITH RUBBLE AND WASTE.  IN THE RUBBLE YOU SPOT A BEAUTIFUL TAPESTRY.  WILL YOU TAKE IT?",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-9c40-9cb4",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-9c40",
+        "por.review.ecl-1.block-24.at-9cb4"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-9c40-9cb4.mp3",
+      "text": "YOU ARE IN THE REMAINS OF A ONCE GREAT DINING ROOM.  FURNITURE LIES BURNED AND BROKEN THROUGHOUT THE ROOM.  UNDERNEATH A BROKEN TABLE YOU FIND A CRUSHED SKELETON.  IT HAS SOME JEWELRY ON IT; WILL YOU TAKE IT?",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-9d4a-9dd1",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-9d4a",
+        "por.review.ecl-1.block-24.at-9dd1"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-9d4a-9dd1.mp3",
+      "text": "BEFORE YOU IS A GREAT HALL.  THE FLOOR IS LITTERED WITH ORC TRASH AND THE WALLS HAVE CRUDE BLACK HANDS PAINTED ON THEM.  YOU FIND A TRAP DOOR.  WILL YOU OPEN IT?",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-9e2d-9e96",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-9e2d",
+        "por.review.ecl-1.block-24.at-9e96"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-9e2d-9e96.mp3",
+      "text": "YOU ARE IN A ROOM THAT IS FILLED WITH THE DEAD BODIES OF THE ORC'S PREVIOUS VICTIMS.  ADMIST THE BODIES YOU FIND SOME JEWELRY.  WILL YOU TAKE IT?",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a36c-a3b2",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a36c",
+        "por.review.ecl-1.block-24.at-a3b2"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a36c-a3b2.mp3",
+      "text": "ON THE WALL HERE IS A POORLY SCRATCHED OUT MESSAGE.  YOU CAN BARELEY MAKE OUT THE WORDS'NORTH WALL.  RI  T FRONT GLAS . SE'",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    },
+    {
+      "unitId": "ecl1-b24-a424-a491",
+      "sourceIds": [
+        "por.review.ecl-1.block-24.at-a424",
+        "por.review.ecl-1.block-24.at-a491"
+      ],
+      "output": "../por-assets/voices/narration/ecl1/block-24/ecl1-b24-a424-a491.mp3",
+      "text": "YOU STAND IN FRONT OF THE ENTRANCE TO A LARGE SHADOWY TEMPLE.  AN OLD BLIND DECREPIT ORC STANDS OUTSIDE WITH EIGHT ORC GUARDS.  THE AGED ORC COMES GRASPING TOWARD YOU.  WILL YOU LET HIM TOUCH YOU?",
+      "direction": "measured dramatic fantasy narration",
+      "performedCharacterId": null
+    }
+  ]
+}

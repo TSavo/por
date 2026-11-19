@@ -1,0 +1,548 @@
+{
+  "schema": 1,
+  "model": "eleven_v4",
+  "archive": "ECL2.DAX",
+  "block": 20,
+  "items": [
+    {
+      "id": "ecl2-b20-9ab8",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9ab8",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9ab8"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-9ab8.mp3",
+      "text": "YOU HAVE ENTERED THE MONSTER-CRAWLING SLUMS OF PHLAN.  SMALL, UGLY THINGS SCURRY FROM BENEATH YOUR FEET.  IN THE DISTANCE, AN ALARM SOUNDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9e2a",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9e2a",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9e2a"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-9e2a.mp3",
+      "text": "SEVERAL ORCS ARE ARGUING OVER SOME PAPERS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9e88",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9e88",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9e88"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-9e88.mp3",
+      "text": "A HEALTHY-LOOKING GOBLIN IS INSTRUCTING A GROUP OF YOUNG WARRIORS.  HE SMILES AND SAYS, 'I SEE OUR OPPONENTS HAVE ARRIVED.'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b20-9f46",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9f46",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9f46"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-9f46.mp3",
+      "text": "YOU BURST INTO AN ELEGANTLY PANELLED ROOM. A SMALL MAN SITS HUNCHED OVER A TABLE BY THE EAST WALL. HE SETS DOWN HIS PEN AND GAZES STERNLY AT YOU.  'WELL?', HE DEMANDS.",
+      "direction": "perform Ohlo consistently: controlled, superior, and calculating; keep narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-9ffc",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9ffc",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9ffc"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-9ffc.mp3",
+      "text": "YOU GO BACK OUT THE DOOR.",
+      "direction": "perform Ohlo consistently: controlled, superior, and calculating; keep narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-a054",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a054",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a054"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a054.mp3",
+      "text": "'YOU PRESUME TOO MUCH,' THE MAN SAYS QUIETLY.  HE GESTURES.",
+      "direction": "perform Ohlo consistently: controlled, superior, and calculating; keep narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-a0c3",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a0c3",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a0c3"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a0c3.mp3",
+      "text": "'I HAVE NO TIME FOR THE LIKES OF YOU,' THE MAN SAYS AIRILY.  'BEGONE!'",
+      "direction": "perform Ohlo consistently: controlled, superior, and calculating; keep narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-a12f",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a12f",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a12f"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a12f.mp3",
+      "text": "'I MAY HAVE A USE FOR YOU,' THE MAN SAYS. 'SOME TIME AGO, I ORDERED A SPECIAL POTION.  THE POTION IS READY BUT I CAN'T LEAVE TO FETCH IT.  BRING IT HERE, I PAY WELL.'",
+      "direction": "perform Ohlo consistently: controlled, superior, and calculating; keep narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-a1e9",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a1e9",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a1e9"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a1e9.mp3",
+      "text": "'IT WAITS IN A BOOTH IN THE OLD ROPE GUILD BUT A SHORT DISTANCE TO THE SOUTHEAST FROM WHERE YOU NOW STAND.  SPEAK MY NAME, OHLO.'",
+      "direction": "perform Ohlo consistently: controlled, superior, and calculating; keep narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-a25b",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a25b",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a25b"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a25b.mp3",
+      "text": "'YOU HAVE DONE WELL. GIVE ME THE POTION AND YOU WILL BE REWARDED.'",
+      "direction": "perform Ohlo consistently: controlled, superior, and calculating; keep narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-a2d4",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a2d4",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a2d4"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a2d4.mp3",
+      "text": "'YOU HAVE RETURNED EMPTY HANDED,' HE OBSERVES. 'I HAVE NO TIME FOR YOU NOW.'  HE WAVES HIS HAND.",
+      "direction": "perform Ohlo consistently: controlled, superior, and calculating; keep narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-a323",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a323",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a323"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a323.mp3",
+      "text": "THE MAN TAKES THE POTION AND GULPS IT GREEDILY.  AS YOU WATCH, HE SEEMS TO GROW YOUNGER AND STRONGER. 'EXCELLENT,' HE SMACKS, 'YOUR REWARD.'",
+      "direction": "perform Ohlo consistently: controlled, superior, and calculating; keep narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-a3c8",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a3c8",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a3c8"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a3c8.mp3",
+      "text": "THE ROOM IS DIRTY AND HAS A STRONG AND UNPLEASANT ODOR.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-a401",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a401",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a401"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a401.mp3",
+      "text": "YOU HAVE ENTERED A VERY UNCLEAN STABLE.  THERE IS EVIDENCE THAT A LARGE AND UNTIDY ANIMAL HAD LIVED HERE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-a469",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a469",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a469"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a469.mp3",
+      "text": "YOU FIND A LONG LEATHER BAG.  WILL YOU OPEN IT?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-a4d6",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a4d6",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a4d6"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a4d6.mp3",
+      "text": "YOU INTERRUPT SOME FEEDING KOBOLDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-a535",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a535",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a535"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a535.mp3",
+      "text": "YOU WANDER IN THE OLD HEMP MARKET.  MONSTERS SCURRY AT YOUR APPROACH.  YOU OCCASSIONALLY CATCH SNATCHES OF CONVERSATIONS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-a5aa",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a5aa",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a5aa"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a5aa.mp3",
+      "text": "... THE GANG IS OPERATING FROM THE CATACOMBS BY THE WELL...",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-a5db",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a5db",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a5db"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a5db.mp3",
+      "text": "... THE TEMPLE OVER THE RIVER IS RUN BY SOME HOT-SHOT ORC...",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-a60c",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a60c",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a60c"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a60c.mp3",
+      "text": "... THERE IS A SECRET TREASURE ROOM IN THE NW CORNER ...",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-a651",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a651",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a651"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a651.mp3",
+      "text": "SEATED AT A TABLE IS A RAGGED OLD WOMAN. SHE GREETS YOU. 'WELCOME. FOR THE PRICE OF A FEW COPPERS, I WILL TELL YOUR FORTUNE.'",
+      "direction": "perform the ragged fortune teller consistently; shift only where the source explicitly describes her transformation"
+    },
+    {
+      "id": "ecl2-b20-a6e7",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a6e7",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a6e7"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a6e7.mp3",
+      "text": "YOU EASILY MURDER THE OLD WOMAN.  EXCEPT FOR A FEW COPPER PIECES YOU FIND NOTHING OF VALUE.  THE GODS HAVE NOTED YOUR ACTIONS.",
+      "direction": "perform the ragged fortune teller consistently; shift only where the source explicitly describes her transformation"
+    },
+    {
+      "id": "ecl2-b20-a783",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a783",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a783"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a783.mp3",
+      "text": "YOU LEAVE THE SHOP.",
+      "direction": "perform the ragged fortune teller consistently; shift only where the source explicitly describes her transformation"
+    },
+    {
+      "id": "ecl2-b20-a79d",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a79d",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a79d"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a79d.mp3",
+      "text": "THE WOMAN'S HANDS MAKE MYSTIC PASSAGES WHILE SHE MUTTERS SOME WORDS.  HER VOICE UNDERGOES A STRANGE TRANSFORMATION ...",
+      "direction": "perform the ragged fortune teller consistently; shift only where the source explicitly describes her transformation"
+    },
+    {
+      "id": "ecl2-b20-a818",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a818",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a818"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a818.mp3",
+      "text": "BLOOD AND VIOLENCE ARE WRIT BOLDLY IN YOUR FUTURE.  LOOK FOR FRIENDS WHERE YOU EXPECT ENEMIES AND ENEMIES WHERE YOU EXPECT ALLIES.",
+      "direction": "same fortune teller in her transformed prophetic voice: uncanny, resonant, and deliberate"
+    },
+    {
+      "id": "ecl2-b20-a881",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a881",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a881"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a881.mp3",
+      "text": "A POWERFUL ONE BECOMES AWARE OF YOUR DEEDS AND SEEKS TO DESTROY YOU.  A WEAK ONE SEES YOU AS A PATH TO POWER.",
+      "direction": "same fortune teller in her transformed prophetic voice: uncanny, resonant, and deliberate"
+    },
+    {
+      "id": "ecl2-b20-a8da",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a8da",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a8da"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a8da.mp3",
+      "text": "THE TIME IS NIGH WHEN THE PATHS YOU HAVE TROD WILL EMPTY AND YOU MUST SEEK NEW WAYS.  THE RIDDLE'S ANSWER IS GREAT EVIL USING GREAT GOOD FOR GREAT EVIL.",
+      "direction": "same fortune teller in her transformed prophetic voice: uncanny, resonant, and deliberate"
+    },
+    {
+      "id": "ecl2-b20-a953",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a953",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a953"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a953.mp3",
+      "text": "THE TELLING IS FINISHED.",
+      "direction": "perform the ragged fortune teller consistently; shift only where the source explicitly describes her transformation"
+    },
+    {
+      "id": "ecl2-b20-a9a5",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-a9a5",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-a9a5"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-a9a5.mp3",
+      "text": "A LARGE ORC RAISES HIS HEAD AND SNARLS, 'HOW DARE YOU BREAK INTO OUR HOME?'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b20-aa20",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-aa20",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-aa20"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-aa20.mp3",
+      "text": "SOME HOBGOBLINS ARE ARGUING OVER A PILE OF GOLD.  'THIEVES!' THEY SCREAM WHEN THEY SEE YOU.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b20-aa9c",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-aa9c",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-aa9c"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-aa9c.mp3",
+      "text": "YOU FIND A LARGE NUMBER OF VALUABLES.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-aae4",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-aae4",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-aae4"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-aae4.mp3",
+      "text": "YOU HAVE ENTERED A SMALL STORAGE ROOM.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-ab0d",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-ab0d",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-ab0d"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-ab0d.mp3",
+      "text": "YOU HAVE STUMBLED INTO A TREASURE ROOM.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-ab59",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-ab59",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-ab59"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-ab59.mp3",
+      "text": "GUARDS RUN TO INTERCEPT YOU.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-abab",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-abab",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-abab"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-abab.mp3",
+      "text": "YOU INTRUDE ON A GATHERING OF MONSTER LEADERS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-ac13",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-ac13",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-ac13"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-ac13.mp3",
+      "text": "YOU HAVE ALERTED THE GUARDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-ac67",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-ac67",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-ac67"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-ac67.mp3",
+      "text": "THIS LARGE ROOM IS APPARENTLY EMPTY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-ac96",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-ac96",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-ac96"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-ac96.mp3",
+      "text": "YOU FIND A LOOSE FLOORBOARD.  PRYING IT UP, YOU FIND A CHEST HIDDEN BENEATH THE FLOOR.  DO YOU TAKE IT?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-ad1c",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-ad1c",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-ad1c"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-ad1c.mp3",
+      "text": "YOU ARE JUST NORTH OF THE ENTRY TO THE OLD ROPE GUILD.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-ad70",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-ad70",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-ad70"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-ad70.mp3",
+      "text": "YOU HAVE ENTERED THE MYSTERIOUS BUILDING THAT WAS ONCE THE ROPE GUILD.  MOST WHO VENTURE INTO ITS TWISTY HALLS NEVER RETURN.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-ae3e",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-ae3e",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-ae3e"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-ae3e.mp3",
+      "text": "I AM SORRY, BUT I HAVE NOTHING TO SELL NOW.  COME BACK SOME OTHER TIME. ",
+      "direction": "consistent narrator-performed character: rope-guild-booth-man; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-ae7c",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-ae7c",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-ae7c"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-ae7c.mp3",
+      "text": "A MAN HURRIES FORWARD. 'I AM SORRY, NOBLE ONES, BUT I HAVE NOTHING TO SELL.'",
+      "direction": "consistent narrator-performed character: rope-guild-booth-man; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-af13",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-af13",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-af13"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-af13.mp3",
+      "text": "THE MAN RUNS SCREAMING INTO THE BACK OF THE BOOTH.",
+      "direction": "consistent narrator-performed character: rope-guild-booth-man; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-afb6",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-afb6",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-afb6"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-afb6.mp3",
+      "text": "'I AM SORRY,' THE MAN SAYS, 'I CANNOT HELP YOU.'",
+      "direction": "consistent narrator-performed character: rope-guild-booth-man; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-afeb",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-afeb",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-afeb"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-afeb.mp3",
+      "text": "'WAIT A MOMENT,' THE MAN SAYS.  HE HURRIES TO THE BACK OF THE BOOTH AND RETURNS WITH A PACKAGE. 'HERE,' HE SAYS.",
+      "direction": "consistent narrator-performed character: rope-guild-booth-man; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b20-b077",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-b077",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-b077"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-b077.mp3",
+      "text": "SOME MONSTERS ARE TOSSING A SACK OF GRAIN. WHEN THE SACK BREAKS THEY WAIL, 'OH, NO! WHAT CAN WE THROW NOW?' ONE LOOKS YOUR WAY. 'I KNOW,' HE SAYS.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b20-b21a",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-b21a",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-b21a"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-b21a.mp3",
+      "text": "YOU HIDE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-b30e",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-b30e",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-b30e"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-b30e.mp3",
+      "text": "THE MONSTERS RESPOND, 'DA BOSS DON'T LIKE YOUSE GUYS. GIVE US SUMPTIN AN MAYBE WE'LL FERGET WE SEEN YAS.'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b20-b3cf",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-b3cf",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-b3cf"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-b3cf.mp3",
+      "text": "'WHAT A BUNCH OF CHEAPSKATES,' THE LEADER COMPLAINS. 'LET 'EM HAVE IT BOYS!'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b20-b40f",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-b40f",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-b40f"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-b40f.mp3",
+      "text": "THEY PAW THROUGH YOUR COINS AND LEAVE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-b43a",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-b43a",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-b43a"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-b43a.mp3",
+      "text": "THE MONSTERS ROB AND BLINDFOLD YOU. YOU ARE KICKED SOUNDLY AND SENT ON YOUR WAY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-b4cc",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-b4cc",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-b4cc"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-b4cc.mp3",
+      "text": "THE LEADER SPEAKS, 'THE BOSS DON'T ALLOW YOUR KIND IN HIS TERRITORY.  LEAVE NOW OR WE'LL HAVE TO RUN YOU IN.'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b20-b55d",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-b55d",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-b55d"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-b55d.mp3",
+      "text": "'LET ME GIVE YOU A PIECE OF ADVICE,' THEIR LEADER SAYS.  'STAY AWAY FROM THE TEXTILE HOUSE. THE UNDEAD ARE GOING CRAZY UP THERE.'  THE MONSTERS TURN TO LEAVE.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b20-b60a",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-b60a",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-b60a"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-20/ecl2-b20-b60a.mp3",
+      "text": "'HOW DARE YOU INTERFERE WITH THE BOSS'S BUSINESS?' THE LEADER ROARS.  'KILL THEM,' HE ORDERS.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    }
+  ]
+}

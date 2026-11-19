@@ -1,0 +1,780 @@
+{
+  "schema": 1,
+  "area": "Sokal Keep",
+  "enhancedOnly": true,
+  "narratorVoiceId": "9UwacDmdjpXy5tUGJhDA",
+  "unitCount": 48,
+  "units": [
+    {
+      "id": "por.narration.sokal.ecl4-b21-9cf0",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9cf0",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9cf0"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9cf0.mp3",
+      "text": "YOU STAND BELOW THE ROTTING REMAINS OF THE ONCE-MIGHTY GATES OF SOKAL KEEP.",
+      "direction": "ominous, measured fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9d3a",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9d3a",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9d3a"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9d3a.mp3",
+      "text": "ECHOING FOOTSTEPS ARE DIMLY HEARD WITHIN THE KEEP. TO THE WEST RISES A MOUND OF REEDS.",
+      "direction": "quiet, ominous fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9dc9",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9dc9",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9dc9"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9dc9.mp3",
+      "text": "AN UNDEAD PATROL CONFRONTS YOU. DO YOU GIVE THE PASSWORD?",
+      "direction": "tense, ominous fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9eb8",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9eb8",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9eb8"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9eb8.mp3",
+      "text": "THE UNDEAD LEAVE.",
+      "direction": "brief, measured fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9ecc",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9ecc",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9ecc"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9ecc.mp3",
+      "text": "THEY DIDN'T LIKE THAT WORD.",
+      "direction": "dry, ominous fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9f19",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9f19",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9f19"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9f19.mp3",
+      "text": "UNWHOLESOME MOLD AND FUNGI COVER THE DECAYING RUINS OF THE KEEP'S STABLE. A PUTRID SMELL OF SICKNESS RISES AS YOU ENTER THE BUILDING.",
+      "direction": "disgusted, ominous fantasy narration; vivid but controlled",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9f9d",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9f9d",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9f9d"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9f9d.mp3",
+      "text": "A THICK CARPET OF FUNGUS COVERS THE FLOOR OF THIS ROOM.",
+      "direction": "uneasy, measured fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9fe9",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9fe9",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9fe9"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9fe9.mp3",
+      "text": "A BROKEN HEARTH AND BELLOWS DOMINATES THE COLLAPSED REMAINS OF A BLACKSMITH'S SHOP. THE FLOOR IS SPONGEY AND DAMP. THE CROAKING OF FROGS GREETS YOUR ENTRY.",
+      "direction": "atmospheric fantasy narration; build quiet unease toward the croaking",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a0e6",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a0e6",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a0e6"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a0e6.mp3",
+      "text": "CROAK!",
+      "direction": "perform a single abrupt, unnatural frog-like croak in the narrator's voice",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a11b-a17a",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a11b",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a11b",
+        "por.review.ecl-4.block-21.at-a17a"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a11b-a17a.mp3",
+      "text": "AS YOU SEARCH THROUGH THE WRECKED SMITHY, YOU FIND THAT TIME HAS CRUMBLED EVERYTHING WITH THE EXCEPTION OF ONE OLD HAMMER. DO YOU TAKE IT?",
+      "direction": "measured fantasy narration with mild discovery; finish with a clear direct question",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a1dd",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a1dd",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a1dd"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a1dd.mp3",
+      "text": "THIS BUILDING IS FILLED WITH BROKEN AND SPLINTERED WOOD, THE REMAINS OF THE BUNKS AND CHESTS OF THE ORIGINAL DEFENDERS. IT SEEMS EVERYTHING HAS BEEN WELL LOOTED.",
+      "direction": "somber, observant fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a280",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a280",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a280"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a280.mp3",
+      "text": "A MIST RISES AND THICKENS INTO NUMEROUS SHADOWING FIGURES. FROM THESE FIGURES RISES A LOW MOANING.",
+      "direction": "ominous fantasy narration; build supernatural dread",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a328",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a328",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a328"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a328.mp3",
+      "text": "'WOE, WOOOE, OH WOE,' THE FIGURES CRY PITEOUSLY.",
+      "direction": "perform the ghostly chorus piteously, then return to measured narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a39d",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a39d",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a39d"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a39d.mp3",
+      "text": "WRONG WORD.",
+      "direction": "brief, ominous fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a3ac",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a3ac",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a3ac"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a3ac.mp3",
+      "text": "THE MOANING CONTINUES.",
+      "direction": "somber, eerie fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a3d2-a463",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a3d2",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a3d2",
+        "por.review.ecl-4.block-21.at-a463"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a3d2-a463.mp3",
+      "text": "THE HAUNTS BURST INTO A CHORUS OF HOWLS, MOANS, COMPLAINTS, WAILS, AND OTHER LAMENTATIONS OVER THEIR FATE AND THE FATE OF THEIR FAMILIES. THEY WERE THE ORIGINAL DEFENDERS OF THE KEEP, BEFORE THE CLERIC'S SPELLS INADVERTENTLY BOUND THEM TO THIS PLACE. ONE SPIRIT'S VOICE RISES ABOVE THE REST, 'AN ACCOUNT OF OUR TRIALS IS WITHIN THE DIARY.' HE POINTS TO A FLOORBOARD.",
+      "direction": "dramatic fantasy narration; render the chorus as mournful turmoil, then give the individual spirit a distinct sorrowful voice while remaining the same narrator",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a512",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a512",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a512"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a512.mp3",
+      "text": "BENEATH A FLOORBOARD YOU FIND SOME GEMS AND A FEW PAGES OF A DIARY. YOU COPY THESE PAGES INTO YOUR JOURNAL AS ENTRY 3.",
+      "direction": "measured fantasy narration with quiet discovery",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a573",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a573",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a573"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a573.mp3",
+      "text": "DO YOU TAKE THE GEMS?",
+      "direction": "clear, direct narrator question",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a5bf",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a5bf",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a5bf"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a5bf.mp3",
+      "text": "THE INTERIOR IS OVERRUN WITH INSECTS. AT YOUR FOOTSTEP, THEY FALL FROM THE WALLS AND CEILING.",
+      "direction": "disgusted, increasingly urgent fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a65f",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a65f",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a65f"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a65f.mp3",
+      "text": "A LOUD COMMOTION RISES FROM THE COURTYARD. BASHING OPEN THE DOOR, A LARGE FORCE OF ORCS AND HOBGOBLINS RUSHES YOU.",
+      "direction": "urgent, forceful fantasy narration; accelerate into the attack",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a6d9",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a6d9",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a6d9"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a6d9.mp3",
+      "text": "ON A HOBGOBLIN BODY, YOU FIND A NOTE THAT YOU COPY INTO YOUR JOURNAL AS ENTRY 57.",
+      "direction": "measured fantasy narration with discovery",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a730",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a730",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a730"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a730.mp3",
+      "text": "THE HALL IS EMPTY, SAVE FOR SIGNS OF A RECENT BATTLE.",
+      "direction": "quiet, wary fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a776",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a776",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a776"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a776.mp3",
+      "text": "YOU ENTER THE KEEP'S OLD ARMORY. ALL OF THE WEAPONS AND ARMOR HAVE DECAYED INTO USELESSNESS.",
+      "direction": "somber, measured fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a7da",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a7da",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a7da"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a7da.mp3",
+      "text": "PASSING THROUGH AN ILLUSIONARY WALL, YOU ENTER A PORTION OF THE KEEP THAT REMAINS UNTOUCHED BY TIME OR RAVAGING ARMIES.",
+      "direction": "fantasy narration shifting from mystery into wonder",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a844",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a844",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a844"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a844.mp3",
+      "text": "THERE IS A GLOW IN THE NORTHWESTERN CORNER OF THE ROOM.",
+      "direction": "quiet, wondrous fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a87a",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a87a",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a87a"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a87a.mp3",
+      "text": "SPECIAL STANDS IN THE NORTHWESTERN CORNER HOLD EQUIPMENT.",
+      "direction": "measured fantasy narration with restrained curiosity",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a8b1",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a8b1",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a8b1"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a8b1.mp3",
+      "text": "ON STANDS ARE A SHIELD, A MACE, A SWORD, AND A SMALL SUIT OF CHAINMAIL. THE EQUIPMENT HAS NOT BEEN TARNISHED BY THE PASSING YEARS.",
+      "direction": "measured fantasy narration with growing wonder",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a917",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a917",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a917"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a917.mp3",
+      "text": "DO YOU TAKE IT?",
+      "direction": "clear, direct narrator question",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a972",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a972",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a972"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a972.mp3",
+      "text": "THIS WAS ONCE THE CHAPEL OF THE KEEP. INSIDE THE DOORWAY ARE THE DRIED HUSKS OF TWO ORCS, THEIR FACES TWISTED WITH TERROR. A LARGE ALTAR DOMINATES THE SOUTHERN WALL.",
+      "direction": "ominous, wary fantasy narration; vivid but controlled",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-aaa4",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-aaa4",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-aaa4"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-aaa4.mp3",
+      "text": "THE OUTLINE OF A SAD-FACED MAN WAVERS AND FADES AWAY.",
+      "direction": "somber, supernatural fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-aad6",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-aad6",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-aad6"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-aad6.mp3",
+      "text": "THE SHAPE SPEAKS, 'I AM THE LIFE FORM OF FERRAN MARTINEZ, BOUND WITH THE UNDEAD SPIRITS OF ALL WHO DIE WITHIN THESE WALLS TO GUARD THE KEEP. TELL ME, HAS THE CITY BEEN FREED?'",
+      "direction": "measured narration for the attribution, then perform Ferran in a low, weary, honorable spirit's voice; solemn and emotionally alive",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-ab98",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-ab98",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-ab98"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-ab98.mp3",
+      "text": "'YOU LIE,' THE SPIRIT MOANS AS IT FADES AWAY.",
+      "direction": "perform Ferran as wounded and weary, then return to somber narration for the fade",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-abc7-ac4a",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-abc7",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-abc7",
+        "por.review.ecl-4.block-21.at-ac4a"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-abc7-ac4a.mp3",
+      "text": "FERRAN SPEAKS: 'THE CITY FELL LONG AGO TO THE UNBLESSED CREATURES IMBUED WITH THE MIGHT OF A MAGICAL POOL. CHIEF AMONG THESE WERE TYRANTHRAXUS, EDRANKA, AND TORATH. WITH THEIR POWERS THEY RULED AND UNITED ALL ELSE, DRIVING FORWARD TO DESTROY US ALL. THE SAGE MENDOR WORKED HARD TO GATHER RECORD OF ALL THESE THINGS, BUT THEY ARE LOST NOW, HIS LIBRARY OVERRUN.",
+      "direction": "brief measured attribution, then Ferran's same low, weary, honorable spirit voice; grave historical testimony with rising urgency",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-acf1",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-acf1",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-acf1"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-acf1.mp3",
+      "text": "TO FIND HELP FOR YOUR BATTLES, YOU SHOULD PASS THROUGH THE ILLUSIONARY WALL IN THE ARMORY OF THIS KEEP.",
+      "direction": "Ferran's low, weary, honorable spirit voice; direct helpful counsel",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-ad42",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-ad42",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-ad42"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-ad42.mp3",
+      "text": "TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'. NOW WE ARE FREED, OUR DUTY DONE!' FERRAN FADES AWAY.",
+      "direction": "Ferran's low, weary, honorable spirit voice, ending with solemn release; return to narrator for the final fade",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9923",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9923",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9923"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9923.mp3",
+      "text": "DO YOU WANT TO TAKE A BOAT BACK TO PHLAN?",
+      "direction": "clear, direct narrator question",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9963",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9963",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9963"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9963.mp3",
+      "text": "YOU BOARD A BOAT.",
+      "direction": "brief, measured fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9aae",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9aae",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9aae"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9aae.mp3",
+      "text": "THE BOAT DISEMBARKS YOU AT SOKAL KEEP.",
+      "direction": "measured fantasy narration with quiet foreboding",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9af8",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9af8",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9af8"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9af8.mp3",
+      "text": "THE SKELETON OF A LONG-DEAD ELF LIES HIDDEN BY ROCKS AND REEDS. ITS WEAPONS AND EQUIPMENT ARE BADLY RUSTED AND CORRODED BY SALT, ITS LEATHERS ARE WORM EATEN AND CRUSTED IN DIRT.",
+      "direction": "somber, descriptive fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9b90",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9b90",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9b90"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9b90.mp3",
+      "text": "IN A POUCH ON THE REMAINS IS A CRUMBLING PARCHMENT SCROLL WITH THE WORDS ...",
+      "direction": "measured fantasy narration; discovery leading into an unfinished quotation",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9be6",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9be6",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9be6"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9be6.mp3",
+      "text": "...THE LAST PART IS EATEN AWAY.",
+      "direction": "quiet, disappointed fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9c64",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9c64",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9c64"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9c64.mp3",
+      "text": "THE ELF IS LONG DEAD.",
+      "direction": "brief, grave fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9c7b",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9c7b",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9c7b"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9c7b.mp3",
+      "text": "YOU HACK THE BODY TO BITS.",
+      "direction": "blunt, grim fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9c9c",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9c9c",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9c9c"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9c9c.mp3",
+      "text": "YOU SEE THE PITIFUL REMAINS OF A DEAD ELF. EVERYTHING OF VALUE HAS BEEN TAKEN OR DESTROYED.",
+      "direction": "somber fantasy narration with restrained pity",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-9e08-menu",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-9e08",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-9e08"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-9e08-menu.mp3",
+      "text": "A PACK OF UNDEAD SUDDENLY APPEARS.",
+      "direction": "sudden, urgent fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a092-menu",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a092",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a092"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a092-menu.mp3",
+      "text": "THE CROAKING RISES IN VOLUME.",
+      "direction": "ominous fantasy narration with escalating tension",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-a2d2-menu",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-a2d2",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-a2d2"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-a2d2-menu.mp3",
+      "text": "GHOSTLY SHAPES SCREECH OUT A DREADFUL KEENING HOWL",
+      "direction": "dramatic fantasy narration; perform the dreadful ghostly outcry with supernatural intensity",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    },
+    {
+      "id": "por.narration.sokal.ecl4-b21-aa0a-menu",
+      "triggerSourceId": "por.review.ecl-4.block-21.at-aa0a",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-21.at-aa0a"
+      ],
+      "asset": "voices/narration/sokal-keep/ecl4-b21-aa0a-menu.mp3",
+      "text": "A PALE FORM RISES BEFORE YOU.",
+      "direction": "hushed, ominous fantasy narration",
+      "model": "eleven_v4",
+      "playback": {
+        "attachOnlyToTrigger": true,
+        "queueAfterCurrentNarration": true
+      },
+      "reviewStatus": "manually-reviewed"
+    }
+  ]
+}

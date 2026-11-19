@@ -1,0 +1,419 @@
+{
+  "model": "eleven_v4",
+  "sourceReview": "src/audio/ecl3-voice-review.json",
+  "items": [
+    {
+      "unitId": "por.voice.ecl3.b0-9eba-9f1e",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-9eba",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-9eba",
+        "por.review.ecl-3.block-0.at-9f1e"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-9eba-9f1e.mp3",
+      "text": "YOU ARE USHERED INTO THE BISHOP'S STUDY. BISHOP BRACCIO SPEAKS, 'ALLOW ME TO INTRODUCE DIRTEN, PRIEST OF ILMAR.'HE IS BOUND TO RECOVER THE TEMPLE WHICH HAS BEEN DESECRATED TO BANE. GO WITH HIM ACROSS THE RIVER AND HELP HIM TO CLEANSE THE TEMPLE. IN PAYMENT, YOU MAY KEEP THE HIDDEN TREASURES.'",
+      "direction": "Bishop Braccio speaks with formal clerical authority; Dirten is introduced but does not speak"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a0f7-a113",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a0f7",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a0f7",
+        "por.review.ecl-3.block-0.at-a113"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a0f7-a113.mp3",
+      "text": "YOU WALK NEAR THE POISONOUS BARREN RIVER.",
+      "direction": "Urgent dramatic fantasy narration with clear action and danger"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a0f7-a129",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a0f7",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a0f7",
+        "por.review.ecl-3.block-0.at-a129"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a0f7-a129.mp3",
+      "text": "YOU WALK NEAR THE BEAUTIFUL STOJANOW RIVER.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a9ef-aa13",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a9ef",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a9ef",
+        "por.review.ecl-3.block-0.at-aa13"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a9ef-aa13.mp3",
+      "text": "THE PRIESTS OF TEMPUS BID YOU WELCOME.' DO YOU SEEK HEALING?'",
+      "direction": "The narrator performs the priests' welcoming question with warm religious formality"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-ac22-ac9b",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-ac22",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-ac22",
+        "por.review.ecl-3.block-0.at-ac9b"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-ac22-ac9b.mp3",
+      "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONS LXIV, LXXVIII, CIX, AND LIX.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-ad29-ad6c",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-ad29",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-ad29",
+        "por.review.ecl-3.block-0.at-ad6c"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-ad29-ad6c.mp3",
+      "text": "SKULLCRUSHER SPEAKS, 'I MUST GO TO MY MASTER NOW.' HE LEAVES.",
+      "direction": "Skullcrusher speaks with firm loyalty before the narrator states his departure"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-a5c2-a62a",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-a5c2",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-a5c2",
+        "por.review.ecl-3.block-8.at-a62a"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-a5c2-a62a.mp3",
+      "text": "PUTTING DOWN THE PAPERS, SHE SAYS, 'I MUST BRING TO YOUR ATTENTION THE FOLLOWING CONCERNING VALHINGEN GRAVEYARD: 'THE UNDEAD ARE CROSSING THE RIVER IN HORDES AND KILLING OR CARRYING OFF OUR SETTLERS. THE COUNCIL DEMANDS THESE ATTACKS BE STOPPED. A GENEROUS REWARD IS OFFERED.'",
+      "direction": "The council clerk shifts from administrative preface into a grave urgent warning"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-af96-afec",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-af96",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-af96",
+        "por.review.ecl-3.block-8.at-afec"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-af96-afec.mp3",
+      "text": "'WHEN OLD PHLAN WAS OVERRUN, A FAMILY TREASURE WAS HIDDEN IN THE WESTERN BUILDING OF THE TEXTILE COMPLEX.'THE FAITHFUL SERVANT SENT TO FETCH IT NEVER RETURNED. THE COMPLEX IS JUST SOUTH OF PODOL PLAZA. BRING THE TREASURE TO ME AND YOU WILL BE WELL REWARDED.'",
+      "direction": "Cadorna gives a confidential commission with controlled self-interest"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-b088-b0ea",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-b088",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-b088",
+        "por.review.ecl-3.block-8.at-b0ea"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-b088-b0ea.mp3",
+      "text": "'IT IS IMPERATIVE THAT A MESSAGE BE DELIVERED TO THE ZHENTIL OUTPOST TO THE WEST. I AM SENDING YOU AS DIPLOMATIC ENVOYS.'WHEN YOU GET TO ZHENTIAL KEEP, PRESENT THIS PACKET TO ITS COMMANDANT. DO NOT BREAK THE SEALS OR YOU WILL BE SEIZED AS SPIES.'",
+      "direction": "Cadorna gives a formal diplomatic order with an explicit warning"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-b169-b1fa",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-b169",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-b169",
+        "por.review.ecl-3.block-8.at-b1fa"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-b169-b1fa.mp3",
+      "text": "'THANK YOU FOR COMING. I MUST BE BRIEF FOR OUR NEED IS URGENT. OUR ONE CHANCE TO DEFEAT THE ENEMY IS THROUGH AN ASSAULT ON THE CASTLE. TO DO THIS, WE MUST FIRST SECURE STOJANOW GATE.'THE GATE IS TOO STRONG TO BE TAKEN BY STORM. A SMALL BAND MUST SLIP INSIDE AND HOLD UNTIL RELIEVED. YOU ARE THE BEST AND THE BRAVEST. THE COUNCIL HAS INSTRUCTED ME TO ENTRUST THE TASK TO YOU.'",
+      "direction": "Urslingen speaks urgently and with solemn confidence in the party"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-b2aa-b335",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-b2aa",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-b2aa",
+        "por.review.ecl-3.block-8.at-b335"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-b2aa-b335.mp3",
+      "text": "IN THE COUNCIL CHAMBERS, THE ENTIRE CITY COUNCIL IS WAITING FOR YOU. THE LORD HIGH MAYOR, ULRICH EBERHARD, SPEAKS: 'OUR FORCES ARE MARSHALLED FOR THE ASSAULT ON VALJEVO CASTLE.'IT IS THE UNANIMOUS REQUEST OF THE COUNCIL THAT YOU LEAD THE ATTACK. YOUR SKILL AND BRAVERY HAVE WON THE ADMIRATION OF ALL PHLAN. WE LOOK TO YOU TO HELP US WIN OUR FREEDOM.'",
+      "direction": "The mayor speaks ceremonially on behalf of the full council, building to an earnest appeal"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-9b70-9bc4",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9b70",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9b70",
+        "por.review.ecl-3.block-14.at-9bc4"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-9b70-9bc4.mp3",
+      "text": "AS YOU ENTER THE ROOM A THIEF WITH A SWORD COMES OUT OF NOWHERE. HE TRIES TO ATTACK THE PARTY BUT YOU STOP HIM. WHAT WILL YOU DO?",
+      "direction": "Urgent dramatic fantasy narration with clear action and danger"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-9b70-9c20",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9b70",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9b70",
+        "por.review.ecl-3.block-14.at-9c20"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-9b70-9c20.mp3",
+      "text": "AS YOU ENTER THE ROOM A THIEF WITH A SWORD COMES OUT OF NOWHERE, BACKSTABS A PARTY MEMBER THEN DISAPPEARS THROUGH THE WALL.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-99af",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-99af",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-99af"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-99af.mp3",
+      "text": "THE DOOR IS LOCKED. DO YOU WANT TO BREAK IN?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-9a9d",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-9a9d",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-9a9d"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-9a9d.mp3",
+      "text": "YOU ARE ROUSTED BY THE CITY WATCH AND TOLD TO MOVE ALONG. WHAT DO YOU DO?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-9bc2",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-9bc2",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-9bc2"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-9bc2.mp3",
+      "text": "YOU BOARD A BOAT.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-9c67",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-9c67",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-9c67"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-9c67.mp3",
+      "text": "THE HARBOR MASTER TELLS YOU BOATS LEAVE FOR THE WEST, THE EAST, SOKAL KEEP, AND THE NORTH SIDE OF THE BAY. 'ROUND TRIP PASSAGE IS 1 PLATINUM PIECE. WHAT PASSAGE CAN I SELL YOU?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-9d2f",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-9d2f",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-9d2f"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-9d2f.mp3",
+      "text": "'CATCH THE BOAT AT THE END OF THE PIER.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-9d54",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-9d54",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-9d54"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-9d54.mp3",
+      "text": "'BY ORDER OF THE CITY COUNCIL,' THE HARBOR MASTER SAYS, 'THE ONLY BOAT OUT IS GOING TO SOKAL KEEP. YOU CAN CATCH IT AT THE END OF THE PIER.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-9de8",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-9de8",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-9de8"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-9de8.mp3",
+      "text": "TO THE NORTH IS THE PASSENGER DOCK.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-9e2e",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-9e2e",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-9e2e"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-9e2e.mp3",
+      "text": "THE TEMPLE GUARDS INFORM YOU THAT THE BISHOP IS NOT RECEIVING VISITORS AT THIS TIME. WHAT DO YOU DO?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-9fb8",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-9fb8",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-9fb8"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-9fb8.mp3",
+      "text": "YOU ARE USHERED INTO THE STUDY WHERE DIRTEN WAITS. 'I AM ABOUT TO JOURNEY TO THE TEMPLE, WILL YOU COME WITH ME?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a014",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a014",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a014"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a014.mp3",
+      "text": "'WILL YOU ACCOMPANY DIRTEN?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a078",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a078",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a078"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a078.mp3",
+      "text": "THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a0d0",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a0d0",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a0d0"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a0d0.mp3",
+      "text": "YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a15c",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a15c",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a15c"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a15c.mp3",
+      "text": "'IT WILL COST YOU 1 PLATINUM PIECE TO REST HERE. DO YOU WANT TO STAY?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a1cc",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a1cc",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a1cc"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a1cc.mp3",
+      "text": "THAT PERSON WON'T PAY.",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a20d",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a20d",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a20d"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a20d.mp3",
+      "text": "YOU DON'T HAVE ENOUGH PLATINUM.",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a24b",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a24b",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a24b"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a24b.mp3",
+      "text": "THE SHOPKEEPER GREETS YOU AND OFFERS YOU ITEMS FOR SALE. 'CAN I SHOW YOU SOMETHING?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a2d7",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a2d7",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a2d7"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a2d7.mp3",
+      "text": "YOU ARE IN A TAVERN. THE AIR IS FILLED WITH SMOKE AND GOSSIP. PEOPLE ARE GAMBLING AT THE TABLES.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a351",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a351",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a351"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a351.mp3",
+      "text": "YOU FEEL A LIGHT TOUCH ON YOUR PURSE. DO YOU IGNORE IT OR GRAB THE OFFENDING HAND?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a3b8",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a3b8",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a3b8"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a3b8.mp3",
+      "text": "YOU REALIZE YOU HAVE BEEN VICTIMIZED BY A PICKPOCKET.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a3eb",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a3eb",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a3eb"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a3eb.mp3",
+      "text": "DOES ANYONE WANT TO GAMBLE?",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a45b",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a45b",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a45b"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a45b.mp3",
+      "text": "'THE GAME WORKS LIKE THIS. WE SPIN THIS TOP. IF THE GREEN SIDE COMES UP, YOU GET DOUBLE YOUR MONEY BACK. IF A BLUE SIDE COMES UP, YOU GET YOUR MONEY BACK. IF A RED SIDE COMES UP, YOU LOSE.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a59a",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a59a",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a59a"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a59a.mp3",
+      "text": "IT'S GREEN. YOU GET DOUBLE YOUR MONEY BACK.",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a5d5",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a5d5",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a5d5"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a5d5.mp3",
+      "text": "IT'S BLUE. YOU WIN.",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a5ec",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a5ec",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a5ec"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a5ec.mp3",
+      "text": "RED. SORRY, YOU LOSE.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a60d",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a60d",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a60d"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a60d.mp3",
+      "text": "WILL YOU GO AGAIN?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a647",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a647",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a647"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a647.mp3",
+      "text": "NO ONE IS WILLING TO GAMBLE WITH SOMEONE WHO LOOKS THAT BAD.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a67b",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a67b",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a67b"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a67b.mp3",
+      "text": "I CAN'T ACCEPT THAT WAGER.",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    }
+  ]
+}

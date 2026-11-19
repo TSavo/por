@@ -1,0 +1,406 @@
+{
+  "model": "eleven_v4",
+  "sourceReview": "src/audio/ecl3-voice-review.json",
+  "items": [
+    {
+      "unitId": "por.voice.ecl3.b0-a6a0",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a6a0",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a6a0"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a6a0.mp3",
+      "text": "A DRUNKEN BRAWL BREAKS OUT. YOU ARE CAUGHT IN THE MIDDLE.",
+      "direction": "Urgent dramatic fantasy narration with clear action and danger"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a7e2",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a7e2",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a7e2"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a7e2.mp3",
+      "text": "THE CITY WATCH CHARGES IN. DO YOU RUN AWAY OR STAY TO CONFRONT THEM?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a84c",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a84c",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a84c"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a84c.mp3",
+      "text": "THE SHOPKEEPER OFFERS JEWELRY FOR SALE. 'CAN I SHOW YOU SOMETHING?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a8d3",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a8d3",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a8d3"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a8d3.mp3",
+      "text": "THE SHOP SPECIALIZES IN ARMS AND ARMOR. 'CAN I SHOW YOU OUR WARES?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-a964",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-a964",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-a964"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-a964.mp3",
+      "text": "THE SHOP SELLS SILVER ITEMS. 'WOULD YOU LIKE TO SEE OUR SELECTION?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-aa38",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-aa38",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-aa38"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-aa38.mp3",
+      "text": "THEN YOU MUST LEAVE.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-aa7c",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-aa7c",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-aa7c"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-aa7c.mp3",
+      "text": "YOU ATTACKED THE CITY WATCH, YOU WON'T BEAT US SO EASILY!",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-aad5",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-aad5",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-aad5"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-aad5.mp3",
+      "text": "YOU ARE BY THE GATEWAY TO THE UNSETTLED AREAS. THE CITY WATCH EYES YOU SUSPICIOUSLY.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-ab27",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-ab27",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-ab27"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-ab27.mp3",
+      "text": "THE CITY WATCH STOPS YOU AND REMOVES CADORNA'S TREASURE FROM YOUR KEEPING. THEY TELL YOU YOUR REWARD WAITS WITH THE CITY CLERK.",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-abd2",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-abd2",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-abd2"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-abd2.mp3",
+      "text": "YOU ARE OUTSIDE THE CITY HALL. THE CITY CLERK WAITS INSIDE TO AWARD COMMISSIONS.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-ad86",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-ad86",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-ad86"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-ad86.mp3",
+      "text": "THE CITY WATCH RESPONDS TO THE NOISE. DO YOU STAY TO FIGHT THEM OR RUN AWAY?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-ae1a",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-ae1a",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-ae1a"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-ae1a.mp3",
+      "text": "'DUE TO YOUR VICIOUS ATTACK ON THOSE WHO PROTECT US, WE REFUSE YOU ALL SERVICE.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-aeb0",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-aeb0",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-aeb0"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-aeb0.mp3",
+      "text": "'YOUR PARTY IS TOO LARGE TO JOIN AT THIS TIME. RETURN WHEN IT IS SMALLER.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-af9b",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-af9b",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-af9b"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-af9b.mp3",
+      "text": "THE MAD MAN SUDDENLY BEGINS TO SCREAM AND ATTACK EVERYONE WITHIN ARM'S REACH.",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-afe0",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-afe0",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-afe0"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-afe0.mp3",
+      "text": "AN AGED PRIEST APPROACHES, POINTING AT THE MAD MAN, HE SPEAKS, 'THAT MAN URGENTLY NEEDS OUR CARE. DROP HIM FROM YOUR PARTY OR HE WILL BRING YOU TO GRIEF. WE WILL CARE FOR HIM.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-b0b6",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-b0b6",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-b0b6"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-b0b6.mp3",
+      "text": "'GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-b1c2",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-b1c2",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-b1c2"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-b1c2.mp3",
+      "text": "'YOU NOW FACE AN ENTRANCE TO THE TEMPLE OF TYR. THERE ARE THREE TEMPLES IN PHLAN: TYR'S, SUNE'S, AND TEMPUS. TYR'S IS THE LARGEST AND HOUSES BISHOP BRACCIO. IF YOU WILL TURN AROUND NOW, '",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-b257",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-b257",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-b257"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-b257.mp3",
+      "text": "'YOU WILL SEE THE ENTRANCE TO THE PASSENGER DOCK AREA WE JUST DEPARTED. FEW SHIPS DARE THE PERILOUS PASSAGE HERE, BUT THE COUNCIL IS DEVELOPING A PLAN TO OPEN UP THE SEA LANES. PLEASE FOLLOW ME.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-b2f3",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-b2f3",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-b2f3"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-b2f3.mp3",
+      "text": "'BEHIND THESE DOORS ARE THE SPECIAL TRAINING SCHOOLS WHERE ADVENTURERS INCREASE THEIR SKILLS. LET US NOW GO TO THE CITY'S MOST IMPORTANT BUILDING.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-b36a",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-b36a",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-b36a"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-b36a.mp3",
+      "text": "'WE ARE JUST OUTSIDE THE CITY HALL. PROCLAMATIONS ARE POSTED ON THESE WALLS. INSIDE, THE CITY CLERK AWARDS THE COUNCIL'S COMMISSIONS. COMMISSIONS ARE THE QUICKEST WAY TO FAME AND FORTUNE.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-b400",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-b400",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-b400"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-b400.mp3",
+      "text": "'ON YOUR RIGHT IS ONE OF THE ENTRANCE'S TO SUNE'S TEMPLE. AS WITH ALL PHLAN'S TEMPLES, VARIOUS CLERICAL SERVICES ARE OFFERED INSIDE. ON YOUR LEFT IS AN ENTRANCE TO THE CITY PARK.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-b48f",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-b48f",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-b48f"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-b48f.mp3",
+      "text": "'BEYOND THIS GATE ARE THE MONSTER-RIDDEN AREAS OF THE OLD CITY WE ARE SLOWLY PREPARING FOR SETTLEMENT. THE COUNCIL OFFERS A GENEROUS REWARD TO THOSE WHO CLEAR AREAS OF MONSTERS.",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b0-b51c",
+      "triggerSourceId": "por.review.ecl-3.block-0.at-b51c",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-0.at-b51c"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b0-b51c.mp3",
+      "text": "'OUR TOUR IS ENDED. AGAIN, LET ME URGE YOU TO APPLY TO THE CITY CLERK FOR A COMMISSION. GOOD-BYE AND GOOD FORTUNE.' (YOU ARE ON YOUR OWN NOW)",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-9964",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-9964",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-9964"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-9964.mp3",
+      "text": "THE WAY IS BLOCKED.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-9a7d",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-9a7d",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-9a7d"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-9a7d.mp3",
+      "text": "YOU ENTER THE CITY HALL. AS YOU FACE DOWN THE HALLWAY, YOU SEE A GUARDED DOOR.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-9ada",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-9ada",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-9ada"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-9ada.mp3",
+      "text": "COUNCILMAN CADORNA CONFRONTS YOU. 'YOU HAVE TAKEN MY FAMILY TREASURE. I DON'T FORGET SUCH THINGS.' HE STRIDES OFF.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-9b3c",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-9b3c",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-9b3c"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-9b3c.mp3",
+      "text": "YOU ARE OUTSIDE THE CLERK'S OFFICE. GUARDS POSTED AROUND A DOOR IN THE SOUTH WALL WATCH YOU CLOSELY.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-9bb8",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-9bb8",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-9bb8"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-9bb8.mp3",
+      "text": "AT YOUR ENTRY, THE COUNCIL CLERK BEGINS LOOKING THROUGH A STACK OF PAPERS. 'BEFORE I CAN OFFER ANY COMMISSIONS, I MUST SEE IF YOU ARE DUE A CURRENT REWARD.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-9cc7",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-9cc7",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-9cc7"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-9cc7.mp3",
+      "text": "'WE HAVE BEEN INFORMED YOU HAVE ELIMINATED SOME UNDEAD FROM THE GRAVEYARD.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-9d51",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-9d51",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-9d51"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-9d51.mp3",
+      "text": "THE CLERK SPEAKS. '",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-9e88",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-9e88",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-9e88"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-9e88.mp3",
+      "text": "'BY THE WAY, YOUR BUNGLING THE BIVANT RESCUE HAS COST US.'",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-9eea",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-9eea",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-9eea"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-9eea.mp3",
+      "text": "HERE IS YOUR REWARD.'",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-9f77",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-9f77",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-9f77"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-9f77.mp3",
+      "text": "THE COUNCIL HAS AWARDED A BONUS FOR YOUR ELIMINATING NORRIS THE GRAY.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-9fb8",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-9fb8",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-9fb8"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-9fb8.mp3",
+      "text": "WITH SOKAL KEEP IN OUR HANDS, WE CAN USE BOATS TO BYPASS THE BARREN RIVER.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-9ffd",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-9ffd",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-9ffd"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-9ffd.mp3",
+      "text": "YOU HAVE CLEARED THE AREA NEXT TO THE EVIL TEMPLE.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-a027",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-a027",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-a027"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-a027.mp3",
+      "text": "BIVANT WAS DELIGHTED WITH THE CHILD'S RESCUE. THEY LEFT SOME TRINKETS FOR YOU.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-a06d",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-a06d",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-a06d"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-a06d.mp3",
+      "text": "WE FIND THESE DISCOURSES VALUABLE.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-a08b",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-a08b",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-a08b"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-a08b.mp3",
+      "text": "THE COUNCIL WILL BE AMUSED BY THE DESCRIPTIONS.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-a0b3",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-a0b3",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-a0b3"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-a0b3.mp3",
+      "text": "THESE MAPS SHOULD HELP US TO LOCATE SEVERAL LEGENDARY BUILDINGS.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-a0e7",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-a0e7",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-a0e7"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-a0e7.mp3",
+      "text": "THESE HISTORIES CONTAIN MUCH USEFUL INFORMATION.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    }
+  ]
+}

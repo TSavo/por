@@ -1,0 +1,606 @@
+{
+  "schema": 1,
+  "model": "eleven_v4",
+  "archive": "ECL2.DAX",
+  "block": 15,
+  "items": [
+    {
+      "id": "ecl2-b15-9c4a-9c7a",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9c4a",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9c4a",
+        "por.review.ecl-2.block-15.at-9c7a"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9c4a-9c7a.mp3",
+      "text": "AS YOU MOVE THROUGH THE GARDEN YOU SEE A STRANGE GREEN PLANT GROWTH WHICH YOU RECOGNIZE AS GREEN SLIME. YOU CAREFULLY MOVE AROUND IT.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9d77-9e38-sign-rhetoric",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9d77",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9d77",
+        "por.review.ecl-2.block-15.at-9e38"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9d77-9e38-sign-rhetoric.mp3",
+      "text": "THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES. A SIGN OVER THE ENTRANCE READS RHETORIC.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9dfd-9e38-search-rhetoric",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9dfd",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9dfd",
+        "por.review.ecl-2.block-15.at-9e38"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9dfd-9e38-search-rhetoric.mp3",
+      "text": "AS YOU SEARCH THE ROOM YOU SCAN RANDOM BOOKS.RHETORIC.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9d77-9e43-sign-philosophy",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9d77",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9d77",
+        "por.review.ecl-2.block-15.at-9e43"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9d77-9e43-sign-philosophy.mp3",
+      "text": "THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES. A SIGN OVER THE ENTRANCE READS PHILOSOPHY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9dfd-9e43-search-philosophy",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9dfd",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9dfd",
+        "por.review.ecl-2.block-15.at-9e43"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9dfd-9e43-search-philosophy.mp3",
+      "text": "AS YOU SEARCH THE ROOM YOU SCAN RANDOM BOOKS.PHILOSOPHY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9d77-9e50-sign-mathematics",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9d77",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9d77",
+        "por.review.ecl-2.block-15.at-9e50"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9d77-9e50-sign-mathematics.mp3",
+      "text": "THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES. A SIGN OVER THE ENTRANCE READS MATHEMATICS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9dfd-9e50-search-mathematics",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9dfd",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9dfd",
+        "por.review.ecl-2.block-15.at-9e50"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9dfd-9e50-search-mathematics.mp3",
+      "text": "AS YOU SEARCH THE ROOM YOU SCAN RANDOM BOOKS.MATHEMATICS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9d77-9e5d-sign-history",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9d77",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9d77",
+        "por.review.ecl-2.block-15.at-9e5d"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9d77-9e5d-sign-history.mp3",
+      "text": "THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES. A SIGN OVER THE ENTRANCE READS HISTORY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9dfd-9e5d-search-history",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9dfd",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9dfd",
+        "por.review.ecl-2.block-15.at-9e5d"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9dfd-9e5d-search-history.mp3",
+      "text": "AS YOU SEARCH THE ROOM YOU SCAN RANDOM BOOKS.HISTORY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a0c7-a116-meditations",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a0c7",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a0c7",
+        "por.review.ecl-2.block-15.at-a116"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a0c7-a116-meditations.mp3",
+      "text": "YOU FIND A BOOK ENTITLED MEDITATIONS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a0c7-a123-harmony-of-the-rock",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a0c7",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a0c7",
+        "por.review.ecl-2.block-15.at-a123"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a0c7-a123-harmony-of-the-rock.mp3",
+      "text": "YOU FIND A BOOK ENTITLED THE HARMONY OF THE ROCK.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a0c7-a139-strom-poetics",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a0c7",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a0c7",
+        "por.review.ecl-2.block-15.at-a139"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a0c7-a139-strom-poetics.mp3",
+      "text": "YOU FIND A BOOK ENTITLED STROM'S DISCUSSIONS OF POETICS.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b15-a0c7-a155-chronicles-of-arram",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a0c7",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a0c7",
+        "por.review.ecl-2.block-15.at-a155"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a0c7-a155-chronicles-of-arram.mp3",
+      "text": "YOU FIND A BOOK ENTITLED CHRONICLES OF ARRAM.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a0c7-a168-nature-of-writing",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a0c7",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a0c7",
+        "por.review.ecl-2.block-15.at-a168"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a0c7-a168-nature-of-writing.mp3",
+      "text": "YOU FIND A BOOK ENTITLED DISCOURSE ON THE NATURE OF WRITING.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a9fd-aa3e-wrapped-in-fire",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a9fd",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a9fd",
+        "por.review.ecl-2.block-15.at-aa3e"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a9fd-aa3e-wrapped-in-fire.mp3",
+      "text": "THE MAN SCREAMS WHILE FROTHING AT THE MOUTH, 'HE IS WRAPPED IN FIRE AND SO CRUEL!'",
+      "direction": "perform the same terrified, unstable fighter with abrupt emotional turns; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b15-a9fd-aa5e-castle-of-flowers",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a9fd",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a9fd",
+        "por.review.ecl-2.block-15.at-aa5e"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a9fd-aa5e-castle-of-flowers.mp3",
+      "text": "THE MAN SCREAMS WHILE FROTHING AT THE MOUTH, 'THE BIG ONE, THE EVIL ONE IN THE CASTLE OF FLOWERS -- HE IS COMING! IT IS COMING!'",
+      "direction": "perform the same terrified, unstable fighter with abrupt emotional turns; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b15-a9fd-aaa1-dont-go-there",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a9fd",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a9fd",
+        "por.review.ecl-2.block-15.at-aaa1"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a9fd-aaa1-dont-go-there.mp3",
+      "text": "THE MAN SCREAMS WHILE FROTHING AT THE MOUTH, 'DON'T GO THERE! DON'T GO ON THE HILL!'",
+      "direction": "perform the same terrified, unstable fighter with abrupt emotional turns; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b15-a9fd-aac3-not-human",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a9fd",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a9fd",
+        "por.review.ecl-2.block-15.at-aac3"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a9fd-aac3-not-human.mp3",
+      "text": "THE MAN SCREAMS WHILE FROTHING AT THE MOUTH, 'HE IS NOT HUMAN I TELL YOU! NOT AT ALL!'",
+      "direction": "perform the same terrified, unstable fighter with abrupt emotional turns; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b15-9962",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9962",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9962"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9962.mp3",
+      "text": "DO YOU TAKE IT?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9a3c",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9a3c",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9a3c"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9a3c.mp3",
+      "text": "A SPECTRE SUDDENLY APPEARS BEFORE YOU. 'THIEF! I DEFENDED THESE BOOKS IN LIFE AND I WILL DEFEND THEM IN DEATH!' IT ATTACKS YOU.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b15-9bba",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9bba",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9bba"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9bba.mp3",
+      "text": "YOU SEE WHAT ONCE WAS A GARDEN, NOW-WEED FILLED. THE PLEASANT POND HAS BECOME A SWAMP.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9ccf",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9ccf",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9ccf"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9ccf.mp3",
+      "text": "YOU STEP INTO A STRANGE GREEN PLANT GROWTH... IT'S GREEN SLIME! QUICKLY, YOU SCRAPE IT OFF, TAKING A GOOD DEAL OF DAMAGE.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b15-9d3c",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9d3c",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9d3c"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9d3c.mp3",
+      "text": "YOU NOW CAREFULLY AVOID THE GREEN SLIME.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9e67",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9e67",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9e67"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9e67.mp3",
+      "text": "YOU FIND SPEECHES FROM FAMOUS MURDER TRIALS, PUBLIC DEBATES, ETC., BUT NOTHING OF INTEREST.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9eb7",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9eb7",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9eb7"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9eb7.mp3",
+      "text": "YOU FIND ESSAYS ON GEOMETRY, METAMAGICAL MATH, UNIVERSAL GEOMETRY, ETC., BUT NOTHING USEFUL.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9f1c",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9f1c",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9f1c"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9f1c.mp3",
+      "text": "YOU FIND WORKS ON NATURAL PHILOSOPHY, THEORIES OF ART, AND THE SUPERNATURAL SCIENCES. IT IS VERY BORING.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-9f83",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-9f83",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-9f83"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-9f83.mp3",
+      "text": "YOU FIND FYERDETHA'S DISCOURSES ON POWER. AMONG ALL THE DRY TEXT YOU FIND AN INTERESTING PASSAGE WHICH YOU COPY INTO YOUR JOURNAL AS ENTRY 7.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b15-a019",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a019",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a019"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a019.mp3",
+      "text": "YOU FIND URGUND'S DESCRIPTION OF DARKNESS. THIS IS AN ACCOUNT OF HIS IMPRISONMENT IN THE LOWER REALMS. THERE IS A PASSAGE OF INTEREST WHICH YOU COPY AS ENTRY 19 IN YOUR JOURNAL.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b15-a19c",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a19c",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a19c"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a19c.mp3",
+      "text": "YOU FIND VARIOUS BOOKS WHICH ARE SO FILLED WITH MYTH THAT YOU DON'T FIND ANYTHING USEFUL.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b15-a1f8",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a1f8",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a1f8"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a1f8.mp3",
+      "text": "YOU FIND LEX GEOGRAPHICA, AN ATLAS DRAWN BY TOMARUS. IT HAS A MAP OF PHLAN WHICH, THOUGH OLD, STILL COULD BE USEFUL. IT BECOMES ENTRY 37 IN YOUR JOURNAL.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a297",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a297",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a297"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a297.mp3",
+      "text": "YOU FIND THE HISTORY OF THE NORTH. IT IS MOSTLY WRITTEN TO PLEASE A ROYAL LINE. HOWEVER, THERE IS AN INTERESTING PASSAGE WHICH YOU COPY INTO YOUR JOURNAL AS ENTRY 8.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a33f",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a33f",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a33f"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a33f.mp3",
+      "text": "YOU FIND THE GRAND HISTORIAN'S RECORDS OF THE ARTS OF WAR. IN IT YOU FIND A USEFUL PASSAGE WHICH YOU COPY INTO YOUR JOURNAL AS ENTRY 21.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b15-a3f9",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a3f9",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a3f9"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a3f9.mp3",
+      "text": "AMID THE LITTER OF THE ROOM YOU SEE A DULL BROWN REPTILIAN MONSTER.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a439-operand-9",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a439",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a439"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a439-operand-9.mp3",
+      "text": "IT HISSES AT YOU.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a47b",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a47b",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a47b"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a47b.mp3",
+      "text": "YOU HEAR A HISS. AS YOU LOOK DOWN YOU SUDDENLY SEE A DULL BROWN REPTILIAN MONSTER.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a4ca",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a4ca",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a4ca"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a4ca.mp3",
+      "text": "YOU SEE A DULL BROWN REPTILIAN MONSTER. IT DOESN'T SEEM AWARE OF YOU.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl2-b15-a538",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a538",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a538"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a538.mp3",
+      "text": "SUDDENLY, YOU SPOT A DULL BROWN REPTILIAN MONSTER WHICH IS JUST COMING AWAKE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a5c5",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a5c5",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a5c5"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a5c5.mp3",
+      "text": "YOU SEE A RUINED ROOM WITH ROTTED FURNITURE. HUMAN BONES LIE SCATTERED ABOUT A DESK.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a624",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a624",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a624"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a624.mp3",
+      "text": "YOU SEE A JAR UNDER THE FLOORBOARDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a66f",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a66f",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a66f"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a66f.mp3",
+      "text": "YOU SEE A CHAMBER FILLED WITH ROTTED FURNITURE AND BENCHES.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a6b2",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a6b2",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a6b2"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a6b2.mp3",
+      "text": "YOU SEE AN EMPTY ROOM. THE ONLY FEATURE IS A SERIES OF FRESCOES ON THE WALLS OF LEARNED MEN AND THE HEAVENLY PATRONS OF ART AND LEARNING. YOU GET A FEELING OF PEACE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a740",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a740",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a740"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a740.mp3",
+      "text": "YOU ENTER A HALL WHICH IS FILLED WITH ROWS OF WRITING TABLES AND HIGH STOOLS. ROTTED MOUNDS OF PARCHMENT LITTER THE FLOOR.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-a7b8",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a7b8",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a7b8"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a7b8.mp3",
+      "text": "YOU FIND A FIGHTER WITH BATTERED ARMOR AND WILD EYES COWERING IN THE CORNER. 'YAI! MERCY! MERCY!' HE CRIES. AND THEN AS SUDDENLY, 'DIE! DIE YOU SLIME FROM THE PIT!'",
+      "direction": "perform the same terrified, unstable fighter with abrupt emotional turns; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b15-a871",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a871",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a871"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a871.mp3",
+      "text": "WATCHING YOU WARILY, HE INCHES AWAY. WHEN HE IS OUT OF SWORD'S REACH HE SCRAMBLES TO HIS FEET AND FLEES THE ROOM.",
+      "direction": "perform the same terrified, unstable fighter with abrupt emotional turns; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b15-a926",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a926",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a926"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a926.mp3",
+      "text": "YOU SEE THE MAN IS QUITE MAD. DO YOU TAKE PITY AND INVITE HIM TO GO WITH YOU?",
+      "direction": "perform the same terrified, unstable fighter with abrupt emotional turns; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b15-a96c",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a96c",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a96c"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a96c.mp3",
+      "text": "HE LOOKS RELUCTANT AND SAYS, 'BUT HIS MINIONS ARE THERE. HE WILL COME TOO!' DO YOU INSIST HE COME?",
+      "direction": "perform the same terrified, unstable fighter with abrupt emotional turns; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b15-a9c2",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-a9c2",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-a9c2"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-a9c2.mp3",
+      "text": "HE STANDS UP, MUTTERING TO HIMSELF, AND JOINS YOU.",
+      "direction": "perform the same terrified, unstable fighter with abrupt emotional turns; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b15-ab18",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-ab18",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-ab18"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-ab18.mp3",
+      "text": "THIS ROOM WAS ONCE A STUDY. IT IS NOW A SHATTERED RUIN.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-ab59",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-ab59",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-ab59"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-ab59.mp3",
+      "text": "BURIED AMID ALL THE TRASH YOU SEE A BOOK.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-abab",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-abab",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-abab"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-abab.mp3",
+      "text": "YOU ARE IN THE ILLUMINATORS CARRELS. ALL THEIR EQUIPMENT HAS DECAYED AND LIES ROTTING ON THE FLOOR.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-ac28",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-ac28",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-ac28"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-ac28.mp3",
+      "text": "AMID THE TRASH YOU FIND A BOX WHICH CONTAINS GOLD FOIL.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-ac7a",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-ac7a",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-ac7a"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-ac7a.mp3",
+      "text": "YOU ARE IN A SMALL ROOM HAVING LITTLE MORE THAN A BENCH AND A SMALL DESK.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-acc3",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-acc3",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-acc3"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-acc3.mp3",
+      "text": "YOU HAVE ENTERED A STOREROOM FULL OF SUPPLIES TOO OLD TO BE USEFUL.  ",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-ad0b",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-ad0b",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-ad0b"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-ad0b.mp3",
+      "text": "LOOKING UP FROM A TABLE ARE FIVE KOBOLDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-ad31-operand-9",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-ad31",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-ad31"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-ad31-operand-9.mp3",
+      "text": "THEY PLEAD FOR MERCY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-ad31-operand-10",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-ad31",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-ad31"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-ad31-operand-10.mp3",
+      "text": "THEY STAND ARMS RAISED IN SURRENDER.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b15-ad9b",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-ad9b",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-ad9b"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-ad9b.mp3",
+      "text": "ONE OF THE KOBOLDS SAYS, 'IF YOU SPARE OUR LIVES WE WILL TELL YOU ALL WE KNOW ABOUT THIS AREA!' WILL YOU SPARE THEM?",
+      "direction": "consistent narrator-performed character: library-kobold-spokesperson; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl2-b15-adfe",
+      "triggerSourceId": "por.review.ecl-2.block-15.at-adfe",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-15.at-adfe"
+      ],
+      "output": "../por-assets/voices/narration/ecl2/block-15/ecl2-b15-adfe.mp3",
+      "text": "THEY DESCRIBE THE SURROUNDING AREA TO YOU. YOU LISTEN CAREFULLY, QUESTION THEM AND FROM THIS, SKETCH A MAP INTO YOUR JOURNAL CALLING IT ENTRY 10.",
+      "direction": "consistent narrator-performed character: library-kobold-spokesperson; retain narrator identity for attribution"
+    }
+  ]
+}

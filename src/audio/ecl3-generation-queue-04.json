@@ -1,0 +1,406 @@
+{
+  "model": "eleven_v4",
+  "sourceReview": "src/audio/ecl3-voice-review.json",
+  "items": [
+    {
+      "unitId": "por.voice.ecl3.b8-b496",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-b496",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-b496"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-b496.mp3",
+      "text": "THE REMAINING GUARDS DECIDE TO LEAVE YOU ALONE.",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b8-b4c7",
+      "triggerSourceId": "por.review.ecl-3.block-8.at-b4c7",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-8.at-b4c7"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b8-b4c7.mp3",
+      "text": "THE GUARD CAPTAIN STEPS FORWARD. 'PLEASE LET US SHOW YOU THE WAY.'",
+      "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
+    },
+    {
+      "unitId": "por.voice.ecl3.b11-99c2",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-99c2",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-99c2"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b11-99c2.mp3",
+      "text": "YOU ARE ROUSTED BY THE CITY WATCH AND TOLD TO MOVE ALONG. WHAT DO YOU DO?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b11-9a74",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-9a74",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-9a74"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b11-9a74.mp3",
+      "text": "NOTICES FOR TEACHERS AND STUDENTS ARE POSTED ON THE WALLS. A NOTE DIRECTS MAGIC USERS AND CLERICS TO GO NORTH AND FIGHTERS AND 'ROGUES' TO GO EAST.",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b11-9af8",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-9af8",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-9af8"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b11-9af8.mp3",
+      "text": "A SIGN ON THE WALL DIRECTS MAGIC USERS TO GO THROUGH THE EAST DOOR AND CLERICS TO GO THROUGH THE WEST DOOR.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b11-9bbe",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-9bbe",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-9bbe"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b11-9bbe.mp3",
+      "text": "THE ROOM IS FILLED WITH DUELING PAIRS.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b11-9c05",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-9c05",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-9c05"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b11-9c05.mp3",
+      "text": "THE ARENA MASTER ASKS IF YOU WISH TO DUEL. 'THE DUELS ARE EVENLY MATCHED AND NORMALLY NOT TO THE DEATH. DO YOU DUEL?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b11-9c8b",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-9c8b",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-9c8b"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b11-9c8b.mp3",
+      "text": "I CANNOT ARRANGE SUCH A DUEL.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b11-9cba",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-9cba",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-9cba"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b11-9cba.mp3",
+      "text": "'DO YOU SEEK A PARTNER FOR YOUR ADVENTURING?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b11-9d61",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-9d61",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-9d61"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b11-9d61.mp3",
+      "text": "'THERE IS NO ONE WHO WILL GO WITH YOU.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b11-9f23",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-9f23",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-9f23"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b11-9f23.mp3",
+      "text": "'WOULD YOU LIKE TO CONSIDER SOMEONE ELSE?'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b11-9f66",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-9f66",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-9f66"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b11-9f66.mp3",
+      "text": "A SIGN ON THE NORTH DOOR READS 'FIGHTERS'.",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b11-9fe5",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-9fe5",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-9fe5"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b11-9fe5.mp3",
+      "text": "A SIGN ON THE NORTH DOOR READS 'ROGUES'.",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b11-a0d5",
+      "triggerSourceId": "por.review.ecl-3.block-11.at-a0d5",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-11.at-a0d5"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b11-a0d5.mp3",
+      "text": "'YOUR PARTY IS TOO LARGE TO JOIN AT THIS TIME. RETURN WHEN IT IS SMALLER.'",
+      "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-9a5c",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9a5c",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9a5c"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-9a5c.mp3",
+      "text": "A SCYTHING BLADE DROPS ACROSS THE DOORWAY, DAMAGING ONE OF THE CHARACTERS.",
+      "direction": "Urgent dramatic fantasy narration with clear action and danger"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-9aa4",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9aa4",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9aa4"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-9aa4.mp3",
+      "text": "THE PARTY HEARS THE CRACKING OF GLASS. A POISONOUS GAS FILLS THE AIR!",
+      "direction": "Urgent dramatic fantasy narration with clear action and danger"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-9ae9",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9ae9",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9ae9"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-9ae9.mp3",
+      "text": "AFTER THE PARTY ENTERS THE ROOM A NET LACED WITH SHARP BLADES FALLS ON THE PARTY.",
+      "direction": "Urgent dramatic fantasy narration with clear action and danger"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-9cee",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9cee",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9cee"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-9cee.mp3",
+      "text": "PILED HERE IS VARIOUS LOOT. THERE IS A WIDE VARIETY OF NICK NACKS FROM TARNISHED BRONZE CANDLESTICKS TO ONE OR TWO USEFUL ITEMS.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-9d73",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9d73",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9d73"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-9d73.mp3",
+      "text": "IN FRONT OF YOU ARE THREE CABINETS. WHICH ONE WILL YOU EXAMINE?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-9e12",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9e12",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9e12"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-9e12.mp3",
+      "text": "INSIDE THE CABINET YOU FIND SOME FILES. YOU STUFF THE PAPERS INTO YOUR JOURNAL UNDER ENTRIES 23 AND 14.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-9e74",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9e74",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9e74"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-9e74.mp3",
+      "text": "IT IS LOCKED. HOW WILL YOU OPEN THE LOCK?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-9ede",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9ede",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9ede"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-9ede.mp3",
+      "text": "NO ONE IN THE PARTY HAS THE KNOCK SPELL! HOW WILL YOU OPEN THE LOCK?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-9faa",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9faa",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9faa"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-9faa.mp3",
+      "text": "YOU PICK THE LOCK!",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-9fc5",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9fc5",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9fc5"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-9fc5.mp3",
+      "text": "YOU HAVE ALREADY TRIED TO PICK THIS LOCK AND HAVE FOUND THAT IT IS TOO COMPLEX FOR YOU TO HANDLE.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a016",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a016",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a016"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a016.mp3",
+      "text": "YOU TRY TO PICK THE LOCK BUT IT IS TOO COMPLEX FOR YOU TO PICK. YOU FAIL MISERABLY.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a066",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a066",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a066"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a066.mp3",
+      "text": "WITH ONE MIGHTY SWING YOU SMASH OPEN THE LOCK MAKING ENOUGH NOISE TO WAKE THE DEAD.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a0bd",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a0bd",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a0bd"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a0bd.mp3",
+      "text": "THIS CABINET IS EMPTY.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a0f5",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a0f5",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a0f5"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a0f5.mp3",
+      "text": "INSIDE THE CABINET YOU FIND FIFTEEN SACKS FILLED WITH SILVER PIECES.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a17c",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a17c",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a17c"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a17c.mp3",
+      "text": "INSIDE THE CABINET YOU FIND EIGHTEEN SACKS FILLED WITH GOLD PIECES.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a1d0",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a1d0",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a1d0"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a1d0.mp3",
+      "text": "AS YOU TRY TO DEACTIVATE THE TRAP YOU MANAGE TO SET IT OFF. A LARGE NEEDLE SHOOTS OUT OF A HIDDEN COMPARTMENT HITTING A PARTY MEMBER.",
+      "direction": "Urgent dramatic fantasy narration with clear action and danger"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a248",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a248",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a248"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a248.mp3",
+      "text": "YOU AVOID THE TRAP BY NOT OPENNING THE CABINET.",
+      "direction": "Urgent dramatic fantasy narration with clear action and danger"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a282",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a282",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a282"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a282.mp3",
+      "text": "YOU SEE A WIDE COLLECTION OF RUGS AND TAPESTRIES. TWO OF THEM LOOK EXTRAORDINARY WHILE THE OTHERS LOOK AVERAGE.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a30d",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a30d",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a30d"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a30d.mp3",
+      "text": "IN FRONT OF YOU IS A WOODEN CABINET. WHAT WILL YOU DO?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a398",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a398",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a398"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a398.mp3",
+      "text": "YOU FIND A WIDE VARIETY OF SCROLLS IN SCROLL CASES.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a3e2",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a3e2",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a3e2"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a3e2.mp3",
+      "text": "THIS CABINET IS EMPTY.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a3fa",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a3fa",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a3fa"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a3fa.mp3",
+      "text": "AS YOU ATTEMPT TO DISARM THE TRAP, IT GOES OFF IN YOUR FACE! A CLOUD OF POISONOUS YELLOW GAS FILLS THE ROOM.",
+      "direction": "Urgent dramatic fantasy narration with clear action and danger"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a45f",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a45f",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a45f"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a45f.mp3",
+      "text": "YOU AVOID THE TRAP BY NOT OPENING THE CABINET!",
+      "direction": "Urgent dramatic fantasy narration with clear action and danger"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a48a",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a48a",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a48a"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a48a.mp3",
+      "text": "BEFORE YOU IS A TABLE WITH FOUR SMALL CASKETS ON TOP OF IT. WHAT WILL YOU DO?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a4ee",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a4ee",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a4ee"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a4ee.mp3",
+      "text": "WHICH CASKET WILL YOU SEARCH?",
+      "direction": "Clear measured fantasy narration, ending with a direct question"
+    },
+    {
+      "unitId": "por.voice.ecl3.b14-a56a",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-a56a",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-a56a"
+      ],
+      "output": "../por-assets/voices/narration/ecl3/b14-a56a.mp3",
+      "text": "YOU FIND A POUCH OF SMALL GEMS.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene"
+    }
+  ]
+}
