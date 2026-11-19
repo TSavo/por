@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:27:SPRIT8.DAX:121:0:0": "wild-cave-wyvern-approach.png",
+    "portrait:area:27:PIC8.DAX:121:0:0": "wild-cave-wyvern-dialogue.png",
     "tile:22:f6267d0f88c5dd1e0cb488a42a04434beea6e6a9ac67f2a0d0a896b6a4dd39a8": "yarash-back-cell-terrain-f6267d0f88c5.png",
     "encounter:area:20:SPRIT2.DAX:6:0:0": "slums-hobgoblin-ringleader-approach.png",
     "encounter:area:21:SPRIT4.DAX:6:1:0": "sokal-courtyard-hobgoblin-approach.png",
@@ -3311,6 +3313,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:27:SPRIT8.DAX:121:0:0": { "area": 27, "x": 24, "y": 32, "width": 88, "height": 80 },
     "encounter:area:20:SPRIT2.DAX:6:0:0": { "area": 20, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:21:SPRIT4.DAX:6:1:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:2:SPRIT4.DAX:6:1:0": { "area": 2, "x": 56, "y": 32, "width": 24, "height": 65 },
