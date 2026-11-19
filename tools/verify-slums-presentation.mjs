@@ -4984,9 +4984,21 @@ try {
     await waitFor("enhanced clerk at the campaign finale", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
     await verifyPortraitPanel();
+    const clerk = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "council-finale.png"), Buffer.from(clerk.data, "base64"));
     await switchBothWays();
     await advance("enter");
     assert.match(text(), /RECEIVES67500EXPERIENCEPOINTS/i);
+    await waitFor("the council reward in the Enhanced web font", () => run(`(() => {
+      if (state.sequence !== ${frame.sequence}) return false;
+      const text = document.querySelector("#game-text");
+      return !text.hidden && /receives67500experiencepoints/i.test(text.textContent.replace(/\\s+/g, "")) &&
+        !document.querySelector(".encounter-portrait, .terrain-tile") &&
+        [...document.fonts].some(font => font.family.includes("Game Web Font") && font.status === "loaded");
+    })()`));
+    const reward = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "council-reward.png"), Buffer.from(reward.data, "base64"));
+    await switchBothWays();
     for (const key of ["enter", "enter", "j"]) await advance(key);
     assert.equal(castleStatus(), "reward-pending");
     for (const key of ["j", "s", "e", "enter", "enter", "enter", "enter", "j"]) await advance(key);
