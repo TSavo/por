@@ -30,6 +30,9 @@ const kovelClues = [
   { id: "kovel-guild-files", trigger: "YOU STUFF THE FILES INTO YOUR JOURNAL UNDER ENTRIES 38 AND 51",
     title: "Files found in the mansion", detail: "Read journal entries 38 and 51 for the papers found on the floor.",
     nextStep: "Read journal entries 38 and 51, then continue searching the mansion for the thieves." },
+  { id: "kovel-prisoner-papers", trigger: "YOU COPY THE PAPERS INTO YOUR JOURNAL UNDER JOURNAL ENTRY 48",
+    title: "The jailed thief's papers", detail: "The dying thief warned that his boss had allies everywhere and gave the party some papers.",
+    nextStep: "Read journal entry 48 for the jailed thief's papers, then continue searching Kovel Mansion." },
 ];
 const kovelObjectives = new Map(kovelClues.map(({ id, nextStep }) => [id, nextStep]));
 kovelObjectives.set("kovel-thief-ambush-cleared", "Continue searching the mansion for the remaining thieves.");

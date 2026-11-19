@@ -1003,6 +1003,9 @@ finds the files on the floor. The chase branch still needs a live replay.
 The translation verifier also checks the file discovery and chase in both
 orders, including with the first clue restored from a save. The tracked
 objective uses the most recent discovery in each case.
+The jailed thief's papers add entry 48 once the party copies them.
+The translation verifier checks that this clue updates the objective
+even when entries 38 and 51 were already recorded in a save.
 `kovel-castle-map-nw` starts at (6,14) west and `kovel-castle-map-ne`
 starts at (3,5) east with the Valjevo assault tracked. Each checks that
 only the map found by the party guides the assault, then saves in slot A

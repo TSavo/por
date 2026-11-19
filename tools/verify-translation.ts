@@ -716,11 +716,13 @@ function checkCampaignJournal(): void {
   }
   const kovelLeads = discoveredLeads(kovelTranscript);
   const kovelFiles = lines.find(text => text.replace(/\s+/g, " ").includes("YOU STUFF THE FILES INTO YOUR JOURNAL UNDER ENTRIES 38 AND 51"));
+  const kovelPapers = lines.find(text => text.includes("YOU COPY THE PAPERS INTO YOUR JOURNAL UNDER JOURNAL ENTRY 48"));
   const kovelChase = lines.find(text => text.replace(/\s+/g, " ").includes(kovelStages[0][0]));
-  if (!kovelFiles || !kovelChase) throw new Error("Missing the original Kovel files or chase dialogue");
+  if (!kovelFiles || !kovelPapers || !kovelChase) throw new Error("Missing the original Kovel files, papers, or chase dialogue");
   const kovelOffer = commissions.find(({ id }) => id === "kovel")!.offer;
   for (const [earlier, later, expected] of [[kovelChase, kovelFiles, "Read journal entries 38 and 51"],
-    [kovelFiles, kovelChase, "Choose Yes to chase"]]) {
+    [kovelFiles, kovelChase, "Choose Yes to chase"],
+    [kovelFiles, kovelPapers, "Read journal entry 48"]]) {
     const profile = openJournalProfile();
     profile.restore(discoveredLeads(`${kovelOffer}\n${earlier}`));
     for (const leads of [profile(later), discoveredLeads(`${kovelOffer}\n${earlier}\n${later}`)]) {
