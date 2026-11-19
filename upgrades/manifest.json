@@ -1,6 +1,17 @@
 {
   "version": 1,
   "assets": {
+    "tile:16:3a3a128c42e891333672e2afe2f5b54df57cc147d478c373c68d5ee656e0fbef": "lizard-lower-approaches-terrain-3a3a128c42e8.png",
+    "tile:16:a4f41c392601aea175edd3ffcdf74d2621236537b4ca85289860600d94c9186f": "lizard-lower-approaches-terrain-a4f41c392601.png",
+    "tile:16:d0a83bd71c8df140546833f463034917d2a4558950848f3c53576cc3dd781655": "lizard-lower-approaches-terrain-d0a83bd71c8d.png",
+    "tile:16:8f3581a37a37d80a394e310d82b46ab3fd19b341e0181b9dbbbed1a2a1bcad32": "lizard-lower-approaches-terrain-8f3581a37a37.png",
+    "tile:16:7b0f4c5e0342aae5e5b92d18186442fae0da889105bf04bd0d2e4aa23aa1e6a7": "lizard-lower-approaches-terrain-7b0f4c5e0342.png",
+    "tile:16:964c07ba606fb0dce8ded5eb607ca7e84243c983c10c52161c8e1fa1af6aae40": "lizard-lower-approaches-terrain-964c07ba606f.png",
+    "tile:16:11583121b2ac1a5771150de2b118c9675f522dedcd118833af481912bc3e24f6": "lizard-lower-approaches-terrain-11583121b2ac.png",
+    "tile:16:cf144496ed0681020df4d6981a47b47c94e986a0ed70f30b6120ad6998654aee": "lizard-lower-approaches-terrain-cf144496ed06.png",
+    "tile:16:28082cb4614c1b75f311dc02a9bcfcec8c522d115bfeb1d170bf60bf53f2943a": "lizard-lower-approaches-terrain-28082cb4614c.png",
+    "tile:16:24abf4f4b898f0afdc3b933a1669ba06e55a8e9de012587587ed174a054aff2b": "lizard-lower-approaches-terrain-24abf4f4b898.png",
+    "tile:16:5e1ced0814626b5ae3f2e7276de7665c27fe92522cdd5ad7f7796158b15a2ba4": "lizard-lower-approaches-terrain-5e1ced081462.png",
     "combat:area:26:CPIC7.DAX:69": "lizard-wilds-drider-stand.png",
     "combat:area:26:CPIC7.DAX:197": "lizard-wilds-drider-strike.png",
     "portrait:area:2:PIC4.DAX:37:0:0": "textile-poison-frogs-dialogue.png",
