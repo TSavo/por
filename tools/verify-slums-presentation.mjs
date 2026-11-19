@@ -4582,6 +4582,20 @@ try {
         document.activeElement.getAttribute("aria-disabled") === "true"`));
       await run('document.activeElement.click()');
       assert.deepEqual(await latest(), frame);
+      const selectedSequence = frame.sequence;
+      await run(`(() => {
+        const auto = document.querySelector("#auto-track");
+        auto.focus();
+        auto.click();
+      })()`);
+      frame = await waitFor("automatic tracking after the ending", async () => {
+        const next = await latest();
+        return next.ready && next.sequence > selectedSequence && next.journal &&
+          !next.journal.trackedId && next.journal.objective.title === "Phlan is free" && next;
+      });
+      await waitFor("focus after automatic tracking resumes", () => run(
+        'document.querySelector("#auto-track").hidden && document.activeElement.id === "close-journal"'));
+      assert.equal(frame.journal.leads.find(({ id }) => id === "commission-castle")?.status, "turned-in");
     }
     await advance("j");
     await waitFor("return to the loaded game", () => run('document.querySelector("#journal").hidden'));

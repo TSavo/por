@@ -537,6 +537,8 @@ journal is open, and returns to play with the save bytes unchanged.
 The replay checks that focus enters the journal on Return to game and
 returns to the game screen on close. With a remaining commission, it
 also verifies that tracking the commission keeps focus on its button.
+Resuming automatic tracking restores **Phlan is free**, preserves the
+castle turn-in, and moves focus to Return to game.
 
 A controlled training replay sent the six-character party to the schools
 from a Slums save. It followed the posted directions north and entered the
