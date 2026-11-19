@@ -3017,3 +3017,7 @@ Chrome replay checks the animated anchors, mode switching, and battle start.
 
 The Old Phlan Sword Thief has distinct standing and reflected longsword
 poses. The Chrome replay checks the strike and the report that it misses Brin.
+
+New Phlan terracotta continues through five building exits, the harbor and
+middle lanes, and the pier alley. Eight Chrome routes on the production
+pack checked 87 views, 10,527 tile placements, and mode switching.
