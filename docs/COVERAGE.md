@@ -972,6 +972,10 @@ overland save with the Bivant commission tracked. It verifies the new
 and the transition into the base. It checks that the journal records the
 base before showing any clue about the heir. The translation verifier
 covers the pen search and the separate unpaid outcome after a failed rescue.
+The Chrome replay checks that the merchants' camp announcement changes the
+objective to following the fence. The first slave-pen description changes it
+to looking among the prisoners. The boy's birthmark stays hidden until the
+party sees it in the next dialogue.
 The `--classic-portrait` variant removes the mounted escort replacement
 from the test art pack. Chrome verifies that the original picture fills
 the Enhanced panel, switches back to native Classic geometry, and still

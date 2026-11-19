@@ -259,6 +259,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("rescue-pen-gate")) nextStep = "At the gate, choose Try to Sneak By or Attack.";
       else if (knows("rescue-pen-options")) nextStep = "Choose Sneak Into Pen or Attack Guards to reach the boy.";
       else if (knows("rescue-identified-heir")) nextStep = "The boy with the heart-shaped birthmark is in the pen. Choose Rescue Boy when the merchant approaches.";
+      else if (knows("rescue-slave-pen")) nextStep = "Look among the prisoners in the slave pen for the missing heir.";
+      else if (knows("rescue-base-entered")) nextStep = "Follow the fence inside the Buccaneer Base and look for the slave pen.";
       else if (knows("rescue-buccaneer-base")) nextStep = "Enter the Buccaneer Base and find the pen where the slavers are holding prisoners.";
       else if (knows("rescue-slaver-trail")) nextStep = "Follow the slavers toward the Buccaneer Base.";
     }
@@ -695,6 +697,13 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("YOU HAVE REACHED THE BUCCANEER BASE")) {
     leads.push({ id: "rescue-buccaneer-base", title: "Buccaneer Base", detail: "A band of buccaneers rode out to escort the party inside." });
+  }
+  if (text.includes("YOU ARE IN THE MERCHANTS' CAMP AREA")) {
+    leads.push({ id: "rescue-base-entered", title: "Inside the Buccaneer Base",
+      detail: "The party reached the merchants' camp inside the base." });
+  }
+  if (text.includes("YOU ARE JUST OUTSIDE A PEN FOR HOLDING SLAVES")) {
+    leads.push({ id: "rescue-slave-pen", title: "The slave pen", detail: "The party found the prisoners guarded inside the camp." });
   }
   if (/HEART- ?SHAPED BIRTHMARK/.test(text)) {
     leads.push({ id: "rescue-identified-heir", title: "The boy in the pen", detail: "The party saw a boy with a heart-shaped birthmark among the prisoners." });
