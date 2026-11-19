@@ -1296,6 +1296,11 @@ ready pose and strike from a controlled bottle encounter.
 `buccaneer-north-palisade` covers 27 new original tiles on the northern
 route from a controlled slot A with a staged start time. Chrome checks
 2,057 placements across 17 views as the sky changes from night to dawn.
+`yarash-upper-pyramid` checks 22 new upper-gallery tiles and 1,815
+placements across 15 views. The terrain checkpoint sets the area's
+wandering encounters to cleared. `bane-hidden-treasure` opens the hidden
+loot chamber and verifies the treasure illustration through the original
+loot menu, with state and save preserved during presentation switches.
 
 `graveyard-northeast-west` and `graveyard-northeast-east` verify 14 new
 Valhingen tiles with 1,694 placements across 14 views. The terrain audit
