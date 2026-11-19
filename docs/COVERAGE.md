@@ -1143,8 +1143,9 @@ sky, canopy, and horizon tiles, then verifies the sentries' portrait.
 `2,14 E` in a native save made after entering the camp. Chrome verifies
 1,694 placements across both branches, using 49 new 32×32 tiles. The
 rim route ends at the sword-ready encounter. The browser draws the Nomad
-sentry in quilted armor and a russet scarf over the restored terrain. All 121 terrain tiles
-remain visible in that view.
+sentry in quilted armor and a russet scarf over all 121 terrain tiles.
+The journal records that the camp is on guard after the warning appears.
+It leaves the headman's account and the kobold warning hidden.
 The `nomad-headman` and `nomad-headman-stay` replays start from the overland
 camp checkpoint. They verify the headman's portrait, the journal's feast
 invitation, entry 55, kobold warning, and overnight decision. Each replay

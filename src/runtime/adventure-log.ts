@@ -357,6 +357,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("nomad-kobold-warning")) nextStep = "Hear out the headman and decide whether to stay and help against the kobolds.";
       else if (knows("nomad-feast-invitation")) nextStep = "Accept the headman's feast invitation to speak with him further.";
       else if (knows("nomad-sentries")) nextStep = "Parlay with the nomads at the camp so you can speak with their headman.";
+      else if (knows("nomad-swords-ready")) nextStep = "Return to the main trail through the camp and approach the sentries. Choose Parlay if they offer it.";
       else if (knows("nomad-camp-found")) nextStep = "Choose Enter at the camp and approach the nomads to speak with them.";
     }
     if (commission.id === "zhentil") {
@@ -762,6 +763,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("THE NOMADS WAIT FOR YOU TO MAKE THE FIRST MOVE")) {
     leads.push({ id: "nomad-sentries", title: "The nomads wait", detail: "The nomads are watching the party and waiting to see how it approaches them." });
+  }
+  if (text.includes("ALL THE NOMADS HOLD THEIR SWORDS AT THE READY")) {
+    leads.push({ id: "nomad-swords-ready", title: "The camp is on guard",
+      detail: "The nomads held their swords ready and watched the party. More emerged from the tents." });
   }
   if (text.includes("WE WILL GIVE A FEAST IN YOUR HONOR")) {
     leads.push({ id: "nomad-feast-invitation", title: "The headman's invitation", detail: "The headman invited the party to a feast in its honor." });

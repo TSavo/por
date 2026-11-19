@@ -2462,6 +2462,11 @@ try {
     const patterns = new Set();
     const transition = environment.transition;
     let views = await verifyTiledView(area, patterns);
+    if (routeName === "nomad-camp-rim") {
+      await advance("j");
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "nomad-swords-ready"));
+      await advance("j");
+    }
     const grishnakTemple = routeName === "textile-temple" || routeName === "textile-temple-native";
     let sawGrishnakApproach = false;
     for (const key of environment.walk) {
@@ -2612,6 +2617,10 @@ try {
       const screenshot = resolve(directory, "nomad-sword-ready.png");
       writeFileSync(screenshot, Buffer.from(capture.data, "base64"));
       console.log("Enhanced Nomad Camp perimeter sentry:", screenshot);
+      await advance("j");
+      assert.ok(frame.journal.leads.some(({ id }) => id === "nomad-swords-ready"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "nomad-headman-talk" || id === "nomad-kobold-warning"));
+      await advance("j");
     }
     if (environment.finalPortrait) {
       assert.equal(frame.portrait, environment.finalPortrait);
