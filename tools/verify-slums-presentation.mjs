@@ -907,6 +907,20 @@ const combatPoseRoutes = new Map([
     inputs: ["up", ...Array(3).fill("enter")],
     strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
   }],
+  ["party-parted-dwarf-axe-icon-combat", {
+    slot: "B", stand: "combat:party:1:2", strike: "combat:party:1:130",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
+    strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(3).fill("enter")],
+    strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
+  }],
+  ["party-parted-dwarf-crossbow-icon-combat", {
+    slot: "B", stand: "combat:party:1:16", strike: "combat:party:1:144",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
+    strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(3).fill("enter")],
+    strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
+  }],
   ["party-bald-dwarf-axe-icon-combat", {
     slot: "B", stand: "combat:party:9:2", strike: "combat:party:9:130",
     width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
