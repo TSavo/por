@@ -1369,6 +1369,8 @@ the enhanced cave illustrations at the original encounter prompts.
 check the full-panel swarm and giant lizard illustrations.
 `new-phlan-east-ward` checks six additional mappings across 16 live
 views and 1,936 placements, including three redrawn ceiling tiles.
+`new-phlan-covered-market` checks six redrawn cap and doorway
+transitions across 15 live views and 1,815 placements.
 `bane-ogre-combat` checks the ogre's 96×192 ready and animated strike
 poses from a checkpoint with increased party HP to reach the strike.
 `lizardfolk-east-ruins` checks five redrawn tiles across 16 live views

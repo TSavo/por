@@ -1,6 +1,12 @@
 {
   "version": 1,
   "assets": {
+    "tile:8:80e3c5025a5f43f7991f9fb1c372374d1d0c7cb666c72aa6115e3e381ccd814e": "new-phlan-covered-market-terrain-80e3c5025a5f.png",
+    "tile:8:d4b85e9a1aca4d92e6837bc5a14ed9b1128634ac91d66bf98d1eac483c88b784": "new-phlan-covered-market-terrain-d4b85e9a1aca.png",
+    "tile:8:7d866bb12fdec5678c7c11007e4c2d21648ece614f6feeb3b736dae3693346dc": "new-phlan-covered-market-terrain-7d866bb12fde.png",
+    "tile:8:5ea33b314d6a559649dcdcb928b9da3c62d661fa6f496eaba32df44752996fed": "new-phlan-covered-market-terrain-5ea33b314d6a.png",
+    "tile:8:5489a60945a1c69e6349b1dbbbfa55e6e0f2a04200f80cb2d4297b8177cee54c": "new-phlan-covered-market-terrain-5489a60945a1.png",
+    "tile:8:297ae58620a76aff7e45afd3c6c147f02104a51cd0202ea310ca5b2f4777faad": "new-phlan-covered-market-terrain-297ae58620a7.png",
     "portrait:area:27:PIC8.DAX:59:0:0": "wild-cave-giant-lizard-dialogue.png",
     "tile:8:b809967267807444db6a1b3da6cc1ff977c9cd68138f6ed6180a67256536a6f5": "new-phlan-east-ward-terrain-b80996726780.png",
     "tile:8:858b73d63eb2439f5d3755fe6002d941fcc99e9a5fdb06fb568a21ff2599262f": "new-phlan-east-ward-terrain-858b73d63eb2.png",
