@@ -321,6 +321,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("castle-hedge-gate-password")) nextStep = "Use the password from the kitchen at the main gate into the hedge maze.";
       else if (knows("castle-cadorna-hedge")) nextStep = "Follow Cadorna's directions through the hedge: left, right, right.";
       else if (knows("castle-disguise")) nextStep = "Use the clothes offered by the resistance to move through the castle and find Tyranthraxus.";
+      else if (knows("kovel-castle-map-nw") && knows("kovel-castle-map-ne")) nextStep = "Review the northwest and northeast castle maps in journal entries 41 and 29, then return to Valjevo Castle.";
+      else if (knows("kovel-castle-map-nw")) nextStep = "Review the northwest castle map in journal entry 41, then return to Valjevo Castle.";
+      else if (knows("kovel-castle-map-ne")) nextStep = "Review the northeast castle map in journal entry 29, then return to Valjevo Castle.";
     }
     if (commission.id === "gate") {
       if (knows("gate-garrison-defeated")) nextStep = "Defeat the outside guards before reinforcements arrive, then report to the clerk.";
@@ -726,6 +729,12 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("YOU STUFF THE FILES INTO YOUR JOURNAL UNDER ENTRIES 38 AND 51")) {
     leads.push({ id: "kovel-guild-files", title: "Files found in the mansion", detail: "Read journal entries 38 and 51 for the papers found on the floor." });
+  }
+  if (text.includes("THE WORDS 'NW CASTLE' UNDER IT")) {
+    leads.push({ id: "kovel-castle-map-nw", title: "Northwest castle map", detail: "The party copied the maze drawn on a slate into journal entry 41." });
+  }
+  if (text.includes("THE WORDS 'NE CASTLE' UNDER IT")) {
+    leads.push({ id: "kovel-castle-map-ne", title: "Northeast castle map", detail: "The party recorded the maze drawn on the map in journal entry 29." });
   }
   if (text.includes("YOU HAVE REACHED THE BUCCANEER BASE")) {
     leads.push({ id: "rescue-buccaneer-base", title: "Buccaneer Base", detail: "A band of buccaneers rode out to escort the party inside." });

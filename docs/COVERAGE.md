@@ -984,6 +984,11 @@ that the same flag in another area has no effect. The `kovel-guild-files`
 Chrome replay starts inside the mansion at (7,14) east with the commission
 tracked. It checks that entries 38 and 51 are only suggested after the party
 finds the files on the floor. The chase branch still needs a live replay.
+`kovel-castle-map-nw` starts at (6,14) west and `kovel-castle-map-ne`
+starts at (3,5) east with the Valjevo assault tracked. Each checks that
+only the map found by the party guides the assault, then saves in slot A
+through Encamp. The `-reload` variants use those resulting saves and
+verify that the corresponding entry 41 or 29 still guides the assault.
 The `--classic-portrait` variant removes the mounted escort replacement
 from the test art pack. Chrome verifies that the original picture fills
 the Enhanced panel, switches back to native Classic geometry, and still

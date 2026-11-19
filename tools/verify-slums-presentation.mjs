@@ -1868,7 +1868,7 @@ const environmentRoutes = new Map([
 const freshRolf = routeName === "new-phlan-rolf-approach";
 const routes = ["new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 routes.push("new-phlan-council-reward-reload", "slums-mage-wand");
-routes.push("kovel-guild-files");
+routes.push("kovel-guild-files", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
@@ -3840,6 +3840,34 @@ try {
       await waitFor("the swamp lizardfolk strike", () => loaded(strike));
     }
     console.log("Verified the swamp elder's layered terrain and journal updates in Chrome. Capture:", directory);
+  } else if (routeName.startsWith("kovel-castle-map-")) {
+    const reload = routeName.endsWith("-reload");
+    const map = routeName.replace(/-reload$/, "");
+    const northwest = map.endsWith("-nw");
+    const entry = northwest ? 41 : 29;
+    const otherMap = northwest ? "kovel-castle-map-ne" : "kovel-castle-map-nw";
+    await advance("j");
+    assert.equal(frame.journal?.trackedId, "commission-castle");
+    if (!reload) {
+      assert.ok(!frame.journal.leads.some(({ id }) => id === map || id === otherMap));
+      assert.doesNotMatch(frame.journal.objective.nextStep, /journal entry/);
+      for (const key of ["j", "up", "j"]) await advance(key);
+    }
+    assert.match(frame.journal.leads.find(({ id }) => id === map)?.detail ?? "", new RegExp(`journal entry ${entry}`));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === otherMap));
+    assert.match(frame.journal.objective.nextStep, new RegExp(`journal entry ${entry}`));
+    await advance("j");
+    await switchBothWays();
+    if (reload) {
+      console.log(`Verified the Kovel castle map in journal entry ${entry} after reload.`);
+    } else {
+      for (const key of ["e", "s", "s", "a"]) await advance(key);
+      const savedMap = JSON.parse(readFileSync(saved, "utf8"));
+      assert.equal(savedMap.tracked, "commission-castle");
+      assert.ok(savedMap.leads.some(({ id }) => id === map));
+      assert.ok(!savedMap.leads.some(({ id }) => id === otherMap));
+      console.log(`Verified discovery of the Kovel castle map in journal entry ${entry} in Chrome. Saved:`, saved);
+    }
   } else if (routeName === "kovel-guild-files") {
     const files = "kovel-guild-files";
     await advance("j");
