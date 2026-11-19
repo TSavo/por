@@ -780,6 +780,17 @@ try {
     }
   }
 
+  async function verifyPortraitPanel() {
+    assert.ok(await run(`(() => {
+      const layer = document.querySelector("#tile-art").getBoundingClientRect();
+      const portrait = document.querySelector(".encounter-portrait").getBoundingClientRect();
+      return Math.abs(portrait.left - layer.left - layer.width * 8 / 320) < 1 &&
+        Math.abs(portrait.top - layer.top - layer.height * 8 / 200) < 1 &&
+        Math.abs(portrait.width - layer.width * 120 / 320) < 1 &&
+        Math.abs(portrait.height - layer.height * 120 / 200) < 1;
+    })()`), "Enhanced portrait should fill the outer picture panel");
+  }
+
   async function switchBothWays() {
     const displayGeometry = () => run(`(() => {
       const display = document.querySelector("#screen");
@@ -1182,7 +1193,8 @@ try {
         image.naturalWidth === 352 && image.naturalHeight === 352;
     })()`));
     await switchBothWays();
-    console.log(`Verified ${routeName} illustration and mode switching in Chrome.`);
+    await verifyPortraitPanel();
+    console.log(`Verified ${routeName} illustration, panel fit, and mode switching in Chrome.`);
   } else if (routeName === "pyramid-lizardfolk-vats") {
     for (const key of ["s", "up", "enter", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:area:23:PIC7.DAX:57:0:0");
@@ -2315,14 +2327,7 @@ try {
       const image = document.querySelector(".encounter-portrait");
       return image?.naturalWidth === 352 && image?.naturalHeight === 352;
     })()`));
-    assert.ok(await run(`(() => {
-      const layer = document.querySelector("#tile-art").getBoundingClientRect();
-      const portrait = document.querySelector(".encounter-portrait").getBoundingClientRect();
-      return Math.abs(portrait.left - layer.left - layer.width * 8 / 320) < 1 &&
-        Math.abs(portrait.top - layer.top - layer.height * 8 / 200) < 1 &&
-        Math.abs(portrait.width - layer.width * 120 / 320) < 1 &&
-        Math.abs(portrait.height - layer.height * 120 / 200) < 1;
-    })()`), "Enhanced portrait should fill the outer picture panel");
+    await verifyPortraitPanel();
     await switchBothWays();
     await checkJournal(["envoy-challenge", "packet-delivered"], ["quarters"]);
     for (let line = 0; line < 6; line++) await advance("enter");
