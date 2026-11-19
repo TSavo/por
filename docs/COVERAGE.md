@@ -1210,6 +1210,12 @@ also checks a second kobold standing over the loose-stone sprite. Both
 enhanced assets load at (80,152), with the stones beneath the kobold.
 The replay advances Alda's Quick turn and verifies the distinct 96×96 kobold strike at
 (80,80) in Chrome, then checks that the animation clears from the live view.
+The native terrain draws sampled in the Nomad raid, Sokal patrol,
+lizardfolk battle, and dragon fight now have 78 of 78 tile patterns
+linked. The 19 new tiles cover slate and quartz fragments and marsh
+clutter and were reviewed in assembled battlefield views.
+`nomad-shaman-ready` checks the scoped 96×96 ready sprite in the separate
+headman rally battle and checks that switching modes preserves the save.
 The `kuto-well-approach` replay uses slot J saved after the original cross-
 district transition. Chrome verifies 1,936 placements across 16 views on
 the walk to the well, using 89 distinct 32×32 tiles. The final view checks
