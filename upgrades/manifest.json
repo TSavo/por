@@ -1,6 +1,10 @@
 {
   "version": 1,
   "assets": {
+    "portrait:HEAD2.DAX:8:BODY2.DAX:5": "stojanow-patrol-leader-dialogue.png",
+    "combat:area:28:CPIC6.DAX:11": "zhentil-guard-stand.png",
+    "combat:area:28:CPIC6.DAX:139": "zhentil-guard-strike.png",
+    "portrait:HEAD3.DAX:71:BODY3.DAX:8": "north-gate-weapon-cache-ambush.png",
     "tile:24:195dba250fc2a8a290f63f054091315caf23fb35c7ed4f1124971dcea1239564": "bane-eastern-rampart-terrain-195dba250fc2.png",
     "tile:24:9be45db86d617cd9cb143a1e7b71405b254c0647bf7b4e45d143348303806924": "bane-eastern-rampart-terrain-9be45db86d61.png",
     "tile:24:5c7e08fc7b3435ecf174cd23c7b62c4fcae1b3ff9e19a51222c331c5ed0d8ac2": "bane-eastern-rampart-terrain-5c7e08fc7b34.png",

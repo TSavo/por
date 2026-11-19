@@ -1336,6 +1336,12 @@ the middle and near poses at their original anchors in separate encounters.
 `kobold-cave-wyvern-dialogue` verify the Mummy approach sprite and two
 pre-combat illustrations. Chrome checks the artwork and state-preserving
 mode switches on all five encounter replays.
+`north-gate-weapon-cache-ambush` checks the weapon cache illustration
+at the original gas cloud prompt and during presentation switches.
+`stojanow-patrol-leader-dialogue` checks the portrait at the patrol
+challenge, including panel fit and state-preserving mode switches.
+`zhentil-guard-combat` checks the ready and animated attack poses
+in the original nighttime outpost battle.
 `bane-east-ramparts` checks 15 new gate, wall, and ivy tiles across
 17 live views and 2,057 placements from the temple entrance save.
 `valhingen-central-courts` checks 32 new fence, tomb, and masonry

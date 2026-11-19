@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["stojanow-patrol-leader-dialogue", {
+    slot: "A", inputs: ["up", "enter", "a", "a"],
+    portrait: "portrait:HEAD2.DAX:8:BODY2.DAX:5", prompt: /WHATAREYOUDOINGHERE/i,
+  }],
+  ["north-gate-weapon-cache-ambush", {
+    slot: "A", inputs: ["up", "enter", "t", "enter"],
+    portrait: "portrait:HEAD3.DAX:71:BODY3.DAX:8", prompt: /ANAWFULSMELLINGCLOUDOFGASFORMS/i,
+  }],
   ["north-gate-jail-thugs", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:HEAD3.DAX:32:BODY3.DAX:8", prompt: /CONVERTEDTOAJAIL/i,
@@ -168,6 +176,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["zhentil-guard-combat", {
+    slot: "A", stand: "combat:area:28:CPIC6.DAX:11", strike: "combat:area:28:CPIC6.DAX:139",
+    width: 96, height: 96, strikeReflected: false,
+    inputs: ["up", "enter", "s", "enter", "enter"], strikeInputs: ["enter"],
+  }],
   ["phlan-ruins-scorpion", {
     slot: "B", stand: "combat:area:2:CPIC4.DAX:18", strike: "combat:area:2:CPIC4.DAX:146",
     width: 192, height: 96, strikeReflected: true,
