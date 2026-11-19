@@ -519,6 +519,14 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
+  if (text.includes("I AM THE EFREETI SAMIR AHWAHL")) {
+    leads.push({ id: "kobold-efreeti", title: "Samir Ahwahl",
+      detail: "The efreeti in the brass bottle asked whether the party were vampires." });
+  }
+  if (text.includes("SUMMON ME ONLY WHEN A VAMPIRE IS NEAR")) {
+    leads.push({ id: "kobold-efreeti-warning", title: "When to summon Samir",
+      detail: "Samir returned to the brass bottle and warned the party to summon him only when a vampire is near." });
+  }
   if (text.includes("YOU ARE LEFT WITH THE NOTES OF AL-HYAM DHAZID") &&
       text.includes("YOU COPY THEM INTO YOUR JOURNAL AS ENTRY 30")) {
     leads.push({ id: "castle-al-hyam-notes", title: "Al-Hyam Dhazid's notes",

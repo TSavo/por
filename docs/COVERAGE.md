@@ -1313,6 +1313,11 @@ the close-distance replacements at 160×320 and 352×320 respectively.
 Chrome checks the exact source ID and screen anchor for each and switches
 presentation with the same frame and save. These inputs reach the close
 pose for each creature.
+`kobold-cave-efreeti-dialogue` verifies Samir's custom illustration and
+checks that his warning is learned only after the party hears it.
+`valjevo-hill-giant-dialogue` checks the hill giant illustration at the
+ready-weapons choice. `lizardfolk-east-bank` checks seven new tiles across
+16 views and 1,936 placements from a position-only copy of the ruin route.
 
 `graveyard-northeast-west` and `graveyard-northeast-east` verify 14 new
 Valhingen tiles with 1,694 placements across 14 views. The terrain audit

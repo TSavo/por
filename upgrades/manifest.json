@@ -1,6 +1,15 @@
 {
   "version": 1,
   "assets": {
+    "portrait:PIC5.DAX:55:0:0": "valjevo-hill-giant-dialogue.png",
+    "tile:16:784649fd6bb508accc7db1173bed5ad60547301a43cab64de04fa3b995eee5c8": "lizard-east-bank-terrain-784649fd6bb5.png",
+    "tile:16:6f73ff25190335af564679d65a7f6cee7abee3ebd8ada434a3b4e50e7c33d5cc": "lizard-east-bank-terrain-6f73ff251903.png",
+    "tile:16:2ffe4dfefbf0fc2efe851667d574d76965974c3c994f3b200afe6ce4ae7def6b": "lizard-east-bank-terrain-2ffe4dfefbf0.png",
+    "tile:16:3a879baf98a7d73954a911b540134bf029a40aca7629360fff475ede98c611be": "lizard-east-bank-terrain-3a879baf98a7.png",
+    "tile:16:3ec151024287d36bba7194a3f166f22d813455c1a328cb95b813f0b1e8fbc22f": "lizard-east-bank-terrain-3ec151024287.png",
+    "tile:16:d2bc5a6deab6d81ec71e90704e53c90aab1535c3e9c40b2cf718863c398b0709": "lizard-east-bank-terrain-d2bc5a6deab6.png",
+    "tile:16:aaf74fd4cf434ab8b7c6f4aee7162af6aaa79e351693499dc50e9e83e2c510d5": "lizard-east-bank-terrain-aaf74fd4cf43.png",
+    "portrait:PIC8.DAX:70:0:0": "kobold-cave-efreeti-dialogue.png",
     "encounter:area:13:SPRIT8.DAX:70:0:0": "kobold-cave-efreeti-approach.png",
     "encounter:area:13:SPRIT8.DAX:121:0:0": "kobold-cave-wyvern-approach.png",
     "tile:17:f665760256b56b0ad8079d4d9f5e828816f587766cebc2448000921d36712559": "nomad-grove-terrain-f665760256b5.png",
