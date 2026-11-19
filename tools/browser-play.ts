@@ -29,13 +29,17 @@ const narrationCatalog = new NarrationCatalog(parsedNarrationManifest);
 const narrationFiles = narrationCatalog.assetFiles();
 const normalizeSpeech = (text: string) => text.replace(/\s+/g, " ").trim().toUpperCase();
 const explicitVoiceMatches = parsedVoiceManifest.lines.flatMap(line => line.match ? [normalizeSpeech(line.match)] : []);
-const eventText = new Map(parsedNarrationManifest.events.map(event => [event.sourceId, normalizeSpeech(event.normalizedText)]));
+const unitsByTrigger = new Map<string, typeof parsedNarrationManifest.units>();
+for (const unit of parsedNarrationManifest.units)
+  unitsByTrigger.set(unit.triggerSourceId, [...(unitsByTrigger.get(unit.triggerSourceId) ?? []), unit]);
 const exactTextNarrations = new Map<string, typeof parsedNarrationManifest.units>();
-for (const unit of parsedNarrationManifest.units) {
-  if (!unit.asset || unit.coveredSourceIds.length !== 1 || (unit.runtimeVariants?.length ?? 0) > 0) continue;
-  const text = eventText.get(unit.triggerSourceId);
-  if (!text || normalizeSpeech(unit.spokenText) !== text) continue;
-  exactTextNarrations.set(text, [...(exactTextNarrations.get(text) ?? []), unit]);
+for (const event of parsedNarrationManifest.events) {
+  const text = normalizeSpeech(event.normalizedText);
+  if (!text) continue;
+  for (const unit of unitsByTrigger.get(event.sourceId) ?? []) {
+    if (!unit.asset || (unit.runtimeVariants?.length ?? 0) > 0) continue;
+    exactTextNarrations.set(text, [...(exactTextNarrations.get(text) ?? []), unit]);
+  }
 }
 const soundManifest = readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url));
 const enhancedSoundFiles = new Set((JSON.parse(soundManifest.toString("utf8")) as
@@ -122,7 +126,7 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
     if (messages.length > 64) messages.shift();
     const normalized = normalizeSpeech(text.message);
     const handledByExplicitVoice = explicitVoiceMatches.some(match => normalized.includes(match));
-    const exact = exactTextNarrations.get(normalized) ?? [];
+    const exact = [...new Map((exactTextNarrations.get(normalized) ?? []).map(unit => [unit.id, unit])).values()];
     if (!handledByExplicitVoice && exact.length === 1) {
       const unit = exact[0]!;
       narrations.push({ id: ++narrationId, step: text.step, unitId: unit.id,
