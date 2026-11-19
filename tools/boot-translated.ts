@@ -53,12 +53,16 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   if (!exe || !ovr) throw new Error("START.EXE and GAME.OVR are required");
   const boot = installProgram(cpu, exe.data, ovr.data);
   const capturePresentationDelay = input?.capturePresentationDelay;
+  const capturePerspective = input?.capturePerspective;
+  const viewportSegment = capturePerspective && loadedSlices.find(({ index }) => index === 36)?.loadPara;
   const terrainDrawSegment = process.env.POR_TRACE_BATTLE_DRAW === "1"
     ? loadedSlices.find(({ index }) => index === 33)?.loadPara : undefined;
-  if (capturePresentationDelay || terrainDrawSegment !== undefined) {
+  if (capturePresentationDelay || viewportSegment !== undefined || terrainDrawSegment !== undefined) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
     cpu.tick = function (at) {
+      // The overlay's first-person draw has finished writing the viewport.
+      if (at === 0x1eb9 && this.cs === viewportSegment) capturePerspective?.();
       // The original executable holds the attack pose during this delay.
       if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) capturePresentationDelay?.(this);
       // The far entry draws a frame from one of the two SQRPACI blocks.

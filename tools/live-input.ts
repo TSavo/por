@@ -79,6 +79,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let scene: string | undefined;
   let area: number | undefined;
   let battleCursor: number | undefined;
+  let drawnPerspective: Buffer | undefined;
   let previousPerspective: { area: number; pixels: Buffer } | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
@@ -96,6 +97,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const encounterArt = loadEncounterArt(encounterPlacements);
   const traceTiles = process.env.POR_TRACE_TILES === "1";
   const traceBattleTiles = process.env.POR_TRACE_BATTLE_TILES === "1";
+  function perspectivePixels() {
+    const pixels = Buffer.alloc(88 * 88);
+    for (let row = 0; row < 88; row++) {
+      const start = (24 + row) * screen.width + 24;
+      pixels.set(screen.pixels.subarray(start, start + 88), row * 88);
+    }
+    return pixels;
+  }
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false, durationMs?: number) => {
     if (browser) {
       const glyphs = visibleGameText();
@@ -125,30 +134,20 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         (area === 1 && menu === "RELEASEANIMALSLEAVE") ||
         (area === 24 && menu === "DESTROYALTARLEAVEIT");
       let perspective = false;
-      // New Phlan's scripted tour and City Hall transitions draw a new
-      // street or hallway before the normal exploration menu returns.
-      const scriptedCityView = area === 0 && !scene && !leads && picture === undefined &&
-        !hasBattlefieldBorder(screen);
       if (!leads) {
-        // A guest prompt can replace the menu while leaving the perspective
-        // picture intact. Preserve its presentation until the picture changes.
-        if (area !== undefined && !scene && picture === undefined &&
-            (encounter || exploration || previousPerspective?.area === area)) {
-          const pixels = Buffer.alloc(88 * 88);
-          for (let row = 0; row < 88; row++) {
-            const start = (24 + row) * screen.width + 24;
-            pixels.set(screen.pixels.subarray(start, start + 88), row * 88);
-          }
-          perspective = Boolean(encounter || exploration ||
-            (previousPerspective?.area === area && previousPerspective.pixels.equals(pixels) && !hasBattlefieldBorder(screen)));
+        if (area !== undefined && !scene && picture === undefined && !hasBattlefieldBorder(screen)) {
+          const pixels = perspectivePixels();
+          // The original game can redraw scenery while the menu is hidden,
+          // including mid-transition at a doorway.
+          perspective = Boolean(encounter || exploration || drawnPerspective?.equals(pixels) ||
+            (previousPerspective?.area === area && previousPerspective.pixels.equals(pixels)));
           previousPerspective = perspective ? { area, pixels } : undefined;
         } else {
           previousPerspective = undefined;
         }
       }
-      if ((tileKeys.size || traceTiles) && area !== undefined && (perspective || scriptedCityView)) {
+      if ((tileKeys.size || traceTiles) && area !== undefined && perspective) {
         const pixels = Buffer.alloc(64);
-        const candidates: TileInventoryCell[] = [];
         // The first-person view has an 11-by-11 interior with an eight-pixel border.
         for (let y = 24; y < 112; y += 8) {
           for (let x = 24; x < 112; x += 8) {
@@ -157,20 +156,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
               pixels.set(enhanced.pixels.subarray(start, start + 8), row * 8);
             }
             const key = `tile:${area}:${createHash("sha256").update(pixels).digest("hex")}`;
-            const cell: [number, number, string] = [x, y, key];
-            candidates.push([...cell, pixels.toString("hex")]);
-          }
-        }
-        // Require a complete, varied tile grid before treating a pane
-        // with no exploration menu as scenery. Blank fills and portraits
-        // must not be painted over.
-        if (!perspective && new Set(candidates.map(([, , key]) => key)).size > 4 &&
-            candidates.every(([, , key]) => tileKeys.has(key))) {
-          perspective = true;
-        }
-        if (perspective) {
-          for (const [x, y, key, pixels] of candidates) {
-            tileInventory?.push([x, y, key, pixels]);
+            if (tileInventory) tileInventory.push([x, y, key, pixels.toString("hex")]);
             if (tileKeys.has(key)) tiles.push([x, y, key]);
           }
         }
@@ -325,6 +311,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   return {
     requestKey,
+    capturePerspective: browser ? () => { drawnPerspective = perspectivePixels(); } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu) => {
       if (scene || animation.length >= 12) return;
       battleCursor = cpu.read16(0x740, 0x494e);
