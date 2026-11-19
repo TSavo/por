@@ -1301,6 +1301,11 @@ placements across 15 views. The terrain checkpoint sets the area's
 wandering encounters to cleared. `bane-hidden-treasure` opens the hidden
 loot chamber and verifies the treasure illustration through the original
 loot menu, with state and save preserved during presentation switches.
+`zhentil-east-yard` verifies 13 new terrain tiles, 17 views and 2,057
+placements from a position-only copy of the quarters checkpoint.
+`valjevo-troll-approach` verifies the original near-distance frame and
+the 160×320 replacement at the guest's screen anchor. This replay does
+not present the middle or far frames.
 
 `graveyard-northeast-west` and `graveyard-northeast-east` verify 14 new
 Valhingen tiles with 1,694 placements across 14 views. The terrain audit

@@ -1,6 +1,20 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:5:SPRIT5.DAX:31:0:0": "valjevo-tower-troll-approach.png",
+    "tile:28:8bd9dc9d33219cd5dde064af226d9301655b1ebdf4351211fefc2f85f63cd80c": "zhentil-east-yard-terrain-8bd9dc9d3321.png",
+    "tile:28:7041882d54734f52b66d2334ec62779d485694e861327c4b4c765326d9fdc613": "zhentil-east-yard-terrain-7041882d5473.png",
+    "tile:28:3aba0bc3a1f0358e649df430098738004297a0554176b8d049704de805a60256": "zhentil-east-yard-terrain-3aba0bc3a1f0.png",
+    "tile:28:96c6214eeeffe75400cbf369415185d115fb3a3c1bd7607f5019cb3c97a66850": "zhentil-east-yard-terrain-96c6214eeeff.png",
+    "tile:28:7143a050c3f7b7ed9ad82387d8e9c8718cfc65da371bd7de40a7a90ef8ece325": "zhentil-east-yard-terrain-7143a050c3f7.png",
+    "tile:28:7a62f42874a318807e50c5f76958ec89a88041ebcdbe85f63c86b39a4adb37d7": "zhentil-east-yard-terrain-7a62f42874a3.png",
+    "tile:28:cfa4bda234e66d7f2a759b995f435fea64c2d7ed222fd494265f54af42d0fcc3": "zhentil-east-yard-terrain-cfa4bda234e6.png",
+    "tile:28:110943e6a403b2235bba6335458085ad7e6948b823e00f8af7bd859e29c98c38": "zhentil-east-yard-terrain-110943e6a403.png",
+    "tile:28:7b0f4c5e0342aae5e5b92d18186442fae0da889105bf04bd0d2e4aa23aa1e6a7": "zhentil-east-yard-terrain-7b0f4c5e0342.png",
+    "tile:28:047999a951e18a76faa74bddd9e5c5668fa48328dc364e108ddabc89608836c1": "zhentil-east-yard-terrain-047999a951e1.png",
+    "tile:28:3c467746de7122352d731496877faee484cfed921620fc67b980c28c3e4f03cb": "zhentil-east-yard-terrain-3c467746de71.png",
+    "tile:28:bb238383eb8d6412bfd62abc7733839c2fc1f92ece7d6b1ee6cc4592169dbcef": "zhentil-east-yard-terrain-bb238383eb8d.png",
+    "tile:28:ad36b180e98ca7da02772f5bff4e852bdc0095c75609b1b15b2ac6e4d2ff9340": "zhentil-east-yard-terrain-ad36b180e98c.png",
     "tile:22:6cfeeb3aa25d3f411dae5eec17d7369ca7153e72dcf54bcf4c3daec0f5b21fc7": "yarash-upper-gallery-terrain-6cfeeb3aa25d.png",
     "tile:22:f6f788d5dc8b34c85b89b05c16a8afb195f53a565b079be15b69178639de7694": "yarash-upper-gallery-terrain-f6f788d5dc8b.png",
     "tile:22:aa6f4f9ce990cf65ed1292cb8198cd2752df6026bf588a996ef8d667cfafe1a6": "yarash-upper-gallery-terrain-aa6f4f9ce990.png",
@@ -2319,6 +2333,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:5:SPRIT5.DAX:31:0:0": { "area": 5, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:24:SPRIT1.DAX:4:0:0": { "area": 24, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:16:SPRIT8.DAX:57:0:0": { "area": 16, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:9:SPRIT2.DAX:63:0:0": { "area": 9, "x": 56, "y": 32, "width": 24, "height": 73 },
