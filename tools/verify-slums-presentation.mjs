@@ -1872,6 +1872,7 @@ const routes = ["new-phlan-building-exit", "new-phlan-arena-manual-report", "new
 routes.push("new-phlan-council-reward-reload", "slums-mage-wand");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
+routes.push("kobold-king-return-council");
 routes.push("kovel-guild-files", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
@@ -1900,6 +1901,7 @@ const riverPassage = routeName === "river-passage";
 const riverFountain = routeName === "river-fountain";
 const riverExit = routeName === "river-exit";
 const riverReturn = routeName === "river-return";
+const koboldReturn = routeName === "kobold-king-return-council";
 const riverPumping = routeName === "river-pumping";
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
@@ -1936,7 +1938,7 @@ const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
 const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneReturn || koboldCaveExit;
-const saveSlot = mageWand || koboldKingDoor || koboldKingFall ? "B" : slot;
+const saveSlot = mageWand || koboldKingDoor || koboldKingFall || koboldReturn ? "B" : slot;
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[saveSlot];
 const saved = resolve(directory, saveSlot + ".json");
 const battleTrace = process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -4223,25 +4225,41 @@ try {
     for (const key of ["j", "e", "s", "s", "a"]) await advance(key);
     assert.ok(JSON.parse(readFileSync(saved, "utf8")).leads.some(({ id }) => id === "river-entrance-inside"));
     console.log("Verified the river rowboat and secret entrance in Chrome. Saved:", saved);
-  } else if (envoyReturn || riverReturn) {
-    const commission = riverReturn ? "commission-river" : "commission-zhentil";
-    const discovery = riverReturn ? "river-recovery" : "zhentil-envoy-left";
+  } else if (envoyReturn || riverReturn || koboldReturn) {
+    const commission = koboldReturn ? "commission-kobolds" : riverReturn ? "commission-river" : "commission-zhentil";
+    const discovery = koboldReturn ? "kobold-caves-left" : riverReturn ? "river-recovery" : "zhentil-envoy-left";
     const journalStatus = () => frame.journal?.leads.find(({ id }) => id === commission)?.status;
     await advance("j");
     assert.equal(journalStatus(), "ready-to-report");
     assert.ok(frame.journal.leads.some(({ id }) => id === discovery));
-    const toLanding = riverReturn
+    const toLanding = koboldReturn
+      ? [...Array(3).fill("right"), ...Array(14).fill("down")]
+      : riverReturn
       ? ["right", "right", "right", ...Array(15).fill("down"), "left", "left"]
       : [...Array(5).fill("up"), ...Array(18).fill("right"), "down", "down"];
-    for (const key of ["j", ...toLanding, "enter",
-      "t", "enter", "enter", "enter", ...Array(4).fill("up"),
+    for (const key of ["j", ...toLanding, "enter"]) await advance(key);
+    if (koboldReturn) {
+      assert.equal(frame.portrait, "portrait:PIC8.DAX:41:0:0");
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /TAKEBOAT.*STAY/i);
+    }
+    for (const key of ["t", "enter", "enter", koboldReturn ? "right" : "enter", ...Array(4).fill("up"),
       "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
       "left", "up", "up", "left", "up", "left", "up", "up", "enter", "j"]) await advance(key);
     assert.equal(journalStatus(), "ready-to-report");
     // This checkpoint still has its earlier Podal Plaza reward to collect.
     for (const key of ["j", "enter", "enter", "enter", "s", "e", "j"]) await advance(key);
+    if (koboldReturn) {
+      assert.equal(journalStatus(), "ready-to-report");
+      // The clerk pays the earlier envoy reward before the kobold reward.
+      for (const key of ["j", "enter", "enter", "enter", "s", "e", "enter", "j"]) await advance(key);
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join("").replace(/\s/g, ""),
+        /THISLOSSOFTHEKOBOLDFORCESWILLBEAMAJORBLOW/i);
+    }
     assert.equal(journalStatus(), "reward-pending");
-    for (const key of ["j", "enter", "enter", "enter", "s", "e", "j"]) await advance(key);
+    const rewardKeys = koboldReturn
+      ? ["enter", "enter", "s", "e", "enter"]
+      : ["enter", "enter", "enter", "s", "e"];
+    for (const key of ["j", ...rewardKeys, "j"]) await advance(key);
     assert.equal(journalStatus(), "turned-in");
     console.log(`Verified ${commission} after reload, the return boat, and council turn-in in Chrome.`);
   } else if (routeName === "mendor-records-reward") {

@@ -2418,3 +2418,11 @@ and damage report before choosing Quick, then verifies that one Q displays
 subsequent misses and damage and stops at the original Continue Battle
 choice. The test drops the first automatic poll request and checks that
 Chrome retries, advances to the choice, and preserves the save bytes.
+
+The `kobold-king-return-council` replay starts from the slot B emitted by
+`kobold-king-leave-caves`. It walks to the East Overland dock at (35,29),
+takes the original ferry, and walks from the New Phlan pier to the council
+clerk through ordinary game inputs. The clerk pays the outstanding Podal
+Plaza and envoy rewards first. The replay checks that the kobold commission
+stays ready to report until the clerk announces the kobold reward, then
+moves from reward pending to turned in after the treasure menu closes.
