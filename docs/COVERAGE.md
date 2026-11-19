@@ -2796,6 +2796,9 @@ Chrome views and 2,178 placements.
 Sokal Keep's gallery and smithy now use broad worn flagstones.
 The two walks check 11 revised tiles across 31 views. A west-reeds
 walk checks the matching edge tile through 16 more views.
+The Kobold Cave pool passage, west gallery, and south loop now use
+brushed silt under the basalt walls. Three Chrome walks check all 25
+revised tiles across 52 views and 6,292 placements.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
