@@ -3192,9 +3192,10 @@ dwarf battle. The shorter fixture also reduces the two surrounding
 enemy groups to reach the Commandant sooner.
 
 The Podal Pitt tavern hobgoblin has ready and strike sprites scoped to
-the brawl. The Chrome replay starts at the local slot I checkpoint and
-checks both loaded 96×96 images at (56, 56), including the reflected
-strike and matching native attack report.
+the brawl. Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_I CHROME_PATH podal-pitt-hobgoblin-combat`.
+It starts outside the drunken buccaneer's encounter and checks the
+ready and reflected strike placements at (56, 56), the loaded 96×96
+images, the native attack report, and state preservation across displays.
 
 The combat matcher checks one opaque foreground pixel before comparing
 the full sprite and its background. A before-and-after check on
