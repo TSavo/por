@@ -37,6 +37,11 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["textile-ogre-war-chief-approach", {
+    slot: "B", inputs: ["up", "enter"],
+    placement: [56, 32, "encounter:area:2:SPRIT4.DAX:6:1:0", 24, 65],
+    closer: [56, 32, "encounter:area:2:SPRIT4.DAX:6:1:0", 24, 65], closerKey: "enter",
+  }],
   ["slums-ohlo-study-approach", {
     slot: "B", inputs: ["up", "b", "b"],
     placement: [56, 32, "encounter:area:20:SPRIT2.DAX:24:1:0", 24, 65],

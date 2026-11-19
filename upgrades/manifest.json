@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:2:SPRIT4.DAX:6:1:0": "textile-ogre-war-chief-approach.png",
     "combat:area:9:CPIC2.DAX:11:ecl:a2b4": "stojanow-aide-stand.png",
     "combat:area:9:CPIC2.DAX:139:ecl:a2b4": "stojanow-aide-strike.png",
     "tile:1:d3aa5b24be02b3027ac4c78ebcb2e735be09a707ca5e53bcf280a0939eda9146": "buccaneer-east-run-terrain-d3aa5b24be02.png",
@@ -3290,6 +3291,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:2:SPRIT4.DAX:6:1:0": { "area": 2, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:20:SPRIT2.DAX:24:1:0": { "area": 20, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:23:SPRIT7.DAX:24:2:0": { "area": 23, "x": 64, "y": 24, "width": 48, "height": 57 },
     "encounter:area:23:SPRIT7.DAX:24:1:0": { "area": 23, "x": 56, "y": 32, "width": 24, "height": 65 },
