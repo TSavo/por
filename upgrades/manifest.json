@@ -1,6 +1,15 @@
 {
   "version": 1,
   "assets": {
+    "tile:13:c747902d490c8651566f0044d5054b5377fe2939d6a9656e8d6a7b518bee16b1": "kobold-cave-thresholds-terrain-c747902d490c.png",
+    "tile:13:cfbfd520ee1fb9140fa73dcc649955957e214bd5148e506d6286dc9f0168e54d": "kobold-cave-thresholds-terrain-cfbfd520ee1f.png",
+    "tile:13:0e1e0361a1512d53914cfffa56ad5d9f1c6676291c0725bd0f4192718fd507a3": "kobold-cave-thresholds-terrain-0e1e0361a151.png",
+    "tile:13:5489a60945a1c69e6349b1dbbbfa55e6e0f2a04200f80cb2d4297b8177cee54c": "kobold-cave-thresholds-terrain-5489a60945a1.png",
+    "tile:13:0e05ab3cc6d259090c83670d1de0b794b946bd8722c23949502436b63fe397db": "kobold-cave-thresholds-terrain-0e05ab3cc6d2.png",
+    "tile:13:e05c49674f61413e958d8c57f241968c3e8574d6ae3f1ab06e30507b322d3aae": "kobold-cave-thresholds-terrain-e05c49674f61.png",
+    "tile:13:84a5e65150d3128b6e080ac8b952f40e90d82f40d0b3c345d2be51f4952c9f10": "kobold-cave-thresholds-terrain-84a5e65150d3.png",
+    "tile:13:297ae58620a76aff7e45afd3c6c147f02104a51cd0202ea310ca5b2f4777faad": "kobold-cave-thresholds-terrain-297ae58620a7.png",
+    "tile:13:b99063b51996f32692877bfb0938e2ddee836bfd65b398cfad050106b7120d17": "kobold-cave-thresholds-terrain-b99063b51996.png",
     "encounter:area:25:SPRIT6.DAX:60:1:0": "wild-cave-rearing-snake-approach.png",
     "combat:area:20:CPIC2.DAX:6:ecl:a0b4": "slums-mage-hobgoblin-stand.png",
     "combat:area:20:CPIC2.DAX:134:ecl:a0b4": "slums-mage-hobgoblin-strike.png",

@@ -1021,6 +1021,12 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["kobold-cave-thresholds-large", {
+    slot: "B", area: 13, views: 2, patterns: 23, sceneryOnly: true, walk: ["right"],
+  }],
+  ["kobold-cave-thresholds-small", {
+    slot: "B", area: 13, views: 2, patterns: 26, sceneryOnly: true, walk: ["right"],
+  }],
   ["new-phlan-envoy-arcade", {
     slot: "A", area: 8, views: 5, patterns: 20, sceneryOnly: true,
     walk: ["right", "up", "up", "left"],
