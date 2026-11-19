@@ -2842,6 +2842,11 @@ close bound lizardfolk sprites, then the pumping-room illustration
 before parlay and the journal update.
 The Pyramid patrol has a separate scout sprite and group illustration.
 The Chrome replay checks the approach and the original wary dialogue.
+The Old Phlan hut replay checks the four lizardfolk's own approach and
+group illustration before the original attack prompt.
+The Nomad inner trail uses wind-scoured sand across 38 revised tiles.
+The extended Chrome walk checks 16 views, and the standard inner-lane
+replay checks 13 views with the default pack.
 The Slums potion-lab replay verifies the scoped orc ready sprite. It
 steps combat pauses explicitly to keep the replay deterministic.
 The matching potion-lab orc leader replay checks the 4× ready and

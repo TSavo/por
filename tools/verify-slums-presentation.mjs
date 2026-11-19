@@ -499,6 +499,11 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
   }],
+  ["old-phlan-hut-lizardfolk", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    approachSequence: [[48, 32, "encounter:area:26:ecl:a944:SPRIT7.DAX:57:0:0", 48, 80]],
+    portrait: "portrait:area:26:ecl:a981:PIC7.DAX:57:0:0", prompt: /INSIDETHISHUTAREFOURLIZARDMEN/i,
+  }],
   ["pyramid-lizardfolk-patrol", {
     slot: "A", inputs: ["up", "enter", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:0:0", 48, 80]],
