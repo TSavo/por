@@ -2754,6 +2754,9 @@ wall-to-floor joins, with state and saves preserved when switching modes.
 Podal uses rounded buff limestone setts beneath blue-gray masonry and
 reddish overhead plaster. Four Chrome walks checked 17 floor and
 junction bindings across 36 views.
+Kuto's well, northern lane, border, and eastern lane now use packed
+earth with worn limestone chips beneath the turquoise masonry. Four
+Chrome walks checked 24 floor and edge bindings across 48 live views.
 
 `nomad-camp-rim` checks all three enhanced sentry distances in order
 before the swords-ready prompt. `buccaneer-captain-dialogue` checks the
