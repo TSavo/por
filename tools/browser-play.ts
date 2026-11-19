@@ -89,6 +89,7 @@ interface FrameState {
   combatArt?: CombatArtPlacement[];
   battleTiles?: [number, number, string][];
   animation?: PresentationAnimationFrame[];
+  automaticCombat?: boolean;
   tileInventory?: TileInventoryCell[];
   battleTileInventory?: TileInventoryCell[];
   text?: [number, number, number][];
@@ -232,8 +233,9 @@ const server = createServer(async (req, res) => {
     const track = /^track ([1-9]\d{0,2})$/.exec(command);
     const validTrack = frame.journal && (command === "track auto" ||
       (track && Number(track[1]) <= frame.journal.leads.filter(isOpenObjective).length));
+    const validPoll = command === ":poll" && frame.automaticCombat && expected === String(sequence);
     const gameKey = command.startsWith("key ") ? command.slice(4) : command;
-    if ((!validTrack && getKey(gameKey) === undefined) ||
+    if ((!validTrack && !validPoll && getKey(gameKey) === undefined) ||
         (frame.journal && command.toLowerCase() !== "j" && !validTrack)) {
       res.writeHead(400).end();
       return;

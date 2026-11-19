@@ -94,7 +94,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const encounterArt = loadEncounterArt(encounterPlacements);
   const traceTiles = process.env.POR_TRACE_TILES === "1";
   const traceBattleTiles = process.env.POR_TRACE_BATTLE_TILES === "1";
-  const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false) => {
+  const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false) => {
     if (browser) {
       const glyphs = visibleGameText();
       const dialogue = glyphs.filter(([cell]) => cell >= 640 && cell < 960).sort(([a], [b]) => a - b)
@@ -213,6 +213,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         battleTileInventory,
         tileInventory,
         textColors: enhancedPalette,
+        automaticCombat: automaticCombat || undefined,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
           trackedId: leads.find((lead) => lead.id === trackedId && isOpenObjective(lead))?.id },
       };
@@ -267,6 +268,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
+    let automaticCombat = false;
     if (browser) {
       const segment = cpu.read16(0x740, 0x4935);
       const offset = cpu.read16(0x740, 0x4933);
@@ -276,17 +278,30 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (area === 5 && cpu.read8(0x740, 0x82a2) === 3) area = 3;
       // The ECL interpreter suspends at this cursor while the battle runs.
       battleCursor = cpu.read16(0x740, 0x494e);
+      if (!blocking && cpu.cs === 0x512 && cpu.ip === 0x5423 && hasBattlefieldBorder(screen)) {
+        // Original combat turn code (ovl08:0252, 02a0) stores the active actor and tests its Quick flag.
+        const actorOffset = cpu.read16(0x740, 0x5cf0);
+        const actorSegment = cpu.read16(0x740, 0x5cf2);
+        const menu = menuText(visibleGameText());
+        automaticCombat = (!menu || menu.startsWith("MOVE/ATTACK,")) &&
+          (actorOffset !== 0 || actorSegment !== 0) &&
+          cpu.read8(actorSegment, (actorOffset + 0x10f) & 0xffff) !== 0;
+      }
     }
-    showFrame();
+    showFrame(undefined, undefined, false, automaticCombat);
     while (true) {
       if (!browser) process.stdout.write("Game [J journal, :quit, key]> ");
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
+      if (command === ":poll" && automaticCombat) {
+        nextPrompt = cpu.steps + 1_000_000;
+        return;
+      }
       if (!inCampMenu && diskMenuDepth === 0 && command.toLowerCase() === "j") {
         // The original appraisal menu uses J for Jewelry.
         if (!/^APPRAISE:.*JEWELRY/.test(menuText(visibleGameText()))) {
           openJournal();
-          showFrame();
+          showFrame(undefined, undefined, false, automaticCombat);
           continue;
         }
       }

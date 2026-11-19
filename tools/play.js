@@ -34,6 +34,7 @@ let lastNarrationId = null;
 const narratedScenes = new Set();
 let state = { sequence: -1 };
 let posting = false;
+let quickCombat = false;
 let enhanced = false;
 let animationFrame;
 let animationTimer;
@@ -376,6 +377,7 @@ function render() {
 
 async function send(key) {
   if (!state.ready || posting || state.stopped) return;
+  if (key === "alt-q" || key.toLowerCase() === "q") quickCombat = true;
   if (animationFrame) {
     finishAnimation();
     showScreen();
@@ -409,12 +411,21 @@ async function poll() {
     if (changed) {
       render();
       playAnimation();
+      if (quickCombat && state.automaticCombat) {
+        const sequence = state.sequence;
+        setTimeout(() => {
+          if (quickCombat && state.sequence === sequence) void send(":poll");
+        }, 160 + (state.animation?.length ?? 0) * 120);
+      } else if (!state.journal) {
+        quickCombat = false;
+      }
     }
     playPendingSounds();
     playPendingVoice();
     playPendingNarration();
     status.textContent = state.stopped ?? state.notice ??
-      (state.ready ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
+      (quickCombat && state.automaticCombat ? "Quick combat. Press Space to interrupt."
+        : state.ready ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
   } catch {
     status.textContent = "Waiting for the local game runner…";
   }
