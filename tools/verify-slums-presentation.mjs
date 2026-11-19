@@ -304,6 +304,10 @@ const encounterRoutes = new Map([
   ["valhingen-spectre-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [56, 32, "encounter:area:10:SPRIT4.DAX:17:1:0", 24, 65],
+    approachSequence: [
+      [56, 32, "encounter:area:10:SPRIT4.DAX:17:2:0", 16, 49],
+      [56, 32, "encounter:area:10:SPRIT4.DAX:17:1:0", 24, 65],
+    ],
   }],
   ["valhingen-mummy-approach", {
     slot: "A", inputs: ["up", "enter"],
@@ -628,6 +632,13 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["tyrmor-prison-thief-combat", {
+    slot: "B", stand: "combat:area:22:CPIC7.DAX:12:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:140:ecl:a36f",
+    width: 96, height: 96, readyPrompt: /7THLVLTHIEFHITPOINTS28AC4/i, strikeReflected: true,
+    inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "enter", "down"]).flat(),
+      "up", "enter", "enter", "down", "c", "enter"],
+    strikeInputs: Array(4).fill("q"),
+  }],
   ["tyrmor-prison-fighter-combat", {
     slot: "B", stand: "combat:area:22:CPIC7.DAX:11:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:139:ecl:a36f",
     width: 96, height: 96, readyPrompt: /7THLVLDWFIGH/i, strikeReflected: false,

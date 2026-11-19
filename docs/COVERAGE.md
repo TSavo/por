@@ -2751,16 +2751,22 @@ The Temple of Bane side galleries and eastern outer courts use angled
 olive-slate paving beneath the gray masonry. Four Chrome walks checked
 the 12 revised tile bindings across 43 views, including the arches and
 wall-to-floor joins, with state and saves preserved when switching modes.
+Podal uses rounded buff limestone setts beneath blue-gray masonry and
+reddish overhead plaster. Four Chrome walks checked 17 floor and
+junction bindings across 36 views.
 
 `nomad-camp-rim` checks all three enhanced sentry distances in order
 before the swords-ready prompt. `buccaneer-captain-dialogue` checks the
 enhanced approach sprite before the captain's portrait.
 
-The two Tyrmor Prison combat replays check 4× ready and strike sprites in
-the live battle, including the reflected lizardman strike. The human and
+The three Tyrmor Prison combat replays check 4× ready and strike sprites in
+live battles, including the reflected lizardman and thief strikes. The human and
 dwarven fighters share the original frame IDs and use the same prison
-fighter art. The lizardman checkpoint isolates its native encounter by
-marking the other wandering encounters defeated.
+fighter art. The lizardman and thief checkpoints isolate their native
+encounters by marking the other wandering encounters defeated.
+
+`valhingen-spectre-approach` checks the new far pose before the middle
+pose, including frame dimensions, screen placement, and mode switching.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.
