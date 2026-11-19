@@ -1,6 +1,13 @@
 {
   "version": 1,
   "assets": {
+    "tile:13:0fe2248bf92bca927be490c4a509808d89c899691ef5c820f7a10bcf64b81346": "kobold-south-loop-terrain-0fe2248bf92b.png",
+    "tile:13:901bb0a0cdefda412230f4dc0aa5eeef7fc2cc701335562f7ca75a059abaa5bb": "kobold-south-loop-terrain-901bb0a0cdef.png",
+    "tile:13:84bd9f932d01acd7802f14ad00019ab825662ed48286b3faa9a33c37557bdafb": "kobold-south-loop-terrain-84bd9f932d01.png",
+    "tile:13:ff913b0f012f5419137db19c5e072d3b4b6d5d867ad1c85270a3f7f85a426645": "kobold-south-loop-terrain-ff913b0f012f.png",
+    "tile:13:04a5f8a88df073af060bcd31139f0ec52dc5c0d221c1743aa3db2df8de5f4919": "kobold-south-loop-terrain-04a5f8a88df0.png",
+    "tile:13:0a6c05d0252e74f74a46ee4084403f1c26eb7546560d7eea6c56d818416dfeca": "kobold-south-loop-terrain-0a6c05d0252e.png",
+    "tile:13:7a128cc02d3a0bf5cb49a3d6c04fb7ef793368a7413172aec694936214d6ecd8": "kobold-south-loop-terrain-7a128cc02d3a.png",
     "encounter:area:0:SPRIT3.DAX:12:2:0": "new-phlan-rolf-approach-far.png",
     "encounter:area:0:SPRIT3.DAX:12:1:0": "new-phlan-rolf-approach-middle.png",
     "encounter:area:0:SPRIT3.DAX:12:0:0": "new-phlan-rolf-approach-near.png",
