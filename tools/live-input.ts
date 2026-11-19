@@ -29,6 +29,7 @@ export interface PresentationAnimationFrame {
   perspective?: boolean;
   encounter?: EncounterPlacement;
   tiles?: TilePlacement[];
+  durationMs?: number;
 }
 type TilePlacement = [x: number, y: number, key: string];
 export type TileInventoryCell = [x: number, y: number, key: string, indices: string];
@@ -87,6 +88,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     .filter((key) => Number(monsterCombatKey.exec(key)?.[3]) >= 128));
   const animation: PresentationAnimationFrame[] = [];
   let lastAttack = "";
+  let lastCombatReport = "";
   let lastApproach: string | undefined;
   const portraitKeys = (process.env.POR_PORTRAIT_ART_KEYS ?? "").split(",").filter(Boolean);
   const portraitArt = loadPortraitArt(portraitKeys, browser);
@@ -94,7 +96,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const encounterArt = loadEncounterArt(encounterPlacements);
   const traceTiles = process.env.POR_TRACE_TILES === "1";
   const traceBattleTiles = process.env.POR_TRACE_BATTLE_TILES === "1";
-  const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false) => {
+  const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false, durationMs?: number) => {
     if (browser) {
       const glyphs = visibleGameText();
       const dialogue = glyphs.filter(([cell]) => cell >= 640 && cell < 960).sort(([a], [b]) => a - b)
@@ -219,11 +221,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       };
       if (attack || captureApproach) {
         animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame,
-          text: state.text, combatArt: attack ?? [], battleTiles, perspective, encounter, tiles });
+          text: state.text, combatArt: attack ?? [], battleTiles, perspective, encounter, tiles, durationMs });
       } else {
         console.log(`POR_FRAME ${JSON.stringify({ ...state,
           animation: animation.length ? animation.splice(0) : undefined })}`);
         lastAttack = "";
+        lastCombatReport = "";
         lastApproach = undefined;
       }
     } else {
@@ -322,15 +325,26 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   return {
     requestKey,
-    capturePresentationDelay: browser && (attackKeys.size || Object.keys(encounterPlacements).length) ? (cpu: Cpu) => {
+    capturePresentationDelay: browser ? (cpu: Cpu) => {
       if (scene || animation.length >= 12) return;
       battleCursor = cpu.read16(0x740, 0x494e);
       const placements = combatArt(screen, undefined, area, battleCursor);
       const attacks = placements.filter(([, , key]) => attackKeys.has(key));
       const signature = attacks.length ? JSON.stringify(attacks) : "";
-      if (signature && signature !== lastAttack) showFrame(undefined, placements);
+      // Combat prints action and result text below the actor's stats in
+      // the right-hand panel. The guest clears it before the next key read.
+      const report = hasBattlefieldBorder(screen) ? visibleGameText()
+        .filter(([cell, char]) => cell >= 423 && cell < 860 && cell % 40 >= 23 && char > 32)
+        .sort(([a], [b]) => a - b).map(([cell, char]) => `${cell}:${char}`).join(",") : "";
+      if (report && report !== lastCombatReport) {
+        showFrame(undefined, placements, false, false, 1000);
+      } else if (signature && signature !== lastAttack) {
+        showFrame(undefined, placements);
+      } else if (!signature && !report && area !== undefined) {
+        showFrame(undefined, undefined, true);
+      }
+      lastCombatReport = report;
       lastAttack = signature;
-      if (!signature && area !== undefined) showFrame(undefined, undefined, true);
     } : undefined,
     openJournal,
     setCampMenu: (active: boolean) => { inCampMenu = active; },

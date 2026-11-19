@@ -223,7 +223,7 @@ function playAnimation() {
   function advance() {
     animationFrame = frames[index++];
     showScreen();
-    if (animationFrame) animationTimer = setTimeout(advance, 120);
+    if (animationFrame) animationTimer = setTimeout(advance, animationFrame.durationMs ?? 120);
   }
   if (frames.length) advance();
 }
@@ -415,7 +415,7 @@ async function poll() {
         const sequence = state.sequence;
         setTimeout(() => {
           if (quickCombat && state.sequence === sequence) void send(":poll");
-        }, 160 + (state.animation?.length ?? 0) * 120);
+        }, 160 + (state.animation ?? []).reduce((total, frame) => total + (frame.durationMs ?? 120), 0));
       } else if (!state.journal) {
         quickCombat = false;
       }
@@ -424,7 +424,7 @@ async function poll() {
     playPendingVoice();
     playPendingNarration();
     status.textContent = state.stopped ?? state.notice ??
-      (quickCombat && state.automaticCombat ? "Quick combat. Press Space to interrupt."
+      (quickCombat && state.automaticCombat ? "Quick combat…"
         : state.ready ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
   } catch {
     status.textContent = "Waiting for the local game runner…";

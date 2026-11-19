@@ -2091,10 +2091,21 @@ try {
     await verifyPortraitPanel();
     console.log("Verified the enhanced dock, all three Rolf distances, and his portrait in a fresh Chrome game.");
   } else if (routeName === "new-phlan-arena-quick") {
+    await run(`window.combatReports = [];
+      new MutationObserver(() => {
+        const text = document.querySelector("#game-text").textContent;
+        if (/Attacks.*(?:damage|Misses)/i.test(text)) window.combatReports.push(text);
+      }).observe(document.querySelector("#game-text"), { childList: true });`);
+    const manualReports = [];
     for (const key of [...arenaApproach, "enter", "left", "up", "enter", "enter", "y", "enter", "enter", "enter"]) {
       await advance(key);
+      manualReports.push(...(frame.animation ?? []).filter(({ durationMs }) => durationMs >= 1000));
     }
-    const textOf = ({ text }) => text.map(([, char]) => String.fromCharCode(char)).join("");
+    const textOf = ({ text }) => text.toSorted(([left], [right]) => left - right)
+      .map(([, char]) => String.fromCharCode(char)).join("");
+    assert.ok(manualReports.some(report => /ROLF.*ATTACKS.*ALDA.*HITTINGFOR3.*DAMAGE/i.test(textOf(report))));
+    await waitFor("Rolf's combat report in the original panel", () =>
+      run('window.combatReports.some(text => /ROLF.*Attacks.*ALDA.*Hittingfor3.*damage/i.test(text))'));
     assert.match(textOf(frame), /HITPOINTS.*QUICKDONE/i);
     assert.equal(frame.automaticCombat, undefined);
     const manual = await fetch(origin + "/key", {
@@ -2113,6 +2124,9 @@ try {
         /CONTINUEBATTLE:YESNO/i.test(textOf(state)) && state;
     });
     assert.equal(decision.stopped, null);
+    const reports = await run("window.combatReports");
+    assert.ok(reports.some(text => /ALDA.*ATTACKS.*ROLF.*MISSES/i.test(text)));
+    assert.ok(reports.some(text => /ALDA.*ATTACKS.*ROLF.*HITTINGFOR2.*DAMAGE/i.test(text)));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified one Quick key advances native combat to the manual Continue Battle prompt.");
   } else if (towerReload || dungeonReload) {
