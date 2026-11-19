@@ -2789,6 +2789,8 @@ archived clean scenery, across 36 Chrome views and 4,356 placements.
 The vault and ossuary walks end before the encounter overlays.
 The Buccaneer stockade and pens use packed sand with shell fragments.
 Three Chrome routes check 89 tiles across 35 views.
+Five adjoining Buccaneer walks check 21 more packed-sand joins across
+78 views and 9,438 placements.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
@@ -2888,6 +2890,8 @@ reflected charge sprites during the original damage report.
 The swamp ruin defenders have their own ready and claw-strike sprites.
 The controlled Chrome replay verifies the reflected strike during the
 original report of the defender hitting Brin.
+The Old Phlan nailed-door patrol replays check the leader and giant
+lizard ready poses, the bite, and the claw strike with their combat reports.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.

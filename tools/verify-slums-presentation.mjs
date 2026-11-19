@@ -718,6 +718,18 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["old-phlan-lizard-patrol-beast-combat", {
+    slot: "B", stand: "combat:area:29:CPIC8.DAX:59:ecl:aa7a", strike: "combat:area:29:CPIC8.DAX:187:ecl:aa7a",
+    width: 192, height: 96, readyPrompt: /GIANTLIZARDHITPOINTS16AC5/i,
+    strikeReport: /GIANTLIZARDATTACKSBRINANDMISSES/i,
+    inputs: ["up", ...Array(4).fill("enter")], strikeInputs: ["enter"],
+  }],
+  ["old-phlan-lizard-patrol-leader-combat", {
+    slot: "B", stand: "combat:area:29:CPIC8.DAX:57:ecl:aa7a", strike: "combat:area:29:CPIC8.DAX:185:ecl:aa7a",
+    width: 96, height: 96, readyPrompt: /LIZARDMANHITPOINTS11AC4/i,
+    strikeReport: /LIZARDMANATTACKSBRINHITTINGFOR2POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(7).fill("enter"), ...Array(6).fill("q")],
+  }],
   ["swamp-ruin-defender-combat", {
     slot: "A", stand: "combat:area:16:CPIC8.DAX:57:ecl:a6ce", strike: "combat:area:16:CPIC8.DAX:185:ecl:a6ce",
     width: 96, height: 96, readyPrompt: /LIZARDMANHITPOINTS11AC4/i, strikeReflected: true,
