@@ -1,6 +1,20 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:26:SPRIT7.DAX:68:0:0": "lizard-wilds-displacer-approach.png",
+    "encounter:area:26:SPRIT7.DAX:61:0:0": "lizard-wilds-stirge-approach.png",
+    "tile:20:4b60842e2334c1049ad4bca15fb9a7105665b6b0903ee984f80bda3989b72ef6": "mendor-locked-wing-terrain-4b60842e2334.png",
+    "tile:20:471ee36539583f5ea9268a433150630a698dcacf55a4975fadd42d86be9e6447": "mendor-locked-wing-terrain-471ee3653958.png",
+    "tile:20:337ac73dee881e4d542ef0d47f9ecdd845db5d205e754751ab97dd05a78e89b6": "mendor-locked-wing-terrain-337ac73dee88.png",
+    "tile:20:d35a6670ee7531d69312469803fa821dac0b8bda58fd3092b458bfee7a7f1061": "mendor-locked-wing-terrain-d35a6670ee75.png",
+    "tile:20:ad36b180e98ca7da02772f5bff4e852bdc0095c75609b1b15b2ac6e4d2ff9340": "mendor-locked-wing-terrain-ad36b180e98c.png",
+    "tile:20:3c467746de7122352d731496877faee484cfed921620fc67b980c28c3e4f03cb": "mendor-locked-wing-terrain-3c467746de71.png",
+    "tile:20:cb43abf0fd5df646b68f7354e81d54c5483d15d91431b29c917d421721032f8b": "mendor-locked-wing-terrain-cb43abf0fd5d.png",
+    "tile:20:b984ca05da6bbb314b850350d6b7cb0ffa8d0354e60a3a5e0e19001e14aed76d": "mendor-locked-wing-terrain-b984ca05da6b.png",
+    "tile:20:f07497f3bcc3bbc1fcf1d81ab417325be072b4fbc8c2f52f1456f346ad14f1e8": "mendor-locked-wing-terrain-f07497f3bcc3.png",
+    "tile:20:8e6ae57a5f20ba1d132b52fd5535f37566182ebf3cc78432eded593c1a7f2101": "mendor-locked-wing-terrain-8e6ae57a5f20.png",
+    "tile:20:a38aedc0535a49549c6c57891cac5fca04685f94ac7094f35e157e43c47a2c51": "mendor-locked-wing-terrain-a38aedc0535a.png",
+    "tile:20:bb238383eb8d6412bfd62abc7733839c2fc1f92ece7d6b1ee6cc4592169dbcef": "mendor-locked-wing-terrain-bb238383eb8d.png",
     "combat:area:27:CPIC8.DAX:31": "wild-cave-troll-stand.png",
     "combat:area:27:CPIC8.DAX:159": "wild-cave-troll-strike.png",
     "encounter:area:29:SPRIT8.DAX:57:0:0": "old-phlan-lizard-patrol-approach.png",
@@ -2907,6 +2921,8 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:26:SPRIT7.DAX:68:0:0": { "area": 26, "x": 40, "y": 32, "width": 64, "height": 80 },
+    "encounter:area:26:SPRIT7.DAX:61:0:0": { "area": 26, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:29:SPRIT8.DAX:57:0:0": { "area": 29, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:31:SPRIT1.DAX:8:0:0": { "area": 31, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:10:SPRIT4.DAX:35:0:0": { "area": 10, "x": 56, "y": 32, "width": 32, "height": 80 },

@@ -1387,6 +1387,12 @@ their dialogue portraits. Both replays switch presentation in each view.
 `bane-ogre-approach` and `old-phlan-lizard-patrol-approach` verify the
 4× approach sprites at their original anchors and their transitions to
 the corresponding dialogue portraits, with presentation switching.
+`lizard-wilds-displacer-approach` and `lizard-wilds-stirge-approach`
+check both wilderness sprites at their original anchors and through the
+transition to dialogue. `mendor-locked-wing` checks 12 new plank, door,
+and sky junction tiles across 16 views and 1,936 placements, including
+passage through the locked door after Bash. These Chrome replays check
+that switching presentations preserves game state and save data.
 `textile-hobgoblin-approach` and `wild-cave-ankheg-approach` check
 standalone 4× encounter sprites at their original screen anchors.
 `kobold-cave-approach` checks the native throne approach from a controlled

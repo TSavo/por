@@ -30,6 +30,16 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["lizard-wilds-displacer-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [40, 32, "encounter:area:26:SPRIT7.DAX:68:0:0", 64, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:26:PIC7.DAX:68:0:0", prompt: /AMBUSHEDBYTWODISPLACERBEASTS/i },
+  }],
+  ["lizard-wilds-stirge-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:26:SPRIT7.DAX:61:0:0", 40, 73],
+    dialogue: { key: "enter", portrait: "portrait:area:26:PIC7.DAX:61:0:0", prompt: /ASWARMOFSTIRGESSWOOPSDOWN/i },
+  }],
   ["old-phlan-lizard-patrol-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:29:SPRIT8.DAX:57:0:0", 48, 80],
@@ -608,6 +618,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["mendor-locked-wing", {
+    slot: "A", area: 20, views: 16, patterns: 39, sceneryOnly: true,
+    walk: ["up", "up", "up", "up", "up", "b", "b", "up", "left", "up", "up", "right", "up", "up", "right"],
+  }],
   ["new-phlan-warehouse-square", {
     slot: "B", area: 0, views: 20, patterns: 35, sceneryOnly: true,
     walk: ["right", "up", "left", "up", "up", "left", "up", "up", "left", "right", "right", "up", "up", "right", "up", "up", "left", "left", "up"],
