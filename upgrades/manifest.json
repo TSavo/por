@@ -1,6 +1,16 @@
 {
   "version": 1,
   "assets": {
+    "tile:13:76c0deea36cb0ab14b18fbc67cc9abfd973415efaf4155abf96285fbaa49a579": "kobold-east-rubble-terrain-76c0deea36cb.png",
+    "tile:13:ef39e2c6a28fea4e6412d8b31c87d47fe97c8b71ae854be8013b77d5268eff97": "kobold-east-rubble-terrain-ef39e2c6a28f.png",
+    "tile:13:39576978a00ee2295210ba2a9d7fc09f43aa49f0e8d304d9429d79e0525ebbaf": "kobold-east-rubble-terrain-39576978a00e.png",
+    "tile:13:2193ab2f3dec5f83887b40dfb4b8b5b0a7af68fea28bcc8c880c55b2f2a0acff": "kobold-east-rubble-terrain-2193ab2f3dec.png",
+    "tile:13:ccd592280185faab2f5608a59bdbdd1a632db5b4cfab3816af63f09bd2d2f0ff": "kobold-east-rubble-terrain-ccd592280185.png",
+    "tile:13:0593e87bf6a61cdc8107a4536e05a2f10f9c1aff77cccc8dbba51b6c1a5f3b68": "kobold-east-rubble-terrain-0593e87bf6a6.png",
+    "tile:13:a061815768cada159b3206b9ef8a1192fa01e392afd003d405cece4f44419a06": "kobold-east-rubble-terrain-a061815768ca.png",
+    "tile:13:ad95439faf5f85a98a864723f58cd40efd988fc8effc2b081f67f3a8c8470c90": "kobold-east-rubble-terrain-ad95439faf5f.png",
+    "tile:13:cc932c5b2c7ca162b09b0762fbeb1a4c011aa5ccb8b9a4c0f47064ccff3fc9a7": "kobold-east-rubble-terrain-cc932c5b2c7c.png",
+    "tile:13:5c5ff46751ec31ddaa4b4c3baf0ec7326884e1f5b9bc8d173fd62d9dc5c1b996": "kobold-east-rubble-terrain-5c5ff46751ec.png",
     "tile:31:c9fe5bbead8dfd4e95b06ac8273fd1098faa4490999df7d57744d9f5d72e2075": "bane-inner-wing-terrain-c9fe5bbead8d.png",
     "tile:31:b6d8cf528e84d3abaa95a41f2d778e406ae1cd4a82c6e801321904894f13fe13": "bane-inner-wing-terrain-b6d8cf528e84.png",
     "tile:31:5ea33b314d6a559649dcdcb928b9da3c62d661fa6f496eaba32df44752996fed": "bane-inner-wing-terrain-5ea33b314d6a.png",

@@ -224,6 +224,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["kobold-cave-east-tunnels", {
+    slot: "B", area: 13, views: 9, patterns: 31, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "right", "up"],
+  }],
   ["bane-inner-court", {
     slot: "A", area: 31, views: 10, patterns: 19,
     walk: ["right", "up", "up", "left", "up", "up", "left", "up", "up"],

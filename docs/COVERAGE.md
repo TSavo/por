@@ -1325,6 +1325,9 @@ before the goblin encounter starts.
 red-ceiling sanctuary routes. Chrome verifies 14 new tiles across
 16 live views and 1,936 placements. The court starts from the goblin-clue
 save and the sanctuary uses a copy with only position and facing changed.
+`kobold-cave-east-tunnels` checks 10 new rubble and timber-edge tiles
+across nine live views, with all 1,089 placements verified. The route
+uses a position-only copy of the large-cave entry save.
 `valjevo-giant-snake-approach` checks the middle and near sprites, their
 original screen anchors, and all 121 terrain cells across the approach.
 `mendor-basilisk-approach` checks the Basilisk's near sprite.
