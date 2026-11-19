@@ -2844,6 +2844,11 @@ The Pyramid patrol has a separate scout sprite and group illustration.
 The Chrome replay checks the approach and the original wary dialogue.
 The Old Phlan hut replay checks the four lizardfolk's own approach and
 group illustration before the original attack prompt.
+The larger Old Phlan lizardfolk in the hall use a separate approach and
+illustration. The Chrome replay checks the scoped sprite before the
+portrait, and the hut replay still checks its own artwork.
+The Zhentil east yard replay checks 12 refined floor joins across 17
+views, including the wall bases, rails, and door feet.
 The Nomad inner trail uses wind-scoured sand across 38 revised tiles.
 The extended Chrome walk checks 16 views, and the standard inner-lane
 replay checks 13 views with the default pack.

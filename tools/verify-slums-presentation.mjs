@@ -499,6 +499,11 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
   }],
+  ["old-phlan-large-lizardfolk", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    approachBeforePortrait: [48, 32, "encounter:area:26:ecl:a9a9:SPRIT7.DAX:57:0:0", 48, 80],
+    portrait: "portrait:area:26:ecl:aa06:PIC7.DAX:57:0:0", prompt: /INTHISROOMTHEREAREFOURLARGELIZARDMEN/i,
+  }],
   ["old-phlan-hut-lizardfolk", {
     slot: "A", inputs: ["up", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:26:ecl:a944:SPRIT7.DAX:57:0:0", 48, 80]],
@@ -3735,7 +3740,19 @@ try {
       })()`), false, "Enter should not advance a prompt whose portrait is still loading");
       await run('window.releasePortrait()');
     } else {
-      for (const key of inputs) await advance(key);
+      for (const [index, key] of inputs.entries()) {
+        if (illustration.approachBeforePortrait && index === inputs.length - 1) {
+          const placement = illustration.approachBeforePortrait;
+          const [, , id, width, height] = placement;
+          assert.deepEqual(frame.encounter, placement);
+          await waitFor("the enhanced approach before the portrait", () => run(`(() => {
+            const image = document.querySelector(".encounter-sprite");
+            return !animationFrame && image?.getAttribute("src") === ${JSON.stringify("/art/" + id)} &&
+              image.naturalWidth === ${width * 4} && image.naturalHeight === ${height * 4};
+          })()`));
+        }
+        await advance(key);
+      }
     }
     assert.equal(frame.portrait, portrait);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), prompt);
