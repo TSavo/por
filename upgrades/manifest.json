@@ -5,6 +5,12 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:13:ecl:9b8a:SPRIT8.DAX:0:1:0": "kobold-white-flag-approach-middle.png",
+    "encounter:area:13:ecl:9bb1:SPRIT8.DAX:0:1:0": "kobold-white-flag-approach-middle.png",
+    "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:1:0": "kobold-white-flag-approach-middle.png",
+    "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:0:0": "kobold-white-flag-approach-near.png",
+    "portrait:area:13:ecl:9c10:PIC8.DAX:0:0:0": "kobold-white-flag-dialogue.png",
+    "portrait:area:13:ecl:9c5e:PIC8.DAX:0:0:0": "kobold-white-flag-dialogue.png",
     "combat:area:2:CPIC2.DAX:7:ecl:a900": "textile-hobgoblin-archer-ready.png",
     "combat:area:2:CPIC2.DAX:135:ecl:a900": "textile-hobgoblin-archer-strike.png",
     "combat:area:2:CPIC4.DAX:37:ecl:9aeb": "textile-poison-frog-combat-ready.png",
@@ -4590,6 +4596,10 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:13:ecl:9b8a:SPRIT8.DAX:0:1:0": { "area": 13, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:13:ecl:9bb1:SPRIT8.DAX:0:1:0": { "area": 13, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:1:0": { "area": 13, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:0:0": { "area": 13, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:13:ecl:a775:SPRIT8.DAX:16:0:0": { "area": 13, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:22:ecl:a2c3:SPRIT7.DAX:15:0:0": { "area": 22, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:22:ecl:a2c3:SPRIT7.DAX:11:0:0": { "area": 22, "x": 40, "y": 32, "width": 48, "height": 80 },

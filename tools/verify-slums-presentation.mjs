@@ -499,6 +499,17 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
   }],
+  ["kobold-white-flag-envoy", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    approachSequence: [
+      [56, 32, "encounter:area:13:ecl:9b8a:SPRIT8.DAX:0:1:0", 24, 65],
+      [56, 32, "encounter:area:13:ecl:9bb1:SPRIT8.DAX:0:1:0", 24, 65],
+      [56, 32, "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:1:0", 24, 65],
+      [48, 32, "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:0:0", 40, 80],
+    ],
+    portrait: "portrait:area:13:ecl:9c10:PIC8.DAX:0:0:0", prompt: /WEWILLPAYFORATRUCE/i,
+    continuation: { inputs: ["a"], portrait: "portrait:area:13:ecl:9c5e:PIC8.DAX:0:0:0", prompt: /IAMTOESCORTYOUTOOURTREASURE/i },
+  }],
   ["wild-cave-feral-kobolds", {
     slot: "B", inputs: [...Array.from({ length: 7 }, () => ["up", "enter", "down", "up", "down"]).flat(),
       "up", "enter", "down"],
@@ -4086,7 +4097,11 @@ try {
         await advance("j");
       }
       for (const key of continuation.inputs) await advance(key);
-      assert.equal(frame.portrait, continuation.clearsPortrait ? undefined : portrait);
+      const nextPortrait = continuation.clearsPortrait ? undefined : continuation.portrait ?? portrait;
+      assert.equal(frame.portrait, nextPortrait);
+      if (continuation.portrait) await waitFor("the enhanced continuation portrait", () => run(`
+        document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
+      `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
     }

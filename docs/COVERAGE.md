@@ -2934,6 +2934,8 @@ The Wild Cave kobold replay checks the new middle-distance sprite
 before the existing close approach and ambush illustration.
 The Princess Fatima replay checks the new approach before the existing
 portrait, journal account, and recruitment.
+The white-flag envoy replay checks all four approach frames and the
+portrait in both the truce and escort dialogue.
 The Temple of Bane gate's Attack branch uses its own guard ready and
 cleaver-strike sprites. Chrome checks the reflected hit on Alda.
 The Bane barracks guard replay checks the uniformed orc ready sprites
