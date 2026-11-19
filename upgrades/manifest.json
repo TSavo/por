@@ -1,6 +1,12 @@
 {
   "version": 1,
   "assets": {
+    "tile:20:eb793b63e5fbde83fe69f62582027547e1fa470ceb470db6de65735977eb6562": "mendor-east-court-terrain-01.png",
+    "tile:20:983bfc53257b5c0ef9d10cdd5ba4b4501fed50e212f885a7dd8b3a4c24ca878f": "mendor-east-court-terrain-02.png",
+    "tile:20:2b318229a4b2903d4530ecbaa037fb98cc51f1c1731900f01c6dbba9cd27f8e2": "mendor-east-court-terrain-03.png",
+    "tile:3:1131e3b33c1897dc36ef3f052d3e14c5af1d1a21bde6716d2c8e0482bb2aab61": "valjevo-dungeon-east-corner-terrain-01.png",
+    "tile:3:a92b522baf70206e794b2a1953184928f00971bf98cea7a2830f171ce1791fee": "valjevo-dungeon-east-corner-terrain-02.png",
+    "combat:area:17:CPIC7.DAX:13": "nomad-veteran-stand.png",
     "portrait:area:20:PIC2.DAX:31:0:0": "slums-grain-sack-ambush.png",
     "portrait:area:31:PIC1.DAX:8:0:0": "bane-ogre-led-guards.png",
     "tile:4:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447": "valjevo-kitchen-yard-terrain-01.png",

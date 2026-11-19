@@ -192,6 +192,10 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["nomad-veteran-ready", {
+    slot: "A", stand: "combat:area:17:CPIC7.DAX:13", width: 96, height: 96, strikeInputs: [],
+    inputs: ["up", "down", "enter", "enter", "c", ...Array(4).fill("enter"), ...Array(11).fill("q")],
+  }],
   ["nomad-warrior-combat", {
     slot: "A", stand: "combat:area:17:CPIC7.DAX:12", strike: "combat:area:17:CPIC7.DAX:140",
     width: 96, height: 96, strikeReflected: true,
@@ -392,6 +396,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["mendor-east-court", {
+    slot: "D", area: 20, views: 17, patterns: 44, sceneryOnly: true,
+    walk: ["up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up"],
+  }],
+  ["valjevo-dungeon-east-yard", {
+    slot: "B", area: 3, views: 16, patterns: 31, sceneryOnly: true,
+    walk: ["up", "right", "up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up"],
+  }],
   ["valjevo-south-kitchen-yard", {
     slot: "B", area: 4, views: 17, patterns: 48, sceneryOnly: true,
     walk: ["up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up"],
@@ -1200,12 +1212,14 @@ try {
         id === strike && (strikeReflected === undefined || reflected === strikeReflected))));
       await waitFor("the enhanced combat strike", () => run("window.strikeLoaded"));
       console.log(`Verified ${routeName} standing and animated strike poses in Chrome.`);
-    } else {
+    } else if (strike) {
       await run(`window.strikePreview = new Image();
         window.strikePreview.src = "/art/" + ${JSON.stringify(strike)};`);
       await waitFor("the loadable strike asset", () => run(
         `window.strikePreview.naturalWidth === ${width} && window.strikePreview.naturalHeight === ${height}`));
       console.log(`Verified ${routeName} standing pose in Chrome and decoded the strike asset separately.`);
+    } else {
+      console.log(`Verified ${routeName} standing pose in Chrome.`);
     }
     assert.deepEqual(readFileSync(saved), originalSave);
   } else if (ferry) {

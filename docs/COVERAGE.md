@@ -1349,6 +1349,10 @@ portraits and prove the journal gains each lead only after hearing it.
 original temple interior prompt, including panel fit and mode switching.
 `slums-grain-sack-ambush` checks the illustration at the original
 grain sack prompt with the same panel and presentation switch checks.
+`mendor-east-court` and `valjevo-dungeon-east-yard` check five new
+scenery bindings across 33 live views.
+`nomad-veteran-ready` verifies the 96×96 ready pose in the Headman
+battle and a state-preserving presentation switch.
 `valjevo-south-kitchen-yard` checks six rubble and doorway tiles across
 17 live views and 2,057 placements from the existing courtyard save.
 `valjevo-west-chapel-corridors` checks 16 redrawn plaster, limestone,
