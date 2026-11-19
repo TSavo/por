@@ -4123,9 +4123,16 @@ try {
         landing ? /THEUNDEADLEAVE/i : /ONSTANDSAREASHIELD/i);
     if (landing) {
       assert.ok(patrol);
-      if (!patrolCombat) assert.equal(frame.encounter, undefined);
+      if (courtyard) {
+        const approach = "encounter:area:21:SPRIT4.DAX:6:1:0";
+        assert.deepEqual(frame.encounter, [56, 32, approach, 24, 65]);
+        await waitFor("the courtyard hobgoblin approach", () => run(`state.sequence === ${frame.sequence} &&
+          [...document.querySelectorAll(".encounter-sprite")].some(image =>
+            image.getAttribute("src") === ${JSON.stringify("/art/" + approach)} &&
+            image.naturalWidth === 96 && image.naturalHeight === 260)`));
+      } else if (!patrolCombat) assert.equal(frame.encounter, undefined);
     }
-    assert.equal(views, courtyard ? 24 : patrolCombat ? 18 : landing ? 19 : 12);
+    assert.equal(views, courtyard ? 25 : patrolCombat ? 18 : landing ? 19 : 12);
     assert.equal(seen.size, courtyard ? 56 : landing ? 49 : 13);
     console.log(`Verified ${seen.size} ${routeName} patterns across ${views} views. Captures: ${directory}`);
     if (manualParty) {
@@ -4156,11 +4163,12 @@ try {
       const aim = [...frame.text].sort(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join("");
       assert.match(aim, /ORCHITPOINTS2AC6/i);
       assert.match(aim, /RANGE=3/i);
-      const target = frame.combatArt.find(([, , id, , highlight]) => id === "combat:CPIC2.DAX:4" && highlight);
-      assert.deepEqual(target, [128, 128, "combat:CPIC2.DAX:4", false, true]);
+      const orc = "combat:area:21:CPIC4.DAX:4:ecl:aed4";
+      const target = frame.combatArt.find(([, , id, , highlight]) => id === orc && highlight);
+      assert.deepEqual(target, [128, 128, orc, false, true]);
       await waitFor("the enhanced orc and preserved Aim cursor", () => run(`(() => {
         if (state.sequence !== ${frame.sequence}) return false;
-        const sprite = [...document.querySelectorAll('.combat-sprite[src="/art/combat:CPIC2.DAX:4"]')]
+        const sprite = [...document.querySelectorAll(${JSON.stringify(`.combat-sprite[src="/art/${orc}"]`)})]
           .find(image => image.style.left === "40%" && image.style.top === "64%");
         const image = document.querySelector("#screen");
         if (sprite?.naturalWidth !== 96 || !image.complete) return false;
