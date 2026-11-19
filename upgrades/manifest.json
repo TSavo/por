@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:26:CPIC7.DAX:57:ecl:a982": "old-phlan-lizardfolk-stand.png",
+    "combat:area:26:CPIC7.DAX:185:ecl:a982": "old-phlan-lizardfolk-strike.png",
+    "encounter:area:31:SPRIT1.DAX:4:0:0": "bane-orc-guardroom-approach.png",
     "tile:7:b73acea3df0b2db646411d0c04fc648ecff820f1439bd4439a86f039a0672d84": "valjevo-merchant-west-terrain-b73acea3df0b.png",
     "tile:7:582935262251c3c3b53ec076d372c7bebfc34f9076968d8314e319ea8cca75bd": "valjevo-merchant-west-terrain-582935262251.png",
     "tile:7:1bf064a94ae89e990280e32913a391f515e1bdb3ed99b3f6309cf0436dcc69c7": "valjevo-merchant-west-terrain-1bf064a94ae8.png",
@@ -3111,6 +3114,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:31:SPRIT1.DAX:4:0:0": { "area": 31, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:6:SPRIT5.DAX:29:0:0": { "area": 6, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:6:SPRIT5.DAX:12:1:0": { "area": 6, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:7:SPRIT5.DAX:24:1:0": { "area": 7, "x": 56, "y": 32, "width": 24, "height": 65 },

@@ -30,6 +30,10 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["bane-orc-guardroom-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:31:SPRIT1.DAX:4:0:0", 40, 80],
+  }],
   ["kuto-norris-approach", {
     slot: "J", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:29:SPRIT8.DAX:16:0:0", 40, 80],
@@ -389,6 +393,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["old-phlan-lizardfolk-combat", {
+    slot: "A", stand: "combat:area:26:CPIC7.DAX:57:ecl:a982", strike: "combat:area:26:CPIC7.DAX:185:ecl:a982",
+    width: 96, height: 96, readyPrompt: /LIZARDMANHITPOINTS11/i, strikeReflected: false,
+    inputs: ["up", ...Array(10).fill("enter"), "q"], strikeInputs: ["q"],
+  }],
   ["old-phlan-mutant-lizardfolk-combat", {
     slot: "A", stand: "combat:area:26:CPIC7.DAX:57:ecl:a91d", strike: "combat:area:26:CPIC7.DAX:185:ecl:a91d",
     width: 96, height: 96, readyPrompt: /MUTANTLIZ.MANHITPOINTS18/i, strikeReflected: false,
