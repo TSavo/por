@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { appendFileSync, copyFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 
@@ -1812,7 +1812,8 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+const freshRolf = routeName === "new-phlan-rolf-approach";
+const routes = ["new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -1879,8 +1880,8 @@ const frameDirectory = resolve(directory, "tile-frames");
 let battleFrame = 0;
 if (battleTrace) mkdirSync(frameDirectory);
 const profile = resolve(directory, "chrome");
-copyFileSync(checkpoint, saved);
-const originalSave = readFileSync(saved);
+if (!freshRolf) copyFileSync(checkpoint, saved);
+const originalSave = freshRolf ? undefined : readFileSync(saved);
 const port = process.env.POR_PLAY_PORT ?? "43212";
 const origin = `http://127.0.0.1:${port}`;
 const browserEnvironment = { ...process.env };
@@ -1906,8 +1907,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
-    POR_BOOT_KEYS: "31000000:1c0d,45000000:266c,52000000:" + boot,
-    POR_LIVE_AT: "85000000", POR_BOOT_STEPS: "450000000",
+    POR_BOOT_KEYS: freshRolf ? "31000000:1c0d,45000000:2e63" : "31000000:1c0d,45000000:266c,52000000:" + boot,
+    POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
@@ -2022,7 +2023,8 @@ try {
     const enhanced = await displayGeometry();
     assert.ok(Math.abs(enhanced.height - enhanced.width * 3 / 4) < 1, "Enhanced should render at 4:3");
     assert.deepEqual(await latest(), before);
-    assert.deepEqual(readFileSync(saved), originalSave);
+    if (freshRolf) assert.equal(existsSync(saved), false);
+    else assert.deepEqual(readFileSync(saved), originalSave);
   }
 
   await run('document.querySelector("#presentation").click()');
@@ -2053,7 +2055,42 @@ try {
     return 1;
   }
 
-  if (towerReload || dungeonReload) {
+  if (freshRolf) {
+    for (const key of ["enter", "enter", "enter", "enter", "enter", "y", "t", "s", "t",
+      "enter", "k", "e", "y", "a", "a", "e", "b", "enter"]) await advance(key);
+    assert.equal(await verifyTiledView(0, new Set()), 1);
+    const approach = "encounter:area:0:SPRIT3.DAX:12:";
+    await run(`
+      window.rolfFrames = [];
+      new MutationObserver(() => {
+        const image = document.querySelector(".encounter-sprite");
+        const id = image?.getAttribute("src");
+        if (!id?.startsWith(${JSON.stringify("/art/" + approach)})) return;
+        const frame = [id, image.naturalWidth, image.naturalHeight];
+        if (window.rolfFrames.at(-1)?.[0] !== id) window.rolfFrames.push(frame);
+      }).observe(document.querySelector("#tile-art"), { childList: true });
+    `);
+    await advance("enter");
+    assert.deepEqual(frame.encounter, [56, 32, approach + "0:0", 24, 80]);
+    assert.deepEqual(frame.animation.map(({ encounter }) => encounter), [
+      [64, 32, approach + "2:0", 8, 49],
+      [56, 32, approach + "1:0", 24, 65],
+    ]);
+    const frames = [
+      ["/art/" + approach + "2:0", 32, 196],
+      ["/art/" + approach + "1:0", 96, 260],
+      ["/art/" + approach + "0:0", 96, 320],
+    ];
+    await waitFor("Rolf's three approach sprites", () => run("window.rolfFrames.length === 3"));
+    assert.deepEqual(await run("window.rolfFrames"), frames);
+    assert.equal(await verifyTiledView(0, new Set()), 1);
+    await switchBothWays();
+    await advance("enter");
+    assert.equal(frame.portrait, "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9");
+    await waitFor("Rolf portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await verifyPortraitPanel();
+    console.log("Verified the enhanced dock, all three Rolf distances, and his portrait in a fresh Chrome game.");
+  } else if (towerReload || dungeonReload) {
     const expected = JSON.parse(readFileSync(resolve(dirname(checkpoint), "valjevo-save-scene.json"), "utf8"));
     assert.deepEqual(frame.tileInventory, expected.tiles);
     assert.deepEqual(frame.text.toSorted(([left], [right]) => left - right), expected.text);
