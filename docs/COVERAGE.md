@@ -2235,7 +2235,9 @@ The verifier checks all 121 dock tile placements, the three approach sprites
 in order, and the close-up filling the portrait panel. The same fresh game
 continues through seven tour stops, the City Hall approach and entry, and
 the council guard portrait. At each tour stop it checks all 121 enhanced
-tile placements before pressing Enter.
+tile placements before pressing Enter. After accepting the guard's request
+to leave, it checks the enhanced hallway on the first frame at (4,5) facing
+north and verifies a state-preserving mode switch there.
 
 Pass a slot A checkpoint in the dueling room at (7,2) facing west to
 `new-phlan-building-exit`. The replay verifies the enhanced street at (5,1)

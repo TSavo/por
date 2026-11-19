@@ -2116,7 +2116,13 @@ try {
     await waitFor("the enhanced council guard", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
     await verifyPortraitPanel();
-    console.log("Verified the enhanced dock, Rolf's approach, all seven tour stops, and the City Hall guard in one fresh Chrome game.");
+    await advance("y");
+    assert.equal(frame.portrait, undefined);
+    assert.equal(frame.perspective, true);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /4,5N.*AREACASTVIEWENCAMP/i);
+    assert.equal(await verifyTiledView(8, tourPatterns), 1);
+    await switchBothWays();
+    console.log("Verified the enhanced dock, Rolf's approach, all seven tour stops, and the return to scenery after the City Hall guard in one fresh Chrome game.");
   } else if (routeName === "new-phlan-building-exit") {
     const patterns = new Set();
     for (const key of ["up", "right", "up", "right", "up", "left", "up"]) {
