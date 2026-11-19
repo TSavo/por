@@ -4173,6 +4173,8 @@
     "combat:party:64:64:palette:062645678eaecdef": "combat-party-swordsman-ochre.png",
     "combat:party:64:64:palette:044645678ccecdef": "combat-party-swordsman-rust.png",
     "combat:party:64:64:palette:065345678edbcdef": "combat-party-swordsman-plum.png",
+    "combat:party:64:192": "combat-party-swordsman-blue-strike.png",
+    "combat:party:64:192:palette:062645678eaecdef": "combat-party-swordsman-ochre-strike.png",
     "combat:party:64:192:palette:044645678ccecdef": "combat-party-swordsman-rust-strike.png",
     "battle-tile:7ac3c2f1b91ed52c3f858e1ae3989d6931b7866a4853b25f386d9c52f7049fa6": "courtyard-wall-raking-wall-crossing.png",
     "battle-tile:fe796d907de744efaa852a8394eb89bc4039f644ce5bc12245eeae46ac6ac489": "courtyard-wall-raking-wall-cutback.png",

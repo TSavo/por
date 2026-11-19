@@ -2667,6 +2667,14 @@ try {
       const battleScreenshot = resolve(directory, "grishnak-combat.png");
       writeFileSync(battleScreenshot, Buffer.from(battle.data, "base64"));
       console.log("Enhanced Grishnak combat:", battleScreenshot);
+      const ochreStrike = "combat:party:64:192:palette:062645678eaecdef";
+      const showsStrike = () => frame.animation?.some(({ combatArt }) =>
+        combatArt.some(([, , id]) => id === ochreStrike));
+      for (let turn = 0; turn < 16 && !showsStrike(); turn++) await advance("q");
+      assert.ok(showsStrike(), "Expected the original battle to draw the ochre swordsman's strike");
+      await waitFor("ochre swordsman's enhanced strike", () => run(`
+        [...document.querySelectorAll(".combat-sprite")].some(img =>
+          img.getAttribute("src") === ${JSON.stringify("/art/" + ochreStrike)} && img.naturalWidth === 96)`));
     }
     console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
     if (towerSave) {
