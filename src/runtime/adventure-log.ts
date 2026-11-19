@@ -128,7 +128,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       const carriedKey = leads.find(({ id }) => id === "textile-prison-key-carried");
       if (tracked?.textileBox) nextStep = tracked.detail;
       else if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
-      else if (knows("textile-ogre-chief")) nextStep = "Defeat the ogre chief and search his room for Cadorna's treasure.";
+      else if (knows("textile-ogre-chief")) nextStep = "Defeat the ogre chief to recover Cadorna's treasure.";
       else if (knows("textile-east-wall")) nextStep = "Turn east where Skullcrusher pointed out the secret door. Use Search and move through the wall.";
       else if (knows("textile-secret-door")) nextStep = "Follow Skullcrusher's clue and search southeast for the secret door to the hobgoblin leader.";
       else if (knows("textile-prisoner-killed")) nextStep = "Search the remaining rooms of the western textile building for Cadorna's treasure.";

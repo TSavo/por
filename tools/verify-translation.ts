@@ -450,6 +450,16 @@ function checkCampaignJournal(): void {
   const ironBox = lines.find((line) => line.includes("ACROSS THE LOCK IS THE SEAL OF THE FAMILY OF CADORNA"))!;
   const boxLead = discoveredLeads(ironBox);
   const textileOffer = discoveredLeads(commissions.find(({ id }) => id === "textile")!.offer);
+  const ogreLine = lines.find(line => line.includes("YOU SEE THE CHIEF OF THE HOBGOBLINS, A HUGE OGRE"));
+  const boxScript = blocks.find(block => block.some(({ operands }) => operands.some(({ text }) => text === ironBox)));
+  const foundBox = boxScript?.findIndex(({ operands }) => operands.some(({ text }) => text === ironBox)) ?? -1;
+  const victory = boxScript?.[foundBox - 1];
+  if (!ogreLine || victory?.name !== "SAVE" || victory.operands[0]?.low !== 255 || victory.operands[1]?.word !== 0x4a75 ||
+      boxScript?.[foundBox + 1]?.name !== "HORIZONTAL MENU" ||
+      currentObjective([...textileOffer, ...discoveredLeads(ogreLine)], "commission-textile").nextStep !==
+        "Defeat the ogre chief to recover Cadorna's treasure.") {
+    throw new Error("The journal missed the ogre fight that leads directly to the iron box choice");
+  }
   const grishnakScript = blocks.find((block) => block.some(({ operands }) =>
     operands.some(({ text }) => text?.includes("I AM THE MIGHTY GRISHNAK"))));
   const grishnakLine = lines.find((line) => line.includes("I AM THE MIGHTY GRISHNAK"));
