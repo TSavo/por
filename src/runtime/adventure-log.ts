@@ -109,13 +109,15 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
         return { title: commission.title, nextStep: "The City Watch took the treasure. Go to the council clerk at City Hall to collect the reward they mentioned." };
       }
       if (commission.id === "auction" && tracked.status === "ready-to-report") {
-        const result = knows("auction-cancelled") ? "Report that the auction was cancelled"
-          : knows("auction-wand-of-fear") ? "Report that the weapon was a Wand of Fear"
-          : knows("auction-wand-of-illumination") ? "Report that an onlooker called it a Wand of Illumination"
-          : knows("auction-exchange") ? "Report that a man and an ogre exchanged the wand for a large bag"
-          : knows("auction-buyer-unseen") ? "Report that the auction ended before the party could identify the buyer"
-          : "Report what the party saw at the auction";
-        return { title: commission.title, nextStep: `${result} to the council clerk at City Hall.` };
+        const outcome = knows("auction-cancelled") ? "that the auction was cancelled"
+          : knows("auction-exchange") ? "that a man and an ogre exchanged the wand for a large bag"
+          : knows("auction-buyer-unseen") ? "that the auction ended before the party could identify the buyer"
+          : undefined;
+        const item = knows("auction-wand-of-fear") ? "that the weapon was a Wand of Fear"
+          : knows("auction-wand-of-illumination") ? "that an onlooker called it a Wand of Illumination"
+          : undefined;
+        const nextStep = `Report ${outcome ?? item ?? "what the party saw at the auction"} to the council clerk at City Hall.`;
+        return { title: commission.title, nextStep: outcome && item ? `${nextStep} Also report ${item}.` : nextStep };
       }
       return { title: commission.title, nextStep: tracked.detail };
     }

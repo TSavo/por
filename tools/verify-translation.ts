@@ -411,6 +411,15 @@ function checkCampaignJournal(): void {
       throw new Error(`Auction journal reported an incorrect outcome for ${fragment}`);
     }
   }
+  const auctionClues = ["A MAN AND OGRE EXCHANGE THE WAND", "IT'S A WAND OF ILLUMINATION", "IT'S ONLY A WAND OF FEAR"]
+    .map(fragment => discoveredLeads(lines.find(text => text.includes(fragment))!));
+  const exchangeWithRumor = currentObjective([...auctionReady, ...auctionClues[0]!, ...auctionClues[1]!]).nextStep;
+  const exchangeWithIdentification = currentObjective([...auctionReady, ...auctionClues.flat()]).nextStep;
+  if (!exchangeWithRumor.includes("exchanged the wand") || !exchangeWithRumor.includes("an onlooker called it") ||
+      !exchangeWithIdentification.includes("exchanged the wand") || !exchangeWithIdentification.includes("Wand of Fear") ||
+      exchangeWithIdentification.includes("Wand of Illumination")) {
+    throw new Error("The auction report did not combine the exchange with the best item identification");
+  }
   const gateCommission = commissions.find(({ id }) => id === "gate")!;
   writeGlobal(progressAddresses.gate!, 0);
   const gateProfile = openJournalProfile();
