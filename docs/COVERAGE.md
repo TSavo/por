@@ -2258,6 +2258,11 @@ tile placements before pressing Enter. After accepting the guard's request
 to leave, it checks the enhanced hallway on the first frame at (4,5) facing
 north and verifies a state-preserving mode switch there.
 
+`new-phlan-council-entry` uses a controlled slot A with Sokal complete.
+The journal gains the Sokal entry after the clerk announces the reward.
+It shows reward pending in the treasure menu and turned in after sharing
+and exiting. The replay also checks that the saved checkpoint is unchanged.
+
 Pass a slot A checkpoint in the dueling room at (7,2) facing west to
 `new-phlan-building-exit`. The replay verifies the enhanced street at (5,1)
 while the exploration menu is absent and before the next Enter, then checks

@@ -2743,6 +2743,23 @@ try {
     })()`));
     await switchBothWays();
     await verifyPortraitPanel();
+    if (routeName === "new-phlan-council-entry") {
+      const sokal = () => frame.journal?.leads.find(({ id }) => id === "commission-sokal");
+      await advance("j");
+      assert.ok(frame.journal);
+      assert.equal(sokal(), undefined);
+      await advance("j");
+      for (let prompt = 0; prompt < 4; prompt++) await advance("enter");
+      await advance("j");
+      assert.equal(sokal()?.status, "reward-pending");
+      await advance("j");
+      await advance("s");
+      await advance("e");
+      await advance("j");
+      assert.equal(sokal()?.status, "turned-in");
+      await advance("j");
+      assert.deepEqual(readFileSync(saved), originalSave);
+    }
     if (continuation) {
       if (journalLead) {
         await advance("j");
