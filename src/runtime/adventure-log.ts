@@ -220,7 +220,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     if (commission.id === "kobolds") {
       if (knows("kobold-king-quarters")) nextStep = "Defeat the king's guards and find him in his quarters.";
-      else if (knows("kobold-king-escaped")) nextStep = "Search the caves for the escaped king and his quarters.";
+      else if (knows("kobold-king-secret-door")) nextStep = "Go through the secret door in the north wall and look for the king's quarters.";
+      else if (knows("kobold-king-escaped")) nextStep = "Use Search in the throne room to look for the route the king took.";
       else if (knows("kobold-fatima-intervened")) nextStep = "Help Princess Fatima fight the kobolds who took the party prisoner.";
       else if (knows("kobold-prison-cell")) nextStep = "Look for a way out of the cell. Check the party's equipment before returning to the throne.";
       else if (knows("kobold-prison-escort")) nextStep = "See where the kobolds take the party and watch for a chance to escape.";
@@ -446,6 +447,10 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   if ((base | segment) === 0) return [];
   const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
   const progress: JournalLead[] = [];
+  if (cpu.read8(dataSegment, 0x82a2) === 13 && global(0x4a0b) === 2 && known.some(({ id }) => id === "kobold-king-escaped")) {
+    progress.push({ id: "kobold-king-secret-door", title: "Secret door in the north wall",
+      detail: "The party found a hidden door in the kobold caves after the king escaped." });
+  }
   // Other ECL scripts reuse this variable for unrelated local events.
   if (cpu.read8(dataSegment, 0x82a2) === 14 && global(0x4a19) === 1 && known.some(({ id }) => id === "kovel-thief-ambush")) {
     progress.push({ id: "kovel-thief-ambush-cleared", title: "Mansion ambush cleared",

@@ -1143,6 +1143,11 @@ The throne-specific ECL cursor selects the new illustration and the
 guide still uses his own portrait earlier in the same replay.
 The translation verifier checks the later escape and quarters guidance
 against the original dialogue.
+The `kobold-king-door` replay starts from a controlled post-escape slot B at
+(5,2) north. It uses Search and steps into the throne room. Only after the
+original game reports the secret door does the journal direct the party
+through it. The `kobold-king-door-reload` replay loads the resulting save
+and verifies that moving north through the door reaches (5,0).
 It also tests the surrender demand, restores the prison escort clue from a
 saved journal, and checks the separate cell and Fatima outcomes against
 their original dialogue. The surrender branch still needs a live replay.

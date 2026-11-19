@@ -771,7 +771,7 @@ function checkCampaignJournal(): void {
   let koboldTranscript = koboldOffer;
   for (const [trigger, instruction] of [
     ["THE TWO ENVOYS WAIT AT THE THRONE", "Confront the king and the envoys"],
-    ["THE KING HAS ESCAPED DURING THE FIGHT", "Search the caves for the escaped king"],
+    ["THE KING HAS ESCAPED DURING THE FIGHT", "Use Search in the throne room"],
     ["YOU REACH THE KING'S QUARTERS AND CONFRONT HIS GUARDS", "Defeat the king's guards"],
   ]) {
     const line = koboldLine(trigger);
