@@ -179,8 +179,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
     if (commission.id === "textile") {
       const carriedKey = leads.find(({ id }) => id === "textile-prison-key-carried");
-      if (tracked?.textileBox === "sealed" && knows("phlan-return-ferry")) {
-        nextStep = "Keep the box sealed. Choose Take Boat at the return dock, then bring the box into New Phlan.";
+      if (tracked?.textileBox && knows("phlan-return-ferry")) {
+        nextStep = tracked.textileBox === "sealed"
+          ? "Keep the box sealed. Choose Take Boat at the return dock, then bring the box into New Phlan."
+          : "Choose Take Boat at the return dock and go to City Hall. The box was opened and its family seal is broken.";
       }
       else if (tracked?.textileBox) nextStep = tracked.detail;
       else if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
@@ -579,7 +581,7 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
         progress.push({
           id, title: `${commission.title} - ${box === 1 ? "recovered" : "seal broken"}`,
           detail: box === 1 ? "Bring the sealed box back to New Phlan. Leave by the west gate and look for the return boat southwest of the entrance."
-            : "Return to City Hall. The box was opened and its family seal is broken.",
+            : "Return to City Hall. The box was opened and its family seal is broken. Leave by the west gate and look for the return boat southwest of the entrance.",
           status: "accepted",
           textileBox: box === 1 ? "sealed" : "opened",
         });

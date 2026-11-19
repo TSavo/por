@@ -514,6 +514,10 @@ the sealed box and has the courtyard victory flag set. The party leaves
 through the west gate, takes the ferry at (20,29), hands the box to the
 City Watch, and collects the council reward. The journal follows the
 route from the gate to the boat offer, handoff, and turn-in.
+The `--textile-opened-return-checkpoint` variant starts from the equivalent
+slot E with the broken seal. The same ferry route reaches City Hall, where
+Cadorna confronts the party. Reloading slot F verifies that the commission
+closed without payment and that no Watch handoff was recorded.
 
 A controlled Valjevo Castle replay used the original map and audience-hall
 script with the assault already assigned and the two audience guards marked

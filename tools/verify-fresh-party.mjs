@@ -1925,11 +1925,19 @@ if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.a
   process.exit(0);
 }
 
-if (process.argv[2] === "--textile-sealed-return-checkpoint") {
-  assert.ok(process.argv[3], "Pass slot D with the sealed box at the chief's room and the courtyard already cleared.");
-  copyFileSync(process.argv[3], join(saveDir, "D.json"));
+if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"].includes(process.argv[2])) {
+  const opened = process.argv[2] === "--textile-opened-return-checkpoint";
+  const slot = opened ? "E" : "D";
+  assert.ok(process.argv[3], `Pass slot ${slot} with the box at the chief's room and the courtyard already cleared.`);
+  copyFileSync(process.argv[3], join(saveDir, `${slot}.json`));
   const textile = frame => frame.journal.leads.find(({ id }) => id === "commission-textile");
-  await replay(loadSlot("2064"), "85000000", [
+  const checkUnpaid = (_text, frame) => {
+    assert.equal(textile(frame)?.status, "turned-in");
+    assert.equal(textile(frame)?.rewardOutcome, "unpaid");
+    assert.ok(frame.journal.leads.some(({ id }) => id === "textile-confrontation"));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-handoff"));
+  };
+  await replay(loadSlot(opened ? "1265" : "2064"), "85000000", [
     (text) => assert.match(text, /12,14 s/),
     "j", (_text, frame) => {
       const index = frame.journal.leads.filter(({ status }) => status && status !== "turned-in")
@@ -1937,7 +1945,7 @@ if (process.argv[2] === "--textile-sealed-return-checkpoint") {
       assert.ok(index >= 0);
       return `track ${index + 1}`;
     }, (_text, frame) => {
-      assert.equal(textile(frame)?.textileBox, "sealed");
+      assert.equal(textile(frame)?.textileBox, opened ? "opened" : "sealed");
       assert.match(frame.journal.objective.nextStep, /west gate.*return boat southwest/i);
     }, "j",
     "right", "up", "up", "up", "right", "up", "left", "up", "right", ...Array(8).fill("up"),
@@ -1950,20 +1958,33 @@ if (process.argv[2] === "--textile-sealed-return-checkpoint") {
       assert.match(frame.journal.objective.nextStep, /choose Take Boat/i);
     }, "j", "t", ...Array(3).fill("enter"),
     (text) => assert.match(text, /15,1 w/),
-    ...Array(4).fill("up"), "left", "up", "enter",
-    (text) => assert.match(text, /the city watch stops you and removes cadorna's treasure/),
-    "j", (_text, frame) => {
-      assert.equal(textile(frame)?.status, "ready-to-report");
-      assert.ok(frame.journal.leads.some(({ id }) => id === "textile-handoff"));
-      assert.match(frame.journal.objective.nextStep, /council clerk at City Hall/i);
-    }, "j",
+    ...Array(4).fill("up"), "left", "up",
+    ...(opened ? [] : [
+      "enter", (text) => assert.match(text, /the city watch stops you and removes cadorna's treasure/),
+      "j", (_text, frame) => {
+        assert.equal(textile(frame)?.status, "ready-to-report");
+        assert.ok(frame.journal.leads.some(({ id }) => id === "textile-handoff"));
+        assert.match(frame.journal.objective.nextStep, /council clerk at City Hall/i);
+      }, "j",
+    ]),
     "right", "up", "left", "up", "right", ...Array(6).fill("up"), "left", "up", "up",
-    "left", "up", "left", "up", "up",
-    ["enter", /view take pool share exit/, 10],
-    "j", (_text, frame) => assert.equal(textile(frame)?.status, "reward-pending"), "j",
-    "s", "e", "enter", "j", (_text, frame) => assert.equal(textile(frame)?.status, "turned-in"),
+    "left", "up",
+    ...(opened ? [
+      (text) => assert.match(text, /councilman cadorna confronts you/),
+      "j", checkUnpaid, "j",
+      ["enter", /area cast view encamp/, 6], "e", "s", "s", "f",
+    ] : [
+      "left", "up", "up", ["enter", /view take pool share exit/, 10],
+      "j", (_text, frame) => assert.equal(textile(frame)?.status, "reward-pending"), "j",
+      "s", "e", "enter", "j", (_text, frame) => assert.equal(textile(frame)?.status, "turned-in"),
+    ]),
   ]);
-  console.log("Returned from the Textile House via the west ferry, handed off the sealed box, and collected the council reward.");
+  if (opened) {
+    await replay(loadSlot("2166"), "85000000", ["j", checkUnpaid]);
+    console.log("Returned with the opened box and reloaded Cadorna's unpaid outcome.");
+  } else {
+    console.log("Returned from the Textile House via the west ferry, handed off the sealed box, and collected the council reward.");
+  }
   process.exit(0);
 }
 
