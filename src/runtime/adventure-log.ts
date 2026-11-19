@@ -288,6 +288,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (knows("castle-vote")) nextStep = "Choose Attack when each party member is asked to vote. Then defeat Tyranthraxus.";
       else if (knows("castle-audience")) nextStep = "Get past the guards in the audience hall and confront the bronze dragon.";
       else if (knows("castle-impostor")) nextStep = "Continue searching the castle for the real Tyranthraxus.";
+      else if (knows("castle-hedge-gate-password") && knows("castle-cadorna-hedge")) nextStep = "Use the password from the kitchen at the main gate, then take Cadorna's route through the hedge: left, right, right.";
+      else if (knows("castle-hedge-gate-password")) nextStep = "Use the password from the kitchen at the main gate into the hedge maze.";
       else if (knows("castle-cadorna-hedge")) nextStep = "Follow Cadorna's directions through the hedge: left, right, right.";
       else if (knows("castle-disguise")) nextStep = "Use the clothes offered by the resistance to move through the castle and find Tyranthraxus.";
     }
@@ -889,6 +891,22 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("I JUST THOUGHT THAT THE POOL WAS HERE") && text.includes("TAKE ME WITH YOU")) {
     leads.push({ id: "castle-cadorna-released", title: "Cadorna freed",
       detail: "The party freed Cadorna. He said he thought the pool was here and asked to come with the party." });
+  }
+  if (text.includes("WITH A QUICK STROKE YOU RELEASE HIM FROM THIS PAIN")) {
+    leads.push({ id: "castle-cadorna-killed", title: "Cadorna killed",
+      detail: "The party killed Cadorna in his Valjevo Castle cell." });
+  }
+  if (text.includes("YOU LEAVE. BEHIND YOU ARE HIS SCREAMS") && text.includes("INTRUDERS! INTRUDERS!")) {
+    leads.push({ id: "castle-cadorna-alarm", title: "Cadorna raised the alarm",
+      detail: "The party left Cadorna chained in his cell. He screamed to warn the castle guards." });
+  }
+  if (text.includes("I THANK YOU FOR FREEING ME") && text.includes("THE THIRD APPROACHES YOU WITH TEARS OF GRATITUDE")) {
+    leads.push({ id: "castle-kitchen-captives-freed", title: "Kitchen captives freed",
+      detail: "The party defeated the gnoll overseer and freed the three people forced to work in the kitchen." });
+  }
+  if (text.includes("IT IS TODAY'S PASSWORD AT THE MAIN GATE INTO THE HEDGE MAZE")) {
+    leads.push({ id: "castle-hedge-gate-password", title: "Password for the hedge gate",
+      detail: "A freed captive gave the party a slip from the overseer's pouch with today's password for the main gate into the hedge maze." });
   }
   if (text.includes("AN EVIL SPIRIT FROM AN UNHOLY POOL GUIDES YOUR ENEMIES")) {
     leads.push({ id: "phlan-seer-prophecy", title: "The Old Phlan seer's prophecy",

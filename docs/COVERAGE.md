@@ -1170,6 +1170,16 @@ placements with two 96×96 replacement sprites. The controlled
 portrait, release dialogue, and that the journal only adds Cadorna's hedge
 directions on a branch where he says them. All four Chrome checks switch
 presentation while preserving the authoritative game frame and save.
+
+`valjevo-dungeon-briars` covers 29 individual terrain replacements across
+16 live views of the repaired hedge route. `valjevo-dungeon-kitchen` verifies
+the kitchen illustration, freeing the captives, and the hedge-gate password
+lead. The journal withholds that lead before the party hears what the slip
+is for. `valjevo-cadorna-killed` and `valjevo-cadorna-alarm` replay those
+alternate outcomes and check that the journal records the actual choice.
+`valjevo-cadorna-hedge` also writes a native slot B with the learned
+directions. `valjevo-cadorna-reload` checks that the captive, directions, and
+release entries survive a cold load of that save.
 The `valjevo-south-gallery` replay starts from that native tower save.
 `valjevo-covered-gallery` and `valjevo-statue-approach` use copies with only
 the party's position and facing changed. Chrome checks 4,114 placements
