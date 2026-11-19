@@ -37,6 +37,18 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["buccaneer-pen-guard-gate", {
+    slot: "A", inputs: ["up", "up"],
+    placement: [48, 32, "encounter:area:1:ecl:a2f2:SPRIT6.DAX:16:0:0", 40, 80],
+    transient: true,
+    dialogueSteps: [{
+      keys: [], portrait: "portrait:area:1:ecl:a35b:HEAD6.DAX:6:BODY6.DAX:3",
+      prompt: /TWOGUARDSGUARDTHEDOOR/i,
+    }, {
+      keys: ["t"], portrait: "portrait:area:1:ecl:a8ed:HEAD6.DAX:6:BODY6.DAX:3",
+      prompt: /CANNOTGETBYTHEGUARDSINTOTHESLAVEPEN/i,
+    }],
+  }],
   ["textile-skullcrusher-approach", {
     slot: "B", inputs: ["up", "b", "up"],
     placement: [56, 32, "encounter:area:2:ecl:a147:SPRIT4.DAX:14:0:0", 24, 80],
@@ -3998,15 +4010,20 @@ try {
       assert.deepEqual(frame.tileInventory, terrain);
       await verifyApproach(placement);
     }
-    if (encounterRoute.dialogue) {
-      const { key, keys = [key], portrait, prompt } = encounterRoute.dialogue;
+    const dialogueSteps = encounterRoute.dialogueSteps ?? (encounterRoute.dialogue ? [encounterRoute.dialogue] : []);
+    for (const { key, keys = [key], portrait, prompt } of dialogueSteps) {
       for (const input of keys) await advance(input);
       assert.equal(frame.encounter, undefined);
       assert.equal(frame.portrait, portrait);
       const text = frame.text.toSorted(([left], [right]) => left - right)
         .map(([, character]) => String.fromCharCode(character)).join("");
       assert.match(text, prompt);
-      await waitFor("the enhanced encounter dialogue", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+      await waitFor("the enhanced encounter dialogue", () => run(`(() => {
+        const image = document.querySelector(".encounter-portrait");
+        return state.sequence === ${frame.sequence} &&
+          image?.getAttribute("src") === ${JSON.stringify("/art/" + portrait)} &&
+          image.naturalWidth === 352 && image.naturalHeight === 352;
+      })()`));
       await verifyPortraitPanel();
       await switchBothWays();
     }

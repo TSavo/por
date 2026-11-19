@@ -1847,6 +1847,12 @@ street tiles with 1,936 placements across 16 views.
 portrait source and 352×352 replacement, and state-preserving switches.
 `buccaneer-guardroom-dialogue` verifies the guards' illustration on the
 way to the captain.
+`buccaneer-pen-guard-gate` starts from the controlled slot A checkpoint
+outside the slave pen. It verifies the brief 160×320 approach at its
+native anchor, then the full-panel 352×352 portrait at the challenge and
+failed sneak prompts. The replay verifies both display modes and an
+unchanged save. The separate `buccaneer-pen-guard-combat` replay verifies
+the existing ready and reflected strike artwork on the attack branch.
 `buccaneer-pass-seller` verifies the pass offer and its distinct portrait.
 `valhingen-paladin-wraith-dialogue` verifies the paladin's guardian
 portrait, the original dialogue, and state-preserving mode switches.
