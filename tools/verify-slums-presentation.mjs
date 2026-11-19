@@ -292,6 +292,7 @@ const illustrationRoutes = new Map([
   ["new-phlan-tavern-brawl", {
     slot: "A", inputs: ["up", "enter", "enter", "n", "enter", "enter"],
     portrait: "portrait:area:0:HEAD3.DAX:53:BODY3.DAX:7", prompt: /ADRUNKENBRAWLBREAKSOUT/i,
+    approach: [56, 32, "encounter:area:0:SPRIT3.DAX:7:0:0", 32, 80],
     verifyImageSwap: true,
   }],
   ["new-phlan-council-entry", {
@@ -2477,6 +2478,14 @@ try {
     }
     if (illustration.verifyImageSwap) {
       for (const key of inputs.slice(0, -1)) await advance(key);
+      if (illustration.approach) {
+        assert.deepEqual(frame.encounter, illustration.approach);
+        const [, , encounter] = illustration.approach;
+        await waitFor("enhanced approach sprite", () => run(`
+          document.querySelector(".encounter-sprite")?.getAttribute("src") === ${JSON.stringify("/art/" + encounter)} &&
+          document.querySelector(".encounter-sprite").naturalWidth === 128
+        `));
+      }
       const prior = "data:image/png;base64," + frame.enhancedFrame;
       await waitFor("the previous frame", () => run(`document.querySelector("#screen").src === ${JSON.stringify(prior)}`));
       await run(`(() => {
