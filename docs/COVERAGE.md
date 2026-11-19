@@ -3060,3 +3060,6 @@ assembly illustration. Chrome verifies both and state-preserving mode switches.
 The character sheet draws enhanced dwarf head and body choices separately.
 Chrome verifies the default, independent choices, and native fallback.
 The player axe icon passed the Chrome ready and action replay.
+
+The gold-shield icon uses the guest's bitwise head/body blend. Chrome
+verifies its ready pose and animated action after loading an editor-created save.

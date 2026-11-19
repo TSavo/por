@@ -4606,6 +4606,8 @@
     "combat:party:0:1": "combat-party-bow-ready.png",
     "combat:party:0:2": "combat-party-axe-ready.png",
     "combat:party:0:130": "combat-party-axe-strike.png",
+    "combat:party:0:132": "combat-party-gold-shield-strike.png",
+    "combat:party:0:4": "combat-party-gold-shield-ready.png",
     "combat:party:0:0": "sokal-party-scout.png",
     "combat:party:0:128": "combat-party-scout-strike.png",
     "combat:party:0:3": "combat-party-steel-flail.png",

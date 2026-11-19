@@ -8,7 +8,7 @@ import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 import { loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
-import { compositePortraitKey, loadPortraitArt, portraitKey } from "./portrait-art.js";
+import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, portraitKey } from "./portrait-art.js";
 import { isCombatExtent, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
 const families = [
@@ -246,12 +246,13 @@ const matchPortrait = loadPortraitArt([...artwork.keys()].filter(id => portraitK
 const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
+  const sheetPart = characterSheetPartKey.exec(id);
   const match = randomCombatKey.exec(id) ??
     /^(?:encounter|portrait):(?:area:\d+:(?:ecl:[a-f0-9]{4}:)?)?([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
     /^combat:(?:area:\d+:)?(CPIC\d+\.DAX):(\d+)(?::ecl:[a-f0-9]{4})?$/.exec(id);
   let source;
-  if (match) {
-    const [, archive, blockId, memberId = "0", frameId = "0"] = match;
+  if (match || sheetPart) {
+    const [, archive, blockId, memberId = "0", frameId = "0"] = match ?? [id, sheetPart![1]!, sheetPart![3]!];
     const block = Number(blockId), member = Number(memberId), frame = Number(frameId);
     const entry = archives.find(({ file }) => file === archive)?.entries.find(({ id }) => id === block);
     const picture = entry?.pictures?.[member];
@@ -276,6 +277,7 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
   const area = /^(?:tile|combat:area|portrait:area):(\d+):/.exec(id)?.[1];
   const placement = metadata.encounter
     ?? (id.startsWith("portrait:") ? { x: 8, y: 8, width: 120, height: 120, ...(area !== undefined && { area: Number(area) }) }
+      : sheetPart && source ? { x: 224, y: sheetPart[2] === "HEAD" ? 8 : 48, width: metadata.width / artScale, height: metadata.height / artScale }
       : id === "scene:title" ? { x: 0, y: 0, width: 320, height: 200 }
       : source || area !== undefined ? {
         ...(source && { x: source.x, y: source.y }),
@@ -298,7 +300,7 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
     for (const part of sourceParts) {
       const picture = classicPicture(part.archive, part.directoryIndex, part.member);
       const pixels = frameSlice(picture, part.frame);
-      if (party) original.pixels.set(pixels);
+      if (party) for (const [index, color] of pixels.entries()) original.pixels[index] = original.pixels[index]! | color;
       else original.blit(pixels, picture.width, picture.height, part.x, part.y);
     }
     const palette = party?.[3];
