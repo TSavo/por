@@ -5,6 +5,18 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:22:ecl:a2f9:SPRIT7.DAX:57:0:0": "tyrmor-prison-lizardfolk-approach.png",
+    "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0": "tyrmor-prison-lizardfolk-dialogue.png",
+    "tile:5:c02d6f9d4991f63c33411579059bfdde13712828acf206b4b8bd22fb8a008c3e": "valjevo-lower-trim-c02d6f9d4991.png",
+    "tile:5:34ef40960522a66de2fc209b1415879b75eed4a2b573fe614b74cad15fe1a562": "valjevo-lower-trim-34ef40960522.png",
+    "tile:5:b04ecc8b38842ce547c309d637b44884a8a96889510df80dbcc6797682210dfc": "valjevo-lower-trim-b04ecc8b3884.png",
+    "tile:5:cdff8b145741485b1df84b9249440aed2a685e2c9593a99b809efa9df3df5fa5": "valjevo-lower-trim-cdff8b145741.png",
+    "tile:5:5b786e63e19e9e670c1f1c5e88c35e2a13f2d0706d213c1aae0f2473145467ca": "valjevo-lower-trim-5b786e63e19e.png",
+    "tile:5:3fd07573913b8b367dd8a69a57c9550f715ab8a6ba59baf2c7533bb4d14fa749": "valjevo-lower-trim-3fd07573913b.png",
+    "tile:5:a0c0c9c245686e8bfba08abd377e3a48184c276695b008174f605d7a2f83995e": "valjevo-lower-trim-a0c0c9c24568.png",
+    "tile:5:456f9f400e4fb32e2b5f13e2bc06736c4ba19f898ed29143ac49fb15e0c33ad1": "valjevo-lower-trim-456f9f400e4f.png",
+    "tile:5:f18965943be25bd3f32240928a4a8bec8ee34b07f230cb1069cac20279caea4a": "valjevo-lower-trim-f18965943be2.png",
+    "tile:5:7fa58d10584ec9c662b69570d9e0b6e0b3b1ad3eecfb3a259959f7fc136b792c": "valjevo-lower-trim-7fa58d10584e.png",
     "combat:area:3:CPIC5.DAX:56:ecl:a74e": "valjevo-bucket-giant-ready.png",
     "combat:area:3:CPIC5.DAX:184:ecl:a74e": "valjevo-bucket-giant-strike.png",
     "tile:3:dc92fe92104eb8ca3b7796eee851ea4f5c0583af20e4113308ca5da62b422618": "valjevo-transition-terrain-dc92fe92104e.png",
@@ -4514,6 +4526,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:22:ecl:a2f9:SPRIT7.DAX:57:0:0": { "area": 22, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:1:0": { "area": 22, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:0:0": { "area": 22, "x": 56, "y": 32, "width": 24, "height": 80 },
     "encounter:area:26:ecl:a8a0:SPRIT7.DAX:57:0:0": { "area": 26, "x": 48, "y": 32, "width": 48, "height": 80 },

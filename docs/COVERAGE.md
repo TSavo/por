@@ -2753,6 +2753,8 @@ threshold tiles.
 The Valjevo transition hall and stone chamber add 14 oak and ashlar
 tiles. Their Chrome replays check 1,331 placements across 11 views,
 including the hall's area 5 to area 3 transition.
+Two lower-wing routes check ten new wall, doorway, and window tiles
+across 14 Chrome views.
 The Valjevo bucket-trap battle uses scoped 4× fire giant ready and attack
 sprites. Its Chrome replay checks the attack during the original combat report.
 The Valjevo kitchen corridor, jamb, and south yard now use tamped-clay
@@ -2838,6 +2840,8 @@ attack with the installed pack and checks that display switching leaves
 the selected save intact.
 The Tyrmor prison priest replay checks the middle and near approach
 sprites at each stop and the portrait at his benediction.
+The Tyrmor prison lizardfolk use a separate approach and group
+illustration, verified through the original Parlay prompt in Chrome.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.
