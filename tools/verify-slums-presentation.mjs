@@ -308,6 +308,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["wild-cave-wyvern-combat", {
+    slot: "B", stand: "combat:area:27:CPIC8.DAX:121", strike: "combat:area:27:CPIC8.DAX:249",
+    width: 192, height: 192, readyPrompt: /WYVERNHITPOINTS40/i, strikeReflected: true,
+    inputs: ["up", ...Array(10).fill("enter"), "q", "q"], strikeInputs: ["q"],
+  }],
   ["wild-cave-boar-combat", {
     slot: "A", stand: "combat:area:25:CPIC6.DAX:120", strike: "combat:area:25:CPIC6.DAX:248",
     width: 192, height: 96, readyPrompt: /WILDBOARHITPOINTS18/i, strikeReflected: true,
@@ -572,6 +577,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["new-phlan-east-terrace", {
+    slot: "A", area: 8, views: 20, patterns: 92, sceneryOnly: true,
+    walk: ["up", "left", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "up"],
+  }],
+  ["new-phlan-commission-lane", {
+    slot: "A", area: 8, views: 24, patterns: 95, sceneryOnly: true,
+    walk: ["up", "left", "up", "up", "up", "right", "up", "up", "up", "up", "up", "left", "up", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up"],
+  }],
   ["new-phlan-civic-square", {
     slot: "A", area: 8, views: 13, patterns: 76, sceneryOnly: true,
     walk: ["up", "left", "up", "up", "up", "up", "right", "up", "up", "up", "up", "up"],

@@ -1375,6 +1375,8 @@ the falling-snake ambush and boar charge at their original prompts.
 animated strike poses from a controlled pre-encounter checkpoint.
 `wild-cave-boar-combat` checks the boar's ready pose and reflected
 charge from a controlled pre-encounter checkpoint.
+`wild-cave-wyvern-combat` checks the wyvern's 192×192 ready pose and
+reflected lunge from a controlled area 27 checkpoint.
 `textile-hobgoblin-approach` and `wild-cave-ankheg-approach` check
 standalone 4× encounter sprites at their original screen anchors.
 `kobold-cave-approach` checks the native throne approach from a controlled
@@ -1390,6 +1392,11 @@ views and 1,936 placements, including three redrawn ceiling tiles.
 transitions across 15 live views and 1,815 placements.
 `new-phlan-market-stalls` checks nine additional tile mappings,
 including two redrawn stall tiles, across 27 views and 3,267 placements.
+`new-phlan-east-terrace` checks 17 redrawn waterfront and doorway tiles
+across 20 views and 2,420 placements. `new-phlan-commission-lane` checks
+seven additional mappings to existing civic tiles across 24 views and
+2,904 placements. Both Chrome replays check that switching presentations
+preserves game state and the save.
 `new-phlan-civic-square` checks nine City Hall facade tile mappings
 across 13 views and 1,573 placements. `lizard-wilds-kobold-prisoners`
 and `lizard-wilds-pool-dialogue` verify both grove scenes in Chrome.
