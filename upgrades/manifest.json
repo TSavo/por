@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:26:CPIC7.DAX:69": "lizard-wilds-drider-stand.png",
+    "combat:area:26:CPIC7.DAX:197": "lizard-wilds-drider-strike.png",
+    "portrait:area:2:PIC4.DAX:37:0:0": "textile-poison-frogs-dialogue.png",
     "tile:16:6ec29a363a1740c0141d5b9d7b16acc952356f375c0514e8278d54388fcc3eb1": "lizard-sunken-keep-terrain-6ec29a363a17.png",
     "tile:16:018c8a6ebd6f0ec36e95ddb15f351bcd9608ba3c27d9f35599267c40bee0b19a": "lizard-sunken-keep-terrain-018c8a6ebd6f.png",
     "tile:16:f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b": "lizard-sunken-keep-terrain-f5a5fd42d16a.png",
