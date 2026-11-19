@@ -3074,3 +3074,7 @@ falling back to the guest portrait when the selected head lacks a redraw.
 
 The male dwarf fighter's character sheet covers all 14 head and 12 body
 choices. Chrome checks both menu cycles and a mixed head/body choice.
+
+The overheard Podal Plaza patrols use three approach distances for both
+goblins and hobgoblins. The production Chrome replay verifies all twelve
+scoped bindings, both original dialogues, and state-preserving mode switches.
