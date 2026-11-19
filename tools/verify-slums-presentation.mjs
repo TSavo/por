@@ -597,6 +597,7 @@ const illustrationRoutes = new Map([
   }],
   ["buccaneer-captain-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
+    approachSequence: [[48, 32, "encounter:area:1:SPRIT6.DAX:16:0:0", 40, 80]],
     portrait: "portrait:area:1:HEAD6.DAX:9:BODY6.DAX:5", prompt: /CAPTAINLOOKSYOUOVER/i,
   }],
   ["mendor-fighter-dialogue", {
@@ -1990,6 +1991,11 @@ const environmentRoutes = new Map([
   ["nomad-camp-rim", {
     slot: "A", area: 17, views: 8, patterns: 47,
     walk: [...Array(4).fill("up"), "left", "up", "up"],
+    approachSequence: [
+      [56, 32, "encounter:area:17:SPRIT7.DAX:11:2:0", 16, 49],
+      [56, 32, "encounter:area:17:SPRIT7.DAX:11:1:0", 24, 65],
+      [40, 32, "encounter:area:17:SPRIT7.DAX:11:0:0", 48, 80],
+    ],
   }],
   ["overland-graveyard-arrival", {
     slot: "A", area: 26, views: 3, patterns: 74,
@@ -2771,6 +2777,7 @@ try {
     const phlanExit = /^new-phlan-(?:south-shop|west-shop|training|tavern-back)-exit$/.test(routeName);
     let exitPauseTiles;
     let sawGrishnakApproach = false;
+    if (environment.approachSequence) await observeApproach(environment.approachSequence);
     for (const key of environment.walk) {
       const previousTiles = frame.tiles;
       await advance(key);
@@ -2952,6 +2959,8 @@ try {
       assert.equal(result.result.value, true, result.exceptionDetails?.text ?? "A missing tile should preserve the enhanced view");
     }
     if (routeName === "nomad-camp-rim") {
+      await waitFor("all three enhanced Nomad sentry distances", () => run("window.observedApproach.size === 3"));
+      assert.deepEqual(await run("[...window.observedApproach]"), environment.approachSequence.map(([, , id]) => id));
       const sentry = "encounter:area:17:SPRIT7.DAX:11:0:0";
       assert.deepEqual(frame.encounter, [40, 32, sentry, 48, 80]);
       const text = frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");

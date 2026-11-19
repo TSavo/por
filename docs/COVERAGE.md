@@ -2748,6 +2748,10 @@ merchant wing use fired-clay octagons with ochre insets on the floor,
 vertical timber on the walls, and gray masonry on the ceiling. The
 floor update covers 14 tile bindings checked across both Chrome routes.
 
+`nomad-camp-rim` checks all three enhanced sentry distances in order
+before the swords-ready prompt. `buccaneer-captain-dialogue` checks the
+enhanced approach sprite before the captain's portrait.
+
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.
 The browser uses the overland menu to keep that frame out of the
