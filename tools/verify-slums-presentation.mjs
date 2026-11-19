@@ -1866,6 +1866,22 @@ const environmentRoutes = new Map([
     slot: "A", area: 26, views: 10, patterns: 80, sceneryOnly: true, captureView: 5,
     walk: ["left", "up", "right", "up", "left", "up", "up", "right", "up"],
   }],
+  ["slums-courtyard-east", {
+    slot: "B", area: 20, views: 9, patterns: 40, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "right", "up", "up"],
+  }],
+  ["slums-courtyard-north", {
+    slot: "B", area: 20, views: 6, patterns: 40, sceneryOnly: true,
+    walk: ["right", "up", "up", "left", "up"],
+  }],
+  ["slums-courtyard-south", {
+    slot: "B", area: 20, views: 9, patterns: 60, sceneryOnly: true,
+    walk: ["right", "up", "up", "right", "up", "left", "up", "up"],
+  }],
+  ["slums-courtyard-west", {
+    slot: "B", area: 20, views: 9, patterns: 54, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "right", "up", "up"],
+  }],
   ["valjevo-transition-east", {
     slot: "B", area: 5, views: 12, patterns: 67, sceneryOnly: true,
     transition: { afterViews: 4, area: 3 },
