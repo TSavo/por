@@ -1777,8 +1777,17 @@ const environmentRoutes = new Map([
     walk: ["left", "up", "up", "right", "up", "up", "right"],
   }],
   ["mendor-annex-floor-large", {
-    slot: "B", area: 15, views: 15, patterns: 28, sceneryOnly: true,
+    slot: "B", area: 15, views: 15, patterns: 28, sceneryOnly: true, captureView: 11,
     walk: ["right", "right", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up"],
+  }],
+  ["mendor-west-floor-small", {
+    slot: "B", area: 15, views: 10, patterns: 86, sceneryOnly: true,
+    transition: { afterViews: 5, area: 2 },
+    walk: ["down", "up", "up", "left", "up", "right", "up", "left", "up"],
+  }],
+  ["mendor-west-floor-large", {
+    slot: "B", area: 15, views: 11, patterns: 44, sceneryOnly: true,
+    walk: ["up", "up", "left", "up", "up", "right", "up", "up", "left", "up"],
   }],
   ["zhentil-east-yard", {
     slot: "A", area: 28, views: 17, patterns: 46,
@@ -2807,6 +2816,12 @@ try {
       const viewArea = transition && views >= transition.afterViews ? transition.area : area;
       const tiledView = await verifyTiledView(viewArea, patterns);
       views += tiledView;
+      if (tiledView && views === environment.captureView) {
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        const screenshot = resolve(directory, `${routeName}.png`);
+        writeFileSync(screenshot, Buffer.from(shot.data, "base64"));
+        console.log("Scene capture:", screenshot);
+      }
       if (routeName === "zhentil-east-passage-north" && views === 6 && tiledView) {
         assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /15,5N/i);
         const shot = await command("Page.captureScreenshot", { format: "png" });
