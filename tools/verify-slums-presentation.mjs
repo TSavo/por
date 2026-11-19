@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["north-gate-jail-thugs", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:HEAD3.DAX:32:BODY3.DAX:8", prompt: /CONVERTEDTOAJAIL/i,
+  }],
+  ["north-gate-thieves-guild", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:HEAD3.DAX:44:BODY3.DAX:8", prompt: /AMBUSHEDBYSOMETHIEVES/i,
+  }],
   ["new-phlan-jeweler", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:HEAD3.DAX:63:BODY3.DAX:34", prompt: /SHOPKEEPEROFFERSJEWELRYFORSALE/i,
@@ -160,6 +168,12 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["phlan-ruins-scorpion", {
+    slot: "B", stand: "combat:area:2:CPIC4.DAX:18", strike: "combat:area:2:CPIC4.DAX:146",
+    width: 192, height: 96, strikeReflected: true,
+    inputs: ["s", "up", "up", "down", "up", "down", "enter", "enter"],
+    strikeInputs: ["enter", "q"],
+  }],
   ["lizard-wilds-stirge", {
     slot: "A", stand: "combat:area:26:CPIC7.DAX:61", strike: "combat:area:26:CPIC7.DAX:189",
     width: 96, height: 96, strikeReflected: true,
@@ -344,6 +358,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valhingen-central-courts", {
+    slot: "A", area: 10, views: 28, patterns: 140, sceneryOnly: true,
+    walk: ["left", "up", "left", "up", "right", "up", "up", "up", "up", "left", "up", "left", "right", "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up"],
+  }],
   ["new-phlan-harbor-lanes", {
     slot: "A", area: 0, views: 16, patterns: 72, sceneryOnly: true,
     walk: ["right", "up", "up", "up", "right", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up"],

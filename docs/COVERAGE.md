@@ -1336,6 +1336,12 @@ the middle and near poses at their original anchors in separate encounters.
 `kobold-cave-wyvern-dialogue` verify the Mummy approach sprite and two
 pre-combat illustrations. Chrome checks the artwork and state-preserving
 mode switches on all five encounter replays.
+`valhingen-central-courts` checks 32 new fence, tomb, and masonry
+tiles across 28 live views from the native save.
+`north-gate-jail-thugs` and `north-gate-thieves-guild` verify both
+illustrations at their original prompts and at full panel size.
+`phlan-ruins-scorpion` checks the ready and reflected strike poses in
+the original area 2 fight.
 `new-phlan-harbor-lanes` checks 16 individually redrawn water, piling,
 and quay tiles across 16 live views and 1,936 placements.
 `lizard-wilds-stirge` verifies the ready and reflected strike poses
