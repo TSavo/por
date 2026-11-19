@@ -3103,3 +3103,7 @@ clue and parlay approaches. Chrome verifies both branches and mode switching.
 Plumed, braided, and bald dwarf combat icon heads have separate ready
 and attack sprites for the default body. Chrome verifies each pair from
 a save made through the original icon editor.
+
+All distinct dwarf combat heads have ready and attack art with the
+default body. Chrome verifies the original editor's fourteen choices,
+including three aliases, and both combat poses for each distinct head.
