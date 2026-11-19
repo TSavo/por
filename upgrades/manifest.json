@@ -3959,6 +3959,8 @@
     "tile:2:f87e26d1f44068d5218e700ab1e9905d6aa60feb0827032f6514ea6739a55dfc": "textile-house-f87e26d1f440.png",
     "tile:2:ff4860ce30e110b079f3fcd93775a7da9203b1088f021b1dc767fd1870de3bc2": "textile-house-ff4860ce30e1.png",
     "combat:area:20:CPIC2.DAX:130": "goblin-infantry-strike.png",
+    "combat:CPIC1.DAX:2": "goblin-infantry-combat.png",
+    "combat:CPIC1.DAX:130": "goblin-infantry-strike.png",
     "portrait:HEAD3.DAX:9:BODY3.DAX:1": "arena-master-portrait.png",
     "combat:area:20:CPIC2.DAX:2": "goblin-infantry-combat.png",
     "combat:CPIC1.DAX:3": "goblin-veteran-combat.png",
