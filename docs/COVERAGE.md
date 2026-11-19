@@ -3173,6 +3173,11 @@ The parted-haired dwarf (head 1) has both poses for all 18 choices.
 Chrome stepped through all ready and strike previews in the original
 icon editor and verified that each preview loaded its 96×96 artwork.
 
+The helmeted dwarf (head 2) completes the default-palette dwarf set.
+Chrome checked both previews for all 18 weapons in the original icon
+editor. The inventory now links all 396 ready and strike entries for
+the 198 distinct head and body combinations.
+
 The `wild-cave-boar-sow` route verifies the sow's approach, her warning
 while feeding her piglets, and her charge through the battle prompt.
 Chrome checks the original anchor, full-panel art, and mode switching
