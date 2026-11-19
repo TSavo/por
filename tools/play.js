@@ -40,6 +40,7 @@ let animationFrame;
 let animationTimer;
 let advanceAnimation;
 let screenRender = 0;
+let renderingSequence;
 const failedSceneArt = new WeakSet();
 const failedEnhancedFrames = new WeakSet();
 
@@ -261,6 +262,7 @@ function togglePresentation() {
 async function showScreen() {
   if (!state.frame) return;
   const render = ++screenRender;
+  renderingSequence = state.sequence;
   const view = animationFrame ?? state;
   const useEnhanced = enhanced && !failedEnhancedFrames.has(view);
   const frame = useEnhanced ? view.enhancedFrame ?? view.frame : view.frame;
@@ -364,6 +366,7 @@ async function showScreen() {
     if (sceneArt) failedSceneArt.add(view);
     else if (useEnhanced) failedEnhancedFrames.add(view);
     else {
+      renderingSequence = undefined;
       holdAnimationFrame(view);
       return;
     }
@@ -385,6 +388,7 @@ async function showScreen() {
       return glyph;
     }));
   }
+  renderingSequence = undefined;
   holdAnimationFrame(view);
 }
 
@@ -435,7 +439,7 @@ function renderJournal() {
 }
 
 async function send(key) {
-  if (!state.ready || posting || state.stopped) return;
+  if (!state.ready || posting || state.stopped || renderingSequence === state.sequence) return;
   if (animationFrame) {
     finishAnimation();
     showScreen();

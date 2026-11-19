@@ -2467,6 +2467,8 @@ its original anchor on both dialogue pages.
 illustrations at their original prompts. The brawl replay checks the
 portrait through the introductory prompts, then verifies the enhanced
 battlefield and five visible attack reports, including misses and damage.
+With portrait decoding held in Chrome, Enter leaves the pending prompt
+in place until the portrait is visible and the player presses Enter again.
 The arena and harbor Watch mage
 replays check the shared ready sprite. Neither replay observed a native
 mage strike. `stojanow-west-watch` and `buccaneer-stockade` check 12 new

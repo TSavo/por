@@ -3309,6 +3309,20 @@ try {
       assert.equal(await run('document.querySelector("#screen").src'), prior,
         "The previous frame should stay visible while the portrait loads");
       assert.equal(await run('Boolean(document.querySelector(".encounter-portrait"))'), false);
+      assert.equal(await run(`(() => {
+        const fetchGame = window.fetch;
+        let submitted = false;
+        window.fetch = (url, ...options) => {
+          if (url === "/key") { submitted = true; return Promise.resolve({ ok: false }); }
+          return fetchGame(url, ...options);
+        };
+        try {
+          window.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", code: "Enter" }));
+          return submitted;
+        } finally {
+          window.fetch = fetchGame;
+        }
+      })()`), false, "Enter should not advance a prompt whose portrait is still loading");
       await run('window.releasePortrait()');
     } else {
       for (const key of inputs) await advance(key);
