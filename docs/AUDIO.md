@@ -146,7 +146,7 @@ interruption, and Classic-mode gating. `npm run verify-narration-generation`
 checks every queued MP3/transcript pair, exact text, signatures, duplicates, and
 pending generation. Original town dialogue that bypasses the ECL interpreter is
 matched from the exact text sent to the guest display and uses the same complete
-Eleven v4 narrator recordings; the initial Rolf tour is covered by five passages.
+Eleven v4 narrator recordings; the complete initial Rolf tour is covered by eight passages.
 The production inventory currently verifies all 1,688 queued
 recordings complete, with zero pending, failed, duplicate, or untracked outputs.
 On November 18, 2026, Chrome verified Enhanced activation,

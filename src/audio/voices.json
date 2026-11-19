@@ -65,6 +65,33 @@
       "subtitle": "'WE ARE JUST OUTSIDE THE CITY HALL. PROCLAMATIONS ARE POSTED ON THESE WALLS. INSIDE, THE CITY CLERK AWARDS THE COUNCIL'S COMMISSIONS. COMMISSIONS ARE THE QUICKEST WAY TO FAME AND FORTUNE.'",
       "file": "narration/town/rolf-tour-05.mp3",
       "status": "approved-narrator"
+    },
+    {
+      "id": "por.voice.town.rolf-tour-06",
+      "type": "narration",
+      "speaker": "narrator",
+      "match": "ON YOUR RIGHT IS ONE OF THE ENTRANCE'S TO SUNE'S TEMPLE",
+      "subtitle": "'ON YOUR RIGHT IS ONE OF THE ENTRANCE'S TO SUNE'S TEMPLE. AS WITH ALL PHLAN'S TEMPLES, VARIOUS CLERICAL SERVICES ARE OFFERED INSIDE. ON YOUR LEFT IS AN ENTRANCE TO THE CITY PARK.'",
+      "file": "narration/ecl3/b0-b400.mp3",
+      "status": "approved-narrator"
+    },
+    {
+      "id": "por.voice.town.rolf-tour-07",
+      "type": "narration",
+      "speaker": "narrator",
+      "match": "BEYOND THIS GATE ARE THE MONSTER-RIDDEN AREAS",
+      "subtitle": "'BEYOND THIS GATE ARE THE MONSTER-RIDDEN AREAS OF THE OLD CITY WE ARE SLOWLY PREPARING FOR SETTLEMENT. THE COUNCIL OFFERS A GENEROUS REWARD TO THOSE WHO CLEAR AREAS OF MONSTERS.'",
+      "file": "narration/ecl3/b0-b48f.mp3",
+      "status": "approved-narrator"
+    },
+    {
+      "id": "por.voice.town.rolf-tour-08",
+      "type": "narration",
+      "speaker": "narrator",
+      "match": "OUR TOUR IS ENDED",
+      "subtitle": "'OUR TOUR IS ENDED. AGAIN, LET ME URGE YOU TO APPLY TO THE CITY CLERK FOR A COMMISSION. GOOD-BYE AND GOOD FORTUNE.' (YOU ARE ON YOUR OWN NOW)",
+      "file": "narration/ecl3/b0-b51c.mp3",
+      "status": "approved-narrator"
     }
   ]
 }
