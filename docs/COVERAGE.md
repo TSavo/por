@@ -1379,6 +1379,8 @@ charge from a controlled pre-encounter checkpoint.
 reflected lunge from a controlled area 27 checkpoint.
 `wild-cave-lizard-combat` checks the giant lizard's 192×96 ready pose
 and reflected strike from a controlled area 27 checkpoint.
+`wild-cave-troll-combat` checks the troll's 96×192 ready pose and
+animated strike in the area 27 gnoll-room encounter.
 `valhingen-zombie-approach` and `valhingen-ghoul-approach` check the
 stairway and rest ambush sprites at their native anchors, followed by
 their dialogue portraits. Both replays switch presentation in each view.

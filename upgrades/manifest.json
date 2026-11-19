@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:27:CPIC8.DAX:31": "wild-cave-troll-stand.png",
+    "combat:area:27:CPIC8.DAX:159": "wild-cave-troll-strike.png",
     "encounter:area:29:SPRIT8.DAX:57:0:0": "old-phlan-lizard-patrol-approach.png",
     "encounter:area:31:SPRIT1.DAX:8:0:0": "bane-ogre-approach.png",
     "tile:0:80e3c5025a5f43f7991f9fb1c372374d1d0c7cb666c72aa6115e3e381ccd814e": "new-phlan-covered-market-terrain-80e3c5025a5f.png",
