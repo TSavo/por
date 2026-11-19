@@ -774,6 +774,11 @@ const illustrationRoutes = new Map([
     portrait: "portrait:HEAD3.DAX:16:BODY3.DAX:8", prompt: /WETRAINONLYTHIEVESHERE/i,
     journalLead: "phlan-training-thieves",
   }],
+  ["zhentil-quarters-ambush", {
+    slot: "A", inputs: ["up", "enter", "s", "enter"],
+    approachSequence: [[48, 32, "encounter:area:28:ecl:a534:SPRIT5.DAX:16:0:0", 40, 80]],
+    portrait: "portrait:area:28:ecl:a53d:HEAD6.DAX:57:BODY6.DAX:6", prompt: /ABATTLEBEGINS/i,
+  }],
   ["zhentil-quarters-guard-dialogue", {
     slot: "A", inputs: ["up", "enter"],
     approachSequence: [[48, 32, "encounter:area:28:ecl:9ec8:SPRIT5.DAX:16:0:0", 40, 80]],
