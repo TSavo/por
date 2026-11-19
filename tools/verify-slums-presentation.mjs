@@ -3353,6 +3353,11 @@ try {
       await waitFor("the enhanced street without a portrait at the doorway", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelectorAll(".terrain-tile").length === 121 &&
         !document.querySelector(".encounter-portrait")`));
+      assert.ok(await run(`(() => {
+        const context = document.querySelector("canvas.panel-frame")?.getContext("2d");
+        return context?.getImageData(16, 16, 1, 1).data[3] === 255 &&
+          !context.getImageData(32, 32, 480, 480).data.some((value, index) => index % 4 === 3 && value !== 0);
+      })()`), "The doorway should have an outer frame and a clear picture panel");
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, name), Buffer.from(shot.data, "base64"));
     };
