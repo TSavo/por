@@ -58,7 +58,8 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>) {
   let background: Uint8Array | undefined;
   let backgroundArea: number | undefined;
 
-  return (screen: Frame, enhanced: Frame, area: number | undefined, rememberBackground = true, cursor?: number): EncounterPlacement | undefined => {
+  return (screen: Frame, enhanced: Frame, area: number | undefined, rememberBackground = true, cursor?: number,
+    nativeDraws: readonly (Uint8Array | undefined)[] = []): EncounterPlacement | undefined => {
     if (rememberBackground && area !== backgroundArea) background = undefined;
     if (rememberBackground) backgroundArea = area;
     if (area === undefined) {
@@ -74,10 +75,32 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>) {
       if (!Object.hasOwn(placements, key)) return;
       const clean = area === backgroundArea && background && pixels.every((color, i) => color || screen.pixels[address(i)] === background![address(i)])
         ? background : undefined;
+      // An ECL event can draw new scenery and paint an actor before the
+      // next input frame. Use a captured native draw only when every
+      // difference in the viewport lies under the actor's opaque pixels.
+      const viewportIndex = (px: number, py: number) => (py - 24) * 88 + px - 24;
+      const nativeClean = !clean && x >= 24 && y >= 24 && x + width <= 112 && y + height <= 112 &&
+        nativeDraws.find(draw => {
+          if (draw?.length !== 88 * 88) return false;
+          let changed = false;
+          for (let i = 0; i < draw.length; i++) {
+            const px = 24 + i % 88;
+            const py = 24 + Math.floor(i / 88);
+            if (draw[i] === screen.get(px, py)) continue;
+            if (px < x || py < y || px >= x + width || py >= y + height ||
+                !pixels[(py - y) * width + px - x]) return false;
+            changed = true;
+          }
+          return changed;
+        });
       // Keep the last clean view across successive distance frames.
       if (clean) {
         for (const [i, color] of pixels.entries()) {
           if (color) enhanced.pixels[address(i)] = clean[address(i)]!;
+        }
+      } else if (nativeClean) {
+        for (const [i, color] of pixels.entries()) {
+          if (color) enhanced.pixels[address(i)] = nativeClean[viewportIndex(x + i % width, y + Math.floor(i / width))]!;
         }
       } else if (anchor.flatBackground) {
         // Some conversations draw the room and actor together. For explicitly

@@ -80,6 +80,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let area: number | undefined;
   let battleCursor: number | undefined;
   let drawnPerspective: { pixels: Buffer; localEcl?: number } | undefined;
+  let priorPerspectiveDraw: Buffer | undefined;
   let previousPerspective: { area: number; pixels: Buffer } | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
@@ -122,7 +123,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);
       const encounter = encounterArt(screen, enhanced, !scene && picture === undefined ? area : undefined,
-        !captureApproach, battleCursor);
+        !captureApproach, battleCursor, [drawnPerspective?.pixels, priorPerspectiveDraw]);
       if (captureApproach) {
         if (!encounter || encounter[2] === lastApproach) return;
         lastApproach = encounter[2];
@@ -350,7 +351,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   return {
     requestKey,
     capturePerspective: browser ? (cpu: Cpu, localScenery: boolean) => {
-      drawnPerspective = { pixels: perspectivePixels(), localEcl: localScenery ? cpu.read8(0x740, 0x82a2) : undefined };
+      const pixels = perspectivePixels();
+      if (drawnPerspective && !drawnPerspective.pixels.equals(pixels)) priorPerspectiveDraw = drawnPerspective.pixels;
+      drawnPerspective = { pixels, localEcl: localScenery ? cpu.read8(0x740, 0x82a2) : undefined };
     } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu) => {
       if (scene || animation.length >= 12) return;

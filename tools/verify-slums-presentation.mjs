@@ -2968,9 +2968,17 @@ try {
       assert.ok(frame.journal.leads.some(({ id }) => id === "nomad-kobold-attack"));
       for (const key of ["j", "enter"]) await advance(key);
       assert.match(visibleText(), /COMBATWAITFLEEADVANCE/i);
+      const kobold = "encounter:area:17:SPRIT7.DAX:0:1:0";
+      assert.deepEqual(frame.encounter, [56, 32, kobold, 24, 65]);
+      assert.equal(await verifyTiledView(17, new Set()), 1);
+      await waitFor("the enhanced kobold raider", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-sprite[src="/art/${kobold}"]')?.naturalHeight === 260`));
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      const screenshot = resolve(directory, "nomad-raid-approach.png");
+      writeFileSync(screenshot, Buffer.from(shot.data, "base64"));
       await advance("c");
       assert.match(visibleText(), /ABATTLEBEGINS/i);
-      console.log("Verified the Nomad Camp raid and journal after resting until evening in Chrome.");
+      console.log("Verified the enhanced Nomad Camp raid approach and journal in Chrome:", screenshot);
     } else {
       await advance("e");
       assert.match(visibleText(), /08:29.*AREACASTVIEWENCAMP/i);
