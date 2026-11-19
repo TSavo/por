@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:15:CPIC2.DAX:0:ecl:ae94": "mendor-kobold-stand.png",
+    "combat:area:15:CPIC2.DAX:128:ecl:ae94": "mendor-kobold-strike.png",
     "tile:17:328b77100d34f2d76a0917618c033859d1fc8cbe732d3265c4770a1993d459fe": "nomad-tent-lane-terrain-328b77100d34.png",
     "tile:17:ed3cef48a9e2cbe9d2e2743d6845551a2cd16242714fd7343baa7b9a0543e377": "nomad-tent-lane-terrain-ed3cef48a9e2.png",
     "tile:17:5687675c2146d2bd4fab830d80edd002e442fc2c5ab92189330eb3f6f8d45f82": "nomad-tent-lane-terrain-5687675c2146.png",

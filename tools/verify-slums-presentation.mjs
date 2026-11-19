@@ -468,6 +468,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["mendor-storeroom-kobold", {
+    slot: "B", stand: "combat:area:15:CPIC2.DAX:0:ecl:ae94", strike: "combat:area:15:CPIC2.DAX:128:ecl:ae94",
+    width: 96, height: 96, readyPrompt: /KOBOLDHITPOINTS3/i, strikeReflected: false,
+    inputs: ["up", ...Array(4).fill("enter"), "c", "enter"], strikeInputs: ["enter"],
+  }],
   ["stojanow-tower-aide-combat", {
     slot: "A", stand: "combat:area:9:CPIC2.DAX:11:ecl:a2b4", strike: "combat:area:9:CPIC2.DAX:139:ecl:a2b4",
     width: 96, height: 96, readyPrompt: /AIDESHITPOINTS18/i, strikeReflected: false,
