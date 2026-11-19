@@ -350,7 +350,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("river-pump-prisoners-freed")) nextStep = "Read journal entry 35 for the freed prisoners' advice on getting help from their tribe in the swamp.";
     }
     if (commission.id === "nomads") {
-      if (knows("nomad-kobold-attack")) nextStep = "The kobolds are attacking the camp. Help the nomads repel them if you agreed to stay.";
+      if (knows("nomad-kobold-attack")) nextStep = "The kobolds are attacking the camp. Choose Combat when prompted to help the nomads repel them.";
+      else if (knows("nomad-war-cries")) nextStep = "Press Enter to continue and see what is happening outside the hut.";
       else if (knows("nomad-declined-aid")) nextStep = "The party declined to defend the camp. Check with the council clerk about the commission.";
       else if (knows("nomad-rest-offer")) nextStep = "Stay in the camp. Use Encamp to memorize spells, then rest to prepare for the possible attack.";
       else if (knows("nomad-promised-aid")) nextStep = "Press Enter to hear the headman's instructions before you prepare to defend the camp.";
@@ -790,6 +791,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU MAY WANDER AS YOU WILL OR YOU MAY STAY HERE AND REST AND STUDY")) {
     leads.push({ id: "nomad-rest-offer", title: "Permission to rest in camp",
       detail: "The headman said the party could wander the camp or stay to rest and study." });
+  }
+  if (text.includes("THE SOUND OF WAR CRIES DRAWS YOU OUT OF THE HUT")) {
+    leads.push({ id: "nomad-war-cries", title: "War cries outside the hut",
+      detail: "War cries drew the party out of its lodging in the Nomad Camp." });
   }
   if (text.includes("A HORDE OF KOBOLDS IS ATTACKING THE CAMP")) {
     leads.push({ id: "nomad-kobold-attack", title: "The kobold attack", detail: "A band of kobolds attacked the Nomad Camp." });

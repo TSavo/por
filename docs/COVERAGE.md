@@ -1159,6 +1159,10 @@ The Stay and Fight replay writes a native slot A after that offer.
 `nomad-headman-rest-reload` loads it in a new Chrome session, checks
 that the offer survives, and rests eight hours through Encamp. The
 clock advances from 00:29 to 08:29 without revealing the raid.
+`nomad-headman-raid` starts from the same save and rests until 18:29.
+It verifies that the journal first records the war cries, then identifies
+the attackers only after the original script reveals them. Choosing
+Combat opens the original raid battle.
 The `kuto-well-approach` replay uses slot J saved after the original cross-
 district transition. Chrome verifies 1,936 placements across 16 views on
 the walk to the well, using 89 distinct 32×32 tiles. The final view checks
