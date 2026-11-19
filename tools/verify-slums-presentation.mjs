@@ -816,6 +816,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["stojanow-west-watch", {
+    slot: "A", area: 9, views: 12, patterns: 34, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "right", "up", "up", "right", "up"],
+  }],
   ["stojanow-gate-coping", {
     slot: "A", area: 9, views: 4, patterns: 20, sceneryOnly: true,
     walk: ["right", "up", "up"],

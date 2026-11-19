@@ -1,6 +1,15 @@
 {
   "version": 1,
   "assets": {
+    "tile:9:54cfe77b0fa031f0e731581bb561e7930676dcaf217f5886e27719bedfc1eb68": "stojanow-west-watch-terrain-54cfe77b0fa0.png",
+    "tile:9:e0a3abc3b4a8d171ac804ef60ea102f382d0189b8cd2be1c2a616fc8c2e8d86a": "stojanow-west-watch-terrain-e0a3abc3b4a8.png",
+    "tile:9:3df247a59ff18323be4631a63c96cf8ab98193f543ef4003a72a7c1e856e15f8": "stojanow-west-watch-terrain-3df247a59ff1.png",
+    "tile:9:23ade102018548cabe2a52d3a65ad144116cddbcf45ae2414102faaa74d4b7d4": "stojanow-west-watch-terrain-23ade1020185.png",
+    "tile:9:0ae60cf3309accf1a341b5cc07952a90cf121d33ec8c6432d727b57c0c6c20f1": "stojanow-west-watch-terrain-0ae60cf3309a.png",
+    "tile:9:699e8b134491518fdbccbf4e9783a7ecde8cec6424c1858827d3cbc005fdbaea": "stojanow-west-watch-terrain-699e8b134491.png",
+    "tile:9:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae": "stojanow-west-watch-terrain-f5d7a245e0ac.png",
+    "tile:9:92ccb4f65a1e573455d386a2986c6dad5b9d4e629110bd9bcbb6b6208dea253c": "stojanow-west-watch-terrain-92ccb4f65a1e.png",
+    "tile:9:5b52670be92caf50b8a456a072b22f8a06279387eb20120d464ce4c70a50931e": "stojanow-west-watch-terrain-5b52670be92c.png",
     "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9": "new-phlan-rolf-tour.png",
     "tile:9:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739": "stojanow-gate-coping-terrain-0264796f9fa2.png",
     "tile:16:5745bb7f429a1afa52a11ab57f7148ee24f79b3805d2c6a95d8c1ee9e779be01": "lizard-keep-rubble-terrain-5745bb7f429a.png",
