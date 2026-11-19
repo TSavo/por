@@ -1898,7 +1898,7 @@ const environmentRoutes = new Map([
 ]);
 const freshRolf = routeName === "new-phlan-rolf-approach";
 const routes = ["new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
-routes.push("new-phlan-council-reward-reload", "slums-mage-wand");
+routes.push("new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload");
 routes.push("textile-return-art");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
@@ -2948,6 +2948,18 @@ try {
     await waitFor("enhanced Nomad sentries after the entrance trail", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
     console.log("Verified the Nomad Camp illustration, journal entry, and seven tiled views through to the sentries in Chrome.");
+  } else if (routeName === "nomad-headman-rest-reload") {
+    const visibleText = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+    assert.match(visibleText(), /00:29/);
+    await advance("j");
+    const known = new Set(frame.journal?.leads.map(({ id }) => id));
+    assert.ok(known.has("nomad-promised-aid") && known.has("nomad-rest-offer"));
+    assert.ok(!known.has("nomad-declined-aid") && !known.has("nomad-kobold-attack"));
+    await switchBothWays();
+    for (const key of ["j", "e", "enter", "r", "h", ...Array(8).fill("i"), "r", "e"]) await advance(key);
+    assert.match(visibleText(), /08:29.*AREACASTVIEWENCAMP/i);
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the Nomad rest permission after reload and rested eight hours through Encamp in Chrome.");
   } else if (routeName === "nomad-headman" || routeName === "nomad-headman-stay") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     for (const key of ["up", "enter", "e", "e", "enter", ...Array(6).fill("up"), ...Array(3).fill("enter"), "j"]) await advance(key);
@@ -2976,6 +2988,10 @@ try {
     if (stays) {
       for (const key of ["j", "enter", "j"]) await advance(key);
       assert.ok(knows("nomad-rest-offer") && !knows("nomad-kobold-attack"));
+      for (const key of ["j", "e", "enter", "s", "s", "a"]) await advance(key);
+      const savedJournal = JSON.parse(readFileSync(saved, "utf8")).leads;
+      assert.ok(savedJournal.some(({ id }) => id === "nomad-rest-offer"));
+      console.log("Native save after the Nomad rest offer:", saved);
     }
     console.log(`Verified the Nomad headman portrait and journal on ${routeName} in Chrome.`);
   } else if (routeName === "phlan-harbor-sokal" || routeName === "phlan-harbor-routes") {
