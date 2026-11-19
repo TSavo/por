@@ -9,7 +9,7 @@ import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 import { loadUpgradeArt } from "./upgrade-art.js";
 import { compositePortraitKey } from "./portrait-art.js";
-import { fallenCombatKey } from "./combat-art.js";
+import { randomCombatKey } from "./combat-art.js";
 
 const families = [
   [/^(TITLE|FINAL\d+)\.DAX$/, "Title and ending"],
@@ -189,7 +189,7 @@ for (const path of tracePaths) {
 const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
-  const match = (id === fallenCombatKey ? /^combat:(RANDCOM\.DAX):(\d+):(\d+):(\d+)$/.exec(id) : undefined) ??
+  const match = randomCombatKey.exec(id) ??
     /^(?:encounter|portrait):(?:area:\d+:)?([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
     /^combat:(?:area:\d+:)?(CPIC\d+\.DAX):(\d+)(?::ecl:[a-f0-9]{4})?$/.exec(id);
   let source;

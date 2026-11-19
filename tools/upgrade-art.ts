@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
 import { portraitKey } from "./portrait-art.js";
 import { encounterAnchor, encounterKey, encounterPixels } from "./encounter-art.js";
-import { fallenCombatKey, fallenCombatPixels, isCombatExtent, monsterCombatKey, partyCombatKey, partyCombatPart } from "./combat-art.js";
+import { isCombatExtent, monsterCombatKey, partyCombatKey, partyCombatPart, randomCombatKey, randomCombatPixels } from "./combat-art.js";
 import { parseDax } from "../src/lib/dax.js";
 import { decodePicture, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
@@ -45,8 +45,9 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         const encounter = encounterAnchor(id, manifest.encounters?.[id]);
         const monster = monsterCombatKey.exec(id);
         const party = partyCombatKey.exec(id);
+        const random = randomCombatKey.exec(id);
         if (id !== "scene:title" && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
-            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && id !== fallenCombatKey && !portraitKey.test(id) && !encounter) continue;
+            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !random && !portraitKey.test(id) && !encounter) continue;
         const file = lookupOverride(manifest, id);
         if (typeof file !== "string" || !/^[a-z0-9_-]+\.png$/i.test(file)) continue;
         try {
@@ -60,9 +61,9 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
             if (!archive || !encounterPixels(archive, id, encounter)) continue;
             ({ width: sourceWidth, height: sourceHeight } = encounter);
           } else if (id === "scene:title") [sourceWidth, sourceHeight] = [320, 200];
-          else if (id === fallenCombatKey) {
-            const entry = originalArchive("RANDCOM.DAX")?.entries.find(({ id }) => id === 1);
-            if (!entry || !fallenCombatPixels(entry.data)) continue;
+          else if (random) {
+            const entry = originalArchive(random[1])?.entries.find(({ id }) => id === Number(random[2]));
+            if (!entry || !randomCombatPixels(entry.data, Number(random[4]))) continue;
             sourceWidth = sourceHeight = 24;
           } else if (monster) {
             const entry = originalArchive(monster[2])?.entries.find(({ id: block }) => block === Number(monster[3]));

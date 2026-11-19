@@ -14,12 +14,13 @@ export function combatHighlightPixel(x: number, y: number): number {
 
 export const monsterCombatKey = /^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX):(\d{1,3})(?::ecl:([a-f0-9]{4}))?$/;
 export const partyCombatKey = /^combat:party:(\d{1,3}):(\d{1,3})$/;
-export const fallenCombatKey = "combat:RANDCOM.DAX:1:0:5";
+export const randomCombatKey = /^combat:(RANDCOM\.DAX):(1):(0):([0-5])$/;
+const fallenCombatKey = "combat:RANDCOM.DAX:1:0:5";
 
-export function fallenCombatPixels(data: Uint8Array) {
+export function randomCombatPixels(data: Uint8Array, frame: number) {
   if (!isPicture(data)) return;
   const picture = decodePicture(data);
-  if (picture.width === 24 && picture.height === 24 && picture.itemCount > 5) return frameSlice(picture, 5);
+  if (picture.width === 24 && picture.height === 24 && frame >= 0 && frame < picture.itemCount) return frameSlice(picture, frame);
 }
 
 export function partyCombatPart(data: Uint8Array, height: 10 | 24) {
@@ -108,11 +109,17 @@ function buildCombatArtMatcher(keys: string[]) {
   };
   const root = keys.length ? findGameRoot() : null;
   if (root) {
-    if (keys.includes(fallenCombatKey)) {
+    const randomFrames = keys.flatMap(key => {
+      const match = randomCombatKey.exec(key);
+      return match ? [{ key, frame: Number(match[4]) }] : [];
+    });
+    if (randomFrames.length) {
       const file = listGameFiles(root).find(name => name.toUpperCase() === "RANDCOM.DAX");
       const record = file ? parseDax(file, readGameFile(root, file)).entries.find(({ id }) => id === 1) : undefined;
-      const pixels = record && fallenCombatPixels(record.data);
-      if (pixels?.some(Boolean)) registerFacings(pixels, fallenCombatKey);
+      if (record) for (const { key, frame } of randomFrames) {
+        const pixels = randomCombatPixels(record.data, frame);
+        if (pixels?.some(Boolean)) registerFacings(pixels, key);
+      }
     }
     const monsters = new Map(keys.flatMap(key => {
       const parts = monsterCombatKey.exec(key);
