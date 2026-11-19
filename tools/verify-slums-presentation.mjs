@@ -4346,9 +4346,13 @@ try {
       : "Verified the kobold guide portrait and witnessed escort offer in Chrome.");
   } else if (princessFatima) {
     const fatima = "portrait:HEAD8.DAX:67:BODY8.DAX:37";
+    const approach = "encounter:area:13:ecl:a775:SPRIT8.DAX:16:0:0";
+    await observeApproach([[48, 32, approach, 40, 80]]);
     await advance("j");
     assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "kobold-fatima-account"));
-    for (const key of ["j", "up", "enter", "enter"]) await advance(key);
+    for (const key of ["j", "up", "enter"]) await advance(key);
+    await waitFor("Fatima’s enhanced approach", () => run(`window.observedApproach.has(${JSON.stringify(approach)})`));
+    await advance("enter");
     assert.equal(frame.portrait, fatima);
     await waitFor("Princess Fatima's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();

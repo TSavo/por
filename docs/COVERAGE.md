@@ -2804,6 +2804,8 @@ thresholds, turn, and east tunnels across 15 views.
 The upper Pyramid floor uses irregular weathered sandstone slabs.
 Four Chrome walks check 19 revised tiles across 90 views, and the
 entrance walk checks two matching edges across 22 more views.
+The Bane ramparts, ivy loop, and north court use wide sandstone paving.
+Three Chrome walks checked all 40 revised tiles across 60 views.
 Old Phlan's east street and locked lane use broad worn flagstones
 distinct from the walls. Two Chrome walks check 18 tiles across 32
 views and 3,872 placements.
@@ -2928,6 +2930,8 @@ in its skeleton, zombie, and wight summoning branches. Chrome checks
 each against the original attack report.
 The Wild Cave kobold replay checks the new middle-distance sprite
 before the existing close approach and ambush illustration.
+The Princess Fatima replay checks the new approach before the existing
+portrait, journal account, and recruitment.
 The Temple of Bane gate's Attack branch uses its own guard ready and
 cleaver-strike sprites. Chrome checks the reflected hit on Alda.
 The Bane barracks guard replay checks the uniformed orc ready sprites
