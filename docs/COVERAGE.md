@@ -2332,6 +2332,9 @@ The `new-phlan-canal-room` replay starts from slot A at (6,1) facing
 north. Chrome checks all 1,815 placements across 15 first-person frames
 using 45 tile patterns, including turns inside the room, the walk out, and
 looking back toward the passage. Switching modes preserves the save.
+The same replay requests one unavailable tile PNG on the last view.
+Chrome keeps the other 120 enhanced tiles, the first-person panel, and
+the enhanced font. The original pixels fill the affected tile position.
 
 The `new-phlan-arena-quick` route starts from the council checkpoint at
 (6,5) facing east and uses Alda for the arena duel. Chrome checks the attack

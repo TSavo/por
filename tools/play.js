@@ -247,7 +247,7 @@ async function showScreen() {
   const sceneArt = useEnhanced && !view.journal && !failedSceneArt.has(view) && view.art;
   const source = sceneArt || `data:image/png;base64,${frame}`;
   const showArt = useEnhanced && !sceneArt && !view.journal;
-  const layers = [];
+  let layers = [];
   const placements = [...(view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
   if (view.portrait) placements.push([8, 8, view.portrait, undefined, undefined, 120, 120]);
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
@@ -302,8 +302,19 @@ async function showScreen() {
   try {
     const nextFrame = new Image();
     nextFrame.src = source;
-    await Promise.all([nextFrame.decode(), ...layers.filter(layer => layer instanceof HTMLImageElement)
-      .map(image => image.decode())]);
+    const decodeLayer = async layer => {
+      if (!(layer instanceof HTMLImageElement)) return layer;
+      try {
+        await layer.decode();
+        return layer;
+      } catch (error) {
+        // Terrain remains in the enhanced framebuffer underneath its PNGs.
+        if (layer.matches(".terrain-tile, .battle-tile")) return null;
+        throw error;
+      }
+    };
+    const [, decodedLayers] = await Promise.all([nextFrame.decode(), Promise.all(layers.map(decodeLayer))]);
+    layers = decodedLayers.filter(Boolean);
   } catch {
     if (render !== screenRender) return;
     if (sceneArt) failedSceneArt.add(view);

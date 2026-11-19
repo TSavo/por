@@ -2423,6 +2423,26 @@ try {
     }
     assert.equal(views, environment.views);
     assert.equal(patterns.size, environment.patterns);
+    if (routeName === "new-phlan-canal-room") {
+      // Simulate a single unavailable PNG in an otherwise valid live view.
+      const result = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true, expression: `(async () => {
+        const original = state;
+        const missing = "tile:missing-canal-test";
+        const [x, y] = original.tiles[0];
+        state = { ...original, tiles: [[x, y, missing], ...original.tiles.slice(1)] };
+        try {
+          await showScreen();
+          return !document.querySelector("#game-text").hidden && !document.querySelector("#tile-art").hidden &&
+            Boolean(document.querySelector(".perspective-backdrop")) &&
+            document.querySelectorAll(".terrain-tile").length === 120 &&
+            !document.querySelector('img[src="/art/' + missing + '"]');
+        } finally {
+          state = original;
+          await showScreen();
+        }
+      })()` });
+      assert.equal(result.result.value, true, result.exceptionDetails?.text ?? "A missing tile should preserve the enhanced view");
+    }
     if (environment.finalPortrait) {
       assert.equal(frame.portrait, environment.finalPortrait);
       assert.equal(frame.perspective, false);
