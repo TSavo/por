@@ -212,6 +212,11 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["new-phlan-rolf-tour", {
+    slot: "A", inputs: [],
+    portrait: "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9", prompt: /IAMROLF/i,
+    continuation: { inputs: ["enter"], prompt: /TEMPLEOFTYR/i, clearsPortrait: true },
+  }],
   ["sokal-keep-departure-ferry", {
     slot: "C", inputs: ["up", "up", "enter", "y", "enter"],
     portrait: "portrait:area:21:PIC4.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
@@ -811,6 +816,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["stojanow-gate-coping", {
+    slot: "A", area: 9, views: 4, patterns: 20, sceneryOnly: true,
+    walk: ["right", "up", "up"],
+  }],
   ["lizard-keep-rubble", {
     slot: "A", area: 16, views: 12, patterns: 44, sceneryOnly: true,
     walk: ["left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up"],

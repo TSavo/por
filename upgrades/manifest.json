@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9": "new-phlan-rolf-tour.png",
+    "tile:9:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739": "stojanow-gate-coping-terrain-0264796f9fa2.png",
     "tile:16:5745bb7f429a1afa52a11ab57f7148ee24f79b3805d2c6a95d8c1ee9e779be01": "lizard-keep-rubble-terrain-5745bb7f429a.png",
     "tile:16:94ef59d6815741a8e9fd75af7869f4d11e8efac2546ef6513ab81d0f800a20d3": "lizard-keep-rubble-terrain-94ef59d68157.png",
     "combat:area:0:CPIC3.DAX:16:ecl:ae09": "new-phlan-watch-fighter-stand.png",
