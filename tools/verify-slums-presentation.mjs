@@ -782,6 +782,14 @@ const illustrationRoutes = new Map([
     portrait: "portrait:HEAD3.DAX:16:BODY3.DAX:8", prompt: /WETRAINONLYTHIEVESHERE/i,
     journalLead: "phlan-training-thieves",
   }],
+  ["valjevo-sentinel-alarm", {
+    slot: "B", inputs: ["up", "enter"],
+    approachSequence: [[48, 32, "encounter:area:4:ecl:9f13:SPRIT5.DAX:16:0:0", 40, 80]],
+    portrait: "portrait:area:4:ecl:9f57:HEAD5.DAX:52:BODY5.DAX:1", prompt: /ANALARMSTARTSRINGING/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:4:ecl:9f58:HEAD5.DAX:52:BODY5.DAX:1", prompt: /ABATTLEBEGINS/i,
+    },
+  }],
   ["valjevo-forge-patrol", {
     slot: "B", inputs: ["up", "enter", "enter", "a", "a"],
     approachSequence: [
