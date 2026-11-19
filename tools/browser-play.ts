@@ -6,7 +6,7 @@ import { join } from "node:path";
 import { requireBrowserGameRoot } from "./gamedata.js";
 import { loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
-import { getKey, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
+import { getKey, type PanelFrameStamp, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
 import type { CombatArtPlacement } from "./combat-art.js";
 import { characterSheetPartKey, portraitKey, type CharacterSheetPart } from "./portrait-art.js";
 import type { EncounterPlacement } from "./encounter-art.js";
@@ -122,6 +122,7 @@ interface FrameState {
   automaticCombat?: boolean;
   tileInventory?: TileInventoryCell[];
   battleTileInventory?: TileInventoryCell[];
+  panelFrame?: PanelFrameStamp[];
   text?: [number, number, number][];
   textColors?: [number, number, number][];
   journal?: { objective: JournalObjective; leads: JournalLead[]; trackedId?: string };

@@ -3152,6 +3152,8 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
+  // These replays verify the individual PNG placements in the enhanced tile renderer.
+  await run(`document.querySelector('#street-toggle[aria-pressed="true"]')?.click()`);
   function observeApproach(approachSequence) {
     return run(`(() => {
       window.observedApproach = new Set();

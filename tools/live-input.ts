@@ -25,6 +25,7 @@ export interface PresentationAnimationFrame {
   enhancedFrame: string;
   combatArt: CombatArtPlacement[];
   battleTiles: TilePlacement[];
+  panelFrame?: PanelFrameStamp[];
   text: [number, number, number][];
   perspective?: boolean;
   encounter?: EncounterPlacement;
@@ -32,7 +33,29 @@ export interface PresentationAnimationFrame {
   durationMs?: number;
 }
 type TilePlacement = [x: number, y: number, key: string];
+export type PanelFrameStamp = [x: number, y: number, kind: "rail-x" | "rail-y" | "stud"];
 export type TileInventoryCell = [x: number, y: number, key: string, indices: string];
+
+const panelStamps = {
+  "rail-x": "00000000cc0000cc44cc0c44004cc0000004cc00c44004cc4000004400000000",
+  "rail-y": "0c400c400c400c400c40c40000c0c400000c400000c4040000c40c400c400c40",
+  stud: "eeeeeeeeefffff6eefeeee6eefef6e6eefe66e6eefeeee6ee666666eeeeeeeee",
+} as const;
+const panelStampPixels = Object.entries(panelStamps).map(([kind, pixels]) => ({
+  kind: kind as PanelFrameStamp[2], pixels: [...pixels].map(pixel => parseInt(pixel, 16)),
+}));
+
+function matchPanelFrame(frame: Frame): PanelFrameStamp[] | undefined {
+  const stamps: PanelFrameStamp[] = [];
+  for (let y = 0; y + 8 <= frame.height; y += 8) {
+    for (let x = 0; x + 8 <= frame.width; x += 8) {
+      const stamp = panelStampPixels.find(({ pixels }) => pixels.every((color, i) =>
+        frame.pixels[(y + (i >> 3)) * frame.width + x + (i & 7)] === color));
+      if (stamp) stamps.push([x, y, stamp.kind]);
+    }
+  }
+  return stamps.some(([, , kind]) => kind === "stud") ? stamps : undefined;
+}
 const enhancedPalette = [
   [15, 14, 18], [44, 59, 112], [49, 128, 74], [46, 133, 146],
   [150, 55, 55], [126, 65, 134], [160, 104, 55], [174, 166, 153],
@@ -259,6 +282,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         combatArt: combat,
         battleTiles,
         battleTileInventory,
+        panelFrame: scene ? undefined : matchPanelFrame(screen),
         tileInventory,
         textColors: enhancedPalette,
         automaticCombat: automaticCombat || undefined,
@@ -267,7 +291,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       };
       if (attack || captureApproach) {
         animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame,
-          text: state.text, combatArt: attack ?? [], battleTiles, perspective, encounter, tiles, durationMs });
+          text: state.text, combatArt: attack ?? [], battleTiles, panelFrame: state.panelFrame, perspective, encounter, tiles, durationMs });
       } else {
         console.log(`POR_FRAME ${JSON.stringify({ ...state,
           animation: animation.length ? animation.splice(0) : undefined })}`);

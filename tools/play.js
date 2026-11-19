@@ -525,6 +525,50 @@ function toggleAutomap() {
   (automap.hidden ? screen : closeMap).focus({ preventScroll: true });
 }
 
+function drawPanelFrame(stamps) {
+  const canvas = document.createElement("canvas");
+  canvas.className = "panel-frame";
+  canvas.width = 1280;
+  canvas.height = 800;
+  const brush = canvas.getContext("2d");
+  const directions = new Map(stamps.map(([x, y, kind]) => [`${x},${y}`, kind]));
+  const rectangle = (color, x, y, width, height) => {
+    brush.fillStyle = color;
+    brush.fillRect(x, y, width, height);
+  };
+  const horizontal = (x, y, length) => {
+    rectangle("#33251e", x, y + 9, length, 14);
+    rectangle("#6d5039", x, y + 11, length, 10);
+    rectangle("#a77b53", x, y + 12, length, 2);
+    rectangle("#4d3627", x, y + 18, length, 2);
+  };
+  const vertical = (x, y, length) => {
+    rectangle("#33251e", x + 9, y, 14, length);
+    rectangle("#6d5039", x + 11, y, 10, length);
+    rectangle("#a77b53", x + 12, y, 2, length);
+    rectangle("#4d3627", x + 18, y, 2, length);
+  };
+  for (const [x, y, kind] of stamps) {
+    const left = x * 4;
+    const top = y * 4;
+    rectangle("#0f0e12", left, top, 32, 32);
+    if (kind === "rail-x") horizontal(left, top, 32);
+    if (kind === "rail-y") vertical(left, top, 32);
+    if (kind !== "stud") continue;
+    if (directions.get(`${x - 8},${y}`) === "rail-x") horizontal(left, top, 16);
+    if (directions.get(`${x + 8},${y}`) === "rail-x") horizontal(left + 16, top, 16);
+    if (directions.get(`${x},${y - 8}`) === "rail-y") vertical(left, top, 16);
+    if (directions.get(`${x},${y + 8}`) === "rail-y") vertical(left, top + 16, 16);
+    rectangle("#33251e", left + 5, top + 5, 22, 22);
+    rectangle("#bd9369", left + 7, top + 7, 18, 18);
+    rectangle("#503626", left + 9, top + 9, 14, 14);
+    rectangle("#957051", left + 11, top + 11, 10, 10);
+    rectangle("#c9a476", left + 12, top + 12, 7, 2);
+    rectangle("#674730", left + 13, top + 18, 7, 2);
+  }
+  return canvas;
+}
+
 async function showScreen() {
   if (!state.frame) return;
   const render = ++screenRender;
@@ -623,6 +667,7 @@ async function showScreen() {
       tile.src = `/art/${id}`;
       return tile;
     }));
+    if (view.panelFrame?.length) layers.push(drawPanelFrame(view.panelFrame));
   }
   // Keep the last complete view on screen until the replacement layers
   // are ready. The raw framebuffer can still contain the original art.
