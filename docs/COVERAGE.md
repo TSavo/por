@@ -3093,3 +3093,6 @@ frames, including both chooser cycles and six Body 4 pairings.
 All 18 weapons for the default player icon head have ready and action
 sprites. The editor sweep covers all choices, and production Chrome combat
 replays verify the ten new pairs from native editor saves.
+
+The undisguised Podal Plaza goblin challenge has a dedicated illustration.
+Chrome checks the approach, encounter menu, and state-preserving mode switches.
