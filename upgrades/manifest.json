@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:21:CPIC4.DAX:6:ecl:aed4": "sokal-hobgoblin-line-stand.png",
+    "combat:area:21:CPIC4.DAX:134:ecl:aed4": "sokal-hobgoblin-line-strike.png",
     "tile:9:2b189e32fb8cf14bccc4e230acdc7e87885e4ba1d93051e2861319877487c307": "stojanow-tower-lanes-terrain-2b189e32fb8c.png",
     "tile:9:fd5111f010b1eb27874d7173f3f881527f0a97a68535e574937a39274ae5fb87": "stojanow-tower-lanes-terrain-fd5111f010b1.png",
     "tile:9:33b51e82f012e7d91b96894cd582495df912d95b36989e787ee5f7885e92d5b7": "stojanow-tower-lanes-terrain-33b51e82f012.png",
