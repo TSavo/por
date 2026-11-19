@@ -411,6 +411,12 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-tower-fire-giant", {
+    slot: "B", stand: "combat:area:5:CPIC5.DAX:56:ecl:a83f", strike: "combat:area:5:CPIC5.DAX:184:ecl:a83f",
+    width: 96, height: 192, readyPrompt: /FIREGIANTHITPOINTS57/i, strikeReflected: false,
+    inputs: ["up", "l", ...Array(3).fill("enter"), "a", ...Array(10).fill("enter"), ...Array(5).fill("q")],
+    strikeInputs: ["q"],
+  }],
   ["new-phlan-arena-rolf", {
     slot: "A", stand: "combat:area:11:CPIC3.DAX:11", strike: "combat:area:11:CPIC3.DAX:139",
     width: 96, height: 96, readyPrompt: /ROLFHITPOINTS6/i,
