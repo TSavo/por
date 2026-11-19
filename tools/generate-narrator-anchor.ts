@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
@@ -23,11 +24,18 @@ if (design.status !== "voice-selected" || !design.selection.approvedByOwner || !
   throw new Error("An owner-approved saved narrator voice is required before anchor generation");
 const key = process.env.ELEVENLABS_API_KEY;
 if (!key) throw new Error("ELEVENLABS_API_KEY is required with --generate");
-const endpoint = `https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(design.selection.savedVoiceId)}?output_format=pcm_44100`;
+const endpoint = `https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(design.selection.savedVoiceId)}?output_format=mp3_44100_128`;
 const response = await fetch(endpoint, { method: "POST", headers: { "xi-api-key": key, "content-type": "application/json" },
   body: JSON.stringify({ text: anchorText, model_id: "eleven_v3" }) });
 if (!response.ok) throw new Error(`ElevenLabs ${response.status}: ${await response.text()}`);
-const pcm = new Uint8Array(await response.arrayBuffer());
+const mp3 = new Uint8Array(await response.arrayBuffer());
+const ffmpeg = process.platform === "win32" ?
+  spawnSync("wsl", ["-d", "Ubuntu-E", "--", "ffmpeg", "-hide_banner", "-loglevel", "error", "-i", "pipe:0",
+    "-ac", "1", "-ar", "44100", "-f", "s16le", "pipe:1"], { input: mp3, maxBuffer: 64 * 1024 * 1024 }) :
+  spawnSync("ffmpeg", ["-hide_banner", "-loglevel", "error", "-i", "pipe:0", "-ac", "1", "-ar", "44100",
+    "-f", "s16le", "pipe:1"], { input: mp3, maxBuffer: 64 * 1024 * 1024 });
+if (ffmpeg.status !== 0) throw new Error(`ffmpeg failed: ${ffmpeg.stderr.toString()}`);
+const pcm = new Uint8Array(ffmpeg.stdout);
 const pcmBytes = pcm.length & ~1;
 const wave = new Uint8Array(44 + pcmBytes);
 const view = new DataView(wave.buffer);
@@ -42,6 +50,7 @@ const transcript = output.replace(/\.wav$/i, ".txt");
 writeFileSync(transcript, `${anchorText}\n`);
 const provenance = output.replace(/\.wav$/i, ".json");
 writeFileSync(provenance, `${JSON.stringify({ schema: 1, provider: "ElevenLabs", model: "eleven_v3",
+  sourceFormat: "mp3_44100_128", canonicalFormat: "wav_pcm_s16le_44100_mono",
   savedVoiceId: design.selection.savedVoiceId, text: anchorText, sampleRate: 44_100,
   seconds: pcmBytes / 2 / 44_100, sha256: createHash("sha256").update(wave).digest("hex"),
   generatedAt: new Date().toISOString() }, null, 2)}\n`);

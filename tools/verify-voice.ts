@@ -27,7 +27,8 @@ const fishPrompts = JSON.parse(readFileSync(new URL("../src/audio/fish-prompts.j
 const narratorDesign = JSON.parse(readFileSync(new URL("../src/audio/narrator-voice-design.json", import.meta.url), "utf8")) as {
   designProvider: string; designModel: string; status: string; voiceDescription: string; previewText: string;
   designParameters: { guidanceScale: number; loudness: number; previewCount: number };
-  selection: { generatedVoiceId: string | null; approvedByOwner: boolean };
+  selection: { generatedVoiceId: string | null; savedVoiceId?: string | null; approvedByOwner: boolean };
+  production?: { provider: string; model: string; delivery: string };
   fishAnchor: { targetSeconds: string; audioFile: string | null; transcriptFile: string | null;
     fishSpeaker: number; status: string };
 };
@@ -108,10 +109,18 @@ assert(narratorDesign.previewText.length >= 100 && narratorDesign.previewText.le
 assert(narratorDesign.designParameters.guidanceScale >= 0 && narratorDesign.designParameters.guidanceScale <= 100);
 assert(narratorDesign.designParameters.loudness >= -1 && narratorDesign.designParameters.loudness <= 1);
 assert.equal(narratorDesign.designParameters.previewCount, 3);
-assert.equal(narratorDesign.selection.generatedVoiceId, null);
-assert.equal(narratorDesign.selection.approvedByOwner, false);
+if (narratorDesign.status === "voice-selected") {
+  assert(narratorDesign.selection.generatedVoiceId);
+  assert.equal(narratorDesign.selection.savedVoiceId, narratorDesign.selection.generatedVoiceId);
+  assert.equal(narratorDesign.selection.approvedByOwner, true);
+  assert.equal(narratorDesign.production?.provider, "ElevenLabs");
+  assert.equal(narratorDesign.production?.model, "eleven_v4");
+} else {
+  assert.equal(narratorDesign.selection.generatedVoiceId, null);
+  assert.equal(narratorDesign.selection.approvedByOwner, false);
+}
 assert.equal(narratorDesign.fishAnchor.fishSpeaker, 0);
-assert.equal(narratorDesign.fishAnchor.status, "not-generated");
+assert(["not-generated", "generated-awaiting-owner-approval"].includes(narratorDesign.fishAnchor.status));
 assert.equal(fishRuntime.productionModel, "Fish Audio Drama 3");
 assert.equal(fishRuntime.qualityBaseline.model, "drama-3");
 assert.equal(fishRuntime.localProfile.hardware.gpu, "NVIDIA GeForce RTX 3070");
