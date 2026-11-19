@@ -2909,6 +2909,9 @@ pair. Chrome checks the short-sword strike during the original report
 of Alda taking damage.
 The scout leader has distinct ready and shortbow attack sprites.
 Chrome verifies the bow pose with the original combat text.
+The Valhingen conjurer has distinct ready and draining-touch sprites
+in its skeleton, zombie, and wight summoning branches. Chrome checks
+each against the original attack report.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.

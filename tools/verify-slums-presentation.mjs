@@ -730,6 +730,24 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valhingen-conjurer-skeleton-combat", {
+    slot: "A", stand: "combat:area:10:CPIC4.DAX:17:ecl:a5f7", strike: "combat:area:10:CPIC4.DAX:145:ecl:a5f7",
+    width: 96, height: 96, readyPrompt: /SPECTREHITPOINTS38AC2/i, strikeReflected: false,
+    strikeReport: /SPECTREATTACKSBRINHITTINGFOR3POINTSOFDAMAGE/i,
+    inputs: ["up", "enter", "enter", "c", "enter", "enter", "enter", ...Array(6).fill("q")],
+  }],
+  ["valhingen-conjurer-zombie-combat", {
+    slot: "A", stand: "combat:area:10:CPIC4.DAX:17:ecl:a7f5", strike: "combat:area:10:CPIC4.DAX:145:ecl:a7f5",
+    width: 96, height: 96, readyPrompt: /SPECTREHITPOINTS38AC2/i, strikeReflected: true,
+    strikeReport: /SPECTREATTACKSALDAANDMISSES/i,
+    inputs: ["up", "enter", "enter", "c", "enter", "enter", "enter", ...Array(11).fill("q")],
+  }],
+  ["valhingen-conjurer-wight-combat", {
+    slot: "A", stand: "combat:area:10:CPIC4.DAX:17:ecl:ab12", strike: "combat:area:10:CPIC4.DAX:145:ecl:ab12",
+    width: 96, height: 96, readyPrompt: /SPECTREHITPOINTS38AC2/i, strikeReflected: true,
+    strikeReport: /SPECTREATTACKSALDAHITTINGFOR7POINTSOFDAMAGE/i,
+    inputs: ["up", "enter", "enter", "c", "enter", "enter", "enter", ...Array(8).fill("q")],
+  }],
   ["old-phlan-kobold-scout-leader-combat", {
     slot: "B", stand: "combat:area:29:CPIC8.DAX:1:ecl:a75e", strike: "combat:area:29:CPIC8.DAX:129:ecl:a75e",
     width: 96, height: 96, readyPrompt: /KOBOLDLEADERHITPOINTS4AC6/i, strikeReflected: false,

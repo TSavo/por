@@ -5,6 +5,12 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:10:CPIC4.DAX:17:ecl:a5f7": "valhingen-spectre-conjurer-combat-ready.png",
+    "combat:area:10:CPIC4.DAX:145:ecl:a5f7": "valhingen-spectre-conjurer-combat-strike.png",
+    "combat:area:10:CPIC4.DAX:17:ecl:a7f5": "valhingen-spectre-conjurer-combat-ready.png",
+    "combat:area:10:CPIC4.DAX:145:ecl:a7f5": "valhingen-spectre-conjurer-combat-strike.png",
+    "combat:area:10:CPIC4.DAX:17:ecl:ab12": "valhingen-spectre-conjurer-combat-ready.png",
+    "combat:area:10:CPIC4.DAX:145:ecl:ab12": "valhingen-spectre-conjurer-combat-strike.png",
     "combat:area:29:CPIC8.DAX:1:ecl:a75e": "old-phlan-kobold-scout-leader-ready.png",
     "combat:area:29:CPIC8.DAX:129:ecl:a75e": "old-phlan-kobold-scout-leader-strike.png",
     "encounter:area:22:ecl:a2c3:SPRIT7.DAX:11:0:0": "tyrmor-prison-thieves-approach.png",
