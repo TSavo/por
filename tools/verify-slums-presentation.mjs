@@ -501,6 +501,10 @@ const illustrationRoutes = new Map([
   }],
   ["valhingen-skeleton-enclave", {
     slot: "A", inputs: ["up", "enter", "enter"],
+    approachSequence: [
+      [56, 32, "encounter:area:10:SPRIT4.DAX:34:1:0", 24, 65],
+      [48, 32, "encounter:area:10:SPRIT4.DAX:34:0:0", 40, 80],
+    ],
     portrait: "portrait:area:10:PIC4.DAX:34:0:0", prompt: /THEENCLAVEISGUARDEDBYASKELETONARMY/i,
   }],
   ["sokal-ceiling-insects", {
@@ -1045,8 +1049,8 @@ const combatPoseRoutes = new Map([
     inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter"), ...Array(8).fill("space")],
   }],
   ["new-phlan-tavern-corporal-ready", {
-    slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:a7d3", width: 96, height: 96,
-    readyPrompt: /CORPORAL/i, strikeInputs: [],
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:a7d3", strike: "combat:area:0:CPIC3.DAX:144:ecl:a7d3",
+    width: 96, height: 96, readyPrompt: /CORPORAL/i, strikeInputs: ["space"], strikeReflected: false,
     inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter"), ...Array(6).fill("space")],
   }],
   ["lizard-wilds-caravan-merchant-combat", {

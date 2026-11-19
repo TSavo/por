@@ -2750,6 +2750,9 @@ floor update covers 14 tile bindings checked across both Chrome routes.
 `valjevo-dungeon-doorways` walks the separate dungeon area and verifies
 all 1,210 placements across ten views, including 35 new wall, door, and
 threshold tiles.
+The Valjevo kitchen corridor, jamb, and south yard now use tamped-clay
+floor tiles. Three Chrome walks checked their wall and doorway joins
+across 39 views.
 `wilderness-waystone` checks 80 patterns across ten views, including
 77 new foliage and palisade tiles. The route uses the existing area 26
 ground, which it shares with the north gate.
@@ -2815,6 +2818,9 @@ the selected save intact.
 pose, including frame dimensions, screen placement, and mode switching.
 `graveyard-mystic` checks all three lantern-bearing approach poses in
 order over the enhanced terrain before the mystic's portrait appears.
+The Valhingen skeleton enclave replay checks the new middle pose before
+the close approach and portrait. The New Phlan tavern corporal replay
+checks his enhanced attack animation alongside the existing ready pose.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.
