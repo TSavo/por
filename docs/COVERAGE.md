@@ -2720,6 +2720,10 @@ enhanced tile placements across 21 views.
 chaplain's portrait. `valhingen-mummy-approach` checks the middle and near
 poses before the sarcophagi illustration. `zhentil-trespass-patrol-combat`
 checks the ready pose and reflected strike in the overland patrol battle.
+`valhingen-ghoul-approach` verifies the far, middle, and near sprites in
+order before the ghoul portrait. The three `zhentil-east-passage` replays
+verify four new timber and masonry joins across 4,114 placements in
+34 views.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.

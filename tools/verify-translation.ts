@@ -5,6 +5,7 @@
  */
 import { deepStrictEqual } from "node:assert";
 import { readFileSync } from "node:fs";
+import ts from "typescript";
 import { Cpu } from "../src/cpu/machine.js";
 import { ovl07_0000, ovl07_0c93 } from "../src/translated/ovl07.js";
 import "../src/translated/system5bb.js";
@@ -33,11 +34,26 @@ function checkBrowserArtPacks(): void {
   const corrupt = Buffer.from(png);
   corrupt[41] = corrupt[41]! ^ 1; // First byte of the encoded IDAT payload.
   deepStrictEqual(pngDimensions(corrupt), undefined, "Corrupt image data");
+  const paths = ["upgrades/slums/manifest.json", "upgrades/manifest.json"];
+  const declared = new Set(paths.flatMap(path => {
+    const text = readFileSync(path, "utf8");
+    function checkKeys(node: ts.Node): void {
+      if (ts.isObjectLiteralExpression(node)) {
+        const keys = new Set<string>();
+        for (const property of node.properties) {
+          if (!ts.isPropertyAssignment(property) || !ts.isStringLiteral(property.name)) continue;
+          const key = property.name.text;
+          if (keys.has(key)) throw new Error(`${path} declares ${key} twice in the same object`);
+          keys.add(key);
+        }
+      }
+      node.forEachChild(checkKeys);
+    }
+    checkKeys(ts.parseJsonText(path, text));
+    return Object.keys(JSON.parse(text).assets);
+  }));
   const root = findGameRoot();
   if (!root) return;
-  const paths = ["upgrades/slums/manifest.json", "upgrades/manifest.json"];
-  const declared = new Set(paths.flatMap(path =>
-    Object.keys(JSON.parse(readFileSync(path, "utf8")).assets)));
   const loaded = loadUpgradeArtFromManifests(paths, root);
   const missing = [...declared].filter(id => !loaded.has(id));
   deepStrictEqual(missing, [], "The browser could not load the listed art mappings");

@@ -242,6 +242,11 @@ const encounterRoutes = new Map([
   ["valhingen-ghoul-approach", {
     slot: "A", inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", "enter"],
     placement: [48, 32, "encounter:area:10:SPRIT4.DAX:72:0:0", 40, 73],
+    approachSequence: [
+      [56, 32, "encounter:area:10:SPRIT4.DAX:72:2:0", 24, 57],
+      [56, 32, "encounter:area:10:SPRIT4.DAX:72:1:0", 24, 65],
+      [48, 32, "encounter:area:10:SPRIT4.DAX:72:0:0", 40, 73],
+    ],
     dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i },
   }],
   ["kobold-cave-approach", {
@@ -1739,6 +1744,18 @@ const environmentRoutes = new Map([
   ["zhentil-east-yard", {
     slot: "A", area: 28, views: 17, patterns: 46,
     walk: ["up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "right", "up"],
+  }],
+  ["zhentil-east-passage-outer", {
+    slot: "A", area: 28, views: 14, patterns: 34, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "left", "up", "right", "up", "left", "up", "right", "up"],
+  }],
+  ["zhentil-east-passage-doors", {
+    slot: "A", area: 28, views: 10, patterns: 26, sceneryOnly: true,
+    walk: ["right", "up", "up", "left", "up", "right", "up", "left", "up"],
+  }],
+  ["zhentil-east-passage-north", {
+    slot: "A", area: 28, views: 10, patterns: 32, sceneryOnly: true,
+    walk: ["up", "left", "up", "up", "left", "up", "right", "up", "up"],
   }],
   ["yarash-upper-pyramid", {
     slot: "A", area: 22, views: 15, patterns: 31,
