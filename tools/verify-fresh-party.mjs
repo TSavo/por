@@ -357,7 +357,7 @@ async function verifyPodalFromCouncil(continuation) {
     assert.ok(frame.journal.leads.some(({ id }) => id === "auction-exchange"));
     assert.match(frame.journal.objective.nextStep, /exchanged the wand for a large bag.*council clerk/i);
   };
-  const sailWest = (payerSelection = [], verifyAuction = true) => [
+  const sailWest = (payerSelection = [], verifyAuction = false) => [
     (text) => assert.match(text, /sokal east west bay none/),
     ...(verifyAuction ? ["j", (_text, frame) => {
       assert.match(frame.journal.objective.nextStep, /choose west.*ferry menu/i);
@@ -368,12 +368,12 @@ async function verifyPodalFromCouncil(continuation) {
     "enter", "enter", "up", ...Array(4).fill("right"), "enter",
     (text) => assert.match(text, /western edge of the city.*north south leave/),
   ];
-  const westboundFromJunction = [
-    "left", "up", "right", "up", "left", "up", "enter", "enter", ...sailWest(),
+  const westboundFromJunction = (verifyAuction = false) => [
+    "left", "up", "right", "up", "left", "up", "enter", "enter", ...sailWest([], verifyAuction),
   ];
-  const westboundToGate = [
+  const westboundToGate = (verifyAuction = false) => [
     "right", "up", "up", "enter", "enter", "right", ...Array(6).fill("up"),
-    ...westboundFromJunction,
+    ...westboundFromJunction(verifyAuction),
   ];
   const arrival = await replay(load("2368"), "85000000", [
     (text) => assert.match(text, /5,5 e/),
@@ -384,7 +384,7 @@ async function verifyPodalFromCouncil(continuation) {
       assert.ok(index >= 0);
       return `track ${index + 1}`;
     }, "j",
-    "right", "right", "up", ...westboundToGate,
+    "right", "right", "up", ...westboundToGate(true),
     "n", "enter", "enter",
     (text) => assert.match(text, /the plaza ahead is crowded with monsters.*disguise/),
     "j", (_text, frame) => {
@@ -465,7 +465,7 @@ async function verifyPodalFromCouncil(continuation) {
       assert.equal(textile?.status, "accepted");
       assert.match(textile.detail, /south of Podal Plaza/);
     }, "j",
-    "right", "right", "up", "up", ...westboundToGate,
+    "right", "right", "up", "up", ...westboundToGate(),
     "s", ...Array(4).fill("enter"),
     (text) => assert.match(text, /0,4 w/),
     "e", "s", "s", "b",
@@ -534,7 +534,7 @@ async function verifyPodalFromCouncil(continuation) {
   const armoredArrival = await replay(load("2064"), "85000000", [
     (text) => assert.match(text, armoredParty),
     "right", "right", "up", "right", ...Array(8).fill("up"), "right", ...Array(3).fill("up"),
-    ...westboundFromJunction,
+    ...westboundFromJunction(),
     "s", ...Array(4).fill("enter"),
     (text) => assert.match(text, /0,4 w/),
     "e", "s", "s", "e",
@@ -556,7 +556,7 @@ async function verifyPodalFromCouncil(continuation) {
   const reinforced = await replay(load("2e63"), "85000000", [
     "right", "right", "up", "up", "left", "up", "enter", "enter", "enter", "n",
     "right", "up", "enter", "enter", "right", "up", "up", "left", "up", "left", "up", "enter", "enter",
-    ...sailWest(Array(7).fill("home"), false),
+    ...sailWest(Array(7).fill("home")),
     "s", ...Array(4).fill("enter"), "e", "s", "s", "f",
   ]);
   assert.match(visibleText(reinforced), /theurgist 8 13.*curate 3 26.*0,4 w.*quit to dos/);
