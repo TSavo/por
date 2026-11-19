@@ -1446,6 +1446,9 @@ verify the anchored approach sprites and transitions to both grove
 illustrations. `kuto-south-passage` checks 16 terrain replacements
 across 18 views and 2,178 placements, including the crossing from Podal
 into Kuto. All three replays check presentation switching.
+`kuto-south-lane` extends that crossing to the approach before the
+gnoll encounter, checking three new ivy and doorway tiles across 21
+views and 2,541 placements with state and save preservation.
 `textile-wight-combat` checks the Wight's ready and animated strike
 poses from a controlled wandering encounter checkpoint.
 `textile-ghoul-combat` checks the Ghoul's ready and strike poses

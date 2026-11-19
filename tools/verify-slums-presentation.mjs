@@ -663,6 +663,11 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["kuto-south-lane", {
+    slot: "J", area: 18, views: 21, patterns: 121, sceneryOnly: true,
+    transition: { afterViews: 6, area: 29 },
+    walk: ["up", "up", "left", "right", "right", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "up", "up", "left"],
+  }],
   ["kuto-south-passage", {
     slot: "J", area: 18, views: 18, patterns: 107, sceneryOnly: true,
     transition: { afterViews: 6, area: 29 },

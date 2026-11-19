@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "tile:29:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739": "kuto-south-lane-terrain-0264796f9fa2.png",
+    "tile:29:7a6a35c15661f02c8b9267cac4373bb686c0295e27c916af98dab1286dfe2b34": "kuto-south-lane-terrain-7a6a35c15661.png",
+    "tile:29:6cd44166e8613cbf3a72f68b26cddc6e05b10fe3c92f75a69ca29e6fbb19ba01": "kuto-south-lane-terrain-6cd44166e861.png",
     "tile:18:d46241306c8fa8cb736fa216c7d1ab56e62b6495d92843bfcda972f5162d6158": "kuto-south-passage-terrain-d46241306c8f.png",
     "tile:18:d9b51cc9360d17737eebf2fc825d7cc895e96ea1d6f2020a5a7c8d54e5228dea": "kuto-south-passage-terrain-d9b51cc9360d.png",
     "tile:18:2641de725160bed3ccf83642677807161ae17c04ec7f0201d24c4444cea4309c": "kuto-south-passage-terrain-2641de725160.png",
