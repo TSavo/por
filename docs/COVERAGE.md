@@ -1389,6 +1389,9 @@ animated strike in the area 27 gnoll-room encounter.
 `kuto-lizardman-combat` and `kuto-kobold-leader-combat` check the 96×96
 ready and strike poses for both opponents in Norris's native fight.
 Both replays use the same slot J checkpoint and verify mode switching.
+`kuto-inner-lane` checks ten redrawn rubble, doorstep, and wall-edge
+tiles across 19 views and 2,299 placements from the slot J entry
+checkpoint. Presentation switching preserves game state and the save.
 `valhingen-zombie-approach` and `valhingen-ghoul-approach` check the
 stairway and rest ambush sprites at their native anchors, followed by
 their dialogue portraits. Both replays switch presentation in each view.

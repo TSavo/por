@@ -638,6 +638,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["kuto-inner-lane", {
+    slot: "J", area: 29, views: 19, patterns: 54, sceneryOnly: true,
+    walk: ["up", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up"],
+  }],
   ["bane-ivy-loop", {
     slot: "A", area: 24, views: 19, patterns: 70, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up"],

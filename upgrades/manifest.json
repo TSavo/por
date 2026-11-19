@@ -1,6 +1,16 @@
 {
   "version": 1,
   "assets": {
+    "tile:29:1a6da4631b68f9486257449a164bba8394ba5f8f91ebb204eea6e6a75b453705": "kuto-inner-lane-terrain-1a6da4631b68.png",
+    "tile:29:9b0bf37c3c7ed368410e6a466a1e12ca0242219585369589cf01ae8c4c31aa38": "kuto-inner-lane-terrain-9b0bf37c3c7e.png",
+    "tile:29:7a128cc02d3a0bf5cb49a3d6c04fb7ef793368a7413172aec694936214d6ecd8": "kuto-inner-lane-terrain-7a128cc02d3a.png",
+    "tile:29:1a5b7f49a900a990d320c3b3dc884abcdc39804405906841c39d981e9494e58b": "kuto-inner-lane-terrain-1a5b7f49a900.png",
+    "tile:29:eb5afbdeb219be5d4a1620bb37d14ebe52a4e0398c791e3fed4499fc1ca573ce": "kuto-inner-lane-terrain-eb5afbdeb219.png",
+    "tile:29:75925f470540c37d95e8423291dbf9b10a68911e3d73c8ff6855df999e91856e": "kuto-inner-lane-terrain-75925f470540.png",
+    "tile:29:c23e36172f2283ce3c1aec215565d86f16a4d6e8f9ad2e31b8b089d1cb28db75": "kuto-inner-lane-terrain-c23e36172f22.png",
+    "tile:29:dedb7b194265002d2462a45cd8bcdf093d9935108a929b42143b2a132142a51b": "kuto-inner-lane-terrain-dedb7b194265.png",
+    "tile:29:a1237831a95ca1d374d4646331c5ca621f8b965ba0a6011896682ebe4e8b5afa": "kuto-inner-lane-terrain-a1237831a95c.png",
+    "tile:29:dc6406c9e7ae24b883ce8c24bd5cee4398824274e87aa26a0aba6e20812fed2b": "kuto-inner-lane-terrain-dc6406c9e7ae.png",
     "encounter:area:25:SPRIT6.DAX:118:0:0": "wild-cave-thri-kreen-approach.png",
     "tile:24:8cf3cea60a07a9d7bfe51b29ce5252f640c3bf3caeee2d2301c670f21fc55803": "bane-ivy-loop-terrain-8cf3cea60a07.png",
     "tile:24:c2b9b89fe07262973e1608f442f5e0ffd943f878b4a31642f0e6a52848a0c44d": "bane-ivy-loop-terrain-c2b9b89fe072.png",
