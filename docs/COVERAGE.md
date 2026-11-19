@@ -1377,6 +1377,11 @@ animated strike poses from a controlled pre-encounter checkpoint.
 charge from a controlled pre-encounter checkpoint.
 `textile-hobgoblin-approach` and `wild-cave-ankheg-approach` check
 standalone 4× encounter sprites at their original screen anchors.
+`kobold-cave-approach` checks the native throne approach from a controlled
+slot A checkpoint. Enter advances from the middle to the near frame. The
+Chrome replay checks source IDs, placement, unchanged terrain between frames,
+and classic/enhanced switching at each distance.
+
 `valjevo-fire-giant-approach` checks both approach distances and
 the transition to the close-up, with the same terrain behind both poses.
 `new-phlan-east-ward` checks six additional mappings across 16 live

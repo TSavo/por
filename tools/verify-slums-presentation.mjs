@@ -30,6 +30,12 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["kobold-cave-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [56, 32, "encounter:area:13:SPRIT8.DAX:0:1:0", 24, 65],
+    closer: [48, 32, "encounter:area:13:SPRIT8.DAX:0:0:0", 40, 80],
+    closerKey: "enter",
+  }],
   ["valjevo-medusa-approach", {
     slot: "B", inputs: ["up", "enter", "enter"],
     placement: [48, 32, "encounter:area:7:SPRIT5.DAX:49:0:0", 48, 80],
@@ -1370,7 +1376,7 @@ try {
     if (encounterRoute.closer) {
       const terrain = frame.tileInventory;
       assert.equal(terrain?.length, 121);
-      await advance("a");
+      await advance(encounterRoute.closerKey ?? "a");
       assert.deepEqual(frame.tileInventory, terrain);
       await verifyApproach(encounterRoute.closer);
     }
