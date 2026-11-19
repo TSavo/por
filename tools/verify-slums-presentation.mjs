@@ -89,6 +89,15 @@ const encounterRoutes = new Map([
     slot: "B", inputs: ["s", "up", "up", "down", "up", "down"],
     placement: [40, 32, "encounter:area:2:SPRIT4.DAX:18:1:0", 56, 73],
   }],
+  ["podal-recruit-assembly", {
+    slot: "I", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:18:ecl:b0ce:SPRIT1.DAX:4:0:0", 40, 80],
+    approachSequence: [[48, 32, "encounter:area:18:ecl:b0ce:SPRIT1.DAX:4:0:0", 40, 80]],
+    dialogue: {
+      keys: ["enter", "enter"], portrait: "portrait:area:18:ecl:b16f:PIC1.DAX:4:0:0",
+      prompt: /MANYCREATURESHAVEGATHERED/i,
+    },
+  }],
   ["podal-shrine-recruiter-approach", {
     slot: "I", inputs: ["up", "up"],
     placement: [48, 32, "encounter:area:18:SPRIT1.DAX:4:0:0", 40, 80],

@@ -3053,3 +3053,6 @@ illustration. Chrome verifies both after declining the elder's request.
 The first player bow icon has separate ready and action art. A Chrome
 replay starts from a save made through the native icon editor and verifies
 both sprites and Alda's two-point hit report.
+
+The Podal recruitment assembly has an animated orc approach and a shrine
+assembly illustration. Chrome verifies both and state-preserving mode switches.
