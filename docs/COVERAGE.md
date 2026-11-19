@@ -2055,6 +2055,9 @@ choose **Free**, then **Unlock**.
 Pass the emitted slot I to the Chrome `textile-temple-native` replay.
 It verifies 363 terrain placements across three views, Grishnak's
 approach sprite and portrait, and the live quest guidance at the altar.
+Grishnak's white-haired, staff-bearing approach sprite is selected by
+the original script position. The ordinary Textile House hobgoblin
+replay still uses its separate sprite from the shared original frame.
 It continues into combat and checks the two 96×96 blue and ochre
 swordsmen at their original grid positions. With both sprites separated
 from the terrain, the opening combat trace matches all 93 captured

@@ -82,7 +82,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
           let sourceWidth = 8;
           let sourceHeight = 8;
           if (encounter) {
-            const archive = originalArchive(encounterKey.exec(id)![2]!);
+            const archive = originalArchive(encounterKey.exec(id)![3]!);
             if (!archive || !encounterPixels(archive, id, encounter)) {
               reject("Encounter source frame does not match its placement.", id);
               continue;

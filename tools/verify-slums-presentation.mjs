@@ -2467,7 +2467,7 @@ try {
       await advance(key);
       if (actor && frame.encounter) assert.deepEqual(frame.tiles, previousTiles);
       if (routeName === "textile-temple-native" && frame.encounter) {
-        assert.deepEqual(frame.encounter, [48, 32, "encounter:area:2:SPRIT4.DAX:6:0:0", 48, 80]);
+        assert.deepEqual(frame.encounter, [48, 32, "encounter:area:2:ecl:a66a:SPRIT4.DAX:6:0:0", 48, 80]);
         assert.deepEqual(frame.tiles, previousTiles);
         await waitFor("enhanced Grishnak approach", () => run(`state.sequence === ${frame.sequence} &&
           document.querySelector(".encounter-sprite")?.naturalWidth === 192`));

@@ -121,7 +121,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const portrait = typeof picture === "string" ? picture : undefined;
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);
-      const encounter = encounterArt(screen, enhanced, !scene && picture === undefined ? area : undefined, !captureApproach);
+      const encounter = encounterArt(screen, enhanced, !scene && picture === undefined ? area : undefined,
+        !captureApproach, battleCursor);
       if (captureApproach) {
         if (!encounter || encounter[2] === lastApproach) return;
         lastApproach = encounter[2];
