@@ -4,9 +4,9 @@ import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
 const pictureKey = /^portrait:(PIC\d+\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
-export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:)?(HEAD\d+\.DAX):(\d{1,3}):(BODY\d+\.DAX):(\d{1,3})$/;
-export const portraitKey = /^portrait:(?:area:\d{1,3}:)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
-const areaPortraitKey = /^portrait:area:(\d+):/;
+export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:)?)?(HEAD\d+\.DAX):(\d{1,3}):(BODY\d+\.DAX):(\d{1,3})$/;
+export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
+const areaPortraitKey = /^portrait:area:(\d+):(?:ecl:([a-f0-9]{4}):)?/;
 const left = 24;
 const top = 24;
 const size = 88;
@@ -31,8 +31,9 @@ export function loadPortraitArt(keys: string[], includeClassic = false) {
   }
   function register(pixels: Uint8Array, key: string) {
     if (!pixels.some(Boolean)) return;
-    const area = areaPortraitKey.exec(key)?.[1];
-    const signature = (area === undefined ? "" : `${area}:`) + Buffer.from(pixels).toString("base64");
+    const [, area, cursor] = areaPortraitKey.exec(key) ?? [];
+    const scope = area === undefined ? "" : cursor === undefined ? `${area}:` : `${area}:${cursor}:`;
+    const signature = scope + Buffer.from(pixels).toString("base64");
     patterns.set(signature, patterns.has(signature) ? null : key);
   }
   for (const key of keys) {
@@ -77,7 +78,7 @@ export function loadPortraitArt(keys: string[], includeClassic = false) {
       }
     }
   }
-  return (screen: Frame, area?: number) => {
+  return (screen: Frame, area?: number, cursor?: number) => {
     if (!patterns.size) return;
     const pixels = Buffer.alloc(size * size);
     for (let y = 0; y < size; y++) {
@@ -85,6 +86,10 @@ export function loadPortraitArt(keys: string[], includeClassic = false) {
       pixels.set(screen.pixels.subarray(offset, offset + size), y * size);
     }
     const signature = pixels.toString("base64");
+    if (area !== undefined && cursor !== undefined) {
+      const encounter = patterns.get(`${area}:${cursor.toString(16).padStart(4, "0")}:${signature}`);
+      if (encounter !== undefined) return encounter;
+    }
     const scoped = area === undefined ? undefined : patterns.get(`${area}:${signature}`);
     return scoped === undefined ? patterns.get(signature) : scoped;
   };

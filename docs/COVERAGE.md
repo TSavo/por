@@ -1134,9 +1134,13 @@ the guide's announcement outside the throne room. It then follows the
 journal's route from (7,5) north to (5,1) and verifies that the envoys
 remain hidden until the first meeting. The separate rematch replay
 also checks the envoy clue.
-The escort replay checks 121 individually positioned tiles in each of 15
+The escort replay checks 121 individually positioned tiles in each of 17
 views, including the prompt when the guide taps the cave wall. Seventeen
 new 32×32 tiles cover the doorway jambs, cave wall ribs, and floor joins.
+The replay then checks the 352×352 king-and-envoys illustration at the
+battle prompt. The guide and king share the original `PIC8.DAX` block 0.
+The throne-specific ECL cursor selects the new illustration and the
+guide still uses his own portrait earlier in the same replay.
 The translation verifier checks the later escape and quarters guidance
 against the original dialogue.
 

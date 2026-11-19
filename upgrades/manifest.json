@@ -2347,6 +2347,7 @@
     "tile:13:f8bb7ba49b0b7ed65146e1ab5cb394a1a82dc6736cd31d8fa07b8f7720904181": "kobold-caves-terrain-f8bb7ba49b0b.png",
     "tile:13:fa8c0ce1c541b2af2f53e5309d502256317e3a0b116a9d8f33dec598bef0f29f": "kobold-caves-terrain-fa8c0ce1c541.png",
     "portrait:area:13:PIC8.DAX:0:0:0": "kobold-cave-guide.png",
+    "portrait:area:13:ecl:a14b:PIC8.DAX:0:0:0": "kobold-throne-before-battle.png",
     "combat:area:15:CPIC2.DAX:145": "mendor-spectre-strike.png",
     "combat:area:15:CPIC2.DAX:17": "mendor-spectre-stand.png",
     "tile:15:0a86b2d441e2ae05040cd2cc0d9c76e352758c0606897aeb856f7af470ea08a6": "mendor-stacks-terrain-0a86b2d441e2.png",

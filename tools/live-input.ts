@@ -117,7 +117,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const row = Math.floor(cell / 40);
         return column < 1 || column >= 16 || row < 1 || row >= 16;
       }) : glyphs;
-      const picture = !scene && !leads ? portraitArt(screen, area) : undefined;
+      const picture = !scene && !leads ? portraitArt(screen, area, battleCursor) : undefined;
       const portrait = picture ?? undefined;
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);

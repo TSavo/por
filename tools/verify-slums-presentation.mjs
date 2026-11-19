@@ -3073,9 +3073,18 @@ try {
       for (const key of ["j", "up", "left", "up", "up", "right", "up", "up", "up", "j"]) await advance(key);
       assert.ok(frame.journal.leads.some(({ id }) => id === "kobold-throne-envoys"));
       assert.match(frame.journal.objective.nextStep, /Confront the king and the envoys/);
+      for (const key of ["j", "enter", "enter"]) await advance(key);
+      const throne = "portrait:area:13:ecl:a14b:PIC8.DAX:0:0:0";
+      assert.equal(frame.portrait, throne);
+      await waitFor("the kobold king and the envoys", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${throne}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays();
+      const capture = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "kobold-throne-in-chrome.png"), Buffer.from(capture.data, "base64"));
     }
     if (koboldEscort) {
-      assert.equal(escortViews, 15);
+      assert.equal(escortViews, 17);
       assert.equal(escortTilePatterns.size, 69);
     }
     console.log(koboldEscort ? `Verified ${escortViews} enhanced views, the guided walk, journal directions, and first meeting at the kobold throne.`
