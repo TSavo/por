@@ -3086,9 +3086,10 @@ combat actions from saves made through the native icon editor.
 The wandering Podal Plaza orc uses a dedicated close approach sprite.
 Chrome verifies placement, the original walk-on dialogue, and mode switching.
 
-Character-sheet heads now overlap the collars as transparent layers.
-Body 4 restores the prominent steel axe. Production Chrome verified 35
-frames, including both chooser cycles and six Body 4 pairings.
+Character-sheet heads overlap collars as transparent layers, offset six
+guest pixels below the original head anchor. Bodies 3 and 4 use their
+previous artwork. Production Chrome verified 34 frames after the rollback,
+including both chooser cycles and multiple heads with Body 3.
 
 All 18 weapons for the default player icon head have ready and action
 sprites. The editor sweep covers all choices, and production Chrome combat
