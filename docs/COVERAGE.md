@@ -3222,6 +3222,15 @@ original attack on Alda.
 Chrome verifies the 192×96 scorpion ready at (56, 32) and reflected
 sting at (80, 56), the attack report, and display switching.
 
+The Lizard Wilds nomad scout uses a ready and longbow strike pair in
+the nomad encounter. Chrome verifies the loaded frames at (80, 152)
+and the native attack on Enna. The scratch fixture selects the
+original nomad encounter deterministically and preserves the save.
+
+`podal-auction-ogre-escape` starts outside the auction in slot I.
+Chrome verifies the auctioneer at the opening, then the distinct
+ogre escape illustration at the original three-choice pursuit prompt.
+
 The `new-phlan-council-archer-combat` Chrome replay refuses the
 Council guard's order to leave. It verifies the ready archer at
 (80, 80), his longbow strike at the same anchor, and the damage

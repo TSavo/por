@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:26:CPIC7.DAX:12:ecl:a2c7": "lizard-wilds-nomad-scout-ready.png",
+    "combat:area:26:CPIC7.DAX:140:ecl:a2c7": "lizard-wilds-nomad-scout-strike.png",
     "combat:area:21:CPIC4.DAX:17:ecl:aed4": "sokal-ferran-combat-ready.png",
     "combat:area:21:CPIC4.DAX:145:ecl:aed4": "sokal-ferran-combat-strike.png",
     "combat:area:21:CPIC4.DAX:18:ecl:aed4": "sokal-armory-scorpion-ready.png",
@@ -4571,6 +4573,7 @@
     "portrait:HEAD3.DAX:55:BODY3.DAX:31": "cadorna-council-portrait.png",
     "portrait:HEAD3.DAX:24:BODY3.DAX:32": "council-clerk-portrait.png",
     "portrait:PIC1.DAX:16:0:0": "podal-auctioneer-portrait.png",
+    "portrait:area:18:ecl:a51e:PIC1.DAX:16:0:0": "podal-auction-ogre-escape.png",
     "portrait:PIC4.DAX:19:0:0": "ferran-chapel-portrait.png",
     "encounter:SPRIT2.DAX:24:1:0": "ohlo-encounter.png",
     "combat:CPIC2.DAX:7": "hobgoblin-captain-combat.png",

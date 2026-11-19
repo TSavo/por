@@ -759,6 +759,15 @@ const illustrationRoutes = new Map([
     slot: "I", inputs: ["up", "enter", "enter"],
     portrait: "portrait:HEAD1.DAX:6:BODY1.DAX:3", prompt: /ONEOFYOUSHALLPAYFORTHISINSULT/i,
   }],
+  ["podal-auction-ogre-escape", {
+    slot: "I", inputs: ["up", "enter"],
+    portrait: "portrait:PIC1.DAX:16:0:0", prompt: /AUCTION/i,
+    continuation: {
+      inputs: Array(8).fill("enter"),
+      portrait: "portrait:area:18:ecl:a51e:PIC1.DAX:16:0:0",
+      prompt: /FOLLOWTHEOGRE.*MOVEQUIETLYAWAY.*LOOKFORTHEMANINPLAINCLOTHES/i,
+    },
+  }],
   ["slums-grain-sack-ambush", {
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:20:PIC2.DAX:31:0:0", prompt: /SOMEMONSTERSARETOSSINGASACKOFGRAIN/i,
@@ -3045,7 +3054,8 @@ const atlasRoutes = new Map([
   ["bane-interior-atlas", { slot: "A", areas: [24, 31], mapId: 31, file: "temple-of-bane-interior-concept-v1.png" }],
 ]);
 const atlasRoute = atlasRoutes.get(routeName);
-routes.push("textile-return-art", ...atlasRoutes.keys());
+const moonseaTravel = routeName === "moonsea-lizardman-travel";
+routes.push("textile-return-art", "moonsea-lizardman-travel", ...atlasRoutes.keys());
 routes.push("stojanow-wall-warning", "stojanow-wall-warning-reload");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
@@ -3341,7 +3351,8 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  const verifyDefaultWebGL = verifyHallsWebGL || ["new-phlan-rolf-tour", "lizardfolk-battle-wall"].includes(routeName);
+  const verifyDefaultWebGL = moonseaTravel || verifyHallsWebGL ||
+    ["new-phlan-rolf-tour", "lizardfolk-battle-wall"].includes(routeName);
   if (!verifyDefaultWebGL) {
     // The tile replays verify individual PNG placements.
     await run(`document.querySelector('#street-toggle[aria-pressed="true"]')?.click()`);
@@ -3405,7 +3416,42 @@ try {
     return 1;
   }
 
-  if (atlasRoute) {
+  if (moonseaTravel) {
+    assert.equal(frame.overlandMap, true);
+    assert.deepEqual([frame.travel.x, frame.travel.y, frame.travel.sector], [27, 8, 1]);
+    await command("Emulation.setDeviceMetricsOverride", { width: 1200, height: 900, deviceScaleFactor: 1, mobile: false });
+    await waitFor("the illustrated Moonsea map", () => run(`
+      !document.querySelector("#travel-map").hidden && !document.querySelector("#map-toggle").disabled`));
+    await run('document.querySelector("#map-toggle").click()');
+    const landmark = 'document.querySelector("[data-destination=lizardmen]")';
+    const point = await waitFor("the expanded Lizardman Keep landmark", () => run(`(() => {
+      const marker = ${landmark};
+      if (!document.querySelector("#travel-map").classList.contains("expanded") ||
+          marker.getAttribute("aria-disabled") !== "false") return;
+      const { x, y, width, height } = marker.getBoundingClientRect();
+      return { x: x + width / 2, y: y + height / 2 };
+    })()`));
+    await command("Input.dispatchMouseEvent", { type: "mouseMoved", ...point });
+    await waitFor("the landmark hover glow", () => run(`getComputedStyle(${landmark}).filter.includes("drop-shadow")`));
+    for (const type of ["mousePressed", "mouseReleased"]) {
+      await command("Input.dispatchMouseEvent", { type, ...point, button: "left", clickCount: 1 });
+    }
+    frame = await waitFor("travel stopping at the native drawbridge", async () => {
+      const current = await latest();
+      return current.ready && current.portrait === "portrait:PIC8.DAX:24:0:0" &&
+        /37,8.*WILLYOUENTERTHERUINEDCASTLE/i.test(current.text.map(([, char]) => String.fromCharCode(char)).join("")) && current;
+    });
+    await waitFor("the drawbridge illustration", () => run(`state.sequence === ${frame.sequence} &&
+      !activeTravel && document.querySelector("#travel-map").hidden &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+    for (const key of ["e", "enter"]) await advance(key);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ANTI-MAGICSHELL/i);
+    await advance("enter");
+    assert.ok(frame.exploration && !frame.overlandMap);
+    await waitForExplorationViewport();
+    await switchBothWays();
+    console.log("Verified illustrated Moonsea click-to-travel, the drawbridge stop, and the return to WebGL.");
+  } else if (atlasRoute) {
     const { areas, mapId, file } = atlasRoute;
     assert.ok(areas.includes(frame.exploration?.area));
     assert.equal(frame.exploration.mapId, mapId);

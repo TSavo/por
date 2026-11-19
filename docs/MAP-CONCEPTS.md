@@ -51,8 +51,9 @@ Classic closes the map without sending a game input. The
 `tools/verify-slums-presentation.mjs` use local checkpoints in slot J
 and slot A respectively. They verify automatic selection of the map 32
 and map 31 illustrations, the party marker in Local, and unchanged
-game state and save after switching displays. The Moonsea
-replay clicked the Lizardman Keep landmark, walked across a sector
+game state and save after switching displays. The
+`moonsea-lizardman-travel` route starts from a slot A overland
+checkpoint at (27, 8). It clicks the Lizardman Keep landmark, walks across a sector
 boundary, and stopped at the native drawbridge prompt. Accepting the
 entry and dismissing the anti-magic warning restored Enhanced WebGL
 exploration.
