@@ -514,6 +514,11 @@ the sealed box and has the courtyard victory flag set. The party leaves
 through the west gate, takes the ferry at (20,29), hands the box to the
 City Watch, and collects the council reward. The journal follows the
 route from the gate to the boat offer, handoff, and turn-in.
+Add `--train-after-reward` to continue from this controlled checkpoint
+through the Temple of Tyr and the fighter school. The original menus sell
+gems, pay the training fee, and advance Thrender Grone from level 1 to
+level 2. Reloading slot F verifies 2,388 XP, 23 HP, 14 platinum, and the
+journal entries for the Textile House turn-in and the fighter school.
 The `--textile-opened-return-checkpoint` variant starts from the equivalent
 slot E with the broken seal. The same ferry route reaches City Hall, where
 Cadorna confronts the party. Reloading slot F verifies that the commission

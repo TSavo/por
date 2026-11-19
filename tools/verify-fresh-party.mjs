@@ -1927,6 +1927,8 @@ if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.a
 
 if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"].includes(process.argv[2])) {
   const opened = process.argv[2] === "--textile-opened-return-checkpoint";
+  const trainAfterReward = process.argv[4] === "--train-after-reward";
+  assert.ok(!process.argv[4] || (!opened && trainAfterReward), "Training continuation requires the sealed-box route.");
   const slot = opened ? "E" : "D";
   assert.ok(process.argv[3], `Pass slot ${slot} with the box at the chief's room and the courtyard already cleared.`);
   copyFileSync(process.argv[3], join(saveDir, `${slot}.json`));
@@ -1937,6 +1939,7 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
     assert.ok(frame.journal.leads.some(({ id }) => id === "textile-confrontation"));
     assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-handoff"));
   };
+  const trained = /thrender grone.*fighter.*platinum 14.*level 2 exp 2388.*hp 23/;
   await replay(loadSlot(opened ? "1265" : "2064"), "85000000", [
     (text) => assert.match(text, /12,14 s/),
     "j", (_text, frame) => {
@@ -1978,12 +1981,40 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
       "j", (_text, frame) => assert.equal(textile(frame)?.status, "reward-pending"), "j",
       "s", "e", "enter", "j", (_text, frame) => assert.equal(textile(frame)?.status, "turned-in"),
     ]),
+    ...(trainAfterReward ? [
+      "j", ["enter", /area cast view encamp/, 14],
+      "v", "v", (text) => assert.match(text, /thrender grone.*level 1 exp 2388/), "e",
+      // Walk from the council clerk to the Temple of Tyr and sell gems.
+      "right", "right", "up", "right", "up", "up", "enter", "enter", "right", ...Array(6).fill("up"),
+      "left", "up", "right", "up", "right", "up", "enter", "enter", "y",
+      ...Array(5).fill("home"), "a", ...Array(4).fill(["g", "s"]).flat(),
+      "p", "t", "end", "end", "end", "enter",
+      (text) => assert.match(text, /how much gems will you take/),
+      "4", "enter", "e", "a", ...Array(4).fill(["g", "s"]).flat(), "p", "t", "end", "end", "enter",
+      (text) => assert.match(text, /platinum 283.*how much platinum will you take/),
+      "2", "0", "0", "enter", "e", "s", "e",
+      // The first school is for rogues. The fighter school is one door west.
+      "right", "right", "up", "left", "up", "right", "up", "up", "left", "up",
+      "enter", "enter", "enter", "n", "left", "up", "right", "up", "right", "up", "enter", "enter",
+      (text) => assert.match(text, /we train only fighters here/),
+      "y", "t", (text) => assert.match(text, /thrender grone will become: a level 2 fighter/),
+      "y", "v", "v", (text) => assert.match(text, trained), "e", "s", "s", "f",
+    ] : []),
   ]);
   if (opened) {
     await replay(loadSlot("2166"), "85000000", ["j", checkUnpaid]);
     console.log("Returned with the opened box and reloaded Cadorna's unpaid outcome.");
   } else {
     console.log("Returned from the Textile House via the west ferry, handed off the sealed box, and collected the council reward.");
+    if (trainAfterReward) {
+      await replay(loadSlot("2166"), "85000000", [
+        "v", "v", (text) => assert.match(text, trained), "e", "j", (_text, frame) => {
+          assert.equal(textile(frame)?.status, "turned-in");
+          assert.ok(frame.journal.leads.some(({ id }) => id === "phlan-training-fighters"));
+        },
+      ]);
+      console.log("Sold gems, paid for Thrender Grone's level-two training, and reloaded the result:", join(saveDir, "F.json"));
+    }
   }
   process.exit(0);
 }
