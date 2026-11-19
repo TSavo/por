@@ -37,6 +37,14 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["textile-poison-frog-approach", {
+    slot: "B", inputs: ["s", "up", "up", "down", "up", "down"],
+    placement: [32, 32, "encounter:area:2:ecl:9abe:SPRIT4.DAX:37:0:0", 64, 80],
+    dialogue: {
+      key: "enter", portrait: "portrait:area:2:PIC4.DAX:37:0:0",
+      prompt: /EVILLOOKINGFROGSBOILUPFROMBELOW/i,
+    },
+  }],
   ["valjevo-bucket-trap-giant", {
     slot: "B", inputs: ["up", "enter", "enter", "enter"],
     placement: [48, 32, "encounter:area:3:ecl:a662:SPRIT5.DAX:56:0:0", 48, 80],
