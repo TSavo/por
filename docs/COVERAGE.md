@@ -1373,6 +1373,8 @@ check the full-panel swarm and giant lizard illustrations.
 the falling-snake ambush and boar charge at their original prompts.
 `wild-cave-snake-combat` checks the giant snake's 192×96 ready and
 animated strike poses from a controlled pre-encounter checkpoint.
+`wild-cave-boar-combat` checks the boar's ready pose and reflected
+charge from a controlled pre-encounter checkpoint.
 `textile-hobgoblin-approach` and `wild-cave-ankheg-approach` check
 standalone 4× encounter sprites at their original screen anchors.
 `valjevo-fire-giant-approach` checks both approach distances and

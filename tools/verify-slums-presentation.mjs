@@ -297,6 +297,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["wild-cave-boar-combat", {
+    slot: "A", stand: "combat:area:25:CPIC6.DAX:120", strike: "combat:area:25:CPIC6.DAX:248",
+    width: 192, height: 96, readyPrompt: /WILDBOARHITPOINTS18/i, strikeReflected: true,
+    inputs: ["up", ...Array(4).fill("enter")], strikeInputs: ["enter", "enter"],
+  }],
   ["wild-cave-snake-combat", {
     slot: "A", stand: "combat:area:25:CPIC6.DAX:60", strike: "combat:area:25:CPIC6.DAX:188",
     width: 192, height: 96, readyPrompt: /GIANTSNAKEHITPOINTS21/i,

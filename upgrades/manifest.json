@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:25:CPIC6.DAX:120": "wild-cave-boar-stand.png",
+    "combat:area:25:CPIC6.DAX:248": "wild-cave-boar-strike.png",
     "combat:area:25:CPIC6.DAX:60": "wild-cave-snake-stand.png",
     "combat:area:25:CPIC6.DAX:188": "wild-cave-snake-strike.png",
     "encounter:area:4:SPRIT5.DAX:56:1:0": "valjevo-fire-giant-approach-middle.png",
