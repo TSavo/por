@@ -2687,6 +2687,15 @@ placements across the three walks using the default art packs. Each replay
 also checked that toggling presentation preserved the save.
 The canal-bank and canal-room replays save Chrome captures at the start
 and end for visual review.
+The stone reveal update replaces the teal edges with subdued stone shadows
+on nine tile bindings across the canal room, civic district, and training
+hall. The east-bank, canal-room, training-exit, and dueling-room replays
+passed with the updated art.
+
+`old-phlan-sword-thief-approach` checks the far, middle, and near frames
+over 121 terrain tiles each, then the existing dialogue portrait.
+`tempus-temple-watch-combat` checks the shared Watch ready sprite and the
+cleric's mace strike in the Tempus temple reinforcement battle.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.

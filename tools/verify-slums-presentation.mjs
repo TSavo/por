@@ -290,6 +290,16 @@ const encounterRoutes = new Map([
     placement: [48, 32, "encounter:area:13:SPRIT8.DAX:70:0:0", 40, 80],
     terrain: { area: 13, views: 5, patterns: 26 },
   }],
+  ["old-phlan-sword-thief-approach", {
+    slot: "A", inputs: ["left", "up", "up", "right", "up", "left", "up", "up"],
+    placement: [40, 32, "encounter:area:14:SPRIT3.DAX:11:0:0", 48, 80],
+    approachSequence: [
+      [56, 32, "encounter:area:14:SPRIT3.DAX:11:2:0", 16, 49],
+      [56, 32, "encounter:area:14:SPRIT3.DAX:11:1:0", 24, 65],
+      [40, 32, "encounter:area:14:SPRIT3.DAX:11:0:0", 48, 80],
+    ],
+    dialogue: { key: "enter", portrait: "portrait:area:14:HEAD3.DAX:32:BODY3.DAX:8", prompt: /ATHIEFWITHASWORDCOMESOUTOFNOWHERE/i },
+  }],
   ["kobold-cave-wyvern-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [24, 32, "encounter:area:13:SPRIT8.DAX:121:0:0", 88, 80],
@@ -868,6 +878,11 @@ const combatPoseRoutes = new Map([
     slot: "A", stand: "combat:area:17:CPIC7.DAX:14:ecl:a1a6", width: 96, height: 96,
     readyPrompt: /Hitpoints/i, strikeInputs: [],
     inputs: ["up", "down", "enter", "enter", "c", ...Array(4).fill("enter"), ...Array(4).fill("q")],
+  }],
+  ["tempus-temple-watch-combat", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:12:ecl:aac7", strike: "combat:area:0:CPIC3.DAX:140:ecl:aac7",
+    width: 96, height: 96, readyPrompt: /7THLVLCLERIC/i,
+    inputs: ["up", "enter", "enter", ...Array(19).fill("q")],
   }],
   ["nomad-warrior-combat", {
     slot: "A", stand: "combat:area:17:CPIC7.DAX:12", strike: "combat:area:17:CPIC7.DAX:140",
