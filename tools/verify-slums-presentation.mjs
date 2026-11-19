@@ -389,6 +389,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["slums-council-gnoll-combat", {
+    slot: "B", stand: "combat:area:20:CPIC2.DAX:73:ecl:abf8", strike: "combat:area:20:CPIC2.DAX:201:ecl:abf8",
+    width: 96, height: 192, readyPrompt: /GNOLLHITPOINTS5/i, strikeReflected: true,
+    inputs: ["up", ...Array(6).fill("enter"), ...Array(4).fill("q")], strikeInputs: ["q"],
+  }],
   ["slums-ogre-combat", {
     slot: "B", stand: "combat:area:20:CPIC2.DAX:8:ecl:b10d", strike: "combat:area:20:CPIC2.DAX:136:ecl:b10d",
     width: 96, height: 192, readyPrompt: /OGREHITPOINTS21/i, strikeReflected: true,

@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:20:CPIC2.DAX:73:ecl:abf8": "slums-council-gnoll-stand.png",
+    "combat:area:20:CPIC2.DAX:201:ecl:abf8": "slums-council-gnoll-strike.png",
     "tile:22:5795b1b70c9b48e493751effcb0f24b088c03b0cd37d6bbabaddf30f832eafdc": "yarash-cross-gallery-terrain-5795b1b70c9b.png",
     "tile:22:e9e6a6fa6a9c36c5a43dca56ada96e1fdf95750c43accee9f99c8f3e088a3855": "yarash-cross-gallery-terrain-e9e6a6fa6a9c.png",
     "tile:22:989907034dc5a8ccb668b5a282a334713bceb7eca7c6f5ce8b5590ee1052877f": "yarash-cross-gallery-terrain-989907034dc5.png",
