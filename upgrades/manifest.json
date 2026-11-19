@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "portrait:HEAD5.DAX:14:BODY5.DAX:7": "valjevo-bane-chaplain.png",
+    "combat:area:5:CPIC5.DAX:55": "valjevo-hill-giant-stand.png",
+    "combat:area:5:CPIC5.DAX:183": "valjevo-hill-giant-strike.png",
     "combat:area:5:CPIC5.DAX:31": "valjevo-tower-troll-stand.png",
     "combat:area:5:CPIC5.DAX:159": "valjevo-tower-troll-strike.png",
     "portrait:HEAD5.DAX:72:BODY5.DAX:30": "valjevo-records-scribe.png",

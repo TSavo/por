@@ -1217,6 +1217,11 @@ hedge, and path, and 30 pixel-identical patterns use existing artwork.
 Chrome checks the selected 96×192 ready pose and the reflected strike,
 including the rendered horizontal flip. Switching modes preserves the
 combat frame and the save.
+`valjevo-hill-giant` checks the distinct Valjevo Hill Giant's 96×192
+ready pose and reflected club strike from controlled slot B.
+`valjevo-bane-chaplain` checks the 352×352 portrait on the Talk branch,
+and confirms the chapel lead appears after the priest explains who
+established it. Both Chrome replays verify state-preserving mode switches.
 `valjevo-genheeris-bargain` and `valjevo-genheeris-orders` verify the
 352×352 illustration, mode switching, and the distinct journal lead
 from each choice of parlay tone. The bargain replay also confirms

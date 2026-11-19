@@ -938,6 +938,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "castle-genheeris-orders", title: "Orders for Al-Hyam Dhazid",
       detail: "Genheeris told the party to relay orders to Al-Hyam Dhazid to execute phase 2 of Plan A." });
   }
+  if (text.includes("TYRANTHRAXUS, HAS SEEN FIT TO ESTABLISH THIS TEMPLE TO OUR LORD BANE")) {
+    leads.push({ id: "castle-bane-chapel", title: "Valjevo's chapel of Bane",
+      detail: "The priest said Tyranthraxus established the chapel and urged the party to accept Bane's blessing." });
+  }
   if (text.includes("AN EVIL SPIRIT FROM AN UNHOLY POOL GUIDES YOUR ENEMIES")) {
     leads.push({ id: "phlan-seer-prophecy", title: "The Old Phlan seer's prophecy",
       detail: "The seer said an evil spirit from an unholy pool guides the party's enemies." });
