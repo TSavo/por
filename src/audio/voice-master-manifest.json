@@ -19,7 +19,170 @@
     "narrationUnits": 1433,
     "resolvedUnits": 1392,
     "unresolvedDynamicUnits": 41,
+    "finiteRuntimeVariantFamilies": 43,
     "finiteRuntimeVariantAssets": 329
+  },
+  "dynamicResolution": {
+    "source": "src/audio/dynamic-voice-resolution.json",
+    "queue": "src/audio/dynamic-resolved-generation-queue.json",
+    "slotSemantics": {
+      "0x6b00": {
+        "meaning": "selected party-member name",
+        "resolution": "runtime-only",
+        "reason": "Value comes from the player's save roster; the possible spelling is not bounded by original game data.",
+        "strategy": "Keep withheld unless runtime synthesis or recorded generic fallback is explicitly approved."
+      },
+      "0x6e79": {
+        "meaning": "player-entered input string in the unresolved voice unit",
+        "resolution": "runtime-only",
+        "reason": "For the affected unit it is the six-character password just typed by the player.",
+        "strategy": "Keep confirmation unvoiced or use runtime synthesis; never pre-render guessed inputs."
+      },
+      "0x6e7e": {
+        "meaning": "random tavern-tale number",
+        "resolution": "enumerated",
+        "values": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24"
+        ],
+        "evidence": "RANDOM 23 followed by ADD 1 before PRINT."
+      },
+      "0x985e": {
+        "meaning": "single proclamation number text",
+        "resolution": "enumerated",
+        "values": [
+          "CI.",
+          "CXXVI AND CX.",
+          "CXXXIV.",
+          "CLIV.",
+          "CXIV.",
+          "CCIV.",
+          "CXXIX.",
+          "CCI."
+        ],
+        "evidence": "Nine ON GOSUB targets assign these strings; CXIV occurs twice."
+      },
+      "0x980e": {
+        "meaning": "runtime encounter actor name",
+        "resolution": "encounter-table-dependent",
+        "strategy": "Enumerate from the encounter's monster table and grammatical-number metadata before rendering."
+      },
+      "0x980f": {
+        "meaning": "runtime encounter group name",
+        "resolution": "encounter-table-dependent",
+        "strategy": "Enumerate from the encounter's monster table before rendering."
+      },
+      "0x9809": {
+        "meaning": "runtime encounter group name",
+        "resolution": "encounter-table-dependent",
+        "strategy": "Enumerate from the block's wilderness encounter table before rendering."
+      },
+      "0x982c": {
+        "meaning": "context-dependent composed string, commonly monster/group/class text",
+        "resolution": "context-dependent",
+        "strategy": "Trace the local SAVE/GET TABLE chain per unit; do not apply one global value list."
+      },
+      "0x9890": {
+        "meaning": "context-dependent composed string, commonly area/group/reward text",
+        "resolution": "context-dependent",
+        "strategy": "Trace the local SAVE chain per unit; do not apply one global value list."
+      }
+    },
+    "finiteSlotValuesByScope": {
+      "ECL2.DAX:block-20:0x9890": [
+        " KOBOLDS. ",
+        " GOBLINS. ",
+        " ORCS. "
+      ],
+      "ECL4.DAX:block-10:0x982c": [
+        "THE SPECTRE HAS NOTICED YOU.",
+        " SKELETONS.",
+        " ZOMBIES.",
+        " WIGHTS."
+      ],
+      "ECL5.DAX:block-3:0x980e": [
+        "A PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+      ],
+      "ECL5.DAX:block-4:0x980e": [
+        "A PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+      ],
+      "ECL5.DAX:block-6:0x980e": [
+        "A PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+      ],
+      "ECL6.DAX:block-25:0x982c": [
+        "QUICKLINGS",
+        "WILD BOARS",
+        "GIANT MANTIS",
+        "TIGERS",
+        "THRI-KREENS",
+        "ANHKHEG",
+        "CENTAURS",
+        "SOLDIERS",
+        "THIEVES",
+        "BUCCANEERS",
+        "GIANT SNAKES"
+      ],
+      "ECL7.DAX:block-22:0x9809": [
+        " A BAND OF HUMAN FIGHTERS.",
+        " DISPLACER BEASTS.",
+        " DWARVEN FIGHTERS.",
+        " A TRIO OF LIZARD MEN.",
+        " VISCIOUS LOOKING DRIDERS.",
+        " SOME GAUNT MEN IN POORLY FITTING LEATHER.",
+        " LARGE INSECTS WITH RUSTY RED FEATHERS.",
+        " SOME LARGE BULL HEADED MEN.",
+        " A GROUP OF EMACIATED ELVES.",
+        " SOME HUNGRY LOOKING KOBOLDS."
+      ],
+      "ECL7.DAX:block-26:0x982c": [
+        "KOBOLDS",
+        "DISPLACER BEASTS",
+        "DRIDERS",
+        "STIRGES",
+        "LIZARD MEN",
+        "BANDITS",
+        "NOMADS",
+        "MERCHANTS"
+      ],
+      "ECL8.DAX:block-27:0x982c": [
+        "KOBOLDS",
+        "GNOLLS",
+        "LIZARD MEN",
+        "GIANT LIZARDS",
+        "HIPPOGRIFFS",
+        "WYVERNS",
+        "TROLLS",
+        "PHASE SPIDERS",
+        "MINOTAURS"
+      ],
+      "ECL8.DAX:block-29:0x9890": [
+        "GNOLLS ",
+        "KOBOLDS. ",
+        "LIZARDMEN. "
+      ]
+    }
   },
   "events": [
     {

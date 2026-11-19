@@ -70,6 +70,7 @@ for (let number = 1; number <= 8; number++) {
   reviews.push({ archive: `ECL${number}.DAX`, events: review.events, units: review.units ?? review.narrationUnits });
 }
 const sokal = JSON.parse(readFileSync(new URL("sokal-voice-manifest.json", audio), "utf8")) as { units: ReviewUnit[] };
+const dynamicResolution = JSON.parse(readFileSync(new URL("dynamic-voice-resolution.json", audio), "utf8"));
 const dynamicQueue = JSON.parse(readFileSync(new URL("dynamic-resolved-generation-queue.json", audio), "utf8")) as { items: QueueItem[] };
 const dynamicVariantsByUnit = new Map<string, QueueItem[]>();
 for (const item of dynamicQueue.items) {
@@ -78,6 +79,10 @@ for (const item of dynamicQueue.items) {
   variants.push(item);
   dynamicVariantsByUnit.set(item.sourceUnitId, variants);
 }
+if (dynamicVariantsByUnit.size !== dynamicResolution.unitsResolvedToFiniteVariants)
+  throw new Error(`finite dynamic family mismatch: ${dynamicVariantsByUnit.size} queued, ${dynamicResolution.unitsResolvedToFiniteVariants} resolved`);
+if (dynamicQueue.items.length !== dynamicResolution.newlyQueueableVariantCount)
+  throw new Error(`finite dynamic variant mismatch: ${dynamicQueue.items.length} queued, ${dynamicResolution.newlyQueueableVariantCount} resolved`);
 
 const normalizedUnits: any[] = [];
 const unitIds = new Set<string>();
@@ -177,7 +182,14 @@ const manifest = {
     narrationUnits: normalizedUnits.length,
     resolvedUnits: resolved,
     unresolvedDynamicUnits: normalizedUnits.length - resolved,
+    finiteRuntimeVariantFamilies: dynamicVariantsByUnit.size,
     finiteRuntimeVariantAssets: dynamicQueue.items.length
+  },
+  dynamicResolution: {
+    source: "src/audio/dynamic-voice-resolution.json",
+    queue: "src/audio/dynamic-resolved-generation-queue.json",
+    slotSemantics: dynamicResolution.slotSemantics,
+    finiteSlotValuesByScope: dynamicResolution.finiteSlotValuesByScope
   },
   events,
   units: normalizedUnits

@@ -40,6 +40,7 @@ for (const unit of master.units) {
 assert.equal(master.counts.narrationUnits, master.units.length);
 assert.equal(master.counts.resolvedUnits, resolved);
 assert.equal(master.counts.unresolvedDynamicUnits, master.units.length - resolved);
+assert.equal(master.counts.finiteRuntimeVariantFamilies, master.units.filter((unit: any) => unit.resolution === "finite-runtime-variants").length);
 assert.equal(master.counts.finiteRuntimeVariantAssets, master.units.flatMap((unit: any) => unit.runtimeVariants).length);
 for (const event of master.events) {
   assert(["voiced-source", "unvoiced-interface-layout"].includes(event.classification));
