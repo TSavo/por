@@ -2019,6 +2019,14 @@ const port = process.env.POR_PLAY_PORT ?? "43212";
 const origin = `http://127.0.0.1:${port}`;
 const browserEnvironment = { ...process.env };
 delete browserEnvironment.POR_UPGRADES_DIR;
+const priorPartyLead = "prior-party-fixture";
+if (routeName === "new-phlan-building-exit") {
+  const journalProfile = resolve(directory, "prior-party-journal.json");
+  writeFileSync(journalProfile, JSON.stringify({ version: 1, leads: [
+    { id: priorPartyLead, title: "Prior party clue", detail: "Known only by the prior party." },
+  ] }));
+  browserEnvironment.POR_JOURNAL_PROFILE = journalProfile;
+}
 if (terrainOnly || classicPortrait) {
   const pack = resolve(directory, "test-art");
   mkdirSync(pack);
@@ -2401,6 +2409,8 @@ try {
     assert.ok(frame.journal?.objective.nextStep);
     await waitFor("the journal from the Encamp menu", () => run(`state.sequence === ${frame.sequence} &&
       !document.querySelector("#journal").hidden`));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === priorPartyLead),
+      "The loaded journal should replace the previous party's knowledge");
     for (const { id } of JSON.parse(originalSave).leads) {
       assert.ok(frame.journal.leads.some(lead => lead.id === id), `Expected saved journal lead ${id}`);
     }
