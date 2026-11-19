@@ -26,6 +26,10 @@ and areas. Use the captured area-scoped ID to assign an in-game replacement.
 Open **Exploration coverage by area** to see the distinct captured patterns,
 loaded replacements, and remaining gaps. These counts reflect the supplied
 traces. Areas and viewpoints outside those traces still need live coverage.
+**Encounter artwork coverage by archive** counts source frames in picture,
+encounter sprite, and combat picture archives. It counts each frame once
+even when several areas have their own replacement. The table inventories
+archive contents. The live routes establish which frames are drawn.
 The report skips cleared all-black views between scenes. When auditing older
 traces, review encounter frames for actors drawn over the terrain before
 using their unmatched patterns as a redraw checklist.

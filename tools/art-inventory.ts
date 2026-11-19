@@ -353,6 +353,17 @@ for (const id of capturedTiles.keys()) {
 }
 const explorationCoverage = [...capturedByArea].map(([area, counts]) => ({ area, ...counts }))
   .sort((a, b) => (b.captured - b.matched) - (a.captured - a.matched) || a.area - b.area);
+const encounterCoverage = archives.filter(({ file }) => /^(?:PIC|SPRIT|CPIC)\d+\.DAX$/.test(file))
+  .map(({ file, entries }) => {
+    let frames = 0;
+    let matched = 0;
+    for (const entry of entries) {
+      frames += entry.pictures?.reduce((sum, picture) => sum + picture.frames, 0) ?? 0;
+      const replacements = replacementsByBlock.get(`${file}:${entry.directoryIndex}`) ?? [];
+      matched += new Set(replacements.map(({ source }) => `${source?.member}:${source?.frame}`)).size;
+    }
+    return { file, frames, matched };
+  }).filter(({ frames }) => frames > 0);
 writeFileSync(join(output, "index.html"), `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pool of Radiance art inventory</title><style>
 body{font:16px system-ui;background:#181715;color:#f3e9d6;margin:2rem auto;padding:0 1rem;max-width:1200px}
@@ -379,6 +390,12 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
   return `<tr><th scope="row">${area}</th><td>${captured}</td><td>${matched}</td><td>${gap}</td></tr>`;
 }).join("")}
 </tbody></table></details>` : ""}
+<details><summary>Encounter artwork coverage by archive</summary>
+<p>Counts compare original picture and sprite frames with loaded replacements. An area-specific replacement counts once for the source frame. Composite portraits are listed under Runtime artwork.</p>
+<table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>With replacements</th><th>Unmatched</th></tr></thead><tbody>
+${encounterCoverage.map(({ file, frames, matched }) =>
+  `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${frames - matched}</td></tr>`).join("")}
+</tbody></table></details>
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
 <label>Category <select id="category"><option value="">All categories</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
@@ -431,7 +448,7 @@ document.querySelector('.coverage-table')?.addEventListener('click', (event) => 
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, missingTiles, explorationCoverage, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, replacements, missingTiles, explorationCoverage, encounterCoverage, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
