@@ -315,6 +315,21 @@ const encounterRoutes = new Map([
     placement: [48, 32, "encounter:area:25:SPRIT6.DAX:120:0:0", 40, 80],
     dialogue: { key: "enter", portrait: "portrait:area:25:PIC6.DAX:120:0:0", prompt: /THREELARGEWILDBOARS/i },
   }],
+  ["wild-cave-boar-sow", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:25:ecl:a5b1:SPRIT6.DAX:120:0:0", 40, 80],
+    dialogueSteps: [{
+      keys: ["enter"], portrait: "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
+      prompt: /WILDBOARSOWFEEDINGHERYOUNG/i,
+    }, {
+      keys: ["a"], portrait: "portrait:area:25:ecl:a66b:PIC6.DAX:120:0:0",
+      prompt: /HAIRBRISTLESANDSHEATTACKS/i,
+    }],
+    battleStart: {
+      input: "enter", portrait: "portrait:area:25:ecl:a66c:PIC6.DAX:120:0:0",
+      prompt: /ABATTLEBEGINS/i,
+    },
+  }],
   ["lizard-wilds-displacer-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [40, 32, "encounter:area:26:SPRIT7.DAX:68:0:0", 64, 80],
@@ -996,10 +1011,11 @@ const combatPoseRoutes = new Map([
         strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
       },
     ])),
-  ...[4, 5, 7, 8, 10].flatMap(head =>
-    [["axe", 2], ["crossbow", 16],
-      ...(head === 5 ? [["bow", 1], ["spiked-club", 8], ["war-hammer", 15]] : []),
-    ].map(([weapon, body]) => [
+  ...[
+    [3, [["gold-shield", 4], ["crook", 6], ["morningstar", 13]]],
+    [5, [["bow", 1], ["spiked-club", 8], ["war-hammer", 15]]],
+    ...[4, 5, 7, 8, 10].map(head => [head, [["axe", 2], ["crossbow", 16]]]),
+  ].flatMap(([head, weapons]) => weapons.map(([weapon, body]) => [
       `party-dwarf-${head}-${weapon}-icon-combat`, {
         manualPolling: true,
         slot: "B", stand: `combat:party:${head}:${body}`, strike: `combat:party:${head}:${body + 128}`,

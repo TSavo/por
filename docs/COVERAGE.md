@@ -3159,6 +3159,27 @@ The spiky dwarf has ready and strike art for all 18 weapon choices.
 The fresh-party Chrome icon editor run selects head 4 and steps through
 the full weapon list, checking all 36 placements and loaded 96×96 images.
 
+The cloth-cap dwarf (head 7) has both poses for all 18 weapon choices.
+The production Chrome replay checks the exact head and body placements
+and both 96×96 images for every choice in the original icon editor.
+
+The ponytail dwarf (head 3) also has both poses for all 18 choices.
+Chrome checked all poses in the editor. The
+`party-dwarf-3-{gold-shield,crook,morningstar}-icon-combat` routes start
+from the corresponding original editor saves and replay the combat
+report, enhanced strike, and preservation of state across both displays.
+
+The parted-haired dwarf (head 1) has both poses for all 18 choices.
+Chrome stepped through all ready and strike previews in the original
+icon editor and verified that each preview loaded its 96×96 artwork.
+
+The `wild-cave-boar-sow` route verifies the sow's approach, her warning
+while feeding her piglets, and her charge through the battle prompt.
+Chrome checks the original anchor, full-panel art, and mode switching
+from a controlled slot A checkpoint. The separate
+`wild-cave-boar-approach` route verifies that the three-adult ambush
+retains its own sprite and portrait.
+
 The `textile-skullcrusher-approach` Chrome replay uses the Textile
 House slot B checkpoint. It checks the chained prisoner's 96×320
 approach sprite at the guest anchor during the brief animation, then
