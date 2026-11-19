@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "tile:1:1f761a98a1fe476324ccf656e46f379350a4b377a2f76c4ede719bea54800495": "buccaneer-captains-hall-terrain-1f761a98a1fe.png",
+    "tile:1:858b73d63eb2439f5d3755fe6002d941fcc99e9a5fdb06fb568a21ff2599262f": "buccaneer-captains-hall-terrain-858b73d63eb2.png",
+    "tile:1:f789898497fdff516d04618cea45e769ceba293b0d69514ab98b26bf948a97a6": "buccaneer-captains-hall-terrain-f789898497fd.png",
     "tile:1:ca35b87d72a0131a2431c367d00fd725b7d36b04afe9ec22eb5b510578319469": "buccaneer-stockade-terrain-ca35b87d72a0.png",
     "tile:1:596a08a67d56fb620c1282ff85a38cf7a8ce2e527bd452073ec58cd70f4292c5": "buccaneer-stockade-terrain-596a08a67d56.png",
     "tile:1:a7a8ffbcb1196fb57a4f729d929241ba607a813b92a76d83db07f47af5afd478": "buccaneer-stockade-terrain-a7a8ffbcb119.png",
