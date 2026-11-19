@@ -80,6 +80,11 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["textile-skullcrusher-chained", {
+    slot: "B", inputs: ["up", "b", "up", "enter"],
+    portrait: "portrait:HEAD4.DAX:32:BODY4.DAX:3", prompt: /WHATDOYOUDOWITHTHEMAN/i,
+    journalLead: "textile-prisoner",
+  }],
   ["kobold-cave-envoys-rematch", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:HEAD8.DAX:69:BODY8.DAX:1", prompt: /AREMATCHTHEN\.PREPAREFORDEATH/i,
