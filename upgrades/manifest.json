@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:20:SPRIT2.DAX:6:0:0": "slums-hobgoblin-ringleader-approach.png",
+    "encounter:area:21:SPRIT4.DAX:6:1:0": "sokal-courtyard-hobgoblin-approach.png",
     "tile:22:7f73301b6573dfe6b06da5cfb0cd788e913c0c11788fe0a250ce62ce7f13fd89": "yarash-side-cell-terrain-7f73301b6573.png",
     "tile:22:e2206c18c4f3ecfcd56698585bced454d5e385a2117a5f6be07d9d368b319256": "yarash-side-cell-terrain-e2206c18c4f3.png",
     "tile:22:5c7ed406dddb69cb7e046ff9099db74a0e9825739925a018890667722051d481": "yarash-side-cell-terrain-5c7ed406dddb.png",
@@ -3308,6 +3310,8 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:20:SPRIT2.DAX:6:0:0": { "area": 20, "x": 48, "y": 32, "width": 48, "height": 80 },
+    "encounter:area:21:SPRIT4.DAX:6:1:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:2:SPRIT4.DAX:6:1:0": { "area": 2, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:20:SPRIT2.DAX:24:1:0": { "area": 20, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:23:SPRIT7.DAX:24:2:0": { "area": 23, "x": 64, "y": 24, "width": 48, "height": 57 },
