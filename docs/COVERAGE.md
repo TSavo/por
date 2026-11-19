@@ -2704,6 +2704,10 @@ unreflected short-sword strike for the nomad patron in that same fight.
 over 121 terrain tiles in the crypt, followed by the vampire portrait.
 `stojanow-barracks-side` verifies 1,210 tile placements across ten views,
 including two new lintel and sill tiles.
+`stojanow-coping-reveal` verifies the sandstone doorway join on a
+16-view walk through the side courts. `stojanow-bugbear-approach` checks
+the far, middle, and near sprites over 121 tiles per frame before the
+warning portrait.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.

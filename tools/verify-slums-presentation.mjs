@@ -309,6 +309,16 @@ const encounterRoutes = new Map([
     ],
     dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:23:0:0", prompt: /THEREISAVAMPIREHERE/i },
   }],
+  ["stojanow-bugbear-approach", {
+    slot: "A", inputs: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left"],
+    placement: [56, 32, "encounter:area:9:SPRIT2.DAX:63:0:0", 24, 73],
+    approachSequence: [
+      [56, 32, "encounter:area:9:SPRIT2.DAX:63:2:0", 24, 57],
+      [56, 32, "encounter:area:9:SPRIT2.DAX:63:1:0", 24, 65],
+      [56, 32, "encounter:area:9:SPRIT2.DAX:63:0:0", 24, 73],
+    ],
+    dialogue: { key: "up", portrait: "portrait:area:9:PIC2.DAX:63:0:0", prompt: /THELEADERSWINGSATYOU/i },
+  }],
   ["kobold-cave-wyvern-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [24, 32, "encounter:area:13:SPRIT8.DAX:121:0:0", 88, 80],
@@ -1492,6 +1502,10 @@ const environmentRoutes = new Map([
   ["stojanow-barracks-side", {
     slot: "A", area: 9, views: 10, patterns: 29, sceneryOnly: true,
     walk: ["right", "up", "up", "left", "up", "left", "up", "right", "up"],
+  }],
+  ["stojanow-coping-reveal", {
+    slot: "A", area: 9, views: 16, patterns: 59, sceneryOnly: true,
+    walk: ["up", "right", "up", "up", "left", "up", "left", "up", "right", "up", "left", "up", "right", "up", "up"],
   }],
   ["new-phlan-canal-room", {
     slot: "A", area: 0, views: 24, patterns: 63, sceneryOnly: true,
