@@ -4950,7 +4950,18 @@ try {
         await advance("a");
       }
     }
-    if (giantPatrol) for (const key of ["a", "a"]) await advance(key);
+    if (giantPatrol) {
+      const close = [48, 32, "encounter:area:3:ecl:9e32:SPRIT5.DAX:16:0:0", 40, 80];
+      await observeApproach([close]);
+      await advance("a");
+      assert.deepEqual(frame.encounter, [56, 32, "encounter:area:3:SPRIT5.DAX:16:1:0", 24, 65]);
+      await advance("a");
+      await waitFor("the Valjevo patrol captain's close approach", () => run(
+        `window.observedApproach.has(${JSON.stringify(close[2])})`));
+      await waitFor("the patrol captain's dialogue portrait", () => run(
+        `state.sequence === ${frame.sequence} && document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+    }
     for (const key of ["p", scriptoriumAuthority ? "h" : "m"]) await advance(key);
     const portrait = mazeWatch ? "portrait:HEAD5.DAX:52:BODY5.DAX:1"
       : giantPatrol ? "portrait:area:3:HEAD5.DAX:9:BODY5.DAX:1" : "portrait:HEAD5.DAX:53:BODY5.DAX:7";
