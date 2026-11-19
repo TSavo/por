@@ -1,6 +1,10 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:23:PIC7.DAX:57:0:0": "pyramid-lizardfolk-vats.png",
+    "encounter:area:5:SPRIT5.DAX:60:1:0": "valjevo-giant-snake-approach-middle.png",
+    "encounter:area:5:SPRIT5.DAX:60:0:0": "valjevo-giant-snake-approach-near.png",
+    "encounter:area:15:SPRIT2.DAX:26:0:0": "mendor-basilisk-approach.png",
     "tile:18:7ef7a8d9cefa87e58b3f992fc564d7ce4890d24a98010ebcf2a6430c0fc289e2": "podal-south-arcade-terrain-7ef7a8d9cefa.png",
     "tile:18:a450b9f6a9736eb58295e7d56da5ea77f2a51ea37247733e0327ae50ccfd9b19": "podal-south-arcade-terrain-a450b9f6a973.png",
     "tile:18:180623371b1ff269245e257e69f7000ce0214d61ca119898ffc2b343881efef5": "podal-south-arcade-terrain-180623371b1f.png",
@@ -2377,6 +2381,9 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:5:SPRIT5.DAX:60:1:0": { "area": 5, "x": 48, "y": 32, "width": 40, "height": 65 },
+    "encounter:area:5:SPRIT5.DAX:60:0:0": { "area": 5, "x": 40, "y": 32, "width": 64, "height": 80 },
+    "encounter:area:15:SPRIT2.DAX:26:0:0": { "area": 15, "x": 32, "y": 32, "width": 80, "height": 80 },
     "encounter:area:13:SPRIT8.DAX:70:0:0": { "area": 13, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:13:SPRIT8.DAX:121:0:0": { "area": 13, "x": 24, "y": 32, "width": 88, "height": 80 },
     "encounter:area:5:SPRIT5.DAX:31:0:0": { "area": 5, "x": 48, "y": 32, "width": 40, "height": 80 },

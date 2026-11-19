@@ -30,6 +30,15 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["valjevo-giant-snake-approach", {
+    slot: "B", inputs: ["s", "up", "up", "y", "enter", "enter"],
+    placement: [48, 32, "encounter:area:5:SPRIT5.DAX:60:1:0", 40, 65],
+    closer: [40, 32, "encounter:area:5:SPRIT5.DAX:60:0:0", 64, 80],
+  }],
+  ["mendor-basilisk-approach", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    placement: [32, 32, "encounter:area:15:SPRIT2.DAX:26:0:0", 80, 80],
+  }],
   ["kobold-cave-efreeti-approach", {
     slot: "A", inputs: ["s", "up", "p", "enter"],
     placement: [48, 32, "encounter:area:13:SPRIT8.DAX:70:0:0", 40, 80],
@@ -501,7 +510,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -850,18 +859,28 @@ try {
     }
   } else if (encounterRoute) {
     for (const key of encounterRoute.inputs) await advance(key);
-    assert.deepEqual(frame.encounter, encounterRoute.placement);
-    const [x, y, id, width, height] = encounterRoute.placement;
-    const scale = 120 / 88;
-    await waitFor("the enhanced approach sprite at its guest anchor", () => run(`(() => {
-      const image = document.querySelector(".encounter-sprite");
-      return state.sequence === ${frame.sequence} &&
-        image?.getAttribute("src") === ${JSON.stringify("/art/" + id)} &&
-        image.naturalWidth === ${width * 4} && image.naturalHeight === ${height * 4} &&
-        Math.abs(parseFloat(image.style.left) - ${(8 + (x - 24) * scale) / 3.2}) < .001 &&
-        Math.abs(parseFloat(image.style.top) - ${(8 + (y - 24) * scale) / 2}) < .001;
-    })()`));
-    await switchBothWays();
+    async function verifyApproach(placement) {
+      assert.deepEqual(frame.encounter, placement);
+      const [x, y, id, width, height] = placement;
+      const scale = 120 / 88;
+      await waitFor("the enhanced approach sprite at its guest anchor", () => run(`(() => {
+        const image = document.querySelector(".encounter-sprite");
+        return state.sequence === ${frame.sequence} &&
+          image?.getAttribute("src") === ${JSON.stringify("/art/" + id)} &&
+          image.naturalWidth === ${width * 4} && image.naturalHeight === ${height * 4} &&
+          Math.abs(parseFloat(image.style.left) - ${(8 + (x - 24) * scale) / 3.2}) < .001 &&
+          Math.abs(parseFloat(image.style.top) - ${(8 + (y - 24) * scale) / 2}) < .001;
+      })()`));
+      await switchBothWays();
+    }
+    await verifyApproach(encounterRoute.placement);
+    if (encounterRoute.closer) {
+      const terrain = frame.tileInventory;
+      assert.equal(terrain?.length, 121);
+      await advance("a");
+      assert.deepEqual(frame.tileInventory, terrain);
+      await verifyApproach(encounterRoute.closer);
+    }
     console.log(`Verified ${routeName} source frame, screen anchor, and mode switching in Chrome.`);
   } else if (combatPose) {
     const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, journalLead } = combatPose;
@@ -1043,6 +1062,13 @@ try {
     for (const key of ["j", "enter"]) await advance(key);
     assert.notEqual(frame.portrait, cadorna);
     console.log("Verified Cadorna's envoy portrait and sealed-packet clue in Chrome.");
+  } else if (routeName === "pyramid-lizardfolk-vats") {
+    for (const key of ["s", "up", "enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:area:23:PIC7.DAX:57:0:0");
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /POKINGAROUNDINTHEVATS/i);
+    await waitFor("the vat ambush illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    console.log("Verified the Yarash vat ambush illustration in Chrome.");
   } else if (routeName === "valjevo-hill-giant-dialogue") {
     for (const key of ["up", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:PIC5.DAX:55:0:0");
