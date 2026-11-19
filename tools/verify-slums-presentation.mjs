@@ -37,6 +37,10 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["wild-cave-rearing-snake-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:25:SPRIT6.DAX:60:1:0", 40, 65],
+  }],
   ["phlan-ruins-scorpion-approach", {
     slot: "B", inputs: ["s", "up", "up", "down", "up", "down"],
     placement: [40, 32, "encounter:area:2:SPRIT4.DAX:18:1:0", 56, 73],
