@@ -4,6 +4,7 @@
  * sys5bb_16b5 is System.FillChar.
  */
 import { deepStrictEqual } from "node:assert";
+import { readFileSync } from "node:fs";
 import { Cpu } from "../src/cpu/machine.js";
 import { ovl07_0000, ovl07_0c93 } from "../src/translated/ovl07.js";
 import "../src/translated/system5bb.js";
@@ -18,6 +19,20 @@ import { commissions } from "../src/runtime/commission-journal.js";
 import { parseDax } from "../src/lib/dax.js";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import { findGameRoot, listGameFiles, mountValjevoWallPieces, readGameFile } from "./gamedata.js";
+
+import { loadUpgradeArtFromManifests } from "./upgrade-art.js";
+
+function checkBrowserArtPacks(): void {
+  const root = findGameRoot();
+  if (!root) return;
+  const paths = ["upgrades/slums/manifest.json", "upgrades/manifest.json"];
+  const declared = new Set(paths.flatMap(path =>
+    Object.keys(JSON.parse(readFileSync(path, "utf8")).assets)));
+  const loaded = loadUpgradeArtFromManifests(paths, root);
+  const missing = [...declared].filter(id => !loaded.has(id));
+  deepStrictEqual(missing, [], "The browser could not load the listed art mappings");
+  console.log(`verified ${declared.size} browser art mappings against the game data and PNG dimensions`);
+}
 
 function checkValjevoWallMount(): void {
   const root = findGameRoot();
@@ -953,4 +968,5 @@ for (const [amount, divisor, quotient] of [[50552, 1000, 50], [200000, 1000, 200
 console.log("verified Turbo Pascal long division used by training and coin conversion");
 checkCampaignJournal();
 checkValjevoWallMount();
+checkBrowserArtPacks();
 console.log("translation checks passed");
