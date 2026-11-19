@@ -1356,6 +1356,8 @@ The `kobold-cave-boar` replay checks that the rematch excludes Fatima’s art.
 `kobold-envoy-ready` checks the rematch's own 96×96 standing pose.
 `nomad-south-trail` checks 18 redrawn fence, vegetation, and trail
 tiles across 16 live views from the original camp entry save.
+`lizardfolk-north-canal` checks five redrawn reed and ruin tiles across
+11 live views from the post-duel save.
 `kobold-rematch-infantry` checks the 96×96 kobold ready and animated
 strike poses during that same battle. `kobold-cave-envoys-rematch` and
 `valjevo-messenger-dialogue` verify the new illustrations at the

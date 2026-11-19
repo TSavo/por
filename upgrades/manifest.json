@@ -1,6 +1,11 @@
 {
   "version": 1,
   "assets": {
+    "tile:16:326785667f8ebc9565683c4d102f8199fbad185afd3eaa4feebfe72540872826": "lizard-north-canal-terrain-326785667f8e.png",
+    "tile:16:8702ad6f6409e5d76690001a6f1a39e6541a0b7e3b2c7203ddac7cc4cecbdc83": "lizard-north-canal-terrain-8702ad6f6409.png",
+    "tile:16:9b0bf37c3c7ed368410e6a466a1e12ca0242219585369589cf01ae8c4c31aa38": "lizard-north-canal-terrain-9b0bf37c3c7e.png",
+    "tile:16:c48357dbb702583a2ae9dc14f11c46b9ca111229424bfcbec2738ecb9bc14868": "lizard-north-canal-terrain-c48357dbb702.png",
+    "tile:16:7a128cc02d3a0bf5cb49a3d6c04fb7ef793368a7413172aec694936214d6ecd8": "lizard-north-canal-terrain-7a128cc02d3a.png",
     "tile:17:748c2e9c5cec4bb380ae4c85b078914a83f139ad011d9af80480d64e7a4557f4": "nomad-south-trail-terrain-748c2e9c5cec.png",
     "tile:17:15e8b10255e97e7352b9517f24d6747c206329b53d7e71a17bd2a7d0f393c238": "nomad-south-trail-terrain-15e8b10255e9.png",
     "tile:17:f7587e57272c38abd0b65fd5bb0e06ebb1a3211616e01aefa1f6bd802f9a106e": "nomad-south-trail-terrain-f7587e57272c.png",
