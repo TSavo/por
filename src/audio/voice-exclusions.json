@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "policy": "Only narrowly defined routine interface text is excluded automatically. Story prose and apparent character speech remain pending editorial review unless explicitly selected.",
+  "rules": [
+    {
+      "id": "typed-password-prompt",
+      "pattern": "^WHAT DO YOU SAY\\? \\(TYPE A SINGLE WORD\\)\\.?$",
+      "disposition": "unvoiced-routine-interface",
+      "reason": "Mechanical text-entry instruction; original on-screen text remains the fallback."
+    },
+    {
+      "id": "bare-choice-heading",
+      "pattern": "^DO YOU:$",
+      "disposition": "unvoiced-routine-interface",
+      "reason": "Menu heading without story content."
+    },
+    {
+      "id": "take-item-prompt",
+      "pattern": "^DO YOU TAKE (?:IT|THE GEMS)\\?$",
+      "disposition": "unvoiced-routine-interface",
+      "reason": "Repeated inventory choice prompt."
+    },
+    {
+      "id": "key-or-button-instruction",
+      "pattern": "^(?:PRESS|TYPE) (?:RETURN|ENTER|SPACE|A KEY).*$",
+      "disposition": "unvoiced-routine-interface",
+      "reason": "Mechanical keyboard instruction."
+    }
+  ]
+}

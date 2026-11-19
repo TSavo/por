@@ -38,6 +38,10 @@ const fishRuntime = JSON.parse(readFileSync(new URL("../src/audio/fish-runtime.j
     repository: string; weights: string; expertOffload: boolean; expectedVramGiB: number; status: string; limitations: string[] };
   acceptance: { sameAnchorReference: boolean; exactPromptText: boolean; compareAgainstHosted: boolean; checks: string[] };
 };
+const dispositions = JSON.parse(readFileSync(new URL("../src/audio/voice-dispositions.json", import.meta.url), "utf8")) as {
+  sourceEntries: number; counts: Record<string, number>;
+  entries: { sourceId: string; disposition: string; selectionId: string | null; ruleId: string | null }[];
+};
 assert.equal(manifest.enhancedOnly, true);
 assert(manifest.lines.some(({ type }) => type === "dialogue"));
 assert(manifest.lines.some(({ type }) => type === "narration"));
@@ -112,13 +116,27 @@ assert.equal(fishRuntime.qualityBaseline.model, "drama-3");
 assert.equal(fishRuntime.localProfile.hardware.gpu, "NVIDIA GeForce RTX 3070");
 assert.equal(fishRuntime.localProfile.hardware.vramMiB, 8192);
 assert(fishRuntime.localProfile.hardware.systemRamGiB >= 64);
-assert.equal(fishRuntime.localProfile.runtime, "ComfyUI-drama3-small");
+assert.equal(fishRuntime.localProfile.runtime, "Shared voice-stack Fish HTTP service");
 assert(fishRuntime.localProfile.repository.startsWith("https://github.com/"));
 assert.equal(fishRuntime.localProfile.expertOffload, true);
 assert(fishRuntime.localProfile.expectedVramGiB < fishRuntime.localProfile.hardware.vramMiB / 1024);
-assert.equal(fishRuntime.localProfile.status, "planned-not-installed");
+assert.equal(fishRuntime.localProfile.status, "installed-and-smoke-tested-on-battleaxe");
 assert(fishRuntime.localProfile.limitations.length >= 3);
 assert.deepEqual([fishRuntime.acceptance.sameAnchorReference, fishRuntime.acceptance.exactPromptText,
   fishRuntime.acceptance.compareAgainstHosted], [true, true, true]);
 assert(fishRuntime.acceptance.checks.length >= 6);
+assert.equal(dispositions.sourceEntries, inventory.lines.length);
+assert.equal(dispositions.entries.length, inventory.lines.length);
+assert.equal(new Set(dispositions.entries.map(({ sourceId }) => sourceId)).size, inventory.lines.length);
+assert.equal(Object.values(dispositions.counts).reduce((sum, count) => sum + count, 0), inventory.lines.length);
+const dispositionBySource = new Map(dispositions.entries.map((entry) => [entry.sourceId, entry]));
+for (const selection of plan.selections) {
+  const disposition = dispositionBySource.get(selection.sourceId);
+  assert.equal(disposition?.disposition, "selected");
+  assert.equal(disposition.selectionId, selection.id);
+}
+for (const entry of dispositions.entries) {
+  assert(["selected", "unvoiced-routine-interface", "pending-editorial-review"].includes(entry.disposition));
+  if (entry.disposition === "unvoiced-routine-interface") assert(entry.ruleId);
+}
 console.log(`verified ${inventory.lines.length} source entries, ${fishPrompts.promptCount} annotated Drama 3 prompts, and ${manifest.lines.length} prototype assets`);

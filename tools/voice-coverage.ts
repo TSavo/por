@@ -13,6 +13,8 @@ const plan = JSON.parse(readFileSync(new URL("../src/audio/voice-plan.json", imp
   { generationOwner: string; selections: Selection[] };
 const manifest = JSON.parse(readFileSync(new URL("../src/audio/voices.json", import.meta.url), "utf8")) as
   { lines: AssetLine[] };
+const dispositions = JSON.parse(readFileSync(new URL("../src/audio/voice-dispositions.json", import.meta.url), "utf8")) as
+  { counts: Record<string, number> };
 const voiceDirectory = resolve(process.env.POR_VOICE_DIR ?? "../por-assets/voices");
 const output = resolve(process.argv[2] ?? "../por-assets/inventory/voice-coverage.json");
 
@@ -40,6 +42,7 @@ const report = {
   sourceEntries: inventory.lines.length,
   selectedEntries: selectedIds.size,
   unselectedEntries: inventory.lines.length - selectedIds.size,
+  dispositions: dispositions.counts,
   classifications,
   suggestedDelivery,
   selectedByType: types,
