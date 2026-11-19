@@ -2857,6 +2857,8 @@ The hungry kobolds have their own approach and group illustration,
 also checked through Parlay on the isolated encounter checkpoint.
 The isolated displacer beast encounter checks its approach pose and
 corridor illustration before the original Parlay prompt.
+The Tyrmor drider replay checks its own approach and dialogue artwork
+through the original Parlay prompt on an isolated encounter checkpoint.
 The Kobold King's first horde has its own 4× infantry ready and strike
 sprites. Chrome checks the strike during the original report of Brin
 taking damage from a controlled throne checkpoint.

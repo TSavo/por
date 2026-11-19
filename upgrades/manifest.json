@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:22:ecl:a2f9:SPRIT7.DAX:69:0:0": "tyrmor-prison-drider-approach.png",
+    "portrait:area:22:ecl:a2f9:PIC7.DAX:69:0:0": "tyrmor-prison-drider-dialogue.png",
     "combat:area:13:CPIC2.DAX:0:ecl:a14b": "kobold-cave-horde-infantry-ready.png",
     "combat:area:13:CPIC2.DAX:128:ecl:a14b": "kobold-cave-horde-infantry-strike.png",
     "encounter:area:22:ecl:a2f9:SPRIT7.DAX:68:0:0": "tyrmor-prison-displacer-approach.png",
@@ -4545,6 +4547,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:22:ecl:a2f9:SPRIT7.DAX:69:0:0": { "area": 22, "x": 40, "y": 32, "width": 56, "height": 80 },
     "encounter:area:22:ecl:a2f9:SPRIT7.DAX:68:0:0": { "area": 22, "x": 40, "y": 32, "width": 64, "height": 80 },
     "encounter:area:22:ecl:a2f9:SPRIT7.DAX:0:0:0": { "area": 22, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:22:ecl:a2f9:SPRIT7.DAX:57:0:0": { "area": 22, "x": 48, "y": 32, "width": 48, "height": 80 },
