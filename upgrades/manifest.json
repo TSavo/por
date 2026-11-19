@@ -1,6 +1,17 @@
 {
   "version": 1,
   "assets": {
+    "tile:17:328b77100d34f2d76a0917618c033859d1fc8cbe732d3265c4770a1993d459fe": "nomad-tent-lane-terrain-328b77100d34.png",
+    "tile:17:ed3cef48a9e2cbe9d2e2743d6845551a2cd16242714fd7343baa7b9a0543e377": "nomad-tent-lane-terrain-ed3cef48a9e2.png",
+    "tile:17:5687675c2146d2bd4fab830d80edd002e442fc2c5ab92189330eb3f6f8d45f82": "nomad-tent-lane-terrain-5687675c2146.png",
+    "tile:17:778b22f837e2b7bba055f83e27ea92f7673857a01468dd4b1f2c12bbe88a3dd4": "nomad-tent-lane-terrain-778b22f837e2.png",
+    "tile:17:c2a74daea21f6caad6b7794dcfd121cbaa0bddc3407ce5f5fdc1914bd5e7ff90": "nomad-tent-lane-terrain-c2a74daea21f.png",
+    "tile:17:30c80f0113fd3ce8bb11bc73d9994b3f4ba2e55e9e38dc3e49268ca9d2b04a9b": "nomad-tent-lane-terrain-30c80f0113fd.png",
+    "tile:17:588ef41cce44a074b33aa033334c71054ffb45a2443ee40434e2bede61a422ba": "nomad-tent-lane-terrain-588ef41cce44.png",
+    "tile:17:96c431f1d894b99a503b9f7dced5ac9a62c16e3fdb427f7d59e3ada3883213e3": "nomad-tent-lane-terrain-96c431f1d894.png",
+    "tile:17:af80717adec0ee7187150a21f0931d57220a7e1afcf3a347ba96ae93f7e72ec3": "nomad-tent-lane-terrain-af80717adec0.png",
+    "tile:17:236874439de7240a220b81b221443e1410cfcc358159b3a861af5708755d0b19": "nomad-tent-lane-terrain-236874439de7.png",
+    "tile:17:72263485f9216a30457a4e7d02aae4f213c3346e251e0487c39020a9f36fca9d": "nomad-tent-lane-terrain-72263485f921.png",
     "encounter:area:2:SPRIT4.DAX:6:1:0": "textile-ogre-war-chief-approach.png",
     "combat:area:9:CPIC2.DAX:11:ecl:a2b4": "stojanow-aide-stand.png",
     "combat:area:9:CPIC2.DAX:139:ecl:a2b4": "stojanow-aide-strike.png",
