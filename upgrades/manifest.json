@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:24:CPIC1.DAX:133:ecl:abbd": "bane-altar-veteran-strike.png",
+    "combat:area:24:CPIC1.DAX:5:ecl:abbd": "bane-altar-veteran-stand.png",
     "combat:area:24:CPIC1.DAX:132:ecl:abbd": "bane-altar-orc-strike.png",
     "combat:area:24:CPIC1.DAX:4:ecl:abbd": "bane-altar-orc-stand.png",
     "portrait:PIC3.DAX:29:0:0": "campaign-campfire.png",
