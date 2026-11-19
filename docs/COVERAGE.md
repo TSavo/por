@@ -2072,3 +2072,20 @@ combined exact archive pixel matches, runtime tile traces, and two classic
 screenshots. Every imported tile matched the
 SHA-256 hash in its runtime key, and every classic preview measured 8×8.
 This measures comparison coverage for the shipped override set.
+
+Valjevo terrain replays check the new hall threshold, upper hall turn,
+and hedge corner across 15 views and 1,815 placements. The merchant wing,
+merchant branch, and merchant west routes cover 30 views and 3,630
+placements. The kitchen jamb and lower gallery add five and ten views
+respectively. Each replay checks presentation switching and save preservation.
+
+The Valjevo chaplain and forge smith replays check their new approach
+sprites at the native anchors before continuing into dialogue.
+`bane-captive-goblin-approach` checks the transition to the captive
+illustration, and `bane-orc-guardroom-approach` verifies the guardroom
+sprite before combat.
+
+`old-phlan-mutant-lizardfolk-combat` and `old-phlan-lizardfolk-combat`
+check separately scoped ready and strike poses for the mutated and
+regular lizardfolk. `slums-mage-combat` verifies the ready pose in the
+potion-commission encounter. The mage's native strike remains unverified.
