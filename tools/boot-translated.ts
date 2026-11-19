@@ -55,6 +55,7 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const capturePresentationDelay = input?.capturePresentationDelay;
   const capturePerspective = input?.capturePerspective;
   const viewportSegment = capturePerspective && loadedSlices.find(({ index }) => index === 36)?.loadPara;
+  const localScenerySegment = capturePerspective && loadedSlices.find(({ index }) => index === 30)?.loadPara;
   const terrainDrawSegment = process.env.POR_TRACE_BATTLE_DRAW === "1"
     ? loadedSlices.find(({ index }) => index === 33)?.loadPara : undefined;
   if (capturePresentationDelay || viewportSegment !== undefined || terrainDrawSegment !== undefined) {
@@ -62,7 +63,11 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
     const terrainDraws = new Set<string>();
     cpu.tick = function (at) {
       // The overlay's first-person draw has finished writing the viewport.
-      if (at === 0x1eb9 && this.cs === viewportSegment) capturePerspective?.();
+      if (at === 0x1eb9 && this.cs === viewportSegment) {
+        const localScenery = this.read16(this.ss, this.sp) === 0x0610 &&
+          this.read16(this.ss, (this.sp + 2) & 0xffff) === localScenerySegment;
+        capturePerspective?.(this, localScenery);
+      }
       // The original executable holds the attack pose during this delay.
       if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) capturePresentationDelay?.(this);
       // The far entry draws a frame from one of the two SQRPACI blocks.

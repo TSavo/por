@@ -79,7 +79,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let scene: string | undefined;
   let area: number | undefined;
   let battleCursor: number | undefined;
-  let drawnPerspective: Buffer | undefined;
+  let drawnPerspective: { pixels: Buffer; localEcl?: number } | undefined;
   let previousPerspective: { area: number; pixels: Buffer } | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
@@ -134,19 +134,26 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         (area === 1 && menu === "RELEASEANIMALSLEAVE") ||
         (area === 24 && menu === "DESTROYALTARLEAVEIT");
       let perspective = false;
+      let tileArea = area;
       if (!leads) {
         if (area !== undefined && !scene && picture === undefined && !hasBattlefieldBorder(screen)) {
           const pixels = perspectivePixels();
           // The original game can redraw scenery while the menu is hidden,
           // including mid-transition at a doorway.
-          perspective = Boolean(encounter || exploration || drawnPerspective?.equals(pixels) ||
+          const nativeDraw = drawnPerspective?.pixels.equals(pixels) ? drawnPerspective : undefined;
+          // At Podal's west boundary the destination ECL draws the scenery
+          // before the guest copies that area's number into the area record.
+          if ((area === 18 && nativeDraw?.localEcl === 26) || (area === 26 && nativeDraw?.localEcl === 18)) {
+            tileArea = nativeDraw.localEcl;
+          }
+          perspective = Boolean(encounter || exploration || nativeDraw ||
             (previousPerspective?.area === area && previousPerspective.pixels.equals(pixels)));
           previousPerspective = perspective ? { area, pixels } : undefined;
         } else {
           previousPerspective = undefined;
         }
       }
-      if ((tileKeys.size || traceTiles) && area !== undefined && perspective) {
+      if ((tileKeys.size || traceTiles) && tileArea !== undefined && perspective) {
         const pixels = Buffer.alloc(64);
         // The first-person view has an 11-by-11 interior with an eight-pixel border.
         for (let y = 24; y < 112; y += 8) {
@@ -155,7 +162,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
               const start = (y + row) * screen.width + x;
               pixels.set(enhanced.pixels.subarray(start, start + 8), row * 8);
             }
-            const key = `tile:${area}:${createHash("sha256").update(pixels).digest("hex")}`;
+            const key = `tile:${tileArea}:${createHash("sha256").update(pixels).digest("hex")}`;
             if (tileInventory) tileInventory.push([x, y, key, pixels.toString("hex")]);
             if (tileKeys.has(key)) tiles.push([x, y, key]);
           }
@@ -311,7 +318,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   return {
     requestKey,
-    capturePerspective: browser ? () => { drawnPerspective = perspectivePixels(); } : undefined,
+    capturePerspective: browser ? (cpu: Cpu, localScenery: boolean) => {
+      drawnPerspective = { pixels: perspectivePixels(), localEcl: localScenery ? cpu.read8(0x740, 0x82a2) : undefined };
+    } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu) => {
       if (scene || animation.length >= 12) return;
       battleCursor = cpu.read16(0x740, 0x494e);

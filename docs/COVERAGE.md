@@ -1120,6 +1120,10 @@ the commission when the party has never heard the offer.
 The `podal-west-gate` replay starts in slot J at `7,6 S` and walks to the
 western arch. Chrome checks 1,573 placements across 13 views, using 17 new
 32×32 tiles among 61 patterns, and preserves the save when switching modes.
+From the western boundary in slot J, Chrome verified the North re-entry
+using Podal tiles on the first arch frame, before the area record updated.
+The South route verified 363 placements across three scenery views, including
+26 new arch tiles. Both routes preserved their saves through mode switches.
 The `podal-north-lane` replay leaves that gate and crosses into Stojanow.
 Chrome verifies 1,936 placements across 16 views. Eight new ivy tiles cover
 the lane and nine existing Stojanow tiles carry through the crossing.
