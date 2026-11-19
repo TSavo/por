@@ -334,3 +334,16 @@ selected icon, sample the restored colors, and switch display modes
 during his manual turn. The replay also targets the wounded orc at range
 three and verifies that its replacement sprite stays aligned and the
 original white Aim cursor remains visible in the selection frame.
+
+### Phlan Ruins approaches and Kobold Cave west turn
+
+The Phlan Ruins replacements cover the ghoul, skeleton, and hobgoblin
+approaches in area 2. They use `SPRIT4.DAX` blocks 72, 34, and 6
+respectively, member 2 and frame 0. Each appears at guest coordinates
+(56,32). Native Chrome checkpoint replays confirmed each replacement in
+its encounter and checked that switching modes preserved state and saves.
+
+The Kobold Cave west turn adds two 32×32 floor junction tiles in area 13.
+A native Chrome checkpoint replay checked 242 tile placements across the
+entry view and the west-facing view and compared state across the mode
+switch. Both checks used the browser's default art packs.
