@@ -163,6 +163,17 @@ const encounterRoutes = new Map([
     terrain: { area: 27, views: 3, patterns: 15 },
     dialogue: { key: "enter", portrait: "portrait:area:27:PIC8.DAX:59:0:0", prompt: /FOURGIANTLIZARDSANDTWOMINOTAURS/i },
   }],
+  ["wild-cave-lizard-charge", {
+    slot: "B", inputs: ["up", "enter"],
+    placement: [32, 32, "encounter:area:27:SPRIT8.DAX:59:0:0", 80, 80],
+    terrain: { area: 27, views: 3, patterns: 17 },
+    approachSequence: [
+      [48, 32, "encounter:area:27:SPRIT8.DAX:59:2:0", 40, 57],
+      [48, 32, "encounter:area:27:SPRIT8.DAX:59:1:0", 48, 65],
+      [32, 32, "encounter:area:27:SPRIT8.DAX:59:0:0", 80, 80],
+    ],
+    dialogue: { key: "enter", portrait: "portrait:area:27:PIC8.DAX:59:0:0", prompt: /FOURGIANTLIZARDSRUNUPANDATTACKTHEPARTY/i },
+  }],
   ["wild-cave-gnoll-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [40, 32, "encounter:area:27:SPRIT8.DAX:73:0:0", 56, 80],
@@ -2708,6 +2719,23 @@ try {
       console.log("Native save:", saved);
     }
   } else if (encounterRoute) {
+    const approachSequence = encounterRoute.approachSequence;
+    if (approachSequence) await run(`(() => {
+      window.observedApproach = new Set();
+      const layer = document.querySelector("#tile-art");
+      new MutationObserver(() => {
+        const img = layer.querySelector(".encounter-sprite");
+        if (!img || layer.querySelectorAll(".terrain-tile").length !== 121) return;
+        for (const [x, y, id, w, h] of ${JSON.stringify(approachSequence)}) {
+          const left = (8 + (x - 24) * 120 / 88) / 3.2;
+          const top = (8 + (y - 24) * 120 / 88) / 2;
+          if (img.getAttribute("src") === "/art/" + id && img.naturalWidth === w * 4 && img.naturalHeight === h * 4 &&
+              Math.abs(parseFloat(img.style.left) - left) < .001 && Math.abs(parseFloat(img.style.top) - top) < .001) {
+            window.observedApproach.add(id);
+          }
+        }
+      }).observe(layer, { childList: true });
+    })()`);
     const terrainPatterns = new Set();
     let terrainViews = 0;
     const terrain = encounterRoute.terrain;
@@ -2731,6 +2759,9 @@ try {
       await switchBothWays();
     }
     await verifyApproach(encounterRoute.placement);
+    if (approachSequence) {
+      assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
     if (terrain) {
       assert.equal(terrainViews, terrain.views);
       assert.equal(terrainPatterns.size, terrain.patterns);

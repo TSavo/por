@@ -1603,6 +1603,11 @@ The giant lizard route additionally verifies 15 cave terrain patterns
 across three views. Controlled replays check its middle and far cave
 sprites at (48,32) over the same 121 enhanced tiles and continue to the
 minotaur encounter dialogue.
+The separate `wild-cave-lizard-charge` replay uses `combat-agent-area27-lizard-B.json`
+from the local replay workspace. In this encounter the original game draws
+far, middle, and near between inputs. The browser captures each completed
+draw and displays the three Enhanced poses in order over all 121 terrain
+tiles before the dialogue portrait.
 The gnoll and wyvern routes each verify 17 cave terrain patterns across
 three views. Together with the minotaur chamber, the nine views use 19
 distinct 32×32 tiles, including the added wall and floor junctions.

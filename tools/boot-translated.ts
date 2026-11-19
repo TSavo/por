@@ -54,6 +54,8 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const boot = installProgram(cpu, exe.data, ovr.data);
   const capturePresentationDelay = input?.capturePresentationDelay;
   const capturePerspective = input?.capturePerspective;
+  const captureEncounterDraw = input?.captureEncounterDraw;
+  const encounterSegment = captureEncounterDraw && loadedSlices.find(({ index }) => index === 29)?.loadPara;
   const viewportSegment = capturePerspective && loadedSlices.find(({ index }) => index === 36)?.loadPara;
   const localScenerySegment = capturePerspective && loadedSlices.find(({ index }) => index === 30)?.loadPara;
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
@@ -72,6 +74,8 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       }
       // The original executable holds the attack pose during this delay.
       if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) capturePresentationDelay?.(this);
+      // Some approach sequences refresh several native distances between inputs.
+      if (at === 0x078a && this.cs === encounterSegment && this.steps >= liveStep) captureEncounterDraw?.(this);
       // The terrain routine writes to the guest's offscreen EGA surface.
       if (at === 0x014d && this.cs === terrainDrawSegment && this.steps >= liveStep && captureBattleTerrain &&
           this.read8(this.ds, 0x497e) === 1 && this.read8(this.ss, (this.sp + 4) & 0xffff) === 1) {

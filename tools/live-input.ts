@@ -353,6 +353,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   return {
     requestKey,
+    captureEncounterDraw: browser && Object.keys(encounterPlacements).length ? (cpu: Cpu) => {
+      if (scene || area === undefined || animation.length >= 12) return;
+      battleCursor = cpu.read16(0x740, 0x494e);
+      showFrame(undefined, undefined, true);
+    } : undefined,
     captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;
       const x = 8 + column * 8;
