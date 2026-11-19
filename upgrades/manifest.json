@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:9:SPRIT2.DAX:12:0:0": "stojanow-wagon-trader-approach.png",
     "tile:29:d46241306c8fa8cb736fa216c7d1ab56e62b6495d92843bfcda972f5162d6158": "kuto-court-junctions-terrain-d46241306c8f.png",
     "tile:29:d9b51cc9360d17737eebf2fc825d7cc895e96ea1d6f2020a5a7c8d54e5228dea": "kuto-court-junctions-terrain-d9b51cc9360d.png",
     "tile:29:2641de725160bed3ccf83642677807161ae17c04ec7f0201d24c4444cea4309c": "kuto-court-junctions-terrain-2641de725160.png",
@@ -4024,6 +4025,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:9:SPRIT2.DAX:12:0:0": { "area": 9, "x": 56, "y": 32, "width": 24, "height": 80 },
     "encounter:area:15:SPRIT2.DAX:17:0:0": { "area": 15, "x": 56, "y": 32, "width": 32, "height": 80 },
     "encounter:area:15:SPRIT2.DAX:0:0:0": { "area": 15, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:21:SPRIT4.DAX:18:0:0": { "area": 21, "x": 24, "y": 32, "width": 88, "height": 80 },
