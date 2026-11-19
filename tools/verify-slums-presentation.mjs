@@ -2477,6 +2477,11 @@ try {
       const reports = await run("window.combatReports");
       assert.ok(reports.some(text => /ALDA.*ATTACKS.*ROLF.*MISSES/i.test(text)));
       assert.ok(reports.some(text => /ALDA.*ATTACKS.*ROLF.*HITTINGFOR2.*DAMAGE/i.test(text)));
+      frame = decision;
+      await waitFor("the rendered Continue Battle prompt", () => run(`state.sequence === ${decision.sequence} &&
+        state.ready && !animationFrame && !document.querySelector("#game-text").hidden &&
+        /CONTINUEBATTLE:YESNO/i.test(document.querySelector("#game-text").textContent.replace(/\\s+/g, ""))`));
+      await switchBothWays();
       assert.deepEqual(readFileSync(saved), originalSave);
       console.log("Verified one Quick key advances native combat to the manual Continue Battle prompt.");
     }
