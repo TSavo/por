@@ -1336,6 +1336,11 @@ the middle and near poses at their original anchors in separate encounters.
 `kobold-cave-wyvern-dialogue` verify the Mummy approach sprite and two
 pre-combat illustrations. Chrome checks the artwork and state-preserving
 mode switches on all five encounter replays.
+`new-phlan-west-covered-lanes` checks 13 new ceiling, doorway, and
+street tiles with 1,936 placements across 16 views.
+`buccaneer-captain-dialogue` checks the captain's greeting, original
+portrait source and 352×352 replacement, and state-preserving switches.
+`buccaneer-pass-seller` verifies the pass offer and its distinct portrait.
 `kuto-east-rubble-lanes` checks 29 new rubble, masonry, and doorway
 tiles across 10 views, and `textile-north-yard` checks 16 new wall,
 ivy, and doorway tiles across 16 views.

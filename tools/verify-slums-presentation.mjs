@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["buccaneer-pass-seller", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:area:1:HEAD6.DAX:10:BODY6.DAX:9", prompt: /WANTTOBUYAPASSTOSEETHECAPTAIN/i,
+  }],
+  ["buccaneer-captain-dialogue", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:1:HEAD6.DAX:9:BODY6.DAX:5", prompt: /CAPTAINLOOKSYOUOVER/i,
+  }],
   ["mendor-fighter-dialogue", {
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:15:PIC2.DAX:25:0:0", prompt: /YOUFINDAFIGHTERWITHBATTEREDARMOR/i,
@@ -261,6 +269,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["new-phlan-west-covered-lanes", {
+    slot: "B", area: 0, views: 16, patterns: 32, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up"],
+  }],
   ["textile-north-yard", {
     slot: "H", area: 2, views: 16, patterns: 71, sceneryOnly: true,
     walk: ["up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "left", "up", "up", "right", "up"],
