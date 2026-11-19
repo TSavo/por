@@ -9,7 +9,7 @@ import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 import { loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
 import { compositePortraitKey, loadPortraitArt, portraitKey } from "./portrait-art.js";
-import { loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
+import { isCombatExtent, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
 const families = [
   [/^(TITLE|FINAL\d+)\.DAX$/, "Title and ending"],
@@ -468,7 +468,8 @@ const explorationTotals = explorationCoverage.reduce((totals, { captured, matche
 const battlefieldCaptured = capturedTiles.size - explorationTotals.captured;
 const battlefieldTotals = { captured: battlefieldCaptured, matched: battlefieldCaptured - battlefieldGaps };
 const portraitFrame = new Frame(320, 200);
-const replacementPreviews = new Map(replacements.map(({ id, preview }) => [id, preview]));
+const combatFrame = new Frame(320, 200);
+const replacementsById = new Map(replacements.map(replacement => [replacement.id, replacement]));
 const encounterCoverage = archives.filter(({ file }) => /^(?:PIC|SPRIT|CPIC)\d+\.DAX$/.test(file))
   .map(({ file, entries }) => {
     let frames = 0;
@@ -484,13 +485,37 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:PIC|SPRIT|CPIC)\d+\
         })).filter(({ frame }) => !linked.has(`${member}:${frame}`));
       });
     });
-    const pixelMatchedFrames = /^PIC\d+\.DAX$/.test(file) ? unlinkedFrames.flatMap(source => {
-      if (source.width !== 88 * artScale || source.height !== 88 * artScale) return [];
-      const picture = classicPicture(file, source.directoryIndex, source.member);
-      portraitFrame.blit(frameSlice(picture, source.frame), 88, 88, 24, 24);
-      const replacement = matchPortrait(portraitFrame);
-      return typeof replacement === "string" ? [{ ...source, replacement, replacementPreview: replacementPreviews.get(replacement)! }] : [];
-    }) : [];
+    const pixelMatchedFrames = unlinkedFrames.flatMap(source => {
+      const width = source.width / artScale, height = source.height / artScale;
+      let replacement: string | undefined;
+      let reflected: boolean | undefined;
+      if (file.startsWith("PIC") && width === 88 && height === 88) {
+        const picture = classicPicture(file, source.directoryIndex, source.member);
+        portraitFrame.blit(frameSlice(picture, source.frame), width, height, 24, 24);
+        const match = matchPortrait(portraitFrame);
+        if (typeof match === "string") replacement = match;
+      } else if (file.startsWith("CPIC") && isCombatExtent(width, height)) {
+        const picture = classicPicture(file, source.directoryIndex, source.member);
+        const pixels = frameSlice(picture, source.frame);
+        combatFrame.pixels.fill(0);
+        combatFrame.blit(pixels, width, height, 8, 8);
+        const match = matchGlobalCombatArt(combatFrame).find(([x, y, , , , w = 24, h = 24]) =>
+          x === 8 && y === 8 && w === width && h === height);
+        const native = match && replacementsById.get(match[2])?.source;
+        if (match && native) {
+          const artPicture = classicPicture(native.archive, native.directoryIndex, native.member);
+          const artPixels = frameSlice(artPicture, native.frame);
+          // The live matcher can separate an actor from the terrain behind
+          // it. Here the candidate must match the complete pose bitmap.
+          const exact = artPixels.length === pixels.length && artPixels.every((color, index) => {
+            const column = index % width;
+            return color === pixels[match[3] ? index - column + width - 1 - column : index];
+          });
+          if (exact) [, , replacement, reflected] = match;
+        }
+      }
+      return replacement ? [{ ...source, replacement, reflected, replacementPreview: replacementsById.get(replacement)!.preview }] : [];
+    });
     const pixelMatchedIds = new Set(pixelMatchedFrames.map(({ id }) => id));
     return { file, frames, matched: frames - unlinkedFrames.length, pixelMatchedFrames,
       unlinkedFrames: unlinkedFrames.filter(({ id }) => !pixelMatchedIds.has(id)) };
@@ -547,16 +572,16 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
   return `<tr><th scope="row">${area}</th><td>${captured}</td><td>${matched}</td><td>${gap}</td></tr>`;
 }).join("")}
 </tbody></table></details>` : ""}
-<details><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} linked · ${encounterTotals.matchedByPixels} exact portrait matches · ${encounterTotals.remaining} unlinked</summary>
-<p>An area-specific replacement counts once for the source frame. An exact portrait match uses a replacement the browser's global matcher already finds. Composite portraits are listed under Runtime artwork.</p>
-<table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>Linked</th><th>Exact portrait matches</th><th>Unlinked</th></tr></thead><tbody>
+<details><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} linked · ${encounterTotals.matchedByPixels} exact matches · ${encounterTotals.remaining} unlinked</summary>
+<p>An area-specific replacement counts once for the source frame. Exact matches use replacements the browser's global portrait or combat matcher already finds. Composite portraits are listed under Runtime artwork.</p>
+<table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>Linked</th><th>Exact matches</th><th>Unlinked</th></tr></thead><tbody>
 ${encounterCoverage.map(({ file, frames, matched, pixelMatchedFrames, unlinkedFrames }) =>
   `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${pixelMatchedFrames.length}</td><td>${unlinkedFrames.length ? `<a href="#archive-${escape(file)}">${unlinkedFrames.length}</a>` : "0"}</td></tr>`).join("")}
 </tbody></table></details>
-<details><summary>Exact portrait matches · ${encounterTotals.matchedByPixels}</summary>
+<details><summary>Exact portrait and combat matches · ${encounterTotals.matchedByPixels}</summary>
 <table class="coverage-table"><thead><tr><th>Source ID</th><th>Replacement ID</th><th>Preview</th></tr></thead><tbody>
-${encounterCoverage.flatMap(({ pixelMatchedFrames }) => pixelMatchedFrames).map(({ id, replacement, replacementPreview }) =>
-  `<tr><th scope="row"><code>${escape(id)}</code></th><td><code>${escape(replacement)}</code></td><td><a href="${escape(replacementPreview)}">Enhanced PNG</a></td></tr>`).join("")}
+${encounterCoverage.flatMap(({ pixelMatchedFrames }) => pixelMatchedFrames).map(({ id, replacement, replacementPreview, reflected }) =>
+  `<tr><th scope="row"><code>${escape(id)}</code></th><td><code>${escape(replacement)}</code>${reflected ? " · mirrored" : ""}</td><td><a href="${escape(replacementPreview)}">Enhanced PNG</a></td></tr>`).join("")}
 </tbody></table></details>
 <details><summary>Unlinked source frames · ${encounterTotals.remaining}</summary>
 <p>Each source ID contains the archive, directory entry, member, and zero-based frame number. The preview opens the source sheet. Some archive frames may have no verified in-game use.</p>
