@@ -534,6 +534,10 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-lower-snake-dialogue", {
+    slot: "B", inputs: ["up", "enter"],
+    portrait: "portrait:area:3:PIC5.DAX:60:0:0", prompt: /YOUSEEGIANTSNAKES/i,
+  }],
   ["valjevo-audience-bodyguards", {
     slot: "B", inputs: ["right", "up", "up", "enter", "enter", "enter"],
     portrait: "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1",
