@@ -2,8 +2,8 @@
   "schema": 1,
   "policy": "No dynamic value is guessed. Values are either proven from local ECL assignments, runtime-only, or left for encounter-table tracing.",
   "unresolvedUnitCountBeforeTrace": 84,
-  "unitsResolvedToFiniteVariants": 5,
-  "unitsStillRuntimeDependent": 79,
+  "unitsResolvedToFiniteVariants": 43,
+  "unitsStillRuntimeDependent": 41,
   "slotSemantics": {
     "0x6b00": {
       "meaning": "selected party-member name",
@@ -144,6 +144,1813 @@
       "'THERE IS A FINE CURATE WHO WILL JOIN YOU FOR 3 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
       "'THERE IS A FINE HERO WHO WILL JOIN YOU FOR 4 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
       "'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'"
+    ]
+  },
+  "resolvedVariantRecords": {
+    "por.voice.ecl3.b0-a413-a438": [
+      {
+        "value": "1",
+        "condition": "0x6e7e == 1",
+        "text": "YOU OVERHEAR TAVERN TALE 1"
+      },
+      {
+        "value": "2",
+        "condition": "0x6e7e == 2",
+        "text": "YOU OVERHEAR TAVERN TALE 2"
+      },
+      {
+        "value": "3",
+        "condition": "0x6e7e == 3",
+        "text": "YOU OVERHEAR TAVERN TALE 3"
+      },
+      {
+        "value": "4",
+        "condition": "0x6e7e == 4",
+        "text": "YOU OVERHEAR TAVERN TALE 4"
+      },
+      {
+        "value": "5",
+        "condition": "0x6e7e == 5",
+        "text": "YOU OVERHEAR TAVERN TALE 5"
+      },
+      {
+        "value": "6",
+        "condition": "0x6e7e == 6",
+        "text": "YOU OVERHEAR TAVERN TALE 6"
+      },
+      {
+        "value": "7",
+        "condition": "0x6e7e == 7",
+        "text": "YOU OVERHEAR TAVERN TALE 7"
+      },
+      {
+        "value": "8",
+        "condition": "0x6e7e == 8",
+        "text": "YOU OVERHEAR TAVERN TALE 8"
+      },
+      {
+        "value": "9",
+        "condition": "0x6e7e == 9",
+        "text": "YOU OVERHEAR TAVERN TALE 9"
+      },
+      {
+        "value": "10",
+        "condition": "0x6e7e == 10",
+        "text": "YOU OVERHEAR TAVERN TALE 10"
+      },
+      {
+        "value": "11",
+        "condition": "0x6e7e == 11",
+        "text": "YOU OVERHEAR TAVERN TALE 11"
+      },
+      {
+        "value": "12",
+        "condition": "0x6e7e == 12",
+        "text": "YOU OVERHEAR TAVERN TALE 12"
+      },
+      {
+        "value": "13",
+        "condition": "0x6e7e == 13",
+        "text": "YOU OVERHEAR TAVERN TALE 13"
+      },
+      {
+        "value": "14",
+        "condition": "0x6e7e == 14",
+        "text": "YOU OVERHEAR TAVERN TALE 14"
+      },
+      {
+        "value": "15",
+        "condition": "0x6e7e == 15",
+        "text": "YOU OVERHEAR TAVERN TALE 15"
+      },
+      {
+        "value": "16",
+        "condition": "0x6e7e == 16",
+        "text": "YOU OVERHEAR TAVERN TALE 16"
+      },
+      {
+        "value": "17",
+        "condition": "0x6e7e == 17",
+        "text": "YOU OVERHEAR TAVERN TALE 17"
+      },
+      {
+        "value": "18",
+        "condition": "0x6e7e == 18",
+        "text": "YOU OVERHEAR TAVERN TALE 18"
+      },
+      {
+        "value": "19",
+        "condition": "0x6e7e == 19",
+        "text": "YOU OVERHEAR TAVERN TALE 19"
+      },
+      {
+        "value": "20",
+        "condition": "0x6e7e == 20",
+        "text": "YOU OVERHEAR TAVERN TALE 20"
+      },
+      {
+        "value": "21",
+        "condition": "0x6e7e == 21",
+        "text": "YOU OVERHEAR TAVERN TALE 21"
+      },
+      {
+        "value": "22",
+        "condition": "0x6e7e == 22",
+        "text": "YOU OVERHEAR TAVERN TALE 22"
+      },
+      {
+        "value": "23",
+        "condition": "0x6e7e == 23",
+        "text": "YOU OVERHEAR TAVERN TALE 23"
+      },
+      {
+        "value": "24",
+        "condition": "0x6e7e == 24",
+        "text": "YOU OVERHEAR TAVERN TALE 24"
+      }
+    ],
+    "por.voice.ecl3.b0-ac22-ac8a-ac96": [
+      {
+        "value": "CI.",
+        "condition": "0x985e == \"CI.\"",
+        "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCI."
+      },
+      {
+        "value": "CXXVI AND CX.",
+        "condition": "0x985e == \"CXXVI AND CX.\"",
+        "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCXXVI AND CX."
+      },
+      {
+        "value": "CXXXIV.",
+        "condition": "0x985e == \"CXXXIV.\"",
+        "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCXXXIV."
+      },
+      {
+        "value": "CLIV.",
+        "condition": "0x985e == \"CLIV.\"",
+        "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCLIV."
+      },
+      {
+        "value": "CXIV.",
+        "condition": "0x985e == \"CXIV.\"",
+        "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCXIV."
+      },
+      {
+        "value": "CCIV.",
+        "condition": "0x985e == \"CCIV.\"",
+        "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCCIV."
+      },
+      {
+        "value": "CXXIX.",
+        "condition": "0x985e == \"CXXIX.\"",
+        "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCXXIX."
+      },
+      {
+        "value": "CCI.",
+        "condition": "0x985e == \"CCI.\"",
+        "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCCI."
+      }
+    ],
+    "por.voice.ecl3.b8-9e4a-9e68": [
+      {
+        "value": "LIBRARY.'",
+        "condition": "0x9890 == \"LIBRARY.'\"",
+        "text": "'THERE IS A REWARD FOR CLEARING THE LIBRARY.'"
+      },
+      {
+        "value": "PODAL PLAZA.'",
+        "condition": "0x9890 == \"PODAL PLAZA.'\"",
+        "text": "'THERE IS A REWARD FOR CLEARING THE PODAL PLAZA.'"
+      },
+      {
+        "value": "CADORNA TEXTILE HOUSE.'",
+        "condition": "0x9890 == \"CADORNA TEXTILE HOUSE.'\"",
+        "text": "'THERE IS A REWARD FOR CLEARING THE CADORNA TEXTILE HOUSE.'"
+      }
+    ],
+    "por.voice.ecl3.b11-a00e-a021": [
+      {
+        "value": "FIGHTERS ",
+        "condition": "0x982c == \"FIGHTERS \"",
+        "text": "'WE TRAIN ONLY FIGHTERS HERE. DO YOU WANT TO TRAIN?'"
+      },
+      {
+        "value": "THIEVES ",
+        "condition": "0x982c == \"THIEVES \"",
+        "text": "'WE TRAIN ONLY THIEVES HERE. DO YOU WANT TO TRAIN?'"
+      }
+    ],
+    "por.voice.ecl3.b11-9eab-9ed8": [
+      {
+        "value": "ACOLYTE",
+        "condition": "companion candidate index 0x6e7a == 0",
+        "text": "'THERE IS A FINE ACOLYTE WHO WILL JOIN YOU FOR 1 SHARE. IS THIS ACCEPTABLE?'"
+      },
+      {
+        "value": "WARRIOR",
+        "condition": "companion candidate index 0x6e7a == 1",
+        "text": "'THERE IS A FINE WARRIOR WHO WILL JOIN YOU FOR 1 SHARE. IS THIS ACCEPTABLE?'"
+      },
+      {
+        "value": "EVOKER",
+        "condition": "companion candidate index 0x6e7a == 2",
+        "text": "'THERE IS A FINE EVOKER WHO WILL JOIN YOU FOR 2 SHARES. IS THIS ACCEPTABLE?'"
+      },
+      {
+        "value": "SWORDSMAN",
+        "condition": "companion candidate index 0x6e7a == 3",
+        "text": "'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'"
+      },
+      {
+        "value": "ROBBER",
+        "condition": "companion candidate index 0x6e7a == 4",
+        "text": "'THERE IS A FINE ROBBER WHO WILL JOIN YOU FOR 3 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'"
+      },
+      {
+        "value": "CURATE",
+        "condition": "companion candidate index 0x6e7a == 5",
+        "text": "'THERE IS A FINE CURATE WHO WILL JOIN YOU FOR 3 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'"
+      },
+      {
+        "value": "HERO",
+        "condition": "companion candidate index 0x6e7a == 6",
+        "text": "'THERE IS A FINE HERO WHO WILL JOIN YOU FOR 4 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'"
+      },
+      {
+        "value": "THEURGIST",
+        "condition": "companion candidate index 0x6e7a == 7",
+        "text": "'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'"
+      }
+    ],
+    "ecl2-b20-9c2a-9c43-9c5c": [
+      {
+        "value": " KOBOLDS. ",
+        "condition": "0x9890 == \" KOBOLDS. \"",
+        "text": "YOU ARE SURPRISED BY A BUGBEAR LEADING A PARTY OF KOBOLDS."
+      },
+      {
+        "value": " GOBLINS. ",
+        "condition": "0x9890 == \" GOBLINS. \"",
+        "text": "YOU ARE SURPRISED BY A BUGBEAR LEADING A PARTY OF GOBLINS."
+      },
+      {
+        "value": " ORCS. ",
+        "condition": "0x9890 == \" ORCS. \"",
+        "text": "YOU ARE SURPRISED BY A BUGBEAR LEADING A PARTY OF ORCS."
+      }
+    ],
+    "ecl2-b20-b25a-b276-b286-b292": [
+      {
+        "value": " KOBOLDS. ",
+        "condition": "0x9890 == \" KOBOLDS. \"",
+        "text": "YOU ARE CONVERSING WITH A BUGBEAR LEADING A PARTY OF KOBOLDS."
+      },
+      {
+        "value": " GOBLINS. ",
+        "condition": "0x9890 == \" GOBLINS. \"",
+        "text": "YOU ARE CONVERSING WITH A BUGBEAR LEADING A PARTY OF GOBLINS."
+      },
+      {
+        "value": " ORCS. ",
+        "condition": "0x9890 == \" ORCS. \"",
+        "text": "YOU ARE CONVERSING WITH A BUGBEAR LEADING A PARTY OF ORCS."
+      }
+    ],
+    "ecl2-b20-b65b-b66d-b671": [
+      {
+        "value": " KOBOLDS. ",
+        "condition": "0x9890 == \" KOBOLDS. \"",
+        "text": "YOU HAVE ANGERED THE KOBOLDS. THEY ATTACK."
+      },
+      {
+        "value": " GOBLINS. ",
+        "condition": "0x9890 == \" GOBLINS. \"",
+        "text": "YOU HAVE ANGERED THE GOBLINS. THEY ATTACK."
+      },
+      {
+        "value": " ORCS. ",
+        "condition": "0x9890 == \" ORCS. \"",
+        "text": "YOU HAVE ANGERED THE ORCS. THEY ATTACK."
+      }
+    ],
+    "ecl4-b10-a5d7": [
+      {
+        "value": "THE SPECTRE HAS NOTICED YOU.",
+        "condition": "0x982c == \"THE SPECTRE HAS NOTICED YOU.\"",
+        "text": "THE SPECTRE HAS NOTICED YOU."
+      },
+      {
+        "value": " SKELETONS.",
+        "condition": "0x982c == \" SKELETONS.\"",
+        "text": "SKELETONS."
+      },
+      {
+        "value": " ZOMBIES.",
+        "condition": "0x982c == \" ZOMBIES.\"",
+        "text": "ZOMBIES."
+      },
+      {
+        "value": " WIGHTS.",
+        "condition": "0x982c == \" WIGHTS.\"",
+        "text": "WIGHTS."
+      }
+    ],
+    "ecl4-b10-a7d5": [
+      {
+        "value": "THE SPECTRE HAS NOTICED YOU.",
+        "condition": "0x982c == \"THE SPECTRE HAS NOTICED YOU.\"",
+        "text": "THE SPECTRE HAS NOTICED YOU."
+      },
+      {
+        "value": " SKELETONS.",
+        "condition": "0x982c == \" SKELETONS.\"",
+        "text": "SKELETONS."
+      },
+      {
+        "value": " ZOMBIES.",
+        "condition": "0x982c == \" ZOMBIES.\"",
+        "text": "ZOMBIES."
+      },
+      {
+        "value": " WIGHTS.",
+        "condition": "0x982c == \" WIGHTS.\"",
+        "text": "WIGHTS."
+      }
+    ],
+    "ecl4-b10-aaf2": [
+      {
+        "value": "THE SPECTRE HAS NOTICED YOU.",
+        "condition": "0x982c == \"THE SPECTRE HAS NOTICED YOU.\"",
+        "text": "THE SPECTRE HAS NOTICED YOU."
+      },
+      {
+        "value": " SKELETONS.",
+        "condition": "0x982c == \" SKELETONS.\"",
+        "text": "SKELETONS."
+      },
+      {
+        "value": " ZOMBIES.",
+        "condition": "0x982c == \" ZOMBIES.\"",
+        "text": "ZOMBIES."
+      },
+      {
+        "value": " WIGHTS.",
+        "condition": "0x982c == \" WIGHTS.\"",
+        "text": "WIGHTS."
+      }
+    ],
+    "por.voice.ecl5.b3-9cb7-9cbb": [
+      {
+        "value": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980e == \"A PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU."
+      }
+    ],
+    "por.voice.ecl5.b4-9c0c-9c10": [
+      {
+        "value": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980e == \"A PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU."
+      }
+    ],
+    "por.voice.ecl5.b6-a90c-a910": [
+      {
+        "value": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980e == \"A PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU."
+      }
+    ],
+    "ecl6-b25-a128-a13a": [
+      {
+        "value": "QUICKLINGS",
+        "condition": "0x982c == \"QUICKLINGS\"",
+        "text": "YOU SPOT A GROUP OF QUICKLINGS"
+      },
+      {
+        "value": "WILD BOARS",
+        "condition": "0x982c == \"WILD BOARS\"",
+        "text": "YOU SPOT A GROUP OF WILD BOARS"
+      },
+      {
+        "value": "GIANT MANTIS",
+        "condition": "0x982c == \"GIANT MANTIS\"",
+        "text": "YOU SPOT A GROUP OF GIANT MANTIS"
+      },
+      {
+        "value": "TIGERS",
+        "condition": "0x982c == \"TIGERS\"",
+        "text": "YOU SPOT A GROUP OF TIGERS"
+      },
+      {
+        "value": "THRI-KREENS",
+        "condition": "0x982c == \"THRI-KREENS\"",
+        "text": "YOU SPOT A GROUP OF THRI-KREENS"
+      },
+      {
+        "value": "ANHKHEG",
+        "condition": "0x982c == \"ANHKHEG\"",
+        "text": "YOU SPOT A GROUP OF ANHKHEG"
+      },
+      {
+        "value": "CENTAURS",
+        "condition": "0x982c == \"CENTAURS\"",
+        "text": "YOU SPOT A GROUP OF CENTAURS"
+      },
+      {
+        "value": "SOLDIERS",
+        "condition": "0x982c == \"SOLDIERS\"",
+        "text": "YOU SPOT A GROUP OF SOLDIERS"
+      },
+      {
+        "value": "THIEVES",
+        "condition": "0x982c == \"THIEVES\"",
+        "text": "YOU SPOT A GROUP OF THIEVES"
+      },
+      {
+        "value": "BUCCANEERS",
+        "condition": "0x982c == \"BUCCANEERS\"",
+        "text": "YOU SPOT A GROUP OF BUCCANEERS"
+      },
+      {
+        "value": "GIANT SNAKES",
+        "condition": "0x982c == \"GIANT SNAKES\"",
+        "text": "YOU SPOT A GROUP OF GIANT SNAKES"
+      }
+    ],
+    "ecl6-b25-a172-a18d-a191": [
+      {
+        "value": "QUICKLINGS",
+        "condition": "0x982c == \"QUICKLINGS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF QUICKLINGS."
+      },
+      {
+        "value": "WILD BOARS",
+        "condition": "0x982c == \"WILD BOARS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF WILD BOARS."
+      },
+      {
+        "value": "GIANT MANTIS",
+        "condition": "0x982c == \"GIANT MANTIS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF GIANT MANTIS."
+      },
+      {
+        "value": "TIGERS",
+        "condition": "0x982c == \"TIGERS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF TIGERS."
+      },
+      {
+        "value": "THRI-KREENS",
+        "condition": "0x982c == \"THRI-KREENS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF THRI-KREENS."
+      },
+      {
+        "value": "ANHKHEG",
+        "condition": "0x982c == \"ANHKHEG\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF ANHKHEG."
+      },
+      {
+        "value": "CENTAURS",
+        "condition": "0x982c == \"CENTAURS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF CENTAURS."
+      },
+      {
+        "value": "SOLDIERS",
+        "condition": "0x982c == \"SOLDIERS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF SOLDIERS."
+      },
+      {
+        "value": "THIEVES",
+        "condition": "0x982c == \"THIEVES\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF THIEVES."
+      },
+      {
+        "value": "BUCCANEERS",
+        "condition": "0x982c == \"BUCCANEERS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF BUCCANEERS."
+      },
+      {
+        "value": "GIANT SNAKES",
+        "condition": "0x982c == \"GIANT SNAKES\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF GIANT SNAKES."
+      }
+    ],
+    "ecl6-b25-a1c7-a1dc-a1e0": [
+      {
+        "value": "QUICKLINGS",
+        "condition": "0x982c == \"QUICKLINGS\"",
+        "text": "YOU SURPRISE A GROUP OF QUICKLINGS."
+      },
+      {
+        "value": "WILD BOARS",
+        "condition": "0x982c == \"WILD BOARS\"",
+        "text": "YOU SURPRISE A GROUP OF WILD BOARS."
+      },
+      {
+        "value": "GIANT MANTIS",
+        "condition": "0x982c == \"GIANT MANTIS\"",
+        "text": "YOU SURPRISE A GROUP OF GIANT MANTIS."
+      },
+      {
+        "value": "TIGERS",
+        "condition": "0x982c == \"TIGERS\"",
+        "text": "YOU SURPRISE A GROUP OF TIGERS."
+      },
+      {
+        "value": "THRI-KREENS",
+        "condition": "0x982c == \"THRI-KREENS\"",
+        "text": "YOU SURPRISE A GROUP OF THRI-KREENS."
+      },
+      {
+        "value": "ANHKHEG",
+        "condition": "0x982c == \"ANHKHEG\"",
+        "text": "YOU SURPRISE A GROUP OF ANHKHEG."
+      },
+      {
+        "value": "CENTAURS",
+        "condition": "0x982c == \"CENTAURS\"",
+        "text": "YOU SURPRISE A GROUP OF CENTAURS."
+      },
+      {
+        "value": "SOLDIERS",
+        "condition": "0x982c == \"SOLDIERS\"",
+        "text": "YOU SURPRISE A GROUP OF SOLDIERS."
+      },
+      {
+        "value": "THIEVES",
+        "condition": "0x982c == \"THIEVES\"",
+        "text": "YOU SURPRISE A GROUP OF THIEVES."
+      },
+      {
+        "value": "BUCCANEERS",
+        "condition": "0x982c == \"BUCCANEERS\"",
+        "text": "YOU SURPRISE A GROUP OF BUCCANEERS."
+      },
+      {
+        "value": "GIANT SNAKES",
+        "condition": "0x982c == \"GIANT SNAKES\"",
+        "text": "YOU SURPRISE A GROUP OF GIANT SNAKES."
+      }
+    ],
+    "ecl6-b25-a216-a23c-a240": [
+      {
+        "value": "QUICKLINGS",
+        "condition": "0x982c == \"QUICKLINGS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF QUICKLINGS."
+      },
+      {
+        "value": "WILD BOARS",
+        "condition": "0x982c == \"WILD BOARS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF WILD BOARS."
+      },
+      {
+        "value": "GIANT MANTIS",
+        "condition": "0x982c == \"GIANT MANTIS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF GIANT MANTIS."
+      },
+      {
+        "value": "TIGERS",
+        "condition": "0x982c == \"TIGERS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF TIGERS."
+      },
+      {
+        "value": "THRI-KREENS",
+        "condition": "0x982c == \"THRI-KREENS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF THRI-KREENS."
+      },
+      {
+        "value": "ANHKHEG",
+        "condition": "0x982c == \"ANHKHEG\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF ANHKHEG."
+      },
+      {
+        "value": "CENTAURS",
+        "condition": "0x982c == \"CENTAURS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF CENTAURS."
+      },
+      {
+        "value": "SOLDIERS",
+        "condition": "0x982c == \"SOLDIERS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF SOLDIERS."
+      },
+      {
+        "value": "THIEVES",
+        "condition": "0x982c == \"THIEVES\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF THIEVES."
+      },
+      {
+        "value": "BUCCANEERS",
+        "condition": "0x982c == \"BUCCANEERS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF BUCCANEERS."
+      },
+      {
+        "value": "GIANT SNAKES",
+        "condition": "0x982c == \"GIANT SNAKES\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF GIANT SNAKES."
+      }
+    ],
+    "ecl6-b25-a2fe-a304-a308": [
+      {
+        "value": "QUICKLINGS",
+        "condition": "0x982c == \"QUICKLINGS\"",
+        "text": "THE QUICKLINGS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "WILD BOARS",
+        "condition": "0x982c == \"WILD BOARS\"",
+        "text": "THE WILD BOARS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "GIANT MANTIS",
+        "condition": "0x982c == \"GIANT MANTIS\"",
+        "text": "THE GIANT MANTIS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "TIGERS",
+        "condition": "0x982c == \"TIGERS\"",
+        "text": "THE TIGERS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "THRI-KREENS",
+        "condition": "0x982c == \"THRI-KREENS\"",
+        "text": "THE THRI-KREENS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "ANHKHEG",
+        "condition": "0x982c == \"ANHKHEG\"",
+        "text": "THE ANHKHEG FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "CENTAURS",
+        "condition": "0x982c == \"CENTAURS\"",
+        "text": "THE CENTAURS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "SOLDIERS",
+        "condition": "0x982c == \"SOLDIERS\"",
+        "text": "THE SOLDIERS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "THIEVES",
+        "condition": "0x982c == \"THIEVES\"",
+        "text": "THE THIEVES FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "BUCCANEERS",
+        "condition": "0x982c == \"BUCCANEERS\"",
+        "text": "THE BUCCANEERS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "GIANT SNAKES",
+        "condition": "0x982c == \"GIANT SNAKES\"",
+        "text": "THE GIANT SNAKES FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      }
+    ],
+    "ecl6-b25-a34e-a35e-a362": [
+      {
+        "value": "QUICKLINGS",
+        "condition": "0x982c == \"QUICKLINGS\"",
+        "text": "YOU CONVINCE THE QUICKLINGS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "WILD BOARS",
+        "condition": "0x982c == \"WILD BOARS\"",
+        "text": "YOU CONVINCE THE WILD BOARS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "GIANT MANTIS",
+        "condition": "0x982c == \"GIANT MANTIS\"",
+        "text": "YOU CONVINCE THE GIANT MANTIS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "TIGERS",
+        "condition": "0x982c == \"TIGERS\"",
+        "text": "YOU CONVINCE THE TIGERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "THRI-KREENS",
+        "condition": "0x982c == \"THRI-KREENS\"",
+        "text": "YOU CONVINCE THE THRI-KREENS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "ANHKHEG",
+        "condition": "0x982c == \"ANHKHEG\"",
+        "text": "YOU CONVINCE THE ANHKHEG THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "CENTAURS",
+        "condition": "0x982c == \"CENTAURS\"",
+        "text": "YOU CONVINCE THE CENTAURS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "SOLDIERS",
+        "condition": "0x982c == \"SOLDIERS\"",
+        "text": "YOU CONVINCE THE SOLDIERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "THIEVES",
+        "condition": "0x982c == \"THIEVES\"",
+        "text": "YOU CONVINCE THE THIEVES THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "BUCCANEERS",
+        "condition": "0x982c == \"BUCCANEERS\"",
+        "text": "YOU CONVINCE THE BUCCANEERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "GIANT SNAKES",
+        "condition": "0x982c == \"GIANT SNAKES\"",
+        "text": "YOU CONVINCE THE GIANT SNAKES THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      }
+    ],
+    "ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7": [
+      {
+        "value": "QUICKLINGS",
+        "condition": "0x982c == \"QUICKLINGS\"",
+        "text": "YOU HAVE INSULTED THE QUICKLINGS. THE QUICKLINGS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "WILD BOARS",
+        "condition": "0x982c == \"WILD BOARS\"",
+        "text": "YOU HAVE INSULTED THE WILD BOARS. THE WILD BOARS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "GIANT MANTIS",
+        "condition": "0x982c == \"GIANT MANTIS\"",
+        "text": "YOU HAVE INSULTED THE GIANT MANTIS. THE GIANT MANTIS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "TIGERS",
+        "condition": "0x982c == \"TIGERS\"",
+        "text": "YOU HAVE INSULTED THE TIGERS. THE TIGERS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "THRI-KREENS",
+        "condition": "0x982c == \"THRI-KREENS\"",
+        "text": "YOU HAVE INSULTED THE THRI-KREENS. THE THRI-KREENS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "ANHKHEG",
+        "condition": "0x982c == \"ANHKHEG\"",
+        "text": "YOU HAVE INSULTED THE ANHKHEG. THE ANHKHEG ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "CENTAURS",
+        "condition": "0x982c == \"CENTAURS\"",
+        "text": "YOU HAVE INSULTED THE CENTAURS. THE CENTAURS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "SOLDIERS",
+        "condition": "0x982c == \"SOLDIERS\"",
+        "text": "YOU HAVE INSULTED THE SOLDIERS. THE SOLDIERS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "THIEVES",
+        "condition": "0x982c == \"THIEVES\"",
+        "text": "YOU HAVE INSULTED THE THIEVES. THE THIEVES ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "BUCCANEERS",
+        "condition": "0x982c == \"BUCCANEERS\"",
+        "text": "YOU HAVE INSULTED THE BUCCANEERS. THE BUCCANEERS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "GIANT SNAKES",
+        "condition": "0x982c == \"GIANT SNAKES\"",
+        "text": "YOU HAVE INSULTED THE GIANT SNAKES. THE GIANT SNAKES ATTACK YOU IMMEDIATELY!"
+      }
+    ],
+    "ecl6-b25-a3d0-a3d6-a3da-a401-a405": [
+      {
+        "value": "QUICKLINGS",
+        "condition": "0x982c == \"QUICKLINGS\"",
+        "text": "THE QUICKLINGS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE QUICKLINGS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "WILD BOARS",
+        "condition": "0x982c == \"WILD BOARS\"",
+        "text": "THE WILD BOARS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE WILD BOARS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "GIANT MANTIS",
+        "condition": "0x982c == \"GIANT MANTIS\"",
+        "text": "THE GIANT MANTIS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE GIANT MANTIS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "TIGERS",
+        "condition": "0x982c == \"TIGERS\"",
+        "text": "THE TIGERS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE TIGERS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "THRI-KREENS",
+        "condition": "0x982c == \"THRI-KREENS\"",
+        "text": "THE THRI-KREENS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE THRI-KREENS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "ANHKHEG",
+        "condition": "0x982c == \"ANHKHEG\"",
+        "text": "THE ANHKHEG GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE ANHKHEG THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "CENTAURS",
+        "condition": "0x982c == \"CENTAURS\"",
+        "text": "THE CENTAURS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE CENTAURS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "SOLDIERS",
+        "condition": "0x982c == \"SOLDIERS\"",
+        "text": "THE SOLDIERS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE SOLDIERS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "THIEVES",
+        "condition": "0x982c == \"THIEVES\"",
+        "text": "THE THIEVES GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE THIEVES THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "BUCCANEERS",
+        "condition": "0x982c == \"BUCCANEERS\"",
+        "text": "THE BUCCANEERS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE BUCCANEERS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "GIANT SNAKES",
+        "condition": "0x982c == \"GIANT SNAKES\"",
+        "text": "THE GIANT SNAKES GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE GIANT SNAKES THEN LEAVE AND BID YOU GOOD DAY."
+      }
+    ],
+    "por.voice.ecl7.b22-a222-a20b": [
+      {
+        "value": " A BAND OF HUMAN FIGHTERS.",
+        "condition": "0x9809 == \" A BAND OF HUMAN FIGHTERS.\"",
+        "text": "YOU SEE A BAND OF HUMAN FIGHTERS."
+      },
+      {
+        "value": " DISPLACER BEASTS.",
+        "condition": "0x9809 == \" DISPLACER BEASTS.\"",
+        "text": "YOU SEE DISPLACER BEASTS."
+      },
+      {
+        "value": " DWARVEN FIGHTERS.",
+        "condition": "0x9809 == \" DWARVEN FIGHTERS.\"",
+        "text": "YOU SEE DWARVEN FIGHTERS."
+      },
+      {
+        "value": " A TRIO OF LIZARD MEN.",
+        "condition": "0x9809 == \" A TRIO OF LIZARD MEN.\"",
+        "text": "YOU SEE A TRIO OF LIZARD MEN."
+      },
+      {
+        "value": " VISCIOUS LOOKING DRIDERS.",
+        "condition": "0x9809 == \" VISCIOUS LOOKING DRIDERS.\"",
+        "text": "YOU SEE VISCIOUS LOOKING DRIDERS."
+      },
+      {
+        "value": " SOME GAUNT MEN IN POORLY FITTING LEATHER.",
+        "condition": "0x9809 == \" SOME GAUNT MEN IN POORLY FITTING LEATHER.\"",
+        "text": "YOU SEE SOME GAUNT MEN IN POORLY FITTING LEATHER."
+      },
+      {
+        "value": " LARGE INSECTS WITH RUSTY RED FEATHERS.",
+        "condition": "0x9809 == \" LARGE INSECTS WITH RUSTY RED FEATHERS.\"",
+        "text": "YOU SEE LARGE INSECTS WITH RUSTY RED FEATHERS."
+      },
+      {
+        "value": " SOME LARGE BULL HEADED MEN.",
+        "condition": "0x9809 == \" SOME LARGE BULL HEADED MEN.\"",
+        "text": "YOU SEE SOME LARGE BULL HEADED MEN."
+      },
+      {
+        "value": " A GROUP OF EMACIATED ELVES.",
+        "condition": "0x9809 == \" A GROUP OF EMACIATED ELVES.\"",
+        "text": "YOU SEE A GROUP OF EMACIATED ELVES."
+      },
+      {
+        "value": " SOME HUNGRY LOOKING KOBOLDS.",
+        "condition": "0x9809 == \" SOME HUNGRY LOOKING KOBOLDS.\"",
+        "text": "YOU SEE SOME HUNGRY LOOKING KOBOLDS."
+      }
+    ],
+    "por.voice.ecl7.b22-a22c-a20b": [
+      {
+        "value": " A BAND OF HUMAN FIGHTERS.",
+        "condition": "0x9809 == \" A BAND OF HUMAN FIGHTERS.\"",
+        "text": "YOU ARE SURPRISED BY A BAND OF HUMAN FIGHTERS."
+      },
+      {
+        "value": " DISPLACER BEASTS.",
+        "condition": "0x9809 == \" DISPLACER BEASTS.\"",
+        "text": "YOU ARE SURPRISED BY DISPLACER BEASTS."
+      },
+      {
+        "value": " DWARVEN FIGHTERS.",
+        "condition": "0x9809 == \" DWARVEN FIGHTERS.\"",
+        "text": "YOU ARE SURPRISED BY DWARVEN FIGHTERS."
+      },
+      {
+        "value": " A TRIO OF LIZARD MEN.",
+        "condition": "0x9809 == \" A TRIO OF LIZARD MEN.\"",
+        "text": "YOU ARE SURPRISED BY A TRIO OF LIZARD MEN."
+      },
+      {
+        "value": " VISCIOUS LOOKING DRIDERS.",
+        "condition": "0x9809 == \" VISCIOUS LOOKING DRIDERS.\"",
+        "text": "YOU ARE SURPRISED BY VISCIOUS LOOKING DRIDERS."
+      },
+      {
+        "value": " SOME GAUNT MEN IN POORLY FITTING LEATHER.",
+        "condition": "0x9809 == \" SOME GAUNT MEN IN POORLY FITTING LEATHER.\"",
+        "text": "YOU ARE SURPRISED BY SOME GAUNT MEN IN POORLY FITTING LEATHER."
+      },
+      {
+        "value": " LARGE INSECTS WITH RUSTY RED FEATHERS.",
+        "condition": "0x9809 == \" LARGE INSECTS WITH RUSTY RED FEATHERS.\"",
+        "text": "YOU ARE SURPRISED BY LARGE INSECTS WITH RUSTY RED FEATHERS."
+      },
+      {
+        "value": " SOME LARGE BULL HEADED MEN.",
+        "condition": "0x9809 == \" SOME LARGE BULL HEADED MEN.\"",
+        "text": "YOU ARE SURPRISED BY SOME LARGE BULL HEADED MEN."
+      },
+      {
+        "value": " A GROUP OF EMACIATED ELVES.",
+        "condition": "0x9809 == \" A GROUP OF EMACIATED ELVES.\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF EMACIATED ELVES."
+      },
+      {
+        "value": " SOME HUNGRY LOOKING KOBOLDS.",
+        "condition": "0x9809 == \" SOME HUNGRY LOOKING KOBOLDS.\"",
+        "text": "YOU ARE SURPRISED BY SOME HUNGRY LOOKING KOBOLDS."
+      }
+    ],
+    "por.voice.ecl7.b22-a24e-a20b": [
+      {
+        "value": " A BAND OF HUMAN FIGHTERS.",
+        "condition": "0x9809 == \" A BAND OF HUMAN FIGHTERS.\"",
+        "text": "YOU SURPRISE A BAND OF HUMAN FIGHTERS."
+      },
+      {
+        "value": " DISPLACER BEASTS.",
+        "condition": "0x9809 == \" DISPLACER BEASTS.\"",
+        "text": "YOU SURPRISE DISPLACER BEASTS."
+      },
+      {
+        "value": " DWARVEN FIGHTERS.",
+        "condition": "0x9809 == \" DWARVEN FIGHTERS.\"",
+        "text": "YOU SURPRISE DWARVEN FIGHTERS."
+      },
+      {
+        "value": " A TRIO OF LIZARD MEN.",
+        "condition": "0x9809 == \" A TRIO OF LIZARD MEN.\"",
+        "text": "YOU SURPRISE A TRIO OF LIZARD MEN."
+      },
+      {
+        "value": " VISCIOUS LOOKING DRIDERS.",
+        "condition": "0x9809 == \" VISCIOUS LOOKING DRIDERS.\"",
+        "text": "YOU SURPRISE VISCIOUS LOOKING DRIDERS."
+      },
+      {
+        "value": " SOME GAUNT MEN IN POORLY FITTING LEATHER.",
+        "condition": "0x9809 == \" SOME GAUNT MEN IN POORLY FITTING LEATHER.\"",
+        "text": "YOU SURPRISE SOME GAUNT MEN IN POORLY FITTING LEATHER."
+      },
+      {
+        "value": " LARGE INSECTS WITH RUSTY RED FEATHERS.",
+        "condition": "0x9809 == \" LARGE INSECTS WITH RUSTY RED FEATHERS.\"",
+        "text": "YOU SURPRISE LARGE INSECTS WITH RUSTY RED FEATHERS."
+      },
+      {
+        "value": " SOME LARGE BULL HEADED MEN.",
+        "condition": "0x9809 == \" SOME LARGE BULL HEADED MEN.\"",
+        "text": "YOU SURPRISE SOME LARGE BULL HEADED MEN."
+      },
+      {
+        "value": " A GROUP OF EMACIATED ELVES.",
+        "condition": "0x9809 == \" A GROUP OF EMACIATED ELVES.\"",
+        "text": "YOU SURPRISE A GROUP OF EMACIATED ELVES."
+      },
+      {
+        "value": " SOME HUNGRY LOOKING KOBOLDS.",
+        "condition": "0x9809 == \" SOME HUNGRY LOOKING KOBOLDS.\"",
+        "text": "YOU SURPRISE SOME HUNGRY LOOKING KOBOLDS."
+      }
+    ],
+    "por.voice.ecl7.b26-a15c-a16e": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "YOU SPOT A GROUP OF KOBOLDS"
+      },
+      {
+        "value": "DISPLACER BEASTS",
+        "condition": "0x982c == \"DISPLACER BEASTS\"",
+        "text": "YOU SPOT A GROUP OF DISPLACER BEASTS"
+      },
+      {
+        "value": "DRIDERS",
+        "condition": "0x982c == \"DRIDERS\"",
+        "text": "YOU SPOT A GROUP OF DRIDERS"
+      },
+      {
+        "value": "STIRGES",
+        "condition": "0x982c == \"STIRGES\"",
+        "text": "YOU SPOT A GROUP OF STIRGES"
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "YOU SPOT A GROUP OF LIZARD MEN"
+      },
+      {
+        "value": "BANDITS",
+        "condition": "0x982c == \"BANDITS\"",
+        "text": "YOU SPOT A GROUP OF BANDITS"
+      },
+      {
+        "value": "NOMADS",
+        "condition": "0x982c == \"NOMADS\"",
+        "text": "YOU SPOT A GROUP OF NOMADS"
+      },
+      {
+        "value": "MERCHANTS",
+        "condition": "0x982c == \"MERCHANTS\"",
+        "text": "YOU SPOT A GROUP OF MERCHANTS"
+      }
+    ],
+    "por.voice.ecl7.b26-a1a6-a1c1": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF KOBOLDS"
+      },
+      {
+        "value": "DISPLACER BEASTS",
+        "condition": "0x982c == \"DISPLACER BEASTS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF DISPLACER BEASTS"
+      },
+      {
+        "value": "DRIDERS",
+        "condition": "0x982c == \"DRIDERS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF DRIDERS"
+      },
+      {
+        "value": "STIRGES",
+        "condition": "0x982c == \"STIRGES\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF STIRGES"
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF LIZARD MEN"
+      },
+      {
+        "value": "BANDITS",
+        "condition": "0x982c == \"BANDITS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF BANDITS"
+      },
+      {
+        "value": "NOMADS",
+        "condition": "0x982c == \"NOMADS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF NOMADS"
+      },
+      {
+        "value": "MERCHANTS",
+        "condition": "0x982c == \"MERCHANTS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF MERCHANTS"
+      }
+    ],
+    "por.voice.ecl7.b26-a1f7-a20c": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "YOU SURPRISE A GROUP OF KOBOLDS"
+      },
+      {
+        "value": "DISPLACER BEASTS",
+        "condition": "0x982c == \"DISPLACER BEASTS\"",
+        "text": "YOU SURPRISE A GROUP OF DISPLACER BEASTS"
+      },
+      {
+        "value": "DRIDERS",
+        "condition": "0x982c == \"DRIDERS\"",
+        "text": "YOU SURPRISE A GROUP OF DRIDERS"
+      },
+      {
+        "value": "STIRGES",
+        "condition": "0x982c == \"STIRGES\"",
+        "text": "YOU SURPRISE A GROUP OF STIRGES"
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "YOU SURPRISE A GROUP OF LIZARD MEN"
+      },
+      {
+        "value": "BANDITS",
+        "condition": "0x982c == \"BANDITS\"",
+        "text": "YOU SURPRISE A GROUP OF BANDITS"
+      },
+      {
+        "value": "NOMADS",
+        "condition": "0x982c == \"NOMADS\"",
+        "text": "YOU SURPRISE A GROUP OF NOMADS"
+      },
+      {
+        "value": "MERCHANTS",
+        "condition": "0x982c == \"MERCHANTS\"",
+        "text": "YOU SURPRISE A GROUP OF MERCHANTS"
+      }
+    ],
+    "por.voice.ecl7.b26-a242-a268": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF KOBOLDS"
+      },
+      {
+        "value": "DISPLACER BEASTS",
+        "condition": "0x982c == \"DISPLACER BEASTS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF DISPLACER BEASTS"
+      },
+      {
+        "value": "DRIDERS",
+        "condition": "0x982c == \"DRIDERS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF DRIDERS"
+      },
+      {
+        "value": "STIRGES",
+        "condition": "0x982c == \"STIRGES\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF STIRGES"
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF LIZARD MEN"
+      },
+      {
+        "value": "BANDITS",
+        "condition": "0x982c == \"BANDITS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF BANDITS"
+      },
+      {
+        "value": "NOMADS",
+        "condition": "0x982c == \"NOMADS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF NOMADS"
+      },
+      {
+        "value": "MERCHANTS",
+        "condition": "0x982c == \"MERCHANTS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF MERCHANTS"
+      }
+    ],
+    "por.voice.ecl7.b26-a326-a330": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "THE KOBOLDS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "DISPLACER BEASTS",
+        "condition": "0x982c == \"DISPLACER BEASTS\"",
+        "text": "THE DISPLACER BEASTS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "DRIDERS",
+        "condition": "0x982c == \"DRIDERS\"",
+        "text": "THE DRIDERS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "STIRGES",
+        "condition": "0x982c == \"STIRGES\"",
+        "text": "THE STIRGES FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "THE LIZARD MEN FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "BANDITS",
+        "condition": "0x982c == \"BANDITS\"",
+        "text": "THE BANDITS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "NOMADS",
+        "condition": "0x982c == \"NOMADS\"",
+        "text": "THE NOMADS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "MERCHANTS",
+        "condition": "0x982c == \"MERCHANTS\"",
+        "text": "THE MERCHANTS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      }
+    ],
+    "por.voice.ecl7.b26-a376-a38a": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "YOU CONVINCE THE KOBOLDS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "DISPLACER BEASTS",
+        "condition": "0x982c == \"DISPLACER BEASTS\"",
+        "text": "YOU CONVINCE THE DISPLACER BEASTS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "DRIDERS",
+        "condition": "0x982c == \"DRIDERS\"",
+        "text": "YOU CONVINCE THE DRIDERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "STIRGES",
+        "condition": "0x982c == \"STIRGES\"",
+        "text": "YOU CONVINCE THE STIRGES THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "YOU CONVINCE THE LIZARD MEN THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "BANDITS",
+        "condition": "0x982c == \"BANDITS\"",
+        "text": "YOU CONVINCE THE BANDITS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "NOMADS",
+        "condition": "0x982c == \"NOMADS\"",
+        "text": "YOU CONVINCE THE NOMADS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "MERCHANTS",
+        "condition": "0x982c == \"MERCHANTS\"",
+        "text": "YOU CONVINCE THE MERCHANTS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      }
+    ],
+    "por.voice.ecl7.b26-a3b9-a3df": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "YOU HAVE INSULTED THE KOBOLDS. THE KOBOLDS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "DISPLACER BEASTS",
+        "condition": "0x982c == \"DISPLACER BEASTS\"",
+        "text": "YOU HAVE INSULTED THE DISPLACER BEASTS. THE DISPLACER BEASTS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "DRIDERS",
+        "condition": "0x982c == \"DRIDERS\"",
+        "text": "YOU HAVE INSULTED THE DRIDERS. THE DRIDERS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "STIRGES",
+        "condition": "0x982c == \"STIRGES\"",
+        "text": "YOU HAVE INSULTED THE STIRGES. THE STIRGES ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "YOU HAVE INSULTED THE LIZARD MEN. THE LIZARD MEN ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "BANDITS",
+        "condition": "0x982c == \"BANDITS\"",
+        "text": "YOU HAVE INSULTED THE BANDITS. THE BANDITS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "NOMADS",
+        "condition": "0x982c == \"NOMADS\"",
+        "text": "YOU HAVE INSULTED THE NOMADS. THE NOMADS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "MERCHANTS",
+        "condition": "0x982c == \"MERCHANTS\"",
+        "text": "YOU HAVE INSULTED THE MERCHANTS. THE MERCHANTS ATTACK YOU IMMEDIATELY!"
+      }
+    ],
+    "por.voice.ecl7.b26-a3f8-a42c": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "THE KOBOLDS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE KOBOLDS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "DISPLACER BEASTS",
+        "condition": "0x982c == \"DISPLACER BEASTS\"",
+        "text": "THE DISPLACER BEASTS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE DISPLACER BEASTS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "DRIDERS",
+        "condition": "0x982c == \"DRIDERS\"",
+        "text": "THE DRIDERS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE DRIDERS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "STIRGES",
+        "condition": "0x982c == \"STIRGES\"",
+        "text": "THE STIRGES GREET YOU AND YOU EXCHANGE PLESANTRIES. THE STIRGES THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "THE LIZARD MEN GREET YOU AND YOU EXCHANGE PLESANTRIES. THE LIZARD MEN THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "BANDITS",
+        "condition": "0x982c == \"BANDITS\"",
+        "text": "THE BANDITS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE BANDITS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "NOMADS",
+        "condition": "0x982c == \"NOMADS\"",
+        "text": "THE NOMADS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE NOMADS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "MERCHANTS",
+        "condition": "0x982c == \"MERCHANTS\"",
+        "text": "THE MERCHANTS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE MERCHANTS THEN LEAVE AND BID YOU GOOD DAY."
+      }
+    ],
+    "ecl8-b27-9f1c-9f2e": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "YOU SPOT A GROUP OF KOBOLDS"
+      },
+      {
+        "value": "GNOLLS",
+        "condition": "0x982c == \"GNOLLS\"",
+        "text": "YOU SPOT A GROUP OF GNOLLS"
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "YOU SPOT A GROUP OF LIZARD MEN"
+      },
+      {
+        "value": "GIANT LIZARDS",
+        "condition": "0x982c == \"GIANT LIZARDS\"",
+        "text": "YOU SPOT A GROUP OF GIANT LIZARDS"
+      },
+      {
+        "value": "HIPPOGRIFFS",
+        "condition": "0x982c == \"HIPPOGRIFFS\"",
+        "text": "YOU SPOT A GROUP OF HIPPOGRIFFS"
+      },
+      {
+        "value": "WYVERNS",
+        "condition": "0x982c == \"WYVERNS\"",
+        "text": "YOU SPOT A GROUP OF WYVERNS"
+      },
+      {
+        "value": "TROLLS",
+        "condition": "0x982c == \"TROLLS\"",
+        "text": "YOU SPOT A GROUP OF TROLLS"
+      },
+      {
+        "value": "PHASE SPIDERS",
+        "condition": "0x982c == \"PHASE SPIDERS\"",
+        "text": "YOU SPOT A GROUP OF PHASE SPIDERS"
+      },
+      {
+        "value": "MINOTAURS",
+        "condition": "0x982c == \"MINOTAURS\"",
+        "text": "YOU SPOT A GROUP OF MINOTAURS"
+      }
+    ],
+    "ecl8-b27-9f66-9f81": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF KOBOLDS"
+      },
+      {
+        "value": "GNOLLS",
+        "condition": "0x982c == \"GNOLLS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF GNOLLS"
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF LIZARD MEN"
+      },
+      {
+        "value": "GIANT LIZARDS",
+        "condition": "0x982c == \"GIANT LIZARDS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF GIANT LIZARDS"
+      },
+      {
+        "value": "HIPPOGRIFFS",
+        "condition": "0x982c == \"HIPPOGRIFFS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF HIPPOGRIFFS"
+      },
+      {
+        "value": "WYVERNS",
+        "condition": "0x982c == \"WYVERNS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF WYVERNS"
+      },
+      {
+        "value": "TROLLS",
+        "condition": "0x982c == \"TROLLS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF TROLLS"
+      },
+      {
+        "value": "PHASE SPIDERS",
+        "condition": "0x982c == \"PHASE SPIDERS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF PHASE SPIDERS"
+      },
+      {
+        "value": "MINOTAURS",
+        "condition": "0x982c == \"MINOTAURS\"",
+        "text": "YOU ARE SURPRISED BY A GROUP OF MINOTAURS"
+      }
+    ],
+    "ecl8-b27-9fb7-9fcc": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "YOU SURPRISE A GROUP OF KOBOLDS"
+      },
+      {
+        "value": "GNOLLS",
+        "condition": "0x982c == \"GNOLLS\"",
+        "text": "YOU SURPRISE A GROUP OF GNOLLS"
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "YOU SURPRISE A GROUP OF LIZARD MEN"
+      },
+      {
+        "value": "GIANT LIZARDS",
+        "condition": "0x982c == \"GIANT LIZARDS\"",
+        "text": "YOU SURPRISE A GROUP OF GIANT LIZARDS"
+      },
+      {
+        "value": "HIPPOGRIFFS",
+        "condition": "0x982c == \"HIPPOGRIFFS\"",
+        "text": "YOU SURPRISE A GROUP OF HIPPOGRIFFS"
+      },
+      {
+        "value": "WYVERNS",
+        "condition": "0x982c == \"WYVERNS\"",
+        "text": "YOU SURPRISE A GROUP OF WYVERNS"
+      },
+      {
+        "value": "TROLLS",
+        "condition": "0x982c == \"TROLLS\"",
+        "text": "YOU SURPRISE A GROUP OF TROLLS"
+      },
+      {
+        "value": "PHASE SPIDERS",
+        "condition": "0x982c == \"PHASE SPIDERS\"",
+        "text": "YOU SURPRISE A GROUP OF PHASE SPIDERS"
+      },
+      {
+        "value": "MINOTAURS",
+        "condition": "0x982c == \"MINOTAURS\"",
+        "text": "YOU SURPRISE A GROUP OF MINOTAURS"
+      }
+    ],
+    "ecl8-b27-a002-a028": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF KOBOLDS"
+      },
+      {
+        "value": "GNOLLS",
+        "condition": "0x982c == \"GNOLLS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF GNOLLS"
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF LIZARD MEN"
+      },
+      {
+        "value": "GIANT LIZARDS",
+        "condition": "0x982c == \"GIANT LIZARDS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF GIANT LIZARDS"
+      },
+      {
+        "value": "HIPPOGRIFFS",
+        "condition": "0x982c == \"HIPPOGRIFFS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF HIPPOGRIFFS"
+      },
+      {
+        "value": "WYVERNS",
+        "condition": "0x982c == \"WYVERNS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF WYVERNS"
+      },
+      {
+        "value": "TROLLS",
+        "condition": "0x982c == \"TROLLS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF TROLLS"
+      },
+      {
+        "value": "PHASE SPIDERS",
+        "condition": "0x982c == \"PHASE SPIDERS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF PHASE SPIDERS"
+      },
+      {
+        "value": "MINOTAURS",
+        "condition": "0x982c == \"MINOTAURS\"",
+        "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF MINOTAURS"
+      }
+    ],
+    "ecl8-b27-a0e6-a0ec-a0f0": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "THE KOBOLDS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "GNOLLS",
+        "condition": "0x982c == \"GNOLLS\"",
+        "text": "THE GNOLLS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "THE LIZARD MEN FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "GIANT LIZARDS",
+        "condition": "0x982c == \"GIANT LIZARDS\"",
+        "text": "THE GIANT LIZARDS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "HIPPOGRIFFS",
+        "condition": "0x982c == \"HIPPOGRIFFS\"",
+        "text": "THE HIPPOGRIFFS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "WYVERNS",
+        "condition": "0x982c == \"WYVERNS\"",
+        "text": "THE WYVERNS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "TROLLS",
+        "condition": "0x982c == \"TROLLS\"",
+        "text": "THE TROLLS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "PHASE SPIDERS",
+        "condition": "0x982c == \"PHASE SPIDERS\"",
+        "text": "THE PHASE SPIDERS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      },
+      {
+        "value": "MINOTAURS",
+        "condition": "0x982c == \"MINOTAURS\"",
+        "text": "THE MINOTAURS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT."
+      }
+    ],
+    "ecl8-b27-a136-a146-a14a": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "YOU CONVINCE THE KOBOLDS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "GNOLLS",
+        "condition": "0x982c == \"GNOLLS\"",
+        "text": "YOU CONVINCE THE GNOLLS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "YOU CONVINCE THE LIZARD MEN THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "GIANT LIZARDS",
+        "condition": "0x982c == \"GIANT LIZARDS\"",
+        "text": "YOU CONVINCE THE GIANT LIZARDS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "HIPPOGRIFFS",
+        "condition": "0x982c == \"HIPPOGRIFFS\"",
+        "text": "YOU CONVINCE THE HIPPOGRIFFS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "WYVERNS",
+        "condition": "0x982c == \"WYVERNS\"",
+        "text": "YOU CONVINCE THE WYVERNS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "TROLLS",
+        "condition": "0x982c == \"TROLLS\"",
+        "text": "YOU CONVINCE THE TROLLS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "PHASE SPIDERS",
+        "condition": "0x982c == \"PHASE SPIDERS\"",
+        "text": "YOU CONVINCE THE PHASE SPIDERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      },
+      {
+        "value": "MINOTAURS",
+        "condition": "0x982c == \"MINOTAURS\"",
+        "text": "YOU CONVINCE THE MINOTAURS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY."
+      }
+    ],
+    "ecl8-b27-a179-a18d-a191-a195-a19b-a19f": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "YOU HAVE INSULTED THE KOBOLDS. THE KOBOLDS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "GNOLLS",
+        "condition": "0x982c == \"GNOLLS\"",
+        "text": "YOU HAVE INSULTED THE GNOLLS. THE GNOLLS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "YOU HAVE INSULTED THE LIZARD MEN. THE LIZARD MEN ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "GIANT LIZARDS",
+        "condition": "0x982c == \"GIANT LIZARDS\"",
+        "text": "YOU HAVE INSULTED THE GIANT LIZARDS. THE GIANT LIZARDS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "HIPPOGRIFFS",
+        "condition": "0x982c == \"HIPPOGRIFFS\"",
+        "text": "YOU HAVE INSULTED THE HIPPOGRIFFS. THE HIPPOGRIFFS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "WYVERNS",
+        "condition": "0x982c == \"WYVERNS\"",
+        "text": "YOU HAVE INSULTED THE WYVERNS. THE WYVERNS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "TROLLS",
+        "condition": "0x982c == \"TROLLS\"",
+        "text": "YOU HAVE INSULTED THE TROLLS. THE TROLLS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "PHASE SPIDERS",
+        "condition": "0x982c == \"PHASE SPIDERS\"",
+        "text": "YOU HAVE INSULTED THE PHASE SPIDERS. THE PHASE SPIDERS ATTACK YOU IMMEDIATELY!"
+      },
+      {
+        "value": "MINOTAURS",
+        "condition": "0x982c == \"MINOTAURS\"",
+        "text": "YOU HAVE INSULTED THE MINOTAURS. THE MINOTAURS ATTACK YOU IMMEDIATELY!"
+      }
+    ],
+    "ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed": [
+      {
+        "value": "KOBOLDS",
+        "condition": "0x982c == \"KOBOLDS\"",
+        "text": "THE KOBOLDS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE KOBOLDS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "GNOLLS",
+        "condition": "0x982c == \"GNOLLS\"",
+        "text": "THE GNOLLS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE GNOLLS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "LIZARD MEN",
+        "condition": "0x982c == \"LIZARD MEN\"",
+        "text": "THE LIZARD MEN GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE LIZARD MEN THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "GIANT LIZARDS",
+        "condition": "0x982c == \"GIANT LIZARDS\"",
+        "text": "THE GIANT LIZARDS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE GIANT LIZARDS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "HIPPOGRIFFS",
+        "condition": "0x982c == \"HIPPOGRIFFS\"",
+        "text": "THE HIPPOGRIFFS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE HIPPOGRIFFS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "WYVERNS",
+        "condition": "0x982c == \"WYVERNS\"",
+        "text": "THE WYVERNS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE WYVERNS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "TROLLS",
+        "condition": "0x982c == \"TROLLS\"",
+        "text": "THE TROLLS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE TROLLS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "PHASE SPIDERS",
+        "condition": "0x982c == \"PHASE SPIDERS\"",
+        "text": "THE PHASE SPIDERS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE PHASE SPIDERS THEN LEAVE AND BID YOU GOOD DAY."
+      },
+      {
+        "value": "MINOTAURS",
+        "condition": "0x982c == \"MINOTAURS\"",
+        "text": "THE MINOTAURS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE MINOTAURS THEN LEAVE AND BID YOU GOOD DAY."
+      }
+    ],
+    "ecl8-b29-a47a-a48d": [
+      {
+        "value": "GNOLLS ",
+        "condition": "0x9890 == \"GNOLLS \"",
+        "text": "YOU ARE SURPRISED BY GNOLLS"
+      },
+      {
+        "value": "KOBOLDS. ",
+        "condition": "0x9890 == \"KOBOLDS. \"",
+        "text": "YOU ARE SURPRISED BY KOBOLDS."
+      },
+      {
+        "value": "LIZARDMEN. ",
+        "condition": "0x9890 == \"LIZARDMEN. \"",
+        "text": "YOU ARE SURPRISED BY LIZARDMEN."
+      }
+    ],
+    "ecl8-b29-ae15-ae29-ae2d": [
+      {
+        "value": "GNOLLS ",
+        "condition": "0x9890 == \"GNOLLS \"",
+        "text": "YOU HAVE OFFENDED THE GNOLLS THEY ATTACK."
+      },
+      {
+        "value": "KOBOLDS. ",
+        "condition": "0x9890 == \"KOBOLDS. \"",
+        "text": "YOU HAVE OFFENDED THE KOBOLDS. THEY ATTACK."
+      },
+      {
+        "value": "LIZARDMEN. ",
+        "condition": "0x9890 == \"LIZARDMEN. \"",
+        "text": "YOU HAVE OFFENDED THE LIZARDMEN. THEY ATTACK."
+      }
+    ]
+  },
+  "newlyQueueableVariantCount": 329,
+  "finiteSlotValuesByScope": {
+    "ECL2.DAX:block-20:0x9890": [
+      " KOBOLDS. ",
+      " GOBLINS. ",
+      " ORCS. "
+    ],
+    "ECL4.DAX:block-10:0x982c": [
+      "THE SPECTRE HAS NOTICED YOU.",
+      " SKELETONS.",
+      " ZOMBIES.",
+      " WIGHTS."
+    ],
+    "ECL5.DAX:block-3:0x980e": [
+      "A PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+    ],
+    "ECL5.DAX:block-4:0x980e": [
+      "A PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+    ],
+    "ECL5.DAX:block-6:0x980e": [
+      "A PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+    ],
+    "ECL6.DAX:block-25:0x982c": [
+      "QUICKLINGS",
+      "WILD BOARS",
+      "GIANT MANTIS",
+      "TIGERS",
+      "THRI-KREENS",
+      "ANHKHEG",
+      "CENTAURS",
+      "SOLDIERS",
+      "THIEVES",
+      "BUCCANEERS",
+      "GIANT SNAKES"
+    ],
+    "ECL7.DAX:block-22:0x9809": [
+      " A BAND OF HUMAN FIGHTERS.",
+      " DISPLACER BEASTS.",
+      " DWARVEN FIGHTERS.",
+      " A TRIO OF LIZARD MEN.",
+      " VISCIOUS LOOKING DRIDERS.",
+      " SOME GAUNT MEN IN POORLY FITTING LEATHER.",
+      " LARGE INSECTS WITH RUSTY RED FEATHERS.",
+      " SOME LARGE BULL HEADED MEN.",
+      " A GROUP OF EMACIATED ELVES.",
+      " SOME HUNGRY LOOKING KOBOLDS."
+    ],
+    "ECL7.DAX:block-26:0x982c": [
+      "KOBOLDS",
+      "DISPLACER BEASTS",
+      "DRIDERS",
+      "STIRGES",
+      "LIZARD MEN",
+      "BANDITS",
+      "NOMADS",
+      "MERCHANTS"
+    ],
+    "ECL8.DAX:block-27:0x982c": [
+      "KOBOLDS",
+      "GNOLLS",
+      "LIZARD MEN",
+      "GIANT LIZARDS",
+      "HIPPOGRIFFS",
+      "WYVERNS",
+      "TROLLS",
+      "PHASE SPIDERS",
+      "MINOTAURS"
+    ],
+    "ECL8.DAX:block-29:0x9890": [
+      "GNOLLS ",
+      "KOBOLDS. ",
+      "LIZARDMEN. "
     ]
   },
   "units": [
@@ -332,7 +2139,7 @@
           "address": "0x9890"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL2.DAX",
@@ -346,7 +2153,7 @@
           "address": "0x9890"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL2.DAX",
@@ -360,7 +2167,7 @@
           "address": "0x9890"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL2.DAX",
@@ -519,7 +2326,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL4.DAX",
@@ -533,7 +2340,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL4.DAX",
@@ -547,7 +2354,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL4.DAX",
@@ -575,7 +2382,7 @@
           "address": "0x980e"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -631,7 +2438,7 @@
           "address": "0x980e"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -701,7 +2508,7 @@
           "address": "0x980e"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -799,7 +2606,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL6.DAX",
@@ -813,7 +2620,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL6.DAX",
@@ -827,7 +2634,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL6.DAX",
@@ -841,7 +2648,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL6.DAX",
@@ -855,7 +2662,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL6.DAX",
@@ -869,7 +2676,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL6.DAX",
@@ -883,7 +2690,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL6.DAX",
@@ -897,7 +2704,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL7.DAX",
@@ -911,7 +2718,7 @@
           "address": "0x9809"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL7.DAX",
@@ -925,7 +2732,7 @@
           "address": "0x9809"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL7.DAX",
@@ -939,7 +2746,7 @@
           "address": "0x9809"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL7.DAX",
@@ -967,7 +2774,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL7.DAX",
@@ -981,7 +2788,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL7.DAX",
@@ -995,7 +2802,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL7.DAX",
@@ -1009,7 +2816,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL7.DAX",
@@ -1023,7 +2830,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL7.DAX",
@@ -1037,7 +2844,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL7.DAX",
@@ -1051,7 +2858,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL7.DAX",
@@ -1065,7 +2872,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -1129,7 +2936,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -1143,7 +2950,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -1157,7 +2964,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -1171,7 +2978,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -1185,7 +2992,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -1199,7 +3006,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -1213,7 +3020,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -1227,7 +3034,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -1255,7 +3062,7 @@
           "address": "0x9890"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -1269,7 +3076,7 @@
           "address": "0x9890"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
