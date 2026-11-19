@@ -148,6 +148,7 @@ const cpu = fresh(input?.requestKey, (name, data, written) => slotClosed(name, d
   (name) => loadingSlot && saveSlotLetter(name) ? saves?.partyFiles(name) ?? [] : undefined);
 const soundTracePath = process.env.POR_SOUND_TRACE;
 const browserSound = process.env.POR_BROWSER_PLAY === "1";
+let narrationObserver: EclNarrationObserver | undefined;
 if (browserSound) {
   const manifest = JSON.parse(readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url), "utf8")) as ObserverManifest;
   const narration = new EclNarrationObserver(manifest);
@@ -155,6 +156,7 @@ if (browserSound) {
     const event = narration.observe(cpu, sliceIndex, procedure);
     if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
   });
+  narrationObserver = narration;
 }
 const soundRecorder = soundTracePath || browserSound ? new OriginalSoundTraceRecorder(cpu, browserSound
   ? (call) => console.log(`POR_SOUND ${JSON.stringify(call)}`) : undefined) : undefined;
@@ -245,10 +247,13 @@ if (input) {
   }
 }
 const journalSlice = loadedSlices.find((slice) => slice.index === 3);
-adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || liveAt !== undefined || profilePath) && journalSlice
+adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || browserSound || liveAt !== undefined || profilePath) && journalSlice
   ? observeAdventureLog(cpu, journalSlice, loadedSlices.find((slice) => slice.index === 16),
-    process.env.POR_BROWSER_PLAY === "1"
-      ? (message) => console.log(`POR_TEXT ${JSON.stringify({ step: cpu.steps, message })}`) : undefined)
+    browserSound ? (message) => {
+      console.log(`POR_TEXT ${JSON.stringify({ step: cpu.steps, message })}`);
+      const event = narrationObserver?.observeRenderedText(cpu, message);
+      if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
+    } : undefined)
   : undefined;
 if (input && process.env.POR_BROWSER_PLAY === "1") {
   const title = loadedSlices.find((slice) => slice.index === 1);

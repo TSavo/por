@@ -7,7 +7,8 @@ interface SourceEvent {
   source: { archive: string; block: number; address: string; instruction: string };
   outputParts: SourcePart[];
 }
-export interface ObserverManifest extends RuntimeNarrationManifest { events: SourceEvent[] }
+interface StaticSelector { triggerSourceId: string; resolution?: string; playback?: string; selector?: any; discriminator?: any; cases?: any[]; variants?: any[] }
+export interface ObserverManifest extends RuntimeNarrationManifest { events: SourceEvent[]; staticSelectors?: StaticSelector[] }
 export interface EclNarrationEvent extends NarrationTrigger {
   archive: string;
   block: number;
@@ -40,6 +41,9 @@ export class EclNarrationObserver {
   private readonly eventsByLocation = new Map<string, SourceEvent>();
   private readonly eventsById = new Map<string, SourceEvent>();
   private readonly unitsByTrigger = new Map<string, ObserverManifest["units"]>();
+  private readonly selectorsByTrigger = new Map<string, StaticSelector>();
+  private readonly deferred: StaticSelector[] = [];
+  private pendingMenu: { selector: StaticSelector; event: SourceEvent } | undefined;
 
   constructor(readonly manifest: ObserverManifest) {
     for (const event of manifest.events) {
@@ -48,6 +52,7 @@ export class EclNarrationObserver {
     }
     for (const unit of manifest.units)
       this.unitsByTrigger.set(unit.triggerSourceId, [...(this.unitsByTrigger.get(unit.triggerSourceId) ?? []), unit]);
+    for (const selector of manifest.staticSelectors ?? []) this.selectorsByTrigger.set(selector.triggerSourceId, selector);
   }
 
   observe(cpu: Cpu, sliceIndex: number, procedure: number): EclNarrationEvent | undefined {
@@ -58,6 +63,8 @@ export class EclNarrationObserver {
       this.archive = `ECL${archiveNumber}.DAX`;
       this.block = block;
       this.lastDetectedKey = undefined;
+      this.deferred.length = 0;
+      this.pendingMenu = undefined;
       return undefined;
     }
     if (!this.archive || this.block === undefined) return undefined;
@@ -75,6 +82,33 @@ export class EclNarrationObserver {
     const detectedKey = `${event.sourceId}:${pc}`;
     if (detectedKey === this.lastDetectedKey) return undefined;
     this.lastDetectedKey = detectedKey;
+
+    // An opening print whose branch is not yet knowable is deliberately silent.
+    // The first mapped covered source resolves and consumes it exactly once.
+    for (let index = 0; index < this.deferred.length; index++) {
+      const pending = this.deferred[index]!;
+      const selected = this.selectBySource(pending, event.sourceId);
+      if (selected) {
+        this.deferred.splice(index, 1);
+        return this.makeEvent(cpu, this.eventsById.get(pending.triggerSourceId)!, selected);
+      }
+    }
+
+    const staticSelector = this.selectorsByTrigger.get(event.sourceId);
+    if (staticSelector) {
+      const mode = staticSelector.playback ?? staticSelector.resolution;
+      if (mode === "defer-until-covered-source" || mode === "deferred-covered-source") {
+        if (!this.deferred.some(item => item.triggerSourceId === staticSelector.triggerSourceId)) this.deferred.push(staticSelector);
+        return undefined;
+      }
+      if (mode === "defer-until-command-render" || mode === "during-trigger" || mode === "during-instruction") {
+        this.pendingMenu = { selector: staticSelector, event };
+        return undefined;
+      }
+      const selected = this.selectFromCpu(cpu, staticSelector);
+      if (!selected || selected.action === "none") return undefined;
+      return this.makeEvent(cpu, event, selected);
+    }
 
     const candidates = this.unitsByTrigger.get(event.sourceId) ?? [];
     const coveredIds = new Set(candidates.flatMap(unit => unit.coveredSourceIds));
@@ -99,6 +133,88 @@ export class EclNarrationObserver {
       ...(operand !== undefined ? { operand, sourceOperandId: `${event.sourceId}.operand-${operand}` } : {}),
       step: cpu.steps
     };
+  }
+
+  /** Called by ENCOUNTER MENU when it emits one of its decoded literal operands. */
+  observeMenuOperand(cpu: Cpu, operandIndex: number): EclNarrationEvent | undefined {
+    const pending = this.pendingMenu;
+    if (!pending) return undefined;
+    const selected = this.selectByValue(pending.selector, operandIndex);
+    if (!selected) return undefined;
+    this.pendingMenu = undefined;
+    if (selected.action === "none") return undefined;
+    return this.makeEvent(cpu, pending.event, selected, operandIndex);
+  }
+
+  /** Resolve an ENCOUNTER MENU from the literal the original game actually drew. */
+  observeRenderedText(cpu: Cpu, message: string): EclNarrationEvent | undefined {
+    const pending = this.pendingMenu;
+    if (!pending) return undefined;
+    const normalize = (text: string) => text.replace(/\s+/g, " ").trim().toUpperCase();
+    const rendered = normalize(message);
+    const part = pending.event.outputParts.find(candidate =>
+      candidate.operandIndex !== undefined && normalize(candidate.rawText ?? "") === rendered);
+    return part?.operandIndex === undefined ? undefined : this.observeMenuOperand(cpu, part.operandIndex);
+  }
+
+  private makeEvent(cpu: Cpu, event: SourceEvent, selected: any, operand?: number): EclNarrationEvent {
+    return { sourceId: event.sourceId, unitId: selected.unitId,
+      ...(selected.runtimeDynamicValue === undefined ? {} : { dynamicValue: selected.runtimeDynamicValue }),
+      archive: this.archive!, block: this.block!, address: event.source.address,
+      ...(operand === undefined ? {} : { operand, sourceOperandId: `${event.sourceId}.operand-${operand}` }), step: cpu.steps };
+  }
+
+  private selectBySource(selector: StaticSelector, sourceId: string): any | undefined {
+    return (selector.selector?.cases ?? selector.cases ?? []).find((entry: any) => entry.sourceId === sourceId);
+  }
+
+  private selectByValue(selector: StaticSelector, value: number | string): any | undefined {
+    const entries = selector.selector?.cases ?? selector.cases ?? selector.variants ?? [];
+    return entries.find((entry: any) => entry.operandIndex === value ||
+      this.conditionMatches(undefined, entry.when ?? entry, value));
+  }
+
+  private selectFromCpu(cpu: Cpu, selector: StaticSelector): any | undefined {
+    const descriptor = selector.selector ?? selector.discriminator ?? {};
+    const entries = selector.selector?.cases ?? selector.cases ?? selector.variants ?? [];
+    let value: number | string | undefined;
+    const address = descriptor.address ?? descriptor.memoryAddress;
+    if (["memory-u8", "memoryByte", "onGosubIndex", "ecl-memory-byte"].includes(descriptor.kind))
+      value = cpu.read8(cpu.ds, this.hex(address));
+    else if (descriptor.kind === "ecl-string") {
+      value = this.readDsString(cpu, this.hex(address));
+      if (descriptor.normalization === "trim-uppercase") value = value.trim().toUpperCase();
+    } else if (descriptor.kind === "memoryComparison") {
+      const left = cpu.read8(cpu.ds, this.hex(descriptor.leftAddress));
+      const right = cpu.read8(cpu.ds, this.hex(descriptor.rightAddress));
+      return entries.find((entry: any) => entry.when?.operator === "<=" ? left <= right : entry.when?.operator === ">" ? left > right : false);
+    }
+    return entries.find((entry: any) => this.conditionMatches(cpu, entry.when ?? entry, value));
+  }
+
+  private conditionMatches(cpu: Cpu | undefined, condition: any, value: any): boolean {
+    if (condition.all) return condition.all.every((part: any) => this.conditionMatches(cpu, part, value));
+    if (condition.bitAnd) {
+      if (!cpu) return false;
+      const part = condition.bitAnd;
+      return this.conditionMatches(cpu, part, cpu.read8(cpu.ds, this.hex(part.address)) & part.mask);
+    }
+    if (condition.equals !== undefined) return value === condition.equals;
+    if (condition.notEquals !== undefined) return value !== condition.notEquals;
+    if (condition.in) return condition.in.includes(value);
+    if (condition.notIn) return !condition.notIn.includes(value);
+    if (condition.lessThan !== undefined) return value < condition.lessThan;
+    if (condition.greaterThanOrEqual !== undefined) return value >= condition.greaterThanOrEqual;
+    return false;
+  }
+
+  private hex(value: string): number { return Number.parseInt(value.slice(2), 16); }
+
+  private readDsString(cpu: Cpu, address: number): string {
+    const length = Math.min(cpu.read8(cpu.ds, address), 255);
+    let text = "";
+    for (let index = 0; index < length; index++) text += String.fromCharCode(cpu.read8(cpu.ds, address + 1 + index));
+    return text;
   }
 
   private readEclString(cpu: Cpu, address: string): string {

@@ -110,3 +110,44 @@ const realDynamicResolution = realCatalog.resolve(realDynamicEvent!);
 assert.equal(realDynamicResolution.status, "resolved");
 if (realDynamicResolution.status === "resolved") assert.match(realDynamicResolution.narration.asset, /-orcs\.mp3$/);
 console.log("verified authored-menu operands, continuation suppression, and real dynamic variant selection");
+
+// Static branch selectors use the VM state at the exact trigger, including
+// explicit silent paths, menu output operands, and decisions only known later.
+const selectObserver = new EclNarrationObserver(realManifest);
+const selectCpu = new Cpu();
+selectCpu.ds = 0x0740; selectCpu.ss = 0x0800; selectCpu.sp = 0x0200;
+selectCpu.write16(selectCpu.ds, 0x493f, bufferOffset);
+selectCpu.write16(selectCpu.ds, 0x4941, bufferSegment);
+const loadBlock = (archive: number, block: number) => {
+  selectCpu.write16(selectCpu.ss, selectCpu.sp + 4, archive);
+  selectCpu.write8(selectCpu.ds, 0x52d4, block);
+  selectObserver.observe(selectCpu, 7, 0x0353);
+};
+const reach = (address: number, opcode: number) => {
+  selectCpu.write16(selectCpu.ds, 0x494e, address + 1);
+  selectCpu.write8(bufferSegment, (bufferOffset + address + 0x6700) & 0xffff, opcode);
+  return selectObserver.observe(selectCpu, 7, 0x0423);
+};
+loadBlock(4, 2);
+selectCpu.write8(selectCpu.ds, 0x6e7b, 255);
+assert.equal(reach(0x9f6a, 0x12)?.unitId, "ecl4-b2-9f6a-9fca-9ff2-skullcrusher-present", "at-trigger memory selector");
+
+loadBlock(5, 3);
+selectCpu.write8(selectCpu.ds, 0x4a6a, 0);
+selectCpu.write8(selectCpu.ds, 0x4a65, 1);
+assert.equal(reach(0x9d1f, 0x12), undefined, "action:none must be explicitly silent");
+assert.equal(reach(0x9df1, 0x29), undefined, "menu narration waits for the rendered operand");
+assert.equal(selectObserver.observeMenuOperand(selectCpu, 10)?.unitId, "por.voice.ecl5.b3-9df1-operand-10");
+
+loadBlock(1, 18);
+assert.equal(reach(0x9d86, 0x29), undefined, "encounter menu narration waits for rendered text");
+assert.equal(selectObserver.observeRenderedText(selectCpu, "THE MONSTERS PREPARE")?.unitId,
+  "ecl1-b18-9d86-prepare", "rendered encounter-menu literal selects its complete recording");
+
+loadBlock(7, 22);
+assert.equal(reach(0x9a81, 0x12), undefined, "deferred opening must not play early");
+const deferredEvent = reach(0x9aef, 0x11);
+assert.equal(deferredEvent?.sourceId, "por.review.ecl-7.block-22.at-9a81");
+assert.equal(deferredEvent?.unitId, "por.voice.ecl7.b22-9a81-9aef");
+assert.equal(reach(0x9aef, 0x11), undefined, "deferred passage must queue exactly once");
+console.log("verified real immediate, explicit-none, selected-menu-operand, and deferred selectors");

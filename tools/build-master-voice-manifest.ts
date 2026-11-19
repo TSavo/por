@@ -71,6 +71,15 @@ for (let number = 1; number <= 8; number++) {
 }
 const sokal = JSON.parse(readFileSync(new URL("sokal-voice-manifest.json", audio), "utf8")) as { units: ReviewUnit[] };
 const dynamicResolution = JSON.parse(readFileSync(new URL("dynamic-voice-resolution.json", audio), "utf8"));
+const staticSelectorSources = [
+  "static-narration-selectors-ecl1-3.json",
+  "static-narration-selectors-ecl4-6.json",
+  "static-narration-selectors-ecl7-8.json"
+];
+const staticSelectors = staticSelectorSources.flatMap(source => {
+  const document = JSON.parse(readFileSync(new URL(source, audio), "utf8"));
+  return (document.triggers ?? document.selectors).map((selector: any) => ({ ...selector, source }));
+});
 const dynamicQueue = JSON.parse(readFileSync(new URL("dynamic-resolved-generation-queue.json", audio), "utf8")) as { items: QueueItem[] };
 const dynamicVariantsByUnit = new Map<string, QueueItem[]>();
 for (const item of dynamicQueue.items) {
@@ -160,6 +169,18 @@ const events = extraction.events.map(event => ({
   narrationUnitIds: sourceToUnits.get(event.id) ?? []
 }));
 normalizedUnits.sort((a, b) => a.archive.localeCompare(b.archive) || a.triggerSourceId.localeCompare(b.triggerSourceId) || a.id.localeCompare(b.id));
+for (const selector of staticSelectors) {
+  if (!extractionById.has(selector.triggerSourceId)) throw new Error(`static selector has unknown trigger ${selector.triggerSourceId}`);
+  const entries = selector.selector?.cases ?? selector.cases ?? selector.variants ?? [];
+  for (const entry of entries) {
+    if (entry.sourceId && !extractionById.has(entry.sourceId)) throw new Error(`static selector has unknown covered source ${entry.sourceId}`);
+    if (entry.action === "none") {
+      if (entry.unitId !== null) throw new Error(`action:none must have a null unit at ${selector.triggerSourceId}`);
+    } else if (!entry.unitId || !unitIds.has(entry.unitId)) {
+      throw new Error(`static selector has unknown unit ${entry.unitId} at ${selector.triggerSourceId}`);
+    }
+  }
+}
 const resolved = normalizedUnits.filter(unit => unit.generationEligible).length;
 const manifest = {
   schema: 1,
@@ -191,6 +212,8 @@ const manifest = {
     slotSemantics: dynamicResolution.slotSemantics,
     finiteSlotValuesByScope: dynamicResolution.finiteSlotValuesByScope
   },
+  staticSelectorSources: staticSelectorSources.map(source => `src/audio/${source}`),
+  staticSelectors,
   events,
   units: normalizedUnits
 };
