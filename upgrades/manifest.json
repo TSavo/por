@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:21:CPIC4.DAX:4:ecl:aed4": "sokal-orc-line-stand.png",
+    "combat:area:21:CPIC4.DAX:132:ecl:aed4": "sokal-orc-line-strike.png",
     "tile:9:f59a8b4ef53dca4b588a04b05a81d1c5a38fb9fa2354b6e64a4853bbbf7ad8f3": "stojanow-guard-wing-terrain-f59a8b4ef53d.png",
     "tile:9:755bda5b825770559bb1bca3b1582f2f4788da7f1a3b9cbb0b2ec3f4c2052f71": "stojanow-guard-wing-terrain-755bda5b8257.png",
     "tile:9:b784b8750b8adf3caafc9bb39eccbd31f78447d7268123fcf737875c487f9fea": "stojanow-guard-wing-terrain-b784b8750b8a.png",

@@ -501,6 +501,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["sokal-orc-line", {
+    slot: "C", stand: "combat:area:21:CPIC4.DAX:4:ecl:aed4", strike: "combat:area:21:CPIC4.DAX:132:ecl:aed4",
+    width: 96, height: 96, readyPrompt: /ORCHITPOINTS5/i, strikeReflected: true,
+    inputs: ["up", ...Array(9).fill("enter")], strikeInputs: Array(49).fill("q"),
+  }],
   ["sokal-hobgoblin-line", {
     slot: "C", stand: "combat:area:21:CPIC4.DAX:6:ecl:aed4", strike: "combat:area:21:CPIC4.DAX:134:ecl:aed4",
     width: 96, height: 96, readyPrompt: /HOBGOBLINHITPOINTS6/i, strikeReflected: true,
