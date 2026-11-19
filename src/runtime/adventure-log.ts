@@ -179,7 +179,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
     if (commission.id === "textile") {
       const carriedKey = leads.find(({ id }) => id === "textile-prison-key-carried");
-      if (tracked?.textileBox) nextStep = tracked.detail;
+      if (tracked?.textileBox === "sealed" && knows("phlan-return-ferry")) {
+        nextStep = "Keep the box sealed. Choose Take Boat at the return dock, then bring the box into New Phlan.";
+      }
+      else if (tracked?.textileBox) nextStep = tracked.detail;
       else if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
       else if (knows("textile-ogre-chief")) nextStep = "Defeat the ogre chief to recover Cadorna's treasure.";
       else if (knows("textile-east-wall")) nextStep = "Turn east where Skullcrusher pointed out the secret door. Use Search and move through the wall.";
@@ -575,7 +578,7 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
       if (box === 1 || box === 128) {
         progress.push({
           id, title: `${commission.title} - ${box === 1 ? "recovered" : "seal broken"}`,
-          detail: box === 1 ? "Bring the sealed box back to New Phlan, then visit the council clerk."
+          detail: box === 1 ? "Bring the sealed box back to New Phlan. Leave by the west gate and look for the return boat southwest of the entrance."
             : "Return to City Hall. The box was opened and its family seal is broken.",
           status: "accepted",
           textileBox: box === 1 ? "sealed" : "opened",
@@ -958,7 +961,8 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE BOAT DISEMBARKS YOU AT SOKAL KEEP")) {
     leads.push({ id: "sokal-arrival", title: "Arrival at Sokal Keep", detail: "The party landed on Thorn Island." });
   }
-  if (text.includes("THERE IS A BOAT DOCKED HERE THAT WILL RETURN YOU TO THE CIVILIZED SECTION OF PHLAN")) {
+  if (text.includes("THERE IS A BOAT DOCKED HERE THAT WILL RETURN YOU TO THE CIVILIZED SECTION OF PHLAN") ||
+      text.includes("THERE IS A BOAT HERE THAT WILL TAKE YOU BACK TO THE CIVILISED SECTION OF PHLAN")) {
     leads.push({ id: "phlan-return-ferry", title: "Return ferry to New Phlan",
       detail: "Choose Take Boat at the dock to return to the civilized part of Phlan." });
   }

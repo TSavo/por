@@ -1925,6 +1925,48 @@ if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.a
   process.exit(0);
 }
 
+if (process.argv[2] === "--textile-sealed-return-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot D with the sealed box at the chief's room and the courtyard already cleared.");
+  copyFileSync(process.argv[3], join(saveDir, "D.json"));
+  const textile = frame => frame.journal.leads.find(({ id }) => id === "commission-textile");
+  await replay(loadSlot("2064"), "85000000", [
+    (text) => assert.match(text, /12,14 s/),
+    "j", (_text, frame) => {
+      const index = frame.journal.leads.filter(({ status }) => status && status !== "turned-in")
+        .findIndex(({ id }) => id === "commission-textile");
+      assert.ok(index >= 0);
+      return `track ${index + 1}`;
+    }, (_text, frame) => {
+      assert.equal(textile(frame)?.textileBox, "sealed");
+      assert.match(frame.journal.objective.nextStep, /west gate.*return boat southwest/i);
+    }, "j",
+    "right", "up", "up", "up", "right", "up", "left", "up", "right", ...Array(8).fill("up"),
+    "left", ...Array(6).fill("up"), "right", "up", "left", "up", "up", "up", "enter", "enter",
+    (text) => assert.match(text, /western edge of the city.*north south leave/),
+    "l", ...Array(4).fill("left"), "down", "enter",
+    (text) => assert.match(text, /20,29 s.*take boat stay/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "phlan-return-ferry"));
+      assert.match(frame.journal.objective.nextStep, /choose Take Boat/i);
+    }, "j", "t", ...Array(3).fill("enter"),
+    (text) => assert.match(text, /15,1 w/),
+    ...Array(4).fill("up"), "left", "up", "enter",
+    (text) => assert.match(text, /the city watch stops you and removes cadorna's treasure/),
+    "j", (_text, frame) => {
+      assert.equal(textile(frame)?.status, "ready-to-report");
+      assert.ok(frame.journal.leads.some(({ id }) => id === "textile-handoff"));
+      assert.match(frame.journal.objective.nextStep, /council clerk at City Hall/i);
+    }, "j",
+    "right", "up", "left", "up", "right", ...Array(6).fill("up"), "left", "up", "up",
+    "left", "up", "left", "up", "up",
+    ["enter", /view take pool share exit/, 10],
+    "j", (_text, frame) => assert.equal(textile(frame)?.status, "reward-pending"), "j",
+    "s", "e", "enter", "j", (_text, frame) => assert.equal(textile(frame)?.status, "turned-in"),
+  ]);
+  console.log("Returned from the Textile House via the west ferry, handed off the sealed box, and collected the council reward.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--castle-ending-checkpoint") {
   assert.ok(process.argv[3], "Pass a save outside Tyranthraxus's audience hall with the assault assigned.");
   copyFileSync(process.argv[3], join(saveDir, "B.json"));

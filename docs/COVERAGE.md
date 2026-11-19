@@ -508,6 +508,13 @@ walked from the gate to the clerk to collect the reward. In the opened-box
 branch, Cadorna confronted the party at City Hall and the journal closed
 the quest without payment.
 
+The `--textile-sealed-return-checkpoint` replay instead walks the complete
+return route from slot D at (12,14) south. Its controlled checkpoint holds
+the sealed box and has the courtyard victory flag set. The party leaves
+through the west gate, takes the ferry at (20,29), hands the box to the
+City Watch, and collects the council reward. The journal follows the
+route from the gate to the boat offer, handoff, and turn-in.
+
 A controlled Valjevo Castle replay used the original map and audience-hall
 script with the assault already assigned and the two audience guards marked
 defeated. The party stepped into the hall, heard Tyranthraxus's offer, and
