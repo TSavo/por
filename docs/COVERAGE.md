@@ -1519,7 +1519,9 @@ placements from a position-only copy of the quarters checkpoint.
 the 160×320 replacement at the guest's screen anchor. This replay does
 not present the middle or far frames.
 `kobold-cave-efreeti-approach` verifies the 160×320 close-distance
-replacement at its native anchor. `kobold-cave-wyvern-approach` verifies
+replacement at its native anchor and 26 scenery patterns across five
+views, with 121 enhanced terrain tiles in each view.
+`kobold-cave-wyvern-approach` verifies
 the native far, middle, and near draws in order, with 128×196, 224×260,
 and 352×320 replacements at their original anchors. The wyvern approach
 uses 12 scenery patterns across three views, with 121 enhanced terrain

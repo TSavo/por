@@ -288,6 +288,7 @@ const encounterRoutes = new Map([
   ["kobold-cave-efreeti-approach", {
     slot: "A", inputs: ["s", "up", "p", "enter"],
     placement: [48, 32, "encounter:area:13:SPRIT8.DAX:70:0:0", 40, 80],
+    terrain: { area: 13, views: 5, patterns: 26 },
   }],
   ["kobold-cave-wyvern-approach", {
     slot: "A", inputs: ["up", "enter"],
