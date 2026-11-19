@@ -51,7 +51,7 @@ let state = { sequence: -1 };
 let posting = false;
 let quickPollAfter = 0;
 let enhanced = false;
-let streetEnabled = false;
+let streetEnabled = true;
 let streetLoading;
 let streetViewport;
 let discoveredMaps = {};
@@ -351,28 +351,22 @@ async function loadStreetPreview() {
   return {canvas, renderer: module.createNewPhlanViewport(canvas, materials.walls, atlas)};
 }
 
-streetToggle.addEventListener("click", async () => {
-  if (!enhanced || streetLoading) return;
-  if (streetEnabled) {
-    streetEnabled = false;
-    streetToggle.setAttribute("aria-pressed", "false");
-    void showScreen();
-    return;
-  }
-  try {
-    if (!streetViewport) {
-      streetToggle.textContent = "Loading 3D…";
-      streetLoading = loadStreetPreview();
-      streetViewport = await streetLoading;
-      streetToggle.textContent = "3D preview";
-    }
-    streetEnabled = true;
-    streetToggle.setAttribute("aria-pressed", "true");
-  } catch (error) {
-    disableStreetPreview(error);
-  } finally {
+function ensureStreetViewport() {
+  if (streetViewport || streetLoading) return;
+  streetToggle.textContent = "Loading 3D…";
+  streetLoading = loadStreetPreview().then(viewport => {
+    streetViewport = viewport;
+    streetToggle.textContent = "3D view";
+  }).catch(disableStreetPreview).finally(() => {
     streetLoading = undefined;
-  }
+    void showScreen();
+  });
+}
+
+streetToggle.addEventListener("click", () => {
+  if (!enhanced) return;
+  streetEnabled = !streetEnabled;
+  streetToggle.setAttribute("aria-pressed", String(streetEnabled));
   void showScreen();
   if (document.activeElement === streetToggle) screen.focus({preventScroll:true});
 });
@@ -562,7 +556,9 @@ async function showScreen() {
   }
   let layers = [];
   let streetCanvas;
-  if (showArt && streetEnabled && streetViewport && !animationFrame && useNewPhlanViewport(view)) {
+  const streetScene = showArt && streetEnabled && !animationFrame && useNewPhlanViewport(view);
+  if (streetScene) ensureStreetViewport();
+  if (streetScene && streetViewport) {
     try {
       const {cameraX, cameraY, facing} = view.exploration;
       streetViewport.renderer.draw({x:cameraX, y:cameraY, facing});

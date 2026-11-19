@@ -1,7 +1,8 @@
 # New Phlan 3D prototype
 
-In browser play, switch to Enhanced display and select **3D preview** while
-exploring New Phlan. The preview uses the party camera from the game and the
+In browser play, Enhanced display automatically uses WebGL for supported
+New Phlan exploration. The **3D view** button can switch back to tiles for
+the current tab. The renderer uses the party camera from the game and the
 same WebGL code as the comparison page. It covers area 0 scenery. Combat,
 portraits, journal views, and other areas use their current presentation.
 The browser restores the enhanced tile view if WebGL or an asset fails.
