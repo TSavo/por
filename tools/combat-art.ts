@@ -13,7 +13,7 @@ export function combatHighlightPixel(x: number, y: number): number {
 }
 
 export const monsterCombatKey = /^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX):(\d{1,3})(?::ecl:([a-f0-9]{4}))?$/;
-export const partyCombatKey = /^combat:party:(\d{1,3}):(\d{1,3})$/;
+export const partyCombatKey = /^combat:party:(\d{1,3}):(\d{1,3})(?::palette:(0[1-9a-f]{15}))?$/;
 export const randomCombatKey = /^combat:(RANDCOM\.DAX):(1):(0):([0-5])$/;
 const fallenCombatKey = "combat:RANDCOM.DAX:1:0:5";
 
@@ -26,7 +26,8 @@ export function randomCombatPixels(data: Uint8Array, frame: number) {
 export function partyCombatPart(data: Uint8Array, height: 10 | 24) {
   if (!isPicture(data)) return;
   const picture = decodePicture(data);
-  if (picture.width === 24 && picture.height === height && picture.itemCount === 1) return picture.pixels;
+  if (picture.width === 24 && (picture.height === height || (height === 10 && picture.height === 8)) &&
+      picture.itemCount === 1) return picture.pixels;
 }
 
 export function loadCombatArtMatcher(keys: string[]) {
@@ -138,7 +139,7 @@ function buildCombatArtMatcher(keys: string[]) {
     }
     const partyKeys = keys.flatMap((key) => {
       const ids = partyCombatKey.exec(key);
-      return ids ? [{ key, head: Number(ids[1]), body: Number(ids[2]) }] : [];
+      return ids ? [{ key, head: Number(ids[1]), body: Number(ids[2]), palette: ids[3] }] : [];
     });
     if (partyKeys.length) {
       const files = listGameFiles(root);
@@ -151,13 +152,13 @@ function buildCombatArtMatcher(keys: string[]) {
       };
       const heads = parts("CHEAD.DAX", 10);
       const bodies = parts("CBODY.DAX", 24);
-      for (const { key, head, body } of partyKeys) {
+      for (const { key, head, body, palette } of partyKeys) {
         const face = heads.get(head);
         const torso = bodies.get(body);
         if (!face || !torso) continue;
         const pixels = torso.slice();
         pixels.set(face);
-        registerFacings(pixels, key);
+        registerFacings(palette ? pixels.map(color => Number.parseInt(palette[color]!, 16)) : pixels, key);
       }
     }
   }

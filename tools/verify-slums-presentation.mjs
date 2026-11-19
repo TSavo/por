@@ -2028,7 +2028,10 @@ try {
     "battle-tile:238366db6f519d123c0368f079f5022ca613b098716521c63dba487382dfd706",
     "battle-tile:773ab665f6d64f65a695c511203ed333dab9170afb944b2159fe8deec7b592a7",
   ] : []);
-  const patrolCombatSprites = new Set(patrolCombat ? ["combat:RANDCOM.DAX:1:0:5", "combat:RANDCOM.DAX:1:0:1"] : []);
+  const patrolCombatSprites = new Set(patrolCombat ? [
+    "combat:RANDCOM.DAX:1:0:5", "combat:RANDCOM.DAX:1:0:1",
+    "combat:party:64:64:palette:044645678ccecdef", "combat:party:64:64:palette:065345678edbcdef",
+  ] : []);
   async function advance(key) {
     const sequence = frame.sequence;
     const response = await fetch(origin + "/key", {

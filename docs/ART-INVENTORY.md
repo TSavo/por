@@ -313,9 +313,9 @@ the finished cells from matching archive fragments.
 
 The Chrome verifier captures battlefield cells from any replay with
 `POR_TRACE_BATTLE_TILES=1`. The Sokal undead patrol replay captured 23
-combat frames and verified its two standing poses and two strikes. Of
-84 distinct patterns, 36 have tile replacements and six match original
-sprite fragments. The remaining patterns include actor and effect pixels.
+combat frames and verified its two standing poses and two strikes. After
+matching the loose stones, fallen combatants, and two recolored party
+icons as sprites, all 39 terrain patterns in that trace have replacements.
 
 Enable both trace variables on the same replay and redirect its output
 to a UTF-8 log. Add `--battle-draws=PATH_TO_LOG` to the report command
@@ -331,8 +331,11 @@ The courtyard also shows a composed party icon. Its source is
 identical pixels, so the manifest uses one key, `combat:party:0:0`, for
 that composition. The matcher assembles and checks the original 24×24
 pixels in both facings. Chrome observed the 96×96 replacement in real
-courtyard combat. Other combinations, equipment poses, and recolors
-still fall back to the guest artwork.
+courtyard combat. The patrol also uses an eight-row head from `CHEAD.DAX`
+block 64 on `CBODY.DAX` block 64. The manifest's `:palette:` suffix gives
+the 16 guest color indices in order. Chrome verified both recolors at the
+original battlefield positions and facings. Other combinations and poses
+can still use the guest artwork.
 
 The composed icon also renders when the party member is selected.
 The matcher checks the full highlighted cell and restores its bright

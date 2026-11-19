@@ -4069,6 +4069,8 @@
     "battle-tile:ba4085dd7fdd4e5675ac826dfc138a36a6b758920c6b9030e570b98086f65bd9": "courtyard-wall-cope-broken-end.png",
     "battle-tile:7c65890e55e9c2edab246c6c49f2bb097a16c24c639ca75533ec7904e97fa372": "courtyard-wall-cope-end-return.png",
     "combat:party:0:0": "sokal-party-scout.png",
+    "combat:party:64:64:palette:044645678ccecdef": "combat-party-swordsman-rust.png",
+    "combat:party:64:64:palette:065345678edbcdef": "combat-party-swordsman-plum.png",
     "battle-tile:7ac3c2f1b91ed52c3f858e1ae3989d6931b7866a4853b25f386d9c52f7049fa6": "courtyard-wall-raking-wall-crossing.png",
     "battle-tile:fe796d907de744efaa852a8394eb89bc4039f644ce5bc12245eeae46ac6ac489": "courtyard-wall-raking-wall-cutback.png",
     "battle-tile:e137c5b25d8d419612a0478ffe3f3ae6ec88015e5adf6e6de224d5a908ece8bd": "courtyard-wall-raking-wall-toe.png",

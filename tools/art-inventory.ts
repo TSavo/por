@@ -9,7 +9,7 @@ import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 import { loadUpgradeArt } from "./upgrade-art.js";
 import { compositePortraitKey } from "./portrait-art.js";
-import { randomCombatKey } from "./combat-art.js";
+import { partyCombatKey, randomCombatKey } from "./combat-art.js";
 
 const families = [
   [/^(TITLE|FINAL\d+)\.DAX$/, "Title and ending"],
@@ -204,7 +204,7 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
     }
   }
   const composite = compositePortraitKey.exec(id);
-  const party = /^combat:party:(\d+):(\d+)$/.exec(id);
+  const party = partyCombatKey.exec(id);
   const compositeParts = composite ? [
     { archive: composite[1]!, block: Number(composite[2]), frame: 0, x: 0, y: 0 },
     { archive: composite[3]!, block: Number(composite[4]), frame: 0, x: 0, y: 40 },
@@ -244,6 +244,8 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
       if (party) original.pixels.set(pixels);
       else original.blit(pixels, picture.width, picture.height, part.x, part.y);
     }
+    const palette = party?.[3];
+    if (palette) original.pixels.set(original.pixels.map(color => Number.parseInt(palette[color]!, 16)));
     classicPreview = exportClassicFrame(original, index);
   } else if (capture) {
     const original = new Frame(8, 8);
