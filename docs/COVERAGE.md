@@ -2215,3 +2215,26 @@ Slums papers-dispute orc replays check both combat poses in each fight.
 The Podal shrine recruiter replay verifies the approach and transition
 to the recruiter portrait. The Phlan Ruins scorpion replay checks the
 sprite at the original encounter anchor.
+
+### New Phlan presentation regressions
+
+Run the opening from character creation with the original game data installed.
+
+```powershell
+node tools/verify-slums-presentation.mjs - PATH_TO_CHROME new-phlan-rolf-approach
+```
+
+The verifier checks all 121 dock tile placements, the three approach sprites
+in order, and the close-up filling the portrait panel.
+
+Pass a slot A checkpoint in the dueling room at (7,2) facing west to
+`new-phlan-building-exit`. The replay verifies the enhanced street at (5,1)
+while the exploration menu is absent and before the next Enter, then checks
+the same tile placement after advancing through the transition. The browser
+recognizes the output of the original scenery draw routine during this pause.
+
+The `new-phlan-arena-quick` route starts from the council checkpoint at
+(6,5) facing east and uses Alda for the arena duel. Chrome checks the attack
+and damage report before choosing Quick, then verifies that one Q displays
+subsequent misses and damage and stops at the original Continue Battle
+choice. The test also checks that the save bytes are unchanged.
