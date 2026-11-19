@@ -2062,6 +2062,9 @@ battlefield terrain cells.
 The replay also checks the ochre swordsman's enhanced strike during
 the battle. The blue, ochre, and plum strike images match their original
 attack pixels in either facing, including when the actor is selected.
+Grishnak's 96×96 raised-staff pose matches CPIC2 block 130 in both
+facings in the Textile House. The opening battle replay verified her
+standing pose and did not reach a frame using the raised-staff pose.
 
 The Podal Plaza replay starts from that post-Sokal save at the clerk.
 It buys westbound passage, walks from the landing to the north entrance
