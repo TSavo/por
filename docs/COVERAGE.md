@@ -1336,6 +1336,8 @@ the middle and near poses at their original anchors in separate encounters.
 `kobold-cave-wyvern-dialogue` verify the Mummy approach sprite and two
 pre-combat illustrations. Chrome checks the artwork and state-preserving
 mode switches on all five encounter replays.
+`bane-east-ramparts` checks 15 new gate, wall, and ivy tiles across
+17 live views and 2,057 placements from the temple entrance save.
 `valhingen-central-courts` checks 32 new fence, tomb, and masonry
 tiles across 28 live views from the native save.
 `north-gate-jail-thugs` and `north-gate-thieves-guild` verify both

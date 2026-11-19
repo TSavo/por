@@ -358,6 +358,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["bane-east-ramparts", {
+    slot: "A", area: 24, views: 17, patterns: 62, sceneryOnly: true,
+    walk: ["up", "right", "up", "up", "left", "up", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up"],
+  }],
   ["valhingen-central-courts", {
     slot: "A", area: 10, views: 28, patterns: 140, sceneryOnly: true,
     walk: ["left", "up", "left", "up", "right", "up", "up", "up", "up", "left", "up", "left", "right", "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up"],
