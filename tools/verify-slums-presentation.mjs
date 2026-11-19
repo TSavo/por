@@ -735,6 +735,12 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valhingen-skeleton-retainer-combat", {
+    slot: "A", stand: "combat:area:10:CPIC4.DAX:34:ecl:9e52", strike: "combat:area:10:CPIC4.DAX:162:ecl:9e52",
+    width: 96, height: 96, readyPrompt: /SKELETONHITPOINTS5AC7/i, strikeReflected: false,
+    strikeReport: /SKELETONATTACKSCORAANDMISSES/i,
+    inputs: ["up", "enter", "y", "enter", "enter", "enter"],
+  }],
   ["valhingen-conjurer-skeleton-combat", {
     slot: "A", stand: "combat:area:10:CPIC4.DAX:17:ecl:a5f7", strike: "combat:area:10:CPIC4.DAX:145:ecl:a5f7",
     width: 96, height: 96, readyPrompt: /SPECTREHITPOINTS38AC2/i, strikeReflected: false,

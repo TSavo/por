@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:10:CPIC4.DAX:34:ecl:9e52": "valhingen-skeleton-retainer-ready.png",
+    "combat:area:10:CPIC4.DAX:162:ecl:9e52": "valhingen-skeleton-retainer-strike.png",
     "encounter:area:22:ecl:a2c3:SPRIT7.DAX:15:0:0": "tyrmor-prison-human-fighters-approach.png",
     "portrait:area:22:ecl:a2c3:HEAD7.DAX:54:BODY7.DAX:6": "tyrmor-prison-human-fighters-dialogue.png",
     "combat:area:10:CPIC4.DAX:17:ecl:a5f7": "valhingen-spectre-conjurer-combat-ready.png",

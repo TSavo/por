@@ -2919,6 +2919,9 @@ Chrome verifies the bow pose with the original combat text.
 The Valhingen conjurer has distinct ready and draining-touch sprites
 in its skeleton, zombie, and wight summoning branches. Chrome checks
 each against the original attack report.
+The Giant Skeleton's retainers have a separate ready and sword-strike
+pair. Chrome checks the native attack on Cora from a controlled
+checkpoint for the retinue branch.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.
