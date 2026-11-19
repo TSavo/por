@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "tile:0:97ff4f78b15e4481b61bed70d5dffe6e9ab47632e36ac34439b23705f1f723b5": "new-phlan-pier-alley-terrain-97ff4f78b15e.png",
     "encounter:area:18:SPRIT1.DAX:4:0:0": "podal-shrine-recruiter-approach.png",
     "combat:area:10:CPIC4.DAX:35:ecl:b5c7": "graveyard-stair-zombie-stand.png",
     "combat:area:10:CPIC4.DAX:163:ecl:b5c7": "graveyard-stair-zombie-strike.png",
