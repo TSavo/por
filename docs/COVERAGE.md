@@ -1151,6 +1151,12 @@ and follows the journal north through the door and two squares east to
 the guard encounter at (7,0). It verifies the 484 enhanced tile placements
 along the passage, including the new wooden-door lintel, and checks the
 objective change when the guards appear.
+The `kobold-king-fall` replay starts from a controlled post-guard slot B
+at (10,2) north and witnesses the king's fall. It saves the report objective
+through Encamp, and `kobold-king-fall-reload` verifies that it survives
+reloading. The separate `kobold-king-reward` City Hall checkpoint uses
+the observed result. Chrome checks the clerk's dialogue, the intermediate
+reward-pending status, and the turned-in result in the resulting save.
 It also tests the surrender demand, restores the prison escort clue from a
 saved journal, and checks the separate cell and Fatima outcomes against
 their original dialogue. The surrender branch still needs a live replay.

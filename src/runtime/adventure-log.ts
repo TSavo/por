@@ -116,6 +116,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "castle" && tracked.status === "ready-to-report") {
         return { title: commission.title, nextStep: "Return to City Hall and report Tyranthraxus's defeat to the council clerk." };
       }
+      if (commission.id === "kobolds" && tracked.status === "ready-to-report" && knows("kobold-king-fell")) {
+        return { title: commission.title, nextStep: "Leave the kobold caves and tell the council clerk at City Hall that the king fell into his own pit." };
+      }
       if (commission.id === "ohlo" && tracked.status === "ready-to-report") {
         return { title: commission.title, nextStep: "Take the package back to Ohlo and choose Give when he asks for the potion." };
       }
@@ -675,6 +678,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("YOU REACH THE KING'S QUARTERS AND CONFRONT HIS GUARDS")) {
     leads.push({ id: "kobold-king-quarters", title: "The king's quarters", detail: "The party reached the king's quarters and encountered his guards." });
+  }
+  if (text.includes("THE KING, PANICKED, HAS FALLEN INTO HIS OWN SPIKED PIT AND DIED")) {
+    leads.push({ id: "kobold-king-fell", title: "The kobold king fell",
+      detail: "The king panicked, fell into his own spiked pit, and died." });
   }
   if (text.includes("YOU SEEM VALUABLE. SURRENDER OR DIE") || text.includes("THE BALLISTA ARE RELOADED. THE KING CALLS OUT")) {
     leads.push({ id: "kobold-surrender-offer", title: "The king demands surrender",
