@@ -41,6 +41,8 @@
     "combat:area:20:CPIC2.DAX:132:ecl:aa02": "slums-orc-home-defender-strike.png",
     "combat:area:20:CPIC2.DAX:4:ecl:aa02": "slums-orc-home-defender-ready.png",
     "combat:area:20:CPIC2.DAX:5:ecl:aa02": "slums-orc-home-leader-ready.png",
+    "combat:area:22:CPIC7.DAX:141:ecl:a36f": "tyrmor-prison-priest-combat-strike.png",
+    "combat:area:22:CPIC7.DAX:13:ecl:a36f": "tyrmor-prison-priest-combat-ready.png",
     "combat:area:14:CPIC3.DAX:12:ecl:b0d0": "old-phlan-jail-thug-ready.png",
     "combat:area:14:CPIC3.DAX:140:ecl:b0d0": "old-phlan-jail-thug-strike.png",
     "encounter:area:13:ecl:9b8a:SPRIT8.DAX:0:1:0": "kobold-white-flag-approach-middle.png",

@@ -1079,6 +1079,12 @@ const combatPoseRoutes = new Map([
     inputs: ["up", ...Array(5).fill("enter")],
     strikeInputs: [...Array(4).fill("enter"), ...Array(27).fill("q")],
   }],
+  ["tyrmor-prison-priest-combat", {
+    slot: "B", stand: "combat:area:22:CPIC7.DAX:13:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:141:ecl:a36f",
+    width: 96, height: 96, readyPrompt: /ENNAHITPOINTS45AC9/i, strikeReflected: true,
+    strikeReport: /2NDLVLCLERICATTACKSBRINHITTINGFOR4POINTSOFDAMAGE/i,
+    inputs: ["up", "enter", "a", "a", "c", "enter"], strikeInputs: ["d", "d", "d"],
+  }],
   ["old-phlan-jail-thug-combat", {
     slot: "A", stand: "combat:area:14:CPIC3.DAX:12:ecl:b0d0", strike: "combat:area:14:CPIC3.DAX:140:ecl:b0d0",
     width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: true,
