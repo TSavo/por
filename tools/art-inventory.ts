@@ -493,7 +493,7 @@ const nativeBattlefieldTotals = { captured: nativeBattleTiles.size,
 const portraitFrame = new Frame(320, 200);
 const combatFrame = new Frame(320, 200);
 const replacementsById = new Map(replacements.map(replacement => [replacement.id, replacement]));
-const encounterCoverage = archives.filter(({ file }) => /^(?:PIC|SPRIT|CPIC)\d+\.DAX$/.test(file))
+const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\d+|RANDCOM)\.DAX$/.test(file))
   .map(({ file, entries }) => {
     let frames = 0;
     const unlinkedFrames = entries.flatMap(({ id, directoryIndex, pictures }) => {
