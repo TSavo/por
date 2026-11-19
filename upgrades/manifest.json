@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:3:CPIC5.DAX:56:ecl:a74e": "valjevo-bucket-giant-ready.png",
+    "combat:area:3:CPIC5.DAX:184:ecl:a74e": "valjevo-bucket-giant-strike.png",
     "tile:3:dc92fe92104eb8ca3b7796eee851ea4f5c0583af20e4113308ca5da62b422618": "valjevo-transition-terrain-dc92fe92104e.png",
     "tile:3:471ee36539583f5ea9268a433150630a698dcacf55a4975fadd42d86be9e6447": "valjevo-transition-terrain-471ee3653958.png",
     "tile:3:d049d8f7173c8fb6269a38a24f83acc24a473660696e3481ce548b599fc6c6c0": "valjevo-transition-terrain-d049d8f7173c.png",

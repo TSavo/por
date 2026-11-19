@@ -2753,6 +2753,8 @@ threshold tiles.
 The Valjevo transition hall and stone chamber add 14 oak and ashlar
 tiles. Their Chrome replays check 1,331 placements across 11 views,
 including the hall's area 5 to area 3 transition.
+The Valjevo bucket-trap battle uses scoped 4× fire giant ready and attack
+sprites. Its Chrome replay checks the attack during the original combat report.
 The Valjevo kitchen corridor, jamb, and south yard now use tamped-clay
 floor tiles. Three Chrome walks checked their wall and doorway joins
 across 39 views.

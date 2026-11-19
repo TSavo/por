@@ -678,6 +678,12 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-bucket-giants-combat", {
+    slot: "B", stand: "combat:area:3:CPIC5.DAX:56:ecl:a74e", strike: "combat:area:3:CPIC5.DAX:184:ecl:a74e",
+    width: 96, height: 192, readyPrompt: /FIREGIANTHITPOINTS59AC3/i,
+    strikeReport: /FIREGIANTATTACKSRHIANNONHITTINGFOR18POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(4).fill("enter"), "c", "enter", "enter"], strikeInputs: ["enter"],
+  }],
   ["valjevo-al-hyam-combat", {
     slot: "B", stand: "combat:area:5:CPIC5.DAX:14:ecl:a3a8", strike: "combat:area:5:CPIC5.DAX:14:ecl:a3a8",
     width: 96, height: 96, readyPrompt: /AL-HYAMDAZIDHITPOINTS16AC3/i,
