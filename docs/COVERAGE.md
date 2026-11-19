@@ -3089,3 +3089,7 @@ Chrome verifies placement, the original walk-on dialogue, and mode switching.
 Character-sheet heads now overlap the collars as transparent layers.
 Body 4 restores the prominent steel axe. Production Chrome verified 35
 frames, including both chooser cycles and six Body 4 pairings.
+
+All 18 weapons for the default player icon head have ready and action
+sprites. The editor sweep covers all choices, and production Chrome combat
+replays verify the ten new pairs from native editor saves.
