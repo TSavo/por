@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:5:PIC5.DAX:31:0:0": "valjevo-tower-troll-dialogue.png",
     "tile:2:7b8772a162e24dbbfab628febba4c8018354d1997675d518b44e749fa71e1b6b": "textile-waterfront-side-lanes-terrain-7b8772a162e2.png",
     "tile:2:d20d585641c6d76d5fdd15d21d1f0fe0f6663d6aded22bc96508569ac0bd84f7": "textile-waterfront-side-lanes-terrain-d20d585641c6.png",
     "tile:2:ac3fc5b516262de186669469e4ac5840a8cd0325aee0c66f155c78df7d785f52": "textile-waterfront-side-lanes-terrain-ac3fc5b51626.png",
