@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:21:SPRIT4.DAX:18:0:0": "sokal-ceiling-insects-approach.png",
     "tile:10:8956bbec4932b49cfa6f935f4fd7071ca33beecfb86623aab6b091d551727eed": "valhingen-vault-walk-path-8956bbec4932.png",
     "tile:10:7120b409cc26cb2e4dac91595abc509eb2837f1b40a7f80dd37b5629f5994c87": "valhingen-vault-walk-path-7120b409cc26.png",
     "tile:10:2969ef4bff4a1ee9a512d93e845163dcb2f9e14991780366c0b4dc019c67c3f1": "valhingen-vault-walk-path-2969ef4bff4a.png",
@@ -3861,6 +3862,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:21:SPRIT4.DAX:18:0:0": { "area": 21, "x": 24, "y": 32, "width": 88, "height": 80 },
     "encounter:area:21:SPRIT4.DAX:17:0:0": { "area": 21, "x": 56, "y": 32, "width": 32, "height": 80 },
     "encounter:area:21:SPRIT4.DAX:17:1:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:6:SPRIT5.DAX:16:1:0": { "area": 6, "x": 56, "y": 32, "width": 24, "height": 65 },
