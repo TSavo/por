@@ -221,7 +221,7 @@ for (const path of tracePaths) {
 const artworkLoadIssues: ArtworkLoadIssue[] = [];
 const artwork = loadUpgradeArt(undefined, gameData, issue => artworkLoadIssues.push(issue));
 const portraitMatchIssues: { id: string; reason: string }[] = [];
-loadPortraitArt([...artwork.keys()].filter(id => portraitKey.test(id)), false, gameData, (id, reason) => {
+const matchPortrait = loadPortraitArt([...artwork.keys()].filter(id => portraitKey.test(id)), false, gameData, (id, reason) => {
   portraitMatchIssues.push({ id, reason });
 });
 const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
@@ -467,6 +467,8 @@ const explorationTotals = explorationCoverage.reduce((totals, { captured, matche
 }), { captured: 0, matched: 0 });
 const battlefieldCaptured = capturedTiles.size - explorationTotals.captured;
 const battlefieldTotals = { captured: battlefieldCaptured, matched: battlefieldCaptured - battlefieldGaps };
+const portraitFrame = new Frame(320, 200);
+const replacementPreviews = new Map(replacements.map(({ id, preview }) => [id, preview]));
 const encounterCoverage = archives.filter(({ file }) => /^(?:PIC|SPRIT|CPIC)\d+\.DAX$/.test(file))
   .map(({ file, entries }) => {
     let frames = 0;
@@ -482,12 +484,23 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:PIC|SPRIT|CPIC)\d+\
         })).filter(({ frame }) => !linked.has(`${member}:${frame}`));
       });
     });
-    return { file, frames, matched: frames - unlinkedFrames.length, unlinkedFrames };
+    const pixelMatchedFrames = /^PIC\d+\.DAX$/.test(file) ? unlinkedFrames.flatMap(source => {
+      if (source.width !== 88 * artScale || source.height !== 88 * artScale) return [];
+      const picture = classicPicture(file, source.directoryIndex, source.member);
+      portraitFrame.blit(frameSlice(picture, source.frame), 88, 88, 24, 24);
+      const replacement = matchPortrait(portraitFrame);
+      return typeof replacement === "string" ? [{ ...source, replacement, replacementPreview: replacementPreviews.get(replacement)! }] : [];
+    }) : [];
+    const pixelMatchedIds = new Set(pixelMatchedFrames.map(({ id }) => id));
+    return { file, frames, matched: frames - unlinkedFrames.length, pixelMatchedFrames,
+      unlinkedFrames: unlinkedFrames.filter(({ id }) => !pixelMatchedIds.has(id)) };
   }).filter(({ frames }) => frames > 0);
 const encounterTotals = encounterCoverage.reduce((total, row) => ({
   frames: total.frames + row.frames,
   matched: total.matched + row.matched,
-}), { frames: 0, matched: 0 });
+  matchedByPixels: total.matchedByPixels + row.pixelMatchedFrames.length,
+  remaining: total.remaining + row.unlinkedFrames.length,
+}), { frames: 0, matched: 0, matchedByPixels: 0, remaining: 0 });
 writeFileSync(join(output, "index.html"), `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pool of Radiance art inventory</title><style>
 body{font:16px system-ui;background:#181715;color:#f3e9d6;margin:2rem auto;padding:0 1rem;max-width:1200px}
@@ -534,16 +547,21 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
   return `<tr><th scope="row">${area}</th><td>${captured}</td><td>${matched}</td><td>${gap}</td></tr>`;
 }).join("")}
 </tbody></table></details>` : ""}
-<details><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} of ${encounterTotals.frames} original frames replaced · ${encounterTotals.frames - encounterTotals.matched} remaining</summary>
-<p>Counts compare original picture and sprite frames with loaded replacements. An area-specific replacement counts once for the source frame. Composite portraits are listed under Runtime artwork.</p>
-<table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>With replacements</th><th>Unmatched</th></tr></thead><tbody>
-${encounterCoverage.map(({ file, frames, matched }) =>
-  `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${frames > matched ? `<a href="#archive-${escape(file)}">${frames - matched}</a>` : "0"}</td></tr>`).join("")}
+<details><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} linked · ${encounterTotals.matchedByPixels} exact portrait matches · ${encounterTotals.remaining} unlinked</summary>
+<p>An area-specific replacement counts once for the source frame. An exact portrait match uses a replacement the browser's global matcher already finds. Composite portraits are listed under Runtime artwork.</p>
+<table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>Linked</th><th>Exact portrait matches</th><th>Unlinked</th></tr></thead><tbody>
+${encounterCoverage.map(({ file, frames, matched, pixelMatchedFrames, unlinkedFrames }) =>
+  `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${pixelMatchedFrames.length}</td><td>${unlinkedFrames.length ? `<a href="#archive-${escape(file)}">${unlinkedFrames.length}</a>` : "0"}</td></tr>`).join("")}
 </tbody></table></details>
-<details><summary>Unlinked source frames · ${encounterTotals.frames - encounterTotals.matched}</summary>
+<details><summary>Exact portrait matches · ${encounterTotals.matchedByPixels}</summary>
+<table class="coverage-table"><thead><tr><th>Source ID</th><th>Replacement ID</th><th>Preview</th></tr></thead><tbody>
+${encounterCoverage.flatMap(({ pixelMatchedFrames }) => pixelMatchedFrames).map(({ id, replacement, replacementPreview }) =>
+  `<tr><th scope="row"><code>${escape(id)}</code></th><td><code>${escape(replacement)}</code></td><td><a href="${escape(replacementPreview)}">Enhanced PNG</a></td></tr>`).join("")}
+</tbody></table></details>
+<details><summary>Unlinked source frames · ${encounterTotals.remaining}</summary>
 <p>Each source ID contains the archive, directory entry, member, and zero-based frame number. The preview opens the source sheet. Some archive frames may have no verified in-game use.</p>
 ${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({ file, unlinkedFrames }) =>
-  `<details><summary>${escape(file)} · ${unlinkedFrames.length}</summary>
+  `<details id="archive-${escape(file)}"><summary>${escape(file)} · ${unlinkedFrames.length}</summary>
   <table class="coverage-table"><thead><tr><th>Source ID</th><th>Block</th><th>4× target</th><th>Preview</th></tr></thead><tbody>
   ${unlinkedFrames.map(({ id, block, width, height, preview }) =>
     `<tr><th scope="row"><code>${escape(id)}</code></th><td>${block}</td><td>${width}×${height}</td>

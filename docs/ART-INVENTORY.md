@@ -49,6 +49,10 @@ traces. Areas and viewpoints outside those traces still need live coverage.
 encounter sprite, and combat picture archives. It counts each frame once
 even when several areas have their own replacement. The table inventories
 archive contents. The live routes establish which frames are drawn.
+**Exact portrait matches** lists original frames whose pixels already
+resolve to global enhanced artwork through the browser's portrait matcher.
+These frames need no new asset binding. The current inventory reports
+331 linked frames, 16 exact portrait matches, and 454 unlinked frames.
 **Unlinked source frames** lists the individual unlinked PIC, SPRIT, and
 CPIC frames by archive, directory index, member, and frame. Each entry
 includes its 4× dimensions and links to the local source sheet. The JSON
