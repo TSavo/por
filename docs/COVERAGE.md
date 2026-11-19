@@ -1332,9 +1332,9 @@ checks that his warning is learned only after the party hears it.
 `valjevo-hill-giant-dialogue` checks the hill giant illustration at the
 ready-weapons choice. `lizardfolk-east-bank` checks seven new tiles across
 16 views and 1,936 placements from a position-only copy of the ruin route.
-`podal-south-arcade` checks 12 new night-time arcade tiles and 1,331
-placements across 11 views. The position-only slot I checkpoint stops
-before the goblin encounter starts.
+`podal-south-arcade` checks 12 new night-time arcade tiles and 1,452
+placements across 12 views. The last view verifies the goblin approach
+sprite at its original position over all 121 enhanced terrain tiles.
 `bane-inner-court` and `bane-inner-sanctuary` cover the court and
 red-ceiling sanctuary routes. Chrome verifies 14 new tiles across
 16 live views and 1,936 placements. The court starts from the goblin-clue

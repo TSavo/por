@@ -1536,8 +1536,9 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "right", "up", "up"],
   }],
   ["podal-south-arcade", {
-    slot: "I", area: 18, views: 11, patterns: 53,
-    walk: ["up", "up", "right", "up", "up", "right", "up", "up", "right", "up"],
+    slot: "I", area: 18, views: 12, patterns: 53,
+    walk: ["up", "up", "right", "up", "up", "right", "up", "up", "right", "up", "up"],
+    finalEncounter: [48, 32, "encounter:area:18:SPRIT1.DAX:2:0:0", 48, 80],
   }],
   ["lizardfolk-east-bank", {
     slot: "A", area: 16, views: 16, patterns: 52,
@@ -1679,6 +1680,7 @@ const environmentRoutes = new Map([
   ["kuto-well-approach", {
     slot: "J", area: 29, views: 16, patterns: 89,
     walk: ["up", "up", "up", "right", "up", "left", "up", "right", "up", "left", "up", "right", "up", "left", "up"],
+    finalEncounter: [48, 32, "encounter:area:29:SPRIT8.DAX:0:0:0", 40, 80],
   }],
   ["stojanow-riverwalk", {
     slot: "A", area: 9, views: 13, patterns: 50, sceneryOnly: true,
@@ -2302,13 +2304,13 @@ try {
     }
     assert.equal(views, environment.views);
     assert.equal(patterns.size, environment.patterns);
-    if (routeName === "kuto-well-approach") {
-      const scouts = "encounter:area:29:SPRIT8.DAX:0:0:0";
-      assert.deepEqual(frame.encounter, [48, 32, scouts, 40, 80]);
-      await waitFor("the Kuto scouts over the well scenery", () => run(`state.sequence === ${frame.sequence} &&
+    if (environment.finalEncounter) {
+      assert.deepEqual(frame.encounter, environment.finalEncounter);
+      const [, , id, width, height] = environment.finalEncounter;
+      await waitFor("the enhanced encounter over the scenery", () => run(`state.sequence === ${frame.sequence} &&
         [...document.querySelectorAll(".encounter-sprite")].some(image =>
-          image.getAttribute("src") === ${JSON.stringify("/art/" + scouts)} &&
-          image.naturalWidth === 160 && image.naturalHeight === 320)`));
+          image.getAttribute("src") === ${JSON.stringify("/art/" + id)} &&
+          image.naturalWidth === ${width * 4} && image.naturalHeight === ${height * 4})`));
     }
     if (actor) {
       assert.ok(frame.encounter, "The encounter actor must be drawn separately from the scenery");
