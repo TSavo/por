@@ -73,12 +73,12 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
     const pattern = `${width}:${Buffer.from(pixels).toString("hex")}`;
     registered.push({ key, pattern, scoped: key.startsWith("combat:area:"), reflected, pixels, width });
   };
-  const registerFacings = (pixels: Uint8Array, key: string, width = 24, height = 24) => {
+  const registerFacings = (pixels: Uint8Array, key: string, width = 24, height = 24, artReflected = false) => {
     sizes.set(`${width}:${height}`, { width, height });
     const reflected = Buffer.from(pixels);
     for (let y = 0; y < height; y++) reflected.subarray(y * width, (y + 1) * width).reverse();
-    register(reflected, key, true, width);
-    register(pixels, key, false, width);
+    register(reflected, key, !artReflected, width);
+    register(pixels, key, artReflected, width);
   };
   const selectedPose = (cell: Uint8Array, bevel: Uint8Array, width: number) => {
     // Aim draws white cursor pixels over the gray interior of the selection frame.
@@ -118,7 +118,9 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
       const record = file ? parseDax(file, readGameFile(root, file)).entries.find(({ id }) => id === 1) : undefined;
       if (record) for (const { key, frame } of randomFrames) {
         const pixels = randomCombatPixels(record.data, frame);
-        if (pixels?.some(Boolean)) registerFacings(pixels, key);
+        // The two loose-stone layouts use opposite diagonals. Frame 0
+        // matches its own guest pixels and mirrors the enhanced frame 1 art.
+        if (pixels?.some(Boolean)) registerFacings(pixels, key, 24, 24, frame === 0);
       }
     }
     const monsters = new Map(keys.flatMap(key => {

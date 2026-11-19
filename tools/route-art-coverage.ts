@@ -7,6 +7,7 @@ import { decodePicture, frameSlice, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 import { loadUpgradeArt, loadUpgradeArtFromManifests } from "./upgrade-art.js";
+import { randomCombatPixels } from "./combat-art.js";
 
 const [tracePath, manifestPath, reportPath, ...options] = process.argv.slice(2);
 const omitted = options.find((option) => option.startsWith("--omit-frames="));
@@ -169,6 +170,14 @@ if (battleKeys.size) {
 
 const terrainPrefix = "POR_BATTLE_TERRAIN ";
 const observedDraws = new Map<string, Map<number, Map<string, Buffer>>>();
+const observedPropFrames = new Map<string, number>();
+const randomArchive = drawLog && listGameFiles(root).find(name => name.toUpperCase() === "RANDCOM.DAX");
+const randomRecord = randomArchive && parseDax(randomArchive, readGameFile(root, randomArchive)).entries.find(({ id }) => id === 1);
+const randomPictures = new Map<string, number>();
+if (randomRecord) for (let frame = 0; frame < 6; frame++) {
+  const pixels = randomCombatPixels(randomRecord.data, frame);
+  if (pixels?.some(Boolean)) randomPictures.set(Buffer.from(pixels).toString("hex"), frame);
+}
 for (const line of drawLines.filter(line => line.startsWith(terrainPrefix))) {
   const { picture, cells } = JSON.parse(line.slice(terrainPrefix.length)) as {
     picture: number; cells: [number, number, string, string][];
@@ -180,6 +189,7 @@ for (const line of drawLines.filter(line => line.startsWith(terrainPrefix))) {
   }
   const observed = observedDraws.get(id) ?? new Map<number, Map<string, Buffer>>();
   observedDraws.set(id, observed);
+  const picturePixels = Buffer.alloc(24 * 24);
   for (const [x, y, key, indices] of cells) {
     const pixels = Buffer.from(indices, "hex");
     if (![0, 8, 16].includes(x) || ![0, 8, 16].includes(y) || !/^(?:0[0-9a-f]){64}$/.test(indices) ||
@@ -190,10 +200,17 @@ for (const line of drawLines.filter(line => line.startsWith(terrainPrefix))) {
     const variants = observed.get(position) ?? new Map<string, Buffer>();
     variants.set(key, pixels);
     observed.set(position, variants);
+    for (let row = 0; row < 8; row++) pixels.copy(picturePixels, position + row * 24, row * 8, row * 8 + 8);
+  }
+  const prop = randomPictures.get(picturePixels.toString("hex"));
+  if (prop !== undefined) observedPropFrames.set(id, prop);
+  for (const [x, y, key, indices] of cells) {
+    const pixels = Buffer.from(indices, "hex");
     const source = sourceByHash.get(key) ?? { pixels, candidates: [] as SourceCandidate[] };
     if (!source.candidates.some(candidate => candidate.observed && candidate.block === block && candidate.frame === frame &&
         candidate.fragment?.x === x && candidate.fragment.y === y)) {
-      source.candidates.push({ archive: "SQRPACI.DAX", block, frame, role: "terrain", fragment: { x, y }, observed: true });
+      source.candidates.push({ archive: "SQRPACI.DAX", block, frame, role: prop === undefined ? "terrain" : "sprite", fragment: { x, y }, observed: true });
+      if (prop !== undefined) source.candidates.push({ archive: "RANDCOM.DAX", block: 1, frame: prop, role: "sprite", fragment: { x, y } });
       sourceByHash.set(key, source);
     }
   }
@@ -249,7 +266,7 @@ const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
       withSpriteCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "sprite")).length,
       withEffectCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "effect")).length,
       withTerrainCandidates: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role }) => role === "terrain")).length,
-      withObservedTerrainSources: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ observed }) => observed)).length,
+      withObservedTerrainSources: entries.filter(({ sourceCandidates }) => sourceCandidates.some(({ role, observed }) => role === "terrain" && observed)).length,
       unmatchedWithoutSpriteCandidates: entries.filter(({ replacement, sourceCandidates }) =>
         !replacement && !sourceCandidates.some(({ role }) => role === "sprite")).length,
       unmatchedWithoutActorOrEffectCandidates: entries.filter(({ replacement, sourceCandidates }) =>
@@ -260,7 +277,10 @@ const areas = [...new Set(tiles.map(({ area }) => area))].map((area) => {
 const terrainSources = [...drawFrames].map(([id, source]) => {
   const pieces = drawnPieces.get(id);
   if (pieces?.length !== 9) throw new Error(`Could not decode the drawn terrain frame ${id}`);
-  return { id, ...source, pieces: pieces.map(({ pixels, ...piece }) => ({
+  const prop = observedPropFrames.get(id);
+  const propId = prop === undefined ? undefined : `combat:RANDCOM.DAX:1:0:${prop}`;
+  const sprite = propId && { id: propId, replacement: artwork.get(propId)?.file ?? null };
+  return { id, ...source, sprite, pieces: pieces.map(({ pixels, ...piece }) => ({
     ...piece, target: { width: 32, height: 32 }, blank: !pixels.some(Boolean),
     observed: Array.from(observedDraws.get(id)?.get(piece.y * 24 + piece.x)?.keys() ?? [], key => ({
       key, replacement: artwork.get(key)?.file ?? null,
@@ -298,7 +318,7 @@ const sections = areas.map(({ area, patterns, matched, unmatchedWithoutActorOrEf
   }).join("") + "</div></section>").join("");
 const terrainSection = terrainSources.length ? `<section><h2>Battlefield picture draws</h2>
 <p>Click a piece to download its 8×8 pixels. Coordinates below each frame are guest draw arguments.</p>
-<div class="grid">${terrainSources.map(({ id, placements, pieces }) => {
+<div class="grid">${terrainSources.map(({ id, placements, pieces, sprite }) => {
   const observations = observedDraws.get(id);
   const previews = drawnPieces.get(id)!.map(({ x, y, pixels }, index) => {
     const variants = observations?.get(y * 24 + x);
@@ -311,6 +331,7 @@ const terrainSection = terrainSources.length ? `<section><h2>Battlefield picture
     }).join("")}</div>`;
   }).join("");
   return `<article><h3>${id}</h3><p>${observations ? "Guest-drawn pixels" : "Archive preview"}</p><div class="terrain-pieces">${previews}</div>
+  ${sprite ? `<p>${sprite.id} · ${sprite.replacement ?? "Replacement missing"}</p>` : ""}
   <details><summary>${placements.length} draw placements</summary><ul>${placements.map(({ x, y, flags }) =>
     `<li>(${x}, ${y}) · flags ${flags}</li>`).join("")}</ul></details></article>`;
 }).join("")}</div></section>` : "";

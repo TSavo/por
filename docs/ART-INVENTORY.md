@@ -353,8 +353,10 @@ same fragment coordinate. The JSON lists those variants and their
 replacement files under `terrainSources[].pieces[].observed`, including
 draws between input prompts. The Sokal patrol replay had replacement
 art for all 39 terrain patterns in its 23 input frames. In the broader
-draw trace, the 19 fragments without replacements came from block 1
-frames 34, 35, and 39. Those previews show combat debris and effects.
+draw trace, the 19 debris fragments from SQRPACI block 1 frames 34, 35,
+and 39 match RANDCOM frames 0, 1, and 5 pixel for pixel as 24×24 pictures.
+The checklist links those full sprites to their replacement files.
+The two loose-stone layouts share a 96×96 painting mirrored for frame 0.
 
 The Chrome verifier captures battlefield cells from any replay with
 `POR_TRACE_BATTLE_TILES=1`. The Sokal undead patrol replay captured 23

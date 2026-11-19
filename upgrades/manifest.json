@@ -4198,6 +4198,7 @@
     "battle-tile:238366db6f519d123c0368f079f5022ca613b098716521c63dba487382dfd706": "courtyard-wall-arris-shadow.png",
     "battle-tile:773ab665f6d64f65a695c511203ed333dab9170afb944b2159fe8deec7b592a7": "courtyard-wall-raking-sill-return.png",
     "combat:RANDCOM.DAX:1:0:5": "combat-fallen-adventurer.png",
+    "combat:RANDCOM.DAX:1:0:0": "combat-loose-stones.png",
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
