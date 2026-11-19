@@ -11,6 +11,29 @@ const libraryRecords = [
   { entry: 21, title: "The Grand Historian's Records of the Arts of War", rewardFlag: 0x4aae },
 ] as const;
 
+const kovelClues = [
+  { id: "kovel-chase", trigger: "RUN OUT THE EAST DOOR. WILL YOU CHASE THEM?",
+    title: "Thieves in Kovel Mansion", detail: "Two thieves fled through the east door after their attack failed.",
+    nextStep: "Choose Yes to chase the thieves through the east door, or continue searching the mansion." },
+  { id: "kovel-thieves-split", trigger: "THE TWO THIEVES SPLIT; ONE GOING THROUGH THE EAST DOOR",
+    title: "The thieves split up", detail: "One ran east and the other ran south.",
+    nextStep: "Follow the thieves through the south or east door, or resume searching the mansion." },
+  { id: "kovel-guildmaster", trigger: "I AM THE GUILD MASTER. IF YOU RELEASE ME",
+    title: "The guildmaster asks for mercy", detail: "He claims his thieves will stop attacking if the party releases him.",
+    nextStep: "Choose Attack to confront the guildmaster, or Release to take him at his word." },
+  { id: "kovel-guildmaster-escaped", trigger: "AFTER YOU RELEASE HIM THE THIEF SLOWLY WALKS TOWARD THE FAR DOOR",
+    title: "The guildmaster escaped", detail: "The thief taunted the party and ran away after being released.",
+    nextStep: "The guildmaster fled after being released. Search the remaining rooms for the thieves." },
+  { id: "kovel-thief-ambush", trigger: "AS YOU ENTER THE ROOM YOU ARE AMBUSHED BY SOME THIEVES",
+    title: "Mansion ambush", detail: "Thieves attacked the party inside the mansion.",
+    nextStep: "Fight off the ambush and continue searching Kovel Mansion for the thieves." },
+  { id: "kovel-guild-files", trigger: "YOU STUFF THE FILES INTO YOUR JOURNAL UNDER ENTRIES 38 AND 51",
+    title: "Files found in the mansion", detail: "Read journal entries 38 and 51 for the papers found on the floor.",
+    nextStep: "Read journal entries 38 and 51, then continue searching the mansion for the thieves." },
+];
+const kovelObjectives = new Map(kovelClues.map(({ id, nextStep }) => [id, nextStep]));
+kovelObjectives.set("kovel-thief-ambush-cleared", "Continue searching the mansion for the remaining thieves.");
+
 /** Observe the Pascal strings actually sent to the guest's text display. */
 export function observeAdventureLog(cpu: Cpu, slice: LoadedSlice, trainer?: LoadedSlice,
   onMessage?: (message: string) => void): () => string {
@@ -224,13 +247,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       }
     }
     if (commission.id === "kovel") {
-      if (knows("kovel-thief-ambush-cleared")) nextStep = "Continue searching the mansion for the remaining thieves.";
-      else if (knows("kovel-thief-ambush")) nextStep = "Fight off the ambush and continue searching Kovel Mansion for the thieves.";
-      else if (knows("kovel-guildmaster-escaped")) nextStep = "The guildmaster fled after being released. Search the remaining rooms for the thieves.";
-      else if (knows("kovel-guildmaster")) nextStep = "Choose Attack to confront the guildmaster, or Release to take him at his word.";
-      else if (knows("kovel-thieves-split")) nextStep = "Follow the thieves through the south or east door, or resume searching the mansion.";
-      else if (knows("kovel-chase")) nextStep = "Choose Yes to chase the thieves through the east door, or continue searching the mansion.";
-      else if (knows("kovel-guild-files")) nextStep = "Read journal entries 38 and 51, then continue searching the mansion for the thieves.";
+      for (const { id } of leads) nextStep = kovelObjectives.get(id) ?? nextStep;
     }
     if (commission.id === "graveyard") {
       if (knows("graveyard-vampire-north-wall")) nextStep = "Search the northern wall the mystic pointed out, then confront the vampire.";
@@ -712,24 +729,11 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("A SMALL CARAVAN OF SLAVERS RIDE BY YOU TOWARD THE BUCCANEER BASE")) {
     leads.push({ id: "rescue-slaver-trail", title: "Slavers on the road", detail: "A caravan of slavers rode toward the Buccaneer Base." });
   }
-  if (text.includes("RUN OUT THE EAST DOOR. WILL YOU CHASE THEM?")) {
-    leads.push({ id: "kovel-chase", title: "Thieves in Kovel Mansion", detail: "Two thieves fled through the east door after their attack failed." });
-  }
-  if (text.includes("THE TWO THIEVES SPLIT; ONE GOING THROUGH THE EAST DOOR")) {
-    leads.push({ id: "kovel-thieves-split", title: "The thieves split up", detail: "One ran east and the other ran south." });
-  }
-  if (text.includes("I AM THE GUILD MASTER. IF YOU RELEASE ME")) {
-    leads.push({ id: "kovel-guildmaster", title: "The guildmaster asks for mercy", detail: "He claims his thieves will stop attacking if the party releases him." });
-  }
-  if (text.includes("AFTER YOU RELEASE HIM THE THIEF SLOWLY WALKS TOWARD THE FAR DOOR")) {
-    leads.push({ id: "kovel-guildmaster-escaped", title: "The guildmaster escaped", detail: "The thief taunted the party and ran away after being released." });
-  }
-  if (text.includes("AS YOU ENTER THE ROOM YOU ARE AMBUSHED BY SOME THIEVES")) {
-    leads.push({ id: "kovel-thief-ambush", title: "Mansion ambush", detail: "Thieves attacked the party inside the mansion." });
-  }
-  if (text.includes("YOU STUFF THE FILES INTO YOUR JOURNAL UNDER ENTRIES 38 AND 51")) {
-    leads.push({ id: "kovel-guild-files", title: "Files found in the mansion", detail: "Read journal entries 38 and 51 for the papers found on the floor." });
-  }
+  const witnessedKovelClues = kovelClues.flatMap(({ trigger, title, detail, id }) => {
+    const position = text.indexOf(trigger);
+    return position < 0 ? [] : [{ position, lead: { id, title, detail } }];
+  });
+  for (const { lead } of witnessedKovelClues.sort((a, b) => a.position - b.position)) leads.push(lead);
   if (text.includes("THE WORDS 'NW CASTLE' UNDER IT")) {
     leads.push({ id: "kovel-castle-map-nw", title: "Northwest castle map", detail: "The party copied the maze drawn on a slate into journal entry 41." });
   }

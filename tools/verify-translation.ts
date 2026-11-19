@@ -715,6 +715,20 @@ function checkCampaignJournal(): void {
     }
   }
   const kovelLeads = discoveredLeads(kovelTranscript);
+  const kovelFiles = lines.find(text => text.replace(/\s+/g, " ").includes("YOU STUFF THE FILES INTO YOUR JOURNAL UNDER ENTRIES 38 AND 51"));
+  const kovelChase = lines.find(text => text.replace(/\s+/g, " ").includes(kovelStages[0][0]));
+  if (!kovelFiles || !kovelChase) throw new Error("Missing the original Kovel files or chase dialogue");
+  const kovelOffer = commissions.find(({ id }) => id === "kovel")!.offer;
+  for (const [earlier, later, expected] of [[kovelChase, kovelFiles, "Read journal entries 38 and 51"],
+    [kovelFiles, kovelChase, "Choose Yes to chase"]]) {
+    const profile = openJournalProfile();
+    profile.restore(discoveredLeads(`${kovelOffer}\n${earlier}`));
+    for (const leads of [profile(later), discoveredLeads(`${kovelOffer}\n${earlier}\n${later}`)]) {
+      if (!currentObjective(leads, "commission-kovel").nextStep.includes(expected)) {
+        throw new Error("The Kovel journal prioritized a stale clue over the latest discovery");
+      }
+    }
+  }
   writeGlobal(0x4a19, 1);
   const priorEcl = m.read8(m.ds, 0x82a2);
   m.write8(m.ds, 0x82a2, 20);
