@@ -4077,7 +4077,9 @@
     "battle-tile:7017ad68e268dc8818fa81dff0b0d4306d07b061bacc008c0c98006bf5cad700": "courtyard-wall-straight-wall-joint-base.png",
     "battle-tile:ea5fa2f1be82998ceb7f7902c14bef6518748c46fa95fa001c2b2eb63fa3098f": "courtyard-wall-straight-wall-joint-end.png",
     "battle-tile:cc359e487d9ad567f3d002b7781ac888c42b3b6e8638af676af0e73b11a8c7dd": "courtyard-wall-coping-return-foot.png",
-    "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
+    "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png",
+    "battle-tile:40c40bfff532a623cbed6d12294d91c254cca2ef45f37aa2677314f4bea113ff": "courtyard-wall-arris-chip.png",
+    "battle-tile:238366db6f519d123c0368f079f5022ca613b098716521c63dba487382dfd706": "courtyard-wall-arris-shadow.png"
   },
   "encounters": {
     "encounter:area:18:SPRIT1.DAX:2:0:0": { "area": 18, "x": 48, "y": 32, "width": 48, "height": 80 },
