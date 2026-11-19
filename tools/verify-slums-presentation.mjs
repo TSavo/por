@@ -441,6 +441,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["podal-robed-orc-combat", {
+    slot: "I", stand: "combat:area:18:CPIC1.DAX:5:ecl:b1a1", strike: "combat:area:18:CPIC1.DAX:133:ecl:b1a1",
+    width: 96, height: 96, readyPrompt: /ORCLEADERHITPOINTS2/i, strikeReflected: false,
+    inputs: ["up", "enter", "enter", "a", ...Array(6).fill("enter"), ...Array(3).fill("q")],
+  }],
   ["new-phlan-watch-mage", {
     slot: "A", stand: "combat:area:11:CPIC3.DAX:14:ecl:a07a",
     width: 96, height: 96, readyPrompt: /LEVEL3MUHITPOINTS9/i,

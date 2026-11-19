@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:18:CPIC1.DAX:5:ecl:b1a1": "podal-robed-orc-stand.png",
+    "combat:area:18:CPIC1.DAX:133:ecl:b1a1": "podal-robed-orc-strike.png",
     "tile:1:1f761a98a1fe476324ccf656e46f379350a4b377a2f76c4ede719bea54800495": "buccaneer-captains-hall-terrain-1f761a98a1fe.png",
     "tile:1:858b73d63eb2439f5d3755fe6002d941fcc99e9a5fdb06fb568a21ff2599262f": "buccaneer-captains-hall-terrain-858b73d63eb2.png",
     "tile:1:f789898497fdff516d04618cea45e769ceba293b0d69514ab98b26bf948a97a6": "buccaneer-captains-hall-terrain-f789898497fd.png",
