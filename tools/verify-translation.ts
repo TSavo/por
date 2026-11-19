@@ -1155,6 +1155,8 @@ function checkCampaignJournal(): void {
     ["HE JUST HIRED ME TO IMPERSONATE HIM", "real Tyranthraxus"],
     ["DO NOT BE FOOLED BY OUTWARD FORMS", "flaming aura"],
     ["AN ANCIENT BRONZE DRAGON", "Get past the guards"],
+    ["TWO GUARDS MOVE TO BAR YOUR PATH", "Defeat the two guards"],
+    ["THE DRAGON LOOKS AT YOU WITH INTEREST", "Hear out the dragon"],
     ["IF YOU JOIN ME I WILL MAKE YOU THE COMMANDERS", "Choose Attack"],
   ] as const;
   for (const [trigger, direction] of castleRoute) {

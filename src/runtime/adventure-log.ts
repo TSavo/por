@@ -382,6 +382,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     if (commission.id === "castle") {
       if (knows("castle-vote")) nextStep = "Choose Attack when each party member is asked to vote. Then defeat Tyranthraxus.";
+      else if (knows("castle-dragon-interested")) nextStep = "Hear out the dragon before deciding how to answer him.";
+      else if (knows("castle-audience-guards")) nextStep = "Defeat the two guards blocking the path to the dragon.";
       else if (knows("castle-audience")) nextStep = "Get past the guards in the audience hall and confront the bronze dragon.";
       else if (knows("castle-impostor")) nextStep = knows("castle-flaming-aura")
         ? "Continue searching the castle for the real Tyranthraxus. His own note says to recognize him by his flaming aura."
@@ -1218,6 +1220,13 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("AN ANCIENT BRONZE DRAGON, SURROUNDED BY A FIERY AURA")) {
     leads.push({ id: "castle-audience", title: "The audience hall", detail: "The party saw a bronze dragon rise next to the glowing pool." });
+  }
+  if (text.includes("TWO GUARDS MOVE TO BAR YOUR PATH")) {
+    leads.push({ id: "castle-audience-guards", title: "The dragon's bodyguards", detail: "Two guards blocked the party's path in the audience hall." });
+  }
+  if (text.includes("THE DRAGON LOOKS AT YOU WITH INTEREST") && text.includes("YOU ARE INDEED MIGHTY WARRIORS")) {
+    leads.push({ id: "castle-dragon-interested", title: "The dragon acknowledges the party",
+      detail: "The bronze dragon acknowledged the party's strength and continued speaking." });
   }
   if (text.includes("IF YOU JOIN ME I WILL MAKE YOU THE COMMANDERS OF THE ARMIES")) {
     leads.push({ id: "castle-vote", title: "Tyranthraxus's offer", detail: "Tyranthraxus offered command of his armies in exchange for joining him." });
