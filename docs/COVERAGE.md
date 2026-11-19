@@ -1345,6 +1345,8 @@ in the original nighttime outpost battle.
 `stojanow-plotting-mage` and `stojanow-plotting-fighter` verify both
 portraits and prove the journal gains each lead only after hearing it.
 `nomad-warrior-combat` checks the ready pose and reflected sword strike.
+`valjevo-south-kitchen-yard` checks six rubble and doorway tiles across
+17 live views and 2,057 placements from the existing courtyard save.
 `valjevo-west-chapel-corridors` checks 16 redrawn plaster, limestone,
 and trim tiles across 16 live frames from the existing checkpoint.
 `valjevo-eastern-hedges` checks 11 new tile bindings, including three

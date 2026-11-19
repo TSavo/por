@@ -1,6 +1,12 @@
 {
   "version": 1,
   "assets": {
+    "tile:4:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447": "valjevo-kitchen-yard-terrain-01.png",
+    "tile:4:7870e9a9d014d5af73d6846dd36c122b941c5efafee1e099b135da968e0216b1": "valjevo-kitchen-yard-terrain-02.png",
+    "tile:4:e661bce0938e73b6610229ae27e6f1e51de4af50b1df92a3ae665507ff3a15f7": "valjevo-kitchen-yard-terrain-03.png",
+    "tile:4:f08f5d405196df228b0f4f6cb5937799da56badb58ba6ff58a9903bb9b1ca142": "valjevo-kitchen-yard-terrain-04.png",
+    "tile:4:194c7a70c05eb9c93cb1a063ea5cf6df0dc6fa2f8de1389233f822c0720703c3": "valjevo-kitchen-yard-terrain-05.png",
+    "tile:4:4fa7efe3e4e51e6f24a9fc238959e3417c491c59718d3668c99af1a3a648e190": "valjevo-kitchen-yard-terrain-06.png",
     "tile:6:119b68ac8957f9dfe365f0494103f781d6152a4223375fad851c22d41b590878": "valjevo-west-chapel-terrain-01.png",
     "tile:6:7253263eb77922bb09c681ff0168145a8d395af9756a5d8a2b4d5bce0fee1996": "valjevo-west-chapel-terrain-02.png",
     "tile:6:6cfeeb3aa25d3f411dae5eec17d7369ca7153e72dcf54bcf4c3daec0f5b21fc7": "valjevo-west-chapel-terrain-03.png",
