@@ -45,6 +45,10 @@
     }
   },
   "assets": {
+    "tile:2:7a62f42874a318807e50c5f76958ec89a88041ebcdbe85f63c86b39a4adb37d7": "orc-door-b39a4adb37d7.png",
+    "tile:2:067e5b585dd24bcac143834da985ebebbcc25446db06ae546aeffaec0d2b9711": "orc-door-faec0d2b9711.png",
+    "tile:2:7041882d54734f52b66d2334ec62779d485694e861327c4b4c765326d9fdc613": "orc-door-5326d9fdc613.png",
+    "tile:2:1100c45deca8d8634f8ac5b2e9fc521e6bd29d1506ce709e3918ed7a4ede9ae3": "orc-joint-ed7a4ede9ae3.png",
     "tile:11:3fd07573913b8b367dd8a69a57c9550f715ab8a6ba59baf2c7533bb4d14fa749": "new-phlan-gate-3bb4d14fa749.png",
     "tile:11:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "room-tile-01.png",
     "tile:11:0bae672ff3e01f653ae7241fc075226c0865693834d5c45e6f2863678a2526da": "room-tile-02.png",

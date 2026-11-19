@@ -437,3 +437,9 @@ tiles for ashlar, ivy, lintels, and floor joins. The outer-courts routes checked
 18 new tiles and 3,630 placements across 30 views. The side-gallery routes
 checked 20 new tiles and 3,993 placements across 33 views. Switching art modes
 preserved game state and save bytes in the Chrome replays.
+
+The Textile House return trace includes 174 distinct area 2 patterns from
+the chief's room to the west gate. Eleven bindings reuse existing door,
+masonry, and ivy artwork with matching original pixels. Chrome loaded
+each mapped tile at its route position. Sixteen patterns remain unlinked
+in that trace.

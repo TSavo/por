@@ -1,6 +1,13 @@
 {
   "version": 1,
   "assets": {
+    "tile:2:7a6a35c15661f02c8b9267cac4373bb686c0295e27c916af98dab1286dfe2b34": "kuto-south-lane-terrain-7a6a35c15661.png",
+    "tile:2:6cd44166e8613cbf3a72f68b26cddc6e05b10fe3c92f75a69ca29e6fbb19ba01": "kuto-south-lane-terrain-6cd44166e861.png",
+    "tile:2:86f54fa83e5a4b30fbf7225590bfd45b3c68fbc8a7a59e757437fae19a51aa8b": "lizard-swamp-ruin-terrain-86f54fa83e5a.png",
+    "tile:2:a1237831a95ca1d374d4646331c5ca621f8b965ba0a6011896682ebe4e8b5afa": "kuto-inner-lane-terrain-a1237831a95c.png",
+    "tile:2:392bb2db8a38925bf095b90ee7daa82fd0749af98a8804582672be9cfd545427": "lizard-swamp-ruin-terrain-392bb2db8a38.png",
+    "tile:2:3784cde569fdb774541f667f355916f55c13929a9339c7e218a2b4cd884087b9": "lizard-west-ruin-terrain-3784cde569fd.png",
+    "tile:2:2b318229a4b2903d4530ecbaa037fb98cc51f1c1731900f01c6dbba9cd27f8e2": "mendor-east-court-terrain-03.png",
     "tile:7:073bed6ce208bae09aa922cc701b2e85d31b89cb815bf9741c330a855b7f23ab": "valjevo-audience-hall-terrain-073bed6ce208.png",
     "tile:7:ce7a775bfc2e583018da6f17f4f8679bfc0805c8d73f19770e05e048a8b75d62": "valjevo-audience-hall-terrain-ce7a775bfc2e.png",
     "tile:7:9eec5ff0f33a6c72ec2878a6f5a2d8eee35fb5e99d44acd7fe625205a69d238d": "valjevo-audience-hall-terrain-9eec5ff0f33a.png",
