@@ -1201,6 +1201,11 @@ as the party reads them.
 352×352 illustration, mode switching, and the distinct journal lead
 from each choice of parlay tone. The bargain replay also confirms
 that accepting the offer adds Genheeris to the original party roster.
+
+`phlan-training-hall` starts from a controlled slot I outside the training
+rooms. It declines the duel and recruit offers and continues into the rogues'
+hall. Chrome verifies all 1,452 placements of 24 individual 32×32 tiles
+across 12 views, and checks that presentation switches preserve state and saves.
 `valjevo-giant-snake` uses controlled slot B on the Valjevo approach with
 the alarm running. It verifies both 192×96 snake poses at the guest's actual
 combat placements, including the animated lunge and state-preserving mode
