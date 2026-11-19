@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:3:PIC5.DAX:56:0:0": "valjevo-bucket-trap-giants-dialogue.png",
     "tile:0:e26b92fadba50b8d889a6fd196a894e7522d35272a8daa59dae7752e34b12f1c": "new-phlan-building-exits-terrain-e26b92fadba5.png",
     "tile:0:8912e73364ab5cc50ba0bce12eed2b990830fa4034cd0a69b34c204b99e1104e": "new-phlan-building-exits-terrain-8912e73364ab.png",
     "tile:0:6ad37cf35c202965922d7096419fef61f87a49b9b7afc8d521913f7f32978264": "new-phlan-building-exits-terrain-6ad37cf35c20.png",
