@@ -51,8 +51,8 @@ even when several areas have their own replacement. The table inventories
 archive contents. The live routes establish which frames are drawn.
 **Exact portrait and combat matches** lists original frames whose pixels
 already resolve to global enhanced artwork through the browser's matchers.
-The current inventory reports 331 linked frames, 16 exact portrait matches,
-12 exact combat matches, and 442 unlinked frames.
+The current inventory reports 333 linked frames, 16 exact portrait matches,
+12 exact combat matches, and 440 unlinked frames.
 **Unlinked source frames** lists the individual unlinked PIC, SPRIT, and
 CPIC frames by archive, directory index, member, and frame. Each entry
 includes its 4× dimensions and links to the local source sheet. The JSON
@@ -156,6 +156,13 @@ The matching original sprites appeared at (56,32), and Chrome drew the
 96×260 and 96×228 replacements there over the restored environment tiles.
 Both runs reached the portrait and original combat menus. This verifies
 placement in the renderer. The natural Slums replay selects the near frame.
+
+The Slums goblin lesson also has separate middle and far sprites from
+`SPRIT2.DAX` block 2, members 1 and 2. Chrome checked the 128×260 and
+96×196 replacements at (56,32) above the enhanced terrain. Controlled
+replays selected each distance in the original draw routine and continued
+to the goblin lesson portrait. The ordinary encounter still uses its
+original near draw.
 
 The portrait matched every pixel in the 88×88 image area across 17 successive
 encounter captures. The enhanced browser replay showed the replacement in
