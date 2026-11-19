@@ -3242,6 +3242,10 @@ sprites for the outside patrol. Chrome checked the reflected strike at
 (128, 104) and the original attack on Brin. The local fixture raises
 party HP and selects the original patrol roll.
 
+The exterior rampart ogre patrol has dedicated 96×192 ready and
+cudgel strike sprites. Chrome checks both mirrored poses at (128, 104)
+and the original attack on Brin from a controlled patrol roll.
+
 The Textile House skeleton ambush has a dedicated ready and strike
 pair. The controlled slot B fixture selects the original skeletal
 ambush branch. Chrome verifies the mirrored ready pose at (8, 128)

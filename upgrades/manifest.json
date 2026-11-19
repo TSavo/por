@@ -3849,6 +3849,8 @@
     "encounter:area:24:ecl:aa6e:SPRIT1.DAX:4:0:0": "bane-temple-exit-retaliation-approach.png",
     "combat:area:24:CPIC1.DAX:6:ecl:b086": "bane-rampart-hobgoblin-patrol-ready.png",
     "combat:area:24:CPIC1.DAX:134:ecl:b086": "bane-rampart-hobgoblin-patrol-strike.png",
+    "combat:area:24:CPIC1.DAX:8:ecl:b086": "bane-rampart-ogre-patrol-ready.png",
+    "combat:area:24:CPIC1.DAX:136:ecl:b086": "bane-rampart-ogre-patrol-strike.png",
     "portrait:HEAD1.DAX:48:BODY1.DAX:25": "podal-infirmary-healer.png",
     "tile:1:2e55ca6e677e0dd7276ab67a7f5e07f9701a696c4ac8d9912568fa5f00593f1f": "buccaneer-base-terrain-2e55ca6e677e.png",
     "tile:1:cf13aae2972cd9237b12bb064e7077d9b09469ee89ce918dced045c80190675c": "buccaneer-base-terrain-cf13aae2972c.png",
