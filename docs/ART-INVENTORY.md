@@ -309,6 +309,12 @@ to select the zero-based frame. The manual courtyard replay recorded
 identify source artwork even when clipping, overdraw, and actors keep
 the finished cells from matching archive fragments.
 
+The Chrome verifier captures battlefield cells from any replay with
+`POR_TRACE_BATTLE_TILES=1`. The Sokal undead patrol replay captured 23
+combat frames and verified its two standing poses and two strikes. Of
+84 distinct patterns, 36 have tile replacements and six match original
+sprite fragments. The remaining patterns include actor and effect pixels.
+
 Enable both trace variables on the same replay and redirect its output
 to a UTF-8 log. Add `--battle-draws=PATH_TO_LOG` to the report command
 alongside that replay's `battle-tiles.jsonl`. The JSON includes each
