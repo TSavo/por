@@ -2128,3 +2128,10 @@ at the Temple of Tyr stop. `new-phlan-outbound-ferry` checks boarding
 in New Phlan, and `sokal-keep-departure-ferry` checks boarding at the keep
 and the return to New Phlan. These replays check presentation switching
 and save preservation.
+
+`new-phlan-tavern-spinner` and `new-phlan-tavern-brawl` check both new
+illustrations at their original prompts. The arena and harbor Watch mage
+replays check the shared ready sprite. Neither replay observed a native
+mage strike. `stojanow-west-watch` and `buccaneer-stockade` check 12 new
+tiles across 19 views and 2,299 placements. All six replays verify
+presentation switching and save preservation.
