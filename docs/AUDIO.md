@@ -131,6 +131,9 @@ and operand identity observed from the original interpreter state. The browser
 resolves that source ID against the master manifest, suppresses covered
 continuation events, selects finite variants from the original runtime value,
 and queues consecutive narration recordings without altering ECL execution.
+Manually reviewed shared triggers use exact pre-instruction VM state, explicit
+silent cases, later covered source events, or the literal the original encounter
+menu actually draws. They never guess between recordings.
 Narration is Enhanced-only. Switching to Classic stops it; missing, ambiguous,
 or unresolved assets leave the authoritative original text untouched. Subtitles
 use the reviewed narration text, and independent master, effects, dialogue, and
@@ -140,7 +143,9 @@ narration controls remain browser preferences rather than campaign-save state.
 observation, joined continuation suppression, finite dynamic selection, queueing,
 interruption, and Classic-mode gating. `npm run verify-narration-generation`
 checks every queued MP3/transcript pair, exact text, signatures, duplicates, and
-pending generation. On November 18, 2026, Chrome verified Enhanced activation,
+pending generation. The production inventory currently verifies all 1,678 queued
+recordings complete, with zero pending, failed, duplicate, or untracked outputs.
+On November 18, 2026, Chrome verified Enhanced activation,
 subtitle playback, the independent audio controls, and state-preserving return
 to Classic while audio was playing.
 
