@@ -2430,3 +2430,9 @@ moves from reward pending to turned in after the treasure menu closes.
 The same replay checks that the journal records the return ferry when the
 party reads the dock's offer, then directs the party to choose Take Boat
 before reporting to City Hall.
+
+For the save/reload check, run `kobold-king-return-council-save-pier` on the
+same cave-exit slot B. It emits a native save made through Encamp at the
+New Phlan pier. Pass that save to `kobold-king-return-council-reload` to
+check that the journal remembers the ferry across a fresh browser session
+and that the party can still collect the council reward.

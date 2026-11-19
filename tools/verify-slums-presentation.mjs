@@ -1872,7 +1872,7 @@ const routes = ["new-phlan-building-exit", "new-phlan-arena-manual-report", "new
 routes.push("new-phlan-council-reward-reload", "slums-mage-wand");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
-routes.push("kobold-king-return-council");
+routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
@@ -1901,7 +1901,9 @@ const riverPassage = routeName === "river-passage";
 const riverFountain = routeName === "river-fountain";
 const riverExit = routeName === "river-exit";
 const riverReturn = routeName === "river-return";
-const koboldReturn = routeName === "kobold-king-return-council";
+const koboldReturn = routeName.startsWith("kobold-king-return-council");
+const koboldFerrySave = routeName === "kobold-king-return-council-save-pier";
+const koboldFerryReload = routeName === "kobold-king-return-council-reload";
 const riverPumping = routeName === "river-pumping";
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
@@ -4232,41 +4234,58 @@ try {
     await advance("j");
     assert.equal(journalStatus(), "ready-to-report");
     assert.ok(frame.journal.leads.some(({ id }) => id === discovery));
-    if (koboldReturn) assert.ok(!frame.journal.leads.some(({ id }) => id === "phlan-return-ferry"));
+    const knowsFerry = () => frame.journal?.leads.some(({ id }) => id === "phlan-return-ferry");
+    if (koboldReturn) assert.equal(knowsFerry(), koboldFerryReload);
     const toLanding = koboldReturn
       ? [...Array(3).fill("right"), ...Array(14).fill("down")]
       : riverReturn
       ? ["right", "right", "right", ...Array(15).fill("down"), "left", "left"]
       : [...Array(5).fill("up"), ...Array(18).fill("right"), "down", "down"];
-    for (const key of ["j", ...toLanding, "enter"]) await advance(key);
-    if (koboldReturn) {
-      assert.equal(frame.portrait, "portrait:PIC8.DAX:41:0:0");
-      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /TAKEBOAT.*STAY/i);
-      await advance("j");
-      assert.ok(frame.journal?.leads.some(({ id }) => id === "phlan-return-ferry"));
-      assert.match(frame.journal.objective.nextStep, /choose Take Boat/i);
-      await advance("j");
+    await advance("j");
+    if (!koboldFerryReload) {
+      for (const key of [...toLanding, "enter"]) await advance(key);
+      if (koboldReturn) {
+        assert.equal(frame.portrait, "portrait:PIC8.DAX:41:0:0");
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /TAKEBOAT.*STAY/i);
+        await advance("j");
+        assert.ok(knowsFerry());
+        assert.match(frame.journal.objective.nextStep, /choose Take Boat/i);
+        await advance("j");
+      }
+      for (const key of ["t", "enter", "enter"]) await advance(key);
+      if (koboldFerrySave) {
+        for (const key of ["e", "s", "s", "b"]) await advance(key);
+        const pierSave = JSON.parse(readFileSync(saved, "utf8"));
+        assert.ok(pierSave.leads.some(({ id }) => id === "phlan-return-ferry"));
+        console.log("New Phlan pier checkpoint:", saved);
+      }
     }
-    for (const key of ["t", "enter", "enter", koboldReturn ? "right" : "enter", ...Array(4).fill("up"),
-      "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
-      "left", "up", "up", "left", "up", "left", "up", "up", "enter", "j"]) await advance(key);
-    assert.equal(journalStatus(), "ready-to-report");
-    // This checkpoint still has its earlier Podal Plaza reward to collect.
-    for (const key of ["j", "enter", "enter", "enter", "s", "e", "j"]) await advance(key);
-    if (koboldReturn) {
+    if (!koboldFerrySave) {
+      for (const key of [koboldReturn ? "right" : "enter", ...Array(4).fill("up"),
+        "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
+        "left", "up", "up", "left", "up", "left", "up", "up", "enter", "j"]) await advance(key);
       assert.equal(journalStatus(), "ready-to-report");
-      // The clerk pays the earlier envoy reward before the kobold reward.
-      for (const key of ["j", "enter", "enter", "enter", "s", "e", "enter", "j"]) await advance(key);
-      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join("").replace(/\s/g, ""),
-        /THISLOSSOFTHEKOBOLDFORCESWILLBEAMAJORBLOW/i);
+      // This checkpoint still has its earlier Podal Plaza reward to collect.
+      for (const key of ["j", "enter", "enter", "enter", "s", "e", "j"]) await advance(key);
+      if (koboldReturn) {
+        assert.equal(journalStatus(), "ready-to-report");
+        // The clerk pays the earlier envoy reward before the kobold reward.
+        for (const key of ["j", "enter", "enter", "enter", "s", "e", "enter", "j"]) await advance(key);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join("").replace(/\s/g, ""),
+          /THISLOSSOFTHEKOBOLDFORCESWILLBEAMAJORBLOW/i);
+      }
+      assert.equal(journalStatus(), "reward-pending");
+      const rewardKeys = koboldReturn
+        ? ["enter", "enter", "s", "e", "enter"]
+        : ["enter", "enter", "enter", "s", "e"];
+      for (const key of ["j", ...rewardKeys, "j"]) await advance(key);
+      assert.equal(journalStatus(), "turned-in");
+      if (koboldFerryReload) {
+        console.log("Verified the ferry discovery after reloading at the New Phlan pier and collected the kobold reward.");
+      } else {
+        console.log(`Verified ${commission} after reload, the return boat, and council turn-in in Chrome.`);
+      }
     }
-    assert.equal(journalStatus(), "reward-pending");
-    const rewardKeys = koboldReturn
-      ? ["enter", "enter", "s", "e", "enter"]
-      : ["enter", "enter", "enter", "s", "e"];
-    for (const key of ["j", ...rewardKeys, "j"]) await advance(key);
-    assert.equal(journalStatus(), "turned-in");
-    console.log(`Verified ${commission} after reload, the return boat, and council turn-in in Chrome.`);
   } else if (routeName === "mendor-records-reward") {
     const record = () => frame.journal?.leads.find(({ id }) => id === "mendor-book-37");
     await advance("j");
