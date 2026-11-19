@@ -389,6 +389,12 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["slums-mage-combat", {
+    slot: "B", stand: "combat:area:20:CPIC2.DAX:94:ecl:a0b4",
+    width: 96, height: 96, readyPrompt: /LEVEL3MUHITPOINTS9/i,
+    inputs: ["up", "b", "up", "enter", "enter", "a", ...Array(4).fill("enter"), ...Array(181).fill("q")],
+    strikeInputs: [],
+  }],
   ["slums-kobold-captain-combat", {
     slot: "B", stand: "combat:area:20:CPIC2.DAX:1:ecl:a514", strike: "combat:area:20:CPIC2.DAX:129:ecl:a514",
     width: 96, height: 96, readyPrompt: /KOBOLDLEADERHITPOINTS4/i, strikeReflected: true,
@@ -709,6 +715,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valjevo-merchant-wing", {
+    slot: "B", area: 7, views: 5, patterns: 38, sceneryOnly: true,
+    walk: ["right", "up", "up", "left"],
+  }],
   ["valjevo-hall-threshold", {
     slot: "B", area: 7, views: 5, patterns: 27, sceneryOnly: true,
     walk: ["left", "up", "up", "right"],
