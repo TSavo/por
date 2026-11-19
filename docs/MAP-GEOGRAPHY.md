@@ -58,6 +58,24 @@ Sources are the [extracted area catalog](../src/maps/area-catalog.json) and
 the [SSI Clue Book](https://www.mocagh.org/ssi/pool-hintbook.pdf), especially
 printed pages 3–8, 41–46. Exact district bearings and footprints remain open.
 
+### New Phlan service landmarks
+
+Use the public entrances as wayfinding markers. The clerk and chambers are
+stops inside City Hall. Keep the passenger dock distinct from the pier where
+the party boards the Sokal Keep boat.
+
+| Service | Landmark labels |
+| --- | --- |
+| Council | City Hall entrance and proclamation board, council clerk, Council Chambers |
+| Healing | Temple of Tyr, Temple of Sune, Temple of Tempus |
+| Training and recruitment | Cleric, magic-user, fighter, and thief training entrances, Dueling and Hiring Hall |
+| Rest and supplies | Inns, taverns, arms and armor shop, general store, silver shop, jeweler |
+| Travel | Passenger dock, Sokal Keep boarding pier, gate to the Slums |
+
+The [SSI Clue Book, printed pages 3–4](https://www.mocagh.org/ssi/pool-hintbook.pdf#page=4)
+keys the town services. The [area catalog](../src/maps/area-catalog.json)
+records the Slums and Sokal Keep transitions.
+
 1. Regions receive irregular footprints based on their narrative character.
 2. Terrain continues underneath labels and across implementation boundaries.
 3. Connections are styled by travel mode: street, gate, road, trail, boat,
