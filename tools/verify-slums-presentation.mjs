@@ -3056,6 +3056,7 @@ try {
     }
     assert.ok(frame.journal.leads.some(({ id }) => id === door));
     assert.match(frame.journal.objective.nextStep, /Go through the secret door in the north wall/);
+    assert.match(frame.journal.objective.nextStep, /turn east and go two squares/);
     await advance("j");
     if (!reload) {
       for (const key of ["e", "s", "s", "b"]) await advance(key);
@@ -3063,10 +3064,17 @@ try {
       assert.ok(savedDoor.leads.some(({ id }) => id === door));
       console.log("Verified and saved the original secret door discovery:", saved);
     } else {
-      for (const key of ["up", "e", "s", "s", "b"]) await advance(key);
-      const crossed = JSON.parse(readFileSync(saved, "utf8"));
-      assert.deepEqual([...Buffer.from(crossed.data, "base64").subarray(12801, 12804)], [5, 0, 0]);
-      console.log("Verified the kobold secret door objective and crossing after reload.");
+      const patterns = new Set();
+      for (const key of ["up", "right", "up", "up"]) {
+        await advance(key);
+        assert.equal(await verifyTiledView(13, patterns), 1);
+      }
+      assert.match(frame.text.map(([, c]) => String.fromCharCode(c)).join(""), /YOUREACHTHEKING'SQUARTERSANDCONFRONTHISGUARDS/i);
+      await advance("j");
+      assert.ok(frame.journal.leads.some(({ id }) => id === "kobold-king-quarters"));
+      assert.match(frame.journal.objective.nextStep, /Defeat the king's guards/);
+      assert.deepEqual(readFileSync(saved), originalSave);
+      console.log("Verified the route through the kobold secret door to the king's quarters after reload.");
     }
   } else if (koboldGuide) {
     const guide = "portrait:area:13:PIC8.DAX:0:0:0";

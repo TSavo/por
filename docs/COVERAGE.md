@@ -1147,7 +1147,10 @@ The `kobold-king-door` replay starts from a controlled post-escape slot B at
 (5,2) north. It uses Search and steps into the throne room. Only after the
 original game reports the secret door does the journal direct the party
 through it. The `kobold-king-door-reload` replay loads the resulting save
-and verifies that moving north through the door reaches (5,0).
+and follows the journal north through the door and two squares east to
+the guard encounter at (7,0). It verifies the 484 enhanced tile placements
+along the passage, including the new wooden-door lintel, and checks the
+objective change when the guards appear.
 It also tests the surrender demand, restores the prison escort clue from a
 saved journal, and checks the separate cell and Fatima outcomes against
 their original dialogue. The surrender branch still needs a live replay.
