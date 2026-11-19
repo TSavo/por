@@ -37,6 +37,10 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["phlan-ruins-scorpion-approach", {
+    slot: "B", inputs: ["s", "up", "up", "down", "up", "down"],
+    placement: [40, 32, "encounter:area:2:SPRIT4.DAX:18:1:0", 56, 73],
+  }],
   ["podal-shrine-recruiter-approach", {
     slot: "I", inputs: ["up", "up"],
     placement: [48, 32, "encounter:area:18:SPRIT1.DAX:4:0:0", 40, 80],

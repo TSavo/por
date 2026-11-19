@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:2:SPRIT4.DAX:18:1:0": "phlan-ruins-scorpion-approach.png",
     "tile:0:9dca57c2c800009211f6af8acd50aac8d40878ddadc46be8517ef0f3d0ffe98e": "new-phlan-market-turn-terrain-9dca57c2c800.png",
     "combat:area:10:CPIC4.DAX:34:ecl:b5c7": "graveyard-enclave-skeleton-stand.png",
     "combat:area:10:CPIC4.DAX:162:ecl:b5c7": "graveyard-enclave-skeleton-strike.png",
@@ -3477,6 +3478,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:2:SPRIT4.DAX:18:1:0": { "area": 2, "x": 40, "y": 32, "width": 56, "height": 73 },
     "encounter:area:18:SPRIT1.DAX:4:0:0": { "area": 18, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:20:SPRIT2.DAX:2:0:0": { "area": 20, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:16:SPRIT8.DAX:59:0:0": { "area": 16, "x": 32, "y": 32, "width": 80, "height": 80 },
