@@ -1,6 +1,11 @@
 {
   "version": 1,
   "assets": {
+    "tile:1:d3aa5b24be02b3027ac4c78ebcb2e735be09a707ca5e53bcf280a0939eda9146": "buccaneer-east-run-terrain-d3aa5b24be02.png",
+    "tile:1:dd80d9731aa6ae7fd27ef969cfbe60e3e9804144b9f2943f21817c29ba63f8f5": "buccaneer-east-run-terrain-dd80d9731aa6.png",
+    "tile:1:42567013c7f94a0143e056d6e50f444f33e479e2d569864b9acf675ea8c65f34": "buccaneer-east-run-terrain-42567013c7f9.png",
+    "tile:1:6e5c86cbdcd364c9aba1aa27c2c05e342316d7a53b656c49ecdf186e9cfe06c8": "buccaneer-east-run-terrain-6e5c86cbdcd3.png",
+    "tile:1:5346edff53cae43d5f60445f41fb831ed94b3e5f570385f94c9290fa711b7521": "buccaneer-east-run-terrain-5346edff53ca.png",
     "combat:area:18:CPIC1.DAX:4:ecl:b16f": "podal-recruit-orc-stand.png",
     "combat:area:18:CPIC1.DAX:132:ecl:b16f": "podal-recruit-orc-strike.png",
     "combat:area:18:CPIC1.DAX:8:ecl:b16f": "podal-recruit-ogre-stand.png",
