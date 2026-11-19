@@ -2923,6 +2923,8 @@ Chrome verifies the bow pose with the original combat text.
 The Valhingen conjurer has distinct ready and draining-touch sprites
 in its skeleton, zombie, and wight summoning branches. Chrome checks
 each against the original attack report.
+The Wild Cave kobold replay checks the new middle-distance sprite
+before the existing close approach and ambush illustration.
 The Temple of Bane gate's Attack branch uses its own guard ready and
 cleaver-strike sprites. Chrome checks the reflected hit on Alda.
 The Giant Skeleton's retainers have a separate ready and sword-strike

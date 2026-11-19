@@ -499,6 +499,15 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
   }],
+  ["wild-cave-feral-kobolds", {
+    slot: "B", inputs: [...Array.from({ length: 7 }, () => ["up", "enter", "down", "up", "down"]).flat(),
+      "up", "enter", "down"],
+    approachSequence: [
+      [56, 32, "encounter:area:27:SPRIT8.DAX:0:1:0", 24, 65],
+      [48, 32, "encounter:area:27:SPRIT8.DAX:0:0:0", 40, 80],
+    ],
+    portrait: "portrait:area:27:PIC8.DAX:0:0:0", prompt: /YOUAREATTACKEDBYAGROUPOFMADKOBOLDS/i,
+  }],
   ["tyrmor-prison-human-fighters-north-dialogue", {
     slot: "B", inputs: ["s", ...Array.from({ length: 6 }, () => ["up", "enter", "down"]).flat(),
       "up", "enter", "enter", "down"],
