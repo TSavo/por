@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:18:SPRIT1.DAX:2:0:0": "podal-pitt-monster-patrons-approach.png",
     "tile:26:323c71332298aeae05cfee4eb5855d831835c8a068440a0f21f6f96ee43b2f9b": "podal-west-boundary-terrain-323c71332298.png",
     "tile:26:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "podal-west-boundary-terrain-7885d9787cff.png",
     "tile:26:860a67055f7b18c2ad1df1096139b779d511fa06c5188a169cc20ec31e3d652f": "podal-west-boundary-terrain-860a67055f7b.png",
@@ -4068,6 +4069,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:18:SPRIT1.DAX:2:0:0": { "area": 18, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:9:SPRIT2.DAX:12:0:0": { "area": 9, "x": 56, "y": 32, "width": 24, "height": 80 },
     "encounter:area:15:SPRIT2.DAX:17:0:0": { "area": 15, "x": 56, "y": 32, "width": 32, "height": 80 },
     "encounter:area:15:SPRIT2.DAX:0:0:0": { "area": 15, "x": 48, "y": 32, "width": 40, "height": 80 },

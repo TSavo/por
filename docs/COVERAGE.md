@@ -1534,6 +1534,9 @@ transition tiles across 16 live views and 1,936 placements.
 `zhentil-north-lanes` checks eight new 32×32 tiles and the sky joins
 across 17 live views. The two `podal-pitt-*` routes verify the drunken
 buccaneer and monster patrons at their original tavern prompts.
+The `podal-pitt-monster-patrons` replay also checks the 192×320 goblin
+approach sprite at its original anchor. Enter advances to the patrons'
+dialogue illustration, and both frames support state-preserving mode switches.
 `mendor-east-court` and `valjevo-dungeon-east-yard` check five new
 scenery bindings across 33 live views.
 `nomad-veteran-ready` verifies the 96×96 ready pose in the Headman

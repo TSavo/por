@@ -37,6 +37,11 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["podal-pitt-monster-patrons", {
+    slot: "I", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:18:SPRIT1.DAX:2:0:0", 48, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:18:PIC1.DAX:2:0:0", prompt: /THECREATURESIGNOREYOUFORTHEMOMENT/i },
+  }],
   ["wild-cave-rearing-snake-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:25:SPRIT6.DAX:60:1:0", 40, 65],
@@ -405,10 +410,6 @@ const illustrationRoutes = new Map([
   ["podal-pitt-drunken-buccaneer", {
     slot: "I", inputs: ["up", "enter", "enter"],
     portrait: "portrait:HEAD1.DAX:6:BODY1.DAX:3", prompt: /ONEOFYOUSHALLPAYFORTHISINSULT/i,
-  }],
-  ["podal-pitt-monster-patrons", {
-    slot: "I", inputs: ["up", "enter", "enter"],
-    portrait: "portrait:area:18:PIC1.DAX:2:0:0", prompt: /THECREATURESIGNOREYOUFORTHEMOMENT/i,
   }],
   ["slums-grain-sack-ambush", {
     slot: "B", inputs: ["up", "enter", "enter"],
