@@ -2923,6 +2923,8 @@ Chrome verifies the bow pose with the original combat text.
 The Valhingen conjurer has distinct ready and draining-touch sprites
 in its skeleton, zombie, and wight summoning branches. Chrome checks
 each against the original attack report.
+The Temple of Bane gate's Attack branch uses its own guard ready and
+cleaver-strike sprites. Chrome checks the reflected hit on Alda.
 The Giant Skeleton's retainers have a separate ready and sword-strike
 pair. Chrome checks the native attack on Cora from a controlled
 checkpoint for the retinue branch.

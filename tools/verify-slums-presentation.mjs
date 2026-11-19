@@ -741,6 +741,13 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["bane-door-guard-combat", {
+    slot: "A", stand: "combat:area:24:CPIC1.DAX:4:ecl:a6bf", strike: "combat:area:24:CPIC1.DAX:132:ecl:a6bf",
+    width: 96, height: 96, readyPrompt: /ORCHITPOINTS5AC6/i, strikeReflected: true,
+    strikeReport: /ORCATTACKSALDAHITTINGFOR4POINTSOFDAMAGE/i,
+    inputs: ["left", ...Array(5).fill("right"), "up", "enter", "enter", "a", "enter"],
+    strikeInputs: ["enter"],
+  }],
   ["valhingen-skeleton-retainer-combat", {
     slot: "A", stand: "combat:area:10:CPIC4.DAX:34:ecl:9e52", strike: "combat:area:10:CPIC4.DAX:162:ecl:9e52",
     width: 96, height: 96, readyPrompt: /SKELETONHITPOINTS5AC7/i, strikeReflected: false,
