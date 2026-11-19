@@ -4613,7 +4613,7 @@ try {
       if (!frame.tileInventory?.length) continue;
       if (landing && frame.tileInventory.every(([, , , indices]) => /^0+$/.test(indices))) continue;
       views++;
-      assert.equal(frame.tiles.length, 121, `Step ${step} (${key})`);
+      assert.deepEqual(frame.tiles, frame.tileInventory.map(([x, y, id]) => [x, y, id]), `Step ${step} (${key})`);
       for (const [, , id] of frame.tiles) {
         assert.match(id, /^tile:21:/);
         seen.add(id);

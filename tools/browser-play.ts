@@ -116,7 +116,8 @@ const narrations: Array<{ id: number; step: number; unitId: string; variantId?: 
 createInterface({ input: runner.stdout }).on("line", (line) => {
   if (line.startsWith("POR_FRAME ")) {
     frame = JSON.parse(line.slice("POR_FRAME ".length)) as FrameState;
-    if (tileTrace && frame.tileInventory?.length) {
+    // A cleared viewport between scenes has no terrain to inventory.
+    if (tileTrace && frame.tileInventory?.some(([, , , indices]) => /[1-9a-f]/i.test(indices))) {
       const trace = JSON.stringify(frame.tileInventory);
       if (trace !== lastTileTrace) {
         try {
