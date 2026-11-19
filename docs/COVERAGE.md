@@ -2780,6 +2780,8 @@ encounters by marking the other wandering encounters defeated.
 The displacer beast and drider replays use the same checkpoint technique.
 They check the 192×96 ready and strike poses and the drider's reflected
 bow attack in the live Chrome renderer.
+The Tyrmor minotaur replay verifies the 96×192 ready pose and reflected
+charge at the native combat anchor from an isolated prison checkpoint.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.

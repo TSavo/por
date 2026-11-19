@@ -633,6 +633,11 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["tyrmor-prison-minotaur-combat", {
+    slot: "B", stand: "combat:area:22:CPIC7.DAX:62:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:190:ecl:a36f",
+    width: 96, height: 192, readyPrompt: /MINOTAURHITPOINTS33AC6/i, strikeReflected: true,
+    inputs: ["s", "up", "down", "up", "down", "up", "down", "up", "enter", "down", "up", "c", "enter"],
+  }],
   ["tyrmor-prison-displacer-combat", {
     slot: "B", stand: "combat:area:22:CPIC7.DAX:68:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:196:ecl:a36f",
     width: 192, height: 96, readyPrompt: /DISPLACERBEASTHITPOINTS30AC2/i, strikeReflected: false,
