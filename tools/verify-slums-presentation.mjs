@@ -510,6 +510,14 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:13:ecl:9c10:PIC8.DAX:0:0:0", prompt: /WEWILLPAYFORATRUCE/i,
     continuation: { inputs: ["a"], portrait: "portrait:area:13:ecl:9c5e:PIC8.DAX:0:0:0", prompt: /IAMTOESCORTYOUTOOURTREASURE/i },
   }],
+  ["kobold-envoy-rematch", {
+    slot: "B", inputs: ["up", "enter"],
+    approachSequence: [
+      [56, 32, "encounter:area:13:ecl:a27f:SPRIT8.DAX:16:1:0", 24, 65],
+      [48, 32, "encounter:area:13:ecl:a27f:SPRIT8.DAX:16:0:0", 40, 80],
+    ],
+    portrait: "portrait:HEAD8.DAX:69:BODY8.DAX:1", prompt: /AREMATCHTHEN.PREPAREFORDEATH/i,
+  }],
   ["wild-cave-feral-kobolds", {
     slot: "B", inputs: [...Array.from({ length: 7 }, () => ["up", "enter", "down", "up", "down"]).flat(),
       "up", "enter", "down"],

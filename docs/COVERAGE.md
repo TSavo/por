@@ -2994,3 +2994,6 @@ first-person tile renderer and exploration tile inventory.
 
 The Old Phlan jail thugs now use enhanced ready and strike sprites. The
 Chrome replay verifies both poses during the longsword exchange.
+
+The Kobold throne rematch uses separate middle and near approach art.
+The Chrome replay checks both placements, portrait panel fit, and mode switching.
