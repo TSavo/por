@@ -2738,6 +2738,9 @@ wall-join tiles over 3,630 placements across 30 views.
 over all 121 crypt tiles before the portrait. The Tempus line-fighter
 and captain replays verify their distinct ready poses in the same
 reinforcement battle as the existing cleric strike.
+`valhingen-wight-tower-approach` checks the far, middle, and near sprites
+before the tower portrait. `valjevo-floor-reveals` checks five doorstep
+and floor-to-timber joins across eight live views.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.

@@ -290,6 +290,12 @@ const encounterRoutes = new Map([
   ["valhingen-wight-tower-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:10:SPRIT4.DAX:20:0:0", 40, 80],
+    approachSequence: [
+      [64, 32, "encounter:area:10:SPRIT4.DAX:20:2:0", 16, 49],
+      [56, 32, "encounter:area:10:SPRIT4.DAX:20:1:0", 24, 65],
+      [48, 32, "encounter:area:10:SPRIT4.DAX:20:0:0", 40, 80],
+    ],
+    dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:20:0:0", prompt: /WIGHTSAPPEARFROMBEHINDTHETOWER/i },
   }],
   ["valhingen-spectre-approach-near", {
     slot: "A", inputs: ["up", "enter"],
@@ -1765,6 +1771,10 @@ const environmentRoutes = new Map([
   ["mendor-annex-floor-small", {
     slot: "B", area: 15, views: 15, patterns: 36, sceneryOnly: true,
     walk: ["right", "right", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up"],
+  }],
+  ["valjevo-floor-reveals", {
+    slot: "B", area: 7, views: 8, patterns: 37, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "right"],
   }],
   ["mendor-annex-floor-large", {
     slot: "B", area: 15, views: 15, patterns: 28, sceneryOnly: true,
