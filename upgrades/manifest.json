@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:29:SPRIT8.DAX:0:0:0": "old-phlan-kobold-scouts-approach.png",
+    "portrait:area:29:PIC8.DAX:0:0:0": "old-phlan-kobold-scouts-dialogue.png",
     "combat:area:20:CPIC2.DAX:7:ecl:abf8": "slums-council-hobgoblin-stand.png",
     "combat:area:20:CPIC2.DAX:136:ecl:abf8": "slums-council-ogre-strike.png",
     "combat:area:20:CPIC2.DAX:8:ecl:abf8": "slums-council-ogre-stand.png",
@@ -3579,6 +3581,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:29:SPRIT8.DAX:0:0:0": { "area": 29, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:14:SPRIT3.DAX:11:0:0": { "area": 14, "x": 40, "y": 32, "width": 48, "height": 80 },
     "encounter:area:0:SPRIT3.DAX:12:2:0": { "area": 0, "x": 64, "y": 32, "width": 8, "height": 49 },
     "encounter:area:0:SPRIT3.DAX:12:1:0": { "area": 0, "x": 56, "y": 32, "width": 24, "height": 65 },
