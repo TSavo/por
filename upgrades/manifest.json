@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:5:SPRIT5.DAX:16:0:0": "valjevo-false-tyranthraxus-approach.png",
     "combat:area:20:CPIC2.DAX:8:ecl:b10d": "slums-ogre-stand.png",
     "combat:area:20:CPIC2.DAX:136:ecl:b10d": "slums-ogre-strike.png",
     "tile:24:185aabb65845f72434920477aca8840a620ac3b4a1b88cbe4c8017bf03e2c52c": "bane-altar-return-terrain-185aabb65845.png",
@@ -3027,6 +3028,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:5:SPRIT5.DAX:16:0:0": { "area": 5, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:29:SPRIT8.DAX:16:0:0": { "area": 29, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:15:SPRIT2.DAX:15:0:0": { "area": 15, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:23:SPRIT7.DAX:57:0:0": { "area": 23, "x": 48, "y": 32, "width": 48, "height": 80 },

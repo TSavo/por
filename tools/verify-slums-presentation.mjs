@@ -2156,7 +2156,12 @@ try {
   } else if (falseTyranthraxus) {
     const portrait = "portrait:HEAD5.DAX:54:BODY5.DAX:1";
     const knows = () => frame.journal?.leads.some(({ id }) => id === "castle-impostor");
-    for (const key of ["up", "enter", "enter"]) await advance(key);
+    for (const key of ["up", "enter"]) await advance(key);
+    assert.deepEqual(frame.encounter, [48, 32, "encounter:area:5:SPRIT5.DAX:16:0:0", 40, 80]);
+    await waitFor("the throne-room figure's approach", () => run(
+      'document.querySelector(".encounter-sprite")?.naturalWidth === 160 && document.querySelector(".encounter-sprite")?.naturalHeight === 320'));
+    await switchBothWays();
+    await advance("enter");
     assert.equal(frame.portrait, portrait);
     await waitFor("the throne-room figure's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
