@@ -724,6 +724,14 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["old-phlan-kobold-scout-combat", {
+    slot: "B", stand: "combat:area:29:CPIC8.DAX:0:ecl:a75e", strike: "combat:area:29:CPIC8.DAX:128:ecl:a75e",
+    width: 96, height: 96, readyPrompt: /KOBOLDLEADERHITPOINTS4AC6/i, strikeReflected: false,
+    strikeReport: /KOBOLDATTACKSALDAHITTINGFOR1POINTOFDAMAGE/i,
+    inputs: [...Array.from({ length: 3 }, () => ["up", "enter", "down", "up", "down"]).flat(),
+      "up", "enter", "down", "enter", "c", "enter"],
+    strikeInputs: [...Array(4).fill("enter"), ...Array(10).fill("q")],
+  }],
   ["old-phlan-lizard-patrol-beast-combat", {
     slot: "B", stand: "combat:area:29:CPIC8.DAX:59:ecl:aa7a", strike: "combat:area:29:CPIC8.DAX:187:ecl:aa7a",
     width: 192, height: 96, readyPrompt: /GIANTLIZARDHITPOINTS16AC5/i,

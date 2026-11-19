@@ -2896,6 +2896,9 @@ The controlled Chrome replay verifies the reflected strike during the
 original report of the defender hitting Brin.
 The Old Phlan nailed-door patrol replays check the leader and giant
 lizard ready poses, the bite, and the claw strike with their combat reports.
+The sickly Old Phlan kobold scouts have a separate ready and attack
+pair. Chrome checks the short-sword strike during the original report
+of Alda taking damage.
 
 `valhingen-spectre-approach` checks the new far pose before the middle
 pose, including frame dimensions, screen placement, and mode switching.

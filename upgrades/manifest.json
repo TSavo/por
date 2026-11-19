@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:29:CPIC8.DAX:0:ecl:a75e": "old-phlan-kobold-scout-combat-ready.png",
+    "combat:area:29:CPIC8.DAX:128:ecl:a75e": "old-phlan-kobold-scout-combat-strike.png",
     "encounter:area:22:ecl:a2c3:SPRIT7.DAX:13:0:0": "tyrmor-prison-dwarves-approach.png",
     "portrait:area:22:ecl:a2c3:HEAD7.DAX:13:BODY7.DAX:6": "tyrmor-prison-dwarves-dialogue.png",
     "combat:area:29:CPIC8.DAX:57:ecl:aa7a": "old-phlan-lizard-patrol-leader-ready.png",
