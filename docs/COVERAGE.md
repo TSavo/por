@@ -3222,6 +3222,10 @@ original attack on Alda.
 Chrome verifies the 192×96 scorpion ready at (56, 32) and reflected
 sting at (80, 56), the attack report, and display switching.
 
+`bane-ogre-escort-combat` verifies the escort orc's ready pose and
+reflected strike at (56, 56), the native attack on Cora, and display
+switching from the local slot A ogre checkpoint.
+
 The Lizard Wilds nomad scout uses a ready and longbow strike pair in
 the nomad encounter. Chrome verifies the loaded frames at (80, 152)
 and the native attack on Enna. The scratch fixture selects the

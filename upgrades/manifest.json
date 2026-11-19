@@ -1832,6 +1832,8 @@
     "tile:16:007c9f39d12577530fe7ec4822d842d46a75f135fdb29e9d90b94776fac03734": "lizard-ruin-wet-joins-007c9f39d125.png",
     "tile:16:abe3071db9f52765465d9d5556a79c161713ab3b3b60061ea661efbf67a15792": "lizard-peat-edge-finish-abe3071db9f5.png",
     "combat:area:31:CPIC1.DAX:4": "bane-orc-stand.png",
+    "combat:area:31:CPIC1.DAX:4:ecl:9f7b": "bane-ogre-escort-orc-ready.png",
+    "combat:area:31:CPIC1.DAX:132:ecl:9f7b": "bane-ogre-escort-orc-strike.png",
     "combat:area:31:CPIC1.DAX:132": "bane-orc-strike.png",
     "portrait:HEAD4.DAX:32:BODY4.DAX:3": "textile-skullcrusher-chained.png",
     "tile:16:326785667f8ebc9565683c4d102f8199fbad185afd3eaa4feebfe72540872826": "lizard-north-canal-terrain-326785667f8e.png",
