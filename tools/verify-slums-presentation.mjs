@@ -734,6 +734,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valjevo-lower-gallery", {
+    slot: "B", area: 5, views: 10, patterns: 47, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "right", "up", "up"],
+  }],
   ["valjevo-kitchen-jamb", {
     slot: "B", area: 4, views: 5, patterns: 31, sceneryOnly: true,
     walk: ["left", "up", "up", "right"],

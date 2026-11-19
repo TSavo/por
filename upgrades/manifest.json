@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "tile:5:4cfe5de4fec0b33c246651e0bc2d526945829f1925d023f07deb6e5ee4e3b0b2": "valjevo-lower-gallery-terrain-4cfe5de4fec0.png",
+    "tile:5:5b52670be92caf50b8a456a072b22f8a06279387eb20120d464ce4c70a50931e": "valjevo-lower-gallery-terrain-5b52670be92c.png",
+    "tile:5:92ccb4f65a1e573455d386a2986c6dad5b9d4e629110bd9bcbb6b6208dea253c": "valjevo-lower-gallery-terrain-92ccb4f65a1e.png",
     "tile:4:620a6303715d49edcfa38984eb64107d52fd85d1213c89f0b4d2a5c767a3dde7": "valjevo-kitchen-jamb-terrain-620a6303715d.png",
     "encounter:area:31:SPRIT1.DAX:2:0:0": "bane-captive-goblin-approach.png",
     "combat:area:26:CPIC7.DAX:57:ecl:a982": "old-phlan-lizardfolk-stand.png",
