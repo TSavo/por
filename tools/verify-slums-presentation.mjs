@@ -2104,6 +2104,15 @@ try {
     assert.equal(statuses.get("commission-slums"), "offered");
     assert.equal(statuses.get("commission-records"), "offered");
     assert.equal(statuses.get("commission-auction"), "accepted");
+    assert.ok(!frame.journal.leads.some(({ id }) => id.startsWith("auction-")));
+    await waitFor("the Podal auction track button", () => run(`Boolean(document.querySelector('[data-lead-id="commission-auction"]'))`));
+    await run(`document.querySelector('[data-lead-id="commission-auction"]').click()`);
+    frame = await waitFor("the tracked Podal auction commission", async () => {
+      const next = await latest();
+      return next.ready && next.journal?.trackedId === "commission-auction" && next;
+    });
+    assert.match(frame.journal.objective.nextStep, /ask the harbor master.*podal plaza/i);
+    assert.doesNotMatch(frame.journal.objective.nextStep, /wand|ogre|buyer/i);
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the Sokal reward and newly heard commissions after loading slot A.");
   } else if (freshRolf) {
