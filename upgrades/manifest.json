@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:27:SPRIT8.DAX:0:0:0": "wild-cave-feral-kobolds-approach.png",
+    "portrait:area:27:PIC8.DAX:0:0:0": "wild-cave-feral-kobolds-dialogue.png",
     "tile:13:68148839fd8c61a821bf81c69686e0617b35dc4221ca6241550f0473325391cf": "kobold-west-gallery-terrain-68148839fd8c.png",
     "tile:13:4df0f4402919582202cd1f1d1417985e4aaa8433ec86ae11d2dbc4ab3b412ac2": "kobold-west-gallery-terrain-4df0f4402919.png",
     "tile:13:abc5d88b521a644f26c0ff8d3a0e56b525fff309a8231cf6a33c4908fd134c4c": "kobold-west-gallery-terrain-abc5d88b521a.png",
@@ -3526,6 +3528,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:27:SPRIT8.DAX:0:0:0": { "area": 27, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:25:SPRIT6.DAX:60:1:0": { "area": 25, "x": 48, "y": 32, "width": 40, "height": 65 },
     "encounter:area:2:SPRIT4.DAX:18:1:0": { "area": 2, "x": 40, "y": 32, "width": 56, "height": 73 },
     "encounter:area:2:SPRIT4.DAX:6:2:0": { "area": 2, "x": 56, "y": 32, "width": 24, "height": 49 },
