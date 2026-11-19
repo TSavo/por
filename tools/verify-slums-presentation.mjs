@@ -4852,7 +4852,22 @@ try {
     if (halls) {
       console.log("Verified enhanced Valjevo hall views and the dragon dialogue.");
     } else {
-      for (const key of ["enter", "enter", ...Array(6).fill("a"), "enter", "enter", "q"]) await advance(key);
+      const traveler = "combat:party:73:93";
+      let travelerVisible = false;
+      for (const key of ["enter", "enter", ...Array(6).fill("a"), "enter", "enter", "q"]) {
+        await advance(key);
+        const placement = frame.combatArt?.find(([, , id]) => id === traveler);
+        if (travelerVisible || !placement) continue;
+        const [left, top] = placement;
+        await waitFor("the enhanced teal-robed party member", () => run(`state.sequence === ${frame.sequence} &&
+          [...document.querySelectorAll('.combat-sprite[src="/art/${traveler}"]')].some(img =>
+            img.naturalWidth === 96 && img.naturalHeight === 96 &&
+            parseFloat(img.style.left) === ${left / 3.2} && parseFloat(img.style.top) === ${top / 2})`));
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "dragon-fight-party.png"), Buffer.from(shot.data, "base64"));
+        travelerVisible = true;
+      }
+      assert.ok(travelerVisible, "Expected the teal-robed party member at the opening of the dragon fight");
       const sprite = frame.combatArt.find(([, , id]) => id === "combat:CPIC5.DAX:66");
       assert.ok(sprite);
       const [x, y, , reflected, highlighted, width, height] = sprite;
@@ -4887,7 +4902,7 @@ try {
         window.dragonReports.some((text, index, reports) =>
           /TYRANITHRAXUSAttacksBAKSHIHittingfor[0-9]+points?ofdamage/i.test(text) &&
           reports.slice(index + 1).some(report => /BAKSHItakes[0-9]+points?ofdamagefromFire/i.test(report)))`));
-      console.log("Verified the castle dragon portrait, combat placement, bite animation, and attack and fire damage reports.");
+      console.log("Verified the castle dragon portrait, combat placement, bite animation, and attack and fire damage reports. Captures:", directory);
     }
   } else if (councilFinale) {
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");

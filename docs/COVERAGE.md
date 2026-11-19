@@ -1909,6 +1909,9 @@ The same replay checks the 192×192 bite at its position in the live
 combat animation and confirms that the enhanced combat panel shows the hit
 and then the fire damage as separate reports. With
 `POR_TRACE_BATTLE_TILES=1`, it captured 22 frames.
+The opening combat sequence also verifies the 96×96 teal-robed party
+member at the native position. The standing pose matches the original
+`CHEAD.DAX` block 73 and `CBODY.DAX` block 93 combination.
 With `POR_WRITE_ENVIRONMENT_TRACE=1`, it exports all eight approach views
 for the art inventory, including the positions of the six new hall tiles.
 
