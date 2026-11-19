@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:25:CPIC6.DAX:138": "buccaneer-wilds-quicklings-strike.png",
+    "combat:area:25:CPIC6.DAX:10": "buccaneer-wilds-quicklings-stand.png",
     "tile:18:d0b60f00e865fc0df7097f0e242f2a54a904d2272248e62d0c91d4ff0c530053": "podal-workshop-lanes-terrain-d0b60f00e865.png",
     "tile:18:398a7e14d6ccd29f11169e57a3c27b1778accaca18eec73e3efbcebf8083ca18": "podal-workshop-lanes-terrain-398a7e14d6cc.png",
     "tile:18:5b720a6a4fb8f83e4418b0f0f966a810b4590d0afca70948ce8f8a9253443abe": "podal-workshop-lanes-terrain-5b720a6a4fb8.png",
