@@ -1,5 +1,6 @@
 import { appendFileSync, readSync, writeFileSync } from "node:fs";
 import { captureNativeExploration, type NativeExploration } from "./native-exploration.js";
+import { captureOverlandTravel, type TravelState } from "./overland-travel.js";
 import { createHash } from "node:crypto";
 import { Frame } from "../src/lib/ega.js";
 import type { EncounterAnchor } from "../src/lib/assets.js";
@@ -104,6 +105,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let trackedId: string | undefined;
   let scene: string | undefined;
   let area: number | undefined;
+  let travelPosition: TravelState | undefined;
+  let travelPolling = false;
   let explorationPosition: { area: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number } | undefined;
   let battleCursor: number | undefined;
   let drawnPerspective: { pixels: Buffer; localEcl?: number; native?: NativeExploration } | undefined;
@@ -283,6 +286,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         classicPortraitCursor: Array.isArray(picture) ? battleCursor : undefined,
         perspective,
         overlandMap: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield || undefined,
+        travelPosition: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield && !leads && !attack
+          ? travelPosition : undefined,
+        travelPolling: travelPolling && !menu && !dialogue && !scene && picture === undefined && !battlefield && !leads && !attack || undefined,
         nativeScenery,
         exploration: perspective && explorationPosition && explorationPosition.area === tileArea
           ? explorationPosition : undefined,
@@ -359,6 +365,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     if (browser) {
       const segment = cpu.read16(0x740, 0x4935);
       const offset = cpu.read16(0x740, 0x4933);
+      travelPosition = captureOverlandTravel(cpu, segment, offset);
+      const ecl = cpu.read8(0x740, 0x82a2);
+      // Sector loads can yield at a nonblocking keyboard check before the next travel menu.
+      travelPolling = !blocking && cpu.cs === 0x512 && cpu.ip === 0x5423 && ecl >= 25 && ecl <= 27;
       area = segment || offset ? cpu.read16(segment, offset + 0x1e4) : undefined;
       // Valjevo draws the dungeon hedge before copying the selected ECL
       // back to the area record. Other transition art uses the record's scope.
@@ -390,7 +400,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (!browser) process.stdout.write("Game [J journal, :quit, key]> ");
       const command = readCommand();
       if (command === undefined || command === ":quit") throw new Error("Live session closed");
-      if (command === ":poll" && automaticCombat) {
+      if (command === ":poll" && automaticCombat || command === ":travel-poll" && travelPolling) {
         nextPrompt = cpu.steps + 1_000_000;
         return;
       }

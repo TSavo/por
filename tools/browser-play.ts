@@ -17,6 +17,7 @@ import { parseGeo } from "../src/lib/world.js";
 import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
 import { buildExplorationMaterials } from "./exploration-materials.js";
 import type { NativeExploration } from "./native-exploration.js";
+import { loadOverlandTravel, type TravelState } from "./overland-travel.js";
 
 const port = Number(process.env.POR_PLAY_PORT ?? 43124);
 if (!Number.isInteger(port) || port < 1 || port > 65535) {
@@ -24,6 +25,7 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) {
 }
 const origin = `http://127.0.0.1:${port}`;
 const gameRoot = requireBrowserGameRoot();
+const planTravel = loadOverlandTravel(gameRoot);
 const geometry = new Map<number, ReturnType<typeof parseGeo>>();
 for (const name of readdirSync(gameRoot).filter(name => /^GEO\d+\.DAX$/i.test(name))) {
   for (const entry of parseDax(name, new Uint8Array(readFileSync(join(gameRoot, name)))).entries) {
@@ -125,6 +127,9 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
 });
 
 interface FrameState extends ExplorationFrame {
+  travelPosition?: TravelState;
+  travelPolling?: boolean;
+  travel?: Pick<TravelState, "x" | "y" | "sector"> & { routes: ReturnType<typeof planTravel> };
   frame?: string;
   enhancedFrame?: string;
   scene?: string;
@@ -170,6 +175,11 @@ const narrations: Array<{ id: number; step: number; unitId: string; variantId?: 
 createInterface({ input: runner.stdout }).on("line", (line) => {
   if (line.startsWith("POR_FRAME ")) {
     frame = JSON.parse(line.slice("POR_FRAME ".length)) as FrameState;
+    if (frame.travelPosition) {
+      const { x, y, sector } = frame.travelPosition;
+      frame.travel = { x, y, sector, routes: planTravel(frame.travelPosition) };
+      delete frame.travelPosition;
+    }
     prepareScenery(frame);
     frame.animation?.forEach(prepareScenery);
     const position = frame.exploration;
@@ -363,7 +373,8 @@ const server = createServer(async (req, res) => {
     const track = /^track ([1-9]\d{0,2})$/.exec(command);
     const validTrack = frame.journal && (command === "track auto" ||
       (track && Number(track[1]) <= frame.journal.leads.filter(isOpenObjective).length));
-    const validPoll = command === ":poll" && frame.automaticCombat && expected === String(sequence);
+    const validPoll = expected === String(sequence) && (command === ":poll" && frame.automaticCombat ||
+      command === ":travel-poll" && frame.travelPolling);
     const gameKey = command.startsWith("key ") ? command.slice(4) : command;
     if ((!validTrack && !validPoll && getKey(gameKey) === undefined) ||
         (frame.journal && command.toLowerCase() !== "j" && !validTrack)) {

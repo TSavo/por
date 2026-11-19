@@ -41,6 +41,24 @@
       position: absolute; left: 7.5%; top: 12%; width: 27.5%; height: 44%;
       image-rendering: pixelated;
     }
+    #travel-map {
+      position: absolute; left: 2.5%; top: 4%; width: 37.5%; height: 60%; z-index: 2;
+      display: grid; align-items: center; background: #19140f;
+    }
+    #travel-map[hidden], #close-travel-map[hidden] { display: none; }
+    #travel-map.expanded {
+      inset: 3%; width: auto; height: auto; z-index: 5; grid-template-rows: auto minmax(0, 1fr);
+      border: 1px solid #a28658; box-shadow: 0 10px 30px #000a;
+      padding: clamp(8px, 2vw, 18px);
+    }
+    #close-travel-map { justify-self: end; margin-bottom: .4rem; }
+    #travel-map svg { display: block; width: 100%; height: 100%; min-height: 0; }
+    #travel-map polygon { fill: transparent; stroke: transparent; stroke-width: 1.5; }
+    #travel-map polygon[aria-disabled="false"] { cursor: pointer; stroke: #ffdf8755; }
+    #travel-map polygon[aria-disabled="false"]:is(:hover, :focus-visible) {
+      outline: none; fill: #ffda7721; stroke: #ffeb9f;
+      filter: drop-shadow(0 0 4px #f7b13e);
+    }
     #tile-art img { position: absolute; width: 2.5%; height: 4%; display: block; }
     /* Cover subpixel gaps where the browser rounds adjacent tile edges. */
     #tile-art .terrain-tile {
@@ -164,6 +182,22 @@
       <img id="screen" width="320" height="200" alt="Original game screen" tabindex="-1">
       <div id="tile-art" aria-hidden="true" hidden></div>
       <div id="game-text" aria-hidden="true" hidden></div>
+      <section id="travel-map" aria-label="Illustrated Moonsea travel map" hidden>
+        <button id="close-travel-map" type="button" hidden>Return to game</button>
+        <svg viewBox="0 0 650 433.333" aria-label="The Moonsea around Phlan">
+          <image id="travel-art" width="650" height="433.333" />
+          <polygon data-destination="diogenes" points="37,57 90,54 108,79 90,110 49,103" role="button" aria-label="Cave of Diogenes"><title>Cave of Diogenes</title></polygon>
+          <polygon data-destination="zhentil" points="33,139 74,125 129,127 128,151 99,172 37,174" role="button" aria-label="Zhentil Keep Outpost"><title>Zhentil Keep Outpost</title></polygon>
+          <polygon data-destination="buccaneers" points="30,223 59,201 89,203 107,227 108,269 35,266" role="button" aria-label="Buccaneer Base"><title>Buccaneer Base</title></polygon>
+          <polygon data-destination="valjevo" points="274,69 303,52 402,64 397,95 369,127 309,139 275,115" role="button" aria-label="Valjevo Castle via the north gate"><title>Valjevo Castle via the north gate</title></polygon>
+          <polygon data-destination="phlan" points="207,135 274,128 309,145 368,129 412,165 453,217 449,263 380,282 346,251 312,231 264,252 222,240 187,213" role="button" aria-label="Phlan"><title>Phlan</title></polygon>
+          <polygon data-destination="nomads" points="439,44 467,27 550,25 569,54 541,88 469,85 435,61" role="button" aria-label="Nomad Camp"><title>Nomad Camp</title></polygon>
+          <polygon data-destination="kobolds" points="542,122 570,102 629,98 633,130 617,165 570,158" role="button" aria-label="Kobold Caves"><title>Kobold Caves</title></polygon>
+          <polygon data-destination="lizardmen" points="553,207 582,181 609,181 627,213 639,225 632,252 558,250 550,224" role="button" aria-label="Lizardman Keep"><title>Lizardman Keep</title></polygon>
+          <polygon data-destination="island" points="194,317 241,301 275,292 308,306 314,340 281,361 211,362" role="button" aria-label="Sorcerer's Island via the rowboat"><title>Sorcerer's Island via the rowboat</title></polygon>
+          <polygon data-destination="sokal" points="436,325 463,296 501,283 540,294 560,326 552,351 487,367 434,344" role="button" aria-label="Sokal Keep via the New Phlan ferry"><title>Sokal Keep via the New Phlan ferry</title></polygon>
+        </svg>
+      </section>
       <section id="journal" aria-label="Adventure journal" hidden>
         <h2>Adventure journal</h2>
         <button id="close-journal" type="button">Return to game</button>

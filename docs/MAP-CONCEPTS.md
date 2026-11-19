@@ -25,3 +25,11 @@ illustration as the ink, watercolor, and palette reference:
 The illustrations use artist-designed footprints and paths. The Atlas does
 not show a tile-level party position on the artwork.
 
+In Enhanced overland play, the Moonsea plate also serves as the travel map.
+Available destinations glow on hover or keyboard focus. Click one or press
+Enter while focused to walk there using the original game controls. Travel
+stops at encounters, gates, and boat prompts. Sokal Keep points to a dock
+for New Phlan, where the harbor master can arrange onward passage. Press
+Escape to stop a route. **Map** enlarges the illustration and **Travel art**
+switches between the illustration and the overhead terrain view.
+

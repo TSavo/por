@@ -21,6 +21,10 @@ const atlasSheet = document.querySelector("#atlas-sheet");
 const atlasImageLink = document.querySelector("#atlas-image-link");
 const atlasImage = document.querySelector("#atlas-image");
 const atlasError = document.querySelector("#atlas-error");
+const travelMap = document.querySelector("#travel-map");
+const travelArt = document.querySelector("#travel-art");
+const closeTravelMap = document.querySelector("#close-travel-map");
+const travelLandmarks = [...travelMap.querySelectorAll("[data-destination]")];
 const presentation = document.querySelector("#presentation");
 const streetToggle = document.querySelector("#street-toggle");
 const audioToggle = document.querySelector("#audio-toggle");
@@ -52,12 +56,17 @@ let posting = false;
 let quickPollAfter = 0;
 let enhanced = false;
 let streetEnabled = true;
+let streetUnavailable = false;
 let streetLoading;
 let streetViewport;
 let streetModule;
 let streetAtlas;
 let overlandViewport;
 let overlandLoading;
+let travelArtEnabled = true;
+let travelArtReady = false;
+let travelExpanded = false;
+let activeTravel;
 const failedSurfaces = new Set();
 const skyByArea = {16: "swamp", 24: "bane", 28: "zhentil"};
 let discoveredMaps = {};
@@ -302,10 +311,11 @@ function holdAnimationFrame(view) {
 
 function togglePresentation() {
   enhanced = !enhanced;
+  if (!enhanced) activeTravel = undefined;
   document.documentElement.dataset.presentation = enhanced ? "enhanced" : "classic";
   presentation.setAttribute("aria-pressed", String(enhanced));
   mapToggle.hidden = !enhanced;
-  streetToggle.hidden = !enhanced || !explorationSurface(state);
+  renderTravelMap();
   if (!enhanced && !automap.hidden) toggleAutomap();
   if (enhanced) rememberExploration();
   if (!enhanced) stopVoice();
@@ -331,8 +341,88 @@ function explorationSurface(view) {
   }
 }
 
+travelArt.addEventListener("load", () => {
+  travelArtReady = true;
+  renderTravelMap();
+});
+travelArt.setAttribute("href", "/atlas/phlan-region-concept-v2-geography.png");
+
+function renderTravelMap(view = animationFrame ?? state) {
+  const overland = enhanced && view.overlandMap && !view.journal && !view.classicPortrait && !view.combatArt?.length;
+  const illustrated = overland && travelArtReady;
+  const visible = illustrated && travelArtEnabled && !activeTravel && !animationFrame && view.travel;
+  if (!visible && travelExpanded) setTravelExpanded(false);
+  travelMap.hidden = !visible;
+  streetToggle.hidden = !enhanced || !explorationSurface(state);
+  streetToggle.textContent = illustrated ? "Travel art" : streetUnavailable ? "3D unavailable" : "3D view";
+  streetToggle.disabled = !illustrated && streetUnavailable;
+  streetToggle.setAttribute("aria-pressed", String(illustrated ? travelArtEnabled : streetEnabled));
+  for (const landmark of travelLandmarks) {
+    const enabled = Boolean(visible && state.ready && !state.stopped && view.travel.routes[landmark.dataset.destination]);
+    landmark.setAttribute("aria-disabled", String(!enabled));
+    landmark.setAttribute("tabindex", enabled ? "0" : "-1");
+  }
+}
+
+function setTravelExpanded(expanded) {
+  travelExpanded = expanded;
+  travelMap.classList.toggle("expanded", expanded);
+  closeTravelMap.hidden = !expanded;
+  mapToggle.setAttribute("aria-expanded", String(expanded));
+  (expanded ? closeTravelMap : screen).focus({ preventScroll: true });
+}
+
+function selectTravel(landmark) {
+  if (landmark.getAttribute("aria-disabled") !== "false" || activeTravel || posting || !state.ready) return;
+  resumeBlockedAudio();
+  activeTravel = { destination: landmark.dataset.destination, label: landmark.getAttribute("aria-label") };
+  setTravelExpanded(false);
+  renderTravelMap();
+  followTravel();
+}
+
+for (const landmark of travelLandmarks) {
+  landmark.addEventListener("click", () => selectTravel(landmark));
+  landmark.addEventListener("keydown", event => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    event.stopPropagation();
+    selectTravel(landmark);
+  });
+}
+
+function followTravel() {
+  const route = activeTravel;
+  if (!route || posting || !state.ready || state.sequence === route.sequence || renderingSequence !== undefined || animationFrame) return;
+  const { travel } = state;
+  const next = travel?.routes[route.destination];
+  const here = travel && `${travel.x},${travel.y},${travel.sector}`;
+  const handoff = !travel && state.travelPolling && route.handoffBudget > 0;
+  // Enter opens the destination's original prompt once. A prompt or an
+  // unexpected position ends the route and hands control back to the player.
+  if (!enhanced || state.stopped || state.animation?.length ||
+    (!handoff && (route.arrivalSent || !next || route.expected && here !== route.expected))) {
+    activeTravel = undefined;
+    renderTravelMap();
+    return;
+  }
+  route.sequence = state.sequence;
+  if (handoff) route.handoffBudget--;
+  else {
+    route.expected = `${next.x},${next.y},${next.sector}`;
+    route.arrivalSent = next.key === "enter";
+    route.handoffBudget = next.sector !== travel.sector ? 3 : 0;
+  }
+  void send(handoff ? ":travel-poll" : next.key).then(sent => {
+    if (sent || activeTravel !== route) return;
+    activeTravel = undefined;
+    renderTravelMap();
+  });
+}
+
 function disableStreetPreview(error) {
   streetEnabled = false;
+  streetUnavailable = true;
   streetViewport?.renderer.dispose();
   streetViewport = undefined;
   streetToggle.setAttribute("aria-pressed", "false");
@@ -424,8 +514,10 @@ function ensureStreetViewport(surface) {
 
 streetToggle.addEventListener("click", () => {
   if (!enhanced) return;
-  streetEnabled = !streetEnabled;
-  streetToggle.setAttribute("aria-pressed", String(streetEnabled));
+  if (state.overlandMap && travelArtReady) travelArtEnabled = !travelArtEnabled;
+  else streetEnabled = !streetEnabled;
+  activeTravel = undefined;
+  renderTravelMap();
   void showScreen();
   if (document.activeElement === streetToggle) screen.focus({preventScroll:true});
 });
@@ -574,6 +666,10 @@ function markCurrentLocation() {
 }
 
 function toggleAutomap() {
+  if (!travelMap.hidden) {
+    setTravelExpanded(!travelExpanded);
+    return;
+  }
   if (automap.hidden && (!enhanced || !state.exploration)) return;
   automap.hidden = !automap.hidden;
   mapToggle.setAttribute("aria-expanded", String(!automap.hidden));
@@ -801,7 +897,7 @@ async function showScreen() {
   }
   if (render !== screenRender) return;
   screen.src = source;
-  streetToggle.hidden = !enhanced || !explorationSurface(state);
+  renderTravelMap(view);
   tileArt.replaceChildren(...layers);
   tileArt.hidden = !showArt;
   gameText.hidden = !useEnhanced || Boolean(sceneArt);
@@ -878,6 +974,7 @@ async function send(key) {
       method: "POST", headers: { "X-POR-Frame": String(sequence) }, body: key,
     });
     if (state.sequence === sequence && (result.ok || result.status === 409)) state.ready = false;
+    return result.ok;
   } catch {
     status.textContent = "Waiting for the local game runner…";
   } finally {
@@ -897,7 +994,7 @@ async function poll() {
     else Object.assign(state, next);
     closeJournal.disabled = !state.ready || Boolean(state.stopped);
     autoTrack.disabled = closeJournal.disabled;
-    mapToggle.disabled = !state.exploration;
+    mapToggle.disabled = !state.exploration && !(enhanced && state.travel && travelArtEnabled && travelArtReady);
     if (changed) {
       rememberExploration();
       renderJournal();
@@ -910,10 +1007,13 @@ async function poll() {
     if (state.automaticCombat && !state.journal && state.ready && !animationFrame && performance.now() >= quickPollAfter) {
       void send(":poll");
     }
+    followTravel();
+    if (renderingSequence === undefined) renderTravelMap();
     playPendingSounds();
     playPendingVoice();
     playPendingNarration();
-    status.textContent = state.stopped ?? state.notice ??
+    status.textContent = state.stopped ?? state.notice ?? (activeTravel && `Traveling toward ${activeTravel.label}… Esc to stop.`) ??
+      (!travelMap.hidden && state.ready ? "Select a highlighted destination or use the arrow keys." : undefined) ??
       (state.automaticCombat && !state.journal ? "Combat in progress…"
         : state.ready ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
   } catch {
@@ -940,6 +1040,7 @@ presentation.addEventListener("click", () => {
 });
 mapToggle.addEventListener("click", toggleAutomap);
 closeMap.addEventListener("click", toggleAutomap);
+closeTravelMap.addEventListener("click", () => setTravelExpanded(false));
 markMap.addEventListener("click", markCurrentLocation);
 localMap.addEventListener("click", () => { mapMode = "local"; renderAutomap(); });
 regionMap.addEventListener("click", () => { mapMode = "region"; renderAutomap(); });
@@ -951,6 +1052,11 @@ window.addEventListener("keydown", (event) => {
   const advancingCoveredPrint = currentVoice?.dataset.queuedNarration === "true" && ["Enter", " "].includes(event.key);
   if (currentVoice && event.key !== "F10" && !advancingCoveredPrint) stopVoice();
   if (event.repeat || event.ctrlKey || event.metaKey) return;
+  if (activeTravel && (event.key === "Escape" || keypadDirections[event.code] || commands[event.key] || /^[a-z0-9]$/i.test(event.key))) {
+    activeTravel = undefined;
+    renderTravelMap();
+    if (event.key === "Escape") { event.preventDefault(); return; }
+  }
   if (event.altKey) {
     if (!event.shiftKey && event.code === "KeyQ" && !state.journal) {
       event.preventDefault();
@@ -966,6 +1072,10 @@ window.addEventListener("keydown", (event) => {
   if (enhanced && event.key.toLowerCase() === "m" && !event.shiftKey) {
     event.preventDefault();
     toggleAutomap();
+    return;
+  }
+  if (travelExpanded) {
+    if (event.key === "Escape") setTravelExpanded(false);
     return;
   }
   if (!automap.hidden) {

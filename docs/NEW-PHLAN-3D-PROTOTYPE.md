@@ -4,8 +4,9 @@ Enhanced browser play uses WebGL by default for exploration. The 3D view
 reads the camera and wall layout from the active game map, including level
 changes and walls changed by scripts. It uses existing enhanced textures
 where they match and the native wall art on individual surfaces without a
-match. New Phlan retains its harbor and gate details. Overland travel keeps
-its overhead map and markers on a WebGL canvas. Encounter sprites remain
+match. New Phlan retains its harbor and gate details. Overland travel uses
+the [interactive Moonsea illustration](MAP-CONCEPTS.md) and shows the
+overhead WebGL view during movement. Encounter sprites remain
 over the scenery, and portraits, combat, the journal, and Classic retain
 their existing presentation.
 
