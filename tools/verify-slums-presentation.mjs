@@ -26,6 +26,10 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-giant-snake", {
+    slot: "B", stand: "combat:area:5:CPIC5.DAX:60", strike: "combat:area:5:CPIC5.DAX:188", width: 192, height: 96,
+    inputs: ["s", "up", "up", "y", "enter", "enter", "c", ...Array(3).fill("enter"), ...Array(5).fill("q")],
+  }],
   ["valjevo-elite-guard", {
     slot: "B", stand: "combat:area:7:CPIC5.DAX:11", strike: "combat:area:7:CPIC5.DAX:139", width: 96, height: 96,
     inputs: ["up", ...Array(4).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(3).fill("q")],

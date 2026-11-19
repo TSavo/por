@@ -1187,6 +1187,10 @@ the service route, including the arched doors and both stone wall families.
 from controlled slot B in disguise and exercise the officer's two peaceful
 dialogue branches. Chrome checks the 352×352 portrait during each challenge
 and verifies it clears after the guard lets the party pass.
+`valjevo-giant-snake` uses controlled slot B on the Valjevo approach with
+the alarm running. It verifies both 192×96 snake poses at the guest's actual
+combat placements, including the animated lunge and state-preserving mode
+switches.
 The `valjevo-south-gallery` replay starts from that native tower save.
 `valjevo-covered-gallery` and `valjevo-statue-approach` use copies with only
 the party's position and facing changed. Chrome checks 4,114 placements

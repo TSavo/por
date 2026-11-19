@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:5:CPIC5.DAX:60": "valjevo-giant-snake-stand.png",
+    "combat:area:5:CPIC5.DAX:188": "valjevo-giant-snake-strike.png",
     "portrait:HEAD5.DAX:53:BODY5.DAX:7": "valjevo-scriptorium-officer.png",
     "tile:4:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "valjevo-kitchen-corridor-terrain-01.png",
     "tile:4:0bae672ff3e01f653ae7241fc075226c0865693834d5c45e6f2863678a2526da": "valjevo-kitchen-corridor-terrain-02.png",
