@@ -1,6 +1,18 @@
 {
   "version": 1,
   "assets": {
+    "tile:13:6ebfac4e621c82065e04712a06b3b924b71ff39a170c1d910e5f9ced4ff618df": "kobold-pool-passage-terrain-6ebfac4e621c.png",
+    "tile:13:f3b8ed60dfea0d255f2517e43f2a8f866e22c297594c71d9fc0b24a2882e212b": "kobold-pool-passage-terrain-f3b8ed60dfea.png",
+    "tile:13:ff895827d85d886bb33f9c2f77b12a063130cf5089a6c383c9ac3b55ec22efa1": "kobold-pool-passage-terrain-ff895827d85d.png",
+    "tile:13:dd26f1da22db9cf676da64012f5ca445f97bea617519b57ce34391056b3b4167": "kobold-pool-passage-terrain-dd26f1da22db.png",
+    "tile:13:a6bde3cfae4c8aadc2991d888c483b1b8ed93520dd1b475edf3de3f99425a620": "kobold-pool-passage-terrain-a6bde3cfae4c.png",
+    "tile:13:41dea904bf1f7df40b00b2a1f22e3d64be4e9deef1eacb667771432b80d92497": "kobold-pool-passage-terrain-41dea904bf1f.png",
+    "tile:13:6813dd72c66b17eb4da89b009952d72f12490ba07f186f3270f23fa7a26381c3": "kobold-pool-passage-terrain-6813dd72c66b.png",
+    "tile:13:c31f352e01707674dfce9c646cfbc54bc71c48b71f78bfec649f90ec3abbde9e": "kobold-pool-passage-terrain-c31f352e0170.png",
+    "tile:13:f02d93a6f833b905131d6b6877aa8e84104648cbd32e01727f213c6572d36d5e": "kobold-pool-passage-terrain-f02d93a6f833.png",
+    "tile:13:ab0d6da05130b6911af59f8cf7b9aa34a78bb5a323dd0f4310a9ab607a95640a": "kobold-pool-passage-terrain-ab0d6da05130.png",
+    "tile:13:34b8451af198154f5f3e085d524a75972687610a4765dededb84f70961fe6687": "kobold-pool-passage-terrain-34b8451af198.png",
+    "tile:13:bd9ea1901d9b6de036f5842777a04222c7e67c37d2dc248bca7016a8ccea01f5": "kobold-pool-passage-terrain-bd9ea1901d9b.png",
     "tile:13:bf140a1b5f168745e0149d0c3d0b5f094973bff98342b751ff4cafa082530540": "kobold-cave-turn-terrain-bf140a1b5f16.png",
     "tile:13:1180638ececd642b84551072d1f901f40c3f3d975f59049bd1aa8436be86beff": "kobold-cave-turn-terrain-1180638ececd.png",
     "combat:area:20:CPIC2.DAX:4:ecl:ab91": "slums-orc-guard-stand.png",
