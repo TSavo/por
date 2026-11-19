@@ -356,3 +356,22 @@ distinguish this encounter from other fights that reuse the same blocks.
 With the default art packs, a live Chrome replay from slot B confirmed
 the ready pose and the following animated strike and checked that
 switching presentation preserved the combat state and checkpoint.
+
+### Mendor Library, Textile Waterfront, and Bane route coverage
+
+The Mendor Library annex replay checked 26 new 32×32 tiles and all 3,630
+placements across the entry and vestibule routes. The west-room replay checked
+30 additional tiles and 2,541 placements, including the area 15 exit into
+area 2.
+
+In area 2, Chrome checked 13 Textile Waterfront crossing tiles across four
+branches (8,954 placements). The side-lane replay checked four more tiles and
+4,235 placements across routes that crossed the Mendor boundary in both
+directions. Three routes through the Textile House rubble interior checked 12
+new tiles across 5,445 placements.
+
+The Temple of Bane outer courts and side galleries use individual 32×32
+tiles for ashlar, ivy, lintels, and floor joins. The outer-courts routes checked
+18 new tiles and 3,630 placements across 30 views. The side-gallery routes
+checked 20 new tiles and 3,993 placements across 33 views. Switching art modes
+preserved game state and save bytes in the Chrome replays.
