@@ -1606,6 +1606,9 @@ minotaur encounter dialogue.
 The gnoll and wyvern routes each verify 17 cave terrain patterns across
 three views. Together with the minotaur chamber, the nine views use 19
 distinct 32×32 tiles, including the added wall and floor junctions.
+Controlled wyvern replays also check the 224×260 middle and 128×196 far
+sprites from `SPRIT8.DAX` block 121 at their guest anchors. Each pose
+loads above the same complete cave scenery and leads into the portrait.
 `stojanow-patrol-fighter-approach` checks the far and middle patrol
 sprites through the transition to dialogue. `pyramid-vats-lizard-approach`
 checks the vat ambush's approach sprite and dialogue portrait. Both
