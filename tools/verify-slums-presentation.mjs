@@ -29,18 +29,19 @@ const conjurerPrompts = new Map([
   ["valhingen-conjurer-wight", /SUMMONSAWIGHT/i],
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
+const arenaApproach = ["right", "right", "up", "up", "right", "up", "up", "enter", "enter",
+  "up", "up", "right", "up", "up", "up", "up", "enter", "enter", "up", "up", "enter"];
+const arenaWatchApproach = [...arenaApproach, "enter", "n", "n", "e", "e", "r", "h",
+  ...Array(8).fill("i"), "r", "enter"];
 const encounterRoutes = new Map([
   ["new-phlan-city-watch-approach", {
     slot: "A",
-    inputs: ["right", "right", "up", "up", "right", "up", "up", "enter", "enter",
-      "up", "up", "right", "up", "up", "up", "up", "enter", "enter", "up", "up", "enter",
-      "enter", "n", "n", "e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"],
+    inputs: arenaWatchApproach,
     placement: [48, 32, "encounter:area:11:SPRIT3.DAX:15:0:0", 40, 73],
   }],
   ["new-phlan-arena-master-approach", {
     slot: "A",
-    inputs: ["right", "right", "up", "up", "right", "up", "up", "enter", "enter",
-      "up", "up", "right", "up", "up", "up", "up", "enter", "enter", "up", "up", "enter"],
+    inputs: arenaApproach,
     placement: [48, 32, "encounter:area:11:SPRIT3.DAX:16:0:0", 40, 80],
   }],
   ["bane-captive-goblin-approach", {
@@ -424,9 +425,7 @@ const combatPoseRoutes = new Map([
   ["new-phlan-arena-rolf", {
     slot: "A", stand: "combat:area:11:CPIC3.DAX:11", strike: "combat:area:11:CPIC3.DAX:139",
     width: 96, height: 96, readyPrompt: /ROLFHITPOINTS6/i,
-    inputs: ["right", "right", "up", "up", "right", "up", "up", "enter", "enter",
-      "up", "up", "right", "up", "up", "up", "up", "enter", "enter",
-      "up", "up", "enter", "enter", "left", "up", "enter", "enter", "y", "enter", "enter"],
+    inputs: [...arenaApproach, "enter", "left", "up", "enter", "enter", "y", "enter", "enter"],
     strikeInputs: ["enter"],
   }],
   ["valhingen-efreeti-combat", {
