@@ -2621,6 +2621,13 @@ try {
       assert.ok(frame.journal.leads.some(({ id }) => id === "nomad-swords-ready"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "nomad-headman-talk" || id === "nomad-kobold-warning"));
       await advance("j");
+      for (const key of ["enter", "enter"]) await advance(key);
+      const choice = frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+      assert.match(choice, /THENOMADSWAITFORYOUTOMAKETHEFIRSTMOVE.*COMBATWAITFLEEPARLAY/i);
+      await advance("p");
+      assert.equal(frame.portrait, "portrait:HEAD7.DAX:74:BODY7.DAX:30");
+      await waitFor("the enhanced Nomad headman after Parlay", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
     }
     if (environment.finalPortrait) {
       assert.equal(frame.portrait, environment.finalPortrait);

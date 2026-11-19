@@ -357,7 +357,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("nomad-kobold-warning")) nextStep = "Hear out the headman and decide whether to stay and help against the kobolds.";
       else if (knows("nomad-feast-invitation")) nextStep = "Accept the headman's feast invitation to speak with him further.";
       else if (knows("nomad-sentries")) nextStep = "Parlay with the nomads at the camp so you can speak with their headman.";
-      else if (knows("nomad-swords-ready")) nextStep = "Return to the main trail through the camp and approach the sentries. Choose Parlay if they offer it.";
+      else if (knows("nomad-swords-ready")) nextStep = "Press Enter to continue through the camp's warning, then choose Parlay when the nomads wait for your response.";
       else if (knows("nomad-camp-found")) nextStep = "Choose Enter at the camp and approach the nomads to speak with them.";
     }
     if (commission.id === "zhentil") {
