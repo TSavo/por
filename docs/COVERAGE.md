@@ -1389,6 +1389,10 @@ animated strike in the area 27 gnoll-room encounter.
 `wild-cave-gnoll-approach` and `wild-cave-giant-lizard-approach` check
 the native placements and transitions to dialogue in the gnoll and
 minotaur encounters, including presentation switching.
+`stojanow-patrol-fighter-approach` checks the far and middle patrol
+sprites through the transition to dialogue. `pyramid-vats-lizard-approach`
+checks the vat ambush's approach sprite and dialogue portrait. Both
+Chrome replays verify original anchoring and presentation switching.
 `kuto-lizardman-combat` and `kuto-kobold-leader-combat` check the 96×96
 ready and strike poses for both opponents in Norris's native fight.
 Both replays use the same slot J checkpoint and verify mode switching.

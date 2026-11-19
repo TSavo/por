@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:23:SPRIT7.DAX:57:0:0": "pyramid-vats-lizard-approach.png",
+    "encounter:area:9:SPRIT2.DAX:16:2:0": "stojanow-patrol-fighter-approach-far.png",
+    "encounter:area:9:SPRIT2.DAX:16:1:0": "stojanow-patrol-fighter-approach-middle.png",
     "tile:29:0264796f9fa232ae9bca2bf9b86d335df78c2c4ac9f35e35c3c00dc131885739": "kuto-south-lane-terrain-0264796f9fa2.png",
     "tile:29:7a6a35c15661f02c8b9267cac4373bb686c0295e27c916af98dab1286dfe2b34": "kuto-south-lane-terrain-7a6a35c15661.png",
     "tile:29:6cd44166e8613cbf3a72f68b26cddc6e05b10fe3c92f75a69ca29e6fbb19ba01": "kuto-south-lane-terrain-6cd44166e861.png",
@@ -2995,6 +2998,9 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:23:SPRIT7.DAX:57:0:0": { "area": 23, "x": 48, "y": 32, "width": 48, "height": 80 },
+    "encounter:area:9:SPRIT2.DAX:16:2:0": { "area": 9, "x": 56, "y": 32, "width": 16, "height": 49 },
+    "encounter:area:9:SPRIT2.DAX:16:1:0": { "area": 9, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:26:SPRIT7.DAX:57:0:0": { "area": 26, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:26:SPRIT7.DAX:0:0:0": { "area": 26, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:27:SPRIT8.DAX:59:0:0": { "area": 27, "x": 32, "y": 32, "width": 80, "height": 80 },

@@ -30,6 +30,17 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["pyramid-vats-lizard-approach", {
+    slot: "A", inputs: ["s", "up", "enter"],
+    placement: [48, 32, "encounter:area:23:SPRIT7.DAX:57:0:0", 48, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:23:PIC7.DAX:57:0:0", prompt: /POKINGAROUNDINTHEVATS/i },
+  }],
+  ["stojanow-patrol-fighter-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [56, 32, "encounter:area:9:SPRIT2.DAX:16:2:0", 16, 49],
+    closer: [56, 32, "encounter:area:9:SPRIT2.DAX:16:1:0", 24, 65],
+    dialogue: { key: "a", portrait: "portrait:HEAD2.DAX:8:BODY2.DAX:5", prompt: /WHATAREYOUDOINGHERE/i },
+  }],
   ["wild-grove-pool-lizard-approach", {
     slot: "A", inputs: ["up", "a"],
     placement: [48, 32, "encounter:area:26:SPRIT7.DAX:57:0:0", 48, 80],
