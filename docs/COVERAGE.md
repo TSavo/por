@@ -1321,6 +1321,10 @@ ready-weapons choice. `lizardfolk-east-bank` checks seven new tiles across
 `podal-south-arcade` checks 12 new night-time arcade tiles and 1,331
 placements across 11 views. The position-only slot I checkpoint stops
 before the goblin encounter starts.
+`bane-inner-court` and `bane-inner-sanctuary` cover the court and
+red-ceiling sanctuary routes. Chrome verifies 14 new tiles across
+16 live views and 1,936 placements. The court starts from the goblin-clue
+save and the sanctuary uses a copy with only position and facing changed.
 `valjevo-giant-snake-approach` checks the middle and near sprites, their
 original screen anchors, and all 121 terrain cells across the approach.
 `mendor-basilisk-approach` checks the Basilisk's near sprite.

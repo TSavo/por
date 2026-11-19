@@ -224,6 +224,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["bane-inner-court", {
+    slot: "A", area: 31, views: 10, patterns: 19,
+    walk: ["right", "up", "up", "left", "up", "up", "left", "up", "up"],
+  }],
+  ["bane-inner-sanctuary", {
+    slot: "A", area: 31, views: 6, patterns: 31,
+    walk: ["up", "up", "right", "up", "up"],
+  }],
   ["podal-south-arcade", {
     slot: "I", area: 18, views: 11, patterns: 53,
     walk: ["up", "up", "right", "up", "up", "right", "up", "up", "right", "up"],
