@@ -2997,6 +2997,14 @@ try {
       for (let step = 0; step < 10 && !manualTurn.test(visibleText()); step++) {
         await advance("enter");
         if (enemyScreenshot || !frame.combatArt.some(([x, y, id]) => x === 8 && y === 104 && id === raider)) continue;
+        const stones = frame.combatArt.findIndex(([x, y, id]) => x === 80 && y === 152 && /^combat:RANDCOM\.DAX:1:0:[01]$/.test(id));
+        const raiderOverStones = frame.combatArt.findIndex(([x, y, id]) => x === 80 && y === 152 && id === raider);
+        assert.ok(stones >= 0 && raiderOverStones > stones, "Expected the enhanced standing kobold over the loose stones");
+        const overlappingSprites = [frame.combatArt[stones][2], raider].map(id => "/art/" + id);
+        await waitFor("the enhanced stones beneath the raider", () => run(`state.sequence === ${frame.sequence} &&
+          JSON.stringify([...document.querySelectorAll(".combat-sprite")].filter(img =>
+            img.style.left === "25%" && img.style.top === "76%" && img.naturalWidth === 96 && img.naturalHeight === 96
+          ).map(img => img.getAttribute("src"))) === JSON.stringify(${JSON.stringify(overlappingSprites)})`));
         const wallBehindRaider = frame.battleTiles.filter(([x, y]) => x < 32 && y >= 104 && y < 128);
         assert.deepEqual(wallBehindRaider.map(([x, y]) => [x, y]), [
           [8, 104], [16, 104], [24, 104], [8, 112], [16, 112], [24, 112],

@@ -92,16 +92,17 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
     }
     return match;
   };
-  const terrainPose = (cell: Uint8Array, width: number) => {
+  const terrainPose = (cell: Uint8Array, width: number, background?: Uint8Array) => {
     // Tall monsters can overlap the backdrop and adjacent units. Wide
     // and encounter-specific monsters can overlap grayscale terrain.
     let match: Pose | undefined;
     const wide = cell.length === width * 24;
     for (const pose of terrainPoses.get(`${width}:${cell.length}`) ?? []) {
+      const matchesBackground = background && pose.pixels.every((color, index) => color || cell[index] === background[index]);
       if (!pose.pixels.every((color, index) => {
             const pixel = cell[index];
             if (color) return pixel === color;
-            return !wide || pixel === 0 || pixel === 7 || pixel === 8 || pixel === 15;
+            return matchesBackground || !wide || pixel === 0 || pixel === 7 || pixel === 8 || pixel === 15;
           })) continue;
       if (match && match.key !== pose.key) return;
       match = pose;
@@ -187,6 +188,7 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
     const placements: CombatArtPlacement[] = [];
     for (const { width, height } of sizes.values()) {
       const cell = Buffer.alloc(width * height);
+      const background = underlay && terrainPoses.has(`${width}:${cell.length}`) ? Buffer.alloc(cell.length) : undefined;
       // Large units span multiple guest selection squares.
       const bevel = Uint8Array.from({ length: cell.length }, (_, index) =>
         combatHighlightPixel((index % width) % 24, Math.floor(index / width) % 24));
@@ -199,24 +201,33 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
           }
           const plain = patterns.get(`${width}:${cell.toString("hex")}`);
           const selected = plain === undefined ? selectedPose(cell, bevel, width) : undefined;
+          if (plain === undefined && !selected && background && underlay) {
+            for (let row = 0; row < height; row++) {
+              const start = (y + row) * frame.width + x;
+              background.set(underlay.pixels.subarray(start, start + width), row * width);
+            }
+          }
           const terrain = plain === undefined && !selected
-            ? terrainPose(cell, width) : undefined;
+            ? terrainPose(cell, width, background) : undefined;
           const match = plain ?? selected ?? terrain;
           if (!match) continue;
+          // A standing unit can obscure a prop in the guest's terrain pass.
+          // Restore the whole prop as its own layer when the visible pixels
+          // agree with that backdrop and the complete prop bitmap matches.
+          const restoreTerrain = terrain && background && match.pixels.every((color, index) => color || cell[index] === background[index]);
+          const backdrop = restoreTerrain ? patterns.get(`${width}:${background.toString("hex")}`) : undefined;
+          const prop = backdrop && randomCombatKey.test(backdrop.key) ? backdrop : undefined;
+          if (prop) placements.push([x, y, prop.key, prop.reflected]);
           placements.push(width !== 24 || height !== 24 ? [x, y, match.key, match.reflected, Boolean(selected), width, height]
             : selected ? [x, y, match.key, match.reflected, true] : [x, y, match.key, match.reflected]);
           if (!enhanced) continue;
-          // Confirm that the captured terrain still agrees with every visible
-          // background pixel before restoring the pixels hidden by this pose.
-          const restoreTerrain = terrain && underlay && match.pixels.every((color, index) => color ||
-            cell[index] === underlay.pixels[(y + Math.floor(index / width)) * frame.width + x + index % width]);
           for (let row = 0; row < height; row++) {
             const start = (y + row) * enhanced.width + x;
             for (let column = 0; column < width; column++) {
               const index = row * width + column;
               enhanced.pixels[start + column] = selected
                 ? match.pixels[index] ? bevel[index]! : cell[index]!
-                : restoreTerrain ? underlay.pixels[start + column]!
+                : restoreTerrain ? prop ? 0 : background[index]!
                 : terrain && !match.pixels[index] ? cell[index]! : 0;
             }
           }
