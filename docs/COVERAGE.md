@@ -1367,6 +1367,8 @@ from a checkpoint positioned one step before that encounter.
 the enhanced cave illustrations at the original encounter prompts.
 `lizard-wilds-stirge-dialogue` and `wild-cave-giant-lizard-dialogue`
 check the full-panel swarm and giant lizard illustrations.
+`wild-cave-giant-snake-dialogue` and `wild-cave-boar-dialogue` check
+the falling-snake ambush and boar charge at their original prompts.
 `new-phlan-east-ward` checks six additional mappings across 16 live
 views and 1,936 placements, including three redrawn ceiling tiles.
 `new-phlan-covered-market` checks six redrawn cap and doorway

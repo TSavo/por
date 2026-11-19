@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["wild-cave-giant-snake-dialogue", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:area:25:PIC6.DAX:60:0:0", prompt: /AGIANTSNAKEFALLSONTOPOFTHEPARTY/i,
+  }],
+  ["wild-cave-boar-dialogue", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:25:PIC6.DAX:120:0:0", prompt: /THREELARGEWILDBOARS/i,
+  }],
   ["wild-cave-giant-lizard-dialogue", {
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:27:PIC8.DAX:59:0:0", prompt: /FOURGIANTLIZARDSANDTWOMINOTAURS/i,

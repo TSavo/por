@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:25:PIC6.DAX:60:0:0": "wild-cave-giant-snake-dialogue.png",
+    "portrait:area:25:PIC6.DAX:120:0:0": "wild-cave-boar-dialogue.png",
     "tile:8:80e3c5025a5f43f7991f9fb1c372374d1d0c7cb666c72aa6115e3e381ccd814e": "new-phlan-covered-market-terrain-80e3c5025a5f.png",
     "tile:8:d4b85e9a1aca4d92e6837bc5a14ed9b1128634ac91d66bf98d1eac483c88b784": "new-phlan-covered-market-terrain-d4b85e9a1aca.png",
     "tile:8:7d866bb12fdec5678c7c11007e4c2d21648ece614f6feeb3b736dae3693346dc": "new-phlan-covered-market-terrain-7d866bb12fde.png",
