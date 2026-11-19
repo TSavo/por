@@ -1886,7 +1886,7 @@ routes.push("new-phlan-council-reward-reload", "slums-mage-wand");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
-routes.push("kovel-guild-files", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
+routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
@@ -2352,7 +2352,6 @@ try {
             if (attempt === 2) {
               // Model a newly attached browser while the guest is still waiting.
               state = { sequence: -1 };
-              quickCombat = false;
               return Promise.reject(new TypeError("Simulated client reconnect"));
             }
           }
@@ -4058,6 +4057,22 @@ try {
       assert.ok(!savedMap.leads.some(({ id }) => id === otherMap));
       console.log(`Verified discovery of the Kovel castle map in journal entry ${entry} in Chrome. Saved:`, saved);
     }
+  } else if (routeName === "kovel-jail-enemy-turn") {
+    const textOf = ({ text }) => text.toSorted(([a], [b]) => a - b)
+      .map(([, char]) => String.fromCharCode(char)).join("");
+    for (const key of ["up", "enter"]) await advance(key);
+    assert.match(textOf(frame), /CONVERTEDTOAJAIL/i);
+    for (const key of ["enter", "enter"]) await advance(key);
+    assert.match(textOf(frame), /1STLVLTHIEF.*HITPOINTS/i);
+    assert.equal(frame.automaticCombat, true);
+    const manual = await waitFor("the party's first manual turn without pressing Q", async () => {
+      const next = await latest();
+      return next.sequence > frame.sequence && next.ready && !next.automaticCombat &&
+        /HITPOINTS.*QUICKDONE/i.test(textOf(next)) && next;
+    });
+    assert.equal(manual.stopped, null);
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified that Kovel jail enemy turns advance to the party's manual menu without pressing Q.");
   } else if (routeName === "kovel-guild-files") {
     const files = "kovel-guild-files";
     await advance("j");

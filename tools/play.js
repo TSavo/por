@@ -34,7 +34,6 @@ let lastNarrationId = null;
 const narratedScenes = new Set();
 let state = { sequence: -1 };
 let posting = false;
-let quickCombat = false;
 let quickPollAfter = 0;
 let enhanced = false;
 let animationFrame;
@@ -425,7 +424,6 @@ function render() {
 
 async function send(key) {
   if (!state.ready || posting || state.stopped) return;
-  if (key === "alt-q" || key.toLowerCase() === "q") quickCombat = true;
   if (animationFrame) {
     finishAnimation();
     showScreen();
@@ -451,7 +449,6 @@ async function poll() {
     if (lastSoundId === null) lastSoundId = next.soundId ?? 0;
     if (lastTextId === null) lastTextId = next.textId ?? 0;
     if (lastNarrationId === null) lastNarrationId = next.narrationId ?? 0;
-    if (state.sequence === -1 && next.automaticCombat) quickCombat = true;
     const changed = next.sequence !== state.sequence;
     if (changed) state = next;
     else Object.assign(state, next);
@@ -460,21 +457,19 @@ async function poll() {
     if (changed) {
       render();
       playAnimation();
-      if (quickCombat && state.automaticCombat) {
+      if (state.automaticCombat) {
         quickPollAfter = performance.now() + 160 +
           (state.animation ?? []).reduce((total, frame) => total + (frame.durationMs ?? 120), 0);
-      } else if (!state.journal) {
-        quickCombat = false;
       }
     }
-    if (quickCombat && state.automaticCombat && state.ready && !animationFrame && performance.now() >= quickPollAfter) {
+    if (state.automaticCombat && !state.journal && state.ready && !animationFrame && performance.now() >= quickPollAfter) {
       void send(":poll");
     }
     playPendingSounds();
     playPendingVoice();
     playPendingNarration();
     status.textContent = state.stopped ?? state.notice ??
-      (quickCombat && state.automaticCombat ? "Quick combat…"
+      (state.automaticCombat && !state.journal ? "Combat in progress…"
         : state.ready ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
   } catch {
     status.textContent = "Waiting for the local game runner…";

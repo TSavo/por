@@ -1006,6 +1006,9 @@ objective uses the most recent discovery in each case.
 The jailed thief's papers add entry 48 once the party copies them.
 The translation verifier checks that this clue updates the objective
 even when entries 38 and 51 were already recorded in a save.
+The `kovel-jail-enemy-turn` Chrome replay starts from slot A at (10,13)
+facing north. It enters the jail fight and confirms that the original
+enemy turns advance to the party's manual menu without a Quick keypress.
 `kovel-castle-map-nw` starts at (6,14) west and `kovel-castle-map-ne`
 starts at (3,5) east with the Valjevo assault tracked. Each checks that
 only the map found by the party guides the assault, then saves in slot A
