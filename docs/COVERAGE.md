@@ -2611,6 +2611,9 @@ The replay checks 29 tile patterns across six views and preserves the save
 through mode switches. A separate check at the offer requests an unavailable
 portrait PNG and verifies that the original picture still fills the enhanced
 picture panel while the web font remains visible.
+The default pack emits no shopkeeper fallback. With the replacement
+deliberately omitted, the trace records the matching source candidates
+and the shopkeeper's offer. Both replays verify the scenery at the exit.
 
 Three more slot A replays exercise building exits with the browser's
 default art packs. `new-phlan-west-shop-exit` starts at (12,8) east,

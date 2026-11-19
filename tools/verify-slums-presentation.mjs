@@ -2021,6 +2021,9 @@ const port = process.env.POR_PLAY_PORT ?? "43212";
 const origin = `http://127.0.0.1:${port}`;
 const browserEnvironment = { ...process.env };
 delete browserEnvironment.POR_UPGRADES_DIR;
+const shopPortraitTrace = routeName === "new-phlan-south-shop-exit" && !browserEnvironment.POR_PORTRAIT_TRACE_FILE
+  ? resolve(directory, "shop-portrait-fallbacks.jsonl") : undefined;
+if (shopPortraitTrace) browserEnvironment.POR_PORTRAIT_TRACE_FILE = shopPortraitTrace;
 const priorPartyLead = "prior-party-fixture";
 if (routeName === "new-phlan-building-exit") {
   const journalProfile = resolve(directory, "prior-party-journal.json");
@@ -2614,6 +2617,16 @@ try {
         }
         writeFileSync(resolve(directory, `${routeName}-${stage}.png`), Buffer.from(shot.data, "base64"));
         exitPauseTiles = exitPauseTiles ? undefined : frame.tiles;
+      }
+    }
+    if (shopPortraitTrace) {
+      const fallbacks = existsSync(shopPortraitTrace)
+        ? readFileSync(shopPortraitTrace, "utf8").trim().split(/\r?\n/).map(line => JSON.parse(line)) : [];
+      const shopFallback = fallbacks.find(({ area, sources }) => area === 0 && sources.includes(southShopkeeper));
+      if (classicPortrait) {
+        assert.match(shopFallback?.dialogue ?? "", /THE SHOPKEEPER GREETS YOU/i);
+      } else {
+        assert.equal(shopFallback, undefined, "The current shopkeeper replacement should avoid a portrait fallback");
       }
     }
     if (routeName === "buccaneer-pens") {
