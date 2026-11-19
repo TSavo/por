@@ -1045,7 +1045,11 @@ checks that the mansion's local victory flag updates the objective and
 that the same flag in another area has no effect. The `kovel-guild-files`
 Chrome replay starts inside the mansion at (7,14) east with the commission
 tracked. It checks that entries 38 and 51 are only suggested after the party
-finds the files on the floor. The chase branch still needs a live replay.
+finds the files on the floor. The `kovel-chase` replay starts at (5,5)
+facing east with the same commission tracked. The journal first points to
+the east door when the chase is offered. After the party chooses Yes and
+sees the thieves split, it gives both routes. Chrome checks that neither
+clue appears before the corresponding prompt.
 The translation verifier also checks the file discovery and chase in both
 orders, including with the first clue restored from a save. The tracked
 objective uses the most recent discovery in each case.
