@@ -989,6 +989,10 @@ starts at (3,5) east with the Valjevo assault tracked. Each checks that
 only the map found by the party guides the assault, then saves in slot A
 through Encamp. The `-reload` variants use those resulting saves and
 verify that the corresponding entry 41 or 29 still guides the assault.
+Chrome also checks all 121 enhanced tiles on approach, on entering the
+room, and through a full turn before saving. The northwest route uses 26
+tile patterns, and the northeast route uses 18. Each reload checks the
+complete enhanced view at the saved position.
 The `--classic-portrait` variant removes the mounted escort replacement
 from the test art pack. Chrome verifies that the original picture fills
 the Enhanced panel, switches back to native Classic geometry, and still

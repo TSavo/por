@@ -1932,7 +1932,8 @@ const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769",
 const saved = resolve(directory, saveSlot + ".json");
 const battleTrace = process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
-const environmentTrace = (environment || dragon || halls) && process.env.POR_WRITE_ENVIRONMENT_TRACE === "1"
+const kovelMap = routeName.startsWith("kovel-castle-map-");
+const environmentTrace = (environment || dragon || halls || kovelMap) && process.env.POR_WRITE_ENVIRONMENT_TRACE === "1"
   ? resolve(directory, "environment-tiles.jsonl") : undefined;
 const frameDirectory = resolve(directory, "tile-frames");
 let battleFrame = 0;
@@ -3840,18 +3841,22 @@ try {
       await waitFor("the swamp lizardfolk strike", () => loaded(strike));
     }
     console.log("Verified the swamp elder's layered terrain and journal updates in Chrome. Capture:", directory);
-  } else if (routeName.startsWith("kovel-castle-map-")) {
+  } else if (kovelMap) {
     const reload = routeName.endsWith("-reload");
     const map = routeName.replace(/-reload$/, "");
     const northwest = map.endsWith("-nw");
     const entry = northwest ? 41 : 29;
     const otherMap = northwest ? "kovel-castle-map-ne" : "kovel-castle-map-nw";
+    const tilePatterns = new Set();
+    assert.equal(await verifyTiledView(14, tilePatterns), 1);
     await advance("j");
     assert.equal(frame.journal?.trackedId, "commission-castle");
     if (!reload) {
       assert.ok(!frame.journal.leads.some(({ id }) => id === map || id === otherMap));
       assert.doesNotMatch(frame.journal.objective.nextStep, /journal entry/);
-      for (const key of ["j", "up", "j"]) await advance(key);
+      for (const key of ["j", "up"]) await advance(key);
+      assert.equal(await verifyTiledView(14, tilePatterns), 1);
+      await advance("j");
     }
     assert.match(frame.journal.leads.find(({ id }) => id === map)?.detail ?? "", new RegExp(`journal entry ${entry}`));
     assert.ok(!frame.journal.leads.some(({ id }) => id === otherMap));
@@ -3861,6 +3866,10 @@ try {
     if (reload) {
       console.log(`Verified the Kovel castle map in journal entry ${entry} after reload.`);
     } else {
+      for (const key of ["right", "right", "right", "right"]) {
+        await advance(key);
+        assert.equal(await verifyTiledView(14, tilePatterns), 1);
+      }
       for (const key of ["e", "s", "s", "a"]) await advance(key);
       const savedMap = JSON.parse(readFileSync(saved, "utf8"));
       assert.equal(savedMap.tracked, "commission-castle");
