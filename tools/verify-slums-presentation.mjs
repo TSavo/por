@@ -805,6 +805,12 @@ const combatPoseRoutes = new Map([
     strikeReport: /ATTACKSBRIN.*MISS/i,
     inputs: ["up", "b", "b", "b", "up", "enter", "enter", "enter", "a", "enter"], strikeInputs: ["enter"],
   }],
+  ["buccaneer-pen-guard-combat", {
+    slot: "A", stand: "combat:area:1:CPIC6.DAX:11:ecl:a391", strike: "combat:area:1:CPIC6.DAX:139:ecl:a391",
+    width: 96, height: 96, readyPrompt: /HITPOINTS4AC10/i, strikeReflected: true,
+    strikeReport: /ATTACKSCORAANDMISSES/i,
+    inputs: ["up", "up", "enter", "enter", "a", "enter", "enter"], strikeInputs: ["enter"],
+  }],
   ["old-phlan-jail-thug-combat", {
     slot: "A", stand: "combat:area:14:CPIC3.DAX:12:ecl:b0d0", strike: "combat:area:14:CPIC3.DAX:140:ecl:b0d0",
     width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: true,

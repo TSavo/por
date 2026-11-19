@@ -3025,3 +3025,8 @@ pack checked 87 views, 10,527 tile placements, and mode switching.
 The Kobold King's quarters use a shield guard approach and a distinct
 room illustration. The Chrome replay verifies the guard anchor, dialogue
 transition, and state-preserving presentation switches.
+
+New Phlan's eastern ward, avenues, warehouse square, and south market
+use 13 additional paving joins, verified over 83 Chrome views. The
+Buccaneer stockade guards use 4x ready and punch sprites. Chrome verifies
+the reflected punch and the attack report that it misses Cora.
