@@ -114,6 +114,12 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     const knows = (id: string) => leads.some((lead) => lead.id === id);
     if (tracked?.status === "ready-to-report" || tracked?.status === "reward-pending") {
       if (commission.id === "sokal" && tracked.status === "ready-to-report" && knows("sokal-departure")) {
+        if (knows("sokal-back-in-phlan")) {
+          return { title: commission.title, nextStep: "From the New Phlan pier, follow the waterfront west toward City Hall. Enter and report to the council clerk that Sokal Keep is secured." };
+        }
+        if (knows("sokal-return-pier")) {
+          return { title: commission.title, nextStep: "Choose Yes at the south pier to take the boat back to New Phlan, then report to the council clerk at City Hall." };
+        }
         return { title: commission.title, nextStep: "Use Ferran's password, SAMOSUD, if the undead stop you. Leave through the south gate, take the boat to New Phlan, and report to the council clerk." };
       }
       if (commission.id === "castle" && tracked.status === "ready-to-report") {
@@ -465,6 +471,11 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   if ((base | segment) === 0) return [];
   const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
   const progress: JournalLead[] = [];
+  if (global(progressAddresses.sokal!) === 254 && cpu.read8(dataSegment, 0x82a2) === 0 &&
+      known.some(({ id }) => id === "sokal-return-pier")) {
+    progress.push({ id: "sokal-back-in-phlan", title: "Back in New Phlan",
+      detail: "The party returned to New Phlan with the Sokal Keep report." });
+  }
   // The Sokal equipment script sets this flag after the treasure menu.
   if (global(0x4a21) === 255 && known.some(({ id }) => id === "sokal-armory-stands")) {
     progress.push({ id: "sokal-armory-opened", title: "Hidden armory treasure opened",
@@ -1037,6 +1048,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'")) {
     leads.push({ id: "sokal-departure", title: "Ferran's password", detail: "Ferran told the party to say SAMOSUD to his guards on the way out." });
+  }
+  if (text.includes("DO YOU WANT TO TAKE A BOAT BACK TO PHLAN?")) {
+    leads.push({ id: "sokal-return-pier", title: "Boat back from Thorn Island",
+      detail: "The party found a boat returning to New Phlan at the south pier." });
   }
   if (text.includes("USE THESE CLOTHES AS A DISGUISE AND YOU WILL ESCAPE NOTICE")) {
     leads.push({ id: "castle-disguise", title: "Help inside Valjevo Castle", detail: "Rebels offered the party clothes to pass as castle inhabitants." });

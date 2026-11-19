@@ -1975,6 +1975,9 @@ route to the altar.
 The replay also reloads after a lie and gives the wrong word on the next
 visit. The journal remembers both events and advises restoring a save
 from before the failed attempt.
+On the successful branch, the objective changes at the south pier when
+the party sees the boat offer. It changes again after landing in New Phlan
+and directs the party west toward City Hall.
 Run `node tools/verify-fresh-party.mjs --sokal-ferran-checkpoint PATH_TO_SLOT_F`
 from one step north of the altar, facing south. The verifier plays the
 wrong-word and lie branches from the same checkpoint, then follows the

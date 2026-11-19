@@ -1891,8 +1891,17 @@ if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.a
     "up", "up", "enter", "enter", "y", "up", "up", "right", "up", "up", "left",
     "up", "up", "enter", "enter", "y", ...Array(4).fill("up"),
     (text) => assert.match(text, /8,15 s.*take a boat back to phlan/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-return-pier"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-back-in-phlan"));
+      assert.match(frame.journal.objective.nextStep, /choose Yes at the south pier/i);
+    }, "j",
     "enter", "y", ...Array(4).fill("enter"),
     (text) => assert.match(text, /15,1 w/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-back-in-phlan"));
+      assert.match(frame.journal.objective.nextStep, /follow the waterfront west toward City Hall/i);
+    }, "j",
     ...Array(4).fill("up"), "left", "up", "right", "up", "left", "up", "right",
     ...Array(6).fill("up"), "left", "up", "up", "left", "up", "left", "up", "up", "enter", "enter",
     (text) => assert.match(text, /receives 1308 experience points/),
