@@ -1207,6 +1207,10 @@ sentry sounds the alarm. `valjevo-outer-service` uses controlled slot B
 staged at the area's original arrival coordinates. Chrome checks all
 2,057 placements across 17 views. Four new boundary tiles join limestone,
 hedge, and path, and 30 pixel-identical patterns use existing artwork.
+`valjevo-fire-giant` enters the maze watch battle from controlled slot B.
+Chrome checks the selected 96×192 ready pose and the reflected strike,
+including the rendered horizontal flip. Switching modes preserves the
+combat frame and the save.
 `valjevo-genheeris-bargain` and `valjevo-genheeris-orders` verify the
 352×352 illustration, mode switching, and the distinct journal lead
 from each choice of parlay tone. The bargain replay also confirms

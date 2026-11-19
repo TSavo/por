@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:4:CPIC5.DAX:56": "valjevo-fire-giant-stand.png",
+    "combat:area:4:CPIC5.DAX:184": "valjevo-fire-giant-strike.png",
     "tile:6:6a31f8112a44a50377f8425ac2fde4f502b684c316174a4bdbd9d61f4c2b2d4b": "valjevo-outer-service-terrain-01.png",
     "tile:6:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "valjevo-dungeon-briar-terrain-01.png",
     "tile:6:d1c8516a2591d8559a256177aea1794caa4db7259d6978f68de344c1902d1f25": "valjevo-kitchen-corridor-terrain-27.png",

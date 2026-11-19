@@ -32,6 +32,12 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-fire-giant", {
+    slot: "B", stand: "combat:area:4:CPIC5.DAX:56", strike: "combat:area:4:CPIC5.DAX:184",
+    width: 96, height: 192, strikeReflected: true,
+    inputs: ["up", "enter", "enter", "c", "s", "enter", "enter", "enter"],
+    strikeInputs: ["q", "q"],
+  }],
   ["valjevo-scriptorium-combat", {
     slot: "B", stand: "combat:area:4:CPIC5.DAX:14", strike: "combat:area:4:CPIC5.DAX:142", width: 96, height: 96,
     inputs: ["up", "enter", "enter", "a", "a", "c", "enter", "enter", "q", "q", "q"],
@@ -714,7 +720,7 @@ try {
       console.log("Native save:", saved);
     }
   } else if (combatPose) {
-    const { stand, strike, width, height, inputs, strikeInputs = ["q"], journalLead } = combatPose;
+    const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, journalLead } = combatPose;
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
@@ -725,7 +731,10 @@ try {
         for (const image of document.querySelectorAll(".combat-sprite")) {
           if (!image.src.endsWith(${JSON.stringify(strike)})) continue;
           const check = () => {
-            if (image.naturalWidth === ${width} && image.naturalHeight === ${height}) window.strikeLoaded = true;
+            if (image.naturalWidth === ${width} && image.naturalHeight === ${height} &&
+                (${strikeReflected === undefined} || (image.style.transform === "scaleX(-1)") === ${strikeReflected ?? false})) {
+              window.strikeLoaded = true;
+            }
           };
           check();
           image.addEventListener("load", check, { once: true });
@@ -745,7 +754,8 @@ try {
       await advance("j");
     }
     for (const key of strikeInputs) await advance(key);
-    assert.ok(frame.animation?.some(({ combatArt }) => combatArt?.some(([, , id]) => id === strike)));
+    assert.ok(frame.animation?.some(({ combatArt }) => combatArt?.some(([, , id, reflected]) =>
+      id === strike && (strikeReflected === undefined || reflected === strikeReflected))));
     await waitFor("the enhanced combat strike", () => run("window.strikeLoaded"));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log(`Verified ${routeName} standing and animated strike poses in Chrome.`);
