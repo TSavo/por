@@ -2835,12 +2835,11 @@ try {
     assert.ok(frame.journal?.leads.some(({ id }) => id === "nomad-camp-found"));
     await advance("j");
     for (const key of ["e", "e", "enter"]) await advance(key);
-    assert.equal(frame.tileInventory?.length, 121);
-    assert.ok(frame.tileInventory.every(([, , id]) => id.startsWith("tile:17:")));
-    assert.ok(frame.tiles.length >= 65, "The first camp view should already load its existing enhanced tiles");
-    await waitFor("enhanced tiles on the first camp view", () => run(`state.sequence === ${frame.sequence} &&
-      document.querySelectorAll(".terrain-tile").length === ${frame.tiles.length}`));
-    console.log("Verified the Nomad Camp approach illustration and witnessed journal entry in Chrome.");
+    const campPatterns = new Set();
+    assert.equal(await verifyTiledView(17, campPatterns), 1);
+    await advance("up");
+    assert.equal(await verifyTiledView(17, campPatterns), 1);
+    console.log("Verified the Nomad Camp illustration, journal entry, and both tiled entrance views in Chrome.");
   } else if (routeName === "nomad-headman" || routeName === "nomad-headman-stay") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     for (const key of ["up", "enter", "e", "e", "enter", ...Array(6).fill("up"), ...Array(3).fill("enter"), "j"]) await advance(key);
