@@ -3196,6 +3196,15 @@ the brawl. Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_I CHROME_P
 It starts outside the drunken buccaneer's encounter and checks the
 ready and reflected strike placements at (56, 56), the loaded 96×96
 images, the native attack report, and state preservation across displays.
+The same slot I brawl also draws an original ready and strike pair for
+the orc. It reuses the duelist's two sprites for the drunken buccaneer.
+The Chrome replay checks the orc's reflected attack and the buccaneer's
+unreflected attack against their native combat reports.
+
+The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
+its dedicated thug approach at (40, 32) before showing the gang's
+portrait. The approach binding is scoped to the jail script so the
+sword-thief encounter keeps its own artwork.
 
 The combat matcher checks one opaque foreground pixel before comparing
 the full sprite and its background. A before-and-after check on

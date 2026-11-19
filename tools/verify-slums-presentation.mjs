@@ -798,6 +798,7 @@ const illustrationRoutes = new Map([
   }],
   ["north-gate-jail-thugs", {
     slot: "A", inputs: ["up", "enter"],
+    approachSequence: [[40, 32, "encounter:area:14:ecl:b051:SPRIT3.DAX:11:0:0", 48, 80]],
     portrait: "portrait:area:14:HEAD3.DAX:32:BODY3.DAX:8", prompt: /CONVERTEDTOAJAIL/i,
   }],
   ["north-gate-thieves-guild", {
