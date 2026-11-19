@@ -1936,6 +1936,23 @@ const environmentRoutes = new Map([
     slot: "A", area: 9, views: 16, patterns: 59, sceneryOnly: true,
     walk: ["up", "right", "up", "up", "left", "up", "left", "up", "right", "up", "left", "up", "right", "up", "up"],
   }],
+  ["new-phlan-paving-north-training", {
+    slot: "A", area: 0, views: 9, patterns: 24, sceneryOnly: true,
+    walk: ["left", "right", "up", "up", "right", "up", "left", "up"],
+  }],
+  ["new-phlan-paving-east-training", {
+    slot: "A", area: 0, views: 9, patterns: 27, sceneryOnly: true,
+    walk: ["left", "right", "up", "up", "right", "up", "left", "up"],
+  }],
+  ["new-phlan-paving-duel", {
+    slot: "A", area: 0, views: 9, patterns: 79, sceneryOnly: true,
+    transition: { afterViews: 6, area: 11 },
+    walk: ["left", "right", "up", "up", "right", "up", "left", "up"],
+  }],
+  ["new-phlan-paving-canal-room", {
+    slot: "A", area: 0, views: 9, patterns: 45, sceneryOnly: true,
+    walk: ["left", "right", "up", "up", "right", "up", "left", "up"],
+  }],
   ["new-phlan-canal-room", {
     slot: "A", area: 0, views: 24, patterns: 63, sceneryOnly: true,
     walk: ["left", "right", "up", "up", "right", "up", "left", "up", "right", "up", "right", "up", "left", "up",

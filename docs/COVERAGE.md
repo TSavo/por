@@ -3004,3 +3004,7 @@ patterns, including the floor edge, and verifies state-preserving mode switches.
 
 The first Kobold throne audience uses far and middle horde artwork. The
 Chrome replay verifies the three approach frames and the throne portrait.
+
+New Phlan's training, dueling, and canal rooms use 49 diagonal terracotta
+floor tiles. Four production Chrome routes cover 36 views, including the
+dueling interior transition, with state-preserving presentation switches.
