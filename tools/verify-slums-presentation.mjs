@@ -870,6 +870,27 @@ const combatPoseRoutes = new Map([
     inputs: ["up", ...Array(3).fill("enter")],
     strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
   }],
+  ["party-paired-blades-icon-combat", {
+    slot: "B", stand: "combat:party:0:5", strike: "combat:party:0:133",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
+    strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(3).fill("enter")],
+    strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
+  }],
+  ["party-greatsword-icon-combat", {
+    slot: "B", stand: "combat:party:0:7", strike: "combat:party:0:135",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
+    strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(3).fill("enter")],
+    strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
+  }],
+  ["party-crossbow-icon-combat", {
+    slot: "B", stand: "combat:party:0:16", strike: "combat:party:0:144",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
+    strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
+    inputs: ["up", ...Array(3).fill("enter")],
+    strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
+  }],
   ["buccaneer-pen-guard-combat", {
     slot: "A", stand: "combat:area:1:CPIC6.DAX:11:ecl:a391", strike: "combat:area:1:CPIC6.DAX:139:ecl:a391",
     width: 96, height: 96, readyPrompt: /HITPOINTS4AC10/i, strikeReflected: true,

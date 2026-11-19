@@ -3078,3 +3078,7 @@ choices. Chrome checks both menu cycles and a mixed head/body choice.
 The overheard Podal Plaza patrols use three approach distances for both
 goblins and hobgoblins. The production Chrome replay verifies all twelve
 scoped bindings, both original dialogues, and state-preserving mode switches.
+
+Paired blades, greatsword, and crossbow player icons have 4x ready and
+action sprites. Three production Chrome replays check the original
+combat actions from saves made through the native icon editor.
