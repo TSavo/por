@@ -784,6 +784,13 @@ function checkCampaignJournal(): void {
       !currentObjective(offeredSurrender, "commission-kobolds").nextStep.includes("or Fight")) {
     throw new Error("The kobold journal confused the surrender offer with capture");
   }
+  const partyEscape = koboldLine("THE KOBOLDS CHASE FOR A WHILE, BUT YOU ESCAPE");
+  const escapedParty = discoveredLeads(`${koboldOffer}\n${surrender}\n${partyEscape}`);
+  if (!escapedParty.some(({ id }) => id === "kobold-party-escaped") ||
+      escapedParty.some(({ id }) => id === "kobold-king-escaped" || id.startsWith("kobold-prison-")) ||
+      !currentObjective(escapedParty, "commission-kobolds").nextStep.includes("Regroup after escaping")) {
+    throw new Error("The kobold journal did not distinguish the party's escape from the king's escape or capture");
+  }
   for (const [trigger, expected, hidden] of [
     ["YOU ARE THROWN INTO A CELL BEREFT OF EQUIPMENT", "Look for a way out of the cell", "kobold-fatima-intervened"],
     ["I AM THE PRINCESS FATIMA, AID ME IN THIS BATTLE", "Help Princess Fatima", "kobold-prison-cell"],

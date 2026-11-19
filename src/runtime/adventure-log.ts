@@ -255,6 +255,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (knows("kobold-king-quarters")) nextStep = "Defeat the king's guards and find him in his quarters.";
       else if (knows("kobold-king-secret-door")) nextStep = "Go through the secret door in the north wall. On the other side, turn east and go two squares to the king's quarters.";
       else if (knows("kobold-king-escaped")) nextStep = "Use Search in the throne room to look for the route the king took.";
+      else if (knows("kobold-party-escaped")) nextStep = "Regroup after escaping the kobolds. Return to the throne room when the party is ready.";
       else if (knows("kobold-fatima-intervened")) nextStep = "Help Princess Fatima fight the kobolds who took the party prisoner.";
       else if (knows("kobold-prison-cell")) nextStep = "Look for a way out of the cell. Check the party's equipment before returning to the throne.";
       else if (knows("kobold-prison-escort")) nextStep = "See where the kobolds take the party and watch for a chance to escape.";
@@ -764,6 +765,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU SEEM VALUABLE. SURRENDER OR DIE") || text.includes("THE BALLISTA ARE RELOADED. THE KING CALLS OUT")) {
     leads.push({ id: "kobold-surrender-offer", title: "The king demands surrender",
       detail: "The kobold king offered the party a choice between surrendering and fighting again." });
+  }
+  if (text.includes("THE KOBOLDS CHASE FOR A WHILE, BUT YOU ESCAPE")) {
+    leads.push({ id: "kobold-party-escaped", title: "The party escaped the kobolds",
+      detail: "The party got away after the kobolds gave chase." });
   }
   if (text.includes("THE KOBOLDS HERD YOU TOWARD YOUR PRISON")) {
     leads.push({ id: "kobold-prison-escort", title: "Taken prisoner",

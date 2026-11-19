@@ -1301,6 +1301,9 @@ map before the player chooses Exit, and switches modes at that prompt.
 It also tests the surrender demand, restores the prison escort clue from a
 saved journal, and checks the separate cell and Fatima outcomes against
 their original dialogue. The surrender branch still needs a live replay.
+The translation verifier also checks the original retreat dialogue. The
+journal distinguishes the party's escape from capture and from the king
+escaping the party, and points the party back to the throne after regrouping.
 
 The `kobold-princess-fatima` replay uses controlled slot B to check her
 portrait and journal entry 16, then verifies that she joins the roster.
