@@ -1,6 +1,10 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:10:SPRIT4.DAX:35:0:0": "valhingen-zombie-approach.png",
+    "encounter:area:10:SPRIT4.DAX:72:0:0": "valhingen-ghoul-approach.png",
+    "combat:area:27:CPIC8.DAX:59": "wild-cave-lizard-stand.png",
+    "combat:area:27:CPIC8.DAX:187": "wild-cave-lizard-strike.png",
     "tile:8:e2e4ba8d115096b04843e6e6ad817870f4b0f2ffeddf2c947aff1d65c492c127": "new-phlan-wharf-return-terrain-e2e4ba8d1150.png",
     "tile:8:608ddf6b379c3bcc227e38aff06894af96fd6e674d9cb9500878021939ac5ce3": "new-phlan-wharf-return-terrain-608ddf6b379c.png",
     "tile:8:e2142330f065af697aa1885f9674e8030f32dc4271a7cc34a8b328152ae74717": "new-phlan-wharf-return-terrain-e2142330f065.png",
@@ -2897,6 +2901,8 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:10:SPRIT4.DAX:35:0:0": { "area": 10, "x": 56, "y": 32, "width": 32, "height": 80 },
+    "encounter:area:10:SPRIT4.DAX:72:0:0": { "area": 10, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:13:SPRIT8.DAX:0:1:0": { "area": 13, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:13:SPRIT8.DAX:0:0:0": { "area": 13, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:7:SPRIT5.DAX:49:0:0": { "area": 7, "x": 48, "y": 32, "width": 48, "height": 80 },

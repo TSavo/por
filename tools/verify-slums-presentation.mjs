@@ -30,6 +30,16 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["valhingen-zombie-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [56, 32, "encounter:area:10:SPRIT4.DAX:35:0:0", 32, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:10:PIC4.DAX:35:0:0", prompt: /ZOMBIESSHUFFLEDOWNTHESTAIRS/i },
+  }],
+  ["valhingen-ghoul-approach", {
+    slot: "A", inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", "enter"],
+    placement: [48, 32, "encounter:area:10:SPRIT4.DAX:72:0:0", 40, 73],
+    dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i },
+  }],
   ["kobold-cave-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [56, 32, "encounter:area:13:SPRIT8.DAX:0:1:0", 24, 65],
@@ -308,6 +318,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["wild-cave-lizard-combat", {
+    slot: "B", stand: "combat:area:27:CPIC8.DAX:59", strike: "combat:area:27:CPIC8.DAX:187",
+    width: 192, height: 96, readyPrompt: /GIANTLIZARDHITPOINTS16/i, strikeReflected: true,
+    inputs: ["up", ...Array(5).fill("enter")], strikeInputs: ["enter"],
+  }],
   ["wild-cave-wyvern-combat", {
     slot: "B", stand: "combat:area:27:CPIC8.DAX:121", strike: "combat:area:27:CPIC8.DAX:249",
     width: 192, height: 192, readyPrompt: /WYVERNHITPOINTS40/i, strikeReflected: true,

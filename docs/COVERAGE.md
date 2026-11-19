@@ -1377,6 +1377,11 @@ animated strike poses from a controlled pre-encounter checkpoint.
 charge from a controlled pre-encounter checkpoint.
 `wild-cave-wyvern-combat` checks the wyvern's 192×192 ready pose and
 reflected lunge from a controlled area 27 checkpoint.
+`wild-cave-lizard-combat` checks the giant lizard's 192×96 ready pose
+and reflected strike from a controlled area 27 checkpoint.
+`valhingen-zombie-approach` and `valhingen-ghoul-approach` check the
+stairway and rest ambush sprites at their native anchors, followed by
+their dialogue portraits. Both replays switch presentation in each view.
 `textile-hobgoblin-approach` and `wild-cave-ankheg-approach` check
 standalone 4× encounter sprites at their original screen anchors.
 `kobold-cave-approach` checks the native throne approach from a controlled
