@@ -148,6 +148,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         if ((area === 18 && nativeDraw?.localEcl === 26) || (area === 26 && nativeDraw?.localEcl === 18)) {
           tileArea = nativeDraw.localEcl;
         }
+        // The Nomad Camp also draws its entrance before updating the area record.
+        if (area === 26 && nativeDraw?.localEcl === 17) tileArea = 17;
         // The return ferry draws the New Phlan pier while the area record
         // still points to West or East Overland.
         if ((area === 26 || area === 27) && nativeDraw?.localEcl === 0) tileArea = 0;
