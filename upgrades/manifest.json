@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:0:SPRIT3.DAX:12:2:0": "new-phlan-rolf-approach-far.png",
+    "encounter:area:0:SPRIT3.DAX:12:1:0": "new-phlan-rolf-approach-middle.png",
+    "encounter:area:0:SPRIT3.DAX:12:0:0": "new-phlan-rolf-approach-near.png",
     "encounter:area:0:SPRIT3.DAX:7:0:0": "new-phlan-tavern-brawl-approach.png",
     "encounter:area:27:SPRIT8.DAX:0:0:0": "wild-cave-feral-kobolds-approach.png",
     "portrait:area:27:PIC8.DAX:0:0:0": "wild-cave-feral-kobolds-dialogue.png",
@@ -3531,6 +3534,9 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:0:SPRIT3.DAX:12:2:0": { "area": 0, "x": 64, "y": 32, "width": 8, "height": 49 },
+    "encounter:area:0:SPRIT3.DAX:12:1:0": { "area": 0, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:0:SPRIT3.DAX:12:0:0": { "area": 0, "x": 56, "y": 32, "width": 24, "height": 80 },
     "encounter:area:0:SPRIT3.DAX:7:0:0": { "area": 0, "x": 56, "y": 32, "width": 32, "height": 80 },
     "encounter:area:27:SPRIT8.DAX:0:0:0": { "area": 27, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:25:SPRIT6.DAX:60:1:0": { "area": 25, "x": 48, "y": 32, "width": 40, "height": 65 },

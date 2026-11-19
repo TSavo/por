@@ -58,11 +58,11 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>) {
   let background: Uint8Array | undefined;
   let backgroundArea: number | undefined;
 
-  return (screen: Frame, enhanced: Frame, area: number | undefined): EncounterPlacement | undefined => {
-    if (area !== backgroundArea) background = undefined;
-    backgroundArea = area;
+  return (screen: Frame, enhanced: Frame, area: number | undefined, rememberBackground = true): EncounterPlacement | undefined => {
+    if (rememberBackground && area !== backgroundArea) background = undefined;
+    if (rememberBackground) backgroundArea = area;
     if (area === undefined) {
-      background = undefined;
+      if (rememberBackground) background = undefined;
       return;
     }
     for (const { key, anchor, pixels } of patterns) {
@@ -72,7 +72,7 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>) {
       // The perspective blitter skips index zero and draws light magenta as black.
       if (!pixels.every((color, i) => !color || screen.pixels[address(i)] === (color === 13 ? 0 : color))) continue;
       if (!Object.hasOwn(placements, key)) return;
-      const clean = background && pixels.every((color, i) => color || screen.pixels[address(i)] === background![address(i)])
+      const clean = area === backgroundArea && background && pixels.every((color, i) => color || screen.pixels[address(i)] === background![address(i)])
         ? background : undefined;
       // Keep the last clean view across successive distance frames.
       if (clean) {
@@ -106,6 +106,6 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>) {
       }
       return [x, y, key, width, height];
     }
-    background = screen.pixels.slice();
+    if (rememberBackground) background = screen.pixels.slice();
   };
 }

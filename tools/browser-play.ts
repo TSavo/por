@@ -5,7 +5,7 @@ import { createInterface } from "node:readline";
 import { join } from "node:path";
 import { loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
-import { getKey, type CombatAnimationFrame, type TileInventoryCell } from "./live-input.js";
+import { getKey, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
 import type { CombatArtPlacement } from "./combat-art.js";
 import { portraitKey } from "./portrait-art.js";
 import type { EncounterPlacement } from "./encounter-art.js";
@@ -88,7 +88,7 @@ interface FrameState {
   tiles?: [number, number, string][];
   combatArt?: CombatArtPlacement[];
   battleTiles?: [number, number, string][];
-  animation?: CombatAnimationFrame[];
+  animation?: PresentationAnimationFrame[];
   tileInventory?: TileInventoryCell[];
   battleTileInventory?: TileInventoryCell[];
   text?: [number, number, number][];

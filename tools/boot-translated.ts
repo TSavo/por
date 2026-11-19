@@ -52,15 +52,15 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const ovr = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
   if (!exe || !ovr) throw new Error("START.EXE and GAME.OVR are required");
   const boot = installProgram(cpu, exe.data, ovr.data);
-  const captureCombatDelay = input?.captureCombatDelay;
+  const capturePresentationDelay = input?.capturePresentationDelay;
   const terrainDrawSegment = process.env.POR_TRACE_BATTLE_DRAW === "1"
     ? loadedSlices.find(({ index }) => index === 33)?.loadPara : undefined;
-  if (captureCombatDelay || terrainDrawSegment !== undefined) {
+  if (capturePresentationDelay || terrainDrawSegment !== undefined) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
     cpu.tick = function (at) {
       // The original executable holds the attack pose during this delay.
-      if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) captureCombatDelay?.(this);
+      if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) capturePresentationDelay?.(this);
       // The far entry draws a frame from one of the two SQRPACI blocks.
       if (at === 0x00f1 && this.cs === terrainDrawSegment && this.steps >= liveStep) {
         const argument = (offset: number) => this.read8(this.ss, this.sp + offset);
