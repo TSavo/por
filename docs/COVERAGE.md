@@ -2144,6 +2144,10 @@ regular lizardfolk. `slums-mage-combat` verifies the ready pose in the
 potion-commission encounter and checks that it never uses the Valhingen
 mystic strike override. In 183 captured combat frames, two tile fragments
 matched parts of the mage strike record, but no full pose matched.
+`slums-mage-wand` uses the durable slot B checkpoint and verifies the
+96×96 enhanced wand pose during the guest's original wand-use report.
+The guest still draws the standing pose during that report. Enhanced mode
+uses the companion pose for that action frame, then returns to ready art.
 
 `buccaneer-pen-loop` checks 11 picket, railing, and timber tiles across
 16 views as the native clock crosses midnight. `stojanow-west-rampart`

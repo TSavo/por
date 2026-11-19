@@ -1012,6 +1012,7 @@
     "tile:7:3fd07573913b8b367dd8a69a57c9550f715ab8a6ba59baf2c7533bb4d14fa749": "valjevo-merchant-wing-terrain-3fd07573913b.png",
     "tile:7:14ba42f38a9f3edda8214f1dec22d94f520717c59573aa456e72854416d753d4": "valjevo-merchant-wing-terrain-14ba42f38a9f.png",
     "combat:area:20:CPIC2.DAX:94:ecl:a0b4": "slums-mage-stand.png",
+    "combat:area:20:CPIC2.DAX:222:ecl:a0b4": "slums-mage-strike.png",
     "tile:7:e3186849c39595898dc81456768972ec3ccb4e6dfd818445b630fc0799fea169": "valjevo-hall-threshold-terrain-e3186849c395.png",
     "tile:7:abc4061d929e8f51b9f3aed41285a1160a6bd0b2c72d03efde017a57567efdd0": "valjevo-hall-turn-terrain-abc4061d929e.png",
     "tile:5:14ba42f38a9f3edda8214f1dec22d94f520717c59573aa456e72854416d753d4": "valjevo-hedge-corner-terrain-14ba42f38a9f.png",

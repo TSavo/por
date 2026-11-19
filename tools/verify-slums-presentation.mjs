@@ -1855,7 +1855,8 @@ const environmentRoutes = new Map([
 ]);
 const freshRolf = routeName === "new-phlan-rolf-approach";
 const routes = ["new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
-routes.push("new-phlan-council-reward-reload");
+routes.push("new-phlan-council-reward-reload", "slums-mage-wand");
+const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -1913,8 +1914,9 @@ const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
 const slot = environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || routeName === "valjevo-hill-giant-dialogue" || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
-const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
-const saved = resolve(directory, slot + ".json");
+const saveSlot = mageWand ? "B" : slot;
+const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[saveSlot];
+const saved = resolve(directory, saveSlot + ".json");
 const battleTrace = process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
 const environmentTrace = (environment || dragon || halls) && process.env.POR_WRITE_ENVIRONMENT_TRACE === "1"
@@ -2485,6 +2487,25 @@ try {
     }
     await switchBothWays();
     console.log("Verified both wall tiles across four live giant-lizard combat turns.");
+  } else if (mageWand) {
+    const wand = "combat:area:20:CPIC2.DAX:222:ecl:a0b4";
+    const ready = "combat:area:20:CPIC2.DAX:94:ecl:a0b4";
+    for (const key of ["up", "b", "up", "enter", "enter", "a", ...Array(4).fill("enter")]) await advance(key);
+    const action = () => frame.animation?.find(shot => shot.combatArt.some(([, , id]) => id === wand));
+    for (let turn = 0; turn < 75 && !action(); turn++) await advance("q");
+    const shot = action();
+    assert.ok(shot, "Expected the original mage wand-use report");
+    const report = shot.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+    assert.match(report, /LEVEL3MUUSESANITEMITEM:WAND/i);
+    const [x, y, , , selected] = shot.combatArt.find(([, , id]) => id === wand);
+    assert.ok(selected);
+    assert.ok(frame.combatArt.some(([, , id]) => id === ready));
+    await waitFor("the enhanced wand pose at the original actor position", () => run(`
+      state.sequence === ${frame.sequence} && [...document.querySelectorAll(".combat-sprite")].some(image =>
+        image.getAttribute("src") === ${JSON.stringify("/art/" + wand)} && image.naturalWidth === 96 && image.naturalHeight === 96 &&
+        parseFloat(image.style.left) === ${x / 3.2} && parseFloat(image.style.top) === ${y / 2})`));
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the enhanced mage wand pose during the native report and the return to ready art.");
   } else if (combatPose) {
     const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, journalLead, excluded, readyPrompt } = combatPose;
     function verifyCombatScope() {

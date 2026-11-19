@@ -350,11 +350,23 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const signature = attacks.length ? JSON.stringify(attacks) : "";
       // Combat prints action and result text below the actor's stats in
       // the right-hand panel. The guest clears it before the next key read.
-      const report = hasBattlefieldBorder(screen) ? visibleGameText()
+      const battleGlyphs = hasBattlefieldBorder(screen) ? visibleGameText() : [];
+      const reportGlyphs = battleGlyphs
         .filter(([cell, char]) => cell >= 423 && cell < 860 && cell % 40 >= 23 && char > 32)
-        .sort(([a], [b]) => a - b).map(([cell, char]) => `${cell}:${char}`).join(",") : "";
+        .sort(([a], [b]) => a - b);
+      const report = reportGlyphs.map(([cell, char]) => `${cell}:${char}`).join(",");
       if (report && report !== lastCombatReport) {
-        showFrame(undefined, placements, false, false, 1000);
+        const wandPose = "combat:area:20:CPIC2.DAX:222:ecl:a0b4";
+        const reportText = battleGlyphs.filter(([, char]) => char > 32)
+          .sort(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+        // The guest keeps the standing frame during the mage's wand action.
+        const actionArt = attackKeys.has(wandPose) && /LEVEL3MUUSESANITEMITEM:WAND/i.test(reportText)
+          ? placements.map((placement): CombatArtPlacement => {
+            const [x, y, key, reflected, selected, width, height] = placement;
+            return key === "combat:area:20:CPIC2.DAX:94:ecl:a0b4" && selected
+              ? [x, y, wandPose, reflected, selected, width, height] : placement;
+          }) : placements;
+        showFrame(undefined, actionArt, false, false, 1000);
       } else if (signature && signature !== lastAttack) {
         showFrame(undefined, placements);
       } else if (!signature && !report && area !== undefined) {
