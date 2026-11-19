@@ -1248,6 +1248,12 @@ Their corrected versions preserve the masonry and match the surrounding
 sky. Both `phlan-south-market` and `phlan-training-civic` passed again
 with the corrected shared tiles.
 
+`mendor-library-south` and `mendor-library-north-corner` verify the ten
+new 32×32 rubble-gallery tiles across 19 views and 2,299 placements. The
+local inventory uses terrain-only copies of two older traces, omitting
+the frames with fighters and spectres composited over the scenery. All
+118 distinct area 20 terrain patterns in the audited traces now resolve.
+
 `valjevo-records-scribe` replays the original chance encounter in the
 records building. It checks the scribe artwork at the ambush decision and
 compares state and save bytes through both presentation switches.

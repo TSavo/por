@@ -171,6 +171,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["mendor-library-south", {
+    slot: "D", area: 20, views: 12, patterns: 43,
+    walk: ["up", "up", "up", "left", "up", "up", "up", "up", "up", "right", "up"],
+  }],
+  ["mendor-library-north-corner", {
+    slot: "A", area: 20, views: 7, patterns: 23,
+    walk: ["up", "up", "left", "up", "right", "up"],
+  }],
   ["phlan-south-market", {
     slot: "B", area: 0, views: 16, patterns: 66,
     walk: ["up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "left", "up", "up", "right", "up"],
