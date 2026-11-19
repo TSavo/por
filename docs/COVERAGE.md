@@ -3071,3 +3071,6 @@ state-preserving presentation switches.
 Four more dwarf portrait parts extend the enhanced character sheet to the
 first four heads and bodies. Chrome checks seven live combinations and
 falling back to the guest portrait when the selected head lacks a redraw.
+
+The male dwarf fighter's character sheet covers all 14 head and 12 body
+choices. Chrome checks both menu cycles and a mixed head/body choice.
