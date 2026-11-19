@@ -655,9 +655,20 @@ try {
       assert.ok(id.startsWith(`tile:${area}:`), id);
       patterns.add(id);
     }
-    await waitFor("121 individually anchored 4× tiles", () => run(`state.sequence === ${frame.sequence} &&
-      document.querySelectorAll("#tile-art img:not(.encounter-sprite)").length === 121 &&
-      [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
+    await waitFor("121 individually anchored 4× tiles", () => run(`(() => {
+      if (state.sequence !== ${frame.sequence}) return false;
+      const tiles = [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")];
+      const expected = ${JSON.stringify(expected)};
+      return tiles.length === expected.length && expected.every(([x, y, id], index) => {
+        const image = tiles[index];
+        const left = (8 + (x - 24) * 120 / 88) / 3.2;
+        const top = (8 + (y - 24) * 120 / 88) / 2;
+        return image.getAttribute("src") === "/art/" + id &&
+          image.naturalWidth === 32 && image.naturalHeight === 32 &&
+          Math.abs(parseFloat(image.style.left) - left) < .001 &&
+          Math.abs(parseFloat(image.style.top) - top) < .001;
+      });
+    })()`));
     return 1;
   }
 
@@ -669,6 +680,8 @@ try {
     await switchBothWays();
     console.log(`Verified the same scenery, party, and menu on ${routeName} in Chrome.`);
   } else if (dungeonSave) {
+    assert.equal(await verifyTiledView(5, new Set()), 1);
+    await switchBothWays();
     const wing = frame.tileInventory;
     for (const key of ["up", "enter", "enter"]) await advance(key);
     assert.equal(frame.tileInventory?.length, 121);

@@ -1167,8 +1167,9 @@ destination's tile keys for that transition, and Chrome verifies all 121
 enhanced placements on the first interactive dungeon view.
 Replacing the older capture with a replay of the same inputs moves 21
 previously unmatched hedge patterns out of area 5. All 29 captured area 3
-patterns are covered. The six unmatched area 5 patterns belong to the
-timber doorway in the lower wing before the transition.
+patterns are covered. Six new threshold tiles close the lower-wing
+doorway gaps. Chrome checks all 242 placements across both sides of the
+transition, including each 32×32 PNG's source ID and screen coordinates.
 
 `bane-south-colonnade` verifies 20 new 32×32 tiles across 16 views
 and 1,936 placements, including awnings, columns, and ivy. The area 24
