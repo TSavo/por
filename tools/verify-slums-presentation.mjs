@@ -997,7 +997,9 @@ const combatPoseRoutes = new Map([
       },
     ])),
   ...[4, 5, 7, 8, 10].flatMap(head =>
-    [["axe", 2], ["crossbow", 16]].map(([weapon, body]) => [
+    [["axe", 2], ["crossbow", 16],
+      ...(head === 5 ? [["bow", 1], ["spiked-club", 8], ["war-hammer", 15]] : []),
+    ].map(([weapon, body]) => [
       `party-dwarf-${head}-${weapon}-icon-combat`, {
         manualPolling: true,
         slot: "B", stand: `combat:party:${head}:${body}`, strike: `combat:party:${head}:${body + 128}`,

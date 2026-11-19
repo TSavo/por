@@ -3149,6 +3149,16 @@ each choice. Production combat replays use saves from the editor for
 paired blades, spear, and double axe, then check Alda's attack and
 preservation of the battle state when switching display modes.
 
+The hooded dwarf has ready and strike art for all 18 weapon choices.
+Chrome checked the full original icon editor sweep. The
+`party-dwarf-5-{bow,spiked-club,war-hammer}-icon-combat` replays start
+from slot B saves made with the corresponding editor selections and
+exercise the named attack, the animated strike, and display switching.
+
+The spiky dwarf has ready and strike art for all 18 weapon choices.
+The fresh-party Chrome icon editor run selects head 4 and steps through
+the full weapon list, checking all 36 placements and loaded 96×96 images.
+
 The `textile-skullcrusher-approach` Chrome replay uses the Textile
 House slot B checkpoint. It checks the chained prisoner's 96×320
 approach sprite at the guest anchor during the brief animation, then
