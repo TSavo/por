@@ -811,6 +811,11 @@ standing and sword strike poses. The New Phlan armorer portrait appeared at
 the shop greeting and Buy menu. Both replays checked presentation switches.
 The browser verifier exposes `stojanow-gate`, `stojanow-west`,
 `stojanow-east`, and `stojanow-bugbears` for the gate entrance save.
+The `stojanow-wall-warning` replay from that save verifies the tower
+warning, the bugbear confrontation, and the decision to take the punch.
+The journal records each event only after the party sees it. The route
+also checks the Enhanced portrait and the return to all 121 scenery
+placements after the bugbears let the party go.
 The `stojanow-trader` route uses a controlled daylight slot B at `4,15 N`
 and verifies the new wagon trader portrait in the parley. Use `armorer` with slot A
 at the New Phlan west gate (`0,4 W`).

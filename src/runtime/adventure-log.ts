@@ -400,6 +400,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("gate-imposters")) nextStep = "The guards have challenged you. The encounter offers Flee, Surrender, or Attack.";
       else if (knows("gate-toll-refused")) nextStep = "The bugbear turned you away. Prepare for a fight before trying the gate again.";
       else if (knows("gate-toll-demand")) nextStep = "The bugbear asked for 15 gold. If you can pay, choose Yes at the gate.";
+      else if (knows("gate-bugbears-let-go")) nextStep = "The bugbears let you go. Back away from the wall and try the main gate.";
+      else if (knows("gate-tower-warning")) nextStep = "The tower guard warned you away from the wall. Return to the main entrance to look for a way in.";
       else if (knows("gate-wagon-entry")) nextStep = "Approach the entrance where the wagon got through. Watch for an opportunity to get past the bugbear guards.";
     }
     return { title: commission.title, nextStep };
@@ -1307,6 +1309,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THEY ARE IMPOSTERS! ALL RIGHT, THROW DOWN YOUR WEAPONS")) {
     leads.push({ id: "gate-imposters", title: "Recognized at Stojanow Gate",
       detail: "The bugbear guards called the party imposters and demanded their surrender." });
+  }
+  if (text.includes("A VOICE FROM THE TOWER YELLS") && text.includes("STAY AWAY FROM THE WALL")) {
+    leads.push({ id: "gate-tower-warning", title: "A warning from the tower",
+      detail: "A guard at Stojanow Gate told the party to stay away from the wall." });
+  }
+  if (text.includes("THE GROUP OF BUGBEARS COME OVER") && text.includes("THE LEADER SWINGS AT YOU")) {
+    leads.push({ id: "gate-bugbear-punch", title: "Confronted by the gate bugbears",
+      detail: "The bugbear leader reminded the party of the warning and swung at them." });
+  }
+  if (text.includes("NOW BEAT IT BEFORE WE GET SERIOUS")) {
+    leads.push({ id: "gate-bugbears-let-go", title: "The bugbears let the party go",
+      detail: "After the party took the punch, the bugbears warned them to leave." });
   }
   if (text.includes("BUGBEARS WERE WAITING ON THE OTHER SIDE OF THE GATE")) {
     leads.push({ id: "gate-bugbear-ambush", title: "Bugbears inside Stojanow Gate",
