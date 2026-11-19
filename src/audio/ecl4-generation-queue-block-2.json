@@ -1,0 +1,709 @@
+{
+  "schema": 1,
+  "model": "eleven_v4",
+  "archive": "ECL4.DAX",
+  "block": 2,
+  "items": [
+    {
+      "id": "ecl4-b2-9e30-9e61",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9e30",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9e30",
+        "por.review.ecl-4.block-2.at-9e61"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9e30-9e61.mp3",
+      "text": "SEVERAL BABY HOBGOBLINS FLEE, SCREAMING IN FEAR! THE FLOOR IS SLIPPERY FROM DUNG AND REEKS OF URINE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9f6a-9fca-9ff2-skullcrusher-present",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9f6a",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9f6a",
+        "por.review.ecl-4.block-2.at-9fca",
+        "por.review.ecl-4.block-2.at-9ff2"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9f6a-9fca-9ff2-skullcrusher-present.mp3",
+      "text": "YOU SEE A DEAD HOBGOBLIN WITH ITS HEAD CRUSHED. WRITTEN IN BLOOD IS A MESSAGE: 'SKULLCRUSHER WAS HERE.' SKULLCRUSHER LAUGHS AND CRACKS HIS KNUCKLES. WHAT DO YOU DO WITH THE BODY?",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl4-b2-9f6a-9ff2-skullcrusher-absent",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9f6a",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9f6a",
+        "por.review.ecl-4.block-2.at-9ff2"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9f6a-9ff2-skullcrusher-absent.mp3",
+      "text": "YOU SEE A DEAD HOBGOBLIN WITH ITS HEAD CRUSHED. WRITTEN IN BLOOD IS A MESSAGE: 'SKULLCRUSHER WAS HERE.' WHAT DO YOU DO WITH THE BODY?",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl4-b2-a109-a147-a19f-prisoner-chained",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a109",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a109",
+        "por.review.ecl-4.block-2.at-a147",
+        "por.review.ecl-4.block-2.at-a19f"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a109-a147-a19f-prisoner-chained.mp3",
+      "text": "YOU ARE IN A VERY SMALL, DARK ROOM. A MUSCULAR MAN LOCKED IN CHAINS LIES HERE. NEAR HIM IS A PAGE THAT YOU PLACE IN YOUR JOURNAL UNDER ENTRY 47. WHAT DO YOU DO WITH THE MAN?",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a109-a3fc-prisoner-free",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a109",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a109",
+        "por.review.ecl-4.block-2.at-a3fc"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a109-a3fc-prisoner-free.mp3",
+      "text": "YOU ARE IN A VERY SMALL, DARK ROOM. THERE IS A FREE MAN HERE. WHAT DO YOU DO?",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a109-prisoner-gone",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a109",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a109"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a109-prisoner-gone.mp3",
+      "text": "YOU ARE IN A VERY SMALL, DARK ROOM.",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a4d2-a500",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a4d2",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a4d2",
+        "por.review.ecl-4.block-2.at-a500"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a4d2-a500.mp3",
+      "text": "'THANKS FOR FREEING ME. I'M LORD CADORNA'S SERVANT. ADD HIM TO YOUR PARTY?",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a7e2-a80f-a887",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a7e2",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a7e2",
+        "por.review.ecl-4.block-2.at-a80f",
+        "por.review.ecl-4.block-2.at-a887"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a7e2-a80f-a887.mp3",
+      "text": "THIS ROOM IS DIMLY LIT WITH GUTTERING TORCHES. YOU SEE THE CHIEF OF THE HOBGOBLINS, A HUGE OGRE. AS YOU ENTER, HE RISES TO HIS FULL, TEN FEET OF HEIGHT; HIS HEAD WREATHED IN THE FLICKERING SHADOWS. 'PUNY CREATURES,' HE BELLOWS.'I ALLOWED YOU TO TOY WITH MY MINIONS, BUT NOW I'LL CRUSH THE LIFE FROM YOUR LIMBS.'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl4-b2-b049-b0e6",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-b049",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-b049",
+        "por.review.ecl-4.block-2.at-b0e6"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-b049-b0e6.mp3",
+      "text": "YOU ARE BLINDFOLDED AND TAKEN ON A LONG, TWISTING WALK, THEN UP A LADDER.'ONLY MEET US AT THE MAIN WELL.' HE POINTS HIS RING AT YOU AND YOU RISE UP AND OUT THE WELL.",
+      "direction": "perform Restal consistently: an older, amused, confident thieves' guild master; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-9abe",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9abe",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9abe"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9abe.mp3",
+      "text": "EVIL LOOKING FROGS BOIL UP FROM BELOW.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9b04",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9b04",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9b04"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9b04.mp3",
+      "text": "HOBGOBLINS CHARGE SCREAMING.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9b49",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9b49",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9b49"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9b49.mp3",
+      "text": "A SKELETAL FORCE SPOTS YOU AND ATTACKS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9b9e",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9b9e",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9b9e"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9b9e.mp3",
+      "text": "SOME GHOULS DECIDE TO ADD YOU TO THEIR MENU.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9bef",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9bef",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9bef"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9bef.mp3",
+      "text": "SCORPIONS APPROACH HUNGRILY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9c36",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9c36",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9c36"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9c36.mp3",
+      "text": "YOU ARE ENTERING A WEEDY, GARBAGE STREWN COURTYARD. A DRUM BEGINS TO BEAT AND HOBGOBLINS ATTACK.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9cac",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9cac",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9cac"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9cac.mp3",
+      "text": "THINGS SEEM STRANGELY QUIET. THE DRUM HAS FADED TO SILENCE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9cdd",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9cdd",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9cdd"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9cdd.mp3",
+      "text": "YOU ARE CHASED OUT INTO THE STREETS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9d2f",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9d2f",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9d2f"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9d2f.mp3",
+      "text": "THIS CAVERNOUS BUILDING SERVES AS A BARRACKS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9d73",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9d73",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9d73"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9d73.mp3",
+      "text": "YOU ARE APPALLED BY THE STENCH IN THIS DAMP BUILDING.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9dad",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9dad",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9dad"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9dad.mp3",
+      "text": "YOU ARE IN A DETERIORATED BUILDING.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9dda",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9dda",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9dda"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9dda.mp3",
+      "text": "WHEN YOU ENTER, A FEW FADED, MOTHEATEN TAPESTRIES FLUTTER MOURNFULLY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9e8c",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9e8c",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9e8c"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9e8c.mp3",
+      "text": "'SKULLCRUSHER WAS HERE' IS CARVED INTO THE NORTH WALL.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl4-b2-9ec4",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9ec4",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9ec4"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9ec4.mp3",
+      "text": "SKULLCRUSHER PROUDLY POINTS OUT HIS HANDIWORK.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9ef4",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9ef4",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9ef4"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9ef4.mp3",
+      "text": "GRAFFITI COVERS THE WALLS IN MEANINGLESS ABANDON.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-9f3b",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9f3b",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-9f3b"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-9f3b.mp3",
+      "text": "YOU CAN BARELY SEE A DARK OBJECT TO THE WEST.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-a035",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a035",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a035"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a035.mp3",
+      "text": "YOU FIND NOTHING OF ANY VALUE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-a053",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a053",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a053"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a053.mp3",
+      "text": "YOU DESTROY EVERYTHING OF VALUE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-a07d",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a07d",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a07d"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a07d.mp3",
+      "text": "A SIMPLE KITCHEN, A FEW CLAY BOWLS ADORN THE FLOOR.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-a0ae",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a0ae",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a0ae"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a0ae.mp3",
+      "text": "THE REMAINS OF A SMOKING FIRE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-a0d1",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a0d1",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a0d1"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a0d1.mp3",
+      "text": "BREAD AND MEAT LIE ABOUT, AS WELL AS PIECES OF HUMAN ANATOMY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-a1f2",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a1f2",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a1f2"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a1f2.mp3",
+      "text": "HOW WILL YOU FREE HIM?",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a247",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a247",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a247"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a247.mp3",
+      "text": "YOU HAVE NO KEY TO UNLOCK THE PADLOCKS.",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a26c",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a26c",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a26c"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a26c.mp3",
+      "text": "THE BRASS KEY YOU FOUND OPENS ALL OF THE PADLOCKS.",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a29f",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a29f",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a29f"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a29f.mp3",
+      "text": "NO ONE IS ABLE TO PICK ALL THE PADLOCKS.",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a2c4",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a2c4",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a2c4"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a2c4.mp3",
+      "text": "DESPITE GREAT EFFORT, THE CHAINS HOLD.",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a2e8",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a2e8",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a2e8"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a2e8.mp3",
+      "text": "THE MAN DIES A CRUEL DEATH.",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a338",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a338",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a338"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a338.mp3",
+      "text": "'WHATS YOUR PROBLEM?'",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a350",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a350",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a350"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a350.mp3",
+      "text": "'DON'T TRY TO FOOL ME.' HE GROWLS.",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a372",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a372",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a372"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a372.mp3",
+      "text": "'I ALMOST KILLED THE LEADER OF THESE SCUMMY HOBGOBLINS, BUT THE REST JUMPED ME!'",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a3b6",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a3b6",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a3b6"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a3b6.mp3",
+      "text": "'FREE ME AND I'LL HELP YOU.'",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a3d3",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a3d3",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a3d3"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a3d3.mp3",
+      "text": "'WORDS DON'T BREAK CHAINS!' HE SNARLS.",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a473",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a473",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a473"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a473.mp3",
+      "text": "THE MAN WAITS IMPATIENTLY.",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a48e",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a48e",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a48e"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a48e.mp3",
+      "text": "YOU FLEE THE ROOM.",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a53a",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a53a",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a53a"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a53a.mp3",
+      "text": "THERE IS NO ROOM IN YOUR PARTY FOR HIM.",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a55f",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a55f",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a55f"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a55f.mp3",
+      "text": "'GREAT! MY NAME IS SKULLCRUSHER. THERE'S A SECRET DOOR TO THE SOUTHEAST. THAT'S WHERE I MET THE HOBGOBLIN LEADER.'",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a5d2",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a5d2",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a5d2"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a5d2.mp3",
+      "text": "'OH WELL.' HE LEAVES.",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a5f2",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a5f2",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a5f2"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a5f2.mp3",
+      "text": "'I DON'T LIKE YOUR TONE.'",
+      "direction": "perform Skullcrusher consistently: muscular, blunt, impatient, and rough; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-a614",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a614",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a614"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a614.mp3",
+      "text": "YOU ARE IN A LARGE ROOM WHICH SERVES AS A CRUDE TEMPLE, AND CAUSES A VAGUE FEELING OF DISQUIET.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-a66a",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a66a",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a66a"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a66a.mp3",
+      "text": "ATOP A SMALL BONE ALTAR, STANDS AN ANCIENT, HOBGOBLIN. SHE SCREAMS 'I AM THE MIGHTY GRISHNAK! YOU HAVE INTERRUPTED MY UNHOLY RITES! FEEL MY INFERNAL WRATH!'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl4-b2-a729",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a729",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a729"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a729.mp3",
+      "text": "THIS ROOM HAS HAD BLOOD SMEARED ON THE FLOOR AND WALLS IN A RITUAL, UNHOLY MANNER.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-a77f",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a77f",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a77f"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a77f.mp3",
+      "text": "'IN THE EAST WALL IS THE SECRET DOOR.' SAYS SKULLCRUSHER.'IF WE GO THROUGH WE CAN SURPRISE THEM.'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl4-b2-a911",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a911",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a911"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a911.mp3",
+      "text": "YOU FIND AN IRON BOX, ACROSS THE LOCK IS THE SEAL OF THE FAMILY OF CADORNA. OPENING THE BOX WILL DAMAGE THE SEAL BEYOND REPAIR. WHAT DO YOU DO?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-a9d5-operand-9",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a9d5",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-a9d5"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-a9d5-operand-9.mp3",
+      "text": "YOU ENCOUNTER HOBGOBLINS!",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-aa1c",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-aa1c",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-aa1c"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-aa1c.mp3",
+      "text": "THE HOBGOBLINS RESPOND WITH A PIERCING BATTLE CRY!",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-aae3",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-aae3",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-aae3"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-aae3.mp3",
+      "text": "THE HOBGOBLINS GIVE CHASE, BUT YOU ESCAPE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-ab6d",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-ab6d",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-ab6d"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-ab6d.mp3",
+      "text": "YOU FIND A PAGE FROM A DIARY AND PLACE IT IN YOUR JOURNAL UNDER ENTRY 11.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-abd3",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-abd3",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-abd3"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-abd3.mp3",
+      "text": "ON THE WELL IS A NOTE,'THIEVES ONLY.' THE WELL HAS NO RUNGS OR ROPE AND SEEMS VERY DEEP. ONLY A SKILLFUL CLIMBER COULD SURVIVE THE DESCENT. WHAT DO YOU DO?",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl4-b2-ac8a",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-ac8a",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-ac8a"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-ac8a.mp3",
+      "text": "THAT ONE IS NOT WELL ENOUGH TO CLIMB.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-acd7",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-acd7",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-acd7"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-acd7.mp3",
+      "text": "YOU BEGIN A LONG FALL.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-ad41",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-ad41",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-ad41"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-ad41.mp3",
+      "text": "YOU FLOAT DOWN THE WELL.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-ad5a",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-ad5a",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-ad5a"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-ad5a.mp3",
+      "text": "FROM AN ARCHWAY AT THE BOTTOM COME ARROWS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-ad90",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-ad90",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-ad90"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-ad90.mp3",
+      "text": "YOU HIT AN UNYIELDING STONE FLOOR.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-add7",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-add7",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-add7"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-add7.mp3",
+      "text": "YOUR FRIEND FLOATS OUT OF THE WELL.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b2-adfa",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-adfa",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-adfa"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-adfa.mp3",
+      "text": "HERE IS A LAUGHING THIEF.",
+      "direction": "perform Restal consistently: an older, amused, confident thieves' guild master; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-ae1d",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-ae1d",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-ae1d"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-ae1d.mp3",
+      "text": "AN OLD THIEF STANDS HERE.'WELCOME TO MY GUILD. I AM RESTAL.' HE BOWS LOW.",
+      "direction": "perform Restal consistently: an older, amused, confident thieves' guild master; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-ae87",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-ae87",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-ae87"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-ae87.mp3",
+      "text": "'WE CAN DUPLICATE THE SEAL ON THAT CHEST -- FOR HALF THE TREASURE -- NO ONE WILL EVER KNOW. INTERESTED?'",
+      "direction": "perform Restal consistently: an older, amused, confident thieves' guild master; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-af12",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-af12",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-af12"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-af12.mp3",
+      "text": "THE OLD THIEF LAUGHS, 'PERHAPS WE SHALL MEET AGAIN.'",
+      "direction": "perform Restal consistently: an older, amused, confident thieves' guild master; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-af4b",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-af4b",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-af4b"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-af4b.mp3",
+      "text": "'YOU ARE SEEKING THE TEXTILE HOUSE. WE CAN GET YOU IN UNSEEN AND POSSIBLY HELP YOU WITH THE TREASURE. INTERESTED?'",
+      "direction": "perform Restal consistently: an older, amused, confident thieves' guild master; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b2-afbf",
+      "triggerSourceId": "por.review.ecl-4.block-2.at-afbf",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-2.at-afbf"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-2/ecl4-b2-afbf.mp3",
+      "text": "A ROPE IS TOSSED UP AND THE REST OF THE PARTY COMES DOWN. THE OLD THIEF SAYS 'OUR RULES REQUIRE YOU TO BE BLINDFOLDED IN OUR GUILD HOUSE, OKAY?'",
+      "direction": "perform Restal consistently: an older, amused, confident thieves' guild master; retain narrator identity for attribution"
+    }
+  ]
+}

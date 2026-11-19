@@ -1,0 +1,625 @@
+{
+  "schema": 1,
+  "model": "eleven_v4",
+  "archive": "ECL4.DAX",
+  "block": 10,
+  "items": [
+    {
+      "id": "ecl4-b10-9ba5-9bbf",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9ba5",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9ba5",
+        "por.review.ecl-4.block-10.at-9bbf"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-9ba5-9bbf.mp3",
+      "text": "THE SKY DARKENS. FIERCE GUSTS OF WIND HOWL PAST AND THE GROUND SHAKES AS PEALS OF THUNDER ROCK THE LAND. THE SWIRLING MURK HIDES WHAT LIES AHEAD.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-9df8-9e19",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9df8",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9df8",
+        "por.review.ecl-4.block-10.at-9e19"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-9df8-9e19.mp3",
+      "text": "YOU FIND A GIANT SKELETON AND ITS RETAINERS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-ac5a-acbc",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-ac5a",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-ac5a",
+        "por.review.ecl-4.block-10.at-acbc"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-ac5a-acbc.mp3",
+      "text": "A VOICE SPEAKS, 'COME, MY BRAVE ADVENTURERS. YOU MUST TAKE MY GIFTS TO BETTER FIGHT THE EVIL THAT HAS COME TO THE CITY.' FROM THE MAGICALLY-LIT TOMB OF A BRAVE KNIGHT, A BODY RISES FROM ITS RESTING PLACE TO LAY WEAPONS BEFORE THE PARTY.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl4-b10-ad54-ad80-adcd",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-ad54",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-ad54",
+        "por.review.ecl-4.block-10.at-ad80",
+        "por.review.ecl-4.block-10.at-adcd"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-ad54-ad80-adcd.mp3",
+      "text": "YOU ARE APPROACHED BY A MAN CLAD IN MYSTIC ROBES. 'HAIL, NOBLE ADVENTURERS,' HE CALLS. 'I WOULD ASK YOU TO HELP ME END THIS FOUL UNDEAD CURSE.' DO YOU LET HIM JOIN THE PARTY OR SEND HIM AWAY?",
+      "direction": "perform the mystic man consistently: grave, urgent, and controlled; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b10-af0e-af92",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-af0e",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-af0e",
+        "por.review.ecl-4.block-10.at-af92"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-af0e-af92.mp3",
+      "text": "INSIDE THE RUINS OF A BLACK MARBLE CRYPT IS A COFFIN FILLED WITH DUST. AMONG THE PILES OF DUST ARE SEVERAL BROKEN CROSSES, VIALS OF SPILLED HOLY WATER, AND A SCROLL. DO YOU READ THE SCROLL?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-afb7-afe3-scroll-read",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-afb7",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-afb7",
+        "por.review.ecl-4.block-10.at-afe3"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-afb7-afe3-scroll-read.mp3",
+      "text": "THE SCROLL IS PLACED IN YOUR JOURNAL AS ENTRY 43. DO YOU WANT TO DO ANYTHING WITH THE COFFIN?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-afe3-scroll-not-read",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-afe3",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-afe3"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-afe3-scroll-not-read.mp3",
+      "text": "DO YOU WANT TO DO ANYTHING WITH THE COFFIN?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-9c45",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9c45",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9c45"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-9c45.mp3",
+      "text": "UNTIL AN EXPLOSION OF LIGHTNING REVEALS THE NIGHTMARE SCENE OF A GRAVEYARD TURNED UPSIDE DOWN.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-9cf0",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9cf0",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9cf0"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-9cf0.mp3",
+      "text": "SKELETONS SILENTLY ATTACK.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-9d2c",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9d2c",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9d2c"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-9d2c.mp3",
+      "text": "CLAWS RISE FROM THE SOIL AND ATTEMPT TO DRAG YOU DOWN.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-9d91",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9d91",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9d91"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-9d91.mp3",
+      "text": "THE ENCLAVE IS GUARDED BY A SKELETON ARMY!",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-9e78",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9e78",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9e78"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-9e78.mp3",
+      "text": "YOU FIND A MARBLE CHEST. OPEN IT?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-9f24",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9f24",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9f24"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-9f24.mp3",
+      "text": "LUMBERING FIGURES REACH FOR YOU.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-9f5b",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9f5b",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9f5b"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-9f5b.mp3",
+      "text": "ZOMBIES SHUFFLE DOWN THE STAIRS!",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-9fb4",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-9fb4",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-9fb4"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-9fb4.mp3",
+      "text": "A ZOMBIE WITH GRAY, LEATHERY-HARD SKIN GAZES AT YOU WITH HATE-FILLED EYES.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a04b",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a04b",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a04b"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a04b.mp3",
+      "text": "VARIOUS OBJECTS ARE SCATTERED ABOUT. WILL YOU PICK THEM UP?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a11e",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a11e",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a11e"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a11e.mp3",
+      "text": "DARK, BENT CREATURES RUSH SWIFTLY AT YOU.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a158",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a158",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a158"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a158.mp3",
+      "text": "YOU STAND BEFORE A HUGE TOWER. THE SINGLE ENTRANCE IS LOCKED AND STRONGLY BUILT.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a19b",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a19b",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a19b"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a19b.mp3",
+      "text": "WARNING VOICES CRY FROM WITHIN. 'WE ARE THE SPIRITS OF THOSE WHO FOUGHT THE DRAGONS. LEAVE US OR DIE.'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl4-b10-a1f0",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a1f0",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a1f0"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a1f0.mp3",
+      "text": "DO YOU LEAVE?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a232",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a232",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a232"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a232.mp3",
+      "text": "YOU ARE ATTACKED BY WIGHTS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a28c",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a28c",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a28c"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a28c.mp3",
+      "text": "IN THE CHAMBER IS A SINGLE CRYPT. FLOATING ABOVE THE CRYPT IS A WRAITH. 'I AM THE PROTECTOR OF THE PALADIN. I GUARD HIS REMAINS FOR ALL ETERNITY. LEAVE OR SUFFER.' WHAT DO YOU DO?",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl4-b10-a37d",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a37d",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a37d"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a37d.mp3",
+      "text": "IN THE CRYPT LIES THE FULLY-EQUIPPED BODY OF A MIGHTY WARRIOR. DO YOU STRIP THE BODY?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a3f6",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a3f6",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a3f6"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a3f6.mp3",
+      "text": "A TOWER STANDS CLEARLY ABOVE ALL CRYPTS IN THE AREA. HUGE PILES OF HUMAN BONES ARE STREWN ABOUT.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a465",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a465",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a465"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a465.mp3",
+      "text": "A SMALL ARMY OF SKELETONS RUSHES FROM THE TOWER.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a4ba",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a4ba",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a4ba"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a4ba.mp3",
+      "text": "NOXIOUS FUMES POUR FROM THE TOWER DOORWAY, MAKING IT IMPOSSIBLE TO SEE INSIDE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a501",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a501",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a501"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a501.mp3",
+      "text": "NOXIOUS FUMES TEAR AT YOUR THROAT AS YOU CRUNCH THROUGH PILES OF DRIED BONES.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a576-operand-9",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a576",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a576"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a576-operand-9.mp3",
+      "text": "YOU SURPRISE A SHADOWY FORM CREATING NEW SKELETONS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a63a",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a63a",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a63a"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a63a.mp3",
+      "text": "ALL AROUND THE TOWER, PILES OF HAIR AND FUR COVER THE AREA.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a67a",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a67a",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a67a"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a67a.mp3",
+      "text": "THE TOWER DOOR SWINGS OPEN AND A SMALL ARMY OF ZOMBIES SHUFFLES OUT. THE DOOR CLOSES WITH A CLAMOR OF LOCKS FALLING INTO PLACE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a701",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a701",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a701"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a701.mp3",
+      "text": "THE CHAMBER IS FILLED WITH USELESS CLOTHING AND RUSTING ARMOR.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a757-operand-9",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a757",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a757"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a757-operand-9.mp3",
+      "text": "IN A CHAMBER FILLED WITH RUINED PARCHMENTS, YOU SURPRISE A SHAPE THAT IS CREATING ZOMBIES.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a83d",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a83d",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a83d"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a83d.mp3",
+      "text": "WITH SLOW, OMINOUS CREAKS, MUMMIES OPEN THEIR SARCOPHOGI.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a8a4",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a8a4",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a8a4"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a8a4.mp3",
+      "text": "THE AIR AROUND THE TOWER IS CHARGED WITH STATIC ELECTRICITY AND BALL LIGHTNING.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a904",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a904",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a904"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a904.mp3",
+      "text": "WIGHTS APPEAR FROM BEHIND THE TOWER.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a959",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a959",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a959"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a959.mp3",
+      "text": "WRITTEN ON THE DOOR (IN THE COMMON TONGUE) IS: 'DO NOT OPEN THIS DOOR. A GREAT EVIL HAS BEEN LAID TO REST HERE.'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl4-b10-a9b9",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a9b9",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a9b9"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a9b9.mp3",
+      "text": "THERE ARE LARGE SILVER HOLY SYMBOLS UP AND DOWN THE CRACK IN THE DOORWAY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-a9f4",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-a9f4",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-a9f4"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-a9f4.mp3",
+      "text": "THE LOWER CHAMBER IS FILLED WITH GLASS AND FUR OBJECTS OF ALL TYPES.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-aa32",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-aa32",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-aa32"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-aa32.mp3",
+      "text": "A SHARP CRACK SPLITS THE AIR AND YOU ARE STUNG.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-aa97-operand-9",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-aa97",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-aa97"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-aa97-operand-9.mp3",
+      "text": "YOU SURPRISE A FIGURE AS IT SUMMONS A WIGHT.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-ab66",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-ab66",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-ab66"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-ab66.mp3",
+      "text": "IN THE ENTRY IS SET A HUGE PAIR OF BRASS DOORS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-ab9c",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-ab9c",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-ab9c"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-ab9c.mp3",
+      "text": "SHADOWY FORMS FLOW FROM BETWEEN THE DOORS AND ATTACK.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-ac12",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-ac12",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-ac12"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-ac12.mp3",
+      "text": "IN THE MIDDLE OF A DOOR IS A PANEL OF A POWERFUL KNIGHT FIGHTING SEVERAL UNDEAD.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-ae2e",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-ae2e",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-ae2e"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-ae2e.mp3",
+      "text": "'THE UNDEAD ARE CONTROLLED BY A VAMPIRE WHO LURKS IN THE NORTHEAST CORNER OF THE GRAVEYARD,' THE MAN SAYS.",
+      "direction": "perform the mystic man consistently: grave, urgent, and controlled; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b10-ae8d",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-ae8d",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-ae8d"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-ae8d.mp3",
+      "text": "YOUR PARTY IS TOO LARGE FOR ME TO JOIN.",
+      "direction": "perform the mystic man consistently: grave, urgent, and controlled; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b10-aeb5",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-aeb5",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-aeb5"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-aeb5.mp3",
+      "text": "'THEN DIE YOU SCUM,' THE MAN SPITS.",
+      "direction": "perform the mystic man consistently: grave, urgent, and controlled; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b10-b017",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b017",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b017"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b017.mp3",
+      "text": "WHAT DO YOU WANT TO DO TO IT?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b05d",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b05d",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b05d"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b05d.mp3",
+      "text": "YOU FIND NOTHING.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b06e",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b06e",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b06e"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b06e.mp3",
+      "text": "YOU SCATTER THE DUST AND PLACE WHAT HOLY ITEMS YOU CAN SPARE INSIDE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b0ab",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b0ab",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b0ab"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b0ab.mp3",
+      "text": "THE COFFIN MAKES A MESS ON THE FLOOR.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b0cb",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b0cb",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b0cb"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b0cb.mp3",
+      "text": "YOU ARE IN THE DUSTY REMAINS OF A BLACK MARBLE CRYPT.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b10d",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b10d",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b10d"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b10d.mp3",
+      "text": "THERE IS A VAMPIRE HERE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b192",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b192",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b192"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b192.mp3",
+      "text": "WOODEN STAIRS LEAD INTO A PIT. DO YOU GO DOWN?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b1f6",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b1f6",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b1f6"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b1f6.mp3",
+      "text": "THE CHAMBER LIGHTS UP TO REVEAL A TALL, PALE MAN WITH VERY WHITE TEETH.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b2e6",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b2e6",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b2e6"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b2e6.mp3",
+      "text": "THE VAMPIRE TURNS INTO A VAPOR CLOUD AND FLOATS AWAY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b322",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b322",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b322"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b322.mp3",
+      "text": "YOU FIND THE VAMPIRE'S TREASURE TROVE. DO YOU TAKE IT?",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl4-b10-b384",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b384",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b384"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b384.mp3",
+      "text": "A PACK OF HUNGRY GHOULS LOPES TOWARD YOU.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b3eb",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b3eb",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b3eb"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b3eb.mp3",
+      "text": "THE MYSTIC MAN SPEAKS, 'THE VAMPIRE IS BEHIND THE NORTHERN WALL.'",
+      "direction": "perform the mystic man consistently: grave, urgent, and controlled; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl4-b10-b523",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b523",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b523"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b523.mp3",
+      "text": "YOU ARE NOTICED.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b536",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b536",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b536"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b536.mp3",
+      "text": "YOU FIND SOME UNDEAD.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b58c",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b58c",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b58c"
+      ],
+      "output": "../por-assets/voices/narration/ecl4/block-10/ecl4-b10-b58c.mp3",
+      "text": "THEY DON'T LISTEN.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    }
+  ]
+}
