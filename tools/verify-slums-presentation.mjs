@@ -965,6 +965,16 @@ const combatPoseRoutes = new Map([
     inputs: ["up", ...Array(3).fill("enter")],
     strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
   }],
+  ...[["plumed", 6], ["bald", 9]].flatMap(([head, headIndex]) =>
+    [["war-pick", 9], ["flanged-mace", 12], ["sabre", 17]].map(([weapon, body]) => [
+      `party-${head}-dwarf-${weapon}-icon-combat`, {
+        slot: "B", stand: `combat:party:${headIndex}:${body}`, strike: `combat:party:${headIndex}:${body + 128}`,
+        width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
+        strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
+        inputs: ["up", ...Array(3).fill("enter")],
+        strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
+      },
+    ])),
   ["party-bald-dwarf-axe-icon-combat", {
     slot: "B", stand: "combat:party:9:2", strike: "combat:party:9:130",
     width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
