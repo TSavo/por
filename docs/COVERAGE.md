@@ -1342,6 +1342,9 @@ the north-gate entrance save.
 `valjevo-giant-snake-approach` checks the middle and near sprites, their
 original screen anchors, and all 121 terrain cells across the approach.
 `mendor-basilisk-approach` checks the Basilisk's near sprite.
+Both replays continue to the new 352×352 dialogue scenes, assert the
+original encounter text, and verify that the approach sprite clears to
+make way for the illustration.
 `pyramid-lizardfolk-vats` checks the area-scoped illustration at the
 Yarash vat ambush. All three replays verify state-preserving switches.
 

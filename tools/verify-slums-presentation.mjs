@@ -46,10 +46,12 @@ const encounterRoutes = new Map([
     slot: "B", inputs: ["s", "up", "up", "y", "enter", "enter"],
     placement: [48, 32, "encounter:area:5:SPRIT5.DAX:60:1:0", 40, 65],
     closer: [40, 32, "encounter:area:5:SPRIT5.DAX:60:0:0", 64, 80],
+    dialogue: { key: "a", portrait: "portrait:area:5:PIC5.DAX:60:0:0", prompt: /YOUSEEGIANTSNAKES/i },
   }],
   ["mendor-basilisk-approach", {
     slot: "B", inputs: ["up", "enter", "enter"],
     placement: [32, 32, "encounter:area:15:SPRIT2.DAX:26:0:0", 80, 80],
+    dialogue: { key: "enter", portrait: "portrait:PIC2.DAX:26:0:0", prompt: /YOUSEEADULLBROWNREPTILIANMONSTER/i },
   }],
   ["kobold-cave-efreeti-approach", {
     slot: "A", inputs: ["s", "up", "p", "enter"],
@@ -912,6 +914,17 @@ try {
       await advance("a");
       assert.deepEqual(frame.tileInventory, terrain);
       await verifyApproach(encounterRoute.closer);
+    }
+    if (encounterRoute.dialogue) {
+      const { key, portrait, prompt } = encounterRoute.dialogue;
+      await advance(key);
+      assert.equal(frame.encounter, undefined);
+      assert.equal(frame.portrait, portrait);
+      const text = frame.text.toSorted(([left], [right]) => left - right)
+        .map(([, character]) => String.fromCharCode(character)).join("");
+      assert.match(text, prompt);
+      await waitFor("the enhanced encounter dialogue", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+      await switchBothWays();
     }
     console.log(`Verified ${routeName} source frame, screen anchor, and mode switching in Chrome.`);
   } else if (combatPose) {
