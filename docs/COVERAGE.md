@@ -1288,6 +1288,14 @@ at the password challenge and confirms it clears after peaceful passage.
 `kobold-cave-boar` uses a controlled rematch checkpoint to verify the
 192×96 ready frame and reflected charge. Both replays switch presentation
 and verify the save remains unchanged.
+`phlan-priest-tempus` keeps the Temple of Tempus portrait visible through
+the healing menu. The area-specific mapping uses the same source portrait
+as the council escort. Chrome checks both scenes independently, along with
+the Temple of Tyr regression. `kobold-cave-efreeti` verifies the 96×192
+ready pose and strike from a controlled bottle encounter.
+`buccaneer-north-palisade` covers 27 new original tiles on the northern
+route from a controlled slot A with a staged start time. Chrome checks
+2,057 placements across 17 views as the sky changes from night to dawn.
 
 `graveyard-northeast-west` and `graveyard-northeast-east` verify 14 new
 Valhingen tiles with 1,694 placements across 14 views. The terrain audit
