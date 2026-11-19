@@ -712,6 +712,11 @@ const combatPoseRoutes = new Map([
     width: 96, height: 96, readyPrompt: /ORCHITPOINTS5/i, strikeReflected: false,
     inputs: ["up", ...Array(9).fill("enter"), ...Array(13).fill("q")],
   }],
+  ["slums-mage-orc-ready", {
+    slot: "B", stand: "combat:area:20:CPIC2.DAX:4:ecl:a0b4",
+    width: 96, height: 96, readyPrompt: /ORCHITPOINTS5AC6/i, strikeInputs: [],
+    inputs: ["up", "b", "up", "enter", "enter", "a", ...Array(4).fill("enter"), ...Array(15).fill("q")],
+  }],
   ["slums-mage-hobgoblin", {
     slot: "B", stand: "combat:area:20:CPIC2.DAX:6:ecl:a0b4", strike: "combat:area:20:CPIC2.DAX:134:ecl:a0b4",
     width: 96, height: 96, readyPrompt: /HOBGOBLINHITPOINTS6/i, strikeReflected: false,
@@ -1763,6 +1768,11 @@ const environmentRoutes = new Map([
     slot: "D", area: 20, views: 17, patterns: 44, sceneryOnly: true,
     walk: ["up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up"],
   }],
+  ["lizard-outer-yard", {
+    slot: "A", area: 16, views: 19, patterns: 72, sceneryOnly: true,
+    walk: ["left", "left", "up", "up", "up", "left", "up", "up", "up", "up", "up", "left",
+      "up", "up", "up", "up", "up", "right"],
+  }],
   ["wilderness-waystone", {
     slot: "A", area: 26, views: 10, patterns: 80, sceneryOnly: true, captureView: 5,
     walk: ["left", "up", "right", "up", "left", "up", "up", "right", "up"],
@@ -2404,6 +2414,15 @@ try {
   });
   await command("Page.navigate", { url: origin });
   await waitFor("the game display", () => run('document.querySelector("#screen")?.naturalWidth === 320'));
+  if (routeName === "slums-mage-orc-ready") {
+    // This replay steps every combat pause explicitly through advance().
+    await run(`(() => {
+      const fetchOriginal = window.fetch.bind(window);
+      window.fetch = (url, options) => url === "/key" && options?.body === ":poll"
+        ? Promise.resolve(new Response(null, { status: 409 }))
+        : fetchOriginal(url, options);
+    })()`);
+  }
 
   const patrolWallTiles = new Set(patrolCombat ? [
     "battle-tile:40c40bfff532a623cbed6d12294d91c254cca2ef45f37aa2677314f4bea113ff",

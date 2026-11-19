@@ -2762,6 +2762,9 @@ The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
 appears.
+The Lizardfolk outer yard uses wet peat and subdued puddles under the
+reeds and masonry. `lizard-outer-yard` checks 38 revised tiles across
+19 live views and verifies that switching presentation preserves the save.
 `wilderness-waystone` checks 80 patterns across ten views, including
 77 new foliage and palisade tiles. The route uses the existing area 26
 ground, which it shares with the north gate.
@@ -2834,6 +2837,8 @@ The replay pairs the attack frame with the original report of the
 corporal hitting Enna. The `river-pumping` replay checks the middle and
 close bound lizardfolk sprites, then the pumping-room illustration
 before parlay and the journal update.
+The Slums potion-lab replay verifies the scoped orc ready sprite. It
+steps combat pauses explicitly to keep the replay deterministic.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.
