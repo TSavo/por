@@ -37,6 +37,14 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["valjevo-bucket-trap-giant", {
+    slot: "B", inputs: ["up", "enter", "enter", "enter"],
+    placement: [48, 32, "encounter:area:3:ecl:a662:SPRIT5.DAX:56:0:0", 48, 80],
+    dialogue: {
+      key: "enter", portrait: "portrait:area:3:PIC5.DAX:56:0:0",
+      prompt: /THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE/i,
+    },
+  }],
   ["swamp-drythh-followers", {
     slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter"],
     placement: [48, 32, "encounter:area:16:ecl:a535:SPRIT8.DAX:57:0:0", 48, 80],
@@ -3905,6 +3913,7 @@ try {
         .map(([, character]) => String.fromCharCode(character)).join("");
       assert.match(text, prompt);
       await waitFor("the enhanced encounter dialogue", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+      await verifyPortraitPanel();
       await switchBothWays();
     }
     if (encounterRoute.battleStart) {
