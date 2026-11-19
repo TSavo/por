@@ -165,6 +165,8 @@ type TraceCell = [x: number, y: number, id: string, pixels?: string];
 type TraceRecord = { cells?: TraceCell[]; type?: string; area?: number; cursor?: number; dialogue?: string; sources?: string[]; sequence?: number };
 const capturedTiles = new Map<string, { x: number; y: number; trace: string; frame: number; pixels: Buffer }>();
 const observedPortraitFallbacks: { area?: number; cursor?: number; dialogue?: string; sources: string[]; sequence: number; trace: string }[] = [];
+const portraitTraceFrames: { area: number; sources: string[]; frame: number; trace: string }[] = [];
+const matchTracePortrait = tracePaths.length ? loadPortraitArt([], true, gameData) : undefined;
 for (const path of tracePaths) {
   const raw = readFileSync(path, "utf8").trim();
   if (!raw) continue;
@@ -185,16 +187,34 @@ for (const path of tracePaths) {
     const cells = Array.isArray(record) ? record : record.cells ?? [];
     // A cleared 11×11 view between scenes has no terrain to replace.
     if (cells.length === 121 && cells.every(([, , id, hex]) => id.startsWith("tile:") && hex === "00".repeat(64))) continue;
+    const validated: [x: number, y: number, id: string, pixels: Buffer][] = [];
     for (const [x, y, id, hex] of cells) {
       if (!Number.isInteger(x) || !Number.isInteger(y) || !hex ||
-          !/^(?:0[0-9a-f]){64}$/.test(hex) || capturedTiles.has(id)) continue;
+          !/^(?:0[0-9a-f]){64}$/.test(hex)) continue;
       const hash = /^(?:tile:\d+:|battle-tile:)([a-f0-9]{64})$/.exec(id)?.[1];
       if (!hash) continue;
       const pixels = Buffer.from(hex, "hex");
       if (createHash("sha256").update(pixels).digest("hex") !== hash) {
         throw new Error(`Tile pixels do not match ${id} in ${path}, frame ${frame}`);
       }
-      capturedTiles.set(id, { x, y, trace: path, frame, pixels });
+      validated.push([x, y, id, pixels]);
+    }
+    const tileArea = /^tile:(\d{1,3}):/.exec(validated[0]?.[2] ?? "")?.[1];
+    if (matchTracePortrait && tileArea !== undefined && validated.length === 121 &&
+        validated.every(([x, y, id]) => x >= 24 && x < 112 && y >= 24 && y < 112 &&
+          x % 8 === 0 && y % 8 === 0 && id.startsWith(`tile:${tileArea}:`)) &&
+        new Set(validated.map(([x, y]) => y * 320 + x)).size === 121) {
+      const screen = new Frame(320, 200);
+      for (const [x, y, , pixels] of validated) screen.blit(pixels, 8, 8, x, y);
+      const area = Number(tileArea);
+      const sources = matchTracePortrait(screen, area);
+      if (Array.isArray(sources) && sources.length) {
+        portraitTraceFrames.push({ area, sources, frame, trace: path });
+        continue;
+      }
+    }
+    for (const [x, y, id, pixels] of validated) {
+      if (!capturedTiles.has(id)) capturedTiles.set(id, { x, y, trace: path, frame, pixels });
     }
   }
 }
@@ -502,6 +522,10 @@ ${observedPortraitFallbacks.map(({ area, cursor, dialogue, sources, sequence, tr
   <td>${sources.map(id => `<code>${escape(id)}</code>`).join("<br>")}</td><td>${escape(dialogue ?? "")}</td>
   <td>${escape(trace)} #${sequence}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
+${portraitTraceFrames.length ? `<details><summary>Portraits in tile traces · ${portraitTraceFrames.length}</summary><ul>${
+  portraitTraceFrames.map(({ area, sources, frame, trace }) =>
+    `<li>Area ${area} · ${escape(trace)} #${frame} · ${sources.map(id => `<code>${escape(id)}</code>`).join(", ")}</li>`).join("")
+}</ul></details>` : ""}
 ${explorationCoverage.length ? `<details><summary>Exploration coverage by area</summary>
 <table class="coverage-table"><thead><tr><th>Area</th><th>Captured</th><th>With replacements</th><th>Unmatched</th></tr></thead><tbody>
 ${explorationCoverage.map(({ area, captured, matched }) => {
@@ -594,7 +618,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
