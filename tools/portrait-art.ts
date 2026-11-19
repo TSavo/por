@@ -12,10 +12,12 @@ const top = 24;
 const size = 88;
 const headHeight = 40;
 
-export function loadPortraitArt(keys: string[], includeClassic = false) {
-  const root = keys.length || includeClassic ? findGameRoot() : null;
+export function loadPortraitArt(keys: string[], includeClassic = false,
+  root = keys.length || includeClassic ? findGameRoot() : null,
+  report?: (id: string, reason: string) => void) {
   const files = new Map(root ? listGameFiles(root).map((file) => [file.toUpperCase(), file]) : []);
   const patterns = new Map<string, string | null>();
+  const registered = new Map<string, string[]>();
   const classicSources = new Map<string, string[]>();
   const classicHeads = new Map<string, string[]>();
   const classicBodies = new Map<string, string[]>();
@@ -39,6 +41,11 @@ export function loadPortraitArt(keys: string[], includeClassic = false) {
     const scope = area === undefined ? "" : cursor === undefined ? `${area}:` : `${area}:${cursor}:`;
     const signature = scope + Buffer.from(pixels).toString("base64");
     patterns.set(signature, patterns.has(signature) ? null : key);
+    if (report) {
+      const ids = registered.get(signature) ?? [];
+      ids.push(key);
+      registered.set(signature, ids);
+    }
   }
   for (const key of keys) {
     const composite = compositePortraitKey.exec(key);
@@ -62,6 +69,16 @@ export function loadPortraitArt(keys: string[], includeClassic = false) {
     const picture = decodePicture(record.data);
     if (picture.width !== size || picture.height !== size || Number(frame) >= picture.itemCount) continue;
     register(frameSlice(picture, Number(frame)), key);
+  }
+  if (report) {
+    const matched = new Set([...registered.values()].flat());
+    for (const key of keys) {
+      if (!matched.has(key)) report(key, "No usable 88×88 original portrait frame for this ID.");
+    }
+    for (const ids of registered.values()) {
+      if (ids.length < 2) continue;
+      for (const id of ids) report(id, "Ambiguous original portrait in the same scope: " + ids.filter(other => other !== id).join(", "));
+    }
   }
   if (includeClassic) {
     for (const [name, file] of files) {

@@ -8,7 +8,7 @@ import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng } from "./png.js";
 import { loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
-import { compositePortraitKey, portraitKey } from "./portrait-art.js";
+import { compositePortraitKey, loadPortraitArt, portraitKey } from "./portrait-art.js";
 import { loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
 const families = [
@@ -197,7 +197,12 @@ for (const path of tracePaths) {
   }
 }
 const artworkLoadIssues: ArtworkLoadIssue[] = [];
-const replacements = [...loadUpgradeArt(undefined, gameData, issue => artworkLoadIssues.push(issue))].map(([id, { png, ...metadata }], index) => {
+const artwork = loadUpgradeArt(undefined, gameData, issue => artworkLoadIssues.push(issue));
+const portraitMatchIssues: { id: string; reason: string }[] = [];
+loadPortraitArt([...artwork.keys()].filter(id => portraitKey.test(id)), false, gameData, (id, reason) => {
+  portraitMatchIssues.push({ id, reason });
+});
+const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
   const match = randomCombatKey.exec(id) ??
@@ -480,6 +485,9 @@ ${artworkLoadIssues.length ? `<details><summary>${artworkLoadIssues.length} artw
   artworkLoadIssues.map(({ manifest, id, reason }) =>
     `<li>${escape(manifest)}${id ? ` · <code>${escape(id)}</code>` : ""} · ${escape(reason)}</li>`).join("")
 }</ul></details>` : ""}
+${portraitMatchIssues.length ? `<details><summary>${portraitMatchIssues.length} portrait matching issues</summary><ul>${
+  portraitMatchIssues.map(({ id, reason }) => `<li><code>${escape(id)}</code> · ${escape(reason)}</li>`).join("")
+}</ul></details>` : ""}
 <dl class="inventory-totals">${inventoryCategories.map(([category, label]) =>
   `<div><dt>${label}</dt><dd>${replacementCounts.get(category) ?? 0}</dd></div>`).join("")}</dl>
 ${capturedTiles.size ? `<p>Captured exploration patterns: ${explorationTotals.matched} of ${explorationTotals.captured} replaced, ${explorationTotals.captured - explorationTotals.matched} unmatched.</p>
@@ -583,7 +591,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, artworkLoadIssues, missingTiles, observedPortraitFallbacks, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
