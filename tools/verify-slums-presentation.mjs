@@ -1677,8 +1677,8 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "left", "up", "up", "up", "left", "up", "up", "right", "up", "right", "up", "up", "right", "up"],
   }],
   ["kuto-well-approach", {
-    slot: "J", area: 29, views: 15, patterns: 89,
-    walk: ["up", "up", "up", "right", "up", "left", "up", "right", "up", "left", "up", "right", "up", "left"],
+    slot: "J", area: 29, views: 16, patterns: 89,
+    walk: ["up", "up", "up", "right", "up", "left", "up", "right", "up", "left", "up", "right", "up", "left", "up"],
   }],
   ["stojanow-riverwalk", {
     slot: "A", area: 9, views: 13, patterns: 50, sceneryOnly: true,
@@ -2302,6 +2302,14 @@ try {
     }
     assert.equal(views, environment.views);
     assert.equal(patterns.size, environment.patterns);
+    if (routeName === "kuto-well-approach") {
+      const scouts = "encounter:area:29:SPRIT8.DAX:0:0:0";
+      assert.deepEqual(frame.encounter, [48, 32, scouts, 40, 80]);
+      await waitFor("the Kuto scouts over the well scenery", () => run(`state.sequence === ${frame.sequence} &&
+        [...document.querySelectorAll(".encounter-sprite")].some(image =>
+          image.getAttribute("src") === ${JSON.stringify("/art/" + scouts)} &&
+          image.naturalWidth === 160 && image.naturalHeight === 320)`));
+    }
     if (actor) {
       assert.ok(frame.encounter, "The encounter actor must be drawn separately from the scenery");
       const [, , id, width, height] = frame.encounter;
