@@ -74,6 +74,11 @@ const encounterRoutes = new Map([
     slot: "B", inputs: ["up", "enter"],
     placement: [24, 32, "encounter:area:27:SPRIT8.DAX:121:0:0", 88, 80],
     terrain: { area: 27, views: 3, patterns: 17 },
+    approachSequence: [
+      [56, 32, "encounter:area:27:SPRIT8.DAX:121:2:0", 32, 49],
+      [40, 32, "encounter:area:27:SPRIT8.DAX:121:1:0", 56, 65],
+      [24, 32, "encounter:area:27:SPRIT8.DAX:121:0:0", 88, 80],
+    ],
     dialogue: { key: "enter", portrait: "portrait:area:27:PIC8.DAX:121:0:0", prompt: /FEROCIOUSWYVERN/i },
   }],
   ["slums-hobgoblin-ringleader-approach", {

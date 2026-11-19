@@ -1614,6 +1614,9 @@ distinct 32×32 tiles, including the added wall and floor junctions.
 Controlled wyvern replays also check the 224×260 middle and 128×196 far
 sprites from `SPRIT8.DAX` block 121 at their guest anchors. Each pose
 loads above the same complete cave scenery and leads into the portrait.
+The ordinary wyvern replay now checks far, middle, and near in order.
+Controlled gnoll replays verify the 160×292 and 96×228 middle and far
+sprites from `SPRIT8.DAX` block 73 above all 121 tiles before dialogue.
 `stojanow-patrol-fighter-approach` checks the far and middle patrol
 sprites through the transition to dialogue. `pyramid-vats-lizard-approach`
 checks the vat ambush's approach sprite and dialogue portrait. Both
