@@ -2341,7 +2341,16 @@ try {
     assert.match(textOf(frame), /5,1W/i);
     assert.doesNotMatch(textOf(frame), /AREACASTVIEWENCAMP/i);
     assert.equal(frame.portrait, undefined);
+    assert.equal(frame.classicPortrait, false);
     assert.equal(frame.perspective, true);
+    const captureDoorway = async (name) => {
+      await waitFor("the enhanced street without a portrait at the doorway", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelectorAll(".terrain-tile").length === 121 &&
+        !document.querySelector(".encounter-portrait")`));
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, name), Buffer.from(shot.data, "base64"));
+    };
+    await captureDoorway("dueling-room-before-enter.png");
     const doorway = frame;
     await advance("j");
     assert.ok(frame.journal?.objective.nextStep);
@@ -2372,8 +2381,10 @@ try {
     await advance("enter");
     assert.match(textOf(frame), /AREACASTVIEWENCAMP/i);
     assert.equal(await verifyTiledView(11, patterns), 1);
+    assert.equal(frame.classicPortrait, false);
+    await captureDoorway("dueling-room-after-enter.png");
     await switchBothWays();
-    console.log("Verified the enhanced street stays visible while exiting the New Phlan dueling room.");
+    console.log("Verified the enhanced street stays visible while exiting the New Phlan dueling room. Captures:", directory);
   } else if (routeName === "new-phlan-arena-quick" || routeName === "new-phlan-arena-manual-report") {
     await run(`window.combatReports = [];
       new MutationObserver(() => {
