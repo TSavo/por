@@ -1349,6 +1349,11 @@ const environmentRoutes = new Map([
     transition: { afterViews: 6, area: 29 },
     walk: ["up", "up", "left", "right", "right", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "up", "up", "left"],
   }],
+  ["kuto-south-court", {
+    slot: "J", area: 29, views: 17, patterns: 86,
+    walk: ["up", "up", "up", "right", ...Array(9).fill("up"), "left", "up", "up"],
+    finalEncounter: [40, 32, "encounter:area:29:SPRIT8.DAX:73:0:0", 56, 80],
+  }],
   ["kuto-south-passage", {
     slot: "J", area: 18, views: 18, patterns: 107, sceneryOnly: true,
     transition: { afterViews: 6, area: 29 },
