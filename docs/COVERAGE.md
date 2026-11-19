@@ -3087,9 +3087,10 @@ The wandering Podal Plaza orc uses a dedicated close approach sprite.
 Chrome verifies placement, the original walk-on dialogue, and mode switching.
 
 Character-sheet heads overlap collars as transparent layers, offset six
-guest pixels below the original head anchor. Bodies 3 and 4 use their
-previous artwork. Production Chrome verified 34 frames after the rollback,
-including both chooser cycles and multiple heads with Body 3.
+guest pixels below the original head anchor. Body 3 keeps its broad torso,
+with a localized change to the neck and upper shoulders. Body 4 uses its
+earlier artwork. Production Chrome verified 34 frames, including both
+chooser cycles and six heads paired with Body 3.
 
 All 18 weapons for the default player icon head have ready and action
 sprites. The editor sweep covers all choices, and production Chrome combat
