@@ -540,15 +540,20 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:PIC|SPRIT|CPIC)\d+\
       return replacement ? [{ ...source, replacement, reflected, replacementPreview: replacementsById.get(replacement)!.preview }] : [];
     });
     const pixelMatchedIds = new Set(pixelMatchedFrames.map(({ id }) => id));
-    return { file, frames, matched: frames - unlinkedFrames.length, pixelMatchedFrames,
-      unlinkedFrames: unlinkedFrames.filter(({ id }) => !pixelMatchedIds.has(id)) };
+    const remainingFrames = unlinkedFrames.filter(({ id }) => !pixelMatchedIds.has(id)).map(source => {
+      const picture = classicPicture(file, source.directoryIndex, source.member);
+      const pixels = frameSlice(picture, source.frame);
+      return { ...source, uniform: pixels.every(color => color === pixels[0]) };
+    });
+    return { file, frames, matched: frames - unlinkedFrames.length, pixelMatchedFrames, unlinkedFrames: remainingFrames };
   }).filter(({ frames }) => frames > 0);
 const encounterTotals = encounterCoverage.reduce((total, row) => ({
   frames: total.frames + row.frames,
   matched: total.matched + row.matched,
   matchedByPixels: total.matchedByPixels + row.pixelMatchedFrames.length,
   remaining: total.remaining + row.unlinkedFrames.length,
-}), { frames: 0, matched: 0, matchedByPixels: 0, remaining: 0 });
+  uniformUnlinked: total.uniformUnlinked + row.unlinkedFrames.filter(({ uniform }) => uniform).length,
+}), { frames: 0, matched: 0, matchedByPixels: 0, remaining: 0, uniformUnlinked: 0 });
 writeFileSync(join(output, "index.html"), `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pool of Radiance art inventory</title><style>
 body{font:16px system-ui;background:#181715;color:#f3e9d6;margin:2rem auto;padding:0 1rem;max-width:1200px}
@@ -609,13 +614,14 @@ ${encounterCoverage.flatMap(({ pixelMatchedFrames }) => pixelMatchedFrames).map(
   `<tr><th scope="row"><code>${escape(id)}</code></th><td><code>${escape(replacement)}</code>${reflected ? " · mirrored" : ""}</td><td><a href="${escape(replacementPreview)}">Enhanced PNG</a></td></tr>`).join("")}
 </tbody></table></details>
 <details><summary>Unlinked source frames · ${encounterTotals.remaining}</summary>
+<p>${encounterTotals.uniformUnlinked} unlinked frames are solid-color images.</p>
 <p>Each source ID contains the archive, directory entry, member, and zero-based frame number. The preview opens the source sheet. Some archive frames may have no verified in-game use.</p>
 ${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({ file, unlinkedFrames }) =>
   `<details id="archive-${escape(file)}"><summary>${escape(file)} · ${unlinkedFrames.length}</summary>
   <table class="coverage-table"><thead><tr><th>Source ID</th><th>Block</th><th>4× target</th><th>Preview</th></tr></thead><tbody>
-  ${unlinkedFrames.map(({ id, block, width, height, preview }) =>
+  ${unlinkedFrames.map(({ id, block, width, height, preview, uniform }) =>
     `<tr><th scope="row"><code>${escape(id)}</code></th><td>${block}</td><td>${width}×${height}</td>
-    <td><a href="${escape(preview)}" target="_blank" rel="noopener">Source sheet</a></td></tr>`).join("")}
+    <td><a href="${escape(preview)}" target="_blank" rel="noopener">Source sheet</a>${uniform ? " · Solid color" : ""}</td></tr>`).join("")}
   </tbody></table></details>`).join("")}
 </details>
 <details><summary>Named monster combat poses · ${missingMonsterPoses} without matching art · ${scopedMonsterPoseCandidates} with reuse candidates</summary>
