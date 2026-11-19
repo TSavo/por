@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["podal-pitt-drunken-buccaneer", {
+    slot: "I", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:HEAD1.DAX:6:BODY1.DAX:3", prompt: /ONEOFYOUSHALLPAYFORTHISINSULT/i,
+  }],
+  ["podal-pitt-monster-patrons", {
+    slot: "I", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:18:PIC1.DAX:2:0:0", prompt: /THECREATURESIGNOREYOUFORTHEMOMENT/i,
+  }],
   ["slums-grain-sack-ambush", {
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:20:PIC2.DAX:31:0:0", prompt: /SOMEMONSTERSARETOSSINGASACKOFGRAIN/i,
@@ -396,6 +404,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["zhentil-north-lanes", {
+    slot: "A", area: 28, views: 17, patterns: 57, sceneryOnly: true,
+    walk: ["left", "up", "up", "left", "up", "up", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up"],
+  }],
   ["mendor-east-court", {
     slot: "D", area: 20, views: 17, patterns: 44, sceneryOnly: true,
     walk: ["up", "up", "right", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up"],

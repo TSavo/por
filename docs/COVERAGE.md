@@ -1349,6 +1349,9 @@ portraits and prove the journal gains each lead only after hearing it.
 original temple interior prompt, including panel fit and mode switching.
 `slums-grain-sack-ambush` checks the illustration at the original
 grain sack prompt with the same panel and presentation switch checks.
+`zhentil-north-lanes` checks eight new 32×32 tiles and the sky joins
+across 17 live views. The two `podal-pitt-*` routes verify the drunken
+buccaneer and monster patrons at their original tavern prompts.
 `mendor-east-court` and `valjevo-dungeon-east-yard` check five new
 scenery bindings across 33 live views.
 `nomad-veteran-ready` verifies the 96×96 ready pose in the Headman

@@ -1,6 +1,16 @@
 {
   "version": 1,
   "assets": {
+    "tile:28:3a3a128c42e891333672e2afe2f5b54df57cc147d478c373c68d5ee656e0fbef": "zhentil-northern-lane-terrain-3a3a128c42e8.png",
+    "tile:28:cf144496ed0681020df4d6981a47b47c94e986a0ed70f30b6120ad6998654aee": "zhentil-northern-lane-terrain-cf144496ed06.png",
+    "tile:28:11583121b2ac1a5771150de2b118c9675f522dedcd118833af481912bc3e24f6": "zhentil-northern-lane-terrain-11583121b2ac.png",
+    "tile:28:d0a83bd71c8df140546833f463034917d2a4558950848f3c53576cc3dd781655": "zhentil-northern-lane-terrain-d0a83bd71c8d.png",
+    "tile:28:0074a4a4e147d6b679cc508e8599c9c6aad4f0d13b833284e6c8161dfddba398": "zhentil-northern-lane-terrain-0074a4a4e147.png",
+    "tile:28:073678de9f80ec4b651d039ff237e85ba540a7ca11ddf2ea0ca4cb864d77731c": "zhentil-northern-lane-terrain-073678de9f80.png",
+    "tile:28:213b6d8b4f0670cd6e8118fcd939f0e30e266967f16b88bfc23e922584810a6b": "zhentil-northern-lane-terrain-213b6d8b4f06.png",
+    "tile:28:215488a7ca18e31d90dd8bc2d00c5f3002c2801a983ba96bbb0ceb9b2b3bd498": "zhentil-northern-lane-terrain-215488a7ca18.png",
+    "portrait:HEAD1.DAX:6:BODY1.DAX:3": "podal-pitt-drunken-buccaneer.png",
+    "portrait:area:18:PIC1.DAX:2:0:0": "podal-pitt-monster-patrons.png",
     "tile:20:eb793b63e5fbde83fe69f62582027547e1fa470ceb470db6de65735977eb6562": "mendor-east-court-terrain-01.png",
     "tile:20:983bfc53257b5c0ef9d10cdd5ba4b4501fed50e212f885a7dd8b3a4c24ca878f": "mendor-east-court-terrain-02.png",
     "tile:20:2b318229a4b2903d4530ecbaa037fb98cc51f1c1731900f01c6dbba9cd27f8e2": "mendor-east-court-terrain-03.png",
