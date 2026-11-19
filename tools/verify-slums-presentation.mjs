@@ -23,6 +23,7 @@ const mazeWatch = routeName === "valjevo-maze-watch";
 const dungeonSentry = routeName === "valjevo-dungeon-sentry";
 const castleRecords = routeName === "valjevo-records";
 const castleReports = routeName === "valjevo-scriptorium-reports";
+const castleReportsReload = routeName === "valjevo-scriptorium-reports-reload";
 const genheerisOrders = routeName === "valjevo-genheeris-orders";
 const genheeris = routeName === "valjevo-genheeris-bargain" || genheerisOrders;
 const norrisSurrender = routeName === "kuto-norris-surrender";
@@ -379,7 +380,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-dungeon-sentry", "valjevo-records", "valjevo-scriptorium-reports", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-dungeon-sentry", "valjevo-records", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -435,7 +436,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || dungeonSentry || castleRecords || castleReports || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || dungeonSentry || castleRecords || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -1011,6 +1012,14 @@ try {
     }
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log(`Verified the Genheeris portrait and earned journal lead on ${routeName} in Chrome.`);
+  } else if (castleReportsReload) {
+    await advance("j");
+    const leads = frame.journal?.leads ?? [];
+    assert.ok(leads.some(({ id }) => id === "castle-raven-clan"));
+    assert.ok(leads.some(({ id }) => id === "castle-flaming-aura"));
+    assert.ok(!leads.some(({ id }) => id === "castle-records-thay"));
+    await switchBothWays();
+    console.log("Verified the witnessed scriptorium reports after cold loading.");
   } else if (castleReports) {
     const knows = id => frame.journal?.leads.some(lead => lead.id === id);
     await advance("j");
@@ -1020,6 +1029,9 @@ try {
     for (const key of ["j", "enter", "left", "up", "left", "up", "right", "up", "enter", "left", "up", "left", "up", "right", "up", "enter", "left", "up", "left", "up", "j"]) await advance(key);
     assert.ok(knows("castle-raven-clan") && knows("castle-flaming-aura"));
     await switchBothWays();
+    for (const key of ["j", "enter", "e", "s", "s", "b"]) await advance(key);
+    assert.notDeepEqual(readFileSync(saved), originalSave);
+    console.log("Native save:", saved);
     console.log("Verified separately earned scriptorium reports in Chrome.");
   } else if (castleRecords) {
     const knows = id => frame.journal?.leads.some(lead => lead.id === id);

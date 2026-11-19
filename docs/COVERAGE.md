@@ -1202,6 +1202,10 @@ with the officer fight marked cleared. The Raven Clan report and the
 flaming-aura clue appear separately as their text is shown. The translation
 verifier checks that the aura clue changes the journal directions after
 the party discovers the impostor.
+`valjevo-scriptorium-reports` writes slot B through Encamp after both
+discoveries. `valjevo-scriptorium-reports-reload` starts a fresh Chrome
+session from that save and checks both reports are restored, while the
+unread Thay alliance entry from the separate records building stays hidden.
 `valjevo-dungeon-sentry` checks the custom portrait when the original
 sentry sounds the alarm. `valjevo-outer-service` uses controlled slot B
 staged at the area's original arrival coordinates. Chrome checks all
