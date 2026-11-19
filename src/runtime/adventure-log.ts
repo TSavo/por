@@ -221,6 +221,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "kobolds") {
       if (knows("kobold-king-quarters")) nextStep = "Defeat the king's guards and find him in his quarters.";
       else if (knows("kobold-king-escaped")) nextStep = "Search the caves for the escaped king and his quarters.";
+      else if (knows("kobold-fatima-intervened")) nextStep = "Help Princess Fatima fight the kobolds who took the party prisoner.";
+      else if (knows("kobold-prison-cell")) nextStep = "Look for a way out of the cell. Check the party's equipment before returning to the throne.";
+      else if (knows("kobold-prison-escort")) nextStep = "See where the kobolds take the party and watch for a chance to escape.";
+      else if (knows("kobold-surrender-offer")) nextStep = "Choose Surrender to lay down your arms, or Fight to face the king's forces again.";
       else if (knows("kobold-throne-envoys")) nextStep = "Confront the king and the envoys at the throne.";
       else if (knows("kobold-guide-arrived")) nextStep = "From where the guide stopped, go one square north, two squares west, then north to the throne room.";
       else if (knows("kobold-guide-follow")) nextStep = "Follow the kobold guide to the king.";
@@ -666,6 +670,22 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("YOU REACH THE KING'S QUARTERS AND CONFRONT HIS GUARDS")) {
     leads.push({ id: "kobold-king-quarters", title: "The king's quarters", detail: "The party reached the king's quarters and encountered his guards." });
+  }
+  if (text.includes("YOU SEEM VALUABLE. SURRENDER OR DIE") || text.includes("THE BALLISTA ARE RELOADED. THE KING CALLS OUT")) {
+    leads.push({ id: "kobold-surrender-offer", title: "The king demands surrender",
+      detail: "The kobold king offered the party a choice between surrendering and fighting again." });
+  }
+  if (text.includes("THE KOBOLDS HERD YOU TOWARD YOUR PRISON")) {
+    leads.push({ id: "kobold-prison-escort", title: "Taken prisoner",
+      detail: "The kobolds took some equipment while escorting the party to prison." });
+  }
+  if (text.includes("YOU ARE THROWN INTO A CELL BEREFT OF EQUIPMENT")) {
+    leads.push({ id: "kobold-prison-cell", title: "Locked in a kobold cell",
+      detail: "The kobolds stripped the party of its equipment and left it in a cell." });
+  }
+  if (text.includes("I AM THE PRINCESS FATIMA, AID ME IN THIS BATTLE")) {
+    leads.push({ id: "kobold-fatima-intervened", title: "Fatima intervened",
+      detail: "Princess Fatima appeared and asked the party to help her fight." });
   }
   if (text.includes("I AM PRINCESS FATIMA") && text.includes("RECORD IT IN YOUR JOURNAL UNDER ENTRY 16")) {
     leads.push({ id: "kobold-fatima-account", title: "Princess Fatima's account",

@@ -1143,6 +1143,9 @@ The throne-specific ECL cursor selects the new illustration and the
 guide still uses his own portrait earlier in the same replay.
 The translation verifier checks the later escape and quarters guidance
 against the original dialogue.
+It also tests the surrender demand, restores the prison escort clue from a
+saved journal, and checks the separate cell and Fatima outcomes against
+their original dialogue. The surrender branch still needs a live replay.
 
 The `kobold-princess-fatima` replay uses controlled slot B to check her
 portrait and journal entry 16, then verifies that she joins the roster.

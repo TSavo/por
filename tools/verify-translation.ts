@@ -742,15 +742,41 @@ function checkCampaignJournal(): void {
   writeGlobal(0x4a19, 0);
   m.write8(m.ds, 0x82a2, priorEcl);
   const koboldOffer = commissions.find(({ id }) => id === "kobolds")!.offer;
+  const koboldLine = (trigger: string) => {
+    const line = lines.find(text => text.replace(/\s+/g, " ").includes(trigger));
+    if (!line) throw new Error(`Missing original kobold dialogue for ${trigger}`);
+    return line;
+  };
+  const surrender = koboldLine("YOU SEEM VALUABLE. SURRENDER OR DIE");
+  const escortToPrison = koboldLine("THE KOBOLDS HERD YOU TOWARD YOUR PRISON");
+  const offeredSurrender = discoveredLeads(`${koboldOffer}\n${surrender}`);
+  if (offeredSurrender.some(({ id }) => id.startsWith("kobold-prison-")) ||
+      !currentObjective(offeredSurrender, "commission-kobolds").nextStep.includes("or Fight")) {
+    throw new Error("The kobold journal confused the surrender offer with capture");
+  }
+  for (const [trigger, expected, hidden] of [
+    ["YOU ARE THROWN INTO A CELL BEREFT OF EQUIPMENT", "Look for a way out of the cell", "kobold-fatima-intervened"],
+    ["I AM THE PRINCESS FATIMA, AID ME IN THIS BATTLE", "Help Princess Fatima", "kobold-prison-cell"],
+  ]) {
+    const profile = openJournalProfile();
+    profile.restore(discoveredLeads(`${koboldOffer}\n${surrender}\n${escortToPrison}`));
+    if (!currentObjective(profile(""), "commission-kobolds").nextStep.includes("See where the kobolds take the party")) {
+      throw new Error("The kobold journal did not restore the prison escort objective");
+    }
+    const leads = profile(koboldLine(trigger));
+    if (leads.some(({ id }) => id === hidden) || !currentObjective(leads, "commission-kobolds").nextStep.includes(expected)) {
+      throw new Error(`The kobold journal confused the outcomes after ${trigger}`);
+    }
+  }
   let koboldTranscript = koboldOffer;
   for (const [trigger, instruction] of [
     ["THE TWO ENVOYS WAIT AT THE THRONE", "Confront the king and the envoys"],
     ["THE KING HAS ESCAPED DURING THE FIGHT", "Search the caves for the escaped king"],
     ["YOU REACH THE KING'S QUARTERS AND CONFRONT HIS GUARDS", "Defeat the king's guards"],
   ]) {
-    const line = lines.find(text => text.replace(/\s+/g, " ").includes(trigger));
-    if (!line || currentObjective(discoveredLeads(koboldTranscript), "commission-kobolds").nextStep.includes(instruction)) {
-      throw new Error(`Missing or premature kobold journal guidance for ${trigger}`);
+    const line = koboldLine(trigger);
+    if (currentObjective(discoveredLeads(koboldTranscript), "commission-kobolds").nextStep.includes(instruction)) {
+      throw new Error(`Premature kobold journal guidance for ${trigger}`);
     }
     koboldTranscript += "\n" + line;
     if (!currentObjective(discoveredLeads(koboldTranscript), "commission-kobolds").nextStep.includes(instruction)) {
