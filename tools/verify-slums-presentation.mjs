@@ -2015,6 +2015,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
+    POR_TRACE_BATTLE_TILES: routeName === "lizardfolk-battle-wall" ? "1" : browserEnvironment.POR_TRACE_BATTLE_TILES,
     POR_BOOT_KEYS: freshRolf ? "31000000:1c0d,45000000:2e63" : "31000000:1c0d,45000000:266c,52000000:" + boot,
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
   },
@@ -2754,18 +2755,30 @@ try {
       [72,128,"battle-tile:7879edde6815d1ab90d632600724e52de5034dd5cc0d386ef1d35b2023fbe12f"],
       [72,160,"battle-tile:6a6b3a6a8bd1d15c819b33ac9f2fc99ad2d2e83e2c7b2ccf3fec96f24609b00c"],
     ];
+    const terrainPatterns = new Set();
     for (let turn = 0; turn < 4; turn++) {
       await advance("q");
-      for (const tile of walls) assert.ok(frame.battleTiles.some(placement => placement.every((part, index) => part === tile[index])));
+      const placements = new Map(frame.battleTiles.map(([x, y, id]) => [`${x},${y}`, id]));
+      for (const [x, y, id] of walls) assert.equal(placements.get(`${x},${y}`), id);
+      for (const [x, y, id] of frame.battleTileInventory) {
+        assert.equal(placements.get(`${x},${y}`), id, `Missing enhanced tile at ${x},${y} in turn ${turn + 1}`);
+        terrainPatterns.add(id);
+      }
       assert.ok(walls.every(([x, y]) => frame.combatArt.every(([ax, ay, , , , width = 24, height = 24]) =>
         x >= ax + width || x + 8 <= ax || y >= ay + height || y + 8 <= ay)));
-      await waitFor("both battlefield wall tiles", () => run(`state.sequence === ${frame.sequence} &&
-        ${JSON.stringify(walls.map(([, , id]) => id))}.every(id =>
-          [...document.querySelectorAll(".battle-tile")].some(image =>
-            image.getAttribute("src") === "/art/" + id && image.naturalWidth === 32 && image.naturalHeight === 32))`));
+      await waitFor("the complete enhanced battlefield tile layer", () => run(`(() => {
+        if (state.sequence !== ${frame.sequence} || animationFrame) return false;
+        const tiles = new Map([...document.querySelectorAll(".battle-tile")].map(image =>
+          [image.style.left + "," + image.style.top, image]));
+        return ${JSON.stringify(frame.battleTiles)}.every(([x, y, id]) => {
+          const tile = tiles.get(x / 3.2 + "%," + y / 2 + "%");
+          return tile?.getAttribute("src") === "/art/" + id && tile.naturalWidth === 32 && tile.naturalHeight === 32;
+        });
+      })()`));
     }
+    assert.ok(terrainPatterns.size >= 45, "Expected the giant-lizard route to exercise at least 45 battlefield patterns");
     await switchBothWays();
-    console.log("Verified both wall tiles across four live giant-lizard combat turns.");
+    console.log(`Verified ${terrainPatterns.size} battlefield patterns across four live giant-lizard combat turns.`);
   } else if (mageWand) {
     const wand = "combat:area:20:CPIC2.DAX:222:ecl:a0b4";
     const ready = "combat:area:20:CPIC2.DAX:94:ecl:a0b4";

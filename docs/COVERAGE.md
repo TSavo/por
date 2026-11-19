@@ -1751,8 +1751,12 @@ class-specific training prompts, distinct portraits, and panel fit.
 original encounter and through the password dialogue after Parlay.
 `zhentil-quarters-guard-dialogue` checks the portrait at the guards’
 quarters restriction, including panel fit and mode switching.
-`lizardfolk-battle-wall` checks two independent wall tiles across four
-giant-lizard combat turns, outside the live actor bounds.
+`lizardfolk-battle-wall` starts from the Lizardfolk ruin trail slot A
+checkpoint (`out/lizard-ruin-route-A.json` in the local replay workspace).
+Chrome checks all 45 observed battlefield tile patterns across four
+giant-lizard combat turns, including two independent wall tiles outside
+the live actor bounds. The check verifies asset URLs, 32×32 dimensions,
+and positions on the live battlefield.
 `lizardfolk-southwest-trail` checks six new masonry and reed junction
 tiles across 15 live views from the unchanged ruin-route save. The final
 view verifies the giant lizard sprite separately over all 121 terrain tiles.
