@@ -547,6 +547,8 @@
     "battle-tile:31df930a036b4ae59cd53afcee29987d8a559cc5128af2283b5f3fb73cbdcac0": "nomad-raid-wall-cracked-coping.png",
     "battle-tile:47c99cc7d2eab5d6017e17039be0358efc1da5ff97bfe637bddb7edacb54c79a": "nomad-raid-wall-inner-mortar.png",
     "encounter:area:17:SPRIT7.DAX:0:1:0": "nomad-raid-kobold-approach.png",
+    "combat:area:17:CPIC2.DAX:0:ecl:afa3": "nomad-raid-kobold-stand.png",
+    "combat:area:17:CPIC2.DAX:128:ecl:afa3": "nomad-raid-kobold-strike.png",
     "portrait:area:14:HEAD3.DAX:32:BODY3.DAX:8": "old-phlan-sword-thief-dialogue.png",
     "combat:area:24:CPIC1.DAX:133:ecl:abbd": "bane-altar-veteran-strike.png",
     "combat:area:24:CPIC1.DAX:5:ecl:abbd": "bane-altar-veteran-stand.png",

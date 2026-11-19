@@ -1169,6 +1169,10 @@ actor was painted, even when both draws occur between input frames.
 The replay continues to Alda's first manual combat turn and verifies
 all 66 battlefield placements, including three new 32×32 wall pieces.
 Both presentation modes preserve that turn.
+The preceding enemy view uses the Nomad raid's own 96×96 kobold poses,
+selected by the original combat script position. Chrome verifies the
+standing pose at an anchor where it overlaps the wall. Remaining wall
+fragments under overlapping sprites and the live strike need coverage.
 The `kuto-well-approach` replay uses slot J saved after the original cross-
 district transition. Chrome verifies 1,936 placements across 16 views on
 the walk to the well, using 89 distinct 32×32 tiles. The final view checks

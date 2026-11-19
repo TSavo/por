@@ -2979,7 +2979,20 @@ try {
       await advance("c");
       assert.match(visibleText(), /ABATTLEBEGINS/i);
       const manualTurn = /ALDAHITPOINTS.*MOVEVIEWAIMUSEQUICKDONE/i;
-      for (let step = 0; step < 10 && !manualTurn.test(visibleText()); step++) await advance("enter");
+      const raider = "combat:area:17:CPIC2.DAX:0:ecl:afa3";
+      let enemyScreenshot;
+      for (let step = 0; step < 10 && !manualTurn.test(visibleText()); step++) {
+        await advance("enter");
+        if (enemyScreenshot || !frame.combatArt.some(([x, y, id]) => x === 8 && y === 104 && id === raider)) continue;
+        await waitFor("the enhanced raider in front of the wall", () => run(`state.sequence === ${frame.sequence} &&
+          [...document.querySelectorAll(".combat-sprite")].some(img =>
+            img.getAttribute("src") === ${JSON.stringify("/art/" + raider)} &&
+            img.naturalWidth === 96 && img.naturalHeight === 96 && img.style.left === "2.5%" && img.style.top === "52%")`));
+        const enemy = await command("Page.captureScreenshot", { format: "png" });
+        enemyScreenshot = resolve(directory, "nomad-raid-enemy-view.png");
+        writeFileSync(enemyScreenshot, Buffer.from(enemy.data, "base64"));
+      }
+      assert.ok(enemyScreenshot, "Expected the battlefield camera to show the raiders by the wall");
       assert.match(visibleText(), manualTurn);
       assert.equal(frame.battleTiles.length, 66);
       for (const [x, y] of [[32, 128], [40, 128], [40, 136]]) {
@@ -2993,6 +3006,7 @@ try {
       const combatScreenshot = resolve(directory, "nomad-raid-combat.png");
       writeFileSync(combatScreenshot, Buffer.from(combat.data, "base64"));
       console.log("Verified the enhanced Nomad Camp raid approach and journal in Chrome:", screenshot);
+      console.log("Enhanced Nomad raiders at the wall:", enemyScreenshot);
       console.log("Enhanced opening raid battlefield:", combatScreenshot);
     } else {
       await advance("e");
