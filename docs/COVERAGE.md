@@ -1421,6 +1421,11 @@ ambush. These Chrome replays check presentation switching.
 `slums-council-gnoll-combat` checks the 96×192 ready and reflected
 strike poses in the monster council fight from a controlled checkpoint.
 The replay switches presentation and verifies the save is unchanged.
+`slums-kobold-captain-combat` checks the 96×96 ready and reflected
+strike poses in the Slums feeding room from a controlled checkpoint.
+`valjevo-hedge-approach` checks 12 new limestone, paving, and trim
+tiles across three views and 363 placements before the snake encounter.
+Both replays verify presentation switching and save preservation.
 `mendor-fighter-approach` checks the anchored approach and the transition
 to the battered fighter's portrait. Both replays verify presentation switching.
 `kuto-inner-lane` checks ten redrawn rubble, doorstep, and wall-edge
