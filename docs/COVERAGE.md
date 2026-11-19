@@ -2240,6 +2240,12 @@ while the exploration menu is absent and before the next Enter, then checks
 the same tile placement after advancing through the transition. The browser
 recognizes the output of the original scenery draw routine during this pause.
 
+The `new-phlan-south-shop-exit` replay starts from slot A at (9,11)
+facing west. Chrome verifies the shopkeeper portrait at the offer and all
+121 enhanced street tiles immediately after declining, before pressing Enter.
+The replay checks 29 tile patterns across six views and preserves the save
+through mode switches.
+
 The `new-phlan-arena-quick` route starts from the council checkpoint at
 (6,5) facing east and uses Alda for the arena duel. Chrome checks the attack
 and damage report before choosing Quick, then verifies that one Q displays

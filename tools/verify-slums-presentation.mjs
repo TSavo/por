@@ -1379,6 +1379,10 @@ const environmentRoutes = new Map([
     slot: "A", area: 8, views: 23, patterns: 96, sceneryOnly: true,
     walk: ["up", "left", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "up", "right", "right", "up"],
   }],
+  ["new-phlan-south-shop-exit", {
+    slot: "A", area: 0, views: 6, patterns: 29, sceneryOnly: true,
+    walk: ["up", "enter", "n", "enter", "right", "up"],
+  }],
   ["new-phlan-east-terrace", {
     slot: "A", area: 8, views: 20, patterns: 92, sceneryOnly: true,
     walk: ["up", "left", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "up"],
@@ -2190,6 +2194,16 @@ try {
       const previousTiles = frame.tiles;
       await advance(key);
       if (actor && frame.encounter) assert.deepEqual(frame.tiles, previousTiles);
+      if (routeName === "new-phlan-south-shop-exit") {
+        if (key === "enter" && views === 2) {
+          assert.equal(frame.perspective, false);
+          assert.equal(frame.portrait, "portrait:HEAD3.DAX:42:BODY3.DAX:9");
+        }
+        if (key === "n") {
+          assert.equal(frame.portrait, undefined);
+          assert.equal(frame.perspective, true);
+        }
+      }
       const viewArea = transition && views >= transition.afterViews ? transition.area : area;
       views += await verifyTiledView(viewArea, patterns);
     }
