@@ -3249,6 +3249,11 @@ prompt. The Lizard Wilds kobold archer uses a dedicated ready and
 shortbow strike pair. From a fixture that selects the native kobold
 roll, Chrome verifies the strike at (80, 152) and the attack on Enna.
 
+The roaming Lizard Wilds lizardfolk have their own ready and claw
+strike sprites. Chrome verifies the reflected strike at (56, 56),
+the native attack on Cora, and display switching. The local fixture
+selects the original lizardfolk roll.
+
 `valjevo-inner-armed-guard-combat` loads the local slot B guard
 checkpoint. It checks the reflected ready pose and unreflected sword
 strike at (80, 104), the native attack on Phineas, and display switching.
