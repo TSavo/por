@@ -1125,7 +1125,10 @@ verifies all 847 placements across seven views, including 19 new 32×32
 sky, canopy, and horizon tiles, then verifies the sentries' portrait.
 `nomad-tent-lane` and `nomad-camp-rim` start at
 `2,14 E` in a native save made after entering the camp. Chrome verifies
-1,573 placements across both branches, using 49 new 32×32 tiles.
+1,694 placements across both branches, using 49 new 32×32 tiles. The
+rim route ends at the sword-ready encounter. The browser draws the shared
+swordsman sprite over the restored terrain, and all 121 terrain tiles
+remain visible in that view.
 The `nomad-headman` and `nomad-headman-stay` replays start from the overland
 camp checkpoint. They verify the headman's portrait, the journal's feast
 invitation, entry 55, kobold warning, and overnight decision. Each replay

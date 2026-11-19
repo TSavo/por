@@ -1771,8 +1771,8 @@ const environmentRoutes = new Map([
     walk: Array(5).fill("up"),
   }],
   ["nomad-camp-rim", {
-    slot: "A", area: 17, views: 7, patterns: 47,
-    walk: [...Array(4).fill("up"), "left", "up"],
+    slot: "A", area: 17, views: 8, patterns: 47,
+    walk: [...Array(4).fill("up"), "left", "up", "up"],
   }],
   ["overland-graveyard-arrival", {
     slot: "A", area: 26, views: 3, patterns: 74,
@@ -2560,6 +2560,14 @@ try {
         }
       })()` });
       assert.equal(result.result.value, true, result.exceptionDetails?.text ?? "A missing tile should preserve the enhanced view");
+    }
+    if (routeName === "nomad-camp-rim") {
+      const sentry = "encounter:area:17:SPRIT7.DAX:11:0:0";
+      assert.deepEqual(frame.encounter, [40, 32, sentry, 48, 80]);
+      const text = frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+      assert.match(text, /ALLTHENOMADSHOLDTHEIRSWORDSATTHEREADY/i);
+      await waitFor("enhanced Nomad Camp perimeter sentry", () => run(`
+        document.querySelector('.encounter-sprite[src="/art/${sentry}"]')?.naturalWidth === 192`));
     }
     if (environment.finalPortrait) {
       assert.equal(frame.portrait, environment.finalPortrait);
