@@ -1,6 +1,17 @@
 {
   "version": 1,
   "assets": {
+    "tile:16:6ec29a363a1740c0141d5b9d7b16acc952356f375c0514e8278d54388fcc3eb1": "lizard-sunken-keep-terrain-6ec29a363a17.png",
+    "tile:16:018c8a6ebd6f0ec36e95ddb15f351bcd9608ba3c27d9f35599267c40bee0b19a": "lizard-sunken-keep-terrain-018c8a6ebd6f.png",
+    "tile:16:f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b": "lizard-sunken-keep-terrain-f5a5fd42d16a.png",
+    "tile:16:fc4093aefb79575ee1d152b1188e872086c5d9d918a4ed4ca9c7aa9fc97a383a": "lizard-sunken-keep-terrain-fc4093aefb79.png",
+    "tile:16:d32d809c1fcda2814e2bed9c8d56df69d27be6d497d14b181866eb2a1e7447a6": "lizard-sunken-keep-terrain-d32d809c1fcd.png",
+    "tile:16:bebd8d7dbd7d50451923c2f8d0bcf9bf0c6f70e2b45e0ce259276a52822e7a3d": "lizard-sunken-keep-terrain-bebd8d7dbd7d.png",
+    "tile:16:2e2141fe30ab1228256785b76b38047232c8aa9d187d0950b96b8846f6c1cb1c": "lizard-sunken-keep-terrain-2e2141fe30ab.png",
+    "tile:16:3eb32c628cc63bb63aacb78dce0306e349cf10377bd04b608973abb29eafd10d": "lizard-sunken-keep-terrain-3eb32c628cc6.png",
+    "tile:16:06ed05c16c0b4c655effd1f575eeff002bb98d9dd05db591920fb384a98d9e63": "lizard-sunken-keep-terrain-06ed05c16c0b.png",
+    "tile:16:ba2e5d3ad4e52fc042f3c61e9ccb4c9df559200fb5e659faff88db18a5d1e748": "lizard-sunken-keep-terrain-ba2e5d3ad4e5.png",
+    "tile:16:e29490ac941b4d4b302d1251ac1d2b36e753a29bcbb064ab85fe0e3f490675ce": "lizard-sunken-keep-terrain-e29490ac941b.png",
     "tile:16:ec3a1e66d68a3d5c6719ad35c7c7e7aa8e16d576037d268368ae7db91b9ea7c4": "lizard-west-ruin-terrain-ec3a1e66d68a.png",
     "tile:16:e9b947f3a7478f877a100223aed13dfcf9d3c9858c0caeb2c0bf9420f9fb8248": "lizard-west-ruin-terrain-e9b947f3a747.png",
     "tile:16:8a13f7607ef498047fb51ed8383bf3e6323c74dd445dda8466bd66e0a09d8ccd": "lizard-west-ruin-terrain-8a13f7607ef4.png",
