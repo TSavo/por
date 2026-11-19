@@ -1,6 +1,7 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:31:PIC1.DAX:4:0:0": "bane-orc-guardroom-dialogue.png",
     "combat:area:27:CPIC8.DAX:128": "eastern-marches-kobolds-strike.png",
     "combat:area:27:CPIC8.DAX:0": "eastern-marches-kobolds-stand.png",
     "tile:29:ebd5b6d6a041b3c0d9159254167b48f7aa91ba6c72dc308513ecdcca31d726a4": "kuto-perimeter-lanes-terrain-ebd5b6d6a041.png",
