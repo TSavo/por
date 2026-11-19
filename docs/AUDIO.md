@@ -101,19 +101,47 @@ cannot separate numeric events from their gameplay meaning.
 
 ## Enhanced voice layer
 
-`src/audio/voices.json` defines stable dialogue and narration IDs, speakers,
-conversation or scene triggers, subtitles, context, timing, casting direction,
-pronunciations, recording format, loudness targets, files, and verification
-status. Browser playback consumes copies of original display messages but never
-changes their execution: voice is Enhanced-only, starts asynchronously, stops on
-input or presentation changes, and falls back to the original text whenever a
-line or asset is missing. Page reload initializes at the current message cursor
-so previously displayed dialogue is not repeated.
+`src/audio/voice-review-extraction.json` is a lossless mechanical inventory of
+all 2,025 text-producing ECL events. It preserves literal whitespace, dynamic
+operands, menus, source addresses, nearby instructions, and control-flow hints,
+but deliberately makes no automatic narration joins. The ECL1–ECL8 review
+manifests contain the manual, address-by-address editorial pass. A narration
+unit records its trigger print and every covered continuation print. Audio is
+attached only to the trigger; Enter may advance covered display pages while the
+same recording continues.
 
-The vertical slice includes synthetic casting prototypes for Ferran Martinez and
-the title narrator. They verify the full event, subtitle, mixing, interruption,
-and fallback path but are explicitly marked for replacement by approved final
-performances. `npm run verify` validates their manifests and WAV assets.
+`src/audio/voice-master-manifest.json` normalizes the complete review. It
+currently accounts for all 2,025 extracted events exactly once as 1,433 reviewed
+narration units plus interface/layout exclusions. Finite runtime strings are
+enumerated rather than synthesized during play: 43 dynamic families expand into
+329 selector-driven recordings, including distinct bugbear-party lines for
+KOBOLDS, GOBLINS, and ORCS. Forty-one genuinely runtime-only families remain
+explicitly unresolved and fall back to displayed text. Rebuild and validate the
+master with `npm run voice-master-manifest` and `npm run verify-voice-master`.
+
+The approved narrator is the saved ElevenLabs Voice Design identity recorded in
+`src/audio/narrator-voice-design.json`. Production narration uses `eleven_v4`
+with inline performance direction. The narrator performs quoted characters in
+audiobook style while character IDs and directions preserve continuity. The
+project owner handles any later separate character-voice casting.
+
+The translated ECL runtime emits the exact archive, block, instruction address,
+and operand identity observed from the original interpreter state. The browser
+resolves that source ID against the master manifest, suppresses covered
+continuation events, selects finite variants from the original runtime value,
+and queues consecutive narration recordings without altering ECL execution.
+Narration is Enhanced-only. Switching to Classic stops it; missing, ambiguous,
+or unresolved assets leave the authoritative original text untouched. Subtitles
+use the reviewed narration text, and independent master, effects, dialogue, and
+narration controls remain browser preferences rather than campaign-save state.
+
+`npm run verify-narration-runtime` tests real Sokal print and authored-menu
+observation, joined continuation suppression, finite dynamic selection, queueing,
+interruption, and Classic-mode gating. `npm run verify-narration-generation`
+checks every queued MP3/transcript pair, exact text, signatures, duplicates, and
+pending generation. On November 18, 2026, Chrome verified Enhanced activation,
+subtitle playback, the independent audio controls, and state-preserving return
+to Classic while audio was playing.
 
 Enhanced effects use optional `enhancedFile` entries on that same original event
 manifest. The browser selects the replacement only in Enhanced mode; otherwise it
@@ -132,10 +160,10 @@ and SHA-256 hashes. Every generated result remains subject to listening review.
 
 ## Production pipeline
 
-Tandy traces will be converted to VGM register streams and rendered to canonical
-lossless WAV files with a validated SN76489/SN76496 implementation. PC-speaker
-traces will be rendered from the original PIT divisors and gate transitions.
-Classic mode will play these verified assets according to the original event and
-interruption rules. Enhanced mode will replace the same stable event IDs with new
-effects. Dialogue and narration are Enhanced-only layers and never change ECL or
-campaign state.
+Tandy traces are converted to VGM register streams and canonical WAV with the
+validated libvgm SN76489/SN76496 core. PC-speaker assets are rendered from the
+original PIT divisors and gate transitions. Classic plays these verified assets
+with PC Beeper, Tandy, and Silent choices according to the original replacement
+rules. Enhanced substitutes approved modern effects through the same stable
+event IDs. Dialogue and narration remain Enhanced-only layers and never change
+ECL or campaign state.
