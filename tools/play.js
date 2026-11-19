@@ -671,7 +671,12 @@ async function showScreen() {
       tile.src = `/art/${id}`;
       return tile;
     }));
-    if (view.panelFrame?.length) layers.push(drawPanelFrame(view.panelFrame));
+    if (view.panelFrame?.length) {
+      const panelFrame = drawPanelFrame(view.panelFrame);
+      // The enhanced portrait fills the outer panel, including its native inner frame.
+      if (view.portrait) panelFrame.getContext("2d").clearRect(8 * 4, 8 * 4, 120 * 4, 120 * 4);
+      layers.push(panelFrame);
+    }
   }
   // Keep the last complete view on screen until the replacement layers
   // are ready. The raw framebuffer can still contain the original art.

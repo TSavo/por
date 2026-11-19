@@ -3122,7 +3122,10 @@ try {
     assert.ok(await run(`(() => {
       const layer = document.querySelector("#tile-art").getBoundingClientRect();
       const portrait = document.querySelector(".encounter-portrait").getBoundingClientRect();
-      return Math.abs(portrait.left - layer.left - layer.width * 8 / 320) < 1 &&
+      const panel = document.querySelector("canvas.panel-frame");
+      const interior = panel?.getContext("2d").getImageData(32, 32, 480, 480).data;
+      const hasInnerFrame = interior?.some((value, index) => index % 4 === 3 && value !== 0);
+      return !hasInnerFrame && Math.abs(portrait.left - layer.left - layer.width * 8 / 320) < 1 &&
         Math.abs(portrait.top - layer.top - layer.height * 8 / 200) < 1 &&
         Math.abs(portrait.width - layer.width * 120 / 320) < 1 &&
         Math.abs(portrait.height - layer.height * 120 / 200) < 1;
