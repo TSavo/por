@@ -2791,6 +2791,8 @@ The Buccaneer stockade and pens use packed sand with shell fragments.
 Three Chrome routes check 89 tiles across 35 views.
 Five adjoining Buccaneer walks check 21 more packed-sand joins across
 78 views and 9,438 placements.
+The quay adds five more packed-sand transitions, checked across 18
+Chrome views and 2,178 placements.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
@@ -2882,6 +2884,8 @@ The Tyrmor stirge replay checks the approach sprite and swarm
 illustration through the original flight dialogue.
 The Tyrmor elf replay checks the brief approach animation before the
 group portrait and native Parlay prompt.
+The Tyrmor dwarven fighters also have their own approach sprite and
+group portrait, checked in Chrome before Parlay.
 The Kobold King's first horde has its own 4× infantry ready and strike
 sprites. Chrome checks the strike during the original report of Brin
 taking damage from a controlled throne checkpoint.
