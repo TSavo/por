@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "tile:20:855b49dffed8253adb115cb6f85566bd865fba688cad7435b0b08fdd3ba3c885": "slums-guild-corners-terrain-855b49dffed8.png",
+    "tile:20:83a47be8f7541c55e4af4555aef88155720e0c7e664b78d7182822ecc183dce7": "slums-guild-corners-terrain-83a47be8f754.png",
     "tile:20:29dd326a72a4907df53a3de02d07f3f83097a0e3fa7d8fe292a70b6a89355a6d": "slums-side-arcades-terrain-29dd326a72a4.png",
     "tile:20:3baae3f64098d88e9d9dfc0a874c8852a1b5a5f73852aa2ba8b30ea198805ef2": "slums-side-arcades-terrain-3baae3f64098.png",
     "tile:20:86551ba6c8aa1db27a72f21e7b3acfe0f3914b8672eba38b00c2480193be089c": "slums-side-arcades-terrain-86551ba6c8aa.png",
