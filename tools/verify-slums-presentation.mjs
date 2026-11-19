@@ -37,6 +37,15 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["textile-skullcrusher-approach", {
+    slot: "B", inputs: ["up", "b", "up"],
+    placement: [56, 32, "encounter:area:2:ecl:a147:SPRIT4.DAX:14:0:0", 24, 80],
+    transient: true,
+    dialogue: {
+      key: "enter", portrait: "portrait:HEAD4.DAX:32:BODY4.DAX:3",
+      prompt: /WHATDOYOUDOWITHTHEMAN/i,
+    },
+  }],
   ["textile-poison-frog-approach", {
     slot: "B", inputs: ["s", "up", "up", "down", "up", "down"],
     placement: [32, 32, "encounter:area:2:ecl:9abe:SPRIT4.DAX:37:0:0", 64, 80],
@@ -969,6 +978,16 @@ const combatPoseRoutes = new Map([
     [["war-pick", 9], ["flanged-mace", 12], ["sabre", 17]].map(([weapon, body]) => [
       `party-${head}-dwarf-${weapon}-icon-combat`, {
         slot: "B", stand: `combat:party:${headIndex}:${body}`, strike: `combat:party:${headIndex}:${body + 128}`,
+        width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
+        strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
+        inputs: ["up", ...Array(3).fill("enter")],
+        strikeInputs: [...Array(7).fill("enter"), ...Array(14).fill("q")],
+      },
+    ])),
+  ...[4, 5, 7, 8, 10].flatMap(head =>
+    [["axe", 2], ["crossbow", 16]].map(([weapon, body]) => [
+      `party-dwarf-${head}-${weapon}-icon-combat`, {
+        slot: "B", stand: `combat:party:${head}:${body}`, strike: `combat:party:${head}:${body + 128}`,
         width: 96, height: 96, readyPrompt: /1STLVLTHIEFHITPOINTS4AC4LONGSWORD/i, strikeReflected: false,
         strikeReport: /ALDAATTACKS1STLVLTHIEFHITTINGFOR2POINTSOFDAMAGE/i,
         inputs: ["up", ...Array(3).fill("enter")],
@@ -3926,7 +3945,7 @@ try {
       console.log("Native save:", saved);
     }
   } else if (encounterRoute) {
-    const approachSequence = encounterRoute.approachSequence;
+    const approachSequence = encounterRoute.transient ? [encounterRoute.placement] : encounterRoute.approachSequence;
     if (approachSequence) await observeApproach(approachSequence);
     const terrainPatterns = new Set();
     let terrainViews = 0;
@@ -3950,7 +3969,13 @@ try {
       })()`));
       await switchBothWays();
     }
-    await verifyApproach(encounterRoute.placement);
+    if (encounterRoute.transient) {
+      assert.deepEqual(frame.animation?.flatMap(({ encounter }) => encounter ? [encounter] : []),
+        approachSequence);
+      await switchBothWays();
+    } else {
+      await verifyApproach(encounterRoute.placement);
+    }
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
     }
