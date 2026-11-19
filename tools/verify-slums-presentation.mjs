@@ -2015,7 +2015,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   env: {
     ...browserEnvironment, POR_PLAY_PORT: port, POR_SAVE_DIR: directory,
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
-    POR_TRACE_BATTLE_TILES: routeName === "lizardfolk-battle-wall" ? "1" : browserEnvironment.POR_TRACE_BATTLE_TILES,
+    POR_TRACE_BATTLE_TILES: dragon || routeName === "lizardfolk-battle-wall" ? "1" : browserEnvironment.POR_TRACE_BATTLE_TILES,
     POR_BOOT_KEYS: freshRolf ? "31000000:1c0d,45000000:2e63" : "31000000:1c0d,45000000:266c,52000000:" + boot,
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
   },
@@ -4854,6 +4854,15 @@ try {
     } else {
       const partyArt = new Set(["combat:party:73:93", "combat:party:73:81", "combat:party:69:90", "combat:party:0:3",
         "combat:party:2:5", "combat:party:74:88"]);
+      const battlefieldPatterns = new Set();
+      function checkBattlefieldPatterns() {
+        if (!frame.battleTileInventory?.length) return;
+        const placements = new Map(frame.battleTiles.map(([x, y, id]) => [`${x},${y}`, id]));
+        for (const [x, y, id] of frame.battleTileInventory) {
+          assert.equal(placements.get(`${x},${y}`), id, `Missing enhanced dragon battlefield tile at ${x},${y}`);
+          battlefieldPatterns.add(id);
+        }
+      }
       async function checkNewPartyPoses() {
         const placements = frame.combatArt?.filter(([, , id]) => partyArt.has(id)) ?? [];
         if (!placements.length) return;
@@ -4869,6 +4878,7 @@ try {
       }
       for (const key of ["enter", "enter", ...Array(6).fill("a"), "enter", "enter", "q"]) {
         await advance(key);
+        checkBattlefieldPatterns();
         await checkNewPartyPoses();
       }
       assert.deepEqual([...partyArt].filter(id => id !== "combat:party:2:5" && id !== "combat:party:74:88"), [],
@@ -4885,6 +4895,18 @@ try {
           parseFloat(img.style.left) === ${x / 3.2} && parseFloat(img.style.top) === ${y / 2} &&
           parseFloat(img.style.width) === 15 && parseFloat(img.style.height) === 24 &&
           img.style.transform === ${JSON.stringify(reflected ? "scaleX(-1)" : "")};
+      })()`));
+      // Hold this Quick Combat prompt while checking the settled art layer
+      // and switching modes. The replay sends the next guest input itself.
+      await run("quickPollAfter = Infinity");
+      await waitFor("the enhanced tiles around the selected dragon", () => run(`(() => {
+        if (state.sequence !== ${frame.sequence} || animationFrame) return false;
+        const tiles = new Map([...document.querySelectorAll(".battle-tile")].map(img =>
+          [img.style.left + "," + img.style.top, img]));
+        return ${JSON.stringify(frame.battleTiles)}.every(([x, y, id]) => {
+          const tile = tiles.get(x / 3.2 + "%," + y / 2 + "%");
+          return tile?.getAttribute("src") === "/art/" + id && tile.naturalWidth === 32 && tile.naturalHeight === 32;
+        });
       })()`));
       await switchBothWays();
       const bite = "combat:area:7:CPIC5.DAX:194";
@@ -4910,6 +4932,7 @@ try {
       const bitePlacement = () => frame.animation?.flatMap(shot => shot.combatArt ?? []).find(([, , id]) => id === bite);
       for (let turn = 0; turn < 32 && !bitePlacement(); turn++) {
         await advance("q");
+        checkBattlefieldPatterns();
         await checkNewPartyPoses();
         const briefPoses = (frame.animation ?? []).filter(shot => shot.durationMs === undefined)
           .flatMap(shot => shot.combatArt.map(([, , id]) => id));
@@ -4921,6 +4944,7 @@ try {
       }
       assert.deepEqual([...partyArt], [], "Expected all six enhanced party poses during the dragon fight");
       assert.deepEqual([...checkedStrikes].sort(), partyStrikes.toSorted(), "Expected four independent party strike frames before the dragon's bite");
+      assert.ok(battlefieldPatterns.size >= 30, "Expected the dragon fight to exercise at least 30 battlefield tile patterns");
       const strike = bitePlacement();
       assert.ok(strike, "Expected a Tyranthraxus bite in the original fight");
       assert.deepEqual(strike.slice(5), [48, 48]);
@@ -4934,6 +4958,7 @@ try {
           /TYRANITHRAXUSAttacksBAKSHIHittingfor[0-9]+points?ofdamage/i.test(text) &&
           reports.slice(index + 1).some(report => /BAKSHItakes[0-9]+points?ofdamagefromFire/i.test(report)))`));
       console.log("Verified the castle dragon portrait, combat placement, bite animation, and attack and fire damage reports. Captures:", directory);
+      console.log(`Verified ${battlefieldPatterns.size} enhanced dragon battlefield tile patterns.`);
     }
   } else if (councilFinale) {
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");

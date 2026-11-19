@@ -1908,7 +1908,11 @@ enhanced in both scenes and checks the guest frame and save stay the same.
 The same replay checks the 192×192 bite at its position in the live
 combat animation and confirms that the enhanced combat panel shows the hit
 and then the fire damage as separate reports. With
-`POR_TRACE_BATTLE_TILES=1`, it captured 22 frames.
+`POR_TRACE_BATTLE_TILES=1`, it captured 22 frames. The replay checks that
+all 30 observed terrain patterns resolve to enhanced tiles and that the
+tiles around the selected dragon load in Chrome at their guest positions.
+The native draw report traced those 30 patterns to the original terrain
+blits.
 The combat sequence also verifies six 96×96 standing party poses at
 their native positions and facings. The `CHEAD.DAX` and `CBODY.DAX`
 combinations are 73/93, 73/81, 69/90, 0/3, 2/5, and 74/88. The matcher
