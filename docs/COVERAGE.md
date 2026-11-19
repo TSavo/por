@@ -3206,6 +3206,11 @@ sprites. Chrome replays with the production artwork checked the original
 combat roll for each patrol, the reflected ready pose, the strike at the
 same position, and state preservation across display modes.
 
+The Valjevo barracks waking giants use an encounter-specific approach
+sprite at (48, 32) and a dialogue illustration. Chrome verified the
+production replacements in both frames and preserved the party state
+and save across the display toggle.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the

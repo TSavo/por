@@ -11,6 +11,8 @@
     "combat:area:3:CPIC5.DAX:139:ecl:a002": "valjevo-inner-armed-guard-strike.png",
     "combat:area:3:CPIC5.DAX:60:ecl:b37c": "valjevo-lower-snake-ready.png",
     "combat:area:3:CPIC5.DAX:188:ecl:b37c": "valjevo-lower-snake-strike.png",
+    "encounter:area:3:ecl:a815:SPRIT5.DAX:55:1:0": "valjevo-barracks-waking-giants-approach.png",
+    "portrait:area:3:ecl:a815:PIC5.DAX:55:0:0": "valjevo-barracks-waking-giants-dialogue.png",
     "combat:area:3:CPIC5.DAX:55:ecl:a839": "valjevo-barracks-hill-giant-ready.png",
     "combat:area:3:CPIC5.DAX:183:ecl:a839": "valjevo-barracks-hill-giant-strike.png",
     "combat:area:26:CPIC7.DAX:12:ecl:a2c7": "lizard-wilds-nomad-scout-ready.png",
@@ -5187,6 +5189,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:3:ecl:a815:SPRIT5.DAX:55:1:0": { "area": 3, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:13:ecl:9b8a:SPRIT8.DAX:0:1:0": { "area": 13, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:13:ecl:9bb1:SPRIT8.DAX:0:1:0": { "area": 13, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:1:0": { "area": 13, "x": 56, "y": 32, "width": 24, "height": 65 },
