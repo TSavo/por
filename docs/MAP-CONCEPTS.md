@@ -46,8 +46,12 @@ switches between the illustration and the overhead terrain view.
 
 Chrome verification loaded every current atlas plate, selected New Phlan
 and Phlan, switched between Atlas, Local and Region, and checked that
-Classic closes the map without sending a game input. A Catacombs
-checkpoint selected Kuto’s map 32 sheet automatically. The Moonsea
+Classic closes the map without sending a game input. The
+`kuto-catacombs-atlas` and `bane-interior-atlas` routes in
+`tools/verify-slums-presentation.mjs` use local checkpoints in slot J
+and slot A respectively. They verify automatic selection of the map 32
+and map 31 illustrations, the party marker in Local, and unchanged
+game state and save after switching displays. The Moonsea
 replay clicked the Lizardman Keep landmark, walked across a sector
 boundary, and stopped at the native drawbridge prompt. Accepting the
 entry and dismissing the anti-magic warning restored Enhanced WebGL
