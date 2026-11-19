@@ -1,0 +1,705 @@
+{
+  "schema": 1,
+  "model": "eleven_v4",
+  "archive": "ECL8.DAX",
+  "block": 13,
+  "items": [
+    {
+      "id": "ecl8-b13-9b26-9b50-9b71",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9b26",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9b26",
+        "por.review.ecl-8.block-13.at-9b50",
+        "por.review.ecl-8.block-13.at-9b71"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9b26-9b50-9b71.mp3",
+      "text": "YOU FIND A PILE OF MINE TAILINGS. IN IT IS A KOBOLD'S CRUDE DRAWING. 42.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl8-b13-9c70-9c9f-9ce1-9d05",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9c70",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9c70",
+        "por.review.ecl-8.block-13.at-9c9f",
+        "por.review.ecl-8.block-13.at-9ce1",
+        "por.review.ecl-8.block-13.at-9d05"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9c70-9c9f-9ce1-9d05.mp3",
+      "text": "THE KOBOLD RETREATS, THEN STRIKES THE WALL. THE KOBOLD CRIES OUT, 'I'LL NOT GO ALONE!' THE ROOF COLLAPSES. BEFORE YOU RECOVER, KOBOLDS ARRIVE.",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-a570-a5c5",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a570",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a570",
+        "por.review.ecl-8.block-13.at-a5c5"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a570-a5c5.mp3",
+      "text": "AS YOU PULL, THE STOPPER COMES LOOSE AND SMOKE BILLOWS OUT, FORMING INTO A GIANT, REDDISH HUMANOID. 'I AM THE EFREETI SAMIR AHWAHL. YOU ARE NOT MY MASTER. ARE YOU, PERCHANCE, VAMPIRES?'",
+      "direction": "perform Samir Ahwahl consistently as a proud, powerful efreeti with fiery authority; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl8-b13-a733-a775-a7cd-a7f8-a802",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a733",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a733",
+        "por.review.ecl-8.block-13.at-a775",
+        "por.review.ecl-8.block-13.at-a7cd",
+        "por.review.ecl-8.block-13.at-a7f8",
+        "por.review.ecl-8.block-13.at-a802"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a733-a775-a7cd-a7f8-a802.mp3",
+      "text": "YOU HEAR MUFFLED SOUNDS AND TURN TO INVESTIGATE. IN THIS ROOM IS A YOUNG WOMAN IN BARBARIAN FINERY. SHE DROPS A KOBOLD SHE WAS STRANGLING WHEN SHE SEES YOU. 'I AM PRINCESS FATIMA.' THE PRINCESS CONTINUES. 16. SHE OFFERS TO JOIN YOUR BAND.",
+      "direction": "perform Princess Fatima consistently as a fierce, confident young barbarian noblewoman; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-ab75-abaa-abb4",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-ab75",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-ab75",
+        "por.review.ecl-8.block-13.at-abaa",
+        "por.review.ecl-8.block-13.at-abb4"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-ab75-abaa-abb4.mp3",
+      "text": "WHEN YOU GIVE IT WATER, IT CRAWLS OUT AND TELLS YOU ITS TALE. 20. AFTER IT IS DONE, IT LEAVES.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-af93-afc3",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-af93",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-af93",
+        "por.review.ecl-8.block-13.at-afc3"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-af93-afc3.mp3",
+      "text": "THE KOBOLD PAUSES, IDLY TAPS THE WALL, THEN PROCEEDS. A BOULDER BLOCKS OFF THE PASSAGE. USING A LEVER, THE KOBOLD DISLODGES IT AND PROCEEDS. DO YOU?",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-b028-b04b-b07b-b0b0",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b028",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-b028",
+        "por.review.ecl-8.block-13.at-b04b",
+        "por.review.ecl-8.block-13.at-b07b",
+        "por.review.ecl-8.block-13.at-b0b0"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-b028-b04b-b07b-b0b0.mp3",
+      "text": "THE KOBOLD DISAPPEARS BEYOND THE BOULDER. YOU CLAMBER NOISILY DOWN A SLOPE OF RUBBLE. AT THE BOTTOM THE KOBOLD DIVES BENEATH SOME RUBBLE. 'JUST AROUND THE CORNER IS OUR TREASURE. TAKE WHAT YOU WISH AND LEAVE US. GOOD DAY.'",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-b467-b49e",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b467",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-b467",
+        "por.review.ecl-8.block-13.at-b49e"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-b467-b49e.mp3",
+      "text": "KOBOLDS APPEAR AND BOMBARD YOU WITH ROCKS. WHAT DO YOU DO?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-99c1",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-99c1",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-99c1"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-99c1.mp3",
+      "text": "DO YOU WANT TO LEAVE?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-9a39",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9a39",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9a39"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9a39.mp3",
+      "text": "THE PRINCESS SAYS,'I SHALL GO MY OWN WAY NOW, BUT YOU WILL ALWAYS BE REMEMBERED. GOOD HUNTING.'",
+      "direction": "perform Princess Fatima consistently as a fierce, confident young barbarian noblewoman; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-9b04",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9b04",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9b04"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9b04.mp3",
+      "text": "YOU CROSS OVER A PIT.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-9b90",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9b90",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9b90"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9b90.mp3",
+      "text": "A KOBOLD APPROACHES WAVING A WHITE FLAG.",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-9bb5",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9bb5",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9bb5"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9bb5.mp3",
+      "text": "THE KOBOLD BOWS AND SAYS,'YOU ARE QUITE DANGEROUS, WE WILL PAY FOR A TRUCE.'",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-9c1f",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9c1f",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9c1f"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9c1f.mp3",
+      "text": "'I AM TO ESCORT YOU TO OUR TREASURE.'",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-9d5c",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9d5c",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9d5c"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9d5c.mp3",
+      "text": "YOU DISARM A DEADFALL TRAP.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-9d7b",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9d7b",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9d7b"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9d7b.mp3",
+      "text": "TIMBERS LINE THE WALLS HERE. A BOULDER BLOCKS THE FAR END.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-9dd4",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9dd4",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9dd4"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9dd4.mp3",
+      "text": "A NET ENTANGLES YOU.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-9e1f",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9e1f",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9e1f"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9e1f.mp3",
+      "text": "YOU DISARM A NET TRAP.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-9e57",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9e57",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9e57"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9e57.mp3",
+      "text": "SPIKES SPRING OUT AND IMPALE YOU.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-9e86",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9e86",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9e86"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9e86.mp3",
+      "text": "YOU DISARM A SPIKE TRAP.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-9eb6",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9eb6",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9eb6"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9eb6.mp3",
+      "text": "A DRUNKEN KOBOLD LIES HERE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-9f00",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9f00",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9f00"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9f00.mp3",
+      "text": "YOU SLIP BY WITH EASE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-9f15",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9f15",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9f15"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9f15.mp3",
+      "text": "HE LOOKS CONFUSED,'OH, THE ENVOYS. DO YOU WISH AN ESCORT TO THE KING?'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl8-b13-9f77",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9f77",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9f77"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9f77.mp3",
+      "text": "'THEN FOLLOW ME.'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl8-b13-9f91",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9f91",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9f91"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9f91.mp3",
+      "text": "THE KOBOLD PROMPTLY RETURNS TO SLEEP.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-9fb1",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9fb1",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9fb1"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9fb1.mp3",
+      "text": "THE KOBOLD DIES.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-9fd4",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9fd4",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9fd4"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9fd4.mp3",
+      "text": "YOU HEAR THE VOICES OF HUMANS AND KOBOLDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-a02c",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a02c",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a02c"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a02c.mp3",
+      "text": "BEFORE YOU IS A HORDE OF KOBOLDS. BEHIND THEM ARE TWO MEN AND AN ANCIENT KOBOLD ON A WOODEN THRONE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-a07f",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a07f",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a07f"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a07f.mp3",
+      "text": "ONE SAYS,'THESE MEN ARE ENEMIES. DEFEAT THEM AND MY LORD SHALL BE MOST GENEROUS.' THE KING LOOKS AT HIM, AND THEN AT YOU. HE SMILES AND SCREAMS, 'KILL THEM!'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl8-b13-a15c",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a15c",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a15c"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a15c.mp3",
+      "text": "THE KING, FROTHING AT THE MOUTH, CRIES, 'USE THE SECRET WEAPONS.' BALLISTA APPEAR AND FIRE.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl8-b13-a1f0",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a1f0",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a1f0"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a1f0.mp3",
+      "text": "THE MEN SNEER AT THE KING AND ONE SAYS,'LET US SHOW YOU HOW WARRIORS FIGHT.'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl8-b13-a230",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a230",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a230"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a230.mp3",
+      "text": "THE TWO ENVOYS WAIT AT THE THRONE. THEY SMILE. 'A REMATCH THEN. PREPARE FOR DEATH.'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl8-b13-a2bb",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a2bb",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a2bb"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a2bb.mp3",
+      "text": "THE KING HAS ESCAPED DURING THE FIGHT.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-a2f7",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a2f7",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a2f7"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a2f7.mp3",
+      "text": "KOBOLDS BLOCK ALL THE EXITS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-a310",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a310",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a310"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a310.mp3",
+      "text": "THE KING CALLS OUT,'YOU SEEM VALUABLE. SURRENDER OR DIE.'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl8-b13-a363",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a363",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a363"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a363.mp3",
+      "text": "THE BALLISTA ARE RELOADED. THE KING CALLS OUT,'DEATH OR IMPRISONMENT.'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl8-b13-a431",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a431",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a431"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a431.mp3",
+      "text": "YOU FIND A SECRET DOOR IN THE NORTH WALL.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-a463",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a463",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a463"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a463.mp3",
+      "text": "YOU REACH THE KING'S QUARTERS AND CONFRONT HIS GUARDS.",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "ecl8-b13-a4c9",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a4c9",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a4c9"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a4c9.mp3",
+      "text": "THE KING, PANICKED, HAS FALLEN INTO HIS OWN SPIKED PIT AND DIED.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-a520",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a520",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a520"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a520.mp3",
+      "text": "YOU SEE A BRASS BOTTLE JAMMED INTO A CRACK HERE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-a633",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a633",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a633"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a633.mp3",
+      "text": "'FOOLS, SUMMON ME ONLY WHEN A VAMPIRE IS NEAR OR FACE MY WRATH.' HE RETURNS TO THE BOTTLE.",
+      "direction": "perform Samir Ahwahl consistently as a proud, powerful efreeti with fiery authority; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl8-b13-a69a",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a69a",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a69a"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a69a.mp3",
+      "text": "'DIE HAPPY FIENDS, YOUR DEATHS SHALL BE MY FREEDOM.'",
+      "direction": "perform Samir Ahwahl consistently as a proud, powerful efreeti with fiery authority; retain narrator identity for attribution"
+    },
+    {
+      "id": "ecl8-b13-a6e2",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a6e2",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a6e2"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a6e2.mp3",
+      "text": "YOU ARE IN A CRUDE BARRACKS. ON ONE WALL IS A CRUDE MAP.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-a713",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a713",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a713"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a713.mp3",
+      "text": "28.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-a879",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a879",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a879"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a879.mp3",
+      "text": "'YOUR GROUP IS TOO LARGE.'",
+      "direction": "perform Princess Fatima consistently as a fierce, confident young barbarian noblewoman; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-a894",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a894",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a894"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a894.mp3",
+      "text": "SHE SMILES.'SO I SHALL CUT MY OWN WAY OUT. GOOD HUNTING.' SHE LEAVES.",
+      "direction": "perform Princess Fatima consistently as a fierce, confident young barbarian noblewoman; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-a8f5",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a8f5",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a8f5"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a8f5.mp3",
+      "text": "THIS WAS A PRISON CELL. BROKEN BINDINGS AND SIX DEAD KOBOLDS ARE STREWN ON THE FLOOR.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-a952",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a952",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a952"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a952.mp3",
+      "text": "YOU TUMBLE DOWN A STEEP, LOOSE SLOPE, MAKING A LOUD CLATTER.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-a998",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a998",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a998"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a998.mp3",
+      "text": "THERE IS A STEEP RUBBLED SLOPE. WILL YOU GO UP?",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-a9ed",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-a9ed",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-a9ed"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a9ed.mp3",
+      "text": "YOU DISLODGE A NUMBER OF ROCKS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-aa17",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-aa17",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-aa17"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-aa17.mp3",
+      "text": "THE NOISE HAS DISTURBED SOMETHING. WITH A BEATING OF WINGS, A HUGE BEAST LANDS UPON YOU.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-aaa0",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-aaa0",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-aaa0"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-aaa0.mp3",
+      "text": "BEFORE YOU LIES A HUGE WYVERN. IT RISES UP AND CHARGES.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-aaf7",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-aaf7",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-aaf7"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-aaf7.mp3",
+      "text": "HIDDEN IN A NARROW CREVICE IS AN OLD CRIPPLED KOBOLD. IT CROAKS WEAKLY FOR WATER.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-abf5",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-abf5",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-abf5"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-abf5.mp3",
+      "text": "THE KOBOLD RETREATS AROUND A BEND.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-ac13",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-ac13",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-ac13"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-ac13.mp3",
+      "text": "YOU CUT DOWN THE KOBOLD.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-ac36",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-ac36",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-ac36"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-ac36.mp3",
+      "text": "THIS IS THE LIVING AREAS. FEMALE AND CHILD KOBOLDS FLEE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-ac72",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-ac72",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-ac72"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-ac72.mp3",
+      "text": "RATS ARE HUNG HERE TO AGE. MOLDY ROOTS LIE IN PILES.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-acab",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-acab",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-acab"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-acab.mp3",
+      "text": "HERE CRUDE TABLES, LITTERED WITH BONES, ARE SCATTERED AROUND.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-acf2",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-acf2",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-acf2"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-acf2.mp3",
+      "text": "A RUINED BALLISTA LIES HERE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-ad13",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-ad13",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-ad13"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-ad13.mp3",
+      "text": "AMONGST A NEST OF LOGS YOU FIND SOME TREASURE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-ad5e",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-ad5e",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-ad5e"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-ad5e.mp3",
+      "text": "STREWN ACROSS THE FLOOR IS THE ACCUMULATED WEALTH OF THE KOBOLD COMMUNITY.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-ae1a",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-ae1a",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-ae1a"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-ae1a.mp3",
+      "text": "YOU FIND A TRAP, BUT THE TUNNEL IS TOO NARROW TO AVOID IT.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-b16b",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b16b",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-b16b"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-b16b.mp3",
+      "text": "THE KOBOLD CALLS OUT,'THE ENVOYS ARE HERE, GREAT KING.' AN AGED VOICE REPLIES 'SEND THEM FORWARD.' YOUR GUIDE, HOWEVER, HAS FALLEN INTO A STUPOR.",
+      "direction": "perform the kobold guide consistently as nervous, deferential, and cunning; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-b1f2",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b1f2",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-b1f2"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-b1f2.mp3",
+      "text": "THE KOBOLDS HERD YOU TOWARD YOUR PRISON. SOME NAB BITS OF YOUR EQUIPMENT AND LEAVE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-b294",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b294",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-b294"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-b294.mp3",
+      "text": "A WOMAN APPEARS BEFORE YOU.'I AM THE PRINCESS FATIMA, AID ME IN THIS BATTLE.'",
+      "direction": "perform Princess Fatima consistently as a fierce, confident young barbarian noblewoman; retain narrator identity for narration"
+    },
+    {
+      "id": "ecl8-b13-b34a",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b34a",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-b34a"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-b34a.mp3",
+      "text": "THE KOBOLDS CHASE FOR A WHILE, BUT YOU ESCAPE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-b3d1",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b3d1",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-b3d1"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-b3d1.mp3",
+      "text": "KOBOLDS SEEM TO BOIL UP FROM NOWHERE.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b13-b4ae",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b4ae",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-b4ae"
+      ],
+      "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-b4ae.mp3",
+      "text": "YOU ARE THROWN INTO A CELL BEREFT OF EQUIPMENT.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    }
+  ]
+}
