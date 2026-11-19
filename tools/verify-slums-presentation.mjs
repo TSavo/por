@@ -658,14 +658,7 @@ try {
 
   if (towerReload || dungeonReload) {
     const expected = JSON.parse(readFileSync(resolve(dirname(checkpoint), "valjevo-save-scene.json"), "utf8"));
-    if (dungeonReload) {
-      // The first dungeon view is drawn while the guest still reports the
-      // lower wing. Compare native pixels and placement across the reload.
-      assert.equal(frame.tileInventory?.length, 121);
-      assert.ok(frame.tileInventory.every(([, , id]) => id.startsWith("tile:3:")));
-      assert.deepEqual(frame.tileInventory.map(([x, y, , pixels]) => [x, y, pixels]),
-        expected.tiles.map(([x, y, , pixels]) => [x, y, pixels]));
-    } else assert.deepEqual(frame.tileInventory, expected.tiles);
+    assert.deepEqual(frame.tileInventory, expected.tiles);
     assert.deepEqual(frame.text.toSorted(([left], [right]) => left - right), expected.text);
     if (towerReload) assert.equal(await verifyTiledView(7, new Set()), 1);
     await switchBothWays();
@@ -675,6 +668,7 @@ try {
     for (const key of ["up", "enter", "enter"]) await advance(key);
     assert.equal(frame.tileInventory?.length, 121);
     assert.notDeepEqual(frame.tileInventory, wing);
+    assert.equal(await verifyTiledView(3, new Set()), 1);
     const expected = { tiles: frame.tileInventory, text: frame.text.toSorted(([left], [right]) => left - right) };
     for (const key of ["e", "s", "s", "b"]) await advance(key);
     assert.notDeepEqual(readFileSync(saved), originalSave);

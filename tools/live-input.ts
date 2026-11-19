@@ -244,6 +244,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const segment = cpu.read16(0x740, 0x4935);
       const offset = cpu.read16(0x740, 0x4933);
       area = segment || offset ? cpu.read16(segment, offset + 0x1e4) : undefined;
+      // Valjevo draws the dungeon hedge before copying the selected ECL
+      // back to the area record. Other transition art uses the record's scope.
+      if (area === 5 && cpu.read8(0x740, 0x82a2) === 3) area = 3;
     }
     showFrame();
     while (true) {

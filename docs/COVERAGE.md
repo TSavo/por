@@ -1161,7 +1161,10 @@ they survive the guest's rebasing. The translation verifier compares all
 tiles. `valjevo-dungeon-save` crosses the lower-wing
 threshold from controlled slot B and saves in Encamp. `valjevo-dungeon-reload`
 compares all 121 native tile placements and pixels, party, and menu after
-cold loading. The transition frame uses the previous area's tile key prefix.
+cold loading. The original renderer draws the dungeon hedge before the
+area record catches up with the ECL selection. The browser uses the
+destination's tile keys for that transition, and Chrome verifies all 121
+enhanced placements on the first interactive dungeon view.
 
 `phlan-city-hall-interior` covers 80 new terrain tiles across 16 native views.
 `valjevo-elite-guard` checks the original standing and two-handed strike
