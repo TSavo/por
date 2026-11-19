@@ -1239,6 +1239,10 @@ for matching civic artwork.
 checks all 1,936 placements of 66 tile patterns across 16 views, including
 45 new 32×32 tiles for market awnings, bay windows, shopfronts, and lanes.
 Switching presentation preserves the guest frame and save.
+The visual review caught three shared tiles with sky seams at the roofline.
+Their corrected versions preserve the masonry and match the surrounding
+sky. Both `phlan-south-market` and `phlan-training-civic` passed again
+with the corrected shared tiles.
 
 `valjevo-records-scribe` replays the original chance encounter in the
 records building. It checks the scribe artwork at the ambush decision and
