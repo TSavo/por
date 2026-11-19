@@ -1382,6 +1382,9 @@ and reflected strike from a controlled area 27 checkpoint.
 `valhingen-zombie-approach` and `valhingen-ghoul-approach` check the
 stairway and rest ambush sprites at their native anchors, followed by
 their dialogue portraits. Both replays switch presentation in each view.
+`bane-ogre-approach` and `old-phlan-lizard-patrol-approach` verify the
+4× approach sprites at their original anchors and their transitions to
+the corresponding dialogue portraits, with presentation switching.
 `textile-hobgoblin-approach` and `wild-cave-ankheg-approach` check
 standalone 4× encounter sprites at their original screen anchors.
 `kobold-cave-approach` checks the native throne approach from a controlled

@@ -30,6 +30,16 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["old-phlan-lizard-patrol-approach", {
+    slot: "B", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:29:SPRIT8.DAX:57:0:0", 48, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:29:PIC8.DAX:57:0:0", prompt: /ALIZARDMANLEADSAPACKOFGIANTLIZARDS/i },
+  }],
+  ["bane-ogre-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:31:SPRIT1.DAX:8:0:0", 40, 73],
+    dialogue: { key: "enter", portrait: "portrait:area:31:PIC1.DAX:8:0:0", prompt: /SIXORCSLEDBYALARGEOGRE/i },
+  }],
   ["valhingen-zombie-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [56, 32, "encounter:area:10:SPRIT4.DAX:35:0:0", 32, 80],

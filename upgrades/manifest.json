@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "encounter:area:29:SPRIT8.DAX:57:0:0": "old-phlan-lizard-patrol-approach.png",
+    "encounter:area:31:SPRIT1.DAX:8:0:0": "bane-ogre-approach.png",
     "tile:0:80e3c5025a5f43f7991f9fb1c372374d1d0c7cb666c72aa6115e3e381ccd814e": "new-phlan-covered-market-terrain-80e3c5025a5f.png",
     "tile:0:daa0c6008046802d652f2f0fe732ebf6d5e55819c0757e8ca57e8bbeeb8294f7": "new-phlan-warehouse-square-terrain-daa0c6008046.png",
     "encounter:area:10:SPRIT4.DAX:35:0:0": "valhingen-zombie-approach.png",
@@ -2903,6 +2905,8 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:29:SPRIT8.DAX:57:0:0": { "area": 29, "x": 48, "y": 32, "width": 48, "height": 80 },
+    "encounter:area:31:SPRIT1.DAX:8:0:0": { "area": 31, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:10:SPRIT4.DAX:35:0:0": { "area": 10, "x": 56, "y": 32, "width": 32, "height": 80 },
     "encounter:area:10:SPRIT4.DAX:72:0:0": { "area": 10, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:13:SPRIT8.DAX:0:1:0": { "area": 13, "x": 56, "y": 32, "width": 24, "height": 65 },
