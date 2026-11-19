@@ -2841,6 +2841,9 @@ junction bindings across 36 views.
 Kuto's well, northern lane, border, and eastern lane now use packed
 earth with worn limestone chips beneath the turquoise masonry. Four
 Chrome walks checked 24 floor and edge bindings across 48 live views.
+Four connected Kuto walks check another 61 packed-earth transitions
+through the west chambers, catacombs, fountain, and border crossing.
+Chrome verified all 6,413 tile placements across 53 views.
 The Pyramid cistern passages use stained limestone underfoot, with
 mineral veins distinct from the dark teal walls. Three Chrome walks
 exercised all five revised bindings across 58 live views.
