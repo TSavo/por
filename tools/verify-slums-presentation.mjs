@@ -37,6 +37,12 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["kobold-kings-quarters", {
+    slot: "B", inputs: ["s", "up", "up", "right", "up", "up", "enter"],
+    placement: [48, 32, "encounter:area:13:ecl:a496:SPRIT8.DAX:0:0:0", 40, 80],
+    approachSequence: [[48, 32, "encounter:area:13:ecl:a496:SPRIT8.DAX:0:0:0", 40, 80]],
+    dialogue: { key: "enter", portrait: "portrait:area:13:ecl:a4b9:PIC8.DAX:0:0:0", prompt: /CONFRONTHISGUARDS/i },
+  }],
   ["kobold-throne-ballista", {
     slot: "A", inputs: ["up", "enter", "enter"],
     placement: [48, 32, "encounter:area:13:ecl:a1b6:SPRIT8.DAX:0:0:0", 40, 80],

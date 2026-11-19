@@ -3021,3 +3021,7 @@ poses. The Chrome replay checks the strike and the report that it misses Brin.
 New Phlan terracotta continues through five building exits, the harbor and
 middle lanes, and the pier alley. Eight Chrome routes on the production
 pack checked 87 views, 10,527 tile placements, and mode switching.
+
+The Kobold King's quarters use a shield guard approach and a distinct
+room illustration. The Chrome replay verifies the guard anchor, dialogue
+transition, and state-preserving presentation switches.
