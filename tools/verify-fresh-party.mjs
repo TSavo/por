@@ -395,9 +395,25 @@ async function verifyPodalFromCouncil(continuation) {
     "end", "enter", "enter", "enter", "e", "s", "s", "i",
   ]);
   assert.match(visibleText(arrival), /0,4 w.*quit to dos/);
-  const result = await replay(load("1769"), "85000000", [
+  const reachAuction = [
     "right", "right", ...Array(7).fill("up"), "right", "up", "up", "enter",
     (text) => assert.match(text, /the auctioneer cries/),
+  ];
+  const plazaSave = readFileSync(join(saveDir, "I.json"));
+  await replay(load("1769"), "85000000", [
+    ...reachAuction, ...Array(4).fill("enter"),
+    (text) => assert.match(text, /make a bid wait for winner try to leave/),
+    "end", "end", "enter", "enter",
+    (text) => assert.match(text, /the auction is cancelled/),
+    "enter", "j", checkAuction("ready-to-report"), (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "auction-cancelled"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-exchange" || id === "auction-buyer-unseen"));
+      assert.match(frame.journal.objective.nextStep, /report that the auction was cancelled.*council clerk/i);
+    },
+  ]);
+  assert.deepEqual(readFileSync(join(saveDir, "I.json")), plazaSave);
+  const result = await replay(load("1769"), "85000000", [
+    ...reachAuction,
     "j", (_text, frame) => {
       assert.match(frame.journal.objective.nextStep, /watch the bidding/i);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-bidding" || id === "auction-exchange"));

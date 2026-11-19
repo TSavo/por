@@ -1903,6 +1903,9 @@ hidden before it happens, appears in the report directions, and is still
 in the journal after collecting the reward and reloading. It also checks
 the tracked objective at the ferry menu and at the plaza entrance, where
 the journal first records the options to disguise the party or sneak in.
+From the same plaza checkpoint, the replay tries to leave during the sale.
+It verifies that the cancellation is ready to report before combat starts
+and that the saved checkpoint can still be used for the witnessed exchange.
 After the auction turn-in, the replay takes the east door to Cadorna,
 hears where his family's treasure was hidden, and reloads with the
 Textile House commission accepted. The party takes the westbound
