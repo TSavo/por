@@ -1,6 +1,11 @@
 {
   "version": 1,
   "assets": {
+    "tile:7:e3186849c39595898dc81456768972ec3ccb4e6dfd818445b630fc0799fea169": "valjevo-hall-threshold-terrain-e3186849c395.png",
+    "tile:7:abc4061d929e8f51b9f3aed41285a1160a6bd0b2c72d03efde017a57567efdd0": "valjevo-hall-turn-terrain-abc4061d929e.png",
+    "tile:5:14ba42f38a9f3edda8214f1dec22d94f520717c59573aa456e72854416d753d4": "valjevo-hedge-corner-terrain-14ba42f38a9f.png",
+    "tile:5:377420f76a2a02743aa7246fe5abc2356c698f47930ac0cbead1e1b62d2f1e44": "valjevo-hedge-corner-terrain-377420f76a2a.png",
+    "tile:5:7a128cc02d3a0bf5cb49a3d6c04fb7ef793368a7413172aec694936214d6ecd8": "valjevo-hedge-corner-terrain-7a128cc02d3a.png",
     "encounter:area:7:SPRIT5.DAX:24:1:0": "valjevo-genheeris-approach-middle.png",
     "encounter:area:7:SPRIT5.DAX:24:0:0": "valjevo-genheeris-approach-near.png",
     "combat:area:20:CPIC2.DAX:1:ecl:a514": "slums-kobold-captain-stand.png",

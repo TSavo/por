@@ -709,6 +709,18 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valjevo-hall-threshold", {
+    slot: "B", area: 7, views: 5, patterns: 27, sceneryOnly: true,
+    walk: ["left", "up", "up", "right"],
+  }],
+  ["valjevo-hall-turn", {
+    slot: "B", area: 7, views: 8, patterns: 37, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "right"],
+  }],
+  ["valjevo-hedge-corner", {
+    slot: "B", area: 5, views: 2, patterns: 17, sceneryOnly: true,
+    walk: ["left"],
+  }],
   ["valjevo-hedge-approach", {
     slot: "B", area: 5, views: 3, patterns: 14, sceneryOnly: true,
     walk: ["right", "up"],
