@@ -659,6 +659,12 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-al-hyam-combat", {
+    slot: "B", stand: "combat:area:5:CPIC5.DAX:14:ecl:a3a8", strike: "combat:area:5:CPIC5.DAX:14:ecl:a3a8",
+    width: 96, height: 96, readyPrompt: /AL-HYAMDAZIDHITPOINTS16AC3/i,
+    strikeReport: /AL-HYAMDAZIDUSESANITEMITEM:WAND/i,
+    inputs: ["up", "a", "a", "p", "a", "a", "enter", "enter", "enter", ...Array(6).fill("q")],
+  }],
   ["tyrmor-prison-kobold-combat", {
     slot: "B", stand: "combat:area:22:CPIC7.DAX:0:ecl:a36f", strike: "combat:area:22:CPIC7.DAX:128:ecl:a36f",
     width: 96, height: 96, readyPrompt: /BRINHITPOINTS45AC3HANDAXE/i, strikeReflected: true,

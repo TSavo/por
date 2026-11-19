@@ -2847,6 +2847,9 @@ group illustration before the original attack prompt.
 The Nomad inner trail uses wind-scoured sand across 38 revised tiles.
 The extended Chrome walk checks 16 views, and the standard inner-lane
 replay checks 13 views with the default pack.
+Four Nomad routes check 43 additional sand joins across 42 live views.
+The Al-Hyam Dazid combat replay checks his new ready sprite, including
+its reuse during the original wand report.
 The Slums potion-lab replay verifies the scoped orc ready sprite. It
 steps combat pauses explicitly to keep the replay deterministic.
 The matching potion-lab orc leader replay checks the 4× ready and
