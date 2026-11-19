@@ -1404,8 +1404,8 @@ const environmentRoutes = new Map([
     walk: ["up", "enter", "n", "enter", "right", "up"],
   }],
   ["new-phlan-canal-room", {
-    slot: "A", area: 0, views: 9, patterns: 45, sceneryOnly: true,
-    walk: ["left", "right", "up", "up", "right", "up", "left", "up"],
+    slot: "A", area: 0, views: 15, patterns: 45, sceneryOnly: true,
+    walk: ["left", "right", "up", "up", "right", "up", "left", "up", "right", "up", "right", "up", "left", "up"],
   }],
   ["new-phlan-east-terrace", {
     slot: "A", area: 8, views: 20, patterns: 92, sceneryOnly: true,
