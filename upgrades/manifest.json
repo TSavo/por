@@ -1,6 +1,25 @@
 {
   "version": 1,
   "assets": {
+    "tile:10:7c45d5cabb74696f1bc9a79a20a18687a46f116c272537db40f8119defcf8c91": "valhingen-west-arch-terrain-7c45d5cabb74.png",
+    "tile:10:fb6b407908d489c0c30c88f8e6ec954abf7c7d57549ff8b0f707f033a51ef3b8": "valhingen-west-arch-terrain-fb6b407908d4.png",
+    "tile:10:760a25ac2197544ead8192a3626238ac2cabd20606f5f41f88864bdcd86dbda4": "valhingen-west-arch-terrain-760a25ac2197.png",
+    "tile:10:d672cb08d461eba3002b4a2e2925ed7553ad4b4fa7360777d279100732ac854e": "valhingen-west-arch-terrain-d672cb08d461.png",
+    "tile:10:7911aeb5e19a2a28b93c44612bbb95b7280dd4326fec1efc8b61f5e5b02a52be": "valhingen-west-arch-terrain-7911aeb5e19a.png",
+    "tile:10:92c9f4fc8b0db9f2a5c2ed89f31592fdba1ced2ea3f8eb0965df351d502dfb98": "valhingen-west-arch-terrain-92c9f4fc8b0d.png",
+    "tile:10:ac996086d0d8dae49082208d9630232ade6ff3507870e8aad283cbe2f8c5643e": "valhingen-west-arch-terrain-ac996086d0d8.png",
+    "tile:10:2730a0e16afb7ec0b803ecfe8354f1c44d436099d392ff8f6ae1f3783946ae50": "valhingen-west-arch-terrain-2730a0e16afb.png",
+    "tile:10:20409ca485f27438f453e4173ff6e8bed78d2790d6e2290e283d2ab976933f17": "valhingen-west-arch-terrain-20409ca485f2.png",
+    "tile:10:03bbcdaca86287aa9eb965e46453facce868b4b034f6b49c866d593859e72aaf": "valhingen-west-arch-terrain-03bbcdaca862.png",
+    "tile:10:85b030277ef782597e0905e1f528dc419436fb4c80e649f5a0ba20d492065e2b": "valhingen-west-arch-terrain-85b030277ef7.png",
+    "tile:10:40d30a703807e1b61673a80f141309b9e0ad78c3d0da3d8c1a36f2c52437efa1": "valhingen-west-arch-terrain-40d30a703807.png",
+    "tile:10:ca1a1292cdd484da405ff32f0a76c0246e016d31ae63e7506cf401b0d243a84e": "valhingen-west-arch-terrain-ca1a1292cdd4.png",
+    "tile:10:2ff920157cdf30b5b838eb1b8076152ade4c68b83fbf660912698bb3af8e694e": "valhingen-west-arch-terrain-2ff920157cdf.png",
+    "tile:10:8a4b222e3b722418e6dc6299245e634bfaf5325844a37951a80429346ed73633": "valhingen-west-arch-terrain-8a4b222e3b72.png",
+    "tile:10:6f6cf3011de7f590f9854612bff0a8043f72706399da7bbac7d77dc4cd44ae8b": "valhingen-west-arch-terrain-6f6cf3011de7.png",
+    "tile:10:8a6a06ed123f0cb216a90fc7a2fe64305846a5992f93ace12fbfa4eeed061280": "valhingen-west-arch-terrain-8a6a06ed123f.png",
+    "tile:10:6279f2dcd80337005b3b23fd52e480ab2ba1a21360446e87fbb8875788c2f31b": "valhingen-west-arch-terrain-6279f2dcd803.png",
+    "encounter:area:11:SPRIT3.DAX:16:0:0": "new-phlan-arena-master-approach.png",
     "tile:10:564b228dc1ed3cc38edbe05a66a6b683c2f6140de7902317174a65d3b6968486": "valhingen-grave-rows-terrain-564b228dc1ed.png",
     "tile:10:e33712de949717273554e1032f025af3b5d70584c1794f715ef86164a9ebfaf2": "valhingen-grave-rows-terrain-e33712de9497.png",
     "tile:10:b9c9ff8d05bf73eac9370c615d4b47f201d1d28b9b6140fe12da4d33adbb12b9": "valhingen-grave-rows-terrain-b9c9ff8d05bf.png",
@@ -3157,6 +3176,7 @@
     "battle-tile:ef79cc014b5a3c01ced6313cb03e7ca3a5bb077319b9f2f16027000fafb5bab6": "courtyard-wall-raking-corner-coping.png"
   },
   "encounters": {
+    "encounter:area:11:SPRIT3.DAX:16:0:0": { "area": 11, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:31:SPRIT1.DAX:2:0:0": { "area": 31, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:31:SPRIT1.DAX:4:0:0": { "area": 31, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:6:SPRIT5.DAX:29:0:0": { "area": 6, "x": 48, "y": 32, "width": 40, "height": 80 },

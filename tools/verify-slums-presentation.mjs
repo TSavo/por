@@ -30,6 +30,12 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["new-phlan-arena-master-approach", {
+    slot: "A",
+    inputs: ["right", "right", "up", "up", "right", "up", "up", "enter", "enter",
+      "up", "up", "right", "up", "up", "up", "up", "enter", "enter", "up", "up", "enter"],
+    placement: [48, 32, "encounter:area:11:SPRIT3.DAX:16:0:0", 40, 80],
+  }],
   ["bane-captive-goblin-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:31:SPRIT1.DAX:2:0:0", 48, 80],
@@ -747,6 +753,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valhingen-west-arch", {
+    slot: "A", area: 10, views: 6, patterns: 88, sceneryOnly: true,
+    walk: ["up", "up", "right", "right", "up"],
+  }],
   ["valhingen-grave-rows-north", {
     slot: "A", area: 10, views: 4, patterns: 63, sceneryOnly: true,
     walk: ["up", "up", "left"],
