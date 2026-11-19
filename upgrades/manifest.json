@@ -6,6 +6,8 @@
   ],
   "assets": {
     "encounter:area:23:ecl:aa03:SPRIT7.DAX:57:1:0": "pyramid-pump-prisoner-approach.png",
+    "encounter:area:23:ecl:aa03:SPRIT7.DAX:57:0:0": "pyramid-pump-prisoner-close.png",
+    "portrait:area:23:ecl:aa03:PIC7.DAX:57:0:0": "pyramid-pump-prisoners-dialogue.png",
     "encounter:area:10:SPRIT4.DAX:34:1:0": "valhingen-enclave-skeleton-approach-middle.png",
     "encounter:area:10:SPRIT4.DAX:14:2:0": "valhingen-mystic-approach-far.png",
     "encounter:area:10:SPRIT4.DAX:14:1:0": "valhingen-mystic-approach-middle.png",
@@ -4476,6 +4478,7 @@
   },
   "encounters": {
     "encounter:area:23:ecl:aa03:SPRIT7.DAX:57:1:0": { "area": 23, "x": 56, "y": 32, "width": 32, "height": 65 },
+    "encounter:area:23:ecl:aa03:SPRIT7.DAX:57:0:0": { "area": 23, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:10:SPRIT4.DAX:34:1:0": { "area": 10, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:10:SPRIT4.DAX:14:2:0": { "area": 10, "x": 64, "y": 32, "width": 8, "height": 49 },
     "encounter:area:10:SPRIT4.DAX:14:1:0": { "area": 10, "x": 56, "y": 32, "width": 24, "height": 65 },

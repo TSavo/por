@@ -2831,8 +2831,9 @@ The Valhingen skeleton enclave replay checks the new middle pose before
 the close approach and portrait. The New Phlan tavern corporal replay
 checks his enhanced attack animation alongside the existing ready pose.
 The replay pairs the attack frame with the original report of the
-corporal hitting Enna. The `river-pumping` replay now checks the bound
-lizardfolk sprite before parlay and the journal update.
+corporal hitting Enna. The `river-pumping` replay checks the middle and
+close bound lizardfolk sprites, then the pumping-room illustration
+before parlay and the journal update.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.

@@ -5176,7 +5176,21 @@ try {
       document.querySelector('.encounter-sprite[src="/art/${prisoner}"]')?.naturalWidth === 128
     `));
     await switchBothWays();
-    for (const key of ["a", "a", "p", "n", "j"]) await advance(key);
+    const close = "encounter:area:23:ecl:aa03:SPRIT7.DAX:57:0:0";
+    await advance("a");
+    assert.deepEqual(frame.encounter, [48, 32, close, 48, 80]);
+    await waitFor("the enhanced close prisoner sprite", () => run(`
+      document.querySelector('.encounter-sprite[src="/art/${close}"]')?.naturalWidth === 192
+    `));
+    await advance("a");
+    const portrait = "portrait:area:23:ecl:aa03:PIC7.DAX:57:0:0";
+    assert.equal(frame.portrait, portrait);
+    await waitFor("the enhanced pumping room illustration", () => run(`
+      document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352
+    `));
+    await verifyPortraitPanel();
+    await switchBothWays();
+    for (const key of ["p", "n", "j"]) await advance(key);
     assert.ok(knows("river-pump-prisoners-freed") && knows("journal-entry-35"));
     assert.ok(!knows("river-pump-prisoners-hostile"));
     assert.match(frame.journal.objective.nextStep, /Read journal entry 35/);
