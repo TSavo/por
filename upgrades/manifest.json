@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:9:CPIC2.DAX:139:ecl:a015": "stojanow-patrol-fighter-strike.png",
+    "combat:area:9:CPIC2.DAX:11:ecl:a015": "stojanow-patrol-fighter-stand.png",
     "tile:15:323c71332298aeae05cfee4eb5855d831835c8a068440a0f21f6f96ee43b2f9b": "mendor-library-west-rooms-terrain-323c71332298.png",
     "tile:15:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "mendor-library-west-rooms-terrain-7885d9787cff.png",
     "tile:15:0bae672ff3e01f653ae7241fc075226c0865693834d5c45e6f2863678a2526da": "mendor-library-west-rooms-terrain-0bae672ff3e0.png",
