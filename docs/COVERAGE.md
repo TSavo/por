@@ -3237,6 +3237,12 @@ verified the reflected attack on Brin at (80, 128), display changes,
 and an unchanged save. The scratch fixture selects the original
 bandit roll.
 
+`lizard-wilds-merchant-approach` verifies the middle-distance merchant
+sprite from a local slot A start and follows the original choice into
+combat. The Buccaneer Wilds patrol corporal uses a dedicated ready
+and sword strike pair. Chrome verified the reflected attack on Alda
+and display switching from a checkpoint with a controlled patrol roll.
+
 `kuto-sickly-kobold-scouts` replays the middle-distance scouts at
 both native script positions, then the close approach and dialogue.
 It checks the individual sprite anchors in Chrome and display switching
