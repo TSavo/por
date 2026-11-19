@@ -928,6 +928,12 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["stojanow-trap-aide-combat", {
+    slot: "A", stand: "combat:area:9:CPIC2.DAX:11:ecl:a3e7", strike: "combat:area:9:CPIC2.DAX:139:ecl:a3e7",
+    width: 96, height: 96, manualPolling: true, standAnchor: [80, 80, true],
+    strikeAnchor: [80, 80], strikeReflected: true, strikeReport: /AIDESHITPOINTS18AC5LONGBOW/i,
+    inputs: ["up", ...Array(4).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(9).fill("q")],
+  }],
   ["sokal-ferran-combat", {
     slot: "C", stand: "combat:area:21:CPIC4.DAX:17:ecl:aed4", strike: "combat:area:21:CPIC4.DAX:145:ecl:aed4",
     width: 96, height: 96, manualPolling: true, standAnchor: [80, 104, true],

@@ -819,6 +819,8 @@
     "encounter:area:5:SPRIT5.DAX:56:0:0": "valjevo-tower-fire-giants-approach.png",
     "portrait:area:5:PIC5.DAX:56:0:0": "valjevo-tower-fire-giants-dialogue.png",
     "combat:area:9:CPIC2.DAX:14:ecl:a3e7": "stojanow-trap-mage-stand.png",
+    "combat:area:9:CPIC2.DAX:11:ecl:a3e7": "stojanow-trap-aides-ready.png",
+    "combat:area:9:CPIC2.DAX:139:ecl:a3e7": "stojanow-trap-aides-strike.png",
     "tile:2:c9f13f5b1ee35461780fd17d8ab1aeed0531374a31a24b225db9936fa2db8a07": "textile-rubble-interior-terrain-c9f13f5b1ee3.png",
     "tile:2:00ec8d6148ce4d7dcb6fd55335f23db237498263d343e7a5797d2243996180f6": "textile-rubble-interior-terrain-00ec8d6148ce.png",
     "tile:2:76c21367bdab1058f13dc9367ac4815d7a47a8256d5af35bc4002d823814a07c": "textile-rubble-interior-terrain-76c21367bdab.png",
