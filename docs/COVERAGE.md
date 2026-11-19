@@ -786,10 +786,10 @@ The Slums infantry and Textile House priestess share a guest image pattern.
 Area-scoped overrides keep their new artwork distinct, verified live in both fights.
 
 The enhanced Textile House environment has 166 individual 32×32 PNGs
-for the traced courtyard approach, west wing, and temple corridors. Chrome
-checked the merged pack in 40 live views (4,840 placements) across three
-checkpoint replays and verified state-preserving presentation switches.
-The temple approach also displayed the enhanced Grishnak portrait.
+for the traced courtyard approach, west wing, and temple corridors.
+From the native slot I save, the east approach checks 2,299 placements
+across 19 views. Both temple entrances show the same script-scoped
+Grishnak sprite and enhanced portrait.
 Run the browser verifier with `textile-approach` (slot B inside the entrance),
 `textile-wing` (slot J after the courtyard fight), or `textile-temple`
 (slot I outside Grishnak's temple at `2,13 N`).

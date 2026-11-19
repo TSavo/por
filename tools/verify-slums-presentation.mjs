@@ -1856,8 +1856,9 @@ const environmentRoutes = new Map([
     walk: ["left", "up", "right", ...Array(4).fill("up"), "left", "up"],
   }],
   ["textile-temple", {
-    slot: "I", views: 14, patterns: 75,
+    slot: "I", views: 19, patterns: 78,
     walk: ["right", "right", "up", "b", "left", "up", "left", "up", "b", "right", "up", "b", "left", "up", "up", "left", "up", "enter", "enter"],
+    finalPortrait: "portrait:PIC4.DAX:9:0:0",
   }],
   ["textile-temple-native", {
     slot: "I", views: 3, patterns: 22,
@@ -2461,12 +2462,13 @@ try {
     const patterns = new Set();
     const transition = environment.transition;
     let views = await verifyTiledView(area, patterns);
+    const grishnakTemple = routeName === "textile-temple" || routeName === "textile-temple-native";
     let sawGrishnakApproach = false;
     for (const key of environment.walk) {
       const previousTiles = frame.tiles;
       await advance(key);
       if (actor && frame.encounter) assert.deepEqual(frame.tiles, previousTiles);
-      if (routeName === "textile-temple-native" && frame.encounter) {
+      if (grishnakTemple && frame.encounter) {
         assert.deepEqual(frame.encounter, [48, 32, "encounter:area:2:ecl:a66a:SPRIT4.DAX:6:0:0", 48, 80]);
         assert.deepEqual(frame.tiles, previousTiles);
         await waitFor("enhanced Grishnak approach", () => run(`state.sequence === ${frame.sequence} &&
@@ -2633,13 +2635,9 @@ try {
       const capture = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, routeName + ".png"), Buffer.from(capture.data, "base64"));
     }
-    if (routeName === "textile-temple") {
-      assert.equal(frame.portrait, "portrait:PIC4.DAX:9:0:0");
-      await waitFor("Grishnak's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
-    }
+    if (grishnakTemple) assert.ok(sawGrishnakApproach);
     await switchBothWays();
     if (routeName === "textile-temple-native") {
-      assert.ok(sawGrishnakApproach);
       const screenshot = resolve(directory, "grishnak-temple.png");
       const capture = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(screenshot, Buffer.from(capture.data, "base64"));
