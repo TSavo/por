@@ -404,6 +404,7 @@ async function poll() {
     if (lastSoundId === null) lastSoundId = next.soundId ?? 0;
     if (lastTextId === null) lastTextId = next.textId ?? 0;
     if (lastNarrationId === null) lastNarrationId = next.narrationId ?? 0;
+    if (state.sequence === -1 && next.automaticCombat) quickCombat = true;
     const changed = next.sequence !== state.sequence;
     if (changed) state = next;
     else Object.assign(state, next);

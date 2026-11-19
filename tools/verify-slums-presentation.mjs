@@ -2222,8 +2222,15 @@ try {
       await run(`window.quickPollAttempts = 0;
         const fetchGame = window.fetch.bind(window);
         window.fetch = (url, options) => {
-          if (url === "/key" && options?.body === ":poll" && ++window.quickPollAttempts === 1) {
-            return Promise.reject(new TypeError("Simulated connection interruption"));
+          if (url === "/key" && options?.body === ":poll") {
+            const attempt = ++window.quickPollAttempts;
+            if (attempt === 1) return Promise.reject(new TypeError("Simulated connection interruption"));
+            if (attempt === 2) {
+              // Model a newly attached browser while the guest is still waiting.
+              state = { sequence: -1 };
+              quickCombat = false;
+              return Promise.reject(new TypeError("Simulated client reconnect"));
+            }
           }
           return fetchGame(url, options);
         };`);
@@ -2238,7 +2245,7 @@ try {
           /CONTINUEBATTLE:YESNO/i.test(textOf(state)) && state;
       });
       assert.equal(decision.stopped, null);
-      assert.ok(await run("window.quickPollAttempts > 1"));
+      assert.ok(await run("window.quickPollAttempts > 2"));
       const reports = await run("window.combatReports");
       assert.ok(reports.some(text => /ALDA.*ATTACKS.*ROLF.*MISSES/i.test(text)));
       assert.ok(reports.some(text => /ALDA.*ATTACKS.*ROLF.*HITTINGFOR2.*DAMAGE/i.test(text)));
