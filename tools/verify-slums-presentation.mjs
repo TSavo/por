@@ -776,6 +776,7 @@ const illustrationRoutes = new Map([
   }],
   ["zhentil-quarters-guard-dialogue", {
     slot: "A", inputs: ["up", "enter"],
+    approachSequence: [[48, 32, "encounter:area:28:ecl:9ec8:SPRIT5.DAX:16:0:0", 40, 80]],
     portrait: "portrait:area:28:HEAD6.DAX:57:BODY6.DAX:6", prompt: /YOUARERESTRICTEDTOYOURQUARTERS/i,
   }],
   ["valjevo-fire-giant-dialogue", {
