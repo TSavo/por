@@ -37,6 +37,11 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["slums-orc-clash", {
+    slot: "B", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:SPRIT2.DAX:4:0:0", 40, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:20:PIC2.DAX:4:0:0", prompt: /ORC|GUARDSRUNTOINTERCEPTYOU/i },
+  }],
   ["slums-goblin-lesson-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:20:SPRIT2.DAX:2:0:0", 48, 80],
