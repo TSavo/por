@@ -3000,7 +3000,7 @@ const environmentRoutes = new Map([
 ]);
 const freshRolf = routeName === "new-phlan-rolf-approach";
 const routes = ["new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
-routes.push("new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload", "nomad-headman-raid");
+routes.push("new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload", "nomad-headman-rest-portrait", "nomad-headman-raid");
 routes.push("textile-return-art");
 routes.push("stojanow-wall-warning", "stojanow-wall-warning-reload");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
@@ -4282,22 +4282,36 @@ try {
     await waitFor("enhanced Nomad sentries after the entrance trail", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
     console.log("Verified the Nomad Camp illustration, journal entry, and seven tiled views through to the sentries in Chrome.");
-  } else if (routeName === "nomad-headman-rest-reload" || routeName === "nomad-headman-raid") {
+  } else if (["nomad-headman-rest-reload", "nomad-headman-rest-portrait", "nomad-headman-raid"].includes(routeName)) {
     const visibleText = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
     const raid = routeName === "nomad-headman-raid";
+    const restPortraitOnly = routeName === "nomad-headman-rest-portrait";
     assert.match(visibleText(), /00:29/);
     await advance("j");
     const known = new Set(frame.journal?.leads.map(({ id }) => id));
     assert.ok(known.has("nomad-promised-aid") && known.has("nomad-rest-offer"));
     assert.ok(!known.has("nomad-declined-aid") && !known.has("nomad-kobold-attack") && !known.has("nomad-war-cries"));
     await switchBothWays();
-    for (const key of ["j", "e", "enter", "r", "h", ...Array(raid ? 18 : 8).fill("i"), "r"]) await advance(key);
-    if (raid) {
-      for (const key of ["space", "n"]) await advance(key);
+    for (const key of ["j", "e", "enter"]) await advance(key);
+    const restPortrait = "portrait:area:17:ecl:9ed7:PIC7.DAX:29:0:0";
+    assert.equal(frame.portrait, restPortrait);
+    await waitFor("the headman's tent rest artwork", () => run(`
+      state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${restPortrait}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays();
+    for (const key of ["r", "h", ...Array(raid || restPortraitOnly ? 18 : 8).fill("i"), "r"]) await advance(key);
+    if (raid || restPortraitOnly) {
+      await advance("space");
+      assert.equal(frame.portrait, restPortrait);
+      await advance("n");
+      assert.equal(frame.portrait, undefined);
       assert.match(visibleText(), /18:29.*THESOUNDOFWARCRIES/i);
       await advance("j");
       assert.ok(frame.journal.leads.some(({ id }) => id === "nomad-war-cries"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "nomad-kobold-attack"));
+    }
+    if (raid) {
       for (const key of ["j", "enter", "enter", "j"]) await advance(key);
       assert.ok(frame.journal.leads.some(({ id }) => id === "nomad-kobold-attack"));
       for (const key of ["j", "enter"]) await advance(key);
@@ -4368,6 +4382,8 @@ try {
       console.log("Enhanced Nomad raiders at the wall:", enemyScreenshot);
       console.log("Enhanced opening raid battlefield:", combatScreenshot);
       console.log("Verified the enhanced kobold strike at (80,80) and its return to the live combat frame.");
+    } else if (restPortraitOnly) {
+      console.log("Verified the Nomad guest tent portrait, display switching, and the war-cries transition in Chrome.");
     } else {
       await advance("e");
       assert.match(visibleText(), /08:29.*AREACASTVIEWENCAMP/i);

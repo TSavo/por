@@ -3178,6 +3178,32 @@ Chrome checked both previews for all 18 weapons in the original icon
 editor. The inventory now links all 396 ready and strike entries for
 the 198 distinct head and body combinations.
 
+The Nomad Camp guest tent uses a dedicated 352×352 rest illustration.
+The `nomad-headman-rest-reload` and `nomad-headman-rest-portrait` Chrome
+replays check the illustration in Encamp after reloading the headman's
+rest permission. They check full-panel fit and mode switching. The
+portrait replay also checks that the image stays through the rest prompt
+and clears when the camp hears war cries.
+
+The Zhentil Commandant has a ready and longsword strike pair scoped to
+the reinforcement battle. Chrome checks both poses and the attack
+report at the native anchor. The local fixtures bypass the earlier
+dwarf battle. The shorter fixture also reduces the two surrounding
+enemy groups to reach the Commandant sooner.
+
+The Podal Pitt tavern hobgoblin has ready and strike sprites scoped to
+the brawl. The Chrome replay starts at the local slot I checkpoint and
+checks both loaded 96×96 images at (56, 56), including the reflected
+strike and matching native attack report.
+
+The combat matcher checks one opaque foreground pixel before comparing
+the full sprite and its background. A before-and-after check on
+synthetic battlefield and editor frames built from guest combat parts
+matched all placements and output pixels. The same local benchmark
+reduced 30 grayscale battlefield matches from about 34 seconds to
+under 0.3 seconds. The full Nomad raid replay reached combat and
+verified the kobold strike with the production matcher.
+
 The `wild-cave-boar-sow` route verifies the sow's approach, her warning
 while feeding her piglets, and her charge through the battle prompt.
 Chrome checks the original anchor, full-panel art, and mode switching

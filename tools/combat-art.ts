@@ -66,13 +66,24 @@ export function loadCombatArtMatcher(keys: string[], root = keys.length ? findGa
 }
 
 function buildCombatArtMatcher(keys: string[], root: string | null) {
-  type Pose = { key: string; pattern: string; scoped: boolean; reflected: boolean; pixels: Uint8Array; width: number };
+  type Pose = {
+    key: string; pattern: string; scoped: boolean; reflected: boolean; pixels: Uint8Array;
+    width: number; foregroundProbe: number; party: boolean;
+  };
   const registered: Pose[] = [];
   const sizes = new Map<string, { width: number; height: number }>();
   const register = (pixels: Uint8Array, key: string, reflected: boolean, width: number) => {
     const pattern = `${width}:${Buffer.from(pixels).toString("hex")}`;
-    registered.push({ key, pattern, scoped: key.startsWith("combat:area:"), reflected, pixels, width });
+    const chromatic = pixels.findIndex(color => color !== 0 && color !== 7 && color !== 8 && color !== 15);
+    // A foreground color absent from grayscale terrain rejects empty windows early.
+    const foregroundProbe = chromatic >= 0 ? chromatic : pixels.findIndex(Boolean);
+    registered.push({
+      key, pattern, scoped: key.startsWith("combat:area:"), reflected, pixels, width,
+      foregroundProbe, party: partyCombatKey.test(key),
+    });
   };
+  const matchesProbe = (cell: Uint8Array, pose: Pose) =>
+    pose.foregroundProbe < 0 || cell[pose.foregroundProbe] === pose.pixels[pose.foregroundProbe];
   const registerFacings = (pixels: Uint8Array, key: string, width = 24, height = 24, artReflected = false) => {
     sizes.set(`${width}:${height}`, { width, height });
     const reflected = Buffer.from(pixels);
@@ -86,7 +97,8 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
     const battleSelection = bevel[0] === 15;
     let match: Pose | undefined;
     for (const pose of poses) {
-      if (pose.width !== width || pose.pixels.length !== cell.length || !pose.pixels.every((color, index) => color ? cell[index] === color :
+      if (pose.width !== width || pose.pixels.length !== cell.length || !matchesProbe(cell, pose) ||
+          !pose.pixels.every((color, index) => color ? cell[index] === color :
         cell[index] === bevel[index] || (battleSelection && bevel[index] === 7 && cell[index] === 15))) continue;
       if (match && match.key !== pose.key) return;
       match = pose;
@@ -99,8 +111,9 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
     let match: Pose | undefined;
     const wide = cell.length === width * 24;
     for (const pose of terrainPoses.get(`${width}:${cell.length}`) ?? []) {
+      if (!matchesProbe(cell, pose)) continue;
       const matchesBackground = background && pose.pixels.every((color, index) => color || cell[index] === background[index]);
-      if (partyCombatKey.test(pose.key) && !matchesBackground) continue;
+      if (pose.party && !matchesBackground) continue;
       if (!pose.pixels.every((color, index) => {
             const pixel = cell[index];
             if (color) return pixel === color;
@@ -175,7 +188,7 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
   for (const pose of poses) {
     const { width, pixels, key } = pose;
     const overlapsTerrain = monsterCombatKey.test(key) && (width === 48 || pixels.length === width * 48 || key.includes(":ecl:"));
-    if (key !== fallenCombatKey && !overlapsTerrain && !partyCombatKey.test(key)) continue;
+    if (key !== fallenCombatKey && !overlapsTerrain && !pose.party) continue;
     const extent = `${width}:${pixels.length}`;
     const matching = terrainPoses.get(extent) ?? [];
     matching.push(pose);
