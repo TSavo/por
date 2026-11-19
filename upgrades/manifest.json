@@ -1,6 +1,18 @@
 {
   "version": 1,
   "assets": {
+    "tile:16:ec3a1e66d68a3d5c6719ad35c7c7e7aa8e16d576037d268368ae7db91b9ea7c4": "lizard-west-ruin-terrain-ec3a1e66d68a.png",
+    "tile:16:e9b947f3a7478f877a100223aed13dfcf9d3c9858c0caeb2c0bf9420f9fb8248": "lizard-west-ruin-terrain-e9b947f3a747.png",
+    "tile:16:8a13f7607ef498047fb51ed8383bf3e6323c74dd445dda8466bd66e0a09d8ccd": "lizard-west-ruin-terrain-8a13f7607ef4.png",
+    "tile:16:ea71b9f37c823424edd30e47d590c209267be1640a147db65edea120304bca5f": "lizard-west-ruin-terrain-ea71b9f37c82.png",
+    "tile:16:d9a6c833d1ee06d36a0467fbd3b7af5c4ed0c51145f49f62c267960e280a8689": "lizard-west-ruin-terrain-d9a6c833d1ee.png",
+    "tile:16:0dcef9ed85ade58e9cca9eb22ec5d86d661875c428e8db71b48f2f760628a026": "lizard-west-ruin-terrain-0dcef9ed85ad.png",
+    "tile:16:71c858f7e6de451eb4a77c5f3e442f50738421472a239bbcd1afe85ced791161": "lizard-west-ruin-terrain-71c858f7e6de.png",
+    "tile:16:91f967a4bf128a7889006f6372b53f0b4264da87ad7da5e28af85f1322273b1f": "lizard-west-ruin-terrain-91f967a4bf12.png",
+    "tile:16:d7f44e9ae57491d39a4a9f79cd2680acaa61cef66e57f530b763ed7229cd425b": "lizard-west-ruin-terrain-d7f44e9ae574.png",
+    "tile:16:a54a22cfabadf3d87a0d29821dac782c1f6ff842af8e41be65b4578a712c5485": "lizard-west-ruin-terrain-a54a22cfabad.png",
+    "tile:16:3784cde569fdb774541f667f355916f55c13929a9339c7e218a2b4cd884087b9": "lizard-west-ruin-terrain-3784cde569fd.png",
+    "tile:16:dbbc059703406eebe292dc08c4e8cbab7b8128557d03c439e0b59ce14387af27": "lizard-west-ruin-terrain-dbbc05970340.png",
     "encounter:area:21:SPRIT4.DAX:18:0:0": "sokal-ceiling-insects-approach.png",
     "tile:10:8956bbec4932b49cfa6f935f4fd7071ca33beecfb86623aab6b091d551727eed": "valhingen-vault-walk-path-8956bbec4932.png",
     "tile:10:7120b409cc26cb2e4dac91595abc509eb2837f1b40a7f80dd37b5629f5994c87": "valhingen-vault-walk-path-7120b409cc26.png",
