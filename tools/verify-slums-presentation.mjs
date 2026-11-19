@@ -1002,6 +1002,10 @@ const outskirtsRoutes = new Map([
 const outskirts = outskirtsRoutes.get(routeName);
 const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["new-phlan-market-turn", {
+    slot: "B", area: 0, views: 13, patterns: 63, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up"],
+  }],
   ["new-phlan-pier-alley", {
     slot: "A", area: 0, views: 14, patterns: 43, sceneryOnly: true,
     walk: ["right", "right", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "right"],
