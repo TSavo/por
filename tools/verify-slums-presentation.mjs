@@ -30,6 +30,12 @@ const conjurerPrompts = new Map([
 ]);
 const conjurerPrompt = conjurerPrompts.get(routeName);
 const encounterRoutes = new Map([
+  ["valjevo-fire-giant-approach", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    placement: [56, 32, "encounter:area:4:SPRIT5.DAX:56:1:0", 32, 73],
+    closer: [48, 32, "encounter:area:4:SPRIT5.DAX:56:0:0", 48, 80],
+    dialogue: { key: "a", portrait: "portrait:area:4:PIC5.DAX:56:0:0", prompt: /THEGIANTSLOOKUPATYOU/i },
+  }],
   ["wild-cave-ankheg-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:25:SPRIT6.DAX:65:1:0", 48, 65],

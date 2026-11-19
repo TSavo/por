@@ -1373,6 +1373,8 @@ check the full-panel swarm and giant lizard illustrations.
 the falling-snake ambush and boar charge at their original prompts.
 `textile-hobgoblin-approach` and `wild-cave-ankheg-approach` check
 standalone 4× encounter sprites at their original screen anchors.
+`valjevo-fire-giant-approach` checks both approach distances and
+the transition to the close-up, with the same terrain behind both poses.
 `new-phlan-east-ward` checks six additional mappings across 16 live
 views and 1,936 placements, including three redrawn ceiling tiles.
 `new-phlan-covered-market` checks six redrawn cap and doorway
