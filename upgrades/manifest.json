@@ -1,6 +1,12 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:18:CPIC1.DAX:4:ecl:b16f": "podal-recruit-orc-stand.png",
+    "combat:area:18:CPIC1.DAX:132:ecl:b16f": "podal-recruit-orc-strike.png",
+    "combat:area:18:CPIC1.DAX:8:ecl:b16f": "podal-recruit-ogre-stand.png",
+    "combat:area:18:CPIC1.DAX:136:ecl:b16f": "podal-recruit-ogre-strike.png",
+    "tile:1:849f0fc3698f62765d1d2f51efdc4bde92d9bbd7f7e4af23e120b21ff92d62c0": "buccaneer-side-gate-terrain-849f0fc3698f.png",
+    "portrait:area:0:HEAD3.DAX:45:BODY3.DAX:24": "new-phlan-innkeeper.png",
     "tile:1:5489a60945a1c69e6349b1dbbbfa55e6e0f2a04200f80cb2d4297b8177cee54c": "buccaneer-guard-approach-terrain-5489a60945a1.png",
     "tile:1:297ae58620a76aff7e45afd3c6c147f02104a51cd0202ea310ca5b2f4777faad": "buccaneer-guard-approach-terrain-297ae58620a7.png",
     "tile:1:9e23ea0fdb7a101530a3d4837088cd9fdd4a85e01ff96b422ec027b486078ffe": "buccaneer-guard-approach-terrain-9e23ea0fdb7a.png",

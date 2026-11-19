@@ -229,6 +229,11 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["new-phlan-innkeeper", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:area:0:HEAD3.DAX:45:BODY3.DAX:24", prompt: /ITWILLCOSTYOU1PLATINUMPIECETORESTHERE/i,
+    continuation: { inputs: ["n"], prompt: /THENYOUMUSTLEAVE/i, clearsPortrait: true },
+  }],
   ["new-phlan-tavern-spinner", {
     slot: "A", inputs: ["up", "enter", "y"],
     portrait: "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:7", prompt: /WESPINTHISTOP/i,
@@ -458,6 +463,16 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["podal-recruit-orc", {
+    slot: "I", stand: "combat:area:18:CPIC1.DAX:4:ecl:b16f", strike: "combat:area:18:CPIC1.DAX:132:ecl:b16f",
+    width: 96, height: 96, readyPrompt: /ORCHITPOINTS5/i, strikeReflected: false,
+    inputs: ["up", ...Array(6).fill("enter")],
+  }],
+  ["podal-recruit-ogre", {
+    slot: "I", stand: "combat:area:18:CPIC1.DAX:8:ecl:b16f", strike: "combat:area:18:CPIC1.DAX:136:ecl:b16f",
+    width: 96, height: 192, readyPrompt: /OGREHITPOINTS21/i, strikeReflected: false,
+    inputs: ["up", ...Array(6).fill("enter"), ...Array(3).fill("q")], strikeInputs: Array(5).fill("q"),
+  }],
   ["podal-pitt-duelist", {
     slot: "I", stand: "combat:area:18:CPIC1.DAX:16:ecl:a9df", strike: "combat:area:18:CPIC1.DAX:144:ecl:a9df",
     width: 96, height: 96, readyPrompt: /4THLVLFIGHTERHITPOINTS30/i, strikeReflected: true,
@@ -861,6 +876,11 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["buccaneer-side-gate", {
+    slot: "A", area: 1, views: 22, patterns: 81, sceneryOnly: true,
+    walk: ["left", "up", "right", "up", "up", "left", "left", "up", "up", "right", "up",
+      "up", "left", "up", "left", "up", "left", "up", "up", "right", "up"],
+  }],
   ["buccaneer-guard-approach", {
     slot: "A", area: 1, views: 18, patterns: 77, sceneryOnly: true,
     walk: ["left", "up", "right", "up", "up", "left", "left", "up", "up", "right", "up", "up", "left", "up", "left", "up", "up"],
