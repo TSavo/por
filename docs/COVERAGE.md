@@ -1353,6 +1353,9 @@ grain sack prompt with the same panel and presentation switch checks.
 renderer uses the suspended ECL cursor to distinguish her fight from
 the throne rematch, where the envoys reuse the original CPIC poses.
 The `kobold-cave-boar` replay checks that the rematch excludes Fatima’s art.
+`new-phlan-north-avenue` checks 20 redrawn shrine and street tiles across
+15 live views. `valhingen-grave-claws` and `valhingen-skeleton-enclave`
+check original prompts, panel fit, and state-preserving switches.
 `valjevo-medusa-dialogue` verifies the charging Medusa at the original
 precombat prompt, with full panel fit and mode switching.
 `sokal-ceiling-insects` checks the swarm illustration at the original

@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valhingen-grave-claws", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
+  }],
+  ["valhingen-skeleton-enclave", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:10:PIC4.DAX:34:0:0", prompt: /THEENCLAVEISGUARDEDBYASKELETONARMY/i,
+  }],
   ["sokal-ceiling-insects", {
     slot: "C", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:21:PIC4.DAX:18:0:0", prompt: /THEINTERIORISOVERRUNWITHINSECTS/i,
@@ -418,6 +426,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["new-phlan-north-avenue", {
+    slot: "B", area: 0, views: 15, patterns: 96, sceneryOnly: true,
+    walk: ["left", "up", "up", "n", "right", "up", "left", "up", "up", "right", "up", "up", "up", "left", "up"],
+  }],
   ["valjevo-south-service-lane", {
     slot: "B", area: 6, views: 16, patterns: 36, sceneryOnly: true,
     walk: ["left", "up", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up"],
