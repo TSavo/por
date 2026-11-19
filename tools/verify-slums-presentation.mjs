@@ -4137,9 +4137,10 @@ try {
     let views = await verifyTiledView(20, patterns);
     for (const key of route) {
       await advance(key);
-      views += await verifyTiledView(dragon && views >= 3 ? 7 : 20, patterns);
+      // The final audience draws area 7 before the dialogue portrait appears.
+      views += await verifyTiledView(views >= (halls ? 2 : 3) ? 7 : 20, patterns);
     }
-    assert.equal(views, halls ? 2 : 8);
+    assert.equal(views, halls ? 5 : 8);
     assert.equal(frame.portrait, "portrait:PIC5.DAX:66:0:0");
     await waitFor("the dragon dialogue portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await verifyPortraitPanel();

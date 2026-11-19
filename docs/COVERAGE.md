@@ -1701,7 +1701,10 @@ replays checked that presentation switches preserve the live frame and save.
 
 The `assault-briefing` route also checks the escort captain's 352×352 portrait
 before Ulrich appears. The `castle-halls` and `castle-dragon` routes check
-individual threshold tiles before the dragon dialogue.
+individual threshold tiles before the dragon dialogue. Run `castle-halls`
+with a controlled slot B checkpoint at `13,7 W`. Chrome checks all 605
+placements across five views, including three in the final audience area,
+then checks the enhanced portrait and switching presentation both ways.
 
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_H PATH_TO_CHROME textile-ogre`
 from the controlled prison-key checkpoint at `2,15 S`. Chrome verifies the
