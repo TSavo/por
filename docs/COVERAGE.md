@@ -2060,8 +2060,8 @@ swordsmen at their original grid positions. With both sprites separated
 from the terrain, the opening combat trace matches all 93 captured
 battlefield terrain cells.
 The replay also checks the ochre swordsman's enhanced strike during
-the battle. Both new strike images match their original attack pixels
-in either facing, including when the actor is selected.
+the battle. The blue, ochre, and plum strike images match their original
+attack pixels in either facing, including when the actor is selected.
 
 The Podal Plaza replay starts from that post-Sokal save at the clerk.
 It buys westbound passage, walks from the landing to the north entrance
