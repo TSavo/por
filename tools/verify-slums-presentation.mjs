@@ -2608,6 +2608,10 @@ try {
       assert.match(text, /ALLTHENOMADSHOLDTHEIRSWORDSATTHEREADY/i);
       await waitFor("enhanced Nomad Camp perimeter sentry", () => run(`
         document.querySelector('.encounter-sprite[src="/art/${sentry}"]')?.naturalWidth === 192`));
+      const capture = await command("Page.captureScreenshot", { format: "png" });
+      const screenshot = resolve(directory, "nomad-sword-ready.png");
+      writeFileSync(screenshot, Buffer.from(capture.data, "base64"));
+      console.log("Enhanced Nomad Camp perimeter sentry:", screenshot);
     }
     if (environment.finalPortrait) {
       assert.equal(frame.portrait, environment.finalPortrait);
