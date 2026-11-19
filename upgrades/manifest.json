@@ -5,6 +5,10 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "tile:27:612e9c6b4133e442a8fb430800a9647436109d286a1ddb3eacdb62d483c0c40b": "wild-cave-chamber-612e9c6b4133.png",
+    "tile:27:93e0d24299f4f009fb5a9226e1fccd627d38910bb502b608add84c53ff6d61fd": "wild-cave-chamber-93e0d24299f4.png",
+    "tile:27:c31f352e01707674dfce9c646cfbc54bc71c48b71f78bfec649f90ec3abbde9e": "wild-cave-chamber-c31f352e0170.png",
+    "tile:27:d20d585641c6d76d5fdd15d21d1f0fe0f6663d6aded22bc96508569ac0bd84f7": "wild-cave-chamber-d20d585641c6.png",
     "tile:27:2f0383898682ab7049025444368d40f6b0f9ae7c1ec0c8ccb2d37d1e0dbd5377": "wild-cave-minotaur-2f0383898682.png",
     "tile:27:e021fb31efd7d23b326bc5261dcecf5486cea070a340840e3659cbf9b462f55d": "wild-cave-minotaur-e021fb31efd7.png",
     "tile:27:f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b": "wild-cave-minotaur-f5a5fd42d16a.png",

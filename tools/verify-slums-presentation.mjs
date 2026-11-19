@@ -73,6 +73,7 @@ const encounterRoutes = new Map([
   ["wild-cave-wyvern-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [24, 32, "encounter:area:27:SPRIT8.DAX:121:0:0", 88, 80],
+    terrain: { area: 27, views: 3, patterns: 17 },
     dialogue: { key: "enter", portrait: "portrait:area:27:PIC8.DAX:121:0:0", prompt: /FEROCIOUSWYVERN/i },
   }],
   ["slums-hobgoblin-ringleader-approach", {
@@ -159,12 +160,13 @@ const encounterRoutes = new Map([
   ["wild-cave-giant-lizard-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [32, 32, "encounter:area:27:SPRIT8.DAX:59:0:0", 80, 80],
-    terrainArea: 27,
+    terrain: { area: 27, views: 3, patterns: 15 },
     dialogue: { key: "enter", portrait: "portrait:area:27:PIC8.DAX:59:0:0", prompt: /FOURGIANTLIZARDSANDTWOMINOTAURS/i },
   }],
   ["wild-cave-gnoll-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [40, 32, "encounter:area:27:SPRIT8.DAX:73:0:0", 56, 80],
+    terrain: { area: 27, views: 3, patterns: 17 },
     dialogue: { key: "enter", portrait: "portrait:area:27:PIC8.DAX:73:0:0", prompt: /SOMEGNOLLSANDTROLLS/i },
   }],
   ["wild-cave-thri-kreen-approach", {
@@ -2708,10 +2710,11 @@ try {
   } else if (encounterRoute) {
     const terrainPatterns = new Set();
     let terrainViews = 0;
-    if (encounterRoute.terrainArea !== undefined) terrainViews += await verifyTiledView(encounterRoute.terrainArea, terrainPatterns);
+    const terrain = encounterRoute.terrain;
+    if (terrain) terrainViews += await verifyTiledView(terrain.area, terrainPatterns);
     for (const key of encounterRoute.inputs) {
       await advance(key);
-      if (encounterRoute.terrainArea !== undefined) terrainViews += await verifyTiledView(encounterRoute.terrainArea, terrainPatterns);
+      if (terrain) terrainViews += await verifyTiledView(terrain.area, terrainPatterns);
     }
     async function verifyApproach(placement) {
       assert.deepEqual(frame.encounter, placement);
@@ -2728,9 +2731,9 @@ try {
       await switchBothWays();
     }
     await verifyApproach(encounterRoute.placement);
-    if (encounterRoute.terrainArea !== undefined) {
-      assert.equal(terrainViews, 3);
-      assert.equal(terrainPatterns.size, 15);
+    if (terrain) {
+      assert.equal(terrainViews, terrain.views);
+      assert.equal(terrainPatterns.size, terrain.patterns);
       const capture = await command("Page.captureScreenshot", { format: "png" });
       const screenshot = resolve(directory, `${routeName}.png`);
       writeFileSync(screenshot, Buffer.from(capture.data, "base64"));

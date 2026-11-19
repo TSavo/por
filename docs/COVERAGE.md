@@ -1603,6 +1603,9 @@ The giant lizard route additionally verifies 15 cave terrain patterns
 across three views. Controlled replays check its middle and far cave
 sprites at (48,32) over the same 121 enhanced tiles and continue to the
 minotaur encounter dialogue.
+The gnoll and wyvern routes each verify 17 cave terrain patterns across
+three views. Together with the minotaur chamber, the nine views use 19
+distinct 32×32 tiles, including the added wall and floor junctions.
 `stojanow-patrol-fighter-approach` checks the far and middle patrol
 sprites through the transition to dialogue. `pyramid-vats-lizard-approach`
 checks the vat ambush's approach sprite and dialogue portrait. Both
