@@ -208,6 +208,10 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["new-phlan-harbor-city-watch", {
+    slot: "A", inputs: ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"],
+    portrait: "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7", prompt: /GO.*STAY/i,
+  }],
   ["lizard-wilds-kobold-prisoners", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:26:PIC7.DAX:0:0:0", prompt: /RELEASEUS/i,
@@ -766,6 +770,18 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valhingen-east-memorial", {
+    slot: "A", area: 10, views: 7, patterns: 77, sceneryOnly: true,
+    walk: ["up", "up", "up", "up", "left", "up"],
+  }],
+  ["valhingen-gravestones-north", {
+    slot: "A", area: 10, views: 7, patterns: 98, sceneryOnly: true,
+    walk: ["up", "up", "right", "right", "up", "right"],
+  }],
+  ["valhingen-gravestones-south", {
+    slot: "A", area: 10, views: 6, patterns: 74, sceneryOnly: true,
+    walk: ["up", "up", "up", "right", "up"],
+  }],
   ["valhingen-west-arch", {
     slot: "A", area: 10, views: 6, patterns: 88, sceneryOnly: true,
     walk: ["up", "up", "right", "right", "up"],

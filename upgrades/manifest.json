@@ -1,6 +1,16 @@
 {
   "version": 1,
   "assets": {
+    "tile:10:85f96a09fcedfa79366592188a4e35a5bca0ba894c5b769f69e10fe0f55d98c4": "valhingen-east-memorial-terrain-85f96a09fced.png",
+    "tile:10:9bf5a9689dbe67034652a27cb0992d334431c4a1dfe2ddba4a39c0382e9cd43c": "valhingen-east-memorial-terrain-9bf5a9689dbe.png",
+    "tile:10:8872c9800e8f2e623297302369270ad5549052ade2ce1d6d0a224f4213524adf": "valhingen-east-memorial-terrain-8872c9800e8f.png",
+    "tile:10:7ce4295bee675326f44f6f7a667450476a3f980776fc550a35e5535a5f42aff1": "valhingen-east-memorial-terrain-7ce4295bee67.png",
+    "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7": "new-phlan-harbor-city-watch.png",
+    "tile:10:14e906eeb4abbafa7e41e8f2b95bae8774b0f9297e99e7699c2f6ab5deddf122": "valhingen-gravestones-terrain-14e906eeb4ab.png",
+    "tile:10:2ca4e51c565ffd8c9ee87bfd331428a2a0daa05cdf235b4bf9f8372fb0e93aa2": "valhingen-gravestones-terrain-2ca4e51c565f.png",
+    "tile:10:9735f2bcaa0277a750b0a7724c00c48ee709bc9bd6ce0100c84035ff98d74513": "valhingen-gravestones-terrain-9735f2bcaa02.png",
+    "tile:10:b505a5db5557ee2f019256d5b39e70aaeaa91433d73e896784e9962672192f85": "valhingen-gravestones-terrain-b505a5db5557.png",
+    "tile:10:f07fe30b43547479972782580b81e4dc78865430a8224078765f33e9c30afd9a": "valhingen-gravestones-terrain-f07fe30b4354.png",
     "combat:area:5:CPIC5.DAX:56:ecl:a83f": "valjevo-tower-fire-giant-stand.png",
     "combat:area:5:CPIC5.DAX:184:ecl:a83f": "valjevo-tower-fire-giant-strike.png",
     "encounter:area:11:SPRIT3.DAX:15:0:0": "new-phlan-city-watch-approach.png",
