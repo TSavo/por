@@ -725,8 +725,10 @@ requirement and updates the tracked Temple of Tyr objective.
 The goblin dialogue also checks the separate 352×352 captive scene and
 switches modes at the original Kill Them / Let Them Go prompt. The
 replacement uses the shared source picture only in the temple interior.
-The same replay checks 25 individual 32×32 tiles over 12 views near the
+The same replay checks 25 individual 32×32 tiles over 13 views near the
 captive room, including the slate ceiling, masonry joints, and oak door.
+At the encounter, it verifies that the enhanced goblin sprite draws
+over the same 121 tiles as the preceding view.
 It turns through all four directions, reaches the room, and walks back
 into the corridor after releasing the captives.
 The `bane-symbol` replay loads a controlled gate save carrying the

@@ -3779,7 +3779,15 @@ try {
       }
       const corridor = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "bane-interior-corridor.png"), Buffer.from(corridor.data, "base64"));
-      for (const key of ["enter", "enter"]) await advance(key);
+      const scenery = frame.tiles;
+      await advance("enter");
+      const captive = "encounter:area:31:SPRIT1.DAX:2:0:0";
+      assert.deepEqual(frame.encounter, [48, 32, captive, 48, 80]);
+      assert.deepEqual(frame.tiles, scenery);
+      assert.equal(await verifyTiledView(31, interiorPatterns), 1);
+      await waitFor("the captive goblin over the enhanced corridor", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-sprite[src="/art/${captive}"]')?.naturalWidth === 192`));
+      await advance("enter");
     } else {
       for (const key of ["up", "enter", "enter"]) await advance(key);
     }
