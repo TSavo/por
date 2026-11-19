@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "scope": ["ECL4.DAX", "ECL5.DAX", "ECL6.DAX"],
+  "semantics": {
+    "memoryValues": "Unsigned bytes read from the ECL VM data segment immediately before dispatch of the trigger instruction.",
+    "bitAnd": "(memory[address] & mask) compared as an unsigned byte.",
+    "encounterMenuOutputOperandIndex": "The literal output operand actually selected by ENCOUNTER MENU; operand numbering is the disassembler/extraction operandIndex.",
+    "onGosubIndex": "The zero-based ON GOSUB selector value. Target 0 is the first listed target.",
+    "all": "Every nested condition must match.",
+    "none": "No unit is valid on this reachable path; suppress this shared trigger and allow its later independent narration trigger to play."
+  },
+  "selectors": [
+    {
+      "triggerSourceId": "por.review.ecl-4.block-2.at-9f6a",
+      "resolution": "at-trigger",
+      "discriminator": {"kind": "memoryByte", "address": "0x6e7b"},
+      "variants": [
+        {"unitId": "ecl4-b2-9f6a-9fca-9ff2-skullcrusher-present", "when": {"equals": 255}},
+        {"unitId": "ecl4-b2-9f6a-9ff2-skullcrusher-absent", "when": {"notEquals": 255}}
+      ],
+      "evidence": ["0x9fbf compares 0x6e7b with 255; equality falls through to 0x9fca, inequality jumps to 0x9fee."]
+    },
+    {
+      "triggerSourceId": "por.review.ecl-4.block-2.at-a109",
+      "resolution": "at-trigger",
+      "discriminator": {"kind": "memoryByte", "address": "0x4a73"},
+      "variants": [
+        {"unitId": "ecl4-b2-a109-a147-a19f-prisoner-chained", "when": {"notIn": [128, 255]}},
+        {"unitId": "ecl4-b2-a109-a3fc-prisoner-free", "when": {"equals": 128}},
+        {"unitId": "ecl4-b2-a109-prisoner-gone", "when": {"equals": 255}}
+      ],
+      "evidence": ["After 0xa109, 0x4a73 == 255 exits; 0x4a73 == 128 jumps to 0xa3fc; every other value falls through to the chained-prisoner text at 0xa147."]
+    },
+    {
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9d1f",
+      "resolution": "at-trigger",
+      "discriminator": {"kind": "orderedConditions"},
+      "variants": [
+        {"unitId": "por.voice.ecl5.b3-9d1f-9d3b", "when": {"bitAnd": {"address": "0x4a6a", "mask": 3, "notEquals": 0}}},
+        {"unitId": "por.voice.ecl5.b3-9d1f-9d6e", "when": {"all": [{"bitAnd": {"address": "0x4a6a", "mask": 3, "equals": 0}}, {"bitAnd": {"address": "0x4a65", "mask": 1, "equals": 0}}]}},
+        {"unitId": null, "when": {"all": [{"bitAnd": {"address": "0x4a6a", "mask": 3, "equals": 0}}, {"bitAnd": {"address": "0x4a65", "mask": 1, "notEquals": 0}}]}, "action": "none", "reason": "Control jumps to 0x9ddc; neither composite unit covers that path."}
+      ],
+      "evidence": ["0x9d2d tests 0x4a6a & 3: nonzero falls through to 0x9d3b; zero jumps to 0x9d60. 0x9d60 tests 0x4a65 & 1: zero reaches 0x9d6e; nonzero jumps to 0x9ddc."]
+    },
+    {
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9df1",
+      "resolution": "during-trigger",
+      "discriminator": {"kind": "encounterMenuOutputOperandIndex"},
+      "variants": [
+        {"unitId": "por.voice.ecl5.b3-9df1-operand-9", "when": {"equals": 9}},
+        {"unitId": "por.voice.ecl5.b3-9df1-operand-10", "when": {"equals": 10}}
+      ]
+    },
+    {
+      "triggerSourceId": "por.review.ecl-5.block-3.at-a371",
+      "resolution": "during-trigger",
+      "discriminator": {"kind": "encounterMenuOutputOperandIndex"},
+      "variants": [
+        {"unitId": "por.voice.ecl5.b3-a371-operand-9", "when": {"equals": 9}},
+        {"unitId": "por.voice.ecl5.b3-a371-operand-10", "when": {"equals": 10}}
+      ]
+    },
+    {
+      "triggerSourceId": "por.review.ecl-5.block-3.at-af19",
+      "resolution": "at-trigger",
+      "discriminator": {"kind": "memoryComparison", "leftAddress": "0x6e82", "rightAddress": "0x6b18"},
+      "variants": [
+        {"unitId": "por.voice.ecl5.b3-af19-af40", "when": {"operator": "<="}},
+        {"unitId": "por.voice.ecl5.b3-af19-af65", "when": {"operator": ">"}}
+      ],
+      "evidence": ["0xaf34 compares 0x6e82 with 0x6b18; greater jumps to 0xaf65, otherwise execution reaches 0xaf40."]
+    },
+    {
+      "triggerSourceId": "por.review.ecl-5.block-4.at-9c74",
+      "resolution": "at-trigger",
+      "discriminator": {"kind": "orderedConditions"},
+      "variants": [
+        {"unitId": "por.voice.ecl5.b4-9c74-9c90", "when": {"bitAnd": {"address": "0x4a6a", "mask": 3, "notEquals": 0}}},
+        {"unitId": "por.voice.ecl5.b4-9c74-9cc3", "when": {"all": [{"bitAnd": {"address": "0x4a6a", "mask": 3, "equals": 0}}, {"bitAnd": {"address": "0x4a65", "mask": 1, "equals": 0}}]}},
+        {"unitId": null, "when": {"all": [{"bitAnd": {"address": "0x4a6a", "mask": 3, "equals": 0}}, {"bitAnd": {"address": "0x4a65", "mask": 1, "notEquals": 0}}]}, "action": "none", "reason": "Control jumps to 0x9d31; neither composite unit covers that path."}
+      ]
+    },
+    {
+      "triggerSourceId": "por.review.ecl-5.block-4.at-9d49",
+      "resolution": "during-trigger",
+      "discriminator": {"kind": "encounterMenuOutputOperandIndex"},
+      "variants": [
+        {"unitId": "por.voice.ecl5.b4-9d49-operand-9", "when": {"equals": 9}},
+        {"unitId": "por.voice.ecl5.b4-9d49-operand-10", "when": {"equals": 10}}
+      ]
+    },
+    {
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a06e",
+      "resolution": "during-trigger",
+      "discriminator": {"kind": "encounterMenuOutputOperandIndex"},
+      "variants": [
+        {"unitId": "por.voice.ecl5.b6-a06e-operand-9", "when": {"equals": 9}},
+        {"unitId": "por.voice.ecl5.b6-a06e-operand-10", "when": {"equals": 10}}
+      ]
+    },
+    {
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a974",
+      "resolution": "at-trigger",
+      "discriminator": {"kind": "orderedConditions"},
+      "variants": [
+        {"unitId": "por.voice.ecl5.b6-a974-a990", "when": {"bitAnd": {"address": "0x4a6a", "mask": 3, "notEquals": 0}}},
+        {"unitId": "por.voice.ecl5.b6-a974-a9c3", "when": {"all": [{"bitAnd": {"address": "0x4a6a", "mask": 3, "equals": 0}}, {"bitAnd": {"address": "0x4a65", "mask": 1, "equals": 0}}]}},
+        {"unitId": null, "when": {"all": [{"bitAnd": {"address": "0x4a6a", "mask": 3, "equals": 0}}, {"bitAnd": {"address": "0x4a65", "mask": 1, "notEquals": 0}}]}, "action": "none", "reason": "Control jumps to 0xaa31; neither composite unit covers that path."}
+      ]
+    },
+    {
+      "triggerSourceId": "por.review.ecl-5.block-6.at-aa49",
+      "resolution": "during-trigger",
+      "discriminator": {"kind": "encounterMenuOutputOperandIndex"},
+      "variants": [
+        {"unitId": "por.voice.ecl5.b6-aa49-operand-9", "when": {"equals": 9}},
+        {"unitId": "por.voice.ecl5.b6-aa49-operand-10", "when": {"equals": 10}}
+      ]
+    },
+    {
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9b74",
+      "resolution": "at-trigger",
+      "discriminator": {"kind": "onGosubIndex", "memoryAddress": "0xc04d", "instructionAddress": "0x9b89"},
+      "variants": [
+        {"unitId": "por.voice.ecl5.b7-9b74-9ba0", "when": {"equals": 0}},
+        {"unitId": "por.voice.ecl5.b7-9b74-9bb0", "when": {"equals": 1}},
+        {"unitId": "por.voice.ecl5.b7-9b74-9bbe", "when": {"equals": 2}},
+        {"unitId": "por.voice.ecl5.b7-9b74-9bcb", "when": {"equals": 3}}
+      ],
+      "evidence": ["0x9b89 dispatches ON GOSUB using 0xc04d to the four listed suffix prints in order: 0x9ba0, 0x9bb0, 0x9bbe, 0x9bcb."]
+    },
+    {
+      "triggerSourceId": "por.review.ecl-6.block-1.at-b39c",
+      "resolution": "at-trigger",
+      "discriminator": {"kind": "memoryByte", "address": "0x4a09"},
+      "variants": [
+        {"unitId": "ecl6-b1-b39c-b3f6-first-release", "when": {"equals": 0}},
+        {"unitId": "ecl6-b1-b39c-already-released", "when": {"notEquals": 0}}
+      ],
+      "evidence": ["After 0xb39c and GOSUB 0xb5d4, 0xb3eb compares 0x4a09 with zero; nonzero skips 0xb3f6, zero falls through to it."]
+    }
+  ],
+  "deferredResolution": []
+}

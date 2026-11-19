@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "scope": ["ECL7.DAX", "ECL8.DAX"],
+  "selectors": [
+    {
+      "triggerSourceId": "por.review.ecl-7.block-17.at-9c26",
+      "resolution": "at-trigger",
+      "selector": { "kind": "ecl-memory-byte", "address": "0xc04d" },
+      "cases": [
+        { "equals": 0, "unitId": "por.voice.ecl7.b17-9c26-9c8d" },
+        { "equals": 1, "unitId": "por.voice.ecl7.b17-9c26-9c9b" },
+        { "equals": 2, "unitId": "por.voice.ecl7.b17-9c26-9ca8" },
+        { "equals": 3, "unitId": "por.voice.ecl7.b17-9c26-9cb7" }
+      ],
+      "evidence": "0x9c49 ON GOSUB indexes 0xc04d into 0x9c8d/0x9c9b/0x9ca8/0x9cb7."
+    },
+    {
+      "triggerSourceId": "por.review.ecl-7.block-17.at-a435",
+      "resolution": "at-trigger",
+      "selector": { "kind": "ecl-string", "address": "0x9800", "normalization": "trim-uppercase" },
+      "cases": [
+        { "equals": "TONIGHT", "unitId": "por.voice.ecl7.b17-a435-a494-tonight" },
+        { "equals": "TOMORROW", "unitId": "por.voice.ecl7.b17-a435-a494-tomorrow" }
+      ],
+      "evidence": "0xa416 initializes TOMORROW; the 0x49c9 < 14 branch at 0xa422 overwrites it with TONIGHT before 0xa435."
+    },
+    {
+      "triggerSourceId": "por.review.ecl-7.block-22.at-9a81",
+      "resolution": "deferred-covered-source",
+      "selector": { "kind": "next-covered-source" },
+      "cases": [
+        { "sourceId": "por.review.ecl-7.block-22.at-9ade", "unitId": "por.voice.ecl7.b22-9a81-9ade" },
+        { "sourceId": "por.review.ecl-7.block-22.at-9aef", "unitId": "por.voice.ecl7.b22-9a81-9aef" },
+        { "sourceId": "por.review.ecl-7.block-22.at-9aff", "unitId": "por.voice.ecl7.b22-9a81-9aff" },
+        { "sourceId": "por.review.ecl-7.block-22.at-9b0c", "unitId": "por.voice.ecl7.b22-9a81-9b0c" }
+      ],
+      "evidence": "The direction index is not finalized until after the trigger: 0x9a95 table lookup, 0x9a9f add, and 0x9aa9 table lookup precede the 0x9ab3 ON GOSUB."
+    },
+    {
+      "triggerSourceId": "por.review.ecl-7.block-22.at-a264",
+      "resolution": "during-instruction",
+      "selector": { "kind": "ecl-menu-selected-literal-operand" },
+      "cases": [
+        { "equals": 9, "unitId": "por.voice.ecl7.b22-a264-operand-9" },
+        { "equals": 10, "unitId": "por.voice.ecl7.b22-a264-operand-10" },
+        { "equals": 11, "unitId": "por.voice.ecl7.b22-a264-operand-11" }
+      ],
+      "evidence": "The three alternatives are literal operands 9, 10, and 11 of the ENCOUNTER MENU at 0xa264; select the operand the opcode actually emits."
+    },
+    {
+      "triggerSourceId": "por.review.ecl-7.block-23.at-9a70",
+      "resolution": "deferred-covered-source",
+      "selector": { "kind": "next-covered-source" },
+      "cases": [
+        { "sourceId": "por.review.ecl-7.block-23.at-9ace", "unitId": "por.voice.ecl7.b23-9a70-9ace" },
+        { "sourceId": "por.review.ecl-7.block-23.at-9ade", "unitId": "por.voice.ecl7.b23-9a70-9ade" },
+        { "sourceId": "por.review.ecl-7.block-23.at-9aed", "unitId": "por.voice.ecl7.b23-9a70-9aed" },
+        { "sourceId": "por.review.ecl-7.block-23.at-9afa", "unitId": "por.voice.ecl7.b23-9a70-9afa" }
+      ],
+      "evidence": "The direction index is not finalized until after the trigger: 0x9a85 table lookup, 0x9a8f add, and 0x9a99 table lookup precede the 0x9aa3 ON GOSUB."
+    },
+    {
+      "triggerSourceId": "por.review.ecl-7.block-23.at-9e76",
+      "resolution": "during-instruction",
+      "selector": { "kind": "ecl-menu-selected-literal-operand" },
+      "cases": [
+        { "equals": 9, "unitId": "por.voice.ecl7.b23-9e76-operand-9" },
+        { "equals": 10, "unitId": "por.voice.ecl7.b23-9e76-operand-10" },
+        { "equals": 11, "unitId": "por.voice.ecl7.b23-9e76-operand-11" }
+      ],
+      "evidence": "The three alternatives are literal operands 9, 10, and 11 of the ENCOUNTER MENU at 0x9e76; select the operand the opcode actually emits."
+    },
+    {
+      "triggerSourceId": "por.review.ecl-7.block-23.at-ac5a",
+      "resolution": "at-trigger",
+      "selector": { "kind": "ecl-memory-byte", "address": "0x4a50" },
+      "cases": [
+        { "equals": 0, "unitId": "por.voice.ecl7.b23-ac5a-ad1b-acc3" },
+        { "equals": 1, "unitId": "por.voice.ecl7.b23-ac5a-ad23-acc3" },
+        { "equals": 2, "unitId": "por.voice.ecl7.b23-ac5a-ad2d-acc3" },
+        { "equals": 3, "unitId": "por.voice.ecl7.b23-ac5a-ad37-acc3" }
+      ],
+      "evidence": "0xacb1 ON GOSUB indexes 0x4a50 into BLUE/COPPER/SILVER/GOLD at 0xad1b/0xad23/0xad2d/0xad37."
+    },
+    {
+      "triggerSourceId": "por.review.ecl-8.block-16.at-9ceb",
+      "resolution": "at-trigger",
+      "selector": { "kind": "ecl-memory-byte", "address": "0x6e82" },
+      "cases": [
+        { "in": [0, 3, 4], "unitId": "ecl8-b16-9ceb-9e8c-9d14-rubble" },
+        { "in": [1, 2], "unitId": "ecl8-b16-9ceb-9e95-9d14-swamp" }
+      ],
+      "evidence": "0x9cff ON GOSUB indexes 0x6e82 into rubble/swamp/swamp/rubble/rubble."
+    },
+    {
+      "triggerSourceId": "por.review.ecl-8.block-29.at-9b25",
+      "resolution": "at-trigger",
+      "selector": { "kind": "ecl-memory-byte", "address": "0x9810" },
+      "cases": [
+        { "equals": 0, "unitId": "ecl8-b29-9b25-9b07-9b44-south" },
+        { "equals": 1, "unitId": "ecl8-b29-9b25-9b0f-9b44-west" },
+        { "equals": 2, "unitId": "ecl8-b29-9b25-9b16-9b44-north" },
+        { "equals": 3, "unitId": "ecl8-b29-9b25-9b1e-9b44-east" }
+      ],
+      "evidence": "The pre-trigger comparisons at 0x9a8c-0x9ab9 assign 0/2/3/1 to 0x9810; 0x9b32 ON GOSUB maps 0/1/2/3 to SOUTH/WEST/NORTH/EAST."
+    }
+  ]
+}
