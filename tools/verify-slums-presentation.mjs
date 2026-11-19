@@ -398,6 +398,14 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["new-phlan-arena-rolf", {
+    slot: "A", stand: "combat:area:11:CPIC3.DAX:11", strike: "combat:area:11:CPIC3.DAX:139",
+    width: 96, height: 96, readyPrompt: /ROLFHITPOINTS6/i,
+    inputs: ["right", "right", "up", "up", "right", "up", "up", "enter", "enter",
+      "up", "up", "right", "up", "up", "up", "up", "enter", "enter",
+      "up", "up", "enter", "enter", "left", "up", "enter", "enter", "y", "enter", "enter"],
+    strikeInputs: ["enter"],
+  }],
   ["valhingen-efreeti-combat", {
     slot: "A", stand: "combat:area:10:CPIC4.DAX:70:ecl:b271", strike: "combat:area:10:CPIC4.DAX:198:ecl:b271",
     width: 96, height: 192, readyPrompt: /EFREETIHITPOINTS55/i, strikeReflected: true,
@@ -739,6 +747,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valhingen-crossway", {
+    slot: "A", area: 10, views: 5, patterns: 66, sceneryOnly: true,
+    walk: ["up", "up", "right", "up"],
+  }],
   ["valhingen-west-wall", {
     slot: "A", area: 10, views: 3, patterns: 68, sceneryOnly: true,
     walk: ["left", "up"],

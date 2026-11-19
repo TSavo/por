@@ -1,6 +1,10 @@
 {
   "version": 1,
   "assets": {
+    "tile:10:84fb047fe0a062dfd5ddaffeafc0a210382a90bc478dea3e1964fa78bc34c608": "valhingen-crossway-terrain-84fb047fe0a0.png",
+    "tile:10:1baba87004cffaae40e5fe709d493b5bf07df7572a115385b74ca2b0df95f514": "valhingen-crossway-terrain-1baba87004cf.png",
+    "combat:area:11:CPIC3.DAX:11": "new-phlan-arena-rolf-stand.png",
+    "combat:area:11:CPIC3.DAX:139": "new-phlan-arena-rolf-strike.png",
     "tile:10:81257cf23b858a853fbddcdbcf1b24d7b423b693c2ecc790fe28f56c78429cf3": "valhingen-west-wall-terrain-81257cf23b85.png",
     "tile:10:c5b996810dcda1d69e3794c112bc99d4b1883f14704739c44f40046919bc07a8": "valhingen-west-wall-terrain-c5b996810dcd.png",
     "tile:10:a05d46c828fd1585793251ee3a6928acc9794d20c9befd009a78fb2ef539d5d4": "valhingen-west-wall-terrain-a05d46c828fd.png",

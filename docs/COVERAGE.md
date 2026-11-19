@@ -2099,3 +2099,9 @@ decision. Both replays verify state and save preservation.
 bottle in the party inventory. It checks the summoned efreeti's ready
 pose and reflected strike in the vampire fight, using the same art as
 the Kobold Cave encounter. Both presentation modes preserve the save.
+
+`new-phlan-arena-rolf` verifies Rolf's 96×96 ready pose and animated
+axe strike in the native duel from a fresh-party checkpoint.
+`valhingen-crossway` checks two new graveyard tiles across five views
+and 605 placements before the skeleton encounter. Both replays check
+that switching presentation preserves live state and the save.
