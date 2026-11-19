@@ -3120,3 +3120,7 @@ portrait. Chrome verifies the challenge and return after agreeing to leave.
 The overland thieves use scoped ready and longsword attack sprites.
 Chrome verified five ready placements and the reflected attack. The
 local test fixture selects the thieves roll deterministically.
+
+The tavern veteran has ready and longsword attack sprites. Chrome verified
+both in a local fixture that selects the highest encounter roll and
+reduces other group sizes so the veteran enters the fight.

@@ -1308,6 +1308,8 @@
     "combat:area:0:CPIC3.DAX:143:ecl:ae09": "new-phlan-watch-auxiliary-strike.png",
     "portrait:area:0:ecl:aab8:HEAD3.DAX:57:BODY3.DAX:1": "new-phlan-tempus-watch-challenge.png",
     "portrait:area:0:ecl:aac7:HEAD3.DAX:57:BODY3.DAX:1": "new-phlan-tempus-watch-challenge.png",
+    "combat:area:0:CPIC3.DAX:152:ecl:a7d3": "tavern-veteran-combat-strike.png",
+    "combat:area:0:CPIC3.DAX:24:ecl:a7d3": "tavern-veteran-combat-ready.png",
     "combat:area:0:CPIC3.DAX:12:ecl:aac7": "tempus-temple-watch-ready.png",
     "combat:area:0:CPIC3.DAX:140:ecl:aac7": "tempus-temple-watch-strike.png",
     "combat:area:0:CPIC3.DAX:11:ecl:aac7": "tempus-temple-line-fighter-ready.png",
