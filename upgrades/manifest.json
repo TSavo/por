@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "tile:13:bf140a1b5f168745e0149d0c3d0b5f094973bff98342b751ff4cafa082530540": "kobold-cave-turn-terrain-bf140a1b5f16.png",
+    "tile:13:1180638ececd642b84551072d1f901f40c3f3d975f59049bd1aa8436be86beff": "kobold-cave-turn-terrain-1180638ececd.png",
     "combat:area:20:CPIC2.DAX:4:ecl:ab91": "slums-orc-guard-stand.png",
     "combat:area:20:CPIC2.DAX:132:ecl:ab91": "slums-orc-guard-strike.png",
     "tile:13:c747902d490c8651566f0044d5054b5377fe2939d6a9656e8d6a7b518bee16b1": "kobold-cave-thresholds-terrain-c747902d490c.png",
