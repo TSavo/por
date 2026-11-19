@@ -202,13 +202,18 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
     }
   }
   const composite = compositePortraitKey.exec(id);
-  const sourceParts = composite ? [
+  const party = /^combat:party:(\d+):(\d+)$/.exec(id);
+  const compositeParts = composite ? [
     { archive: composite[1]!, block: Number(composite[2]), frame: 0, x: 0, y: 0 },
     { archive: composite[3]!, block: Number(composite[4]), frame: 0, x: 0, y: 40 },
-  ].flatMap((part) => {
+  ] : party ? [
+    { archive: "CBODY.DAX", block: Number(party[2]), frame: 0, x: 0, y: 0 },
+    { archive: "CHEAD.DAX", block: Number(party[1]), frame: 0, x: 0, y: 0 },
+  ] : undefined;
+  const sourceParts = compositeParts?.flatMap((part) => {
     const entry = archives.find(({ file }) => file === part.archive)?.entries.find(({ id }) => id === part.block);
     return entry ? [{ ...part, directoryIndex: entry.directoryIndex, member: 0 }] : [];
-  }) : undefined;
+  });
   const area = /^(?:tile|combat:area|portrait:area):(\d+):/.exec(id)?.[1];
   const placement = metadata.encounter
     ?? (id.startsWith("portrait:") ? { x: 8, y: 8, width: 120, height: 120, ...(area !== undefined && { area: Number(area) }) }
@@ -229,10 +234,13 @@ const replacements = [...loadUpgradeArt(undefined, gameData)].map(([id, { png, .
     original.blit(frameSlice(picture, reference.frame), picture.width, picture.height, 0, 0);
     classicPreview = exportClassicFrame(original, index);
   } else if (sourceParts?.length === 2) {
-    const original = new Frame(88, 88);
+    const size = party ? 24 : 88;
+    const original = new Frame(size, size);
     for (const part of sourceParts) {
       const picture = classicPicture(part.archive, part.directoryIndex, part.member);
-      original.blit(frameSlice(picture, part.frame), picture.width, picture.height, part.x, part.y);
+      const pixels = frameSlice(picture, part.frame);
+      if (party) original.pixels.set(pixels);
+      else original.blit(pixels, picture.width, picture.height, part.x, part.y);
     }
     classicPreview = exportClassicFrame(original, index);
   } else if (capture) {
@@ -286,7 +294,7 @@ for (const replacement of replacements) {
   matches.push(replacement);
   replacementsByBlock.set(key, matches);
 }
-function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source, sourceCandidates, capturedPlacement }: typeof replacements[number]) {
+function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source, sourceParts, sourceCandidates, capturedPlacement }: typeof replacements[number]) {
   const area = placement && "area" in placement ? ` · area ${placement.area}` : "";
   const origin = placement && "x" in placement ? ` · origin (${placement.x}, ${placement.y})` : "";
   const extent = placement && "width" in placement ? ` · display ${placement.width}×${placement.height}` : "";
@@ -297,6 +305,7 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
   return `<div class="preview">${images}` +
     `<small>Enhanced · ${width}×${height} · ${escape(id)}${area}${origin}${extent}</small>` +
     `<small>${escape(file)}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small>` +
+    (sourceParts?.length ? `<small>${sourceParts.map(({ archive, block }) => `${escape(archive)} #${block}`).join(" + ")}</small>` : "") +
     (capturedPlacement ? `<small>Captured at (${capturedPlacement.x}, ${capturedPlacement.y}) · ${escape(capturedPlacement.trace)} frame ${capturedPlacement.frame}</small>` : "") +
     (sourceCandidates ? `<details class="sources"><summary>Exact pixel matches (${sourceCandidates.length})</summary>` +
       sourceCandidates.map(({ archive, block, member, frame }) =>
