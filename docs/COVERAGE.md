@@ -2708,6 +2708,13 @@ including two new lintel and sill tiles.
 16-view walk through the side courts. `stojanow-bugbear-approach` checks
 the far, middle, and near sprites over 121 tiles per frame before the
 warning portrait.
+`bane-orc-guardroom-approach` verifies the middle and near warband frames
+over 121 terrain tiles before the existing ambush portrait.
+`lizard-wilds-caravan-merchant-combat` verifies the ready sprite and
+short-sword strike in the original caravan battle.
+`buccaneer-palisade-day` and `buccaneer-palisade-night` verify the
+wood-and-horizon junction in both lighting conditions, with 2,541
+enhanced tile placements across 21 views.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.

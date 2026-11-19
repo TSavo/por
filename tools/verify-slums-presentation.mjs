@@ -319,6 +319,15 @@ const encounterRoutes = new Map([
     ],
     dialogue: { key: "up", portrait: "portrait:area:9:PIC2.DAX:63:0:0", prompt: /THELEADERSWINGSATYOU/i },
   }],
+  ["bane-orc-guardroom-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:31:SPRIT1.DAX:4:0:0", 40, 80],
+    approachSequence: [
+      [56, 32, "encounter:area:31:SPRIT1.DAX:4:1:0", 32, 65],
+      [48, 32, "encounter:area:31:SPRIT1.DAX:4:0:0", 40, 80],
+    ],
+    dialogue: { key: "enter", portrait: "portrait:area:31:PIC1.DAX:4:0:0", prompt: /ALARGEGROUPOFFOULORCS/i },
+  }],
   ["kobold-cave-wyvern-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [24, 32, "encounter:area:13:SPRIT8.DAX:121:0:0", 88, 80],
@@ -913,6 +922,11 @@ const combatPoseRoutes = new Map([
     width: 96, height: 96, readyPrompt: /NOMAD.*ShortSword/i, strikeInputs: ["space"], strikeReflected: false,
     inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter"), ...Array(8).fill("space")],
   }],
+  ["lizard-wilds-caravan-merchant-combat", {
+    slot: "A", stand: "combat:area:26:CPIC7.DAX:14:ecl:a2c7", strike: "combat:area:26:CPIC7.DAX:142:ecl:a2c7",
+    width: 96, height: 96, readyPrompt: /MERCHANT.*SHORTSWORD/i, strikeReflected: false,
+    inputs: [...Array.from({ length: 16 }, () => ["up", "down"]).flat(), "up", "c", "enter", "enter", ...Array(21).fill("q")],
+  }],
   ["nomad-warrior-combat", {
     slot: "A", stand: "combat:area:17:CPIC7.DAX:12", strike: "combat:area:17:CPIC7.DAX:140",
     width: 96, height: 96, strikeReflected: true,
@@ -1309,6 +1323,14 @@ const environmentRoutes = new Map([
   ["buccaneer-captains-hall", {
     slot: "A", area: 1, views: 6, patterns: 21, sceneryOnly: true,
     walk: ["right", "up", "up", "left", "up"],
+  }],
+  ["buccaneer-palisade-day", {
+    slot: "A", area: 1, views: 10, patterns: 45, sceneryOnly: true,
+    walk: ["right", "up", "up", "left", "up", "left", "up", "right", "up"],
+  }],
+  ["buccaneer-palisade-night", {
+    slot: "A", area: 1, views: 11, patterns: 56, sceneryOnly: true,
+    walk: ["up", "right", "up", "up", "left", "up", "left", "up", "right", "up"],
   }],
   ["buccaneer-stockade", {
     slot: "A", area: 1, views: 7, patterns: 33, sceneryOnly: true,
