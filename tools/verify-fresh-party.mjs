@@ -2117,6 +2117,17 @@ if (process.argv[2] === "--podal-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--startup-scenes") {
+  const checkScene = (scene) => (_text, frame) => assert.equal(frame.scene, scene);
+  await replay("", "24000000", [
+    checkScene("scene:publisher"), "enter",
+    checkScene("scene:title"), "enter",
+    checkScene(undefined),
+  ]);
+  console.log("Verified publisher splash, title, and credits on a fresh boot.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--character-sheet") {
   const { loadUpgradeArt } = await tsImport("./upgrade-art.ts", import.meta.url);
   process.env.POR_CHARACTER_SHEET_ART_KEYS = [...loadUpgradeArt().keys()].filter(key => key.startsWith("character-sheet:")).join(",");
