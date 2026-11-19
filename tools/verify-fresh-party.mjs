@@ -719,7 +719,8 @@ async function verifySkullcrusherRecruitment(load, checkpoint, verifyOgreRoute =
   // Supply only the key in a copy of slot E to exercise the post-battle branch.
   const directory = join(saveDir, "controlled-prison-key");
   mkdirSync(directory);
-  const slot = JSON.parse(readFileSync(checkpoint, "utf8"));
+  const originalCheckpoint = readFileSync(checkpoint);
+  const slot = JSON.parse(originalCheckpoint.toString("utf8"));
   const inventory = "SAVE\\CHRDATE2.ITM";
   slot.party[inventory] = Buffer.concat([Buffer.from(slot.party[inventory], "base64"), key]).toString("base64");
   writeFileSync(join(directory, "E.json"), JSON.stringify(slot));
@@ -753,6 +754,8 @@ async function verifySkullcrusherRecruitment(load, checkpoint, verifyOgreRoute =
     "j", (_text, frame) => {
       assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-prisoner-left"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-prison-key-carried"));
+      assert.equal(frame.journal.trackedId, "commission-textile");
       assert.match(frame.journal.objective.nextStep, /continue searching the western textile building/i);
     }, "j",
   ], directory);
@@ -770,6 +773,7 @@ async function verifySkullcrusherRecruitment(load, checkpoint, verifyOgreRoute =
       assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-prisoner-freed"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-prison-key-carried"));
       assert.ok(frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+      assert.equal(frame.journal.trackedId, "commission-textile");
       assert.match(frame.journal.objective.nextStep, /search southeast/);
     }, "j",
     "end", "v", "i",
@@ -783,6 +787,7 @@ async function verifySkullcrusherRecruitment(load, checkpoint, verifyOgreRoute =
     (text) => assert.match(text, /skullcrusher.*ac 1.*hp 39.*weapon long sword/),
     "e", "e", "s", "s", "g",
   ], directory);
+  assert.deepEqual(readFileSync(checkpoint), originalCheckpoint);
   if (!verifyOgreRoute) {
     console.log("Verified the inventory-aware key objective, both recruitment choices, and the journal after reload.");
     return;
