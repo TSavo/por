@@ -1354,6 +1354,10 @@ renderer uses the suspended ECL cursor to distinguish her fight from
 the throne rematch, where the envoys reuse the original CPIC poses.
 The `kobold-cave-boar` replay checks that the rematch excludes Fatima’s art.
 `kobold-envoy-ready` checks the rematch's own 96×96 standing pose.
+`kobold-rematch-infantry` checks the 96×96 kobold ready and animated
+strike poses during that same battle. `kobold-cave-envoys-rematch` and
+`valjevo-messenger-dialogue` verify the new illustrations at the
+original rematch and friendly parlay prompts.
 `valhingen-zombie-stairs` checks the staircase illustration at the
 original zombie prompt, including panel fit and mode switching.
 `sokal-undead-patrol-dialogue` checks the patrol illustration at its

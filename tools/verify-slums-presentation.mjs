@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["kobold-cave-envoys-rematch", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:HEAD8.DAX:69:BODY8.DAX:1", prompt: /AREMATCHTHEN\.PREPAREFORDEATH/i,
+  }],
+  ["valjevo-messenger-dialogue", {
+    slot: "B", inputs: ["up", "b", "up", "enter", "enter", "p", "n"],
+    portrait: "portrait:HEAD5.DAX:70:BODY5.DAX:8", prompt: /IJUSTGOTBACKFROMTHENORTH/i,
+  }],
   ["sokal-undead-patrol-dialogue", {
     slot: "C", inputs: [...Array(5).fill("up"), "enter", "enter"],
     portrait: "portrait:area:21:PIC4.DAX:34:0:0", prompt: /APACKOFUNDEADSUDDENLYAPPEARS/i,
@@ -224,6 +232,12 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["kobold-rematch-infantry", {
+    slot: "A", stand: "combat:area:13:CPIC2.DAX:0:ecl:a2a4", strike: "combat:area:13:CPIC2.DAX:128:ecl:a2a4",
+    width: 96, height: 96,
+    inputs: ["up", ...Array(4).fill("enter")],
+    strikeInputs: [...Array(3).fill("enter"), ...Array(16).fill("q")],
+  }],
   ["kobold-envoy-ready", {
     slot: "A", stand: "combat:area:13:CPIC8.DAX:11:ecl:a2a4",
     excluded: ["combat:area:13:CPIC8.DAX:11:ecl:a856", "combat:area:13:CPIC8.DAX:139:ecl:a856"],
