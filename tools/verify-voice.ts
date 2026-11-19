@@ -45,6 +45,7 @@ const dispositions = JSON.parse(readFileSync(new URL("../src/audio/voice-disposi
 };
 assert.equal(manifest.enhancedOnly, true);
 assert.equal(new Set(manifest.lines.map(({ id }) => id)).size, manifest.lines.length);
+assert(!manifest.lines.some(line => line.scene === "scene:title"), "title screen must not trigger speech");
 const speakers = new Set(manifest.casting.map(({ speaker }) => speaker));
 const directory = resolve(process.env.POR_VOICE_DIR ?? "../por-assets/voices");
 for (const line of manifest.lines) {
