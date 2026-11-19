@@ -573,6 +573,11 @@ returns to the game screen on close. With a remaining commission, it
 also verifies that tracking the commission keeps focus on its button.
 Resuming automatic tracking restores **Phlan is free**, preserves the
 castle turn-in, and moves focus to Return to game.
+Add `--save-at-west-gate` to the native ending replay to save slot D just
+after the battle and return to New Phlan. Pass that slot to the Chrome
+replay with `castle-ending --council-finale` to walk the journal's route,
+see the enhanced clerk during the ending, switch display modes, and
+verify the journal's reward-pending and turned-in states.
 
 A controlled training replay sent the six-character party to the schools
 from a Slums save. It followed the posted directions north and entered the

@@ -2030,6 +2030,8 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
 }
 
 if (process.argv[2] === "--castle-ending-checkpoint") {
+  const saveAtWestGate = process.argv[4] === "--save-at-west-gate";
+  assert.ok(!process.argv[4] || saveAtWestGate, "Expected --save-at-west-gate.");
   assert.ok(process.argv[3], "Pass a save outside Tyranthraxus's audience hall with the assault assigned.");
   copyFileSync(process.argv[3], join(saveDir, "B.json"));
   const checkCastle = (status) => (_text, frame) => {
@@ -2050,14 +2052,20 @@ if (process.argv[2] === "--castle-ending-checkpoint") {
     "j", checkCastle("ready-to-report"), (_text, frame) => {
       assert.match(frame.journal.objective.nextStep, /east from the west gate.*south into City Hall.*council clerk/i);
     }, "j",
-    "up", "up", "up", "enter", "up", "right", "up", "enter", "enter", "enter",
-    "up", "left", "up", "up", "enter",
-    (text) => assert.match(text, /your quest is over.*tyranthraxus is defeated.*phlan is free/),
-    "enter", (text) => assert.match(text, /receives 67500 experience points/),
-    "enter", "enter", "j", checkCastle("reward-pending"), "j", "s", "e",
-    ...Array(4).fill("enter"), "j", checkCastle("turned-in"), "j",
-    "e", "s", "s", "c",
+    ...(saveAtWestGate ? ["e", "s", "s", "d"] : [
+      "up", "up", "up", "enter", "up", "right", "up", "enter", "enter", "enter",
+      "up", "left", "up", "up", "enter",
+      (text) => assert.match(text, /your quest is over.*tyranthraxus is defeated.*phlan is free/),
+      "enter", (text) => assert.match(text, /receives 67500 experience points/),
+      "enter", "enter", "j", checkCastle("reward-pending"), "j", "s", "e",
+      ...Array(4).fill("enter"), "j", checkCastle("turned-in"), "j",
+      "e", "s", "s", "c",
+    ]),
   ]);
+  if (saveAtWestGate) {
+    console.log("Saved after defeating Tyranthraxus and returning to New Phlan:", join(saveDir, "D.json"));
+    process.exit(0);
+  }
   const completedSave = join(saveDir, "C.json");
   const completedSnapshot = readFileSync(completedSave);
   let trackedAfterEnding;

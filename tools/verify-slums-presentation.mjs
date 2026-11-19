@@ -1902,6 +1902,7 @@ const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
+const councilFinale = ending && option === "--council-finale";
 const dragon = routeName === "castle-dragon";
 const halls = routeName === "castle-halls";
 const assault = routeName === "assault-briefing";
@@ -1957,7 +1958,7 @@ const classicPortrait = option === "--classic-portrait" &&
   ["buccaneer-approach", "new-phlan-south-shop-exit"].includes(routeName);
 const southShopkeeper = "portrait:HEAD3.DAX:42:BODY3.DAX:9";
 const ogreApproachOnly = ogre && option === "--approach-only";
-assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait || ogreApproachOnly, "Option does not apply to this route");
+assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait || ogreApproachOnly || councilFinale, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -1966,7 +1967,7 @@ const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
 const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneReturn || koboldCaveExit;
-const saveSlot = routeName === "textile-return-art" ? "D" :
+const saveSlot = routeName === "textile-return-art" || councilFinale ? "D" :
   mageWand || koboldKingDoor || koboldKingFall || koboldReturn ? "B" : slot;
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[saveSlot];
 const saved = resolve(directory, saveSlot + ".json");
@@ -4699,6 +4700,29 @@ try {
           reports.slice(index + 1).some(report => /BAKSHItakes[0-9]+points?ofdamagefromFire/i.test(report)))`));
       console.log("Verified the castle dragon portrait, combat placement, bite animation, and attack and fire damage reports.");
     }
+  } else if (councilFinale) {
+    const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+    const castleStatus = () => frame.journal?.leads.find(({ id }) => id === "commission-castle")?.status;
+    await advance("j");
+    assert.equal(castleStatus(), "ready-to-report");
+    assert.match(frame.journal.objective.nextStep, /east from the west gate.*south into City Hall/i);
+    await advance("j");
+    for (const key of ["up", "up", "up", "enter", "up", "right", "up", "enter", "enter", "enter",
+      "up", "left", "up", "up", "enter"]) await advance(key);
+    assert.match(text(), /YOURQUESTISOVER.*TYRANTHRAXUSISDEFEATED.*PHLANISFREE/i);
+    assert.equal(frame.portrait, "portrait:HEAD3.DAX:24:BODY3.DAX:32");
+    await waitFor("enhanced clerk at the campaign finale", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays();
+    await advance("enter");
+    assert.match(text(), /RECEIVES67500EXPERIENCEPOINTS/i);
+    for (const key of ["enter", "enter", "j"]) await advance(key);
+    assert.equal(castleStatus(), "reward-pending");
+    for (const key of ["j", "s", "e", "enter", "enter", "enter", "enter", "j"]) await advance(key);
+    assert.equal(castleStatus(), "turned-in");
+    assert.equal(frame.journal.objective.title, "Phlan is free");
+    console.log("Verified the enhanced council finale and journal turn-in in Chrome.");
   } else if (ending) {
     await advance("j");
     assert.equal(frame.journal?.objective.title, "Phlan is free");
