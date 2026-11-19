@@ -1859,6 +1859,11 @@ const environmentRoutes = new Map([
     slot: "I", views: 14, patterns: 75,
     walk: ["right", "right", "up", "b", "left", "up", "left", "up", "b", "right", "up", "b", "left", "up", "up", "left", "up", "enter", "enter"],
   }],
+  ["textile-temple-native", {
+    slot: "I", views: 3, patterns: 22,
+    walk: ["up", "enter", "enter"],
+    finalPortrait: "portrait:PIC4.DAX:9:0:0",
+  }],
   ["graveyard-south", { slot: "A", area: 10, views: 4, patterns: 67, walk: ["right", "up", "up"] }],
   ["graveyard-east", { slot: "A", area: 10, views: 8, patterns: 81, walk: Array(7).fill("up") }],
   ["graveyard-north", { slot: "A", area: 10, views: 7, patterns: 68, walk: ["up", "up", "up", "left", "up", "right"] }],
@@ -2456,10 +2461,18 @@ try {
     const patterns = new Set();
     const transition = environment.transition;
     let views = await verifyTiledView(area, patterns);
+    let sawGrishnakApproach = false;
     for (const key of environment.walk) {
       const previousTiles = frame.tiles;
       await advance(key);
       if (actor && frame.encounter) assert.deepEqual(frame.tiles, previousTiles);
+      if (routeName === "textile-temple-native" && frame.encounter) {
+        assert.deepEqual(frame.encounter, [48, 32, "encounter:area:2:SPRIT4.DAX:6:0:0", 48, 80]);
+        assert.deepEqual(frame.tiles, previousTiles);
+        await waitFor("enhanced Grishnak approach", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector(".encounter-sprite")?.naturalWidth === 192`));
+        sawGrishnakApproach = true;
+      }
       if (routeName === "new-phlan-south-shop-exit") {
         if (classicPortrait && key === "enter" && views === 2) {
           assert.equal(frame.perspective, false);
@@ -2625,6 +2638,21 @@ try {
       await waitFor("Grishnak's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     }
     await switchBothWays();
+    if (routeName === "textile-temple-native") {
+      assert.ok(sawGrishnakApproach);
+      const screenshot = resolve(directory, "grishnak-temple.png");
+      const capture = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(screenshot, Buffer.from(capture.data, "base64"));
+      await advance("j");
+      const open = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
+      const index = open.findIndex(({ id }) => id === "commission-textile");
+      assert.ok(index >= 0);
+      await advance(`track ${index + 1}`);
+      assert.match(frame.journal.objective.nextStep, /Grishnak.*battle loot.*Free, then Unlock/i);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-grishnak-defeated"));
+      await advance("j");
+      console.log("Enhanced Grishnak dialogue:", screenshot);
+    }
     console.log(`Verified ${routeName}: ${views} views, ${patterns.size} tile patterns and state-preserving switches.`);
     if (towerSave) {
       const expected = { tiles: frame.tileInventory, text: frame.text.toSorted(([left], [right]) => left - right) };

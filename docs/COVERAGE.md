@@ -2052,6 +2052,9 @@ uses manual Sleep targeting to win the courtyard and prison fights.
 It reloads the party's recovery and equipment before reaching Grishnak's
 temple. The prisoner objective matches the original menu sequence:
 choose **Free**, then **Unlock**.
+Pass the emitted slot I to the Chrome `textile-temple-native` replay.
+It verifies 363 terrain placements across three views, Grishnak's
+approach sprite and portrait, and the live quest guidance at the altar.
 
 The Podal Plaza replay starts from that post-Sokal save at the clerk.
 It buys westbound passage, walks from the landing to the north entrance
