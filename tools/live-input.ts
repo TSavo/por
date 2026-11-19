@@ -139,12 +139,18 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // scenes. Its exploration menu omits Area, even during the cave exit
       // when the area record still names the dungeon.
       const overlandMap = menu === "CASTVIEWENCAMPSEARCHLOOK";
+      // The icon editor also uses the viewport blit. Its two preview labels
+      // stay in place while the player changes parts, palette, and size.
+      const iconEditor = text.filter(([cell]) =>
+        (cell >= 248 && cell <= 250) || (cell >= 488 && cell <= 490))
+        .sort(([a], [b]) => a - b)
+        .map(([, character]) => String.fromCharCode(character)).join("") === "oldnew";
       const exploration = menu.startsWith("AREACASTVIEWENCAMP") ||
         (area === 1 && menu === "RELEASEANIMALSLEAVE") ||
         (area === 24 && menu === "DESTROYALTARLEAVEIT");
       let perspective = false;
       let tileArea = area;
-      if (area !== undefined && !scene && !overlandMap && picture === undefined && !hasBattlefieldBorder(screen)) {
+      if (area !== undefined && !scene && !overlandMap && !iconEditor && picture === undefined && !hasBattlefieldBorder(screen)) {
         const pixels = perspectivePixels();
         // The original game can redraw scenery while the menu is hidden,
         // including mid-transition at a doorway.
