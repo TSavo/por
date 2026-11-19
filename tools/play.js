@@ -22,6 +22,7 @@ const atlasImageLink = document.querySelector("#atlas-image-link");
 const atlasImage = document.querySelector("#atlas-image");
 const atlasError = document.querySelector("#atlas-error");
 const presentation = document.querySelector("#presentation");
+const streetToggle = document.querySelector("#street-toggle");
 const audioToggle = document.querySelector("#audio-toggle");
 const audioSettings = document.querySelector("#audio-settings");
 const audioControls = {
@@ -50,6 +51,9 @@ let state = { sequence: -1 };
 let posting = false;
 let quickPollAfter = 0;
 let enhanced = false;
+let streetEnabled = false;
+let streetLoading;
+let streetViewport;
 let discoveredMaps = {};
 let discoveredMapSlot;
 let geographyModel = { areas: [] };
@@ -295,6 +299,7 @@ function togglePresentation() {
   document.documentElement.dataset.presentation = enhanced ? "enhanced" : "classic";
   presentation.setAttribute("aria-pressed", String(enhanced));
   mapToggle.hidden = !enhanced;
+  streetToggle.hidden = !enhanced;
   if (!enhanced && !automap.hidden) toggleAutomap();
   if (enhanced) rememberExploration();
   if (!enhanced) stopVoice();
@@ -306,6 +311,71 @@ function togglePresentation() {
   showScreen();
   playPendingVoice();
 }
+
+function useNewPhlanViewport(view) {
+  const pose = view.exploration;
+  return view.perspective && pose?.area === 0 &&
+    [pose.cameraX, pose.cameraY].every(value => Number.isInteger(value) && value >= 0 && value < 16) &&
+    !view.art && !view.portrait && !view.classicPortrait && !view.characterSheet &&
+    !view.encounter && !view.combatArt?.length && !view.battleTiles?.length && !view.journal;
+}
+
+function disableStreetPreview(error) {
+  streetEnabled = false;
+  streetViewport?.renderer.dispose();
+  streetViewport = undefined;
+  streetToggle.setAttribute("aria-pressed", "false");
+  streetToggle.textContent = "3D unavailable";
+  streetToggle.title = error instanceof Error ? error.message : "The 3D renderer could not start";
+  streetToggle.disabled = true;
+}
+
+async function loadStreetPreview() {
+  const [module, materials] = await Promise.all([
+    import("/new-phlan-webgl.js"),
+    fetch("/new-phlan-3d.json").then(response => {
+      if (!response.ok) throw new Error("New Phlan materials could not be loaded");
+      return response.json();
+    }),
+  ]);
+  const {atlas, skyUrl} = await module.createNewPhlanAtlas(materials, art => `/art/${art.key}`);
+  const canvas = document.createElement("canvas");
+  canvas.className = "street-viewport";
+  canvas.width = 480;
+  canvas.height = 576;
+  canvas.style.backgroundImage = `url("${skyUrl}")`;
+  canvas.addEventListener("webglcontextlost", () => {
+    disableStreetPreview(new Error("The WebGL context was lost"));
+    void showScreen();
+  }, {once: true});
+  return {canvas, renderer: module.createNewPhlanViewport(canvas, materials.walls, atlas)};
+}
+
+streetToggle.addEventListener("click", async () => {
+  if (!enhanced || streetLoading) return;
+  if (streetEnabled) {
+    streetEnabled = false;
+    streetToggle.setAttribute("aria-pressed", "false");
+    void showScreen();
+    return;
+  }
+  try {
+    if (!streetViewport) {
+      streetToggle.textContent = "Loading 3D…";
+      streetLoading = loadStreetPreview();
+      streetViewport = await streetLoading;
+      streetToggle.textContent = "3D preview";
+    }
+    streetEnabled = true;
+    streetToggle.setAttribute("aria-pressed", "true");
+  } catch (error) {
+    disableStreetPreview(error);
+  } finally {
+    streetLoading = undefined;
+  }
+  void showScreen();
+  if (document.activeElement === streetToggle) screen.focus({preventScroll:true});
+});
 
 function rememberExploration() {
   if (!enhanced || !state.exploration) return;
@@ -491,19 +561,30 @@ async function showScreen() {
     return backdrop;
   }
   let layers = [];
-  const placements = [...(view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
+  let streetCanvas;
+  if (showArt && streetEnabled && streetViewport && !animationFrame && useNewPhlanViewport(view)) {
+    try {
+      const {cameraX, cameraY, facing} = view.exploration;
+      streetViewport.renderer.draw({x:cameraX, y:cameraY, facing});
+      streetCanvas = streetViewport.canvas;
+    } catch (error) {
+      disableStreetPreview(error);
+    }
+  }
+  const placements = [...(streetCanvas ? [] : view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
   if (view.characterSheet) {
     const [head, body] = view.characterSheet;
     placements.push([body[0], body[1], body[2], undefined, undefined, body[3], body[4]]);
     // Seat the transparent neck inside the collar rather than cutting the
     // assembled portrait on the original bitmap boundary.
-    placements.push([head[0], head[1] + 4, head[2], undefined, undefined, head[3], head[4]]);
+    placements.push([head[0], head[1] + 6, head[2], undefined, undefined, head[3], head[4]]);
   }
   if (view.portrait) placements.push([8, 8, view.portrait, undefined, undefined, 120, 120]);
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
   if (showArt) {
     const perspective = view.perspective && !view.portrait;
-    if (perspective || view.classicPortrait) layers.push(pictureBackdrop());
+    if (streetCanvas) layers.push(streetCanvas);
+    else if (perspective || view.classicPortrait) layers.push(pictureBackdrop());
     layers.push(...placements.map(([x, y, id, reflected, , width, height]) => {
       const tile = document.createElement("img");
       tile.alt = "";
