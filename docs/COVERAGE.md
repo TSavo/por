@@ -2757,6 +2757,13 @@ junction bindings across 36 views.
 Kuto's well, northern lane, border, and eastern lane now use packed
 earth with worn limestone chips beneath the turquoise masonry. Four
 Chrome walks checked 24 floor and edge bindings across 48 live views.
+Stojanow's barracks and coping routes use weathered oak boards beneath
+the sandstone walls. Two Chrome walks checked 12 revised tile bindings
+across 26 views.
+
+`bane-altar` checks the three orc approach distances before combat. The
+near pose is scoped to the altar script, and `bane-gate` verifies the
+gatekeeper still uses his own art.
 
 `nomad-camp-rim` checks all three enhanced sentry distances in order
 before the swords-ready prompt. `buccaneer-captain-dialogue` checks the

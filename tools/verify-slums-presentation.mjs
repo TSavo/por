@@ -2424,7 +2424,7 @@ try {
     return run(`(() => {
       window.observedApproach = new Set();
       const layer = document.querySelector("#tile-art");
-      new MutationObserver(() => {
+      function recordApproach() {
         const img = layer.querySelector(".encounter-sprite");
         if (!img || layer.querySelectorAll(".terrain-tile").length !== 121) return;
         for (const [x, y, id, w, h] of ${JSON.stringify(approachSequence)}) {
@@ -2435,7 +2435,9 @@ try {
             window.observedApproach.add(id);
           }
         }
-      }).observe(layer, { childList: true });
+      }
+      new MutationObserver(recordApproach).observe(layer, { childList: true });
+      layer.addEventListener("load", recordApproach, true);
     })()`);
   }
 
@@ -4368,6 +4370,12 @@ try {
     assert.ok(frame.journal?.leads.some(({ id }) => id === "kobold-cave-fork"), caveDialogue);
     console.log("Verified the illustrated cave choice in Chrome.", directory);
   } else if (baneAltar) {
+    const approachSequence = [
+      [64, 32, "encounter:area:24:SPRIT1.DAX:4:2:0", 16, 49],
+      [56, 32, "encounter:area:24:SPRIT1.DAX:4:1:0", 32, 65],
+      [48, 32, "encounter:area:24:ecl:b605:SPRIT1.DAX:4:0:0", 40, 80],
+    ];
+    await observeApproach(approachSequence);
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     await advance("j");
     assert.ok(knows("bane-temple-admitted") && !knows("bane-defiled-altar"));
@@ -4389,7 +4397,9 @@ try {
     assert.ok(knows("bane-altar-ambush") && !knows("bane-cleric-dispatch"));
     assert.match(frame.journal.objective.nextStep, /Defeat the half-orc cleric/);
     assert.notEqual(frame.journal.leads.find(({ id }) => id === "commission-bane")?.status, "ready-to-report");
-    for (const key of ["j", "enter", "enter", "enter", "enter", "q"]) await advance(key);
+    for (const key of ["j", "enter"]) await advance(key);
+    await waitFor("all three altar ambush poses", () => run("window.observedApproach.size === 3"));
+    for (const key of ["enter", "enter", "enter", "q"]) await advance(key);
     const cleric = "combat:area:24:CPIC1.DAX:33";
     assert.ok(frame.combatArt.some(([, , id]) => id === cleric));
     await waitFor("the half-orc cleric in combat", () => run(`[...document.querySelectorAll(".combat-sprite")].some(img =>
@@ -4397,6 +4407,7 @@ try {
     await switchBothWays();
     const combat = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "bane-altar-combat.png"), Buffer.from(combat.data, "base64"));
+    assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
     console.log("Verified the altar decision, journal guidance, and the cleric's Enhanced combat stance.");
   } else if (baneGate || baneGoblins || baneSymbol) {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);

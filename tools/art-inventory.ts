@@ -554,6 +554,19 @@ const encounterTotals = encounterCoverage.reduce((total, row) => ({
   remaining: total.remaining + row.unlinkedFrames.length,
   uniformUnlinked: total.uniformUnlinked + row.unlinkedFrames.filter(({ uniform }) => uniform).length,
 }), { frames: 0, matched: 0, matchedByPixels: 0, remaining: 0, uniformUnlinked: 0 });
+const encounterFamilies = [
+  { label: "Scene illustrations", prefix: "PIC" },
+  { label: "Encounter sprites", prefix: "SPRIT" },
+  { label: "Combat poses", prefix: "CPIC" },
+].map(({ label, prefix }) => ({
+  label,
+  ...encounterCoverage.filter(({ file }) => file.startsWith(prefix)).reduce((total, row) => ({
+    frames: total.frames + row.frames,
+    linked: total.linked + row.matched,
+    exact: total.exact + row.pixelMatchedFrames.length,
+    unlinked: total.unlinked + row.unlinkedFrames.length,
+  }), { frames: 0, linked: 0, exact: 0, unlinked: 0 }),
+}));
 writeFileSync(join(output, "index.html"), `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pool of Radiance art inventory</title><style>
 body{font:16px system-ui;background:#181715;color:#f3e9d6;margin:2rem auto;padding:0 1rem;max-width:1200px}
@@ -604,6 +617,10 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
 </tbody></table></details>` : ""}
 <details><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} linked · ${encounterTotals.matchedByPixels} exact matches · ${encounterTotals.remaining} unlinked</summary>
 <p>An area-specific replacement counts once for the source frame. Exact matches use replacements the browser's global portrait or combat matcher already finds. Composite portraits are listed under Runtime artwork.</p>
+<table class="coverage-table"><thead><tr><th>Art family</th><th>Source frames</th><th>Linked</th><th>Exact matches</th><th>Unlinked</th></tr></thead><tbody>
+${encounterFamilies.map(({ label, frames, linked, exact, unlinked }) =>
+  `<tr><th scope="row">${label}</th><td>${frames}</td><td>${linked}</td><td>${exact}</td><td>${unlinked}</td></tr>`).join("")}
+</tbody></table>
 <table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>Linked</th><th>Exact matches</th><th>Unlinked</th></tr></thead><tbody>
 ${encounterCoverage.map(({ file, frames, matched, pixelMatchedFrames, unlinkedFrames }) =>
   `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${pixelMatchedFrames.length}</td><td>${unlinkedFrames.length ? `<a href="#unlinked-archive-${escape(file)}">${unlinkedFrames.length}</a>` : "0"}</td></tr>`).join("")}
