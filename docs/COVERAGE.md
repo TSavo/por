@@ -3001,3 +3001,6 @@ The Chrome replay checks both placements, portrait panel fit, and mode switching
 Kuto's perimeter and western inner lane use 18 additional packed-earth
 joins. The western Chrome replay checks 12 views across 48 distinct tile
 patterns, including the floor edge, and verifies state-preserving mode switches.
+
+The first Kobold throne audience uses far and middle horde artwork. The
+Chrome replay verifies the three approach frames and the throne portrait.

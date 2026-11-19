@@ -510,6 +510,15 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:13:ecl:9c10:PIC8.DAX:0:0:0", prompt: /WEWILLPAYFORATRUCE/i,
     continuation: { inputs: ["a"], portrait: "portrait:area:13:ecl:9c5e:PIC8.DAX:0:0:0", prompt: /IAMTOESCORTYOUTOOURTREASURE/i },
   }],
+  ["kobold-throne-first-audience", {
+    slot: "B", inputs: ["up", "enter", "enter", "enter"],
+    approachSequence: [
+      [56, 32, "encounter:area:13:ecl:a02c:SPRIT8.DAX:0:2:0", 24, 57],
+      [56, 32, "encounter:area:13:ecl:a07a:SPRIT8.DAX:0:2:0", 24, 57],
+      [56, 32, "encounter:area:13:ecl:a07a:SPRIT8.DAX:0:1:0", 24, 65],
+    ],
+    portrait: "portrait:area:13:ecl:a14b:PIC8.DAX:0:0:0", prompt: /THESEMENAREENEMIES/i,
+  }],
   ["kobold-envoy-rematch", {
     slot: "B", inputs: ["up", "enter"],
     approachSequence: [
