@@ -80,6 +80,14 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["sokal-undead-patrol-dialogue", {
+    slot: "C", inputs: [...Array(5).fill("up"), "enter", "enter"],
+    portrait: "portrait:area:21:PIC4.DAX:34:0:0", prompt: /APACKOFUNDEADSUDDENLYAPPEARS/i,
+  }],
+  ["valhingen-zombie-stairs", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:10:PIC4.DAX:35:0:0", prompt: /ZOMBIESSHUFFLEDOWNTHESTAIRS/i,
+  }],
   ["valhingen-grave-claws", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
@@ -426,6 +434,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["new-phlan-proclamation-walk", {
+    slot: "B", area: 0, views: 15, patterns: 62, sceneryOnly: true,
+    walk: ["up", "up", "enter", "right", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up"],
+  }],
   ["new-phlan-north-avenue", {
     slot: "B", area: 0, views: 15, patterns: 96, sceneryOnly: true,
     walk: ["left", "up", "up", "n", "right", "up", "left", "up", "up", "right", "up", "up", "up", "left", "up"],

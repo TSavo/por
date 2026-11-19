@@ -1,6 +1,14 @@
 {
   "version": 1,
   "assets": {
+    "tile:0:bdc2846eeb75d16b7e334279cc32c448aae109f3c5fcdf2fb2cb9f1f1588ce52": "new-phlan-proclamation-walk-terrain-bdc2846eeb75.png",
+    "tile:0:86ba657c5e38ad07f30066dd1c810ad2552c5383b57c9ddd71c56c2dd5302d1e": "new-phlan-proclamation-walk-terrain-86ba657c5e38.png",
+    "tile:0:e72913a89f9d3daef62dc19e63acc5d329e89789dbe44e1e0e3099927e06f034": "new-phlan-proclamation-walk-terrain-e72913a89f9d.png",
+    "tile:0:190ac6332cc824f04f3d89592b0c0ce3ee634aaa2bb2983cad5c020189b58d16": "new-phlan-proclamation-walk-terrain-190ac6332cc8.png",
+    "tile:0:15be260fd378f5b33c7dc10af0e7565eaa2221596debd496a87de8b4c13f9f35": "new-phlan-proclamation-walk-terrain-15be260fd378.png",
+    "tile:0:0fe98ad9cca711b154fa54acc26ca865f6582a794910079509e512f212a9fdb8": "new-phlan-proclamation-walk-terrain-0fe98ad9cca7.png",
+    "portrait:area:21:PIC4.DAX:34:0:0": "sokal-undead-patrol-dialogue.png",
+    "portrait:area:10:PIC4.DAX:35:0:0": "valhingen-zombie-stairs.png",
     "tile:0:f8a526f66f9cf6ee94a07f27204b2c6170ccf8c0f602bde6883519d95d2ef43a": "new-phlan-north-avenue-terrain-f8a526f66f9c.png",
     "tile:0:126b59d83450ee11c00e77490a102e27f25b11fb6b3d77e73285a5a1687d691b": "new-phlan-north-avenue-terrain-126b59d83450.png",
     "tile:0:452118d96dcf90836db29fa3b9ad629d876984ade695d5956b2ca49304ef76c2": "new-phlan-north-avenue-terrain-452118d96dcf.png",
