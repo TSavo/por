@@ -2047,7 +2047,9 @@ if (process.argv[2] === "--castle-ending-checkpoint") {
     "n", (text) => assert.match(text, /the party has won.*receives 917 experience points/),
     "enter", "enter", "e", ...Array(9).fill("enter"),
     (text) => assert.match(text, /0,4 e.*gateway to the unsettled areas/),
-    "j", checkCastle("ready-to-report"), "j",
+    "j", checkCastle("ready-to-report"), (_text, frame) => {
+      assert.match(frame.journal.objective.nextStep, /east from the west gate.*south into City Hall.*council clerk/i);
+    }, "j",
     "up", "up", "up", "enter", "up", "right", "up", "enter", "enter", "enter",
     "up", "left", "up", "up", "enter",
     (text) => assert.match(text, /your quest is over.*tyranthraxus is defeated.*phlan is free/),

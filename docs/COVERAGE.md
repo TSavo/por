@@ -554,12 +554,11 @@ the fight and ending with the original enemy and the edited checkpoint
 party. A party trained by playing the campaign through from a fresh
 start remains to be verified.
 Run `node tools/verify-fresh-party.mjs --castle-ending-checkpoint PATH_TO_SLOT_B`
-with the prepared party outside the audience hall at `14,7 S`. With
-`POR_REQUIRE_UNINTERRUPTED_COMBAT=1`, the replay verifies the original
-80 HP opponent and that Quick completes the fight without watchdog
-intervention. It also checks the 67,500 XP council award, the journal's
-ready-to-report, reward-pending, and turned-in states, and the ending
-objective after reloading slot C.
+with the prepared party outside the audience hall at `14,7 S`. The
+replay verifies the original 80 HP opponent, the journal's directions
+from New Phlan's west gate to City Hall, and the 67,500 XP council award.
+It checks the journal's ready-to-report, reward-pending, and turned-in
+states and the ending objective after reloading slot C.
 The controlled replay then changes the tracked objective, saves through
 Encamp to slot D, and reloads that slot. The journal retains both the
 selection and the castle turn-in, and slot C remains byte-for-byte intact.
