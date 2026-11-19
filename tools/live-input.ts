@@ -192,7 +192,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * screen.width, offset + y * screen.width + 8);
       }
       const combat = attack || (!scene && !perspective)
-        ? combatArt(screen, enhanced, area, battleCursor, hasBattlefieldBorder(screen) ? battleTerrain : undefined) : [];
+        ? combatArt(screen, enhanced, area, battleCursor, hasBattlefieldBorder(screen) ? battleTerrain : undefined, iconEditor) : [];
       const battleTiles: TilePlacement[] = [];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
       if ((battleTileKeys.size || battleTileInventory) && !scene && hasBattlefieldBorder(screen)) {

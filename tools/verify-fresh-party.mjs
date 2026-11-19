@@ -2118,6 +2118,8 @@ if (process.argv[2] === "--podal-checkpoint") {
 }
 
 if (process.argv[2] === "--character-icon-editor") {
+  const { loadUpgradeArt } = await tsImport("./upgrade-art.ts", import.meta.url);
+  process.env.POR_COMBAT_ART_KEYS = [...loadUpgradeArt().keys()].filter(key => key.startsWith("combat:")).join(",");
   const checkEditor = (text, frame) => {
     assert.match(text, /old ready action new ready action/);
     assert.equal(frame.perspective, false);
@@ -2127,7 +2129,15 @@ if (process.argv[2] === "--character-icon-editor") {
   const editorKeys = ["k", "p", "h", "n", "e", "w", "n", "e", "e", "1", "n", "e", "2", "n", "e", "s", "n", "e"];
   await replay("31000000:1c0d,45000000:2e63", "50000000", [
     ...Array(5).fill("enter"), "y", ..."test", "enter",
-    ...editorKeys.flatMap(key => [key, checkEditor]),
+    ...editorKeys.flatMap((key, index) => [key, (text, frame) => {
+      checkEditor(text, frame);
+      if (index === 0) {
+        assert.deepEqual(frame.combatArt?.map(placement => placement.slice(0, 3)), [
+          [32, 56, "combat:party:0:0"], [104, 56, "combat:party:0:128"],
+          [32, 104, "combat:party:0:0"], [104, 104, "combat:party:0:128"],
+        ]);
+      }
+    }]),
   ]);
   console.log("Verified 18 native character icon editor frames stay out of the perspective renderer.");
   process.exit(0);

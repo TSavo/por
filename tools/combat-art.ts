@@ -43,8 +43,8 @@ export function loadCombatArtMatcher(keys: string[], root = keys.length ? findGa
   });
   const fallback = buildCombatArtMatcher(global, root);
   const matchers = new Map<string, ReturnType<typeof buildCombatArtMatcher>>();
-  return (frame: Frame, enhanced?: Frame, area?: number, cursor?: number, underlay?: Frame): CombatArtPlacement[] => {
-    if (area === undefined) return fallback(frame, enhanced, underlay);
+  return (frame: Frame, enhanced?: Frame, area?: number, cursor?: number, underlay?: Frame, iconEditor = false): CombatArtPlacement[] => {
+    if (area === undefined || iconEditor) return fallback(frame, enhanced, underlay, iconEditor);
     const areaScope = String(area);
     const battleScope = `${area}:${cursor?.toString(16).padStart(4, "0")}`;
     const scoped = scopes.get(areaScope);
@@ -82,11 +82,12 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
   };
   const selectedPose = (cell: Uint8Array, bevel: Uint8Array, width: number) => {
     // Aim draws white cursor pixels over the gray interior of the selection frame.
-    if (cell[0] !== 15 || cell[cell.length - 1] !== 8) return;
+    if (cell[0] !== bevel[0] || cell[cell.length - 1] !== bevel[bevel.length - 1]) return;
+    const battleSelection = bevel[0] === 15;
     let match: Pose | undefined;
     for (const pose of poses) {
       if (pose.width !== width || pose.pixels.length !== cell.length || !pose.pixels.every((color, index) => color ? cell[index] === color :
-        cell[index] === bevel[index] || (bevel[index] === 7 && cell[index] === 15))) continue;
+        cell[index] === bevel[index] || (battleSelection && bevel[index] === 7 && cell[index] === 15))) continue;
       if (match && match.key !== pose.key) return;
       match = pose;
     }
@@ -186,7 +187,7 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
     const previous = patterns.get(pose.pattern);
     patterns.set(pose.pattern, previous === undefined || previous?.key === pose.key ? pose : null);
   }
-  return (frame: Frame, enhanced?: Frame, underlay?: Frame): CombatArtPlacement[] => {
+  return (frame: Frame, enhanced?: Frame, underlay?: Frame, iconEditor = false): CombatArtPlacement[] => {
     if (!patterns.size) return [];
     const placements: CombatArtPlacement[] = [];
     for (const { width, height } of sizes.values()) {
@@ -195,6 +196,9 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
       // Large units span multiple guest selection squares.
       const bevel = Uint8Array.from({ length: cell.length }, (_, index) =>
         combatHighlightPixel((index % width) % 24, Math.floor(index / width) % 24));
+      // The editor uses the same bevel as combat with gray trim and a black
+      // interior around the unselected pose.
+      const inactiveBevel = iconEditor ? bevel.map(color => color === 15 ? 7 : color === 7 ? 0 : color) : undefined;
       // The guest draws the combat field inside the left-hand panel.
       for (let y = 8; y + height <= 176; y += 8) {
         for (let x = 8; x + width <= 176; x += 8) {
@@ -203,7 +207,8 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
             cell.set(frame.pixels.subarray(start, start + width), row * width);
           }
           const plain = patterns.get(`${width}:${cell.toString("hex")}`);
-          const selected = plain === undefined ? selectedPose(cell, bevel, width) : undefined;
+          const poseBevel = inactiveBevel && cell[0] === 7 ? inactiveBevel : bevel;
+          const selected = plain === undefined ? selectedPose(cell, poseBevel, width) : undefined;
           if (plain === undefined && !selected && background && underlay) {
             for (let row = 0; row < height; row++) {
               const start = (y + row) * frame.width + x;
@@ -229,7 +234,7 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
             for (let column = 0; column < width; column++) {
               const index = row * width + column;
               enhanced.pixels[start + column] = selected
-                ? match.pixels[index] ? bevel[index]! : cell[index]!
+                ? match.pixels[index] ? poseBevel[index]! : cell[index]!
                 : restoreTerrain ? prop ? 0 : background[index]!
                 : terrain && !match.pixels[index] ? cell[index]! : 0;
             }
