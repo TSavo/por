@@ -931,7 +931,23 @@ const outskirtsRoutes = new Map([
   ["phlan-outskirts-west", { direction: "down", prompt: /WESTERNEDGEOFTHECITY/i, menu: /NORTH.*SOUTH.*LEAVE/i }],
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
+const libraryWaterfrontEntry = ["up", "up", "up", "right", "up", "up"];
 const environmentRoutes = new Map([
+  ["mendor-library-waterfront-east", {
+    slot: "B", area: 2, views: 15, patterns: 54, sceneryOnly: true,
+    transition: { afterViews: 3, area: 15 },
+    walk: [...libraryWaterfrontEntry, "left", "up", "up", "right", "up", "up", "left", "up"],
+  }],
+  ["mendor-library-waterfront-west", {
+    slot: "B", area: 2, views: 15, patterns: 56, sceneryOnly: true,
+    transition: { afterViews: 3, area: 15 },
+    walk: [...libraryWaterfrontEntry, "right", "up", "up", "left", "up", "up", "right", "up"],
+  }],
+  ["mendor-library-waterfront-south", {
+    slot: "B", area: 2, views: 14, patterns: 54, sceneryOnly: true,
+    transition: { afterViews: 3, area: 15 },
+    walk: [...libraryWaterfrontEntry, "up", "up", "left", "up", "up", "right", "up"],
+  }],
   ["textile-library-link", {
     slot: "B", area: 2, views: 7, patterns: 39, sceneryOnly: true,
     transition: { afterViews: 3, area: 15 },
