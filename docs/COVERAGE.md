@@ -1336,6 +1336,14 @@ the middle and near poses at their original anchors in separate encounters.
 `kobold-cave-wyvern-dialogue` verify the Mummy approach sprite and two
 pre-combat illustrations. Chrome checks the artwork and state-preserving
 mode switches on all five encounter replays.
+`new-phlan-harbor-lanes` checks 16 individually redrawn water, piling,
+and quay tiles across 16 live views and 1,936 placements.
+`lizard-wilds-stirge` verifies the ready and reflected strike poses
+in the original swarm ambush.
+`new-phlan-temple-guard` checks the guard portrait when the temple
+turns visitors away, including full panel fit and mode switching.
+`new-phlan-jeweler` and `new-phlan-silver-shop` check that the shared
+merchant portrait fills the panel at both original shop prompts.
 `new-phlan-cleric-trainer` and `new-phlan-thieves-trainer` verify the
 class-specific training prompts, distinct portraits, and panel fit.
 `valjevo-fire-giant-dialogue` checks the barracks portrait at the

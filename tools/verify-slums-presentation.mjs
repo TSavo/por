@@ -80,6 +80,18 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["new-phlan-jeweler", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:HEAD3.DAX:63:BODY3.DAX:34", prompt: /SHOPKEEPEROFFERSJEWELRYFORSALE/i,
+  }],
+  ["new-phlan-silver-shop", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:HEAD3.DAX:63:BODY3.DAX:34", prompt: /THESHOPSELLSSILVERITEMS/i,
+  }],
+  ["new-phlan-temple-guard", {
+    slot: "A", inputs: ["up", "enter"],
+    portrait: "portrait:HEAD3.DAX:8:BODY3.DAX:4", prompt: /THEBISHOPISNOTRECEIVINGVISITORS/i,
+  }],
   ["new-phlan-cleric-trainer", {
     slot: "I", inputs: ["up", "enter"],
     portrait: "portrait:HEAD3.DAX:16:BODY3.DAX:4", prompt: /WETRAINONLYCLERICSHERE/i,
@@ -148,6 +160,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["lizard-wilds-stirge", {
+    slot: "A", stand: "combat:area:26:CPIC7.DAX:61", strike: "combat:area:26:CPIC7.DAX:189",
+    width: 96, height: 96, strikeReflected: true,
+    inputs: ["up", "enter", "enter", "enter", "q"],
+  }],
   ["lizard-wilds-displacer-beast", {
     slot: "A", stand: "combat:area:26:CPIC7.DAX:68", strike: "combat:area:26:CPIC7.DAX:196",
     width: 192, height: 96, strikeReflected: false,
@@ -327,6 +344,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["new-phlan-harbor-lanes", {
+    slot: "A", area: 0, views: 16, patterns: 72, sceneryOnly: true,
+    walk: ["right", "up", "up", "up", "right", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up"],
+  }],
   ["lizardfolk-southwest-trail", {
     slot: "A", area: 16, views: 14, patterns: 51, sceneryOnly: true,
     walk: ["left", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up"],
