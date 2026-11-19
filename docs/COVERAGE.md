@@ -1151,6 +1151,16 @@ The tower inherits wall pieces 2 and 4 from the approach. A cold load asks
 for them in `WALLDEF5.DAX` and `8X8D5.DAX`, where the original archives lack
 those entries. The mounted copies expose the original compressed records
 from archive 2, and the guest uses those records through its own DAX loader.
+The `valjevo-south-gallery` replay starts from that native tower save.
+`valjevo-covered-gallery` and `valjevo-statue-approach` use copies with only
+the party's position and facing changed. Chrome checks 4,114 placements
+across 34 views, including 12 new tiles for the gallery and window profiles.
+The `valjevo-medusa` replay starts just before the trapdoor in controlled
+slot B. It checks both 96×96 poses and that the journal records the broken
+statues after the party sees them.
+The `valjevo-false-throne` replay uses controlled slot B at the false
+throne. Chrome checks the 352×352 portrait through the parlay and verifies
+the impostor clue appears only after his confession.
 
 The `sokal-northeast-keep` replay loads slot D at `14,5 N` and walks the
 northeast halls. Chrome checks 3,025 placements across 25 views, using eight

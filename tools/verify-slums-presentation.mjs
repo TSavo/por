@@ -7,6 +7,7 @@ import { setTimeout as delay } from "node:timers/promises";
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const towerSave = routeName === "valjevo-tower-save";
 const towerReload = routeName === "valjevo-tower-reload";
+const falseTyranthraxus = routeName === "valjevo-false-throne";
 const norrisSurrender = routeName === "kuto-norris-surrender";
 const mendorStacks = routeName === "mendor-library-stacks";
 const princessFatima = routeName === "kobold-princess-fatima";
@@ -14,12 +15,18 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-medusa", {
+    slot: "B", stand: "combat:area:7:CPIC5.DAX:49", strike: "combat:area:7:CPIC5.DAX:177", width: 96, height: 96,
+    journalLead: "castle-medusa-statues",
+    inputs: ["up", ...Array(4).fill("enter"), "c", ...Array(3).fill("enter"), "q", "q"],
+  }],
   ["mendor-library-fighter", {
     slot: "B", stand: "combat:area:15:CPIC2.DAX:11", strike: "combat:area:15:CPIC2.DAX:139", width: 96, height: 96,
     inputs: ["up", ...Array(3).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(4).fill("q")],
   }],
   ["mendor-library-spectre", {
     slot: "B", stand: "combat:area:15:CPIC2.DAX:17", strike: "combat:area:15:CPIC2.DAX:145", width: 96, height: 96,
+    journalLead: "mendor-book-guardian",
     inputs: ["up", "up", ...Array(4).fill("enter"), "q", "q"],
   }],
   ["mendor-library-basilisk", {
@@ -100,6 +107,18 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valjevo-covered-gallery", {
+    slot: "B", area: 7, views: 22, patterns: 44,
+    walk: ["up", "up", "left", "up", "left", "up", "right", "up", "left", "up", "right", "up", "right", "up", "up", "up", "right", "up", "up", "right", "up"],
+  }],
+  ["valjevo-statue-approach", {
+    slot: "B", area: 7, views: 2, patterns: 27,
+    walk: ["up", "up"],
+  }],
+  ["valjevo-south-gallery", {
+    slot: "B", area: 7, views: 10, patterns: 68,
+    walk: ["left", "up", "up", "right", "up", "up", "up", "right", "up", "up"],
+  }],
   ["kobold-small-cave-pool", {
     slot: "B", area: 13, views: 7, patterns: 31,
     walk: ["up", "enter", "enter", "up", "right", "up", "up"],
@@ -281,7 +300,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-false-throne", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -337,7 +356,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || falseTyranthraxus || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -606,7 +625,12 @@ try {
       console.log("Native save:", saved);
     }
   } else if (combatPose) {
-    const { stand, strike, width, height, inputs, strikeInputs = ["q"] } = combatPose;
+    const { stand, strike, width, height, inputs, strikeInputs = ["q"], journalLead } = combatPose;
+    if (journalLead) {
+      await advance("j");
+      assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
+      await advance("j");
+    }
     await run(`window.strikeLoaded = false;
       new MutationObserver(() => {
         for (const image of document.querySelectorAll(".combat-sprite")) {
@@ -626,9 +650,9 @@ try {
       [...document.querySelectorAll(".combat-sprite")].some(image => image.src.endsWith(${JSON.stringify(stand)}) &&
         image.naturalWidth === ${width} && image.naturalHeight === ${height})`));
     await switchBothWays();
-    if (routeName === "mendor-library-spectre") {
+    if (journalLead) {
       await advance("j");
-      assert.ok(frame.journal?.leads.some(({ id }) => id === "mendor-book-guardian"));
+      assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead));
       await advance("j");
     }
     for (const key of strikeInputs) await advance(key);
@@ -856,6 +880,23 @@ try {
     assert.ok(!frame.journal.leads.some(({ id }) => id.startsWith("mendor-book-")));
     await switchBothWays();
     console.log("Verified the witnessed library stacks clue in Chrome.");
+  } else if (falseTyranthraxus) {
+    const portrait = "portrait:HEAD5.DAX:54:BODY5.DAX:1";
+    const knows = () => frame.journal?.leads.some(({ id }) => id === "castle-impostor");
+    for (const key of ["up", "enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, portrait);
+    await waitFor("the throne-room figure's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    await advance("j");
+    assert.ok(frame.journal && !knows());
+    for (const key of ["j", "p", "a"]) await advance(key);
+    assert.equal(frame.portrait, portrait);
+    await advance("j");
+    assert.ok(knows());
+    for (const key of ["j", "enter"]) await advance(key);
+    assert.match(frame.text.toSorted(([left], [right]) => left - right)
+      .map(([, character]) => String.fromCharCode(character)).join(""), /JUSTLETMEGO/i);
+    console.log("Verified the false throne portrait and witnessed confession in Chrome.");
   } else if (restalGuide) {
     const restal = "portrait:HEAD4.DAX:52:BODY4.DAX:8";
     const knowsOffer = () => frame.journal?.leads.some(({ id }) => id === "textile-restal-offer");

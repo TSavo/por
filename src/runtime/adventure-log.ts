@@ -514,6 +514,11 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
+  if (text.includes("YOU ARE IN A ROOM FILLED WITH BROKEN STATUES") ||
+      text.includes("I SAW BROKEN REMAINS OF STATUES")) {
+    leads.push({ id: "castle-medusa-statues", title: "Broken statues below the trapdoor",
+      detail: "The party saw broken statues with faces frozen in terror below the tower's trapdoor." });
+  }
   if (text.includes("THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES")) {
     leads.push({ id: "mendor-library-stacks", title: "Mendor's library stacks",
       detail: "The party found rooms of books marked by subject. Use Search to examine the shelves." });
