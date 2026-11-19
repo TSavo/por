@@ -3112,3 +3112,6 @@ including three aliases, and both combat poses for each distinct head.
 The plumed and bald dwarf combat heads each have axe and crossbow
 combinations with ready and action art. Four production Chrome replays
 verify both poses from original icon editor selections.
+
+The Council restricted-wing guard has a dedicated halt sprite and
+portrait. Chrome verifies the challenge and return after agreeing to leave.
