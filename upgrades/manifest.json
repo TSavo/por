@@ -1,6 +1,18 @@
 {
   "version": 1,
   "assets": {
+    "tile:2:c9f13f5b1ee35461780fd17d8ab1aeed0531374a31a24b225db9936fa2db8a07": "textile-rubble-interior-terrain-c9f13f5b1ee3.png",
+    "tile:2:00ec8d6148ce4d7dcb6fd55335f23db237498263d343e7a5797d2243996180f6": "textile-rubble-interior-terrain-00ec8d6148ce.png",
+    "tile:2:76c21367bdab1058f13dc9367ac4815d7a47a8256d5af35bc4002d823814a07c": "textile-rubble-interior-terrain-76c21367bdab.png",
+    "tile:2:e86aeac0ea26e5f4043c4fb7ed63c1b3d051330c776b9ee78ad9340a97b30fb3": "textile-rubble-interior-terrain-e86aeac0ea26.png",
+    "tile:2:0dca9729e159456b4f742d7156c333c8de335ced177cd89f9bd4cf69400d7717": "textile-rubble-interior-terrain-0dca9729e159.png",
+    "tile:2:54cfe77b0fa031f0e731581bb561e7930676dcaf217f5886e27719bedfc1eb68": "textile-rubble-interior-terrain-54cfe77b0fa0.png",
+    "tile:2:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447": "textile-rubble-interior-terrain-17becf7f4640.png",
+    "tile:2:7870e9a9d014d5af73d6846dd36c122b941c5efafee1e099b135da968e0216b1": "textile-rubble-interior-terrain-7870e9a9d014.png",
+    "tile:2:e661bce0938e73b6610229ae27e6f1e51de4af50b1df92a3ae665507ff3a15f7": "textile-rubble-interior-terrain-e661bce0938e.png",
+    "tile:2:f08f5d405196df228b0f4f6cb5937799da56badb58ba6ff58a9903bb9b1ca142": "textile-rubble-interior-terrain-f08f5d405196.png",
+    "tile:2:194c7a70c05eb9c93cb1a063ea5cf6df0dc6fa2f8de1389233f822c0720703c3": "textile-rubble-interior-terrain-194c7a70c05e.png",
+    "tile:2:4fa7efe3e4e51e6f24a9fc238959e3417c491c59718d3668c99af1a3a648e190": "textile-rubble-interior-terrain-4fa7efe3e4e5.png",
     "portrait:area:5:PIC5.DAX:31:0:0": "valjevo-tower-troll-dialogue.png",
     "tile:2:7b8772a162e24dbbfab628febba4c8018354d1997675d518b44e749fa71e1b6b": "textile-waterfront-side-lanes-terrain-7b8772a162e2.png",
     "tile:2:d20d585641c6d76d5fdd15d21d1f0fe0f6663d6aded22bc96508569ac0bd84f7": "textile-waterfront-side-lanes-terrain-d20d585641c6.png",
