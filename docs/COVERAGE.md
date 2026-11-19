@@ -3110,9 +3110,27 @@ All distinct dwarf combat heads have ready and attack art with the
 default body. Chrome verifies the original editor's fourteen choices,
 including three aliases, and both combat poses for each distinct head.
 
-The plumed and bald dwarf combat heads each have axe and crossbow
-combinations with ready and action art. Four production Chrome replays
-verify both poses from original icon editor selections.
+The plumed and bald dwarf combat heads each have ready and strike art
+for all 18 weapon choices. Chrome verified both poses across both
+18-choice icon editor sweeps. Production-pack combat replays checked
+plumed flail and spear and bald shield and double axe. The editor and
+battle checks use the original icon or combat menus. The battle replays
+use controlled saves to select the party icon.
+
+The braided-head and four other distinct dwarf head axe and crossbow
+pairs have dedicated ready and strike art. The ten
+`party-dwarf-{4,5,7,8,10}-{axe,crossbow}-icon-combat` Chrome replays
+check the selected ready frame, the animated strike, and the combat
+report using controlled copies of the Slums checkpoint. These replays
+step automatic combat explicitly so the browser cannot advance the
+battle during the state-preservation assertion.
+
+The `textile-skullcrusher-approach` Chrome replay uses the Textile
+House slot B checkpoint. It checks the chained prisoner's 96×320
+approach sprite at the guest anchor during the brief animation, then
+presses Enter and checks that the portrait fills the outer picture
+panel during the original choice prompt. It also checks that changing
+display modes preserves the encounter and the saved slot.
 
 The Council restricted-wing guard has a dedicated halt sprite and
 portrait. Chrome verifies the challenge and return after agreeing to leave.
