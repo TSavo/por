@@ -17,6 +17,6 @@
     { "id": "por.original.miss", "index": 9, "file": "por-miss.wav", "targetSeconds": 0.96, "status": "approved-elevenlabs", "sourceBatch": "miss-review-01", "prompt": "One weapon swinging through empty air." },
     { "id": "por.original.step", "index": 10, "file": "por-step.wav", "targetSeconds": 0.16, "status": "approved-elevenlabs-edited", "sourceBatch": "step-review-02", "prompt": "One clearly recognizable human footstep: the heel of a leather boot strikes a stone floor, immediately followed by the sole planting with a short, solid thump. One step only, close and dry.", "edit": "First impact isolated at 0.08s for 0.16s with 6ms edge fades; no gain change" },
     { "id": "por.original.fireball-cue", "index": 11, "file": "por-fireball-cue.wav", "targetSeconds": 3.68, "status": "approved-elevenlabs", "sourceBatch": "fireball-review-01", "prompt": "One magical fireball igniting and flying away." },
-    { "id": "por.original.ranged-end", "index": 12, "file": "por-ranged-end.wav", "targetSeconds": 0.30, "prompt": "A very short arrow arrival one-shot: wooden arrow strikes and sticks firmly into a leather-covered target with a compact thunk and tiny shaft vibration. No bow release, no voice, no ambience, dry close medieval game Foley." }
+    { "id": "por.original.ranged-end", "index": 12, "file": "por-ranged-end.wav", "targetSeconds": 0.96, "status": "approved-elevenlabs", "sourceBatch": "ranged-end-review-02", "prompt": "One loud arrow striking a wooden target." }
   ]
 }
