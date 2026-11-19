@@ -704,6 +704,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["pyramid-inner-angles", {
+    slot: "A", area: 22, views: 25, patterns: 28, sceneryOnly: true,
+    walk: ["right", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "left", "up"],
+  }],
   ["pyramid-cross-gallery", {
     slot: "A", area: 22, views: 11, patterns: 24, sceneryOnly: true,
     walk: ["right", "up", "up", "left", "up", "up", "right", "up", "up", "right"],
@@ -2090,7 +2094,14 @@ try {
     console.log("Verified that Valjevo records enter the journal only when read.");
   } else if (scriptorium || mazeWatch || giantPatrol) {
     if (giantPatrol) for (const key of ["s", "enter", "up", "enter", "enter"]) await advance(key);
-    for (const key of ["up", "enter", "enter"]) await advance(key);
+    for (const key of ["up", "enter"]) await advance(key);
+    if (mazeWatch) {
+      assert.deepEqual(frame.encounter, [48, 32, "encounter:area:4:SPRIT5.DAX:16:0:0", 40, 80]);
+      await waitFor("the maze watch approach sprite", () => run(
+        'document.querySelector(".encounter-sprite")?.naturalWidth === 160 && document.querySelector(".encounter-sprite")?.naturalHeight === 320'));
+      await switchBothWays();
+    }
+    await advance("enter");
     if (scriptorium || giantPatrol) for (const key of ["a", "a"]) await advance(key);
     for (const key of ["p", scriptoriumAuthority ? "h" : "m"]) await advance(key);
     const portrait = mazeWatch ? "portrait:HEAD5.DAX:52:BODY5.DAX:1"
@@ -2151,7 +2162,18 @@ try {
   } else if (alHyam) {
     const portrait = "portrait:area:5:HEAD5.DAX:55:BODY5.DAX:31";
     const knows = () => frame.journal?.leads.some(({ id }) => id === "castle-al-hyam-notes");
-    for (const key of ["up", "a", "a", "p"]) await advance(key);
+    for (const [key, placement] of [
+      ["up", [64, 32, "encounter:area:5:SPRIT5.DAX:12:2:0", 8, 49]],
+      ["a", [56, 32, "encounter:area:5:SPRIT5.DAX:12:1:0", 24, 65]],
+    ]) {
+      await advance(key);
+      assert.deepEqual(frame.encounter, placement);
+      const [, , , width, height] = placement;
+      await waitFor("Al-Hyam's approach sprite", () => run(
+        `document.querySelector(".encounter-sprite")?.naturalWidth === ${width * 4} && document.querySelector(".encounter-sprite")?.naturalHeight === ${height * 4}`));
+      await switchBothWays();
+    }
+    for (const key of ["a", "p"]) await advance(key);
     assert.equal(frame.portrait, portrait);
     await waitFor("Al-Hyam's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
