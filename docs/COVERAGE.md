@@ -528,6 +528,8 @@ objective after reloading slot C.
 The controlled replay then changes the tracked objective, saves through
 Encamp to slot D, and reloads that slot. The journal retains both the
 selection and the castle turn-in, and slot C remains byte-for-byte intact.
+Switching slot D back to automatic tracking restores the **Phlan is free**
+objective while retaining the castle turn-in.
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_C PATH_TO_CHROME castle-ending`
 with that completed save. Chrome reloads slot C, checks that the journal
 displays **Phlan is free**, switches both presentation modes while the

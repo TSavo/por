@@ -1940,6 +1940,10 @@ if (process.argv[2] === "--castle-ending-checkpoint") {
   await replay(loadSlot("2064"), "85000000", [
     "j", checkCastle("turned-in"),
     (_text, frame) => assert.equal(frame.journal.trackedId, trackedAfterEnding),
+    "track auto", checkCastle("turned-in"), (_text, frame) => {
+      assert.equal(frame.journal.trackedId, undefined);
+      assert.equal(frame.journal.objective.title, "Phlan is free");
+    },
   ]);
   assert.deepEqual(readFileSync(completedSave), completedSnapshot);
   console.log("Defeated the original Tyranthraxus, collected the council reward, and reloaded the completed campaign.");
