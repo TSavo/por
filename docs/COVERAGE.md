@@ -3046,3 +3046,6 @@ Chrome verifies the reflected strike and its eight-point damage report.
 The swamp ruin defenders use a charging lizardfolk sprite and a group
 illustration. Chrome verifies the anchor and the transition into parlay.
 The fresh-party icon editor regression covers 18 native editor frames.
+
+Drythh and his followers use a distinct approach sprite and group
+illustration. Chrome verifies both after declining the elder's request.
