@@ -1,6 +1,9 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:20:CPIC2.DAX:7:ecl:abf8": "slums-council-hobgoblin-stand.png",
+    "combat:area:20:CPIC2.DAX:136:ecl:abf8": "slums-council-ogre-strike.png",
+    "combat:area:20:CPIC2.DAX:8:ecl:abf8": "slums-council-ogre-stand.png",
     "tile:0:45f5e38f7219ffc606ba569d2abe5be146d8630bf8dcde674e3c28c3ce4e621a": "new-phlan-training-hall-terrain-45f5e38f7219.png",
     "tile:0:b03fbca109ab749692421d27e7e24a728523604f8fd1580a98748b76cb2ce15c": "new-phlan-training-hall-terrain-b03fbca109ab.png",
     "tile:0:a981c2e4290d3cfab1275af7b186649c90a2307191e93fd98b463e413040c010": "new-phlan-training-hall-terrain-a981c2e4290d.png",
