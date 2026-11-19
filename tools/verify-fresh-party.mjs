@@ -402,7 +402,14 @@ async function verifyPodalFromCouncil(continuation) {
       assert.match(frame.journal.objective.nextStep, /watch the bidding/i);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-bidding" || id === "auction-exchange"));
     }, "j",
-    "enter", "enter", "enter", "enter", "end", "enter", "enter",
+    "enter", "enter", "enter",
+    (text) => assert.match(text, /the bidding escalates to 5,000 gold pieces/),
+    "j", checkAuction("accepted"), (_text, frame) => {
+      const bid = frame.journal.leads.find(({ id }) => id === "auction-bidding");
+      assert.match(bid?.detail ?? "", /5,000 gold pieces/);
+      assert.match(frame.journal.objective.nextStep, /see who wins/i);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-exchange"));
+    }, "j", "enter", "end", "enter", "enter",
     (text) => assert.match(text, /a man and ogre exchange the wand/),
     "enter", "j", checkAuction("ready-to-report"), checkExchange, "j", "e", "s", "s", "j",
   ]);
@@ -430,6 +437,7 @@ async function verifyPodalFromCouncil(continuation) {
         assert.ok(frame.journal.leads.some(({ id, status }) => id === "commission-sokal" && status === "turned-in"));
         assert.ok(frame.journal.leads.some(({ id, status }) => id === "commission-textile" && status === "accepted"));
         assert.ok(frame.journal.leads.some(({ id }) => id === "auction-exchange"));
+        assert.ok(frame.journal.leads.some(({ id }) => id === "auction-bidding"));
       },
     ]);
     console.log("Verified the Podal Plaza exchange, council reward, and Textile House commission after reload.");
