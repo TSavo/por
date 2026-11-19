@@ -514,6 +514,11 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
+  if (text.includes("YOU ARE LEFT WITH THE NOTES OF AL-HYAM DHAZID") &&
+      text.includes("YOU COPY THEM INTO YOUR JOURNAL AS ENTRY 30")) {
+    leads.push({ id: "castle-al-hyam-notes", title: "Al-Hyam Dhazid's notes",
+      detail: "The mage left notes about the Pool of Radiance. The party copied them as journal entry 30." });
+  }
   if (text.includes("YOU ARE IN A ROOM FILLED WITH BROKEN STATUES") ||
       text.includes("I SAW BROKEN REMAINS OF STATUES")) {
     leads.push({ id: "castle-medusa-statues", title: "Broken statues below the trapdoor",
@@ -867,6 +872,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("HE JUST HIRED ME TO IMPERSONATE HIM")) {
     leads.push({ id: "castle-impostor", title: "Tyranthraxus's impostor", detail: "The figure on the throne admitted he was hired to impersonate Tyranthraxus." });
+    if (text.includes("HE RUNS OUT OF THE HALL. THERE IS TREASURE ALL ABOUT.")) {
+      leads.push({ id: "castle-impostor-released", title: "The impostor fled",
+        detail: "The party let the impostor go. He fled the throne room, leaving treasure behind." });
+    }
   }
   if (text.includes("AN EVIL SPIRIT FROM AN UNHOLY POOL GUIDES YOUR ENEMIES")) {
     leads.push({ id: "phlan-seer-prophecy", title: "The Old Phlan seer's prophecy",

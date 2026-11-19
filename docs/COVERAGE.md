@@ -1160,7 +1160,15 @@ slot B. It checks both 96×96 poses and that the journal records the broken
 statues after the party sees them.
 The `valjevo-false-throne` replay uses controlled slot B at the false
 throne. Chrome checks the 352×352 portrait through the parlay and verifies
-the impostor clue appears only after his confession.
+the impostor clue appears only after his confession. Letting him go adds
+the witnessed outcome without marking the final commission complete.
+The `valjevo-al-hyam` replay checks the area-scoped portrait and the
+entry 30 discovery after the mage hands over his notes.
+The `valjevo-tyranthraxus-strike` replay reopens a tower slot B, votes to
+attack, and checks the 192×192 ready pose and animated bite in Chrome.
+The `valjevo-lower-wing` route uses an area-5 save made after using the
+western stairs. Chrome checks 2,057 placements across 17 views and all
+46 new 32×32 half-timber and lane tiles.
 
 The `sokal-northeast-keep` replay loads slot D at `14,5 N` and walks the
 northeast halls. Chrome checks 3,025 placements across 25 views, using eight
