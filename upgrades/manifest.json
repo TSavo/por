@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "portrait:area:15:PIC2.DAX:25:0:0": "mendor-fighter-dialogue.png",
+    "portrait:area:15:PIC2.DAX:17:0:0": "mendor-spectre-dialogue.png",
     "tile:2:dd555316ad7b2d22cde011ae96474463c3708b9d8005fb718e949c5f2ae71f9b": "textile-north-yard-terrain-dd555316ad7b.png",
     "tile:2:d125bcbc944bdffa51980c50924891cfd1d58f8dac5ca6aa5e1b20f0e24d1862": "textile-north-yard-terrain-d125bcbc944b.png",
     "tile:2:bfb0b76fe74addf5e0ec0decd32df7f7a0fd648114e532a6facaf4882d69f17f": "textile-north-yard-terrain-bfb0b76fe74a.png",

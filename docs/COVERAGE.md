@@ -1348,6 +1348,8 @@ with 2,057 placements across 17 views from a position-only copy of
 the north-gate entrance save.
 `valjevo-giant-snake-approach` checks the middle and near sprites, their
 original screen anchors, and all 121 terrain cells across the approach.
+`mendor-fighter-dialogue` and `mendor-spectre-dialogue` check the 352×352
+illustrations, original dialogue prompts, and state-preserving switches.
 `mendor-basilisk-approach` checks the Basilisk's near sprite.
 Both replays continue to the new 352×352 dialogue scenes, assert the
 original encounter text, and verify that the approach sprite clears to
