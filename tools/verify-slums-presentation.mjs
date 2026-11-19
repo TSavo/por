@@ -300,6 +300,15 @@ const encounterRoutes = new Map([
     ],
     dialogue: { key: "enter", portrait: "portrait:area:14:HEAD3.DAX:32:BODY3.DAX:8", prompt: /ATHIEFWITHASWORDCOMESOUTOFNOWHERE/i },
   }],
+  ["valhingen-vampire-return-approach", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [56, 32, "encounter:area:10:SPRIT4.DAX:23:0:0", 32, 80],
+    approachSequence: [
+      [56, 32, "encounter:area:10:SPRIT4.DAX:23:1:0", 24, 65],
+      [56, 32, "encounter:area:10:SPRIT4.DAX:23:0:0", 32, 80],
+    ],
+    dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:23:0:0", prompt: /THEREISAVAMPIREHERE/i },
+  }],
   ["kobold-cave-wyvern-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [24, 32, "encounter:area:13:SPRIT8.DAX:121:0:0", 88, 80],
@@ -883,6 +892,11 @@ const combatPoseRoutes = new Map([
     slot: "A", stand: "combat:area:0:CPIC3.DAX:12:ecl:aac7", strike: "combat:area:0:CPIC3.DAX:140:ecl:aac7",
     width: 96, height: 96, readyPrompt: /7THLVLCLERIC/i,
     inputs: ["up", "enter", "enter", ...Array(19).fill("q")],
+  }],
+  ["new-phlan-tavern-cutpurse-combat", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:13:ecl:a7d3", strike: "combat:area:0:CPIC3.DAX:141:ecl:a7d3",
+    width: 96, height: 96, readyPrompt: /1STLVLTHIEF/i, strikeInputs: ["space"], strikeReflected: true,
+    inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter")],
   }],
   ["nomad-warrior-combat", {
     slot: "A", stand: "combat:area:17:CPIC7.DAX:12", strike: "combat:area:17:CPIC7.DAX:140",
@@ -1469,6 +1483,10 @@ const environmentRoutes = new Map([
   ["new-phlan-tavern-back-exit", {
     slot: "A", area: 0, views: 9, patterns: 49, sceneryOnly: true,
     walk: ["up", "enter", "n", "enter", "right", "up", "left", "up"],
+  }],
+  ["stojanow-barracks-side", {
+    slot: "A", area: 9, views: 10, patterns: 29, sceneryOnly: true,
+    walk: ["right", "up", "up", "left", "up", "left", "up", "right", "up"],
   }],
   ["new-phlan-canal-room", {
     slot: "A", area: 0, views: 24, patterns: 63, sceneryOnly: true,

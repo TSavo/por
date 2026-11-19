@@ -2696,6 +2696,12 @@ passed with the updated art.
 over 121 terrain tiles each, then the existing dialogue portrait.
 `tempus-temple-watch-combat` checks the shared Watch ready sprite and the
 cleric's mace strike in the Tempus temple reinforcement battle.
+`new-phlan-tavern-cutpurse-combat` verifies the ready pose and reflected
+longsword strike in the tavern brawl.
+`valhingen-vampire-return-approach` checks the middle and near frames
+over 121 terrain tiles in the crypt, followed by the vampire portrait.
+`stojanow-barracks-side` verifies 1,210 tile placements across ten views,
+including two new lintel and sill tiles.
 
 The kobold cave exit replay also checks the first overland frame. The
 guest still reports the cave's area when it draws the overland map.

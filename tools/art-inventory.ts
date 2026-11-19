@@ -606,7 +606,7 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
 <p>An area-specific replacement counts once for the source frame. Exact matches use replacements the browser's global portrait or combat matcher already finds. Composite portraits are listed under Runtime artwork.</p>
 <table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>Linked</th><th>Exact matches</th><th>Unlinked</th></tr></thead><tbody>
 ${encounterCoverage.map(({ file, frames, matched, pixelMatchedFrames, unlinkedFrames }) =>
-  `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${pixelMatchedFrames.length}</td><td>${unlinkedFrames.length ? `<a href="#archive-${escape(file)}">${unlinkedFrames.length}</a>` : "0"}</td></tr>`).join("")}
+  `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${pixelMatchedFrames.length}</td><td>${unlinkedFrames.length ? `<a href="#unlinked-archive-${escape(file)}">${unlinkedFrames.length}</a>` : "0"}</td></tr>`).join("")}
 </tbody></table></details>
 <details><summary>Exact portrait and combat matches · ${encounterTotals.matchedByPixels}</summary>
 <table class="coverage-table"><thead><tr><th>Source ID</th><th>Replacement ID</th><th>Preview</th></tr></thead><tbody>
@@ -617,7 +617,7 @@ ${encounterCoverage.flatMap(({ pixelMatchedFrames }) => pixelMatchedFrames).map(
 <p>${encounterTotals.uniformUnlinked} unlinked frames are solid-color images.</p>
 <p>Each source ID contains the archive, directory entry, member, and zero-based frame number. The preview opens the source sheet. Some archive frames may have no verified in-game use.</p>
 ${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({ file, unlinkedFrames }) =>
-  `<details id="archive-${escape(file)}"><summary>${escape(file)} · ${unlinkedFrames.length}</summary>
+  `<details id="unlinked-archive-${escape(file)}"><summary>${escape(file)} · ${unlinkedFrames.length}</summary>
   <table class="coverage-table"><thead><tr><th>Source ID</th><th>Block</th><th>4× target</th><th>Preview</th></tr></thead><tbody>
   ${unlinkedFrames.map(({ id, block, width, height, preview, uniform }) =>
     `<tr><th scope="row"><code>${escape(id)}</code></th><td>${block}</td><td>${width}×${height}</td>
@@ -683,6 +683,10 @@ document.addEventListener('click', (event) => {
   if (!link) return;
   const group = document.getElementById(link.hash.slice(1));
   if (!group) return;
+  if (group.id.startsWith('unlinked-archive-')) {
+    for (let section = group; section; section = section.parentElement?.closest('details')) section.open = true;
+    return;
+  }
   search.value = '';
   category.value = group.dataset.category;
   selectedArchive = group.id.startsWith('archive-') ? group.id : undefined;
