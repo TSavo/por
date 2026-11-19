@@ -21,7 +21,8 @@ const scriptoriumAuthority = routeName === "valjevo-scriptorium-authority";
 const scriptorium = routeName === "valjevo-scriptorium-password" || scriptoriumAuthority;
 const mazeWatch = routeName === "valjevo-maze-watch";
 const dungeonSentry = routeName === "valjevo-dungeon-sentry";
-const castleRecords = routeName === "valjevo-records";
+const castleRecordsDecline = routeName === "valjevo-records-decline";
+const castleRecords = routeName === "valjevo-records" || castleRecordsDecline;
 const castleScribe = routeName === "valjevo-records-scribe";
 const castleReports = routeName === "valjevo-scriptorium-reports";
 const castleReportsReload = routeName === "valjevo-scriptorium-reports-reload";
@@ -391,7 +392,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-dungeon-sentry", "valjevo-records", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-dungeon-sentry", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -1062,11 +1063,16 @@ try {
     const knows = id => frame.journal?.leads.some(lead => lead.id === id);
     await advance("up");
     await advance("j");
-    assert.ok(frame.journal && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
-    for (const key of ["j", "y", "j"]) await advance(key);
-    assert.ok(knows("castle-records-thay") && !knows("castle-records-moonsea"));
-    for (const key of ["j", "enter", "enter", "j"]) await advance(key);
-    assert.ok(knows("castle-records-thay") && knows("castle-records-moonsea"));
+    assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
+    if (castleRecordsDecline) {
+      for (const key of ["j", "n", "j"]) await advance(key);
+      assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
+    } else {
+      for (const key of ["j", "y", "j"]) await advance(key);
+      assert.ok(knows("castle-records-thay") && !knows("castle-records-moonsea"));
+      for (const key of ["j", "enter", "enter", "j"]) await advance(key);
+      assert.ok(knows("castle-records-thay") && knows("castle-records-moonsea"));
+    }
     await switchBothWays();
     console.log("Verified that Valjevo records enter the journal only when read.");
   } else if (scriptorium || mazeWatch) {

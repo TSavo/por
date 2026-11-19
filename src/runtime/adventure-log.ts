@@ -910,6 +910,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "castle-hedge-gate-password", title: "Password for the hedge gate",
       detail: "A freed captive gave the party a slip from the overseer's pouch with today's password for the main gate into the hedge maze." });
   }
+  if (text.includes("YOU ARE IN A BUILDING FULL OF RECORDS") && text.includes("DO YOU WISH TO SPEND HOURS READING THE RECORDS")) {
+    leads.push({ id: "castle-records-room", title: "Valjevo records room",
+      detail: "The party found a records building. Choose Yes when prompted to spend time reading its records." });
+  }
   if (text.includes("THE RED WIZARDS OF THAY ARE ALLIED TO TYRANTHRAXUS")) {
     leads.push({ id: "castle-records-thay", title: "The Red Wizards' alliance",
       detail: "Records in Valjevo Castle showed that the Red Wizards of Thay are allied to Tyranthraxus." });

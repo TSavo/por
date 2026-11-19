@@ -1197,6 +1197,8 @@ checks the selected 96×96 ready pose and the reflected sword strike in
 the animation stream. `valjevo-records` starts at the adjoining records
 building. It checks the Thay alliance and Moonsea plans appear separately
 as the party reads them.
+`valjevo-records-decline` verifies the room stays in the journal as a
+place to revisit while the unread reports stay hidden.
 `valjevo-scriptorium-reports` searches the room on a controlled copy
 with the officer fight marked cleared. The Raven Clan report and the
 flaming-aura clue appear separately as their text is shown. The translation
