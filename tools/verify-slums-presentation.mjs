@@ -501,6 +501,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-forge-fire-giant", {
+    slot: "B", stand: "combat:area:6:CPIC5.DAX:56:ecl:a2b8", strike: "combat:area:6:CPIC5.DAX:184:ecl:a2b8",
+    width: 96, height: 192, readyPrompt: /FIREGIANTHITPOINTS54/i, strikeReflected: true,
+    inputs: ["up", "enter", "enter", "c", ...Array(5).fill("enter"), ...Array(18).fill("q")],
+  }],
   ["valjevo-forge-smith-combat", {
     slot: "B", stand: "combat:area:6:CPIC5.DAX:11:ecl:a2b8", strike: "combat:area:6:CPIC5.DAX:139:ecl:a2b8",
     width: 96, height: 96, readyPrompt: /4THLVLFIGHTERHITPOINTS30/i, strikeReflected: true,

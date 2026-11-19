@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:6:CPIC5.DAX:56:ecl:a2b8": "valjevo-forge-fire-giant-stand.png",
+    "combat:area:6:CPIC5.DAX:184:ecl:a2b8": "valjevo-forge-fire-giant-strike.png",
     "tile:20:624c54394650999904d165e8083586d2c5d9dea1cfb089dcbb22e946cbbf6f37": "slums-shop-frontage-terrain-624c54394650.png",
     "tile:20:34c8e1f49742be249357aba1a5180b7fbd7dff4350ff758ba579534fcd9cdb70": "slums-shop-frontage-terrain-34c8e1f49742.png",
     "tile:20:78d49be0ec8d85548a56d9b83e8384b76643e1d87889ea01c72df92930638ba6": "slums-shop-frontage-terrain-78d49be0ec8d.png",
