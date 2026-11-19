@@ -2757,6 +2757,9 @@ junction bindings across 36 views.
 Kuto's well, northern lane, border, and eastern lane now use packed
 earth with worn limestone chips beneath the turquoise masonry. Four
 Chrome walks checked 24 floor and edge bindings across 48 live views.
+The Pyramid cistern passages use stained limestone underfoot, with
+mineral veins distinct from the dark teal walls. Three Chrome walks
+exercised all five revised bindings across 58 live views.
 Stojanow's barracks and coping routes use weathered oak boards beneath
 the sandstone walls. Two Chrome walks checked 12 revised tile bindings
 across 26 views.
