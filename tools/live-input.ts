@@ -85,6 +85,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
+  const battleTerrain = browser && battleTileKeys.size ? new Frame(screen.width, screen.height) : undefined;
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
   const attackKeys = new Set((process.env.POR_COMBAT_ART_KEYS ?? "").split(",")
     .filter((key) => Number((monsterCombatKey.exec(key) ?? partyCombatKey.exec(key))?.[3]) >= 128));
@@ -182,7 +183,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * screen.width, offset + y * screen.width + 8);
       }
       const combat = attack || (!scene && !perspective)
-        ? combatArt(screen, enhanced, area, battleCursor) : [];
+        ? combatArt(screen, enhanced, area, battleCursor, hasBattlefieldBorder(screen) ? battleTerrain : undefined) : [];
       const battleTiles: TilePlacement[] = [];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
       if ((battleTileKeys.size || battleTileInventory) && !scene && hasBattlefieldBorder(screen)) {
@@ -350,6 +351,31 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   return {
     requestKey,
+    captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number) => {
+      if (column > 18 || row > 18 || column % 3 || row % 3) return;
+      const x = 8 + column * 8;
+      const y = 8 + row * 8;
+      // Overlay 36's blitter and viewport copy use a far pointer to the
+      // offscreen picture. Each eight-pixel group stores four plane bytes.
+      const offset = cpu.read16(cpu.ds, 0x4980);
+      const segment = cpu.read16(cpu.ds, 0x4982);
+      const width = cpu.read16(segment, offset + 2);
+      if (width < column + 3 || cpu.read16(segment, offset) < row * 8 + 24) return;
+      const stride = width * 4;
+      const planeMasks = Array.from({ length: 4 }, (_, plane) => cpu.read8(cpu.ds, 0x260a + plane) & 15);
+      for (let dy = 0; dy < 24; dy++) {
+        const start = (y + dy) * screen.width + x;
+        for (let group = 0; group < 3; group++) {
+          const source = offset + 0x17 + (row * 8 + dy) * stride + (column + group) * 4;
+          const planes = planeMasks.map((_, plane) => cpu.read8(segment, source + plane));
+          for (let pixel = 0; pixel < 8; pixel++) {
+            const bit = 0x80 >> pixel;
+            battleTerrain.pixels[start + group * 8 + pixel] = planes.reduce((color, bits, plane) =>
+              bits & bit ? color | planeMasks[plane]! : color, 0);
+          }
+        }
+      }
+    } : undefined,
     capturePerspective: browser ? (cpu: Cpu, localScenery: boolean) => {
       const pixels = perspectivePixels();
       if (drawnPerspective && !drawnPerspective.pixels.equals(pixels)) priorPerspectiveDraw = drawnPerspective.pixels;

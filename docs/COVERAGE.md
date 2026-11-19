@@ -1171,8 +1171,10 @@ all 66 battlefield placements, including three new 32×32 wall pieces.
 Both presentation modes preserve that turn.
 The preceding enemy view uses the Nomad raid's own 96×96 kobold poses,
 selected by the original combat script position. Chrome verifies the
-standing pose at an anchor where it overlaps the wall. Remaining wall
-fragments under overlapping sprites and the live strike need coverage.
+standing pose and six enhanced wall tiles underneath it. The renderer reads
+the terrain from the native offscreen surface before the actor draws and
+checks the visible pixels before restoring the covered wall. The live strike
+still needs coverage.
 The `kuto-well-approach` replay uses slot J saved after the original cross-
 district transition. Chrome verifies 1,936 placements across 16 views on
 the walk to the well, using 89 distinct 32×32 tiles. The final view checks

@@ -56,7 +56,9 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const capturePerspective = input?.capturePerspective;
   const viewportSegment = capturePerspective && loadedSlices.find(({ index }) => index === 36)?.loadPara;
   const localScenerySegment = capturePerspective && loadedSlices.find(({ index }) => index === 30)?.loadPara;
-  const terrainDrawSegment = process.env.POR_TRACE_BATTLE_DRAW === "1"
+  const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
+  const captureBattleTerrain = input?.captureBattleTerrain;
+  const terrainDrawSegment = traceBattleDraw || captureBattleTerrain
     ? loadedSlices.find(({ index }) => index === 33)?.loadPara : undefined;
   if (capturePresentationDelay || viewportSegment !== undefined || terrainDrawSegment !== undefined) {
     const tick = cpu.tick;
@@ -70,14 +72,20 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       }
       // The original executable holds the attack pose during this delay.
       if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) capturePresentationDelay?.(this);
+      // The terrain routine writes to the guest's offscreen EGA surface.
+      if (at === 0x014d && this.cs === terrainDrawSegment && this.steps >= liveStep && captureBattleTerrain &&
+          this.read8(this.ds, 0x497e) === 1 && this.read8(this.ss, (this.sp + 4) & 0xffff) === 1) {
+        captureBattleTerrain(this, this.read8(this.ss, (this.sp + 10) & 0xffff),
+          this.read8(this.ss, (this.sp + 8) & 0xffff));
+      }
       // The far entry draws a frame from one of the two SQRPACI blocks.
-      if (at === 0x00f1 && this.cs === terrainDrawSegment && this.steps >= liveStep) {
-        const argument = (offset: number) => this.read8(this.ss, this.sp + offset);
+      if (traceBattleDraw && at === 0x00f1 && this.cs === terrainDrawSegment && this.steps >= liveStep) {
+        const argument = (offset: number) => this.read8(this.ss, (this.sp + offset) & 0xffff);
         const signed = (value: number) => (value << 24) >> 24;
-        const picture = argument(6);
+        const x = signed(argument(10)), y = signed(argument(8)), picture = argument(6), flags = argument(4);
+        const block = picture & 0x80 ? 2 : 1, frame = picture & 0x7f;
         const draw = JSON.stringify({
-          x: signed(argument(10)), y: signed(argument(8)), picture, flags: argument(4),
-          archive: "SQRPACI.DAX", block: picture & 0x80 ? 2 : 1, frame: picture & 0x7f,
+          x, y, picture, flags, archive: "SQRPACI.DAX", block, frame,
         });
         if (!terrainDraws.has(draw)) {
           terrainDraws.add(draw);

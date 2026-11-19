@@ -43,13 +43,13 @@ export function loadCombatArtMatcher(keys: string[], root = keys.length ? findGa
   });
   const fallback = buildCombatArtMatcher(global, root);
   const matchers = new Map<string, ReturnType<typeof buildCombatArtMatcher>>();
-  return (frame: Frame, enhanced?: Frame, area?: number, cursor?: number): CombatArtPlacement[] => {
-    if (area === undefined) return fallback(frame, enhanced);
+  return (frame: Frame, enhanced?: Frame, area?: number, cursor?: number, underlay?: Frame): CombatArtPlacement[] => {
+    if (area === undefined) return fallback(frame, enhanced, underlay);
     const areaScope = String(area);
     const battleScope = `${area}:${cursor?.toString(16).padStart(4, "0")}`;
     const scoped = scopes.get(areaScope);
     const battle = scopes.get(battleScope);
-    if (!scoped && !battle) return fallback(frame, enhanced);
+    if (!scoped && !battle) return fallback(frame, enhanced, underlay);
     const scope = battle ? battleScope : areaScope;
     let matcher = matchers.get(scope);
     if (!matcher) {
@@ -61,7 +61,7 @@ export function loadCombatArtMatcher(keys: string[], root = keys.length ? findGa
       matcher = buildCombatArtMatcher([...sources.values()], root);
       matchers.set(scope, matcher);
     }
-    return matcher(frame, enhanced);
+    return matcher(frame, enhanced, underlay);
   };
 }
 
@@ -180,7 +180,7 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
     const previous = patterns.get(pose.pattern);
     patterns.set(pose.pattern, previous === undefined || previous?.key === pose.key ? pose : null);
   }
-  return (frame: Frame, enhanced?: Frame): CombatArtPlacement[] => {
+  return (frame: Frame, enhanced?: Frame, underlay?: Frame): CombatArtPlacement[] => {
     if (!patterns.size) return [];
     const placements: CombatArtPlacement[] = [];
     for (const { width, height } of sizes.values()) {
@@ -204,12 +204,17 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
           placements.push(width !== 24 || height !== 24 ? [x, y, match.key, match.reflected, Boolean(selected), width, height]
             : selected ? [x, y, match.key, match.reflected, true] : [x, y, match.key, match.reflected]);
           if (!enhanced) continue;
+          // Confirm that the captured terrain still agrees with every visible
+          // background pixel before restoring the pixels hidden by this pose.
+          const restoreTerrain = terrain && underlay && match.pixels.every((color, index) => color ||
+            cell[index] === underlay.pixels[(y + Math.floor(index / width)) * frame.width + x + index % width]);
           for (let row = 0; row < height; row++) {
             const start = (y + row) * enhanced.width + x;
             for (let column = 0; column < width; column++) {
               const index = row * width + column;
               enhanced.pixels[start + column] = selected
                 ? match.pixels[index] ? bevel[index]! : cell[index]!
+                : restoreTerrain ? underlay.pixels[start + column]!
                 : terrain && !match.pixels[index] ? cell[index]! : 0;
             }
           }

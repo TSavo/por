@@ -2984,7 +2984,14 @@ try {
       for (let step = 0; step < 10 && !manualTurn.test(visibleText()); step++) {
         await advance("enter");
         if (enemyScreenshot || !frame.combatArt.some(([x, y, id]) => x === 8 && y === 104 && id === raider)) continue;
+        const wallBehindRaider = frame.battleTiles.filter(([x, y]) => x < 32 && y >= 104 && y < 128);
+        assert.deepEqual(wallBehindRaider.map(([x, y]) => [x, y]), [
+          [8, 104], [16, 104], [24, 104], [8, 112], [16, 112], [24, 112],
+        ]);
         await waitFor("the enhanced raider in front of the wall", () => run(`state.sequence === ${frame.sequence} &&
+          ${JSON.stringify(wallBehindRaider.map(([x, y, id]) => [x / 3.2 + "%", y / 2 + "%", "/art/" + id]))}.every(([left, top, src]) =>
+            [...document.querySelectorAll(".battle-tile")].some(img =>
+              img.style.left === left && img.style.top === top && img.getAttribute("src") === src && img.naturalWidth === 32)) &&
           [...document.querySelectorAll(".combat-sprite")].some(img =>
             img.getAttribute("src") === ${JSON.stringify("/art/" + raider)} &&
             img.naturalWidth === 96 && img.naturalHeight === 96 && img.style.left === "2.5%" && img.style.top === "52%")`));
