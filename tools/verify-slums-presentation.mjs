@@ -699,6 +699,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["pyramid-cross-gallery", {
+    slot: "A", area: 22, views: 11, patterns: 24, sceneryOnly: true,
+    walk: ["right", "up", "up", "left", "up", "up", "right", "up", "up", "right"],
+  }],
   ["bane-altar-return", {
     slot: "A", area: 24, views: 28, patterns: 74, sceneryOnly: true,
     walk: ["right", "up", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "right", "up", "up", "right", "up", "l", "right", "up", "up", "right"],

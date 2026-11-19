@@ -1405,6 +1405,9 @@ save preservation.
 2,783 placements through the original altar prompt.
 `bane-altar-return` checks two more stair and threshold tiles across
 28 views and 3,388 placements after choosing Leave It.
+`pyramid-cross-gallery` checks five new sandstone and plaster tiles
+across 11 views and 1,331 placements from a controlled upper-pyramid
+checkpoint. Switching presentation preserves game state and the save.
 `kuto-norris-approach` verifies the anchored approach sprite through the
 surrender-or-fight prompt. `slums-troll-combat` and `slums-ogre-combat`
 verify the 96×192 ready and reflected strike poses in the grain-sack

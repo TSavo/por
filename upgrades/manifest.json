@@ -1,6 +1,11 @@
 {
   "version": 1,
   "assets": {
+    "tile:22:5795b1b70c9b48e493751effcb0f24b088c03b0cd37d6bbabaddf30f832eafdc": "yarash-cross-gallery-terrain-5795b1b70c9b.png",
+    "tile:22:e9e6a6fa6a9c36c5a43dca56ada96e1fdf95750c43accee9f99c8f3e088a3855": "yarash-cross-gallery-terrain-e9e6a6fa6a9c.png",
+    "tile:22:989907034dc5a8ccb668b5a282a334713bceb7eca7c6f5ce8b5590ee1052877f": "yarash-cross-gallery-terrain-989907034dc5.png",
+    "tile:22:855b49dffed8253adb115cb6f85566bd865fba688cad7435b0b08fdd3ba3c885": "yarash-cross-gallery-terrain-855b49dffed8.png",
+    "tile:22:46d61fcdc2b08771ec2c88b0bc7794ab572d13c6d4f606f1d14a0ccf6b9d4ffb": "yarash-cross-gallery-terrain-46d61fcdc2b0.png",
     "encounter:area:5:SPRIT5.DAX:16:0:0": "valjevo-false-tyranthraxus-approach.png",
     "combat:area:20:CPIC2.DAX:8:ecl:b10d": "slums-ogre-stand.png",
     "combat:area:20:CPIC2.DAX:136:ecl:b10d": "slums-ogre-strike.png",
