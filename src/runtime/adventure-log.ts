@@ -127,7 +127,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     let nextStep = tracked?.status === "accepted" ? commission.afterAcceptance ?? commission.next : commission.next;
     if (commission.id === "auction" && tracked?.status === "accepted") {
       if (knows("auction-bidding")) nextStep = "Stay to see who wins the bidding. Report what you witness to the council clerk.";
-      else if (knows("auction-started")) nextStep = "Stay at the auction and watch the bidding. Try to identify the item and who buys it.";
+      else if (knows("auction-started")) nextStep = "Stay and watch the bidding. Choose Stand and Listen to follow the sale, Listen to Comments to hear the crowd, or Move In Closer to try to identify the item.";
       else if (knows("auction-plaza-entry")) nextStep = "Disguise the party or sneak past the crowd. Find the auctioneer in Podal Plaza and observe the sale.";
       else if (knows("harbor-routes-reopened")) nextStep = "Choose West at the harbor master's ferry menu, then look for Podal Plaza.";
     }

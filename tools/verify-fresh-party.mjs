@@ -403,6 +403,9 @@ async function verifyPodalFromCouncil(continuation) {
   await replay(load("1769"), "85000000", [
     ...reachAuction, "enter", "enter",
     (text) => assert.match(text, /stand and listen move in closer listen to comments leave/),
+    "j", (_text, frame) => {
+      assert.match(frame.journal.objective.nextStep, /Stand and Listen.*Listen to Comments.*Move In Closer/);
+    }, "j",
     "end", "end", "enter",
     (text) => assert.match(text, /wand of illumination/),
     "j", checkAuction("accepted"), (_text, frame) => {
