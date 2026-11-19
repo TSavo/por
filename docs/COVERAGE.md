@@ -2804,6 +2804,8 @@ thresholds, turn, and east tunnels across 15 views.
 Old Phlan's east street and locked lane use broad worn flagstones
 distinct from the walls. Two Chrome walks check 18 tiles across 32
 views and 3,872 placements.
+The controlled northern loop checks four additional flagstone edge
+tiles in Chrome across 16 views and 1,936 placements.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
@@ -2901,6 +2903,8 @@ The Tyrmor thieves replay checks their brief approach animation
 and group portrait through the original Parlay prompt.
 The Tyrmor human fighters replay checks the new approach and group
 portrait before their original Parlay prompt.
+The north-wing fighters share the approach sprite and have a distinct
+group portrait, verified through their own Parlay prompt in Chrome.
 The Kobold King's first horde has its own 4× infantry ready and strike
 sprites. Chrome checks the strike during the original report of Brin
 taking damage from a controlled throne checkpoint.
