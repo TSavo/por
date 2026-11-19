@@ -1,6 +1,11 @@
 {
   "version": 1,
   "assets": {
+    "tile:22:56b54aa911c164b42e26282f23a6198458c1749a91d2cb029e9a645cd3d207c0": "yarash-braced-passage-terrain-56b54aa911c1.png",
+    "tile:22:f9094a93d959e138af7ced5c8f8fdc573a6e59eeb7e3da34bd5bd6d6964e14be": "yarash-braced-passage-terrain-f9094a93d959.png",
+    "tile:22:db0db526433e898528c6f97a8ed2b870fc5b6b8432390075aff6f72608c7a061": "yarash-braced-passage-terrain-db0db526433e.png",
+    "combat:area:4:CPIC5.DAX:11:ecl:9f58": "valjevo-sentinel-stand.png",
+    "combat:area:4:CPIC5.DAX:139:ecl:9f58": "valjevo-sentinel-strike.png",
     "encounter:area:27:SPRIT8.DAX:121:0:0": "wild-cave-wyvern-approach.png",
     "portrait:area:27:PIC8.DAX:121:0:0": "wild-cave-wyvern-dialogue.png",
     "tile:22:f6267d0f88c5dd1e0cb488a42a04434beea6e6a9ac67f2a0d0a896b6a4dd39a8": "yarash-back-cell-terrain-f6267d0f88c5.png",

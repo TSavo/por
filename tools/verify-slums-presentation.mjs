@@ -481,6 +481,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-outer-sentinel", {
+    slot: "B", stand: "combat:area:4:CPIC5.DAX:11:ecl:9f58", strike: "combat:area:4:CPIC5.DAX:139:ecl:9f58",
+    width: 96, height: 96, readyPrompt: /6THLVLFIGHTERHITPOINTS41/i, strikeReflected: true,
+    inputs: ["up", ...Array(10).fill("enter"), ...Array(11).fill("q")],
+  }],
   ["mendor-storeroom-kobold", {
     slot: "B", stand: "combat:area:15:CPIC2.DAX:0:ecl:ae94", strike: "combat:area:15:CPIC2.DAX:128:ecl:ae94",
     width: 96, height: 96, readyPrompt: /KOBOLDHITPOINTS3/i, strikeReflected: false,
@@ -904,6 +909,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["pyramid-braced-passage", {
+    slot: "A", area: 22, views: 28, patterns: 45, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "right", "up", "up", "left", "up", "left", "up", "up", "right", "up", "up", "up", "right", "up", "up", "left", "up"],
+  }],
   ["pyramid-back-cell", {
     slot: "A", area: 22, views: 16, patterns: 41, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "right", "up", "up", "left", "up"],
