@@ -347,3 +347,12 @@ The Kobold Cave west turn adds two 32×32 floor junction tiles in area 13.
 A native Chrome checkpoint replay checked 242 tile placements across the
 entry view and the west-facing view and compared state across the mode
 switch. Both checks used the browser's default art packs.
+
+### Slums orc sentry combat
+
+The intercepting sentries in area 20 use `CPIC2.DAX` blocks 4 and 132
+for the ready and sword-strike poses. The ECL-scoped replacements
+distinguish this encounter from other fights that reuse the same blocks.
+With the default art packs, a live Chrome replay from slot B confirmed
+the ready pose and the following animated strike and checked that
+switching presentation preserved the combat state and checkpoint.
