@@ -50,17 +50,38 @@
       overflow: hidden;
       font: 600 2.58cqw / 1 "Game Web Font", ui-monospace, monospace; }
     #journal { position: absolute; inset: 4%; overflow: auto; padding: clamp(12px, 3vw, 26px); background: #17232e; border: 1px solid #8495a8; }
-    #automap { position: absolute; inset: 4%; z-index: 4; display: grid; grid-template-rows: auto 1fr;
+    #automap { position: absolute; inset: 4%; z-index: 4; display: grid; grid-template-rows: auto minmax(0, 1fr); overflow: auto;
       padding: clamp(10px, 2vw, 18px); background: #17120dF2; border: 1px solid #a28658; }
     #automap[hidden] { display: none; }
-    #automap header { min-height: 0; }
+    #automap header { min-height: 0; flex-wrap: wrap; }
     #automap h2 { margin: 0; }
     #automap-svg { width: 100%; height: 100%; min-height: 16rem; }
+    #automap .map-tabs { display: flex; gap: .35rem; }
+    #automap .map-tabs button[aria-pressed="true"] { background: #7b6037; border-color: #d2b474; }
+    #automap-svg[hidden], #atlas-view[hidden], #atlas-image-link[hidden] { display: none; }
+    #atlas-view { display: grid; grid-template-rows: auto minmax(8rem, 1fr); gap: .35rem; margin-top: .4rem; }
+    #atlas-view select { font: inherit; max-width: 100%; }
+    #atlas-image-link { display: block; min-height: 0; }
+    #atlas-image { display: block; width: 100%; height: 100%; object-fit: contain; }
     #automap .floor { fill: #6f5b3b55; }
     #automap .wall { stroke: #e2c587; stroke-width: .13; stroke-linecap: square; }
     #automap .party { fill: #f3d36d; stroke: #3a2813; stroke-width: .08; }
     #automap .landmark { fill: #cf765a; stroke: #2d180f; stroke-width: .06; }
     #automap .landmark-label { fill: #f4ead5; font: .42px Georgia, serif; paint-order: stroke; stroke: #17120d; stroke-width: .08px; }
+    #automap .region-paper { fill: #b99a61; }
+    #automap .region-coast { fill: #54757b; stroke: #273e42; stroke-width: .8; }
+    #automap .region-land { fill: #8f8054; stroke: #4a3c27; stroke-width: .7; }
+    #automap .region-river { fill: none; stroke: #537b82; stroke-width: 2.2; stroke-linecap: round; }
+    #automap .region-road { fill: none; stroke: #c5a975; stroke-width: .65; stroke-dasharray: 2 1.2; }
+    #automap .region-wall { fill: none; stroke: #473a2a; stroke-width: 1.2; }
+    #automap .region-route { stroke: #ddc38b; stroke-width: .65; opacity: .75; }
+    #automap .region-route.boat { stroke: #9bd0d7; stroke-dasharray: 1.5 1.2; }
+    #automap .region-area { fill: #6a5535cc; stroke: #ead39d; stroke-width: .65; }
+    #automap .region-area.current { fill: #b66d42; stroke: #fff0bc; stroke-width: 1.1; }
+    #automap .region-area.destination { rx: 2; }
+    #automap .region-label { fill: #fff0ca; font: 2.25px Georgia, serif; text-anchor: middle; paint-order: stroke; stroke: #2b2118; stroke-width: .55px; stroke-linejoin: round; }
+    #automap .terrain-label { fill: #3c3829; opacity: .7; font: italic 2.1px Georgia, serif; letter-spacing: .15px; }
+    #automap .map-compass { fill: #362b1e; font: 4px Georgia, serif; text-anchor: middle; }
     #objective { border-left: 3px solid #edca79; padding-left: 12px; }
     #objective p, li p { margin: .35rem 0 .75rem; }
     ul { list-style: none; padding: 0; }
@@ -125,8 +146,23 @@
         <ul id="leads"></ul>
       </section>
       <section id="automap" aria-label="Automap" hidden>
-        <header><h2 id="automap-title">Automap</h2><div><button id="mark-map" type="button">Mark location</button> <button id="close-map" type="button">Return to game</button></div></header>
+        <header>
+          <h2 id="automap-title">Automap</h2>
+          <div class="map-tabs" role="group" aria-label="Map view">
+            <button id="local-map" type="button" aria-pressed="true">Local</button>
+            <button id="region-map" type="button" aria-pressed="false">Region</button>
+            <button id="atlas-map" type="button" aria-pressed="false" hidden>Atlas</button>
+          </div>
+          <div><button id="mark-map" type="button">Mark location</button> <button id="close-map" type="button">Return to game</button></div>
+        </header>
         <svg id="automap-svg" viewBox="-0.5 -0.5 17 17" role="img" aria-label="Discovered area map"></svg>
+        <div id="atlas-view" hidden>
+          <div><label for="atlas-sheet">Illustration</label> <select id="atlas-sheet"></select></div>
+          <a id="atlas-image-link" target="_blank" rel="noopener" title="Open full-size illustration in a new tab">
+            <img id="atlas-image" alt="">
+          </a>
+          <p id="atlas-error" role="status" hidden>Could not load this illustration.</p>
+        </div>
       </section>
     </div>
     <p id="status" role="status">Starting the game…</p>

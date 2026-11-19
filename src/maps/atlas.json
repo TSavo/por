@@ -1,0 +1,10 @@
+[
+  { "title": "New Phlan", "file": "new-phlan-concept-v1.png", "areas": [0, 8, 11] },
+  { "title": "Phlan", "file": "phlan-city-concept-v1.png", "areas": [0, 2, 8, 9, 10, 11, 14, 15, 18, 20, 24, 29] },
+  { "title": "Valjevo Castle", "file": "valjevo-castle-concept-v1.png", "areas": [3, 4, 5, 6, 7] },
+  { "title": "Sokal Keep", "file": "sokal-keep-concept-v1.png", "areas": [21] },
+  { "title": "Sorcerer’s Island", "file": "sorcerers-island-concept-v1.png", "areas": [22, 23] },
+  { "title": "Lizardman Keep", "file": "lizardman-keep-concept-v1.png", "areas": [16] },
+  { "title": "Valhingen Graveyard", "file": "valhingen-graveyard-concept-v1.png", "areas": [10] },
+  { "title": "The Moonsea around Phlan", "file": "phlan-region-concept-v2-geography.png", "areas": [25, 26, 27] }
+]

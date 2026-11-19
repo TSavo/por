@@ -52,6 +52,9 @@ for (const event of parsedNarrationManifest.events) {
   }
 }
 const soundManifest = readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url));
+const geographyModel = readFileSync(new URL("../src/maps/geography-model.json", import.meta.url));
+const atlasManifest = readFileSync(new URL("../src/maps/atlas.json", import.meta.url));
+const atlasFiles = new Set((JSON.parse(atlasManifest.toString("utf8")) as { file: string }[]).map(({ file }) => file));
 const enhancedSoundFiles = new Set((JSON.parse(soundManifest.toString("utf8")) as
   { events: { enhancedFile?: string }[] }).events.flatMap(({ enhancedFile }) => enhancedFile ? [enhancedFile] : []));
 const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
@@ -236,6 +239,17 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(voiceManifest);
   } else if (req.method === "GET" && req.url === "/sound-manifest.json") {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(soundManifest);
+  } else if (req.method === "GET" && req.url === "/geography-model.json") {
+    res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(geographyModel);
+  } else if (req.method === "GET" && req.url === "/atlas.json") {
+    res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(atlasManifest);
+  } else if (req.method === "GET" && req.url?.startsWith("/atlas/") && atlasFiles.has(req.url.slice(7))) {
+    try {
+      const plate = readFileSync(new URL(`../upgrades/maps/${req.url.slice(7)}`, import.meta.url));
+      res.writeHead(200, { "content-type": "image/png", "content-length": plate.length }).end(plate);
+    } catch {
+      res.writeHead(404).end();
+    }
   } else if (req.method === "GET" && req.url?.startsWith("/enhanced-audio/") && enhancedSoundFiles.has(req.url.slice(16))) {
     try {
       const wav = readFileSync(join(enhancedAudioDirectory, req.url.slice(16)));
