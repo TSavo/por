@@ -898,6 +898,11 @@ const combatPoseRoutes = new Map([
     width: 96, height: 96, readyPrompt: /1STLVLTHIEF/i, strikeInputs: ["space"], strikeReflected: true,
     inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter")],
   }],
+  ["new-phlan-tavern-nomad-patron-combat", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:11:ecl:a7d3", strike: "combat:area:0:CPIC3.DAX:139:ecl:a7d3",
+    width: 96, height: 96, readyPrompt: /NOMAD.*ShortSword/i, strikeInputs: ["space"], strikeReflected: false,
+    inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter"), ...Array(8).fill("space")],
+  }],
   ["nomad-warrior-combat", {
     slot: "A", stand: "combat:area:17:CPIC7.DAX:12", strike: "combat:area:17:CPIC7.DAX:140",
     width: 96, height: 96, strikeReflected: true,

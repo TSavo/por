@@ -2698,6 +2698,8 @@ over 121 terrain tiles each, then the existing dialogue portrait.
 cleric's mace strike in the Tempus temple reinforcement battle.
 `new-phlan-tavern-cutpurse-combat` verifies the ready pose and reflected
 longsword strike in the tavern brawl.
+`new-phlan-tavern-nomad-patron-combat` verifies a separate ready pose and
+unreflected short-sword strike for the nomad patron in that same fight.
 `valhingen-vampire-return-approach` checks the middle and near frames
 over 121 terrain tiles in the crypt, followed by the vampire portrait.
 `stojanow-barracks-side` verifies 1,210 tile placements across ten views,

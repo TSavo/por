@@ -933,6 +933,8 @@
     "combat:area:0:CPIC3.DAX:140:ecl:aac7": "tempus-temple-watch-strike.png",
     "combat:area:0:CPIC3.DAX:13:ecl:a7d3": "tavern-cutpurse-ready.png",
     "combat:area:0:CPIC3.DAX:141:ecl:a7d3": "tavern-cutpurse-strike.png",
+    "combat:area:0:CPIC3.DAX:11:ecl:a7d3": "tavern-nomad-patron-ready.png",
+    "combat:area:0:CPIC3.DAX:139:ecl:a7d3": "tavern-nomad-patron-strike.png",
     "tile:9:b75fa3bd05faf8986e8270c40a1e79514aaa1d6094f381c21de72443c561eb41": "stojanow-barracks-side-terrain-b75fa3bd05fa.png",
     "tile:9:abc4061d929e8f51b9f3aed41285a1160a6bd0b2c72d03efde017a57567efdd0": "stojanow-barracks-side-terrain-abc4061d929e.png",
     "tile:16:3b2b8525412e2d30a8fde49ac74657e7c7853ec465834790a005a869d956a3ec": "lizard-bank-arch-terrain-3b2b8525412e.png",
