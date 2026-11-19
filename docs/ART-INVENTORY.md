@@ -339,6 +339,11 @@ party strike poses using `CBODY.DAX` blocks 128 and 192. Each strike loads
 at the original position and facing during the guest's combat animation.
 Other combinations and poses can still use the guest artwork.
 
+The ogre leader has separate ready and overhead strike PNGs from
+`CPIC1.DAX` blocks 9 and 137. The matcher check used both native facings
+and confirmed the 24×48 guest extent for each 96×192 replacement. The
+ogre leader still needs a live encounter replay.
+
 The composed icon also renders when the party member is selected.
 The matcher checks the full highlighted cell and restores its bright
 rim, dark edge, and interior beneath the transparent replacement.
