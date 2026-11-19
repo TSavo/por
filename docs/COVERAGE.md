@@ -3293,6 +3293,11 @@ from a controlled slot B checkpoint near the encounter. Chrome checks
 the reflected ready pose, the unreflected lunge at (104, 104), and
 the native attack on Rhiannon.
 
+`valjevo-audience-bodyguards` verifies the two-guard illustration
+at the first Tyranthraxus audience and checks the full picture panel
+and display switching. The controlled slot B fixture resets the guard
+encounter flag. The original audience script draws the scene.
+
 Valjevo's barracks hill giants use dedicated 96×192 ready and strike
 sprites. `valjevo-barracks-hill-giant-combat` checks the mirrored ready pose
 in a native animation frame at (56, 80) and the

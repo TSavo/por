@@ -534,6 +534,11 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-audience-bodyguards", {
+    slot: "B", inputs: ["right", "up", "up", "enter", "enter", "enter"],
+    portrait: "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1",
+    prompt: /TWOGUARDSMOVETOBARYOURPATH.*GUARDS.KILLTHESEPESTS/i,
+  }],
   ["slums-feeding-kobolds", {
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:20:PIC2.DAX:0:0:0", prompt: /YOUINTERRUPTSOMEFEEDINGKOBOLDS/i,

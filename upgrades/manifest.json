@@ -2585,6 +2585,7 @@
     "tile:6:eb039ad14db5712287672fd45f2d2d26a6a33ee522784b04e3a03eac4f04ad69": "valjevo-dungeon-briar-terrain-20.png",
     "tile:6:32b798fa659035152c1f8a60929e92700d6fed3037c9ca4c597203ad57c200a4": "valjevo-dungeon-briar-terrain-03.png",
     "portrait:HEAD5.DAX:12:BODY5.DAX:1": "valjevo-dungeon-sentry.png",
+    "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1": "valjevo-audience-bodyguards-dialogue.png",
     "tile:11:858b73d63eb2439f5d3755fe6002d941fcc99e9a5fdb06fb568a21ff2599262f": "new-phlan-training-hall-terrain-01.png",
     "tile:11:72d0fd83d0d2dabd4d37e4737304e2831a18fb8a170a2b3c321d94c87e8f00a1": "new-phlan-training-hall-terrain-02.png",
     "tile:11:6cfeeb3aa25d3f411dae5eec17d7369ca7153e72dcf54bcf4c3daec0f5b21fc7": "new-phlan-training-hall-terrain-03.png",
