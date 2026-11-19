@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:25:CPIC6.DAX:195": "buccaneer-wilds-centaur-strike.png",
+    "combat:area:25:CPIC6.DAX:67": "buccaneer-wilds-centaur-stand.png",
     "tile:29:54cfe77b0fa031f0e731581bb561e7930676dcaf217f5886e27719bedfc1eb68": "kuto-podal-side-streets-kuto-terrain-54cfe77b0fa0.png",
     "tile:29:17becf7f46404d6b55c17617c207d9b53707bc1d70bc2e28023728545c3a3447": "kuto-podal-side-streets-kuto-terrain-17becf7f4640.png",
     "tile:29:7870e9a9d014d5af73d6846dd36c122b941c5efafee1e099b135da968e0216b1": "kuto-podal-side-streets-kuto-terrain-7870e9a9d014.png",
