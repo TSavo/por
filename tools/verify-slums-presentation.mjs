@@ -510,6 +510,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["slums-paper-orc", {
+    slot: "B", stand: "combat:area:20:CPIC2.DAX:4:ecl:9e6d", strike: "combat:area:20:CPIC2.DAX:132:ecl:9e6d",
+    width: 96, height: 96, readyPrompt: /ORCHITPOINTS5/i, strikeReflected: true,
+    inputs: ["up", ...Array(7).fill("enter")], strikeInputs: ["enter"],
+  }],
   ["valhingen-enclave-skeleton", {
     slot: "A", stand: "combat:area:10:CPIC4.DAX:34:ecl:b5c7", strike: "combat:area:10:CPIC4.DAX:162:ecl:b5c7",
     width: 96, height: 96, readyPrompt: /SKELETONHITPOINTS5/i, strikeReflected: true,

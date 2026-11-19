@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:20:CPIC2.DAX:4:ecl:9e6d": "slums-paper-orc-stand.png",
+    "combat:area:20:CPIC2.DAX:132:ecl:9e6d": "slums-paper-orc-strike.png",
     "encounter:area:2:SPRIT4.DAX:18:1:0": "phlan-ruins-scorpion-approach.png",
     "tile:0:9dca57c2c800009211f6af8acd50aac8d40878ddadc46be8517ef0f3d0ffe98e": "new-phlan-market-turn-terrain-9dca57c2c800.png",
     "combat:area:10:CPIC4.DAX:34:ecl:b5c7": "graveyard-enclave-skeleton-stand.png",
