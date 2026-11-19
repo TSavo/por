@@ -115,6 +115,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         (area === 1 && menu === "RELEASEANIMALSLEAVE") ||
         (area === 24 && menu === "DESTROYALTARLEAVEIT");
       let perspective = false;
+      // New Phlan's scripted tour and City Hall transitions draw a new
+      // street or hallway before the normal exploration menu returns.
+      const scriptedCityView = area === 0 && !scene && !leads && picture === undefined &&
+        !hasBattlefieldBorder(screen);
       if (!leads) {
         // A guest prompt can replace the menu while leaving the perspective
         // picture intact. Preserve its presentation until the picture changes.
@@ -132,8 +136,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           previousPerspective = undefined;
         }
       }
-      if ((tileKeys.size || traceTiles) && area !== undefined && perspective) {
+      if ((tileKeys.size || traceTiles) && area !== undefined && (perspective || scriptedCityView)) {
         const pixels = Buffer.alloc(64);
+        const candidates: TileInventoryCell[] = [];
         // The first-person view has an 11-by-11 interior with an eight-pixel border.
         for (let y = 24; y < 112; y += 8) {
           for (let x = 24; x < 112; x += 8) {
@@ -143,8 +148,20 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             }
             const key = `tile:${area}:${createHash("sha256").update(pixels).digest("hex")}`;
             const cell: [number, number, string] = [x, y, key];
-            tileInventory?.push([x, y, key, pixels.toString("hex")]);
-            if (tileKeys.has(key)) tiles.push(cell);
+            candidates.push([...cell, pixels.toString("hex")]);
+          }
+        }
+        // Require a complete, varied tile grid before treating a pane
+        // with no exploration menu as scenery. Blank fills and portraits
+        // must not be painted over.
+        if (!perspective && new Set(candidates.map(([, , key]) => key)).size > 4 &&
+            candidates.every(([, , key]) => tileKeys.has(key))) {
+          perspective = true;
+        }
+        if (perspective) {
+          for (const [x, y, key, pixels] of candidates) {
+            tileInventory?.push([x, y, key, pixels]);
+            if (tileKeys.has(key)) tiles.push([x, y, key]);
           }
         }
       }

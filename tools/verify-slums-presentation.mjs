@@ -2265,6 +2265,37 @@ try {
       [...document.querySelectorAll(".combat-sprite")].some(image => image.src.endsWith(${JSON.stringify(stand)}) &&
         image.naturalWidth === ${width} && image.naturalHeight === ${height})`));
     await switchBothWays();
+    if (routeName === "new-phlan-rolf-tour") {
+      async function verifyScriptedView() {
+        assert.equal(frame.portrait, undefined);
+        assert.equal(frame.perspective, true);
+        assert.equal(frame.tiles.length, 121);
+        await waitFor("enhanced scripted scenery", () => run(`
+          state.sequence === ${frame.sequence} &&
+          [...document.querySelectorAll(".terrain-tile")].filter(image => image.naturalWidth === 32).length === 121
+        `));
+      }
+      await verifyScriptedView();
+      for (let stop = 0; stop < 6; stop++) {
+        await advance("enter");
+        await verifyScriptedView();
+      }
+      for (const key of ["enter", "right", "right", "up", "up", "up"]) await advance(key);
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /OUTSIDETHECITYHALL/i);
+      await verifyScriptedView();
+      for (const key of ["up", "enter", "up"]) await advance(key);
+      await verifyScriptedView();
+      await switchBothWays();
+      for (const key of ["enter", "up", "enter", "up", "up"]) await advance(key);
+      const guard = "portrait:HEAD3.DAX:57:BODY3.DAX:1";
+      assert.equal(frame.portrait, guard);
+      await waitFor("enhanced council guard", () => run(`
+        state.sequence === ${frame.sequence} &&
+        document.querySelector(".encounter-portrait")?.getAttribute("src") === ${JSON.stringify("/art/" + guard)} &&
+        document.querySelector(".encounter-portrait").naturalWidth === 352
+      `));
+      await verifyPortraitPanel();
+    }
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead));
