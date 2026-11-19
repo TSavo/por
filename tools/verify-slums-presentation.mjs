@@ -437,7 +437,7 @@ const illustrationRoutes = new Map([
   }],
   ["north-gate-jail-thugs", {
     slot: "A", inputs: ["up", "enter"],
-    portrait: "portrait:HEAD3.DAX:32:BODY3.DAX:8", prompt: /CONVERTEDTOAJAIL/i,
+    portrait: "portrait:area:14:HEAD3.DAX:32:BODY3.DAX:8", prompt: /CONVERTEDTOAJAIL/i,
   }],
   ["north-gate-thieves-guild", {
     slot: "A", inputs: ["up", "enter"],
@@ -1497,8 +1497,9 @@ const environmentRoutes = new Map([
     walk: ["right", "up", "up", "up", "right", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up"],
   }],
   ["lizardfolk-southwest-trail", {
-    slot: "A", area: 16, views: 14, patterns: 51, sceneryOnly: true,
-    walk: ["left", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up"],
+    slot: "A", area: 16, views: 15, patterns: 51, sceneryOnly: true,
+    walk: ["left", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "right"],
+    finalEncounter: [32, 32, "encounter:area:16:SPRIT8.DAX:59:0:0", 80, 80],
   }],
   ["new-phlan-west-garden-lanes", {
     slot: "B", area: 0, views: 17, patterns: 70, sceneryOnly: true,

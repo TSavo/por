@@ -1577,7 +1577,8 @@ quarters restriction, including panel fit and mode switching.
 `lizardfolk-battle-wall` checks two independent wall tiles across four
 giant-lizard combat turns, outside the live actor bounds.
 `lizardfolk-southwest-trail` checks six new masonry and reed junction
-tiles across 14 live views from the unchanged ruin-route save.
+tiles across 15 live views from the unchanged ruin-route save. The final
+view verifies the giant lizard sprite separately over all 121 terrain tiles.
 `new-phlan-west-garden-lanes` checks 13 new ivy, courtyard, and standard
 tiles across 17 live views and 2,057 placements.
 `valhingen-tower-wight-dialogue` checks the tower ambush illustration,
