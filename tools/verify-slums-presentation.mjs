@@ -37,6 +37,10 @@ const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter",
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["slums-goblin-lesson-approach", {
+    slot: "B", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:20:SPRIT2.DAX:2:0:0", 48, 80],
+  }],
   ["swamp-giant-lizard-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [32, 32, "encounter:area:16:SPRIT8.DAX:59:0:0", 80, 80],
@@ -919,6 +923,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["old-phlan-locked-lane", {
+    slot: "A", area: 14, views: 15, patterns: 31, sceneryOnly: true,
+    walk: ["right", "up", "right", "up", "b", "b", "up", "right", "up", "up", "left", "up", "up", "left"],
+  }],
   ["pyramid-inner-return", {
     slot: "A", area: 22, views: 36, patterns: 61, sceneryOnly: true,
     walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "right", "up", "up", "left", "up", "left", "up", "up", "right", "up", "up", "up", "right", "up", "up", "left", "up", "left", "up", "up", "right", "up", "up", "left", "up"],
