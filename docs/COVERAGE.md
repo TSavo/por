@@ -3249,6 +3249,10 @@ prompt. The Lizard Wilds kobold archer uses a dedicated ready and
 shortbow strike pair. From a fixture that selects the native kobold
 roll, Chrome verifies the strike at (80, 152) and the attack on Enna.
 
+`valjevo-inner-armed-guard-combat` loads the local slot B guard
+checkpoint. It checks the reflected ready pose and unreflected sword
+strike at (80, 104), the native attack on Phineas, and display switching.
+
 `kuto-sickly-kobold-scouts` replays the middle-distance scouts at
 both native script positions, then the close approach and dialogue.
 It checks the individual sprite anchors in Chrome and display switching
