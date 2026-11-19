@@ -8,17 +8,15 @@ const objective = document.querySelector("#objective");
 const leads = document.querySelector("#leads");
 const status = document.querySelector("#status");
 const presentation = document.querySelector("#presentation");
-const voiceSubtitle = document.querySelector("#voice-subtitle");
 const audioToggle = document.querySelector("#audio-toggle");
 const audioSettings = document.querySelector("#audio-settings");
 const audioControls = {
   hardware: document.querySelector("#audio-hardware"), master: document.querySelector("#audio-master"),
   effects: document.querySelector("#audio-effects"), dialogue: document.querySelector("#audio-dialogue"),
   narration: document.querySelector("#audio-narration"), muted: document.querySelector("#audio-muted"),
-  subtitles: document.querySelector("#audio-subtitles"),
 };
 const defaultAudioPreferences = { hardware: "pc-speaker", master: 0.8, effects: 1,
-  dialogue: 1, narration: 1, muted: false, subtitles: false };
+  dialogue: 1, narration: 1, muted: false };
 let audioPreferences = defaultAudioPreferences;
 try { audioPreferences = { ...defaultAudioPreferences, ...JSON.parse(localStorage.getItem("por.audio.v1") ?? "{}") }; } catch {}
 let currentEffect;
@@ -47,11 +45,9 @@ function syncAudioControls() {
   for (const key of ["hardware", "master", "effects", "dialogue", "narration"])
     audioControls[key].value = String(audioPreferences[key]);
   audioControls.muted.checked = audioPreferences.muted;
-  audioControls.subtitles.checked = audioPreferences.subtitles;
   if (currentEffect) currentEffect.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences.effects;
   if (currentVoice) currentVoice.volume = audioPreferences.muted ? 0 :
     audioPreferences.master * audioPreferences[currentVoice.dataset.voiceType];
-  if (!audioPreferences.subtitles) voiceSubtitle.hidden = true;
 }
 
 function saveAudioPreferences() {
@@ -111,10 +107,10 @@ audioToggle.addEventListener("click", () => {
   audioToggle.setAttribute("aria-expanded", String(!audioSettings.hidden));
   resumeBlockedAudio();
 });
-for (const key of ["hardware", "master", "effects", "dialogue", "narration", "muted", "subtitles"]) {
+for (const key of ["hardware", "master", "effects", "dialogue", "narration", "muted"]) {
   audioControls[key].addEventListener("input", () => {
-    audioPreferences = { ...audioPreferences, [key]: ["muted", "subtitles"].includes(key)
-      ? audioControls[key].checked : ["hardware"].includes(key) ? audioControls[key].value : Number(audioControls[key].value) };
+    audioPreferences = { ...audioPreferences, [key]: key === "muted"
+      ? audioControls[key].checked : key === "hardware" ? audioControls[key].value : Number(audioControls[key].value) };
     if (key === "hardware") stopEffect();
     saveAudioPreferences();
   });
@@ -131,16 +127,10 @@ function stopVoice(clearNarrationQueue = true) {
   blockedVoice = undefined;
   visibilityPausedVoice = undefined;
   if (clearNarrationQueue) narrationQueue = [];
-  voiceSubtitle.hidden = true;
-  voiceSubtitle.textContent = "";
 }
 
 function beginVoice(line) {
   if (!enhanced) return;
-  if (audioPreferences.subtitles) {
-    voiceSubtitle.textContent = line.subtitle;
-    voiceSubtitle.hidden = false;
-  }
   const voice = new Audio(line.url ?? `/voice/${line.file}`);
   voice.preload = "auto";
   voice.dataset.voiceType = line.type;
@@ -151,8 +141,6 @@ function beginVoice(line) {
     if (currentVoice !== voice) return;
     currentVoice = undefined;
     visibilityPausedVoice = undefined;
-    voiceSubtitle.hidden = true;
-    voiceSubtitle.textContent = "";
     playNextNarration();
   }, { once: true });
   voice.play().catch(() => {
@@ -174,7 +162,7 @@ function playNextNarration() {
 }
 
 function enqueueNarration(narration) {
-  narrationQueue.push({ type: "narration", queuedNarration: true, subtitle: narration.text,
+  narrationQueue.push({ type: "narration", queuedNarration: true,
     url: `/narration/${encodeURIComponent(narration.asset)}` });
   playNextNarration();
 }
