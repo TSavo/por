@@ -2837,9 +2837,15 @@ try {
     for (const key of ["e", "e", "enter"]) await advance(key);
     const campPatterns = new Set();
     assert.equal(await verifyTiledView(17, campPatterns), 1);
-    await advance("up");
-    assert.equal(await verifyTiledView(17, campPatterns), 1);
-    console.log("Verified the Nomad Camp illustration, journal entry, and both tiled entrance views in Chrome.");
+    for (let step = 0; step < 6; step++) {
+      await advance("up");
+      assert.equal(await verifyTiledView(17, campPatterns), 1);
+    }
+    for (const key of ["enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:HEAD7.DAX:61:BODY7.DAX:30");
+    await waitFor("enhanced Nomad sentries after the entrance trail", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+    console.log("Verified the Nomad Camp illustration, journal entry, and seven tiled views through to the sentries in Chrome.");
   } else if (routeName === "nomad-headman" || routeName === "nomad-headman-stay") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     for (const key of ["up", "enter", "e", "e", "enter", ...Array(6).fill("up"), ...Array(3).fill("enter"), "j"]) await advance(key);

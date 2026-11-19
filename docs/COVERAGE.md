@@ -1119,10 +1119,10 @@ The `diogenes-advice` replay also checks that the Silver Bottle quest is only
 offered in the journal after the briefing.
 
 The `nomad-camp-approach` replay checks the overland camp illustration at
-the Enter / Leave choice, the first view after entering, and the first
-step inside. The first view uses the camp's art before the guest updates
-the area record. Chrome verifies all 121 placements per view, including
-15 new 32×32 sky, canopy, and horizon transition tiles.
+the Enter / Leave choice and the full approach to the sentries. The first
+view uses the camp's art before the guest updates the area record. Chrome
+verifies all 847 placements across seven views, including 19 new 32×32
+sky, canopy, and horizon tiles, then verifies the sentries' portrait.
 `nomad-tent-lane` and `nomad-camp-rim` start at
 `2,14 E` in a native save made after entering the camp. Chrome verifies
 1,573 placements across both branches, using 49 new 32×32 tiles.
