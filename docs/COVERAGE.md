@@ -3242,6 +3242,11 @@ sprites for the outside patrol. Chrome checked the reflected strike at
 (128, 104) and the original attack on Brin. The local fixture raises
 party HP and selects the original patrol roll.
 
+The Textile House skeleton ambush has a dedicated ready and strike
+pair. The controlled slot B fixture selects the original skeletal
+ambush branch. Chrome verifies the mirrored ready pose at (8, 128)
+and the mirrored strike on Brin at (104, 104).
+
 The Lizard Wilds nomad scout uses a ready and longbow strike pair in
 the nomad encounter. Chrome verifies the loaded frames at (80, 152)
 and the native attack on Enna. The scratch fixture selects the

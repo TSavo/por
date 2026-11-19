@@ -4675,6 +4675,8 @@
     "encounter:SPRIT4.DAX:34:1:0": "sokal-undead-patrol-middle.png",
     "encounter:SPRIT4.DAX:34:2:0": "sokal-undead-patrol-far.png",
     "combat:CPIC4.DAX:34": "sokal-skeleton-guard.png",
+    "combat:area:2:CPIC4.DAX:34:ecl:9b85": "textile-ambush-skeleton-ready.png",
+    "combat:area:2:CPIC4.DAX:162:ecl:9b85": "textile-ambush-skeleton-strike.png",
     "combat:CPIC4.DAX:162": "sokal-skeleton-strike.png",
     "combat:CPIC4.DAX:35": "sokal-zombie-guard.png",
     "combat:CPIC4.DAX:163": "sokal-zombie-strike.png",
