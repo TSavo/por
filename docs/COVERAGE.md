@@ -1244,6 +1244,10 @@ portrait and its removal when each peaceful dialogue returns to exploration.
 352×352 illustration, mode switching, and the distinct journal lead
 from each choice of parlay tone. The bargain replay also confirms
 that accepting the offer adds Genheeris to the original party roster.
+`valjevo-genheeris-combat` declines his offer and verifies the 96×96
+ready pose in the resulting battle. Chrome also decodes the 96×96
+strike asset from the art endpoint. The live replay has yet to show
+that strike because Genheeris casts spells and moves.
 
 `phlan-training-hall` starts from a controlled slot I outside the training
 rooms. It declines the duel and recruit offers and continues into the rogues'

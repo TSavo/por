@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "combat:area:7:CPIC5.DAX:14": "valjevo-genheeris-combat-stand.png",
+    "combat:area:7:CPIC5.DAX:142": "valjevo-genheeris-combat-strike.png",
     "tile:5:70d30745db3f117c43db51a2848c6beb1af943be63a7624d087c86905d7a1e77": "valjevo-dungeon-door-terrain-01.png",
     "tile:5:f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b": "valjevo-dungeon-door-terrain-02.png",
     "tile:5:0fab8d30404f1d34bcd3eff7bbef1e2f6f8c0a686c79a0305d1f320b19c2b517": "valjevo-dungeon-door-terrain-03.png",

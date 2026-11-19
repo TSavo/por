@@ -45,6 +45,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-genheeris-combat", {
+    slot: "B", stand: "combat:area:7:CPIC5.DAX:14", strike: "combat:area:7:CPIC5.DAX:142",
+    width: 96, height: 96, strikeInputs: [],
+    inputs: ["up", "enter", "enter", "c", "enter", "enter", "n", "enter", "enter", "d", "d"],
+  }],
   ["valjevo-messenger", {
     slot: "B", stand: "combat:area:7:CPIC5.DAX:12", strike: "combat:area:7:CPIC5.DAX:140",
     width: 96, height: 96, strikeReflected: true,
@@ -796,7 +801,7 @@ try {
       assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
       await advance("j");
     }
-    await run(`window.strikeLoaded = false;
+    if (strikeInputs.length) await run(`window.strikeLoaded = false;
       new MutationObserver(() => {
         for (const image of document.querySelectorAll(".combat-sprite")) {
           if (!image.src.endsWith(${JSON.stringify(strike)})) continue;
@@ -823,12 +828,20 @@ try {
       assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead));
       await advance("j");
     }
-    for (const key of strikeInputs) await advance(key);
-    assert.ok(frame.animation?.some(({ combatArt }) => combatArt?.some(([, , id, reflected]) =>
-      id === strike && (strikeReflected === undefined || reflected === strikeReflected))));
-    await waitFor("the enhanced combat strike", () => run("window.strikeLoaded"));
+    if (strikeInputs.length) {
+      for (const key of strikeInputs) await advance(key);
+      assert.ok(frame.animation?.some(({ combatArt }) => combatArt?.some(([, , id, reflected]) =>
+        id === strike && (strikeReflected === undefined || reflected === strikeReflected))));
+      await waitFor("the enhanced combat strike", () => run("window.strikeLoaded"));
+      console.log(`Verified ${routeName} standing and animated strike poses in Chrome.`);
+    } else {
+      await run(`window.strikePreview = new Image();
+        window.strikePreview.src = "/art/" + ${JSON.stringify(strike)};`);
+      await waitFor("the loadable strike asset", () => run(
+        `window.strikePreview.naturalWidth === ${width} && window.strikePreview.naturalHeight === ${height}`));
+      console.log(`Verified ${routeName} standing pose in Chrome and decoded the strike asset separately.`);
+    }
     assert.deepEqual(readFileSync(saved), originalSave);
-    console.log(`Verified ${routeName} standing and animated strike poses in Chrome.`);
   } else if (ferry) {
     for (const key of ["down", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:PIC8.DAX:41:0:0");
