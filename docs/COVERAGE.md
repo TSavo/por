@@ -1404,6 +1404,8 @@ seven additional mappings to existing civic tiles across 24 views and
 preserves game state and the save.
 `new-phlan-wharf-return` checks three additional dock and building
 tiles across 23 views and 2,783 placements with the same switch checks.
+`new-phlan-warehouse-square` checks one new tile and one mapping to
+existing market art across 20 views and 2,420 placements.
 `new-phlan-civic-square` checks nine City Hall facade tile mappings
 across 13 views and 1,573 placements. `lizard-wilds-kobold-prisoners`
 and `lizard-wilds-pool-dialogue` verify both grove scenes in Chrome.

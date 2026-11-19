@@ -1,6 +1,8 @@
 {
   "version": 1,
   "assets": {
+    "tile:0:80e3c5025a5f43f7991f9fb1c372374d1d0c7cb666c72aa6115e3e381ccd814e": "new-phlan-covered-market-terrain-80e3c5025a5f.png",
+    "tile:0:daa0c6008046802d652f2f0fe732ebf6d5e55819c0757e8ca57e8bbeeb8294f7": "new-phlan-warehouse-square-terrain-daa0c6008046.png",
     "encounter:area:10:SPRIT4.DAX:35:0:0": "valhingen-zombie-approach.png",
     "encounter:area:10:SPRIT4.DAX:72:0:0": "valhingen-ghoul-approach.png",
     "combat:area:27:CPIC8.DAX:59": "wild-cave-lizard-stand.png",

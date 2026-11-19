@@ -592,6 +592,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["new-phlan-warehouse-square", {
+    slot: "B", area: 0, views: 20, patterns: 35, sceneryOnly: true,
+    walk: ["right", "up", "left", "up", "up", "left", "up", "up", "left", "right", "right", "up", "up", "right", "up", "up", "left", "left", "up"],
+  }],
   ["new-phlan-wharf-return", {
     slot: "A", area: 8, views: 23, patterns: 96, sceneryOnly: true,
     walk: ["up", "left", "up", "up", "left", "up", "up", "left", "up", "up", "right", "up", "up", "right", "up", "up", "left", "up", "up", "right", "right", "up"],
