@@ -15,6 +15,7 @@ export function loadPortraitArt(keys: string[], includeClassic = false) {
   const root = keys.length || includeClassic ? findGameRoot() : null;
   const files = new Map(root ? listGameFiles(root).map((file) => [file.toUpperCase(), file]) : []);
   const patterns = new Map<string, string | null>();
+  const classicSources = new Map<string, string[]>();
   const archiveCache = new Map<string, ReturnType<typeof parseDax>>();
   function entry(archive: string, id: string) {
     const file = files.get(archive);
@@ -62,8 +63,8 @@ export function loadPortraitArt(keys: string[], includeClassic = false) {
   if (includeClassic) {
     for (const [name, file] of files) {
       if (!/^PIC\d+\.DAX$/.test(name)) continue;
-      for (const { data } of archiveData(file).entries) {
-        for (const member of pictureMembers(data)) {
+      for (const { id, data } of archiveData(file).entries) {
+        for (const [memberIndex, member] of pictureMembers(data).entries()) {
           const picture = decodePicture(member.data);
           if (picture.width !== size || picture.height !== size) continue;
           for (let frame = 0; frame < picture.itemCount; frame++) {
@@ -72,25 +73,30 @@ export function loadPortraitArt(keys: string[], includeClassic = false) {
             // cleared perspective pane in the original menus.
             if (pixels.every((color) => color === pixels[0])) continue;
             const signature = Buffer.from(pixels).toString("base64");
-            if (!patterns.has(signature)) patterns.set(signature, null);
+            const sources = classicSources.get(signature) ?? [];
+            sources.push(`portrait:${name}:${id}:${memberIndex}:${frame}`);
+            classicSources.set(signature, sources);
           }
         }
       }
     }
   }
   return (screen: Frame, area?: number, cursor?: number) => {
-    if (!patterns.size) return;
+    if (!patterns.size && !classicSources.size) return;
     const pixels = Buffer.alloc(size * size);
     for (let y = 0; y < size; y++) {
       const offset = (top + y) * screen.width + left;
       pixels.set(screen.pixels.subarray(offset, offset + size), y * size);
     }
     const signature = pixels.toString("base64");
+    const sources = classicSources.get(signature);
     if (area !== undefined && cursor !== undefined) {
       const encounter = patterns.get(`${area}:${cursor.toString(16).padStart(4, "0")}:${signature}`);
-      if (encounter !== undefined) return encounter;
+      if (encounter !== undefined) return encounter ?? sources ?? [];
     }
     const scoped = area === undefined ? undefined : patterns.get(`${area}:${signature}`);
-    return scoped === undefined ? patterns.get(signature) : scoped;
+    const match = scoped === undefined ? patterns.get(signature) : scoped;
+    if (match === null) return sources ?? [];
+    return match ?? sources;
   };
 }

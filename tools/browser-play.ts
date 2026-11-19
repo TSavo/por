@@ -86,6 +86,7 @@ interface FrameState {
   scene?: string;
   portrait?: string;
   classicPortrait?: boolean;
+  classicPortraitSources?: string[];
   perspective?: boolean;
   encounter?: EncounterPlacement;
   tiles?: [number, number, string][];

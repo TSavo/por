@@ -118,7 +118,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         return column < 1 || column >= 16 || row < 1 || row >= 16;
       }) : glyphs;
       const picture = !scene && !leads ? portraitArt(screen, area, battleCursor) : undefined;
-      const portrait = picture ?? undefined;
+      const portrait = typeof picture === "string" ? picture : undefined;
       const enhanced = new Frame(screen.width, screen.height);
       enhanced.pixels.set(screen.pixels);
       // Opening the journal does not replace the room behind an active encounter.
@@ -224,7 +224,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         scene,
         text,
         portrait,
-        classicPortrait: picture === null,
+        classicPortrait: Array.isArray(picture),
+        classicPortraitSources: Array.isArray(picture) && picture.length ? picture : undefined,
         perspective,
         encounter,
         tiles,

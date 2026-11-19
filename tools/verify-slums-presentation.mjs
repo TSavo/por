@@ -4094,6 +4094,7 @@ try {
     if (classicPortrait) {
       assert.equal(frame.classicPortrait, true);
       assert.equal(frame.portrait, undefined);
+      assert.ok(frame.classicPortraitSources?.includes("portrait:PIC6.DAX:39:0:0"));
       await waitFor("classic portrait filling the Enhanced panel", () => run(`(() => {
         const layer = document.querySelector("#tile-art").getBoundingClientRect();
         const portrait = document.querySelector(".perspective-backdrop")?.getBoundingClientRect();
