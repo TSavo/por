@@ -389,6 +389,11 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["old-phlan-mutant-lizardfolk-combat", {
+    slot: "A", stand: "combat:area:26:CPIC7.DAX:57:ecl:a91d", strike: "combat:area:26:CPIC7.DAX:185:ecl:a91d",
+    width: 96, height: 96, readyPrompt: /MUTANTLIZ.MANHITPOINTS18/i, strikeReflected: false,
+    inputs: ["up", ...Array(10).fill("enter"), "q"], strikeInputs: ["q"],
+  }],
   ["slums-mage-combat", {
     slot: "B", stand: "combat:area:20:CPIC2.DAX:94:ecl:a0b4",
     width: 96, height: 96, readyPrompt: /LEVEL3MUHITPOINTS9/i,
@@ -715,6 +720,14 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valjevo-merchant-west", {
+    slot: "B", area: 7, views: 12, patterns: 61, sceneryOnly: true,
+    walk: ["right", "right", "up", "up", "right", "up", "up", "left", "up", "up", "left"],
+  }],
+  ["valjevo-merchant-branch", {
+    slot: "B", area: 7, views: 13, patterns: 57, sceneryOnly: true,
+    walk: ["left", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "up"],
+  }],
   ["valjevo-merchant-wing", {
     slot: "B", area: 7, views: 5, patterns: 38, sceneryOnly: true,
     walk: ["right", "up", "up", "left"],
