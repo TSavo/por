@@ -473,6 +473,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["lizardfolk-outer-yard", {
+    slot: "A", area: 16, views: 19, patterns: 72, sceneryOnly: true,
+    walk: ["left", "left", "up", "up", "up", "left", "up", "up", "up", "up", "up", "left", "up", "up", "up", "up", "up", "right"],
+  }],
   ["lizardfolk-west-turn", {
     slot: "A", area: 16, views: 16, patterns: 63, sceneryOnly: true,
     walk: ["left", "left", "up", "up", "up", "left", "up", "up", "up", "up", "up", "right", "up", "up", "left"],

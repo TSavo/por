@@ -1371,6 +1371,8 @@ from the same save, including 1,936 placements and mode switching.
 the original boarded-door encounter and verifies presentation switching.
 `lizardfolk-west-turn` and `lizardfolk-west-turn-short` check two
 redrawn ruins tiles across 21 live views and 2,541 placements.
+`lizardfolk-outer-yard` checks nine redrawn courtyard tiles across
+19 views and 2,299 placements, with state-preserving mode switches.
 `kobold-rematch-infantry` checks the 96×96 kobold ready and animated
 strike poses during that same battle. `kobold-cave-envoys-rematch` and
 `valjevo-messenger-dialogue` verify the new illustrations at the

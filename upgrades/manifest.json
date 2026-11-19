@@ -1,6 +1,15 @@
 {
   "version": 1,
   "assets": {
+    "tile:16:e973f4949b625b4cba8ed79444ff6422d8dabbb69afd79d59a7fd27ea7f5ac37": "lizard-outer-yard-terrain-e973f4949b62.png",
+    "tile:16:6124b4b018ec008e7d8e43de6adffdc26f646d906e9abfc6f4f3cb158b2cdbe1": "lizard-outer-yard-terrain-6124b4b018ec.png",
+    "tile:16:b2bdaafee704190ccaf37f38405a797b48089b645c51bfefbb00132e02b4b25e": "lizard-outer-yard-terrain-b2bdaafee704.png",
+    "tile:16:ded33b7e79a74e54f580dd132ec82e7186bd795690a9765863c98d070253d1aa": "lizard-outer-yard-terrain-ded33b7e79a7.png",
+    "tile:16:ed431265cd9e73ad8d05d277ecaa19d3e67395eeb0d647b64847f4556a6ddcd0": "lizard-outer-yard-terrain-ed431265cd9e.png",
+    "tile:16:f470250bcb2e55b5e07bd8aaa0e392e3198f59393c4d32682ee328e4e994700d": "lizard-outer-yard-terrain-f470250bcb2e.png",
+    "tile:16:f2f49277db846fb4e4f96cc9663ab945d08a3605d1c78b5784dcf659575e6304": "lizard-outer-yard-terrain-f2f49277db84.png",
+    "tile:16:b5d3c99a31477d6fc418af5fd880761f2c697d708ae292080d11224c9e5436af": "lizard-outer-yard-terrain-b5d3c99a3147.png",
+    "tile:16:75093470e3ffe1ca05ce43196dd655fe63c974c4e4a3a71e0ba045216be985d7": "lizard-outer-yard-terrain-75093470e3ff.png",
     "combat:area:31:CPIC1.DAX:8": "bane-ogre-stand.png",
     "combat:area:31:CPIC1.DAX:136": "bane-ogre-strike.png",
     "tile:16:a10df7430167c22b3f1eff52239edd09b0fa00ebc51497606ea80972c0b54668": "lizard-west-turn-terrain-a10df7430167.png",
