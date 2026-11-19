@@ -162,9 +162,9 @@ for (const { file: archive, entries } of archives) {
   }
 }
 type TraceCell = [x: number, y: number, id: string, pixels?: string];
-type TraceRecord = { cells?: TraceCell[]; type?: string; area?: number; sources?: string[]; sequence?: number };
+type TraceRecord = { cells?: TraceCell[]; type?: string; area?: number; cursor?: number; dialogue?: string; sources?: string[]; sequence?: number };
 const capturedTiles = new Map<string, { x: number; y: number; trace: string; frame: number; pixels: Buffer }>();
-const observedPortraitFallbacks: { area?: number; sources: string[]; sequence: number; trace: string }[] = [];
+const observedPortraitFallbacks: { area?: number; cursor?: number; dialogue?: string; sources: string[]; sequence: number; trace: string }[] = [];
 for (const path of tracePaths) {
   const raw = readFileSync(path, "utf8").trim();
   if (!raw) continue;
@@ -173,10 +173,12 @@ for (const path of tracePaths) {
     : JSON.parse(raw);
   for (const [frame, record] of frames.entries()) {
     if (!Array.isArray(record) && record.type === "portrait-fallback") {
-      const { area, sources, sequence } = record;
+      const { area, cursor, dialogue, sources, sequence } = record;
       if (sequence !== undefined && Number.isInteger(sequence) && Array.isArray(sources) &&
           sources.length && sources.every(id => typeof id === "string" && portraitKey.test(id))) {
-        observedPortraitFallbacks.push({ area: Number.isInteger(area) ? area : undefined, sources, sequence, trace: path });
+        observedPortraitFallbacks.push({ area: Number.isInteger(area) ? area : undefined,
+          cursor: cursor !== undefined && Number.isInteger(cursor) && cursor >= 0 && cursor <= 0xffff ? cursor : undefined,
+          dialogue: typeof dialogue === "string" ? dialogue : undefined, sources, sequence, trace: path });
       }
       continue;
     }
@@ -494,9 +496,10 @@ ${capturedTiles.size ? `<p>Captured exploration patterns: ${explorationTotals.ma
 ${battlefieldCaptured ? `<p>Captured battlefield patterns: ${battlefieldTotals.matched} of ${battlefieldCaptured} replaced, ${battlefieldGaps} unmatched.</p>` : ""}
 <p>Captured patterns can include composited sprites and transition frames.</p>` : ""}
 ${observedPortraitFallbacks.length ? `<details><summary>Portrait fallbacks observed during play · ${observedPortraitFallbacks.length}</summary>
-<table class="coverage-table"><thead><tr><th>Area</th><th>Source candidates</th><th>Trace frame</th></tr></thead><tbody>
-${observedPortraitFallbacks.map(({ area, sources, sequence, trace }) =>
-  `<tr><td>${area ?? "Unknown"}</td><td>${sources.map(id => `<code>${escape(id)}</code>`).join("<br>")}</td>
+<table class="coverage-table"><thead><tr><th>Area</th><th>ECL cursor</th><th>Source candidates</th><th>Dialogue</th><th>Trace frame</th></tr></thead><tbody>
+${observedPortraitFallbacks.map(({ area, cursor, dialogue, sources, sequence, trace }) =>
+  `<tr><td>${area ?? "Unknown"}</td><td>${cursor?.toString(16).padStart(4, "0") ?? "—"}</td>
+  <td>${sources.map(id => `<code>${escape(id)}</code>`).join("<br>")}</td><td>${escape(dialogue ?? "")}</td>
   <td>${escape(trace)} #${sequence}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
 ${explorationCoverage.length ? `<details><summary>Exploration coverage by area</summary>

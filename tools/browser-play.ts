@@ -94,6 +94,7 @@ interface FrameState {
   classicPortrait?: boolean;
   classicPortraitSources?: string[];
   classicPortraitArea?: number;
+  classicPortraitCursor?: number;
   perspective?: boolean;
   encounter?: EncounterPlacement;
   tiles?: [number, number, string][];
@@ -139,11 +140,16 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
     }
     sequence++;
     if (portraitTrace && frame.classicPortraitSources?.length) {
-      const { classicPortraitArea: area, classicPortraitSources: sources } = frame;
-      const signature = JSON.stringify([area, sources]);
+      const { classicPortraitArea: area, classicPortraitCursor: cursor, classicPortraitSources: sources } = frame;
+      const signature = JSON.stringify([area, cursor, sources]);
       if (!tracedPortraits.has(signature)) {
         try {
-          appendFileSync(portraitTrace, JSON.stringify({ type: "portrait-fallback", area, sources, sequence }) + "\n");
+          const cells = Array<string>(320).fill(" ");
+          for (const [cell, character] of frame.text ?? []) {
+            if (cell >= 640 && cell < 960) cells[cell - 640] = String.fromCharCode(character);
+          }
+          const dialogue = cells.join("").replace(/\s+/g, " ").trim();
+          appendFileSync(portraitTrace, JSON.stringify({ type: "portrait-fallback", area, cursor, sources, sequence, dialogue }) + "\n");
           tracedPortraits.add(signature);
         } catch (error) {
           console.error("Cannot write portrait fallback trace", error);
