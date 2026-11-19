@@ -92,6 +92,15 @@
       "subtitle": "'OUR TOUR IS ENDED. AGAIN, LET ME URGE YOU TO APPLY TO THE CITY CLERK FOR A COMMISSION. GOOD-BYE AND GOOD FORTUNE.' (YOU ARE ON YOUR OWN NOW)",
       "file": "narration/ecl3/b0-b51c.mp3",
       "status": "approved-narrator"
+    },
+    {
+      "id": "por.voice.town.temple-healing-prompt",
+      "type": "narration",
+      "speaker": "narrator",
+      "match": "DO YOU SEEK HEALING",
+      "subtitle": "'DO YOU SEEK HEALING?'",
+      "file": "narration/town/temple-healing-prompt.mp3",
+      "status": "approved-narrator"
     }
   ]
 }

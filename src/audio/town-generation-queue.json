@@ -32,6 +32,12 @@
       "output": "../por-assets/voices/narration/town/rolf-tour-05.mp3",
       "text": "'WE ARE JUST OUTSIDE THE CITY HALL. PROCLAMATIONS ARE POSTED ON THESE WALLS. INSIDE, THE CITY CLERK AWARDS THE COUNCIL'S COMMISSIONS. COMMISSIONS ARE THE QUICKEST WAY TO FAME AND FORTUNE.'",
       "direction": "measured dramatic fantasy narration; perform Rolf as a cordial, official city guide"
+    },
+    {
+      "id": "por.voice.town.temple-healing-prompt",
+      "output": "../por-assets/voices/narration/town/temple-healing-prompt.mp3",
+      "text": "'DO YOU SEEK HEALING?'",
+      "direction": "measured dramatic fantasy narration; perform the temple attendant with a warm, welcoming question"
     }
   ]
 }

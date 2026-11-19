@@ -19,10 +19,24 @@ const origin = `http://127.0.0.1:${port}`;
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const voiceManifest = readFileSync(new URL("../src/audio/voices.json", import.meta.url));
-const voiceFiles = new Set((JSON.parse(voiceManifest.toString("utf8")) as { lines: { file: string }[] }).lines.map(({ file }) => file));
+const parsedVoiceManifest = JSON.parse(voiceManifest.toString("utf8")) as { lines: { file: string; match?: string }[] };
+const voiceFiles = new Set(parsedVoiceManifest.lines.map(({ file }) => file));
 const narrationManifest = readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url));
-const narrationCatalog = new NarrationCatalog(JSON.parse(narrationManifest.toString("utf8")) as RuntimeNarrationManifest);
+const parsedNarrationManifest = JSON.parse(narrationManifest.toString("utf8")) as RuntimeNarrationManifest & {
+  events: { sourceId: string; normalizedText: string }[]
+};
+const narrationCatalog = new NarrationCatalog(parsedNarrationManifest);
 const narrationFiles = narrationCatalog.assetFiles();
+const normalizeSpeech = (text: string) => text.replace(/\s+/g, " ").trim().toUpperCase();
+const explicitVoiceMatches = parsedVoiceManifest.lines.flatMap(line => line.match ? [normalizeSpeech(line.match)] : []);
+const eventText = new Map(parsedNarrationManifest.events.map(event => [event.sourceId, normalizeSpeech(event.normalizedText)]));
+const exactTextNarrations = new Map<string, typeof parsedNarrationManifest.units>();
+for (const unit of parsedNarrationManifest.units) {
+  if (!unit.asset || unit.coveredSourceIds.length !== 1 || (unit.runtimeVariants?.length ?? 0) > 0) continue;
+  const text = eventText.get(unit.triggerSourceId);
+  if (!text || normalizeSpeech(unit.spokenText) !== text) continue;
+  exactTextNarrations.set(text, [...(exactTextNarrations.get(text) ?? []), unit]);
+}
 const soundManifest = readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url));
 const enhancedSoundFiles = new Set((JSON.parse(soundManifest.toString("utf8")) as
   { events: { enhancedFile?: string }[] }).events.flatMap(({ enhancedFile }) => enhancedFile ? [enhancedFile] : []));
@@ -106,6 +120,16 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
     const text = JSON.parse(line.slice("POR_TEXT ".length)) as { step: number; message: string };
     messages.push({ id: ++textId, ...text });
     if (messages.length > 64) messages.shift();
+    const normalized = normalizeSpeech(text.message);
+    const handledByExplicitVoice = explicitVoiceMatches.some(match => normalized.includes(match));
+    const exact = exactTextNarrations.get(normalized) ?? [];
+    if (!handledByExplicitVoice && exact.length === 1) {
+      const unit = exact[0]!;
+      narrations.push({ id: ++narrationId, step: text.step, unitId: unit.id,
+        sourceId: unit.triggerSourceId, coveredSourceIds: unit.coveredSourceIds,
+        asset: unit.asset!, text: unit.spokenText });
+      if (narrations.length > 256) narrations.shift();
+    }
   } else if (line.startsWith("POR_NARRATION ")) {
     const event = JSON.parse(line.slice("POR_NARRATION ".length)) as NarrationTrigger & { step?: number };
     const resolved = narrationCatalog.resolve(event);
