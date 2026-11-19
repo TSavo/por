@@ -351,6 +351,14 @@ pixels. The 192×96 phase spider replacements use `CPIC8.DAX` blocks
 116 and 244. They passed the same matcher and transparency checks. Both
 creatures still need live encounter verification.
 
+The tiger (`CPIC6.DAX` blocks 119 and 247) and hippogriff (`CPIC8.DAX`
+blocks 113 and 241) each have 192×96 ready and strike sprites. Both facings
+passed the matcher and transparency checks on a terrain background. The
+named monster table now has 138 directly linked poses and 18 poses with
+identical source pixels in frames that have replacements. The 18 matches
+still need review for reuse in their encounter contexts. The tiger and
+hippogriff still need live encounter replays.
+
 The composed icon also renders when the party member is selected.
 The matcher checks the full highlighted cell and restores its bright
 rim, dark edge, and interior beneath the transparent replacement.
