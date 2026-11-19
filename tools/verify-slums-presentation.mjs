@@ -750,6 +750,12 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["textile-hobgoblin-archer-combat", {
+    slot: "B", stand: "combat:area:2:CPIC2.DAX:7:ecl:a900", strike: "combat:area:2:CPIC2.DAX:135:ecl:a900",
+    width: 96, height: 96, readyPrompt: /HOBGOBLINLDRHITPOINTS6AC5/i, strikeReflected: false,
+    strikeReport: /HOBGOBLINLDRHITPOINTS6AC5LONGBOW/i,
+    inputs: ["up", ...Array(9).fill("enter"), ...Array(4).fill("q")],
+  }],
   ["textile-poison-frog-combat", {
     slot: "B", stand: "combat:area:2:CPIC4.DAX:37:ecl:9aeb", strike: "combat:area:2:CPIC4.DAX:165:ecl:9aeb",
     width: 96, height: 96, readyPrompt: /POISONOUSFROGHITPOINTS4AC8/i, strikeReflected: true,

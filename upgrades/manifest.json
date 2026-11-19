@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:2:CPIC2.DAX:7:ecl:a900": "textile-hobgoblin-archer-ready.png",
+    "combat:area:2:CPIC2.DAX:135:ecl:a900": "textile-hobgoblin-archer-strike.png",
     "combat:area:2:CPIC4.DAX:37:ecl:9aeb": "textile-poison-frog-combat-ready.png",
     "combat:area:2:CPIC4.DAX:165:ecl:9aeb": "textile-poison-frog-combat-strike.png",
     "encounter:area:13:ecl:a775:SPRIT8.DAX:16:0:0": "kobold-princess-fatima-approach.png",

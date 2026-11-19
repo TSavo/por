@@ -2940,6 +2940,8 @@ The Bane barracks guard replay checks the uniformed orc ready sprites
 and the hatchet strike during the original attack report against Cora.
 The Textile House poison frog replay checks the crouch and reflected
 lunge beside the original attack report against Alda.
+The Textile chief's hobgoblin archers use distinct ready and longbow
+sprites. Chrome checks the bow frame with the guest's weapon readout.
 The Giant Skeleton's retainers have a separate ready and sword-strike
 pair. Chrome checks the native attack on Cora from a controlled
 checkpoint for the retinue branch.
