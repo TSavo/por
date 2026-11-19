@@ -220,6 +220,19 @@ for (const path of tracePaths) {
 }
 const artworkLoadIssues: ArtworkLoadIssue[] = [];
 const artwork = loadUpgradeArt(undefined, gameData, issue => artworkLoadIssues.push(issue));
+const portraitFallbackCoverage = observedPortraitFallbacks.map(fallback => {
+  const { area, cursor, sources } = fallback;
+  const scopes = ["portrait:"];
+  if (area !== undefined) {
+    scopes.push(`portrait:area:${area}:`);
+    if (cursor !== undefined) scopes.push(`portrait:area:${area}:ecl:${cursor.toString(16).padStart(4, "0")}:`);
+  }
+  const linkedCandidates = [...new Set(sources.flatMap(source => scopes.flatMap(scope => {
+    const id = scope + source.slice("portrait:".length);
+    return artwork.has(id) ? [id] : [];
+  })))];
+  return { ...fallback, linkedCandidates };
+});
 const portraitMatchIssues: { id: string; reason: string }[] = [];
 const matchPortrait = loadPortraitArt([...artwork.keys()].filter(id => portraitKey.test(id)), false, gameData, (id, reason) => {
   portraitMatchIssues.push({ id, reason });
@@ -554,10 +567,11 @@ ${capturedTiles.size ? `<p>Captured exploration patterns: ${explorationTotals.ma
 ${battlefieldCaptured ? `<p>Captured battlefield patterns: ${battlefieldTotals.matched} of ${battlefieldCaptured} replaced, ${battlefieldGaps} unmatched.</p>` : ""}
 <p>Captured patterns can include composited sprites and transition frames.</p>` : ""}
 ${observedPortraitFallbacks.length ? `<details><summary>Portrait fallbacks observed during play · ${observedPortraitFallbacks.length}</summary>
-<table class="coverage-table"><thead><tr><th>Area</th><th>ECL cursor</th><th>Source candidates</th><th>Dialogue</th><th>Trace frame</th></tr></thead><tbody>
-${observedPortraitFallbacks.map(({ area, cursor, dialogue, sources, sequence, trace }) =>
+<table class="coverage-table"><thead><tr><th>Area</th><th>ECL cursor</th><th>Source candidates</th><th>Linked candidates now</th><th>Dialogue</th><th>Trace frame</th></tr></thead><tbody>
+${portraitFallbackCoverage.map(({ area, cursor, dialogue, sources, linkedCandidates, sequence, trace }) =>
   `<tr><td>${area ?? "Unknown"}</td><td>${cursor?.toString(16).padStart(4, "0") ?? "—"}</td>
-  <td>${sources.map(id => `<code>${escape(id)}</code>`).join("<br>")}</td><td>${escape(dialogue ?? "")}</td>
+  <td>${sources.map(id => `<code>${escape(id)}</code>`).join("<br>")}</td>
+  <td>${linkedCandidates.map(id => `<code>${escape(id)}</code>`).join("<br>") || "None"}</td><td>${escape(dialogue ?? "")}</td>
   <td>${escape(trace)} #${sequence}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
 ${portraitTraceFrames.length ? `<details><summary>Portraits in tile traces · ${portraitTraceFrames.length}</summary><ul>${
@@ -661,7 +675,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, scriptReferences, monsterArt, monsterPoseCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
