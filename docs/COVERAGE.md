@@ -3272,6 +3272,11 @@ from a controlled slot B checkpoint near the encounter. Chrome checks
 the reflected ready pose, the unreflected lunge at (104, 104), and
 the native attack on Rhiannon.
 
+Valjevo's barracks hill giants use dedicated 96×192 ready and strike
+sprites. Chrome checks the mirrored ready pose at (56, 80) and the
+mirrored attack on Bakshi at (128, 80). The controlled slot B fixture
+starts outside the barracks with the lower-wing encounters reset.
+
 `kuto-sickly-kobold-scouts` replays the middle-distance scouts at
 both native script positions, then the close approach and dialogue.
 It checks the individual sprite anchors in Chrome and display switching
