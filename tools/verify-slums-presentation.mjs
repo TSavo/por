@@ -3447,6 +3447,11 @@ try {
       assert.equal(await verifyTiledView(13, patterns), 1);
       await advance("enter");
       assert.match(text(), /WHATCAVEWILLYOUENTER/i);
+      assert.equal(frame.perspective, false, "The cave-selection prompt should show the overland map");
+      assert.deepEqual(frame.tiles, []);
+      await waitFor("the overland map at the cave-selection prompt", () => run(`state.sequence === ${frame.sequence} &&
+        !document.querySelector("#tile-art .terrain-tile, #tile-art .perspective-backdrop")`));
+      await switchBothWays();
       await advance("e");
       assert.match(text(), /32,15S/i);
       assert.equal(frame.perspective, false, "The overland map should not use the first-person tile renderer");

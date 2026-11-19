@@ -1281,6 +1281,8 @@ the southern route past the tables and pool. Chrome checks 3,993 tile
 placements across 33 views, including 15 new 32×32 pieces. It exits at
 overland (32,15) south, checks the journal's New Phlan report objective,
 and saves the witnessed cave exit in slot B.
+The replay also checks that the cave-selection prompt uses the overland
+map before the player chooses Exit, and switches modes at that prompt.
 It also tests the surrender demand, restores the prison escort clue from a
 saved journal, and checks the separate cell and Fatima outcomes against
 their original dialogue. The surrender branch still needs a live replay.
