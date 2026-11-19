@@ -1,42 +1,67 @@
 import fs from "node:fs";
 import path from "node:path";
-import { parseDax } from "../src/lib/dax.js";
+import { parseDax, type DaxEntry } from "../src/lib/dax.js";
 
 const GAME_FILE = /\.(dax|exe|ovr|ex_|pic)$/i;
 
-/** Keep the art carried from the Valjevo approach available when loading a tower save. */
+function storedRecord(entry: DaxEntry, archive: Uint8Array, id = entry.id) {
+  const start = 2 + new DataView(archive.buffer, archive.byteOffset, archive.byteLength).getUint16(0, true) + entry.offset;
+  return { id, rawSize: entry.rawSize, compressed: archive.subarray(start, start + entry.compSize) };
+}
+
+function literalRecord(id: number, data: Uint8Array) {
+  // Keep each run short enough for the guest's signed-byte run counter.
+  const compressed = new Uint8Array(data.length + Math.ceil(data.length / 64));
+  let write = 0;
+  for (let start = 0; start < data.length; start += 64) {
+    const chunk = data.subarray(start, start + 64);
+    compressed[write++] = chunk.length - 1;
+    compressed.set(chunk, write);
+    write += chunk.length;
+  }
+  return { id, rawSize: data.length, compressed };
+}
+
+/** Make the supplied Valjevo wall sets available through the guest's DAX loader. */
 export function mountValjevoWallPieces(files: readonly { name: string; data: Uint8Array }[]) {
   const archives = new Map(files.map(file => [file.name.toUpperCase(), file.data]));
+  const walls = archives.get("WALLDEF5.DAX");
+  const groupedWalls = walls && parseDax("WALLDEF5.DAX", walls).entries.find(({ id, rawSize }) => id === 24 && rawSize === 1560);
   return files.map(file => {
     const name = file.name.toUpperCase();
     if (name !== "WALLDEF5.DAX" && name !== "8X8D5.DAX") return file;
     const donorName = name.replace("5.DAX", "2.DAX");
     const donor = archives.get(donorName);
-    if (!donor) return file;
-
     const existing = parseDax(name, file.data).entries;
-    const extra = parseDax(donorName, donor).entries.filter(({ id }) =>
-      (id === 2 || id === 4) && !existing.some(entry => entry.id === id));
+    const has = (id: number) => existing.some(entry => entry.id === id);
+    const extra = donor ? parseDax(donorName, donor).entries
+      .filter(({ id }) => (id === 2 || id === 4) && !has(id))
+      .map(entry => storedRecord(entry, donor)) : [];
+    if (groupedWalls && !has(25)) {
+      // Block 24 loads two consecutive 780-byte wall sets. The scripts also
+      // request set 25 directly, which uses the second set and its atlas 242.
+      if (name === "WALLDEF5.DAX") extra.push(literalRecord(25, groupedWalls.data.subarray(780)));
+      else {
+        const atlas = existing.find(({ id }) => id === 242);
+        if (atlas) extra.push(storedRecord(atlas, file.data, 25));
+      }
+    }
     if (!extra.length) return file;
 
-    const records = [
-      ...existing.map(entry => ({ entry, archive: file.data })),
-      ...extra.map(entry => ({ entry, archive: donor })),
-    ];
+    const records = [...existing.map(entry => storedRecord(entry, file.data)), ...extra];
     const directorySize = records.length * 9;
-    const data = new Uint8Array(2 + directorySize + records.reduce((size, { entry }) => size + entry.compSize, 0));
+    const data = new Uint8Array(2 + directorySize + records.reduce((size, { compressed }) => size + compressed.length, 0));
     const directory = new DataView(data.buffer);
     directory.setUint16(0, directorySize, true);
     let offset = 0;
-    for (const [index, { entry, archive }] of records.entries()) {
+    for (const [index, { id, rawSize, compressed }] of records.entries()) {
       const address = 2 + index * 9;
-      directory.setUint8(address, entry.id);
+      directory.setUint8(address, id);
       directory.setUint32(address + 1, offset, true);
-      directory.setUint16(address + 5, entry.rawSize, true);
-      directory.setUint16(address + 7, entry.compSize, true);
-      const payload = 2 + new DataView(archive.buffer, archive.byteOffset, archive.byteLength).getUint16(0, true) + entry.offset;
-      data.set(archive.subarray(payload, payload + entry.compSize), 2 + directorySize + offset);
-      offset += entry.compSize;
+      directory.setUint16(address + 5, rawSize, true);
+      directory.setUint16(address + 7, compressed.length, true);
+      data.set(compressed, 2 + directorySize + offset);
+      offset += compressed.length;
     }
     return { ...file, data };
   });

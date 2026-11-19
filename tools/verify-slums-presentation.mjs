@@ -7,6 +7,8 @@ import { setTimeout as delay } from "node:timers/promises";
 const [checkpoint, chromePath, routeName = "kobolds", option] = process.argv.slice(2);
 const towerSave = routeName === "valjevo-tower-save";
 const towerReload = routeName === "valjevo-tower-reload";
+const dungeonSave = routeName === "valjevo-dungeon-save";
+const dungeonReload = routeName === "valjevo-dungeon-reload";
 const falseTyranthraxus = routeName === "valjevo-false-throne";
 const alHyam = routeName === "valjevo-al-hyam";
 const norrisSurrender = routeName === "kuto-norris-surrender";
@@ -16,6 +18,10 @@ const koboldGuide = routeName === "kobold-cave-guide";
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["stojanow-hill-giant", {
+    stand: "combat:area:9:CPIC2.DAX:55", strike: "combat:area:9:CPIC2.DAX:183", width: 96, height: 192,
+    inputs: ["s", "up", "up", ...Array(3).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(13).fill("q")],
+  }],
   ["valjevo-tyranthraxus-strike", {
     slot: "B", stand: "combat:CPIC5.DAX:66", strike: "combat:area:7:CPIC5.DAX:194", width: 192, height: 192,
     inputs: ["up", ...Array(6).fill("enter"), ...Array(6).fill("a"), "enter", "enter", ...Array(6).fill("q")],
@@ -112,6 +118,10 @@ const outskirtsRoutes = new Map([
 ]);
 const outskirts = outskirtsRoutes.get(routeName);
 const environmentRoutes = new Map([
+  ["valjevo-north-lane", {
+    slot: "B", area: 5, views: 19, patterns: 64,
+    walk: ["right", "up", "up", "up", "right", "up", "up", "left", "up", "left", "up", "up", "up", "left", "up", "up", "right", "up"],
+  }],
   ["valjevo-lower-wing", {
     slot: "B", area: 5, views: 17, patterns: 46,
     walk: ["up", "up", "right", "up", "up", "up", "right", "up", "up", "left", "up", "left", "up", "up", "right", "up"],
@@ -309,7 +319,7 @@ const environmentRoutes = new Map([
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
   }],
 ]);
-const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-false-throne", "valjevo-al-hyam", "castle-dragon", "castle-ending"];
+const routes = ["kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "kobold-cave", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "castle-dragon", "castle-ending"];
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
 const ending = routeName === "castle-ending";
@@ -365,7 +375,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || falseTyranthraxus || alHyam || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = environment?.slot ?? ferry?.slot ?? combatPose?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[slot];
 const saved = resolve(directory, slot + ".json");
 const battleTrace = courtyard && process.env.POR_TRACE_BATTLE_TILES === "1"
@@ -528,14 +538,30 @@ try {
     return 1;
   }
 
-  if (towerReload) {
+  if (towerReload || dungeonReload) {
     const expected = JSON.parse(readFileSync(resolve(dirname(checkpoint), "valjevo-save-scene.json"), "utf8"));
-    assert.deepEqual(frame.tileInventory, expected.tiles);
+    if (dungeonReload) {
+      // The first dungeon view is drawn while the guest still reports the
+      // lower wing. Compare native pixels and placement across the reload.
+      assert.equal(frame.tileInventory?.length, 121);
+      assert.ok(frame.tileInventory.every(([, , id]) => id.startsWith("tile:3:")));
+      assert.deepEqual(frame.tileInventory.map(([x, y, , pixels]) => [x, y, pixels]),
+        expected.tiles.map(([x, y, , pixels]) => [x, y, pixels]));
+    } else assert.deepEqual(frame.tileInventory, expected.tiles);
     assert.deepEqual(frame.text.toSorted(([left], [right]) => left - right), expected.text);
-    const patterns = new Set();
-    assert.equal(await verifyTiledView(7, patterns), 1);
+    if (towerReload) assert.equal(await verifyTiledView(7, new Set()), 1);
     await switchBothWays();
-    console.log("Verified the same tower scenery, party, and menu after reloading the native save in Chrome.");
+    console.log(`Verified the same scenery, party, and menu on ${routeName} in Chrome.`);
+  } else if (dungeonSave) {
+    const wing = frame.tileInventory;
+    for (const key of ["up", "enter", "enter"]) await advance(key);
+    assert.equal(frame.tileInventory?.length, 121);
+    assert.notDeepEqual(frame.tileInventory, wing);
+    const expected = { tiles: frame.tileInventory, text: frame.text.toSorted(([left], [right]) => left - right) };
+    for (const key of ["e", "s", "s", "b"]) await advance(key);
+    assert.notDeepEqual(readFileSync(saved), originalSave);
+    writeFileSync(resolve(directory, "valjevo-save-scene.json"), JSON.stringify(expected));
+    console.log("Native save:", saved);
   } else if (environment) {
     const area = environment.area ?? 2;
     const actor = environment.sceneryOnly ? undefined
@@ -801,6 +827,15 @@ try {
     for (const key of ["j", "enter"]) await advance(key);
     assert.notEqual(frame.portrait, cadorna);
     console.log("Verified Cadorna's envoy portrait and sealed-packet clue in Chrome.");
+  } else if (routeName === "phlan-priest-tyr") {
+    const priest = "portrait:HEAD3.DAX:34:BODY3.DAX:2";
+    for (const key of ["up", "enter"]) await advance(key);
+    assert.equal(frame.portrait, priest);
+    await waitFor("the Priest of Tyr portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    await switchBothWays();
+    await advance("y");
+    assert.equal(frame.portrait, priest);
+    console.log("Verified the Temple of Tyr portrait through the healing menu in Chrome.");
   } else if (routeName === "phlan-priestess-joy") {
     await advance("j");
     assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "phlan-sune-healing"));

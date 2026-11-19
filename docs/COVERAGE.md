@@ -1151,6 +1151,13 @@ The tower inherits wall pieces 2 and 4 from the approach. A cold load asks
 for them in `WALLDEF5.DAX` and `8X8D5.DAX`, where the original archives lack
 those entries. The mounted copies expose the original compressed records
 from archive 2, and the guest uses those records through its own DAX loader.
+The original dungeon transition also asks for wall set 25 by itself. Its
+780-byte table is the second half of wall record 24, with the original tile
+atlas at 242. The mounted archives expose both under 25 while keeping the
+combined record available. `valjevo-dungeon-save` crosses the lower-wing
+threshold from controlled slot B and saves in Encamp. `valjevo-dungeon-reload`
+compares all 121 native tile placements and pixels, party, and menu after
+cold loading. The transition frame uses the previous area's tile key prefix.
 The `valjevo-south-gallery` replay starts from that native tower save.
 `valjevo-covered-gallery` and `valjevo-statue-approach` use copies with only
 the party's position and facing changed. Chrome checks 4,114 placements
@@ -1169,6 +1176,10 @@ attack, and checks the 192×192 ready pose and animated bite in Chrome.
 The `valjevo-lower-wing` route uses an area-5 save made after using the
 western stairs. Chrome checks 2,057 placements across 17 views and all
 46 new 32×32 half-timber and lane tiles.
+The `valjevo-north-lane` replay checks 2,299 placements across 19 views,
+including 30 new 32×32 tiles. The `phlan-priest-tyr` replay checks the new
+portrait through the healing menu. `stojanow-hill-giant` uses a controlled
+patrol alarm checkpoint and checks the ready pose and reflected attack.
 
 The `sokal-northeast-keep` replay loads slot D at `14,5 N` and walks the
 northeast halls. Chrome checks 3,025 placements across 25 views, using eight
