@@ -2775,6 +2775,9 @@ The plotting mage has his own 4× approach keyed to his script. The
 Chrome replay checks the approach before the mage's portrait and dialogue.
 The patrol leader replay checks the 4× near pose on the second Advance
 before the password dialogue.
+Both Stojanow tower charge branches show the new 4× charge before the
+fighter portrait and original encounter menu. Both passed the Chrome
+presentation switch and save checks.
 
 `bane-altar` checks the three orc approach distances before combat. The
 near pose is scoped to the altar script, and `bane-gate` verifies the

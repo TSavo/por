@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:9:ecl:a577:SPRIT2.DAX:24:0:0": "stojanow-tower-charge-approach.png",
     "tile:3:ed11a107e77bf23aaf5e3448407dcf969708c9aeaeedccef7135345f93117730": "valjevo-dungeon-doorway-terrain-ed11a107e77b.png",
     "tile:3:6cfeeb3aa25d3f411dae5eec17d7369ca7153e72dcf54bcf4c3daec0f5b21fc7": "valjevo-dungeon-doorway-terrain-6cfeeb3aa25d.png",
     "tile:3:aa6f4f9ce990cf65ed1292cb8198cd2752df6026bf588a996ef8d667cfafe1a6": "valjevo-dungeon-doorway-terrain-aa6f4f9ce990.png",
@@ -4389,6 +4390,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:9:ecl:a577:SPRIT2.DAX:24:0:0": { "area": 9, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:9:SPRIT2.DAX:16:0:0": { "area": 9, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:9:ecl:a3a3:SPRIT2.DAX:24:0:0": { "area": 9, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:9:ecl:a270:SPRIT2.DAX:24:0:0": { "area": 9, "x": 48, "y": 32, "width": 32, "height": 73 },

@@ -523,6 +523,11 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:31:PIC1.DAX:8:0:0", prompt: /SIXORCSLEDBYALARGEOGRE/i,
   }],
+  ["stojanow-tower-charge", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    approachSequence: [[48, 32, "encounter:area:9:ecl:a577:SPRIT2.DAX:24:0:0", 32, 73]],
+    portrait: "portrait:HEAD2.DAX:11:BODY2.DAX:2", prompt: /COMBATWAITFLEEPARLAY/i,
+  }],
   ["stojanow-plotting-mage", {
     slot: "A", inputs: ["up", "enter", "enter", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:9:ecl:a270:SPRIT2.DAX:24:0:0", 32, 73]],
