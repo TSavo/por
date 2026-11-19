@@ -120,7 +120,8 @@ if (narratorDesign.status === "voice-selected") {
 }
 assert.equal(narratorDesign.fishAnchor.fishSpeaker, 0);
 assert(["not-generated", "generated-awaiting-owner-approval"].includes(narratorDesign.fishAnchor.status));
-assert.equal(fishRuntime.productionModel, "Fish Audio Drama 3");
+assert(fishRuntime.productionModel.startsWith("Not production"));
+assert.equal(fishRuntime.qualityBaseline.status, "evaluated-and-rejected-for-production");
 assert.equal(fishRuntime.qualityBaseline.model, "drama-3");
 assert.equal(fishRuntime.localProfile.hardware.gpu, "NVIDIA GeForce RTX 3070");
 assert.equal(fishRuntime.localProfile.hardware.vramMiB, 8192);

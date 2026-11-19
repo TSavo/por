@@ -1,10 +1,11 @@
 {
   "schema": 1,
-  "productionModel": "Fish Audio Drama 3",
+  "productionModel": "Not production; retained for reproducible evaluation only",
+  "productionDecision": "Rejected for final narration after owner comparison; complete pre-generated ElevenLabs v4 passage recordings are authoritative.",
   "qualityBaseline": {
     "runtime": "Fish Audio hosted API",
     "model": "drama-3",
-    "status": "comparison-required-before-production"
+    "status": "evaluated-and-rejected-for-production"
   },
   "localProfile": {
     "name": "rtx-3070-drama3-small",
