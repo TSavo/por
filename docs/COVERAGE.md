@@ -2799,6 +2799,8 @@ walk checks the matching edge tile through 16 more views.
 The Kobold Cave pool passage, west gallery, and south loop now use
 brushed silt under the basalt walls. Three Chrome walks check all 25
 revised tiles across 52 views and 6,292 placements.
+Four short cave walks verify 16 additional silt joins at the cave
+thresholds, turn, and east tunnels across 15 views.
 The Textile waterfront and approach extend the damp-earth floor through
 18 more joins. Four waterfront Chrome routes checked 74 views. The
 approach scenery was checked through the last view before the hobgoblin
@@ -2894,6 +2896,8 @@ The Tyrmor dwarven fighters also have their own approach sprite and
 group portrait, checked in Chrome before Parlay.
 The Tyrmor thieves replay checks their brief approach animation
 and group portrait through the original Parlay prompt.
+The Tyrmor human fighters replay checks the new approach and group
+portrait before their original Parlay prompt.
 The Kobold King's first horde has its own 4× infantry ready and strike
 sprites. Chrome checks the strike during the original report of Brin
 taking damage from a controlled throne checkpoint.
