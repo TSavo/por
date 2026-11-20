@@ -640,6 +640,7 @@ const illustrationRoutes = new Map([
     requireTiledApproach: false,
     approachSequence: [[40, 32, "encounter:area:25:ecl:a8d0:SPRIT6.DAX:60:0:0", 64, 80]],
     portrait: "portrait:area:25:PIC6.DAX:60:0:0", prompt: /AGIANTSNAKEFALLSONTOPOFTHEPARTY/i,
+    continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i },
   }],
   ["wild-cave-boar-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
