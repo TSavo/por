@@ -6232,9 +6232,14 @@ try {
         /relay orders to Al-Hyam Dhazid.*phase 2 of Plan A/i);
       assert.equal(frame.journal.objective.nextStep, castleObjective);
     } else {
+      assert.ok(!knows("castle-genheeris-deal"));
       for (const key of ["j", "enter", "y", "enter"]) await advance(key);
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /GENHEERIS/i);
       assert.equal(frame.portrait, undefined);
+      await advance("j");
+      assert.ok(knows("castle-genheeris-deal"));
+      assert.match(frame.journal.objective.nextStep, /Tyranthraxus's audience hall.*Genheeris/i);
+      await switchBothWays();
     }
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log(`Verified the Genheeris portrait and earned journal lead on ${routeName} in Chrome.`);

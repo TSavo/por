@@ -1488,8 +1488,10 @@ portrait and its removal when each peaceful dialogue returns to exploration.
 `valjevo-genheeris-bargain` and `valjevo-genheeris-orders` verify the
 middle and near approach sprites, the 352×352 illustration, mode
 switching, and the distinct journal lead
-from each choice of parlay tone. The bargain replay also confirms
-that accepting the offer adds Genheeris to the original party roster.
+from each choice of parlay tone. Accepting the bargain adds Genheeris
+to the party roster and unlocks the Encamp journal's next step to
+continue to Tyranthraxus's audience hall. The replay checks that the
+accepted bargain survives switching between Classic and Enhanced.
 `valjevo-genheeris-combat` declines his offer and verifies the 96×96
 ready pose in the resulting battle. Chrome also decodes the 96×96
 strike asset from the art endpoint. The live replay has yet to show
