@@ -44,6 +44,9 @@ stepping forward brings up a dedicated 352×352 guard illustration at
 area 1, ECL cursor `a001`. The `buccaneer-bivant-punch` Chrome replay
 checks the preceding merchant portrait, the guard illustration's
 full-panel placement, and switching back to the original Classic frame.
+When combat starts, the original script advances to cursor `a002`.
+The ready and strike bindings at that cursor reuse the Enhanced
+Buccaneer sprites and match guards drawn over battlefield terrain.
 
 Set `POR_ENCOUNTER_TRACE_FILE` to a fresh JSONL path to diagnose approach
 sprites. The trace records when the original sprite's pixels match an

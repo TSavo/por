@@ -6577,14 +6577,22 @@ try {
     writeFileSync(resolve(directory, "bivant-punch-guards.png"), Buffer.from(shot.data, "base64"));
     for (const key of ["enter", "enter"]) await advance(key);
     assert.equal(frame.portrait, undefined);
-    const ready = "combat:area:1:CPIC6.DAX:11";
-    assert.ok(frame.combatArt.some(([, , id]) => id === ready));
+    const ready = "combat:area:1:CPIC6.DAX:11:ecl:a002";
+    const strike = "combat:area:1:CPIC6.DAX:139:ecl:a002";
+    assert.deepEqual(frame.combatArt.filter(([, , id]) => id === ready), [
+      [32, 32, ready, false], [56, 32, ready, false], [80, 32, ready, false],
+      [56, 56, ready, false], [80, 56, ready, false], [104, 56, ready, false, true],
+    ]);
     await waitFor("the guards' combat sprites in place of the illustration", () => run(`state.sequence === ${frame.sequence} &&
       !document.querySelector(".encounter-portrait") &&
       [...document.querySelectorAll('.combat-sprite[src="/art/${ready}"]')]
-        .some(sprite => sprite.naturalWidth === 96 && sprite.naturalHeight === 96)`));
+        .filter(sprite => sprite.naturalWidth === 96 && sprite.naturalHeight === 96).length === 6`));
+    await advance("enter");
+    assert.ok(frame.animation?.some(({ combatArt }) => combatArt?.some(([x, y, id, reflected]) =>
+      x === 104 && y === 56 && id === strike && reflected) &&
+      combatArt.filter(([, , id]) => id === ready).length === 5));
     assert.deepEqual(readFileSync(saved), originalSave);
-    console.log("Verified the merchant's guard illustration in Chrome. Capture:", directory);
+    console.log("Verified the merchant's guard illustration and combat sprites in Chrome. Capture:", directory);
   } else if (forgeSmith) {
     const close = "encounter:area:6:ecl:a0d8:SPRIT5.DAX:12:0:0";
     await observeApproach([[56, 32, close, 24, 80]], false);
