@@ -3284,11 +3284,35 @@ const districtTravel = new Map([
   ["moonsea-stojanow", { id: "stojanow", area: 9, start: ["down", "enter", "n"] }],
   ["moonsea-kuto-well", { id: "kutoWell", area: 29, start: ["down", "enter", "n"] }],
   ["moonsea-slums", { id: "slums", area: 20, start: ["up", "enter", "b"] }],
-  ["moonsea-pyramid", { id: "island", prompt: /MAGNIFICENTPYRAMID.*ENTERGOBACK/i, start: ["down", "y"] }],
+  ["moonsea-city-hall", { id: "cityHall", area: 8, start: ["up", "enter", "b"] }],
+  ["moonsea-city-hall-locked", { id: "cityHall", prompt: /THEDOORISLOCKED.*BREAKIN\?YESNO/i, start: ["up", "enter", "b"] }],
+  ["moonsea-training-hall", { id: "trainingHall", area: 11, start: ["up", "enter", "b"] }],
+  ["moonsea-mendor-library", { id: "mendorLibrary", area: 15, start: ["down", "enter", "s"] }],
+  ["moonsea-new-phlan-east", { id: "newPhlan", area: 0, start: ["up", "enter", "b"] }],
+  ["moonsea-new-phlan-dock", { id: "newPhlan", area: 0, start: ["down", "down", "enter", "t"] }],
+  ["moonsea-new-phlan-east-dock", { id: "newPhlan", area: 0, start: ["down", "enter", "t"] }],
+  ["moonsea-kovel-east", { id: "kovelMansion", area: 14, start: ["up", "enter", "n"] }],
+  ["moonsea-kovel-north", { id: "kovelMansion", area: 14, start: ["down", "enter", "c"] }],
+  ["moonsea-textile", { id: "textileHouse", area: 2, start: ["down", "enter", "s"] }],
+  ["moonsea-graveyard-from-phlan", { id: "graveyard", area: 10, start: ["down", "enter", "g"] }],
+  ["moonsea-north-approach", { id: "northGate", approach: true, prompt: /CITYGRAVEYARDLEAVE/i, start: ["down", "enter"] }],
+  ["moonsea-east-approach", { id: "eastApproach", approach: true, prompt: /NORTHSOUTHBOATLEAVE/i, start: ["up", "enter"] }],
+  ["moonsea-west-approach", { id: "westApproach", approach: true, prompt: /NORTHSOUTHLEAVE/i, start: ["down", "enter"] }],
+  ["moonsea-docks", { id: "docks", approach: true, prompt: /TAKEBOATSTAY/i, start: ["down", "down", "enter"] }],
+  ["moonsea-nearest-approach", { id: "phlan", approach: true, prompt: /NORTHSOUTHLEAVE/i, start: ["down", "enter"] }],
+  ["moonsea-pyramid", { id: "island", world: true, prompt: /MAGNIFICENTPYRAMID.*ENTERGOBACK/i, start: ["down", "y"] }],
+  ["moonsea-diogenes", { id: "diogenes", world: true, prompt: /ENTERCAVEIGNORECAVE/i, start: ["up", "enter"] }],
+  ["moonsea-buccaneers", { id: "buccaneers", world: true, prompt: /YOUHAVEREACHEDTHEBUCCANEERBASE.*ENTERLEAVE/i, start: ["up", "enter"] }],
+  ["moonsea-zhentil", { id: "zhentil", world: true, prompt: /AREYOUTHEDIPLOMATICENVOYSFROMNEWPHLAN.*YESNO/i, start: ["up", "enter"] }],
+  ["moonsea-nomads", { id: "nomads", world: true, prompt: /ALARGENOMADCAMP.*ENTERLEAVE/i, start: ["up", "enter"] }],
+  ["moonsea-kobolds", { id: "kobolds", world: true, prompt: /WHATCAVEWILLYOUENTER\?LARGESMALLEXIT/i, start: ["down", "enter"] }],
+  ["moonsea-combat-handoff", { id: "kobolds", world: true, combat: true, start: ["down", "down"] }],
 ]);
 const travelDestination = districtTravel.get(routeName);
+const questLockedTravel = routeName === "moonsea-quest-locked";
 routes.push("textile-return-art", "moonsea-lizardman-travel", "moonsea-sokal-free", "moonsea-sokal-fare",
-  "moonsea-sokal-decline", "moonsea-valjevo-arrival", "moonsea-valjevo-gate-warning", ...districtTravel.keys(), ...atlasRoutes.keys());
+  "moonsea-sokal-decline", "moonsea-valjevo-arrival", "moonsea-valjevo-gate-warning", "moonsea-quest-locked",
+  ...districtTravel.keys(), ...atlasRoutes.keys());
 routes.push("stojanow-wall-warning", "stojanow-wall-warning-reload");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
@@ -3588,7 +3612,8 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  const verifyDefaultWebGL = moonseaTravel || sokalTravel || valjevoTravel || travelDestination || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
+  const verifyDefaultWebGL = moonseaTravel || sokalTravel || valjevoTravel || travelDestination || questLockedTravel ||
+    verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
     ["new-phlan-rolf-tour", "lizardfolk-battle-wall"].includes(routeName);
   if (!verifyDefaultWebGL) {
     // The tile replays verify individual PNG placements.
@@ -3704,8 +3729,8 @@ try {
     await switchBothWays();
     console.log("Verified Moonsea keyboard travel, Escape cancellation, click-to-travel, and the return to WebGL.");
   } else if (travelDestination) {
-    const { id, area, prompt, start } = travelDestination;
-    const marker = `document.querySelector('[data-destination="${id === "island" ? id : "phlan"}"]')`;
+    const { id, area, prompt, start, world, combat, approach } = travelDestination;
+    const marker = `document.querySelector('[data-destination="${world ? id : "phlan"}"]')`;
     await waitFor("the illustrated destination to become available", () => run(`${marker}.getAttribute("aria-disabled") === "false"`));
     await run(`(() => {
       window.destinationTravelKeys = [];
@@ -3716,7 +3741,8 @@ try {
       };
       ${marker}.dispatchEvent(new MouseEvent("click"));
     })()`);
-    if (id !== "island") {
+    if (!world) {
+      if (approach) await run('document.querySelector("#phlan-approaches summary").click()');
       const button = `document.querySelector('[data-approach="${id}"]')`;
       assert.equal(await run(`${button}.disabled`), false);
       await run(`${button}.click()`);
@@ -3726,14 +3752,52 @@ try {
     const glyphs = frame.text.toSorted(([left], [right]) => left - right);
     const message = glyphs.filter(([cell]) => cell >= 640 && cell < 960).map(([, char]) => String.fromCharCode(char)).join("");
     const menu = glyphs.filter(([cell]) => cell >= 960).map(([, char]) => String.fromCharCode(char)).join("");
-    if (prompt) assert.match(message + menu, prompt);
+    if (combat) {
+      assert.match(message, /ASCREAMINGHORDEOFKOBOLDSATTACKSTHEPARTY/i);
+      assert.equal(frame.travel, undefined);
+      assert.equal(await run('document.querySelector("#travel-map").hidden'), true);
+    } else if (prompt) assert.match(message + menu, prompt);
     else assert.equal(frame.exploration?.area, area, JSON.stringify({ message, menu, scenery: frame.scenery?.mapId,
       pose: frame.scenery && [frame.scenery.x, frame.scenery.y, frame.scenery.facing] }));
     const keys = await run("destinationTravelKeys.filter(key => key !== ':travel-poll')");
     assert.deepEqual(keys.slice(0, start.length), start);
-    assert.ok(keys.slice(start.length).every(key => ["up", "left", "right"].includes(key)));
+    if (world || approach) assert.deepEqual(keys, start, "A Moonsea prompt or combat should stop further input");
+    else assert.ok(keys.slice(start.length).every(key => ["up", "left", "right"].includes(key)));
+    if (combat) {
+      await advance("enter");
+      const battleMenu = frame.text.filter(([cell]) => cell >= 960).toSorted(([left], [right]) => left - right)
+        .map(([, char]) => String.fromCharCode(char)).join("");
+      assert.match(battleMenu, /ABATTLEBEGINS/i);
+      assert.ok(!frame.travel && !frame.overlandMap);
+      assert.equal(await run("Boolean(activeTravel)"), false);
+    }
     await switchBothWays();
     console.log(`Verified ${routeName} in Chrome.`);
+  } else if (questLockedTravel) {
+    const locked = ["nomads", "buccaneers", "zhentil"];
+    for (const id of locked) assert.equal(frame.travel?.routes[id], undefined);
+    await waitFor("the Moonsea map with locked destinations", () => run(`!document.querySelector("#travel-map").hidden &&
+      !document.querySelector("#map-toggle").disabled`));
+    const result = await run(`(() => {
+      const locked = ${JSON.stringify(locked)};
+      const markers = locked.map(id => {
+        const marker = document.querySelector('[data-destination=' + id + ']');
+        const attributes = [marker.getAttribute("aria-disabled"), marker.getAttribute("tabindex")];
+        marker.dispatchEvent(new MouseEvent("click"));
+        marker.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true }));
+        return attributes;
+      });
+      document.querySelector("#map-toggle").click();
+      const expanded = document.querySelector("#travel-map").classList.contains("expanded");
+      window.dispatchEvent(new KeyboardEvent("keydown", { key: "F10" }));
+      return {markers, expanded};
+    })()`);
+    assert.deepEqual(result.markers, locked.map(() => ["true", "-1"]));
+    assert.equal(result.expanded, true);
+    await waitFor("Classic with the illustrated map closed", () => run(`document.querySelector("#travel-map").hidden &&
+      document.querySelector("#game-text").hidden && !activeTravel`));
+    assert.deepEqual(await latest(), frame);
+    console.log("Verified unavailable quest routes and Classic map isolation in Chrome.");
   } else if (valjevoTravel) {
     const landmark = 'document.querySelector("[data-destination=valjevo]")';
     await waitFor("the Valjevo Castle landmark", () => run(`${landmark}.getAttribute("aria-disabled") === "false"`));

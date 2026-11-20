@@ -24,8 +24,9 @@ const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"];
 const firstScans = [2, 16, 30, 44];
 const liveIdleBudget = 150_000_000;
 const overlandArrivalAreas = new Set([0, 2, 10, 14, 18, 24, 31]);
-const travelRoadAreas = new Set([0, 9, 18]);
-const travelRoadArrivals = new Map([[0, [20, 21]], [9, [6]], [18, [9, 29]]]);
+const travelRoadAreas = new Set([0, 2, 9, 18]);
+const travelRoadArrivals = new Map([[0, [8, 11, 20, 21]], [2, [15]], [9, [6]], [18, [9, 29]]]);
+const travelRoadScripts = new Set([...travelRoadAreas, ...[...travelRoadArrivals.values()].flat()]);
 export interface PresentationAnimationFrame {
   frame: string;
   enhancedFrame: string;
@@ -339,7 +340,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         classicPortraitCursor: Array.isArray(picture) ? battleCursor : undefined,
         perspective,
         overlandMap: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield || undefined,
-        travelPosition: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield && !leads && !attack
+        travelPosition: overlandMap && !dialogue && !encounter && !scene && picture === undefined && !characterSheet && !battlefield && !leads && !attack
           ? travelPosition : undefined,
         phlanArrival: travelFrame ? phlanArrival : undefined,
         sokalPrompt: travelFrame ? sokalPrompt : undefined,
@@ -347,7 +348,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         districtRoad: districtRoad || undefined,
         travelPolling: nonblockingPoll && !menu && travelFrame && (
           picture === undefined && (
-            (overlandScript || travelRoadAreas.has(activeEcl) || activeEcl === 6 || activeEcl === 20 || activeEcl === 29) && !dialogue ||
+            (overlandScript || travelRoadScripts.has(activeEcl)) && !dialogue ||
             identifyPhlanPrompt(dialogue) !== undefined) ||
           isSokalBoatHandoff(dialogue, activeEcl, harborTicket)) || undefined,
         nativeScenery,

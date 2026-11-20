@@ -73,6 +73,8 @@ selects the matching option at the original crossroads or ferry menu.
 | Destination | Original route |
 | --- | --- |
 | New Phlan | Return ferry or the boat at the eastern crossroads |
+| City Hall | New Phlan harbor and the City Hall entrance |
+| Training Hall | New Phlan harbor and the training entrance by the north street |
 | The Slums | New Phlan harbor and the western city gate |
 | Kovel Mansion | Northern city gate or the northern entrance at the eastern crossroads |
 | Temple of Bane | Southern entrance at the eastern crossroads |
@@ -80,11 +82,29 @@ selects the matching option at the original crossroads or ferry menu.
 | Kuto’s Well | Podol Plaza and its eastern road |
 | Stojanow Gate | Podol Plaza and its northern road |
 | Cadorna Textile House | Southern entrance at the western crossroads |
+| Mendor’s Library | Cadorna Textile House and its eastern road |
 | Valhingen Graveyard | Graveyard option at the northern city gate |
 
-Sorcerer’s Island takes the rowboat from the Barren River reeds and hands
-control back at the pyramid entrance. The standalone graveyard landmark
-uses the same route as the Phlan menu.
+The regional entrances come from the wilderness event tables in the
+original game data. The coordinates below use the combined Moonsea grid.
+
+| Moonsea landmark | Arrival or handoff |
+| --- | --- |
+| Cave of Diogenes | Cave at (10, 9), with the native choice to enter or ignore it |
+| Zhentil Keep Outpost | Envoy challenge at (3, 32), while the diplomatic commission allows entry |
+| Buccaneer Base | Escort at (12, 31), while the rescue commission allows entry |
+| Nomad Camp | Camp entrance at (25, 11), while the camp is open |
+| Kobold Caves | Choice of cave at (32, 15) |
+| Lizardman Keep | Drawbridge at (37, 8) |
+| Sorcerer’s Island | Rowboat from the Barren River reeds at (19, 14) to the pyramid entrance at (19, 16) |
+| Sokal Keep | New Phlan harbor, with passage arranged through the original harbor master |
+| Valjevo Castle | Western crossroads, Podol Plaza, and Stojanow Gate |
+| Valhingen Graveyard | Same route as the Phlan menu |
+| Phlan | Opens the district chooser |
+
+Locked doors, combat, and decisions hand control back to the player.
+The atlas shows interior and underground plates as the party discovers
+them during play.
 
 Run the `phlan-outskirts-*` Chrome replays with `--map-destination` to check
 named arrivals or with `--map-travel` to check the approach menus.
@@ -96,4 +116,12 @@ cover castle arrival through the secured gate and stopping at the defended
 gate's introduction.
 The `moonsea-stojanow`, `moonsea-kuto-well`, `moonsea-slums`, and
 `moonsea-pyramid` replays cover the city roads and the Barren River crossing.
+The `moonsea-city-hall`, `moonsea-city-hall-locked`, `moonsea-training-hall`,
+and `moonsea-mendor-library` replays verify the city entrances and the locked
+City Hall decision. The regional landmark replays verify their native menus.
+`moonsea-quest-locked` covers disabled controls and switching to Classic,
+and `moonsea-combat-handoff` checks that travel stops at the kobold ambush
+and the player can advance to the original battle opening.
+`lizardfolk-battle-wall` checks the enhanced battlefield across four live
+combat turns, including the absence of the exploration viewports.
 
