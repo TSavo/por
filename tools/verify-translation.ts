@@ -21,7 +21,7 @@ import { parseDax } from "../src/lib/dax.js";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import { findGameRoot, listGameFiles, mountValjevoWallPieces, readGameFile } from "./gamedata.js";
 
-import { loadUpgradeArtFromManifests } from "./upgrade-art.js";
+import { loadCombatMaterialMasks, loadUpgradeArtFromManifests } from "./upgrade-art.js";
 import { encodePng, pngDimensions } from "./png.js";
 import { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
@@ -70,6 +70,16 @@ function checkBrowserArtPacks(): void {
     }).phlan, { x: 24, y: 28, sector: 1, key: "down" }, "Phlan travel should reach the scripted west crossroads");
   }
   const loaded = loadUpgradeArtFromManifests(paths, root);
+  const masks = loadCombatMaterialMasks(loaded);
+  for (const head of [0, 64]) {
+    for (const offset of [1, 5, 7, 17]) {
+      const body = head + offset;
+      for (const pose of [body, body | 0x80]) {
+        const id = `combat:party:${head}:${pose}`;
+        ok(masks.has(id), `Missing weapon material mask for ${id}`);
+      }
+    }
+  }
   const effectIds = [5, 133, 10, 138, 0, 1, 2, 129, 130, 3, 131, 9, 137, 6, 134, 7, 135, 11];
   const derivedEffects = [[3, "flip-x"], [3, "transpose"], [5, "flip-x"], [133, "flip-x"],
     [9, "flip-x"], [137, "flip-x"], [6, "flip-x"], [134, "flip-x"]] as const;
