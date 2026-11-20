@@ -513,6 +513,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["valjevo-laundry-disguise-offer.png", ["A woman offers a bundle of clothes directly to the party", "The clothes are still in her hands while the offer awaits an answer"]],
   ["valjevo-laundry-workers-retreat.png", ["A tub and wet clothes establish the laundry", "The frightened workers have backed into a corner"]],
   ["valjevo-laundry-spokeswoman.png", ["The half-orc woman steps forward to address the party", "Her companions remain behind her in the same laundry"]],
+  ["valjevo-altar-crossed-swords.png", ["Two separate swords cross in the niche behind the altar", "Both swords remain in place while the player decides whether to take them"]],
   ["valjevo-tyranthraxus-reveal.png", ["An ancient bronze dragon with prominent swept-back horns", "The glowing pool at the base of the dragon"]],
   ["valjevo-tyranthraxus-offer.png", ["Tyranthraxus addresses the party across the pool", "The party is visible as the audience for the offer"]],
   ["valjevo-tyranthraxus-attack.png", ["The same bronze dragon lunges at the party", "The attack reads before the switch to the battlefield"]],
