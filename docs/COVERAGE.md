@@ -3782,3 +3782,9 @@ portrait pause. Enhanced now checks the finale dialogue before choosing
 the victory artwork. Chrome verified the ordinary clerk during Sokal's
 reward and the victory artwork at the final council reward. These replays
 started from local Sokal and post-victory checkpoints.
+
+The Sokal Keep turn-in now shows the clerk tracing the boat route on a
+chart. A Chrome replay walked from the local Ferran checkpoint to City
+Hall, verified the illustration and the original 1,308 XP award, and
+checked display switching. The final council replay still shows the
+victory artwork and saves the final turn-in.
