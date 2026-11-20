@@ -3723,3 +3723,7 @@ appears after the corpse prompt, fills the picture panel, and clears
 on Continue. Its slot B fixture places the party next to the corpse
 with the discovery flag clear. The replay uses the original Search
 action and verifies that display switching preserves state and the save.
+
+The `tyrmor-journal-discovery` route uses Encamp to save the new clue in
+slot B. The `tyrmor-journal-reload` Chrome route loads that save, opens the
+journal, and verifies the clue and display switching.
