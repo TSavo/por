@@ -7621,8 +7621,22 @@ try {
     await verifyPortraitPanel();
     await switchBothWays();
     await checkJournal(["envoy-challenge", "packet-delivered"], ["quarters"]);
-    for (let line = 0; line < 6; line++) await advance("enter");
-    await checkJournal(["envoy-challenge", "packet-delivered", "quarters"], ["quarters-attacked", "envoy-left"]);
+    for (let line = 0; line < 2; line++) await advance("enter");
+    const barracks = "scene-illustration:area:25:ecl:b624:caller:9d4d";
+    assert.equal(frame.portrait, barracks);
+    await waitFor("Zhentil barracks tour illustration", () => run(`(() => {
+      const image = document.querySelector(".encounter-portrait");
+      return state.sequence === ${frame.sequence} && image?.naturalWidth === 352 && image?.naturalHeight === 352;
+    })()`));
+    await verifyPortraitPanel();
+    const barracksShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "zhentil-barracks-tour.png"), Buffer.from(barracksShot.data, "base64"));
+    await switchBothWays();
+    await checkJournal(["tour-barracks"], ["tour-watchtowers", "tour-outer-wall"]);
+    await advance("enter");
+    assert.notEqual(frame.portrait, barracks);
+    for (let line = 0; line < 3; line++) await advance("enter");
+    await checkJournal(["envoy-challenge", "packet-delivered", "tour-barracks", "tour-watchtowers", "tour-outer-wall", "quarters"], ["quarters-attacked", "envoy-left"]);
     await switchBothWays();
     for (const key of ["up", "right", "up", "right", "up", "right", "up"]) await advance(key);
     await checkJournal(["relax"], ["dinner", "night", "quarters-attacked"]);
