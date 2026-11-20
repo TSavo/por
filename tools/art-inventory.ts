@@ -501,6 +501,8 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["swamp-castle-drawbridge.png", ["A movable timber span across quicksand", "Lift chains attached to the deck"]],
   ["diogenes-upper-ledge-fireball.png", ["A fireball erupting amid the party", "Diogenes disappearing from the encounter"]],
   ["kovel-ne-map-discovery.png", ["A crude map on the floor", "A visibly branching maze", "The label NE CASTLE is readable"]],
+  ["kovel-chase-thieves-approach.png", ["Both hooded thieves are readable in the approach sprite", "Both figures fit the original sprite placement"]],
+  ["wild-cave-minotaurs-command.png", ["Two minotaurs visibly directing the attack", "Four giant lizards responding to the command"]],
   ["pyramid-left-secret-door.png", ["A distinct stone door and threshold in the left wall", "The main corridor still leads forward"]],
   ["valjevo-tyranthraxus-reveal.png", ["An ancient bronze dragon with prominent swept-back horns", "The glowing pool at the base of the dragon"]],
   ["valjevo-tyranthraxus-offer.png", ["Tyranthraxus addresses the party across the pool", "The party is visible as the audience for the offer"]],
