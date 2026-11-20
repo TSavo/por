@@ -718,8 +718,10 @@ The `podal-infirmary` Chrome replay uses a controlled slot I at `0,15 E`.
 It walks into the hidden infirmary and identifies the original picture from
 the exact `HEAD1.DAX:48` and `BODY1.DAX:25` pixels. It verifies the new
 352×352 healer portrait, mode switching at the healing question, and the
-portrait closing on No.
-The journal records the infirmary once the party hears the offer of healing.
+portrait closing on No. The `podal-infirmary-heal` replay chooses Yes and
+checks that the same Enhanced portrait stays visible on the service menu
+and returns after switching through Classic. Both replays check that the
+journal records the infirmary only once the party hears the offer of healing.
 
 The `podal-shrine` Chrome replay starts from a controlled slot I at
 `12,8 E` and greets the recruiter at `14,8 E`. It checks the

@@ -3580,6 +3580,7 @@ const environmentRoutes = new Map([
 const freshRolf = routeName === "new-phlan-rolf-approach";
 const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 routes.push("river-passage-reload", "new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload", "nomad-headman-rest-portrait", "nomad-headman-raid");
+routes.push("podal-infirmary-heal");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
   ["bane-interior-atlas", { slot: "A", areas: [24, 31], mapId: 31, file: "temple-of-bane-interior-concept-v1.png" }],
@@ -3685,7 +3686,8 @@ const baneGoblins = routeName === "bane-goblins";
 const baneSymbol = routeName === "bane-symbol";
 const baneAltar = routeName === "bane-altar";
 const koboldCave = routeName === "kobold-cave";
-const infirmary = routeName === "podal-infirmary";
+const infirmaryHeal = routeName === "podal-infirmary-heal";
+const infirmary = routeName === "podal-infirmary" || infirmaryHeal;
 const shrine = routeName === "podal-shrine";
 const shrineReturn = routeName === "podal-shrine-return";
 const trainer = routeName === "fighter-trainer";
@@ -7041,11 +7043,19 @@ try {
     assert.ok(!frame.journal?.leads.some(({ id }) => id === "podal-shrine-declined" || id === "podal-shrine-ambush"));
     console.log("Verified the shrine recruiter portrait and mode switches in Chrome.", screenshot);
   } else if (infirmary) {
+    await advance("j");
+    assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "podal-ilmater-infirmary"));
+    await advance("j");
     for (const key of ["up", "enter"]) await advance(key);
     const prompt = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
     assert.match(prompt, /AREYOUINNEEDOFHEALING/i);
-    assert.equal(frame.portrait, "portrait:HEAD1.DAX:48:BODY1.DAX:25");
-    await waitFor("the infirmary portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    const healer = "portrait:HEAD1.DAX:48:BODY1.DAX:25";
+    assert.equal(frame.portrait, healer);
+    const healerLoaded = () => run(`(() => {
+      const image = document.querySelector(".encounter-portrait");
+      return image?.naturalWidth === 352 && image.src.endsWith("/" + ${JSON.stringify(healer)});
+    })()`);
+    await waitFor("the infirmary portrait", healerLoaded);
     await switchBothWays();
     const capture = await command("Page.captureScreenshot", { format: "png" });
     const screenshot = resolve(directory, "podal-infirmary.png");
@@ -7053,9 +7063,18 @@ try {
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "podal-ilmater-infirmary"));
     await advance("j");
-    await advance("n");
-    assert.equal(frame.portrait, undefined);
-    console.log("Verified the infirmary portrait, mode switches, and dialogue exit in Chrome.", screenshot);
+    await advance(infirmaryHeal ? "y" : "n");
+    if (infirmaryHeal) {
+      assert.equal(frame.portrait, healer);
+      await waitFor("the infirmary portrait in the healing menu", healerLoaded);
+      const menu = frame.text.filter(([cell]) => cell >= 960).toSorted(([left], [right]) => left - right)
+        .map(([, character]) => String.fromCharCode(character)).join("");
+      assert.match(menu, /HEAL.*VIEW.*POOL.*APPRAISE.*EXIT/i);
+      await switchBothWays();
+    } else {
+      assert.equal(frame.portrait, undefined);
+    }
+    console.log("Verified the infirmary portrait, journal lead, and mode switches in Chrome.", screenshot);
   } else if (plaza) {
     let views = 0;
     const patterns = new Set();
