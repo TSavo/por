@@ -51,11 +51,13 @@ even when several areas have their own replacement. The table inventories
 archive contents. The live routes establish which frames are drawn.
 **Exact portrait and combat matches** lists original frames whose pixels
 already resolve to global enhanced artwork through the browser's matchers.
-The inventory at `fa2e8c4` reports 807 source frames, with 431 linked
+The inventory at `f31182c` reports 807 source frames, with 431 linked
 directly, 22 covered through exact pixel matches, and 354 unlinked. The
 unlinked entries include 11 uniform frames and 7 with scoped reuse
-candidates. The full enhanced manifest has 5,584 validated replacement
-mappings, including environment and interface artwork.
+candidates. The full enhanced manifest has 5,666 validated replacement
+mappings, including environment and interface artwork. Multiple encounter
+branches can use the same source frame, so adding a branch-specific
+replacement can improve live coverage without changing the source-frame count.
 **Unlinked source frames** lists the individual unlinked PIC, SPRIT, and
 CPIC frames by archive, directory index, member, and frame. Each entry
 includes its 4× dimensions and links to the local source sheet. The JSON
