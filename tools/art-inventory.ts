@@ -253,7 +253,8 @@ const materialMasks = loadCombatMaterialMasks(artwork);
 const encounterScopeCoverage = encounterScopeFallbacks.map(observation => {
   const proposedKey = observation.key.replace(/:ecl:[a-f0-9]{4}:/, `:ecl:${observation.cursor.toString(16).padStart(4, "0")}:`);
   return { ...observation, proposedKey, linked: artwork.has(proposedKey) };
-});
+}).sort((a, b) => Number(a.linked) - Number(b.linked));
+const unboundEncounterScopes = new Set(encounterScopeCoverage.filter(({ linked }) => !linked).map(({ proposedKey }) => proposedKey));
 const portraitFallbackCoverage = observedPortraitFallbacks.map(fallback => {
   const { area, cursor, caller, sources } = fallback;
   const scopes = ["portrait:"];
@@ -698,7 +699,8 @@ ${portraitFallbackCoverage.map(({ area, cursor, caller, dialogue, sources, linke
   <td>${linkedCandidates.map(id => `<code>${escape(id)}</code>`).join("<br>") || "None"}</td><td>${escape(dialogue ?? "")}</td>
   <td>${escape(trace)} #${sequence}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
-${encounterScopeCoverage.length ? `<details><summary>Encounter scope gaps observed during play · ${encounterScopeCoverage.length}</summary>
+${encounterScopeCoverage.length ? `<details><summary>Encounter scope gaps · Unbound IDs (${unboundEncounterScopes.size}) · Observations (${encounterScopeCoverage.length})</summary>
+<p>Unbound IDs appear first. A binding added after a trace was recorded still needs a live replay to confirm placement.</p>
 <table class="coverage-table"><thead><tr><th>Existing artwork</th><th>Observed context</th><th>Placement</th><th>Linked now</th><th>Trace</th></tr></thead><tbody>
 ${encounterScopeCoverage.map(({ key, proposedKey, anchor: { x, y, width, height }, linked, trace }) =>
   `<tr><td><code>${escape(key)}</code></td><td><code>${escape(proposedKey)}</code></td>
