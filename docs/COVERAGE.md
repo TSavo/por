@@ -3677,3 +3677,9 @@ The `valjevo-tower-fire-giants-agree` replay uses the same slot B and
 checks the original Yes branch. It verifies the illustration of the
 giants reaching for their clubs and the next image as they turn on the
 party.
+
+After the bronze dragon falls in Valjevo Castle, Enhanced shows a
+dedicated illustration through Tyranthraxus's spirit dialogue. A Chrome
+replay from the controlled slot B checkpoint with boosted party HP
+verified the decoded illustration, clearance at the departure prompt,
+and preservation of guest state and save bytes across display switches.

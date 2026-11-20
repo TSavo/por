@@ -209,9 +209,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const arrivalPicture = area === 7 && battleCursor === 0x995f && portraitCaller === 0xa54b &&
         dialogue.includes("ANANCIENTBRONZEDRAGON,SURROUNDEDBYAFIERYAURA,RISES") && portraitKeys.includes(dragonArrival)
         ? dragonArrival : undefined;
-      const scriptKey = `scene-illustration:area:${area}:ecl:${battleCursor?.toString(16)}:caller:${portraitCaller?.toString(16)}`;
+      const scriptKey = `scene-illustration:area:${area}:ecl:${battleCursor?.toString(16)}${portraitCaller === undefined ? "" : `:caller:${portraitCaller.toString(16)}`}`;
       const scriptCue = scriptIllustrations.get(scriptKey);
-      const scriptPicture = scriptCue && dialogue.includes(scriptCue) && portraitKeys.includes(scriptKey) ? scriptKey : undefined;
+      const matchesScript = typeof scriptCue === "string" ? dialogue.includes(scriptCue) : scriptCue?.test(dialogue);
+      const scriptPicture = matchesScript && portraitKeys.includes(scriptKey) ? scriptKey : undefined;
       const picture = scene ? undefined : scriptPicture ?? arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
