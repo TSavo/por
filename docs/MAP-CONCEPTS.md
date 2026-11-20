@@ -125,3 +125,7 @@ and the player can advance to the original battle opening.
 `lizardfolk-battle-wall` checks the enhanced battlefield across four live
 combat turns, including the absence of the exploration viewports.
 
+
+The Valhingen Graveyard marker on the Moonsea travel map uses a folded
+parchment label. The `phlan-outskirts-north --map-destination` Chrome replay
+activates the marker with Enter and verifies arrival via the native north gate.

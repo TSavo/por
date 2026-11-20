@@ -61,9 +61,14 @@
     }
     #travel-map polygon[aria-disabled="false"]:is(:hover, :focus-visible) { fill: #ffda7721; }
     #travel-map .travel-marker[aria-disabled="true"] { opacity: .75; }
-    #travel-map .travel-marker rect { fill: #e9c995; stroke-width: 1; }
+    #travel-map .travel-marker-paper {
+      fill: url(#valhingen-parchment); stroke: #744725; stroke-width: 1;
+      filter: drop-shadow(0 1.5px 1px #281708aa);
+    }
+    #travel-map .travel-marker-fold { fill: #a66d37; stroke: none; }
+    #travel-map .travel-marker:is(:hover, :focus-visible)[aria-disabled="false"] .travel-marker-paper { stroke: #ffeb9f; }
     #travel-map .travel-marker text {
-      fill: #4c2720; stroke: none; font: bold 8px Georgia, serif; text-anchor: middle;
+      fill: #632a20; stroke: none; font: bold 8px Georgia, serif; text-anchor: middle;
     }
     #phlan-approaches {
       position: absolute; inset: 10%; z-index: 1; overflow: auto;
@@ -210,7 +215,15 @@
           <polygon data-destination="phlan" points="207,135 274,128 309,145 368,129 412,165 453,217 449,263 380,282 346,251 312,231 264,252 222,240 187,213" role="button" aria-label="Phlan destinations" aria-controls="phlan-approaches" aria-expanded="false"><title>Choose a Phlan destination</title></polygon>
           <g class="travel-marker" data-destination="graveyard" role="button" aria-label="Valhingen Graveyard">
             <title>Valhingen Graveyard via the north gate</title>
-            <rect x="167" y="103" width="69" height="23" rx="3" />
+            <defs>
+              <linearGradient id="valhingen-parchment" x1="0%" y1="0%" x2="22%" y2="100%">
+                <stop offset="0%" stop-color="#fff0b1" />
+                <stop offset="43%" stop-color="#f3cb83" />
+                <stop offset="100%" stop-color="#d19453" />
+              </linearGradient>
+            </defs>
+            <path class="travel-marker-paper" d="M168 106Q176 102 186 104Q201 99 216 103Q229 102 236 105L232 112L235 121Q229 126 215 125Q201 129 185 125Q175 128 167 123L171 115Z" />
+            <path class="travel-marker-fold" d="M168 106L176 105L171 115ZM235 121L228 121L232 112ZM167 123L177 124L171 115Z" />
             <text x="201.5" y="113">VALHINGEN</text>
             <text x="201.5" y="122">GRAVEYARD</text>
           </g>
