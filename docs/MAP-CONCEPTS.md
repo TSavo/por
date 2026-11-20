@@ -66,11 +66,26 @@ boundary, and stopped at the native drawbridge prompt. Accepting the
 entry and dismissing the anti-magic warning restored Enhanced WebGL
 exploration.
 
-Select **Phlan** on the Moonsea map to choose New Phlan, Kovel Mansion, the
-Temple of Bane, Podol Plaza, the Cadorna Textile House, or Valhingen Graveyard.
-The graveyard also has its own landmark. A named route selects the matching
-option at the original crossroads or ferry menu. **Entrances and ferry docks**
-contains routes that hand control back at those menus.
+Select **Phlan** on the Moonsea map to choose a district. A named route
+selects the matching option at the original crossroads or ferry menu.
+**Entrances and ferry docks** brings you to those menus for manual selection.
+
+| Destination | Original route |
+| --- | --- |
+| New Phlan | Return ferry or the boat at the eastern crossroads |
+| The Slums | New Phlan harbor and the western city gate |
+| Kovel Mansion | Northern city gate or the northern entrance at the eastern crossroads |
+| Temple of Bane | Southern entrance at the eastern crossroads |
+| Podol Plaza | Northern entrance at the western crossroads |
+| Kuto’s Well | Podol Plaza and its eastern road |
+| Stojanow Gate | Podol Plaza and its northern road |
+| Cadorna Textile House | Southern entrance at the western crossroads |
+| Valhingen Graveyard | Graveyard option at the northern city gate |
+
+Sorcerer’s Island takes the rowboat from the Barren River reeds and hands
+control back at the pyramid entrance. The standalone graveyard landmark
+uses the same route as the Phlan menu.
+
 Run the `phlan-outskirts-*` Chrome replays with `--map-destination` to check
 named arrivals or with `--map-travel` to check the approach menus.
 The `moonsea-sokal-free`, `moonsea-sokal-fare`, and `moonsea-sokal-decline`
@@ -79,4 +94,6 @@ fare prompt without spending any platinum.
 The `moonsea-valjevo-arrival` and `moonsea-valjevo-gate-warning` replays
 cover castle arrival through the secured gate and stopping at the defended
 gate's introduction.
+The `moonsea-stojanow`, `moonsea-kuto-well`, `moonsea-slums`, and
+`moonsea-pyramid` replays cover the city roads and the Barren River crossing.
 

@@ -24,6 +24,8 @@ const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"];
 const firstScans = [2, 16, 30, 44];
 const liveIdleBudget = 150_000_000;
 const overlandArrivalAreas = new Set([0, 2, 10, 14, 18, 24, 31]);
+const travelRoadAreas = new Set([0, 9, 18]);
+const travelRoadArrivals = new Map([[0, [20, 21]], [9, [6]], [18, [9, 29]]]);
 export interface PresentationAnimationFrame {
   frame: string;
   enhancedFrame: string;
@@ -242,10 +244,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const native = nativeDraw ?? (drawnPerspective?.localEcl === tileArea ? drawnPerspective : undefined);
         if (perspective && native?.native) {
           const { localEcl } = native;
-          const valjevoRoadArrival = activeEcl === localEcl && (area === 18 && localEcl === 9 || area === 9 && localEcl === 6);
           // The first destination view can precede the update to the party's area record.
           if (localEcl !== undefined && ((area === 26 || area === 27) && overlandArrivalAreas.has(localEcl) ||
-              area === 0 && localEcl === 21 && activeEcl === 21 || valjevoRoadArrival)) {
+              activeEcl === localEcl && travelRoadArrivals.get(area)?.includes(localEcl))) {
             const { x, y, facing } = native.native;
             arrivalPosition = { area: localEcl, x, y, facing };
           }
@@ -317,8 +318,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       const travelFrame = !scene && !battlefield && !leads && !attack;
-      const castleRoad = travelFrame && !dialogue && !encounter && menu === "AREACASTVIEWENCAMPSEARCHLOOK" &&
-        (activeEcl === 18 || activeEcl === 9) && nativeScenery?.mapId === activeEcl;
+      const harborRoadSign = activeEcl === 0 && (
+        dialogue === "YOUAREOUTSIDETHECITYHALL.THECITYCLERKWAITSINSIDETOAWARDCOMMISSIONS." ||
+        dialogue === "YOUAREBYTHEGATEWAYTOTHEUNSETTLEDAREAS.THECITYWATCHEYESYOUSUSPICIOUSLY.");
+      const districtRoad = travelFrame && (!dialogue || harborRoadSign) && !encounter && menu === "AREACASTVIEWENCAMPSEARCHLOOK" &&
+        travelRoadAreas.has(activeEcl) && nativeScenery?.mapId === activeEcl;
       const quay = activeEcl === 0 && nativeScenery?.mapId === 0 && nativeScenery.y === 1 &&
         nativeScenery.x >= 11 && nativeScenery.x <= 15 && menu === "AREACASTVIEWENCAMPSEARCHLOOK" && isQuayDialogue(dialogue)
         ? { x: nativeScenery.x, facing: nativeScenery.facing, ticket: harborTicket } : undefined;
@@ -340,10 +344,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         phlanArrival: travelFrame ? phlanArrival : undefined,
         sokalPrompt: travelFrame ? sokalPrompt : undefined,
         sokalQuay: travelFrame ? quay : undefined,
-        castleRoad: castleRoad || undefined,
+        districtRoad: districtRoad || undefined,
         travelPolling: nonblockingPoll && !menu && travelFrame && (
           picture === undefined && (
-            (overlandScript || activeEcl === 18 || activeEcl === 9 || activeEcl === 6) && !dialogue ||
+            (overlandScript || travelRoadAreas.has(activeEcl) || activeEcl === 6 || activeEcl === 20 || activeEcl === 29) && !dialogue ||
             identifyPhlanPrompt(dialogue) !== undefined) ||
           isSokalBoatHandoff(dialogue, activeEcl, harborTicket)) || undefined,
         nativeScenery,

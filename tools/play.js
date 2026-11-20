@@ -475,36 +475,40 @@ function ferryStep(route) {
   return "up";
 }
 
-// Native roads from Podol's west entrance through Stojanow's north exit.
-const castleRoadWaypoints = {
-  18: [[4, 4], [4, 0]],
-  9: [[4, 11], [7, 11], [7, 4], [4, 4], [4, 0]],
+const podolWestEntrance = "18,0,4,6";
+const roadToStojanow = { entry: podolWestEntrance, waypoints: [[4, 4], [4, 0]], exitFacing: 0 };
+const districtRoads = {
+  stojanow: [roadToStojanow],
+  valjevo: [roadToStojanow, { entry: "9,4,15,0", waypoints: [[4, 11], [7, 11], [7, 4], [4, 4], [4, 0]], exitFacing: 0 }],
+  kutoWell: [{ entry: podolWestEntrance,
+    waypoints: [[2, 4], [2, 3], [8, 3], [8, 2], [13, 2], [13, 3], [14, 3], [14, 4], [15, 4]], exitFacing: 2 }],
+  slums: [{ entry: "0,15,1,6", waypoints: [[11, 1], [11, 2], [10, 2], [10, 3], [3, 3], [3, 4], [0, 4]], exitFacing: 6 }],
 };
 
-function castleStep(route) {
-  if (!state.castleRoad || !state.scenery) return;
+function districtStep(route) {
+  if (!state.districtRoad || !state.scenery) return;
   const { mapId, x, y, facing } = state.scenery;
-  if (route.castlePose !== `${mapId},${x},${y},${facing}`) return;
-  const waypoints = castleRoadWaypoints[mapId];
-  let [targetX, targetY] = waypoints[route.waypoint];
-  if (x === targetX && y === targetY) {
+  if (route.roadPose !== `${mapId},${x},${y},${facing}`) return;
+  const legs = districtRoads[route.destination];
+  const { waypoints, exitFacing } = legs[route.leg];
+  const target = waypoints[route.waypoint];
+  if (target && target[0] === x && target[1] === y) {
     route.waypoint++;
-    if (route.waypoint === waypoints.length) {
-      route.castlePose = mapId === 18 ? "9,4,15,0" : undefined;
-      route.waypoint = 0;
-      route.handoffBudget = 3;
-      return "up";
-    }
-    [targetX, targetY] = waypoints[route.waypoint];
   }
+  const [targetX, targetY] = waypoints[route.waypoint] ?? [x, y];
   const dx = Math.sign(targetX - x), dy = Math.sign(targetY - y);
-  const direction = dx ? (dx > 0 ? 2 : 6) : (dy > 0 ? 4 : 0);
+  const direction = dx ? (dx > 0 ? 2 : 6) : dy ? (dy > 0 ? 4 : 0) : exitFacing;
   if (facing !== direction) {
     const turn = turnToward(facing, direction);
-    route.castlePose = `${mapId},${x},${y},${(facing + turn + 8) % 8}`;
+    route.roadPose = `${mapId},${x},${y},${(facing + turn + 8) % 8}`;
     return turn === 2 ? "right" : "left";
   }
-  route.castlePose = `${mapId},${x + dx},${y + dy},${facing}`;
+  if (route.waypoint === waypoints.length) {
+    route.leg++;
+    route.roadPose = legs[route.leg]?.entry;
+    route.waypoint = 0;
+    route.handoffBudget = 3;
+  } else route.roadPose = `${mapId},${x + dx},${y + dy},${facing}`;
   return "up";
 }
 
@@ -512,15 +516,17 @@ function overlandStep(route) {
   const { travel } = state;
   const next = travel?.routes[route.destination];
   const here = travel && `${travel.x},${travel.y},${travel.sector}`;
-  if (route.arrivalSent && route.arrival && route.arrival.approach === state.phlanArrival) {
+  if (route.arrival && route.arrival.approach === state.phlanArrival) {
     const { key } = route.arrival;
     route.arrival = undefined;
+    route.arrivalSent = true;
     route.handoffBudget = 3;
     if (route.destination === "sokal") {
       route.ferry = "quay";
       route.quayPose = "15,6";
-    } else if (route.destination === "valjevo") {
-      route.castlePose = "18,0,4,6";
+    } else if (districtRoads[route.destination]) {
+      route.roadPose = districtRoads[route.destination][0].entry;
+      route.leg = 0;
       route.waypoint = 0;
     }
     return key;
@@ -543,7 +549,7 @@ function travelStep(route) {
     return ":travel-poll";
   }
   if (route.ferry) return ferryStep(route);
-  if (route.castlePose) return castleStep(route);
+  if (route.roadPose) return districtStep(route);
   return overlandStep(route);
 }
 

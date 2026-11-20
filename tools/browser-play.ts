@@ -133,7 +133,7 @@ interface FrameState extends ExplorationFrame {
   phlanArrival?: PhlanApproach;
   sokalPrompt?: SokalPrompt;
   sokalQuay?: SokalQuay;
-  castleRoad?: boolean;
+  districtRoad?: boolean;
   travel?: Pick<TravelState, "x" | "y" | "sector"> & { routes: ReturnType<typeof planTravel> };
   frame?: string;
   enhancedFrame?: string;

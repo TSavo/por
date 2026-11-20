@@ -18,10 +18,12 @@ type Step = Position & { key: string; arrival?: { approach: PhlanApproach; key: 
 export function captureOverlandTravel(cpu: Cpu, segment: number, offset: number): TravelState | undefined {
   const sector = cpu.read8(0x740, 0x495b) - 2;
   if (!sectors[sector] || !segment) return;
+  const global = (address: number) => cpu.read16(segment, offset + 0x6e00 + address * 2);
+  // Wilderness encounter interiors reuse the world ECL and its menu.
+  if (global(0x4a9e) === 255) return;
   const x = cpu.read16(segment, offset + 0x186) + sectors[sector].offset;
   const y = cpu.read16(segment, offset + 0x188);
   if (x < 2 || x >= width - 2 || y < 2 || y >= height) return;
-  const global = (address: number) => cpu.read16(segment, offset + 0x6e00 + address * 2);
   return { x, y, sector, nomads: global(0x4a0f) === 0,
     buccaneers: global(0x4a8c) === 255 && global(0x4aa9) === 0,
     zhentil: global(0x4a98) === 255 && global(0x4ab4) < 253, riverCleared: global(0x4ab3) >= 254 };
@@ -33,17 +35,22 @@ const northGate = [[25, 26], [26, 26]] as const;
 const eastApproach = [[26, 27]] as const;
 const westApproach = [[24, 28]] as const;
 const docks = [[20, 29], [35, 29]] as const;
-const approaches = { northGate, eastApproach, westApproach, docks };
+const rowboat = [[19, 14]] as const;
+const approaches = { northGate, eastApproach, westApproach, docks, rowboat };
 export type PhlanApproach = keyof typeof approaches;
 const phlanDestinations: Record<string, Partial<Record<PhlanApproach, string>>> = {
   graveyard: { northGate: "g" },
   kovelMansion: { eastApproach: "n", northGate: "c" },
   templeOfBane: { eastApproach: "s" },
   podolPlaza: { westApproach: "n" },
+  stojanow: { westApproach: "n" },
+  kutoWell: { westApproach: "n" },
   valjevo: { westApproach: "n" },
   textileHouse: { westApproach: "s" },
   newPhlan: { docks: "t", eastApproach: "b" },
+  slums: { docks: "t", eastApproach: "b" },
   sokal: { docks: "t", eastApproach: "b" },
+  island: { rowboat: "y" },
 };
 const approachIds = Object.keys(approaches) as PhlanApproach[];
 const phlanPrompts: Record<PhlanApproach, { menu: string; dialogue: RegExp }> = {
@@ -51,6 +58,7 @@ const phlanPrompts: Record<PhlanApproach, { menu: string; dialogue: RegExp }> = 
   eastApproach: { menu: "NORTHSOUTHBOATLEAVE", dialogue: /^YOUAREONTHEEASTERNEDGEOFTHECITY\./ },
   westApproach: { menu: "NORTHSOUTHLEAVE", dialogue: /^YOUAREONTHEWESTERNEDGEOFTHECITY\./ },
   docks: { menu: "TAKEBOATSTAY", dialogue: /^THEREISA(?:BOATHERETHATWILLTAKEYOUBACK|BOATDOCKEDHERETHATWILLRETURNYOU)/ },
+  rowboat: { menu: "YESNO", dialogue: /^YOUHAVEFOUNDAROWBOATHIDDENAMOUNGSTTHEREEDS\./ },
 };
 
 export function identifyPhlanPrompt(dialogue: string, menu?: string): PhlanApproach | undefined {
@@ -83,12 +91,19 @@ export function isSokalBoatHandoff(dialogue: string, ecl: number, ticket: SokalQ
 
 const landmarks: Record<string, readonly Coordinate[]> = {
   diogenes: [[10, 9]], buccaneers: [[12, 31]], zhentil: [[3, 32]], nomads: [[25, 11]],
-  island: [[19, 14], [19, 16]], kobolds: [[32, 15]], lizardmen: [[37, 8]],
+  kobolds: [[32, 15]], lizardmen: [[37, 8]],
   phlan: [...northGate, ...eastApproach, ...westApproach, ...docks],
   ...approaches,
   ...Object.fromEntries(Object.entries(phlanDestinations).map(([destination, choices]) =>
     [destination, approachIds.filter(approach => choices[approach]).flatMap<Coordinate>(approach => approaches[approach])])),
+  island: [...rowboat, [19, 16]],
 };
+
+function arrivalAt(id: string, { x, y }: Position): Step["arrival"] {
+  const approach = approachIds.find(name => approaches[name].some(([atX, atY]) => atX === x && atY === y));
+  const key = approach && phlanDestinations[id]?.[approach];
+  return approach && key ? { approach, key } : undefined;
+}
 
 const directions = [[0, -1, "up"], [1, 0, "right"], [0, 1, "down"], [-1, 0, "left"]] as const;
 const cell = (x: number, y: number) => y * width + x;
@@ -148,15 +163,14 @@ export function loadOverlandTravel(root: string) {
       if (id === "nomads" && !start.nomads || id === "buccaneers" && !start.buccaneers || id === "zhentil" && !start.zhentil) continue;
       const targets = new Set(positions.map(([x, y]) => cell(x, y)));
       if (targets.has(cell(start.x, start.y))) {
-        const approach = approachIds.find(name => approaches[name].some(([x, y]) => x === start.x && y === start.y));
-        const key = approach && phlanDestinations[id]?.[approach];
-        const arrival = approach && key ? { approach, key } : undefined;
+        const arrival = arrivalAt(id, start);
         routes[id] = { x: start.x, y: start.y, sector: start.sector, key: "enter", arrival };
         continue;
       }
       for (const [position, step] of arrivals) {
         if (!targets.has(position)) continue;
-        routes[id] = step;
+        const arrival = targets.has(cell(step.x, step.y)) ? arrivalAt(id, step) : undefined;
+        routes[id] = arrival ? { ...step, arrival } : step;
         break;
       }
     }
