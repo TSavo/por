@@ -578,6 +578,13 @@ const illustrationRoutes = new Map([
     journalLead: "swamp-friend-word-charge", journalLeadAtDiscovery: true,
     continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i, clearsPortrait: true },
   }],
+  ["valjevo-altar-crossed-swords", {
+    slot: "B", inputs: ["up", "n"],
+    portraitStops: { 1: null },
+    portrait: "scene-illustration:area:6:ecl:9ae6:caller:a855",
+    prompt: /BEHINDTHEALTERARETWOCROSSEDSWORDS.*DOYOUTAKETHEM/i,
+    continuation: { inputs: ["y"], prompt: /EACHCHARACTERRECEIVES400EXPERIENCEPOINTS/i, clearsPortrait: true },
+  }],
   ["valjevo-disguise-offer", {
     slot: "B", inputs: ["up", "enter", "n"],
     portraitStops: {
