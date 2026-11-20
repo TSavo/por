@@ -4337,6 +4337,8 @@
     "encounter:area:9:SPRIT2.DAX:63:2:0": "stojanow-bugbear-approach-far.png",
     "portrait:HEAD2.DAX:5:BODY2.DAX:9": "stojanow-wagon-trader-portrait.png",
     "combat:area:9:CPIC2.DAX:191": "stojanow-bugbear-strike.png",
+    "combat:area:20:CPIC2.DAX:63:ecl:b216": "slums-roaming-bugbear-ready.png",
+    "combat:area:20:CPIC2.DAX:191:ecl:b216": "slums-roaming-bugbear-strike.png",
     "combat:area:9:CPIC2.DAX:63": "stojanow-bugbear-combat.png",
     "portrait:HEAD3.DAX:42:BODY3.DAX:9": "new-phlan-armorer-portrait.png",
     "tile:9:067e5b585dd24bcac143834da985ebebbcc25446db06ae546aeffaec0d2b9711": "stojanow-gate-terrain-067e5b585dd2.png",
