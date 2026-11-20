@@ -6268,12 +6268,16 @@ try {
     await switchBothWays();
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "ohlo-booth"));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "ohlo-package-received"));
     await advance("j");
     for (const key of ["s", "o", "h", "l", "o", "enter"]) await advance(key);
     const text = frame.text.toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join("");
     assert.match(text, /RETURNSWITHAPACKAGE/i);
     assert.notEqual(frame.portrait, merchant);
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "ohlo-package-received"));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "ohlo-delivered"));
     console.log("Verified the Slums potion booth portrait and package dialogue in Chrome.");
   } else if (routeName === "slums-fortune") {
     const portrait = "portrait:HEAD2.DAX:25:BODY2.DAX:13";

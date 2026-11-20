@@ -1668,6 +1668,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "ohlo-booth", title: "The Rope Guild booth",
       detail: "The man in the booth says he has nothing to sell." });
   }
+  if (text.includes("HE HURRIES TO THE BACK OF THE BOOTH AND RETURNS WITH A PACKAGE")) {
+    leads.push({ id: "ohlo-package-received", title: "The Rope Guild package",
+      detail: "The booth merchant gave the party a package after hearing Ohlo's name. Bring it back to Ohlo." });
+  }
   if (text.includes("SUMMON ME ONLY WHEN A VAMPIRE IS NEAR")) {
     leads.push({ id: "bottle-recovered", title: "The bottle's warning", detail: "Samir warned the party to summon him in the presence of a vampire, then returned to the bottle." });
   }
