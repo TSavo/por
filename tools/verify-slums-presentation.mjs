@@ -547,6 +547,18 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["stojanow-wagon-final-offer", {
+    slot: "B", inputs: ["up", "enter", "enter", "p", "n"],
+    portrait: "portrait:area:9:ecl:aeef:HEAD2.DAX:5:BODY2.DAX:9",
+    prompt: /MYFINALOFFER/i,
+    continuation: { inputs: ["l"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
+  ["stojanow-wagon-handover", {
+    slot: "B", inputs: ["up", "enter", "enter", "p", "n", "t"],
+    portrait: "portrait:area:9:ecl:9c63:HEAD2.DAX:5:BODY2.DAX:9",
+    prompt: /PLEASUREDOINGBUSINESSWITHYOU/i,
+    continuation: { inputs: ["enter"], prompt: /BUGBEARSHAVEBEENSTUCKGUARDINGTHEGATE/i },
+  }],
   ["zhentil-dwarf-charge", {
     slot: "A", inputs: ["up", "enter"],
     requireTiledApproach: false,

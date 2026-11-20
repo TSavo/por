@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:9:ecl:aeef:HEAD2.DAX:5:BODY2.DAX:9": "stojanow-wagon-final-offer.png",
+    "portrait:area:9:ecl:9c63:HEAD2.DAX:5:BODY2.DAX:9": "stojanow-wagon-handover.png",
     "combat:area:3:CPIC5.DAX:11:ecl:a1e5": "valjevo-inner-armed-guard-ready.png",
     "combat:area:3:CPIC5.DAX:139:ecl:a1e5": "valjevo-inner-armed-guard-strike.png",
     "combat:area:3:CPIC5.DAX:55:ecl:a44a": "valjevo-apartment-hill-giant-ready.png",
