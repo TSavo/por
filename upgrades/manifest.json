@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:17:ecl:9da2:caller:b2c4:HEAD7.DAX:74:BODY7.DAX:30": "nomad-chief-dismissal-reward.png",
     "combat:area:3:CPIC5.DAX:55:ecl:ad5f": "valjevo-barracks-hill-giant-ready.png",
     "combat:area:3:CPIC5.DAX:183:ecl:ad5f": "valjevo-barracks-hill-giant-strike.png",
     "portrait:area:7:ecl:995f:caller:a2df:HEAD5.DAX:59:BODY5.DAX:31": "valjevo-genheeris-deal.png",
