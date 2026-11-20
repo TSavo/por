@@ -6248,6 +6248,17 @@ try {
           assert.ok(!frame.journal.leads.some(({ id }) => id === "gate-bugbear-lookouts"));
           await advance("j");
         }
+        if (routeName === "yarash-alchemical-laboratory" && index === 5) {
+          const text = frame.text.toSorted(([a], [b]) => a - b)
+            .map(([, character]) => String.fromCharCode(character)).join("");
+          assert.match(text, /ASSORTMENTOFTORTUREINSTR?UMENTS.*ALARGETABLEWITHMETALRESTRAINTS/i);
+          const images = await Promise.all([interimPortrait, portrait].map(async id => {
+            const response = await fetch(`${origin}/art/${id}`);
+            assert.ok(response.ok);
+            return Buffer.from(await response.arrayBuffer());
+          }));
+          assert.notDeepEqual(images[0], images[1], "The torture chamber and alchemy shelves need distinct illustrations");
+        }
         if (routeName === "valhingen-vampire-trove" && interimPortrait === null) {
           await advance("j");
           assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead));
