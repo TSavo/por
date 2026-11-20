@@ -5466,12 +5466,25 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
   } else if (routeName === "nomad-feast-decline") {
     const knows = id => frame.journal.leads.some(lead => lead.id === id);
-    for (const key of ["up", ...Array(4).fill("enter"), "p", "enter", "enter", "j"]) await advance(key);
+    const dismissal = "portrait:area:17:ecl:9d74:caller:a4fa:HEAD7.DAX:74:BODY7.DAX:30";
+    for (const key of ["up", ...Array(4).fill("enter"), "p", "enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:area:17:ecl:9d74:caller:a4aa:HEAD7.DAX:74:BODY7.DAX:30");
+    await advance("j");
     assert.ok(knows("nomad-feast-invitation") && !knows("nomad-feast-declined"));
-    for (const key of ["j", "n", "j"]) await advance(key);
+    for (const key of ["j", "n"]) await advance(key);
+    assert.equal(frame.portrait, dismissal);
+    await waitFor("the Nomad headman's dismissal", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${dismissal}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait[src="/art/${dismissal}"]')?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    const dismissalShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "nomad-headman-feast-declined.png"), Buffer.from(dismissalShot.data, "base64"));
+    await switchBothWays();
+    await advance("j");
     assert.ok(knows("nomad-feast-declined") && !knows("nomad-feast-attended") && !knows("nomad-headman-talk"));
     assert.match(frame.journal.leads.find(({ id }) => id === "nomad-feast-declined").detail, /asked it to leave/i);
-    await switchBothWays();
+    for (const key of ["j", "y"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified that declining the Nomad feast records only the witnessed outcome in Chrome.");
   } else if (routeName === "nomad-headman" || routeName === "nomad-headman-stay") {
