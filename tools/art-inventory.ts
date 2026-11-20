@@ -10,7 +10,7 @@ import { encounterAnchor, encounterKey } from "./encounter-art.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng, pngDimensions } from "./png.js";
 import { loadCombatMaterialMasks, loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
-import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, portraitKey, scriptIllustrations } from "./portrait-art.js";
+import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, matchScriptIllustration, portraitKey, scriptIllustrations } from "./portrait-art.js";
 import { combatEffectKey, transformCombatEffectPixels, combatSelectionKey, isCombatExtent, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
 const families = [
@@ -259,23 +259,30 @@ const encounterScopeCoverage = encounterScopeFallbacks.map(observation => {
   return { ...observation, proposedKey, linked: configured !== undefined, placementMatches };
 }).sort((a, b) => Number(a.placementMatches) - Number(b.placementMatches));
 const unresolvedEncounterScopes = new Set(encounterScopeCoverage.filter(({ placementMatches }) => !placementMatches).map(({ proposedKey }) => proposedKey));
+const installedIllustrations = [...artwork.keys()].filter(id => scriptIllustrations.has(id));
 const portraitFallbackCoverage = observedPortraitFallbacks.map(fallback => {
-  const { area, cursor, caller, sources } = fallback;
+  const { area, cursor, caller, dialogue, sources } = fallback;
   const scopes = ["portrait:"];
+  let scriptCandidate: string | undefined;
   if (area !== undefined) {
     scopes.push(`portrait:area:${area}:`);
     if (cursor !== undefined) {
-      const scope = `portrait:area:${area}:ecl:${cursor.toString(16).padStart(4, "0")}:`;
-      scopes.push(scope);
-      if (caller !== undefined) scopes.push(scope + `caller:${caller.toString(16).padStart(4, "0")}:`);
+      const scope = `area:${area}:ecl:${cursor.toString(16).padStart(4, "0")}`;
+      const context = caller === undefined ? scope : `${scope}:caller:${caller.toString(16).padStart(4, "0")}`;
+      scopes.push(`portrait:${scope}:`);
+      if (caller !== undefined) scopes.push(`portrait:${context}:`);
+      if (dialogue) scriptCandidate = matchScriptIllustration(`scene-illustration:${context}`,
+        dialogue.replace(/\s/g, "").toUpperCase(), installedIllustrations);
     }
   }
   const linkedCandidates = [...new Set(sources.flatMap(source => scopes.flatMap(scope => {
     const id = scope + source.slice("portrait:".length);
     return artwork.has(id) ? [id] : [];
   })))];
+  if (scriptCandidate) linkedCandidates.unshift(scriptCandidate);
   return { ...fallback, linkedCandidates };
-});
+}).sort((a, b) => Number(a.linkedCandidates.length > 0) - Number(b.linkedCandidates.length > 0));
+const portraitFallbacksWithoutCandidates = portraitFallbackCoverage.filter(({ linkedCandidates }) => !linkedCandidates.length).length;
 const portraitMatchIssues: { id: string; reason: string }[] = [];
 const matchPortrait = loadPortraitArt([...artwork.keys()].filter(id => portraitKey.test(id)), false, gameData, (id, reason) => {
   portraitMatchIssues.push({ id, reason });
@@ -722,7 +729,8 @@ ${capturedTiles.size ? `<p>Captured exploration patterns: ${explorationTotals.ma
 ${battlefieldCaptured ? `<p>Captured battlefield patterns: ${battlefieldTotals.matched} of ${battlefieldCaptured} replaced, ${battlefieldGaps} unmatched.</p>` : ""}
 ${nativeBattlefieldTotals.captured ? `<p>Native battlefield draws: ${nativeBattlefieldTotals.matched} of ${nativeBattlefieldTotals.captured} replaced, ${nativeBattlefieldTotals.captured - nativeBattlefieldTotals.matched} unmatched.</p>` : ""}
 <p>Captured patterns can include composited sprites and transition frames.</p>` : ""}
-${observedPortraitFallbacks.length ? `<details><summary>Portrait fallbacks observed during play · ${observedPortraitFallbacks.length}</summary>
+${observedPortraitFallbacks.length ? `<details><summary>Observed portrait fallbacks · ${portraitFallbacksWithoutCandidates} without a current candidate · ${observedPortraitFallbacks.length} observations</summary>
+<p>Current candidates include dialogue-matched illustrations. Replay a scene to verify that the replacement appears in game.</p>
 <table class="coverage-table"><thead><tr><th>Area</th><th>ECL cursor</th><th>Caller</th><th>Source candidates</th><th>Linked candidates now</th><th>Dialogue</th><th>Trace frame</th></tr></thead><tbody>
 ${portraitFallbackCoverage.map(({ area, cursor, caller, dialogue, sources, linkedCandidates, sequence, trace }) =>
   `<tr><td>${area ?? "Unknown"}</td><td>${cursor?.toString(16).padStart(4, "0") ?? "—"}</td><td>${caller?.toString(16).padStart(4, "0") ?? "—"}</td>
