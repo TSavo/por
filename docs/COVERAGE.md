@@ -3585,3 +3585,6 @@ Kuto's roaming lizardfolk use a dedicated 352×352 ruins illustration
 at four script positions. Chrome exercised the approach, Advance and
 surprise dialogue, and mode switching using controlled native encounter
 rolls. The separate giant-lizard escort has its own area portrait.
+The armed kobold watch uses its own 352×352 illustration in those same
+four roaming branches. Chrome verified its approach and dialogue in
+both display modes. The sickly kobold scouts have a separate portrait.
