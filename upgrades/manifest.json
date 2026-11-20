@@ -1413,6 +1413,8 @@
     "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0": "kobold-cave-sleeping-guide.png",
     "combat:area:20:CPIC2.DAX:132:ecl:a0b4": "slums-mage-orc-strike.png",
     "portrait:area:13:ecl:b511:caller:a7cd:HEAD8.DAX:67:BODY8.DAX:37": "kobold-princess-fatima-first-meeting.png",
+    "scene-illustration:area:13:ecl:a81b": "kobold-princess-fatima-offer-to-join.png",
+    "scene-illustration:area:13:ecl:a838": "kobold-princess-fatima-offer-to-join.png",
     "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0": "podal-auction-tackled-ogre.png",
     "combat:area:10:CPIC4.DAX:70:ecl:b162": "kobold-cave-efreeti-stand.png",
     "combat:area:10:CPIC4.DAX:198:ecl:b162": "kobold-cave-efreeti-strike.png",

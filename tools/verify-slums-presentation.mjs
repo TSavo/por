@@ -6371,10 +6371,22 @@ try {
     await switchBothWays();
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "kobold-fatima-account"));
-    for (const key of ["j", "enter", "y"]) await advance(key);
-    assert.notEqual(frame.portrait, fatima);
+    for (const key of ["j", "enter"]) await advance(key);
+    const offer = "scene-illustration:area:13:ecl:a838";
+    assert.equal(frame.portrait, offer);
+    await waitFor("Fatima's offer to join", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${offer}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait[src="/art/${offer}"]')?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    const offerShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "fatima-offers-to-join.png"), Buffer.from(offerShot.data, "base64"));
+    await switchBothWays(frame.frame);
+    await advance("y");
+    assert.equal(frame.portrait, undefined);
+    await waitFor("Fatima's offer to clear", () => run(`state.sequence === ${frame.sequence} &&
+      !document.querySelector(".encounter-portrait")`));
     assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /PRINCESSFATIMA/i);
-    console.log("Verified Princess Fatima's portrait, journal account, and recruitment in Chrome.");
+    console.log("Verified Princess Fatima's portrait, journal account, and illustrated recruitment in Chrome. Capture:", directory);
   } else if (mendorStacks) {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     await advance("j");
