@@ -575,6 +575,10 @@ const illustrationRoutes = new Map([
   }],
   ["valjevo-disguise-offer", {
     slot: "B", inputs: ["up", "enter", "n"],
+    portraitStops: {
+      1: "scene-illustration:area:6:ecl:9b14:caller:9ce3",
+      2: "scene-illustration:area:6:ecl:9d68",
+    },
     portrait: "scene-illustration:area:6:ecl:9b14:caller:9996",
     prompt: /USETHESECLOTHESASADISGUISEANDYOUWILLESCAPENOTICE/i,
     journalLead: "castle-disguise", journalLeadAtDiscovery: true,

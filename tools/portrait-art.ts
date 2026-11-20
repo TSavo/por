@@ -49,6 +49,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:2:ecl:b0be", "YOUAREBLINDFOLDEDANDTAKENONALONG"],
   ["scene-illustration:area:2:ecl:b116:caller:af40", "PERHAPSWESHALLMEETAGAIN"],
   ["scene-illustration:area:2:ecl:af4b", "PERHAPSWESHALLMEETAGAIN"],
+  ["scene-illustration:area:6:ecl:9b14:caller:9ce3", "YOUENTERABUILDINGWHEREWOMENAREWASHINGCLOTHES"],
+  ["scene-illustration:area:6:ecl:9d68", "WOMANSTEPSFORWARD"],
   ["scene-illustration:area:6:ecl:9b14:caller:9996", "USETHESECLOTHESASADISGUISE"],
   ["scene-illustration:area:6:ecl:9ae6:caller:99bb", "WILLYOUUSETHECLOTHINGASADISGUISE"],
   ["scene-illustration:area:6:ecl:a226", "ICAN'TTAKEANYMOREORDERSJUSTNOW"],
