@@ -3746,3 +3746,8 @@ Shield combinations with flail, bearded axe, war pick and hammer retain
 Enhanced artwork when recolored in both default sizes. Chrome verified
 both poses and the Body, Hair and Shield changes in all eight editor
 configurations.
+
+Ferran's farewell at Sokal Keep uses a dedicated portrait while he fades.
+The `sokal-ferran-farewell` Chrome route uses a local slot F checkpoint,
+keeps the existing portrait during the parley, and verifies the new art,
+clearance on Continue, and state preservation across display switches.

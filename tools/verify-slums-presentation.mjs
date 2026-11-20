@@ -547,6 +547,12 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["sokal-ferran-farewell", {
+    slot: "F", inputs: ["up", "enter", "p", "n", "l", "u", "x", "enter", "t", "enter", "enter"],
+    portraitStops: { 10: "portrait:PIC4.DAX:19:0:0" },
+    portrait: "portrait:area:21:ecl:ae31:caller:ad9e:PIC4.DAX:19:0:0", prompt: /FERRANFADESAWAY/i,
+    continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["tyrmor-corpse-without-search", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:22:ecl:9a06:caller:9f51",
@@ -3550,7 +3556,7 @@ const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneR
 const saveSlot = routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || koboldKingDoor || koboldKingFall || koboldReturn ||
     ["stojanow-wall-warning-reload", "kovel-chase-east-reload"].includes(routeName) ? "B" : slot;
-const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[saveSlot];
+const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", F: "2166", H: "2368", I: "1769", J: "246a" }[saveSlot];
 const saved = resolve(directory, saveSlot + ".json");
 const battleTrace = process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
