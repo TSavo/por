@@ -6561,7 +6561,18 @@ try {
   } else if (restalGuide) {
     const restal = "portrait:HEAD4.DAX:52:BODY4.DAX:8";
     const knowsOffer = () => frame.journal?.leads.some(({ id }) => id === "textile-restal-offer");
-    for (const key of ["up", "c", ...Array(5).fill("end"), ...Array(3).fill("enter")]) await advance(key);
+    await advance("up");
+    assert.equal(frame.portrait, "scene-illustration:area:2:ecl:ac61");
+    await waitFor("the Thieves Only well illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352 &&
+      document.querySelector(".encounter-portrait")?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    const wellShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "textile-thieves-well.png"), Buffer.from(wellShot.data, "base64"));
+    await switchBothWays();
+    await advance("c");
+    assert.equal(frame.portrait, undefined);
+    for (const key of [...Array(5).fill("end"), ...Array(3).fill("enter")]) await advance(key);
     assert.equal(frame.portrait, restal);
     await waitFor("Restal's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
