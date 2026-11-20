@@ -3807,3 +3807,8 @@ The spiky and bald Small heads now retain Enhanced color changes for both
 poses of all 32 weapon choices. Chrome verified representative editor
 choices and the recolored shield and crossbow in separate controlled
 combat replays. The bald head's native Hair control leaves it unchanged.
+
+The `bivant-reward` Chrome replay keeps the rescue commission pending
+while the party claims the reward items, then saves the turn-in to slot A.
+The `bivant-reward-reload` replay opens that save and checks the completed
+commission and display switching.
