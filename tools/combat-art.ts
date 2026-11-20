@@ -14,8 +14,10 @@ export function combatHighlightPixel(x: number, y: number): number {
 
 export const monsterCombatKey = /^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX):(\d{1,3})(?::ecl:([a-f0-9]{4}))?$/;
 export const partyCombatKey = /^combat:party:(\d{1,3}):(\d{1,3})(?::palette:(0[1-9a-f]{15}))?$/;
+export const partyRecolorKey = /^(combat:party:\d{1,3}:\d{1,3}):palette:0[0-9a-f]{15}$/;
 export const randomCombatKey = /^combat:(RANDCOM\.DAX):(1):(0):([0-5])$/;
 const fallenCombatKey = "combat:RANDCOM.DAX:1:0:5";
+const partyMaterialIndices = new Set([1, 2, 3, 4, 6, 7, 9, 10, 11, 12, 14, 15]);
 
 export function randomCombatPixels(data: Uint8Array, frame: number) {
   if (!isPicture(data)) return;
@@ -30,7 +32,8 @@ export function partyCombatPart(data: Uint8Array, height: 10 | 24) {
       picture.itemCount === 1) return picture.pixels;
 }
 
-export function loadCombatArtMatcher(keys: string[], root = keys.length ? findGameRoot() : null) {
+export function loadCombatArtMatcher(keys: string[], root = keys.length ? findGameRoot() : null,
+  materialKeys: ReadonlySet<string> = new Set()) {
   const scopes = new Map<string, string[]>();
   const global = keys.filter(key => {
     const [, area, , , cursor] = monsterCombatKey.exec(key) ?? [];
@@ -41,7 +44,7 @@ export function loadCombatArtMatcher(keys: string[], root = keys.length ? findGa
     scopes.set(id, scoped);
     return false;
   });
-  const fallback = buildCombatArtMatcher(global, root);
+  const fallback = buildCombatArtMatcher(global, root, materialKeys);
   const matchers = new Map<string, ReturnType<typeof buildCombatArtMatcher>>();
   return (frame: Frame, enhanced?: Frame, area?: number, cursor?: number, underlay?: Frame, iconEditor = false): CombatArtPlacement[] => {
     if (area === undefined || iconEditor) return fallback(frame, enhanced, underlay, iconEditor);
@@ -58,29 +61,32 @@ export function loadCombatArtMatcher(keys: string[], root = keys.length ? findGa
         const monster = monsterCombatKey.exec(key);
         sources.set(monster ? `${monster[2]}:${monster[3]}` : key, key);
       }
-      matcher = buildCombatArtMatcher([...sources.values()], root);
+      matcher = buildCombatArtMatcher([...sources.values()], root, materialKeys);
       matchers.set(scope, matcher);
     }
     return matcher(frame, enhanced, underlay);
   };
 }
 
-function buildCombatArtMatcher(keys: string[], root: string | null) {
+function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys: ReadonlySet<string>) {
   type Pose = {
     key: string; pattern: string; scoped: boolean; reflected: boolean; pixels: Uint8Array;
     width: number; foregroundProbe: number; party: boolean;
   };
   const registered: Pose[] = [];
+  const palettePoses: Pose[] = [];
   const sizes = new Map<string, { width: number; height: number }>();
   const register = (pixels: Uint8Array, key: string, reflected: boolean, width: number) => {
     const pattern = `${width}:${Buffer.from(pixels).toString("hex")}`;
     const chromatic = pixels.findIndex(color => color !== 0 && color !== 7 && color !== 8 && color !== 15);
     // A foreground color absent from grayscale terrain rejects empty windows early.
     const foregroundProbe = chromatic >= 0 ? chromatic : pixels.findIndex(Boolean);
-    registered.push({
+    const pose = {
       key, pattern, scoped: key.startsWith("combat:area:"), reflected, pixels, width,
       foregroundProbe, party: partyCombatKey.test(key),
-    });
+    };
+    registered.push(pose);
+    if (materialKeys.has(key)) palettePoses.push(pose);
   };
   const matchesProbe = (cell: Uint8Array, pose: Pose) =>
     pose.foregroundProbe < 0 || cell[pose.foregroundProbe] === pose.pixels[pose.foregroundProbe];
@@ -102,6 +108,30 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
         cell[index] === bevel[index] || (battleSelection && bevel[index] === 7 && cell[index] === 15))) continue;
       if (match && match.key !== pose.key) return;
       match = pose;
+    }
+    return match;
+  };
+  const recoloredParty = (cell: Uint8Array, background: Uint8Array, selected: boolean) => {
+    let match: Pose | undefined;
+    for (const pose of palettePoses) {
+      const remap = new Int8Array(16).fill(-1);
+      remap[0] = 0;
+      let visible = false;
+      const agrees = pose.pixels.every((index, pixel) => {
+        const observed = cell[pixel]!;
+        if (!index) return observed === background[pixel] ||
+          (selected && background[0] === 15 && background[pixel] === 7 && observed === 15);
+        if (observed !== background[pixel]) visible = true;
+        if (!partyMaterialIndices.has(index)) return observed === index;
+        if (remap[index] === -1) remap[index] = observed;
+        return remap[index] === observed;
+      });
+      if (!agrees || !visible) continue;
+      const palette = [...remap].map((color, original) => color < 0 ? original : color);
+      if (palette.every((color, original) => color === original)) continue;
+      const key = pose.key + ":palette:" + palette.map(color => color.toString(16)).join("");
+      if (match && (match.key !== key || match.reflected !== pose.reflected)) return;
+      match = { ...pose, key };
     }
     return match;
   };
@@ -229,23 +259,30 @@ function buildCombatArtMatcher(keys: string[], root: string | null) {
           }
           const terrain = plain === undefined && !selected
             ? terrainPose(cell, width, background) : undefined;
-          const match = plain ?? selected ?? terrain;
+          const colorSelection = plain === undefined && !selected && !terrain && width === 24 && height === 24 &&
+            cell[0] === poseBevel[0] && cell[cell.length - 1] === poseBevel[cell.length - 1]
+            ? recoloredParty(cell, poseBevel, true) : undefined;
+          const colorTerrain = plain === undefined && !selected && !terrain && !colorSelection && width === 24 && height === 24 && background
+            ? recoloredParty(cell, background, false) : undefined;
+          const match = plain ?? selected ?? terrain ?? colorSelection ?? colorTerrain;
           if (!match) continue;
           // A standing unit can obscure a prop in the guest's terrain pass.
           // Restore the whole prop as its own layer when the visible pixels
           // agree with that backdrop and the complete prop bitmap matches.
-          const restoreTerrain = terrain && background && match.pixels.every((color, index) => color || cell[index] === background[index]);
+          const highlighted = Boolean(selected ?? colorSelection);
+          const restoreTerrain = (terrain ?? colorTerrain) && background &&
+            match.pixels.every((color, index) => color || cell[index] === background[index]);
           const backdrop = restoreTerrain ? patterns.get(`${width}:${background.toString("hex")}`) : undefined;
           const prop = backdrop && randomCombatKey.test(backdrop.key) ? backdrop : undefined;
           if (prop) placements.push([x, y, prop.key, prop.reflected]);
-          placements.push(width !== 24 || height !== 24 ? [x, y, match.key, match.reflected, Boolean(selected), width, height]
-            : selected ? [x, y, match.key, match.reflected, true] : [x, y, match.key, match.reflected]);
+          placements.push(width !== 24 || height !== 24 ? [x, y, match.key, match.reflected, highlighted, width, height]
+            : highlighted ? [x, y, match.key, match.reflected, true] : [x, y, match.key, match.reflected]);
           if (!enhanced) continue;
           for (let row = 0; row < height; row++) {
             const start = (y + row) * enhanced.width + x;
             for (let column = 0; column < width; column++) {
               const index = row * width + column;
-              enhanced.pixels[start + column] = selected
+              enhanced.pixels[start + column] = highlighted
                 ? match.pixels[index] ? poseBevel[index]! : cell[index]!
                 : restoreTerrain ? prop ? 0 : background[index]!
                 : terrain && !match.pixels[index] ? cell[index]! : 0;

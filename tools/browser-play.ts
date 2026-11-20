@@ -3,12 +3,13 @@ import { createHash } from "node:crypto";
 import { appendFileSync, readdirSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { requireBrowserGameRoot } from "./gamedata.js";
 import { loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
 import { getKey, type PanelFrameStamp, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
-import type { CombatArtPlacement } from "./combat-art.js";
+import { partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
+import { pngDimensions } from "./png.js";
 import { characterSheetPartKey, portraitKey, type CharacterSheetPart } from "./portrait-art.js";
 import type { EncounterPlacement } from "./encounter-art.js";
 import { NarrationCatalog, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
@@ -80,6 +81,21 @@ const gameFont = (() => {
   }
 })();
 const artwork = loadUpgradeArt(undefined, gameRoot);
+// A companion PNG records the original material index for each enhanced pixel.
+const materialMasks = new Map<string, Buffer>();
+const filesByDirectory = new Map<string, Set<string>>();
+for (const [id, art] of artwork) {
+  const party = partyCombatKey.exec(id);
+  if (!party || party[3]) continue;
+  const directory = dirname(art.path);
+  let files = filesByDirectory.get(directory);
+  if (!files) filesByDirectory.set(directory, files = new Set(readdirSync(directory)));
+  const name = art.file.replace(/\.png$/i, "-materials.png");
+  if (name === art.file || !files.has(name)) continue;
+  const mask = readFileSync(join(directory, name));
+  const size = pngDimensions(mask);
+  if (size?.width === art.width && size.height === art.height) materialMasks.set(id, mask);
+}
 let streetMaterials: string | undefined;
 const localMaterialSets = new Map<string, string>();
 type ExplorationFrame = {
@@ -117,6 +133,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
     POR_TILE_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("tile:")).join(","),
     POR_TRACE_TILES: tileTrace ? "1" : process.env.POR_TRACE_TILES,
     POR_COMBAT_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("combat:")).join(","),
+    POR_COMBAT_MATERIAL_KEYS: [...materialMasks.keys()].join(","),
     POR_PORTRAIT_ART_KEYS: [...artwork.keys()].filter((key) => portraitKey.test(key)).join(","),
     POR_CHARACTER_SHEET_ART_KEYS: [...artwork.keys()].filter((key) => characterSheetPartKey.test(key)).join(","),
     POR_ENCOUNTER_ART: JSON.stringify(encounters),
@@ -354,8 +371,16 @@ const server = createServer(async (req, res) => {
     } catch {
       res.writeHead(404).end();
     }
+  } else if (req.method === "GET" && req.url?.startsWith("/art-materials/")) {
+    const id = req.url.slice("/art-materials/".length);
+    const base = partyRecolorKey.exec(id)?.[1];
+    const png = base && !artwork.has(id) ? materialMasks.get(base) : undefined;
+    if (png) res.writeHead(200, { "content-type": "image/png" }).end(png);
+    else res.writeHead(204).end();
   } else if (req.method === "GET" && req.url?.startsWith("/art/")) {
-    const png = artwork.get(req.url.slice(5))?.png;
+    const id = req.url.slice(5);
+    const base = partyRecolorKey.exec(id)?.[1];
+    const png = artwork.get(id)?.png ?? (base && materialMasks.has(base) ? artwork.get(base)?.png : undefined);
     if (png) res.writeHead(200, { "content-type": "image/png" }).end(png);
     else res.writeHead(404).end();
   } else if (req.method === "GET" && (req.url === "/state" || /^\/state\?after=-?\d+$/.test(req.url ?? ""))) {

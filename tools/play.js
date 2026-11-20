@@ -31,6 +31,60 @@ const approachButtons = [...phlanApproaches.querySelectorAll("[data-approach]")]
 const presentation = document.querySelector("#presentation");
 const streetToggle = document.querySelector("#street-toggle");
 const audioToggle = document.querySelector("#audio-toggle");
+const partyMaterialColors = [
+  [0, 0, 0], [0, 0, 170], [0, 170, 0], [0, 170, 170],
+  [170, 0, 0], [170, 0, 170], [170, 85, 0], [170, 170, 170],
+  [85, 85, 85], [85, 85, 255], [85, 255, 85], [85, 255, 255],
+  [255, 85, 85], [255, 85, 255], [255, 255, 85], [255, 255, 255],
+];
+const partyPaletteImages = new Map();
+
+function recolorPartySprite(image, id) {
+  const palette = id.split(":palette:")[1];
+  if (!palette) return;
+  if (!partyPaletteImages.has(id)) {
+    if (partyPaletteImages.size >= 256) partyPaletteImages.delete(partyPaletteImages.keys().next().value);
+    partyPaletteImages.set(id, (async () => {
+      const response = await fetch(`/art-materials/${id}`);
+      if (response.status === 204) return;
+      if (!response.ok) throw new Error("Could not load party material mask");
+      const mask = await createImageBitmap(await response.blob());
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+        const context = canvas.getContext("2d");
+        context.drawImage(mask, 0, 0);
+        const materials = context.getImageData(0, 0, canvas.width, canvas.height).data;
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(image, 0, 0);
+        const art = context.getImageData(0, 0, canvas.width, canvas.height);
+        for (let pixel = 0; pixel < art.data.length; pixel += 4) {
+          const material = materials[pixel];
+          if (!materials[pixel + 3] || !material || material >= partyMaterialColors.length) continue;
+          const target = Number.parseInt(palette[material], 16);
+          if (target === material) continue;
+          const rgb = partyMaterialColors[target];
+          const peak = Math.max(...rgb);
+          const value = Math.max(art.data[pixel], art.data[pixel + 1], art.data[pixel + 2]);
+          const tint = peak ? rgb.map(color => color / peak) : [0.26, 0.26, 0.26];
+          const exposure = peak ? peak / Math.max(...partyMaterialColors[material]) : 1;
+          for (let channel = 0; channel < 3; channel++) {
+            art.data[pixel + channel] = value * exposure * tint[channel];
+          }
+        }
+        context.putImageData(art, 0, 0);
+        return canvas.toDataURL();
+      } finally {
+        mask.close();
+      }
+    })().catch(error => {
+      partyPaletteImages.delete(id);
+      throw error;
+    }));
+  }
+  return partyPaletteImages.get(id);
+}
 const audioSettings = document.querySelector("#audio-settings");
 const audioControls = {
   hardware: document.querySelector("#audio-hardware"), master: document.querySelector("#audio-master"),
@@ -986,6 +1040,9 @@ async function showScreen() {
       }
       if (id.startsWith("battle-tile:")) tile.className = "battle-tile";
       if (reflected !== undefined) tile.className = "combat-sprite";
+      if (reflected !== undefined && id.startsWith("combat:party:") && id.includes(":palette:")) {
+        tile.dataset.partyPalette = id;
+      }
       if (aimMenu && highlighted) tile.classList.add("combat-aimed");
       if (perspective && (terrain || id === view.encounter?.[2])) {
         const scale = 120 / 88;
@@ -1022,6 +1079,13 @@ async function showScreen() {
       if (!(layer instanceof HTMLImageElement)) return layer;
       try {
         await layer.decode();
+        if (layer.dataset.partyPalette) {
+          const colorized = await recolorPartySprite(layer, layer.dataset.partyPalette);
+          if (colorized) {
+            layer.src = colorized;
+            await layer.decode();
+          }
+        }
         return layer;
       } catch (error) {
         // Terrain remains in the enhanced framebuffer underneath its PNGs.

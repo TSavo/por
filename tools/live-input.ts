@@ -10,7 +10,7 @@ import { currentObjective, isOpenObjective, kovelJournalTransition, type Journal
 import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
-import { combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, type CombatArtPlacement } from "./combat-art.js";
+import { combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadCharacterSheetArt, loadPortraitArt } from "./portrait-art.js";
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 
@@ -135,7 +135,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const battleTerrain = browser && (battleTileKeys.size || traceBattleDraw) ? new Frame(screen.width, screen.height) : undefined;
   const tracedBattleTerrain = new Set<string>();
-  const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean));
+  const materialKeys = new Set((process.env.POR_COMBAT_MATERIAL_KEYS ?? "").split(",").filter(Boolean));
+  const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean), undefined, materialKeys);
   const attackKeys = new Set((process.env.POR_COMBAT_ART_KEYS ?? "").split(",")
     .filter((key) => Number(monsterCombatKey.exec(key)?.[3] ?? partyCombatKey.exec(key)?.[2]) >= 128));
   const animation: PresentationAnimationFrame[] = [];
@@ -555,7 +556,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       captureEclContext(cpu);
       const battlefield = hasBattlefieldBorder(screen);
       const placements = combatArt(screen, undefined, area, battleCursor, battlefield ? battleTerrain : undefined);
-      const attacks = placements.filter(([, , key]) => attackKeys.has(key));
+      const attacks = placements.filter(([, , key]) => attackKeys.has(key) || attackKeys.has(partyRecolorKey.exec(key)?.[1] ?? ""));
       const signature = attacks.length ? JSON.stringify(attacks) : "";
       // Combat prints action and result text below the actor's stats in
       // the right-hand panel. The guest clears it before the next key read.
