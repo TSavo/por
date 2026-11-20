@@ -345,9 +345,9 @@ const encounterRoutes = new Map([
   }],
   ["wild-cave-giant-lizard-approach", {
     slot: "B", inputs: ["up", "enter"],
-    placement: [32, 32, "encounter:area:27:SPRIT8.DAX:59:0:0", 80, 80],
+    placement: [32, 32, "encounter:area:27:ecl:a549:SPRIT8.DAX:59:0:0", 80, 80],
     terrain: { area: 27, views: 3, patterns: 15 },
-    dialogue: { key: "enter", portrait: "portrait:area:27:PIC8.DAX:59:0:0", prompt: /FOURGIANTLIZARDSANDTWOMINOTAURS/i },
+    dialogue: { key: "enter", portrait: "scene-illustration:area:27:ecl:a5aa", prompt: /FOURGIANTLIZARDSANDTWOMINOTAURS/i },
   }],
   ["wild-cave-lizard-charge", {
     slot: "B", inputs: ["up", "enter"],
