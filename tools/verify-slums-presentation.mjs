@@ -5655,6 +5655,12 @@ try {
     assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /ANALARMSTARTSRINGING/i);
     await waitFor("the dungeon sentry portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
+    await advance("enter");
+    assert.equal(frame.portrait, "portrait:area:3:ecl:a002:HEAD5.DAX:12:BODY5.DAX:1");
+    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /ABATTLEBEGINS/i);
+    await verifyPortraitPanel();
+    await advance("enter");
+    assert.equal(frame.portrait, undefined);
     console.log("Verified the Valjevo dungeon sentry portrait in Chrome.");
   } else if (genheeris) {
     for (const key of ["up", "enter", "enter"]) await advance(key);
