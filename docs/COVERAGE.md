@@ -3535,3 +3535,17 @@ local test fixture selects the thieves roll deterministically.
 The tavern veteran has ready and longsword attack sprites. Chrome verified
 both in a local fixture that selects the highest encounter roll and
 reduces other group sizes so the veteran enters the fight.
+
+The Enhanced combat icon editor uses 16 material masks for the default
+small and tall sword, axe, crossbow, and unarmed robe. Chrome exercised
+every available color control in all eight configurations, both poses,
+the Prev action, and Classic and Enhanced switching. Four representative
+battles loaded a saved green color and showed it in both the ready and
+strike poses.
+
+After the Phlan council finale illustration landed, the inventory decoded
+113 archives without unresolved blocks or artwork load errors. Of 807
+scene, encounter, and combat archive frames, 432 have direct links and
+22 have exact pixel matches to linked art. The 353 unlinked frames include
+11 uniform frames. Archive linkage counts measure source coverage. Use
+runtime traces to determine which unlinked frames appear during play.
