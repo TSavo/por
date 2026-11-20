@@ -1197,6 +1197,12 @@ hidden before the prophecy and saves it to slot B after the party hears it.
 `old-phlan-seer-reload` boots that save and checks the clue in the journal.
 The `diogenes-advice` replay also checks that the Silver Bottle quest is only
 offered in the journal after the briefing.
+The pledged return was replayed in Chrome from a controlled checkpoint
+carrying the bottle with its recovery objective tracked. Diogenes acknowledged
+the recovery, then his instructions moved tracking to the vampire objective.
+After his departure, choosing Ignore Cave returned the party to the overland
+menu. A native Encamp save and a fresh Chrome reload preserved the tracked
+objective and its Valhingen Graveyard direction.
 
 The `nomad-camp-approach` replay checks the overland camp illustration at
 the Enter / Leave choice and the full approach to the sentries. The first
