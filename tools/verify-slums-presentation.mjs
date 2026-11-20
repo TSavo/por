@@ -1119,6 +1119,7 @@ const illustrationRoutes = new Map([
     portraitStops: { 2: "scene-illustration:area:10:ecl:b6c6:caller:b353", 3: null },
     portrait: "scene-illustration:area:10:ecl:b6c6:caller:b353",
     prompt: /YOUFINDTHEVAMPIRE'STREASURETROVE.*DOYOUTAKEIT/i,
+    journalLead: "graveyard-vampire-trove", journalLeadAtDiscovery: true,
     continuation: { inputs: ["y"], prompt: /THEPARTYHASFOUNDTREASURE/i, clearsPortrait: true },
   }],
   ["valhingen-grave-claws", {
@@ -5863,6 +5864,11 @@ try {
           assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-phlan-fall"));
           assert.equal(frame.journal.leads.some(({ id }) => id === "sokal-mendor"), interimPortrait.endsWith(":ace3"));
           assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-departure"));
+          await advance("j");
+        }
+        if (routeName === "valhingen-vampire-trove" && interimPortrait === null) {
+          await advance("j");
+          assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead));
           await advance("j");
         }
         if (routeName === "nomad-feast-arrival" && (key === "y" || interimPortrait)) {

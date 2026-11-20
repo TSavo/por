@@ -1658,6 +1658,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "graveyard-vampire-escaped", title: "The vampire escaped",
       detail: "After the fight, the vampire turned into vapor and floated away." });
   }
+  if (text.includes("YOU FIND THE VAMPIRE'S TREASURE TROVE")) {
+    leads.push({ id: "graveyard-vampire-trove", title: "The vampire's treasure trove",
+      detail: "The party found the vampire's treasure while searching the crypt." });
+  }
   if (text.includes("THE VAMPIRE IS BEHIND THE NORTHERN WALL")) {
     leads.push({ id: "graveyard-vampire-north-wall", title: "Behind the northern wall",
       detail: "The mystic pointed out where the vampire is hiding." });
