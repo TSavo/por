@@ -513,3 +513,9 @@ attack sprite. Script references also identify these cases for live checks:
 
 The New Phlan and Zhentil script references establish candidate playback
 paths. Their exact ready and action frames still need to be observed in-game.
+
+The generated `inventory.json` includes `encounterFamilies`, the same
+source-frame breakdown shown in the HTML inventory. Each family reports
+direct links, exact pixel matches, and unlinked frames. These counts
+describe archive frames. Use route traces to establish which unlinked
+frames the game actually displays.
