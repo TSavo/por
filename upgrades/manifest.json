@@ -1571,6 +1571,8 @@
     "portrait:area:2:ecl:b03d:HEAD4.DAX:52:BODY4.DAX:8": "textile-restal-blindfold.png",
     "portrait:area:2:ecl:b02e:HEAD4.DAX:52:BODY4.DAX:8": "textile-restal-blindfold.png",
     "portrait:area:2:ecl:b09b:HEAD4.DAX:52:BODY4.DAX:8": "textile-restal-blindfold.png",
+    "scene-illustration:area:2:ecl:b09b": "textile-restal-hidden-way.png",
+    "scene-illustration:area:2:ecl:b0be": "textile-restal-hidden-way.png",
     "portrait:area:2:ecl:aee7:HEAD4.DAX:52:BODY4.DAX:8": "textile-restal-seal.png",
     "portrait:area:2:ecl:aed8:HEAD4.DAX:52:BODY4.DAX:8": "textile-restal-seal.png",
     "scene-illustration:area:2:ecl:ac4b": "textile-thieves-well.png",
