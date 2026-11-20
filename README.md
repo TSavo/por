@@ -1,6 +1,6 @@
 # Pool of Radiance
 
-A port of SSI's 1988 Turbo Pascal game. Game procedures are translated instruction by instruction from `START.EXE` and `GAME.OVR` (`TPOV` overlays). The browser player displays the translated game's EGA output and includes the party journal. See [docs/PORT.md](docs/PORT.md) and [docs/COVERAGE.md](docs/COVERAGE.md).
+A browser port of SSI's 1988 Turbo Pascal game. Game procedures are translated instruction by instruction from `START.EXE` and `GAME.OVR` (`TPOV` overlays). The player supports Classic EGA and Enhanced artwork, with an illustrated atlas and a journal that tracks the party's discoveries. See [docs/PORT.md](docs/PORT.md) and [docs/COVERAGE.md](docs/COVERAGE.md).
 
 Supply your own complete set of original DOS game files. Unpack them so
 `START.EXE`, `GAME.OVR`, and the `*.DAX` files are in the same folder.
@@ -32,6 +32,11 @@ Press **F10** or select **Enhanced display** to use replacement art where
 available and the web font for game text. Both display modes share the
 running game and save slots.
 
+Use **Map** to open the current area map. In Enhanced mode on the
+Moonsea overland map, select an available landmark to follow its route.
+Select **Phlan** to choose among available district approaches. Along the
+way, game prompts such as ferry fares can require a party decision.
+
 `npm run dev` launches the same game. The launcher checks the selected
 directory and one level of subdirectories. If `POR_GAMEDATA` is unset
 it checks `./gamedata`, including layouts such as `gamedata/pool`.
@@ -40,7 +45,7 @@ it checks `./gamedata`, including layouts such as `gamedata/pool`.
 
 ```bash
 npm run translate -- --output out/translated  # requires Python and capstone
-npm run verify           # run FillChar and the ECL operand fetch
+npm run verify           # verify translated routines, art assets, and audio
 npm run selftest
 npm run tools -- list
 npm run tools -- extract          # out/dax/<file>/<id>.bin
