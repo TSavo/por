@@ -1390,7 +1390,10 @@ escaping the party, and points the party back to the throne after regrouping.
 The `kobold-princess-fatima` replay uses controlled slot B to check her
 portrait and journal entry 16. It checks the illustrated offer and its
 journal clue before verifying that Yes adds her to the roster. With
-`--decline`, the replay checks her departure dialogue and journal clue.
+`--decline`, the replay checks her illustrated farewell and departure
+clue. Both branches save through Encamp. `kobold-princess-fatima-reload`
+checks the roster and journal in the resulting slot B, using the same
+`--decline` option for the departure branch.
 The `kobold-cave-guide` replay checks the area-scoped guard portrait and
 the escort clue when the party wakes the guide. With `--decline`, it
 verifies that the guide returns to sleep and the journal directs the

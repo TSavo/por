@@ -1448,7 +1448,8 @@ const genheerisOrders = routeName === "valjevo-genheeris-orders";
 const genheeris = routeName === "valjevo-genheeris-bargain" || genheerisOrders;
 const norrisSurrender = routeName === "kuto-norris-surrender";
 const mendorStacks = routeName === "mendor-library-stacks";
-const princessFatima = routeName === "kobold-princess-fatima";
+const fatimaReload = routeName === "kobold-princess-fatima-reload";
+const princessFatima = routeName === "kobold-princess-fatima" || fatimaReload;
 const koboldEscort = routeName === "kobold-cave-escort";
 const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
@@ -3644,6 +3645,7 @@ const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "b
 routes.push("river-passage-reload", "new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload", "nomad-headman-rest-portrait", "nomad-headman-raid");
 routes.push("podal-infirmary-heal");
 routes.push("river-pumping-reload");
+routes.push("kobold-princess-fatima-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
   ["bane-interior-atlas", { slot: "A", areas: [24, 31], mapId: 31, file: "temple-of-bane-interior-concept-v1.png" }],
@@ -6362,6 +6364,14 @@ try {
     }
     console.log(koboldEscort ? `Verified ${escortViews} enhanced views, the guided walk, journal directions, and first meeting at the kobold throne.`
       : "Verified the kobold guide portrait and witnessed escort offer in Chrome.");
+  } else if (fatimaReload) {
+    const roster = frame.text.filter(([cell]) => cell < 640).map(([, character]) => String.fromCharCode(character)).join("");
+    assert.equal(/PRINCESSFATIMA/i.test(roster), !declineFatima);
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "kobold-fatima-join-offer"));
+    assert.equal(frame.journal.leads.some(({ id }) => id === "kobold-fatima-left"), declineFatima);
+    await switchBothWays();
+    console.log("Verified Fatima's roster and journal outcome after reloading slot B.");
   } else if (princessFatima) {
     const fatima = "portrait:HEAD8.DAX:67:BODY8.DAX:37";
     const approach = "encounter:area:13:ecl:a775:SPRIT8.DAX:16:0:0";
@@ -6421,6 +6431,12 @@ try {
       await waitFor("Fatima's farewell to clear on movement", () => run(`state.sequence === ${frame.sequence} &&
         !document.querySelector('.encounter-portrait')`));
     }
+    if (!declineFatima) await advance("j");
+    for (const key of ["e", "s", "s", "b"]) await advance(key);
+    const outcome = JSON.parse(readFileSync(saved, "utf8"));
+    assert.ok(outcome.leads.some(({ id }) => id === "kobold-fatima-join-offer"));
+    assert.equal(outcome.leads.some(({ id }) => id === "kobold-fatima-left"), declineFatima);
+    console.log("Fatima outcome checkpoint:", saved);
     console.log(`Verified Princess Fatima's illustrated offer, journal, and ${declineFatima ? "departure" : "recruitment"} in Chrome. Capture:`, directory);
   } else if (mendorStacks) {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
