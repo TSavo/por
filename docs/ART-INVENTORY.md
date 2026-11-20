@@ -613,6 +613,8 @@ pass decision. Keep the caption, required details, and screenshot together
 so another reviewer can make the same check.
 The gallery's **Required visual details** list puts those checks next to
 the artwork and dialogue cue for the scenes that have a checklist.
+The JSON export includes the same lists under `sceneReviewRequirements`,
+keyed by enhanced PNG filename for batch review.
 
 For Yarash's first room description, require a visible assortment of torture
 implements, a central table, and readable metal restraints. The alchemical

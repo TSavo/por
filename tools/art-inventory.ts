@@ -462,6 +462,9 @@ for (const replacement of replacements) {
   replacementsByBlock.set(key, matches);
 }
 function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source, sourceParts, sourceCandidates, scriptCue, capturedPlacement, reflected }: typeof replacements[number]) {
+  const requirements = sceneReviewRequirements.get(file);
+  const review = requirements ? `<details><summary>Required visual details</summary><ul>${requirements.map(requirement =>
+    `<li>${escape(requirement)}</li>`).join("")}</ul></details>` : "";
   const area = placement && "area" in placement ? ` · area ${placement.area}` : "";
   const origin = placement && "x" in placement ? ` · origin (${placement.x}, ${placement.y})` : "";
   const extent = placement && "width" in placement ? ` · display ${placement.width}×${placement.height}` : "";
@@ -474,7 +477,7 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
     `<small>${escape(file)}${reflected ? " · reflected in game" : ""}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small>` +
     (source?.transform ? `<small>Native source transform · ${source.transform === "flip-x" ? "horizontal reflection" : "transpose"} of ${escape(source.archive)} #${source.block}</small>` : "") +
     (sourceParts?.length ? `<small>${sourceParts.map(({ archive, block }) => `${escape(archive)} #${block}`).join(" + ")}</small>` : "") +
-    (scriptCue ? `<small>Dialogue cue <code>${escape(scriptCue)}</code></small>` : "") +
+    (scriptCue ? `<small>Dialogue cue <code>${escape(scriptCue)}</code></small>` : "") + review +
     (capturedPlacement ? `<small>Captured at (${capturedPlacement.x}, ${capturedPlacement.y}) · ${escape(capturedPlacement.trace)} frame ${capturedPlacement.frame}</small>` : "") +
     (sourceCandidates ? `<details class="sources"><summary>Exact pixel matches (${sourceCandidates.length})</summary>` +
       sourceCandidates.map(({ archive, block, member, frame }) =>
@@ -490,6 +493,12 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["mendor-philosophy-stacks.png", ["Old books on shelves", "A readable Philosophy sign over the entrance"]],
   ["mendor-history-stacks-arrival.png", ["Old books on shelves", "A readable History sign over the entrance"]],
   ["mendor-rhetoric-stacks-arrival.png", ["Old books on shelves", "A readable Rhetoric sign over the entrance"]],
+  ["sokal-hidden-armory-cache.png", ["Shield, mace, and sword on stands", "A small suit of chainmail", "Equipment in visibly good condition"]],
+  ["old-phlan-dying-thief-papers.png", ["An exhausted older thief", "Papers visibly offered to the party"]],
+  ["podal-auction-garwin-escaped.png", ["The auctioneer calling out after Garwin's escape", "A crowd in the foreground"]],
+  ["sokal-elven-parchment.png", ["The scout's remains beside an open pouch", "A crumbling parchment scroll clearly visible in the pouch"]],
+  ["swamp-castle-drawbridge.png", ["A movable timber span across quicksand", "Lift chains attached to the deck"]],
+  ["diogenes-upper-ledge-fireball.png", ["A fireball erupting amid the party", "Diogenes disappearing from the encounter"]],
 ]);
 
 const runtimeGroups = [
@@ -511,10 +520,7 @@ const runtimeGallery = runtimeGroups.map(({ id, label, entries }) => {
       const otherBindings = aliases.length ? `<details><summary>Other bindings (${aliases.length})</summary>` +
         aliases.map(({ id, scriptCue }) => `<p><code>${escape(id)}</code>${scriptCue ? ` · ${escape(scriptCue)}` : ""}</p>`).join("") +
         "</details>" : "";
-      const requirements = scripted ? sceneReviewRequirements.get(entry!.file) : undefined;
-      const review = requirements ? `<details><summary>Required visual details</summary><ul>${requirements.map(requirement =>
-        `<li>${escape(requirement)}</li>`).join("")}</ul></details>` : "";
-      return `<figure data-visual="true" data-enhanced="true" data-coverage="complete">${replacementPreview(entry!)}${review}${otherBindings}</figure>`;
+      return `<figure data-visual="true" data-enhanced="true" data-coverage="complete">${replacementPreview(entry!)}${otherBindings}</figure>`;
     }).join("") + "</div></details>";
 }).join("");
 const missingGallery = [...missingByArea].sort(([left], [right]) => left.localeCompare(right, "en", { numeric: true }))
@@ -936,7 +942,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, unlinkedScriptPictures, monsterArt, monsterPoseCoverage, dwarfIconCoverage, tallIconCoverage, defaultHumanIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, encounterScopeFallbacks: encounterScopeCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, encounterFamilies, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, unlinkedScriptPictures, monsterArt, monsterPoseCoverage, dwarfIconCoverage, tallIconCoverage, defaultHumanIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, encounterScopeFallbacks: encounterScopeCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, encounterFamilies, sceneReviewRequirements: Object.fromEntries(sceneReviewRequirements), embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
