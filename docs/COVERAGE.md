@@ -3230,6 +3230,12 @@ poses against the native attack reports, checked the bow shot's fixed
 position and the guard's moving strike, and preserved the save through
 Classic and Enhanced toggles.
 
+Sokal Keep's courtyard orc leader has ready and firing sprites that
+depict the longbow named in the original combat report. A Chrome replay
+with the production artwork verified both poses at (80, 56), including
+the reflected ready pose and the unreflected shot, and preserved the
+save across display modes.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
