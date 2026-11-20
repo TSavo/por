@@ -886,6 +886,16 @@ const illustrationRoutes = new Map([
       prompt: /YOUARRIVEATTHEOFFICERSMESS.*ROASTBOAR/i,
     },
   }],
+  ["zhentil-dinner-quarters-return", {
+    slot: "A", inputs: ["up", "enter", "r", "enter", "enter", "n", "s"],
+    portraitStops: {
+      3: "scene-illustration:area:28:ecl:a74e",
+      4: "portrait:area:28:ecl:b624:caller:a7c2:PIC6.DAX:50:0:0",
+      6: "portrait:area:28:ecl:a92f:PIC6.DAX:50:0:0",
+    },
+    portrait: "scene-illustration:area:28:ecl:b5ec", prompt: /YOUARRIVEBACKATYOURQUARTERS/i,
+    continuation: { inputs: ["up"], prompt: /6,0E/i, clearsPortrait: true },
+  }],
   ["zhentil-dinner-advisor", {
     slot: "A", inputs: ["up", "enter", "r", "enter", "enter", "m"],
     portrait: "portrait:area:28:ecl:aef2:PIC6.DAX:50:0:0",
