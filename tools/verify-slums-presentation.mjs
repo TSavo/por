@@ -7357,6 +7357,14 @@ try {
     const chase = "kovel-chase";
     const split = "kovel-thieves-split";
     const ambush = "kovel-thief-ambush";
+    async function verifyChaseIllustration(id, filename) {
+      assert.equal(frame.portrait, id);
+      await waitFor("Kovel chase illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, filename), Buffer.from(shot.data, "base64"));
+    }
     const knows = id => frame.journal.leads.some(lead => lead.id === id);
     const textOf = ({ text }) => text.toSorted(([a], [b]) => a - b)
       .map(([, char]) => String.fromCharCode(char)).join("");
@@ -7365,11 +7373,13 @@ try {
     assert.ok(!knows(chase) && !knows(split));
     for (const key of ["j", "up", "up"]) await advance(key);
     assert.match(textOf(frame), /WILLYOUCHASETHEM/i);
+    await verifyChaseIllustration("scene-illustration:area:14:ecl:accb", "kovel-thieves-flee-east.png");
     await advance("j");
     assert.ok(knows(chase) && !knows(split));
     assert.match(frame.journal.objective.nextStep, /chase the thieves through the east door/i);
     for (const key of ["j", "y"]) await advance(key);
     assert.match(textOf(frame), /WHICHPATHWILLYOUTAKE/i);
+    await verifyChaseIllustration("scene-illustration:area:14:ecl:adab", "kovel-thieves-split.png");
     await advance("j");
     assert.ok(knows(chase) && knows(split) && !knows(ambush));
     assert.equal(frame.journal.trackedId, "commission-kovel");
@@ -7379,21 +7389,14 @@ try {
       assert.ok(!knows("kovel-chase-ended"));
       for (const key of ["j", "d"]) await advance(key);
       assert.match(textOf(frame), /AREACASTVIEWENCAMP/i);
+      assert.notEqual(frame.portrait, "scene-illustration:area:14:ecl:adab");
       await advance("j");
       assert.ok(knows("kovel-chase-ended") && !knows(ambush) && !knows("kovel-guildmaster"));
       assert.match(frame.journal.objective.nextStep, /^Continue searching Kovel Mansion/i);
     } else if (routeName !== "kovel-chase") {
-      async function verifyGuildmasterIllustration(id, filename) {
-        assert.equal(frame.portrait, id);
-        await waitFor("Kovel guildmaster illustration", () => run(`state.sequence === ${frame.sequence} &&
-          document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalWidth === 352`));
-        await verifyPortraitPanel();
-        const shot = await command("Page.captureScreenshot", { format: "png" });
-        writeFileSync(resolve(directory, filename), Buffer.from(shot.data, "base64"));
-      }
       for (const key of ["j", "e"]) await advance(key);
       assert.match(textOf(frame), /IAMTHEGUILDMASTER.*ATTACKRELEASE/i);
-      await verifyGuildmasterIllustration("scene-illustration:area:14:ecl:ae6e", "kovel-guildmaster-cornered.png");
+      await verifyChaseIllustration("scene-illustration:area:14:ecl:ae6e", "kovel-guildmaster-cornered.png");
       await switchBothWays();
       await advance("j");
       assert.ok(knows("kovel-guildmaster") && !knows("kovel-guildmaster-escaped"));
@@ -7408,7 +7411,7 @@ try {
         assert.match(frame.journal.objective.nextStep, /after the fight with the guildmaster.*continue searching/i);
       } else {
         for (const key of ["j", "r"]) await advance(key);
-        await verifyGuildmasterIllustration("scene-illustration:area:14:ecl:b359:cue:guildmaster-escape", "kovel-guildmaster-escapes.png");
+        await verifyChaseIllustration("scene-illustration:area:14:ecl:b359:cue:guildmaster-escape", "kovel-guildmaster-escapes.png");
         await advance("j");
         assert.ok(knows("kovel-guildmaster-escaped") && !knows("kovel-guildmaster-confronted"));
         assert.match(frame.journal.objective.nextStep, /guildmaster fled after being released/i);
