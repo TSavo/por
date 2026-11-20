@@ -3608,7 +3608,7 @@ routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-t
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
-routes.push("kovel-chase-no");
+routes.push("kovel-chase-no", "valjevo-records-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 const partyDefeatEffect = routeName === "valjevo-party-defeat-effect";
 const defeatEffect = partyDefeatEffect || routeName === "buccaneer-pen-defeat-effect";
@@ -3700,7 +3700,7 @@ const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
 const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneReturn || koboldCaveExit;
-const saveSlot = alHyamReload || routeName === "sokal-floorboard-diary-reload" ? "C" :
+const saveSlot = alHyamReload || ["sokal-floorboard-diary-reload", "valjevo-records-reload"].includes(routeName) ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn ||
     ["stojanow-wall-warning-reload", "kovel-chase-east-reload"].includes(routeName) ? "B" : slot;
@@ -6254,6 +6254,15 @@ try {
     }
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log(`Verified the Genheeris portrait and earned journal lead on ${routeName} in Chrome.`);
+  } else if (routeName === "valjevo-records-reload") {
+    await advance("j");
+    assert.equal(frame.journal?.trackedId, "commission-castle");
+    const leads = new Set(frame.journal.leads.map(({ id }) => id));
+    for (const id of ["castle-records-room", "castle-records-thay", "castle-records-moonsea"]) assert.ok(leads.has(id));
+    assert.doesNotMatch(frame.journal.objective.nextStep, /continue reading the Valjevo records/i);
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the Valjevo records and completed reading guidance after reloading in Chrome.");
   } else if (castleReportsReload) {
     await advance("j");
     const leads = frame.journal?.leads ?? [];
@@ -6312,12 +6321,13 @@ try {
   } else if (castleRecords) {
     const knows = id => frame.journal?.leads.some(lead => lead.id === id);
     const evidence = "scene-illustration:area:4:ecl:9a5a:caller:b00a";
+    const moonsea = "scene-illustration:area:4:ecl:9a5a:caller:b106";
     await advance("up");
     await advance("j");
     assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
     if (castleRecordsDecline) {
       for (const key of ["j", "n"]) await advance(key);
-      assert.notEqual(frame.portrait, evidence);
+      assert.ok(![evidence, moonsea].includes(frame.portrait));
       await advance("j");
       assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
     } else {
@@ -6329,10 +6339,23 @@ try {
       await switchBothWays(frame.frame);
       await advance("j");
       assert.ok(knows("castle-records-thay") && !knows("castle-records-moonsea"));
+      assert.match(frame.journal.objective.nextStep, /continue reading the Valjevo records/i);
       for (const key of ["j", "enter"]) await advance(key);
-      assert.notEqual(frame.portrait, evidence);
-      for (const key of ["enter", "j"]) await advance(key);
+      assert.ok(![evidence, moonsea].includes(frame.portrait));
+      await advance("enter");
+      assert.equal(frame.portrait, moonsea);
+      await waitFor("the Moonsea conquest report", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${moonsea}"]')?.naturalWidth === 352 &&
+        document.querySelector('.encounter-portrait[src="/art/${moonsea}"]')?.naturalHeight === 352`));
+      await verifyPortraitPanel();
+      const conquestShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "valjevo-moonsea-conquest-report.png"), Buffer.from(conquestShot.data, "base64"));
+      await switchBothWays();
+      await advance("j");
       assert.ok(knows("castle-records-thay") && knows("castle-records-moonsea"));
+      assert.doesNotMatch(frame.journal.objective.nextStep, /continue reading the Valjevo records/i);
+      for (const key of ["j", "enter"]) await advance(key);
+      assert.notEqual(frame.portrait, moonsea);
     }
     await switchBothWays();
     console.log("Verified that Valjevo records enter the journal only when read.");
