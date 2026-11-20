@@ -3357,6 +3357,12 @@ Controlled Chrome replays verified the Zhentil commandant's charge art
 through the battle introduction and the Podal recruit leader's new strike
 sprite during both longbow and battle-axe attacks.
 
+A Chrome replay through the stock browser runtime verified the sleeping
+and waking fire giant illustrations and the transition into combat. The
+checkpoint selects the original sleeping branch by setting its alarm
+state. The replay checked that switching display modes preserved the
+game state and save.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
