@@ -3619,6 +3619,9 @@ The `buccaneer-pen-defeat-effect` Chrome replay starts from slot A
 outside the pens and checks the Enhanced skull marker at
 (104, 104), the damage and defeat reports, and removal at the next
 settled frame. The renderer captures the original defeat draw at its pause.
+The `valjevo-party-defeat-effect` replay starts at the hill giant's room
+in slot B. It verifies the same marker and the original dying report
+when Rhiannon falls at (8, 80).
 
 Kuto's roaming lizardfolk use a dedicated 352×352 ruins illustration
 at four script positions. Chrome exercised the approach, Advance and

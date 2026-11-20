@@ -3457,7 +3457,9 @@ routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-t
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline");
-routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect");
+routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
+const partyDefeatEffect = routeName === "valjevo-party-defeat-effect";
+const defeatEffect = partyDefeatEffect || routeName === "buccaneer-pen-defeat-effect";
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
@@ -3534,7 +3536,7 @@ const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
 const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneReturn || koboldCaveExit;
 const saveSlot = routeName === "textile-return-art" || councilFinale ? "D" :
-  mageWand || koboldKingDoor || koboldKingFall || koboldReturn ||
+  partyDefeatEffect || mageWand || koboldKingDoor || koboldKingFall || koboldReturn ||
     ["stojanow-wall-warning-reload", "kovel-chase-east-reload"].includes(routeName) ? "B" : slot;
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", H: "2368", I: "1769", J: "246a" }[saveSlot];
 const saved = resolve(directory, saveSlot + ".json");
@@ -4223,7 +4225,7 @@ try {
     assert.deepEqual(scenery(frame), scenery(street));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the enhanced street stays visible while exiting the New Phlan dueling room. Captures:", directory);
-  } else if (routeName === "new-phlan-council-magic-effects" || routeName === "buccaneer-pen-defeat-effect") {
+  } else if (routeName === "new-phlan-council-magic-effects" || defeatEffect) {
     await run(`window.observedEffects = [];
       const originalFetch = window.fetch.bind(window);
       window.fetch = (url, options) => url === "/key" && options?.body === ":poll"
@@ -4238,21 +4240,28 @@ try {
               .some(layer => layer.matches(".combat-sprite")) });
         }
       }).observe(art, {childList: true});`);
-    if (routeName === "buccaneer-pen-defeat-effect") {
-      for (const key of ["up", "up", "enter", "enter", "a", "enter", "enter", "q", "q"]) await advance(key);
+    if (defeatEffect) {
+      const inputs = partyDefeatEffect
+        ? ["up", "enter", "enter", "c", "enter", "enter", "enter", ...Array(13).fill("q")]
+        : ["up", "up", "enter", "enter", "a", "enter", "enter", "q", "q"];
+      for (const key of inputs) await advance(key);
+      const [x, y] = partyDefeatEffect ? [8, 80] : [104, 104];
       const id = "combat-effect:COMSPR.DAX:11";
       const marker = frame.animation?.find(entry => entry.combatEffect?.[2] === id);
-      assert.deepEqual(marker?.combatEffect, [104, 104, id]);
+      assert.deepEqual(marker?.combatEffect, [x, y, id]);
       assert.equal(frame.combatEffect, undefined);
       const reports = [...frame.animation, frame].map(({ text }) => text.toSorted(([a], [b]) => a - b)
         .map(([, c]) => String.fromCharCode(c)).join(""));
-      assert.ok(reports.some(text => /DORNATTACKSBUCCANEERHITTINGFOR7POINTSOFDAMAGE/i.test(text)));
-      assert.ok(reports.some(text => /BUCCANEERGOESDOWNANDISDYING/i.test(text)));
+      const hit = partyDefeatEffect ? /HILLGIANTATTACKSRHIANNONHITTINGFOR9POINTSOFDAMAGE/i
+        : /DORNATTACKSBUCCANEERHITTINGFOR7POINTSOFDAMAGE/i;
+      const dying = partyDefeatEffect ? /RHIANNONGOESDOWNANDISDYING/i : /BUCCANEERGOESDOWNANDISDYING/i;
+      assert.ok(reports.some(text => hit.test(text)));
+      assert.ok(reports.some(text => dying.test(text)));
       await waitFor("the skull marker and its cleanup", () => run(`state.sequence === ${frame.sequence} &&
         !animationFrame && !document.querySelector(".combat-effect") && window.observedEffects.some(effect =>
-          effect.source === "/art/${id}" && effect.left === 32.5 && effect.top === 52 && effect.aboveActors)`));
+          effect.source === "/art/${id}" && effect.left === ${x / 3.2} && effect.top === ${y / 2} && effect.aboveActors)`));
       await switchBothWays(frame.frame);
-      console.log("Verified the Buccaneer defeat marker and native combat reports in Chrome.");
+      console.log(`Verified ${routeName}, including the skull marker and native combat reports in Chrome.`);
     } else {
       for (const key of ["up", "enter", "n", "enter", "enter", "enter"]) await advance(key);
       const effects = new Map();
