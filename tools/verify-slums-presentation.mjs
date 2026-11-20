@@ -807,7 +807,7 @@ const illustrationRoutes = new Map([
     slot: "C", inputs: ["up", "enter", "a", "a", "p", "n", ..."lux", "enter", "enter", "enter"],
     portraitStops: { 11: "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0" },
     portrait: "scene-illustration:area:21:ecl:ae31:caller:a573", prompt: /BENEATHAFLOORBOARD.*JOURNALASENTRY3/i,
-    continuation: { inputs: ["enter"], prompt: /DOYOUTAKETHEGEMS/i, clearsPortrait: true },
+    continuation: { inputs: ["enter"], prompt: /DOYOUTAKETHEGEMS.*YesNo/i, portrait: "scene-illustration:area:21:ecl:ae41:caller:a58a" },
   }],
   ["sokal-ferran-farewell", {
     slot: "F", inputs: ["up", "enter", "p", "n", "l", "u", "x", "enter", "t", "enter", "enter"],
@@ -6540,6 +6540,7 @@ try {
     }
     if (routeName === "sokal-floorboard-diary") {
       await advance("n");
+      assert.equal(frame.portrait, undefined);
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-haunt-diary"));
       for (const key of ["j", "e", "s", "s", "c"]) await advance(key);
