@@ -5016,14 +5016,16 @@ try {
     console.log("Verified the Braccio-to-Dirten portrait transition and quest invitation in Chrome.");
   } else if (routeName === "cadorna-envoy-briefing") {
     for (const key of ["up", "enter"]) await advance(key);
+    const briefing = "portrait:area:8:ecl:b5c3:caller:b0ea:HEAD3.DAX:55:BODY3.DAX:1";
     const cadorna = "portrait:HEAD3.DAX:55:BODY3.DAX:1";
-    assert.equal(frame.portrait, cadorna);
-    await waitFor("Cadorna's envoy portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    assert.equal(frame.portrait, briefing);
+    await verifyPortraitPanel();
     await switchBothWays();
     await advance("j");
     assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "zhentil-sealed-packet"));
     for (const key of ["j", "enter"]) await advance(key);
     assert.equal(frame.portrait, cadorna);
+    await verifyPortraitPanel();
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "zhentil-sealed-packet"));
     for (const key of ["j", "enter"]) await advance(key);
