@@ -188,7 +188,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // Other dinner topics can end at the same pause and caller as the Pool story.
       const otherZhentilDinnerTopic = area === 28 && battleCursor === 0xb624 && portraitCaller === 0xb317 &&
         !dialogue.includes("THECOMMANDANTTELLSYOUASTORYABOUTTHATVERYPOOL");
-      const pictureCaller = otherAuctionOutcome ? undefined : otherZhentilDinnerTopic ? 0xa7c2 : portraitCaller;
+      // The clerk's ordinary rewards and the campaign finale share a portrait pause.
+      const otherCouncilReward = area === 8 && battleCursor === 0x9f21 && portraitCaller === 0x9a4a &&
+        !dialogue.includes("YOURQUESTISOVER");
+      const pictureCaller = otherAuctionOutcome || otherCouncilReward ? undefined : otherZhentilDinnerTopic ? 0xa7c2 : portraitCaller;
       // Each cave's first sighting and return visit share the native menu cursor.
       const caveRevisit =
         (area === 25 && battleCursor === 0x9c97 && !dialogue.includes("ALARGEDRAGONFLYSABOVEYOU")) ||

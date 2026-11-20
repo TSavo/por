@@ -3776,3 +3776,9 @@ The swept-auburn Human head has material masks for all 32 native weapon
 choices. Chrome checked both ready and strike poses with Body dark,
 Body light, Hair and Face changes. A controlled battle also verified
 the saved bow colors in both poses and Classic/Enhanced switching.
+
+The Sokal reward and campaign finale share the council clerk's native
+portrait pause. Enhanced now checks the finale dialogue before choosing
+the victory artwork. Chrome verified the ordinary clerk during Sokal's
+reward and the victory artwork at the final council reward. These replays
+started from local Sokal and post-victory checkpoints.
