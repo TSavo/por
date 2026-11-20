@@ -353,7 +353,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("river-pump-prisoners-freed")) nextStep = "Read journal entry 35 for the freed prisoners' advice on getting help from their tribe in the swamp.";
     }
     if (commission.id === "nomads") {
-      if (knows("nomad-kobold-attack")) nextStep = "The kobolds are attacking the camp. Choose Combat when prompted to help the nomads repel them.";
+      if (knows("nomad-fled-finale")) nextStep = "The headman went to finish the fight with his surviving guards. Continue to hear what happened.";
+      else if (knows("nomad-kobold-attack")) nextStep = "The kobolds are attacking the camp. Choose Combat when prompted to help the nomads repel them.";
       else if (knows("nomad-war-cries")) nextStep = "Press Enter to continue and see what is happening outside the hut.";
       else if (knows("nomad-declined-aid")) nextStep = "The party declined to defend the camp. Check with the council clerk about the commission.";
       else if (knows("nomad-rest-offer")) nextStep = "Stay in the camp. Use Encamp to memorize spells, then rest to prepare for the possible attack.";
@@ -841,6 +842,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE SHAMAN WALKS UP TO YOU") && text.includes("A REWARD WAS PROMISED AND SO SHALL IT BE")) {
     leads.push({ id: "nomad-shaman-reward", title: "The shaman honors the promise",
       detail: "After the raid, the shaman praised the party and confirmed the reward for defending the camp." });
+  }
+  if (text.includes("THE HEADMAN SNEERS") && text.includes("FOR HYRNKA")) {
+    leads.push({ id: "nomad-fled-finale", title: "The party left the final fight",
+      detail: "The party fled the final fight. The headman rallied his two surviving guards and went to finish it." });
   }
   if (text.includes("AN ALTAR THAT IS SMEARED WITH BLOOD AND COVERED WITH CRUDE BLACK HAND PRINTS")) {
     leads.push({ id: "bane-defiled-altar", title: "The desecrated altar",

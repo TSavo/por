@@ -1106,6 +1106,11 @@ function checkCampaignJournal(): void {
     throw new Error("Ohlo's hostile and successful paths were not distinguished");
   }
   const nomads = commissions.find(({ id }) => id === "nomads")!;
+  const fledFinale = lines.find((line) => line.includes("THE HEADMAN SNEERS") && line.includes("FOR HYRNKA"));
+  if (!fledFinale || !currentObjective(discoveredLeads(`${nomads.offer}\n${fledFinale}`), "commission-nomads")
+    .nextStep.includes("surviving guards")) {
+    throw new Error("The Nomad journal did not recognize leaving the final fight");
+  }
   const shamanReward = lines.find((line) => line.includes("A REWARD WAS PROMISED AND SO SHALL IT BE"));
   const headmanPromise = lines.find((line) => line.includes("YOU SHALL BE RICHLY REWARDED FOR YOUR GENEROUS AID"));
   if (!shamanReward || !headmanPromise) throw new Error("Missing original Nomad Camp reward dialogue");
