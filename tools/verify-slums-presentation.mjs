@@ -566,6 +566,13 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["swamp-friend-word-charge", {
+    slot: "A", inputs: ["up", "b", "p", "enter", ..."wrong", "enter", "y"],
+    portrait: "scene-illustration:area:16:ecl:a65a",
+    prompt: /2LIZARDMENANDAGIANTLIZARDCHARGEATYOU.*COMBATWAITFLEEPARLAY/i,
+    journalLead: "swamp-friend-word-charge", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i, clearsPortrait: true },
+  }],
   ["diogenes-gift", {
     slot: "A", inputs: ["up", "enter", "e", "enter", "s", "enter", "end", "end", "end", ...Array(5).fill("enter")],
     portraitStops: {
