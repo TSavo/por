@@ -5838,6 +5838,10 @@ try {
       await advance("enter");
       assert.notEqual(frame.portrait, departure);
       assert.deepEqual(readFileSync(saved), originalSave);
+      for (const key of ["enter", "l", "e", "enter", "s", "s", "a"]) await advance(key);
+      const savedJournal = JSON.parse(readFileSync(saved, "utf8")).leads;
+      assert.ok(savedJournal.some(({ id }) => id === "nomad-declined-aid"));
+      assert.ok(!savedJournal.some(({ id }) => id === "nomad-rest-offer"));
     }
     console.log(`Verified the Nomad headman portrait and journal on ${routeName} in Chrome.`);
   } else if (routeName === "phlan-harbor-sokal" || routeName === "phlan-harbor-routes") {
