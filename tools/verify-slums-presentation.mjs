@@ -8298,15 +8298,19 @@ try {
     console.log("Verified the swamp drawbridge and anti-magic shell in Chrome. Saved:", saved);
   } else if (routeName === "yarash-combat") {
     const mage = "combat:area:23:CPIC7.DAX:14";
-    const guard = "combat:area:23:CPIC7.DAX:57";
-    const strike = "combat:area:23:CPIC7.DAX:185";
+    const guard = "combat:area:23:CPIC7.DAX:57:ecl:ac24";
+    const strike = "combat:area:23:CPIC7.DAX:185:ecl:ac24";
     const visible = (id) => run(`[...document.querySelectorAll(".combat-sprite")].filter(image =>
       image.src.endsWith(${JSON.stringify(id)}) && image.naturalWidth === 96 && image.naturalHeight === 96).length`);
     for (const key of ["up", "up", "b", "up", "enter", "f", "enter"]) await advance(key);
     assert.ok(frame.combatArt.some(([, , id, , selected]) => id === mage && selected));
-    await waitFor("Yarash and his guards", async () => await visible(mage) === 1 && await visible(guard) >= 3);
+    assert.deepEqual(frame.combatArt.filter(([, , id]) => id === guard), [
+      [32, 56, guard, true], [56, 80, guard, true], [80, 80, guard, true],
+      [104, 104, guard, true], [104, 128, guard, true], [128, 128, guard, true],
+    ]);
+    await waitFor("Yarash and all six guards", async () => await visible(mage) === 1 && await visible(guard) === 6);
     await switchBothWays();
-    await waitFor("the enhanced combat sprites", async () => await visible(mage) === 1 && await visible(guard) >= 3);
+    await waitFor("the enhanced combat sprites", async () => await visible(mage) === 1 && await visible(guard) === 6);
     const capture = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "yarash-combat.png"), Buffer.from(capture.data, "base64"));
     await advance("enter");
