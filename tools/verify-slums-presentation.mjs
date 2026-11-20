@@ -5375,6 +5375,8 @@ try {
     console.log("Verified separately earned scriptorium reports in Chrome.");
   } else if (castleScribe) {
     const portrait = "portrait:HEAD5.DAX:72:BODY5.DAX:30";
+    const approach = "encounter:area:4:ecl:b167:SPRIT5.DAX:22:0:0";
+    await observeApproach([[48, 32, approach, 32, 73]]);
     for (const key of ["right", "right", "up", "y", ...Array(5).fill("enter")]) await advance(key);
     for (let attempt = 0; attempt < 24 && frame.portrait !== portrait; attempt++) {
       for (const key of ["up", "y", "enter", "enter", "enter", "right"]) {
@@ -5383,10 +5385,12 @@ try {
       }
     }
     assert.equal(frame.portrait, portrait);
+    await waitFor("the enhanced records scribe approach", () => run(
+      `window.observedApproach.has(${JSON.stringify(approach)})`));
     assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /ASCRIBECOMINGTOWARDTHEBUILDING/i);
     await waitFor("the records scribe portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    console.log("Verified the Valjevo records scribe portrait in Chrome.");
+    console.log("Verified the Valjevo records scribe approach and portrait in Chrome.");
   } else if (castleRecords) {
     const knows = id => frame.journal?.leads.some(lead => lead.id === id);
     await advance("up");
