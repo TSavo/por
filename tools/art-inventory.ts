@@ -480,6 +480,18 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
       sourceCandidates.map(({ archive, block, member, frame }) =>
         `<small>${escape(archive)} #${block} · member ${member}, frame ${frame}</small>`).join("") + "</details>" : "") + "</div>";
 }
+const sceneReviewRequirements = new Map<string, string[]>([
+  ["yarash-torture-chamber.png", ["An assortment of torture implements", "A large central table", "Visible metal restraints"]],
+  ["yarash-alchemical-laboratory.png", ["Shelves lining the wall", "Flasks and bottles of alchemical preparations"]],
+  ["stojanow-gate-first-sight.png", ["A wide view of Stojanow Gate at the river bend"]],
+  ["stojanow-gate-bugbear-lookouts.png", ["Bugbears visibly lounging at the entrance", "A main wall below two taller watchtowers"]],
+  ["stojanow-passing-wagon.png", ["A driver and moving wagon", "A visible load of food and equipment", "The road leading toward the gate"]],
+  ["kuto-well-waterline-door.png", ["The inside of a well with climbable rungs", "A secret door ajar above the waterline"]],
+  ["mendor-philosophy-stacks.png", ["Old books on shelves", "A readable Philosophy sign over the entrance"]],
+  ["mendor-history-stacks-arrival.png", ["Old books on shelves", "A readable History sign over the entrance"]],
+  ["mendor-rhetoric-stacks-arrival.png", ["Old books on shelves", "A readable Rhetoric sign over the entrance"]],
+]);
+
 const runtimeGroups = [
   { id: "scripted-scene-illustrations", label: "Scripted scene illustrations", entries: runtimeReplacements.filter(({ scriptCue }) => scriptCue) },
   { id: "runtime-artwork", label: "Runtime artwork", entries: runtimeReplacements.filter(({ scriptCue }) => !scriptCue) },
@@ -499,7 +511,10 @@ const runtimeGallery = runtimeGroups.map(({ id, label, entries }) => {
       const otherBindings = aliases.length ? `<details><summary>Other bindings (${aliases.length})</summary>` +
         aliases.map(({ id, scriptCue }) => `<p><code>${escape(id)}</code>${scriptCue ? ` · ${escape(scriptCue)}` : ""}</p>`).join("") +
         "</details>" : "";
-      return `<figure data-visual="true" data-enhanced="true" data-coverage="complete">${replacementPreview(entry!)}${otherBindings}</figure>`;
+      const requirements = scripted ? sceneReviewRequirements.get(entry!.file) : undefined;
+      const review = requirements ? `<details><summary>Required visual details</summary><ul>${requirements.map(requirement =>
+        `<li>${escape(requirement)}</li>`).join("")}</ul></details>` : "";
+      return `<figure data-visual="true" data-enhanced="true" data-coverage="complete">${replacementPreview(entry!)}${review}${otherBindings}</figure>`;
     }).join("") + "</div></details>";
 }).join("");
 const missingGallery = [...missingByArea].sort(([left], [right]) => left.localeCompare(right, "en", { numeric: true }))

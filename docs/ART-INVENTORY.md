@@ -611,6 +611,8 @@ an unreadable focal subject, or a mismatched caption fails the scene. Review
 the full-size PNG for drawing quality and use a Chrome capture for the
 pass decision. Keep the caption, required details, and screenshot together
 so another reviewer can make the same check.
+The gallery's **Required visual details** list puts those checks next to
+the artwork and dialogue cue for the scenes that have a checklist.
 
 For Yarash's first room description, require a visible assortment of torture
 implements, a central table, and readable metal restraints. The alchemical
