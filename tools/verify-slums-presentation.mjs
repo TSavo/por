@@ -6396,6 +6396,8 @@ try {
     assert.ok(!frame.journal.leads.some(({ id }) => id === "kobold-fatima-left"));
     for (const key of ["j", declineFatima ? "n" : "y"]) await advance(key);
     assert.equal(frame.portrait, declineFatima ? fatima : undefined);
+      const farewell = "scene-illustration:area:13:ecl:a8d8";
+      assert.equal(frame.portrait, farewell);
     if (declineFatima) {
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /GOODHUNTING.*SHELEAVES/i);
     } else {
@@ -6413,6 +6415,12 @@ try {
     assert.ok(frame.journal && !knows("mendor-library-stacks"));
     for (const key of ["j", "up", "up", "right", "up", "up", "up", "right", "up", "j"]) await advance(key);
     assert.ok(knows("mendor-library-stacks"));
+    if (declineFatima) {
+      for (const key of ["j", "up"]) await advance(key);
+      assert.equal(frame.portrait, undefined);
+      await waitFor("Fatima's farewell to clear on movement", () => run(`state.sequence === ${frame.sequence} &&
+        !document.querySelector('.encounter-portrait')`));
+    }
     assert.ok(!frame.journal.leads.some(({ id }) => id.startsWith("mendor-book-")));
     await switchBothWays();
     console.log("Verified the witnessed library stacks clue in Chrome.");
