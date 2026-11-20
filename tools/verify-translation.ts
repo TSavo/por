@@ -1225,11 +1225,21 @@ function checkCampaignJournal(): void {
   if (!shamanReward || !headmanPromise) throw new Error("Missing original Nomad Camp reward dialogue");
   deepStrictEqual(discoveredLeads(headmanPromise).some(({ id }) => id === "nomad-shaman-reward"), false);
   deepStrictEqual(discoveredLeads(shamanReward).map(({ id }) => id), ["nomad-shaman-reward"]);
+  const mourning = lines.find((line) => line.includes("PLEASE LEAVE US TO OUR MOURNING"));
+  if (!mourning) throw new Error("Missing the original Nomad Camp mourning dialogue");
+  const beforeMourning = discoveredLeads(`${nomads.offer}\n${shamanReward}`);
+  const afterMourning = discoveredLeads(`${nomads.offer}\n${shamanReward}\n${mourning}`);
+  ok(currentObjective(beforeMourning, "commission-nomads").nextStep.includes("Collect the shaman's reward"));
+  ok(currentObjective(afterMourning, "commission-nomads").nextStep.includes("Leave the camp"));
   const declined = lines.find((line) => line.includes("LOOKING DISAPPOINTED THE HEADMAN SAYS"));
   if (!declined) throw new Error("Missing original Nomad Camp departure dialogue");
   const knownNomads = discoveredLeads(`${nomads.offer}\n${declined}`);
   const nomadFlag = progressAddresses.nomads!;
   writeGlobal(nomadFlag, 254);
+  for (const [witnessed, expected] of [[beforeMourning, "Collect the shaman's reward"], [afterMourning, "Leave the camp"]] as const) {
+    const progress = questProgress(m, witnessed, m.ds);
+    ok(currentObjective([...witnessed, ...progress].filter(lead => lead.status !== "offered"), "commission-nomads").nextStep.includes(expected));
+  }
   const nomadReport = questProgress(m, knownNomads, m.ds);
   if (nomadReport[0]?.status !== "ready-to-report" ||
       !currentObjective(nomadReport).nextStep.includes("report what happened") ||

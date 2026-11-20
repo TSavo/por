@@ -156,6 +156,12 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "rescue" && tracked.status === "reward-pending") {
         return { title: commission.title, nextStep: "Accept the council reward. In the treasure menu, choose Take for the items you want, then Exit." };
       }
+      if (commission.id === "nomads" && tracked.status === "ready-to-report" && knows("nomad-shaman-reward")) {
+        const report = "Report what happened at the Nomad Camp to the council clerk in New Phlan.";
+        return { title: commission.title, nextStep: knows("nomad-mourning")
+          ? `Leave the camp as the shaman requested. ${report}`
+          : `Collect the shaman's reward before leaving camp. ${report}` };
+      }
       if (commission.id === "river" && tracked.status === "ready-to-report" && knows("river-fountain-blast") && !knows("river-recovery")) {
         return { title: commission.title, nextStep: "Check the party after the blast, then leave the pyramid and report to the council clerk in New Phlan." };
       }
@@ -372,7 +378,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("river-pump-prisoners-freed")) nextStep = "Read journal entry 35 for the freed prisoners' advice on getting help from their tribe in the swamp.";
     }
     if (commission.id === "nomads") {
-      if (knows("nomad-fled-finale")) nextStep = "The headman went to finish the fight with his surviving guards. Continue to hear what happened.";
+      if (knows("nomad-mourning")) nextStep = "Leave the camp as the shaman requested, then report what happened to the council clerk.";
+      else if (knows("nomad-shaman-reward")) nextStep = "Collect the shaman's reward before leaving camp.";
+      else if (knows("nomad-fled-finale")) nextStep = "The headman went to finish the fight with his surviving guards. Continue to hear what happened.";
       else if (knows("nomad-kobold-attack")) nextStep = "The kobolds are attacking the camp. Choose Combat when prompted to help the nomads repel them.";
       else if (knows("nomad-war-cries")) nextStep = "Press Enter to continue and see what is happening outside the hut.";
       else if (knows("nomad-declined-aid")) nextStep = "The party declined to defend the camp. Check with the council clerk about the commission.";
@@ -934,6 +942,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE SHAMAN WALKS UP TO YOU") && text.includes("A REWARD WAS PROMISED AND SO SHALL IT BE")) {
     leads.push({ id: "nomad-shaman-reward", title: "The shaman honors the promise",
       detail: "After the raid, the shaman praised the party and confirmed the reward for defending the camp." });
+  }
+  if (text.includes("PLEASE LEAVE US TO OUR MOURNING") && text.includes("IT IS A PERSONAL THING FOR OUR PEOPLE")) {
+    leads.push({ id: "nomad-mourning", title: "The nomads ask for privacy",
+      detail: "The shaman asked the party to leave the camp so the nomads could mourn." });
   }
   if (text.includes("THE HEADMAN SNEERS") && text.includes("FOR HYRNKA")) {
     leads.push({ id: "nomad-fled-finale", title: "The party left the final fight",
