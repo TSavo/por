@@ -5405,6 +5405,12 @@ try {
         await waitFor("all eight opening elite guards in Chrome", () => run(`state.sequence === ${frame.sequence} &&
           [...document.querySelectorAll('.combat-sprite[src="/art/${stand}"]')]
             .filter(sprite => sprite.naturalWidth === 96 && sprite.naturalHeight === 96).length === 8`));
+        const flail = "combat:party:0:3";
+        assert.deepEqual(frame.combatArt.find(([x, y]) => x === 80 && y === 80), [80, 80, flail, false, true]);
+        await waitFor("Threndr's enhanced flail sprite", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.combat-sprite[src="/art/${flail}"]')?.naturalWidth === 96`));
+        const opening = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "valjevo-elite-guard-opening.png"), Buffer.from(opening.data, "base64"));
       }
     }
     if (readyPrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), readyPrompt);
