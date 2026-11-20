@@ -3700,9 +3700,10 @@ const verifyApproachTravel = outskirts && option === "--map-travel";
 const verifyDistrictTravel = outskirts && option === "--map-destination";
 const declineDirten = routeName === "braccio-dirten-briefing" && option === "--decline";
 const declineRestal = restalGuide && option === "--decline";
+const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "--refuse-to-leave";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
   ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
-  declineDirten || declineRestal, "Option does not apply to this route");
+  declineDirten || declineRestal || refuseNomadDismissal, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -5483,8 +5484,16 @@ try {
     await advance("j");
     assert.ok(knows("nomad-feast-declined") && !knows("nomad-feast-attended") && !knows("nomad-headman-talk"));
     assert.match(frame.journal.leads.find(({ id }) => id === "nomad-feast-declined").detail, /asked it to leave/i);
-    for (const key of ["j", "y"]) await advance(key);
-    assert.equal(frame.portrait, undefined);
+    assert.ok(!knows("nomad-refused-to-leave"));
+    for (const key of ["j", refuseNomadDismissal ? "n" : "y", "j"]) await advance(key);
+    assert.equal(knows("nomad-refused-to-leave"), refuseNomadDismissal);
+    await advance("j");
+    assert.notEqual(frame.portrait, dismissal);
+    if (refuseNomadDismissal) {
+      assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""), /YOURINSULTSARETOOMANY|ABATTLEBEGINS/i);
+    } else {
+      assert.equal(frame.portrait, undefined);
+    }
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified that declining the Nomad feast records only the witnessed outcome in Chrome.");
   } else if (routeName === "nomad-headman" || routeName === "nomad-headman-stay") {

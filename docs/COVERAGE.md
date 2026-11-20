@@ -1206,6 +1206,9 @@ then directs the party to prepare through Encamp.
 The `nomad-feast-arrival` replay checks the separate daytime contest and
 nighttime campfire illustrations, then verifies the handoff to Hassad's
 portrait as the party records his account in entry 55.
+The `nomad-feast-decline` replay checks Hassad's dismissal portrait and
+the peaceful exit. The `--refuse-to-leave` branch checks that the journal
+records the hostile response after the party refuses to go.
 The Stay and Fight replay writes a native slot A after that offer.
 `nomad-headman-rest-reload` loads it in a new Chrome session, checks
 that the offer survives, and rests eight hours through Encamp. The

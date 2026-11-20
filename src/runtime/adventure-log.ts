@@ -379,6 +379,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("nomad-stay-or-leave")) nextStep = "Choose Stay and Fight if you will defend the camp, or Leave if you decline.";
       else if (knows("nomad-kobold-warning")) nextStep = "Hear out the headman and decide whether to stay and help against the kobolds.";
       else if (knows("nomad-feast-attended") || knows("nomad-headman-talk")) nextStep = "Continue through the feast and hear what Hassad Ahwal has to say.";
+      else if (knows("nomad-refused-to-leave")) nextStep = "The nomads turned hostile after the party refused to leave. Get clear of the camp.";
       else if (knows("nomad-feast-declined")) nextStep = "The headman asked the party to leave. Leave peacefully and check with the council clerk about the commission.";
       else if (knows("nomad-feast-invitation")) nextStep = "Accept the headman's feast invitation to speak with him further.";
       else if (knows("nomad-sentries")) nextStep = "Parlay with the nomads at the camp so you can speak with their headman.";
@@ -888,6 +889,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THEN YOU MUST LEAVE US") && text.includes("DO YOU LEAVE?")) {
     leads.push({ id: "nomad-feast-declined", title: "The party declined the feast",
       detail: "After the party declined the invitation, Hassad asked it to leave the camp." });
+  }
+  if (text.includes("YOUR INSULTS ARE TOO MANY! KILL THEM!")) {
+    leads.push({ id: "nomad-refused-to-leave", title: "The nomads turned hostile",
+      detail: "The party refused to leave after declining the feast, and the headman ordered his people to attack." });
   }
   if (text.includes("YOU MAKE HASSAD AHWAL'S TALK ENTRY 55 IN YOUR JOURNAL")) {
     leads.push({ id: "nomad-headman-talk", title: "Hassad Ahwal's account", detail: "The headman described the region's dangers. The party recorded his account as journal entry 55." });
