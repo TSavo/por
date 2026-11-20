@@ -508,6 +508,8 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["buccaneer-captive-pen-overview.png", ["Worn captives and guards around the pen", "The boy's identifying birthmark stays concealed"]],
   ["buccaneer-bivant-identification.png", ["The boy's heart-shaped birthmark is readable on his left shoulder", "A merchant approaches the party"]],
   ["sokal-floorboard-diary-discovery.png", ["A lifted floorboard", "Diary pages and gems visibly tucked beneath it"]],
+  ["kobold-king-council-turnin.png", ["The council clerk presenting the reward", "A clear handoff to the party inside City Hall"]],
+  ["pyramid-pump-prisoners-hostile.png", ["The prisoners hurl barrels of contaminant", "The party is visible in the path of the splash"]],
 ]);
 
 const runtimeGroups = [
