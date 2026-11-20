@@ -519,6 +519,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["zhentil-envoy-council-turnin.png", ["The City Hall clerk with the reward visible on the desk", "The hourglass underscores the envoy's swift return"]],
   ["nomad-camp-council-turnin.png", ["The City Hall clerk hears the party's report from the camp", "The purse is visible as she presents the reward"]],
   ["nomad-headman-refusal-attack.png", ["The headman angrily orders an attack", "A guard reacts behind the headman"]],
+  ["mendor-storeroom-kobold-map.png", ["The party sketches a map as a kobold explains the surroundings", "The sketch reads as a journal entry"]],
   ["pyramid-pump-prisoners-hostile.png", ["The prisoners hurl barrels of contaminant", "The party is visible in the path of the splash"]],
 ]);
 
