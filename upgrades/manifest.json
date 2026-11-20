@@ -177,6 +177,7 @@
     "encounter:area:29:ecl:a64b:SPRIT8.DAX:0:1:0": "kuto-ruins-kobold-watch-approach-middle.png",
     "encounter:area:29:ecl:a64b:SPRIT8.DAX:57:1:0": "kuto-ruins-lizardfolk-watch-approach-middle.png",
     "combat:area:8:CPIC3.DAX:14:ecl:b48a": "new-phlan-watch-mage-stand.png",
+    "combat:area:8:CPIC3.DAX:142:ecl:b48a": "new-phlan-watch-mage-strike.png",
     "combat:area:8:CPIC3.DAX:15:ecl:b48a": "buccaneer-wilds-patrol-corporal-ready.png",
     "combat:area:8:CPIC3.DAX:16:ecl:b48a": "tempus-temple-captain-ready.png",
     "combat:area:27:CPIC8.DAX:57:ecl:a087": "eastern-marches-ridge-lizardfolk-ready.png",
