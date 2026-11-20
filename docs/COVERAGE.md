@@ -3755,3 +3755,9 @@ clearance on Continue, and state preservation across display switches.
 The Ferran farewell replay also opens the journal before and after the
 parley and confirms that the departure clue appears only after the party
 hears it.
+
+The default Small and Human combat appearances now have recolorable
+Enhanced artwork for all 32 ready-and-strike pairs per size. Chrome
+checked the final 18 editor combinations and both recolored Human
+robed-wand poses in a controlled battle. The inventory confirmed both
+masks for all 64 default combinations.
