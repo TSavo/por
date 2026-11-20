@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:13:CPIC2.DAX:0:ecl:9e0d": "kobold-cave-horde-infantry-ready.png",
+    "combat:area:13:CPIC2.DAX:128:ecl:9e0d": "kobold-cave-horde-infantry-strike.png",
     "portrait:area:3:ecl:b0f6:PIC5.DAX:7:0:0": "valjevo-cadorna-hedge-directions.png",
     "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0": "valjevo-kitchen-gnoll-flight.png",
     "combat:area:17:CPIC2.DAX:0:ecl:b376": "nomad-raid-kobold-stand.png",
