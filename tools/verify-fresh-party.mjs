@@ -1697,6 +1697,28 @@ if (process.argv[2] === "--mage-training-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--valjevo-forge-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot B just outside the Valjevo forge.");
+  copyFileSync(process.argv[3], join(saveDir, "B.json"));
+  function checkForge(discovered, authorization) {
+    return (_text, frame) => {
+      assert.equal(frame.journal.leads.some(({ id }) => id === "castle-forge"), discovered);
+      assert.equal(frame.journal.leads.some(({ id }) => id === "castle-forge-authorization"), authorization);
+    };
+  }
+  await replay(loadSlot("3062"), "85000000", [
+    "j", checkForge(false, false), "j", "up", "enter", "a",
+    "j", checkForge(true, false), "j", "p", "h",
+    (text) => assert.match(text, /if it's important get authorization/),
+    "j", checkForge(true, true), "j", "e", "s", "s", "d",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2064"), "85000000", ["j", checkForge(true, true)]);
+  await replay(loadSlot("3062"), "85000000", ["j", checkForge(false, false)]);
+  console.log("Verified the Valjevo forge and authorization clues across save slots.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--genheeris-deal-checkpoint") {
   assert.ok(process.argv[3], "Pass slot B outside Genheeris's room in Valjevo Castle.");
   copyFileSync(process.argv[3], join(saveDir, "B.json"));
