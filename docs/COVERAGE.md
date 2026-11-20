@@ -646,6 +646,15 @@ publisher splash at 32 million. Advancing at 32 million still produced
 another publisher frame before the title. The shipped runtime passed the
 publisher, title, and credits replay and the character creation portrait
 replay with their current timing.
+The failure after character creation with the isolated flag correction
+reached `0512:53E1` in the calibrated delay loop. A direct run of the
+translated calibration loop at 16 instructions per BIOS tick counted
+five iterations. The original division by 55 gives zero, so the later
+`LOOP` instruction with CX initially zero wraps to 65,535. In an
+isolated run at 256 instructions per BIOS tick, calibration counted
+85 iterations and stored one. With the corrected flags, that cadence
+allowed character creation, the Phlan tour, and the first save. The
+Diogenes Chrome replay timed out after Enter with the experimental cadence.
 With the flag changes, the strict fresh-party replay won the Slums and
 Sokal patrol fights and recovered the hidden equipment. The strict
 controlled castle replay still defeated the original Tyranthraxus and
