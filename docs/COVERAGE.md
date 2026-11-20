@@ -1169,6 +1169,9 @@ The Chrome replay continues toward the front gate through the first
 guard interception. It verifies that the tracked objective first directs
 the party to escort the boy out, then calls for fighting off the guards
 when they spot him. This route leaves the merchant alarm clue hidden.
+The controlled `buccaneer-bivant-escort-combat` Chrome replay verifies all
+19 visible Buccaneers after the opening camera pan, including the guard
+against the diagonal wall, then checks an animated reflected strike.
 The translation verifier checks that the journal keeps
 the escort active inside the base and asks the party to report to the
 council once it is outside. The `bivant-reward` Chrome replay starts from

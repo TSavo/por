@@ -3662,6 +3662,7 @@ routes.push("kobold-princess-fatima-reload");
 routes.push("kuto-norris-surrender-reload");
 routes.push("valjevo-forge-authorization-reload");
 routes.push("buccaneer-bivant-punch");
+routes.push("buccaneer-bivant-escort-combat");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -6561,6 +6562,30 @@ try {
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified both forge clues after reloading in Chrome.");
+  } else if (routeName === "buccaneer-bivant-escort-combat") {
+    for (const key of ["up", "enter", "g", "right", "up", "right", "up", "up", "up"]) await advance(key);
+    const dialogue = frame.text.toSorted(([a], [b]) => a - b)
+      .map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
+    assert.match(dialogue, /SOMEOFTHEGUARDSSPOTYOUWITHTHEBOY/i);
+    for (const key of ["up", "up", "up", "enter", "enter", "enter"]) await advance(key);
+    const ready = "combat:area:1:CPIC6.DAX:11:ecl:9b02";
+    const guards = frame.combatArt.filter(([, , id]) => id === ready);
+    assert.equal(guards.length, 19);
+    assert.ok(guards.some(([x, y, , reflected]) => x === 128 && y === 80 && reflected),
+      "The guard against the diagonal wall should use Enhanced art");
+    await waitFor("all 19 visible escort guards in Enhanced", () => run(`state.sequence === ${frame.sequence} && !animationFrame &&
+      [...document.querySelectorAll('.combat-sprite[src="/art/${ready}"]')]
+        .filter(sprite => sprite.naturalWidth === 96 && sprite.naturalHeight === 96).length === 19`));
+    await switchBothWays(frame.frame);
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "bivant-escort-combat.png"), Buffer.from(shot.data, "base64"));
+    for (let turn = 0; turn < 3; turn++) await advance("q");
+    const strike = "combat:area:1:CPIC6.DAX:139:ecl:9b02";
+    assert.ok(frame.animation?.some(({ combatArt }) => combatArt?.some(([x, y, id, reflected]) =>
+      x === 104 && y === 32 && id === strike && reflected)),
+      "The escort guard's reflected strike should use Enhanced art");
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the guard sprites during Bivant's escort in Chrome. Capture:", directory);
   } else if (routeName === "buccaneer-bivant-punch") {
     for (const key of ["down", "enter", "e", "e", "right", "up", "right", "up", "enter", "enter"]) {
       await advance(key);
