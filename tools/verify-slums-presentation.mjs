@@ -3710,7 +3710,7 @@ try {
     })()`), "Enhanced portrait should fill the outer picture panel");
   }
 
-  async function switchBothWays() {
+  async function switchBothWays(classicFrame) {
     const displayGeometry = () => run(`(() => {
       const display = document.querySelector("#screen");
       const { width, height } = display.getBoundingClientRect();
@@ -3719,6 +3719,10 @@ try {
     const before = await latest();
     await run('document.querySelector("#presentation").click()');
     await waitFor("classic presentation", () => run('document.querySelector("#game-text").hidden && document.querySelector("#tile-art").hidden'));
+    if (classicFrame) {
+      const nativePng = JSON.stringify(`data:image/png;base64,${classicFrame}`);
+      await waitFor("the captured guest frame in Classic", () => run(`document.querySelector("#screen").src === ${nativePng}`));
+    }
     const classic = await displayGeometry();
     assert.deepEqual(classic.native, [320, 200]);
     assert.ok(Math.abs(classic.height - classic.width * 5 / 8) < 1, "Classic should render at 8:5");
@@ -4249,12 +4253,8 @@ try {
     // Hold one already observed animation frame while switching its presentation.
     await run(`animationFrame = ${JSON.stringify(capturedEffect)}; showScreen();`);
     await waitFor("the held Enhanced combat effect", () => run('document.querySelector(".combat-effect")?.naturalWidth === 96'));
-    await switchBothWays();
-    await run('document.querySelector("#presentation").click()');
-    const originalEffectPng = JSON.stringify(`data:image/png;base64,${capturedEffect.frame}`);
-    await waitFor("the original combat animation frame in Classic", () => run(`
-      document.querySelector("#tile-art").hidden && document.querySelector("#screen").src === ${originalEffectPng}`));
-    await run('finishAnimation(); document.querySelector("#presentation").click();');
+    await switchBothWays(capturedEffect.frame);
+    await run('finishAnimation(); showScreen();');
     await waitFor("the settled Enhanced battlefield", () => run('!animationFrame && !document.querySelector(".combat-effect")'));
     console.log("Verified Council magic and arrow effects, actor layering, and cleanup in Chrome.");
   } else if (routeName === "new-phlan-arena-quick" || routeName === "new-phlan-arena-manual-report") {
@@ -5888,7 +5888,7 @@ try {
       await waitFor("the Enhanced Red Wizards evidence", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelector('.encounter-portrait[src="/art/${evidence}"]')?.naturalWidth === 352`));
       await verifyPortraitPanel();
-      await switchBothWays();
+      await switchBothWays(frame.frame);
       await advance("j");
       assert.ok(knows("castle-records-thay") && !knows("castle-records-moonsea"));
       for (const key of ["j", "enter"]) await advance(key);

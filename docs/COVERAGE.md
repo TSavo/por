@@ -3631,4 +3631,5 @@ prompts in both display modes from the Maze patrol slot B checkpoint.
 The Valjevo records replay checks the Enhanced illustration when the
 party finds evidence of the Red Wizards' alliance. It also checks that
 the image clears on the next page and that accepting or declining the
-read prompt governs which discoveries the journal records.
+read prompt governs which discoveries the journal records. Switching
+to Classic at the discovery displays the exact guest room frame.
