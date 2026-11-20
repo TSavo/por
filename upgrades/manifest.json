@@ -41,6 +41,7 @@
     "portrait:area:28:ecl:aef2:PIC6.DAX:50:0:0": "zhentil-commandant-dinner.png",
     "portrait:area:28:ecl:af96:PIC6.DAX:50:0:0": "zhentil-commandant-dinner.png",
     "encounter:area:26:ecl:a230:SPRIT7.DAX:0:1:0": "lizard-wilds-kobold-archer-approach-middle.png",
+    "encounter:area:26:ecl:a230:SPRIT7.DAX:11:1:0": "lizard-wilds-nomad-scout-approach-middle.png",
     "combat:area:3:CPIC5.DAX:55:ecl:a839": "valjevo-barracks-hill-giant-ready.png",
     "combat:area:3:CPIC5.DAX:183:ecl:a839": "valjevo-barracks-hill-giant-strike.png",
     "combat:area:26:CPIC7.DAX:12:ecl:a2c7": "lizard-wilds-nomad-scout-ready.png",
@@ -5221,6 +5222,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:26:ecl:a230:SPRIT7.DAX:11:1:0": { "area": 26, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:26:ecl:a230:SPRIT7.DAX:0:1:0": { "area": 26, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:26:ecl:a230:SPRIT7.DAX:15:1:0": { "area": 26, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:26:ecl:a230:SPRIT7.DAX:57:1:0": { "area": 26, "x": 56, "y": 32, "width": 32, "height": 65 },

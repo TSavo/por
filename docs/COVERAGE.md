@@ -3250,6 +3250,9 @@ Separate Chrome replays check the Lizard Wilderness kobold archer's
 approach and the Kuto Ruins kobold's short-sword ready and attack poses.
 The former returns to exploration after Nice parlay. The latter displays
 the attack at (80, 104) alongside the original combat report.
+The Lizard Wilderness Nomad scout replay verifies the approach art at
+(56, 32), the original combat transition, and display switching after
+selecting the Nomads from the native encounter table.
 
 The Zhentil officers' dinner has a dedicated illustration across nine
 dinner-specific prompts. Five Chrome routes verified the staged art,
