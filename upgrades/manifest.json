@@ -2426,6 +2426,8 @@
     "tile:31:265fdfb327afb9171e5a4afaf526a304471572cc2dc02ba16b03a00049e8f541": "bane-outer-courts-terrain-265fdfb327af.png",
     "encounter:area:5:SPRIT5.DAX:56:0:0": "valjevo-tower-fire-giants-approach.png",
     "portrait:area:5:PIC5.DAX:56:0:0": "valjevo-tower-fire-giants-dialogue.png",
+    "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0": "valjevo-tower-fire-giants-refuted.png",
+    "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0": "valjevo-tower-fire-giants-restrained.png",
     "combat:area:9:CPIC2.DAX:14:ecl:a3e7": "stojanow-trap-mage-stand.png",
     "combat:area:9:CPIC2.DAX:11:ecl:a3e7": "stojanow-trap-aides-ready.png",
     "combat:area:9:CPIC2.DAX:139:ecl:a3e7": "stojanow-trap-aides-strike.png",

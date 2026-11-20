@@ -3633,3 +3633,7 @@ party finds evidence of the Red Wizards' alliance. It also checks that
 the image clears on the next page and that accepting or declining the
 read prompt governs which discoveries the journal records. Switching
 to Classic at the discovery displays the exact guest room frame.
+
+The `valjevo-tower-fire-giants-refuted` replay follows the original No
+branch from slot B. Chrome checks the fire giant's outburst illustration
+and the separate image of his companions restraining him at Stay/Leave.

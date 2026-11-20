@@ -547,6 +547,15 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-tower-fire-giants-refuted", {
+    slot: "B", inputs: ["up", "l", "enter", "enter", "n"],
+    portrait: "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",
+    prompt: /YOULIE.*ISMASHYOU/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
+      prompt: /BEFOREHECANATTACKTHEOTHERSGRABHIM/i,
+    },
+  }],
   ["valhingen-zombie-roam-dialogue", {
     slot: "A", inputs: ["up", "down", "up", "down", "up"],
     portrait: "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:0:0",
