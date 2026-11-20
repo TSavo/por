@@ -2776,6 +2776,10 @@ passed with the updated art.
 over 121 terrain tiles each, then the existing dialogue portrait.
 `tempus-temple-watch-combat` checks the shared Watch ready sprite and the
 cleric's mace strike in the Tempus temple reinforcement battle.
+`tempus-temple-captain-ready` checks the captain's ready pose and loads
+his two-handed sword strike separately. A controlled combat replay with
+Cora positioned within his reach observed the reflected strike at its
+native anchor, the hit report, and the return to the ready pose.
 `new-phlan-tavern-cutpurse-combat` verifies the ready pose and reflected
 longsword strike in the tavern brawl.
 `new-phlan-tavern-nomad-patron-combat` verifies a separate ready pose and

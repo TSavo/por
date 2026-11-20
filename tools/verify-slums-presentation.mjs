@@ -2369,7 +2369,8 @@ const combatPoseRoutes = new Map([
     inputs: ["up", "enter", "enter", ...Array(4).fill("q")],
   }],
   ["tempus-temple-captain-ready", {
-    slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:aac7", width: 96, height: 96,
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:aac7", strike: "combat:area:0:CPIC3.DAX:144:ecl:aac7",
+    width: 96, height: 96,
     readyPrompt: /8THLVLFIGHTER/i, strikeInputs: [],
     inputs: ["up", "enter", "enter", ...Array(6).fill("q")],
   }],
