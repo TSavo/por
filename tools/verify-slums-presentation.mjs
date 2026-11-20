@@ -1141,6 +1141,14 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:27:PIC8.DAX:73:0:0", prompt: /SOMEGNOLLSANDTROLLS/i,
   }],
+  ["kuto-well-waterline", {
+    slot: "J", inputs: ["up", "y", "enter", "enter"],
+    portraitStops: { 1: null, 2: null },
+    portrait: "scene-illustration:area:29:ecl:af80:caller:a23f",
+    prompt: /JUSTABOVETHEWATERLINE,ASECRETDOORHASBEENLEFTAJAR.*DOYOUWANTTOCLIMBUPTHERUNGS/i,
+    journalLead: "kuto-well-waterline-door", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["n"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["kuto-norris-dialogue", {
     slot: "J", inputs: ["up", "enter", "enter", "enter"],
     portrait: "portrait:area:29:ecl:9dc5:HEAD8.DAX:10:BODY8.DAX:6", prompt: /SURRENDER.*FIGHT/i,
@@ -6323,6 +6331,9 @@ try {
         if (routeName === "stojanow-gate-first-sight") {
           assert.ok(frame.journal.leads.some(({ id }) => id === "gate-spotted"));
         }
+        if (routeName === "kuto-well-waterline") {
+          assert.ok(!frame.journal.leads.some(({ id }) => id === "kuto-hidden-catacombs"));
+        }
         if (routeName === "stojanow-wagon-handover") {
           assert.ok(frame.journal.leads.some(({ id }) => id === "gate-trader-deal"));
           assert.ok(!frame.journal.leads.some(({ id }) => id === "gate-trader-ettin-warning"));
@@ -6338,6 +6349,16 @@ try {
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
       if (routeName === "new-phlan-rolf-tour") await waitForExplorationViewport();
+      if (routeName === "kuto-well-waterline") {
+        assert.equal(frame.exploration?.mapId, 32);
+        for (const key of ["down", "up"]) await advance(key);
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.toSorted(([a], [b]) => a - b)
+          .map(([, character]) => String.fromCharCode(character)).join(""), /YOUPASSINTOHIDDENCATACOMBS/i);
+        await advance("j");
+        assert.ok(frame.journal?.leads.some(({ id }) => id === "kuto-hidden-catacombs"));
+        await advance("j");
+      }
       if (routeName === "valhingen-storm-entrance") {
         await waitFor("the local map to become available after the storm", () => run(
           'document.querySelector("#travel-map").hidden && !document.querySelector("#map-toggle").disabled'));
