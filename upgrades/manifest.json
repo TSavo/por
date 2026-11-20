@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:0:0": "podal-auction-wand-exchange.png",
     "portrait:area:17:ecl:9da2:caller:a416:HEAD7.DAX:74:BODY7.DAX:30": "nomad-headman-greeting.png",
     "portrait:area:17:ecl:9d74:caller:a4aa:HEAD7.DAX:74:BODY7.DAX:30": "nomad-headman-greeting.png",
     "portrait:area:17:ecl:9d74:caller:a4fa:HEAD7.DAX:74:BODY7.DAX:30": "nomad-headman-greeting.png",
