@@ -1686,6 +1686,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "graveyard-vampire-escaped", title: "The vampire escaped",
       detail: "After the fight, the vampire turned into vapor and floated away." });
   }
+  if (text.includes("THE SCROLL IS PLACED IN YOUR JOURNAL AS ENTRY 43")) {
+    leads.push({ id: "graveyard-crypt-scroll", title: "Scroll in the black marble crypt",
+      detail: "The party read the scroll from the black marble crypt and recorded it as journal entry 43." });
+  }
   if (text.includes("YOU FIND THE VAMPIRE'S TREASURE TROVE")) {
     leads.push({ id: "graveyard-vampire-trove", title: "The vampire's treasure trove",
       detail: "The party found the vampire's treasure while searching the crypt." });
