@@ -86,6 +86,11 @@ including 78 distinct script illustration PNGs. Multiple
 encounter branches can use the same source frame, and some script scenes
 have no archive picture. Branch-specific artwork can improve live coverage
 without changing the source-frame count.
+For example, the `new-phlan-rolf-approach` Chrome replay starts with a
+fresh party and checks the enhanced dock, Rolf's approach and all seven
+tour stops, and the return to scenery after the City Hall guard. This
+replay checks the artwork selected at those transitions, where a single
+archive frame count can hide a missing scene binding.
 The party combat icon tables count default-palette combinations with both
 poses. All 448 tall combinations across 14 head sets and all 352 small
 combinations across 11 distinct head sets have both poses.
