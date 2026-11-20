@@ -463,6 +463,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("gate-toll-demand")) nextStep = "The bugbear asked for 15 gold. If you can pay, choose Yes at the gate.";
       else if (knows("gate-bugbears-let-go")) nextStep = "The bugbears let you go. Back away from the wall and try the main gate.";
       else if (knows("gate-tower-warning")) nextStep = "The tower guard warned you away from the wall. Return to the main entrance to look for a way in.";
+      else if (knows("gate-trader-ettin-warning")) nextStep = "Approach the main gate. The trader warned that the bugbears fear the ettin, so avoid provoking them.";
+      else if (knows("gate-trader-guard-warning")) nextStep = "Look for a way through the main gate. The trader warned that bugbears guard it.";
       else if (knows("gate-wagon-entry")) nextStep = "Approach the entrance where the wagon got through. Watch for an opportunity to get past the bugbear guards.";
     }
     return { title: commission.title, nextStep };
@@ -1554,6 +1556,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("A MAN WITH A WAGON OF GOODS") && text.includes("THE GATES OPEN")) {
     leads.push({ id: "gate-wagon-entry", title: "A wagon entered Stojanow Gate",
       detail: "The wagon driver handed something to the bugbear guards, who opened the gate." });
+  }
+  if (text.includes("PLEASURE DOING BUSINESS WITH YOU. HERE'S YOUR WAGON")) {
+    leads.push({ id: "gate-trader-deal", title: "A deal for the wagon",
+      detail: "The trader accepted the party's payment. Hear him out before taking the wagon toward the gate." });
+  }
+  if (text.includes("BUGBEARS HAVE BEEN STUCK GUARDING THE GATE")) {
+    leads.push({ id: "gate-trader-guard-warning", title: "The trader warned about the gate",
+      detail: "Giants moved into the castle area and left the bugbears to guard the gate. The bugbears resent the assignment." });
+  }
+  if (text.includes("THEY'RE AFRAID OF THEM ETTIN") && text.includes("GIVE 'EM NO BACK TALK")) {
+    leads.push({ id: "gate-trader-ettin-warning", title: "The bugbears fear the ettin",
+      detail: "The trader warned the party against talking back to the nervous guards." });
   }
   if (text.includes("A BUGBEAR WALKS UP TO YOU") && text.includes("HAVE THE 15 GOLD")) {
     leads.push({ id: "gate-toll-demand", title: "The bugbear demanded a toll",

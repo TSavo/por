@@ -935,6 +935,7 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["up", "enter", "enter", "p", "n", "t"],
     portrait: "portrait:area:9:ecl:9c63:HEAD2.DAX:5:BODY2.DAX:9",
     prompt: /PLEASUREDOINGBUSINESSWITHYOU/i,
+    journalLead: "gate-trader-guard-warning",
     continuation: { inputs: ["enter"], prompt: /BUGBEARSHAVEBEENSTUCKGUARDINGTHEGATE/i },
   }],
   ["zhentil-dwarf-charge", {
@@ -6214,6 +6215,10 @@ try {
         await advance("j");
         assert.ok(frame.journal);
         assert.equal(frame.journal.leads.some(({ id }) => id === journalLead), Boolean(illustration.journalLeadAtDiscovery));
+        if (routeName === "stojanow-wagon-handover") {
+          assert.ok(frame.journal.leads.some(({ id }) => id === "gate-trader-deal"));
+          assert.ok(!frame.journal.leads.some(({ id }) => id === "gate-trader-ettin-warning"));
+        }
         await advance("j");
       }
       for (const key of continuation.inputs) await advance(key);
@@ -6243,6 +6248,11 @@ try {
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead), "Expected witnessed dialogue lead");
+      if (routeName === "stojanow-wagon-handover") {
+        assert.ok(!frame.journal.leads.some(({ id }) => id === "gate-trader-ettin-warning"));
+        for (const key of ["j", "enter", "j"]) await advance(key);
+        assert.ok(frame.journal?.leads.some(({ id }) => id === "gate-trader-ettin-warning"));
+      }
       if (routeName === "podal-auction-ogre-searched") {
         assert.ok(frame.journal.leads.some(({ id }) => id === "auction-cancelled"));
         assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-garwin-escaped"));
