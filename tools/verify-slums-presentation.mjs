@@ -8115,9 +8115,19 @@ try {
     await advance("enter");
     assert.notEqual(frame.portrait, outerWall);
     await advance("enter");
+    const assignedQuarters = "scene-illustration:area:25:ecl:b5ec";
+    assert.equal(frame.portrait, assignedQuarters);
+    await waitFor("Zhentil assigned quarters illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${assignedQuarters}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait[src="/art/${assignedQuarters}"]')?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    const quartersShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "zhentil-assigned-quarters.png"), Buffer.from(quartersShot.data, "base64"));
     await checkJournal(["envoy-challenge", "packet-delivered", "tour-barracks", "tour-watchtowers", "tour-outer-wall", "quarters"], ["quarters-attacked", "envoy-left"]);
     await switchBothWays();
-    for (const key of ["up", "right", "up", "right", "up", "right", "up"]) await advance(key);
+    await advance("up");
+    assert.notEqual(frame.portrait, assignedQuarters);
+    for (const key of ["right", "up", "right", "up", "right", "up"]) await advance(key);
     await checkJournal(["relax"], ["dinner", "night", "quarters-attacked"]);
     for (const key of ["r", "enter"]) await advance(key);
     await checkJournal(["dinner"], ["night", "quarters-attacked"]);
