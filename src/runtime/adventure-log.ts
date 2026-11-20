@@ -816,6 +816,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "kuto-hidden-catacombs", title: "Hidden catacombs under Kuto",
       detail: "The party entered a torchlit room where curtains cover the doorways." });
   }
+  if (text.includes("SOME MOVEMENT OCCURS IN THE ROOM'S FAR CORNER") && text.includes("A VOLLEY OF ARROWS TEARS INTO THE GROUP")) {
+    leads.push({ id: "kuto-catacombs-arrow-volley", title: "Arrows in the Kuto catacombs",
+      detail: "A volley came from the far corner of the first room. Check the party for injuries before going farther." });
+  }
   if (text.includes("THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES")) {
     leads.push({ id: "mendor-library-stacks", title: "Mendor's library stacks",
       detail: "The party found rooms of books marked by subject. Use Search to examine the shelves." });

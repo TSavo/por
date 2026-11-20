@@ -6148,6 +6148,7 @@ try {
     await advance("j");
     const known = new Set(frame.journal.leads.map(({ id }) => id));
     assert.ok(known.has("kuto-well-waterline-door") && known.has("kuto-hidden-catacombs"));
+    assert.ok(known.has("kuto-catacombs-arrow-volley"));
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the Kuto well and hidden catacombs discoveries after reloading slot J in Chrome.");
@@ -6407,6 +6408,7 @@ try {
         await switchBothWays(frame.frame);
         await advance("j");
         assert.ok(frame.journal?.leads.some(({ id }) => id === "kuto-hidden-catacombs"));
+        assert.ok(!frame.journal.leads.some(({ id }) => id === "kuto-catacombs-arrow-volley"));
         await advance("j");
         await advance("enter");
         assert.equal(frame.portrait, undefined);
@@ -6464,6 +6466,7 @@ try {
       for (const key of ["enter", "enter", "e", "enter", "s", "s", "j"]) await advance(key);
       const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
       assert.ok(known.has("kuto-well-waterline-door") && known.has("kuto-hidden-catacombs"));
+      assert.ok(known.has("kuto-catacombs-arrow-volley"));
       console.log("Native save after entering the Kuto catacombs:", saved);
     }
     if (routeName === "diogenes-upper-ledge-fireball") {
