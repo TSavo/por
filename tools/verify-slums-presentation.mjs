@@ -8567,17 +8567,27 @@ try {
     await switchBothWays();
     await advance("enter");
     assert.match(text(), /RECEIVES67500EXPERIENCEPOINTS/i);
+    const awardIllustration = "scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award";
+    assert.equal(frame.portrait, awardIllustration);
     await waitFor("the council reward in the Enhanced web font", () => run(`(() => {
       if (state.sequence !== ${frame.sequence}) return false;
       const text = document.querySelector("#game-text");
       return !text.hidden && /receives67500experiencepoints/i.test(text.textContent.replace(/\\s+/g, "")) &&
+        [...document.querySelectorAll(".reward-illustration")].some(image =>
+          image.getAttribute("src") === ${JSON.stringify("/art/" + awardIllustration)} &&
+          image.naturalWidth === 352 && image.naturalHeight === 352 &&
+          image.style.left === "31.25%" && image.style.top === "36%") &&
         !document.querySelector(".encounter-portrait, .terrain-tile") &&
         [...document.fonts].some(font => font.family.includes("Game Web Font") && font.status === "loaded");
     })()`));
     const reward = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "council-reward.png"), Buffer.from(reward.data, "base64"));
-    await switchBothWays();
-    for (const key of ["enter", "enter", "j"]) await advance(key);
+    await switchBothWays(frame.frame);
+    await advance("enter");
+    assert.equal(frame.portrait, undefined);
+    await waitFor("the reward illustration to clear", () => run(`state.sequence === ${frame.sequence} &&
+      !document.querySelector(".reward-illustration")`));
+    for (const key of ["enter", "j"]) await advance(key);
     assert.equal(castleStatus(), "reward-pending");
     for (const key of ["j", "s", "e", "enter", "enter", "enter", "enter", "j"]) await advance(key);
     assert.equal(castleStatus(), "turned-in");

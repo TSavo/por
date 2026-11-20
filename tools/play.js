@@ -1016,7 +1016,12 @@ async function showScreen() {
     // assembled portrait on the original bitmap boundary.
     placements.push([head[0], head[1] + 6, head[2], undefined, undefined, head[3], head[4]]);
   }
-  if (view.portrait) placements.push([8, 8, view.portrait, undefined, undefined, 120, 120]);
+  // The treasure screen keeps the native reward text above the illustration.
+  const councilVictoryAward = view.portrait === "scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award";
+  if (view.portrait) {
+    const [x, y] = councilVictoryAward ? [100, 72] : [8, 8];
+    placements.push([x, y, view.portrait, undefined, undefined, 120, 120]);
+  }
   if (view.encounter) placements.push(view.encounter.slice(0, 3));
   if (showArt) {
     const perspective = view.perspective && !view.portrait;
@@ -1037,7 +1042,7 @@ async function showScreen() {
         // Align the sky across all eleven rows. The gradient travels 80 guest pixels.
         tile.style.backgroundPositionY = `${((y - 24) / 80) * 100}%`;
       }
-      if (id === view.portrait) tile.className = "encounter-portrait";
+      if (id === view.portrait) tile.className = councilVictoryAward ? "reward-illustration" : "encounter-portrait";
       if (id.startsWith("character-sheet:")) tile.className = "character-sheet-part";
       if (id === view.encounter?.[2]) {
         tile.className = "encounter-sprite";
@@ -1072,7 +1077,7 @@ async function showScreen() {
     if (view.panelFrame?.length) {
       const panelFrame = drawPanelFrame(view.panelFrame);
       // The expanded view fills the outer panel, including its native inner frame.
-      if (view.portrait || view.classicPortrait || perspective || streetCanvas) {
+      if ((view.portrait && !councilVictoryAward) || view.classicPortrait || perspective || streetCanvas) {
         panelFrame.getContext("2d").clearRect(8 * 4, 8 * 4, 120 * 4, 120 * 4);
       }
       layers.push(panelFrame);
@@ -1097,7 +1102,7 @@ async function showScreen() {
         return layer;
       } catch (error) {
         // Terrain remains in the enhanced framebuffer underneath its PNGs.
-        if (layer.matches(".terrain-tile, .battle-tile, .combat-selection")) return null;
+        if (layer.matches(".terrain-tile, .battle-tile, .combat-selection, .reward-illustration")) return null;
         if (layer.matches(".combat-effect")) return spriteBackdrop(layer);
         if (layer.matches(".encounter-portrait")) return pictureBackdrop();
         if (layer.matches(".combat-sprite")) return spriteBackdrop(layer);

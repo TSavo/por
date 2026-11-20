@@ -241,7 +241,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         dialogue.includes("ANANCIENTBRONZEDRAGON,SURROUNDEDBYAFIERYAURA,RISES") && portraitKeys.includes(dragonArrival)
         ? dragonArrival : undefined;
       const scriptKey = `scene-illustration:area:${area}:ecl:${battleCursor?.toString(16)}${portraitCaller === undefined ? "" : `:caller:${portraitCaller.toString(16)}`}`;
-      const picture = scene ? undefined : matchScriptIllustration(scriptKey, dialogue, portraitKeys) ??
+      // The final reward uses the treasure screen's upper rows for its text.
+      const illustrationText = scriptKey === "scene-illustration:area:8:ecl:9f3f:caller:9a4a"
+        ? glyphs.filter(([cell]) => cell < 640).sort(([a], [b]) => a - b)
+          .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
+        : dialogue;
+      const picture = scene ? undefined : matchScriptIllustration(scriptKey, illustrationText, portraitKeys) ??
         arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
