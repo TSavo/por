@@ -563,6 +563,19 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["podal-auction-wand-exchange", {
+    slot: "I", inputs: ["up", ...Array(5).fill("enter"), "end", "enter", "enter"],
+    portrait: "portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:0:0",
+    prompt: /AMANANDOGREEXCHANGETHEWANDANDALARGEBAG/i,
+  }],
+  ["podal-auction-garwin-escaped", {
+    slot: "I", inputs: ["up", ...Array(9).fill("enter"), "end", "end", "enter"],
+    portraitStops: { 10: "portrait:area:18:ecl:a51e:PIC1.DAX:16:0:0" },
+    portrait: "scene-illustration:area:18:ecl:b240:caller:a839",
+    prompt: /GARWIN,I'LLGETYOU.*THEMANHASESCAPEDINTHECONFUSION/i,
+    journalLead: "auction-garwin-escaped", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /THEAUCTIONOVER,THEMONSTERSGRUMBLEANDTURNAWAY/i },
+  }],
   ["valhingen-storm-entrance", {
     slot: "A", inputs: ["down", "up", "enter", "enter", "g", "enter", "enter"],
     portraitStops: { 0: null, 6: "scene-illustration:area:26:ecl:b695:caller:9c27" },
