@@ -91,6 +91,7 @@ export interface JournalLead {
   textileBox?: "sealed" | "opened";
   rewardOutcome?: "unpaid";
   rescueDistractionActive?: boolean;
+  castleDisguiseActive?: boolean;
 }
 
 export interface JournalObjective {
@@ -448,7 +449,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("castle-cadorna-hedge")) nextStep = "Follow Cadorna's directions through the hedge: left, right, right.";
       else if (knows("castle-kitchen-oil") && !knows("castle-kitchen-captives-freed")) nextStep = "Choose Kill the Overseer and Free the Slaves, or Go Back Outside to regroup.";
       else if (knows("castle-kitchen-warning") && !knows("castle-kitchen-captives-freed")) nextStep = "The overseer threatened to throw boiling oil. Choose Kill the Overseer and Free the Slaves, or Go Back Outside.";
-      else if (knows("castle-disguise")) nextStep = "Use the clothes offered by the resistance to move through the castle and find Tyranthraxus.";
+      else if (knows("castle-disguise")) nextStep = leads.some(lead => lead.id === "castle-disguise" && lead.castleDisguiseActive)
+        ? "Use your disguise to move through the castle and find Tyranthraxus."
+        : "If the resistance is still offering clothes, choose whether to wear them. Continue searching the castle for Tyranthraxus.";
       else if (knows("castle-genheeris-deal")) nextStep = "Continue to Tyranthraxus's audience hall. Genheeris agreed to help the party turn against him.";
       else if (knows("castle-al-hyam-notes")) nextStep = "Review Al-Hyam Dhazid's notes on the Pool of Radiance in journal entry 30, then continue searching Valjevo Castle for Tyranthraxus.";
       else if (knows("castle-records-thay") && !knows("castle-records-moonsea")) nextStep = "Continue reading the Valjevo records to learn more about Tyranthraxus's plans, or resume searching the castle.";
@@ -570,6 +573,13 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   if ((base | segment) === 0) return [];
   const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
   const progress: JournalLead[] = [];
+  const disguise = known.find(({ id }) => id === "castle-disguise");
+  if (disguise) {
+    const active = Boolean(global(0x4a65) & 1);
+    progress.push({ ...disguise, castleDisguiseActive: active, detail: active
+      ? "The party is wearing the clothes offered by the castle resistance."
+      : "The resistance offered clothes that could help the party pass as castle inhabitants." });
+  }
   const kovelTransition = kovelJournalTransition(cpu, dataSegment);
   // Podal's entry menu stores the chosen approach in the local crowd state.
   if (cpu.read8(dataSegment, 0x82a2) === 18 && global(0x4a35) !== 0 &&

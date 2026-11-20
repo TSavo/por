@@ -1414,7 +1414,7 @@ function checkCampaignJournal(): void {
   writeGlobal(castleFlag, 0);
   let castleTranscript = castle.offer;
   const castleRoute = [
-    ["USE THESE CLOTHES AS A DISGUISE", "Use the clothes"],
+    ["USE THESE CLOTHES AS A DISGUISE", "choose whether to wear them"],
     ["GET OUT OF MY KITCHEN OR I'LL THROW BOILING OIL ON YOU", "threatened to throw boiling oil"],
     ["THE GNOLL GRABS A POT FROM THE FIRE", "Go Back Outside to regroup"],
     ["TELL ME PASSWORD OR I KILL YOU", "demand a password"],
@@ -1432,6 +1432,15 @@ function checkCampaignJournal(): void {
     castleTranscript += "\n" + line;
     if (!currentObjective(discoveredLeads(castleTranscript)).nextStep.includes(direction)) {
       throw new Error(`Valjevo journal route mismatch: ${trigger}`);
+    }
+    if (trigger === "USE THESE CLOTHES AS A DISGUISE") {
+      const offered = discoveredLeads(castleTranscript);
+      writeGlobal(0x4a65, 1);
+      const worn = questProgress(m, offered, m.ds).find(({ id }) => id === "castle-disguise");
+      ok(worn?.castleDisguiseActive);
+      ok(currentObjective([...offered.filter(({ id }) => id !== "castle-disguise"), worn]).nextStep.includes("Use your disguise"));
+      writeGlobal(0x4a65, 0);
+      ok(questProgress(m, offered, m.ds).find(({ id }) => id === "castle-disguise")?.castleDisguiseActive === false);
     }
   }
   const castleLeads = discoveredLeads(castleTranscript);

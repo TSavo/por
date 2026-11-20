@@ -41,7 +41,8 @@ export function openJournalProfile(path?: string) {
         (lead.status === "accepted" || (lead.status === "ready-to-report" && lead.detail !== prior.detail));
       const distractionChanged = lead.rescueDistractionActive !== undefined &&
         lead.rescueDistractionActive !== prior?.rescueDistractionActive;
-      if (prior && !rescueChanged && !distractionChanged && (!lead.status || (prior.status && (statusRank[prior.status] > statusRank[lead.status] ||
+      const disguiseChanged = lead.castleDisguiseActive !== undefined && lead.castleDisguiseActive !== prior?.castleDisguiseActive;
+      if (prior && !rescueChanged && !distractionChanged && !disguiseChanged && (!lead.status || (prior.status && (statusRank[prior.status] > statusRank[lead.status] ||
         (statusRank[prior.status] === statusRank[lead.status] && !advancingCount && !changedBox && !learnedRewardOutcome))))) continue;
       leads.set(lead.id, lead);
       changed = true;
