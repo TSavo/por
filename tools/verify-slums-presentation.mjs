@@ -5460,7 +5460,12 @@ try {
     assert.equal(frame.portrait, "portrait:PIC5.DAX:73:0:0");
     await waitFor("the kitchen portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    for (let index = 0; index < 8; index++) await advance("enter");
+    await advance("enter");
+    const rescue = "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0";
+    assert.equal(frame.portrait, rescue);
+    await waitFor("the kitchen rescue illustration", () => run(
+      `document.querySelector('.encounter-portrait[src="/art/${rescue}"]')?.naturalWidth === 352`));
+    for (let index = 0; index < 7; index++) await advance("enter");
     await advance("j");
     assert.ok(knows("castle-kitchen-captives-freed"));
     assert.ok(knows("castle-hedge-gate-password"));
