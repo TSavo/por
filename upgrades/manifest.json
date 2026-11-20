@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:24:ecl:ab06:PIC1.DAX:4:0:0": "bane-treasure-ambush.png",
     "encounter:area:11:ecl:99bd:SPRIT3.DAX:15:2:0": "new-phlan-city-watch-approach-far.png",
     "encounter:area:11:ecl:99be:SPRIT3.DAX:15:2:0": "new-phlan-city-watch-approach-far.png",
     "encounter:area:11:ecl:99be:SPRIT3.DAX:15:1:0": "new-phlan-city-watch-approach-middle.png",

@@ -175,8 +175,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         (area === 27 && battleCursor === 0x9d9c && !dialogue.includes("ASMALLGROUPOFKOBOLDSENTERING"));
       // Cadorna's pleas and his hedge directions share the release menu.
       const captivePlea = area === 3 && battleCursor === 0xb0f6 && !dialogue.includes("IKNOWTHEWAYTHROUGHTHEHEDGE");
+      // Bane's treasure and exit ambushes converge on the same battle setup.
+      const treasureAmbush = area === 24 && (battleCursor === 0xaba7 || battleCursor === 0xabbd) &&
+        dialogue.startsWith("THEMINUTEYOUFINDTHETREASURE");
+      const portraitCursor = caveRevisit || captivePlea ? undefined : treasureAmbush ? 0xab06 : battleCursor;
       const picture = !scene
-        ? portraitArt(screen, area, caveRevisit || captivePlea ? undefined : battleCursor, otherAuctionOutcome ? undefined : portraitCaller)
+        ? portraitArt(screen, area, portraitCursor, otherAuctionOutcome ? undefined : portraitCaller)
         : undefined;
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
