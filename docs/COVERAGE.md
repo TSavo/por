@@ -3290,6 +3290,12 @@ and the native transition into combat using a controlled Soldiers roll.
 The Stojanow tower relief aide replay verified the ready pose and the
 shared attack pose during both native longsword and longbow actions.
 
+East Phlan's shoreline crossroads has a dedicated illustration of the
+two entrances and boat landing. Production Chrome replays verified
+North, South, Boat, and Leave, plus the separate western control.
+Two further replays verified the Buccaneer Wilderness tiger and giant
+mantis approach sprites and both transitions into native combat.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
