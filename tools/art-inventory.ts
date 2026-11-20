@@ -508,7 +508,12 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["buccaneer-captive-pen-overview.png", ["Worn captives and guards around the pen", "The boy's identifying birthmark stays concealed"]],
   ["buccaneer-bivant-identification.png", ["The boy's heart-shaped birthmark is readable on his left shoulder", "A merchant approaches the party"]],
   ["sokal-floorboard-diary-discovery.png", ["A lifted floorboard", "Diary pages and gems visibly tucked beneath it"]],
-  ["kobold-king-council-turnin.png", ["The council clerk presenting the reward", "A clear handoff to the party inside City Hall"]],
+  ["kobold-king-council-turnin.png", ["The same auburn-haired clerk introduced at City Hall", "A clear reward handoff to the party"]],
+  ["bivant-council-reward.png", ["The City Hall clerk presenting an open coffer", "The Bivant family's trinkets visibly inside"]],
+  ["mendor-lex-geographica-reward.png", ["The large open atlas takes up the foreground", "The clerk is examining the maps in City Hall"]],
+  ["lizardmen-council-turnin.png", ["The City Hall clerk at a strategy table", "The relief map makes the strategic position visible"]],
+  ["sokal-council-turnin.png", ["The clerk points out the harbor route past the Barren River", "A reward is visible on the City Hall desk"]],
+  ["stojonow-river-council-turnin.png", ["The City Hall clerk visibly presents the reward", "The reopened river trade route remains recognizable"]],
   ["pyramid-pump-prisoners-hostile.png", ["The prisoners hurl barrels of contaminant", "The party is visible in the path of the splash"]],
 ]);
 
