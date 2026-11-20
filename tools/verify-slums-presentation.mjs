@@ -3680,7 +3680,8 @@ const saveSlot = routeName === "sokal-floorboard-diary-reload" ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn ||
     ["stojanow-wall-warning-reload", "kovel-chase-east-reload"].includes(routeName) ? "B" : slot;
-const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", E: "1265", F: "2166", H: "2368", I: "1769", J: "246a" }[saveSlot];
+const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", E: "1265", F: "2166", G: "2267", H: "2368", I: "1769", J: "246a" }[saveSlot];
+assert.ok(boot, `No BIOS key for save slot ${saveSlot} on route ${routeName}`);
 const saved = resolve(directory, saveSlot + ".json");
 const battleTrace = process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;
@@ -3746,6 +3747,11 @@ async function waitFor(description, read, timeoutMs = 30_000) {
   const deadline = Date.now() + timeoutMs;
   let lastError;
   do {
+    for (const [name, child] of [["Game server", server], ["Chrome", chrome]]) {
+      if (child.exitCode !== null || child.signalCode !== null) {
+        throw new Error(`${name} exited (${child.exitCode ?? child.signalCode}) while waiting for ${description}`);
+      }
+    }
     try {
       const value = await read();
       if (value) return value;
