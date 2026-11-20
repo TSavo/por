@@ -145,6 +145,7 @@
     "portrait:area:28:ecl:a058:HEAD6.DAX:57:BODY6.DAX:6": "zhentil-quarters-alarm-dialogue.png",
     "portrait:area:28:ecl:a059:HEAD6.DAX:57:BODY6.DAX:6": "zhentil-quarters-alarm-dialogue.png",
     "portrait:area:28:ecl:a21c:HEAD6.DAX:13:BODY6.DAX:6": "zhentil-dwarf-charge-dialogue.png",
+    "encounter:area:28:ecl:a210:SPRIT6.DAX:13:0:0": "zhentil-dwarf-charge-approach.png",
     "portrait:area:28:ecl:a232:HEAD6.DAX:13:BODY6.DAX:6": "zhentil-dwarf-charge-dialogue.png",
     "combat:area:20:CPIC2.DAX:6:ecl:aa81": "slums-mage-hobgoblin-stand.png",
     "combat:area:20:CPIC2.DAX:134:ecl:aa81": "slums-mage-hobgoblin-strike.png",
@@ -5437,6 +5438,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:28:ecl:a210:SPRIT6.DAX:13:0:0": {"area":28,"x":48,"y":32,"width":40,"height":73},
     "encounter:area:25:ecl:a8d0:SPRIT6.DAX:60:0:0": {"area":25,"x":40,"y":32,"width":64,"height":80},
     "encounter:area:0:ecl:af4d:SPRIT3.DAX:27:0:0": {"area":0,"x":48,"y":32,"width":40,"height":80},
     "encounter:area:11:ecl:99bd:SPRIT3.DAX:15:2:0": { "area": 11, "x": 56, "y": 32, "width": 16, "height": 49 },

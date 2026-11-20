@@ -547,6 +547,17 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["zhentil-dwarf-charge", {
+    slot: "A", inputs: ["up", "enter"],
+    requireTiledApproach: false,
+    approachSequence: [[48, 32, "encounter:area:28:ecl:a210:SPRIT6.DAX:13:0:0", 40, 73]],
+    portrait: "portrait:area:28:ecl:a21c:HEAD6.DAX:13:BODY6.DAX:6",
+    prompt: /ALARGEGROUPOFMENLEDBYADWARFRUNSFOWARDTOATTACK/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:28:ecl:a232:HEAD6.DAX:13:BODY6.DAX:6",
+      prompt: /ABATTLEBEGINS/i,
+    },
+  }],
   ["kuto-nailed-door-patrol", {
     slot: "J", inputs: ["s", "up", "enter", "enter"],
     portrait: "portrait:area:29:PIC8.DAX:57:0:0",
