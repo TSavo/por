@@ -685,6 +685,13 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:23:ecl:9a04:caller:af04", prompt: /ANOTETOATRAPPER.*ENTRY40/i,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["mendor-philosophy-stacks", {
+    slot: "B", inputs: ["left", "up"],
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:9de1",
+    prompt: /THESEARETHELIBRARYSTACKS.*ASIGNOVERTHEENTRANCEREADSPHILOSOPHY/i,
+    journalLead: "mendor-library-stacks", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["mendor-history-of-the-north-discovery", {
     slot: "B", inputs: ["s", "up", "enter", "left", "up", "up"],
     portrait: "scene-illustration:area:15:ecl:99b5:caller:9962:cue:history-of-the-north", prompt: /YOUFINDTHEHISTORYOFTHENORTH.*ENTRY8/i,
