@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:6:ecl:9b14:caller:a530:HEAD5.DAX:14:BODY5.DAX:7": "valjevo-chaplain-blessing.png",
+    "portrait:area:6:ecl:a584:HEAD5.DAX:14:BODY5.DAX:7": "valjevo-chaplain-blessing-agony.png",
     "encounter:area:29:ecl:a476:SPRIT8.DAX:73:1:0": "kuto-ruins-gnoll-watch-approach-middle.png",
     "encounter:area:29:ecl:a477:SPRIT8.DAX:73:1:0": "kuto-ruins-gnoll-watch-approach-middle.png",
     "encounter:area:29:ecl:a476:SPRIT8.DAX:0:1:0": "kuto-ruins-kobold-watch-approach-middle.png",

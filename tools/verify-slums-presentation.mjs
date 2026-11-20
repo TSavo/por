@@ -547,6 +547,15 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-chaplain-blessing", {
+    slot: "B", inputs: ["up", "enter", "enter", "a"],
+    portrait: "portrait:area:6:ecl:9b14:caller:a530:HEAD5.DAX:14:BODY5.DAX:7",
+    prompt: /YOUGOFORWARDANDKNEEL/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:6:ecl:a584:HEAD5.DAX:14:BODY5.DAX:7",
+      prompt: /DOUBLESUPINAGONY.*POINTSOFDAMAGE/i,
+    },
+  }],
   ["valjevo-maze-patrol-captain", {
     slot: "B", inputs: ["s", "enter", "up", "enter", "enter", "down", "up", "enter", "enter", "a"],
     requireTiledApproach: false,
