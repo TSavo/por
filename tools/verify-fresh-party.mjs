@@ -1697,6 +1697,29 @@ if (process.argv[2] === "--mage-training-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--restal-seal-checkpoint") {
+  assert.ok(process.argv[3], "Pass a slot C at Restal's well with a broken seal and Textile House commission.");
+  copyFileSync(process.argv[3], join(saveDir, "C.json"));
+  const meeting = ["up", "c", ...Array(5).fill("end"), ...Array(4).fill("enter")];
+  const checkSeal = (resealed) => (_text, frame) => {
+    assert.ok(frame.journal.leads.some(({ id }) => id === "textile-restal-seal-offer"));
+    assert.equal(frame.journal.leads.some(({ id }) => id === "textile-restal-seal-replaced"), resealed);
+    assert.equal(frame.journal.leads.find(({ id }) => id === "commission-textile")?.textileBox,
+      resealed ? "sealed" : "opened");
+  };
+  await replay(loadSlot("2e63"), "85000000", [
+    ...meeting, "j", checkSeal(false), "j", "n", "j", checkSeal(false),
+  ]);
+  await replay(loadSlot("2e63"), "85000000", [
+    ...meeting, "y", (text) => assert.match(text, /receives 1200 experience points/),
+    "enter", "enter", "e", "n", "j", checkSeal(true), "j", "e", "s", "s", "d",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2064"), "85000000", ["j", checkSeal(true)]);
+  console.log("Verified Restal's reseal offer, accept and decline, and reloaded the resealed chest clue.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--restal-route-checkpoint") {
   assert.ok(process.argv[3], "Pass the slot C checkpoint outside Restal's well.");
   copyFileSync(process.argv[3], join(saveDir, "C.json"));

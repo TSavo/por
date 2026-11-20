@@ -291,11 +291,14 @@ if (input) {
 const journalSlice = loadedSlices.find((slice) => slice.index === 3);
 adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || browserSound || liveAt !== undefined || profilePath) && journalSlice
   ? observeAdventureLog(cpu, journalSlice, loadedSlices.find((slice) => slice.index === 16),
-    browserSound ? (message) => {
+    (message) => {
+      // Capture the seal's state before the original menu can resolve the offer.
+      if (message.includes("WE CAN DUPLICATE THE SEAL ON THAT CHEST")) journal();
+      if (!browserSound) return;
       console.log(`POR_TEXT ${JSON.stringify({ step: cpu.steps, message })}`);
       const event = narrationObserver?.observeRenderedText(cpu, message);
       if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
-    } : undefined)
+    })
   : undefined;
 if (input && process.env.POR_BROWSER_PLAY === "1") {
   const title = loadedSlices.find((slice) => slice.index === 1);

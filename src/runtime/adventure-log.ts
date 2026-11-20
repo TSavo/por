@@ -638,6 +638,12 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     }
     if (commission.id === "textile" && value < 254) {
       const box = global(0x4ac8);
+      if (box === 1 && cpu.read8(dataSegment, 0x82a2) === 2 &&
+          known.some(lead => lead.id === id && lead.textileBox === "opened") &&
+          known.some(lead => lead.id === "textile-restal-seal-offer")) {
+        progress.push({ id: "textile-restal-seal-replaced", title: "Restal replaced Cadorna's seal",
+          detail: "Restal replaced the broken seal on Cadorna's box after the party accepted his bargain." });
+      }
       if (box === 1 || box === 128) {
         progress.push({
           id, title: `${commission.title} - ${box === 1 ? "recovered" : "seal broken"}`,
