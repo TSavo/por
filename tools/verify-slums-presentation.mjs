@@ -3010,6 +3010,10 @@ const environmentRoutes = new Map([
     slot: "A", area: 0, views: 6, patterns: 29, sceneryOnly: true,
     walk: ["up", "enter", "n", "enter", "right", "up"],
   }],
+  ["new-phlan-south-shop-menu-exit", {
+    slot: "A", area: 0, views: 6, patterns: 29, sceneryOnly: true,
+    walk: ["up", "enter", "y", "e", "enter", "right", "up"],
+  }],
   ["new-phlan-west-shop-exit", {
     slot: "A", area: 0, views: 9, patterns: 54, sceneryOnly: true,
     walk: ["up", "enter", "n", "enter", "right", "up", "left", "up"],
@@ -4844,7 +4848,8 @@ try {
       await advance("j");
     }
     const grishnakTemple = routeName === "textile-temple" || routeName === "textile-temple-native";
-    const phlanExit = /^new-phlan-(?:south-shop|west-shop|training|tavern-back)-exit$/.test(routeName);
+    const southShopMenu = routeName === "new-phlan-south-shop-menu-exit";
+    const phlanExit = southShopMenu || /^new-phlan-(?:south-shop|west-shop|training|tavern-back)-exit$/.test(routeName);
     let exitPauseTiles;
     let sawGrishnakApproach = false;
     if (environment.approachSequence) await observeApproach(environment.approachSequence);
@@ -4906,7 +4911,11 @@ try {
         writeFileSync(screenshot, Buffer.from(shot.data, "base64"));
         console.log("Zhentil corridor capture:", screenshot);
       }
-      if (phlanExit && (key === "n" || exitPauseTiles)) {
+      if (southShopMenu && key === "y") {
+        assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /BUY.*EXIT/i);
+        assert.ok(frame.portrait || frame.classicPortrait);
+      }
+      if (phlanExit && (key === (southShopMenu ? "e" : "n") || exitPauseTiles)) {
         assert.equal(tiledView, 1, "The doorway should render enhanced scenery on both sides of Enter");
         assert.equal(frame.portrait, undefined);
         assert.equal(frame.classicPortrait, false);

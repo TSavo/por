@@ -2738,6 +2738,9 @@ picture panel while the web font remains visible.
 The default pack emits no shopkeeper fallback. With the replacement
 deliberately omitted, the trace records the matching source candidates
 and the shopkeeper's offer. Both replays verify the scenery at the exit.
+`new-phlan-south-shop-menu-exit` accepts the offer, then uses Exit from
+the shop menu. It verifies the same 121-tile Enhanced street immediately
+at the doorway pause and after Enter.
 
 Three more slot A replays exercise building exits with the browser's
 default art packs. `new-phlan-west-shop-exit` starts at (12,8) east,
