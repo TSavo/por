@@ -505,6 +505,9 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["valjevo-tyranthraxus-offer.png", ["Tyranthraxus addresses the party across the pool", "The party is visible as the audience for the offer"]],
   ["valjevo-tyranthraxus-attack.png", ["The same bronze dragon lunges at the party", "The attack reads before the switch to the battlefield"]],
   ["valjevo-tyranthraxus-spirit.png", ["A fiery spirit rising from the dragon's fallen body", "The glowing pool and surrounding ruins link the scene to the fight"]],
+  ["buccaneer-captive-pen-overview.png", ["Worn captives and guards around the pen", "The boy's identifying birthmark stays concealed"]],
+  ["buccaneer-bivant-identification.png", ["The boy's heart-shaped birthmark is readable on his left shoulder", "A merchant approaches the party"]],
+  ["sokal-floorboard-diary-discovery.png", ["A lifted floorboard", "Diary pages and gems visibly tucked beneath it"]],
 ]);
 
 const runtimeGroups = [
