@@ -619,6 +619,11 @@ function checkCampaignJournal(): void {
   const confrontation = lines.find((line) => line.includes("COUNCILMAN CADORNA CONFRONTS YOU"));
   writeGlobal(textile, 255);
   const textileProgress = (known: JournalLead[]) => questProgress(m, known, m.ds);
+  const sealOffer = lines.find((text) => text.includes("WE CAN DUPLICATE THE SEAL ON THAT CHEST"));
+  if (!sealOffer || !discoveredLeads(sealOffer).some(({ id }) => id === "textile-restal-seal-offer") ||
+      textileOffer.some(({ id }) => id === "textile-restal-seal-offer")) {
+    throw new Error("The Textile journal did not gate Restal's seal offer on witnessed dialogue");
+  }
   const textileCommission = (leads: JournalLead[]) => leads.find(({ id }) => id === "commission-textile");
   const beforeConfrontation = textileCommission(treasureProfile("", textileProgress));
   const afterConfrontation = confrontation && textileCommission(treasureProfile(confrontation, textileProgress));

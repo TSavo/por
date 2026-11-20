@@ -730,6 +730,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "textile-restal-offer", title: "Restal's offer of a hidden route",
       detail: "Restal offered to get the party into the Textile House unseen." });
   }
+  if (text.includes("WE CAN DUPLICATE THE SEAL ON THAT CHEST") && text.includes("FOR HALF THE TREASURE")) {
+    leads.push({ id: "textile-restal-seal-offer", title: "Restal offered to duplicate the seal",
+      detail: "Restal offered to duplicate the chest's seal in exchange for half the treasure." });
+  }
   if (text.includes("YOU ARE SURROUNDED BY THE BANDIT BAND OF THE INFAMOUS NORRIS THE GRAY")) {
     leads.push({ id: "kuto-norris-ambush", title: "Norris the Gray's ambush",
       detail: "Norris and his bandits surrounded the party beneath Kuto's Well and demanded its surrender." });
