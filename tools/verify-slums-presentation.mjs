@@ -8006,6 +8006,11 @@ try {
       await advance("j");
       assert.ok(knows("swamp-alliance-averted"));
       assert.match(frame.journal.objective.nextStep, /south drawbridge.*elder's pledge/i);
+      for (const key of ["j", "e", "s", "s", "a"]) await advance(key);
+      const checkpoint = JSON.parse(readFileSync(saved, "utf8"));
+      assert.ok(checkpoint.leads?.some(({ id }) => id === "swamp-alliance-averted"));
+      assert.equal(checkpoint.leads.find(({ id }) => id === "commission-lizardmen")?.status, "ready-to-report");
+      console.log("Swamp duel checkpoint:", saved);
     }
     console.log("Verified the swamp elder's layered terrain and journal updates in Chrome. Capture:", directory);
   } else if (kovelMap) {
@@ -8758,8 +8763,19 @@ try {
     }
     assert.equal(journalStatus(), "turned-in");
     if (swampReturn) assert.deepEqual(readFileSync(saved), originalSave);
-    if (routeName === "swamp-reward") {
-      for (const key of ["j", "enter", "e", "s", "s", "a"]) await advance(key);
+    if (commission === "commission-lizardmen") {
+      await advance("j");
+      const words = () => frame.text.toSorted(([a], [b]) => a - b)
+        .map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
+      for (let prompt = 0; prompt < 20 && !/AreaCastViewEncamp/i.test(words()); prompt++) {
+        const dialogue = words();
+        if (/ViewTakePoolShareExit/i.test(dialogue)) await advance("e");
+        else if (/gobackandclaimyourtreasure/i.test(dialogue)) await advance("n");
+        else if (/press<enter>/i.test(dialogue)) await advance("enter");
+        else break;
+      }
+      assert.match(words(), /AreaCastViewEncamp/i);
+      for (const key of ["e", "s", "s", "a"]) await advance(key);
       const checkpoint = JSON.parse(readFileSync(saved, "utf8"));
       assert.equal(checkpoint.leads?.find(({ id }) => id === commission)?.status, "turned-in");
       assert.ok(checkpoint.leads.some(({ id }) => id === "swamp-alliance-averted"));
