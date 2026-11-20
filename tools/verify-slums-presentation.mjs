@@ -1333,6 +1333,14 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["new-phlan-tavern-aides-combat", {
+    slot: "A", inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter")],
+    stand: "combat:area:0:CPIC3.DAX:15:ecl:a7d3",
+    strike: "combat:area:0:CPIC3.DAX:143:ecl:a7d3",
+    width: 96, height: 96, standAnchor: [56, 80, true],
+    readyPrompt: /AIDESHITPOINTS18AC5/i,
+    strikeAnchor: [56, 80], strikeReflected: true, strikeReport: /AIDESATTACKSENNAANDMISSES/i,
+  }],
   ["valjevo-apartment-armed-guard", {
     slot: "B", inputs: ["up", "up", "c", "s", "enter", "enter"],
     stand: "combat:area:3:CPIC5.DAX:11:ecl:a1e5",
