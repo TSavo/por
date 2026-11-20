@@ -5146,7 +5146,9 @@ try {
       }
       if (southShopMenu && key === "y") {
         assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /BUY.*EXIT/i);
-        assert.ok(frame.portrait || frame.classicPortrait);
+        assert.equal(frame.portrait, southShopkeeper);
+        await waitFor("the enhanced shopkeeper behind the shop menu", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
       }
       if (phlanExit && (key === (southShopMenu ? "e" : "n") || exitPauseTiles)) {
         assert.equal(tiledView, 1, "The doorway should render enhanced scenery on both sides of Enter");
