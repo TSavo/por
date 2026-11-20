@@ -1280,6 +1280,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE CITY WATCH STOPS YOU AND REMOVES CADORNA'S TREASURE")) {
     leads.push({ id: "textile-handoff", title: "The Watch took Cadorna's treasure", detail: "The Watch sent the party to the city clerk to collect its reward." });
   }
+  if (text.includes("YOU FIND A PAGE FROM A DIARY AND PLACE IT IN YOUR JOURNAL UNDER ENTRY 11")) {
+    leads.push({ id: "textile-diary-page", title: "Diary page in the Textile House",
+      detail: "The party found a diary page in the Textile House. Read journal entry 11." });
+  }
   if (text.includes("A DRUM BEGINS TO BEAT AND HOBGOBLINS ATTACK")) {
     leads.push({ id: "textile-courtyard-ambush", title: "Textile House courtyard ambush",
       detail: "A drum sounded as hobgoblins attacked the party in the courtyard." });
