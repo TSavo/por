@@ -58,12 +58,12 @@ even when several areas have their own replacement. The table inventories
 archive contents. The live routes establish which frames are drawn.
 **Exact portrait and combat matches** lists original frames whose pixels
 already resolve to global enhanced artwork through the browser's matchers.
-The inventory at `537a3679` reports 833 source frames, including 26
-`COMSPR.DAX` frames, with 461 linked directly, 22 covered through exact
-pixel matches, and 350 unlinked. The
+The inventory at `0413ce79` reports 833 source frames, including 26
+`COMSPR.DAX` frames, with 462 linked directly, 22 covered through exact
+pixel matches, and 349 unlinked. The
 unlinked entries include 11 uniform frames and 7 with scoped reuse
-candidates. The full enhanced manifest has 7,089 validated replacement
-mappings, including 48 distinct script illustration PNGs. Multiple
+candidates. The full enhanced manifest has 7,158 validated replacement
+mappings, including 71 distinct script illustration PNGs. Multiple
 encounter branches can use the same source frame, and some script scenes
 have no archive picture. Branch-specific artwork can improve live coverage
 without changing the source-frame count.
@@ -77,7 +77,9 @@ includes these entries in `encounterCoverage[].unlinkedFrames`.
 **Unlinked pictures referenced by scripts** lists literal `PICTURE`
 instructions with a single archive candidate and at least one unlinked
 frame with visible detail. The table includes the ECL address, nearby
-dialogue, and source previews. Use the list to pick scenes for live
+dialogue, and source previews. Its summary counts distinct source frame
+IDs as well as script references so a frame shared by several scenes
+counts once toward the artwork backlog. Use the list to pick scenes for live
 verification. The JSON stores the list as `unlinkedScriptPictures`.
 The browser and inventory validate approach sprites against their original
 archive member and frame, including the dimensions in the placement record.
