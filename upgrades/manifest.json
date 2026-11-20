@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:13:CPIC8.DAX:139:ecl:a2a4": "kobold-envoy-strike.png",
     "portrait:area:10:ecl:a022:PIC4.DAX:35:0:0": "valhingen-zombie-trap.png",
     "combat:area:29:CPIC8.DAX:0:ecl:a338": "kuto-kobold-watch-ready.png",
     "combat:area:29:CPIC8.DAX:128:ecl:a338": "kuto-kobold-watch-strike.png",
