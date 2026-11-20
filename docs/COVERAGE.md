@@ -3951,7 +3951,8 @@ Enhanced selection art. A controlled Textile House Chrome replay targeted
 an empty square with Stinking Cloud and verified the original cast,
 reticle cleanup, and state preservation across display switches.
 
-The `sokal-armory` route checks the existing 12 approach views and the
-hidden cache artwork at the native equipment choice. Chrome verified
+The `sokal-armory` route checks 12 tile patterns across ten approach views,
+the illusory-wall illustration while its narration remains visible, and
+the separate hidden cache artwork at the native equipment choice. Chrome verified
 both branches from a local armory checkpoint. Declining leaves the
 equipment in place. Accepting clears the artwork and awards 400 XP.

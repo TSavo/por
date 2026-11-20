@@ -7928,9 +7928,21 @@ try {
     const seen = new Set();
     let views = 0;
     let patrol = false;
+    const crossing = "scene-illustration:area:21:ecl:a872";
     for (const [step, key] of route.entries()) {
       if (key) await advance(key);
-      if (armory && step < route.length - 1) assert.equal(frame.portrait, undefined);
+      if (armory && step < route.length - 1) {
+        if (step === 6 || step === 7) {
+          assert.equal(frame.portrait, crossing);
+          assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /PASSINGTHROUGHANILLUSIONARYWALL/i);
+          await waitFor("the illusory wall illustration", () => run(`state.sequence === ${frame.sequence} &&
+            document.querySelector('.encounter-portrait[src="/art/${crossing}"]')?.naturalWidth === 352`));
+          await verifyPortraitPanel();
+          if (step === 6) await switchBothWays();
+        } else {
+          assert.equal(frame.portrait, undefined);
+        }
+      }
       if (landing && !courtyard && step === 9) {
         const parchment = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
         assert.match(parchment, /THELASTPARTISEATENAWAY/i);
@@ -7988,8 +8000,8 @@ try {
       await advance("n");
       assert.notEqual(frame.portrait, cache);
     }
-    assert.equal(views, courtyard ? 25 : patrolCombat ? 18 : landing ? 19 : 12);
-    assert.equal(seen.size, courtyard ? 56 : landing ? 49 : 13);
+    assert.equal(views, courtyard ? 25 : patrolCombat ? 18 : landing ? 19 : 10);
+    assert.equal(seen.size, courtyard ? 56 : landing ? 49 : 12);
     console.log(`Verified ${seen.size} ${routeName} patterns across ${views} views. Captures: ${directory}`);
     if (manualParty) {
       for (const key of ["enter", "enter", "enter"]) await advance(key);
