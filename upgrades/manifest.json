@@ -100,6 +100,8 @@
     "combat:area:17:CPIC2.DAX:0:ecl:b376": "nomad-raid-kobold-stand.png",
     "combat:area:17:CPIC2.DAX:128:ecl:b376": "nomad-raid-kobold-strike.png",
     "combat:area:17:CPIC7.DAX:11:ecl:b376": "nomad-hassad-stand.png",
+    "combat:area:17:CPIC7.DAX:139:ecl:b376": "nomad-hassad-strike.png",
+    "combat:area:17:CPIC7.DAX:141:ecl:b376": "nomad-veteran-strike.png",
     "encounter:area:3:ecl:a815:SPRIT5.DAX:55:0:0": "valjevo-barracks-waking-giants-approach-near.png",
     "portrait:area:3:ecl:9a2c:caller:b313:PIC5.DAX:7:0:0": "valjevo-cadorna-released.png",
     "encounter:area:3:ecl:a7be:SPRIT5.DAX:55:1:0": "valjevo-hill-giants-armor-middle.png",
