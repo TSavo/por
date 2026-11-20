@@ -5,6 +5,9 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:10:ecl:a022:PIC4.DAX:35:0:0": "valhingen-zombie-trap.png",
+    "combat:area:29:CPIC8.DAX:0:ecl:a338": "kuto-kobold-watch-ready.png",
+    "combat:area:29:CPIC8.DAX:128:ecl:a338": "kuto-kobold-watch-strike.png",
     "encounter:area:4:ecl:b167:SPRIT5.DAX:22:0:0": "valjevo-records-scribe-approach.png",
     "portrait:area:20:ecl:af6d:PIC2.DAX:6:0:0": "slums-potion-booth-ambush.png",
     "combat:area:16:CPIC8.DAX:57:ecl:a560": "swamp-drythh-warband-ready.png",
