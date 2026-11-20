@@ -496,6 +496,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["sokal-hidden-armory-cache.png", ["Shield, mace, and sword on stands", "A small suit of chainmail", "Equipment in visibly good condition"]],
   ["old-phlan-dying-thief-papers.png", ["An exhausted older thief", "Papers visibly offered to the party"]],
   ["podal-auction-garwin-escaped.png", ["The auctioneer calling out after Garwin's escape", "A crowd in the foreground"]],
+  ["podal-auction-crowd-disperses.png", ["The monsters are visibly turning away and dispersing", "The empty auction rostrum and plaza establish the same location"]],
   ["sokal-elven-parchment.png", ["The scout's remains beside an open pouch", "A crumbling parchment scroll clearly visible in the pouch"]],
   ["swamp-castle-drawbridge.png", ["A movable timber span across quicksand", "Lift chains attached to the deck"]],
   ["diogenes-upper-ledge-fireball.png", ["A fireball erupting amid the party", "Diogenes disappearing from the encounter"]],
