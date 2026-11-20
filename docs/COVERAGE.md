@@ -3615,7 +3615,8 @@ Chrome checks native outcome text, effect cleanup, and mode switching.
 Tyranthraxus's lightning uses four orientations and both existing impact
 phases. The hill giant's boulder uses two orientations. The Chrome combat
 replays check the native launch and arrival positions and the outcome text.
-The Buccaneer pen guard replay checks the Enhanced skull marker at
+The `buccaneer-pen-defeat-effect` Chrome replay starts from slot A
+outside the pens and checks the Enhanced skull marker at
 (104, 104), the damage and defeat reports, and removal at the next
 settled frame. The renderer captures the original defeat draw at its pause.
 

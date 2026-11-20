@@ -3457,7 +3457,7 @@ routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-t
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline");
-routes.push("new-phlan-council-magic-effects");
+routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect");
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
@@ -4223,7 +4223,7 @@ try {
     assert.deepEqual(scenery(frame), scenery(street));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the enhanced street stays visible while exiting the New Phlan dueling room. Captures:", directory);
-  } else if (routeName === "new-phlan-council-magic-effects") {
+  } else if (routeName === "new-phlan-council-magic-effects" || routeName === "buccaneer-pen-defeat-effect") {
     await run(`window.observedEffects = [];
       const originalFetch = window.fetch.bind(window);
       window.fetch = (url, options) => url === "/key" && options?.body === ":poll"
@@ -4238,43 +4238,60 @@ try {
               .some(layer => layer.matches(".combat-sprite")) });
         }
       }).observe(art, {childList: true});`);
-    for (const key of ["up", "enter", "n", "enter", "enter", "enter"]) await advance(key);
-    const effects = new Map();
-    let capturedEffect;
-    const arrowId = "combat-effect:COMSPR.DAX:0";
-    const arrowPath = [];
-    for (let turn = 0; turn < 23 && !effects.has(arrowId); turn++) {
-      await advance("q");
+    if (routeName === "buccaneer-pen-defeat-effect") {
+      for (const key of ["up", "up", "enter", "enter", "a", "enter", "enter", "q", "q"]) await advance(key);
+      const id = "combat-effect:COMSPR.DAX:11";
+      const marker = frame.animation?.find(entry => entry.combatEffect?.[2] === id);
+      assert.deepEqual(marker?.combatEffect, [104, 104, id]);
       assert.equal(frame.combatEffect, undefined);
-      const rendered = (frame.animation ?? []).filter(entry => entry.combatEffect);
-      if (!rendered.length) continue;
-      for (const entry of rendered) {
-        const [x, y, id] = entry.combatEffect;
-        effects.set(id, [x, y]);
-        capturedEffect ??= entry;
-        if (id === arrowId) arrowPath.push([x, y]);
-        assert.notEqual(entry.frame, entry.enhancedFrame);
+      const reports = [...frame.animation, frame].map(({ text }) => text.toSorted(([a], [b]) => a - b)
+        .map(([, c]) => String.fromCharCode(c)).join(""));
+      assert.ok(reports.some(text => /DORNATTACKSBUCCANEERHITTINGFOR7POINTSOFDAMAGE/i.test(text)));
+      assert.ok(reports.some(text => /BUCCANEERGOESDOWNANDISDYING/i.test(text)));
+      await waitFor("the skull marker and its cleanup", () => run(`state.sequence === ${frame.sequence} &&
+        !animationFrame && !document.querySelector(".combat-effect") && window.observedEffects.some(effect =>
+          effect.source === "/art/${id}" && effect.left === 32.5 && effect.top === 52 && effect.aboveActors)`));
+      await switchBothWays(frame.frame);
+      console.log("Verified the Buccaneer defeat marker and native combat reports in Chrome.");
+    } else {
+      for (const key of ["up", "enter", "n", "enter", "enter", "enter"]) await advance(key);
+      const effects = new Map();
+      let capturedEffect;
+      const arrowId = "combat-effect:COMSPR.DAX:0";
+      const arrowPath = [];
+      for (let turn = 0; turn < 23 && !effects.has(arrowId); turn++) {
+        await advance("q");
+        assert.equal(frame.combatEffect, undefined);
+        const rendered = (frame.animation ?? []).filter(entry => entry.combatEffect);
+        if (!rendered.length) continue;
+        for (const entry of rendered) {
+          const [x, y, id] = entry.combatEffect;
+          effects.set(id, [x, y]);
+          capturedEffect ??= entry;
+          if (id === arrowId) arrowPath.push([x, y]);
+          assert.notEqual(entry.frame, entry.enhancedFrame);
+        }
+        await waitFor("native effect animation to finish", () => run(`state.sequence === ${frame.sequence} &&
+          !animationFrame && !document.querySelector(".combat-effect")`));
       }
-      await waitFor("native effect animation to finish", () => run(`state.sequence === ${frame.sequence} &&
-        !animationFrame && !document.querySelector(".combat-effect")`));
+      const ids = [5, 133, 10, 138, 0].map(id => `combat-effect:COMSPR.DAX:${id}`);
+      assert.ok(ids.every(id => effects.has(id)));
+      assert.deepEqual([...effects.keys()].filter(id => id.endsWith(":10") || id.endsWith(":138")), ids.slice(2, 4));
+      assert.deepEqual(arrowPath[0], [80, 80]);
+      assert.deepEqual(arrowPath.at(-1), [56, 32]);
+      const observed = await run("window.observedEffects");
+      for (const [id, [x, y]] of effects) {
+        assert.ok(observed.some(({ source, left, top, aboveActors }) => source === `/art/${id}` &&
+          Math.abs(left - x / 3.2) < 0.01 && Math.abs(top - y / 2) < 0.01 && aboveActors));
+      }
+      // Hold one already observed animation frame while switching its presentation.
+      await run(`animationFrame = ${JSON.stringify(capturedEffect)}; showScreen();`);
+      await waitFor("the held Enhanced combat effect", () => run('document.querySelector(".combat-effect")?.naturalWidth === 96'));
+      await switchBothWays(capturedEffect.frame);
+      await run('finishAnimation(); showScreen();');
+      await waitFor("the settled Enhanced battlefield", () => run('!animationFrame && !document.querySelector(".combat-effect")'));
+      console.log("Verified Council magic and arrow effects, actor layering, and cleanup in Chrome.");
     }
-    const ids = [5, 133, 10, 138, 0].map(id => `combat-effect:COMSPR.DAX:${id}`);
-    assert.ok(ids.every(id => effects.has(id)));
-    assert.deepEqual([...effects.keys()].filter(id => id.endsWith(":10") || id.endsWith(":138")), ids.slice(2, 4));
-    assert.deepEqual(arrowPath[0], [80, 80]);
-    assert.deepEqual(arrowPath.at(-1), [56, 32]);
-    const observed = await run("window.observedEffects");
-    for (const [id, [x, y]] of effects) {
-      assert.ok(observed.some(({ source, left, top, aboveActors }) => source === `/art/${id}` &&
-        Math.abs(left - x / 3.2) < 0.01 && Math.abs(top - y / 2) < 0.01 && aboveActors));
-    }
-    // Hold one already observed animation frame while switching its presentation.
-    await run(`animationFrame = ${JSON.stringify(capturedEffect)}; showScreen();`);
-    await waitFor("the held Enhanced combat effect", () => run('document.querySelector(".combat-effect")?.naturalWidth === 96'));
-    await switchBothWays(capturedEffect.frame);
-    await run('finishAnimation(); showScreen();');
-    await waitFor("the settled Enhanced battlefield", () => run('!animationFrame && !document.querySelector(".combat-effect")'));
-    console.log("Verified Council magic and arrow effects, actor layering, and cleanup in Chrome.");
   } else if (routeName === "new-phlan-arena-quick" || routeName === "new-phlan-arena-manual-report") {
     await run(`window.combatReports = [];
       new MutationObserver(() => {
