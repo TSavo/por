@@ -877,6 +877,15 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:7:ecl:a3ba:HEAD5.DAX:59:BODY5.DAX:31",
     prompt: /ABATTLEBEGINS/i,
   }],
+  ["zhentil-dinner-escort", {
+    slot: "A", inputs: ["up", "enter", "r"],
+    portrait: "scene-illustration:area:28:ecl:a74e",
+    prompt: /ATDUSKAGUARDCOMESBYTOESCORTYOUTODINNER/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:28:ecl:b624:caller:a7c2:PIC6.DAX:50:0:0",
+      prompt: /YOUARRIVEATTHEOFFICERSMESS.*ROASTBOAR/i,
+    },
+  }],
   ["zhentil-dinner-advisor", {
     slot: "A", inputs: ["up", "enter", "r", "enter", "enter", "m"],
     portrait: "portrait:area:28:ecl:aef2:PIC6.DAX:50:0:0",
