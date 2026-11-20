@@ -964,9 +964,11 @@ async function showScreen() {
   const sceneArt = useEnhanced && !failedSceneArt.has(view) && view.art;
   const source = sceneArt || `data:image/png;base64,${frame}`;
   const showArt = useEnhanced && !sceneArt;
-  const aimMenu = view.combatArt?.some(([, , , , highlighted]) => highlighted) &&
-    /^(?:AIM\s*:|\(USE\s*CURSOR\s*KEYS\))/i.test((view.text ?? []).filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
-      .map(([, character]) => String.fromCharCode(character)).join(""));
+  const menu = (view.text ?? []).filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
+    .map(([, character]) => String.fromCharCode(character)).join("");
+  const manualAim = /^\(USE\s*CURSOR\s*KEYS\)/i.test(menu);
+  const aimMenu = manualAim || /^AIM\s*:/i.test(menu);
+  const manualAimEmpty = manualAim && !view.combatArt?.some(([, , , , highlighted]) => highlighted);
   function pictureBackdrop() {
     const backdrop = document.createElement("div");
     backdrop.className = "perspective-backdrop";
@@ -1003,7 +1005,7 @@ async function showScreen() {
     }
   }
   const selectionArt = (view.combatSelections ?? []).map(([x, y, id]) =>
-    [x, y, id, undefined, undefined, 24, 24]);
+    [x, y, id, undefined, manualAimEmpty, 24, 24]);
   const placements = [...(streetCanvas ? [] : view.tiles ?? []), ...(view.battleTiles ?? []), ...selectionArt,
     ...(view.combatArt ?? [])];
   if (view.combatEffect) placements.push([...view.combatEffect, undefined, undefined, 24, 24]);
@@ -1126,11 +1128,14 @@ async function showScreen() {
           left: layer.style.left, top: layer.style.top,
           width: layer.style.width || "7.5%", height: layer.style.height || "12%",
         });
-        if (layers.some(backing => backing.matches(".combat-selection") &&
+        const selectionBacking = layer.matches(".combat-selection");
+        if (selectionBacking || layers.some(backing => backing.matches(".combat-selection") &&
           backing.style.left === layer.style.left && backing.style.top === layer.style.top)) {
           reticle.classList.add("combat-aim-reticle-backed");
         }
+        if (selectionBacking) layers.push(layer);
         layers.push(reticle);
+        if (selectionBacking) continue;
       }
       layers.push(layer);
     }

@@ -3945,3 +3945,8 @@ clears for exploration. The journal records entries 33, 49, 27, 56 and
 The desk route saves through Encamp after reading all five documents.
 The `yarash-desk-papers-reload` Chrome route opens that slot A save and
 verifies all five entries in the journal and display switching.
+
+An empty Manual Aim square now gets the targeting corners over its
+Enhanced selection art. A controlled Textile House Chrome replay targeted
+an empty square with Stinking Cloud and verified the original cast,
+reticle cleanup, and state preservation across display switches.
