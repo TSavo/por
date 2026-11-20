@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:18:CPIC1.DAX:2:ecl:aab5": "podal-plaza-goblin-patrol-ready.png",
+    "combat:area:18:CPIC1.DAX:130:ecl:aab5": "podal-plaza-goblin-patrol-strike.png",
     "combat:area:18:CPIC1.DAX:2:ecl:ad34": "podal-plaza-goblin-patrol-ready.png",
     "combat:area:18:CPIC1.DAX:6:ecl:ad34": "podal-pitt-hobgoblin-ready.png",
     "combat:area:18:CPIC1.DAX:8:ecl:ad34": "podal-plaza-ogre-patrol-ready.png",
