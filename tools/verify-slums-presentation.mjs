@@ -5752,10 +5752,15 @@ try {
     assert.equal(frame.portrait, portrait);
     await waitFor("Al-Hyam's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    for (const key of ["a", "j"]) await advance(key);
+    await advance("a");
+    assert.equal(frame.portrait, "portrait:area:5:ecl:a38a:HEAD5.DAX:55:BODY5.DAX:31");
+    await verifyPortraitPanel();
+    await advance("j");
     assert.ok(frame.journal && !knows());
     for (const key of ["j", "l"]) await advance(key);
-    assert.equal(frame.portrait, portrait);
+    assert.equal(frame.portrait, "portrait:area:5:ecl:9a5a:caller:a45a:HEAD5.DAX:55:BODY5.DAX:31");
+    await verifyPortraitPanel();
+    await switchBothWays();
     await advance("j");
     assert.ok(knows());
     console.log("Verified Al-Hyam's portrait and witnessed notes in Chrome.");
