@@ -6561,6 +6561,10 @@ try {
   } else if (restalGuide) {
     const restal = "portrait:HEAD4.DAX:52:BODY4.DAX:8";
     const knowsOffer = () => frame.journal?.leads.some(({ id }) => id === "textile-restal-offer");
+    const wellClue = () => frame.journal?.leads.find(({ id }) => id === "textile-thieves-well");
+    await advance("j");
+    assert.ok(frame.journal && !wellClue());
+    await advance("j");
     await advance("up");
     assert.equal(frame.portrait, "scene-illustration:area:2:ecl:ac61");
     await waitFor("the Thieves Only well illustration", () => run(`state.sequence === ${frame.sequence} &&
@@ -6570,6 +6574,10 @@ try {
     const wellShot = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "textile-thieves-well.png"), Buffer.from(wellShot.data, "base64"));
     await switchBothWays();
+    await advance("j");
+    assert.match(wellClue()?.detail ?? "", /Climb Down.*skilled climber/i);
+    assert.ok(!knowsOffer());
+    await advance("j");
     await advance("c");
     assert.equal(frame.portrait, undefined);
     for (const key of [...Array(5).fill("end"), ...Array(3).fill("enter")]) await advance(key);

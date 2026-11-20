@@ -765,6 +765,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       leads.push({ id: `mendor-book-${entry}`, title, detail: `The party copied a passage into journal entry ${entry}.` });
     }
   }
+  if (text.includes("THIEVES ONLY") && text.includes("THE WELL HAS NO RUNGS OR ROPE")) {
+    leads.push({ id: "textile-thieves-well", title: "The well marked Thieves Only",
+      detail: "The well is deep and has no rungs or rope. To investigate it, choose Climb Down and select a skilled climber." });
+  }
   if (text.includes("YOU ARE SEEKING THE TEXTILE HOUSE. WE CAN GET YOU IN UNSEEN")) {
     leads.push({ id: "textile-restal-offer", title: "Restal's offer of a hidden route",
       detail: "Restal offered to get the party into the Textile House unseen." });
