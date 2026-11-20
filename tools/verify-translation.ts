@@ -538,6 +538,17 @@ function checkCampaignJournal(): void {
       !currentObjective([...recordsOffer, ...guardian, ...map], "commission-records").nextStep.includes("journal entry 10")) {
     throw new Error("Mendor objective should follow witnessed map and book discoveries");
   }
+  for (const [cue, id, detail] of [
+    ["YOU FIND A PAGE FROM A DIARY", "textile-diary-page", "journal entry 11"],
+    ["THE COMMANDANT TELLS YOU A STORY ABOUT THAT VERY POOL", "journal-entry-46", "story about the Pool of Radiance"],
+    ["YOU FIND A PIECE OF PAPER ON THE FLOOR IN THE ROOM", "journal-entry-53", "paper on the floor"],
+  ] as const) {
+    const line = lines.find(text => text.includes(cue));
+    if (!line) throw new Error(`Missing original journal dialogue: ${cue}`);
+    const discoveries = discoveredLeads(line);
+    deepStrictEqual(discoveries.map(lead => lead.id), [id]);
+    ok(discoveries[0]?.detail.includes(detail), `Missing context for ${id}`);
+  }
   const auctionOffer = discoveredLeads(auction.offer);
   writeGlobal(progressAddresses.auction!, 1);
   const auctionAccepted = questProgress(m, auctionOffer, m.ds);
