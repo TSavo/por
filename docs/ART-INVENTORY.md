@@ -646,3 +646,12 @@ checkpoint (`out/kovel-chase-north-A.json` in the working QA captures) so
 the two steps into the chase trigger draw the transient approach sprite.
 These encounter-specific replacements leave the archive-frame
 coverage totals unchanged.
+
+The `valjevo-disguise-offer` Chrome replay starts from the laundry
+approach checkpoint (`out/tiles-agent-valjevo-disguise-B.json` in the
+working QA captures). Run it with the default Yes choice and again with
+`--decline`. Both runs check that the clothes remain visible on the offer
+and choice pages and that the illustration clears as the branch continues.
+The replay also checks the journal against the original disguise flag.
+The original branch dialogue describes the opposite clothing outcome, so
+the journal uses the flag to report whether the party is disguised.
