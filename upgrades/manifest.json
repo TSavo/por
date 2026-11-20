@@ -8,6 +8,7 @@
     "combat:area:18:CPIC1.DAX:2:ecl:ad34": "podal-plaza-goblin-patrol-ready.png",
     "combat:area:18:CPIC1.DAX:6:ecl:ad34": "podal-pitt-hobgoblin-ready.png",
     "combat:area:18:CPIC1.DAX:8:ecl:ad34": "podal-plaza-ogre-patrol-ready.png",
+    "combat:area:18:CPIC1.DAX:136:ecl:ad34": "podal-plaza-ogre-patrol-strike.png",
     "combat:area:18:CPIC1.DAX:130:ecl:ad34": "podal-plaza-goblin-patrol-strike.png",
     "combat:area:18:CPIC1.DAX:134:ecl:ad34": "podal-pitt-hobgoblin-strike.png",
     "encounter:area:28:ecl:b5ba:SPRIT5.DAX:16:0:0": "zhentil-gate-commotion-approach.png",
