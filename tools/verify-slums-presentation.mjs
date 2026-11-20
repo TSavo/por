@@ -4218,6 +4218,7 @@ try {
       }).observe(art, {childList: true});`);
     for (const key of ["up", "enter", "n", "enter", "enter", "enter"]) await advance(key);
     const effects = new Map();
+    let capturedEffect;
     const arrowId = "combat-effect:COMSPR.DAX:0";
     const arrowPath = [];
     for (let turn = 0; turn < 23 && !effects.has(arrowId); turn++) {
@@ -4228,6 +4229,7 @@ try {
       for (const entry of rendered) {
         const [x, y, id] = entry.combatEffect;
         effects.set(id, [x, y]);
+        capturedEffect ??= entry;
         if (id === arrowId) arrowPath.push([x, y]);
         assert.notEqual(entry.frame, entry.enhancedFrame);
       }
@@ -4244,7 +4246,16 @@ try {
       assert.ok(observed.some(({ source, left, top, aboveActors }) => source === `/art/${id}` &&
         Math.abs(left - x / 3.2) < 0.01 && Math.abs(top - y / 2) < 0.01 && aboveActors));
     }
+    // Hold one already observed animation frame while switching its presentation.
+    await run(`animationFrame = ${JSON.stringify(capturedEffect)}; showScreen();`);
+    await waitFor("the held Enhanced combat effect", () => run('document.querySelector(".combat-effect")?.naturalWidth === 96'));
     await switchBothWays();
+    await run('document.querySelector("#presentation").click()');
+    const originalEffectPng = JSON.stringify(`data:image/png;base64,${capturedEffect.frame}`);
+    await waitFor("the original combat animation frame in Classic", () => run(`
+      document.querySelector("#tile-art").hidden && document.querySelector("#screen").src === ${originalEffectPng}`));
+    await run('finishAnimation(); document.querySelector("#presentation").click();');
+    await waitFor("the settled Enhanced battlefield", () => run('!animationFrame && !document.querySelector(".combat-effect")'));
     console.log("Verified Council magic and arrow effects, actor layering, and cleanup in Chrome.");
   } else if (routeName === "new-phlan-arena-quick" || routeName === "new-phlan-arena-manual-report") {
     await run(`window.combatReports = [];

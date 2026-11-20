@@ -3594,6 +3594,8 @@ checkpoint to reach the level-three mage's wand volley. Both flight orientations
 impact phases render over the battlefield and actor layers. Each effect
 matches the native draw and placement. Classic uses the captured guest
 frame, and the effect layer clears when the animation finishes.
+The replay holds a captured effect frame during a display switch and
+checks that Classic displays the exact guest PNG.
 The same replay checks the Council arrow's original launch at (80, 80)
 and arrival at (56, 32) through the six-frame presentation cap. Separate
 Chrome replays of the Council reserves and tavern brawl verify the other
