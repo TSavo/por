@@ -1157,6 +1157,12 @@ const illustrationRoutes = new Map([
     portrait: "portrait:HEAD8.DAX:69:BODY8.DAX:1", prompt: /AREMATCHTHEN\.PREPAREFORDEATH/i,
     journalLead: "kobold-throne-envoys",
   }],
+  ["valjevo-apartment-giants-approach", {
+    slot: "B", inputs: ["up", "up", "enter", "enter"],
+    portrait: "portrait:PIC5.DAX:55:0:0", prompt: /THEGIANTSSTANDINFRONTOFYOULOOKINGSUSPICIOUS/i,
+    approachSequence: [[40, 32, "encounter:area:3:ecl:a3d0:SPRIT5.DAX:55:0:0", 48, 80]],
+    requireTiledApproach: false,
+  }],
   ["valjevo-password-giants-approach", {
     slot: "B", inputs: ["up", "enter"],
     portrait: "portrait:area:3:ecl:ac1e:PIC5.DAX:55:0:0", prompt: /WHATPASSWORD/i,
