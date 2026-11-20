@@ -626,9 +626,25 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             // fills the presentation queue with intermediate positions.
             const continuesFlight = !impact && previous?.[2] === key &&
               Math.abs(previous[0] - x) <= 8 && Math.abs(previous[1] - y) <= 8;
-            const replaceable = impact ? animation.findIndex(flightFrame)
+            let replaceable = impact ? animation.findIndex(flightFrame)
               : continuesFlight ? animation.length - 1 : -1;
             if (replaceable < 0) return;
+            if (continuesFlight) {
+              // Remove the intermediate point that leaves the smallest gap.
+              let next: TilePlacement = [x, y, key];
+              let gap = Infinity;
+              for (let i = animation.length - 1; i > 0; i--) {
+                const point = animation[i]?.combatEffect;
+                const before = animation[i - 1]?.combatEffect;
+                if (!point || point[2] !== key || !before || before[2] !== key) break;
+                const distance = Math.max(Math.abs(next[0] - before[0]), Math.abs(next[1] - before[1]));
+                if (distance <= gap) {
+                  gap = distance;
+                  replaceable = i;
+                }
+                next = point;
+              }
+            }
             animation.splice(replaceable, 1);
           }
           const clean = new Frame(screen.width, screen.height);

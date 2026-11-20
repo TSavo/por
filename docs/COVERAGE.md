@@ -3590,6 +3590,9 @@ The same replay checks the Council arrow's original launch at (80, 80)
 and arrival at (56, 32) through the six-frame presentation cap. Separate
 Chrome replays of the Council reserves and tavern brawl verify the other
 three arrow directions, their native anchors, and display switching.
+Long flights spread the sampled positions across the path. The tavern
+replay's longest shot kept its six displayed positions and reduced the
+largest gap between them from 112 to 32 native pixels.
 
 Kuto's roaming lizardfolk use a dedicated 352×352 ruins illustration
 at four script positions. Chrome exercised the approach, Advance and
