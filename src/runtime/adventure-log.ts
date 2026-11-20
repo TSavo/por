@@ -176,6 +176,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "lizardmen" && tracked.status === "ready-to-report" && knows("swamp-alliance-averted")) {
         return { title: commission.title, nextStep: "Return to the council clerk and report the elder's pledge that his people will stay out of Tyranthraxus's alliance." };
       }
+      if (commission.id === "lizardmen" && tracked.status === "reward-pending") {
+        return { title: commission.title, nextStep: "Finish accepting the council reward. In the treasure menu, choose Share to divide the coins, then Exit." };
+      }
       if (commission.id === "bane" && tracked.status === "ready-to-report" && knows("bane-cleric-dispatch")) {
         return { title: commission.title, nextStep: "Read journal entry 25, then tell the council clerk at City Hall that the temple was recovered." };
       }

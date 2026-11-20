@@ -3680,6 +3680,7 @@ routes.push("valjevo-cadorna-alarm-reload");
 routes.push("valjevo-records-revisit");
 routes.push("river-pumping-hostile");
 routes.push("river-return-reload");
+routes.push("swamp-reward-reload");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -8660,6 +8661,13 @@ try {
     assert.equal(JSON.parse(readFileSync(saved, "utf8")).tracked, "commission-records");
     console.log("Mendor records checkpoint:", saved);
     console.log("Verified the clerk acknowledgment for Lex Geographica in Chrome.");
+  } else if (routeName === "swamp-reward-reload") {
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "swamp-alliance-averted"));
+    assert.equal(frame.journal.leads.find(({ id }) => id === "commission-lizardmen")?.status, "turned-in");
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the elder's pledge and the council turn-in after reloading in Chrome.");
   } else if (councilReward) {
     const [commission, originalDialogue, art] = councilReward;
     const journalStatus = () => frame.journal?.leads.find(({ id }) => id === commission)?.status;
@@ -8684,6 +8692,7 @@ try {
     assert.equal(journalStatus(), "reward-pending");
     const clerkDialogue = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
     assert.match(clerkDialogue, originalDialogue);
+    if (routeName === "swamp-reward") assert.match(frame.journal.objective.nextStep, /choose Share to divide the coins, then Exit/i);
     if (routeName === "bane-reward") assert.match(frame.journal.objective.nextStep, /keep the temple treasure.*Press Enter/);
     await advance("j");
     await advance("enter");
@@ -8701,6 +8710,13 @@ try {
       for (const key of [...Array(5).fill("t"), "e", "e", "j"]) await advance(key);
     }
     assert.equal(journalStatus(), "turned-in");
+    if (routeName === "swamp-reward") {
+      for (const key of ["j", "enter", "e", "s", "s", "a"]) await advance(key);
+      const checkpoint = JSON.parse(readFileSync(saved, "utf8"));
+      assert.equal(checkpoint.leads?.find(({ id }) => id === commission)?.status, "turned-in");
+      assert.ok(checkpoint.leads.some(({ id }) => id === "swamp-alliance-averted"));
+      console.log("Lizardfolk council reward checkpoint:", saved);
+    }
     if (routeName === "bane-reward") {
       assert.match(frame.journal.leads.find(({ id }) => id === commission).detail, /keep what it found/);
       for (const key of ["j", "e", "s", "s", "a"]) await advance(key);

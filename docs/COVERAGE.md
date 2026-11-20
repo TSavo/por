@@ -1081,6 +1081,9 @@ The `swamp-reward` replay uses a controlled City Hall save carrying flag
 254 and the witnessed pledge from the duel result save. Chrome checks the
 clerk's original lizardfolk reward dialogue and verifies the transition
 from ready to report through reward pending to turned in.
+The pending objective tells the party how to share the reward.
+`swamp-reward-reload` reads the original save made at City Hall and
+verifies that the pledge and completed commission survive a cold load.
 
 The `buccaneer-approach` Chrome replay starts from a controlled
 overland save with the Bivant commission tracked. It verifies the new
