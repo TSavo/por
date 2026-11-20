@@ -7703,7 +7703,14 @@ try {
     await advance("j");
     await advance("enter");
     assert.match(text(), /ANEVILSPIRITFROMANUNHOLYPOOLGUIDESYOURENEMIES/i);
-    assert.notEqual(frame.portrait, "portrait:PIC8.DAX:5:0:0");
+    const prophecy = "scene-illustration:area:29:ecl:ac03";
+    assert.equal(frame.portrait, prophecy);
+    await waitFor("the seer's vision", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${prophecy}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays();
+    const prophecyShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "old-phlan-seer-prophecy.png"), Buffer.from(prophecyShot.data, "base64"));
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "phlan-seer-prophecy"));
     for (const key of ["j", "enter", "e", "s", "s", "b"]) await advance(key);
