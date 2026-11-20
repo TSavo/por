@@ -547,6 +547,15 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["bane-hay-bunk-ambush", {
+    slot: "A", inputs: ["up", "enter", "s", "enter"],
+    portrait: "portrait:area:31:ecl:a2b4:PIC1.DAX:4:0:0",
+    prompt: /ASYOUSEARCHTHEBEDSAGROUPOFORCSCOMESINTOTHEROOM/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:31:ecl:a2bb:PIC1.DAX:4:0:0",
+      prompt: /ABATTLEBEGINS/i,
+    },
+  }],
   ["bane-treasury-ambush", {
     slot: "A", inputs: ["s", "enter", "up", "o", "enter", "enter", "e", "n", "enter", "enter"],
     portrait: "portrait:area:24:ecl:ab06:PIC1.DAX:4:0:0",
@@ -603,6 +612,8 @@ const illustrationRoutes = new Map([
   }],
   ["new-phlan-harbor-city-watch", {
     slot: "A", inputs: harborWatchApproach,
+    requireTiledApproach: false,
+    approachSequence: [[48, 32, "encounter:area:0:ecl:af4d:SPRIT3.DAX:27:0:0", 40, 80]],
     portrait: "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7", prompt: /GO.*STAY/i,
   }],
   ["lizard-wilds-kobold-prisoners", {
@@ -4857,7 +4868,7 @@ try {
     console.log(`Verified ${routeName} in Chrome.`);
   } else if (illustration) {
     const { inputs, portrait, prompt, continuation, journalLead, approachSequence } = illustration;
-    if (approachSequence) await observeApproach(approachSequence);
+    if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach);
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
