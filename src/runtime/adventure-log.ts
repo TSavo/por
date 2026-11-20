@@ -379,6 +379,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("nomad-stay-or-leave")) nextStep = "Choose Stay and Fight if you will defend the camp, or Leave if you decline.";
       else if (knows("nomad-kobold-warning")) nextStep = "Hear out the headman and decide whether to stay and help against the kobolds.";
       else if (knows("nomad-feast-attended") || knows("nomad-headman-talk")) nextStep = "Continue through the feast and hear what Hassad Ahwal has to say.";
+      else if (knows("nomad-feast-declined")) nextStep = "The headman asked the party to leave. Leave peacefully and check with the council clerk about the commission.";
       else if (knows("nomad-feast-invitation")) nextStep = "Accept the headman's feast invitation to speak with him further.";
       else if (knows("nomad-sentries")) nextStep = "Parlay with the nomads at the camp so you can speak with their headman.";
       else if (knows("nomad-swords-ready")) nextStep = "Press Enter to continue through the camp's warning, then choose Parlay when the nomads wait for your response.";
@@ -882,6 +883,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       text.includes("THERE ARE CONTESTS OF STRENGTH AND SKILL IN YOUR HONOR")) {
     leads.push({ id: "nomad-feast-attended", title: "Honored guests at the Nomad Camp",
       detail: "The party accepted the invitation and the nomads held contests of strength and skill in its honor." });
+  }
+  if (text.includes("THEN YOU MUST LEAVE US") && text.includes("DO YOU LEAVE?")) {
+    leads.push({ id: "nomad-feast-declined", title: "The party declined the feast",
+      detail: "After the party declined the invitation, Hassad asked it to leave the camp." });
   }
   if (text.includes("YOU MAKE HASSAD AHWAL'S TALK ENTRY 55 IN YOUR JOURNAL")) {
     leads.push({ id: "nomad-headman-talk", title: "Hassad Ahwal's account", detail: "The headman described the region's dangers. The party recorded his account as journal entry 55." });
