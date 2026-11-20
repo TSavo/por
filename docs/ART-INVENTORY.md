@@ -626,3 +626,11 @@ implements, a central table, and readable metal restraints. The alchemical
 bottles belong on the next page, which describes them. For Stojanow's second
 gate caption, require bugbears visibly lounging by the entrance, with the
 wall and taller twin watchtowers still recognizable behind them.
+
+At the Wild Cave attack announcement, look for both minotaurs directing all
+four giant lizards. The illustration holds through the announcement and
+clears when combat controls appear. At Kovel Mansion, the approach sprite
+shows both hooded thieves at the original draw position before the chase
+illustration takes over. The Chrome presentation verifier checks both
+transitions. These encounter-specific replacements leave the archive-frame
+coverage totals unchanged.
