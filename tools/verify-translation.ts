@@ -3,7 +3,7 @@
  * ovl07_0000 is the ECL operand fetch at the start of overlay slice 7.
  * sys5bb_16b5 is System.FillChar.
  */
-import { deepStrictEqual } from "node:assert";
+import { deepStrictEqual, ok } from "node:assert";
 import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { Cpu } from "../src/cpu/machine.js";
@@ -24,9 +24,10 @@ import { findGameRoot, listGameFiles, mountValjevoWallPieces, readGameFile } fro
 import { loadUpgradeArtFromManifests } from "./upgrade-art.js";
 import { encodePng, pngDimensions } from "./png.js";
 import { Frame } from "../src/lib/ega.js";
-import { decodePicture } from "../src/lib/picture.js";
+import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
 import { loadCombatArtMatcher } from "./combat-art.js";
 import { loadOverlandTravel } from "./overland-travel.js";
+import { loadPortraitArt } from "./portrait-art.js";
 
 function checkBrowserArtPacks(): void {
   const png = Buffer.from(encodePng(new Frame(32, 32)));
@@ -69,6 +70,22 @@ function checkBrowserArtPacks(): void {
     }).phlan, { x: 24, y: 28, sector: 1, key: "down" }, "Phlan travel should reach the scripted west crossroads");
   }
   const loaded = loadUpgradeArtFromManifests(paths, root);
+  const zombieArchive = parseDax("PIC4.DAX", readGameFile(root, "PIC4.DAX"));
+  const zombie = zombieArchive.entries.find(({ id }) => id === 35);
+  ok(zombie, "Missing roaming zombie source block");
+  const [base, ...deltas] = pictureMembers(zombie.data).map(({ data }) => frameSlice(decodePicture(data), 0));
+  ok(base && deltas.length, "Missing roaming zombie animation");
+  const zombieKeys = [0xb56c, 0xb58c].map(cursor => `portrait:area:10:ecl:${cursor.toString(16)}:PIC4.DAX:35:0:0`);
+  for (const key of zombieKeys) deepStrictEqual(declared.has(key), true);
+  const matchZombie = loadPortraitArt(zombieKeys, false, root);
+  for (const delta of deltas) {
+    const screen = new Frame(320, 200);
+    screen.blit(base.map((pixel, index) => pixel ^ delta[index]!), 88, 88, 24, 24);
+    deepStrictEqual(matchZombie(screen, 10, 0xb56c), zombieKeys[0]);
+    deepStrictEqual(matchZombie(screen, 10, 0xb58c), zombieKeys[1]);
+    deepStrictEqual(matchZombie(screen, 10, 0xb695), undefined);
+    deepStrictEqual(matchZombie(screen, 9, 0xb56c), undefined);
+  }
   const missing = [...declared].filter(id => !loaded.has(id));
   deepStrictEqual(missing, [], "The browser could not load the listed art mappings");
   const match = loadCombatArtMatcher([...loaded.keys()].filter(id => id.startsWith("combat:")), root);

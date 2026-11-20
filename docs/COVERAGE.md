@@ -3555,3 +3555,6 @@ encounter and parlay menus. The matcher recognizes the original base
 portrait with its XOR animation deltas at both script cursors. Chrome
 verified both menus and display switching from a controlled checkpoint
 that selects the neutral roaming zombie branch.
+The same Parlay menu retains the Enhanced wight and skeleton portraits.
+Chrome verified the stance choices and display switching for both
+from controlled roaming checkpoints.
