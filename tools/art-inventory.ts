@@ -252,9 +252,13 @@ const artwork = loadUpgradeArt(undefined, gameData, issue => artworkLoadIssues.p
 const materialMasks = loadCombatMaterialMasks(artwork);
 const encounterScopeCoverage = encounterScopeFallbacks.map(observation => {
   const proposedKey = observation.key.replace(/:ecl:[a-f0-9]{4}:/, `:ecl:${observation.cursor.toString(16).padStart(4, "0")}:`);
-  return { ...observation, proposedKey, linked: artwork.has(proposedKey) };
-}).sort((a, b) => Number(a.linked) - Number(b.linked));
-const unboundEncounterScopes = new Set(encounterScopeCoverage.filter(({ linked }) => !linked).map(({ proposedKey }) => proposedKey));
+  const configured = artwork.get(proposedKey)?.encounter;
+  const { area, x, y, width, height } = observation.anchor;
+  const placementMatches = configured?.area === area && configured.x === x && configured.y === y &&
+    configured.width === width && configured.height === height;
+  return { ...observation, proposedKey, linked: configured !== undefined, placementMatches };
+}).sort((a, b) => Number(a.placementMatches) - Number(b.placementMatches));
+const unresolvedEncounterScopes = new Set(encounterScopeCoverage.filter(({ placementMatches }) => !placementMatches).map(({ proposedKey }) => proposedKey));
 const portraitFallbackCoverage = observedPortraitFallbacks.map(fallback => {
   const { area, cursor, caller, sources } = fallback;
   const scopes = ["portrait:"];
@@ -699,12 +703,12 @@ ${portraitFallbackCoverage.map(({ area, cursor, caller, dialogue, sources, linke
   <td>${linkedCandidates.map(id => `<code>${escape(id)}</code>`).join("<br>") || "None"}</td><td>${escape(dialogue ?? "")}</td>
   <td>${escape(trace)} #${sequence}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
-${encounterScopeCoverage.length ? `<details><summary>Encounter scope gaps · Unbound IDs (${unboundEncounterScopes.size}) · Observations (${encounterScopeCoverage.length})</summary>
-<p>Unbound IDs appear first. A binding added after a trace was recorded still needs a live replay to confirm placement.</p>
+${encounterScopeCoverage.length ? `<details><summary>Encounter scope gaps · IDs to review (${unresolvedEncounterScopes.size}) · Observations (${encounterScopeCoverage.length})</summary>
+<p>Missing bindings and placement mismatches appear first. Replay the scene to verify a new binding in game.</p>
 <table class="coverage-table"><thead><tr><th>Existing artwork</th><th>Observed context</th><th>Placement</th><th>Linked now</th><th>Trace</th></tr></thead><tbody>
-${encounterScopeCoverage.map(({ key, proposedKey, anchor: { x, y, width, height }, linked, trace }) =>
+${encounterScopeCoverage.map(({ key, proposedKey, anchor: { x, y, width, height }, linked, placementMatches, trace }) =>
   `<tr><td><code>${escape(key)}</code></td><td><code>${escape(proposedKey)}</code></td>
-  <td>(${x}, ${y}), ${width}×${height}</td><td>${linked ? "Yes" : "No"}</td><td>${escape(trace)}</td></tr>`).join("")}
+  <td>(${x}, ${y}), ${width}×${height}</td><td>${placementMatches ? "Matches trace" : linked ? "Different placement" : "No binding"}</td><td>${escape(trace)}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
 ${portraitTraceFrames.length ? `<details><summary>Portraits in tile traces · ${portraitTraceFrames.length}</summary><ul>${
   portraitTraceFrames.map(({ area, sources, frame, trace }) =>
