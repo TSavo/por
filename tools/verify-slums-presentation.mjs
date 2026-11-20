@@ -658,6 +658,11 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:ecl:a022:PIC4.DAX:35:0:0", prompt: /AZOMBIEWITHGRAY,LEATHERY.HARDSKIN/i,
   }],
+  ["valhingen-vampire-chamber", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
+    prompt: /THECHAMBERLIGHTSUPTOREVEALATALL,PALEMAN/i,
+  }],
   ["valhingen-grave-claws", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
