@@ -843,6 +843,10 @@ acceptance flag set and the party positioned near the mounted patrol.
 It follows the original escort, paper handoff, tour, dinner, and nighttime
 ambush. It checks that the journal unlocks each discovery in order and the
 new 352×352 commandant portrait survives mode switching during the handoff.
+The assigned-quarters illustration appears when the escort dismisses the
+party at its room. The replay checks that it fills the picture panel,
+clears on the first step, and leaves the original dinner and ambush
+sequence playable.
 The `zhentil-envoy` replay also checks the mounted patrol illustration at the
 initial diplomatic challenge. `zhentil-trespass` uses a controlled slot A with
 the envoy flag cleared and checks the same illustration at the Stay / Leave
