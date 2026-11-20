@@ -6358,12 +6358,22 @@ try {
       if (routeName === "kuto-well-waterline") {
         assert.equal(frame.exploration?.mapId, 32);
         for (const key of ["down", "up"]) await advance(key);
-        assert.equal(frame.portrait, undefined);
+        const catacombs = "scene-illustration:area:29:ecl:af2f:caller:a08a";
+        assert.equal(frame.portrait, catacombs);
         assert.match(frame.text.toSorted(([a], [b]) => a - b)
-          .map(([, character]) => String.fromCharCode(character)).join(""), /YOUPASSINTOHIDDENCATACOMBS/i);
+          .map(([, character]) => String.fromCharCode(character)).join(""), /YOUPASSINTOHIDDENCATACOMBS.*CURTAINSHUNGTOCOVERDOORWAYS/i);
+        await waitFor("the hidden catacombs illustration", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${catacombs}"]')?.naturalWidth === 352 &&
+          document.querySelector('.encounter-portrait[src="/art/${catacombs}"]')?.naturalHeight === 352`));
+        await verifyPortraitPanel();
+        await switchBothWays(frame.frame);
         await advance("j");
         assert.ok(frame.journal?.leads.some(({ id }) => id === "kuto-hidden-catacombs"));
         await advance("j");
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.toSorted(([a], [b]) => a - b)
+          .map(([, character]) => String.fromCharCode(character)).join(""), /AVOLLEYOFARROWSTEARSINTOTHEGROUP/i);
       }
       if (routeName === "valhingen-storm-entrance") {
         await waitFor("the local map to become available after the storm", () => run(
