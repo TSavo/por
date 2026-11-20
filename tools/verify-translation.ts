@@ -1191,7 +1191,7 @@ function checkCampaignJournal(): void {
     ["WHAT DO YOU SAY? (TYPE A SINGLE WORD)", "speak to an undead patrol"],
     ["THE UNDEAD LEAVE", "SHESTNI again"],
     ["A LOUD COMMOTION RISES FROM THE COURTYARD", "ready weapons and spells"],
-    ["ON A HOBGOBLIN BODY, YOU FIND A NOTE", "Read journal entry 57"],
+    ["ON A HOBGOBLIN BODY, YOU FIND A NOTE", "Read journal entry 57, then search the doors on the south side of the courtyard"],
     ["THIS WAS ONCE THE CHAPEL OF THE KEEP", "go around it to the east"],
     ["A PALE FORM RISES BEFORE YOU", "Talk to the pale form"],
     ["I AM THE LIFE FORM OF FERRAN MARTINEZ", "answer him truthfully"],
