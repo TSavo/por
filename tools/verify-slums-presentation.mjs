@@ -5897,16 +5897,22 @@ try {
     await advance("j");
     assert.ok(frame.journal && !knows());
     for (const key of ["j", "p", "a"]) await advance(key);
-    assert.equal(frame.portrait, portrait);
+    assert.equal(frame.portrait, "portrait:area:5:ecl:9a5a:caller:aa76:HEAD5.DAX:54:BODY5.DAX:1");
+    await verifyPortraitPanel();
     await advance("j");
     assert.ok(knows());
     for (const key of ["j", "enter"]) await advance(key);
     assert.match(frame.text.toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join(""), /JUSTLETMEGO/i);
+    assert.equal(frame.portrait, "portrait:area:5:ecl:9a2c:caller:aa8e:HEAD5.DAX:54:BODY5.DAX:1");
+    await verifyPortraitPanel();
     const released = () => frame.journal?.leads.some(({ id }) => id === "castle-impostor-released");
     await advance("j");
     assert.ok(frame.journal && !released());
-    for (const key of ["j", "y", "j"]) await advance(key);
+    for (const key of ["j", "y"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:area:5:ecl:9a2c:caller:aacc:HEAD5.DAX:54:BODY5.DAX:1");
+    await verifyPortraitPanel();
+    await advance("j");
     assert.ok(released());
     assert.ok(!frame.journal.leads.some(({ id, status }) => id === "commission-castle" &&
       ["ready-to-report", "reward-pending", "turned-in"].includes(status)));

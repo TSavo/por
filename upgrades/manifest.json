@@ -5,6 +5,9 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:5:ecl:9a5a:caller:aa76:HEAD5.DAX:54:BODY5.DAX:1": "valjevo-false-throne-confession.png",
+    "portrait:area:5:ecl:9a2c:caller:aa8e:HEAD5.DAX:54:BODY5.DAX:1": "valjevo-false-throne-confession.png",
+    "portrait:area:5:ecl:9a2c:caller:aacc:HEAD5.DAX:54:BODY5.DAX:1": "valjevo-false-throne-treasure.png",
     "combat:party:64:74": "combat-party-human-bearded-axe-ready.png",
     "combat:party:64:202": "combat-party-human-bearded-axe-strike.png",
     "combat:party:64:75": "combat-party-human-spear-ready.png",
