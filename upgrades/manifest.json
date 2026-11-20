@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:0:ecl:ae69:HEAD3.DAX:0:BODY3.DAX:4": "new-phlan-dirten-invitation.png",
     "encounter:area:7:SPRIT5.DAX:16:0:0": "valjevo-audience-bodyguard-approach.png",
     "encounter:area:3:ecl:b35e:SPRIT5.DAX:60:1:0": "valjevo-lower-snake-approach-middle.png",
     "encounter:area:3:ecl:b35e:SPRIT5.DAX:60:0:0": "valjevo-lower-snake-approach-near.png",

@@ -3341,8 +3341,10 @@ const ogreApproachOnly = ogre && option === "--approach-only";
 const verifyHallsWebGL = halls && option === "--webgl";
 const verifyApproachTravel = outskirts && option === "--map-travel";
 const verifyDistrictTravel = outskirts && option === "--map-destination";
+const declineDirten = routeName === "braccio-dirten-briefing" && option === "--decline";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
-  ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel, "Option does not apply to this route");
+  ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
+  declineDirten, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -4948,12 +4950,21 @@ try {
       document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
     await switchBothWays();
     await advance("enter");
-    assert.equal(frame.portrait, dirten);
+    const invitation = "portrait:area:0:ecl:ae69:HEAD3.DAX:0:BODY3.DAX:4";
+    assert.equal(frame.portrait, invitation);
+    await waitFor("Dirten's invitation illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${invitation}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays();
     const text = frame.text.toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join("");
     assert.match(text, /WILLYOUACCOMPANYDIRTEN/i);
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "bane-dirten"));
+    await advance("j");
+    await advance(declineDirten ? "n" : "y");
+    assert.equal(frame.portrait, undefined);
+    assert.equal(frame.text.map(([, char]) => String.fromCharCode(char)).join("").includes("MIRA105DIRTEN"), !declineDirten);
     console.log("Verified the Braccio-to-Dirten portrait transition and quest invitation in Chrome.");
   } else if (routeName === "cadorna-envoy-briefing") {
     for (const key of ["up", "enter"]) await advance(key);
