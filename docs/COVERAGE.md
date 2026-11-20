@@ -376,6 +376,9 @@ reach Brin's manual turn. Aim shows a wounded orc at range three, outside
 the mace's reach. Brin moves east and southeast, then uses Aim and Target
 at range one. The original combat hands the turn to the Curate without
 watchdog intervention.
+The November 20 continuation from the same fresh party passed those
+checks. That courtyard attempt ended in a native defeat, and the landing
+save still reloaded with the tracked commission and restored party.
 
 Run `node tools/verify-fresh-party.mjs --sokal-recovered-courtyard-checkpoint PATH_TO_SLOT_G`
 with `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` to continue from the temple. The

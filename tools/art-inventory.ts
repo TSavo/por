@@ -509,6 +509,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["buccaneer-captive-pen-overview.png", ["Worn captives and guards around the pen", "The boy's identifying birthmark stays concealed"]],
   ["buccaneer-bivant-identification.png", ["The boy's heart-shaped birthmark is readable on his left shoulder", "A merchant approaches the party"]],
   ["sokal-floorboard-diary-discovery.png", ["A lifted floorboard", "Diary pages and gems visibly tucked beneath it"]],
+  ["sokal-floorboard-gem-choice.png", ["Five gems still beneath the lifted floorboard", "The hand pauses before taking any gems"]],
   ["kobold-king-council-turnin.png", ["The same auburn-haired clerk introduced at City Hall", "A clear reward handoff to the party"]],
   ["bivant-council-reward.png", ["The City Hall clerk presenting an open coffer", "The Bivant family's trinkets visibly inside"]],
   ["mendor-lex-geographica-reward.png", ["The large open atlas takes up the foreground", "The clerk is examining the maps in City Hall"]],
@@ -523,6 +524,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["mendor-storeroom-kobold-map.png", ["The party sketches a map as a kobold explains the surroundings", "The sketch reads as a journal entry"]],
   ["kuto-catacombs-arrow-volley.png", ["A volley reaches the party from the far corner", "The torch and curtained doorways identify the room"]],
   ["zhentil-dinner-escort.png", ["A guard beckons the party to follow", "Dusk is visible beyond the torchlit keep"]],
+  ["zhentil-assigned-quarters.png", ["A furnished room inside the keep", "The same quarters are recognizable on the return from dinner"]],
   ["lizard-wilds-kobold-release.png", ["Freed kobolds run out through the doorway", "One calls a warning back to the party", "Open shackles show the earlier confinement"]],
   ["pyramid-pump-prisoners-hostile.png", ["The prisoners hurl barrels of contaminant", "The party is visible in the path of the splash"]],
 ]);
