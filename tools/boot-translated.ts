@@ -57,6 +57,8 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const captureEncounterDraw = input?.captureEncounterDraw;
   const captureCombatEffectUnderlay = input?.captureCombatEffectUnderlay;
   const combatEffectSegment = captureCombatEffectUnderlay && loadedSlices.find(({ index }) => index === 25)?.loadPara;
+  const deathEffectSegment = captureCombatEffectUnderlay && loadedSlices.find(({ index }) => index === 32)?.loadPara;
+  const deathDelaySegment = captureCombatEffectUnderlay && loadedSlices.find(({ index }) => index === 37)?.loadPara;
   const encounterSegment = captureEncounterDraw && loadedSlices.find(({ index }) => index === 29)?.loadPara;
   const viewportSegment = capturePerspective && loadedSlices.find(({ index }) => index === 36)?.loadPara;
   const localScenerySegment = capturePerspective && loadedSlices.find(({ index }) => index === 30)?.loadPara;
@@ -76,12 +78,19 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       }
       // Overlay 25 draws projectiles and impacts into the offscreen picture,
       // flips the visible buffer, and then enters the original EGA delay.
-      if (this.cs === combatEffectSegment && this.steps >= liveStep &&
-          (at === 0x1d27 || at === 0x1fea || at === 0x2169)) captureCombatEffectUnderlay?.(this);
+      if (this.steps >= liveStep &&
+          ((this.cs === combatEffectSegment && (at === 0x1d27 || at === 0x1fea || at === 0x2169)) ||
+           (this.cs === deathEffectSegment && at === 0x0f33))) captureCombatEffectUnderlay?.(this);
       if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) {
         const returnOffset = this.read16(this.ss, this.sp);
-        const effectDelay = combatEffectSegment === this.read16(this.ss, (this.sp + 2) & 0xffff) &&
+        const returnSegment = this.read16(this.ss, (this.sp + 2) & 0xffff);
+        const projectileDelay = returnSegment === combatEffectSegment &&
           (returnOffset === 0x1d3c || returnOffset === 0x2005 || returnOffset === 0x217c);
+        // Overlay 32 displays the defeated unit's marker and pauses through overlay 37.
+        const deathDelay = returnSegment === deathDelaySegment && returnOffset === 0x0c96 &&
+          this.read16(this.ss, (this.sp + 8) & 0xffff) === 0x100b &&
+          this.read16(this.ss, (this.sp + 10) & 0xffff) === deathEffectSegment;
+        const effectDelay = projectileDelay || deathDelay;
         capturePresentationDelay?.(this, effectDelay);
       }
       // Some approach sequences refresh several native distances between inputs.

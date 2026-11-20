@@ -70,7 +70,7 @@ function checkBrowserArtPacks(): void {
     }).phlan, { x: 24, y: 28, sector: 1, key: "down" }, "Phlan travel should reach the scripted west crossroads");
   }
   const loaded = loadUpgradeArtFromManifests(paths, root);
-  const effectIds = [5, 133, 10, 138, 0, 1, 2, 129, 130, 3, 131, 9, 137, 6, 134, 7, 135];
+  const effectIds = [5, 133, 10, 138, 0, 1, 2, 129, 130, 3, 131, 9, 137, 6, 134, 7, 135, 11];
   const derivedEffects = [[3, "flip-x"], [3, "transpose"], [5, "flip-x"], [133, "flip-x"],
     [9, "flip-x"], [137, "flip-x"], [6, "flip-x"], [134, "flip-x"]] as const;
   const effectKeys = [...effectIds.map(String), ...derivedEffects.map(parts => parts.join(":"))]
