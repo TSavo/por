@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:13:CPIC2.DAX:0:ecl:b41c": "kobold-cave-horde-infantry-ready.png",
+    "combat:area:13:CPIC2.DAX:128:ecl:b41c": "kobold-cave-horde-infantry-strike.png",
     "portrait:area:14:ecl:b38b:caller:b16c:HEAD3.DAX:16:BODY3.DAX:8": "old-phlan-dying-thief-papers.png",
     "combat:area:13:CPIC2.DAX:0:ecl:a4ba": "kobold-cave-horde-infantry-ready.png",
     "combat:area:13:CPIC2.DAX:128:ecl:a4ba": "kobold-cave-horde-infantry-strike.png",
