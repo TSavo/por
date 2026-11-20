@@ -6,6 +6,7 @@ import { createInterface } from "node:readline";
 import { tsImport } from "tsx/esm/api";
 
 const names = ["alda", "brin", "cora", "dorn", "enna", "fenn"];
+const createCharacterFromBoot = ["enter", "enter", "enter", "c"];
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", "fresh-party-"));
 const tileTrace = process.env.POR_TRACE_TILES === "1" ? resolve(saveDir, "tile-inventory.jsonl") : undefined;
@@ -2407,7 +2408,8 @@ if (process.argv[2] === "--character-sheet") {
       [224, 48, `character-sheet:BODY3.DAX:${body}`, 88, 48],
     ]);
   };
-  await replay("31000000:1c0d,45000000:2e63", "50000000", [
+  await replay("", "24000000", [
+    ...createCharacterFromBoot,
     ...Array(5).fill("enter"), "y", ..."test", "enter", checkPortrait(0, 1),
     ...[8, 9, 13, 16, 18, 22, 34, 45, 51, 53, 57, 67, 68, 0].flatMap(head => ["h", checkPortrait(head, 1)]),
     ...[2, 3, 4, 7, 8, 18, 24, 26, 33, 35, 37, 1].flatMap(body => ["b", checkPortrait(0, body)]),
@@ -2427,8 +2429,8 @@ if (process.argv[2] === "--character-icon-editor") {
     assert.equal(frame.exploration, undefined);
   };
   const editorKeys = ["k", "p", "h", "n", "e", "w", "n", "e", "e", "1", "n", "e", "2", "n", "e", "s", "n", "e"];
-  await replay("31000000:1c0d,45000000:2e63", "50000000", [
-    ...Array(5).fill("enter"), "y", ..."test", "enter",
+  await replay("", "24000000", [
+    ...createCharacterFromBoot, ...Array(5).fill("enter"), "y", ..."test", "enter",
     ...editorKeys.flatMap((key, index) => [key, (text, frame) => {
       checkEditor(text, frame);
       if (index === 0 || index === 6) {
@@ -2451,7 +2453,7 @@ const createFighters = (roster) => roster.flatMap((name, index) => [
 const added = ["a", "a", ...names.slice(1).flatMap(() => ["end", "a"])];
 const tour = ["b", "enter", "enter", "enter", "y", ...Array(8).fill("enter")];
 const camp = ["e", "s", "s", "a"];
-const saved = await replay("31000000:1c0d,45000000:2e63", "50000000", [...createFighters(names), ...added, ...tour, ...camp]);
+const saved = await replay("", "24000000", [...createCharacterFromBoot, ...createFighters(names), ...added, ...tour, ...camp]);
 const savedText = visibleText(saved);
 expectParty(savedText);
 assert.match(savedText, /quit to dos/);
