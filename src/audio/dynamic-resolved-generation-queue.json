@@ -2,7 +2,7 @@
   "schema": 1,
   "model": "eleven_v4",
   "sourceResolution": "src/audio/dynamic-voice-resolution.json",
-  "itemCount": 373,
+  "itemCount": 377,
   "items": [
     {
       "id": "por.voice.ecl3.b0-a413-a438.variant-01-1",
@@ -5277,6 +5277,66 @@
       "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a627-runtime-text-v03-you-have-surprised-a-party-of-lizardmen.mp3",
       "text": "YOU HAVE SURPRISED A PARTY OF LIZARDMEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl1-b18-a0ab-a0af-a0b3.variant-01-goblins",
+      "sourceUnitId": "ecl1-b18-a0ab-a0af-a0b3",
+      "triggerSourceId": "por.review.ecl-1.block-18.at-a0ab",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-18.at-a0ab",
+        "por.review.ecl-1.block-18.at-a0af",
+        "por.review.ecl-1.block-18.at-a0b3"
+      ],
+      "condition": "0x9800 == \" GOBLINS\"",
+      "dynamicValue": " GOBLINS",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v01-goblins.mp3",
+      "text": "Some goblins rush to attack.",
+      "direction": "measured dramatic fantasy narration"
+    },
+    {
+      "id": "ecl1-b18-a0ab-a0af-a0b3.variant-02-orcs",
+      "sourceUnitId": "ecl1-b18-a0ab-a0af-a0b3",
+      "triggerSourceId": "por.review.ecl-1.block-18.at-a0ab",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-18.at-a0ab",
+        "por.review.ecl-1.block-18.at-a0af",
+        "por.review.ecl-1.block-18.at-a0b3"
+      ],
+      "condition": "0x9800 == \" ORCS\"",
+      "dynamicValue": " ORCS",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v02-orcs.mp3",
+      "text": "Some orcs rush to attack.",
+      "direction": "measured dramatic fantasy narration"
+    },
+    {
+      "id": "ecl1-b18-a0ab-a0af-a0b3.variant-03-hobgoblins",
+      "sourceUnitId": "ecl1-b18-a0ab-a0af-a0b3",
+      "triggerSourceId": "por.review.ecl-1.block-18.at-a0ab",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-18.at-a0ab",
+        "por.review.ecl-1.block-18.at-a0af",
+        "por.review.ecl-1.block-18.at-a0b3"
+      ],
+      "condition": "0x9800 == \" HOBGOBLINS\"",
+      "dynamicValue": " HOBGOBLINS",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v03-hobgoblins.mp3",
+      "text": "Some hobgoblins rush to attack.",
+      "direction": "measured dramatic fantasy narration"
+    },
+    {
+      "id": "ecl1-b18-a0ab-a0af-a0b3.variant-04-ogres",
+      "sourceUnitId": "ecl1-b18-a0ab-a0af-a0b3",
+      "triggerSourceId": "por.review.ecl-1.block-18.at-a0ab",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-18.at-a0ab",
+        "por.review.ecl-1.block-18.at-a0af",
+        "por.review.ecl-1.block-18.at-a0b3"
+      ],
+      "condition": "0x9800 == \" OGRES\"",
+      "dynamicValue": " OGRES",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v04-ogres.mp3",
+      "text": "Some ogres rush to attack.",
+      "direction": "measured dramatic fantasy narration"
     },
     {
       "id": "ecl1-b18-a105-a117-a11b.variant-01-goblins",

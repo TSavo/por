@@ -2,19 +2,18 @@
   "schema": 1,
   "policy": "No dynamic value is guessed. Values are either proven from local ECL assignments, runtime-only, or left for encounter-table tracing.",
   "unresolvedUnitCountBeforeTrace": 83,
-  "unitsResolvedToFiniteVariants": 68,
-  "unitsStillRuntimeDependent": 10,
+  "unitsResolvedToFiniteVariants": 69,
+  "unitsStillRuntimeDependent": 0,
   "slotSemantics": {
     "0x6b00": {
       "meaning": "selected party-member name",
-      "resolution": "runtime-only",
-      "reason": "The player names the character in the saved roster.",
-      "strategy": "Display the name in the original text."
+      "resolution": "recorded-replacement",
+      "strategy": "Show the original name and use generic recorded narration."
     },
     "0x6e79": {
       "meaning": "typed password or computed enemy count, depending on the ECL instruction",
-      "resolution": "context-dependent",
-      "strategy": "Display the original password confirmation. Trace the count and creature pair separately in the Podol Plaza encounter."
+      "resolution": "recorded-replacement",
+      "strategy": "Preserve the original password or count on screen. Speak a generic confirmation or a creature-specific encounter line."
     },
     "0x6e7e": {
       "meaning": "random tavern-tale number",
@@ -532,6 +531,28 @@
         "value": "YOU HAVE SURPRISED A PARTY OF LIZARDMEN. ",
         "condition": "rendered encounter operand 9 at 0xa627 == \"YOU HAVE SURPRISED A PARTY OF LIZARDMEN. \"",
         "text": "YOU HAVE SURPRISED A PARTY OF LIZARDMEN."
+      }
+    ],
+    "ecl1-b18-a0ab-a0af-a0b3": [
+      {
+        "value": " GOBLINS",
+        "condition": "0x9800 == \" GOBLINS\"",
+        "text": "Some goblins rush to attack."
+      },
+      {
+        "value": " ORCS",
+        "condition": "0x9800 == \" ORCS\"",
+        "text": "Some orcs rush to attack."
+      },
+      {
+        "value": " HOBGOBLINS",
+        "condition": "0x9800 == \" HOBGOBLINS\"",
+        "text": "Some hobgoblins rush to attack."
+      },
+      {
+        "value": " OGRES",
+        "condition": "0x9800 == \" OGRES\"",
+        "text": "Some ogres rush to attack."
       }
     ],
     "ecl1-b18-a105-a117-a11b": [
@@ -2223,7 +2244,7 @@
       }
     ]
   },
-  "newlyQueueableVariantCount": 373,
+  "newlyQueueableVariantCount": 377,
   "finiteSlotValuesByScope": {
     "ECL2.DAX:block-20:0x9890": [
       " KOBOLDS. ",
@@ -2343,7 +2364,7 @@
           "address": "0x9800"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL1.DAX",
@@ -2684,7 +2705,7 @@
           "address": "0x6b00"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL4.DAX",
@@ -2866,7 +2887,7 @@
           "address": "0x6b00"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL5.DAX",
@@ -2936,7 +2957,7 @@
           "address": "0x6b00"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL5.DAX",
@@ -2950,7 +2971,7 @@
           "address": "0x6b00"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL5.DAX",
@@ -2964,7 +2985,7 @@
           "address": "0x6b00"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL6.DAX",
@@ -3132,7 +3153,7 @@
           "address": "0x6e79"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL7.DAX",
@@ -3258,7 +3279,7 @@
           "address": "0x6b00"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL8.DAX",
@@ -3272,7 +3293,7 @@
           "address": "0x6b00"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL8.DAX",
@@ -3286,7 +3307,7 @@
           "address": "0x6e79"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL8.DAX",

@@ -21,6 +21,8 @@ interface QueueItem {
   condition?: string;
   dynamicValue?: string;
   aliases?: Array<{ id: string; sourceUnitId: string; condition: string; dynamicValue: string }>;
+  sharedWith?: string[];
+  replaceSpokenText?: boolean;
 }
 interface ReviewUnit {
   id: string;
@@ -59,8 +61,10 @@ for (const name of queueFiles) {
     if (!covered?.length || !trigger) throw new Error(`${name} item ${id} has no sources`);
     item.coveredSourceIds = covered;
     item.triggerSourceId = trigger;
-    if (queuedById.has(id)) throw new Error(`duplicate queued unit ${id}`);
-    queuedById.set(id, item);
+    for (const unitId of [id, ...(item.sharedWith ?? [])]) {
+      if (queuedById.has(unitId)) throw new Error(`duplicate queued unit ${unitId}`);
+      queuedById.set(unitId, item);
+    }
     queuedBySources.set(sourceKey(trigger, covered), item);
   }
 }
@@ -136,8 +140,8 @@ const addUnit = (archive: string, unit: ReviewUnit) => {
     triggerSourceId: unit.triggerSourceId,
     coveredSourceIds: unit.coveredSourceIds,
     variant: unit.variant ?? null,
-    spokenText: unit.spokenText ?? unit.text ?? queued?.text ?? "",
-    direction: unit.direction ?? queued?.direction ?? "measured, expressive fantasy narration",
+    spokenText: queued?.replaceSpokenText ? queued.text : unit.spokenText ?? unit.text ?? queued?.text ?? "",
+    direction: queued?.replaceSpokenText ? queued.direction : unit.direction ?? queued?.direction ?? "measured, expressive fantasy narration",
     characterId: unit.characterId ?? unit.performedCharacterId ?? null,
     sourceParts,
     resolution: asset ? "resolved" : runtimeVariants.length ? "finite-runtime-variants" : "unresolved-dynamic",

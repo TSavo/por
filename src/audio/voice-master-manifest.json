@@ -17,10 +17,10 @@
     "voicedSourceEvents": 1688,
     "unvoicedEvents": 337,
     "narrationUnits": 1432,
-    "resolvedUnits": 1422,
-    "unresolvedDynamicUnits": 10,
-    "finiteRuntimeVariantFamilies": 68,
-    "finiteRuntimeVariantAssets": 373
+    "resolvedUnits": 1432,
+    "unresolvedDynamicUnits": 0,
+    "finiteRuntimeVariantFamilies": 69,
+    "finiteRuntimeVariantAssets": 377
   },
   "dynamicResolution": {
     "source": "src/audio/dynamic-voice-resolution.json",
@@ -28,14 +28,13 @@
     "slotSemantics": {
       "0x6b00": {
         "meaning": "selected party-member name",
-        "resolution": "runtime-only",
-        "reason": "The player names the character in the saved roster.",
-        "strategy": "Display the name in the original text."
+        "resolution": "recorded-replacement",
+        "strategy": "Show the original name and use generic recorded narration."
       },
       "0x6e79": {
         "meaning": "typed password or computed enemy count, depending on the ECL instruction",
-        "resolution": "context-dependent",
-        "strategy": "Display the original password confirmation. Trace the count and creature pair separately in the Podol Plaza encounter."
+        "resolution": "recorded-replacement",
+        "strategy": "Preserve the original password or count on screen. Speak a generic confirmation or a creature-specific encounter line."
       },
       "0x6e7e": {
         "meaning": "random tavern-tale number",
@@ -52485,11 +52484,48 @@
           "sourceDigest": "edb07e95b32b809e10ea9d4386322e41bafe46d7aea43be8263e26b541a7e99f"
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
+      "resolution": "finite-runtime-variants",
+      "generationEligible": true,
+      "model": "eleven_v4",
       "asset": null,
-      "runtimeVariants": [],
+      "runtimeVariants": [
+        {
+          "id": "ecl1-b18-a0ab-a0af-a0b3.variant-01-goblins",
+          "condition": "0x9800 == \" GOBLINS\"",
+          "dynamicValue": " GOBLINS",
+          "text": "Some goblins rush to attack.",
+          "direction": "measured dramatic fantasy narration",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v01-goblins.mp3"
+        },
+        {
+          "id": "ecl1-b18-a0ab-a0af-a0b3.variant-02-orcs",
+          "condition": "0x9800 == \" ORCS\"",
+          "dynamicValue": " ORCS",
+          "text": "Some orcs rush to attack.",
+          "direction": "measured dramatic fantasy narration",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v02-orcs.mp3"
+        },
+        {
+          "id": "ecl1-b18-a0ab-a0af-a0b3.variant-03-hobgoblins",
+          "condition": "0x9800 == \" HOBGOBLINS\"",
+          "dynamicValue": " HOBGOBLINS",
+          "text": "Some hobgoblins rush to attack.",
+          "direction": "measured dramatic fantasy narration",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v03-hobgoblins.mp3"
+        },
+        {
+          "id": "ecl1-b18-a0ab-a0af-a0b3.variant-04-ogres",
+          "condition": "0x9800 == \" OGRES\"",
+          "dynamicValue": " OGRES",
+          "text": "Some ogres rush to attack.",
+          "direction": "measured dramatic fantasy narration",
+          "model": "eleven_v4",
+          "asset": "voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v04-ogres.mp3"
+        }
+      ],
       "playback": {
         "attachOnlyToTrigger": true,
         "queueAfterCurrentNarration": true
@@ -64245,7 +64281,7 @@
         "por.review.ecl-3.block-14.at-9f2a"
       ],
       "variant": "runtime-party-member-name",
-      "spokenText": "CASTS A KNOCK SPELL AND OPENS THE LOCK.",
+      "spokenText": "One of the party casts a Knock spell and opens the lock.",
       "direction": "Measured expressive fantasy narration appropriate to the scene",
       "characterId": null,
       "sourceParts": [
@@ -64272,10 +64308,10 @@
           ]
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/ecl3-b14-9f26-9f2a.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -82152,7 +82188,7 @@
         "por.review.ecl-5.block-6.at-a55c"
       ],
       "variant": "runtime-party-member-doubles-in-agony",
-      "spokenText": "DOUBLES UP IN AGONY.",
+      "spokenText": "One of the party doubles up in agony.",
       "direction": "Measured expressive fantasy narration appropriate to the scene",
       "characterId": null,
       "sourceParts": [
@@ -82179,10 +82215,10 @@
           ]
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/ecl5-b6-a558-a55c.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -83421,7 +83457,7 @@
         "por.review.ecl-5.block-7.at-9c81"
       ],
       "variant": "runtime-party-member-warns-of-statues",
-      "spokenText": "QUICKLY LOOKING AWAY, SAYS, 'I SAW BROKEN REMAINS OF STATUES... HEADS WITH FACES FULL OF TERROR.",
+      "spokenText": "Quickly looking away, one of the party says, \"I saw broken remains of statues... heads with faces full of terror.\"",
       "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
       "characterId": null,
       "sourceParts": [
@@ -83459,10 +83495,10 @@
           ]
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/ecl5-b7-9c69-9c81.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -83480,7 +83516,7 @@
         "por.review.ecl-5.block-7.at-9cfc"
       ],
       "variant": "runtime-party-member-petrified-and-trapdoor-question",
-      "spokenText": "WITH A SCREAM OF HORROR TURNS TO STONE. DO YOU WANT TO JUMP THROUGH THE TRAP DOOR?",
+      "spokenText": "With a scream of horror, one of the party turns to stone. Do you want to jump through the trap door?",
       "direction": "Clear measured fantasy narration ending with a direct question",
       "characterId": null,
       "sourceParts": [
@@ -83529,10 +83565,10 @@
           ]
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/ecl5-b7-9cd0-9cfc.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -84272,7 +84308,7 @@
         "por.review.ecl-5.block-7.at-a73c"
       ],
       "variant": "runtime-party-member-vote",
-      "spokenText": "HOW DO YOU VOTE?",
+      "spokenText": "How do you vote?",
       "direction": "Clear measured fantasy narration ending with a direct question",
       "characterId": null,
       "sourceParts": [
@@ -84299,10 +84335,10 @@
           ]
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/ecl5-b7-a738-a73c.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -93570,8 +93606,8 @@
         "por.review.ecl-7.block-23.at-a4bd"
       ],
       "variant": "runtime-password-confirmation",
-      "spokenText": "DO YOU REALLY MEAN?",
-      "direction": "Clear measured fantasy narration ending with a direct question",
+      "spokenText": "Do you really mean that?",
+      "direction": "Ask a plain, deliberate confirmation in the narrator voice, with a natural rise at the end",
       "characterId": null,
       "sourceParts": [
         {
@@ -93608,10 +93644,10 @@
           ]
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/confirm-player-input.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -96383,7 +96419,7 @@
         "por.review.ecl-8.block-13.at-9abb"
       ],
       "variant": null,
-      "spokenText": "FALLS INTO A POOL OF WATER.",
+      "spokenText": "One of the party falls into a pool of water.",
       "direction": "measured, expressive fantasy narration appropriate to the scene",
       "characterId": null,
       "sourceParts": [
@@ -96396,10 +96432,10 @@
           "rawText": " FALLS INTO A POOL OF WATER."
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/ecl8-b13-9ab7-9abb.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -96415,7 +96451,7 @@
         "por.review.ecl-8.block-13.at-9af2"
       ],
       "variant": null,
-      "spokenText": "SOME ITEMS WERE LOST RECOVERING",
+      "spokenText": "Some items were lost while pulling them out.",
       "direction": "measured, expressive fantasy narration appropriate to the scene",
       "characterId": null,
       "sourceParts": [
@@ -96428,10 +96464,10 @@
           "rawText": ""
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/ecl8-b13-9ad7-9af2.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,
@@ -98706,8 +98742,8 @@
         "por.review.ecl-8.block-16.at-a0e5"
       ],
       "variant": null,
-      "spokenText": "DO YOU REALLY MEAN ?",
-      "direction": "perform the old lizardman consistently as aged, deliberate, dignified, and tribal; retain narrator identity for narration",
+      "spokenText": "Do you really mean that?",
+      "direction": "Ask a plain, deliberate confirmation in the narrator voice, with a natural rise at the end",
       "characterId": "old-lizardman",
       "sourceParts": [
         {
@@ -98723,10 +98759,10 @@
           "rawText": "?"
         }
       ],
-      "resolution": "unresolved-dynamic",
-      "generationEligible": false,
-      "model": null,
-      "asset": null,
+      "resolution": "resolved",
+      "generationEligible": true,
+      "model": "eleven_v4",
+      "asset": "voices/narration/static-resolved/confirm-player-input.mp3",
       "runtimeVariants": [],
       "playback": {
         "attachOnlyToTrigger": true,

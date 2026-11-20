@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "model": "eleven_v4",
+  "items": [
+    {
+      "id": "por.voice.ecl3.b14-9f26-9f2a",
+      "triggerSourceId": "por.review.ecl-3.block-14.at-9f26",
+      "coveredSourceIds": [
+        "por.review.ecl-3.block-14.at-9f26",
+        "por.review.ecl-3.block-14.at-9f2a"
+      ],
+      "output": "../por-assets/voices/narration/static-resolved/ecl3-b14-9f26-9f2a.mp3",
+      "text": "One of the party casts a Knock spell and opens the lock.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene",
+      "replaceSpokenText": true
+    },
+    {
+      "id": "por.voice.ecl5.b6-a558-a55c",
+      "triggerSourceId": "por.review.ecl-5.block-6.at-a558",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-6.at-a558",
+        "por.review.ecl-5.block-6.at-a55c"
+      ],
+      "output": "../por-assets/voices/narration/static-resolved/ecl5-b6-a558-a55c.mp3",
+      "text": "One of the party doubles up in agony.",
+      "direction": "Measured expressive fantasy narration appropriate to the scene",
+      "replaceSpokenText": true
+    },
+    {
+      "id": "por.voice.ecl5.b7-9c69-9c81",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9c69",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9c69",
+        "por.review.ecl-5.block-7.at-9c7d",
+        "por.review.ecl-5.block-7.at-9c81"
+      ],
+      "output": "../por-assets/voices/narration/static-resolved/ecl5-b7-9c69-9c81.mp3",
+      "text": "Quickly looking away, one of the party says, \"I saw broken remains of statues... heads with faces full of terror.\"",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
+      "replaceSpokenText": true
+    },
+    {
+      "id": "por.voice.ecl5.b7-9cd0-9cfc",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-9cd0",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-9cd0",
+        "por.review.ecl-5.block-7.at-9ce5",
+        "por.review.ecl-5.block-7.at-9ce9",
+        "por.review.ecl-5.block-7.at-9cfc"
+      ],
+      "output": "../por-assets/voices/narration/static-resolved/ecl5-b7-9cd0-9cfc.mp3",
+      "text": "With a scream of horror, one of the party turns to stone. Do you want to jump through the trap door?",
+      "direction": "Clear measured fantasy narration ending with a direct question",
+      "replaceSpokenText": true
+    },
+    {
+      "id": "por.voice.ecl5.b7-a738-a73c",
+      "triggerSourceId": "por.review.ecl-5.block-7.at-a738",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-7.at-a738",
+        "por.review.ecl-5.block-7.at-a73c"
+      ],
+      "output": "../por-assets/voices/narration/static-resolved/ecl5-b7-a738-a73c.mp3",
+      "text": "How do you vote?",
+      "direction": "Clear measured fantasy narration ending with a direct question",
+      "replaceSpokenText": true
+    },
+    {
+      "id": "por.voice.ecl7.b23-a4a7-a4bd",
+      "triggerSourceId": "por.review.ecl-7.block-23.at-a4a7",
+      "coveredSourceIds": [
+        "por.review.ecl-7.block-23.at-a4a7",
+        "por.review.ecl-7.block-23.at-a4b9",
+        "por.review.ecl-7.block-23.at-a4bd"
+      ],
+      "output": "../por-assets/voices/narration/static-resolved/confirm-player-input.mp3",
+      "text": "Do you really mean that?",
+      "direction": "Ask a plain, deliberate confirmation in the narrator voice, with a natural rise at the end",
+      "replaceSpokenText": true,
+      "sharedWith": [
+        "ecl8-b16-a0cf-a0e1-a0e5"
+      ]
+    },
+    {
+      "id": "ecl8-b13-9ab7-9abb",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9ab7",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9ab7",
+        "por.review.ecl-8.block-13.at-9abb"
+      ],
+      "output": "../por-assets/voices/narration/static-resolved/ecl8-b13-9ab7-9abb.mp3",
+      "text": "One of the party falls into a pool of water.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene",
+      "replaceSpokenText": true
+    },
+    {
+      "id": "ecl8-b13-9ad7-9af2",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-9ad7",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-9ad7",
+        "por.review.ecl-8.block-13.at-9af2"
+      ],
+      "output": "../por-assets/voices/narration/static-resolved/ecl8-b13-9ad7-9af2.mp3",
+      "text": "Some items were lost while pulling them out.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene",
+      "replaceSpokenText": true
+    }
+  ]
+}

@@ -240,8 +240,11 @@ export class EclNarrationObserver {
     if (!unit?.runtimeVariants?.length) return undefined;
     const parts = unit.coveredSourceIds.flatMap(id => (this.eventsById.get(id)?.outputParts ?? [])
       .filter(part => part.kind === "dynamic-string" || part.kind === "dynamic-value"));
-    const [part] = parts;
-    if (!part?.address || parts.some(other => other.kind !== part.kind || other.address !== part.address)) return undefined;
+    // An authored recording can replace a count while still varying by the displayed noun.
+    const strings = parts.filter(part => part.kind === "dynamic-string");
+    const selectors = strings.length ? strings : parts;
+    const [part] = selectors;
+    if (!part?.address || selectors.some(other => other.address !== part.address)) return undefined;
     return part.kind === "dynamic-string" ? this.readEclString(cpu, part.address) : String(this.readEclValue(cpu, this.hex(part.address)));
   }
 

@@ -216,3 +216,39 @@ for (const [entryAddress, number] of [[0x9b71, 42], [0xa713, 28], [0xa7f8, 16], 
   if (number === 28) assert.equal(realCatalog.resolve(event!).status, "resolved");
   else assert.equal(realCatalog.resolve(event!).status, "continuation", "already covered by the opening recording");
 }
+
+let confirmationAsset: string | undefined;
+for (const [archive, block, address, expected] of [
+  [3, 14, 0x9f26, /One of the party casts a Knock spell/],
+  [5, 6, 0xa558, /One of the party doubles up in agony/],
+  [5, 7, 0x9c69, /one of the party says/],
+  [5, 7, 0x9cd0, /one of the party turns to stone/],
+  [5, 7, 0xa738, /^How do you vote\?$/],
+  [7, 23, 0xa4a7, /^Do you really mean that\?$/],
+  [8, 13, 0x9ab7, /One of the party falls into a pool of water/],
+  [8, 13, 0x9ad7, /Some items were lost while pulling them out/],
+  [8, 16, 0xa0cf, /^Do you really mean that\?$/]
+] as const) {
+  loadBlock(archive, block);
+  const narration = realCatalog.resolve(reach(address, 0x12)!);
+  assert.equal(narration.status, "resolved");
+  assert.match(narration.narration.text, expected);
+  if (narration.narration.text === "Do you really mean that?") {
+    confirmationAsset ??= narration.narration.asset;
+    assert.equal(narration.narration.asset, confirmationAsset);
+  }
+}
+
+loadBlock(1, 18);
+for (const group of ["goblins", "orcs", "hobgoblins", "ogres"]) {
+  storeEclString(0x9800, ` ${group.toUpperCase()}`);
+  for (const count of [2, 19]) {
+    selectCpu.write16(localSegment, (0x6e79 * 2 + 0x2a00) & 0xffff, count);
+    const attack = realCatalog.resolve(reach(0xa0ab, 0x12)!);
+    assert.equal(attack.status, "resolved");
+    assert.equal(attack.narration.text, `Some ${group} rush to attack.`);
+  }
+  assert.equal(realCatalog.resolve(reach(0xa0af, 0x11)!).status, "continuation");
+  assert.equal(realCatalog.resolve(reach(0xa0b3, 0x11)!).status, "continuation");
+}
+console.log("verified prerecorded replacements for party names, typed confirmations, and variable encounter counts");
