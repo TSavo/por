@@ -669,6 +669,7 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "up", "enter", "left", "up", "enter", "right"],
     portraitStops: { 5: "scene-illustration:area:23:ecl:9a04:caller:a08a", 6: "scene-illustration:area:23:ecl:a0fd" },
     portrait: "scene-illustration:area:23:ecl:a0fd", prompt: /THEWALLSARELINEDWITHFLASKSANDBOTTLES.*ALCHEMICALNATURE/i,
+    journalLead: "river-alchemical-laboratory", journalLeadAtDiscovery: true,
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
   ["yarash-desk-papers", {
