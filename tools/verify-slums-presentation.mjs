@@ -6197,6 +6197,11 @@ try {
     assert.equal(frame.portrait, undefined);
     console.log("Verified the Valjevo dungeon sentry portrait in Chrome.");
   } else if (genheeris) {
+    const knows = id => frame.journal?.leads.some(lead => lead.id === id);
+    await advance("j");
+    assert.ok(frame.journal && !knows("castle-genheeris-orders"));
+    assert.doesNotMatch(frame.journal.objective.nextStep, /phase 2 of Plan A/i);
+    await advance("j");
     for (const key of ["up", "enter", "enter"]) await advance(key);
     for (const placement of [
       [56, 32, "encounter:area:7:SPRIT5.DAX:24:1:0", 24, 65],
@@ -6218,10 +6223,12 @@ try {
         image.naturalWidth === 352 && image.src.endsWith(${JSON.stringify(portrait)}))`));
     await switchBothWays();
     await advance("j");
-    const knows = id => frame.journal?.leads.some(lead => lead.id === id);
     assert.equal(knows("castle-genheeris-orders"), genheerisOrders);
     assert.equal(knows("castle-genheeris-offer"), !genheerisOrders);
-    if (!genheerisOrders) {
+    if (genheerisOrders) {
+      assert.match(frame.journal.objective.nextStep, /Find Al-Hyam Dhazid.*phase 2 of Plan A/i);
+    } else {
+      assert.doesNotMatch(frame.journal.objective.nextStep, /phase 2 of Plan A/i);
       for (const key of ["j", "enter", "y", "enter"]) await advance(key);
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /GENHEERIS/i);
       assert.equal(frame.portrait, undefined);
