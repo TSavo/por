@@ -551,6 +551,19 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["yarash-desk-papers", {
+    slot: "A", inputs: ["s", "up", ...Array(6).fill("enter")],
+    portraitStops: {
+      2: null,
+      3: "scene-illustration:area:23:ecl:9a04:caller:ade9",
+      4: "scene-illustration:area:23:ecl:9a04:caller:ae21",
+      5: "scene-illustration:area:23:ecl:9a04:caller:ae48",
+      6: "scene-illustration:area:23:ecl:9a04:caller:ae89",
+      7: "scene-illustration:area:23:ecl:9a04:caller:aed0",
+    },
+    portrait: "scene-illustration:area:23:ecl:9a04:caller:af04", prompt: /ANOTETOATRAPPER.*ENTRY40/i,
+    continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["mendor-history-of-the-north-discovery", {
     slot: "B", inputs: ["s", "up", "enter", "left", "up", "up"],
     portrait: "scene-illustration:area:15:ecl:99b5:caller:9962:cue:history-of-the-north", prompt: /YOUFINDTHEHISTORYOFTHENORTH.*ENTRY8/i,
@@ -5697,6 +5710,13 @@ try {
     if (routeName === "sokal-ferran-farewell") {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-departure"));
+      await advance("j");
+    }
+    if (routeName === "yarash-desk-papers") {
+      await advance("j");
+      for (const number of [33, 49, 27, 56, 40]) {
+        assert.ok(frame.journal?.leads.some(({ id }) => id === `river-yarash-paper-${number}`));
+      }
       await advance("j");
     }
     if (illustration.book) {

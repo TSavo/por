@@ -11,6 +11,19 @@ const libraryRecords = [
   { entry: 21, title: "The Grand Historian's Records of the Arts of War", rewardFlag: 0x4aae },
 ] as const;
 
+const yarashPapers = [
+  { entry: 33, cue: "TELLING YARASH TO JOIN OR DIE", title: "The Boss's ultimatum",
+    detail: "The Boss ordered Yarash to join or die." },
+  { entry: 49, cue: "AN UNSENT REPLY TO THIS LETTER", title: "Yarash's unsent reply",
+    detail: "Yarash left an unsent reply on his desk." },
+  { entry: 27, cue: "OFFERING A BOUNTY FOR A REAL SAHUAGIN", title: "The buccaneers' bounty",
+    detail: "Yarash offered the buccaneers a bounty for a sahuagin." },
+  { entry: 56, cue: "DANGERS IN THE MOUNTAINS TO THE NORTHWEST", title: "Warning about the northwest",
+    detail: "Yarash warned an agent about dangers in the mountains to the northwest." },
+  { entry: 40, cue: "A NOTE TO A TRAPPER ABOUT KOBOLDS AND HOBGOBLINS", title: "A note to a trapper",
+    detail: "Yarash left a note about kobolds and hobgoblins." },
+];
+
 const kovelClues = [
   { id: "kovel-chase", trigger: "RUN OUT THE EAST DOOR. WILL YOU CHASE THEM?",
     title: "Thieves in Kovel Mansion", detail: "Two thieves fled through the east door after their attack failed.",
@@ -1411,6 +1424,11 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU HAVE FOUND A SECRET DOOR THAT LEADS INTO THE PYRAMID") &&
       text.includes("A SECRET DOOR IS FOUND BEHIND YOU")) {
     leads.push({ id: "river-entrance-inside", title: "Inside the pyramid", detail: "The secret entrance is behind the party." });
+  }
+  for (const { entry, cue, title, detail } of yarashPapers) {
+    if (text.includes(cue)) {
+      leads.push({ id: `river-yarash-paper-${entry}`, title, detail: `${detail} Read journal entry ${entry}.` });
+    }
   }
   if (text.includes("IT IS THE JOURNAL OF TYRMOR")) {
     leads.push({ id: "river-tyrmor-journal", title: "Tyrmor's journal",

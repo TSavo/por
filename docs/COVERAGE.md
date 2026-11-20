@@ -3935,3 +3935,9 @@ Enhanced Manual Aim shows its targeting reticle over occupied squares.
 A controlled Buccaneer Chrome replay checked ordinary Aim and moving
 Manual Aim between allies and enemies, followed by Escape cleanup.
 Classic frames and save data remained intact across display switches.
+
+The `yarash-desk-papers` route searches the desk from a local pyramid
+checkpoint. Chrome confirms the papers illustration starts after the
+initial desk prompt, persists through the five document pages, and
+clears for exploration. The journal records entries 33, 49, 27, 56 and
+40 from their individual disclosure lines.
