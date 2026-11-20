@@ -573,6 +573,16 @@ const illustrationRoutes = new Map([
     journalLead: "swamp-friend-word-charge", journalLeadAtDiscovery: true,
     continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i, clearsPortrait: true },
   }],
+  ["valjevo-disguise-offer", {
+    slot: "B", inputs: ["up", "enter", "n"],
+    portrait: "scene-illustration:area:6:ecl:9b14:caller:9996",
+    prompt: /USETHESECLOTHESASADISGUISEANDYOUWILLESCAPENOTICE/i,
+    journalLead: "castle-disguise", journalLeadAtDiscovery: true,
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:6:ecl:9ae6:caller:99bb",
+      prompt: /WILLYOUUSETHECLOTHINGASADISGUISE/i,
+    },
+  }],
   ["mendor-storeroom-kobold-map", {
     slot: "B", inputs: ["up", ...Array(4).fill("enter"), "p", "y"],
     portraitStops: { 6: "portrait:area:15:PIC2.DAX:0:0:0" },
@@ -3961,6 +3971,7 @@ const ogreApproachOnly = ogre && option === "--approach-only";
 const verifyHallsWebGL = halls && option === "--webgl";
 const verifyApproachTravel = outskirts && option === "--map-travel";
 const verifyDistrictTravel = outskirts && option === "--map-destination";
+const declineValjevoDisguise = routeName === "valjevo-disguise-offer" && option === "--decline";
 const declineDirten = routeName === "braccio-dirten-briefing" && option === "--decline";
 const declineRestal = restalGuide && option === "--decline";
 const declineKoboldGuide = routeName === "kobold-cave-guide" && option === "--decline";
@@ -3971,7 +3982,7 @@ const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
   ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
   declineDirten || declineRestal || declineKoboldGuide || declineFatima || declineCryptScroll ||
-  fightNorris || refuseNomadDismissal, "Option does not apply to this route");
+  declineValjevoDisguise || fightNorris || refuseNomadDismissal, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -6422,6 +6433,19 @@ try {
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
+      if (routeName === "valjevo-disguise-offer") {
+        const disguise = () => frame.journal?.leads.find(({ id }) => id === "castle-disguise");
+        await advance("j");
+        assert.equal(disguise()?.castleDisguiseActive, false);
+        for (const key of ["j", declineValjevoDisguise ? "n" : "y"]) await advance(key);
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
+          declineValjevoDisguise ? /THEYHELPYOUPUTONTHECLOTHES/i : /BESTYOULEAVEBEFOREYOUAREFOUNDHERE/i);
+        await advance("j");
+        assert.equal(disguise()?.castleDisguiseActive, !declineValjevoDisguise);
+        for (const key of ["j", "l"]) await advance(key);
+        assert.equal(frame.portrait, undefined);
+      }
       if (routeName === "podal-auction-garwin-escaped") {
         await advance("left");
         assert.equal(frame.portrait, nextPortrait);
