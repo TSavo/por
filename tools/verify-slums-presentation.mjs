@@ -413,7 +413,7 @@ const encounterRoutes = new Map([
   }],
   ["valhingen-zombie-approach", {
     slot: "A", inputs: ["up", "enter"],
-    placement: [56, 32, "encounter:area:10:SPRIT4.DAX:35:0:0", 32, 80],
+    placement: [56, 32, "encounter:area:10:ecl:b6a8:caller:9f5b:SPRIT4.DAX:35:0:0", 32, 80],
     dialogue: { key: "enter", portrait: "portrait:area:10:PIC4.DAX:35:0:0", prompt: /ZOMBIESSHUFFLEDOWNTHESTAIRS/i },
   }],
   ["valhingen-zombie-roam-dialogue", {
@@ -1264,6 +1264,8 @@ const illustrationRoutes = new Map([
   }],
   ["valhingen-zombie-trap", {
     slot: "A", inputs: ["up", "enter", "enter"],
+    approachSequence: [[56, 32, "encounter:area:10:SPRIT4.DAX:35:0:0", 32, 80]],
+    requireTiledApproach: false,
     portrait: "portrait:area:10:ecl:a022:PIC4.DAX:35:0:0", prompt: /AZOMBIEWITHGRAY,LEATHERY.HARDSKIN/i,
   }],
   ["valhingen-vampire-chamber", {

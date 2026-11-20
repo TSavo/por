@@ -278,7 +278,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       const encounter = encounterArt(presentation, enhanced, !scene && picture === undefined ? area : undefined,
-        !captureApproach, battleCursor, [drawnPerspective?.pixels, priorPerspectiveDraw]);
+        !captureApproach, battleCursor, [drawnPerspective?.pixels, priorPerspectiveDraw], portraitCaller);
       if (captureApproach) {
         if (!encounter || encounter[2] === lastApproach) return;
         lastApproach = encounter[2];

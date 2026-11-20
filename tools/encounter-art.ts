@@ -4,7 +4,7 @@ import type { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
-export const encounterKey = /^encounter:(?:area:(\d{1,3}):(?:ecl:([a-f0-9]{4}):)?)?(SPRIT[1-8]\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
+export const encounterKey = /^encounter:(?:area:(\d{1,3}):(?:ecl:([a-f0-9]{4}):(?:caller:([a-f0-9]{4}):)?)?)?(SPRIT[1-8]\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
 const legacyAnchors = new Map<string, EncounterAnchor>([
   ["encounter:SPRIT2.DAX:0:0:0", { area: 20, x: 48, y: 32, width: 40, height: 80 }],
   ["encounter:SPRIT2.DAX:0:1:0", { area: 20, x: 56, y: 32, width: 24, height: 65 }],
@@ -27,7 +27,7 @@ export function encounterAnchor(key: string, configured?: EncounterAnchor) {
 export function encounterPixels(archive: ReturnType<typeof parseDax>, key: string, anchor: EncounterAnchor) {
   const match = encounterKey.exec(key);
   if (!match) return;
-  const [, , , , blockIndex, memberIndex, frameIndex] = match;
+  const [, , , , , blockIndex, memberIndex, frameIndex] = match;
   const block = archive.entries.find(({ id }) => id === Number(blockIndex));
   const member = block && pictureMembers(block.data)[Number(memberIndex)];
   if (!member) return;
@@ -45,7 +45,7 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>,
   const patterns = [...new Map([...legacyAnchors, ...Object.entries(placements)])].flatMap(([key, anchor]) => {
     const match = encounterKey.exec(key);
     if (!root || !match) return [];
-    const [, , cursor, name] = match;
+    const [, , cursor, caller, name] = match;
     const file = files.get(name!);
     if (!file) return [];
     let archive = archives.get(file);
@@ -54,13 +54,18 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>,
       archives.set(file, archive);
     }
     const pixels = encounterPixels(archive, key, anchor);
-    return pixels ? [{ key, anchor, pixels, cursor: cursor === undefined ? undefined : Number.parseInt(cursor, 16) }] : [];
-  }).sort((a, b) => Number(b.cursor !== undefined) - Number(a.cursor !== undefined));
+    return pixels ? [{
+      key, anchor, pixels,
+      cursor: cursor === undefined ? undefined : Number.parseInt(cursor, 16),
+      caller: caller === undefined ? undefined : Number.parseInt(caller, 16),
+    }] : [];
+  }).sort((a, b) => Number(b.caller !== undefined) - Number(a.caller !== undefined) ||
+    Number(b.cursor !== undefined) - Number(a.cursor !== undefined));
   let background: Uint8Array | undefined;
   let backgroundArea: number | undefined;
 
   return (screen: Frame, enhanced: Frame, area: number | undefined, rememberBackground = true, cursor?: number,
-    nativeDraws: readonly (Uint8Array | undefined)[] = []): EncounterPlacement | undefined => {
+    nativeDraws: readonly (Uint8Array | undefined)[] = [], caller?: number): EncounterPlacement | undefined => {
     if (rememberBackground && area !== backgroundArea) background = undefined;
     if (rememberBackground) backgroundArea = area;
     if (area === undefined) {
@@ -68,8 +73,8 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>,
       return;
     }
     let unmatchedScope: { key: string; anchor: EncounterAnchor } | undefined;
-    for (const { key, anchor, pixels, cursor: expectedCursor } of patterns) {
-      if (anchor.area !== area) continue;
+    for (const { key, anchor, pixels, cursor: expectedCursor, caller: expectedCaller } of patterns) {
+      if (anchor.area !== area || (expectedCaller !== undefined && expectedCaller !== caller)) continue;
       const scopeMatches = expectedCursor === undefined || expectedCursor === cursor;
       if (!scopeMatches && (!traceUnmatchedScope || cursor === undefined || unmatchedScope)) continue;
       const { x, y, width, height } = anchor;
