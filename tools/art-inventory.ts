@@ -502,7 +502,8 @@ const nativeBattlefieldTotals = { captured: nativeBattleTiles.size,
 const portraitFrame = new Frame(320, 200);
 const combatFrame = new Frame(320, 200);
 const replacementsById = new Map(replacements.map(replacement => [replacement.id, replacement]));
-const dwarfHeads = archives.find(({ file }) => file === "CHEAD.DAX")?.entries.filter(({ id }) => id < 14) ?? [];
+const combatHeads = archives.find(({ file }) => file === "CHEAD.DAX")?.entries ?? [];
+const dwarfHeads = combatHeads.filter(({ id }) => id < 14);
 const combatBodies = archives.find(({ file }) => file === "CBODY.DAX")?.entries ?? [];
 const bodyIds = new Set(combatBodies.map(({ id }) => id));
 function partyCombatPose(head: number, body: number) {
@@ -523,12 +524,14 @@ const dwarfIconCoverage = dwarfHeads.filter((head, index) =>
   };
 }));
 // A full cycle through the Human weapon editor selects body IDs 64 through 95.
-const defaultHumanIconCoverage = combatBodies.filter(({ id }) => id >= 64 && id <= 95 && bodyIds.has(id | 0x80))
-  .map(({ id: body }) => ({
-    head: 64, aliases: [], body,
-    ready: partyCombatPose(64, body),
-    strike: partyCombatPose(64, body | 0x80),
-  }));
+const tallWeapons = combatBodies.filter(({ id }) => id >= 64 && id <= 95 && bodyIds.has(id | 0x80));
+const tallIconCoverage = combatHeads.filter(({ id }) => id >= 64 && id <= 77)
+  .flatMap(({ id: head }) => tallWeapons.map(({ id: body }) => ({
+    head, aliases: [], body,
+    ready: partyCombatPose(head, body),
+    strike: partyCombatPose(head, body | 0x80),
+  })));
+const defaultHumanIconCoverage = tallIconCoverage.filter(({ head }) => head === 64);
 const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\d+|RANDCOM)\.DAX$/.test(file))
   .map(({ file, entries }) => {
     let frames = 0;
@@ -694,7 +697,7 @@ ${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({
 ${monsterPoseCoverage.map(({ name, dialogueName, combatFile, poses }) => `<tr><th scope="row">${escape(dialogueName ?? name)}</th><td>${escape(combatFile)}</td>${poses.map(({ block, status, links }) =>
   `<td>${block} · ${status}${links.map(({ id, preview }) => `<br><a href="${escape(preview)}">${escape(id)}</a>`).join("")}</td>`).join("")}</tr>`).join("")}
 </tbody></table></details>
-${Object.entries({ "Small party combat icons": dwarfIconCoverage, "Default Human combat icons": defaultHumanIconCoverage })
+${Object.entries({ "Small party combat icons": dwarfIconCoverage, "Tall party combat icons": tallIconCoverage, "Default Human combat icons": defaultHumanIconCoverage })
   .map(([label, coverage]) => `<details><summary>${label} · ${coverage.filter(({ ready, strike }) => ready.preview && strike.preview).length} of ${coverage.length} combinations with both poses</summary>
 <p>Head and body numbers are DAX block IDs. Identical head choices share a row for each body. Coverage counts exact default-palette bindings.</p>
 <table class="coverage-table"><thead><tr><th scope="col">CHEAD block</th><th scope="col">CBODY ready block</th><th scope="col">Ready</th><th scope="col">Strike</th></tr></thead><tbody>
@@ -773,7 +776,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, monsterArt, monsterPoseCoverage, dwarfIconCoverage, defaultHumanIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, monsterArt, monsterPoseCoverage, dwarfIconCoverage, tallIconCoverage, defaultHumanIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
