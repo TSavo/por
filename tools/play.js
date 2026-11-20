@@ -422,11 +422,11 @@ for (const button of approachButtons) {
   button.addEventListener("click", () => selectTravel(button.dataset.approach, button.textContent));
 }
 
+function turnToward(facing, direction) {
+  return (direction - facing + 8) % 8 === 6 ? -2 : 2;
+}
+
 function ferryStep(route) {
-  if (state.travelPolling && route.handoffBudget > 0) {
-    route.handoffBudget--;
-    return ":travel-poll";
-  }
   if (route.ferry === "harbor") {
     if (state.sokalPrompt === "fare") {
       route.ferry = "payer";
@@ -458,7 +458,7 @@ function ferryStep(route) {
   }
   const direction = east ? 2 : x === 11 ? 0 : 6;
   if (facing !== direction) {
-    const turn = (direction - facing + 8) % 8 === 6 ? -2 : 2;
+    const turn = turnToward(facing, direction);
     route.quayPose = `${x},${(facing + turn + 8) % 8}`;
     return turn === 2 ? "right" : "left";
   }
@@ -475,6 +475,39 @@ function ferryStep(route) {
   return "up";
 }
 
+// Native roads from Podol's west entrance through Stojanow's north exit.
+const castleRoadWaypoints = {
+  18: [[4, 4], [4, 0]],
+  9: [[4, 11], [7, 11], [7, 4], [4, 4], [4, 0]],
+};
+
+function castleStep(route) {
+  if (!state.castleRoad || !state.scenery) return;
+  const { mapId, x, y, facing } = state.scenery;
+  if (route.castlePose !== `${mapId},${x},${y},${facing}`) return;
+  const waypoints = castleRoadWaypoints[mapId];
+  let [targetX, targetY] = waypoints[route.waypoint];
+  if (x === targetX && y === targetY) {
+    route.waypoint++;
+    if (route.waypoint === waypoints.length) {
+      route.castlePose = mapId === 18 ? "9,4,15,0" : undefined;
+      route.waypoint = 0;
+      route.handoffBudget = 3;
+      return "up";
+    }
+    [targetX, targetY] = waypoints[route.waypoint];
+  }
+  const dx = Math.sign(targetX - x), dy = Math.sign(targetY - y);
+  const direction = dx ? (dx > 0 ? 2 : 6) : (dy > 0 ? 4 : 0);
+  if (facing !== direction) {
+    const turn = turnToward(facing, direction);
+    route.castlePose = `${mapId},${x},${y},${(facing + turn + 8) % 8}`;
+    return turn === 2 ? "right" : "left";
+  }
+  route.castlePose = `${mapId},${x + dx},${y + dy},${facing}`;
+  return "up";
+}
+
 function overlandStep(route) {
   const { travel } = state;
   const next = travel?.routes[route.destination];
@@ -486,12 +519,11 @@ function overlandStep(route) {
     if (route.destination === "sokal") {
       route.ferry = "quay";
       route.quayPose = "15,6";
+    } else if (route.destination === "valjevo") {
+      route.castlePose = "18,0,4,6";
+      route.waypoint = 0;
     }
     return key;
-  }
-  if (!travel && state.travelPolling && route.handoffBudget > 0) {
-    route.handoffBudget--;
-    return ":travel-poll";
   }
   if (route.arrivalSent || !next || route.expected && here !== route.expected) return;
   route.expected = `${next.x},${next.y},${next.sector}`;
@@ -505,12 +537,22 @@ function waitingForFerryPayer(route) {
   return route?.ferry === "payer" && state.sokalPrompt === "payer";
 }
 
+function travelStep(route) {
+  if (state.travelPolling && route.handoffBudget > 0) {
+    route.handoffBudget--;
+    return ":travel-poll";
+  }
+  if (route.ferry) return ferryStep(route);
+  if (route.castlePose) return castleStep(route);
+  return overlandStep(route);
+}
+
 function followTravel() {
   const route = activeTravel;
   if (!route || posting || !state.ready || state.sequence === route.sequence || renderingSequence !== undefined || animationFrame) return;
   if (waitingForFerryPayer(route)) return;
   // Story prompts, encounters, and unexpected movement return control to the player.
-  const key = enhanced && !state.stopped && !state.animation?.length && (route.ferry ? ferryStep(route) : overlandStep(route));
+  const key = enhanced && !state.stopped && !state.animation?.length && travelStep(route);
   if (!key) {
     activeTravel = undefined;
     renderTravelMap();

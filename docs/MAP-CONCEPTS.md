@@ -46,6 +46,10 @@ platinum in the original game menu. Press Escape to stop a route.
 **Map** enlarges the illustration and **Travel art**
 switches between the illustration and the overhead terrain view.
 
+**Valjevo Castle** enters Podol Plaza from the western crossroads and
+follows the road through Stojanow Gate to the castle approach. The native
+gate encounters and prompts hand control back to the player.
+
 Chrome verification loaded every current atlas plate, selected New Phlan
 and Phlan, switched between Atlas, Local and Region, and checked that
 Classic closes the map without sending a game input. The
@@ -72,4 +76,7 @@ named arrivals or with `--map-travel` to check the approach menus.
 The `moonsea-sokal-free`, `moonsea-sokal-fare`, and `moonsea-sokal-decline`
 Chrome replays cover free passage, paying for passage, and stopping at the
 fare prompt without spending any platinum.
+The `moonsea-valjevo-arrival` and `moonsea-valjevo-gate-warning` replays
+cover castle arrival through the secured gate and stopping at the defended
+gate's introduction.
 

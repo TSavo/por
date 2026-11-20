@@ -242,9 +242,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const native = nativeDraw ?? (drawnPerspective?.localEcl === tileArea ? drawnPerspective : undefined);
         if (perspective && native?.native) {
           const { localEcl } = native;
+          const valjevoRoadArrival = activeEcl === localEcl && (area === 18 && localEcl === 9 || area === 9 && localEcl === 6);
           // The first destination view can precede the update to the party's area record.
           if (localEcl !== undefined && ((area === 26 || area === 27) && overlandArrivalAreas.has(localEcl) ||
-              area === 0 && localEcl === 21 && activeEcl === 21)) {
+              area === 0 && localEcl === 21 && activeEcl === 21 || valjevoRoadArrival)) {
             const { x, y, facing } = native.native;
             arrivalPosition = { area: localEcl, x, y, facing };
           }
@@ -316,6 +317,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       const travelFrame = !scene && !battlefield && !leads && !attack;
+      const castleRoad = travelFrame && !dialogue && !encounter && menu === "AREACASTVIEWENCAMPSEARCHLOOK" &&
+        (activeEcl === 18 || activeEcl === 9) && nativeScenery?.mapId === activeEcl;
       const quay = activeEcl === 0 && nativeScenery?.mapId === 0 && nativeScenery.y === 1 &&
         nativeScenery.x >= 11 && nativeScenery.x <= 15 && menu === "AREACASTVIEWENCAMPSEARCHLOOK" && isQuayDialogue(dialogue)
         ? { x: nativeScenery.x, facing: nativeScenery.facing, ticket: harborTicket } : undefined;
@@ -337,8 +340,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         phlanArrival: travelFrame ? phlanArrival : undefined,
         sokalPrompt: travelFrame ? sokalPrompt : undefined,
         sokalQuay: travelFrame ? quay : undefined,
+        castleRoad: castleRoad || undefined,
         travelPolling: nonblockingPoll && !menu && travelFrame && (
-          picture === undefined && ((overlandScript && !dialogue) || identifyPhlanPrompt(dialogue) !== undefined) ||
+          picture === undefined && (
+            (overlandScript || activeEcl === 18 || activeEcl === 9 || activeEcl === 6) && !dialogue ||
+            identifyPhlanPrompt(dialogue) !== undefined) ||
           isSokalBoatHandoff(dialogue, activeEcl, harborTicket)) || undefined,
         nativeScenery,
         exploration: arrivalPosition ?? (perspective && explorationPosition?.area === tileArea

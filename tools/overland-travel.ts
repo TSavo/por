@@ -40,6 +40,7 @@ const phlanDestinations: Record<string, Partial<Record<PhlanApproach, string>>> 
   kovelMansion: { eastApproach: "n", northGate: "c" },
   templeOfBane: { eastApproach: "s" },
   podolPlaza: { westApproach: "n" },
+  valjevo: { westApproach: "n" },
   textileHouse: { westApproach: "s" },
   newPhlan: { docks: "t", eastApproach: "b" },
   sokal: { docks: "t", eastApproach: "b" },
@@ -85,7 +86,6 @@ const landmarks: Record<string, readonly Coordinate[]> = {
   island: [[19, 14], [19, 16]], kobolds: [[32, 15]], lizardmen: [[37, 8]],
   phlan: [...northGate, ...eastApproach, ...westApproach, ...docks],
   ...approaches,
-  valjevo: northGate,
   ...Object.fromEntries(Object.entries(phlanDestinations).map(([destination, choices]) =>
     [destination, approachIds.filter(approach => choices[approach]).flatMap<Coordinate>(approach => approaches[approach])])),
 };
