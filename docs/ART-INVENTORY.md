@@ -74,6 +74,11 @@ combinations across 11 distinct head sets have both poses.
 CPIC frames by archive, directory index, member, and frame. Each entry
 includes its 4× dimensions and links to the local source sheet. The JSON
 includes these entries in `encounterCoverage[].unlinkedFrames`.
+**Unlinked pictures referenced by scripts** lists literal `PICTURE`
+instructions with a single archive candidate and at least one unlinked
+frame with visible detail. The table includes the ECL address, nearby
+dialogue, and source previews. Use the list to pick scenes for live
+verification. The JSON stores the list as `unlinkedScriptPictures`.
 The browser and inventory validate approach sprites against their original
 archive member and frame, including the dimensions in the placement record.
 The named monster pose table checks whether shared source pixels already

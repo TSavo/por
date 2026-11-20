@@ -666,6 +666,13 @@ const encounterTotals = encounterCoverage.reduce((total, row) => ({
   uniformUnlinked: total.uniformUnlinked + row.unlinkedFrames.filter(({ uniform }) => uniform).length,
   withScopedCandidates: total.withScopedCandidates + row.unlinkedFrames.filter(({ scopedCandidates }) => scopedCandidates.length).length,
 }), { frames: 0, matched: 0, matchedByPixels: 0, remaining: 0, uniformUnlinked: 0, withScopedCandidates: 0 });
+const unlinkedScriptPictures = scriptReferences.flatMap(reference => {
+  const [archive] = reference.candidates;
+  if (!archive || reference.candidates.length !== 1) return [];
+  const frames = encounterCoverage.find(({ file }) => file === archive)?.unlinkedFrames
+    .filter(({ block, uniform }) => block === reference.pictureId && !uniform);
+  return frames?.length ? [{ ...reference, archive, frames: frames.map(({ id, preview }) => ({ id, preview })) }] : [];
+});
 const encounterFamilies = [
   { label: "Scene illustrations", prefix: "PIC" },
   { label: "Encounter sprites", prefix: "SPRIT" },
@@ -751,6 +758,13 @@ ${encounterCoverage.map(({ file, frames, matched, pixelMatchedFrames, unlinkedFr
 ${encounterCoverage.flatMap(({ pixelMatchedFrames }) => pixelMatchedFrames).map(({ id, replacement, replacementPreview, reflected }) =>
   `<tr><th scope="row"><code>${escape(id)}</code></th><td><code>${escape(replacement)}</code>${reflected ? " · mirrored" : ""}</td><td><a href="${escape(replacementPreview)}">Enhanced PNG</a></td></tr>`).join("")}
 </tbody></table></details>
+${unlinkedScriptPictures.length ? `<details id="unlinked-script-pictures"><summary>Unlinked pictures referenced by scripts · ${unlinkedScriptPictures.length} references</summary>
+<p>These literal PICTURE instructions have one archive candidate with unlinked artwork. Replay the scene to confirm which frame appears.</p>
+<table class="coverage-table"><thead><tr><th>Script and address</th><th>Nearby dialogue</th><th>Unlinked frames</th></tr></thead><tbody>
+${unlinkedScriptPictures.map(({ file, script, address, nearbyText, frames }) =>
+  `<tr><th scope="row">${escape(file)} #${script} · ${address.toString(16).padStart(4, "0")}</th><td>${escape(nearbyText ?? "")}</td>
+  <td>${frames.map(({ id, preview }) => `<a href="${escape(preview)}"><code>${escape(id)}</code></a>`).join("<br>")}</td></tr>`).join("")}
+</tbody></table></details>` : ""}
 <details><summary>Unlinked source frames · ${encounterTotals.remaining}</summary>
 <p>${encounterTotals.uniformUnlinked} unlinked frames are solid-color images.</p>
 ${encounterTotals.withScopedCandidates ? `<p>${encounterTotals.withScopedCandidates} unlinked combat frames have identical source pixels in an encounter with replacement art. Verify the actor and encounter before reusing those sprites.</p>` : ""}
@@ -851,7 +865,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, monsterArt, monsterPoseCoverage, dwarfIconCoverage, tallIconCoverage, defaultHumanIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, encounterScopeFallbacks: encounterScopeCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, encounterFamilies, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, unlinkedScriptPictures, monsterArt, monsterPoseCoverage, dwarfIconCoverage, tallIconCoverage, defaultHumanIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, encounterScopeFallbacks: encounterScopeCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, encounterFamilies, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
