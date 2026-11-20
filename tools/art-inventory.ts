@@ -520,6 +520,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["valjevo-tyranthraxus-spirit.png", ["A fiery spirit rising from the dragon's fallen body", "The glowing pool and surrounding ruins link the scene to the fight"]],
   ["buccaneer-captive-pen-overview.png", ["Worn captives and guards around the pen", "The boy's identifying birthmark stays concealed"]],
   ["buccaneer-bivant-identification.png", ["The boy's heart-shaped birthmark is readable on his left shoulder", "A merchant approaches the party"]],
+  ["buccaneer-bivant-purchase-escort.png", ["Bivant and his escort move through the doorway toward the harbor", "The captain withdraws into the room behind them"]],
   ["sokal-floorboard-diary-discovery.png", ["A lifted floorboard", "Diary pages and gems visibly tucked beneath it"]],
   ["sokal-floorboard-gem-choice.png", ["Five gems still beneath the lifted floorboard", "The hand pauses before taking any gems"]],
   ["kobold-king-council-turnin.png", ["The same auburn-haired clerk introduced at City Hall", "A clear reward handoff to the party"]],
