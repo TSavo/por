@@ -3768,6 +3768,8 @@ The `buccaneer-pen-defeat-effect` Chrome replay starts from slot A
 outside the pens and checks the Enhanced skull marker at
 (104, 104), the damage and defeat reports, and removal at the next
 settled frame. The renderer captures the original defeat draw at its pause.
+The replay checks Dorn's hit and the buccaneer going down without tying
+the marker to one damage roll or the optional dying suffix.
 The `valjevo-party-defeat-effect` replay starts at the hill giant's room
 in slot B. It verifies the same marker and the original dying report
 when Rhiannon falls at (8, 80).

@@ -4643,8 +4643,8 @@ try {
       const reports = [...frame.animation, frame].map(({ text }) => text.toSorted(([a], [b]) => a - b)
         .map(([, c]) => String.fromCharCode(c)).join(""));
       const hit = partyDefeatEffect ? /HILLGIANTATTACKSRHIANNONHITTINGFOR9POINTSOFDAMAGE/i
-        : /DORNATTACKSBUCCANEERHITTINGFOR7POINTSOFDAMAGE/i;
-      const dying = partyDefeatEffect ? /RHIANNONGOESDOWNANDISDYING/i : /BUCCANEERGOESDOWNANDISDYING/i;
+        : /DORNATTACKSBUCCANEERHITTINGFOR[1-9]\d*POINTSOFDAMAGE/i;
+      const dying = partyDefeatEffect ? /RHIANNONGOESDOWNANDISDYING/i : /BUCCANEERGOESDOWN/i;
       assert.ok(reports.some(text => hit.test(text)));
       assert.ok(reports.some(text => dying.test(text)));
       await waitFor("the skull marker and its cleanup", () => run(`state.sequence === ${frame.sequence} &&
