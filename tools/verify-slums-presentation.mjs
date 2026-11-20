@@ -6419,9 +6419,23 @@ try {
         assert.ok(!frame.journal.leads.some(({ id }) => id === "kuto-catacombs-arrow-volley"));
         await advance("j");
         await advance("enter");
-        assert.equal(frame.portrait, undefined);
+        const volley = "scene-illustration:area:29:ecl:a105";
+        assert.deepEqual(frame.animation?.flatMap(({ encounter }) => encounter ? [encounter] : []),
+          [[56, 32, "encounter:area:29:ecl:a0a4:SPRIT8.DAX:0:2:0", 24, 57]]);
+        assert.equal(frame.encounter, undefined);
+        assert.equal(frame.portrait, volley);
         assert.match(frame.text.toSorted(([a], [b]) => a - b)
           .map(([, character]) => String.fromCharCode(character)).join(""), /AVOLLEYOFARROWSTEARSINTOTHEGROUP/i);
+        await waitFor("the catacombs arrow volley illustration", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${volley}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        await switchBothWays(frame.frame);
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "kuto-catacombs-arrow-volley.png"), Buffer.from(shot.data, "base64"));
+        await advance("enter");
+        assert.equal(frame.portrait, "scene-illustration:area:29:ecl:af2f:caller:a10f");
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
       }
       if (routeName === "valhingen-storm-entrance") {
         await waitFor("the local map to become available after the storm", () => run(
@@ -6471,7 +6485,7 @@ try {
     }
     if (routeName === "kuto-well-waterline") {
       assert.deepEqual(readFileSync(saved), originalSave);
-      for (const key of ["enter", "enter", "e", "enter", "s", "s", "j"]) await advance(key);
+      for (const key of ["e", "enter", "s", "s", "j"]) await advance(key);
       const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
       assert.ok(known.has("kuto-well-waterline-door") && known.has("kuto-hidden-catacombs"));
       assert.ok(known.has("kuto-catacombs-arrow-volley"));
