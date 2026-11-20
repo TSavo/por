@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:23:CPIC7.DAX:142:ecl:ac24": "yarash-mage-strike.png",
     "encounter:area:27:ecl:9f54:SPRIT8.DAX:31:1:0": "eastern-marches-troll-approach-middle.png",
     "encounter:area:27:ecl:9f54:SPRIT8.DAX:57:1:0": "eastern-marches-lizardfolk-approach-middle.png",
     "encounter:area:27:ecl:9f54:SPRIT8.DAX:62:1:0": "eastern-marches-minotaur-approach-middle.png",
