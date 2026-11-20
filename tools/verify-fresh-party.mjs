@@ -1697,6 +1697,37 @@ if (process.argv[2] === "--mage-training-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--restal-route-checkpoint") {
+  assert.ok(process.argv[3], "Pass the slot C checkpoint outside Restal's well.");
+  copyFileSync(process.argv[3], join(saveDir, "C.json"));
+  const meeting = ["up", "c", ...Array(5).fill("end"), ...Array(4).fill("enter")];
+  const knows = (frame, clue) => frame.journal.leads.some(({ id }) => id === `textile-restal-${clue}`);
+  const checkRoute = (_text, frame) => {
+    assert.ok(knows(frame, "route"));
+    assert.ok(!knows(frame, "dismissed"));
+  };
+  await replay(loadSlot("2e63"), "85000000", [
+    ...meeting, "y",
+    (text) => assert.match(text, /our rules require you to be blindfolded/),
+    "j", (_text, frame) => {
+      assert.ok(knows(frame, "blindfold"));
+      assert.ok(!knows(frame, "route"));
+    }, "j", "n", "j", (_text, frame) => {
+      assert.ok(knows(frame, "dismissed"));
+      assert.ok(!knows(frame, "route"));
+    },
+  ]);
+  await replay(loadSlot("2e63"), "85000000", [
+    ...meeting, "y", "y",
+    (text) => assert.match(text, /6,11 n.*only meet us at the main well/),
+    "j", checkRoute, "j", "e", "s", "s", "d",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2064"), "85000000", ["j", checkRoute]);
+  console.log("Verified Restal's two blindfold outcomes and reloaded the party's hidden route clue.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--slums-fortune-checkpoint") {
   const [, , , checkpoint, outcome] = process.argv;
   assert.ok(checkpoint && ["warning", "power", "riddle"].includes(outcome),

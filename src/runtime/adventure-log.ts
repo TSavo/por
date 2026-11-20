@@ -216,6 +216,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("textile-skullcrusher-mark")) nextStep = "Search the rooms near Skullcrusher's mark for whoever left it.";
       else if (knows("textile-courtyard-cleared")) nextStep = "Cross the quiet courtyard and search the western textile building for Cadorna's treasure.";
       else if (knows("textile-courtyard-ambush")) nextStep = "Prepare for the hobgoblin ambush before crossing the courtyard toward the western textile building.";
+      else if (knows("textile-restal-route")) nextStep = "From the main well where Restal left you, search the western textile building for Cadorna's treasure.";
+      else if (knows("textile-restal-blindfold") && !knows("textile-restal-dismissed")) nextStep = "Choose Yes to let Restal guide you blindfolded, or No to return to the well.";
       else if (tracked?.status === "accepted") nextStep = tracked.detail;
     }
     if (commission.id === "ohlo" && tracked?.status === "accepted") {
@@ -750,6 +752,19 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("YOU ARE SEEKING THE TEXTILE HOUSE. WE CAN GET YOU IN UNSEEN")) {
     leads.push({ id: "textile-restal-offer", title: "Restal's offer of a hidden route",
       detail: "Restal offered to get the party into the Textile House unseen." });
+  }
+  if (text.includes("OUR RULES REQUIRE YOU TO BE BLINDFOLDED IN OUR GUILD HOUSE")) {
+    leads.push({ id: "textile-restal-blindfold", title: "Restal's terms",
+      detail: "Restal asked the party to wear blindfolds before he showed them the hidden route." });
+  }
+  if (text.includes("YOU ARE BLINDFOLDED AND TAKEN ON A LONG, TWISTING WALK") &&
+      text.includes("ONLY MEET US AT THE MAIN WELL")) {
+    leads.push({ id: "textile-restal-route", title: "Restal's hidden route",
+      detail: "Restal led the blindfolded party up a ladder and said to meet his guild at the main well." });
+  }
+  if (text.includes("THE OLD THIEF LAUGHS, 'PERHAPS WE SHALL MEET AGAIN")) {
+    leads.push({ id: "textile-restal-dismissed", title: "Restal ended the meeting",
+      detail: "Restal ended the meeting and sent the party back up the well." });
   }
   if (text.includes("WE CAN DUPLICATE THE SEAL ON THAT CHEST") && text.includes("FOR HALF THE TREASURE")) {
     leads.push({ id: "textile-restal-seal-offer", title: "Restal offered to duplicate the seal",
