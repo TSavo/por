@@ -3650,6 +3650,11 @@ The 350 unlinked frames include 11 uniform frames. Archive linkage counts
 measure source coverage. Use runtime traces to confirm which unlinked frames
 appear during play.
 
+The inventory also shows the number of reflected combat effect replacements.
+The Council and Textile House Chrome replays verify the leftward diagonal
+arrows and both reflected Magic Missile impact frames in live combat,
+including effect timing, cleanup, and display switching.
+
 The Valhingen roaming zombie uses its Enhanced illustration during the
 encounter and parlay menus. The matcher recognizes the original base
 portrait with its XOR animation deltas at both script cursors. Chrome

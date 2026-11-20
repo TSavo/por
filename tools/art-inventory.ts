@@ -357,6 +357,8 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
   return { id, preview, classicPreview, source, sourceCandidates, sourceParts, scriptCue, placement, capturedPlacement, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();
+const reflectedEffectCount = replacements.filter(({ source }) =>
+  source?.archive === "COMSPR.DAX" && source.transform === "flip-x").length;
 const monsterPosesBySource = new Map<string, typeof replacements>();
 const monsterPosesByPixels = new Map<string, typeof replacements>();
 function monsterPoseSignature(file: string, directoryIndex: number) {
@@ -749,6 +751,7 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
 </tbody></table></details>` : ""}
 <details><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} linked · ${encounterTotals.matchedByPixels} exact matches · ${encounterTotals.remaining} unlinked</summary>
 <p>An area-specific replacement counts once for the source frame. Exact matches use replacements the browser's global portrait or combat matcher already finds. Composite portraits are listed under Runtime artwork.</p>
+${reflectedEffectCount ? `<p>${reflectedEffectCount} reflected combat effect replacements share the source frames counted below.</p>` : ""}
 <table class="coverage-table"><thead><tr><th>Art family</th><th>Source frames</th><th>Linked</th><th>Exact matches</th><th>Unlinked</th></tr></thead><tbody>
 ${encounterFamilies.map(({ label, frames, linked, exact, unlinked }) =>
   `<tr><th scope="row">${label}</th><td>${frames}</td><td>${linked}</td><td>${exact}</td><td>${unlinked}</td></tr>`).join("")}
