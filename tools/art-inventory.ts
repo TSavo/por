@@ -179,9 +179,11 @@ const matchTracePortrait = tracePaths.length ? loadPortraitArt([], true, gameDat
 for (const path of tracePaths) {
   const raw = readFileSync(path, "utf8").trim();
   if (!raw) continue;
-  const frames: (TraceCell[] | TraceRecord)[] = path.endsWith(".jsonl")
-    ? raw.split(/\r?\n/).map((line) => JSON.parse(line))
+  const parsed: unknown = /\.(?:jsonl|ndjson)$/i.test(path)
+    ? raw.split(/\r?\n/).filter(line => line.trim()).map(line => JSON.parse(line))
     : JSON.parse(raw);
+  if (!Array.isArray(parsed)) throw new Error("Expected an array of trace frames in " + path);
+  const frames: (TraceCell[] | TraceRecord)[] = parsed;
   for (const [frame, record] of frames.entries()) {
     if (!Array.isArray(record) && record.type === "portrait-fallback") {
       const { area, cursor, caller, dialogue, sources, sequence } = record;

@@ -36,7 +36,7 @@ file for each route and keep the captures outside version control.
 
 Set `POR_PORTRAIT_TRACE_FILE` to capture the first occurrence of each
 identified portrait fallback per area in a browser session. Pass that
-JSONL file alongside any tile traces. The gallery lists the observed
+JSONL or NDJSON file alongside any tile traces. The gallery lists the observed
 fallbacks with their candidate source IDs, area, and browser frame number.
 
 The captured gaps show coordinates, trace frame, and matching 8×8 atlas
