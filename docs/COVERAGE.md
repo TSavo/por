@@ -3236,6 +3236,11 @@ with the production artwork verified both poses at (80, 56), including
 the reflected ready pose and the unreflected shot, and preserved the
 save across display modes.
 
+The roaming lizardfolk in the Lizard Wilderness have a dedicated
+middle-distance approach sprite. A Chrome replay selected the original
+encounter table's lizardfolk roll and verified the production sprite at
+(56, 32), the transition into combat, and save preservation across modes.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
