@@ -3698,3 +3698,8 @@ dialogue is still visible. Chrome verified the artwork, clearance on
 turning, and save and state preservation across display switches. The
 local replay selected the original victory branch at the battle prompt
 to reach the transformation.
+
+The Small flail uses original 96×96 ready and strike sprites with material
+masks for both Body colors and Hair. Chrome checked each color control in
+the native editor and both saved green poses in live combat. Switching
+display modes preserved the game state and the combat fixture save.
