@@ -3717,3 +3717,9 @@ Poleaxe and glaive color changes retain both Enhanced poses for the
 Small and Human defaults. Chrome checked both Body channels, Hair and
 dark Weapon in all four editor configurations, and both recolored Human
 glaive frames in a controlled live battle.
+
+The `tyrmor-journal-discovery` Chrome route verifies that the illustration
+appears after the corpse prompt, fills the picture panel, and clears
+on Continue. Its slot B fixture places the party next to the corpse
+with the discovery flag clear. The replay uses the original Search
+action and verifies that display switching preserves state and the save.

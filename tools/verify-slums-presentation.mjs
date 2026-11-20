@@ -547,6 +547,12 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["tyrmor-journal-discovery", {
+    slot: "B", inputs: ["s", "up", "enter"], portraitStops: { 2: null },
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:9fe3",
+    prompt: /ITISTHEJOURNALOFTYRMOR.*ENTRY26/i,
+    continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["valjevo-tower-fire-giants-agree", {
     slot: "B", inputs: ["up", "l", "enter", "enter", "y"],
     portrait: "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
