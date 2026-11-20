@@ -3956,3 +3956,8 @@ the illusory-wall illustration while its narration remains visible, and
 the separate hidden cache artwork at the native equipment choice. Chrome verified
 both branches from a local armory checkpoint. Declining leaves the
 equipment in place. Accepting clears the artwork and awards 400 XP.
+
+The `textile-diary-discovery` Chrome route checks the new Textile House
+illustration and Entry 11 journal lead when the party steps onto the diary
+square. The art follows the original narration through a turn and clears
+when exploration resumes. Display switching preserves the game and save.

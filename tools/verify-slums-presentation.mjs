@@ -551,6 +551,13 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["textile-diary-discovery", {
+    slot: "B", inputs: ["up", "right"],
+    portraitStops: { 1: "scene-illustration:area:2:ecl:abae" },
+    portrait: "scene-illustration:area:2:ecl:abae", prompt: /YOUFINDAPAGEFROMADIARY.*ENTRY11/i,
+    journalLead: "textile-diary-page", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["yarash-desk-papers", {
     slot: "A", inputs: ["s", "up", ...Array(6).fill("enter")],
     portraitStops: {
@@ -5683,7 +5690,8 @@ try {
     if (continuation) {
       if (journalLead) {
         await advance("j");
-        assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
+        assert.ok(frame.journal);
+        assert.equal(frame.journal.leads.some(({ id }) => id === journalLead), Boolean(illustration.journalLeadAtDiscovery));
         await advance("j");
       }
       for (const key of continuation.inputs) await advance(key);
