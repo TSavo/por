@@ -423,8 +423,11 @@ The family summary lists four linked RANDCOM frames (0, 1, 4, and 5).
 Stinking Cloud uses frame 4. Three Textile combat traces matched its
 24×24 pixels to the original battlefield draw for SQRPACI block 1
 frame 38. The `textile-stinking-cloud` Chrome replay verifies the
-Enhanced overlay and its removal after the spell expires. RANDCOM
-frames 2 and 3 remain unwitnessed in the recorded terrain draws.
+Enhanced overlay and its removal after the spell expires. A controlled
+Lizardman Keep replay exercised the original terrain generator's rare
+floor rolls and confirmed that RANDCOM frames 2 and 3 appear as
+SQRPACI block 1 frames 36 and 37. The matcher regression uses those two
+frames decoded from the player's game data.
 
 The Chrome verifier captures battlefield cells from any replay with
 `POR_TRACE_BATTLE_TILES=1`. The Sokal undead patrol replay captured 23

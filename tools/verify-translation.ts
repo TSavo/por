@@ -25,7 +25,7 @@ import { loadCombatMaterialMasks, loadUpgradeArtFromManifests } from "./upgrade-
 import { encodePng, pngDimensions } from "./png.js";
 import { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
-import { combatHighlightPixel, loadCombatArtMatcher, loadCombatEffects } from "./combat-art.js";
+import { combatHighlightPixel, loadCombatArtMatcher, loadCombatEffects, randomCombatPixels } from "./combat-art.js";
 import { loadOverlandTravel } from "./overland-travel.js";
 import { loadPortraitArt, matchScriptIllustration, scriptIllustrations } from "./portrait-art.js";
 
@@ -132,6 +132,21 @@ function checkBrowserArtPacks(): void {
   const missing = [...declared].filter(id => !loaded.has(id));
   deepStrictEqual(missing, [], "The browser could not load the listed art mappings");
   const match = loadCombatArtMatcher([...loaded.keys()].filter(id => id.startsWith("combat:")), root);
+  const debris = parseDax("RANDCOM.DAX", readGameFile(root, "RANDCOM.DAX")).entries.find(({ id }) => id === 1);
+  ok(debris, "Missing the original battlefield props");
+  const rareProps = new Frame(320, 200);
+  const propPlacements = [2, 3].map((frame, index) => {
+    const pixels = randomCombatPixels(debris.data, frame);
+    ok(pixels?.some(Boolean), "Expected a visible prop");
+    const x = 128 + index * 24;
+    rareProps.blit(pixels, 24, 24, x, 8);
+    return [x, 8, `combat:RANDCOM.DAX:1:0:${frame}`, false] as const;
+  });
+  const matchRareProps = loadCombatArtMatcher(propPlacements.map(([, , id]) => id), root);
+  const enhancedProps = new Frame(320, 200);
+  enhancedProps.pixels.set(rareProps.pixels);
+  deepStrictEqual(matchRareProps(rareProps, enhancedProps), propPlacements);
+  deepStrictEqual(enhancedProps.pixels, new Frame(320, 200).pixels);
   const lizardKey = "combat:area:29:CPIC8.DAX:59";
   const lizardBlock = parseDax("CPIC8.DAX", readGameFile(root, "CPIC8.DAX")).entries.find(({ id }) => id === 59);
   ok(lizardBlock, "Missing the original giant lizard pose");
