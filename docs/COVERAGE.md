@@ -211,6 +211,10 @@ save and verifies the recruits' improved armor and prepared Hold Person.
 From that equipped save, the same replay gives the wrong word, wins
 the patrol fight, and gives the correct word to a later patrol. It then
 wins the smithy fight, collects the hidden armory gear, and reloads.
+The November 20 replay verified this path again from character creation
+after restoring the campaign verifier's original startup input timing.
+It reached the courtyard, verified Brin's manual mace attack, and reloaded
+the landing after the party's defeat.
 The same fresh-party run readies the recovered sword
 on Alda, sails back to New Phlan, sells the armory jewel, and pays the
 Temple of Tyr to raise and heal Brin. Slot G reloads with Brin at 6 HP
