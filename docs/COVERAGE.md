@@ -1203,6 +1203,9 @@ selects a different response and checks that the journal records only the
 response witnessed by the party. On the Stay and Fight branch, the next
 Enter reveals the headman's permission to rest and study. The journal
 then directs the party to prepare through Encamp.
+The `nomad-feast-arrival` replay checks the separate daytime contest and
+nighttime campfire illustrations, then verifies the handoff to Hassad's
+portrait as the party records his account in entry 55.
 The Stay and Fight replay writes a native slot A after that offer.
 `nomad-headman-rest-reload` loads it in a new Chrome session, checks
 that the offer survives, and rests eight hours through Encamp. The
