@@ -1455,6 +1455,7 @@ const castleReportsReload = routeName === "valjevo-scriptorium-reports-reload";
 const genheerisOrders = routeName === "valjevo-genheeris-orders";
 const genheeris = routeName === "valjevo-genheeris-bargain" || genheerisOrders;
 const norrisSurrender = routeName === "kuto-norris-surrender";
+const norrisSurrenderReload = routeName === "kuto-norris-surrender-reload";
 const mendorStacks = routeName === "mendor-library-stacks";
 const fatimaReload = routeName === "kobold-princess-fatima-reload";
 const princessFatima = routeName === "kobold-princess-fatima" || fatimaReload;
@@ -3658,6 +3659,7 @@ routes.push("river-passage-reload", "new-phlan-council-reward-reload", "slums-ma
 routes.push("podal-infirmary-heal");
 routes.push("river-pumping-reload");
 routes.push("kobold-princess-fatima-reload");
+routes.push("kuto-norris-surrender-reload");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -3812,7 +3814,7 @@ const fightNorris = norrisSurrender && option === "--fight";
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = (wideManualAim ? "J" : routeName === "tyrmor-journal-reload" ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = (wideManualAim || norrisSurrenderReload ? "J" : routeName === "tyrmor-journal-reload" ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
@@ -7047,6 +7049,15 @@ try {
     await advance("j");
     assert.ok(frame.journal && !knows("kuto-norris-ambush"));
     for (const key of ["j", "up", "enter", "enter", "enter", "j"]) await advance(key);
+  } else if (norrisSurrenderReload) {
+    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /6,5S/i);
+    assert.equal(frame.portrait, undefined);
+    await advance("j");
+    for (const clue of ["kuto-norris-ambush", "kuto-norris-surrender"]) {
+      assert.ok(frame.journal?.leads.some(({ id }) => id === clue));
+    }
+    await switchBothWays();
+    console.log("Verified the surrender clues after reloading the party above the Catacombs.");
     assert.ok(knows("kuto-norris-ambush") && !knows("kuto-norris-surrender"));
     const release = "scene-illustration:area:29:ecl:9f9a";
     for (const key of ["j", fightNorris ? "f" : "s"]) await advance(key);
@@ -7076,6 +7087,10 @@ try {
   } else if (routeName === "old-phlan-seer") {
     for (const key of ["up", "enter"]) await advance(key);
     const text = () => frame.text.toSorted(([left], [right]) => left - right)
+      for (const key of ["e", "s", "s", "j"]) await advance(key);
+      const released = JSON.parse(readFileSync(saved, "utf8"));
+      assert.ok(released.leads.some(({ id }) => id === "kuto-norris-surrender"));
+      console.log("Norris release checkpoint:", saved);
       .map(([, character]) => String.fromCharCode(character)).join("");
     assert.equal(frame.portrait, "portrait:PIC8.DAX:5:0:0");
     assert.match(text(), /AWIDE.EYEDWOMANISSEATEDONARUG/i);

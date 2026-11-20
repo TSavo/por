@@ -1312,7 +1312,9 @@ from the same native entry save. Chrome verifies 3,388 placements across
 28 views, including 23 new 32×32 tiles for the northern ruins.
 The `kuto-norris-surrender` replay uses a controlled slot J beneath the well.
 It verifies that the journal learns of the ambush, then independently records
-surrender only after the party sees the outcome. `kuto-norris-combat` uses
+surrender only after the party sees the outcome. A native save above the
+Catacombs retains both clues, verified with `kuto-norris-surrender-reload`.
+`kuto-norris-combat` uses
 an extra-health party to capture both 96×96 combat poses. Kuto's scoped
 bindings take precedence over the byte-identical global pose in the CPIC2
 archive, which remains available in other districts.
