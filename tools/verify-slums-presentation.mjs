@@ -7080,6 +7080,7 @@ try {
     await verifyPortraitPanel();
     await advance("j");
     assert.ok(known(punch) && !known(released));
+    assert.match(frame.journal.leads.find(({ id }) => id === punch).detail, /Attack or Take the Punch/i);
     await switchBothWays();
     for (const key of ["j", "t", "enter"]) await advance(key);
     assert.equal(await verifyTiledView(9, new Set()), 1);

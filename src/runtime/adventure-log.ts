@@ -1462,7 +1462,7 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("THE GROUP OF BUGBEARS COME OVER") && text.includes("THE LEADER SWINGS AT YOU")) {
     leads.push({ id: "gate-bugbear-punch", title: "Confronted by the gate bugbears",
-      detail: "The bugbear leader reminded the party of the warning and swung at them." });
+      detail: "The bugbear leader reminded the party of the warning and swung at them. The encounter offered Attack or Take the Punch." });
   }
   if (text.includes("NOW BEAT IT BEFORE WE GET SERIOUS")) {
     leads.push({ id: "gate-bugbears-let-go", title: "The bugbears let the party go",
