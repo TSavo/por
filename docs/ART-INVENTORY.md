@@ -590,3 +590,30 @@ identifies the specific moment within that scope.
 Choose **Scripted scene illustrations** in the HTML category menu to
 browse the art with its dialogue cues. The Runtime artwork category
 still contains the other runtime replacements.
+
+### Review scripted illustrations against the caption
+
+Before generating an illustration, capture the exact caption and list the
+objects, actors, actions, and spatial relationships the player should see.
+Mark each item **required** or **supporting**, then name the focal subject.
+Review each caption separately when consecutive pages shift their focus.
+
+| Check | Passing evidence |
+|---|---|
+| Text fidelity | The image depicts every required object, actor, and action, with the relationships described in the caption. |
+| Narrative emphasis | The focal subject reads first or draws the eye as soon as the caption names it. |
+| Gameplay readability | Required details can be recognized in the actual browser panel without zooming. |
+| Mood and continuity | Lighting and staging support the text, and recurring people and places remain recognizable across pages. |
+| Timing | The art appears with its caption and clears or changes when the original game moves to the next beat. |
+
+Mark each check **Pass**, **Revise**, or **Fail**. A missing required detail,
+an unreadable focal subject, or a mismatched caption fails the scene. Review
+the full-size PNG for drawing quality and use a Chrome capture for the
+pass decision. Keep the caption, required details, and screenshot together
+so another reviewer can make the same check.
+
+For Yarash's first room description, require a visible assortment of torture
+implements, a central table, and readable metal restraints. The alchemical
+bottles belong on the next page, which describes them. For Stojanow's second
+gate caption, require bugbears visibly lounging by the entrance, with the
+wall and taller twin watchtowers still recognizable behind them.
