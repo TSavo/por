@@ -8074,7 +8074,19 @@ try {
     await waitFor("the bugbear sword strike", () => displayed(attack));
     console.log("Verified the bugbear guards and their sword strike in Stojanow Gate.");
   } else if (trader) {
-    for (const key of ["up", "enter", "enter", "p"]) await advance(key);
+    await advance("up");
+    const passingWagon = "scene-illustration:area:9:ecl:9c63:caller:ae22";
+    assert.equal(frame.portrait, passingWagon);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /AMANDRIVINGAWAGONFULLOFFOODANDEQUIPMENT/i);
+    await waitFor("the wagon passing on the road", () => run(
+      `document.querySelector('.encounter-portrait[src="/art/${passingWagon}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays();
+    const passingWagonShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "stojanow-passing-wagon.png"), Buffer.from(passingWagonShot.data, "base64"));
+    await advance("enter");
+    assert.equal(frame.portrait, undefined);
+    for (const key of ["enter", "p"]) await advance(key);
     assert.equal(frame.portrait, "portrait:HEAD2.DAX:5:BODY2.DAX:9");
     await waitFor("the wagon trader portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();

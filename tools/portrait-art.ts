@@ -21,6 +21,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:1:ecl:af3b", "THECAPTAINMAKESAMOTIONANDTHEBOYISBROUGHTTOYOU"],
   ["scene-illustration:area:1:ecl:b5f7:caller:af4c", "THECAPTAINMAKESAMOTIONANDTHEBOYISBROUGHTTOYOU"],
   ["scene-illustration:area:8:ecl:9f3f:caller:9a4a:cue:council-victory-award", "EACHCHARACTERRECEIVES67500EXPERIENCEPOINTS"],
+  ["scene-illustration:area:9:ecl:9c63:caller:ae22", "AMANDRIVINGAWAGONFULLOFFOODANDEQUIPMENT"],
   ["scene-illustration:area:9:ecl:a977", "NOWBEATITBEFOREWEGETSERIOUS"],
   ["scene-illustration:area:9:ecl:a0a7:cue:bugbear-dismissal", "NOWBEATITBEFOREWEGETSERIOUS"],
   ["scene-illustration:area:10:ecl:b6c6:caller:b353", "YOUFINDTHEVAMPIRE'STREASURETROVE"],
