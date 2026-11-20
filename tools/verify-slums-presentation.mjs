@@ -5884,6 +5884,11 @@ try {
     await advance("j");
     assert.notEqual(frame.portrait, dismissal);
     if (refuseNomadDismissal) {
+      const attack = "scene-illustration:area:17:ecl:a011";
+      assert.equal(frame.portrait, attack);
+      await waitFor("the Nomad headman ordering the attack", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${attack}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
       assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""), /YOURINSULTSARETOOMANY|ABATTLEBEGINS/i);
     } else {
       assert.equal(frame.portrait, undefined);
