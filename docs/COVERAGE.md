@@ -723,6 +723,12 @@ checks that the same Enhanced portrait stays visible on the service menu
 and returns after switching through Classic. Both replays check that the
 journal records the infirmary only once the party hears the offer of healing.
 
+A separate Chrome replay took the Podal auction branch that follows the
+plainclothes man. The journal only recorded Garwin's escape after the
+auctioneer named him. Saving through the original Encamp menu after
+the crowd dispersed and loading that slot in a new browser session
+preserved the lead.
+
 The `podal-shrine` Chrome replay starts from a controlled slot I at
 `12,8 E` and greets the recruiter at `14,8 E`. It checks the
 352×352 recruiter portrait and switches modes during the invitation.
