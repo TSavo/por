@@ -3347,6 +3347,16 @@ Make a Bid, Wait for Winner, and Leave share portions of the original
 auction script. Chrome verified that the exchange only appears when
 the dialogue describes the transaction, including after the high bid.
 
+The first Kobold Cave fork visit shows kobolds entering the small cave.
+Return visits show the existing landscape. Chrome verified both choices
+of artwork and the save across display modes. The original menu cursor
+is shared, so the renderer uses the first-visit dialogue to select the
+illustration.
+
+Controlled Chrome replays verified the Zhentil commandant's charge art
+through the battle introduction and the Podal recruit leader's new strike
+sprite during both longbow and battle-axe attacks.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
