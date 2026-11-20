@@ -551,6 +551,10 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "r", "enter", "enter", "c", "o"],
     portrait: "portrait:area:28:ecl:b624:caller:ade4:PIC6.DAX:50:0:0",
     prompt: /AFIREBEINGCALLEDTIRANTIKUS.*TIRANTIKUSANDTYRANTHRAXUSAREONEANDTHESAME/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:28:ecl:ae5e:PIC6.DAX:50:0:0",
+      prompt: /HAVINGANYTROUBLEWITHTYRANTHRAXUS/i,
+    },
   }],
   ["valjevo-false-throne-alarm", {
     slot: "B", inputs: ["up", "enter", "enter", "p", "a", "enter", "n"],

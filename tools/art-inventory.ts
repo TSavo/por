@@ -509,8 +509,8 @@ function partyCombatPose(head: number, body: number) {
   const id = `combat:party:${head}:${body}`;
   return { id, preview: replacementsById.get(id)?.preview };
 }
-// The dwarf icon editor offers 18 bodies. The attack pose sets bit 7 of the body ID.
-const dwarfWeapons = combatBodies.filter(({ id }) => id < 18 && bodyIds.has(id | 0x80));
+// A full cycle through the small combat icon editor selects body IDs 0 through 31.
+const dwarfWeapons = combatBodies.filter(({ id }) => id < 32 && bodyIds.has(id | 0x80));
 const dwarfIconCoverage = dwarfHeads.filter((head, index) =>
   dwarfHeads.findIndex(({ sha256 }) => sha256 === head.sha256) === index
 ).flatMap((head) => dwarfWeapons.map(({ id: body }) => {
@@ -694,7 +694,7 @@ ${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({
 ${monsterPoseCoverage.map(({ name, dialogueName, combatFile, poses }) => `<tr><th scope="row">${escape(dialogueName ?? name)}</th><td>${escape(combatFile)}</td>${poses.map(({ block, status, links }) =>
   `<td>${block} · ${status}${links.map(({ id, preview }) => `<br><a href="${escape(preview)}">${escape(id)}</a>`).join("")}</td>`).join("")}</tr>`).join("")}
 </tbody></table></details>
-${Object.entries({ "Dwarf party combat icons": dwarfIconCoverage, "Default Human combat icons": defaultHumanIconCoverage })
+${Object.entries({ "Small party combat icons": dwarfIconCoverage, "Default Human combat icons": defaultHumanIconCoverage })
   .map(([label, coverage]) => `<details><summary>${label} · ${coverage.filter(({ ready, strike }) => ready.preview && strike.preview).length} of ${coverage.length} combinations with both poses</summary>
 <p>Head and body numbers are DAX block IDs. Identical head choices share a row for each body. Coverage counts exact default-palette bindings.</p>
 <table class="coverage-table"><thead><tr><th scope="col">CHEAD block</th><th scope="col">CBODY ready block</th><th scope="col">Ready</th><th scope="col">Strike</th></tr></thead><tbody>
