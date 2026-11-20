@@ -5193,10 +5193,12 @@ try {
     }
   } else if (koboldGuide) {
     const guide = "portrait:area:13:PIC8.DAX:0:0:0";
+    const sleepingGuide = "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0";
     const knowsOffer = () => frame.journal?.leads.some(({ id }) => id === "kobold-guide-offer");
     for (const key of ["up", "enter", "enter"]) await advance(key);
-    assert.equal(frame.portrait, guide);
-    await waitFor("the kobold guide portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    assert.equal(frame.portrait, sleepingGuide);
+    await waitFor("the sleeping kobold guide portrait", () => run(
+      `document.querySelector('.encounter-portrait[src="/art/${sleepingGuide}"]')?.naturalWidth === 352`));
     await switchBothWays();
     await advance("j");
     assert.ok(frame.journal && !knowsOffer());
