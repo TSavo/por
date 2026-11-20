@@ -7162,10 +7162,16 @@ try {
     assert.ok(knows(purchase) && !knows("rescue-heir-left-behind"));
     assert.match(frame.journal.leads.find(({ id }) => id === purchase).detail, /escort the boy out through the base gate/i);
     for (const key of ["j", "enter"]) await advance(key);
-    assert.equal(frame.portrait, undefined);
-    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /YOUAREESCORTEDBACKOUTSIDE/i);
+    const escort = "scene-illustration:area:1:ecl:b5a5";
+    assert.equal(frame.portrait, escort);
+    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /THECAPTAINTHENLEAVESTHEROOMANDYOUAREESCORTEDBACKOUTSIDE/i);
+    await waitFor("the escort outside the captain's room", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${escort}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
     assert.deepEqual(readFileSync(saved), originalSave);
-    for (const key of ["e", "enter", "s", "s", "a"]) await advance(key);
+    await advance("e");
+    assert.equal(frame.portrait, undefined);
+    for (const key of ["enter", "s", "s", "a"]) await advance(key);
     const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
     assert.ok(known.has(price) && known.has(purchase));
     assert.ok(!known.has("rescue-heir-freed") && !known.has("rescue-heir-left-behind"));

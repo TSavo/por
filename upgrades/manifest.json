@@ -1729,6 +1729,8 @@
     "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:0:0": "buccaneer-pen-merchant.png",
     "portrait:area:1:ecl:9f5d:PIC6.DAX:42:0:0": "buccaneer-pen-merchant.png",
     "scene-illustration:area:1:ecl:a001": "buccaneer-punch-merchant-guards.png",
+    "scene-illustration:area:1:ecl:af88": "buccaneer-bivant-purchase-escort.png",
+    "scene-illustration:area:1:ecl:b5a5": "buccaneer-bivant-purchase-escort.png",
     "scene-illustration:area:1:ecl:af3b": "buccaneer-bivant-handoff.png",
     "scene-illustration:area:1:ecl:b5f7:caller:af4c": "buccaneer-bivant-handoff.png",
     "combat:area:2:CPIC2.DAX:6:ecl:9c9b": "textile-drum-court-guard-ready.png",
