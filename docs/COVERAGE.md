@@ -1060,8 +1060,13 @@ new search objective after the party releases him and he escapes.
 The east route saves to slot B through Encamp. `kovel-chase-east-reload`
 loads that save through the native menu and checks the tracked commission,
 the four witnessed clues, and the objective to resume searching.
+The cornered guildmaster illustration fills the enhanced picture panel
+while the Attack and Release menu is open. Release shows a separate
+illustration as he bolts through the doorway. Chrome checks both panels
+and verifies that the release journal entry survives a cold reload.
 `kovel-chase-attack` checks that choosing Attack records the confrontation
-when the native battle starts and replaces the Attack or Release objective.
+when the native battle starts, clears the cornered guildmaster illustration,
+and replaces the Attack or Release objective.
 `kovel-chase-decline` chooses Don't Follow at the fork and checks that the
 journal returns to searching without revealing either branch's outcome.
 `kovel-chase-no` declines at the initial prompt and checks that the journal
