@@ -1388,7 +1388,9 @@ journal distinguishes the party's escape from capture and from the king
 escaping the party, and points the party back to the throne after regrouping.
 
 The `kobold-princess-fatima` replay uses controlled slot B to check her
-portrait and journal entry 16, then verifies that she joins the roster.
+portrait and journal entry 16. It checks the illustrated offer and its
+journal clue before verifying that Yes adds her to the roster. With
+`--decline`, the replay checks her departure dialogue and journal clue.
 The `kobold-cave-guide` replay checks the area-scoped guard portrait and
 the escort clue when the party wakes the guide. With `--decline`, it
 verifies that the guide returns to sleep and the journal directs the

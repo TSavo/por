@@ -3785,10 +3785,11 @@ const verifyDistrictTravel = outskirts && option === "--map-destination";
 const declineDirten = routeName === "braccio-dirten-briefing" && option === "--decline";
 const declineRestal = restalGuide && option === "--decline";
 const declineKoboldGuide = routeName === "kobold-cave-guide" && option === "--decline";
+const declineFatima = princessFatima && option === "--decline";
 const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "--refuse-to-leave";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
   ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
-  declineDirten || declineRestal || declineKoboldGuide || refuseNomadDismissal, "Option does not apply to this route");
+  declineDirten || declineRestal || declineKoboldGuide || declineFatima || refuseNomadDismissal, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -6378,6 +6379,7 @@ try {
     await switchBothWays();
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "kobold-fatima-account"));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "kobold-fatima-join-offer"));
     for (const key of ["j", "enter"]) await advance(key);
     const offer = "scene-illustration:area:13:ecl:a838";
     assert.equal(frame.portrait, offer);
@@ -6388,12 +6390,22 @@ try {
     const offerShot = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "fatima-offers-to-join.png"), Buffer.from(offerShot.data, "base64"));
     await switchBothWays(frame.frame);
-    await advance("y");
-    assert.equal(frame.portrait, undefined);
-    await waitFor("Fatima's offer to clear", () => run(`state.sequence === ${frame.sequence} &&
-      !document.querySelector(".encounter-portrait")`));
-    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /PRINCESSFATIMA/i);
-    console.log("Verified Princess Fatima's portrait, journal account, and illustrated recruitment in Chrome. Capture:", directory);
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "kobold-fatima-join-offer"));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "kobold-fatima-left"));
+    for (const key of ["j", declineFatima ? "n" : "y"]) await advance(key);
+    assert.equal(frame.portrait, declineFatima ? fatima : undefined);
+    if (declineFatima) {
+      assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /GOODHUNTING.*SHELEAVES/i);
+    } else {
+      await waitFor("Fatima's offer to clear", () => run(`state.sequence === ${frame.sequence} &&
+        !document.querySelector(".encounter-portrait")`));
+    }
+    const roster = frame.text.filter(([cell]) => cell < 640).map(([, character]) => String.fromCharCode(character)).join("");
+    assert.equal(/PRINCESSFATIMA/i.test(roster), !declineFatima);
+    await advance("j");
+    assert.equal(frame.journal?.leads.some(({ id }) => id === "kobold-fatima-left"), declineFatima);
+    console.log(`Verified Princess Fatima's illustrated offer, journal, and ${declineFatima ? "departure" : "recruitment"} in Chrome. Capture:`, directory);
   } else if (mendorStacks) {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     await advance("j");

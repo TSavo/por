@@ -879,6 +879,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "kobold-fatima-account", title: "Princess Fatima's account",
       detail: "The party met Princess Fatima in the kobold caves and recorded her account as journal entry 16." });
   }
+  if (text.includes("SHE OFFERS TO JOIN YOUR BAND.")) {
+    leads.push({ id: "kobold-fatima-join-offer", title: "Fatima offered to join",
+      detail: "Princess Fatima offered to join the party after telling her story." });
+  }
+  if (text.includes("SO I SHALL CUT MY OWN WAY OUT. GOOD HUNTING.")) {
+    leads.push({ id: "kobold-fatima-left", title: "Fatima left on her own",
+      detail: "Princess Fatima said she would find her own way out of the caves and departed." });
+  }
   if (text.includes("LOOK FOR FRIENDS WHERE YOU EXPECT ENEMIES AND ENEMIES WHERE YOU EXPECT ALLIES")) {
     leads.push({ id: "slums-fortune-warning", title: "The fortune teller's warning", detail: "The fortune teller warned that people the party expects to be enemies may help, and apparent allies may turn against it." });
   }
