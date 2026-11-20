@@ -5965,6 +5965,15 @@ try {
     }
     if (captiveKilled) for (const key of ["k", "enter", "k"]) await advance(key);
     else await advance(captiveAlarm ? "l" : "r");
+    if (captiveAlarm) {
+      const alarm = "portrait:area:3:ecl:9bf8:PIC5.DAX:7:0:0";
+      assert.equal(frame.portrait, alarm);
+      assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /ANALARMSTARTSRINGING/i);
+      await waitFor("Cadorna's alarm illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${alarm}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays();
+    }
     await advance("j");
     const knows = id => frame.journal?.leads.some(lead => lead.id === id);
     assert.ok(knows("castle-cadorna-captive"));

@@ -1422,6 +1422,8 @@ the kitchen illustration, freeing the captives, and the hedge-gate password
 lead. The journal withholds that lead before the party hears what the slip
 is for. `valjevo-cadorna-killed` and `valjevo-cadorna-alarm` replay those
 alternate outcomes and check that the journal records the actual choice.
+The alarm replay checks the scoped 352×352 illustration when Cadorna
+calls out from his cell, its picture panel fit, and both display modes.
 `valjevo-cadorna-hedge` also writes a native slot B with the learned
 directions. `valjevo-cadorna-reload` checks that the captive, directions, and
 release entries survive a cold load of that save.
