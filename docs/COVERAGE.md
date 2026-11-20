@@ -1528,6 +1528,9 @@ is for. `valjevo-cadorna-killed` and `valjevo-cadorna-alarm` replay those
 alternate outcomes and check that the journal records the actual choice.
 The alarm replay checks the scoped 352×352 illustration when Cadorna
 calls out from his cell, its picture panel fit, and both display modes.
+The tracked castle objective warns the party about the alarm and retains
+the hedge directions Cadorna already gave. `valjevo-cadorna-alarm-reload`
+checks the warning and directions after a cold load of the original save.
 The death outcome uses a separate aftermath illustration. The killed
 replay verifies the native confirmation text, panel fit, mode switching,
 and the corresponding journal entry.

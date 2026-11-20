@@ -15,7 +15,8 @@ const alHyam = routeName === "valjevo-al-hyam" || alHyamRelease;
 const alHyamReleaseReload = routeName === "valjevo-al-hyam-release-reload";
 const alHyamReload = routeName === "valjevo-al-hyam-reload" || alHyamReleaseReload;
 const captiveHedge = routeName === "valjevo-cadorna-hedge";
-const captiveReload = routeName === "valjevo-cadorna-reload";
+const captiveAlarmReload = routeName === "valjevo-cadorna-alarm-reload";
+const captiveReload = routeName === "valjevo-cadorna-reload" || captiveAlarmReload;
 const captiveKilled = routeName === "valjevo-cadorna-killed";
 const captiveAlarm = routeName === "valjevo-cadorna-alarm";
 const captiveCadorna = routeName === "valjevo-cadorna-captive" || captiveHedge || captiveKilled || captiveAlarm;
@@ -3666,6 +3667,7 @@ routes.push("valjevo-forge-authorization-reload");
 routes.push("buccaneer-bivant-punch");
 routes.push("buccaneer-bivant-escort-combat");
 routes.push("valjevo-al-hyam-release", "valjevo-al-hyam-release-reload");
+routes.push("valjevo-cadorna-alarm-reload");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -6962,8 +6964,13 @@ try {
     console.log("Verified the Valjevo kitchen illustration and earned password lead in Chrome.");
   } else if (captiveReload) {
     await advance("j");
-    for (const id of ["castle-cadorna-captive", "castle-cadorna-hedge", "castle-cadorna-released"]) {
+    const outcome = captiveAlarmReload ? "castle-cadorna-alarm" : "castle-cadorna-released";
+    for (const id of ["castle-cadorna-captive", "castle-cadorna-hedge", outcome]) {
       assert.ok(frame.journal?.leads.some(lead => lead.id === id), `Restored Cadorna lead: ${id}`);
+    }
+    if (captiveAlarmReload) {
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "castle-cadorna-released"));
+      assert.match(frame.journal.objective.nextStep, /raised the alarm.*left, right, right/i);
     }
     await switchBothWays();
     console.log("Verified Cadorna's discoveries after cold loading the guest save.");
@@ -7018,6 +7025,13 @@ try {
     assert.equal(knows("castle-cadorna-hedge"), heardHedge);
     assert.equal(knows("castle-cadorna-killed"), captiveKilled);
     assert.equal(knows("castle-cadorna-alarm"), captiveAlarm);
+    if (captiveAlarm) {
+      assert.match(frame.journal.objective.nextStep, /raised the alarm.*left, right, right/i);
+      for (const key of ["j", "enter", "e", "s", "s", "b"]) await advance(key);
+      const checkpoint = JSON.parse(readFileSync(saved, "utf8"));
+      assert.ok(checkpoint.leads?.some(({ id }) => id === "castle-cadorna-alarm"));
+      console.log("Cadorna alarm checkpoint:", saved);
+    }
     if (captiveHedge) {
       for (const key of ["j", "n", "e", "s", "s", "b"]) await advance(key);
       assert.notDeepEqual(readFileSync(saved), originalSave);

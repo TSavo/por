@@ -423,6 +423,11 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
         : "Continue searching the castle for the real Tyranthraxus.";
       else if (knows("castle-giant-sentries-passed")) nextStep = "Continue past the giant sentries and search the castle for Tyranthraxus.";
       else if (knows("castle-giant-sentries")) nextStep = "The giant sentries demand a password. Give it if you know it, or withdraw and look for a way around them.";
+      else if (knows("castle-cadorna-alarm") && knows("castle-cadorna-hedge")) {
+        nextStep = "Cadorna raised the alarm. Once clear of the guards, ";
+        if (knows("castle-hedge-gate-password")) nextStep += "use the password from the kitchen at the main gate, then ";
+        nextStep += "take Cadorna's route through the hedge: left, right, right.";
+      }
       else if (knows("castle-hedge-gate-password") && knows("castle-cadorna-hedge")) nextStep = "Use the password from the kitchen at the main gate, then take Cadorna's route through the hedge: left, right, right.";
       else if (knows("castle-hedge-gate-password")) nextStep = "Use the password from the kitchen at the main gate into the hedge maze.";
       else if (knows("castle-kitchen-slip")) nextStep = "Press Enter to read the slip the freed captive took from the overseer's pouch.";
