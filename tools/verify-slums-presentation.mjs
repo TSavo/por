@@ -8143,6 +8143,7 @@ try {
     for (const key of ["enter", "enter", "s", "e", "j"]) await advance(key);
     if (routeName === "bivant-reward") {
       assert.equal(journalStatus(), "reward-pending");
+      assert.match(frame.journal.objective.nextStep, /choose Take.*then Exit/i);
       for (const key of ["j", "y", "t"]) await advance(key);
       const loot = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
       assert.match(loot, /Two-HandedSword.*ClericalScroll/i);

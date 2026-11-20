@@ -153,6 +153,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "ohlo" && tracked.status === "ready-to-report") {
         return { title: commission.title, nextStep: "Take the package back to Ohlo and choose Give when he asks for the potion." };
       }
+      if (commission.id === "rescue" && tracked.status === "reward-pending") {
+        return { title: commission.title, nextStep: "Accept the council reward. In the treasure menu, choose Take for the items you want, then Exit." };
+      }
       if (commission.id === "river" && tracked.status === "ready-to-report" && knows("river-fountain-blast") && !knows("river-recovery")) {
         return { title: commission.title, nextStep: "Check the party after the blast, then leave the pyramid and report to the council clerk in New Phlan." };
       }
