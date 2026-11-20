@@ -3302,6 +3302,11 @@ West Phlan's crossroads shows the paths to Podal Plaza and the Textile
 Complex. Chrome verified both entrances and Leave, with a control replay
 confirming that the northern crossroads uses its own illustration.
 
+The roaming boar approach was verified in Chrome using a controlled
+native encounter roll. The Stojanow wall ambush also uses the tower
+reinforcement sprites for the same aides and mage. Its Chrome replay
+verified longsword, longbow, and Magic Missile actions.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the

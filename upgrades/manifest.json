@@ -53,6 +53,7 @@
     "encounter:area:25:ecl:a160:SPRIT6.DAX:10:1:0": "buccaneer-wilds-quickling-approach-middle.png",
     "encounter:area:25:ecl:a204:SPRIT6.DAX:16:1:0": "buccaneer-wilds-patrol-corporal-approach-middle.png",
     "encounter:area:25:ecl:a204:SPRIT6.DAX:119:1:0": "buccaneer-wilds-tiger-approach-middle.png",
+    "encounter:area:25:ecl:a204:SPRIT6.DAX:120:1:0": "buccaneer-wilds-roaming-boar-approach-middle.png",
     "encounter:area:25:ecl:a160:SPRIT6.DAX:74:1:0": "buccaneer-wilds-mantis-approach-middle.png",
     "portrait:area:26:ecl:a098:PIC7.DAX:41:0:0": "river-sector-return-ferry.png",
     "portrait:area:26:ecl:9ccf:PIC7.DAX:40:0:0": "phlan-north-crossroads.png",
@@ -65,6 +66,9 @@
     "combat:area:9:CPIC2.DAX:11:ecl:a603": "stojanow-tower-relief-ready.png",
     "combat:area:9:CPIC2.DAX:139:ecl:a603": "stojanow-tower-relief-strike.png",
     "combat:area:9:CPIC2.DAX:14:ecl:a603": "stojanow-tower-battle-mage-ready.png",
+    "combat:area:9:CPIC2.DAX:11:ecl:b136": "stojanow-tower-relief-ready.png",
+    "combat:area:9:CPIC2.DAX:139:ecl:b136": "stojanow-tower-relief-strike.png",
+    "combat:area:9:CPIC2.DAX:14:ecl:b136": "stojanow-tower-battle-mage-ready.png",
     "combat:area:3:CPIC5.DAX:55:ecl:a839": "valjevo-barracks-hill-giant-ready.png",
     "combat:area:3:CPIC5.DAX:183:ecl:a839": "valjevo-barracks-hill-giant-strike.png",
     "combat:area:26:CPIC7.DAX:12:ecl:a2c7": "lizard-wilds-nomad-scout-ready.png",
@@ -5245,6 +5249,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:25:ecl:a204:SPRIT6.DAX:120:1:0": { "area": 25, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:25:ecl:a204:SPRIT6.DAX:119:1:0": { "area": 25, "x": 48, "y": 32, "width": 40, "height": 65 },
     "encounter:area:25:ecl:a160:SPRIT6.DAX:74:1:0": { "area": 25, "x": 56, "y": 32, "width": 32, "height": 65 },
     "encounter:area:25:ecl:a204:SPRIT6.DAX:16:1:0": { "area": 25, "x": 56, "y": 32, "width": 24, "height": 65 },
