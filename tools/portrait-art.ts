@@ -134,6 +134,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:25:ecl:9c70", "AFTERSPEAKING,THEDRAGONFLYSTHROUGHANOPENNING"],
   ["scene-illustration:area:26:ecl:9f65", "YOUHAVEFOUNDAROWBOATHIDDEN"],
   ["scene-illustration:area:26:ecl:9f74", "YOUHAVEFOUNDAROWBOATHIDDEN"],
+  ["scene-illustration:area:29:ecl:9f69", "YOUARESTRIPPEDOFALLVALUABLESANDBLINDFOLDED"],
+  ["scene-illustration:area:29:ecl:9f9a", "YOUARESTRIPPEDOFALLVALUABLESANDBLINDFOLDED"],
   ["scene-illustration:area:31:ecl:b0b5", "YOUFINDAPIECEOFPAPERONTHEFLOORINTHEROOM.YOUPLACEITINYOURJOURNALUNDERENTRY53"],
 ]);
 export function matchScriptIllustration(context: string, dialogue: string, installed: readonly string[]) {

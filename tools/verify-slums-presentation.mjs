@@ -3804,8 +3804,9 @@ const declineKoboldGuide = routeName === "kobold-cave-guide" && option === "--de
 const declineFatima = princessFatima && option === "--decline";
 const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "--refuse-to-leave";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
+const fightNorris = norrisSurrender && option === "--fight";
   ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
-  declineDirten || declineRestal || declineKoboldGuide || declineFatima || refuseNomadDismissal, "Option does not apply to this route");
+  declineDirten || declineRestal || declineKoboldGuide || declineFatima || fightNorris || refuseNomadDismissal, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -7013,9 +7014,31 @@ try {
     assert.ok(frame.journal && !knows("kuto-norris-ambush"));
     for (const key of ["j", "up", "enter", "enter", "enter", "j"]) await advance(key);
     assert.ok(knows("kuto-norris-ambush") && !knows("kuto-norris-surrender"));
-    for (const key of ["j", "s", "j"]) await advance(key);
-    assert.ok(knows("kuto-norris-surrender"));
-    console.log("Verified Norris's ambush and surrender journal discoveries in Chrome.");
+    const release = "scene-illustration:area:29:ecl:9f9a";
+    for (const key of ["j", fightNorris ? "f" : "s"]) await advance(key);
+    if (fightNorris) {
+      assert.notEqual(frame.portrait, release);
+      for (const key of ["enter", "enter"]) await advance(key);
+      assert.notEqual(frame.portrait, release);
+      assert.ok(frame.combatArt?.length, "Fight should enter the original Norris battle.");
+      console.log("Verified Norris's fight branch in Chrome.");
+    } else {
+      assert.equal(frame.portrait, release);
+      await waitFor("the bandits' release illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${release}"]')?.naturalWidth === 352 &&
+        document.querySelector('.encounter-portrait[src="/art/${release}"]')?.naturalHeight === 352`));
+      await verifyPortraitPanel();
+      const releaseShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "kuto-norris-surrender-release.png"), Buffer.from(releaseShot.data, "base64"));
+      await switchBothWays(frame.frame);
+      await advance("j");
+      assert.ok(knows("kuto-norris-surrender"));
+      for (const key of ["j", "enter", "up"]) await advance(key);
+      assert.equal(frame.portrait, undefined);
+      await waitFor("the bandits' release illustration to clear", () => run(`state.sequence === ${frame.sequence} &&
+        !document.querySelector(".encounter-portrait")`));
+      console.log("Verified Norris's surrender illustration and journal in Chrome. Capture:", directory);
+    }
   } else if (routeName === "old-phlan-seer") {
     for (const key of ["up", "enter"]) await advance(key);
     const text = () => frame.text.toSorted(([left], [right]) => left - right)
