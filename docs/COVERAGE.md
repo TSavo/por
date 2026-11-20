@@ -1055,6 +1055,9 @@ facing east with the same commission tracked. The journal first points to
 the east door when the chase is offered. After the party chooses Yes and
 sees the thieves split, it gives both routes. Chrome checks that neither
 clue appears before the corresponding prompt.
+The opening chase and the fork have separate illustrations. Chrome
+checks both picture-panel placements and the return to the original
+exploration and combat views when the party chooses a branch.
 The south route reaches the ambush and changes the objective to fighting
 off the thieves. `kovel-chase-east` reaches the guildmaster, checks that
 the journal explains the Attack and Release choices, then verifies the
