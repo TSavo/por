@@ -3679,6 +3679,7 @@ routes.push("valjevo-al-hyam-release", "valjevo-al-hyam-release-reload");
 routes.push("valjevo-cadorna-alarm-reload");
 routes.push("valjevo-records-revisit");
 routes.push("river-pumping-hostile");
+routes.push("river-return-reload");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -8408,7 +8409,7 @@ try {
     assert.equal(knowsRecovery(), false);
     for (const key of ["j", "right", "right", "up", "enter", "j"]) await advance(key);
     assert.ok(knowsRecovery());
-    assert.match(frame.journal.objective.nextStep, /council clerk/);
+    assert.match(frame.journal.objective.nextStep, /Barren River.*east.*south.*landing.*Take Boat.*council clerk/i);
     for (const key of ["j", "enter", "enter", "g", "enter", "e", "s", "s", "a"]) await advance(key);
     const exited = JSON.parse(readFileSync(saved, "utf8"));
     assert.ok(exited.leads.some(({ id }) => id === "river-recovery"));
@@ -8526,6 +8527,13 @@ try {
     for (const key of ["j", "e", "s", "s", "a"]) await advance(key);
     assert.ok(JSON.parse(readFileSync(saved, "utf8")).leads.some(({ id }) => id === "river-entrance-inside"));
     console.log("Verified the river rowboat and secret entrance in Chrome. Saved:", saved);
+  } else if (routeName === "river-return-reload") {
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "river-recovery"));
+    assert.equal(frame.journal.leads.find(({ id }) => id === "commission-river")?.status, "turned-in");
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the river recovery and council turn-in after reloading in Chrome.");
   } else if (envoyReturn || riverReturn || koboldReturn) {
     const commission = koboldReturn ? "commission-kobolds" : riverReturn ? "commission-river" : "commission-zhentil";
     const discovery = koboldReturn ? "kobold-caves-left" : riverReturn ? "river-recovery" : "zhentil-envoy-left";
@@ -8579,6 +8587,26 @@ try {
         : ["enter", "enter", "enter", "s", "e"];
       for (const key of ["j", ...rewardKeys, "j"]) await advance(key);
       assert.equal(journalStatus(), "turned-in");
+      if (riverReturn) {
+        const visibleText = () => frame.text.toSorted(([a], [b]) => a - b)
+          .map(([, character]) => String.fromCharCode(character)).join("");
+        await advance("j");
+        for (let prompt = 0; prompt < 20 && !/AreaCastViewEncamp/i.test(visibleText()); prompt++) {
+          const dialogue = visibleText();
+          if (/ViewTakePoolShareExit/i.test(dialogue)) await advance("e");
+          else if (/gobackandclaimyourtreasure/i.test(dialogue)) await advance("n");
+          else if (/press<enter>/i.test(dialogue)) await advance("enter");
+          else break;
+        }
+        assert.match(visibleText(), /AreaCastViewEncamp/i);
+        for (const key of ["e", "s", "s"]) await advance(key);
+        assert.match(visibleText(), /SAVEWHICHGAME/i);
+        await advance("a");
+        const checkpoint = JSON.parse(readFileSync(saved, "utf8"));
+        assert.ok(checkpoint.leads?.some(({ id }) => id === "river-recovery"));
+        assert.equal(checkpoint.leads.find(({ id }) => id === "commission-river")?.status, "turned-in");
+        console.log("River return checkpoint:", saved);
+      }
       if (koboldFerryReload) {
         console.log("Verified the ferry discovery after reloading at the New Phlan pier and collected the kobold reward.");
       } else {

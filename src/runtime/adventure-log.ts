@@ -165,8 +165,13 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
           ? `Leave the camp as the shaman requested. ${report}`
           : "Collect the shaman's reward. Choose Share to divide the coins, then Exit to continue." };
       }
-      if (commission.id === "river" && tracked.status === "ready-to-report" && knows("river-fountain-blast") && !knows("river-recovery")) {
-        return { title: commission.title, nextStep: "Check the party after the blast, then leave the pyramid and report to the council clerk in New Phlan." };
+      if (commission.id === "river" && tracked.status === "ready-to-report") {
+        if (knows("river-recovery")) {
+          return { title: commission.title, nextStep: "If you're still by the Barren River, skirt it to the east and head south to the landing. Choose Take Boat to New Phlan, then report to the council clerk at City Hall." };
+        }
+        if (knows("river-fountain-blast")) {
+          return { title: commission.title, nextStep: "Check the party after the blast, then leave the pyramid and report to the council clerk in New Phlan." };
+        }
       }
       if (commission.id === "lizardmen" && tracked.status === "ready-to-report" && knows("swamp-alliance-averted")) {
         return { title: commission.title, nextStep: "Return to the council clerk and report the elder's pledge that his people will stay out of Tyranthraxus's alliance." };

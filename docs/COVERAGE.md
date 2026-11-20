@@ -1211,6 +1211,8 @@ east, heads south to the landing at `20,29`, and takes the original boat
 to New Phlan. It verifies that the recovery clue survives the reload and
 that the clerk's river reward moves the journal from ready to report
 through reward pending to turned in.
+`river-return-reload` opens the save made after the council reward
+and checks that both the river recovery clue and the turned-in status persist.
 The `phlan-ferry-river` and `phlan-ferry-east` presentation replays start at
 the river and East Overland docks using controlled slots A and B. Both check
 the original Take Boat / Stay prompt, its shared 352×352 illustration, and
