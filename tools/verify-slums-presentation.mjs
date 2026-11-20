@@ -6565,12 +6565,28 @@ try {
     for (const key of ["j", "p", forgeAuthorization ? "h" : "n"]) await advance(key);
     const dialogue = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
     assert.match(dialogue, forgeAuthorization ? /IFIT'SIMPORTANTGETAUTHORIZATION/i : /YOUNEVERGETTOTALLYUSEDTOTHEHEAT/i);
-    assert.equal(frame.portrait, undefined);
+    const authorization = "scene-illustration:area:6:ecl:9c44";
+    assert.equal(frame.portrait, forgeAuthorization ? authorization : undefined);
+    if (forgeAuthorization) {
+      await waitFor("the smith's forge authorization illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${authorization}"]')?.naturalWidth === 352 &&
+        document.querySelector('.encounter-portrait[src="/art/${authorization}"]')?.naturalHeight === 352`));
+      await verifyPortraitPanel();
+      const authorizationShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "valjevo-forge-authorization.png"), Buffer.from(authorizationShot.data, "base64"));
+      await switchBothWays(frame.frame);
+    }
     await advance("j");
     assert.equal(knows("castle-forge-authorization"), forgeAuthorization);
     await advance("j");
+    if (forgeAuthorization) {
+      await advance("up");
+      assert.equal(frame.portrait, undefined);
+      await waitFor("the forge authorization illustration to clear", () => run(`state.sequence === ${frame.sequence} &&
+        !document.querySelector(".encounter-portrait")`));
+    }
     assert.deepEqual(readFileSync(saved), originalSave);
-    console.log(`Verified the forge smith portrait and ${routeName} dialogue in Chrome.`);
+    console.log(`Verified the forge smith portrait and ${routeName} dialogue in Chrome. Capture:`, directory);
   } else if (castleChaplain) {
     for (const key of ["up", "enter"]) await advance(key);
     assert.deepEqual(frame.encounter, [48, 32, "encounter:area:6:SPRIT5.DAX:29:0:0", 40, 80]);
