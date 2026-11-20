@@ -3266,6 +3266,10 @@ sword during the native combat turn. Separate Lizard Wilderness replays
 verified the Stirge and displacer beast approaches and the transition
 from each native encounter prompt into combat.
 
+The Buccaneer Wilderness centaur replay follows ordinary exploration to
+the original encounter and checks the new approach sprite at (48, 32),
+display switching, and the transition into combat.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
