@@ -6254,11 +6254,27 @@ try {
     console.log("Verified the witnessed scriptorium reports after cold loading.");
   } else if (castleReports) {
     const knows = id => frame.journal?.leads.some(lead => lead.id === id);
+    const verifyReport = async (caller, filename) => {
+      assert.equal(frame.portrait, `scene-illustration:area:4:ecl:9a5a:caller:${caller}`);
+      await waitFor("the illustrated scriptorium report", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector(".encounter-portrait")?.naturalWidth === 352 &&
+        document.querySelector(".encounter-portrait")?.naturalHeight === 352`));
+      await verifyPortraitPanel();
+      const proof = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, filename), Buffer.from(proof.data, "base64"));
+      await switchBothWays();
+    };
     await advance("j");
     assert.ok(frame.journal && !knows("castle-raven-clan") && !knows("castle-flaming-aura"));
-    for (const key of ["j", "up", "enter", "s", "up", "right", "up", "right", "up", "j"]) await advance(key);
+    for (const key of ["j", "up", "enter", "s", "up", "right", "up", "right", "up"]) await advance(key);
+    await verifyReport("af2f", "valjevo-raven-clan-report.png");
+    await advance("j");
     assert.ok(knows("castle-raven-clan") && !knows("castle-flaming-aura"));
-    for (const key of ["j", "enter", "left", "up", "left", "up", "right", "up", "enter", "left", "up", "left", "up", "right", "up", "enter", "left", "up", "left", "up", "j"]) await advance(key);
+    for (const key of ["j", "enter"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    for (const key of ["left", "up", "left", "up", "right", "up", "enter", "left", "up", "left", "up", "right", "up", "enter", "left", "up", "left", "up"]) await advance(key);
+    await verifyReport("ae92", "valjevo-flaming-aura-note.png");
+    await advance("j");
     assert.ok(knows("castle-raven-clan") && knows("castle-flaming-aura"));
     await switchBothWays();
     for (const key of ["j", "enter", "e", "s", "s", "b"]) await advance(key);
