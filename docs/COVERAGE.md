@@ -4077,6 +4077,11 @@ both halves of a giant lizard while the full Enhanced sprite stays
 visible. The source matcher test checks both native-pixel placements,
 restores the underlying terrain, and rejects a cursor reported on the
 wrong half.
+The same Chrome replay checks the lizard whose native origin lies left
+of the battlefield. Its Enhanced artwork is cropped at the same edge.
+The matcher tests cover both horizontal edges, including a reflected
+pose, and confirm that restoring the terrain leaves pixels outside
+the battlefield untouched.
 
 The `sokal-floorboard-diary` Chrome route checks the ghost pointing to
 the board, the distinct diary and gems discovery illustration, and the

@@ -157,6 +157,30 @@ function checkBrowserArtPacks(): void {
     const wrongCell = match(native, undefined, 29, undefined, lizardUnderlay, false, [lizardX + 24 - aimedColumn, lizardY]);
     ok(!wrongCell.some(([, , id]) => id === lizardKey), "An aim cell on the other half should not match the wide pose");
   }
+  for (const [origin, reflected] of [[-16, false], [152, true]] as const) {
+    const top = 56;
+    const native = new Frame(320, 200, 2);
+    for (let y = 0; y < lizard.height; y++) {
+      for (let x = 0; x < lizard.width; x++) {
+        const screenX = origin + x;
+        if (screenX < 8 || screenX >= 176) continue;
+        const sourceX = reflected ? lizard.width - 1 - x : x;
+        const color = lizard.pixels[y * lizard.width + sourceX];
+        if (color) native.set(screenX, top + y, color);
+      }
+    }
+    native.set(7, top, 4);
+    native.set(176, top, 4);
+    const enhanced = new Frame(320, 200);
+    enhanced.pixels.set(native.pixels);
+    const placement = match(native, enhanced, 29, undefined, lizardUnderlay)
+      .find(([x, y, id]) => x === origin && y === top && id === lizardKey);
+    deepStrictEqual(placement, [origin, top, lizardKey, reflected, false, 48, 24]);
+    const restored = new Frame(320, 200, 2);
+    restored.set(7, top, 4);
+    restored.set(176, top, 4);
+    deepStrictEqual(enhanced.pixels, restored.pixels);
+  }
   for (const [archive, ready] of [
     ["CPIC1.DAX", 3], ["CPIC4.DAX", 8], ["CPIC7.DAX", 1], ["CPIC7.DAX", 62],
   ] as const) {
