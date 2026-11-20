@@ -231,6 +231,32 @@ function checkBrowserArtPacks(): void {
       [56, 56, `combat:area:18:${pittArchive}:${id}:ecl:aab5`, reflected]);
     deepStrictEqual(enhanced.pixels, underlay.pixels, "Removing a scoped sprite should restore the battlefield");
   }
+  const mutantKey = "combat:area:23:CPIC7.DAX:57";
+  const mutantScopedKey = mutantKey + ":ecl:ac24";
+  const mutant = parseDax("CPIC7.DAX", readGameFile(root, "CPIC7.DAX")).entries.find(({ id }) => id === 57);
+  ok(mutant, "Missing the original Yarash mutant guard");
+  const mutantPose = decodePicture(mutant.data);
+  const mutantMatcher = loadCombatArtMatcher([mutantKey, mutantScopedKey], root);
+  const mutantUnderlay = new Frame(320, 200, 6);
+  const native = new Frame(320, 200, 6);
+  native.blit(mutantPose.pixels.map(pixel => pixel || 6), 24, 24, 56, 56);
+  const enhanced = new Frame(320, 200);
+  enhanced.pixels.set(native.pixels);
+  deepStrictEqual(mutantMatcher(native, enhanced, 23, undefined, mutantUnderlay), [[56, 56, mutantKey, false]]);
+  deepStrictEqual(enhanced.pixels, mutantUnderlay.pixels);
+  deepStrictEqual(mutantMatcher(native, undefined, 23, 0xac24, mutantUnderlay), [[56, 56, mutantScopedKey, false]]);
+  deepStrictEqual(mutantMatcher(native, undefined, 22, undefined, mutantUnderlay), []);
+  deepStrictEqual(mutantMatcher(native, undefined, 23), []);
+  deepStrictEqual(mutantMatcher(mutantUnderlay, undefined, 23, undefined, mutantUnderlay), []);
+  for (const opaque of [false, true]) {
+    const index = mutantPose.pixels.findIndex(pixel => Boolean(pixel) === opaque);
+    const x = 56 + index % 24, y = 56 + Math.floor(index / 24);
+    const original = native.get(x, y);
+    native.set(x, y, (original + 1) % 16);
+    deepStrictEqual(mutantMatcher(native, undefined, 23, undefined, mutantUnderlay), [],
+      opaque ? "The actor must match its native pose" : "Transparent pixels must match the original backdrop");
+    native.set(x, y, original);
+  }
   const council = "scene-illustration:area:8:ecl:9f21:caller:9a4a";
   const installed = [...loaded.keys()];
   const councilScenes = [

@@ -107,6 +107,10 @@ native poses. Goblin guard `CPIC1.DAX` blocks 2 and 130 use the Slums
 infantry PNGs. The Slums and Textile House bindings retain their own
 artwork choices.
 The combat matcher still gives encounter-specific artwork priority.
+An otherwise unmatched 24×24 monster with area-specific art can use that
+art over terrain when every opaque sprite pixel and every exposed
+background pixel agree with the original battlefield draw. Ambiguous
+matches stay in classic art.
 The report skips cleared all-black views between scenes. When auditing older
 traces, review encounter frames for actors drawn over the terrain before
 using their unmatched patterns as a redraw checklist.

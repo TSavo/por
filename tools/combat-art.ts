@@ -201,6 +201,25 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
     }
     return match;
   };
+  const exactAreaTerrainPose = (cell: Uint8Array, background?: Uint8Array) => {
+    if (!background) return;
+    let match: Pose | undefined;
+    for (const pose of areaTerrainPoses) {
+      if (!matchesProbe(cell, pose)) continue;
+      let visible = false;
+      let terrain = false;
+      const agrees = pose.pixels.every((color, index) => {
+        const underlay = background[index]!;
+        visible ||= color !== 0 && color !== underlay;
+        terrain ||= color === 0 && underlay !== 0;
+        return cell[index] === (color || underlay);
+      });
+      if (!agrees || !visible || !terrain) continue;
+      if (match && (match.key !== pose.key || match.reflected !== pose.reflected)) return;
+      match = pose;
+    }
+    return match;
+  };
   const terrainPose = (cell: Uint8Array, width: number, background?: Uint8Array) => {
     // Tall monsters can overlap the backdrop and adjacent units. Wide
     // and encounter-specific monsters can overlap grayscale terrain.
@@ -290,6 +309,10 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
     matching.push(pose);
     terrainPoses.set(extent, matching);
   }
+  const areaTerrainPoses = poses.filter(({ key, width, pixels }) => {
+    const [, area, , , cursor] = monsterCombatKey.exec(key) ?? [];
+    return area !== undefined && cursor === undefined && width === 24 && pixels.length === 24 * 24;
+  });
   const patterns = new Map<string, Pose | null>();
   for (const pose of poses) {
     const previous = patterns.get(pose.pattern);
@@ -372,7 +395,8 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
         placements.push(...clippedPoses(frame, underlay, width, height, enhanced, aimCell));
       }
       const cell = Buffer.alloc(width * height);
-      const background = underlay && terrainPoses.has(`${width}:${cell.length}`) ? Buffer.alloc(cell.length) : undefined;
+      const background = underlay && (terrainPoses.has(`${width}:${cell.length}`) ||
+        (width === 24 && height === 24 && areaTerrainPoses.length)) ? Buffer.alloc(cell.length) : undefined;
       // Large units span multiple guest selection squares.
       const bevel = Uint8Array.from({ length: cell.length }, (_, index) =>
         combatHighlightPixel((index % width) % 24, Math.floor(index / width) % 24));
@@ -408,13 +432,16 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
             ? recoloredParty(cell, poseBevel, true) : undefined;
           const colorTerrain = plain === undefined && !selected && !terrain && !colorSelection && width === 24 && height === 24 && background
             ? recoloredParty(cell, background, false) : undefined;
-          const match = plain ?? selected ?? partialAim ?? terrain ?? colorSelection ?? colorTerrain;
+          const existing = plain ?? selected ?? partialAim ?? terrain ?? colorSelection ?? colorTerrain;
+          const exactAreaTerrain = plain === undefined && !existing && areaTerrainPoses.length && width === 24 && height === 24
+            ? exactAreaTerrainPose(cell, background) : undefined;
+          const match = existing ?? exactAreaTerrain;
           if (!match) continue;
           // A standing unit can obscure a prop in the guest's terrain pass.
           // Restore the whole prop as its own layer when the visible pixels
           // agree with that backdrop and the complete prop bitmap matches.
           const highlighted = Boolean(selected ?? colorSelection);
-          const restoreTerrain = (terrain ?? colorTerrain) && background &&
+          const restoreTerrain = (terrain ?? colorTerrain ?? exactAreaTerrain) && background &&
             match.pixels.every((color, index) => color || cell[index] === background[index]);
           const backdrop = restoreTerrain ? patterns.get(`${width}:${background.toString("hex")}`) : undefined;
           const prop = backdrop && randomCombatKey.test(backdrop.key) ? backdrop : undefined;
