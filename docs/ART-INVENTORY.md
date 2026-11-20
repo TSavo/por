@@ -384,10 +384,12 @@ draw trace, the 19 debris fragments from SQRPACI block 1 frames 34, 35,
 and 39 match RANDCOM frames 0, 1, and 5 pixel for pixel as 24×24 pictures.
 The checklist links those full sprites to their replacement files.
 The two loose-stone layouts share a 96×96 painting mirrored for frame 0.
-The family summary lists three linked RANDCOM frames (0, 1, and 5).
-An exact-pixel check of the recorded Sokal patrol, Nomad raid, and
-Tyranthraxus battle terrain draws found no appearances of frames 2, 3,
-or 4. Their use elsewhere in the game remains unverified.
+The family summary lists four linked RANDCOM frames (0, 1, 4, and 5).
+Stinking Cloud uses frame 4. Three Textile combat traces matched its
+24×24 pixels to the original battlefield draw for SQRPACI block 1
+frame 38. The `textile-stinking-cloud` Chrome replay verifies the
+Enhanced overlay and its removal after the spell expires. RANDCOM
+frames 2 and 3 remain unwitnessed in the recorded terrain draws.
 
 The Chrome verifier captures battlefield cells from any replay with
 `POR_TRACE_BATTLE_TILES=1`. The Sokal undead patrol replay captured 23
