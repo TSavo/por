@@ -87,8 +87,9 @@ The seven combat rows are the ready and strike pairs for `CPIC1.DAX` actor
 bindings in other contexts. The script audit found a live load for the
 last actor, Al-Hyam at Zhentil Keep. The captured wand attack draws his
 ready pose, so the strike row remains unverified in play.
-The full enhanced manifest has 7,216 validated replacement mappings,
-including 90 distinct script illustration PNGs. The gallery header shows
+The inventory at `30b4aed4` loads 7,269 validated replacement mappings
+from 6,678 PNG files, including 112 distinct scripted illustrations.
+The gallery header shows
 the current archive-frame and script-illustration totals. Multiple
 encounter branches can use the same source frame, and some script scenes
 have no archive picture. Branch-specific artwork can improve live coverage
@@ -655,3 +656,8 @@ and choice pages and that the illustration clears as the branch continues.
 The replay also checks the journal against the original disguise flag.
 The original branch dialogue describes the opposite clothing outcome, so
 the journal uses the flag to report whether the party is disguised.
+
+The `mendor-fighter-dialogue` Chrome replay begins in slot B
+(`out/combat-agent-mendor-fighter-B.json` in the working QA captures).
+It checks the fighter cowering at first, the escape illustration after
+Ignore, and the handoff back to scenery when the party steps away.
