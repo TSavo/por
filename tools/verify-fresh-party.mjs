@@ -1702,7 +1702,15 @@ if (process.argv[2] === "--textile-prison-alternates-checkpoint") {
   copyFileSync(process.argv[3], join(saveDir, "E.json"));
   await replay(loadSlot("1265"), "85000000", [
     "enter", "right", "right", "up", "right", "right", "up", "b", "enter", "enter",
-    "f", "p",
+    "j", "track 3", (_text, frame) => {
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-prisoner-fought-leader"));
+    }, "j", "p", "n",
+    (text) => assert.match(text, /i almost killed the leader/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "textile-prisoner-fought-leader"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
+      assert.match(frame.journal.objective.nextStep, /north through the guards' room.*choose free, then unlock/i);
+    }, "j", "enter", "f", "p",
     (text) => assert.match(text, /no one is able to pick all the padlocks/),
     "enter", "f", "b",
     (text) => assert.match(text, /despite great effort.*the chains hold/),
@@ -1724,6 +1732,7 @@ if (process.argv[2] === "--textile-prison-alternates-checkpoint") {
     "j", (_text, frame) => {
       assert.equal(frame.journal.trackedId, "commission-textile");
       assert.ok(frame.journal.leads.some(({ id }) => id === "textile-prisoner-killed"));
+      assert.ok(frame.journal.leads.some(({ id }) => id === "textile-prisoner-fought-leader"));
       assert.match(frame.journal.objective.nextStep, /search the remaining rooms/i);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-secret-door"));
     },

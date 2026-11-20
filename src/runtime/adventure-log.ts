@@ -211,6 +211,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("textile-grishnak-defeated") && (knows("textile-prison-key-needed") || knows("textile-padlocks-resisted"))) nextStep = "Check the loot from Grishnak's fight for the brass key. Take it back to the prisoner and choose Free, then Unlock.";
       else if (knows("textile-grishnak") && (knows("textile-prison-key-needed") || knows("textile-padlocks-resisted"))) nextStep = "Overcome Grishnak at the bone altar and check the battle loot for a key. Return to the chained prisoner and choose Free, then Unlock.";
       else if (knows("textile-prison-key-needed") || knows("textile-padlocks-resisted")) nextStep = "From the chained prisoner, head north through the guards' room and search the adjoining rooms for a key. Return to the prisoner and choose Free, then Unlock.";
+      else if (knows("textile-prisoner-fought-leader")) nextStep = "Choose Free and try to open the prisoner's padlocks. He fought the hobgoblin leader and may know how to reach him.";
       else if (knows("textile-prisoner")) nextStep = "Speak with the prisoner in the western building and find a way to open his padlocks. Read journal entry 47.";
       else if (knows("textile-skullcrusher-mark")) nextStep = "Search the rooms near Skullcrusher's mark for whoever left it.";
       else if (knows("textile-courtyard-cleared")) nextStep = "Cross the quiet courtyard and search the western textile building for Cadorna's treasure.";
@@ -1298,6 +1299,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("A MUSCULAR MAN LOCKED IN CHAINS LIES HERE")) {
     leads.push({ id: "textile-prisoner", title: "Prisoner in the Textile House",
       detail: "The party found a man in chains and recovered the page recorded as journal entry 47." });
+  }
+  if (text.includes("I ALMOST KILLED THE LEADER OF THESE SCUMMY HOBGOBLINS")) {
+    leads.push({ id: "textile-prisoner-fought-leader", title: "The prisoner fought the hobgoblin leader",
+      detail: "The prisoner said he almost killed the hobgoblin leader before the other hobgoblins jumped him." });
   }
   if (text.includes("YOU HAVE NO KEY TO UNLOCK THE PADLOCKS")) {
     leads.push({ id: "textile-prison-key-needed", title: "The prisoner's padlocks",
