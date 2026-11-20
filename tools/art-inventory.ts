@@ -5,6 +5,8 @@ import { parseDax } from "../src/lib/dax.js";
 import { Frame } from "../src/lib/ega.js";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
+import type { EncounterAnchor } from "../src/lib/assets.js";
+import { encounterAnchor, encounterKey } from "./encounter-art.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng, pngDimensions } from "./png.js";
 import { loadCombatMaterialMasks, loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
@@ -170,10 +172,11 @@ for (const { file: archive, entries } of archives) {
   }
 }
 type TraceCell = [x: number, y: number, id: string, pixels?: string];
-type TraceRecord = { cells?: TraceCell[]; type?: string; picture?: number; area?: number; cursor?: number; caller?: number; dialogue?: string; sources?: string[]; sequence?: number };
+type TraceRecord = { cells?: TraceCell[]; type?: string; picture?: number; area?: number; cursor?: number; caller?: number; dialogue?: string; sources?: string[]; sequence?: number; key?: string; anchor?: EncounterAnchor };
 const capturedTiles = new Map<string, { x: number; y: number; trace: string; frame: number; pixels: Buffer }>();
 const nativeBattleTiles = new Map<string, Set<number>>();
 const observedPortraitFallbacks: { area?: number; cursor?: number; caller?: number; dialogue?: string; sources: string[]; sequence: number; trace: string }[] = [];
+const encounterScopeFallbacks: { key: string; anchor: EncounterAnchor; cursor: number; trace: string }[] = [];
 const portraitTraceFrames: { area: number; sources: string[]; frame: number; trace: string }[] = [];
 const matchTracePortrait = tracePaths.length ? loadPortraitArt([], true, gameData) : undefined;
 for (const path of tracePaths) {
@@ -185,6 +188,15 @@ for (const path of tracePaths) {
   if (!Array.isArray(parsed)) throw new Error("Expected an array of trace frames in " + path);
   const frames: (TraceCell[] | TraceRecord)[] = parsed;
   for (const [frame, record] of frames.entries()) {
+    if (!Array.isArray(record) && record.type === "encounter-scope-fallback") {
+      const { key, cursor, anchor } = record;
+      if (typeof key === "string" && encounterKey.exec(key)?.[2] &&
+          cursor !== undefined && Number.isInteger(cursor) && cursor >= 0 && cursor <= 0xffff &&
+          anchor && encounterAnchor(key, anchor)) {
+        encounterScopeFallbacks.push({ key, cursor, anchor, trace: path });
+      }
+      continue;
+    }
     if (!Array.isArray(record) && record.type === "portrait-fallback") {
       const { area, cursor, caller, dialogue, sources, sequence } = record;
       if (sequence !== undefined && Number.isInteger(sequence) && Array.isArray(sources) &&
@@ -238,6 +250,10 @@ for (const path of tracePaths) {
 const artworkLoadIssues: ArtworkLoadIssue[] = [];
 const artwork = loadUpgradeArt(undefined, gameData, issue => artworkLoadIssues.push(issue));
 const materialMasks = loadCombatMaterialMasks(artwork);
+const encounterScopeCoverage = encounterScopeFallbacks.map(observation => {
+  const proposedKey = observation.key.replace(/:ecl:[a-f0-9]{4}:/, `:ecl:${observation.cursor.toString(16).padStart(4, "0")}:`);
+  return { ...observation, proposedKey, linked: artwork.has(proposedKey) };
+});
 const portraitFallbackCoverage = observedPortraitFallbacks.map(fallback => {
   const { area, cursor, caller, sources } = fallback;
   const scopes = ["portrait:"];
@@ -682,6 +698,12 @@ ${portraitFallbackCoverage.map(({ area, cursor, caller, dialogue, sources, linke
   <td>${linkedCandidates.map(id => `<code>${escape(id)}</code>`).join("<br>") || "None"}</td><td>${escape(dialogue ?? "")}</td>
   <td>${escape(trace)} #${sequence}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
+${encounterScopeCoverage.length ? `<details><summary>Encounter scope gaps observed during play · ${encounterScopeCoverage.length}</summary>
+<table class="coverage-table"><thead><tr><th>Existing artwork</th><th>Observed context</th><th>Placement</th><th>Linked now</th><th>Trace</th></tr></thead><tbody>
+${encounterScopeCoverage.map(({ key, proposedKey, anchor: { x, y, width, height }, linked, trace }) =>
+  `<tr><td><code>${escape(key)}</code></td><td><code>${escape(proposedKey)}</code></td>
+  <td>(${x}, ${y}), ${width}×${height}</td><td>${linked ? "Yes" : "No"}</td><td>${escape(trace)}</td></tr>`).join("")}
+</tbody></table></details>` : ""}
 ${portraitTraceFrames.length ? `<details><summary>Portraits in tile traces · ${portraitTraceFrames.length}</summary><ul>${
   portraitTraceFrames.map(({ area, sources, frame, trace }) =>
     `<li>Area ${area} · ${escape(trace)} #${frame} · ${sources.map(id => `<code>${escape(id)}</code>`).join(", ")}</li>`).join("")
@@ -809,7 +831,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, monsterArt, monsterPoseCoverage, dwarfIconCoverage, tallIconCoverage, defaultHumanIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, encounterFamilies, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, monsterArt, monsterPoseCoverage, dwarfIconCoverage, tallIconCoverage, defaultHumanIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, encounterScopeFallbacks: encounterScopeCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, encounterFamilies, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
