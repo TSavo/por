@@ -8728,17 +8728,30 @@ try {
     assert.ok(!frame.journal.leads.some(({ id }) => id === "rescue-slave-pen" || id === "rescue-identified-heir"));
     assert.match(frame.journal.objective.nextStep, /Follow the fence inside/);
     for (const key of ["j", "right", "up", "right", "up", "enter"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:PIC6.DAX:42:0:0");
-    await waitFor("the Bivant pen illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    const overview = "portrait:area:1:ecl:b5f7:caller:9e66:PIC6.DAX:42:0:0";
+    assert.equal(frame.portrait, overview);
+    await waitFor("the captive pen overview", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${overview}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
     await switchBothWays();
     await advance("j");
     assert.ok(frame.journal.leads.some(({ id }) => id === "rescue-slave-pen"));
     assert.ok(!frame.journal.leads.some(({ id }) => id === "rescue-identified-heir"));
     assert.match(frame.journal.objective.nextStep, /Look among the prisoners/);
-    for (const key of ["j", "enter", "j"]) await advance(key);
+    for (const key of ["j", "enter"]) await advance(key);
+    const identification = "portrait:area:1:ecl:b5f7:caller:9eda:PIC6.DAX:42:0:0";
+    assert.equal(frame.portrait, identification);
+    assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join(""),
+      /HEART-SHAPEDBIRTHMARKONHISLEFTSHOULDER.*MERCHANTAPPROACHESYOU/i);
+    await waitFor("the Bivant heir identification", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${identification}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-identified-heir"));
     assert.match(frame.journal.objective.nextStep, /Choose Rescue Boy/);
-    for (const key of ["j", "enter", "enter", "end", "end", "end", "enter", "j"]) await advance(key);
+    for (const key of ["j", "enter"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:0:0");
+    for (const key of ["enter", "end", "end", "end", "enter", "j"]) await advance(key);
     assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-pen-options"));
     assert.match(frame.journal.objective.nextStep, /Choose Sneak Into Pen/);
     for (const key of ["j", "enter", "enter"]) await advance(key);
