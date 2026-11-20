@@ -9,6 +9,7 @@
     "portrait:area:24:ecl:a586:PIC1.DAX:4:0:0": "bane-gatekeeper-reassurance.png",
     "portrait:area:24:ecl:a6b8:PIC1.DAX:4:0:0": "bane-gatekeeper-exposes-party.png",
     "encounter:area:0:ecl:af4d:SPRIT3.DAX:27:0:0": "new-phlan-harbor-watch-approach.png",
+    "encounter:area:25:ecl:a8d0:SPRIT6.DAX:60:0:0": "wild-cave-snake-fall-approach.png",
     "portrait:area:31:ecl:a2b4:PIC1.DAX:4:0:0": "bane-hay-beds-ambush.png",
     "portrait:area:31:ecl:a2bb:PIC1.DAX:4:0:0": "bane-hay-beds-ambush.png",
     "encounter:area:11:ecl:99bd:SPRIT3.DAX:15:2:0": "new-phlan-city-watch-approach-far.png",
@@ -5436,6 +5437,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:25:ecl:a8d0:SPRIT6.DAX:60:0:0": {"area":25,"x":40,"y":32,"width":64,"height":80},
     "encounter:area:0:ecl:af4d:SPRIT3.DAX:27:0:0": {"area":0,"x":48,"y":32,"width":40,"height":80},
     "encounter:area:11:ecl:99bd:SPRIT3.DAX:15:2:0": { "area": 11, "x": 56, "y": 32, "width": 16, "height": 49 },
     "encounter:area:11:ecl:99be:SPRIT3.DAX:15:2:0": { "area": 11, "x": 56, "y": 32, "width": 16, "height": 49 },

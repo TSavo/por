@@ -637,6 +637,8 @@ const illustrationRoutes = new Map([
   }],
   ["wild-cave-giant-snake-dialogue", {
     slot: "A", inputs: ["up", "enter"],
+    requireTiledApproach: false,
+    approachSequence: [[40, 32, "encounter:area:25:ecl:a8d0:SPRIT6.DAX:60:0:0", 64, 80]],
     portrait: "portrait:area:25:PIC6.DAX:60:0:0", prompt: /AGIANTSNAKEFALLSONTOPOFTHEPARTY/i,
   }],
   ["wild-cave-boar-dialogue", {
