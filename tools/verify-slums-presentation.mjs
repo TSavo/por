@@ -7258,10 +7258,20 @@ try {
     assert.match(frame.journal.leads.find(({ id }) => id === punch).detail, /Attack or Take the Punch/i);
     await switchBothWays();
     for (const key of ["j", "t", "enter"]) await advance(key);
-    assert.equal(await verifyTiledView(9, new Set()), 1);
+    const dismissal = "scene-illustration:area:9:ecl:a0a7:cue:bugbear-dismissal";
+    assert.equal(frame.portrait, dismissal);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /NOWBEATITBEFOREWEGETSERIOUS/i);
+    await waitFor("the guards' dismissal illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${dismissal}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    const dismissalShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "stojanow-bugbears-dismissal.png"), Buffer.from(dismissalShot.data, "base64"));
+    await switchBothWays();
     await advance("j");
     assert.ok(known(warning) && known(punch) && known(released));
-    for (const key of ["j", "e", "s", "s", "b"]) await advance(key);
+    for (const key of ["j", "e"]) await advance(key);
+    assert.notEqual(frame.portrait, dismissal);
+    for (const key of ["s", "s", "b"]) await advance(key);
     const outcome = resolve(directory, "B.json");
     const leads = new Set(JSON.parse(readFileSync(outcome, "utf8")).leads?.map(({ id }) => id));
     assert.ok([warning, punch, released].every(id => leads.has(id)));
