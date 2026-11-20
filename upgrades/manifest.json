@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:29:ecl:9dc5:HEAD8.DAX:10:BODY8.DAX:6": "kuto-norris-ultimatum.png",
+    "portrait:area:29:ecl:9df1:HEAD8.DAX:10:BODY8.DAX:6": "kuto-norris-ultimatum.png",
     "portrait:area:24:ecl:ab06:PIC1.DAX:4:0:0": "bane-treasure-ambush.png",
     "portrait:area:24:ecl:a586:PIC1.DAX:4:0:0": "bane-gatekeeper-reassurance.png",
     "portrait:area:24:ecl:a6b8:PIC1.DAX:4:0:0": "bane-gatekeeper-exposes-party.png",

@@ -686,7 +686,11 @@ const illustrationRoutes = new Map([
   }],
   ["kuto-norris-dialogue", {
     slot: "J", inputs: ["up", "enter", "enter", "enter"],
-    portrait: "portrait:HEAD8.DAX:10:BODY8.DAX:6", prompt: /SURRENDER.*FIGHT/i,
+    portrait: "portrait:area:29:ecl:9dc5:HEAD8.DAX:10:BODY8.DAX:6", prompt: /SURRENDER.*FIGHT/i,
+    continuation: {
+      inputs: ["f"], portrait: "portrait:area:29:ecl:9df1:HEAD8.DAX:10:BODY8.DAX:6",
+      prompt: /ABATTLEBEGINS/i,
+    },
   }],
   ["lizard-wilds-displacer-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
