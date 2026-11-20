@@ -38,9 +38,11 @@ export function transformCombatEffectPixels(pixels: Uint8Array, transform?: stri
 export function combatEffectFlightFamily(key: string): string {
   const block = combatEffectKey.exec(key)?.[2];
   if (block === "3" || block === "131") return "combat-effect:COMSPR.DAX:3";
+  if (block === "4" || block === "132") return "combat-effect:COMSPR.DAX:4";
   if (block === "5" || block === "133") return "combat-effect:COMSPR.DAX:5";
   if (block === "6" || block === "134") return "combat-effect:COMSPR.DAX:6";
   if (block === "7" || block === "135") return "combat-effect:COMSPR.DAX:7";
+  if (block === "8" || block === "136") return "combat-effect:COMSPR.DAX:8";
   return key;
 }
 
