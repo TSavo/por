@@ -6243,6 +6243,11 @@ try {
           await advance("j");
         }
         if (routeName === "stojanow-gate-first-sight" && interimPortrait) {
+          const establishing = await fetch(origin + "/art/" + interimPortrait);
+          assert.ok(establishing.ok);
+          assert.ok(Buffer.from(await establishing.arrayBuffer()).equals(readFileSync("upgrades/stojanow-gate-first-sight.png")));
+          const gateShot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, "stojanow-gate-first-sight.png"), Buffer.from(gateShot.data, "base64"));
           await advance("j");
           assert.ok(frame.journal?.leads.some(({ id }) => id === "gate-spotted"));
           assert.ok(!frame.journal.leads.some(({ id }) => id === "gate-bugbear-lookouts"));
@@ -6349,6 +6354,13 @@ try {
       const checkpoint = JSON.parse(readFileSync(saved, "utf8"));
       assert.equal(checkpoint.leads.find(({ id }) => id === "commission-sokal")?.status, "turned-in");
       console.log("Sokal reward checkpoint:", saved);
+    }
+    if (routeName === "stojanow-gate-first-sight") {
+      const lookouts = await fetch(origin + "/art/" + portrait);
+      assert.ok(lookouts.ok);
+      assert.ok(Buffer.from(await lookouts.arrayBuffer()).equals(readFileSync("upgrades/stojanow-gate-bugbear-lookouts.png")));
+      const lookoutsShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "stojanow-gate-bugbear-lookouts.png"), Buffer.from(lookoutsShot.data, "base64"));
     }
     if (continuation) {
       if (journalLead) {
