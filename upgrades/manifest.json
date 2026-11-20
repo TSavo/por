@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:3:CPIC5.DAX:55:ecl:a44a": "valjevo-apartment-hill-giant-ready.png",
+    "combat:area:3:CPIC5.DAX:183:ecl:a44a": "valjevo-apartment-hill-giant-strike.png",
     "portrait:area:29:ecl:9dc5:HEAD8.DAX:10:BODY8.DAX:6": "kuto-norris-ultimatum.png",
     "portrait:area:29:ecl:9df1:HEAD8.DAX:10:BODY8.DAX:6": "kuto-norris-ultimatum.png",
     "portrait:area:24:ecl:ab06:PIC1.DAX:4:0:0": "bane-treasure-ambush.png",

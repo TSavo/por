@@ -1053,6 +1053,14 @@ const koboldGuide = routeName === "kobold-cave-guide" || koboldEscort;
 const restalGuide = routeName === "textile-restal";
 const sokalScout = routeName === "sokal-elven-scout" || routeName === "sokal-elven-scout-search";
 const combatPoseRoutes = new Map([
+  ["valjevo-apartment-hill-giants", {
+    slot: "B", inputs: ["up", "up", "enter", "enter", "c", "enter"],
+    stand: "combat:area:3:CPIC5.DAX:55:ecl:a44a",
+    strike: "combat:area:3:CPIC5.DAX:183:ecl:a44a",
+    width: 96, height: 192, standAnchor: [128, 104, true],
+    strikeInputs: ["enter", "enter", ...Array(8).fill("q")],
+    strikeAnchor: [80, 104], strikeReflected: true,
+  }],
   ["slums-roaming-bugbear", {
     slot: "B",
     inputs: [...Array.from({ length: 4 }, () => ["up", "enter", "enter", "down"]).flat(),
