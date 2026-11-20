@@ -659,10 +659,9 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
       }
     }
     if (commission.id === "slums" && value > 0 && value < 25) {
-      const encounters = value === 1 ? "1 encounter cleared." : `${value} encounters cleared.`;
       progress.push({
         id, title: `${commission.title} - in progress`,
-        detail: `Keep clearing encounters in the Slums until the district is secure. ${encounters}`,
+        detail: `Keep clearing encounters in the Slums until the district is secure. ${value} of 25 encounters cleared.`,
         status: "accepted", clearedEncounters: value,
       });
     }

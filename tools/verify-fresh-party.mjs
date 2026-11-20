@@ -1291,7 +1291,7 @@ async function verifySokalRestoredCouncil() {
     const slums = frame.journal.leads.find(({ id }) => id === "commission-slums");
     assert.equal(slums?.status, "accepted");
     assert.equal(slums.clearedEncounters, 7);
-    assert.match(slums.detail, /7 encounters cleared/);
+    assert.match(slums.detail, /7 of 25 encounters cleared/);
   };
   const trackCommission = (commissionId) => (_text, frame) => {
     const open = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
@@ -1308,7 +1308,7 @@ async function verifySokalRestoredCouncil() {
     "enter", "enter",
     "j", checkSlumsProgress, trackCommission("commission-slums"), (_text, frame) => {
       assert.equal(frame.journal.trackedId, "commission-slums");
-      assert.match(frame.journal.objective.nextStep, /keep clearing encounters.*7 encounters cleared/i);
+      assert.match(frame.journal.objective.nextStep, /keep clearing encounters.*7 of 25 encounters cleared/i);
     }, trackCommission("commission-sokal"), (_text, frame) => {
       assert.equal(frame.journal.trackedId, "commission-sokal");
       assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-armory-stands"));

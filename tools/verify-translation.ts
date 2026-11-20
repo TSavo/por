@@ -491,6 +491,7 @@ function checkCampaignJournal(): void {
       lead?.status !== (count === 254 ? "ready-to-report" : "turned-in")) {
       throw new Error(`Slums journal did not follow counter value ${count}`);
     }
+    if (count < 25) ok(lead?.detail.includes(`${count} of 25 encounters cleared`));
   }
   for (const commission of commissions) {
     const id = `commission-${commission.id}`;
