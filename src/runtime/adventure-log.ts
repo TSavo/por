@@ -1567,7 +1567,7 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("MY PEOPLE WILL NOT JOIN TYRANTHRAXUS")) {
     leads.push({ id: "swamp-alliance-averted", title: "The elder's pledge", detail: "The elder pledged that his people would stay out of Tyranthraxus's alliance." });
   }
-  const citedEntries = text.matchAll(/\b(?:JOURNAL (?:AS )?ENTRY (\d{1,2})\b|ENTRY (\d{1,2}) OF YOUR JOURNAL\b)/g);
+  const citedEntries = text.matchAll(/\b(?:JOURNAL (?:(?:AS|UNDER) )?ENTRY (\d{1,2})\b|ENTRY (\d{1,2}) OF YOUR JOURNAL\b)/g);
   for (const number of new Set([...citedEntries].map((match) => match[1] ?? match[2]))) {
     leads.push({
       id: `journal-entry-${number}`,
