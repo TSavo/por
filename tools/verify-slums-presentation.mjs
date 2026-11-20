@@ -1338,7 +1338,7 @@ const combatPoseRoutes = new Map([
     stand: "combat:area:0:CPIC3.DAX:15:ecl:a7d3",
     strike: "combat:area:0:CPIC3.DAX:143:ecl:a7d3",
     width: 96, height: 96, standAnchor: [56, 80, true],
-    readyPrompt: /AIDESHITPOINTS18AC5/i,
+    readyPrompt: /AIDESHITPOINTS18AC5/i, standCount: 7, standSelected: true,
     strikeAnchor: [56, 80], strikeReflected: true, strikeReport: /AIDESATTACKSENNAANDMISSES/i,
   }],
   ["valjevo-apartment-armed-guard", {
@@ -5077,7 +5077,8 @@ try {
     console.log("Verified the enhanced mage wand pose during the native report and the return to ready art.");
   } else if (combatPose) {
     const { stand, strike, width, height, inputs, strikeInputs = ["q"], strikeReflected, strikeReport,
-      journalLead, excluded, readyPrompt, standAnchor, strikeAnchor, followingStrikeReport, standInAnimation } = combatPose;
+      journalLead, excluded, readyPrompt, standAnchor, standCount, standSelected, strikeAnchor,
+      followingStrikeReport, standInAnimation } = combatPose;
     function verifyCombatScope() {
       if (!excluded) return;
       for (const view of [frame, ...(frame.animation ?? [])]) {
@@ -5110,7 +5111,11 @@ try {
     }
     if (readyPrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), readyPrompt);
     const readyPlacements = standInAnimation ? frame.animation?.flatMap(({ combatArt }) => combatArt ?? []) : frame.combatArt;
+    if (standCount !== undefined) {
+      assert.equal(readyPlacements?.filter(([, , id]) => id === stand).length, standCount);
+    }
     assert.ok(readyPlacements?.some(([x, y, id, reflected, selected]) => id === stand &&
+      (standSelected === undefined || selected === standSelected) &&
       (standAnchor ? x === standAnchor[0] && y === standAnchor[1] && reflected === standAnchor[2]
         : selected || readyPrompt !== undefined)),
       `Expected ${stand}. Combat placements: ${JSON.stringify(frame.combatArt)}. ` +

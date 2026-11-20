@@ -2727,6 +2727,9 @@ the far, middle, and near sprites over 121 tiles per frame before the
 warning portrait.
 `bane-orc-guardroom-approach` verifies the middle and near warband frames
 over 121 terrain tiles before the existing ambush portrait.
+`new-phlan-tavern-aides-combat` verifies all seven Aides use the enhanced
+ready pose, including the selected Aide. The first strike uses the matching
+reflected sprite while the guest reports that the Aide missed Enna.
 `lizard-wilds-caravan-merchant-combat` verifies the ready sprite and
 short-sword strike in the original caravan battle.
 `buccaneer-palisade-day` and `buccaneer-palisade-night` verify the
