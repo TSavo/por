@@ -3676,7 +3676,7 @@ routes.push("kuto-norris-surrender-reload");
 routes.push("valjevo-forge-authorization-reload");
 routes.push("buccaneer-bivant-punch");
 routes.push("buccaneer-bivant-escort-combat");
-routes.push("valhingen-crypt-scroll");
+routes.push("valhingen-crypt-scroll", "valhingen-crypt-scroll-reload");
 routes.push("valjevo-al-hyam-release", "valjevo-al-hyam-release-reload");
 routes.push("valjevo-cadorna-alarm-reload");
 routes.push("valjevo-records-revisit");
@@ -3832,7 +3832,7 @@ const declineDirten = routeName === "braccio-dirten-briefing" && option === "--d
 const declineRestal = restalGuide && option === "--decline";
 const declineKoboldGuide = routeName === "kobold-cave-guide" && option === "--decline";
 const declineFatima = princessFatima && option === "--decline";
-const declineCryptScroll = routeName === "valhingen-crypt-scroll" && option === "--decline";
+const declineCryptScroll = ["valhingen-crypt-scroll", "valhingen-crypt-scroll-reload"].includes(routeName) && option === "--decline";
 const fightNorris = norrisSurrender && option === "--fight";
 const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "--refuse-to-leave";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
@@ -5980,6 +5980,14 @@ try {
     assert.ok(frame.journal?.leads.some(({ id }) => id === "river-tyrmor-journal"));
     await switchBothWays();
     console.log("Verified Tyrmor's journal discovery after reloading slot B.");
+  } else if (routeName === "valhingen-crypt-scroll-reload") {
+    await advance("j");
+    const known = new Set(frame.journal.leads.map(({ id }) => id));
+    assert.ok(known.has("graveyard-crypt-sanctified"));
+    assert.equal(known.has("graveyard-crypt-scroll"), !declineCryptScroll);
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the Valhingen crypt discoveries after reloading slot A in Chrome.");
   } else if (routeName === "valhingen-crypt-scroll") {
     const scrollLead = "graveyard-crypt-scroll";
     async function checkScrollPortrait(cursor, prompt, earned, screenshot) {
@@ -6020,7 +6028,11 @@ try {
     assert.ok(frame.journal?.leads.some(({ id }) => id === "graveyard-crypt-sanctified"));
     assert.equal(frame.journal.leads.some(({ id }) => id === scrollLead), !declineCryptScroll);
     assert.deepEqual(readFileSync(saved), originalSave);
-    console.log("Verified the Valhingen crypt illustration and scroll choice in Chrome.", directory);
+    for (const key of ["j", "e", "enter", "s", "s", "a"]) await advance(key);
+    const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
+    assert.ok(known.has("graveyard-crypt-sanctified"));
+    assert.equal(known.has(scrollLead), !declineCryptScroll);
+    console.log("Verified the Valhingen crypt illustration and scroll choice in Chrome. Native save:", saved);
   } else if (illustration) {
     const { inputs, portrait, prompt, continuation, journalLead, approachSequence } = illustration;
     if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach);
