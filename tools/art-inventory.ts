@@ -493,6 +493,8 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["mendor-philosophy-stacks.png", ["Old books on shelves", "A readable Philosophy sign over the entrance"]],
   ["mendor-history-stacks-arrival.png", ["Old books on shelves", "A readable History sign over the entrance"]],
   ["mendor-rhetoric-stacks-arrival.png", ["Old books on shelves", "A readable Rhetoric sign over the entrance"]],
+  ["mendor-fighter-flight.png", ["The frightened fighter runs through the library doorway", "His face is turned back toward the party"]],
+  ["slums-hobgoblin-gold-room-approach.png", ["Three hobgoblins are visible in the approach sprite", "Spilled gold is visible between them"]],
   ["sokal-hidden-armory-cache.png", ["Shield, mace, and sword on stands", "A small suit of chainmail", "Equipment in visibly good condition"]],
   ["old-phlan-dying-thief-papers.png", ["An exhausted older thief", "Papers visibly offered to the party"]],
   ["podal-auction-garwin-escaped.png", ["The auctioneer calling out after Garwin's escape", "A crowd in the foreground"]],
