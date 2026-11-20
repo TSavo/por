@@ -1382,6 +1382,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("IF YOU JOIN ME I WILL MAKE YOU THE COMMANDERS OF THE ARMIES")) {
     leads.push({ id: "castle-vote", title: "Tyranthraxus's offer", detail: "Tyranthraxus offered command of his armies in exchange for joining him." });
   }
+  if (text.includes("TYRANTHRAXUS HAS FINALLY BEEN DEFEATED") && text.includes("YOU LEAVE THE CASTLE")) {
+    leads.push({ id: "castle-tyranthraxus-defeated", title: "Tyranthraxus defeated",
+      detail: "The party left Valjevo Castle after defeating Tyranthraxus. The remaining monsters hid as the party passed through the streets." });
+  }
   if (text.includes("GO WITH HIM ACROSS THE RIVER AND HELP HIM TO CLEANSE THE TEMPLE")) {
     leads.push({ id: "bane-dirten", title: "Dirten's mission", detail: "Bishop Braccio asked the party to help Dirten cleanse the temple across the river." });
   }

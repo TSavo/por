@@ -565,7 +565,9 @@ with the prepared party outside the audience hall at `14,7 S`. The
 replay verifies the original 80 HP opponent, the journal's directions
 from New Phlan's west gate to City Hall, and the 67,500 XP council award.
 It checks the journal's ready-to-report, reward-pending, and turned-in
-states and the ending objective after reloading slot C.
+states and the ending objective after reloading slot C. The defeat
+entry appears only after the party witnesses the castle departure text
+and remains in the journal after the final reward and reload.
 The controlled replay then changes the tracked objective, saves through
 Encamp to slot D, and reloads that slot. The journal retains both the
 selection and the castle turn-in, and slot C remains byte-for-byte intact.

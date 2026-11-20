@@ -2318,7 +2318,9 @@ if (process.argv[2] === "--castle-ending-checkpoint") {
   const checkCastle = (status) => (_text, frame) => {
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-castle")?.status, status);
   };
+  const victoryLead = "castle-tyranthraxus-defeated";
   await replay(loadSlot("3062"), "85000000", [
+    "j", (_text, frame) => assert.ok(!frame.journal.leads.some(({ id }) => id === victoryLead)), "j",
     "right", ...Array(4).fill("up"),
     (text) => assert.match(text, /audience hall of tyranthraxus/),
     ...Array(5).fill("enter"),
@@ -2331,6 +2333,7 @@ if (process.argv[2] === "--castle-ending-checkpoint") {
     "enter", "enter", "e", ...Array(9).fill("enter"),
     (text) => assert.match(text, /0,4 e.*gateway to the unsettled areas/),
     "j", checkCastle("ready-to-report"), (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === victoryLead));
       assert.match(frame.journal.objective.nextStep, /east from the west gate.*south into City Hall.*council clerk/i);
     }, "j",
     ...(saveAtWestGate ? ["e", "s", "s", "d"] : [
@@ -2352,7 +2355,10 @@ if (process.argv[2] === "--castle-ending-checkpoint") {
   let trackedAfterEnding;
   await replay(loadSlot("2e63"), "85000000", [
     "j", checkCastle("turned-in"),
-    (_text, frame) => assert.equal(frame.journal.objective.title, "Phlan is free"),
+    (_text, frame) => {
+      assert.equal(frame.journal.objective.title, "Phlan is free");
+      assert.ok(frame.journal.leads.some(({ id }) => id === victoryLead));
+    },
     (_text, frame) => {
       const open = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
       const index = open.findIndex(({ id }) => id !== frame.journal.trackedId);
