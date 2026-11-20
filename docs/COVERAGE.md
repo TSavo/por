@@ -3915,3 +3915,8 @@ entry 8 through ordinary search inputs. Both book discovery routes verify
 their own illustration, the original Take It prompt, and the journal entry
 after accepting. The `textile-stinking-cloud` route repeats the controlled
 cloud placement, layering, report and cleanup checks.
+
+Enhanced Manual Aim shows the selection artwork over empty squares.
+The `buccaneer-empty-manual-aim` Chrome route verifies four native cursor
+positions, Escape cleanup, and the original frame and save across
+display switches from a controlled Buccaneer checkpoint.

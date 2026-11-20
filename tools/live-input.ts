@@ -98,6 +98,21 @@ function menuText(glyphs: ReturnType<typeof visibleGameText>) {
     .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase();
 }
 
+function emptyAimCell(frame: Frame): [x: number, y: number] | undefined {
+  for (let y = 8; y <= 152; y += 8) {
+    for (let x = 8; x <= 152; x += 8) {
+      if (frame.get(x, y) !== 15 || frame.get(x + 23, y + 23) !== 8) continue;
+      let blank = true;
+      for (let row = 0; row < 24 && blank; row++) {
+        for (let column = 0; column < 24 && blank; column++) {
+          blank = frame.get(x + column, y + row) === combatHighlightPixel(column, row);
+        }
+      }
+      if (blank) return [x, y];
+    }
+  }
+}
+
 function hasBattlefieldBorder(frame: Frame): boolean {
   // The original combat panel has gold corner studs at x=176 and y=176.
   // Exploration divides the screen at x=128 instead and ends at y=184.
@@ -318,6 +333,21 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         if (!selectionKeys.has(key)) continue;
         for (let dy = 0; dy < height; dy += 24) {
           for (let dx = 0; dx < width; dx += 24) combatSelections.push([x + dx, y + dy, key]);
+        }
+      }
+      const activeSelection = "combat-selection:COMSPR.DAX:25";
+      if (battlefield && !combatSelections.length && selectionKeys.has(activeSelection) &&
+          menu.replace(/\s/g, "").startsWith("(USECURSORKEYS)")) {
+        const cell = emptyAimCell(presentation);
+        if (cell) {
+          const [x, y] = cell;
+          combatSelections.push([x, y, activeSelection]);
+          // Manual Aim can place the native bevel where there is no unit.
+          for (let row = 0; row < 24; row++) {
+            const start = (y + row) * enhanced.width + x;
+            if (battleTerrain) enhanced.pixels.set(battleTerrain.pixels.subarray(start, start + 24), start);
+            else enhanced.pixels.fill(0, start, start + 24);
+          }
         }
       }
       const battleTiles: TilePlacement[] = [];
