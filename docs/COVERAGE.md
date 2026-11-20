@@ -2787,6 +2787,11 @@ vestibule for visual review.
 over all 121 crypt tiles before the portrait. The Tempus line-fighter
 and captain replays verify their distinct ready poses in the same
 reinforcement battle as the existing cleric strike.
+The Tempus line fighter also has a 96×96 longsword strike. A controlled
+replay placed Cora adjacent before the original combat code built the
+occupancy grid. Chrome showed the strike at (80,128) alongside the original
+report that the fighter attacks Cora and misses. Display switching kept
+the battle state and save intact.
 `valhingen-wight-tower-approach` checks the far, middle, and near sprites
 before the tower portrait. `valjevo-floor-reveals` checks five doorstep
 and floor-to-timber joins across eight live views. The Valjevo hall and
