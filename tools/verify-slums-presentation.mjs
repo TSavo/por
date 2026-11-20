@@ -6303,6 +6303,13 @@ try {
     assert.equal(frame.portrait, "portrait:HEAD3.DAX:16:BODY3.DAX:7");
     await waitFor("Urslingen's Stojanow Gate briefing portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
+    await advance("enter");
+    assert.equal(frame.portrait, "portrait:area:8:ecl:b5c3:caller:b292:HEAD3.DAX:16:BODY3.DAX:7");
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ASMALLBANDMUSTSLIPINSIDEANDHOLDUNTILRELIEVED/i);
+    await verifyPortraitPanel();
+    await switchBothWays();
+    await advance("enter");
+    assert.equal(frame.portrait, undefined);
     console.log("Verified Urslingen's Stojanow Gate briefing portrait and state-preserving switches.");
   } else if (routeName === "swamp-elder" || routeName === "swamp-elder-decline") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
