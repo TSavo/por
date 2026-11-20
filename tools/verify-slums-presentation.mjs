@@ -1155,7 +1155,8 @@ const illustrationRoutes = new Map([
   }],
   ["wild-cave-giant-lizard-dialogue", {
     slot: "B", inputs: ["up", "enter", "enter"],
-    portrait: "portrait:area:27:PIC8.DAX:59:0:0", prompt: /FOURGIANTLIZARDSANDTWOMINOTAURS/i,
+    portrait: "scene-illustration:area:27:ecl:a5aa", prompt: /FOURGIANTLIZARDSANDTWOMINOTAURS.*ORDERTHELIZARDSTOATTACK/i,
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:27:ecl:a5b2", prompt: /ABATTLEBEGINS/i },
   }],
   ["lizard-wilds-stirge-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
@@ -6433,6 +6434,11 @@ try {
         assert.equal(frame.portrait, nextPortrait);
         await advance("up");
         assert.equal(frame.portrait, undefined);
+      }
+      if (routeName === "wild-cave-giant-lizard-dialogue") {
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /MOVEVIEWAIMUSEQUICKDONE/i);
       }
       if (routeName === "new-phlan-rolf-tour") await waitForExplorationViewport();
       if (routeName === "kuto-well-waterline") {
