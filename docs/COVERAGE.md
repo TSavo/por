@@ -813,6 +813,8 @@ The browser verifier exposes `stojanow-gate`, `stojanow-west`,
 `stojanow-east`, and `stojanow-bugbears` for the gate entrance save.
 The `stojanow-wall-warning` replay from that save verifies the tower
 warning, the bugbear confrontation, and the decision to take the punch.
+The 352×352 warning illustration shows the tower guard above the gate.
+Chrome checks that it clears on the next step, before the bugbear approach.
 The journal records each event only after the party sees it. The route
 also checks the Enhanced portrait and the return to all 121 scenery
 placements after the bugbears let the party go.
