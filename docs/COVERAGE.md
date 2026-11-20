@@ -3925,3 +3925,8 @@ The `sokal-floorboard-diary` Chrome route checks the ghost pointing to
 the board, the distinct diary and gems discovery illustration, and the
 return to the original gems choice. A companion replay declines the
 gems and confirms that entry 3 stays in the journal.
+
+The Sokal floorboard replay now declines the gems, saves through the
+original Encamp menu, and verifies the entry 3 discovery in slot C.
+The `sokal-floorboard-diary-reload` route reopens that save and checks
+the retained clue and display switching.
