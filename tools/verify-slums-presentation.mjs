@@ -563,6 +563,17 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["nomad-feast-arrival", {
+    slot: "A", inputs: ["up", ...Array(4).fill("enter"), "p", "enter", "enter", "y", "enter"],
+    portraitStops: { 9: "scene-illustration:area:17:ecl:9da2:caller:a711" },
+    portrait: "scene-illustration:area:17:ecl:9da2:caller:a7a2",
+    prompt: /THENOMADSBUILDAHUGECAMPFIRE.*THEWHOLETRIBEGATHERSFORTHEFEAST/i,
+    journalLead: "nomad-headman-talk",
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:17:ecl:9da2:caller:a82f:HEAD7.DAX:74:BODY7.DAX:30",
+      prompt: /HASSADAHWAL.STALKENTRY55/i,
+    },
+  }],
   ["bane-entry53-art", {
     slot: "A", manualPolling: true,
     inputs: ["right", "up", "up", "left", "up", "up", "up", "up", "left", "up", "up", "right", "up",
@@ -5678,6 +5689,12 @@ try {
             await verifyPortraitPanel();
           }
         }
+        if (routeName === "nomad-feast-arrival" && (key === "y" || interimPortrait)) {
+          await advance("j");
+          assert.ok(frame.journal);
+          assert.equal(frame.journal.leads.some(({ id }) => id === "nomad-feast-attended"), Boolean(interimPortrait));
+          await advance("j");
+        }
         const placement = illustration.approachStops?.[index];
         if (placement) {
           const [, , id, width, height] = placement;
@@ -5778,6 +5795,7 @@ try {
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead), "Expected witnessed dialogue lead");
+      if (routeName === "nomad-feast-arrival") assert.ok(frame.journal.leads.some(({ id }) => id === "nomad-feast-attended"));
       if (routeName === "kobold-cave-envoys-rematch" && frame.journal.trackedId === "commission-kobolds") {
         assert.match(frame.journal.objective.nextStep, /confront the king.*at the throne/i);
       }
