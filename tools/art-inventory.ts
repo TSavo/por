@@ -514,6 +514,10 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["lizardmen-council-turnin.png", ["The City Hall clerk at a strategy table", "The relief map makes the strategic position visible"]],
   ["sokal-council-turnin.png", ["The clerk points out the harbor route past the Barren River", "A reward is visible on the City Hall desk"]],
   ["stojonow-river-council-turnin.png", ["The City Hall clerk visibly presents the reward", "The reopened river trade route remains recognizable"]],
+  ["phlan-council-finale.png", ["The established clerk announces the victory to the party", "A liberated Phlan is visible behind her"]],
+  ["phlan-council-victory-award.png", ["A ceremonial record of the victory in City Hall", "The game text remains visible for the exact award"]],
+  ["zhentil-envoy-council-turnin.png", ["The City Hall clerk with the reward visible on the desk", "The hourglass underscores the envoy's swift return"]],
+  ["nomad-camp-council-turnin.png", ["The City Hall clerk hears the party's report from the camp", "The purse is visible as she presents the reward"]],
   ["pyramid-pump-prisoners-hostile.png", ["The prisoners hurl barrels of contaminant", "The party is visible in the path of the splash"]],
 ]);
 
