@@ -5357,6 +5357,11 @@ try {
       assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
       await advance("j");
     }
+    if (routeName === "sokal-ferran-farewell") {
+      await advance("j");
+      assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "sokal-departure"));
+      await advance("j");
+    }
     if (illustration.verifyImageSwap) {
       for (const key of inputs.slice(0, -1)) await advance(key);
       if (illustration.approach) {
@@ -5514,6 +5519,11 @@ try {
       if (routeName === "kobold-cave-envoys-rematch" && frame.journal.trackedId === "commission-kobolds") {
         assert.match(frame.journal.objective.nextStep, /confront the king.*at the throne/i);
       }
+      await advance("j");
+    }
+    if (routeName === "sokal-ferran-farewell") {
+      await advance("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-departure"));
       await advance("j");
     }
     if (routeName === "tyrmor-corpse-without-search") {

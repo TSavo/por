@@ -3751,3 +3751,7 @@ Ferran's farewell at Sokal Keep uses a dedicated portrait while he fades.
 The `sokal-ferran-farewell` Chrome route uses a local slot F checkpoint,
 keeps the existing portrait during the parley, and verifies the new art,
 clearance on Continue, and state preservation across display switches.
+
+The Ferran farewell replay also opens the journal before and after the
+parley and confirms that the departure clue appears only after the party
+hears it.
