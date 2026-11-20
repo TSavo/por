@@ -3853,6 +3853,8 @@ const chrome = spawn(chromePath, [
   `--user-data-dir=${profile}`, "about:blank",
 ], { stdio: "ignore" });
 
+class GuestStopped extends Error {}
+
 async function waitFor(description, read, timeoutMs = 30_000) {
   const deadline = Date.now() + timeoutMs;
   let lastError;
@@ -3866,6 +3868,7 @@ async function waitFor(description, read, timeoutMs = 30_000) {
       const value = await read();
       if (value) return value;
     } catch (error) {
+      if (error instanceof GuestStopped) throw error;
       lastError = error;
     }
     await delay(75);
@@ -3911,7 +3914,12 @@ try {
     assert.ok(!response.exceptionDetails, response.exceptionDetails?.text);
     return response.result.value;
   }
-  const latest = () => fetch(origin + "/state").then((response) => response.json());
+  const latest = async () => {
+    const response = await fetch(origin + "/state");
+    const state = await response.json();
+    if (state.stopped) throw new GuestStopped(state.stopped);
+    return state;
+  };
   let frame = await waitFor("the loaded party", async () => {
     const state = await latest();
     return state.ready && state;
@@ -7750,6 +7758,13 @@ try {
     console.log("Verified the Kovel Mansion file discovery and objective in Chrome.");
   } else if (routeName === "buccaneer-approach") {
     const base = "rescue-buccaneer-base";
+    const verifyPenGuards = async (cursor) => {
+      const portrait = `portrait:area:1:ecl:${cursor}:HEAD6.DAX:6:BODY6.DAX:3`;
+      assert.equal(frame.portrait, portrait);
+      await waitFor("the Buccaneer pen guards", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+    };
     await advance("j");
     assert.equal(frame.journal?.trackedId, "commission-rescue");
     assert.ok(!frame.journal.leads.some(({ id }) => id === base));
@@ -7758,13 +7773,6 @@ try {
       assert.equal(frame.classicPortrait, true);
       assert.equal(frame.portrait, undefined);
       assert.ok(frame.classicPortraitSources?.includes("portrait:PIC6.DAX:39:0:0"));
-    const verifyPenGuards = async (cursor) => {
-      const portrait = `portrait:area:1:ecl:${cursor}:HEAD6.DAX:6:BODY6.DAX:3`;
-      assert.equal(frame.portrait, portrait);
-      await waitFor("the Buccaneer pen guards", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
-      await verifyPortraitPanel();
-    };
       await waitFor("classic portrait filling the Enhanced panel", () => run(`(() => {
         const layer = document.querySelector("#tile-art").getBoundingClientRect();
         const portrait = document.querySelector(".perspective-backdrop")?.getBoundingClientRect();
