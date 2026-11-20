@@ -1,5 +1,33 @@
 # Roadmap
 
+## Current port status
+
+The browser runs the original campaign through the translated DOS runtime.
+Original character creation, exploration, combat, spells, and saving have
+all been exercised. [Coverage](docs/COVERAGE.md) records which checks use
+ordinary play and which start from controlled saves.
+
+- The unedited party replay creates six characters, participates in Rolf's
+  tour, equips the party in New Phlan, completes Ohlo's commission, and
+  plays through the Slums and Sokal Keep's hidden armory. The verified
+  route uses the original menus and saves. The full unedited campaign
+  through the final council reward still needs a continuous replay.
+- The original Tyranthraxus fight and City Hall finale have been replayed
+  from a controlled party. The ending reward, a completed save reload,
+  and Classic/Enhanced switching in Chrome have separate verification.
+- The Encamp journal tracks witnessed clues and the selected commission in
+  the active save slot. The art inventory tracks individual replacements,
+  placement metadata, and observed gaps. [Art inventory](docs/ART-INVENTORY.md)
+  describes how to generate it and feed it route traces.
+- Current artwork work prioritizes scene illustrations, portraits, and
+  encounter and combat sprites.
+
+## Original engineering plan
+
+The phase descriptions below record the early plan. Their status labels
+are from that stage of development. Use the coverage log for current
+verification and limitations.
+
 The goal is a full playthrough of Pool of Radiance, start to finish, with a second presentation the player can flip on with one key and no change to the story state. Phase 1 is the formats, the tools, and a shell that already keeps rules away from pixels. Everything under "not started" is still that: not started.
 
 Status words mean what they say. "Skeleton" means the data loads and one path runs. It does not mean the system is faithful yet.
