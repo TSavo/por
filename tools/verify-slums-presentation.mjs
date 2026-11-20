@@ -2526,6 +2526,13 @@ const combatPoseRoutes = new Map([
     slot: "B", stand: "combat:area:7:CPIC5.DAX:11:ecl:a615", strike: "combat:area:7:CPIC5.DAX:139:ecl:a615", width: 96, height: 96,
     inputs: ["up", ...Array(4).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(3).fill("q")],
   }],
+  ["valjevo-party-flail", {
+    slot: "B", stand: "combat:party:0:3", strike: "combat:party:0:131",
+    width: 96, height: 96, standAnchor: [80, 80, false], standSelected: true,
+    strikeAnchor: [80, 80], strikeReflected: false,
+    inputs: ["up", "enter", "enter", "enter", "enter", "c", "enter"],
+    strikeInputs: ["m", "right"],
+  }],
   ["stojanow-hill-giant", {
     stand: "combat:area:9:CPIC2.DAX:55", strike: "combat:area:9:CPIC2.DAX:183", width: 96, height: 192,
     inputs: ["s", "up", "up", ...Array(3).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(13).fill("q")],
@@ -5480,6 +5487,43 @@ try {
           followingStrikeReport.test(text.map(([, char]) => String.fromCharCode(char)).join(""))));
       }
       await waitFor("the enhanced combat strike", () => run("window.strikeLoaded"));
+      if (routeName === "valjevo-party-flail") {
+        const paletteCheck = await command("Runtime.evaluate", {
+          awaitPromise: true, returnByValue: true, expression: `(async () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = canvas.height = 96;
+            const context = canvas.getContext("2d");
+            const image = async source => {
+              const result = new Image();
+              result.src = source;
+              await result.decode();
+              return result;
+            };
+            const pixels = bitmap => {
+              context.clearRect(0, 0, 96, 96);
+              context.drawImage(bitmap, 0, 0);
+              return context.getImageData(0, 0, 96, 96).data;
+            };
+            for (const art of ${JSON.stringify([stand, strike])}) {
+              const id = art + ":palette:0143456789abcdef";
+              const original = await image("/art/" + id);
+              const mask = pixels(await image("/art-materials/" + id));
+              const before = pixels(original);
+              const after = pixels(await image(await recolorPartySprite(original, id)));
+              let tinted = false;
+              for (let i = 0; i < before.length; i += 4) {
+                if (before[i + 3] !== after[i + 3]) return false;
+                const changed = [0, 1, 2].some(channel => before[i + channel] !== after[i + channel]);
+                if (changed && (!mask[i + 3] || mask[i] !== 2)) return false;
+                tinted ||= changed;
+              }
+              if (!tinted) return false;
+            }
+            return true;
+          })()`,
+        });
+        assert.equal(paletteCheck.result?.value, true, "Both flail poses should recolor only the selected material");
+      }
       console.log(`Verified ${routeName} standing and animated strike poses in Chrome.`);
     } else if (strike) {
       await run(`window.strikePreview = new Image();
