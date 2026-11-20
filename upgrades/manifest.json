@@ -1607,6 +1607,7 @@
     "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:7": "new-phlan-tavern-spinner.png",
     "portrait:area:0:HEAD3.DAX:53:BODY3.DAX:7": "new-phlan-tavern-brawl.png",
     "combat:area:11:CPIC3.DAX:14:ecl:a07a": "new-phlan-watch-mage-stand.png",
+    "combat:area:11:CPIC3.DAX:142:ecl:a07a": "new-phlan-watch-mage-strike.png",
     "combat:area:0:CPIC3.DAX:142:ecl:ae09": "new-phlan-watch-mage-strike.png",
     "combat:area:0:CPIC3.DAX:14:ecl:ae09": "new-phlan-watch-mage-stand.png",
     "tile:9:54cfe77b0fa031f0e731581bb561e7930676dcaf217f5886e27719bedfc1eb68": "stojanow-west-watch-terrain-54cfe77b0fa0.png",
