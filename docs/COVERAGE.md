@@ -1043,6 +1043,9 @@ crosses it, and saves the anti-magic shell clue. The `swamp-elder`
 replay starts from a controlled save near the elder with the witnessed
 entry 35 clue carried forward from the pumping room. It verifies Parlay,
 the friend-word challenge, entry 31, and the request for a champion.
+`river-pumping` saves through Encamp after the release illustration
+clears. `river-pumping-reload` verifies that the release clue, entry 35,
+and the tracked river objective survive a fresh Chrome reload.
 The two Chrome branches verify that accepting opens the original chooser
 and declining records Drythh's reaction, replacing the champion prompt
 with guidance for a hostile encounter.
