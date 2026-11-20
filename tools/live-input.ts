@@ -1,4 +1,5 @@
-import { appendFileSync, readSync, writeFileSync } from "node:fs";
+import { appendFileSync, mkdtempSync, readSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 import { captureNativeExploration, type NativeExploration } from "./native-exploration.js";
 import { captureOverlandTravel, identifyPhlanPrompt, identifySokalPrompt, isQuayDialogue, isSokalBoatHandoff,
   type SokalQuay, type TravelState } from "./overland-travel.js";
@@ -185,7 +186,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const portraitArt = loadPortraitArt(portraitKeys, browser);
   const characterSheetArt = loadCharacterSheetArt((process.env.POR_CHARACTER_SHEET_ART_KEYS ?? "").split(",").filter(Boolean));
   const encounterPlacements = JSON.parse(process.env.POR_ENCOUNTER_ART ?? "{}") as Record<string, EncounterAnchor>;
+  const hasEncounterArtwork = Object.keys(encounterPlacements).length > 0;
   let encounterTrace = process.env.POR_ENCOUNTER_TRACE_FILE;
+  let nativeEncounterDirectory = process.env.POR_NATIVE_ENCOUNTER_TRACE_DIR;
+  let nativeEncounterSession: string | undefined;
+  const tracedNativeEncounters = new Set<string>();
   const tracedEncounterScopes = new Set<string>();
   const encounterArt = loadEncounterArt(encounterPlacements, encounterTrace ? (key, anchor, cursor) => {
     if (!encounterTrace) return;
@@ -609,10 +614,26 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   return {
     requestKey,
-    captureEncounterDraw: browser && Object.keys(encounterPlacements).length ? (cpu: Cpu) => {
-      if (scene || area === undefined || animation.length >= 12) return;
+    captureEncounterDraw: browser && (nativeEncounterDirectory || hasEncounterArtwork) ? (cpu: Cpu) => {
+      const captureAnimation = hasEncounterArtwork && animation.length < 12;
+      if (scene || area === undefined || (!nativeEncounterDirectory && !captureAnimation)) return;
       captureEclContext(cpu);
-      showFrame(undefined, undefined, true);
+      if (nativeEncounterDirectory) {
+        const cursor = battleCursor?.toString(16).padStart(4, "0") ?? "unknown";
+        const digest = createHash("sha256").update(perspectivePixels()).digest("hex");
+        const signature = `${area}-${cursor}-${digest}`;
+        if (!tracedNativeEncounters.has(signature)) {
+          try {
+            nativeEncounterSession ??= mkdtempSync(join(nativeEncounterDirectory, "encounters-"));
+            writeFileSync(join(nativeEncounterSession, `${area}-${cursor}-${tracedNativeEncounters.size}.png`), encodePng(screen));
+            tracedNativeEncounters.add(signature);
+          } catch (error) {
+            console.error("Cannot write the native encounter trace", error);
+            nativeEncounterDirectory = undefined;
+          }
+        }
+      }
+      if (captureAnimation) showFrame(undefined, undefined, true);
     } : undefined,
     captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;

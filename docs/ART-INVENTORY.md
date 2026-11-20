@@ -57,6 +57,13 @@ current script cursor. Each record includes the matching asset ID,
 original anchor and dimensions, and the cursor seen in play. This only
 checks sprites with an installed placement to compare against.
 
+Set `POR_NATIVE_ENCOUNTER_TRACE_DIR` to an existing local output directory
+to capture original encounter draws even when there is no Enhanced binding.
+The browser runner saves PNGs in a new `encounters-*` subdirectory, with
+the area and ECL cursor in each filename. Repeated draws of the same
+viewport in the same context are recorded once. Keep these reference
+images outside Git.
+
 The captured gaps show coordinates, trace frame, and matching 8×8 atlas
 frames where available. Identical atlas pixels can occur in several banks
 and areas. Use the captured area-scoped ID to assign an in-game replacement.
