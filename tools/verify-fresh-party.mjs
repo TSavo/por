@@ -1491,6 +1491,7 @@ if (process.argv[2] === "--sokal-armory-reinforcement-checkpoint") {
     await verifySokalRestoredCouncil();
     await verifySokalTrackedAmbush();
   }
+  console.log("Campaign checkpoint directory:", saveDir);
   process.exit(0);
 }
 
@@ -2453,7 +2454,8 @@ const createFighters = (roster) => roster.flatMap((name, index) => [
 const added = ["a", "a", ...names.slice(1).flatMap(() => ["end", "a"])];
 const tour = ["b", "enter", "enter", "enter", "y", ...Array(8).fill("enter")];
 const camp = ["e", "s", "s", "a"];
-const saved = await replay("", "24000000", [...createCharacterFromBoot, ...createFighters(names), ...added, ...tour, ...camp]);
+// The campaign replay checks exact native rolls and combat outcomes.
+const saved = await replay("31000000:1c0d,45000000:2e63", "50000000", [...createFighters(names), ...added, ...tour, ...camp]);
 const savedText = visibleText(saved);
 expectParty(savedText);
 assert.match(savedText, /quit to dos/);
