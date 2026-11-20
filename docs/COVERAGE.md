@@ -3269,6 +3269,8 @@ from each native encounter prompt into combat.
 The Buccaneer Wilderness centaur replay follows ordinary exploration to
 the original encounter and checks the new approach sprite at (48, 32),
 display switching, and the transition into combat.
+The quickling replay independently follows ordinary wilderness travel
+and verifies its approach at (48, 32) before entering combat.
 
 Chrome checked the Lizard Wilderness river ferry's original Take Boat
 and Stay choices with its new illustration. The eastern ferry kept its

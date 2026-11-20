@@ -50,6 +50,7 @@
     "encounter:area:26:ecl:a230:SPRIT7.DAX:61:1:0": "lizard-wilds-roaming-stirge-approach-middle.png",
     "encounter:area:26:ecl:a230:SPRIT7.DAX:68:1:0": "lizard-wilds-roaming-displacer-approach-middle.png",
     "encounter:area:25:ecl:a160:SPRIT6.DAX:67:1:0": "buccaneer-wilds-centaur-approach-middle.png",
+    "encounter:area:25:ecl:a160:SPRIT6.DAX:10:1:0": "buccaneer-wilds-quickling-approach-middle.png",
     "portrait:area:26:ecl:a098:PIC7.DAX:41:0:0": "river-sector-return-ferry.png",
     "combat:area:4:CPIC5.DAX:55:ecl:9def": "valjevo-maze-boulder-giant-ready.png",
     "combat:area:4:CPIC5.DAX:183:ecl:9def": "valjevo-maze-boulder-giant-strike.png",
@@ -5233,6 +5234,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:25:ecl:a160:SPRIT6.DAX:10:1:0": { "area": 25, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:25:ecl:a160:SPRIT6.DAX:67:1:0": { "area": 25, "x": 48, "y": 32, "width": 40, "height": 65 },
     "encounter:area:26:ecl:a230:SPRIT7.DAX:61:1:0": { "area": 26, "x": 56, "y": 32, "width": 24, "height": 57 },
     "encounter:area:26:ecl:a230:SPRIT7.DAX:68:1:0": { "area": 26, "x": 48, "y": 32, "width": 48, "height": 65 },
