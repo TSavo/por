@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0": "kobold-cave-sleeping-guide.png",
     "combat:area:20:CPIC2.DAX:132:ecl:a0b4": "slums-mage-orc-strike.png",
     "portrait:area:13:ecl:b511:caller:a7cd:HEAD8.DAX:67:BODY8.DAX:37": "kobold-princess-fatima-first-meeting.png",
     "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0": "podal-auction-tackled-ogre.png",
