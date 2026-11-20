@@ -2729,6 +2729,10 @@ warning portrait.
 uses a controlled party at (6,9), facing north in the Temple of Bane. It
 checks that Entry 53 is absent before the encounter, earned after the native
 ogre escort battle and loot prompt, and retained after saving and reloading.
+Use the same checkpoint with `node tools/verify-slums-presentation.mjs
+PATH_TO_SLOT_A PATH_TO_CHROME bane-entry53-art` to check the illustration,
+journal discovery, and Classic/Enhanced toggle in Chrome. The illustration
+clears when the party resumes exploring.
 `bane-orc-guardroom-approach` verifies the middle and near warband frames
 over 121 terrain tiles before the existing ambush portrait.
 `new-phlan-tavern-aides-combat` verifies all seven Aides use the enhanced
