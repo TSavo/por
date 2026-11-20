@@ -502,6 +502,9 @@ chief's dialogue and resumed at the iron box. The party chose Take It
 Unopened in one replay and Open It in the other. The original script set
 the resulting box state, and the live journal gave distinct directions for
 bringing back the sealed box or returning to City Hall with the seal broken.
+The controlled Chrome replays check that the 352×352 coffer illustration
+fills the picture panel during the original choice and clears when either
+option is selected. The battle bypass is local to the fixture.
 Both outcomes were saved and reloaded. Controlled transitions bypassed the
 return trip. In the sealed-box branch, the Watch took the box and the party
 walked from the gate to the clerk to collect the reward. In the opened-box
