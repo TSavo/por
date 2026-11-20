@@ -3737,3 +3737,7 @@ Shield-and-dagger and shield-and-mace keep both Enhanced poses in Small
 and Human sizes when recolored. Chrome verified both Body and Shield
 channels and Hair in the native editor, plus the saved Human mace poses
 in a controlled combat replay.
+
+Run `tyrmor-corpse-without-search` with the same slot B fixture to verify
+that the body illustration clears when the party continues and that the
+Encamp journal has no entry 26 clue.

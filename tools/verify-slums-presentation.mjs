@@ -547,6 +547,12 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["tyrmor-corpse-without-search", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:9f51",
+    prompt: /YOUFINDTHECORPSEOFAMAN/i,
+    continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["tyrmor-journal-discovery", {
     slot: "B", inputs: ["s", "up", "enter"], portraitStops: { 2: "scene-illustration:area:22:ecl:9a06:caller:9f51" },
     portrait: "scene-illustration:area:22:ecl:9a06:caller:9fe3",
@@ -5502,6 +5508,11 @@ try {
       if (routeName === "kobold-cave-envoys-rematch" && frame.journal.trackedId === "commission-kobolds") {
         assert.match(frame.journal.objective.nextStep, /confront the king.*at the throne/i);
       }
+      await advance("j");
+    }
+    if (routeName === "tyrmor-corpse-without-search") {
+      await advance("j");
+      assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "river-tyrmor-journal"));
       await advance("j");
     }
     if (routeName === "tyrmor-journal-discovery") {
