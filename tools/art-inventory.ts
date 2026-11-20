@@ -680,15 +680,18 @@ const unlinkedScriptPictures = scriptReferences.flatMap(reference => {
   if (!archive || reference.candidates.length !== 1) return [];
   const unlinked = encounterCoverage.find(({ file }) => file === archive)?.unlinkedFrames
     .filter(({ block }) => block === reference.pictureId) ?? [];
-  const frames = unlinked.filter(({ uniform }) => !uniform).map(({ id, preview }) => ({ id, preview }));
+  const frames = unlinked.filter(({ uniform }) => !uniform).map(({ id, preview, member, frame }) => ({
+    id, preview, member, frame, sourceId: `${archive}:${reference.pictureId}:${member}:${frame}`,
+  }));
   if (!frames.length) return [];
   const pictures = archives.find(({ file }) => file === archive)?.entries.find(({ id }) => id === reference.pictureId)?.pictures ?? [];
   const sourceFrames = pictures.reduce((total, picture) => total + picture.frames, 0);
   return [{ ...reference, archive, frames, sourceFrames, coveredFrames: sourceFrames - unlinked.length }];
 });
-const unlinkedScriptFrameCount = new Set(
-  unlinkedScriptPictures.flatMap(({ frames }) => frames.map(({ id }) => id)),
-).size;
+const unlinkedScriptFrames = new Map(
+  unlinkedScriptPictures.flatMap(({ frames }) => frames.map(frame => [frame.id, frame] as const)),
+);
+const unlinkedScriptFirstMemberCount = [...unlinkedScriptFrames.values()].filter(({ member }) => member === 0).length;
 const encounterFamilies = [
   { label: "Scene illustrations", prefix: "PIC" },
   { label: "Encounter sprites", prefix: "SPRIT" },
@@ -776,13 +779,13 @@ ${encounterCoverage.map(({ file, frames, matched, pixelMatchedFrames, unlinkedFr
 ${encounterCoverage.flatMap(({ pixelMatchedFrames }) => pixelMatchedFrames).map(({ id, replacement, replacementPreview, reflected }) =>
   `<tr><th scope="row"><code>${escape(id)}</code></th><td><code>${escape(replacement)}</code>${reflected ? " · mirrored" : ""}</td><td><a href="${escape(replacementPreview)}">Enhanced PNG</a></td></tr>`).join("")}
 </tbody></table></details>
-${unlinkedScriptPictures.length ? `<details id="unlinked-script-pictures"><summary>Unlinked pictures referenced by scripts · ${unlinkedScriptFrameCount} distinct frames across ${unlinkedScriptPictures.length} references</summary>
-<p>These literal PICTURE instructions have one archive candidate with unlinked artwork. Replay the scene to confirm which frame appears.</p>
+${unlinkedScriptPictures.length ? `<details id="unlinked-script-pictures"><summary>Unlinked pictures referenced by scripts · ${unlinkedScriptFrames.size} distinct frames across ${unlinkedScriptPictures.length} references</summary>
+<p>${unlinkedScriptFirstMemberCount} first-member frames and ${unlinkedScriptFrames.size - unlinkedScriptFirstMemberCount} secondary-member frames. Secondary members can be animation fragments applied to the base picture. Replay the scene to confirm which images appear.</p>
 <table class="coverage-table"><thead><tr><th>Script and address</th><th>Nearby dialogue</th><th>Archive block coverage</th><th>Unlinked frames</th></tr></thead><tbody>
 ${unlinkedScriptPictures.map(({ file, script, address, nearbyText, frames, coveredFrames, sourceFrames }) =>
   `<tr><th scope="row">${escape(file)} #${script} · ${address.toString(16).padStart(4, "0")}</th><td>${escape(nearbyText ?? "")}</td>
   <td>${coveredFrames} of ${sourceFrames} covered</td>
-  <td>${frames.map(({ id, preview }) => `<a href="${escape(preview)}"><code>${escape(id)}</code></a>`).join("<br>")}</td></tr>`).join("")}
+  <td>${frames.map(({ sourceId, preview }) => `<a href="${escape(preview)}"><code>${escape(sourceId)}</code></a>`).join("<br>")}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
 <details><summary>Unlinked source frames · ${encounterTotals.remaining}</summary>
 <p>${encounterTotals.uniformUnlinked} unlinked frames are solid-color images.</p>
