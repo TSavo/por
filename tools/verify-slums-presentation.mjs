@@ -573,6 +573,16 @@ const illustrationRoutes = new Map([
     journalLead: "swamp-friend-word-charge", journalLeadAtDiscovery: true,
     continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i, clearsPortrait: true },
   }],
+  ["stojanow-bugbear-gate-payment", {
+    slot: "B", inputs: [
+      "up", "enter", "enter", "p", "n", "t", "enter", "enter", "enter",
+      "up", "up", "enter", "enter", "up", "right", "up", "up", "enter", "y", "enter", "y",
+    ],
+    portraitStops: { 20: "portrait:area:9:PIC2.DAX:63:0:0" },
+    portrait: "scene-illustration:area:9:ecl:acb7",
+    prompt: /THEBUGBEARTAKESTHEMONEYANDTHEGATEOPENS.*YOUPROCEEDTHROUGH/i,
+    continuation: { inputs: ["enter", "up"], prompt: /8,4N.*AREACASTVIEWENCAMP|AREACASTVIEWENCAMP.*8,4N/i, clearsPortrait: true },
+  }],
   ["diogenes-upper-ledge-fireball", {
     slot: "A", inputs: [
       "up", "enter", "e", "enter", "s", "enter", "end", "enter", "enter", "enter", "s", "enter", "f", "a",
