@@ -547,6 +547,16 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-maze-patrol-captain", {
+    slot: "B", inputs: ["s", "enter", "up", "enter", "enter", "down", "up", "enter", "enter", "a"],
+    requireTiledApproach: false,
+    approachSequence: [
+      [56, 32, "encounter:area:4:SPRIT5.DAX:16:1:0", 24, 65],
+      [48, 32, "encounter:area:4:ecl:9d8a:SPRIT5.DAX:16:0:0", 40, 80],
+    ],
+    portrait: "portrait:area:4:ecl:9d8a:HEAD5.DAX:9:BODY5.DAX:1",
+    prompt: /WHATAREYOUDOINGHERE/i,
+  }],
   ["stojanow-bugbear-punch", {
     slot: "A", inputs: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left", "up", "t"],
     portrait: "portrait:area:9:ecl:a959:PIC2.DAX:63:0:0",
