@@ -3788,3 +3788,8 @@ chart. A Chrome replay walked from the local Ferran checkpoint to City
 Hall, verified the illustration and the original 1,308 XP award, and
 checked display switching. The final council replay still shows the
 victory artwork and saves the final turn-in.
+
+The black-sideburns, wavy-beard, and gray-temples Human heads now have
+recolor masks for both poses of all 32 weapon choices. The inventory
+confirmed all 96 pairs. Chrome checked representative editor choices
+and controlled live bow, sabre, and robed-wand battles, one for each head.
