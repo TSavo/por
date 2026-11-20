@@ -416,6 +416,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("castle-disguise")) nextStep = "Use the clothes offered by the resistance to move through the castle and find Tyranthraxus.";
       else if (knows("castle-genheeris-deal")) nextStep = "Continue to Tyranthraxus's audience hall. Genheeris agreed to help the party turn against him.";
       else if (knows("castle-al-hyam-notes")) nextStep = "Review Al-Hyam Dhazid's notes on the Pool of Radiance in journal entry 30, then continue searching Valjevo Castle for Tyranthraxus.";
+      else if (knows("castle-records-thay") && !knows("castle-records-moonsea")) nextStep = "Continue reading the Valjevo records to learn more about Tyranthraxus's plans, or resume searching the castle.";
       else if (knows("kovel-castle-map-nw") && knows("kovel-castle-map-ne")) nextStep = "Review the northwest and northeast castle maps in journal entries 41 and 29, then return to Valjevo Castle.";
       else if (knows("kovel-castle-map-nw")) nextStep = "Review the northwest castle map in journal entry 41, then return to Valjevo Castle.";
       else if (knows("kovel-castle-map-ne")) nextStep = "Review the northeast castle map in journal entry 29, then return to Valjevo Castle.";
