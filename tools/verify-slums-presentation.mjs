@@ -6201,6 +6201,7 @@ try {
     await advance("j");
     assert.ok(frame.journal && !knows("castle-genheeris-orders"));
     assert.doesNotMatch(frame.journal.objective.nextStep, /phase 2 of Plan A/i);
+    const castleObjective = frame.journal.objective.nextStep;
     await advance("j");
     for (const key of ["up", "enter", "enter"]) await advance(key);
     for (const placement of [
@@ -6225,10 +6226,12 @@ try {
     await advance("j");
     assert.equal(knows("castle-genheeris-orders"), genheerisOrders);
     assert.equal(knows("castle-genheeris-offer"), !genheerisOrders);
+    assert.doesNotMatch(frame.journal.objective.nextStep, /phase 2 of Plan A/i);
     if (genheerisOrders) {
-      assert.match(frame.journal.objective.nextStep, /Find Al-Hyam Dhazid.*phase 2 of Plan A/i);
+      assert.match(frame.journal.leads.find(({ id }) => id === "castle-genheeris-orders").detail,
+        /relay orders to Al-Hyam Dhazid.*phase 2 of Plan A/i);
+      assert.equal(frame.journal.objective.nextStep, castleObjective);
     } else {
-      assert.doesNotMatch(frame.journal.objective.nextStep, /phase 2 of Plan A/i);
       for (const key of ["j", "enter", "y", "enter"]) await advance(key);
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /GENHEERIS/i);
       assert.equal(frame.portrait, undefined);
