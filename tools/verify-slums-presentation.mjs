@@ -7981,9 +7981,31 @@ try {
       const duel = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "swamp-duel.png"), Buffer.from(duel.data, "base64"));
       const struck = () => frame.animation?.some((shot) => shot.combatArt?.some(([, , id]) => id === strike));
-      for (let action = 0; action < 5 && !struck(); action++) await advance("q");
-      assert.ok(struck(), "The lizardfolk strike should appear in the original duel");
-      await waitFor("the swamp lizardfolk strike", () => loaded(strike));
+      let sawStrike = false;
+      for (let action = 0; action < 2; action++) {
+        await advance("q");
+        if (struck()) {
+          sawStrike = true;
+          await waitFor("the swamp lizardfolk strike", () => loaded(strike));
+        }
+      }
+      assert.ok(sawStrike, "The lizardfolk strike should appear in the original duel");
+      for (const key of ["enter", "enter", "e"]) await advance(key);
+      for (const [caller, outcome] of [["a3f6", "pledge"], ["a45d", "farewell"]]) {
+        const illustration = `scene-illustration:area:16:ecl:9a87:caller:${caller}`;
+        assert.equal(frame.portrait, illustration);
+        await waitFor(`the elder's ${outcome} illustration`, () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${illustration}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        await switchBothWays(frame.frame);
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `swamp-elder-${outcome}.png`), Buffer.from(shot.data, "base64"));
+        await advance("enter");
+      }
+      assert.equal(frame.portrait, undefined);
+      await advance("j");
+      assert.ok(knows("swamp-alliance-averted"));
+      assert.match(frame.journal.objective.nextStep, /south drawbridge.*elder's pledge/i);
     }
     console.log("Verified the swamp elder's layered terrain and journal updates in Chrome. Capture:", directory);
   } else if (kovelMap) {

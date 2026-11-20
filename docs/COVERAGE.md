@@ -1076,6 +1076,9 @@ write. After the loss screen the ECL interpreter read zero from
 `6DC7`. The original swamp script at `A350` branches to the hostile
 outcome only on 129, so zero falls through to the pledge and awards flag
 254. The route has no runtime correction for that mismatch.
+Chrome verifies the separate pledge and farewell illustrations, the
+restoration of first-person scenery afterward, and the journal's return
+directions after the elder makes his pledge.
 
 The `swamp-reward` replay uses a controlled City Hall save carrying flag
 254 and the witnessed pledge from the duel result save. Chrome checks the
