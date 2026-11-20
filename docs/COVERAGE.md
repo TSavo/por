@@ -3563,6 +3563,9 @@ At the Temple of Bane, the patrol Parlay menu keeps the Enhanced outdoor
 portrait for goblins, orcs, hobgoblins, and ogres. Chrome verified the
 original stance choices, the loaded portrait, and mode switching for
 each species through the patrol's spotted branch in controlled replays.
+The separate Black Hand orc encounter uses a dedicated illustration
+during the opening dialogue and Parlay. The controlled Chrome replay
+checks the original Nice response, which dismisses all four orcs.
 
 Enhanced mode draws separate 96×96 selection frames behind standard-size
 combat sprites and the icon editor previews. The combat and inactive
