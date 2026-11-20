@@ -1697,6 +1697,30 @@ if (process.argv[2] === "--mage-training-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--genheeris-deal-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot B outside Genheeris's room in Valjevo Castle.");
+  copyFileSync(process.argv[3], join(saveDir, "B.json"));
+  const offer = ["up", "enter", "enter", "a", "a", "p", "h", "enter"];
+  const checkDeal = accepted => (_text, frame) => {
+    assert.ok(frame.journal.leads.some(({ id }) => id === "castle-genheeris-offer"));
+    assert.equal(frame.journal.leads.some(({ id }) => id === "castle-genheeris-deal"), accepted);
+  };
+  await replay(loadSlot("3062"), "85000000", [
+    ...offer, "j", checkDeal(false), "j", "n",
+    (text) => assert.match(text, /a battle begins/),
+    "j", checkDeal(false),
+  ]);
+  await replay(loadSlot("3062"), "85000000", [
+    ...offer, "y", "enter",
+    (text) => assert.match(text, /genheeris 9 22/),
+    "j", checkDeal(true), "j", "e", "s", "s", "d",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2064"), "85000000", ["j", checkDeal(true)]);
+  console.log("Verified Genheeris's recruitment and refusal, then reloaded the accepted bargain.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--restal-seal-checkpoint") {
   assert.ok(process.argv[3], "Pass a slot C at Restal's well with a broken seal and Textile House commission.");
   copyFileSync(process.argv[3], join(saveDir, "C.json"));

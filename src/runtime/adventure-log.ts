@@ -414,6 +414,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("castle-kitchen-oil") && !knows("castle-kitchen-captives-freed")) nextStep = "Choose Kill the Overseer and Free the Slaves, or Go Back Outside to regroup.";
       else if (knows("castle-kitchen-warning") && !knows("castle-kitchen-captives-freed")) nextStep = "The overseer threatened to throw boiling oil. Choose Kill the Overseer and Free the Slaves, or Go Back Outside.";
       else if (knows("castle-disguise")) nextStep = "Use the clothes offered by the resistance to move through the castle and find Tyranthraxus.";
+      else if (knows("castle-genheeris-deal")) nextStep = "Continue to Tyranthraxus's audience hall. Genheeris agreed to help the party turn against him.";
       else if (knows("kovel-castle-map-nw") && knows("kovel-castle-map-ne")) nextStep = "Review the northwest and northeast castle maps in journal entries 41 and 29, then return to Valjevo Castle.";
       else if (knows("kovel-castle-map-nw")) nextStep = "Review the northwest castle map in journal entry 41, then return to Valjevo Castle.";
       else if (knows("kovel-castle-map-ne")) nextStep = "Review the northeast castle map in journal entry 29, then return to Valjevo Castle.";
@@ -1283,6 +1284,11 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("IF YOU KILL HIM INSTEAD OF ME I WILL MAKE YOU ALL GENERALS")) {
     leads.push({ id: "castle-genheeris-offer", title: "Genheeris's bargain",
       detail: "Genheeris offered to make the party generals if they killed Tyranthraxus instead of him." });
+  }
+  if (/IN FACT I WILL JOIN YOU\. IS IT A DEAL\?['"]? GOOD\./.test(text) ||
+      text.includes("GOOD. I WILL NOTIFY SOME OTHERS. YOU GO KILL HIM")) {
+    leads.push({ id: "castle-genheeris-deal", title: "The party accepted Genheeris's bargain",
+      detail: "The party agreed to help Genheeris turn against Tyranthraxus." });
   }
   if (text.includes("TELL AL-HYAM DHAZID TO EXECUTE PHASE 2 OF PLAN A")) {
     leads.push({ id: "castle-genheeris-orders", title: "Orders for Al-Hyam Dhazid",
