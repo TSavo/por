@@ -7303,12 +7303,27 @@ try {
     if (routeName === "bane-reward") assert.match(frame.journal.objective.nextStep, /journal entry 25/);
     if (routeName === "kobold-king-reward") assert.match(frame.journal.objective.nextStep, /tell the council clerk at City Hall that the king fell/);
     if (routeName === "nomad-reward") assert.match(frame.journal.objective.nextStep, /report what happened at the Nomad Camp/);
-    for (const key of ["j", "right", "right", "up", "right", "right", "up", "enter", "enter", "j"]) await advance(key);
+    for (const key of ["j", "right", "right", "up", "right", "right", "up", "enter", "enter"]) await advance(key);
+    if (routeName === "river-reward") {
+      const riverPortrait = "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:stojonow-river";
+      assert.equal(frame.portrait, riverPortrait);
+      await waitFor("the Stojonow River reward illustration", () => run(`
+        document.querySelector('.encounter-portrait[src="/art/${riverPortrait}"]')?.naturalWidth === 352`));
+      await switchBothWays();
+      await verifyPortraitPanel();
+    }
+    await advance("j");
     assert.equal(journalStatus(), "reward-pending");
     const clerkDialogue = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
     assert.match(clerkDialogue, originalDialogue);
     if (routeName === "bane-reward") assert.match(frame.journal.objective.nextStep, /keep the temple treasure.*Press Enter/);
-    for (const key of ["j", "enter", "enter", "enter", "s", "e", "j"]) await advance(key);
+    await advance("j");
+    await advance("enter");
+    if (routeName === "river-reward") {
+      assert.equal(frame.portrait, undefined);
+      assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /receives34250experiencepoints/i);
+    }
+    for (const key of ["enter", "enter", "s", "e", "j"]) await advance(key);
     if (routeName === "bivant-reward") {
       assert.equal(journalStatus(), "reward-pending");
       for (const key of ["j", "y", "t"]) await advance(key);

@@ -3838,3 +3838,7 @@ A local benchmark using 12 empty 320×200 frames and the full art pack
 measured 644 ms per frame before this change and 11 ms afterward.
 A controlled Chrome combat replay still verified both recolored flail
 poses and display switching.
+
+The `river-reward` Chrome route checks the restored Stojonow trade route
+illustration, the original 34,250 XP reward, and the commission turn-in.
+It uses a local City Hall checkpoint with the river ready to report.
