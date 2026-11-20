@@ -576,6 +576,18 @@ const illustrationRoutes = new Map([
     journalLead: "auction-garwin-escaped", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /THEAUCTIONOVER,THEMONSTERSGRUMBLEANDTURNAWAY/i },
   }],
+  ["podal-auction-ogre-searched", {
+    slot: "I", inputs: ["up", ...Array(10).fill("enter")],
+    portraitStops: { 10: "portrait:area:18:ecl:a51e:PIC1.DAX:16:0:0" },
+    portrait: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0",
+    prompt: /THEOGREISTACKLEDANDSEARCHED.*DOESN'THAVETHEITEM/i,
+    journalLead: "auction-ogre-searched", journalLeadAtDiscovery: true,
+    continuation: {
+      inputs: ["enter", "enter"],
+      portrait: "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:0:0",
+      prompt: /THEAUCTIONISCANCELLED/i,
+    },
+  }],
   ["valhingen-storm-entrance", {
     slot: "A", inputs: ["down", "up", "enter", "enter", "g", "enter", "enter"],
     portraitStops: { 0: null, 6: "scene-illustration:area:26:ecl:b695:caller:9c27" },
@@ -5866,6 +5878,10 @@ try {
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead), "Expected witnessed dialogue lead");
+      if (routeName === "podal-auction-ogre-searched") {
+        assert.ok(frame.journal.leads.some(({ id }) => id === "auction-cancelled"));
+        assert.ok(!frame.journal.leads.some(({ id }) => id === "auction-garwin-escaped"));
+      }
       if (routeName === "nomad-feast-arrival") assert.ok(frame.journal.leads.some(({ id }) => id === "nomad-feast-attended"));
       if (routeName === "kobold-cave-envoys-rematch" && frame.journal.trackedId === "commission-kobolds") {
         assert.match(frame.journal.objective.nextStep, /confront the king.*at the throne/i);
