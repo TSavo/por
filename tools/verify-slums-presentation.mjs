@@ -547,6 +547,11 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["bane-gate-direct-attack", {
+    slot: "A", inputs: ["up", "enter", "enter", "a"],
+    portrait: "portrait:area:24:PIC1.DAX:4:0:0",
+    prompt: /ABATTLEBEGINS/i,
+  }],
   ["bane-gate-inspection-failure", {
     slot: "A", inputs: ["up", "enter", "enter", "b"],
     portrait: "portrait:area:24:ecl:a586:PIC1.DAX:4:0:0",
