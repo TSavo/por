@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:7:SPRIT5.DAX:16:0:0": "valjevo-audience-bodyguard-approach.png",
     "encounter:area:3:ecl:b35e:SPRIT5.DAX:60:1:0": "valjevo-lower-snake-approach-middle.png",
     "encounter:area:3:ecl:b35e:SPRIT5.DAX:60:0:0": "valjevo-lower-snake-approach-near.png",
     "portrait:area:9:ecl:aeef:HEAD2.DAX:5:BODY2.DAX:9": "stojanow-wagon-final-offer.png",
@@ -5451,6 +5452,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:7:SPRIT5.DAX:16:0:0": {"area":7,"x":48,"y":32,"width":40,"height":80},
     "encounter:area:3:ecl:b35e:SPRIT5.DAX:60:1:0": {"area":3,"x":48,"y":32,"width":40,"height":65},
     "encounter:area:3:ecl:b35e:SPRIT5.DAX:60:0:0": {"area":3,"x":40,"y":32,"width":64,"height":80},
     "encounter:area:28:ecl:a210:SPRIT6.DAX:13:0:0": {"area":28,"x":48,"y":32,"width":40,"height":73},
