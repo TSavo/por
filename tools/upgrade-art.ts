@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
 import { characterSheetPartKey, characterSheetPartPixels, portraitKey, scriptIllustrations } from "./portrait-art.js";
@@ -17,6 +17,25 @@ interface LoadedArtwork {
   height: number;
   reflected?: boolean;
   encounter?: EncounterAnchor;
+}
+
+export function loadCombatMaterialMasks(artwork: ReadonlyMap<string, LoadedArtwork>) {
+  const masks = new Map<string, Buffer>();
+  const filesByDirectory = new Map<string, Set<string>>();
+  // A companion PNG records the original material index for each enhanced pixel.
+  for (const [id, art] of artwork) {
+    const party = partyCombatKey.exec(id);
+    if (!party || party[3]) continue;
+    const directory = dirname(art.path);
+    let files = filesByDirectory.get(directory);
+    if (!files) filesByDirectory.set(directory, files = new Set(readdirSync(directory)));
+    const name = art.file.replace(/\.png$/i, "-materials.png");
+    if (name === art.file || !files.has(name)) continue;
+    const mask = readFileSync(join(directory, name));
+    const size = pngDimensions(mask);
+    if (size?.width === art.width && size.height === art.height) masks.set(id, mask);
+  }
+  return masks;
 }
 
 export interface ArtworkLoadIssue {

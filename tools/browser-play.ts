@@ -3,13 +3,12 @@ import { createHash } from "node:crypto";
 import { appendFileSync, readdirSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 import { requireBrowserGameRoot } from "./gamedata.js";
-import { loadUpgradeArt } from "./upgrade-art.js";
+import { loadCombatMaterialMasks, loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
 import { getKey, type PanelFrameStamp, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
-import { partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
-import { pngDimensions } from "./png.js";
+import { partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { characterSheetPartKey, portraitKey, scriptIllustrations, type CharacterSheetPart } from "./portrait-art.js";
 import type { EncounterPlacement } from "./encounter-art.js";
 import { NarrationCatalog, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
@@ -81,21 +80,7 @@ const gameFont = (() => {
   }
 })();
 const artwork = loadUpgradeArt(undefined, gameRoot);
-// A companion PNG records the original material index for each enhanced pixel.
-const materialMasks = new Map<string, Buffer>();
-const filesByDirectory = new Map<string, Set<string>>();
-for (const [id, art] of artwork) {
-  const party = partyCombatKey.exec(id);
-  if (!party || party[3]) continue;
-  const directory = dirname(art.path);
-  let files = filesByDirectory.get(directory);
-  if (!files) filesByDirectory.set(directory, files = new Set(readdirSync(directory)));
-  const name = art.file.replace(/\.png$/i, "-materials.png");
-  if (name === art.file || !files.has(name)) continue;
-  const mask = readFileSync(join(directory, name));
-  const size = pngDimensions(mask);
-  if (size?.width === art.width && size.height === art.height) materialMasks.set(id, mask);
-}
+const materialMasks = loadCombatMaterialMasks(artwork);
 let streetMaterials: string | undefined;
 const localMaterialSets = new Map<string, string>();
 type ExplorationFrame = {

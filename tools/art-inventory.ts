@@ -7,7 +7,7 @@ import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng, pngDimensions } from "./png.js";
-import { loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
+import { loadCombatMaterialMasks, loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
 import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, portraitKey, scriptIllustrations } from "./portrait-art.js";
 import { combatEffectKey, transformCombatEffectPixels, combatSelectionKey, isCombatExtent, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
@@ -234,6 +234,7 @@ for (const path of tracePaths) {
 }
 const artworkLoadIssues: ArtworkLoadIssue[] = [];
 const artwork = loadUpgradeArt(undefined, gameData, issue => artworkLoadIssues.push(issue));
+const materialMasks = loadCombatMaterialMasks(artwork);
 const portraitFallbackCoverage = observedPortraitFallbacks.map(fallback => {
   const { area, cursor, sources } = fallback;
   const scopes = ["portrait:"];
@@ -518,7 +519,7 @@ const combatBodies = archives.find(({ file }) => file === "CBODY.DAX")?.entries 
 const bodyIds = new Set(combatBodies.map(({ id }) => id));
 function partyCombatPose(head: number, body: number) {
   const id = `combat:party:${head}:${body}`;
-  return { id, preview: replacementsById.get(id)?.preview };
+  return { id, preview: replacementsById.get(id)?.preview, hasMaterialMask: materialMasks.has(id) };
 }
 // A full cycle through the small combat icon editor selects body IDs 0 through 31.
 const dwarfWeapons = combatBodies.filter(({ id }) => id < 32 && bodyIds.has(id | 0x80));
@@ -718,10 +719,10 @@ ${monsterPoseCoverage.map(({ name, dialogueName, combatFile, poses }) => `<tr><t
 </tbody></table></details>
 ${Object.entries({ "Small party combat icons": dwarfIconCoverage, "Tall party combat icons": tallIconCoverage, "Default Human combat icons": defaultHumanIconCoverage })
   .map(([label, coverage]) => `<details><summary>${label} · ${coverage.filter(({ ready, strike }) => ready.preview && strike.preview).length} of ${coverage.length} combinations with both poses</summary>
-<p>Head and body numbers are DAX block IDs. Identical head choices share a row for each body. Coverage counts exact default-palette bindings.</p>
+<p>Head and body numbers are DAX block IDs. Identical head choices share a row for each body. ${coverage.filter(({ ready, strike }) => ready.hasMaterialMask && strike.hasMaterialMask).length} combinations have material masks for both poses.</p>
 <table class="coverage-table"><thead><tr><th scope="col">CHEAD block</th><th scope="col">CBODY ready block</th><th scope="col">Ready</th><th scope="col">Strike</th></tr></thead><tbody>
-${coverage.map(({ head, aliases, body, ready, strike }) => `<tr><th scope="row">${[head, ...aliases].join(", ")}</th><td>${body}</td>${[ready, strike].map(({ id, preview }) =>
-  `<td>${preview ? `<a href="${escape(preview)}">${escape(id)}</a>` : `Missing <code>${escape(id)}</code>`}</td>`).join("")}</tr>`).join("")}
+${coverage.map(({ head, aliases, body, ready, strike }) => `<tr><th scope="row">${[head, ...aliases].join(", ")}</th><td>${body}</td>${[ready, strike].map(({ id, preview, hasMaterialMask }) =>
+  `<td>${preview ? `<a href="${escape(preview)}">${escape(id)}</a>` : `Missing <code>${escape(id)}</code>`}${hasMaterialMask ? " · color mask" : ""}</td>`).join("")}</tr>`).join("")}
 </tbody></table></details>`).join("")}
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>

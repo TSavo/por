@@ -3549,6 +3549,11 @@ every available color control in all eight configurations, both poses,
 the Prev action, and Classic and Enhanced switching. Four representative
 battles loaded a saved green color and showed it in both the ready and
 strike poses.
+The small and Human bow masks cover both ready and strike poses. Chrome
+verified that Body and Hair changes keep both previews Enhanced. The
+small bow's saved green color also appeared in both live combat poses.
+The art inventory uses the browser's mask loader and lists color-mask
+coverage for each pose.
 
 After the Phlan council finale illustration landed, the inventory decoded
 113 archives without unresolved blocks or artwork load errors. Of 807
