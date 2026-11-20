@@ -3327,6 +3327,11 @@ minotaur approaches and the transitions into combat. The Textile House
 roaming ambush uses the existing drum courtyard art for the same two
 hobgoblins. Chrome verified both ready and attack poses in the ambush.
 
+The Eastern Marches ridge lizardfolk approach passed a production
+Chrome replay through the original combat transition. The Nomad feast
+illustration appears during four outdoor dialogue pauses with Hassad.
+Chrome checked those pauses and the surrounding tent portraits.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
