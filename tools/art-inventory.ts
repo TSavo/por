@@ -522,6 +522,8 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["nomad-headman-refusal-attack.png", ["The headman angrily orders an attack", "A guard reacts behind the headman"]],
   ["mendor-storeroom-kobold-map.png", ["The party sketches a map as a kobold explains the surroundings", "The sketch reads as a journal entry"]],
   ["kuto-catacombs-arrow-volley.png", ["A volley reaches the party from the far corner", "The torch and curtained doorways identify the room"]],
+  ["zhentil-dinner-escort.png", ["A guard beckons the party to follow", "Dusk is visible beyond the torchlit keep"]],
+  ["lizard-wilds-kobold-release.png", ["Freed kobolds run out through the doorway", "One calls a warning back to the party", "Open shackles show the earlier confinement"]],
   ["pyramid-pump-prisoners-hostile.png", ["The prisoners hurl barrels of contaminant", "The party is visible in the path of the splash"]],
 ]);
 

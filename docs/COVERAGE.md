@@ -203,6 +203,10 @@ Use `node tools/verify-fresh-party.mjs --fresh-armored-slums` with
 `POR_REQUIRE_UNINTERRUPTED_COMBAT=1` to run those segments as one
 playthrough from character creation. It uses one save directory for
 the Ohlo reward, the armor purchases, and the Slums victories.
+On the November 20 replay at `d76b56e5`, all six fighters equipped banded
+mail and shields bought with Ohlo's reward. The replay then won three
+Slums patrols and the fixed orc outpost through the original combat menus,
+rested, and reloaded the same party in slot A.
 Use `--fresh-sokal-reinforced` with the same strict setting to continue
 with this party through the goblin room, sale of its enchanted armor,
 recruitment at the arena, and the boat to Sokal Keep. The replay checks
