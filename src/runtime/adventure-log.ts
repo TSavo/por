@@ -1540,6 +1540,18 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "zhentil-packet-delivered", title: "The commandant received the packet",
       detail: "The party handed the papers to the commandant inside his office." });
   }
+  if (text.includes("HERE YOU SEE ONE OF OUR FINE BARRACKS") && text.includes("EACH CAN HOLD OVER A 100 MEN")) {
+    leads.push({ id: "zhentil-tour-barracks", title: "Zhentil's barracks",
+      detail: "The guide said the outpost has six barracks, each large enough for more than a hundred men." });
+  }
+  if (text.includes("HERE YOU SEE ONE OF OUR FINE WATCH TOWERS")) {
+    leads.push({ id: "zhentil-tour-watchtowers", title: "The outpost's watchtowers",
+      detail: "The guide showed the party one of the stone watchtowers." });
+  }
+  if (text.includes("THIS WALL HAS SURVIVED MANY ATTACKS, INCLUDING ONE FROM A DRAGON")) {
+    leads.push({ id: "zhentil-tour-outer-wall", title: "A wall that survived a dragon",
+      detail: "The guide claimed that Zhentil's outer wall had withstood a dragon attack." });
+  }
   if (text.includes("HERE ARE YOUR QUARTERS. DO NOT LEAVE THIS AREA")) {
     leads.push({ id: "zhentil-quarters", title: "Quarters at Zhentil Outpost",
       detail: "The guard showed the party its assigned quarters and told it to stay there." });
