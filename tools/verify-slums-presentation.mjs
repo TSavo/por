@@ -7930,6 +7930,7 @@ try {
     let patrol = false;
     for (const [step, key] of route.entries()) {
       if (key) await advance(key);
+      if (armory && step < route.length - 1) assert.equal(frame.portrait, undefined);
       if (landing && !courtyard && step === 9) {
         const parchment = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
         assert.match(parchment, /THELASTPARTISEATENAWAY/i);
@@ -7976,6 +7977,16 @@ try {
             image.getAttribute("src") === ${JSON.stringify("/art/" + approach)} &&
             image.naturalWidth === 96 && image.naturalHeight === 260)`));
       } else if (!patrolCombat) assert.equal(frame.encounter, undefined);
+    }
+    if (armory) {
+      const cache = "scene-illustration:area:21:ecl:ae41:caller:a92a";
+      assert.equal(frame.portrait, cache);
+      await waitFor("the hidden armory illustration", () => run(`
+        document.querySelector('.encounter-portrait[src="/art/${cache}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays();
+      await advance("n");
+      assert.notEqual(frame.portrait, cache);
     }
     assert.equal(views, courtyard ? 25 : patrolCombat ? 18 : landing ? 19 : 12);
     assert.equal(seen.size, courtyard ? 56 : landing ? 49 : 13);
