@@ -7407,7 +7407,14 @@ try {
     await switchBothWays();
     for (const key of ["enter", "right", "up"]) await advance(key);
     assert.match(halls(), /ASECRETDOORISFOUNDTOYOURLEFT/i);
-    assert.notEqual(frame.portrait, doorIllustration);
+    assert.equal(frame.portrait, "scene-illustration:area:22:ecl:9a06:caller:9c5c:cue:left");
+    await waitFor("the left-side pyramid secret door", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352 &&
+      document.querySelector(".encounter-portrait")?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    const leftDoorShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "pyramid-left-secret-door.png"), Buffer.from(leftDoorShot.data, "base64"));
+    await switchBothWays();
     for (const key of ["enter", "right", "up", "j"]) await advance(key);
     assert.ok(frame.journal?.leads.some(({ id }) => id === "river-entrance-inside"));
     assert.ok(!frame.journal.leads.some(({ id }) => id === "river-fountain"));

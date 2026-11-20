@@ -1597,6 +1597,8 @@
     "scene-illustration:area:25:ecl:b624:caller:9d4d": "zhentil-barracks-tour.png",
     "scene-illustration:area:22:ecl:9aee:caller:9ac5": "pyramid-inner-secret-door.png",
     "scene-illustration:area:22:ecl:9a06:caller:9c5c": "pyramid-inner-secret-door.png",
+    "scene-illustration:area:22:ecl:9b1a:caller:9ac5": "pyramid-left-secret-door.png",
+    "scene-illustration:area:22:ecl:9a06:caller:9c5c:cue:left": "pyramid-left-secret-door.png",
     "scene-illustration:area:26:ecl:9f65": "river-hidden-rowboat.png",
     "scene-illustration:area:26:ecl:9f74": "river-hidden-rowboat.png",
     "scene-illustration:area:25:ecl:9da3:caller:9af6": "zhentil-watchtower-tour.png",
