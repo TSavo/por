@@ -8645,7 +8645,12 @@ try {
     await advance("j");
     assert.equal(frame.journal?.trackedId, "commission-kovel");
     assert.ok(!knows(chase) && !knows(split));
+    const approach = [40, 32, "encounter:area:14:ecl:ac4c:SPRIT3.DAX:11:0:0", 48, 80];
+    await observeApproach([approach], false);
     for (const key of ["j", "up", "up"]) await advance(key);
+    assert.deepEqual(frame.animation?.map(({ encounter }) => encounter).filter(Boolean), [approach]);
+    assert.equal(frame.encounter, undefined);
+    await waitFor("the two Kovel thieves", () => run("window.observedApproach.size === 1"));
     assert.match(textOf(frame), /WILLYOUCHASETHEM/i);
     await verifyChaseIllustration("scene-illustration:area:14:ecl:accb", "kovel-thieves-flee-east.png");
     await advance("j");
