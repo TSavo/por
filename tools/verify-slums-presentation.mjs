@@ -7044,7 +7044,17 @@ try {
     const warning = "gate-tower-warning", punch = "gate-bugbear-punch", released = "gate-bugbears-let-go";
     await advance("j");
     assert.ok(!known(warning) && !known(punch) && !known(released));
-    for (const key of ["j", "up", "up", "up", "enter", "enter", "up", "right", "up", "up", "j"]) await advance(key);
+    for (const key of ["j", "up", "up", "up", "enter", "enter", "up", "right", "up", "up"]) await advance(key);
+    const towerWarning = "scene-illustration:area:9:ecl:a863";
+    assert.equal(frame.portrait, towerWarning);
+    await waitFor("the Stojanow tower warning", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352 &&
+      document.querySelector(".encounter-portrait")?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    const towerShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "stojanow-tower-voice-warning.png"), Buffer.from(towerShot.data, "base64"));
+    await switchBothWays();
+    await advance("j");
     assert.ok(known(warning) && !known(punch) && !known(released));
     await run(`window.bugbearDistances = new Set();
       const layer = document.querySelector("#tile-art");
@@ -7058,7 +7068,9 @@ try {
           window.bugbearDistances.add(id);
         }
       }).observe(layer, { childList: true });`);
-    for (const key of ["j", "up", "left"]) await advance(key);
+    for (const key of ["j", "up"]) await advance(key);
+    assert.notEqual(frame.portrait, towerWarning);
+    await advance("left");
     await waitFor("all three bugbear approach distances", () => run("window.bugbearDistances.size === 3"));
     assert.deepEqual(await run("[...window.bugbearDistances]"), ["2", "1", "0"]);
     await advance("up");

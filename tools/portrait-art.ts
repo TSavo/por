@@ -36,6 +36,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:lizardmen", "LIZARDMENMENACEHASGREATLYIMPROVED"],
   ["scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king", "THISLOSSOFTHEKOBOLDFORCESWILLBEAMAJORBLOW"],
   ["scene-illustration:area:8:ecl:b5c3:caller:a51f", "YOUMAYKEEPALLYOUFOUNDINTHETEMPLEOFBANE"],
+  ["scene-illustration:area:9:ecl:a85c", "AVOICEFROMTHETOWERYELLS"],
+  ["scene-illustration:area:9:ecl:a863", "STAYAWAYFROMTHEWALL"],
   ["scene-illustration:area:14:ecl:afeb", "YOUFINDSOMEIMPORTANTLOOKINGFILES"],
   ["scene-illustration:area:14:ecl:afec", "YOUFINDSOMEIMPORTANTLOOKINGFILES"],
   ["scene-illustration:area:14:ecl:b359:cue:guild-files", "YOUFINDSOMEIMPORTANTLOOKINGFILES"],
