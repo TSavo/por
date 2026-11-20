@@ -3920,3 +3920,8 @@ Enhanced Manual Aim shows the selection artwork over empty squares.
 The `buccaneer-empty-manual-aim` Chrome route verifies four native cursor
 positions, Escape cleanup, and the original frame and save across
 display switches from a controlled Buccaneer checkpoint.
+
+The `sokal-floorboard-diary` Chrome route checks the ghost pointing to
+the board, the distinct diary and gems discovery illustration, and the
+return to the original gems choice. A companion replay declines the
+gems and confirms that entry 3 stays in the journal.

@@ -605,6 +605,12 @@ const illustrationRoutes = new Map([
     prompt: /THEUNDEADLEAVE/i,
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["sokal-floorboard-diary", {
+    slot: "C", inputs: ["up", "enter", "a", "a", "p", "n", ..."lux", "enter", "enter", "enter"],
+    portraitStops: { 11: "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0" },
+    portrait: "scene-illustration:area:21:ecl:ae31:caller:a573", prompt: /BENEATHAFLOORBOARD.*JOURNALASENTRY3/i,
+    continuation: { inputs: ["enter"], prompt: /DOYOUTAKETHEGEMS/i, clearsPortrait: true },
+  }],
   ["sokal-ferran-farewell", {
     slot: "F", inputs: ["up", "enter", "p", "n", "l", "u", "x", "enter", "t", "enter", "enter"],
     portraitStops: { 10: "portrait:PIC4.DAX:19:0:0" },
