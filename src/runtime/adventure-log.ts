@@ -804,6 +804,12 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES")) {
     leads.push({ id: "mendor-library-stacks", title: "Mendor's library stacks",
       detail: "The party found rooms of books marked by subject. Use Search to examine the shelves." });
+    for (const subject of ["Rhetoric", "Philosophy", "Mathematics", "History"]) {
+      if (text.includes(`A SIGN OVER THE ENTRANCE READS ${subject.toUpperCase()}.`)) {
+        leads.push({ id: `mendor-stacks-${subject.toLowerCase()}`, title: `${subject} stacks`,
+          detail: `The party read the ${subject} sign in Mendor's Library. Use Search to examine the shelves in that room.` });
+      }
+    }
   }
   if (text.includes("THEY DESCRIBE THE SURROUNDING AREA TO YOU") &&
       text.includes("SKETCH A MAP INTO YOUR JOURNAL CALLING IT ENTRY 10")) {

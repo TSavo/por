@@ -689,7 +689,7 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["left", "up"],
     portrait: "scene-illustration:area:15:ecl:99b5:caller:9de1",
     prompt: /THESEARETHELIBRARYSTACKS.*ASIGNOVERTHEENTRANCEREADSPHILOSOPHY/i,
-    journalLead: "mendor-library-stacks", journalLeadAtDiscovery: true,
+    journalLead: "mendor-stacks-philosophy", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
   ["mendor-history-of-the-north-discovery", {
@@ -6265,6 +6265,11 @@ try {
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead), "Expected witnessed dialogue lead");
+      if (routeName === "mendor-philosophy-stacks") {
+        assert.ok(frame.journal.leads.some(({ id }) => id === "mendor-library-stacks"));
+        assert.deepEqual(frame.journal.leads.filter(({ id }) => id.startsWith("mendor-stacks-")).map(({ id }) => id),
+          ["mendor-stacks-philosophy"]);
+      }
       if (routeName === "stojanow-wagon-handover") {
         assert.ok(!frame.journal.leads.some(({ id }) => id === "gate-trader-ettin-warning"));
         for (const key of ["j", "enter", "j"]) await advance(key);
