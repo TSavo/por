@@ -504,6 +504,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["kovel-chase-thieves-approach.png", ["Both hooded thieves are readable in the approach sprite", "Both figures fit the original sprite placement"]],
   ["wild-cave-minotaurs-command.png", ["Two minotaurs visibly directing the attack", "Four giant lizards responding to the command"]],
   ["wild-cave-snake-ceiling-ambush.png", ["The giant snake is visibly descending from above", "The party is directly below it, reacting to the fall"]],
+  ["wild-cave-three-boars-charge.png", ["Three adult boars are separately recognizable", "The boars charge toward the party down the cave passage"]],
   ["pyramid-left-secret-door.png", ["A distinct stone door and threshold in the left wall", "The main corridor still leads forward"]],
   ["valjevo-laundry-disguise-offer.png", ["A woman offers a bundle of clothes directly to the party", "The clothes are still in her hands while the offer awaits an answer"]],
   ["valjevo-tyranthraxus-reveal.png", ["An ancient bronze dragon with prominent swept-back horns", "The glowing pool at the base of the dragon"]],
