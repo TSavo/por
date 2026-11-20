@@ -469,10 +469,24 @@ const runtimeGroups = [
   { id: "scripted-scene-illustrations", label: "Scripted scene illustrations", entries: runtimeReplacements.filter(({ scriptCue }) => scriptCue) },
   { id: "runtime-artwork", label: "Runtime artwork", entries: runtimeReplacements.filter(({ scriptCue }) => !scriptCue) },
 ].filter(({ entries }) => entries.length);
-const runtimeGallery = runtimeGroups.map(({ id, label, entries }) =>
-  `<details id="${id}" data-category="${label}"><summary>${label} · ${entries.length} replacements</summary><div class="grid">` +
-  entries.map((entry) => `<figure data-visual="true" data-enhanced="true" data-coverage="complete">${replacementPreview(entry)}</figure>`).join("") +
-  "</div></details>").join("");
+const runtimeGallery = runtimeGroups.map(({ id, label, entries }) => {
+  const scripted = id === "scripted-scene-illustrations";
+  const groups = new Map<string, typeof entries>();
+  for (const entry of entries) {
+    const key = scripted ? entry.path : entry.id;
+    const group = groups.get(key) ?? [];
+    group.push(entry);
+    groups.set(key, group);
+  }
+  const count = scripted ? `${groups.size} illustrations · ${entries.length} bindings` : `${entries.length} replacements`;
+  return `<details id="${id}" data-category="${label}"><summary>${label} · ${count}</summary><div class="grid">` +
+    [...groups.values()].map(([entry, ...aliases]) => {
+      const otherBindings = aliases.length ? `<details><summary>Other bindings (${aliases.length})</summary>` +
+        aliases.map(({ id, scriptCue }) => `<p><code>${escape(id)}</code>${scriptCue ? ` · ${escape(scriptCue)}` : ""}</p>`).join("") +
+        "</details>" : "";
+      return `<figure data-visual="true" data-enhanced="true" data-coverage="complete">${replacementPreview(entry!)}${otherBindings}</figure>`;
+    }).join("") + "</div></details>";
+}).join("");
 const missingGallery = [...missingByArea].sort(([left], [right]) => left.localeCompare(right, "en", { numeric: true }))
   .map(([area, tiles]) => `<details id="unmatched-${area.toLowerCase()}" data-category="Captured tiles without replacements"><summary>` +
     `${area === "Battlefield" ? area : `Area ${area}`} · ${tiles.length} captured tiles without replacements</summary><div class="grid">` +
