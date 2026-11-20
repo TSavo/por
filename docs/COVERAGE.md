@@ -2725,6 +2725,10 @@ including two new lintel and sill tiles.
 16-view walk through the side courts. `stojanow-bugbear-approach` checks
 the far, middle, and near sprites over 121 tiles per frame before the
 warning portrait.
+`node tools/verify-fresh-party.mjs --bane-entry53-checkpoint PATH_TO_SLOT_A`
+uses a controlled party at (6,9), facing north in the Temple of Bane. It
+checks that Entry 53 is absent before the encounter, earned after the native
+ogre escort battle and loot prompt, and retained after saving and reloading.
 `bane-orc-guardroom-approach` verifies the middle and near warband frames
 over 121 terrain tiles before the existing ambush portrait.
 `new-phlan-tavern-aides-combat` verifies all seven Aides use the enhanced
