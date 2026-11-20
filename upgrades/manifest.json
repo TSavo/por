@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:17:CPIC2.DAX:0:ecl:b376": "nomad-raid-kobold-stand.png",
+    "combat:area:17:CPIC2.DAX:128:ecl:b376": "nomad-raid-kobold-strike.png",
     "encounter:area:3:ecl:a815:SPRIT5.DAX:55:0:0": "valjevo-barracks-waking-giants-approach-near.png",
     "portrait:area:3:ecl:9a2c:caller:b313:PIC5.DAX:7:0:0": "valjevo-cadorna-released.png",
     "encounter:area:3:ecl:a7be:SPRIT5.DAX:55:1:0": "valjevo-hill-giants-armor-middle.png",
