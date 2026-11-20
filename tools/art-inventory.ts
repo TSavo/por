@@ -535,7 +535,7 @@ const tallIconCoverage = combatHeads.filter(({ id }) => id >= 64 && id <= 77)
     strike: partyCombatPose(head, body | 0x80),
   })));
 const defaultHumanIconCoverage = tallIconCoverage.filter(({ head }) => head === 64);
-const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\d+|RANDCOM)\.DAX$/.test(file))
+const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\d+|RANDCOM|COMSPR)\.DAX$/.test(file))
   .map(({ file, entries }) => {
     let frames = 0;
     const unlinkedFrames = entries.flatMap(({ id, directoryIndex, pictures }) => {
@@ -607,6 +607,7 @@ const encounterFamilies = [
   { label: "Encounter sprites", prefix: "SPRIT" },
   { label: "Combat poses", prefix: "CPIC" },
   { label: "Battlefield props", prefix: "RANDCOM" },
+  { label: "Combat effects and selection frames", prefix: "COMSPR" },
 ].map(({ label, prefix }) => ({
   label,
   ...encounterCoverage.filter(({ file }) => file.startsWith(prefix)).reduce((total, row) => ({
