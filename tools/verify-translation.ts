@@ -3,7 +3,7 @@
  * ovl07_0000 is the ECL operand fetch at the start of overlay slice 7.
  * sys5bb_16b5 is System.FillChar.
  */
-import { deepStrictEqual, ok } from "node:assert";
+import { deepStrictEqual, ok, strictEqual } from "node:assert";
 import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { Cpu } from "../src/cpu/machine.js";
@@ -15,7 +15,7 @@ import { attachDos } from "../src/runtime/dos.js";
 import { isPartyFile } from "./save-slots.js";
 import { openJournalProfile } from "./journal-profile.js";
 import { exe_056c0, exe_05e44, exe_06a35 } from "../src/translated/exe.js";
-import { currentObjective, discoveredLeads, progressAddresses, questProgress, type JournalLead } from "../src/runtime/adventure-log.js";
+import { currentObjective, discoveredLeads, progressAddresses, questProgress, trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import { commissions } from "../src/runtime/commission-journal.js";
 import { parseDax } from "../src/lib/dax.js";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
@@ -733,6 +733,16 @@ function checkCampaignJournal(): void {
   const vampireOffer = lines.find((line) => line.includes("WHEN YOU MEET THE VAMPIRE USE THE BOTTLE"));
   const vampireLocation = lines.find((line) => line.includes("A VAMPIRE WHO LURKS IN THE NORTHEAST CORNER"));
   if (!vampireOffer || !vampireLocation) throw new Error("Missing graveyard clues in original scripts");
+  const bottle = commissions.find(({ id }) => id === "bottle")!;
+  const bottleReport = lines.find((line) => line.includes(bottle.report!));
+  if (!bottleReport) throw new Error("Missing the original Silver Bottle return dialogue");
+  const reportedBottle = discoveredLeads(bottleReport);
+  const vampireHandoff = discoveredLeads(bottleReport + "\n" + vampireOffer);
+  strictEqual(trackedJournalObjective(reportedBottle, "commission-bottle"), undefined);
+  strictEqual(trackedJournalObjective(vampireHandoff, "commission-bottle"), "commission-bottle-vampire");
+  strictEqual(trackedJournalObjective(vampireHandoff), undefined);
+  strictEqual(currentObjective(vampireHandoff, "commission-bottle").nextStep,
+    currentObjective(vampireHandoff, "commission-bottle-vampire").nextStep);
   const vampireLeads = discoveredLeads(vampireOffer + "\n" + vampireLocation);
   if (!currentObjective(vampireLeads, "commission-bottle-vampire").nextStep.includes("northeast corner") ||
       currentObjective(discoveredLeads(vampireOffer)).nextStep.includes("northeast corner")) {
