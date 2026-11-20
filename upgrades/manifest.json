@@ -7,7 +7,11 @@
   "assets": {
     "combat:area:20:CPIC2.DAX:6:ecl:aa81": "slums-mage-hobgoblin-stand.png",
     "combat:area:20:CPIC2.DAX:134:ecl:aa81": "slums-mage-hobgoblin-strike.png",
+    "combat:area:20:CPIC2.DAX:6:ecl:af6d": "slums-mage-hobgoblin-stand.png",
+    "combat:area:20:CPIC2.DAX:134:ecl:af6d": "slums-mage-hobgoblin-strike.png",
     "portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:0:0": "podal-auction-wand-exchange.png",
+    "portrait:area:18:ecl:b240:caller:a49c:PIC1.DAX:16:0:0": "podal-auction-darkness.png",
+    "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:0:0": "podal-auction-ogre-escape.png",
     "portrait:area:17:ecl:9da2:caller:a416:HEAD7.DAX:74:BODY7.DAX:30": "nomad-headman-greeting.png",
     "portrait:area:17:ecl:9d74:caller:a4aa:HEAD7.DAX:74:BODY7.DAX:30": "nomad-headman-greeting.png",
     "portrait:area:17:ecl:9d74:caller:a4fa:HEAD7.DAX:74:BODY7.DAX:30": "nomad-headman-greeting.png",
