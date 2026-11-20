@@ -324,9 +324,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("river-fountain")) nextStep = "At the fountain, choose Destroy the Equipment to shut down the machinery pumping the foul liquid.";
       else if (knows("river-pump-prisoners-freed")) nextStep = "Read journal entry 35 for what the prisoners told you about Yarash. Continue looking for the source of the foul water.";
       else if (knows("river-pump-prisoners") && !knows("river-pump-prisoners-hostile")) nextStep = "Advance until Parlay appears, then try speaking kindly to the shackled workers about the pollution.";
-      else if (knows("river-entrance-inside")) nextStep = "Explore the passage ahead for the source of the foul water. The secret door behind you marks the way back.";
-      else if (knows("river-secret-door")) nextStep = "Enter the pyramid through the secret door and search for the source of the foul water.";
-      else if (knows("river-rowboat")) nextStep = "Take the rowboat from the reeds to the pyramid.";
+      else if (knows("river-entrance-inside")) nextStep = "Explore the passage ahead from the entrance. Follow the directions the game gives when it reveals a hidden door. The secret door behind the entrance marks the way back.";
+      else if (knows("river-secret-door")) nextStep = "Choose Enter to go through the secret door and look for the source of the foul water.";
+      else if (knows("river-rowboat")) nextStep = "Take the rowboat to the pyramid by choosing Yes at the boat prompt.";
     }
     if (commission.id === "rescue") {
       if (knows("rescue-heir-left-behind")) nextStep = "Return to the council clerk and report what happened to the boy.";

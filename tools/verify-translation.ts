@@ -800,8 +800,8 @@ function checkCampaignJournal(): void {
   writeGlobal(envoyFlag, 0);
   const riverOffer = commissions.find(({ id }) => id === "river")!.offer;
   const riverStages = [
-    ["ROWBOAT HIDDEN AMOUNGST THE REEDS", "Take the rowboat"],
-    ["YOU HAVE FOUND A SECRET DOOR THAT LEADS INTO THE PYRAMID", "through the secret door"],
+    ["ROWBOAT HIDDEN AMOUNGST THE REEDS", "choosing Yes at the boat prompt"],
+    ["YOU HAVE FOUND A SECRET DOOR THAT LEADS INTO THE PYRAMID", "Choose Enter to go through the secret door"],
     ["YOU HAVE ENTERED THE FOUNTAIN CHAMBER", "choose Destroy the Equipment"],
     ["NOT ALL THE EQUIPMENT IS YET DESTROYED", "choose Move Quickly Away"],
   ] as const;
