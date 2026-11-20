@@ -160,7 +160,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
         const report = "Report what happened at the Nomad Camp to the council clerk in New Phlan.";
         return { title: commission.title, nextStep: knows("nomad-mourning")
           ? `Leave the camp as the shaman requested. ${report}`
-          : `Collect the shaman's reward before leaving camp. ${report}` };
+          : "Collect the shaman's reward. Choose Share to divide the coins, then Exit to continue." };
       }
       if (commission.id === "river" && tracked.status === "ready-to-report" && knows("river-fountain-blast") && !knows("river-recovery")) {
         return { title: commission.title, nextStep: "Check the party after the blast, then leave the pyramid and report to the council clerk in New Phlan." };
@@ -379,7 +379,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     if (commission.id === "nomads") {
       if (knows("nomad-mourning")) nextStep = "Leave the camp as the shaman requested, then report what happened to the council clerk.";
-      else if (knows("nomad-shaman-reward")) nextStep = "Collect the shaman's reward before leaving camp.";
+      else if (knows("nomad-shaman-reward")) nextStep = "Collect the shaman's reward. Choose Share to divide the coins, then Exit to continue.";
       else if (knows("nomad-fled-finale")) nextStep = "The headman went to finish the fight with his surviving guards. Continue to hear what happened.";
       else if (knows("nomad-kobold-attack")) nextStep = "The kobolds are attacking the camp. Choose Combat when prompted to help the nomads repel them.";
       else if (knows("nomad-war-cries")) nextStep = "Press Enter to continue and see what is happening outside the hut.";

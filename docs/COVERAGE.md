@@ -1407,6 +1407,11 @@ the journal asks the party to report what happened, becomes reward pending
 when the clerk responds, and marks the commission turned in after the reward
 menu closes. A translated-setter check covers the same flag without exposing
 the commission when the party has never heard the offer.
+A controlled Chrome replay jumped to the original shaman reward branch
+after the war cries, leaving the treasure and departure instructions
+intact. It verified the tracked reward objective at the treasure
+prompt, then the instruction to leave and report to the council after
+the party shared the coins and heard the shaman ask for privacy.
 The `podal-west-gate` replay starts in slot J at `7,6 S` and walks to the
 western arch. Chrome checks 1,573 placements across 13 views, using 17 new
 32×32 tiles among 61 patterns, and preserves the save when switching modes.
