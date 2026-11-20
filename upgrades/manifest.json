@@ -1895,6 +1895,7 @@
     "encounter:area:18:ecl:9b76:SPRIT1.DAX:4:0:0": "podal-plaza-orc-near.png",
     "encounter:area:18:ecl:9dca:SPRIT1.DAX:2:0:0": "podal-plaza-goblin-near.png",
     "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0": "podal-plaza-goblin-challenge.png",
+    "portrait:area:18:ecl:9dca:PIC1.DAX:8:0:0": "podal-ogre-patrol-dialogue.png",
     "encounter:area:18:ecl:a181:SPRIT1.DAX:6:0:0": "podal-plaza-hobgoblin-near.png",
     "encounter:area:8:ecl:b3e0:SPRIT6.DAX:27:0:0": "new-phlan-council-guard-halt-approach.png",
     "portrait:area:8:ecl:b564:HEAD3.DAX:57:BODY3.DAX:1": "new-phlan-council-guard-halt.png",
