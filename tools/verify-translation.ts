@@ -1152,6 +1152,8 @@ function checkCampaignJournal(): void {
   let castleTranscript = castle.offer;
   const castleRoute = [
     ["USE THESE CLOTHES AS A DISGUISE", "Use the clothes"],
+    ["GET OUT OF MY KITCHEN OR I'LL THROW BOILING OIL ON YOU", "threatened to throw boiling oil"],
+    ["THE GNOLL GRABS A POT FROM THE FIRE", "Go Back Outside to regroup"],
     ["TELL ME PASSWORD OR I KILL YOU", "demand a password"],
     ["OKAY, BUT NO HANGING AROUND", "Continue past the giant sentries"],
     ["HE JUST HIRED ME TO IMPERSONATE HIM", "real Tyranthraxus"],

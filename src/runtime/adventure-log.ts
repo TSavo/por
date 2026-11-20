@@ -393,6 +393,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("castle-hedge-gate-password") && knows("castle-cadorna-hedge")) nextStep = "Use the password from the kitchen at the main gate, then take Cadorna's route through the hedge: left, right, right.";
       else if (knows("castle-hedge-gate-password")) nextStep = "Use the password from the kitchen at the main gate into the hedge maze.";
       else if (knows("castle-cadorna-hedge")) nextStep = "Follow Cadorna's directions through the hedge: left, right, right.";
+      else if (knows("castle-kitchen-oil") && !knows("castle-kitchen-captives-freed")) nextStep = "Choose Kill the Overseer and Free the Slaves, or Go Back Outside to regroup.";
+      else if (knows("castle-kitchen-warning") && !knows("castle-kitchen-captives-freed")) nextStep = "The overseer threatened to throw boiling oil. Choose Kill the Overseer and Free the Slaves, or Go Back Outside.";
       else if (knows("castle-disguise")) nextStep = "Use the clothes offered by the resistance to move through the castle and find Tyranthraxus.";
       else if (knows("kovel-castle-map-nw") && knows("kovel-castle-map-ne")) nextStep = "Review the northwest and northeast castle maps in journal entries 41 and 29, then return to Valjevo Castle.";
       else if (knows("kovel-castle-map-nw")) nextStep = "Review the northwest castle map in journal entry 41, then return to Valjevo Castle.";
@@ -1183,6 +1185,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("IT IS TODAY'S PASSWORD AT THE MAIN GATE INTO THE HEDGE MAZE")) {
     leads.push({ id: "castle-hedge-gate-password", title: "Password for the hedge gate",
       detail: "A freed captive gave the party a slip from the overseer's pouch with today's password for the main gate into the hedge maze." });
+  }
+  if (text.includes("GET OUT OF MY KITCHEN OR I'LL THROW BOILING OIL ON YOU")) {
+    leads.push({ id: "castle-kitchen-warning", title: "The overseer threatened the party",
+      detail: "The gnoll overseer ordered the party out of his kitchen and threatened to throw boiling oil." });
+  }
+  if (text.includes("THE GNOLL GRABS A POT FROM THE FIRE AND THROWS ITS CONTENTS AT YOU")) {
+    leads.push({ id: "castle-kitchen-oil", title: "The overseer threw boiling oil",
+      detail: "When the party tried talking again, the overseer threw the contents of a pot at them." });
   }
   if (text.includes("TELL ME PASSWORD OR I KILL YOU")) {
     leads.push({ id: "castle-giant-sentries", title: "The giant sentries demand a password",
