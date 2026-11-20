@@ -1697,6 +1697,30 @@ if (process.argv[2] === "--mage-training-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--kovel-files-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot A from outside the Kovel Mansion room with guild papers.");
+  copyFileSync(process.argv[3], join(saveDir, "A.json"));
+  const guildFiles = frame => frame.journal.leads.filter(({ id }) => id === "kovel-guild-files");
+  const checkDiscovery = (_text, frame) => {
+    const entries = guildFiles(frame);
+    assert.equal(entries.length, 1);
+    assert.match(entries[0].detail, /entries 38 and 51/);
+    assert.equal(frame.journal.trackedId, "commission-kovel");
+    assert.match(frame.journal.objective.nextStep, /Read journal entries 38 and 51/);
+  };
+  const beforeDiscovery = (_text, frame) => assert.equal(guildFiles(frame).length, 0);
+  await replay(loadSlot("1e61"), "85000000", [
+    "j", beforeDiscovery, "j", "up",
+    (text) => assert.match(text, /you stuff the files into your journal under entries 38 and 51/),
+    "j", checkDiscovery, "j", "e", "s", "s", "d",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2064"), "85000000", ["j", checkDiscovery]);
+  await replay(loadSlot("1e61"), "85000000", ["j", beforeDiscovery]);
+  console.log("Verified Kovel files Entries 38 and 51 survive reload and stay with the slot that found them.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--zhentil-tour-checkpoint") {
   assert.ok(process.argv[3], "Pass slot A outside Zhentil Outpost at (3,31), facing west.");
   copyFileSync(process.argv[3], join(saveDir, "A.json"));
