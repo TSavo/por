@@ -15,7 +15,7 @@ export function combatHighlightPixel(x: number, y: number): number {
 export const monsterCombatKey = /^combat:(?:area:(\d{1,3}):)?(CPIC[1-8]\.DAX):(\d{1,3})(?::ecl:([a-f0-9]{4}))?$/;
 export const partyCombatKey = /^combat:party:(\d{1,3}):(\d{1,3})(?::palette:(0[1-9a-f]{15}))?$/;
 export const partyRecolorKey = /^(combat:party:\d{1,3}:\d{1,3}):palette:0[0-9a-f]{15}$/;
-export const combatEffectKey = /^combat-effect:(COMSPR\.DAX):(\d{1,3})$/;
+export const combatEffectKey = /^combat-effect:(COMSPR\.DAX):(\d{1,3})(?::(flip-x|transpose))?$/;
 export const randomCombatKey = /^combat:(RANDCOM\.DAX):(1):(0):([0-5])$/;
 export const combatSelectionKey = /^combat-selection:(COMSPR\.DAX):(25|153)$/;
 const fallenCombatKey = "combat:RANDCOM.DAX:1:0:5";
@@ -27,17 +27,33 @@ export function randomCombatPixels(data: Uint8Array, frame: number) {
   if (picture.width === 24 && picture.height === 24 && frame >= 0 && frame < picture.itemCount) return frameSlice(picture, frame);
 }
 
+export function transformCombatEffectPixels(pixels: Uint8Array, transform?: string): Uint8Array {
+  if (!transform) return pixels;
+  return Uint8Array.from(pixels, (_, index) => {
+    const x = index % 24, y = Math.floor(index / 24);
+    return pixels[transform === "flip-x" ? y * 24 + 23 - x : x * 24 + y]!;
+  });
+}
+
+export function combatEffectFlightFamily(key: string): string {
+  const block = combatEffectKey.exec(key)?.[2];
+  return block === "3" || block === "131" ? "combat-effect:COMSPR.DAX:3" : key;
+}
+
 export function loadCombatEffects(keys: string[], root = keys.length ? findGameRoot() : null) {
   const file = root && listGameFiles(root).find(name => name.toUpperCase() === "COMSPR.DAX");
-  const assets = new Map(keys.flatMap(key => {
+  const assets = keys.flatMap(key => {
     const record = combatEffectKey.exec(key);
-    return record ? [[Number(record[2]), key] as const] : [];
-  }));
-  const effects = file && root ? parseDax("COMSPR.DAX", readGameFile(root, file)).entries.flatMap(({ id, data }) => {
-    if (!assets.has(id) || !isPicture(data)) return [];
-    const { width, height, itemCount, pixels } = decodePicture(data);
-    return width === 24 && height === 24 && itemCount === 1 ? [{ key: assets.get(id)!, pixels }] : [];
-  }) : [];
+    return record ? [{ id: Number(record[2]), transform: record[3], key }] : [];
+  });
+  const entries = file && root ? parseDax("COMSPR.DAX", readGameFile(root, file)).entries : [];
+  const effects = assets.flatMap(({ id, transform, key }) => {
+    const entry = entries.find(entry => entry.id === id);
+    if (!entry || !isPicture(entry.data)) return [];
+    const { width, height, itemCount, pixels } = decodePicture(entry.data);
+    return width === 24 && height === 24 && itemCount === 1
+      ? [{ key, pixels: transformCombatEffectPixels(pixels, transform) }] : [];
+  });
   return (frame: Frame, x: number, y: number, background: Uint8Array) => {
     let match: string | undefined;
     for (const { key, pixels } of effects) {

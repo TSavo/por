@@ -3577,9 +3577,10 @@ selection frame and below the targeted orc sprite at its guest position.
 Larger units use one frame per native 24×24 cell. Chrome verified the
 vertical pair behind the Slums ogre, the horizontal pair behind the Wild
 Cave lizard, and all four cells behind Tyranthraxus.
-The art inventory lists all 26 COMSPR.DAX frames, with direct links for
-two selection frames, four magic effect frames, and four arrow frames. The remaining 16
-are available for review by archive block and frame index.
+The art inventory lists all 26 COMSPR.DAX frames. Twelve have direct
+links, including two thrown-axe frames. Two more axe orientations are
+derived from block 3 by a horizontal reflection and a transpose. The
+inventory records those transforms with their source previews.
 
 The `new-phlan-council-magic-effects` replay uses a controlled slot A
 checkpoint to reach the level-three mage's wand volley. Both flight orientations and both
@@ -3593,6 +3594,9 @@ three arrow directions, their native anchors, and display switching.
 Long flights spread the sampled positions across the path. The tavern
 replay's longest shot kept its six displayed positions and reduced the
 largest gap between them from 112 to 32 native pixels.
+The Council reserves replay checks all four thrown-axe orientations in
+Chrome. The flight sampler favors keeping a copy of each orientation
+while preserving launch at (80, 80) and arrival at (128, 104).
 
 Kuto's roaming lizardfolk use a dedicated 352×352 ruins illustration
 at four script positions. Chrome exercised the approach, Advance and

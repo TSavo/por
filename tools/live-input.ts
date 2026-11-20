@@ -10,7 +10,7 @@ import { currentObjective, isOpenObjective, kovelJournalTransition, type Journal
 import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
-import { loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
+import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadCharacterSheetArt, loadPortraitArt } from "./portrait-art.js";
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 
@@ -624,7 +624,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           if (effectCount >= 6 || animation.length >= 12) {
             // Preserve a flight's launch and arrival when a long trajectory
             // fills the presentation queue with intermediate positions.
-            const continuesFlight = !impact && previous?.[2] === key &&
+            const family = combatEffectFlightFamily(key);
+            const continuesFlight = !impact && previous && combatEffectFlightFamily(previous[2]) === family &&
               Math.abs(previous[0] - x) <= 8 && Math.abs(previous[1] - y) <= 8;
             let replaceable = impact ? animation.findIndex(flightFrame)
               : continuesFlight ? animation.length - 1 : -1;
@@ -633,14 +634,24 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
               // Remove the intermediate point that leaves the smallest gap.
               let next: TilePlacement = [x, y, key];
               let gap = Infinity;
-              for (let i = animation.length - 1; i > 0; i--) {
-                const point = animation[i]?.combatEffect;
-                const before = animation[i - 1]?.combatEffect;
-                if (!point || point[2] !== key || !before || before[2] !== key) break;
+              const visits = new Map([[key, 1]]);
+              let start = animation.length;
+              for (; start > 0; start--) {
+                const point = animation[start - 1]!.combatEffect;
+                if (!point || combatEffectFlightFamily(point[2]) !== family) break;
+                const phase = point[2];
+                visits.set(phase, (visits.get(phase) ?? 0) + 1);
+              }
+              let removesUniquePhase = true;
+              for (let i = animation.length - 1; i > start; i--) {
+                const point = animation[i]!.combatEffect!;
+                const before = animation[i - 1]!.combatEffect!;
                 const distance = Math.max(Math.abs(next[0] - before[0]), Math.abs(next[1] - before[1]));
-                if (distance <= gap) {
+                const uniquePhase = visits.get(point[2]) === 1;
+                if ((!uniquePhase && removesUniquePhase) || (uniquePhase === removesUniquePhase && distance <= gap)) {
                   gap = distance;
                   replaceable = i;
+                  removesUniquePhase = uniquePhase;
                 }
                 next = point;
               }

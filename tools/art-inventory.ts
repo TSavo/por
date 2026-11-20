@@ -9,7 +9,7 @@ import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng, pngDimensions } from "./png.js";
 import { loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
 import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, portraitKey } from "./portrait-art.js";
-import { combatEffectKey, combatSelectionKey, isCombatExtent, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
+import { combatEffectKey, transformCombatEffectPixels, combatSelectionKey, isCombatExtent, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
 const families = [
   [/^(TITLE|FINAL\d+)\.DAX$/, "Title and ending"],
@@ -255,8 +255,9 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
   const sheetPart = characterSheetPartKey.exec(id);
-  const overlay = combatSelectionKey.exec(id) ?? combatEffectKey.exec(id);
-  const match = randomCombatKey.exec(id) ?? overlay ??
+  const effect = combatEffectKey.exec(id);
+  const overlay = combatSelectionKey.exec(id) ?? effect;
+  const match = randomCombatKey.exec(id) ?? overlay?.slice(0, 3) ??
     /^(?:encounter|portrait):(?:area:\d+:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
     /^combat:(?:area:\d+:)?(CPIC\d+\.DAX):(\d+)(?::ecl:[a-f0-9]{4})?$/.exec(id);
   let source;
@@ -267,7 +268,7 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
     const picture = entry?.pictures?.[member];
     if (entry && picture && frame < picture.frames && metadata.width === picture.width * artScale &&
         metadata.height === picture.height * artScale) {
-      source = { archive, block, directoryIndex: entry.directoryIndex, member, frame, x: picture.x, y: picture.y };
+      source = { archive, block, directoryIndex: entry.directoryIndex, member, frame, x: picture.x, y: picture.y, transform: effect?.[3] };
     }
   }
   const composite = compositePortraitKey.exec(id);
@@ -302,7 +303,8 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
   if (reference) {
     const picture = classicPicture(reference.archive, reference.directoryIndex, reference.member);
     const original = new Frame(picture.width, picture.height);
-    original.blit(frameSlice(picture, reference.frame), picture.width, picture.height, 0, 0);
+    const pixels = frameSlice(picture, reference.frame);
+    original.blit(transformCombatEffectPixels(pixels, effect?.[3]), picture.width, picture.height, 0, 0);
     classicPreview = exportClassicFrame(original, index);
   } else if (sourceParts?.length === 2) {
     const size = party ? 24 : 88;
@@ -424,6 +426,7 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
   return `<div class="preview">${images}` +
     `<small>Enhanced · ${width}×${height} · ${escape(id)}${area}${origin}${extent}</small>` +
     `<small>${escape(file)}${reflected ? " · reflected in game" : ""}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small>` +
+    (source?.transform ? `<small>Native source transform · ${source.transform === "flip-x" ? "horizontal reflection" : "transpose"} of ${escape(source.archive)} #${source.block}</small>` : "") +
     (sourceParts?.length ? `<small>${sourceParts.map(({ archive, block }) => `${escape(archive)} #${block}`).join(" + ")}</small>` : "") +
     (capturedPlacement ? `<small>Captured at (${capturedPlacement.x}, ${capturedPlacement.y}) · ${escape(capturedPlacement.trace)} frame ${capturedPlacement.frame}</small>` : "") +
     (sourceCandidates ? `<details class="sources"><summary>Exact pixel matches (${sourceCandidates.length})</summary>` +
@@ -542,6 +545,7 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\
     let frames = 0;
     const unlinkedFrames = entries.flatMap(({ id, directoryIndex, pictures }) => {
       const linked = new Set((replacementsByBlock.get(`${file}:${directoryIndex}`) ?? [])
+        .filter(({ source }) => !source?.transform)
         .map(({ source }) => `${source?.member}:${source?.frame}`));
       return (pictures ?? []).flatMap((picture, member) => {
         frames += picture.frames;
