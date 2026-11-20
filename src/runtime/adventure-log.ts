@@ -807,6 +807,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "castle-medusa-statues", title: "Broken statues below the trapdoor",
       detail: "The party saw broken statues with faces frozen in terror below the tower's trapdoor." });
   }
+  if (text.includes("JUST ABOVE THE WATERLINE, A SECRET DOOR HAS BEEN LEFT AJAR IN THE SOUTH WALL OF THE WELL")) {
+    leads.push({ id: "kuto-well-waterline-door", title: "A secret door in the Kuto well",
+      detail: "A door stands ajar above the water in the south wall. Choose Yes at the rungs prompt to climb back up." });
+  }
   if (text.includes("THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES")) {
     leads.push({ id: "mendor-library-stacks", title: "Mendor's library stacks",
       detail: "The party found rooms of books marked by subject. Use Search to examine the shelves." });
