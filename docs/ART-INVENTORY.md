@@ -503,16 +503,18 @@ the Tyrmor priest update. They contain ten distinct cel payloads. The
 Tyrmor replay verified native use of CPIC7 block 141 and the replacement
 attack sprite. Script references also identify these cases for live checks:
 
-- The New Phlan tavern brawl can select CPIC3 blocks 24 and 152 through
-  the encounter table in ECL3 block 0.
+- The New Phlan tavern brawl uses CPIC3 blocks 24 and 152 for the
+  veteran. Both Enhanced poses were verified in Chrome with a controlled
+  encounter roll.
 - Overland thieves use CPIC6 blocks 12 and 140 through ECL6 block 25.
   Chrome verified the enhanced ready and attack pair with a local fixture
   that selects the original thieves branch deterministically.
 - The Zhentil commandant reinforcements can select CPIC6 blocks 14 and 142
   in ECL6 block 28.
 
-The New Phlan and Zhentil script references establish candidate playback
-paths. Their exact ready and action frames still need to be observed in-game.
+The Zhentil reinforcement trace confirmed the Enhanced ready pose for
+CPIC6 block 14. Al-Hyam repeatedly used an electrical wand, which retained
+that pose. A native action that displays block 142 remains unverified.
 
 The generated `inventory.json` includes `encounterFamilies`, the same
 source-frame breakdown shown in the HTML inventory. Each family reports
