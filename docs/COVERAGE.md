@@ -3620,12 +3620,21 @@ check both Body color channels and Hair. The shield variants also check
 both Shield channels. Saved small spear and Human shield longsword
 colors appeared in both ready and strike poses in combat.
 
-After the Phlan council finale illustration landed, the inventory decoded
-113 archives without unresolved blocks or artwork load errors. Of 807
-scene, encounter, and combat archive frames, 432 have direct links and
-22 have exact pixel matches to linked art. The 353 unlinked frames include
-11 uniform frames. Archive linkage counts measure source coverage. Use
-runtime traces to determine which unlinked frames appear during play.
+The inventory decoded 113 archives without unresolved blocks or artwork
+load errors. Of 833 source frames, 461 have direct links and 22 have
+exact pixel matches to linked art.
+
+| Art family | Source frames | Direct links | Exact matches | Unlinked |
+| --- | ---: | ---: | ---: | ---: |
+| Scene illustrations | 325 | 72 | 14 | 239 |
+| Encounter sprites | 258 | 157 | 0 | 101 |
+| Combat poses | 218 | 203 | 8 | 7 |
+| Battlefield props | 6 | 4 | 0 | 2 |
+| Combat effects and selection frames | 26 | 25 | 0 | 1 |
+
+The 350 unlinked frames include 11 uniform frames. Archive linkage counts
+measure source coverage. Use runtime traces to confirm which unlinked frames
+appear during play.
 
 The Valhingen roaming zombie uses its Enhanced illustration during the
 encounter and parlay menus. The matcher recognizes the original base
