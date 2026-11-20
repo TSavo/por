@@ -5787,8 +5787,7 @@ try {
     assert.ok(knows("nomad-camp-found") && knows("nomad-sentries"));
     assert.ok(!knows("nomad-feast-invitation") && !knows("nomad-kobold-warning"));
     for (const key of ["j", "p", "enter"]) await advance(key);
-    const chief = "portrait:HEAD7.DAX:74:BODY7.DAX:30";
-    assert.equal(frame.portrait, chief);
+    assert.equal(frame.portrait, "portrait:area:17:ecl:9d74:caller:a4aa:HEAD7.DAX:74:BODY7.DAX:30");
     await waitFor("the Nomad headman portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     await advance("j");
@@ -5796,7 +5795,7 @@ try {
     for (const key of ["j", "y", "enter", "enter", "j"]) await advance(key);
     assert.ok(knows("nomad-headman-talk") && !knows("nomad-kobold-warning"));
     for (const key of ["j", "enter", "enter"]) await advance(key);
-    assert.equal(frame.portrait, chief);
+    assert.equal(frame.portrait, "portrait:area:17:ecl:9da2:caller:a928:HEAD7.DAX:74:BODY7.DAX:30");
     await advance("j");
     assert.ok(knows("nomad-kobold-warning") && !knows("nomad-stay-or-leave"));
     for (const key of ["j", ...Array(4).fill("enter"), "r", "h", ...Array(8).fill("i"), "r", "e", "j"]) await advance(key);
