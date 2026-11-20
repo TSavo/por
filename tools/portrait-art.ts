@@ -9,6 +9,7 @@ export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 export const scriptIllustrations = new Map<string, string | RegExp>([
+  ["scene-illustration:area:7:ecl:995f:caller:a8b2", "YOULEAVETHECASTLE.MOVINGTHROUGHTHESTREETS"],
   ["scene-illustration:area:7:ecl:a82d", /THESPIRITOFTYRANTHRAXUSFLARESUP|YOUHAVEBUTSLAINTHEBODYIPOSSESSED|NOLORDBANE!ICANSTILLRULEHERE/],
   ["scene-illustration:area:4:ecl:9a5a:caller:b00a", "THEREDWIZARDSOFTHAYAREALLIEDTOTYRANTHRAXUS"],
   ["scene-illustration:area:16:ecl:9a87:caller:a287", "YOURTIMEISTHROUGHOLDONE"],

@@ -3683,3 +3683,10 @@ dedicated illustration through Tyranthraxus's spirit dialogue. A Chrome
 replay from the controlled slot B checkpoint with boosted party HP
 verified the decoded illustration, clearance at the departure prompt,
 and preservation of guest state and save bytes across display switches.
+
+The same controlled replay verifies the separate Old Phlan street
+illustration on departure from Valjevo. Chrome decodes the 4× art on the
+departure narration, preserves the frame and save across display modes,
+and clears the illustration on arrival in civilized Phlan. The follow-up
+City Hall replay saves the final council turn-in and reloads the
+completed campaign journal.
