@@ -965,7 +965,7 @@ async function showScreen() {
   const source = sceneArt || `data:image/png;base64,${frame}`;
   const showArt = useEnhanced && !sceneArt;
   const aimMenu = view.combatArt?.some(([, , , , highlighted]) => highlighted) &&
-    /^AIM\s*:/i.test((view.text ?? []).filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
+    /^(?:AIM\s*:|\(USE\s*CURSOR\s*KEYS\))/i.test((view.text ?? []).filter(([cell]) => cell >= 960).sort(([a], [b]) => a - b)
       .map(([, character]) => String.fromCharCode(character)).join(""));
   function pictureBackdrop() {
     const backdrop = document.createElement("div");

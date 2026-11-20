@@ -3930,3 +3930,8 @@ The Sokal floorboard replay now declines the gems, saves through the
 original Encamp menu, and verifies the entry 3 discovery in slot C.
 The `sokal-floorboard-diary-reload` route reopens that save and checks
 the retained clue and display switching.
+
+Enhanced Manual Aim shows its targeting reticle over occupied squares.
+A controlled Buccaneer Chrome replay checked ordinary Aim and moving
+Manual Aim between allies and enemies, followed by Escape cleanup.
+Classic frames and save data remained intact across display switches.
