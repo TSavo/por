@@ -1061,6 +1061,7 @@ const illustrationRoutes = new Map([
   ["bane-treasury-ambush", {
     slot: "A", inputs: ["s", "enter", "up", "o", "enter", "enter", "e", "n", "enter", "enter"],
     portrait: "portrait:area:24:ecl:ab06:PIC1.DAX:4:0:0",
+    approachSequence: [[48, 32, "encounter:area:24:ecl:ab06:SPRIT1.DAX:4:0:0", 40, 80]],
     prompt: /THEMINUTEYOUFINDTHETREASURE.*STEALFROMOURTEMPLE/i,
     continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i },
   }],
