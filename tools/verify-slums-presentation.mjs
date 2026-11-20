@@ -407,6 +407,17 @@ const encounterRoutes = new Map([
     placement: [56, 32, "encounter:area:10:SPRIT4.DAX:35:0:0", 32, 80],
     dialogue: { key: "enter", portrait: "portrait:area:10:PIC4.DAX:35:0:0", prompt: /ZOMBIESSHUFFLEDOWNTHESTAIRS/i },
   }],
+  ["valhingen-zombie-roam-dialogue", {
+    slot: "A", inputs: ["up", "down", "up", "down"],
+    placement: [56, 32, "encounter:area:10:SPRIT4.DAX:35:0:0", 32, 80],
+    approachSequence: [
+      [56, 32, "encounter:area:10:SPRIT4.DAX:35:1:0", 24, 65],
+      [56, 32, "encounter:area:10:SPRIT4.DAX:35:0:0", 32, 80],
+    ],
+    requireTiledApproach: false,
+    dialogue: { key: "up", portrait: "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:0:0",
+      prompt: /LUMBERINGFIGURESREACHFORYOU/i },
+  }],
   ["valhingen-ghoul-approach", {
     slot: "A", inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", "enter"],
     placement: [48, 32, "encounter:area:10:SPRIT4.DAX:72:0:0", 40, 73],
@@ -685,11 +696,6 @@ const illustrationRoutes = new Map([
       inputs: ["enter"], portrait: "portrait:area:5:ecl:a6e7:PIC5.DAX:56:0:0",
       prompt: /BEFOREHECANATTACKTHEOTHERSGRABHIM/i,
     },
-  }],
-  ["valhingen-zombie-roam-dialogue", {
-    slot: "A", inputs: ["up", "down", "up", "down", "up"],
-    portrait: "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:0:0",
-    prompt: /LUMBERINGFIGURESREACHFORYOU/i,
   }],
   ["valhingen-wight-roam-dialogue", {
     slot: "A", inputs: ["up", "down", "up"],
