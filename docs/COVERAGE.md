@@ -3703,3 +3703,7 @@ The Small flail uses original 96×96 ready and strike sprites with material
 masks for both Body colors and Hair. Chrome checked each color control in
 the native editor and both saved green poses in live combat. Switching
 display modes preserved the game state and the combat fixture save.
+
+The Human flail now keeps its Enhanced ready and strike sprites when
+recolored. Chrome verified both Body channels, Hair and dark Weapon in
+the icon editor, and both saved green poses in a controlled combat replay.
