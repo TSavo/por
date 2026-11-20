@@ -547,6 +547,12 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["stojanow-bugbear-punch", {
+    slot: "A", inputs: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left", "up", "t"],
+    portrait: "portrait:area:9:ecl:a959:PIC2.DAX:63:0:0",
+    prompt: /THELEADERSWINGSATYOU/i,
+    continuation: { inputs: ["enter"], prompt: /NOWBEATITBEFOREWEGETSERIOUS/i, clearsPortrait: true },
+  }],
   ["valjevo-lower-snake-approach", {
     slot: "B", inputs: ["up", "enter", "a", "enter"],
     requireTiledApproach: false,
@@ -3261,8 +3267,9 @@ const atlasRoutes = new Map([
 const atlasRoute = atlasRoutes.get(routeName);
 const moonseaTravel = routeName === "moonsea-lizardman-travel";
 const sokalTravel = routeName.startsWith("moonsea-sokal-");
+const valjevoTravel = routeName.startsWith("moonsea-valjevo-");
 routes.push("textile-return-art", "moonsea-lizardman-travel", "moonsea-sokal-free", "moonsea-sokal-fare",
-  "moonsea-sokal-decline", ...atlasRoutes.keys());
+  "moonsea-sokal-decline", "moonsea-valjevo-arrival", "moonsea-valjevo-gate-warning", ...atlasRoutes.keys());
 routes.push("stojanow-wall-warning", "stojanow-wall-warning-reload");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
@@ -3560,7 +3567,7 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  const verifyDefaultWebGL = moonseaTravel || sokalTravel || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
+  const verifyDefaultWebGL = moonseaTravel || sokalTravel || valjevoTravel || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
     ["new-phlan-rolf-tour", "lizardfolk-battle-wall"].includes(routeName);
   if (!verifyDefaultWebGL) {
     // The tile replays verify individual PNG placements.
@@ -3675,6 +3682,35 @@ try {
     await waitForExplorationViewport();
     await switchBothWays();
     console.log("Verified Moonsea keyboard travel, Escape cancellation, click-to-travel, and the return to WebGL.");
+  } else if (valjevoTravel) {
+    const landmark = 'document.querySelector("[data-destination=valjevo]")';
+    await waitFor("the Valjevo Castle landmark", () => run(`${landmark}.getAttribute("aria-disabled") === "false"`));
+    await run(`(() => {
+      window.valjevoTravelKeys = [];
+      const gameFetch = window.fetch.bind(window);
+      window.fetch = (url, options) => {
+        if (url === "/key") valjevoTravelKeys.push(options.body);
+        return gameFetch(url, options);
+      };
+      ${landmark}.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true }));
+    })()`);
+    await waitFor("the Valjevo Castle route to settle", () => run(`state.ready && state.sequence > ${frame.sequence} && !activeTravel`));
+    frame = await latest();
+    const text = frame.text.toSorted(([left], [right]) => left - right).map(([, char]) => String.fromCharCode(char)).join("");
+    const keys = await run("valjevoTravelKeys.filter(key => key !== ':travel-poll')");
+    assert.deepEqual(keys.slice(0, 3), ["down", "enter", "n"], "Use the western crossroads and the original north entrance");
+    assert.ok(keys.slice(3).every(key => ["up", "left", "right"].includes(key)), "Hand off any prompt after the crossroads");
+    if (routeName === "moonsea-valjevo-gate-warning") {
+      assert.equal(frame.scenery?.mapId, 9, text);
+      assert.match(text, /BEFOREYOUISSTOJANOWGATE/i);
+      assert.match(text, /PRESS.*CONTINUE/i);
+    } else {
+      assert.equal(frame.exploration?.area, 6, text);
+      assert.deepEqual([frame.scenery.mapId, frame.scenery.x, frame.scenery.y, frame.scenery.facing], [6, 4, 15, 0]);
+      await waitForExplorationViewport();
+    }
+    await switchBothWays();
+    console.log(`Verified ${routeName} through Podol Plaza and Stojanow Gate in Chrome.`);
   } else if (sokalTravel) {
     const landmark = 'document.querySelector("[data-destination=sokal]")';
     await waitFor("the Sokal Keep landmark", () => run(`${landmark}.getAttribute("aria-disabled") === "false"`));
