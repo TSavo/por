@@ -3827,3 +3827,8 @@ All 448 distinct Human combat icon combinations now have recolor masks
 for both poses. Chrome checked five representative editor bands and
 controlled flail, robed gesture, and robed rod battles. The shaven-scar
 head follows the original Hair control, which leaves it unchanged.
+
+The `bane-reward-illustration` Chrome route checks the clerk's ordinary
+portrait before and after the dedicated illustration for keeping the
+temple treasure. A local City Hall checkpoint verifies the journal moves
+from ready-to-report to turned-in.

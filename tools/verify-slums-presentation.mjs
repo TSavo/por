@@ -551,6 +551,13 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["bane-reward-illustration", {
+    slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter"],
+    portraitStops: { 7: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
+    portrait: "scene-illustration:area:8:ecl:b5c3:caller:a51f", prompt: /YOUMAYKEEPALLYOUFOUNDINTHETEMPLEOFBANE/i,
+    continuation: { inputs: ["enter"], portrait: "portrait:HEAD3.DAX:24:BODY3.DAX:32",
+      prompt: /ONTHEMATTEROFCOMMISSION/i },
+  }],
   ["bivant-reward-illustration", {
     slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter"],
     portraitStops: { 7: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
