@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:6:ecl:a2b8:HEAD5.DAX:13:BODY5.DAX:9": "valjevo-forge-smith-defends.png",
     "encounter:area:25:ecl:a160:SPRIT6.DAX:11:1:0": "buccaneer-wilds-roaming-thief-approach-middle.png",
     "encounter:area:25:ecl:a160:SPRIT6.DAX:16:1:0": "buccaneer-wilds-patrol-corporal-approach-middle.png",
     "encounter:area:25:ecl:a160:SPRIT6.DAX:118:1:0": "buccaneer-wilds-roaming-thri-kreen-approach-middle.png",

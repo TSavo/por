@@ -547,6 +547,12 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-forge-smith-defends", {
+    slot: "B", inputs: ["up", "enter", "a", "c"],
+    portrait: "portrait:area:6:ecl:a2b8:HEAD5.DAX:13:BODY5.DAX:9",
+    prompt: /ABATTLEBEGINS/i,
+    continuation: { inputs: ["enter"], prompt: /HITPOINTS.*MOVEVIEWAIMUSEQUICKDONE/i, clearsPortrait: true },
+  }],
   ["valjevo-chaplain-fireball", {
     slot: "B", inputs: ["up", "enter", "enter", "l"],
     portrait: "portrait:area:6:ecl:9b14:caller:a62f:HEAD5.DAX:14:BODY5.DAX:7",
