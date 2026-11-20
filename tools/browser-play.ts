@@ -134,6 +134,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
     POR_TRACE_TILES: tileTrace ? "1" : process.env.POR_TRACE_TILES,
     POR_COMBAT_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("combat:")).join(","),
     POR_COMBAT_MATERIAL_KEYS: [...materialMasks.keys()].join(","),
+    POR_COMBAT_SELECTION_KEYS: [...artwork.keys()].filter(key => key.startsWith("combat-selection:")).join(","),
     POR_PORTRAIT_ART_KEYS: [...artwork.keys()].filter((key) => portraitKey.test(key)).join(","),
     POR_CHARACTER_SHEET_ART_KEYS: [...artwork.keys()].filter((key) => characterSheetPartKey.test(key)).join(","),
     POR_ENCOUNTER_ART: JSON.stringify(encounters),
@@ -167,6 +168,7 @@ interface FrameState extends ExplorationFrame {
   encounter?: EncounterPlacement;
   tiles?: [number, number, string][];
   combatArt?: CombatArtPlacement[];
+  combatSelections?: [number, number, string][];
   battleTiles?: [number, number, string][];
   animation?: (PresentationAnimationFrame & ExplorationFrame)[];
   automaticCombat?: boolean;

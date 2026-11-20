@@ -31,6 +31,7 @@ export interface PresentationAnimationFrame {
   frame: string;
   enhancedFrame: string;
   combatArt: CombatArtPlacement[];
+  combatSelections?: TilePlacement[];
   battleTiles: TilePlacement[];
   panelFrame?: PanelFrameStamp[];
   text: [number, number, number][];
@@ -135,6 +136,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const battleTerrain = browser && (battleTileKeys.size || traceBattleDraw) ? new Frame(screen.width, screen.height) : undefined;
   const tracedBattleTerrain = new Set<string>();
+  const selectionKeys = new Set((process.env.POR_COMBAT_SELECTION_KEYS ?? "").split(",").filter(Boolean));
   const materialKeys = new Set((process.env.POR_COMBAT_MATERIAL_KEYS ?? "").split(",").filter(Boolean));
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean), undefined, materialKeys);
   const attackKeys = new Set((process.env.POR_COMBAT_ART_KEYS ?? "").split(",")
@@ -287,6 +289,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       const combat = attack || (!scene && !perspective)
         ? combatArt(screen, enhanced, area, battleCursor, battlefield ? battleTerrain : undefined, iconEditor) : [];
+      const combatSelections: TilePlacement[] = [];
+      for (const [x, y, , , highlighted, width = 24, height = 24] of attack ?? combat) {
+        if (!highlighted || width !== 24 || height !== 24) continue;
+        const corner = screen.get(x, y);
+        const block = corner === 15 ? 25 : iconEditor && corner === 7 ? 153 : undefined;
+        const key = `combat-selection:COMSPR.DAX:${block}`;
+        if (selectionKeys.has(key)) combatSelections.push([x, y, key]);
+      }
       const battleTiles: TilePlacement[] = [];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
       if ((battleTileKeys.size || battleTileInventory) && !scene && battlefield) {
@@ -365,6 +375,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         encounter,
         tiles,
         combatArt: combat,
+        combatSelections: combatSelections.length ? combatSelections : undefined,
         battleTiles,
         battleTileInventory,
         panelFrame: scene ? undefined : matchPanelFrame(screen),
@@ -376,7 +387,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       };
       if (attack || captureApproach) {
         animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame,
-          text: state.text, combatArt: attack ?? [], battleTiles, panelFrame: state.panelFrame, perspective,
+          text: state.text, combatArt: attack ?? [], combatSelections: state.combatSelections,
+          battleTiles, panelFrame: state.panelFrame, perspective,
           nativeScenery: state.nativeScenery, overlandMap: state.overlandMap, encounter, tiles, durationMs });
       } else {
         console.log(`POR_FRAME ${JSON.stringify({ ...state,

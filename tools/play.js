@@ -1002,7 +1002,10 @@ async function showScreen() {
       disableStreetPreview(error);
     }
   }
-  const placements = [...(streetCanvas ? [] : view.tiles ?? []), ...(view.battleTiles ?? []), ...(view.combatArt ?? [])];
+  const selectionArt = aimMenu ? [] : (view.combatSelections ?? []).map(([x, y, id]) =>
+    [x, y, id, undefined, undefined, 24, 24]);
+  const placements = [...(streetCanvas ? [] : view.tiles ?? []), ...(view.battleTiles ?? []), ...selectionArt,
+    ...(view.combatArt ?? [])];
   if (view.characterSheet) {
     const [head, body] = view.characterSheet;
     placements.push([body[0], body[1], body[2], undefined, undefined, body[3], body[4]]);
@@ -1039,6 +1042,7 @@ async function showScreen() {
         height = view.encounter[4];
       }
       if (id.startsWith("battle-tile:")) tile.className = "battle-tile";
+      if (id.startsWith("combat-selection:")) tile.className = "combat-selection";
       if (reflected !== undefined) tile.className = "combat-sprite";
       if (reflected !== undefined && id.startsWith("combat:party:") && id.includes(":palette:")) {
         tile.dataset.partyPalette = id;
@@ -1089,7 +1093,7 @@ async function showScreen() {
         return layer;
       } catch (error) {
         // Terrain remains in the enhanced framebuffer underneath its PNGs.
-        if (layer.matches(".terrain-tile, .battle-tile")) return null;
+        if (layer.matches(".terrain-tile, .battle-tile, .combat-selection")) return null;
         if (layer.matches(".encounter-portrait")) return pictureBackdrop();
         if (layer.matches(".combat-sprite")) return spriteBackdrop(layer);
         if (layer.matches(".encounter-sprite")) {

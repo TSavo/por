@@ -9,7 +9,7 @@ import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng, pngDimensions } from "./png.js";
 import { loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
 import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, portraitKey } from "./portrait-art.js";
-import { isCombatExtent, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
+import { combatSelectionKey, isCombatExtent, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
 const families = [
   [/^(TITLE|FINAL\d+)\.DAX$/, "Title and ending"],
@@ -254,7 +254,8 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
   const preview = `enhanced/${index}.png`;
   writeFileSync(join(output, preview), png);
   const sheetPart = characterSheetPartKey.exec(id);
-  const match = randomCombatKey.exec(id) ??
+  const selection = combatSelectionKey.exec(id);
+  const match = randomCombatKey.exec(id) ?? selection ??
     /^(?:encounter|portrait):(?:area:\d+:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
     /^combat:(?:area:\d+:)?(CPIC\d+\.DAX):(\d+)(?::ecl:[a-f0-9]{4})?$/.exec(id);
   let source;
@@ -286,6 +287,7 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
     ?? (id.startsWith("portrait:") ? { x: 8, y: 8, width: 120, height: 120, ...(area !== undefined && { area: Number(area) }) }
       : sheetPart && source ? { x: 224, y: sheetPart[2] === "HEAD" ? 8 : 48, width: metadata.width / artScale, height: metadata.height / artScale }
       : id === "scene:title" || id === "scene:publisher" ? { x: 0, y: 0, width: 320, height: 200 }
+      : selection ? { width: metadata.width / artScale, height: metadata.height / artScale }
       : source || area !== undefined ? {
         ...(source && { x: source.x, y: source.y }),
         ...(area !== undefined && { area: Number(area) }),
@@ -475,6 +477,7 @@ for (const { id } of replacements) {
 const inventoryCategories = [
   ["tile", "Exploration tiles"], ["battle-tile", "Battlefield tiles"],
   ["portrait", "Portraits and illustrations"], ["combat", "Combat frames"],
+  ["combat-selection", "Combat selection frames"],
   ["encounter", "Encounter frames"], ["scene", "Full-screen scenes"],
 ] as const;
 const battlefieldGaps = missingByArea.get("Battlefield")?.length ?? 0;

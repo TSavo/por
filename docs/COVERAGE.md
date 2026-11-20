@@ -3563,3 +3563,10 @@ At the Temple of Bane, the patrol Parlay menu keeps the Enhanced outdoor
 portrait for goblins, orcs, hobgoblins, and ogres. Chrome verified the
 original stance choices, the loaded portrait, and mode switching for
 each species through the patrol's spotted branch in controlled replays.
+
+Enhanced mode draws separate 96×96 selection frames behind standard-size
+combat sprites and the icon editor previews. The combat and inactive
+editor frames link to COMSPR.DAX blocks 25 and 153. Chrome verified the
+active frame behind a selected Sokal orc and both frame states across the
+editor's four previews, along with the Classic switch. Aim and larger
+combat footprints retain the original selection treatment.
