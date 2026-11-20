@@ -11,6 +11,7 @@ const dungeonSave = routeName === "valjevo-dungeon-save";
 const dungeonReload = routeName === "valjevo-dungeon-reload";
 const falseTyranthraxus = routeName === "valjevo-false-throne";
 const alHyam = routeName === "valjevo-al-hyam";
+const alHyamReload = routeName === "valjevo-al-hyam-reload";
 const captiveHedge = routeName === "valjevo-cadorna-hedge";
 const captiveReload = routeName === "valjevo-cadorna-reload";
 const captiveKilled = routeName === "valjevo-cadorna-killed";
@@ -3606,7 +3607,7 @@ routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload")
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
-routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline");
+routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 const partyDefeatEffect = routeName === "valjevo-party-defeat-effect";
 const defeatEffect = partyDefeatEffect || routeName === "buccaneer-pen-defeat-effect";
@@ -3697,7 +3698,7 @@ const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
 const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneReturn || koboldCaveExit;
-const saveSlot = routeName === "sokal-floorboard-diary-reload" ? "C" :
+const saveSlot = alHyamReload || routeName === "sokal-floorboard-diary-reload" ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn ||
     ["stojanow-wall-warning-reload", "kovel-chase-east-reload"].includes(routeName) ? "B" : slot;
@@ -6424,6 +6425,14 @@ try {
       console.log("Native save:", saved);
     }
     console.log("Verified Cadorna's portrait and witnessed journal entries in Chrome.");
+  } else if (alHyamReload) {
+    await advance("j");
+    assert.equal(frame.journal?.trackedId, "commission-castle");
+    assert.ok(frame.journal.leads.some(({ id }) => id === "castle-al-hyam-notes"));
+    assert.match(frame.journal.objective.nextStep, /Al-Hyam Dhazid's notes.*journal entry 30/i);
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the recovered Al-Hyam notes and objective after reloading in Chrome.");
   } else if (alHyam) {
     const close = "encounter:area:5:ecl:a28f:SPRIT5.DAX:12:0:0";
     await observeApproach([[56, 32, close, 24, 80]], false);
@@ -6458,6 +6467,15 @@ try {
     await advance("j");
     assert.ok(knows());
     assert.match(frame.journal.objective.nextStep, /Al-Hyam Dhazid's notes.*journal entry 30/i);
+    for (const key of ["j", "enter", "e", "s", "s"]) await advance(key);
+    assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""), /SAVEWHICHGAME/i);
+    await advance("c");
+    const notesSave = resolve(directory, "C.json");
+    const savedJournal = JSON.parse(readFileSync(notesSave, "utf8"));
+    assert.equal(savedJournal.tracked, "commission-castle");
+    assert.ok(savedJournal.leads.some(({ id }) => id === "castle-al-hyam-notes"));
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Al-Hyam notes checkpoint:", notesSave);
     console.log("Verified Al-Hyam's portrait and witnessed notes in Chrome.");
   } else if (falseTyranthraxus) {
     const portrait = "portrait:HEAD5.DAX:54:BODY5.DAX:1";
