@@ -8,7 +8,7 @@ import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng, pngDimensions } from "./png.js";
 import { loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
-import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, portraitKey, valjevoThayRecordsArt } from "./portrait-art.js";
+import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, portraitKey, scriptIllustrations } from "./portrait-art.js";
 import { combatEffectKey, transformCombatEffectPixels, combatSelectionKey, isCombatExtent, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
 const families = [
@@ -286,7 +286,7 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
   });
   const area = /^(?:tile|combat:area|portrait:area|scene-illustration:area):(\d+):/.exec(id)?.[1];
   const placement = metadata.encounter
-    ?? (id.startsWith("portrait:") || id === valjevoThayRecordsArt
+    ?? (id.startsWith("portrait:") || scriptIllustrations.has(id)
       ? { x: 8, y: 8, width: 120, height: 120, ...(area !== undefined && { area: Number(area) }) }
       : sheetPart && source ? { x: 224, y: sheetPart[2] === "HEAD" ? 8 : 48, width: metadata.width / artScale, height: metadata.height / artScale }
       : id === "scene:title" || id === "scene:publisher" ? { x: 0, y: 0, width: 320, height: 200 }

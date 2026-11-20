@@ -6686,7 +6686,17 @@ try {
     for (const key of ["j", "enter", ..."savior", "enter", "y", "j"]) await advance(key);
     assert.ok(knows("swamp-elder-story") && knows("journal-entry-31"));
     assert.ok(!knows("swamp-champion-requested"));
-    for (const key of ["j", "enter", "enter", "j"]) await advance(key);
+    await advance("j");
+    for (const cue of ["9a87:caller:a287", "9a59:caller:a2ee"]) {
+      await advance("enter");
+      const illustration = `scene-illustration:area:16:ecl:${cue}`;
+      assert.equal(frame.portrait, illustration);
+      await waitFor("Drythh's challenge illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${illustration}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+    }
+    await advance("j");
     assert.ok(knows("swamp-champion-requested") && !knows("swamp-alliance-averted"));
     assert.match(frame.journal.objective.nextStep, /choose a party member/);
     if (routeName === "swamp-elder-decline") {
