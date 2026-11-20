@@ -4218,7 +4218,9 @@ try {
       }).observe(art, {childList: true});`);
     for (const key of ["up", "enter", "n", "enter", "enter", "enter"]) await advance(key);
     const effects = new Map();
-    for (let turn = 0; turn < 23 && effects.size < 4; turn++) {
+    const arrowId = "combat-effect:COMSPR.DAX:0";
+    const arrowPath = [];
+    for (let turn = 0; turn < 23 && !effects.has(arrowId); turn++) {
       await advance("q");
       assert.equal(frame.combatEffect, undefined);
       const rendered = (frame.animation ?? []).filter(entry => entry.combatEffect);
@@ -4226,20 +4228,23 @@ try {
       for (const entry of rendered) {
         const [x, y, id] = entry.combatEffect;
         effects.set(id, [x, y]);
+        if (id === arrowId) arrowPath.push([x, y]);
         assert.notEqual(entry.frame, entry.enhancedFrame);
       }
       await waitFor("native effect animation to finish", () => run(`state.sequence === ${frame.sequence} &&
         !animationFrame && !document.querySelector(".combat-effect")`));
     }
-    const ids = [5, 133, 10, 138].map(id => `combat-effect:COMSPR.DAX:${id}`);
+    const ids = [5, 133, 10, 138, 0].map(id => `combat-effect:COMSPR.DAX:${id}`);
     assert.deepEqual([...effects.keys()], ids);
+    assert.deepEqual(arrowPath[0], [80, 80]);
+    assert.deepEqual(arrowPath.at(-1), [56, 32]);
     const observed = await run("window.observedEffects");
     for (const [id, [x, y]] of effects) {
       assert.ok(observed.some(({ source, left, top, aboveActors }) => source === `/art/${id}` &&
         Math.abs(left - x / 3.2) < 0.01 && Math.abs(top - y / 2) < 0.01 && aboveActors));
     }
     await switchBothWays();
-    console.log("Verified Council magic effects, actor layering, and cleanup in Chrome.");
+    console.log("Verified Council magic and arrow effects, actor layering, and cleanup in Chrome.");
   } else if (routeName === "new-phlan-arena-quick" || routeName === "new-phlan-arena-manual-report") {
     await run(`window.combatReports = [];
       new MutationObserver(() => {

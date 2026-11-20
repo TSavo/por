@@ -70,7 +70,7 @@ function checkBrowserArtPacks(): void {
     }).phlan, { x: 24, y: 28, sector: 1, key: "down" }, "Phlan travel should reach the scripted west crossroads");
   }
   const loaded = loadUpgradeArtFromManifests(paths, root);
-  const effectIds = [5, 133, 10, 138];
+  const effectIds = [5, 133, 10, 138, 0, 1, 2, 130];
   const effectKeys = effectIds.map(id => `combat-effect:COMSPR.DAX:${id}`);
   for (const key of effectKeys) ok(loaded.has(key), `Missing Enhanced combat effect ${key}`);
   const matchEffect = loadCombatEffects(effectKeys, root);

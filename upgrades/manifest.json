@@ -6795,6 +6795,10 @@
     "combat-effect:COMSPR.DAX:133": "combat-magic-missile-flight-alt.png",
     "combat-effect:COMSPR.DAX:10": "combat-magic-missile-contact.png",
     "combat-effect:COMSPR.DAX:138": "combat-magic-missile-burst.png",
+    "combat-effect:COMSPR.DAX:0": "combat-flight-arrow-up.png",
+    "combat-effect:COMSPR.DAX:1": "combat-flight-arrow-upper-right.png",
+    "combat-effect:COMSPR.DAX:2": "combat-flight-arrow-right.png",
+    "combat-effect:COMSPR.DAX:130": "combat-flight-arrow-left.png",
     "combat:RANDCOM.DAX:1:0:5": "combat-fallen-adventurer.png",
     "combat:RANDCOM.DAX:1:0:0": "combat-loose-stones.png",
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"

@@ -3578,7 +3578,7 @@ Larger units use one frame per native 24×24 cell. Chrome verified the
 vertical pair behind the Slums ogre, the horizontal pair behind the Wild
 Cave lizard, and all four cells behind Tyranthraxus.
 The art inventory lists all 26 COMSPR.DAX frames, with direct links for
-two selection frames and four magic effect frames. The remaining 20
+two selection frames, four magic effect frames, and four arrow frames. The remaining 16
 are available for review by archive block and frame index.
 
 The `new-phlan-council-magic-effects` replay uses a controlled slot A
@@ -3586,6 +3586,10 @@ checkpoint to reach the level-three mage's wand volley. Both flight orientations
 impact phases render over the battlefield and actor layers. Each effect
 matches the native draw and placement. Classic uses the captured guest
 frame, and the effect layer clears when the animation finishes.
+The same replay checks the Council arrow's original launch at (80, 80)
+and arrival at (56, 32) through the six-frame presentation cap. Separate
+Chrome replays of the Council reserves and tavern brawl verify the other
+three arrow directions, their native anchors, and display switching.
 
 Kuto's roaming lizardfolk use a dedicated 352×352 ruins illustration
 at four script positions. Chrome exercised the approach, Advance and

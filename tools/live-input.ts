@@ -622,8 +622,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           const impact = isImpact(key);
           const effectCount = animation.filter(frame => frame.combatEffect).length;
           if (effectCount >= 6 || animation.length >= 12) {
-            if (!impact) return;
-            const replaceable = animation.findIndex(flightFrame);
+            // Preserve a flight's launch and arrival when a long trajectory
+            // fills the presentation queue with intermediate positions.
+            const continuesFlight = !impact && previous?.[2] === key &&
+              Math.abs(previous[0] - x) <= 8 && Math.abs(previous[1] - y) <= 8;
+            const replaceable = impact ? animation.findIndex(flightFrame)
+              : continuesFlight ? animation.length - 1 : -1;
             if (replaceable < 0) return;
             animation.splice(replaceable, 1);
           }
