@@ -173,8 +173,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const caveRevisit =
         (area === 25 && battleCursor === 0x9c97 && !dialogue.includes("ALARGEDRAGONFLYSABOVEYOU")) ||
         (area === 27 && battleCursor === 0x9d9c && !dialogue.includes("ASMALLGROUPOFKOBOLDSENTERING"));
+      // Cadorna's pleas and his hedge directions share the release menu.
+      const captivePlea = area === 3 && battleCursor === 0xb0f6 && !dialogue.includes("IKNOWTHEWAYTHROUGHTHEHEDGE");
       const picture = !scene
-        ? portraitArt(screen, area, caveRevisit ? undefined : battleCursor, otherAuctionOutcome ? undefined : portraitCaller)
+        ? portraitArt(screen, area, caveRevisit || captivePlea ? undefined : battleCursor, otherAuctionOutcome ? undefined : portraitCaller)
         : undefined;
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
