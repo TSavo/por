@@ -3332,6 +3332,11 @@ Chrome replay through the original combat transition. The Nomad feast
 illustration appears during four outdoor dialogue pauses with Hassad.
 Chrome checked those pauses and the surrounding tent portraits.
 
+Hassad's daytime greeting now has its own illustration. Chrome verified
+acceptance into the existing outdoor feast scene and decline back to
+the overland prompt. Separate replays verified the Kuto Ruins gnoll
+approach and all three restored Council Guard ready poses.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the

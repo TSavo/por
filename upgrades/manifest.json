@@ -5,6 +5,10 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:17:ecl:9da2:caller:a416:HEAD7.DAX:74:BODY7.DAX:30": "nomad-headman-greeting.png",
+    "portrait:area:17:ecl:9d74:caller:a4aa:HEAD7.DAX:74:BODY7.DAX:30": "nomad-headman-greeting.png",
+    "portrait:area:17:ecl:9d74:caller:a4fa:HEAD7.DAX:74:BODY7.DAX:30": "nomad-headman-greeting.png",
+    "encounter:area:29:ecl:a64b:SPRIT8.DAX:73:1:0": "kuto-ruins-gnoll-watch-approach-middle.png",
     "combat:area:8:CPIC3.DAX:14:ecl:b48a": "new-phlan-watch-mage-stand.png",
     "combat:area:8:CPIC3.DAX:15:ecl:b48a": "buccaneer-wilds-patrol-corporal-ready.png",
     "combat:area:8:CPIC3.DAX:16:ecl:b48a": "tempus-temple-captain-ready.png",
@@ -5275,6 +5279,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:29:ecl:a64b:SPRIT8.DAX:73:1:0": { "area": 29, "x": 48, "y": 32, "width": 40, "height": 73 },
     "encounter:area:27:ecl:9ff0:SPRIT8.DAX:57:1:0": { "area": 27, "x": 56, "y": 32, "width": 32, "height": 65 },
     "encounter:area:27:ecl:9ff0:SPRIT8.DAX:113:1:0": { "area": 27, "x": 40, "y": 32, "width": 64, "height": 65 },
     "encounter:area:27:ecl:9ff0:SPRIT8.DAX:31:1:0": { "area": 27, "x": 56, "y": 32, "width": 24, "height": 65 },
