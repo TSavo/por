@@ -6995,6 +6995,11 @@ try {
     await advance("j");
     assert.equal(knows("route"), !declineRestal);
     assert.equal(knows("dismissed"), declineRestal);
+    if (frame.journal.trackedId === "commission-textile") {
+      assert.match(frame.journal.objective.nextStep, declineRestal
+        ? /back up the well.*another way into the Textile House/i
+        : /From the main well.*western textile building/i);
+    }
     assert.ok(wellClue());
     for (const key of ["j", "up"]) await advance(key);
     assert.equal(frame.portrait, declineRestal ? "scene-illustration:area:2:ecl:ac61" : undefined);

@@ -1416,6 +1416,9 @@ illustration and warning, Restal's portrait, and the blindfold illustration
 while switching display modes. Run it with `--decline` to verify that turning
 down the blindfold records the dismissal. The default replay accepts it and
 records the shortcut after the party reaches the main well.
+Both routes verify their own outcome illustration. With Cadorna's
+commission tracked, the journal points to the western building after
+acceptance and tells the party to find another entrance after dismissal.
 The `cadorna-envoy-briefing` replay uses controlled slot A at City Hall.
 It verifies Cadorna's 352×352 portrait and checks that the sealed-packet
 journal clue appears after his instructions.

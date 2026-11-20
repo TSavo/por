@@ -227,7 +227,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("textile-courtyard-cleared")) nextStep = "Cross the quiet courtyard and search the western textile building for Cadorna's treasure.";
       else if (knows("textile-courtyard-ambush")) nextStep = "Prepare for the hobgoblin ambush before crossing the courtyard toward the western textile building.";
       else if (knows("textile-restal-route")) nextStep = "From the main well where Restal left you, search the western textile building for Cadorna's treasure.";
-      else if (knows("textile-restal-blindfold") && !knows("textile-restal-dismissed")) nextStep = "Choose Yes to let Restal guide you blindfolded, or No to return to the well.";
+      else if (knows("textile-restal-dismissed")) nextStep = "Restal sent you back up the well. Look for another way into the Textile House, then search the western building for Cadorna's treasure.";
+      else if (knows("textile-restal-blindfold")) nextStep = "Choose Yes to let Restal guide you blindfolded, or No to return to the well.";
       else if (tracked?.status === "accepted") nextStep = tracked.detail;
     }
     if (commission.id === "ohlo" && tracked?.status === "accepted") {
