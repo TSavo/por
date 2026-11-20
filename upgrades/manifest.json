@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:10:CPIC4.DAX:70:ecl:b162": "kobold-cave-efreeti-stand.png",
+    "combat:area:10:CPIC4.DAX:198:ecl:b162": "kobold-cave-efreeti-strike.png",
     "portrait:area:25:ecl:a58b:caller:9c11:PIC6.DAX:117:0:0": "diogenes-silver-bottle-directions.png",
     "portrait:area:18:ecl:b240:caller:a825:PIC1.DAX:16:0:0": "podal-auction-cancelled.png",
     "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:0:0": "podal-auction-hostile-crowd.png",
