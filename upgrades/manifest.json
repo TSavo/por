@@ -3651,6 +3651,8 @@
     "tile:8:9b6a784556735dc9816f557fcc3d3b175499f936df6fee43202260dad8931b52": "new-phlan-civic-terrain-9b6a78455673.png",
     "tile:8:70c743d36fac7ba264f8429715a31655da223abf5e841ae991755efdec71f93d": "new-phlan-civic-terrain-70c743d36fac.png",
     "tile:8:e5e13822707ce82bd17dd53379e11b8f7e3d25ae955e6afa8a02547ea77171e8": "new-phlan-civic-terrain-e5e13822707c.png",
+    "scene-illustration:area:26:ecl:a835": "lizard-wilds-kobold-release.png",
+    "scene-illustration:area:26:ecl:a842": "lizard-wilds-kobold-release.png",
     "portrait:area:26:PIC7.DAX:0:0:0": "lizard-wilds-kobold-prisoners.png",
     "portrait:area:26:PIC7.DAX:57:0:0": "lizard-wilds-pool-dialogue.png",
     "combat:area:2:CPIC4.DAX:72": "textile-ghoul-stand.png",

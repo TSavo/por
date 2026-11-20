@@ -1124,7 +1124,7 @@ const illustrationRoutes = new Map([
   ["lizard-wilds-kobold-prisoners", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:26:PIC7.DAX:0:0:0", prompt: /RELEASEUS/i,
-    continuation: { inputs: ["r"], prompt: /WATCHOUTFORTHEMUTANTLIZARDMEN/i, clearsPortrait: true },
+    continuation: { inputs: ["r"], prompt: /WATCHOUTFORTHEMUTANTLIZARDMEN.*THENRUNOUTTHEDOOR/i, portrait: "scene-illustration:area:26:ecl:a842" },
     journalLead: "lizard-wilds-mutant-warning",
   }],
   ["lizard-wilds-pool-dialogue", {
@@ -6416,6 +6416,12 @@ try {
         await advance("up");
         assert.equal(frame.portrait, undefined);
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /7,5N/i);
+      }
+      if (routeName === "lizard-wilds-kobold-prisoners") {
+        await advance("down");
+        assert.equal(frame.portrait, nextPortrait);
+        await advance("up");
+        assert.equal(frame.portrait, undefined);
       }
       if (routeName === "new-phlan-rolf-tour") await waitForExplorationViewport();
       if (routeName === "kuto-well-waterline") {
