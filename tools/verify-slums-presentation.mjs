@@ -5950,13 +5950,19 @@ try {
     const text = frame.text.toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join("");
     assert.match(text, /PRIESTESSJOYOFSUNE.*DOYOUSEEKHEALING/i);
-    await waitFor("Priestess Joy's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    const joyPortraitLoaded = () => run(`(() => {
+      const image = document.querySelector(".encounter-portrait");
+      return image?.naturalWidth === 352 && image.src.endsWith("/portrait:HEAD3.DAX:22:BODY3.DAX:24");
+    })()`);
+    await waitFor("Priestess Joy's Enhanced portrait", joyPortraitLoaded);
     await switchBothWays();
+    await waitFor("Priestess Joy's portrait after switching back to Enhanced", joyPortraitLoaded);
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "phlan-sune-healing"));
     await advance("j");
     await advance("y");
     assert.equal(frame.portrait, "portrait:HEAD3.DAX:22:BODY3.DAX:24");
+    await waitFor("Priestess Joy's Enhanced portrait in the healing menu", joyPortraitLoaded);
     assert.match(frame.text.filter(([cell]) => cell >= 960).toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join(""), /HEAL.*VIEW.*POOL.*APPRAISE.*EXIT/i);
     console.log("Verified Priestess Joy's healing prompt portrait in Chrome.");
