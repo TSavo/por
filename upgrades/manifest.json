@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:13:CPIC2.DAX:0:ecl:a4ba": "kobold-cave-horde-infantry-ready.png",
+    "combat:area:13:CPIC2.DAX:128:ecl:a4ba": "kobold-cave-horde-infantry-strike.png",
     "portrait:area:20:ecl:b6df:caller:a7fd:HEAD2.DAX:25:BODY2.DAX:13": "slums-fortune-reading.png",
     "portrait:area:20:ecl:b6df:caller:a953:HEAD2.DAX:25:BODY2.DAX:13": "slums-fortune-reading.png",
     "combat:area:13:CPIC2.DAX:0:ecl:a1d4": "kobold-cave-horde-infantry-ready.png",
