@@ -727,6 +727,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "kobold-efreeti-warning", title: "When to summon Samir",
       detail: "Samir returned to the brass bottle and warned the party to summon him only when a vampire is near." });
   }
+  if (text.includes("THE SMITH (A HUMAN) AND THREE FIRE GIANTS ARE WORKING ON A SUIT OF ARMOR")) {
+    leads.push({ id: "castle-forge", title: "The castle forge",
+      detail: "A human smith and three fire giants were making armor. The party saw weapons and armor piled nearby." });
+  }
+  if (text.includes("I CAN'T TAKE ANYMORE ORDERS JUST NOW. IF IT'S IMPORTANT GET AUTHORIZATION")) {
+    leads.push({ id: "castle-forge-authorization", title: "The smith requires authorization",
+      detail: "The smith told the party to get authorization for any urgent order." });
+  }
   if (text.includes("YOU ARE LEFT WITH THE NOTES OF AL-HYAM DHAZID") &&
       text.includes("YOU COPY THEM INTO YOUR JOURNAL AS ENTRY 30")) {
     leads.push({ id: "castle-al-hyam-notes", title: "Al-Hyam Dhazid's notes",

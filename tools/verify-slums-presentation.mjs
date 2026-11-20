@@ -6152,10 +6152,16 @@ try {
     assert.equal(frame.portrait, "portrait:HEAD5.DAX:13:BODY5.DAX:9");
     await waitFor("the Valjevo forge smith portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    for (const key of ["p", forgeAuthorization ? "h" : "n"]) await advance(key);
+    const knows = id => frame.journal?.leads.some(lead => lead.id === id);
+    await advance("j");
+    assert.ok(knows("castle-forge") && !knows("castle-forge-authorization"));
+    for (const key of ["j", "p", forgeAuthorization ? "h" : "n"]) await advance(key);
     const dialogue = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
     assert.match(dialogue, forgeAuthorization ? /IFIT'SIMPORTANTGETAUTHORIZATION/i : /YOUNEVERGETTOTALLYUSEDTOTHEHEAT/i);
     assert.equal(frame.portrait, undefined);
+    await advance("j");
+    assert.equal(knows("castle-forge-authorization"), forgeAuthorization);
+    await advance("j");
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log(`Verified the forge smith portrait and ${routeName} dialogue in Chrome.`);
   } else if (castleChaplain) {
