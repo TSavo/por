@@ -3549,3 +3549,9 @@ scene, encounter, and combat archive frames, 432 have direct links and
 22 have exact pixel matches to linked art. The 353 unlinked frames include
 11 uniform frames. Archive linkage counts measure source coverage. Use
 runtime traces to determine which unlinked frames appear during play.
+
+The Valhingen roaming zombie uses its Enhanced illustration during the
+encounter and parlay menus. The matcher recognizes the original base
+portrait with its XOR animation deltas at both script cursors. Chrome
+verified both menus and display switching from a controlled checkpoint
+that selects the neutral roaming zombie branch.

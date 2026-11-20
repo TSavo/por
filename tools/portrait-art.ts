@@ -4,6 +4,7 @@ import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
 const pictureKey = /^portrait:(PIC\d+\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
+const roamingZombieAnimationKey = /^portrait:area:10:ecl:(?:b56c|b58c):PIC4\.DAX:35:0:0$/;
 export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(HEAD\d+\.DAX):(\d{1,3}):(BODY\d+\.DAX):(\d{1,3})$/;
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
@@ -87,6 +88,7 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
     const [, area, cursor, caller] = areaPortraitKey.exec(key) ?? [];
     const scope = [area, cursor, caller].flatMap(part => part === undefined ? [] : [part + ":"]).join("");
     const signature = scope + Buffer.from(pixels).toString("base64");
+    if (patterns.get(signature) === key) return;
     patterns.set(signature, patterns.has(signature) ? null : key);
     if (report) {
       const ids = registered.get(signature) ?? [];
@@ -111,11 +113,22 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
     if (!match) continue;
     const [, archive, block, member, frame] = match;
     const source = entry(archive, block);
-    const record = source && pictureMembers(source.data)[Number(member)];
+    const members = source ? pictureMembers(source.data) : [];
+    const record = members[Number(member)];
     if (!record) continue;
     const picture = decodePicture(record.data);
     if (picture.width !== size || picture.height !== size || Number(frame) >= picture.itemCount) continue;
-    register(frameSlice(picture, Number(frame)), key);
+    const base = frameSlice(picture, Number(frame));
+    register(base, key);
+    if (roamingZombieAnimationKey.test(key) && record.selector === 1) {
+      // The guest XORs one animation delta onto the base portrait.
+      for (const member of members.slice(1)) {
+        if (member.selector !== record.selector) continue;
+        const delta = decodePicture(member.data);
+        if (delta.width !== size || delta.height !== size || delta.itemCount !== 1) continue;
+        register(base.map((pixel, index) => pixel ^ delta.pixels[index]!), key);
+      }
+    }
   }
   if (report) {
     const matched = new Set([...registered.values()].flat());
