@@ -547,6 +547,12 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["kuto-nailed-door-patrol", {
+    slot: "J", inputs: ["s", "up", "enter", "enter"],
+    portrait: "portrait:area:29:PIC8.DAX:57:0:0",
+    prompt: /ALIZARDMANLEADSAPACKOFGIANTLIZARDSONPATROLBEFOREADOORTHATHASBEENNAILEDCLOSED/i,
+    continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i },
+  }],
   ["bane-gate-direct-attack", {
     slot: "A", inputs: ["up", "enter", "enter", "a"],
     portrait: "portrait:area:24:PIC1.DAX:4:0:0",
