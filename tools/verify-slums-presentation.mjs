@@ -1146,8 +1146,8 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter"],
     requireTiledApproach: false,
     approachSequence: [[40, 32, "encounter:area:25:ecl:a8d0:SPRIT6.DAX:60:0:0", 64, 80]],
-    portrait: "portrait:area:25:PIC6.DAX:60:0:0", prompt: /AGIANTSNAKEFALLSONTOPOFTHEPARTY/i,
-    continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i },
+    portrait: "scene-illustration:area:25:ecl:a90e", prompt: /AGIANTSNAKEFALLSONTOPOFTHEPARTY/i,
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:25:ecl:a90f", prompt: /ABATTLEBEGINS/i },
   }],
   ["wild-cave-boar-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
@@ -6434,6 +6434,11 @@ try {
         assert.equal(frame.portrait, nextPortrait);
         await advance("up");
         assert.equal(frame.portrait, undefined);
+      }
+      if (routeName === "wild-cave-giant-snake-dialogue") {
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /GIANTSNAKEHITPOINTS/i);
       }
       if (routeName === "wild-cave-giant-lizard-dialogue") {
         await advance("enter");
