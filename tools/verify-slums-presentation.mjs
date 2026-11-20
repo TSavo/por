@@ -6738,7 +6738,16 @@ try {
     assert.equal(frame.portrait, "portrait:HEAD4.DAX:0:BODY4.DAX:2");
     await waitFor("the Valhingen mystic portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    console.log("Verified the Valhingen mystic portrait and state-preserving switches.");
+    for (const key of ["enter", "enter", "l"]) await advance(key);
+    const directions = "portrait:area:10:ecl:ae86:HEAD4.DAX:0:BODY4.DAX:2";
+    assert.equal(frame.portrait, directions);
+    await waitFor("the mystic directions illustration", () => run(`
+      [...document.querySelectorAll(".encounter-portrait")].some(image =>
+        image.naturalWidth === 352 && image.src.endsWith(${JSON.stringify(directions)}))`));
+    await switchBothWays();
+    await advance("enter");
+    assert.notEqual(frame.portrait, directions);
+    console.log("Verified the Valhingen mystic approach, directions illustration, and state-preserving switches.");
   } else if (assault) {
     const route = ["left", "left", "up", "right", "right", "up", "enter", "enter", "enter", "enter",
       "s", "e", "n", "enter", "enter", "enter", "enter", "right", "up", "left", "up", "right", "up", "enter"];
