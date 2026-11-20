@@ -3812,3 +3812,8 @@ The `bivant-reward` Chrome replay keeps the rescue commission pending
 while the party claims the reward items, then saves the turn-in to slot A.
 The `bivant-reward-reload` replay opens that save and checks the completed
 commission and display switching.
+
+The plumed, plum cap, wine pennant, and jade helm Human appearances
+now have recolor masks for both poses of all 32 weapon choices. Chrome
+verified representative editor choices and controlled live axe and
+longsword-and-shield replays. Hair follows each head's native behavior.
