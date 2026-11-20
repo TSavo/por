@@ -7393,6 +7393,7 @@ try {
     await advance("j");
     assert.equal(frame.journal?.trackedId, "commission-river");
     assert.match(frame.journal.objective.nextStep, /Explore the passage ahead/);
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "river-inner-doors"));
     const halls = () => frame.text.map(([, character]) => String.fromCharCode(character)).join("");
     for (const key of ["j", ...Array(15).fill("up")]) await advance(key);
     assert.match(halls(), /ASECRETDOORISFOUNDINFRONTOFYOU/i);
@@ -7405,6 +7406,10 @@ try {
     const innerDoorShot = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "pyramid-inner-secret-door.png"), Buffer.from(innerDoorShot.data, "base64"));
     await switchBothWays();
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "river-inner-doors"));
+    assert.match(frame.journal.objective.nextStep, /Follow the hidden passages/);
+    await advance("j");
     for (const key of ["enter", "right", "up"]) await advance(key);
     assert.match(halls(), /ASECRETDOORISFOUNDTOYOURLEFT/i);
     assert.equal(frame.portrait, "scene-illustration:area:22:ecl:9a06:caller:9c5c:cue:left");
@@ -7418,7 +7423,9 @@ try {
     for (const key of ["enter", "right", "up", "j"]) await advance(key);
     assert.ok(frame.journal?.leads.some(({ id }) => id === "river-entrance-inside"));
     assert.ok(!frame.journal.leads.some(({ id }) => id === "river-fountain"));
-    console.log("Verified the reloaded pyramid entrance and the first two hidden doors in Chrome.");
+    for (const key of ["j", "e", "s", "s", "a"]) await advance(key);
+    assert.ok(JSON.parse(readFileSync(saved, "utf8")).leads.some(({ id }) => id === "river-inner-doors"));
+    console.log("Verified the first two pyramid doors and saved their journal discovery in Chrome:", saved);
   } else if (riverApproach) {
     const boat = "river-rowboat";
     const door = "river-secret-door";
