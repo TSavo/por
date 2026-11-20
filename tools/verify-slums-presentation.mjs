@@ -34,6 +34,12 @@ const arenaApproach = ["right", "right", "up", "up", "right", "up", "up", "enter
 const arenaWatchApproach = [...arenaApproach, "enter", "n", "n", "e", "e", "r", "h",
   ...Array(8).fill("i"), "r", "enter"];
 const arenaWatchBattle = [...arenaWatchApproach, "enter", "f", "enter", "enter", "enter"];
+const arenaMasterDistances = [
+  [56, 32, "encounter:area:11:ecl:9bf5:SPRIT3.DAX:16:2:0", 16, 49],
+  [56, 32, "encounter:area:11:ecl:9bf6:SPRIT3.DAX:16:2:0", 16, 49],
+  [56, 32, "encounter:area:11:ecl:9bf6:SPRIT3.DAX:16:1:0", 24, 65],
+  [56, 32, "encounter:area:11:ecl:9bf8:SPRIT3.DAX:16:1:0", 24, 65],
+];
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
@@ -250,11 +256,18 @@ const encounterRoutes = new Map([
   ["new-phlan-city-watch-approach", {
     slot: "A",
     inputs: arenaWatchApproach,
+    approachSequence: [...arenaMasterDistances,
+      [56, 32, "encounter:area:11:ecl:99bd:SPRIT3.DAX:15:2:0", 16, 49],
+      [56, 32, "encounter:area:11:ecl:99be:SPRIT3.DAX:15:2:0", 16, 49],
+      [56, 32, "encounter:area:11:ecl:99be:SPRIT3.DAX:15:1:0", 24, 65],
+      [56, 32, "encounter:area:11:ecl:99c0:SPRIT3.DAX:15:1:0", 24, 65],
+    ],
     placement: [48, 32, "encounter:area:11:SPRIT3.DAX:15:0:0", 40, 73],
   }],
   ["new-phlan-arena-master-approach", {
     slot: "A",
     inputs: arenaApproach,
+    approachSequence: arenaMasterDistances,
     placement: [48, 32, "encounter:area:11:SPRIT3.DAX:16:0:0", 40, 80],
   }],
   ["bane-captive-goblin-approach", {
