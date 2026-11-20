@@ -3667,6 +3667,17 @@ routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel
 routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload", "nomad-feast-decline", "kobold-royal-ballista");
 routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
+const reflectedEffect = {
+  "new-phlan-council-reflected-effects": {
+    slot: "A", inputs: ["up", "enter", "n", "enter", "enter", "enter"],
+    arrowTurn: 45, arrow: [1, [80, 80], [32, 32]], missileTurn: 31,
+  },
+  "textile-reflected-arrow": {
+    slot: "B", inputs: ["up", "enter", "enter", "enter", "enter", "enter"],
+    arrowTurn: 14, arrow: [129, [104, 56], [32, 128]],
+  },
+}[routeName];
+routes.push("new-phlan-council-reflected-effects", "textile-reflected-arrow");
 const partyDefeatEffect = routeName === "valjevo-party-defeat-effect";
 const defeatEffect = partyDefeatEffect || routeName === "buccaneer-pen-defeat-effect";
 const projectile = {
@@ -3755,7 +3766,7 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = (routeName === "tyrmor-journal-reload" ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = (routeName === "tyrmor-journal-reload" ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
@@ -4508,7 +4519,7 @@ try {
       !animationFrame && !document.querySelector('.combat-sprite[src="/art/${cloud}"]')`));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified Stinking Cloud placement, reports, and cleanup in Chrome.");
-  } else if (routeName === "new-phlan-council-magic-effects" || defeatEffect || projectile) {
+  } else if (routeName === "new-phlan-council-magic-effects" || defeatEffect || projectile || reflectedEffect) {
     await run(`window.observedEffects = [];
       const originalFetch = window.fetch.bind(window);
       window.fetch = (url, options) => url === "/key" && options?.body === ":poll"
@@ -4549,6 +4560,37 @@ try {
       await switchBothWays(frame.frame);
       assert.deepEqual(readFileSync(saved), originalSave);
       console.log(`Verified ${routeName} flight, combat reports and display switching in Chrome.`);
+    } else if (reflectedEffect) {
+      for (const key of reflectedEffect.inputs) await advance(key);
+      const effectKey = (block) => `combat-effect:COMSPR.DAX:${block}:flip-x`;
+      const [arrow, launch, landing] = reflectedEffect.arrow;
+      const arrowKey = effectKey(arrow);
+      for (let turn = 1; turn <= reflectedEffect.arrowTurn; turn++) {
+        await advance("q");
+        if (turn !== reflectedEffect.missileTurn && turn !== reflectedEffect.arrowTurn) continue;
+        const missile = turn === reflectedEffect.missileTurn;
+        const ids = missile ? [effectKey(10), effectKey(138)] : [arrowKey];
+        const entries = (frame.animation ?? []).filter(({ combatEffect }) => ids.includes(combatEffect?.[2]));
+        const placements = entries.map(({ combatEffect }) => combatEffect);
+        assert.ok(entries.every(({ durationMs, frame, enhancedFrame }) =>
+          durationMs === (missile ? 110 : 55) && frame !== enhancedFrame));
+        if (missile) {
+          assert.deepEqual(placements, ids.map(id => [56, 56, id]));
+        } else {
+          assert.equal(placements.length, 6);
+          assert.deepEqual(placements[0], [...launch, arrowKey]);
+          assert.deepEqual(placements.at(-1), [...landing, arrowKey]);
+        }
+        assert.equal(frame.combatEffect, undefined);
+        await waitFor("the reflected effect and its cleanup", () => run(`state.sequence === ${frame.sequence} &&
+          !animationFrame && !document.querySelector(".combat-effect") &&
+          ${JSON.stringify(placements)}.every(([x, y, id]) => window.observedEffects.some(effect =>
+            effect.source === "/art/" + id && Math.abs(effect.left - x / 3.2) < 0.01 &&
+            Math.abs(effect.top - y / 2) < 0.01 && effect.aboveActors))`));
+      }
+      await switchBothWays(frame.frame);
+      assert.deepEqual(readFileSync(saved), originalSave);
+      console.log(`Verified ${routeName} positions, layering and display switching in Chrome.`);
     } else if (defeatEffect) {
       const inputs = partyDefeatEffect
         ? ["up", "enter", "enter", "c", "enter", "enter", "enter", ...Array(13).fill("q")]
