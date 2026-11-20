@@ -5,6 +5,12 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:29:ecl:a476:SPRIT8.DAX:73:1:0": "kuto-ruins-gnoll-watch-approach-middle.png",
+    "encounter:area:29:ecl:a477:SPRIT8.DAX:73:1:0": "kuto-ruins-gnoll-watch-approach-middle.png",
+    "encounter:area:29:ecl:a476:SPRIT8.DAX:0:1:0": "kuto-ruins-kobold-watch-approach-middle.png",
+    "encounter:area:29:ecl:a477:SPRIT8.DAX:0:1:0": "kuto-ruins-kobold-watch-approach-middle.png",
+    "encounter:area:29:ecl:a476:SPRIT8.DAX:57:1:0": "kuto-ruins-lizardfolk-watch-approach-middle.png",
+    "encounter:area:29:ecl:a477:SPRIT8.DAX:57:1:0": "kuto-ruins-lizardfolk-watch-approach-middle.png",
     "portrait:area:5:ecl:a38a:HEAD5.DAX:55:BODY5.DAX:31": "valjevo-al-hyam-notes-offer.png",
     "portrait:area:5:ecl:9a5a:caller:a45a:HEAD5.DAX:55:BODY5.DAX:31": "valjevo-al-hyam-notes-left.png",
     "combat:area:9:CPIC2.DAX:142:ecl:a603": "stojanow-tower-battle-mage-strike.png",
@@ -5466,6 +5472,12 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:29:ecl:a476:SPRIT8.DAX:73:1:0": { "area": 29, "x": 48, "y": 32, "width": 40, "height": 73 },
+    "encounter:area:29:ecl:a477:SPRIT8.DAX:73:1:0": { "area": 29, "x": 48, "y": 32, "width": 40, "height": 73 },
+    "encounter:area:29:ecl:a476:SPRIT8.DAX:0:1:0": { "area": 29, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:29:ecl:a477:SPRIT8.DAX:0:1:0": { "area": 29, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:29:ecl:a476:SPRIT8.DAX:57:1:0": { "area": 29, "x": 56, "y": 32, "width": 32, "height": 65 },
+    "encounter:area:29:ecl:a477:SPRIT8.DAX:57:1:0": { "area": 29, "x": 56, "y": 32, "width": 32, "height": 65 },
     "encounter:area:4:SPRIT5.DAX:16:1:0": { "area": 4, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:4:ecl:9d8a:SPRIT5.DAX:16:0:0": { "area": 4, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:7:SPRIT5.DAX:16:0:0": {"area":7,"x":48,"y":32,"width":40,"height":80},
