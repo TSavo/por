@@ -7570,6 +7570,10 @@ try {
         const reticle = document.querySelector(".combat-aim-reticle");
         if (reticle?.style.left !== "40%" || reticle.style.top !== "64%" ||
             reticle.nextElementSibling !== sprite) return false;
+        const backing = [...document.querySelectorAll(".combat-selection")].find(node =>
+          node.style.left === reticle.style.left && node.style.top === reticle.style.top);
+        if (backing?.naturalWidth !== 96 || !reticle.classList.contains("combat-aim-reticle-backed") ||
+            !(backing.compareDocumentPosition(reticle) & Node.DOCUMENT_POSITION_FOLLOWING)) return false;
         const context = document.createElement("canvas").getContext("2d");
         context.drawImage(image, 131, 136, 1, 1, 0, 0, 1, 1);
         return [...context.getImageData(0, 0, 1, 1).data].join(",") === "254,245,221,255";

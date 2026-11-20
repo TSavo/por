@@ -1002,7 +1002,7 @@ async function showScreen() {
       disableStreetPreview(error);
     }
   }
-  const selectionArt = aimMenu ? [] : (view.combatSelections ?? []).map(([x, y, id]) =>
+  const selectionArt = (view.combatSelections ?? []).map(([x, y, id]) =>
     [x, y, id, undefined, undefined, 24, 24]);
   const placements = [...(streetCanvas ? [] : view.tiles ?? []), ...(view.battleTiles ?? []), ...selectionArt,
     ...(view.combatArt ?? [])];
@@ -1123,6 +1123,10 @@ async function showScreen() {
           left: layer.style.left, top: layer.style.top,
           width: layer.style.width || "7.5%", height: layer.style.height || "12%",
         });
+        if (layers.some(backing => backing.matches(".combat-selection") &&
+          backing.style.left === layer.style.left && backing.style.top === layer.style.top)) {
+          reticle.classList.add("combat-aim-reticle-backed");
+        }
         layers.push(reticle);
       }
       layers.push(layer);
