@@ -70,8 +70,11 @@ function checkBrowserArtPacks(): void {
     }).phlan, { x: 24, y: 28, sector: 1, key: "down" }, "Phlan travel should reach the scripted west crossroads");
   }
   const loaded = loadUpgradeArtFromManifests(paths, root);
-  const effectIds = [5, 133, 10, 138, 0, 1, 2, 130, 3, 131];
-  const effectKeys = [...effectIds.map(String), "3:flip-x", "3:transpose"].map(id => `combat-effect:COMSPR.DAX:${id}`);
+  const effectIds = [5, 133, 10, 138, 0, 1, 2, 130, 3, 131, 9, 137];
+  const derivedEffects = [[3, "flip-x"], [3, "transpose"], [5, "flip-x"], [133, "flip-x"],
+    [9, "flip-x"], [137, "flip-x"]] as const;
+  const effectKeys = [...effectIds.map(String), ...derivedEffects.map(parts => parts.join(":"))]
+    .map(id => `combat-effect:COMSPR.DAX:${id}`);
   for (const key of effectKeys) ok(loaded.has(key), `Missing Enhanced combat effect ${key}`);
   const matchEffect = loadCombatEffects(effectKeys, root);
   const effectArchive = parseDax("COMSPR.DAX", readGameFile(root, "COMSPR.DAX"));
@@ -88,17 +91,17 @@ function checkBrowserArtPacks(): void {
     effectFrame.set(80, 80, composed[0]! ^ 1);
     deepStrictEqual(matchEffect(effectFrame, 80, 80, underlay), undefined);
   }
-  const axe = effectArchive.entries.find(({ id }) => id === 3);
-  ok(axe);
-  const axePixels = decodePicture(axe.data).pixels;
-  for (const transform of ["flip-x", "transpose"]) {
+  for (const [id, transform] of derivedEffects) {
+    const source = effectArchive.entries.find(entry => entry.id === id);
+    ok(source, `Missing original combat effect ${id}`);
+    const sourcePixels = decodePicture(source.data).pixels;
     for (let y = 0; y < 24; y++) {
       for (let x = 0; x < 24; x++) {
-        const source = transform === "flip-x" ? y * 24 + (23 - x) : x * 24 + y;
-        effectFrame.set(80 + x, 80 + y, axePixels[source] || underlay[y * 24 + x]!);
+        const index = transform === "flip-x" ? y * 24 + (23 - x) : x * 24 + y;
+        effectFrame.set(80 + x, 80 + y, sourcePixels[index] || underlay[y * 24 + x]!);
       }
     }
-    deepStrictEqual(matchEffect(effectFrame, 80, 80, underlay), `combat-effect:COMSPR.DAX:3:${transform}`);
+    deepStrictEqual(matchEffect(effectFrame, 80, 80, underlay), `combat-effect:COMSPR.DAX:${id}:${transform}`);
   }
   const zombieArchive = parseDax("PIC4.DAX", readGameFile(root, "PIC4.DAX"));
   const zombie = zombieArchive.entries.find(({ id }) => id === 35);

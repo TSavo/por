@@ -37,7 +37,9 @@ export function transformCombatEffectPixels(pixels: Uint8Array, transform?: stri
 
 export function combatEffectFlightFamily(key: string): string {
   const block = combatEffectKey.exec(key)?.[2];
-  return block === "3" || block === "131" ? "combat-effect:COMSPR.DAX:3" : key;
+  if (block === "3" || block === "131") return "combat-effect:COMSPR.DAX:3";
+  if (block === "5" || block === "133") return "combat-effect:COMSPR.DAX:5";
+  return key;
 }
 
 export function loadCombatEffects(keys: string[], root = keys.length ? findGameRoot() : null) {

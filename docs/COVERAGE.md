@@ -3582,7 +3582,7 @@ selection frame and below the targeted orc sprite at its guest position.
 Larger units use one frame per native 24×24 cell. Chrome verified the
 vertical pair behind the Slums ogre, the horizontal pair behind the Wild
 Cave lizard, and all four cells behind Tyranthraxus.
-The art inventory lists all 26 COMSPR.DAX frames. Twelve have direct
+The art inventory lists all 26 COMSPR.DAX frames. Fourteen have direct
 links, including two thrown-axe frames. Two more axe orientations are
 derived from block 3 by a horizontal reflection and a transpose. The
 inventory records those transforms with their source previews.
@@ -3602,6 +3602,10 @@ largest gap between them from 112 to 32 native pixels.
 The Council reserves replay checks all four thrown-axe orientations in
 Chrome. The flight sampler favors keeping a copy of each orientation
 while preserving launch at (80, 80) and arrival at (128, 104).
+The Tempus fight replay verifies the reflected flight cels and all four
+Hold Person phases at seven native targets, including two targets in a
+single input. Enhanced playback shows one four-phase cycle per target.
+Chrome checks native outcome text, effect cleanup, and mode switching.
 
 Kuto's roaming lizardfolk use a dedicated 352×352 ruins illustration
 at four script positions. Chrome exercised the approach, Advance and

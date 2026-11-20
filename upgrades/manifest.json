@@ -6805,6 +6805,12 @@
     "combat-effect:COMSPR.DAX:3:flip-x": "combat-flight-thrown-axe-reflected.png",
     "combat-effect:COMSPR.DAX:3:transpose": "combat-flight-thrown-axe-transposed.png",
     "combat-effect:COMSPR.DAX:131": "combat-flight-thrown-axe-quarter-turn.png",
+    "combat-effect:COMSPR.DAX:9": "combat-hold-person-first.png",
+    "combat-effect:COMSPR.DAX:9:flip-x": "combat-hold-person-first-reflected.png",
+    "combat-effect:COMSPR.DAX:137": "combat-hold-person-second.png",
+    "combat-effect:COMSPR.DAX:137:flip-x": "combat-hold-person-second-reflected.png",
+    "combat-effect:COMSPR.DAX:5:flip-x": "combat-magic-missile-5-reflected.png",
+    "combat-effect:COMSPR.DAX:133:flip-x": "combat-magic-missile-133-reflected.png",
     "combat:RANDCOM.DAX:1:0:5": "combat-fallen-adventurer.png",
     "combat:RANDCOM.DAX:1:0:0": "combat-loose-stones.png",
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"

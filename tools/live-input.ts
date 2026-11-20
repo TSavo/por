@@ -140,7 +140,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const selectionKeys = new Set((process.env.POR_COMBAT_SELECTION_KEYS ?? "").split(",").filter(Boolean));
   const effectKeys = (process.env.POR_COMBAT_EFFECT_KEYS ?? "").split(",").filter(Boolean);
   const matchCombatEffect = loadCombatEffects(effectKeys);
-  const isImpact = (key: string) => key.endsWith(":10") || key.endsWith(":138");
+  const isHoldEffect = (key: string) => /:(?:9|137)(?::flip-x)?$/.test(key);
+  const isImpact = (key: string) => isHoldEffect(key) || key.endsWith(":10") || key.endsWith(":138");
   const flightFrame = (frame: PresentationAnimationFrame) => frame.combatEffect && !isImpact(frame.combatEffect[2]);
   let pendingEffect: { x: number; y: number; background: Uint8Array } | undefined;
   const materialKeys = new Set((process.env.POR_COMBAT_MATERIAL_KEYS ?? "").split(",").filter(Boolean));
@@ -623,9 +624,17 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         if (key) {
           const previous = animation.at(-1)?.combatEffect;
           if (previous?.[0] === x && previous[1] === y && previous[2] === key) return;
+          if (isHoldEffect(key)) {
+            // The guest repeats the four phases at each target before reporting the result.
+            for (let i = animation.length - 1; i >= 0; i--) {
+              const phase = animation[i]!.combatEffect;
+              if (!phase || phase[0] !== x || phase[1] !== y || !isHoldEffect(phase[2])) break;
+              if (phase[2] === key) return;
+            }
+          }
           const impact = isImpact(key);
           const effectCount = animation.filter(frame => frame.combatEffect).length;
-          if (effectCount >= 6 || animation.length >= 12) {
+          if ((!isHoldEffect(key) && effectCount >= 6) || animation.length >= 12) {
             // Preserve a flight's launch and arrival when a long trajectory
             // fills the presentation queue with intermediate positions.
             const family = combatEffectFlightFamily(key);
