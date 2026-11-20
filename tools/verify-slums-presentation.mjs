@@ -555,8 +555,13 @@ const illustrationRoutes = new Map([
   ["tyranthraxus-battle-opening", {
     slot: "B",
     inputs: ["up", "up", ...Array(5).fill("enter"), ...Array(6).fill("a")],
-    portraitStops: Object.fromEntries(Array.from({ length: 6 }, (_, vote) =>
-      [vote + 7, "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"])),
+    portraitStops: {
+      3: "portrait:area:7:ecl:995f:caller:a54b:PIC5.DAX:66:0:0",
+      4: null,
+      5: "portrait:PIC5.DAX:66:0:0",
+      ...Object.fromEntries(Array.from({ length: 6 }, (_, vote) =>
+        [vote + 7, "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"])),
+    },
     portrait: "portrait:area:7:ecl:a803:PIC5.DAX:66:0:0",
     prompt: /ABATTLEBEGINS/i,
     continuation: { inputs: ["enter"], prompt: /HITPOINTS.*MOVEVIEWAIMUSE/i, clearsPortrait: true },
@@ -5264,9 +5269,13 @@ try {
     } else {
       for (const [index, key] of inputs.entries()) {
         const interimPortrait = illustration.portraitStops?.[index];
-        if (interimPortrait) {
-          assert.equal(frame.portrait, interimPortrait);
-          await verifyPortraitPanel();
+        if (interimPortrait !== undefined) {
+          assert.equal(frame.portrait, interimPortrait ?? undefined);
+          if (interimPortrait) {
+            await waitFor("the current illustration", () => run(`state.sequence === ${frame.sequence} &&
+              document.querySelector('.encounter-portrait[src="/art/${interimPortrait}"]')?.naturalWidth === 352`));
+            await verifyPortraitPanel();
+          }
         }
         const placement = illustration.approachStops?.[index];
         if (placement) {
