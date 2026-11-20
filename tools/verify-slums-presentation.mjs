@@ -3619,7 +3619,7 @@ routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-t
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
-routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload", "nomad-feast-decline");
+routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload", "nomad-feast-decline", "kobold-royal-ballista");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 const partyDefeatEffect = routeName === "valjevo-party-defeat-effect";
 const defeatEffect = partyDefeatEffect || routeName === "buccaneer-pen-defeat-effect";
@@ -6074,6 +6074,20 @@ try {
       assert.ok(savedResult.leads.some(({ id }) => id === defeat));
       console.log("Verified the king's fall and saved the council report objective:", saved);
     }
+  } else if (routeName === "kobold-royal-ballista") {
+    const knows = id => frame.journal?.leads.some(lead => lead.id === id);
+    const warning = /USESECRETWEAPONS|BALLISTAAPPEARANDFIRE/i;
+    const seesBallista = () => warning.test(frame.text.map(([, char]) => String.fromCharCode(char)).join(""));
+    await advance("j");
+    assert.ok(frame.journal && !knows("kobold-king-ballista"));
+    for (const key of ["j", "up"]) await advance(key);
+    for (let i = 0; i < 6 && !seesBallista(); i++) await advance("enter");
+    assert.ok(seesBallista());
+    await advance("j");
+    assert.ok(knows("kobold-king-ballista") && !knows("kobold-surrender-offer") && !knows("kobold-prison-escort"));
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the witnessed kobold ballista clue in Chrome.");
   } else if (koboldKingDoor) {
     const reload = routeName.endsWith("-reload");
     const door = "kobold-king-secret-door";

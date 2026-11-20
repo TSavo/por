@@ -837,6 +837,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "kobold-surrender-offer", title: "The king demands surrender",
       detail: "The kobold king offered the party a choice between surrendering and fighting again." });
   }
+  if (text.includes("USE THE SECRET WEAPONS") && text.includes("BALLISTA APPEAR AND FIRE")) {
+    leads.push({ id: "kobold-king-ballista", title: "The king's concealed ballistae",
+      detail: "The kobold king ordered his guards to fire concealed ballistae in the throne room." });
+  }
   if (text.includes("THE KOBOLDS CHASE FOR A WHILE, BUT YOU ESCAPE")) {
     leads.push({ id: "kobold-party-escaped", title: "The party escaped the kobolds",
       detail: "The party got away after the kobolds gave chase." });
