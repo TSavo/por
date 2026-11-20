@@ -550,8 +550,11 @@ const illustrationRoutes = new Map([
   ["tyranthraxus-battle-opening", {
     slot: "B",
     inputs: ["up", "up", ...Array(5).fill("enter"), ...Array(6).fill("a")],
+    portraitStops: Object.fromEntries(Array.from({ length: 6 }, (_, vote) =>
+      [vote + 7, "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"])),
     portrait: "portrait:area:7:ecl:a803:PIC5.DAX:66:0:0",
     prompt: /ABATTLEBEGINS/i,
+    continuation: { inputs: ["enter"], prompt: /HITPOINTS.*MOVEVIEWAIMUSE/i, clearsPortrait: true },
   }],
   ["valjevo-genheeris-deal-refused", {
     slot: "B", inputs: ["up", "enter", "enter", "a", "a", "p", "h", "enter", "n"],
@@ -5255,6 +5258,11 @@ try {
       await run('window.releasePortrait()');
     } else {
       for (const [index, key] of inputs.entries()) {
+        const interimPortrait = illustration.portraitStops?.[index];
+        if (interimPortrait) {
+          assert.equal(frame.portrait, interimPortrait);
+          await verifyPortraitPanel();
+        }
         const placement = illustration.approachStops?.[index];
         if (placement) {
           const [, , id, width, height] = placement;
