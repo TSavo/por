@@ -3270,6 +3270,12 @@ The Buccaneer Wilderness centaur replay follows ordinary exploration to
 the original encounter and checks the new approach sprite at (48, 32),
 display switching, and the transition into combat.
 
+Chrome checked the Lizard Wilderness river ferry's original Take Boat
+and Stay choices with its new illustration. The eastern ferry kept its
+own portrait in the control replay. A Valjevo maze patrol replay also
+verified the hill giant's ready and boulder-throwing poses with the
+native boulder attack report.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
