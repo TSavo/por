@@ -969,6 +969,9 @@ at native size and in the live Chrome view.
 The `river-passage` replay loads the slot A save printed by
 `river-approach` and verifies both the journal's retained entrance clue
 and the first two original hidden-door discoveries in the passage.
+Both doors have separate illustrations. Pass the slot A saved after the
+second door into `river-passage-reload` to check that the journal retains
+one inner-passage clue and still tracks the River Commission.
 The `river-fountain` replay starts from a controlled lower-pyramid save
 at `1,1 E`, just outside the chamber. It enters through the original door,
 checks the witnessed fountain clue, selects Destroy the Equipment, and
