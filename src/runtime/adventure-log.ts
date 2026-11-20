@@ -816,7 +816,8 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "kobold-guide-asleep", title: "The guide went back to sleep", detail: "The kobold returned to sleep without escorting the party." });
   }
   if (text.includes("THE ENVOYS ARE HERE, GREAT KING")) {
-    leads.push({ id: "kobold-guide-arrived", title: "At the kobold throne", detail: "The guide announced the party and the king told them to come forward." });
+    leads.push({ id: "kobold-guide-arrived", title: "The guide stopped outside the kobold throne room",
+      detail: "The guide announced the party. The king told them to come forward, and the guide fell into a stupor." });
   }
   if (text.includes("TWO MEN AND AN ANCIENT KOBOLD ON A WOODEN THRONE") || text.includes("THE TWO ENVOYS WAIT AT THE THRONE")) {
     leads.push({ id: "kobold-throne-envoys", title: "Envoys at the throne", detail: "The party found two envoys at the kobold throne." });
