@@ -5,6 +5,12 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:29:ecl:a5e8:SPRIT8.DAX:73:1:0": "kuto-ruins-gnoll-watch-approach-middle.png",
+    "encounter:area:29:ecl:a5e8:SPRIT8.DAX:0:1:0": "kuto-ruins-kobold-watch-approach-middle.png",
+    "encounter:area:29:ecl:a5e8:SPRIT8.DAX:57:1:0": "kuto-ruins-lizardfolk-watch-approach-middle.png",
+    "encounter:area:29:ecl:a524:SPRIT8.DAX:73:1:0": "kuto-ruins-gnoll-watch-approach-middle.png",
+    "encounter:area:29:ecl:a524:SPRIT8.DAX:0:1:0": "kuto-ruins-kobold-watch-approach-middle.png",
+    "encounter:area:29:ecl:a524:SPRIT8.DAX:57:1:0": "kuto-ruins-lizardfolk-watch-approach-middle.png",
     "portrait:area:6:ecl:a2b8:HEAD5.DAX:13:BODY5.DAX:9": "valjevo-forge-smith-defends.png",
     "encounter:area:25:ecl:a160:SPRIT6.DAX:11:1:0": "buccaneer-wilds-roaming-thief-approach-middle.png",
     "encounter:area:25:ecl:a160:SPRIT6.DAX:16:1:0": "buccaneer-wilds-patrol-corporal-approach-middle.png",
@@ -5514,6 +5520,12 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:29:ecl:a5e8:SPRIT8.DAX:73:1:0": { "area": 29, "x": 48, "y": 32, "width": 40, "height": 73 },
+    "encounter:area:29:ecl:a5e8:SPRIT8.DAX:0:1:0": { "area": 29, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:29:ecl:a5e8:SPRIT8.DAX:57:1:0": { "area": 29, "x": 56, "y": 32, "width": 32, "height": 65 },
+    "encounter:area:29:ecl:a524:SPRIT8.DAX:73:1:0": { "area": 29, "x": 48, "y": 32, "width": 40, "height": 73 },
+    "encounter:area:29:ecl:a524:SPRIT8.DAX:0:1:0": { "area": 29, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:29:ecl:a524:SPRIT8.DAX:57:1:0": { "area": 29, "x": 56, "y": 32, "width": 32, "height": 65 },
     "encounter:area:25:ecl:a160:SPRIT6.DAX:11:1:0": { "area": 25, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:25:ecl:a160:SPRIT6.DAX:16:1:0": { "area": 25, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:25:ecl:a160:SPRIT6.DAX:118:1:0": { "area": 25, "x": 56, "y": 32, "width": 24, "height": 65 },
