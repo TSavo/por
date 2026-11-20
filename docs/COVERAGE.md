@@ -4070,6 +4070,11 @@ Enhanced Manual Aim shows the selection artwork over empty squares.
 The `buccaneer-empty-manual-aim` Chrome route verifies four native cursor
 positions, Escape cleanup, and the original frame and save across
 display switches from a controlled Buccaneer checkpoint.
+The `kuto-wide-manual-aim` replay moves the single-cell cursor across
+both halves of a giant lizard while the full Enhanced sprite stays
+visible. The source matcher test checks both native-pixel placements,
+restores the underlying terrain, and rejects a cursor reported on the
+wrong half.
 
 The `sokal-floorboard-diary` Chrome route checks the ghost pointing to
 the board, the distinct diary and gems discovery illustration, and the

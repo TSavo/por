@@ -25,7 +25,7 @@ import { loadCombatMaterialMasks, loadUpgradeArtFromManifests } from "./upgrade-
 import { encodePng, pngDimensions } from "./png.js";
 import { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
-import { loadCombatArtMatcher, loadCombatEffects } from "./combat-art.js";
+import { combatHighlightPixel, loadCombatArtMatcher, loadCombatEffects } from "./combat-art.js";
 import { loadOverlandTravel } from "./overland-travel.js";
 import { loadPortraitArt, matchScriptIllustration, scriptIllustrations } from "./portrait-art.js";
 
@@ -132,6 +132,31 @@ function checkBrowserArtPacks(): void {
   const missing = [...declared].filter(id => !loaded.has(id));
   deepStrictEqual(missing, [], "The browser could not load the listed art mappings");
   const match = loadCombatArtMatcher([...loaded.keys()].filter(id => id.startsWith("combat:")), root);
+  const lizardKey = "combat:area:29:CPIC8.DAX:59";
+  const lizardBlock = parseDax("CPIC8.DAX", readGameFile(root, "CPIC8.DAX")).entries.find(({ id }) => id === 59);
+  ok(lizardBlock, "Missing the original giant lizard pose");
+  const lizard = decodePicture(lizardBlock.data);
+  deepStrictEqual([lizard.width, lizard.height], [48, 24]);
+  const lizardX = 56, lizardY = 104;
+  const lizardUnderlay = new Frame(320, 200, 2);
+  for (const aimedColumn of [0, 24]) {
+    const native = new Frame(320, 200, 2);
+    const enhanced = new Frame(320, 200, 2);
+    for (let y = 0; y < lizard.height; y++) {
+      for (let x = 0; x < lizard.width; x++) {
+        const color = lizard.pixels[y * lizard.width + x];
+        const aimX = x - aimedColumn;
+        native.set(lizardX + x, lizardY + y,
+          color || (aimX >= 0 && aimX < 24 ? combatHighlightPixel(aimX, y) : 2));
+      }
+    }
+    enhanced.pixels.set(native.pixels);
+    const aimed = match(native, enhanced, 29, undefined, lizardUnderlay, false, [lizardX + aimedColumn, lizardY]);
+    deepStrictEqual(aimed.find(([, , id]) => id === lizardKey), [lizardX, lizardY, lizardKey, false, false, 48, 24]);
+    deepStrictEqual(enhanced.pixels, lizardUnderlay.pixels);
+    const wrongCell = match(native, undefined, 29, undefined, lizardUnderlay, false, [lizardX + 24 - aimedColumn, lizardY]);
+    ok(!wrongCell.some(([, , id]) => id === lizardKey), "An aim cell on the other half should not match the wide pose");
+  }
   for (const [archive, ready] of [
     ["CPIC1.DAX", 3], ["CPIC4.DAX", 8], ["CPIC7.DAX", 1], ["CPIC7.DAX", 62],
   ] as const) {
