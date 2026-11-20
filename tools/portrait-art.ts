@@ -36,6 +36,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:21:ecl:a872", "PASSINGTHROUGHANILLUSIONARYWALL"],
   ["scene-illustration:area:22:ecl:9a06:caller:9f51", "YOUFINDTHECORPSEOFAMAN"],
   ["scene-illustration:area:22:ecl:9a06:caller:9fe3", "ITISTHEJOURNALOFTYRMOR"],
+  ["scene-illustration:area:22:ecl:9aee:caller:9ac5", "ASECRETDOORISFOUNDINFRONTOFYOU"],
+  ["scene-illustration:area:22:ecl:9a06:caller:9c5c", "ASECRETDOORISFOUNDINFRONTOFYOU"],
   ["scene-illustration:area:23:ecl:9a04:caller:ade9", "AMONGTHEPAPERSONTHEDESK"],
   ["scene-illustration:area:23:ecl:9a04:caller:ae21", "ALETTERFROMTHEBOSS"],
   ["scene-illustration:area:23:ecl:9a04:caller:ae48", "ANUNSENTREPLYTOTHISLETTER"],
@@ -49,6 +51,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:25:ecl:b624:caller:9da7", "HEREYOUSEEONEOFOURFINEWATCHTOWERS"],
   ["scene-illustration:area:25:ecl:9e0a:caller:9af6", "SOLIDLYBUILTOUTSIDEWALL"],
   ["scene-illustration:area:25:ecl:b624:caller:9e0e", "SOLIDLYBUILTOUTSIDEWALL"],
+  ["scene-illustration:area:26:ecl:9f65", "YOUHAVEFOUNDAROWBOATHIDDEN"],
+  ["scene-illustration:area:26:ecl:9f74", "YOUHAVEFOUNDAROWBOATHIDDEN"],
   ["scene-illustration:area:31:ecl:b0b5", "YOUFINDAPIECEOFPAPERONTHEFLOORINTHEROOM.YOUPLACEITINYOURJOURNALUNDERENTRY53"],
 ]);
 export function matchScriptIllustration(context: string, dialogue: string, installed: readonly string[]) {

@@ -562,6 +562,15 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["bane-entry53-art", {
+    slot: "A", manualPolling: true,
+    inputs: ["right", "up", "up", "left", "up", "up", "up", "up", "left", "up", "up", "right", "up",
+      ...Array(8).fill("enter"), ...Array(95).fill("q"), "n", "enter", "enter", "e", "n"],
+    portrait: "scene-illustration:area:31:ecl:b0b5",
+    prompt: /YOUFINDAPIECEOFPAPERONTHEFLOORINTHEROOM.*JOURNALUNDERENTRY53/i,
+    journalLead: "journal-entry-53", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["up"], prompt: /5,8W/i, clearsPortrait: true },
+  }],
   ["textile-cadorna-confrontation", {
     slot: "E",
     inputs: ["right", "up", "up", "up", "right", "up", "left", "up", "right", ...Array(8).fill("up"),
@@ -7387,8 +7396,18 @@ try {
     const halls = () => frame.text.map(([, character]) => String.fromCharCode(character)).join("");
     for (const key of ["j", ...Array(15).fill("up")]) await advance(key);
     assert.match(halls(), /ASECRETDOORISFOUNDINFRONTOFYOU/i);
+    const doorIllustration = "scene-illustration:area:22:ecl:9a06:caller:9c5c";
+    assert.equal(frame.portrait, doorIllustration);
+    await waitFor("the pyramid inner secret door", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352 &&
+      document.querySelector(".encounter-portrait")?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    const innerDoorShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "pyramid-inner-secret-door.png"), Buffer.from(innerDoorShot.data, "base64"));
+    await switchBothWays();
     for (const key of ["enter", "right", "up"]) await advance(key);
     assert.match(halls(), /ASECRETDOORISFOUNDTOYOURLEFT/i);
+    assert.notEqual(frame.portrait, doorIllustration);
     for (const key of ["enter", "right", "up", "j"]) await advance(key);
     assert.ok(frame.journal?.leads.some(({ id }) => id === "river-entrance-inside"));
     assert.ok(!frame.journal.leads.some(({ id }) => id === "river-fountain"));
@@ -7400,7 +7419,16 @@ try {
     await advance("j");
     assert.equal(frame.journal?.trackedId, "commission-river");
     assert.ok(!knows(boat) && !knows(door));
-    for (const key of ["j", "down", "j"]) await advance(key);
+    for (const key of ["j", "down"]) await advance(key);
+    assert.equal(frame.portrait, "scene-illustration:area:26:ecl:9f74");
+    await waitFor("the rowboat in the reeds", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352 &&
+      document.querySelector(".encounter-portrait")?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    const rowboatShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "river-hidden-rowboat.png"), Buffer.from(rowboatShot.data, "base64"));
+    await switchBothWays();
+    await advance("j");
     assert.ok(knows(boat) && !knows(door));
     assert.match(frame.journal.objective.nextStep, /Take the rowboat/);
     for (const key of ["j", "y", "enter"]) await advance(key);
