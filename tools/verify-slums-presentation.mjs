@@ -4597,8 +4597,17 @@ try {
       await waitFor("the player-directed miss in the original panel", () =>
         run(`window.combatReports.some(text => ${miss}.test(text))`));
       await waitFor("the same combat report after switching modes", () => run("window.reportSwitch === true"));
+      const reportProof = await waitFor("a screenshot of Alda's combat report", async () => {
+        const visible = () => run(`!document.querySelector("#game-text").hidden &&
+          ${miss}.test(document.querySelector("#game-text").textContent)`);
+        if (!await visible()) return;
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        return await visible() && shot;
+      });
+      const reportPath = resolve(directory, "arena-manual-report.png");
+      writeFileSync(reportPath, Buffer.from(reportProof.data, "base64"));
       assert.deepEqual(readFileSync(saved), originalSave);
-      console.log("Verified the player-directed combat report in Chrome.");
+      console.log("Verified the player-directed combat report in Chrome:", reportPath);
     } else {
       const manual = await fetch(origin + "/key", {
         method: "POST", headers: { Origin: origin, "X-POR-Frame": String(frame.sequence) }, body: ":poll",
