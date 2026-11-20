@@ -3322,6 +3322,11 @@ on the original route and the separate Bivant portraits both inside
 and outside the pen. An Eastern Marches replay verified the phase spider
 approach at (40, 32) and the transition into native combat.
 
+Additional Eastern Marches replays verified the hippogriff, troll, and
+minotaur approaches and the transitions into combat. The Textile House
+roaming ambush uses the existing drum courtyard art for the same two
+hobgoblins. Chrome verified both ready and attack poses in the ambush.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
