@@ -2597,7 +2597,7 @@ node tools/verify-slums-presentation.mjs - PATH_TO_CHROME new-phlan-rolf-approac
 The verifier checks all 121 dock tile placements, the three approach sprites
 in order, and the close-up filling the portrait panel. The same fresh game
 continues through seven tour stops, the City Hall approach and entry, and
-the council guard portrait. At each tour stop it checks all 121 enhanced
+the council guard's dedicated halt portrait. At each tour stop it checks all 121 enhanced
 tile placements before pressing Enter. After accepting the guard's request
 to leave, it checks the enhanced hallway on the first frame at (4,5) facing
 north and verifies a state-preserving mode switch there.

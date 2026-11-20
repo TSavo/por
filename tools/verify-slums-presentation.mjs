@@ -4128,10 +4128,11 @@ try {
     assert.equal(await verifyTiledView(0, tourPatterns), 1);
     await switchBothWays();
     for (const key of ["enter", "up", "enter", "up", "up", "enter"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:HEAD3.DAX:57:BODY3.DAX:1");
+    const councilGuard = "portrait:area:8:ecl:b564:HEAD3.DAX:57:BODY3.DAX:1";
+    assert.equal(frame.portrait, councilGuard);
     assert.equal(frame.classicPortrait, false);
     await waitFor("the enhanced council guard", () => run(`state.sequence === ${frame.sequence} &&
-      document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+      document.querySelector('.encounter-portrait[src="/art/${councilGuard}"]')?.naturalWidth === 352`));
     await verifyPortraitPanel();
     await advance("y");
     assert.equal(frame.portrait, undefined);
