@@ -3802,3 +3802,8 @@ The `bivant-reward-illustration` Chrome route verifies the clerk's
 ordinary introduction, the dedicated Bivant coffer illustration, and
 the 19,250 XP reward from a local City Hall checkpoint. The illustration
 has a dialogue cue because it shares the native portrait pause with Sokal.
+
+The spiky and bald Small heads now retain Enhanced color changes for both
+poses of all 32 weapon choices. Chrome verified representative editor
+choices and the recolored shield and crossbow in separate controlled
+combat replays. The bald head's native Hair control leaves it unchanged.
