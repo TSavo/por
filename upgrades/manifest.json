@@ -5,6 +5,9 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:25:ecl:a58b:caller:9f43:PIC6.DAX:117:0:0": "diogenes-cave-flight.png",
+    "portrait:area:25:ecl:9fb5:PIC6.DAX:117:0:0": "diogenes-cave-flight.png",
+    "portrait:area:25:ecl:a03a:PIC6.DAX:117:0:0": "diogenes-upper-ledge.png",
     "combat:area:20:CPIC2.DAX:4:ecl:b1bb": "slums-orc-home-defender-ready.png",
     "combat:area:20:CPIC2.DAX:132:ecl:b1bb": "slums-orc-home-defender-strike.png",
     "combat:area:20:CPIC2.DAX:0:ecl:b1bb": "mendor-kobold-stand.png",
