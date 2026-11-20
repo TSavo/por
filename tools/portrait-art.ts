@@ -67,6 +67,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:15:ecl:99b5:caller:9de1", "ASIGNOVERTHEENTRANCEREADSPHILOSOPHY"],
   ["scene-illustration:area:15:ecl:9e66:caller:9ddd", "ASIGNOVERTHEENTRANCEREADSHISTORY"],
   ["scene-illustration:area:15:ecl:99b5:caller:9de1:cue:history-stacks", "ASIGNOVERTHEENTRANCEREADSHISTORY"],
+  ["scene-illustration:area:15:ecl:9e5c:caller:9ddd", "ASIGNOVERTHEENTRANCEREADSMATHEMATICS"],
+  ["scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks", "ASIGNOVERTHEENTRANCEREADSMATHEMATICS"],
   ["scene-illustration:area:16:ecl:a65a", "2LIZARDMENANDAGIANTLIZARDCHARGEATYOU"],
   ["scene-illustration:area:16:ecl:9a87:caller:a287", "YOURTIMEISTHROUGHOLDONE"],
   ["scene-illustration:area:16:ecl:a1e1", "THEOLDLIZARDMANRECOGNIZESTHEWORD"],

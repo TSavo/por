@@ -706,6 +706,13 @@ const illustrationRoutes = new Map([
     journalLead: "mendor-stacks-history", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["mendor-mathematics-stacks-arrival", {
+    slot: "B", inputs: ["up", "up", "right", ...Array(5).fill("up"), "left", "up"],
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks",
+    prompt: /THESEARETHELIBRARYSTACKS.*ASIGNOVERTHEENTRANCEREADSMATHEMATICS/i,
+    journalLead: "mendor-stacks-mathematics", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["mendor-history-of-the-north-discovery", {
     slot: "B", inputs: ["s", "up", "enter", "left", "up", "up"],
     portraitStops: { 2: "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:history-stacks", 3: null },
