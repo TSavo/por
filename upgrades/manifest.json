@@ -1527,6 +1527,8 @@
     "scene-illustration:area:23:ecl:9a04:caller:af04": "yarash-desk-papers.png",
     "scene-illustration:area:23:ecl:9a04:caller:a855": "yarash-fountain-blast-escape.png",
     "portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:0:0": "valjevo-kitchen-gnoll-flight.png",
+    "scene-illustration:area:4:ecl:a93a": "valjevo-kitchen-password-handoff.png",
+    "scene-illustration:area:4:ecl:9a5a:caller:a93e": "valjevo-kitchen-password-handoff.png",
     "combat:area:17:CPIC2.DAX:0:ecl:b376": "nomad-raid-kobold-stand.png",
     "combat:area:17:CPIC2.DAX:128:ecl:b376": "nomad-raid-kobold-strike.png",
     "combat:area:17:CPIC7.DAX:11:ecl:b376": "nomad-hassad-stand.png",

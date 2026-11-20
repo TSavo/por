@@ -6532,7 +6532,22 @@ try {
     assert.equal(frame.portrait, rescue);
     await waitFor("the kitchen rescue illustration", () => run(
       `document.querySelector('.encounter-portrait[src="/art/${rescue}"]')?.naturalWidth === 352`));
-    for (let index = 0; index < 7; index++) await advance("enter");
+    for (const key of ["enter", "enter"]) await advance(key);
+    const handoff = "scene-illustration:area:4:ecl:9a5a:caller:a93e";
+    assert.equal(frame.portrait, handoff);
+    await waitFor("the kitchen captive handing over the slip", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${handoff}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait[src="/art/${handoff}"]')?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    const handoffShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "valjevo-kitchen-password-handoff.png"), Buffer.from(handoffShot.data, "base64"));
+    await switchBothWays();
+    await advance("j");
+    assert.ok(knows("castle-kitchen-captives-freed") && !knows("castle-hedge-gate-password"));
+    for (const key of ["j", "enter"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /YOULOOKATTHEWRITING/i);
+    for (let index = 0; index < 4; index++) await advance("enter");
     await advance("j");
     assert.ok(knows("castle-kitchen-captives-freed"));
     assert.ok(knows("castle-hedge-gate-password"));
