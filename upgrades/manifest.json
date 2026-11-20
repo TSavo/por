@@ -54,6 +54,8 @@
     "portrait:area:26:ecl:a098:PIC7.DAX:41:0:0": "river-sector-return-ferry.png",
     "combat:area:4:CPIC5.DAX:55:ecl:9def": "valjevo-maze-boulder-giant-ready.png",
     "combat:area:4:CPIC5.DAX:183:ecl:9def": "valjevo-maze-boulder-giant-strike.png",
+    "combat:area:4:CPIC5.DAX:11:ecl:9def": "valjevo-outer-patrol-captain-stand.png",
+    "combat:area:4:CPIC5.DAX:139:ecl:9def": "valjevo-outer-patrol-captain-strike.png",
     "combat:area:3:CPIC5.DAX:55:ecl:a839": "valjevo-barracks-hill-giant-ready.png",
     "combat:area:3:CPIC5.DAX:183:ecl:a839": "valjevo-barracks-hill-giant-strike.png",
     "combat:area:26:CPIC7.DAX:12:ecl:a2c7": "lizard-wilds-nomad-scout-ready.png",

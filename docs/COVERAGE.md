@@ -3277,6 +3277,9 @@ and Stay choices with its new illustration. The eastern ferry kept its
 own portrait in the control replay. A Valjevo maze patrol replay also
 verified the hill giant's ready and boulder-throwing poses with the
 native boulder attack report.
+The same maze patrol uses the existing outer-patrol captain sprites for
+its longsword fighter. Chrome verified the reflected ready pose and
+strike at their native positions and checked the combat report.
 
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
