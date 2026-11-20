@@ -5824,6 +5824,20 @@ try {
       const savedJournal = JSON.parse(readFileSync(saved, "utf8")).leads;
       assert.ok(savedJournal.some(({ id }) => id === "nomad-rest-offer"));
       console.log("Native save after the Nomad rest offer:", saved);
+    } else {
+      await advance("j");
+      const departure = "scene-illustration:area:17:ecl:b130";
+      assert.equal(frame.portrait, departure);
+      await waitFor("the Nomad headman's parting illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${departure}"]')?.naturalWidth === 352 &&
+        document.querySelector('.encounter-portrait[src="/art/${departure}"]')?.naturalHeight === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "nomad-headman-declined-aid.png"), Buffer.from(shot.data, "base64"));
+      await advance("enter");
+      assert.notEqual(frame.portrait, departure);
+      assert.deepEqual(readFileSync(saved), originalSave);
     }
     console.log(`Verified the Nomad headman portrait and journal on ${routeName} in Chrome.`);
   } else if (routeName === "phlan-harbor-sokal" || routeName === "phlan-harbor-routes") {
