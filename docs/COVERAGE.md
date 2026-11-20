@@ -3310,6 +3310,12 @@ native encounter roll. The Stojanow wall ambush also uses the tower
 reinforcement sprites for the same aides and mage. Its Chrome replay
 verified longsword, longbow, and Magic Missile actions.
 
+The Buccaneer Wilderness thri-kreen and thief approaches passed Chrome
+replays using controlled original encounter rolls. The Buccaneer Base
+rescue has a dedicated illustration inside the pen. Chrome verified
+Get Him and Leave from a controlled checkpoint and checked the separate
+outside-the-fence portrait from the original approach.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
