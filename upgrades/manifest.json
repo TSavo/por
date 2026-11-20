@@ -1590,6 +1590,8 @@
     "combat:area:29:CPIC8.DAX:128:ecl:ad16": "kuto-kobold-watch-strike.png",
     "scene-illustration:area:25:ecl:9d48:caller:9af6": "zhentil-barracks-tour.png",
     "scene-illustration:area:25:ecl:b624:caller:9d4d": "zhentil-barracks-tour.png",
+    "scene-illustration:area:25:ecl:9da3:caller:9af6": "zhentil-watchtower-tour.png",
+    "scene-illustration:area:25:ecl:b624:caller:9da7": "zhentil-watchtower-tour.png",
     "portrait:area:28:ecl:a83c:PIC6.DAX:50:0:0": "zhentil-commandant-dinner.png",
     "portrait:area:28:ecl:a883:PIC6.DAX:50:0:0": "zhentil-commandant-dinner.png",
     "portrait:area:28:ecl:a92f:PIC6.DAX:50:0:0": "zhentil-commandant-dinner.png",
