@@ -3871,3 +3871,8 @@ Oil flasks and sling shots use six Enhanced projectile frames between
 them. Controlled Buccaneer fights used original readied item records.
 Chrome verified both flights at the native endpoints, their damage and
 casualty reports, removal after flight, and state-preserving mode switches.
+
+The `buccaneer-oil-flask` and `buccaneer-sling-shot` Chrome routes take
+their respective controlled Buccaneer pen slot A saves and check all
+projectile phases, native endpoints, render order, damage, aftermath,
+and save preservation across display switches.
