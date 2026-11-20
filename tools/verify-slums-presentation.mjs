@@ -3627,7 +3627,7 @@ routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier"
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
 routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload", "nomad-feast-decline", "kobold-royal-ballista");
-routes.push("valhingen-first-arrival-reload");
+routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 const partyDefeatEffect = routeName === "valjevo-party-defeat-effect";
 const defeatEffect = partyDefeatEffect || routeName === "buccaneer-pen-defeat-effect";
@@ -3721,7 +3721,7 @@ const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
 const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneReturn || koboldCaveExit;
-const saveSlot = alHyamReload || ["sokal-floorboard-diary-reload", "valjevo-records-reload"].includes(routeName) ? "C" :
+const saveSlot = alHyamReload || ["sokal-floorboard-diary-reload", "valjevo-records-reload", "kobold-escort-arrival-reload"].includes(routeName) ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn ||
     ["stojanow-wall-warning-reload", "kovel-chase-east-reload", "valhingen-first-arrival-reload"].includes(routeName) ? "B" : slot;
@@ -6130,6 +6130,19 @@ try {
       assert.deepEqual(readFileSync(saved), originalSave);
       console.log("Verified the route through the kobold secret door to the king's quarters after reload.");
     }
+  } else if (routeName === "kobold-escort-arrival-reload") {
+    await advance("j");
+    assert.equal(frame.journal?.trackedId, "commission-kobolds");
+    const lead = id => frame.journal.leads.find(entry => entry.id === id);
+    assert.match(lead("kobold-guide-arrived")?.detail ?? "", /guide fell into a stupor/i);
+    assert.ok(!lead("kobold-throne-envoys"));
+    assert.match(frame.journal.objective.nextStep, /one square north, two squares west, then north to the throne room/i);
+    await switchBothWays();
+    for (const key of ["j", "up", "left", "up", "up", "right", "up", "up", "up", "j"]) await advance(key);
+    assert.ok(lead("kobold-throne-envoys"));
+    assert.match(frame.journal.objective.nextStep, /Confront the king and the envoys/i);
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the Kobold guide's directions and the throne encounter after a cold reload.");
   } else if (koboldGuide) {
     const guide = "portrait:area:13:PIC8.DAX:0:0:0";
     const sleepingGuide = "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0";
