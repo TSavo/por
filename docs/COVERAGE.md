@@ -3822,3 +3822,8 @@ The `mendor-records-reward` Chrome route checks the Lex Geographica
 illustration at its specific City Hall dialogue, clearance before the
 original 500 XP reward, and the book's journal turn-in. The replay uses
 a local checkpoint with the atlas ready to report.
+
+All 448 distinct Human combat icon combinations now have recolor masks
+for both poses. Chrome checked five representative editor bands and
+controlled flail, robed gesture, and robed rod battles. The shaven-scar
+head follows the original Hair control, which leaves it unchanged.
