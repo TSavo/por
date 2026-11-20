@@ -194,12 +194,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "slums" && tracked?.clearedEncounters !== undefined) nextStep = tracked.detail;
     if (commission.id === "textile") {
       const carriedKey = leads.find(({ id }) => id === "textile-prison-key-carried");
-      if (tracked?.textileBox && knows("phlan-return-ferry")) {
-        nextStep = tracked.textileBox === "sealed"
-          ? "Keep the box sealed. Choose Take Boat at the return dock, then bring the box into New Phlan."
-          : "Choose Take Boat at the return dock and go to City Hall. The box was opened and its family seal is broken.";
+      if (tracked?.textileBox) {
+        nextStep = tracked.detail;
+        if (knows("phlan-return-ferry")) nextStep += " At the return dock, choose Take Boat.";
       }
-      else if (tracked?.textileBox) nextStep = tracked.detail;
       else if (knows("textile-iron-box")) nextStep = "Choose Take It Unopened to preserve Cadorna's family seal, or Open It to see what's inside.";
       else if (knows("textile-ogre-chief")) nextStep = "Defeat the ogre chief to recover Cadorna's treasure.";
       else if (knows("textile-east-wall")) nextStep = "Turn east where Skullcrusher pointed out the secret door. Use Search and move through the wall.";

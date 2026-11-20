@@ -2212,6 +2212,9 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
     }, (_text, frame) => {
       assert.equal(textile(frame)?.textileBox, opened ? "opened" : "sealed");
       assert.match(frame.journal.objective.nextStep, /west gate.*return boat southwest/i);
+      if (frame.journal.leads.some(({ id }) => id === "phlan-return-ferry")) {
+        assert.match(frame.journal.objective.nextStep, /choose Take Boat/i);
+      }
     }, "j",
     "right", "up", "up", "up", "right", "up", "left", "up", "right", ...Array(8).fill("up"),
     "left", ...Array(6).fill("up"), "right", "up", "left", "up", "up", "up", "enter", "enter",
@@ -2220,6 +2223,7 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
     (text) => assert.match(text, /20,29 s.*take boat stay/),
     "j", (_text, frame) => {
       assert.ok(frame.journal.leads.some(({ id }) => id === "phlan-return-ferry"));
+      assert.match(frame.journal.objective.nextStep, /west gate.*return boat southwest/i);
       assert.match(frame.journal.objective.nextStep, /choose Take Boat/i);
     }, "j", "t", ...Array(3).fill("enter"),
     (text) => assert.match(text, /15,1 w/),
