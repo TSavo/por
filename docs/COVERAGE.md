@@ -336,6 +336,12 @@ the equipment for 400 XP each. Reloading slot E retains the hidden armory
 discoveries. This branch uses a landing save without a tracked Sokal
 commission. The separate armory replay checks the tracked objective.
 
+The November 20 strict replay continued the party created for the rested
+Slums checkpoint. It cleared the goblin room,
+sold the armor, recruited and sailed, then won the first island patrol
+and the smithy before reloading with the hidden armory gear. Every
+checkpoint in that chain was written by the original save menus.
+
 Run `node tools/verify-fresh-party.mjs --sokal-armory-reinforcement-checkpoint PATH_TO_SLOT_E`
 to continue with that party. Brin fell in the smithy. Alda takes and
 readies the recovered longsword, and the fallen fighters' armor goes
@@ -355,6 +361,9 @@ the Sokal commission from the clerk and selects it in the journal. Slot I
 retains the tracked commission at the clerk. The original boat returns the
 party to Thorn Island, and slot J retains the commission and the armory
 discovery. Ferran remains undisclosed.
+The November 20 run continued the same party through both of these
+replays, including Brin's resurrection, the council briefing, and the
+return to Thorn Island with the Sokal objective tracked.
 
 Run `node tools/verify-fresh-party.mjs --sokal-tracked-ambush-checkpoint PATH_TO_SLOT_J`
 with a landing save produced by that replay after the party has heard the
