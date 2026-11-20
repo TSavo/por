@@ -3246,6 +3246,16 @@ exploration. The Kuto Ruins roaming gnoll replay checks its ready and
 attack poses at their native positions and the original combat report.
 Both replays select the encounter with a controlled roll.
 
+Separate Chrome replays check the Lizard Wilderness kobold archer's
+approach and the Kuto Ruins kobold's short-sword ready and attack poses.
+The former returns to exploration after Nice parlay. The latter displays
+the attack at (80, 104) alongside the original combat report.
+
+The Zhentil officers' dinner has a dedicated illustration across nine
+dinner-specific prompts. Five Chrome routes verified the staged art,
+and the production replay checked the Old Phlan story branch. The
+shared narration cursor still uses the Commandant's default portrait.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
