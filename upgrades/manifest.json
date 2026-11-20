@@ -2008,6 +2008,8 @@
     "encounter:area:23:ecl:aa03:SPRIT7.DAX:57:1:0": "pyramid-pump-prisoner-approach.png",
     "encounter:area:23:ecl:aa03:SPRIT7.DAX:57:0:0": "pyramid-pump-prisoner-close.png",
     "portrait:area:23:ecl:aa03:PIC7.DAX:57:0:0": "pyramid-pump-prisoners-dialogue.png",
+    "scene-illustration:area:23:ecl:aaaa": "pyramid-pump-prisoners-freed.png",
+    "scene-illustration:area:23:ecl:9a04:caller:aaae": "pyramid-pump-prisoners-freed.png",
     "encounter:area:10:SPRIT4.DAX:34:1:0": "valhingen-enclave-skeleton-approach-middle.png",
     "encounter:area:10:SPRIT4.DAX:14:2:0": "valhingen-mystic-approach-far.png",
     "encounter:area:10:SPRIT4.DAX:14:1:0": "valhingen-mystic-approach-middle.png",
