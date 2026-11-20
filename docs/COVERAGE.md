@@ -3281,6 +3281,10 @@ The same maze patrol uses the existing outer-patrol captain sprites for
 its longsword fighter. Chrome verified the reflected ready pose and
 strike at their native positions and checked the combat report.
 
+North Phlan's crossroads has a dedicated illustration for the City,
+Graveyard, and Leave prompt. Chrome verified each route and the display
+toggle. A control replay checked the separate western entrance portrait.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
