@@ -3677,6 +3677,7 @@ routes.push("kuto-norris-surrender-reload");
 routes.push("valjevo-forge-authorization-reload");
 routes.push("buccaneer-bivant-punch");
 routes.push("buccaneer-bivant-escort-combat");
+routes.push("buccaneer-bivant-purchase");
 routes.push("valhingen-crypt-scroll", "valhingen-crypt-scroll-reload");
 routes.push("valjevo-al-hyam-release", "valjevo-al-hyam-release-reload");
 routes.push("valjevo-cadorna-alarm-reload");
@@ -6756,6 +6757,33 @@ try {
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified both forge clues after reloading in Chrome.");
+  } else if (routeName === "buccaneer-bivant-purchase") {
+    const knows = (id) => frame.journal?.leads.some(lead => lead.id === id);
+    const price = "rescue-captain-price";
+    const purchase = "rescue-heir-purchased";
+    for (const key of ["up", "enter", "enter", "j"]) await advance(key);
+    assert.ok(!knows(price) && !knows(purchase));
+    for (const key of ["j", "m"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:area:1:HEAD6.DAX:9:BODY6.DAX:5");
+    await advance("j");
+    assert.ok(knows(price) && !knows(purchase));
+    for (const key of ["j", "b"]) await advance(key);
+    const handoff = "scene-illustration:area:1:ecl:b5f7:caller:af4c";
+    assert.equal(frame.portrait, handoff);
+    await waitFor("the captain handing over Bivant's heir", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${handoff}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait[src="/art/${handoff}"]')?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "buccaneer-bivant-purchase.png"), Buffer.from(shot.data, "base64"));
+    await advance("j");
+    assert.ok(knows(purchase) && !knows("rescue-heir-left-behind"));
+    for (const key of ["j", "enter"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /YOUAREESCORTEDBACKOUTSIDE/i);
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the peaceful Bivant handoff and purchase clue in Chrome.", directory);
   } else if (routeName === "buccaneer-bivant-escort-combat") {
     for (const key of ["up", "enter", "g", "right", "up", "right", "up", "up", "up"]) await advance(key);
     const dialogue = frame.text.toSorted(([a], [b]) => a - b)
