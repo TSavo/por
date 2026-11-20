@@ -3691,6 +3691,10 @@ replay from the controlled slot B checkpoint with boosted party HP
 verified the decoded illustration, clearance at the departure prompt,
 and preservation of guest state and save bytes across display switches.
 
+The `valjevo-dragon-loot` Chrome route checks the hoard illustration beside
+the Pool of Radiance at the original treasure menu. Exiting treasure
+advances to the separate spirit illustration.
+
 The same controlled replay verifies the separate Old Phlan street
 illustration on departure from Valjevo. Chrome decodes the 4× art on the
 departure narration, preserves the frame and save across display modes,

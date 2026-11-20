@@ -551,6 +551,14 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["valjevo-dragon-loot", {
+    slot: "B", manualPolling: true,
+    inputs: ["right", ...Array(4).fill("up"), ...Array(5).fill("enter"), ...Array(6).fill("a"),
+      "enter", "enter", ...Array(33).fill("q"), "n", "enter", "enter"],
+    portrait: "portrait:area:7:ecl:a803:PIC1.DAX:1:0:0", prompt: /View.*Exit/i,
+    continuation: { inputs: ["e"], portrait: "scene-illustration:area:7:ecl:a82d",
+      prompt: /THESPIRITOFTYRANTHRAXUSFLARESUP/i },
+  }],
   ["textile-diary-discovery", {
     slot: "B", inputs: ["up", "right"],
     portraitStops: { 1: "scene-illustration:area:2:ecl:abae" },
@@ -3783,7 +3791,7 @@ try {
   });
   await command("Page.navigate", { url: origin });
   await waitFor("the game display", () => run('document.querySelector("#screen")?.naturalWidth === 320'));
-  if (combatPose?.manualPolling || routeName === "slums-mage-orc-ready" || routeName === "slums-mage-orc-leader") {
+  if (combatPose?.manualPolling || illustration?.manualPolling || routeName === "slums-mage-orc-ready" || routeName === "slums-mage-orc-leader") {
     // This replay steps every combat pause explicitly through advance().
     await run(`(() => {
       const fetchOriginal = window.fetch.bind(window);
