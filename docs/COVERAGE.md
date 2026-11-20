@@ -3580,3 +3580,8 @@ Cave lizard, and all four cells behind Tyranthraxus.
 The art inventory lists all 26 COMSPR.DAX frames, with direct links for
 the two selection frames. The other 24 are available for review by
 archive block and frame index.
+
+Kuto's roaming lizardfolk use a dedicated 352×352 ruins illustration
+at four script positions. Chrome exercised the approach, Advance and
+surprise dialogue, and mode switching using controlled native encounter
+rolls. The separate giant-lizard escort has its own area portrait.
