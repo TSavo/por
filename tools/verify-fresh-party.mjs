@@ -2087,13 +2087,25 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
       (text) => assert.match(text, /we train only fighters here/),
       "y", "t", (text) => assert.match(text, /thrender grone will become: a level 2 fighter/),
       "y", "v", "v", (text) => assert.match(text, trained), "e", "s", "s", "f",
-    ] : []),
+    ] : opened ? [] : ["j", ["enter", /area cast view encamp/, 14], "e", "s", "s", "f"]),
   ]);
   if (opened) {
     await replay(loadSlot("2166"), "85000000", ["j", checkUnpaid]);
+    await replay(loadSlot("1265"), "85000000", ["j", (_text, frame) => {
+      assert.equal(textile(frame)?.textileBox, "opened");
+      assert.equal(textile(frame)?.status, "accepted");
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-confrontation"));
+    }]);
     console.log("Returned with the opened box and reloaded Cadorna's unpaid outcome.");
   } else {
     console.log("Returned from the Textile House via the west ferry, handed off the sealed box, and collected the council reward.");
+    if (!trainAfterReward) {
+      await replay(loadSlot("2166"), "85000000", ["j", (_text, frame) => {
+        assert.equal(textile(frame)?.status, "turned-in");
+        assert.ok(frame.journal.leads.some(({ id }) => id === "textile-handoff"));
+        assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-confrontation"));
+      }]);
+    }
     if (trainAfterReward) {
       const trainedSlot = join(saveDir, "F.json");
       assert.equal(JSON.parse(readFileSync(trainedSlot, "utf8")).tracked, undefined,
