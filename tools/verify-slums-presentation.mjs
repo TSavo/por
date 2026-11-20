@@ -8769,6 +8769,9 @@ try {
     assert.ok(!knows("swamp-drawbridge") && !knows("swamp-anti-magic"));
     for (const key of ["j", ...Array(11).fill("right"), "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:PIC8.DAX:24:0:0");
+    const drawbridgeText = frame.text.toSorted(([a], [b]) => a - b)
+      .map(([, character]) => String.fromCharCode(character)).join("");
+    assert.match(drawbridgeText, /RUINEDCASTLESURROUNDEDBYQUICKSAND.*ANOLDWORNDRAWBRIDGEISTHEONLYSAFEWAYACROSSTHEQUAGMIRE/i);
     await waitFor("the enhanced swamp drawbridge", () => run(`(() => {
       const image = document.querySelector(".encounter-portrait");
       return image?.naturalWidth === 352 && image?.naturalHeight === 352;
@@ -8778,7 +8781,9 @@ try {
     await advance("j");
     assert.ok(knows("swamp-drawbridge") && !knows("swamp-anti-magic"));
     assert.match(frame.journal.objective.nextStep, /cross the drawbridge/);
-    for (const key of ["j", "e", "enter", "j"]) await advance(key);
+    for (const key of ["j", "e", "enter"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    await advance("j");
     assert.ok(knows("swamp-anti-magic") && !knows("swamp-peaceful-elder"));
     assert.match(frame.journal.objective.nextStep, /anti-magic shell/);
     for (const key of ["j", "enter", "up", "e", "s", "s", "a"]) await advance(key);
