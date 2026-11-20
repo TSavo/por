@@ -552,6 +552,16 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:0:0",
     prompt: /LUMBERINGFIGURESREACHFORYOU/i,
   }],
+  ["valhingen-wight-roam-dialogue", {
+    slot: "A", inputs: ["up", "down", "up"],
+    portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:20:0:0",
+    prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS/i,
+  }],
+  ["valhingen-skeleton-roam-dialogue", {
+    slot: "A", inputs: ["up", "down", "a", "a"],
+    portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:34:0:0",
+    prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMESKELETONS/i,
+  }],
   ["tyranthraxus-battle-opening", {
     slot: "B",
     inputs: ["up", "up", ...Array(5).fill("enter"), ...Array(6).fill("a")],
