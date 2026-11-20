@@ -166,7 +166,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const row = Math.floor(cell / 40);
         return column < 1 || column >= 16 || row < 1 || row >= 16;
       }) : glyphs;
-      const picture = !scene ? portraitArt(screen, area, battleCursor, portraitCaller) : undefined;
+      // Several auction outcomes share the same pause and native return address.
+      const otherAuctionOutcome = area === 18 && battleCursor === 0xb240 && portraitCaller === 0xa839 &&
+        !dialogue.startsWith("AMANANDOGREEXCHANGETHEWANDANDALARGEBAG");
+      const picture = !scene ? portraitArt(screen, area, battleCursor, otherAuctionOutcome ? undefined : portraitCaller) : undefined;
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
       const enhanced = new Frame(screen.width, screen.height);

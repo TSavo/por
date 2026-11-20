@@ -3343,6 +3343,9 @@ transition to combat using controlled encounter rolls.
 At the Podal auction, Wait for Winner now shows the bidder and ogre
 exchanging the wand and sack. Production Chrome replays verified that
 branch and the existing auctioneer and ogre escape illustrations.
+Make a Bid, Wait for Winner, and Leave share portions of the original
+auction script. Chrome verified that the exchange only appears when
+the dialogue describes the transaction, including after the high bid.
 
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
