@@ -5,6 +5,12 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:3:ecl:a815:SPRIT5.DAX:55:0:0": "valjevo-barracks-waking-giants-approach-near.png",
+    "portrait:area:3:ecl:9a2c:caller:b313:PIC5.DAX:7:0:0": "valjevo-cadorna-released.png",
+    "encounter:area:3:ecl:a7be:SPRIT5.DAX:55:1:0": "valjevo-hill-giants-armor-middle.png",
+    "encounter:area:3:ecl:a7be:SPRIT5.DAX:55:0:0": "valjevo-hill-giants-armor-near.png",
+    "portrait:area:3:ecl:a7be:PIC5.DAX:55:0:0": "valjevo-hill-giants-armor-dialogue.png",
+    "portrait:area:3:ecl:a839:PIC5.DAX:55:0:0": "valjevo-hill-giants-armor-dialogue.png",
     "combat:area:26:CPIC7.DAX:57:ecl:aa07": "lizard-wilds-hall-lizardfolk-ready.png",
     "combat:area:26:CPIC7.DAX:185:ecl:aa07": "lizard-wilds-hall-lizardfolk-strike.png",
     "combat:area:26:CPIC7.DAX:57:ecl:a6a9": "lizard-wilds-roaming-lizardfolk-ready.png",
@@ -5344,6 +5350,9 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:3:ecl:a815:SPRIT5.DAX:55:0:0": { "area": 3, "x": 40, "y": 32, "width": 48, "height": 80 },
+    "encounter:area:3:ecl:a7be:SPRIT5.DAX:55:1:0": { "area": 3, "x": 48, "y": 32, "width": 32, "height": 73 },
+    "encounter:area:3:ecl:a7be:SPRIT5.DAX:55:0:0": { "area": 3, "x": 40, "y": 32, "width": 48, "height": 80 },
     "encounter:area:28:ecl:9a45:SPRIT5.DAX:16:2:0": { "area": 28, "x": 56, "y": 32, "width": 16, "height": 49 },
     "encounter:area:28:ecl:b5ed:SPRIT5.DAX:16:2:0": { "area": 28, "x": 56, "y": 32, "width": 16, "height": 49 },
     "encounter:area:28:ecl:b5ed:SPRIT5.DAX:16:1:0": { "area": 28, "x": 56, "y": 32, "width": 24, "height": 65 },
