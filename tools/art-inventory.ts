@@ -600,6 +600,18 @@ const tallIconCoverage = combatHeads.filter(({ id }) => id >= 64 && id <= 77)
     strike: partyCombatPose(head, body | 0x80),
   })));
 const defaultHumanIconCoverage = tallIconCoverage.filter(({ head }) => head === 64);
+const encounterArtByPixels = new Map<string, { id: string; preview: string }[]>();
+function encounterSignature(width: number, height: number, pixels: Uint8Array) {
+  return `${width}×${height}:${createHash("sha256").update(pixels).digest("hex")}`;
+}
+for (const { id, source, preview } of replacements) {
+  if (!encounterKey.test(id) || !source) continue;
+  const picture = classicPicture(source.archive, source.directoryIndex, source.member);
+  const signature = encounterSignature(picture.width, picture.height, frameSlice(picture, source.frame));
+  const candidates = encounterArtByPixels.get(signature) ?? [];
+  candidates.push({ id, preview });
+  encounterArtByPixels.set(signature, candidates);
+}
 const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\d+|RANDCOM|COMSPR)\.DAX$/.test(file))
   .map(({ file, entries }) => {
     let frames = 0;
@@ -663,7 +675,10 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\
           .filter(({ id }) => id.startsWith("combat:area:"))
           .map(({ id, preview }) => ({ id, preview }))
         : [];
-      return { ...source, preview, uniform: pixels.every(color => color === pixels[0]), scopedCandidates };
+      const encounterCandidates = file.startsWith("SPRIT")
+        ? encounterArtByPixels.get(encounterSignature(picture.width, picture.height, pixels)) ?? []
+        : [];
+      return { ...source, preview, uniform: pixels.every(color => color === pixels[0]), scopedCandidates, encounterCandidates };
     });
     return { file, frames, matched: frames - unlinkedFrames.length, pixelMatchedFrames, unlinkedFrames: remainingFrames };
   }).filter(({ frames }) => frames > 0);
@@ -674,7 +689,8 @@ const encounterTotals = encounterCoverage.reduce((total, row) => ({
   remaining: total.remaining + row.unlinkedFrames.length,
   uniformUnlinked: total.uniformUnlinked + row.unlinkedFrames.filter(({ uniform }) => uniform).length,
   withScopedCandidates: total.withScopedCandidates + row.unlinkedFrames.filter(({ scopedCandidates }) => scopedCandidates.length).length,
-}), { frames: 0, matched: 0, matchedByPixels: 0, remaining: 0, uniformUnlinked: 0, withScopedCandidates: 0 });
+  withEncounterCandidates: total.withEncounterCandidates + row.unlinkedFrames.filter(({ encounterCandidates }) => encounterCandidates.length).length,
+}), { frames: 0, matched: 0, matchedByPixels: 0, remaining: 0, uniformUnlinked: 0, withScopedCandidates: 0, withEncounterCandidates: 0 });
 const unlinkedScriptPictures = scriptReferences.flatMap(reference => {
   const [archive] = reference.candidates;
   if (!archive || reference.candidates.length !== 1) return [];
@@ -790,16 +806,19 @@ ${unlinkedScriptPictures.map(({ file, script, address, nearbyText, frames, cover
 <details><summary>Unlinked source frames · ${encounterTotals.remaining}</summary>
 <p>${encounterTotals.uniformUnlinked} unlinked frames are solid-color images.</p>
 ${encounterTotals.withScopedCandidates ? `<p>${encounterTotals.withScopedCandidates} unlinked combat frames have identical source pixels in an encounter with replacement art. Verify the actor and encounter before reusing those sprites.</p>` : ""}
+${encounterTotals.withEncounterCandidates ? `<p>${encounterTotals.withEncounterCandidates} unlinked encounter frames have identical source pixels in another frame with Enhanced art. Verify the actor, distance, and placement before reusing it.</p>` : ""}
 <p>Each source ID contains the archive, directory entry, member, and zero-based frame number. Open a frame to see it at its native dimensions. Some archive frames may have no verified in-game use.</p>
 ${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({ file, unlinkedFrames }) =>
   `<details id="unlinked-archive-${escape(file)}"><summary>${escape(file)} · ${unlinkedFrames.length}</summary>
   <table class="coverage-table"><thead><tr><th>Source ID</th><th>Block</th><th>4× target</th><th>Preview</th></tr></thead><tbody>
-  ${unlinkedFrames.map(({ id, block, width, height, preview, uniform, scopedCandidates }) =>
-    `<tr><th scope="row"><code>${escape(id)}</code></th><td>${block}</td><td>${width}×${height}</td>
+  ${unlinkedFrames.map(({ id, block, width, height, preview, uniform, scopedCandidates, encounterCandidates }) => {
+    const candidates = [...scopedCandidates, ...encounterCandidates];
+    return `<tr><th scope="row"><code>${escape(id)}</code></th><td>${block}</td><td>${width}×${height}</td>
     <td><a href="${escape(preview)}" target="_blank" rel="noopener">Source frame</a>${uniform ? " · Solid color" : ""}
-    ${scopedCandidates.length ? `<details><summary>Scoped reuse candidates (${scopedCandidates.length})</summary>${
-      scopedCandidates.map(({ id, preview }) => `<div><a href="${escape(preview)}"><code>${escape(id)}</code></a></div>`).join("")
-    }</details>` : ""}</td></tr>`).join("")}
+    ${candidates.length ? `<details><summary>Reuse candidates (${candidates.length})</summary>${
+      candidates.map(({ id, preview }) => `<div><a href="${escape(preview)}"><code>${escape(id)}</code></a></div>`).join("")
+    }</details>` : ""}</td></tr>`;
+  }).join("")}
   </tbody></table></details>`).join("")}
 </details>
 <details><summary>Named monster combat poses · ${missingMonsterPoses} without matching art · ${scopedMonsterPoseCandidates} with reuse candidates</summary>

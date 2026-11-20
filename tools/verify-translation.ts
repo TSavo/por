@@ -137,7 +137,7 @@ function checkBrowserArtPacks(): void {
   const rareProps = new Frame(320, 200);
   const propPlacements = [2, 3].map((frame, index) => {
     const pixels = randomCombatPixels(debris.data, frame);
-    ok(pixels?.some(Boolean), "Expected a visible prop");
+    ok(pixels && pixels.some(Boolean), "Expected a visible prop");
     const x = 128 + index * 24;
     rareProps.blit(pixels, 24, 24, x, 8);
     return [x, 8, `combat:RANDCOM.DAX:1:0:${frame}`, false] as const;
