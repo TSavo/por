@@ -28,6 +28,7 @@ import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js
 import { combatHighlightPixel, loadCombatArtMatcher, loadCombatEffects, randomCombatPixels } from "./combat-art.js";
 import { loadOverlandTravel } from "./overland-travel.js";
 import { loadPortraitArt, matchScriptIllustration, scriptIllustrations } from "./portrait-art.js";
+import { loadEncounterArt } from "./encounter-art.js";
 
 function checkBrowserArtPacks(): void {
   const png = Buffer.from(encodePng(new Frame(32, 32)));
@@ -131,6 +132,25 @@ function checkBrowserArtPacks(): void {
   }
   const missing = [...declared].filter(id => !loaded.has(id));
   deepStrictEqual(missing, [], "The browser could not load the listed art mappings");
+  const ogreApproach = "encounter:area:18:ecl:9dca:SPRIT1.DAX:8:0:0";
+  const ogreAnchor = loaded.get(ogreApproach)?.encounter;
+  ok(ogreAnchor);
+  deepStrictEqual([ogreAnchor.area, ogreAnchor.x, ogreAnchor.y, ogreAnchor.width, ogreAnchor.height], [18, 48, 32, 40, 73]);
+  const ogreSource = parseDax("SPRIT1.DAX", readGameFile(root, "SPRIT1.DAX")).entries.find(({ id }) => id === 8);
+  ok(ogreSource);
+  const ogreSprite = decodePicture(pictureMembers(ogreSource.data)[0]!.data);
+  const ogreScenery = new Frame(320, 200, 2);
+  const ogreNative = new Frame(320, 200, 2);
+  const ogreEnhanced = new Frame(320, 200, 2);
+  for (const [index, color] of ogreSprite.pixels.entries()) {
+    if (color) ogreNative.set(48 + index % 40, 32 + Math.floor(index / 40), color === 13 ? 0 : color);
+  }
+  ogreEnhanced.pixels.set(ogreNative.pixels);
+  const matchOgreApproach = loadEncounterArt({ [ogreApproach]: ogreAnchor });
+  matchOgreApproach(ogreScenery, ogreEnhanced, 18);
+  strictEqual(matchOgreApproach(ogreNative, ogreEnhanced, 18, false, 0x9bce), undefined);
+  deepStrictEqual(matchOgreApproach(ogreNative, ogreEnhanced, 18, false, 0x9dca), [48, 32, ogreApproach, 40, 73]);
+  deepStrictEqual(ogreEnhanced.pixels, ogreScenery.pixels);
   const match = loadCombatArtMatcher([...loaded.keys()].filter(id => id.startsWith("combat:")), root);
   const debris = parseDax("RANDCOM.DAX", readGameFile(root, "RANDCOM.DAX")).entries.find(({ id }) => id === 1);
   ok(debris, "Missing the original battlefield props");
