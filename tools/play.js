@@ -983,6 +983,7 @@ async function showScreen() {
     const [left, top, width, height] = sourceRect ??
       [image.style.left, image.style.top, displayWidth, displayHeight].map(parseFloat);
     Object.assign(backdrop.style, { left: image.style.left, top: image.style.top, width: displayWidth, height: displayHeight });
+    if (image.dataset.combatClip) backdrop.style.clipPath = image.dataset.combatClip;
     backdrop.style.backgroundImage = `url("data:image/png;base64,${view.frame}")`;
     backdrop.style.backgroundSize = `${10000 / width}% ${10000 / height}%`;
     backdrop.style.backgroundPosition = `${left * 100 / (100 - width)}% ${top * 100 / (100 - height)}%`;
@@ -1053,7 +1054,21 @@ async function showScreen() {
       if (id.startsWith("combat-selection:")) tile.className = "combat-selection";
       if (id.startsWith("combat-effect:")) tile.className = "combat-effect";
       if (id === "combat-effect:COMSPR.DAX:139") tile.style.filter = "brightness(1.35)";
-      if (reflected !== undefined) tile.className = "combat-sprite";
+      if (reflected !== undefined) {
+        tile.className = "combat-sprite";
+        const spriteWidth = width ?? 24;
+        const spriteHeight = height ?? 24;
+        const topCut = Math.max(0, 8 - y) * 100 / spriteHeight;
+        const rightCut = Math.max(0, x + spriteWidth - 176) * 100 / spriteWidth;
+        const bottomCut = Math.max(0, y + spriteHeight - 176) * 100 / spriteHeight;
+        const leftCut = Math.max(0, 8 - x) * 100 / spriteWidth;
+        if (topCut || rightCut || bottomCut || leftCut) {
+          tile.dataset.combatClip = `inset(${topCut}% ${rightCut}% ${bottomCut}% ${leftCut}%)`;
+          // The CSS transform flips the image after clipping its source bounds.
+          tile.style.clipPath = reflected
+            ? `inset(${topCut}% ${leftCut}% ${bottomCut}% ${rightCut}%)` : tile.dataset.combatClip;
+        }
+      }
       if (reflected !== undefined && id.startsWith("combat:party:") && id.includes(":palette:")) {
         tile.dataset.partyPalette = id;
       }

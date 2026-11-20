@@ -4536,14 +4536,19 @@ try {
       assert.deepEqual(frame.combatSelections, [[x, 104, marker]]);
       assert.deepEqual(frame.combatArt.find(([left, top, id]) => left === 56 && top === 104 && id === lizard),
         [56, 104, lizard, false, false, 48, 24]);
+      assert.deepEqual(frame.combatArt.find(([left, top, id]) => left === -16 && top === 56 && id === lizard),
+        [-16, 56, lizard, false, false, 48, 24]);
       await waitFor("a single Manual Aim reticle under the enhanced giant lizard", () => run(`(() => {
         if (state.sequence !== ${frame.sequence} || animationFrame) return false;
         const layers = [...document.querySelector('#tile-art').children];
         const sprite = layers.find(layer => layer.getAttribute('src') === '/art/${lizard}' &&
           parseFloat(layer.style.left) === ${56 / 3.2} && parseFloat(layer.style.top) === ${104 / 2});
+        const clipped = layers.find(layer => layer.getAttribute('src') === '/art/${lizard}' &&
+          parseFloat(layer.style.left) === ${-16 / 3.2} && parseFloat(layer.style.top) === ${56 / 2});
         const reticles = layers.filter(layer => layer.matches('.combat-aim-reticle'));
         const reticle = reticles[0];
-        return sprite?.naturalWidth === 192 && reticles.length === 1 && layers.indexOf(reticle) < layers.indexOf(sprite) &&
+        return sprite?.naturalWidth === 192 && clipped?.naturalWidth === 192 && clipped.style.clipPath === 'inset(0% 0% 0% 50%)' &&
+          reticles.length === 1 && layers.indexOf(reticle) < layers.indexOf(sprite) &&
           reticle.classList.contains('combat-aim-reticle-backed') && parseFloat(reticle.style.left) === ${x / 3.2} &&
           parseFloat(reticle.style.top) === ${104 / 2} && parseFloat(reticle.style.width) === 7.5;
       })()`));

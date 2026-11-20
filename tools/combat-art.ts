@@ -314,11 +314,52 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
     }
     return match;
   }
+  function clippedPoses(frame: Frame, underlay: Frame, width: number, height: number, enhanced?: Frame) {
+    const placements: CombatArtPlacement[] = [];
+    const candidates = terrainPoses.get(`${width}:${width * height}`) ?? [];
+    for (let y = 32 - height; y < 176; y += 24) {
+      for (let x = 32 - width; x < 176; x += 24) {
+        if (x >= 8 && y >= 8 && x + width <= 176 && y + height <= 176) continue;
+        const left = Math.max(8, x), right = Math.min(176, x + width);
+        const top = Math.max(8, y), bottom = Math.min(176, y + height);
+        let match: Pose | undefined;
+        for (const pose of candidates) {
+          let agrees = true;
+          let visible = false;
+          for (let row = top; row < bottom && agrees; row++) {
+            for (let column = left; column < right && agrees; column++) {
+              const background = underlay.get(column, row);
+              const color = pose.pixels[(row - y) * width + column - x]!;
+              agrees = frame.get(column, row) === (color || background);
+              visible ||= color !== 0 && color !== background;
+            }
+          }
+          if (!agrees || !visible) continue;
+          if (match && (match.key !== pose.key || match.reflected !== pose.reflected)) {
+            match = undefined;
+            break;
+          }
+          match = pose;
+        }
+        if (!match) continue;
+        placements.push([x, y, match.key, match.reflected, false, width, height]);
+        if (!enhanced) continue;
+        for (let row = top; row < bottom; row++) {
+          const start = row * frame.width + left;
+          enhanced.pixels.set(underlay.pixels.subarray(start, start + right - left), start);
+        }
+      }
+    }
+    return placements;
+  }
   return (frame: Frame, enhanced?: Frame, underlay?: Frame, iconEditor = false,
     aimCell?: [x: number, y: number]): CombatArtPlacement[] => {
     if (!patterns.size) return [];
     const placements: CombatArtPlacement[] = [];
     for (const { width, height } of sizes.values()) {
+      if (!iconEditor && underlay && width * height > 24 * 24) {
+        placements.push(...clippedPoses(frame, underlay, width, height, enhanced));
+      }
       const cell = Buffer.alloc(width * height);
       const background = underlay && terrainPoses.has(`${width}:${cell.length}`) ? Buffer.alloc(cell.length) : undefined;
       // Large units span multiple guest selection squares.
