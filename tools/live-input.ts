@@ -172,6 +172,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // Several auction outcomes share the same pause and native return address.
       const otherAuctionOutcome = area === 18 && battleCursor === 0xb240 && portraitCaller === 0xa839 &&
         !dialogue.startsWith("AMANANDOGREEXCHANGETHEWANDANDALARGEBAG");
+      // Other dinner topics can end at the same pause and caller as the Pool story.
+      const otherZhentilDinnerTopic = area === 28 && battleCursor === 0xb624 && portraitCaller === 0xb317 &&
+        !dialogue.includes("THECOMMANDANTTELLSYOUASTORYABOUTTHATVERYPOOL");
+      const pictureCaller = otherAuctionOutcome ? undefined : otherZhentilDinnerTopic ? 0xa7c2 : portraitCaller;
       // Each cave's first sighting and return visit share the native menu cursor.
       const caveRevisit =
         (area === 25 && battleCursor === 0x9c97 && !dialogue.includes("ALARGEDRAGONFLYSABOVEYOU")) ||
@@ -183,7 +187,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         dialogue.startsWith("THEMINUTEYOUFINDTHETREASURE");
       const portraitCursor = caveRevisit || captivePlea ? undefined : treasureAmbush ? 0xab06 : battleCursor;
       const picture = !scene
-        ? portraitArt(screen, area, portraitCursor, otherAuctionOutcome ? undefined : portraitCaller)
+        ? portraitArt(screen, area, portraitCursor, pictureCaller)
         : undefined;
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
