@@ -1064,6 +1064,10 @@ The cornered guildmaster illustration fills the enhanced picture panel
 while the Attack and Release menu is open. Release shows a separate
 illustration as he bolts through the doorway. Chrome checks both panels
 and verifies that the release journal entry survives a cold reload.
+The escape, guild files, and both castle maps share an original script
+exit. Replaying those discoveries after adding the escape illustration
+confirmed each still shows its own artwork. Both map clues also survived
+cold reloads of the saves made after the discoveries.
 `kovel-chase-attack` checks that choosing Attack records the confrontation
 when the native battle starts, clears the cornered guildmaster illustration,
 and replaces the Attack or Release objective.
