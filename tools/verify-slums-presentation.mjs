@@ -546,7 +546,23 @@ const encounterRoutes = new Map([
   }],
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
+const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "enter", "enter", "enter",
+  "left", "left", "up", "right", "up", "left", "up", "left", "up", "right", "up", "up", "up",
+  "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
+
 const illustrationRoutes = new Map([
+  ["sokal-council-turn-in", {
+    slot: "F",
+    inputs: [...sokalPatrolDeparture, "up", "up", "enter", "enter", "y",
+      "up", "up", "right", "up", "up", "left", "up", "up", "enter", "enter", "y",
+      ...Array(4).fill("up"), "enter", "y", ...Array(4).fill("enter"), ...Array(4).fill("up"),
+      "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
+      "left", "up", "up", "left", "up", "left", "up", "up", "enter"],
+    portraitStops: { 95: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
+    portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a",
+    prompt: /WITHSOKALKEEPINOURHANDS/i,
+    continuation: { inputs: ["enter"], prompt: /receives1308experiencepoints/i, clearsPortrait: true },
+  }],
   ["sokal-password-patrol-arrival", {
     slot: "C", inputs: [...Array(5).fill("up"), "enter", "enter", "p", "n", ..."shestni", "enter"],
     portrait: "scene-illustration:area:21:ecl:9ecc", prompt: /THEUNDEADLEAVE/i,
@@ -554,9 +570,7 @@ const illustrationRoutes = new Map([
   }],
   ["sokal-password-patrol-departure", {
     slot: "F",
-    inputs: ["up", "enter", "p", "n", ..."lux", "enter", "t", "enter", "enter", "enter",
-      "left", "left", "up", "right", "up", "left", "up", "left", "up", "right", "up", "up", "up",
-      "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"],
+    inputs: sokalPatrolDeparture,
     portraitStops: { 43: "portrait:area:21:PIC4.DAX:34:0:0" },
     portrait: "scene-illustration:area:21:ecl:9ecc",
     prompt: /THEUNDEADLEAVE/i,

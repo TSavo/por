@@ -3793,3 +3793,7 @@ The black-sideburns, wavy-beard, and gray-temples Human heads now have
 recolor masks for both poses of all 32 weapon choices. The inventory
 confirmed all 96 pairs. Chrome checked representative editor choices
 and controlled live bow, sabre, and robed-wand battles, one for each head.
+
+The `sokal-council-turn-in` Chrome route now repeats this check from
+the Ferran checkpoint. It verifies the ordinary clerk at entry, the
+boat-route artwork at the reward, and the XP screen after Continue.
