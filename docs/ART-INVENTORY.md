@@ -39,6 +39,13 @@ identified portrait fallback per area in a browser session. Pass that
 JSONL or NDJSON file alongside any tile traces. The gallery lists the observed
 fallbacks with their candidate source IDs, area, and browser frame number.
 
+Set `POR_ENCOUNTER_TRACE_FILE` to a fresh JSONL path to diagnose approach
+sprites. The trace records when the original sprite's pixels match an
+installed encounter sprite in the same area but no binding matches the
+current script cursor. Each record includes the matching asset ID,
+original anchor and dimensions, and the cursor seen in play. This only
+checks sprites with an installed placement to compare against.
+
 The captured gaps show coordinates, trace frame, and matching 8×8 atlas
 frames where available. Identical atlas pixels can occur in several banks
 and areas. Use the captured area-scoped ID to assign an in-game replacement.

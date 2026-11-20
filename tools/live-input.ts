@@ -171,7 +171,20 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const portraitArt = loadPortraitArt(portraitKeys, browser);
   const characterSheetArt = loadCharacterSheetArt((process.env.POR_CHARACTER_SHEET_ART_KEYS ?? "").split(",").filter(Boolean));
   const encounterPlacements = JSON.parse(process.env.POR_ENCOUNTER_ART ?? "{}") as Record<string, EncounterAnchor>;
-  const encounterArt = loadEncounterArt(encounterPlacements);
+  let encounterTrace = process.env.POR_ENCOUNTER_TRACE_FILE;
+  const tracedEncounterScopes = new Set<string>();
+  const encounterArt = loadEncounterArt(encounterPlacements, encounterTrace ? (key, anchor, cursor) => {
+    if (!encounterTrace) return;
+    const scope = `${key}:${cursor}`;
+    if (tracedEncounterScopes.has(scope)) return;
+    try {
+      appendFileSync(encounterTrace, JSON.stringify({ type: "encounter-scope-fallback", key, anchor, cursor }) + "\n");
+      tracedEncounterScopes.add(scope);
+    } catch (error) {
+      console.error("Cannot write encounter scope trace", error);
+      encounterTrace = undefined;
+    }
+  } : undefined);
   const traceTiles = process.env.POR_TRACE_TILES === "1";
   const traceBattleTiles = process.env.POR_TRACE_BATTLE_TILES === "1";
   function perspectivePixels() {
