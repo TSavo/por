@@ -156,7 +156,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const effectKeys = (process.env.POR_COMBAT_EFFECT_KEYS ?? "").split(",").filter(Boolean);
   const matchCombatEffect = loadCombatEffects(effectKeys);
   const isHoldEffect = (key: string) => /:(?:9|137)(?::flip-x)?$/.test(key);
-  const isImpact = (key: string) => isHoldEffect(key) || /:(?:10|138)(?::flip-x)?$/.test(key) || key.endsWith(":11");
+  const isImpact = (key: string) => isHoldEffect(key) || /:(?:10|138)(?::flip-x)?$/.test(key) || /:(?:11|139)$/.test(key);
   const flightFrame = (frame: PresentationAnimationFrame) => frame.combatEffect && !isImpact(frame.combatEffect[2]);
   let pendingEffect: { x: number; y: number; background: Uint8Array } | undefined;
   const materialKeys = new Set((process.env.POR_COMBAT_MATERIAL_KEYS ?? "").split(",").filter(Boolean));

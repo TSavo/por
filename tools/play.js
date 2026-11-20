@@ -1052,6 +1052,7 @@ async function showScreen() {
       if (id.startsWith("battle-tile:")) tile.className = "battle-tile";
       if (id.startsWith("combat-selection:")) tile.className = "combat-selection";
       if (id.startsWith("combat-effect:")) tile.className = "combat-effect";
+      if (id === "combat-effect:COMSPR.DAX:139") tile.style.filter = "brightness(1.35)";
       if (reflected !== undefined) tile.className = "combat-sprite";
       if (reflected !== undefined && id.startsWith("combat:party:") && id.includes(":palette:")) {
         tile.dataset.partyPalette = id;

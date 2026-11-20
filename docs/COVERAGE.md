@@ -3686,7 +3686,7 @@ both Shield channels. Saved small spear and Human shield longsword
 colors appeared in both ready and strike poses in combat.
 
 The inventory decoded 113 archives without unresolved blocks or artwork
-load errors. Of 833 source frames, 461 have direct links and 22 have
+load errors. Of 833 source frames, 462 have direct links and 22 have
 exact pixel matches to linked art.
 
 | Art family | Source frames | Direct links | Exact matches | Unlinked |
@@ -3695,9 +3695,9 @@ exact pixel matches to linked art.
 | Encounter sprites | 258 | 157 | 0 | 101 |
 | Combat poses | 218 | 203 | 8 | 7 |
 | Battlefield props | 6 | 4 | 0 | 2 |
-| Combat effects and selection frames | 26 | 25 | 0 | 1 |
+| Combat effects and selection frames | 26 | 26 | 0 | 0 |
 
-The 350 unlinked frames include 11 uniform frames. Archive linkage counts
+The 349 unlinked frames include 11 uniform frames. Archive linkage counts
 measure source coverage. Use runtime traces to confirm which unlinked frames
 appear during play.
 
@@ -3771,6 +3771,9 @@ settled frame. The renderer captures the original defeat draw at its pause.
 The `valjevo-party-defeat-effect` replay starts at the hill giant's room
 in slot B. It verifies the same marker and the original dying report
 when Rhiannon falls at (8, 80).
+The source matcher also verifies the brighter COMSPR 139 skull frame.
+It reuses the Enhanced skull drawing and brightens it for that native
+phase. The above live replays observe COMSPR 11.
 
 Kuto's roaming lizardfolk use a dedicated 352×352 ruins illustration
 at four script positions. Chrome exercised the approach, Advance and
