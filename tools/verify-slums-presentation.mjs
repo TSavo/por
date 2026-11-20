@@ -6457,6 +6457,7 @@ try {
     await switchBothWays();
     await advance("j");
     assert.ok(knows());
+    assert.match(frame.journal.objective.nextStep, /Al-Hyam Dhazid's notes.*journal entry 30/i);
     console.log("Verified Al-Hyam's portrait and witnessed notes in Chrome.");
   } else if (falseTyranthraxus) {
     const portrait = "portrait:HEAD5.DAX:54:BODY5.DAX:1";
