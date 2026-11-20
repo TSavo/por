@@ -141,7 +141,11 @@ async function verifySokalArmory(directory, trackCommission = true) {
       if (trackCommission) assert.match(frame.journal.objective.nextStep, /take the gear on the stands/);
     }, "j",
     "y", (text) => assert.match(text, /receives 400 experience points/),
-    "enter", "enter", "end", "t", "t", "t", "t", "t", "e", "e", "enter", "s", "e",
+    "enter", "enter", "end", "t",
+    (text) => assert.match(text, /loot shield long sword chain mail mace/),
+    "t", "t", "t", "t",
+    (text) => assert.match(text, /view pool exit/),
+    "e", "e", "enter", "s", "e",
   ], directory);
   assert.match(visibleText(equipmentSave), /quit to dos/);
   await replay(loadSlot("1265"), "85000000", [
@@ -153,6 +157,8 @@ async function verifySokalArmory(directory, trackCommission = true) {
       if (trackCommission) assert.match(frame.journal.objective.nextStep, /ready any gear you took/i);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ferran"));
     },
+    "j", "end", "v", "i",
+    (text) => assert.match(text, /brin's items.*no shield no long sword no chain mail no mace/),
   ], directory);
 }
 
