@@ -123,7 +123,9 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
     width: number; foregroundProbe: number; party: boolean;
   };
   const registered: Pose[] = [];
-  const palettePoses: Pose[] = [];
+  const palettePoses: { pose: Pose; opaqueSample: number }[] = [];
+  // Sample the interior of a 24×24 party cel with a 30-bit silhouette.
+  const paletteSamples = [4, 8, 12, 16, 20].flatMap(y => [3, 6, 9, 12, 15, 18].map(x => y * 24 + x));
   const sizes = new Map<string, { width: number; height: number }>();
   const register = (pixels: Uint8Array, key: string, reflected: boolean, width: number) => {
     const pattern = `${width}:${Buffer.from(pixels).toString("hex")}`;
@@ -135,7 +137,11 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
       foregroundProbe, party: partyCombatKey.test(key),
     };
     registered.push(pose);
-    if (materialKeys.has(key)) palettePoses.push(pose);
+    if (materialKeys.has(key)) {
+      const opaqueSample = paletteSamples.reduce((bits, pixel, bit) =>
+        pixels[pixel] ? bits | (1 << bit) : bits, 0);
+      palettePoses.push({ pose, opaqueSample });
+    }
   };
   const matchesProbe = (cell: Uint8Array, pose: Pose) =>
     pose.foregroundProbe < 0 || cell[pose.foregroundProbe] === pose.pixels[pose.foregroundProbe];
@@ -163,16 +169,21 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
   const recoloredParty = (cell: Buffer, background: Uint8Array, selected: boolean) => {
     // A recolored pose must contribute at least one visible pixel.
     if (cell.equals(background)) return;
+    const allowsAimCursor = selected && background[0] === 15;
+    const matchesBackground = (pixel: number) => cell[pixel] === background[pixel] ||
+      (allowsAimCursor && background[pixel] === 7 && cell[pixel] === 15);
+    const requiredSample = paletteSamples.reduce((bits, pixel, bit) =>
+      matchesBackground(pixel) ? bits : bits | (1 << bit), 0);
     let match: Pose | undefined;
     const remap = new Int8Array(16);
-    for (const pose of palettePoses) {
+    for (const { pose, opaqueSample } of palettePoses) {
+      if (requiredSample & ~opaqueSample) continue;
       remap.fill(-1);
       remap[0] = 0;
       let visible = false;
       const agrees = pose.pixels.every((index, pixel) => {
         const observed = cell[pixel]!;
-        if (!index) return observed === background[pixel] ||
-          (selected && background[0] === 15 && background[pixel] === 7 && observed === 15);
+        if (!index) return matchesBackground(pixel);
         if (observed !== background[pixel]) visible = true;
         if (!partyMaterialIndices.has(index)) return observed === index;
         if (remap[index] === -1) remap[index] = observed;

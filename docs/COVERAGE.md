@@ -3847,3 +3847,10 @@ All 352 distinct Small and 448 distinct Human head-and-weapon pairs now
 have both Enhanced recolor masks. For the final Small batch, Chrome
 checked eight representative editor bands and controlled combat with
 Azure Skirmisher, plumed crossbow and crested robed rod appearances.
+
+Recolor matching uses sampled silhouette pixels to reject impossible
+candidates before checking the exact palette mapping. In the controlled
+Azure Skirmisher Chrome replay, the first 100 terrain-backed matcher calls
+had a median of 39.7 ms, down from 133.8 ms with the same 3,200 candidates.
+Chrome verified both combat poses and representative bald Small editor
+choices after the optimization.
