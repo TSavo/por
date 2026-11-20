@@ -5832,6 +5832,20 @@ try {
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
       if (routeName === "new-phlan-rolf-tour") await waitForExplorationViewport();
+      if (routeName === "valhingen-storm-entrance") {
+        await waitFor("the local map to become available after the storm", () => run(
+          'document.querySelector("#travel-map").hidden && !document.querySelector("#map-toggle").disabled'));
+        await run('document.querySelector("#map-toggle").click()');
+        await waitFor("the graveyard automap", () => run('!document.querySelector("#automap").hidden'));
+        await run('document.querySelector("#atlas-map").click()');
+        await waitFor("Valhingen's illustrated map", () => run(`
+          !document.querySelector("#atlas-view").hidden &&
+          document.querySelector("#atlas-sheet").value === "valhingen-graveyard-concept-v1.png" &&
+          document.querySelector("#atlas-image").naturalWidth > 0
+        `));
+        await run('document.querySelector("#close-map").click()');
+        assert.equal((await latest()).sequence, frame.sequence);
+      }
     }
     if (journalLead) {
       await advance("j");
