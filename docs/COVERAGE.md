@@ -4015,6 +4015,13 @@ The `bivant-reward` Chrome replay keeps the rescue commission pending
 while the party claims the reward items, then saves the turn-in to slot A.
 The `bivant-reward-reload` replay opens that save and checks the completed
 commission and display switching.
+The `buccaneer-bivant-purchase` replay starts from slot A outside the
+captain's room. It checks that the offer records the price, the handoff
+illustration and purchase clue appear only after buying the boy, and the
+illustration clears when the party is escorted outside. It then saves
+through Encamp. Pass that printed save to `buccaneer-bivant-purchase-reload`
+to check that the price and purchase persist without clues from the
+separate pen escape or failed escort branches.
 
 The plumed, plum cap, wine pennant, and jade helm Human appearances
 now have recolor masks for both poses of all 32 weapon choices. Chrome
