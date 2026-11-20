@@ -1718,7 +1718,11 @@ if (process.argv[2] === "--bane-entry53-checkpoint") {
     (text) => assert.match(text, /6,8 w/),
     "j", (_text, frame) => assert.match(learned(frame)?.detail ?? "", /paper on the floor.*entry 53/),
   ]);
-  console.log("Defeated the Temple of Bane escort, found Entry 53, and verified it after reload.");
+  await replay(loadSlot("1e61"), "85000000", [
+    (text) => assert.match(text, /6,9 n/),
+    "j", (_text, frame) => assert.equal(learned(frame), undefined),
+  ]);
+  console.log("Verified Entry 53 after the Temple of Bane escort fight, after reload, and across save slots.");
   process.exit(0);
 }
 
@@ -1746,7 +1750,13 @@ if (process.argv[2] === "--textile-diary-checkpoint") {
       assert.match(entries[0].detail, /journal entry 11/);
     },
   ]);
-  console.log("Found Entry 11 and verified the diary persisted once in slot D.");
+  await replay(loadSlot("3062"), "85000000", [
+    (text) => assert.match(text, /6,6 e/),
+    "j", (_text, frame) => {
+      assert.ok(!frame.journal.leads.some(({ id }) => id === diaryLead));
+    },
+  ]);
+  console.log("Verified the diary persists once in slot D and remains undiscovered in slot B.");
   process.exit(0);
 }
 
