@@ -3535,7 +3535,8 @@ const wolves = routeName === "graveyard-wolves";
 const envoy = routeName === "zhentil-envoy";
 const envoyEscape = routeName === "zhentil-escape";
 const councilReward = {
-  "zhentil-reward": ["commission-zhentil", /CADORNAWASWAGERINGYOURRETURN/i],
+  "zhentil-reward": ["commission-zhentil", /CADORNAWASWAGERINGYOURRETURN/i,
+    { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:zhentil-envoy", xp: 12750 }],
   "river-reward": ["commission-river", /CLEARINGOFTHESTOJONOWRIVER/i,
     { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:stojonow-river", xp: 34250 }],
   "swamp-reward": ["commission-lizardmen", /LIZARDMENMENACEHASGREATLYIMPROVED/i],

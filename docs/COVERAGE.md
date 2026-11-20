@@ -3858,3 +3858,7 @@ choices after the optimization.
 The `nomad-reward` Chrome route checks the clerk receiving the Nomad
 Camp report, the original 5,900 XP reward, and the journal turn-in.
 The route starts from a local City Hall checkpoint ready to report.
+
+The `zhentil-reward` route checks the clerk's illustration for the swift
+envoy return, clearance before the original 12,750 XP award, and the
+journal turn-in from a local City Hall checkpoint.
