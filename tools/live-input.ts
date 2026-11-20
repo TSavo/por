@@ -1,6 +1,7 @@
 import { appendFileSync, readSync, writeFileSync } from "node:fs";
 import { captureNativeExploration, type NativeExploration } from "./native-exploration.js";
-import { captureOverlandTravel, identifyPhlanPrompt, type TravelState } from "./overland-travel.js";
+import { captureOverlandTravel, identifyPhlanPrompt, identifySokalPrompt, isQuayDialogue, isSokalBoatHandoff,
+  type SokalQuay, type TravelState } from "./overland-travel.js";
 import { createHash } from "node:crypto";
 import { Frame } from "../src/lib/ega.js";
 import type { EncounterAnchor } from "../src/lib/assets.js";
@@ -22,7 +23,7 @@ const controls: Record<string, number> = {
 const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"];
 const firstScans = [2, 16, 30, 44];
 const liveIdleBudget = 150_000_000;
-const phlanArrivalAreas = new Set([0, 2, 10, 14, 18, 24, 31]);
+const overlandArrivalAreas = new Set([0, 2, 10, 14, 18, 24, 31]);
 export interface PresentationAnimationFrame {
   frame: string;
   enhancedFrame: string;
@@ -108,7 +109,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let area: number | undefined;
   let travelPosition: TravelState | undefined;
   let nonblockingPoll = false;
-  let overlandScript = false;
+  let activeEcl: number;
+  let harborTicket: SokalQuay["ticket"] = "none";
   let explorationPosition: { area: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number } | undefined;
   let battleCursor: number | undefined;
   let drawnPerspective: { pixels: Buffer; localEcl?: number; native?: NativeExploration } | undefined;
@@ -174,7 +176,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const tiles: [number, number, string][] = [];
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
       const menu = menuText(text);
+      const overlandScript = activeEcl >= 25 && activeEcl <= 27;
       const phlanArrival = overlandScript ? identifyPhlanPrompt(dialogue, menu) : undefined;
+      const sokalPrompt = activeEcl === 0 ? identifySokalPrompt(dialogue, menu, harborTicket) : undefined;
       // The overland map shares the native viewport blit with first-person
       // scenes. Its exploration menu omits Area, even during the cave exit
       // when the area record still names the dungeon.
@@ -214,7 +218,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         if (perspective && native?.native) {
           const { localEcl } = native;
           // The first destination view can precede the update to the party's area record.
-          if ((area === 26 || area === 27) && localEcl !== undefined && phlanArrivalAreas.has(localEcl)) {
+          if (localEcl !== undefined && ((area === 26 || area === 27) && overlandArrivalAreas.has(localEcl) ||
+              area === 0 && localEcl === 21 && activeEcl === 21)) {
             const { x, y, facing } = native.native;
             arrivalPosition = { area: localEcl, x, y, facing };
           }
@@ -285,6 +290,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           }
         }
       }
+      const travelFrame = !scene && !battlefield && !leads && !attack;
+      const quay = activeEcl === 0 && nativeScenery?.mapId === 0 && nativeScenery.y === 1 &&
+        nativeScenery.x >= 11 && nativeScenery.x <= 15 && menu === "AREACASTVIEWENCAMPSEARCHLOOK" && isQuayDialogue(dialogue)
+        ? { x: nativeScenery.x, facing: nativeScenery.facing, ticket: harborTicket } : undefined;
       const state = {
         frame: Buffer.from(encodePng(screen)).toString("base64"),
         enhancedFrame: Buffer.from(encodePng(enhanced, enhancedPalette)).toString("base64"),
@@ -300,9 +309,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         overlandMap: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield || undefined,
         travelPosition: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield && !leads && !attack
           ? travelPosition : undefined,
-        phlanArrival: !scene && !battlefield && !leads && !attack ? phlanArrival : undefined,
-        travelPolling: nonblockingPoll && !menu && !scene && picture === undefined && !battlefield && !leads && !attack &&
-          ((overlandScript && !dialogue) || identifyPhlanPrompt(dialogue) !== undefined) || undefined,
+        phlanArrival: travelFrame ? phlanArrival : undefined,
+        sokalPrompt: travelFrame ? sokalPrompt : undefined,
+        sokalQuay: travelFrame ? quay : undefined,
+        travelPolling: nonblockingPoll && !menu && travelFrame && (
+          picture === undefined && ((overlandScript && !dialogue) || identifyPhlanPrompt(dialogue) !== undefined) ||
+          isSokalBoatHandoff(dialogue, activeEcl, harborTicket)) || undefined,
         nativeScenery,
         exploration: arrivalPosition ?? (perspective && explorationPosition?.area === tileArea
           ? explorationPosition : undefined),
@@ -380,14 +392,16 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const segment = cpu.read16(0x740, 0x4935);
       const offset = cpu.read16(0x740, 0x4933);
       travelPosition = captureOverlandTravel(cpu, segment, offset);
-      const ecl = cpu.read8(0x740, 0x82a2);
+      activeEcl = cpu.read8(0x740, 0x82a2);
       // Map and sector loads can yield before the next menu is drawn.
       nonblockingPoll = !blocking && cpu.cs === 0x512 && cpu.ip === 0x5423;
-      overlandScript = ecl >= 25 && ecl <= 27;
+      // ECL 0 sets a ticket flag and a separate boat destination.
+      const harborFlag = (address: number) => cpu.read16(segment, offset + 0x6e00 + address * 2);
+      harborTicket = segment && harborFlag(0x4a01) === 1 ? harborFlag(0x4ac4) === 0 ? "sokal" : "other" : "none";
       area = segment || offset ? cpu.read16(segment, offset + 0x1e4) : undefined;
       // Valjevo draws the dungeon hedge before copying the selected ECL
       // back to the area record. Other transition art uses the record's scope.
-      if (area === 5 && cpu.read8(0x740, 0x82a2) === 3) area = 3;
+      if (area === 5 && activeEcl === 3) area = 3;
       const positionArea = area;
       explorationPosition = (segment || offset) && positionArea !== undefined ? {
         area: positionArea,

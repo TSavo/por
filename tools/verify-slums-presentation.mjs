@@ -3137,7 +3137,9 @@ const atlasRoutes = new Map([
 ]);
 const atlasRoute = atlasRoutes.get(routeName);
 const moonseaTravel = routeName === "moonsea-lizardman-travel";
-routes.push("textile-return-art", "moonsea-lizardman-travel", ...atlasRoutes.keys());
+const sokalTravel = routeName.startsWith("moonsea-sokal-");
+routes.push("textile-return-art", "moonsea-lizardman-travel", "moonsea-sokal-free", "moonsea-sokal-fare",
+  "moonsea-sokal-decline", ...atlasRoutes.keys());
 routes.push("stojanow-wall-warning", "stojanow-wall-warning-reload");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
 routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
@@ -3435,7 +3437,7 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  const verifyDefaultWebGL = moonseaTravel || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
+  const verifyDefaultWebGL = moonseaTravel || sokalTravel || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
     ["new-phlan-rolf-tour", "lizardfolk-battle-wall"].includes(routeName);
   if (!verifyDefaultWebGL) {
     // The tile replays verify individual PNG placements.
@@ -3550,6 +3552,45 @@ try {
     await waitForExplorationViewport();
     await switchBothWays();
     console.log("Verified Moonsea keyboard travel, Escape cancellation, click-to-travel, and the return to WebGL.");
+  } else if (sokalTravel) {
+    const landmark = 'document.querySelector("[data-destination=sokal]")';
+    await waitFor("the Sokal Keep landmark", () => run(`${landmark}.getAttribute("aria-disabled") === "false"`));
+    await run(`(() => {
+      window.sokalTravelKeys = [];
+      const gameFetch = window.fetch.bind(window);
+      window.fetch = (url, options) => {
+        if (url === "/key") sokalTravelKeys.push(options.body);
+        return gameFetch(url, options);
+      };
+      ${landmark}.dispatchEvent(new MouseEvent("click"));
+    })()`);
+    if (routeName !== "moonsea-sokal-free") {
+      await waitFor("the native payer selection", () => run(`state.ready && !posting && !renderingSequence &&
+        state.sokalPrompt === "payer" && activeTravel?.destination === "sokal"`));
+      const payerFrame = await latest();
+      assert.equal((await run("sokalTravelKeys")).at(-1), "s");
+      if (routeName === "moonsea-sokal-decline") {
+        await run(`window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", cancelable: true }))`);
+        assert.equal(await run("Boolean(activeTravel)"), false);
+        assert.equal((await latest()).sequence, payerFrame.sequence);
+      } else {
+        await run(`window.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", cancelable: true }))`);
+      }
+    }
+    if (routeName !== "moonsea-sokal-decline") {
+      await waitFor("the Sokal Keep route to settle", () => run(`state.ready && state.sequence > ${frame.sequence} && !activeTravel`));
+      frame = await latest();
+      const text = frame.text.map(([, char]) => String.fromCharCode(char)).join("");
+      assert.equal(frame.exploration?.area, 21, text);
+      assert.equal(frame.scenery?.mapId, 21, text);
+      assert.deepEqual([frame.scenery.x, frame.scenery.y], [8, 14]);
+      const keys = await run("sokalTravelKeys.filter(key => key !== ':travel-poll')");
+      assert.equal(keys.at(-1), "enter", "The route should hand off after confirming boarding");
+      assert.ok(["up", "enter"].includes(keys.at(-2)), "The original script can board on approach or Enter");
+      if (routeName === "moonsea-sokal-free") assert.match(text, /THEBOATDISEMBARKSYOUATSOKALKEEP/i);
+      await switchBothWays();
+    }
+    console.log(`Verified ${routeName} using the original New Phlan ferry in Chrome.`);
   } else if (atlasRoute) {
     const { areas, mapId, file } = atlasRoute;
     assert.ok(areas.includes(frame.exploration?.area));

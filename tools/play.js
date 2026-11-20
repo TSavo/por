@@ -422,35 +422,102 @@ for (const button of approachButtons) {
   button.addEventListener("click", () => selectTravel(button.dataset.approach, button.textContent));
 }
 
-function followTravel() {
-  const route = activeTravel;
-  if (!route || posting || !state.ready || state.sequence === route.sequence || renderingSequence !== undefined || animationFrame) return;
+function ferryStep(route) {
+  if (state.travelPolling && route.handoffBudget > 0) {
+    route.handoffBudget--;
+    return ":travel-poll";
+  }
+  if (route.ferry === "harbor") {
+    if (state.sokalPrompt === "fare") {
+      route.ferry = "payer";
+      return "s";
+    }
+    if (state.sokalPrompt === "directions") {
+      route.ferry = "ticket";
+      return "enter";
+    }
+    return;
+  }
+  if (route.ferry === "landing") return;
+  // The native script can begin boarding on the final step or after Enter.
+  if (route.quayPose === "15,2" && state.sokalPrompt === "boarding") {
+    route.ferry = "landing";
+    route.handoffBudget = 3;
+    return "enter";
+  }
+  if (route.ferry === "boarding") return;
+
+  const quay = state.sokalQuay;
+  if (!quay || quay.ticket === "other" || (route.ferry !== "quay" && quay.ticket !== "sokal") ||
+    route.quayPose !== `${quay.x},${quay.facing}`) return;
+  const { x, facing, ticket } = quay;
+  const east = ticket === "sokal";
+  if (east && x === 15 && facing === 2) {
+    route.ferry = "boarding";
+    return "enter";
+  }
+  const direction = east ? 2 : x === 11 ? 0 : 6;
+  if (facing !== direction) {
+    const turn = (direction - facing + 8) % 8 === 6 ? -2 : 2;
+    route.quayPose = `${x},${(facing + turn + 8) % 8}`;
+    return turn === 2 ? "right" : "left";
+  }
+  if (!east && x === 11) {
+    // Facing the harbor office, a forward input sets up the native interaction.
+    if (!route.atHarbor) {
+      route.atHarbor = true;
+      return "up";
+    }
+    route.ferry = "harbor";
+    return "enter";
+  }
+  route.quayPose = `${x + (east ? 1 : -1)},${facing}`;
+  return "up";
+}
+
+function overlandStep(route) {
   const { travel } = state;
   const next = travel?.routes[route.destination];
   const here = travel && `${travel.x},${travel.y},${travel.sector}`;
-  const handoff = !travel && state.travelPolling && route.handoffBudget > 0;
-  const choice = route.arrivalSent && route.arrival && route.arrival.approach === state.phlanArrival
-    ? route.arrival.key : undefined;
-  // Only select a district at its verified native prompt. Story prompts and
-  // unexpected movement return control to the player.
-  if (!enhanced || state.stopped || state.animation?.length ||
-    (!choice && !handoff && (route.arrivalSent || !next || route.expected && here !== route.expected))) {
+  if (route.arrivalSent && route.arrival && route.arrival.approach === state.phlanArrival) {
+    const { key } = route.arrival;
+    route.arrival = undefined;
+    route.handoffBudget = 3;
+    if (route.destination === "sokal") {
+      route.ferry = "quay";
+      route.quayPose = "15,6";
+    }
+    return key;
+  }
+  if (!travel && state.travelPolling && route.handoffBudget > 0) {
+    route.handoffBudget--;
+    return ":travel-poll";
+  }
+  if (route.arrivalSent || !next || route.expected && here !== route.expected) return;
+  route.expected = `${next.x},${next.y},${next.sector}`;
+  route.arrivalSent = next.key === "enter";
+  route.arrival = next.arrival;
+  route.handoffBudget = next.arrival || next.sector !== travel.sector ? 3 : 0;
+  return next.key;
+}
+
+function waitingForFerryPayer(route) {
+  return route?.ferry === "payer" && state.sokalPrompt === "payer";
+}
+
+function followTravel() {
+  const route = activeTravel;
+  if (!route || posting || !state.ready || state.sequence === route.sequence || renderingSequence !== undefined || animationFrame) return;
+  if (waitingForFerryPayer(route)) return;
+  // Story prompts, encounters, and unexpected movement return control to the player.
+  const key = enhanced && !state.stopped && !state.animation?.length && (route.ferry ? ferryStep(route) : overlandStep(route));
+  if (!key) {
     activeTravel = undefined;
     renderTravelMap();
     return;
   }
   route.sequence = state.sequence;
-  if (choice) {
-    route.arrival = undefined;
-    route.handoffBudget = 3;
-  } else if (handoff) route.handoffBudget--;
-  else {
-    route.expected = `${next.x},${next.y},${next.sector}`;
-    route.arrivalSent = next.key === "enter";
-    route.arrival = next.arrival;
-    route.handoffBudget = next.arrival || next.sector !== travel.sector ? 3 : 0;
-  }
-  void send(choice ?? (handoff ? ":travel-poll" : next.key)).then(sent => {
+  void send(key).then(sent => {
     if (sent || activeTravel !== route) return;
     activeTravel = undefined;
     renderTravelMap();
@@ -1064,7 +1131,9 @@ async function poll() {
     playPendingSounds();
     playPendingVoice();
     playPendingNarration();
-    status.textContent = state.stopped ?? state.notice ?? (activeTravel && `Traveling toward ${activeTravel.label}… Esc to stop.`) ??
+    status.textContent = state.stopped ?? state.notice ??
+      (waitingForFerryPayer(activeTravel) ? "Choose who pays 1 platinum for Sokal Keep. Esc to stop travel." : undefined) ??
+      (activeTravel && `Traveling toward ${activeTravel.label}… Esc to stop.`) ??
       (!travelMap.hidden && state.ready ? "Select a highlighted destination or use the arrow keys." : undefined) ??
       (state.automaticCombat && !state.journal ? "Combat in progress…"
         : state.ready ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
@@ -1106,9 +1175,11 @@ window.addEventListener("keydown", (event) => {
   if (currentVoice && event.key !== "F10" && !advancingCoveredPrint) stopVoice();
   if (event.repeat || event.ctrlKey || event.metaKey) return;
   if (activeTravel && (event.key === "Escape" || keypadDirections[event.code] || commands[event.key] || /^[a-z0-9]$/i.test(event.key))) {
-    activeTravel = undefined;
-    renderTravelMap();
-    if (event.key === "Escape") { event.preventDefault(); return; }
+    if (event.key === "Escape" || !waitingForFerryPayer(activeTravel)) {
+      activeTravel = undefined;
+      renderTravelMap();
+      if (event.key === "Escape") { event.preventDefault(); return; }
+    }
   }
   if (event.altKey) {
     if (!event.shiftKey && event.code === "KeyQ" && !state.journal) {

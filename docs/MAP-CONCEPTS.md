@@ -39,9 +39,11 @@ tunnels as the party explores them.
 In Enhanced overland play, the Moonsea plate also serves as the travel map.
 Available destinations glow on hover or keyboard focus. Click one or press
 Enter while focused to walk there using the original game controls. Travel
-stops at encounters and story prompts. Sokal Keep points to a dock
-for New Phlan, where the harbor master can arrange onward passage. Press
-Escape to stop a route. **Map** enlarges the illustration and **Travel art**
+stops at encounters and story prompts. **Sokal Keep** takes the original
+ferry via the New Phlan harbor and hands control back on Thorn Island. If
+the harbor master charges a fare, choose a party member to pay the one
+platinum in the original game menu. Press Escape to stop a route.
+**Map** enlarges the illustration and **Travel art**
 switches between the illustration and the overhead terrain view.
 
 Chrome verification loaded every current atlas plate, selected New Phlan
@@ -67,4 +69,7 @@ option at the original crossroads or ferry menu. **Entrances and ferry docks**
 contains routes that hand control back at those menus.
 Run the `phlan-outskirts-*` Chrome replays with `--map-destination` to check
 named arrivals or with `--map-travel` to check the approach menus.
+The `moonsea-sokal-free`, `moonsea-sokal-fare`, and `moonsea-sokal-decline`
+Chrome replays cover free passage, paying for passage, and stopping at the
+fare prompt without spending any platinum.
 

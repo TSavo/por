@@ -42,6 +42,7 @@ const phlanDestinations: Record<string, Partial<Record<PhlanApproach, string>>> 
   podolPlaza: { westApproach: "n" },
   textileHouse: { westApproach: "s" },
   newPhlan: { docks: "t", eastApproach: "b" },
+  sokal: { docks: "t", eastApproach: "b" },
 };
 const approachIds = Object.keys(approaches) as PhlanApproach[];
 const phlanPrompts: Record<PhlanApproach, { menu: string; dialogue: RegExp }> = {
@@ -58,12 +59,33 @@ export function identifyPhlanPrompt(dialogue: string, menu?: string): PhlanAppro
   });
 }
 
+export type SokalPrompt = "directions" | "fare" | "payer" | "boarding";
+export type SokalQuay = { x: number; facing: number; ticket: "sokal" | "other" | "none" };
+const freePassage = /^'BYORDEROFTHECITYCOUNCIL,'.*THEONLYBOATOUTISGOINGTOSOKALKEEP\./;
+const boardingBoat = "YOUBOARDABOAT.";
+
+export function identifySokalPrompt(dialogue: string, menu: string, ticket: SokalQuay["ticket"]): SokalPrompt | undefined {
+  if (menu === "SOKALEASTWESTBAYNONE" && dialogue.startsWith("THEHARBORMASTERTELLSYOUBOATSLEAVE")) return "fare";
+  if (menu === "WHOWILLPAY?SELECT") return "payer";
+  if (menu !== "PRESS<ENTER>/<RETURN>TOCONTINUE") return;
+  if (freePassage.test(dialogue)) return "directions";
+  if (ticket === "sokal" && dialogue === boardingBoat) return "boarding";
+}
+
+export function isQuayDialogue(dialogue: string) {
+  return !dialogue || dialogue === "'CATCHTHEBOATATTHEENDOFTHEPIER.'" || freePassage.test(dialogue);
+}
+
+export function isSokalBoatHandoff(dialogue: string, ecl: number, ticket: SokalQuay["ticket"]) {
+  return dialogue === boardingBoat && (ecl === 21 || ecl === 0 && ticket === "sokal");
+}
+
 const landmarks: Record<string, readonly Coordinate[]> = {
   diogenes: [[10, 9]], buccaneers: [[12, 31]], zhentil: [[3, 32]], nomads: [[25, 11]],
   island: [[19, 14], [19, 16]], kobolds: [[32, 15]], lizardmen: [[37, 8]],
   phlan: [...northGate, ...eastApproach, ...westApproach, ...docks],
   ...approaches,
-  valjevo: northGate, sokal: docks,
+  valjevo: northGate,
   ...Object.fromEntries(Object.entries(phlanDestinations).map(([destination, choices]) =>
     [destination, approachIds.filter(approach => choices[approach]).flatMap<Coordinate>(approach => approaches[approach])])),
 };
