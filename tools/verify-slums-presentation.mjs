@@ -6356,8 +6356,13 @@ try {
       assert.doesNotMatch(frame.journal.objective.nextStep, /continue reading the Valjevo records/i);
       for (const key of ["j", "enter"]) await advance(key);
       assert.notEqual(frame.portrait, moonsea);
+      for (const key of ["e", "s", "s", "c"]) await advance(key);
+      const checkpoint = resolve(directory, "C.json");
+      assert.ok(JSON.parse(readFileSync(checkpoint, "utf8")).leads.some(({ id }) => id === "castle-records-moonsea"));
+      console.log("Valjevo records save:", checkpoint);
     }
     await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified that Valjevo records enter the journal only when read.");
   } else if (scriptorium || mazeWatch || giantPatrol) {
     if (giantPatrol) for (const key of ["s", "enter", "up", "enter", "enter"]) await advance(key);
