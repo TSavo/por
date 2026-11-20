@@ -1330,7 +1330,10 @@ book actually read appears in the journal for entries 7, 8, 19, 21, and 37.
 The verifier also checks each record's original report and acknowledgment
 flags independently. `mendor-records-reward` uses controlled slot A at
 City Hall to report Lex Geographica. Chrome verifies that the atlas is
-turned in and tracking returns to the council's standing records offer.
+pending when the clerk acknowledges it. Closing the treasure menu
+completes the handoff and returns tracking to the standing records offer.
+The translation verifier checks the clerk's distinct acknowledgment for
+all five records.
 `mendor-records-reward-reload` checks the completed atlas entry and
 tracked search objective after reloading the native save.
 The `mendor-library-fighter` replay uses controlled slot B and checks the

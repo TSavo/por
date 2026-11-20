@@ -4,11 +4,11 @@ import type { LoadedSlice } from "./overlay.js";
 import { commissions } from "./commission-journal.js";
 
 const libraryRecords = [
-  { entry: 7, title: "Fyerdetha's Discourses on Power", rewardFlag: 0x4aaa },
-  { entry: 19, title: "Urgund's Description of Darkness", rewardFlag: 0x4aab },
-  { entry: 37, title: "Lex Geographica", rewardFlag: 0x4aac },
-  { entry: 8, title: "The History of the North", rewardFlag: 0x4aad },
-  { entry: 21, title: "The Grand Historian's Records of the Arts of War", rewardFlag: 0x4aae },
+  { entry: 7, title: "Fyerdetha's Discourses on Power", rewardFlag: 0x4aaa, reportCue: "WE FIND THESE DISCOURSES VALUABLE" },
+  { entry: 19, title: "Urgund's Description of Darkness", rewardFlag: 0x4aab, reportCue: "THE COUNCIL WILL BE AMUSED BY THE DESCRIPTIONS" },
+  { entry: 37, title: "Lex Geographica", rewardFlag: 0x4aac, reportCue: "THESE MAPS SHOULD HELP US TO LOCATE SEVERAL LEGENDARY BUILDINGS" },
+  { entry: 8, title: "The History of the North", rewardFlag: 0x4aad, reportCue: "THESE HISTORIES CONTAIN MUCH USEFUL INFORMATION" },
+  { entry: 21, title: "The Grand Historian's Records of the Arts of War", rewardFlag: 0x4aae, reportCue: "THE RECORDS PROVIDE INSIGHTS INTO MUCH THAT WAS PUZZLING" },
 ] as const;
 
 const yarashPapers = [
@@ -781,8 +781,11 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "mendor-book-guardian", title: "The library's guardian",
       detail: "A spectre accused the party of taking the library's books and attacked it." });
   }
-  for (const { entry, title } of libraryRecords) {
-    if (text.includes(`YOU FIND ${title.toUpperCase()}`) &&
+  for (const { entry, title, reportCue } of libraryRecords) {
+    if (text.includes(reportCue)) {
+      leads.push({ id: `mendor-book-${entry}`, title, status: "reward-pending",
+        detail: "Finish collecting the council reward for this record." });
+    } else if (text.includes(`YOU FIND ${title.toUpperCase()}`) &&
         (text.includes(`ENTRY ${entry} IN YOUR JOURNAL`) || text.includes(`JOURNAL AS ENTRY ${entry}`))) {
       leads.push({ id: `mendor-book-${entry}`, title, detail: `The party copied a passage into journal entry ${entry}.` });
     }
@@ -1552,8 +1555,7 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("COUNCILMAN CADORNA CONFRONTS YOU. 'YOU HAVE TAKEN MY FAMILY TREASURE")) {
     leads.push({ id: "textile-confrontation", title: "Cadorna confronted the party", detail: "Cadorna accused the party of taking his family treasure and left without paying." });
   }
-  if (["WE FIND THESE DISCOURSES VALUABLE", "THESE MAPS SHOULD HELP US TO LOCATE",
-    "THESE HISTORIES CONTAIN MUCH USEFUL INFORMATION", "THE RECORDS PROVIDE INSIGHTS"].some((line) => text.includes(line))) {
+  if (libraryRecords.some(({ reportCue }) => text.includes(reportCue))) {
     leads.push({ id: "records-submitted", title: "Records delivered", detail: "The clerk acknowledged records the party recovered. Additional finds can still be brought to City Hall." });
   }
   if (text.includes("YOU HAVE FOUND A ROWBOAT HIDDEN AMOUNGST THE REEDS")) {

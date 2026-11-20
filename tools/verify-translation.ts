@@ -1254,7 +1254,13 @@ function checkCampaignJournal(): void {
       seenStacks.some(({ id }) => id.startsWith("mendor-book-"))) {
     throw new Error("The library stacks should guide a search without revealing unread books");
   }
-  for (const [number, rewardFlag] of [[7, 0x4aaa], [19, 0x4aab], [37, 0x4aac], [8, 0x4aad], [21, 0x4aae]] as const) {
+  for (const [number, rewardFlag, reportCue] of [
+    [7, 0x4aaa, "WE FIND THESE DISCOURSES VALUABLE"],
+    [19, 0x4aab, "THE COUNCIL WILL BE AMUSED BY THE DESCRIPTIONS"],
+    [37, 0x4aac, "THESE MAPS SHOULD HELP US TO LOCATE SEVERAL LEGENDARY BUILDINGS"],
+    [8, 0x4aad, "THESE HISTORIES CONTAIN MUCH USEFUL INFORMATION"],
+    [21, 0x4aae, "THE RECORDS PROVIDE INSIGHTS INTO MUCH THAT WAS PUZZLING"],
+  ] as const) {
     const book = lines.find((line) => line.startsWith("YOU FIND ") &&
       (line.includes(`ENTRY ${number} IN YOUR JOURNAL`) || line.includes(`JOURNAL AS ENTRY ${number}`)));
     const discoveries = book && discoveredLeads(book);
@@ -1262,6 +1268,10 @@ function checkCampaignJournal(): void {
       throw new Error(`Missing or premature library discovery for journal entry ${number}`);
     }
     const id = `mendor-book-${number}`;
+    const acknowledgment = lines.find(line => line.includes(reportCue));
+    if (!acknowledgment) throw new Error(`Missing the original acknowledgment for library entry ${number}`);
+    deepStrictEqual(discoveredLeads(acknowledgment).filter(lead => lead.id.startsWith("mendor-book-"))
+      .map(lead => [lead.id, lead.status]), [[id, "reward-pending"]]);
     writeGlobal(rewardFlag, 254);
     const toReport = questProgress(m, discoveries, m.ds);
     if (toReport.find((lead) => lead.id === id)?.status !== "ready-to-report" ||

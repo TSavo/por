@@ -8213,6 +8213,11 @@ try {
       document.querySelector('.encounter-portrait[src="/art/${atlasPortrait}"]')?.naturalWidth === 352`));
     await switchBothWays();
     await verifyPortraitPanel();
+    await advance("j");
+    assert.equal(record()?.status, "reward-pending");
+    assert.equal(frame.journal.trackedId, "mendor-book-37");
+    assert.match(frame.journal.objective.nextStep, /Finish collecting the council reward/);
+    await advance("j");
     await advance("enter");
     assert.equal(frame.portrait, undefined);
     assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /receives500experiencepoints/i);
