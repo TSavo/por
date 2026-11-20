@@ -5808,7 +5808,19 @@ try {
     if (stays) {
       for (const key of ["j", "enter", "j"]) await advance(key);
       assert.ok(knows("nomad-rest-offer") && !knows("nomad-kobold-attack"));
-      for (const key of ["j", "e", "enter", "s", "s", "a"]) await advance(key);
+      await advance("j");
+      const farewell = "scene-illustration:area:17:ecl:a5f3";
+      assert.equal(frame.portrait, farewell);
+      await waitFor("the Nomad rest farewell illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${farewell}"]')?.naturalWidth === 352 &&
+        document.querySelector('.encounter-portrait[src="/art/${farewell}"]')?.naturalHeight === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "nomad-headman-rest-farewell.png"), Buffer.from(shot.data, "base64"));
+      await advance("e");
+      assert.notEqual(frame.portrait, farewell);
+      for (const key of ["enter", "s", "s", "a"]) await advance(key);
       const savedJournal = JSON.parse(readFileSync(saved, "utf8")).leads;
       assert.ok(savedJournal.some(({ id }) => id === "nomad-rest-offer"));
       console.log("Native save after the Nomad rest offer:", saved);
