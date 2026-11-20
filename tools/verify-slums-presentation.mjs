@@ -7008,7 +7008,11 @@ try {
     assert.ok(knows());
     console.log("Verified the Valjevo chaplain portrait and witnessed chapel lead in Chrome.");
   } else if (dungeonSentry) {
+    const approach = [48, 32, "encounter:area:3:ecl:9fbd:SPRIT5.DAX:16:0:0", 40, 80];
+    await observeApproach([approach], false);
     for (const key of ["up", "enter"]) await advance(key);
+    assert.deepEqual(frame.animation?.map(({ encounter }) => encounter).filter(Boolean), [approach]);
+    await waitFor("the enhanced dungeon sentry approach", () => run("window.observedApproach.size === 1"));
     assert.equal(frame.portrait, "portrait:HEAD5.DAX:12:BODY5.DAX:1");
     assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /ANALARMSTARTSRINGING/i);
     await waitFor("the dungeon sentry portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
