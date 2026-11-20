@@ -1449,6 +1449,7 @@
     "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:kobold-king": "kobold-king-council-turnin.png",
     "scene-illustration:area:8:ecl:b5c3:caller:a51f": "bane-council-retention.png",
     "scene-illustration:area:15:ecl:99b5:caller:9962": "mendor-lex-geographica-discovery.png",
+    "scene-illustration:area:15:ecl:99b5:caller:9962:cue:grand-historian": "mendor-grand-historian-discovery.png",
     "scene-illustration:area:21:ecl:9ec8": "sokal-undead-withdrawal.png",
     "scene-illustration:area:21:ecl:9ecc": "sokal-undead-withdrawal.png",
     "scene-illustration:area:22:ecl:9a06:caller:9f51": "tyrmor-corpse-discovery.png",
@@ -6855,6 +6856,7 @@
     "combat-effect:COMSPR.DAX:7": "combat-flight-boulder-fork.png",
     "combat-effect:COMSPR.DAX:135": "combat-flight-boulder-turn.png",
     "combat-effect:COMSPR.DAX:11": "combat-impact-death-skull.png",
+    "combat:RANDCOM.DAX:1:0:4": "combat-stinking-cloud.png",
     "combat:RANDCOM.DAX:1:0:5": "combat-fallen-adventurer.png",
     "combat:RANDCOM.DAX:1:0:0": "combat-loose-stones.png",
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"

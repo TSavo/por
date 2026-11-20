@@ -3899,3 +3899,13 @@ The default verification suite checks eight reward cues that share the
 same council portrait pause. Each selects its own installed illustration
 and falls back when that art is unavailable. The finale cue is tested
 separately from the ordinary reward variants.
+
+The Grand Historian's Records discovery at Mendor's Library uses its
+own illustration. Chrome ran the original search from a local Library
+checkpoint, confirmed the art cleared at Take It, and checked entry 21
+became ready to report when accepted.
+
+Stinking Cloud uses a 96×96 replacement matching RANDCOM frame 4.
+A controlled Textile House replay prepared the original spell for Mira.
+Chrome verified all four tiles, the actor overlay, the cast and choking
+reports, and spell cleanup with the save preserved across display modes.
