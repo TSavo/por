@@ -5,6 +5,15 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0": "lizard-wilds-kobold-archer-approach-middle.png",
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:11:1:0": "lizard-wilds-nomad-scout-approach-middle.png",
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0": "lizard-wilds-merchant-approach-middle.png",
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:57:1:0": "lizard-wilds-roaming-lizardfolk-approach-middle.png",
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:61:1:0": "lizard-wilds-roaming-stirge-approach-middle.png",
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:68:1:0": "lizard-wilds-roaming-displacer-approach-middle.png",
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:69:1:0": "lizard-wilds-drider-approach-middle.png",
+    "encounter:area:26:ecl:a1e5:SPRIT7.DAX:12:1:0": "lizard-wilds-merchant-approach-middle.png",
+    "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0": "lizard-wilds-drider-approach-middle.png",
     "encounter:area:26:ecl:a1e5:SPRIT7.DAX:15:1:0": "lizard-wilds-frontier-bandit-approach-middle.png",
     "encounter:area:26:ecl:a1e5:SPRIT7.DAX:0:1:0": "lizard-wilds-kobold-archer-approach-middle.png",
     "encounter:area:26:ecl:a1e5:SPRIT7.DAX:11:1:0": "lizard-wilds-nomad-scout-approach-middle.png",
@@ -5481,6 +5490,15 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:0:1:0": { "area": 26, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:11:1:0": { "area": 26, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:12:1:0": { "area": 26, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:57:1:0": { "area": 26, "x": 56, "y": 32, "width": 32, "height": 65 },
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:61:1:0": { "area": 26, "x": 56, "y": 32, "width": 24, "height": 57 },
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:68:1:0": { "area": 26, "x": 48, "y": 32, "width": 48, "height": 65 },
+    "encounter:area:26:ecl:a194:SPRIT7.DAX:69:1:0": { "area": 26, "x": 48, "y": 32, "width": 40, "height": 65 },
+    "encounter:area:26:ecl:a1e5:SPRIT7.DAX:12:1:0": { "area": 26, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:26:ecl:a1e5:SPRIT7.DAX:69:1:0": { "area": 26, "x": 48, "y": 32, "width": 40, "height": 65 },
     "encounter:area:26:ecl:a1e5:SPRIT7.DAX:15:1:0": { "area": 26, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:26:ecl:a1e5:SPRIT7.DAX:0:1:0": { "area": 26, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:26:ecl:a1e5:SPRIT7.DAX:11:1:0": { "area": 26, "x": 56, "y": 32, "width": 24, "height": 65 },
