@@ -1332,6 +1332,8 @@
     "encounter:area:4:ecl:9d8a:SPRIT5.DAX:16:0:0": "valjevo-giant-patrol-captain-approach-near.png",
     "portrait:area:4:ecl:9d8a:HEAD5.DAX:9:BODY5.DAX:1": "valjevo-giant-patrol-captain.png",
     "portrait:area:4:ecl:9dc2:HEAD5.DAX:9:BODY5.DAX:1": "valjevo-giant-patrol-captain.png",
+    "portrait:area:4:ecl:9e4e:HEAD5.DAX:9:BODY5.DAX:1": "valjevo-giant-patrol-captain.png",
+    "portrait:area:4:ecl:9e9e:HEAD5.DAX:9:BODY5.DAX:1": "valjevo-giant-patrol-captain.png",
     "portrait:area:0:ecl:ae69:HEAD3.DAX:0:BODY3.DAX:4": "new-phlan-dirten-invitation.png",
     "encounter:area:7:SPRIT5.DAX:16:0:0": "valjevo-audience-bodyguard-approach.png",
     "encounter:area:3:ecl:b35e:SPRIT5.DAX:60:1:0": "valjevo-lower-snake-approach-middle.png",

@@ -3595,6 +3595,6 @@ The armed kobold watch uses its own 352×352 illustration in those same
 four roaming branches. Chrome verified its approach and dialogue in
 both display modes. The sickly kobold scouts have a separate portrait.
 
-The Valjevo Maze captain retains his Enhanced illustration when opening
-Parlay. Chrome verified the stance choices and both display modes from
-the Maze patrol slot B checkpoint.
+The Valjevo Maze captain retains his Enhanced illustration in Parlay and
+in the password and authority challenges. Chrome verified all three
+prompts in both display modes from the Maze patrol slot B checkpoint.
