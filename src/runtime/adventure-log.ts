@@ -1690,6 +1690,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "graveyard-crypt-scroll", title: "Scroll in the black marble crypt",
       detail: "The party read the scroll from the black marble crypt and recorded it as journal entry 43." });
   }
+  if (text.includes("YOU SCATTER THE DUST AND PLACE WHAT HOLY ITEMS YOU CAN SPARE INSIDE")) {
+    leads.push({ id: "graveyard-crypt-sanctified", title: "Coffin sanctified",
+      detail: "The party scattered the dust and placed holy items in the coffin in the black marble crypt." });
+  }
   if (text.includes("YOU FIND THE VAMPIRE'S TREASURE TROVE")) {
     leads.push({ id: "graveyard-vampire-trove", title: "The vampire's treasure trove",
       detail: "The party found the vampire's treasure while searching the crypt." });
