@@ -2227,6 +2227,8 @@ and hears the reading.
 The `slums-potion-booth` replay from controlled slot B verifies the merchant
 portrait and journal discovery. The package handoff has a dedicated
 illustration that fills the picture panel and clears when the party moves.
+`slums-potion-booth-reload` opens the save made after the handoff and checks
+that the package discovery survives without marking it delivered.
 The merchant's area-scoped composite also lets the Stojanow wagon
 trader keep his own portrait.
 The `buccaneer-captain-combat` replay uses controlled slot A at `8,12 W`

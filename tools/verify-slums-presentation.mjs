@@ -3681,6 +3681,7 @@ routes.push("valjevo-records-revisit");
 routes.push("river-pumping-hostile");
 routes.push("river-return-reload");
 routes.push("swamp-return", "swamp-reward-reload");
+routes.push("slums-potion-booth-reload");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -3845,7 +3846,7 @@ const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneR
 const saveSlot = alHyamReload || ["sokal-floorboard-diary-reload", "valjevo-records-reload", "kobold-escort-arrival-reload"].includes(routeName) ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn ||
-    ["stojanow-wall-warning-reload", "kovel-chase-east-reload", "valhingen-first-arrival-reload", "valjevo-forge-authorization-reload"].includes(routeName) ? "B" : slot;
+    ["stojanow-wall-warning-reload", "kovel-chase-east-reload", "valhingen-first-arrival-reload", "valjevo-forge-authorization-reload", "slums-potion-booth-reload"].includes(routeName) ? "B" : slot;
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", E: "1265", F: "2166", G: "2267", H: "2368", I: "1769", J: "246a" }[saveSlot];
 assert.ok(boot, `No BIOS key for save slot ${saveSlot} on route ${routeName}`);
 const saved = resolve(directory, saveSlot + ".json");
@@ -6287,7 +6288,19 @@ try {
     assert.ok(!frame.journal.leads.some(({ id }) => id === "ohlo-delivered"));
     for (const key of ["j", "up"]) await advance(key);
     assert.equal(frame.portrait, undefined);
+    for (const key of ["e", "s", "s", "b"]) await advance(key);
+    const checkpoint = JSON.parse(readFileSync(saved, "utf8"));
+    assert.ok(checkpoint.leads?.some(({ id }) => id === "ohlo-package-received"));
+    console.log("Rope Guild package checkpoint:", saved);
     console.log("Verified the Slums potion booth portrait and package handoff in Chrome. Capture:", directory);
+  } else if (routeName === "slums-potion-booth-reload") {
+    assert.equal(frame.portrait, undefined);
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "ohlo-package-received"));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "ohlo-delivered"));
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the Rope Guild package discovery after reloading in Chrome.");
   } else if (routeName === "slums-fortune") {
     const portrait = "portrait:HEAD2.DAX:25:BODY2.DAX:13";
     const visions = [
