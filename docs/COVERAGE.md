@@ -1427,6 +1427,8 @@ calls out from his cell, its picture panel fit, and both display modes.
 The death outcome uses a separate aftermath illustration. The killed
 replay verifies the native confirmation text, panel fit, mode switching,
 and the corresponding journal entry.
+The alarm and death replays also check Cadorna's earlier offer to guide
+the party through the main gates, with its own full-panel illustration.
 `valjevo-cadorna-hedge` also writes a native slot B with the learned
 directions. `valjevo-cadorna-reload` checks that the captive, directions, and
 release entries survive a cold load of that save.
@@ -1979,8 +1981,8 @@ enhanced terrain, other sprites, and combat text visible.
 
 Run `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_B PATH_TO_CHROME castle-dragon`
 with a castle checkpoint outside the audience hall at `14,7 S`. Chrome checks
-all 968 placements across eight approach views, including the six original
-timber and window tiles in the audience hall. It then checks
+seven enhanced approach views, including the audience hall's timber and
+window tiles, and the illustration of Tyranthraxus rising from the Pool. It then checks
 the 352×352 dialogue portrait and 192×192 combat sprite, including the sprite's
 position, facing, and four-cell selection. The test toggles classic and
 enhanced in both scenes and checks the guest frame and save stay the same.
@@ -3582,7 +3584,7 @@ selection frame and below the targeted orc sprite at its guest position.
 Larger units use one frame per native 24×24 cell. Chrome verified the
 vertical pair behind the Slums ogre, the horizontal pair behind the Wild
 Cave lizard, and all four cells behind Tyranthraxus.
-The art inventory lists all 26 COMSPR.DAX frames. Fourteen have direct
+The art inventory lists all 26 COMSPR.DAX frames. Eighteen have direct
 links, including two thrown-axe frames. Two more axe orientations are
 derived from block 3 by a horizontal reflection and a transpose. The
 inventory records those transforms with their source previews.
@@ -3606,6 +3608,9 @@ The Tempus fight replay verifies the reflected flight cels and all four
 Hold Person phases at seven native targets, including two targets in a
 single input. Enhanced playback shows one four-phase cycle per target.
 Chrome checks native outcome text, effect cleanup, and mode switching.
+Tyranthraxus's lightning uses four orientations and both existing impact
+phases. The hill giant's boulder uses two orientations. The Chrome combat
+replays check the native launch and arrival positions and the outcome text.
 
 Kuto's roaming lizardfolk use a dedicated 352×352 ruins illustration
 at four script positions. Chrome exercised the approach, Advance and

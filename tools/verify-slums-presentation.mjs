@@ -5955,9 +5955,18 @@ try {
     assert.equal(frame.portrait, "portrait:PIC5.DAX:7:0:0");
     await waitFor("Cadorna's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
+    async function verifyCadornaGatePlea() {
+      const plea = "portrait:area:3:ecl:b110:PIC5.DAX:7:0:0";
+      assert.equal(frame.portrait, plea);
+      await waitFor("Cadorna's main-gate offer", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${plea}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+    }
     const heardHedge = captiveHedge || captiveAlarm;
     if (heardHedge) {
-      for (const key of ["l", "enter", "l", "enter", "l"]) await advance(key);
+      for (const key of ["l", "enter", "l"]) await advance(key);
+      await verifyCadornaGatePlea();
+      for (const key of ["enter", "l"]) await advance(key);
       const directions = "portrait:area:3:ecl:b0f6:PIC5.DAX:7:0:0";
       assert.equal(frame.portrait, directions);
       await waitFor("Cadorna's hedge directions illustration", () => run(
@@ -5965,7 +5974,9 @@ try {
       await advance("enter");
     }
     if (captiveKilled) {
-      for (const key of ["k", "enter", "k"]) await advance(key);
+      await advance("k");
+      await verifyCadornaGatePlea();
+      for (const key of ["enter", "k"]) await advance(key);
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /WITHAQUICKSTROKE/i);
       const aftermath = "portrait:area:3:ecl:b15c:PIC5.DAX:7:0:0";
       assert.equal(frame.portrait, aftermath);
@@ -7305,12 +7316,21 @@ try {
       return 1;
     }
     let views = await verifyHallView(20);
+    const reveal = "portrait:area:7:ecl:995f:caller:a54b:PIC5.DAX:66:0:0";
+    let sawReveal = false;
     for (const key of route) {
       await advance(key);
+      if (frame.portrait === reveal) {
+        await waitFor("Tyranthraxus rising from the Pool", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${reveal}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        sawReveal = true;
+      }
       // The final audience draws area 7 before the dialogue portrait appears.
       views += await verifyHallView(views >= (halls ? 2 : 3) ? 7 : 20);
     }
-    assert.equal(views, halls ? 5 : 8);
+    assert.ok(sawReveal);
+    assert.equal(views, halls ? 4 : 7);
     if (verifyHallsWebGL) assert.deepEqual([...sceneryAreas], [20, 7]);
     assert.equal(frame.portrait, "portrait:PIC5.DAX:66:0:0");
     await waitFor("the dragon dialogue portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));

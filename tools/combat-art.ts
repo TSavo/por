@@ -39,6 +39,8 @@ export function combatEffectFlightFamily(key: string): string {
   const block = combatEffectKey.exec(key)?.[2];
   if (block === "3" || block === "131") return "combat-effect:COMSPR.DAX:3";
   if (block === "5" || block === "133") return "combat-effect:COMSPR.DAX:5";
+  if (block === "6" || block === "134") return "combat-effect:COMSPR.DAX:6";
+  if (block === "7" || block === "135") return "combat-effect:COMSPR.DAX:7";
   return key;
 }
 

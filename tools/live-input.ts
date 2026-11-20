@@ -195,13 +195,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         (area === 27 && battleCursor === 0x9d9c && !dialogue.includes("ASMALLGROUPOFKOBOLDSENTERING"));
       // Cadorna's pleas and his hedge directions share the release menu.
       const captivePlea = area === 3 && battleCursor === 0xb0f6 && !dialogue.includes("IKNOWTHEWAYTHROUGHTHEHEDGE");
+      const cadornaGatePlea = captivePlea && dialogue.includes("IKNOWHOWTOGETTHROUGHTHEMAINGATES");
       // The dungeon script reuses the same picture pause after either outcome.
       const cadornaSharedPause = area === 3 && battleCursor === 0x9bf8 && !dialogue.includes("ANALARMSTARTSRINGING");
       const cadornaAftermath = cadornaSharedPause && dialogue.includes("WITHAQUICKSTROKEYOURELEASEHIMFROMTHISPAIN");
       // Bane's treasure and exit ambushes converge on the same battle setup.
       const treasureAmbush = area === 24 && (battleCursor === 0xaba7 || battleCursor === 0xabbd) &&
         dialogue.startsWith("THEMINUTEYOUFINDTHETREASURE");
-      const portraitCursor = cadornaAftermath ? 0xb15c : caveRevisit || captivePlea || cadornaSharedPause
+      const portraitCursor = cadornaGatePlea ? 0xb110 : cadornaAftermath ? 0xb15c : caveRevisit || captivePlea || cadornaSharedPause
         ? undefined : treasureAmbush ? 0xab06 : battleCursor;
       // The dragon's arrival is narrated over the room before its native portrait is drawn.
       const dragonArrival = "portrait:area:7:ecl:995f:caller:a54b:PIC5.DAX:66:0:0";
@@ -633,8 +634,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             }
           }
           const impact = isImpact(key);
-          const effectCount = animation.filter(frame => frame.combatEffect).length;
-          if ((!isHoldEffect(key) && effectCount >= 6) || animation.length >= 12) {
+          const flightCount = animation.filter(flightFrame).length;
+          if ((!impact && flightCount >= 6) || animation.length >= 12) {
             // Preserve a flight's launch and arrival when a long trajectory
             // fills the presentation queue with intermediate positions.
             const family = combatEffectFlightFamily(key);
