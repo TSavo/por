@@ -499,6 +499,8 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["sokal-elven-parchment.png", ["The scout's remains beside an open pouch", "A crumbling parchment scroll clearly visible in the pouch"]],
   ["swamp-castle-drawbridge.png", ["A movable timber span across quicksand", "Lift chains attached to the deck"]],
   ["diogenes-upper-ledge-fireball.png", ["A fireball erupting amid the party", "Diogenes disappearing from the encounter"]],
+  ["kovel-ne-map-discovery.png", ["A crude map on the floor", "A visibly branching maze", "The label NE CASTLE is readable"]],
+  ["pyramid-left-secret-door.png", ["A distinct stone door and threshold in the left wall", "The main corridor still leads forward"]],
 ]);
 
 const runtimeGroups = [
