@@ -614,6 +614,10 @@ so another reviewer can make the same check.
 The gallery's **Required visual details** list puts those checks next to
 the artwork and dialogue cue for the scenes that have a checklist.
 Select **Has a scene checklist** to limit the gallery to those entries.
+Select **Used by multiple dialogue cues** to find illustrations worth
+checking on more than one page. The binding list shows the distinct cue
+count. Different cues can belong to the same moment, so confirm the
+caption and transition in play before deciding whether to split the art.
 The JSON export includes the same lists under `sceneReviewRequirements`,
 keyed by enhanced PNG filename for batch review.
 

@@ -526,10 +526,12 @@ const runtimeGallery = runtimeGroups.map(({ id, label, entries }) => {
   const count = scripted ? `${groups.size} illustrations · ${entries.length} bindings` : `${entries.length} replacements`;
   return `<details id="${id}" data-category="${label}"><summary>${label} · ${count}</summary><div class="grid">` +
     [...groups.values()].map(([entry, ...aliases]) => {
-      const otherBindings = aliases.length ? `<details><summary>Other bindings (${aliases.length})</summary>` +
+      const cueCount = new Set([entry!, ...aliases].map(({ scriptCue }) => scriptCue).filter(Boolean)).size;
+      const cueSummary = cueCount > 1 ? ` · ${cueCount} distinct cues` : "";
+      const otherBindings = aliases.length ? `<details><summary>Other bindings (${aliases.length})${cueSummary}</summary>` +
         aliases.map(({ id, scriptCue }) => `<p><code>${escape(id)}</code>${scriptCue ? ` · ${escape(scriptCue)}` : ""}</p>`).join("") +
         "</details>" : "";
-      return `<figure data-visual="true" data-enhanced="true" data-coverage="complete">${replacementPreview(entry!)}${otherBindings}</figure>`;
+      return `<figure data-visual="true" data-enhanced="true" data-coverage="complete"${cueCount > 1 ? " data-shared-scene" : ""}>${replacementPreview(entry!)}${otherBindings}</figure>`;
     }).join("") + "</div></details>";
 }).join("");
 const missingGallery = [...missingByArea].sort(([left], [right]) => left.localeCompare(right, "en", { numeric: true }))
@@ -884,6 +886,7 @@ ${coverage.map(({ head, aliases, body, ready, strike }) => `<tr><th scope="row">
 <label>Category <select id="category"><option value="">All categories</option><option>Illustrated atlas</option>${runtimeGroups.map(({ label }) => `<option>${label}</option>`).join("")}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
 <label><input id="include-data" type="checkbox"> Include composition and gameplay data</label>
 <label><input id="scene-review-only" type="checkbox"> Has a scene checklist</label>
+<label><input id="shared-scene-only" type="checkbox"> Used by multiple dialogue cues</label>
 <label>Replacement <select id="replacement"><option value="">Any</option><option value="linked">Has linked artwork</option><option value="unfinished">Has unmatched frames</option><option value="missing">No frames linked</option><option value="partial">Some frames linked</option><option value="complete">All frames linked</option></select></label>
 <p id="matches" role="status"></p>
 <details data-category="Illustrated atlas"><summary>Illustrated atlas · ${atlasSheets.length} plates</summary><div class="grid">
@@ -901,6 +904,7 @@ const category = document.querySelector('#category');
 const replacement = document.querySelector('#replacement');
 const includeData = document.querySelector('#include-data');
 const sceneReviewOnly = document.querySelector('#scene-review-only');
+const sharedSceneOnly = document.querySelector('#shared-scene-only');
 let selectedArchive;
 const archives = [...document.querySelectorAll('details[data-category]')].map((archive) => ({ archive,
   entries: [...archive.querySelectorAll('figure')].map((figure) => ({ figure, text: figure.textContent.toLowerCase(),
@@ -920,11 +924,11 @@ function filter() {
         (replacement.value === 'linked' && linked) ||
         (replacement.value === 'unfinished' && (coverage === 'missing' || coverage === 'partial'));
       figure.hidden = !categoryMatches || (!includeData.checked && !visual) || !replacementMatches || !text.includes(query) ||
-        (sceneReviewOnly.checked && !hasSceneReview);
+        (sceneReviewOnly.checked && !hasSceneReview) || (sharedSceneOnly.checked && !figure.hasAttribute('data-shared-scene'));
       if (!figure.hidden) visible++;
     }
     archive.hidden = !visible;
-    if (query || category.value || replacement.value || sceneReviewOnly.checked) archive.open = Boolean(visible);
+    if (query || category.value || replacement.value || sceneReviewOnly.checked || sharedSceneOnly.checked) archive.open = Boolean(visible);
     blocks += visible;
   }
   document.querySelector('#matches').textContent = blocks + ' matching entries';
@@ -937,6 +941,7 @@ search.addEventListener('input', clearArchiveFilter);
 category.addEventListener('change', clearArchiveFilter);
 includeData.addEventListener('change', filter);
 sceneReviewOnly.addEventListener('change', clearArchiveFilter);
+sharedSceneOnly.addEventListener('change', clearArchiveFilter);
 replacement.addEventListener('change', clearArchiveFilter);
 document.addEventListener('click', (event) => {
   const link = event.target.closest('.coverage-table a');
