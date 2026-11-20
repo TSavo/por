@@ -1424,6 +1424,9 @@ is for. `valjevo-cadorna-killed` and `valjevo-cadorna-alarm` replay those
 alternate outcomes and check that the journal records the actual choice.
 The alarm replay checks the scoped 352×352 illustration when Cadorna
 calls out from his cell, its picture panel fit, and both display modes.
+The death outcome uses a separate aftermath illustration. The killed
+replay verifies the native confirmation text, panel fit, mode switching,
+and the corresponding journal entry.
 `valjevo-cadorna-hedge` also writes a native slot B with the learned
 directions. `valjevo-cadorna-reload` checks that the captive, directions, and
 release entries survive a cold load of that save.

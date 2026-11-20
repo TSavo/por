@@ -5966,7 +5966,12 @@ try {
     if (captiveKilled) {
       for (const key of ["k", "enter", "k"]) await advance(key);
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /WITHAQUICKSTROKE/i);
-      assert.equal(frame.portrait, "portrait:PIC5.DAX:7:0:0");
+      const aftermath = "portrait:area:3:ecl:b15c:PIC5.DAX:7:0:0";
+      assert.equal(frame.portrait, aftermath);
+      await waitFor("Cadorna's aftermath illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${aftermath}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays();
     } else await advance(captiveAlarm ? "l" : "r");
     if (captiveAlarm) {
       const alarm = "portrait:area:3:ecl:9bf8:PIC5.DAX:7:0:0";

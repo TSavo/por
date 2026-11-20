@@ -196,10 +196,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const captivePlea = area === 3 && battleCursor === 0xb0f6 && !dialogue.includes("IKNOWTHEWAYTHROUGHTHEHEDGE");
       // The dungeon script reuses the same picture pause after either outcome.
       const cadornaSharedPause = area === 3 && battleCursor === 0x9bf8 && !dialogue.includes("ANALARMSTARTSRINGING");
+      const cadornaAftermath = cadornaSharedPause && dialogue.includes("WITHAQUICKSTROKEYOURELEASEHIMFROMTHISPAIN");
       // Bane's treasure and exit ambushes converge on the same battle setup.
       const treasureAmbush = area === 24 && (battleCursor === 0xaba7 || battleCursor === 0xabbd) &&
         dialogue.startsWith("THEMINUTEYOUFINDTHETREASURE");
-      const portraitCursor = caveRevisit || captivePlea || cadornaSharedPause ? undefined : treasureAmbush ? 0xab06 : battleCursor;
+      const portraitCursor = cadornaAftermath ? 0xb15c : caveRevisit || captivePlea || cadornaSharedPause
+        ? undefined : treasureAmbush ? 0xab06 : battleCursor;
       // The dragon's arrival is narrated over the room before its native portrait is drawn.
       const dragonArrival = "portrait:area:7:ecl:995f:caller:a54b:PIC5.DAX:66:0:0";
       const arrivalPicture = area === 7 && battleCursor === 0x995f && portraitCaller === 0xa54b &&
