@@ -3729,6 +3729,7 @@
     "tile:28:215488a7ca18e31d90dd8bc2d00c5f3002c2801a983ba96bbb0ceb9b2b3bd498": "zhentil-northern-lane-terrain-215488a7ca18.png",
     "portrait:HEAD1.DAX:6:BODY1.DAX:3": "podal-pitt-drunken-buccaneer.png",
     "portrait:area:18:PIC1.DAX:2:0:0": "podal-pitt-monster-patrons.png",
+    "scene-illustration:area:18:ecl:b240:caller:aa1e": "podal-pitt-duel-aftermath.png",
     "tile:20:eb793b63e5fbde83fe69f62582027547e1fa470ceb470db6de65735977eb6562": "mendor-east-court-terrain-01.png",
     "tile:20:983bfc53257b5c0ef9d10cdd5ba4b4501fed50e212f885a7dd8b3a4c24ca878f": "mendor-east-court-terrain-02.png",
     "tile:20:2b318229a4b2903d4530ecbaa037fb98cc51f1c1731900f01c6dbba9cd27f8e2": "slums-worn-courtyard-2b318229a4b2.png",

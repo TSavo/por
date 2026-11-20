@@ -1267,6 +1267,13 @@ const illustrationRoutes = new Map([
     slot: "I", inputs: ["up", "enter", "enter"],
     portrait: "portrait:HEAD1.DAX:6:BODY1.DAX:3", prompt: /ONEOFYOUSHALLPAYFORTHISINSULT/i,
   }],
+  ["podal-pitt-duel-aftermath", {
+    slot: "I", inputs: ["up", "enter", "enter", "enter", "c", "s", "enter", "enter",
+      "m", "up", "m", "up", "n", "enter", "enter", "e", "n"],
+    portrait: "scene-illustration:area:18:ecl:b240:caller:aa1e", prompt: /THEBATTLEISOVER,THEPATRONSRETURNTODRINKING/i,
+    continuation: { inputs: ["enter", "enter"], prompt: /THECREATURESIGNOREYOUFORTHEMOMENT/i,
+      portrait: "portrait:area:18:PIC1.DAX:2:0:0" },
+  }],
   ["podal-auction-ogre-escape", {
     slot: "I", inputs: ["up", "enter"],
     portrait: "portrait:PIC1.DAX:16:0:0", prompt: /AUCTION/i,
