@@ -547,6 +547,12 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["bane-treasury-ambush", {
+    slot: "A", inputs: ["s", "enter", "up", "o", "enter", "enter", "e", "n", "enter", "enter"],
+    portrait: "portrait:area:24:ecl:ab06:PIC1.DAX:4:0:0",
+    prompt: /THEMINUTEYOUFINDTHETREASURE.*STEALFROMOURTEMPLE/i,
+    continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i },
+  }],
   ["valjevo-lower-snake-dialogue", {
     slot: "B", inputs: ["up", "enter"],
     portrait: "portrait:area:3:PIC5.DAX:60:0:0", prompt: /YOUSEEGIANTSNAKES/i,
