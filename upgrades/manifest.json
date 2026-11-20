@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:7:ecl:995f:caller:a718:PIC5.DAX:66:0:0": "valjevo-tyranthraxus-offer.png",
+    "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0": "valjevo-tyranthraxus-offer.png",
     "combat:area:24:CPIC1.DAX:4:ecl:b6a2": "bane-rampart-orc-patrol-ready.png",
     "combat:area:24:CPIC1.DAX:132:ecl:b6a2": "bane-rampart-orc-patrol-strike.png",
     "portrait:area:7:ecl:a246:HEAD5.DAX:59:BODY5.DAX:31": "valjevo-genheeris-orders.png",
