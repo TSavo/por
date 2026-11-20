@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { isOpenObjective, type JournalLead } from "../src/runtime/adventure-log.js";
+import { trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { DosFile } from "../src/runtime/dos.js";
 
 interface Slot {
@@ -101,7 +101,7 @@ export function openSaveSlots(directory: string) {
       if (!letter) throw new Error(`Invalid Pool of Radiance save filename ${name}`);
       const slot: Slot = {
         version: 1, name, data: Buffer.from(data).toString("base64"), leads,
-        tracked: leads.some(lead => lead.id === tracked && isOpenObjective(lead)) ? tracked : undefined,
+        tracked: trackedJournalObjective(leads, tracked),
         party: Object.fromEntries(party.filter((file) => isPartyFile(file.name, letter))
           .map((file) => [file.name, Buffer.from(file.data).toString("base64")])),
       };

@@ -101,7 +101,7 @@ export interface JournalObjective {
 /** Pick the first unresolved commission the party has heard about. */
 export function currentObjective(leads: readonly JournalLead[], trackedId?: string): JournalObjective {
   const unresolved = leads.filter(isOpenObjective);
-  const selected = unresolved.find((lead) => lead.id === trackedId);
+  const selected = unresolved.find((lead) => lead.id === trackedJournalObjective(leads, trackedId));
   if (!selected && leads.some((lead) => lead.id === "gate-reward-direction" || lead.id === "gate-assault-handoff") &&
       leads.some((lead) => lead.id === "commission-gate" && lead.status === "turned-in") &&
       !leads.some((lead) => lead.id === "commission-castle")) {
@@ -443,6 +443,14 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
 
 export function isOpenObjective(lead: JournalLead): boolean {
   return lead.status !== undefined && lead.status !== "turned-in";
+}
+
+export function trackedJournalObjective(leads: readonly JournalLead[], trackedId?: string): string | undefined {
+  if (trackedId === "commission-bottle" &&
+      leads.some(lead => lead.id === trackedId && lead.status === "turned-in")) {
+    trackedId = "commission-bottle-vampire";
+  }
+  return leads.find(lead => lead.id === trackedId && isOpenObjective(lead))?.id;
 }
 
 // The council reward table starts at ECL address 4AA6. The encounter scripts

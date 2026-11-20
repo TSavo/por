@@ -6,7 +6,7 @@ import { createHash } from "node:crypto";
 import { Frame } from "../src/lib/ega.js";
 import type { EncounterAnchor } from "../src/lib/assets.js";
 import type { Cpu } from "../src/cpu/machine.js";
-import { currentObjective, isOpenObjective, kovelJournalTransition, type JournalLead } from "../src/runtime/adventure-log.js";
+import { currentObjective, isOpenObjective, kovelJournalTransition, trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
@@ -451,7 +451,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         textColors: enhancedPalette,
         automaticCombat: automaticCombat || undefined,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
-          trackedId: leads.find((lead) => lead.id === trackedId && isOpenObjective(lead))?.id },
+          trackedId: trackedJournalObjective(leads, trackedId) },
       };
       if (attack || captureApproach || effect) {
         if (animation.length >= 12) {
