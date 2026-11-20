@@ -6981,28 +6981,25 @@ try {
     assert.ok(knows("blindfold") && !knows("route") && !knows("dismissed"));
     for (const key of ["j", declineRestal ? "n" : "y"]) await advance(key);
     const hiddenWay = "scene-illustration:area:2:ecl:b0be";
-    if (declineRestal) {
-      assert.notEqual(frame.portrait, hiddenWay);
-    } else {
-      assert.equal(frame.portrait, hiddenWay);
-      await waitFor("Restal's hidden route illustration", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${hiddenWay}"]')?.naturalWidth === 352 &&
-        document.querySelector('.encounter-portrait[src="/art/${hiddenWay}"]')?.naturalHeight === 352`));
-      await verifyPortraitPanel();
-      const hiddenWayShot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, "textile-restal-hidden-way.png"), Buffer.from(hiddenWayShot.data, "base64"));
-      await switchBothWays(frame.frame);
-    }
+    const dismissal = "scene-illustration:area:2:ecl:af4b";
+    const outcomeIllustration = declineRestal ? dismissal : hiddenWay;
+    assert.equal(frame.portrait, outcomeIllustration);
+    await waitFor("Restal's outcome illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${outcomeIllustration}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait[src="/art/${outcomeIllustration}"]')?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    const outcomeShot = await command("Page.captureScreenshot", { format: "png" });
+    const captureName = declineRestal ? "textile-restal-dismissal.png" : "textile-restal-hidden-way.png";
+    writeFileSync(resolve(directory, captureName), Buffer.from(outcomeShot.data, "base64"));
+    await switchBothWays(frame.frame);
     await advance("j");
     assert.equal(knows("route"), !declineRestal);
     assert.equal(knows("dismissed"), declineRestal);
     assert.ok(wellClue());
-    if (!declineRestal) {
-      for (const key of ["j", "up"]) await advance(key);
-      assert.equal(frame.portrait, undefined);
-      await waitFor("Restal's hidden route illustration to clear", () => run(`state.sequence === ${frame.sequence} &&
-        !document.querySelector(".encounter-portrait")`));
-    }
+    for (const key of ["j", "up"]) await advance(key);
+    assert.equal(frame.portrait, declineRestal ? "scene-illustration:area:2:ecl:ac61" : undefined);
+    await waitFor("Restal's outcome illustration to clear", () => run(`state.sequence === ${frame.sequence} &&
+      !document.querySelector('.encounter-portrait[src="/art/${outcomeIllustration}"]')`));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified Restal's illustration and the witnessed Textile House shortcut in Chrome. Capture:", directory);
   } else if (norrisSurrender) {

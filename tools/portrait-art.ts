@@ -31,6 +31,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:2:ecl:a99c", "ISTHESEALOFTHEFAMILYOFCADORNA"],
   ["scene-illustration:area:2:ecl:b09b", "YOUAREBLINDFOLDEDANDTAKENONALONG"],
   ["scene-illustration:area:2:ecl:b0be", "YOUAREBLINDFOLDEDANDTAKENONALONG"],
+  ["scene-illustration:area:2:ecl:b116:caller:af40", "PERHAPSWESHALLMEETAGAIN"],
+  ["scene-illustration:area:2:ecl:af4b", "PERHAPSWESHALLMEETAGAIN"],
   ["scene-illustration:area:7:ecl:995f:caller:a8b2", "YOULEAVETHECASTLE.MOVINGTHROUGHTHESTREETS"],
   ["scene-illustration:area:7:ecl:a82d", /THESPIRITOFTYRANTHRAXUSFLARESUP|YOUHAVEBUTSLAINTHEBODYIPOSSESSED|NOLORDBANE!ICANSTILLRULEHERE/],
   ["scene-illustration:area:4:ecl:9a5a:caller:b00a", "THEREDWIZARDSOFTHAYAREALLIEDTOTYRANTHRAXUS"],
