@@ -1339,12 +1339,12 @@ escaping the party, and points the party back to the throne after regrouping.
 The `kobold-princess-fatima` replay uses controlled slot B to check her
 portrait and journal entry 16, then verifies that she joins the roster.
 The `kobold-cave-guide` replay checks the area-scoped guard portrait and
-the escort clue when the party wakes the guide. `kobold-small-cave-pool`
+the escort clue when the party wakes the guide. With `--decline`, it
+verifies that the guide returns to sleep and the journal directs the
+party to find another route to the king. `kobold-small-cave-pool`
 and `kobold-large-cave-loop` start from slot B saves made through the
 original cave entrances and check 2,541 placements across 21 views,
 including 43 new individual tiles.
-The `kobold-cave-guide` replay verifies the scoped portrait and confirms
-that the journal learns about the escort only after the offer.
 The `kuto-catacomb-service-loop` replay uses controlled slot J below the
 well and turns away from Norris's ambush. Chrome checks 2,057 individual
 placements across 17 views, including 32 new 32×32 tiles.

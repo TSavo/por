@@ -3700,10 +3700,11 @@ const verifyApproachTravel = outskirts && option === "--map-travel";
 const verifyDistrictTravel = outskirts && option === "--map-destination";
 const declineDirten = routeName === "braccio-dirten-briefing" && option === "--decline";
 const declineRestal = restalGuide && option === "--decline";
+const declineKoboldGuide = routeName === "kobold-cave-guide" && option === "--decline";
 const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "--refuse-to-leave";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
   ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
-  declineDirten || declineRestal || refuseNomadDismissal, "Option does not apply to this route");
+  declineDirten || declineRestal || declineKoboldGuide || refuseNomadDismissal, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -6122,6 +6123,14 @@ try {
     assert.equal(frame.portrait, guide);
     await advance("j");
     assert.ok(knowsOffer());
+    if (declineKoboldGuide) {
+      for (const key of ["j", "n", "j"]) await advance(key);
+      const clues = new Set(frame.journal.leads.map(({ id }) => id));
+      assert.ok(clues.has("kobold-guide-asleep") && !clues.has("kobold-guide-follow") && !clues.has("kobold-guide-arrived"));
+      assert.match(frame.journal.objective.nextStep, /guide went back to sleep.*another way to the king/i);
+      await switchBothWays();
+      assert.deepEqual(readFileSync(saved), originalSave);
+    }
     if (koboldEscort) {
       assert.equal(frame.journal.trackedId, "commission-kobolds");
       assert.match(frame.journal.objective.nextStep, /Choose Yes.*escort/);
