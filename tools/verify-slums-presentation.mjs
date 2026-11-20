@@ -3677,7 +3677,7 @@ routes.push("kuto-norris-surrender-reload");
 routes.push("valjevo-forge-authorization-reload");
 routes.push("buccaneer-bivant-punch");
 routes.push("buccaneer-bivant-escort-combat");
-routes.push("buccaneer-bivant-purchase");
+routes.push("buccaneer-bivant-purchase", "buccaneer-bivant-purchase-reload");
 routes.push("valhingen-crypt-scroll", "valhingen-crypt-scroll-reload");
 routes.push("valjevo-al-hyam-release", "valjevo-al-hyam-release-reload");
 routes.push("valjevo-cadorna-alarm-reload");
@@ -6757,6 +6757,14 @@ try {
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified both forge clues after reloading in Chrome.");
+  } else if (routeName === "buccaneer-bivant-purchase-reload") {
+    await advance("j");
+    const known = new Set(frame.journal.leads.map(({ id }) => id));
+    assert.ok(known.has("rescue-captain-price") && known.has("rescue-heir-purchased"));
+    assert.ok(!known.has("rescue-heir-freed") && !known.has("rescue-heir-left-behind"));
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the peaceful Bivant purchase after reloading slot A in Chrome.");
   } else if (routeName === "buccaneer-bivant-purchase") {
     const knows = (id) => frame.journal?.leads.some(lead => lead.id === id);
     const price = "rescue-captain-price";
@@ -6783,7 +6791,11 @@ try {
     assert.equal(frame.portrait, undefined);
     assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /YOUAREESCORTEDBACKOUTSIDE/i);
     assert.deepEqual(readFileSync(saved), originalSave);
-    console.log("Verified the peaceful Bivant handoff and purchase clue in Chrome.", directory);
+    for (const key of ["e", "enter", "s", "s", "a"]) await advance(key);
+    const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
+    assert.ok(known.has(price) && known.has(purchase));
+    assert.ok(!known.has("rescue-heir-freed") && !known.has("rescue-heir-left-behind"));
+    console.log("Verified the peaceful Bivant handoff and purchase clue in Chrome. Native save:", saved);
   } else if (routeName === "buccaneer-bivant-escort-combat") {
     for (const key of ["up", "enter", "g", "right", "up", "right", "up", "up", "up"]) await advance(key);
     const dialogue = frame.text.toSorted(([a], [b]) => a - b)
