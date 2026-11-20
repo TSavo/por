@@ -467,6 +467,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("gate-trader-ettin-warning")) nextStep = "Approach the main gate. The trader warned that the bugbears fear the ettin, so avoid provoking them.";
       else if (knows("gate-trader-guard-warning")) nextStep = "Look for a way through the main gate. The trader warned that bugbears guard it.";
       else if (knows("gate-wagon-entry")) nextStep = "Approach the entrance where the wagon got through. Watch for an opportunity to get past the bugbear guards.";
+      else if (knows("gate-bugbear-lookouts")) nextStep = "Continue north toward the entrance and see how the bugbear guards respond.";
+      else if (knows("gate-spotted")) nextStep = "Continue toward the gate at the bend of the river.";
     }
     return { title: commission.title, nextStep };
   }
@@ -1559,6 +1561,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("OPENING THE BOX WILL DAMAGE THE SEAL BEYOND REPAIR")) {
     leads.push({ id: "textile-iron-box", title: "Cadorna's sealed iron box",
       detail: "The family seal across the lock will break if the party opens the box." });
+  }
+  if (text.includes("BEFORE YOU IS STOJANOW GATE") && text.includes("BUILT ACROSS THE BEND OF THE RIVER")) {
+    leads.push({ id: "gate-spotted", title: "Stojanow Gate at the river bend",
+      detail: "The gate spans the bend and separates the old town and castle from the rest of the city." });
+  }
+  if (text.includes("THE MAIN WALL RISES 30 FEET") && text.includes("LOUNGING AROUND THE ENTRANCE ARE A GROUP OF BUGBEARS")) {
+    leads.push({ id: "gate-bugbear-lookouts", title: "Bugbears at the entrance",
+      detail: "Two watchtowers rise above the wall, and a group of bugbears is lounging at the entrance." });
   }
   if (text.includes("A MAN WITH A WAGON OF GOODS") && text.includes("THE GATES OPEN")) {
     leads.push({ id: "gate-wagon-entry", title: "A wagon entered Stojanow Gate",
