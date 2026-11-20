@@ -3439,6 +3439,7 @@ routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-t
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline");
+routes.push("new-phlan-council-magic-effects");
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
@@ -4200,6 +4201,45 @@ try {
     assert.deepEqual(scenery(frame), scenery(street));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the enhanced street stays visible while exiting the New Phlan dueling room. Captures:", directory);
+  } else if (routeName === "new-phlan-council-magic-effects") {
+    await run(`window.observedEffects = [];
+      const originalFetch = window.fetch.bind(window);
+      window.fetch = (url, options) => url === "/key" && options?.body === ":poll"
+        ? Promise.resolve(new Response(null, {status: 409})) : originalFetch(url, options);
+      const art = document.querySelector("#tile-art");
+      new MutationObserver(() => {
+        const layers = [...art.children];
+        for (const image of art.querySelectorAll(".combat-effect")) {
+          if (image.naturalWidth !== 96 || image.naturalHeight !== 96) continue;
+          window.observedEffects.push({ source: image.getAttribute("src"), left: parseFloat(image.style.left),
+            top: parseFloat(image.style.top), aboveActors: !layers.slice(layers.indexOf(image) + 1)
+              .some(layer => layer.matches(".combat-sprite")) });
+        }
+      }).observe(art, {childList: true});`);
+    for (const key of ["up", "enter", "n", "enter", "enter", "enter"]) await advance(key);
+    const effects = new Map();
+    for (let turn = 0; turn < 23 && effects.size < 4; turn++) {
+      await advance("q");
+      assert.equal(frame.combatEffect, undefined);
+      const rendered = (frame.animation ?? []).filter(entry => entry.combatEffect);
+      if (!rendered.length) continue;
+      for (const entry of rendered) {
+        const [x, y, id] = entry.combatEffect;
+        effects.set(id, [x, y]);
+        assert.notEqual(entry.frame, entry.enhancedFrame);
+      }
+      await waitFor("native effect animation to finish", () => run(`state.sequence === ${frame.sequence} &&
+        !animationFrame && !document.querySelector(".combat-effect")`));
+    }
+    const ids = [5, 133, 10, 138].map(id => `combat-effect:COMSPR.DAX:${id}`);
+    assert.deepEqual([...effects.keys()], ids);
+    const observed = await run("window.observedEffects");
+    for (const [id, [x, y]] of effects) {
+      assert.ok(observed.some(({ source, left, top, aboveActors }) => source === `/art/${id}` &&
+        Math.abs(left - x / 3.2) < 0.01 && Math.abs(top - y / 2) < 0.01 && aboveActors));
+    }
+    await switchBothWays();
+    console.log("Verified Council magic effects, actor layering, and cleanup in Chrome.");
   } else if (routeName === "new-phlan-arena-quick" || routeName === "new-phlan-arena-manual-report") {
     await run(`window.combatReports = [];
       new MutationObserver(() => {

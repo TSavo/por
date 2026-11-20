@@ -3581,8 +3581,8 @@ The art inventory lists all 26 COMSPR.DAX frames, with direct links for
 two selection frames and four magic effect frames. The remaining 20
 are available for review by archive block and frame index.
 
-The Council watch replay uses a controlled checkpoint to reach the
-level-three mage's wand volley. Both flight orientations and both
+The `new-phlan-council-magic-effects` replay uses a controlled slot A
+checkpoint to reach the level-three mage's wand volley. Both flight orientations and both
 impact phases render over the battlefield and actor layers. Each effect
 matches the native draw and placement. Classic uses the captured guest
 frame, and the effect layer clears when the animation finishes.
@@ -3594,3 +3594,7 @@ rolls. The separate giant-lizard escort has its own area portrait.
 The armed kobold watch uses its own 352×352 illustration in those same
 four roaming branches. Chrome verified its approach and dialogue in
 both display modes. The sickly kobold scouts have a separate portrait.
+
+The Valjevo Maze captain retains his Enhanced illustration when opening
+Parlay. Chrome verified the stance choices and both display modes from
+the Maze patrol slot B checkpoint.
