@@ -6528,6 +6528,9 @@ try {
     await verifyPortraitPanel();
     await advance("j");
     assert.ok(knows());
+    const readSignedNote = frame.journal.leads.some(({ id }) => id === "castle-flaming-aura");
+    assert.match(frame.journal.objective.nextStep, /continue searching the castle for the real Tyranthraxus/i);
+    assert.equal(/flaming aura/i.test(frame.journal.objective.nextStep), readSignedNote);
     for (const key of ["j", "enter"]) await advance(key);
     assert.match(frame.text.toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join(""), /JUSTLETMEGO/i);
@@ -6541,6 +6544,8 @@ try {
     await verifyPortraitPanel();
     await advance("j");
     assert.ok(released());
+    assert.match(frame.journal.objective.nextStep, /continue searching the castle for the real Tyranthraxus/i);
+    assert.equal(/flaming aura/i.test(frame.journal.objective.nextStep), readSignedNote);
     assert.ok(!frame.journal.leads.some(({ id, status }) => id === "commission-castle" &&
       ["ready-to-report", "reward-pending", "turned-in"].includes(status)));
     console.log("Verified the false throne portrait and witnessed confession and release in Chrome.");
