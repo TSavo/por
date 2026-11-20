@@ -547,6 +547,11 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["zhentil-commandant-fire-legend", {
+    slot: "A", inputs: ["up", "enter", "r", "enter", "enter", "c", "o"],
+    portrait: "portrait:area:28:ecl:b624:caller:ade4:PIC6.DAX:50:0:0",
+    prompt: /AFIREBEINGCALLEDTIRANTIKUS.*TIRANTIKUSANDTYRANTHRAXUSAREONEANDTHESAME/i,
+  }],
   ["valjevo-false-throne-alarm", {
     slot: "B", inputs: ["up", "enter", "enter", "p", "a", "enter", "n"],
     portrait: "portrait:area:5:ecl:abc9:HEAD5.DAX:54:BODY5.DAX:1",
