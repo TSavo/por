@@ -5330,8 +5330,12 @@ try {
       await advance("a");
     }
     for (const key of ["p", genheerisOrders ? "n" : "h"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:HEAD5.DAX:59:BODY5.DAX:31");
-    await waitFor("Genheeris's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    const portrait = genheerisOrders ? "portrait:area:7:ecl:a246:HEAD5.DAX:59:BODY5.DAX:31"
+      : "portrait:area:7:ecl:995f:caller:a2df:HEAD5.DAX:59:BODY5.DAX:31";
+    assert.equal(frame.portrait, portrait);
+    await waitFor("Genheeris's portrait", () => run(`
+      [...document.querySelectorAll(".encounter-portrait")].some(image =>
+        image.naturalWidth === 352 && image.src.endsWith(${JSON.stringify(portrait)}))`));
     await switchBothWays();
     await advance("j");
     const knows = id => frame.journal?.leads.some(lead => lead.id === id);
