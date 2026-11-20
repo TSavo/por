@@ -669,9 +669,13 @@ const encounterTotals = encounterCoverage.reduce((total, row) => ({
 const unlinkedScriptPictures = scriptReferences.flatMap(reference => {
   const [archive] = reference.candidates;
   if (!archive || reference.candidates.length !== 1) return [];
-  const frames = encounterCoverage.find(({ file }) => file === archive)?.unlinkedFrames
-    .filter(({ block, uniform }) => block === reference.pictureId && !uniform);
-  return frames?.length ? [{ ...reference, archive, frames: frames.map(({ id, preview }) => ({ id, preview })) }] : [];
+  const unlinked = encounterCoverage.find(({ file }) => file === archive)?.unlinkedFrames
+    .filter(({ block }) => block === reference.pictureId) ?? [];
+  const frames = unlinked.filter(({ uniform }) => !uniform).map(({ id, preview }) => ({ id, preview }));
+  if (!frames.length) return [];
+  const pictures = archives.find(({ file }) => file === archive)?.entries.find(({ id }) => id === reference.pictureId)?.pictures ?? [];
+  const sourceFrames = pictures.reduce((total, picture) => total + picture.frames, 0);
+  return [{ ...reference, archive, frames, sourceFrames, coveredFrames: sourceFrames - unlinked.length }];
 });
 const encounterFamilies = [
   { label: "Scene illustrations", prefix: "PIC" },
@@ -760,9 +764,10 @@ ${encounterCoverage.flatMap(({ pixelMatchedFrames }) => pixelMatchedFrames).map(
 </tbody></table></details>
 ${unlinkedScriptPictures.length ? `<details id="unlinked-script-pictures"><summary>Unlinked pictures referenced by scripts · ${unlinkedScriptPictures.length} references</summary>
 <p>These literal PICTURE instructions have one archive candidate with unlinked artwork. Replay the scene to confirm which frame appears.</p>
-<table class="coverage-table"><thead><tr><th>Script and address</th><th>Nearby dialogue</th><th>Unlinked frames</th></tr></thead><tbody>
-${unlinkedScriptPictures.map(({ file, script, address, nearbyText, frames }) =>
+<table class="coverage-table"><thead><tr><th>Script and address</th><th>Nearby dialogue</th><th>Archive block coverage</th><th>Unlinked frames</th></tr></thead><tbody>
+${unlinkedScriptPictures.map(({ file, script, address, nearbyText, frames, coveredFrames, sourceFrames }) =>
   `<tr><th scope="row">${escape(file)} #${script} · ${address.toString(16).padStart(4, "0")}</th><td>${escape(nearbyText ?? "")}</td>
+  <td>${coveredFrames} of ${sourceFrames} covered</td>
   <td>${frames.map(({ id, preview }) => `<a href="${escape(preview)}"><code>${escape(id)}</code></a>`).join("<br>")}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
 <details><summary>Unlinked source frames · ${encounterTotals.remaining}</summary>
