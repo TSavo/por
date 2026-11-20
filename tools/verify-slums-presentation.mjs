@@ -7501,18 +7501,27 @@ try {
     await advance("j");
     const altarPatterns = new Set();
     assert.equal(await verifyTiledView(24, altarPatterns), 1);
-    for (const key of ["left", "right", "right", "right", "right", "right", "up"]) {
+    for (const key of ["left", "right", "right", "right", "right", "right"]) {
       await advance(key);
       assert.equal(await verifyTiledView(24, altarPatterns), 1);
     }
-    assert.equal(altarPatterns.size, 44);
-    await switchBothWays();
+    assert.equal(altarPatterns.size, 35);
+    await advance("up");
+    const decision = "scene-illustration:area:24:ecl:a92f";
+    assert.equal(frame.portrait, decision);
+    await waitFor("the desecrated altar illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${decision}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait[src="/art/${decision}"]')?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
     const altar = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "bane-altar-decision.png"), Buffer.from(altar.data, "base64"));
     await advance("j");
     assert.ok(knows("bane-defiled-altar") && !knows("bane-altar-ambush"));
     assert.match(frame.journal.objective.nextStep, /Choose Destroy Altar/);
-    for (const key of ["j", "d", "j"]) await advance(key);
+    for (const key of ["j", "d"]) await advance(key);
+    assert.notEqual(frame.portrait, decision);
+    await advance("j");
     assert.ok(knows("bane-altar-ambush") && !knows("bane-cleric-dispatch"));
     assert.match(frame.journal.objective.nextStep, /Defeat the half-orc cleric/);
     assert.notEqual(frame.journal.leads.find(({ id }) => id === "commission-bane")?.status, "ready-to-report");
