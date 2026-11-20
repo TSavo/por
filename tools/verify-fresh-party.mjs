@@ -1697,6 +1697,30 @@ if (process.argv[2] === "--mage-training-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--slums-fortune-checkpoint") {
+  const [, , , checkpoint, outcome] = process.argv;
+  assert.ok(checkpoint && ["warning", "power", "riddle"].includes(outcome),
+    "Pass slot B outside the fortune teller's shop and specify warning, power, or riddle.");
+  copyFileSync(checkpoint, join(saveDir, "B.json"));
+  const fortunes = frame => frame.journal.leads
+    .filter(({ id }) => id.startsWith("slums-fortune-")).map(({ id }) => id);
+  const checkReading = (_text, frame) => assert.deepEqual(fortunes(frame), [`slums-fortune-${outcome}`]);
+  const noReading = (_text, frame) => assert.deepEqual(fortunes(frame), []);
+  await replay(loadSlot("3062"), "85000000", [
+    "up", "enter",
+    (text) => assert.match(text, /i will tell your fortune/),
+    "j", noReading, "j", "p",
+    (text) => assert.match(text, /her voice undergoes a strange transformation/),
+    "j", noReading, "j", "enter", "j", checkReading, "j",
+    "enter", "l", "enter", "e", "s", "s", "d",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2064"), "85000000", ["j", checkReading]);
+  await replay(loadSlot("3062"), "85000000", ["j", noReading]);
+  console.log(`Verified the ${outcome} fortune only appears after its reading and survives reload in the correct slot.`);
+  process.exit(0);
+}
+
 if (process.argv[2] === "--kovel-files-checkpoint") {
   assert.ok(process.argv[3], "Pass slot A from outside the Kovel Mansion room with guild papers.");
   copyFileSync(process.argv[3], join(saveDir, "A.json"));
