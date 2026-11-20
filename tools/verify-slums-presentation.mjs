@@ -7758,6 +7758,13 @@ try {
       assert.equal(frame.classicPortrait, true);
       assert.equal(frame.portrait, undefined);
       assert.ok(frame.classicPortraitSources?.includes("portrait:PIC6.DAX:39:0:0"));
+    const verifyPenGuards = async (cursor) => {
+      const portrait = `portrait:area:1:ecl:${cursor}:HEAD6.DAX:6:BODY6.DAX:3`;
+      assert.equal(frame.portrait, portrait);
+      await waitFor("the Buccaneer pen guards", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+    };
       await waitFor("classic portrait filling the Enhanced panel", () => run(`(() => {
         const layer = document.querySelector("#tile-art").getBoundingClientRect();
         const portrait = document.querySelector(".perspective-backdrop")?.getBoundingClientRect();
@@ -7795,9 +7802,14 @@ try {
     for (const key of ["j", "enter", "enter", "end", "end", "end", "enter", "j"]) await advance(key);
     assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-pen-options"));
     assert.match(frame.journal.objective.nextStep, /Choose Sneak Into Pen/);
-    for (const key of ["j", "enter", "enter", "j"]) await advance(key);
+    for (const key of ["j", "enter", "enter"]) await advance(key);
+    await verifyPenGuards("a35b");
+    await advance("j");
     assert.match(frame.journal.objective.nextStep, /Try to Sneak By/);
-    for (const key of ["j", "t", "j"]) await advance(key);
+    for (const key of ["j", "t"]) await advance(key);
+    await verifyPenGuards("a8ed");
+    await switchBothWays();
+    await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-sneak-blocked"));
     assert.match(frame.journal.objective.nextStep, /Attack Guards or Leave/);
     console.log("Verified the Buccaneer Base approach and rescue journal in Chrome.");
