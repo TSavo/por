@@ -6700,9 +6700,18 @@ try {
     assert.ok(knows("swamp-champion-requested") && !knows("swamp-alliance-averted"));
     assert.match(frame.journal.objective.nextStep, /choose a party member/);
     if (routeName === "swamp-elder-decline") {
-      for (const key of ["j", "n", "j"]) await advance(key);
+      for (const key of ["j", "n"]) await advance(key);
+      const aftermath = "scene-illustration:area:16:ecl:9a87:caller:a502";
+      assert.equal(frame.portrait, aftermath);
+      await waitFor("Drythh's order after the duel", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${aftermath}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      await advance("j");
       assert.ok(knows("swamp-challenge-hostile") && !knows("swamp-alliance-averted"));
       assert.match(frame.journal.objective.nextStep, /peaceful meeting ended/);
+      for (const key of ["j", "enter"]) await advance(key);
+      assert.notEqual(frame.portrait, aftermath);
     } else {
       for (const key of ["j", "y"]) await advance(key);
       const selectionPrompt = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");

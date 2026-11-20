@@ -12,6 +12,7 @@ export const scriptIllustrations = new Map([
   ["scene-illustration:area:4:ecl:9a5a:caller:b00a", "THEREDWIZARDSOFTHAYAREALLIEDTOTYRANTHRAXUS"],
   ["scene-illustration:area:16:ecl:9a87:caller:a287", "YOURTIMEISTHROUGHOLDONE"],
   ["scene-illustration:area:16:ecl:9a59:caller:a2ee", "WILLYOUCHAMPIONME"],
+  ["scene-illustration:area:16:ecl:9a87:caller:a502", "THECOMBATISEXTREMELYSHORTINDURATION"],
 ]);
 const areaPortraitKey = /^portrait:area:(\d+):(?:ecl:([a-f0-9]{4}):(?:caller:([a-f0-9]{4}):)?)?/;
 const left = 24;

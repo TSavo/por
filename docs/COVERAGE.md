@@ -3646,6 +3646,9 @@ illustration of Drythh confronting the elder at his arrival and the
 champion request. Classic displays the exact guest frame at both pauses.
 The journal learns of the challenge when it happens and retains the
 corresponding branch when the party accepts or declines.
+On the decline branch, the replay verifies the separate illustration of
+Drythh ordering his followers to attack and its removal on the next
+Enter press.
 
 The `valjevo-tower-fire-giants-refuted` replay follows the original No
 branch from slot B. Chrome checks the fire giant's outburst illustration
