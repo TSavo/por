@@ -3608,6 +3608,7 @@ routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-t
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
+routes.push("kovel-chase-no");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 const partyDefeatEffect = routeName === "valjevo-party-defeat-effect";
 const defeatEffect = partyDefeatEffect || routeName === "buccaneer-pen-defeat-effect";
@@ -7232,6 +7233,18 @@ try {
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the tracked Kovel Mansion journal after loading slot B.");
+  } else if (routeName === "kovel-chase-no") {
+    for (const key of ["up", "up", "j"]) await advance(key);
+    const knows = id => frame.journal.leads.some(lead => lead.id === id);
+    assert.ok(knows("kovel-chase") && !knows("kovel-chase-ended"));
+    for (const key of ["j", "n", "j"]) await advance(key);
+    assert.equal(frame.journal.trackedId, "commission-kovel");
+    assert.ok(knows("kovel-chase-ended"));
+    for (const id of ["kovel-thieves-split", "kovel-guildmaster", "kovel-thief-ambush"]) assert.ok(!knows(id));
+    assert.match(frame.journal.objective.nextStep, /^Continue searching Kovel Mansion/i);
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified declining the initial Kovel Mansion chase in Chrome.");
   } else if (routeName.startsWith("kovel-chase")) {
     const chase = "kovel-chase";
     const split = "kovel-thieves-split";

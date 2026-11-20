@@ -1064,6 +1064,8 @@ the four witnessed clues, and the objective to resume searching.
 when the native battle starts and replaces the Attack or Release objective.
 `kovel-chase-decline` chooses Don't Follow at the fork and checks that the
 journal returns to searching without revealing either branch's outcome.
+`kovel-chase-no` declines at the initial prompt and checks that the journal
+resumes the search without revealing the fork or either encounter.
 The translation verifier also checks the file discovery and chase in both
 orders, including with the first clue restored from a save. The tracked
 objective uses the most recent discovery in each case.
