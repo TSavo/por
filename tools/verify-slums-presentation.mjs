@@ -551,6 +551,21 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["mendor-history-of-the-north-discovery", {
+    slot: "B", inputs: ["s", "up", "enter", "left", "up", "up"],
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:9962:cue:history-of-the-north", prompt: /YOUFINDTHEHISTORYOFTHENORTH.*ENTRY8/i,
+    continuation: { inputs: ["enter"], prompt: /DOYOUTAKEIT/i, clearsPortrait: true },
+    book: 8,
+  }],
+  ["mendor-grand-historian-discovery", {
+    slot: "B",
+    inputs: ["s", "up", "enter", "left", "up", "up", "enter", "n",
+      ...Array.from({ length: 10 }, () => ["left", "up", "up"]).flat(), "left", "up"],
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:9962:cue:grand-historian",
+    prompt: /RECORDSOFTHEARTSOFWAR.*ENTRY21/i,
+    book: 21,
+    continuation: { inputs: ["enter"], prompt: /DOYOUTAKEIT/i, clearsPortrait: true },
+  }],
   ["bane-reward-illustration", {
     slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter"],
     portraitStops: { 7: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
@@ -3469,7 +3484,7 @@ const environmentRoutes = new Map([
   }],
 ]);
 const freshRolf = routeName === "new-phlan-rolf-approach";
-const routes = ["buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+const routes = ["textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 routes.push("new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload", "nomad-headman-rest-portrait", "nomad-headman-raid");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -3527,6 +3542,7 @@ const projectile = {
   "buccaneer-arrow-down": { phases: ["128"], damage: 3, archer: "ALDA",
     inputs: ["m", "pageup", "right", "enter", "a", "n", "n", "t"], launch: [80, 56], landing: [80, 104] },
 }[routeName];
+const stinkingCloud = routeName === "textile-stinking-cloud";
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
 assert.ok(routes.includes(routeName), "Unknown presentation replay route");
@@ -3608,7 +3624,7 @@ const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
 const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneReturn || koboldCaveExit;
 const saveSlot = routeName === "textile-return-art" || councilFinale ? "D" :
-  partyDefeatEffect || mageWand || koboldKingDoor || koboldKingFall || koboldReturn ||
+  partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn ||
     ["stojanow-wall-warning-reload", "kovel-chase-east-reload"].includes(routeName) ? "B" : slot;
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", F: "2166", H: "2368", I: "1769", J: "246a" }[saveSlot];
 const saved = resolve(directory, saveSlot + ".json");
@@ -4298,6 +4314,37 @@ try {
     assert.deepEqual(scenery(frame), scenery(street));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the enhanced street stays visible while exiting the New Phlan dueling room. Captures:", directory);
+  } else if (stinkingCloud) {
+    const cloud = "combat:RANDCOM.DAX:1:0:4";
+    const cells = ({ combatArt }) => combatArt.filter(([, , id]) => id === cloud);
+    for (const key of ["up", ...Array(5).fill("enter"), "space", "d", "g", "d", "g",
+      ...Array(15).fill("enter"), "c", "enter", "n", "n", "t"]) await advance(key);
+    const frames = [frame, ...(frame.animation ?? [])];
+    for (const key of ["y", "enter", "enter"]) {
+      await advance(key);
+      frames.push(...(frame.animation ?? []), frame);
+    }
+    const drawn = frames.filter(candidate => cells(candidate).length);
+    const textOf = ({ text }) => text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("").replace(/\s/g, "");
+    assert.ok(drawn.some(candidate => /MIRACreatesanoxiouscloud/i.test(textOf(candidate))));
+    const choking = drawn.find(candidate => /DORNchokesandgagsfromnausea/i.test(textOf(candidate)));
+    assert.ok(choking);
+    const placements = [[80, 80], [104, 80], [80, 104], [104, 104]];
+    assert.deepEqual(cells(choking), placements.map(([x, y]) => [x, y, cloud, false]));
+    const stack = choking.combatArt.filter(([x, y]) => x === 80 && y === 80);
+    assert.equal(stack[0]?.[2], cloud);
+    assert.match(stack[1]?.[2] ?? "", /^combat:party:/);
+    assert.deepEqual(cells(frame), []);
+    await run(`animationFrame = ${JSON.stringify(choking)}; showScreen();`);
+    await waitFor("all four Enhanced cloud tiles", () => run(`${JSON.stringify(placements)}.every(([x, y]) =>
+      [...document.querySelectorAll('.combat-sprite[src="/art/${cloud}"]')].some(image => image.naturalWidth === 96 &&
+        Math.abs(parseFloat(image.style.left) - x / 3.2) < 0.01 && Math.abs(parseFloat(image.style.top) - y / 2) < 0.01))`));
+    await switchBothWays(choking.frame);
+    await run('finishAnimation(); showScreen();');
+    await waitFor("the settled battlefield without cloud tiles", () => run(`
+      !animationFrame && !document.querySelector('.combat-sprite[src="/art/${cloud}"]')`));
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified Stinking Cloud placement, reports, and cleanup in Chrome.");
   } else if (routeName === "new-phlan-council-magic-effects" || defeatEffect || projectile) {
     await run(`window.observedEffects = [];
       const originalFetch = window.fetch.bind(window);
@@ -5610,6 +5657,13 @@ try {
     if (routeName === "sokal-ferran-farewell") {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-departure"));
+      await advance("j");
+    }
+    if (illustration.book) {
+      await advance("y");
+      await advance("j");
+      const book = frame.journal?.leads.find(({ id }) => id === `mendor-book-${illustration.book}`);
+      assert.equal(book?.status, "ready-to-report");
       await advance("j");
     }
     if (routeName === "tyrmor-corpse-without-search") {

@@ -3909,3 +3909,9 @@ Stinking Cloud uses a 96×96 replacement matching RANDCOM frame 4.
 A controlled Textile House replay prepared the original spell for Mira.
 Chrome verified all four tiles, the actor overlay, the cast and choking
 reports, and spell cleanup with the save preserved across display modes.
+
+From the local Mendor checkpoint, the History of the North route reaches
+entry 8 through ordinary search inputs. Both book discovery routes verify
+their own illustration, the original Take It prompt, and the journal entry
+after accepting. The `textile-stinking-cloud` route repeats the controlled
+cloud placement, layering, report and cleanup checks.
