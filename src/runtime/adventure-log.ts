@@ -167,6 +167,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       }
       if (commission.id === "auction" && tracked.status === "ready-to-report") {
         const outcome = knows("auction-cancelled") ? "that the auction was cancelled"
+          : knows("auction-garwin-escaped") ? "that the auctioneer called the fleeing man Garwin"
           : knows("auction-exchange") ? "that a man and an ogre exchanged the wand for a large bag"
           : knows("auction-buyer-unseen") ? "that the auction ended before the party could identify the buyer"
           : undefined;
@@ -1453,6 +1454,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("A MAN AND OGRE EXCHANGE THE WAND AND A LARGE BAG")) {
     leads.push({ id: "auction-exchange", title: "The auction exchange",
       detail: "The party saw a man and an ogre exchange the wand and a large bag before disappearing into the crowd." });
+  }
+  if (text.includes("GARWIN, I'LL GET YOU!") && text.includes("THE MAN HAS ESCAPED IN THE CONFUSION")) {
+    leads.push({ id: "auction-garwin-escaped", title: "Garwin escaped the auction",
+      detail: "The auctioneer shouted Garwin's name as the man escaped into the crowd." });
   }
   if (text.includes("OPENING THE BOX WILL DAMAGE THE SEAL BEYOND REPAIR")) {
     leads.push({ id: "textile-iron-box", title: "Cadorna's sealed iron box",
