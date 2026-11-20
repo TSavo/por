@@ -3767,3 +3767,7 @@ from a local slot F checkpoint, walks back to the patrol, and speaks
 Samosud. The standing guard portrait stays visible during the password
 prompt. Enhanced shows the undead retreat when they accept the word,
 then clears the art on the next step. Display switching preserves state.
+
+The `sokal-password-patrol-arrival` route uses a local slot C patrol
+checkpoint and verifies the same retreat illustration on Shestni.
+The art clears on the next step and display switching preserves state.

@@ -547,6 +547,11 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["sokal-password-patrol-arrival", {
+    slot: "C", inputs: [...Array(5).fill("up"), "enter", "enter", "p", "n", ..."shestni", "enter"],
+    portrait: "scene-illustration:area:21:ecl:9ecc", prompt: /THEUNDEADLEAVE/i,
+    continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["sokal-password-patrol-departure", {
     slot: "F",
     inputs: ["up", "enter", "p", "n", ..."lux", "enter", "t", "enter", "enter", "enter",
