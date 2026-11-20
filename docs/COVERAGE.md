@@ -3832,3 +3832,9 @@ The `bane-reward-illustration` Chrome route checks the clerk's ordinary
 portrait before and after the dedicated illustration for keeping the
 temple treasure. A local City Hall checkpoint verifies the journal moves
 from ready-to-report to turned-in.
+
+The combat recolor matcher skips windows identical to their backdrop.
+A local benchmark using 12 empty 320×200 frames and the full art pack
+measured 644 ms per frame before this change and 11 ms afterward.
+A controlled Chrome combat replay still verified both recolored flail
+poses and display switching.

@@ -160,10 +160,13 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
     }
     return match;
   };
-  const recoloredParty = (cell: Uint8Array, background: Uint8Array, selected: boolean) => {
+  const recoloredParty = (cell: Buffer, background: Uint8Array, selected: boolean) => {
+    // A recolored pose must contribute at least one visible pixel.
+    if (cell.equals(background)) return;
     let match: Pose | undefined;
+    const remap = new Int8Array(16);
     for (const pose of palettePoses) {
-      const remap = new Int8Array(16).fill(-1);
+      remap.fill(-1);
       remap[0] = 0;
       let visible = false;
       const agrees = pose.pixels.every((index, pixel) => {
