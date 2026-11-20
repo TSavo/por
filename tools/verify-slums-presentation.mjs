@@ -547,6 +547,11 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valhingen-zombie-roam-dialogue", {
+    slot: "A", inputs: ["up", "down", "up", "down", "up"],
+    portrait: "portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:0:0",
+    prompt: /LUMBERINGFIGURESREACHFORYOU/i,
+  }],
   ["tyranthraxus-battle-opening", {
     slot: "B",
     inputs: ["up", "up", ...Array(5).fill("enter"), ...Array(6).fill("a")],
