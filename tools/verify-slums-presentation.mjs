@@ -5779,7 +5779,8 @@ try {
     }
     if (routeName === "sokal-ferran-farewell") {
       await advance("j");
-      assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "sokal-departure"));
+      assert.ok(frame.journal && !frame.journal.leads.some(({ id }) =>
+        ["sokal-phlan-fall", "sokal-mendor", "sokal-departure"].includes(id)));
       await advance("j");
     }
     if (illustration.verifyImageSwap) {
@@ -5836,6 +5837,13 @@ try {
               document.querySelector('.encounter-portrait[src="/art/${interimPortrait}"]')?.naturalWidth === 352`));
             await verifyPortraitPanel();
           }
+        }
+        if (routeName === "sokal-ferran-farewell" && interimPortrait) {
+          await advance("j");
+          assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-phlan-fall"));
+          assert.equal(frame.journal.leads.some(({ id }) => id === "sokal-mendor"), interimPortrait.endsWith(":ace3"));
+          assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-departure"));
+          await advance("j");
         }
         if (routeName === "nomad-feast-arrival" && (key === "y" || interimPortrait)) {
           await advance("j");

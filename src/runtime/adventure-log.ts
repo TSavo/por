@@ -1209,6 +1209,11 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("A PALE FORM RISES BEFORE YOU")) {
     leads.push({ id: "sokal-pale-form", title: "The keep's pale figure", detail: "A pale figure appeared inside the keep. The party can try speaking to it." });
   }
+  if (text.includes("THE CITY FELL LONG AGO TO THE UNBLESSED CREATURES") &&
+      text.includes("TYRANTHRAXUS, EDRANKA, AND TORATH")) {
+    leads.push({ id: "sokal-phlan-fall", title: "Ferran's account of Phlan's fall",
+      detail: "Ferran said creatures empowered by a magical pool overran Phlan. He named Tyranthraxus, Edranka, and Torath as their leaders." });
+  }
   if (text.includes("MENDOR WORKED HARD TO GATHER RECORD OF ALL THESE THINGS")) {
     leads.push({ id: "sokal-mendor", title: "Mendor's lost histories", detail: "Ferran says Mendor gathered accounts of the powers that brought down Phlan. His library was overrun." });
   }
