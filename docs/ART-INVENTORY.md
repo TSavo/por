@@ -525,3 +525,7 @@ frames the game actually displays.
 Scripted scene illustrations report their dialogue cue in the HTML and
 JSON exports. The asset ID identifies the native ECL scope and the cue
 identifies the specific moment within that scope.
+
+Choose **Scripted scene illustrations** in the HTML category menu to
+browse the art with its dialogue cues. The Runtime artwork category
+still contains the other runtime replacements.

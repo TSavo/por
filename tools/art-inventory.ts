@@ -442,10 +442,14 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
       sourceCandidates.map(({ archive, block, member, frame }) =>
         `<small>${escape(archive)} #${block} · member ${member}, frame ${frame}</small>`).join("") + "</details>" : "") + "</div>";
 }
-const runtimeGallery = runtimeReplacements.length ?
-  `<details id="runtime-artwork" data-category="Runtime artwork"><summary>Runtime artwork · ${runtimeReplacements.length} replacements</summary><div class="grid">` +
-  runtimeReplacements.map((entry) => `<figure data-visual="true" data-enhanced="true">${replacementPreview(entry)}</figure>`).join("") +
-  "</div></details>" : "";
+const runtimeGroups = [
+  { id: "scripted-scene-illustrations", label: "Scripted scene illustrations", entries: runtimeReplacements.filter(({ scriptCue }) => scriptCue) },
+  { id: "runtime-artwork", label: "Runtime artwork", entries: runtimeReplacements.filter(({ scriptCue }) => !scriptCue) },
+].filter(({ entries }) => entries.length);
+const runtimeGallery = runtimeGroups.map(({ id, label, entries }) =>
+  `<details id="${id}" data-category="${label}"><summary>${label} · ${entries.length} replacements</summary><div class="grid">` +
+  entries.map((entry) => `<figure data-visual="true" data-enhanced="true" data-coverage="complete">${replacementPreview(entry)}</figure>`).join("") +
+  "</div></details>").join("");
 const missingGallery = [...missingByArea].sort(([left], [right]) => left.localeCompare(right, "en", { numeric: true }))
   .map(([area, tiles]) => `<details id="unmatched-${area.toLowerCase()}" data-category="Captured tiles without replacements"><summary>` +
     `${area === "Battlefield" ? area : `Area ${area}`} · ${tiles.length} captured tiles without replacements</summary><div class="grid">` +
@@ -733,7 +737,7 @@ ${coverage.map(({ head, aliases, body, ready, strike }) => `<tr><th scope="row">
 </tbody></table></details>`).join("")}
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
-<label>Category <select id="category"><option value="">All categories</option><option>Illustrated atlas</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
+<label>Category <select id="category"><option value="">All categories</option><option>Illustrated atlas</option>${runtimeGroups.map(({ label }) => `<option>${label}</option>`).join("")}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
 <label><input id="include-data" type="checkbox"> Include composition and gameplay data</label>
 <label>Replacement <select id="replacement"><option value="">Any</option><option value="linked">Has linked artwork</option><option value="unfinished">Has unmatched frames</option><option value="missing">No frames linked</option><option value="partial">Some frames linked</option><option value="complete">All frames linked</option></select></label>
 <p id="matches" role="status"></p>
