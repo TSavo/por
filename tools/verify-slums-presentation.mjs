@@ -563,6 +563,16 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["diogenes-gift", {
+    slot: "A", inputs: ["up", "enter", "e", "enter", "s", "enter", "end", "end", "end", ...Array(5).fill("enter")],
+    portraitStops: {
+      12: "portrait:area:25:ecl:a58b:caller:a378:PIC6.DAX:117:0:0",
+      13: "portrait:area:25:ecl:a58b:caller:9c11:PIC6.DAX:117:0:0",
+    },
+    portrait: "scene-illustration:area:19:ecl:aeeb:cue:diogenes-advice-departure",
+    prompt: /THEDRAGONFLYSTHROUGHANOPENNINGINTHECEILING/i,
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YOUEXITTHECAVETOCONTINUEYOURQUEST/i },
+  }],
   ["diogenes-bottle-return", {
     slot: "A", inputs: ["up", "enter", "e", "enter", "enter", "enter"],
     portraitStops: {
@@ -6940,6 +6950,15 @@ try {
       await advance("j");
       const bottle = frame.journal?.leads.find(({ id }) => id === "commission-bottle");
       assert.equal(bottle?.status, "offered");
+      for (const key of ["j", "enter"]) await advance(key);
+      const departure = "scene-illustration:area:19:ecl:aeeb:cue:diogenes-advice-departure";
+      assert.equal(frame.portrait, departure);
+      await waitFor("Diogenes flying out of the cave", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${departure}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays();
+      await advance("enter");
+      assert.equal(frame.portrait, undefined);
     }
     console.log(`Verified ${routeName} artwork and dialogue in Chrome.`);
   } else if (koboldCave) {
