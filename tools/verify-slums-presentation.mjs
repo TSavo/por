@@ -563,6 +563,13 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["valhingen-storm-entrance", {
+    slot: "A", inputs: ["down", "up", "enter", "enter", "g", "enter", "enter"],
+    portraitStops: { 0: null, 6: "scene-illustration:area:26:ecl:b695:caller:9c27" },
+    portrait: "scene-illustration:area:26:ecl:9c99",
+    prompt: /EXPLOSIONOFLIGHTNINGREVEALS.*GRAVEYARDTURNEDUPSIDEDOWN/i,
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["nomad-feast-arrival", {
     slot: "A", inputs: ["up", ...Array(4).fill("enter"), "p", "enter", "enter", "y", "enter"],
     portraitStops: { 9: "scene-illustration:area:17:ecl:9da2:caller:a711" },
