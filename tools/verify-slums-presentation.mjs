@@ -548,7 +548,7 @@ const encounterRoutes = new Map([
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
   ["tyrmor-journal-discovery", {
-    slot: "B", inputs: ["s", "up", "enter"], portraitStops: { 2: null },
+    slot: "B", inputs: ["s", "up", "enter"], portraitStops: { 2: "scene-illustration:area:22:ecl:9a06:caller:9f51" },
     portrait: "scene-illustration:area:22:ecl:9a06:caller:9fe3",
     prompt: /ITISTHEJOURNALOFTYRMOR.*ENTRY26/i,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },

@@ -3727,3 +3727,8 @@ action and verifies that display switching preserves state and the save.
 The `tyrmor-journal-discovery` route uses Encamp to save the new clue in
 slot B. The `tyrmor-journal-reload` Chrome route loads that save, opens the
 journal, and verifies the clue and display switching.
+
+The first Tyrmor prompt now shows the stripped body by itself. Chrome
+verified that searching then swaps to the book illustration, and that
+walking in without Search shows the body without revealing the book
+or adding its clue. The replay uses the local slot B approach fixture.
