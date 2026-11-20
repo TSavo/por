@@ -3894,3 +3894,8 @@ art and the return to the original item choice.
 The current runner replayed from the local Ferran checkpoint through the
 Sokal and Podal rewards, outfitted the party, and reached Grishnak's temple
 after winning the Textile House courtyard and prison fights.
+
+The default verification suite checks eight reward cues that share the
+same council portrait pause. Each selects its own installed illustration
+and falls back when that art is unavailable. The finale cue is tested
+separately from the ordinary reward variants.

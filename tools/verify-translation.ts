@@ -27,7 +27,7 @@ import { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
 import { loadCombatArtMatcher, loadCombatEffects } from "./combat-art.js";
 import { loadOverlandTravel } from "./overland-travel.js";
-import { loadPortraitArt } from "./portrait-art.js";
+import { loadPortraitArt, matchScriptIllustration, scriptIllustrations } from "./portrait-art.js";
 
 function checkBrowserArtPacks(): void {
   const png = Buffer.from(encodePng(new Frame(32, 32)));
@@ -168,6 +168,26 @@ function checkBrowserArtPacks(): void {
       [56, 56, `combat:area:18:${pittArchive}:${id}:ecl:aab5`, reflected]);
     deepStrictEqual(enhanced.pixels, underlay.pixels, "Removing a scoped sprite should restore the battlefield");
   }
+  const council = "scene-illustration:area:8:ecl:9f21:caller:9a4a";
+  const installed = [...loaded.keys()];
+  const councilScenes = [
+    ["WITHSOKALKEEPINOURHANDS", council],
+    ["BIVANTWASDELIGHTEDWITHTHECHILD", council + ":cue:bivant-rescue"],
+    ["THESEMAPSSHOULDHELPUSTOLOCATE", council + ":cue:lex-geographica"],
+    ["CLEARINGOFTHESTOJONOWRIVER", council + ":cue:stojonow-river"],
+    ["WEWEREMUCHRELIEVEDBYTHENEWSYOUBRINGFROMTHENOMADCAMP", council + ":cue:nomad-camp"],
+    ["CADORNAWASWAGERINGYOURRETURN", council + ":cue:zhentil-envoy"],
+    ["LIZARDMENMENACEHASGREATLYIMPROVED", council + ":cue:lizardmen"],
+    ["THISLOSSOFTHEKOBOLDFORCESWILLBEAMAJORBLOW", council + ":cue:kobold-king"],
+  ];
+  for (const [dialogue, expected] of councilScenes) {
+    deepStrictEqual(matchScriptIllustration(council, dialogue!, installed), expected);
+    deepStrictEqual(matchScriptIllustration(council, dialogue!, installed.filter(id => id !== expected)), undefined);
+    deepStrictEqual(matchScriptIllustration(council.replace("9f21", "9efe"), dialogue!, installed), undefined);
+  }
+  deepStrictEqual(matchScriptIllustration(council, "YOURQUESTISOVER", installed), undefined);
+  for (const id of scriptIllustrations.keys()) ok(loaded.has(id), `Missing scripted scene illustration: ${id}`);
+  console.log(`verified ${councilScenes.length} distinct reward cues at the shared council pause`);
   console.log(`verified ${declared.size} browser art mappings against the game data, PNG dimensions, and chunk checksums`);
 }
 
