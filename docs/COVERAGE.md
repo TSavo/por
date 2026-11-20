@@ -1330,7 +1330,9 @@ book actually read appears in the journal for entries 7, 8, 19, 21, and 37.
 The verifier also checks each record's original report and acknowledgment
 flags independently. `mendor-records-reward` uses controlled slot A at
 City Hall to report Lex Geographica. Chrome verifies that the atlas is
-turned in and the council's standing records offer remains available.
+turned in and tracking returns to the council's standing records offer.
+`mendor-records-reward-reload` checks the completed atlas entry and
+tracked search objective after reloading the native save.
 The `mendor-library-fighter` replay uses controlled slot B and checks the
 fighter's 96×96 ready pose and reflected sword strike in Chrome.
 The `mendor-library-spectre` replay sets the book flag in controlled slot B

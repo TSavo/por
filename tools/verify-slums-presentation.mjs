@@ -3646,6 +3646,7 @@ routes.push("river-passage-reload", "new-phlan-council-reward-reload", "slums-ma
 routes.push("podal-infirmary-heal");
 routes.push("river-pumping-reload");
 routes.push("kobold-princess-fatima-reload");
+routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
   ["bane-interior-atlas", { slot: "A", areas: [24, 31], mapId: 31, file: "temple-of-bane-interior-concept-v1.png" }],
@@ -8191,6 +8192,13 @@ try {
         console.log(`Verified ${commission} after reload, the return boat, and council turn-in in Chrome.`);
       }
     }
+  } else if (routeName === "mendor-records-reward-reload") {
+    await advance("j");
+    assert.equal(frame.journal?.trackedId, "commission-records");
+    assert.equal(frame.journal.leads.find(({ id }) => id === "mendor-book-37")?.status, "turned-in");
+    assert.match(frame.journal.objective.nextStep, /Search the other stacks/i);
+    await switchBothWays();
+    console.log("Verified the standing records objective and completed atlas handoff after reloading slot A.");
   } else if (routeName === "mendor-records-reward") {
     const record = () => frame.journal?.leads.find(({ id }) => id === "mendor-book-37");
     await advance("j");
@@ -8211,6 +8219,11 @@ try {
     for (const key of ["enter", "enter", "s", "e", "j"]) await advance(key);
     assert.equal(record()?.status, "turned-in");
     assert.equal(frame.journal.leads.find(({ id }) => id === "commission-records")?.status, "offered");
+    assert.equal(frame.journal.trackedId, "commission-records");
+    assert.match(frame.journal.objective.nextStep, /Search the other stacks/i);
+    for (const key of ["j", "enter", "e", "s", "s", "a"]) await advance(key);
+    assert.equal(JSON.parse(readFileSync(saved, "utf8")).tracked, "commission-records");
+    console.log("Mendor records checkpoint:", saved);
     console.log("Verified the clerk acknowledgment for Lex Geographica in Chrome.");
   } else if (councilReward) {
     const [commission, originalDialogue, art] = councilReward;

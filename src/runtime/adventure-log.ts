@@ -460,9 +460,9 @@ export function isOpenObjective(lead: JournalLead): boolean {
 }
 
 export function trackedJournalObjective(leads: readonly JournalLead[], trackedId?: string): string | undefined {
-  if (trackedId === "commission-bottle" &&
-      leads.some(lead => lead.id === trackedId && lead.status === "turned-in")) {
-    trackedId = "commission-bottle-vampire";
+  if (trackedId && leads.some(lead => lead.id === trackedId && lead.status === "turned-in")) {
+    if (trackedId === "commission-bottle") trackedId = "commission-bottle-vampire";
+    else if (/^mendor-book-\d+$/.test(trackedId)) trackedId = "commission-records";
   }
   return leads.find(lead => lead.id === trackedId && isOpenObjective(lead))?.id;
 }
