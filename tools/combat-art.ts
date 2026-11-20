@@ -314,7 +314,8 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
     }
     return match;
   }
-  function clippedPoses(frame: Frame, underlay: Frame, width: number, height: number, enhanced?: Frame) {
+  function clippedPoses(frame: Frame, underlay: Frame, width: number, height: number, enhanced?: Frame,
+    aimCell?: [x: number, y: number]) {
     const placements: CombatArtPlacement[] = [];
     const candidates = terrainPoses.get(`${width}:${width * height}`) ?? [];
     for (let y = 32 - height; y < 176; y += 24) {
@@ -322,6 +323,8 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
         if (x >= 8 && y >= 8 && x + width <= 176 && y + height <= 176) continue;
         const left = Math.max(8, x), right = Math.min(176, x + width);
         const top = Math.max(8, y), bottom = Math.min(176, y + height);
+        const aimed = aimCell && aimCell[0] >= left && aimCell[0] + 24 <= right &&
+          aimCell[1] >= top && aimCell[1] + 24 <= bottom;
         let match: Pose | undefined;
         for (const pose of candidates) {
           let agrees = true;
@@ -330,7 +333,15 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
             for (let column = left; column < right && agrees; column++) {
               const background = underlay.get(column, row);
               const color = pose.pixels[(row - y) * width + column - x]!;
-              agrees = frame.get(column, row) === (color || background);
+              const pixel = frame.get(column, row);
+              const aimX = aimed ? column - aimCell[0] : -1;
+              const aimY = aimed ? row - aimCell[1] : -1;
+              if (color === 0 && aimX >= 0 && aimX < 24 && aimY >= 0 && aimY < 24) {
+                const bevel = combatHighlightPixel(aimX, aimY);
+                agrees = pixel === bevel || (bevel === 7 && pixel === 15);
+              } else {
+                agrees = pixel === (color || background);
+              }
               visible ||= color !== 0 && color !== background;
             }
           }
@@ -358,7 +369,7 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
     const placements: CombatArtPlacement[] = [];
     for (const { width, height } of sizes.values()) {
       if (!iconEditor && underlay && width * height > 24 * 24) {
-        placements.push(...clippedPoses(frame, underlay, width, height, enhanced));
+        placements.push(...clippedPoses(frame, underlay, width, height, enhanced, aimCell));
       }
       const cell = Buffer.alloc(width * height);
       const background = underlay && terrainPoses.has(`${width}:${cell.length}`) ? Buffer.alloc(cell.length) : undefined;

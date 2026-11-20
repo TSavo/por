@@ -4560,6 +4560,24 @@ try {
     await advance("escape");
     assert.deepEqual(frame.combatSelections, fullSelection);
     assert.ok(frame.combatArt.some(([, , id, , highlighted]) => id === lizard && highlighted));
+    for (const key of ["m", "left", "left", "up", "up"]) await advance(key);
+    assert.deepEqual(frame.combatSelections, [[8, 56, marker]]);
+    assert.deepEqual(frame.combatArt.find(([x, y, id]) => x === -16 && y === 56 && id === lizard),
+      [-16, 56, lizard, false, false, 48, 24]);
+    await waitFor("a backed Manual Aim reticle at the clipped giant lizard", () => run(`(() => {
+      if (state.sequence !== ${frame.sequence} || animationFrame) return false;
+      const layers = [...document.querySelector('#tile-art').children];
+      const sprite = layers.find(layer => layer.getAttribute('src') === '/art/${lizard}' &&
+        parseFloat(layer.style.left) === -5 && parseFloat(layer.style.top) === 28);
+      const reticles = layers.filter(layer => layer.matches('.combat-aim-reticle'));
+      const reticle = reticles[0];
+      return sprite?.naturalWidth === 192 && sprite.style.clipPath === 'inset(0% 0% 0% 50%)' &&
+        reticles.length === 1 && layers.indexOf(reticle) < layers.indexOf(sprite) &&
+        reticle.classList.contains('combat-aim-reticle-backed') && parseFloat(reticle.style.left) === 2.5 &&
+        parseFloat(reticle.style.top) === 28;
+    })()`));
+    const clippedShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "kuto-clipped-manual-aim.png"), Buffer.from(clippedShot.data, "base64"));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified both halves of the giant lizard in Manual Aim in Chrome:", proof);
   } else if (routeName === "buccaneer-empty-manual-aim") {
