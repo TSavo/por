@@ -3741,3 +3741,8 @@ in a controlled combat replay.
 Run `tyrmor-corpse-without-search` with the same slot B fixture to verify
 that the body illustration clears when the party continues and that the
 Encamp journal has no entry 26 clue.
+
+Shield combinations with flail, bearded axe, war pick and hammer retain
+Enhanced artwork when recolored in both default sizes. Chrome verified
+both poses and the Body, Hair and Shield changes in all eight editor
+configurations.
