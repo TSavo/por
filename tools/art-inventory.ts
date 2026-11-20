@@ -255,7 +255,7 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
   writeFileSync(join(output, preview), png);
   const sheetPart = characterSheetPartKey.exec(id);
   const match = randomCombatKey.exec(id) ??
-    /^(?:encounter|portrait):(?:area:\d+:(?:ecl:[a-f0-9]{4}:)?)?([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
+    /^(?:encounter|portrait):(?:area:\d+:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?([^:]+):(\d+):(\d+):(\d+)$/.exec(id) ??
     /^combat:(?:area:\d+:)?(CPIC\d+\.DAX):(\d+)(?::ecl:[a-f0-9]{4})?$/.exec(id);
   let source;
   if (match || sheetPart) {

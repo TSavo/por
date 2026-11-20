@@ -113,6 +113,16 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let harborTicket: SokalQuay["ticket"] = "none";
   let explorationPosition: { area: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number } | undefined;
   let battleCursor: number | undefined;
+  let portraitCaller: number | undefined;
+
+  function captureEclContext(cpu: Cpu) {
+    const dataSegment = 0x740;
+    battleCursor = cpu.read16(dataSegment, 0x494e);
+    // The original ECL interpreter stores its active return word through DS:6d36.
+    const offset = cpu.read16(dataSegment, 0x6d36);
+    const segment = cpu.read16(dataSegment, 0x6d38);
+    portraitCaller = segment === 0 ? undefined : cpu.read16(segment, offset);
+  }
   let drawnPerspective: { pixels: Buffer; localEcl?: number; native?: NativeExploration } | undefined;
   let priorPerspectiveDraw: Buffer | undefined;
   let previousPerspective: { area: number; pixels: Buffer } | undefined;
@@ -156,7 +166,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const row = Math.floor(cell / 40);
         return column < 1 || column >= 16 || row < 1 || row >= 16;
       }) : glyphs;
-      const picture = !scene ? portraitArt(screen, area, battleCursor) : undefined;
+      const picture = !scene ? portraitArt(screen, area, battleCursor, portraitCaller) : undefined;
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
       const enhanced = new Frame(screen.width, screen.height);
@@ -413,7 +423,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         ...(positionArea === 0 ? { cameraX: cpu.read8(cpu.ds, 0x6a0b), cameraY: cpu.read8(cpu.ds, 0x6a0c) } : {}),
       } : undefined;
       // The ECL interpreter suspends at this cursor while the battle runs.
-      battleCursor = cpu.read16(0x740, 0x494e);
+      captureEclContext(cpu);
       if (!blocking && cpu.cs === 0x512 && cpu.ip === 0x5423 && hasBattlefieldBorder(screen)) {
         // Original combat turn code (ovl08:0252, 02a0) stores the active actor and tests its Quick flag.
         const actorOffset = cpu.read16(0x740, 0x5cf0);
@@ -460,7 +470,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     requestKey,
     captureEncounterDraw: browser && Object.keys(encounterPlacements).length ? (cpu: Cpu) => {
       if (scene || area === undefined || animation.length >= 12) return;
-      battleCursor = cpu.read16(0x740, 0x494e);
+      captureEclContext(cpu);
       showFrame(undefined, undefined, true);
     } : undefined,
     captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
@@ -512,7 +522,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu) => {
       if (scene || animation.length >= 12) return;
-      battleCursor = cpu.read16(0x740, 0x494e);
+      captureEclContext(cpu);
       const battlefield = hasBattlefieldBorder(screen);
       const placements = combatArt(screen, undefined, area, battleCursor, battlefield ? battleTerrain : undefined);
       const attacks = placements.filter(([, , key]) => attackKeys.has(key));

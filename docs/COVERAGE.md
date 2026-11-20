@@ -3257,7 +3257,14 @@ selecting the Nomads from the native encounter table.
 The Zhentil officers' dinner has a dedicated illustration across nine
 dinner-specific prompts. Five Chrome routes verified the staged art,
 and the production replay checked the Old Phlan story branch. The
-shared narration cursor still uses the Commandant's default portrait.
+shared narration cursor uses the native return address to select the
+dinner illustration on arrival and story pauses. The office retains its
+own portrait at the same cursor. Production Chrome replays checked both.
+
+Chrome verified Valjevo's maze watch fighter wielding his two-handed
+sword during the native combat turn. Separate Lizard Wilderness replays
+verified the Stirge and displacer beast approaches and the transition
+from each native encounter prompt into combat.
 
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
