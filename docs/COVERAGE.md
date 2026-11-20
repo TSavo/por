@@ -3285,6 +3285,11 @@ North Phlan's crossroads has a dedicated illustration for the City,
 Graveyard, and Leave prompt. Chrome verified each route and the display
 toggle. A control replay checked the separate western entrance portrait.
 
+Chrome verified the Buccaneer Wilderness patrol corporal's approach
+and the native transition into combat using a controlled Soldiers roll.
+The Stojanow tower relief aide replay verified the ready pose and the
+shared attack pose during both native longsword and longbow actions.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
