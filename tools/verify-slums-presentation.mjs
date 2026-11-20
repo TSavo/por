@@ -573,6 +573,16 @@ const illustrationRoutes = new Map([
     journalLead: "swamp-friend-word-charge", journalLeadAtDiscovery: true,
     continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i, clearsPortrait: true },
   }],
+  ["diogenes-upper-ledge-fireball", {
+    slot: "A", inputs: [
+      "up", "enter", "e", "enter", "s", "enter", "end", "enter", "enter", "enter", "s", "enter", "f", "a",
+    ],
+    portraitStops: { 13: "portrait:area:25:ecl:a03a:PIC6.DAX:117:0:0" },
+    portrait: "scene-illustration:area:25:ecl:a0ea",
+    prompt: /FROZENINTIME.*THEDRAGONTHROWSAFIREBALLINTHEMIDDLEOFTHEPARTY/i,
+    journalLead: "diogenes-fireball", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["enter"], portrait: "portrait:PIC6.DAX:117:0:0", prompt: /DIES/i },
+  }],
   ["diogenes-gift", {
     slot: "A", inputs: ["up", "enter", "e", "enter", "s", "enter", "end", "end", "end", ...Array(5).fill("enter")],
     portraitStops: {
@@ -6170,6 +6180,12 @@ try {
               document.querySelector('.encounter-portrait[src="/art/${interimPortrait}"]')?.naturalWidth === 352`));
             await verifyPortraitPanel();
           }
+        }
+        if (routeName === "diogenes-upper-ledge-fireball" && interimPortrait) {
+          await advance("j");
+          assert.ok(frame.journal);
+          assert.ok(!frame.journal.leads.some(({ id }) => id === "diogenes-fireball"));
+          await advance("j");
         }
         if (routeName === "sokal-ferran-farewell" && interimPortrait) {
           await advance("j");

@@ -179,6 +179,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:25:ecl:a58b:caller:a44c", "ISEEYOUHAVERECOVEREDTHESILVERBOTTLE"],
   ["scene-illustration:area:25:ecl:a4c8", "THATBOTTLECONTAINSAPOWERFULEFREET"],
   ["scene-illustration:area:25:ecl:a58b:caller:a4cc", "THATBOTTLECONTAINSAPOWERFULEFREET"],
+  ["scene-illustration:area:25:ecl:a0ea", "THEDRAGONTHROWSAFIREBALLINTHEMIDDLEOFTHEPARTY"],
   ["scene-illustration:area:25:ecl:a558:cue:diogenes-flight", "AFTERSPEAKINGDIOGENESFLIESTHROUGHAHOLE"],
   ["scene-illustration:area:25:ecl:a558", "WHENYOUMEETTHEVAMPIREUSETHEBOTTLE"],
   ["scene-illustration:area:25:ecl:9c70", "AFTERSPEAKING,THEDRAGONFLYSTHROUGHANOPENNING"],
