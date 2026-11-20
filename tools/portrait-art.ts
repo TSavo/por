@@ -10,6 +10,10 @@ export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:call
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:29:ecl:ac03", "ANEVILSPIRITFROMANUNHOLYPOOLGUIDESYOURENEMIES"],
+  ["scene-illustration:area:15:ecl:a8c9", "HESCRAMBLESTOHISFEETANDFLEESTHEROOM"],
+  ["scene-illustration:area:15:ecl:9956:caller:a8cd", "HESCRAMBLESTOHISFEETANDFLEESTHEROOM"],
+  ["scene-illustration:area:15:ecl:9956:caller:a8d1", "HESCRAMBLESTOHISFEETANDFLEESTHEROOM"],
+  ["scene-illustration:area:15:ecl:9aeb", "HESCRAMBLESTOHISFEETANDFLEESTHEROOM"],
   ["scene-illustration:area:10:ecl:af8e", "INSIDETHERUINSOFABLACKMARBLECRYPT"],
   ["scene-illustration:area:10:ecl:b695:caller:af92", "INSIDETHERUINSOFABLACKMARBLECRYPT"],
   ["scene-illustration:area:10:ecl:afa7", "DOYOUREADTHESCROLL"],

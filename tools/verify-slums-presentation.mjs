@@ -1587,6 +1587,7 @@ const illustrationRoutes = new Map([
   ["mendor-fighter-dialogue", {
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:15:PIC2.DAX:25:0:0", prompt: /YOUFINDAFIGHTERWITHBATTEREDARMOR/i,
+    continuation: { inputs: ["i"], portrait: "scene-illustration:area:15:ecl:9aeb", prompt: /HESCRAMBLESTOHISFEETANDFLEESTHEROOM/i },
   }],
   ["mendor-spectre-dialogue", {
     slot: "B", inputs: ["up", "up", "enter"],
@@ -6485,6 +6486,13 @@ try {
         await advance("enter");
         assert.equal(frame.portrait, undefined);
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /MOVEVIEWAIMUSEQUICKDONE/i);
+      }
+      if (routeName === "mendor-fighter-dialogue") {
+        await advance("right");
+        assert.equal(frame.portrait, nextPortrait);
+        await advance("up");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /10,12W/i);
       }
       if (routeName === "new-phlan-rolf-tour") await waitForExplorationViewport();
       if (routeName === "kuto-well-waterline") {
