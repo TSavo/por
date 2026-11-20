@@ -3842,3 +3842,8 @@ poses and display switching.
 The `river-reward` Chrome route checks the restored Stojonow trade route
 illustration, the original 34,250 XP reward, and the commission turn-in.
 It uses a local City Hall checkpoint with the river ready to report.
+
+All 352 distinct Small and 448 distinct Human head-and-weapon pairs now
+have both Enhanced recolor masks. For the final Small batch, Chrome
+checked eight representative editor bands and controlled combat with
+Azure Skirmisher, plumed crossbow and crested robed rod appearances.
