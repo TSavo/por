@@ -3558,6 +3558,11 @@ Paired blades, greatsword, and sabre add twelve masks for the default
 small and Human ready and strike poses. Chrome verified both Body color
 channels and Hair in every editor combination, plus the recolored Human
 greatsword in combat.
+Bearded axe, spear, flanged mace, war hammer, and shield longsword add
+twenty masks across both player sizes. The ten Chrome editor replays
+check both Body color channels and Hair. The shield variants also check
+both Shield channels. Saved small spear and Human shield longsword
+colors appeared in both ready and strike poses in combat.
 
 After the Phlan council finale illustration landed, the inventory decoded
 113 archives without unresolved blocks or artwork load errors. Of 807

@@ -72,7 +72,7 @@ function checkBrowserArtPacks(): void {
   const loaded = loadUpgradeArtFromManifests(paths, root);
   const masks = loadCombatMaterialMasks(loaded);
   for (const head of [0, 64]) {
-    for (const offset of [1, 5, 7, 17]) {
+    for (const offset of [1, 5, 7, 10, 11, 12, 15, 17, 24]) {
       const body = head + offset;
       for (const pose of [body, body | 0x80]) {
         const id = `combat:party:${head}:${pose}`;
