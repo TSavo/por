@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:4:ecl:b167:SPRIT5.DAX:22:0:0": "valjevo-records-scribe-approach.png",
     "portrait:area:20:ecl:af6d:PIC2.DAX:6:0:0": "slums-potion-booth-ambush.png",
     "combat:area:16:CPIC8.DAX:57:ecl:a560": "swamp-drythh-warband-ready.png",
     "combat:area:16:CPIC8.DAX:185:ecl:a560": "swamp-drythh-warband-strike.png",
@@ -5412,6 +5413,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:4:ecl:b167:SPRIT5.DAX:22:0:0": { "area": 4, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:3:ecl:a815:SPRIT5.DAX:55:0:0": { "area": 3, "x": 40, "y": 32, "width": 48, "height": 80 },
     "encounter:area:3:ecl:a7be:SPRIT5.DAX:55:1:0": { "area": 3, "x": 48, "y": 32, "width": 32, "height": 73 },
     "encounter:area:3:ecl:a7be:SPRIT5.DAX:55:0:0": { "area": 3, "x": 40, "y": 32, "width": 48, "height": 80 },
