@@ -3693,6 +3693,7 @@ routes.push("valjevo-forge-authorization-reload");
 routes.push("buccaneer-bivant-punch");
 routes.push("buccaneer-bivant-escort-combat");
 routes.push("buccaneer-bivant-purchase", "buccaneer-bivant-purchase-reload");
+routes.push("stojanow-wagon-handover-reload");
 routes.push("valhingen-crypt-scroll", "valhingen-crypt-scroll-reload");
 routes.push("valjevo-al-hyam-release", "valjevo-al-hyam-release-reload");
 routes.push("valjevo-cadorna-alarm-reload");
@@ -3815,6 +3816,8 @@ const riverPumpingHostile = routeName === "river-pumping-hostile";
 const riverPumping = routeName === "river-pumping" || riverPumpingHostile;
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
+const traderReload = routeName === "stojanow-wagon-handover-reload";
+const traderJournalLeads = ["gate-trader-deal", "gate-trader-guard-warning", "gate-trader-ettin-warning"];
 const altar = routeName === "textile-altar";
 const plaza = routeName === "podal-plaza";
 const baneGate = routeName === "bane-gate";
@@ -3866,7 +3869,7 @@ const koboldCaveExit = routeName === "kobold-king-leave-caves";
 const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneReturn || koboldCaveExit;
 const saveSlot = alHyamReload || ["sokal-floorboard-diary-reload", "valjevo-records-reload", "kobold-escort-arrival-reload"].includes(routeName) ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
-  partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn ||
+  partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn || traderReload ||
     ["stojanow-wall-warning-reload", "kovel-chase-east-reload", "valhingen-first-arrival-reload", "valjevo-forge-authorization-reload", "slums-potion-booth-reload"].includes(routeName) ? "B" : slot;
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", E: "1265", F: "2166", G: "2267", H: "2368", I: "1769", J: "246a" }[saveSlot];
 assert.ok(boot, `No BIOS key for save slot ${saveSlot} on route ${routeName}`);
@@ -6050,6 +6053,13 @@ try {
     assert.ok(known.has("graveyard-crypt-sanctified"));
     assert.equal(known.has(scrollLead), !declineCryptScroll);
     console.log("Verified the Valhingen crypt illustration and scroll choice in Chrome. Native save:", saved);
+  } else if (traderReload) {
+    await advance("j");
+    const known = new Set(frame.journal.leads.map(({ id }) => id));
+    assert.ok(traderJournalLeads.every(id => known.has(id)));
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the wagon deal and both warnings after reloading slot B in Chrome.");
   } else if (illustration) {
     const { inputs, portrait, prompt, continuation, journalLead, approachSequence } = illustration;
     if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach);
@@ -6269,6 +6279,13 @@ try {
         assert.match(frame.journal.objective.nextStep, /confront the king.*at the throne/i);
       }
       await advance("j");
+    }
+    if (routeName === "stojanow-wagon-handover") {
+      assert.deepEqual(readFileSync(saved), originalSave);
+      for (const key of ["enter", "e", "enter", "s", "s", "b"]) await advance(key);
+      const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
+      assert.ok(traderJournalLeads.every(id => known.has(id)));
+      console.log("Native save after the wagon purchase:", saved);
     }
     if (routeName === "sokal-floorboard-diary") {
       await advance("n");
