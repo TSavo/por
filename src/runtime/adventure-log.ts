@@ -378,6 +378,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("nomad-promised-aid")) nextStep = "Press Enter to hear the headman's instructions before you prepare to defend the camp.";
       else if (knows("nomad-stay-or-leave")) nextStep = "Choose Stay and Fight if you will defend the camp, or Leave if you decline.";
       else if (knows("nomad-kobold-warning")) nextStep = "Hear out the headman and decide whether to stay and help against the kobolds.";
+      else if (knows("nomad-feast-attended") || knows("nomad-headman-talk")) nextStep = "Continue through the feast and hear what Hassad Ahwal has to say.";
       else if (knows("nomad-feast-invitation")) nextStep = "Accept the headman's feast invitation to speak with him further.";
       else if (knows("nomad-sentries")) nextStep = "Parlay with the nomads at the camp so you can speak with their headman.";
       else if (knows("nomad-swords-ready")) nextStep = "Press Enter to continue through the camp's warning, then choose Parlay when the nomads wait for your response.";
@@ -876,6 +877,11 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("WE WILL GIVE A FEAST IN YOUR HONOR")) {
     leads.push({ id: "nomad-feast-invitation", title: "The headman's invitation", detail: "The headman invited the party to a feast in its honor." });
+  }
+  if (text.includes("YOU ARE TREATED AS HONORED GUESTS FOR THE REST OF THE DAY") &&
+      text.includes("THERE ARE CONTESTS OF STRENGTH AND SKILL IN YOUR HONOR")) {
+    leads.push({ id: "nomad-feast-attended", title: "Honored guests at the Nomad Camp",
+      detail: "The party accepted the invitation and the nomads held contests of strength and skill in its honor." });
   }
   if (text.includes("YOU MAKE HASSAD AHWAL'S TALK ENTRY 55 IN YOUR JOURNAL")) {
     leads.push({ id: "nomad-headman-talk", title: "Hassad Ahwal's account", detail: "The headman described the region's dangers. The party recorded his account as journal entry 55." });
