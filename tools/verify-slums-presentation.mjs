@@ -5895,17 +5895,43 @@ try {
     console.log("Verified the Slums potion booth portrait and package dialogue in Chrome.");
   } else if (routeName === "slums-fortune") {
     const portrait = "portrait:HEAD2.DAX:25:BODY2.DAX:13";
+    const visions = [
+      [/BLOODANDVIOLENCEAREWRITBOLDLY/i, "slums-fortune-warning"],
+      [/APOWERFULONEBECOMESAWAREOFYOURDEEDS/i, "slums-fortune-power"],
+      [/THETIMEISNIGHWHENTHEPATHSYOUHAVETRODWILLEMPTY/i, "slums-fortune-riddle"],
+    ];
+    const knownVisions = () => frame.journal?.leads.map(({ id }) => id)
+      .filter((id) => visions.some(([, vision]) => id === vision));
+    const reading = (caller) => `portrait:area:20:ecl:b6df:caller:${caller}:HEAD2.DAX:25:BODY2.DAX:13`;
+    const verifyReading = async (caller, filename) => {
+      assert.equal(frame.portrait, reading(caller));
+      await waitFor("the fortune reading portrait", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector(".encounter-portrait")?.naturalWidth === 352 &&
+        document.querySelector(".encounter-portrait")?.naturalHeight === 352`));
+      await verifyPortraitPanel();
+      const capture = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, filename), Buffer.from(capture.data, "base64"));
+      await switchBothWays();
+    };
     for (const key of ["up", "enter"]) await advance(key);
     assert.equal(frame.portrait, portrait);
     await waitFor("the Slums fortune teller portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     await advance("j");
     assert.ok(frame.journal);
-    assert.ok(!frame.journal.leads.some(({ id }) => id === "slums-fortune-warning"));
-    for (const key of ["j", "p", "enter"]) await advance(key);
-    assert.equal(frame.portrait, portrait);
+    assert.deepEqual(knownVisions(), []);
+    for (const key of ["j", "p"]) await advance(key);
+    await verifyReading("a7fd", "fortune-transformation.png");
+    await advance("enter");
+    await verifyReading("a953", "fortune-prophecy.png");
+    const prophecy = frame.text.toSorted(([a], [b]) => a - b)
+      .map(([, char]) => String.fromCharCode(char)).join("").replace(/s/g, "");
+    const vision = visions.find(([cue]) => cue.test(prophecy))?.[1];
+    assert.ok(vision, "Native dialogue should identify the paid prophecy");
     await advance("j");
-    assert.ok(frame.journal?.leads.some(({ id }) => id === "slums-fortune-warning"));
+    assert.deepEqual(knownVisions(), [vision]);
+    for (const key of ["j", "enter"]) await advance(key);
+    assert.equal(frame.portrait, portrait);
     console.log("Verified the Slums fortune teller portrait and paid reading in Chrome.");
   } else if (koboldKingFall) {
     const reload = routeName.endsWith("-reload") || koboldThroneReturn || koboldCaveExit;
