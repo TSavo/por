@@ -4755,9 +4755,10 @@ try {
       .map(([, character]) => String.fromCharCode(character)).join("");
     if (searching) {
       assert.match(text, /INAPOUCHONTHEREMAINSISACRUMBLINGPARCHMENTSCROLL/i);
-      assert.equal(frame.portrait, scout);
+      const parchment = "portrait:area:21:ecl:ae31:caller:9bd0:PIC4.DAX:3:0:0";
+      assert.equal(frame.portrait, parchment);
       await advance("enter");
-      assert.notEqual(frame.portrait, scout);
+      assert.notEqual(frame.portrait, parchment);
       assert.match(frame.text.toSorted(([left], [right]) => left - right)
         .map(([, character]) => String.fromCharCode(character)).join(""), /THELASTPARTISEATENAWAY/i);
       assert.ok(frame.text.every(([cell]) => {

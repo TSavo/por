@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:21:ecl:ae31:caller:9bd0:PIC4.DAX:3:0:0": "sokal-elven-parchment.png",
     "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0": "sokal-barracks-diary-clue.png",
     "combat:area:20:CPIC2.DAX:3:ecl:9f08": "slums-goblin-instructor-ready.png",
     "combat:area:20:CPIC2.DAX:131:ecl:9f08": "slums-goblin-instructor-strike.png",
