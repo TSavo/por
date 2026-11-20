@@ -1870,8 +1870,11 @@ and quay tiles across 16 live views and 1,936 placements.
 in the original swarm ambush.
 `new-phlan-temple-guard` checks the guard portrait when the temple
 turns visitors away, including full panel fit and mode switching.
-`new-phlan-jeweler` and `new-phlan-silver-shop` check that the shared
-merchant portrait fills the panel at both original shop prompts.
+`new-phlan-jeweler` checks the jewelry merchant at the original shop
+prompt. `new-phlan-silver-shop` checks the same merchant presenting
+silverware in a dedicated illustration, from the greeting through the
+Buy, View, Pool, Appraise, and Exit menu. Both Chrome replays check panel
+fit and display switching.
 `new-phlan-cleric-trainer` and `new-phlan-thieves-trainer` verify the
 class-specific training prompts, distinct portraits, and panel fit.
 `valjevo-fire-giant-dialogue` checks the barracks portrait at the

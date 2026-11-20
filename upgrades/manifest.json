@@ -3851,6 +3851,8 @@
     "combat:area:26:CPIC7.DAX:61": "lizard-wilds-stirge-stand.png",
     "combat:area:26:CPIC7.DAX:189": "lizard-wilds-stirge-strike.png",
     "portrait:HEAD3.DAX:63:BODY3.DAX:34": "new-phlan-jeweler.png",
+    "portrait:area:0:ecl:ae69:caller:a99e:HEAD3.DAX:63:BODY3.DAX:34": "new-phlan-silver-merchant.png",
+    "portrait:area:0:ecl:a9cf:HEAD3.DAX:63:BODY3.DAX:34": "new-phlan-silver-merchant.png",
     "portrait:HEAD3.DAX:8:BODY3.DAX:4": "new-phlan-temple-guard.png",
     "combat:area:26:CPIC7.DAX:68": "lizard-wilds-displacer-beast-stand.png",
     "combat:area:26:CPIC7.DAX:196": "lizard-wilds-displacer-beast-strike.png",

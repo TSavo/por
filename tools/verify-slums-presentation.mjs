@@ -1327,7 +1327,11 @@ const illustrationRoutes = new Map([
   }],
   ["new-phlan-silver-shop", {
     slot: "A", inputs: ["up", "enter"],
-    portrait: "portrait:HEAD3.DAX:63:BODY3.DAX:34", prompt: /THESHOPSELLSSILVERITEMS/i,
+    portrait: "portrait:area:0:ecl:ae69:caller:a99e:HEAD3.DAX:63:BODY3.DAX:34", prompt: /THESHOPSELLSSILVERITEMS/i,
+    continuation: {
+      inputs: ["y"], portrait: "portrait:area:0:ecl:a9cf:HEAD3.DAX:63:BODY3.DAX:34",
+      prompt: /BUYVIEWPOOLAPPRAISEEXIT/i,
+    },
   }],
   ["new-phlan-temple-guard", {
     slot: "A", inputs: ["up", "enter"],
