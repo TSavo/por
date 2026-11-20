@@ -3762,6 +3762,7 @@ routes.push("buccaneer-bivant-punch");
 routes.push("buccaneer-bivant-escort-combat");
 routes.push("buccaneer-bivant-purchase", "buccaneer-bivant-purchase-reload");
 routes.push("stojanow-wagon-handover-reload");
+routes.push("diogenes-upper-ledge-fireball-reload");
 routes.push("valhingen-crypt-scroll", "valhingen-crypt-scroll-reload");
 routes.push("valjevo-al-hyam-release", "valjevo-al-hyam-release-reload");
 routes.push("valjevo-cadorna-alarm-reload");
@@ -6121,6 +6122,13 @@ try {
     assert.ok(known.has("graveyard-crypt-sanctified"));
     assert.equal(known.has(scrollLead), !declineCryptScroll);
     console.log("Verified the Valhingen crypt illustration and scroll choice in Chrome. Native save:", saved);
+  } else if (routeName === "diogenes-upper-ledge-fireball-reload") {
+    await advance("j");
+    const known = new Set(frame.journal.leads.map(({ id }) => id));
+    assert.ok(known.has("diogenes-fireball") && known.has("diogenes-lair-empty"));
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified Diogenes's fireball and empty lair after reloading slot A in Chrome.");
   } else if (traderReload) {
     await advance("j");
     const known = new Set(frame.journal.leads.map(({ id }) => id));
@@ -6348,6 +6356,14 @@ try {
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead), "Expected witnessed dialogue lead");
+      if (routeName === "diogenes-upper-ledge-fireball") {
+        assert.ok(!frame.journal.leads.some(({ id }) => id === "diogenes-lair-empty"));
+        for (const key of ["j", "enter"]) await advance(key);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /AFTERRECOVERINGFROMTHEFIREBALLYOUSEARCHTHERESTOFTHELAIR/i);
+        assert.notEqual(frame.portrait, portrait);
+        await advance("j");
+        assert.ok(frame.journal?.leads.some(({ id }) => id === "diogenes-lair-empty"));
+      }
       if (routeName === "mendor-philosophy-stacks") {
         assert.ok(frame.journal.leads.some(({ id }) => id === "mendor-library-stacks"));
         assert.deepEqual(frame.journal.leads.filter(({ id }) => id.startsWith("mendor-stacks-")).map(({ id }) => id),
@@ -6367,6 +6383,13 @@ try {
         assert.match(frame.journal.objective.nextStep, /confront the king.*at the throne/i);
       }
       await advance("j");
+    }
+    if (routeName === "diogenes-upper-ledge-fireball") {
+      assert.deepEqual(readFileSync(saved), originalSave);
+      for (const key of ["enter", "enter", "i", "e", "enter", "s", "s", "a"]) await advance(key);
+      const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
+      assert.ok(known.has("diogenes-fireball") && known.has("diogenes-lair-empty"));
+      console.log("Native save after searching Diogenes's lair:", saved);
     }
     if (routeName === "stojanow-wagon-handover") {
       assert.deepEqual(readFileSync(saved), originalSave);
