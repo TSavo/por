@@ -3690,3 +3690,11 @@ departure narration, preserves the frame and save across display modes,
 and clears the illustration on arrival in civilized Phlan. The follow-up
 City Hall replay saves the final council turn-in and reloads the
 completed campaign journal.
+
+During the Valhingen vampire's retreat, Enhanced replaces the original
+standing picture with the vampire dissolving into vapor. The binding
+follows the native PIC frame so movement clears it even if the old
+dialogue is still visible. Chrome verified the artwork, clearance on
+turning, and save and state preservation across display switches. The
+local replay selected the original victory branch at the battle prompt
+to reach the transformation.
