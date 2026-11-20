@@ -3660,6 +3660,7 @@ routes.push("podal-infirmary-heal");
 routes.push("river-pumping-reload");
 routes.push("kobold-princess-fatima-reload");
 routes.push("kuto-norris-surrender-reload");
+routes.push("valjevo-forge-authorization-reload");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -3822,7 +3823,7 @@ const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneR
 const saveSlot = alHyamReload || ["sokal-floorboard-diary-reload", "valjevo-records-reload", "kobold-escort-arrival-reload"].includes(routeName) ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn ||
-    ["stojanow-wall-warning-reload", "kovel-chase-east-reload", "valhingen-first-arrival-reload"].includes(routeName) ? "B" : slot;
+    ["stojanow-wall-warning-reload", "kovel-chase-east-reload", "valhingen-first-arrival-reload", "valjevo-forge-authorization-reload"].includes(routeName) ? "B" : slot;
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", E: "1265", F: "2166", G: "2267", H: "2368", I: "1769", J: "246a" }[saveSlot];
 assert.ok(boot, `No BIOS key for save slot ${saveSlot} on route ${routeName}`);
 const saved = resolve(directory, saveSlot + ".json");
@@ -6547,6 +6548,15 @@ try {
     await waitFor("the Valhingen conjurer portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     console.log(`Verified the Valhingen conjurer portrait on ${routeName} in Chrome.`);
+  } else if (routeName === "valjevo-forge-authorization-reload") {
+    assert.equal(frame.portrait, undefined);
+    await advance("j");
+    for (const id of ["castle-forge", "castle-forge-authorization"]) {
+      assert.ok(frame.journal?.leads.some(lead => lead.id === id), `Missing saved clue: ${id}`);
+    }
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified both forge clues after reloading in Chrome.");
   } else if (forgeSmith) {
     const close = "encounter:area:6:ecl:a0d8:SPRIT5.DAX:12:0:0";
     await observeApproach([[56, 32, close, 24, 80]], false);
@@ -6586,6 +6596,18 @@ try {
         !document.querySelector(".encounter-portrait")`));
     }
     assert.deepEqual(readFileSync(saved), originalSave);
+    if (forgeAuthorization) {
+      const visible = () => frame.text.toSorted(([a], [b]) => a - b)
+        .map(([, character]) => String.fromCharCode(character)).join("");
+      for (let prompt = 0; prompt < 6 && !/AreaCastViewEncamp/i.test(visible()); prompt++) {
+        await advance(/CombatWaitFleeParlay/i.test(visible()) ? "f" : "enter");
+      }
+      assert.match(visible(), /AreaCastViewEncamp/i);
+      for (const key of ["e", "s", "s", "b"]) await advance(key);
+      const checkpoint = JSON.parse(readFileSync(saved, "utf8"));
+      assert.ok(checkpoint.leads?.some(lead => lead.id === "castle-forge-authorization"));
+      console.log("Forge authorization checkpoint:", saved);
+    }
     console.log(`Verified the forge smith portrait and ${routeName} dialogue in Chrome. Capture:`, directory);
   } else if (castleChaplain) {
     for (const key of ["up", "enter"]) await advance(key);

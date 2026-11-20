@@ -1580,6 +1580,10 @@ established it. Both Chrome replays verify state-preserving mode switches.
 the ready stance and reflected mace strike at 96×96. The forge replays
 `valjevo-forge-smith` and `valjevo-forge-authorization` check the 352×352
 portrait and its removal when each peaceful dialogue returns to exploration.
+The authorization replay leaves the encounter through Flee and saves
+through Encamp. `valjevo-forge-authorization-reload` loads the resulting slot B
+and checks that both the initial forge clue and the authorization advice
+survive reloading and switching display modes.
 `valjevo-genheeris-bargain` and `valjevo-genheeris-orders` verify the
 middle and near approach sprites, the 352×352 illustration, mode
 switching, and the distinct journal lead

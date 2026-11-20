@@ -39,6 +39,12 @@ identified portrait fallback per area in a browser session. Pass that
 JSONL or NDJSON file alongside any tile traces. The gallery lists the observed
 fallbacks with their candidate source IDs, area, and browser frame number.
 
+At Buccaneer Base, choosing **Punch Merchant** at Bivant's pen and
+stepping forward triggers a confirmed Enhanced portrait fallback at
+area 1, ECL cursor `a001`. The native composite uses `HEAD6.DAX:1`
+with body pixels matching `BODY6.DAX:1` and other body banks. The pen
+and guardroom artwork covers a different native guard.
+
 Set `POR_ENCOUNTER_TRACE_FILE` to a fresh JSONL path to diagnose approach
 sprites. The trace records when the original sprite's pixels match an
 installed encounter sprite in the same area but no binding matches the
