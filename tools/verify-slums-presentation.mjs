@@ -551,6 +551,17 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["textile-cadorna-confrontation", {
+    slot: "E",
+    inputs: ["right", "up", "up", "up", "right", "up", "left", "up", "right", ...Array(8).fill("up"),
+      "left", ...Array(6).fill("up"), "right", "up", "left", "up", "up", "up", "enter", "enter",
+      "l", ...Array(4).fill("left"), "down", "enter", "t", ...Array(3).fill("enter"),
+      ...Array(4).fill("up"), "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
+      "left", "up", "up", "left", "up"],
+    portrait: "scene-illustration:area:0:ecl:9b38", prompt: /COUNCILMANCADORNACONFRONTSYOU.*HESTRIDESOFF/i,
+    journalLead: "textile-confrontation", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["up"], prompt: /OUTSIDETHECLERK.SOFFICE/i, clearsPortrait: true },
+  }],
   ["valjevo-dragon-loot", {
     slot: "B", manualPolling: true,
     inputs: ["right", ...Array(4).fill("up"), ...Array(5).fill("enter"), ...Array(6).fill("a"),
@@ -3669,7 +3680,7 @@ const saveSlot = routeName === "sokal-floorboard-diary-reload" ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn ||
     ["stojanow-wall-warning-reload", "kovel-chase-east-reload"].includes(routeName) ? "B" : slot;
-const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", F: "2166", H: "2368", I: "1769", J: "246a" }[saveSlot];
+const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", E: "1265", F: "2166", H: "2368", I: "1769", J: "246a" }[saveSlot];
 const saved = resolve(directory, saveSlot + ".json");
 const battleTrace = process.env.POR_TRACE_BATTLE_TILES === "1"
   ? resolve(directory, "battle-tiles.jsonl") : undefined;

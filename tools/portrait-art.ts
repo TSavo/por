@@ -9,6 +9,7 @@ export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 export const scriptIllustrations = new Map<string, string | RegExp>([
+  ["scene-illustration:area:0:ecl:9b38", "COUNCILMANCADORNACONFRONTSYOU"],
   ["scene-illustration:area:2:ecl:abae", "YOUFINDAPAGEFROMADIARY"],
   ["scene-illustration:area:7:ecl:995f:caller:a8b2", "YOULEAVETHECASTLE.MOVINGTHROUGHTHESTREETS"],
   ["scene-illustration:area:7:ecl:a82d", /THESPIRITOFTYRANTHRAXUSFLARESUP|YOUHAVEBUTSLAINTHEBODYIPOSSESSED|NOLORDBANE!ICANSTILLRULEHERE/],
@@ -42,6 +43,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:23:ecl:9a04:caller:aed0", "AWARNINGTOANAGENT"],
   ["scene-illustration:area:23:ecl:9a04:caller:af04", "ANOTETOATRAPPER"],
   ["scene-illustration:area:23:ecl:9a04:caller:a855", "YOUHEARANENORMOUSEXPLOSION"],
+  ["scene-illustration:area:31:ecl:b0b5", "YOUFINDAPIECEOFPAPERONTHEFLOORINTHEROOM.YOUPLACEITINYOURJOURNALUNDERENTRY53"],
 ]);
 export function matchScriptIllustration(context: string, dialogue: string, installed: readonly string[]) {
   for (const [id, cue] of scriptIllustrations) {

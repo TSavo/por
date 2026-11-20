@@ -3972,3 +3972,8 @@ The `textile-diary-discovery` Chrome route checks the new Textile House
 illustration and Entry 11 journal lead when the party steps onto the diary
 square. The art follows the original narration through a turn and clears
 when exploration resumes. Display switching preserves the game and save.
+
+The `textile-cadorna-confrontation` Chrome route starts with the opened box
+checkpoint, takes the original ferry, and verifies Cadorna's City Hall
+confrontation illustration and journal lead. The illustration clears as
+the party walks on to the clerk's office.
