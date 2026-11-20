@@ -3761,3 +3761,9 @@ Enhanced artwork for all 32 ready-and-strike pairs per size. Chrome
 checked the final 18 editor combinations and both recolored Human
 robed-wand poses in a controlled battle. The inventory confirmed both
 masks for all 64 default combinations.
+
+The `sokal-password-patrol-departure` Chrome route follows Ferran's parley
+from a local slot F checkpoint, walks back to the patrol, and speaks
+Samosud. The standing guard portrait stays visible during the password
+prompt. Enhanced shows the undead retreat when they accept the word,
+then clears the art on the next step. Display switching preserves state.
