@@ -3536,11 +3536,13 @@ const envoy = routeName === "zhentil-envoy";
 const envoyEscape = routeName === "zhentil-escape";
 const councilReward = {
   "zhentil-reward": ["commission-zhentil", /CADORNAWASWAGERINGYOURRETURN/i],
-  "river-reward": ["commission-river", /CLEARINGOFTHESTOJONOWRIVER/i],
+  "river-reward": ["commission-river", /CLEARINGOFTHESTOJONOWRIVER/i,
+    { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:stojonow-river", xp: 34250 }],
   "swamp-reward": ["commission-lizardmen", /LIZARDMENMENACEHASGREATLYIMPROVED/i],
   "bivant-reward": ["commission-rescue", /BIVANTWASDELIGHTEDWITHTHECHILD.SRESCUE/i],
   "kobold-king-reward": ["commission-kobolds", /THISLOSSOFTHEKOBOLDFORCESWILLBEAMAJORBLOW/i],
-  "nomad-reward": ["commission-nomads", /WEWEREMUCHRELIEVEDBYTHENEWSYOUBRINGFROMTHENOMADCAMP/i],
+  "nomad-reward": ["commission-nomads", /WEWEREMUCHRELIEVEDBYTHENEWSYOUBRINGFROMTHENOMADCAMP/i,
+    { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp", xp: 5900 }],
   "bane-reward": ["commission-bane", /YOUMAYKEEPALLYOUFOUNDINTHETEMPLEOFBANE/i],
 }[routeName];
 const envoyReturn = routeName === "zhentil-return";
@@ -7292,7 +7294,7 @@ try {
     assert.equal(frame.journal.leads.find(({ id }) => id === "commission-records")?.status, "offered");
     console.log("Verified the clerk acknowledgment for Lex Geographica in Chrome.");
   } else if (councilReward) {
-    const [commission, originalDialogue] = councilReward;
+    const [commission, originalDialogue, art] = councilReward;
     const journalStatus = () => frame.journal?.leads.find(({ id }) => id === commission)?.status;
     await advance("j");
     assert.equal(journalStatus(), "ready-to-report");
@@ -7304,11 +7306,10 @@ try {
     if (routeName === "kobold-king-reward") assert.match(frame.journal.objective.nextStep, /tell the council clerk at City Hall that the king fell/);
     if (routeName === "nomad-reward") assert.match(frame.journal.objective.nextStep, /report what happened at the Nomad Camp/);
     for (const key of ["j", "right", "right", "up", "right", "right", "up", "enter", "enter"]) await advance(key);
-    if (routeName === "river-reward") {
-      const riverPortrait = "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:stojonow-river";
-      assert.equal(frame.portrait, riverPortrait);
-      await waitFor("the Stojonow River reward illustration", () => run(`
-        document.querySelector('.encounter-portrait[src="/art/${riverPortrait}"]')?.naturalWidth === 352`));
+    if (art) {
+      assert.equal(frame.portrait, art.portrait);
+      await waitFor("the council reward illustration", () => run(`
+        document.querySelector('.encounter-portrait[src="/art/${art.portrait}"]')?.naturalWidth === 352`));
       await switchBothWays();
       await verifyPortraitPanel();
     }
@@ -7319,9 +7320,9 @@ try {
     if (routeName === "bane-reward") assert.match(frame.journal.objective.nextStep, /keep the temple treasure.*Press Enter/);
     await advance("j");
     await advance("enter");
-    if (routeName === "river-reward") {
+    if (art) {
       assert.equal(frame.portrait, undefined);
-      assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /receives34250experiencepoints/i);
+      assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), new RegExp(`receives${art.xp}experiencepoints`, "i"));
     }
     for (const key of ["enter", "enter", "s", "e", "j"]) await advance(key);
     if (routeName === "bivant-reward") {

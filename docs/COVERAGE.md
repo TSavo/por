@@ -3854,3 +3854,7 @@ Azure Skirmisher Chrome replay, the first 100 terrain-backed matcher calls
 had a median of 39.7 ms, down from 133.8 ms with the same 3,200 candidates.
 Chrome verified both combat poses and representative bald Small editor
 choices after the optimization.
+
+The `nomad-reward` Chrome route checks the clerk receiving the Nomad
+Camp report, the original 5,900 XP reward, and the journal turn-in.
+The route starts from a local City Hall checkpoint ready to report.
