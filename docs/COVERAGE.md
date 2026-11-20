@@ -3280,6 +3280,9 @@ native boulder attack report.
 The same maze patrol uses the existing outer-patrol captain sprites for
 its longsword fighter. Chrome verified the reflected ready pose and
 strike at their native positions and checked the combat report.
+The Forge patrol uses the same captain and boulder-throwing giant.
+Separate Chrome replays verified both fighters' ready and attack poses
+and the original combat reports in the Forge encounter.
 
 North Phlan's crossroads has a dedicated illustration for the City,
 Graveyard, and Leave prompt. Chrome verified each route and the display
