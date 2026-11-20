@@ -7093,8 +7093,12 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified and saved the Stojanow wall warning and bugbear confrontation in Chrome:", outcome);
   } else if (routeName === "stojanow-bugbears") {
-    const route = ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left", "up", "a", "enter", "enter"];
+    const route = ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left", "up", "a", "j"];
     for (const key of route) await advance(key);
+    const clues = new Set(frame.journal?.leads.map(({ id }) => id));
+    assert.ok(clues.has("gate-tower-warning") && clues.has("gate-bugbear-punch"));
+    assert.ok(!clues.has("gate-bugbears-let-go") && !clues.has("gate-bugbear-ambush"));
+    for (const key of ["j", "enter", "enter"]) await advance(key);
     const standing = "combat:area:9:CPIC2.DAX:63";
     const attack = "combat:area:9:CPIC2.DAX:191";
     const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")].filter(img =>
