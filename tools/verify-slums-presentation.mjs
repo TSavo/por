@@ -961,6 +961,13 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:3:PIC5.DAX:60:0:0", prompt: /YOUSEEGIANTSNAKES/i,
     continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i },
   }],
+  ["stojanow-gate-first-sight", {
+    slot: "A", inputs: ["up", "up", "up", "enter"],
+    portraitStops: { 3: "scene-illustration:area:9:ecl:9c63:caller:aa57" },
+    portrait: "scene-illustration:area:9:ecl:9c63:caller:aabb", prompt: /THEMAINWALLRISES30FEET.*BUGBEARS/i,
+    journalLead: "gate-bugbear-lookouts", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["stojanow-wagon-final-offer", {
     slot: "B", inputs: ["up", "enter", "enter", "p", "n"],
     portrait: "portrait:area:9:ecl:aeef:HEAD2.DAX:5:BODY2.DAX:9",
@@ -6165,6 +6172,12 @@ try {
           assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-departure"));
           await advance("j");
         }
+        if (routeName === "stojanow-gate-first-sight" && interimPortrait) {
+          await advance("j");
+          assert.ok(frame.journal?.leads.some(({ id }) => id === "gate-spotted"));
+          assert.ok(!frame.journal.leads.some(({ id }) => id === "gate-bugbear-lookouts"));
+          await advance("j");
+        }
         if (routeName === "valhingen-vampire-trove" && interimPortrait === null) {
           await advance("j");
           assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead));
@@ -6261,6 +6274,9 @@ try {
         await advance("j");
         assert.ok(frame.journal);
         assert.equal(frame.journal.leads.some(({ id }) => id === journalLead), Boolean(illustration.journalLeadAtDiscovery));
+        if (routeName === "stojanow-gate-first-sight") {
+          assert.ok(frame.journal.leads.some(({ id }) => id === "gate-spotted"));
+        }
         if (routeName === "stojanow-wagon-handover") {
           assert.ok(frame.journal.leads.some(({ id }) => id === "gate-trader-deal"));
           assert.ok(!frame.journal.leads.some(({ id }) => id === "gate-trader-ettin-warning"));
