@@ -3363,6 +3363,14 @@ checkpoint selects the original sleeping branch by setting its alarm
 state. The replay checked that switching display modes preserved the
 game state and save.
 
+Production Chrome replays verified Restal's blindfold and seal offers
+through acceptance and refusal, and Cadorna's released portrait through
+both responses to his request to join. The Valjevo kitchen replay checks
+the warning, oil damage, and rescue illustration at their own prompts.
+The armoring giants replay checks both approach distances and the battle
+introduction. A separate waking giants replay checks the new near sprite
+between the existing middle pose and dialogue illustration.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
