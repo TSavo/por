@@ -4598,7 +4598,13 @@ try {
     assert.equal(frame.frame, rolfDialogue.frame);
     assert.deepEqual(frame.text, rolfDialogue.text);
     const tourPatterns = new Set();
-    for (let stop = 0; stop < 7; stop++) {
+    await advance("enter");
+    const templePortrait = "scene-illustration:area:0:ecl:af3f:caller:b256";
+    assert.equal(frame.portrait, templePortrait);
+    await waitFor("Rolf's Temple of Tyr illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${templePortrait}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    for (let stop = 1; stop < 7; stop++) {
       await advance("enter");
       assert.equal(frame.portrait, undefined);
       assert.equal(frame.perspective, true);
