@@ -6563,6 +6563,16 @@ try {
       await advance(key);
     }
     assert.equal(frame.portrait, "portrait:area:1:ecl:b5f7:caller:9eda:PIC6.DAX:42:0:0");
+    const alarm = "rescue-merchant-alarm";
+    await advance("j");
+    assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === alarm));
+    const openObjectives = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
+    const rescueIndex = openObjectives.findIndex(({ id }) => id === "commission-rescue");
+    assert.ok(rescueIndex >= 0);
+    await advance(`track ${rescueIndex + 1}`);
+    assert.equal(frame.journal.trackedId, "commission-rescue");
+    assert.doesNotMatch(frame.journal.objective.nextStep, /merchant called his guards/i);
+    await advance("j");
     for (const key of ["enter", "enter", "y", "enter", "up"]) await advance(key);
     const dialogue = frame.text.toSorted(([a], [b]) => a - b)
       .map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
@@ -6575,6 +6585,10 @@ try {
     await switchBothWays(frame.frame);
     const shot = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "bivant-punch-guards.png"), Buffer.from(shot.data, "base64"));
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === alarm));
+    assert.match(frame.journal.objective.nextStep, /merchant called his guards.*return to the slave pen/i);
+    await advance("j");
     for (const key of ["enter", "enter"]) await advance(key);
     assert.equal(frame.portrait, undefined);
     const ready = "combat:area:1:CPIC6.DAX:11:ecl:a002";

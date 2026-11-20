@@ -44,6 +44,8 @@ stepping forward brings up a dedicated 352×352 guard illustration at
 area 1, ECL cursor `a001`. The `buccaneer-bivant-punch` Chrome replay
 checks the preceding merchant portrait, the guard illustration's
 full-panel placement, and switching back to the original Classic frame.
+The tracked rescue objective records the alarm only after the party
+hears it and points back to the slave pen once the guards are dealt with.
 When combat starts, the original script advances to cursor `a002`.
 The ready and strike bindings at that cursor reuse the Enhanced
 Buccaneer sprites and match guards drawn over battlefield terrain.
