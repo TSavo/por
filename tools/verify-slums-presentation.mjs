@@ -3680,7 +3680,7 @@ routes.push("valjevo-cadorna-alarm-reload");
 routes.push("valjevo-records-revisit");
 routes.push("river-pumping-hostile");
 routes.push("river-return-reload");
-routes.push("swamp-reward-reload");
+routes.push("swamp-return", "swamp-reward-reload");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -3767,6 +3767,7 @@ const vampire = routeName === "graveyard-vampire";
 const wolves = routeName === "graveyard-wolves";
 const envoy = routeName === "zhentil-envoy";
 const envoyEscape = routeName === "zhentil-escape";
+const swampReturn = routeName === "swamp-return";
 const councilReward = {
   "zhentil-reward": ["commission-zhentil", /CADORNAWASWAGERINGYOURRETURN/i,
     { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:zhentil-envoy", xp: 12750 }],
@@ -3780,7 +3781,7 @@ const councilReward = {
   "nomad-reward": ["commission-nomads", /WEWEREMUCHRELIEVEDBYTHENEWSYOUBRINGFROMTHENOMADCAMP/i,
     { portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:nomad-camp", xp: 5900 }],
   "bane-reward": ["commission-bane", /YOUMAYKEEPALLYOUFOUNDINTHETEMPLEOFBANE/i],
-}[routeName];
+}[swampReturn ? "swamp-reward" : routeName];
 const envoyReturn = routeName === "zhentil-return";
 const riverApproach = routeName === "river-approach";
 const riverPassage = routeName === "river-passage";
@@ -8673,14 +8674,37 @@ try {
     const journalStatus = () => frame.journal?.leads.find(({ id }) => id === commission)?.status;
     await advance("j");
     assert.equal(journalStatus(), "ready-to-report");
-    if (routeName === "swamp-reward") {
+    if (commission === "commission-lizardmen") {
       assert.ok(frame.journal.leads.some(({ id }) => id === "swamp-alliance-averted"));
       assert.match(frame.journal.objective.nextStep, /elder's pledge/);
     }
     if (routeName === "bane-reward") assert.match(frame.journal.objective.nextStep, /journal entry 25/);
     if (routeName === "kobold-king-reward") assert.match(frame.journal.objective.nextStep, /tell the council clerk at City Hall that the king fell/);
     if (routeName === "nomad-reward") assert.match(frame.journal.objective.nextStep, /report what happened at the Nomad Camp/);
-    for (const key of ["j", "right", "right", "up", "right", "right", "up", "enter", "enter"]) await advance(key);
+    if (swampReturn) {
+      assert.match(frame.journal.objective.nextStep, /south drawbridge.*East Overland ferry/i);
+      const visibleText = () => frame.text.toSorted(([a], [b]) => a - b)
+        .map(([, character]) => String.fromCharCode(character)).join("");
+      for (const key of ["j", "right", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
+        "left", "up", "up", "up", "right", ...Array(6).fill("up"), "enter", "enter"]) await advance(key);
+      assert.match(visibleText(), /WILLYOUENTERTHERUINEDCASTLE/i);
+      for (const key of ["l", "enter", "enter"]) await advance(key);
+      assert.match(visibleText(), /37,8S/i);
+      for (const key of ["left", "left", ...Array(21).fill("down"), "enter"]) await advance(key);
+      assert.match(visibleText(), /35,29S.*TakeboatStay/i);
+      await switchBothWays();
+      for (const key of ["t", "enter", "enter", "right", ...Array(4).fill("up"),
+        "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
+        "left", "up", "up", "left", "up", "left", "up", "up", "enter"]) await advance(key);
+      for (const earlier of [/SUCCESSATPODALPLAZA/i, /CADORNAWASWAGERINGYOURRETURN/i]) {
+        if (!earlier.test(visibleText())) await advance("enter");
+        assert.match(visibleText(), earlier);
+        for (const key of ["enter", "enter", "enter", "s", "e"]) await advance(key);
+      }
+      if (!originalDialogue.test(visibleText())) await advance("enter");
+    } else {
+      for (const key of ["j", "right", "right", "up", "right", "right", "up", "enter", "enter"]) await advance(key);
+    }
     if (art) {
       assert.equal(frame.portrait, art.portrait);
       await waitFor("the council reward illustration", () => run(`
@@ -8692,13 +8716,14 @@ try {
     assert.equal(journalStatus(), "reward-pending");
     const clerkDialogue = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
     assert.match(clerkDialogue, originalDialogue);
-    if (routeName === "swamp-reward") assert.match(frame.journal.objective.nextStep, /choose Share to divide the coins, then Exit/i);
+    if (commission === "commission-lizardmen") assert.match(frame.journal.objective.nextStep, /choose Share to divide the coins, then Exit/i);
     if (routeName === "bane-reward") assert.match(frame.journal.objective.nextStep, /keep the temple treasure.*Press Enter/);
     await advance("j");
     await advance("enter");
     if (art) {
       assert.equal(frame.portrait, undefined);
-      assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), new RegExp(`receives${art.xp}experiencepoints`, "i"));
+      const xp = swampReturn ? 2960 : art.xp;
+      assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), new RegExp(`receives${xp}experiencepoints`, "i"));
     }
     for (const key of ["enter", "enter", "s", "e", "j"]) await advance(key);
     if (routeName === "bivant-reward") {
@@ -8710,6 +8735,7 @@ try {
       for (const key of [...Array(5).fill("t"), "e", "e", "j"]) await advance(key);
     }
     assert.equal(journalStatus(), "turned-in");
+    if (swampReturn) assert.deepEqual(readFileSync(saved), originalSave);
     if (routeName === "swamp-reward") {
       for (const key of ["j", "enter", "e", "s", "s", "a"]) await advance(key);
       const checkpoint = JSON.parse(readFileSync(saved, "utf8"));

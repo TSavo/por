@@ -1084,6 +1084,10 @@ from ready to report through reward pending to turned in.
 The pending objective tells the party how to share the reward.
 `swamp-reward-reload` reads the original save made at City Hall and
 verifies that the pledge and completed commission survive a cold load.
+`swamp-return` starts from the original save made after the controlled
+duel. It follows the south drawbridge, takes the East Overland ferry at
+`35,29`, and brings the same party to City Hall. Chrome verifies the
+lizardfolk reward after the clerk settles two earlier commissions.
 
 The `buccaneer-approach` Chrome replay starts from a controlled
 overland save with the Bivant commission tracked. It verifies the new

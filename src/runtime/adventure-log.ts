@@ -174,7 +174,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
         }
       }
       if (commission.id === "lizardmen" && tracked.status === "ready-to-report" && knows("swamp-alliance-averted")) {
-        return { title: commission.title, nextStep: "Return to the council clerk and report the elder's pledge that his people will stay out of Tyranthraxus's alliance." };
+        return { title: commission.title, nextStep: "If you're still at Lizardman Keep, leave through the south drawbridge. From the keep's overland entrance, head two squares west, then south to the East Overland ferry. Back in New Phlan, report the elder's pledge to the council clerk." };
       }
       if (commission.id === "lizardmen" && tracked.status === "reward-pending") {
         return { title: commission.title, nextStep: "Finish accepting the council reward. In the treasure menu, choose Share to divide the coins, then Exit." };
