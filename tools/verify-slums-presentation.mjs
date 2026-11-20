@@ -6395,12 +6395,19 @@ try {
     assert.ok(frame.journal?.leads.some(({ id }) => id === "kobold-fatima-join-offer"));
     assert.ok(!frame.journal.leads.some(({ id }) => id === "kobold-fatima-left"));
     for (const key of ["j", declineFatima ? "n" : "y"]) await advance(key);
-    assert.equal(frame.portrait, declineFatima ? fatima : undefined);
+    if (declineFatima) {
       const farewell = "scene-illustration:area:13:ecl:a8d8";
       assert.equal(frame.portrait, farewell);
-    if (declineFatima) {
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /GOODHUNTING.*SHELEAVES/i);
+      await waitFor("Fatima's farewell illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${farewell}"]')?.naturalWidth === 352 &&
+        document.querySelector('.encounter-portrait[src="/art/${farewell}"]')?.naturalHeight === 352`));
+      await verifyPortraitPanel();
+      const farewellShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "fatima-farewell.png"), Buffer.from(farewellShot.data, "base64"));
+      await switchBothWays(frame.frame);
     } else {
+      assert.equal(frame.portrait, undefined);
       await waitFor("Fatima's offer to clear", () => run(`state.sequence === ${frame.sequence} &&
         !document.querySelector(".encounter-portrait")`));
     }
@@ -6408,6 +6415,12 @@ try {
     assert.equal(/PRINCESSFATIMA/i.test(roster), !declineFatima);
     await advance("j");
     assert.equal(frame.journal?.leads.some(({ id }) => id === "kobold-fatima-left"), declineFatima);
+    if (declineFatima) {
+      for (const key of ["j", "up"]) await advance(key);
+      assert.equal(frame.portrait, undefined);
+      await waitFor("Fatima's farewell to clear on movement", () => run(`state.sequence === ${frame.sequence} &&
+        !document.querySelector('.encounter-portrait')`));
+    }
     console.log(`Verified Princess Fatima's illustrated offer, journal, and ${declineFatima ? "departure" : "recruitment"} in Chrome. Capture:`, directory);
   } else if (mendorStacks) {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
@@ -6415,12 +6428,6 @@ try {
     assert.ok(frame.journal && !knows("mendor-library-stacks"));
     for (const key of ["j", "up", "up", "right", "up", "up", "up", "right", "up", "j"]) await advance(key);
     assert.ok(knows("mendor-library-stacks"));
-    if (declineFatima) {
-      for (const key of ["j", "up"]) await advance(key);
-      assert.equal(frame.portrait, undefined);
-      await waitFor("Fatima's farewell to clear on movement", () => run(`state.sequence === ${frame.sequence} &&
-        !document.querySelector('.encounter-portrait')`));
-    }
     assert.ok(!frame.journal.leads.some(({ id }) => id.startsWith("mendor-book-")));
     await switchBothWays();
     console.log("Verified the witnessed library stacks clue in Chrome.");
