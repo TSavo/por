@@ -2162,6 +2162,7 @@ if (["--sokal-ferran-checkpoint", "--sokal-altar-checkpoint"].includes(process.a
     "j", (_text, frame) => {
       assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-return-pier"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-back-in-phlan"));
+      assert.match(frame.journal.objective.nextStep, /SAMOSUD.*south gate/i);
       assert.match(frame.journal.objective.nextStep, /choose Yes at the south pier/i);
     }, "j",
     "enter", "y", ...Array(4).fill("enter"),

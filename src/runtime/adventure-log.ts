@@ -132,10 +132,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
         if (knows("sokal-back-in-phlan")) {
           return { title: commission.title, nextStep: "From the New Phlan pier, follow the waterfront west toward City Hall. Enter and report to the council clerk that Sokal Keep is secured." };
         }
-        if (knows("sokal-return-pier")) {
-          return { title: commission.title, nextStep: "Choose Yes at the south pier to take the boat back to New Phlan, then report to the council clerk at City Hall." };
-        }
-        return { title: commission.title, nextStep: "Use Ferran's password, SAMOSUD, if the undead stop you. Leave through the south gate, take the boat to New Phlan, and report to the council clerk." };
+        const ferry = knows("sokal-return-pier") ? "Choose Yes at the south pier to take the boat to New Phlan." : "Take the boat to New Phlan.";
+        return { title: commission.title, nextStep: `Use Ferran's password, SAMOSUD, if the undead stop you. Leave through the south gate. ${ferry} Report to the council clerk at City Hall.` };
       }
       if (commission.id === "castle" && tracked.status === "ready-to-report") {
         return { title: commission.title, nextStep: "Back in New Phlan, head east from the west gate, then turn south into City Hall. Report Tyranthraxus's defeat to the council clerk." };
