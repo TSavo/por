@@ -34,6 +34,7 @@ const atlasSheets = (JSON.parse(readFileSync(new URL("../src/maps/atlas.json", i
   return { ...sheet, ...dimensions, preview: relative(output, path).replaceAll("\\", "/") };
 });
 mkdirSync(join(output, "sheets"), { recursive: true });
+mkdirSync(join(output, "frames"), { recursive: true });
 
 interface Block {
   id: number;
@@ -585,12 +586,19 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\
     const remainingFrames = unlinkedFrames.filter(({ id }) => !pixelMatchedIds.has(id)).map(source => {
       const picture = classicPicture(file, source.directoryIndex, source.member);
       const pixels = frameSlice(picture, source.frame);
+      let preview = source.preview;
+      if (picture.itemCount > 1) {
+        const original = new Frame(picture.width, picture.height);
+        original.blit(pixels, picture.width, picture.height, 0, 0);
+        preview = `frames/${source.id.replaceAll(":", "-")}.png`;
+        writeFileSync(join(output, preview), encodePng(original));
+      }
       const scopedCandidates = file.startsWith("CPIC") && source.member === 0 && picture.itemCount === 1
         ? (monsterPosesByPixels.get(monsterPoseSignature(file, source.directoryIndex)) ?? [])
           .filter(({ id }) => id.startsWith("combat:area:"))
           .map(({ id, preview }) => ({ id, preview }))
         : [];
-      return { ...source, uniform: pixels.every(color => color === pixels[0]), scopedCandidates };
+      return { ...source, preview, uniform: pixels.every(color => color === pixels[0]), scopedCandidates };
     });
     return { file, frames, matched: frames - unlinkedFrames.length, pixelMatchedFrames, unlinkedFrames: remainingFrames };
   }).filter(({ frames }) => frames > 0);
@@ -683,13 +691,13 @@ ${encounterCoverage.flatMap(({ pixelMatchedFrames }) => pixelMatchedFrames).map(
 <details><summary>Unlinked source frames · ${encounterTotals.remaining}</summary>
 <p>${encounterTotals.uniformUnlinked} unlinked frames are solid-color images.</p>
 ${encounterTotals.withScopedCandidates ? `<p>${encounterTotals.withScopedCandidates} unlinked combat frames have identical source pixels in an encounter with replacement art. Verify the actor and encounter before reusing those sprites.</p>` : ""}
-<p>Each source ID contains the archive, directory entry, member, and zero-based frame number. The preview opens the source sheet. Some archive frames may have no verified in-game use.</p>
+<p>Each source ID contains the archive, directory entry, member, and zero-based frame number. Open a frame to see it at its native dimensions. Some archive frames may have no verified in-game use.</p>
 ${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({ file, unlinkedFrames }) =>
   `<details id="unlinked-archive-${escape(file)}"><summary>${escape(file)} · ${unlinkedFrames.length}</summary>
   <table class="coverage-table"><thead><tr><th>Source ID</th><th>Block</th><th>4× target</th><th>Preview</th></tr></thead><tbody>
   ${unlinkedFrames.map(({ id, block, width, height, preview, uniform, scopedCandidates }) =>
     `<tr><th scope="row"><code>${escape(id)}</code></th><td>${block}</td><td>${width}×${height}</td>
-    <td><a href="${escape(preview)}" target="_blank" rel="noopener">Source sheet</a>${uniform ? " · Solid color" : ""}
+    <td><a href="${escape(preview)}" target="_blank" rel="noopener">Source frame</a>${uniform ? " · Solid color" : ""}
     ${scopedCandidates.length ? `<details><summary>Scoped reuse candidates (${scopedCandidates.length})</summary>${
       scopedCandidates.map(({ id, preview }) => `<div><a href="${escape(preview)}"><code>${escape(id)}</code></a></div>`).join("")
     }</details>` : ""}</td></tr>`).join("")}
