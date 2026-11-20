@@ -3732,3 +3732,8 @@ The first Tyrmor prompt now shows the stripped body by itself. Chrome
 verified that searching then swaps to the book illustration, and that
 walking in without Search shows the body without revealing the book
 or adding its clue. The replay uses the local slot B approach fixture.
+
+Shield-and-dagger and shield-and-mace keep both Enhanced poses in Small
+and Human sizes when recolored. Chrome verified both Body and Shield
+channels and Hair in the native editor, plus the saved Human mace poses
+in a controlled combat replay.
