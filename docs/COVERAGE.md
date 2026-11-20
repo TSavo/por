@@ -923,6 +923,13 @@ The Valhingen journal now uses witnessed clues for the lair, stairs, vampire
 escape, and northern wall. The original ECL text and completion flag are
 covered by the translation verifier. The vampire browser replay verifies
 that the stairs clue appears only after the party sees the stairs.
+The `valhingen-crypt-scroll` replay approaches the black marble crypt at
+`12,4 E` from slot A. Chrome checks the full-panel illustration at discovery,
+at the reading prompt, and at the Entry 43 confirmation when the party
+reads the scroll. The default and `--decline` variants both sanctify the
+coffin and save through Encamp. Use the printed save path with
+`valhingen-crypt-scroll-reload` and the same option. Chrome verifies that
+both saves retain sanctification and only the Read save retains Entry 43.
 
 Old Phlan's northern gate has 56 individual 32×32 terrain assets. The
 `north-gate-rampart`, `north-gate-quarter`, and `north-gate-houses` routes use
