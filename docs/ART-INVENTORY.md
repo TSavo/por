@@ -521,3 +521,7 @@ source-frame breakdown shown in the HTML inventory. Each family reports
 direct links, exact pixel matches, and unlinked frames. These counts
 describe archive frames. Use route traces to establish which unlinked
 frames the game actually displays.
+
+Scripted scene illustrations report their dialogue cue in the HTML and
+JSON exports. The asset ID identifies the native ECL scope and the cue
+identifies the specific moment within that scope.

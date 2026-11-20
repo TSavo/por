@@ -291,8 +291,9 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
     return entry ? [{ ...part, directoryIndex: entry.directoryIndex, member: 0 }] : [];
   });
   const area = /^(?:tile|combat:area|portrait:area|scene-illustration:area):(\d+):/.exec(id)?.[1];
+  const scriptCue = scriptIllustrations.get(id)?.toString();
   const placement = metadata.encounter
-    ?? (id.startsWith("portrait:") || scriptIllustrations.has(id)
+    ?? (id.startsWith("portrait:") || scriptCue !== undefined
       ? { x: 8, y: 8, width: 120, height: 120, ...(area !== undefined && { area: Number(area) }) }
       : sheetPart && source ? { x: 224, y: sheetPart[2] === "HEAD" ? 8 : 48, width: metadata.width / artScale, height: metadata.height / artScale }
       : id === "scene:title" || id === "scene:publisher" ? { x: 0, y: 0, width: 320, height: 200 }
@@ -330,7 +331,7 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
     original.pixels.set(capture.pixels);
     classicPreview = exportClassicFrame(original, index);
   }
-  return { id, preview, classicPreview, source, sourceCandidates, sourceParts, placement, capturedPlacement, ...metadata };
+  return { id, preview, classicPreview, source, sourceCandidates, sourceParts, scriptCue, placement, capturedPlacement, ...metadata };
 });
 const replacementsByBlock = new Map<string, typeof replacements>();
 const monsterPosesBySource = new Map<string, typeof replacements>();
@@ -422,7 +423,7 @@ for (const replacement of replacements) {
   matches.push(replacement);
   replacementsByBlock.set(key, matches);
 }
-function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source, sourceParts, sourceCandidates, capturedPlacement, reflected }: typeof replacements[number]) {
+function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source, sourceParts, sourceCandidates, scriptCue, capturedPlacement, reflected }: typeof replacements[number]) {
   const area = placement && "area" in placement ? ` · area ${placement.area}` : "";
   const origin = placement && "x" in placement ? ` · origin (${placement.x}, ${placement.y})` : "";
   const extent = placement && "width" in placement ? ` · display ${placement.width}×${placement.height}` : "";
@@ -435,6 +436,7 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
     `<small>${escape(file)}${reflected ? " · reflected in game" : ""}${source ? ` · member ${source.member}, frame ${source.frame}` : ""}</small>` +
     (source?.transform ? `<small>Native source transform · ${source.transform === "flip-x" ? "horizontal reflection" : "transpose"} of ${escape(source.archive)} #${source.block}</small>` : "") +
     (sourceParts?.length ? `<small>${sourceParts.map(({ archive, block }) => `${escape(archive)} #${block}`).join(" + ")}</small>` : "") +
+    (scriptCue ? `<small>Dialogue cue <code>${escape(scriptCue)}</code></small>` : "") +
     (capturedPlacement ? `<small>Captured at (${capturedPlacement.x}, ${capturedPlacement.y}) · ${escape(capturedPlacement.trace)} frame ${capturedPlacement.frame}</small>` : "") +
     (sourceCandidates ? `<details class="sources"><summary>Exact pixel matches (${sourceCandidates.length})</summary>` +
       sourceCandidates.map(({ archive, block, member, frame }) =>
