@@ -3298,6 +3298,10 @@ North, South, Boat, and Leave, plus the separate western control.
 Two further replays verified the Buccaneer Wilderness tiger and giant
 mantis approach sprites and both transitions into native combat.
 
+West Phlan's crossroads shows the paths to Podal Plaza and the Textile
+Complex. Chrome verified both entrances and Leave, with a control replay
+confirming that the northern crossroads uses its own illustration.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the
