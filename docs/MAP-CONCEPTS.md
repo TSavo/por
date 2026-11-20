@@ -106,6 +106,13 @@ Locked doors, combat, and decisions hand control back to the player.
 The atlas shows interior and underground plates as the party discovers
 them during play.
 
+To replay Valhingen's first arrival from the North Gate checkpoint at
+`4,0 S`, turn north with Down and move through the gate with Up. Press
+Enter twice to reach the outskirts menu, select Graveyard, then press
+Enter for the thunder scene at `0,4 E`. The next Enter reveals the
+graveyard in a flash of lightning. This route was verified with the
+unmodified North Gate save.
+
 Run the `phlan-outskirts-*` Chrome replays with `--map-destination` to check
 named arrivals or with `--map-travel` to check the approach menus.
 The `moonsea-sokal-free`, `moonsea-sokal-fare`, and `moonsea-sokal-decline`
