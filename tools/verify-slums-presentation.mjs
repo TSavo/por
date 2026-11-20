@@ -547,6 +547,15 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-chaplain-fireball", {
+    slot: "B", inputs: ["up", "enter", "enter", "l"],
+    portrait: "portrait:area:6:ecl:9b14:caller:a62f:HEAD5.DAX:14:BODY5.DAX:7",
+    prompt: /AFIREBALLEXPLODES/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:6:ecl:a63a:HEAD5.DAX:14:BODY5.DAX:7",
+      prompt: /ISHITFOR15POINTSOFDAMAGE/i,
+    },
+  }],
   ["valjevo-chaplain-blessing", {
     slot: "B", inputs: ["up", "enter", "enter", "a"],
     portrait: "portrait:area:6:ecl:9b14:caller:a530:HEAD5.DAX:14:BODY5.DAX:7",
