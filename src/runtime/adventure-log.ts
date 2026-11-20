@@ -312,10 +312,11 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     if (commission.id === "kovel") {
       for (const { id } of leads) nextStep = kovelObjectives.get(id) ?? nextStep;
     }
-    if (commission.id === "graveyard") {
+    if (commission.id === "graveyard" || commission.id === "bottle-vampire") {
       if (knows("graveyard-vampire-north-wall")) nextStep = "Search the northern wall the mystic pointed out, then confront the vampire.";
       else if (knows("graveyard-vampire-escaped")) nextStep = "The vampire escaped as vapor. Search the crypts for where it fled.";
       else if (knows("graveyard-vampire-stairs")) nextStep = "Return to the wooden stairs in the graveyard and choose Yes to descend into the pit.";
+      else if (commission.id === "bottle-vampire" && knows("graveyard-vampire-location")) nextStep = "Go to the northeast corner of Valhingen Graveyard. Use the bottle when you confront the vampire.";
       else if (knows("graveyard-vampire-location")) nextStep = "Search the northeast corner of Valhingen Graveyard for the vampire's lair.";
     }
     if (commission.id === "river") {
@@ -395,9 +396,6 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("zhentil-packet-delivered")) nextStep = "Follow the guard on the commandant's tour of the outpost.";
       else if (knows("zhentil-envoy-challenge")) nextStep = "Answer Yes when asked if you are the diplomatic envoys. Present the sealed packet to the commandant.";
       else if (knows("zhentil-sealed-packet")) nextStep = "Travel west to Zhentil Outpost and present the packet to its commandant with the seals intact.";
-    }
-    if (commission.id === "bottle-vampire" && knows("graveyard-vampire-location")) {
-      nextStep = "Go to the northeast corner of Valhingen Graveyard. Use the bottle when you confront the vampire.";
     }
     if (commission.id === "castle") {
       if (knows("castle-vote")) nextStep = "Choose Attack when each party member is asked to vote. Then defeat Tyranthraxus.";

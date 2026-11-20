@@ -748,13 +748,17 @@ function checkCampaignJournal(): void {
     ["THE VAMPIRE IS BEHIND THE NORTHERN WALL", "Search the northern wall"],
   ] as const;
   let graveyardTranscript = graveyardOffer;
+  let bottleTranscript = vampireOffer;
   for (const [trigger, step] of graveyardStages) {
     const witnessed = lines.find(line => line.includes(trigger));
-    if (!witnessed || currentObjective(discoveredLeads(graveyardTranscript), "commission-graveyard").nextStep.includes(step)) {
+    if (!witnessed || currentObjective(discoveredLeads(graveyardTranscript), "commission-graveyard").nextStep.includes(step) ||
+        currentObjective(discoveredLeads(bottleTranscript), "commission-bottle-vampire").nextStep.includes(step)) {
       throw new Error(`The graveyard journal revealed a clue before ${trigger}`);
     }
     graveyardTranscript += "\n" + witnessed;
-    if (!currentObjective(discoveredLeads(graveyardTranscript), "commission-graveyard").nextStep.includes(step)) {
+    bottleTranscript += "\n" + witnessed;
+    if (!currentObjective(discoveredLeads(graveyardTranscript), "commission-graveyard").nextStep.includes(step) ||
+        !currentObjective(discoveredLeads(bottleTranscript), "commission-bottle-vampire").nextStep.includes(step)) {
       throw new Error(`The graveyard journal did not update after ${trigger}`);
     }
   }
