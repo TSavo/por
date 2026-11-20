@@ -3558,3 +3558,8 @@ that selects the neutral roaming zombie branch.
 The same Parlay menu retains the Enhanced wight and skeleton portraits.
 Chrome verified the stance choices and display switching for both
 from controlled roaming checkpoints.
+
+At the Temple of Bane, the patrol Parlay menu keeps the Enhanced outdoor
+portrait for goblins, orcs, hobgoblins, and ogres. Chrome verified the
+original stance choices, the loaded portrait, and mode switching for
+each species through the patrol's spotted branch in controlled replays.
