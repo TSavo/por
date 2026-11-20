@@ -752,13 +752,14 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 }
 
 /** Leads sourced from witnessed dialogue, with no inferred quest state. */
-const rescueLeadDetails = new Map([
+const journalLeadDetails = new Map([
   ["rescue-captain-price", "The captain offered to sell the captive boy. Choose Buy the Boy to accept the deal."],
   ["rescue-heir-purchased", "The captain brought him to the party after the deal. Escort the boy out through the base gate."],
+  ["kuto-well-waterline-door", "A door stands ajar above the water in the south wall. Choose No to stay below, then turn south and step through the door. Yes climbs back up."],
 ]);
 
 export function refreshJournalLead(lead: JournalLead): JournalLead {
-  const detail = rescueLeadDetails.get(lead.id);
+  const detail = journalLeadDetails.get(lead.id);
   return detail === undefined || detail === lead.detail ? lead : { ...lead, detail };
 }
 
@@ -809,7 +810,11 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("JUST ABOVE THE WATERLINE, A SECRET DOOR HAS BEEN LEFT AJAR IN THE SOUTH WALL OF THE WELL")) {
     leads.push({ id: "kuto-well-waterline-door", title: "A secret door in the Kuto well",
-      detail: "A door stands ajar above the water in the south wall. Choose Yes at the rungs prompt to climb back up." });
+      detail: journalLeadDetails.get("kuto-well-waterline-door")! });
+  }
+  if (text.includes("YOU PASS INTO HIDDEN CATACOMBS") && text.includes("CURTAINS HUNG TO COVER DOORWAYS")) {
+    leads.push({ id: "kuto-hidden-catacombs", title: "Hidden catacombs under Kuto",
+      detail: "The party entered a torchlit room where curtains cover the doorways." });
   }
   if (text.includes("THESE ARE THE LIBRARY STACKS. OLD AND MOLDERING BOOKS ARE STORED ON SHELVES")) {
     leads.push({ id: "mendor-library-stacks", title: "Mendor's library stacks",
@@ -1126,10 +1131,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "rescue-escape-alarm", title: "The alarm sounded", detail: "The front gate is the way out of the compound." });
   }
   if (text.includes("I CAN LET YOU BUY THE YOUNG BOY")) {
-    leads.push({ id: "rescue-captain-price", title: "The captain named a price", detail: rescueLeadDetails.get("rescue-captain-price")! });
+    leads.push({ id: "rescue-captain-price", title: "The captain named a price", detail: journalLeadDetails.get("rescue-captain-price")! });
   }
   if (text.includes("AFTER TALKING THE CAPTAIN MAKES A MOTION AND THE BOY IS BROUGHT TO YOU")) {
-    leads.push({ id: "rescue-heir-purchased", title: "The boy is in the party's care", detail: rescueLeadDetails.get("rescue-heir-purchased")! });
+    leads.push({ id: "rescue-heir-purchased", title: "The boy is in the party's care", detail: journalLeadDetails.get("rescue-heir-purchased")! });
   }
   if (text.includes("THE YOUNG BOY COULD NOT KEEP UP AND WAS LEFT BEHIND")) {
     leads.push({ id: "rescue-heir-left-behind", title: "The boy was left behind", detail: "The party fled the fight, and the boy could not keep up." });
