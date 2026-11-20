@@ -507,6 +507,8 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["wild-cave-three-boars-charge.png", ["Three adult boars are separately recognizable", "The boars charge toward the party down the cave passage"]],
   ["pyramid-left-secret-door.png", ["A distinct stone door and threshold in the left wall", "The main corridor still leads forward"]],
   ["valjevo-laundry-disguise-offer.png", ["A woman offers a bundle of clothes directly to the party", "The clothes are still in her hands while the offer awaits an answer"]],
+  ["valjevo-laundry-workers-retreat.png", ["A tub and wet clothes establish the laundry", "The frightened workers have backed into a corner"]],
+  ["valjevo-laundry-spokeswoman.png", ["The half-orc woman steps forward to address the party", "Her companions remain behind her in the same laundry"]],
   ["valjevo-tyranthraxus-reveal.png", ["An ancient bronze dragon with prominent swept-back horns", "The glowing pool at the base of the dragon"]],
   ["valjevo-tyranthraxus-offer.png", ["Tyranthraxus addresses the party across the pool", "The party is visible as the audience for the offer"]],
   ["valjevo-tyranthraxus-attack.png", ["The same bronze dragon lunges at the party", "The attack reads before the switch to the battlefield"]],
