@@ -6768,6 +6768,7 @@ try {
     const known = new Set(frame.journal.leads.map(({ id }) => id));
     assert.ok(known.has("rescue-captain-price") && known.has("rescue-heir-purchased"));
     assert.ok(!known.has("rescue-heir-freed") && !known.has("rescue-heir-left-behind"));
+    assert.match(frame.journal.leads.find(({ id }) => id === "rescue-heir-purchased").detail, /escort the boy out through the base gate/i);
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the peaceful Bivant purchase after reloading slot A in Chrome.");
@@ -6781,6 +6782,7 @@ try {
     assert.equal(frame.portrait, "portrait:area:1:HEAD6.DAX:9:BODY6.DAX:5");
     await advance("j");
     assert.ok(knows(price) && !knows(purchase));
+    assert.match(frame.journal.leads.find(({ id }) => id === price).detail, /choose buy the boy/i);
     for (const key of ["j", "b"]) await advance(key);
     const handoff = "scene-illustration:area:1:ecl:b5f7:caller:af4c";
     assert.equal(frame.portrait, handoff);
@@ -6793,6 +6795,7 @@ try {
     writeFileSync(resolve(directory, "buccaneer-bivant-purchase.png"), Buffer.from(shot.data, "base64"));
     await advance("j");
     assert.ok(knows(purchase) && !knows("rescue-heir-left-behind"));
+    assert.match(frame.journal.leads.find(({ id }) => id === purchase).detail, /escort the boy out through the base gate/i);
     for (const key of ["j", "enter"]) await advance(key);
     assert.equal(frame.portrait, undefined);
     assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /YOUAREESCORTEDBACKOUTSIDE/i);

@@ -743,6 +743,16 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
 }
 
 /** Leads sourced from witnessed dialogue, with no inferred quest state. */
+const rescueLeadDetails = new Map([
+  ["rescue-captain-price", "The captain offered to sell the captive boy. Choose Buy the Boy to accept the deal."],
+  ["rescue-heir-purchased", "The captain brought him to the party after the deal. Escort the boy out through the base gate."],
+]);
+
+export function refreshJournalLead(lead: JournalLead): JournalLead {
+  const detail = rescueLeadDetails.get(lead.id);
+  return detail === undefined || detail === lead.detail ? lead : { ...lead, detail };
+}
+
 export function discoveredLeads(transcript: string): JournalLead[] {
   const text = transcript.replace(/\s+/g, " ").toUpperCase();
   const leads: JournalLead[] = [];
@@ -1097,10 +1107,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "rescue-escape-alarm", title: "The alarm sounded", detail: "The front gate is the way out of the compound." });
   }
   if (text.includes("I CAN LET YOU BUY THE YOUNG BOY")) {
-    leads.push({ id: "rescue-captain-price", title: "The captain named a price", detail: "The captain offered to sell the captive boy." });
+    leads.push({ id: "rescue-captain-price", title: "The captain named a price", detail: rescueLeadDetails.get("rescue-captain-price")! });
   }
   if (text.includes("AFTER TALKING THE CAPTAIN MAKES A MOTION AND THE BOY IS BROUGHT TO YOU")) {
-    leads.push({ id: "rescue-heir-purchased", title: "The boy is in the party's care", detail: "The captain brought him to the party after the deal." });
+    leads.push({ id: "rescue-heir-purchased", title: "The boy is in the party's care", detail: rescueLeadDetails.get("rescue-heir-purchased")! });
   }
   if (text.includes("THE YOUNG BOY COULD NOT KEEP UP AND WAS LEFT BEHIND")) {
     leads.push({ id: "rescue-heir-left-behind", title: "The boy was left behind", detail: "The party fled the fight, and the boy could not keep up." });

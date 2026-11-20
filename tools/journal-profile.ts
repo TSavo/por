@@ -1,6 +1,6 @@
 import { readFileSync, renameSync, writeFileSync } from "node:fs";
 import { randomUUID } from "node:crypto";
-import { discoveredLeads, type JournalLead } from "../src/runtime/adventure-log.js";
+import { discoveredLeads, refreshJournalLead, type JournalLead } from "../src/runtime/adventure-log.js";
 
 const statusRank = { offered: 1, accepted: 2, "ready-to-report": 3, "reward-pending": 4, "turned-in": 5 };
 
@@ -21,7 +21,7 @@ export function openJournalProfile(path?: string) {
         if (typeof lead?.id !== "string" || typeof lead.title !== "string" || typeof lead.detail !== "string") {
           throw new Error("Invalid lead in journal profile");
         }
-        leads.set(lead.id, lead);
+        leads.set(lead.id, refreshJournalLead(lead));
       }
     }
   }
@@ -57,7 +57,7 @@ export function openJournalProfile(path?: string) {
   return Object.assign(update, {
     restore(saved: readonly JournalLead[]) {
       leads.clear();
-      for (const lead of saved) leads.set(lead.id, lead);
+      for (const lead of saved) leads.set(lead.id, refreshJournalLead(lead));
       path = undefined;
     },
   });
