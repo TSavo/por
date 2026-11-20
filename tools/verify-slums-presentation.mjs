@@ -5243,6 +5243,10 @@ try {
     assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "kobold-fatima-account"));
     for (const key of ["j", "up", "enter"]) await advance(key);
     await waitFor("Fatima’s enhanced approach", () => run(`window.observedApproach.has(${JSON.stringify(approach)})`));
+    const firstMeeting = "portrait:area:13:ecl:b511:caller:a7cd:HEAD8.DAX:67:BODY8.DAX:37";
+    assert.equal(frame.portrait, firstMeeting);
+    await waitFor("Fatima's first meeting illustration", () => run(
+      `document.querySelector('.encounter-portrait[src="/art/${firstMeeting}"]')?.naturalWidth === 352`));
     await advance("enter");
     assert.equal(frame.portrait, fatima);
     await waitFor("Princess Fatima's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
@@ -5474,7 +5478,14 @@ try {
     await waitFor("Cadorna's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
     const heardHedge = captiveHedge || captiveAlarm;
-    if (heardHedge) for (const key of ["l", "enter", "l", "enter", "l", "enter"]) await advance(key);
+    if (heardHedge) {
+      for (const key of ["l", "enter", "l", "enter", "l"]) await advance(key);
+      const directions = "portrait:area:3:ecl:b0f6:PIC5.DAX:7:0:0";
+      assert.equal(frame.portrait, directions);
+      await waitFor("Cadorna's hedge directions illustration", () => run(
+        `document.querySelector('.encounter-portrait[src="/art/${directions}"]')?.naturalWidth === 352`));
+      await advance("enter");
+    }
     if (captiveKilled) for (const key of ["k", "enter", "k"]) await advance(key);
     else await advance(captiveAlarm ? "l" : "r");
     await advance("j");
