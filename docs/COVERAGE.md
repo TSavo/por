@@ -3316,6 +3316,12 @@ rescue has a dedicated illustration inside the pen. Chrome verified
 Get Him and Leave from a controlled checkpoint and checked the separate
 outside-the-fence portrait from the original approach.
 
+The Buccaneer pen merchant has a dedicated illustration for his
+approach, offer, and decision menu. Chrome checked the portrait changes
+on the original route and the separate Bivant portraits both inside
+and outside the pen. An Eastern Marches replay verified the phase spider
+approach at (40, 32) and the transition into native combat.
+
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
 portrait. The approach binding is scoped to the jail script so the

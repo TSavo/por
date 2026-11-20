@@ -20,6 +20,9 @@
     "encounter:area:1:ecl:9abb:SPRIT6.DAX:16:0:0": "buccaneer-escort-interception-approach.png",
     "portrait:area:1:ecl:9b01:HEAD6.DAX:6:BODY6.DAX:3": "buccaneer-escort-interception-dialogue.png",
     "portrait:area:1:ecl:b52f:PIC6.DAX:42:0:0": "buccaneer-bivant-rescue.png",
+    "portrait:area:1:ecl:b5f7:caller:9eda:PIC6.DAX:42:0:0": "buccaneer-pen-merchant.png",
+    "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:0:0": "buccaneer-pen-merchant.png",
+    "portrait:area:1:ecl:9f5d:PIC6.DAX:42:0:0": "buccaneer-pen-merchant.png",
     "combat:area:2:CPIC2.DAX:6:ecl:9c9b": "textile-drum-court-guard-ready.png",
     "combat:area:2:CPIC2.DAX:134:ecl:9c9b": "textile-drum-court-guard-strike.png",
     "combat:area:2:CPIC2.DAX:7:ecl:9c9b": "textile-drum-court-leader-ready.png",
@@ -50,6 +53,7 @@
     "encounter:area:26:ecl:a230:SPRIT7.DAX:11:1:0": "lizard-wilds-nomad-scout-approach-middle.png",
     "encounter:area:26:ecl:a230:SPRIT7.DAX:61:1:0": "lizard-wilds-roaming-stirge-approach-middle.png",
     "encounter:area:26:ecl:a230:SPRIT7.DAX:68:1:0": "lizard-wilds-roaming-displacer-approach-middle.png",
+    "encounter:area:27:ecl:9ff0:SPRIT8.DAX:116:1:0": "eastern-marches-phase-spider-approach-middle.png",
     "encounter:area:25:ecl:a160:SPRIT6.DAX:67:1:0": "buccaneer-wilds-centaur-approach-middle.png",
     "encounter:area:25:ecl:a160:SPRIT6.DAX:10:1:0": "buccaneer-wilds-quickling-approach-middle.png",
     "encounter:area:25:ecl:a204:SPRIT6.DAX:16:1:0": "buccaneer-wilds-patrol-corporal-approach-middle.png",
@@ -5256,6 +5260,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:27:ecl:9ff0:SPRIT8.DAX:116:1:0": { "area": 27, "x": 40, "y": 32, "width": 56, "height": 73 },
     "encounter:area:25:ecl:a204:SPRIT6.DAX:118:1:0": { "area": 25, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:25:ecl:a204:SPRIT6.DAX:11:1:0": { "area": 25, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:25:ecl:a204:SPRIT6.DAX:120:1:0": { "area": 25, "x": 56, "y": 32, "width": 24, "height": 65 },
