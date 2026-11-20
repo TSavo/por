@@ -547,6 +547,12 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["tyranthraxus-battle-opening", {
+    slot: "B",
+    inputs: ["up", "up", ...Array(5).fill("enter"), ...Array(6).fill("a")],
+    portrait: "portrait:area:7:ecl:a803:PIC5.DAX:66:0:0",
+    prompt: /ABATTLEBEGINS/i,
+  }],
   ["valjevo-genheeris-deal-refused", {
     slot: "B", inputs: ["up", "enter", "enter", "a", "a", "p", "h", "enter", "n"],
     portrait: "portrait:area:7:ecl:a3ba:HEAD5.DAX:59:BODY5.DAX:31",
