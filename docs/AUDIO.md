@@ -111,14 +111,17 @@ attached only to the trigger; Enter may advance covered display pages while the
 same recording continues.
 
 `src/audio/voice-master-manifest.json` normalizes the complete review. It
-currently accounts for all 2,025 extracted events exactly once as 1,433 reviewed
+currently accounts for all 2,025 extracted events as 1,432 reviewed
 narration units plus interface/layout exclusions. Finite runtime strings are
-enumerated rather than synthesized during play: 43 dynamic families expand into
-329 selector-driven recordings, including distinct bugbear-party lines for
-KOBOLDS, GOBLINS, and ORCS. Five additional complete passages resolved by the
-manual static branch audit are also generated. Thirty-six genuinely runtime-only families remain
-explicitly unresolved and fall back to displayed text. Rebuild and validate the
-master with `npm run voice-master-manifest` and `npm run verify-voice-master`.
+enumerated for 68 dynamic families with 373 distinct prerecorded clips. These
+include the Slums and Kuto's Well encounter menus, Podol Plaza patrols, the
+Valhingen undead, and the Valjevo giant patrol. Identical passages can share a
+recording. Four Kobold Caves passages include their complete journal references.
+Ten families still display text alone. Seven use party-member names, two echo a
+typed password, and one combines a computed enemy count with a creature name.
+Rebuild the finite variants with `npx tsx tools/build-dynamic-voice-resolution.ts`
+using the original game data. Rebuild and validate the master with
+`npm run voice-master-manifest` and `npm run verify-voice-master`.
 
 The approved narrator is the saved ElevenLabs Voice Design identity recorded in
 `src/audio/narrator-voice-design.json`. Production uses `eleven_v4` to create
@@ -147,7 +150,7 @@ checks every queued MP3/transcript pair, exact text, signatures, duplicates, and
 pending generation. Original town dialogue that bypasses the ECL interpreter is
 matched from the exact text sent to the guest display and uses the same complete
 Eleven v4 narrator recordings; the complete initial Rolf tour is covered by eight passages.
-The production inventory currently verifies all 1,688 queued
+The production inventory currently verifies all 1,733 queued
 recordings complete, with zero pending, failed, duplicate, or untracked outputs.
 On November 18, 2026, Chrome verified Enhanced activation,
 subtitle playback, the independent audio controls, and state-preserving return

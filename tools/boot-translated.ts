@@ -18,11 +18,11 @@ import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { callTrace, disposeHits, dosAssigns, farCall, farCallObservers, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
-import { installProgram, loadedSlices, overlayCallObservers } from "../src/runtime/overlay.js";
+import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
 import { registerTranslated } from "../src/translated/register.js";
 import { ovl07_0353 } from "../src/translated/ovl07.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
-import { EclNarrationObserver, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
+import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 
 const root = findGameRoot();
 if (!root) throw new Error("Pool of Radiance game data not found");
@@ -189,13 +189,19 @@ const cpu = fresh(input?.requestKey, (name, data, written) => slotClosed(name, d
 const soundTracePath = process.env.POR_SOUND_TRACE;
 const browserSound = process.env.POR_BROWSER_PLAY === "1";
 let narrationObserver: EclNarrationObserver | undefined;
+const eclTextHandlers: boolean[] = [];
 if (browserSound) {
   const manifest = JSON.parse(readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url), "utf8")) as ObserverManifest;
   const narration = new EclNarrationObserver(manifest);
-  overlayCallObservers.set(cpu, ({ sliceIndex, procedure }) => {
-    const event = narration.observe(cpu, sliceIndex, procedure);
+  cpu.onEclInstruction = entering => {
+    if (!entering) {
+      eclTextHandlers.pop();
+      return;
+    }
+    eclTextHandlers.push(eclTextOpcodes.has(cpu.read8(cpu.ds, 0x6d45)));
+    const event = narration.observe(cpu);
     if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
-  });
+  };
   narrationObserver = narration;
 }
 const soundRecorder = soundTracePath || browserSound ? new OriginalSoundTraceRecorder(cpu, browserSound
@@ -295,8 +301,9 @@ adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || browserSound || liveAt 
       // Capture the seal's state before the original menu can resolve the offer.
       if (message.includes("WE CAN DUPLICATE THE SEAL ON THAT CHEST")) journal();
       if (!browserSound) return;
-      console.log(`POR_TEXT ${JSON.stringify({ step: cpu.steps, message })}`);
-      const event = narrationObserver?.observeRenderedText(cpu, message);
+      const fromEclText = eclTextHandlers.at(-1) === true;
+      console.log(`POR_TEXT ${JSON.stringify({ step: cpu.steps, message, fromEclText })}`);
+      const event = fromEclText ? narrationObserver?.observeRenderedText(cpu, message) : undefined;
       if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
     })
   : undefined;

@@ -49,18 +49,18 @@ const realCatalog = new NarrationCatalog(realManifest);
 const observer = new EclNarrationObserver(realManifest);
 const cpu = new Cpu();
 cpu.ds = 0x0740;
-cpu.ss = 0x0800;
-cpu.sp = 0x0200;
-cpu.write16(cpu.ss, cpu.sp + 4, 4);
-cpu.write8(cpu.ds, 0x52d4, 21);
-assert.equal(observer.observe(cpu, 7, 0x0353), undefined);
+cpu.write8(cpu.ds, 0x52d4, 4);
+cpu.write8(cpu.ds, 0x82a2, 21);
 const bufferSegment = 0x0900;
 const bufferOffset = 0x0100;
+const variableSegment = 0x2000;
+const variableOffset = (address: number) => (address * 2 - 0x2e00) & 0xffff;
 cpu.write16(cpu.ds, 0x493f, bufferOffset);
 cpu.write16(cpu.ds, 0x4941, bufferSegment);
-cpu.write16(cpu.ds, 0x494e, 0xa973);
+cpu.write16(cpu.ds, 0x493d, variableSegment);
+cpu.write16(cpu.ds, 0x494e, 0xa972);
 cpu.write8(bufferSegment, (bufferOffset + 0xa972 + 0x6700) & 0xffff, 0x12);
-const sokalEvent = observer.observe(cpu, 7, 0x0423);
+const sokalEvent = observer.observe(cpu);
 assert.equal(sokalEvent?.sourceId, "por.review.ecl-4.block-21.at-a972");
 assert.equal(sokalEvent?.archive, "ECL4.DAX");
 assert.equal(sokalEvent?.block, 21);
@@ -78,9 +78,9 @@ if (sokalResolution.status === "resolved") {
 console.log("verified real Sokal ECL observation and enhanced-only narration queueing");
 
 // Authored menu text is observed at its exact operand and resolves normally.
-cpu.write16(cpu.ds, 0x494e, 0xaa0b);
+cpu.write16(cpu.ds, 0x494e, 0xaa0a);
 cpu.write8(bufferSegment, (bufferOffset + 0xaa0a + 0x6700) & 0xffff, 0x29);
-const menuEvent = observer.observe(cpu, 7, 0x0423);
+const menuEvent = observer.observe(cpu);
 assert.equal(menuEvent?.sourceId, "por.review.ecl-4.block-21.at-aa0a");
 assert.equal(menuEvent?.operand, 9);
 assert.equal(menuEvent?.sourceOperandId, "por.review.ecl-4.block-21.at-aa0a.operand-9");
@@ -88,23 +88,20 @@ assert.equal(realCatalog.resolve(menuEvent!).status, "resolved");
 
 // A later print covered by an earlier joined narration unit is identified but
 // suppressed by the catalog instead of attaching a second audio clip.
-cpu.write16(cpu.ds, 0x494e, 0xa17b);
+cpu.write16(cpu.ds, 0x494e, 0xa17a);
 cpu.write8(bufferSegment, (bufferOffset + 0xa17a + 0x6700) & 0xffff, 0x11);
-const continuationEvent = observer.observe(cpu, 7, 0x0423);
+const continuationEvent = observer.observe(cpu);
 assert.equal(continuationEvent?.sourceId, "por.review.ecl-4.block-21.at-a17a");
 assert.equal(realCatalog.resolve(continuationEvent!).status, "continuation");
 
-// Finite dynamic selectors are read from the original ECL Pascal-string slot.
-cpu.write16(cpu.ss, cpu.sp + 4, 2);
-cpu.write8(cpu.ds, 0x52d4, 20);
-observer.observe(cpu, 7, 0x0353);
-cpu.write16(cpu.ds, 0x494e, 0x9c2b);
+// ECL SAVE writes zero-terminated bytes. The display converts them to a Pascal string.
+cpu.write8(cpu.ds, 0x52d4, 2);
+cpu.write8(cpu.ds, 0x82a2, 20);
+cpu.write16(cpu.ds, 0x494e, 0x9c2a);
 cpu.write8(bufferSegment, (bufferOffset + 0x9c2a + 0x6700) & 0xffff, 0x12);
-const dynamicOffset = (bufferOffset + 0x9890 + 0x6700) & 0xffff;
 const orcs = " ORCS. ";
-cpu.write8(bufferSegment, dynamicOffset, orcs.length);
-for (let index = 0; index < orcs.length; index++) cpu.write8(bufferSegment, dynamicOffset + 1 + index, orcs.charCodeAt(index));
-const realDynamicEvent = observer.observe(cpu, 7, 0x0423);
+for (const [index, byte] of Buffer.from(`${orcs}\0`, "ascii").entries()) cpu.write16(variableSegment, variableOffset(0x9890 + index), byte);
+const realDynamicEvent = observer.observe(cpu);
 assert.equal(realDynamicEvent?.dynamicValue, orcs);
 const realDynamicResolution = realCatalog.resolve(realDynamicEvent!);
 assert.equal(realDynamicResolution.status, "resolved");
@@ -115,25 +112,33 @@ console.log("verified authored-menu operands, continuation suppression, and real
 // explicit silent paths, menu output operands, and decisions only known later.
 const selectObserver = new EclNarrationObserver(realManifest);
 const selectCpu = new Cpu();
-selectCpu.ds = 0x0740; selectCpu.ss = 0x0800; selectCpu.sp = 0x0200;
+selectCpu.ds = 0x0740;
 selectCpu.write16(selectCpu.ds, 0x493f, bufferOffset);
 selectCpu.write16(selectCpu.ds, 0x4941, bufferSegment);
+selectCpu.write16(selectCpu.ds, 0x493d, variableSegment);
+const globalSegment = 0x3000;
+const localSegment = 0x4000;
+selectCpu.write16(selectCpu.ds, 0x4935, globalSegment);
+selectCpu.write16(selectCpu.ds, 0x4939, localSegment);
+const storeGlobal = (address: number, value: number) => selectCpu.write16(globalSegment, (0x6e00 + address * 2) & 0xffff, value);
 const loadBlock = (archive: number, block: number) => {
-  selectCpu.write16(selectCpu.ss, selectCpu.sp + 4, archive);
-  selectCpu.write8(selectCpu.ds, 0x52d4, block);
-  selectObserver.observe(selectCpu, 7, 0x0353);
+  selectCpu.write8(selectCpu.ds, 0x52d4, archive);
+  selectCpu.write8(selectCpu.ds, 0x82a2, block);
 };
 const reach = (address: number, opcode: number) => {
-  selectCpu.write16(selectCpu.ds, 0x494e, address + 1);
+  selectCpu.write16(selectCpu.ds, 0x494e, address);
   selectCpu.write8(bufferSegment, (bufferOffset + address + 0x6700) & 0xffff, opcode);
-  return selectObserver.observe(selectCpu, 7, 0x0423);
+  return selectObserver.observe(selectCpu);
+};
+const storeEclString = (address: number, value: string) => {
+  for (const [index, byte] of Buffer.from(`${value}\0`, "ascii").entries()) selectCpu.write16(variableSegment, variableOffset(address + index), byte);
 };
 loadBlock(4, 2);
-selectCpu.write8(selectCpu.ds, 0x6e7b, 255);
+selectCpu.write16(localSegment, (0x6e7b * 2 + 0x2a00) & 0xffff, 255);
 assert.equal(reach(0x9f6a, 0x12)?.unitId, "ecl4-b2-9f6a-9fca-9ff2-skullcrusher-present", "at-trigger memory selector");
 
 loadBlock(1, 18);
-selectCpu.write8(selectCpu.ds, 0x4a36, 0);
+storeGlobal(0x4a36, 0);
 const staticRecording = reach(0xa14a, 0x12);
 assert.equal(staticRecording?.unitId, "ecl1-b18-a14a-a165-a169-a197");
 const staticResolution = realCatalog.resolve(staticRecording!);
@@ -141,8 +146,16 @@ assert.equal(staticResolution.status, "resolved", "a statically selected passage
 if (staticResolution.status === "resolved") assert.match(staticResolution.narration.asset, /static-resolved\/ecl1-b18-a14a/);
 
 loadBlock(5, 3);
-selectCpu.write8(selectCpu.ds, 0x4a6a, 0);
-selectCpu.write8(selectCpu.ds, 0x4a65, 1);
+storeEclString(0x980e, "A PATROL OF GIANTS LED BY A HUMAN FIGHTER");
+storeGlobal(0x4a6a, 1);
+const patrol = realCatalog.resolve(reach(0x9d1f, 0x12)!);
+assert.equal(patrol.status, "resolved");
+if (patrol.status === "resolved") {
+  assert.match(patrol.narration.text, /^YOU SEE A PATROL /);
+  assert.match(patrol.narration.text, /SACRILEGIOUS SCUM/);
+}
+storeGlobal(0x4a6a, 0);
+storeGlobal(0x4a65, 1);
 assert.equal(reach(0x9d1f, 0x12), undefined, "action:none must be explicitly silent");
 assert.equal(reach(0x9df1, 0x29), undefined, "menu narration waits for the rendered operand");
 assert.equal(selectObserver.observeMenuOperand(selectCpu, 10)?.unitId, "por.voice.ecl5.b3-9df1-operand-10");
@@ -157,5 +170,49 @@ assert.equal(reach(0x9a81, 0x12), undefined, "deferred opening must not play ear
 const deferredEvent = reach(0x9aef, 0x11);
 assert.equal(deferredEvent?.sourceId, "por.review.ecl-7.block-22.at-9a81");
 assert.equal(deferredEvent?.unitId, "por.voice.ecl7.b22-9a81-9aef");
-assert.equal(reach(0x9aef, 0x11), undefined, "deferred passage must queue exactly once");
+assert.equal(realCatalog.resolve(reach(0x9aef, 0x11)!).status, "continuation", "deferred passage must queue exactly once");
 console.log("verified real immediate, explicit-none, selected-menu-operand, and deferred selectors");
+
+loadBlock(3, 0);
+assert.equal(reach(0xa413, 0x12), undefined, "the tavern tale number is rolled after the opening print");
+selectCpu.write16(localSegment, (0x6e7e * 2 + 0x2a00) & 0xffff, 17);
+const tale = realCatalog.resolve(reach(0xa438, 0x11)!);
+assert.equal(tale.status, "resolved");
+if (tale.status === "resolved") assert.match(tale.narration.text, /TAVERN TALE 17$/);
+
+for (const [archive, block, slot, menuAddresses] of [
+  [2, 20, 0x982c, [0x9cc5, 0x9d1d, 0x9d7e, 0x9dde]],
+  [4, 10, 0x9890, [0xb4e9]],
+  [8, 29, 0x982c, [0xa500, 0xa56b, 0xa5c4, 0xa627]]
+] as const) {
+  for (const address of menuAddresses) {
+    const trigger = `por.review.ecl-${archive}.block-${block}.at-${address.toString(16)}`;
+    const variants = realManifest.units.find(unit => unit.triggerSourceId === trigger)?.runtimeVariants;
+    assert.equal(variants?.length, 3);
+    for (const variant of variants!) {
+      loadBlock(archive, block);
+      storeEclString(slot, variant.dynamicValue);
+      assert.equal(reach(address, 0x29), undefined, "do not speak until the menu draws the authored message");
+      assert.equal(selectObserver.observeRenderedText(selectCpu, "THE MONSTERS PREPARE"), undefined);
+      const event = selectObserver.observeRenderedText(selectCpu, variant.text);
+      assert.equal(event?.operand, 9);
+      assert.deepEqual(realCatalog.resolve(event!), { status: "resolved", narration: {
+        unitId: event!.unitId, variantId: variant.id, triggerSourceId: trigger,
+        coveredSourceIds: [trigger], asset: variant.asset, text: variant.text
+      } });
+      assert.equal(selectObserver.observeRenderedText(selectCpu, variant.text), undefined, "rendering twice must not repeat narration");
+    }
+  }
+}
+console.log("verified all 27 assembled encounter menu variants wait for actual rendered text");
+
+for (const [entryAddress, number] of [[0x9b71, 42], [0xa713, 28], [0xa7f8, 16], [0xabaa, 20]] as const) {
+  loadBlock(8, 13);
+  const entrySource = `por.review.ecl-8.block-13.at-${entryAddress.toString(16)}`;
+  const unit = realManifest.units.find(unit => unit.coveredSourceIds.includes(entrySource))!;
+  assert.match(unit.spokenText, new RegExp(`UNDER ENTRY ${number}\\.`));
+  assert.equal(reach(0xb512, 0x11), undefined, "shared journal prefix cannot select an entry by itself");
+  const event = reach(entryAddress, 0x11);
+  if (number === 28) assert.equal(realCatalog.resolve(event!).status, "resolved");
+  else assert.equal(realCatalog.resolve(event!).status, "continuation", "already covered by the opening recording");
+}

@@ -30,6 +30,7 @@ export class Cpu {
   steps = 0;
   stepBudget = 0;
   onStepBudgetExceeded?: () => void;
+  onEclInstruction?: (entering: boolean) => void;
   ip = 0;
 
   tick(at: number): void {

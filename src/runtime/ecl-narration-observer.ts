@@ -26,24 +26,23 @@ const opcodeForInstruction: Record<string, number> = {
   "HORIZONTAL MENU": 0x2b,
   "PRINT RETURN": 0x33
 };
+export const eclTextOpcodes: ReadonlySet<number> = new Set(Object.values(opcodeForInstruction));
 
 /**
- * Observes the translated overlay dispatcher. Slice 7 procedure 0x0353 is the
- * original ECL loader: its word argument is the ECL archive number, and it
- * passes DS:52d4 as the DAX block number. DS:494e is the interpreter PC and
- * DS:493f is the loaded ECL buffer pointer (the original maps ECL 0x9900 to
- * buffer offset zero with the 0x6700 wraparound used by ovl07_0000).
+ * Observes the ECL interpreter before the opcode handler runs. DS:52d4 and
+ * DS:82a2 identify the current ECL archive and block. DS:494e points to the
+ * opcode in the loaded buffer at DS:493f, with ECL address 0x9900 at offset 0.
  */
 export class EclNarrationObserver {
   private archive: string | undefined;
   private block: number | undefined;
-  private lastDetectedKey: string | undefined;
   private readonly eventsByLocation = new Map<string, SourceEvent>();
   private readonly eventsById = new Map<string, SourceEvent>();
   private readonly unitsByTrigger = new Map<string, ObserverManifest["units"]>();
   private readonly selectorsByTrigger = new Map<string, StaticSelector>();
   private readonly deferred: StaticSelector[] = [];
   private pendingMenu: { selector: StaticSelector; event: SourceEvent } | undefined;
+  private pendingDynamicMenu: { event: EclNarrationEvent; text: string } | undefined;
 
   constructor(readonly manifest: ObserverManifest) {
     for (const event of manifest.events) {
@@ -55,33 +54,26 @@ export class EclNarrationObserver {
     for (const selector of manifest.staticSelectors ?? []) this.selectorsByTrigger.set(selector.triggerSourceId, selector);
   }
 
-  observe(cpu: Cpu, sliceIndex: number, procedure: number): EclNarrationEvent | undefined {
-    if (sliceIndex !== 7) { this.lastDetectedKey = undefined; return undefined; }
-    if (procedure === 0x0353) {
-      const archiveNumber = cpu.read16(cpu.ss, cpu.sp + 4) & 0xff;
-      const block = cpu.read8(cpu.ds, 0x52d4);
-      this.archive = `ECL${archiveNumber}.DAX`;
+  observe(cpu: Cpu): EclNarrationEvent | undefined {
+    const archive = `ECL${cpu.read8(cpu.ds, 0x52d4)}.DAX`;
+    const block = cpu.read8(cpu.ds, 0x82a2);
+    if (this.archive !== archive || this.block !== block) {
+      this.archive = archive;
       this.block = block;
-      this.lastDetectedKey = undefined;
       this.deferred.length = 0;
-      this.pendingMenu = undefined;
-      return undefined;
     }
-    if (!this.archive || this.block === undefined) return undefined;
-    const pc = cpu.read16(cpu.ds, 0x494e);
-    const addressNumber = (pc - 1) & 0xffff;
+    this.pendingMenu = undefined;
+    this.pendingDynamicMenu = undefined;
+    const addressNumber = cpu.read16(cpu.ds, 0x494e);
     const address = `0x${addressNumber.toString(16).padStart(4, "0")}`;
-    const event = this.eventsByLocation.get(`${this.archive}:${this.block}:${address}`);
-    if (!event) { this.lastDetectedKey = undefined; return undefined; }
+    const event = this.eventsByLocation.get(`${archive}:${block}:${address}`);
+    if (!event) return undefined;
     const expectedOpcode = opcodeForInstruction[event.source.instruction];
     if (expectedOpcode === undefined) return undefined;
     const bufferOffset = cpu.read16(cpu.ds, 0x493f);
     const bufferSegment = cpu.read16(cpu.ds, 0x4941);
     const opcodeOffset = (bufferOffset + addressNumber + 0x6700) & 0xffff;
     if (cpu.read8(bufferSegment, opcodeOffset) !== expectedOpcode) return undefined;
-    const detectedKey = `${event.sourceId}:${pc}`;
-    if (detectedKey === this.lastDetectedKey) return undefined;
-    this.lastDetectedKey = detectedKey;
 
     // An opening print whose branch is not yet knowable is deliberately silent.
     // The first mapped covered source resolves and consumes it exactly once.
@@ -111,14 +103,18 @@ export class EclNarrationObserver {
     }
 
     const candidates = this.unitsByTrigger.get(event.sourceId) ?? [];
-    const coveredIds = new Set(candidates.flatMap(unit => unit.coveredSourceIds));
-    const dynamicAddresses = new Set<string>();
-    for (const coveredId of coveredIds) {
-      const covered = this.eventsById.get(coveredId);
-      for (const part of covered?.outputParts ?? []) if (part.kind === "dynamic-string" && part.address) dynamicAddresses.add(part.address);
+    const [candidate] = candidates.length === 1 ? candidates : [];
+    const dynamicValue = this.readUnitDynamicValue(cpu, candidate);
+    if (event.source.instruction === "ENCOUNTER MENU" && candidate?.runtimeVariants?.length) {
+      const part = event.outputParts.find(part => part.kind === "dynamic-string");
+      if (part && dynamicValue !== undefined && candidate.runtimeVariants.some(variant => variant.dynamicValue === dynamicValue)) {
+        this.pendingDynamicMenu = {
+          event: this.makeEvent(cpu, event, { unitId: candidate.id, runtimeDynamicValue: dynamicValue }, part.operandIndex),
+          text: this.normalizeMenuText(dynamicValue)
+        };
+      }
+      return undefined;
     }
-    let dynamicValue: string | undefined;
-    if (dynamicAddresses.size === 1) dynamicValue = this.readEclString(cpu, [...dynamicAddresses][0]!);
     const literalOperands = event.outputParts.filter(part => part.kind === "literal" && part.rawText?.trim());
     const spoken = candidates.length === 1 ? candidates[0]!.spokenText.trim() : "";
     const matchingOperands = literalOperands.filter(part => spoken && part.rawText?.trim() === spoken);
@@ -146,20 +142,28 @@ export class EclNarrationObserver {
     return this.makeEvent(cpu, pending.event, selected, operandIndex);
   }
 
-  /** Resolve an ENCOUNTER MENU from the literal the original game actually drew. */
+  /** Resolve an ENCOUNTER MENU from the message the original game actually drew. */
   observeRenderedText(cpu: Cpu, message: string): EclNarrationEvent | undefined {
+    const rendered = this.normalizeMenuText(message);
+    if (this.pendingDynamicMenu?.text === rendered) {
+      const { event } = this.pendingDynamicMenu;
+      this.pendingDynamicMenu = undefined;
+      return { ...event, step: cpu.steps };
+    }
     const pending = this.pendingMenu;
     if (!pending) return undefined;
-    const normalize = (text: string) => text.replace(/\s+/g, " ").trim().toUpperCase();
-    const rendered = normalize(message);
     const part = pending.event.outputParts.find(candidate =>
-      candidate.operandIndex !== undefined && normalize(candidate.rawText ?? "") === rendered);
+      candidate.kind === "literal" && this.normalizeMenuText(candidate.rawText ?? "") === rendered);
     return part?.operandIndex === undefined ? undefined : this.observeMenuOperand(cpu, part.operandIndex);
   }
 
+  private normalizeMenuText(text: string): string { return text.replace(/\s+/g, " ").trim().toUpperCase(); }
+
   private makeEvent(cpu: Cpu, event: SourceEvent, selected: any, operand?: number): EclNarrationEvent {
+    const unit = this.unitsByTrigger.get(event.sourceId)?.find(unit => unit.id === selected.unitId);
+    const dynamicValue = selected.runtimeDynamicValue ?? this.readUnitDynamicValue(cpu, unit);
     return { sourceId: event.sourceId, unitId: selected.unitId,
-      ...(selected.runtimeDynamicValue === undefined ? {} : { dynamicValue: selected.runtimeDynamicValue }),
+      ...(dynamicValue === undefined ? {} : { dynamicValue }),
       archive: this.archive!, block: this.block!, address: event.source.address,
       ...(operand === undefined ? {} : { operand, sourceOperandId: `${event.sourceId}.operand-${operand}` }), step: cpu.steps };
   }
@@ -180,13 +184,13 @@ export class EclNarrationObserver {
     let value: number | string | undefined;
     const address = descriptor.address ?? descriptor.memoryAddress;
     if (["memory-u8", "memoryByte", "onGosubIndex", "ecl-memory-byte"].includes(descriptor.kind))
-      value = cpu.read8(cpu.ds, this.hex(address));
+      value = this.readEclValue(cpu, this.hex(address));
     else if (descriptor.kind === "ecl-string") {
-      value = this.readDsString(cpu, this.hex(address));
+      value = this.readEclString(cpu, address);
       if (descriptor.normalization === "trim-uppercase") value = value.trim().toUpperCase();
     } else if (descriptor.kind === "memoryComparison") {
-      const left = cpu.read8(cpu.ds, this.hex(descriptor.leftAddress));
-      const right = cpu.read8(cpu.ds, this.hex(descriptor.rightAddress));
+      const left = this.readEclValue(cpu, this.hex(descriptor.leftAddress));
+      const right = this.readEclValue(cpu, this.hex(descriptor.rightAddress));
       return entries.find((entry: any) => entry.when?.operator === "<=" ? left <= right : entry.when?.operator === ">" ? left > right : false);
     }
     return entries.find((entry: any) => this.conditionMatches(cpu, entry.when ?? entry, value));
@@ -197,7 +201,7 @@ export class EclNarrationObserver {
     if (condition.bitAnd) {
       if (!cpu) return false;
       const part = condition.bitAnd;
-      return this.conditionMatches(cpu, part, cpu.read8(cpu.ds, this.hex(part.address)) & part.mask);
+      return this.conditionMatches(cpu, part, this.readEclValue(cpu, this.hex(part.address)) & part.mask);
     }
     if (condition.equals !== undefined) return value === condition.equals;
     if (condition.notEquals !== undefined) return value !== condition.notEquals;
@@ -210,21 +214,46 @@ export class EclNarrationObserver {
 
   private hex(value: string): number { return Number.parseInt(value.slice(2), 16); }
 
-  private readDsString(cpu: Cpu, address: number): string {
-    const length = Math.min(cpu.read8(cpu.ds, address), 255);
-    let text = "";
-    for (let index = 0; index < length; index++) text += String.fromCharCode(cpu.read8(cpu.ds, address + 1 + index));
-    return text;
+  // ECL variable addresses index words, while scripts index bytes.
+  private eclStorage(cpu: Cpu, address: number): { segment: number; offset: number; stride: number } {
+    const region: [number, number, number] | undefined = address >= 0x4900 && address <= 0x4cff ? [0x4933, 0x6e00, 2]
+      : address >= 0x6b00 && address <= 0x6eff ? [0x4937, 0x2a00, 2]
+      : address >= 0x9700 && address <= 0x98ff ? [0x493b, -0x2e00, 2]
+      : address >= 0x9900 && address <= 0xb6ff ? [0x493f, 0x6700, 1]
+      : undefined;
+    if (!region) return { segment: cpu.ds, offset: address, stride: 1 };
+    const [pointer, bias, stride] = region;
+    return {
+      segment: cpu.read16(cpu.ds, pointer + 2),
+      offset: (cpu.read16(cpu.ds, pointer) + bias + address * stride) & 0xffff,
+      stride
+    };
+  }
+
+  private readEclValue(cpu: Cpu, address: number): number {
+    if (address >= 0xc04b && address <= 0xc04d) return cpu.read8(cpu.ds, 0x6a0b + address - 0xc04b);
+    const { segment, offset, stride } = this.eclStorage(cpu, address);
+    return stride === 2 ? cpu.read16(segment, offset) : cpu.read8(segment, offset);
+  }
+
+  private readUnitDynamicValue(cpu: Cpu, unit: ObserverManifest["units"][number] | undefined): string | undefined {
+    if (!unit?.runtimeVariants?.length) return undefined;
+    const parts = unit.coveredSourceIds.flatMap(id => (this.eventsById.get(id)?.outputParts ?? [])
+      .filter(part => part.kind === "dynamic-string" || part.kind === "dynamic-value"));
+    const [part] = parts;
+    if (!part?.address || parts.some(other => other.kind !== part.kind || other.address !== part.address)) return undefined;
+    return part.kind === "dynamic-string" ? this.readEclString(cpu, part.address) : String(this.readEclValue(cpu, this.hex(part.address)));
   }
 
   private readEclString(cpu: Cpu, address: string): string {
-    const eclAddress = Number.parseInt(address.slice(2), 16);
-    const bufferOffset = cpu.read16(cpu.ds, 0x493f);
-    const bufferSegment = cpu.read16(cpu.ds, 0x4941);
-    const offset = (bufferOffset + eclAddress + 0x6700) & 0xffff;
-    const length = Math.min(cpu.read8(bufferSegment, offset), 255);
+    const { segment, offset, stride } = this.eclStorage(cpu, this.hex(address));
+    // ECL SAVE writes zero-terminated characters, one per addressable slot.
     let text = "";
-    for (let index = 0; index < length; index++) text += String.fromCharCode(cpu.read8(bufferSegment, offset + 1 + index));
+    for (let index = 0; index < 255; index++) {
+      const byte = cpu.read8(segment, (offset + index * stride) & 0xffff);
+      if (byte === 0) break;
+      text += String.fromCharCode(byte);
+    }
     return text;
   }
 }

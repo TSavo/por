@@ -256,13 +256,13 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
     sounds.push({ id: ++soundId, index: sound.index, mode: sound.mode, step: sound.step });
     if (sounds.length > 64) sounds.shift();
   } else if (line.startsWith("POR_TEXT ")) {
-    const text = JSON.parse(line.slice("POR_TEXT ".length)) as { step: number; message: string };
-    messages.push({ id: ++textId, ...text });
+    const text = JSON.parse(line.slice("POR_TEXT ".length)) as { step: number; message: string; fromEclText?: boolean };
+    messages.push({ id: ++textId, step: text.step, message: text.message });
     if (messages.length > 64) messages.shift();
     const normalized = normalizeSpeech(text.message);
     const handledByExplicitVoice = explicitVoiceMatches.some(match => normalized.includes(match));
     const exact = [...new Map((exactTextNarrations.get(normalized) ?? []).map(unit => [unit.id, unit])).values()];
-    if (!handledByExplicitVoice && exact.length === 1) {
+    if (!text.fromEclText && !handledByExplicitVoice && exact.length === 1) {
       const unit = exact[0]!;
       narrations.push({ id: ++narrationId, step: text.step, unitId: unit.id,
         sourceId: unit.triggerSourceId, coveredSourceIds: unit.coveredSourceIds,

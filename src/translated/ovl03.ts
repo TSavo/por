@@ -36042,7 +36042,9 @@ export function ovl03_35db(m: Cpu): void {
         // 360f: call 0x32df
         m.tick(0x360f);
         m.push(0x3612);
+        m.onEclInstruction?.(true);
         nearCall(m, 0x32df);
+        m.onEclInstruction?.(false);
         ip = 0x3612;
         break;
       }

@@ -3,6 +3,15 @@
   "scope": ["ECL7.DAX", "ECL8.DAX"],
   "selectors": [
     {
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b512",
+      "resolution": "deferred-covered-source",
+      "selector": { "kind": "next-covered-source" },
+      "cases": [
+        { "sourceId": "por.review.ecl-8.block-13.at-a713", "unitId": "ecl8-b13-a713" }
+      ],
+      "evidence": "The four callers of 0xb512 print different literal entry numbers after returning. Only 0xa713 follows the separate barracks narration. The other three entries are already part of their own earlier recordings."
+    },
+    {
       "triggerSourceId": "por.review.ecl-7.block-17.at-9c26",
       "resolution": "at-trigger",
       "selector": { "kind": "ecl-memory-byte", "address": "0xc04d" },

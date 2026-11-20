@@ -20,6 +20,7 @@ interface QueueItem {
   sourceUnitId?: string;
   condition?: string;
   dynamicValue?: string;
+  aliases?: Array<{ id: string; sourceUnitId: string; condition: string; dynamicValue: string }>;
 }
 interface ReviewUnit {
   id: string;
@@ -82,11 +83,19 @@ const staticSelectors = staticSelectorSources.flatMap(source => {
 });
 const dynamicQueue = JSON.parse(readFileSync(new URL("dynamic-resolved-generation-queue.json", audio), "utf8")) as { items: QueueItem[] };
 const dynamicVariantsByUnit = new Map<string, QueueItem[]>();
+const dynamicIds = new Set<string>();
 for (const item of dynamicQueue.items) {
-  if (!item.sourceUnitId || !item.condition || item.dynamicValue === undefined) throw new Error(`invalid dynamic queue item ${item.id}`);
-  const variants = dynamicVariantsByUnit.get(item.sourceUnitId) ?? [];
-  variants.push(item);
-  dynamicVariantsByUnit.set(item.sourceUnitId, variants);
+  for (const binding of [item, ...(item.aliases ?? [])]) {
+    const { id, sourceUnitId, condition, dynamicValue } = binding;
+    if (!id || !sourceUnitId || !condition || dynamicValue === undefined || dynamicIds.has(id))
+      throw new Error(`invalid or duplicate dynamic queue item ${id}`);
+    dynamicIds.add(id);
+    const variants = dynamicVariantsByUnit.get(sourceUnitId) ?? [];
+    if (variants.some(variant => variant.dynamicValue === dynamicValue))
+      throw new Error(`duplicate dynamic selector for ${sourceUnitId}: ${JSON.stringify(dynamicValue)}`);
+    variants.push({ ...item, id, sourceUnitId, condition, dynamicValue });
+    dynamicVariantsByUnit.set(sourceUnitId, variants);
+  }
 }
 if (dynamicVariantsByUnit.size !== dynamicResolution.unitsResolvedToFiniteVariants)
   throw new Error(`finite dynamic family mismatch: ${dynamicVariantsByUnit.size} queued, ${dynamicResolution.unitsResolvedToFiniteVariants} resolved`);
@@ -141,6 +150,7 @@ const addUnit = (archive: string, unit: ReviewUnit) => {
 };
 for (const review of reviews) for (const unit of review.units) addUnit(review.archive, unit);
 for (const unit of sokal.units) addUnit("ECL4.DAX", unit);
+for (const id of dynamicVariantsByUnit.keys()) if (!unitIds.has(id)) throw new Error(`unknown dynamic unit ${id}`);
 
 const reviewedEventIds = new Set<string>();
 for (const review of reviews) {

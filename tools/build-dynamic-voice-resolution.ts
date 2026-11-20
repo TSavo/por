@@ -1,6 +1,9 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { parseDax } from "../src/lib/dax.js";
+import { readInstruction, scriptFromBlock } from "../src/lib/ecl.js";
+import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
-type Part = { kind?: string; address?: string; value?: number };
+type Part = { kind?: string; address?: string; value?: number; rawText?: string };
 type Unit = Record<string, unknown> & { id?: string; unitId?: string; status?: string; reviewStatus?: string; rawSourceTexts?: Array<{ outputParts?: Part[] }>; sourceTextParts?: Array<{ outputParts?: Part[] }>; sourceTexts?: Array<{ outputParts?: Part[] }>; coveredSourceIds?: string[] };
 const extraction = JSON.parse(readFileSync(new URL("../src/audio/voice-review-extraction.json", import.meta.url), "utf8")) as { events: Array<{ id: string; outputParts: Part[] }> };
 const extracted = new Map(extraction.events.map(event => [event.id, event.outputParts]));
@@ -19,8 +22,8 @@ const unresolved = reviews.flatMap(({ archive, units }) => units.flatMap(unit =>
 }));
 
 const slotSemantics = {
-  "0x6b00": { meaning: "selected party-member name", resolution: "runtime-only", reason: "Value comes from the player's save roster; the possible spelling is not bounded by original game data.", strategy: "Keep withheld unless runtime synthesis or recorded generic fallback is explicitly approved." },
-  "0x6e79": { meaning: "player-entered input string in the unresolved voice unit", resolution: "runtime-only", reason: "For the affected unit it is the six-character password just typed by the player.", strategy: "Keep confirmation unvoiced or use runtime synthesis; never pre-render guessed inputs." },
+  "0x6b00": { meaning: "selected party-member name", resolution: "runtime-only", reason: "The player names the character in the saved roster.", strategy: "Display the name in the original text." },
+  "0x6e79": { meaning: "typed password or computed enemy count, depending on the ECL instruction", resolution: "context-dependent", strategy: "Display the original password confirmation. Trace the count and creature pair separately in the Podol Plaza encounter." },
   "0x6e7e": { meaning: "random tavern-tale number", resolution: "enumerated", values: Array.from({ length: 24 }, (_, index) => String(index + 1)), evidence: "RANDOM 23 followed by ADD 1 before PRINT." },
   "0x985e": { meaning: "single proclamation number text", resolution: "enumerated", values: ["CI.", "CXXVI AND CX.", "CXXXIV.", "CLIV.", "CXIV.", "CCIV.", "CXXIX.", "CCI."], evidence: "Nine ON GOSUB targets assign these strings; CXIV occurs twice." },
   "0x980e": { meaning: "runtime encounter actor name", resolution: "encounter-table-dependent", strategy: "Enumerate from the encounter's monster table and grammatical-number metadata before rendering." },
@@ -47,7 +50,6 @@ const resolvedUnitVariants = {
   ]
 };
 
-const resolvedIds = new Set(Object.keys(resolvedUnitVariants));
 const unitById = new Map(reviews.flatMap(({ units }) => units.map(unit => [String(unit.id ?? unit.unitId), unit])));
 const slug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const valuesByUnit: Record<string, Array<{ value: string; condition: string; text: string }>> = {
@@ -70,6 +72,77 @@ const finiteSlotValuesByScope: Record<string, string[]> = {
   "ECL8.DAX:block-27:0x982c": ["KOBOLDS", "GNOLLS", "LIZARD MEN", "GIANT LIZARDS", "HIPPOGRIFFS", "WYVERNS", "TROLLS", "PHASE SPIDERS", "MINOTAURS"],
   "ECL8.DAX:block-29:0x9890": ["GNOLLS ", "KOBOLDS. ", "LIZARDMEN. "]
 };
+const tracedSlots: Record<string, string[]> = {};
+const tracedUnits = new Set<string>();
+const audio = new URL("../src/audio/", import.meta.url);
+const staticallyQueued = new Set(readdirSync(audio).filter(name => /^static-resolved-generation-queue.*\.json$/i.test(name))
+  .flatMap(name => (JSON.parse(readFileSync(new URL(name, audio), "utf8")) as { items: Array<{ id?: string; unitId?: string }> }).items
+    .map(item => item.id ?? item.unitId)));
+
+const gameRoot = findGameRoot(process.argv[2]);
+if (!gameRoot) throw new Error("Supply the original game files or set POR_GAMEDATA");
+const archives = new Map(listGameFiles(gameRoot).filter(name => /^ECL\d+\.DAX$/i.test(name)).map(name => [
+  name.toUpperCase(), parseDax(name, readGameFile(gameRoot, name)).entries
+]));
+const script = (archive: number, block: number) => {
+  const entry = archives.get(`ECL${archive}.DAX`)?.find(entry => entry.id === block);
+  if (!entry) throw new Error(`ECL${archive}.DAX is missing block ${block}`);
+  return scriptFromBlock(entry.data);
+};
+const savedStrings = (archive: number, block: number, slot: number, addresses: number[]) => {
+  const data = script(archive, block);
+  return [...new Set(addresses.map(address => {
+    const instruction = readInstruction(data, address);
+    const [value, destination] = instruction.operands;
+    if (instruction.name !== "SAVE" || value?.text == null || destination?.code !== 0x81 || destination.word !== slot)
+      throw new Error(`Expected a string assignment at ECL${archive} block ${block} address 0x${address.toString(16)}`);
+    return value.text;
+  }))];
+};
+
+tracedSlots["ECL1.DAX:block-18:0x9800"] = savedStrings(1, 18, 0x9800, [0x9fd1, 0x9fe1, 0x9fef, 0xa002]);
+tracedSlots["ECL1.DAX:block-24:0x9800"] = savedStrings(1, 24, 0x9800, [0xb454, 0xb46a, 0xb483, 0xb496, 0xb4ae]);
+tracedSlots["ECL8.DAX:block-29:0x982c"] = savedStrings(8, 29, 0x982c, [0x9c79, 0x9c8c]);
+
+// The patrol's SAVE writes a zero-terminated string. The PRINT at $980f
+// skips the first letter because the opening PRINTCLEAR already supplies it.
+for (const [archive, block, assignment] of [[2, 9, 0x9db4], [5, 3, 0x9c7c], [5, 4, 0x9bd1], [5, 6, 0xa8d1]] as const) {
+  const [patrol] = savedStrings(archive, block, 0x980e, [assignment]);
+  if (!patrol?.startsWith("A ")) throw new Error(`Unexpected patrol prefix in ECL${archive} block ${block}`);
+  tracedSlots[`ECL${archive}.DAX:block-${block}:0x980f`] = [patrol.slice(1)];
+}
+
+// Each menu uses the complete string produced by a literal SAVE followed by
+// a SAVE of the selected group at the end of the prefix.
+for (const { archive, block, sourceSlot, targetSlot, groups, menus } of [
+  { archive: 2, block: 20, sourceSlot: 0x9890, targetSlot: 0x982c, groups: [0x9b9f, 0x9bb1, 0x9bc3], menus: [0x9c9b, 0x9d01, 0x9d58, 0x9dba] },
+  { archive: 4, block: 10, sourceSlot: 0x982c, targetSlot: 0x9890, groups: [0x9cb7, 0x9eed, 0xa0d4], menus: [0xb4c0] },
+  { archive: 8, block: 29, sourceSlot: 0x9890, targetSlot: 0x982c, groups: [0xa4a3, 0xa4b0, 0xa4be], menus: [0xa4df, 0xa53f, 0xa5a0, 0xa603] }
+]) {
+  const data = script(archive, block);
+  const groupTexts = savedStrings(archive, block, sourceSlot, groups);
+  for (const prefixAddress of menus) {
+    const [prefix] = savedStrings(archive, block, targetSlot, [prefixAddress]);
+    const append = readInstruction(data, readInstruction(data, prefixAddress).next);
+    const [source, destination] = append.operands;
+    const menu = readInstruction(data, append.next);
+    const offset = (destination?.word ?? 0) - targetSlot;
+    if (prefix === undefined || append.name !== "SAVE" || source?.code !== 0x81 || source.word !== sourceSlot ||
+        destination?.code !== 0x81 || offset < prefix.trimEnd().length || offset > prefix.length ||
+        menu.name !== "ENCOUNTER MENU" || menu.operands[9]?.code !== 0x81 || menu.operands[9].word !== targetSlot)
+      throw new Error(`Unexpected string assembly before ECL${archive} block ${block} menu at 0x${menu.address.toString(16)}`);
+    const address = menu.address.toString(16);
+    const unitId = `ecl${archive}-b${block}-${address}-runtime-text`;
+    if (!unitById.has(unitId)) throw new Error(`Missing reviewed menu ${unitId}`);
+    tracedUnits.add(unitId);
+    const values = groupTexts.map(group => prefix.slice(0, offset) + group);
+    valuesByUnit[unitId] = values.map(value => ({
+      value, condition: `rendered encounter operand 9 at 0x${address} == ${JSON.stringify(value)}`,
+      text: value.replace(/\s+/g, " ").trim()
+    }));
+  }
+}
+Object.assign(finiteSlotValuesByScope, tracedSlots);
 
 const sourceParts = (unit: Unit) => {
   const embedded = unit.rawSourceTexts ?? unit.sourceTextParts ?? unit.sourceTexts ?? [];
@@ -81,15 +154,17 @@ const sourceParts = (unit: Unit) => {
 };
 const unitBlock = (unit: Unit) => /\.block-(\d+)\./.exec(String(unit.triggerSourceId))?.[1] ?? /\.b(\d+)-/.exec(String(unit.id ?? unit.unitId))?.[1] ?? "unknown";
 for (const dynamic of unresolved) {
-  if (valuesByUnit[dynamic.unitId]) continue;
+  if (valuesByUnit[dynamic.unitId] || staticallyQueued.has(dynamic.unitId)) continue;
   const unit = unitById.get(dynamic.unitId);
   if (!unit) continue;
   const dynamicParts = sourceParts(unit).flat().filter(part => part.kind !== "literal");
   if (dynamicParts.length < 1 || !dynamicParts[0]?.address || dynamicParts.some(part => part.address !== dynamicParts[0]!.address)) continue;
-  const values = finiteSlotValuesByScope[`${dynamic.archive}:block-${unitBlock(unit)}:${dynamicParts[0].address}`];
+  const scope = `${dynamic.archive}:block-${unitBlock(unit)}:${dynamicParts[0].address}`;
+  const values = finiteSlotValuesByScope[scope];
   if (!values) continue;
+  if (tracedSlots[scope]) tracedUnits.add(dynamic.unitId);
   valuesByUnit[dynamic.unitId] = values.map(value => {
-    const segments = sourceParts(unit).flatMap(parts => parts.map(part => part.kind === "literal" ? String((part as Part & { rawText?: string }).rawText ?? "") : value));
+    const segments = sourceParts(unit).flatMap(parts => parts.map(part => part.kind === "literal" ? part.rawText ?? "" : value));
     let text = "";
     for (const segment of segments) {
       if (text && segment && /[A-Za-z0-9.!?,;:'\"]$/.test(text) && /^[A-Za-z0-9'\"]/.test(segment)) text += " ";
@@ -99,36 +174,53 @@ for (const dynamic of unresolved) {
     return { value, condition: `${dynamicParts[0]!.address} == ${JSON.stringify(value)}`, text };
   });
 }
-const generationItems = Object.entries(valuesByUnit).flatMap(([unitId, variants]) => {
+type Binding = { id: string; sourceUnitId: string; condition: string; dynamicValue: string };
+const sharedRecordings = new Map<string, Binding[]>();
+const variantFamilies = Object.entries(valuesByUnit).sort(([left], [right]) => Number(tracedUnits.has(left)) - Number(tracedUnits.has(right)));
+const generationItems = variantFamilies.flatMap(([unitId, variants]) => {
   const source = unitById.get(unitId);
   if (!source) throw new Error(`Missing reviewed unit ${unitId}`);
   const triggerSourceId = String(source.triggerSourceId);
   const coveredSourceIds = (source.coveredSourceIds ?? []).map(String);
   const direction = String(source.direction ?? "measured, expressive fantasy narration appropriate to the scene");
-  return variants.map(({ value, condition, text }, index) => ({
-    id: `${unitId}.variant-${String(index + 1).padStart(2, "0")}-${slug(value)}`,
-    sourceUnitId: unitId,
-    triggerSourceId,
-    coveredSourceIds,
-    condition,
-    dynamicValue: value,
-    output: `../por-assets/voices/narration/dynamic-resolved/${unitId.replace(/^por\.voice\./, "").replace(/\./g, "-")}-v${String(index + 1).padStart(2, "0")}-${slug(value)}.mp3`,
-    text,
-    direction
-  }));
+  return variants.flatMap(({ value, condition, text }, index) => {
+    const suffix = `${String(index + 1).padStart(2, "0")}-${slug(value)}`;
+    const id = `${unitId}.variant-${suffix}`;
+    const key = JSON.stringify([text, direction]);
+    const alreadyQueued = tracedUnits.has(unitId) ? sharedRecordings.get(key) : undefined;
+    if (alreadyQueued) {
+      alreadyQueued.push({ id, sourceUnitId: unitId, condition, dynamicValue: value });
+      return [];
+    }
+    const aliases: Binding[] = [];
+    if (tracedUnits.has(unitId)) sharedRecordings.set(key, aliases);
+    return [{
+      id,
+      sourceUnitId: unitId,
+      triggerSourceId,
+      coveredSourceIds,
+      condition,
+      dynamicValue: value,
+      output: `../por-assets/voices/narration/dynamic-resolved/${unitId.replace(/^por\.voice\./, "").replace(/\./g, "-")}-v${suffix}.mp3`,
+      text,
+      direction,
+      aliases
+    }];
+  });
 });
 const manifest = {
   schema: 1,
   policy: "No dynamic value is guessed. Values are either proven from local ECL assignments, runtime-only, or left for encounter-table tracing.",
   unresolvedUnitCountBeforeTrace: unresolved.length,
   unitsResolvedToFiniteVariants: Object.keys(valuesByUnit).length,
-  unitsStillRuntimeDependent: unresolved.filter(unit => !valuesByUnit[unit.unitId]).length,
+  unitsStillRuntimeDependent: unresolved.filter(unit => !valuesByUnit[unit.unitId] && !staticallyQueued.has(unit.unitId)).length,
   slotSemantics,
   resolvedUnitVariants,
   resolvedVariantRecords: valuesByUnit,
   newlyQueueableVariantCount: generationItems.length,
   finiteSlotValuesByScope,
-  units: unresolved.map(unit => ({ ...unit, resolution: valuesByUnit[unit.unitId] ? "finite-variants-proven" : "withheld-pending-runtime-resolution" }))
+  units: unresolved.map(unit => ({ ...unit, resolution: valuesByUnit[unit.unitId] ? "finite-variants-proven" :
+    staticallyQueued.has(unit.unitId) ? "static-recording" : "withheld-pending-runtime-resolution" }))
 };
 writeFileSync(new URL("../src/audio/dynamic-voice-resolution.json", import.meta.url), `${JSON.stringify(manifest, null, 2)}\n`);
 writeFileSync(new URL("../src/audio/dynamic-resolved-generation-queue.json", import.meta.url), `${JSON.stringify({
@@ -136,6 +228,6 @@ writeFileSync(new URL("../src/audio/dynamic-resolved-generation-queue.json", imp
   model: "eleven_v4",
   sourceResolution: "src/audio/dynamic-voice-resolution.json",
   itemCount: generationItems.length,
-  items: generationItems
+  items: generationItems.map(({ aliases, ...item }) => aliases.length ? { ...item, aliases } : item)
 }, null, 2)}\n`);
 console.log(`traced ${unresolved.length} dynamic units; resolved ${Object.keys(valuesByUnit).length} families to ${generationItems.length} finite variants`);

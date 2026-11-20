@@ -1,21 +1,20 @@
 {
   "schema": 1,
   "policy": "No dynamic value is guessed. Values are either proven from local ECL assignments, runtime-only, or left for encounter-table tracing.",
-  "unresolvedUnitCountBeforeTrace": 84,
-  "unitsResolvedToFiniteVariants": 43,
-  "unitsStillRuntimeDependent": 41,
+  "unresolvedUnitCountBeforeTrace": 83,
+  "unitsResolvedToFiniteVariants": 68,
+  "unitsStillRuntimeDependent": 10,
   "slotSemantics": {
     "0x6b00": {
       "meaning": "selected party-member name",
       "resolution": "runtime-only",
-      "reason": "Value comes from the player's save roster; the possible spelling is not bounded by original game data.",
-      "strategy": "Keep withheld unless runtime synthesis or recorded generic fallback is explicitly approved."
+      "reason": "The player names the character in the saved roster.",
+      "strategy": "Display the name in the original text."
     },
     "0x6e79": {
-      "meaning": "player-entered input string in the unresolved voice unit",
-      "resolution": "runtime-only",
-      "reason": "For the affected unit it is the six-character password just typed by the player.",
-      "strategy": "Keep confirmation unvoiced or use runtime synthesis; never pre-render guessed inputs."
+      "meaning": "typed password or computed enemy count, depending on the ECL instruction",
+      "resolution": "context-dependent",
+      "strategy": "Display the original password confirmation. Trace the count and creature pair separately in the Podol Plaza encounter."
     },
     "0x6e7e": {
       "meaning": "random tavern-tale number",
@@ -382,6 +381,276 @@
         "text": "'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'"
       }
     ],
+    "ecl2-b20-9cc5-runtime-text": [
+      {
+        "value": "YOU ARE BEING APPROACHED BY SOME ANGRY KOBOLDS. ",
+        "condition": "rendered encounter operand 9 at 0x9cc5 == \"YOU ARE BEING APPROACHED BY SOME ANGRY KOBOLDS. \"",
+        "text": "YOU ARE BEING APPROACHED BY SOME ANGRY KOBOLDS."
+      },
+      {
+        "value": "YOU ARE BEING APPROACHED BY SOME ANGRY GOBLINS. ",
+        "condition": "rendered encounter operand 9 at 0x9cc5 == \"YOU ARE BEING APPROACHED BY SOME ANGRY GOBLINS. \"",
+        "text": "YOU ARE BEING APPROACHED BY SOME ANGRY GOBLINS."
+      },
+      {
+        "value": "YOU ARE BEING APPROACHED BY SOME ANGRY ORCS. ",
+        "condition": "rendered encounter operand 9 at 0x9cc5 == \"YOU ARE BEING APPROACHED BY SOME ANGRY ORCS. \"",
+        "text": "YOU ARE BEING APPROACHED BY SOME ANGRY ORCS."
+      }
+    ],
+    "ecl2-b20-9d1d-runtime-text": [
+      {
+        "value": "YOU BUMP INTO SOME  KOBOLDS. ",
+        "condition": "rendered encounter operand 9 at 0x9d1d == \"YOU BUMP INTO SOME  KOBOLDS. \"",
+        "text": "YOU BUMP INTO SOME KOBOLDS."
+      },
+      {
+        "value": "YOU BUMP INTO SOME  GOBLINS. ",
+        "condition": "rendered encounter operand 9 at 0x9d1d == \"YOU BUMP INTO SOME  GOBLINS. \"",
+        "text": "YOU BUMP INTO SOME GOBLINS."
+      },
+      {
+        "value": "YOU BUMP INTO SOME  ORCS. ",
+        "condition": "rendered encounter operand 9 at 0x9d1d == \"YOU BUMP INTO SOME  ORCS. \"",
+        "text": "YOU BUMP INTO SOME ORCS."
+      }
+    ],
+    "ecl2-b20-9d7e-runtime-text": [
+      {
+        "value": "YOU SPY A GROUP OF SEEDY-LOOKING  KOBOLDS. ",
+        "condition": "rendered encounter operand 9 at 0x9d7e == \"YOU SPY A GROUP OF SEEDY-LOOKING  KOBOLDS. \"",
+        "text": "YOU SPY A GROUP OF SEEDY-LOOKING KOBOLDS."
+      },
+      {
+        "value": "YOU SPY A GROUP OF SEEDY-LOOKING  GOBLINS. ",
+        "condition": "rendered encounter operand 9 at 0x9d7e == \"YOU SPY A GROUP OF SEEDY-LOOKING  GOBLINS. \"",
+        "text": "YOU SPY A GROUP OF SEEDY-LOOKING GOBLINS."
+      },
+      {
+        "value": "YOU SPY A GROUP OF SEEDY-LOOKING  ORCS. ",
+        "condition": "rendered encounter operand 9 at 0x9d7e == \"YOU SPY A GROUP OF SEEDY-LOOKING  ORCS. \"",
+        "text": "YOU SPY A GROUP OF SEEDY-LOOKING ORCS."
+      }
+    ],
+    "ecl2-b20-9dde-runtime-text": [
+      {
+        "value": "YOU HAVE SURPRISED A PARTY OF  KOBOLDS. ",
+        "condition": "rendered encounter operand 9 at 0x9dde == \"YOU HAVE SURPRISED A PARTY OF  KOBOLDS. \"",
+        "text": "YOU HAVE SURPRISED A PARTY OF KOBOLDS."
+      },
+      {
+        "value": "YOU HAVE SURPRISED A PARTY OF  GOBLINS. ",
+        "condition": "rendered encounter operand 9 at 0x9dde == \"YOU HAVE SURPRISED A PARTY OF  GOBLINS. \"",
+        "text": "YOU HAVE SURPRISED A PARTY OF GOBLINS."
+      },
+      {
+        "value": "YOU HAVE SURPRISED A PARTY OF  ORCS. ",
+        "condition": "rendered encounter operand 9 at 0x9dde == \"YOU HAVE SURPRISED A PARTY OF  ORCS. \"",
+        "text": "YOU HAVE SURPRISED A PARTY OF ORCS."
+      }
+    ],
+    "ecl4-b10-b4e9-runtime-text": [
+      {
+        "value": "YOU HAVE MANAGED TO SNEAK UP ON SOME SKELETONS.",
+        "condition": "rendered encounter operand 9 at 0xb4e9 == \"YOU HAVE MANAGED TO SNEAK UP ON SOME SKELETONS.\"",
+        "text": "YOU HAVE MANAGED TO SNEAK UP ON SOME SKELETONS."
+      },
+      {
+        "value": "YOU HAVE MANAGED TO SNEAK UP ON SOME ZOMBIES.",
+        "condition": "rendered encounter operand 9 at 0xb4e9 == \"YOU HAVE MANAGED TO SNEAK UP ON SOME ZOMBIES.\"",
+        "text": "YOU HAVE MANAGED TO SNEAK UP ON SOME ZOMBIES."
+      },
+      {
+        "value": "YOU HAVE MANAGED TO SNEAK UP ON SOME WIGHTS.",
+        "condition": "rendered encounter operand 9 at 0xb4e9 == \"YOU HAVE MANAGED TO SNEAK UP ON SOME WIGHTS.\"",
+        "text": "YOU HAVE MANAGED TO SNEAK UP ON SOME WIGHTS."
+      }
+    ],
+    "ecl8-b29-a500-runtime-text": [
+      {
+        "value": "YOU SEE SOME BLOODTHIRSTY GNOLLS ",
+        "condition": "rendered encounter operand 9 at 0xa500 == \"YOU SEE SOME BLOODTHIRSTY GNOLLS \"",
+        "text": "YOU SEE SOME BLOODTHIRSTY GNOLLS"
+      },
+      {
+        "value": "YOU SEE SOME BLOODTHIRSTY KOBOLDS. ",
+        "condition": "rendered encounter operand 9 at 0xa500 == \"YOU SEE SOME BLOODTHIRSTY KOBOLDS. \"",
+        "text": "YOU SEE SOME BLOODTHIRSTY KOBOLDS."
+      },
+      {
+        "value": "YOU SEE SOME BLOODTHIRSTY LIZARDMEN. ",
+        "condition": "rendered encounter operand 9 at 0xa500 == \"YOU SEE SOME BLOODTHIRSTY LIZARDMEN. \"",
+        "text": "YOU SEE SOME BLOODTHIRSTY LIZARDMEN."
+      }
+    ],
+    "ecl8-b29-a56b-runtime-text": [
+      {
+        "value": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED GNOLLS ",
+        "condition": "rendered encounter operand 9 at 0xa56b == \"YOU ARE SUDDENLY FACE TO FACE WITH ARMED GNOLLS \"",
+        "text": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED GNOLLS"
+      },
+      {
+        "value": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED KOBOLDS. ",
+        "condition": "rendered encounter operand 9 at 0xa56b == \"YOU ARE SUDDENLY FACE TO FACE WITH ARMED KOBOLDS. \"",
+        "text": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED KOBOLDS."
+      },
+      {
+        "value": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED LIZARDMEN. ",
+        "condition": "rendered encounter operand 9 at 0xa56b == \"YOU ARE SUDDENLY FACE TO FACE WITH ARMED LIZARDMEN. \"",
+        "text": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED LIZARDMEN."
+      }
+    ],
+    "ecl8-b29-a5c4-runtime-text": [
+      {
+        "value": "YOU ARE BEING AVOIDED BY SOME GNOLLS ",
+        "condition": "rendered encounter operand 9 at 0xa5c4 == \"YOU ARE BEING AVOIDED BY SOME GNOLLS \"",
+        "text": "YOU ARE BEING AVOIDED BY SOME GNOLLS"
+      },
+      {
+        "value": "YOU ARE BEING AVOIDED BY SOME KOBOLDS. ",
+        "condition": "rendered encounter operand 9 at 0xa5c4 == \"YOU ARE BEING AVOIDED BY SOME KOBOLDS. \"",
+        "text": "YOU ARE BEING AVOIDED BY SOME KOBOLDS."
+      },
+      {
+        "value": "YOU ARE BEING AVOIDED BY SOME LIZARDMEN. ",
+        "condition": "rendered encounter operand 9 at 0xa5c4 == \"YOU ARE BEING AVOIDED BY SOME LIZARDMEN. \"",
+        "text": "YOU ARE BEING AVOIDED BY SOME LIZARDMEN."
+      }
+    ],
+    "ecl8-b29-a627-runtime-text": [
+      {
+        "value": "YOU HAVE SURPRISED A PARTY OF GNOLLS ",
+        "condition": "rendered encounter operand 9 at 0xa627 == \"YOU HAVE SURPRISED A PARTY OF GNOLLS \"",
+        "text": "YOU HAVE SURPRISED A PARTY OF GNOLLS"
+      },
+      {
+        "value": "YOU HAVE SURPRISED A PARTY OF KOBOLDS. ",
+        "condition": "rendered encounter operand 9 at 0xa627 == \"YOU HAVE SURPRISED A PARTY OF KOBOLDS. \"",
+        "text": "YOU HAVE SURPRISED A PARTY OF KOBOLDS."
+      },
+      {
+        "value": "YOU HAVE SURPRISED A PARTY OF LIZARDMEN. ",
+        "condition": "rendered encounter operand 9 at 0xa627 == \"YOU HAVE SURPRISED A PARTY OF LIZARDMEN. \"",
+        "text": "YOU HAVE SURPRISED A PARTY OF LIZARDMEN."
+      }
+    ],
+    "ecl1-b18-a105-a117-a11b": [
+      {
+        "value": " GOBLINS",
+        "condition": "0x9800 == \" GOBLINS\"",
+        "text": "YOU SPOT A GROUP OF GOBLINS."
+      },
+      {
+        "value": " ORCS",
+        "condition": "0x9800 == \" ORCS\"",
+        "text": "YOU SPOT A GROUP OF ORCS."
+      },
+      {
+        "value": " HOBGOBLINS",
+        "condition": "0x9800 == \" HOBGOBLINS\"",
+        "text": "YOU SPOT A GROUP OF HOBGOBLINS."
+      },
+      {
+        "value": " OGRES",
+        "condition": "0x9800 == \" OGRES\"",
+        "text": "YOU SPOT A GROUP OF OGRES."
+      }
+    ],
+    "ecl1-b24-adbf-add1-add5": [
+      {
+        "value": "GOBLINS",
+        "condition": "0x9800 == \"GOBLINS\"",
+        "text": "YOU SPOT A GROUP OF GOBLINS."
+      },
+      {
+        "value": "ORCS",
+        "condition": "0x9800 == \"ORCS\"",
+        "text": "YOU SPOT A GROUP OF ORCS."
+      },
+      {
+        "value": "HOBGOBLINS",
+        "condition": "0x9800 == \"HOBGOBLINS\"",
+        "text": "YOU SPOT A GROUP OF HOBGOBLINS."
+      },
+      {
+        "value": "OGRES",
+        "condition": "0x9800 == \"OGRES\"",
+        "text": "YOU SPOT A GROUP OF OGRES."
+      }
+    ],
+    "ecl1-b24-af0c-af1f-af23": [
+      {
+        "value": "GOBLINS",
+        "condition": "0x9800 == \"GOBLINS\"",
+        "text": "YOU ARE SURPRISED BY GOBLINS."
+      },
+      {
+        "value": "ORCS",
+        "condition": "0x9800 == \"ORCS\"",
+        "text": "YOU ARE SURPRISED BY ORCS."
+      },
+      {
+        "value": "HOBGOBLINS",
+        "condition": "0x9800 == \"HOBGOBLINS\"",
+        "text": "YOU ARE SURPRISED BY HOBGOBLINS."
+      },
+      {
+        "value": "OGRES",
+        "condition": "0x9800 == \"OGRES\"",
+        "text": "YOU ARE SURPRISED BY OGRES."
+      }
+    ],
+    "ecl1-b24-af35-af47-af4b": [
+      {
+        "value": "GOBLINS",
+        "condition": "0x9800 == \"GOBLINS\"",
+        "text": "YOU SPOT A GROUP OF GOBLINS."
+      },
+      {
+        "value": "ORCS",
+        "condition": "0x9800 == \"ORCS\"",
+        "text": "YOU SPOT A GROUP OF ORCS."
+      },
+      {
+        "value": "HOBGOBLINS",
+        "condition": "0x9800 == \"HOBGOBLINS\"",
+        "text": "YOU SPOT A GROUP OF HOBGOBLINS."
+      },
+      {
+        "value": "OGRES",
+        "condition": "0x9800 == \"OGRES\"",
+        "text": "YOU SPOT A GROUP OF OGRES."
+      }
+    ],
+    "ecl1-b24-afb9-afdf-afe3": [
+      {
+        "value": "GOBLINS",
+        "condition": "0x9800 == \"GOBLINS\"",
+        "text": "YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF GOBLINS."
+      },
+      {
+        "value": "ORCS",
+        "condition": "0x9800 == \"ORCS\"",
+        "text": "YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF ORCS."
+      },
+      {
+        "value": "HOBGOBLINS",
+        "condition": "0x9800 == \"HOBGOBLINS\"",
+        "text": "YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF HOBGOBLINS."
+      },
+      {
+        "value": "OGRES",
+        "condition": "0x9800 == \"OGRES\"",
+        "text": "YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF OGRES."
+      }
+    ],
+    "ecl2-b9-9de5-9def-9e01": [
+      {
+        "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER SEES YOU. 'THAT'S THEM!'"
+      }
+    ],
     "ecl2-b20-9c2a-9c43-9c5c": [
       {
         "value": " KOBOLDS. ",
@@ -506,6 +775,27 @@
         "text": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU."
       }
     ],
+    "por.voice.ecl5.b3-9d1f-9d3b": [
+      {
+        "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER YELLS 'SACRILEGIOUS SCUM!'"
+      }
+    ],
+    "por.voice.ecl5.b3-9d1f-9d6e": [
+      {
+        "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER SEES YOU. 'THAT'S THEM!'"
+      }
+    ],
+    "por.voice.ecl5.b3-9de2-9dec": [
+      {
+        "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+      }
+    ],
     "por.voice.ecl5.b4-9c0c-9c10": [
       {
         "value": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER",
@@ -513,11 +803,53 @@
         "text": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU."
       }
     ],
+    "por.voice.ecl5.b4-9c74-9c90": [
+      {
+        "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER YELLS 'SACRILEGIOUS SCUM!'"
+      }
+    ],
+    "por.voice.ecl5.b4-9c74-9cc3": [
+      {
+        "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER SEES YOU. 'THAT'S THEM!'"
+      }
+    ],
+    "por.voice.ecl5.b4-9d37-9d41": [
+      {
+        "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+      }
+    ],
     "por.voice.ecl5.b6-a90c-a910": [
       {
         "value": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER",
         "condition": "0x980e == \"A PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
         "text": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU."
+      }
+    ],
+    "por.voice.ecl5.b6-a974-a990": [
+      {
+        "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER YELLS 'SACRILEGIOUS SCUM!'"
+      }
+    ],
+    "por.voice.ecl5.b6-a974-a9c3": [
+      {
+        "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER SEES YOU. 'THAT'S THEM!'"
+      }
+    ],
+    "por.voice.ecl5.b6-aa37-aa41": [
+      {
+        "value": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+        "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+        "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER"
       }
     ],
     "ecl6-b25-a128-a13a": [
@@ -1844,6 +2176,18 @@
         "text": "THE MINOTAURS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE MINOTAURS THEN LEAVE AND BID YOU GOOD DAY."
       }
     ],
+    "ecl8-b29-9cf6-9d10": [
+      {
+        "value": "SOUTH WALL.",
+        "condition": "0x982c == \"SOUTH WALL.\"",
+        "text": "YOU FIND A SECRET DOOR IN THE SOUTH WALL."
+      },
+      {
+        "value": "NORTH WALL.",
+        "condition": "0x982c == \"NORTH WALL.\"",
+        "text": "YOU FIND A SECRET DOOR IN THE NORTH WALL."
+      }
+    ],
     "ecl8-b29-a47a-a48d": [
       {
         "value": "GNOLLS ",
@@ -1879,7 +2223,7 @@
       }
     ]
   },
-  "newlyQueueableVariantCount": 329,
+  "newlyQueueableVariantCount": 373,
   "finiteSlotValuesByScope": {
     "ECL2.DAX:block-20:0x9890": [
       " KOBOLDS. ",
@@ -1951,6 +2295,34 @@
       "GNOLLS ",
       "KOBOLDS. ",
       "LIZARDMEN. "
+    ],
+    "ECL1.DAX:block-18:0x9800": [
+      " GOBLINS",
+      " ORCS",
+      " HOBGOBLINS",
+      " OGRES"
+    ],
+    "ECL1.DAX:block-24:0x9800": [
+      "GOBLINS",
+      "ORCS",
+      "HOBGOBLINS",
+      "OGRES"
+    ],
+    "ECL8.DAX:block-29:0x982c": [
+      "SOUTH WALL.",
+      "NORTH WALL."
+    ],
+    "ECL2.DAX:block-9:0x980f": [
+      " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+    ],
+    "ECL5.DAX:block-3:0x980f": [
+      " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+    ],
+    "ECL5.DAX:block-4:0x980f": [
+      " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+    ],
+    "ECL5.DAX:block-6:0x980f": [
+      " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
     ]
   },
   "units": [
@@ -1985,7 +2357,7 @@
           "address": "0x9800"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL1.DAX",
@@ -1999,7 +2371,7 @@
           "address": "0x9800"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL1.DAX",
@@ -2013,7 +2385,7 @@
           "address": "0x9800"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL1.DAX",
@@ -2027,7 +2399,7 @@
           "address": "0x9800"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL1.DAX",
@@ -2041,7 +2413,7 @@
           "address": "0x9800"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL1.DAX",
@@ -2055,7 +2427,7 @@
           "address": "0x9800"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "static-recording"
     },
     {
       "archive": "ECL1.DAX",
@@ -2069,7 +2441,7 @@
           "address": "0x9800"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL1.DAX",
@@ -2083,7 +2455,7 @@
           "address": "0x9800"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL1.DAX",
@@ -2097,7 +2469,7 @@
           "address": "0x9800"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL1.DAX",
@@ -2111,7 +2483,7 @@
           "address": "0x9800"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL2.DAX",
@@ -2125,7 +2497,7 @@
           "address": "0x980f"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL2.DAX",
@@ -2181,7 +2553,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL2.DAX",
@@ -2195,7 +2567,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL2.DAX",
@@ -2209,7 +2581,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL2.DAX",
@@ -2223,7 +2595,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL3.DAX",
@@ -2368,7 +2740,7 @@
           "address": "0x9890"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -2396,7 +2768,7 @@
           "address": "0x980f"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -2410,7 +2782,7 @@
           "address": "0x980f"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -2424,7 +2796,7 @@
           "address": "0x980f"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -2452,7 +2824,7 @@
           "address": "0x980f"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -2466,7 +2838,7 @@
           "address": "0x980f"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -2480,7 +2852,7 @@
           "address": "0x980f"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -2522,7 +2894,7 @@
           "address": "0x980f"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -2536,7 +2908,7 @@
           "address": "0x980f"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -2550,7 +2922,7 @@
           "address": "0x980f"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL5.DAX",
@@ -2904,14 +3276,6 @@
     },
     {
       "archive": "ECL8.DAX",
-      "unitId": "ecl8-b13-b512",
-      "status": "unresolved-dynamic",
-      "variant": null,
-      "slots": [],
-      "resolution": "withheld-pending-runtime-resolution"
-    },
-    {
-      "archive": "ECL8.DAX",
       "unitId": "ecl8-b16-a0cf-a0e1-a0e5",
       "status": "unresolved-dynamic",
       "variant": null,
@@ -3048,7 +3412,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -3090,7 +3454,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -3104,7 +3468,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -3118,7 +3482,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     },
     {
       "archive": "ECL8.DAX",
@@ -3132,7 +3496,7 @@
           "address": "0x982c"
         }
       ],
-      "resolution": "withheld-pending-runtime-resolution"
+      "resolution": "finite-variants-proven"
     }
   ]
 }

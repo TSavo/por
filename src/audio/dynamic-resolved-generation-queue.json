@@ -2,7 +2,7 @@
   "schema": 1,
   "model": "eleven_v4",
   "sourceResolution": "src/audio/dynamic-voice-resolution.json",
-  "itemCount": 329,
+  "itemCount": 373,
   "items": [
     {
       "id": "por.voice.ecl3.b0-a413-a438.variant-01-1",
@@ -4930,6 +4930,717 @@
       "dynamicValue": "LIZARDMEN. ",
       "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-ae15-ae29-ae2d-v03-lizardmen.mp3",
       "text": "YOU HAVE OFFENDED THE LIZARDMEN. THEY ATTACK.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9cc5-runtime-text.variant-01-you-are-being-approached-by-some-angry-kobolds",
+      "sourceUnitId": "ecl2-b20-9cc5-runtime-text",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9cc5",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9cc5"
+      ],
+      "condition": "rendered encounter operand 9 at 0x9cc5 == \"YOU ARE BEING APPROACHED BY SOME ANGRY KOBOLDS. \"",
+      "dynamicValue": "YOU ARE BEING APPROACHED BY SOME ANGRY KOBOLDS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9cc5-runtime-text-v01-you-are-being-approached-by-some-angry-kobolds.mp3",
+      "text": "YOU ARE BEING APPROACHED BY SOME ANGRY KOBOLDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9cc5-runtime-text.variant-02-you-are-being-approached-by-some-angry-goblins",
+      "sourceUnitId": "ecl2-b20-9cc5-runtime-text",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9cc5",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9cc5"
+      ],
+      "condition": "rendered encounter operand 9 at 0x9cc5 == \"YOU ARE BEING APPROACHED BY SOME ANGRY GOBLINS. \"",
+      "dynamicValue": "YOU ARE BEING APPROACHED BY SOME ANGRY GOBLINS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9cc5-runtime-text-v02-you-are-being-approached-by-some-angry-goblins.mp3",
+      "text": "YOU ARE BEING APPROACHED BY SOME ANGRY GOBLINS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9cc5-runtime-text.variant-03-you-are-being-approached-by-some-angry-orcs",
+      "sourceUnitId": "ecl2-b20-9cc5-runtime-text",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9cc5",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9cc5"
+      ],
+      "condition": "rendered encounter operand 9 at 0x9cc5 == \"YOU ARE BEING APPROACHED BY SOME ANGRY ORCS. \"",
+      "dynamicValue": "YOU ARE BEING APPROACHED BY SOME ANGRY ORCS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9cc5-runtime-text-v03-you-are-being-approached-by-some-angry-orcs.mp3",
+      "text": "YOU ARE BEING APPROACHED BY SOME ANGRY ORCS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9d1d-runtime-text.variant-01-you-bump-into-some-kobolds",
+      "sourceUnitId": "ecl2-b20-9d1d-runtime-text",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9d1d",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9d1d"
+      ],
+      "condition": "rendered encounter operand 9 at 0x9d1d == \"YOU BUMP INTO SOME  KOBOLDS. \"",
+      "dynamicValue": "YOU BUMP INTO SOME  KOBOLDS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9d1d-runtime-text-v01-you-bump-into-some-kobolds.mp3",
+      "text": "YOU BUMP INTO SOME KOBOLDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9d1d-runtime-text.variant-02-you-bump-into-some-goblins",
+      "sourceUnitId": "ecl2-b20-9d1d-runtime-text",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9d1d",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9d1d"
+      ],
+      "condition": "rendered encounter operand 9 at 0x9d1d == \"YOU BUMP INTO SOME  GOBLINS. \"",
+      "dynamicValue": "YOU BUMP INTO SOME  GOBLINS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9d1d-runtime-text-v02-you-bump-into-some-goblins.mp3",
+      "text": "YOU BUMP INTO SOME GOBLINS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9d1d-runtime-text.variant-03-you-bump-into-some-orcs",
+      "sourceUnitId": "ecl2-b20-9d1d-runtime-text",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9d1d",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9d1d"
+      ],
+      "condition": "rendered encounter operand 9 at 0x9d1d == \"YOU BUMP INTO SOME  ORCS. \"",
+      "dynamicValue": "YOU BUMP INTO SOME  ORCS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9d1d-runtime-text-v03-you-bump-into-some-orcs.mp3",
+      "text": "YOU BUMP INTO SOME ORCS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9d7e-runtime-text.variant-01-you-spy-a-group-of-seedy-looking-kobolds",
+      "sourceUnitId": "ecl2-b20-9d7e-runtime-text",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9d7e",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9d7e"
+      ],
+      "condition": "rendered encounter operand 9 at 0x9d7e == \"YOU SPY A GROUP OF SEEDY-LOOKING  KOBOLDS. \"",
+      "dynamicValue": "YOU SPY A GROUP OF SEEDY-LOOKING  KOBOLDS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9d7e-runtime-text-v01-you-spy-a-group-of-seedy-looking-kobolds.mp3",
+      "text": "YOU SPY A GROUP OF SEEDY-LOOKING KOBOLDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9d7e-runtime-text.variant-02-you-spy-a-group-of-seedy-looking-goblins",
+      "sourceUnitId": "ecl2-b20-9d7e-runtime-text",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9d7e",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9d7e"
+      ],
+      "condition": "rendered encounter operand 9 at 0x9d7e == \"YOU SPY A GROUP OF SEEDY-LOOKING  GOBLINS. \"",
+      "dynamicValue": "YOU SPY A GROUP OF SEEDY-LOOKING  GOBLINS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9d7e-runtime-text-v02-you-spy-a-group-of-seedy-looking-goblins.mp3",
+      "text": "YOU SPY A GROUP OF SEEDY-LOOKING GOBLINS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9d7e-runtime-text.variant-03-you-spy-a-group-of-seedy-looking-orcs",
+      "sourceUnitId": "ecl2-b20-9d7e-runtime-text",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9d7e",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9d7e"
+      ],
+      "condition": "rendered encounter operand 9 at 0x9d7e == \"YOU SPY A GROUP OF SEEDY-LOOKING  ORCS. \"",
+      "dynamicValue": "YOU SPY A GROUP OF SEEDY-LOOKING  ORCS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9d7e-runtime-text-v03-you-spy-a-group-of-seedy-looking-orcs.mp3",
+      "text": "YOU SPY A GROUP OF SEEDY-LOOKING ORCS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9dde-runtime-text.variant-01-you-have-surprised-a-party-of-kobolds",
+      "sourceUnitId": "ecl2-b20-9dde-runtime-text",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9dde",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9dde"
+      ],
+      "condition": "rendered encounter operand 9 at 0x9dde == \"YOU HAVE SURPRISED A PARTY OF  KOBOLDS. \"",
+      "dynamicValue": "YOU HAVE SURPRISED A PARTY OF  KOBOLDS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v01-you-have-surprised-a-party-of-kobolds.mp3",
+      "text": "YOU HAVE SURPRISED A PARTY OF KOBOLDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene",
+      "aliases": [
+        {
+          "id": "ecl8-b29-a627-runtime-text.variant-02-you-have-surprised-a-party-of-kobolds",
+          "sourceUnitId": "ecl8-b29-a627-runtime-text",
+          "condition": "rendered encounter operand 9 at 0xa627 == \"YOU HAVE SURPRISED A PARTY OF KOBOLDS. \"",
+          "dynamicValue": "YOU HAVE SURPRISED A PARTY OF KOBOLDS. "
+        }
+      ]
+    },
+    {
+      "id": "ecl2-b20-9dde-runtime-text.variant-02-you-have-surprised-a-party-of-goblins",
+      "sourceUnitId": "ecl2-b20-9dde-runtime-text",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9dde",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9dde"
+      ],
+      "condition": "rendered encounter operand 9 at 0x9dde == \"YOU HAVE SURPRISED A PARTY OF  GOBLINS. \"",
+      "dynamicValue": "YOU HAVE SURPRISED A PARTY OF  GOBLINS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v02-you-have-surprised-a-party-of-goblins.mp3",
+      "text": "YOU HAVE SURPRISED A PARTY OF GOBLINS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl2-b20-9dde-runtime-text.variant-03-you-have-surprised-a-party-of-orcs",
+      "sourceUnitId": "ecl2-b20-9dde-runtime-text",
+      "triggerSourceId": "por.review.ecl-2.block-20.at-9dde",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-20.at-9dde"
+      ],
+      "condition": "rendered encounter operand 9 at 0x9dde == \"YOU HAVE SURPRISED A PARTY OF  ORCS. \"",
+      "dynamicValue": "YOU HAVE SURPRISED A PARTY OF  ORCS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v03-you-have-surprised-a-party-of-orcs.mp3",
+      "text": "YOU HAVE SURPRISED A PARTY OF ORCS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b4e9-runtime-text.variant-01-you-have-managed-to-sneak-up-on-some-skeletons",
+      "sourceUnitId": "ecl4-b10-b4e9-runtime-text",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b4e9",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b4e9"
+      ],
+      "condition": "rendered encounter operand 9 at 0xb4e9 == \"YOU HAVE MANAGED TO SNEAK UP ON SOME SKELETONS.\"",
+      "dynamicValue": "YOU HAVE MANAGED TO SNEAK UP ON SOME SKELETONS.",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-b4e9-runtime-text-v01-you-have-managed-to-sneak-up-on-some-skeletons.mp3",
+      "text": "YOU HAVE MANAGED TO SNEAK UP ON SOME SKELETONS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b4e9-runtime-text.variant-02-you-have-managed-to-sneak-up-on-some-zombies",
+      "sourceUnitId": "ecl4-b10-b4e9-runtime-text",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b4e9",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b4e9"
+      ],
+      "condition": "rendered encounter operand 9 at 0xb4e9 == \"YOU HAVE MANAGED TO SNEAK UP ON SOME ZOMBIES.\"",
+      "dynamicValue": "YOU HAVE MANAGED TO SNEAK UP ON SOME ZOMBIES.",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-b4e9-runtime-text-v02-you-have-managed-to-sneak-up-on-some-zombies.mp3",
+      "text": "YOU HAVE MANAGED TO SNEAK UP ON SOME ZOMBIES.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl4-b10-b4e9-runtime-text.variant-03-you-have-managed-to-sneak-up-on-some-wights",
+      "sourceUnitId": "ecl4-b10-b4e9-runtime-text",
+      "triggerSourceId": "por.review.ecl-4.block-10.at-b4e9",
+      "coveredSourceIds": [
+        "por.review.ecl-4.block-10.at-b4e9"
+      ],
+      "condition": "rendered encounter operand 9 at 0xb4e9 == \"YOU HAVE MANAGED TO SNEAK UP ON SOME WIGHTS.\"",
+      "dynamicValue": "YOU HAVE MANAGED TO SNEAK UP ON SOME WIGHTS.",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-b4e9-runtime-text-v03-you-have-managed-to-sneak-up-on-some-wights.mp3",
+      "text": "YOU HAVE MANAGED TO SNEAK UP ON SOME WIGHTS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b29-a500-runtime-text.variant-01-you-see-some-bloodthirsty-gnolls",
+      "sourceUnitId": "ecl8-b29-a500-runtime-text",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-a500",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-a500"
+      ],
+      "condition": "rendered encounter operand 9 at 0xa500 == \"YOU SEE SOME BLOODTHIRSTY GNOLLS \"",
+      "dynamicValue": "YOU SEE SOME BLOODTHIRSTY GNOLLS ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a500-runtime-text-v01-you-see-some-bloodthirsty-gnolls.mp3",
+      "text": "YOU SEE SOME BLOODTHIRSTY GNOLLS",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b29-a500-runtime-text.variant-02-you-see-some-bloodthirsty-kobolds",
+      "sourceUnitId": "ecl8-b29-a500-runtime-text",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-a500",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-a500"
+      ],
+      "condition": "rendered encounter operand 9 at 0xa500 == \"YOU SEE SOME BLOODTHIRSTY KOBOLDS. \"",
+      "dynamicValue": "YOU SEE SOME BLOODTHIRSTY KOBOLDS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a500-runtime-text-v02-you-see-some-bloodthirsty-kobolds.mp3",
+      "text": "YOU SEE SOME BLOODTHIRSTY KOBOLDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b29-a500-runtime-text.variant-03-you-see-some-bloodthirsty-lizardmen",
+      "sourceUnitId": "ecl8-b29-a500-runtime-text",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-a500",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-a500"
+      ],
+      "condition": "rendered encounter operand 9 at 0xa500 == \"YOU SEE SOME BLOODTHIRSTY LIZARDMEN. \"",
+      "dynamicValue": "YOU SEE SOME BLOODTHIRSTY LIZARDMEN. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a500-runtime-text-v03-you-see-some-bloodthirsty-lizardmen.mp3",
+      "text": "YOU SEE SOME BLOODTHIRSTY LIZARDMEN.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b29-a56b-runtime-text.variant-01-you-are-suddenly-face-to-face-with-armed-gnolls",
+      "sourceUnitId": "ecl8-b29-a56b-runtime-text",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-a56b",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-a56b"
+      ],
+      "condition": "rendered encounter operand 9 at 0xa56b == \"YOU ARE SUDDENLY FACE TO FACE WITH ARMED GNOLLS \"",
+      "dynamicValue": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED GNOLLS ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a56b-runtime-text-v01-you-are-suddenly-face-to-face-with-armed-gnolls.mp3",
+      "text": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED GNOLLS",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b29-a56b-runtime-text.variant-02-you-are-suddenly-face-to-face-with-armed-kobolds",
+      "sourceUnitId": "ecl8-b29-a56b-runtime-text",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-a56b",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-a56b"
+      ],
+      "condition": "rendered encounter operand 9 at 0xa56b == \"YOU ARE SUDDENLY FACE TO FACE WITH ARMED KOBOLDS. \"",
+      "dynamicValue": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED KOBOLDS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a56b-runtime-text-v02-you-are-suddenly-face-to-face-with-armed-kobolds.mp3",
+      "text": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED KOBOLDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b29-a56b-runtime-text.variant-03-you-are-suddenly-face-to-face-with-armed-lizardmen",
+      "sourceUnitId": "ecl8-b29-a56b-runtime-text",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-a56b",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-a56b"
+      ],
+      "condition": "rendered encounter operand 9 at 0xa56b == \"YOU ARE SUDDENLY FACE TO FACE WITH ARMED LIZARDMEN. \"",
+      "dynamicValue": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED LIZARDMEN. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a56b-runtime-text-v03-you-are-suddenly-face-to-face-with-armed-lizardmen.mp3",
+      "text": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED LIZARDMEN.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b29-a5c4-runtime-text.variant-01-you-are-being-avoided-by-some-gnolls",
+      "sourceUnitId": "ecl8-b29-a5c4-runtime-text",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-a5c4",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-a5c4"
+      ],
+      "condition": "rendered encounter operand 9 at 0xa5c4 == \"YOU ARE BEING AVOIDED BY SOME GNOLLS \"",
+      "dynamicValue": "YOU ARE BEING AVOIDED BY SOME GNOLLS ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a5c4-runtime-text-v01-you-are-being-avoided-by-some-gnolls.mp3",
+      "text": "YOU ARE BEING AVOIDED BY SOME GNOLLS",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b29-a5c4-runtime-text.variant-02-you-are-being-avoided-by-some-kobolds",
+      "sourceUnitId": "ecl8-b29-a5c4-runtime-text",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-a5c4",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-a5c4"
+      ],
+      "condition": "rendered encounter operand 9 at 0xa5c4 == \"YOU ARE BEING AVOIDED BY SOME KOBOLDS. \"",
+      "dynamicValue": "YOU ARE BEING AVOIDED BY SOME KOBOLDS. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a5c4-runtime-text-v02-you-are-being-avoided-by-some-kobolds.mp3",
+      "text": "YOU ARE BEING AVOIDED BY SOME KOBOLDS.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b29-a5c4-runtime-text.variant-03-you-are-being-avoided-by-some-lizardmen",
+      "sourceUnitId": "ecl8-b29-a5c4-runtime-text",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-a5c4",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-a5c4"
+      ],
+      "condition": "rendered encounter operand 9 at 0xa5c4 == \"YOU ARE BEING AVOIDED BY SOME LIZARDMEN. \"",
+      "dynamicValue": "YOU ARE BEING AVOIDED BY SOME LIZARDMEN. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a5c4-runtime-text-v03-you-are-being-avoided-by-some-lizardmen.mp3",
+      "text": "YOU ARE BEING AVOIDED BY SOME LIZARDMEN.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b29-a627-runtime-text.variant-01-you-have-surprised-a-party-of-gnolls",
+      "sourceUnitId": "ecl8-b29-a627-runtime-text",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-a627",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-a627"
+      ],
+      "condition": "rendered encounter operand 9 at 0xa627 == \"YOU HAVE SURPRISED A PARTY OF GNOLLS \"",
+      "dynamicValue": "YOU HAVE SURPRISED A PARTY OF GNOLLS ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a627-runtime-text-v01-you-have-surprised-a-party-of-gnolls.mp3",
+      "text": "YOU HAVE SURPRISED A PARTY OF GNOLLS",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b29-a627-runtime-text.variant-03-you-have-surprised-a-party-of-lizardmen",
+      "sourceUnitId": "ecl8-b29-a627-runtime-text",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-a627",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-a627"
+      ],
+      "condition": "rendered encounter operand 9 at 0xa627 == \"YOU HAVE SURPRISED A PARTY OF LIZARDMEN. \"",
+      "dynamicValue": "YOU HAVE SURPRISED A PARTY OF LIZARDMEN. ",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a627-runtime-text-v03-you-have-surprised-a-party-of-lizardmen.mp3",
+      "text": "YOU HAVE SURPRISED A PARTY OF LIZARDMEN.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl1-b18-a105-a117-a11b.variant-01-goblins",
+      "sourceUnitId": "ecl1-b18-a105-a117-a11b",
+      "triggerSourceId": "por.review.ecl-1.block-18.at-a105",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-18.at-a105",
+        "por.review.ecl-1.block-18.at-a117",
+        "por.review.ecl-1.block-18.at-a11b"
+      ],
+      "condition": "0x9800 == \" GOBLINS\"",
+      "dynamicValue": " GOBLINS",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a105-a117-a11b-v01-goblins.mp3",
+      "text": "YOU SPOT A GROUP OF GOBLINS.",
+      "direction": "measured dramatic fantasy narration",
+      "aliases": [
+        {
+          "id": "ecl1-b24-adbf-add1-add5.variant-01-goblins",
+          "sourceUnitId": "ecl1-b24-adbf-add1-add5",
+          "condition": "0x9800 == \"GOBLINS\"",
+          "dynamicValue": "GOBLINS"
+        },
+        {
+          "id": "ecl1-b24-af35-af47-af4b.variant-01-goblins",
+          "sourceUnitId": "ecl1-b24-af35-af47-af4b",
+          "condition": "0x9800 == \"GOBLINS\"",
+          "dynamicValue": "GOBLINS"
+        }
+      ]
+    },
+    {
+      "id": "ecl1-b18-a105-a117-a11b.variant-02-orcs",
+      "sourceUnitId": "ecl1-b18-a105-a117-a11b",
+      "triggerSourceId": "por.review.ecl-1.block-18.at-a105",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-18.at-a105",
+        "por.review.ecl-1.block-18.at-a117",
+        "por.review.ecl-1.block-18.at-a11b"
+      ],
+      "condition": "0x9800 == \" ORCS\"",
+      "dynamicValue": " ORCS",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a105-a117-a11b-v02-orcs.mp3",
+      "text": "YOU SPOT A GROUP OF ORCS.",
+      "direction": "measured dramatic fantasy narration",
+      "aliases": [
+        {
+          "id": "ecl1-b24-adbf-add1-add5.variant-02-orcs",
+          "sourceUnitId": "ecl1-b24-adbf-add1-add5",
+          "condition": "0x9800 == \"ORCS\"",
+          "dynamicValue": "ORCS"
+        },
+        {
+          "id": "ecl1-b24-af35-af47-af4b.variant-02-orcs",
+          "sourceUnitId": "ecl1-b24-af35-af47-af4b",
+          "condition": "0x9800 == \"ORCS\"",
+          "dynamicValue": "ORCS"
+        }
+      ]
+    },
+    {
+      "id": "ecl1-b18-a105-a117-a11b.variant-03-hobgoblins",
+      "sourceUnitId": "ecl1-b18-a105-a117-a11b",
+      "triggerSourceId": "por.review.ecl-1.block-18.at-a105",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-18.at-a105",
+        "por.review.ecl-1.block-18.at-a117",
+        "por.review.ecl-1.block-18.at-a11b"
+      ],
+      "condition": "0x9800 == \" HOBGOBLINS\"",
+      "dynamicValue": " HOBGOBLINS",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a105-a117-a11b-v03-hobgoblins.mp3",
+      "text": "YOU SPOT A GROUP OF HOBGOBLINS.",
+      "direction": "measured dramatic fantasy narration",
+      "aliases": [
+        {
+          "id": "ecl1-b24-adbf-add1-add5.variant-03-hobgoblins",
+          "sourceUnitId": "ecl1-b24-adbf-add1-add5",
+          "condition": "0x9800 == \"HOBGOBLINS\"",
+          "dynamicValue": "HOBGOBLINS"
+        },
+        {
+          "id": "ecl1-b24-af35-af47-af4b.variant-03-hobgoblins",
+          "sourceUnitId": "ecl1-b24-af35-af47-af4b",
+          "condition": "0x9800 == \"HOBGOBLINS\"",
+          "dynamicValue": "HOBGOBLINS"
+        }
+      ]
+    },
+    {
+      "id": "ecl1-b18-a105-a117-a11b.variant-04-ogres",
+      "sourceUnitId": "ecl1-b18-a105-a117-a11b",
+      "triggerSourceId": "por.review.ecl-1.block-18.at-a105",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-18.at-a105",
+        "por.review.ecl-1.block-18.at-a117",
+        "por.review.ecl-1.block-18.at-a11b"
+      ],
+      "condition": "0x9800 == \" OGRES\"",
+      "dynamicValue": " OGRES",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a105-a117-a11b-v04-ogres.mp3",
+      "text": "YOU SPOT A GROUP OF OGRES.",
+      "direction": "measured dramatic fantasy narration",
+      "aliases": [
+        {
+          "id": "ecl1-b24-adbf-add1-add5.variant-04-ogres",
+          "sourceUnitId": "ecl1-b24-adbf-add1-add5",
+          "condition": "0x9800 == \"OGRES\"",
+          "dynamicValue": "OGRES"
+        },
+        {
+          "id": "ecl1-b24-af35-af47-af4b.variant-04-ogres",
+          "sourceUnitId": "ecl1-b24-af35-af47-af4b",
+          "condition": "0x9800 == \"OGRES\"",
+          "dynamicValue": "OGRES"
+        }
+      ]
+    },
+    {
+      "id": "ecl1-b24-af0c-af1f-af23.variant-01-goblins",
+      "sourceUnitId": "ecl1-b24-af0c-af1f-af23",
+      "triggerSourceId": "por.review.ecl-1.block-24.at-af0c",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-24.at-af0c",
+        "por.review.ecl-1.block-24.at-af1f",
+        "por.review.ecl-1.block-24.at-af23"
+      ],
+      "condition": "0x9800 == \"GOBLINS\"",
+      "dynamicValue": "GOBLINS",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-af0c-af1f-af23-v01-goblins.mp3",
+      "text": "YOU ARE SURPRISED BY GOBLINS.",
+      "direction": "measured dramatic fantasy narration"
+    },
+    {
+      "id": "ecl1-b24-af0c-af1f-af23.variant-02-orcs",
+      "sourceUnitId": "ecl1-b24-af0c-af1f-af23",
+      "triggerSourceId": "por.review.ecl-1.block-24.at-af0c",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-24.at-af0c",
+        "por.review.ecl-1.block-24.at-af1f",
+        "por.review.ecl-1.block-24.at-af23"
+      ],
+      "condition": "0x9800 == \"ORCS\"",
+      "dynamicValue": "ORCS",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-af0c-af1f-af23-v02-orcs.mp3",
+      "text": "YOU ARE SURPRISED BY ORCS.",
+      "direction": "measured dramatic fantasy narration"
+    },
+    {
+      "id": "ecl1-b24-af0c-af1f-af23.variant-03-hobgoblins",
+      "sourceUnitId": "ecl1-b24-af0c-af1f-af23",
+      "triggerSourceId": "por.review.ecl-1.block-24.at-af0c",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-24.at-af0c",
+        "por.review.ecl-1.block-24.at-af1f",
+        "por.review.ecl-1.block-24.at-af23"
+      ],
+      "condition": "0x9800 == \"HOBGOBLINS\"",
+      "dynamicValue": "HOBGOBLINS",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-af0c-af1f-af23-v03-hobgoblins.mp3",
+      "text": "YOU ARE SURPRISED BY HOBGOBLINS.",
+      "direction": "measured dramatic fantasy narration"
+    },
+    {
+      "id": "ecl1-b24-af0c-af1f-af23.variant-04-ogres",
+      "sourceUnitId": "ecl1-b24-af0c-af1f-af23",
+      "triggerSourceId": "por.review.ecl-1.block-24.at-af0c",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-24.at-af0c",
+        "por.review.ecl-1.block-24.at-af1f",
+        "por.review.ecl-1.block-24.at-af23"
+      ],
+      "condition": "0x9800 == \"OGRES\"",
+      "dynamicValue": "OGRES",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-af0c-af1f-af23-v04-ogres.mp3",
+      "text": "YOU ARE SURPRISED BY OGRES.",
+      "direction": "measured dramatic fantasy narration"
+    },
+    {
+      "id": "ecl1-b24-afb9-afdf-afe3.variant-01-goblins",
+      "sourceUnitId": "ecl1-b24-afb9-afdf-afe3",
+      "triggerSourceId": "por.review.ecl-1.block-24.at-afb9",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-24.at-afb9",
+        "por.review.ecl-1.block-24.at-afdf",
+        "por.review.ecl-1.block-24.at-afe3"
+      ],
+      "condition": "0x9800 == \"GOBLINS\"",
+      "dynamicValue": "GOBLINS",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-afb9-afdf-afe3-v01-goblins.mp3",
+      "text": "YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF GOBLINS.",
+      "direction": "measured dramatic fantasy narration"
+    },
+    {
+      "id": "ecl1-b24-afb9-afdf-afe3.variant-02-orcs",
+      "sourceUnitId": "ecl1-b24-afb9-afdf-afe3",
+      "triggerSourceId": "por.review.ecl-1.block-24.at-afb9",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-24.at-afb9",
+        "por.review.ecl-1.block-24.at-afdf",
+        "por.review.ecl-1.block-24.at-afe3"
+      ],
+      "condition": "0x9800 == \"ORCS\"",
+      "dynamicValue": "ORCS",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-afb9-afdf-afe3-v02-orcs.mp3",
+      "text": "YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF ORCS.",
+      "direction": "measured dramatic fantasy narration"
+    },
+    {
+      "id": "ecl1-b24-afb9-afdf-afe3.variant-03-hobgoblins",
+      "sourceUnitId": "ecl1-b24-afb9-afdf-afe3",
+      "triggerSourceId": "por.review.ecl-1.block-24.at-afb9",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-24.at-afb9",
+        "por.review.ecl-1.block-24.at-afdf",
+        "por.review.ecl-1.block-24.at-afe3"
+      ],
+      "condition": "0x9800 == \"HOBGOBLINS\"",
+      "dynamicValue": "HOBGOBLINS",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-afb9-afdf-afe3-v03-hobgoblins.mp3",
+      "text": "YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF HOBGOBLINS.",
+      "direction": "measured dramatic fantasy narration"
+    },
+    {
+      "id": "ecl1-b24-afb9-afdf-afe3.variant-04-ogres",
+      "sourceUnitId": "ecl1-b24-afb9-afdf-afe3",
+      "triggerSourceId": "por.review.ecl-1.block-24.at-afb9",
+      "coveredSourceIds": [
+        "por.review.ecl-1.block-24.at-afb9",
+        "por.review.ecl-1.block-24.at-afdf",
+        "por.review.ecl-1.block-24.at-afe3"
+      ],
+      "condition": "0x9800 == \"OGRES\"",
+      "dynamicValue": "OGRES",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-afb9-afdf-afe3-v04-ogres.mp3",
+      "text": "YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF OGRES.",
+      "direction": "measured dramatic fantasy narration"
+    },
+    {
+      "id": "ecl2-b9-9de5-9def-9e01.variant-01-patrol-of-giants-led-by-a-human-fighter",
+      "sourceUnitId": "ecl2-b9-9de5-9def-9e01",
+      "triggerSourceId": "por.review.ecl-2.block-9.at-9de5",
+      "coveredSourceIds": [
+        "por.review.ecl-2.block-9.at-9de5",
+        "por.review.ecl-2.block-9.at-9def",
+        "por.review.ecl-2.block-9.at-9e01"
+      ],
+      "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+      "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b9-9de5-9def-9e01-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
+      "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER SEES YOU. 'THAT'S THEM!'",
+      "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
+    },
+    {
+      "id": "por.voice.ecl5.b3-9d1f-9d3b.variant-01-patrol-of-giants-led-by-a-human-fighter",
+      "sourceUnitId": "por.voice.ecl5.b3-9d1f-9d3b",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9d1f",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9d1f",
+        "por.review.ecl-5.block-3.at-9d29",
+        "por.review.ecl-5.block-3.at-9d3b"
+      ],
+      "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+      "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl5-b3-9d1f-9d3b-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
+      "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER YELLS 'SACRILEGIOUS SCUM!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
+      "aliases": [
+        {
+          "id": "por.voice.ecl5.b4-9c74-9c90.variant-01-patrol-of-giants-led-by-a-human-fighter",
+          "sourceUnitId": "por.voice.ecl5.b4-9c74-9c90",
+          "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+          "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+        },
+        {
+          "id": "por.voice.ecl5.b6-a974-a990.variant-01-patrol-of-giants-led-by-a-human-fighter",
+          "sourceUnitId": "por.voice.ecl5.b6-a974-a990",
+          "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+          "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+        }
+      ]
+    },
+    {
+      "id": "por.voice.ecl5.b3-9d1f-9d6e.variant-01-patrol-of-giants-led-by-a-human-fighter",
+      "sourceUnitId": "por.voice.ecl5.b3-9d1f-9d6e",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9d1f",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9d1f",
+        "por.review.ecl-5.block-3.at-9d29",
+        "por.review.ecl-5.block-3.at-9d6e"
+      ],
+      "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+      "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl5-b3-9d1f-9d6e-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
+      "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER SEES YOU. 'THAT'S THEM!'",
+      "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
+      "aliases": [
+        {
+          "id": "por.voice.ecl5.b4-9c74-9cc3.variant-01-patrol-of-giants-led-by-a-human-fighter",
+          "sourceUnitId": "por.voice.ecl5.b4-9c74-9cc3",
+          "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+          "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+        },
+        {
+          "id": "por.voice.ecl5.b6-a974-a9c3.variant-01-patrol-of-giants-led-by-a-human-fighter",
+          "sourceUnitId": "por.voice.ecl5.b6-a974-a9c3",
+          "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+          "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+        }
+      ]
+    },
+    {
+      "id": "por.voice.ecl5.b3-9de2-9dec.variant-01-patrol-of-giants-led-by-a-human-fighter",
+      "sourceUnitId": "por.voice.ecl5.b3-9de2-9dec",
+      "triggerSourceId": "por.review.ecl-5.block-3.at-9de2",
+      "coveredSourceIds": [
+        "por.review.ecl-5.block-3.at-9de2",
+        "por.review.ecl-5.block-3.at-9dec"
+      ],
+      "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+      "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl5-b3-9de2-9dec-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
+      "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER",
+      "direction": "Measured expressive fantasy narration appropriate to the scene",
+      "aliases": [
+        {
+          "id": "por.voice.ecl5.b4-9d37-9d41.variant-01-patrol-of-giants-led-by-a-human-fighter",
+          "sourceUnitId": "por.voice.ecl5.b4-9d37-9d41",
+          "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+          "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+        },
+        {
+          "id": "por.voice.ecl5.b6-aa37-aa41.variant-01-patrol-of-giants-led-by-a-human-fighter",
+          "sourceUnitId": "por.voice.ecl5.b6-aa37-aa41",
+          "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
+          "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER"
+        }
+      ]
+    },
+    {
+      "id": "ecl8-b29-9cf6-9d10.variant-01-south-wall",
+      "sourceUnitId": "ecl8-b29-9cf6-9d10",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-9cf6",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-9cf6",
+        "por.review.ecl-8.block-29.at-9d10"
+      ],
+      "condition": "0x982c == \"SOUTH WALL.\"",
+      "dynamicValue": "SOUTH WALL.",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-9cf6-9d10-v01-south-wall.mp3",
+      "text": "YOU FIND A SECRET DOOR IN THE SOUTH WALL.",
+      "direction": "measured, expressive fantasy narration appropriate to the scene"
+    },
+    {
+      "id": "ecl8-b29-9cf6-9d10.variant-02-north-wall",
+      "sourceUnitId": "ecl8-b29-9cf6-9d10",
+      "triggerSourceId": "por.review.ecl-8.block-29.at-9cf6",
+      "coveredSourceIds": [
+        "por.review.ecl-8.block-29.at-9cf6",
+        "por.review.ecl-8.block-29.at-9d10"
+      ],
+      "condition": "0x982c == \"NORTH WALL.\"",
+      "dynamicValue": "NORTH WALL.",
+      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-9cf6-9d10-v02-north-wall.mp3",
+      "text": "YOU FIND A SECRET DOOR IN THE NORTH WALL.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     }
   ]

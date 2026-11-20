@@ -10,10 +10,11 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-13.at-9b26",
         "por.review.ecl-8.block-13.at-9b50",
+        "por.review.ecl-8.block-13.at-b512",
         "por.review.ecl-8.block-13.at-9b71"
       ],
       "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-9b26-9b50-9b71.mp3",
-      "text": "YOU FIND A PILE OF MINE TAILINGS. IN IT IS A KOBOLD'S CRUDE DRAWING. 42.",
+      "text": "YOU FIND A PILE OF MINE TAILINGS. IN IT IS A KOBOLD'S CRUDE DRAWING. YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY 42.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
     {
@@ -47,11 +48,12 @@
         "por.review.ecl-8.block-13.at-a733",
         "por.review.ecl-8.block-13.at-a775",
         "por.review.ecl-8.block-13.at-a7cd",
+        "por.review.ecl-8.block-13.at-b512",
         "por.review.ecl-8.block-13.at-a7f8",
         "por.review.ecl-8.block-13.at-a802"
       ],
       "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a733-a775-a7cd-a7f8-a802.mp3",
-      "text": "YOU HEAR MUFFLED SOUNDS AND TURN TO INVESTIGATE. IN THIS ROOM IS A YOUNG WOMAN IN BARBARIAN FINERY. SHE DROPS A KOBOLD SHE WAS STRANGLING WHEN SHE SEES YOU. 'I AM PRINCESS FATIMA.' THE PRINCESS CONTINUES. 16. SHE OFFERS TO JOIN YOUR BAND.",
+      "text": "YOU HEAR MUFFLED SOUNDS AND TURN TO INVESTIGATE. IN THIS ROOM IS A YOUNG WOMAN IN BARBARIAN FINERY. SHE DROPS A KOBOLD SHE WAS STRANGLING WHEN SHE SEES YOU. 'I AM PRINCESS FATIMA.' THE PRINCESS CONTINUES. YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY 16. SHE OFFERS TO JOIN YOUR BAND.",
       "direction": "perform Princess Fatima consistently as a fierce, confident young barbarian noblewoman; retain narrator identity for narration"
     },
     {
@@ -59,11 +61,12 @@
       "triggerSourceId": "por.review.ecl-8.block-13.at-ab75",
       "coveredSourceIds": [
         "por.review.ecl-8.block-13.at-ab75",
+        "por.review.ecl-8.block-13.at-b512",
         "por.review.ecl-8.block-13.at-abaa",
         "por.review.ecl-8.block-13.at-abb4"
       ],
       "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-ab75-abaa-abb4.mp3",
-      "text": "WHEN YOU GIVE IT WATER, IT CRAWLS OUT AND TELLS YOU ITS TALE. 20. AFTER IT IS DONE, IT LEAVES.",
+      "text": "WHEN YOU GIVE IT WATER, IT CRAWLS OUT AND TELLS YOU ITS TALE. YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY 20. AFTER IT IS DONE, IT LEAVES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
     {
@@ -453,12 +456,13 @@
     },
     {
       "id": "ecl8-b13-a713",
-      "triggerSourceId": "por.review.ecl-8.block-13.at-a713",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b512",
       "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-b512",
         "por.review.ecl-8.block-13.at-a713"
       ],
       "output": "../por-assets/voices/narration/ecl8/block-13/ecl8-b13-a713.mp3",
-      "text": "28.",
+      "text": "YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY 28.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
     {

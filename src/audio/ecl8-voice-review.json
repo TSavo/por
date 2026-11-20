@@ -8,9 +8,9 @@
     "queue": "newly reached standalone unit plays after current narration"
   },
   "eventCount": 277,
-  "narrationUnitCount": 182,
+  "narrationUnitCount": 181,
   "readyUnitCount": 163,
-  "unresolvedUnitCount": 19,
+  "unresolvedUnitCount": 18,
   "characters": [
     {
       "id": "kobold-guide",
@@ -2700,10 +2700,13 @@
         }
       ],
       "sourceDigest": "e059fa486d744ca3b8f6ea4dcc3b537a1800312042c867fc9f8122f9835c8217",
-      "classification": "unresolved-dynamic",
-      "reason": "runtime text must be resolved before generation",
+      "classification": "voiced-continuation",
+      "reason": "Shared journal prefix called at 0x9b6d, 0xa70f, 0xa7f4, 0xaba6. Each caller prints its own literal entry number immediately after the return.",
       "narrationUnitIds": [
-        "ecl8-b13-b512"
+        "ecl8-b13-9b26-9b50-9b71",
+        "ecl8-b13-a713",
+        "ecl8-b13-a733-a775-a7cd-a7f8-a802",
+        "ecl8-b13-ab75-abaa-abb4"
       ]
     },
     {
@@ -6999,6 +7002,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-13.at-9b26",
         "por.review.ecl-8.block-13.at-9b50",
+        "por.review.ecl-8.block-13.at-b512",
         "por.review.ecl-8.block-13.at-9b71"
       ],
       "sourceTextParts": [
@@ -7011,11 +7015,15 @@
           "rawText": "IN IT IS A KOBOLD'S CRUDE DRAWING."
         },
         {
+          "sourceId": "por.review.ecl-8.block-13.at-b512",
+          "rawText": " YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY "
+        },
+        {
           "sourceId": "por.review.ecl-8.block-13.at-9b71",
           "rawText": "42."
         }
       ],
-      "spokenText": "YOU FIND A PILE OF MINE TAILINGS. IN IT IS A KOBOLD'S CRUDE DRAWING. 42.",
+      "spokenText": "YOU FIND A PILE OF MINE TAILINGS. IN IT IS A KOBOLD'S CRUDE DRAWING. YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY 42.",
       "status": "ready",
       "characterId": null,
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
@@ -7084,6 +7092,7 @@
         "por.review.ecl-8.block-13.at-a733",
         "por.review.ecl-8.block-13.at-a775",
         "por.review.ecl-8.block-13.at-a7cd",
+        "por.review.ecl-8.block-13.at-b512",
         "por.review.ecl-8.block-13.at-a7f8",
         "por.review.ecl-8.block-13.at-a802"
       ],
@@ -7101,6 +7110,10 @@
           "rawText": "'I AM PRINCESS FATIMA.' THE PRINCESS CONTINUES."
         },
         {
+          "sourceId": "por.review.ecl-8.block-13.at-b512",
+          "rawText": " YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY "
+        },
+        {
           "sourceId": "por.review.ecl-8.block-13.at-a7f8",
           "rawText": "16."
         },
@@ -7109,7 +7122,7 @@
           "rawText": "SHE OFFERS TO JOIN YOUR BAND."
         }
       ],
-      "spokenText": "YOU HEAR MUFFLED SOUNDS AND TURN TO INVESTIGATE. IN THIS ROOM IS A YOUNG WOMAN IN BARBARIAN FINERY. SHE DROPS A KOBOLD SHE WAS STRANGLING WHEN SHE SEES YOU. 'I AM PRINCESS FATIMA.' THE PRINCESS CONTINUES. 16. SHE OFFERS TO JOIN YOUR BAND.",
+      "spokenText": "YOU HEAR MUFFLED SOUNDS AND TURN TO INVESTIGATE. IN THIS ROOM IS A YOUNG WOMAN IN BARBARIAN FINERY. SHE DROPS A KOBOLD SHE WAS STRANGLING WHEN SHE SEES YOU. 'I AM PRINCESS FATIMA.' THE PRINCESS CONTINUES. YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY 16. SHE OFFERS TO JOIN YOUR BAND.",
       "status": "ready",
       "characterId": "princess-fatima",
       "direction": "perform Princess Fatima consistently as a fierce, confident young barbarian noblewoman; retain narrator identity for narration"
@@ -7120,6 +7133,7 @@
       "triggerSourceId": "por.review.ecl-8.block-13.at-ab75",
       "coveredSourceIds": [
         "por.review.ecl-8.block-13.at-ab75",
+        "por.review.ecl-8.block-13.at-b512",
         "por.review.ecl-8.block-13.at-abaa",
         "por.review.ecl-8.block-13.at-abb4"
       ],
@@ -7127,6 +7141,10 @@
         {
           "sourceId": "por.review.ecl-8.block-13.at-ab75",
           "rawText": "WHEN YOU GIVE IT WATER, IT CRAWLS OUT AND TELLS YOU ITS TALE."
+        },
+        {
+          "sourceId": "por.review.ecl-8.block-13.at-b512",
+          "rawText": " YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY "
         },
         {
           "sourceId": "por.review.ecl-8.block-13.at-abaa",
@@ -7137,7 +7155,7 @@
           "rawText": "AFTER IT IS DONE, IT LEAVES."
         }
       ],
-      "spokenText": "WHEN YOU GIVE IT WATER, IT CRAWLS OUT AND TELLS YOU ITS TALE. 20. AFTER IT IS DONE, IT LEAVES.",
+      "spokenText": "WHEN YOU GIVE IT WATER, IT CRAWLS OUT AND TELLS YOU ITS TALE. YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY 20. AFTER IT IS DONE, IT LEAVES.",
       "status": "ready",
       "characterId": null,
       "direction": "measured, expressive fantasy narration appropriate to the scene"
@@ -7218,24 +7236,6 @@
       ],
       "spokenText": "KOBOLDS APPEAR AND BOMBARD YOU WITH ROCKS. WHAT DO YOU DO?",
       "status": "ready",
-      "characterId": null,
-      "direction": "measured, expressive fantasy narration appropriate to the scene"
-    },
-    {
-      "id": "ecl8-b13-b512",
-      "block": 13,
-      "triggerSourceId": "por.review.ecl-8.block-13.at-b512",
-      "coveredSourceIds": [
-        "por.review.ecl-8.block-13.at-b512"
-      ],
-      "sourceTextParts": [
-        {
-          "sourceId": "por.review.ecl-8.block-13.at-b512",
-          "rawText": " YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY "
-        }
-      ],
-      "spokenText": "YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY",
-      "status": "unresolved-dynamic",
       "characterId": null,
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -8556,17 +8556,22 @@
     {
       "id": "ecl8-b13-a713",
       "block": 13,
-      "triggerSourceId": "por.review.ecl-8.block-13.at-a713",
+      "triggerSourceId": "por.review.ecl-8.block-13.at-b512",
       "coveredSourceIds": [
+        "por.review.ecl-8.block-13.at-b512",
         "por.review.ecl-8.block-13.at-a713"
       ],
       "sourceTextParts": [
+        {
+          "sourceId": "por.review.ecl-8.block-13.at-b512",
+          "rawText": " YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY "
+        },
         {
           "sourceId": "por.review.ecl-8.block-13.at-a713",
           "rawText": "28."
         }
       ],
-      "spokenText": "28.",
+      "spokenText": "YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY 28.",
       "status": "ready",
       "characterId": null,
       "direction": "measured, expressive fantasy narration appropriate to the scene"

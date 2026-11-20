@@ -742,7 +742,13 @@ def render_proc(blob: bytes, start: int, end: int, fn: str, comment: str, names:
     addrs = {insn.address for insn in body}
     for insn in body:
         nxt = insn.address + insn.size
-        lines.extend(emit_insn(insn, nxt, names, nxt in addrs, addrs))
+        instruction = emit_insn(insn, nxt, names, nxt in addrs, addrs)
+        if fn == "ovl03_35db" and insn.address == 0x360f:
+            # The ECL loop has fetched its opcode and still points at its first byte.
+            call = instruction.index("        nearCall(m, 0x32df);")
+            instruction.insert(call + 1, "        m.onEclInstruction?.(false);")
+            instruction.insert(call, "        m.onEclInstruction?.(true);")
+        lines.extend(instruction)
     lines += [
         "      default:",
         "        throw new Error(`" + fn + " ip ${ip.toString(16)}`);",
