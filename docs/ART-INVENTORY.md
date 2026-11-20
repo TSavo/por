@@ -51,16 +51,16 @@ even when several areas have their own replacement. The table inventories
 archive contents. The live routes establish which frames are drawn.
 **Exact portrait and combat matches** lists original frames whose pixels
 already resolve to global enhanced artwork through the browser's matchers.
-The inventory at `84dc398` reports 807 source frames, with 431 linked
+The inventory at `fb68b4b7` reports 807 source frames, with 431 linked
 directly, 22 covered through exact pixel matches, and 354 unlinked. The
 unlinked entries include 11 uniform frames and 7 with scoped reuse
-candidates. The full enhanced manifest has 5,792 validated replacement
+candidates. The full enhanced manifest has 6,046 validated replacement
 mappings, including environment and interface artwork. Multiple encounter
 branches can use the same source frame, so adding a branch-specific
 replacement can improve live coverage without changing the source-frame count.
 The party combat icon tables count default-palette combinations with both
-poses. The tall editor has 68 of 448 covered combinations, including the
-full default Human and plumed head sets. The small editor has 198 of 352.
+poses. The tall editor has 195 of 448 covered combinations, including six
+complete head sets. The small editor has 198 of 352.
 **Unlinked source frames** lists the individual unlinked PIC, SPRIT, and
 CPIC frames by archive, directory index, member, and frame. Each entry
 includes its 4× dimensions and links to the local source sheet. The JSON
