@@ -665,6 +665,12 @@ const illustrationRoutes = new Map([
     journalLead: "textile-diary-page", journalLeadAtDiscovery: true,
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["yarash-alchemical-laboratory", {
+    slot: "A", inputs: ["up", "up", "enter", "left", "up", "enter", "right"],
+    portraitStops: { 5: "scene-illustration:area:23:ecl:9a04:caller:a08a", 6: "scene-illustration:area:23:ecl:a0fd" },
+    portrait: "scene-illustration:area:23:ecl:a0fd", prompt: /THEWALLSARELINEDWITHFLASKSANDBOTTLES.*ALCHEMICALNATURE/i,
+    continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["yarash-desk-papers", {
     slot: "A", inputs: ["s", "up", ...Array(6).fill("enter")],
     portraitStops: {
