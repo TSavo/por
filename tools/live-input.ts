@@ -169,7 +169,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // Several auction outcomes share the same pause and native return address.
       const otherAuctionOutcome = area === 18 && battleCursor === 0xb240 && portraitCaller === 0xa839 &&
         !dialogue.startsWith("AMANANDOGREEXCHANGETHEWANDANDALARGEBAG");
-      const picture = !scene ? portraitArt(screen, area, battleCursor, otherAuctionOutcome ? undefined : portraitCaller) : undefined;
+      // The first dragon sighting and later cave visits share a native menu cursor.
+      const caveRevisit = area === 25 && battleCursor === 0x9c97 && !dialogue.includes("ALARGEDRAGONFLYSABOVEYOU");
+      const picture = !scene
+        ? portraitArt(screen, area, caveRevisit ? undefined : battleCursor, otherAuctionOutcome ? undefined : portraitCaller)
+        : undefined;
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
       const enhanced = new Frame(screen.width, screen.height);

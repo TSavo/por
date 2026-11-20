@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:20:CPIC2.DAX:135:ecl:abf8": "slums-council-hobgoblin-strike.png",
+    "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0": "diogenes-mountain-sighting.png",
     "portrait:area:25:ecl:a04e:PIC6.DAX:33:0:0": "zhentil-patrol-warning.png",
     "portrait:area:25:ecl:ab3f:PIC6.DAX:33:0:0": "zhentil-patrol-warning.png",
     "combat:area:2:CPIC2.DAX:6:ecl:aa68": "textile-drum-court-guard-ready.png",
