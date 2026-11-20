@@ -91,6 +91,12 @@ fresh party and checks the enhanced dock, Rolf's approach and all seven
 tour stops, and the return to scenery after the City Hall guard. This
 replay checks the artwork selected at those transitions, where a single
 archive frame count can hide a missing scene binding.
+Podal Plaza's auction provides another example. Native viewport captures
+from the wand exchange, ogre search, hostile and cancelled branches, and
+Garwin's escape show `PIC1.DAX` picture 16 member 0, which already has
+Enhanced art. Members 1 through 5 are sparse animation deltas. None of
+their combinations appeared in those captures, so the archive rows
+alone do not establish five missing illustrations in the auction.
 The party combat icon tables count default-palette combinations with both
 poses. All 448 tall combinations across 14 head sets and all 352 small
 combinations across 11 distinct head sets have both poses.
