@@ -820,6 +820,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("LOOK FOR FRIENDS WHERE YOU EXPECT ENEMIES AND ENEMIES WHERE YOU EXPECT ALLIES")) {
     leads.push({ id: "slums-fortune-warning", title: "The fortune teller's warning", detail: "The fortune teller warned that people the party expects to be enemies may help, and apparent allies may turn against it." });
   }
+  if (text.includes("A POWERFUL ONE BECOMES AWARE OF YOUR DEEDS AND SEEKS TO DESTROY YOU")) {
+    leads.push({ id: "slums-fortune-power", title: "The fortune teller's warning about power",
+      detail: "The fortune teller warned that someone powerful seeks to destroy the party, while someone weaker sees it as a path to power." });
+  }
+  if (text.includes("THE RIDDLE'S ANSWER IS GREAT EVIL USING GREAT GOOD FOR GREAT EVIL")) {
+    leads.push({ id: "slums-fortune-riddle", title: "The fortune teller's riddle",
+      detail: "The fortune teller warned that familiar paths would close and the party must seek new ways. Her riddle's answer was great evil using great good for great evil." });
+  }
   if (text.includes("YOU HAVE STUMBLED UPON A LARGE NOMAD CAMP")) {
     leads.push({ id: "nomad-camp-found", title: "The Nomad Camp", detail: "The party found a camp on the overland route and can choose Enter or Leave." });
   }
