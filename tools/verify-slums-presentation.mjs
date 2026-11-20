@@ -547,6 +547,15 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["bane-gate-inspection-failure", {
+    slot: "A", inputs: ["up", "enter", "enter", "b"],
+    portrait: "portrait:area:24:ecl:a586:PIC1.DAX:4:0:0",
+    prompt: /IMUSTCHECKIFYOUAREWORTHYTOENTERTHETEMPLEOFBANE/i,
+    continuation: {
+      inputs: ["l"], portrait: "portrait:area:24:ecl:a6b8:PIC1.DAX:4:0:0",
+      prompt: /GUARDS,INTHENAMEOFBANE,KILLTHESEUNBELIEVERS/i,
+    },
+  }],
   ["bane-hay-bunk-ambush", {
     slot: "A", inputs: ["up", "enter", "s", "enter"],
     portrait: "portrait:area:31:ecl:a2b4:PIC1.DAX:4:0:0",

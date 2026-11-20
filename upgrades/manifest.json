@@ -6,6 +6,8 @@
   ],
   "assets": {
     "portrait:area:24:ecl:ab06:PIC1.DAX:4:0:0": "bane-treasure-ambush.png",
+    "portrait:area:24:ecl:a586:PIC1.DAX:4:0:0": "bane-gatekeeper-reassurance.png",
+    "portrait:area:24:ecl:a6b8:PIC1.DAX:4:0:0": "bane-gatekeeper-exposes-party.png",
     "encounter:area:0:ecl:af4d:SPRIT3.DAX:27:0:0": "new-phlan-harbor-watch-approach.png",
     "portrait:area:31:ecl:a2b4:PIC1.DAX:4:0:0": "bane-hay-beds-ambush.png",
     "portrait:area:31:ecl:a2bb:PIC1.DAX:4:0:0": "bane-hay-beds-ambush.png",
