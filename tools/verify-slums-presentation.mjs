@@ -369,7 +369,7 @@ const encounterRoutes = new Map([
   ["wild-cave-boar-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:25:SPRIT6.DAX:120:0:0", 40, 80],
-    dialogue: { key: "enter", portrait: "portrait:area:25:PIC6.DAX:120:0:0", prompt: /THREELARGEWILDBOARS/i },
+    dialogue: { key: "enter", portrait: "scene-illustration:area:25:ecl:a6e6", prompt: /THREELARGEWILDBOARS.*CHARGEATYOUANDATTACK/i },
   }],
   ["wild-cave-boar-sow", {
     slot: "A", inputs: ["up", "enter"],
@@ -1161,7 +1161,8 @@ const illustrationRoutes = new Map([
   }],
   ["wild-cave-boar-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
-    portrait: "portrait:area:25:PIC6.DAX:120:0:0", prompt: /THREELARGEWILDBOARS/i,
+    portrait: "scene-illustration:area:25:ecl:a6e6", prompt: /THREELARGEWILDBOARS.*CHARGEATYOUANDATTACK/i,
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:25:ecl:a6e7", prompt: /ABATTLEBEGINS/i },
   }],
   ["wild-cave-giant-lizard-dialogue", {
     slot: "B", inputs: ["up", "enter", "enter"],
@@ -6460,6 +6461,11 @@ try {
         assert.equal(frame.portrait, nextPortrait);
         await advance("up");
         assert.equal(frame.portrait, undefined);
+      }
+      if (routeName === "wild-cave-boar-dialogue") {
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /WILDBOARHITPOINTS/i);
       }
       if (routeName === "wild-cave-giant-snake-dialogue") {
         await advance("enter");
