@@ -3336,6 +3336,9 @@ Hassad's daytime greeting now has its own illustration. Chrome verified
 acceptance into the existing outdoor feast scene and decline back to
 the overland prompt. Separate replays verified the Kuto Ruins gnoll
 approach and all three restored Council Guard ready poses.
+Additional Kuto Ruins replays verified the kobold and lizardfolk patrol
+approaches at (56, 32), Classic and Enhanced switching, and the original
+transition to combat using controlled encounter rolls.
 
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
