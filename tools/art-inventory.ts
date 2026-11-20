@@ -501,6 +501,10 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["diogenes-upper-ledge-fireball.png", ["A fireball erupting amid the party", "Diogenes disappearing from the encounter"]],
   ["kovel-ne-map-discovery.png", ["A crude map on the floor", "A visibly branching maze", "The label NE CASTLE is readable"]],
   ["pyramid-left-secret-door.png", ["A distinct stone door and threshold in the left wall", "The main corridor still leads forward"]],
+  ["valjevo-tyranthraxus-reveal.png", ["An ancient bronze dragon with prominent swept-back horns", "The glowing pool at the base of the dragon"]],
+  ["valjevo-tyranthraxus-offer.png", ["Tyranthraxus addresses the party across the pool", "The party is visible as the audience for the offer"]],
+  ["valjevo-tyranthraxus-attack.png", ["The same bronze dragon lunges at the party", "The attack reads before the switch to the battlefield"]],
+  ["valjevo-tyranthraxus-spirit.png", ["A fiery spirit rising from the dragon's fallen body", "The glowing pool and surrounding ruins link the scene to the fight"]],
 ]);
 
 const runtimeGroups = [
