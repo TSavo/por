@@ -1049,6 +1049,8 @@ and the tracked river objective survive a fresh Chrome reload.
 `river-pumping-hostile` chooses Haughty and verifies that the journal
 records the thrown contaminant, directs the party to get clear of the
 room, and keeps the peaceful release and entry 35 hidden.
+The same replay checks that the 352×352 barrel-attack illustration fills
+the Enhanced picture panel for the narration and clears at the damage prompt.
 The two Chrome branches verify that accepting opens the original chooser
 and declining records Drythh's reaction, replacing the champion prompt
 with guidance for a hostile encounter.

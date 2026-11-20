@@ -8361,13 +8361,22 @@ try {
       const dialogue = frame.text.toSorted(([a], [b]) => a - b)
         .map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
       assert.match(dialogue, /THEYTHROWTHEIRBARRELSOFCONTAMINANTONTHEPARTY/i);
+      const spill = "scene-illustration:area:23:ecl:9a04:caller:ab0a";
+      assert.equal(frame.portrait, spill);
+      await waitFor("the pumping-room contaminant illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${spill}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
       await switchBothWays(frame.frame);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "pumping-room-prisoners-hostile.png"), Buffer.from(shot.data, "base64"));
       await advance("j");
       assert.ok(knows("river-pump-prisoners-hostile"));
       assert.ok(!knows("river-pump-prisoners-freed") && !knows("journal-entry-35"));
       assert.match(frame.journal.objective.nextStep, /get clear of the hostile pumping room.*source of the foul water/i);
+      for (const key of ["j", "enter"]) await advance(key);
+      assert.notEqual(frame.portrait, spill, "The splash illustration should end with its narration");
       assert.deepEqual(readFileSync(saved), originalSave);
-      console.log("Verified the hostile pumping-room outcome and journal in Chrome.");
+      console.log("Verified the hostile pumping-room illustration and journal in Chrome. Capture:", directory);
     } else {
       await advance("n");
       const release = "scene-illustration:area:23:ecl:9a04:caller:aaae";
