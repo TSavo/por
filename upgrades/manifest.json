@@ -5,6 +5,9 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "encounter:area:28:ecl:b5ba:SPRIT5.DAX:16:0:0": "zhentil-gate-commotion-approach.png",
+    "portrait:area:28:ecl:b5c6:HEAD6.DAX:57:BODY6.DAX:6": "zhentil-gate-commotion-dialogue.png",
+    "portrait:area:28:ecl:b5c7:HEAD6.DAX:57:BODY6.DAX:6": "zhentil-gate-commotion-dialogue.png",
     "combat:area:14:CPIC3.DAX:12:ecl:ab62": "old-phlan-sword-thief-combat-ready.png",
     "combat:area:14:CPIC3.DAX:140:ecl:ab62": "old-phlan-sword-thief-combat-strike.png",
     "portrait:area:28:ecl:a058:HEAD6.DAX:57:BODY6.DAX:6": "zhentil-quarters-alarm-dialogue.png",
@@ -5300,6 +5303,7 @@
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
   },
   "encounters": {
+    "encounter:area:28:ecl:b5ba:SPRIT5.DAX:16:0:0": { "area": 28, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:29:ecl:a64b:SPRIT8.DAX:0:1:0": { "area": 29, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:29:ecl:a64b:SPRIT8.DAX:57:1:0": { "area": 29, "x": 56, "y": 32, "width": 32, "height": 65 },
     "encounter:area:29:ecl:a64b:SPRIT8.DAX:73:1:0": { "area": 29, "x": 48, "y": 32, "width": 40, "height": 73 },
