@@ -3817,3 +3817,8 @@ The plumed, plum cap, wine pennant, and jade helm Human appearances
 now have recolor masks for both poses of all 32 weapon choices. Chrome
 verified representative editor choices and controlled live axe and
 longsword-and-shield replays. Hair follows each head's native behavior.
+
+The `mendor-records-reward` Chrome route checks the Lex Geographica
+illustration at its specific City Hall dialogue, clearance before the
+original 500 XP reward, and the book's journal turn-in. The replay uses
+a local checkpoint with the atlas ready to report.

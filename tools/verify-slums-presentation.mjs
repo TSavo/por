@@ -7271,7 +7271,16 @@ try {
     for (const key of ["j", "right", "right", "up", "right", "right", "up", "enter", "enter"]) await advance(key);
     assert.match(frame.text.toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join(""), /THESEMAPSSHOULDHELPUSLOCATE|THESEMAPSSHOULDHELPUSTOLOCATE/i);
-    for (const key of ["enter", "enter", "enter", "s", "e", "j"]) await advance(key);
+    const atlasPortrait = "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:lex-geographica";
+    assert.equal(frame.portrait, atlasPortrait);
+    await waitFor("the Lex Geographica illustration", () => run(`
+      document.querySelector('.encounter-portrait[src="/art/${atlasPortrait}"]')?.naturalWidth === 352`));
+    await switchBothWays();
+    await verifyPortraitPanel();
+    await advance("enter");
+    assert.equal(frame.portrait, undefined);
+    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /receives500experiencepoints/i);
+    for (const key of ["enter", "enter", "s", "e", "j"]) await advance(key);
     assert.equal(record()?.status, "turned-in");
     assert.equal(frame.journal.leads.find(({ id }) => id === "commission-records")?.status, "offered");
     console.log("Verified the clerk acknowledgment for Lex Geographica in Chrome.");
