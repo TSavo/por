@@ -5873,16 +5873,27 @@ try {
     console.log("Verified the Valjevo records scribe approach and portrait in Chrome.");
   } else if (castleRecords) {
     const knows = id => frame.journal?.leads.some(lead => lead.id === id);
+    const evidence = "scene-illustration:area:4:ecl:9a5a:caller:b00a";
     await advance("up");
     await advance("j");
     assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
     if (castleRecordsDecline) {
-      for (const key of ["j", "n", "j"]) await advance(key);
+      for (const key of ["j", "n"]) await advance(key);
+      assert.notEqual(frame.portrait, evidence);
+      await advance("j");
       assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
     } else {
-      for (const key of ["j", "y", "j"]) await advance(key);
+      for (const key of ["j", "y"]) await advance(key);
+      assert.equal(frame.portrait, evidence);
+      await waitFor("the Enhanced Red Wizards evidence", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${evidence}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays();
+      await advance("j");
       assert.ok(knows("castle-records-thay") && !knows("castle-records-moonsea"));
-      for (const key of ["j", "enter", "enter", "j"]) await advance(key);
+      for (const key of ["j", "enter"]) await advance(key);
+      assert.notEqual(frame.portrait, evidence);
+      for (const key of ["enter", "j"]) await advance(key);
       assert.ok(knows("castle-records-thay") && knows("castle-records-moonsea"));
     }
     await switchBothWays();

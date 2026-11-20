@@ -11,7 +11,7 @@ import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
-import { loadCharacterSheetArt, loadPortraitArt } from "./portrait-art.js";
+import { loadCharacterSheetArt, loadPortraitArt, valjevoThayRecordsArt } from "./portrait-art.js";
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 
 const controls: Record<string, number> = {
@@ -209,7 +209,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const arrivalPicture = area === 7 && battleCursor === 0x995f && portraitCaller === 0xa54b &&
         dialogue.includes("ANANCIENTBRONZEDRAGON,SURROUNDEDBYAFIERYAURA,RISES") && portraitKeys.includes(dragonArrival)
         ? dragonArrival : undefined;
-      const picture = scene ? undefined : arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);
+      const recordsPicture = area === 4 && battleCursor === 0x9a5a && portraitCaller === 0xb00a &&
+        dialogue.includes("THEREDWIZARDSOFTHAYAREALLIEDTOTYRANTHRAXUS") && portraitKeys.includes(valjevoThayRecordsArt)
+        ? valjevoThayRecordsArt : undefined;
+      const picture = scene ? undefined : recordsPicture ?? arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
       const enhanced = new Frame(presentation.width, presentation.height);

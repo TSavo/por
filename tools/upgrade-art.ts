@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
-import { characterSheetPartKey, characterSheetPartPixels, portraitKey } from "./portrait-art.js";
+import { characterSheetPartKey, characterSheetPartPixels, portraitKey, valjevoThayRecordsArt } from "./portrait-art.js";
 import { encounterAnchor, encounterKey, encounterPixels } from "./encounter-art.js";
 import { combatSelectionKey, combatEffectKey, isCombatExtent, monsterCombatKey, partyCombatKey, partyCombatPart, randomCombatKey, randomCombatPixels } from "./combat-art.js";
 import { parseDax } from "../src/lib/dax.js";
@@ -65,7 +65,8 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         const combatSelection = combatSelectionKey.exec(id);
         const sheetPart = characterSheetPartKey.exec(id);
         const startupScene = id === "scene:title" || id === "scene:publisher";
-        if (!startupScene && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
+        const scriptIllustration = id === valjevoThayRecordsArt;
+        if (!startupScene && !scriptIllustration && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
             !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !random && !combatSelection && !effect && !sheetPart && !portraitKey.test(id) && !encounter) {
           reject("Unsupported asset ID or invalid encounter placement.", id);
           continue;
@@ -135,7 +136,7 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
             }
             sourceWidth = 88;
             sourceHeight = pixels.length / sourceWidth;
-          } else if (portraitKey.test(id)) sourceWidth = sourceHeight = 88;
+          } else if (portraitKey.test(id) || scriptIllustration) sourceWidth = sourceHeight = 88;
           const { width, height } = dimensions;
           if (width !== sourceWidth * 4 || height !== sourceHeight * 4) {
             reject(`Expected ${sourceWidth * 4}×${sourceHeight * 4} PNG, found ${width}×${height}.`, id);

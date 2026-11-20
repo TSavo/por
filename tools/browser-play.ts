@@ -10,7 +10,7 @@ import { isOpenObjective, type JournalLead, type JournalObjective } from "../src
 import { getKey, type PanelFrameStamp, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
 import { partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { pngDimensions } from "./png.js";
-import { characterSheetPartKey, portraitKey, type CharacterSheetPart } from "./portrait-art.js";
+import { characterSheetPartKey, portraitKey, valjevoThayRecordsArt, type CharacterSheetPart } from "./portrait-art.js";
 import type { EncounterPlacement } from "./encounter-art.js";
 import { NarrationCatalog, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
 import { parseDax } from "../src/lib/dax.js";
@@ -136,7 +136,7 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
     POR_COMBAT_MATERIAL_KEYS: [...materialMasks.keys()].join(","),
     POR_COMBAT_EFFECT_KEYS: [...artwork.keys()].filter(key => key.startsWith("combat-effect:")).join(","),
     POR_COMBAT_SELECTION_KEYS: [...artwork.keys()].filter(key => key.startsWith("combat-selection:")).join(","),
-    POR_PORTRAIT_ART_KEYS: [...artwork.keys()].filter((key) => portraitKey.test(key)).join(","),
+    POR_PORTRAIT_ART_KEYS: [...artwork.keys()].filter(key => portraitKey.test(key) || key === valjevoThayRecordsArt).join(","),
     POR_CHARACTER_SHEET_ART_KEYS: [...artwork.keys()].filter((key) => characterSheetPartKey.test(key)).join(","),
     POR_ENCOUNTER_ART: JSON.stringify(encounters),
     POR_LIVE_AT: process.env.POR_LIVE_AT ?? "24000000",

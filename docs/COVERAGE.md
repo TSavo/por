@@ -3584,7 +3584,7 @@ selection frame and below the targeted orc sprite at its guest position.
 Larger units use one frame per native 24×24 cell. Chrome verified the
 vertical pair behind the Slums ogre, the horizontal pair behind the Wild
 Cave lizard, and all four cells behind Tyranthraxus.
-The art inventory lists all 26 COMSPR.DAX frames. Eighteen have direct
+The art inventory lists all 26 COMSPR.DAX frames. Nineteen have direct
 links, including two thrown-axe frames. Two more axe orientations are
 derived from block 3 by a horizontal reflection and a transpose. The
 inventory records those transforms with their source previews.
@@ -3600,6 +3600,8 @@ The same replay checks the Council arrow's original launch at (80, 80)
 and arrival at (56, 32) through the six-frame presentation cap. Separate
 Chrome replays of the Council reserves and tavern brawl verify the other
 three arrow directions, their native anchors, and display switching.
+The Textile House hobgoblin replay checks the lower-right arrow from
+(80, 32) to (152, 104) and its cleanup after the shot.
 Long flights spread the sampled positions across the path. The tavern
 replay's longest shot kept its six displayed positions and reduced the
 largest gap between them from 112 to 32 native pixels.
@@ -3625,3 +3627,8 @@ both display modes. The sickly kobold scouts have a separate portrait.
 The Valjevo Maze captain retains his Enhanced illustration in Parlay and
 in the password and authority challenges. Chrome verified all three
 prompts in both display modes from the Maze patrol slot B checkpoint.
+
+The Valjevo records replay checks the Enhanced illustration when the
+party finds evidence of the Red Wizards' alliance. It also checks that
+the image clears on the next page and that accepting or declining the
+read prompt governs which discoveries the journal records.

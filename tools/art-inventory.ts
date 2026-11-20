@@ -8,7 +8,7 @@ import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng, pngDimensions } from "./png.js";
 import { loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
-import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, portraitKey } from "./portrait-art.js";
+import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, portraitKey, valjevoThayRecordsArt } from "./portrait-art.js";
 import { combatEffectKey, transformCombatEffectPixels, combatSelectionKey, isCombatExtent, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
 const families = [
@@ -284,9 +284,10 @@ const replacements = [...artwork].map(([id, { png, ...metadata }], index) => {
     const entry = archives.find(({ file }) => file === part.archive)?.entries.find(({ id }) => id === part.block);
     return entry ? [{ ...part, directoryIndex: entry.directoryIndex, member: 0 }] : [];
   });
-  const area = /^(?:tile|combat:area|portrait:area):(\d+):/.exec(id)?.[1];
+  const area = /^(?:tile|combat:area|portrait:area|scene-illustration:area):(\d+):/.exec(id)?.[1];
   const placement = metadata.encounter
-    ?? (id.startsWith("portrait:") ? { x: 8, y: 8, width: 120, height: 120, ...(area !== undefined && { area: Number(area) }) }
+    ?? (id.startsWith("portrait:") || id === valjevoThayRecordsArt
+      ? { x: 8, y: 8, width: 120, height: 120, ...(area !== undefined && { area: Number(area) }) }
       : sheetPart && source ? { x: 224, y: sheetPart[2] === "HEAD" ? 8 : 48, width: metadata.width / artScale, height: metadata.height / artScale }
       : id === "scene:title" || id === "scene:publisher" ? { x: 0, y: 0, width: 320, height: 200 }
       : overlay ? { width: metadata.width / artScale, height: metadata.height / artScale }
@@ -483,6 +484,7 @@ const inventoryCategories = [
   ["portrait", "Portraits and illustrations"], ["combat", "Combat frames"],
   ["combat-selection", "Combat selection frames"],
   ["combat-effect", "Combat effects"],
+  ["scene-illustration", "Script illustrations"],
   ["encounter", "Encounter frames"], ["scene", "Full-screen scenes"],
 ] as const;
 const battlefieldGaps = missingByArea.get("Battlefield")?.length ?? 0;
