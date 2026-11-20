@@ -6558,6 +6558,8 @@ try {
     await switchBothWays();
     await advance("j");
     assert.ok(knows("castle-kitchen-captives-freed") && !knows("castle-hedge-gate-password"));
+    assert.ok(knows("castle-kitchen-slip"));
+    assert.match(frame.journal.objective.nextStep, /press Enter to read the slip/i);
     for (const key of ["j", "enter"]) await advance(key);
     assert.equal(frame.portrait, undefined);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /YOULOOKATTHEWRITING/i);
@@ -6565,6 +6567,7 @@ try {
     await advance("j");
     assert.ok(knows("castle-kitchen-captives-freed"));
     assert.ok(knows("castle-hedge-gate-password"));
+    assert.match(frame.journal.objective.nextStep, /use the password.*main gate/i);
     console.log("Verified the Valjevo kitchen illustration and earned password lead in Chrome.");
   } else if (captiveReload) {
     await advance("j");

@@ -409,6 +409,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("castle-giant-sentries")) nextStep = "The giant sentries demand a password. Give it if you know it, or withdraw and look for a way around them.";
       else if (knows("castle-hedge-gate-password") && knows("castle-cadorna-hedge")) nextStep = "Use the password from the kitchen at the main gate, then take Cadorna's route through the hedge: left, right, right.";
       else if (knows("castle-hedge-gate-password")) nextStep = "Use the password from the kitchen at the main gate into the hedge maze.";
+      else if (knows("castle-kitchen-slip")) nextStep = "Press Enter to read the slip the freed captive took from the overseer's pouch.";
       else if (knows("castle-cadorna-hedge")) nextStep = "Follow Cadorna's directions through the hedge: left, right, right.";
       else if (knows("castle-kitchen-oil") && !knows("castle-kitchen-captives-freed")) nextStep = "Choose Kill the Overseer and Free the Slaves, or Go Back Outside to regroup.";
       else if (knows("castle-kitchen-warning") && !knows("castle-kitchen-captives-freed")) nextStep = "The overseer threatened to throw boiling oil. Choose Kill the Overseer and Free the Slaves, or Go Back Outside.";
@@ -1271,6 +1272,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("I THANK YOU FOR FREEING ME") && text.includes("THE THIRD APPROACHES YOU WITH TEARS OF GRATITUDE")) {
     leads.push({ id: "castle-kitchen-captives-freed", title: "Kitchen captives freed",
       detail: "The party defeated the gnoll overseer and freed the three people forced to work in the kitchen." });
+  }
+  if (text.includes("A SLIP OF PAPER FROM THE POUCH OF THE DEAD GNOLL") && text.includes("HERE, YOU WILL NEED THIS")) {
+    leads.push({ id: "castle-kitchen-slip", title: "A slip from the overseer's pouch",
+      detail: "A freed captive handed the party a slip taken from the gnoll overseer." });
   }
   if (text.includes("IT IS TODAY'S PASSWORD AT THE MAIN GATE INTO THE HEDGE MAZE")) {
     leads.push({ id: "castle-hedge-gate-password", title: "Password for the hedge gate",
