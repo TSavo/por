@@ -640,6 +640,12 @@ behavior. Restoring its flags in isolation shifts startup input timing
 enough that the fresh-character replay selects Exit to DOS.
 Use `npm run translate -- --output out/translation-check` to inspect
 the generator output while the runtime and replay timing are reconciled.
+An isolated replay with only the resident `DEC DX` flag update found a
+blank frame at the old 24-million-instruction startup gate and the
+publisher splash at 32 million. Advancing at 32 million still produced
+another publisher frame before the title. The shipped runtime passed the
+publisher, title, and credits replay and the character creation portrait
+replay with their current timing.
 With the flag changes, the strict fresh-party replay won the Slums and
 Sokal patrol fights and recovered the hidden equipment. The strict
 controlled castle replay still defeated the original Tyranthraxus and
