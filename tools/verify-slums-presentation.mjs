@@ -547,6 +547,16 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-lower-snake-approach", {
+    slot: "B", inputs: ["up", "enter", "a", "enter"],
+    requireTiledApproach: false,
+    approachSequence: [
+      [48, 32, "encounter:area:3:ecl:b35e:SPRIT5.DAX:60:1:0", 40, 65],
+      [40, 32, "encounter:area:3:ecl:b35e:SPRIT5.DAX:60:0:0", 64, 80],
+    ],
+    portrait: "portrait:area:3:PIC5.DAX:60:0:0", prompt: /YOUSEEGIANTSNAKES/i,
+    continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i },
+  }],
   ["stojanow-wagon-final-offer", {
     slot: "B", inputs: ["up", "enter", "enter", "p", "n"],
     portrait: "portrait:area:9:ecl:aeef:HEAD2.DAX:5:BODY2.DAX:9",
