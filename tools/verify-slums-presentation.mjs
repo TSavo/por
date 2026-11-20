@@ -5625,7 +5625,8 @@ try {
     for (const key of ["up", "enter"]) await advance(key);
     const text = () => frame.text.toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join("");
-    assert.equal(frame.portrait, "portrait:PIC6.DAX:32:0:0");
+    assert.equal(frame.portrait, /ALARGEDRAGONFLYSABOVEYOU/i.test(text())
+      ? "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0" : "portrait:PIC6.DAX:32:0:0");
     assert.match(text(), /ENTERCAVE.*IGNORECAVE/i);
     await waitFor("the Diogenes cave exterior", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
@@ -5650,7 +5651,7 @@ try {
       assert.ok(!frame.journal.leads.some(({ id }) => id === "commission-bottle"));
       await advance("j");
       await advance("enter");
-      assert.equal(frame.portrait, dragonPortrait);
+      assert.equal(frame.portrait, "portrait:area:25:ecl:a58b:caller:9c11:PIC6.DAX:117:0:0");
       assert.match(text(), /THEREISASILVERBOTTLEOFGREATPOWERTHERE.*RETRIEVETHATBOTTLETHENRETURN/i);
       await waitFor("the portrait through the bottle briefing", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
@@ -5665,7 +5666,10 @@ try {
     assert.ok(!frame.journal.leads.some(({ id }) => id === "kobold-cave-fork"));
     await advance("j");
     for (const key of ["down", "enter"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:PIC8.DAX:27:0:0");
+    const forkDialogue = frame.text.toSorted(([left], [right]) => left - right)
+      .map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
+    assert.equal(frame.portrait, /ASMALLGROUPOFKOBOLDSENTERING/i.test(forkDialogue)
+      ? "portrait:area:27:ecl:9d9c:PIC8.DAX:27:0:0" : "portrait:PIC8.DAX:27:0:0");
     const menu = frame.text.filter(([cell]) => cell >= 960).sort(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join("");
     assert.match(menu, /Large.*Small.*Exit/i);
