@@ -3688,9 +3688,10 @@ const verifyHallsWebGL = halls && option === "--webgl";
 const verifyApproachTravel = outskirts && option === "--map-travel";
 const verifyDistrictTravel = outskirts && option === "--map-destination";
 const declineDirten = routeName === "braccio-dirten-briefing" && option === "--decline";
+const declineRestal = restalGuide && option === "--decline";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
   ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
-  declineDirten, "Option does not apply to this route");
+  declineDirten || declineRestal, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -6592,6 +6593,19 @@ try {
       .map(([, character]) => String.fromCharCode(character)).join(""), /WECANGETYOUINUNSEEN/i);
     await advance("j");
     assert.ok(knowsOffer());
+    const knows = id => frame.journal.leads.some(lead => lead.id === `textile-restal-${id}`);
+    assert.ok(!knows("blindfold") && !knows("route") && !knows("dismissed"));
+    for (const key of ["j", "y"]) await advance(key);
+    assert.equal(frame.portrait, "portrait:area:2:ecl:b03d:HEAD4.DAX:52:BODY4.DAX:8");
+    await verifyPortraitPanel();
+    await switchBothWays();
+    await advance("j");
+    assert.ok(knows("blindfold") && !knows("route") && !knows("dismissed"));
+    for (const key of ["j", declineRestal ? "n" : "y", "j"]) await advance(key);
+    assert.equal(knows("route"), !declineRestal);
+    assert.equal(knows("dismissed"), declineRestal);
+    assert.ok(wellClue());
+    assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified Restal's illustration and the witnessed Textile House shortcut in Chrome.");
   } else if (norrisSurrender) {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);

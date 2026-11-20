@@ -1339,9 +1339,11 @@ well and turns away from Norris's ambush. Chrome checks 2,057 individual
 placements across 17 views, including 32 new 32×32 tiles.
 The `diogenes-advice` replay checks the 352×352 magic mouth through the
 intent menu, between the exterior illustration and the silver dragon portrait.
-The `textile-restal` replay uses a controlled slot C. It verifies Restal's
-352×352 portrait and that the Textile House shortcut appears in the journal
-after he offers it.
+The `textile-restal` replay uses a controlled slot C. Chrome checks the well
+illustration and warning, Restal's portrait, and the blindfold illustration
+while switching display modes. Run it with `--decline` to verify that turning
+down the blindfold records the dismissal. The default replay accepts it and
+records the shortcut after the party reaches the main well.
 The `cadorna-envoy-briefing` replay uses controlled slot A at City Hall.
 It verifies Cadorna's 352×352 portrait and checks that the sealed-packet
 journal clue appears after his instructions.
