@@ -3777,6 +3777,7 @@ routes.push("buccaneer-bivant-escort-combat");
 routes.push("buccaneer-bivant-purchase", "buccaneer-bivant-purchase-reload");
 routes.push("stojanow-wagon-handover-reload");
 routes.push("diogenes-upper-ledge-fireball-reload");
+routes.push("kuto-well-waterline-reload");
 routes.push("valhingen-crypt-scroll", "valhingen-crypt-scroll-reload");
 routes.push("valjevo-al-hyam-release", "valjevo-al-hyam-release-reload");
 routes.push("valjevo-cadorna-alarm-reload");
@@ -3950,7 +3951,8 @@ const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
 const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneReturn || koboldCaveExit;
-const saveSlot = alHyamReload || ["sokal-floorboard-diary-reload", "valjevo-records-reload", "kobold-escort-arrival-reload"].includes(routeName) ? "C" :
+const saveSlot = routeName === "kuto-well-waterline-reload" ? "J" :
+  alHyamReload || ["sokal-floorboard-diary-reload", "valjevo-records-reload", "kobold-escort-arrival-reload"].includes(routeName) ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn || traderReload ||
     ["stojanow-wall-warning-reload", "kovel-chase-east-reload", "valhingen-first-arrival-reload", "valjevo-forge-authorization-reload", "slums-potion-booth-reload"].includes(routeName) ? "B" : slot;
@@ -6136,6 +6138,14 @@ try {
     assert.ok(known.has("graveyard-crypt-sanctified"));
     assert.equal(known.has(scrollLead), !declineCryptScroll);
     console.log("Verified the Valhingen crypt illustration and scroll choice in Chrome. Native save:", saved);
+  } else if (routeName === "kuto-well-waterline-reload") {
+    assert.equal(frame.exploration?.mapId, 32);
+    await advance("j");
+    const known = new Set(frame.journal.leads.map(({ id }) => id));
+    assert.ok(known.has("kuto-well-waterline-door") && known.has("kuto-hidden-catacombs"));
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the Kuto well and hidden catacombs discoveries after reloading slot J in Chrome.");
   } else if (routeName === "diogenes-upper-ledge-fireball-reload") {
     await advance("j");
     const known = new Set(frame.journal.leads.map(({ id }) => id));
@@ -6420,6 +6430,13 @@ try {
         assert.match(frame.journal.objective.nextStep, /confront the king.*at the throne/i);
       }
       await advance("j");
+    }
+    if (routeName === "kuto-well-waterline") {
+      assert.deepEqual(readFileSync(saved), originalSave);
+      for (const key of ["enter", "enter", "e", "enter", "s", "s", "j"]) await advance(key);
+      const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
+      assert.ok(known.has("kuto-well-waterline-door") && known.has("kuto-hidden-catacombs"));
+      console.log("Native save after entering the Kuto catacombs:", saved);
     }
     if (routeName === "diogenes-upper-ledge-fireball") {
       assert.deepEqual(readFileSync(saved), originalSave);
