@@ -3709,6 +3709,8 @@ routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel
 routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload", "nomad-feast-decline", "kobold-royal-ballista");
 routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
+routes.push("kuto-wide-manual-aim");
+const wideManualAim = routeName === "kuto-wide-manual-aim";
 const reflectedEffect = {
   "new-phlan-council-reflected-effects": {
     slot: "A", inputs: ["up", "enter", "n", "enter", "enter", "enter"],
@@ -3810,7 +3812,7 @@ const fightNorris = norrisSurrender && option === "--fight";
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
-const slot = (routeName === "tyrmor-journal-reload" ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = (wideManualAim ? "J" : routeName === "tyrmor-journal-reload" ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
@@ -4521,6 +4523,38 @@ try {
     assert.deepEqual(scenery(frame), scenery(street));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the enhanced street stays visible while exiting the New Phlan dueling room. Captures:", directory);
+  } else if (wideManualAim) {
+    const lizard = "combat:area:29:CPIC8.DAX:59:ecl:aa7a";
+    const marker = "combat-selection:COMSPR.DAX:25";
+    const fullSelection = [[56, 104, marker], [80, 104, marker]];
+    for (const key of ["s", "up", ...Array(6).fill("enter"), "a", "n"]) await advance(key);
+    assert.deepEqual(frame.combatSelections, fullSelection);
+    for (const [key, x] of [["m", 56], ["right", 80]]) {
+      await advance(key);
+      assert.deepEqual(frame.combatSelections, [[x, 104, marker]]);
+      assert.deepEqual(frame.combatArt.find(([left, top, id]) => left === 56 && top === 104 && id === lizard),
+        [56, 104, lizard, false, false, 48, 24]);
+      await waitFor("a single Manual Aim reticle under the enhanced giant lizard", () => run(`(() => {
+        if (state.sequence !== ${frame.sequence} || animationFrame) return false;
+        const layers = [...document.querySelector('#tile-art').children];
+        const sprite = layers.find(layer => layer.getAttribute('src') === '/art/${lizard}' &&
+          parseFloat(layer.style.left) === ${56 / 3.2} && parseFloat(layer.style.top) === ${104 / 2});
+        const reticles = layers.filter(layer => layer.matches('.combat-aim-reticle'));
+        const reticle = reticles[0];
+        return sprite?.naturalWidth === 192 && reticles.length === 1 && layers.indexOf(reticle) < layers.indexOf(sprite) &&
+          reticle.classList.contains('combat-aim-reticle-backed') && parseFloat(reticle.style.left) === ${x / 3.2} &&
+          parseFloat(reticle.style.top) === ${104 / 2} && parseFloat(reticle.style.width) === 7.5;
+      })()`));
+    }
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    const proof = resolve(directory, "kuto-wide-manual-aim.png");
+    writeFileSync(proof, Buffer.from(shot.data, "base64"));
+    await switchBothWays(frame.frame);
+    await advance("escape");
+    assert.deepEqual(frame.combatSelections, fullSelection);
+    assert.ok(frame.combatArt.some(([, , id, , highlighted]) => id === lizard && highlighted));
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified both halves of the giant lizard in Manual Aim in Chrome:", proof);
   } else if (routeName === "buccaneer-empty-manual-aim") {
     const marker = "combat-selection:COMSPR.DAX:25";
     const inputs = ["up", "up", "enter", "enter", "a", "enter", "enter", "q", "q", "a", "m"];

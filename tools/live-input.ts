@@ -98,19 +98,33 @@ function menuText(glyphs: ReturnType<typeof visibleGameText>) {
     .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase();
 }
 
-function emptyAimCell(frame: Frame): [x: number, y: number] | undefined {
+function manualAimCell(frame: Frame): [x: number, y: number] | undefined {
+  let cell: [number, number] | undefined;
+  let ambiguous = false;
   for (let y = 8; y <= 152; y += 8) {
     for (let x = 8; x <= 152; x += 8) {
       if (frame.get(x, y) !== 15 || frame.get(x + 23, y + 23) !== 8) continue;
-      let blank = true;
-      for (let row = 0; row < 24 && blank; row++) {
-        for (let column = 0; column < 24 && blank; column++) {
-          blank = frame.get(x + column, y + row) === combatHighlightPixel(column, row);
-        }
+      let edgesMatch = true;
+      for (let column = 0; column < 24 && edgesMatch; column++) {
+        edgesMatch = frame.get(x + column, y) === combatHighlightPixel(column, 0) &&
+          frame.get(x + column, y + 23) === combatHighlightPixel(column, 23);
       }
-      if (blank) return [x, y];
+      if (!edgesMatch) continue;
+      if (isEmptyAimCell(frame, x, y)) return [x, y];
+      ambiguous ||= cell !== undefined;
+      cell = [x, y];
     }
   }
+  return ambiguous ? undefined : cell;
+}
+
+function isEmptyAimCell(frame: Frame, x: number, y: number): boolean {
+  for (let row = 0; row < 24; row++) {
+    for (let column = 0; column < 24; column++) {
+      if (frame.get(x + column, y + row) !== combatHighlightPixel(column, row)) return false;
+    }
+  }
+  return true;
 }
 
 function hasBattlefieldBorder(frame: Frame): boolean {
@@ -340,8 +354,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const offset = Math.floor(cell / 40) * 8 * presentation.width + x;
         for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * presentation.width, offset + y * presentation.width + 8);
       }
+      const aimCell = battlefield && menu.replace(/\s/g, "").startsWith("(USECURSORKEYS)")
+        ? manualAimCell(presentation) : undefined;
       const combat = attack || (!scene && !perspective)
-        ? combatArt(presentation, enhanced, area, battleCursor, battlefield ? battleTerrain : undefined, iconEditor) : [];
+        ? combatArt(presentation, enhanced, area, battleCursor, battlefield ? battleTerrain : undefined, iconEditor, aimCell) : [];
       const combatSelections: TilePlacement[] = [];
       for (const [x, y, , , highlighted, width = 24, height = 24] of attack ?? combat) {
         if (!highlighted || width % 24 || height % 24) continue;
@@ -354,11 +370,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       const activeSelection = "combat-selection:COMSPR.DAX:25";
-      if (battlefield && !combatSelections.length && selectionKeys.has(activeSelection) &&
-          menu.replace(/\s/g, "").startsWith("(USECURSORKEYS)")) {
-        const cell = emptyAimCell(presentation);
-        if (cell) {
-          const [x, y] = cell;
+      if (aimCell && !combatSelections.length && selectionKeys.has(activeSelection)) {
+        const [x, y] = aimCell;
+        const largeActor = combat.some(([left, top, , , , width = 24, height = 24]) =>
+          (width > 24 || height > 24) && x >= left && x + 24 <= left + width && y >= top && y + 24 <= top + height);
+        if (largeActor || isEmptyAimCell(presentation, x, y)) {
           combatSelections.push([x, y, activeSelection]);
           // Manual Aim can place the native bevel where there is no unit.
           for (let row = 0; row < 24; row++) {

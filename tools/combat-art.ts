@@ -97,13 +97,14 @@ export function loadCombatArtMatcher(keys: string[], root = keys.length ? findGa
   });
   const fallback = buildCombatArtMatcher(global, root, materialKeys);
   const matchers = new Map<string, ReturnType<typeof buildCombatArtMatcher>>();
-  return (frame: Frame, enhanced?: Frame, area?: number, cursor?: number, underlay?: Frame, iconEditor = false): CombatArtPlacement[] => {
-    if (area === undefined || iconEditor) return fallback(frame, enhanced, underlay, iconEditor);
+  return (frame: Frame, enhanced?: Frame, area?: number, cursor?: number, underlay?: Frame,
+    iconEditor = false, aimCell?: [x: number, y: number]): CombatArtPlacement[] => {
+    if (area === undefined || iconEditor) return fallback(frame, enhanced, underlay, iconEditor, aimCell);
     const areaScope = String(area);
     const battleScope = `${area}:${cursor?.toString(16).padStart(4, "0")}`;
     const scoped = scopes.get(areaScope);
     const battle = scopes.get(battleScope);
-    if (!scoped && !battle) return fallback(frame, enhanced, underlay);
+    if (!scoped && !battle) return fallback(frame, enhanced, underlay, false, aimCell);
     const scope = battle ? battleScope : areaScope;
     let matcher = matchers.get(scope);
     if (!matcher) {
@@ -115,7 +116,7 @@ export function loadCombatArtMatcher(keys: string[], root = keys.length ? findGa
       matcher = buildCombatArtMatcher([...sources.values()], root, materialKeys);
       matchers.set(scope, matcher);
     }
-    return matcher(frame, enhanced, underlay);
+    return matcher(frame, enhanced, underlay, false, aimCell);
   };
 }
 
@@ -294,7 +295,27 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
     const previous = patterns.get(pose.pattern);
     patterns.set(pose.pattern, previous === undefined || previous?.key === pose.key ? pose : null);
   }
-  return (frame: Frame, enhanced?: Frame, underlay?: Frame, iconEditor = false): CombatArtPlacement[] => {
+  function partialAimPose(cell: Uint8Array, width: number, background: Uint8Array, aimX: number, aimY: number) {
+    let match: Pose | undefined;
+    for (const pose of terrainPoses.get(`${width}:${cell.length}`) ?? []) {
+      if (!matchesProbe(cell, pose)) continue;
+      const agrees = pose.pixels.every((color, index) => {
+        const pixel = cell[index];
+        if (color) return pixel === color;
+        const x = index % width - aimX;
+        const y = Math.floor(index / width) - aimY;
+        if (x < 0 || x >= 24 || y < 0 || y >= 24) return pixel === background[index];
+        const bevel = combatHighlightPixel(x, y);
+        return pixel === bevel || (bevel === 7 && pixel === 15);
+      });
+      if (!agrees) continue;
+      if (match && match.key !== pose.key) return;
+      match = pose;
+    }
+    return match;
+  }
+  return (frame: Frame, enhanced?: Frame, underlay?: Frame, iconEditor = false,
+    aimCell?: [x: number, y: number]): CombatArtPlacement[] => {
     if (!patterns.size) return [];
     const placements: CombatArtPlacement[] = [];
     for (const { width, height } of sizes.values()) {
@@ -322,14 +343,20 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
               background.set(underlay.pixels.subarray(start, start + width), row * width);
             }
           }
-          const terrain = plain === undefined && !selected
+          const aimX = aimCell ? aimCell[0] - x : -1;
+          const aimY = aimCell ? aimCell[1] - y : -1;
+          // Manual Aim draws a single bevel over one cell of a large monster.
+          const partialAim = plain === undefined && !selected && background && cell.length > 24 * 24 &&
+            aimX >= 0 && aimX < width && aimX % 24 === 0 && aimY >= 0 && aimY < height && aimY % 24 === 0
+            ? partialAimPose(cell, width, background, aimX, aimY) : undefined;
+          const terrain = plain === undefined && !selected && !partialAim
             ? terrainPose(cell, width, background) : undefined;
           const colorSelection = plain === undefined && !selected && !terrain && width === 24 && height === 24 &&
             cell[0] === poseBevel[0] && cell[cell.length - 1] === poseBevel[cell.length - 1]
             ? recoloredParty(cell, poseBevel, true) : undefined;
           const colorTerrain = plain === undefined && !selected && !terrain && !colorSelection && width === 24 && height === 24 && background
             ? recoloredParty(cell, background, false) : undefined;
-          const match = plain ?? selected ?? terrain ?? colorSelection ?? colorTerrain;
+          const match = plain ?? selected ?? partialAim ?? terrain ?? colorSelection ?? colorTerrain;
           if (!match) continue;
           // A standing unit can obscure a prop in the guest's terrain pass.
           // Restore the whole prop as its own layer when the visible pixels
@@ -349,6 +376,7 @@ function buildCombatArtMatcher(keys: string[], root: string | null, materialKeys
               const index = row * width + column;
               enhanced.pixels[start + column] = highlighted
                 ? match.pixels[index] ? poseBevel[index]! : cell[index]!
+                : partialAim ? background![index]!
                 : restoreTerrain ? prop ? 0 : background[index]!
                 : terrain && !match.pixels[index] ? cell[index]! : 0;
             }

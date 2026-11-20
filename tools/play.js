@@ -968,7 +968,7 @@ async function showScreen() {
     .map(([, character]) => String.fromCharCode(character)).join("");
   const manualAim = /^\(USE\s*CURSOR\s*KEYS\)/i.test(menu);
   const aimMenu = manualAim || /^AIM\s*:/i.test(menu);
-  const manualAimEmpty = manualAim && !view.combatArt?.some(([, , , , highlighted]) => highlighted);
+  const manualAimOnCell = manualAim && !view.combatArt?.some(([, , , , highlighted]) => highlighted);
   function pictureBackdrop() {
     const backdrop = document.createElement("div");
     backdrop.className = "perspective-backdrop";
@@ -1005,7 +1005,7 @@ async function showScreen() {
     }
   }
   const selectionArt = (view.combatSelections ?? []).map(([x, y, id]) =>
-    [x, y, id, undefined, manualAimEmpty, 24, 24]);
+    [x, y, id, undefined, manualAimOnCell, 24, 24]);
   const placements = [...(streetCanvas ? [] : view.tiles ?? []), ...(view.battleTiles ?? []), ...selectionArt,
     ...(view.combatArt ?? [])];
   if (view.combatEffect) placements.push([...view.combatEffect, undefined, undefined, 24, 24]);
