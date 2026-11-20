@@ -166,7 +166,8 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
         return { title: commission.title, nextStep: "The City Watch took the treasure. Go to the council clerk at City Hall to collect the reward they mentioned." };
       }
       if (commission.id === "auction" && tracked.status === "ready-to-report") {
-        const outcome = knows("auction-cancelled") ? "that the auction was cancelled"
+        const outcome = knows("auction-cancelled")
+          ? (knows("auction-ogre-searched") ? "that the auction was cancelled and the ogre had no item" : "that the auction was cancelled")
           : knows("auction-garwin-escaped") ? "that the auctioneer called the fleeing man Garwin"
           : knows("auction-exchange") ? "that a man and an ogre exchanged the wand for a large bag"
           : knows("auction-buyer-unseen") ? "that the auction ended before the party could identify the buyer"
@@ -1450,6 +1451,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   if (text.includes("THE AUCTION IS CANCELLED!")) {
     leads.push({ id: "auction-cancelled", title: "The auction was cancelled",
       detail: "The auctioneer called off the sale and fled when the crowd turned on the party." });
+  }
+  if (text.includes("THE OGRE IS TACKLED AND SEARCHED") && text.includes("DOESN'T HAVE THE ITEM")) {
+    leads.push({ id: "auction-ogre-searched", title: "The ogre had no item",
+      detail: "The ogre was tackled and searched after fleeing the auction. He did not have the item." });
   }
   if (text.includes("A MAN AND OGRE EXCHANGE THE WAND AND A LARGE BAG")) {
     leads.push({ id: "auction-exchange", title: "The auction exchange",
