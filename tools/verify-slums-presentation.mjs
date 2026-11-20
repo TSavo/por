@@ -692,6 +692,13 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:23:ecl:9a04:caller:af04", prompt: /ANOTETOATRAPPER.*ENTRY40/i,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["mendor-rhetoric-stacks-arrival", {
+    slot: "B", inputs: ["up", "up", "right", "up", "up", "up", "right", "up"],
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:rhetoric-stacks",
+    prompt: /THESEARETHELIBRARYSTACKS.*ASIGNOVERTHEENTRANCEREADSRHETORIC/i,
+    journalLead: "mendor-stacks-rhetoric", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["enter"], prompt: /5,4N/, clearsPortrait: true },
+  }],
   ["mendor-philosophy-stacks", {
     slot: "B", inputs: ["left", "up"],
     portrait: "scene-illustration:area:15:ecl:99b5:caller:9de1",
