@@ -81,6 +81,12 @@ The inventory at `5d4a5617` reports 833 source frames, including 26
 pixel matches, and 346 unlinked. The unlinked entries include 11
 uniform frames, seven combat frames with scoped reuse candidates, and
 37 encounter frames whose pixels match art bound to another frame.
+The seven combat rows are the ready and strike pairs for `CPIC1.DAX` actor
+11, `CPIC4.DAX` actor 14, and `CPIC6.DAX` actor 13, plus `CPIC6.DAX` actor
+14's strike pose. All seven have pixel-identical twins with Enhanced
+bindings in other contexts. The script audit found a live load for the
+last actor, Al-Hyam at Zhentil Keep. The captured wand attack draws his
+ready pose, so the strike row remains unverified in play.
 The full enhanced manifest has 7,216 validated replacement mappings,
 including 90 distinct script illustration PNGs. The gallery header shows
 the current archive-frame and script-illustration totals. Multiple
@@ -632,5 +638,8 @@ four giant lizards. The illustration holds through the announcement and
 clears when combat controls appear. At Kovel Mansion, the approach sprite
 shows both hooded thieves at the original draw position before the chase
 illustration takes over. The Chrome presentation verifier checks both
-transitions. These encounter-specific replacements leave the archive-frame
+transitions. For `kovel-chase-attack`, start from the north approach
+checkpoint (`out/kovel-chase-north-A.json` in the working QA captures) so
+the two steps into the chase trigger draw the transient approach sprite.
+These encounter-specific replacements leave the archive-frame
 coverage totals unchanged.
