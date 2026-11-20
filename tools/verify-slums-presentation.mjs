@@ -5963,8 +5963,11 @@ try {
         `document.querySelector('.encounter-portrait[src="/art/${directions}"]')?.naturalWidth === 352`));
       await advance("enter");
     }
-    if (captiveKilled) for (const key of ["k", "enter", "k"]) await advance(key);
-    else await advance(captiveAlarm ? "l" : "r");
+    if (captiveKilled) {
+      for (const key of ["k", "enter", "k"]) await advance(key);
+      assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /WITHAQUICKSTROKE/i);
+      assert.equal(frame.portrait, "portrait:PIC5.DAX:7:0:0");
+    } else await advance(captiveAlarm ? "l" : "r");
     if (captiveAlarm) {
       const alarm = "portrait:area:3:ecl:9bf8:PIC5.DAX:7:0:0";
       assert.equal(frame.portrait, alarm);
