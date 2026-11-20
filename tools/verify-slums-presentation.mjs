@@ -563,6 +563,17 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["diogenes-bottle-return", {
+    slot: "A", inputs: ["up", "enter", "e", "enter", "enter", "enter"],
+    portraitStops: {
+      4: "scene-illustration:area:25:ecl:a58b:caller:a44c",
+      5: "scene-illustration:area:25:ecl:a58b:caller:a4cc",
+    },
+    portrait: "scene-illustration:area:19:ecl:aeeb:cue:diogenes-bottle-departure",
+    prompt: /WHENYOUMEETTHEVAMPIREUSETHEBOTTLE.*DIOGENESFLIESTHROUGHAHOLE/i,
+    journalLead: "commission-bottle-vampire", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /WHENYOUMEETTHEVAMPIREUSETHEBOTTLE/i },
+  }],
   ["podal-auction-wand-exchange", {
     slot: "I", inputs: ["up", ...Array(5).fill("enter"), "end", "enter", "enter"],
     portrait: "portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:0:0",
