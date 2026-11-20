@@ -3574,3 +3574,6 @@ active frame behind a selected Sokal orc and both frame states across the
 editor's four previews, along with the Classic switch. The Sokal
 courtyard manual replay also checks the Aim reticle above the Enhanced
 selection frame and below the targeted orc sprite at its guest position.
+Larger units use one frame per native 24×24 cell. Chrome verified the
+vertical pair behind the Slums ogre, the horizontal pair behind the Wild
+Cave lizard, and all four cells behind Tyranthraxus.

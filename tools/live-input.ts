@@ -291,11 +291,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         ? combatArt(screen, enhanced, area, battleCursor, battlefield ? battleTerrain : undefined, iconEditor) : [];
       const combatSelections: TilePlacement[] = [];
       for (const [x, y, , , highlighted, width = 24, height = 24] of attack ?? combat) {
-        if (!highlighted || width !== 24 || height !== 24) continue;
+        if (!highlighted || width % 24 || height % 24) continue;
         const corner = screen.get(x, y);
         const block = corner === 15 ? 25 : iconEditor && corner === 7 ? 153 : undefined;
         const key = `combat-selection:COMSPR.DAX:${block}`;
-        if (selectionKeys.has(key)) combatSelections.push([x, y, key]);
+        if (!selectionKeys.has(key)) continue;
+        for (let dy = 0; dy < height; dy += 24) {
+          for (let dx = 0; dx < width; dx += 24) combatSelections.push([x + dx, y + dy, key]);
+        }
       }
       const battleTiles: TilePlacement[] = [];
       const battleTileInventory: TileInventoryCell[] | undefined = traceBattleTiles && !attack ? [] : undefined;
