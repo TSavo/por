@@ -9,6 +9,12 @@ export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 export const scriptIllustrations = new Map<string, string | RegExp>([
+  ["scene-illustration:area:10:ecl:af8e", "INSIDETHERUINSOFABLACKMARBLECRYPT"],
+  ["scene-illustration:area:10:ecl:b695:caller:af92", "INSIDETHERUINSOFABLACKMARBLECRYPT"],
+  ["scene-illustration:area:10:ecl:afa7", "DOYOUREADTHESCROLL"],
+  ["scene-illustration:area:10:ecl:b6c6:caller:afab", "DOYOUREADTHESCROLL"],
+  ["scene-illustration:area:10:ecl:afdf", "THESCROLLISPLACEDINYOURJOURNALASENTRY43"],
+  ["scene-illustration:area:10:ecl:b695:caller:afe3", "THESCROLLISPLACEDINYOURJOURNALASENTRY43"],
   ["scene-illustration:area:5:ecl:a3cd", "HESCRAMBLESOUTTHEDOOR"],
   ["scene-illustration:area:5:ecl:9c7f", "HESCRAMBLESOUTTHEDOOR"],
   ["scene-illustration:area:1:ecl:a001", "THEMERCHANTYELLSFORHISGUARDSANDTHEYCOMERUNNING"],
