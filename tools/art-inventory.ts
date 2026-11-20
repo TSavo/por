@@ -503,26 +503,32 @@ const portraitFrame = new Frame(320, 200);
 const combatFrame = new Frame(320, 200);
 const replacementsById = new Map(replacements.map(replacement => [replacement.id, replacement]));
 const dwarfHeads = archives.find(({ file }) => file === "CHEAD.DAX")?.entries.filter(({ id }) => id < 14) ?? [];
-const dwarfBodies = archives.find(({ file }) => file === "CBODY.DAX")?.entries ?? [];
-const bodyIds = new Set(dwarfBodies.map(({ id }) => id));
+const combatBodies = archives.find(({ file }) => file === "CBODY.DAX")?.entries ?? [];
+const bodyIds = new Set(combatBodies.map(({ id }) => id));
+function partyCombatPose(head: number, body: number) {
+  const id = `combat:party:${head}:${body}`;
+  return { id, preview: replacementsById.get(id)?.preview };
+}
 // The dwarf icon editor offers 18 bodies. The attack pose sets bit 7 of the body ID.
-const dwarfWeapons = dwarfBodies.filter(({ id }) => id < 18 && bodyIds.has(id | 0x80));
+const dwarfWeapons = combatBodies.filter(({ id }) => id < 18 && bodyIds.has(id | 0x80));
 const dwarfIconCoverage = dwarfHeads.filter((head, index) =>
   dwarfHeads.findIndex(({ sha256 }) => sha256 === head.sha256) === index
 ).flatMap((head) => dwarfWeapons.map(({ id: body }) => {
-  const pose = (bodyId: number) => {
-    const id = `combat:party:${head.id}:${bodyId}`;
-    return { id, preview: replacementsById.get(id)?.preview };
-  };
   return {
     head: head.id,
     aliases: dwarfHeads.filter(({ id, sha256 }) => id !== head.id && sha256 === head.sha256).map(({ id }) => id),
     body,
-    ready: pose(body),
-    strike: pose(body | 0x80),
+    ready: partyCombatPose(head.id, body),
+    strike: partyCombatPose(head.id, body | 0x80),
   };
 }));
-const completeDwarfIcons = dwarfIconCoverage.filter(({ ready, strike }) => ready.preview && strike.preview).length;
+// A full cycle through the Human weapon editor selects body IDs 64 through 95.
+const defaultHumanIconCoverage = combatBodies.filter(({ id }) => id >= 64 && id <= 95 && bodyIds.has(id | 0x80))
+  .map(({ id: body }) => ({
+    head: 64, aliases: [], body,
+    ready: partyCombatPose(64, body),
+    strike: partyCombatPose(64, body | 0x80),
+  }));
 const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\d+|RANDCOM)\.DAX$/.test(file))
   .map(({ file, entries }) => {
     let frames = 0;
@@ -688,12 +694,13 @@ ${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({
 ${monsterPoseCoverage.map(({ name, dialogueName, combatFile, poses }) => `<tr><th scope="row">${escape(dialogueName ?? name)}</th><td>${escape(combatFile)}</td>${poses.map(({ block, status, links }) =>
   `<td>${block} · ${status}${links.map(({ id, preview }) => `<br><a href="${escape(preview)}">${escape(id)}</a>`).join("")}</td>`).join("")}</tr>`).join("")}
 </tbody></table></details>
-<details><summary>Dwarf party combat icons · ${completeDwarfIcons} of ${dwarfIconCoverage.length} combinations with both poses</summary>
+${Object.entries({ "Dwarf party combat icons": dwarfIconCoverage, "Default Human combat icons": defaultHumanIconCoverage })
+  .map(([label, coverage]) => `<details><summary>${label} · ${coverage.filter(({ ready, strike }) => ready.preview && strike.preview).length} of ${coverage.length} combinations with both poses</summary>
 <p>Head and body numbers are DAX block IDs. Identical head choices share a row for each body. Coverage counts exact default-palette bindings.</p>
 <table class="coverage-table"><thead><tr><th scope="col">CHEAD block</th><th scope="col">CBODY ready block</th><th scope="col">Ready</th><th scope="col">Strike</th></tr></thead><tbody>
-${dwarfIconCoverage.map(({ head, aliases, body, ready, strike }) => `<tr><th scope="row">${[head, ...aliases].join(", ")}</th><td>${body}</td>${[ready, strike].map(({ id, preview }) =>
+${coverage.map(({ head, aliases, body, ready, strike }) => `<tr><th scope="row">${[head, ...aliases].join(", ")}</th><td>${body}</td>${[ready, strike].map(({ id, preview }) =>
   `<td>${preview ? `<a href="${escape(preview)}">${escape(id)}</a>` : `Missing <code>${escape(id)}</code>`}</td>`).join("")}</tr>`).join("")}
-</tbody></table></details>
+</tbody></table></details>`).join("")}
 <p>Click any preview to open the full sheet. Search by archive, block number, replacement file, or nearby encounter dialogue.</p>
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
 <label>Category <select id="category"><option value="">All categories</option><option>Illustrated atlas</option>${runtimeGallery ? "<option>Runtime artwork</option>" : ""}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
@@ -766,7 +773,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, monsterArt, monsterPoseCoverage, dwarfIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, monsterArt, monsterPoseCoverage, dwarfIconCoverage, defaultHumanIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
