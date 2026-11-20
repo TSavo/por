@@ -3014,6 +3014,8 @@
     "combat:area:0:CPIC3.DAX:141:ecl:a7d3": "tavern-cutpurse-strike.png",
     "combat:area:0:CPIC3.DAX:11:ecl:a7d3": "tavern-nomad-patron-ready.png",
     "combat:area:0:CPIC3.DAX:139:ecl:a7d3": "tavern-nomad-patron-strike.png",
+    "combat:area:0:CPIC3.DAX:15:ecl:a7d3": "tavern-aides-combat-ready.png",
+    "combat:area:0:CPIC3.DAX:143:ecl:a7d3": "tavern-aides-combat-strike.png",
     "combat:area:0:CPIC3.DAX:16:ecl:a7d3": "tavern-corporal-ready.png",
     "combat:area:0:CPIC3.DAX:144:ecl:a7d3": "tavern-corporal-strike.png",
     "tile:28:067e5b585dd24bcac143834da985ebebbcc25446db06ae546aeffaec0d2b9711": "zhentil-outer-courts-terrain-067e5b585dd2.png",
