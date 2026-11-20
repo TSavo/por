@@ -1099,6 +1099,7 @@ const illustrationRoutes = new Map([
   ["valjevo-messenger-dialogue", {
     slot: "B", inputs: ["up", "b", "up", "enter", "enter", "p", "n"],
     portrait: "portrait:HEAD5.DAX:70:BODY5.DAX:8", prompt: /IJUSTGOTBACKFROMTHENORTH/i,
+    approachSequence: [[40, 32, "encounter:area:7:ecl:9f47:SPRIT5.DAX:11:0:0", 48, 80]],
   }],
   ["sokal-undead-patrol-dialogue", {
     slot: "C", inputs: [...Array(5).fill("up"), "enter", "enter"],
