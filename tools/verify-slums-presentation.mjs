@@ -7216,15 +7216,27 @@ try {
     console.log(`Verified witnessed journal updates on ${routeName} in Chrome.`);
   } else if (routeName === "kovel-guild-files") {
     const files = "kovel-guild-files";
+    const discovery = "scene-illustration:area:14:ecl:b359:cue:guild-files";
+    assert.notEqual(frame.portrait, discovery);
     await advance("j");
     assert.equal(frame.journal?.trackedId, "commission-kovel");
     assert.ok(!frame.journal.leads.some(({ id }) => id === files));
-    for (const key of ["j", "up", "j"]) await advance(key);
+    for (const key of ["j", "up"]) await advance(key);
+    assert.equal(frame.portrait, discovery);
+    await waitFor("Kovel Mansion guild files", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".encounter-portrait")?.naturalWidth === 352 &&
+      document.querySelector(".encounter-portrait")?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    const filesShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "kovel-guild-files-discovery.png"), Buffer.from(filesShot.data, "base64"));
+    await switchBothWays();
+    await advance("j");
     assert.match(frame.journal.leads.find(({ id }) => id === files)?.detail ?? "", /entries 38 and 51/);
     assert.equal(frame.journal.trackedId, "commission-kovel");
     assert.match(frame.journal.objective.nextStep, /Read journal entries 38 and 51/);
     await advance("j");
-    await switchBothWays();
+    await advance("up");
+    assert.notEqual(frame.portrait, discovery);
     console.log("Verified the Kovel Mansion file discovery and objective in Chrome.");
   } else if (routeName === "buccaneer-approach") {
     const base = "rescue-buccaneer-base";
