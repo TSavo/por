@@ -1562,6 +1562,10 @@ building. It checks the Thay alliance and Moonsea plans appear separately
 as the party reads them.
 `valjevo-records-decline` verifies the room stays in the journal as a
 place to revisit while the unread reports stay hidden.
+`valjevo-records-revisit` declines, leaves, and returns. It checks that
+both reports are still hidden when the party reenters and that each
+illustration and journal entry appears when the party reads that report.
+The resulting slot C passes the same reload check as the direct route.
 `valjevo-scriptorium-reports` searches the room on a controlled copy
 with the officer fight marked cleared. The Raven Clan report and the
 flaming-aura clue appear separately as their text is shown. The translation

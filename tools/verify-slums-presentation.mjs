@@ -1451,7 +1451,8 @@ const nomadSentries = routeName === "nomad-camp-sentries";
 const forgeAuthorization = routeName === "valjevo-forge-authorization";
 const forgeSmith = routeName === "valjevo-forge-smith" || forgeAuthorization;
 const castleRecordsDecline = routeName === "valjevo-records-decline";
-const castleRecords = routeName === "valjevo-records" || castleRecordsDecline;
+const castleRecordsRevisit = routeName === "valjevo-records-revisit";
+const castleRecords = routeName === "valjevo-records" || castleRecordsDecline || castleRecordsRevisit;
 const castleScribe = routeName === "valjevo-records-scribe";
 const castleReports = routeName === "valjevo-scriptorium-reports";
 const castleReportsReload = routeName === "valjevo-scriptorium-reports-reload";
@@ -3668,6 +3669,7 @@ routes.push("buccaneer-bivant-punch");
 routes.push("buccaneer-bivant-escort-combat");
 routes.push("valjevo-al-hyam-release", "valjevo-al-hyam-release-reload");
 routes.push("valjevo-cadorna-alarm-reload");
+routes.push("valjevo-records-revisit");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -6847,12 +6849,17 @@ try {
     await advance("up");
     await advance("j");
     assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
-    if (castleRecordsDecline) {
+    if (castleRecordsDecline || castleRecordsRevisit) {
       for (const key of ["j", "n"]) await advance(key);
       assert.ok(![evidence, moonsea].includes(frame.portrait));
       await advance("j");
       assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
-    } else {
+      if (castleRecordsRevisit) {
+        for (const key of ["j", "down", "up", "down", "up", "j"]) await advance(key);
+        assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
+      }
+    }
+    if (!castleRecordsDecline) {
       for (const key of ["j", "y"]) await advance(key);
       assert.equal(frame.portrait, evidence);
       await waitFor("the Enhanced Red Wizards evidence", () => run(`state.sequence === ${frame.sequence} &&
