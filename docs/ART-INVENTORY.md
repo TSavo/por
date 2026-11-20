@@ -76,13 +76,14 @@ even when several areas have their own replacement. The table inventories
 archive contents. The live routes establish which frames are drawn.
 **Exact portrait and combat matches** lists original frames whose pixels
 already resolve to global enhanced artwork through the browser's matchers.
-The inventory at `68ea6b71` reports 833 source frames, including 26
+The inventory at `5d4a5617` reports 833 source frames, including 26
 `COMSPR.DAX` frames, with 465 linked directly, 22 covered through exact
 pixel matches, and 346 unlinked. The unlinked entries include 11
 uniform frames, seven combat frames with scoped reuse candidates, and
 37 encounter frames whose pixels match art bound to another frame.
-The full enhanced manifest has 7,199 validated replacement mappings,
-including 82 distinct script illustration PNGs. Multiple
+The full enhanced manifest has 7,216 validated replacement mappings,
+including 90 distinct script illustration PNGs. The gallery header shows
+the current archive-frame and script-illustration totals. Multiple
 encounter branches can use the same source frame, and some script scenes
 have no archive picture. Branch-specific artwork can improve live coverage
 without changing the source-frame count.

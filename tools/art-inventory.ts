@@ -553,6 +553,7 @@ const inventoryCategories = [
 ] as const;
 const battlefieldGaps = missingByArea.get("Battlefield")?.length ?? 0;
 const loadedPngs = new Set(replacements.map(({ path }) => path)).size;
+const scriptedScenePngs = new Set(replacements.filter(({ scriptCue }) => scriptCue).map(({ path }) => path)).size;
 const capturedByArea = new Map<number, { captured: number; matched: number }>();
 for (const id of capturedTiles.keys()) {
   const area = /^tile:(\d+):/.exec(id)?.[1];
@@ -744,6 +745,8 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 .coverage-table{border-collapse:collapse;margin:.75rem 0}.coverage-table th,.coverage-table td{padding:.25rem .75rem;text-align:right;border-bottom:1px solid #514738}
 </style><h1>Pool of Radiance art inventory</h1>
 <p><strong>${replacements.length} loaded replacement entries</strong> · ${loadedPngs} PNG files · ${archives.length} source archives</p>
+<p><a href="#archive-coverage">Archive coverage</a> · <strong>${encounterTotals.matched + encounterTotals.matchedByPixels} of ${encounterTotals.frames} source frames covered</strong> · ${encounterTotals.remaining} unlinked</p>
+${scriptedScenePngs ? `<p><a href="#scripted-scene-illustrations">Scripted scene illustrations</a> · <strong>${scriptedScenePngs} distinct PNGs</strong></p>` : ""}
 ${artworkLoadIssues.length ? `<details><summary>${artworkLoadIssues.length} artwork loading issues</summary><ul>${
   artworkLoadIssues.map(({ manifest, id, reason }) =>
     `<li>${escape(manifest)}${id ? ` · <code>${escape(id)}</code>` : ""} · ${escape(reason)}</li>`).join("")
@@ -785,7 +788,7 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
   return `<tr><th scope="row">${area}</th><td>${captured}</td><td>${matched}</td><td>${gap}</td></tr>`;
 }).join("")}
 </tbody></table></details>` : ""}
-<details><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} linked · ${encounterTotals.matchedByPixels} exact matches · ${encounterTotals.remaining} unlinked</summary>
+<details id="archive-coverage"><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} linked · ${encounterTotals.matchedByPixels} exact matches · ${encounterTotals.remaining} unlinked</summary>
 <p>An area-specific replacement counts once for the source frame. Exact matches use replacements the browser's global portrait or combat matcher already finds. Composite portraits are listed under Runtime artwork.</p>
 ${reflectedEffectCount ? `<p>${reflectedEffectCount} reflected combat effect replacements share the source frames counted below.</p>` : ""}
 <table class="coverage-table"><thead><tr><th>Art family</th><th>Source frames</th><th>Linked</th><th>Exact matches</th><th>Unlinked</th></tr></thead><tbody>
