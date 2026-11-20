@@ -10,7 +10,7 @@ import { currentObjective, isOpenObjective, kovelJournalTransition, type Journal
 import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
-import { combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
+import { loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadCharacterSheetArt, loadPortraitArt } from "./portrait-art.js";
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 
@@ -32,6 +32,7 @@ export interface PresentationAnimationFrame {
   enhancedFrame: string;
   combatArt: CombatArtPlacement[];
   combatSelections?: TilePlacement[];
+  combatEffect?: TilePlacement;
   battleTiles: TilePlacement[];
   panelFrame?: PanelFrameStamp[];
   text: [number, number, number][];
@@ -137,6 +138,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const battleTerrain = browser && (battleTileKeys.size || traceBattleDraw) ? new Frame(screen.width, screen.height) : undefined;
   const tracedBattleTerrain = new Set<string>();
   const selectionKeys = new Set((process.env.POR_COMBAT_SELECTION_KEYS ?? "").split(",").filter(Boolean));
+  const effectKeys = (process.env.POR_COMBAT_EFFECT_KEYS ?? "").split(",").filter(Boolean);
+  const matchCombatEffect = loadCombatEffects(effectKeys);
+  const isImpact = (key: string) => key.endsWith(":10") || key.endsWith(":138");
+  const flightFrame = (frame: PresentationAnimationFrame) => frame.combatEffect && !isImpact(frame.combatEffect[2]);
+  let pendingEffect: { x: number; y: number; background: Uint8Array } | undefined;
   const materialKeys = new Set((process.env.POR_COMBAT_MATERIAL_KEYS ?? "").split(",").filter(Boolean));
   const combatArt = loadCombatArtMatcher((process.env.POR_COMBAT_ART_KEYS ?? "").split(",").filter(Boolean), undefined, materialKeys);
   const attackKeys = new Set((process.env.POR_COMBAT_ART_KEYS ?? "").split(",")
@@ -160,7 +166,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     }
     return pixels;
   }
-  const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false, durationMs?: number) => {
+  const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
+    durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }) => {
+    const native = screen;
+    const presentation = effect?.clean ?? native;
     if (browser) {
       const glyphs = visibleGameText();
       const dialogue = glyphs.filter(([cell]) => cell >= 640 && cell < 960).sort(([a], [b]) => a - b)
@@ -197,15 +206,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const picture = scene ? undefined : arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
-      const enhanced = new Frame(screen.width, screen.height);
-      enhanced.pixels.set(screen.pixels);
+      const enhanced = new Frame(presentation.width, presentation.height);
+      enhanced.pixels.set(presentation.pixels);
       for (const [x, y, , width, height] of characterSheet ?? []) {
         for (let row = y; row < y + height; row++) {
-          const start = row * screen.width + x;
+          const start = row * presentation.width + x;
           enhanced.pixels.fill(0, start, start + width);
         }
       }
-      const encounter = encounterArt(screen, enhanced, !scene && picture === undefined ? area : undefined,
+      const encounter = encounterArt(presentation, enhanced, !scene && picture === undefined ? area : undefined,
         !captureApproach, battleCursor, [drawnPerspective?.pixels, priorPerspectiveDraw]);
       if (captureApproach) {
         if (!encounter || encounter[2] === lastApproach) return;
@@ -221,7 +230,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // scenes. Its exploration menu omits Area, even during the cave exit
       // when the area record still names the dungeon.
       const overlandMap = menu === "CASTVIEWENCAMPSEARCHLOOK";
-      const battlefield = hasBattlefieldBorder(screen);
+      const battlefield = hasBattlefieldBorder(presentation);
       // The icon editor also uses the viewport blit. Its two preview labels
       // stay in place while the player changes parts, palette, and size.
       const iconEditor = text.filter(([cell]) =>
@@ -273,7 +282,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         for (let y = 24; y < 112; y += 8) {
           for (let x = 24; x < 112; x += 8) {
             for (let row = 0; row < 8; row++) {
-              const start = (y + row) * screen.width + x;
+              const start = (y + row) * presentation.width + x;
               pixels.set(enhanced.pixels.subarray(start, start + 8), row * 8);
             }
             const key = `tile:${tileArea}:${createHash("sha256").update(pixels).digest("hex")}`;
@@ -284,15 +293,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       for (const [cell] of text) {
         const x = (cell % 40) * 8;
-        const offset = Math.floor(cell / 40) * 8 * screen.width + x;
-        for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * screen.width, offset + y * screen.width + 8);
+        const offset = Math.floor(cell / 40) * 8 * presentation.width + x;
+        for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * presentation.width, offset + y * presentation.width + 8);
       }
       const combat = attack || (!scene && !perspective)
-        ? combatArt(screen, enhanced, area, battleCursor, battlefield ? battleTerrain : undefined, iconEditor) : [];
+        ? combatArt(presentation, enhanced, area, battleCursor, battlefield ? battleTerrain : undefined, iconEditor) : [];
       const combatSelections: TilePlacement[] = [];
       for (const [x, y, , , highlighted, width = 24, height = 24] of attack ?? combat) {
         if (!highlighted || width % 24 || height % 24) continue;
-        const corner = screen.get(x, y);
+        const corner = presentation.get(x, y);
         const block = corner === 15 ? 25 : iconEditor && corner === 7 ? 153 : undefined;
         const key = `combat-selection:COMSPR.DAX:${block}`;
         if (!selectionKeys.has(key)) continue;
@@ -309,17 +318,17 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         // Combat terrain appears within the guest's left-hand battle panel.
         for (let y = 8; y < 176; y += 8) {
           for (let x = 8; x < 176; x += 8) {
-            if (battleTileInventory && x <= 152 && y <= 152 && screen.get(x, y) === 15) {
+            if (battleTileInventory && x <= 152 && y <= 152 && presentation.get(x, y) === 15) {
               let borderMatches = true;
               for (let offset = 0; offset < 24 && borderMatches; offset++) {
-                borderMatches = screen.get(x + offset, y) === combatHighlightPixel(offset, 0) &&
-                  screen.get(x + offset, y + 23) === combatHighlightPixel(offset, 23) &&
-                  screen.get(x, y + offset) === combatHighlightPixel(0, offset) &&
-                  screen.get(x + 23, y + offset) === combatHighlightPixel(23, offset);
+                borderMatches = presentation.get(x + offset, y) === combatHighlightPixel(offset, 0) &&
+                  presentation.get(x + offset, y + 23) === combatHighlightPixel(offset, 23) &&
+                  presentation.get(x, y + offset) === combatHighlightPixel(0, offset) &&
+                  presentation.get(x + 23, y + offset) === combatHighlightPixel(23, offset);
               }
               if (borderMatches) {
                 for (let row = 0; row < 24; row += 8) {
-                  for (let column = 0; column < 24; column += 8) selectionCells.add((y + row) * screen.width + x + column);
+                  for (let column = 0; column < 24; column += 8) selectionCells.add((y + row) * presentation.width + x + column);
                 }
               }
             }
@@ -331,7 +340,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             const key = `battle-tile:${createHash("sha256").update(pixels).digest("hex")}`;
             // The selection bevel is drawn into the guest cell. It remains
             // on screen, but its pixels cannot identify the terrain below it.
-            if (battleTileInventory && !selectionCells.has(y * screen.width + x) && !selectedActors.some(([left, top, , , , width = 24, height = 24]) =>
+            if (battleTileInventory && !selectionCells.has(y * presentation.width + x) && !selectedActors.some(([left, top, , , , width = 24, height = 24]) =>
               x < left + width && x + 8 > left && y < top + height && y + 8 > top)) {
               battleTileInventory.push([x, y, key, pixels.toString("hex")]);
             }
@@ -349,7 +358,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         nativeScenery.x >= 11 && nativeScenery.x <= 15 && menu === "AREACASTVIEWENCAMPSEARCHLOOK" && isQuayDialogue(dialogue)
         ? { x: nativeScenery.x, facing: nativeScenery.facing, ticket: harborTicket } : undefined;
       const state = {
-        frame: Buffer.from(encodePng(screen)).toString("base64"),
+        frame: Buffer.from(encodePng(native)).toString("base64"),
         enhancedFrame: Buffer.from(encodePng(enhanced, enhancedPalette)).toString("base64"),
         scene,
         text,
@@ -379,6 +388,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         tiles,
         combatArt: combat,
         combatSelections: combatSelections.length ? combatSelections : undefined,
+        combatEffect: effect?.placement,
         battleTiles,
         battleTileInventory,
         panelFrame: scene ? undefined : matchPanelFrame(screen),
@@ -388,9 +398,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
           trackedId: leads.find((lead) => lead.id === trackedId && isOpenObjective(lead))?.id },
       };
-      if (attack || captureApproach) {
+      if (attack || captureApproach || effect) {
+        if (animation.length >= 12) {
+          const flight = animation.findIndex(flightFrame);
+          if (flight < 0) return;
+          animation.splice(flight, 1);
+        }
         animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame,
-          text: state.text, combatArt: attack ?? [], combatSelections: state.combatSelections,
+          text: state.text, combatArt: effect ? combat : attack ?? [], combatSelections: state.combatSelections,
+          combatEffect: state.combatEffect,
           battleTiles, panelFrame: state.panelFrame, perspective,
           nativeScenery: state.nativeScenery, overlandMap: state.overlandMap, encounter, tiles, durationMs });
       } else {
@@ -569,8 +585,59 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       drawnPerspective = { pixels, localEcl: localScenery ? cpu.read8(0x740, 0x82a2) : undefined,
         native: localScenery ? captureNativeExploration(cpu) : undefined };
     } : undefined,
-    capturePresentationDelay: browser ? (cpu: Cpu) => {
-      if (scene || animation.length >= 12) return;
+    captureCombatEffectUnderlay: browser && effectKeys.length ? (cpu: Cpu) => {
+      pendingEffect = undefined;
+      // At the native call site the far destination pointer precedes the
+      // source pointer, flags, picture index, row and column.
+      const argument = (offset: number) => cpu.read16(cpu.ss, (cpu.sp + offset) & 0xffff);
+      const offset = argument(0), segment = argument(2), row = argument(12), column = argument(14);
+      const width = cpu.read16(segment, offset + 2);
+      if (argument(8) !== 5 || row > 18 || column > 18 || width < column + 3 ||
+          cpu.read16(segment, offset) < row * 8 + 24) return;
+      const planeMasks = Array.from({ length: 4 }, (_, plane) => cpu.read8(cpu.ds, 0x260a + plane) & 15);
+      const background = new Uint8Array(24 * 24);
+      for (let dy = 0; dy < 24; dy++) {
+        for (let group = 0; group < 3; group++) {
+          const source = offset + 0x17 + ((row * 8 + dy) * width + column + group) * 4;
+          const planes = planeMasks.map((_, plane) => cpu.read8(segment, source + plane));
+          for (let pixel = 0; pixel < 8; pixel++) {
+            const bit = 0x80 >> pixel;
+            background[dy * 24 + group * 8 + pixel] = planes.reduce((color, bits, plane) =>
+              bits & bit ? color | planeMasks[plane]! : color, 0);
+          }
+        }
+      }
+      pendingEffect = { x: 8 + column * 8, y: 8 + row * 8, background };
+    } : undefined,
+    capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false) => {
+      const draw = effectDelay ? pendingEffect : undefined;
+      pendingEffect = undefined;
+      if (scene) return;
+      if (draw) {
+        const { x, y, background } = draw;
+        const key = matchCombatEffect(screen, x, y, background);
+        if (key) {
+          const previous = animation.at(-1)?.combatEffect;
+          if (previous?.[0] === x && previous[1] === y && previous[2] === key) return;
+          const impact = isImpact(key);
+          const effectCount = animation.filter(frame => frame.combatEffect).length;
+          if (effectCount >= 6 || animation.length >= 12) {
+            if (!impact) return;
+            const replaceable = animation.findIndex(flightFrame);
+            if (replaceable < 0) return;
+            animation.splice(replaceable, 1);
+          }
+          const clean = new Frame(screen.width, screen.height);
+          clean.pixels.set(screen.pixels);
+          for (let row = 0; row < 24; row++) {
+            clean.pixels.set(background.subarray(row * 24, row * 24 + 24), (y + row) * clean.width + x);
+          }
+          captureEclContext(cpu);
+          showFrame(undefined, undefined, false, false, impact ? 110 : 55, { placement: [x, y, key], clean });
+          return;
+        }
+      }
+      if (animation.length >= 12 && !animation.some(flightFrame)) return;
       captureEclContext(cpu);
       const battlefield = hasBattlefieldBorder(screen);
       const placements = combatArt(screen, undefined, area, battleCursor, battlefield ? battleTerrain : undefined);

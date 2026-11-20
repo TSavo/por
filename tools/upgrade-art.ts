@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { lookupOverride, type EncounterAnchor, type OverrideManifest } from "../src/lib/assets.js";
 import { characterSheetPartKey, characterSheetPartPixels, portraitKey } from "./portrait-art.js";
 import { encounterAnchor, encounterKey, encounterPixels } from "./encounter-art.js";
-import { combatSelectionKey, isCombatExtent, monsterCombatKey, partyCombatKey, partyCombatPart, randomCombatKey, randomCombatPixels } from "./combat-art.js";
+import { combatSelectionKey, combatEffectKey, isCombatExtent, monsterCombatKey, partyCombatKey, partyCombatPart, randomCombatKey, randomCombatPixels } from "./combat-art.js";
 import { parseDax } from "../src/lib/dax.js";
 import { decodePicture, isPicture } from "../src/lib/picture.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
@@ -61,11 +61,12 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
         const monster = monsterCombatKey.exec(id);
         const party = partyCombatKey.exec(id);
         const random = randomCombatKey.exec(id);
+        const effect = combatEffectKey.exec(id);
         const combatSelection = combatSelectionKey.exec(id);
         const sheetPart = characterSheetPartKey.exec(id);
         const startupScene = id === "scene:title" || id === "scene:publisher";
         if (!startupScene && !/^tile:\d{1,3}:[a-f0-9]{64}$/.test(id) &&
-            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !random && !combatSelection && !sheetPart && !portraitKey.test(id) && !encounter) {
+            !/^battle-tile:[a-f0-9]{64}$/.test(id) && !monster && !party && !random && !combatSelection && !effect && !sheetPart && !portraitKey.test(id) && !encounter) {
           reject("Unsupported asset ID or invalid encounter placement.", id);
           continue;
         }
@@ -99,11 +100,12 @@ export function loadUpgradeArtFromManifests(paths: readonly string[], gameRoot =
               continue;
             }
             sourceWidth = sourceHeight = 24;
-          } else if (combatSelection) {
-            const entry = originalArchive(combatSelection[1])?.entries.find(({ id }) => id === Number(combatSelection[2]));
+          } else if (combatSelection || effect) {
+            const source = combatSelection ?? effect!;
+            const entry = originalArchive(source[1])?.entries.find(({ id }) => id === Number(source[2]));
             const picture = entry && isPicture(entry.data) ? decodePicture(entry.data) : undefined;
             if (!picture || picture.width !== 24 || picture.height !== 24 || picture.itemCount !== 1) {
-              reject("Combat selection source frame is missing or invalid.", id);
+              reject("Combat effect source frame is missing or invalid.", id);
               continue;
             }
             sourceWidth = sourceHeight = 24;

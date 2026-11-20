@@ -6786,6 +6786,10 @@
     "battle-tile:773ab665f6d64f65a695c511203ed333dab9170afb944b2159fe8deec7b592a7": "courtyard-wall-raking-sill-return.png",
     "combat-selection:COMSPR.DAX:25": "combat-selection-active.png",
     "combat-selection:COMSPR.DAX:153": "combat-selection-inactive.png",
+    "combat-effect:COMSPR.DAX:5": "combat-magic-missile-flight.png",
+    "combat-effect:COMSPR.DAX:133": "combat-magic-missile-flight-alt.png",
+    "combat-effect:COMSPR.DAX:10": "combat-magic-missile-contact.png",
+    "combat-effect:COMSPR.DAX:138": "combat-magic-missile-burst.png",
     "combat:RANDCOM.DAX:1:0:5": "combat-fallen-adventurer.png",
     "combat:RANDCOM.DAX:1:0:0": "combat-loose-stones.png",
     "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"

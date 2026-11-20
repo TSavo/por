@@ -55,6 +55,8 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const capturePresentationDelay = input?.capturePresentationDelay;
   const capturePerspective = input?.capturePerspective;
   const captureEncounterDraw = input?.captureEncounterDraw;
+  const captureCombatEffectUnderlay = input?.captureCombatEffectUnderlay;
+  const combatEffectSegment = captureCombatEffectUnderlay && loadedSlices.find(({ index }) => index === 25)?.loadPara;
   const encounterSegment = captureEncounterDraw && loadedSlices.find(({ index }) => index === 29)?.loadPara;
   const viewportSegment = capturePerspective && loadedSlices.find(({ index }) => index === 36)?.loadPara;
   const localScenerySegment = capturePerspective && loadedSlices.find(({ index }) => index === 30)?.loadPara;
@@ -72,8 +74,16 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
           this.read16(this.ss, (this.sp + 2) & 0xffff) === localScenerySegment;
         capturePerspective?.(this, localScenery);
       }
-      // The original executable holds the attack pose during this delay.
-      if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) capturePresentationDelay?.(this);
+      // Overlay 25 draws projectiles and impacts into the offscreen picture,
+      // flips the visible buffer, and then enters the original EGA delay.
+      if (this.cs === combatEffectSegment && this.steps >= liveStep &&
+          (at === 0x1d27 || at === 0x1fea || at === 0x2169)) captureCombatEffectUnderlay?.(this);
+      if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) {
+        const returnOffset = this.read16(this.ss, this.sp);
+        const effectDelay = combatEffectSegment === this.read16(this.ss, (this.sp + 2) & 0xffff) &&
+          (returnOffset === 0x1d3c || returnOffset === 0x2005 || returnOffset === 0x217c);
+        capturePresentationDelay?.(this, effectDelay);
+      }
       // Some approach sequences refresh several native distances between inputs.
       if (at === 0x078a && this.cs === encounterSegment && this.steps >= liveStep) captureEncounterDraw?.(this);
       // The terrain routine writes to the guest's offscreen EGA surface.

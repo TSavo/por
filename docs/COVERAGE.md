@@ -3578,8 +3578,14 @@ Larger units use one frame per native 24×24 cell. Chrome verified the
 vertical pair behind the Slums ogre, the horizontal pair behind the Wild
 Cave lizard, and all four cells behind Tyranthraxus.
 The art inventory lists all 26 COMSPR.DAX frames, with direct links for
-the two selection frames. The other 24 are available for review by
-archive block and frame index.
+two selection frames and four magic effect frames. The remaining 20
+are available for review by archive block and frame index.
+
+The Council watch replay uses a controlled checkpoint to reach the
+level-three mage's wand volley. Both flight orientations and both
+impact phases render over the battlefield and actor layers. Each effect
+matches the native draw and placement. Classic uses the captured guest
+frame, and the effect layer clears when the animation finishes.
 
 Kuto's roaming lizardfolk use a dedicated 352×352 ruins illustration
 at four script positions. Chrome exercised the approach, Advance and
