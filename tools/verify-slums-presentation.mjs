@@ -737,7 +737,10 @@ const illustrationRoutes = new Map([
   }],
   ["sokal-ferran-farewell", {
     slot: "F", inputs: ["up", "enter", "p", "n", "l", "u", "x", "enter", "t", "enter", "enter"],
-    portraitStops: { 10: "portrait:PIC4.DAX:19:0:0" },
+    portraitStops: {
+      9: "scene-illustration:area:21:ecl:ae31:caller:ac4a",
+      10: "scene-illustration:area:21:ecl:ae31:caller:ace3",
+    },
     portrait: "portrait:area:21:ecl:ae31:caller:ad9e:PIC4.DAX:19:0:0", prompt: /FERRANFADESAWAY/i,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
