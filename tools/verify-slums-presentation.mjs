@@ -7921,7 +7921,16 @@ try {
     await advance("j");
     assert.ok(knows("swamp-friend-word") && !knows("swamp-elder-story"));
     assert.match(frame.journal.objective.nextStep, /Read journal entry 35/);
-    for (const key of ["j", "enter", ..."savior", "enter", "y", "j"]) await advance(key);
+    for (const key of ["j", "enter", ..."savior", "enter", "y"]) await advance(key);
+    const story = "scene-illustration:area:16:ecl:9a87:caller:a217";
+    assert.equal(frame.portrait, story);
+    await waitFor("the elder's story illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${story}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const storyShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "swamp-elder-entry31.png"), Buffer.from(storyShot.data, "base64"));
+    await advance("j");
     assert.ok(knows("swamp-elder-story") && knows("journal-entry-31"));
     assert.ok(!knows("swamp-champion-requested"));
     await advance("j");
