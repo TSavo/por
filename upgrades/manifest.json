@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:4:ecl:acae:HEAD5.DAX:53:BODY5.DAX:7": "valjevo-scriptorium-officers-attack.png",
+    "portrait:area:4:ecl:acaf:HEAD5.DAX:53:BODY5.DAX:7": "valjevo-scriptorium-officers-attack.png",
     "encounter:area:29:ecl:a5e8:SPRIT8.DAX:73:1:0": "kuto-ruins-gnoll-watch-approach-middle.png",
     "encounter:area:29:ecl:a5e8:SPRIT8.DAX:0:1:0": "kuto-ruins-kobold-watch-approach-middle.png",
     "encounter:area:29:ecl:a5e8:SPRIT8.DAX:57:1:0": "kuto-ruins-lizardfolk-watch-approach-middle.png",

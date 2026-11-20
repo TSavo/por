@@ -547,6 +547,15 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-scriptorium-officers-attack", {
+    slot: "B", inputs: ["up", "enter", "enter", "a", "a", "c"],
+    portrait: "portrait:area:4:ecl:acae:HEAD5.DAX:53:BODY5.DAX:7",
+    prompt: /THESIXSCRIBESDIVEFORCOVERASTHETWOOFFICERSATTACK/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:4:ecl:acaf:HEAD5.DAX:53:BODY5.DAX:7",
+      prompt: /ABATTLEBEGINS/i,
+    },
+  }],
   ["valjevo-forge-smith-defends", {
     slot: "B", inputs: ["up", "enter", "a", "c"],
     portrait: "portrait:area:6:ecl:a2b8:HEAD5.DAX:13:BODY5.DAX:9",
