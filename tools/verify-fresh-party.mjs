@@ -1697,6 +1697,32 @@ if (process.argv[2] === "--mage-training-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--zhentil-tour-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot A outside Zhentil Outpost at (3,31), facing west.");
+  copyFileSync(process.argv[3], join(saveDir, "A.json"));
+  const checkStops = count => (_text, frame) => {
+    const known = frame.journal.leads.filter(({ id }) => id.startsWith("zhentil-tour-")).map(({ id }) => id);
+    assert.deepEqual(known, ["zhentil-tour-barracks", "zhentil-tour-watchtowers", "zhentil-tour-outer-wall"].slice(0, count));
+  };
+  await replay(loadSlot("1e61"), "85000000", [
+    (text) => assert.match(text, /3,31 w/),
+    "j", checkStops(0), "j",
+    "down", "enter", "y", ...Array(8).fill("enter"),
+    (text) => assert.match(text, /fine barracks/),
+    "j", checkStops(1), "j", "enter",
+    (text) => assert.match(text, /fine watch towers/),
+    "j", checkStops(2), "j", "enter",
+    (text) => assert.match(text, /wall has survived many attacks/),
+    "j", checkStops(3), "j", "enter", "enter",
+    (text) => assert.match(text, /here are your quarters/),
+    "e", "s", "s", "d",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2064"), "85000000", ["j", checkStops(3)]);
+  console.log("Verified the three Zhentil tour discoveries in order and after reloading.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--bane-entry53-checkpoint") {
   assert.ok(process.argv[3], "Pass a durable slot A from (6,9), facing north inside the Temple of Bane.");
   copyFileSync(process.argv[3], join(saveDir, "A.json"));
