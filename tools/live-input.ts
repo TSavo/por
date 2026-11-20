@@ -187,9 +187,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const treasureAmbush = area === 24 && (battleCursor === 0xaba7 || battleCursor === 0xabbd) &&
         dialogue.startsWith("THEMINUTEYOUFINDTHETREASURE");
       const portraitCursor = caveRevisit || captivePlea ? undefined : treasureAmbush ? 0xab06 : battleCursor;
-      const picture = !scene
-        ? portraitArt(screen, area, portraitCursor, pictureCaller)
-        : undefined;
+      // The dragon's arrival is narrated over the room before its native portrait is drawn.
+      const dragonArrival = "portrait:area:7:ecl:995f:caller:a54b:PIC5.DAX:66:0:0";
+      const arrivalPicture = area === 7 && battleCursor === 0x995f && portraitCaller === 0xa54b &&
+        dialogue.includes("ANANCIENTBRONZEDRAGON,SURROUNDEDBYAFIERYAURA,RISES") && portraitKeys.includes(dragonArrival)
+        ? dragonArrival : undefined;
+      const picture = scene ? undefined : arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
       const enhanced = new Frame(screen.width, screen.height);
