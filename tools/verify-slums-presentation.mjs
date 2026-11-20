@@ -547,6 +547,21 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-maze-watch-alarm", {
+    slot: "B", inputs: ["up", "enter", "enter", "p", "h", "enter"],
+    portrait: "portrait:area:4:ecl:a123:HEAD5.DAX:52:BODY5.DAX:1",
+    prompt: /LUNGESFORTHEDOORANDHITSABUTTON.*STAYANDFIGHTRUN/i,
+    continuation: { inputs: ["r"], prompt: /ANALARMSTARTSRINGING/i, clearsPortrait: true },
+  }],
+  ["valjevo-maze-watch-reinforcements", {
+    slot: "B", inputs: ["up", "enter", "enter", "p", "h", "enter", "s"],
+    portrait: "portrait:area:4:ecl:a188:HEAD5.DAX:52:BODY5.DAX:1",
+    prompt: /FOURGIANTSBURSTOUTOFANEARBYBUILDING/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:4:ecl:a197:HEAD5.DAX:52:BODY5.DAX:1",
+      prompt: /ABATTLEBEGINS/i,
+    },
+  }],
   ["valjevo-scriptorium-officers-attack", {
     slot: "B", inputs: ["up", "enter", "enter", "a", "a", "c"],
     portrait: "portrait:area:4:ecl:acae:HEAD5.DAX:53:BODY5.DAX:7",
