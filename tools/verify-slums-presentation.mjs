@@ -692,8 +692,16 @@ const illustrationRoutes = new Map([
     journalLead: "mendor-stacks-philosophy", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["mendor-history-stacks-arrival", {
+    slot: "B", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:history-stacks",
+    prompt: /THESEARETHELIBRARYSTACKS.*ASIGNOVERTHEENTRANCEREADSHISTORY/i,
+    journalLead: "mendor-stacks-history", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["mendor-history-of-the-north-discovery", {
     slot: "B", inputs: ["s", "up", "enter", "left", "up", "up"],
+    portraitStops: { 2: "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:history-stacks", 3: null },
     portrait: "scene-illustration:area:15:ecl:99b5:caller:9962:cue:history-of-the-north", prompt: /YOUFINDTHEHISTORYOFTHENORTH.*ENTRY8/i,
     continuation: { inputs: ["enter"], prompt: /DOYOUTAKEIT/i, clearsPortrait: true },
     book: 8,
