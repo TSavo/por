@@ -3885,3 +3885,12 @@ The `buccaneer-arrow-down` route checks a manually aimed downward longbow
 shot from a controlled slot A checkpoint. Enhanced uses the vertically
 reflected arrow artwork for COMSPR block 128, with the original flight
 endpoints, three-damage report, cleanup and save preservation.
+
+The Lex Geographica discovery now shows the atlas being pulled from the
+library shelf. The Chrome replay used a local fixture and a test-only
+selector for the original random atlas branch. It checked the discovery
+art and the return to the original item choice.
+
+The current runner replayed from the local Ferran checkpoint through the
+Sokal and Podal rewards, outfitted the party, and reached Grishnak's temple
+after winning the Textile House courtyard and prison fights.
