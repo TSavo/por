@@ -3620,6 +3620,7 @@ routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier"
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
 routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload", "nomad-feast-decline", "kobold-royal-ballista");
+routes.push("valhingen-first-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 const partyDefeatEffect = routeName === "valjevo-party-defeat-effect";
 const defeatEffect = partyDefeatEffect || routeName === "buccaneer-pen-defeat-effect";
@@ -3716,7 +3717,7 @@ const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneR
 const saveSlot = alHyamReload || ["sokal-floorboard-diary-reload", "valjevo-records-reload"].includes(routeName) ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn ||
-    ["stojanow-wall-warning-reload", "kovel-chase-east-reload"].includes(routeName) ? "B" : slot;
+    ["stojanow-wall-warning-reload", "kovel-chase-east-reload", "valhingen-first-arrival-reload"].includes(routeName) ? "B" : slot;
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", E: "1265", F: "2166", G: "2267", H: "2368", I: "1769", J: "246a" }[saveSlot];
 assert.ok(boot, `No BIOS key for save slot ${saveSlot} on route ${routeName}`);
 const saved = resolve(directory, saveSlot + ".json");
@@ -7130,6 +7131,15 @@ try {
     assert.equal(frame.portrait, portrait);
     await waitFor("the armorer in the shop menu", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     console.log("Verified the armorer portrait in dialogue and the shop menu.");
+  } else if (routeName === "valhingen-first-arrival-reload") {
+    const textOf = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+    assert.match(textOf(), /0,4E.*AREACASTVIEWENCAMP/i);
+    for (const key of ["up", "down", "up"]) await advance(key);
+    assert.match(textOf(), /0,4W.*AREACASTVIEWENCAMP/i);
+    assert.doesNotMatch(textOf(), /FIERCEGUSTS|EXPLOSIONOFLIGHTNING/i);
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified that Valhingen's arrival storm does not repeat after a cold reload.");
   } else if (routeName === "stojanow-wall-warning-reload") {
     assert.equal(await verifyTiledView(9, new Set()), 1);
     await advance("j");
