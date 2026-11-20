@@ -4081,7 +4081,8 @@ The same Chrome replay checks the lizard whose native origin lies left
 of the battlefield. Its Enhanced artwork is cropped at the same edge.
 The matcher tests cover both horizontal edges, including a reflected
 pose, and confirm that restoring the terrain leaves pixels outside
-the battlefield untouched.
+the battlefield untouched. They also place the native single-cell
+Manual Aim bevel on the visible half at each edge.
 
 The `sokal-floorboard-diary` Chrome route checks the ghost pointing to
 the board, the distinct diary and gems discovery illustration, and the

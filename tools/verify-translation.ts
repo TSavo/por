@@ -180,6 +180,20 @@ function checkBrowserArtPacks(): void {
     restored.set(7, top, 4);
     restored.set(176, top, 4);
     deepStrictEqual(enhanced.pixels, restored.pixels);
+    const visibleX = Math.max(8, origin);
+    for (let y = 0; y < 24; y++) {
+      for (let x = 0; x < 24; x++) {
+        const sourceColumn = visibleX + x - origin;
+        const sourceX = reflected ? lizard.width - 1 - sourceColumn : sourceColumn;
+        const color = lizard.pixels[y * lizard.width + sourceX];
+        if (!color) native.set(visibleX + x, top + y, combatHighlightPixel(x, y));
+      }
+    }
+    enhanced.pixels.set(native.pixels);
+    const aimedAtEdge = match(native, enhanced, 29, undefined, lizardUnderlay, false, [visibleX, top])
+      .find(([x, y, id]) => x === origin && y === top && id === lizardKey);
+    deepStrictEqual(aimedAtEdge, placement, "Manual Aim should keep the clipped lizard and its original anchor");
+    deepStrictEqual(enhanced.pixels, restored.pixels);
   }
   for (const [archive, ready] of [
     ["CPIC1.DAX", 3], ["CPIC4.DAX", 8], ["CPIC7.DAX", 1], ["CPIC7.DAX", 62],
