@@ -7384,9 +7384,11 @@ try {
     assert.equal(views, 14);
     assert.ok([...patterns].some(id => id.startsWith("tile:8:")), "The route should reach the City Hall district");
     assert.match(text(), /YOURQUESTISOVER.*TYRANTHRAXUSISDEFEATED.*PHLANISFREE/i);
-    assert.equal(frame.portrait, "portrait:HEAD3.DAX:24:BODY3.DAX:32");
-    await waitFor("enhanced clerk at the campaign finale", () => run(`state.sequence === ${frame.sequence} &&
-      document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
+    const finalePortrait = "portrait:area:8:ecl:9f21:caller:9a4a:HEAD3.DAX:24:BODY3.DAX:32";
+    assert.equal(frame.portrait, finalePortrait);
+    await waitFor("dedicated Phlan victory illustration", () => run(`state.sequence === ${frame.sequence} &&
+      [...document.querySelectorAll(".encounter-portrait")].some(image =>
+        image.src.endsWith(${JSON.stringify(finalePortrait)}) && image.naturalWidth === 352 && image.naturalHeight === 352)`));
     await verifyPortraitPanel();
     const clerk = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "council-finale.png"), Buffer.from(clerk.data, "base64"));
