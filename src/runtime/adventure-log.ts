@@ -381,7 +381,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
     }
     if (commission.id === "lizardmen") {
       if (knows("swamp-alliance-averted")) nextStep = "Leave the swamp as the elder requested and report his pledge to the council clerk.";
-      else if (knows("swamp-friend-word-charge")) nextStep = "At the charge prompt, choose Combat to stand your ground or Flee to withdraw. Look for another way to prevent the alliance once you are clear.";
+      else if (knows("swamp-friend-word-charge")) nextStep = "At the charge prompt, choose Combat to stand your ground or Flee to try to get away. Look for another way to prevent the alliance once you are clear.";
       else if (knows("swamp-challenge-hostile") || knows("swamp-friend-word-rejected") || knows("swamp-elder-attacked")) nextStep = "The peaceful meeting ended. Withdraw if necessary and look for another way to prevent the alliance.";
       else if (knows("swamp-champion-requested")) nextStep = "If you agree to champion the elder, choose a party member to face the challenger.";
       else if (knows("swamp-elder-story")) nextStep = "Read journal entry 31 for the elder's story and hear out the challenge.";
@@ -1807,7 +1807,7 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("2 LIZARD MEN AND A GIANT LIZARD CHARGE AT YOU")) {
     leads.push({ id: "swamp-friend-word-charge", title: "The elder's guards charged",
-      detail: "Two lizardfolk and a giant lizard charged. Choose Combat to fight or Flee to retreat at the encounter prompt." });
+      detail: "Two lizardfolk and a giant lizard charged. Choose Combat to fight or Flee to attempt an escape." });
   }
   if (text.includes("THE OLD LIZARD MAN TOTTERS FOR A MOMENT WITH A SURPRISED LOOK ON HIS FACE")) {
     leads.push({ id: "swamp-elder-attacked", title: "The elder fell", detail: "The party struck down the elder during his approach." });
