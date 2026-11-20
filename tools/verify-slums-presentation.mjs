@@ -3678,6 +3678,7 @@ routes.push("buccaneer-bivant-escort-combat");
 routes.push("valjevo-al-hyam-release", "valjevo-al-hyam-release-reload");
 routes.push("valjevo-cadorna-alarm-reload");
 routes.push("valjevo-records-revisit");
+routes.push("river-pumping-hostile");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -3787,7 +3788,8 @@ const riverReturn = routeName === "river-return";
 const koboldReturn = routeName.startsWith("kobold-king-return-council");
 const koboldFerrySave = routeName === "kobold-king-return-council-save-pier";
 const koboldFerryReload = routeName === "kobold-king-return-council-reload";
-const riverPumping = routeName === "river-pumping";
+const riverPumpingHostile = routeName === "river-pumping-hostile";
+const riverPumping = routeName === "river-pumping" || riverPumpingHostile;
 const stojanow = routeName === "stojanow-briefing";
 const trader = routeName === "stojanow-trader";
 const altar = routeName === "textile-altar";
@@ -8350,28 +8352,42 @@ try {
     await switchBothWays();
     await advance("p");
     assert.equal(frame.portrait, "portrait:area:23:PIC7.DAX:57:0:0");
-    await advance("n");
-    const release = "scene-illustration:area:23:ecl:9a04:caller:aaae";
-    assert.equal(frame.portrait, release);
-    await waitFor("the freed pumping-room prisoners", () => run(`state.sequence === ${frame.sequence} &&
-      document.querySelector('.encounter-portrait[src="/art/${release}"]')?.naturalWidth === 352 &&
-      document.querySelector('.encounter-portrait[src="/art/${release}"]')?.naturalHeight === 352`));
-    await verifyPortraitPanel();
-    const releaseShot = await command("Page.captureScreenshot", { format: "png" });
-    writeFileSync(resolve(directory, "pumping-room-prisoners-freed.png"), Buffer.from(releaseShot.data, "base64"));
-    await switchBothWays(frame.frame);
-    await advance("j");
-    assert.ok(knows("river-pump-prisoners-freed") && knows("journal-entry-35"));
-    assert.ok(!knows("river-pump-prisoners-hostile"));
-    assert.match(frame.journal.objective.nextStep, /Read journal entry 35/);
-    for (const key of ["j", "enter"]) await advance(key);
-    assert.equal(frame.portrait, undefined);
-    for (const key of ["e", "s", "s", "a"]) await advance(key);
-    const released = JSON.parse(readFileSync(saved, "utf8"));
-    assert.equal(released.tracked, "commission-river");
-    assert.ok(released.leads.some(({ id }) => id === "journal-entry-35"));
-    console.log("Prisoner release checkpoint:", saved);
-    console.log("Verified the pumping-room parlay, release illustration, and journal clues in Chrome. Capture:", directory);
+    if (riverPumpingHostile) {
+      await advance("h");
+      const dialogue = frame.text.toSorted(([a], [b]) => a - b)
+        .map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
+      assert.match(dialogue, /THEYTHROWTHEIRBARRELSOFCONTAMINANTONTHEPARTY/i);
+      await switchBothWays(frame.frame);
+      await advance("j");
+      assert.ok(knows("river-pump-prisoners-hostile"));
+      assert.ok(!knows("river-pump-prisoners-freed") && !knows("journal-entry-35"));
+      assert.match(frame.journal.objective.nextStep, /get clear of the hostile pumping room.*source of the foul water/i);
+      assert.deepEqual(readFileSync(saved), originalSave);
+      console.log("Verified the hostile pumping-room outcome and journal in Chrome.");
+    } else {
+      await advance("n");
+      const release = "scene-illustration:area:23:ecl:9a04:caller:aaae";
+      assert.equal(frame.portrait, release);
+      await waitFor("the freed pumping-room prisoners", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${release}"]')?.naturalWidth === 352 &&
+        document.querySelector('.encounter-portrait[src="/art/${release}"]')?.naturalHeight === 352`));
+      await verifyPortraitPanel();
+      const releaseShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "pumping-room-prisoners-freed.png"), Buffer.from(releaseShot.data, "base64"));
+      await switchBothWays(frame.frame);
+      await advance("j");
+      assert.ok(knows("river-pump-prisoners-freed") && knows("journal-entry-35"));
+      assert.ok(!knows("river-pump-prisoners-hostile"));
+      assert.match(frame.journal.objective.nextStep, /Read journal entry 35/);
+      for (const key of ["j", "enter"]) await advance(key);
+      assert.equal(frame.portrait, undefined);
+      for (const key of ["e", "s", "s", "a"]) await advance(key);
+      const released = JSON.parse(readFileSync(saved, "utf8"));
+      assert.equal(released.tracked, "commission-river");
+      assert.ok(released.leads.some(({ id }) => id === "journal-entry-35"));
+      console.log("Prisoner release checkpoint:", saved);
+      console.log("Verified the pumping-room parlay, release illustration, and journal clues in Chrome. Capture:", directory);
+    }
   } else if (riverExit) {
     const knowsRecovery = () => frame.journal?.leads.some(({ id }) => id === "river-recovery");
     await advance("j");
