@@ -6144,11 +6144,14 @@ try {
     await switchBothWays();
     console.log(`Verified the Valhingen conjurer portrait on ${routeName} in Chrome.`);
   } else if (forgeSmith) {
+    const close = "encounter:area:6:ecl:a0d8:SPRIT5.DAX:12:0:0";
+    await observeApproach([[56, 32, close, 24, 80]], false);
     for (const key of ["up", "enter"]) await advance(key);
     assert.deepEqual(frame.encounter, [56, 32, "encounter:area:6:SPRIT5.DAX:12:1:0", 24, 65]);
     await waitFor("the forge smith approach", () => run('document.querySelector(".encounter-sprite")?.naturalWidth === 96'));
     await switchBothWays();
     await advance("a");
+    await waitFor("the forge smith at close range", () => run(`window.observedApproach.has(${JSON.stringify(close)})`));
     assert.equal(frame.portrait, "portrait:HEAD5.DAX:13:BODY5.DAX:9");
     await waitFor("the Valjevo forge smith portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
@@ -6422,6 +6425,8 @@ try {
     }
     console.log("Verified Cadorna's portrait and witnessed journal entries in Chrome.");
   } else if (alHyam) {
+    const close = "encounter:area:5:ecl:a28f:SPRIT5.DAX:12:0:0";
+    await observeApproach([[56, 32, close, 24, 80]], false);
     const portrait = "portrait:area:5:HEAD5.DAX:55:BODY5.DAX:31";
     const knows = () => frame.journal?.leads.some(({ id }) => id === "castle-al-hyam-notes");
     for (const [key, placement] of [
@@ -6435,7 +6440,9 @@ try {
         `document.querySelector(".encounter-sprite")?.naturalWidth === ${width * 4} && document.querySelector(".encounter-sprite")?.naturalHeight === ${height * 4}`));
       await switchBothWays();
     }
-    for (const key of ["a", "p"]) await advance(key);
+    await advance("a");
+    await waitFor("Al-Hyam at close range", () => run(`window.observedApproach.has(${JSON.stringify(close)})`));
+    await advance("p");
     assert.equal(frame.portrait, portrait);
     await waitFor("Al-Hyam's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
