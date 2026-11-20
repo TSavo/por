@@ -5,6 +5,12 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "combat:area:14:CPIC3.DAX:12:ecl:ab62": "old-phlan-sword-thief-combat-ready.png",
+    "combat:area:14:CPIC3.DAX:140:ecl:ab62": "old-phlan-sword-thief-combat-strike.png",
+    "portrait:area:28:ecl:a058:HEAD6.DAX:57:BODY6.DAX:6": "zhentil-quarters-alarm-dialogue.png",
+    "portrait:area:28:ecl:a059:HEAD6.DAX:57:BODY6.DAX:6": "zhentil-quarters-alarm-dialogue.png",
+    "portrait:area:28:ecl:a21c:HEAD6.DAX:13:BODY6.DAX:6": "zhentil-dwarf-charge-dialogue.png",
+    "portrait:area:28:ecl:a232:HEAD6.DAX:13:BODY6.DAX:6": "zhentil-dwarf-charge-dialogue.png",
     "combat:area:20:CPIC2.DAX:6:ecl:aa81": "slums-mage-hobgoblin-stand.png",
     "combat:area:20:CPIC2.DAX:134:ecl:aa81": "slums-mage-hobgoblin-strike.png",
     "combat:area:20:CPIC2.DAX:6:ecl:af6d": "slums-mage-hobgoblin-stand.png",
