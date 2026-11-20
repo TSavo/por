@@ -9,6 +9,12 @@ export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 export const scriptIllustrations = new Map<string, string | RegExp>([
+  ["scene-illustration:area:13:ecl:af3c:caller:b137", "THEKOBOLDPAUSES,IDLYTAPSTHEWALL"],
+  ["scene-illustration:area:13:ecl:af5e:caller:b137", "THEKOBOLDPAUSES,IDLYTAPSTHEWALL"],
+  ["scene-illustration:area:13:ecl:afbe:caller:b153", "THEKOBOLDPAUSES,IDLYTAPSTHEWALL"],
+  ["scene-illustration:area:13:ecl:b511:caller:afc2", "THEKOBOLDPAUSES,IDLYTAPSTHEWALL"],
+  ["scene-illustration:area:13:ecl:b1db:caller:b153", "THEENVOYSAREHERE,GREATKING"],
+  ["scene-illustration:area:13:ecl:b1dc", "THEENVOYSAREHERE,GREATKING"],
   ["scene-illustration:area:0:ecl:9b38", "COUNCILMANCADORNACONFRONTSYOU"],
   ["scene-illustration:area:2:ecl:abae", "YOUFINDAPAGEFROMADIARY"],
   ["scene-illustration:area:2:ecl:ac4b", "ONTHEWELLISANOTE,'THIEVESONLY"],

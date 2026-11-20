@@ -186,6 +186,9 @@ function checkBrowserArtPacks(): void {
     deepStrictEqual(matchScriptIllustration(council.replace("9f21", "9efe"), dialogue!, installed), undefined);
   }
   deepStrictEqual(matchScriptIllustration(council, "YOURQUESTISOVER", installed), undefined);
+  const koboldArrival = "scene-illustration:area:13:ecl:b1dc";
+  deepStrictEqual(matchScriptIllustration(koboldArrival, "THEENVOYSAREHERE,GREATKING", installed), koboldArrival);
+  deepStrictEqual(matchScriptIllustration(koboldArrival, "THEKOBOLDSHERDYOUTOWARDYOURPRISON", installed), undefined);
   for (const id of scriptIllustrations.keys()) ok(loaded.has(id), `Missing scripted scene illustration: ${id}`);
   console.log(`verified ${councilScenes.length} distinct reward cues at the shared council pause`);
   console.log(`verified ${declared.size} browser art mappings against the game data, PNG dimensions, and chunk checksums`);

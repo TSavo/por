@@ -6167,10 +6167,21 @@ try {
       assert.deepEqual(readFileSync(saved), originalSave);
     }
     if (koboldEscort) {
+      async function verifyGuideScene(id, filename) {
+        assert.equal(frame.portrait, id);
+        await waitFor("the guide's illustrated escort scene", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, filename), Buffer.from(shot.data, "base64"));
+        await switchBothWays();
+      }
       assert.equal(frame.journal.trackedId, "commission-kobolds");
       assert.match(frame.journal.objective.nextStep, /Choose Yes.*escort/);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "kobold-guide-arrived" || id === "kobold-throne-envoys"));
-      for (const key of ["j", "y", "j"]) await advance(key);
+      for (const key of ["j", "y"]) await advance(key);
+      await verifyGuideScene("scene-illustration:area:13:ecl:b511:caller:afc2", "kobold-guide-wall-tap.png");
+      await advance("j");
       assert.ok(frame.journal.leads.some(({ id }) => id === "kobold-guide-follow"));
       assert.match(frame.journal.objective.nextStep, /Follow the kobold guide/);
       await advance("j");
@@ -6178,8 +6189,9 @@ try {
         frame.text.map(([, c]) => String.fromCharCode(c)).join("").replace(/[^a-z]/gi, ""));
       for (let stop = 0; stop < 20 && !atThrone(); stop++) await advance("enter");
       assert.ok(atThrone(), "The guide should announce the party at the throne");
+      await verifyGuideScene("scene-illustration:area:13:ecl:b1dc", "kobold-guide-throne-arrival.png");
       await advance("j");
-      assert.ok(frame.journal.leads.some(({ id }) => id === "kobold-guide-arrived"));
+      assert.match(frame.journal.leads.find(({ id }) => id === "kobold-guide-arrived")?.detail ?? "", /guide fell into a stupor/i);
       assert.match(frame.journal.objective.nextStep, /one square north, two squares west, then north to the throne room/);
       assert.ok(!frame.journal.leads.some(({ id }) => id === "kobold-throne-envoys"));
       for (const key of ["j", "up", "left", "up", "up", "right", "up", "up", "up", "j"]) await advance(key);
@@ -6196,8 +6208,8 @@ try {
       writeFileSync(resolve(directory, "kobold-throne-in-chrome.png"), Buffer.from(capture.data, "base64"));
     }
     if (koboldEscort) {
-      assert.equal(escortViews, 17);
-      assert.equal(escortTilePatterns.size, 69);
+      assert.equal(escortViews, 12);
+      assert.equal(escortTilePatterns.size, 53);
     }
     console.log(koboldEscort ? `Verified ${escortViews} enhanced views, the guided walk, journal directions, and first meeting at the kobold throne.`
       : "Verified the kobold guide portrait and witnessed escort offer in Chrome.");
