@@ -3469,7 +3469,7 @@ const environmentRoutes = new Map([
   }],
 ]);
 const freshRolf = routeName === "new-phlan-rolf-approach";
-const routes = ["buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+const routes = ["buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-hill-giant-dialogue", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 routes.push("new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload", "nomad-headman-rest-portrait", "nomad-headman-raid");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -3524,6 +3524,8 @@ const defeatEffect = partyDefeatEffect || routeName === "buccaneer-pen-defeat-ef
 const projectile = {
   "buccaneer-oil-flask": { phases: ["4", "4:flip-x", "4:transpose", "132"], damage: 10 },
   "buccaneer-sling-shot": { phases: ["8", "136"], damage: 5 },
+  "buccaneer-arrow-down": { phases: ["128"], damage: 3, archer: "ALDA",
+    inputs: ["m", "pageup", "right", "enter", "a", "n", "n", "t"], launch: [80, 56], landing: [80, 104] },
 }[routeName];
 const mageWand = routeName === "slums-mage-wand";
 assert.ok(checkpoint && chromePath, `Usage: node tools/verify-slums-presentation.mjs <checkpoint> <Chrome executable> [${routes.join("|")}] [--terrain-only|--manual-party]`);
@@ -4312,21 +4314,23 @@ try {
         }
       }).observe(art, {childList: true});`);
     if (projectile) {
-      for (const key of ["up", "up", "enter", "enter", "a", "enter", "enter", "q", "q"]) await advance(key);
+      for (const key of ["up", "up", "enter", "enter", "a", "enter", "enter", "q", "q", ...(projectile.inputs ?? [])]) {
+        await advance(key);
+      }
       const ids = projectile.phases.map(phase => `combat-effect:COMSPR.DAX:${phase}`);
       const flight = (frame.animation ?? []).filter(({ combatEffect }) => ids.includes(combatEffect?.[2]));
       const placements = flight.map(({ combatEffect }) => combatEffect);
       assert.equal(frame.combatEffect, undefined);
       assert.equal(placements.length, 6);
-      assert.deepEqual(placements[0], [56, 56, ids[0]]);
-      assert.deepEqual(placements.at(-1), [104, 104, ids.at(-1)]);
+      assert.deepEqual(placements[0], [...(projectile.launch ?? [56, 56]), ids[0]]);
+      assert.deepEqual(placements.at(-1), [...(projectile.landing ?? [104, 104]), ids.at(-1)]);
       assert.deepEqual([...new Set(placements.map(([, , id]) => id))].sort(), ids.toSorted());
       assert.ok(flight.every(({ durationMs }) => durationMs === 55));
       const reports = (frame.animation ?? []).map(({ text }) => text.toSorted(([a], [b]) => a - b)
         .map(([, char]) => String.fromCharCode(char)).join(""));
-      const hit = new RegExp(`DORNATTACKSBUCCANEERHITTINGFOR${projectile.damage}POINTSOFDAMAGE`, "i");
+      const hit = new RegExp(`${projectile.archer ?? "DORN"}ATTACKSBUCCANEERHITTINGFOR${projectile.damage}POINTSOFDAMAGE`, "i");
       assert.ok(reports.some(text => hit.test(text)));
-      assert.ok(reports.some(text => /BUCCANEERGOESDOWNANDISDYING/i.test(text)));
+      if (!projectile.archer) assert.ok(reports.some(text => /BUCCANEERGOESDOWNANDISDYING/i.test(text)));
       await waitFor("the projectile playback and cleanup", () => run(`state.sequence === ${frame.sequence} &&
         !animationFrame && !document.querySelector(".combat-effect") &&
         ${JSON.stringify(placements)}.every(([x, y, id]) => window.observedEffects.some(effect =>
