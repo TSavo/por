@@ -170,10 +170,10 @@ for (const { file: archive, entries } of archives) {
   }
 }
 type TraceCell = [x: number, y: number, id: string, pixels?: string];
-type TraceRecord = { cells?: TraceCell[]; type?: string; picture?: number; area?: number; cursor?: number; dialogue?: string; sources?: string[]; sequence?: number };
+type TraceRecord = { cells?: TraceCell[]; type?: string; picture?: number; area?: number; cursor?: number; caller?: number; dialogue?: string; sources?: string[]; sequence?: number };
 const capturedTiles = new Map<string, { x: number; y: number; trace: string; frame: number; pixels: Buffer }>();
 const nativeBattleTiles = new Map<string, Set<number>>();
-const observedPortraitFallbacks: { area?: number; cursor?: number; dialogue?: string; sources: string[]; sequence: number; trace: string }[] = [];
+const observedPortraitFallbacks: { area?: number; cursor?: number; caller?: number; dialogue?: string; sources: string[]; sequence: number; trace: string }[] = [];
 const portraitTraceFrames: { area: number; sources: string[]; frame: number; trace: string }[] = [];
 const matchTracePortrait = tracePaths.length ? loadPortraitArt([], true, gameData) : undefined;
 for (const path of tracePaths) {
@@ -184,11 +184,12 @@ for (const path of tracePaths) {
     : JSON.parse(raw);
   for (const [frame, record] of frames.entries()) {
     if (!Array.isArray(record) && record.type === "portrait-fallback") {
-      const { area, cursor, dialogue, sources, sequence } = record;
+      const { area, cursor, caller, dialogue, sources, sequence } = record;
       if (sequence !== undefined && Number.isInteger(sequence) && Array.isArray(sources) &&
           sources.length && sources.every(id => typeof id === "string" && portraitKey.test(id))) {
         observedPortraitFallbacks.push({ area: Number.isInteger(area) ? area : undefined,
           cursor: cursor !== undefined && Number.isInteger(cursor) && cursor >= 0 && cursor <= 0xffff ? cursor : undefined,
+          caller: caller !== undefined && Number.isInteger(caller) && caller >= 0 && caller <= 0xffff ? caller : undefined,
           dialogue: typeof dialogue === "string" ? dialogue : undefined, sources, sequence, trace: path });
       }
       continue;
@@ -236,11 +237,15 @@ const artworkLoadIssues: ArtworkLoadIssue[] = [];
 const artwork = loadUpgradeArt(undefined, gameData, issue => artworkLoadIssues.push(issue));
 const materialMasks = loadCombatMaterialMasks(artwork);
 const portraitFallbackCoverage = observedPortraitFallbacks.map(fallback => {
-  const { area, cursor, sources } = fallback;
+  const { area, cursor, caller, sources } = fallback;
   const scopes = ["portrait:"];
   if (area !== undefined) {
     scopes.push(`portrait:area:${area}:`);
-    if (cursor !== undefined) scopes.push(`portrait:area:${area}:ecl:${cursor.toString(16).padStart(4, "0")}:`);
+    if (cursor !== undefined) {
+      const scope = `portrait:area:${area}:ecl:${cursor.toString(16).padStart(4, "0")}:`;
+      scopes.push(scope);
+      if (caller !== undefined) scopes.push(scope + `caller:${caller.toString(16).padStart(4, "0")}:`);
+    }
   }
   const linkedCandidates = [...new Set(sources.flatMap(source => scopes.flatMap(scope => {
     const id = scope + source.slice("portrait:".length);
@@ -662,9 +667,9 @@ ${battlefieldCaptured ? `<p>Captured battlefield patterns: ${battlefieldTotals.m
 ${nativeBattlefieldTotals.captured ? `<p>Native battlefield draws: ${nativeBattlefieldTotals.matched} of ${nativeBattlefieldTotals.captured} replaced, ${nativeBattlefieldTotals.captured - nativeBattlefieldTotals.matched} unmatched.</p>` : ""}
 <p>Captured patterns can include composited sprites and transition frames.</p>` : ""}
 ${observedPortraitFallbacks.length ? `<details><summary>Portrait fallbacks observed during play · ${observedPortraitFallbacks.length}</summary>
-<table class="coverage-table"><thead><tr><th>Area</th><th>ECL cursor</th><th>Source candidates</th><th>Linked candidates now</th><th>Dialogue</th><th>Trace frame</th></tr></thead><tbody>
-${portraitFallbackCoverage.map(({ area, cursor, dialogue, sources, linkedCandidates, sequence, trace }) =>
-  `<tr><td>${area ?? "Unknown"}</td><td>${cursor?.toString(16).padStart(4, "0") ?? "—"}</td>
+<table class="coverage-table"><thead><tr><th>Area</th><th>ECL cursor</th><th>Caller</th><th>Source candidates</th><th>Linked candidates now</th><th>Dialogue</th><th>Trace frame</th></tr></thead><tbody>
+${portraitFallbackCoverage.map(({ area, cursor, caller, dialogue, sources, linkedCandidates, sequence, trace }) =>
+  `<tr><td>${area ?? "Unknown"}</td><td>${cursor?.toString(16).padStart(4, "0") ?? "—"}</td><td>${caller?.toString(16).padStart(4, "0") ?? "—"}</td>
   <td>${sources.map(id => `<code>${escape(id)}</code>`).join("<br>")}</td>
   <td>${linkedCandidates.map(id => `<code>${escape(id)}</code>`).join("<br>") || "None"}</td><td>${escape(dialogue ?? "")}</td>
   <td>${escape(trace)} #${sequence}</td></tr>`).join("")}

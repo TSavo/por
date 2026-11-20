@@ -377,7 +377,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         classicPortrait: Array.isArray(picture),
         classicPortraitSources: Array.isArray(picture) && picture.length ? picture : undefined,
         classicPortraitArea: Array.isArray(picture) ? area : undefined,
-        classicPortraitCursor: Array.isArray(picture) ? battleCursor : undefined,
+        classicPortraitCursor: Array.isArray(picture) ? portraitCursor : undefined,
+        classicPortraitCaller: Array.isArray(picture) ? pictureCaller : undefined,
         perspective,
         overlandMap: overlandMap && !scene && picture === undefined && !characterSheet && !battlefield || undefined,
         travelPosition: overlandMap && !dialogue && !encounter && !scene && picture === undefined && !characterSheet && !battlefield && !leads && !attack
