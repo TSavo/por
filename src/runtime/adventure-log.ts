@@ -154,7 +154,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
         return { title: commission.title, nextStep: knows("kobold-king-secret-door") ? `${passage} ${exit} ${report}` : report };
       }
       if (commission.id === "ohlo" && tracked.status === "ready-to-report") {
-        return { title: commission.title, nextStep: "Take the package back to Ohlo and choose Give when he asks for the potion." };
+        return { title: commission.title, nextStep: "Take the package back to Ohlo. In the Slums, approach his door from the east at (14,10). Once inside, choose Give when he asks for the potion." };
       }
       if (commission.id === "rescue" && tracked.status === "reward-pending") {
         return { title: commission.title, nextStep: "Accept the council reward. In the treasure menu, choose Take for the items you want, then Exit." };

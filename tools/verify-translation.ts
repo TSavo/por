@@ -1305,7 +1305,7 @@ function checkCampaignJournal(): void {
   }
   writeGlobal(0x4a04, 250);
   writeGlobal(0x4a81, 250);
-  if (!currentObjective(questProgress(m, knownOhlo, m.ds)).nextStep.includes("choose Give")) {
+  if (!/from the east at \(14,10\).*choose Give/.test(currentObjective(questProgress(m, knownOhlo, m.ds)).nextStep)) {
     throw new Error("Ohlo pickup did not change the journal objective");
   }
   const ohloReward = discoveredLeads(delivered);
