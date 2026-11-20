@@ -585,8 +585,10 @@ after the battle and return to New Phlan. Pass that slot to the Chrome
 replay with `castle-ending --council-finale` to walk the journal's route,
 verify all 1,694 enhanced tile placements across 14 views, see the
 dedicated Phlan victory illustration during the ending, and switch display modes. Chrome also
-checks the 67,500 XP reward in the Enhanced web font and verifies that
-switching presentation preserves that prompt. The replay saves the turn-in
+checks the 67,500 XP reward in the Enhanced web font, with a dedicated
+4× illustration underneath the original reward text. Switching presentation
+preserves the prompt. The journal directs the party to Share and Exit
+while the reward is pending. The replay saves the turn-in
 to slot C through the original menus. Reloading that browser-produced slot
 C with `castle-ending` restores the completed journal objective.
 

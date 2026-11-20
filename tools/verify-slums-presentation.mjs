@@ -790,7 +790,7 @@ const illustrationRoutes = new Map([
     portraitStops: {
       3: "portrait:area:7:ecl:995f:caller:a54b:PIC5.DAX:66:0:0",
       4: null,
-      5: "portrait:PIC5.DAX:66:0:0",
+      5: "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
       ...Object.fromEntries(Array.from({ length: 6 }, (_, vote) =>
         [vote + 7, "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"])),
     },
@@ -8421,7 +8421,7 @@ try {
     assert.ok(sawReveal);
     assert.equal(views, halls ? 4 : 7);
     if (verifyHallsWebGL) assert.deepEqual([...sceneryAreas], [20, 7]);
-    assert.equal(frame.portrait, "portrait:PIC5.DAX:66:0:0");
+    assert.equal(frame.portrait, "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0");
     await waitFor("the dragon dialogue portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await verifyPortraitPanel();
     await switchBothWays();
@@ -8589,6 +8589,7 @@ try {
       !document.querySelector(".reward-illustration")`));
     for (const key of ["enter", "j"]) await advance(key);
     assert.equal(castleStatus(), "reward-pending");
+    assert.match(frame.journal.objective.nextStep, /Choose Share.*then Exit/i);
     for (const key of ["j", "s", "e", "enter", "enter", "enter", "enter", "j"]) await advance(key);
     assert.equal(castleStatus(), "turned-in");
     assert.equal(frame.journal.objective.title, "Phlan is free");

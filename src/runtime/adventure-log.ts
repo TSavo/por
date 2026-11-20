@@ -138,6 +138,9 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       if (commission.id === "castle" && tracked.status === "ready-to-report") {
         return { title: commission.title, nextStep: "Back in New Phlan, head east from the west gate, then turn south into City Hall. Report Tyranthraxus's defeat to the council clerk." };
       }
+      if (commission.id === "castle" && tracked.status === "reward-pending") {
+        return { title: commission.title, nextStep: "Finish collecting the final council reward. Choose Share to divide the coins, then Exit." };
+      }
       if (commission.id === "kobolds" && tracked.status === "ready-to-report" && knows("kobold-king-fell")) {
         if (knows("kobold-caves-left")) {
           const route = knows("phlan-return-ferry")
