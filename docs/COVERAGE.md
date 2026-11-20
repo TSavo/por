@@ -3289,6 +3289,8 @@ Chrome verified the Buccaneer Wilderness patrol corporal's approach
 and the native transition into combat using a controlled Soldiers roll.
 The Stojanow tower relief aide replay verified the ready pose and the
 shared attack pose during both native longsword and longbow actions.
+The battle mage replay verified its new sprite at (80, 80) both while
+ready and when the original game casts Magic Missile.
 
 East Phlan's shoreline crossroads has a dedicated illustration of the
 two entrances and boat landing. Production Chrome replays verified
