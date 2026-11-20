@@ -11,7 +11,7 @@ import type { BiosKey } from "../src/runtime/dos.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
-import { loadCharacterSheetArt, loadPortraitArt, scriptIllustrations } from "./portrait-art.js";
+import { loadCharacterSheetArt, loadPortraitArt, matchScriptIllustration } from "./portrait-art.js";
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 
 const controls: Record<string, number> = {
@@ -213,10 +213,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         dialogue.includes("ANANCIENTBRONZEDRAGON,SURROUNDEDBYAFIERYAURA,RISES") && portraitKeys.includes(dragonArrival)
         ? dragonArrival : undefined;
       const scriptKey = `scene-illustration:area:${area}:ecl:${battleCursor?.toString(16)}${portraitCaller === undefined ? "" : `:caller:${portraitCaller.toString(16)}`}`;
-      const scriptCue = scriptIllustrations.get(scriptKey);
-      const matchesScript = typeof scriptCue === "string" ? dialogue.includes(scriptCue) : scriptCue?.test(dialogue);
-      const scriptPicture = matchesScript && portraitKeys.includes(scriptKey) ? scriptKey : undefined;
-      const picture = scene ? undefined : scriptPicture ?? arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);
+      const picture = scene ? undefined : matchScriptIllustration(scriptKey, dialogue, portraitKeys) ??
+        arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
       const enhanced = new Frame(presentation.width, presentation.height);

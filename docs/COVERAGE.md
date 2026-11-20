@@ -3797,3 +3797,8 @@ and controlled live bow, sabre, and robed-wand battles, one for each head.
 The `sokal-council-turn-in` Chrome route now repeats this check from
 the Ferran checkpoint. It verifies the ordinary clerk at entry, the
 boat-route artwork at the reward, and the XP screen after Continue.
+
+The `bivant-reward-illustration` Chrome route verifies the clerk's
+ordinary introduction, the dedicated Bivant coffer illustration, and
+the 19,250 XP reward from a local City Hall checkpoint. The illustration
+has a dialogue cue because it shares the native portrait pause with Sokal.

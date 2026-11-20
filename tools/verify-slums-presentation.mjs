@@ -551,6 +551,13 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["bivant-reward-illustration", {
+    slot: "A", inputs: ["right", "right", "up", "right", "right", "up", "enter", "enter"],
+    portraitStops: { 7: "portrait:HEAD3.DAX:24:BODY3.DAX:32" },
+    portrait: "scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:bivant-rescue",
+    prompt: /BIVANTWASDELIGHTEDWITHTHECHILD.SRESCUE/i,
+    continuation: { inputs: ["enter"], prompt: /receives19250experiencepoints/i, clearsPortrait: true },
+  }],
   ["sokal-council-turn-in", {
     slot: "F",
     inputs: [...sokalPatrolDeparture, "up", "up", "enter", "enter", "y",

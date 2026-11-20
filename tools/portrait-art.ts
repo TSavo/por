@@ -16,12 +16,21 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:16:ecl:9a59:caller:a2ee", "WILLYOUCHAMPIONME"],
   ["scene-illustration:area:16:ecl:9a87:caller:a502", "THECOMBATISEXTREMELYSHORTINDURATION"],
   ["scene-illustration:area:8:ecl:9f21:caller:9a4a", "WITHSOKALKEEPINOURHANDS"],
+  ["scene-illustration:area:8:ecl:9f21:caller:9a4a:cue:bivant-rescue", "BIVANTWASDELIGHTEDWITHTHECHILD"],
   ["scene-illustration:area:21:ecl:9ec8", "THEUNDEADLEAVE"],
   ["scene-illustration:area:21:ecl:9ecc", "THEUNDEADLEAVE"],
   ["scene-illustration:area:22:ecl:9a06:caller:9f51", "YOUFINDTHECORPSEOFAMAN"],
   ["scene-illustration:area:22:ecl:9a06:caller:9fe3", "ITISTHEJOURNALOFTYRMOR"],
   ["scene-illustration:area:23:ecl:9a04:caller:a855", "YOUHEARANENORMOUSEXPLOSION"],
 ]);
+export function matchScriptIllustration(context: string, dialogue: string, installed: readonly string[]) {
+  for (const [id, cue] of scriptIllustrations) {
+    if (id !== context && !id.startsWith(context + ":cue:")) continue;
+    const matches = typeof cue === "string" ? dialogue.includes(cue) : cue.test(dialogue);
+    if (matches && installed.includes(id)) return id;
+  }
+}
+
 const areaPortraitKey = /^portrait:area:(\d+):(?:ecl:([a-f0-9]{4}):(?:caller:([a-f0-9]{4}):)?)?/;
 const left = 24;
 const top = 24;
