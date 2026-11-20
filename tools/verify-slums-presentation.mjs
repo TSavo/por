@@ -3661,6 +3661,7 @@ routes.push("river-pumping-reload");
 routes.push("kobold-princess-fatima-reload");
 routes.push("kuto-norris-surrender-reload");
 routes.push("valjevo-forge-authorization-reload");
+routes.push("buccaneer-bivant-punch");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -6557,6 +6558,33 @@ try {
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified both forge clues after reloading in Chrome.");
+  } else if (routeName === "buccaneer-bivant-punch") {
+    for (const key of ["down", "enter", "e", "e", "right", "up", "right", "up", "enter", "enter"]) {
+      await advance(key);
+    }
+    assert.equal(frame.portrait, "portrait:area:1:ecl:b5f7:caller:9eda:PIC6.DAX:42:0:0");
+    for (const key of ["enter", "enter", "y", "enter", "up"]) await advance(key);
+    const dialogue = frame.text.toSorted(([a], [b]) => a - b)
+      .map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
+    assert.match(dialogue, /MERCHANTYELLSFORHISGUARDSANDTHEYCOMERUNNING/i);
+    const guards = "scene-illustration:area:1:ecl:a001";
+    assert.equal(frame.portrait, guards, "The merchant's guards should use their own illustration");
+    await waitFor("the merchant's guard illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${guards}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "bivant-punch-guards.png"), Buffer.from(shot.data, "base64"));
+    for (const key of ["enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    const ready = "combat:area:1:CPIC6.DAX:11";
+    assert.ok(frame.combatArt.some(([, , id]) => id === ready));
+    await waitFor("the guards' combat sprites in place of the illustration", () => run(`state.sequence === ${frame.sequence} &&
+      !document.querySelector(".encounter-portrait") &&
+      [...document.querySelectorAll('.combat-sprite[src="/art/${ready}"]')]
+        .some(sprite => sprite.naturalWidth === 96 && sprite.naturalHeight === 96)`));
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the merchant's guard illustration in Chrome. Capture:", directory);
   } else if (forgeSmith) {
     const close = "encounter:area:6:ecl:a0d8:SPRIT5.DAX:12:0:0";
     await observeApproach([[56, 32, close, 24, 80]], false);
