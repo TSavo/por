@@ -3659,6 +3659,12 @@ On the decline branch, the replay verifies the separate illustration of
 Drythh ordering his followers to attack and its removal on the next
 Enter press.
 
+The Yarash fountain escape has a dedicated illustration at the native
+explosion prompt. A controlled Chrome replay selects that branch, checks
+the illustration and display switching, and verifies that Enter clears
+it. The regular `river-fountain` replay checks the dismantle branch and
+its journal changes.
+
 The `valjevo-tower-fire-giants-refuted` replay follows the original No
 branch from slot B. Chrome checks the fire giant's outburst illustration
 and the separate image of his companions restraining him at Stay/Leave.

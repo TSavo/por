@@ -7061,7 +7061,9 @@ try {
     await advance("j");
     assert.ok(knows("river-fountain") && !knows("river-equipment-destroyed"));
     assert.match(frame.journal.objective.nextStep, /Destroy the Equipment/);
-    for (const key of ["j", "enter", "enter", "d", "j"]) await advance(key);
+    for (const key of ["j", "enter", "enter", "d"]) await advance(key);
+    assert.notEqual(frame.portrait, "scene-illustration:area:23:ecl:9a04:caller:a855");
+    await advance("j");
     assert.ok(knows("river-equipment-destroyed") && !knows("river-recovery"));
     assert.equal(frame.journal.leads.find(({ id }) => id === "commission-river")?.status, "ready-to-report");
     assert.match(frame.journal.objective.nextStep, /council clerk/);
