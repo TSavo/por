@@ -2524,6 +2524,7 @@ const combatPoseRoutes = new Map([
   }],
   ["valjevo-elite-guard", {
     slot: "B", stand: "combat:area:7:CPIC5.DAX:11:ecl:a615", strike: "combat:area:7:CPIC5.DAX:139:ecl:a615", width: 96, height: 96,
+    standCount: 9,
     inputs: ["up", ...Array(4).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(3).fill("q")],
   }],
   ["valjevo-party-flail", {
