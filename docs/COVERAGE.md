@@ -3941,3 +3941,7 @@ checkpoint. Chrome confirms the papers illustration starts after the
 initial desk prompt, persists through the five document pages, and
 clears for exploration. The journal records entries 33, 49, 27, 56 and
 40 from their individual disclosure lines.
+
+The desk route saves through Encamp after reading all five documents.
+The `yarash-desk-papers-reload` Chrome route opens that slot A save and
+verifies all five entries in the journal and display switching.
