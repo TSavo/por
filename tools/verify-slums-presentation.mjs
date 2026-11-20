@@ -3608,7 +3608,7 @@ routes.push("kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-t
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
-routes.push("kovel-chase-no", "valjevo-records-reload");
+routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 const partyDefeatEffect = routeName === "valjevo-party-defeat-effect";
 const defeatEffect = partyDefeatEffect || routeName === "buccaneer-pen-defeat-effect";
@@ -7509,6 +7509,16 @@ try {
     assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-sneak-blocked"));
     assert.match(frame.journal.objective.nextStep, /Attack Guards or Leave/);
     console.log("Verified the Buccaneer Base approach and rescue journal in Chrome.");
+  } else if (routeName === "swamp-approach-reload") {
+    assert.notEqual(frame.portrait, "portrait:PIC8.DAX:24:0:0");
+    await advance("j");
+    assert.equal(frame.journal?.trackedId, "commission-lizardmen");
+    const clues = new Set(frame.journal.leads.map(({ id }) => id));
+    assert.ok(clues.has("swamp-drawbridge") && clues.has("swamp-anti-magic") && !clues.has("swamp-peaceful-elder"));
+    assert.match(frame.journal.objective.nextStep, /search the ruined castle.*anti-magic shell/i);
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the swamp entry guidance after reloading in Chrome.");
   } else if (routeName === "swamp-approach") {
     const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
     await advance("j");
@@ -7520,6 +7530,7 @@ try {
       const image = document.querySelector(".encounter-portrait");
       return image?.naturalWidth === 352 && image?.naturalHeight === 352;
     })()`));
+    await verifyPortraitPanel();
     await switchBothWays();
     await advance("j");
     assert.ok(knows("swamp-drawbridge") && !knows("swamp-anti-magic"));
