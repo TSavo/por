@@ -229,7 +229,12 @@ const encounterRoutes = new Map([
   ["slums-hobgoblin-ringleader-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:20:SPRIT2.DAX:6:0:0", 48, 80],
-    dialogue: { key: "enter", portrait: "portrait:area:20:PIC2.DAX:6:0:0", prompt: /SOMEHOBGOBLINSAREARGUINGOVERAPILEOFGOLD|YOUINTRUDEONAGATHERINGOFMONSTERLEADERS/i },
+    dialogue: { key: "enter", portrait: "portrait:area:20:PIC2.DAX:6:0:0", prompt: /YOUINTRUDEONAGATHERINGOFMONSTERLEADERS/i },
+  }],
+  ["slums-hobgoblin-gold-room-approach", {
+    slot: "B", inputs: ["up", "enter"],
+    placement: [48, 32, "encounter:area:20:ecl:aa1f:SPRIT2.DAX:6:0:0", 48, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:20:PIC2.DAX:6:0:0", prompt: /SOMEHOBGOBLINSAREARGUINGOVERAPILEOFGOLD/i },
   }],
   ["sokal-courtyard-hobgoblin-approach", {
     slot: "C", inputs: ["up", "enter"],
