@@ -283,7 +283,10 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("passage-sokal")) nextStep = "Catch the boat to Sokal Keep at the end of the pier.";
     }
     if (commission.id === "bottle") {
-      if (knows("bottle-recovered")) nextStep = "Return to Diogenes with the bottle so he can explain how to use it.";
+      if (knows("diogenes-fireball")) nextStep = knows("diogenes-lair-empty")
+        ? "Diogenes is gone. Leave the lair and regroup."
+        : "Check the party after the fireball, then look for a way out of the lair.";
+      else if (knows("bottle-recovered")) nextStep = "Return to Diogenes with the bottle so he can explain how to use it.";
       else if (knows("kobold-cave-fork")) nextStep = "Choose Large or Small at the kobold caves. Search inside for the silver bottle, then bring it back to Diogenes.";
     }
     if (commission.id === "kobolds") {
@@ -1720,6 +1723,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   if (text.includes("SUMMON ME ONLY WHEN A VAMPIRE IS NEAR")) {
     leads.push({ id: "bottle-recovered", title: "The bottle's warning", detail: "Samir warned the party to summon him in the presence of a vampire, then returned to the bottle." });
+  }
+  if (text.includes("THE DRAGON THROWS A FIREBALL IN THE MIDDLE OF THE PARTY AND THEN DISAPPEARS")) {
+    leads.push({ id: "diogenes-fireball", title: "Diogenes struck back",
+      detail: "Diogenes threw a fireball into the party and disappeared. Check the party's condition before leaving the cave." });
+  }
+  if (text.includes("AFTER RECOVERING FROM THE FIREBALL YOU SEARCH THE REST OF THE LAIR")) {
+    leads.push({ id: "diogenes-lair-empty", title: "Diogenes's lair is empty",
+      detail: "The party searched after the attack and found nothing further in the lair." });
   }
   if (text.includes("A VAMPIRE WHO LURKS IN THE NORTHEAST CORNER OF THE GRAVEYARD")) {
     leads.push({ id: "graveyard-vampire-location", title: "The vampire's lair", detail: "The party learned the vampire lurks in the northeast corner of the graveyard." });
