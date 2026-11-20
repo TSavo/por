@@ -25,7 +25,7 @@ import { loadUpgradeArtFromManifests } from "./upgrade-art.js";
 import { encodePng, pngDimensions } from "./png.js";
 import { Frame } from "../src/lib/ega.js";
 import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js";
-import { loadCombatArtMatcher } from "./combat-art.js";
+import { loadCombatArtMatcher, loadCombatEffects } from "./combat-art.js";
 import { loadOverlandTravel } from "./overland-travel.js";
 import { loadPortraitArt } from "./portrait-art.js";
 
@@ -70,6 +70,24 @@ function checkBrowserArtPacks(): void {
     }).phlan, { x: 24, y: 28, sector: 1, key: "down" }, "Phlan travel should reach the scripted west crossroads");
   }
   const loaded = loadUpgradeArtFromManifests(paths, root);
+  const effectIds = [5, 133, 10, 138];
+  const effectKeys = effectIds.map(id => `combat-effect:COMSPR.DAX:${id}`);
+  for (const key of effectKeys) ok(loaded.has(key), `Missing Enhanced combat effect ${key}`);
+  const matchEffect = loadCombatEffects(effectKeys, root);
+  const effectArchive = parseDax("COMSPR.DAX", readGameFile(root, "COMSPR.DAX"));
+  const underlay = Uint8Array.from({ length: 24 * 24 }, (_, i) => (i * 7 + (i >> 5)) & 15);
+  const effectFrame = new Frame(320, 200);
+  effectFrame.blit(underlay, 24, 24, 80, 80);
+  deepStrictEqual(matchEffect(effectFrame, 80, 80, underlay), undefined);
+  for (const [index, id] of effectIds.entries()) {
+    const source = effectArchive.entries.find(entry => entry.id === id);
+    ok(source, `Missing original combat effect ${id}`);
+    const composed = decodePicture(source.data).pixels.map((color, i) => color || underlay[i]!);
+    effectFrame.blit(composed, 24, 24, 80, 80);
+    deepStrictEqual(matchEffect(effectFrame, 80, 80, underlay), effectKeys[index]);
+    effectFrame.set(80, 80, composed[0]! ^ 1);
+    deepStrictEqual(matchEffect(effectFrame, 80, 80, underlay), undefined);
+  }
   const zombieArchive = parseDax("PIC4.DAX", readGameFile(root, "PIC4.DAX"));
   const zombie = zombieArchive.entries.find(({ id }) => id === 35);
   ok(zombie, "Missing roaming zombie source block");
