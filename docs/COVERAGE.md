@@ -3771,3 +3771,8 @@ then clears the art on the next step. Display switching preserves state.
 The `sokal-password-patrol-arrival` route uses a local slot C patrol
 checkpoint and verifies the same retreat illustration on Shestni.
 The art clears on the next step and display switching preserves state.
+
+The swept-auburn Human head has material masks for all 32 native weapon
+choices. Chrome checked both ready and strike poses with Body dark,
+Body light, Hair and Face changes. A controlled battle also verified
+the saved bow colors in both poses and Classic/Enhanced switching.
