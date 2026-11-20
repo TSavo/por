@@ -547,6 +547,15 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-false-throne-alarm", {
+    slot: "B", inputs: ["up", "enter", "enter", "p", "a", "enter", "n"],
+    portrait: "portrait:area:5:ecl:abc9:HEAD5.DAX:54:BODY5.DAX:1",
+    prompt: /ANALARMSTARTSRINGING/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:5:ecl:abe2:HEAD5.DAX:54:BODY5.DAX:1",
+      prompt: /ABATTLEBEGINS/i,
+    },
+  }],
   ["valjevo-maze-watch-alarm", {
     slot: "B", inputs: ["up", "enter", "enter", "p", "h", "enter"],
     portrait: "portrait:area:4:ecl:a123:HEAD5.DAX:52:BODY5.DAX:1",

@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:5:ecl:abc9:HEAD5.DAX:54:BODY5.DAX:1": "valjevo-false-throne-alarm.png",
+    "portrait:area:5:ecl:abe2:HEAD5.DAX:54:BODY5.DAX:1": "valjevo-false-throne-alarm.png",
     "combat:party:64:82": "combat-party-human-poleaxe-ready.png",
     "combat:party:64:210": "combat-party-human-poleaxe-strike.png",
     "combat:party:64:83": "combat-party-human-glaive-ready.png",
