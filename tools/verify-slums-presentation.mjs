@@ -2522,7 +2522,7 @@ const combatPoseRoutes = new Map([
     inputs: ["s", "up", "up", "y", "enter", "enter", "c", ...Array(3).fill("enter"), ...Array(5).fill("q")],
   }],
   ["valjevo-elite-guard", {
-    slot: "B", stand: "combat:area:7:CPIC5.DAX:11", strike: "combat:area:7:CPIC5.DAX:139", width: 96, height: 96,
+    slot: "B", stand: "combat:area:7:CPIC5.DAX:11:ecl:a615", strike: "combat:area:7:CPIC5.DAX:139:ecl:a615", width: 96, height: 96,
     inputs: ["up", ...Array(4).fill("enter"), "c", ...Array(3).fill("enter"), ...Array(3).fill("q")],
   }],
   ["stojanow-hill-giant", {
@@ -5392,9 +5392,18 @@ try {
           image.addEventListener("load", check, { once: true });
         }
       }).observe(document.querySelector("#tile-art"), { childList: true });`);
-    for (const key of inputs) {
+    for (const [index, key] of inputs.entries()) {
       await advance(key);
       verifyCombatScope();
+      if (routeName === "valjevo-elite-guard" && index === 6) {
+        const guards = frame.combatArt.filter(([, , id]) => id === stand);
+        assert.equal(guards.length, 8);
+        assert.deepEqual(guards.filter(([x, y]) => y === 56 && (x === 80 || x === 104)),
+          [[80, 56, stand, true], [104, 56, stand, true]]);
+        await waitFor("all eight opening elite guards in Chrome", () => run(`state.sequence === ${frame.sequence} &&
+          [...document.querySelectorAll('.combat-sprite[src="/art/${stand}"]')]
+            .filter(sprite => sprite.naturalWidth === 96 && sprite.naturalHeight === 96).length === 8`));
+      }
     }
     if (readyPrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), readyPrompt);
     const readyPlacements = standInAnimation ? frame.animation?.flatMap(({ combatArt }) => combatArt ?? []) : frame.combatArt;

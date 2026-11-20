@@ -4598,6 +4598,8 @@
     "portrait:PIC5.DAX:7:0:0": "valjevo-cadorna-captive.png",
     "combat:area:7:CPIC5.DAX:11": "valjevo-elite-guard-stand.png",
     "combat:area:7:CPIC5.DAX:139": "valjevo-elite-guard-strike.png",
+    "combat:area:7:CPIC5.DAX:11:ecl:a615": "valjevo-elite-guard-stand.png",
+    "combat:area:7:CPIC5.DAX:139:ecl:a615": "valjevo-elite-guard-strike.png",
     "combat:area:9:CPIC2.DAX:183": "stojanow-hill-giant-strike.png",
     "combat:area:9:CPIC2.DAX:55": "stojanow-hill-giant-stand.png",
     "tile:17:7885d9787cff36149f5166f2ad9167505a15fc132f946d6c7938f867d940326d": "nomad-entry-terrain-7885d9787cff.png",
