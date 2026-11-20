@@ -547,6 +547,15 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["zhentil-dinner-advisor", {
+    slot: "A", inputs: ["up", "enter", "r", "enter", "enter", "m"],
+    portrait: "portrait:area:28:ecl:aef2:PIC6.DAX:50:0:0",
+    prompt: /ONEOFTHECOMMANDANT.SADVISORSASKSYOU.*UNIQUEMAGICALITEMSORPLACES/i,
+    continuation: {
+      inputs: ["m"], portrait: "portrait:area:28:ecl:b624:caller:b317:PIC6.DAX:50:0:0",
+      prompt: /COPYITINTOYOURJOURNALUNDERENTRY46/i,
+    },
+  }],
   ["zhentil-commandant-new-phlan-dinner", {
     slot: "A", inputs: ["up", "enter", "r", "enter", "enter", "c", "n", "y"],
     portrait: "portrait:area:28:ecl:b624:caller:a7c2:PIC6.DAX:50:0:0",
