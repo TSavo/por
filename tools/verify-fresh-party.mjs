@@ -1697,6 +1697,33 @@ if (process.argv[2] === "--mage-training-checkpoint") {
   process.exit(0);
 }
 
+if (process.argv[2] === "--textile-diary-checkpoint") {
+  assert.ok(process.argv[3], "Pass slot B from (6,6), facing east in the Textile House before finding the diary.");
+  copyFileSync(process.argv[3], join(saveDir, "B.json"));
+  const diaryLead = "textile-diary-page";
+  await replay(loadSlot("3062"), "85000000", [
+    (text) => assert.match(text, /6,6 e/),
+    "j", (_text, frame) => {
+      assert.ok(!frame.journal.leads.some(({ id }) => id === diaryLead));
+    }, "j", "up",
+    (text) => assert.match(text, /find a page from a diary.*journal under entry 11/),
+    "j", (_text, frame) => {
+      assert.equal(frame.journal.leads.filter(({ id }) => id === diaryLead).length, 1);
+    }, "j", "e", "s", "s", "d",
+    (text) => assert.match(text, /quit to dos/),
+  ]);
+  await replay(loadSlot("2064"), "85000000", [
+    (text) => assert.match(text, /7,6 e/),
+    "j", (_text, frame) => {
+      const entries = frame.journal.leads.filter(({ id }) => id === diaryLead);
+      assert.equal(entries.length, 1);
+      assert.match(entries[0].detail, /journal entry 11/);
+    },
+  ]);
+  console.log("Found Entry 11 and verified the diary persisted once in slot D.");
+  process.exit(0);
+}
+
 if (process.argv[2] === "--textile-prison-alternates-checkpoint") {
   assert.ok(process.argv[3], "Pass slot E from the captive's key-search replay.");
   copyFileSync(process.argv[3], join(saveDir, "E.json"));
