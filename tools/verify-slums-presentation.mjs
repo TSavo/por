@@ -3806,9 +3806,9 @@ const declineDirten = routeName === "braccio-dirten-briefing" && option === "--d
 const declineRestal = restalGuide && option === "--decline";
 const declineKoboldGuide = routeName === "kobold-cave-guide" && option === "--decline";
 const declineFatima = princessFatima && option === "--decline";
+const fightNorris = norrisSurrender && option === "--fight";
 const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "--refuse-to-leave";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
-const fightNorris = norrisSurrender && option === "--fight";
   ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
   declineDirten || declineRestal || declineKoboldGuide || declineFatima || fightNorris || refuseNomadDismissal, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
@@ -7083,11 +7083,6 @@ try {
       !document.querySelector('.encounter-portrait[src="/art/${outcomeIllustration}"]')`));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified Restal's illustration and the witnessed Textile House shortcut in Chrome. Capture:", directory);
-  } else if (norrisSurrender) {
-    const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
-    await advance("j");
-    assert.ok(frame.journal && !knows("kuto-norris-ambush"));
-    for (const key of ["j", "up", "enter", "enter", "enter", "j"]) await advance(key);
   } else if (norrisSurrenderReload) {
     assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /6,5S/i);
     assert.equal(frame.portrait, undefined);
@@ -7097,6 +7092,11 @@ try {
     }
     await switchBothWays();
     console.log("Verified the surrender clues after reloading the party above the Catacombs.");
+  } else if (norrisSurrender) {
+    const knows = (id) => frame.journal?.leads.some((lead) => lead.id === id);
+    await advance("j");
+    assert.ok(frame.journal && !knows("kuto-norris-ambush"));
+    for (const key of ["j", "up", "enter", "enter", "enter", "j"]) await advance(key);
     assert.ok(knows("kuto-norris-ambush") && !knows("kuto-norris-surrender"));
     const release = "scene-illustration:area:29:ecl:9f9a";
     for (const key of ["j", fightNorris ? "f" : "s"]) await advance(key);
@@ -7121,15 +7121,15 @@ try {
       assert.equal(frame.portrait, undefined);
       await waitFor("the bandits' release illustration to clear", () => run(`state.sequence === ${frame.sequence} &&
         !document.querySelector(".encounter-portrait")`));
+      for (const key of ["e", "s", "s", "j"]) await advance(key);
+      const released = JSON.parse(readFileSync(saved, "utf8"));
+      assert.ok(released.leads.some(({ id }) => id === "kuto-norris-surrender"));
+      console.log("Norris release checkpoint:", saved);
       console.log("Verified Norris's surrender illustration and journal in Chrome. Capture:", directory);
     }
   } else if (routeName === "old-phlan-seer") {
     for (const key of ["up", "enter"]) await advance(key);
     const text = () => frame.text.toSorted(([left], [right]) => left - right)
-      for (const key of ["e", "s", "s", "j"]) await advance(key);
-      const released = JSON.parse(readFileSync(saved, "utf8"));
-      assert.ok(released.leads.some(({ id }) => id === "kuto-norris-surrender"));
-      console.log("Norris release checkpoint:", saved);
       .map(([, character]) => String.fromCharCode(character)).join("");
     assert.equal(frame.portrait, "portrait:PIC8.DAX:5:0:0");
     assert.match(text(), /AWIDE.EYEDWOMANISSEATEDONARUG/i);
