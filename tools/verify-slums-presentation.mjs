@@ -8368,6 +8368,30 @@ try {
         await advance("j");
         assert.ok(knows("kovel-guildmaster-confronted") && !knows("kovel-guildmaster-escaped"));
         assert.match(frame.journal.objective.nextStep, /after the fight with the guildmaster.*continue searching/i);
+        await advance("j");
+        await advance("enter");
+        const ready = "combat:area:14:CPIC3.DAX:12:ecl:9c92";
+        const strike = "combat:area:14:CPIC3.DAX:140:ecl:9c92";
+        assert.ok(frame.combatArt.some(([x, y, id, , selected]) =>
+          x === 80 && y === 56 && id === ready && selected));
+        await waitFor("the guildmaster ready sprite", () => run(`
+          document.querySelector('.combat-sprite[src="/art/${ready}"]')?.naturalWidth === 96`));
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "kovel-guildmaster-ready.png"), Buffer.from(shot.data, "base64"));
+        await run(`window.guildmasterStrikeLoaded = false;
+          new MutationObserver(() => {
+            const image = document.querySelector('.combat-sprite[src="/art/${strike}"]');
+            if (!image) return;
+            const record = () => {
+              window.guildmasterStrikeLoaded ||= image.naturalWidth === 96 && image.naturalHeight === 96;
+            };
+            record();
+            image.addEventListener("load", record, { once: true });
+          }).observe(document.querySelector("#tile-art"), { childList: true, subtree: true });`);
+        await advance("enter");
+        assert.ok(frame.animation?.some(view => view.combatArt.some(([x, y, id, reflected]) =>
+          x === 80 && y === 56 && id === strike && reflected) && /1STLVLTHIEFAttacks/i.test(textOf(view))));
+        await waitFor("the animated guildmaster strike", () => run("window.guildmasterStrikeLoaded"));
       } else {
         for (const key of ["j", "r"]) await advance(key);
         await verifyChaseIllustration("scene-illustration:area:14:ecl:b359:cue:guildmaster-escape", "kovel-guildmaster-escapes.png");
