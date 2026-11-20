@@ -613,6 +613,7 @@ pass decision. Keep the caption, required details, and screenshot together
 so another reviewer can make the same check.
 The gallery's **Required visual details** list puts those checks next to
 the artwork and dialogue cue for the scenes that have a checklist.
+Select **Has a scene checklist** to limit the gallery to those entries.
 The JSON export includes the same lists under `sceneReviewRequirements`,
 keyed by enhanced PNG filename for batch review.
 

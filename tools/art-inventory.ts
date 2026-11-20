@@ -463,7 +463,7 @@ for (const replacement of replacements) {
 }
 function replacementPreview({ id, preview, classicPreview, width, height, placement, file, source, sourceParts, sourceCandidates, scriptCue, capturedPlacement, reflected }: typeof replacements[number]) {
   const requirements = sceneReviewRequirements.get(file);
-  const review = requirements ? `<details><summary>Required visual details</summary><ul>${requirements.map(requirement =>
+  const review = requirements ? `<details data-scene-review><summary>Required visual details</summary><ul>${requirements.map(requirement =>
     `<li>${escape(requirement)}</li>`).join("")}</ul></details>` : "";
   const area = placement && "area" in placement ? ` · area ${placement.area}` : "";
   const origin = placement && "x" in placement ? ` · origin (${placement.x}, ${placement.y})` : "";
@@ -874,6 +874,7 @@ ${coverage.map(({ head, aliases, body, ready, strike }) => `<tr><th scope="row">
 <label>Search <input id="search" type="search" placeholder="Tyranthraxus or PIC5"></label>
 <label>Category <select id="category"><option value="">All categories</option><option>Illustrated atlas</option>${runtimeGroups.map(({ label }) => `<option>${label}</option>`).join("")}${missingGallery ? "<option>Captured tiles without replacements</option>" : ""}${[...new Set(archives.map(({ category }) => category))].sort().map((category) => `<option>${escape(category)}</option>`).join("")}</select></label>
 <label><input id="include-data" type="checkbox"> Include composition and gameplay data</label>
+<label><input id="scene-review-only" type="checkbox"> Has a scene checklist</label>
 <label>Replacement <select id="replacement"><option value="">Any</option><option value="linked">Has linked artwork</option><option value="unfinished">Has unmatched frames</option><option value="missing">No frames linked</option><option value="partial">Some frames linked</option><option value="complete">All frames linked</option></select></label>
 <p id="matches" role="status"></p>
 <details data-category="Illustrated atlas"><summary>Illustrated atlas · ${atlasSheets.length} plates</summary><div class="grid">
@@ -890,9 +891,11 @@ const search = document.querySelector('#search');
 const category = document.querySelector('#category');
 const replacement = document.querySelector('#replacement');
 const includeData = document.querySelector('#include-data');
+const sceneReviewOnly = document.querySelector('#scene-review-only');
 let selectedArchive;
 const archives = [...document.querySelectorAll('details[data-category]')].map((archive) => ({ archive,
-  entries: [...archive.querySelectorAll('figure')].map((figure) => ({ figure, text: figure.textContent.toLowerCase() })) }));
+  entries: [...archive.querySelectorAll('figure')].map((figure) => ({ figure, text: figure.textContent.toLowerCase(),
+    hasSceneReview: Boolean(figure.querySelector('[data-scene-review]')) })) }));
 function filter() {
   const query = search.value.trim().toLowerCase();
   let blocks = 0;
@@ -900,18 +903,19 @@ function filter() {
     const categoryMatches = (!category.value || archive.dataset.category === category.value) &&
       (!selectedArchive || archive.id === selectedArchive);
     let visible = 0;
-    for (const {figure, text} of entries) {
+    for (const {figure, text, hasSceneReview} of entries) {
       const visual = figure.dataset.visual === 'true';
       const linked = figure.dataset.enhanced === 'true';
       const coverage = figure.dataset.coverage;
       const replacementMatches = !replacement.value || replacement.value === coverage ||
         (replacement.value === 'linked' && linked) ||
         (replacement.value === 'unfinished' && (coverage === 'missing' || coverage === 'partial'));
-      figure.hidden = !categoryMatches || (!includeData.checked && !visual) || !replacementMatches || !text.includes(query);
+      figure.hidden = !categoryMatches || (!includeData.checked && !visual) || !replacementMatches || !text.includes(query) ||
+        (sceneReviewOnly.checked && !hasSceneReview);
       if (!figure.hidden) visible++;
     }
     archive.hidden = !visible;
-    if (query || category.value || replacement.value) archive.open = Boolean(visible);
+    if (query || category.value || replacement.value || sceneReviewOnly.checked) archive.open = Boolean(visible);
     blocks += visible;
   }
   document.querySelector('#matches').textContent = blocks + ' matching entries';
@@ -923,6 +927,7 @@ function clearArchiveFilter() {
 search.addEventListener('input', clearArchiveFilter);
 category.addEventListener('change', clearArchiveFilter);
 includeData.addEventListener('change', filter);
+sceneReviewOnly.addEventListener('change', clearArchiveFilter);
 replacement.addEventListener('change', clearArchiveFilter);
 document.addEventListener('click', (event) => {
   const link = event.target.closest('.coverage-table a');
