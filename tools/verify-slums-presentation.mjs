@@ -547,6 +547,11 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-genheeris-deal-refused", {
+    slot: "B", inputs: ["up", "enter", "enter", "a", "a", "p", "h", "enter", "n"],
+    portrait: "portrait:area:7:ecl:a3ba:HEAD5.DAX:59:BODY5.DAX:31",
+    prompt: /ABATTLEBEGINS/i,
+  }],
   ["zhentil-dinner-advisor", {
     slot: "A", inputs: ["up", "enter", "r", "enter", "enter", "m"],
     portrait: "portrait:area:28:ecl:aef2:PIC6.DAX:50:0:0",

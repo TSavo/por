@@ -5,6 +5,7 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "portrait:area:7:ecl:a3ba:HEAD5.DAX:59:BODY5.DAX:31": "valjevo-genheeris-deal-refused.png",
     "combat:party:70:64": "combat-party-human-wine-pennant-64-ready.png",
     "combat:party:70:192": "combat-party-human-wine-pennant-64-strike.png",
     "combat:party:70:65": "combat-party-human-wine-pennant-65-ready.png",
