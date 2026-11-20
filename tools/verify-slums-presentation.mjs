@@ -7068,7 +7068,15 @@ try {
       assert.ok(!frame.journal.leads.some(({ id }) => id === map || id === otherMap));
       assert.doesNotMatch(frame.journal.objective.nextStep, /journal entry/);
       for (const key of ["j", "up"]) await advance(key);
-      assert.equal(await verifyTiledView(14, tilePatterns), 1);
+      const illustration = `scene-illustration:area:14:ecl:b359:cue:castle-map-${northwest ? "nw" : "ne"}`;
+      assert.equal(frame.portrait, illustration);
+      await waitFor("the castle map illustration", () => run(`(() => {
+        const image = document.querySelector('.encounter-portrait[src="/art/${illustration}"]');
+        return image?.naturalWidth === 352 && image.naturalHeight === 352;
+      })()`));
+      await verifyPortraitPanel();
+      const screenshot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, `${map}-discovery.png`), Buffer.from(screenshot.data, "base64"));
       await advance("j");
     }
     assert.match(frame.journal.leads.find(({ id }) => id === map)?.detail ?? "", new RegExp(`journal entry ${entry}`));
@@ -7079,6 +7087,10 @@ try {
     if (reload) {
       console.log(`Verified the Kovel castle map in journal entry ${entry} after reload.`);
     } else {
+      if (!northwest) await advance("right");
+      await advance("up");
+      assert.equal(frame.portrait, undefined);
+      assert.equal(await verifyTiledView(14, tilePatterns), 1);
       for (const key of ["right", "right", "right", "right"]) {
         await advance(key);
         assert.equal(await verifyTiledView(14, tilePatterns), 1);
