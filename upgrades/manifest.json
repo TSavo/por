@@ -7059,7 +7059,9 @@
     "combat:RANDCOM.DAX:1:0:4": "combat-stinking-cloud.png",
     "combat:RANDCOM.DAX:1:0:5": "combat-fallen-adventurer.png",
     "combat:RANDCOM.DAX:1:0:0": "combat-loose-stones.png",
-    "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png"
+    "combat:RANDCOM.DAX:1:0:1": "combat-loose-stones.png",
+    "combat:RANDCOM.DAX:1:0:2": "combat-ochre-glint.png",
+    "combat:RANDCOM.DAX:1:0:3": "combat-flowering-clay-pot.png"
   },
   "encounters": {
     "encounter:area:24:SPRIT1.DAX:2:0:0": { "area": 24, "x": 48, "y": 32, "width": 48, "height": 80 },

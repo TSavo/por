@@ -142,7 +142,7 @@ function checkBrowserArtPacks(): void {
     rareProps.blit(pixels, 24, 24, x, 8);
     return [x, 8, `combat:RANDCOM.DAX:1:0:${frame}`, false] as const;
   });
-  const matchRareProps = loadCombatArtMatcher(propPlacements.map(([, , id]) => id), root);
+  const matchRareProps = loadCombatArtMatcher(propPlacements.map(([, , id]) => id).filter(id => loaded.has(id)), root);
   const enhancedProps = new Frame(320, 200);
   enhancedProps.pixels.set(rareProps.pixels);
   deepStrictEqual(matchRareProps(rareProps, enhancedProps), propPlacements);
