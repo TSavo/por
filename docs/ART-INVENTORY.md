@@ -69,18 +69,22 @@ even when several areas have their own replacement. The table inventories
 archive contents. The live routes establish which frames are drawn.
 **Exact portrait and combat matches** lists original frames whose pixels
 already resolve to global enhanced artwork through the browser's matchers.
-The inventory at `0413ce79` reports 833 source frames, including 26
+The inventory at `a5a12b3c` reports 833 source frames, including 26
 `COMSPR.DAX` frames, with 462 linked directly, 22 covered through exact
 pixel matches, and 349 unlinked. The
 unlinked entries include 11 uniform frames and 7 with scoped reuse
-candidates. The full enhanced manifest has 7,158 validated replacement
-mappings, including 71 distinct script illustration PNGs. Multiple
+candidates. The full enhanced manifest has 7,167 validated replacement
+mappings, including 73 distinct script illustration PNGs. Multiple
 encounter branches can use the same source frame, and some script scenes
 have no archive picture. Branch-specific artwork can improve live coverage
 without changing the source-frame count.
 The party combat icon tables count default-palette combinations with both
 poses. All 448 tall combinations across 14 head sets and all 352 small
 combinations across 11 distinct head sets have both poses.
+The unshielded steel flail uses a 96×96 ready and strike pair with
+matching material masks. The `valjevo-party-flail` Chrome replay checks
+both poses at the same battlefield position and verifies that a custom
+color changes only the selected material without changing transparency.
 **Unlinked source frames** lists the individual unlinked PIC, SPRIT, and
 CPIC frames by archive, directory index, member, and frame. Each entry
 includes its 4× dimensions and links to the local source sheet. The JSON
