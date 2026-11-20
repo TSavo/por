@@ -1134,7 +1134,7 @@ const illustrationRoutes = new Map([
   ["new-phlan-rolf-tour", {
     slot: "A", inputs: [],
     portrait: "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9", prompt: /IAMROLF/i,
-    continuation: { inputs: ["enter"], prompt: /TEMPLEOFTYR/i, clearsPortrait: true },
+    continuation: { inputs: ["enter"], prompt: /YOUNOWFACEANENTRANCETOTHETEMPLEOFTYR/i, portrait: "scene-illustration:area:0:ecl:af3f:caller:b256" },
   }],
   ["sokal-keep-departure-ferry", {
     slot: "C", inputs: ["up", "up", "enter", "y", "enter"],
@@ -6494,7 +6494,12 @@ try {
         assert.equal(frame.portrait, undefined);
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /10,12W/i);
       }
-      if (routeName === "new-phlan-rolf-tour") await waitForExplorationViewport();
+      if (routeName === "new-phlan-rolf-tour") {
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ENTRANCETOTHEPASSENGERDOCKAREA/i);
+        await waitForExplorationViewport();
+      }
       if (routeName === "kuto-well-waterline") {
         assert.equal(frame.exploration?.mapId, 32);
         for (const key of ["down", "up"]) await advance(key);
