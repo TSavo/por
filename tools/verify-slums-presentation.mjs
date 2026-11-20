@@ -633,7 +633,7 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:18:ecl:b240:caller:a839",
     prompt: /GARWIN,I'LLGETYOU.*THEMANHASESCAPEDINTHECONFUSION/i,
     journalLead: "auction-garwin-escaped", journalLeadAtDiscovery: true,
-    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /THEAUCTIONOVER,THEMONSTERSGRUMBLEANDTURNAWAY/i },
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:18:ecl:9e23", prompt: /THEAUCTIONOVER,THEMONSTERSGRUMBLEANDTURNAWAY/i },
   }],
   ["podal-auction-ogre-searched", {
     slot: "I", inputs: ["up", ...Array(10).fill("enter")],
@@ -6401,6 +6401,13 @@ try {
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
+      if (routeName === "podal-auction-garwin-escaped") {
+        await advance("left");
+        assert.equal(frame.portrait, nextPortrait);
+        await advance("up");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /7,5N/i);
+      }
       if (routeName === "new-phlan-rolf-tour") await waitForExplorationViewport();
       if (routeName === "kuto-well-waterline") {
         assert.equal(frame.exploration?.mapId, 32);

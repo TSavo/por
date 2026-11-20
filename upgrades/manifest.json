@@ -1680,6 +1680,8 @@
     "combat:area:20:CPIC2.DAX:134:ecl:af6d": "slums-mage-hobgoblin-strike.png",
     "portrait:area:18:ecl:b240:caller:a839:PIC1.DAX:16:0:0": "podal-auction-wand-exchange.png",
     "scene-illustration:area:18:ecl:a608": "podal-auction-garwin-escaped.png",
+    "scene-illustration:area:18:ecl:a865": "podal-auction-crowd-disperses.png",
+    "scene-illustration:area:18:ecl:9e23": "podal-auction-crowd-disperses.png",
     "scene-illustration:area:18:ecl:b240:caller:a839": "podal-auction-garwin-escaped.png",
     "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0": "podal-auction-high-bid.png",
     "portrait:area:18:ecl:a413:PIC1.DAX:16:0:0": "podal-auction-high-bid.png",
