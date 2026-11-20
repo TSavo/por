@@ -938,6 +938,7 @@ const illustrationRoutes = new Map([
   ["slums-feeding-kobolds", {
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:20:PIC2.DAX:0:0:0", prompt: /YOUINTERRUPTSOMEFEEDINGKOBOLDS/i,
+    approachSequence: [[48, 32, "encounter:area:20:ecl:a4d4:SPRIT2.DAX:0:0:0", 40, 80]],
   }],
   ["new-phlan-innkeeper", {
     slot: "A", inputs: ["up", "enter"],
