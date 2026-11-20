@@ -3240,6 +3240,11 @@ The roaming lizardfolk in the Lizard Wilderness have a dedicated
 middle-distance approach sprite. A Chrome replay selected the original
 encounter table's lizardfolk roll and verified the production sprite at
 (56, 32), the transition into combat, and save preservation across modes.
+The frontier bandit approach replay checks its sprite at the same
+position and confirms the original Nice parlay clears it on return to
+exploration. The Kuto Ruins roaming gnoll replay checks its ready and
+attack poses at their native positions and the original combat report.
+Both replays select the encounter with a controlled roll.
 
 The `north-gate-jail-thugs` replay checks that the Old Phlan jail draws
 its dedicated thug approach at (40, 32) before showing the gang's
