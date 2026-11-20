@@ -547,6 +547,15 @@ const encounterRoutes = new Map([
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
 const illustrationRoutes = new Map([
+  ["valjevo-tower-fire-giants-agree", {
+    slot: "B", inputs: ["up", "l", "enter", "enter", "y"],
+    portrait: "portrait:area:5:ecl:9a5a:caller:a761:PIC5.DAX:56:0:0",
+    prompt: /THEGIANTTURNSINTRIUMPHTOHISCOMPANIONS/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:5:ecl:9a5a:caller:a82a:PIC5.DAX:56:0:0",
+      prompt: /THEYTURNANDATTACKYOU/i,
+    },
+  }],
   ["valjevo-tower-fire-giants-refuted", {
     slot: "B", inputs: ["up", "l", "enter", "enter", "n"],
     portrait: "portrait:area:5:ecl:9a5a:caller:a69a:PIC5.DAX:56:0:0",

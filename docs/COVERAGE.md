@@ -3637,3 +3637,7 @@ to Classic at the discovery displays the exact guest room frame.
 The `valjevo-tower-fire-giants-refuted` replay follows the original No
 branch from slot B. Chrome checks the fire giant's outburst illustration
 and the separate image of his companions restraining him at Stay/Leave.
+The `valjevo-tower-fire-giants-agree` replay uses the same slot B and
+checks the original Yes branch. It verifies the illustration of the
+giants reaching for their clubs and the next image as they turn on the
+party.
