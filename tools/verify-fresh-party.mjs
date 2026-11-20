@@ -1717,6 +1717,7 @@ if (process.argv[2] === "--textile-diary-checkpoint") {
     "j", (_text, frame) => {
       const entries = frame.journal.leads.filter(({ id }) => id === diaryLead);
       assert.equal(entries.length, 1);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "journal-entry-11"));
       assert.match(entries[0].detail, /journal entry 11/);
     },
   ]);

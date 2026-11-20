@@ -1600,11 +1600,14 @@ export function discoveredLeads(transcript: string): JournalLead[] {
   }
   const citedEntries = text.matchAll(/\b(?:JOURNAL (?:(?:AS|UNDER) )?ENTRY (\d{1,2})\b|ENTRY (\d{1,2}) OF YOUR JOURNAL\b)/g);
   for (const number of new Set([...citedEntries].map((match) => match[1] ?? match[2]))) {
-    leads.push({
-      id: `journal-entry-${number}`,
-      title: `Journal entry ${number}`,
-      detail: `The party encountered a reference to entry ${number} in the Adventurer's Journal.`,
-    });
+    if (number === "11" && leads.some(({ id }) => id === "textile-diary-page")) continue;
+    let detail = `The party encountered a reference to entry ${number} in the Adventurer's Journal.`;
+    if (number === "46" && text.includes("THE COMMANDANT TELLS YOU A STORY ABOUT THAT VERY POOL")) {
+      detail = "The Commandant told the party a story about the Pool of Radiance. Read journal entry 46.";
+    } else if (number === "53" && text.includes("YOU FIND A PIECE OF PAPER ON THE FLOOR IN THE ROOM")) {
+      detail = "The party found a piece of paper on the floor. Read journal entry 53.";
+    }
+    leads.push({ id: `journal-entry-${number}`, title: `Journal entry ${number}`, detail });
   }
   const proclamations = new Set<string>();
   for (const match of text.matchAll(/\bPROCLAMATIONS? ([IVXLCDM]+\b(?:(?:,\s*(?:AND\s+)?|\s+AND\s+)[IVXLCDM]+\b)*)/g)) {
