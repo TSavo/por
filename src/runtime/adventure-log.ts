@@ -1501,6 +1501,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "auction-exchange", title: "The auction exchange",
       detail: "The party saw a man and an ogre exchange the wand and a large bag before disappearing into the crowd." });
   }
+  if (text.includes("THE BATTLE IS OVER, THE PATRONS RETURN TO DRINKING.")) {
+    leads.push({ id: "podal-pitt-fight-ended", title: "The fight at the Pitt ended",
+      detail: "The Pitt's patrons returned to drinking after the fight." });
+  }
   if (text.includes("GARWIN, I'LL GET YOU!") && text.includes("THE MAN HAS ESCAPED IN THE CONFUSION")) {
     leads.push({ id: "auction-garwin-escaped", title: "Garwin escaped the auction",
       detail: "The auctioneer shouted Garwin's name as the man escaped into the crowd." });

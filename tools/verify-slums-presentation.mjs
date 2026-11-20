@@ -1271,6 +1271,7 @@ const illustrationRoutes = new Map([
     slot: "I", inputs: ["up", "enter", "enter", "enter", "c", "s", "enter", "enter",
       "m", "up", "m", "up", "n", "enter", "enter", "e", "n"],
     portrait: "scene-illustration:area:18:ecl:b240:caller:aa1e", prompt: /THEBATTLEISOVER,THEPATRONSRETURNTODRINKING/i,
+    journalLead: "podal-pitt-fight-ended", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter", "enter"], prompt: /THECREATURESIGNOREYOUFORTHEMOMENT/i,
       portrait: "portrait:area:18:PIC1.DAX:2:0:0" },
   }],

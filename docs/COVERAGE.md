@@ -1876,6 +1876,9 @@ buccaneer and monster patrons at their original tavern prompts.
 The `podal-pitt-monster-patrons` replay also checks the 192×320 goblin
 approach sprite at its original anchor. Enter advances to the patrons'
 dialogue illustration, and both frames support state-preserving mode switches.
+The `podal-pitt-duel-aftermath` replay starts with a controlled veteran
+party. It verifies the new aftermath illustration and that the journal
+records the fight ending only once the patrons return to drinking.
 `mendor-east-court` and `valjevo-dungeon-east-yard` check five new
 scenery bindings across 33 live views.
 `nomad-veteran-ready` verifies the 96×96 ready pose in the Headman
