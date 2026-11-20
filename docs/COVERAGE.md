@@ -2225,8 +2225,9 @@ The `slums-fortune` replay uses controlled slot B, checks the fortune teller's
 352×352 portrait, and reveals her journal clue only after the party pays for
 and hears the reading.
 The `slums-potion-booth` replay from controlled slot B verifies the merchant
-portrait, the journal discovery, and the picture clearing on Ohlo's package
-handoff. The merchant's area-scoped composite also lets the Stojanow wagon
+portrait and journal discovery. The package handoff has a dedicated
+illustration that fills the picture panel and clears when the party moves.
+The merchant's area-scoped composite also lets the Stojanow wagon
 trader keep his own portrait.
 The `buccaneer-captain-combat` replay uses controlled slot A at `8,12 W`
 and checks both 96×96 sword poses in the captain's quarters fight.

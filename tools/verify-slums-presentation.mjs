@@ -6274,11 +6274,20 @@ try {
     const text = frame.text.toSorted(([left], [right]) => left - right)
       .map(([, character]) => String.fromCharCode(character)).join("");
     assert.match(text, /RETURNSWITHAPACKAGE/i);
-    assert.notEqual(frame.portrait, merchant);
+    const handoff = "scene-illustration:area:20:ecl:b05c";
+    assert.equal(frame.portrait, handoff);
+    await waitFor("the Rope Guild package illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${handoff}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "ohlo-package-handoff.png"), Buffer.from(shot.data, "base64"));
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "ohlo-package-received"));
     assert.ok(!frame.journal.leads.some(({ id }) => id === "ohlo-delivered"));
-    console.log("Verified the Slums potion booth portrait and package dialogue in Chrome.");
+    for (const key of ["j", "up"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    console.log("Verified the Slums potion booth portrait and package handoff in Chrome. Capture:", directory);
   } else if (routeName === "slums-fortune") {
     const portrait = "portrait:HEAD2.DAX:25:BODY2.DAX:13";
     const visions = [
