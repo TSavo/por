@@ -2430,6 +2430,7 @@
     "tile:18:2ef1d0e6a7db6456bccdb5598bdbe75416778194b76407dffd458796d560d462": "podal-cobble-floor-2ef1d0e6a7db.png",
     "encounter:area:15:SPRIT2.DAX:0:0:0": "mendor-storeroom-kobolds-approach.png",
     "portrait:area:15:PIC2.DAX:0:0:0": "mendor-storeroom-kobolds-dialogue.png",
+    "scene-illustration:area:15:ecl:99b5:caller:ae7b": "mendor-storeroom-kobold-map.png",
     "combat:area:25:CPIC6.DAX:138": "buccaneer-wilds-quicklings-strike.png",
     "combat:area:25:CPIC6.DAX:10": "buccaneer-wilds-quicklings-stand.png",
     "tile:18:d0b60f00e865fc0df7097f0e242f2a54a904d2272248e62d0c91d4ff0c530053": "podal-workshop-lanes-terrain-d0b60f00e865.png",

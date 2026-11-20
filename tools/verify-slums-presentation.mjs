@@ -573,6 +573,14 @@ const illustrationRoutes = new Map([
     journalLead: "swamp-friend-word-charge", journalLeadAtDiscovery: true,
     continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i, clearsPortrait: true },
   }],
+  ["mendor-storeroom-kobold-map", {
+    slot: "B", inputs: ["up", ...Array(4).fill("enter"), "p", "y"],
+    portraitStops: { 6: "portrait:area:15:PIC2.DAX:0:0:0" },
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:ae7b",
+    prompt: /SKETCHAMAPINTOYOURJOURNALCALLINGITENTRY10/i,
+    journalLead: "mendor-storeroom-map", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["stojanow-bugbear-gate-payment", {
     slot: "B", inputs: [
       "up", "enter", "enter", "p", "n", "t", "enter", "enter", "enter",
