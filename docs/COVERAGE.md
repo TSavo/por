@@ -2041,6 +2041,10 @@ the witnessed outcome without marking the final commission complete.
 The `valjevo-al-hyam` replay checks both approach distances, mode
 switching, the area-scoped portrait, and the entry 30 discovery after
 the mage hands over his notes.
+`valjevo-al-hyam-release` chooses Let Him Go immediately. Chrome checks
+the dedicated 352×352 departure illustration and records that he left.
+Both branches save to slot C and have separate reload checks for their
+respective journal discoveries.
 The `valjevo-tyranthraxus-strike` replay reopens a tower slot B, votes to
 attack, and checks the 192×192 ready pose and animated bite in Chrome.
 The `valjevo-lower-wing` route uses an area-5 save made after using the

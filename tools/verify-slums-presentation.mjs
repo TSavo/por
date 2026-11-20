@@ -10,8 +10,10 @@ const towerReload = routeName === "valjevo-tower-reload";
 const dungeonSave = routeName === "valjevo-dungeon-save";
 const dungeonReload = routeName === "valjevo-dungeon-reload";
 const falseTyranthraxus = routeName === "valjevo-false-throne";
-const alHyam = routeName === "valjevo-al-hyam";
-const alHyamReload = routeName === "valjevo-al-hyam-reload";
+const alHyamRelease = routeName === "valjevo-al-hyam-release";
+const alHyam = routeName === "valjevo-al-hyam" || alHyamRelease;
+const alHyamReleaseReload = routeName === "valjevo-al-hyam-release-reload";
+const alHyamReload = routeName === "valjevo-al-hyam-reload" || alHyamReleaseReload;
 const captiveHedge = routeName === "valjevo-cadorna-hedge";
 const captiveReload = routeName === "valjevo-cadorna-reload";
 const captiveKilled = routeName === "valjevo-cadorna-killed";
@@ -3663,6 +3665,7 @@ routes.push("kuto-norris-surrender-reload");
 routes.push("valjevo-forge-authorization-reload");
 routes.push("buccaneer-bivant-punch");
 routes.push("buccaneer-bivant-escort-combat");
+routes.push("valjevo-al-hyam-release", "valjevo-al-hyam-release-reload");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -7024,11 +7027,12 @@ try {
   } else if (alHyamReload) {
     await advance("j");
     assert.equal(frame.journal?.trackedId, "commission-castle");
-    assert.ok(frame.journal.leads.some(({ id }) => id === "castle-al-hyam-notes"));
-    assert.match(frame.journal.objective.nextStep, /Al-Hyam Dhazid's notes.*journal entry 30/i);
+    assert.equal(frame.journal.leads.some(({ id }) => id === "castle-al-hyam-notes"), !alHyamReleaseReload);
+    assert.equal(frame.journal.leads.some(({ id }) => id === "castle-al-hyam-released"), alHyamReleaseReload);
+    if (!alHyamReleaseReload) assert.match(frame.journal.objective.nextStep, /Al-Hyam Dhazid's notes.*journal entry 30/i);
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
-    console.log("Verified the recovered Al-Hyam notes and objective after reloading in Chrome.");
+    console.log("Verified Al-Hyam's journal outcome after reloading in Chrome.");
   } else if (alHyam) {
     const close = "encounter:area:5:ecl:a28f:SPRIT5.DAX:12:0:0";
     await observeApproach([[56, 32, close, 24, 80]], false);
@@ -7051,28 +7055,52 @@ try {
     assert.equal(frame.portrait, portrait);
     await waitFor("Al-Hyam's portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    await advance("a");
-    assert.equal(frame.portrait, "portrait:area:5:ecl:a38a:HEAD5.DAX:55:BODY5.DAX:31");
-    await verifyPortraitPanel();
-    await advance("j");
-    assert.ok(frame.journal && !knows());
-    for (const key of ["j", "l"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:area:5:ecl:9a5a:caller:a45a:HEAD5.DAX:55:BODY5.DAX:31");
-    await verifyPortraitPanel();
-    await switchBothWays();
-    await advance("j");
-    assert.ok(knows());
-    assert.match(frame.journal.objective.nextStep, /Al-Hyam Dhazid's notes.*journal entry 30/i);
-    for (const key of ["j", "enter", "e", "s", "s"]) await advance(key);
-    assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""), /SAVEWHICHGAME/i);
-    await advance("c");
-    const notesSave = resolve(directory, "C.json");
-    const savedJournal = JSON.parse(readFileSync(notesSave, "utf8"));
-    assert.equal(savedJournal.tracked, "commission-castle");
-    assert.ok(savedJournal.leads.some(({ id }) => id === "castle-al-hyam-notes"));
-    assert.deepEqual(readFileSync(saved), originalSave);
-    console.log("Al-Hyam notes checkpoint:", notesSave);
-    console.log("Verified Al-Hyam's portrait and witnessed notes in Chrome.");
+    if (alHyamRelease) {
+      const released = () => frame.journal?.leads.some(({ id }) => id === "castle-al-hyam-released");
+      await advance("j");
+      assert.ok(frame.journal && !released() && !knows());
+      for (const key of ["j", "l"]) await advance(key);
+      const departure = "scene-illustration:area:5:ecl:9c7f";
+      assert.equal(frame.portrait, departure);
+      await waitFor("Al-Hyam's departure illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${departure}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "al-hyam-departure.png"), Buffer.from(shot.data, "base64"));
+      await advance("j");
+      assert.ok(released() && !knows());
+      for (const key of ["j", "e", "s", "s", "c"]) await advance(key);
+      const releaseSave = resolve(directory, "C.json");
+      const checkpoint = JSON.parse(readFileSync(releaseSave, "utf8"));
+      assert.ok(checkpoint.leads?.some(({ id }) => id === "castle-al-hyam-released"));
+      assert.ok(!checkpoint.leads?.some(({ id }) => id === "castle-al-hyam-notes"));
+      assert.deepEqual(readFileSync(saved), originalSave);
+      console.log("Verified Al-Hyam's immediate departure and saved journal in Chrome. Saved:", releaseSave);
+    } else {
+      await advance("a");
+      assert.equal(frame.portrait, "portrait:area:5:ecl:a38a:HEAD5.DAX:55:BODY5.DAX:31");
+      await verifyPortraitPanel();
+      await advance("j");
+      assert.ok(frame.journal && !knows());
+      for (const key of ["j", "l"]) await advance(key);
+      assert.equal(frame.portrait, "portrait:area:5:ecl:9a5a:caller:a45a:HEAD5.DAX:55:BODY5.DAX:31");
+      await verifyPortraitPanel();
+      await switchBothWays();
+      await advance("j");
+      assert.ok(knows());
+      assert.match(frame.journal.objective.nextStep, /Al-Hyam Dhazid's notes.*journal entry 30/i);
+      for (const key of ["j", "enter", "e", "s", "s"]) await advance(key);
+      assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""), /SAVEWHICHGAME/i);
+      await advance("c");
+      const notesSave = resolve(directory, "C.json");
+      const savedJournal = JSON.parse(readFileSync(notesSave, "utf8"));
+      assert.equal(savedJournal.tracked, "commission-castle");
+      assert.ok(savedJournal.leads.some(({ id }) => id === "castle-al-hyam-notes"));
+      assert.deepEqual(readFileSync(saved), originalSave);
+      console.log("Al-Hyam notes checkpoint:", notesSave);
+      console.log("Verified Al-Hyam's portrait and witnessed notes in Chrome.");
+    }
   } else if (falseTyranthraxus) {
     const portrait = "portrait:HEAD5.DAX:54:BODY5.DAX:1";
     const knows = () => frame.journal?.leads.some(({ id }) => id === "castle-impostor");

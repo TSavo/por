@@ -760,6 +760,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "castle-forge-authorization", title: "The smith requires authorization",
       detail: "The smith told the party to get authorization for any urgent order." });
   }
+  if (text.includes("HE SCRAMBLES OUT THE DOOR.")) {
+    leads.push({ id: "castle-al-hyam-released", title: "Al-Hyam Dhazid left",
+      detail: "The party let the mage go and he ran out the door." });
+  }
   if (text.includes("YOU ARE LEFT WITH THE NOTES OF AL-HYAM DHAZID") &&
       text.includes("YOU COPY THEM INTO YOUR JOURNAL AS ENTRY 30")) {
     leads.push({ id: "castle-al-hyam-notes", title: "Al-Hyam Dhazid's notes",
