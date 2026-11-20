@@ -3707,3 +3707,8 @@ display modes preserved the game state and the combat fixture save.
 The Human flail now keeps its Enhanced ready and strike sprites when
 recolored. Chrome verified both Body channels, Hair and dark Weapon in
 the icon editor, and both saved green poses in a controlled combat replay.
+
+The river commission journal now records Tyrmor's book and entry 26
+when the party reads the discovery text under the body. A Chrome replay
+from a local pyramid approach checkpoint checked that the lead is absent
+before searching and present when the player opens the journal afterward.

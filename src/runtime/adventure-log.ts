@@ -1412,6 +1412,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
       text.includes("A SECRET DOOR IS FOUND BEHIND YOU")) {
     leads.push({ id: "river-entrance-inside", title: "Inside the pyramid", detail: "The secret entrance is behind the party." });
   }
+  if (text.includes("IT IS THE JOURNAL OF TYRMOR")) {
+    leads.push({ id: "river-tyrmor-journal", title: "Tyrmor's journal",
+      detail: "The party found Tyrmor's journal beneath a body in the pyramid and copied its information into entry 26." });
+  }
   if (text.includes("YOU HAVE ENTERED THE FOUNTAIN CHAMBER")) {
     leads.push({ id: "river-fountain", title: "The fountain chamber", detail: "Pipes in the fountain chamber pump foul black water." });
   }
