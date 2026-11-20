@@ -5051,10 +5051,13 @@ try {
       assert.ok(!hasLead("rescue-heir-freed"));
       for (const key of ["j", "g", "j"]) await advance(key);
       assert.ok(hasLead("rescue-heir-freed"));
+      assert.ok(!hasLead("rescue-merchant-alarm"));
+      if (repeatStampede) assert.match(frame.journal.objective.nextStep, /escort the boy out through the base gate/i);
       await advance("j");
       for (const key of ["right", "up", "right", ...Array(6).fill("up"), "j"]) await advance(key);
       assert.ok(hasLead("rescue-escape-guards"));
       assert.ok(!hasLead("rescue-escape-alarm"));
+      if (repeatStampede) assert.match(frame.journal.objective.nextStep, /fight off the guards.*escort the boy/i);
       await advance("j");
     }
     assert.equal(views, environment.views);

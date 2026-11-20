@@ -1166,7 +1166,10 @@ save whose journal records a prior release and recapture. It verifies that
 the original Release Animals choice changes the journal back to the active
 distraction and opens the route to the boy.
 The Chrome replay continues toward the front gate through the first
-guard interception. The translation verifier checks that the journal keeps
+guard interception. It verifies that the tracked objective first directs
+the party to escort the boy out, then calls for fighting off the guards
+when they spot him. This route leaves the merchant alarm clue hidden.
+The translation verifier checks that the journal keeps
 the escort active inside the base and asks the party to report to the
 council once it is outside. The `bivant-reward` Chrome replay starts from
 a controlled City Hall save with the rescue flag at 254. It verifies the
