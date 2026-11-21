@@ -2340,6 +2340,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-bone-chamber.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["wild-cave-elven-remains", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:27:ecl:a705:cue:elven-remains", prompt: /INTHISROOMARETHEHORRIDREMAINSOFSOMEELVES/i,
+    finalPhaseCapture: "wild-cave-elven-remains.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["tyrmor-portal-rocks", {
     slot: "B", inputs: ["s", "up"],
     portrait: "scene-illustration:area:22:ecl:9a06:caller:a016:cue:scattered-rocks",
