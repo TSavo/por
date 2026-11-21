@@ -9112,11 +9112,25 @@ try {
     assert.ok(knows("swamp-drawbridge") && !knows("swamp-anti-magic"));
     assert.match(frame.journal.objective.nextStep, /cross the drawbridge/);
     for (const key of ["j", "e", "enter"]) await advance(key);
-    assert.equal(frame.portrait, undefined);
+    const antiMagicShell = "scene-illustration:area:27:ecl:9a87:caller:9c48";
+    assert.equal(frame.portrait, antiMagicShell);
+    const shellText = frame.text.toSorted(([a], [b]) => a - b)
+      .map(([, character]) => String.fromCharCode(character)).join("");
+    assert.match(shellText, /YOUSENSEANANTI-MAGICSHELLAROUNDYOU/i);
+    await waitFor("the anti-magic shell illustration", () => run(
+      'state.sequence === ' + frame.sequence +
+      ' && document.querySelector(\'.encounter-portrait[src="/art/' + antiMagicShell + '"]\')?.naturalWidth === 352'));
+    await verifyPortraitPanel();
+    const shellShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "swamp-castle-anti-magic-shell.png"), Buffer.from(shellShot.data, "base64"));
+    await switchBothWays(frame.frame);
     await advance("j");
     assert.ok(knows("swamp-anti-magic") && !knows("swamp-peaceful-elder"));
     assert.match(frame.journal.objective.nextStep, /anti-magic shell/);
-    for (const key of ["j", "enter", "up", "e", "s", "s", "a"]) await advance(key);
+    for (const key of ["j", "enter", "up"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    await waitForExplorationViewport();
+    for (const key of ["e", "s", "s", "a"]) await advance(key);
     const entered = JSON.parse(readFileSync(saved, "utf8"));
     assert.ok(entered.leads.some(({ id }) => id === "swamp-anti-magic"));
     console.log("Verified the swamp drawbridge and anti-magic shell in Chrome. Saved:", saved);

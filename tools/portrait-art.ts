@@ -243,6 +243,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:25:ecl:a906", "AGIANTSNAKEFALLSONTOPOFTHEPARTY"],
   ["scene-illustration:area:25:ecl:a90e", "AGIANTSNAKEFALLSONTOPOFTHEPARTY"],
   ["scene-illustration:area:25:ecl:a90f", "AGIANTSNAKEFALLSONTOPOFTHEPARTY"],
+  ["scene-illustration:area:27:ecl:9c44", "YOUSENSEANANTI-MAGICSHELLAROUNDYOU"],
+  ["scene-illustration:area:27:ecl:9a87:caller:9c48", "YOUSENSEANANTI-MAGICSHELLAROUNDYOU"],
   ["scene-illustration:area:27:ecl:a59c", "FOURGIANTLIZARDSANDTWOMINOTAURS.THEMINOTAURSORDERTHELIZARDSTOATTACK"],
   ["scene-illustration:area:27:ecl:a5aa", "FOURGIANTLIZARDSANDTWOMINOTAURS.THEMINOTAURSORDERTHELIZARDSTOATTACK"],
   ["scene-illustration:area:27:ecl:a5b2", "FOURGIANTLIZARDSANDTWOMINOTAURS.THEMINOTAURSORDERTHELIZARDSTOATTACK"],
