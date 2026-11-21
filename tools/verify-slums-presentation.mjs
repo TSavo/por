@@ -928,6 +928,30 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:5:0",
     prompt: /THEOGREISTACKLEDANDSEARCHED/i,
   }],
+  ["podal-auction-ogre-escape-phases", {
+    slot: "I", inputs: ["up", ...Array(8).fill("enter"), ...Array(11).fill("z")],
+    portraitStops: {
+      9: "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:0:0",
+      13: "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:1:0",
+      14: "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:2:0",
+      16: "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:3:0",
+      17: "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:4:0",
+    },
+    portrait: "portrait:area:18:ecl:b240:caller:a4d8:PIC1.DAX:16:5:0",
+    prompt: /THEOGRESPRINTSFROMTHEDARKNESS/i,
+  }],
+  ["podal-auction-hostile-crowd-phases", {
+    slot: "I", inputs: ["up", ...Array(11).fill("enter"), ...Array(11).fill("z")],
+    portraitStops: {
+      12: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:0:0",
+      16: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:1:0",
+      17: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:2:0",
+      19: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:3:0",
+      20: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:4:0",
+    },
+    portrait: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:5:0",
+    prompt: /THEMONSTERSLOOKAROUNDFORASCAPEGOAT/i,
+  }],
   ["podal-auction-wand-exchange", {
     slot: "I", inputs: ["up", ...Array(5).fill("enter"), "end", "enter", "enter", ...Array(11).fill("z")],
     portraitStops: {
