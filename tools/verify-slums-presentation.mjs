@@ -2419,6 +2419,13 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-elven-remains.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-throne-voices", {
+    slot: "B", inputs: ["up", "enter", "down", "up"],
+    portrait: "scene-illustration:area:13:ecl:9ffe:cue:throne-voices",
+    prompt: /YOUHEARTHEVOICESOFHUMANSANDKOBOLDS/i,
+    finalPhaseCapture: "kobold-cave-throne-voices.png",
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["kobold-cave-abandoned-prison-cell", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:13:ecl:a93f:cue:abandoned-prison-cell",
