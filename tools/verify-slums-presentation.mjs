@@ -244,7 +244,14 @@ const encounterRoutes = new Map([
   ["slums-hobgoblin-gold-room-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:20:ecl:aa1f:SPRIT2.DAX:6:0:0", 48, 80],
-    dialogue: { key: "enter", portrait: "portrait:area:20:PIC2.DAX:6:0:0", prompt: /SOMEHOBGOBLINSAREARGUINGOVERAPILEOFGOLD/i },
+    dialogueSteps: [{
+      key: "enter", portrait: "portrait:area:20:ecl:b6df:caller:aa6c:PIC2.DAX:6:0:0",
+      prompt: /SOMEHOBGOBLINSAREARGUINGOVERAPILEOFGOLD/i,
+      heldPortrait: "portrait:area:20:ecl:b6df:caller:aa6c:PIC2.DAX:6:2:0",
+    }, {
+      keys: Array(8).fill("z"), portrait: "portrait:area:20:ecl:b6df:caller:aa6c:PIC2.DAX:6:1:0",
+      prompt: /SOMEHOBGOBLINSAREARGUINGOVERAPILEOFGOLD/i,
+    }],
   }],
   ["sokal-courtyard-hobgoblin-approach", {
     slot: "C", inputs: ["up", "enter"],
