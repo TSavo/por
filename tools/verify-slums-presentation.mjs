@@ -1607,6 +1607,17 @@ const illustrationRoutes = new Map([
     approachSequence: [[48, 32, "encounter:area:26:ecl:a944:SPRIT7.DAX:57:0:0", 48, 80]],
     portrait: "portrait:area:26:ecl:a981:PIC7.DAX:57:0:0", prompt: /INSIDETHISHUTAREFOURLIZARDMEN/i,
   }],
+  ["pyramid-lizardfolk-patrol-phases", {
+    slot: "A", inputs: ["up", "enter", "enter", "enter", "q", "q", "q", "enter", "q"],
+    portraitStops: {
+      4: "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0",
+      5: "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0",
+      6: "portrait:area:23:ecl:9f04:PIC7.DAX:57:1:0",
+      7: "portrait:area:23:ecl:9f04:PIC7.DAX:57:2:0",
+      8: "portrait:area:23:ecl:9f04:PIC7.DAX:57:2:0",
+    },
+    portrait: "portrait:area:23:ecl:9f04:PIC7.DAX:57:3:0", prompt: /THEYAREWARY,BUTNOTHOSTILE/i,
+  }],
   ["pyramid-lizardfolk-patrol", {
     slot: "A", inputs: ["up", "enter", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:0:0", 48, 80]],
@@ -6713,6 +6724,12 @@ try {
         }
       })()`), false, "Enter should not advance a prompt whose portrait is still loading");
       await run('window.releasePortrait()');
+        if (routeName === "pyramid-lizardfolk-patrol-phases" && (index === 6 || index === 7)) {
+          assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+            /THEYAREWARY,BUTNOTHOSTILE.*COMBATWAITFLEEPARLAY/i);
+          const patrolPhaseShot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, `pyramid-lizardfolk-patrol-phase-${index - 5}.png`), Buffer.from(patrolPhaseShot.data, "base64"));
+        }
     } else {
       for (const [index, key] of inputs.entries()) {
         const interimPortrait = illustration.portraitStops?.[index];
@@ -6837,6 +6854,10 @@ try {
         }
         await advance(key);
       }
+    if (routeName === "pyramid-lizardfolk-patrol-phases") {
+      const patrolPhaseShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "pyramid-lizardfolk-patrol-phase-3.png"), Buffer.from(patrolPhaseShot.data, "base64"));
+    }
     }
     assert.equal(frame.portrait, portrait);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), prompt);
