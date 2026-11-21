@@ -123,8 +123,9 @@ const scriptReferences = archives.filter(({ file }) => /^ECL\d+\.DAX$/.test(file
       const pictureId = operand.low;
       const previous = decoded.instructions[index - 1];
       const [head, destination] = previous?.operands ?? [];
-      const selectedHead = pictureId === 1 && previous?.name === "SAVE" && previous.next === instruction.address &&
-        head?.code === 0 && (destination?.code === 1 || destination?.code === 3) && destination.word === 0x6de1
+      // A head selected immediately before PICTURE pairs with the requested body ID.
+      const selectedHead = previous?.name === "SAVE" && previous.next === instruction.address &&
+        head?.code === 0 && head.low !== 255 && (destination?.code === 1 || destination?.code === 3) && destination.word === 0x6de1
         ? head.low : undefined;
       const candidates = selectedHead === undefined ? archives.filter((archive) => /^PIC\d+\.DAX$/.test(archive.file) &&
         archive.entries.some((entry) => entry.id === pictureId)).map((archive) => archive.file) : [];
@@ -1095,10 +1096,10 @@ ${unlinkedScriptPictures.map(({ file, script, address, nearbyText, frames, cover
   <td>${frames.map(({ sourceId, preview }) => `<a href="${escape(preview)}"><code>${escape(sourceId)}</code></a>`).join("<br>")}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
 ${composedPictureReferences.length ? `<details><summary>Script-selected portrait heads · ${composedPictureReferences.length}</summary>
-<p>These instructions assign a head immediately before drawing picture 1. Use a live capture to identify the body and confirm the complete portrait.</p>
-<table class="coverage-table"><thead><tr><th>Script and address</th><th>Head selector</th><th>Nearby dialogue</th></tr></thead><tbody>
-${composedPictureReferences.map(({ file, script, address, selectedHead, nearbyText }) =>
-  `<tr><th scope="row">${escape(file)} #${script} · ${address.toString(16).padStart(4, "0")}</th><td>${selectedHead}</td><td>${escape(nearbyText ?? "")}</td></tr>`).join("")}
+<p>These scripts select a head and then draw a body. A live capture confirms the selected archive bank and the assembled portrait.</p>
+<table class="coverage-table"><thead><tr><th>Script and address</th><th>Head selector</th><th>Body selector</th><th>Nearby dialogue</th></tr></thead><tbody>
+${composedPictureReferences.map(({ file, script, address, selectedHead, pictureId, nearbyText }) =>
+  `<tr><th scope="row">${escape(file)} #${script} · ${address.toString(16).padStart(4, "0")}</th><td>${selectedHead}</td><td>${pictureId}</td><td>${escape(nearbyText ?? "")}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
 <details><summary>Unlinked source frames · ${encounterTotals.remaining}</summary>
 <p>${encounterTotals.uniformUnlinked} unlinked frames are solid-color images.</p>
