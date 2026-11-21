@@ -57,6 +57,12 @@ current script cursor. Each record includes the matching asset ID,
 original anchor and dimensions, and the cursor seen in play. This only
 checks sprites with an installed placement to compare against.
 
+The Valhingen stair ambush and single-zombie trap share a near sprite and
+script cursor. The group replacement requires the stair script's caller
+as well. The Chrome replays `valhingen-zombie-approach`,
+`valhingen-zombie-trap`, and `valhingen-zombie-roam-dialogue` cover the
+three presentations.
+
 Set `POR_NATIVE_ENCOUNTER_TRACE_DIR` to an existing local output directory
 to capture original encounter draws even when there is no Enhanced binding.
 The browser runner saves PNGs in a new `encounters-*` subdirectory, with
