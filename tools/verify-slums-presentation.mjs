@@ -4998,19 +4998,22 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
-const chrome = spawn(chromePath, [
-  "--headless", "--no-first-run", "--disable-gpu", "--remote-debugging-port=0",
-  `--user-data-dir=${profile}`, "about:blank",
-], { stdio: "ignore" });
-
+let chrome;
 class GuestStopped extends Error {}
+
+async function latest() {
+  const response = await fetch(origin + "/state");
+  const state = await response.json();
+  if (state.stopped) throw new GuestStopped(state.stopped);
+  return state;
+}
 
 async function waitFor(description, read, timeoutMs = 30_000) {
   const deadline = Date.now() + timeoutMs;
   let lastError;
   do {
     for (const [name, child] of [["Game server", server], ["Chrome", chrome]]) {
-      if (child.exitCode !== null || child.signalCode !== null) {
+      if (child && (child.exitCode !== null || child.signalCode !== null)) {
         throw new Error(`${name} exited (${child.exitCode ?? child.signalCode}) while waiting for ${description}`);
       }
     }
@@ -5028,6 +5031,14 @@ async function waitFor(description, read, timeoutMs = 30_000) {
 
 let socket;
 try {
+  let frame = await waitFor("the loaded party", async () => {
+    const state = await latest();
+    return state.ready && state;
+  }, 120_000);
+  chrome = spawn(chromePath, [
+    "--headless", "--no-first-run", "--disable-gpu", "--remote-debugging-port=0",
+    `--user-data-dir=${profile}`, "about:blank",
+  ], { stdio: "ignore" });
   const debugPort = await waitFor("Chrome's debug port", () =>
     readFileSync(resolve(profile, "DevToolsActivePort"), "utf8").split(/\r?\n/)[0]);
   const tab = await waitFor("Chrome tab", async () => {
@@ -5064,16 +5075,6 @@ try {
     assert.ok(!response.exceptionDetails, response.exceptionDetails?.text);
     return response.result.value;
   }
-  const latest = async () => {
-    const response = await fetch(origin + "/state");
-    const state = await response.json();
-    if (state.stopped) throw new GuestStopped(state.stopped);
-    return state;
-  };
-  let frame = await waitFor("the loaded party", async () => {
-    const state = await latest();
-    return state.ready && state;
-  });
   await command("Page.navigate", { url: origin });
   await waitFor("the game display", () => run('document.querySelector("#screen")?.naturalWidth === 320'));
   if (patrolCombat || courtyard || orcs || goblins || combatPose?.manualPolling || illustration?.manualPolling ||
@@ -12441,6 +12442,6 @@ try {
   if (battleFrame) console.log(`Battlefield artwork trace (${battleFrame} frames):`, battleTrace);
 } finally {
   socket?.close();
-  chrome.kill();
+  chrome?.kill();
   server.kill();
 }
