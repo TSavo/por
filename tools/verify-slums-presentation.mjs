@@ -783,7 +783,7 @@ const illustrationRoutes = new Map([
     portraitStops: { 1: "scene-illustration:area:6:ecl:9ae6:caller:a7ab", 2: null },
     portrait: "scene-illustration:area:6:ecl:9b14:caller:a809",
     prompt: /THEREISAFEELINGOFSOMETHINGIMMENSEANDEVILSTARINGDOWNATYOU/i,
-    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITFOR16POINTSOFDAMAGE/i },
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:6:ecl:a814:cue:curse-impact", prompt: /HITFOR16POINTSOFDAMAGE/i },
   }],
   ["valjevo-altar-crossed-swords", {
     slot: "B", inputs: ["up", "n"],
@@ -8020,6 +8020,13 @@ try {
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
+      if (routeName === "valjevo-altar-curse") {
+        const impactShot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "valjevo-altar-curse-impact.png"), Buffer.from(impactShot.data, "base64"));
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /THEENTIREPARTYISKILLED/i);
+      }
       if (routeName === "bane-gate-inspection-failure") {
         await advance("z");
         const battlePortrait = "portrait:area:24:ecl:a6bf:PIC1.DAX:4:2:0";
