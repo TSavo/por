@@ -1750,6 +1750,13 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:26:PIC7.DAX:61:0:0", prompt: /ASWARMOFSTIRGESSWOOPSDOWN/i,
   }],
+  ["wild-cave-shed-skin", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:25:ecl:a857:cue:shed-snake-skin",
+    prompt: /LYINGONTHEFLOORISALARGE,SHEDDEDSNAKESKIN/i,
+    finalPhaseCapture: "wild-cave-shed-skin.png",
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["wild-cave-thri-kreen-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
     approachStops: { 2: [56, 32, "encounter:area:25:ecl:aa36:SPRIT6.DAX:118:0:0", 32, 73] },
