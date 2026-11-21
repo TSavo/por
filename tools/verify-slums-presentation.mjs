@@ -7994,23 +7994,21 @@ try {
     for (const key of scriptoriumAuthority ? "tyranthraxus" : "harash") await advance(key);
     await advance("enter");
     assert.match(dialogue(), /WITHANODOFTHEHEADYOUARELEFTALONE/i);
-    if (mazeWatch || scriptorium) {
-      const passage = mazeWatch ? "scene-illustration:area:4:ecl:9ed5:caller:a08a"
-        : "scene-illustration:area:4:ecl:9ed5:caller:ac70";
-      assert.equal(frame.portrait, passage);
-      await waitFor("the guard nodding and stepping aside", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${passage}"]')?.naturalWidth === 352`));
-      await verifyPortraitPanel();
-      const passageShot = await command("Page.captureScreenshot", { format: "png" });
-      const filename = mazeWatch ? "valjevo-maze-watch-peaceful-passage.png" : "valjevo-scriptorium-peaceful-passage.png";
-      writeFileSync(resolve(directory, filename), Buffer.from(passageShot.data, "base64"));
-      await switchBothWays(frame.frame);
-      await advance("up");
-      assert.equal(frame.portrait, mazeWatch ? undefined : scribes);
-      if (mazeWatch) await waitForExplorationViewport();
-    } else {
-      assert.equal(frame.portrait, undefined);
-    }
+    const passage = mazeWatch ? "scene-illustration:area:4:ecl:9ed5:caller:a08a"
+      : scriptorium ? "scene-illustration:area:4:ecl:9ed5:caller:ac70"
+        : "scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage";
+    assert.equal(frame.portrait, passage);
+    await waitFor("the guard nodding and stepping aside", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${passage}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    const passageShot = await command("Page.captureScreenshot", { format: "png" });
+    const filename = mazeWatch ? "valjevo-maze-watch-peaceful-passage.png"
+      : scriptorium ? "valjevo-scriptorium-peaceful-passage.png" : "valjevo-giant-patrol-peaceful-passage.png";
+    writeFileSync(resolve(directory, filename), Buffer.from(passageShot.data, "base64"));
+    await switchBothWays(frame.frame);
+    await advance("up");
+    assert.equal(frame.portrait, scriptorium ? scribes : undefined);
+    if (!scriptorium) await waitForExplorationViewport();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log(`Verified the guard portrait and peaceful passage on ${routeName} in Chrome.`);
   } else if (dungeonKitchen) {
