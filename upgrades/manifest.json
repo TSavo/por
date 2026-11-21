@@ -1280,6 +1280,7 @@
     "encounter:area:29:ecl:a524:SPRIT8.DAX:0:1:0": "kuto-ruins-kobold-watch-approach-middle.png",
     "encounter:area:29:ecl:a524:SPRIT8.DAX:57:1:0": "kuto-ruins-lizardfolk-watch-approach-middle.png",
     "portrait:area:6:ecl:a2b8:HEAD5.DAX:13:BODY5.DAX:9": "valjevo-forge-smith-defends.png",
+    "scene-illustration:area:6:ecl:9b14:caller:a06e": "valjevo-forge-workshop.png",
     "scene-illustration:area:6:ecl:a226": "valjevo-forge-authorization.png",
     "scene-illustration:area:6:ecl:9c44": "valjevo-forge-authorization.png",
     "encounter:area:25:ecl:a160:SPRIT6.DAX:11:1:0": "buccaneer-wilds-roaming-thief-approach-middle.png",

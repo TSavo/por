@@ -7263,7 +7263,17 @@ try {
   } else if (forgeSmith) {
     const close = "encounter:area:6:ecl:a0d8:SPRIT5.DAX:12:0:0";
     await observeApproach([[56, 32, close, 24, 80]], false);
-    for (const key of ["up", "enter"]) await advance(key);
+    await advance("up");
+    const forgeWorkshop = "scene-illustration:area:6:ecl:9b14:caller:a06e";
+    assert.equal(frame.portrait, forgeWorkshop);
+    assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+      /THREEFIREGIANTSAREWORKINGONASUITOFARMOR/i);
+    await waitFor("the human smith and three fire giants at work", () => run(
+      `document.querySelector('.encounter-portrait[src="/art/${forgeWorkshop}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays();
+    await advance("enter");
+    assert.equal(frame.portrait, undefined);
     assert.deepEqual(frame.encounter, [56, 32, "encounter:area:6:SPRIT5.DAX:12:1:0", 24, 65]);
     await waitFor("the forge smith approach", () => run('document.querySelector(".encounter-sprite")?.naturalWidth === 96'));
     await switchBothWays();
@@ -7294,9 +7304,9 @@ try {
     await advance("j");
     if (forgeAuthorization) {
       await advance("up");
-      assert.equal(frame.portrait, undefined);
-      await waitFor("the forge authorization illustration to clear", () => run(`state.sequence === ${frame.sequence} &&
-        !document.querySelector(".encounter-portrait")`));
+      assert.equal(frame.portrait, forgeWorkshop);
+      await waitFor("the forge workshop to return after the authorization", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${forgeWorkshop}"]')?.naturalWidth === 352`));
     }
     assert.deepEqual(readFileSync(saved), originalSave);
     if (forgeAuthorization) {
