@@ -80,6 +80,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:7:ecl:a326", /^GOOD\.$/],
   ["scene-illustration:area:7:ecl:995f:caller:a4dd", "THECEILINGHASBEENTORNAWAY"],
   ["scene-illustration:area:7:ecl:995f:caller:a8b2", "YOULEAVETHECASTLE.MOVINGTHROUGHTHESTREETS"],
+  ["scene-illustration:area:7:ecl:a82d:cue:possession-threat", "IWILLSTILLRULE,BYPOSSESSINGONEOFYOU!"],
   ["scene-illustration:area:7:ecl:a82d", /THESPIRITOFTYRANTHRAXUSFLARESUP|YOUHAVEBUTSLAINTHEBODYIPOSSESSED/],
   ["scene-illustration:area:7:ecl:a82d:cue:pool-recall", "DONOTCALLMEBACKTHROUGHTHEPOOL!"],
   ["scene-illustration:area:4:ecl:9a5a:caller:b00a", "THEREDWIZARDSOFTHAYAREALLIEDTOTYRANTHRAXUS"],

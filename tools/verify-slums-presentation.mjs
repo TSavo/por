@@ -6547,23 +6547,27 @@ try {
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
       if (routeName === "valjevo-dragon-loot") {
         const text = () => frame.text.map(([, char]) => String.fromCharCode(char)).join("");
-        for (let page = 0; page < 3; page++) {
+        for (let page = 0; page < 2; page++) {
           await advance("enter");
           assert.equal(frame.portrait, nextPortrait);
         }
-        assert.match(text(), /youhavebutslainthebodyipossessed/i);
 
-        await advance("enter");
-        const recall = "scene-illustration:area:7:ecl:a82d:cue:pool-recall";
-        assert.equal(frame.portrait, recall);
-        assert.match(text(), /nolordbane!.*donotcallmebackthroughthepool!/i);
-        await waitFor("the spirit's recall through the Pool", () => run(`state.sequence === ${frame.sequence} &&
-          document.querySelector('.encounter-portrait[src="/art/${recall}"]')?.naturalWidth === 352 &&
-          document.querySelector('.encounter-portrait[src="/art/${recall}"]')?.naturalHeight === 352`));
-        await verifyPortraitPanel();
-        await switchBothWays(frame.frame);
-        const recallShot = await command("Page.captureScreenshot", { format: "png" });
-        writeFileSync(resolve(directory, "valjevo-pool-recall.png"), Buffer.from(recallShot.data, "base64"));
+        for (const [cue, caption, screenshot] of [
+          ["possession-threat", /youhavebutslainthebodyipossessed.*bypossessingoneofyou!/i, "valjevo-possession-threat.png"],
+          ["pool-recall", /nolordbane!.*donotcallmebackthroughthepool!/i, "valjevo-pool-recall.png"],
+        ]) {
+          await advance("enter");
+          const scene = "scene-illustration:area:7:ecl:a82d:cue:" + cue;
+          assert.equal(frame.portrait, scene);
+          assert.match(text(), caption);
+          await waitFor("the enhanced finale illustration " + cue, () => run(`state.sequence === ${frame.sequence} &&
+            document.querySelector('.encounter-portrait[src="/art/${scene}"]')?.naturalWidth === 352 &&
+            document.querySelector('.encounter-portrait[src="/art/${scene}"]')?.naturalHeight === 352`));
+          await verifyPortraitPanel();
+          await switchBothWays(frame.frame);
+          const shot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, screenshot), Buffer.from(shot.data, "base64"));
+        }
 
         await advance("enter");
         assert.equal(frame.portrait, "scene-illustration:area:7:ecl:995f:caller:a8b2");
