@@ -4083,6 +4083,8 @@
     "tile:8:e05c49674f61413e958d8c57f241968c3e8574d6ae3f1ab06e30507b322d3aae": "new-phlan-civic-terrain-e05c49674f61.png",
     "tile:8:1180638ececd642b84551072d1f901f40c3f3d975f59049bd1aa8436be86beff": "new-phlan-civic-terrain-1180638ececd.png",
     "portrait:area:26:PIC7.DAX:61:0:0": "lizard-wilds-stirge-dialogue.png",
+    "portrait:area:25:ecl:aa0e:PIC6.DAX:118:0:0": "wild-cave-thri-kreen-three-warriors.png",
+    "portrait:area:25:ecl:aa0f:PIC6.DAX:118:0:0": "wild-cave-thri-kreen-three-warriors.png",
     "portrait:area:25:PIC6.DAX:118:0:0": "wild-cave-thri-kreen-dialogue.png",
     "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0": "wild-cave-thri-kreen-two-guards.png",
     "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0": "wild-cave-thri-kreen-two-guards-phase-1.png",

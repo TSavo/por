@@ -422,7 +422,10 @@ const encounterRoutes = new Map([
   ["wild-cave-thri-kreen-three-warriors", {
     slot: "A", inputs: ["up", "enter"],
     placement: [56, 32, "encounter:area:25:SPRIT6.DAX:118:0:0", 32, 73],
-    dialogue: { key: "enter", portrait: "portrait:area:25:PIC6.DAX:118:0:0", prompt: /BEFOREYOUARETHREETHRI.KREENWARRIORS/i },
+    dialogueSteps: [
+      { key: "enter", portrait: "portrait:area:25:ecl:aa0e:PIC6.DAX:118:0:0", prompt: /BEFOREYOUARETHREETHRI.KREENWARRIORS/i },
+      { key: "z", portrait: "portrait:area:25:ecl:aa0f:PIC6.DAX:118:0:0", prompt: /ABATTLEBEGINS/i },
+    ],
   }],
   ["wild-cave-boar-approach", {
     slot: "A", inputs: ["up", "enter"],
