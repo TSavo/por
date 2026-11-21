@@ -1262,7 +1262,11 @@ const illustrationRoutes = new Map([
   ["textile-skullcrusher-chained", {
     slot: "B", inputs: ["up", "b", "up", "enter"],
     portrait: "portrait:HEAD4.DAX:32:BODY4.DAX:3", prompt: /WHATDOYOUDOWITHTHEMAN/i,
-    journalLead: "textile-prisoner",
+    journalLead: "textile-prisoner", journalLeadAtDiscovery: true,
+    continuation: {
+      inputs: ["f", "u"], portrait: "scene-illustration:area:2:ecl:abd2:caller:a19f",
+      prompt: /YOUHAVENOKEYTOUNLOCKTHEPADLOCKS/i,
+    },
   }],
   ["kobold-cave-envoys-rematch", {
     slot: "A", inputs: ["up", "enter"],
@@ -6580,6 +6584,20 @@ try {
         assert.match(text(), /gatewaytotheunsettledareas/i);
         await waitForExplorationViewport();
         console.log("Verified the spirit's recall, castle departure, Phlan homecoming and WebGL return to play:", directory);
+      }
+      if (routeName === "textile-skullcrusher-chained") {
+        const lockedShot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "textile-skullcrusher-locked-padlocks.png"), Buffer.from(lockedShot.data, "base64"));
+        await switchBothWays(frame.frame);
+        await advance("j");
+        assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-prison-key-needed"));
+        assert.ok(!frame.journal?.leads.some(({ id }) => id === "textile-prisoner-freed"));
+        for (const key of ["j", "enter"]) await advance(key);
+        assert.equal(frame.portrait, portrait);
+        for (const key of ["l", "left"]) await advance(key);
+        assert.equal(frame.portrait, undefined);
+        await waitForExplorationViewport();
+        console.log("Verified the Textile padlocks and WebGL return:", directory);
       }
       if (routeName === "valjevo-disguise-offer") {
         const disguise = () => frame.journal?.leads.find(({ id }) => id === "castle-disguise");
