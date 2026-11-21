@@ -2300,6 +2300,29 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0", prompt: /ONELICKSITSLIPS/i,
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:57:0:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ["tyrmor-priest-chisel", {
+    slot: "B", priestParlay: true, inputs: [],
+    portrait: "scene-illustration:area:22:ecl:9991:caller:9def:cue:priest-chisel",
+    prompt: /IHAVECHISELEDALMOSTALLTHEWAYTHROUGHTOTHEOUTSIDE.*WILLYOUTRY/i,
+    finalPhaseCapture: "tyrmor-priest-chisel.png",
+    continuation: { inputs: ["n"], portrait: "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30",
+      prompt: /HESMILESATYOUANDRAISESHISHANDINBENEDICTION/i },
+  }],
+  ["tyrmor-priest-breakthrough", {
+    slot: "B", priestParlay: true, inputs: ["y"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:9e3a:cue:priest-breakthrough",
+    prompt: /YOUBREAKTHROUGH.THEPRIESTTEARFULLYTHANKSYOU/i,
+    finalPhaseCapture: "tyrmor-priest-breakthrough.png",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:22:ecl:9991:caller:9e83:cue:priest-exit-hole",
+      prompt: /THEREISAHOLEINTHEWALLTHATLEADSTOTHEOUTSIDE.*DOYOUGOTHROUGHIT/i },
+  }],
+  ["tyrmor-priest-exit-hole", {
+    slot: "B", priestParlay: true, inputs: ["y", "enter"],
+    portrait: "scene-illustration:area:22:ecl:9991:caller:9e83:cue:priest-exit-hole",
+    prompt: /THEREISAHOLEINTHEWALLTHATLEADSTOTHEOUTSIDE.*DOYOUGOTHROUGHIT/i,
+    finalPhaseCapture: "tyrmor-priest-exit-hole.png",
+    continuation: { inputs: ["n"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["tyrmor-priest-sighting", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:22:ecl:9a06:caller:9ce3:cue:human-priest", prompt: /YOUSEEAHUMANPRIEST/i,
@@ -8123,6 +8146,20 @@ try {
       assert.ok(frame.journal && !frame.journal.leads.some(({ id }) =>
         ["sokal-phlan-fall", "sokal-mendor", "sokal-departure"].includes(id)));
       await advance("j");
+    }
+    if (illustration.priestParlay) {
+      const dialogue = () => frame.text.map(([, char]) => String.fromCharCode(char)).join("");
+      const offer = /IHAVECHISELEDALMOSTALLTHEWAYTHROUGHTOTHEOUTSIDE/i;
+      await advance("up");
+      for (let step = 0; step < 32 && !offer.test(dialogue()); step++) {
+        const text = dialogue();
+        if (/PEACEBROTHER|YOUSEEAHUMANPRIEST/i.test(text)) await advance("enter");
+        else if (/HaughtySlyNiceMeekAbusive/i.test(text)) await advance("m");
+        else if (/CombatWaitFleeParlay/i.test(text)) await advance("p");
+        else if (/CombatWaitFleeAdvance/i.test(text)) await advance("a");
+        else assert.fail(`Unexpected Tyrmor priest parlay screen: ${text}`);
+      }
+      assert.match(dialogue(), offer);
     }
     if (illustration.verifyImageSwap) {
       for (const key of inputs.slice(0, -1)) await advance(key);
