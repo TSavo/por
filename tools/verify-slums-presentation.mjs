@@ -5362,9 +5362,25 @@ routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 routes.push("kuto-wide-manual-aim");
 routes.push("valhingen-zombie-roam-animation");
-const sokalCourtyardNote = routeName === "sokal-courtyard-note";
-const norrisEntry50 = routeName === "kuto-norris-entry-50";
-routes.push("sokal-courtyard-note", "kuto-norris-entry-50");
+const controlledBattleIllustrations = new Map([
+  ["sokal-courtyard-note", {
+    slot: "I", inputs: ["up", "right", "enter", "enter", "enter", "enter", "space"],
+    portrait: "scene-illustration:area:21:ecl:a720",
+    caption: /ONAHOBGOBLINBODY.*ENTRY57/i,
+  }],
+  ["kuto-norris-entry-50", {
+    slot: "J", inputs: ["up", "enter", "enter", "enter", "f", "enter", "enter"],
+    portrait: "scene-illustration:area:29:ecl:af2f:caller:9e54",
+    caption: /ONTHELEADER'SBODY.*YOUFINDACURIOUSMESSAGE.*ENTRY50/i,
+  }],
+  ["valhingen-paladin-crypt", {
+    slot: "A", inputs: ["up", "b", "s", "enter", "enter"],
+    portrait: "scene-illustration:area:10:ecl:b6c6:caller:a3c5",
+    caption: /INTHECRYPTLIESTHEFULLY-EQUIPPEDBODYOFAMIGHTYWARRIOR.*DOYOUSTRIPTHEBODY/i,
+  }],
+]);
+const controlledBattleIllustration = controlledBattleIllustrations.get(routeName);
+routes.push(...controlledBattleIllustrations.keys());
 const wideManualAim = routeName === "kuto-wide-manual-aim";
 const reflectedEffect = {
   "new-phlan-council-reflected-effects": {
@@ -5487,7 +5503,7 @@ const sokalDiaryReload = routeName === "sokal-floorboard-diary-reload";
 const diarySlot = sokalDiaryReload ? /^(?:SAVE\\)?SAVGAM([A-J])\.DAT$/.exec(
   JSON.parse(readFileSync(checkpoint, "utf8")).name)?.[1] : undefined;
 if (sokalDiaryReload) assert.ok(diarySlot, "The Sokal diary checkpoint must name a DOS save slot");
-const saveSlot = diarySlot ?? (sokalCourtyardNote ? "I" : norrisEntry50 || routeName === "kuto-well-waterline-reload" ? "J" :
+const saveSlot = diarySlot ?? controlledBattleIllustration?.slot ?? (routeName === "kuto-well-waterline-reload" ? "J" :
   alHyamReload || ["valjevo-records-reload", "kobold-escort-arrival-reload"].includes(routeName) ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn || traderReload ||
@@ -5546,7 +5562,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
     POR_TRACE_BATTLE_TILES: dragon || routeName === "lizardfolk-battle-wall" ? "1" : browserEnvironment.POR_TRACE_BATTLE_TILES,
     POR_BOOT_KEYS: freshRolf ? "31000000:1c0d,45000000:2e63" : "31000000:1c0d,45000000:266c,52000000:" + boot,
-    ...(sokalCourtyardNote || norrisEntry50 ? { POR_DEV_COMBAT: "1" } : {}),
+    ...(controlledBattleIllustration ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
@@ -7819,11 +7835,8 @@ try {
     await switchBothWays();
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified all five native roaming zombie portrait phases in Chrome:", directory);
-  } else if (sokalCourtyardNote || norrisEntry50) {
-    const note = norrisEntry50 ? "scene-illustration:area:29:ecl:af2f:caller:9e54" : "scene-illustration:area:21:ecl:a720";
-    const caption = norrisEntry50
-      ? /ONTHELEADER'SBODY.*YOUFINDACURIOUSMESSAGE.*ENTRY50/i
-      : /ONAHOBGOBLINBODY.*ENTRY57/i;
+  } else if (controlledBattleIllustration) {
+    const { inputs, portrait, caption } = controlledBattleIllustration;
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
     await run(`const sendCombatNoteKey = send; send = key => key === ":poll" ? undefined : sendCombatNoteKey(key);`);
     const step = async key => {
@@ -7831,34 +7844,30 @@ try {
         !animationFrame && renderingSequence !== state.sequence`));
       await advance(key);
     };
-    const battleInputs = norrisEntry50
-      ? ["up", "enter", "enter", "enter", "f", "enter", "enter"]
-      : ["up", "right", "enter", "enter", "enter", "enter", "space"];
-    for (const key of battleInputs) await step(key);
+    for (const key of inputs) await step(key);
     assert.equal(frame.developerVictoryAvailable, true);
     await step(":win-combat");
     for (let turn = 0; turn < 40 && !caption.test(text()); turn++) {
       const visible = text();
       if (/ContinueBattle:YesNo|StillTreasureLeft/i.test(visible)) await step("n");
-      else if (/ViewTakePoolShareExit/i.test(visible)) await step("e");
+      else if (/ViewTakePool(?:Share)?Exit/i.test(visible)) await step("e");
       else if (/GuardDelayQuitSpeedExit/i.test(visible)) await step("g");
       else if (/MoveViewAim/i.test(visible)) await step("d");
       else if (/Move\/Attack/i.test(visible)) await step("escape");
       else await step(/Hitpoints/i.test(visible) ? "space" : "enter");
     }
     assert.match(text(), caption);
-    assert.equal(frame.portrait, note);
-    await waitFor("the post-battle note illustration", () => run(`state.sequence === ${frame.sequence} &&
-      document.querySelector('.encounter-portrait[src="/art/${note}"]')?.naturalWidth === 352`));
+    assert.equal(frame.portrait, portrait);
+    await waitFor("the post-battle illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352`));
     await verifyPortraitPanel();
     const shot = await command("Page.captureScreenshot", { format: "png" });
-    const screenshot = norrisEntry50 ? "kuto-norris-entry-50.png" : "sokal-courtyard-note.png";
-    writeFileSync(resolve(directory, screenshot), Buffer.from(shot.data, "base64"));
+    writeFileSync(resolve(directory, `${routeName}.png`), Buffer.from(shot.data, "base64"));
     await switchBothWays();
-    if (norrisEntry50) {
+    if (routeName === "kuto-norris-entry-50") {
       await step("enter");
       assert.match(text(), /YOUHAVEDEFEATEDTHEDREADEDBANDITGANG/i);
-      assert.notEqual(frame.portrait, note);
+      assert.notEqual(frame.portrait, portrait);
       await step("enter");
       assert.match(text(), /YOUHAVEALSOTAKENPOSSESSIONOFAHIDEOUT.*RESTUNDISTURBED/i);
       const hideout = "scene-illustration:area:29:ecl:9f1a";
@@ -7874,12 +7883,21 @@ try {
       assert.notEqual(frame.portrait, hideout);
       assert.match(text(), /5,4N/i);
       await waitForExplorationViewport();
+    } else if (routeName === "valhingen-paladin-crypt") {
+      await step("n");
+      assert.equal(frame.portrait, undefined);
+      assert.match(text(), /AREACASTVIEWENCAMP/i);
+      await step("down");
+      await step("up");
+      assert.equal(frame.portrait, undefined);
+      assert.match(text(), /14,8W/i);
+      await waitForExplorationViewport();
     } else {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-courtyard-note"));
       await advance("j");
       await advance("up");
-      assert.notEqual(frame.portrait, note);
+      assert.notEqual(frame.portrait, portrait);
     }
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log(`Verified ${routeName} after a controlled victory in Chrome:`, directory);
