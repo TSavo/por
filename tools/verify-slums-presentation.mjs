@@ -3870,6 +3870,7 @@ routes.push("stojanow-wagon-handover-reload");
 routes.push("diogenes-upper-ledge-fireball-reload");
 routes.push("kuto-well-waterline-reload");
 routes.push("valhingen-crypt-scroll", "valhingen-crypt-scroll-reload");
+routes.push("kuto-bandit-cache-reload");
 routes.push("valjevo-al-hyam-release", "valjevo-al-hyam-release-reload");
 routes.push("valjevo-cadorna-alarm-reload");
 routes.push("valjevo-records-revisit");
@@ -6204,6 +6205,12 @@ try {
     assert.ok(frame.journal?.leads.some(({ id }) => id === "river-tyrmor-journal"));
     await switchBothWays();
     console.log("Verified Tyrmor's journal discovery after reloading slot B.");
+  } else if (routeName === "kuto-bandit-cache-reload") {
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "kuto-bandit-treasure"));
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the bandit cache discovery after reloading slot A in Chrome.");
   } else if (routeName === "valhingen-crypt-scroll-reload") {
     await advance("j");
     const known = new Set(frame.journal.leads.map(({ id }) => id));
@@ -6670,6 +6677,13 @@ try {
       assert.equal(frame.portrait, undefined);
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
         declineKutoCache ? /AREACASTVIEWENCAMP/i : /THEPARTYHASFOUNDTREASURE.*RECEIVES867EXPERIENCEPOINTS/i);
+      if (declineKutoCache) {
+        for (const key of ["e", "s", "s", "a"]) await advance(key);
+        const checkpoint = resolve(directory, "A.json");
+        const { leads } = JSON.parse(readFileSync(checkpoint, "utf8"));
+        assert.ok(leads.some(({ id }) => id === "kuto-bandit-treasure"));
+        console.log("Native save after leaving the bandit's treasure:", checkpoint);
+      }
     }
     if (routeName === "kuto-well-waterline") {
       assert.deepEqual(readFileSync(saved), originalSave);
