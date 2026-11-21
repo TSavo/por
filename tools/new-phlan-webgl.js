@@ -202,7 +202,7 @@ export async function createNewPhlanAtlas(materials, artUrl, highlight = false, 
   atlas.height = 1024;
   const context = atlas.getContext("2d");
   if (!context) throw new Error("Canvas is unavailable");
-  const overrides = new Map(materials.materialOverrides.map(source => [source.type, source]));
+  const overrides = new Map((materials.materialOverrides ?? []).map(source => [source.type, source]));
   const assets = [materials.ground, materials.sky];
   if (materials.water) assets.push(materials.water.art);
   if (materials.dockPiling) assets.push(materials.dockPiling.art);
@@ -252,11 +252,16 @@ export async function createNewPhlanAtlas(materials, artUrl, highlight = false, 
     context.restore();
   }
 
-  for (const {type,parts} of materials.wallFaces) {
+  for (const {type,parts,rows = 8} of materials.wallFaces) {
     const dx = type % 8 * 256, dy = Math.floor(type / 8) * 256;
     const override = overrides.get(type);
+    // Fill the atlas cell with only the extracted surface. Scaling the
+    // assembled face keeps its internal features aligned, including masks.
+    context.save();
+    context.translate(dx,dy);
+    context.scale(1,256 / Math.max(rows * 32, 1));
     for (const [index,part] of parts.entries()) {
-      const x = dx + index % 7 * 32, y = dy + Math.floor(index / 7) * 32;
+      const x = index % 7 * 32, y = Math.floor(index / 7) * 32;
       if (override) {
         const {art,crop} = override;
         if (highlight) paint(null,x,y,32,32);
@@ -280,6 +285,7 @@ export async function createNewPhlanAtlas(materials, artUrl, highlight = false, 
         });
       }
     }
+    context.restore();
   }
   paint(materials.ground,0,512,256,256);
   if (materials.water) paint(highlight ? null : materials.water.art,256,512,256,256,materials.water.crop);

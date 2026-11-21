@@ -5494,10 +5494,11 @@ try {
           assert.equal(frame.scenery.mapId, 10);
           const response = await fetch(`${origin}/exploration-materials/${frame.scenery.materialId}`);
           assert.ok(response.ok);
-          const { materialOverrides } = await response.json();
-          const wall = materialOverrides.find(({ type }) => type === 4);
-          assert.equal(wall?.art.key, "tile:10:a24fa37ba247373627bc3757d2e05f7a630cca2d6b3f0dd17e10b6c16e5d0ac0");
-          assert.deepEqual(wall.crop, [0, 0, 16, 32]);
+          const materials = await response.json();
+          assert.equal(materials.materialOverrides, undefined);
+          const wall = materials.wallFaces.find(({ type }) => type === 4);
+          assert.equal(wall?.rows, 7);
+          assert.equal(wall.parts.length, 49);
         }
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, `${routeName}-webgl.png`), Buffer.from(shot.data, "base64"));

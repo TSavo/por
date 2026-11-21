@@ -16,6 +16,7 @@ export function buildExplorationMaterials(native: NativeExploration & { area: nu
   }
 
   const slots = Buffer.from(native.frontSlots, "base64");
+  const black = Buffer.alloc(64).toString("hex");
   const partsBySymbol = new Map<number, { art: Material | null; status: string; mask?: number[] }>();
   for (const symbol of new Set(slots)) {
     const glyph = native.glyphs[symbol];
@@ -41,18 +42,28 @@ export function buildExplorationMaterials(native: NativeExploration & { area: nu
     const art = matches.find(candidate => !candidate.pixels) ?? texture(pixels, true);
     partsBySymbol.set(symbol, { art, mask, status: art.pixels ? "native" : "composited" });
   }
-  const wallFaces = Array.from({ length: 15 }, (_, type) => ({
-    type: type + 1,
-    parts: [...slots.subarray(type * 56, type * 56 + 56)].map(symbol => partsBySymbol.get(symbol)!),
-  }));
+  const wallFaces = Array.from({ length: 15 }, (_, type) => {
+    const symbols = [...slots.subarray(type * 56, type * 56 + 56)];
+    // WALLDEF stores an eight-row screen composition. A complete strip
+    // matching the backdrop belongs to the sky or ground, not the wall quad.
+    function backdropRow(row: number, color: number) {
+      const symbolsInRow = symbols.slice(row * 7, row * 7 + 7);
+      const backdrop = Buffer.alloc(64, color).toString("hex");
+      return symbolsInRow.length === 7 &&
+        symbolsInRow.every(symbol => symbol === 0 ||
+          native.glyphs[symbol] === backdrop || native.glyphs[symbol] === black);
+    }
+    let firstRow = 0;
+    let endRow = 8;
+    while (firstRow < endRow && backdropRow(firstRow, native.skyColor)) firstRow++;
+    while (endRow > firstRow && backdropRow(endRow - 1, native.groundColor)) endRow--;
+    return {
+      type: type + 1,
+      parts: symbols.slice(firstRow * 7, endRow * 7).map(symbol => partsBySymbol.get(symbol)!),
+      rows: endRow - firstRow,
+    };
+  });
   const ground = texture(Buffer.alloc(64, native.groundColor));
   const sky = texture(Buffer.alloc(64, native.skyColor));
-  const materialOverrides: { type: number; art: Material; crop: [number, number, number, number] }[] = [];
-  if (native.area === 10 && native.mapId === 10) {
-    // Valhingen's solid west wall uses several perspective-specific slate and path joins.
-    // Use the flat slate portion of the existing crypt tile across the WebGL face.
-    const key = "tile:10:a24fa37ba247373627bc3757d2e05f7a630cca2d6b3f0dd17e10b6c16e5d0ac0";
-    if (artwork.has(key)) materialOverrides.push({ type: 4, art: { key }, crop: [0, 0, 16, 32] });
-  }
-  return { wallFaces, ground, sky, materialOverrides };
+  return { wallFaces, ground, sky };
 }
