@@ -1298,6 +1298,31 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kovel-casket-c-gems.png",
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /6,7W/i },
   }],
+  ["kovel-casket-d-pearls", {
+    slot: "A", inputs: ["up", "enter", "s", "d", "enter", "enter", "b", "enter", "enter"],
+    portraitStops: {
+      1: "scene-illustration:area:14:ecl:a4e2",
+      3: "scene-illustration:area:14:ecl:a519",
+      4: "scene-illustration:area:14:ecl:a8df",
+      5: null, 6: null, 7: null, 8: null,
+    },
+    phaseCaptures: { 4: "kovel-casket-d-darts.png" },
+    portrait: "portrait:area:14:ecl:a862:PIC1.DAX:1:0:0",
+    prompt: /VIEW.*POOL.*SHARE/i,
+    idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:a862:PIC1.DAX:1:${phase}:0`),
+    finalPhaseCapture: "kovel-casket-d-pearls.png",
+    continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /6,7W/i },
+  }],
+  ["kovel-casket-d-darts", {
+    slot: "A", inputs: ["up", "enter", "s", "d"],
+    portrait: "scene-illustration:area:14:ecl:a8df",
+    prompt: /ASHOWEROFDARTSRAINSDOWNUPONTHEPARTY/i,
+    continuation: {
+      inputs: ["enter", "enter", "l"],
+      portrait: "scene-illustration:area:14:ecl:a4e2",
+      prompt: /FOURSMALLCASKETS.*WHATWILLYOUDO/i,
+    },
+  }],
   ["kovel-casket-jewelry", {
     slot: "A", inputs: ["up", "enter", "s", "b", "enter", "b", "enter", "enter"],
     portraitStops: { 4: "scene-illustration:area:14:ecl:a713", 5: null, 6: null, 7: null },
