@@ -267,6 +267,13 @@ replays selected each distance in the original draw routine and continued
 to the goblin lesson portrait. The ordinary encounter still uses its
 original near draw.
 
+The upper Valjevo giant snake has a far replacement for `SPRIT5.DAX`
+block 60, member 2. A controlled replay changed the initial draw distance
+from middle to far at ECL `ac22` and matched the native 32x57 sprite at
+(48,32). Chrome displayed the replacement over WebGL and continued to the
+existing near sprite and dialogue. The unchanged route uses middle and
+near distances.
+
 The swamp giant lizard has separate middle and far sprites from
 `SPRIT8.DAX` block 59, members 1 and 2. Controlled Chrome replays drew
 the 192×260 and 160×228 sprites at (48,32) and continued to the enhanced
