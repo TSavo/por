@@ -1827,6 +1827,27 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-exit-passage.png",
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /YOUHAVEFOUNDAPASSAGEWHICHLEADSOUTSIDE/i },
   }],
+  ["buccaneer-slaver-caravan", {
+    slot: "A", inputs: ["down"],
+    portrait: "scene-illustration:area:25:ecl:adce:cue:buccaneer-slaver-caravan",
+    prompt: /ASMALLCARAVANOFSLAVERSRIDEBYYOUTOWARDTHEBUCCANEERBASE/i,
+    finalPhaseCapture: "buccaneer-slaver-caravan.png",
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /CASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["western-mounted-guards", {
+    slot: "A", inputs: ["down"],
+    portrait: "scene-illustration:area:25:ecl:adce:cue:western-mounted-guards",
+    prompt: /AGROUPOFARMEDGUARDSRIDEBY/i,
+    finalPhaseCapture: "western-mounted-guards.png",
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /CASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["western-ankheg-eruption", {
+    slot: "A", inputs: ["down", "up"],
+    portrait: "scene-illustration:area:25:ecl:9d1a:cue:western-ankheg-eruption",
+    prompt: /TWOANHKHEGSERUPTFROMTHEGROUNDBENEATHYOU/i,
+    finalPhaseCapture: "western-ankheg-eruption.png",
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
+  }],
   ["wild-cave-shed-skin", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:25:ecl:a857:cue:shed-snake-skin",
