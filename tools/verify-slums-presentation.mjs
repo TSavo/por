@@ -1865,6 +1865,14 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 1: "textile-ritual-room.png" }, finalPhaseCapture: "textile-crude-temple.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YOUAREINALARGEROOMWHICHSERVESASACRUDETEMPLE/i },
   }],
+  ["textile-drum-alarm", {
+    slot: "B", inputs: ["up", "enter"],
+    portraitStops: { 0: null, 1: null },
+    portrait: "scene-illustration:area:2:ecl:abd2:caller:9c8b",
+    prompt: /YOUAREENTERINGAWEEDY,GARBAGESTREWNCOURTYARD.*ADRUMBEGINSTOBEATANDHOBGOBLINSATTACK/i,
+    finalPhaseCapture: "textile-drum-alarm.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ABATTLEBEGINS/i },
+  }],
   ["textile-skullcrusher-wall-mark", {
     slot: "J", inputs: ["left", "up", "right", "up", "up", "up", "up", "left", "up"],
     portraitStops: { 7: null, 8: null },
@@ -9016,6 +9024,14 @@ try {
       if (routeName === "textile-crude-temple") {
         assert.deepEqual(frame.encounter, [48, 32, "encounter:area:2:ecl:a66a:SPRIT4.DAX:6:0:0", 48, 80]);
         await waitForExplorationViewport();
+      }
+      if (routeName === "textile-drum-alarm") {
+        assert.deepEqual(frame.encounter, [48, 32, "encounter:area:2:ecl:9c9b:SPRIT4.DAX:6:0:0", 48, 80]);
+        await waitForExplorationViewport();
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        assert.equal(frame.encounter, undefined);
+        assert.ok(frame.combatArt?.some(([, , id]) => id === "combat:area:2:CPIC2.DAX:7:ecl:9c9b"));
       }
       if (routeName === "wild-grove-western-stench") {
         assert.ok(!frame.classicPortrait);
