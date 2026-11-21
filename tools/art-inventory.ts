@@ -764,7 +764,7 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\
       return (pictures ?? []).flatMap((picture, member) => {
         frames += picture.frames;
         return Array.from({ length: picture.frames }, (_, frame) => ({
-          id: `${file}:${directoryIndex}:${member}:${frame}`,
+          id: `${file}:${id}:${member}:${frame}`,
           block: id, directoryIndex, member, frame,
           width: picture.width * artScale, height: picture.height * artScale, preview: picture.preview,
         })).filter(({ frame }) => !linked.has(`${member}:${frame}`));
@@ -839,7 +839,7 @@ const unlinkedScriptPictures = scriptReferences.flatMap(reference => {
   const unlinked = encounterCoverage.find(({ file }) => file === archive)?.unlinkedFrames
     .filter(({ block }) => block === reference.pictureId) ?? [];
   const frames = unlinked.filter(({ uniform }) => !uniform).map(({ id, preview, member, frame }) => ({
-    id, preview, member, frame, sourceId: `${archive}:${reference.pictureId}:${member}:${frame}`,
+    id, preview, member, frame, sourceId: id,
   }));
   if (!frames.length) return [];
   const pictures = archives.find(({ file }) => file === archive)?.entries.find(({ id }) => id === reference.pictureId)?.pictures ?? [];

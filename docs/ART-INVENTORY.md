@@ -89,6 +89,8 @@ even when several areas have their own replacement. The table inventories
 archive contents. The live routes establish which frames are drawn.
 **Exact portrait and combat matches** lists original frames whose pixels
 already resolve to global enhanced artwork through the browser's matchers.
+Source IDs use the DAX block number, member, and frame. The JSON keeps the
+archive directory index separately for decoding the preview.
 The inventory at `5d4a5617` reports 833 source frames, including 26
 `COMSPR.DAX` frames, with 465 linked directly, 22 covered through exact
 pixel matches, and 346 unlinked. The unlinked entries include 11
