@@ -6572,13 +6572,23 @@ try {
         await advance("j");
         assert.equal(disguise()?.castleDisguiseActive, false);
         for (const key of ["j", declineValjevoDisguise ? "n" : "y"]) await advance(key);
-        assert.equal(frame.portrait, undefined);
+        const outcome = declineValjevoDisguise ? "fitted" : "farewell";
+        const laundryOutcome = `scene-illustration:area:6:ecl:9e8d:cue:laundry-${outcome}`;
+        assert.equal(frame.portrait, laundryOutcome);
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
           declineValjevoDisguise ? /THEYHELPYOUPUTONTHECLOTHES/i : /BESTYOULEAVEBEFOREYOUAREFOUNDHERE/i);
+        await waitFor("the laundry disguise outcome artwork", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${laundryOutcome}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        const laundryShot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `valjevo-laundry-${outcome}.png`), Buffer.from(laundryShot.data, "base64"));
+        await switchBothWays(frame.frame);
         await advance("j");
         assert.equal(disguise()?.castleDisguiseActive, !declineValjevoDisguise);
         for (const key of ["j", "l"]) await advance(key);
         assert.equal(frame.portrait, undefined);
+        await waitForExplorationViewport();
+        console.log("Verified the Valjevo laundry outcome and return to WebGL:", directory);
       }
       if (routeName === "podal-auction-garwin-escaped") {
         await advance("left");
