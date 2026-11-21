@@ -7351,6 +7351,20 @@ try {
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
     }
+    if (routeName === "valhingen-zombie-stairs") {
+      const phases = new Set([1, 2, 3, 4]);
+      for (let i = 0; i < 48 && phases.size; i++) {
+        await advance("z");
+        const phase = Number(/^portrait:area:10:ecl:b695:caller:9f7a:PIC4\.DAX:35:([1-4]):0$/.exec(frame.portrait)?.[1]);
+        if (!phases.delete(phase)) continue;
+        await waitFor(`the staircase zombie phase ${phase}`, () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${frame.portrait}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `valhingen-zombie-stairs-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
+      }
+      assert.deepEqual([...phases], []);
+    }
     if (illustration.finalPhaseCapture) {
       const phaseShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, illustration.finalPhaseCapture), Buffer.from(phaseShot.data, "base64"));
