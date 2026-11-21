@@ -599,6 +599,13 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["bane-dining-room-jewelry", {
+    slot: "A", inputs: ["s", "up", "enter"],
+    portraitStops: { 2: "scene-illustration:area:31:ecl:9d02" },
+    portrait: "scene-illustration:area:31:ecl:9d13",
+    prompt: /JEWELRYONIT;WILLYOUTAKEIT/i,
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["bane-hidden-trapdoor", {
     slot: "A", inputs: ["right", "up", "right", "s", "up"],
     portrait: "scene-illustration:area:24:ecl:a8af:caller:a847",
@@ -6675,6 +6682,10 @@ try {
     await verifyPortraitPanel();
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
+    if (routeName === "bane-dining-room-jewelry") {
+      const jewelryShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-dining-room-jewelry.png"), Buffer.from(jewelryShot.data, "base64"));
     }
     if (routeName === "bane-hidden-trapdoor") {
       assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
