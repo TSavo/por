@@ -368,8 +368,18 @@ const encounterRoutes = new Map([
   }],
   ["wild-cave-thri-kreen-approach", {
     slot: "A", inputs: ["up", "enter"],
+    placement: [56, 32, "encounter:area:25:ecl:aa36:SPRIT6.DAX:118:0:0", 32, 73],
+    dialogue: { key: "enter", portrait: "portrait:area:25:ecl:aaa4:PIC6.DAX:118:0:0", prompt: /FOURTHRI.KREENWARRIORS.*ACHESTWITHTREASURE/i },
+  }],
+  ["wild-cave-thri-kreen-two-guards", {
+    slot: "A", inputs: ["up", "enter"],
     placement: [56, 32, "encounter:area:25:SPRIT6.DAX:118:0:0", 32, 73],
-    dialogue: { key: "enter", portrait: "portrait:area:25:PIC6.DAX:118:0:0", prompt: /FOURTHRI.KREENWARRIORS/i },
+    dialogue: { key: "enter", portrait: "portrait:area:25:PIC6.DAX:118:0:0", prompt: /THEREARETWOTHRI.KREENHERE/i },
+  }],
+  ["wild-cave-thri-kreen-three-warriors", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [56, 32, "encounter:area:25:SPRIT6.DAX:118:0:0", 32, 73],
+    dialogue: { key: "enter", portrait: "portrait:area:25:PIC6.DAX:118:0:0", prompt: /BEFOREYOUARETHREETHRI.KREENWARRIORS/i },
   }],
   ["wild-cave-boar-approach", {
     slot: "A", inputs: ["up", "enter"],
@@ -1191,7 +1201,9 @@ const illustrationRoutes = new Map([
   }],
   ["wild-cave-thri-kreen-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
-    portrait: "portrait:area:25:PIC6.DAX:118:0:0", prompt: /FOURTHRI.KREENWARRIORS/i,
+    approachStops: { 2: [56, 32, "encounter:area:25:ecl:aa36:SPRIT6.DAX:118:0:0", 32, 73] },
+    portrait: "portrait:area:25:ecl:aaa4:PIC6.DAX:118:0:0", prompt: /FOURTHRI.KREENWARRIORS.*ACHESTWITHTREASURE/i,
+    continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i, portrait: "portrait:area:25:ecl:aab8:PIC6.DAX:118:0:0" },
   }],
   ["wild-cave-gnoll-dialogue", {
     slot: "B", inputs: ["up", "enter", "enter"],
