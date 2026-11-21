@@ -2041,6 +2041,7 @@ const illustrationRoutes = new Map([
     prompt: /AMEDUSACOMESRUNNINGTOWARDYOU/i,
     phaseCaptures: { 6: "valjevo-medusa-phase-1.png", 7: "valjevo-medusa-phase-2.png", 8: "valjevo-medusa-phase-3.png", 10: "valjevo-medusa-phase-4.png" },
     finalPhaseCapture: "valjevo-medusa-phase-7.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:7:ecl:9e3e:PIC5.DAX:49:7:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-prison-stirge-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "down"]).flat(), "up", "enter", "down", "q", "q", "q"],
