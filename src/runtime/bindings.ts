@@ -140,6 +140,36 @@ export const far = resolve({
   sound: { "1.0": [0x27f, 0x0], "1.3": [0x8ae, 0xdc] },
 });
 
+/**
+ * Script positions.
+ *
+ * Artwork, narration and the journal are keyed by positions in the game's ECL scripts, as the
+ * first release numbers them. One script differs in version 1.3: New Phlan (ECL3.DAX block 0)
+ * ends its tavern brawl with `GOTO a609` where the first release has `EXIT` at a692. The
+ * instruction is three bytes longer, so every later instruction of that script sits three
+ * bytes further on, and nothing else changed. (The other difference in that script, the
+ * number of tavern tales at a429, changes an operand and no position.)
+ *
+ * The host converts a position it reads from the running game to the first release's
+ * numbering once, where it reads it. Everything keyed by script position then works unchanged.
+ */
+const movedScripts: PerVersion<{ archive: number; block: number; from: number; by: number }[]> = {
+  "1.0": [],
+  "1.3": [{ archive: 3, block: 0, from: 0xa693, by: 3 }],
+};
+
+/** The first release's number for a script position read from the running build. */
+export function authoredScriptAddress(archive: number, block: number, address: number, build: GameVersion = version): number {
+  const moved = movedScripts[build].find((entry) => entry.archive === archive && entry.block === block);
+  return moved && address >= moved.from + moved.by ? address - moved.by : address;
+}
+
+/** Where the running build keeps a script position given in the first release's numbering. */
+export function runningScriptAddress(archive: number, block: number, address: number, build: GameVersion = version): number {
+  const moved = movedScripts[build].find((entry) => entry.archive === archive && entry.block === block);
+  return moved && address >= moved.from ? address + moved.by : address;
+}
+
 /** What the game itself does, where the builds differ in behaviour. */
 export const behaviour = resolve({
   /**

@@ -2,6 +2,8 @@ import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { parseDax } from "../src/lib/dax.js";
 import { translationCoverage } from "./translation-coverage.js";
+import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
+import { runningScriptAddress } from "../src/runtime/bindings.js";
 import { findGameRoot } from "./gamedata.js";
 
 // The move to version 1.3, measured.
@@ -49,34 +51,28 @@ const script = (root: string, archive: string, block: number) => {
   return scripts.get(key)!;
 };
 /**
- * Where a script changed length in 1.3, the first position that moved. Addresses inside
- * instructions shift by the length difference, so the walk allows a word to differ by exactly that.
+ * A script position works on 1.3 when the host's position mapping (src/runtime/bindings.ts) lands
+ * it on the same instruction in 1.3's script. A position in a script that did not change maps to
+ * itself and passes the same test. With the mapping switched off, 60 artwork keys and 27
+ * narration units fail it.
  */
-const editPoints = new Map<string, number | undefined>();
-function editPoint(archive: string, block: number): number | undefined {
-  const key = `${archive}:${block}`;
-  if (!editPoints.has(key)) {
-    const ours = script(current, archive, block), theirs = script(target, archive, block);
-    let point: number | undefined;
-    if (ours.length !== theirs.length || ours.some((byte, i) => byte !== theirs[i])) {
-      const moved = theirs.length - ours.length;
-      let at = 0;
-      while (at < ours.length) {
-        if (ours[at] === theirs[at]) { at++; continue; }
-        const before = ours[at]! | (ours[at + 1]! << 8), after = theirs[at]! | (theirs[at + 1]! << 8);
-        if (moved !== 0 && after - before === moved) { at += 2; continue; }
-        break;
-      }
-      point = 0x9900 + at;
-    }
-    editPoints.set(key, point);
+const walked = new Map<string, Map<number, { opcode: number }>>();
+function instructions(root: string, archive: string, block: number) {
+  const key = `${root}:${archive}:${block}`;
+  if (!walked.has(key)) {
+    const data = script(root, archive, block);
+    walked.set(key, new Map(data.length < 2 ? [] : disassemble(scriptFromBlock(data)).instructions
+      .map(({ address, opcode }) => [address, { opcode }])));
   }
-  return editPoints.get(key);
+  return walked.get(key)!;
 }
-/** A script position carries over unchanged when it comes before any edit in its script. */
 function carries(archive: string, block: number, address: number): boolean {
-  const point = editPoint(archive, block);
-  return point === undefined || address < point;
+  const there = runningScriptAddress(Number(/\d+/.exec(archive)?.[0]), block, address, "1.3");
+  const ours = instructions(current, archive, block).get(address), theirs = instructions(target, archive, block).get(there);
+  if (ours || theirs) return ours?.opcode === theirs?.opcode;
+  // Not an instruction the linear walk reaches: compare the bytes. A block starts with a two-byte length.
+  const before = script(current, archive, block), after = script(target, archive, block);
+  return before[address - 0x9900 + 2] === after[there - 0x9900 + 2];
 }
 
 let artKeys = 0, artCarried = 0, artScript = 0;
@@ -95,7 +91,7 @@ for (const manifest of ["upgrades/manifest.json", "upgrades/slums/manifest.json"
   }
 }
 rows.push(["Artwork keys that work on 1.3", artCarried, artKeys,
-  `${artScript} are keyed by script position; ${artMoved.length} sit after the New Phlan edit and must move`]);
+  `${artScript} are keyed by script position; ${artMoved.length} do not land on the same instruction in 1.3`]);
 
 const narration = JSON.parse(readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url), "utf8")) as {
   events: { sourceId: string; source: { archive: string; block: number; address: string } }[];
@@ -106,7 +102,7 @@ const eventCarries = new Map(narration.events.map(({ sourceId, source }) =>
 const unitsCarried = narration.units.filter(unit =>
   [unit.triggerSourceId, ...unit.coveredSourceIds].every(id => eventCarries.get(id) !== false)).length;
 rows.push(["Narration units that work on 1.3", unitsCarried, narration.units.length,
-  `${[...eventCarries.values()].filter(Boolean).length} of ${narration.events.length} source events are unchanged`]);
+  `${[...eventCarries.values()].filter(Boolean).length} of ${narration.events.length} source events land on the same instruction in 1.3`]);
 
 // The original sound driver and its data are part of START.EXE and differ in 1.3. Each of the 20 events
 // has to be decoded from the 1.3 program, rendered, and checked against the original bytes again.
@@ -143,5 +139,5 @@ for (const [part, done, total, note] of rows) {
   console.log(`${part.padEnd(42)} ${String(done).padStart(6)} ${String(total).padStart(6)} ${String(total - done).padStart(6)}   ${note}`);
 }
 console.log(`\n${left} left before the port runs version 1.3 with all authored work intact`);
-if (process.argv.includes("--list")) console.log(`\nArtwork keys to move:\n  ${artMoved.join("\n  ")}`);
+if (process.argv.includes("--list")) console.log(`\nArtwork keys that do not work on 1.3:\n  ${artMoved.join("\n  ")}`);
 if (left) process.exit(1);

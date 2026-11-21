@@ -1,6 +1,6 @@
 import type { Cpu } from "../cpu/machine.js";
 import type { NarrationTrigger, RuntimeNarrationManifest } from "./narration.js";
-import { data } from "./bindings.js";
+import { authoredScriptAddress, data, runningScriptAddress } from "./bindings.js";
 
 interface SourcePart { operandIndex: number; kind: string; rawText?: string; address?: string }
 interface SourceEvent {
@@ -66,7 +66,9 @@ export class EclNarrationObserver {
     this.pendingMenu = undefined;
     this.pendingDynamicMenu = undefined;
     const addressNumber = cpu.read16(cpu.ds, data.eclCursor);
-    const address = `0x${addressNumber.toString(16).padStart(4, "0")}`;
+    // Narration is keyed by script positions in the first release's numbering.
+    const archiveNumber = cpu.read8(cpu.ds, data.eclArchive);
+    const address = `0x${authoredScriptAddress(archiveNumber, block, addressNumber).toString(16).padStart(4, "0")}`;
     const event = this.eventsByLocation.get(`${archive}:${block}:${address}`);
     if (!event) return undefined;
     const expectedOpcode = opcodeForInstruction[event.source.instruction];
@@ -224,6 +226,10 @@ export class EclNarrationObserver {
       : undefined;
     if (!region) return { segment: cpu.ds, offset: address, stride: 1 };
     const [pointer, bias, stride] = region;
+    // A manifest address inside the script itself is in the first release's numbering.
+    if (pointer === data.eclCode) {
+      address = runningScriptAddress(cpu.read8(cpu.ds, data.eclArchive), cpu.read8(cpu.ds, data.eclBlock), address);
+    }
     return {
       segment: cpu.read16(cpu.ds, pointer + 2),
       offset: (cpu.read16(cpu.ds, pointer) + bias + address * stride) & 0xffff,
