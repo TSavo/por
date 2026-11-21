@@ -2404,6 +2404,13 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-elven-remains.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-barracks-map", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:13:ecl:a720:cue:barracks-map",
+    prompt: /ONONEWALLISACRUDEMAP.YOURECORDITINYOURJOURNALUNDERENTRY28/i,
+    finalPhaseCapture: "kobold-cave-barracks-map.png",
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["kobold-cave-steep-slope", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:13:ecl:a9ce:cue:steep-slope",
