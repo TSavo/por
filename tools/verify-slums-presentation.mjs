@@ -941,6 +941,7 @@ const illustrationRoutes = new Map([
       4: null,
       5: "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
       ...Object.fromEntries(Array.from({ length: 6 }, (_, vote) =>
+      6: "portrait:area:7:ecl:995f:caller:a718:PIC5.DAX:66:0:0",
         [vote + 7, "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"])),
     },
     portrait: "portrait:area:7:ecl:a803:PIC5.DAX:66:0:0",
@@ -6424,6 +6425,19 @@ try {
           }
         }
         if (routeName === "diogenes-upper-ledge-fireball" && interimPortrait) {
+        if (routeName === "tyranthraxus-battle-opening" &&
+            interimPortrait === "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0") {
+          assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
+            /howdoyouvote\?.*attackjointyranthraxus/i);
+          if (index === 7) {
+            const votePlate = await fetch(origin + "/art/" + interimPortrait);
+            assert.ok(votePlate.ok);
+            assert.deepEqual(Buffer.from(await votePlate.arrayBuffer()), readFileSync("upgrades/valjevo-tyranthraxus-party-vote.png"));
+            await switchBothWays(frame.frame);
+            const voteShot = await command("Page.captureScreenshot", { format: "png" });
+            writeFileSync(resolve(directory, "valjevo-tyranthraxus-party-vote.png"), Buffer.from(voteShot.data, "base64"));
+          }
+        }
           await advance("j");
           assert.ok(frame.journal);
           assert.ok(!frame.journal.leads.some(({ id }) => id === "diogenes-fireball"));
