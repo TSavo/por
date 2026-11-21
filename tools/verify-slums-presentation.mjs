@@ -575,13 +575,15 @@ const encounterRoutes = new Map([
   }],
   ["kobold-cave-wyvern-approach", {
     slot: "A", inputs: ["up", "enter"],
-    placement: [24, 32, "encounter:area:13:SPRIT8.DAX:121:0:0", 88, 80],
+    placement: [24, 32, "encounter:area:13:ecl:aacf:SPRIT8.DAX:121:0:0", 88, 80],
+    requireWebGL: true,
     terrain: { area: 13, views: 3, patterns: 12 },
     approachSequence: [
-      [56, 32, "encounter:area:13:SPRIT8.DAX:121:2:0", 32, 49],
-      [40, 32, "encounter:area:13:SPRIT8.DAX:121:1:0", 56, 65],
-      [24, 32, "encounter:area:13:SPRIT8.DAX:121:0:0", 88, 80],
+      [56, 32, "encounter:area:13:ecl:aaa0:SPRIT8.DAX:121:2:0", 32, 49],
+      [40, 32, "encounter:area:13:ecl:aacd:SPRIT8.DAX:121:1:0", 56, 65],
+      [24, 32, "encounter:area:13:ecl:aacf:SPRIT8.DAX:121:0:0", 88, 80],
     ],
+    dialogue: { key: "enter", portrait: "portrait:PIC8.DAX:121:0:0", prompt: /BEFOREYOULIESAHUGEWYVERN.*ITRISESUPANDCHARGES/i },
   }],
   ["valjevo-troll-approach", {
     slot: "B", inputs: ["up", "b"],
