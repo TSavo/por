@@ -211,14 +211,16 @@ export async function createNewPhlanAtlas(materials, artUrl, highlight = false, 
   atlas.height = 1024;
   const context = atlas.getContext("2d");
   if (!context) throw new Error("Canvas is unavailable");
-  const overrides = new Map((materials.materialOverrides ?? []).map(source => [source.type, source]));
+  const wall = document.createElement("canvas");
+  wall.width = 224;
+  wall.height = 256;
+  const wallContext = wall.getContext("2d");
+  if (!wallContext) throw new Error("Wall composition is unavailable");
   const assets = [materials.ground, materials.sky];
   if (materials.water) assets.push(materials.water.art);
   if (materials.dockPiling) assets.push(materials.dockPiling.art);
-  for (const {type, parts} of materials.wallFaces) {
-    const override = overrides.get(type);
-    if (override) assets.push(override.art);
-    else for (const {art, crop} of parts) {
+  for (const {parts} of materials.wallFaces) {
+    for (const {art, crop} of parts) {
       if (crop) assets.push(...crop.parts);
       else if (art) assets.push(art);
     }
@@ -253,6 +255,7 @@ export async function createNewPhlanAtlas(materials, artUrl, highlight = false, 
       return;
     }
     context.save();
+    if (art.pixels) context.imageSmoothingEnabled = false;
     context.translate(x + (art.reflected ? width : 0),y);
     context.scale(art.reflected ? -1 : 1,1);
     const image = images.get(art.key);
@@ -263,22 +266,11 @@ export async function createNewPhlanAtlas(materials, artUrl, highlight = false, 
 
   for (const {type,parts,rows = 8} of materials.wallFaces) {
     const dx = type % 8 * 256, dy = Math.floor(type / 8) * 256;
-    const override = overrides.get(type);
-    // Fill the atlas cell with only the extracted surface. Scaling the
-    // assembled face keeps its internal features aligned, including masks.
     context.save();
     context.translate(dx,dy);
-    context.scale(1,256 / Math.max(rows * 32, 1));
     for (const [index,part] of parts.entries()) {
       const x = index % 7 * 32, y = Math.floor(index / 7) * 32;
-      if (override) {
-        const {art,crop} = override;
-        if (highlight) paint(null,x,y,32,32);
-        else if (crop) {
-          paint(art,x,y,16,32,crop);
-          paint(art,x+16,y,16,32,crop);
-        } else paint(art,x,y,32,32);
-      } else if (part.status !== "transparent") {
+      if (part.status !== "transparent") {
         if (part.crop) {
           context.save();
           context.beginPath();
@@ -295,6 +287,15 @@ export async function createNewPhlanAtlas(materials, artUrl, highlight = false, 
       }
     }
     context.restore();
+    if (rows > 0 && rows < 8) {
+      // Compose art and cutouts on whole pixels before resampling the face.
+      // Filtering across the joins treats adjacent tiles as one surface.
+      const height = rows * 32;
+      wallContext.clearRect(0,0,wall.width,wall.height);
+      wallContext.drawImage(atlas,dx,dy,wall.width,height,0,0,wall.width,height);
+      context.clearRect(dx,dy,wall.width,wall.height);
+      context.drawImage(wall,0,0,wall.width,height,dx,dy,wall.width,wall.height);
+    }
   }
   paint(materials.ground,0,512,256,256);
   if (materials.water) paint(highlight ? null : materials.water.art,256,512,256,256,materials.water.crop);

@@ -36,8 +36,8 @@ const traceSources: NewPhlanTrace[] = [
   }),
 ];
 const materials = buildNewPhlanMaterials(root, enhancedTiles, traceSources);
-const {walls, wallFaces, ground, sky, materialOverrides, water, dockPiling} = materials;
-const sources = {walls:wallFaces, ground, sky, materialOverrides, water, dockPiling, dockDeck:ground,
+const {walls, wallFaces, ground, sky, water, dockPiling} = materials;
+const sources = {walls:wallFaces, ground, sky, water, dockPiling, dockDeck:ground,
   gateRecess:{masonryWallType:2, depth:.405},
   referenceCameras:referenceFiles.map(({name,pose,tiles})=>({name,pose,tiles:tiles.map(({x,y,file})=>({x,y,file}))}))};
 writeFileSync("out/new-phlan-3d-texture-sources.json",JSON.stringify(sources,null,2));

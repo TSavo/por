@@ -185,21 +185,8 @@ export function buildNewPhlanMaterials(root: string, enhancedTiles: ReadonlyMap<
     water:{art:textureByFingerprint("c838dbbfe585"),crop:[0,0,32,32]},
     dockPiling:{art:textureByFingerprint("0d4b58782f4c"),crop:[8,4,12,28]},
   };
-  // The native façade slots also include angled rails, trim and ground.
-  // Use the verified flat masonry swatch from each affected wall definition.
-  const masonryPatterns = new Map([
-    [6, "f64a590f4187"], [7, "f64a590f4187"], [8, "f64a590f4187"],
-    [9, "f64a590f4187"], [10, "f64a590f4187"], [11, "ca1a1292cdd4"],
-  ]);
-  const materialOverrides = [...masonryPatterns].map(([type, suffix]) => {
-    const source = faces[type-1].find(part =>
-      part.status === "exact" && part.art?.key.startsWith(`tile:0:${suffix}`));
-    if (!source?.art) throw new Error(`Missing verified masonry for wall type ${type}`);
-    return {type, slot:source.slot, symbol:source.symbol, art:source.art,
-      crop:type === 11 ? [16,0,16,32] : null};
-  });
   const wallFaces = faces.map((parts, i) => ({ type: i+1, parts: parts.map(({pixels,...part})=>part) }));
   const unresolved = wallFaces.flatMap(wall=>wall.parts).filter(part=>part.status==="unresolved").length;
   if (unresolved) throw new Error(`Could not resolve ${unresolved} New Phlan wall slots`);
-  return { walls, wallFaces, ground:groundArt, sky:skyArt, ...harborMaterials, materialOverrides };
+  return { walls, wallFaces, ground:groundArt, sky:skyArt, ...harborMaterials };
 }
