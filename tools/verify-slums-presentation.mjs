@@ -7504,26 +7504,24 @@ try {
     for (const key of ["j", "p", forgeAuthorization ? "h" : "n"]) await advance(key);
     const dialogue = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
     assert.match(dialogue, forgeAuthorization ? /IFIT'SIMPORTANTGETAUTHORIZATION/i : /YOUNEVERGETTOTALLYUSEDTOTHEHEAT/i);
-    const authorization = "scene-illustration:area:6:ecl:9c44";
-    assert.equal(frame.portrait, forgeAuthorization ? authorization : undefined);
-    if (forgeAuthorization) {
-      await waitFor("the smith's forge authorization illustration", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${authorization}"]')?.naturalWidth === 352 &&
-        document.querySelector('.encounter-portrait[src="/art/${authorization}"]')?.naturalHeight === 352`));
-      await verifyPortraitPanel();
-      const authorizationShot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, "valjevo-forge-authorization.png"), Buffer.from(authorizationShot.data, "base64"));
-      await switchBothWays(frame.frame);
-    }
+    const illustratedReply = forgeAuthorization ? "scene-illustration:area:6:ecl:9c44"
+      : "scene-illustration:area:6:ecl:9c44:cue:forge-heat";
+    assert.equal(frame.portrait, illustratedReply);
+    await waitFor("the enhanced forge reply", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${illustratedReply}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait[src="/art/${illustratedReply}"]')?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const replyShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, forgeAuthorization ? "valjevo-forge-authorization.png" : "valjevo-forge-heat.png"),
+      Buffer.from(replyShot.data, "base64"));
     await advance("j");
     assert.equal(knows("castle-forge-authorization"), forgeAuthorization);
     await advance("j");
-    if (forgeAuthorization) {
-      await advance("up");
-      assert.equal(frame.portrait, forgeWorkshop);
-      await waitFor("the forge workshop to return after the authorization", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${forgeWorkshop}"]')?.naturalWidth === 352`));
-    }
+    await advance("up");
+    assert.equal(frame.portrait, forgeWorkshop);
+    await waitFor("the forge workshop to return after the reply", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${forgeWorkshop}"]')?.naturalWidth === 352`));
     assert.deepEqual(readFileSync(saved), originalSave);
     if (forgeAuthorization) {
       const visible = () => frame.text.toSorted(([a], [b]) => a - b)
