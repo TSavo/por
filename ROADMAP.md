@@ -17,7 +17,7 @@ its check or source.
 | System | State | Check |
 | --- | --- | --- |
 | Translation | All 831 procedure prologues in `START.EXE` and `GAME.OVR` have a translated procedure, and `src/translated` matches the generator. The coverage table counts 988 translated procedures, which adds the routines reached only by a direct call. | `npm run verify`, `npm run verify:translation-reproducible` |
-| Campaign | Character creation through the final council reward replays in Chrome from an empty save directory. Three battles use the developer victory command. | `npm run verify:campaign -- <chrome-executable> --full` |
+| Campaign | Character creation through the final council reward replays in Chrome from an empty save directory, on the regenerated translation. Three battles use the developer victory command. | `npm run verify:campaign -- <chrome-executable> --full` |
 | Journal | 20 commission definitions match the original ECL dialogue, and 16 progress flags are checked through the translated setter. Leads and the tracked quest save with each slot. | `npm run verify` |
 | Atlas and travel | 19 illustrated plates load. The Moonsea plate works as the overland travel map. | `npm run verify`, [Map concepts](docs/MAP-CONCEPTS.md) |
 | Enhanced exploration | WebGL exploration reads the camera and walls from the active game map. | [New Phlan 3D prototype](docs/NEW-PHLAN-3D-PROTOTYPE.md) |
@@ -120,9 +120,6 @@ which start from controlled saves. [Audio](docs/AUDIO.md) and the
   `dec dx` because the emulated BIOS tick is too fast for Crt's delay
   calibration. Recalibrate the tick, restore the flags, and record the
   input tapes again. [Coverage](docs/COVERAGE.md) has the detail.
-- Finish the full Chrome campaign replay on the regenerated translation.
-  It now preserves carry across 81 memory `DEC` instructions and adds 19
-  library procedures. The campaign opening passes on it.
 - The sound driver's timer interrupt handler is decoded by hand in
   `src/audio/original-driver.ts` and has no translation. Neither do the
   library routines that have no prologue and no direct caller.
