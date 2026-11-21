@@ -403,11 +403,20 @@ const encounterRoutes = new Map([
       keys: ["enter"], portrait: "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
       prompt: /WILDBOARSOWFEEDINGHERYOUNG/i,
     }, {
-      keys: ["a"], portrait: "portrait:area:25:ecl:a66b:PIC6.DAX:120:0:0",
+      keys: Array(8).fill("z"), portrait: "portrait:area:25:ecl:a622:PIC6.DAX:120:2:0",
+      prompt: /WILDBOARSOWFEEDINGHERYOUNG/i,
+    }, {
+      keys: Array(10).fill("z"), portrait: "portrait:area:25:ecl:a622:PIC6.DAX:120:1:0",
+      prompt: /WILDBOARSOWFEEDINGHERYOUNG/i,
+    }, {
+      keys: ["z"], portrait: "portrait:area:25:ecl:a622:PIC6.DAX:120:2:0",
+      prompt: /WILDBOARSOWFEEDINGHERYOUNG/i,
+    }, {
+      keys: ["a"], portrait: "portrait:area:25:ecl:a66b:PIC6.DAX:120:2:0",
       prompt: /HAIRBRISTLESANDSHEATTACKS/i,
     }],
     battleStart: {
-      input: "enter", portrait: "portrait:area:25:ecl:a66c:PIC6.DAX:120:0:0",
+      input: "enter", portrait: "portrait:area:25:ecl:a66c:PIC6.DAX:120:2:0",
       prompt: /ABATTLEBEGINS/i,
     },
   }],
