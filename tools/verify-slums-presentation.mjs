@@ -661,6 +661,7 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "left", "left", "up", "right", "up", "left", "up", "left", "up", "right", "up", "up", "up",
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
+const swampPoolDive = ["s", "up", "up", "y", "enter", "up", "up", "left", "up", "up", "y"];
 const illustrationRoutes = new Map([
   ["swamp-drythh-followers-wait-base", {
     slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter", "enter"],
@@ -751,12 +752,20 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["n"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
   ["swamp-pool-lizardfolk-ambush", {
-    slot: "A", inputs: ["s", "up", "up", "y", "enter", "up", "up", "left", "up", "up", "y"],
+    slot: "A", inputs: swampPoolDive,
     portraitStops: { 10: "scene-illustration:area:16:ecl:9a59:caller:aca3" },
     portrait: "scene-illustration:area:16:ecl:ad17:cue:pool-lizardfolk",
     prompt: /YOUDIVEINTOTHEPOOL.*SUDDENLYBEFOREYOURCLOUDEDVISIONYOUSEESOMELIZARDMEN/i,
     finalPhaseCapture: "swamp-pool-lizardfolk-ambush.png",
     continuation: { inputs: ["enter"], prompt: /HITFOR\d+POINTSOFDAMAGE/i, clearsPortrait: true },
+  }],
+  ["swamp-pool-resurface", {
+    slot: "A", inputs: [...swampPoolDive, "enter", "enter", "enter"],
+    portraitStops: { 11: "scene-illustration:area:16:ecl:ad17:cue:pool-lizardfolk", 12: null, 13: null },
+    portrait: "scene-illustration:area:16:ecl:ad54:cue:pool-resurface",
+    prompt: /YOUMANAGETOGETOUTOFTHEPOOLBEFORETHEYFINISHYOUOFF/i,
+    finalPhaseCapture: "swamp-pool-resurface.png",
+    continuation: { inputs: ["up"], prompt: /AREA.*VIEW.*LOOK/i, clearsPortrait: true },
   }],
   ["swamp-underwater-cache", {
     slot: "A", inputs: ["up", "up", "left", "up", "up", "y"],
