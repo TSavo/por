@@ -1852,6 +1852,29 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 15: "tyrmor-prison-kobolds-phase-1.png" },
     finalPhaseCapture: "tyrmor-prison-kobolds-phase-2.png",
   }],
+  ["valhingen-mummy-sarcophagi-phases", {
+    slot: "A", inputs: ["up", "enter", "enter", ...Array(24).fill("q")],
+    portraitStops: {
+      3: "portrait:PIC4.DAX:114:0:0",
+      11: "portrait:area:10:ecl:b695:caller:a86f:PIC4.DAX:114:2:0",
+    },
+    portrait: "portrait:area:10:ecl:b695:caller:a86f:PIC4.DAX:114:1:0",
+    prompt: /WITHSLOW,OMINOUSCREAKS,MUMMIESOPENTHEIRSARCOPHOGI/i,
+    phaseCaptures: { 11: "valhingen-mummy-sarcophagi-phase-2.png" },
+    finalPhaseCapture: "valhingen-mummy-sarcophagi-phase-1.png",
+  }],
+  ["old-phlan-lizard-patrol-phases", {
+    slot: "B", inputs: ["up", "enter", "enter", ...Array(4).fill("q")],
+    portraitStops: {
+      3: "portrait:area:29:PIC8.DAX:57:0:0",
+      5: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0",
+      6: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0",
+    },
+    portrait: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:3:0",
+    prompt: /ALIZARDMANLEADSAPACKOFGIANTLIZARDSONPATROL.*DOORTHATHASBEENNAILEDCLOSED/i,
+    phaseCaptures: { 5: "old-phlan-lizard-patrol-phase-1.png", 6: "old-phlan-lizard-patrol-phase-2.png" },
+    finalPhaseCapture: "old-phlan-lizard-patrol-phase-3.png",
+  }],
   ["sokal-ceiling-insects-phases", {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
     portraitStops: {
