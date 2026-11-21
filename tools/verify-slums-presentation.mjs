@@ -10444,7 +10444,9 @@ try {
     assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-identified-heir"));
     assert.match(frame.journal.objective.nextStep, /Choose Rescue Boy/);
     for (const key of ["j", "enter"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:0:0");
+    const merchant = "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:0:0";
+    assert.equal(frame.portrait, merchant);
+    await verifyPenAnimation(merchant, /WILLBRINGAGOODPRICEATZHENTILKEEP/i, "buccaneer-pen-merchant");
     for (const key of ["enter", "end", "end", "end", "enter", "j"]) await advance(key);
     assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-pen-options"));
     assert.match(frame.journal.objective.nextStep, /Choose Sneak Into Pen/);
