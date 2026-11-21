@@ -134,6 +134,28 @@ function checkBrowserArtPacks(): void {
     deepStrictEqual(matchZombie(screen, 10, 0xb695), undefined);
     deepStrictEqual(matchZombie(screen, 9, 0xb56c), undefined);
   }
+  const goblinArchive = parseDax("PIC1.DAX", readGameFile(root, "PIC1.DAX"));
+  const goblin = goblinArchive.entries.find(({ id }) => id === 2);
+  ok(goblin, "Missing Bane rampart goblin source block");
+  const [goblinBase, goblinDelta] = pictureMembers(goblin.data)
+    .map(({ data }) => frameSlice(decodePicture(data), 0));
+  ok(goblinBase && goblinDelta, "Missing Bane rampart goblin animation");
+  const goblinCursors = [0xae0e, 0xb0e0];
+  const goblinKeys = goblinCursors.flatMap(cursor => [0, 1].map(member =>
+    `portrait:area:24:ecl:${cursor.toString(16)}:PIC1.DAX:2:${member}:0`));
+  for (const key of goblinKeys) ok(declared.has(key));
+  const matchGoblin = loadPortraitArt(goblinKeys, false, root);
+  const goblinScreen = new Frame(320, 200);
+  goblinScreen.blit(goblinBase, 88, 88, 24, 24);
+  for (const [index, cursor] of goblinCursors.entries()) {
+    deepStrictEqual(matchGoblin(goblinScreen, 24, cursor), goblinKeys[index * 2]);
+  }
+  goblinScreen.blit(goblinBase.map((pixel, index) => pixel ^ goblinDelta[index]!), 88, 88, 24, 24);
+  for (const [index, cursor] of goblinCursors.entries()) {
+    deepStrictEqual(matchGoblin(goblinScreen, 24, cursor), goblinKeys[index * 2 + 1]);
+  }
+  deepStrictEqual(matchGoblin(goblinScreen, 24, 0xb058), undefined);
+  deepStrictEqual(matchGoblin(goblinScreen, 31, 0xae0e), undefined);
   const missing = [...declared].filter(id => !loaded.has(id));
   deepStrictEqual(missing, [], "The browser could not load the listed art mappings");
   const ogreApproach = "encounter:area:18:ecl:9dca:SPRIT1.DAX:8:0:0";

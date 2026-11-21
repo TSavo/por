@@ -709,6 +709,20 @@ const illustrationRoutes = new Map([
     journalLead: "mendor-storeroom-map", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["mendor-storeroom-kobold-phases", {
+    slot: "B", inputs: ["up", ...Array(4).fill("enter"), "a", "a", "p", "a", "a", "y"],
+    portraitStops: {
+      5: "portrait:area:15:PIC2.DAX:0:0:0",
+      6: "portrait:area:15:ecl:ad7b:PIC2.DAX:0:1:0",
+      7: "portrait:area:15:ecl:ad7b:PIC2.DAX:0:2:0",
+      8: "portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:2:0",
+      10: "portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:1:0",
+    },
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:ae7b",
+    prompt: /SKETCHAMAPINTOYOURJOURNALCALLINGITENTRY10/i,
+    journalLead: "mendor-storeroom-map", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["stojanow-bugbear-gate-payment", {
     slot: "B", inputs: [
       "up", "enter", "enter", "p", "n", "t", "enter", "enter", "enter",
@@ -6784,6 +6798,13 @@ try {
           ];
           assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), captions[index - 1]);
           await switchBothWays(frame.frame);
+        if (routeName === "mendor-storeroom-kobold-phases" && interimPortrait && index > 5) {
+          const caption = index < 8 ? /THEYPLEADFORMERCY/i : /WILLYOUSPARETHEM/i;
+          assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), caption);
+          if (index === 6 || index === 7) await switchBothWays(frame.frame);
+          const shot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, `mendor-storeroom-kobold-phase-${index}.png`), Buffer.from(shot.data, "base64"));
+        }
           const shot = await command("Page.captureScreenshot", { format: "png" });
           writeFileSync(resolve(directory, `stojanow-ettin-guardroom-${index}.png`), Buffer.from(shot.data, "base64"));
         }
