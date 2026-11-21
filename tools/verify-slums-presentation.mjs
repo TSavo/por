@@ -2522,6 +2522,18 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-elven-remains.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-brass-bottle", {
+    slot: "A", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:13:ecl:a564:cue:brass-bottle",
+    prompt: /YOUSEEABRASSBOTTLEJAMMEDINTOACRACKHERE/i,
+    finalPhaseCapture: "kobold-cave-brass-bottle.png",
+    continuation: {
+      inputs: ["p", "enter", "enter"],
+      portraits: ["portrait:PIC8.DAX:70:0:0", "portrait:area:13:ecl:a624:PIC8.DAX:70:1:0",
+        "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0"],
+      prompt: /IAMTHEEFREETISAMIRAHWAHL.*AREYOU,PERCHANCE,VAMPIRES/i,
+    },
+  }],
   ["kobold-cave-slip-past-guide", {
     slot: "B", inputs: ["up", "enter", "enter", "s"],
     portraitStops: { 3: "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0" },
