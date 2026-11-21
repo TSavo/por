@@ -5483,6 +5483,13 @@ const controlledBattleIllustrations = new Map([
     portrait: "scene-illustration:area:10:ecl:b6c6:caller:a3c5",
     caption: /INTHECRYPTLIESTHEFULLY-EQUIPPEDBODYOFAMIGHTYWARRIOR.*DOYOUSTRIPTHEBODY/i,
   }],
+  ["valhingen-knight-gift", {
+    slot: "A", inputs: ["left", "up", "up", "left", "up", "enter", "enter"],
+    afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
+    walk: ["left", "s", "up", "up", "up", "right", "up", "right", "up", "up"],
+    portrait: "scene-illustration:area:10:ecl:b695:caller:acbc",
+    caption: /8,2N.*COME,MYBRAVEADVENTURERS.*YOUMUSTTAKEMYGIFTSTOBETTERFIGHTTHEEVIL/i,
+  }],
 ]);
 const controlledBattleIllustration = controlledBattleIllustrations.get(routeName);
 routes.push(...controlledBattleIllustrations.keys());
@@ -7941,7 +7948,7 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified all five native roaming zombie portrait phases in Chrome:", directory);
   } else if (controlledBattleIllustration) {
-    const { inputs, portrait, caption } = controlledBattleIllustration;
+    const { inputs, portrait, caption, afterBattle = caption, walk = [] } = controlledBattleIllustration;
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
     await run(`const sendCombatNoteKey = send; send = key => key === ":poll" ? undefined : sendCombatNoteKey(key);`);
     const step = async key => {
@@ -7952,7 +7959,7 @@ try {
     for (const key of inputs) await step(key);
     assert.equal(frame.developerVictoryAvailable, true);
     await step(":win-combat");
-    for (let turn = 0; turn < 40 && !caption.test(text()); turn++) {
+    for (let turn = 0; turn < 40 && !afterBattle.test(text()); turn++) {
       const visible = text();
       if (/ContinueBattle:YesNo|StillTreasureLeft/i.test(visible)) await step("n");
       else if (/ViewTakePool(?:Share)?Exit/i.test(visible)) await step("e");
@@ -7961,6 +7968,8 @@ try {
       else if (/Move\/Attack/i.test(visible)) await step("escape");
       else await step(/Hitpoints/i.test(visible) ? "space" : "enter");
     }
+    assert.match(text(), afterBattle);
+    for (const key of walk) await step(key);
     assert.match(text(), caption);
     assert.equal(frame.portrait, portrait);
     await waitFor("the post-battle illustration", () => run(`state.sequence === ${frame.sequence} &&
@@ -7988,6 +7997,14 @@ try {
       assert.notEqual(frame.portrait, hideout);
       assert.match(text(), /5,4N/i);
       await waitForExplorationViewport();
+    } else if (routeName === "valhingen-knight-gift") {
+      await step("enter");
+      assert.match(text(), /THEPARTYHASFOUNDTREASURE.*666EXPERIENCEPOINTS/i);
+      assert.equal(frame.portrait, undefined);
+      await step("enter");
+      await step("enter");
+      assert.match(text(), /VIEWTAKEPOOLEXIT/i);
+      assert.equal(frame.portrait, "portrait:PIC1.DAX:1:0:0");
     } else if (routeName === "valhingen-paladin-crypt") {
       await step("n");
       assert.equal(frame.portrait, undefined);
