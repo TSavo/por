@@ -1242,6 +1242,15 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kovel-cabinet-gas.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ITISLOCKED\.HOWWILLYOUOPENTHELOCK/i },
   }],
+  ["kovel-scroll-cabinet-loot", {
+    slot: "A", inputs: ["up", "e", "o", "enter", "b", "enter", "enter"],
+    portraitStops: { 4: null, 5: null },
+    portrait: "portrait:area:14:ecl:a3d5:PIC1.DAX:1:0:0",
+    prompt: /VIEW.*POOL.*EXIT/i,
+    idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:a3d5:PIC1.DAX:1:${phase}:0`),
+    finalPhaseCapture: "kovel-open-scroll-cabinet.png",
+    continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /3,13W/i },
+  }],
   ["valhingen-lower-tower-static", {
     slot: "A", inputs: ["s", "up", "left", "up"],
     portraitStops: { 1: null, 2: null, 3: null },
