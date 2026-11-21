@@ -1147,7 +1147,11 @@ covers the pen search and the separate unpaid outcome after a failed rescue.
 The Chrome replay checks that the merchants' camp announcement changes the
 objective to following the fence. The first slave-pen description changes it
 to looking among the prisoners. The boy's birthmark stays hidden until the
-party sees it in the next dialogue.
+party sees it in the next dialogue. Chrome verifies four enhanced
+animation poses at each of three pauses: the captive-pen overview, the
+birthmark identification, and the merchant's offer. The original
+caption stays visible during each sequence, and the scene returns to its
+opening pose before the replay continues.
 
 The translation verifier checks the Kovel Mansion journal against the
 original chase, split, guildmaster, release, and ambush dialogue. It also
