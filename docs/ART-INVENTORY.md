@@ -275,20 +275,20 @@ now plays the captured delay frames before showing the next prompt. In the
 natural outpost replay, Chrome loaded the 96×96 swing at four separate guest
 positions and returned to the stable combat screen after each sequence.
 
-The fixed outpost's natural approach matches `SPRIT2.DAX` block 4,
-member 0, frame 0 at (48,32). Its 160×320 transparent replacement uses
-the same rust tunic, copper brow, and shield as the combat art, with a
-lowered blade for the approach. Chrome verified the sprite over the
-individually rendered corridor tiles, then verified its removal on entry
-to combat. A controlled replay passed the middle and far distance arguments to the original draw procedure. Chrome displayed the independently drawn 128×260 middle pose at (56,32) and the 64×196 far pose at (64,32), over the same corridor tiles. Both runs reached the original combat menus.
+The fixed outpost's natural approach draws `SPRIT2.DAX` block 4 at ECL
+`9e29`. It plays member 1, frame 0 at (56,32), then member 0, frame 0 at
+(48,32). Both distances use an original sword-carrying orc styled to match the
+outpost's Enhanced combat sprites. The far distance remains covered by the
+generic replacement and has only been verified with a controlled draw.
 
-Reproduce the natural orc outpost art check with
+Reproduce the natural outpost art check with
 `node tools/verify-slums-presentation.mjs PATH_TO_SLOT_C PATH_TO_CHROME orcs`.
-Use the fresh party's Slums entrance save at (15,4). The replay verifies all
-121 tile images per corridor view, door and rubble junction coverage, the
-near approach sprite, and guard artwork across moving combat units. It also
-switches presentation in the corridor and in combat and compares both the
-guest frame and the save bytes across each switch.
+Use the fresh party's Slums entrance save at (15,4). The replay checks the
+121 placements per corridor view and the Slums door and rubble junctions.
+Chrome must display both registered approach distances over WebGL in order,
+clear the sprite on combat entry, and play the scoped ready and strike poses
+at their native battlefield positions. The replay also switches between
+Classic and Enhanced in the corridor and in combat.
 
 ## Sokal Keep old armory
 

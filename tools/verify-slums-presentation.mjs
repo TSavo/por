@@ -4241,7 +4241,7 @@ try {
   });
   await command("Page.navigate", { url: origin });
   await waitFor("the game display", () => run('document.querySelector("#screen")?.naturalWidth === 320'));
-  if (patrolCombat || combatPose?.manualPolling || illustration?.manualPolling ||
+  if (patrolCombat || orcs || combatPose?.manualPolling || illustration?.manualPolling ||
     routeName === "slums-mage-orc-ready" || routeName === "slums-mage-orc-leader") {
     // This replay steps every combat pause explicitly through advance().
     await run(`(() => {
@@ -10751,31 +10751,38 @@ try {
       ...Array(5).fill("up"), "right", "up", "left", "up", "left", "up"];
     const manifest = JSON.parse(readFileSync("upgrades/slums/manifest.json"));
     const junctions = new Set(Object.entries(manifest.assets)
-      .filter(([, name]) => /^orc-(door|joint|rubble)-/.test(name)).map(([id]) => id));
+      .filter(([id, name]) => id.startsWith("tile:20:") && /^orc-(door|joint|rubble)-/.test(name)).map(([id]) => id));
     assert.ok(junctions.size > 0);
     for (const [step, key] of route.entries()) {
       await advance(key);
-      assert.equal(frame.tiles.length, 121);
-      await waitFor("all 121 corridor tiles", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelectorAll("#tile-art img").length === 121 &&
-        [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
+      assert.equal(await verifyTiledView(20, new Set()), 1, `Outpost step ${step}`);
       for (const [, , id] of frame.tiles) junctions.delete(id);
       if (step === 5) await switchBothWays();
     }
     assert.deepEqual([...junctions], []);
+    const approachSequence = [
+      [56, 32, "encounter:area:20:ecl:9e29:SPRIT2.DAX:4:1:0", 32, 65],
+      [48, 32, "encounter:area:20:ecl:9e29:SPRIT2.DAX:4:0:0", 40, 80],
+    ];
+    await observeApproach(approachSequence, true, true);
     let approach = false;
     for (let step = 0; step < 5; step++) {
       await advance("enter");
       if (!frame.encounter) continue;
-      assert.deepEqual(frame.encounter, [48, 32, "encounter:SPRIT2.DAX:4:0:0", 40, 80]);
-      await waitFor("the near orc", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector(".encounter-sprite")?.naturalWidth === 160 &&
-        document.querySelector(".encounter-sprite")?.naturalHeight === 320`));
+      assert.deepEqual(frame.encounter, approachSequence[1]);
+      assert.deepEqual(frame.animation?.flatMap(({ encounter }) => encounter ? [encounter] : []), approachSequence);
+      await waitFor("both Enhanced outpost distances over WebGL", () => run("window.observedApproach.size === 2"));
+      assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "slums-orc-outpost-approach.png"), Buffer.from(shot.data, "base64"));
       approach = true;
     }
     assert.ok(approach);
     assert.equal(frame.encounter, undefined);
-    const guard = "combat:CPIC2.DAX:4";
+    await waitFor("the approach clearing on battle entry", () => run(`
+      state.sequence === ${frame.sequence} && !document.querySelector(".encounter-sprite")`));
+    const guard = "combat:area:20:CPIC2.DAX:4:ecl:9e6d";
+    const swing = "combat:area:20:CPIC2.DAX:132:ecl:9e6d";
     assert.ok(frame.combatArt.filter(([, , id]) => id === guard).length >= 3);
     await waitFor("the combat orcs", () => run(`state.sequence === ${frame.sequence} &&
       [...document.querySelectorAll(".combat-sprite")].filter(img => img.naturalWidth === 96).length >= 3`));
@@ -10783,7 +10790,7 @@ try {
     await run(`(() => {
       window.swingPlacements = [];
       new MutationObserver(() => {
-        for (const image of document.querySelectorAll('.combat-sprite[src="/art/combat:CPIC2.DAX:132"]')) {
+        for (const image of document.querySelectorAll('.combat-sprite[src="/art/${swing}"]')) {
           const remember = () => window.swingPlacements.push([
             Math.round(parseFloat(image.style.left) * 3.2),
             Math.round(parseFloat(image.style.top) * 2),
@@ -10803,7 +10810,7 @@ try {
       await advance("q");
       for (const view of frame.animation ?? []) {
         for (const [x, y, id] of view.combatArt) {
-          if (id === "combat:CPIC2.DAX:132") attacks.add(`${x},${y}`);
+          if (id === swing) attacks.add(`${x},${y}`);
         }
       }
       if (frame.animation?.length) {
