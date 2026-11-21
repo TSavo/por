@@ -1972,6 +1972,8 @@
     "scene-illustration:area:1:ecl:a001": "buccaneer-punch-merchant-guards.png",
     "scene-illustration:area:1:ecl:af88": "buccaneer-bivant-purchase-escort.png",
     "scene-illustration:area:1:ecl:b5a5": "buccaneer-bivant-purchase-escort.png",
+    "scene-illustration:area:1:ecl:9a57:caller:99ce:cue:animals-recaptured": "buccaneer-animals-recaptured.png",
+    "scene-illustration:area:1:ecl:a2f2:cue:animals-recaptured": "buccaneer-animals-recaptured.png",
     "scene-illustration:area:1:ecl:b3e7": "buccaneer-animals-stampede.png",
     "scene-illustration:area:1:ecl:b5f7:caller:b3eb": "buccaneer-animals-stampede.png",
     "scene-illustration:area:1:ecl:af3b": "buccaneer-bivant-handoff.png",

@@ -1594,6 +1594,17 @@ const illustrationRoutes = new Map([
       prompt: /GUARDS,INTHENAMEOFBANE,KILLTHESEUNBELIEVERS/i,
     },
   }],
+  ["buccaneer-animals-recaptured", {
+    slot: "A",
+    inputs: ["left", "left", ...Array(6).fill("up"), "right", "up", "up", "up", "right", "up",
+      "r", "enter", "s", "right", "right", "up", "left", "up", "up", "up", "up", "left", "up"],
+    portraitStops: { 15: "scene-illustration:area:1:ecl:b5f7:caller:b3eb", 25: null },
+    portrait: "scene-illustration:area:1:ecl:a2f2:cue:animals-recaptured",
+    prompt: /THEANIMALSHAVEBEENCAPTURED/i, finalPhaseCapture: "buccaneer-animals-recaptured.png",
+    journalLead: "rescue-animals-recaptured", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["right"], portrait: "portrait:area:1:ecl:a35b:HEAD6.DAX:6:BODY6.DAX:3",
+      prompt: /TWOGUARDSGUARDTHEDOOR.*WHATWILLYOUDO/i },
+  }],
   ["textile-skullcrusher-wall-mark", {
     slot: "J", inputs: ["left", "up", "right", "up", "up", "up", "up", "left", "up"],
     portraitStops: { 7: null, 8: null },
@@ -7902,6 +7913,13 @@ try {
           const phaseShot = await command("Page.captureScreenshot", { format: "png" });
           writeFileSync(resolve(directory, phaseCapture), Buffer.from(phaseShot.data, "base64"));
         }
+        if (routeName === "buccaneer-animals-recaptured" && index === 25) {
+          await advance("j");
+          assert.ok(frame.journal?.leads.some(({ id, rescueDistractionActive }) =>
+            id === "rescue-stampede" && rescueDistractionActive));
+          assert.ok(!frame.journal.leads.some(({ id }) => id === "rescue-animals-recaptured"));
+          await advance("j");
+        }
         if (routeName === "bane-mansion-wall-message" && index === 4) {
           await advance("j");
           assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "bane-cell-scratched-message"));
@@ -8223,6 +8241,11 @@ try {
         assert.equal(frame.journal.leads.some(({ id }) => id === journalLead), Boolean(illustration.journalLeadAtDiscovery));
         if (routeName === "stojanow-gate-first-sight") {
           assert.ok(frame.journal.leads.some(({ id }) => id === "gate-spotted"));
+        }
+        if (routeName === "buccaneer-animals-recaptured") {
+          assert.ok(frame.journal.leads.some(({ id, rescueDistractionActive }) =>
+            id === "rescue-stampede" && rescueDistractionActive === false));
+          assert.match(frame.journal.leads.find(({ id }) => id === "rescue-animals-recaptured")?.detail ?? "", /animals have been captured/i);
         }
         if (routeName === "kuto-well-waterline") {
           assert.ok(!frame.journal.leads.some(({ id }) => id === "kuto-hidden-catacombs"));
