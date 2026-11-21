@@ -284,7 +284,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (captureApproach) {
         // The guest may change script scope while the same actor cel remains on screen.
         const unscopedApproach = lastApproach?.replace(/:ecl:[a-f0-9]{4}(?::caller:[a-f0-9]{4})?(?=:SPRIT)/, "");
-        if (!encounter || encounter[2] === lastApproach || encounter[2] === unscopedApproach) return;
+        if (!encounter || encounter[2] === lastApproach || encounter[2] === unscopedApproach) return encounter;
         lastApproach = encounter[2];
       }
       const tiles: [number, number, string][] = [];
@@ -508,6 +508,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         lastCombatReport = "";
         lastApproach = undefined;
       }
+      if (captureApproach) return encounter;
     } else {
       writeFileSync("out/por-live.png", encodePng(leads ? journalFrame(leads, trackedId) : screen));
     }
@@ -629,14 +630,20 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const captureAnimation = hasEncounterArtwork && animation.length < 12;
       if (scene || area === undefined || (!nativeEncounterDirectory && !captureAnimation)) return;
       captureEclContext(cpu);
+      const replacement = captureAnimation ? showFrame(undefined, undefined, true)?.[2] : undefined;
       if (nativeEncounterDirectory) {
         const cursor = battleCursor?.toString(16).padStart(4, "0") ?? "unknown";
         const digest = createHash("sha256").update(perspectivePixels()).digest("hex");
-        const signature = `${area}-${cursor}-${digest}`;
+        const signature = `${area}-${cursor}-${portraitCaller}-${replacement}-${digest}`;
         if (!tracedNativeEncounters.has(signature)) {
           try {
             nativeEncounterSession ??= mkdtempSync(join(nativeEncounterDirectory, "encounters-"));
-            writeFileSync(join(nativeEncounterSession, `${area}-${cursor}-${tracedNativeEncounters.size}.png`), encodePng(screen));
+            const file = `${area}-${cursor}-${tracedNativeEncounters.size}.png`;
+            writeFileSync(join(nativeEncounterSession, file), encodePng(screen));
+            appendFileSync(join(nativeEncounterSession, "observations.jsonl"), JSON.stringify({
+              file, area, cursor: battleCursor, caller: portraitCaller,
+              replacement: captureAnimation || !hasEncounterArtwork ? replacement ?? null : undefined,
+            }) + "\n");
             tracedNativeEncounters.add(signature);
           } catch (error) {
             console.error("Cannot write the native encounter trace", error);
@@ -644,7 +651,6 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           }
         }
       }
-      if (captureAnimation) showFrame(undefined, undefined, true);
     } : undefined,
     captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;

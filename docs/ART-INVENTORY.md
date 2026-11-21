@@ -70,6 +70,10 @@ The browser runner saves PNGs in a new `encounters-*` subdirectory, with
 the area and ECL cursor in each filename. Repeated draws of the same
 viewport in the same context are recorded once. Keep these reference
 images outside Git.
+The accompanying `observations.jsonl` records the capture filename, cursor,
+caller, and selected Enhanced sprite. A null replacement means the draw
+had no match. A missing field means matching was skipped when the
+animation queue was full.
 
 The captured gaps show coordinates, trace frame, and matching 8×8 atlas
 frames where available. Identical atlas pixels can occur in several banks
