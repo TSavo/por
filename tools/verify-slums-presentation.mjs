@@ -1650,6 +1650,33 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 13: "slums-monster-council-phase-2.png" },
     finalPhaseCapture: "slums-monster-council-phase-1.png",
   }],
+  ["sokal-ceiling-insects-phases", {
+    slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
+    portraitStops: {
+      3: "portrait:area:21:PIC4.DAX:18:0:0",
+      5: "portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:1:0",
+      7: "portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:3:0",
+      9: "portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:5:0",
+    },
+    portrait: "portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:6:0",
+    prompt: /THEINTERIORISOVERRUNWITHINSECTS/i,
+    phaseCaptures: { 5: "sokal-ceiling-insects-phase-1.png", 7: "sokal-ceiling-insects-phase-3.png", 9: "sokal-ceiling-insects-phase-5.png" },
+    finalPhaseCapture: "sokal-ceiling-insects-phase-6.png",
+  }],
+  ["tyrmor-prison-drider-phases", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 26 }, () => ["up", "enter", "down"]).flat(),
+      "up", "enter", "enter", "down", "up", ...Array(9).fill("q")],
+    portraitStops: {
+      85: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:0:0",
+      86: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:1:0",
+      88: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:3:0",
+      89: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:6:0",
+    },
+    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:7:0",
+    prompt: /ONELICKSITSLIPS/i,
+    phaseCaptures: { 86: "tyrmor-prison-drider-phase-1.png", 88: "tyrmor-prison-drider-phase-3.png", 89: "tyrmor-prison-drider-phase-6.png" },
+    finalPhaseCapture: "tyrmor-prison-drider-phase-7.png",
+  }],
   ["tyranthraxus-appraisal-phases", {
     slot: "B", inputs: ["right", "up", "up", "up", "up", "enter", "enter", "enter", ...Array(9).fill("q")],
     portraitStops: {
