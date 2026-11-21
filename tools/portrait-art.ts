@@ -544,6 +544,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:16:ecl:ad0b:cue:pool-lizardfolk", "SUDDENLYBEFOREYOURCLOUDEDVISION"],
   ["scene-illustration:area:16:ecl:ad0c:cue:pool-lizardfolk", "SUDDENLYBEFOREYOURCLOUDEDVISION"],
   ["scene-illustration:area:16:ecl:ad53:cue:pool-resurface", "YOUMANAGETOGETOUTOFTHEPOOL"],
+  ["scene-illustration:area:16:ecl:ae0d:cue:pool-empty", "YOUSEARCHUNTILYOUFEELTHEPULSEPOUNDING"],
+  ["scene-illustration:area:16:ecl:ae0f:cue:pool-empty", "NOTHINGISFOUND.WITHTHATYOURESURFACE"],
   ["scene-illustration:area:16:ecl:ad54:cue:pool-resurface", "YOUMANAGETOGETOUTOFTHEPOOL"],
   ["scene-illustration:area:16:ecl:ad17:cue:pool-lizardfolk", "SUDDENLYBEFOREYOURCLOUDEDVISION"],
   ["scene-illustration:area:16:ecl:9a59:caller:aca3", "YOUAREINFRONTOFADEEPPOOLOFWATER"],

@@ -767,6 +767,18 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "swamp-pool-resurface.png",
     continuation: { inputs: ["up"], prompt: /AREA.*VIEW.*LOOK/i, clearsPortrait: true },
   }],
+  ["swamp-pool-empty-search", {
+    slot: "A",
+    inputs: [...swampPoolDive, "y", "enter", "enter", "e", "n", "up", "down", "up", "y"],
+    portraitStops: {
+      11: "scene-illustration:area:16:ecl:9a59:caller:ad91",
+      19: "scene-illustration:area:16:ecl:9a59:caller:aca3",
+    },
+    portrait: "scene-illustration:area:16:ecl:ae0f:cue:pool-empty",
+    prompt: /PULSEPOUNDINGINYOUREARS.*NOTHINGISFOUND.*WITHTHATYOURESURFACE/i,
+    finalPhaseCapture: "swamp-pool-empty-search.png",
+    continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i, clearsPortrait: true },
+  }],
   ["swamp-underwater-cache", {
     slot: "A", inputs: ["up", "up", "left", "up", "up", "y"],
     portraitStops: { 5: "scene-illustration:area:16:ecl:9a59:caller:aca3" },
