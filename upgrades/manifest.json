@@ -6250,6 +6250,8 @@
     "scene-illustration:area:22:ecl:af05:caller:9b05": "pyramid-river-recovery.png",
     "scene-illustration:area:22:ecl:ad46:caller:af09": "pyramid-river-recovery.png",
     "portrait:PIC7.DAX:45:0:0": "pyramid-fountain-chamber.png",
+    "portrait:PIC7.DAX:45:1:0": "pyramid-fountain-phase-1.png",
+    "portrait:PIC7.DAX:45:2:0": "pyramid-fountain-phase-2.png",
     "combat:area:23:CPIC7.DAX:14": "yarash-mage-combat.png",
     "combat:area:23:CPIC7.DAX:57": "yarash-mutant-guard-combat.png",
     "combat:area:23:CPIC7.DAX:185": "yarash-mutant-guard-strike.png",

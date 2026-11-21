@@ -10033,7 +10033,18 @@ try {
     await advance("j");
     assert.ok(knows("river-fountain") && !knows("river-equipment-destroyed"));
     assert.match(frame.journal.objective.nextStep, /Destroy the Equipment/);
-    for (const key of ["j", "enter", "enter", "d"]) await advance(key);
+    await advance("j");
+    for (const phase of [1, 2]) {
+      await advance("enter");
+      const fountainFrame = `portrait:PIC7.DAX:45:${phase}:0`;
+      assert.equal(frame.portrait, fountainFrame);
+      await waitFor(`the fountain illustration phase ${phase}`, () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${fountainFrame}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, `pyramid-fountain-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
+    }
+    await advance("d");
     const shutdown = "scene-illustration:area:23:ecl:9bef";
     assert.equal(frame.portrait, shutdown);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /YOUHAVEDESTROYEDTHELASTPIECEOFEQUIPMENT/i);

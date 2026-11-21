@@ -5,6 +5,7 @@ import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
 const pictureKey = /^portrait:(PIC\d+\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
 const roamingZombieAnimationKey = /^portrait:area:10:ecl:(?:b56c|b58c|b695:caller:9f43):PIC4\.DAX:35:[0-4]:0$/;
+const fountainAnimationKey = /^portrait:PIC7\.DAX:45:[12]:0$/;
 export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(HEAD\d+\.DAX):(\d{1,3}):(BODY\d+\.DAX):(\d{1,3})$/;
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
@@ -474,15 +475,17 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
     const picture = decodePicture(record.data);
     if (picture.width !== size || picture.height !== size || Number(frame) >= picture.itemCount) continue;
     const pixels = frameSlice(picture, Number(frame));
-    if (!roamingZombieAnimationKey.test(key) || record.selector !== 1) {
+    if (!roamingZombieAnimationKey.test(key) && !fountainAnimationKey.test(key)) {
       register(pixels, key);
       continue;
     }
-    // The roaming portrait has one base and four native XOR changes.
-    const base = decodePicture(members[0]!.data);
-    if (base.width !== size || base.height !== size || base.itemCount !== 1) continue;
+    // These native portraits redraw by XORing a change onto the first member.
+    const baseRecord = members[0]!;
+    if (record.selector === undefined || record.selector !== baseRecord.selector) continue;
     const phaseKey = (phase: number) => key.replace(/:\d+:0$/, `:${phase}:0`);
     if (Number(member) > 0) {
+      const base = decodePicture(baseRecord.data);
+      if (base.width !== size || base.height !== size || base.itemCount !== 1) continue;
       register(base.pixels.map((pixel, index) => pixel ^ pixels[index]!), key);
       continue;
     }
