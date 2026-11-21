@@ -1379,6 +1379,13 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kovel-wooden-cabinet.png",
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /(?:AREACASTVIEWENCAMP|3,13W)/i },
   }],
+  ["kovel-scything-blade", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:14:ecl:9aa3:caller:9a4f:cue:scything-blade",
+    prompt: /ASCYTHINGBLADEDROPSACROSSTHEDOORWAY.*ISHITFOR\d+POINTSOFDAMAGE/i,
+    finalPhaseCapture: "kovel-scything-blade.png",
+    continuation: { inputs: ["enter", "l"], clearsPortrait: true, prompt: /VIEWENCAMP.*LOOK/i },
+  }],
   ["kovel-scroll-cabinet-trap", {
     slot: "A", inputs: ["up", "e", "o"],
     portraitStops: { 1: "scene-illustration:area:14:ecl:a359:cue:wooden-cabinet" },
