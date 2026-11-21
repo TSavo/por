@@ -547,6 +547,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["wild-cave-gnoll-troll-approach.png", ["A polearm-wielding gnoll and a taller troll are both visible on approach"]],
   ["valhingen-stair-zombies-approach.png", ["Three zombies are distinguishable against the stairway", "The group stays within the original approach sprite placement"]],
   ["valhingen-ghoul-approach.png", ["A lead ghoul and the pack behind it are distinguishable at close range"]],
+  ["valhingen-skeleton-conjurer-approach.png", ["A plum-robed conjurer is visibly raising a skeleton"]],
   ["bane-ogre-and-six-orcs-approach.png", ["The ogre and six orcs are visible in the original approach sprite placement"]],
   ["bane-ogre-and-six-orcs-dialogue.png", ["A large ogre leads six orcs as they lunge toward the party"]],
   ["bane-altar-shattered-ambush.png", ["The distinctive altar is visibly shattered", "The temple doors stand open as the half-orc cleric leads the charging orcs"]],
