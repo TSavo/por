@@ -1234,6 +1234,15 @@ const illustrationRoutes = new Map([
     journalLead: "river-alchemical-laboratory", journalLeadAtDiscovery: true,
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["yarash-alchemical-laboratory-from-door", {
+    // Start at (9, 12) facing south with the secret door undiscovered.
+    slot: "A", inputs: ["up", "enter", "up", "enter", "right"],
+    portraitStops: { 3: "scene-illustration:area:23:ecl:9a04:caller:a08a", 4: "scene-illustration:area:23:ecl:a0fd" },
+    phaseCaptures: { 3: "yarash-torture-chamber.png" },
+    portrait: "scene-illustration:area:23:ecl:a0fd", prompt: /THEWALLSARELINEDWITHFLASKSANDBOTTLES.*ALCHEMICALNATURE/i,
+    finalPhaseCapture: "yarash-alchemical-laboratory.png",
+    continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["yarash-desk-papers", {
     slot: "A", inputs: ["s", "up", ...Array(6).fill("enter")],
     portraitStops: {
@@ -8237,7 +8246,8 @@ try {
           assert.ok(!frame.journal.leads.some(({ id }) => id === "gate-bugbear-lookouts"));
           await advance("j");
         }
-        if (routeName === "yarash-alchemical-laboratory" && index === 5) {
+        if ((routeName === "yarash-alchemical-laboratory" && index === 5) ||
+            (routeName === "yarash-alchemical-laboratory-from-door" && index === 3)) {
           const text = frame.text.toSorted(([a], [b]) => a - b)
             .map(([, character]) => String.fromCharCode(character)).join("");
           assert.match(text, /ASSORTMENTOFTORTUREINSTR?UMENTS.*ALARGETABLEWITHMETALRESTRAINTS/i);
