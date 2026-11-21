@@ -116,34 +116,43 @@ which start from controlled saves. [Audio](docs/AUDIO.md) and the
 
 ### Version 1.3
 
-The port runs an early build with no version on its credits screen. Version
-1.3 is what GOG sells and what the Stephen S. Lee walkthrough documents, and
-it is archived in `por-assets/gog-1.3`. The plan is to translate 1.3 and run
-it. [The measured differences](qa/research/version-1.3-differences.md): the
-data is identical, 28 of 29 scripts are identical, and 608 of our 831
-procedures are the same or nearly the same.
+The port now runs two builds of the program: the first release, which shows
+no version on its credits screen, and version 1.3, which is what GOG sells
+and what the Stephen S. Lee walkthrough documents. The runner picks the
+translation from the overlay file, so pointing `POR_GAMEDATA` at a copy of
+1.3 runs the port, and every check, on 1.3.
+[The measured differences](qa/research/version-1.3-differences.md).
 
-**Goal:** the port runs version 1.3, passes every check the current build
+**Goal:** the port runs version 1.3, passes every check the first release
 passes, and all authored work carries over intact: artwork, narration,
-sound, the journal, fast travel and the maps. Then the whole game is checked
-against 1.3 and the walkthrough. `npm run qa:version-1.3` counts what is
-left in each part and fails while anything is left. On 2026-11-21 it counts
-1,044: 788 procedures to translate, 83 artwork keys and 35 narration units
-to move, 20 sound events to verify again, 112 host addresses to name and
-map, and 6 checks to pass.
+sound, the journal, fast travel and the maps. `npm run qa:version-1.3`
+measures each part and runs every check on 1.3 itself. It fails while
+anything is left.
 
-- Teach the translator EXEPACK and the `FBOV` overlay file, and generate
-  the 1.3 translation beside the current one.
-- Move every code and data address the host uses into one named table, and
-  fill in the 1.3 addresses from the procedure match.
-- Pass the same checks on 1.3: `npm run verify`, `npm run verify:input`,
-  the campaign replays, and `npm run verify:map-journal`.
-- Move New Phlan's script-keyed narration and art by the three bytes 1.3
-  adds after `0xa42d`.
-- Decode the 1.3 sound driver, render its 20 events, and check them against
-  the original bytes again. The driver and most of its data differ from the
-  earlier program, so the Classic WAV files have to be made again.
-- Switch to 1.3 once it passes, and retire the early build.
+Done, as measured on 2026-11-21:
+
+- All 846 procedures of 1.3 are translated into `src/translated-1.3`, and
+  `npm run verify:translation-reproducible:1.3` checks them against the
+  generator.
+- Every program address the host uses is named in
+  `src/runtime/bindings.ts` with one value per build. No raw address is
+  left in the host files.
+- All 8,076 artwork keys and 1,432 narration units work on 1.3 without a
+  rename. One script moved by three bytes, and the host converts positions
+  where it reads them.
+- The original sound: the renderer matches the 1.3 driver exactly, and the
+  events 1.3 can play give the same output as before, so the Classic sound
+  files are unchanged.
+- `npm run verify`, `npm run verify:input` and the campaign opening pass
+  on 1.3.
+
+Left:
+
+- The full campaign replay on 1.3. Its key lists were recorded on the
+  first release and some depend on dice, which differ between the builds.
+- Switch the default to 1.3 once it passes, and retire the first release.
+- Check the whole game against 1.3 and the walkthrough. The differences in
+  behaviour found so far are in the research note.
 
 ### Translation
 

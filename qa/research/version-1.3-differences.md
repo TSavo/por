@@ -57,7 +57,7 @@ The largest unmatched code in ours is in slices 25 and 26 (shared party utilitie
 ## What this means for translating 1.3
 
 - The translator needs an EXEPACK unpack step and the `FBOV` header length. The stub scan already fits.
-- Script-level bindings (narration, scene art, journal flags) carry over unchanged, except New Phlan positions after `0xa42d`, which move by 3.
+- Script-level bindings (narration, scene art, journal flags) carry over unchanged, except New Phlan positions after the edit, which move by 3. (The edit is at `a692`, not `0xa42d`; see "What running 1.3 showed".)
 - Every binding to a code address or a data-segment address has moved. For the 763 matched procedures the old and new addresses can be paired from the match, and data addresses can be paired from the operands of matched instructions.
 
 ## What carries over, measured
@@ -74,3 +74,39 @@ The narration and artwork must not be lost. Almost none of it is tied to anythin
 | Journal leads | The game's own text | 333 triggers | None. The text is identical. |
 
 The 60 keys are 22 scene illustrations, 24 combat scopes, 9 portraits and 5 encounter sprites. Moving them is a mechanical rename, and the checks that validate every art mapping and every narration unit against the game data will confirm it.
+
+## What running 1.3 showed
+
+Measured on 2026-11-21 with the port running version 1.3. Each line corrects or adds to the sections above.
+
+### The script edit
+
+- The three bytes are not at `0xa42d`. They are at `a692`: New Phlan's tavern brawl ends with `GOTO a609` where the first release has `EXIT`. The instruction is three bytes longer, so the 370 later instructions of that script sit three bytes further on. Every one of them has the same opcode as before.
+- The instruction at `a429` differs in an operand only: `RANDOM 17` in the first release, `RANDOM 16` in 1.3. The first release picks from 24 tavern tales, 1.3 from 23.
+- Nothing was renamed. The host converts a script position it reads from the running game to the first release's numbering (`src/runtime/bindings.ts`), and all 8,076 artwork keys and 1,432 narration units land on the same instruction in 1.3. With the conversion off, 60 keys and 27 units fail.
+
+### The program
+
+- 846 procedures, not 788: 171 resident and 675 in 35 overlay slices. The first count missed resident code that sits between the overlay stub segments.
+- Three overlay slices of the first release are resident in 1.3: slice 25 (combat effects) at segment `0xba`, slice 36 (first-person drawing) at `0x464`, and slice 37 (text) at `0x709`.
+- The translator needed two new instruction forms: the interrupt return, and a near call through a register in `MemAvail` and `MaxAvail`, which enter a loop at its test.
+
+### Behaviour that differs
+
+| What | First release | Version 1.3 |
+| --- | --- | --- |
+| `FlushKeys` before a new screen | Reads and drops every waiting key | Returns at once: its first instruction jumps over the loop |
+| Display pages | Text is stored to the visible page and to a second page | Both page variables point at the visible page, so each glyph row is stored twice |
+| Tandy title theme and battle music | Requested by the game (sound events 13 and 14) | Never requested, on any hardware |
+| Tavern tales | 24 | 23 |
+| Brawl ending in New Phlan's tavern | `EXIT` | `GOTO a609` |
+| Save directory | From `POOL.CFG` | From `POOL.CFG`; the store release ships its install directory there, so the port sets the paths itself |
+
+The dice also differ for the same list of key presses. The seed is the same. The game draws random numbers while it waits for a key, and the two programs take different numbers of steps between waits. The first character rolled is the same in both; later ones differ.
+
+### Sound
+
+- The driver is the same engine at other addresses, with 21 events and a different note format: three bytes per note with the length inline, and only a note for channel 0 starts a tone.
+- Events 1 to 12 write exactly the same values to the sound hardware in both builds, on PC speaker and on Tandy. Events 13 to 21 are different sounds: 1.3 replaced the long scores with short ones.
+- 1.3 never asks for an event above 12, so every Classic sound file it can play is the file already rendered.
+- The renderer matches the original 1.3 interrupt routine under Unicorn for events 2 to 21 on both hardware paths: 40 of 40.
