@@ -4137,11 +4137,15 @@ const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
 const koboldKingFall = routeName.startsWith("kobold-king-fall") || koboldThroneReturn || koboldCaveExit;
-const saveSlot = routeName === "kuto-well-waterline-reload" ? "J" :
-  alHyamReload || ["sokal-floorboard-diary-reload", "valjevo-records-reload", "kobold-escort-arrival-reload"].includes(routeName) ? "C" :
+const sokalDiaryReload = routeName === "sokal-floorboard-diary-reload";
+const diarySlot = sokalDiaryReload ? /^(?:SAVE\\)?SAVGAM([A-J])\.DAT$/.exec(
+  JSON.parse(readFileSync(checkpoint, "utf8")).name)?.[1] : undefined;
+if (sokalDiaryReload) assert.ok(diarySlot, "The Sokal diary checkpoint must name a DOS save slot");
+const saveSlot = diarySlot ?? (routeName === "kuto-well-waterline-reload" ? "J" :
+  alHyamReload || ["valjevo-records-reload", "kobold-escort-arrival-reload"].includes(routeName) ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn || traderReload ||
-    ["stojanow-wall-warning-reload", "kovel-chase-east-reload", "valhingen-first-arrival-reload", "valjevo-forge-authorization-reload", "slums-potion-booth-reload"].includes(routeName) ? "B" : slot;
+    ["stojanow-wall-warning-reload", "kovel-chase-east-reload", "valhingen-first-arrival-reload", "valjevo-forge-authorization-reload", "slums-potion-booth-reload"].includes(routeName) ? "B" : slot);
 const boot = { A: "1e61", B: "3062", C: "2e63", D: "2064", E: "1265", F: "2166", G: "2267", H: "2368", I: "1769", J: "246a" }[saveSlot];
 assert.ok(boot, `No BIOS key for save slot ${saveSlot} on route ${routeName}`);
 const saved = resolve(directory, saveSlot + ".json");
@@ -6363,11 +6367,12 @@ try {
     assert.deepEqual(entries?.toSorted(), [27, 33, 40, 49, 56].map(number => `river-yarash-paper-${number}`));
     await switchBothWays();
     console.log("Verified all five Yarash papers after reloading slot A.");
-  } else if (routeName === "sokal-floorboard-diary-reload") {
+  } else if (sokalDiaryReload) {
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-haunt-diary"));
     await switchBothWays();
-    console.log("Verified the Sokal floorboard diary after reloading slot C.");
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log(`Verified the Sokal floorboard diary after reloading slot ${saveSlot}.`);
   } else if (routeName === "bivant-reward-reload") {
     await advance("j");
     const rescue = frame.journal?.leads.find(({ id }) => id === "commission-rescue");
