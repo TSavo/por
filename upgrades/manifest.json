@@ -6910,6 +6910,7 @@
     "encounter:SPRIT2.DAX:24:1:0": "ohlo-encounter.png",
     "combat:CPIC2.DAX:7": "hobgoblin-captain-combat.png",
     "combat:CPIC2.DAX:135": "hobgoblin-captain-strike.png",
+    "combat:area:2:CPIC2.DAX:2:ecl:a717": "textile-grishnak-ready.png",
     "combat:area:2:CPIC2.DAX:2": "altar-priestess-combat.png",
     "combat:area:2:CPIC2.DAX:130": "altar-priestess-strike.png",
     "portrait:PIC4.DAX:9:0:0": "altar-priestess-portrait.png",
