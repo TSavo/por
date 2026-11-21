@@ -2001,12 +2001,19 @@ const illustrationRoutes = new Map([
     approachStops: { 12: [48, 32, "encounter:area:22:ecl:a2f9:SPRIT7.DAX:0:0:0", 40, 80] },
     portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:0:0:0", prompt: /ONELICKSITSLIPS/i,
   }],
+  ["tyrmor-lizardfolk-sighting", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 8 }, () => ["up", "enter", "down"]).flat(), "up", "enter"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:a213:cue:lizardfolk-trio", prompt: /YOUSEEATRIOOFLIZARDMEN/i,
+    finalPhaseCapture: "tyrmor-lizardfolk-sighting.png",
+    continuation: { inputs: ["enter", "down", "up"], portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0", prompt: /ONELICKSITSLIPS/i },
+  }],
   ["tyrmor-prison-lizardfolk-dialogue", {
     slot: "B",
     inputs: ["s", ...Array.from({ length: 8 }, () => ["up", "enter", "down"]).flat(),
       "up", "enter", "enter", "down", "up"],
     approachStops: { 29: [48, 32, "encounter:area:22:ecl:a2f9:SPRIT7.DAX:57:0:0", 48, 80] },
     portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0", prompt: /ONELICKSITSLIPS/i,
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:57:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-prison-priest", {
     slot: "B", inputs: ["up", "enter", "a", "a"],

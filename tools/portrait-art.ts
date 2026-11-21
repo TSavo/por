@@ -314,6 +314,8 @@ export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 export const scriptIllustrations = new Map<string, string | RegExp>([
+  ["scene-illustration:area:22:ecl:a20f:cue:lizardfolk-trio", "YOUSEEATRIOOFLIZARDMEN"],
+  ["scene-illustration:area:22:ecl:9a06:caller:a213:cue:lizardfolk-trio", "YOUSEEATRIOOFLIZARDMEN"],
   ["scene-illustration:area:22:ecl:a20f:cue:emaciated-elves", "YOUSEEAGROUPOFEMACIATEDELVES"],
   ["scene-illustration:area:22:ecl:9a06:caller:a213:cue:emaciated-elves", "YOUSEEAGROUPOFEMACIATEDELVES"],
   ["scene-illustration:area:22:ecl:a20f:cue:gaunt-thieves", "YOUARESURPRISEDBYSOMEGAUNTMENINPOORLYFITTINGLEATHER"],
