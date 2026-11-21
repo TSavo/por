@@ -5853,7 +5853,7 @@ routes.push("textile-return-art", "moonsea-lizardman-travel", "moonsea-sokal-fre
   ...districtTravel.keys(), ...atlasRoutes.keys());
 routes.push("stojanow-wall-warning", "stojanow-wall-warning-reload");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
-routes.push("kobold-cave-efreeti-bottle-loot", "kobold-king-treasury", "kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
+routes.push("mendor-manual-loot", "kobold-cave-efreeti-bottle-loot", "kobold-king-treasury", "kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
@@ -6021,7 +6021,7 @@ mkdirSync("out", { recursive: true });
 const outputDirectory = resolve(process.env.POR_PRESENTATION_OUTPUT_DIR || "out");
 mkdirSync(outputDirectory, { recursive: true });
 const directory = mkdtempSync(resolve(outputDirectory, "slums-presentation-"));
-const slot = (wideManualAim || norrisSurrenderReload ? "J" : (routeName === "tyrmor-journal-reload" || routeName === "kobold-king-treasury") ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = (wideManualAim || norrisSurrenderReload ? "J" : (routeName === "tyrmor-journal-reload" || routeName === "kobold-king-treasury" || routeName === "mendor-manual-loot") ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
@@ -9573,32 +9573,41 @@ try {
     for (const key of ["j", "n", "j"]) await advance(key);
     assert.ok(knows("kobold-efreeti-warning"));
     console.log("Verified the efreeti portrait and witnessed warning in Chrome.");
-  } else if (routeName === "kobold-cave-efreeti-bottle-loot") {
+  } else if (routeName === "kobold-cave-efreeti-bottle-loot" || routeName === "mendor-manual-loot") {
+    const manual = routeName === "mendor-manual-loot";
     const text = () => frame.text.toSorted(([left], [right]) => left - right)
       .map(([, char]) => String.fromCharCode(char)).join("");
-    for (const key of ["s", "up", "p", "enter", "enter", "n"]) await advance(key);
+    if (manual) {
+      for (const key of ["s", "up"]) await advance(key);
+      assert.equal(frame.portrait, "scene-illustration:area:15:ecl:99b5:caller:9962:cue:buried-book");
+      await advance("enter");
+      assert.match(text(), /DOYOUTAKEIT/i);
+      await advance("y");
+    } else {
+      for (const key of ["s", "up", "p", "enter", "enter", "n"]) await advance(key);
+    }
     assert.match(text(), /THEPARTYHASFOUNDTREASURE/i);
     await advance("enter");
     if (/PRESS<ENTER>.*TOCONTINUE/i.test(text())) await advance("enter");
     assert.match(text(), /VIEW.*TAKE.*POOL.*EXIT/i);
-    const bottle = "portrait:area:13:ecl:a693:PIC1.DAX:1:0:0";
-    assert.equal(frame.portrait, bottle);
-    await waitFor("the freed Efreeti Bottle", () => run(`
+    const portrait = manual ? "portrait:area:15:ecl:ab92:PIC1.DAX:1:0:0" : "portrait:area:13:ecl:a693:PIC1.DAX:1:0:0";
+    assert.equal(frame.portrait, portrait);
+    await waitFor("the illustrated reward", () => run(`
       state.sequence === ${frame.sequence} &&
-      document.querySelector('.encounter-portrait[src="/art/${bottle}"]')?.naturalWidth === 352
+      document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352
     `));
     await verifyPortraitPanel();
     await switchBothWays(frame.frame);
     const shot = await command("Page.captureScreenshot", { format: "png" });
-    writeFileSync(resolve(directory, "kobold-cave-efreeti-bottle-loot.png"), Buffer.from(shot.data, "base64"));
+    writeFileSync(resolve(directory, routeName + ".png"), Buffer.from(shot.data, "base64"));
     await advance("t");
-    assert.match(text(), /LOOT.*EFREETIBOTTLE/i);
+    assert.match(text(), manual ? /LOOT.*MANUAL/i : /LOOT.*EFREETIBOTTLE/i);
     await advance("enter");
     assert.match(text(), /VIEWPOOLEXIT/i);
     await advance("e");
     assert.equal(frame.portrait, undefined);
     assert.match(text(), /AREACASTVIEWENCAMPSEARCHLOOK/i);
-    console.log("Verified the illustrated Efreeti Bottle reward, pickup, and return to exploration in Chrome.");
+    console.log(`Verified ${routeName}, pickup, and return to exploration in Chrome.`);
   } else if (routeName === "kobold-king-treasury") {
     const text = () => frame.text.toSorted(([left], [right]) => left - right)
       .map(([, char]) => String.fromCharCode(char)).join("");
