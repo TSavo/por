@@ -1556,10 +1556,12 @@ const illustrationRoutes = new Map([
   ["sokal-undead-patrol-dialogue", {
     slot: "C", inputs: [...Array(5).fill("up"), "enter", "enter"],
     portrait: "portrait:area:21:PIC4.DAX:34:0:0", prompt: /APACKOFUNDEADSUDDENLYAPPEARS/i,
+    idlePortraits: [1, 2, 3].map(phase => `portrait:area:21:ecl:9e40:PIC4.DAX:34:${phase}:0`),
   }],
   ["valhingen-zombie-stairs", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:PIC4.DAX:35:0:0", prompt: /ZOMBIESSHUFFLEDOWNTHESTAIRS/i,
+    idlePortraits: [1, 2, 3, 4].map(phase => `portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:${phase}:0`),
   }],
   ["valhingen-zombie-trap", {
     slot: "A", inputs: ["up", "enter", "enter"],
@@ -7351,19 +7353,19 @@ try {
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
     }
-    if (routeName === "valhingen-zombie-stairs") {
-      const phases = new Set([1, 2, 3, 4]);
+    if (illustration.idlePortraits) {
+      const phases = new Map(illustration.idlePortraits.map((id, index) => [id, index + 1]));
       for (let i = 0; i < 48 && phases.size; i++) {
         await advance("z");
-        const phase = Number(/^portrait:area:10:ecl:b695:caller:9f7a:PIC4\.DAX:35:([1-4]):0$/.exec(frame.portrait)?.[1]);
-        if (!phases.delete(phase)) continue;
-        await waitFor(`the staircase zombie phase ${phase}`, () => run(`state.sequence === ${frame.sequence} &&
+        const phase = phases.get(frame.portrait);
+        if (!phases.delete(frame.portrait)) continue;
+        await waitFor(`the ${routeName} phase ${phase}`, () => run(`state.sequence === ${frame.sequence} &&
           document.querySelector('.encounter-portrait[src="/art/${frame.portrait}"]')?.naturalWidth === 352`));
         await verifyPortraitPanel();
         const shot = await command("Page.captureScreenshot", { format: "png" });
-        writeFileSync(resolve(directory, `valhingen-zombie-stairs-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
+        writeFileSync(resolve(directory, `${routeName}-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
       }
-      assert.deepEqual([...phases], []);
+      assert.deepEqual([...phases.keys()], []);
     }
     if (illustration.finalPhaseCapture) {
       const phaseShot = await command("Page.captureScreenshot", { format: "png" });
