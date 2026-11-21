@@ -398,6 +398,8 @@
     "combat:party:0:31": "combat-party-small-robed-rod-ready.png",
     "combat:party:0:159": "combat-party-small-robed-rod-strike.png",
     "portrait:area:24:ecl:ae0e:PIC1.DAX:4:0:0": "bane-rampart-orc-patrol-dialogue.png",
+    "portrait:area:24:ecl:af84:PIC1.DAX:4:2:0": "bane-rampart-orc-patrol-spear-ready.png",
+    "portrait:area:24:ecl:b086:PIC1.DAX:4:2:0": "bane-rampart-orc-patrol-spear-ready.png",
     "portrait:area:24:ecl:ae0e:PIC1.DAX:4:2:0": "bane-rampart-orc-patrol-spear-ready.png",
     "portrait:area:24:ecl:ae0e:PIC1.DAX:2:0:0": "bane-rampart-goblin-patrol-dialogue.png",
     "portrait:area:24:ecl:ae0e:PIC1.DAX:2:1:0": "bane-rampart-goblin-patrol-callout.png",
