@@ -1480,6 +1480,16 @@ async function verifySokalCourtyardStaging() {
     },
   ]);
   console.log("Reloaded the equipped party on the west approach to the Sokal courtyard:", resolve(saveDir, "I.json"));
+  await replay(loadSlot("1769"), "85000000", [
+    "up", "right",
+    text => assert.match(text, /7,5 e.*large force of orcs and hobgoblins rushes you/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-ambush"));
+    },
+    "j", ...Array(4).fill("enter"),
+    text => assert.match(text, /brin hitpoints 6 ac 1 long sword/),
+  ]);
+  console.log("Verified the courtyard ambush enters native combat with Brin's earned gear.");
 }
 
 if (campaign && campaignOption === "--from-sokal") {

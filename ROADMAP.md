@@ -26,6 +26,8 @@ ordinary play and which start from controlled saves.
   restore the six fighters, replace their spent weapons, and hire an evoker.
   Slot J reloads the rearmed party beyond Sokal Keep’s undead patrol. The
   party takes the west passage and reloads outside the courtyard in slot I.
+  The replay then verifies the witnessed ambush and Brin’s opening combat
+  turn with the longsword and shield earned in play.
   Resume with
   `--from-slums <slot-D>`, `--from-sokal <slot-A>`, `--from-sokal-armory <slot-F>`,
   `--from-temple <slot-G>`, `--from-evoker <slot-H>`, or
