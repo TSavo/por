@@ -14,6 +14,7 @@ import { encodePng } from "./png.js";
 import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { loadCharacterSheetArt, loadPortraitArt, matchScriptIllustration } from "./portrait-art.js";
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
+import { canWinDeveloperCombat, developerVictoryCommand, winDeveloperCombat } from "./developer-combat.js";
 
 const controls: Record<string, number> = {
   enter: 0x1c0d, escape: 0x011b, up: 0x4800, down: 0x5000, left: 0x4b00, right: 0x4d00,
@@ -145,6 +146,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let area: number | undefined;
   let travelPosition: TravelState | undefined;
   let nonblockingPoll = false;
+  let developerVictoryAvailable = false;
   let activeEcl: number;
   let harborTicket: SokalQuay["ticket"] = "none";
   let explorationPosition: PresentationAnimationFrame["exploration"];
@@ -164,6 +166,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let priorPerspectiveDraw: Buffer | undefined;
   let previousPerspective: { area: number; pixels: Buffer } | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
+  const developerCombat = process.env.POR_DEV_COMBAT === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
@@ -493,6 +496,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         tileInventory,
         textColors: enhancedPalette,
         automaticCombat: automaticCombat || undefined,
+        developerVictoryAvailable: !leads && developerVictoryAvailable || undefined,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
           trackedId: trackedJournalObjective(leads, trackedId) },
       };
@@ -559,6 +563,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
+    developerVictoryAvailable = developerCombat && canWinDeveloperCombat(cpu) &&
+      hasBattlefieldBorder(screen) && menuText(visibleGameText()).startsWith("MOVEVIEWAIM");
     const kovelTransition = kovelJournalTransition(cpu, 0x740);
     if (kovelTransition !== undefined && kovelTransition !== previousKovelTransition) journal();
     previousKovelTransition = kovelTransition;
@@ -616,10 +622,16 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           continue;
         }
       }
-      const key = getKey(command === "" ? "enter" : command.startsWith("key ") ? command.slice(4) : command);
+      const developerVictory = command === developerVictoryCommand && developerVictoryAvailable;
+      const gameCommand = developerVictory ? "alt-q" : command.startsWith("key ") ? command.slice(4) : command || "enter";
+      const key = getKey(gameCommand);
       if (key === undefined) {
         console.log("Enter a letter, digit, arrow name, home, pageup, end, pagedown, enter, space, escape, tab, or backspace.");
         continue;
+      }
+      if (developerVictory) {
+        const defeated = winDeveloperCombat(cpu);
+        console.error(`POR_DEVELOPER_VICTORY ${defeated} hostiles`);
       }
       if (recording) appendFileSync(recording, `${cpu.steps}:${key.toString(16).padStart(4, "0")}\n`);
       keys.push({ step: cpu.steps, word: key });

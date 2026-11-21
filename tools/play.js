@@ -1307,6 +1307,7 @@ async function poll() {
       (waitingForFerryPayer(activeTravel) ? "Choose who pays 1 platinum for Sokal Keep. Esc to stop travel." : undefined) ??
       (activeTravel && `Traveling toward ${activeTravel.label}… Esc to stop.`) ??
       (!travelMap.hidden && state.ready ? "Select a highlighted destination or use the arrow keys." : undefined) ??
+      (state.ready && state.developerVictoryAvailable ? "F9 wins the fight (developer mode)." : undefined) ??
       (state.automaticCombat && !state.journal ? "Combat in progress…"
         : state.ready ? "Arrows or keypad to move. Enter to confirm." : "Game running…");
   } catch {
@@ -1363,6 +1364,11 @@ window.addEventListener("keydown", (event) => {
   if (event.key === "F10") {
     event.preventDefault();
     togglePresentation();
+    return;
+  }
+  if (event.key === "F9" && state.developerVictoryAvailable && automap.hidden) {
+    event.preventDefault();
+    void send(":win-combat");
     return;
   }
   if (enhanced && event.key.toLowerCase() === "m" && !event.shiftKey) {

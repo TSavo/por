@@ -8,6 +8,7 @@ import { requireBrowserGameRoot } from "./gamedata.js";
 import { loadCombatMaterialMasks, loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
 import { getKey, type PanelFrameStamp, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
+import { developerVictoryCommand } from "./developer-combat.js";
 import { partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { characterSheetPartKey, portraitKey, scriptIllustrations, type CharacterSheetPart } from "./portrait-art.js";
 import type { EncounterPlacement } from "./encounter-art.js";
@@ -169,6 +170,7 @@ interface FrameState extends ExplorationFrame {
   battleTiles?: [number, number, string][];
   animation?: (PresentationAnimationFrame & ExplorationFrame)[];
   automaticCombat?: boolean;
+  developerVictoryAvailable?: boolean;
   tileInventory?: TileInventoryCell[];
   battleTileInventory?: TileInventoryCell[];
   panelFrame?: PanelFrameStamp[];
@@ -415,8 +417,10 @@ const server = createServer(async (req, res) => {
       (track && Number(track[1]) <= frame.journal.leads.filter(isOpenObjective).length));
     const validPoll = expected === String(sequence) && (command === ":poll" && frame.automaticCombat ||
       command === ":travel-poll" && frame.travelPolling);
+    const validDeveloperVictory = command === developerVictoryCommand && expected === String(sequence) &&
+      frame.developerVictoryAvailable;
     const gameKey = command.startsWith("key ") ? command.slice(4) : command;
-    if ((!validTrack && !validPoll && getKey(gameKey) === undefined) ||
+    if ((!validTrack && !validPoll && !validDeveloperVictory && getKey(gameKey) === undefined) ||
         (frame.journal && command.toLowerCase() !== "j" && !validTrack)) {
       res.writeHead(400).end();
       return;
