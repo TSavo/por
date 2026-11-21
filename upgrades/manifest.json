@@ -2152,6 +2152,7 @@
     "combat:area:16:CPIC8.DAX:57:ecl:a6ce": "swamp-ruin-defender-ready.png",
     "combat:area:16:CPIC8.DAX:185:ecl:a6ce": "swamp-ruin-defender-strike.png",
     "encounter:area:22:ecl:a32f:SPRIT7.DAX:61:0:0": "tyrmor-prison-stirge-approach.png",
+    "portrait:area:22:ecl:a32f:PIC7.DAX:61:1:0": "tyrmor-prison-stirge-phase-1.png",
     "portrait:area:22:ecl:a32f:PIC7.DAX:61:0:0": "tyrmor-prison-stirge-dialogue.png",
     "encounter:area:22:ecl:a2f9:SPRIT7.DAX:62:0:0": "tyrmor-prison-minotaur-approach.png",
     "portrait:area:22:ecl:a2f9:PIC7.DAX:62:1:0": "tyrmor-prison-minotaur-phase-1.png",

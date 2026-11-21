@@ -1802,6 +1802,17 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 6: "valjevo-medusa-phase-1.png", 7: "valjevo-medusa-phase-2.png", 8: "valjevo-medusa-phase-3.png", 10: "valjevo-medusa-phase-4.png" },
     finalPhaseCapture: "valjevo-medusa-phase-7.png",
   }],
+  ["tyrmor-prison-stirge-phases", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "down"]).flat(), "up", "enter", "down", "q", "q", "q"],
+    portraitStops: {
+      22: "portrait:area:22:ecl:a32f:PIC7.DAX:61:0:0",
+      23: "portrait:area:22:ecl:a32f:PIC7.DAX:61:1:0",
+      24: "portrait:area:22:ecl:a32f:PIC7.DAX:61:0:0",
+    },
+    portrait: "portrait:area:22:ecl:a32f:PIC7.DAX:61:1:0",
+    prompt: /THEYFLYTOWARDYOU/i,
+    finalPhaseCapture: "tyrmor-prison-stirge-phase-1.png",
+  }],
   ["sokal-ceiling-insects-phases", {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
     portraitStops: {
