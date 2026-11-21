@@ -28,6 +28,11 @@ Use **Encamp → Save** and **Load Saved Game** to save and restore the party, i
 
 In combat, **Home**, **Page Up**, **End**, and **Page Down** move or aim diagonally. The numeric keypad provides these keys with Num Lock off.
 
+The game seeds its dice from the clock when it starts, as it did on DOS, so
+each launch of `npm run play` rolls differently. Set `POR_CLOCK=fixed` to
+start the clock at noon every time. Replays and checks use the fixed clock so
+that the same keys give the same results.
+
 For local testing, set `POR_DEV_COMBAT=1` before running `npm run play` and
 use a separate `POR_SAVE_DIR` for test saves. Press **F9** when it appears
 during combat, including on an enemy's opening turn. Choose **No** at

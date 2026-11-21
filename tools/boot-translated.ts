@@ -8,7 +8,7 @@ import { mkdirSync, readdirSync, readFileSync, realpathSync, statSync, writeFile
 import { dirname, join } from "node:path";
 import { Cpu } from "../src/cpu/machine.js";
 import { openAutomap } from "./automap.js";
-import { attachDos, consoleText, dosLog, type BiosKey, type DosFile, type DosFileClosed } from "../src/runtime/dos.js";
+import { attachDos, consoleText, dosLog, noon, timeOfDay, type BiosKey, type DosFile, type DosFileClosed } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
 import { journalFrame, screen, videoSummary } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
@@ -128,7 +128,8 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   }
   const keys = [...scheduledKeys];
   attachDos(cpu, mountedFiles, keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)),
-    fileClosed, fileDeleted, readCompanions);
+    fileClosed, fileDeleted, readCompanions,
+    process.env.POR_CLOCK === "real" ? timeOfDay() : noon);
   cpu.ss = boot.ss;
   cpu.sp = boot.sp || 0xfffe;
   cpu.ds = 0x2000;

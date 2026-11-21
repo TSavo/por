@@ -42,7 +42,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
       POR_DEV_COMBAT: developerCombat ? "1" : "0",
       POR_JOURNAL_PROFILE: "", POR_PREGEN_PARTY: "0", POR_BOOT_KEY_FILE: "", POR_BOOT_KEYS: bootKeys,
       POR_LIVE_AT: startAt, POR_BOOT_STEPS: "450000000", POR_RECORD_KEYS: join(directory, "keys.txt"),
-      POR_INPUT_COMPAT: inputCompat,
+      POR_INPUT_COMPAT: inputCompat, POR_CLOCK: "fixed",
     },
     stdio: ["ignore", "pipe", "pipe"], windowsHide: true,
   });

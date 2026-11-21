@@ -5463,7 +5463,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(sokalCourtyardNote ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
-    POR_INPUT_COMPAT: "discard-poll-prompt",
+    POR_INPUT_COMPAT: "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });

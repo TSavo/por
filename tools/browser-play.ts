@@ -116,6 +116,8 @@ const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translate
     ...process.env,
     POR_GAMEDATA: gameRoot,
     POR_BROWSER_PLAY: "1",
+    // A played game rolls different dice each launch, as on DOS. Replays set POR_CLOCK=fixed.
+    POR_CLOCK: process.env.POR_CLOCK ?? "real",
     POR_BATTLE_TILE_KEYS: [...artwork.keys()].filter((key) => key.startsWith("battle-tile:")).join(","),
     POR_TILE_ART_KEYS: [...artwork.keys()].filter((key) => key.startsWith("tile:")).join(","),
     POR_TRACE_TILES: tileTrace ? "1" : process.env.POR_TRACE_TILES,

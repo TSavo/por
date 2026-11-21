@@ -11,10 +11,10 @@ import { ovl07_0000, ovl07_0c93 } from "../src/translated/ovl07.js";
 import "../src/translated/system5bb.js";
 import { farCall, registerFar } from "../src/runtime/far.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
-import { attachDos } from "../src/runtime/dos.js";
+import { noon, timeOfDay, attachDos } from "../src/runtime/dos.js";
 import { isPartyFile } from "./save-slots.js";
 import { openJournalProfile } from "./journal-profile.js";
-import { exe_056c0, exe_05e44, exe_06a35 } from "../src/translated/exe.js";
+import { exe_056c0, exe_05e44, exe_068cb, exe_06a35 } from "../src/translated/exe.js";
 import { currentObjective, discoveredLeads, progressAddresses, questProgress, trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import { commissions } from "../src/runtime/commission-journal.js";
 import { parseDax } from "../src/lib/dax.js";
@@ -421,6 +421,28 @@ function checkExplorationGlyphMask(): void {
   deepStrictEqual(face.parts[0]?.art?.pixels?.slice(0, 3), [16, 0, 15]);
 }
 
+// The game calls Turbo Pascal's Randomize once at start. It stores the DOS time as the seed.
+function checkDiceSeed(): void {
+  const seed = (clockStart?: number): number => {
+    const m = fresh();
+    attachDos(m, [], [], undefined, undefined, undefined, undefined, clockStart);
+    m.push(m.cs);
+    m.push(0);
+    exe_068cb(m);
+    return (m.read16(m.ds, 0x438c) << 16 | m.read16(m.ds, 0x438a)) >>> 0;
+  };
+  // A replay starts the clock at noon, so its dice repeat.
+  if (seed() !== seed() || seed() !== seed(noon)) throw new Error("A replay's dice seed is not repeatable");
+  // 12:00:00.00 is CX = 0c00, DX = 0000.
+  if (seed(noon) !== 0x0c00) throw new Error(`Unexpected noon seed ${seed(noon).toString(16)}`);
+  // A played game starts the clock at the time of day, so its dice differ.
+  const morning = timeOfDay(new Date(2026, 10, 21, 8, 15, 30, 250));
+  const evening = timeOfDay(new Date(2026, 10, 21, 20, 45, 5, 990));
+  if (seed(morning) !== ((30 << 8 | 25) << 16 | (8 << 8 | 15)) >>> 0) throw new Error("The seed does not carry the time of day");
+  if (seed(morning) === seed(evening) || seed(morning) === seed(noon)) throw new Error("Different start times gave the same dice seed");
+  console.log("verified the dice seed repeats for replays and follows the time of day for play");
+}
+
 function checkVal(): void {
   for (const [input, expected] of [["200", 200], ["+200", 200], ["-200", -200], ["$C8", 200]] as const) {
     const m = fresh();
@@ -445,6 +467,7 @@ function checkVal(): void {
 }
 
 checkVal();
+checkDiceSeed();
 
 function checkOriginalSoundTrace(): void {
   const m = fresh();

@@ -209,6 +209,16 @@
       "status": "open"
     },
     {
+      "id": "classic-dice-seed-fixed",
+      "class": "classic",
+      "title": "Every launch rolled the same dice",
+      "detail": "The game seeds its random numbers once at start from the DOS time. The port's DOS clock always started at 12:00:00.00, so the seed never changed and a new game rolled the same character stats every time.",
+      "source": "Side-agent note on 2026-11-21, confirmed by rolling a new character twice in each mode.",
+      "status": "fixed",
+      "check": "translation-unit",
+      "resolution": "The DOS clock starts at the player's time of day when the game is played (POR_CLOCK=real, the default for npm run play) and at noon for replays and checks (POR_CLOCK=fixed). The verify chain checks the seed the game's own Randomize stores in each mode."
+    },
+    {
       "id": "translation-crt-delay",
       "class": "classic",
       "title": "Crt.Delay ends after one pass",

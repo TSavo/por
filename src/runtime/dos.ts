@@ -30,9 +30,18 @@ export interface BiosKey {
   word: number;
 }
 
+/** Hundredths of a second since midnight. Replays start the DOS clock at noon. */
+export const noon = 12 * 60 * 60 * 100;
+
+/** The player's local time of day, for a game whose dice should differ from the last one. */
+export function timeOfDay(now = new Date()): number {
+  return ((now.getHours() * 60 + now.getMinutes()) * 60 + now.getSeconds()) * 100 + Math.floor(now.getMilliseconds() / 10);
+}
+
 export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
   requestKey?: (blocking: boolean) => void, fileClosed?: DosFileClosed,
-  fileDeleted?: (name: string) => void, readCompanions?: (name: string) => DosFile[] | undefined): void {
+  fileDeleted?: (name: string) => void, readCompanions?: (name: string) => DosFile[] | undefined,
+  clockStart = noon): void {
   dosLog.length = 0;
   consoleText = "";
   resetVideo();
@@ -82,7 +91,9 @@ export function attachDos(m: Cpu, files: DosFile[], keyboard: BiosKey[] = [],
   const handles = new Map<number, OpenFile>();
   let nextHandle = 5;
   let heap = 0x5000;
-  let clockHundredths = 12 * 60 * 60 * 100;
+  // The game seeds its dice once from this clock. Each Get Time call advances it by one
+  // hundredth, so a run is repeatable from its starting time.
+  let clockHundredths = clockStart % (24 * 60 * 60 * 100);
 
   const readAsciiz = (seg: number, off: number): string => {
     let s = "";
