@@ -180,6 +180,15 @@ function checkBrowserArtPacks(): void {
   deepStrictEqual(matchOgreApproach(ogreNative, ogreEnhanced, 18, false, 0x9dca), [48, 32, ogreApproach, 40, 73]);
   deepStrictEqual(ogreEnhanced.pixels, ogreScenery.pixels);
   const match = loadCombatArtMatcher([...loaded.keys()].filter(id => id.startsWith("combat:")), root);
+  const zhentilStrike = "combat:area:28:CPIC6.DAX:142:ecl:a2a7";
+  const alHyamStrike = parseDax("CPIC6.DAX", readGameFile(root, "CPIC6.DAX")).entries.find(({ id }) => id === 142);
+  ok(alHyamStrike, "Missing the original Al-Hyam strike pose");
+  const alHyamPose = decodePicture(alHyamStrike.data);
+  const alHyamFrame = new Frame(320, 200);
+  alHyamFrame.blit(alHyamPose.pixels, alHyamPose.width, alHyamPose.height, 80, 80);
+  ok(match(alHyamFrame, undefined, 28, 0xa2a7).some(([x, y, id, reflected]) =>
+    x === 80 && y === 80 && id === zhentilStrike && !reflected));
+  ok(!match(alHyamFrame, undefined, 28, 0xa231).some(([, , id]) => id === zhentilStrike));
   const debris = parseDax("RANDCOM.DAX", readGameFile(root, "RANDCOM.DAX")).entries.find(({ id }) => id === 1);
   ok(debris, "Missing the original battlefield props");
   const rareProps = new Frame(320, 200);
