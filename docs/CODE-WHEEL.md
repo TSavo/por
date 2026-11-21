@@ -1,5 +1,10 @@
 # The Enhanced code wheel
 
+The browser's `/code-wheel` page uses the supplied original rune images and the recovered layout.
+With the GOG installation under `por-assets/gog-1.3/POOLRAD`, it finds `por-assets/codewheel/runes`
+automatically. Set `POR_CODEWHEEL_REFERENCE` to that rune directory for other layouts. The standalone
+page lets players turn the wheel and read the letters. Startup integration is pending.
+
 The original game shipped with a cardboard translation wheel. At start-up the game shows an
 Espruar rune, a Dethek rune and a path, and asks for the word found on the wheel. The version 1.3
 program GOG sells accepts any answer. Classic keeps that. Enhanced shows the whole wheel on screen

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Translation wheel</title>
+<style>
+  :root{color-scheme:dark;font-family:system-ui;color:#f8e7c6;background:#1d1716}
+  body{max-width:63rem;margin:auto;padding:1rem}
+  h1{font-family:Georgia;font-weight:400;margin:.45rem 0}
+  .controls{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;margin:1rem 0}
+  button,select{font:inherit;padding:.4rem .6rem;color:inherit;background:#322725;border:1px solid #97754a}
+  canvas{display:block;width:min(100%,48rem);height:auto;margin:auto;background:#282021}
+  .clues{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.6rem 0}
+  .clues[hidden]{display:none}
+  .clues span{display:inline-flex;align-items:center;gap:.3rem}
+  .clues img{object-fit:contain;width:4rem;height:2rem;image-rendering:pixelated}
+  #path img{height:auto;width:8rem}
+  a{color:inherit}
+</style>
+<main>
+  <a href="/">Return to game</a>
+  <h1>Translation wheel</h1>
+  <p>Turn the inner disc until the Dethek rune sits inside the matching Espruar rune. Read the indicated path from the centre outward.</p>
+  <div class="controls">
+    <label for="question">Question</label>
+    <select id="question"></select>
+    <button id="left" type="button" aria-label="Rotate inner disc counterclockwise">←</button>
+    <button id="right" type="button" aria-label="Rotate inner disc clockwise">→</button>
+    <output id="turn">0 / 36</output>
+  </div>
+  <div class="clues" id="clues" hidden>
+    <span id="espruar">Espruar </span>
+    <span id="dethek">Dethek </span>
+    <span id="path">Path </span>
+  </div>
+  <p id="status" role="status">Loading the translation wheel…</p>
+  <canvas id="wheel" width="900" height="900" aria-label="Wheel with two rune rings and three spiral reading paths"></canvas>
+</main>
+<script type="module" src="/code-wheel.js"></script>
+</html>

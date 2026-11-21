@@ -1,10 +1,10 @@
 import { spawn } from "node:child_process";
 import { detectGameVersion, useGameVersion } from "../src/runtime/bindings.js";
 import { createHash } from "node:crypto";
-import { appendFileSync, readFileSync } from "node:fs";
+import { appendFileSync, readFileSync, readdirSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { requireBrowserGameRoot } from "./gamedata.js";
 import { loadCombatMaterialMasks, loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
@@ -32,6 +32,24 @@ const planTravel = loadOverlandTravel(gameRoot);
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const streetRenderer = readFileSync(new URL("./new-phlan-webgl.js", import.meta.url));
+const wheelPage = readFileSync(new URL("./code-wheel.html", import.meta.url));
+const wheelScript = readFileSync(new URL("./code-wheel.js", import.meta.url));
+const wheelLayout = readFileSync(new URL("../src/codewheel/wheel.json", import.meta.url));
+const runeDirectory = process.env.POR_CODEWHEEL_REFERENCE ??
+  resolve(gameRoot, "../../codewheel/runes");
+const wheelRunes = new Map<string, string>();
+try {
+  for (const name of readdirSync(runeDirectory)) {
+    const match = /^(espruar|dethek)-piece(\d{2})-[A-Za-z0-9]+\.png$/.exec(name);
+    if (match) wheelRunes.set(`${match[1]}-${match[2]}`, join(runeDirectory, name));
+  }
+} catch {
+  // The game can still run without an external copy of the wheel.
+}
+const wheelArt = new Set([
+  "background", "outer-disc", "inner-disc", "espruar-translate-tab", "dethek-translate-tab",
+  "path-dashes", "path-dash-dot-dot", "path-dots",
+]);
 const voiceManifest = readFileSync(new URL("../src/audio/voices.json", import.meta.url));
 const parsedVoiceManifest = JSON.parse(voiceManifest.toString("utf8")) as { lines: { file: string; match?: string }[] };
 const voiceFiles = new Set(parsedVoiceManifest.lines.map(({ file }) => file));
@@ -308,6 +326,24 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(page);
   } else if (req.method === "GET" && req.url === "/play.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(script);
+  } else if (req.method === "GET" && req.url === "/code-wheel") {
+    res.setHeader("content-security-policy", "default-src 'self'; style-src 'unsafe-inline'");
+    res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(wheelPage);
+  } else if (req.method === "GET" && req.url === "/code-wheel.js") {
+    res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(wheelScript);
+  } else if (req.method === "GET" && req.url === "/code-wheel/layout") {
+    res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(wheelLayout);
+  } else if (req.method === "GET" && /^\/code-wheel\/[a-z0-9-]+\.png$/.test(req.url ?? "")) {
+    const id = req.url!.slice("/code-wheel/".length, -4);
+    const source = wheelRunes.get(id) ??
+      (wheelArt.has(id) ? new URL(`../upgrades/codewheel/${id}.png`, import.meta.url) : undefined);
+    try {
+      if (!source) { res.writeHead(404).end(); return; }
+      const bytes = readFileSync(source);
+      res.writeHead(200, { "content-type": "image/png" }).end(bytes);
+    } catch {
+      res.writeHead(404).end();
+    }
   } else if (req.method === "GET" && req.url === "/new-phlan-webgl.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(streetRenderer);
   } else if (req.method === "GET" && req.url === "/exploration-materials/phlan") {
