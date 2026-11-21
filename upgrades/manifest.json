@@ -6287,6 +6287,7 @@
     "encounter:area:10:SPRIT4.DAX:23:0:0": "valhingen-vampire-approach.png",
     "encounter:area:10:SPRIT4.DAX:23:1:0": "valhingen-vampire-approach-middle.png",
     "portrait:PIC6.DAX:39:0:0": "buccaneer-mounted-escort.png",
+    "portrait:area:25:ecl:9e08:PIC6.DAX:39:1:0": "buccaneer-mounted-escort-coastal-phase.png",
     "portrait:PIC6.DAX:42:0:0": "buccaneer-bivant-pen.png",
     "portrait:PIC6.DAX:50:0:0": "zhentil-commandant-portrait.png",
     "encounter:area:16:SPRIT8.DAX:57:0:0": "swamp-lizardfolk-elder.png",

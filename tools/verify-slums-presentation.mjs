@@ -9940,6 +9940,20 @@ try {
     if (classicPortrait) {
       assert.equal(frame.classicPortrait, true);
       assert.equal(frame.portrait, undefined);
+    if (!classicPortrait) {
+      const escortPhase = "portrait:area:25:ecl:9e08:PIC6.DAX:39:1:0";
+      for (const key of ["z", "z"]) await advance(key);
+      assert.equal(frame.portrait, escortPhase);
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
+        /ABANDOFBUCCANEERSRIDEOUTTOESCORTYOUIN/i);
+      await waitFor("the alternate escort illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${escortPhase}"]')?.naturalWidth === 352`));
+      await switchBothWays();
+      const escortShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "buccaneer-escort-coastal-phase.png"), Buffer.from(escortShot.data, "base64"));
+      for (const key of ["z", "z"]) await advance(key);
+      assert.equal(frame.portrait, "portrait:PIC6.DAX:39:0:0");
+    }
       assert.ok(frame.classicPortraitSources?.includes("portrait:PIC6.DAX:39:0:0"));
       await waitFor("classic portrait filling the Enhanced panel", () => run(`(() => {
         const layer = document.querySelector("#tile-art").getBoundingClientRect();
