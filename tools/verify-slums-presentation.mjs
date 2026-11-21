@@ -536,7 +536,10 @@ const encounterRoutes = new Map([
   ["mendor-basilisk-approach", {
     slot: "B", inputs: ["up", "enter", "enter"],
     placement: [32, 32, "encounter:area:15:SPRIT2.DAX:26:0:0", 80, 80],
-    dialogue: { key: "enter", portrait: "portrait:PIC2.DAX:26:0:0", prompt: /YOUSEEADULLBROWNREPTILIANMONSTER/i },
+    dialogue: {
+      key: "enter", portrait: "portrait:PIC2.DAX:26:0:0", prompt: /YOUSEEADULLBROWNREPTILIANMONSTER/i,
+      heldPortrait: "portrait:area:15:ecl:a520:PIC2.DAX:26:1:0",
+    },
   }],
   ["kobold-cave-efreeti-approach", {
     slot: "A", inputs: ["s", "up", "p", "enter"],
