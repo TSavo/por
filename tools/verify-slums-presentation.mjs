@@ -3052,6 +3052,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "mendor-study-cell.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["mendor-buried-book", {
+    slot: "B", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:9962:cue:buried-book", prompt: /BURIEDAMIDALLTHETRASHYOUSEEABOOK/i,
+    finalPhaseCapture: "mendor-buried-book.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /DOYOUTAKEIT/i },
+  }],
   ["mendor-fresco-room", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:15:ecl:a738:cue:fresco-room", prompt: /FRESCOESONTHEWALLSOFLEARNEDMENANDTHEHEAVENLYPATRONS/i,
