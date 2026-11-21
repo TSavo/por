@@ -880,6 +880,13 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:21:ecl:ae31:caller:a573", prompt: /BENEATHAFLOORBOARD.*JOURNALASENTRY3/i,
     continuation: { inputs: ["enter"], prompt: /DOYOUTAKETHEGEMS.*YesNo/i, portrait: "scene-illustration:area:21:ecl:ae41:caller:a58a" },
   }],
+  ["sokal-chapel-arrival", {
+    slot: "F", inputs: ["left", "up", "left", "up", "left", "up", "right", "up", "up"],
+    portrait: "scene-illustration:area:21:ecl:a9fa",
+    prompt: /CHAPELOFTHEKEEP.*DRIEDHUSKSOFTWOORCS.*ALTARDOMINATESTHESOUTHERNWALL/i,
+    journalLead: "sokal-chapel", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["left", "left", "up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["sokal-pale-form-arrival", {
     slot: "F", inputs: ["up", "enter"],
     portrait: "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0",
@@ -6611,6 +6618,15 @@ try {
       assert.ok(enemies.some(id => /:CPIC4\.DAX:34(?::|$)/.test(id)));
       assert.ok(enemies.some(id => /:CPIC4\.DAX:35(?::|$)/.test(id)));
     }
+    if (routeName === "sokal-chapel-arrival") {
+      await switchBothWays(frame.frame);
+      const chapelArrivalShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "sokal-chapel-remains-and-altar.png"), Buffer.from(chapelArrivalShot.data, "base64"));
+      await advance("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-chapel"));
+      assert.ok(!frame.journal?.leads.some(({ id }) => ["sokal-pale-form", "sokal-ferran"].includes(id)));
+      await advance("j");
+    }
     if (routeName === "sokal-pale-form-arrival") {
       await switchBothWays(frame.frame);
       const risingFormShot = await command("Page.captureScreenshot", { format: "png" });
@@ -6797,6 +6813,15 @@ try {
         assert.ok(wallFaces.every(({ parts }) => parts.every(({ status }) => status !== "reconstructed")));
         const streetShot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "new-phlan-innkeeper-exit-webgl.png"), Buffer.from(streetShot.data, "base64"));
+      }
+      if (routeName === "sokal-chapel-arrival") {
+        await waitForExplorationViewport();
+        for (const key of ["up", "up", "left", "up", "right", "up", "right", "up", "left", "up", "enter"]) await advance(key);
+        assert.equal(frame.portrait, "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0");
+        await advance("j");
+        assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-pale-form"));
+        assert.ok(!frame.journal?.leads.some(({ id }) => id === "sokal-ferran"));
+        await advance("j");
       }
       if (routeName === "sokal-pale-form-wrong-word") {
         await waitForExplorationViewport();
