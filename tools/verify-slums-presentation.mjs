@@ -7990,18 +7990,20 @@ try {
     for (const key of scriptoriumAuthority ? "tyranthraxus" : "harash") await advance(key);
     await advance("enter");
     assert.match(dialogue(), /WITHANODOFTHEHEADYOUARELEFTALONE/i);
-    if (mazeWatch) {
-      const mazeWatchPassage = "scene-illustration:area:4:ecl:9ed5:caller:a08a";
-      assert.equal(frame.portrait, mazeWatchPassage);
-      await waitFor("the maze watch stepping aside", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${mazeWatchPassage}"]')?.naturalWidth === 352`));
+    if (mazeWatch || scriptorium) {
+      const passage = mazeWatch ? "scene-illustration:area:4:ecl:9ed5:caller:a08a"
+        : "scene-illustration:area:4:ecl:9ed5:caller:ac70";
+      assert.equal(frame.portrait, passage);
+      await waitFor("the guard nodding and stepping aside", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${passage}"]')?.naturalWidth === 352`));
       await verifyPortraitPanel();
-      const mazePassageShot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, "valjevo-maze-watch-peaceful-passage.png"), Buffer.from(mazePassageShot.data, "base64"));
+      const passageShot = await command("Page.captureScreenshot", { format: "png" });
+      const filename = mazeWatch ? "valjevo-maze-watch-peaceful-passage.png" : "valjevo-scriptorium-peaceful-passage.png";
+      writeFileSync(resolve(directory, filename), Buffer.from(passageShot.data, "base64"));
       await switchBothWays(frame.frame);
       await advance("up");
-      assert.equal(frame.portrait, undefined);
-      await waitForExplorationViewport();
+      assert.equal(frame.portrait, mazeWatch ? undefined : scribes);
+      if (mazeWatch) await waitForExplorationViewport();
     } else {
       assert.equal(frame.portrait, undefined);
     }
