@@ -865,7 +865,22 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\
       const portraitCandidates = file.startsWith("PIC") && !uniform
         ? portraitArtByBlockAndPixels.get(`${file}:${source.directoryIndex}:${pixelSignature}`) ?? []
         : [];
-      return { ...source, preview, pixelSignature, uniform, scopedCandidates, encounterCandidates, portraitCandidates };
+      const base = portraitCandidates.length && source.member > 0 && picture.width === 88 &&
+        picture.height === 88 && picture.itemCount === 1 ? classicPicture(file, source.directoryIndex, 0) : undefined;
+      const scopedPortraitCandidates: string[] = [];
+      if (base?.width === 88 && base.height === 88 && base.itemCount === 1 && base.x === picture.x && base.y === picture.y) {
+        portraitFrame.blit(base.pixels.map((pixel, index) => pixel ^ pixels[index]!), 88, 88, 24, 24);
+        for (const { id } of portraitCandidates) {
+          const scope = /^portrait:area:(\d+):(?:ecl:([a-f0-9]{4}):(?:caller:([a-f0-9]{4}):)?)?/.exec(id);
+          if (!scope) continue;
+          const [, area, cursor, caller] = scope;
+          const match = matchPortrait(portraitFrame, Number(area), cursor === undefined ? undefined : Number.parseInt(cursor, 16),
+            caller === undefined ? undefined : Number.parseInt(caller, 16));
+          if (match === id) scopedPortraitCandidates.push(id);
+        }
+      }
+      return { ...source, preview, pixelSignature, uniform, scopedCandidates, encounterCandidates, portraitCandidates,
+        scopedPortraitCandidates };
     });
     return { file, frames, matched: frames - unlinkedFrames.length, pixelMatchedFrames, unlinkedFrames: remainingFrames };
   }).filter(({ frames }) => frames > 0);
@@ -878,7 +893,10 @@ const encounterTotals = encounterCoverage.reduce((total, row) => ({
   withScopedCandidates: total.withScopedCandidates + row.unlinkedFrames.filter(({ scopedCandidates }) => scopedCandidates.length).length,
   withEncounterCandidates: total.withEncounterCandidates + row.unlinkedFrames.filter(({ encounterCandidates }) => encounterCandidates.length).length,
   withPortraitCandidates: total.withPortraitCandidates + row.unlinkedFrames.filter(({ portraitCandidates }) => portraitCandidates.length).length,
-}), { frames: 0, matched: 0, matchedByPixels: 0, remaining: 0, uniformUnlinked: 0, withScopedCandidates: 0, withEncounterCandidates: 0, withPortraitCandidates: 0 });
+  withScopedPortraitMatches: total.withScopedPortraitMatches +
+    row.unlinkedFrames.filter(({ scopedPortraitCandidates }) => scopedPortraitCandidates.length).length,
+}), { frames: 0, matched: 0, matchedByPixels: 0, remaining: 0, uniformUnlinked: 0, withScopedCandidates: 0,
+  withEncounterCandidates: 0, withPortraitCandidates: 0, withScopedPortraitMatches: 0 });
 const unlinkedScriptPictures = scriptReferences.flatMap(reference => {
   const [archive] = reference.candidates;
   if (!archive || reference.candidates.length !== 1) return [];
@@ -1015,16 +1033,18 @@ ${composedPictureReferences.map(({ file, script, address, selectedHead, nearbyTe
 ${encounterTotals.withScopedCandidates ? `<p>${encounterTotals.withScopedCandidates} unlinked combat frames have identical source pixels in an encounter with replacement art. Verify the actor and encounter before reusing those sprites.</p>` : ""}
 ${encounterTotals.withEncounterCandidates ? `<p>${encounterTotals.withEncounterCandidates} unlinked encounter frames have identical source pixels in another frame with Enhanced art. Verify the actor, distance, and placement before reusing it.</p>` : ""}
 ${encounterTotals.withPortraitCandidates ? `<p>${encounterTotals.withPortraitCandidates} unlinked portrait frames repeat pixels from a member of the same archive block with Enhanced art. Verify the complete animated portrait and scene before reusing it.</p>` : ""}
+${encounterTotals.withScopedPortraitMatches ? `<p>${encounterTotals.withScopedPortraitMatches} unlinked portrait frames resolve to existing Enhanced art when composed with their base portrait and tested in the candidate's area and script scope. Replay still determines whether the game draws them there.</p>` : ""}
 <p>Each source ID contains the archive, block ID, member, and zero-based frame number. Open a frame to see it at its native dimensions. Some archive frames may have no verified in-game use.</p>
 ${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({ file, unlinkedFrames }) =>
   `<details id="unlinked-archive-${escape(file)}"><summary>${escape(file)} · ${unlinkedFrames.length}</summary>
   <table class="coverage-table"><thead><tr><th>Source ID</th><th>Block</th><th>4× target</th><th>Preview</th></tr></thead><tbody>
-  ${unlinkedFrames.map(({ id, block, width, height, preview, uniform, scopedCandidates, encounterCandidates, portraitCandidates }) => {
+  ${unlinkedFrames.map(({ id, block, width, height, preview, uniform, scopedCandidates, encounterCandidates, portraitCandidates,
+    scopedPortraitCandidates }) => {
     const candidates = [...scopedCandidates, ...encounterCandidates, ...portraitCandidates];
     return `<tr><th scope="row"><code>${escape(id)}</code></th><td>${block}</td><td>${width}×${height}</td>
     <td><a href="${escape(preview)}" target="_blank" rel="noopener">Source frame</a>${uniform ? " · Solid color" : ""}
     ${candidates.length ? `<details><summary>Reuse candidates (${candidates.length})</summary>${
-      candidates.map(({ id, preview }) => `<div><a href="${escape(preview)}"><code>${escape(id)}</code></a></div>`).join("")
+      candidates.map(({ id, preview }) => `<div><a href="${escape(preview)}"><code>${escape(id)}</code></a>${scopedPortraitCandidates.includes(id) ? " · Matches composed portrait in this scope" : ""}</div>`).join("")
     }</details>` : ""}</td></tr>`;
   }).join("")}
   </tbody></table></details>`).join("")}
