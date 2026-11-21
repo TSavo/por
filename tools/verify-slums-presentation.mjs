@@ -3022,6 +3022,12 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:15:PIC2.DAX:25:0:0", prompt: /YOUFINDAFIGHTERWITHBATTEREDARMOR/i,
     continuation: { inputs: ["i"], portrait: "scene-illustration:area:15:ecl:9aeb", prompt: /HESCRAMBLESTOHISFEETANDFLEESTHEROOM/i },
   }],
+  ["mendor-ruined-desk", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:15:ecl:99c7:cue:ruined-desk", prompt: /HUMANBONESLIESCATTEREDABOUTADESK/i,
+    finalPhaseCapture: "mendor-ruined-desk.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["mendor-fresco-room", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:15:ecl:a738:cue:fresco-room", prompt: /FRESCOESONTHEWALLSOFLEARNEDMENANDTHEHEAVENLYPATRONS/i,
