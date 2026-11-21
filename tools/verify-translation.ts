@@ -136,25 +136,27 @@ function checkBrowserArtPacks(): void {
     deepStrictEqual(matchZombie(screen, 10, 0xb695), undefined);
     deepStrictEqual(matchZombie(screen, 9, 0xb56c), undefined);
   }
-  const goblinArchive = parseDax("PIC1.DAX", readGameFile(root, "PIC1.DAX"));
-  const goblin = goblinArchive.entries.find(({ id }) => id === 2);
-  ok(goblin, "Missing Bane rampart goblin source block");
-  const [goblinBase, goblinDelta] = pictureMembers(goblin.data)
-    .map(({ data }) => frameSlice(decodePicture(data), 0));
-  ok(goblinBase && goblinDelta, "Missing Bane rampart goblin animation");
-  const goblinCursors = [0xae0e, 0xb0e0];
-  const goblinKeys = goblinCursors.flatMap(cursor => [0, 1].map(member =>
-    `portrait:area:24:ecl:${cursor.toString(16)}:PIC1.DAX:2:${member}:0`));
-  for (const key of goblinKeys) ok(declared.has(key));
-  const matchGoblin = loadPortraitArt(goblinKeys, false, root);
-  const goblinScreen = new Frame(320, 200);
-  goblinScreen.blit(goblinBase, 88, 88, 24, 24);
-  for (const [index, cursor] of goblinCursors.entries()) {
-    deepStrictEqual(matchGoblin(goblinScreen, 24, cursor), goblinKeys[index * 2]);
-  }
-  goblinScreen.blit(goblinBase.map((pixel, index) => pixel ^ goblinDelta[index]!), 88, 88, 24, 24);
-  for (const [index, cursor] of goblinCursors.entries()) {
-    deepStrictEqual(matchGoblin(goblinScreen, 24, cursor), goblinKeys[index * 2 + 1]);
+  const rampartArchive = parseDax("PIC1.DAX", readGameFile(root, "PIC1.DAX"));
+  for (const [block, phase] of [[2, 1], [4, 2]] as const) {
+    const source = rampartArchive.entries.find(({ id }) => id === block);
+    ok(source, `Missing Bane rampart portrait block ${block}`);
+    const members = pictureMembers(source.data);
+    ok(members[0] && members[phase], `Missing animation phase ${phase} of Bane rampart portrait ${block}`);
+    const base = frameSlice(decodePicture(members[0].data), 0);
+    const delta = frameSlice(decodePicture(members[phase].data), 0);
+    const rampartCursors = [0xae0e, 0xb0e0];
+    const key = (cursor: number, member: number) =>
+      `portrait:area:24:ecl:${cursor.toString(16)}:PIC1.DAX:${block}:${member}:0`;
+    const keys = rampartCursors.flatMap(cursor => [key(cursor, 0), key(cursor, phase)]);
+    for (const id of keys) ok(declared.has(id));
+    const matchRampartPortrait = loadPortraitArt(keys, false, root);
+    const screen = new Frame(320, 200);
+    screen.blit(base, 88, 88, 24, 24);
+    for (const cursor of rampartCursors) deepStrictEqual(matchRampartPortrait(screen, 24, cursor), key(cursor, 0));
+    screen.blit(base.map((pixel, index) => pixel ^ delta[index]!), 88, 88, 24, 24);
+    for (const cursor of rampartCursors) deepStrictEqual(matchRampartPortrait(screen, 24, cursor), key(cursor, phase));
+    deepStrictEqual(matchRampartPortrait(screen, 24, 0xb058), undefined);
+    deepStrictEqual(matchRampartPortrait(screen, 31, 0xae0e), undefined);
   }
   deepStrictEqual(matchGoblin(goblinScreen, 24, 0xb058), undefined);
   deepStrictEqual(matchGoblin(goblinScreen, 31, 0xae0e), undefined);
