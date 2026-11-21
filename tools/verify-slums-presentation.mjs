@@ -408,6 +408,7 @@ const encounterRoutes = new Map([
   ["lizard-wilds-stirge-approach", {
     slot: "A", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:26:SPRIT7.DAX:61:0:0", 40, 73],
+    requireWebGL: true,
     dialogue: { key: "enter", portrait: "portrait:area:26:PIC7.DAX:61:0:0", prompt: /ASWARMOFSTIRGESSWOOPSDOWN/i },
   }],
   ["old-phlan-lizard-patrol-approach", {
