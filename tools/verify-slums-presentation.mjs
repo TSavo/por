@@ -1133,7 +1133,8 @@ const illustrationRoutes = new Map([
   }],
   ["bane-gate-direct-attack", {
     slot: "A", inputs: ["up", "enter", "enter", "a"],
-    portrait: "portrait:area:24:PIC1.DAX:4:0:0",
+    portraitStops: { 3: "portrait:area:24:PIC1.DAX:4:0:0" },
+    portrait: "scene-illustration:area:24:ecl:a6bf:cue:temple-gate-direct-attack",
     prompt: /ABATTLEBEGINS/i,
   }],
   ["bane-gate-inspection-failure", {
@@ -6398,6 +6399,7 @@ try {
       assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
       await advance("j");
     }
+    if (routeName === "bane-gate-direct-attack") await waitForExplorationViewport();
     if (routeName === "sokal-undead-patrol-rejects-word") {
       await waitForExplorationViewport();
       await advance("j");
@@ -6551,6 +6553,14 @@ try {
     await verifyPortraitPanel();
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
+    if (routeName === "bane-gate-direct-attack") {
+      await switchBothWays(frame.frame);
+      const directGateAttackShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-gate-direct-attack.png"), Buffer.from(directGateAttackShot.data, "base64"));
+      await advance("enter");
+      assert.equal(frame.portrait, undefined);
+      assert.ok(frame.combatArt.length > 0);
     }
     if (routeName === "sokal-undead-patrol-rejects-word") {
       await switchBothWays(frame.frame);
