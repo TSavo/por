@@ -2029,6 +2029,7 @@ const illustrationRoutes = new Map([
     prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMESKELETONS/i,
     phaseCaptures: { 12: "valhingen-skeleton-roam-phase-2.png", 13: "valhingen-skeleton-roam-phase-3.png" },
     finalPhaseCapture: "valhingen-skeleton-roam-phase-1.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:10:ecl:b5c7:PIC4.DAX:34:1:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valjevo-medusa-phases", {
     slot: "B", inputs: ["up", "enter", "enter", "enter", ...Array(9).fill("q")],
