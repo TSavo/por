@@ -100,7 +100,7 @@
       "id": "classic-copy-protection",
       "class": "classic",
       "title": "The translation-wheel check: Classic follows GOG, Enhanced shows the wheel and enforces it",
-      "detail": "Version 1.3 as GOG sells it accepts any answer at the code-wheel prompt: in overlay slice 2, after the game compares the typed word with the expected one, the conditional branch is replaced with nop, nop, jmp to the exit. GOG ships a separate Windows program, codewheel.exe, as an on-screen wheel. Owner's ruling on 2026-11-21: Classic does exactly what the GOG game does. Enhanced puts the code wheel on screen as part of the game and restores the check, so a wrong word is refused. Still to establish: why the first release also accepts Enter in the port (same kind of patch, or a fault), and what the original does after wrong answers when the check is live.",
+      "detail": "Version 1.3 as GOG sells it accepts any answer at the code-wheel prompt: in overlay slice 2, after the game compares the typed word with the expected one, the conditional branch is replaced with nop, nop, jmp to the exit. GOG ships a separate Windows program, codewheel.exe, as an on-screen wheel. Owner's ruling on 2026-11-21: Classic does exactly what the GOG game does. Enhanced puts the code wheel on screen as part of the game and restores the check, so a wrong word is refused. Established on 2026-11-21 from the first release's code: a wrong word prints \"Sorry, that's incorrect.\" and asks again with a new question, and the third wrong word ends the program. The first release in the port never calls the routine at start-up; why is not established.",
       "source": "Read from the 1.3 program on 2026-11-21; owner's ruling the same day.",
       "status": "open"
     },

@@ -3936,8 +3936,9 @@
       "area": "Code wheel",
       "note": "A wrong answer: fan sources (oldgames.sk, dosdays.co.uk, Wikipedia) say the unpatched game allows three tries and then exits to DOS with 'Sorry, that's incorrect', and that START STING skips the check. Not tested: the version 1.3 program GOG sells has the check patched out. To settle: read the code after the comparison in overlay slice 2 of the first release.",
       "scenarios": [],
-      "status": "open",
-      "origin": "manual"
+      "status": "settled",
+      "origin": "manual",
+      "resolution": "Settled from the first release's code on 2026-11-21 (overlay slice 2, +0x32c to +0x350): a wrong word prints \"Sorry, that's incorrect.\" and asks again with a newly drawn question; the third wrong word calls the program's exit routine. Version 1.3 replaces the branch with nop, nop, jmp. START STING was not examined. See qa/research/code-wheel.md."
     }
   ]
 }

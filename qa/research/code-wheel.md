@@ -69,8 +69,28 @@ https://www.oldgames.sk/en/copy-protection/pool-of-radiance-translation-wheel, n
 - Fan sources say the unpatched game allows three tries and then exits to DOS with "Sorry, that's
   incorrect", and that `START STING` skips the check. Not tested against the game.
 
+## What the unpatched game does with a wrong answer
+
+Read from the first release's program on 2026-11-21 (overlay slice 2). Both builds carry the same
+routine and the same strings; they differ in one instruction.
+
+- After the comparison at +0x327, the first release has `jne 0x330`. Version 1.3 has
+  `nop; nop; jmp 0x355` in its place, which is why 1.3 accepts anything.
+- At +0x330 the routine prints the string at +0xe4, "Sorry, that's incorrect.", in colour 14.
+- It then tests its count of tries. On the third wrong answer it calls the program's exit
+  routine (26b:0). Otherwise it jumps back to +0x10a and asks again. +0x10a is before the
+  `Random(13)` call, so each try draws a new question.
+
+So the fan sources are right: three tries, then the game ends. This settles how Enhanced refuses
+a wrong word.
+
+The first release in the port never reaches this routine at start-up: a dice trace of its boot
+shows no `Random(13)` call from slice 2, and the game goes from the title to the party menu. The
+check is in the code but nothing calls it on that path. Where the call was, and whether the copy
+of the first release we have was altered to skip it, is not established.
+
 ## Not yet established
 
 - Which of GOG's redrawn tiles is which rune. Not needed now: the scan's runes are named by position.
-- What the unpatched game does after a wrong answer, tested rather than reported.
-- Why the first release also accepts any answer in the port.
+- Why the first release never calls the code-wheel routine at start-up: whether that copy was
+  altered, and where the call was.
