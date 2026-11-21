@@ -59,7 +59,9 @@ and slot A respectively. They verify automatic selection of the map 32
 and map 31 illustrations, the party marker in Local, and unchanged
 game state and save after switching displays. The
 `moonsea-lizardman-travel` route starts from a slot A overland
-checkpoint at (27, 8). It starts travel with Enter on the Lizardman Keep
+checkpoint at (27, 8). Chrome forces a WebGL context loss and verifies the
+overland view rebuilds without advancing the game. It then starts travel
+with Enter on the Lizardman Keep
 landmark and cancels with Escape while the first step is in progress.
 It then clicks the landmark and walks across a sector
 boundary, and stopped at the native drawbridge prompt. Accepting the

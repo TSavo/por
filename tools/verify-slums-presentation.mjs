@@ -4446,6 +4446,20 @@ try {
   if (moonseaTravel) {
     assert.equal(frame.overlandMap, true);
     assert.deepEqual([frame.travel.x, frame.travel.y, frame.travel.sector], [27, 8, 1]);
+    await waitFor("the Moonsea WebGL viewport", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector(".overland-viewport")?.isConnected`));
+    assert.ok(await run(`(() => {
+      window.lostMoonseaViewport = document.querySelector(".overland-viewport");
+      const loss = window.lostMoonseaViewport.getContext("webgl").getExtension("WEBGL_lose_context");
+      if (!loss) return false;
+      loss.loseContext();
+      return true;
+    })()`));
+    await waitFor("a rebuilt Moonsea WebGL viewport", () => run(`(() => {
+      const canvas = document.querySelector(".overland-viewport");
+      return state.sequence === ${frame.sequence} && canvas && canvas !== window.lostMoonseaViewport &&
+        !canvas.getContext("webgl").isContextLost();
+    })()`));
     await command("Emulation.setDeviceMetricsOverride", { width: 1200, height: 900, deviceScaleFactor: 1, mobile: false });
     const landmark = 'document.querySelector("[data-destination=lizardmen]")';
     await waitFor("the illustrated Moonsea map", () => run(`
