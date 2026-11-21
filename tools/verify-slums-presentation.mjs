@@ -122,7 +122,14 @@ const encounterRoutes = new Map([
     slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter"],
     placement: [48, 32, "encounter:area:16:ecl:a535:SPRIT8.DAX:57:0:0", 48, 80],
     approachSequence: [[48, 32, "encounter:area:16:ecl:a535:SPRIT8.DAX:57:0:0", 48, 80]],
-    dialogue: { key: "enter", portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:0:0", prompt: /COMBATWAITFLEEPARLAY/i },
+    dialogueSteps: [
+      { key: "enter", portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:0:0", prompt: /COMBATWAITFLEEPARLAY/i },
+      ...[1, 2, 3].map(member => ({
+        key: "z", portrait: `portrait:area:16:ecl:a535:PIC8.DAX:57:${member}:0`, prompt: /COMBATWAITFLEEPARLAY/i,
+      })),
+      { keys: Array(9).fill("z"), portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:3:0", prompt: /COMBATWAITFLEEPARLAY/i },
+    ],
+    battleStart: { input: "p", portrait: "portrait:area:16:ecl:a560:PIC8.DAX:57:3:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["swamp-ruin-defenders", {
     slot: "A", inputs: ["up", "up"],
@@ -342,7 +349,15 @@ const encounterRoutes = new Map([
   ["pyramid-vats-lizard-approach", {
     slot: "A", inputs: ["s", "up", "enter"],
     placement: [48, 32, "encounter:area:23:ecl:a1b9:SPRIT7.DAX:57:0:0", 48, 80],
-    dialogue: { key: "enter", portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:0:0", prompt: /POKINGAROUNDINTHEVATS/i },
+    dialogueSteps: [
+      { key: "enter", portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:0:0", prompt: /POKINGAROUNDINTHEVATS/i },
+      { keys: ["z", "z"], portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:1:0", prompt: /POKINGAROUNDINTHEVATS/i },
+      ...[2, 3].map(member => ({
+        key: "z", portrait: `portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:${member}:0`, prompt: /POKINGAROUNDINTHEVATS/i,
+      })),
+      { keys: Array(11).fill("z"), portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:1:0", prompt: /POKINGAROUNDINTHEVATS/i },
+    ],
+    battleStart: { input: "enter", portrait: "portrait:area:23:ecl:a23f:PIC7.DAX:57:1:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["stojanow-patrol-fighter-approach", {
     slot: "A", inputs: ["up", "enter"],
@@ -1969,16 +1984,19 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "valhingen-mummy-sarcophagi-phase-1.png",
   }],
   ["old-phlan-lizard-patrol-phases", {
-    slot: "B", inputs: ["up", "enter", "enter", ...Array(4).fill("q")],
+    slot: "B", inputs: ["up", "enter", "enter", ...Array(16).fill("z")],
     portraitStops: {
       3: "portrait:area:29:PIC8.DAX:57:0:0",
       5: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0",
       6: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0",
+      7: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:3:0",
     },
-    portrait: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:3:0",
+    portrait: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:1:0",
     prompt: /ALIZARDMANLEADSAPACKOFGIANTLIZARDSONPATROL.*DOORTHATHASBEENNAILEDCLOSED/i,
-    phaseCaptures: { 5: "old-phlan-lizard-patrol-phase-1.png", 6: "old-phlan-lizard-patrol-phase-2.png" },
-    finalPhaseCapture: "old-phlan-lizard-patrol-phase-3.png",
+    phaseCaptures: {
+      5: "old-phlan-lizard-patrol-phase-1.png", 6: "old-phlan-lizard-patrol-phase-2.png", 7: "old-phlan-lizard-patrol-phase-3.png",
+    },
+    continuation: { inputs: ["enter"], portrait: "portrait:area:29:ecl:aa7a:PIC8.DAX:57:1:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valjevo-tower-troll-phases", {
     slot: "B", inputs: ["up", "b", "up", ...Array(23).fill("q")],
