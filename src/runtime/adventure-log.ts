@@ -1056,6 +1056,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "bane-cleric-dispatch", title: "The cleric's dispatch",
       detail: "The party recovered a paper from the defeated cleric and copied it as journal entry 25." });
   }
+  if (text.includes("NORTH WALL. RI T FRONT GLAS . SE")) {
+    leads.push({ id: "bane-cell-scratched-message", title: "Scratched message in Bane's prison",
+      detail: "The party found this damaged inscription: “NORTH WALL.  RI  T FRONT GLAS . SE”." });
+  }
   if (text.includes("THIS IS A HIDDEN TEMPLE OF ILMATER") ||
       text.includes("WE PROVIDE HELP FOR THOSE WHO CAN REACH US. ARE YOU IN NEED OF HEALING")) {
     leads.push({ id: "podal-ilmater-infirmary", title: "Hidden infirmary in Podal Plaza",

@@ -5025,6 +5025,7 @@ routes.push("river-pumping-hostile");
 routes.push("river-return-reload");
 routes.push("swamp-return", "swamp-reward-reload");
 routes.push("slums-potion-booth-reload");
+routes.push("bane-cell-inscription-reload");
 routes.push("mendor-records-reward-reload");
 const atlasRoutes = new Map([
   ["kuto-catacombs-atlas", { slot: "J", areas: [29], mapId: 32, file: "kutos-catacombs-concept-v1.png" }],
@@ -11543,6 +11544,13 @@ try {
     assert.equal(JSON.parse(readFileSync(saved, "utf8")).tracked, "commission-records");
     console.log("Mendor records checkpoint:", saved);
     console.log("Verified the clerk acknowledgment for Lex Geographica in Chrome.");
+  } else if (routeName === "bane-cell-inscription-reload") {
+    await advance("j");
+    const inscription = frame.journal?.leads.find(({ id }) => id === "bane-cell-scratched-message");
+    assert.match(inscription?.detail ?? "", /NORTH WALL\. {2}RI {2}T FRONT GLAS \. SE/);
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the scratched Bane inscription survives a cold reload in Chrome.");
   } else if (routeName === "swamp-reward-reload") {
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "swamp-alliance-averted"));
