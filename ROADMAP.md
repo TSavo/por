@@ -1,11 +1,36 @@
 # Roadmap
 
-## Current port status
+## Goal
 
-The browser runs the original campaign through the translated DOS runtime.
-Original character creation, exploration, combat, spells, and saving have
-all been exercised. [Coverage](docs/COVERAGE.md) records which checks use
-ordinary play and which start from controlled saves.
+Release this repository on its own. It holds the translated runtime and
+everything authored for the port: Enhanced artwork, atlas plates, effects,
+music cues, narration, the journal, and the tools. The player supplies the
+original DOS files. `TSavo/por-assets` keeps those files and the audio
+rendered from them, and is not part of the release.
+
+## Where the port stands
+
+Measured on November 21, 2026, with the original files from
+`por-assets/pool`. The artwork counts are from `cec4a39a`. Each row names
+its check or source.
+
+| System | State | Check |
+| --- | --- | --- |
+| Translation | All 831 procedure prologues in `START.EXE` and `GAME.OVR` have a translated procedure, and `src/translated` matches the generator. The coverage table counts 988 translated procedures, which adds the routines reached only by a direct call. | `npm run verify`, `npm run verify:translation-reproducible` |
+| Campaign | Character creation through the final council reward replays in Chrome from an empty save directory. Three battles use the developer victory command. | `npm run verify:campaign -- <chrome-executable> --full` |
+| Journal | 20 commission definitions match the original ECL dialogue, and 16 progress flags are checked through the translated setter. Leads and the tracked quest save with each slot. | `npm run verify` |
+| Atlas and travel | 19 illustrated plates load. The Moonsea plate works as the overland travel map. | `npm run verify`, [Map concepts](docs/MAP-CONCEPTS.md) |
+| Enhanced exploration | WebGL exploration reads the camera and walls from the active game map. | [New Phlan 3D prototype](docs/NEW-PHLAN-3D-PROTOTYPE.md) |
+| Enhanced artwork | 7,970 validated replacement mappings from 7,098 PNG files. Of 833 picture, sprite, and combat source frames, 631 are linked, 22 resolve through exact pixel matches, and 180 remain. All 448 tall and 352 small party icon combinations have both poses. | `npx tsx tools/art-inventory.ts` |
+| Classic audio | All 20 original sound events render through the decoded driver for PC speaker and Tandy. | `npx tsx tools/verify-original-audio.ts` |
+| Enhanced effects and music | 11 approved effects and 2 approved music cues cover every reachable original event. | `npx tsx tools/verify-enhanced-audio.ts` |
+| Narration | All 2,025 text-producing ECL events are classified into 1,432 narration units. 1,745 recordings are complete, with none pending. | `npm run verify-voice-master`, `npm run verify-narration-generation` |
+
+[Coverage](docs/COVERAGE.md) records which checks use ordinary play and
+which start from controlled saves. [Audio](docs/AUDIO.md) and the
+[art inventory](docs/ART-INVENTORY.md) describe their pipelines.
+
+## Campaign verification
 
 - `npm run verify:campaign -- <chrome-executable> --full` starts in an empty
   save directory and carries the six original characters through Sokal Keep,
@@ -68,101 +93,93 @@ ordinary play and which start from controlled saves.
   cache. Slot D reloads with the Dust of Disappearance and the other items
   from that cache in Alda's inventory.
 - The Encamp journal tracks witnessed clues and the selected commission in
-  the active save slot. The art inventory tracks individual replacements,
-  placement metadata, and observed gaps. [Art inventory](docs/ART-INVENTORY.md)
-  describes how to generate it and feed it route traces.
-- Current artwork work prioritizes scene illustrations, portraits, and
-  encounter and combat sprites.
+  the active save slot.
 
-## Original engineering plan
+## Open work
 
-The phase descriptions below record the early plan. Their status labels
-are from that stage of development. Use the coverage log for current
-verification and limitations.
+### Release
 
-The goal is a full playthrough of Pool of Radiance, start to finish, with a second presentation the player can flip on with one key and no change to the story state. Phase 1 is the formats, the tools, and a shell that already keeps rules away from pixels. Everything under "not started" is still that: not started.
+- **`.gitignore` still ignores `upgrades/*.png`.** New artwork reaches the
+  repository only when it is added with force. Two strike sprites were
+  listed in the manifest without their files until `5a0af5d6`. Remove the
+  rule so a missing file shows up in `git status`.
+- **Classic sound needs the player's own renders.** Classic plays WAV
+  files from `por-assets/original`. A player with only the DOS files has
+  none. `npm run render-original-sounds` writes the PC-speaker WAV files
+  from their `START.EXE`. The Tandy WAV files also need the libvgm
+  renderer. Decide how the release produces both, and add the step to the
+  README.
+- **Decide what derived text ships.** The narration transcripts and
+  `src/audio/voice-review-extraction.json` contain the game's script text.
+- **Check the release from a clean checkout** with no `por-assets`
+  directory beside it, in both display modes.
 
-Status words mean what they say. "Skeleton" means the data loads and one path runs. It does not mean the system is faithful yet.
+### Translation
 
-## Phase 1 — Map the binary and translate the first procedures
+- `Crt.Delay` ends after one pass. The generator leaves the flags off one
+  `dec dx` because the emulated BIOS tick is too fast for Crt's delay
+  calibration. Recalibrate the tick, restore the flags, and record the
+  input tapes again. [Coverage](docs/COVERAGE.md) has the detail.
+- Finish the full Chrome campaign replay on the regenerated translation.
+  It now preserves carry across 81 memory `DEC` instructions and adds 19
+  library procedures. The campaign opening passes on it.
+- The sound driver's timer interrupt handler is decoded by hand in
+  `src/audio/original-driver.ts` and has no translation. Neither do the
+  library routines that have no prologue and no direct caller.
+- 11 indirect far calls resolve at run time. No static check covers
+  their targets.
+- Only two procedures have byte-level checks of their own. The rest are
+  verified through play.
 
-Status: **started on the real Pool of Radiance files.** The archive hash is `6950e9ca62e8a034ecd300e2233a81135c52872bf3c564f74dd99edba004346b`.
+### Campaign
 
-Done, from this game's bytes:
+- Replay the full campaign in one continuous run with original combat in
+  place of the developer victory command at the courtyard, the castle
+  guards, and Tyranthraxus.
+- The coverage log still lists these as open:
+  - winning the Textile House ogre and Grishnak fights, claiming the
+    brass key, and recovering the treasure through ordinary play;
+  - the Buccaneer Base gate escape through the council reward as one
+    continuous replay;
+  - the Kobold Caves surrender branch;
+  - loading an exported DOS save in the original executable.
+- Kuto's Well, Kovel Mansion, Valhingen Graveyard, and Stojanow Gate are
+  covered from prepared saves. The log records no commission completed
+  there through ordinary play.
+- The log records character creation for dwarf fighters and one human
+  magic-user. The other races and classes have no recorded replay.
 
-- `GAME.OVR` is TPOV. 38 slices mapped in `docs/overlays.json`. The resident reader at `START.EXE` `0x591f` seeks, reads, and applies word fixups.
-- `START.EXE` is an unpacked MZ (no EXEPACK). REA/Ghidra lists 175 procedures.
-- Mechanical translator `tools/tp_translate.py`. 30 procedures in overlay slice 7 and 5 System-unit routines emitted as instruction switches.
-- Verified by execution: FillChar (`5bb:16b5`) and the ECL operand fetch (`ovl07_0000`).
+### Artwork
 
-Asset inspection and export use the analysis tools in `src/lib/dax.ts`, `ecl.ts`, `picture.ts`, `world.ts`, and `files.ts`. The browser draws the translated runtime's EGA output.
+- 180 source frames remain unlinked: 112 scene illustration frames, 61
+  encounter sprite frames, and 7 combat poses. Many are animation members
+  or share pixels with art bound elsewhere. Check the draw in Chrome
+  before commissioning a replacement.
+- 15 literal script picture references point to 9 distinct unlinked frames.
+- Interface drawing and embedded graphics in `START.EXE` and `GAME.OVR`
+  still need their own audit.
 
-Not done:
+### Audio
 
-- Translate the other 37 slices, including the DAX file opener behind `int 3Fh` (`lcall 0x1d7:0x703`)
-- Run `ovl07_0353` (the procedure that builds `ECL` + area + `.dax` and copies the block) on a real file
-- Ghidra decompiler output for the overlays. REA's decompiler folded the stub table into `entry` and does not see `GAME.OVR` as part of the MZ. Disassembly is the path that is working.
+- Separate character voices are the project owner's to cast. No dialogue
+  lines are authored yet. The narrator performs quoted speech.
+- `npm run voice-coverage` reports the earlier Drama 3 plan: 17 of 1,551
+  entries selected and no final assets. Retire it, or point it at the
+  master manifest.
 
-The pictures in a format-check run are only as good as the directory you point at. See the README.
+### Documentation
 
-## Phase 2 — Character creation
+- [PORT.md](docs/PORT.md) and [ARCHITECTURE.md](docs/ARCHITECTURE.md)
+  describe the port before it could play. They still present the title
+  frame as blank and the Enhanced display and audio as planned.
+- The procedure table in [COVERAGE.md](docs/COVERAGE.md) counts two
+  verified procedures and predates the campaign replays. The log also
+  keeps superseded combat watchdog passages and some damaged characters.
+- The README does not yet cover audio setup.
 
-Status: **not started.**
+## Earlier plan
 
-Roll attributes, race, class, alignment, and the portrait picker. Spells known at first level. The PoR character record is the thing CotAB later imports; its field layout should be taken from the unpacked save/load code, not invented from the later game. Creation is a session mutation. Both presentations read the same record.
-
-## Phase 3 — Exploration
-
-Status: **skeleton.**
-
-The shell already steps on a 16×16 map and blocks on a facing wall. Still missing: doors and secret doors (the two-bit extra field), stairs, area changes, wilderness (different map and no 3D window), the area map on symbol set 4, rest, time, and the encounter distance counter. `LOAD FILES` has to actually bind the GEO and WALLDEF the script names.
-
-## Phase 4 — ECL completeness
-
-Status: **partial.**
-
-Opcodes that run: GOTO, GOSUB, RETURN, COMPARE, the six IFs, ADD/SUB/MUL/DIV, SAVE, PRINT, PRINTCLEAR, and a few no-ops. Menus, input, pictures, new-script, treasure, and calls halt on purpose. Finishing this phase is implementing each halted opcode against the decompiled handler, then diffing PoR's dispatch so a CotAB-only opcode is not silently reused. The disassembler already stops when the bytes disagree.
-
-## Phase 5 — Tactical combat
-
-Status: **not started.**
-
-The combat icon decoder writes a PNG. The fight itself does not exist: initiative, the grid, movement, melee, ranged, morale, and the end-of-combat return into the script. `COMBAT`, `LOAD MONSTER`, and `DAMAGE` are the script edge. The map and the participants belong to the session. Classic draws the small icons in the 3D frame; upgraded may draw larger ones for the same participant id.
-
-## Phase 6 — Spells
-
-Status: **not started.**
-
-Books, memorization, components, and the area and combat effects. `SPELL` is an opcode and nothing more today. Saving throws and THAC0 live here too, because spells and attacks share them.
-
-## Phase 7 — Saves
-
-Status: **not started.**
-
-Read and write the original save so a party from the DOS game loads, and write a documented engine save that does not include presentation mode. The original record layout comes from the unpacked load routine.
-
-## Phase 8 — Classic audio and the real UI font
-
-Status: **not started.**
-
-PC speaker / ADL cues as sound ids. The 8×8 font used for messages, lifted from the EXE or from the symbol set, so classic mode does not depend on an HTML font for story text.
-
-## Phase 9 — Upgrade pipeline
-
-Status: **seam only.**
-
-Ids, manifest, and the F10 switch exist. The art pass is still ahead:
-
-- Author replacement PNGs keyed by `pic:`, `glyph:`, `scene:title`, and `scene:viewport`
-- A checker that fails the build when an override's pixel size is incompatible with the slot it fills
-- Upgraded combat frames and UI widgets that emit the same intents
-- Per-id fallback test: delete one PNG, confirm that id returns to EGA and the others stay upgraded
-- Audio replacements on the same ids
-
-No override ships in this repo. The manifest is empty.
-
-## Phase 10 — The whole campaign
-
-Status: **not started.**
-
-New Phlan through the end, including the slavelord chain, as a playthrough on the classic presentation, then the same save opened in upgraded mode at an arbitrary fight. After that, a second campaign that is only data and scripts. That last step is why the engine is not allowed to special-case Phlan in code.
+The first version of this file laid out ten phases, from mapping the
+binary through a full campaign. The game systems in those phases are now
+exercised in play. The second, data-only campaign from the last phase has
+not been started. The phase descriptions remain in the history of this file.
