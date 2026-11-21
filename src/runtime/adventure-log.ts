@@ -246,6 +246,7 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
       else if (knows("ohlo-rope-guild-entry")) nextStep = "From the spot marked by the Rope Guild notice, go south into the building and look for the booth.";
     }
     if (commission.id === "sokal") {
+      const patrolPassword = knows("sokal-parchment") ? "SHESTNI" : "the word the patrol accepted";
       if (knows("sokal-pale-form-wrong-word")) {
         nextStep = "The pale figure vanished after hearing the word. Reload a save from before the encounter to try again.";
         if (knows("sokal-parchment")) nextStep += " Check the parchment for another word.";
@@ -266,14 +267,18 @@ export function currentObjective(leads: readonly JournalLead[], trackedId?: stri
           nextStep += " Ask the arena master for reinforcements if needed. Arena recruits act on their own in battle. Prepare spells on a character you control to choose their targets.";
         }
       }
-      else if (knows("sokal-armory-opened")) nextStep = "Ready any gear you took under View and Items, then explore beyond the armory.";
+      else if (knows("sokal-armory-opened")) {
+        nextStep = "Ready any gear you took under View and Items, then explore beyond the armory.";
+        if (knows("sokal-patrol-passed")) {
+          nextStep += ` If another patrol asks, give ${patrolPassword} or choose Yes to repeat the password.`;
+        }
+      }
       else if (knows("sokal-armory-stands")) nextStep = "Decide whether to take the gear on the stands, then continue exploring Sokal Keep.";
       else if (knows("sokal-hidden-armory")) nextStep = "Follow the glow to the northwest corner of the hidden armory.";
       else if (knows("sokal-haunt-diary")) nextStep = "Read journal entry 3, then continue searching the keep.";
       else if (knows("sokal-haunt-floorboard")) nextStep = "Check the floorboard the spirit pointed out for the defenders' diary.";
       else if (knows("sokal-patrol-passed") && !knows("sokal-departure")) {
-        const password = knows("sokal-parchment") ? "SHESTNI" : "the word the patrol accepted";
-        nextStep = `Explore the keep. Give the patrols ${password} again when they ask for a word, or choose Yes if they offer to repeat the password.`;
+        nextStep = `Explore the keep. Give the patrols ${patrolPassword} again when they ask for a word, or choose Yes if they offer to repeat the password.`;
       }
       else if (knows("sokal-patrol-rejected-word") && knows("sokal-parchment")) {
         nextStep = "The patrol rejected the word. If you meet another patrol, try a different word from the parchment.";

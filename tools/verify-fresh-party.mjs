@@ -1261,9 +1261,8 @@ if (process.argv[2] === "--sokal-patrol-victory-checkpoint") {
   process.exit(0);
 }
 
-const armoryToTemple = [
-  "right", "right", "up", "left", "up", "up", "up", "right", "up", "right", "up", "left",
-  ...Array(4).fill("up"), "right", "up", "left", "up", "right", "up", "up", "up", "left",
+const leaveSokalForTemple = [
+  "up", "right", "up", "left", "up", "right", "up", "up", "up", "left",
   ...Array(4).fill("up"), "y", "up", "up", "right", "up", "up", "left", ...Array(5).fill("up"),
   (text) => assert.match(text, /take a boat back to phlan/),
   "y", "y", "enter", "enter", "enter",
@@ -1271,6 +1270,30 @@ const armoryToTemple = [
   ...Array(4).fill("up"), "left", "up", "up", "y", "y",
   (text) => assert.match(text, /heal view pool appraise exit/),
 ];
+
+const armoryToTemple = [
+  "right", "right", "up", "left", "up", "up", "up", "right", "up", "right", "up", "left",
+  "up", "up", "up", ...leaveSokalForTemple,
+];
+
+async function verifySokalBarracks() {
+  const diarySave = await replay(loadSlot("2166"), "85000000", [
+    (text) => assert.match(text, /12,0 n/),
+    "right", "up", "up", "right", "up", "left", "up", "right", "up", "right",
+    ...Array(11).fill("up"), "left", "up",
+    (text) => assert.match(text, /4,3 s.*a mist rises and thickens/),
+    "enter", "a", "a", "p", "n", ..."lux", "enter",
+    (text) => assert.match(text, /they were the original defenders of the keep/),
+    "enter", (text) => assert.match(text, /he points to a floorboard/),
+    "enter", (text) => assert.match(text, /beneath a floorboard.*diary.*journal as entry 3/),
+    "enter", "y", (text) => assert.match(text, /receives 250 experience points/),
+    "enter", "enter", "end", "t",
+    (text) => assert.match(text, /gems 5 select type of coin/),
+    "g", "enter", "5", "enter", "e", "e", "s", "s", "i",
+  ]);
+  assert.match(visibleText(diarySave), /quit to dos/);
+  console.log("Recovering the defenders' diary earned five gems for the party.");
+}
 
 async function verifySokalTempleHealing() {
   const cureLightWounds = ["h", "end", "end", "h",
@@ -1289,9 +1312,21 @@ async function verifySokalTempleHealing() {
     (text) => assert.match(text, /alda 5 6.*brin 1 6.*dorn 5 8/),
     "s",
   ];
-  const templeSave = await replay(loadSlot("2166"), "85000000", [
-    (text) => assert.match(text, /12,0 n/, "Expected the earned Sokal armory save in slot F"),
-    ...armoryToTemple,
+  const templeSave = await replay(loadSlot(campaign ? "1769" : "2166"), "85000000", [
+    ...(campaign ? [
+      (text) => assert.match(text, /4,3 s/, "Expected the earned Sokal barracks save in slot I"),
+      "j", (_text, frame) => {
+        const { leads } = frame.journal;
+        assert.ok(leads.some(({ id }) => id === "sokal-haunt-floorboard"));
+        assert.ok(leads.some(({ id }) => id === "sokal-haunt-diary"));
+      }, "j",
+      "end", "v", (text) => assert.match(text, /brin.*gems 5/), "e",
+      "left", "up", "up", "left", "up", "right", ...Array(8).fill("up"),
+      "right", "up", "up", "up", ...leaveSokalForTemple,
+    ] : [
+      (text) => assert.match(text, /12,0 n/, "Expected the earned Sokal armory save in slot F"),
+      ...armoryToTemple,
+    ]),
     ...(campaign ? recoverCampaignParty : [...Array(4).fill("home"), ...cureLightWounds]),
     "e", "e", "s", "s", "g",
   ]);
@@ -1384,6 +1419,7 @@ async function verifySokalEvokerRecruitment() {
 }
 
 async function verifySokalNextChapter() {
+  await verifySokalBarracks();
   await verifySokalTempleHealing();
   await verifySokalEvokerRecruitment();
   await verifySokalEvokerReturn();
@@ -1413,7 +1449,10 @@ async function verifySokalEvokerReturn() {
   assert.match(visibleText(afterPatrol), /quit to dos/);
   await replay(loadSlot("246a"), "85000000", [
     (text) => assert.match(text, /evoker 9 6/),
-    "j", (_text, frame) => assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-patrol-passed")),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-patrol-passed"));
+      assert.match(frame.journal.objective.nextStep, /give SHESTNI or choose Yes to repeat the password/);
+    },
   ]);
   console.log("Returned to Sokal with the evoker and reloaded beyond the undead patrol:", resolve(saveDir, "J.json"));
 }
