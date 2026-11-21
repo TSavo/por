@@ -1767,6 +1767,20 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:26:PIC7.DAX:61:0:0", prompt: /ASWARMOFSTIRGESSWOOPSDOWN/i,
   }],
+  ["wild-cave-dwarf-remains", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:25:ecl:a737:cue:dwarf-remains",
+    prompt: /LYINGONTHEGROUNDHEREARETHEDISSOLVINGREMAINSOFADWARF/i,
+    finalPhaseCapture: "wild-cave-dwarf-remains.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["wild-cave-churned-earth", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:25:ecl:a75c:cue:churned-earth",
+    prompt: /THEGROUNDHEREISSOFTANDFRESHLYCHURNED/i,
+    finalPhaseCapture: "wild-cave-churned-earth.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["wild-cave-shed-skin", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:25:ecl:a857:cue:shed-snake-skin",
