@@ -205,7 +205,10 @@ const encounterRoutes = new Map([
   ["slums-goblin-lesson-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:20:SPRIT2.DAX:2:0:0", 48, 80],
-    dialogue: { key: "enter", portrait: "portrait:area:20:PIC2.DAX:2:0:0", prompt: /GOBLINISINSTRUCTINGAGROUPOFYOUNGWARRIORS/i },
+    dialogue: {
+      key: "enter", portrait: "portrait:area:20:PIC2.DAX:2:0:0", prompt: /GOBLINISINSTRUCTINGAGROUPOFYOUNGWARRIORS/i,
+      heldPortrait: "portrait:area:20:ecl:b6df:caller:9eec:PIC2.DAX:2:1:0",
+    },
   }],
   ["swamp-giant-lizard-approach", {
     slot: "A", inputs: ["up", "enter"],
