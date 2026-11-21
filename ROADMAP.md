@@ -15,6 +15,10 @@ ordinary play and which start from controlled saves.
 - The original Tyranthraxus fight and City Hall finale have been replayed
   from a controlled party. The ending reward, a completed save reload,
   and Classic/Enhanced switching in Chrome have separate verification.
+- `npm run verify:campaign-opening -- <chrome-executable>` runs the opening
+  in Enhanced Chrome from an empty save directory through the first Slums
+  victory and reload. Each leg carries forward the party earned in play and
+  keeps its input saves and key recording under `out/campaign-*`.
 - The Encamp journal tracks witnessed clues and the selected commission in
   the active save slot. The art inventory tracks individual replacements,
   placement metadata, and observed gaps. [Art inventory](docs/ART-INVENTORY.md)

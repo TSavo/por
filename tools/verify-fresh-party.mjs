@@ -4,17 +4,37 @@ import { appendFileSync, copyFileSync, mkdirSync, mkdtempSync, readFileSync, wri
 import { join, resolve } from "node:path";
 import { createInterface } from "node:readline";
 import { tsImport } from "tsx/esm/api";
+import { openChromeCampaignLeg } from "./chrome-campaign-replay.mjs";
 
 const names = ["alda", "brin", "cora", "dorn", "enna", "fenn"];
 const createCharacterFromBoot = ["enter", "enter", "enter", "c"];
+const campaignOpening = process.argv[2] === "--campaign-opening";
+const chromePath = process.argv[3];
+if (campaignOpening) assert.ok(chromePath, "Pass the path to Chrome after --campaign-opening.");
 mkdirSync("out", { recursive: true });
-const saveDir = mkdtempSync(join("out", "fresh-party-"));
+const saveDir = mkdtempSync(join("out", campaignOpening ? "campaign-" : "fresh-party-"));
 const tileTrace = process.env.POR_TRACE_TILES === "1" ? resolve(saveDir, "tile-inventory.jsonl") : undefined;
 const tileFrames = tileTrace && join(saveDir, "tile-frames");
 if (tileFrames) mkdirSync(tileFrames);
 let tracedFrames = 0;
+let campaignLeg = 0;
 
 async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopAt) {
+  if (campaignOpening) {
+    const directory = resolve(saveDir, `leg-${++campaignLeg}`);
+    const chrome = await openChromeCampaignLeg({ chromePath, directory, checkpointDir: resolve(checkpointDir), bootKeys, startAt });
+    try {
+      const initial = await chrome.nextFrame();
+      return await replayActions(initial, actions, stopAt, async (command) => {
+        await chrome.send(command);
+        return chrome.nextFrame();
+      });
+    } catch (error) {
+      throw new Error(`Chrome campaign leg ${campaignLeg} failed. Diagnostics in ${directory}`, { cause: error });
+    } finally {
+      await chrome.close();
+    }
+  }
   const runner = spawn(process.execPath, ["--import", "tsx", "tools/boot-translated.ts"], {
     env: {
       ...process.env, POR_PREGEN_PARTY: "0", POR_BROWSER_PLAY: "1", POR_SAVE_DIR: checkpointDir,
@@ -47,33 +67,35 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
     }
   }
   try {
-    let frame = await nextFrame();
-    async function send(command) {
+    return await replayActions(await nextFrame(), actions, stopAt, (command) => {
       lastKey = command;
       actionNumber++;
       runner.stdin.write(command + "\n");
-      frame = await nextFrame();
-    }
-    for (const action of actions) {
-      if (Array.isArray(action)) {
-        const [command, until, limit] = action;
-        for (let attempt = 0; attempt < limit && !until.test(lastText); attempt++) {
-          await send(command);
-        }
-        assert.match(lastText, until);
-        continue;
-      }
-      const key = typeof action === "function" ? action(visibleText(frame), frame) : action;
-      if (typeof key !== "string") continue;
-      await send(key);
-      if (stopAt?.test(lastText)) break;
-    }
-    return frame;
+      return nextFrame();
+    });
   } finally {
     clearTimeout(timer);
     lines.close();
     runner.kill();
   }
+}
+
+async function replayActions(frame, actions, stopAt, send) {
+  for (const action of actions) {
+    if (Array.isArray(action)) {
+      const [command, until, limit] = action;
+      for (let attempt = 0; attempt < limit && !until.test(visibleText(frame)); attempt++) {
+        frame = await send(command);
+      }
+      assert.match(visibleText(frame), until);
+      continue;
+    }
+    const key = typeof action === "function" ? action(visibleText(frame), frame) : action;
+    if (typeof key !== "string") continue;
+    frame = await send(key);
+    if (stopAt?.test(visibleText(frame))) break;
+  }
+  return frame;
 }
 
 process.on("exit", () => {
@@ -2535,6 +2557,10 @@ const battleReload = await replay(loadSlotD, "85000000", [
 ]);
 assert.match(visibleText(battleReload), /alda.*copper 11.*exp 5.*armor chain mail/);
 console.log("Won the kobold encounter and verified Alda's 5 XP and 11 copper after reloading slot D.");
+if (campaignOpening) {
+  console.log("Enhanced Chrome campaign opening complete:", resolve(saveDir));
+  process.exit(0);
+}
 
 const toOhlo = [
   "left", "up", "up", "up", "right", "up", "right", ...Array(5).fill("up"),
