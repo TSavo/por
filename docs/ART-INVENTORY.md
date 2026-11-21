@@ -344,6 +344,12 @@ Chrome over WebGL and cleared before the native battle opened. The
 standard street replay draws the middle sprite, and the courtyard
 replay draws the near sprite.
 
+The Textile House poison frog has a far replacement for `SPRIT4.DAX`
+block 37, member 2. A controlled replay changed the draw at ECL
+`9abe` from near to far and matched the original 24x49 sprite at
+(56,32). Chrome displayed it on the street over WebGL before the
+existing dialogue. The standard route draws the near sprite.
+
 The swamp giant lizard has separate middle and far sprites from
 `SPRIT8.DAX` block 59, members 1 and 2. Controlled Chrome replays drew
 the 192×260 and 160×228 sprites at (48,32) and continued to the enhanced
