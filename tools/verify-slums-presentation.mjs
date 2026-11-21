@@ -4222,6 +4222,15 @@ try {
     }
   }
 
+  async function verifyRolfTrainingSchools() {
+    const schools = "scene-illustration:area:0:ecl:af3f:caller:b369";
+    assert.equal(frame.portrait, schools);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /BEHINDTHESEDOORSARETHESPECIALTRAININGSCHOOLS/i);
+    await waitFor("Rolf's training schools illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${schools}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+  }
+
   async function verifyPortraitPanel() {
     assert.ok(await run(`(() => {
       const layer = document.querySelector("#tile-art").getBoundingClientRect();
@@ -4629,6 +4638,10 @@ try {
     await verifyPortraitPanel();
     for (let stop = 1; stop < 7; stop++) {
       await advance("enter");
+      if (stop === 2) {
+        await verifyRolfTrainingSchools();
+        continue;
+      }
       assert.equal(frame.portrait, undefined);
       assert.equal(frame.perspective, true);
       assert.equal(await verifyTiledView(0, tourPatterns), 1);
@@ -6536,6 +6549,12 @@ try {
         await advance("enter");
         assert.equal(frame.portrait, undefined);
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ENTRANCETOTHEPASSENGERDOCKAREA/i);
+        await waitForExplorationViewport();
+        await advance("enter");
+        await verifyRolfTrainingSchools();
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /WEAREJUSTOUTSIDETHECITYHALL/i);
         await waitForExplorationViewport();
       }
       if (routeName === "kuto-well-waterline") {
