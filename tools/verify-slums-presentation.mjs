@@ -7749,7 +7749,18 @@ try {
     const readingSlip = "scene-illustration:area:4:ecl:9a5a:caller:a973";
     assert.equal(frame.portrait, readingSlip);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /YOULOOKATTHEWRITING/i);
-    for (let index = 0; index < 4; index++) await advance("enter");
+    await waitFor("the kitchen slip reading illustration", () => run(
+      'state.sequence === ' + frame.sequence +
+      ' && document.querySelector(\'.encounter-portrait[src="/art/' + readingSlip + '"]\')?.naturalWidth === 352'));
+    await verifyPortraitPanel();
+    const slipShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "valjevo-kitchen-reading-slip.png"), Buffer.from(slipShot.data, "base64"));
+    await switchBothWays(frame.frame);
+    for (let index = 0; index < 4; index++) {
+      await advance("enter");
+      assert.equal(frame.portrait, undefined);
+    }
+    await waitForExplorationViewport();
     await advance("j");
     assert.ok(knows("castle-kitchen-captives-freed"));
     assert.ok(knows("castle-hedge-gate-password"));
