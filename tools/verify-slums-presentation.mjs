@@ -1684,6 +1684,26 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 6: "mendor-fighter-phase-2.png", 8: "mendor-fighter-phase-3.png", 9: "mendor-fighter-phase-4.png" },
     finalPhaseCapture: "mendor-fighter-phase-1.png",
   }],
+  ["slums-grain-sack-phases", {
+    slot: "B", inputs: ["up", "enter", "enter", ...Array(23).fill("q")],
+    portraitStops: {
+      3: "portrait:area:20:PIC2.DAX:31:0:0",
+      11: "portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:4:0",
+      14: "portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:2:0",
+      15: "portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:1:0",
+    },
+    portrait: "portrait:area:20:ecl:b6df:caller:b0ec:PIC2.DAX:31:3:0",
+    prompt: /SOMEMONSTERSARETOSSINGASACKOFGRAIN/i,
+    phaseCaptures: { 11: "slums-grain-sack-ambush-phase-4.png", 14: "slums-grain-sack-ambush-phase-2.png", 15: "slums-grain-sack-ambush-phase-1.png" },
+    finalPhaseCapture: "slums-grain-sack-ambush-phase-3.png",
+  }],
+  ["diogenes-mountain-sighting-phases", {
+    slot: "A", inputs: ["up", "enter", "q", "q"],
+    portraitStops: { 2: "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0" },
+    portrait: "portrait:area:25:ecl:9c97:PIC6.DAX:32:1:0",
+    prompt: /ASYOUHIKETHROUGHTHEMOUNTAINS,ALARGEDRAGONFLYSABOVEYOU/i,
+    finalPhaseCapture: "diogenes-mountain-sighting-phase-1.png",
+  }],
   ["sokal-ceiling-insects-phases", {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
     portraitStops: {
