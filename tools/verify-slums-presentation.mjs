@@ -8636,6 +8636,11 @@ try {
       for (const key of ["j", "up"]) await advance(key);
       assert.equal(frame.portrait, undefined);
       await waitForExplorationViewport();
+      assert.ok(await run(`(() => {
+        const canvas = document.querySelector(".street-viewport");
+        const texture = new URL(streetAtlas.skyUrl, location.href).href;
+        return getComputedStyle(canvas).backgroundImage === \`url("\${texture}")\`;
+      })()`), "The temple backdrop should use the active scenery texture");
       const entranceShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "bane-temple-after-admission.png"), Buffer.from(entranceShot.data, "base64"));
     } else {
