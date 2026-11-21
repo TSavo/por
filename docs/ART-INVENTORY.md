@@ -723,6 +723,25 @@ The Zhentil reinforcement trace confirmed the Enhanced ready pose for
 CPIC6 block 14. Al-Hyam repeatedly used an electrical wand, which retained
 that pose. A native action that displays block 142 remains unverified.
 
+The GOG 1.3 audit found six remaining combat-pose rows with byte-identical
+copies in other stock archives. Each is a single 24-by-24 cel with zero
+offsets. The corresponding `MONxCHA.DAX` has no character record with the
+same ID as the ready cel. The disassembled `LOAD MONSTER` and `SETUP
+MONSTER` instructions in the corresponding ECL banks have no literal art
+operand for these IDs. The variable art operands were also checked.
+
+| Archive and blocks | Banks with identical cels | Relevant GOG 1.3 ECL operands |
+| --- | --- | --- |
+| `CPIC1.DAX` 11, 139 | 2 through 8 | Area 18 table `b269` and area 24 tables `b60b` and `b613` select other art IDs. |
+| `CPIC4.DAX` 14, 142 | 2, 3, 5, 6, 7 | Area 10 table `b6e2` selects 20, 34, or 35. Area 21 table `af16` selects 37, 18, 17, 34, 35, 6, 5, or 4. |
+| `CPIC6.DAX` 13, 141 | 3, 5, 7 | Area 25 table `ae6c` selects 10, 120, 74, 119, 118, 65, 67, 11, 12, 11, or 60. |
+
+The audit found no native display attributed to those six archive rows.
+The Tyrmor priest replay observed the `CPIC7.DAX` copy of 13/141 and uses
+the scoped priest art for that encounter. Other encounters assign different
+characters to identical stock pixels. The six rows remain unlinked pending
+a native encounter with the corresponding source and actor.
+
 The generated `inventory.json` includes `encounterFamilies`, the same
 source-frame breakdown shown in the HTML inventory. Each family reports
 direct links, exact pixel matches, and unlinked frames. These counts
