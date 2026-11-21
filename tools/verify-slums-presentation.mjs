@@ -702,14 +702,16 @@ const illustrationRoutes = new Map([
   ["bane-black-hand-emissary-phases", {
     slot: "A",
     inputs: [...Array.from({ length: 50 }, () => ["up", "down"]).flat(), "up", "enter", "enter",
-      ...Array(24).fill("z"), "p"],
+      ...Array(24).fill("z"), "p", "a"],
     portraitStops: {
       103: "portrait:area:24:ecl:aeda:PIC1.DAX:4:0:0",
       112: "portrait:area:24:ecl:aeda:caller:ad99:PIC1.DAX:4:2:0",
+      128: "portrait:area:24:ecl:b2ac:caller:ad99:PIC1.DAX:4:2:0",
     },
-    portrait: "portrait:area:24:ecl:b2ac:caller:ad99:PIC1.DAX:4:2:0",
-    prompt: /THEORCSREADYTHEIRSPEARS.*HAUGHTYSLYNICEMEEKABUSIVE/i,
-    continuation: { inputs: ["a"], clearsPortrait: true, prompt: /FEELTHEWRATHOFBANE/i },
+    portrait: "scene-illustration:area:24:ecl:b0b5:cue:emissary-departure",
+    prompt: /FEELTHEWRATHOFBANE.*HESPITSANDLEAVES/i,
+    finalPhaseCapture: "bane-black-hand-emissary-departure.png",
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /^(?!.*HESPITSANDLEAVES).*NAMEACHP/i },
   }],
   ["stojanow-ettin-guardroom", {
     slot: "A",
