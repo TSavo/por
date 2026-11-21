@@ -2108,6 +2108,11 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:0:1:0", prompt: /ONELICKSITSLIPS/i,
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:0:1:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ["tyrmor-prison-kobolds-combat-base", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 4 }, () => ["up", "down"]).flat(), "up", "enter", "down", "up"],
+    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:0:0:0", prompt: /ONELICKSITSLIPS/i,
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:0:0:0", prompt: /ABATTLEBEGINS/i },
+  }],
   ["tyrmor-prison-kobolds-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 4 }, () => ["up", "down"]).flat(), "up", "enter", "down", "up", "q", "q", "q"],
     portraitStops: {
@@ -2281,6 +2286,11 @@ const illustrationRoutes = new Map([
     prompt: /STANDINGBEFOREYOUNOWISAGREATSILVERDRAGON/i,
     phaseCaptures: { 17: "diogenes-silver-dragon-phase-1.png", 20: "diogenes-silver-dragon-phase-2.png", 22: "diogenes-silver-dragon-phase-3.png" },
     finalPhaseCapture: "diogenes-silver-dragon-phase-4.png",
+  }],
+  ["tyrmor-prison-minotaur-combat-base", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 3 }, () => ["up", "down"]).flat(), "up", "enter", "down", "up"],
+    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:0:0", prompt: /ONELICKSITSLIPS/i,
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:62:0:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-prison-minotaur-phases", {
     slot: "B", inputs: ["s", "up", "down", "up", "down", "up", "down", "up", "enter", "down", "up", ...Array(5).fill("q")],
