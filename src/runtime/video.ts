@@ -105,7 +105,10 @@ export function attachPlanarVideo(cpu: Cpu): void {
     if (offset < 8000) {
       const cell = Math.floor(offset / 320) * 40 + offset % 40;
       const glyphWrite = isAt(cpu, cpu.ip, code.glyphStoreA) || isAt(cpu, cpu.ip, code.glyphStoreB);
-      if (!glyphWrite) gameText.delete(cell);
+      const glyphRepeat = isAt(cpu, cpu.ip, code.glyphRepeatA) || isAt(cpu, cpu.ip, code.glyphRepeatB);
+      if (glyphRepeat) {
+        // The repeated store writes the row the first store just wrote.
+      } else if (!glyphWrite) gameText.delete(cell);
       else if (cpu.read8(cpu.ss, cpu.bp - 0xf) === 7 && cpu.read8(cpu.ss, cpu.bp - 0xc) === 3) {
         const character = cpu.read8(cpu.ss, cpu.bp + 8);
         const color = cpu.read8(cpu.ss, cpu.bp + 0xc) & 15;

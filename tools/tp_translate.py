@@ -88,12 +88,15 @@ PROFILES = {
         "data_segment": 0xC7C, "system_init": 0xAF80, "crt_delay_dec_dx": 0xA6B7,
         "ecl_loop": ("ovl03_3171", 0x2F2D), "intr": (0xA32, 0xB),
         "system": None,
-        # MemAvail and MaxAvail load a routine's offset into BX and call through it.
-        "register_call_targets": [0xB231, 0xB251],
+        # MemAvail and MaxAvail load a routine's offset into BX and call through it. Each routine
+        # is a loop entered at its test, so its code starts before its entry: entry -> first byte.
+        "entries_inside": {0xB231: 0xB221, 0xB251: 0xB23D},
     },
 }
 PROFILE = PROFILES["1.0"]
 SURVEY: list[str] | None = None
+# Procedures whose entry is not their first byte: name -> entry address.
+ENTRY_INSIDE: dict[str, int] = {}
 
 def library_prologues(blob: bytes) -> list[int]:
     """`push bp; mov bp, sp` as the assembler-written library units encode it (55 8B EC).
@@ -795,7 +798,7 @@ def render_proc(blob: bytes, start: int, end: int, fn: str, comment: str, names:
     lines = [
         f"/** {comment} */",
         f"export function {fn}(m: Cpu): void {{",
-        f"  let ip = 0x{start:x};",
+        f"  let ip = 0x{ENTRY_INSIDE.get(fn, start):x};",
         "  while (true) {",
         "    switch (ip) {",
     ]
@@ -907,7 +910,7 @@ def emit_unit(blob: bytes, spans: list[tuple[int, int, str, str]]) -> tuple[str,
             # With --survey, list everything the translator cannot emit yet and keep going.
             SURVEY.append(f"{name}: {error}")
             continue
-        regs.append((start, name))
+        regs.append((ENTRY_INSIDE.get(name, start), name))
     tail = "\n".join(f"near.set(0x{off:x}, {name});" for off, name in regs)
     return "\n".join(body) + "\n" + tail + "\n", regs
 
@@ -1019,7 +1022,7 @@ def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
     exe_library = [p for p in library_prologues(IMG) if p < PROFILE["data_segment"] * 16]
     seeds = set(exe_prologues) | set(exe_library)
     seeds.add(PROFILE["system_init"])
-    seeds.update(PROFILE.get("register_call_targets", []))
+    seeds.update(PROFILE.get("entries_inside", {}).values())
     for i in range(len(IMG) - 1):
         if IMG[i] == 0x8B and IMG[i + 1] == 0xDC:
             seeds.add(i)
@@ -1050,9 +1053,14 @@ def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
     take_far(IMG, PROFILE["system_init"], PROFILE["system_init"] + 0x200)
     exe_found = close_entries(IMG, sorted(seeds), exe_prologues)
     exe_spans = []
+    inside = {first: entry for entry, first in PROFILE.get("entries_inside", {}).items()}
     for a in exe_found:
         b = bound_end(len(IMG), a, exe_prologues)
-        exe_spans.append((a, b, f"exe_{a:05x}", f"START.EXE image 0x{a:x}."))
+        if a in inside:
+            ENTRY_INSIDE[f"exe_{inside[a]:05x}"] = inside[a]
+            exe_spans.append((a, b, f"exe_{inside[a]:05x}", f"START.EXE image 0x{a:x}, entered at 0x{inside[a]:x}."))
+        else:
+            exe_spans.append((a, b, f"exe_{a:05x}", f"START.EXE image 0x{a:x}."))
     if 6 not in exe_found:
         # Startup falls into the program frame at 0xfb (push bp). That frame is
         # not a separate procedure, so the entry has to run through the halt call.

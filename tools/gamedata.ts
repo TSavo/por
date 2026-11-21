@@ -22,6 +22,21 @@ function literalRecord(id: number, data: Uint8Array) {
   return { id, rawSize: data.length, compressed };
 }
 
+/**
+ * Point the game at the port's own directories. POOL.CFG's third and fourth lines are the data
+ * path and the save path. The installer of a store release writes its own install directory there.
+ */
+export function usePortPaths<T extends { name: string; data: Uint8Array }>(files: readonly T[]): T[] {
+  return files.map((file) => {
+    if (file.name.toUpperCase() !== "POOL.CFG") return file;
+    const lines = new TextDecoder("latin1").decode(file.data).split("\r\n");
+    if (lines.length < 4) return file;
+    lines[2] = ".\\";
+    lines[3] = ".\\SAVE\\";
+    return { ...file, data: Uint8Array.from(lines.join("\r\n"), (character) => character.charCodeAt(0)) };
+  });
+}
+
 /** Make the supplied Valjevo wall sets available through the guest's DAX loader. */
 export function mountValjevoWallPieces(files: readonly { name: string; data: Uint8Array }[]) {
   const archives = new Map(files.map(file => [file.name.toUpperCase(), file.data]));

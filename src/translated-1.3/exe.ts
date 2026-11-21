@@ -103508,11 +103508,51 @@ export function exe_0b21c(m: Cpu): void {
   }
 }
 
-/** START.EXE image 0xb231. */
+/** START.EXE image 0xb221, entered at 0xb231. */
 export function exe_0b231(m: Cpu): void {
   let ip = 0xb231;
   while (true) {
     switch (ip) {
+      case 0xb221: {
+        // b221: add dx, 0x1000
+        m.tick(0xb221);
+        m.dx = m.setAddFlags(16, m.dx, 4096);
+        ip = 0xb225;
+        break;
+      }
+      case 0xb225: {
+        // b225: jmp 0xb22c
+        m.tick(0xb225);
+        ip = true ? 0xb22c : 0xb227;
+        break;
+      }
+      case 0xb227: {
+        // b227: add ax, word ptr [si + 4]
+        m.tick(0xb227);
+        m.ax = m.setAddFlags(16, m.ax, m.read16(m.ds, (m.si + 4) & 0xffff));
+        ip = 0xb22a;
+        break;
+      }
+      case 0xb22a: {
+        // b22a: jb 0xb221
+        m.tick(0xb22a);
+        ip = m.cf ? 0xb221 : 0xb22c;
+        break;
+      }
+      case 0xb22c: {
+        // b22c: add dx, word ptr [si + 6]
+        m.tick(0xb22c);
+        m.dx = m.setAddFlags(16, m.dx, m.read16(m.ds, (m.si + 6) & 0xffff));
+        ip = 0xb22f;
+        break;
+      }
+      case 0xb22f: {
+        // b22f: lds si, ptr [si]
+        m.tick(0xb22f);
+        { const base = (m.si) & 0xffff; m.si = m.read16(m.ds, base); m.ds = m.read16(m.ds, (base + 2) & 0xffff); }
+        ip = 0xb231;
+        break;
+      }
       case 0xb231: {
         // b231: mov bx, ds
         m.tick(0xb231);
@@ -103530,8 +103570,7 @@ export function exe_0b231(m: Cpu): void {
       case 0xb235: {
         // b235: jne 0xb227
         m.tick(0xb235);
-        if (!m.zf) { nearCall(m, 0xb227); return; }
-        ip = 0xb237;
+        ip = !m.zf ? 0xb227 : 0xb237;
         break;
       }
       case 0xb237: {
@@ -103696,11 +103735,64 @@ export function exe_0b238(m: Cpu): void {
   }
 }
 
-/** START.EXE image 0xb251. */
+/** START.EXE image 0xb23d, entered at 0xb251. */
 export function exe_0b251(m: Cpu): void {
   let ip = 0xb251;
   while (true) {
     switch (ip) {
+      case 0xb23d: {
+        // b23d: cmp dx, word ptr [si + 6]
+        m.tick(0xb23d);
+        m.setSubFlags(16, m.dx, m.read16(m.ds, (m.si + 6) & 0xffff));
+        ip = 0xb240;
+        break;
+      }
+      case 0xb240: {
+        // b240: ja 0xb24f
+        m.tick(0xb240);
+        ip = !m.cf && !m.zf ? 0xb24f : 0xb242;
+        break;
+      }
+      case 0xb242: {
+        // b242: jb 0xb249
+        m.tick(0xb242);
+        ip = m.cf ? 0xb249 : 0xb244;
+        break;
+      }
+      case 0xb244: {
+        // b244: cmp ax, word ptr [si + 4]
+        m.tick(0xb244);
+        m.setSubFlags(16, m.ax, m.read16(m.ds, (m.si + 4) & 0xffff));
+        ip = 0xb247;
+        break;
+      }
+      case 0xb247: {
+        // b247: jae 0xb24f
+        m.tick(0xb247);
+        ip = !m.cf ? 0xb24f : 0xb249;
+        break;
+      }
+      case 0xb249: {
+        // b249: mov ax, word ptr [si + 4]
+        m.tick(0xb249);
+        m.ax = m.read16(m.ds, (m.si + 4) & 0xffff);
+        ip = 0xb24c;
+        break;
+      }
+      case 0xb24c: {
+        // b24c: mov dx, word ptr [si + 6]
+        m.tick(0xb24c);
+        m.dx = m.read16(m.ds, (m.si + 6) & 0xffff);
+        ip = 0xb24f;
+        break;
+      }
+      case 0xb24f: {
+        // b24f: lds si, ptr [si]
+        m.tick(0xb24f);
+        { const base = (m.si) & 0xffff; m.si = m.read16(m.ds, base); m.ds = m.read16(m.ds, (base + 2) & 0xffff); }
+        ip = 0xb251;
+        break;
+      }
       case 0xb251: {
         // b251: mov bx, ds
         m.tick(0xb251);
@@ -103718,8 +103810,7 @@ export function exe_0b251(m: Cpu): void {
       case 0xb255: {
         // b255: jne 0xb23d
         m.tick(0xb255);
-        if (!m.zf) { nearCall(m, 0xb23d); return; }
-        ip = 0xb257;
+        ip = !m.zf ? 0xb23d : 0xb257;
         break;
       }
       case 0xb257: {

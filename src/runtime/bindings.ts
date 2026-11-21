@@ -185,6 +185,12 @@ export const code = resolve({
   /** The two stores in the text routine that put a glyph row on the screen. */
   glyphStoreA: { "1.0": { slice: 0x25, at: 0x2aa }, "1.3": { segment: 0x709, at: 0x74a2 } },
   glyphStoreB: { "1.0": { slice: 0x25, at: 0x2dd }, "1.3": { segment: 0x709, at: 0x74d5 } },
+  /**
+   * The same two stores repeated for the second display page. The first release keeps that page
+   * apart from the visible one. Version 1.3 points both at the visible page, so each row lands twice.
+   */
+  glyphRepeatA: { "1.0": { slice: 0x25, at: 0x2d0 }, "1.3": { segment: 0x709, at: 0x74c8 } },
+  glyphRepeatB: { "1.0": { slice: 0x25, at: 0x2e9 }, "1.3": { segment: 0x709, at: 0x74e1 } },
   /** The script interpreter's loop, and the routines that fetch an operand and store a result. */
   eclLoop: { "1.0": { slice: 0x3, at: 0x35db }, "1.3": { slice: 0x3, at: 0x3171 } },
   eclOperand: { "1.0": { slice: 0x7, at: 0x0 }, "1.3": { slice: 0x7, at: 0x0 } },
