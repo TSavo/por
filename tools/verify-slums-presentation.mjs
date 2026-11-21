@@ -1244,6 +1244,13 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kovel-tapestry-reward.png",
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /14,14S/i },
   }],
+  ["kovel-three-cabinets", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:14:ecl:9dbb:cue:three-cabinets",
+    prompt: /INFRONTOFYOUARETHREECABINETS/i,
+    finalPhaseCapture: "kovel-three-cabinets.png",
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /14,10N/i },
+  }],
   ["kovel-scroll-cabinet", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:14:ecl:a359:cue:wooden-cabinet",
