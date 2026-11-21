@@ -12,10 +12,22 @@ const verifiedPortraitDeltaKeys = new Set([
   "portrait:PIC7.DAX:45:2:0",
   "portrait:area:10:ecl:b50b:PIC4.DAX:20:1:0",
   "portrait:area:10:ecl:b50b:PIC4.DAX:20:2:0",
+  "portrait:area:15:ecl:ad7b:PIC2.DAX:0:1:0",
+  "portrait:area:15:ecl:ad7b:PIC2.DAX:0:2:0",
+  "portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:1:0",
+  "portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:2:0",
+  "portrait:area:21:ecl:a316:PIC4.DAX:17:1:0",
+  "portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:1:0",
+  "portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:2:0",
   "portrait:area:22:ecl:a2f9:PIC7.DAX:62:1:0",
+  "portrait:area:24:ecl:ae0e:PIC1.DAX:2:1:0",
+  "portrait:area:24:ecl:b0e0:PIC1.DAX:2:1:0",
   "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:1:0",
   "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:2:0",
   "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:3:0",
+  "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:4:0",
+  "portrait:area:26:ecl:a00a:PIC7.DAX:36:1:0",
+  "portrait:area:26:ecl:a00a:PIC7.DAX:36:2:0",
 ]);
 export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(HEAD\d+\.DAX):(\d{1,3}):(BODY\d+\.DAX):(\d{1,3})$/;
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;

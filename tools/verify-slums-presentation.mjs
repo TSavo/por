@@ -10245,6 +10245,20 @@ try {
       const image = document.querySelector(".encounter-portrait");
       return image?.naturalWidth === 352 && image?.naturalHeight === 352;
     })()`));
+    const exteriorPhases = new Set();
+    for (let i = 0; i < 9 && exteriorPhases.size < 2; i++) {
+      await advance("q");
+      const id = frame.portrait;
+      const phase = /^portrait:area:26:ecl:a00a:PIC7\.DAX:36:([12]):0$/.exec(id ?? "")?.[1];
+      if (!phase || exteriorPhases.has(phase)) continue;
+      await waitFor(`pyramid exterior phase ${phase}`, () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, `pyramid-exterior-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
+      exteriorPhases.add(phase);
+    }
+    assert.deepEqual([...exteriorPhases].sort(), ["1", "2"]);
     await switchBothWays();
     await advance("j");
     assert.ok(knows(door) && !knows("river-fountain"));

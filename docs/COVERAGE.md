@@ -1047,6 +1047,9 @@ The replay checks the new 352×352 exterior illustration
 (`portrait:PIC7.DAX:36:0:0`) in the secret-door decision and verifies
 both presentation switches. The recessed doorway and reeds were reviewed
 at native size and in the live Chrome view.
+The same approach replay observes both original water phases while the
+Enter or Go Back menu stays open. Chrome checks each Enhanced frame,
+then takes the original entrance and saves the discovery.
 The `river-passage` replay loads the slot A save printed by
 `river-approach` and verifies both the journal's retained entrance clue
 and the first two original hidden-door discoveries in the passage.
