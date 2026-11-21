@@ -7861,6 +7861,12 @@ try {
       assert.equal(frame.journal?.leads.some(({ id }) => id === "sokal-patrol-passed"), alreadyPassedPatrol);
       for (const key of ["j", "enter"]) await advance(key);
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ABATTLEBEGINS/i);
+      const battleHold = "scene-illustration:area:21:ecl:aed4:cue:patrol-rejected-word";
+      assert.equal(frame.portrait, battleHold);
+      await waitFor("the rejected-password portrait at battle entry", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${battleHold}"]')?.naturalWidth === 352`));
+      const battleHoldShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "sokal-patrol-rejection-battle-hold.png"), Buffer.from(battleHoldShot.data, "base64"));
       await advance("enter");
       assert.equal(frame.portrait, undefined);
       const enemies = frame.combatArt.map(([, , id]) => id);

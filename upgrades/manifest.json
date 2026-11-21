@@ -4254,6 +4254,7 @@
     "tile:0:0fe98ad9cca711b154fa54acc26ca865f6582a794910079509e512f212a9fdb8": "new-phlan-harbor-paving-joins-0-0fe98ad9cca7.png",
     "portrait:area:21:ecl:9ee4:PIC4.DAX:34:0:0": "sokal-undead-patrol-rejects-word.png",
     "portrait:area:21:ecl:aeab:PIC4.DAX:34:0:0": "sokal-undead-patrol-rejects-word.png",
+    "scene-illustration:area:21:ecl:aed4:cue:patrol-rejected-word": "sokal-undead-patrol-rejects-word.png",
     "portrait:area:21:PIC4.DAX:34:0:0": "sokal-undead-patrol-dialogue.png",
     "portrait:area:21:ecl:9e40:PIC4.DAX:34:1:0": "sokal-undead-patrol-dialogue-phase-1.png",
     "portrait:area:21:ecl:9e40:PIC4.DAX:34:2:0": "sokal-undead-patrol-dialogue-phase-2.png",
