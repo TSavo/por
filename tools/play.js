@@ -533,7 +533,8 @@ function turnToward(facing, direction) {
 }
 
 function ferryStep(route) {
-  if (route.ferry === "harbor") {
+  const atHarbor = route.ferry === "quay" && route.atHarbor && route.quayPose === "11,0";
+  if (route.ferry === "harbor" || (atHarbor && state.sokalPrompt)) {
     if (state.sokalPrompt === "fare") {
       route.ferry = "payer";
       return "s";

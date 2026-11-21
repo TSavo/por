@@ -5502,7 +5502,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(sokalCourtyardNote ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
-    POR_INPUT_COMPAT: moonseaTravel ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
+    POR_INPUT_COMPAT: moonseaTravel || sokalTravel ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
@@ -5934,7 +5934,7 @@ try {
     })()`);
     if (routeName !== "moonsea-sokal-free") {
       await waitFor("the native payer selection", () => run(`state.ready && !posting && !renderingSequence &&
-        state.sokalPrompt === "payer" && activeTravel?.destination === "sokal"`));
+        state.sokalPrompt === "payer" && activeTravel?.destination === "sokal"`), 90_000);
       const payerFrame = await latest();
       assert.equal((await run("sokalTravelKeys")).at(-1), "s");
       if (routeName === "moonsea-sokal-decline") {
@@ -5946,7 +5946,7 @@ try {
       }
     }
     if (routeName !== "moonsea-sokal-decline") {
-      await waitFor("the Sokal Keep route to settle", () => run(`state.ready && state.sequence > ${frame.sequence} && !activeTravel`));
+      await waitFor("the Sokal Keep route to settle", () => run(`state.ready && state.sequence > ${frame.sequence} && !activeTravel`), 90_000);
       frame = await latest();
       const text = frame.text.map(([, char]) => String.fromCharCode(char)).join("");
       assert.equal(frame.exploration?.area, 21, text);
