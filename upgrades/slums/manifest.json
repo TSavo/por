@@ -22,6 +22,13 @@
       "width": 24,
       "height": 57
     },
+    "encounter:area:20:ecl:a9a4:SPRIT2.DAX:4:0:0": {
+      "area": 20,
+      "x": 48,
+      "y": 32,
+      "width": 40,
+      "height": 80
+    },
     "encounter:area:20:ecl:9e29:SPRIT2.DAX:4:0:0": {
       "area": 20,
       "x": 48,
@@ -179,6 +186,7 @@
     "combat:CPIC2.DAX:132": "orc-combat-swing.png",
     "encounter:SPRIT2.DAX:4:0:0": "orc-encounter-near.png",
     "encounter:area:20:ecl:9e29:SPRIT2.DAX:4:0:0": "orc-outpost-encounter-near.png",
+    "encounter:area:20:ecl:a9a4:SPRIT2.DAX:4:0:0": "orc-home-defender-encounter.png",
     "encounter:SPRIT2.DAX:4:1:0": "orc-encounter-middle.png",
     "encounter:area:20:ecl:9e29:SPRIT2.DAX:4:1:0": "orc-outpost-encounter-middle.png",
     "encounter:SPRIT2.DAX:4:2:0": "orc-encounter-far.png",

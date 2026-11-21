@@ -5704,9 +5704,21 @@ try {
           image.addEventListener("load", check, { once: true });
         }
       }).observe(document.querySelector("#tile-art"), { childList: true });`);
+    const homeOrc = routeName === "slums-orc-home-defender-combat"
+      ? [48, 32, "encounter:area:20:ecl:a9a4:SPRIT2.DAX:4:0:0", 40, 80]
+      : undefined;
+    if (homeOrc) await observeApproach([homeOrc], true, true);
     for (const [index, key] of inputs.entries()) {
       await advance(key);
       verifyCombatScope();
+      if (homeOrc && index === 1) {
+        assert.deepEqual(frame.encounter, homeOrc);
+        assert.deepEqual(frame.animation?.flatMap(({ encounter }) => encounter ? [encounter] : []), [homeOrc]);
+        await waitFor("the Enhanced household defender over WebGL", () => run(`
+          window.observedApproach.has(${JSON.stringify(homeOrc[2])})`));
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "slums-orc-home-approach.png"), Buffer.from(shot.data, "base64"));
+      }
       if (routeName === "valjevo-elite-guard" && index === 6) {
         const guards = frame.combatArt.filter(([, , id]) => id === stand);
         assert.equal(guards.length, 8);
@@ -5722,6 +5734,11 @@ try {
         const opening = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "valjevo-elite-guard-opening.png"), Buffer.from(opening.data, "base64"));
       }
+    }
+    if (homeOrc) {
+      assert.equal(frame.encounter, undefined);
+      await waitFor("the household approach clearing on battle entry", () => run(`
+        state.sequence === ${frame.sequence} && !document.querySelector(".encounter-sprite")`));
     }
     if (readyPrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), readyPrompt);
     const readyPlacements = standInAnimation ? frame.animation?.flatMap(({ combatArt }) => combatArt ?? []) : frame.combatArt;
