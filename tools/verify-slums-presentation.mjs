@@ -768,7 +768,15 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:16:ecl:a65a",
     prompt: /2LIZARDMENANDAGIANTLIZARDCHARGEATYOU.*COMBATWAITFLEEPARLAY/i,
     journalLead: "swamp-friend-word-charge", journalLeadAtDiscovery: true,
-    continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i, clearsPortrait: true },
+    continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i, portrait: "scene-illustration:area:16:ecl:a6ce:cue:ruin-defenders-charge" },
+  }],
+  ["swamp-ruin-defenders-battle-opening", {
+    slot: "A", inputs: ["up", "b", "p", "c"],
+    portraitStops: { 3: "scene-illustration:area:16:ecl:a65a" },
+    portrait: "scene-illustration:area:16:ecl:a6ce:cue:ruin-defenders-charge",
+    prompt: /2LIZARDMENANDAGIANTLIZARDCHARGEATYOU.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "swamp-ruin-defenders-battle-opening.png",
+    continuation: { inputs: ["enter"], prompt: /HITPOINTS\d+AC/i, clearsPortrait: true },
   }],
   ["valjevo-altar-curse", {
     slot: "B", inputs: ["up", "y", "enter", "enter", "s", "e"],
