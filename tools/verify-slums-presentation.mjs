@@ -27,11 +27,6 @@ const mazeWatch = routeName === "valjevo-maze-watch";
 const giantPatrol = routeName === "valjevo-giant-patrol";
 const dungeonSentry = routeName === "valjevo-dungeon-sentry";
 const castleChaplain = routeName === "valjevo-bane-chaplain";
-const conjurerPrompts = new Map([
-  ["valhingen-conjurer-zombie", /CREATINGZOMBIES/i],
-  ["valhingen-conjurer-wight", /SUMMONSAWIGHT/i],
-]);
-const conjurerPrompt = conjurerPrompts.get(routeName);
 const arenaApproach = ["right", "right", "up", "up", "right", "up", "up", "enter", "enter",
   "up", "up", "right", "up", "up", "up", "up", "enter", "enter", "up", "up", "enter"];
 const arenaWatchApproach = [...arenaApproach, "enter", "n", "n", "e", "e", "r", "h",
@@ -499,9 +494,21 @@ const encounterRoutes = new Map([
     requireWebGL: true,
     dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /CREATINGNEWSKELETONS/i },
   }],
+  ["valhingen-conjurer-zombie", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [56, 32, "encounter:area:10:ecl:a7b9:SPRIT4.DAX:17:0:0", 32, 80],
+    requireWebGL: true,
+    dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /CREATINGZOMBIES/i },
+  }],
+  ["valhingen-conjurer-wight", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [56, 32, "encounter:area:10:ecl:aad6:SPRIT4.DAX:17:0:0", 32, 80],
+    requireWebGL: true,
+    dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /SUMMONSAWIGHT/i },
+  }],
   ["valhingen-spectre-approach-near", {
     slot: "A", inputs: ["up", "enter"],
-    placement: [56, 32, "encounter:area:10:SPRIT4.DAX:17:0:0", 32, 80],
+    placement: [56, 32, "encounter:area:10:ecl:a5bb:SPRIT4.DAX:17:0:0", 32, 80],
   }],
   ["valhingen-spectre-approach", {
     slot: "A", inputs: ["up", "enter"],
@@ -3879,7 +3886,7 @@ const environmentRoutes = new Map([
   }],
 ]);
 const freshRolf = routeName === "new-phlan-rolf-approach";
-const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...conjurerPrompts.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
+const routes = ["yarash-desk-papers-reload", "sokal-floorboard-diary-reload", "buccaneer-empty-manual-aim", "textile-stinking-cloud", "buccaneer-arrow-down", "buccaneer-oil-flask", "buccaneer-sling-shot", "bivant-reward-reload", "tyrmor-journal-reload", "new-phlan-building-exit", "new-phlan-arena-manual-report", "new-phlan-arena-quick", "new-phlan-rolf-approach", "lizardfolk-battle-wall", "kobolds", "orcs", "goblins", "armorer", "fighter-trainer", "phlan-harbor-sokal", "phlan-harbor-routes", "phlan-priestess-joy", "phlan-priest-tyr", "phlan-priest-tempus", "sokal-smithy", "sokal-elven-scout", "sokal-elven-scout-search", "sokal-armory", "sokal-landing", "sokal-patrol-combat", "sokal-courtyard", "podal-plaza", "podal-infirmary", "podal-shrine", "podal-shrine-return", "braccio-dirten-briefing", "bane-gate", "bane-goblins", "bane-symbol", "bane-altar", "bane-hidden-treasure", "kobold-cave", "kobold-cave-efreeti-dialogue", "kobold-cave-wyvern-dialogue", "kobold-cave-guide", "kobold-princess-fatima", "kuto-norris-surrender", "mendor-library-stacks", "slums-fortune", "slums-potion-booth", "old-phlan-seer", "old-phlan-seer-reload", "nomad-camp-approach", "nomad-camp-sentries", "nomad-headman", "nomad-headman-stay", "diogenes-cave", "diogenes-advice", "textile-altar", "textile-ogre", "textile-restal", ...environmentRoutes.keys(), ...ferryRoutes.keys(), ...outskirtsRoutes.keys(), ...encounterRoutes.keys(), ...illustrationRoutes.keys(), "graveyard-mystic", ...combatPoseRoutes.keys(), "graveyard-vampire", "graveyard-wolves", "valhingen-mummy-sarcophagi", "stojanow-briefing", "stojanow-trader", "stojanow-bugbears", "cadorna-envoy-briefing", "zhentil-envoy", "zhentil-trespass", "zhentil-escape", "zhentil-reward", "zhentil-return", "river-approach", "river-passage", "river-fountain", "pyramid-lizardfolk-vats", "river-pumping", "river-exit", "river-return", "river-reward", "yarash-combat", "swamp-approach", "swamp-elder", "swamp-elder-decline", "swamp-reward", "bivant-reward", "mendor-records-reward", "nomad-reward", "bane-reward", "buccaneer-approach", "assault-briefing", "castle-halls", "valjevo-tower-save", "valjevo-tower-reload", "valjevo-dungeon-save", "valjevo-dungeon-reload", "valjevo-false-throne", "valjevo-al-hyam", "valjevo-cadorna-captive", "valjevo-cadorna-hedge", "valjevo-cadorna-reload", "valjevo-cadorna-killed", "valjevo-cadorna-alarm", "valjevo-dungeon-kitchen", "valjevo-scriptorium-password", "valjevo-scriptorium-authority", "valjevo-maze-watch", "valjevo-giant-patrol", "valjevo-dungeon-sentry", "valjevo-bane-chaplain", "valjevo-forge-smith", "valjevo-forge-authorization", "valjevo-records", "valjevo-records-decline", "valjevo-records-scribe", "valjevo-scriptorium-reports", "valjevo-scriptorium-reports-reload", "valjevo-genheeris-bargain", "valjevo-genheeris-orders", "castle-dragon", "castle-ending"];
 routes.push("river-passage-reload", "new-phlan-council-reward-reload", "slums-mage-wand", "nomad-headman-rest-reload", "nomad-headman-rest-portrait", "nomad-headman-raid");
 routes.push("nomad-headman-decline-reload");
 routes.push("podal-infirmary-heal");
@@ -7318,14 +7325,6 @@ try {
     await advance("p");
     assert.equal(frame.portrait, "portrait:HEAD7.DAX:74:BODY7.DAX:30");
     console.log("Verified the Nomad Camp sentries and handoff to the headman in Chrome.");
-  } else if (conjurerPrompt) {
-    for (const key of ["up", "enter", "enter"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:PIC4.DAX:17:0:0");
-    const dialogue = frame.text.map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
-    assert.match(dialogue, conjurerPrompt);
-    await waitFor("the Valhingen conjurer portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
-    await switchBothWays();
-    console.log(`Verified the Valhingen conjurer portrait on ${routeName} in Chrome.`);
   } else if (routeName === "valjevo-forge-authorization-reload") {
     assert.equal(frame.portrait, undefined);
     await advance("j");
