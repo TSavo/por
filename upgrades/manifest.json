@@ -5563,6 +5563,7 @@
     "tile:24:ee7e1acfdcd9bd40ba7905b8711299d15b27d689a67b5c8d5dfa8cc30ae72d69": "bane-north-court-terrain-ee7e1acfdcd9.png",
     "portrait:HEAD7.DAX:74:BODY7.DAX:30": "nomad-camp-headman.png",
     "portrait:area:17:ecl:9ed7:PIC7.DAX:29:0:0": "nomad-guest-tent-rest.png",
+    "portrait:area:17:ecl:9ed7:PIC7.DAX:29:1:0": "nomad-guest-tent-lantern.png",
     "portrait:area:17:HEAD7.DAX:62:BODY7.DAX:30": "nomad-shaman-reward-dialogue.png",
     "combat:area:10:CPIC4.DAX:24": "valhingen-mystic-stand.png",
     "combat:area:10:CPIC4.DAX:152": "valhingen-mystic-strike.png",

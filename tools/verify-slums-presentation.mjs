@@ -6557,16 +6557,26 @@ try {
     await switchBothWays();
     for (const key of ["j", "e", "enter"]) await advance(key);
     const restPortrait = "portrait:area:17:ecl:9ed7:PIC7.DAX:29:0:0";
+    const lantern = "portrait:area:17:ecl:9ed7:PIC7.DAX:29:1:0";
     assert.equal(frame.portrait, restPortrait);
     await waitFor("the headman's tent rest artwork", () => run(`
       state.sequence === ${frame.sequence} &&
       document.querySelector('.encounter-portrait[src="/art/${restPortrait}"]')?.naturalWidth === 352`));
     await verifyPortraitPanel();
+    if (restPortraitOnly) {
+      for (let i = 0; i < 8 && frame.portrait !== lantern; i++) await advance("z");
+      assert.equal(frame.portrait, lantern);
+      await waitFor("the tent lantern flicker", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${lantern}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "nomad-guest-tent-lantern.png"), Buffer.from(shot.data, "base64"));
+    }
     await switchBothWays();
     for (const key of ["r", "h", ...Array(raid || restPortraitOnly ? 18 : 8).fill("i"), "r"]) await advance(key);
     if (raid || restPortraitOnly) {
       await advance("space");
-      assert.equal(frame.portrait, restPortrait);
+      assert.ok(frame.portrait === restPortrait || frame.portrait === lantern);
       await advance("n");
       const warCries = "scene-illustration:area:17:ecl:9da2:caller:9c82";
       assert.equal(frame.portrait, warCries);
