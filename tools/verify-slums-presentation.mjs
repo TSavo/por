@@ -2737,15 +2737,10 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], prompt: /THEPARTYHASBEENDESTROYED/i, clearsPortrait: true },
   }],
   ["tyranthraxus-appraisal-phases", {
-    slot: "B", inputs: ["right", "up", "up", "up", "up", "enter", "enter", "enter", ...Array(9).fill("q")],
-    portraitStops: {
-      8: "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
-      16: "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:1:0",
-    },
-    portrait: "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:2:0",
+    slot: "B", inputs: ["right", "up", "up", "up", "up", "enter", "enter", "enter"],
+    portrait: "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
     prompt: /THEDRAGONLOOKSATYOUWITHINTEREST/i,
-    phaseCaptures: { 16: "valjevo-tyranthraxus-appraisal-phase-1.png" },
-    finalPhaseCapture: "valjevo-tyranthraxus-appraisal-phase-2.png",
+    idlePortraits: [1, 2].map(phase => `portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:${phase}:0`),
     continuation: { inputs: ["enter", "enter", ...Array(6).fill("a")], portrait: "portrait:area:7:ecl:a803:PIC5.DAX:66:2:0", prompt: /ABATTLEBEGINS/i },
   }],
   ...[0, 1, 3, 4].map((member, index) => [`tyrmor-prison-displacer-combat-phase-${member}`, {
