@@ -887,6 +887,10 @@ export function discoveredLeads(transcript: string): JournalLead[] {
     leads.push({ id: "kuto-norris-ambush", title: "Norris the Gray's ambush",
       detail: "Norris and his bandits surrounded the party beneath Kuto's Well and demanded its surrender." });
   }
+  if (text.includes("YOU HAVE FOUND THE BANDIT'S TREASURE. DO YOU TAKE IT?")) {
+    leads.push({ id: "kuto-bandit-treasure", title: "The bandit's treasure",
+      detail: "The party found the bandit's treasure in the catacombs beneath Kuto's Well and was offered the choice to take it." });
+  }
   if (text.includes("YOU ARE STRIPPED OF ALL VALUABLES AND BLINDFOLDED") &&
       text.includes("THE BANDITS RELEASE YOU SOMEWHERE ABOVE GROUND")) {
     leads.push({ id: "kuto-norris-surrender", title: "Released by the bandits",
