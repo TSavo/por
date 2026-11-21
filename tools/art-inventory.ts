@@ -578,6 +578,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["valjevo-tyranthraxus-pool-recall.png", ["The fiery spirit is drawn into the center of the pool"]],
   ["valjevo-phlan-homecoming.png", ["The party walks through the gate into New Phlan", "Guards and lit buildings establish the return to the settled city"]],
   ["valjevo-kitchen-reading-slip.png", ["The party holds the captured slip up to read it in the kitchen", "The original writing remains visible in the game text panel"]],
+  ["valjevo-scriptorium-scribes.png", ["Six scribes write at desks", "Two officers dictate their reports in the brightly lit room"]],
   ["buccaneer-captive-pen-overview.png", ["Worn captives and guards around the pen", "The boy's identifying birthmark stays concealed"]],
   ["buccaneer-bivant-identification.png", ["The boy's heart-shaped birthmark is readable on his left shoulder", "A merchant approaches the party"]],
   ["buccaneer-bivant-purchase-escort.png", ["Bivant and his escort move through the doorway toward the harbor", "The captain withdraws into the room behind them"]],
