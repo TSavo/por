@@ -936,9 +936,10 @@
             "docs/CODE-WHEEL.md; src/codewheel/wheel.json; upgrades/codewheel"
           ],
           "checks": [
-            "code-wheel"
+            "code-wheel",
+            "code-wheel-screen"
           ],
-          "gap": "The layout and the rune tiles are checked. The screen in the game and the refusal of a wrong word are being built and have no check yet."
+          "gap": "Checked on version 1.3. The first release never asks the question at start-up, so the screen is not exercised there."
         }
       ]
     }

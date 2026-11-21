@@ -161,3 +161,15 @@ number and its Espruar slot, Dethek slot and path. The runner learns the number 
   still holds the one question it drew: the new question lives on the page.
 
 `npm run verify:code-wheel-screen -- <chrome-executable>` checks all of this on version 1.3.
+
+## In the game
+
+In Enhanced display the wheel appears over the play area when the game asks its question. The
+player turns the inner disc by dragging, with the mouse wheel, or with the Left and Right arrow
+keys, types the word and presses Enter. A wrong word is refused with "Sorry, that's incorrect."
+and a new question is asked; the third wrong word ends the session until the page is reloaded.
+That is what the unpatched game does (see the research note). The page does the refusing: the
+game's code and its dice are the same in both displays. Classic shows the game's own prompt and
+accepts any word, as the program GOG sells does. Switching display at the prompt works both ways.
+
+`npm run verify:code-wheel-screen -- <chrome>` checks all of this in Chrome, 11 items.

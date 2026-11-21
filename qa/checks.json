@@ -148,6 +148,16 @@
         "por-assets/codewheel/runes",
         "Pillow"
       ]
+    },
+    {
+      "id": "code-wheel-screen",
+      "title": "The Enhanced code wheel appears at the prompt, refuses a wrong word, and Classic is unchanged",
+      "command": "npm run verify:code-wheel-screen",
+      "reference": "recorded-play",
+      "needs": [
+        "game data",
+        "Chrome"
+      ]
     }
   ]
 }
