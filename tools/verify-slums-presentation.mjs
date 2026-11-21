@@ -6033,10 +6033,23 @@ try {
     assert.equal(frame.portrait, "portrait:area:17:ecl:9da2:caller:a928:HEAD7.DAX:74:BODY7.DAX:30");
     await advance("j");
     assert.ok(knows("nomad-kobold-warning") && !knows("nomad-stay-or-leave"));
-    for (const key of ["j", ...Array(4).fill("enter"), "r", "h", ...Array(8).fill("i"), "r", "e", "j"]) await advance(key);
+    for (const key of ["j", ...Array(4).fill("enter"), "r", "h", ...Array(8).fill("i"), "r", "e"]) await advance(key);
+    const morningDecision = "scene-illustration:area:17:ecl:ab82";
+    assert.equal(frame.portrait, morningDecision);
+    const decisionText = frame.text.toSorted(([a], [b]) => a - b)
+      .map(([, char]) => String.fromCharCode(char)).join("");
+    assert.match(decisionText, /ABOUTMYREQUESTOFLASTNIGHT,WHATISYOURDECISION/i);
+    await waitFor("the headman's overnight decision illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${morningDecision}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    const decisionShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "nomad-headman-morning-decision.png"), Buffer.from(decisionShot.data, "base64"));
+    await switchBothWays(frame.frame);
+    await advance("j");
     assert.ok(knows("nomad-stay-or-leave") && !knows("nomad-declined-aid") && !knows("nomad-kobold-attack"));
     const stays = routeName === "nomad-headman-stay";
     for (const key of ["j", stays ? "s" : "l", "j"]) await advance(key);
+    assert.notEqual(frame.portrait, morningDecision);
     assert.ok(knows(stays ? "nomad-promised-aid" : "nomad-declined-aid"));
     assert.ok(!knows(stays ? "nomad-declined-aid" : "nomad-promised-aid") && !knows("nomad-kobold-attack"));
     assert.ok(!knows("nomad-rest-offer"));
