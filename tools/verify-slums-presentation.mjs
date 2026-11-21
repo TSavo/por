@@ -1274,6 +1274,14 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kovel-casket-gems.png",
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /6,7W/i },
   }],
+  ["kovel-net-trap", {
+    slot: "A", inputs: ["up"],
+    portraitStops: { 0: null },
+    portrait: "scene-illustration:area:14:ecl:9b35:caller:9a4f",
+    prompt: /ANETLACEDWITHSHARPBLADESFALLSONTHEPARTY.*BRINISHITFOR1POINTSOFDAMAGE/i,
+    finalPhaseCapture: "kovel-net-trap.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ANETLACEDWITHSHARPBLADESFALLSONTHEPARTY/i },
+  }],
   ["kovel-casket-c-gems", {
     slot: "A", inputs: ["up", "enter", "s", "c", "enter", "enter", "b", "enter", "enter"],
     portraitStops: {
@@ -9149,6 +9157,12 @@ try {
         assert.equal(frame.portrait, undefined);
         assert.equal(frame.encounter, undefined);
         assert.ok(frame.combatArt?.some(([, , id]) => id === "combat:area:2:CPIC2.DAX:7:ecl:9c9b"));
+      }
+      if (routeName === "kovel-net-trap") {
+        await waitForExplorationViewport();
+        for (const key of ["down", "up", "down", "up"]) await advance(key);
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join(""), /5,6N/i);
       }
       if (routeName === "wild-grove-western-stench") {
         assert.ok(!frame.classicPortrait);
