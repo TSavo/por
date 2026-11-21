@@ -1979,6 +1979,7 @@ const illustrationRoutes = new Map([
     prompt: /THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE/i,
     phaseCaptures: { 7: "valjevo-bucket-trap-giants-phase-1.png" },
     finalPhaseCapture: "valjevo-bucket-trap-giants-phase-3.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:3:ecl:9a5a:caller:a732:PIC5.DAX:56:3:0", prompt: /THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE/i },
   }],
   ["bane-hidden-treasure-phases", {
     slot: "A", inputs: ["s", "enter", "up", "o", "enter", "enter", "q", "q", "q"],
@@ -2054,6 +2055,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:22:ecl:a32f:PIC7.DAX:61:1:0",
     prompt: /THEYFLYTOWARDYOU/i,
     finalPhaseCapture: "tyrmor-prison-stirge-phase-1.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:61:1:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-prison-kobolds-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 4 }, () => ["up", "down"]).flat(), "up", "enter", "down", "up", "q", "q", "q"],
@@ -2065,6 +2067,7 @@ const illustrationRoutes = new Map([
     prompt: /ONELICKSITSLIPS/i,
     phaseCaptures: { 15: "tyrmor-prison-kobolds-phase-1.png" },
     finalPhaseCapture: "tyrmor-prison-kobolds-phase-2.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:0:2:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valhingen-mummy-sarcophagi-phases", {
     slot: "A", inputs: ["up", "enter", "enter", ...Array(24).fill("q")],
