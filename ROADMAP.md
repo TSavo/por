@@ -7,6 +7,16 @@ Original character creation, exploration, combat, spells, and saving have
 all been exercised. [Coverage](docs/COVERAGE.md) records which checks use
 ordinary play and which start from controlled saves.
 
+- `npm run verify:campaign -- <chrome-executable> --full` starts in an empty
+  save directory and carries the six original characters through Sokal Keep,
+  Stojanow Gate, and Valjevo Castle. It uses the explicitly enabled developer
+  victory command for the courtyard, castle guards, and Tyranthraxus. The
+  original City Hall script awards the final reward, and slot I reloads with
+  “Phlan is free” in the journal. Resume with `--finish-from-slums <slot-D>`,
+  `--finish-from-sokal <slot-F>`, or `--finish-from-tower <slot-H>`. Each leg
+  keeps its starting saves and input tape under `out/campaign-*` for
+  `--replay-leg <directory>`. Set `POR_CAMPAIGN_OUTPUT_DIR` to store the run
+  on another drive.
 - The unedited party replay creates six characters, participates in Rolf's
   tour, equips the party in New Phlan, completes Ohlo's commission, and
   plays through the Slums and Sokal Keep's hidden armory. The verified

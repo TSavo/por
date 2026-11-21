@@ -13,13 +13,18 @@ const campaign = process.argv[2] === "--campaign";
 const campaignChrome = campaignOpening || campaign;
 const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
+const fullCampaign = campaign && campaignOption === "--full";
+const finishFromSlums = campaign && campaignOption === "--finish-from-slums";
+const finishFromSokal = campaign && campaignOption === "--finish-from-sokal";
+const finishFromTower = campaign && campaignOption === "--finish-from-tower";
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--from-sokal-lodging", "--from-textile-commission", "--from-bane-preparation", "--from-castle-ending", "--from-castle-guards", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with slot D, --from-sokal, --from-textile-commission, or --from-bane-preparation with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker or --from-sokal-council with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, --from-sokal-lodging with slot E, --from-castle-ending or --from-castle-guards with slot B, or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || fullCampaign && !campaignInput || campaign && ["--from-slums", "--finish-from-slums", "--finish-from-sokal", "--finish-from-tower", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--from-sokal-lodging", "--from-textile-commission", "--from-bane-preparation", "--from-castle-ending", "--from-castle-guards", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --full, --from-slums or --finish-from-slums with slot D, --from-sokal, --from-textile-commission, or --from-bane-preparation with slot A, --from-sokal-armory or --finish-from-sokal with slot F, --from-temple with slot G, --from-evoker, --from-sokal-council or --finish-from-tower with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, --from-sokal-lodging with slot E, --from-castle-ending or --from-castle-guards with slot B, or --replay-leg with a recorded leg directory.");
 }
-mkdirSync("out", { recursive: true });
-const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
+const outputDir = campaignChrome && process.env.POR_CAMPAIGN_OUTPUT_DIR || "out";
+mkdirSync(outputDir, { recursive: true });
+const saveDir = mkdtempSync(join(outputDir, campaignChrome ? "campaign-" : "fresh-party-"));
 const tileTrace = process.env.POR_TRACE_TILES === "1" ? resolve(saveDir, "tile-inventory.jsonl") : undefined;
 const tileFrames = tileTrace && join(saveDir, "tile-frames");
 if (tileFrames) mkdirSync(tileFrames);
@@ -2853,25 +2858,20 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
   process.exit(0);
 }
 
-const fromCastleGuards = campaign && campaignOption === "--from-castle-guards";
-if (process.argv[2] === "--castle-ending-checkpoint" || campaign && campaignOption === "--from-castle-ending" || fromCastleGuards) {
-  const source = campaign ? campaignInput : process.argv[3];
-  const saveAtWestGate = !campaign && process.argv[4] === "--save-at-west-gate";
-  assert.ok(campaign || !process.argv[4] || saveAtWestGate, "Expected --save-at-west-gate.");
-  assert.ok(source, "Pass a save outside Tyranthraxus's audience hall with the assault assigned.");
-  copyFileSync(source, join(saveDir, "B.json"));
+async function verifyCastleEnding(fromCastleGuards, { saveAtWestGate = false, continuous = false } = {}) {
   const checkCastle = (status) => (_text, frame) => {
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-castle")?.status, status);
   };
   const victoryLead = "castle-tyranthraxus-defeated";
-  await replay(loadSlot("3062"), "85000000", [
+  const ending = await replay(loadSlot(continuous ? "2368" : "3062"), "85000000", [
     "j", (_text, frame) => assert.ok(!frame.journal.leads.some(({ id }) => id === victoryLead)), "j",
     ...(fromCastleGuards ? [
       "up", (text) => assert.match(text, /go down these stairs/), "y",
       (text) => assert.match(text, /audience hall of tyranthraxus/),
-      "enter", "enter", "enter", "c", "enter",
-      (text) => assert.match(text, /8th lvl fighter hitpoints/),
-      ":win-combat", ["q", /continue battle:yes no/, 30], "n",
+      "enter", (text) => assert.match(text, /ancient bronze dragon.*fiery aura/),
+      "enter", "enter", "c", "enter",
+      (text) => assert.match(text, continuous ? /hitpoints \d+ ac/ : /8th lvl fighter hitpoints/),
+      ":win-combat", ["q", /continue battle:yes no/, 60], "n",
       (text) => assert.match(text, /the party has won.*experience points/),
       "enter", "enter", "enter", "s", "e", "n", "enter", "enter", "enter",
       (text) => assert.match(text, /how do you vote.*attack join tyranthraxus/),
@@ -2883,8 +2883,8 @@ if (process.argv[2] === "--castle-ending-checkpoint" || campaign && campaignOpti
       (text) => assert.match(text, /how do you vote.*attack join tyranthraxus/),
       ...Array(6).fill("a"), "enter", "enter", "q",
     ]),
-    (text) => assert.match(text, /tyrani?thraxus hitpoints 80 ac -4/),
-    ...(fromCastleGuards ? [":win-combat"] : Array(32).fill("q")),
+    (text) => assert.match(text, continuous ? /hitpoints \d+ ac/ : /tyrani?thraxus hitpoints 80 ac -4/),
+    ...(fromCastleGuards ? [":win-combat", ["q", /continue battle:yes no/, 60]] : Array(32).fill("q")),
     (text) => assert.match(text, /continue battle:yes no/),
     "n", (text) => assert.match(text, fromCastleGuards
       ? /the party has won.*receives \d+ experience points/
@@ -2907,33 +2907,42 @@ if (process.argv[2] === "--castle-ending-checkpoint" || campaign && campaignOpti
       "s", "e",
       ...(fromCastleGuards ? ["n", "enter", "enter"] : Array(4).fill("enter")),
       "j", checkCastle("turned-in"), "j",
-      "e", "s", "s", "c",
+      "e", "s", "s", continuous ? "i" : "c",
     ]),
   ], saveDir, undefined, fromCastleGuards);
   if (saveAtWestGate) {
     console.log("Saved after defeating Tyranthraxus and returning to New Phlan:", join(saveDir, "D.json"));
-    process.exit(0);
+    return;
   }
-  const completedSave = join(saveDir, "C.json");
+  assert.match(visibleText(ending), /quit to dos/);
+  const completedSave = join(saveDir, continuous ? "I.json" : "C.json");
   const completedSnapshot = readFileSync(completedSave);
   let trackedAfterEnding;
-  await replay(loadSlot("2e63"), "85000000", [
+  await replay(loadSlot(continuous ? "1769" : "2e63"), "85000000", [
+    (text) => { if (continuous) expectParty(text); },
     "j", checkCastle("turned-in"),
     (_text, frame) => {
       assert.equal(frame.journal.objective.title, "Phlan is free");
       assert.ok(frame.journal.leads.some(({ id }) => id === victoryLead));
     },
-    (_text, frame) => {
-      const open = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
-      const index = open.findIndex(({ id }) => id !== frame.journal.trackedId);
-      if (index < 0) return "track auto";
-      trackedAfterEnding = open[index].id;
-      return `track ${index + 1}`;
-    },
-    (_text, frame) => assert.equal(frame.journal.trackedId, trackedAfterEnding),
-    "j", "e", "s", "s", "d",
-    (text) => assert.match(text, /quit to dos/),
+    ...(continuous ? [] : [
+      (_text, frame) => {
+        const open = frame.journal.leads.filter(({ status }) => status && status !== "turned-in");
+        const index = open.findIndex(({ id }) => id !== frame.journal.trackedId);
+        if (index < 0) return "track auto";
+        trackedAfterEnding = open[index].id;
+        return `track ${index + 1}`;
+      },
+      (_text, frame) => assert.equal(frame.journal.trackedId, trackedAfterEnding),
+      "j", "e", "s", "s", "d",
+      (text) => assert.match(text, /quit to dos/),
+    ]),
   ]);
+  if (continuous) {
+    assert.deepEqual(readFileSync(completedSave), completedSnapshot);
+    console.log('Collected the final council reward and reloaded "Phlan is free":', resolve(completedSave));
+    return;
+  }
   await replay(loadSlot("2064"), "85000000", [
     "j", checkCastle("turned-in"),
     (_text, frame) => assert.equal(frame.journal.trackedId, trackedAfterEnding),
@@ -2947,6 +2956,21 @@ if (process.argv[2] === "--castle-ending-checkpoint" || campaign && campaignOpti
     ? "Used developer victory on the castle guards and Tyranthraxus, collected the council reward, and reloaded the ending."
     : "Defeated the original Tyranthraxus, collected the council reward, and reloaded the completed campaign.");
   console.log(`Verified the journal saved to slot D with ${trackedAfterEnding ?? "automatic tracking"} selected.`);
+}
+
+const fromCastleGuards = campaign && campaignOption === "--from-castle-guards";
+if (finishFromTower) {
+  copyFileSync(campaignInput, join(saveDir, "H.json"));
+  await verifyCastleEnding(true, { continuous: true });
+  process.exit(0);
+}
+if (process.argv[2] === "--castle-ending-checkpoint" || campaign && campaignOption === "--from-castle-ending" || fromCastleGuards) {
+  const source = campaign ? campaignInput : process.argv[3];
+  const saveAtWestGate = !campaign && process.argv[4] === "--save-at-west-gate";
+  assert.ok(campaign || !process.argv[4] || saveAtWestGate, "Expected --save-at-west-gate.");
+  assert.ok(source, "Pass a save outside Tyranthraxus's audience hall with the assault assigned.");
+  copyFileSync(source, join(saveDir, "B.json"));
+  await verifyCastleEnding(fromCastleGuards, { saveAtWestGate });
   process.exit(0);
 }
 
@@ -3100,17 +3124,166 @@ async function verifyFreshSlumsVictory() {
   assert.match(visibleText(battleSave), /quit to dos/);
 }
 
-if (campaign && campaignOption === "--from-slums") copyFileSync(campaignInput, join(saveDir, "D.json"));
-else await verifyFreshSlumsVictory();
+async function verifyOpeningReload() {
+  const battleReload = await replay(loadSlotD, "85000000", [
+    (text) => expectParty(text),
+    "v", "v",
+  ]);
+  assert.match(visibleText(battleReload), /alda.*copper 11.*exp 5.*armor chain mail/);
+  console.log("Won the kobold encounter and verified Alda's 5 XP and 11 copper after reloading slot D.");
+}
 
-const battleReload = await replay(loadSlotD, "85000000", [
-  (text) => expectParty(text),
-  "v", "v",
-]);
-assert.match(visibleText(battleReload), /alda.*copper 11.*exp 5.*armor chain mail/);
-console.log("Won the kobold encounter and verified Alda's 5 XP and 11 copper after reloading slot D.");
+if (!finishFromSokal) {
+  if (campaign && (campaignOption === "--from-slums" || finishFromSlums)) copyFileSync(campaignInput, join(saveDir, "D.json"));
+  else await verifyFreshSlumsVictory();
+  await verifyOpeningReload();
+}
 if (campaignOpening) {
   console.log("Enhanced Chrome campaign opening complete:", resolve(saveDir));
+  process.exit(0);
+}
+
+function acceptSokalPatrol(destination, password) {
+  let letter = 0;
+  const arrived = new RegExp(`\\b${destination}.*area cast view encamp`);
+  const [, goalX, goalY, goalFacing] = /^(\d+),(\d+) ([nesw])$/.exec(destination);
+  const directions = "nesw";
+  return [
+    ...Array(30).fill((text) => {
+      if (arrived.test(text)) return;
+      if (/do you give the password/.test(text)) return "y";
+      if (/what do you say\?/.test(text)) return password[letter++] ?? "enter";
+      if (/haughty sly nice meek abusive/.test(text)) { letter = 0; return "n"; }
+      if (/pack of undead.*combat wait flee parlay/.test(text)) return "p";
+      const position = /\b(\d+),(\d+) ([nesw]).*area cast view encamp/.exec(text);
+      if (!position) return "enter";
+      const [, x, y, facing] = position;
+      let nextFacing = goalFacing;
+      if (x !== goalX) nextFacing = Number(x) < Number(goalX) ? "e" : "w";
+      else if (y !== goalY) nextFacing = Number(y) < Number(goalY) ? "s" : "n";
+      const turnsRight = (directions.indexOf(nextFacing) - directions.indexOf(facing) + 4) % 4;
+      return ["up", "right", "right", "left"][turnsRight];
+    }),
+    (text) => assert.match(text, arrived),
+  ];
+}
+
+async function verifyCampaignSokal() {
+  const trip = await replay(loadSlotD, "85000000", [
+    (text) => assert.match(text, /14,4 w/),
+    // Reach the passenger dock. Sokal is the only destination until it falls.
+    "right", "right", "up", "up", "enter", "enter", "up", "up", "up", "enter", "up", "enter", "enter",
+    "right", "right", "up", "enter", "enter", "right", ...Array(6).fill("up"),
+    "left", "up", "right", "up", "left", "up", "enter", "enter",
+    (text) => assert.match(text, /the only boat out is going to sokal keep/),
+    "right", ...Array(4).fill("up"), ...Array(4).fill("enter"),
+    (text) => assert.match(text, /8,14 n.*area cast view encamp/),
+    "up", "left", "up", "up", "enter", "enter", "end", "enter", "enter", "enter", "enter",
+    (text) => assert.match(text, /6,13 w.*last part is eaten away/),
+    // Walk around the west of the keep and enter the courtyard.
+    "right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left",
+    ...acceptSokalPatrol("10,10 n", "shestni"), "right", "right",
+    ...acceptSokalPatrol("10,11 s", "shestni"), "right",
+    ...acceptSokalPatrol("4,11 w", "shestni"), "right",
+    ...acceptSokalPatrol("4,5 n", "shestni"), "right",
+    ...acceptSokalPatrol("6,5 e", "shestni"), "up",
+    ["enter", /orc hitpoints/, 8],
+    ":win-combat", ["q", /continue battle:yes no/, 60], "n",
+    (text) => assert.match(text, /the party has won.*experience points/),
+    "enter", "enter", "s", "e", "n",
+    (text) => assert.match(text, /on a hobgoblin body.*as entry 57/),
+    "up", "right", "right", "left", "up", "up", "up", "left", "up", "right", "up", "right", "up", "left", "up", "enter",
+    (text) => assert.match(text, /8,10 s.*a pale form rises before you/),
+    "p", "n", ..."lux", "enter", "t", "enter", "enter", "enter",
+    (text) => assert.match(text, /samosud.*ferran fades away/),
+    "e", "s", "s", "e", "n", "e",
+    // Leave with Ferran's password and collect the city's reward.
+    "left", "left", "up", "right", "up", "left", "up", "left", "up", "right",
+    ...acceptSokalPatrol("8,5 n", "samosud"), "right",
+    ...acceptSokalPatrol("10,5 e", "samosud"), "right", ...acceptSokalPatrol("10,11 s", "samosud"),
+    "right", ...acceptSokalPatrol("8,11 w", "samosud"), "left",
+    ...acceptSokalPatrol("8,15 s", "samosud"), "up", "enter", "y",
+    ["enter", /15,1 w.*area cast view encamp/, 8],
+    ...Array(4).fill("up"), "left", "up", "right", "up", "left", "up", "right",
+    ...Array(6).fill("up"), "left", "up", "up", "left", "up", "left", "up", "up",
+    ["enter", /with sokal keep in our hands.*here is your reward/, 5],
+    ["enter", /view take pool share exit/, 5], "s", "e",
+    ["enter", /5,5 e.*area cast view encamp/, 15],
+    "j", (_text, frame) => assert.equal(frame.journal.leads.find(({ id }) => id === "commission-sokal")?.status, "turned-in"), "j",
+    "e", "s", "s", "f",
+  ], saveDir, undefined, true);
+  assert.match(visibleText(trip), /quit to dos/);
+  console.log("Cleared Sokal Keep with the original party and collected the council reward:", resolve(saveDir, "F.json"));
+}
+
+async function verifyCampaignCastleApproach() {
+  let hoursUntilWagon = 0;
+  const atCastle = await replay(loadSlot("2166"), "85000000", [
+    (text) => assert.match(text, /5,5 e/),
+    // The west ferry lands outside the northern entrance to Podal Plaza.
+    "right", "right", "up", "right", "up", "up", "enter", "enter",
+    "right", ...Array(6).fill("up"), "left", "up", "right", "up", "left", "up", "enter", "enter",
+    (text) => assert.match(text, /sokal east west bay none/),
+    "w", "enter", "enter", "right", ...Array(4).fill("up"), "enter", "enter", "enter", "s", "enter", "enter",
+    "up", "right", "right", "right", "right", "enter", "n", "enter", "enter",
+    (text) => assert.match(text, /the plaza ahead is crowded with monsters.*disguise/),
+    "end", "enter", "enter", "enter", "right", "right", ...Array(4).fill("up"), "left",
+    ...Array(5).fill("up"), "enter", "enter",
+    (text) => {
+      const arrival = /4,15 n (\d+):\d+.*area cast view encamp/.exec(text);
+      assert.ok(arrival, text);
+      const hour = Number(arrival[1]);
+      // The trader walks this road before 14:00. Cross the gate before dawn.
+      if (hour >= 5) hoursUntilWagon = 26 - hour;
+    },
+    () => hoursUntilWagon ? "e" : undefined,
+    ["r", (frame) => !hoursUntilWagon || /rest time:.*hours mins inc/.test(visibleText(frame)), 4],
+    () => hoursUntilWagon ? "h" : undefined,
+    ...Array.from({ length: 21 }, (_, hour) => () => hour < hoursUntilWagon ? "i" : undefined),
+    () => hoursUntilWagon ? "r" : undefined,
+    ["n", (frame) => !hoursUntilWagon || /camping save view magic rest alter exit journal/.test(visibleText(frame)), 8],
+    () => hoursUntilWagon ? "e" : undefined,
+    "up", ["enter", /combat wait flee parlay/, 6], "c",
+    (text) => assert.match(text, /grab his wagon/),
+    "up", "up", "enter", "enter", "up", "right", "up", "up",
+    ["enter", /do you pay him/, 6], "y",
+    (text) => assert.match(text, /8,5 n.*gate opens/),
+    "up", "left", ...Array(4).fill("up"), "right", ...Array(5).fill("up"), "enter", "up", "enter",
+    (text) => assert.match(text, /\bn \d+:\d+.*area cast view encamp/),
+    "e", "s", "s", "g",
+  ], saveDir, undefined, true);
+  assert.match(visibleText(atCastle), /quit to dos/);
+  console.log("Passed Stojanow Gate and saved at Valjevo Castle:", resolve(saveDir, "G.json"));
+}
+
+async function verifyCampaignTower() {
+  const atStairs = await replay(loadSlot("2267"), "85000000", [
+    // Enter the hedge maze through its west gate.
+    "up", "up", "left", "up", "right", ...Array(13).fill("up"), "enter", ...Array(7).fill("up"), "right", "up",
+    (text) => assert.match(text, /what is the password.*give the password/),
+    "enter", ..."rhodia", "enter",
+    (text) => assert.match(text, /the gates swing open/),
+    "enter", "up", "enter",
+    // Cut one hedge to reach the tower stairs on the southeast side of this quadrant.
+    "left", "up", "right", "up", "up", "left", "up", "left", "up", "right", "up", "right",
+    ...Array(5).fill("up"), "right", ...Array(4).fill("up"),
+    (text) => assert.match(text, /hedge with poisonous thorns.*try to cut through/),
+    "y", "enter", ...Array(5).fill("up"), "left", "up", "enter", "right", "up", "left", "up", "up",
+    (text) => assert.match(text, /do you want to go down these stairs/),
+    "n", (text) => assert.match(text, /a secret door is found to your left/), "enter",
+    "left", "up", "up", "enter", "y", "enter",
+    "left", "up", "left", "up", "up", "right", "up", "left", "e", "s", "s", "h",
+  ], saveDir, undefined, true);
+  assert.match(visibleText(atStairs), /quit to dos/);
+  console.log("Reached the stairs to Tyranthraxus's audience hall:", resolve(saveDir, "H.json"));
+}
+
+if (fullCampaign || finishFromSlums || finishFromSokal) {
+  if (finishFromSokal) copyFileSync(campaignInput, join(saveDir, "F.json"));
+  else await verifyCampaignSokal();
+  await verifyCampaignCastleApproach();
+  await verifyCampaignTower();
+  await verifyCastleEnding(true, { continuous: true });
   process.exit(0);
 }
 
