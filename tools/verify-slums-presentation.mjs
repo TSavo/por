@@ -7954,7 +7954,19 @@ try {
         document.querySelector('.encounter-portrait[src="/art/${aftermath}"]')?.naturalWidth === 352`));
       await verifyPortraitPanel();
       await switchBothWays();
-    } else await advance(captiveAlarm ? "l" : "r");
+    } else {
+      await advance(captiveAlarm ? "l" : "r");
+      if (!captiveAlarm) {
+        const released = "portrait:area:3:ecl:9a2c:caller:b313:PIC5.DAX:7:0:0";
+        assert.equal(frame.portrait, released);
+        await waitFor("Cadorna's release illustration", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${released}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        await switchBothWays(frame.frame);
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "valjevo-cadorna-released.png"), Buffer.from(shot.data, "base64"));
+      }
+    }
     if (captiveAlarm) {
       const alarm = "portrait:area:3:ecl:9bf8:PIC5.DAX:7:0:0";
       assert.equal(frame.portrait, alarm);
