@@ -36,6 +36,8 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
     const directory = resolve(saveDir, `leg-${++campaignLeg}`);
     const chrome = await openChromeCampaignLeg({
       chromePath, directory, checkpointDir: resolve(checkpointDir), bootKeys, startAt, developerCombat,
+      schedule: process.env.POR_REPLAY_SCHEDULES === "off" ? undefined
+        : resolve("qa", "replay-schedules", "campaign", `leg-${campaignLeg}.jsonl`),
     });
     try {
       const initial = await chrome.nextFrame();

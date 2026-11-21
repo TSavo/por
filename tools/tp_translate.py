@@ -86,6 +86,8 @@ PROFILES = {
     "1.3": {
         "directory": "translated-1.3", "overlay_magic": b"FBOV",
         "data_segment": 0xC7C, "system_init": 0xAF80, "crt_delay_dec_dx": 0xA6B7,
+        # Image offset of `mov cx, [DelayCnt]` in Crt.Delay. See render_proc.
+        "crt_delay_count_load": 0xA6B0,
         "ecl_loop": ("ovl03_3171", 0x2F2D), "intr": (0xA32, 0xB),
         "system": None,
         # MemAvail and MaxAvail load a routine's offset into BX and call through it. Each routine
@@ -825,6 +827,15 @@ def render_proc(blob: bytes, start: int, end: int, fn: str, comment: str, names:
             # Remove this once the tick cadence and the recorded input tapes are recalibrated.
             flags = "        { const saved = m.cf; m.dx = m.setSubFlags(16, m.dx, 1); m.cf = saved; }"
             instruction[instruction.index(flags)] = "        m.dx = (m.dx - 1) & 0xffff;"
+        if fn.startswith("exe_") and insn.address == PROFILE.get("crt_delay_count_load"):
+            # This build's Delay runs a slower inner loop: with the zero the calibration stores,
+            # its one pass costs about 720,000 instructions where the first release's costs about
+            # 130,000. Loading a count of one makes the pass short. Timing is a named deviation
+            # either way: the delay does not last the milliseconds asked for.
+            load = [line for line in instruction if line.strip().startswith("m.cx = m.read16(")]
+            if len(load) != 1:
+                raise ValueError(f"{fn} expected one load of the delay count at {insn.address:#x}")
+            instruction[instruction.index(load[0])] = "        m.cx = 1;"
         lines.extend(instruction)
     lines += [
         "      default:",

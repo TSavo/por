@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
-import { appendFileSync, copyFileSync, createWriteStream, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { appendFileSync, copyFileSync, createWriteStream, mkdirSync, readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { createServer } from "node:net";
 import { join, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
@@ -24,7 +24,7 @@ export function copyCampaignSaves(from, to) {
 // spent each time the game emptied its keyboard buffer, and their key lists include those
 // presses. Pass "" for a replay that presses each key once.
 export async function openChromeCampaignLeg({ chromePath, directory, checkpointDir, bootKeys, startAt, developerCombat = false,
-  inputCompat = "discard-poll-prompt" }) {
+  inputCompat = "discard-poll-prompt", schedule }) {
   mkdirSync(directory);
   // The guest overwrites slots during a campaign. Preserve the input saves
   // and commands for each leg, including host-side journal commands.
@@ -43,6 +43,10 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
       POR_JOURNAL_PROFILE: "", POR_PREGEN_PARTY: "0", POR_BOOT_KEY_FILE: "", POR_BOOT_KEYS: bootKeys,
       POR_LIVE_AT: startAt, POR_BOOT_STEPS: "450000000", POR_RECORD_KEYS: join(directory, "keys.txt"),
       POR_INPUT_COMPAT: inputCompat, POR_CLOCK: "fixed",
+      // Every leg records when it asked for each key, in game progress. A leg that has such a
+      // record in the repository asks at the same moments. See docs/REPLAYS.md.
+      POR_PROMPT_SCHEDULE_OUT: join(directory, "prompts.jsonl"),
+      POR_PROMPT_SCHEDULE_IN: schedule && existsSync(schedule) ? schedule : "",
     },
     stdio: ["ignore", "pipe", "pipe"], windowsHide: true,
   });

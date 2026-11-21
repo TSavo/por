@@ -136,6 +136,8 @@ export const far = resolve({
   showPicture: { "1.0": [0x18e, 0x5c], "1.3": [0x464, 0x1951] },
   /** Empty the keyboard buffer. */
   flushKeys: { "1.0": [0x26b, 0xf6], "1.3": [0x899, 0x104] },
+  /** Turbo Pascal's Random(n), which every dice roll goes through. */
+  random: { "1.0": [0x5bb, 0xc94], "1.3": [0xaf8, 0x11c0] },
   /** Play a sound event. */
   sound: { "1.0": [0x27f, 0x0], "1.3": [0x8ae, 0xdc] },
 });

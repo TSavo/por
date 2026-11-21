@@ -1,5 +1,5 @@
 import type { Cpu } from "../cpu/machine.js";
-import { data, far, isFar } from "./bindings.js";
+import { code, codeSegment, data, far, isFar, segment } from "./bindings.js";
 
 /**
  * Far-call dispatch for translated Turbo Pascal.
@@ -13,6 +13,14 @@ export type FarFn = (m: Cpu) => void;
 export const farTable = new Map<string, FarFn>();
 export const exeByImage = new Map<number, FarFn>();
 export const callTrace: string[] = [];
+/**
+ * How far the game has got, counted in things both builds do identically: dice drawn, and calls
+ * the game makes into the text unit (every line, number and menu it draws). Calls the text code
+ * makes to itself are left out: the first release routes them through far calls and 1.3 does not. A replay uses it to say when
+ * a key is pressed, where a count of executed instructions would differ from build to build.
+ * Sound requests are not counted: the builds differ in them.
+ */
+export const gameProgress = { dice: 0, text: 0 };
 export const farCallObservers = new WeakMap<Cpu, (seg: number, off: number) => void>();
 export interface OriginalSoundCall {
   step: number;
@@ -59,6 +67,8 @@ export function farCall(m: Cpu, seg: number, off: number): void {
   off &= 0xffff;
   const label = farKey(seg, off);
   farCallObservers.get(m)?.(seg, off);
+  if (isFar(seg, off, far.random)) gameProgress.dice++;
+  else if (seg === segment.text && m.cs !== seg && m.cs !== codeSegment(code.glyphStoreA)) gameProgress.text++;
   if (isFar(seg, off, far.sound)) {
     originalSoundCallObservers.get(m)?.({
       step: m.steps,

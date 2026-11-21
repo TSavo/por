@@ -93062,7 +93062,7 @@ export function exe_0a69c(m: Cpu): void {
       case 0xa6b0: {
         // a6b0: mov cx, word ptr [0x84fc]
         m.tick(0xa6b0);
-        m.cx = m.read16(m.ds, (34044) & 0xffff);
+        m.cx = 1;
         ip = 0xa6b4;
         break;
       }

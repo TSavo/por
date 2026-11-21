@@ -1,4 +1,4 @@
-import { appendFileSync, mkdtempSync, readSync, writeFileSync } from "node:fs";
+import { appendFileSync, mkdtempSync, readFileSync, readSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { captureNativeExploration, type NativeExploration } from "./native-exploration.js";
 import { captureOverlandTravel, identifyPhlanPrompt, identifySokalPrompt, isQuayDialogue, isSokalBoatHandoff,
@@ -9,6 +9,7 @@ import type { EncounterAnchor } from "../src/lib/assets.js";
 import type { Cpu } from "../src/cpu/machine.js";
 import { currentObjective, isOpenObjective, kovelJournalTransition, trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { BiosKey } from "../src/runtime/dos.js";
+import { gameProgress } from "../src/runtime/far.js";
 import { journalFrame, screen, visibleGameText } from "../src/runtime/video.js";
 import { encodePng } from "./png.js";
 import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
@@ -586,9 +587,38 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     }
   };
   let keyQueue: BiosKey[] | undefined;
+  // A replay can record when each prompt happened, in game progress, and a later replay can ask at
+  // those same moments. POR_PROMPT_SCHEDULE_OUT writes the record; POR_PROMPT_SCHEDULE_IN follows one.
+  type PromptKind = "read" | "poll" | "flush" | "drain";
+  const scheduleOut = process.env.POR_PROMPT_SCHEDULE_OUT;
+  const schedule: { kind: PromptKind; at: [number, number] }[] | undefined = process.env.POR_PROMPT_SCHEDULE_IN
+    ? readFileSync(process.env.POR_PROMPT_SCHEDULE_IN, "utf8").split("\n").filter(Boolean).map(line => JSON.parse(line)) : undefined;
+  let prompts = 0;
+  let scheduleWaits = 0;
+  let progressStart: [number, number] | undefined;
+  const progress = (): [number, number] => {
+    progressStart ??= [gameProgress.dice, gameProgress.text];
+    return [gameProgress.dice - progressStart[0], gameProgress.text - progressStart[1]];
+  };
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean, legacyFlush = false): void => {
     keyQueue = keys;
-    if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
+    if (cpu.steps < startAt || keys.length) return;
+    const kind: PromptKind = legacyFlush || (!blocking && returnsTo(cpu, 0, code.flushPollResumes)) ? "flush"
+      : !blocking && returnsTo(cpu, 0, code.drainPollResumes) ? "drain" : blocking ? "read" : "poll";
+    const expected = schedule?.[prompts];
+    if (expected) {
+      // Ask where the recorded replay asked: at the same kind of moment, once the game has got as far.
+      const now = progress();
+      const reached = now.every((count, index) => count >= expected.at[index]!);
+      if (kind !== "read" && (kind !== expected.kind || !reached)) {
+        if (traceKeys && ++scheduleWaits % 25 === 0) {
+          const words = Array.from({ length: 10 }, (_, index) => cpu.read16(cpu.ss, (cpu.sp + index * 2) & 0xffff).toString(16));
+          console.error(`POR_SCHEDULE prompt ${prompts}: recorded ${expected.kind} at ${expected.at}, now ${kind} at ${now}; stack ${words.join(" ")}`);
+        }
+        return;
+      }
+      scheduleWaits = 0;
+    } else if (!blocking && cpu.steps < nextPrompt) return;
     // The game empties its keyboard buffer before it draws a new screen (FlushKeys) and after
     // each key it reads (GetKey). Those polls only discard type-ahead. On DOS they find
     // nothing and return at once, so the player is never asked for a key there.
@@ -640,6 +670,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           cpu.read8(actorSegment, (actorOffset + 0x10f) & 0xffff) !== 0;
       }
     }
+    if (scheduleOut) appendFileSync(scheduleOut, JSON.stringify({ kind, at: progress() }) + "\n");
+    prompts++;
     showFrame(undefined, undefined, false, automaticCombat);
     while (true) {
       if (!browser) process.stdout.write("Game [J journal, :quit, key]> ");
@@ -683,6 +715,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // With POR_TRACE_KEYS=1, say where each key went. A key given at a discard poll is thrown away.
       if (traceKeys) console.error(`POR_KEY ${JSON.stringify(command)}${atDiscardPoll ? " discarded" : ""}`);
       if (recording) appendFileSync(recording, `${cpu.steps}:${key.toString(16).padStart(4, "0")}\n`);
+      // The recorded replay gave this press at a moment when the game only discards keys, and this
+      // build did not stop there. Drop the press and ask again for the one the game is waiting for.
+      if (kind === "read" && (expected?.kind === "flush" || expected?.kind === "drain")) {
+        if (traceKeys) console.error(`POR_KEY ${JSON.stringify(command)} dropped`);
+        return requestKey(cpu, keys, blocking);
+      }
       keys.push({ step: cpu.steps, word: key });
       // Animated travel on Rolf's tour can exceed 30 million instructions
       // between keyboard reads.
