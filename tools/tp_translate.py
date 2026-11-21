@@ -788,17 +788,21 @@ def generic_op(mn: str, op: str, parts: list[str]) -> str | None:
     return None
 
 
-def render_proc(blob: bytes, start: int, end: int, fn: str, comment: str, names: dict[int, str]) -> str:
-    body = cfg_insns(blob, start, end)
+def render_proc(blob: bytes, start: int, end: int, fn: str, comment: str, names: dict[int, str],
+                *, body: list | None = None, shared_entry: bool = False) -> str:
+    if body is None:
+        body = cfg_insns(blob, start, end)
     if not body:
         raise ValueError(f"{fn} decoded no instructions")
     reached = any(i.mnemonic in ("retf", "ret", "iret") for i in body)
     if not reached and body[-1].mnemonic not in ("call", "lcall", "int", "jmp", "ljmp"):
         raise ValueError(f"{fn} did not reach ret ({body[-1].mnemonic})")
+    entry = f"0x{ENTRY_INSIDE.get(fn, start):x}"
+    parameters = ", entry = " + entry if shared_entry else ""
     lines = [
         f"/** {comment} */",
-        f"export function {fn}(m: Cpu): void {{",
-        f"  let ip = 0x{ENTRY_INSIDE.get(fn, start):x};",
+        f"export function {fn}(m: Cpu{parameters}): void {{",
+        "  let ip = " + ("entry" if shared_entry else entry) + ";",
         "  while (true) {",
         "    switch (ip) {",
     ]
@@ -901,9 +905,42 @@ def close_entries(blob: bytes, starts: list[int], prologues_at: list[int] | None
 def emit_unit(blob: bytes, spans: list[tuple[int, int, str, str]]) -> tuple[str, list[tuple[int, str]]]:
     body: list[str] = []
     regs: list[tuple[int, str]] = []
+    entries = {ENTRY_INSIDE.get(name, start) for start, _, name, _ in spans}
+    functions = {name: cfg_insns(blob, start, end) for start, end, name, _ in spans}
+    owners = {insn.address: name for name, instructions in functions.items() for insn in instructions}
+    external = set()
+    for instructions in functions.values():
+        local = {insn.address for insn in instructions}
+        for insn in instructions:
+            if insn.mnemonic not in JUMPS or insn.mnemonic.startswith("loop"):
+                continue
+            target = imm(insn.op_str)
+            if target is not None and target not in local and target not in entries:
+                external.add(target)
+
+    # Some entries consist only of a jump to translated code. Preserve that
+    # instruction as well as the destination, without adding a guest return.
+    decoder = Cs(CS_ARCH_X86, CS_MODE_16)
+    redirects: dict[int, int] = {}
+    for target in sorted(external - owners.keys()):
+        if not 0 <= target < len(blob):
+            continue
+        insn = next(decoder.disasm(blob[target:target + 15], target, count=1), None)
+        if insn is None or insn.mnemonic != "jmp":
+            continue
+        destination = imm(insn.op_str)
+        if destination is not None and (destination in owners or destination in entries):
+            redirects[target] = destination
+
+    # A jump into another routine shares its tail and starts at that IP
+    # with the existing stack and registers.
+    shared = {target: owners[target] for target in external.union(redirects.values())
+              if target in owners and target not in entries}
+    shared_owners = set(shared.values())
     for start, end, name, comment in spans:
         try:
-            body.append(render_proc(blob, start, end, name, comment, {}))
+            body.append(render_proc(blob, start, end, name, comment, {},
+                                    body=functions[name], shared_entry=name in shared_owners))
         except ValueError as error:
             if SURVEY is None:
                 raise
@@ -911,7 +948,14 @@ def emit_unit(blob: bytes, spans: list[tuple[int, int, str, str]]) -> tuple[str,
             SURVEY.append(f"{name}: {error}")
             continue
         regs.append((ENTRY_INSIDE.get(name, start), name))
-    tail = "\n".join(f"near.set(0x{off:x}, {name});" for off, name in regs)
+    registered = {name for _, name in regs}
+    tail = "\n".join([
+        *(f"near.set(0x{off:x}, {name});" for off, name in regs),
+        *(f"near.set(0x{target:x}, m => {owner}(m, 0x{target:x}));"
+          for target, owner in sorted(shared.items()) if owner in registered),
+        *(f"near.set(0x{target:x}, m => {{ m.tick(0x{target:x}); nearCall(m, 0x{destination:x}); }});"
+          for target, destination in redirects.items() if destination in entries or shared.get(destination) in registered),
+    ])
     return "\n".join(body) + "\n" + tail + "\n", regs
 
 

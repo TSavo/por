@@ -114813,8 +114813,8 @@ export function exe_0bdcf(m: Cpu): void {
 }
 
 /** START.EXE image 0xbeb3. */
-export function exe_0beb3(m: Cpu): void {
-  let ip = 0xbeb3;
+export function exe_0beb3(m: Cpu, entry = 0xbeb3): void {
+  let ip = entry;
   while (true) {
     switch (ip) {
       case 0xbeb3: {
@@ -123339,3 +123339,6 @@ near.set(0xc76b, exe_0c76b);
 near.set(0xc780, exe_0c780);
 near.set(0xc79b, exe_0c79b);
 near.set(0xc7aa, exe_0c7aa);
+near.set(0xbf96, m => exe_0beb3(m, 0xbf96));
+near.set(0xbfb1, m => exe_0beb3(m, 0xbfb1));
+near.set(0xbeb0, m => { m.tick(0xbeb0); nearCall(m, 0xbfb1); });
