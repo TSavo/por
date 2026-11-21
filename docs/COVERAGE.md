@@ -2103,6 +2103,12 @@ compares state and save bytes through both presentation switches.
 `valjevo-tower-troll` exercises the ruined tower fight from controlled slot
 B. Chrome checks the 96×192 ready pose and reflected claw strike and
 verifies the save bytes stay unchanged.
+The separate Valjevo tower ambush replay uses a controlled branch fixture
+to select the trolls' surprise encounter. Chrome verifies the 352×352
+portrait when the trolls charge, preserves the guest state during display
+switching, and shows the same illustration at battle entry. The opener
+uses caller `a042` of the shared `9a5a` routine, and the battle hold uses
+`a052`.
 `valjevo-giant-snake` uses controlled slot B on the Valjevo approach with
 the alarm running. It verifies both 192×96 snake poses at the guest's actual
 combat placements, including the animated lunge and state-preserving mode

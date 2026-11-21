@@ -99,11 +99,15 @@ archive contents. The live routes establish which frames are drawn.
 already resolve to global enhanced artwork through the browser's matchers.
 Source IDs use the DAX block number, member, and frame. The JSON keeps the
 archive directory index separately for decoding the preview.
-The inventory at `5d4a5617` reports 833 source frames, including 26
-`COMSPR.DAX` frames, with 465 linked directly, 22 covered through exact
-pixel matches, and 346 unlinked. The unlinked entries include 11
+The inventory at `722fa445` reports 833 source frames, including 26
+`COMSPR.DAX` frames, with 616 linked directly, 22 covered through exact
+pixel matches, and 195 unlinked. The unlinked entries include 11
 uniform frames, seven combat frames with scoped reuse candidates, and
-37 encounter frames whose pixels match art bound to another frame.
+38 encounter frames whose pixels match art bound to another frame.
+Another 38 unlinked portrait members match an existing replacement at
+its own scope when composed with their base portrait. The HTML and JSON
+list those scopes separately from direct links and global matches. A
+live replay is needed to establish which scope the guest uses.
 The seven combat rows are the ready and strike pairs for `CPIC1.DAX` actor
 11, `CPIC4.DAX` actor 14, and `CPIC6.DAX` actor 13, plus `CPIC6.DAX` actor
 14's strike pose. All seven have pixel-identical twins with Enhanced
