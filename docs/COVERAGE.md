@@ -612,8 +612,9 @@ castle turn-in, and moves focus to Return to game.
 Add `--save-at-west-gate` to the native ending replay to save slot D just
 after the battle and return to New Phlan. Pass that slot to the Chrome
 replay with `castle-ending --council-finale` to walk the journal's route,
-verify all 1,694 enhanced tile placements across 14 views, see the
-dedicated Phlan victory illustration during the ending, and switch display modes. Chrome also
+verify the posted proclamations illustration and 1,573 enhanced tile
+placements across 13 WebGL views, see the dedicated Phlan victory
+illustration during the ending, and switch display modes. Chrome also
 checks the 67,500 XP reward in the Enhanced web font, with a dedicated
 4× illustration underneath the original reward text. Switching presentation
 preserves the prompt. The journal directs the party to Share and Exit

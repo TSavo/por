@@ -10614,15 +10614,25 @@ try {
     await advance("j");
     const patterns = new Set();
     let views = await verifyTiledView(0, patterns);
-    for (const key of ["up", "up", "up", "enter", "up", "right", "up", "enter", "enter", "enter",
-      "up", "left", "up", "up", "enter"]) {
+    const walkToCouncil = ["up", "up", "up", "enter", "up", "right", "up", "enter", "enter", "enter",
+      "up", "left", "up", "up", "enter"];
+    for (const [step, key] of walkToCouncil.entries()) {
       await advance(key);
+      if (step === 3) {
+        const proclamations = "scene-illustration:area:0:ecl:acbf";
+        assert.equal(frame.portrait, proclamations);
+        assert.match(text(), /PROCLAMATIONSAREPOSTEDONTHEWALLS/i);
+        await waitFor("the posted proclamations illustration", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${proclamations}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        continue;
+      }
       if (!frame.tileInventory?.length) continue;
       const area = Number(frame.tileInventory[0][2].split(":")[1]);
       assert.ok(area === 0 || area === 8);
       views += await verifyTiledView(area, patterns);
     }
-    assert.equal(views, 14);
+    assert.equal(views, 13);
     assert.ok([...patterns].some(id => id.startsWith("tile:8:")), "The route should reach the City Hall district");
     assert.match(text(), /YOURQUESTISOVER.*TYRANTHRAXUSISDEFEATED.*PHLANISFREE/i);
     const finalePortrait = "portrait:area:8:ecl:9f21:caller:9a4a:HEAD3.DAX:24:BODY3.DAX:32";
