@@ -1,0 +1,491 @@
+{
+  "schema": 1,
+  "id": "acceptance.wilderness-lairs",
+  "title": "Wilderness lairs",
+  "guideSection": "3.12",
+  "scripts": [
+    "ECL 25",
+    "ECL 26",
+    "ECL 27"
+  ],
+  "commission": null,
+  "prerequisites": [
+    "The party is on the overland map in the region of the lair wanted (West X 2-15, Central X 16-28, East X 29-41).",
+    "Fixed dice are needed to roll a lair entrance (1 in 21 of the 5% per-move encounters) and to choose the lair.",
+    "Lairs are optional; no commission involves them.",
+    "XP figures assume a party of exactly six.",
+    "No party level is stated in the digest."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.wilderness-lairs.entrance",
+      "title": "Find a lair entrance on the overland map",
+      "kind": "rule",
+      "steps": [
+        "On the overland map force a random encounter (5% per move) with the follow-up roll at 21 of 21.",
+        "West (X 2-15): 'YOU HAVE FOUND A SMALL DARK CAVE. WILL YOU ENTER?' with ENTER / LEAVE.",
+        "Central (X 16-28): 'YOU HAVE FOUND A SMALL WOODED GROVE. WILL YOU ENTER?' with ENTER / LEAVE, or 'YOU HAVE FOUND SOME RUINED HUTS. WILL YOU INVESTIGATE?' with INVESTIGATE / LEAVE.",
+        "East (X 29-41): 'YOU HAVE FOUND A SMALL, DARK CAVE. WILL YOU ENTER?' with ENTER / LEAVE.",
+        "Choose ENTER (or INVESTIGATE)."
+      ],
+      "expect": [
+        "1 in 21 random encounters is a lair entrance instead of a monster group.",
+        "The party is placed inside one of the region's lairs: West: Wild Boar, Anhkheg, Thri-Kreen, Giant Snake; Central: Grove with Pool, Ruined Huts, Grove with Stirges; East: Wyvern, Giant Lizard, Gnoll, Kobold.",
+        "LEAVE: the party stays on the overland map."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Lair chance: 1/21 of the 5% per-move encounters.",
+        "Rest interruptions on the overland map never produce a lair."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "[P] §3.11 rules (digest)",
+        "Clue Book p.21-26",
+        "game text ECL6.DAX block 25 at 0xa425, 0xa44e (src/audio/voice-master-manifest.json)",
+        "game text ECL7.DAX block 26 at 0xa45d, 0xa488, 0xa4a6, 0xa4d3 (src/audio/voice-master-manifest.json)",
+        "game text ECL8.DAX block 27 at 0xa20d, 0xa237 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.21-26 marks 'monsters that can be found in a lair': West wild boars, giant mantis and anhkegs (the OCR is unclear for thri-kreen and giant snakes); Central kobolds, displacer beasts, stirges, lizard men; East kobolds, lizard men, gnolls, giant lizards, wyverns, trolls. [P] has no giant mantis lair and no East lizard-man lair.",
+        "[NES] has no wilderness lairs or groves (platform-specific; not relevant to the DOS port)."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say how the lair within a region is chosen. The digest gives lair-local coordinates; it does not say whether the lairs of one region share a map, though the location numbers do not overlap within a region."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.lair-rules",
+      "title": "Check the rules that hold inside every lair",
+      "kind": "rule",
+      "steps": [
+        "Inside any lair open the Area map.",
+        "Walk non-event squares for a long fixed-dice run, in normal and search mode.",
+        "Encamp and rest for several days.",
+        "Walk to the lair's exit: West 'YOU HAVE FOUND A PASSAGE WHICH LEADS OUTSIDE. WILL YOU TAKE IT?' (LEAVE CAVE / STAY IN); Central 'YOU ARE ABOUT TO LEAVE THIS AREA. DO YOU WANT TO RETURN?' (RETURN / LEAVE); East 'YOU FIND A PASSAGEWAY GOING OUT. WHAT WILL YOU DO?' (STAY / LEAVE)."
+      ],
+      "expect": [
+        "There is no automap in a lair.",
+        "No random encounters occur (apart from the lair's own G and K squares in the Gnoll and Kobold lairs).",
+        "Rest is always safe.",
+        "Leaving returns the party to the overland map."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "game text ECL6.DAX block 25 at 0xaacd, 0xab00 (src/audio/voice-master-manifest.json)",
+        "game text ECL7.DAX block 26 at 0xaa9a, 0xaac8 (src/audio/voice-master-manifest.json)",
+        "game text ECL8.DAX block 27 at 0xa7f7, 0xa821 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Where on the overland map the party reappears is not stated (presumably the square where the entrance was found). The G and K squares are fixed-square chance fights, treated here as lair content rather than random encounters."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.regeneration",
+      "title": "Re-enter a lair and find it restocked",
+      "kind": "rule",
+      "steps": [
+        "Enter a lair, win its fights and take its treasure.",
+        "Leave, find a lair entrance again and enter the same lair."
+      ],
+      "expect": [
+        "All encounters and treasure are back: lairs regenerate every time the party re-enters."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "[P] §7 item 27 (digest)"
+      ],
+      "disagreements": [
+        "Regeneration: [P] 'always regenerates encounters and treasure any time you re-enter'; [GB] 'once you've left them ... they'll disappear forever.'"
+      ],
+      "coveredBy": [],
+      "notes": "Follow [P] (written against the DOS game); the GameBanshee statement is recorded as a disagreement. Re-entry depends on rolling another lair entrance, so a runner needs fixed dice."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.repeatable-magic-items",
+      "title": "Loot the three repeatable random magic items",
+      "kind": "rule",
+      "steps": [
+        "Take the treasure at Thri-Kreen lair 13, Wyvern lair 2 and Giant Lizard lair 8.",
+        "Re-enter each lair and take the treasure again."
+      ],
+      "expect": [
+        "Each of the three treasures includes 1 random magic item, generated anew on each visit.",
+        "These are 'the only repeatably lootable random magical items in the game'.",
+        "The XP range of each treasure spans 333 points (1951-2284, 1679-2012, 355-688), reflecting the random item."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Thri-Kreen 13: 1951-2284 XP. Wyvern 2: 1679-2012 XP. Giant Lizard 8: 355-688 XP."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "[P] §4 Money, random magic item generation (digest)",
+        "[P] §5 Other documented quirks (digest)"
+      ],
+      "disagreements": [
+        "Regeneration: [P] 'always regenerates encounters and treasure any time you re-enter'; [GB] 'once you've left them ... they'll disappear forever.'"
+      ],
+      "coveredBy": [],
+      "notes": "Random magic item generation in v1.3 is 'documented in full in §9.4' of [P], which the digest does not reproduce, and is 'known to work differently in v1.0'. Known glitches (digest §5): nameless items from weapon/armor rolls 48-49, Javelin type 5, potion type 11, wand type 4; the Wand of Lightning cannot be rolled. [P]'s optional random-item fixes must not be applied in a faithful port."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.wild-boar",
+      "title": "Clear the Wild Boar lair (West)",
+      "kind": "optional",
+      "steps": [
+        "Enter the Wild Boar lair.",
+        "1 (0,0): 'OUT OF THE SHADOWS, TWO LARGE WILD BOARS CHARGE.' Win.",
+        "2 (5,2): 'NEAR YOU IS A LARGE, WILD BOAR SOW FEEDING HER YOUNG. AS YOU NEAR SHE GROWLS A WARNING TO STAY AWAY. WHAT WILL YOU DO?' with APPROACH / LEAVE. Choose APPROACH: 'AS YOU APPROACH HER HAIR BRISTLES AND SHE ATTACKS!' Win.",
+        "3 (0,4): 'AT THE END OF THE PASSAGEWAY ARE THREE LARGE WILD BOARS. THEY CHARGE AT YOU AND ATTACK!' Win."
+      ],
+      "expect": [
+        "1: 2 WILD BOAR; 52 XP per character.",
+        "2: 1 boar fought at -4 to hit; 26 XP. LEAVE avoids the fight.",
+        "3: 3 boars; 78 XP."
+      ],
+      "branches": [
+        "Sow: APPROACH → fight; LEAVE → no fight."
+      ],
+      "fights": [
+        "2 WILD BOAR (52 XP).",
+        "1 WILD BOAR, -4 to hit (26 XP).",
+        "3 WILD BOAR (78 XP)."
+      ],
+      "data": [
+        "Locations: 1 (0,0), 2 (5,2), 3 (0,4)."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "game text ECL6.DAX block 25 at 0xa565, 0xa5b1, 0xa60e, 0xa62e, 0xa699 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest's 'at −4 to hit' does not say whose rolls are penalised. The digest gives lair-local coordinates; it does not say whether the lairs of one region share a map, though the location numbers do not overlap within a region."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.anhkheg",
+      "title": "Clear the Anhkheg lair (West)",
+      "kind": "optional",
+      "steps": [
+        "Enter the Anhkheg lair.",
+        "6 (4,1): 'THE REMAINS OF SEVERAL OF THE ANHKHEG'S VICTIM. ADMIST THE DEBRIS IS SOME TREASURE.' Take it.",
+        "7 (6,3): 'FROM THE SOUTH, A LARGE ANHKHEG LUNGES OUT AND ATTACKS THE PARTY.' Win."
+      ],
+      "expect": [
+        "6: 1 gem, 500 electrum, 2000 silver, 5000 copper; 104 XP per character.",
+        "7: 1 AHNKHEG at distance 1; 71 XP.",
+        "Flavor squares print 'LYING ON THE GROUND HERE ARE THE DISSOLVING REMAINS OF A DWARF. HE IS COVERED IN ACID.' and 'THE GROUND HERE IS SOFT AND FRESHLY CHURNED.'"
+      ],
+      "branches": [],
+      "fights": [
+        "1 AHNKHEG, distance 1 (71 XP)."
+      ],
+      "data": [
+        "Locations: 6 (4,1), 7 (6,3)."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "game text ECL6.DAX block 25 at 0xa6f1, 0xa737, 0xa767, 0xa7db (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Spelling: the digest heads the lair 'Anhkheg' and names the monster AHNKHEG; the game text prints 'ANHKHEG'; the Clue Book 'Anhkegs'."
+      ],
+      "coveredBy": [],
+      "notes": "The two flavor strings sit between the boar and anhkheg strings in block 25; their squares are not in the digest. [P] §5: the AHNKHEG's acid is not typed as acid."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.giant-snake",
+      "title": "Clear the Giant Snake lair (West)",
+      "kind": "optional",
+      "steps": [
+        "Enter the Giant Snake lair.",
+        "9 (13,14): 'A GIGANTIC SNAKE LIES IN FRONT OF YOU. IT REARS AND ATTACKS.' Win.",
+        "10 (15,14): 'AS YOU WALK INTO THIS ROOM A GIANT SNAKE FALLS ON TOP OF THE PARTY.' Win."
+      ],
+      "expect": [
+        "9: 1 GIANT SNAKE; 43 XP per character.",
+        "10: 1 GIANT SNAKE that surprises the party; 43 XP.",
+        "A flavor square prints 'LYING ON THE FLOOR IS A LARGE, SHEDDED SNAKE SKIN.'"
+      ],
+      "branches": [],
+      "fights": [
+        "1 GIANT SNAKE (43 XP).",
+        "1 GIANT SNAKE, party surprised (43 XP)."
+      ],
+      "data": [
+        "Locations: 9 (13,14), 10 (15,14)."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "game text ECL6.DAX block 25 at 0xa82d, 0xa869, 0xa8d0 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "No treasure is listed for this lair. [P] §5 Technical: ECL opcodes 22 (PARTY SURPRISE) and 23 (SURPRISE) apply the wrong modifiers; the optional [P] fix must not be applied."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.thri-kreen",
+      "title": "Clear the Thri-Kreen lair (West)",
+      "kind": "optional",
+      "steps": [
+        "Enter the Thri-Kreen lair.",
+        "11 (5,7): 'THERE ARE TWO THRI-KREEN HERE. THEY BLOCK THE PASSAGE WITH THEIR BODIES. WHAT WILL YOU DO?' with LEAVE / ATTACK. Choose ATTACK and win.",
+        "12 (6,11): 'BEFORE YOU ARE THREE THRI-KREEN WARRIORS. THEY ATTACK YOU IMMEDIATELY.' Win.",
+        "13 (2,8): 'YOU ENTER A CAVE ROOM WITH FOUR THRI-KREEN WARRIORS IN IT. ON THE FLOOR IS A CHEST WITH TREASURE IN IT. AS YOU ENTER THEY ATTACK.' Win and take the chest."
+      ],
+      "expect": [
+        "11: 2 THRI-KREEN; 604 XP per character. LEAVE avoids the fight (and they keep blocking the passage).",
+        "12: 3 THRI-KREEN; 907 XP.",
+        "13: 4 THRI-KREEN; treasure 1 jewelry, 3 gems, 1000 gold, 2000 silver, 1 random magic item; 1951 to 2284 XP."
+      ],
+      "branches": [
+        "11: ATTACK → fight; LEAVE → no fight."
+      ],
+      "fights": [
+        "2 THRI-KREEN (604 XP).",
+        "3 THRI-KREEN (907 XP).",
+        "4 THRI-KREEN (1951-2284 XP with the treasure)."
+      ],
+      "data": [
+        "Locations: 11 (5,7), 12 (6,11), 13 (2,8).",
+        "Adventurer's Journal: tavern tale 10 (insect-men to the west who give gifts, p.33-34), entry 6 ('Show the Boss's Seal to the thri-kreen guards', p.17) and entry 45 (thri-kreen speech, p.29) mention thri-kreen; none is cited by the digest or printed by block 25, and the Journal warns that some entries are false."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "Clue Book p.21-22",
+        "Adventurer's Journal p.17, p.29, p.33-34",
+        "game text ECL6.DAX block 25 at 0xa936, 0xa97e, 0xa9cd, 0xaa36 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.21: 'Especially beware the Thri-Kreen for they are tough and nasty.' Consistent with the XP values."
+      ],
+      "coveredBy": [],
+      "notes": "The block 25 text offers no way to show a seal or receive a gift at 11: the menu is LEAVE / ATTACK only."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.grove-with-pool",
+      "title": "Clear the Grove with Pool (Central)",
+      "kind": "optional",
+      "steps": [
+        "Enter the grove: 'YOU ARE AT THE EDGE OF THE GROVE.'",
+        "2: 'NEAR YOU IS A POOL OF WATER. SOMEONE OR THING IS SPLASHING IN THE POOL. WILL YOU APPROACH THE POOL?' with APPROACH / LEAVE. Choose APPROACH: 'YOU SEE SOME LIZARD MEN SWIMMING IN THE POOL. UPON SEEING YOU THEY ATTACK!' Win.",
+        "3 (2,6): 'AS YOU WALK THROUGH THE TRESS YOU ARE AMBUSHED BY TWO DISPLACER BEASTS.' Win."
+      ],
+      "expect": [
+        "2: 6 LIZARDMAN; 98 XP per character. LEAVE avoids the fight.",
+        "3: 2 DISPLACER BEAST in an ambush; 238 XP."
+      ],
+      "branches": [
+        "Pool: APPROACH → fight; LEAVE → no fight."
+      ],
+      "fights": [
+        "6 LIZARDMAN (98 XP).",
+        "2 DISPLACER BEAST, ambush (238 XP)."
+      ],
+      "data": [
+        "Locations: 2 (no coordinates given), 3 (2,6)."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "game text ECL7.DAX block 26 at 0xa5c2, 0xa5ea, 0xa639, 0xa660, 0xa6c5 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "[P] §5 Adaptational: displacer beasts are not displaced and are Lawful Good. No treasure is listed."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.ruined-huts",
+      "title": "Clear the Ruined Huts (Central)",
+      "kind": "optional",
+      "steps": [
+        "Enter the huts.",
+        "4 (8,14): 'AS YOU ENTER THE ROOM YOU SEE FOUR KOBOLDS CHAINED TO THE WALL. ONE OF THEM SAYS 'RELEASE US, OR THE LIZARD MEN WILL EAT US!' WHAT WILL YOU DO?' with RELEASE / ATTACK / LEAVE. Run RELEASE and ATTACK.",
+        "6 (9,11): 'YOU ENTER A HUT THAT IS COVERED IN FILTH. STANDING IN A POOL OF BLACK MUCK ARE TWO HORRIBLY MUTATED LIZARD MEN. THEY LUNGE OUT AND ATTACK THE PARTY.' Win.",
+        "7 (2,11) and 8 (2,15): 'INSIDE THIS HUT ARE FOUR LIZARD MEN. THEY ATTACK YOU IMMEDIATELY.' and 'IN THIS ROOM THERE ARE FOUR LARGE LIZARD MEN. AS YOU ENTER ONE OF THEM YELLS 'KILL' AND THEY ATTACK.' Win both."
+      ],
+      "expect": [
+        "RELEASE: 'YOU RELEASE THE KOBOLDS AND THEY THANK YOU. ONE OF THEM SAYS, 'WATCH OUT FOR THE MUTANT LIZARD MEN, THEY'RE KILLERS!' THEY THEN RUN OUT THE DOOR.'",
+        "ATTACK: 'YOU COLDLY KILL THE DEFENSELESS KOBOLDS.'",
+        "6: 2 MUTANT LIZ-MAN; 44 XP per character.",
+        "7 and 8: 4 LIZARDMAN each; 65 XP each.",
+        "A flavor square prints 'AN AWFUL STENCH IS COMING FROM THE WEST.'"
+      ],
+      "branches": [
+        "Kobolds: RELEASE → warning; ATTACK → they die; LEAVE → nothing."
+      ],
+      "fights": [
+        "2 MUTANT LIZ-MAN (44 XP).",
+        "4 LIZARDMAN (65 XP) at 7.",
+        "4 LIZARDMAN (65 XP) at 8."
+      ],
+      "data": [
+        "Locations: 4 (8,14), 6 (9,11), 7 (2,11), 8 (2,15)."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "game text ECL7.DAX block 26 at 0xa729, 0xa799, 0xa7c3, 0xa842, 0xa86c, 0xa8a0, 0xa944, 0xa9a9 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Which of the two four-lizardman strings belongs to 7 and which to 8 is not stated. Attacking the kobolds is not a combat according to the game text; the digest lists it only as 'Attack'. No treasure is listed."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.grove-with-stirges",
+      "title": "Meet the stirge swarm on the 1st, 5th and 9th entry",
+      "kind": "optional",
+      "steps": [
+        "Enter the Grove with Stirges and walk onto location 9, on the lair's 1st entry.",
+        "Repeat on the 2nd, 3rd, 4th and 5th entries."
+      ],
+      "expect": [
+        "On the 1st, 5th, 9th (every fourth) entry: 'A SWARM OF STIRGES SWOOPS DOWN AND ATTACKS THE PARTY!' and combat with -1 + 1d31 STIRGE, minimum 6; 46 to 230 XP per character.",
+        "On the 2nd, 3rd and 4th entries no swarm appears."
+      ],
+      "branches": [],
+      "fights": [
+        "6 to 30 STIRGE (46-230 XP)."
+      ],
+      "data": [
+        "Count: -1 + 1d31, minimum 6."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "game text ECL7.DAX block 26 at 0xaa34 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest's '1st, 5th, 9th… entry' is read as entries into this lair; the counter's scope (per lair or per grove entrance) is not stated. No coordinates for 9."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.wyvern",
+      "title": "Clear the Wyvern lair (East)",
+      "kind": "optional",
+      "steps": [
+        "Enter the Wyvern lair; the first square entered is location 3: 'YOU HAVE STUMBLED ACROSS A FEROCIOUS WYVERN. IT CHARGES AND ATTACKS!' Win.",
+        "4 (4,1): 'A TERRIBLE WYVERN CHARGES TO ATTACK THE PARTY!' Win.",
+        "2 (0,2): 'YOU HAVE FOUND THE WYVERN'S TREASURE!' Take it."
+      ],
+      "expect": [
+        "3 and 4: 1 WYVERN each, fought at -2 to hit; 224 XP per character each.",
+        "2: 3 jewelry, 3 gems, 1000 gold, 2000 electrum, 6000 silver, 5000 copper, 1 random magic item; 1679 to 2012 XP.",
+        "A flavor square prints 'LYING HERE ARE THE PARTIALLY EATEN REMAINS OF A HALFING.'"
+      ],
+      "branches": [],
+      "fights": [
+        "1 WYVERN, -2 to hit (224 XP) at 3.",
+        "1 WYVERN, -2 to hit (224 XP) at 4."
+      ],
+      "data": [
+        "Locations: 2 (0,2), 3 (the square first entered), 4 (4,1)."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "game text ECL8.DAX block 27 at 0xa341, 0xa37e, 0xa3d2, 0xa457 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Which wyvern string belongs to 3 and which to 4 is not stated; the order above follows the script. The digest's 'at −2 to hit' does not say whose rolls are penalised."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.giant-lizard",
+      "title": "Clear the Giant Lizard lair (East)",
+      "kind": "optional",
+      "steps": [
+        "Enter the Giant Lizard lair.",
+        "5 (5,12): 'FOUR GIANT LIZARDS RUN UP AND ATTACK THE PARTY!' Win.",
+        "7 (0,9): 'YOU ENTER A CHAMBER WITH FOUR GIANT LIZARDS AND TWO MINOTAURS. THE MINOTAURS ORDER THE LIZARDS TO ATTACK.' Win.",
+        "8 (2,11): 'YOU HAVE FOUND SOME TREASURE.' Take it.",
+        "9 (1,15): 'GUARDING THIS CHAMBER ARE TWO GIANT LIZARDS. AS YOU APPROACH, THEY ATTACK.' Win."
+      ],
+      "expect": [
+        "5: 4 GIANT LIZARD; 82 XP per character.",
+        "7: 4 GIANT LIZARD + 2 MINOTAUR; 304 XP.",
+        "8: 3000 electrum, 4000 silver, 6000 copper, 1 random magic item; 355 to 688 XP.",
+        "9: 2 GIANT LIZARD; 41 XP.",
+        "A flavor square prints 'THIS ROOM IS FILLED WITH HUMAN BONES.'"
+      ],
+      "branches": [],
+      "fights": [
+        "4 GIANT LIZARD (82 XP).",
+        "4 GIANT LIZARD + 2 MINOTAUR (304 XP).",
+        "2 GIANT LIZARD (41 XP)."
+      ],
+      "data": [
+        "Locations: 5 (5,12), 7 (0,9), 8 (2,11), 9 (1,15)."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "game text ECL8.DAX block 27 at 0xa4cb, 0xa516, 0xa549, 0xa5d2, 0xa61d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.wilderness-lairs.gnoll",
+      "title": "Clear the Gnoll lair (East)",
+      "kind": "optional",
+      "steps": [
+        "Enter the Gnoll lair and step on G squares with fixed dice set to hit the 1 in 8 chance.",
+        "'YOU ARE ATTACKED BY SOME GNOLLS.' Win.",
+        "13: 'IN THIS ROOM ARE SOME GNOLLS AND TROLLS. THEY ATTACK YOU IMMEDIATELY.' Win."
+      ],
+      "expect": [
+        "G squares: 1 in 8 chance of 3 + 1d31 GNOLL.",
+        "13: 4 TROLL + 12 GNOLL; 666 XP per character.",
+        "A flavor square prints 'IN THIS ROOM ARE THE HORRID REMAINS OF SOME ELVES.'"
+      ],
+      "branches": [],
+      "fights": [
+        "3 + 1d31 GNOLL on a G square.",
+        "4 TROLL + 12 GNOLL (666 XP)."
+      ],
+      "data": [
+        "G chance: 1 in 8."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "game text ECL8.DAX block 27 at 0xa694, 0xa6da, 0xa717 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "No coordinates are given for the G squares or 13, and no XP for the G fights. [P] §5 Adaptational: trolls stay down only if all damage dealt to them was fire or acid; they start regenerating 3 minutes after damage. No treasure is listed."
+    },
+    {
+      "id": "acceptance.wilderness-lairs.kobold",
+      "title": "Clear the Kobold lair (East)",
+      "kind": "optional",
+      "steps": [
+        "Enter the Kobold lair and step on K squares with fixed dice set to hit the 1 in 8 chance.",
+        "'YOU ARE ATTACKED BY A GROUP OF MAD KOBOLDS.' Win.",
+        "Repeat with the count roll forced to 40 or more."
+      ],
+      "expect": [
+        "K squares: 1 in 8 chance of 9 + 1d41 KOBOLD.",
+        "If the kobolds number 40 or more, 3 leaders are added."
+      ],
+      "branches": [],
+      "fights": [
+        "9 + 1d41 KOBOLD, plus 3 leaders at 40 or more."
+      ],
+      "data": [
+        "K chance: 1 in 8."
+      ],
+      "sources": [
+        "[P] §3.12 (digest)",
+        "game text ECL8.DAX block 27 at 0xa79d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "No coordinates, XP or treasure are given. The leader type is not named in §3.12 (KOBOLD LEADER elsewhere in the digest)."
+    }
+  ]
+}

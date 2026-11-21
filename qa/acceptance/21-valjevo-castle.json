@@ -1,0 +1,1340 @@
+{
+  "schema": 1,
+  "id": "acceptance.valjevo-castle",
+  "title": "Valjevo Castle outer quadrants",
+  "guideSection": "3.21",
+  "scripts": [
+    "ECL 3",
+    "ECL 4",
+    "ECL 6"
+  ],
+  "commission": "Commission #15",
+  "prerequisites": [
+    "Party has passed Stojanow Gate (exit E2) into the south-west quadrant.",
+    "Commission #15 accepted in the council chambers (needs the #14 reward); not required to enter.",
+    "Cadorna's cell (location 13) is populated only after the #13 reward.",
+    "[P] assumes a late-game party; Knock is useful for the hedge gate if RHODIA is not known.",
+    "Game text for this area is ECL5.DAX blocks 3, 4 and 6; the clerk's lines are ECL3.DAX block 8."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.valjevo-castle.accept-commission-15",
+      "title": "Receive Commission #15 in the council chambers",
+      "kind": "main",
+      "steps": [
+        "After collecting the #14 reward, visit the clerk. She prints: YOU ARE SUMMONED TO A SPECIAL COUNCIL MEETING. YOU ARE TO BE AWARDED A VALUABLE COMMISSION. THE CITY GUARDS WILL SHOW YOU THE WAY.'",
+        "Approach the council chambers (City Hall location 33). The game prints: THE GUARD CAPTAIN STEPS FORWARD. 'PLEASE LET US SHOW YOU THE WAY.'",
+        "The game prints: IN THE COUNCIL CHAMBERS, THE ENTIRE CITY COUNCIL IS WAITING FOR YOU. THE LORD HIGH MAYOR, ULRICH EBERHARD, SPEAKS: 'OUR FORCES ARE MARSHALLED FOR THE ASSAULT ON VALJEVO CASTLE., then 'IT IS THE UNANIMOUS REQUEST OF THE COUNCIL THAT YOU LEAD THE ATTACK. YOUR SKILL AND BRAVERY HAVE WON THE ADMIRATION OF ALL PHLAN. WE LOOK TO YOU TO HELP US WIN OUR FREEDOM.'"
+      ],
+      "expect": [
+        "Commission #15 is held by the party."
+      ],
+      "branches": [
+        "Before the #14 reward: the council guard intercepts the party: YOU ARE INTERCEPTED BY THE COUNCIL GUARD. 'HALT. YOUR PRESENCE IS NOT AUTHORIZED. LEAVE.' DO YOU LEAVE?"
+      ],
+      "fights": [],
+      "data": [
+        "City Hall location 33: council chambers, Lord High Mayor Ulrich Eberhard.",
+        "Commission #15 needs #14.",
+        "Journal entry 23 (p.21): facts and rumours on Ulrich Eberhard."
+      ],
+      "sources": [
+        "[P] digest §3.0 (location 33; commission table)",
+        "Adventurer's Journal p.21 (entry 23)",
+        "game text ECL3.DAX block 8 at 0xaec6, 0xb4c7, 0xb2aa, 0xb335, 0xb3e1 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "[P] (digest §6) says nothing stops a party going straight to the final confrontation from game start, so this commission is not needed to enter the castle. The replay's castle saves are described as having 'the assault assigned'."
+    },
+    {
+      "id": "acceptance.valjevo-castle.enter-south-west",
+      "title": "Enter the south-west quadrant from Stojanow Gate",
+      "kind": "main",
+      "steps": [
+        "Leave the Stojanow Gate block by exit E2.",
+        "Read the party's position and area."
+      ],
+      "expect": [
+        "The party is in Valjevo Castle, south-west quadrant (script ECL 6).",
+        "No alarm is sounding."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Stojanow Gate E2 leads to the SW quadrant.",
+        "Script blocks by content of the game text: ECL 6 = south-west (laundry, smithy, coal store, smokehouse, Bane temple); ECL 4 = north-east (fire giants' barracks, armory, kitchen, records, scribes); ECL 3 = north-west and south-east (officers' quarters, latrine, barracks, well, Cadorna's cell, snakes, old buildings, gate prompt)."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "[P] digest §3.20",
+        "game text ECL5.DAX block 6 at 0x9a79, 0x9a9a (src/audio/voice-master-manifest.json)",
+        "Clue Book p.45-46"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCampaignCastleApproach (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The digest does not map ECL 3/4/6 to quadrants or give arrival coordinates; the mapping in `data` is inferred from which strings sit in which block and must be confirmed. The replay saves on arrival without asserting the area name."
+    },
+    {
+      "id": "acceptance.valjevo-castle.alarm",
+      "title": "The castle alarm",
+      "kind": "rule",
+      "steps": [
+        "Trigger the alarm (for example kill the washerwomen with the noise roll forced, or flee the barracks). The game prints: AN ALARM STARTS RINGING!",
+        "Walk outdoors in normal mode, then in search mode, then indoors, with the patrol roll forced each way.",
+        "Stand in a safe spot (locations 3, 4, 10, 11, 12, 17, 23).",
+        "Wait 120 minutes of game time."
+      ],
+      "expect": [
+        "While the alarm runs the game prints AN ALARM IS SOUNDING. and patrols can appear.",
+        "Patrol chance outdoors: 1 in 21 per check; 1 in 3 in search mode. Indoors the chance is halved.",
+        "No patrol appears in a safe spot.",
+        "The alarm lasts between 60 and 120 minutes, then stops."
+      ],
+      "branches": [],
+      "fights": [
+        "Patrol: 1 6TH LVL FIGHTER (#75) + 5 HILL GIANT, Morale 60, 3380 XP."
+      ],
+      "data": [
+        "Alarm duration 60-120 minutes.",
+        "Safe spots: locations 3, 4, 10-12, 17, 23.",
+        "Patrol odds: 1 in 21; 1 in 3 in search mode; halved indoors."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.45-46",
+        "game text ECL5.DAX block 6 at 0x9a79, 0x9a9a (src/audio/voice-master-manifest.json)",
+        "game text ECL5.DAX block 3 at 0x99be, 0x99e0 (src/audio/voice-master-manifest.json)",
+        "game text ECL5.DAX block 4 at 0x99be, 0x99e0 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: the alarm 'lasts 60-120 minutes'. Clue Book p.45: 'The alarm only lasts for an hour'.",
+        "[P] safe spots are 3, 4, 10-12, 17, 23. Clue Book p.45-50 names per quadrant: the smokehouse (SW), the officers' quarters once the giants are bluffed (NW), the armory (NE), the Old Building (SE). The Clue Book does not list the coal store or the Bane temple."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say how the 60-120 minutes is drawn or how it runs across quadrant changes, nor what 'halved' gives for the search-mode odds. With fixed dice a runner can force the duration to each end. The alarm also drives the giant snakes in the Hedge Maze and the patrols north of Stojanow Gate."
+    },
+    {
+      "id": "acceptance.valjevo-castle.patrol-meek-harash",
+      "title": "Patrol parley: Meek and the password HARASH",
+      "kind": "rule",
+      "steps": [
+        "In disguise, with the alarm on, meet a patrol. The game prints YOU SEE A [group] and the menu 'WHAT ARE YOU DOING HERE?' THE LEADER ADVANCES.",
+        "Parley and choose Meek. The game prints: 'ALL RIGHT, THEN. WHAT IS TODAY'S PASSWORD?'",
+        "Type HARASH. The game prints: WITH A NOD OF THE HEAD YOU ARE LEFT ALONE."
+      ],
+      "expect": [
+        "No fight; the disguise is kept."
+      ],
+      "branches": [
+        "Meek + HARASH: left alone.",
+        "Meek + any other word: 'WHAT? I THINK THESE SCUM ARE IMPOSTERS!' and combat."
+      ],
+      "fights": [
+        "On failure: 1 6TH LVL FIGHTER (#75) + 5 HILL GIANT, Morale 60, 3380 XP."
+      ],
+      "data": [
+        "Password: HARASH (Meek)."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.45-46",
+        "game text ECL5.DAX block 6 at 0xaa37, 0xaa49, 0xaace, 0xab58, 0xab7f (src/audio/voice-master-manifest.json)",
+        "game text ECL5.DAX block 3 at 0x9de2, 0x9df1, 0x9ecd, 0x9f5b, 0x9f82 (src/audio/voice-master-manifest.json)",
+        "game text ECL5.DAX block 4 at 0x9d37, 0x9d49, 0x9e24, 0x9eb2, 0x9ed9 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.45 agrees: 'Either choose Meek and give the password HARASH, or choose Haughty or Abusive and give your authority as TYRANTHRAXUS.'"
+      ],
+      "coveredBy": [],
+      "notes": "The three quadrant scripts carry the same dialogue with small spelling differences: ECL5.DAX block 3 prints 'ALL RIGHT THEN. WHAT IS TODAY'S PASSWORD?' (no comma) and block 4 prints 'WHAT? I THINK YOU SCUM ARE IMPOSTERS!'. Assert the string of the quadrant under test."
+    },
+    {
+      "id": "acceptance.valjevo-castle.patrol-authority-tyranthraxus",
+      "title": "Patrol parley: Haughty or Abusive and the authority TYRANTHRAXUS",
+      "kind": "rule",
+      "steps": [
+        "In disguise, with the alarm on, meet a patrol and Parley.",
+        "Choose Haughty (repeat with Abusive). The game prints: 'I'M SORRY, SIR, THERE'S AN ALERT. ON WHOSE AUTHORITY ARE YOU HERE?'",
+        "Type TYRANTHRAXUS. The game prints: WITH A NOD OF THE HEAD YOU ARE LEFT ALONE."
+      ],
+      "expect": [
+        "No fight; the disguise is kept."
+      ],
+      "branches": [
+        "Haughty or Abusive + TYRANTHRAXUS: left alone.",
+        "Haughty or Abusive + any other name: combat."
+      ],
+      "fights": [],
+      "data": [
+        "Authority: TYRANTHRAXUS (Haughty or Abusive)."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.45-46",
+        "game text ECL5.DAX block 6 at 0xab07, 0xab58 (src/audio/voice-master-manifest.json)",
+        "game text ECL5.DAX block 3 at 0x9f06, 0x9f24, 0x9f5b (src/audio/voice-master-manifest.json)",
+        "game text ECL5.DAX block 4 at 0x9e5d, 0x9e7b, 0x9eb2 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the typed word is case-sensitive or how misspellings are treated; the replay types the gate password in lower case."
+    },
+    {
+      "id": "acceptance.valjevo-castle.patrol-combat-cases",
+      "title": "Patrol parley: the cases that end in combat",
+      "kind": "rule",
+      "steps": [
+        "Meet a patrol undisguised.",
+        "Meet a patrol in disguise and Parley Sly, then on another run Nice.",
+        "Meet a patrol in disguise and give a wrong password or authority.",
+        "Meet a patrol after stealing from the Bane altar."
+      ],
+      "expect": [
+        "Undisguised: combat. The scripts hold 'WELL BOYS, I THINK WE HAVE THE INTRUDERS HERE. GET THEM!' and YOU SEE A [group]. THE LEADER SEES YOU. 'THAT'S THEM!'",
+        "Sly or Nice: combat.",
+        "Wrong answer: 'WHAT? I THINK THESE SCUM ARE IMPOSTERS!' and combat.",
+        "After the altar theft the patrol may attack at once; the scripts hold 'BLASPHEMERS! GET THEM!' and THE LEADER YELLS 'SACRILEGIOUS SCUM!'"
+      ],
+      "branches": [],
+      "fights": [
+        "1 6TH LVL FIGHTER (#75) + 5 HILL GIANT, Morale 60, 3380 XP. #75 carries a Long Sword +1."
+      ],
+      "data": [
+        "Undisguised = combat; Sly or Nice = combat; wrong answer = combat; altar theft = may attack at once."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "game text ECL5.DAX block 6 at 0xa910, 0xa93b, 0xa955, 0xa990, 0xa9c3, 0xa9e6, 0xab7f, 0xaba5 (src/audio/voice-master-manifest.json)",
+        "game text ECL5.DAX block 3 at 0x9cbb, 0x9ce6, 0x9d00, 0x9d3b, 0x9d6e, 0x9e9d (src/audio/voice-master-manifest.json)",
+        "game text ECL5.DAX block 4 at 0x9c10, 0x9c3b, 0x9c55, 0x9c90, 0x9cc3, 0x9df4 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "'May attack at once' is the digest's wording; the odds are not given. The scripts also hold [group] SURPRISES YOU. The digest does not say which lines go with which case; the bindings above follow the wording."
+    },
+    {
+      "id": "acceptance.valjevo-castle.resting",
+      "title": "Resting in the castle",
+      "kind": "rule",
+      "steps": [
+        "With no alarm, rest 24 hours in each quadrant outdoors.",
+        "With the alarm on, rest outdoors with the interrupt roll forced to succeed.",
+        "With the alarm on, rest at locations 3, 4, 10, 11, 12, 17 and 23."
+      ],
+      "expect": [
+        "No alarm: rest is never interrupted.",
+        "Alarm on, outside the safe spots: 17% per 5 minutes of an interruption.",
+        "Alarm on, in a safe spot: no interruption."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Rest: safe anywhere unless the alarm is on; then 17% per 5 minutes."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.45-46"
+      ],
+      "disagreements": [
+        "Clue Book p.45 agrees on the rule: 'If the alarm is not on, you may rest anywhere in the castle. When the alarm is going, the locations listed in the individual areas are safe.'"
+      ],
+      "coveredBy": [],
+      "notes": "Location 12 is safe only after the ceiling has fallen, and 17 after the giants have been talked away, per the location notes."
+    },
+    {
+      "id": "acceptance.valjevo-castle.laundry-disguise-tie-up",
+      "title": "Location 1: take the disguise and tie up the washerwomen",
+      "kind": "main",
+      "steps": [
+        "Walk to location 1 in the SW quadrant at (12,13). The game prints: YOU ENTER A BUILDING WHERE WOMEN ARE WASHING CLOTHES. AS YOU COME IN, THEY RETREAT TO THE CORNER LOOKING FEARFULLY AT YOU., then YOU HEAR ONE OF THEM WHISPER, 'THEY DON'T BELONG HERE; THEY MUST HAVE COME TO KILL TYRANTHRAXUS'. A HALF-ORC WOMAN STEPS FORWARD 'WHAT DO YOU WANT OF US?'",
+        "Parley with any attitude. The woman offers clothes as a disguise and the game asks: WILL YOU USE THE CLOTHING AS A DISGUISE?",
+        "Answer YES. The game prints: THEY HELP YOU PUT ON THE CLOTHES. 'HAVE NO FEAR. WE WILL KEEP SILENCE.' with the menu TIE THEM UP / KILL THEM / LEAVE.",
+        "Choose TIE THEM UP. The game prints: AMID THEIR PROTESTS YOU TIE THEM UP. THESE PROTESTS DIMINSH IN VOLUME AS YOU GAG THE WOMEN AND HIDE THEM IN A CORNER."
+      ],
+      "expect": [
+        "The party is disguised.",
+        "No alarm; the attitude used has no later effect."
+      ],
+      "branches": [
+        "TIE THEM UP: avoids the Haughty/Abusive repercussions.",
+        "KILL THEM: 20% noise (separate scenario).",
+        "LEAVE: Haughty breaks the disguise, Abusive sets off the alarm (separate scenario).",
+        "Decline the clothing: no disguise."
+      ],
+      "fights": [],
+      "data": [
+        "Location 1 SW = (12,13).",
+        "Offer texts in the block: (0x9914) THE WOMAN SAYS 'TYRANTHRAXUS IS LEADING OUR MEN TO THEIR DEATHS. IF YOU INTEND TO KILL HIM WE WILL HELP. USE THESE CLOTHES AS A DISGUISE AND YOU WILL ESCAPE NOTICE. and (0x9d74) 'PLEASE DON'T KILL US,' SHE SAYS. 'IF YOU DON'T WE WILL GIVE YOU THESE CLOTHES TO USE AS A DISGUISE. WE SWEAR WE WON'T SAY ANYTHING!"
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.45-46",
+        "game text ECL5.DAX block 6 at 0x9c80, 0x9ce3, 0x9914, 0x9d74, 0x9996, 0x9df1, 0x9e28, 0x9e4f, 0x9e6d, 0x9eb6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: they offer a disguise 'regardless of attitude'. Clue Book p.45: 'Parlay with the washer women and choose Nice and they will disguise you.'",
+        "Clue Book p.45: 'Disguise is broken if you fight or do something suspicious and someone gets away.' [P] lists the specific events that lose the disguise."
+      ],
+      "coveredBy": [],
+      "notes": "The block has two offer texts (helping against Tyranthraxus; begging for their lives); the digest does not say which attitude prints which. 'WELL THEN, GOOD LUCK. BEST YOU LEAVE BEFORE YOU ARE FOUND HERE. (0x9df1) is assumed to be the reply to declining. The digest does not describe choosing Combat here. The game text spells DIMINSH."
+    },
+    {
+      "id": "acceptance.valjevo-castle.laundry-kill",
+      "title": "Location 1: kill the washerwomen",
+      "kind": "optional",
+      "steps": [
+        "At location 1, after taking the disguise, choose KILL THEM. The game prints: THE WOMEN SHRIEK AND FLEE BEFORE YOU AS YOU CHOP THEM DOWN. THE HALF-ORC WOMAN WITH HATE IN HER EYES SNARLS 'HEROES! HAH!' THEN HER EYES GLAZE AS SHE DIES.",
+        "With the noise roll forced to succeed, the game prints: IT SEEMS THAT THEIR SCREAMS WERE HEARD..."
+      ],
+      "expect": [
+        "20% chance: the alarm starts and the disguise is lost.",
+        "80% chance: no alarm and the disguise is kept."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Kill: 20% noise = alarm plus lost disguise."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "game text ECL5.DAX block 6 at 0x9f1e, 0x9fa7, 0x9a9a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "A runner with fixed dice tests both sides of the 20% roll."
+    },
+    {
+      "id": "acceptance.valjevo-castle.laundry-leave",
+      "title": "Location 1: leave the washerwomen free",
+      "kind": "optional",
+      "steps": [
+        "Reach the TIE THEM UP / KILL THEM / LEAVE menu after parleying Haughty. Choose LEAVE.",
+        "Meet a patrol or a guard post and try to pass.",
+        "On another run reach the menu after parleying Abusive and choose LEAVE."
+      ],
+      "expect": [
+        "Haughty then LEAVE: the disguise does not work afterwards.",
+        "Abusive then LEAVE: the alarm goes off.",
+        "Nice, Meek or Sly then LEAVE: no repercussion."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Leave: Haughty = the disguise won't work; Abusive = alarm."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "game text ECL5.DAX block 6 at 0x9e6d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say when the Haughty penalty takes effect (at once or at the next challenge) or whether any text is printed."
+    },
+    {
+      "id": "acceptance.valjevo-castle.bane-priest-blessing",
+      "title": "Location 10: accept the blessing of Bane",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 10 in the SW quadrant at (1,2). The game prints: YOU ARE IN A BUILDING THAT WAS ONCE A BARRACKS BUT HAS NOW BEEN CONVERTED TO A TEMPLE OF BANE. AT THE FAR END OF THE ROOM IS A CRUDE ALTER., then A PRIEST AND TWO ACOLYTES TURN FROM THE ALTER, 'WELCOME MY CHILDREN. COME FORWARD AND ACCEPT THE BLESSING OF LORD BANE.' with the menu ACCEPT BLESSING / TALK / LEAVE / KILL THEM.",
+        "Choose ACCEPT BLESSING. The game prints: YOU GO FORWARD AND KNEEL. 'IN THE NAME OF LORD BANE, GOD OF GODS, I BLESS YOU.'",
+        "For each non-evil character the game prints: [name] DOUBLES UP IN AGONY."
+      ],
+      "expect": [
+        "Every non-evil character takes 2d10+2 damage; evil characters take none.",
+        "The last character may be hit twice more.",
+        "If anyone was hurt the event continues as LEAVE: the priest's accusation, the fireball and the fight.",
+        "If nobody was hurt (an all-evil party) there is no fight."
+      ],
+      "branches": [
+        "All evil: blessed, no damage.",
+        "Any non-evil: damage, then the LEAVE sequence."
+      ],
+      "fights": [
+        "LEVEL 5 CLERIC (#91) + 2 1ST LVL CLERIC (#90), 450 XP, if anyone was hurt."
+      ],
+      "data": [
+        "Location 10 SW = (1,2).",
+        "Blessing damage 2d10+2 to each non-evil character."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.45-46",
+        "game text ECL5.DAX block 6 at 0xa38b, 0xa41d, 0xa47d, 0xa4ed, 0xa55c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book SW location 4 (A Bane Chapel): 'If you accept Bane's blessing and are not evil, you get blasted.' Agrees with [P]."
+      ],
+      "coveredBy": [],
+      "notes": "'The last character may be hit twice more' is the digest's wording for a script fault; the exact condition is not given. The game text spells ALTER."
+    },
+    {
+      "id": "acceptance.valjevo-castle.bane-priest-leave",
+      "title": "Location 10: refuse the blessing and take the fireball",
+      "kind": "optional",
+      "steps": [
+        "At location 10 choose LEAVE.",
+        "The game prints: THE PRIEST SHOUTS, 'WHAT'S THIS? YOU AREN'T WORSHIPPERS OF LORD BANE! DIE IMPOSTERS!' HE GRABS THE LAST RHINESTONE FROM A NECKLACE AND THROWS IT AT YOU. A FIREBALL EXPLODES!",
+        "The game prints: THEY ATTACK YOU. Fight and win."
+      ],
+      "expect": [
+        "Fireball: every character saves vs spell or takes 15; then every character takes 15.",
+        "Then the fight with the priest and two acolytes.",
+        "Loot after the fight: Mace +3, Plate Mail +1, Necklace of Missiles (6)."
+      ],
+      "branches": [
+        "TALK: the priest insists on the blessing: 'I HAVE NO MORE TIME TO TALK WITH YOU, THE LORD BANE REQUIRES MY CONSTANT DEVOTION. COME, BEFORE YOU LEAVE ACCEPT THE BLESSING OF OUR LORD. and 'HIS IMMENSITY, TYRANTHRAXUS, HAS SEEN FIT TO ESTABLISH THIS TEMPLE TO OUR LORD BANE. THEREFORE IT IS RIGHT THAT YOU ACCEPT THE LORD BANE'S BLESSING.'",
+        "LEAVE: fireball and fight."
+      ],
+      "fights": [
+        "LEVEL 5 CLERIC (#91) + 2 1ST LVL CLERIC (#90), 450 XP."
+      ],
+      "data": [
+        "Fireball: save vs spell or 15, then 15 to everyone."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.45-46",
+        "game text ECL5.DAX block 6 at 0xa5a6, 0xa646, 0xa667, 0xa6d7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.45: 'If you do not accept the blessing and leave, you are attacked.' Agrees; it does not mention the fireball."
+      ],
+      "coveredBy": [],
+      "notes": "The digest's 'everyone saves vs spell or takes 15, then everyone takes 15' is quoted as given; whether that is one fireball resolved twice is not explained. The text says the priest throws 'the last rhinestone', yet the loot lists a Necklace of Missiles (6)."
+    },
+    {
+      "id": "acceptance.valjevo-castle.bane-priest-kill",
+      "title": "Location 10: kill the priest and acolytes",
+      "kind": "optional",
+      "steps": [
+        "At location 10 choose KILL THEM.",
+        "Fight and win. Take the loot."
+      ],
+      "expect": [
+        "Enemy: 1 LEVEL 5 CLERIC (#91) + 2 1ST LVL CLERIC (#90).",
+        "Each character gains 450 XP.",
+        "Loot: Mace +3, Plate Mail +1, Necklace of Missiles (6).",
+        "No fireball is thrown."
+      ],
+      "branches": [],
+      "fights": [
+        "LEVEL 5 CLERIC (#91) + 2 1ST LVL CLERIC (#90), 450 XP."
+      ],
+      "data": [
+        "Mace +3; Plate Mail +1; Necklace of Missiles (6)."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "game text ECL5.DAX block 6 at 0xa47d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether this fight costs the disguise or raises the alarm. After the priest is gone the temple is a safe rest spot (locations 10-12 are listed safe)."
+    },
+    {
+      "id": "acceptance.valjevo-castle.altar-offering-box",
+      "title": "Location 11: the offering box",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 11 in the SW quadrant at (1,0). The game prints: YOU ARE BEFORE THE ALTER. NEAR IT IS THE OFFERING BOX WITH SOME CHANGE IN IT. and DO YOU TAKE IT?",
+        "Answer YES. The game prints: THERE IS A FEELING OF SOMETHING IMMENSE AND EVIL STARING DOWN AT YOU..."
+      ],
+      "expect": [
+        "The party gains 37 silver.",
+        "Every character takes 2d10+2 damage."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 11 SW = (1,0).",
+        "Offering box: 37 silver; 2d10+2 to everyone."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.45-46",
+        "game text ECL5.DAX block 6 at 0xa758, 0xa77d, 0xa7cc, 0x9ac8 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.45: 'If they take the coins or the swords then they will automatically be recognized as blasphemers from then on.' [P] attaches the lost disguise and hostile guards to the crossed swords and does not say the coins alone do it."
+      ],
+      "coveredBy": [],
+      "notes": "[P] says do not touch the altar. A test author must check in the script whether taking the coins alone sets the 'stole from the altar' flag; the two sources differ."
+    },
+    {
+      "id": "acceptance.valjevo-castle.altar-crossed-swords",
+      "title": "Location 11: the crossed swords",
+      "kind": "optional",
+      "steps": [
+        "At location 11 the game prints: BEHIND THE ALTER ARE TWO CROSSED SWORDS. DO YOU TAKE THEM? Answer YES.",
+        "Have a character who is not lawful evil ready one of the swords.",
+        "Meet a patrol, the hill giants at location 7, the hedge gate and the frog giants in the maze."
+      ],
+      "expect": [
+        "The party gains 2 Long Swords +3; each character gains 400 XP.",
+        "A character who is not lawful evil takes 5 damage on readying one.",
+        "The disguise is cancelled and guards are hostile on sight.",
+        "Patrols may attack at once; location 7 gives 2 HILL GIANT and the alarm; the hedge gate guards act as if the gate had been forced; the messenger in the Inner Tower attacks."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "2 Long Swords +3, lawful evil only, 5 damage to anyone else; 400 XP.",
+        "Later lines: 'THIEF! YOU STOLE FROM LORDBANE!' (hedge gate); 'YOU STOLE FROM LORD BANE'S TEMPLE!' (hill giants); 'BLASPHEMERS! GET THEM!' (patrols)."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "[P] digest §3.22",
+        "[P] digest §3.23",
+        "Clue Book p.45-46",
+        "game text ECL5.DAX block 6 at 0xa822 (src/audio/voice-master-manifest.json)",
+        "game text ECL5.DAX block 3 at 0xa962, 0xacfd, 0x9d00 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The 'stole from the altar' flag is used in §3.21, §3.22 and §3.23. The gate line is spelled LORDBANE in ECL5.DAX block 3 and LORD BANE in block 5."
+    },
+    {
+      "id": "acceptance.valjevo-castle.well-flame-tongue",
+      "title": "Location 14: dive into the well for the Flame Tongue",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 14 in the SE quadrant at (15,10). The game prints: BEFORE YOU IS A WELL FILLED WITH WATER., then THE WATER LOOKS COLD AND DEEP. DO YOU WANT TO DIVE IN?",
+        "Answer YES with a character of Constitution 12 or more, the first check forced to succeed. The game prints: YOU REACH THE BOTTOM AND FEEL AROUND... AND YOU FIND A SWORD!",
+        "The game prints: YOU ARE RUNNING OUT OF AIR... then, by the second check, YOU BREAK THE SURFACE GASPING FOR AIR. or YOU BREAK THE SURFACE JUST AS YOU BREATHE IN SOME WATER."
+      ],
+      "expect": [
+        "The party gains a Long Sword +2 Flame Tongue; each character gains 133 XP.",
+        "The second check is against Constitution + movement; failing it costs 1d6 damage.",
+        "A diver with Constitution below 12 has no chance: YOU SWIM DOWN UNTIL YOU FEEL YOUR PULSE BEATING IN YOUR EARS. YOU DON'T REACH THE BOTTOM."
+      ],
+      "branches": [
+        "Con >= 12, first check passes: the sword.",
+        "First check fails or Con < 12: bottom not reached; TRY AGAIN? is offered.",
+        "Dive again after the sword is taken: ASIDE FROM A LAYER OF MUD, YOU DON'T FIND ANYTHING."
+      ],
+      "fights": [],
+      "data": [
+        "Location 14 SE = (15,10).",
+        "Long Sword +2 Flame Tongue (133 XP).",
+        "Con >= 12 needed for any chance.",
+        "Second check vs Con + movement, or 1d6."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "[P] digest §5 (Technical: 'The Flame Tongue has no special effect.')",
+        "Clue Book p.49-50",
+        "game text ECL5.DAX block 3 at 0xad99, 0xadbb, 0xae2b, 0xae5b, 0xae7e, 0xaec8, 0xaf19, 0xaf40, 0xaf65, 0xafa9 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book SE location 5: 'A character with a good Constitution can go swimming to find a treasure at the bottom of the well.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not give the odds of the first check or say which character dives. Digest §5 lists 'The Flame Tongue has no special effect' as a bug to keep. The mud line is assumed to be the repeat-dive result."
+    },
+    {
+      "id": "acceptance.valjevo-castle.password-list-on-the-ground",
+      "title": "Location 22: find the password list by searching",
+      "kind": "main",
+      "steps": [
+        "In the NE quadrant walk to location 22 at (8,0) in search mode.",
+        "The game prints: ON THE GROUND YOU FIND A PEACE OF PAPER THAT SAYS:, then TODAY'S PASSWORD IS HARASH and THE GATE PASSWORD IS RHODIA."
+      ],
+      "expect": [
+        "The party knows HARASH (written in Espruar) and RHODIA (written in Dethek)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 22 NE = (8,0).",
+        "HARASH in Espruar; RHODIA in Dethek.",
+        "Gate password: RHODIA."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "game text ECL5.DAX block 4 at 0xa661, 0xa465, 0xa47d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says HARASH is written in Espruar and RHODIA in Dethek; the manifest strings stop before the password text, so the bracketed words in the steps are what the player must end up knowing, not captured screen text. The digest does not say how the runes are drawn or whether a character must be able to read the language. Search mode is assumed from the digest's word 'search'. The game text spells PEACE OF PAPER."
+    },
+    {
+      "id": "acceptance.valjevo-castle.fire-giants-show-the-list",
+      "title": "Location 21: bluff the fire giants into showing the passwords",
+      "kind": "main",
+      "steps": [
+        "In the NE quadrant walk to location 21 at (9,1). The game prints: YOU ENTER A ROOM THAT MORE RESEMBLES A PIGSTY THAN THE BARRACKS IT IS. IN THE ROOM ARE FOUR GIANTS. The menu reads: THE GIANTS LOOK UP AT YOU.",
+        "Parley Haughty. The game prints: 'SORRY, SIR. YEAH, WE CAN GET YA TO THE BOSS. THIS PAPER HAS THE PASSWORDS.'",
+        "The game shows the list: TODAY'S PASSWORD IS [HARASH], THE GATE PASSWORD IS [RHODIA]."
+      ],
+      "expect": [
+        "The party has seen both passwords.",
+        "No fight."
+      ],
+      "branches": [
+        "Haughty or Sly: they show the list. Sly prints: 'WE DO SO KNOW THE PASSWORDS! YOU ALWAYS THINK YOU'RE SO SMART. LET'S SEE IF YOU CAN READ TODAY'S LIST.'",
+        "Nice or Meek: told to get lost: 'GET LOST, WIMP! IF YA DON'T BEAT IT WE'LL BEAT YOU! HA! HA!' THE GIANT LEADER POKES THE GIANT NEXT TO HIM, 'BEAT IT, BEAT THEM! GET IT?!' with the menu STAY / LEAVE.",
+        "Abusive: combat: 'GO AHEAD THREATEN US! TEAR OUT OUR HEARTS! CUT OFF OUR HEADS! SLICE OPEN OUR BELLIES... IF YOU CAN.",
+        "Combat: 4 FIRE GIANT (5136 XP)."
+      ],
+      "fights": [
+        "4 FIRE GIANT, 5136 XP."
+      ],
+      "data": [
+        "Location 21 NE = (9,1)."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "game text ECL5.DAX block 4 at 0xa2b5, 0xa304, 0xa339, 0xa37a, 0xa3ad, 0xa3ed, 0xa465, 0xa47d, 0xa4bf, 0xa52a, 0xa547, 0xa559, 0xa592, 0xa5e5, 0xa609 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book NE location 2 (Barracks): 'Parlay with the giants and choose Haughty or Sly to con them into giving you the password.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "Which of the two list-giving lines belongs to Haughty and which to Sly is inferred from the wording. After 'GET LOST' the menu STAY / LEAVE leads, on STAY, to 'I SAID GET LOST!' THE GIANT READIES HIS WEAPON AND ADVANCES. THE OTHERS FOLLOW SUIT.; the digest says only 'told to get lost'. The block also holds 'HEY LOOK! IT MUST BE THEM INTRUDERS.' / 'GET EM!' (0xa5e5, 0xa609), presumably for an undisguised or alarmed party. These giants can join the fighter at post 8/9 (#84)."
+    },
+    {
+      "id": "acceptance.valjevo-castle.kitchen-free-the-slaves",
+      "title": "Location 24: kill the gnoll overseer and get the gate password",
+      "kind": "main",
+      "steps": [
+        "In the NE quadrant enter location 24, the kitchen. The game prints: YOU ENTER A ROOM THAT REEKS OF SMOKE AND BURNED FOOD. YOU SEE THREE HUMAN SLAVES COOKING MEAT, PEELING POTATOES, AND BEING BEATEN BY VISCIOUS LOOKING GNOLL. with the menu WHAT DO YOU DO? KILL THE OVERSEER AND FREE THE SLAVES / GO BACK OUTSIDE / TALK TO THE OVERSEER.",
+        "Choose KILL THE OVERSEER AND FREE THE SLAVES. The game prints: THE GNOLL TURNS TO FLEE. AS HE RUNS BY, ONE OF THE SLAVES TRIPS HIM. YOU ADVANCE AND CUT THE OVERSEER'S THROAT.",
+        "The game prints: TWO OF THE SLAVES RUN QUICKLY OUT THE DOOR. THE THIRD APPROACHES YOU WITH TEARS OF GRATITUDE IN HIS EYES. 'I THANK YOU FOR FREEING ME., then BEFORE I LEAVE LET ME HELP YOU AS BEST I CAN.' HE TAKES A SLIP OF PAPER FROM THE POUCH OF THE DEAD GNOLL. 'HERE, YOU WILL NEED THIS.', then YOU LOOK AT THE WRITING... [RHODIA], then 'IT IS TODAY'S PASSWORD AT THE MAIN GATE INTO THE HEDGE MAZE. ALAS, I CAN NOT HELP YOU WITH THAT FOR I HAVE NOT BEEN INSIDE. BUT I HAVE HEARD THE MAZE IS DEADLY!'"
+      ],
+      "expect": [
+        "The party has the slip reading RHODIA.",
+        "There is no combat screen."
+      ],
+      "branches": [
+        "KILL THE OVERSEER AND FREE THE SLAVES: the slip.",
+        "GO BACK OUTSIDE: nothing.",
+        "TALK TO THE OVERSEER once: THE OVERSEER TURNS TOWARD YOU BLUDGEON IN HAND. 'GO ON! GET OUT OF MY KITCHEN OR I'LL THROW BOILING OIL ON YOU!'",
+        "TALK TO THE OVERSEER a second time: 'I SAID GET OUT!' THE GNOLL GRABS A POT FROM THE FIRE AND THROWS ITS CONTENTS AT YOU. Boiling oil: THAC0 10, 2d6."
+      ],
+      "fights": [],
+      "data": [
+        "Gate password slip: RHODIA.",
+        "Boiling oil: THAC0 10, 2d6."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "game text ECL5.DAX block 4 at 0xa72b, 0xa7a7, 0xa807, 0xa866, 0xa8d3, 0xa94c, 0xa97a, 0xaa2e, 0xaa8d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book NE location 4 (Kitchen): 'If you defeat the gnoll overseer, your party will find the password to the gate.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for 24 and does not say whom the oil hits. The game text spells VISCIOUS."
+    },
+    {
+      "id": "acceptance.valjevo-castle.cadorna-release",
+      "title": "Location 13: release Porphyrys Cadorna",
+      "kind": "optional",
+      "steps": [
+        "After collecting the #13 reward (Cadorna has fled), walk to location 13 in the SE quadrant at (14,10). The game prints: THIS IS A SMALL CELL. CHAINED TO THE WALL IS A MAN BEATEN TO WITHIN AN INCH OF HIS LIFE. AS YOU OPEN THE DOOR HE LOOKS UP AND YOU FEEL A SHOCK... THE MAN IS PORPHYRYS CADORNA., then 'IN THE NAME OF CHANTUA, HELP ME, PLEASE! BY ALL THAT'S MERCIFUL HELP ME.' HE BEGINS TO COUGH. with the menu RELEASE HIM / LEAVE HIM / KILL HIM.",
+        "Choose RELEASE HIM. The game prints: 'THANK YOU! THANK YOU! I JUST THOUGHT THAT THE POOL WAS HERE! THERE WAS NOWHERE ELSE TO GO! I HAVE NOWHERE TO GO. TAKE ME WITH YOU?'",
+        "Walk to the hedge gate E6. The game prints: CADORNA HANDS YOU A SLIP OF PAPER AND WHISPERS, 'HERE IS TODAY'S GATE PASSWORD.' [RHODIA]"
+      ],
+      "expect": [
+        "Cadorna may follow the party.",
+        "At the gate he supplies the password RHODIA."
+      ],
+      "branches": [
+        "RELEASE HIM: he may follow and gives the gate password.",
+        "LEAVE HIM: he pleads, then raises the alarm (separate scenario).",
+        "KILL HIM: noted by the clerk only (separate scenario).",
+        "Before the #13 reward: the cell event does not occur."
+      ],
+      "fights": [],
+      "data": [
+        "Location 13 SE = (14,10).",
+        "Only after the #13 reward.",
+        "Journal entries 13 and 14 (p.19) and 24 (p.21) concern Porphyrys Cadorna."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.49-50",
+        "Adventurer's Journal p.19, p.21",
+        "game text ECL5.DAX block 3 at 0xaff9, 0xb084, 0xb0d4, 0xb2a0, 0xa9e8 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book SE (Cell): 'If you free him, he will accompany you (from the rear) and tell you the password to get through the main gate.' [P]: 'he may follow you'."
+      ],
+      "coveredBy": [],
+      "notes": "'He may follow you' is vague: the digest does not say whether he is a party member, what the answer to TAKE ME WITH YOU? changes, or where he leaves. The digest lists 'Free Cadorna at 13 SE' as one of four ways to get RHODIA."
+    },
+    {
+      "id": "acceptance.valjevo-castle.cadorna-leave",
+      "title": "Location 13: leave Cadorna and he raises the alarm",
+      "kind": "optional",
+      "steps": [
+        "At location 13 choose LEAVE HIM. The game prints: 'WAIT DON'T LEAVE ME HERE. IF YOU DO I'LL RAISE THE ALARM.'",
+        "Leave again. The game prints: 'WAIT!' HE SHRIEKS. 'I KNOW HOW TO GET THROUGH THE MAIN GATES. I CAN HELP YOU.'",
+        "Leave again. The game prints: 'I KNOW THE WAY THROUGH THE HEDGE... LEFT RIGHT RIGHT... FOR CHANTUA'S SAKE! DON'T LEAVE ME!'",
+        "Leave again. The game prints: YOU LEAVE. BEHIND YOU ARE HIS SCREAMS, 'INTRUDERS! INTRUDERS!'"
+      ],
+      "expect": [
+        "The alarm sounds.",
+        "The disguise is lost."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Order of pleas per [P]: raise the alarm; the main gates; the hedge 'left right right'; then the alarm.",
+        "Hedge hint: LEFT RIGHT RIGHT."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.49-50",
+        "game text ECL5.DAX block 3 at 0xb1bb, 0xb110, 0xb214, 0xb26a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.49: 'If you leave him here, he will sound the alarm in an attempt to get in good with Tyranthraxus.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives the plea order as above; in the script the 'main gates' string (0xb110) sits before the kill text and the 'raise the alarm' string (0xb1bb) after it, so a test author should confirm which input leads to which line (the menu is re-offered between pleas)."
+    },
+    {
+      "id": "acceptance.valjevo-castle.cadorna-kill",
+      "title": "Location 13: kill Cadorna",
+      "kind": "optional",
+      "steps": [
+        "At location 13 choose KILL HIM. The game prints: WITH A QUICK STROKE YOU RELEASE HIM FROM THIS PAIN... TO ALL THE PAIN TO COME.",
+        "Return to the council clerk in New Phlan."
+      ],
+      "expect": [
+        "No alarm and no fight.",
+        "The clerk prints: THE COUNCIL HAS NOTED THE PASSING OF THE TRAITOR CADORNA.'",
+        "Nothing else in the game reacts."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "[P]: 'recognised by the clerk only'. 'The sequels behave as if Porphyrys Cadorna dies here.'",
+        "The clerk's earlier line: PORPHYRYS CADORNA IS A TRAITOR TO THE CITY. IF YOU FIND HIM, KILL HIM.'; digest: a bounty is 'mentioned but none is actually paid'."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "[P] digest §3.0 (commission #13)",
+        "[P] digest §6",
+        "game text ECL5.DAX block 3 at 0xb15c (src/audio/voice-master-manifest.json)",
+        "game text ECL3.DAX block 8 at 0xa520, 0xa55e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Expect no payment with the clerk's line."
+    },
+    {
+      "id": "acceptance.valjevo-castle.hedge-gate-rhodia",
+      "title": "E6: give RHODIA at the hedge gate",
+      "kind": "main",
+      "steps": [
+        "Walk to the hedge gate E6. The game shows: A DEEP VOICE CALLS DOWN, 'WHAT IS THE PASSWORD?' with GIVE THE PASSWORD / FORCE THE GATE OPEN.",
+        "Choose GIVE THE PASSWORD. The game prints: WHAT PASSWORD DO YOU GIVE?",
+        "Type RHODIA. The game prints: 'ALL RIGHT, THEN. PASS!' AND WITH THAT THE GATES SWING OPEN AND YOU PASS THROUGH THE GATE."
+      ],
+      "expect": [
+        "The party is inside the Hedge Maze (ECL 5).",
+        "No alarm; the disguise is kept."
+      ],
+      "branches": [
+        "RHODIA: free passage.",
+        "Wrong password: laughed at, then the gate can be bashed, picked or Knocked (separate scenario).",
+        "FORCE THE GATE OPEN: boulders and the alarm (separate scenario)."
+      ],
+      "fights": [],
+      "data": [
+        "Gate password: RHODIA.",
+        "Clue Book p.45: main gates 'on the southeast and northwest sides'."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "Clue Book p.49-50",
+        "game text ECL5.DAX block 3 at 0xa8d0, 0xaa3e, 0xaa6c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.47/p.49: 'The password through the main gate is RHODIA.' Agrees."
+      ],
+      "coveredBy": [
+        "verifyCampaignTower (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The replay asserts 'what is the password ... give the password', types rhodia and asserts 'the gates swing open'; its comment calls it the maze's west gate. The same prompt strings exist in ECL5.DAX block 5 (the maze script). The digest gives no coordinates for E6."
+    },
+    {
+      "id": "acceptance.valjevo-castle.hedge-gate-wrong-password",
+      "title": "E6: a wrong password is not suspicious",
+      "kind": "optional",
+      "steps": [
+        "At E6 choose GIVE THE PASSWORD and type a wrong word. The game prints: 'HAH! HAH! YOU'RE DUMB! THAT'S NOT THE PASSWORD!'",
+        "Bash, pick or cast Knock on the gate.",
+        "Return and give RHODIA."
+      ],
+      "expect": [
+        "No alarm and no boulders.",
+        "The gate can be opened with Bash, Pick or Knock.",
+        "The guards are not suspicious afterwards; RHODIA still works."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "A wrong password is not suspicious and allows Bash / Pick / Knock."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "game text ECL5.DAX block 3 at 0xaabe (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: after a wrong password the gate can be bashed, picked or Knocked. Clue Book p.47: 'If you do not have the password, you will need massive Strength or a Knock spell to get through the gate.' The Clue Book does not allow picking."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not give the difficulty of the bash or pick."
+    },
+    {
+      "id": "acceptance.valjevo-castle.hedge-gate-forced",
+      "title": "E6: force the gate and be remembered",
+      "kind": "optional",
+      "steps": [
+        "At E6 choose FORCE THE GATE OPEN. The game prints: A VOLLEY OF BOULDERS ARE THROWN AT YOU...",
+        "Leave and return to E6 later."
+      ],
+      "expect": [
+        "Boulders: 12 attacks at THAC0 12 for 2d6 each.",
+        "The alarm starts; the disguise survives.",
+        "On return the game prints: YOU HEAR A DEEP VOICE, 'HEY, THAT'S THEM GUYS WHO TRIED TO BUST IN!' and the guards act as if the gate were being forced again.",
+        "A party that stole from the altar gets YOU HEAR A DEEP VOICE,'THIEF! YOU STOLE FROM LORDBANE!' and the same treatment."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Boulders: 12 attacks, THAC0 12, 2d6.",
+        "Suspicious if the party ever forced the gate or stole from the altar."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "game text ECL5.DAX block 3 at 0xa99d, 0xa928, 0xa962, 0x99e0 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.47: 'you can fight the gate guards'. [P] describes only boulders, no fight with gate guards."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether forcing actually opens the gate or needs Bash/Knock after the boulders."
+    },
+    {
+      "id": "acceptance.valjevo-castle.smithy-by-day",
+      "title": "Location 2: the smithy while the smith is at work",
+      "kind": "optional",
+      "steps": [
+        "Between 0:00 and 14:59 enter location 2. The game prints: YOU ARE IN A SMITHY. THE SMITH (A HUMAN) AND THREE FIRE GIANTS ARE WORKING ON A SUIT OF ARMOR. PILED UP OUT OF THE WAY ARE AN ASSORTMENT OF WEAPONS AND ARMOR. The menu reads: THE SMITH LOOKS UP FROM HIS WORK. 'WHAT DO YOU NEED?' or THE SMITH IGNORES YOU AS HE HAMMERS ON A GREAVE.",
+        "Parley Haughty. The game prints: 'I'M SORRY, I CAN'T TAKE ANYMORE ORDERS JUST NOW. IF IT'S IMPORTANT GET AUTHORIZATION. NOW IF YOU'LL EXCUSE ME I HAVE TO GET BACK TO WORK'"
+      ],
+      "expect": [
+        "Haughty: no fight; the party is told to get authorization."
+      ],
+      "branches": [
+        "Haughty: 'get authorization'.",
+        "Sly or Abusive: WHAT? EVERYONE KNOWS THAT... HEY, YOU DON'T BELONG HERE! and a fight.",
+        "Nice or Meek: small talk: THE SMITHY WIPES HIS BROW AND SAYS, 'NO, YOU NEVER GET TOTALLY USED TO THE HEAT, BUT IT'S NOT THAT BAD. NOW, IF YOU'LL EXCUSE ME I NEED TO GET BACK TO WORK.'",
+        "Combat: the party surprises 1 4TH LVL FIGHTER + 3 FIRE GIANT (4018 XP)."
+      ],
+      "fights": [
+        "1 4TH LVL FIGHTER + 3 FIRE GIANT, party has surprise, 4018 XP."
+      ],
+      "data": [
+        "Smith present 0:00-14:59."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.45-46",
+        "game text ECL5.DAX block 6 at 0x9fce, 0x9ff9, 0xa06e, 0xa107, 0xa184, 0xa1bb (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: the smith works 0:00-14:59. Clue Book p.45: 'At night you can steal some basic equipment. During the day there are the smithy and his helpers. If you are nasty there is a fight.'"
+      ],
+      "coveredBy": [
+        "--valjevo-forge-checkpoint mode, 'Verified the Valjevo forge and authorization clues across save slots.' (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The replay checkpoint parleys Haughty and asserts 'if it's important get authorization', and checks the port's own journal leads 'castle-forge' and 'castle-forge-authorization' (the leads are a port feature, not part of the original). The digest gives no quadrant or coordinates for location 2; the text is in the south-west script."
+    },
+    {
+      "id": "acceptance.valjevo-castle.smithy-take-equipment",
+      "title": "Location 2: take equipment from the empty smithy",
+      "kind": "optional",
+      "steps": [
+        "Enter location 2 at 15:00 or later, or after killing the smith and giants. The game prints: PILED UP OUT OF THE WAY ARE AN ASSORTMENT OF WEAPONS AND ARMOR.",
+        "Take items."
+      ],
+      "expect": [
+        "The party can take one of each common item."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "After 15:00 or after killing them: one of each common item."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.45-46",
+        "game text ECL5.DAX block 6 at 0xa235 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "'Common item' is not enumerated in §3.21; compare with the armory at 23, which gives unlimited common items."
+    },
+    {
+      "id": "acceptance.valjevo-castle.coal-store-and-smokehouse",
+      "title": "Locations 3 and 4: safe rooms",
+      "kind": "optional",
+      "steps": [
+        "Enter location 3. The game prints: YOU ARE IN A STOREROOM FULL OF COAL.",
+        "Enter location 4. The game prints: YOU ARE IN A STANDARD MEAT SMOKEHOUSE... WELL MAYBE NOT QUITE STANDARD. YOU FEEL A LITTLE SICK AS YOU LOOK AT THE MEAT. THE SMELL AND THE SMOKE DON'T HELP EITHER.",
+        "With the alarm on, rest in each."
+      ],
+      "expect": [
+        "Rest in either room is never interrupted, alarm or not."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 3 coal store; location 4 smokehouse: always safe to rest."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.45-46",
+        "game text ECL5.DAX block 6 at 0xa2d1, 0xa304 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.45 names only the smokehouse as the safe place in the south-west; [P] names both."
+      ],
+      "coveredBy": [],
+      "notes": "No coordinates in the digest."
+    },
+    {
+      "id": "acceptance.valjevo-castle.barracks-hill-giants",
+      "title": "Location 5: the barracks by day",
+      "kind": "optional",
+      "steps": [
+        "By day enter location 5, the barracks. The encounter menu reads YOU SEE SOME GIANTS PUTTING ON THEIR ARMOR. or YOU SEE SOME GIANTS STRUGGLING OUT OF BED.",
+        "Choose Wait or Parley. Fight and win."
+      ],
+      "expect": [
+        "Enemy: 8 HILL GIANT; each character gains 5191 XP.",
+        "The party fights at +2 if the giants were putting on armor, or +5 if they were struggling out of bed."
+      ],
+      "branches": [
+        "Flee: the alarm starts and the disguise is lost.",
+        "Wait or Parley: the fight with the +2 or +5 bonus.",
+        "Night: the barracks is unoccupied (Clue Book)."
+      ],
+      "fights": [
+        "8 HILL GIANT, 5191 XP."
+      ],
+      "data": [
+        "+2 (armor) or +5 (out of bed)."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "Clue Book p.49-50",
+        "game text ECL5.DAX block 3 at 0xa678, 0xa6a2, 0xa6d2, 0xa77f, 0xa7d7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.47/p.49 (Barracks): 'This area is unoccupied at night. In daylight you may surprise the giants sleeping inside.' [P] gives the fight and bonuses and says only '(day)'."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say what the +2/+5 applies to (to-hit is likely), what Combat does, or where location 5 is; the Clue Book has barracks in the NW (1, 2) and SE (2, 8). The script also has AS YOU ENTER THE ROOM YOU SEE SOME SLEEPING GIANTS. with SNEAK OUT QUIETLY / ATTACK AS THEY SLEEP and AS YOU SNEAK TOWARD THEM A LOOSE BOARD CREAKS. THE GIANTS GET TO THEIR FEET SHAKING THE SLEEP FROM THEIR EYES.; the digest does not mention that menu, and it may belong to location 16 instead."
+    },
+    {
+      "id": "acceptance.valjevo-castle.loose-coins",
+      "title": "Location 6: search for 11 gold",
+      "kind": "optional",
+      "steps": [
+        "Search at location 6. The game prints: YOU FIND SOME TREASURE."
+      ],
+      "expect": [
+        "The party gains 11 gold; each character gains 1 XP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "11 gold (1 XP)."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "game text ECL5.DAX block 3 at 0xa85f (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "No quadrant or coordinates in the digest. YOU FIND SOME TREASURE. (0xa85f) is assumed to be this find, as distinct from UNDER A LOOSE STONE YOU FIND SOME TREASURE. (0xa46e) at location 18."
+    },
+    {
+      "id": "acceptance.valjevo-castle.hill-giant-post",
+      "title": "Location 7: the two hill giants",
+      "kind": "optional",
+      "steps": [
+        "In disguise walk past 7b. The game prints: TWO GIANTS COME BOUNDING OUT OF A DOORWAY. ONE STAYS BY THE DOOR. The menu reads: 'WHAT PASSWORD?'",
+        "Parley Haughty. The game prints: THE GIANT HESITATES, 'WHO SENT YOU?' Type TYRANTHRAXUS. The game prints: 'SORRY ME NOT KNOW! JUST DOING JOB! YOU GO NOW.'",
+        "On another run Parley with any other attitude and type HARASH. The game prints: 'OKAY, BUT NO HANGING AROUND.'"
+      ],
+      "expect": [
+        "The party passes without a fight."
+      ],
+      "branches": [
+        "Haughty + TYRANTHRAXUS: pass.",
+        "Any other attitude + HARASH: pass.",
+        "Wrong answer: 'WRONG ANSWER, DINNER!' and a fight with 2 HILL GIANT.",
+        "Stole from the altar: THEY RAISE THEIR CLUBS. 'YOU STOLE FROM LORD BANE'S TEMPLE!' then 2 HILL GIANT and the alarm.",
+        "Pass 7a instead of 7b: not what [P] advises; the digest does not say what happens."
+      ],
+      "fights": [
+        "2 HILL GIANT; XP not given."
+      ],
+      "data": [
+        "Pass 7b in disguise, not 7a.",
+        "Haughty + TYRANTHRAXUS, or HARASH with any other attitude."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.49-50",
+        "game text ECL5.DAX block 3 at 0xabab, 0xabf4, 0xac44, 0xac7b, 0xac99, 0xacd2, 0xacfd, 0xad31, 0xad78 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book SE location 6 (Giant's Guard Post): 'either choose Meek and give the password HARASH, or choose Haughty or Abusive and give your authority as TYRANTHRAXUS.' [P]: Haughty + TYRANTHRAXUS, or HARASH with any other attitude (so Abusive takes HARASH here)."
+      ],
+      "coveredBy": [],
+      "notes": "The script also has 'TELL ME PASSWORD OR I KILL YOU. NOW!' (0xac44) and TWO GIANTS STAND BARRING YOUR WAY. (0xad78); the digest does not place them. No coordinates for 7a/7b."
+    },
+    {
+      "id": "acceptance.valjevo-castle.fighter-posts",
+      "title": "Locations 8 and 9: the 6TH LVL FIGHTER guard posts",
+      "kind": "optional",
+      "steps": [
+        "In disguise walk past 8a. The game prints: A FIGHTER EMERGES FROM THE BUILDING NEARBY AND CONFRONTS YOU. The menu reads: 'WHAT ARE YOU DOING HERE?'",
+        "Parley Meek and type HARASH (or Haughty/Abusive and type TYRANTHRAXUS).",
+        "On another run choose Combat. The game prints: HE LUNGES FOR THE DOOR AND HITS A BUTTON. THEN HE TURNS AND FACES THE PARTY WITH SWORD DRAWN. 'IN A MOMENT A PATROL WILL BE HERE. IF YOU STAY TO FIGHT ME YOU WILL DIE.' with the menu STAY AND FIGHT / RUN.",
+        "On another run choose Flee. The game prints: HE QUICKLY RETREATS THROUGH THE DOOR AND SLAMS IT, YELLING, 'INTRUDERS!'"
+      ],
+      "expect": [
+        "Correct password or authority: the party passes.",
+        "Combat: he presses the button and a patrol comes (A PATROL ROUNDS THE CORNER..).",
+        "Flee: the alarm starts and the disguise is lost."
+      ],
+      "branches": [
+        "Meek + HARASH, or Haughty/Abusive + TYRANTHRAXUS: pass.",
+        "Combat: button, then a patrol.",
+        "Flee: alarm and lost disguise.",
+        "At the post of #84 (north-east): AS YOU START TO ATTACK HIM, FOUR GIANTS BURST OUT OF A NEARBY BUILDING. (the fire giants from 21 join)."
+      ],
+      "fights": [
+        "6TH LVL FIGHTER (#75), carries a Long Sword +1.",
+        "6TH LVL FIGHTER (#84), can be joined by the 4 FIRE GIANT from location 21.",
+        "Patrol: 1 6TH LVL FIGHTER (#75) + 5 HILL GIANT, Morale 60, 3380 XP."
+      ],
+      "data": [
+        "Passing 8a disguised gives the confrontation."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "game text ECL5.DAX block 3 at 0x9fc3, 0xa034, 0xa066, 0xa09e, 0xa0e5, 0xa12d, 0xa1ae, 0xa1ff, 0xa21b (src/audio/voice-master-manifest.json)",
+        "game text ECL5.DAX block 4 at 0x9f19, 0x9f8a, 0x9fbf, 0x9ffa, 0xa041, 0xa08a, 0xa10b, 0xa147, 0xa1ba, 0xa1d6, 0xa221, 0xa255 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book NW location 6 and NE location 1 (Guard Post): 'Anyone who walks outside the guard post is challenged.' Passwords agree."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say which of 8 and 9 is in which quadrant, which holds #75 and which #84, or give coordinates; the same dialogue is in ECL5.DAX blocks 3 and 4, and only block 4 has the four-giants line. Undisguised, the scripts print YOU CONFRONT AN ARMED MAN WHO IMMEDIATELY ATTACKS YOU. and THE DOOR OF THE BUILDING YOU ARE PASSING SLAMS.; the digest does not describe the undisguised case. XP for the lone fighter is not given."
+    },
+    {
+      "id": "acceptance.valjevo-castle.ceiling-collapse",
+      "title": "Location 12: the ceiling caves in",
+      "kind": "optional",
+      "steps": [
+        "In the SE quadrant open the door at location 12, (10,14). The game prints: AS YOU PUSH THE DOOR OPEN THE CEILING CAVES IN.",
+        "Enter again."
+      ],
+      "expect": [
+        "First entry: an attack at THAC0 10 for 2d6.",
+        "Afterwards the room is safe and is a safe rest spot during the alarm."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 12 SE = (10,14).",
+        "THAC0 10, 2d6."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.49-50",
+        "game text ECL5.DAX block 3 at 0xab4e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book SE location 7 (Old Building): 'Ceiling may fall in on the party.' and it is the SE rest spot. Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the attack is rolled per character."
+    },
+    {
+      "id": "acceptance.valjevo-castle.giant-snakes",
+      "title": "Location 15: five giant snakes",
+      "kind": "optional",
+      "steps": [
+        "In the SE quadrant walk to location 15 at (14,3). The encounter menu reads: YOU SEE GIANT SNAKES.",
+        "Fight and win."
+      ],
+      "expect": [
+        "Enemy: 5 GIANT SNAKE; each character gains 216 XP.",
+        "The fight cannot be avoided."
+      ],
+      "branches": [],
+      "fights": [
+        "5 GIANT SNAKE, 216 XP, unavoidable."
+      ],
+      "data": [
+        "Location 15 SE = (14,3)."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.49-50",
+        "game text ECL5.DAX block 3 at 0xb330 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book SE location 1 (Snake House): 'A family of giant snakes has climbed over the wall into this building.'"
+      ],
+      "coveredBy": [],
+      "notes": "Digest §5: scorpions count as snakes (adaptational). 'Unavoidable' means Flee and Parley do not prevent the fight; the digest gives no detail."
+    },
+    {
+      "id": "acceptance.valjevo-castle.bucket-trap",
+      "title": "Location 16: the bucket over the door",
+      "kind": "optional",
+      "steps": [
+        "In the NW quadrant open the door at location 16, (1,7), not in search mode. The game prints: AS YOU OPEN THE DOOR A BUCKET OF SAND THAT WAS PROPPED ABOVE THE DOOR FALLS.",
+        "On another run open it in search mode with the spot roll forced to succeed. The game prints: BEFORE YOU OPEN THE DOOR ALL THE WAY, YOU NOTICE A BUCKET ABOVE THE DOOR. YOU KICK THE DOOR OPEN LETTING THE BUCKET FALL HARMLESSLY TO THE GROUND."
+      ],
+      "expect": [
+        "Not spotted: an attack at THAC0 10 for 1d4.",
+        "Spotted in search mode: no damage.",
+        "Inside are sleeping fire giants: 4 by day, 2 at night."
+      ],
+      "branches": [],
+      "fights": [
+        "FIRE GIANT: 4 by day, 2 at night. XP not given."
+      ],
+      "data": [
+        "Location 16 NW = (1,7).",
+        "Bucket: THAC0 10, 1d4."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "game text ECL5.DAX block 3 at 0xa557, 0xa5a6, 0xa621, 0xa678, 0xa6a2, 0xa6d2 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: sleeping fire giants (4 by day, 2 at night) and a bucket trap. Clue Book p.47 (NW Barracks 2): 'In daylight you may catch giants sleeping. If the giants are not inside, they have placed a bucket of sand over the door.' The Clue Book makes the bucket and the sleeping giants alternatives."
+      ],
+      "coveredBy": [],
+      "notes": "The script has THE GIANTS WHO PLACED THE BUCKET THERE CHARGE! (0xa621) and the sleeping-giants menu SNEAK OUT QUIETLY / ATTACK AS THEY SLEEP (0xa6a2); the digest does not describe either choice or say when the giants charge. A test author must read the script for this room."
+    },
+    {
+      "id": "acceptance.valjevo-castle.officers-quarters",
+      "title": "Location 17: bluff the two hill giants",
+      "kind": "optional",
+      "steps": [
+        "In the NW quadrant break into location 17 at (1,3). The game prints: AS YOU BREAK THROUGH THE DOOR INTO A WELL FITTED APARTMENT, TWO GIANTS COME LUMBERING UP TO YOU. YOU TURN TO FACE THEM. The menu reads: THE GIANTS STAND IN FRONT OF YOU LOOKING SUSPICIOUS. or THE GIANTS ARE WALKING TOWARD YOU.",
+        "Parley with any attitude. The game prints: 'HEY, WHAT DO YOU THINK YOU'RE DOING?', then 'OH... OKAY.' AND WITH THAT THEY LEAVE.",
+        "Rest here with the alarm on."
+      ],
+      "expect": [
+        "The giants leave; no fight.",
+        "The room is safe afterwards."
+      ],
+      "branches": [
+        "Parley, any attitude: they leave.",
+        "Combat: 2 HILL GIANT."
+      ],
+      "fights": [
+        "2 HILL GIANT; XP not given."
+      ],
+      "data": [
+        "Location 17 NW = (1,3)."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "game text ECL5.DAX block 3 at 0xa30c, 0xa371, 0xa3df, 0xa40d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book NW location 5 (Officers Quarters): 'Some giants will catch you as you enter. Parlay to bluff them. Search the officers quarters for his treasure.' and names it the NW rest spot 'once you have bluffed the giants'. Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the disguise matters here."
+    },
+    {
+      "id": "acceptance.valjevo-castle.loose-stone-treasure",
+      "title": "Location 18: 200 gold and a Potion of Speed",
+      "kind": "optional",
+      "steps": [
+        "In the NW quadrant search at location 18, (0,2). The game prints: UNDER A LOOSE STONE YOU FIND SOME TREASURE.",
+        "Take it."
+      ],
+      "expect": [
+        "The party gains 200 gold and a Potion of Speed."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 18 NW = (0,2).",
+        "200 gold; Potion of Speed."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "game text ECL5.DAX block 3 at 0xa46e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.47 says to search the officers' quarters for 'his treasure'; (0,2) is one square from location 17 at (1,3). XP for the find is not given."
+    },
+    {
+      "id": "acceptance.valjevo-castle.armory",
+      "title": "Location 23: the armory",
+      "kind": "optional",
+      "steps": [
+        "In the NE quadrant enter location 23. The game prints: YOU HAVE ENTERED AN ARMORY. INSIDE IS A LARGE ASSORTMENT OF ARMOR AND WEAPONS., then DO YOU WANT TO TAKE ANYTHING?",
+        "Answer YES and take several of the same item.",
+        "Rest here with the alarm on."
+      ],
+      "expect": [
+        "Common items can be taken without limit.",
+        "Rest is never interrupted."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Unlimited common items; safe."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "game text ECL5.DAX block 4 at 0xa69c, 0xa6e7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book NE location 3 (Armory): 'Here you can grab any piece of common equipment you want.' and it is the NE rest spot. Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "No coordinates in the digest."
+    },
+    {
+      "id": "acceptance.valjevo-castle.records-office",
+      "title": "Location 25: read the records",
+      "kind": "optional",
+      "steps": [
+        "In the NE quadrant enter location 25. The game prints: YOU ARE IN A BUILDING FULL OF RECORDS. DO YOU WISH TO SPEND HOURS READING THE RECORDS?",
+        "Answer YES. The game prints: YOU FIND EVIDENCE THAT THE RED WIZARDS OF THAY ARE ALLIED TO TYRANTHRAXUS.",
+        "Read again. The game prints: YOU ARE FINDING A PATTERN TO TYRANTHRAXUS' ACTIVITIES. AT FIRST TYRANTHRAXUS' FOLLOWERS WERE AN UNSOPHISTICATED HORDE OF ILL ORGANIZED UNHUMANS., then NOW THEY ARE MUCH MORE SINISTER. THE WEB OF CORRUPTION HE HAS SPREAD IS INCREDIBLE IN ITS SCOPE. HIS ULTIMATE GOAL IS TO CONQUER ALL LANDS SOUTH OF THE MOONSEA.",
+        "Read again. The game prints: TO FIND ANYTHING MORE YOU WILL HAVE TO SPEND SO MUCH TIME THAT YOU WILL NEED TO CLEAR THE AREA FIRST."
+      ],
+      "expect": [
+        "Game time advances by hours per reading.",
+        "With the alarm on, each reading has a 50% chance of a patrol.",
+        "Between 0:00 and 17:59 each reading has a 15% chance of a scribe arriving."
+      ],
+      "branches": [
+        "Scribe arrives unnoticed: A SCRIBE WALKS INTO THE ROOM. HE SEES YOU AND LETS OUT A GASP. HE DROPS HIS BOOKS AND RUNS OUT THE DOOR.",
+        "Scribe seen coming: YOU SEE A SCRIBE COMING TOWARD THE BUILDING WITH AN ARM FULL OF BOOKS. with RUN AWAY / AMBUSH AND KILL HIM / AMBUSH AND TIE HIM UP.",
+        "AMBUSH AND TIE HIM UP: AS HE COMES THROUGH THE DOOR YOU KNOCK HIM OUT AND DRAG HIS FORM INTO A CORNER.",
+        "AMBUSH AND KILL HIM: AS HE COMES THROUGH THE DOOR YOU SLIT HIS THROAT. THE BODY IS DRAGGED INTO A CORNER."
+      ],
+      "fights": [
+        "Patrol if the alarm is on: 1 6TH LVL FIGHTER (#75) + 5 HILL GIANT, Morale 60, 3380 XP."
+      ],
+      "data": [
+        "50% patrol if the alarm is on; 15% scribe between 0:00 and 17:59.",
+        "Findings: the Red Wizards of Thay are allied to Tyranthraxus; '...conquer all lands south of the Moonsea.'"
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "game text ECL5.DAX block 4 at 0xaf30, 0xaf51, 0xafcb, 0xb014, 0xb087, 0xb10a, 0xb176, 0xb1cf, 0xb247, 0xb292 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book NE location 5 (Records Office): 'you may be interrupted by a scribe who can sound the alarm.' [P] gives the 15% and does not say the scribe sounds the alarm."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives only the two odds and two findings. It does not say what decides whether the scribe is seen coming, what the fleeing scribe causes (the Clue Book says the alarm), or how many hours a reading takes. A test author must read the script."
+    },
+    {
+      "id": "acceptance.valjevo-castle.scribes-office",
+      "title": "Location 26: the envoys and the proof against Cadorna",
+      "kind": "optional",
+      "steps": [
+        "Between 0:00 and 17:59 enter location 26 in disguise. The game prints: YOU ENTER A BRIGHTLY LIT BUILDING WHICH REEKS OF TALLOW AND LEATHER. YOU SEE SIX SCRIBES BUSILY WRITING DOWN THE REPORTS OF A COUPLE OF OFFICERS. The menu reads: AN OFFICER LOOKS AT YOU, 'WHAT ARE YOU DOING HERE?'",
+        "Choose Combat. The game prints: THE SIX SCRIBES DIVE FOR COVER AS THE TWO OFFICERS ATTACK. Win the fight.",
+        "Search. The game prints: YOU FIND ASSORTED REPORTS., then YOU FIND HARD EVIDENCE THAT CADORNA HAS BEEN USING YOU FOR HIS OWN ENDS AND HAS BEEN SEEKING THE POOL OF RADIANCE FOR HIMSELF., then THE FOLLOWING CATCHES YOUR EYE, 'DO NOT BE FOOLED BY OUTWARD FORMS FOR YOU SHALL KNOW ME BY MY FLAMING AURA. --TYRANTHRAXUS', then YOU FIND A REPORT INDICATING THAT THE NORTHERN BARBARIANS ARE READY FOR THE TAKE OVER OF A STRONG LEADER AND THAT THE CHIEF OF THE RAVEN CLAN IS ALLIED TO TYRANTHRAXUS."
+      ],
+      "expect": [
+        "Enemy: 2 ENVOY; each character gains 433 XP; each envoy carries a Two-Handed Sword +2.",
+        "The party now knows Cadorna is a traitor: the clerk gives commission #13 directly instead of sending the party to Cadorna."
+      ],
+      "branches": [
+        "Meek + HARASH, or Haughty/Abusive + TYRANTHRAXUS: the fight is avoided (and the reports are not searched).",
+        "Undisguised: the menu reads 'YOU DON'T BELONG HERE!'",
+        "After 18:00: YOU ENTER A BUILDING WHICH IS FILLED WITH TABLES AND WRITING SUPPLIES. THOUGH EMPTY, THERE ARE SIGNS THAT WORK HAS BEEN DONE HERE RECENTLY."
+      ],
+      "fights": [
+        "2 ENVOY, 433 XP; each with a Two-Handed Sword +2."
+      ],
+      "data": [
+        "Scribes present 0:00-17:59.",
+        "Clue for the final battle: 'DO NOT BE FOOLED BY OUTWARD FORMS FOR YOU SHALL KNOW ME BY MY FLAMING AURA.'"
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "[P] digest §3.0 (commission #13)",
+        "Clue Book p.47-48",
+        "game text ECL5.DAX block 4 at 0xab0d, 0xab95, 0xabde, 0xac3b, 0xac70, 0xacd9, 0xad70, 0xadac, 0xae2a, 0xae7f, 0xaeaa (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The Clue Book numbers each quadrant's map from 1; [P] numbers the whole castle 1-27. The numbers do not line up. Clue Book NE location 6 (Scribe's Office): 'At night the office will be empty. During the day you will meet Tyranthraxus' envoys who may attack you.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "The digest says 'After beating them, search'; it does not say whether the empty office after 18:00 can be searched for the same reports. The 'YOU DON'T BELONG HERE!' binding to the undisguised case is inferred."
+    },
+    {
+      "id": "acceptance.valjevo-castle.cobwebs-and-plain-rooms",
+      "title": "Location 27 and the rooms with text only",
+      "kind": "optional",
+      "steps": [
+        "In the SE quadrant enter location 27 at (12,14). The game prints: YOU ARE IN A DESERTED BUILDING. THERE ARE NOTHING BUT VERY LARGE COBWEBS HERE.",
+        "Enter the mess hall. The game prints: YOU ARE IN A HALL WITH LONG TABLES, BENCHES AND A GREAT HEARTH AT ONE END. IN THE CORNERS ARE HEAPS OF GARBAGE BEING PICKED OVER BY SOME RATS WHICH FLEE AT YOUR ENTRANCE.",
+        "Enter the latrine. The game prints: YOU ENTER A LATRINE. THE LACK OF BAD SMELL GIVES YOU A GENERAL IDEA OF THE LEVEL OF SANITATION PRACTICED BY THE INHABITANTS OF THE AREA."
+      ],
+      "expect": [
+        "Each room prints its text and nothing else happens: no fight, no treasure."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 27 SE = (12,14): cobwebs."
+      ],
+      "sources": [
+        "[P] digest §3.21",
+        "Clue Book p.47-48",
+        "game text ECL5.DAX block 3 at 0xaafa, 0xa267, 0xa4b5 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.47: 'Latrine: Smells bad.' Game text: 'THE LACK OF BAD SMELL ...'."
+      ],
+      "coveredBy": [],
+      "notes": "The digest lists only the cobwebs (27). The mess hall and latrine come from the game text and Clue Book p.47-48 (NW location 4 Latrine; a Mess Hall numbered 7); the digest gives them no number or coordinates. Despite 'very large cobwebs' the digest lists no spider fight."
+    }
+  ]
+}

@@ -1,0 +1,742 @@
+{
+  "schema": 1,
+  "id": "acceptance.sokal-keep",
+  "title": "Sokal Keep",
+  "guideSection": "3.2",
+  "scripts": [
+    "ECL 21"
+  ],
+  "commission": "Commission #2",
+  "prerequisites": [
+    "Rolf's tour finished; party at the New Phlan dock (11,1).",
+    "Commission #2 may be heard from the clerk first; [P] says rewards are paid even for missions never offered.",
+    "[P] suggests this after the Slums; the Clue Book suggests a cleric with Slow Poison memorized and a fully healed party before the courtyard assault.",
+    "XP figures assume exactly six characters."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.sokal-keep.boat-from-new-phlan",
+      "title": "Take the free boat to Sokal Keep",
+      "kind": "main",
+      "steps": [
+        "In New Phlan walk to the dock at (11,1) before Sokal Keep is cleared. The harbor master says ''BY ORDER OF THE CITY COUNCIL,' THE HARBOR MASTER SAYS, 'THE ONLY BOAT OUT IS GOING TO SOKAL KEEP. YOU CAN CATCH IT AT THE END OF THE PIER.''",
+        "Board at the end of the pier. The game prints 'YOU BOARD A BOAT.' No money is taken and no game time passes.",
+        "The game prints 'THE BOAT DISEMBARKS YOU AT SOKAL KEEP.'",
+        "Walk to the gate. The game prints 'YOU STAND BELOW THE ROTTING REMAINS OF THE ONCE-MIGHTY GATES OF SOKAL KEEP.' and 'ECHOING FOOTSTEPS ARE DIMLY HEARD WITHIN THE KEEP. TO THE WEST RISES A MOUND OF REEDS.'"
+      ],
+      "expect": [
+        "Current area is Sokal Keep (ECL 21).",
+        "Party money is unchanged by the trip.",
+        "The game clock is unchanged by the trip."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "New Phlan dock (11,1)",
+        "Sokal Keep arrival (8,14) per the dock destination list in [P] §3.0"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "[P] §3.0 dock (digest)",
+        "game text ECL3.DAX block 0 at 0x9d54, 0x9bc2 (src/audio/voice-master-manifest.json)",
+        "game text ECL4.DAX block 21 at 0x9aae, 0x9cf0, 0x9d3a (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3 locations 1-2"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifySokalArrival (milestone 'Heard the council's commissions, took the boat to Sokal Keep and reloaded the arrival in slot A.')"
+      ],
+      "notes": "The digest gives the arrival square only in the §3.0 dock list ('Sokal Keep (8,14)'), and does not give the coordinates of the gate text."
+    },
+    {
+      "id": "acceptance.sokal-keep.boat-back-to-phlan",
+      "title": "Take the boat back to New Phlan",
+      "kind": "main",
+      "steps": [
+        "Walk to exit E1. The game prints 'DO YOU WANT TO TAKE A BOAT BACK TO PHLAN?' with YES / NO.",
+        "Choose YES. The game prints 'YOU BOARD A BOAT.'"
+      ],
+      "expect": [
+        "The party is in New Phlan at (15,1)."
+      ],
+      "branches": [
+        "NO: the party stays in Sokal Keep."
+      ],
+      "fights": [],
+      "data": [
+        "E1 -> Civilized (15,1)"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0x9923, 0x9963 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "milestone 'Walked from Ferran's altar to the pier, took the boat, and reloaded the Sokal reward at the clerk.'"
+      ],
+      "notes": "The digest does not give E1's coordinates in Sokal Keep."
+    },
+    {
+      "id": "acceptance.sokal-keep.dead-elf-parchment",
+      "title": "Search the dead elf and read the three words",
+      "kind": "main",
+      "steps": [
+        "Walk to location 1 at (6,13). The game prints 'THE SKELETON OF A LONG-DEAD ELF LIES HIDDEN BY ROCKS AND REEDS. ITS WEAPONS AND EQUIPMENT ARE BADLY RUSTED AND CORRODED BY SALT, ITS LEATHERS ARE WORM EATEN AND CRUSTED IN DIRT.' with the menu 'WHAT DO YOU DO?' LEAVE / SEARCH / ATTACK / TALK.",
+        "Choose SEARCH. The game prints 'IN A POUCH ON THE REMAINS IS A CRUMBLING PARCHMENT SCROLL WITH THE WORDS ...' followed by the three words, then '...THE LAST PART IS EATEN AWAY.'"
+      ],
+      "expect": [
+        "The parchment shows LUX, SHESTNI and SAMOSUD (written in Espruar per [P]).",
+        "Nothing on screen says which word is for which use."
+      ],
+      "branches": [
+        "TALK: 'THE ELF IS LONG DEAD.'",
+        "ATTACK: 'YOU HACK THE BODY TO BITS.'",
+        "Return later: 'YOU SEE THE PITIFUL REMAINS OF A DEAD ELF. EVERYTHING OF VALUE HAS BEEN TAKEN OR DESTROYED.'"
+      ],
+      "fights": [],
+      "data": [
+        "Passwords: LUX, SHESTNI, SAMOSUD",
+        "Location 1 at (6,13)"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0x9af8, 0x9c17, 0x9b90, 0x9be6, 0x9c64, 0x9c7b, 0x9c9c (src/audio/voice-master-manifest.json)",
+        "Clue Book p.7-8 location 1"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifySokalKeep (milestone 'Searched the reeds, found the parchment and verified its journal entry after reloading slot B.')"
+      ],
+      "notes": "The words themselves are printed by two PRINT RETURN events with no captured text (0x9bdc, 0x9be1), so their on-screen form (Espruar glyphs or Latin letters) must be read from the script; [P] says 'in Espruar'. The digest does not say whether hacking the body destroys the parchment; the 'EVERYTHING OF VALUE HAS BEEN TAKEN OR DESTROYED' line suggests a later visit state but its trigger is not stated."
+    },
+    {
+      "id": "acceptance.sokal-keep.patrol-shestni-before-mission",
+      "title": "Pass an undead patrol with SHESTNI before meeting Ferran",
+      "kind": "main",
+      "steps": [
+        "Walk the courtyard before the mission is done until a patrol appears (1 in 6 per step, no surprise roll). The game prints 'AN UNDEAD PATROL CONFRONTS YOU. DO YOU GIVE THE PASSWORD?' and the encounter text 'A PACK OF UNDEAD SUDDENLY APPEARS.'",
+        "Choose Parley with any attitude. At 'WHAT DO YOU SAY? (TYPE A SINGLE WORD)' type SHESTNI.",
+        "The game prints 'THE UNDEAD LEAVE.'"
+      ],
+      "expect": [
+        "No combat.",
+        "The patrol does not count as one of the four beaten patrols (the digest counts patrols 'beaten')."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Password before the mission: SHESTNI",
+        "Patrol chance 1 in 6"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0x9dc9, 0x9e08, 0x9e60, 0x9eb8 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.7-8 location 2"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "milestone 'Verified both patrol word outcomes and their journal guidance.'",
+        "verifyCampaignSokal"
+      ],
+      "notes": "With fixed dice a runner can assert on which step the patrol appears. The digest does not say whether a patrol passed by password counts toward the four; the reading above ('beaten' means fought) is the literal one. The attitude chosen makes no difference."
+    },
+    {
+      "id": "acceptance.sokal-keep.patrol-wrong-word-or-combat",
+      "title": "Fight an undead patrol",
+      "kind": "optional",
+      "steps": [
+        "Meet a patrol and choose Combat, or Parley and type a wrong word (SAMOSUD before the mission is done, SHESTNI after, or anything else).",
+        "On a wrong word the game prints 'THEY DIDN'T LIKE THAT WORD.'",
+        "Fight 6 SKELETON (#34) and 6 ZOMBIE (#35)."
+      ],
+      "expect": [
+        "Each character gains 59 XP for the win.",
+        "The beaten-patrol count for this visit rises by one."
+      ],
+      "branches": [],
+      "fights": [
+        "6 SKELETON (#34) + 6 ZOMBIE (#35), Morale 99, 59 XP"
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0x9ecc (src/audio/voice-master-manifest.json)",
+        "Adventurer's Journal p.35-36: skeletons and zombies can be turned by a 1st-level cleric"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifySokalPatrolVictory (milestone 'Won the first patrol and the smithy fight, then recovered the hidden equipment:')",
+        "milestone 'Verified both patrol word outcomes and their journal guidance.'"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.sokal-keep.patrol-samosud-after-mission",
+      "title": "Pass a patrol with SAMOSUD after Ferran is freed",
+      "kind": "main",
+      "steps": [
+        "After telling Ferran the truth, walk the courtyard until a patrol appears.",
+        "Parley and type SAMOSUD. The game prints 'THE UNDEAD LEAVE.'",
+        "Meet another patrol and type SHESTNI. The game prints 'THEY DIDN'T LIKE THAT WORD.' and combat starts."
+      ],
+      "expect": [
+        "After the mission SAMOSUD is the only accepted word.",
+        "Patrols still appear after the mission; they are never permanently removed."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Password after the mission: SAMOSUD"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0x9eb8, 0x9ecc, 0xad42 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.7-8 location 2"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "milestone 'Verified both patrol word outcomes and their journal guidance.'",
+        "verifyCampaignSokal"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.sokal-keep.patrols-stop-after-four",
+      "title": "Four beaten patrols end patrols for the visit",
+      "kind": "rule",
+      "steps": [
+        "Beat four patrols in combat during one visit.",
+        "Walk the courtyard for many more steps; no patrol appears.",
+        "Leave by boat, return, and walk the courtyard again."
+      ],
+      "expect": [
+        "After four beaten patrols no more appear this visit.",
+        "On re-entering the keep the patrols are back at full strength (four more can appear)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "4 patrols per visit"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "Clue Book p.7-8 'Where You Can Rest' and location 2"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "A runner with fixed dice should pick a seed where a fifth 1-in-6 roll would have fired, to prove the cap rather than luck."
+    },
+    {
+      "id": "acceptance.sokal-keep.resting",
+      "title": "Rest rules in Sokal Keep",
+      "kind": "rule",
+      "steps": [
+        "Rest before four patrols are beaten; each 10 minutes of rest rolls a 1% chance of interruption.",
+        "Beat four patrols and rest; the rest is not interrupted."
+      ],
+      "expect": [
+        "Safe after four beaten patrols this visit.",
+        "Otherwise 1% per 10 minutes."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "1% per 10 minutes"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "Clue Book p.7-8 'Where You Can Rest'"
+      ],
+      "disagreements": [
+        "Clue Book p.7: 'After you kill four undead patrols, you can rest anywhere in the Keep'; it gives no odds before that. [P] adds the 1% per 10 minutes figure."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say what interrupts the rest (presumably a patrol); do not assert the composition."
+    },
+    {
+      "id": "acceptance.sokal-keep.flee-squares",
+      "title": "Fleeing puts the party on one of four squares",
+      "kind": "rule",
+      "steps": [
+        "Flee from an encounter or combat in Sokal Keep.",
+        "Read the party position."
+      ],
+      "expect": [
+        "The party is at one of (4,11), (7,14), (8,11), (8,13)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "(4,11)",
+        "(7,14)",
+        "(8,11)",
+        "(8,13)"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.sokal-keep.haunts-lux",
+      "title": "Say LUX to the barracks haunts",
+      "kind": "optional",
+      "steps": [
+        "Enter the barracks (location 7). The game prints 'THIS BUILDING IS FILLED WITH BROKEN AND SPLINTERED WOOD, THE REMAINS OF THE BUNKS AND CHESTS OF THE ORIGINAL DEFENDERS. IT SEEMS EVERYTHING HAS BEEN WELL LOOTED.' then 'A MIST RISES AND THICKENS INTO NUMEROUS SHADOWING FIGURES. FROM THESE FIGURES RISES A LOW MOANING.' and the encounter text 'GHOSTLY SHAPES SCREECH OUT A DREADFUL KEENING HOWL'.",
+        "Choose Parley. At 'WHAT DO YOU SAY? (TYPE A SINGLE WORD).' type LUX.",
+        "The game prints 'THE HAUNTS BURST INTO A CHORUS OF HOWLS, MOANS, COMPLAINTS, WAILS, AND OTHER LAMENTATIONS OVER THEIR FATE AND THE FATE OF THEIR FAMILIES. THEY WERE THE ORIGINAL DEFENDERS OF THE KEEP,' then 'BEFORE THE CLERIC'S SPELLS INADVERTENTLY BOUND THEM TO THIS PLACE. ONE SPIRIT'S VOICE RISES ABOVE THE REST, 'AN ACCOUNT OF OUR TRIALS IS WITHIN THE DIARY.' HE POINTS TO A FLOORBOARD.'"
+      ],
+      "expect": [
+        "The haunts cannot be attacked; no combat can start here.",
+        "The diary search at 16* (4,4) now succeeds every time instead of 10% of the time."
+      ],
+      "branches": [
+        "Wrong word: 'WRONG WORD. THE MOANING CONTINUES.'",
+        "Other encounter choices: ''WOE, WOOOE, OH WOE,' THE FIGURES CRY PITEOUSLY.'"
+      ],
+      "fights": [],
+      "data": [
+        "Password: LUX"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0xa1dd, 0xa280, 0xa2d2, 0xa361, 0xa3d2, 0xa463, 0xa39d, 0xa3ac, 0xa328 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.7-8 location 7"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifySokalBarracks"
+      ],
+      "notes": "The digest gives no coordinates for location 7 and does not say which menu choices print the 'WOE' line; a test author must read that from the script."
+    },
+    {
+      "id": "acceptance.sokal-keep.defenders-diary",
+      "title": "Find the defenders' diary and gems",
+      "kind": "optional",
+      "steps": [
+        "After the haunts point to the floorboard, search at 16* (4,4).",
+        "The game prints 'BENEATH A FLOORBOARD YOU FIND SOME GEMS AND A FEW PAGES OF A DIARY. YOU COPY THESE PAGES INTO YOUR JOURNAL AS ENTRY 3.' then 'DO YOU TAKE THE GEMS?'",
+        "Choose YES."
+      ],
+      "expect": [
+        "Journal Entry 3 is recorded.",
+        "The party gains 5 gems; each character gains 208 XP."
+      ],
+      "branches": [
+        "Search without having heard the haunts: the find succeeds only 10% of the time per search."
+      ],
+      "fights": [],
+      "data": [
+        "Journal Entry 3 (Adventurer's Journal p.16: the Sokal defenders' book, names Ferran Martinez)",
+        "5 gems (208 XP)",
+        "16* at (4,4)",
+        "10% without the haunts' hint"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0xa512, 0xa573 (src/audio/voice-master-manifest.json)",
+        "Adventurer's Journal p.16 entry 3",
+        "Clue Book p.7-8 location 7 'show you a hidden treasure'"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "milestone 'Verified the diary persists once in slot D and remains undiscovered in slot B.'"
+      ],
+      "notes": "208 XP = 5 x 250 / 6. With fixed dice a runner can show both a failed and a successful un-hinted search. Whether (4,4) is inside the barracks is implied by the haunts' text, not stated."
+    },
+    {
+      "id": "acceptance.sokal-keep.smithy-frogs",
+      "title": "Beat the poisonous frogs in the smithy (location 6)",
+      "kind": "optional",
+      "steps": [
+        "Enter the smithy. The game prints 'A BROKEN HEARTH AND BELLOWS DOMINATES THE COLLAPSED REMAINS OF A BLACKSMITH'S SHOP. THE FLOOR IS SPONGEY AND DAMP. THE CROAKING OF FROGS GREETS YOUR ENTRY.' and the encounter text 'THE CROAKING RISES IN VOLUME.'",
+        "Fight 4 POISONOUS FROG (#38), starting at distance 2."
+      ],
+      "expect": [
+        "Each character gains 26 XP.",
+        "Frog poison is lethal on a failed save; the save is made at +4."
+      ],
+      "branches": [
+        "Parley: 'CROAK!' and combat follows (Clue Book: 'Parlay with them and you will go to combat')."
+      ],
+      "fights": [
+        "4 POISONOUS FROG (#38), Morale 50, Distance 2, 26 XP; lethal poison, saves at +4"
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0x9fe9, 0xa092, 0xa0e6 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.7-8 location 5"
+      ],
+      "disagreements": [
+        "Clue Book p.7-8 numbers the Sokal Keep map 1-10 and [P] numbers it 1-17; the numbers do not line up. Clue Book: frogs are 5; [P]: 6."
+      ],
+      "coveredBy": [
+        "verifySokalPatrolVictory (milestone 'Won the first patrol and the smithy fight, then recovered the hidden equipment:')",
+        "milestone 'Won the smithy frog fight and verified Sleep targeting in the courtyard from the north.'"
+      ],
+      "notes": "[P] §5: the Constitution poison-save bonus also applies to paralysis and death saves; keep as in the original."
+    },
+    {
+      "id": "acceptance.sokal-keep.smithy-hammer",
+      "title": "Search the smithy for the Hammer +1",
+      "kind": "optional",
+      "steps": [
+        "Search at 15* (15,6). The game prints 'AS YOU SEARCH THROUGH THE WRECKED SMITHY, YOU FIND THAT TIME HAS CRUMBLED EVERYTHING WITH THE EXCEPTION OF ONE OLD HAMMER.' and 'DO YOU TAKE IT?'",
+        "Choose YES."
+      ],
+      "expect": [
+        "A Hammer +1 is added to the party's items.",
+        "Each character gains 66 XP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "15* at (15,6)",
+        "Hammer +1 (66 XP)"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0xa11b, 0xa17a (src/audio/voice-master-manifest.json)",
+        "Clue Book p.7-8 location 5 'Search the entire room after the battle to find the hidden treasure'"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifySokalSmithy (milestone 'Found and readied the smithy hammer, then reloaded its journal entry and Fenn's inventory.')"
+      ],
+      "notes": "66 XP = 400 XP per plus / 6. The digest does not say whether the frogs must be beaten first; the Clue Book says to search after the battle."
+    },
+    {
+      "id": "acceptance.sokal-keep.armory-illusionary-wall",
+      "title": "Pass the illusionary wall and take the armory treasure",
+      "kind": "optional",
+      "steps": [
+        "Enter the old armory. The game prints 'YOU ENTER THE KEEP'S OLD ARMORY. ALL OF THE WEAPONS AND ARMOR HAVE DECAYED INTO USELESSNESS.'",
+        "Walk through the wall at 13 (15,1). The game prints 'PASSING THROUGH AN ILLUSIONARY WALL, YOU ENTER A PORTION OF THE KEEP THAT REMAINS UNTOUCHED BY TIME OR RAVAGING ARMIES.' and 'THERE IS A GLOW IN THE NORTHWESTERN CORNER OF THE ROOM.'",
+        "Go to 17* (12,0). The game prints 'ON STANDS ARE A SHIELD, A MACE, A SWORD, AND A SMALL SUIT OF CHAINMAIL. THE EQUIPMENT HAS NOT BEEN TARNISHED BY THE PASSING YEARS.' and 'DO YOU TAKE IT?'",
+        "Choose YES."
+      ],
+      "expect": [
+        "The party gains Shield +1, Long Sword +1, Chain Mail +1 and Mace +2.",
+        "Each character gains 333 XP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "13 at (15,1)",
+        "17* at (12,0)",
+        "Shield +1, Long Sword +1, Chain Mail +1, Mace +2 (333 XP)"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0xa776, 0xa7da, 0xa844, 0xa87a, 0xa8b1, 0xa917 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.7-8 locations 9 and 10"
+      ],
+      "disagreements": [
+        "Clue Book p.7-8 numbers the Sokal Keep map 1-10 and [P] numbers it 1-17; the numbers do not line up. Clue Book: armory 9, secret treasure room 10; [P]: wall 13, treasure 17*.",
+        "Game text 0xa8b1 says 'A SMALL SUIT OF CHAINMAIL'; [P] lists 'Chain Mail +1' with no size."
+      ],
+      "coveredBy": [
+        "verifySokalArmory",
+        "verifySokalKeep (milestone 'Found the hidden armory, collected its equipment, and verified Brin's inventory after reloading slot E.')"
+      ],
+      "notes": "333 XP = 5 pluses x 400 / 6. Game text 0xa87a 'SPECIAL STANDS IN THE NORTHWESTERN CORNER HOLD EQUIPMENT.' is an alternative line whose trigger the digest does not describe. The treasure can be taken before or after meeting Ferran."
+    },
+    {
+      "id": "acceptance.sokal-keep.courtyard-ambush",
+      "title": "Survive the orc and hobgoblin assault at location 9",
+      "kind": "main",
+      "steps": [
+        "Step onto any of the four 9* squares for the first time. The game prints 'A LOUD COMMOTION RISES FROM THE COURTYARD. BASHING OPEN THE DOOR, A LARGE FORCE OF ORCS AND HOBGOBLINS RUSHES YOU.'",
+        "Fight 4 ORC LEADER (#5), 15 HOBGOBLIN (#6) and 31 ORC (#4), starting at distance 1.",
+        "After winning, the game prints 'ON A HOBGOBLIN BODY, YOU FIND A NOTE THAT YOU COPY INTO YOUR JOURNAL AS ENTRY 57.'",
+        "Re-enter the hall. The game prints 'THE HALL IS EMPTY, SAVE FOR SIGNS OF A RECENT BATTLE.'"
+      ],
+      "expect": [
+        "Each character gains 187 XP.",
+        "Journal Entry 57 is recorded.",
+        "The fight does not repeat on later entries."
+      ],
+      "branches": [
+        "[P] tactic: enter by the south-east door and fall back to the 3-square choke point.",
+        "Hire up to 2 HEROes at New Phlan hall 14 for this fight ([P]); the Clue Book also suggests hiring a hero."
+      ],
+      "fights": [
+        "4 ORC LEADER (#5), 15 HOBGOBLIN (#6), 31 ORC (#4); Morale 50; Distance 1; 187 XP. The orc leaders run out of arrows after 4 rounds."
+      ],
+      "data": [
+        "Journal Entry 57 (Adventurer's Journal p.32: orders to ambush the adventurers at Sokal Keep)"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0xa65f, 0xa6d9, 0xa730 (src/audio/voice-master-manifest.json)",
+        "Adventurer's Journal p.32 entry 57",
+        "Clue Book p.7-8 location 6"
+      ],
+      "disagreements": [
+        "Clue Book p.7-8 numbers the Sokal Keep map 1-10 and [P] numbers it 1-17; the numbers do not line up. Clue Book: assault is 6; [P]: 9*.",
+        "Arrows: [P] 'the orc leaders run out of arrows after 4 rounds'; Clue Book 'if you haven't defeated them by the end of the fourth turn, you can treat them just like normal monsters'. Same claim in different words."
+      ],
+      "coveredBy": [
+        "verifyTrainedSokalCourtyard (milestone 'Won Sokal Keep's courtyard fight and saved the party:')",
+        "verifySokalCourtyardAftermath",
+        "verifySokalCourtyardStaging",
+        "verifySokalTrackedAmbush"
+      ],
+      "notes": "The digest does not give the coordinates of the four trigger squares. A runner can check the arrow claim by reading the orc leaders' ammunition or their action in round 5. Adventurer's Journal entry 18 (p.20, orders to hold Sokal Keep) is not cited by the digest for this area."
+    },
+    {
+      "id": "acceptance.sokal-keep.ferran-tell-the-truth",
+      "title": "Tell Ferran Martinez the truth",
+      "kind": "main",
+      "steps": [
+        "Enter the chapel (location 12). The game prints 'THIS WAS ONCE THE CHAPEL OF THE KEEP. INSIDE THE DOORWAY ARE THE DRIED HUSKS OF TWO ORCS, THEIR FACES TWISTED WITH TERROR. A LARGE ALTAR DOMINATES THE SOUTHERN WALL.'",
+        "Approach the altar. The encounter text is 'A PALE FORM RISES BEFORE YOU.'",
+        "Choose Parley. At 'WHAT DO YOU SAY? (TYPE A SINGLE WORD)' type LUX.",
+        "The game prints 'THE SHAPE SPEAKS, 'I AM THE LIFE FORM OF FERRAN MARTINEZ, BOUND WITH THE UNDEAD SPIRITS OF ALL WHO DIE WITHIN THESE WALLS TO GUARD THE KEEP. TELL ME, HAS THE CITY BEEN FREED?'' and 'DO YOU:' with the menu TELL THE TRUTH? / LIE? / RUN AWAY?",
+        "Choose TELL THE TRUTH?. The game prints 'FERRAN SPEAKS: 'THE CITY FELL LONG AGO TO THE UNBLESSED CREATURES IMBUED WITH THE MIGHT OF A MAGICAL POOL. CHIEF AMONG THESE WERE TYRANTHRAXUS, EDRANKA, AND TORATH.' then 'WITH THEIR POWERS THEY RULED AND UNITED ALL ELSE, DRIVING FORWARD TO DESTROY US ALL. THE SAGE MENDOR WORKED HARD TO GATHER RECORD OF ALL THESE THINGS, BUT THEY ARE LOST NOW, HIS LIBRARY OVERRUN.'",
+        "If the armory treasure at 17* has not been taken, the game prints 'TO FIND HELP FOR YOUR BATTLES, YOU SHOULD PASS THROUGH THE ILLUSIONARY WALL IN THE ARMORY OF THIS KEEP.'",
+        "The game prints 'TO PASS MY GUARDS ON THE WAY OUT, SPEAK THE WORD 'SAMOSUD'. NOW WE ARE FREED, OUR DUTY DONE!' FERRAN FADES AWAY.'"
+      ],
+      "expect": [
+        "Sokal Keep is flagged cleared (commission #2 complete).",
+        "The patrol password is now SAMOSUD.",
+        "No combat with Ferran occurs."
+      ],
+      "branches": [
+        "Fight him instead: see ferran-fight.",
+        "LIE?: see ferran-lie.",
+        "Wrong word: see ferran-wrong-word.",
+        "RUN AWAY?: outcome not described in the digest."
+      ],
+      "fights": [],
+      "data": [
+        "Password: LUX",
+        "Exit password: SAMOSUD",
+        "Names: TYRANTHRAXUS, EDRANKA, TORATH; the sage MENDOR"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0xa972, 0xaa0a, 0xaa5e, 0xaad6, 0xab67, 0xabc7, 0xac4a, 0xacf1, 0xad42 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.7-8 location 8"
+      ],
+      "disagreements": [
+        "Clue Book p.7-8 numbers the Sokal Keep map 1-10 and [P] numbers it 1-17; the numbers do not line up. Clue Book: Ferran is 8; [P]: 12."
+      ],
+      "coveredBy": [
+        "verifySokalCourtyardAftermath (milestone 'Reloaded the courtyard victory, spoke to Ferran, and saved the party:')",
+        "verifyCampaignSokal (milestone 'Cleared Sokal Keep with the original party and collected the council reward:')"
+      ],
+      "notes": "The digest gives no coordinates for location 12. Its quotation stops after 'Torath…'; the 'SAGE MENDOR' paragraph is from the game text. The armory hint is conditional per [P] ('He mentions treasure 17 if you have not taken it')."
+    },
+    {
+      "id": "acceptance.sokal-keep.ferran-fight",
+      "title": "Fight Ferran Martinez",
+      "kind": "optional",
+      "steps": [
+        "At the altar choose Combat when the pale form rises.",
+        "Fight FERRAN MARTINEZ (#19).",
+        "Win."
+      ],
+      "expect": [
+        "Each character gains 338 XP.",
+        "Sokal Keep is flagged cleared: beating him counts the same as telling the truth.",
+        "A character he hits loses experience levels (level drain)."
+      ],
+      "branches": [],
+      "fights": [
+        "FERRAN MARTINEZ (#19), Morale 99, 338 XP, level drain"
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "Clue Book p.7-8 location 8 'drains 2 experience levels every time he hits'"
+      ],
+      "disagreements": [
+        "Level drain: Clue Book p.8 'drains 2 experience levels every time he hits'; [P] says only 'level drain'.",
+        "Clue Book p.8 calls him a spectre ('transformed himself into a spectre'); [P] lists him as his own monster FERRAN MARTINEZ (#19) with the same 338 XP as the library SPECTRE (#17)."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say which patrol password applies after killing him ('SAMOSUD after' the mission is done is the literal reading), nor whether he needs magical weapons to hit. Do not assert the number of levels drained from the guides alone; read it from the monster data."
+    },
+    {
+      "id": "acceptance.sokal-keep.ferran-lie",
+      "title": "Lie to Ferran",
+      "kind": "optional",
+      "steps": [
+        "Parley, say LUX, then choose LIE?.",
+        "The game prints ''YOU LIE,' THE SPIRIT MOANS AS IT FADES AWAY.'"
+      ],
+      "expect": [
+        "The mission is not completed by lying.",
+        "Leaving the altar and returning lets the party speak to him again ([P]: 'A wrong word can be reset by leaving and re-entering'; the existing replay does this after a lie)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "game text ECL4.DAX block 21 at 0xab98 (src/audio/voice-master-manifest.json)",
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "tools/verify-fresh-party.mjs ('sokal-ferran-lie' leads, around line 2660-2700)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs --sokal-ferran-checkpoint replay (asserts /you lie.*fades away/ and the 'sokal-ferran-lie' journal lead)"
+      ],
+      "notes": "The digest does not describe the LIE branch at all; the text is from the game text and the recovery is from the existing replay, which re-enters and then tells the truth successfully."
+    },
+    {
+      "id": "acceptance.sokal-keep.ferran-wrong-word",
+      "title": "Give Ferran a wrong word and reset",
+      "kind": "optional",
+      "steps": [
+        "Parley with the pale form and type a word other than LUX.",
+        "The game prints 'THE OUTLINE OF A SAD-FACED MAN WAVERS AND FADES AWAY.'",
+        "Leave the chapel area and re-enter.",
+        "Parley again and type LUX."
+      ],
+      "expect": [
+        "After the wrong word no conversation happens on that visit.",
+        "After leaving and re-entering, the pale form rises again and LUX works."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0xaaa4 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: 'A wrong word can be reset by leaving and re-entering.' The existing replay's journal guidance for the wrong-word lead says to 'reload a save from before the encounter' (tools/verify-fresh-party.mjs, 'sokal-pale-form-wrong-word'). One of these is wrong, or 'leaving' means leaving the keep; confirm in the script."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs --sokal-ferran-checkpoint replay (asserts /the outline of a sad-faced man wavers and fades away/)"
+      ],
+      "notes": "The digest does not say how far the party must go to 'leave' (the room, or the keep by boat)."
+    },
+    {
+      "id": "acceptance.sokal-keep.scorpions",
+      "title": "Beat the huge scorpions at location 8",
+      "kind": "optional",
+      "steps": [
+        "Walk to (2,11).",
+        "Fight 2 HUGE SCORPION (#39).",
+        "Win."
+      ],
+      "expect": [
+        "Each character gains 63 XP.",
+        "Scorpion poison is lethal on a failed save."
+      ],
+      "branches": [],
+      "fights": [
+        "2 HUGE SCORPION (#39), Morale 99, 63 XP, lethal poison"
+      ],
+      "data": [
+        "Location 8 at (2,11)"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0xa5bf (src/audio/voice-master-manifest.json)",
+        "Clue Book p.7-8 location 3"
+      ],
+      "disagreements": [
+        "Clue Book p.7 location 3: 'a mixed group of huge and large scorpions'; [P]: 2 HUGE SCORPION (#39) only.",
+        "Clue Book p.7-8 numbers the Sokal Keep map 1-10 and [P] numbers it 1-17; the numbers do not line up. Clue Book: scorpions are 3; [P]: 8."
+      ],
+      "coveredBy": [],
+      "notes": "The digest quotes no text for this room. Game text 0xa5bf 'THE INTERIOR IS OVERRUN WITH INSECTS. AT YOUR FOOTSTEP, THEY FALL FROM THE WALLS AND CEILING.' is the likely line; confirm in the script. [P] §5: scorpions count as snakes (for effects that key on snakes)."
+    },
+    {
+      "id": "acceptance.sokal-keep.flavor-rooms",
+      "title": "Visit the rooms with description only",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 5 at (2,8). The game prints 'A THICK CARPET OF FUNGUS COVERS THE FLOOR OF THIS ROOM.'",
+        "Visit locations 4, 10 and 11."
+      ],
+      "expect": [
+        "No fight, treasure or flag change occurs at 4, 5, 10 or 11."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 5 at (2,8) fungus"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL4.DAX block 21 at 0x9f19, 0x9f9d (src/audio/voice-master-manifest.json)",
+        "Clue Book p.7-8 location 4 'Fungus'"
+      ],
+      "disagreements": [
+        "Clue Book p.7-8 numbers the Sokal Keep map 1-10 and [P] numbers it 1-17; the numbers do not line up. Clue Book: fungus is 4; [P]: 5."
+      ],
+      "coveredBy": [],
+      "notes": "The digest names 4, 10 and 11 as flavor-only but gives no text or coordinates. Game text 0x9f19 ('UNWHOLESOME MOLD AND FUNGI COVER THE DECAYING RUINS OF THE KEEP'S STABLE ...') is another description-only line, probably one of them; the pairing is not stated."
+    },
+    {
+      "id": "acceptance.sokal-keep.clerk-reward",
+      "title": "Collect commission #2 from the council clerk",
+      "kind": "main",
+      "steps": [
+        "With Ferran told the truth or beaten, return to New Phlan and go to the council clerk at City Hall 29 (5,5).",
+        "She prints 'WITH SOKAL KEEP IN OUR HANDS, WE CAN USE BOATS TO BYPASS THE BARREN RIVER.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 3 jewelry and 250 platinum; each character gains 1308 XP.",
+        "The quest tracker advances by one.",
+        "Commissions #5 (Cadorna) and #7 (Kovel Mansion) can now be offered.",
+        "Any city-guard anger is cancelled."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "3 jewelry, 250 pp (1308 XP)",
+        "Proclamation CI (Adventurer's Journal p.13-15: Sokal Keep), posted at 1 tracker quest per [P]"
+      ],
+      "sources": [
+        "[P] §3.0 clerk table (digest)",
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0x9fb8, 0x9eea (src/audio/voice-master-manifest.json)",
+        "game text ECL3.DAX block 8 at 0xa8f7 (src/audio/voice-master-manifest.json) (offer: 'SOKAL KEEP ON THORN ISLAND MUST BE CLEARED.')"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCampaignSokal (milestone 'Cleared Sokal Keep with the original party and collected the council reward:')",
+        "milestone 'Walked from Ferran's altar to the pier, took the boat, and reloaded the Sokal reward at the clerk.'",
+        "verifySokalRestoredCouncil (milestone 'Heard and tracked the Sokal commission, then returned to Thorn Island:')"
+      ],
+      "notes": "1308 XP = (3 x 2200 + 250 x 5) / 6. [P] words the commission as clearing the keep 'of its spectral guardians'."
+    },
+    {
+      "id": "acceptance.sokal-keep.boat-destinations-unlock",
+      "title": "Boat destinations unlock after the keep is cleared",
+      "kind": "main",
+      "steps": [
+        "After the keep is cleared, go to the New Phlan dock at (11,1).",
+        "The harbor master says 'THE HARBOR MASTER TELLS YOU BOATS LEAVE FOR THE WEST, THE EAST, SOKAL KEEP, AND THE NORTH SIDE OF THE BAY. 'ROUND TRIP PASSAGE IS 1 PLATINUM PIECE. WHAT PASSAGE CAN I SELL YOU?'' with the menu SOKAL / EAST / WEST / BAY / NONE."
+      ],
+      "expect": [
+        "Four destinations are offered and each trip costs 1 platinum.",
+        "The trip to Sokal Keep is no longer free."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Sokal Keep (8,14); East wilderness (35,29); West wilderness (20,29); north side of the Bay (26,27)"
+      ],
+      "sources": [
+        "[P] §3.2 (qa/research/guides-digest.md)",
+        "[P] §3.0 dock (digest)",
+        "game text ECL3.DAX block 0 at 0x9c67, 0x9cf0 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.7-8 Finale"
+      ],
+      "disagreements": [
+        "Trigger: [P] §3.2 'After completion: boat destinations unlock'; Clue Book p.8 'After the players return, they will be able to take a boat'. Neither says whether the clerk's reward must be collected first."
+      ],
+      "coveredBy": [],
+      "notes": "Detailed dock behaviour is specified in acceptance.new-phlan (00-new-phlan.json)."
+    }
+  ]
+}

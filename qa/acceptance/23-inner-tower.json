@@ -1,0 +1,636 @@
+{
+  "schema": 1,
+  "id": "acceptance.inner-tower",
+  "title": "Inner Tower and the final battle",
+  "guideSection": "3.23",
+  "scripts": [
+    "ECL 7"
+  ],
+  "commission": "Commission #15",
+  "prerequisites": [
+    "Party has crossed the Hedge Maze and entered the tower at E1.",
+    "Commission #15 held (not required: [P] says nothing stops a party going straight to the final confrontation).",
+    "[P] assumes a late-game party with mirrors readied for the medusa, Dust of Disappearance, charged wands, and Enlarge and Resist Fire memorized.",
+    "State carried in: 'stole from the altar' changes the messenger.",
+    "Game text for this area is ECL5.DAX block 7."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.inner-tower.no-random-encounters-safe-rest",
+      "title": "No random encounters and safe rest",
+      "kind": "rule",
+      "steps": [
+        "Walk every reachable square of both levels in search mode with the encounter roll forced to succeed.",
+        "Rest 24 hours on the upper level, with and without the castle alarm on."
+      ],
+      "expect": [
+        "No random encounter occurs.",
+        "Rest is never interrupted."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "No random encounters; resting is safe."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "Clue Book p.51-52"
+      ],
+      "disagreements": [
+        "[P]: 'resting is safe'. Clue Book p.51: 'You can rest anywhere in the upper level until you meet Tyranthraxus.' The Clue Book limits it to the upper level."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the castle alarm has any effect inside the tower."
+    },
+    {
+      "id": "acceptance.inner-tower.exits-stairs-secret-doors",
+      "title": "Exits, stairs and secret doors",
+      "kind": "main",
+      "steps": [
+        "Enter the tower from the Hedge Maze; the party is at E1.",
+        "Walk to stairs E2. The game prints: DO YOU WANT TO GO UP THESE STAIRS? Answer YES.",
+        "Walk to stairs E3. The game prints: DO YOU WANT TO GO DOWN THESE STAIRS? Answer NO, then YES.",
+        "Search along the walls where the map has secret doors. The game prints: A SECRET DOOR IS FOUND and one of IN FRONT OF YOU. / TO YOUR LEFT. / BEHIND YOU. / TO YOUR RIGHT."
+      ],
+      "expect": [
+        "E1 leads back to the Hedge Maze.",
+        "E2 takes the party up a level; E3 takes it down.",
+        "Answering NO at a stair prompt leaves the party in place.",
+        "A found secret door can be walked through."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "E1 = Hedge Maze; E2 = stairs up; E3 = stairs down."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "Clue Book p.51-52",
+        "game text ECL5.DAX block 7 at 0x9a52, 0x9a74, 0x9b74, 0x9ba0, 0x9bb0, 0x9bbe, 0x9bcb (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.51 lists Tyranthraxus' lair as Upper Level location 5. The replay verifyCastleEnding reaches 'audience hall of tyranthraxus' by answering yes to 'go down these stairs'. [P] (digest) does not say which stairs lead to location 8."
+      ],
+      "coveredBy": [
+        "verifyCampaignTower (tools/verify-fresh-party.mjs)",
+        "verifyCastleEnding (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "verifyCampaignTower asserts 'do you want to go down these stairs' (answers n) and 'a secret door is found to your left'. The digest gives no coordinates for E1-E3 and does not mention secret doors or the Clue Book's illusionary walls; a test author needs the map data. The Clue Book map key lists SECRET DOOR and ILLUSIONARY WALL."
+    },
+    {
+      "id": "acceptance.inner-tower.trap-door-look",
+      "title": "Location 4: open the trap door while the medusa lives",
+      "kind": "optional",
+      "steps": [
+        "With the medusa alive walk to location 4 at (8,5). The game prints: YOU ARE IN AN EMPTY ROOM. THE ONLY FEATURE IS A TRAP DOOR IN THE CENTER. DO YOU OPEN IT?",
+        "Answer YES with the save forced to succeed. The game prints: QUICKLY LOOKING AWAY, [name] SAYS, 'I SAW BROKEN REMAINS OF STATUES... HEADS WITH FACES FULL OF TERROR.",
+        "On another run answer YES with the save forced to fail. The game prints: WITH A SCREAM OF HORROR [name] TURNS TO STONE."
+      ],
+      "expect": [
+        "Save vs petrification passed: the character reports the statues and is unharmed.",
+        "Save failed: the character is stoned.",
+        "The game then asks: DO YOU WANT TO JUMP THROUGH THE TRAP DOOR?",
+        "With the medusa dead, opening the door carries no risk."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 4 = (8,5).",
+        "Save vs petrification or be stoned, while the medusa lives.",
+        "Clue from Stojanow Gate's east tower: '... THROWN THROUGH THE TRAPDOOR TO THE MEDUSA!'"
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "Clue Book p.51-52",
+        "game text ECL5.DAX block 7 at 0x9bda, 0x9c69, 0x9c81, 0x9cd0, 0x9ce9, 0x9cfc (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.51-52 numbers the tower map differently from [P]; the numbers do not line up. Clue Book Upper Level location 2 (Trap Door Room): 'If a character glances down the trap door, he may be turned to stone.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say which character looks or whether a readied mirror protects the looker (it says mirrors protect in the medusa fight). The digest has no cure listed here; stoned is a status a runner can read."
+    },
+    {
+      "id": "acceptance.inner-tower.trap-door-jump",
+      "title": "Location 4: jump through the trap door",
+      "kind": "optional",
+      "steps": [
+        "At location 4 answer YES to DO YOU WANT TO JUMP THROUGH THE TRAP DOOR? The game prints: THE PARTY JUMPS DOWN THROUGH THE TRAP DOOR...",
+        "Read hit points and position."
+      ],
+      "expect": [
+        "Every character takes 3d6 damage.",
+        "The party stands at location 5, the medusa's room: YOU ARE IN A ROOM FILLED WITH BROKEN STATUES. A HEAD BROKEN LOOSE FROM THE TORSO SHOWS A FACE FILLED WITH TERROR."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Jump: 3d6 to everyone; land at location 5."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "game text ECL5.DAX block 7 at 0x9cfc, 0x9d26, 0x9d75 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for location 5. Digest §5 says the Ring of Feather Falling fails in the Textile House well; nothing is said about it here."
+    },
+    {
+      "id": "acceptance.inner-tower.medusa",
+      "title": "Location 5: the medusa",
+      "kind": "optional",
+      "steps": [
+        "Enter location 5. The game prints: YOU ARE IN A ROOM FILLED WITH BROKEN STATUES. A HEAD BROKEN LOOSE FROM THE TORSO SHOWS A FACE FILLED WITH TERROR. The encounter menu reads: A MEDUSA COMES RUNNING TOWARD YOU.",
+        "Ready mirrors on the characters, choose Combat and win."
+      ],
+      "expect": [
+        "Enemy: 1 MEDUSA (#49); each character gains 150 XP.",
+        "Characters with mirrors are protected from her gaze.",
+        "Afterwards the trap door at location 4 is harmless to look through."
+      ],
+      "branches": [
+        "Flee: possible; no fight.",
+        "Parley: the same as Combat.",
+        "Combat: the fight."
+      ],
+      "fights": [
+        "1 MEDUSA (#49), 150 XP."
+      ],
+      "data": [
+        "Mirrors protect (sold at the general store in New Phlan, digest §3.0)."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "Clue Book p.51-52",
+        "game text ECL5.DAX block 7 at 0x9d75, 0x9de2 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.51-52 numbers the tower map differently from [P]; the numbers do not line up. Clue Book Lower Level location 3 (Medusa's Chamber).",
+        "Clue Book p.51 lists three Lower Level places: the false Tyranthraxus (1), stairs (2), the medusa (3). [P] puts the false Tyranthraxus in the Hedge Maze section (ECL 5) and the medusa in ECL 7."
+      ],
+      "coveredBy": [],
+      "notes": "The digest lists no treasure. 'Mirrors protect you' is not qualified (readied is assumed, as for the vampire)."
+    },
+    {
+      "id": "acceptance.inner-tower.messenger-peaceful",
+      "title": "Location 6: the messenger is called away",
+      "kind": "main",
+      "steps": [
+        "Walk to location 6 at (2,6). The game prints: YOU ARE IN A ROOM FURNISHED WITH CHAIRS AND BENCHES. WAITING HERE IS A MAN PLAYING WITH A DAGGER. AS YOU COME IN HE NODS AT YOU. The encounter menu reads: HE STARES MOODILY AT HIS FEET.",
+        "Parley with any attitude except Abusive. The game prints: 'HEY LOOK, COULD YOU KEEP QUIET? I JUST GOT BACK FROM THE NORTH AND I'M TIRED. OKAY?' A MOMENT LATER A VOICE FROM CALLS FROM THE OTHER DOORWAY, 'MESSENGER!'",
+        "The game prints: THE MAN GETS UP WITH A SIGH AND GOES INTO THE OFFICE. A MINUTE LATER HE COMES OUT PUTTING PAPERS INTO A POUCH AND GOES OUT THE DOOR. THE VOICE CALLS, 'MESSENGER!'"
+      ],
+      "expect": [
+        "No fight; the messenger is gone and alive.",
+        "Genheeris at location 7 is not alerted by a death."
+      ],
+      "branches": [
+        "Parley other than Abusive: called away.",
+        "Parley Abusive: he attacks.",
+        "Combat: 1 1ST LVL THIEF (#45).",
+        "Stole from the altar: 'BLASPHEMERS!' and he attacks."
+      ],
+      "fights": [],
+      "data": [
+        "Location 6 = (2,6)."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "Clue Book p.51-52",
+        "game text ECL5.DAX block 7 at 0x9e74, 0x9eba, 0x9eed, 0x9f12, 0x9f73, 0x9ff8 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.51-52 numbers the tower map differently from [P]; the numbers do not line up. Clue Book Upper Level location 3 (Waiting Room): 'If you choose Parlay and then choose nice, the messenger will be called into Genheeris' office. If you kill the messenger, you will alert Genheeris.' [P]: any parley except Abusive."
+      ],
+      "coveredBy": [],
+      "notes": "The second 'MESSENGER!' call is the cue for the party to walk into Genheeris's office posing as messengers; the digest does not spell this out. The game text has 'A VOICE FROM CALLS FROM' as printed."
+    },
+    {
+      "id": "acceptance.inner-tower.messenger-attacks",
+      "title": "Location 6: the messenger attacks",
+      "kind": "optional",
+      "steps": [
+        "At location 6 Parley Abusive.",
+        "On another run, after stealing from the Bane altar, enter location 6. The game prints: THE THIEF SHOUTS 'BLASPHEMERS!' AND ATTACKS.",
+        "Fight and win."
+      ],
+      "expect": [
+        "Enemy: 1 1ST LVL THIEF (#45); each character gains 2 XP.",
+        "With the messenger killed, Genheeris at location 7 is frightened on sight."
+      ],
+      "branches": [],
+      "fights": [
+        "1 1ST LVL THIEF (#45), 2 XP."
+      ],
+      "data": [
+        "Altar theft: 'Blasphemers!' and he attacks. Abusive: he attacks."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "game text ECL5.DAX block 7 at 0xa08f (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no text for the Abusive attack."
+    },
+    {
+      "id": "acceptance.inner-tower.genheeris-dismisses-the-party",
+      "title": "Location 7: Genheeris gives the party a message",
+      "kind": "optional",
+      "steps": [
+        "With the messenger alive, walk to location 7 at (2,5). The game prints: YOU ENTER A ROOM FURNISHED AS THE APARTMENT OF A WEALTHY IF ECCENTRIC MERCHANT. A MIDDLE AGED MAN IN ROBES LOOKS UP FROM A DESK. The encounter menu reads: 'SO WHAT MESSAGE FROM TYRANTHRAXUS REQUIRES ALL OF YOU TO DELIVER IT?'",
+        "Parley Nice (repeat with Meek). The game prints: 'TELL AL-HYAM DHAZID TO EXECUTE PHASE 2 OF PLAN A. DISMISSED.' with the menu LEAVE / STAY.",
+        "Choose LEAVE."
+      ],
+      "expect": [
+        "No fight; Genheeris stays in his office and does not join."
+      ],
+      "branches": [
+        "Nice or Meek, then LEAVE: dismissed.",
+        "Nice or Meek, then STAY: he becomes frightened (see the join scenario)."
+      ],
+      "fights": [],
+      "data": [
+        "Location 7 = (2,5).",
+        "Message: 'TELL AL-HYAM DHAZID TO EXECUTE PHASE 2 OF PLAN A. DISMISSED.'"
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "Clue Book p.51-52",
+        "game text ECL5.DAX block 7 at 0xa0e9, 0xa144, 0xa184, 0xa203, 0xa235 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.51-52 numbers the tower map differently from [P]; the numbers do not line up. Clue Book Upper Level location 4 (Genheeris' Office): 'If you killed the messenger or choose Parlay and then choose other than Meek or nice, he thinks you were sent to kill him.' Agrees with [P]."
+      ],
+      "coveredBy": [],
+      "notes": "The OCR of the Clue Book reads 'denheeris'; the game and [P] spell Genheeris. Nothing in the digest says the message can be delivered to Al-Hyam."
+    },
+    {
+      "id": "acceptance.inner-tower.genheeris-joins",
+      "title": "Location 7: frighten Genheeris and accept his deal",
+      "kind": "optional",
+      "steps": [
+        "At location 7 choose Combat, or Parley Haughty, Sly or Abusive, or STAY after his dismissal, or arrive after killing the messenger.",
+        "The game prints: A SUDDEN LOOK OF FEAR COMES OVER HIS FACE. 'IF YOU'VE COME FROM TYRANTHRAXUS I CAN OFFER A BETTER DEAL. IF YOU KILL HIM INSTEAD OF ME I WILL MAKE YOU ALL GENERALS!', then 'IN FACT I WILL JOIN YOU. IS IT A DEAL?'",
+        "Answer YES with a free party slot. The game prints: GOOD."
+      ],
+      "expect": [
+        "GENHEERIS (#88) is in the party.",
+        "He cannot re-memorize spells."
+      ],
+      "branches": [
+        "YES with room: he joins as GENHEERIS (#88).",
+        "YES with a full party: see the no-room scenario.",
+        "NO: he attacks (separate scenario)."
+      ],
+      "fights": [],
+      "data": [
+        "GENHEERIS (#88).",
+        "Digest §5: 'GENHEERIS cannot memorize spells.'",
+        "The replay asserts the roster line 'genheeris 9 22' after accepting."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "[P] digest §5 (Technical)",
+        "Clue Book p.51-52",
+        "[P] digest §7 item 33",
+        "game text ECL5.DAX block 7 at 0xa25c, 0xa2ea, 0xa31a, 0xa333 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[GB] (digest §7 item 33): 'level 7 magic user... useful to have in your party for the final battle.' [P] does not give his level."
+      ],
+      "coveredBy": [
+        "--genheeris-deal-checkpoint mode, 'Verified Genheeris's recruitment and refusal, then reloaded the accepted bargain.' (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The replay checkpoint parleys Haughty, answers y, and asserts 'genheeris 9 22' in the party display; it also checks the port's journal leads 'castle-genheeris-offer' and 'castle-genheeris-deal' (a port feature). GOOD. (0xa31a) and 'IS IT A DEAL? (0xa333) are assumed to be the acceptance line and a re-ask."
+    },
+    {
+      "id": "acceptance.inner-tower.genheeris-no-room",
+      "title": "Location 7: accept the deal with a full party",
+      "kind": "optional",
+      "steps": [
+        "With no free party slot, frighten Genheeris and answer YES to 'IN FACT I WILL JOIN YOU. IS IT A DEAL?'",
+        "The game prints: 'GOOD. I WILL NOTIFY SOME OTHERS. YOU GO KILL HIM.' HE QUICKLY GETS UP AND LEAVES THE ROOM."
+      ],
+      "expect": [
+        "Genheeris does not join and there is no fight; he leaves."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "[P]: he joins 'if you have room'."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "game text ECL5.DAX block 7 at 0xa359 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest only says he joins if there is room. The line at 0xa359 is taken from the game text as the full-party result; a test author must confirm the binding and the offer wording in that case (the 'IN FACT I WILL JOIN YOU' line may be skipped)."
+    },
+    {
+      "id": "acceptance.inner-tower.genheeris-refused",
+      "title": "Location 7: refuse Genheeris and fight him",
+      "kind": "optional",
+      "steps": [
+        "Frighten Genheeris and answer NO to 'IS IT A DEAL?'",
+        "Fight and win. Take the loot."
+      ],
+      "expect": [
+        "Enemy: GENHEERIS; each character gains 756 XP.",
+        "Loot: Wand of Lightning (56 charges)."
+      ],
+      "branches": [],
+      "fights": [
+        "GENHEERIS, 756 XP; Wand of Lightning (56 charges)."
+      ],
+      "data": [
+        "Wand of Lightning (56 charges)."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "game text ECL5.DAX block 7 at 0xa2ea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "--genheeris-deal-checkpoint mode, 'Verified Genheeris's recruitment and refusal, then reloaded the accepted bargain.' (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The replay checkpoint answers n and asserts 'a battle begins'. Digest §5: the Wand of Lightning Bolt allows a save vs spell; wands act at level 12 and get through Tyranthraxus's magic resistance (digest §3.23 tactics)."
+    },
+    {
+      "id": "acceptance.inner-tower.genheeris-slips-away",
+      "title": "Location 10: Genheeris silently leaves the party",
+      "kind": "rule",
+      "steps": [
+        "With GENHEERIS in the party, walk onto location 10 at (4,6).",
+        "Read the party roster.",
+        "On another run walk from location 7 to location 8 without touching (4,6)."
+      ],
+      "expect": [
+        "At (4,6) Genheeris is removed from the party with no message.",
+        "On the direct route he is still in the party at location 8."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 10 = (4,6)."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "Clue Book p.51-52",
+        "[P] digest §7 item 33"
+      ],
+      "disagreements": [
+        "[P]: he leaves silently at Inner Tower 10 (4,6). Clue Book p.51: 'If you don't go straight through the door into Tyranthraxus' lair, he will slip away.' The two agree in effect; [P] names the square."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not give the direct route from 7 to 8 or say whether items he carries leave with him."
+    },
+    {
+      "id": "acceptance.inner-tower.final-guards",
+      "title": "Location 8: the twelve guards",
+      "kind": "main",
+      "steps": [
+        "Walk to location 8 at (3,8). The game prints: YOU ARE IN THE AUDIENCE HALL OF TYRANTHRAXUS, CONQUEROR OF PHLAN. THE CEILING HAS BEEN TORN AWAY LEAVING THE ENTIRE SECTION OF THE TOWER OPEN TO THE SKY., then IN THE CENTER OF THE ROOM IS A GLOWING POOL. AN ANCIENT BRONZE DRAGON, SURROUNDED BY A FIERY AURA, RISES FROM WHERE IT WAS COILED NEARBY.",
+        "The encounter menu reads: TWO GUARDS MOVE TO BAR YOUR PATH. THE DRAGON LOOKS AT YOU WITH MALEVOLENCE. 'GUARDS, KILL THESE PESTS.'",
+        "Choose anything except Flee. Fight and win."
+      ],
+      "expect": [
+        "Enemy: 12 8TH LVL FIGHTER (#85); each character gains 8390 XP.",
+        "Each guard carries a Two-Handed Sword +2, Plate Mail +2 and a Ring of Protection +3.",
+        "After the fight the dragon speaks (see the vote scenario)."
+      ],
+      "branches": [
+        "Combat, Wait or Parley: the 12 guards.",
+        "Flee: the digest only says anything other than Flee starts the fight; the result of Flee is not given."
+      ],
+      "fights": [
+        "12 8TH LVL FIGHTER (#85), 8390 XP; each with Two-Handed Sword +2, Plate Mail +2, Ring of Protection +3."
+      ],
+      "data": [
+        "Location 8 = (3,8)."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "Clue Book p.51-52",
+        "game text ECL5.DAX block 7 at 0xa463, 0xa4dd, 0xa56c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.51-52 numbers the tower map differently from [P]; the numbers do not line up. Clue Book Upper Level location 5 (Tyranthraxus' Lair): 'Here you will meet Tyranthraxus' guards, and then confront the evil conqueror himself.' Agrees."
+      ],
+      "coveredBy": [
+        "verifyCastleEnding (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "verifyCastleEnding asserts 'audience hall of tyranthraxus' and 'ancient bronze dragon ... fiery aura', chooses Combat, asserts '8th lvl fighter hitpoints', then ends the fight with the developer command ':win-combat'; qa/findings.json records that parts of the campaign use a developer victory command, so the guard fight itself is not played. The text says 'TWO GUARDS' while 12 fight. Digest §5: monster gear grants no effects and armor does not slow monsters."
+    },
+    {
+      "id": "acceptance.inner-tower.continue-battle-to-cast",
+      "title": "Continue the battle after the guards to cast spells",
+      "kind": "rule",
+      "steps": [
+        "Before entering location 8 cast Enlarge and Resist Fire.",
+        "After the last guard falls, answer YES at the continue-battle prompt and cast Bless, Protection from Good, Mirror Image, Blink, Haste and Prayer.",
+        "Cast Animate Dead on a slain 8TH LVL FIGHTER.",
+        "End the battle and go on to the Tyranthraxus fight; read each character's active effects at its start."
+      ],
+      "expect": [
+        "Enlarge and Resist Fire cast before the guards are still active in the Tyranthraxus fight.",
+        "The spells cast after the guards by continuing combat are active at its start.",
+        "Animate Dead raises the slain fighter."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "[P] tactics: Dust of Disappearance makes both fights much easier; wands are level 12 and get through his resistance; Animate Dead works on the slain fighters.",
+        "The continue prompt reads 'CONTINUE BATTLE: YES NO' in the replay's assertions."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "[P] digest §5 (Adaptational: Animate Dead raises with full HP at any range)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCastleEnding (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The replay asserts the 'continue battle:yes no' prompt and answers n. The digest gives spell names but no durations; a runner checks effect flags, not timings. Digest §5: Mirror Image works only against targeted spells (a bug to keep), and Haste shows movement adjusted the wrong way on the character screen."
+    },
+    {
+      "id": "acceptance.inner-tower.join-vote",
+      "title": "Each party member votes to attack or join",
+      "kind": "main",
+      "steps": [
+        "After the guards fall the game prints: THE DRAGON LOOKS AT YOU WITH INTEREST. 'YOU ARE INDEED MIGHTY WARRIORS. EVEN SO, THERE IS NO HOPE OF YOUR SUCCESS. BUT YOU INTEREST ME.', then 'IF YOU JOIN ME I WILL MAKE YOU THE COMMANDERS OF THE ARMIES THAT WILL SWEEP THE MOONSEA. I CAN NOT BE DEFEATED, YOU KNOW. WILL YOU JOIN ME?'",
+        "For each player character in turn the game prints the character's name and HOW DO YOU VOTE? with the menu ATTACK / JOIN TYRANTHRAXUS.",
+        "Choose ATTACK for every character."
+      ],
+      "expect": [
+        "The vote is asked once per party member.",
+        "With at least one ATTACK the fight with Tyranthraxus starts."
+      ],
+      "branches": [
+        "All ATTACK: fight with the whole party.",
+        "Mixed votes: the fight starts; the digest does not say what happens to those who chose JOIN.",
+        "All JOIN: the game ends (separate scenario)."
+      ],
+      "fights": [],
+      "data": [
+        "Menu: ATTACK / JOIN TYRANTHRAXUS."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "[P] digest §6",
+        "game text ECL5.DAX block 7 at 0xa63a, 0xa6a7, 0xa73c, 0xa74c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCastleEnding (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "verifyCastleEnding asserts 'how do you vote ... attack join tyranthraxus' and presses a for each voter, then asserts 'a battle begins'. The digest's 'Each party member decides' leaves open whether a character who votes JOIN fights against the party, sits out or is removed; a test author must read the script before asserting a mixed vote."
+    },
+    {
+      "id": "acceptance.inner-tower.npc-votes",
+      "title": "How NPCs vote",
+      "kind": "rule",
+      "steps": [
+        "Reach the vote with a good or neutral hired NPC in the party.",
+        "Reach the vote with GENHEERIS in the party.",
+        "Reach the vote with another evil NPC in the party."
+      ],
+      "expect": [
+        "Good and neutral NPCs always fight.",
+        "Genheeris fights (scripted).",
+        "Other evil NPCs join Tyranthraxus."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Good/neutral NPCs fight; Genheeris fights; other evil NPCs join him."
+      ],
+      "sources": [
+        "[P] digest §3.23"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the player is shown a vote menu for NPCs, or what 'join him' does to the NPC in the fight (leaves, or fights the party). With only NPCs left to decide, 'If everyone joins, the game ends' could in principle be reached by evil NPCs; not stated."
+    },
+    {
+      "id": "acceptance.inner-tower.everyone-joins",
+      "title": "Every party member joins Tyranthraxus",
+      "kind": "main",
+      "steps": [
+        "At the vote choose JOIN TYRANTHRAXUS for every party member."
+      ],
+      "expect": [
+        "The game ends. There is no fight and no return to New Phlan."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "[P]: 'If everyone joins, the game ends.'"
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "[P] digest §6",
+        "game text ECL5.DAX block 7 at 0xa74c (src/audio/voice-master-manifest.json)",
+        "src/translated/ovl18.ts (overlay slice 18 'Endgame' per qa/inventory/classic.json; machine-translated instructions, not read for behaviour)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "This is the losing ending. Neither the digest nor the game-text block gives the screen shown; the ending code is in overlay slice 18. See acceptance.ending."
+    },
+    {
+      "id": "acceptance.inner-tower.tyranthraxus-fight",
+      "title": "Defeat Tyranthraxus",
+      "kind": "main",
+      "steps": [
+        "After the vote the fight starts against TYRANITHRAXUS (#66).",
+        "Read his combat sheet: 80 hit points, AC -4.",
+        "Fight and win."
+      ],
+      "expect": [
+        "Enemy: 1 TYRANITHRAXUS (#66): 80 HP, AC -4, THAC0 5, movement 24, 85% magic resistance, Lawful Good alignment (the possessed body).",
+        "He has a 2d10 fire aura, is displaced, has a dragon fear aura, and breathes electricity (length 10): 100% chance in round 1, then 50%, at most 3 uses.",
+        "Each character gains 611 XP per the digest."
+      ],
+      "branches": [],
+      "fights": [
+        "TYRANITHRAXUS (#66): 80 HP, AC -4, THAC0 5, movement 24, 85% magic resistance, 2d10 fire aura, displaced, dragon fear aura, electric breath (length 10; 100% round 1, then 50%; max 3 uses), Lawful Good; 611 XP."
+      ],
+      "data": [
+        "Monster name spelled TYRANITHRAXUS in the game; the script text spells TYRANTHRAXUS.",
+        "Castle location 26 clue: 'DO NOT BE FOOLED BY OUTWARD FORMS FOR YOU SHALL KNOW ME BY MY FLAMING AURA.'",
+        "Journal entries on Tyranthraxus: 19 (p.20), 21 (p.21), 30 (p.23), 36 (p.24: the Boss is really Maram of the Great Spear)."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "[P] digest §6",
+        "Clue Book p.51-52",
+        "Adventurer's Journal p.20-24 (entries 19, 21, 30, 36)"
+      ],
+      "disagreements": [
+        "[P] (digest): 611 XP. The replay verifyCastleEnding asserts 'the party has won ... receives 917 experience points' after this fight, which is 1.5 times 611. The replay's party and any XP bonus were not examined, so the cause is open."
+      ],
+      "coveredBy": [
+        "verifyCastleEnding (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "verifyCastleEnding asserts the sheet text 'tyrani?thraxus hitpoints 80 ac -4'. In one mode it plays the fight with 32 q presses (quick combat); in the other it uses ':win-combat'. With fixed dice a runner can check the breath schedule: used in round 1, then on a 50% roll, never more than 3 times. The digest does not give the breath damage or the save for the fear aura. Digest §5: non-random Cloaks of Displacement give no save bonus; displacer beasts are not displaced."
+    },
+    {
+      "id": "acceptance.inner-tower.victory-and-return",
+      "title": "Victory: Bane takes Tyranthraxus and the party returns to New Phlan",
+      "kind": "main",
+      "steps": [
+        "Win the Tyranthraxus fight and end the battle.",
+        "Watch the ending sequence: the spirit leaves the dragon and threatens to possess someone; Bane pulls Tyranthraxus into the pool.",
+        "The game prints: KNOWING THAT TYRANTHRAXUS HAS FINALLY BEEN DEFEATED, YOU LEAVE THE CASTLE. MOVING THROUGH THE STREETS YOU CATCH OCCASIONAL GLIMPSES OF MONSTERS IN HIDING. NONE ATTACK., then FINALLY YOU ENTER THE CIVILIZED AREA OF PHLAN."
+      ],
+      "expect": [
+        "The ending graphics differ for 1, 2, 3, or 4 and more party members.",
+        "The party stands in New Phlan (the replay asserts position 0,4 facing east with the text 'gateway to the unsettled areas')."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Graphics variants: 1, 2, 3, 4+ party members."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "[P] digest §6",
+        "Clue Book p.51-52",
+        "game text ECL5.DAX block 7 at 0xa82d, 0xa8b2 (src/audio/voice-master-manifest.json)",
+        "src/translated/ovl18.ts (overlay slice 18 'Endgame' per qa/inventory/classic.json; machine-translated instructions, not read for behaviour)"
+      ],
+      "disagreements": [
+        "Clue Book p.52: 'Once you defeat Tyranthraxus, his remaining minions cower in fear and confusion. You march triumphantly back to the civilized section.' Agrees with the game text."
+      ],
+      "coveredBy": [
+        "verifyCastleEnding (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The digest describes the possession threat and Bane's intervention without quoting screen text, and that text is not in the script block, so it is presumably drawn by the ending overlay (slice 18). A test author must capture the original frames for each party size. The clerk's reward is in acceptance.ending."
+    },
+    {
+      "id": "acceptance.inner-tower.repeat-the-final-fight",
+      "title": "Tyranthraxus can be defeated again",
+      "kind": "quirk",
+      "steps": [
+        "After the victory and the return to New Phlan, travel back to the Inner Tower and walk to location 8 at (3,8).",
+        "Go through the encounter again and win."
+      ],
+      "expect": [
+        "The final confrontation happens again; Tyranthraxus can be defeated repeatedly."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "[P]: the 'defeated' flag is written to the wrong location. Digest §5: 'Tyranthraxus is never flagged as defeated, so he can be fought again.'"
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "[P] digest §5 (Scripting, Inner Tower)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the guards and the vote also repeat, whether the ending sequence plays again, or whether XP is awarded again. A faithful port must not add the missing flag."
+    }
+  ]
+}

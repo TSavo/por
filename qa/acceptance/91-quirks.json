@@ -1,0 +1,2375 @@
+{
+  "schema": 1,
+  "id": "acceptance.quirks",
+  "title": "Documented bugs, exploits and quirks",
+  "guideSection": "5",
+  "scripts": [],
+  "commission": null,
+  "prerequisites": [
+    "Version 1.3 (GOG) program and data, with none of the optional [P] patches applied.",
+    "A runner that can fix the dice stream and read game state.",
+    "Entries marked VERSION-SPECIFIC in notes describe other versions and must not be required of 1.3."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.quirks.exploit.raise-dead-with-damage-spells",
+      "title": "Bring a dead character back with a damage spell",
+      "kind": "quirk",
+      "steps": [
+        "Have a character whose status is dead in the party during a combat.",
+        "Target the dead character with Burning Hands from a magic-user.",
+        "Bandage the character from another character's combat menu.",
+        "Repeat with Cause Light Wounds from a cleric."
+      ],
+      "expect": [
+        "A dead character is a valid target.",
+        "A targeted damage spell that does under 10 damage leaves the character 'dying' instead of dead, so Bandage works.",
+        "Burning Hands always works.",
+        "Cause Light Wounds needs a successful touch roll first."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Exploits (§11)",
+        "[P] digest §5 Technical (§13.1): 'Single-target damage spells raise the dead'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say what happens when the spell does 10 or more. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.exploit.duplicate-items",
+      "title": "Duplicate items with Remove, Save and Load",
+      "kind": "quirk",
+      "steps": [
+        "Go to a training hall.",
+        "Remove one character.",
+        "Save.",
+        "Create a dummy character.",
+        "Trade the items to the dummy.",
+        "Remove the dummy.",
+        "Drop everyone else.",
+        "Load the save.",
+        "Add the dummy back.",
+        "To repeat: Remove the dummy, Save, Add it back, and return to the Trade step."
+      ],
+      "expect": [
+        "After the Load the original holders have their items again and the dummy, once Added, holds copies: two copies exist."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Exploits (§11)"
+      ],
+      "disagreements": [
+        "Digest §4 UI says 'Loading a save deletes any characters previously Removed', yet here a Removed dummy survives a Load. The digest does not reconcile them."
+      ],
+      "coveredBy": [],
+      "notes": "Steps are the digest's nine, in order. Step 2's purpose (a Removed character) is not explained in the digest. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.exploit.abnormal-constitution",
+      "title": "Reach Constitution 22 or 0 for oversized hit point gains",
+      "kind": "quirk",
+      "steps": [
+        "Use several Manuals of Bodily Health (copies from restarts or duplication) on one character until Constitution is exactly 22; train a level with fixed dice.",
+        "Separately: kill and Raise Dead a character at a temple repeatedly until Constitution is 0; train a level."
+      ],
+      "expect": [
+        "Con 22 gives +7 HP per level to a warrior or +5 to others.",
+        "Con 0 gives +8 HP per level."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Exploits (§11)",
+        "[P] digest §4 Character creation and stats (Constitution)",
+        "digest §7 item 10"
+      ],
+      "disagreements": [
+        "Manual of Bodily Health: [P] +1 Constitution after a month; [GB] 'doesn't seem to do anything here'; [SP] 'worth 25,000 gold… we sold it'."
+      ],
+      "coveredBy": [],
+      "notes": "The Manual is found in Mendor's Library (05-mendors-library). Constitution is defined only for 3-20 and correct only for 4-18. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.exploit.restart-with-characters",
+      "title": "Restart the game keeping the characters",
+      "kind": "quirk",
+      "steps": [
+        "At a training hall Remove every character.",
+        "Quit to DOS and start the game again.",
+        "At the party menu Add the removed characters.",
+        "Begin Adventuring."
+      ],
+      "expect": [
+        "The characters keep their XP, items and money in a fresh game."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Exploits (§11)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Fresh game state means quests and one-time treasures are available again; the digest states only that XP, items and money are kept. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.exploit.reroll-hit-points",
+      "title": "Re-roll level-up hit points",
+      "kind": "quirk",
+      "steps": [
+        "At a training hall Save.",
+        "Train a character and read the HP gained.",
+        "Drop everyone.",
+        "Load the save and Train again."
+      ],
+      "expect": [
+        "Each attempt rolls the hit die again, so the player can repeat until the gain is high."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Exploits (§11)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "A runner needs a different dice state on the second attempt to see a different roll. qa/findings.json classic-dice-seed-fixed (fixed) is related: every launch once rolled the same dice. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.exploit.dummy-characters-for-gold",
+      "title": "Create dummy characters to collect their starting gold",
+      "kind": "quirk",
+      "steps": [
+        "At the party menu Create a character, Trade its starting gold to a real character, Drop the dummy. Repeat."
+      ],
+      "expect": [
+        "The gold stays with the real character; nothing prevents repeating it."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Exploits (§11)",
+        "[P] digest §4 Character creation and stats (Starting gold)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "[P]: it 'works but is not worth the time'. The digest does not spell out the steps; these follow from the starting-gold rule and the Trade command. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.exploit.theft-protection",
+      "title": "Heavy items at the top of the inventory reduce item theft",
+      "kind": "quirk",
+      "steps": [
+        "Arrange a character's inventory with body armor in the first slot; arrange another with a light item first.",
+        "Trigger an item theft with fixed dice (New Phlan tavern pickpocket, Kobold Caves, a bribe or a surrender)."
+      ],
+      "expect": [
+        "The chance of losing items is sharply lower for the character with the heaviest items at the top."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Exploits (§11)",
+        "[P] digest §5 Other documented quirks (sources of item theft)",
+        "[P] digest §5 Technical (§13.1): ECL opcode 28 (ROB)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no numbers. The mechanism is probably the ROB opcode iterating the item list (acceptance.quirks.technical.ecl-rob-opcode); that link is this author's reading, not stated in the digest. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.midnight-rollover",
+      "title": "Real-time midnight rollover breaks timers",
+      "kind": "quirk",
+      "steps": [
+        "Set the host clock to just before midnight and start a timed wait (a DELAY in a script, or a combat message pause).",
+        "Let the real clock pass 00:00:00."
+      ],
+      "expect": [
+        "The original's timers misbehave when the real-time clock rolls over midnight."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say how they break (hang or skip). The port's DOS clock is 'fixed date, deterministic time' (qa/inventory/classic.json classic.platform.dos-clock), so this may not be reachable; record the decision. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.creation-quit-memory-leak",
+      "title": "Quitting character creation part-way leaks memory",
+      "kind": "quirk",
+      "steps": [
+        "Start Create, then back out before keeping the character. Repeat many times.",
+        "Watch for the heap error."
+      ],
+      "expect": [
+        "Each abandoned creation leaks memory in the original; enough repeats exhaust the heap."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "See technical.heap-error-message for what is shown. The digest gives no count. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.dos-invalid-names-crash",
+      "title": "A name with too many DOS-invalid characters crashes the game",
+      "kind": "quirk",
+      "steps": [
+        "Create a character whose name is made of characters DOS does not allow in file names.",
+        "Keep the character, then Remove it (which writes a file named after the character)."
+      ],
+      "expect": [
+        "The original crashes."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say how many invalid characters are 'too many' or at which step the crash comes; the Remove step is this author's guess at the file write. A port must not corrupt saves here; decide whether to reproduce a crash. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.stats-below-minimum",
+      "title": "Modify can lower stats below the minimum",
+      "kind": "quirk",
+      "steps": [
+        "Create a dwarf (Con minimum 12). Choose Modify and lower Constitution below 12."
+      ],
+      "expect": [
+        "The game accepts values below the racial and class minima."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "[P] digest §4 Character creation and stats (Modify)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Same rule as acceptance.mechanics.creation.modify. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.strength-19-25-bash",
+      "title": "Strength 19-25 cannot bash an easy door",
+      "kind": "quirk",
+      "steps": [
+        "Raise a character's Strength to 19 or more (Potion of Giant Strength).",
+        "Bash a door that a Strength 18 character opens easily, with fixed dice."
+      ],
+      "expect": [
+        "The Strength 19-25 character fails to bash the easy door."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "[P] digest §4 Character creation and stats (Strength)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not list the bash chances or define 'easy'. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.constitution-range",
+      "title": "Constitution is defined only for 3-20 and correct only for 4-18",
+      "kind": "quirk",
+      "steps": [
+        "Set Constitution to 3, 19, 20, 21, 22 and 0 in turn and train a level with fixed dice."
+      ],
+      "expect": [
+        "Con 4-18 follow the table.",
+        "Warriors get no +5 at 19-20.",
+        "Values outside 3-20 read past the table: Con 22 gives +7 (warrior) or +5; Con 0 gives +8."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "[P] digest §4 Character creation and stats (Constitution)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say what Con 3 does wrong. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.multiclass-con-hp",
+      "title": "Multi-class Constitution hit point bonus is wrong after level 1",
+      "kind": "quirk",
+      "steps": [
+        "Train one class of a two-class character with Con 17 and fixed dice; read HP gained."
+      ],
+      "expect": [
+        "HP gained = (die + every class's Con modifier) / number of classes, rounded down, minimum 1, so the Con bonus is added once per class before dividing."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "[P] digest §4 Training and XP thresholds"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Extra HP from this bug carries over to Curse of the Azure Bonds (digest §6). Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.con-save-bonus-scope",
+      "title": "The Con poison-save bonus also applies to paralysis and death",
+      "kind": "quirk",
+      "steps": [
+        "Force a dwarf, gnome or halfling to save vs paralysis and vs death magic with fixed d20 rolls at the boundary."
+      ],
+      "expect": [
+        "The Con/3.5 bonus meant for poison is applied to all paralysis/poison/death saves."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "[P] digest §4 Character creation and stats (Racial abilities)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "'Paralysis save fixes' is one of the optional patches not to apply. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.haste-slow-display",
+      "title": "Haste and Slow show movement the wrong way on the character screen",
+      "kind": "quirk",
+      "steps": [
+        "Cast Haste on a character and View it; read the movement value. Move it in combat and count squares.",
+        "Repeat with Slow."
+      ],
+      "expect": [
+        "The character screen shows movement adjusted in the wrong direction.",
+        "Actual movement in combat is correct."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.no-aging-256",
+      "title": "No aging until 256 years have passed",
+      "kind": "quirk",
+      "steps": [
+        "Play or advance the clock for several game years and read characters' ages.",
+        "Advance past 256 years."
+      ],
+      "expect": [
+        "Ages do not advance with the calendar.",
+        "After 256 years characters age 1 year per minute."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "[P] digest §4 Time and resting"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Haste still adds a year per casting. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.racial-to-hit-gaps",
+      "title": "Racial to-hit bonuses fail against monsters #2, #7 and #28; no elf bonus with the Fine Composite Long Bow",
+      "kind": "quirk",
+      "steps": [
+        "Attack monster #2 with a dwarf and a gnome; attack #7 and #28 with a dwarf; use fixed d20 rolls at the boundary.",
+        "Fire a Fine Composite Long Bow with an elf."
+      ],
+      "expect": [
+        "The +1 racial bonus is not applied against #2 (dwarf and gnome), #7 and #28 (dwarf).",
+        "The elf gets no +1 with the Fine Composite Long Bow."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "#2 GOBLIN GUARD and #7 HOBGOBLIN LDR (names from digest §3.1)",
+        "#28: the digest's Textile House section labels SKULLCRUSHER '#28 [sic]'"
+      ],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "[P] digest §4 Character creation and stats (Racial abilities)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not name #28 for certain. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.damage-spells-raise-dead",
+      "title": "Single-target damage spells raise the dead",
+      "kind": "quirk",
+      "steps": [
+        "See exploit.raise-dead-with-damage-spells."
+      ],
+      "expect": [
+        "A single-target damage spell cast on a dead character can change the status from dead to dying."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "[P] digest §5 Exploits (§11)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Listed separately in the digest's Technical list; same behaviour as the exploit. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.thief-skills-stale",
+      "title": "Thief skills do not update promptly",
+      "kind": "quirk",
+      "steps": [
+        "Read a thief's skills. Change something that should alter them (train a level, or change Dexterity). Read the skills again at once, and again after reloading or re-entering."
+      ],
+      "expect": [
+        "The skill values lag behind the change."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say what finally refreshes them; measure on the original. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.charm-npc",
+      "title": "Removing a charm may not restore a hired NPC",
+      "kind": "quirk",
+      "steps": [
+        "Have an enemy charm a hired NPC in combat.",
+        "Remove the charm (Dispel Magic, or end of combat)."
+      ],
+      "expect": [
+        "The NPC may not return to the party's side."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "'May' is the digest's word; conditions are not given. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.dispel-magic-caster-level",
+      "title": "Dispel Magic cannot check the caster level for effects that do not store it",
+      "kind": "quirk",
+      "steps": [
+        "Cast Dispel Magic on effects from items or scripts (no stored caster level) with fixed dice."
+      ],
+      "expect": [
+        "The level comparison is not made correctly for effects that carry no caster level."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether such effects are always or never dispelled. Not checkable until measured on the original. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.shield-vs-wand-of-magic-missiles",
+      "title": "The Shield spell does not stop the Wand of Magic Missiles",
+      "kind": "quirk",
+      "steps": [
+        "Cast Shield on a character. Have an enemy cast Magic Missile at it, then use a Wand of Magic Missiles on it."
+      ],
+      "expect": [
+        "The wand's missiles do damage through Shield."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The Nomad shaman carries a Wand of Magic Missiles with 50 charges (13-nomad-camp). That Shield stops the spell version is implied, not stated. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.mirror-image",
+      "title": "Mirror Image works only against targeted spells",
+      "kind": "quirk",
+      "steps": [
+        "Cast Mirror Image; take a melee hit and a missile hit; then be targeted by a spell."
+      ],
+      "expect": [
+        "Physical attacks ignore the images."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "[P] digest §4 Spells"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The 'Mirror Image fix' is one of the optional patches not to apply. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.coin-overflow",
+      "title": "Coin totals over 65535 gold can be lost in a transaction",
+      "kind": "quirk",
+      "steps": [
+        "Give one character more than 13107 platinum (over 65535 gold in value).",
+        "Buy or sell something in a shop.",
+        "Read money."
+      ],
+      "expect": [
+        "Money above the 16-bit limit can be lost in the transaction.",
+        "Sale remainders (gold left after converting to platinum) are always lost."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "65535 gold = 13107 pp"
+      ],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "[P] digest §4 Money, encumbrance and shops"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.bag-of-holding",
+      "title": "A Bag of Holding may need several pick-up attempts",
+      "kind": "quirk",
+      "steps": [
+        "Find a Bag of Holding in treasure and choose Take repeatedly."
+      ],
+      "expect": [
+        "The Take can fail and succeed on a later attempt."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives neither the cause nor where a Bag of Holding is found. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.flame-tongue",
+      "title": "The Flame Tongue has no special effect",
+      "kind": "quirk",
+      "steps": [
+        "Attack a fire-vulnerable or regenerating monster with a Flame Tongue and with a plain magic sword of the same plus; fixed dice."
+      ],
+      "expect": [
+        "Damage and effect are the same as an ordinary sword of its plus."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.keoghtums-ointment",
+      "title": "Keoghtum's Ointment turns poisoned characters into dead ones",
+      "kind": "quirk",
+      "steps": [
+        "Use Keoghtum's Ointment on a character whose status is poisoned."
+      ],
+      "expect": [
+        "The character's status becomes dead."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.manual-bodily-health-hp",
+      "title": "The Manual of Bodily Health applies its hit point adjustment wrongly",
+      "kind": "quirk",
+      "steps": [
+        "Read max HP. Use the Manual of Bodily Health; wait the month; read Constitution and max HP."
+      ],
+      "expect": [
+        "Constitution rises by 1 after a month.",
+        "The HP adjustment that goes with it is applied incorrectly."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "digest §7 item 10",
+        "[P] digest §3.5 (location 13)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say what the wrong adjustment is. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.random-sling-weight",
+      "title": "A randomly generated Sling weighs 8 lb",
+      "kind": "quirk",
+      "steps": [
+        "Obtain a Sling from random magic item generation and one from a shop; View both."
+      ],
+      "expect": [
+        "The random Sling shows a weight of 8 lb (80 coins)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.wand-saves",
+      "title": "The Wands of Fireball and Lightning Bolt allow a save vs spell",
+      "kind": "quirk",
+      "steps": [
+        "Use each wand on a target with fixed d20 rolls either side of its save vs spell."
+      ],
+      "expect": [
+        "The save is made on the spell column, not rod/staff/wand."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The Wand of Paralyzation saves vs paralyzation (acceptance.quirks.adaptational.wand-of-paralyzation). Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.ahnkheg-acid",
+      "title": "The AHNKHEG's acid is not typed as acid",
+      "kind": "quirk",
+      "steps": [
+        "Let an AHNKHEG use its acid on a character; separately damage a troll with it if possible."
+      ],
+      "expect": [
+        "The damage carries no acid type."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Visible only through effects that depend on damage type (troll regeneration). AHNKHEGs are met on the west wilderness map and in the Anhkheg lair (11-wilderness, 12-wilderness-lairs). Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.genheeris-memorize",
+      "title": "GENHEERIS cannot memorize spells",
+      "kind": "quirk",
+      "steps": [
+        "Recruit GENHEERIS in the Inner Tower. Encamp and open Memorize for him; rest."
+      ],
+      "expect": [
+        "He cannot re-memorize spells once cast."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "[P] digest §3.23"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered in 23-inner-tower. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.acolyte-modify",
+      "title": "The ACOLYTE can be Modified",
+      "kind": "quirk",
+      "steps": [
+        "Hire the ACOLYTE (#108) at hall 14. Go to a training hall and choose Modify on him."
+      ],
+      "expect": [
+        "Modify is allowed because he has 0 XP.",
+        "His race is 'Monster', which indexes past the racial table (array out of bounds)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "[P] digest §4 NPCs (hall 14)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not describe the visible result of the out-of-bounds read. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.mummy-fire",
+      "title": "Mummy fire vulnerability is coded as 'magical OR fire'",
+      "kind": "quirk",
+      "steps": [
+        "Hit a mummy with a non-magical fire attack (flask of oil), a magical non-fire weapon, and a non-magical weapon; fixed dice."
+      ],
+      "expect": [
+        "Either magical or fire damage counts; the test is an OR."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Mummies are in the Valhingen Graveyard (19-valhingen-graveyard). The digest does not say what the vulnerability does (extra damage or ability to be hurt). Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.ecl-surprise-opcodes",
+      "title": "Script opcodes 22 (PARTY SURPRISE) and 23 (SURPRISE) apply the wrong modifiers",
+      "kind": "quirk",
+      "steps": [
+        "Trigger scripted encounters that set surprise modifiers (22 uses of each opcode per qa/inventory/classic.json) with fixed d6 rolls."
+      ],
+      "expect": [
+        "The modifiers are applied wrongly in the original; outcomes must match the original, not the scripts' apparent intent."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "qa/inventory/classic.json classic.ecl.op-22, classic.ecl.op-23"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The 'ECL 23 fix' is one of the optional patches not to apply. The digest does not state the exact error. Example in the digest: Kuto's Well rest interruptions arrive with the monsters surprised. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.ecl-rob-opcode",
+      "title": "Script opcode 28 (ROB) handles the item chance incorrectly",
+      "kind": "quirk",
+      "steps": [
+        "Trigger a script robbery (tavern pickpocket, a surrender, a bribe) with fixed dice and a known inventory order."
+      ],
+      "expect": [
+        "The per-item chance changes as the list is walked, so items are not taken with the stated odds."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "qa/inventory/classic.json classic.ecl.op-28 (14 uses)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "See exploit.theft-protection. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.ecl-spell-opcode",
+      "title": "Script opcode 3B (SPELL) does nothing",
+      "kind": "quirk",
+      "steps": [
+        "Reach the one script position that uses opcode 3B."
+      ],
+      "expect": [
+        "Nothing happens."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1)",
+        "qa/inventory/classic.json classic.ecl.op-3b (1 use)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The 'ECL 3B fix' is one of the optional patches not to apply. Neither the digest nor the inventory says which script holds the one use. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.technical.heap-error-message",
+      "title": "Heap error shows 'TIME TO SAVE YOUR GAME' only in v1.2 and earlier",
+      "kind": "quirk",
+      "steps": [
+        "Exhaust the heap (see technical.creation-quit-memory-leak)."
+      ],
+      "expect": [
+        "v1.2 and earlier: the message 'TIME TO SAVE YOUR GAME' is shown.",
+        "v1.3: that message is not shown."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Technical (§13.1) (Version-specific)",
+        "qa/inventory/classic.json classic.slice-00 'Overlay slice 0: Save reminder'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "VERSION-SPECIFIC: v1.2 and earlier only. Do not require it on 1.3. The digest does not say what 1.3 shows instead. qa/inventory/classic.json lists an overlay slice titled 'Save reminder' in the build inventoried."
+    },
+    {
+      "id": "acceptance.quirks.scripting.civilized-inn-rest-while-denied",
+      "title": "Rest at a New Phlan inn while service is denied",
+      "kind": "quirk",
+      "steps": [
+        "Fight the city watch in New Phlan and win, so shops and temples refuse service.",
+        "Enter an inn. You are told you are denied service.",
+        "Rest anyway."
+      ],
+      "expect": [
+        "The rest goes ahead without interruption although service was refused."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.0 Fixed locations (Inns)",
+        "game text ECL3.DAX block 0 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 00-new-phlan. Refusal text in the game-text file: \"'DUE TO YOUR VICIOUS ATTACK ON THOSE WHO PROTECT US, WE REFUSE YOU ALL SERVICE.'\" Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.civilized-shop-door-at-night",
+      "title": "The arms shop door at (9,14) works at night",
+      "kind": "quirk",
+      "steps": [
+        "In New Phlan after 14:00 walk through the arms and armor shop's door at (9,14)."
+      ],
+      "expect": [
+        "The shop opens as by day; no locked-door prompt and no city watch."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.0 Fixed locations (SA)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 00-new-phlan. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.slums-rest-interrupts-grant-clear-points",
+      "title": "Slums rest interruptions give clear points with no random encounters left",
+      "kind": "quirk",
+      "steps": [
+        "In the Slums beat all 15 random encounters.",
+        "Rest in an unsafe spot until an interruption fight comes (24% per 2 hours); win it.",
+        "Read the block's clear counter (25 needed)."
+      ],
+      "expect": [
+        "Each rest-interrupt fight still adds a clear point, so the block can be cleared without the set fights."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.1"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 01-slums. [P] offers this as an alternative to the troll fight at location 20. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.slums-set-fights-credit-on-flee",
+      "title": "Slums set fights are credited even if the party fled",
+      "kind": "quirk",
+      "steps": [
+        "Enter a Slums set fight (for example location 20 at (0,14), 4 TROLL + 2 OGRE).",
+        "Move the whole party off the combat map.",
+        "Read the clear counter and return to the square."
+      ],
+      "expect": [
+        "The fight counts as won: the clear point is given and the encounter does not recur."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.1"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 01-slums. The script does not check for flight before crediting victory. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.kutos-well-rest-surprise",
+      "title": "Kuto's Well rest interruptions arrive with the monsters surprised",
+      "kind": "quirk",
+      "steps": [
+        "In Kuto's Well, before the 10 random encounters are beaten, rest until interrupted (12% per hour)."
+      ],
+      "expect": [
+        "The interrupting monsters are the surprised side."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.3",
+        "digest §7 item 13"
+      ],
+      "disagreements": [
+        "Resting: [P] unsafe until the 10 random encounters are beaten; Clue Book 'After Norris has been defeated, you can rest in the catacombs'. Game text ECL8.DAX block 29 at 0x9eb2 says 'A HIDEOUT IN WHICH YOU MAY REST UNDISTURBED'."
+      ],
+      "coveredBy": [],
+      "notes": "Also covered by area file 03-kutos-well. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.podal-rest-rules-clobbered",
+      "title": "Podal Plaza rest rules are clobbered",
+      "kind": "quirk",
+      "steps": [
+        "In Podal Plaza change state in a way that should make rest safe or unsafe, then Rest and note interruptions with fixed dice."
+      ],
+      "expect": [
+        "The rest-safety setting is overwritten by other script state, so rest behaves differently from the intended rule."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.6"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 06-podal-plaza. The one-line §5 entry does not say which variable clobbers which; the area file must take the detail from digest §3.6. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.podal-flight-after-victory",
+      "title": "Podal Plaza checks flight after crediting victory",
+      "kind": "quirk",
+      "steps": [
+        "Start a Podal Plaza counted fight and flee the combat map with the whole party.",
+        "Read the clear counter (10 needed)."
+      ],
+      "expect": [
+        "Victory is credited before the script looks at whether the party fled."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.6"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 06-podal-plaza. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.podal-buccaneer-twice",
+      "title": "The Podal Plaza buccaneer can be beaten and looted twice",
+      "kind": "quirk",
+      "steps": [
+        "Meet the buccaneer in Podal Plaza, fight and beat him, take his loot.",
+        "Return to his square and meet him again."
+      ],
+      "expect": [
+        "He is there again and can be beaten and looted a second time."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.6",
+        "game text ECL1.DAX block 18 at 0xaa28 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 06-podal-plaza. Game text for the peaceful outcome: \"THE BUCCANEER SMILES.'THAT IS SUFFICIENT PAYMENT.' HE LEAVES.\" The digest's §5 line does not say what makes the second meeting possible. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.textile-flight-after-victory",
+      "title": "Textile House checks flight after crediting victory",
+      "kind": "quirk",
+      "steps": [
+        "Start a counted Textile House fight and flee with the whole party.",
+        "Read the block counter."
+      ],
+      "expect": [
+        "The fight is credited as won."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.7"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 07-cadorna-textile-house. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.textile-safe-rest-interrupted",
+      "title": "Textile House safe rest can still be interrupted",
+      "kind": "quirk",
+      "steps": [
+        "Make the Textile House safe to rest in.",
+        "Rest for many hours with fixed dice that would trigger the 6% per hour roll."
+      ],
+      "expect": [
+        "Rest is cut short although no monsters appear: 'disturbed by nothing'."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.7 Resting"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 07-cadorna-textile-house. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.textile-feather-falling-fails",
+      "title": "The Ring of Feather Falling fails in the Textile House well",
+      "kind": "quirk",
+      "steps": [
+        "Give a non-thief a readied Ring of Feather Falling.",
+        "At the well marked 'THIEVES ONLY.' choose to climb down with that character."
+      ],
+      "expect": [
+        "The character falls for 15d6; the ring does not help."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "15d6",
+        "A Ring of Feather Falling is found at the location-3 trap door listed in digest §3.9"
+      ],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.7",
+        "game text ECL4.DAX block 2 at 0xabd3 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 07-cadorna-textile-house. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.textile-restal-opens-box-repeatedly",
+      "title": "Restal can open the Cadorna box more than once",
+      "kind": "quirk",
+      "steps": [
+        "Bring the sealed Cadorna treasure to Restal and have him open it.",
+        "Ask him again."
+      ],
+      "expect": [
+        "He opens the box again; the script does not record that it was already opened."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.7"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 07-cadorna-textile-house. tools/verify-fresh-party.mjs has Restal reseal and blindfold milestones (NOTES.md) but none for a second opening. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.textile-block-counter-needs-random-roll",
+      "title": "The Textile House clear is noticed only when a random-encounter roll occurs",
+      "kind": "quirk",
+      "steps": [
+        "Beat all 10 non-hobgoblin encounters and the ogre at location 21.",
+        "Stand still; then walk until a random-encounter roll happens."
+      ],
+      "expect": [
+        "The block is not marked cleared until the next random-encounter roll runs the check."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.7 Clear condition"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 07-cadorna-textile-house. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.kovel-ambush-size",
+      "title": "Kovel Mansion location-14 ambush size is wrong at 13-17 kills",
+      "kind": "quirk",
+      "steps": [
+        "In Kovel Mansion reach a thief kill count of 13 to 17.",
+        "Walk into the ambush at location 14."
+      ],
+      "expect": [
+        "The ambush size is computed from an underflowed value or a stale pointer; the count is whatever the original produces, not the intended formula."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.8"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 08-kovel-mansion. The digest calls it 'undefined behaviour'. A port running the original script on the same engine state should produce the same number; a test must take the expected value from the original. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.wealthy-one-chance-treasure",
+      "title": "Only one chance at the Wealthy Area treasure at location 4",
+      "kind": "quirk",
+      "steps": [
+        "Reach Wealthy Area location 4 and decline or fail to take the treasure.",
+        "Leave the square and come back."
+      ],
+      "expect": [
+        "The treasure is not offered again."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.9"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 09-wealthy-area. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.wealthy-crash-south-of-4-15",
+      "title": "Moving south from (4,15) in the Wealthy Area crashes",
+      "kind": "quirk",
+      "steps": [
+        "In the Wealthy Area stand at (4,15) facing south and step forward."
+      ],
+      "expect": [
+        "The original crashes."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.9 ('Crash bug')"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 09-wealthy-area. A port cannot crash usefully; decide and record what it does instead (the faithful result is that play cannot continue). Do not silently fix the map edge. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.pyramid-endgame-flags",
+      "title": "Completing the pyramid can wrongly set the endgame flags",
+      "kind": "quirk",
+      "steps": [
+        "Defeat Yarash and leave the pyramid.",
+        "Read the endgame flags and visit the places that depend on them (New Phlan after-victory behaviour, clerk)."
+      ],
+      "expect": [
+        "Endgame script flags can be set although Tyranthraxus is not defeated."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.15 ('can incorrectly flag the endgame scripts')"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 15-yarashs-pyramid. The digest does not say which flags or what the visible effect is. Not checkable until the original is measured. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.nomads-bracers",
+      "title": "The Nomad shaman's 'Bracers AC 2' are really AC 4",
+      "kind": "quirk",
+      "steps": [
+        "Kill the Nomad shaman and take his bracers.",
+        "Ready them on an unarmored Dexterity 10 character and read AC."
+      ],
+      "expect": [
+        "The item is named Bracers AC 2 but gives AC 4."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.13",
+        "digest §7 item 35"
+      ],
+      "disagreements": [
+        "[GB] lists killing the nomads as giving 'bracers of AC 2'; [P] says they are really AC 4."
+      ],
+      "coveredBy": [],
+      "notes": "Also covered by area file 13-nomad-camp. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.lizardman-wrong-word-fight",
+      "title": "A wrong friend-word gives the location-1 fight at locations 3 and 10",
+      "kind": "quirk",
+      "steps": [
+        "In the Lizardman Keep Parley at location 3 or 10 and give a wrong friend-word."
+      ],
+      "expect": [
+        "The reply is 'You are not they who rescued my children, but are murderous pirates!…' and the fight is the location-1 fight: 2 LIZARDMAN + 1 GIANT LIZARD (53 XP)."
+      ],
+      "branches": [],
+      "fights": [
+        "2 LIZARDMAN + 1 GIANT LIZARD (53 XP)"
+      ],
+      "data": [
+        "friend word 'SAVIOR' (Clue Book p.34, per NOTES.md); Journal entry 35 p.24 draws it as runes"
+      ],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.16"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 16-lizardman-keep. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.lizardman-giant-lizard-count",
+      "title": "The Lizardman Keep giant-lizard count never decreases",
+      "kind": "quirk",
+      "steps": [
+        "Kill giant lizards in the Lizardman Keep.",
+        "Return to where they appear."
+      ],
+      "expect": [
+        "The counter of giant lizards is not reduced by kills, so they keep appearing in the same numbers."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.16"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 16-lizardman-keep. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.buccaneer-get-heir-again",
+      "title": "The heir can be taken again at the Buccaneer Base",
+      "kind": "quirk",
+      "steps": [
+        "At Buccaneer Base location 12 'Get' the heir.",
+        "Choose 'Get' again while already holding him."
+      ],
+      "expect": [
+        "It works again and frees every slave again."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.17 step 6"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 17-buccaneer-base. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.zhentil-dinner-after-fighting-guards",
+      "title": "Zhentil Keep: dinner still happens after fighting the guards",
+      "kind": "quirk",
+      "steps": [
+        "Leave your quarters before dinner, attack the guards and win both waves (4 CORPORAL + 16 GUARD each).",
+        "Go back to your quarters and wait until 14:00."
+      ],
+      "expect": [
+        "You are led to dinner as if nothing happened."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.18 (Branch: leaving your quarters before dinner)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 18-zhentil-keep-outpost. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.zhentil-leave-room-before-dinner",
+      "title": "Zhentil Keep: you can leave your room before dinner",
+      "kind": "quirk",
+      "steps": [
+        "After being told 'Here are your quarters. Do not leave this area.' walk out before 14:00."
+      ],
+      "expect": [
+        "Nothing stops the party leaving; guards then demand you return."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.18"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 18-zhentil-keep-outpost. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.zhentil-al-hyam-dazid-present",
+      "title": "Al-Hyam Dazid appears at Zhentil Keep",
+      "kind": "quirk",
+      "steps": [
+        "Trigger the two-wave fight at Zhentil Keep location 5 and reach wave 2."
+      ],
+      "expect": [
+        "Wave 2 includes AL-HYAM DAZID (#86) with Bracers AC 3, Ring of Fire Resistance, Wand of Lightning (20), beside the COMMANDANT (#50)."
+      ],
+      "branches": [],
+      "fights": [
+        "Wave 2: COMMANDANT (#50) + AL-HYAM DAZID (#86) + 20 AIDES + 24 CORPORAL (2879 XP)"
+      ],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.18 step 5"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 18-zhentil-keep-outpost. He should not be here: the same character is at the Hedge Maze (1 NW (5,4)). See scripting.valjevo-al-hyam-dazid-twice. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.valhingen-treasures-swapped",
+      "title": "Valhingen treasures at 12 and 24 are swapped",
+      "kind": "quirk",
+      "steps": [
+        "Collect the treasures at Valhingen locations 12 and 24 and read each list."
+      ],
+      "expect": [
+        "Each location gives the treasure meant for the other."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.19"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 19-valhingen-graveyard. The digest lists the loot as the game gives it; the area file holds both lists. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.valhingen-spectre-22-skipped",
+      "title": "Spectre 22 may never trigger if you leave after the first wight fight",
+      "kind": "quirk",
+      "steps": [
+        "In Valhingen win your first wight fight.",
+        "Leave the graveyard, re-enter, and walk to location 22."
+      ],
+      "expect": [
+        "Spectre 22 may not appear, which blocks location 29 (the north wall needs spectres 22 and 23 beaten)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.19"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 19-valhingen-graveyard. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.stojanow-refusing-toll-makes-hostile",
+      "title": "Refusing to pay makes the Stojanow Gate bugbears outright hostile",
+      "kind": "quirk",
+      "steps": [
+        "At Stojanow Gate location 5 with the wagon, when asked to pay choose not to pay, with fixed dice so the reroll succeeds."
+      ],
+      "expect": [
+        "'…Come back when you've learned the rules.' and the bugbears' state becomes hostile, skipping the suspicious steps."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.20"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 20-stojanow-gate. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.stojanow-impostors-no-state-change",
+      "title": "Being caught as impostors does not change the bugbears' state",
+      "kind": "quirk",
+      "steps": [
+        "At Stojanow Gate location 5 fail the pass roll: 'Hey, wait a minute. They are impostors!…'",
+        "Flee, then approach again."
+      ],
+      "expect": [
+        "The encounter acts as hostile once, but the stored attitude is unchanged and the pass can be retried."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.20",
+        "game text ECL2.DAX block 9 at 0x9f85 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 20-stojanow-gate. Game text: \"'WHAT? I THINK THESE SCUM ARE IMPOSTERS!'\" Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.stojanow-alarm-inert",
+      "title": "The Stojanow Gate alarm does nothing",
+      "kind": "quirk",
+      "steps": [
+        "Set off the alarm at Stojanow Gate.",
+        "Walk the area for an hour of game time."
+      ],
+      "expect": [
+        "No extra patrols come."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.20",
+        "Clue Book p.43"
+      ],
+      "disagreements": [
+        "Clue Book p.43: the alarm brings patrols for an hour. [P]: setting off the alarm here does nothing (a bug)."
+      ],
+      "coveredBy": [],
+      "notes": "Also covered by area file 20-stojanow-gate. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.stojanow-tower-fight-both-towers",
+      "title": "The tower-guard fight at 13 includes both towers",
+      "kind": "quirk",
+      "steps": [
+        "Kill one tower's guards and the bugbear patrol.",
+        "Go to Stojanow Gate location 13."
+      ],
+      "expect": [
+        "The fight is 2 LEVEL 6 MU, 2 AIDES, 6 ETTIN (3042 XP), as if both towers were alive."
+      ],
+      "branches": [],
+      "fights": [
+        "2 LEVEL 6 MU, 2 AIDES, 6 ETTIN (3042 XP)"
+      ],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.20"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 20-stojanow-gate. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.stojanow-flee-bugbears-crash",
+      "title": "Fleeing the bugbears at Stojanow Gate location 8 crashes the game",
+      "kind": "quirk",
+      "steps": [
+        "Kill both towers' guards, leave the bugbears alive.",
+        "Approach location 8 from the north; the bugbears confront you.",
+        "Choose Flee."
+      ],
+      "expect": [
+        "The original crashes."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.20"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 20-stojanow-gate. Any other choice leads to a fight whose win clears the block. As with the Wealthy Area crash, record what the port does; do not turn it into a working flee. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.hedge-maze-abusive-check-inverted",
+      "title": "The false Tyranthraxus Abusive check is inverted",
+      "kind": "quirk",
+      "steps": [
+        "At the false Tyranthraxus in the Hedge Maze Parley Abusive with PS + Charisma modifier below 85, then with 85 or more."
+      ],
+      "expect": [
+        "Below 85: he confesses \"'ALL RIGHT. I'M NOT TYRANTHRAXUS. HE JUST HIRED ME TO IMPERSONATE HIM.\" and letting him go gives his treasure.",
+        "85 or more: treated like Haughty."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.22",
+        "game text ECL5.DAX block 5 at 0xa9f3 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.51 lists the false Tyranthraxus under the Inner Tower lower level; [P] puts him at Hedge Maze location 5 (ECL 5). The game text is in block 5."
+      ],
+      "coveredBy": [],
+      "notes": "Also covered by area file 22-hedge-maze. A weaker party succeeds where a stronger one fails; [P] notes the logic is backwards. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.inner-tower-tyranthraxus-refight",
+      "title": "Tyranthraxus is never flagged as defeated",
+      "kind": "quirk",
+      "steps": [
+        "Defeat TYRANITHRAXUS at Inner Tower 8 and collect the reward in New Phlan.",
+        "Return to Inner Tower 8."
+      ],
+      "expect": [
+        "He is there again and can be fought and beaten again."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.23 ('the \"defeated\" flag is written to the wrong location')"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCastleEnding"
+      ],
+      "notes": "Also covered by area file 23-inner-tower. verifyCastleEnding covers the first victory only. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.library-commission-unresolvable-v1-0",
+      "title": "Mendor's Library commission #3 may be unresolvable (v1.0)",
+      "kind": "quirk",
+      "steps": [
+        "Clear Mendor's Library (basilisk and spectre) and report to the clerk."
+      ],
+      "expect": [
+        "v1.0: commission #3 may never resolve.",
+        "v1.3: clearing the library resolves #3 and the clerk pays 200 pp, 250 gold (208 XP)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.0 clerk commission list (#3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "VERSION-SPECIFIC: v1.0 only. Do not require it. 1.3 must resolve the commission. Also covered by area file 05-mendors-library. qa/findings.json guides-describe-v1-3 notes the New Phlan script (ECL3 block 0) is 3 bytes longer in 1.3."
+    },
+    {
+      "id": "acceptance.quirks.scripting.kutos-catacombs-hoard-vanishes",
+      "title": "Norris's hoard vanishes if not claimed promptly",
+      "kind": "quirk",
+      "steps": [
+        "Beat Norris the Gray in the catacombs.",
+        "Leave the Kuto's Well area without taking the hoard at 13 (13,1).",
+        "Return to (13,1)."
+      ],
+      "expect": [
+        "The hoard of 20 gems, 92 gold, 2300 silver (867 XP) is gone."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "20 gems, 92 gold, 2300 silver"
+      ],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.4"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 04-kutos-well-catacombs. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.scripting.valjevo-al-hyam-dazid-twice",
+      "title": "Al-Hyam Dazid is fought at both Valjevo Castle and Zhentil Keep",
+      "kind": "quirk",
+      "steps": [
+        "Kill AL-HYAM DAZID (#86) at Zhentil Keep (wave 2 at location 5).",
+        "Go to the Hedge Maze 1 NW (5,4)."
+      ],
+      "expect": [
+        "He is there again; Attack gives AL-HYAM DAZID (#86) (1423 XP) with Bracers AC 3, Ring of Fire Resistance, Wand of Lightning (20)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Scripting (§13.2 plus area notes)",
+        "[P] digest §3.22",
+        "[P] digest §3.18"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Also covered by area file 22-hedge-maze. §5 files this under 'Valjevo Castle'; the digest's location for him is in §3.22 (Hedge Maze). Also see 18-zhentil-keep-outpost and 21-valjevo-castle. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.no-class-minima-no-aging",
+      "title": "Class minimum stats are not enforced; no aging penalties or death from old age",
+      "kind": "quirk",
+      "steps": [
+        "Modify a character's prime requisite below its class minimum and play.",
+        "Age a character with repeated Haste and read its stats."
+      ],
+      "expect": [
+        "The character keeps its class.",
+        "Ability scores do not change with age and no character dies of old age."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.no-learn-roll-no-spell-failure",
+      "title": "No Intelligence roll to learn spells; no cleric spell failure below Wisdom 13",
+      "kind": "quirk",
+      "steps": [
+        "Scribe a scroll with an Intelligence 9 magic-user.",
+        "Cast spells with a Wisdom 9 cleric many times."
+      ],
+      "expect": [
+        "Scribing always succeeds.",
+        "The low-Wisdom cleric's spells never fail."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.thief-dex-typos",
+      "title": "Dex 10 Pick Pockets -19% and Dex 16 Open Locks -5% are typos in the game's table",
+      "kind": "quirk",
+      "steps": [
+        "Read thief skills at Dexterity 9, 10, 11 and 15, 16, 17."
+      ],
+      "expect": [
+        "Dex 10 applies -19% to Pick Pockets.",
+        "Dex 16 applies -5% to Open Locks."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)",
+        "[P] digest §4 Character creation and stats (Dexterity)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.dex-penalty-removed-with-bonus",
+      "title": "Losing the Dexterity AC bonus also removes Dexterity penalties",
+      "kind": "quirk",
+      "steps": [
+        "Put a low-Dexterity character (AC penalty) into a state that removes the Dexterity AC bonus (held, asleep, attacked from behind).",
+        "Read the d20 needed to hit it."
+      ],
+      "expect": [
+        "The Dexterity penalty is dropped along with any bonus."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. The digest does not list which states strip the Dexterity adjustment. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.class-permissions",
+      "title": "True-neutral clerics are allowed; thieves may use shields; blindness does not make enemies invisible",
+      "kind": "quirk",
+      "steps": [
+        "Create a true neutral cleric.",
+        "Ready a shield on a thief.",
+        "Blind a character and let it attack."
+      ],
+      "expect": [
+        "The cleric can be true neutral.",
+        "The thief can ready the shield.",
+        "The blinded attacker takes the blindness penalty (+4) but not the invisible-target penalty."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.hold-person-and-spiritual-hammer",
+      "title": "Hold Person saves vs spell; Spiritual Hammer has a flat +1",
+      "kind": "quirk",
+      "steps": [
+        "Cast Hold Person with fixed saves at the spell and the paralysis numbers.",
+        "Cast Spiritual Hammer at caster levels 3 and 6 and read the to-hit and damage bonus."
+      ],
+      "expect": [
+        "Hold Person uses the save vs spell.",
+        "Spiritual Hammer is +1 at every level."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.animate-dead",
+      "title": "Animate Dead raises with full hit points at any range",
+      "kind": "quirk",
+      "steps": [
+        "Cast Animate Dead on a dead character or monster far from the caster.",
+        "Read its HP."
+      ],
+      "expect": [
+        "It rises with full HP, whatever the range."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Clerics lose Animate Dead on transfer to Curse (digest §6). Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.cause-disease",
+      "title": "Cause Disease lasts 1d6 x 10 minutes",
+      "kind": "quirk",
+      "steps": [
+        "Cast Cause Disease with a fixed d6 and read the clock when the effect ends."
+      ],
+      "expect": [
+        "Duration is 1d6 x 10 minutes."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.raise-dead",
+      "title": "Raise Dead never fails and works on elves",
+      "kind": "quirk",
+      "steps": [
+        "Raise a dead elf and a dead low-Constitution human at a temple."
+      ],
+      "expect": [
+        "Both return to life every time."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)",
+        "[P] digest §4 Spells (Temple services)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.enlarge-reduce-shield",
+      "title": "Enlarge is slightly strong at caster levels 1-2; Reduce only dispels Enlarge; Shield gives a fixed AC 3",
+      "kind": "quirk",
+      "steps": [
+        "Cast Enlarge from level 1 and 2 casters; cast Reduce on a normal character; cast Shield and read AC."
+      ],
+      "expect": [
+        "Enlarge gives Strength 18 at level 1 and the next column at level 2.",
+        "Reduce on a normal character does nothing.",
+        "Shield sets AC to 3."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)",
+        "[P] digest §4 Spells",
+        "[P] digest §4 Combat formulas (AC order)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.ray-of-enfeeblement-haste-slow",
+      "title": "Ray of Enfeeblement is a flat -25%; Haste and Slow do not affect initiative",
+      "kind": "quirk",
+      "steps": [
+        "Cast Ray of Enfeeblement at different caster levels and read the target's damage.",
+        "Roll initiative for a Hasted and a Slowed character with fixed d6."
+      ],
+      "expect": [
+        "The reduction is always 25%.",
+        "Initiative is d6 + Dexterity modifier regardless of Haste or Slow."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. The digest does not say what the 25% is taken from (Strength or damage). Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.protection-from-normal-missiles",
+      "title": "Protection from Normal Missiles does nothing against magical missiles",
+      "kind": "quirk",
+      "steps": [
+        "Cast it on a character; shoot it with plain arrows and with Arrows +1."
+      ],
+      "expect": [
+        "Plain arrows are stopped; magical ones hit as normal."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.polearm-damage-types",
+      "title": "Damage types are wrong for the bec de corbin, military fork, ranseur and trident",
+      "kind": "quirk",
+      "steps": [
+        "Attack a monster that resists one damage type with each of the four weapons."
+      ],
+      "expect": [
+        "Each weapon uses the damage type the game's table gives it, which differs from the rules."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. The digest does not give the types; read them from the item table. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.cloaks",
+      "title": "Non-random Cloaks of Displacement give no save bonus; the Cloak of Elvenkind works indoors",
+      "kind": "quirk",
+      "steps": [
+        "Wear the Cloak of Displacement found at a fixed location (Mendor's Library, location 5) and roll saves.",
+        "Wear a Cloak of Elvenkind indoors."
+      ],
+      "expect": [
+        "No save bonus from the fixed-location cloak.",
+        "The Cloak of Elvenkind has its effect indoors."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)",
+        "[P] digest §3.5"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.magic-armor-and-ring-saves",
+      "title": "Magic armor never gives a save bonus; Rings of Protection rarely do",
+      "kind": "quirk",
+      "steps": [
+        "Roll saves wearing Plate Mail +1, then a Ring of Protection +1 found as treasure, then the THEURGIST's Ring of Protection +1."
+      ],
+      "expect": [
+        "Armor gives no save bonus.",
+        "Only the THEURGIST's ring gives one."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)",
+        "[P] digest §4 NPCs (hall 14): 'the only ring whose save bonus works'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.wand-of-paralyzation",
+      "title": "The Wand of Paralyzation saves vs paralyzation",
+      "kind": "quirk",
+      "steps": [
+        "Use the wand (Yarash carries one with 23 charges) on a target with fixed saves."
+      ],
+      "expect": [
+        "The save column is paralyzation, not rod/staff/wand."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)",
+        "[P] digest §3.15"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.monster-gear",
+      "title": "Monster gear grants no effects and armor does not slow monsters",
+      "kind": "quirk",
+      "steps": [
+        "Fight a monster listed as carrying a magic item (the 8TH LVL FIGHTER's Ring of Protection +3) and read its AC and saves.",
+        "Read the movement of armored monsters."
+      ],
+      "expect": [
+        "Items carried by monsters do not change their statistics.",
+        "Armor does not reduce a monster's movement."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)",
+        "[P] digest §3.0 City guard"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.scorpions-are-snakes",
+      "title": "Scorpions count as snakes",
+      "kind": "quirk",
+      "steps": [
+        "Cast Snake Charm on a scorpion."
+      ],
+      "expect": [
+        "It is affected as a snake."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. The digest does not say where scorpions are met. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.trolls",
+      "title": "Trolls stay down only if all damage dealt to them was fire or acid; regeneration starts 3 minutes after damage",
+      "kind": "quirk",
+      "steps": [
+        "Kill a troll using only fire (flasks of oil, Fireball); kill another with one sword hit plus fire.",
+        "Wait and watch for it to stand up."
+      ],
+      "expect": [
+        "A troll killed by fire or acid alone stays dead.",
+        "Any other damage in the total lets it regenerate; regeneration starts 3 minutes after damage."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Trolls: Slums location 20 (01-slums). Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.displacer-beasts",
+      "title": "Displacer beasts are not displaced and are Lawful Good",
+      "kind": "quirk",
+      "steps": [
+        "Attack a DISPLACER BEAST as the first attack of the fight with a d20 that hits.",
+        "Cast Protection from Evil and let it attack."
+      ],
+      "expect": [
+        "The first attack is not forced to miss.",
+        "Its alignment is Lawful Good (observable through alignment-dependent effects such as Protection from Evil)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Met in the central wilderness and the Grove with Pool lair (11-wilderness, 12-wilderness-lairs). Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.driders",
+      "title": "Driders do not penalise the save",
+      "kind": "quirk",
+      "steps": [
+        "Save against a DRIDER's spell with a fixed d20 at the unmodified number."
+      ],
+      "expect": [
+        "No penalty is applied."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)",
+        "Clue Book p.58"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. The digest does not say which save. Clue Book p.58: driders 'know spells as powerful as any spell caster in Pool of Radiance'. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.efreeti",
+      "title": "Efreeti cannot cast spells",
+      "kind": "quirk",
+      "steps": [
+        "Fight EFREETI (#124) from the Kobold Caves bottle, or release EFREETI (#70) at the vampire."
+      ],
+      "expect": [
+        "The efreeti only attacks physically."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)",
+        "[P] digest §3.14",
+        "[P] digest §3.19"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.adaptational.mummy-fear",
+      "title": "The mummy fear aura ignores the opponent ratio",
+      "kind": "quirk",
+      "steps": [
+        "Meet mummies with a party of 6 or more and roll the fear save with a fixed d20."
+      ],
+      "expect": [
+        "The +1 save bonus for a party of 6+ is given without checking how many mummies there are."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Adaptational (§13.3)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Difference from the AD&D rules that the game keeps. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.other.charmed-enemies",
+      "title": "Charmed enemies vanish with their treasure and give no XP",
+      "kind": "quirk",
+      "steps": [
+        "Charm one monster in a fight and win with it still charmed (shown blue).",
+        "In another fight kill the charmed monster yourself.",
+        "Read XP and the treasure list."
+      ],
+      "expect": [
+        "A charmed survivor disappears after combat and its treasure is not offered.",
+        "Killing a charmed monster gives no XP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Other documented quirks",
+        "Clue Book p.61"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.61 agrees on the treasure: 'he left with it'. It adds that attacking a charmed enemy makes party NPCs turn on you. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.other.sleep-range",
+      "title": "Sleep's range is 3 + 4 per level",
+      "kind": "quirk",
+      "steps": [
+        "Aim Sleep with a level 1 and a level 2 magic-user and find the farthest square accepted."
+      ],
+      "expect": [
+        "Range is 3 + 4 per caster level (7 at level 1, 11 at level 2), not 3 + 1 per level."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Other documented quirks",
+        "Clue Book p.61, p.63-64"
+      ],
+      "disagreements": [
+        "Clue Book p.61 says sleep 'has a comparatively short range'; the chart on p.63-64 is not legible for this row."
+      ],
+      "coveredBy": [],
+      "notes": "Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.other.elf-resistance-vs-clone",
+      "title": "Elves keep sleep and charm resistance against a duel clone; the clone does not get it",
+      "kind": "quirk",
+      "steps": [
+        "Duel with an elf magic-user in hall 14. Have the clone cast Sleep at the elf and the elf cast Sleep at the clone, fixed dice."
+      ],
+      "expect": [
+        "The player's elf resists 90% of the time.",
+        "The clone gets no racial resistance."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Other documented quirks",
+        "[P] digest §3.0 Hall 14"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.other.npc-fireballs-own-party",
+      "title": "NPC magic-users may Fireball your own party",
+      "kind": "quirk",
+      "steps": [
+        "Take a THEURGIST into a fight where enemies stand next to party members."
+      ],
+      "expect": [
+        "An NPC magic-user can target a Fireball that catches the party.",
+        "[P]: this is 'more likely in v1.0 than in v1.3'."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Other documented quirks",
+        "Clue Book p.55"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "VERSION NOTE: 1.3 should show it less often than v1.0; the digest gives no rate, so only 'possible' can be asserted. Clue Book p.55 says the computer 'normally aborts an offensive spell if the computer sees an ally in the target area'. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.other.random-item-glitches",
+      "title": "Random-item glitches give nameless items; the Wand of Lightning cannot be rolled",
+      "kind": "quirk",
+      "steps": [
+        "Force random magic item generation with dice giving weapon/armor rolls 48-49, Javelin type 5, potion type 11, wand type 4."
+      ],
+      "expect": [
+        "Each of those rolls produces an item with no name.",
+        "No roll produces a Wand of Lightning."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Other documented quirks"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The 'random-item fixes' are among the optional patches not to apply. Wands of Lightning exist only as fixed loot (Al-Hyam Dazid, Genheeris). Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.other.raise-dead-con-zero",
+      "title": "Raise Dead can drive Constitution down to 0",
+      "kind": "quirk",
+      "steps": [
+        "Raise the same character at a temple once per point of Constitution."
+      ],
+      "expect": [
+        "Constitution reaches 0 and the character still lives; Con 0 gives +8 HP per level."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Other documented quirks",
+        "[P] digest §5 Exploits item 3"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.other.item-theft-sources",
+      "title": "Item theft comes only from tavern pickpockets, the Kobold Caves, bribes and surrenders",
+      "kind": "quirk",
+      "steps": [
+        "Trigger each: New Phlan tavern pickpocket; Kobold Caves; paying a bribe; surrendering."
+      ],
+      "expect": [
+        "Each can remove items.",
+        "No other event in the game takes items."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Other documented quirks",
+        "[P] digest §3.0 Tavern",
+        "[P] digest §4 NPCs: 'NPCs never actually take items'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "'No other event' cannot be proved by a test; assert the four positive cases. qa/inventory/classic.json: opcode 28 ROB has 14 uses in the scripts. Applies to v1.3 as far as the digest says (no version limit given); a faithful port must reproduce it."
+    },
+    {
+      "id": "acceptance.quirks.other.optional-patches-not-applied",
+      "title": "The seven optional [P] patches are not applied",
+      "kind": "quirk",
+      "steps": [
+        "Confirm each documented original behaviour is present in the build under test:",
+        "1. Copy protection: the code-wheel prompt is shown (GOG 1.3 accepts any answer; that patch is GOG's, inside the shipped program).",
+        "2. Paralysis saves: the Con save bonus applies to paralysis and death; Hold Person saves vs spell.",
+        "3. ECL opcode 23 (SURPRISE) applies the wrong modifiers.",
+        "4. ECL opcode 34 (ECL CLOCK) behaves as in the original.",
+        "5. ECL opcode 3B (SPELL) does nothing.",
+        "6. Mirror Image does not stop physical attacks.",
+        "7. Random-item generation still yields nameless items and never a Wand of Lightning."
+      ],
+      "expect": [
+        "None of the seven fixes is present: copy protection removal, paralysis save fixes, the ECL 23 fix, the ECL 34 fix, the ECL 3B fix, the Mirror Image fix, and the random-item fixes."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §5 Other documented quirks",
+        "qa/findings.json classic-copy-protection",
+        "qa/inventory/classic.json classic.ecl.op-34 (ECL CLOCK, 1 use)"
+      ],
+      "disagreements": [
+        "Copy protection: [P] treats removal as an optional patch; GOG's 1.3 already neutralises the check. Owner's ruling (qa/findings.json classic-copy-protection): Classic follows GOG."
+      ],
+      "coveredBy": [],
+      "notes": "The digest never says what is wrong with ECL opcode 34; the only other mention is this bullet. Item 4 is therefore not checkable beyond 'unmodified'. See technical.con-save-bonus-scope, technical.ecl-surprise-opcodes, technical.ecl-spell-opcode, technical.mirror-image, other.random-item-glitches."
+    }
+  ]
+}

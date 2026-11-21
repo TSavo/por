@@ -1,0 +1,424 @@
+{
+  "schema": 1,
+  "id": "acceptance.ending",
+  "title": "Ending and victory conditions",
+  "guideSection": "6",
+  "scripts": [
+    "ECL 7",
+    "ECL 8"
+  ],
+  "commission": "Commission #15",
+  "prerequisites": [
+    "Party stands at or can reach Inner Tower location 8 (3,8).",
+    "For the clerk's reward: the party can walk to City Hall in New Phlan (script ECL 8; game text ECL3.DAX block 8).",
+    "Commission #15 held for the standard path; the win-from-the-start scenario deliberately has none.",
+    "The ending code is in overlay slice 18 (src/translated/ovl18.ts); the script text is ECL5.DAX block 7."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.ending.victory-conditions",
+      "title": "Win the game",
+      "kind": "main",
+      "steps": [
+        "At Inner Tower location 8 (3,8) defeat the 12 8TH LVL FIGHTER (#85).",
+        "At the vote choose ATTACK for at least one party member.",
+        "Defeat TYRANITHRAXUS (#66)."
+      ],
+      "expect": [
+        "The ending sequence plays: Bane drags Tyranthraxus into the pool.",
+        "The party is returned to New Phlan."
+      ],
+      "branches": [
+        "Refuse and win: victory.",
+        "Everyone joins: the losing ending.",
+        "Party killed: ordinary defeat."
+      ],
+      "fights": [
+        "12 8TH LVL FIGHTER (#85), 8390 XP.",
+        "TYRANITHRAXUS (#66), 611 XP per the digest."
+      ],
+      "data": [
+        "Win = defeat the 12 guards, refuse to join, defeat TYRANITHRAXUS (#66) at Inner Tower 8.",
+        "[P]: 'No mission is absolutely necessary ... except for defeating Tyranthraxus.'"
+      ],
+      "sources": [
+        "[P] digest §6",
+        "[P] digest §3.23",
+        "game text ECL5.DAX block 7 at 0xa56c, 0xa6a7, 0xa74c (src/audio/voice-master-manifest.json)",
+        "src/translated/ovl18.ts (overlay slice 18 'Endgame' per qa/inventory/classic.json; machine-translated instructions, not read for behaviour)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCastleEnding (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The fights and the vote are specified step by step in acceptance.inner-tower. verifyCastleEnding covers this path, in one mode with the developer command ':win-combat'."
+    },
+    {
+      "id": "acceptance.ending.losing-ending-all-join",
+      "title": "The losing ending: everyone joins Tyranthraxus",
+      "kind": "main",
+      "steps": [
+        "Defeat the 12 guards.",
+        "At HOW DO YOU VOTE? choose JOIN TYRANTHRAXUS for every party member."
+      ],
+      "expect": [
+        "The game ends.",
+        "No Tyranthraxus fight, no return to New Phlan, no clerk reward."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Menu: ATTACK / JOIN TYRANTHRAXUS.",
+        "[P]: 'If everyone joins, the game ends.'"
+      ],
+      "sources": [
+        "[P] digest §6",
+        "[P] digest §3.23",
+        "game text ECL5.DAX block 7 at 0xa73c, 0xa74c (src/audio/voice-master-manifest.json)",
+        "src/translated/ovl18.ts (overlay slice 18 'Endgame' per qa/inventory/classic.json; machine-translated instructions, not read for behaviour)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says only that the game ends; it gives no text or picture, and the script block holds none after the vote menu. The code is in overlay slice 18 (src/translated/ovl18.ts), which was confirmed to exist but not read for behaviour. A test author must capture what the original shows (and whether it returns to DOS or the title) before asserting more than 'the game ends'. No replay covers it."
+    },
+    {
+      "id": "acceptance.ending.mixed-vote",
+      "title": "Some join, some attack",
+      "kind": "optional",
+      "steps": [
+        "Defeat the guards.",
+        "Vote JOIN TYRANTHRAXUS for one character and ATTACK for the rest."
+      ],
+      "expect": [
+        "The game does not end; the Tyranthraxus fight takes place."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Good and neutral NPCs always fight; Genheeris fights; other evil NPCs join him."
+      ],
+      "sources": [
+        "[P] digest §6",
+        "[P] digest §3.23"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest states the two ends (all refuse, all join) and that evil NPCs join him, but not what becomes of a character who joins while others fight. Not specifiable beyond 'the game does not end' until the script is read."
+    },
+    {
+      "id": "acceptance.ending.ending-graphics-by-party-size",
+      "title": "Ending graphics vary with party size",
+      "kind": "main",
+      "steps": [
+        "Win the final fight with a party of 1; record the ending pictures.",
+        "Repeat with parties of 2, 3, 4 and 6."
+      ],
+      "expect": [
+        "Four distinct variants: one for 1 member, one for 2, one for 3, one for 4 or more.",
+        "Parties of 4 and 6 show the same variant."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Variants: 1, 2, 3, 4+ party members."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "src/translated/ovl18.ts (overlay slice 18 'Endgame' per qa/inventory/classic.json; machine-translated instructions, not read for behaviour)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says only that 'the graphics vary for 1, 2, 3 or 4+ party members'; it does not describe the pictures, say whether NPCs or dead characters count, or give any text. The ending code is in src/translated/ovl18.ts (overlay slice 18, 'Endgame', per qa/inventory/classic.json, whose gap note says behaviour is exercised only where a replay passes). Expected frames must be captured from the original."
+    },
+    {
+      "id": "acceptance.ending.return-to-new-phlan",
+      "title": "The party returns to New Phlan",
+      "kind": "main",
+      "steps": [
+        "After the ending sequence the game prints: KNOWING THAT TYRANTHRAXUS HAS FINALLY BEEN DEFEATED, YOU LEAVE THE CASTLE. MOVING THROUGH THE STREETS YOU CATCH OCCASIONAL GLIMPSES OF MONSTERS IN HIDING. NONE ATTACK.",
+        "The game prints: FINALLY YOU ENTER THE CIVILIZED AREA OF PHLAN.",
+        "Read the party's area and position."
+      ],
+      "expect": [
+        "The party is in the civilized area of New Phlan with all surviving members.",
+        "The replay asserts position 0,4 facing east and the text 'gateway to the unsettled areas'."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "[P]: the party 'returns to New Phlan victoriously'."
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "[P] digest §6",
+        "Clue Book p.51-52",
+        "game text ECL5.DAX block 7 at 0xa82d, 0xa8b2 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCastleEnding (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The arrival square is taken from the replay's assertion, not from the digest. The digest does not say whether game time advances or whether the party is healed."
+    },
+    {
+      "id": "acceptance.ending.final-reward",
+      "title": "The clerk pays Commission #15",
+      "kind": "main",
+      "steps": [
+        "Walk to the council clerk in City Hall.",
+        "During the reward check the clerk prints: CONGRATULATIONS! YOUR QUEST IS OVER! TYRANTHRAXUS IS DEFEATED! PHLAN IS FREE! IF YOU WISH, YOU MAY CONTINUE TO HELP US CLEAR ANY REMAINING MONSTERS. ALL PHLAN SALUTES YOU!, then HERE IS YOUR REWARD.'",
+        "Read treasure and XP.",
+        "Visit the clerk again."
+      ],
+      "expect": [
+        "The party receives 100 jewelry and 200 gems.",
+        "Each character gains 45000 XP per the digest.",
+        "The reward is paid once."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Commission #15 reward: 100 jewelry, 200 gems (45000 XP).",
+        "[CB]: 'the recently recovered Crown Jewels of Ancient Phlan'.",
+        "[GB]: 'over 250,000 experience points' (digest: consistent with 45000 x 6)."
+      ],
+      "sources": [
+        "[P] digest §6",
+        "[P] digest §3.0 (commission table)",
+        "Clue Book p.51-52",
+        "game text ECL3.DAX block 8 at 0xa421, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] (digest): 45000 XP per character. The replay verifyCastleEnding asserts 'receives 67500 experience points' at this reward, 1.5 times 45000 (the same ratio as its 917 against the digest's 611 for Tyranthraxus). The cause was not examined.",
+        "[P]: 100 jewelry, 200 gems. Clue Book p.52: 'you receive the recently recovered Crown Jewels of Ancient Phlan and the generous thanks of the city council.' No count in the Clue Book."
+      ],
+      "coveredBy": [
+        "verifyCastleEnding (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "verifyCastleEnding asserts 'your quest is over ... tyranthraxus is defeated ... phlan is free' and then the XP line; it also checks port journal leads (commission-castle: ready-to-report, reward-pending, turned-in; objective title 'Phlan is free'), which are a port feature. The digest does not say whether the reward is paid when #15 was never formally accepted (see win-from-the-start)."
+    },
+    {
+      "id": "acceptance.ending.continued-play",
+      "title": "Play continues after victory",
+      "kind": "optional",
+      "steps": [
+        "After the final reward, leave City Hall.",
+        "Enter an uncleared block or the wilderness and fight a random encounter.",
+        "Read the proclamations at City Hall once 10 tracker quests are done.",
+        "Save, reload, train and shop."
+      ],
+      "expect": [
+        "The game does not end; fights, XP, treasure, saving and training still work.",
+        "With 10 tracker quests complete the proclamation posted is LIX."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Proclamation after 10 quests: LIX (Journal p.13-15: clear any block).",
+        "Clerk: 'IF YOU WISH, YOU MAY CONTINUE TO HELP US CLEAR ANY REMAINING MONSTERS.'"
+      ],
+      "sources": [
+        "[P] digest §6",
+        "Clue Book p.51-52",
+        "Adventurer's Journal p.13-15 (proclamation LIX)",
+        "game text ECL3.DAX block 8 at 0xa421 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.52 agrees: 'You may continue to wander through the wilderness and uncleared blocks if you wish to continue to fight monsters and gain additional XP and treasure.'"
+      ],
+      "coveredBy": [
+        "verifyCastleEnding (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The digest adds: 'Resting outside inns, forcing Braccio's office and entering closed shops may be tolerated.' That sentence is too vague to assert (it says 'may'), and its source behaviour is not described; record what the game does and do not require it. The replay reloads the completed save and checks the port journal only."
+    },
+    {
+      "id": "acceptance.ending.win-from-the-start",
+      "title": "Go straight to the final confrontation",
+      "kind": "optional",
+      "steps": [
+        "With a party that has accepted no commissions, travel Podal Plaza E4 to Stojanow Gate, pass or force the gate, cross Valjevo Castle and the Hedge Maze, and enter the Inner Tower.",
+        "Walk to location 8 at (3,8)."
+      ],
+      "expect": [
+        "The final confrontation is offered exactly as for a party holding Commission #15: the dragon's speech, the guards, the vote, Tyranthraxus.",
+        "Winning plays the ending and returns the party to New Phlan."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "[P]: 'there's nothing actually stopping you from going straight to the final confrontation right from game start.'"
+      ],
+      "sources": [
+        "[P] digest §6",
+        "[P] digest §3 (preamble)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say what the clerk does afterwards for a party that never held #15 (the preamble says missions done unasked are 'still fully rewarded'). The replay's ending modes take a save 'with the assault assigned', so no replay covers this. Reaching the tower needs no quest item per the digest: the gate can be passed with the wagon or Knock, the hedge gate with RHODIA, Knock or force."
+    },
+    {
+      "id": "acceptance.ending.repeat-victory",
+      "title": "The final fight and ending can be repeated",
+      "kind": "quirk",
+      "steps": [
+        "After winning, return to Inner Tower location 8 at (3,8).",
+        "Defeat Tyranthraxus again."
+      ],
+      "expect": [
+        "He can be fought and defeated again, any number of times."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Digest §3.23: 'you can return and defeat him repeatedly, because the \"defeated\" flag is written to the wrong location.'"
+      ],
+      "sources": [
+        "[P] digest §3.23",
+        "[P] digest §5 (Scripting, Inner Tower)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Whether the ending sequence and the return to New Phlan repeat, and whether the clerk pays again, is not in the digest. Also specified in acceptance.inner-tower."
+    },
+    {
+      "id": "acceptance.ending.pyramid-endgame-flags",
+      "title": "Yarash's Pyramid can wrongly set the endgame flags",
+      "kind": "quirk",
+      "steps": [
+        "Play through Yarash's Pyramid (ECL 22/23) along the path that triggers the fault.",
+        "Read the endgame flags, then visit the clerk."
+      ],
+      "expect": [
+        "The endgame flags are set although Tyranthraxus has not been defeated."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Digest §5: 'Pyramid: can wrongly set the endgame flags.'",
+        "Digest §5 lists 'the ECL 23 fix' among seven [P] patches that should not be applied for a faithful port."
+      ],
+      "sources": [
+        "[P] digest §5 (Scripting, Pyramid; Other documented quirks)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no trigger, no flag names and no visible consequence, so this cannot be turned into a checkable scenario yet. It is listed so that a test author derives it from the ECL 23 script. The 'ECL 23 fix' in the patch list may refer to opcode 23 (SURPRISE) rather than script 23; the digest is ambiguous."
+    },
+    {
+      "id": "acceptance.ending.cadorna-is-dead-for-the-sequel",
+      "title": "Cadorna's fate",
+      "kind": "rule",
+      "steps": [
+        "At Valjevo Castle location 13 (SE (14,10)) choose KILL HIM. The game prints: WITH A QUICK STROKE YOU RELEASE HIM FROM THIS PAIN... TO ALL THE PAIN TO COME.",
+        "Visit the clerk."
+      ],
+      "expect": [
+        "The clerk prints: THE COUNCIL HAS NOTED THE PASSING OF THE TRAITOR CADORNA.'",
+        "No bounty is paid."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "[P]: 'The sequels behave as if Porphyrys Cadorna dies here.' 'The sequel treats Porphyrys Cadorna as dead.'"
+      ],
+      "sources": [
+        "[P] digest §6",
+        "[P] digest §3.21 (location 13)",
+        "[P] digest §3.0 (commission #13)",
+        "game text ECL5.DAX block 3 at 0xb15c (src/audio/voice-master-manifest.json)",
+        "game text ECL3.DAX block 8 at 0xa55e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "What the sequel assumes is outside the game and not checkable in the port; only the in-game kill and the clerk's line are. Releasing or leaving him has no effect on the ending per the digest."
+    },
+    {
+      "id": "acceptance.ending.transfer-remove-characters",
+      "title": "Prepare characters for transfer: remove them at a training hall",
+      "kind": "optional",
+      "steps": [
+        "After victory make sure no character is under a Potion of Giant Strength.",
+        "Go to a training hall and Remove each character from the party.",
+        "Read the character files written by the game."
+      ],
+      "expect": [
+        "Each removed character is written to its own character file with current XP, stats and spells.",
+        "A character with Strength set to 18(00) by Gauntlets or Enlarge is saved with that Strength."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Curse-created characters start at 25,000 XP, so a transfer is worthwhile above that.",
+        "Step 2 of the digest: no Potion of Giant Strength; effects that set Strength to 18(00) are fine and the transfer makes them permanent."
+      ],
+      "sources": [
+        "[P] digest §6",
+        "[P] digest §5 (Exploits 4: Restart with your characters)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Only the in-game part is checkable in the port: Remove at a training hall produces a character file. The digest does not give the Pool of Radiance file layout; it names *.GUY and *.FX files and offsets only for the Curse side. NPCs cannot transfer. The port stores saves as JSON slots (tools/verify-fresh-party.mjs reads A.json to I.json), so whether it writes original-format character files at all is a question for the QA owner."
+    },
+    {
+      "id": "acceptance.ending.transfer-outside-the-game",
+      "title": "Transfer to Curse of the Azure Bonds: steps outside the game",
+      "kind": "optional",
+      "steps": [
+        "Run COPYCURS.EXE, selecting Other as the source and destination.",
+        "Start Curse and Add the characters from Pool; Remove them again immediately; exit Curse.",
+        "In a hex editor set each *.GUY file's offset 0x10 equal to 0x11.",
+        "For a paladin or ranger hack: create a new paladin or ranger in Curse; set offset 0x75 to 3 (paladin) or 4 (ranger); set 0x10B to 0; put the old fighter level at 0x10C (paladin) or 0x10D (ranger); copy the *.FX file from the new character under the transferred character's name.",
+        "Restart Curse and Add the fixed characters from Curse."
+      ],
+      "expect": [
+        "Not checkable in the port: every step here runs outside Pool of Radiance."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "COPYCURS.EXE: source and destination 'Other'.",
+        "Offset 0x10 = 0x11, otherwise Enlarge fails on transferred characters.",
+        "Offsets 0x75, 0x10B, 0x10C, 0x10D for the paladin/ranger hack.",
+        "A hacked paladin or ranger must gain a level to behave normally."
+      ],
+      "sources": [
+        "[P] digest §6"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "NOT CHECKABLE IN THE PORT. COPYCURS.EXE is a separate DOS program, and the hex edits are made to Curse's files with an outside tool. Recorded so the catalogue covers digest §6 in full; no test should be written for it. Step 1 of the digest (have enough XP for a level-up in Curse) is advice, not a check."
+    },
+    {
+      "id": "acceptance.ending.transfer-what-carries-over",
+      "title": "What carries over to Curse",
+      "kind": "rule",
+      "steps": [
+        "Compare a transferred character in Curse with its Pool of Radiance sheet."
+      ],
+      "expect": [
+        "Not checkable in the port: the comparison is made inside Curse of the Azure Bonds."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Stats of 19+ are rounded down to 18; Strength 19+ becomes 18, not 18(00).",
+        "Strength 18(00) from Gauntlets or Enlarge is kept, as are Dex 19 and Con 19.",
+        "Extra HP (from abnormal Con or the multi-class HP bug) is kept; multi-class characters may gain no HP the first time they train in Curse.",
+        "No items or money carry over; everyone starts with 300 platinum.",
+        "Magic-users keep their spells; clerics lose Animate Dead.",
+        "NPCs cannot transfer.",
+        "Hillsfar route: Pool -> Hillsfar -> Curse keeps high stats and avoids the Enlarge bug; levels gained in Hillsfar give no HP.",
+        "[CB]: 'Keep your party together ... through the next ... Curse of the Azure Bonds.'"
+      ],
+      "sources": [
+        "[P] digest §6",
+        "Clue Book p.51-52"
+      ],
+      "disagreements": [
+        "Within the digest: 'Stats of 19+ are rounded down to 18' against 'Dex 19 and Con 19' being kept. The digest does not reconcile the two lines."
+      ],
+      "coveredBy": [],
+      "notes": "NOT CHECKABLE IN THE PORT. These are properties of Curse's import and of Hillsfar. The in-game sources of the abnormal values (Con 22 via Manuals of Bodily Health, multi-class Constitution HP bonus wrong after level 1) are digest §5 quirks that belong to the mechanics files. The [NES] 'Character Sheets' passwords are a console feature to keep out of the DOS port."
+    }
+  ]
+}

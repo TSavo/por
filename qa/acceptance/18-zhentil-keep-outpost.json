@@ -1,0 +1,627 @@
+{
+  "schema": 1,
+  "id": "acceptance.zhentil-keep-outpost",
+  "title": "Zhentil Keep Outpost",
+  "guideSection": "3.18",
+  "scripts": [
+    "ECL 28"
+  ],
+  "commission": "Commission #13",
+  "prerequisites": [
+    "Commission #13 (Zhentil Keep diplomatic mission) has been accepted. It needs Commission #5 resolved; the clerk sends the party to Senior Councilman Cadorna at City Hall location 31 (5,6), or gives it directly if the party learned at Valjevo Castle location 26 that Cadorna is a traitor (digest §3.0).",
+    "The party carries the sealed packet. It cannot be opened (digest §3.0).",
+    "The party can reach the wilderness map and fixed point i, wilderness (3,32).",
+    "The digest states no party level. The largest fight is COMMANDANT (#50) + AL-HYAM DAZID (#86) + 20 AIDES + 24 CORPORAL."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.zhentil-keep-outpost.enter-as-envoys",
+      "title": "Enter the outpost as diplomatic envoys",
+      "kind": "main",
+      "steps": [
+        "With the mission accepted walk onto wilderness (3,32). The game prints \"A GROUP OF MEN ON HORSEBACK RIDE OUT TO MEET YOU. THEIR LEADER SAYS, 'ARE YOU THE DIPLOMATIC ENVOYS FROM NEW PHLAN?' WHAT WILL YOU SAY?\" with YES / NO.",
+        "Choose YES. The game prints \"THE RIDERS ESCORT YOU INTO THE OUTPOST.\" and \"YOU ARE BEING ESCORTED INTO ZHENTIL OUTPOST.\"."
+      ],
+      "expect": [
+        "The party is on the Zhentil Keep Outpost map (ECL 28) at (7,0), being led."
+      ],
+      "branches": [
+        "NO: \"AFTER SAYING NO, THE RIDERS RETURN TO THE OUTPOST. BEFORE LEAVING, THEIR LEADER SAYS, 'YOU ARE TRESSPASSING ON PRIVATE LAND. I ADVISE YOU TO LEAVE.'\"; the party stays in the wilderness."
+      ],
+      "fights": [],
+      "data": [
+        "i = (3,32) (Western region; same in [P] and Clue Book coordinates). Entry (7,0).",
+        "Tavern Tale 15 (Zhentil merchants' trading base far to the west, Journal p.33-34)."
+      ],
+      "sources": [
+        "[P] §3.11 fixed point i",
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "Clue Book p.39-40",
+        "Adventurer's Journal p.33-34",
+        "game text ECL6.DAX block 25 at 0x9e7d, 0x9ee7, 0x9f7a, 0x9f02 (src/audio/voice-master-manifest.json)",
+        "game text ECL6.DAX block 28 at 0x9a85 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs --zhentil-tour-checkpoint (\"Verified the three Zhentil tour discoveries in order and after reloading.\")"
+      ],
+      "notes": "The existing replay starts from a save 'outside Zhentil Outpost at (3,31), facing west' and asserts '3,31 w', then presses down, enter, y; the digest gives the fixed point as (3,32). The envoy question (YES / NO) is not in the digest; it is in the game text. The digest does not say whether answering NO can be undone by walking onto the square again."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.turned-away-without-mission",
+      "title": "Without the mission the guards turn the party away",
+      "kind": "optional",
+      "steps": [
+        "Without Commission #13 walk onto wilderness (3,32). The game prints \"AS YOU APPROACH THE KEEP, A GROUP OF ARMED MEN ON HORESBACK RIDE OUT TO MEET YOU. THEIR LEADER SAYS 'YOU ARE TRESSPASSING ON PRIVATE LAND; LEAVE NOW OR FACE THE CONSQUENCES!'\" with STAY / LEAVE.",
+        "Case 1: choose LEAVE.",
+        "Case 2: choose STAY. Combat: 12 CORPORAL (#54). Win it."
+      ],
+      "expect": [
+        "Case 1: no fight; the party remains in the wilderness.",
+        "Case 2: each character gains 92 XP; the party is still not admitted."
+      ],
+      "branches": [],
+      "fights": [
+        "12 CORPORAL (#54), 92 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.11 fixed point i",
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "game text ECL6.DAX block 25 at 0x9fb6, 0xa03d, 0x9e27 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: 'entry only with the diplomatic mission. Otherwise guards tell you to leave; refusing -> 12 CORPORAL (#54), 92 XP.' It does not say whether the fight repeats on each refusal or what the square does after the mission is resolved. The block also has \"A GROUP OF ARMED GUARDS RIDE BY.\", trigger undocumented."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.commandant-and-tour",
+      "title": "Meet the Commandant and take the tour",
+      "kind": "main",
+      "steps": [
+        "After entry the game prints \"FROM HERE YOU SEE A LARGE INNER WALL AROUND THE CENTRAL KEEP. THIS AREA IS BUSY WITH MEN ENTERING AND LEAVING BARRACKS.\" and \"YOU ARE LED TOWARD THE CENTRAL KEEP.\".",
+        "The game prints \"YOU ARE INSIDE THE COMMANDANT'S OFFICE. HE GREETS YOU AND YOU HAND HIM THE PAPERS.\" and \"AFTER SKIMMING THROUGH THE PAPERS THE COMMANDANT SAYS, 'I WELCOME YOU AND HOPE YOU WILL JOIN ME FOR DINNER TONIGHT.' HE TELLS A GUARD TO GIVE YOU A TOUR OF THE OUTPOST.\".",
+        "Tour stop 1: \"THE GUARD GIVING THE TOUR SAYS 'HERE YOU SEE ONE OF OUR FINE BARRACKS. THERE ARE SIX OF THESE HERE AND EACH CAN HOLD OVER A 100 MEN.'\".",
+        "Tour stop 2: \"'HERE YOU SEE ONE OF OUR FINE WATCH TOWERS WHICH WERE BUILT BY THE FINEST STONE MASONS IN THE LAND.'\".",
+        "Tour stop 3: \"'FROM HERE YOU CAN ALSO SEE OUR SOLIDLY BUILT OUTSIDE WALL. THIS WALL HAS SURVIVED MANY ATTACKS, INCLUDING ONE FROM A DRAGON.'\".",
+        "The game prints \"THE GUARD SAYS 'THAT CONCLUDES THE TOUR. I WILL SHOW YOU TO YOUR QUARTERS.'\" and \"THE GUARD SAYS 'HERE ARE YOUR QUARTERS. DO NOT LEAVE THIS AREA.' HE THEN LEAVES.\"."
+      ],
+      "expect": [
+        "The packet has been handed over.",
+        "The party stands in its quarters at location 3 (5,0) and has control again.",
+        "The 'taken to your room' half of the completion condition is now met."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "3 = (5,0), the party's quarters."
+      ],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "Clue Book p.39-40",
+        "Location numbers differ: Clue Book 1 front gate, 2 guard towers, 3 commandant's quarters, 4 the party's quarters, 5 barracks, 6 stables; [P] 3 (5,0) the party's quarters, 5 (4,1) the big fight, 6 (6,8) dinner, B barracks, E1/E2/E3 exits",
+        "game text ECL6.DAX block 28 at 0x9b78, 0x9bda, 0x9c00, 0x9c46, 0x9ce0, 0x9d55, 0x9da7, 0x9e0e, 0x9e57 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs --zhentil-tour-checkpoint (\"Verified the three Zhentil tour discoveries in order and after reloading.\")"
+      ],
+      "notes": "The replay asserts the three tour lines ('fine barracks', 'fine watch towers', 'wall has survived many attacks'), the port's journal leads zhentil-tour-barracks / -watchtowers / -outer-wall, and 'here are your quarters'. The journal leads are a feature of the port, not of the original. The digest summarises all of this as 'You meet the Commandant, get a tour, and are taken to 3 (5,0)'. The party is led through gate E3, 'passable only when you are being led'."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.walk-or-relax",
+      "title": "In quarters: walk around or relax until dinner",
+      "kind": "main",
+      "steps": [
+        "In the quarters the game prints \"YOU ARE IN YOUR QUARTERS. WILL YOU WALK AROUND OR WILL YOU JUST RELAX UNTIL DINNER?\" with WALK AROUND / RELAX.",
+        "Choose RELAX (or encamp and rest).",
+        "The game prints \"AT DUSK A GUARD COMES BY TO ESCORT YOU TO DINNER.\"."
+      ],
+      "expect": [
+        "The game clock reads 14:00 when the party is led to dinner (digest).",
+        "The party is at location 6 (6,8), the officers' mess."
+      ],
+      "branches": [
+        "WALK AROUND: the party may leave the room (scenario leave-quarters-before-dinner)."
+      ],
+      "fights": [],
+      "data": [
+        "Dinner at 14:00 at 6 = (6,8)."
+      ],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "Clue Book p.39-40",
+        "Location numbers differ: Clue Book 1 front gate, 2 guard towers, 3 commandant's quarters, 4 the party's quarters, 5 barracks, 6 stables; [P] 3 (5,0) the party's quarters, 5 (4,1) the big fight, 6 (6,8) dinner, B barracks, E1/E2/E3 exits",
+        "game text ECL6.DAX block 28 at 0xa664, 0xa6a6, 0xa6eb (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Time: [P] 'Relax or rest until 14:00, when you are led to dinner'; the game text says 'AT DUSK A GUARD COMES BY'. 14:00 is not dusk; read the hour from the script."
+      ],
+      "coveredBy": [],
+      "notes": "Digest, Resting: 'before dinner, rest eventually leads you to dinner.' The digest does not say how long RELAX advances the clock."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.leave-quarters-before-dinner",
+      "title": "Leave the quarters before dinner and go back when told",
+      "kind": "optional",
+      "steps": [
+        "Choose WALK AROUND and walk out of the quarters before dinner.",
+        "The game prints \"THERE ARE FOUR GUARDS HERE. THEIR LEADER SAYS, 'YOU ARE RESTRICTED TO YOUR QUARTERS. RETURN TO THEM NOW.' WHAT WILL YOU DO?\" with RETURN / ATTACK / BRIBE.",
+        "Case 1: RETURN. The game prints \"YOU GO BACK TO YOUR QUARTERS.\".",
+        "Case 2: BRIBE. The game prints \"YOU'VE ANGERED THE GUARDS. THEY DEMAND THAT YOU RETURN TO YOUR QUARTERS. WHAT WILL YOU DO?\" with GO BACK INSIDE. / ATTACK GUARDS."
+      ],
+      "expect": [
+        "Case 1: the party is back at (5,0); nothing else changes and dinner still happens.",
+        "Case 2: the bribe is refused; choosing GO BACK INSIDE. returns the party to its quarters."
+      ],
+      "branches": [
+        "ATTACK (either menu): scenario attack-guards-before-dinner."
+      ],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "digest §5 Scripting: 'Zhentil Keep: ... you can leave your room before dinner'",
+        "game text ECL6.DAX block 28 at 0x9ec8, 0x9f2b, 0x9f54, 0x9f87, 0x9fcf (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest §5 lists being able to leave the room before dinner as a scripting quirk of the original; the port must allow it. The digest does not say whether a refused bribe costs money or which squares trigger the guards."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.attack-guards-before-dinner",
+      "title": "Attack the guards before dinner",
+      "kind": "optional",
+      "steps": [
+        "At the guards' demand choose ATTACK. The game prints \"YOU ATTACK THE GUARDS. THE GUARDS SOUND AN ALARM AND ATTACK.\". Combat: 4 GUARD. Win it.",
+        "The game prints \"MORE GUARDS COMMING RUNNING TOWARD YOU. THEIR LEADER YELLS 'SURRENDER OR DIE!' WHAT WILL YOU DO?\" with SURRENDER / ATTACK.",
+        "Choose ATTACK. Two waves follow, each 4 CORPORAL + 16 GUARD (\"MORE GUARDS RUSH UP TO ATTACK.\"). Win both.",
+        "Case 1: walk back to the quarters at (5,0).",
+        "Case 2: walk to exit E1 and leave."
+      ],
+      "expect": [
+        "Case 1: play continues 'as if nothing happened'; the dinner still takes place.",
+        "Case 2: the party leaves the outpost and the mission is complete (it was taken to its room and left by a means other than surrender)."
+      ],
+      "branches": [
+        "SURRENDER: scenario surrender-before-dinner."
+      ],
+      "fights": [
+        "4 GUARD; then two waves of 4 CORPORAL + 16 GUARD. XP not given."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "digest §5 Scripting: 'Zhentil Keep: dinner still happens after fighting guards'",
+        "game text ECL6.DAX block 28 at 0xa002, 0xa09a, 0xa0e7, 0xa19f, 0xa068 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Case 1 is a documented quirk of the original (dinner after fighting the garrison) that the port must reproduce. Trying to flee prints \"YOU TRY TO FLEE BUT ARE STOPPED BY SOME GUARDS.\"."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.surrender-before-dinner",
+      "title": "Surrender to the guards: stripped and thrown out",
+      "kind": "optional",
+      "steps": [
+        "After the 4-GUARD fight choose SURRENDER.",
+        "The game prints \"YOU SURRENDER. THEY STRIP YOU OF ALL POSSESSIONS AND TOSS YOU OUT INTO THE WILDERNESS.'\"."
+      ],
+      "expect": [
+        "Every character has no money and no items.",
+        "The party is on the wilderness map outside the outpost.",
+        "The mission is not complete."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Loss: all money and all items."
+      ],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "digest §5 Other documented quirks (item theft: surrenders)",
+        "game text ECL6.DAX block 28 at 0xa109, 0xa3b2 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the party can re-enter afterwards to finish the mission. A second capture line exists, \"YOU TRY TO RUN BUT ARE CAUGHT. YOU ARE CAPTURED, STRIPPED AND TOSSED OUT INTO THE WILDERNESS.\"; its trigger is not in the digest."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.dinner-pool-of-radiance-entry-46",
+      "title": "At dinner mention the Pool of Radiance: Entry 46",
+      "kind": "main",
+      "steps": [
+        "At dinner the game prints \"YOU ARRIVE AT THE OFFICERS MESS AND ARE SEATED WITH THE COMMANDANT AND HIS ADVISORS. A FINE MEAL OF ROAST BOAR IS SERVED WITH A HEARTY RED WINE.\" and \"THE COMMANDANT TURNS TO ONE OF THE CHARACTERS AND SAYS, 'SO, HOWS EVERYTHING IN PHLAN?' WHAT WILL YOU TALK ABOUT?\" with NOTHING / CITY / MAGIC / POLITICS.",
+        "Choose MAGIC. The game prints \"ONE OF THE COMMANDANT'S ADVISORS ASKS YOU IF YOU'VE HEARD OF ANY UNIQUE MAGICAL ITEMS OR PLACES?\" with DON'T TALK / LIE / MENTION POOL OF RADIANCE.",
+        "Choose MENTION POOL OF RADIANCE. The game prints \"AS YOU MENTION THE POOL OF RADIANCE THE COMMANDANT TELLS YOU A STORY ABOUT THAT VERY POOL. YOU ENJOY THE STORY AND COPY IT INTO YOUR JOURNAL UNDER ENTRY 46.\"."
+      ],
+      "expect": [
+        "The text names Journal Entry 46 (after-dinner story of Dirg and the pool, Adventurer's Journal p.29)."
+      ],
+      "branches": [
+        "LIE: \"YOU MAKE UP STORIES ABOUT WONDERFUL MAGICAL ITEMS AND PLACES. YOU CAPTIVATE EVERYONE SITTING AROUND YOU.\".",
+        "DON'T TALK: \"AS YOU DON'T ANSWER THE LAST QUESTION THE COMMANDANT SMILES SLIGHTLY AND SAYS, 'I SEE THAT YOU ARE NOT FOOLISH AND LOOSE TONGUED.'\"."
+      ],
+      "fights": [],
+      "data": [
+        "6 = (6,8). Journal Entry 46, p.29."
+      ],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "Clue Book p.39-40",
+        "Adventurer's Journal p.29 (entry 46)",
+        "game text ECL6.DAX block 28 at 0xa74e, 0xa7c2, 0xa81b, 0xae7e, 0xaec9, 0xb296, 0xb240, 0xb1d7, 0xb322 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "After a topic the game prints \"YOU CONTINUE YOUR CONVERSATION WITH THE COMMANDANT. WHAT WILL BE YOUR NEXT TOPIC OF DISSCUSION?\" and offers the topics again; the digest does not say how many topics one dinner allows. The digest quotes the opening as 'So, how's everything in Phlan?'; the game text has 'SO, HOWS EVERYTHING IN PHLAN?'."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.dinner-old-phlan-tirantikus",
+      "title": "At dinner discuss Old Phlan: Tirantikus",
+      "kind": "main",
+      "steps": [
+        "At the topic menu choose CITY. The game prints \"ARE YOU GOING TO TALK ABOUT NEW OR OLD PHLAN?\" with NEW / OLD.",
+        "Choose OLD. The game prints \"AS YOU TALK ABOUT OLD PHLAN'S INHABITANTS THE COMMANDANT SAYS 'I KNOW A LEGEND ABOUT A FIRE BEING CALLED TIRANTIKUS. I BELIEVE, THAT TIRANTIKUS AND TYRANTHRAXUS ARE ONE AND THE SAME'.\"."
+      ],
+      "expect": [
+        "The text contains 'I KNOW A LEGEND ABOUT A FIRE BEING CALLED TIRANTIKUS. I BELIEVE, THAT TIRANTIKUS AND TYRANTHRAXUS ARE ONE AND THE SAME'.",
+        "No journal entry is named."
+      ],
+      "branches": [
+        "Follow-up: \"YOU CONTINUE TO TALK ABOUT OLD PHLAN AND THE COMMANDANT SAYS 'IS NEW PHLAN HAVING ANY TROUBLE WITH TYRANTHRAXUS?'\" with DON'T TALK / TROUBLE / NO TROUBLE; TROUBLE gives \"THE COMMANDANT SAYS 'I EXPECT THERE WOULD BE TROUBLE; I'VE HEARD TYRANTHRAXUS IS A POWERFUL FIRE DEMON. YOUR CITY'S DEFENCES MUST BE QUITE STRONG, HOW STRONG ARE THEY?'\", NO TROUBLE gives \"THE COMMANDANT IS SURPRISED THAT YOUR CITY IS HAVING NO TROUBLE WITH TYRANTHRAXUS. HE THEN SAYS, 'YOUR TOWN DEFENSES MUST BE STRONG IN ORDER TO HANDLE HIM. HOW STRONG ARE THEY?'\"; both then ask how strong the city's defences are (DON'T TALK / STRONG / AVERAGE / WEAK)."
+      ],
+      "fights": [],
+      "data": [
+        "Tirantikus = Tyranthraxus."
+      ],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "Clue Book p.39-40",
+        "game text ECL6.DAX block 28 at 0xa84e, 0xa873, 0xad53, 0xade4, 0xae3c, 0xa9b8, 0xaa70 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest records only the Tirantikus line. The follow-up questions are from the game text; the digest does not say whether the answers have any effect."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.dinner-other-topics",
+      "title": "Other dinner topics and letting the talk die",
+      "kind": "optional",
+      "steps": [
+        "Case 1: POLITICS. \"AS YOU MENTION POLITICS THE COMMANDANT SAYS 'I'VE HEARD THAT PHLAN'S TOWN COUNCIL IS CORRUPT, SPECIFICALLY ULRICH EBERHARD. IS THIS TRUE?\" with YES / NO / DON'T KNOW; YES gives \"YOU SAY THAT ULRICH EBERHARD IS CORRUPT AND HE RESPONDS BY SAYING 'I WOULD ADVISE YOU TO BE CAREFUL WHEN DEALING WITH THE TOWN COUNCIL.'\", NO gives \"YOU SAY THAT ULRICH EBERHARD IS A LOYAL HONEST MAN. THE COMMANDANT SMIRKS AND SAYS 'YES, OF COURSE HE IS.'\".",
+        "Case 2: CITY then NEW. \"AS YOU TALK ABOUT NEW PHLAN THE COMMANDANT LISTENS CAREFULLY. THE COMMANDANT SAYS 'IS IT TRUE THAT THE REAL POWER IN NEW PHLAN IS BISHOP BRACCIO?'\" with YES / NO / DON'T KNOW; answers give \"YOU SAY THAT BISHOP BRACCIO IS THE REAL POWER IN PHLAN AND THE COMMANDANT RESPONDS BY SAYING 'PHLAN MUST BE A CITY OF FOOLS IF A BISHOP OF TYR HAS POWER!'\", \"YOU SAY THAT BISHOP BRACCIO IS NOT THE REAL POWER IN PHLAN AND THE COMMANDANT RESPONDS BY SAYING 'THE CITIZENS OF PHLAN ARE WISE TO NOT FOLLOW AN IDIOT FROM THE TEMPLE OF TYR!'\" or \"YOU SAY THAT YOU DON'T KNOW ANYTHING ABOUT THAT MATTER AND THE COMMANDANT RESPONDS BY SAYING 'YES, OF COURSE YOU DON'T.'\".",
+        "Case 3: defences question answered STRONG, AVERAGE or WEAK: \"YOU TELL THE COMMANDANT THAT NEW PHLAN'S FORCES ARE STRONG. HE SEEMS IMPRESSED, AND SAYS 'IT SOUNDS LIKE YOUR CITY CAN HANDLE THAT FIRE DEMON TYRANTHRAXUS'\", \"YOU TELL THE COMMANDANT THAT NEW PHLAN'S FORCES ARE CAPABLE. HE LOOKS AT YOU AND SAYS, 'I HOPE, FOR YOUR SAKE, THAT YOUR CITY'S FORCES CAN DEFEND THEMSELVES FROM TYRANTHRAXUS'S HORDE.'\" or \"YOU TELL THE COMMANDANT THAT NEW PHLAN'S FORCES ARE WEAK. HE SMILES AND SAYS, 'I HOPE THAT PHLAN CAN DEFEND ITSELF.'\".",
+        "Case 4: NOTHING. \"THE CONVERSATION BEGINS TO DIE DOWN. THE COMMANDANT STARTS A CONVERSATION BY SAYING 'WELL, ARE YOU HAVING MUCH TROUBLE WITH THE CREATURES FROM OLD PHLAN?'\" with TALK / SAY LITTLE OR NOTHING; SAY LITTLE OR NOTHING gives \"THE CONVERSATION COMPLETELY DIES AND EVERYONE IS STARING AT EACH OTHER. THE COMMANDANT EXCUSES HIMSELF AND LEAVES. A GUARD TAKES YOU BACK TO YOUR QUARTERS.\"."
+      ],
+      "expect": [
+        "Each choice prints the line listed and no fight starts at the table.",
+        "The dinner ends with one of \"THE CONVERSATION GOES STALE AND THE COMMANDANT EXCUSES HIMSELF FROM THE TABLE. YOU ARE ESCORTED BACK TO YOUR QUARTERS.\", \"YOU TALK A LITTLE WHILE LONGER THEN THE COMMANDANT STATES THAT HE HAS OTHER DUTIES TO ATTEND TO. HE BIDS YOU GOOD NIGHT.\" or the case-4 line, followed by \"YOU ARRIVE BACK AT YOUR QUARTERS.\".",
+        "The party is back at (5,0)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "Clue Book p.39-40",
+        "game text ECL6.DAX block 28 at 0xaf12, 0xabb3, 0xafa5, 0xb012, 0xab41, 0xabdb, 0xac56, 0xace1, 0xb06a, 0xb0e6, 0xb178, 0xa89a, 0xa912, 0xa93b, 0xb37a, 0xb3db, 0xb48b (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The digest ([P]) lists only two dinner topics (Magic -> Pool of Radiance, City -> Old Phlan); the game text has four topics with follow-ups. Clue Book: 'Over dinner, try to get as much varied information out of the Commandant as possible.'"
+      ],
+      "coveredBy": [],
+      "notes": "Grounded in the game text and the Clue Book's general advice; no source read says these answers change anything later. A test should assert the texts and that the night ambush follows regardless."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.night-with-a-watch",
+      "title": "Sleep with a watch: two waves of assassins",
+      "kind": "main",
+      "steps": [
+        "Back in the quarters after dinner the game prints \"IT IS NIGHT AND YOU ARE IN YOUR QUARTERS.\" and \"HOW DO YOU SPEND THE NIGHT?GOTO SLEEPSLEEP WITH A WATCH\" with GOTO SLEEP / SLEEP WITH A WATCH.",
+        "Choose SLEEP WITH A WATCH. The game prints \"YOU WAIT IN YOUR ROOM FOR ABOUT TWO HOURS WHEN SUDDENLY FOUR ARMED GUARDS BURST IN AND ATTACK YOU.\".",
+        "Wave 1: 4 AIDES, Morale 70. Win it.",
+        "The game prints \"AS YOU DEFEAT THE GUARDS SOME MORE MEN RUN IN AND ATTACK.\". Wave 2: 5 CORPORAL + 6 AIDES, Morale 70. Win it."
+      ],
+      "expect": [
+        "No damage is dealt before wave 1.",
+        "Both waves have Morale 70.",
+        "After wave 2 the outpost is hostile: \"AN ALARM GOES OFF IN THE DISTANCE.\"; the garrison encounters start (scenario garrison-random-encounters)."
+      ],
+      "branches": [
+        "GOTO SLEEP: scenario night-without-a-watch."
+      ],
+      "fights": [
+        "Wave 1: 4 AIDES. Wave 2: 5 CORPORAL + 6 AIDES. Morale 70 with a watch. XP not given."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "Clue Book p.39-40",
+        "game text ECL6.DAX block 28 at 0xa41c, 0xa43f, 0xa4d0, 0xa57a, 0xa5d0 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The game text says 'FOUR ARMED GUARDS BURST IN'; [P] names the four as AIDES, not GUARD."
+      ],
+      "coveredBy": [],
+      "notes": "Clue Book: 'After the dinner, your party should post a watch.' The link between the alarm line and the end of wave 2 is an inference from text order."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.night-without-a-watch",
+      "title": "Sleep without a watch: struck first",
+      "kind": "optional",
+      "steps": [
+        "At the night menu choose GOTO SLEEP. The game prints \"YOU ARE ATTACKED BY FOUR GUARDS IN YOUR SLEEP\".",
+        "Before combat an attack at THAC0 7 is made for 8d4+8 damage.",
+        "Wave 1: 4 AIDES, Morale 80. Wave 2: 5 CORPORAL + 6 AIDES, Morale 80."
+      ],
+      "expect": [
+        "The pre-combat attack, if it hits, does 8d4+8 (16 to 40).",
+        "Both waves have Morale 80 instead of 70."
+      ],
+      "branches": [],
+      "fights": [
+        "Pre-combat attack THAC0 7, 8d4+8. Wave 1: 4 AIDES. Wave 2: 5 CORPORAL + 6 AIDES. Morale 80."
+      ],
+      "data": [
+        "THAC0 7, 8d4+8."
+      ],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "game text ECL6.DAX block 28 at 0xa48c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: 'Without one, a THAC0 7 attack does 8d4+8 first.' It does not say whether this is one attack on one character or one per character."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.garrison-random-encounters",
+      "title": "After the ambush: garrison encounters while wandering",
+      "kind": "rule",
+      "steps": [
+        "After the night ambush walk around the outpost. Let F be the number of garrison 'combats' so far.",
+        "Continue until six 'combats' have occurred."
+      ],
+      "expect": [
+        "Chance per check is (F + 1) in 15.",
+        "Each fight is (5 x F + 5) GUARD + (F + 2) CORPORAL: first 5 GUARD + 2 CORPORAL; third 15 GUARD + 4 CORPORAL; fourth 20 + 5; fifth 25 + 6; sixth 30 + 7. Announcement: \"SOME GUARDS SPOT YOU AND ATTACK.\".",
+        "The second 'combat' is not a fight: the game prints \"THERE IS GREAT CONFUSION AS THE GUARDS RUN TO THEIR POSTS.\" and it still counts.",
+        "After six 'combats' the two-wave fight of location 5 starts wherever the party is (scenario dwarf-and-commandant)."
+      ],
+      "branches": [],
+      "fights": [
+        "(5 x fights + 5) GUARD + (fights + 2) CORPORAL per encounter; the second is replaced by the confusion message."
+      ],
+      "data": [
+        "(fights + 1) in 15."
+      ],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "Clue Book p.39-40",
+        "game text ECL6.DAX block 28 at 0x9a49, 0x9a0a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the check is per step or per time, or give XP. The compositions for the third to sixth fights above are computed from the digest's formula with F = 2..5. Digest, Resting: after dinner, rest 'triggers the next garrison encounter'. Clue Book: 'The longer the party takes to escape, the more it will have to fight.' With fixed dice a runner can assert the die size 15."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.dwarf-and-commandant",
+      "title": "Location 5: the dwarf's wave, then the Commandant and Al-Hyam Dazid",
+      "kind": "optional",
+      "steps": [
+        "After the night ambush walk to location 5 (4,1) (or reach the sixth garrison 'combat').",
+        "The game prints \"A LARGE GROUP OF MEN LED BY A DWARF RUNS FOWARD TO ATTACK\". Wave 1: DWARVEN FIGHTER (#48), 10 AIDES, 12 CORPORAL, 25 GUARD. Win it.",
+        "The game prints \"A LARGE GROUP OF MEN LED BY THE COMMANDANT RUSH FOWARD AND ATTACK.\". Wave 2: COMMANDANT (#50), AL-HYAM DAZID (#86), 20 AIDES, 24 CORPORAL. Win it.",
+        "The game prints \"AFTER KILLING THE COMMANDANT THE REST OF THE OUTPOST EITHER SURRENDERS OR RUNS AWAY.\"."
+      ],
+      "expect": [
+        "XP per character: 710 for wave 1 and 2879 for wave 2.",
+        "The dwarf drops Gauntlets of Ogre Power, Long Sword +1 and Chain Mail +1.",
+        "The Commandant drops Long Sword +1, Plate Mail +2, Shield +1, Ring of Fire Resistance, 3 Potion of Extra Healing and a Javelin of Lightning.",
+        "Al-Hyam Dazid drops Bracers AC 3, Ring of Fire Resistance and a Wand of Lightning (20 charges).",
+        "No further garrison fights occur; the party can walk out."
+      ],
+      "branches": [],
+      "fights": [
+        "Wave 1: DWARVEN FIGHTER (#48), 10 AIDES, 12 CORPORAL, 25 GUARD; 710 XP.",
+        "Wave 2: COMMANDANT (#50), AL-HYAM DAZID (#86), 20 AIDES, 24 CORPORAL; 2879 XP."
+      ],
+      "data": [
+        "5 = (4,1). Item names exactly as the digest lists them."
+      ],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "Clue Book p.39-40",
+        "digest §5 Scripting: 'Zhentil Keep: ... Al-Hyam Dazid appears here, which he should not' and 'Valjevo Castle: Al-Hyam Dazid is also fought at Zhentil Keep'",
+        "game text ECL6.DAX block 28 at 0xa1d5, 0xa243, 0xa2b2 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Optional: the mission completes by leaving, without this fight. Al-Hyam Dazid's presence is a documented oddity of the original (he is met again at Valjevo Castle); the port must keep him here. Digest §5 says the random-item tables cannot roll a Wand of Lightning; this one is fixed loot. 'No further garrison fights' is read from the game's closing line."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.exit-ambush-after-dinner",
+      "title": "Near the exit after dinner: 75% chance of 11 guards",
+      "kind": "rule",
+      "steps": [
+        "After dinner (the outpost hostile) walk to the square near the front gate. The game prints \"YOU ARE NEAR THE FRONT GATE.\".",
+        "With the die fixed inside the 75%: \"OUT OF THE COMMOTION A GROUP OF GUARDS ATTACK THE PARTY.\"; combat with 11 GUARD.",
+        "With the die fixed outside the 75%: \"THE COMMOTION ALLOWS YOU TO GET TO THE FRONT GATE!\"."
+      ],
+      "expect": [
+        "75% of the time 11 GUARD attack; otherwise the party reaches the gate unopposed."
+      ],
+      "branches": [],
+      "fights": [
+        "11 GUARD, 75% chance; XP not given."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "Clue Book p.39-40",
+        "game text ECL6.DAX block 28 at 0xb5cb, 0xb580, 0xb542, 0xa327, 0xa5f7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: 'Near the exit after dinner: 75% chance of 11 GUARD.' The pairing of the two 'COMMOTION' lines with the two outcomes is read from their wording. No coordinates given. Running from garrison fights prints \"YOU RUN FOR YOUR LIVES AS THE GARRISON CHASES BEHIND YOU. YOU RUN FOR THE FRONT GATE BUT ARE STOPPED BY SOME GUARDS.\" or \"YOU MANAGE TO RUN AWAY AND HIDE. YOU HEAR AN ALARM IN THE DISTANCE AS GUARDS ARE ISSUING OUT OF BARRACKS.\"; the digest does not describe them."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.exits",
+      "title": "Exits E1, E2 (wall climb) and E3 (keep gate)",
+      "kind": "rule",
+      "steps": [
+        "Case 1: walk onto E1, the front gate, when free to leave.",
+        "Case 2: walk to E2. The game prints \"THE WALL IS CLIMBABLE HERE, WILL YOU SCALE OVER IT?\" with CLIMB OVER WALL / LEAVE. Choose CLIMB OVER WALL: \"YOU CLIMB OVER THE WALL AND LEAVE THE OUTPOST.\".",
+        "Case 3: walk into E3, the keep gate, when not being led."
+      ],
+      "expect": [
+        "Cases 1 and 2: the party is on the wilderness map at (3,32). The game prints \"YOU ESCAPE FROM THE OUTPOST.\" on a hostile exit.",
+        "Case 3: the party cannot pass; E3 is passable only while being led (to the Commandant, to quarters, to dinner)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "E1 exit; E2 wall climb -> (3,32); E3 keep gate."
+      ],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "Clue Book p.39-40",
+        "game text ECL6.DAX block 28 at 0xb4ac, 0xb4d6, 0xb4fc, 0xa396 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "No coordinates for E1-E3 in the digest (entry square is (7,0)). Whether 'YOU ESCAPE FROM THE OUTPOST' prints at E1 only is not stated."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.mission-completion-rule",
+      "title": "Completion: taken to the room, then left by any means but surrender",
+      "kind": "main",
+      "steps": [
+        "Run A: take the tour to the quarters, then leave at once over the wall at E2 without dining.",
+        "Run B: dine, survive the night ambush, leave by E1.",
+        "Run C: surrender to the guards.",
+        "Run D: leave before being taken to the room (answer NO to the riders, or never enter)."
+      ],
+      "expect": [
+        "Runs A and B: Commission #13 is complete.",
+        "Runs C and D: Commission #13 is not complete."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "Clue Book p.39-40"
+      ],
+      "disagreements": [
+        "Clue Book finale: 'After the party escapes the Outpost of Zhentil Keep, they should return to the city council'; [P]'s rule needs only that the party was shown its room and did not surrender, so the dinner and the ambush are not required."
+      ],
+      "coveredBy": [],
+      "notes": "Run A relies on the digest's wording 'left by any means other than surrender' and on E2 being reachable before dinner; guards challenge a party outside its quarters, so run A may need the attack branch first."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.barracks-do-nothing",
+      "title": "Barracks B: nothing happens in the IBM version",
+      "kind": "rule",
+      "steps": [
+        "While free to wander, walk into each barracks (B)."
+      ],
+      "expect": [
+        "Nothing happens: no prompt and no fight."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "digest §7 platform notes: 'IBM-only behaviour: nothing happens at the Zhentil barracks'",
+        "Clue Book p.39-40"
+      ],
+      "disagreements": [
+        "Clue Book location 5: 'Barracks: If you try to force your way into the barracks, you will start a fight'; [P]: the barracks 'may get attacked by guards in other versions of the game, though nothing happens in the IBM version.'"
+      ],
+      "coveredBy": [],
+      "notes": "The port follows the DOS (IBM) behaviour. The digest gives no barracks coordinates; the tour says there are six. Clue Book location 6, the stables ('These smell bad'), has no event in any source."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.commission-13-reward",
+      "title": "Collect the Commission #13 reward",
+      "kind": "main",
+      "steps": [
+        "Complete the mission and return to New Phlan City Hall; speak to the council clerk at location 29 (5,5)."
+      ],
+      "expect": [
+        "The clerk pays 5 jewelry and 7 gems, and each character gains 2125 XP.",
+        "The clerk tells the party that Cadorna is a traitor; a bounty is mentioned but none is paid.",
+        "Head Councilman Werner von Urslingen (City Hall location 32) becomes available and offers Commission #14, Stojanow Gate.",
+        "Commission #13 does not advance the quest tracker."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Reward: 5 jewelry, 7 gems (2125 XP).",
+        "Journal: facts and rumours on Porphyrys Cadorna are entry 14 (p.19)."
+      ],
+      "sources": [
+        "[P] §3.0 clerk commission list, tracker list and City Hall rooms 31-32",
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "Clue Book p.39-40",
+        "Adventurer's Journal p.19"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book finale: 'they will learn of the escape of \"the traitor Cadorna\". They will also learn of their next mission.' The clerk's wording is not in the digest. The Journal prints Proclamation CX (special commission, 'political sensitivity'); no source read ties it to this mission."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.dinner-after-fighting-guards",
+      "title": "Dinner still happens after fighting the guards",
+      "kind": "quirk",
+      "steps": [
+        "Before dinner leave the quarters, attack the 4 GUARD, refuse to surrender and win both waves of 4 CORPORAL + 16 GUARD.",
+        "Walk back to the quarters at (5,0) and choose RELAX."
+      ],
+      "expect": [
+        "The game prints \"AT DUSK A GUARD COMES BY TO ESCORT YOU TO DINNER.\" and the dinner at (6,8) proceeds with the normal topic menu, as if no fight had happened.",
+        "The night ambush follows as usual."
+      ],
+      "branches": [],
+      "fights": [
+        "4 GUARD; two waves of 4 CORPORAL + 16 GUARD."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "digest §5 Scripting: 'Zhentil Keep: dinner still happens after fighting guards; you can leave your room before dinner'",
+        "game text ECL6.DAX block 28 at 0xa6eb (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "A scripting quirk of the original that the port must reproduce: killing 44 of the garrison does not cancel the Commandant's hospitality."
+    },
+    {
+      "id": "acceptance.zhentil-keep-outpost.al-hyam-dazid-fought-twice",
+      "title": "Al-Hyam Dazid is fought here and again at Valjevo Castle",
+      "kind": "quirk",
+      "steps": [
+        "Kill AL-HYAM DAZID (#86) in wave 2 at location 5 (4,1).",
+        "Later reach his encounter in Valjevo Castle (digest §3.21)."
+      ],
+      "expect": [
+        "He is present in the Zhentil wave-2 roster beside the Commandant.",
+        "His Valjevo Castle encounter still occurs although he was killed here."
+      ],
+      "branches": [],
+      "fights": [
+        "Wave 2 at location 5: COMMANDANT (#50), AL-HYAM DAZID (#86), 20 AIDES, 24 CORPORAL."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.18 (qa/research/guides-digest.md)",
+        "digest §5 Scripting: 'Zhentil Keep: ... Al-Hyam Dazid appears here, which he should not'; 'Valjevo Castle: Al-Hyam Dazid is also fought at Zhentil Keep'",
+        "[P] §3.21"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The Valjevo half belongs to file 21; this scenario only requires that killing him here sets no flag that removes him there."
+    }
+  ]
+}

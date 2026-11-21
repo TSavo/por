@@ -1,0 +1,588 @@
+{
+  "schema": 1,
+  "id": "acceptance.nomad-camp",
+  "title": "Nomad Camp",
+  "guideSection": "3.13",
+  "scripts": [
+    "ECL 17"
+  ],
+  "commission": "Commission #8",
+  "prerequisites": [
+    "The party can reach the wilderness map (digest §3.11) and stands at fixed point h, global wilderness (25,11).",
+    "Commission #8 (Nomads) is not required to enter or to be rewarded: digest §3.0 says of the clerk's list 'In most cases, you do not actually need to be told of the mission to perform and be rewarded for it.'",
+    "The digest states no party level for this area. The largest fight on the attack route is 56 enemies (2817 XP per character) and the largest on the friendly route is 53 kobolds.",
+    "For the friendly route the party must not have attacked any nomad in this visit."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.nomad-camp.enter-from-wilderness",
+      "title": "Enter the camp from wilderness point h",
+      "kind": "main",
+      "steps": [
+        "On the wilderness map walk onto (25,11). The game prints \"YOU HAVE STUMBLED UPON A LARGE NOMAD CAMP. WILL YOU ENTER IT?\" with the menu ENTER / LEAVE.",
+        "Choose ENTER."
+      ],
+      "expect": [
+        "The party is on the Nomad Camp map (ECL 17) at (1,14).",
+        "Choosing LEAVE instead keeps the party on the wilderness map at (25,11)."
+      ],
+      "branches": [
+        "ENTER: camp map at (1,14).",
+        "LEAVE: stay in the wilderness."
+      ],
+      "fights": [],
+      "data": [
+        "Wilderness point h = (25,11) in [P]'s global coordinates; Clue Book gives the camp as 12,11 in the Central region's own coordinates (digest §7 item 37: add 13 to X).",
+        "Camp arrival square (1,14)."
+      ],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "[P] §3.11 fixed point h",
+        "digest §7 item 37",
+        "Clue Book p.27-28",
+        "game text ECL7.DAX block 26 at 0x9c05, 0x9c37, 0x9bc4 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Coordinates: [P] '(25,11)' vs Clue Book 'Nomad Camp 12,11'; the digest reconciles them by adding 13 to the Central region's X."
+      ],
+      "coveredBy": [],
+      "notes": "The same script block also holds \"YOU FIND A RECENTLY ABBANDONED CAMP.\". The digest does not say when that line replaces the entry prompt; do not assert it without reading the script."
+    },
+    {
+      "id": "acceptance.nomad-camp.leave-by-map-edge",
+      "title": "Walk off the camp map back to the wilderness",
+      "kind": "rule",
+      "steps": [
+        "From inside the camp, before any commitment to the nomads, walk off the map edge. The game prints \"THIS DIRECTION WILL TAKE YOU BACK INTO THE WILDERNESS. DO YOU STILL WANT TO GO THIS WAY?\" with YES / NO.",
+        "Choose YES.",
+        "Re-enter the camp from (25,11)."
+      ],
+      "expect": [
+        "After YES the party is on the wilderness map at (25,11).",
+        "After re-entry the camp is in its initial state: the tripwire scene plays again (digest: 'Up to this point you can leave and the map resets')."
+      ],
+      "branches": [
+        "NO: the party stays on the camp map."
+      ],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "game text ECL7.DAX block 17 at 0x9df2, 0x9d65 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest places the reset before the feast is accepted (Branch B step 1). It does not say whether the camp also resets after one or two of the Branch A fights."
+    },
+    {
+      "id": "acceptance.nomad-camp.tripwire",
+      "title": "Cross the tripwire perimeter",
+      "kind": "main",
+      "steps": [
+        "Enter the camp at (1,14) and walk toward the tents until the party crosses the tripwire zone.",
+        "The game prints \"YOU TRIP ON A WIRE TO THE ACCOMPANIMENT OF BELLS TINKLING. AFTER A MOMENT THERE IS A COMMOTION AHEAD OF YOU.\" and offers FLEE / ADVANCE CAUTIOUSLY / ATTACK."
+      ],
+      "expect": [
+        "The three-way menu is on screen and no combat has started.",
+        "The nomads approach in force (Clue Book: 'The nomads will come and meet you in force')."
+      ],
+      "branches": [
+        "ATTACK: scenario attack-route.",
+        "ADVANCE CAUTIOUSLY: scenario parley-meeting.",
+        "FLEE: outcome not described by the digest or the Clue Book."
+      ],
+      "fights": [],
+      "data": [
+        "Clue Book map location 1 = trip wire zone."
+      ],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "Clue Book p.27-28",
+        "game text ECL7.DAX block 17 at 0x9f31, 0x9f85 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for the tripwire squares; it only says 'Crossing the tripwire perimeter makes the nomads approach'. The menu wording comes from the game text. The digest does not describe the FLEE option."
+    },
+    {
+      "id": "acceptance.nomad-camp.attack-route",
+      "title": "Wipe out the nomads (Branch A)",
+      "kind": "main",
+      "steps": [
+        "At the tripwire menu choose ATTACK. The game prints \"YOU CHARGE INTO A GROUP OF SCRUFFY LOOKING NOMADS.\".",
+        "Fight 1 starts: 14 NOMAD, Morale 100. Win it; each character gains 37 XP.",
+        "Two more fights of the same composition follow. Text in the script for these approaches: \"A GROUP OF NOMADS SPOT YOU. THEY SHOUT AND CHARGE. AS THEY COME CLOSER THEIR NUMBERS SWELL WITH ARRIVALS.\".",
+        "After the third fight the game prints \"THE HEROIC DEATHS OF THOSE YOU HAVE JUST BATTLED HAS BOUGHT TIME FOR THE HEADMAN TO RALLY HIS PEOPLE. WITH A TREMENDOUS CRY HE LEADS HIS TRIBE INTO BATTLE.\".",
+        "Fight 4 starts: HASSAD (#42), 1 SHAMAN (#43), 5 4TH LVL FIGHTER, 49 NOMAD. Win it."
+      ],
+      "expect": [
+        "Fight 4 awards 2817 XP per character.",
+        "Treasure after fight 4 includes 5000 gold.",
+        "Loot from the bodies: Hassad carries Long Sword +2, Shield +1, Scale Mail +2; the shaman carries Dagger +2, an item named Bracers AC 2 and a Wand of Magic Missiles (50 charges); each of the 5 fighters carries Long Sword +1 and Chain Mail +1.",
+        "Hassad is dead, so the area's completion condition is met (digest: 'Hassad is killed or Hassad rewards you')."
+      ],
+      "branches": [
+        "Trying to parley after attacking: 'parley stops working' (digest)."
+      ],
+      "fights": [
+        "Fights 1-3: 14 NOMAD each, Morale 100, 37 XP.",
+        "Fight 4: HASSAD (#42), 1 SHAMAN (#43), 5 4TH LVL FIGHTER, 49 NOMAD; 2817 XP; the nomads fight at -2 to hit; treasure 5000 gold."
+      ],
+      "data": [
+        "Items exactly as the digest names them: Long Sword +2, Shield +1, Scale Mail +2, Dagger +2, Bracers AC 2, Wand of Magic Missiles (50 charges), Long Sword +1, Chain Mail +1."
+      ],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "Clue Book p.27-28",
+        "game text ECL7.DAX block 17 at 0x9fb3, 0xa045, 0xa0ae, 0xa4ff (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[GB] (digest §7 item 35) lists killing the nomads as giving 'bracers of AC 2'; [P] says the bracers are really AC 4."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives one XP figure (37) for the 14-nomad fight and says 'then two more such fights'; it does not give the squares where fights 2 and 3 trigger, nor whether '-2 to hit' applies to all four fights or only the fourth. The game text has a line for the headman's attack after insults: \"'YOUR INSULTS ARE TOO MANY! KILL THEM!'\"; the digest does not say which parley attitude triggers it."
+    },
+    {
+      "id": "acceptance.nomad-camp.shaman-bracers-quirk",
+      "title": "Shaman's 'Bracers AC 2' give AC 4",
+      "kind": "quirk",
+      "steps": [
+        "After fight 4 of the attack route (or wave 3 of the betrayal route) take the shaman's bracers. The inventory name is Bracers AC 2.",
+        "Ready them on a character wearing no armor and no shield and read the character's AC."
+      ],
+      "expect": [
+        "The item name reads Bracers AC 2.",
+        "The character's base armor class from the bracers is 4, not 2."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Item name: Bracers AC 2. Effective AC: 4."
+      ],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "digest §5 Scripting: 'Nomads: the shaman's \"Bracers AC 2\" are really AC 4.'",
+        "digest §7 item 35"
+      ],
+      "disagreements": [
+        "[GB]: 'bracers of AC 2' at face value; [P]: 'really AC 4'."
+      ],
+      "coveredBy": [],
+      "notes": "A bug of the original that the port must reproduce. Dexterity still modifies the displayed AC; compare against a known Bracers AC 4."
+    },
+    {
+      "id": "acceptance.nomad-camp.parley-meeting",
+      "title": "Advance cautiously and meet the headman",
+      "kind": "main",
+      "steps": [
+        "At the tripwire menu choose ADVANCE CAUTIOUSLY.",
+        "The game prints in turn \"A CROWD OF SCRUFFY LOOKING NOMADS GATHERS AS HIDDEN SENTRIES GIVE WORD OF YOUR APPROACH. THERE ARE ABOUT AN EQUAL NUMBER OF MEN AND WOMEN.\", \"ALL THE NOMADS HOLD THEIR SWORDS AT THE READY, WATCHING YOU WARILY. MORE NOMADS APPEAR FROM OUT OF TENTS IN THE CAMP.\" and \"YOU CAN SEE CHILDREN PEERING OUT OF THE TENT OPENINGS, ONLY TO BE PUSHED BACK INSIDE BY THEIR MOTHERS.\".",
+        "The encounter menu appears under \"THE NOMADS WAIT FOR YOU TO MAKE THE FIRST MOVE.\". Choose to parley.",
+        "The game prints \"THE BIGGEST, MEANEST, DIRTIEST NOMAD PUSHES HIS WAY TO THE FRONT OF THE CROWD. FIVE OTHER NOMADS STAND AROUND HIM AS IF TO PROTECT HIM.\" and then the headman's invitation beginning \"THE BIGGEST NOMAD, APPARENTLY THE CHIEF OR HEADMAN, ACKNOWLEDGES YOU WITH A NOD, 'WE WILL GIVE A FEAST IN YOUR HONOR\" and ending \". WILL YOU JOIN US?'\" with YES / NO."
+      ],
+      "expect": [
+        "The feast invitation and its YES / NO menu are on screen; no combat has started."
+      ],
+      "branches": [
+        "Choosing combat from the encounter menu: the Branch A fights (scenario attack-route).",
+        "YES: scenario feast-and-entry-55.",
+        "NO: scenario refuse-feast."
+      ],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "Clue Book p.27-28",
+        "game text ECL7.DAX block 17 at 0xa21a, 0xa289, 0xa2e8, 0xa33c, 0xa3a9, 0xa435, 0xa494 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "A variable piece of text is printed between 'WE WILL GIVE A FEAST IN YOUR HONOR' and '. WILL YOU JOIN US?' (separate PRINT at 0xa490); the extracted text does not show its values. The Clue Book says the feast is the same day for a daytime visit and the next day for a night visit, which may be what the variable carries. The digest does not say which parley attitudes succeed here."
+    },
+    {
+      "id": "acceptance.nomad-camp.refuse-feast",
+      "title": "Refuse the feast",
+      "kind": "optional",
+      "steps": [
+        "At the feast invitation choose NO. The game prints \"'THEN YOU MUST LEAVE US,' HE RESPONDS WITH AS MUCH DIGNITY AS HE CAN MUSTER. DO YOU LEAVE?\" with YES / NO.",
+        "Case 1: choose YES (leave).",
+        "Case 2: choose NO (stay)."
+      ],
+      "expect": [
+        "Case 1: the party leaves the camp without a fight; the camp resets on the next visit.",
+        "Case 2: the same fights as the attack route follow (14 NOMAD three times, then the Hassad fight)."
+      ],
+      "branches": [
+        "Leave: no fight, map resets.",
+        "Stay: Branch A fights."
+      ],
+      "fights": [
+        "Case 2: as scenario attack-route."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "game text ECL7.DAX block 17 at 0xa4af (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: 'Refusing -> asked to leave; staying -> the same fights as Branch A. Up to this point you can leave and the map resets.' Whether case 1 puts the party on the wilderness map directly or only frees it to walk out is not stated."
+    },
+    {
+      "id": "acceptance.nomad-camp.feast-and-entry-55",
+      "title": "Accept the feast and record Journal Entry 55",
+      "kind": "main",
+      "steps": [
+        "At the feast invitation choose YES.",
+        "Night arrival: the game prints \"'YOU MUST BE TIRED FROM YOUR TRAVELS. WE WILL PROVIDE YOU WITH LODGING.' HE LEADS THE WAY TO A HUT WHICH IS HURRIEDLY BEING CLEARED OF ITS OCCUPANTS.\" and \"'HERE YOU MAY REST.'\"; rest in the hut until the game prints \"THE HEADMAN WALKS UP TO YOU WITH HIS GUARDS. 'GOOD MORNING. THERE ARE CELEBRATIONS PLANNED TODAY.'\".",
+        "The game prints \"'COME, LET THERE BE GAMES FOR OUR GUESTS.' HE LEADS YOU TO THE CAMP'S CENTRAL CLEARING.\", \"YOU ARE TREATED AS HONORED GUESTS FOR THE REST OF THE DAY. THERE ARE CONTESTS OF STRENGTH AND SKILL IN YOUR HONOR.\" and \"AS NIGHT FALLS, THE NOMADS BUILD A HUGE CAMPFIRE IN THE CENTER OF THE CAMP. THE WHOLE TRIBE GATHERS FOR THE FEAST. AFTER THE FEAST THERE IS DANCING AND WILD CELEBRATIONS.\".",
+        "The game prints \"DURING THE FESTIVITIES THE CHIEF (HIS TONGUE LOOSENED BY DRINK) TELLS YOU OF THE DANGERS OF THE REGION. YOU MAKE HASSAD AHWAL'S TALK ENTRY 55 IN YOUR JOURNAL.\".",
+        "The game prints \"THE HEADMAN SEEMS VERY UNEASY AS HE CONTINUES TO SPEAK. HE PRACTICALLY BEGS YOU TO STAY FOR A FEW MORE DAYS, RATHER THAN LEAVE IN THE MORNING AS YOU PLANNED.\", \"'MY SCOUTS HAVE SEEN EVIDENCE OF A LARGE BAND OF KOBOLDS IN THE VICINITY. I WORRY ABOUT MY PEOPLE. IF YOU WOULD STAY UNTIL THEY PASS I WOULD APPRECIATE IT.\" and \"'PLEASE THINK ABOUT IT OVERNIGHT.' AFTER A WHILE THE FESTIVITIES END AND YOU ARE ESCORTED TO YOUR LODGING.\"."
+      ],
+      "expect": [
+        "The text names Journal Entry 55 (Hassad's campfire talk, Adventurer's Journal p.32).",
+        "The party is placed in its hut (Clue Book map location 2).",
+        "No fight has occurred and no nomad is hostile."
+      ],
+      "branches": [
+        "Daytime arrival: the Clue Book says the feast is held the same day, without the first night in the hut."
+      ],
+      "fights": [],
+      "data": [
+        "Journal Entry 55: Hassad's campfire talk (Journal p.32). The game text spells the chief's name HASSAD AHWAL."
+      ],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "Clue Book p.27-28",
+        "Adventurer's Journal p.32 (entry 55)",
+        "game text ECL7.DAX block 17 at 0xa53e, 0xa5c0, 0xa609, 0xa660, 0xa6b4, 0xa71b, 0xa7b1, 0xa82f, 0xa8ac, 0xa928 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] (digest) says only 'The chief invites you to a feast ... You are shown to a hut'; the Clue Book adds 'If it is night when you visit, the nomads take you to a hut ... The next day, or the same day if you visit during the day, they take you to a great feast.' The game text has both the lodging lines and the 'GOOD MORNING' line."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not give the hour that separates day from night arrival. The Journal has a second nomad entry, 52 (nomad witchdoctor's cry, p.31), that neither the digest nor this block's game text cites."
+    },
+    {
+      "id": "acceptance.nomad-camp.night-guard-escort",
+      "title": "Wander into another tent at night",
+      "kind": "optional",
+      "steps": [
+        "While lodged in the hut before the feast, walk into another tent.",
+        "The game prints \"A GUARD APPEARS BEFORE YOU, 'YOU MUST HAVE MADE A MISTAKE. ALLOW ME TO ESCORT YOU TO YOUR LODGING.'\" with FOLLOW THE GUARD / ATTACK THE GUARD.",
+        "Case 1: choose FOLLOW THE GUARD.",
+        "Case 2: choose ATTACK THE GUARD. The game prints \"AS THE GUARD TURNS TO ESCORT YOU BACK TO YOUR TENT, YOU SMILE AND STICK HIM IN THE BACK. WITH A CHOKED CRY HE COLLAPSES.\" and \"HOWEVER, AWAKENED BY THE TALK SOMEONE IN THE TENT HAS SEEN YOUR ACT AND A SCREAM GOES OUT 'TREACHERY! THEY HAVE SLAIN SAMIR!' THE CAMP BEGINS TO STIR.\"."
+      ],
+      "expect": [
+        "Case 1: the party is back at its hut and the nomads stay friendly.",
+        "Case 2: the camp turns hostile ('THE CAMP BEGINS TO STIR')."
+      ],
+      "branches": [
+        "Follow: escorted back.",
+        "Attack: the guard Samir is killed and the camp is roused."
+      ],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "Clue Book p.27-28",
+        "game text ECL7.DAX block 17 at 0xa98e, 0xa9dc, 0xaa07, 0xaa6d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The digest ([P]) does not mention this event at all; the Clue Book says 'If you wander into another tent that night, the guard will escort you back to your tent.'"
+      ],
+      "coveredBy": [],
+      "notes": "Grounded in the Clue Book and the game text only. What fights follow case 2 is not stated in any source read; presumably the Branch A fights, but that is not confirmed. Tent coordinates are not given."
+    },
+    {
+      "id": "acceptance.nomad-camp.leave-in-the-morning",
+      "title": "Decline to stay; the kobolds destroy the camp",
+      "kind": "optional",
+      "steps": [
+        "After the feast, sleep in the hut. In the morning the game prints \"THE HEADMAN COMES TO YOU AND SAYS, 'ABOUT MY REQUEST OF LAST NIGHT, WHAT IS YOUR DECISION?'\" with STAY AND FIGHT / LEAVE.",
+        "Choose LEAVE. The game prints \"LOOKING DISAPPOINTED THE HEADMAN SAYS, 'GOOD LUCK IN YOUR TRAVELS.'\".",
+        "Leave the camp and return to the council clerk in New Phlan."
+      ],
+      "expect": [
+        "The kobolds kill the nomads after the party leaves (digest).",
+        "Commission #8 still counts as complete, 'with a small reward' (digest)."
+      ],
+      "branches": [
+        "STAY AND FIGHT: scenario kobold-wave-1."
+      ],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "game text ECL7.DAX block 17 at 0xab21, 0xab69, 0xab8b (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The digest's completion rule is 'Hassad is killed or Hassad rewards you'; this branch completes the mission by Hassad dying off screen. The Clue Book's finale requires 'either defeating the nomads or defeating the kobolds (or both)'."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not quantify 'a small reward' or say who pays it (the nomads or the clerk), and it places the choice only as 'If you leave now'. The game text shows the choice is the morning STAY AND FIGHT / LEAVE menu. A test should assert the completion flag and record whatever reward appears."
+    },
+    {
+      "id": "acceptance.nomad-camp.kobold-wave-1",
+      "title": "Stay and fight kobold wave 1 beside the nomads",
+      "kind": "main",
+      "steps": [
+        "At the morning menu choose STAY AND FIGHT. The game prints \"'I AND MY PEOPLE THANK YOU. AND KNOW THAT WE HAVE HONOR. YOU SHALL BE RICHLY REWARDED FOR YOUR GENEROUS AID.'\" and \"'YOU MAY WANDER AS YOU WILL OR YOU MAY STAY HERE AND REST AND STUDY. FORGIVE ME, I MUST SEE TO MY PEOPLE.' HE LEAVES.\".",
+        "Rest in the hut. The rest is interrupted: \"THE SOUND OF WAR CRIES DRAWS YOU OUT OF THE HUT.\" then \"A HORDE OF KOBOLDS IS ATTACKING THE CAMP. A LONE SENTRY CHARGES BUT IS QUICKLY CUT DOWN. A FAMILY EMERGES FROM A HUT AND CHARGES THE KOBOLDS.\".",
+        "Combat starts. Count the combatants."
+      ],
+      "expect": [
+        "With N allied nomads present, the enemy side has (56 - N) / 2 KOBOLD (#0) and the same number of KOBOLD (#123), Morale 80.",
+        "N = 2d7 NOMAD fighting on the party's side, provided the party is inside the tripwire and has never attacked the nomads.",
+        "With fixed dice giving N = 14: 21 KOBOLD (#0) + 21 KOBOLD (#123) and 14 allied NOMAD. With N = 2: 27 + 27 and 2 allied NOMAD."
+      ],
+      "branches": [
+        "Party outside the tripwire when the attack comes: no allied nomads (scenario outside-the-tripwire).",
+        "Attacking the allied nomads during this wave: scenario betrayal-route.",
+        "Fleeing the combat: 'Fleeing only delays it' (scenario fleeing-delays-the-waves)."
+      ],
+      "fights": [
+        "Wave 1: (56 - nomads) / 2 each of KOBOLD (#0) and KOBOLD (#123), Morale 80; 2d7 NOMAD allies."
+      ],
+      "data": [
+        "Formula: (56 - nomads) / 2 of each kobold type."
+      ],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "Clue Book p.27-28",
+        "game text ECL7.DAX block 17 at 0xabc5, 0xac1e, 0xae6a, 0xaed6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Timing: the Clue Book says the kobold army 'will attack the next day' and that rest 'will be interrupted by the coming kobold attack'; the digest gives no delay before wave 1."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not give rounding for an odd (56 - N), XP for this wave, or the nomad count when the party is outside the wire (see the next scenario). The second kobold type is monster #123, the same id the wilderness table lists as 'KOBOLD #123'."
+    },
+    {
+      "id": "acceptance.nomad-camp.outside-the-tripwire",
+      "title": "Fight the kobolds alone outside the tripwire",
+      "kind": "rule",
+      "steps": [
+        "After choosing STAY AND FIGHT, walk to a square outside the tripwire zone (Clue Book map location 3, the forest) and wait there until the kobolds attack.",
+        "The game prints \"ADVANCING ON YOU IS A LARGE BAND OF KOBOLDS WITH BLOOD LUST IN THEIR EYES.\" or \"A HORDE OF KOBOLDS IS ATTACKING THE CAMP.\"."
+      ],
+      "expect": [
+        "No NOMAD fights on the party's side in that wave."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Clue Book location 3, The Forest."
+      ],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "Clue Book p.27-28",
+        "game text ECL7.DAX block 17 at 0xb4eb, 0xb4a2 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: 'If you are inside the tripwire and never attacked the nomads, 2d7 NOMAD fight beside you.' Clue Book: 'If you are outside the trip wire when the kobolds attack, you will have to fight them alone; the nomads are back protecting their camp.' Which of the two kobold lines prints in this case is not stated; the pairing in the step is a guess a runner should record, not assert. With zero nomads the wave-1 formula gives 28 of each kobold type."
+    },
+    {
+      "id": "acceptance.nomad-camp.kobold-wave-2",
+      "title": "Fight kobold wave 2",
+      "kind": "main",
+      "steps": [
+        "Win wave 1 without attacking any nomad.",
+        "Wait in the camp. A few minutes of game time later wave 2 starts; the script's text for a later melee is \"AHEAD YOU SEE A LARGE GROUP OF KOBOLDS ENGAGED IN MELEE WITH SOME NOMADS.\".",
+        "Win wave 2 without attacking any nomad."
+      ],
+      "expect": [
+        "Wave 2 begins without the party leaving the camp map.",
+        "After wave 2 the nomads are still allied and wave 3's offer follows (scenario wave-3-finish-together)."
+      ],
+      "branches": [
+        "If nomads were attacked in wave 1: 'the kobolds and nomads ally against you' in wave 2 (scenario betrayal-route)."
+      ],
+      "fights": [
+        "Wave 2: composition not given by the digest."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "Clue Book p.27-28",
+        "game text ECL7.DAX block 17 at 0xafcf (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says only 'Wave 2 follows a few minutes later.' It gives no composition, morale or XP for wave 2; a test can assert only that a second kobold combat occurs before the headman's offer. The Clue Book confirms 'The kobolds attack in 3 waves.'"
+    },
+    {
+      "id": "acceptance.nomad-camp.wave-3-finish-together",
+      "title": "Agree to finish the kobolds with Hassad (best reward)",
+      "kind": "main",
+      "steps": [
+        "After wave 2, with no nomad ever attacked, the game prints \"YOU SEE A HUGE GROUP OF KOBOLDS MOVING RELUNCTANTLY FORWARD UNDER THE CURSES OF THEIR LEADER. THE HEADMAN WALKS UP AND SLAPS YOU ON THE BACK.\" and \"'WELL DONE! WHAT SAY WE FINISH THIS TOGETHER?'\" with DESTROY THE KOBOLDS / FLEE.",
+        "Choose DESTROY THE KOBOLDS. The game prints \"'THEN LET US DO IT!'\".",
+        "Combat: 27 KOBOLD (#0) + 26 KOBOLD (#123) at Distance 2, with Hassad and 2 fighters on the party's side. Win it.",
+        "The game prints \"THE SHAMAN WALKS UP TO YOU. 'YOU FOUGHT AS THE HEROES OF LEGEND. A REWARD WAS PROMISED AND SO SHALL IT BE.'\" and \"'NOW PLEASE LEAVE US TO OUR MOURNING. IT IS A PERSONAL THING FOR OUR PEOPLE.'\"."
+      ],
+      "expect": [
+        "The kobolds' treasure is 3000 gold.",
+        "The reward is 5000 gold, a Two-Handed Sword +2 and a Wand of Magic Missiles (35 charges).",
+        "Each character gains 6133 XP.",
+        "The area's completion condition is met (Hassad rewards you)."
+      ],
+      "branches": [
+        "FLEE: scenario wave-3-decline."
+      ],
+      "fights": [
+        "27 KOBOLD (#0) + 26 KOBOLD (#123), Distance 2, allies Hassad and 2 fighters; kobold treasure 3000 gold."
+      ],
+      "data": [
+        "Reward: 5000 gold, Two-Handed Sword +2, Wand of Magic Missiles (35 charges), 6133 XP."
+      ],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "Clue Book p.27-28",
+        "game text ECL7.DAX block 17 at 0xb08a, 0xb0fb, 0xb121, 0xb30f, 0xb3d4, 0xb43c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[GB] (digest §7 item 35): helping gives 'about 8000 gold'; [P]: 8000 gold belongs to the betrayal branch, the heroic branch gives 5000 gold plus 3000 carried by the kobolds.",
+        "Speaker: the digest quotes 'You fought as the heroes of legend...' without a speaker and states the completion as 'Hassad rewards you'; the game text has the SHAMAN deliver the reward and ask to be left 'TO OUR MOURNING'."
+      ],
+      "coveredBy": [],
+      "notes": "The digest lists 6133 XP beside the reward; whether that figure includes the combat XP is not stated. Menu label for agreeing is DESTROY THE KOBOLDS; the label for declining is FLEE."
+    },
+    {
+      "id": "acceptance.nomad-camp.wave-3-decline",
+      "title": "Decline to join the last charge (small reward)",
+      "kind": "optional",
+      "steps": [
+        "At the wave-3 offer choose FLEE.",
+        "The game prints \"THE HEADMAN SNEERS, 'COWARDS!' HE TURNS TO THE TWO GUARDS STILL LIVING AND YELLS, 'FOR HYRNKA!' HE AND HIS TWO GUARDS CHARGE INTO THE PACK.\", \"AS THEY REACH THE PACK A FLURRY OF ARROWS STRIKE THEM. UNDAUNTED THEY STRIKE. KOBOLDS DIE LIKE FLIES AROUND THESE HEROES. A GUARD FALLS WITH A SCORE OF WOUNDS.\", \"WITHIN TEN MINUTES THE KOBOLDS BREAK, HALF THEIR NUMBER DEAD. THE CHIEF COMES BACK, 'I PROMISED YOU REWARD FOR YOUR AID. SO IT SHALL BE... EQUAL TO YOUR HONOR.'\" and \"'NOW LEAVE. WE HAVE OUR WOUNDED TO LOOK TO.'\"."
+      ],
+      "expect": [
+        "No combat is fought by the party.",
+        "The party receives 500 gold and each character gains 83 XP.",
+        "The area's completion condition is met (Hassad rewards you)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Reward: 500 gold (83 XP). Battle cry in the text: 'FOR HYRNKA!'."
+      ],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "Clue Book p.27-28",
+        "game text ECL7.DAX block 17 at 0xb146, 0xb1b6, 0xb245, 0xb2e7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book: 'If you let the chief and his men do it, you get a smaller reward.'"
+    },
+    {
+      "id": "acceptance.nomad-camp.betrayal-route",
+      "title": "Backstab the nomads during the kobold attack",
+      "kind": "optional",
+      "steps": [
+        "In wave 1, attack and hit an allied NOMAD. Finish the combat.",
+        "Wave 2: the game prints \"THE NOMADS SEE YOU AND SHOUT, 'THE FILTHY TRAITORS! GET THEM!' THE KOBOLDS, SEEING AN OPPORTUNITY, JOIN WITH THEM.\"; nomads and kobolds fight on the same side against the party. Win it.",
+        "Wave 3: the game prints \"JUST AS YOU THINK YOURSELVES FREE OF DANGER, THE HEADMAN, HIS SHAMAN AND GUARDS ATTACK WITH CRIES OF 'FOUL TRAITORS!' AT THE SAME TIME KOBOLDS ATTACK.\". Combat: 49 KOBOLD (#123) plus Hassad, the shaman and 5 fighters. Win it."
+      ],
+      "expect": [
+        "In wave 3 the enemies fight at -1 to hit.",
+        "Treasure after wave 3: 8000 gold plus the same items as the attack route (Long Sword +2, Shield +1, Scale Mail +2; Dagger +2, Bracers AC 2, Wand of Magic Missiles (50 charges); 5 x Long Sword +1 and Chain Mail +1).",
+        "Hassad is dead, so the completion condition is met."
+      ],
+      "branches": [],
+      "fights": [
+        "Wave 2 (after betrayal): kobolds and nomads together; numbers not given.",
+        "Wave 3 (after betrayal): 49 KOBOLD (#123), HASSAD, 1 SHAMAN, 5 4TH LVL FIGHTER, at -1 to hit; 8000 gold."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "Clue Book p.27-28",
+        "game text ECL7.DAX block 17 at 0xb018, 0xb5b1 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[GB] attributes 'about 8000 gold' to helping the nomads; [P] attributes 8000 gold to this betrayal branch (digest §7 item 35)."
+      ],
+      "coveredBy": [],
+      "notes": "The digest says 'If you attacked nomads in wave 1' and 'If you backstabbed the nomads'; it does not say whether a betrayal that starts in wave 2 has the same wave-3 result, or give XP for these fights. Clue Book: 'If you backstab the nomads during the fight, both nomads and kobolds attack you.'"
+    },
+    {
+      "id": "acceptance.nomad-camp.fleeing-delays-the-waves",
+      "title": "Fleeing a kobold wave only delays it",
+      "kind": "rule",
+      "steps": [
+        "During kobold wave 1, flee the combat with the whole party.",
+        "Stay on the camp map and wait."
+      ],
+      "expect": [
+        "The same wave starts again; the wave counter does not advance by fleeing.",
+        "The script holds the line \"THERE IS NOWHERE LEFT TO RETREAT. YOU MUST FIGHT.\" and the direction lines \"YOU HEAR WAR CRIES AND THE CLANG OF METAL\" / \"YOU SPIN TO FACE THE SOUND.\" (TO YOUR LEFT. / BEHIND YOU. / TO YOUR RIGHT. / IN FRONT OF YOU.)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "game text ECL7.DAX block 17 at 0x9b55, 0x9c26, 0x9c66 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: 'Fleeing only delays it.' The digest gives no flee squares for this area and does not say when 'THERE IS NOWHERE LEFT TO RETREAT' prints; record when it appears rather than asserting a trigger."
+    },
+    {
+      "id": "acceptance.nomad-camp.resting",
+      "title": "Where the party may rest",
+      "kind": "rule",
+      "steps": [
+        "Case 1: as a guest, encamp and rest inside the hut the nomads assigned.",
+        "Case 2: after killing Hassad and his tribe on the attack route, encamp and rest anywhere on the camp map."
+      ],
+      "expect": [
+        "Case 1: rest proceeds until the scripted event (feast call or kobold attack) interrupts it.",
+        "Case 2: rest completes without interruption."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "Clue Book p.27-28"
+      ],
+      "disagreements": [
+        "The digest ([P] §3.13) gives no rest rule for the Nomad Camp; the only source is the Clue Book: 'Where You Can Rest: In your hut, or anywhere after the nomads have been killed.'"
+      ],
+      "coveredBy": [],
+      "notes": "Clue Book only. Whether resting elsewhere as a guest is refused or interrupted is not stated."
+    },
+    {
+      "id": "acceptance.nomad-camp.commission-8-reward",
+      "title": "Collect the Commission #8 reward",
+      "kind": "main",
+      "steps": [
+        "Complete the area by any completing route (Hassad killed, or Hassad's reward received, or the nomads destroyed by the kobolds after the party left).",
+        "Return to New Phlan City Hall and speak to the council clerk at location 29 (5,5)."
+      ],
+      "expect": [
+        "The clerk pays 2 jewelry and 6 gems, and each character gains 983 XP.",
+        "The quest tracker advances by one (digest: #8 is one of 'The ten quests that advance the tracker').",
+        "Commission #8 is no longer offered."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Reward: 2 jewelry, 6 gems (983 XP).",
+        "Adventurer's Journal p.13-15 prints Proclamation CCXIV (nomads) and Tavern Tale 18 (marauding nomads east of Phlan with an artifact, p.33-34)."
+      ],
+      "sources": [
+        "[P] §3.0 clerk commission list",
+        "[P] §3.13 (qa/research/guides-digest.md)",
+        "Clue Book p.27-28",
+        "Adventurer's Journal p.13-15, p.33-34"
+      ],
+      "disagreements": [
+        "The Journal prints Proclamation CCXIV about the nomads; the digest's proclamation table (from [P]) never lists CCXIV (scratchpad NOTES.md)."
+      ],
+      "coveredBy": [],
+      "notes": "The clerk's wording for this reward is not in the digest. Tavern Tale 18 places the nomads east of Phlan; the camp is north of Phlan at (25,11). The Journal warns that some tales are false."
+    }
+  ]
+}

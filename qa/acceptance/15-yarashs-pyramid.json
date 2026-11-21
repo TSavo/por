@@ -1,0 +1,1034 @@
+{
+  "schema": 1,
+  "id": "acceptance.yarashs-pyramid",
+  "title": "Yarash's Pyramid (Sorcerer's Island)",
+  "guideSection": "3.15",
+  "scripts": [
+    "ECL 22",
+    "ECL 23"
+  ],
+  "commission": "Commission #10",
+  "prerequisites": [
+    "The party can reach the wilderness map and fixed point f, global wilderness (19,14) (digest §3.11).",
+    "Commission #10 (Stojanow River pollution) need not have been offered to complete the area and be paid (digest §3.0).",
+    "The digest states no party level. Level 1 maze encounters include groups of 3 7TH LVL FIGHTER; a wrong password or hostile shackled lizardmen deal 201 damage to characters.",
+    "ECL 22 is Level 1; ECL 23 is Levels 2 and 3 (game text blocks 22 and 23 of ECL7.DAX).",
+    "Scenarios that need a known teleporter state start from a fresh entry to the pyramid, before any rock has been thrown."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.yarashs-pyramid.reach-the-island",
+      "title": "Take the hidden rowboat and enter the pyramid",
+      "kind": "main",
+      "steps": [
+        "On the wilderness map walk onto f (19,14). The game prints \"YOU HAVE FOUND A ROWBOAT HIDDEN AMOUNGST THE REEDS. WILL YOU TAKE IT TO THE PYRAMID?\" with YES / NO. Choose YES.",
+        "The party is at g (19,16). The game prints \"YOU ARE IN FRONT OF A MAGNIFICENT PYRAMID. YOU HAVE FOUND A SECRET DOOR THAT LEADS INTO THE PYRAMID. WHAT WILL YOU DO?\" with ENTER / GO BACK.",
+        "Choose ENTER."
+      ],
+      "expect": [
+        "The party is on Pyramid Level 1 (ECL 22) at (15,0).",
+        "GO BACK instead leaves the party on the wilderness map."
+      ],
+      "branches": [
+        "NO at the rowboat: stay at (19,14).",
+        "GO BACK at the pyramid: return to the wilderness."
+      ],
+      "fights": [],
+      "data": [
+        "f = (19,14) rowboat; g = (19,16) pyramid; Level 1 entry (15,0). Clue Book: Sorcerer's Island 6,16 in Central-region coordinates (add 13 to X)."
+      ],
+      "sources": [
+        "[P] §3.11 fixed points f and g",
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "digest §7 item 37",
+        "game text ECL7.DAX block 26 at 0x9f22, 0x9f99, 0x9ff6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say where 'GO BACK' or 'NO' put the party beyond staying in the wilderness. Tavern Tale 1 (wizard's castle ruins in a swamp far to the northeast, Journal p.33-34) and Journal entry 44 are rumours a test must not rely on."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.level-1-corridor-and-exit",
+      "title": "Starting corridor is safe; exit E returns to the wilderness",
+      "kind": "rule",
+      "steps": [
+        "From (15,0) walk the starting corridor of Level 1 without entering the maze; rest there.",
+        "Walk onto exit E."
+      ],
+      "expect": [
+        "No random encounter occurs in the starting corridor and rest there is not interrupted.",
+        "Exit E puts the party on the wilderness map at (19,16)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Exit E -> Wilderness (19,16)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not give the squares that make up 'the starting corridor' or the coordinates of E (the entry square is (15,0))."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.level-1-random-encounters",
+      "title": "Level 1 maze: twelve one-time random encounters",
+      "kind": "rule",
+      "steps": [
+        "Walk in the north half of the Level 1 maze with search mode off; count checks and encounters. Repeat in search mode.",
+        "Defeat encounters until six different groups have been met in the north half; keep walking there.",
+        "Do the same in the south half."
+      ],
+      "expect": [
+        "Encounter chance is 1 in 21 with search mode off and 1 in 3 in search mode.",
+        "Every group is hostile at once (no parley) and has Morale 100.",
+        "North half groups, each met only once: 20 STIRGE; 3 DRIDER; 3 MINOTAUR; 3 DIANE (#79); 3 KOBOLD (#123); 3 7TH LVL FIGHTER (#80).",
+        "South half groups, each met only once: 3 6TH LVL FIGHTER (#75); 3 DISPLACER BEAST; 3 7TH LVL DW FIGH (#76); 3 LIZARDMAN; 3 7TH LVL THIEF (#77); 3 DRIDER.",
+        "After a half's six groups are defeated no further random encounter occurs in that half.",
+        "Encounter announcements use \"YOU SEE\", \"YOU ARE SURPRISED BY\" or \"YOU SURPRISE\" followed by the group."
+      ],
+      "branches": [],
+      "fights": [
+        "North: 20 STIRGE / 3 DRIDER / 3 MINOTAUR / 3 DIANE (#79) / 3 KOBOLD (#123) / 3 7TH LVL FIGHTER (#80); Morale 100.",
+        "South: 3 6TH LVL FIGHTER (#75) / 3 DISPLACER BEAST / 3 7TH LVL DW FIGH (#76) / 3 LIZARDMAN / 3 7TH LVL THIEF (#77) / 3 DRIDER; Morale 100."
+      ],
+      "data": [
+        "1 in 21; 1 in 3 in search mode; 12 encounters, each once."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 22 at 0xa222, 0xa22c, 0xa24e, 0xa264, 0xa2c7, 0xa2fd (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Halves: [P] 'North half' / 'South half'; Clue Book 'west half' / 'east half' (same lists: west = stirges, driders, minotaurs, elf magic users, kobolds, fighters; east = fighters, displacer beasts, dwarves, lizard men, driders, thieves).",
+        "Clue Book calls the #79 group 'elf magic users'; [P] names the monster DIANE (#79)."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no XP for these groups and does not say whether a group the party fled from counts as used. The block also holds reaction lines \"THEY SMILE AT YOU.THEY WAVE AND SAY 'SAVED!'THE LEADER WAVES AND CALLS TO YOU.\", \"ONE LICKS ITS LIPS.\" and \"THEY FLY TOWARD YOU.\"; which group shows which is not in the digest. With fixed dice a runner can assert the die sizes 21 and 3."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.level-1-flee-rule",
+      "title": "Fleeing a maze encounter",
+      "kind": "rule",
+      "steps": [
+        "Meet a Level 1 random group and choose to flee, in three setups: neither side surprised, party surprised the group, group surprised the party."
+      ],
+      "expect": [
+        "Flight succeeds by comparing movement rates, with +3 for the party if it surprised the group and -3 if the group surprised it."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Flee: movement comparison, +3 if you surprised them, -3 if they surprised you."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the comparison uses the slowest party member or what die, if any, is added; a runner with fixed dice should record the roll."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.level-1-resting",
+      "title": "Resting on Level 1",
+      "kind": "rule",
+      "steps": [
+        "Case 1: rest in the starting corridor.",
+        "Case 2: rest in a maze half whose six random groups have all been defeated.",
+        "Case 3: rest in a maze half with groups remaining."
+      ],
+      "expect": [
+        "Cases 1 and 2: rest is never interrupted.",
+        "Case 3: each 10 minutes of rest has a 33% chance of an interruption by one of that half's remaining groups."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "33% per 10 minutes in an uncleared half."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book agrees: 'Your party can rest in either the western or eastern side of level 1 after defeating all the random encounters from that side.' It does not mention the corridor."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.teleporter-ta-default",
+      "title": "Teleporter TA (14,7): default destination Ta, Level 2 (4,15)",
+      "kind": "main",
+      "steps": [
+        "On Level 1, with no rock thrown at TA, walk to TA (14,7). In search mode the game prints \"YOU SEE ROCKS SCATTERED ABOUT THE SMOOTH FLAGSTONES.\" and \"AS YOU CAREFULLY SEARCH THE ROOM, YOU FEEL A STRANGE TINGLE WHEN YOU GET CLOSE TO A BARE AREA.\" with GO BACK / MOVE ON / THROW A ROCK.",
+        "Choose MOVE ON (or walk on with search mode off). The game prints \"AS YOU MOVE THROUGH THE ROOM THERE IS A FLASH, AND YOU SUDDENLY FIND YOURSELVES ELSEWHERE.\"."
+      ],
+      "expect": [
+        "The party is on Level 2 (ECL 23) at Ta (4,15)."
+      ],
+      "branches": [
+        "GO BACK: the party stays on Level 1.",
+        "THROW A ROCK: scenario teleporter-ta-rock-toggle."
+      ],
+      "fights": [],
+      "data": [
+        "TA: Level 1 (14,7) -> Ta, Level 2 (4,15)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "Clue Book p.31-32 (maps)",
+        "game text ECL7.DAX block 22 at 0x9fe7, 0xa05e, 0xa0a8, 0x999c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book calls these Set A ('used by Yarash to get to his laboratory') and labels them A0-A7 with + and - ends; [P] labels them TA, TE, TG, TJ with destinations Ta-Tk. The two labelings are not mapped to each other in the digest."
+      ],
+      "coveredBy": [],
+      "notes": "Whether the prompt appears only in search mode is an inference from the text 'AS YOU CAREFULLY SEARCH THE ROOM'; the digest does not say."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.teleporter-ta-rock-toggle",
+      "title": "Throw a rock at TA: destination toggles to Tb, Level 1 (5,11)",
+      "kind": "main",
+      "steps": [
+        "At TA (14,7) choose THROW A ROCK. The game prints \"YOU THROW A ROCK. SUDDENLY IT DISAPPEARS WITH A FLASH!\".",
+        "Step into TA.",
+        "Return to TA, throw another rock, and step in again."
+      ],
+      "expect": [
+        "After one rock, TA sends the party to Tb on Level 1 at (5,11), inside the maze.",
+        "After a second rock, TA sends the party to Ta on Level 2 at (4,15) again (the rock toggles the destination)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "TA toggled: -> Tb, Level 1 (5,11)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 22 at 0xa0e6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: 'throwing a rock toggles it'. Clue Book: 'Set A's direction switches every time a teleporter in Set A is activated. Set A begins set to forward' and 'Throw a stone into the teleporter before moving through to reset its direction.' Under the Clue Book rule a use also flips the state, and the state is shared by the whole set; under [P] as digested only a rock changes it and nothing says the state is shared."
+      ],
+      "coveredBy": [],
+      "notes": "The second expectation follows from 'toggles'; the digest does not show a second throw. The test author must read the script to decide between per-teleporter and set-wide state and whether use flips it; record both readings as cases until then."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.teleporter-tb",
+      "title": "Teleporter TB (14,8) -> Tb, Level 1 (5,11)",
+      "kind": "main",
+      "steps": [
+        "On Level 1 walk onto TB (14,8).",
+        "Throw a rock first if the prompt offers it, then walk on, in a second run."
+      ],
+      "expect": [
+        "The party is on Level 1 at Tb (5,11) in both runs: TB has one destination."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "TB: Level 1 (14,8) -> Tb, Level 1 (5,11)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book: 'Teleporter Set B is designed to trick intruders into entering the maze. Each teleporter in Set B only goes to one location.' The digest does not say whether TB shows the rock prompt."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.teleporter-tc",
+      "title": "Teleporter TC (14,9) -> Tc (0,0)",
+      "kind": "main",
+      "steps": [
+        "On Level 1 walk onto TC (14,9)."
+      ],
+      "expect": [
+        "The party is at Tc (0,0)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "TC: Level 1 (14,9) -> Tc (0,0)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives Tc as '(0,0)' with no level; from context (a maze trap in Set B) it is Level 1, but that is not stated. Tk on Level 3 is also (0,0), so assert the level from the script."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.teleporter-td",
+      "title": "Teleporter TD (6,1) -> Td, Level 2 (0,12)",
+      "kind": "main",
+      "steps": [
+        "On Level 1 walk onto TD (6,1)."
+      ],
+      "expect": [
+        "The party is on Level 2 at Td (0,12)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "TD: Level 1 (6,1) -> Td, Level 2 (0,12)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest lists no toggle for TD."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.priest-secret-exit",
+      "title": "Persuade the mad priest to reveal his exit (location 12)",
+      "kind": "optional",
+      "steps": [
+        "On Level 1 walk to location 12 (13,15). The game prints \"YOU SEE A HUMAN PRIEST.\" and \"HE SMILES AT YOU AND RAISES HIS HAND IN BENEDICTION.\".",
+        "Parley Nice or Meek. Each attempt has a 1 in 3 chance of success; on a failure parley again.",
+        "On success the game prints \"I HAVE A SECRET. I HAVE CHISELED ALMOST ALL THE WAY THROUGH TO THE OUTSIDE. BUT I NO LONGER HAVE THE STRENGTH TO BREAK THROUGH. WILL YOU TRY?\" with YES / NO. Choose YES.",
+        "The game prints \"YOU BREAK THROUGH. THE PRIEST TEARFULLY THANKS YOU AND GOES THROUGH THE HOLE.\".",
+        "Walk into the hole in the south wall: \"THERE IS A HOLE IN THE WALL THAT LEADS TO THE OUTSIDE. DO YOU GO THROUGH IT?\" (YES / NO)."
+      ],
+      "expect": [
+        "The priest is gone.",
+        "A permanent exit exists in the south wall at location 12; choosing YES at the hole puts the party outside the pyramid, and the hole is still there on later visits."
+      ],
+      "branches": [
+        "Attack: scenario priest-attack.",
+        "NO at the offer: no exit is made."
+      ],
+      "fights": [],
+      "data": [
+        "12 = (13,15). Success chance 1 in 3 per Nice/Meek parley."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 22 at 0x9cca, 0x9cf3, 0x9d7e, 0x9df4, 0x9e43, 0x9e96 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: 'repeatedly parley Nice/Meek (1 in 3 each time)'; Clue Book: 'If you Parlay with him and chose Nice many times he can show you his way out' (Nice only)."
+      ],
+      "coveredBy": [],
+      "notes": "The line shown on a failed attempt is probably \"PEACE BROTHER. YOU, TOO, ARE ONE OF MY FLOCK. I HAVE BUT RECENTLY PRAYED FOR ANOTHER OF MY FLOCK AND MAY PRAY NO MORE.\"; the digest does not quote it. The digest does not say where on the wilderness map the hole leads; (19,16) is the pyramid's wilderness square."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.priest-attack",
+      "title": "Attack the priest",
+      "kind": "optional",
+      "steps": [
+        "At location 12 (13,15) choose to attack.",
+        "Combat: 2ND LVL CLERIC (#78)."
+      ],
+      "expect": [
+        "The fight is against one 2ND LVL CLERIC (#78).",
+        "No exit is made in the south wall."
+      ],
+      "branches": [],
+      "fights": [
+        "2ND LVL CLERIC (#78); count 1 implied; morale and XP not given."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says only 'attack (2ND LVL CLERIC #78)'. The second expectation is an inference: the exit comes only from the parley branch."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.corpse-entry-26",
+      "title": "Search the corpse for Tyrmor's journal (location 13)",
+      "kind": "optional",
+      "steps": [
+        "On Level 1 walk to location 13 (13,4) and search.",
+        "The game prints \"YOU FIND THE CORPSE OF A MAN. THE BODY HAS BEEN STRIPPED OF WEAPONS AND ARMOR, AS WELL AS ANY USEFUL GEAR.\" and \"HOWEVER, YOU FIND A BOOK UNDER THE BODY. IT IS THE JOURNAL OF TYRMOR. IT IS FACINATING AND YOU INCLUDE MUCH OF ITS INFORMATION IN YOUR JOURNAL AS ENTRY 26.\"."
+      ],
+      "expect": [
+        "The text names Journal Entry 26 (small book charting the pyramid maze and Yarash's breeding, Adventurer's Journal p.22)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "13 = (13,4). Journal Entry 26, p.22. The game text calls it 'THE JOURNAL OF TYRMOR'."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "Adventurer's Journal p.22 (entry 26)",
+        "game text ECL7.DAX block 22 at 0x9efa, 0x9f61 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book Level 1 location 1: 'a dead body with a partial map of the maze. Due to the teleporters the map is only partially correct'; [P] calls it location 13."
+      ],
+      "coveredBy": [],
+      "notes": "Clue Book location numbers restart on each level and do not match [P]'s."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.levels-2-3-rules",
+      "title": "Levels 2 and 3: no random encounters, safe rest, flee destinations",
+      "kind": "rule",
+      "steps": [
+        "On Level 2 and on Level 3 walk and rest at length.",
+        "Flee a set fight on Level 2 or 3 and read the party's position."
+      ],
+      "expect": [
+        "No random encounter ever occurs on Levels 2 and 3.",
+        "Rest is never interrupted on Levels 2 and 3.",
+        "After fleeing, the party is at Level 2 (3,8) or at Tk on Level 3 (0,0)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Flee destinations: L2 (3,8); Tk L3 (0,0)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say which fights send the party to which of the two squares (presumably Level 2 fights to (3,8) and Level 3 fights to Tk). Clue Book: 'Your party can rest anywhere on level 2 or 3.'"
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.teleporter-te",
+      "title": "Teleporter TE (15,12): Te, L2 (11,3); rock toggles to Tf, L1 (15,7)",
+      "kind": "main",
+      "steps": [
+        "Walk onto TE (15,12) without throwing a rock.",
+        "In a second run, at the prompt (\"AS YOU CAREFULLY SEARCH THE ROOM YOU FEEL A STRANGE TINGLE AS YOU GET CLOSE TO A BARE AREA.\") choose THROW A ROCK, then walk on."
+      ],
+      "expect": [
+        "Default: the party is at Te, Level 2 (11,3).",
+        "After one rock: the party is at Tf, Level 1 (15,7)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "TE (15,12) -> Te L2 (11,3); toggled -> Tf L1 (15,7)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 23 at 0x9ced, 0x999c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest lists the source squares TE-TL under 'Levels 2 and 3' without saying which level each source is on; read the level from the map data. Arrival prints \"AS YOU MOVE THROUGH THE ROOM THERE IS A FLASH AND YOU SUDDENLY FIND YOURSELF ELSEWHERE.\". Te (11,3) is next to TG (12,3)."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.teleporter-tg",
+      "title": "Teleporter TG (12,3): Tg, L2 (14,12); rock toggles to Th, L3 (0,4)",
+      "kind": "main",
+      "steps": [
+        "Walk onto TG (12,3) without throwing a rock.",
+        "In a second run throw one rock first."
+      ],
+      "expect": [
+        "Default: the party is at Tg, Level 2 (14,12).",
+        "After one rock: the party is at Th, Level 3 (0,4)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "TG (12,3) -> Tg L2 (14,12); toggled -> Th L3 (0,4)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 23 at 0x999c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest lists the source squares TE-TL under 'Levels 2 and 3' without saying which level each source is on; read the level from the map data. Arrival prints \"AS YOU MOVE THROUGH THE ROOM THERE IS A FLASH AND YOU SUDDENLY FIND YOURSELF ELSEWHERE.\". Tg (14,12) is next to TE (15,12), so TE and TG default to each other's neighbourhood."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.teleporter-ti",
+      "title": "Teleporter TI (15,8) -> Ti, L2 (3,13)",
+      "kind": "main",
+      "steps": [
+        "Walk onto TI (15,8)."
+      ],
+      "expect": [
+        "The party is at Ti, Level 2 (3,13)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "TI (15,8) -> Ti L2 (3,13)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "game text ECL7.DAX block 23 at 0x999c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest lists the source squares TE-TL under 'Levels 2 and 3' without saying which level each source is on; read the level from the map data. Arrival prints \"AS YOU MOVE THROUGH THE ROOM THERE IS A FLASH AND YOU SUDDENLY FIND YOURSELF ELSEWHERE.\". The digest lists no toggle for TI. The dial's Blue setting sends TL to 'L1 (15,8)', the same coordinates as TI on a different level."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.teleporter-tj",
+      "title": "Teleporter TJ (0,2): Tj, L2 (13,3); rock toggles to Tk, L3 (0,0)",
+      "kind": "main",
+      "steps": [
+        "Walk onto TJ (0,2) without throwing a rock.",
+        "In a second run throw one rock first."
+      ],
+      "expect": [
+        "Default: the party is at Tj, Level 2 (13,3).",
+        "After one rock: the party is at Tk, Level 3 (0,0)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "TJ (0,2) -> Tj L2 (13,3); toggled -> Tk L3 (0,0)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 23 at 0x999c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest lists the source squares TE-TL under 'Levels 2 and 3' without saying which level each source is on; read the level from the map data. Arrival prints \"AS YOU MOVE THROUGH THE ROOM THERE IS A FLASH AND YOU SUDDENLY FIND YOURSELF ELSEWHERE.\". Tj (13,3) is location 6, the five lizardmen. Th (0,4) is two squares from TJ (0,2), which suggests TJ is on Level 3."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.teleporter-tl-dial",
+      "title": "Dial at 26 sets teleporter TL (6,0)",
+      "kind": "main",
+      "steps": [
+        "After defeating Yarash walk to the dial at location 26. The game prints \"YOU SEE A DIAL THAT CAN BE SET TO FOUR DIFFERENT COLORS: BLUE, COPPER, SILVER, AND GOLD. IT IS CURRENTLY SET TO\" followed by the current color, then \"DO YOU WISH TO CHANGE THE SETTING?\".",
+        "Answer yes. The game prints \"CHANGE TO WHAT SETTING?\" with BLUE / COPPER / SILVER / GOLD.",
+        "For each color in turn: set the dial, walk onto TL (6,0), read the party's position, and for Copper, Silver and Gold walk onto the return teleporter in the room reached."
+      ],
+      "expect": [
+        "Blue: TL sends the party to Level 1 (15,8).",
+        "Copper: TL sends the party to Tm, Level 3 (4,9); that room's return teleporter brings it back.",
+        "Silver: TL sends the party to Tn, Level 3 (7,0); return teleporter brings it back.",
+        "Gold: TL sends the party to To, Level 3 (14,13); return teleporter brings it back.",
+        "The dial text names the color last set (\"BLUE.\", \"COPPER.\", \"SILVER.\" or \"GOLD.\")."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "TL (6,0). Blue -> L1 (15,8); Copper -> Tm L3 (4,9); Silver -> Tn L3 (7,0); Gold -> To L3 (14,13)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 23 at 0xac5a, 0xacc3, 0xace7, 0xacfc, 0xad1b (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Blue target: [P] 'L1 (15,8)'; Clue Book 'will teleport the group one way to A3 so that they can conveniently exit the pyramid'. The digest does not map A3 to coordinates.",
+        "Clue Book: 'There are 4 settings: Copper, Silver, Gold, and Blue'; the game text orders them BLUE, COPPER, SILVER, GOLD."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for location 26 (Clue Book: 'a dial on the north wall in the square adjacent to C0'), does not state the dial's initial setting, and does not say where each return teleporter lands (presumably TL's square). The three rooms are Yarash's treasure rooms (Clue Book) and are likely the 'magical junk' rooms 19/20/21; that link is not stated in the digest."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.clue-book-fast-route",
+      "title": "Cross-check: the Clue Book's fast route to Level 3",
+      "kind": "optional",
+      "steps": [
+        "From (15,0) follow the Clue Book: 'Move down the main corridor to the first alcove, turn right, and move forward and then teleport.'",
+        "'Move down the hall, turn right at the intersection, and then move to the end of the hall. Throw a stone and then teleport.'",
+        "'Follow the corridor to the end. Throw a stone and then teleport.'",
+        "'Move down the hall. Throw a stone and then teleport.'"
+      ],
+      "expect": [
+        "The party is on Level 3 (Clue Book: 'You are now on the third level at A7+').",
+        "No Level 1 maze square was entered and no random encounter occurred."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "[GB] version: '#2 to #2a, #8 (throw rock) to #8b, #12 (throw rock) to #12b, and #13 (throw rock) to #13b.'"
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md) ([CB] step list, 'a cross-check, not from [P]')",
+        "Clue Book p.33-34"
+      ],
+      "disagreements": [
+        "Number of rocks: the Clue Book and [GB] throw a rock at the second, third and fourth teleporters. Using [P]'s table as digested, the chain TA (default, to L2 (4,15)) -> TE (default, to (11,3)) -> TG (rock, to L3 (0,4)) -> TJ (rock, to Tk L3 (0,0)) needs a rock at only the third and fourth; a rock at TE would send the party to Tf, 'L1 (15,7)'.",
+        "The two readings agree if a use also flips the set's direction (Clue Book rule), so that a rock before the second teleport restores 'forward'."
+      ],
+      "coveredBy": [],
+      "notes": "This is the scenario that decides the toggle semantics. The digest's teleporter table and the Clue Book route cannot both be right under a rock-only, per-teleporter toggle; one of them (or the digest's level label for Tf) is wrong. Read the ECL 22/23 scripts and fix the expectation; until then assert only the end state 'Level 3'."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.five-lizardmen-parley",
+      "title": "Talk the five lizardmen out of a fight (location 6)",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 6 (13,3). The game prints \"YOU SEE A GROUP OF FIVE LIZARD MEN. THEY HISS AT YOU.\".",
+        "Parley Meek with a speaker of Charisma 8 or more (score 50 + 25 = 75)."
+      ],
+      "expect": [
+        "Parley score = 0 for Abusive, 15 for Haughty or Sly, 30 for Nice, 50 for Meek, plus the speaker's Charisma modifier.",
+        "At 75 or more the game prints \"'SINCE YOU ARE NOT THE SERVANTS OF YARASH, WE WILL NOT KILL YOU. THE ENEMY OF MY ENEMY IS NOT MY ENEMY!'\" and no fight occurs."
+      ],
+      "branches": [
+        "Score below 75: scenario five-lizardmen-fight."
+      ],
+      "fights": [],
+      "data": [
+        "6 = (13,3). Threshold 75."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "[P] §3.11 (parley formula)",
+        "game text ECL7.DAX block 23 at 0x9e31, 0x9f3f, 0x9e76 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book Level 2 location 2: 'lizard men in a cell. If you Approach, Parlay, and then choose Nice they may not attack'; [P] gives a score threshold and no cell."
+      ],
+      "coveredBy": [],
+      "notes": "Digest §4 gives the Charisma reaction adjustment as 3 = 0, 8-12 = 25, 13 = 30, 15 = 40, 16 = 50, 17 = 55, 18-25 = 60. With that table: Meek (50) passes with Charisma 8 or more; Nice (30) passes with Charisma 16 or more (30 + 50); Haughty or Sly (15) passes only with Charisma 18 or more (15 + 60); Abusive (0) never passes. No die is rolled, so the outcome is fixed by attitude and the speaker's Charisma. The digest's table has no values for Charisma 4-7 and 14. The reaction line is one of \"THEY ARE WARY, BUT NOT HOSTILE.STANDING READY THEIR LEADER SAYS 'YOU MUST BE THE SERVANTS OF YARASH!'THEIR LEADER SAYS 'FOUL SERVANTS OF YARASH!'\" (three variants in one string)."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.five-lizardmen-fight",
+      "title": "Fight the five lizardmen (location 6)",
+      "kind": "optional",
+      "steps": [
+        "At location 6 (13,3) attack, or parley with a score below 75. On a failed parley the game prints \"'MUTILATING SCUM! WE WILL DIE BEFORE WE LET YOU TWIST US AS YOU HAVE OUR OTHER PEOPLE! BUT YOU WILL DIE FIRST!'\".",
+        "Combat: 5 LIZARDMAN. Win it."
+      ],
+      "expect": [
+        "Each character gains 81 XP."
+      ],
+      "branches": [],
+      "fights": [
+        "5 LIZARDMAN, 81 XP; morale not given."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 23 at 0x9f94 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.vats-mutant-ambush",
+      "title": "Search the vats: three mutant lizardmen (location 17)",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 17. The game prints \"YOU HAVE ENTERED A ROOM FILLED WITH LARGE VATS WITH THE SAME OILY BLACK STUFF THAT FLOWS FROM THE FOUNTAIN. THE CHAMBER STINKS. ON THE WALLS ARE SHELVES OF BOTTLES AND FLASKS.\".",
+        "Search. The game prints \"AS YOU ARE POKING AROUND IN THE VATS, A PAIN CRAZED LIZARD MAN SURFACES AND ATTACKS YOU! TWO OTHERS QUICKLY JOIN HIM FROM OTHER VATS.\".",
+        "Combat: 3 MUTANT LIZ-MAN; the party is surprised. Win it."
+      ],
+      "expect": [
+        "The party is always surprised in this fight.",
+        "Each character gains 66 XP.",
+        "Without searching no fight occurs."
+      ],
+      "branches": [],
+      "fights": [
+        "3 MUTANT LIZ-MAN, 66 XP, party always surprised."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 23 at 0xa10b, 0xa1cb (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book Level 2 location 1: 'Here angered mutant lizards attack the party' (no search condition); [P]: 'search -> 3 MUTANT LIZ-MAN'."
+      ],
+      "coveredBy": [],
+      "notes": "No coordinates in the digest. 'Without searching no fight occurs' follows from [P]'s wording."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.notebook-and-flavor-rooms",
+      "title": "Notebook at 18 and flavor rooms 1, 8, 10",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 18 and search. The game prints \"YOU FIND A NOTEBOOK. A TYPICAL ENTRY READS, 'SUBJECT 213: PROGRESSING WELL, SCARS HEALING, UNABLE TO TALK YET. SUBJECT 214: DIED WHEN TREATED, FAILED AGAIN...'\".",
+        "Walk through locations 1, 8 and 10."
+      ],
+      "expect": [
+        "Location 18 gives the notebook text and no item, XP or journal entry.",
+        "Locations 1, 8 and 10 each print a description only. The block's room descriptions are \"YOU HAVE ENTERED A ROOM FILLED WITH A HORRIBLE ASSORTMENT OF TORTURE INSTUMENTS. IN THE CENTER IS A LARGE TABLE WITH METAL RESTRAINTS.\", \"THE WALLS ARE LINED WITH FLASKS AND BOTTLES CONTAINING POWDERS, OILS, OINTMENTS, AND DRAUGHTS. THESE ARE SURELY OF AN ALCHEMICAL NATURE.\" and \"YOU HAVE ENTERED WHAT LOOKS LIKE AN ORDINARY ALCHEMISTS LAB... RECENTLY USED.\"."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "game text ECL7.DAX block 23 at 0xa2bf, 0xa01e, 0xa08a, 0xa262 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says '18: search -> notebook text. 1, 8, 10: flavor' with no coordinates and no quotes. Which description belongs to which number is not stated; the alchemist's-lab line may be the entry text for 18."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.magical-junk-rooms",
+      "title": "Search the three junk storerooms (locations 19, 20, 21)",
+      "kind": "optional",
+      "steps": [
+        "Walk into each of locations 19, 20 and 21. Each prints \"YOU ARE IN A STOREROOM HOLDING A VAST COLLECTION OF MAGICAL JUNK.\".",
+        "Search each room. The game prints \"HOWEVER, HIDDEN AMIDST ALL THIS JUNK YOU FIND SOME TREASURE.\"."
+      ],
+      "expect": [
+        "Each room yields 400 gold, 1200 silver and 3 random magic items.",
+        "Each room's XP per character is between 276 and 1277, depending on the items.",
+        "Without searching, no treasure is offered."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Per room: 400 gold, 1200 silver, 3 random magic items (276-1277 XP)."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 23 at 0xa344, 0xa38f (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest's wording 'search each -> 400 gold, 1200 silver, 3 random magic items (276-1277 XP)' is read here as per room; it could mean the total. No coordinates are given. The Clue Book calls these 'Yarash's three treasure rooms', reached through teleporter set C (the dial)."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.password-noknok",
+      "title": "Give the password NOKNOK at the door (location 22)",
+      "kind": "main",
+      "steps": [
+        "On Level 3 walk to location 22 (1,1). The game prints \"YOU SEE A SIGN OVER THE DOOR IN FRONT OF YOU. IT SAYS, 'DON'T FORGET THE PASSWORD'. THIS IS FOLLOWED BY SIX DWARVISH RUNES...\" and \"YOU QUICKLY TRANSLATE THEM AND SAY...?\".",
+        "Type NOKNOK. The game prints \"DO YOU REALLY MEAN NOKNOK ?\"; confirm.",
+        "Walk through the door to location 23 (2,1)."
+      ],
+      "expect": [
+        "No damage is dealt and no monster appears.",
+        "The party can enter the fountain chamber at (2,1)."
+      ],
+      "branches": [
+        "Any other word: scenario password-wrong."
+      ],
+      "fights": [],
+      "data": [
+        "22 = (1,1). Password: NOKNOK. The sign reads 'DON'T FORGET THE PASSWORD' followed by six runes."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "digest §7 item 3",
+        "game text ECL7.DAX block 23 at 0xa408, 0xa480, 0xa4a7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Password: 'NOKNOK' in [P], [GB], [CB] (other versions) and [SP] (non-C64); 'NOTNOW' for C64 v1.0 in [SP] and [CB] (digest §7 item 3). The DOS 1.3 port uses NOKNOK.",
+        "Runes: [P] 'six Dethek runes'; game text 'SIX DWARVISH RUNES'; Clue Book 'written in Dethek'."
+      ],
+      "coveredBy": [],
+      "notes": "The rune glyphs are drawn on screen or decoded with the Journal's rune table; the digest does not describe the glyphs. The digest does not say whether the answer is case-sensitive or whether the door asks again on later passes."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.password-wrong",
+      "title": "Give a wrong password",
+      "kind": "optional",
+      "steps": [
+        "At location 22 (1,1) type any word other than NOKNOK (for example NOTNOW) and confirm.",
+        "The game prints \"SUDDENLY A HIDDEN DOOR BURSTS OPEN AND A HORRIBLE MONSTER BURSTS FORTH SHOUTING 'KIAIAIAIAIAIAIAI!' IT WADES INTO YOU TEARING YOU APART WITH 3-INCH LONG CLAWS.\"."
+      ],
+      "expect": [
+        "Every character takes 201 damage.",
+        "No combat screen is entered; the damage is scripted."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "201 damage to every character."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 23 at 0xa4da (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: 'every character takes 201 damage'; Clue Book: 'a crazed super-mutant lizard man destroys your party'."
+      ],
+      "coveredBy": [],
+      "notes": "201 exceeds any normal hit-point total, so the expected visible result is every character dead or dying. 'No combat screen' is inferred from the digest giving damage rather than a fight."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.machinery-destroyed-safely",
+      "title": "Destroy the machinery and get out (location 23)",
+      "kind": "main",
+      "steps": [
+        "Enter location 23 (2,1). The game prints \"YOU HAVE ENTERED THE FOUNTAIN CHAMBER. IN THE CENTER OF THE ROOM A COLUMN OF BLACK FOUL WATER JETS UP THROUGH A CLEAR PIPE AND OUT THE ROOF.\" and \"ANOTHER PIPE, RUNNING FROM THE WALL ACROSS AND TO YOUR RIGHT, PUMPS IN STREAMS OF THE FOUL LIQUID. ALL ABOUT THE ROOM ARE VALVES, GAUGES, PETCOCKS, AND PIPES.\", then \"WHAT DO YOU DO?\" with MOVE QUICKLY AWAY / DESTROY THE EQUIPMENT.",
+        "Choose DESTROY THE EQUIPMENT repeatedly. Each choice rolls a d10, up to 10 rolls.",
+        "With dice fixed so that no roll is a 1, continue until the game prints \"YOU HAVE DESTROYED THE LAST PIECE OF EQUIPMENT.\"."
+      ],
+      "expect": [
+        "No damage is taken.",
+        "The area is flagged complete by the machinery's destruction (digest: 'Destroying it flags the area, though the Yarash fight flags it too')."
+      ],
+      "branches": [
+        "A roll of 1: the game prints \"YOU HEAR A WHINING FROM THE PIPES THE BLACK LIQUID IS BUBBLING. HOWEVER, NOT ALL THE EQUIPMENT IS YET DESTROYED.\"; at most 2 more safe rolls remain. Finishing within them prints \"THE WHINE SUBSIDES AS THE PRESSURE IS RELEASED.\".",
+        "After the whine, MOVE QUICKLY AWAY: \"YOU RUN FOR THE EXIT. AS YOU SLAM THE DOOR BEHIND YOU, YOU HEAR AN ENORMOUS EXPLOSION. THE EQUIPMENT IS NOW CERTAINLY DESTROYED.\"; the equipment is destroyed without damage.",
+        "Explosion: scenario machinery-explosion."
+      ],
+      "fights": [],
+      "data": [
+        "23 = (2,1). d10 up to 10 times; a 1 destabilises; then at most 2 more safe rolls; overall failure chance about 34.9%."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "digest §7 item 31",
+        "game text ECL7.DAX block 23 at 0xa58f, 0xa5ff, 0xa689, 0xa698, 0xa773, 0xa718, 0xa7a9, 0xa7ee (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book: 'Break the machinery once, then get out of the room before it explodes. If you hang around to do more damage you may get caught in the explosion'; [P] models it as up to 10 d10 rolls with a 1 starting a countdown."
+      ],
+      "coveredBy": [],
+      "notes": "The digest's summary of the mechanism is terse: it does not say whether each DESTROY choice is one roll, what exactly ends the '2 more safe rolls', or whether leaving early without a whine leaves the machinery intact. The pairing of each text line with a branch above is read from the text. With fixed dice a runner should assert the d10 and the two-roll window."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.machinery-explosion",
+      "title": "Stay too long: the machinery explodes",
+      "kind": "optional",
+      "steps": [
+        "At location 23 (2,1) choose DESTROY THE EQUIPMENT with dice fixed so a 1 is rolled, then keep destroying past the two safe rolls.",
+        "The game prints \"YOU START TO RUN FOR THE EXIT... YOU DON'T MAKE IT.\" and \"THERE IS AN ENORMOUS EXPLOSION! BITS OF PIPE AND OTHER PLUMBING FIXTURES FLY IN ALL DIRECTIONS.\"."
+      ],
+      "expect": [
+        "Every character takes 3d10 damage.",
+        "The machinery counts as destroyed."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Explosion: 3d10 to everyone."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 23 at 0xa859, 0xa88b (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "That the machinery counts as destroyed after an explosion is implied by the texts ('THE EQUIPMENT IS NOW CERTAINLY DESTROYED' in the escape line) but the digest does not state it for the caught-in-blast case."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.free-the-shackled-lizardmen",
+      "title": "Free the three shackled lizardmen and get Entry 35 (location 24)",
+      "kind": "main",
+      "steps": [
+        "Walk to location 24 (5,4). The game prints \"YOU HAVE ENTERED A PUMPING ROOM. WORKING AS SLAVES IN THIS ROOM ARE THREE LIZARD MEN WITH WHIP CUTS ACROSS THEIR BACK WHO ARE SHACKLED TO THE WALL BY LONG CHAINS.\", \"TWO OF THEM ARE POURING BARRELS OF THE BLACK CONTAMINANT INTO A LARGE VAT. THE OTHER IS WORKING A BELLOWS PUMP.\" and \"THEY RECOIL IN FEAR\".",
+        "Parley Nice or Meek.",
+        "The game prints \"AS YOU FREE THEM THEY TELL YOU ALL ABOUT WHAT YARASH IS DOING AND HOW YOU CAN GET HELP FROM THEIR TRIBE IN THE SWAMP. YOU COPY ALL THEY SAY AS ENTRY 35 OF YOUR JOURNAL.\"."
+      ],
+      "expect": [
+        "The text names Journal Entry 35 (freed lizardmen's speech, Adventurer's Journal p.24).",
+        "No fight and no damage.",
+        "The Lizardman Keep's friend-word route is now open: the word is SAVIOR (see file 16)."
+      ],
+      "branches": [
+        "Attack, or parley Haughty, Sly or Abusive: scenario shackled-lizardmen-hostile."
+      ],
+      "fights": [],
+      "data": [
+        "24 = (5,4). Journal Entry 35, p.24. Friend-word: SAVIOR."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "Adventurer's Journal p.24 (entry 35)",
+        "digest §7 item 30",
+        "[P] §3.16",
+        "game text ECL7.DAX block 23 at 0xa8fa, 0xa97b, 0xa9d6, 0xaa29 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Level: [P] puts the shackled lizardmen on Level 3 (location 24); the Clue Book's Lizard Men Keep page says 'freed the lizard men on the second level', while its pyramid page lists them under Level 3 (digest §7 item 30).",
+        "The word: the Clue Book spells it 'the friend word SAVIOR'; the Journal's entry 35 draws it as two runes and a path symbol and does not spell it out (NOTES.md)."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the keep checks a flag set here or accepts SAVIOR typed by a party that never freed the lizardmen; file 16 records that as an open question. The player must decode the runes in entry 35 to learn the word."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.shackled-lizardmen-hostile",
+      "title": "Threaten the shackled lizardmen: muck barrels and a fight",
+      "kind": "optional",
+      "steps": [
+        "At location 24 (5,4) attack, or parley Haughty, Sly or Abusive.",
+        "The game prints \"THE LIZARD MEN'S FEAR CHANGES TO RAGE AND THEY THROW THEIR BARRELS OF CONTAMINANT ON THE PARTY.\".",
+        "Combat: 3 LIZARDMAN. Win it."
+      ],
+      "expect": [
+        "Two random characters each take 201 damage before the fight.",
+        "Each surviving character gains 49 XP.",
+        "Journal Entry 35 is not given."
+      ],
+      "branches": [],
+      "fights": [
+        "3 LIZARDMAN, 49 XP; morale not given."
+      ],
+      "data": [
+        "201 damage to 2 random characters."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "game text ECL7.DAX block 23 at 0xaabb (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book: 'If you are not friendly they throw barrels of poisonous muck at you' (no figure); [P]: '2 random characters take 201 damage, then 3 LIZARDMAN (49 XP)'."
+      ],
+      "coveredBy": [],
+      "notes": "'Journal Entry 35 is not given' is inferred; the digest ties the entry to the Nice/Meek branch only. A party that takes this branch cannot learn the friend-word from the game."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.yarash",
+      "title": "Defeat Yarash (location 25)",
+      "kind": "main",
+      "steps": [
+        "Walk to location 25 (4,1). The game prints \"AN ANCIENT MAGE LOOKS UP FROM HIS STUDIES, 'AH, GOOD, I NEED MORE SPECIMENS AS CONTROLS.' HE TURNS TO HIS MUTATED GUARDS, 'SUBDUE THEM!'\".",
+        "Whatever option is chosen, combat starts: 1 YARASH (#81) + 6 MUTANT LIZ-MAN, Morale 100. Win it."
+      ],
+      "expect": [
+        "Each character gains 959 XP.",
+        "Yarash's body yields Bracers AC 4, a Wand of Paralyzation (23 charges), 2 Potions of Healing and 1 Potion of Speed.",
+        "The pyramid is flagged cleared.",
+        "The party can now leave Level 3."
+      ],
+      "branches": [
+        "Every encounter option (attack, parley with any attitude, flee attempt) leads to the same combat (digest: 'Every option -> combat')."
+      ],
+      "fights": [
+        "1 YARASH (#81) + 6 MUTANT LIZ-MAN, Morale 100, 959 XP."
+      ],
+      "data": [
+        "25 = (4,1). Loot: Bracers AC 4, Wand of Paralyzation (23 charges), 2 Potions of Healing, 1 Potion of Speed."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "digest §5 Adaptational: 'The Wand of Paralyzation saves vs paralyzation.'",
+        "game text ECL7.DAX block 23 at 0xab68 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book location '4E. Yarash's Office': Yarash and his guards 'will attack you as you enter the room'; [P] offers options that all end in combat."
+      ],
+      "coveredBy": [],
+      "notes": "Per digest §5, monster gear grants monsters no effects, so Yarash's Bracers AC 4 do not change his AC."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.yarash-desk",
+      "title": "Search Yarash's desk for five journal entries (location 27)",
+      "kind": "optional",
+      "steps": [
+        "After the fight walk to location 27 (6,1) and search. The game prints \"THIS IS THE DESK OF YARASH. ON IT IS A LITTER OF PAPERS.\" and \"AMONG THE PAPERS ON THE DESK YOU FIND THE FOLLOWING AND SLIP THEM INTO YOUR JOURNAL:\".",
+        "The game lists: \"A LETTER FROM THE BOSS, TELLING YARASH TO JOIN OR DIE. (ENTRY 33)\"; \"AN UNSENT REPLY TO THIS LETTER. (ENTRY 49)\"; \"A MESSAGE TO THE BUCCANEERS OFFERING A BOUNTY FOR A REAL SAHUAGIN. (ENTRY 27)\"; \"A WARNING TO AN AGENT ABOUT THE DANGERS IN THE MOUNTAINS TO THE NORTHWEST. (ENTRY 56)\"; \"A NOTE TO A TRAPPER ABOUT KOBOLDS AND HOBGOBLINS. (ENTRY 40)\"."
+      ],
+      "expect": [
+        "The text names Journal Entries 33, 49, 27, 56 and 40, in that order.",
+        "Journal pages: 33 the Boss's notice to Yarash (p.23-24); 49 Yarash's refusal letter (p.30); 27 the 10,000 gold sahuagin bounty (p.22); 56 note about a dragon in the Dragonspine Mountains to the northwest (p.32); 40 note that kobolds and hobgoblins to the east are poor breeding material (p.27)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "27 = (6,1). Entries 33, 49, 27, 56, 40."
+      ],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "Adventurer's Journal p.22, p.23-24, p.27, p.30, p.32",
+        "game text ECL7.DAX block 23 at 0xad4d, 0xada3, 0xade9, 0xae21, 0xae48, 0xae89, 0xaed0 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Entry 40: the digest calls it a 'trapper note'; the Journal's entry 40 is a note that kobolds and hobgoblins make poor breeding material (NOTES.md flags this as a mismatch). The game text reconciles them: 'A NOTE TO A TRAPPER ABOUT KOBOLDS AND HOBGOBLINS. (ENTRY 40)'.",
+        "Buccaneer Base: [GB] says the base may appear 'after reading the notice on Yarash's desk' (entry 27 is addressed to the buccaneers); [P] says only after accepting #12 (digest §7 item 29)."
+      ],
+      "coveredBy": [],
+      "notes": "Clue Book places the desk 'against the east wall adjacent to C0'. The digest does not say whether the desk can be searched before Yarash is dead (he is at (4,1), the desk at (6,1))."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.cannot-leave-level-3",
+      "title": "Level 3 cannot be left while Yarash lives",
+      "kind": "rule",
+      "steps": [
+        "Reach Level 3 (for example via TJ with a rock, to Tk (0,0)) without having fought Yarash.",
+        "Try every way out available: walk back onto the arrival teleporter square, flee a Level 3 fight, use TL."
+      ],
+      "expect": [
+        "The party remains on Level 3 in every case until YARASH (#81) is defeated."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: 'you cannot leave Level 3 without defeating Yarash.' It does not say what each attempted exit shows. TL and the dial are in Yarash's rooms (Clue Book), so they may simply be out of reach until he is dead. The flee destination 'Tk on L3 (0,0)' is consistent with flight never leaving the level."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.area-complete-and-reward",
+      "title": "Leave the pyramid and collect Commission #10",
+      "kind": "main",
+      "steps": [
+        "After defeating Yarash set the dial to Blue, take TL to Level 1 and walk out by exit E.",
+        "On leaving, the game prints \"AS YOU LEAVE THE SORCERER'S PYRAMID BEHIND YOU CAN SEE THAT THE LAND IS ALREADY BEGINNING TO RECOVER FROM THE ALCHEMICAL POLLUTION CAUSED BY THE PYRAMID.\".",
+        "Return to New Phlan. Walk to Civilized Area location 8 (1,0).",
+        "Speak to the council clerk at City Hall location 29 (5,5)."
+      ],
+      "expect": [
+        "At (1,0) the game shows 'You walk near the beautiful Stojanow River.' instead of 'You walk near the poisonous barren river.' (digest §3.0).",
+        "The clerk pays 15 jewelry and 250 platinum, and each character gains 5708 XP.",
+        "The quest tracker advances by one (#10 is one of the ten tracker quests)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Reward: 15 jewelry, 250 pp (5708 XP).",
+        "Adventurer's Journal prints Proclamation CXXIX (Stojanow river poisoning, p.13-15) and Tavern Tale 7 (treasures on the banks of the Barren River, northward, p.33-34)."
+      ],
+      "sources": [
+        "[P] §3.0 (location 8 and clerk commission list)",
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "Clue Book p.33-34",
+        "digest §7 item 31",
+        "Adventurer's Journal p.13-15, p.33-34",
+        "game text ECL7.DAX block 26 at 0xae8f (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clear condition: [P] 'Defeating him clears the area' (the machinery also flags it); [SP] and [CB] 'destroying the machinery and defeating Yarash' (digest §7 item 31)."
+      ],
+      "coveredBy": [],
+      "notes": "The digest quotes the two river lines in mixed case from the guide; the game prints upper case, and those lines are in the New Phlan block, not checked here. Two runs are needed to settle the clear condition: Yarash only, and machinery only. Whether the 'LAND IS ALREADY BEGINNING TO RECOVER' line prints on every exit after completion or once is not stated."
+    },
+    {
+      "id": "acceptance.yarashs-pyramid.endgame-flag-bug",
+      "title": "Completing and leaving the pyramid can set endgame flags",
+      "kind": "quirk",
+      "steps": [
+        "Before entering the pyramid, record the game-state variables the endgame scripts read (Valjevo Castle and final-commission state).",
+        "Complete the pyramid (defeat Yarash) and leave by exit E.",
+        "Read the same variables again and compare with the original game's state after the same inputs."
+      ],
+      "expect": [
+        "The port's variables match the original's after the same inputs, including any endgame flag the pyramid scripts set wrongly."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.15 (qa/research/guides-digest.md)",
+        "digest §5 Scripting: 'Pyramid: can wrongly set the endgame flags.'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says only that completing and leaving the pyramid 'can incorrectly flag the endgame scripts'. It names no flag, no condition and no visible symptom, so this cannot be written as a screen-checkable step from the digest alone. A test author must read ECL 22/23 for the write and compare state against a reference run. The fix is not one of the seven optional [P] patches listed in digest §5, so the port must keep the bug."
+    }
+  ]
+}

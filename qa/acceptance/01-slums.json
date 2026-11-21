@@ -1,0 +1,1050 @@
+{
+  "schema": 1,
+  "id": "acceptance.slums",
+  "title": "Slums",
+  "guideSection": "3.1",
+  "scripts": [
+    "ECL 20"
+  ],
+  "commission": "Commission #1",
+  "prerequisites": [
+    "Party created and Rolf's tour finished (New Phlan, ECL 0).",
+    "Commission #1 may be heard from the council clerk first, but [P] says the reward is paid even if it was never offered.",
+    "[P] assumes a new level-1 party of six with melee weapons, armor and shields bought and spells memorized at an inn.",
+    "XP figures assume exactly six characters."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.slums.enter-from-new-phlan",
+      "title": "Enter the Slums from New Phlan",
+      "kind": "main",
+      "steps": [
+        "From New Phlan walk west through exit E2 at (0,4).",
+        "The party is placed in the Slums at E1 (15,4).",
+        "While the block is not cleared the game prints 'YOU HAVE ENTERED THE MONSTER-CRAWLING SLUMS OF PHLAN. SMALL, UGLY THINGS SCURRY FROM BENEATH YOUR FEET. IN THE DISTANCE, AN ALARM SOUNDS.'"
+      ],
+      "expect": [
+        "Current area is the Slums (ECL 20), party position (15,4).",
+        "The entry text with the alarm is shown because the block is uncleared."
+      ],
+      "branches": [
+        "Block already cleared: [P] says hearing 'an alarm' on entry means the block is not cleared yet, so a cleared block must not print the alarm sentence."
+      ],
+      "fights": [],
+      "data": [
+        "New Phlan E2 (0,4)",
+        "Slums E1 (15,4)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0x9ab8 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyFreshSlumsVictory (milestone 'Created six characters, completed Rolf's tour, saved and reloaded, and entered the Slums.')"
+      ],
+      "notes": "The digest does not give the text shown on entering a cleared Slums; only that the alarm is the sign of an uncleared block."
+    },
+    {
+      "id": "acceptance.slums.exits",
+      "title": "Use the other Slums exits",
+      "kind": "optional",
+      "steps": [
+        "Leave the Slums by exit E2; the party arrives in Kuto's Well (ECL 29).",
+        "Walk to E3 at (6,10); the game prints 'YOU ARE JUST NORTH OF THE ENTRY TO THE OLD ROPE GUILD.'",
+        "Step into the guild; the game prints 'YOU HAVE ENTERED THE MYSTERIOUS BUILDING THAT WAS ONCE THE ROPE GUILD. MOST WHO VENTURE INTO ITS TWISTY HALLS NEVER RETURN.'",
+        "Press 'A' for the area map inside the guild; no automap is available."
+      ],
+      "expect": [
+        "E1 returns to New Phlan, E2 leads to Kuto's Well, E3 (6,10) leads into the Old Rope Guild.",
+        "Inside the guild the area map is unavailable."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "E1 (15,4)",
+        "E3 (6,10) Old Rope Guild",
+        "E2 -> Kuto's Well (coordinates not given in the digest)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xad1c, 0xad70 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for E2. Which of the two guild texts prints on which square is not stated; the order above follows the script order."
+    },
+    {
+      "id": "acceptance.slums.orcs-arguing-over-papers",
+      "title": "Beat the orcs arguing over papers at location 1",
+      "kind": "main",
+      "steps": [
+        "Walk to (13,1). The game prints 'SEVERAL ORCS ARE ARGUING OVER SOME PAPERS.'",
+        "Fight 1 ORC (#13) and 3 ORC (#4).",
+        "Win and take the treasure."
+      ],
+      "expect": [
+        "Each of six characters gains 77 XP.",
+        "Treasure contains a Clerical Scroll with Cure Light Wounds twice.",
+        "One clear point is credited (set fight 1 of 9).",
+        "Resting in this room is now safe."
+      ],
+      "branches": [],
+      "fights": [
+        "1 ORC (#13) + 3 ORC (#4), Morale 99, adjacent start, 77 XP per character (party of six)"
+      ],
+      "data": [
+        "Location 1 at (13,1)",
+        "Clerical Scroll (Cure Light Wounds x2)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0x9e2a (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 1 'Several Orcs arguing over a piece of paper'"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyArmoredPatrols (milestone 'Won three Slums patrols and the fixed orc outpost, then reloaded the fully rested party:')",
+        "verifyOhloArmor (milestone 'Won the Slums orc outpost fight and reloaded Enna with the earned XP and clerical scroll.')"
+      ],
+      "notes": "XP figures in this file are per character for a party of exactly six."
+    },
+    {
+      "id": "acceptance.slums.goblin-armsmaster",
+      "title": "Beat the goblin armsmaster and his students at location 2",
+      "kind": "main",
+      "steps": [
+        "Walk to (10,1). The game prints 'A HEALTHY-LOOKING GOBLIN IS INSTRUCTING A GROUP OF YOUNG WARRIORS. HE SMILES AND SAYS, 'I SEE OUR OPPONENTS HAVE ARRIVED.''",
+        "Fight 1 GOBLIN LEADER (#12) and 8 GOBLIN GUARD (#2).",
+        "Win and take the treasure."
+      ],
+      "expect": [
+        "Each character gains 90 XP.",
+        "Treasure contains Leather Armor +1.",
+        "One clear point is credited."
+      ],
+      "branches": [],
+      "fights": [
+        "1 GOBLIN LEADER (#12) + 8 GOBLIN GUARD (#2), Morale 60, 90 XP"
+      ],
+      "data": [
+        "Location 2 at (10,1)",
+        "Leather Armor +1"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0x9e88 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 2"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyGoblinRoom (milestone 'Cleared the Slums goblin room and reloaded the salvaged gear:')",
+        "verifyGoblinLootSale"
+      ],
+      "notes": "Clue Book says to cast Detect Magic on the goblins' items to find the treasure; the digest names only the Leather Armor +1."
+    },
+    {
+      "id": "acceptance.slums.ohlo-fetch-the-potion",
+      "title": "Do Ohlo's errand and give him the potion",
+      "kind": "main",
+      "steps": [
+        "Walk to location 3 at (13,10). The game prints 'YOU BURST INTO AN ELEGANTLY PANELLED ROOM. A SMALL MAN SITS HUNCHED OVER A TABLE BY THE EAST WALL. HE SETS DOWN HIS PEN AND GAZES STERNLY AT YOU. 'WELL?', HE DEMANDS. (WHAT DO YOU DO?)' with the menu LEAVE / TALK / ATTACK.",
+        "Choose TALK and parley Nice or Meek. He says ''I MAY HAVE A USE FOR YOU,' THE MAN SAYS. 'SOME TIME AGO, I ORDERED A SPECIAL POTION. THE POTION IS READY BUT I CAN'T LEAVE TO FETCH IT. BRING IT HERE, I PAY WELL.'' with the menu ACCEPT THE COMMISSION / REJECT IT.",
+        "Choose ACCEPT THE COMMISSION. He says ''IT WAITS IN A BOOTH IN THE OLD ROPE GUILD BUT A SHORT DISTANCE TO THE SOUTHEAST FROM WHERE YOU NOW STAND. SPEAK MY NAME, OHLO.''",
+        "Walk to location 19 at (15,12). The game prints 'A MAN HURRIES FORWARD. 'I AM SORRY, NOBLE ONES, BUT I HAVE NOTHING TO SELL.' (WHAT DO YOU DO?)' with the menu LEAVE / ATTACK / SPEAK.",
+        "Choose SPEAK. At 'WHAT DO YOU SAY? (TYPE A SINGLE WORD)' type OHLO.",
+        "The game prints ''WAIT A MOMENT,' THE MAN SAYS. HE HURRIES TO THE BACK OF THE BOOTH AND RETURNS WITH A PACKAGE. 'HERE,' HE SAYS.' No item is added to any inventory.",
+        "Return to (13,10). Ohlo says ''YOU HAVE DONE WELL. GIVE ME THE POTION AND YOU WILL BE REWARDED.' (WHAT DO YOU DO?)' with the menu GIVE / ASK FOR MORE MONEY / REFUSE TO GIVE.",
+        "Choose GIVE. The game prints 'THE MAN TAKES THE POTION AND GULPS IT GREEDILY. AS YOU WATCH, HE SEEMS TO GROW YOUNGER AND STRONGER. 'EXCELLENT,' HE SMACKS, 'YOUR REWARD.''"
+      ],
+      "expect": [
+        "Reward: 1 jewelry, 150 platinum and 1 random magic item.",
+        "Each character gains between 558 and 891 XP depending on the random item.",
+        "The Ohlo clear point is credited (1 of the 25)."
+      ],
+      "branches": [
+        "REJECT IT at the offer: outcome not described in the digest.",
+        "Typing a word other than OHLO at the booth: ''I AM SORRY,' THE MAN SAYS, 'I CANNOT HELP YOU.''",
+        "Attack or insult Ohlo: see ohlo-attack-or-insult.",
+        "Attack the merchant: see ohlo-attack-the-merchant.",
+        "ASK FOR MORE MONEY or REFUSE TO GIVE: see ohlo-ask-for-more-or-refuse."
+      ],
+      "fights": [],
+      "data": [
+        "Password: OHLO",
+        "Location 3 (13,10)",
+        "Location 19 (15,12)",
+        "Reward 1 jewelry, 150 pp, 1 random magic item (558-891 XP)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0x9f46, 0x9fd5, 0xa12f, 0xa1bc, 0xa1e9, 0xae7c, 0xaec8, 0xaf7f, 0xafeb, 0xa25b, 0xa29d, 0xa323 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 locations 3 and 15"
+      ],
+      "disagreements": [
+        "Object fetched: [P] 'a package (not an inventory item)'; Clue Book p.6 and Ohlo's own game text say 'a potion'; the merchant's game text says 'RETURNS WITH A PACKAGE'.",
+        "Reward: [P] '1 jewelry, 150 platinum, 1 random magic item'; Clue Book 'rewards you with a magic item'; [GB] 'experience, money, and 10 quarrels +1' (digest §7 item 6).",
+        "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: Ohlo is 3, the potion booth is 15; [P]: Ohlo is 3, the merchant is 19."
+      ],
+      "coveredBy": [
+        "milestone 'Walked to Ohlo, accepted his commission and verified the journal directions after reloading slot E.'",
+        "milestone 'Walked to the Rope Guild booth, picked up Ohlo's potion and verified the return objective after reloading slot H.'",
+        "milestone 'Returned the potion, collected Ohlo's reward and verified the journal and XP after reloading slot J.'"
+      ],
+      "notes": "The game spells the Clue Book's 'Ohio' as OHLO (OCR noise in the Clue Book text layer). The random magic item makes the XP a range; with fixed dice a runner can pin the item. The game text has a booth line 'I AM SORRY, BUT I HAVE NOTHING TO SELL NOW. COME BACK SOME OTHER TIME.' (0xae3e) whose trigger the digest does not describe."
+    },
+    {
+      "id": "acceptance.slums.ohlo-attack-or-insult",
+      "title": "Attack or insult Ohlo and fight his guard",
+      "kind": "optional",
+      "steps": [
+        "At (13,10) choose ATTACK, or TALK and parley Haughty or Abusive.",
+        "The game prints ''YOU PRESUME TOO MUCH,' THE MAN SAYS QUIETLY. HE GESTURES.'",
+        "Fight 1 LEVEL 3 MU (#94), 2 ORC LEADER (#5), 8 ORC (#4) and 25 HOBGOBLIN (#6) starting at distance 1."
+      ],
+      "expect": [
+        "Winning counts as dealing with Ohlo: the Ohlo clear point is credited ([P]: 'doing his quest or killing him')."
+      ],
+      "branches": [],
+      "fights": [
+        "1 LEVEL 3 MU (#94), 2 ORC LEADER (#5), 8 ORC (#4), 25 HOBGOBLIN (#6); Morale 99; Distance 1; XP not given in the digest"
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xa054 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 3 'If you attack him, his army of monsters defend him'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no XP or treasure for this fight."
+    },
+    {
+      "id": "acceptance.slums.ohlo-other-talk-results",
+      "title": "See Ohlo's other replies",
+      "kind": "optional",
+      "steps": [
+        "At (13,10) choose LEAVE; the game prints 'YOU GO BACK OUT THE DOOR.'",
+        "Find the parley result that prints ''I HAVE NO TIME FOR THE LIKES OF YOU,' THE MAN SAYS AIRILY. 'BEGONE!' (WHAT DO YOU DO?)' with the menu STAY / LEAVE / ATTACK.",
+        "After accepting the errand, return to Ohlo without the potion; the game prints ''YOU HAVE RETURNED EMPTY HANDED,' HE OBSERVES. 'I HAVE NO TIME FOR YOU NOW.' HE WAVES HIS HAND.'"
+      ],
+      "expect": [
+        "Each text above is reachable and matches the game text exactly."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "game text ECL2.DAX block 20 at 0x9ffc, 0xa0c3, 0xa108, 0xa2d4 (src/audio/voice-master-manifest.json)",
+        "[P] §3.1 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest maps only Haughty/Abusive (fight) and Nice/Meek (offer). It does not say which attitude gives the 'BEGONE!' reply (Sly is the one attitude left unmapped, but that is not stated), what STAY does, or what follows the empty-handed reply. A test author must read these from the script, not from the guides."
+    },
+    {
+      "id": "acceptance.slums.ohlo-attack-the-merchant",
+      "title": "Attack the Rope Guild merchant instead of speaking",
+      "kind": "optional",
+      "steps": [
+        "At location 19 (15,12) choose ATTACK.",
+        "Fight 8 HOBGOBLIN (#6).",
+        "After the fight the merchant is gone."
+      ],
+      "expect": [
+        "The merchant no longer appears at (15,12).",
+        "This still counts as dealing with Ohlo: the Ohlo clear point is credited."
+      ],
+      "branches": [],
+      "fights": [
+        "8 HOBGOBLIN (#6); morale and XP not given in the digest"
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xaf13 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Game text 0xaf13 'THE MAN RUNS SCREAMING INTO THE BACK OF THE BOOTH.' sits next to the attack branch; the digest does not quote it."
+    },
+    {
+      "id": "acceptance.slums.ohlo-ask-for-more-or-refuse",
+      "title": "Ask Ohlo for more money or refuse to give the potion",
+      "kind": "optional",
+      "steps": [
+        "Return to Ohlo with the package and choose ASK FOR MORE MONEY, or REFUSE TO GIVE.",
+        "Ohlo attacks."
+      ],
+      "expect": [
+        "Combat starts instead of the reward.",
+        "No 1 jewelry / 150 pp / magic item reward is paid."
+      ],
+      "branches": [],
+      "fights": [
+        "Composition not stated for this branch in the digest; the attack/insult branch is 1 LEVEL 3 MU (#94), 2 ORC LEADER (#5), 8 ORC (#4), 25 HOBGOBLIN (#6), Morale 99, Distance 1"
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xa29d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says only 'he attacks'. It does not confirm the composition is the same as the insult fight."
+    },
+    {
+      "id": "acceptance.slums.stable-leather-bag",
+      "title": "Search the stable at location 5 for the leather bag",
+      "kind": "optional",
+      "steps": [
+        "Enter the stable (location 5). The game prints 'YOU HAVE ENTERED A VERY UNCLEAN STABLE. THERE IS EVIDENCE THAT A LARGE AND UNTIDY ANIMAL HAD LIVED HERE.'",
+        "Search. The game prints 'YOU FIND A LONG LEATHER BAG. WILL YOU OPEN IT?' with YES / NO.",
+        "Choose YES."
+      ],
+      "expect": [
+        "Treasure: 2 gems, 100 gold, 20 Arrows +1, Short Bow +1.",
+        "Each character gains 233 XP."
+      ],
+      "branches": [
+        "NO: the bag is left; whether it can be found again is not stated."
+      ],
+      "fights": [],
+      "data": [
+        "2 gems, 100 gold, 20 Arrows +1, Short Bow +1 (233 XP)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xa401, 0xa469 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 4 'Stable: Search the room to find the treasure'"
+      ],
+      "disagreements": [
+        "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: stable is 4; [P]: stable is 5."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for the stable."
+    },
+    {
+      "id": "acceptance.slums.feeding-kobolds",
+      "title": "Beat the feeding kobolds at location 6",
+      "kind": "main",
+      "steps": [
+        "Walk to (7,0). The game prints 'YOU INTERRUPT SOME FEEDING KOBOLDS.'",
+        "Fight 1 KOBOLD LEADER (#11) and 15 KOBOLD (#0).",
+        "Win and take the treasure."
+      ],
+      "expect": [
+        "Each character gains 289 XP.",
+        "The leader's Bracers AC 6 are in the treasure.",
+        "One clear point is credited."
+      ],
+      "branches": [],
+      "fights": [
+        "1 KOBOLD LEADER (#11) + 15 KOBOLD (#0), Morale 60, 289 XP"
+      ],
+      "data": [
+        "Location 6 at (7,0)",
+        "Bracers AC 6"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xa4d6 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 5 'a set of magic bracers'"
+      ],
+      "disagreements": [
+        "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: kobolds are 5; [P]: 6."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.slums.hemp-market-rumours",
+      "title": "Overhear the rumours in the old hemp market (location 7)",
+      "kind": "optional",
+      "steps": [
+        "Walk through location 7. The game prints 'YOU WANDER IN THE OLD HEMP MARKET. MONSTERS SCURRY AT YOUR APPROACH. YOU OCCASSIONALLY CATCH SNATCHES OF CONVERSATIONS.'",
+        "One of three lines follows: '... THE GANG IS OPERATING FROM THE CATACOMBS BY THE WELL...', '... THE TEMPLE OVER THE RIVER IS RUN BY SOME HOT-SHOT ORC...', '... THERE IS A SECRET TREASURE ROOM IN THE NW CORNER ...'.",
+        "Clear the block, then walk through location 7 again."
+      ],
+      "expect": [
+        "All three rumour lines can be seen before the block is cleared.",
+        "After the block is cleared the rumours stop."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Three rumours as quoted (game spelling 'OCCASSIONALLY' kept)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xa535, 0xa5aa, 0xa5db, 0xa60c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for location 7 and does not say how a rumour is chosen (random or in order)."
+    },
+    {
+      "id": "acceptance.slums.gypsy-fortune",
+      "title": "Pay the gypsy for a fortune at location 8",
+      "kind": "optional",
+      "steps": [
+        "Walk to (3,5). The game prints 'SEATED AT A TABLE IS A RAGGED OLD WOMAN. SHE GREETS YOU. 'WELCOME. FOR THE PRICE OF A FEW COPPERS, I WILL TELL YOUR FORTUNE.' (WHAT DO YOU DO?)' with the menu ATTACK / LEAVE / PAY.",
+        "Choose PAY. The game prints 'THE WOMAN'S HANDS MAKE MYSTIC PASSAGES WHILE SHE MUTTERS SOME WORDS. HER VOICE UNDERGOES A STRANGE TRANSFORMATION ...'",
+        "One fortune is shown, chosen by game progress.",
+        "The game prints 'THE TELLING IS FINISHED. (WHAT DO YOU DO?)' with the menu ATTACK / LEAVE.",
+        "Choose LEAVE; the game prints 'YOU LEAVE THE SHOP.'"
+      ],
+      "expect": [
+        "Fortune 1: 'BLOOD AND VIOLENCE ARE WRIT BOLDLY IN YOUR FUTURE. LOOK FOR FRIENDS WHERE YOU EXPECT ENEMIES AND ENEMIES WHERE YOU EXPECT ALLIES.'",
+        "Fortune 2: 'A POWERFUL ONE BECOMES AWARE OF YOUR DEEDS AND SEEKS TO DESTROY YOU. A WEAK ONE SEES YOU AS A PATH TO POWER.'",
+        "Fortune 3: 'THE TIME IS NIGH WHEN THE PATHS YOU HAVE TROD WILL EMPTY AND YOU MUST SEEK NEW WAYS. THE RIDDLE'S ANSWER IS GREAT EVIL USING GREAT GOOD FOR GREAT EVIL.'",
+        "The gypsy stays alive and random encounters keep their normal odds and size."
+      ],
+      "branches": [
+        "ATTACK (at either menu): see gypsy-murder."
+      ],
+      "fights": [],
+      "data": [
+        "Location 8 at (3,5)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xa651, 0xa6c0, 0xa79d, 0xa818, 0xa881, 0xa8da, 0xa953, 0xa976, 0xa783 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 8"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "milestone 'Verified the ${outcome} fortune only appears after its reading and survives reload in the correct slot.' (--slums-fortune-checkpoint)"
+      ],
+      "notes": "[P] says the fortune is 'chosen by game progress' but the digest does not give the thresholds. The price in coppers is not stated either. A test author must read both from the script."
+    },
+    {
+      "id": "acceptance.slums.gypsy-murder",
+      "title": "Attack the gypsy",
+      "kind": "optional",
+      "steps": [
+        "At (3,5) choose ATTACK.",
+        "The game prints 'YOU EASILY MURDER THE OLD WOMAN. EXCEPT FOR A FEW COPPER PIECES YOU FIND NOTHING OF VALUE. THE GODS HAVE NOTED YOUR ACTIONS.' No combat screen appears.",
+        "Check the party's money, then walk the block and rest."
+      ],
+      "expect": [
+        "The party gains 3 copper.",
+        "The gypsy is dead for the rest of the game.",
+        "Random encounter chance rises by 5/14 outside the Rope Guild and 3/11 inside it.",
+        "Random encounter size rises by +5 or +10.",
+        "Resting in the Slums is never safe again, even in beaten rooms or after the block is cleared."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "3 copper",
+        "+5/14 outside, +3/11 inside, size +5 or +10"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xa6e7 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 8 'it will enrage the monsters In the slums and make the random encounters much tougher'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say what decides between +5 and +10 monsters."
+    },
+    {
+      "id": "acceptance.slums.orc-home",
+      "title": "Beat the orcs at location 9",
+      "kind": "main",
+      "steps": [
+        "Walk to (3,3). The game prints 'A LARGE ORC RAISES HIS HEAD AND SNARLS, 'HOW DARE YOU BREAK INTO OUR HOME?''",
+        "Fight 1 ORC LEADER (#15), 3 ORC LEADER (#14) and 16 ORC (#4).",
+        "Win and take the treasure."
+      ],
+      "expect": [
+        "Each character gains 412 XP.",
+        "Treasure: 3 Broad Swords +1, Chain Mail +1, Flail +1.",
+        "One clear point is credited."
+      ],
+      "branches": [],
+      "fights": [
+        "1 ORC LEADER (#15), 3 ORC LEADER (#14), 16 ORC (#4), Morale 70, 412 XP"
+      ],
+      "data": [
+        "Location 9 at (3,3)",
+        "3 Broad Swords +1, Chain Mail +1, Flail +1"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xa9a5 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 9 'Cast detect magic on the orc's items'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The pairing of the 0xa9a5 line with location 9 follows script order (it sits between the gypsy and the hobgoblins); the digest quotes no text for location 9."
+    },
+    {
+      "id": "acceptance.slums.hobgoblins-gold",
+      "title": "Beat the hobgoblins at location 10 and search for their gold",
+      "kind": "main",
+      "steps": [
+        "Walk to (0,2). The game prints 'SOME HOBGOBLINS ARE ARGUING OVER A PILE OF GOLD. 'THIEVES!' THEY SCREAM WHEN THEY SEE YOU.'",
+        "Fight 5 HOBGOBLIN (#6).",
+        "After winning, search the room. The game prints 'YOU FIND A LARGE NUMBER OF VALUABLES.'",
+        "Take the treasure."
+      ],
+      "expect": [
+        "Treasure: 50 platinum, 500 gold, Ring of Protection +1, Short Bow +1.",
+        "Each character gains 258 XP.",
+        "One clear point is credited."
+      ],
+      "branches": [],
+      "fights": [
+        "5 HOBGOBLIN (#6), Morale 75"
+      ],
+      "data": [
+        "Location 10 at (0,2)",
+        "50 pp, 500 gold, Ring of Protection +1, Short Bow +1 (258 XP)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xaa20, 0xaa9c (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 7 'Hobgoblins: Search the room after the combat to find their treasure'"
+      ],
+      "disagreements": [
+        "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: hobgoblins are 7; [P]: 10."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives one figure (258 XP) for the location; it does not split fight XP from treasure XP."
+    },
+    {
+      "id": "acceptance.slums.secret-treasure-room",
+      "title": "Find and loot the secret room at location 12",
+      "kind": "optional",
+      "steps": [
+        "Reach (0,0) in the north-west corner. The game prints 'YOU HAVE STUMBLED INTO A TREASURE ROOM.'",
+        "Search and take the treasure."
+      ],
+      "expect": [
+        "Treasure: 2 jewelry, 4 gems, 50 platinum, 92 gold, 1000 electrum, 20 Arrows +1, Short Bow +1.",
+        "Each character gains 1173 XP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 12 at (0,0)",
+        "2 jewelry, 4 gems, 50 pp, 92 gold, 1000 electrum, 20 Arrows +1, Short Bow +1 (1173 XP)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xaae4, 0xab0d (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 6 'Secret Treasure Room: Treasure Is behind the illusionary wall to the east'",
+        "Hemp market rumour '... THERE IS A SECRET TREASURE ROOM IN THE NW CORNER ...' (game text ECL2.DAX block 20 at 0xa60c (src/audio/voice-master-manifest.json))"
+      ],
+      "disagreements": [
+        "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: secret treasure room is 6, reached through an illusionary wall 'to the east'; [P]: location 12 at (0,0), 'Secret room; search'."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say how the room is entered. The game text 'YOU HAVE ENTERED A SMALL STORAGE ROOM.' (0xaae4) directly precedes the treasure-room line and is probably the room next to it (digest location 11 is not described); this pairing is an inference from script order."
+    },
+    {
+      "id": "acceptance.slums.guards-intercept",
+      "title": "Beat the orc guards at location 13",
+      "kind": "main",
+      "steps": [
+        "Walk to (0,7).",
+        "Fight 2 ORC LEADER (#5) and 30 ORC (#4).",
+        "Win."
+      ],
+      "expect": [
+        "Each character gains 99 XP.",
+        "One clear point is credited."
+      ],
+      "branches": [],
+      "fights": [
+        "2 ORC LEADER (#5) + 30 ORC (#4), Morale 60, 99 XP"
+      ],
+      "data": [
+        "Location 13 at (0,7)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xab59 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 10 'Monster Guards'"
+      ],
+      "disagreements": [
+        "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: Monster Guards are 10; [P]: 13."
+      ],
+      "coveredBy": [],
+      "notes": "The digest quotes no text for location 13. Game text 0xab59 'GUARDS RUN TO INTERCEPT YOU.' is the likely line (script order: it sits between the treasure room and the monster leaders, and the Clue Book calls the spot 'Monster Guards'); confirm against the script before asserting it."
+    },
+    {
+      "id": "acceptance.slums.monster-leaders",
+      "title": "Beat the monster leaders at location 14",
+      "kind": "main",
+      "steps": [
+        "Walk to (1,5).",
+        "Fight 1 OGRE (#8), 2 GNOLL (#73) and 2 HOBGOBLIN LDR (#7), starting at distance 1.",
+        "Win."
+      ],
+      "expect": [
+        "Each character gains 63 XP.",
+        "One clear point is credited."
+      ],
+      "branches": [],
+      "fights": [
+        "1 OGRE (#8), 2 GNOLL (#73), 2 HOBGOBLIN LDR (#7), Morale 80, Distance 1, 63 XP"
+      ],
+      "data": [
+        "Location 14 at (1,5)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xabab (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 11 'Monster Leaders'"
+      ],
+      "disagreements": [
+        "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: Monster Leaders are 11; [P]: 14."
+      ],
+      "coveredBy": [],
+      "notes": "The digest quotes no text for location 14. Game text 0xabab 'YOU INTRUDE ON A GATHERING OF MONSTER LEADERS.' is the likely line (script order and the Clue Book's name); confirm against the script. [P] §5 notes racial to-hit bonuses fail against #7."
+    },
+    {
+      "id": "acceptance.slums.goblin-guards-alerted",
+      "title": "Beat the goblin guards at location 15",
+      "kind": "main",
+      "steps": [
+        "Walk to (3,11). The game prints 'YOU HAVE ALERTED THE GUARDS.'",
+        "Fight 11 GOBLIN LEADER (#3) and 12 GOBLIN GUARD (#2).",
+        "Win."
+      ],
+      "expect": [
+        "Each character gains 65 XP.",
+        "One clear point is credited.",
+        "The empty room at location 16 can now be searched for the hidden chest."
+      ],
+      "branches": [],
+      "fights": [
+        "11 GOBLIN LEADER (#3) + 12 GOBLIN GUARD (#2), Morale 60, 65 XP"
+      ],
+      "data": [
+        "Location 15 at (3,11)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xac13 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 12 'Goblin Guards: This is a tough fight. Try to cast a sleep spell on the goblin leaders to reduce the enemy archery.'"
+      ],
+      "disagreements": [
+        "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: Goblin Guards are 12; [P]: 15."
+      ],
+      "coveredBy": [],
+      "notes": "(3,11) is not one of the Slums flee squares; do not confuse it with the New Phlan flee square of the same coordinates."
+    },
+    {
+      "id": "acceptance.slums.empty-room-hidden-chest",
+      "title": "Search the empty room at location 16",
+      "kind": "optional",
+      "steps": [
+        "Enter location 16. The game prints 'THIS LARGE ROOM IS APPARENTLY EMPTY.'",
+        "Search. The game prints 'YOU FIND A LOOSE FLOORBOARD. PRYING IT UP, YOU FIND A CHEST HIDDEN BENEATH THE FLOOR. DO YOU TAKE IT?' with YES / NO.",
+        "Choose YES."
+      ],
+      "expect": [
+        "Treasure: 2 gems, 200 platinum, Shield +1, Magic-User Scroll (Magic Missile).",
+        "Each character gains 383 XP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "2 gems, 200 pp, Shield +1, Magic-User Scroll (Magic Missile) (383 XP)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xac67, 0xac96 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 13 'Hidden Loot: Search this room for the treasure that the goblins were guarding'"
+      ],
+      "disagreements": [
+        "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: Hidden Loot is 13; [P]: 16."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for location 16."
+    },
+    {
+      "id": "acceptance.slums.trolls-and-ogres",
+      "title": "Beat the trolls and ogres at location 20",
+      "kind": "main",
+      "steps": [
+        "Walk to (0,14). The game prints 'SOME MONSTERS ARE TOSSING A SACK OF GRAIN. WHEN THE SACK BREAKS THEY WAIL, 'OH, NO! WHAT CAN WE THROW NOW?' ONE LOOKS YOUR WAY. 'I KNOW,' HE SAYS.'",
+        "Fight 4 TROLL (#31) and 2 OGRE (#8). The two ogres stand in front of the four trolls.",
+        "Win and take the treasure."
+      ],
+      "expect": [
+        "Each character gains between 1222 and 2222 XP depending on the three random magic items.",
+        "Treasure: 1 jewelry, 50 platinum, 40 gold and 3 random magic items.",
+        "One clear point is credited."
+      ],
+      "branches": [
+        "[P] tactic: cast Bless, Sleep both ogres so their bodies block the trolls, kill the front troll and stand on its body, shoot the rear trolls without focusing one.",
+        "Clue Book tactic: hold the ogres with the two best-armoured characters and kill them last; stand on a fallen troll's square so it cannot get up."
+      ],
+      "fights": [
+        "4 TROLL (#31) + 2 OGRE (#8), Morale 75, 1222-2222 XP"
+      ],
+      "data": [
+        "Location 20 at (0,14)",
+        "1 jewelry, 50 pp, 40 gold, 3 random magic items"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xb077 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 16 'Trolls and Ogres Tossing Things'",
+        "[P] §5 Adaptational: trolls (digest)"
+      ],
+      "disagreements": [
+        "Loot: [P] '3 random magic items'; [GB] 'ranseur +2, light crossbow +1, MU scroll (lightning bolt, detect invisibility, protection from evil)', one random outcome (digest §7 item 7).",
+        "Sleep on ogres: [P] says to Sleep both ogres; the Clue Book says to engage them in melee and never mentions Sleep.",
+        "Clue Book p.5-6 numbers the Slums map differently from [P]; the two numberings do not line up (see notes). Clue Book: trolls and ogres are 16; [P]: 20."
+      ],
+      "coveredBy": [],
+      "notes": "Troll rule to observe ([P] §5): a troll stays down only if all damage dealt to it was fire or acid, and regeneration starts 3 minutes after damage; a character standing on its square stops it rising (Clue Book). Random items follow the v1.3 generator ([P] §9.4)."
+    },
+    {
+      "id": "acceptance.slums.trolls-fled-still-credited",
+      "title": "Flee the trolls and still get the clear point",
+      "kind": "quirk",
+      "steps": [
+        "Start the fight at (0,14).",
+        "Flee the combat with the whole party.",
+        "Read the clear-point counter."
+      ],
+      "expect": [
+        "The set fight at location 20 is credited as won although the party fled, because the script does not check for flight before crediting victory.",
+        "The same holds for the other Slums set fights ([P] §5: 'set fights credit victory even if you fled')."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md) strategy at 20",
+        "[P] §5 Scripting: Slums (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "A faithful port must reproduce this. The digest does not say whether the treasure is also awarded after fleeing; do not assert it."
+    },
+    {
+      "id": "acceptance.slums.trolls-loot-reroll-by-reload",
+      "title": "Re-roll the troll room's magic items by reloading",
+      "kind": "quirk",
+      "steps": [
+        "Save before the fight at (0,14).",
+        "Win and note the three magic items.",
+        "Reload, win again and note the items."
+      ],
+      "expect": [
+        "The three magic items are rolled at award time, so a reload with different dice gives different items.",
+        "With identical dice the same items come up."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md) location 20 '3 random magic items (re-rollable by reloading)'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "A runner with a fixed seed should assert determinism; the re-roll is observable only by changing the dice between the save and the award."
+    },
+    {
+      "id": "acceptance.slums.random-encounter-budget",
+      "title": "Random encounters: exactly 15, with stated odds, sizes and types",
+      "kind": "rule",
+      "steps": [
+        "Walk the Slums outside the Rope Guild with search mode off; each step rolls 1 in 14 for an encounter.",
+        "Turn search mode on; the chance per step is 5 in 14 (1/14 + 4/14).",
+        "Walk inside the Rope Guild; the chance is 2 in 11, or 4 in 11 in search mode.",
+        "Count the monsters: Party Strength x 2/3 outside the guild, Party Strength inside.",
+        "Fight until 15 random encounters are beaten, then keep walking."
+      ],
+      "expect": [
+        "The monster type is KOBOLD (#0), GOBLIN GUARD (#2) or ORC (#4) with equal odds.",
+        "Kobolds: 3 KOBOLD LEADER are added when the count is 8 or more. Goblins: 4 GOBLIN LEADER at 8 or more. Orcs: 4 ORC LEADER at 14 or more.",
+        "At a count of 19 or more a BUGBEAR (#63) leads and the text reads 'A BUGBEAR LEADING A PARTY OF ...'.",
+        "After the 15th random fight no further random encounter occurs when walking.",
+        "With the gypsy dead the chance gains +5/14 (outside) or +3/11 (inside) and the size gains +5 or +10."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "15 random encounters",
+        "1/14 (+4/14 search, +5/14 gypsy dead) outside; 2/11 (+2/11 search, +3/11 gypsy dead) inside",
+        "Size PS x 2/3 outside, PS inside"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0x9c2a, 0x9c43, 0xb25a, 0xb276, 0xb286 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.5-6 location 14 and Finale"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyArmoredPatrols",
+        "verifyOpeningReload (milestone 'Won the kobold encounter and verified Alda's 5 XP and 11 copper after reloading slot D.')"
+      ],
+      "notes": "With fixed dice a runner can assert, per step, whether an encounter fires and its type and count. The digest does not say whether leaders count toward the monster total or replace ordinary monsters, nor whether 'at >=8' refers to the count before leaders."
+    },
+    {
+      "id": "acceptance.slums.random-encounter-surprise",
+      "title": "Random encounters: the four surprise outcomes",
+      "kind": "rule",
+      "steps": [
+        "Trigger a random encounter with neither side surprised and choose Wait.",
+        "Trigger one where only the party is surprised.",
+        "Trigger one where only the monsters are surprised and choose Wait.",
+        "Trigger one where both are surprised and choose Wait."
+      ],
+      "expect": [
+        "Neither surprised: 50% the monsters are 'angry' (Morale 60; Wait or Parley leads to combat), 50% 'seedy-looking' (Morale 40; Wait makes them flee).",
+        "Party surprised only: the game prints 'YOU ARE SURPRISED BY ...' and they attack at Morale 70.",
+        "Monsters surprised only: Wait makes them flee (Morale 30). 'YOU HIDE.' (game text 0xb21a) belongs to this family of outcomes.",
+        "Both surprised: the text begins 'You bump into' and Wait makes them flee (Morale 50)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Morale 60 angry, 40 seedy-looking, 70 party surprised, 30 monsters surprised, 50 both surprised"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0x9c2a, 0x9cc5, 0x9d1d, 0x9d7e, 0x9dde, 0xb21a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The four ENCOUNTER MENU events (0x9cc5-0x9dde) have no captured text in the manifest, so the exact 'angry', 'seedy-looking' and 'You bump into' sentences are quoted from the digest in mixed case, not from the game text. [P] §5 says ECL opcodes 22 and 23 (surprise) apply the wrong modifiers; a faithful port keeps that. Which trigger prints 'YOU HIDE.' is not stated in the digest."
+    },
+    {
+      "id": "acceptance.slums.parley-score-table",
+      "title": "Random encounters: parley score and thresholds",
+      "kind": "rule",
+      "steps": [
+        "In a random encounter choose Parley and an attitude.",
+        "The game prints 'YOU ARE CONVERSING WITH A PARTY OF ...' (or 'A BUGBEAR LEADING A PARTY OF ...').",
+        "The score is base + 1d31 + the speaker's Charisma reaction modifier, with the base from the table in data."
+      ],
+      "expect": [
+        "Score 65 or less: the monsters attack with +20 Morale. The game prints 'YOU HAVE ANGERED THE <monsters> THEY ATTACK.'",
+        "Score 65-74: they attack.",
+        "Score 75-85: the bribe demand (see parley-bribe-demand).",
+        "Score 86-95: the order to leave (see parley-ordered-to-leave).",
+        "Score 96 or more: the textile-house advice (see parley-textile-house-advice)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Base, 8 or fewer monsters: Haughty 9, Sly 19, Nice 19, Meek 19, Abusive 29",
+        "Base, 9-15 monsters: Haughty 4, Sly 14, Nice 14, Meek 9, Abusive 24",
+        "Base, 16 or more monsters: Haughty -1, Sly 9, Nice 9, Meek -1, Abusive 14"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xb25a, 0xb65b, 0xb671 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives overlapping bounds ('<=65' and '65-74'); which band owns exactly 65 must be read from the script. With these bases the maximum roll is 29 + 31 + Charisma modifier, so the 75+ bands need a positive Charisma modifier of at least +15; the digest does not state the size of the Charisma reaction modifier, so do not assume which bands are reachable."
+    },
+    {
+      "id": "acceptance.slums.parley-bribe-demand",
+      "title": "Parley result 75-85: pay, surrender, run or fight",
+      "kind": "rule",
+      "steps": [
+        "Reach a parley score of 75-85. The game prints 'THE MONSTERS RESPOND, 'DA BOSS DON'T LIKE YOUSE GUYS. GIVE US SUMPTIN AN MAYBE WE'LL FERGET WE SEEN YAS.' (WHAT DO YOU DO?)' with the menu PAY / SURRENDER / RUN / FIGHT.",
+        "PAY: the game prints 'TYPE IN THE NUMBER OF GP YOU OFFER.' Enter an amount."
+      ],
+      "expect": [
+        "PAY with gold at least equal to the encounter's strength: 'THEY PAW THROUGH YOUR COINS AND LEAVE.' and the party loses half of its remaining money.",
+        "PAY with less: ''WHAT A BUNCH OF CHEAPSKATES,' THE LEADER COMPLAINS. 'LET 'EM HAVE IT BOYS!'' and combat starts.",
+        "SURRENDER: 'THE MONSTERS ROB AND BLINDFOLD YOU. YOU ARE KICKED SOUNDLY AND SENT ON YOUR WAY.' The party loses all money and light items plus some heavy ones.",
+        "RUN: the party flees to a flee square. FIGHT: combat."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Menu PAY / SURRENDER / RUN / FIGHT"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xb30e, 0xb36e, 0xb39f, 0xb3cf, 0xb40f, 0xb43a (src/audio/voice-master-manifest.json)",
+        "[P] §5 Exploit 7 theft protection; ECL opcode 28 (ROB) item-chance bug (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not define 'the encounter's strength' numerically, nor which heavy items are lost. [P] §5: opcode 28 (ROB) handles the item chance incorrectly while iterating, and putting the heaviest items at the top of the inventory reduces theft; a faithful port keeps both. The digest does not say whether paying, surrendering or running counts toward the 15."
+    },
+    {
+      "id": "acceptance.slums.parley-ordered-to-leave",
+      "title": "Parley result 86-95: leave or be run in",
+      "kind": "rule",
+      "steps": [
+        "Reach a parley score of 86-95. The game prints 'THE LEADER SPEAKS, 'THE BOSS DON'T ALLOW YOUR KIND IN HIS TERRITORY. LEAVE NOW OR WE'LL HAVE TO RUN YOU IN.' (WHAT DO YOU DO?)' with the menu FIGHT / STAY / LEAVE / RUN."
+      ],
+      "expect": [
+        "FIGHT or STAY: combat.",
+        "LEAVE or RUN: always succeeds; no combat."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xb4cc, 0xb52f (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say where LEAVE puts the party (same square or a flee square)."
+    },
+    {
+      "id": "acceptance.slums.parley-textile-house-advice",
+      "title": "Parley result 96+: advice about the textile house",
+      "kind": "rule",
+      "steps": [
+        "Reach a parley score of 96 or more. The game prints ''LET ME GIVE YOU A PIECE OF ADVICE,' THEIR LEADER SAYS. 'STAY AWAY FROM THE TEXTILE HOUSE. THE UNDEAD ARE GOING CRAZY UP THERE.' THE MONSTERS TURN TO LEAVE. (WHAT DO YOU DO?)' with the menu LET THEM GO / STOP THEM."
+      ],
+      "expect": [
+        "LET THEM GO: the monsters leave without combat.",
+        "STOP THEM: the game prints ''HOW DARE YOU INTERFERE WITH THE BOSS'S BUSINESS?' THE LEADER ROARS. 'KILL THEM,' HE ORDERS.' and combat starts."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "game text ECL2.DAX block 20 at 0xb55d, 0xb5e4, 0xb60a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest names the two options but not their outcomes; the STOP THEM outcome is taken from the adjacent game text and should be confirmed in the script."
+    },
+    {
+      "id": "acceptance.slums.flee-squares",
+      "title": "Fleeing puts the party on one of five squares",
+      "kind": "rule",
+      "steps": [
+        "Flee from an encounter or a combat in the Slums.",
+        "Read the party position."
+      ],
+      "expect": [
+        "The party is at one of (15,4), (14,6), (11,5), (11,2), (9,2)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "(15,4)",
+        "(14,6)",
+        "(11,5)",
+        "(11,2)",
+        "(9,2)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not give the odds of each square or whether it depends on where the party fled from."
+    },
+    {
+      "id": "acceptance.slums.resting",
+      "title": "Rest rules in the Slums",
+      "kind": "rule",
+      "steps": [
+        "Rest in a room whose set encounter has been beaten; the rest is never interrupted.",
+        "Rest elsewhere in the uncleared block; each 2 hours rolls a 24% chance of interruption.",
+        "Clear the block and rest anywhere; no interruption.",
+        "Kill the gypsy and rest in a beaten room or in the cleared block; interruptions can occur."
+      ],
+      "expect": [
+        "Safe rest: in a beaten set-encounter room, or anywhere once the block is cleared.",
+        "Unsafe rest: 24% per 2 hours.",
+        "With the gypsy dead no rest is ever safe."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "24% per 2 hours"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "Clue Book p.5-6 'Where You Can Rest'"
+      ],
+      "disagreements": [
+        "Clue Book p.5 says only 'You can rest safely in any room where you have defeated a set encounter ... also ... after you have cleared the slums'; it does not mention the gypsy exception that [P] gives."
+      ],
+      "coveredBy": [
+        "verifyArmoredPatrols (milestone '... then reloaded the fully rested party:')"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.slums.rest-interrupts-give-clear-points",
+      "title": "Rest interruptions keep giving clear points",
+      "kind": "quirk",
+      "steps": [
+        "Beat all 15 random encounters.",
+        "Rest in an unsafe spot until a rest is interrupted by monsters.",
+        "Win the fight and read the clear-point counter."
+      ],
+      "expect": [
+        "A rest-interrupt fight credits a clear point even when no random encounters remain.",
+        "By repeating this the block can reach 25 clear points without beating every set fight (the [P] alternative to fighting the trolls)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §5 Scripting: Slums (digest)",
+        "[P] §3.1 (qa/research/guides-digest.md) strategy at 20"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Faithful-port behaviour. The digest does not give the composition of a rest-interrupt encounter."
+    },
+    {
+      "id": "acceptance.slums.clear-the-block",
+      "title": "Clear the Slums and collect commission #1",
+      "kind": "main",
+      "steps": [
+        "Beat 15 random encounters.",
+        "Beat the nine set fights at locations 1, 2, 6, 9, 10, 13, 14, 15 and 20.",
+        "Deal with Ohlo (finish his errand, kill him, or attack the merchant).",
+        "Leave by E1 and re-enter: the entry text no longer mentions an alarm.",
+        "In New Phlan go to the council clerk at City Hall 29 (5,5). She prints 'YOUR CLEARING OF THE SLUM AREAS PERMITS US TO EXPAND.' then 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Clear points reach 25 (15 + 9 + 1).",
+        "Reward: 1 jewelry, 50 platinum, 250 gold; each character gains 450 XP.",
+        "Quest tracker advances by one (commission #1 is one of the ten tracker quests).",
+        "Resting anywhere in the Slums is safe (unless the gypsy is dead).",
+        "Any city-guard anger is cancelled by the reward."
+      ],
+      "branches": [
+        "The commission need not have been offered first: 'In most cases, you do not actually need to be told of the mission to perform and be rewarded for it.'"
+      ],
+      "fights": [],
+      "data": [
+        "25 clear points",
+        "Reward 1 jewelry, 50 pp, 250 gold (450 XP)",
+        "Proclamation LIX (Adventurer's Journal p.13-15: clear any block)"
+      ],
+      "sources": [
+        "[P] §3.1 (qa/research/guides-digest.md)",
+        "[P] §3.0 clerk table (digest)",
+        "Clue Book p.5-6 Finale",
+        "game text ECL3.DAX block 8 at 0xa4a6, 0x9eea (src/audio/voice-master-manifest.json)",
+        "game text ECL3.DAX block 8 at 0xa8b6 (src/audio/voice-master-manifest.json) (offer: 'THE SLUMS IMMEDIATELY TO OUR WEST NEED TO BE CLEARED OF MONSTERS.')"
+      ],
+      "disagreements": [
+        "Clear condition: [P] '25 points (15 random + 9 set + Ohlo)'; Clue Book '15 random encounters and dealt with all the set encounters'; [SP] 'mapped this block completely, and have had 15 random encounters' (digest §7 item 8)."
+      ],
+      "coveredBy": [],
+      "notes": "No existing replay asserts the Slums reward at the clerk (verifyFreshSlumsVictory covers the opening and a first victory, not the clear). 450 XP = (2200 + 50x5 + 250) / 6. Because of the quirks above, 25 points can also be reached by rest interruptions or by fleeing set fights."
+    }
+  ]
+}

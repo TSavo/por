@@ -1,0 +1,1010 @@
+{
+  "schema": 1,
+  "id": "acceptance.podal-plaza",
+  "title": "Podal Plaza",
+  "guideSection": "3.6",
+  "scripts": [
+    "ECL 18"
+  ],
+  "commission": "Commission #4",
+  "prerequisites": [
+    "Commission #4 (discover the Podal Plaza auction item) has been offered by the council clerk; [P] says it must be offered first.",
+    "The party can reach Podal Plaza: from Kuto's Well, the Textile House, Stojanow Gate, or wilderness (24,28) choosing NORTH (arrives at (0,4)).",
+    "For the off-mission scenarios (block clearing, off-mission parley) commission #4 is either not yet offered or already reported.",
+    "A magic-user with Knock is needed for the Ilmater temple door E5.",
+    "XP figures assume a party of exactly six.",
+    "No party level is stated for this area in the digest."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.podal-plaza.entry-choice-on-mission",
+      "title": "Get the three-way entry menu while holding commission #4",
+      "kind": "main",
+      "steps": [
+        "Hold commission #4 (offered by the clerk, not yet reported).",
+        "Enter Podal Plaza from another map (for example wilderness (24,28), choose NORTH, arrive at (0,4)).",
+        "The game shows the vertical menu 'THE PLAZA AHEAD IS CROWDED WITH MONSTERS. HOW WILL YOU PROCEDE?' with options 'STRIDE BOLDLY FORWARD!', 'DISGUISE PARTY AS MONSTERS.', 'SNEAK, REMAINING UNSEEN'.",
+        "Choose DISGUISE PARTY AS MONSTERS."
+      ],
+      "expect": [
+        "The party is in Podal Plaza in the disguised state (neither 'strode boldly' nor 'lost stealth' is set).",
+        "The menu is shown only while commission #4 is held."
+      ],
+      "branches": [
+        "Stride boldly forward: see scenario stride-boldly-consequences.",
+        "Disguise: see disguised-who-are-you and the auction scenarios. The guide recommends this.",
+        "Sneak: see sneaking-confrontations; sneaking is always detected at an auction detection roll."
+      ],
+      "fights": [],
+      "data": [
+        "Menu title as printed, including the misspelling 'PROCEDE'.",
+        "Arrival square from wilderness point d NORTH: Podal Plaza (0,4)."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "[P] §3.11 fixed point d (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0x9a36 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Spelling: the clerk's text says 'PODAL PLAZA' (ECL3.DAX block 8 at 0xa15a, 0xa9bb); Cadorna's text says 'PODOL PLAZA' (0xafec) and the Clue Book says 'Podol Plaza'.",
+        "Clue Book p.13 lists only two ways in ('on the secret mission' or 'without a mission') and recommends the disguise; it does not describe the bold or sneak options."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifyPodalFromCouncil"
+      ],
+      "notes": "The replay asserts the menu text and picks the disguise. The digest does not say whether the menu repeats on every entry while the commission is held."
+    },
+    {
+      "id": "acceptance.podal-plaza.entry-without-mission",
+      "title": "Enter without commission #4 and get no entry menu",
+      "kind": "rule",
+      "steps": [
+        "With commission #4 not held (never offered, or already reported), enter Podal Plaza from any exit.",
+        "Observe the first screen after the map loads."
+      ],
+      "expect": [
+        "No 'THE PLAZA AHEAD IS CROWDED WITH MONSTERS' menu appears.",
+        "The off-mission rules apply: encounter chance 1 in 26 per step on P squares (8 in 26 in search mode)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0x9a36 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says the entry choice appears 'only while you hold commission #4'. It gives no coordinates for the P squares."
+    },
+    {
+      "id": "acceptance.podal-plaza.exits",
+      "title": "Use each exit of the block",
+      "kind": "rule",
+      "steps": [
+        "Leave by E1; the party arrives in Kuto's Well.",
+        "Leave by E2; the party arrives in the Textile House.",
+        "Leave by E3; the party arrives on the wilderness map at (24,28).",
+        "Leave by E4; the party arrives at Stojanow Gate.",
+        "Face the E5 door: it is hard-locked and leads to the hidden temple of Ilmater at location 4 (1,15)."
+      ],
+      "expect": [
+        "Each exit leads to the map named.",
+        "E5: a Knock spell always opens it; bashing is unreliable; a thief's pick attempt never succeeds."
+      ],
+      "branches": [
+        "Knock: door opens every time.",
+        "Bash: may fail (no odds given).",
+        "Pick: always fails."
+      ],
+      "fights": [],
+      "data": [
+        "E3 → Wilderness (24,28). Wilderness point d NORTH → Podal Plaza (0,4)."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "[P] §7 item 11 (digest)",
+        "Clue Book p.13-14"
+      ],
+      "disagreements": [
+        "Lock: [P] v2.00 says a thief can never pick it and Knock always works; [GB] says thieves 'have to be higher than level 4'; [SP] says 'opened with bashing, picking, or knock'; Clue Book p.13 says 'a pair of wizard-locked doors'.",
+        "Location numbers differ: Clue Book p.13 numbers the minor temple of Bane 1, the Pit 2, the temple of Il-Mater 3 and the auction 4; [P] numbers the auction 1, The Pitt 2, the Ilmater temple 4, the shrine 5 and the orc priest 6."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for E1 to E5. Arrival squares in Kuto's Well, the Textile House and Stojanow Gate are not given in §3.6."
+    },
+    {
+      "id": "acceptance.podal-plaza.random-encounter-table",
+      "title": "Roll random encounters on the open plaza squares",
+      "kind": "rule",
+      "steps": [
+        "Stand on a square marked P and step until an encounter fires.",
+        "The game prints 'YOU SPOT A GROUP OF <monsters>.' and the encounter menu with 'THE MONSTERS STAND READY' or 'THE MONSTERS PREPARE'.",
+        "With fixed dice, drive each of the six table rows and record monster type and count."
+      ],
+      "expect": [
+        "Encounters occur only on P squares. Surprise never occurs.",
+        "Row odds: 2/9 GOBLIN GUARD (morale 30, parley mod 30), 2/9 GOBLIN GUARD (morale 35, parley mod 20), 2/9 ORC (morale 40, parley mod 20), 1/9 ORC (morale 45, parley mod 10), 1/9 HOBGOBLIN (morale 45, parley mod 0), 1/9 OGRE (morale 50, parley mod 0).",
+        "Base count = PS/3 for goblin guards and orcs, PS/6 for hobgoblins, PS/12 for ogres; then a random value from X to 2X; doubled if the party strode boldly or lost stealth; clamped to 2..50.",
+        "Leaders: 5 GOBLIN LEADER when goblin guards reach 40; 4 ORC LEADER when orcs reach 30; 3 HOBGOBLIN LDR when hobgoblins reach 20; ogres have none.",
+        "Movement: goblin guards 6, others 9."
+      ],
+      "branches": [],
+      "fights": [
+        "Any of the six rows above; composition depends on Party Strength (PS)."
+      ],
+      "data": [
+        "Monster names: GOBLIN GUARD, GOBLIN LEADER, ORC, ORC LEADER, HOBGOBLIN, HOBGOBLIN LDR, OGRE."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0xa105, 0xa117, 0xa11b, 0x9d86 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.13: 'you can avoid most random encounters by hugging the walls and staying out of the plaza'; [P]: encounters happen only on P squares (consistent, stated more strictly)."
+      ],
+      "coveredBy": [],
+      "notes": "The digest's 'Leaders at' column is read here as the group size at which leaders are added; the digest does not define it. P-square coordinates are not given."
+    },
+    {
+      "id": "acceptance.podal-plaza.gossip-on-mission",
+      "title": "Overhear the five gossip lines in order",
+      "kind": "rule",
+      "steps": [
+        "On the mission, walk P squares until a gossip event fires (3 in 26 per check).",
+        "The game prints 'AS YOU MOVE YOU OVERHEAR SOME <monsters> SAY,' followed by one line.",
+        "Repeat five times with fixed dice."
+      ],
+      "expect": [
+        "The lines appear in this order and then cycle: 'DO YOU THINK HE'LL REALLY SHOW UP -- THE BOSS I MEAN?'; 'MORE OGRES ON THE STREET, SINCE THE GIANTS TOOK OVER THE CASTLE.'; 'HE MELTED INTO A PUDDLE OF LARD WHEN HE TOUCHED THE THING!'; 'THE BOSS WILL BE THE GUY BIDDING UP THE PRICE.'; 'THE PLAZA'S BANE TEMPLE IS RECRUITING FOR MACE AGAIN. GRISHNAK WON'T BE HAPPY.'",
+        "No combat results from gossip."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Odds: gossip 3 in 26; confrontation 4 in 26 (9 in 26 in search mode)."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0xa14a, 0xa169, 0xa197, 0xa1c8, 0xa201, 0xa235, 0xa260 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether gossip also occurs for a party that strode boldly."
+    },
+    {
+      "id": "acceptance.podal-plaza.disguised-who-are-you",
+      "title": "Answer 'WHO ARE YOU?' while disguised",
+      "kind": "rule",
+      "steps": [
+        "On the mission and disguised, trigger a confrontation on a P square (4 in 26; 9 in 26 in search mode).",
+        "With fixed dice make the (6 + 5 per non-human party member) in 101 check succeed: the game prints 'THEY CHECK OUT YOUR PARTY,' or 'THEY GLARE AT YOUR PARTY,' then 'AND DEMAND, 'WHO ARE YOU?''.",
+        "Parley and pick an attitude."
+      ],
+      "expect": [
+        "Haughty or Abusive: safe if PS >= 1d51.",
+        "Sly: safe if the speaker's Charisma modifier >= 1d31; the game prints ''OH, YOU'RE HERE FOR THE BOSS.''.",
+        "Nice or Meek: combat; the game prints 'THEY YELL 'SETTLERS! KILL THEM!''.",
+        "A failed check also leads to combat and the game prints 'YOUR COVER IS BLOWN.' (stealth lost)."
+      ],
+      "branches": [
+        "Haughty/Abusive pass → no fight.",
+        "Sly pass → ''OH, YOU'RE HERE FOR THE BOSS.''",
+        "Nice/Meek or any failed roll → combat with the encountered group, stealth lost."
+      ],
+      "fights": [
+        "The group rolled from the random-encounter table."
+      ],
+      "data": [
+        "Demand odds: (6 + 5 per non-human) in 101."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0x9b9a, 0x9bb5, 0x9c19, 0x9c54, 0x9c85, 0x9cba, 0x9ce6, 0x9cf6, 0x9e82 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Which of 'THEY GRUMBLE AND MOVE ON.', 'AND WALK ON.' and 'LAUGH TO THEMSELVES AND WALK ON.' goes with which safe outcome is not stated in the digest; the strings are in the game text. That 'YOUR COVER IS BLOWN.' marks the loss of stealth is an inference from the string; the digest only says 'lost stealth'."
+    },
+    {
+      "id": "acceptance.podal-plaza.sneaking-confrontations",
+      "title": "Meet monsters while sneaking",
+      "kind": "rule",
+      "steps": [
+        "On the mission, having chosen SNEAK, trigger a confrontation on a P square.",
+        "With fixed dice drive each of the three outcomes."
+      ],
+      "expect": [
+        "1 in 6: the same 'WHO ARE YOU?' demand as for a disguised party.",
+        "2 in 6: the game prints 'YOU STOP, AND THEY MOVE ON.'",
+        "3 in 6: the game prints 'YOUR PARTY SLIPS PAST THEM.'"
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0x9d37, 0x9d53, 0x9c19 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.podal-plaza.stride-boldly-consequences",
+      "title": "Stride boldly and see every parley turn into combat",
+      "kind": "rule",
+      "steps": [
+        "Hold commission #4, enter, choose STRIDE BOLDLY FORWARD!.",
+        "Trigger an encounter on a P square and choose Parley with any attitude.",
+        "Walk onto a location-1 auction square."
+      ],
+      "expect": [
+        "Any parley leads to combat.",
+        "Random group sizes are doubled (before the 2..50 clamp).",
+        "The auction opening text does not appear on location-1 squares (it requires not having strode boldly or lost stealth).",
+        "The block can never be cleared afterwards."
+      ],
+      "branches": [],
+      "fights": [
+        "Doubled random groups from the table."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0x9a36 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] says the block 'becomes permanently unclearable if you strode boldly or lost stealth' and that any auction outcome completes the mission; it does not say how a party that strode boldly completes commission #4. Clue Book p.14: 'they only have one shot to get information on the auction'."
+      ],
+      "coveredBy": [],
+      "notes": "The digest is vague on what a bold party sees at the auction squares. Do not assert the mission state for this path beyond what is listed."
+    },
+    {
+      "id": "acceptance.podal-plaza.off-mission-parley",
+      "title": "Parley with a random group while not on the mission",
+      "kind": "rule",
+      "steps": [
+        "Without commission #4 held, trigger a random encounter on a P square and choose Parley.",
+        "With fixed dice produce totals below 90, from 90 to 111, and 112 or more."
+      ],
+      "expect": [
+        "Total = 9, 19 or 29 (by attitude) + 1d51 + 2 x Charisma modifier + the group's parley modifier.",
+        "Below 90: ''WE'RE GONNA HAVE TA TEACH YOU A LESSON!'' and combat.",
+        "90 to 111: ''MOVE IT, TROLL-BAIT!' THEY SNARL AND MOVE OFF.'",
+        "112 or more: ''WE'LL LET YOU OFF THIS TIME.' THE MONSTERS SCUTTLE AWAY.'",
+        "A speaker with Charisma 16 or more always avoids combat."
+      ],
+      "branches": [],
+      "fights": [
+        "The rolled group, on a total below 90."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0x9ef8, 0x9f35, 0x9f60 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Wording: the digest gives 'We're going to have to teach you a lesson!'; the game text is ''WE'RE GONNA HAVE TA TEACH YOU A LESSON!''."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say which attitudes map to 9, 19 and 29."
+    },
+    {
+      "id": "acceptance.podal-plaza.auction-wait-for-winner",
+      "title": "Watch the auction disguised and wait for the winner",
+      "kind": "main",
+      "steps": [
+        "Hold commission #4, enter disguised, and step on a location-1 square without having strode boldly or lost stealth (the existing replay reaches it at (7,4)).",
+        "The game prints 'THE AUCTIONEER CRIES 'CREATURES OF ALL AGES, WELCOME TO THIS AUCTION FOR AN ITEM BOTH MAGICAL AND POWERFUL!'' and 'THE AUCTIONEER HAS EITHER A WAND OR STAFF.'",
+        "The menu 'DO YOU WISH TO:' offers STAND AND LISTEN, MOVE IN CLOSER, LISTEN TO COMMENTS, LEAVE. Choose STAND AND LISTEN (safe, no detection roll).",
+        "The game prints 'THE BIDDING ESCALATES TO 5,000 GOLD PIECES -- HIGH BID FROM A MAN IN PLAIN CLOTHES, NEXT TO AN OGRE.'",
+        "The menu offers MAKE A BID, WAIT FOR WINNER, TRY TO LEAVE. Choose WAIT FOR WINNER.",
+        "The game prints ''GOING... GOING... GONE!' THE AUCTIONEER CRIES.' then 'A MAN AND OGRE EXCHANGE THE WAND AND A LARGE BAG, THEN DISAPPEAR INTO THE CROWD.'"
+      ],
+      "expect": [
+        "No combat occurs.",
+        "Commission #4 is complete and can be reported to the clerk.",
+        "The party did not obtain the item; the auction cannot be won."
+      ],
+      "branches": [
+        "STAND AND LISTEN: safe.",
+        "MOVE IN CLOSER: detection roll; see auction-move-in-closer.",
+        "LISTEN TO COMMENTS: safe; see auction-listen-to-comments.",
+        "LEAVE / TRY TO LEAVE: detection roll; see auction-leave.",
+        "MAKE A BID: see auction-make-a-bid."
+      ],
+      "fights": [],
+      "data": [
+        "High bid: 5,000 gold pieces.",
+        "Bidder: the magic-user Garwin, with the ogre Buldwar ([P]).",
+        "Auction square reached by the replay: (7,4)."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0xa2b4, 0xa30c, 0xa333, 0xa38a, 0xa3dc, 0xa60c, 0xa637 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.13 numbers the minor temple of Bane 1, the Pit 2, the temple of Il-Mater 3 and the auction 4; [P] numbers the auction 1, The Pitt 2, the Ilmater temple 4, the shrine 5 and the orc priest 6.",
+        "Item: [P] says a Wand of Fear and that the 'Staff of Command' is only a rumour; [GB]: 'the man in plain clothes will end up with the item, a staff of command.' The game text says 'EXCHANGE THE WAND'.",
+        "Menu label: the digest lists the third option of the second menu as 'Leave'; the game text is 'TRY TO LEAVE'.",
+        "The name 'Buldwar' appears in the digest only; it is not in the block 18 text. 'GARWIN' appears only in the bid branch (0xa5c0)."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifyPodalFromCouncil"
+      ],
+      "notes": "The replay asserts 'the auctioneer cries', both menus, 'the bidding escalates to 5,000 gold pieces' and 'a man and ogre exchange the wand'."
+    },
+    {
+      "id": "acceptance.podal-plaza.auction-move-in-closer",
+      "title": "Move in closer and identify the Wand of Fear",
+      "kind": "main",
+      "steps": [
+        "At the first auction menu, disguised, choose MOVE IN CLOSER.",
+        "With fixed dice make the detection roll pass (a disguise evades 5 in 6)."
+      ],
+      "expect": [
+        "The game prints 'YOU NOW SEE THE WAND ISN'T A MAJOR ARTIFACT, IT'S ONLY A WAND OF FEAR!'",
+        "The auction continues to the bidding menu."
+      ],
+      "branches": [
+        "Detection fails (1 in 6 disguised; always when sneaking): see auction-detected."
+      ],
+      "fights": [],
+      "data": [
+        "Item identified: Wand of Fear."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0xa713, 0xa333 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.14: 'The closer the party gets to the auction block the more information they will learn, but the greater the chance that their disguises will be uncovered.' Agrees with [P]."
+      ],
+      "coveredBy": [],
+      "notes": "The digest marks this step as the only way to learn the true item. Whether the clerk's reward depends on having learned it is not stated; [P] says any outcome completes the mission."
+    },
+    {
+      "id": "acceptance.podal-plaza.auction-listen-to-comments",
+      "title": "Listen to the crowd's two rumours",
+      "kind": "optional",
+      "steps": [
+        "At the first auction menu choose LISTEN TO COMMENTS.",
+        "Repeat with fixed dice to get both lines."
+      ],
+      "expect": [
+        "The game prints either ''IT'S A WAND OF ILLUMINATION. WHO CARES, I SEE IN THE DARK ANYWAY!'' or ''IT'S A STAFF OF COMMAND. I COULD HAVE MY OWN ARMY!''.",
+        "No detection roll is made."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0xa761, 0xa79f (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifyPodalFromCouncil"
+      ],
+      "notes": "The replay asserts 'wand of illumination'. The digest does not give the odds of each line."
+    },
+    {
+      "id": "acceptance.podal-plaza.auction-make-a-bid",
+      "title": "Bid, then act in the darkness",
+      "kind": "optional",
+      "steps": [
+        "At the bidding menu choose MAKE A BID (no gold is needed; a detection roll is made).",
+        "On a passed roll the game prints 'THE MAN THEN SPEAKS A WORD AND THE AUCTIONEER'S BLOCK IS ENVELOPED IN DARKNESS.' and 'THERE IS MASS CONFUSION. SUDDENLY, THE OGRE SPRINTS FROM THE DARKNESS.'",
+        "The menu 'DO YOU:' offers FOLLOW THE OGRE, MOVE QUIETLY AWAY, LOOK FOR THE MAN IN PLAIN CLOTHES. Take each in separate runs."
+      ],
+      "expect": [
+        "FOLLOW THE OGRE: detection roll; 'THE OGRE IS TACKLED AND SEARCHED. HE DOESN'T HAVE THE ITEM ON HIM.'",
+        "MOVE QUIETLY AWAY: detection roll.",
+        "LOOK FOR THE MAN IN PLAIN CLOTHES: safe; ''GARWIN, I'LL GET YOU!' CRIES THE AUCTIONEER. HOWEVER, THE MAN HAS ESCAPED IN THE CONFUSION.'",
+        "Party money is unchanged by bidding.",
+        "Commission #4 is complete in every branch."
+      ],
+      "branches": [
+        "Bid detection fails → see auction-detected."
+      ],
+      "fights": [],
+      "data": [
+        "Bid text: 'YOU UP THE BID. MONSTERS NEARBY TURN, STARE,'"
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0xa422, 0xa459, 0xa49c, 0xa4d8, 0xa52d, 0xa566, 0xa5c0, 0xa67a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The texts 'THE MONSTERS LOOK AROUND FOR A SCAPEGOAT. THEIR EYES FALL UPON YOUR PARTY, THEN THEY' and 'AS YOU MOVE AWAY THE MONSTERS GLANCE YOUR WAY,' are sentence openers whose endings depend on the detection roll ('GRUMBLE, AND TURN AWAY.' or 'AND YELL 'SETTLERS! KILL THEM!''); the digest does not spell the pairing out."
+    },
+    {
+      "id": "acceptance.podal-plaza.auction-leave",
+      "title": "Leave the auction before it ends",
+      "kind": "optional",
+      "steps": [
+        "At the first menu choose LEAVE, or at the bidding menu choose TRY TO LEAVE.",
+        "With fixed dice pass the detection roll."
+      ],
+      "expect": [
+        "The game prints 'THE AUCTION ENDS. YOU DON'T SEE WHO BOUGHT THE ITEM.' (or 'AS YOU MOVE AWAY THE MONSTERS GLANCE YOUR WAY,' followed by 'GRUMBLE, AND TURN AWAY.').",
+        "No combat. Commission #4 is complete ([P]: any outcome completes the mission)."
+      ],
+      "branches": [
+        "Detection fails → see auction-detected."
+      ],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0xa67a, 0xa6b4, 0xa6e2, 0xa896 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Which exact string follows each leave option is not in the digest; the listed strings exist in block 18."
+    },
+    {
+      "id": "acceptance.podal-plaza.auction-detected",
+      "title": "Get detected at the auction",
+      "kind": "main",
+      "steps": [
+        "At any auction choice with a detection roll, make the roll fail (disguise: 1 in 6; sneaking: always).",
+        "The game prints a line ending 'AND YELL 'SETTLERS! KILL THEM!'' and ''THE AUCTION IS CANCELLED!' YELLS THE AUCTIONEER AS HE FLEES.'",
+        "Fight or flee the resulting combat."
+      ],
+      "expect": [
+        "Combat with plaza monsters follows.",
+        "Stealth is lost: the block can no longer be cleared.",
+        "Commission #4 still counts as complete ([P]: 'Any outcome completes the mission')."
+      ],
+      "branches": [],
+      "fights": [
+        "Composition not given in the digest."
+      ],
+      "data": [
+        "Detection: disguise evades 5 in 6; sneaking is always detected."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0xa7d1, 0xa7f0, 0xa839 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.14: 'If the party's disguise is uncovered then the auction will be canceled and the party will have to fight its way out of Podol Plaza.' [P] adds that the mission still completes.",
+        "The clerk's commission list warns 'If you make a mistake, this mission may be permanently unresolvable' ([P] §3.0), while §3.6 says any auction outcome completes it. The digest does not say which mistake is meant."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifyPodalFromCouncil"
+      ],
+      "notes": "The replay asserts 'the auction is cancelled' on one path and then finds the port's commission lead at 'ready-to-report', which matches [P]'s 'any outcome completes the mission'. The fight's composition is not in the digest."
+    },
+    {
+      "id": "acceptance.podal-plaza.report-to-clerk",
+      "title": "Report the auction and collect commission #4",
+      "kind": "main",
+      "steps": [
+        "After any auction outcome, return to New Phlan and speak to the council clerk at Civilized 29 (5,5)."
+      ],
+      "expect": [
+        "The clerk's text includes 'YOUR SUCCESS AT PODAL PLAZA IS NOTED.'",
+        "Reward: 200 platinum and 250 gold; 208 XP per character in a party of six.",
+        "The quest tracker advances by one (commission #4 is one of the ten tracker quests)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Commission text: 'A WEAPON OF GREAT POWER IS TO BE AUCTIONED TO OUR ENEMIES. THIS AUCTION IS TO BE HELD IN PODAL PLAZA. FIND OUT WHAT THE WEAPON IS AND RETURN.'",
+        "Commission #4 'must be offered first' before it can be done ([P])."
+      ],
+      "sources": [
+        "[P] §3.0 clerk commission list (digest)",
+        "Clue Book p.13-14",
+        "game text ECL3.DAX block 8 at 0xa15a, 0xa9bb (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Spelling: the clerk's text says 'PODAL PLAZA' (ECL3.DAX block 8 at 0xa15a, 0xa9bb); Cadorna's text says 'PODOL PLAZA' (0xafec) and the Clue Book says 'Podol Plaza'."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifyPodalFromCouncil"
+      ],
+      "notes": "The replay asserts 'your success at podal plaza is noted' and then Cadorna's commission text. Proclamation CX (Adventurer's Journal p.13-15, 'special commission', 'political sensitivity') may be this commission; neither the digest nor the Journal notes say so."
+    },
+    {
+      "id": "acceptance.podal-plaza.clear-the-block",
+      "title": "Clear the block with ten random fights off the mission",
+      "kind": "optional",
+      "steps": [
+        "With commission #4 not held, and never having strode boldly or lost stealth here, win 10 random encounters on P squares.",
+        "Return to the council clerk."
+      ],
+      "expect": [
+        "After the tenth fight the block is cleared: resting is safe everywhere and random encounters stop.",
+        "Clerk reward 'Clear Podal Plaza': 200 platinum, 250 gold (208 XP per character)."
+      ],
+      "branches": [],
+      "fights": [
+        "Ten groups from the random-encounter table."
+      ],
+      "data": [
+        "Encounter chance off the mission: 1 in 26 per step (8 in 26 in search mode)."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "[P] §3.0 other clerk rewards (digest)",
+        "Clue Book p.13-14"
+      ],
+      "disagreements": [
+        "Clue Book p.13: 'While not on mission, it takes 10 random encounters to clear the block'. Agrees with [P]."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether fights avoided by parley count, nor whether the proclamation LIX reward text is shown."
+    },
+    {
+      "id": "acceptance.podal-plaza.clear-counter-rules",
+      "title": "Check the clear counter's reset and lock-out rules",
+      "kind": "rule",
+      "steps": [
+        "Case A: with commission #4 received but not reported, win some random fights, leave the block, re-enter and read the clear counter.",
+        "Case B: after striding boldly or losing stealth, win 10 random fights off the mission."
+      ],
+      "expect": [
+        "Case A: the counter is reset on every entry while the commission is received but not done; the block cannot be cleared on the mission.",
+        "Case B: the block never becomes cleared."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "[P] §3.0 other clerk rewards (digest): 'not possible while #4 is offered but unresolved'",
+        "Clue Book p.13-14"
+      ],
+      "disagreements": [
+        "Clue Book p.13: 'You cannot clear the block while on mission.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "The counter is game state a runner must read from the script variables; the digest names no variable."
+    },
+    {
+      "id": "acceptance.podal-plaza.resting",
+      "title": "Rest in the plaza, in the temple and after clearing",
+      "kind": "rule",
+      "steps": [
+        "Encamp and rest outside the Ilmater temple before the block is cleared.",
+        "Encamp and rest inside the Ilmater temple (location 4).",
+        "Encamp and rest anywhere after clearing."
+      ],
+      "expect": [
+        "Uncleared, outside the temple: 16% chance per 10 minutes of an interruption.",
+        "Inside the temple, or anywhere after clearing: never interrupted."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "[P] §5 Scripting, Podal Plaza (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0xae5d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.13: 'You can rest in the secret temple of Il-Mater while the block is active, or anywhere after the block is cleared.' Agrees with [P]'s stated rule."
+      ],
+      "coveredBy": [],
+      "notes": "Digest §5 lists 'The rest rules are clobbered' as a Podal Plaza script bug without saying what actually happens. A test author must determine the observed behaviour from the script before asserting the 16% rule; see quirk rest-rules-clobbered."
+    },
+    {
+      "id": "acceptance.podal-plaza.rest-rules-clobbered",
+      "title": "Reproduce the clobbered rest rules",
+      "kind": "quirk",
+      "steps": [
+        "Rest in the uncleared plaza and in the Ilmater temple and record the interruption behaviour over many 10-minute ticks with fixed dice."
+      ],
+      "expect": [
+        "The behaviour matches the original script, which [P] says clobbers the rest rules."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §5 Scripting, Podal Plaza (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives only the phrase 'The rest rules are clobbered.' It does not say which value is overwritten or what the player sees, so this scenario cannot be made exact from the sources at hand."
+    },
+    {
+      "id": "acceptance.podal-plaza.fleeing-squares",
+      "title": "Flee a fight and land on a listed square",
+      "kind": "rule",
+      "steps": [
+        "Start a random fight on a P square and flee successfully.",
+        "The game prints 'THE PARTY RUNS AND ESCAPES.'",
+        "Read the party position."
+      ],
+      "expect": [
+        "The party is placed on one of (4,0), (5,1), (6,2), (7,3), (9,4), (10,5), (11,6), (12,7)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Flee squares: (4,0), (5,1), (6,2), (7,3), (9,4), (10,5), (11,6), (12,7)."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0x9e23 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say how one of the eight squares is chosen."
+    },
+    {
+      "id": "acceptance.podal-plaza.flight-after-victory",
+      "title": "Flee a fight and still get credit for it",
+      "kind": "quirk",
+      "steps": [
+        "Off the mission, start a random fight on a P square, flee it, and read the clear counter."
+      ],
+      "expect": [
+        "The fight is credited toward the 10 before the flight is checked, so the counter advances even though the party fled."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §5 Scripting, Podal Plaza (digest): 'Flight is checked after victory is credited.'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest states the ordering bug in one line; the counter effect is the reading of that line, not a quoted consequence."
+    },
+    {
+      "id": "acceptance.podal-plaza.ilmater-temple",
+      "title": "Use the hidden temple of Ilmater",
+      "kind": "optional",
+      "steps": [
+        "Open door E5 with Knock and walk to location 4 (1,15).",
+        "The game prints 'THIS IS A HIDDEN TEMPLE OF ILMATER. YOU FEEL SAFE HERE.' then 'A YOUNG WOMAN COMES FORWARD 'WE PROVIDE HELP FOR THOSE WHO CAN REACH US. ARE YOU IN NEED OF HEALING?' with YES / NO.",
+        "Answer YES; then repeat and answer NO."
+      ],
+      "expect": [
+        "YES: the normal temple services menu opens.",
+        "The game text also has ''YOU CAN REST HERE AS LONG AS YOU WISH.' SHE THEN LEAVES.'",
+        "Resting here is safe."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 4 at (1,15)."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0xadb6, 0xadec, 0xae3a, 0xae5d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.13 numbers the minor temple of Bane 1, the Pit 2, the temple of Il-Mater 3 and the auction 4; [P] numbers the auction 1, The Pitt 2, the Ilmater temple 4, the shrine 5 and the orc priest 6."
+      ],
+      "coveredBy": [],
+      "notes": "The digest says only 'Normal temple services'. Which answer prints the 'REST HERE' line is not stated."
+    },
+    {
+      "id": "acceptance.podal-plaza.pitt-challenge",
+      "title": "Challenge the drunk buccaneer one-on-one",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 2 (4,8). The game prints 'OVER THIS DOOR IS A CRUDE SIGN SAYING, 'THE PITT.''",
+        "Enter for the first time: 'YOU HAVE ENTERED A CROWDED TAVERN.' 'YOU OPENED THE DOOR INTO A DRUNK BUCCANEER.' 'HE GLARES AT YOU,'ONE OF YOU SHALL PAY FOR THIS INSULT. WHO WILL IT BE?'WHAT DO YOU DO?' with CHALLENGE / ATTACK / FLEE / BRIBE.",
+        "Choose CHALLENGE and pick a champion (an unacceptable pick prints 'THAT ONE IS UNACCEPTABLE. CHOOSE ANOTHER.').",
+        "Win the duel."
+      ],
+      "expect": [
+        "One-on-one combat against 1 4TH LVL FIGHTER (#41).",
+        "After the win the game prints 'THE BATTLE IS OVER, THE PATRONS RETURN TO DRINKING.' and the party keeps his Long Sword +1 and Chain Mail +1.",
+        "The bar menu follows: 'THE CREATURES IGNORE YOU FOR THE MOMENT.' 'WHAT DO YOU DO?' MIX WITH MONSTERS / DRINK HEAVILY / ATTACK / LEAVE."
+      ],
+      "branches": [
+        "ATTACK: see pitt-attack.",
+        "FLEE: see pitt-flee.",
+        "BRIBE: see pitt-bribe."
+      ],
+      "fights": [
+        "1 4TH LVL FIGHTER (#41), single combat. [P]: Sleep usually works."
+      ],
+      "data": [
+        "Loot: Long Sword +1, Chain Mail +1.",
+        "Location 2 at (4,8)."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0xad81, 0xa8bb, 0xa8e5, 0xa90d, 0xa952, 0xa9ac, 0xa9f0, 0xab2c, 0xab51 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.13 numbers the minor temple of Bane 1, the Pit 2, the temple of Il-Mater 3 and the auction 4; [P] numbers the auction 1, The Pitt 2, the Ilmater temple 4, the shrine 5 and the orc priest 6.",
+        "Name: [P] and the game sign say 'The Pitt'; the Clue Book says 'The Pit'."
+      ],
+      "coveredBy": [],
+      "notes": "What makes a champion 'unacceptable' is not in the digest. XP for the duel is not given."
+    },
+    {
+      "id": "acceptance.podal-plaza.pitt-attack",
+      "title": "Attack the buccaneer and fight the whole bar",
+      "kind": "optional",
+      "steps": [
+        "At the buccaneer's menu choose ATTACK."
+      ],
+      "expect": [
+        "Combat: 1 4TH LVL FIGHTER, 4 HOBGOBLIN, 12 GOBLIN GUARD, 8 ORC; morale 30; 234 XP per character (party of six).",
+        "Any fight with the patrons abandons the bar."
+      ],
+      "branches": [],
+      "fights": [
+        "1 4TH LVL FIGHTER + 4 HOBGOBLIN + 12 GOBLIN GUARD + 8 ORC, morale 30, 234 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0xa952, 0xaa6a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Choosing ATTACK from the later bar menu is 'same as attacking the buccaneer' per the digest."
+    },
+    {
+      "id": "acceptance.podal-plaza.pitt-flee",
+      "title": "Flee from the buccaneer",
+      "kind": "optional",
+      "steps": [
+        "On the mission and disguised or sneaking, at the buccaneer's menu choose FLEE."
+      ],
+      "expect": [
+        "The party leaves the tavern and loses stealth."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0xa952 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives only 'F'lee → lose stealth. No text or destination square is given."
+    },
+    {
+      "id": "acceptance.podal-plaza.pitt-bribe",
+      "title": "Bribe the buccaneer",
+      "kind": "optional",
+      "steps": [
+        "At the buccaneer's menu choose BRIBE.",
+        "The game prints ''A TENTH OF YOUR MONEY THEN.'DO YOU ACCEPT?' with YES / NO. Answer YES."
+      ],
+      "expect": [
+        "The party loses 10% of its money and light items.",
+        "The game prints 'THE BUCCANEER SMILES.'THAT IS SUFFICIENT PAYMENT.' HE LEAVES.'"
+      ],
+      "branches": [
+        "NO: not described in the digest."
+      ],
+      "fights": [],
+      "data": [
+        "Bribe: 10% of money and light items."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0xaad0, 0xaaf4, 0xaa28 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] (digest): '10% of money and light items'; the game text says only ''A TENTH OF YOUR MONEY THEN.''."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not define 'light items' or the result of answering NO."
+    },
+    {
+      "id": "acceptance.podal-plaza.pitt-bar-mix-with-monsters",
+      "title": "Mix with the monsters in the bar",
+      "kind": "optional",
+      "steps": [
+        "In the bar menu choose MIX WITH MONSTERS, once undisguised and once disguised.",
+        "Disguised: the game prints 'MONSTERS INSULT YOUR ABILITIES AND PARENTAGE.' and the menu ATTACK / TRY TO LEAVE / INSULT BACK / JOIN IN HEAVY DRINKING. Take each option in separate runs."
+      ],
+      "expect": [
+        "Undisguised: the patrons attack ('YOUR ACTIONS ANGER THE PATRONS AND THEY ATTACK.').",
+        "ATTACK or INSULT BACK: a brawl ('YOUR ACTIONS TRIGGER A FREE FOR ALL.') against 25 GOBLIN GUARD, 20 HOBGOBLIN, 5 OGRE, morale 50, with up to 21 non-ogres fighting on the party's side.",
+        "TRY TO LEAVE: the patrons attack.",
+        "JOIN IN HEAVY DRINKING: same as DRINK HEAVILY.",
+        "Any fight with the patrons abandons the bar; the game text has 'THE BAR LOOKS LIKE IT WAS DESTROYED BY EXPERTS.'"
+      ],
+      "branches": [],
+      "fights": [
+        "Brawl: 25 GOBLIN GUARD + 20 HOBGOBLIN + 5 OGRE, morale 50; up to 21 non-ogres allied.",
+        "Patrons attack: 'same as attacking the buccaneer' applies to the bar-menu ATTACK; the composition for 'patrons attack' is not given separately."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0xab51, 0xabb5, 0xabde, 0xaa6a, 0xacaf, 0xad4d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.13: 'get into a brawl with a bunch of monsters'. Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say when 'THE BAR LOOKS LIKE IT WAS DESTROYED BY EXPERTS.' is shown, nor the XP for the brawl. The bar menu's fourth option LEAVE is in the game text but not in the digest."
+    },
+    {
+      "id": "acceptance.podal-plaza.pitt-drink-heavily",
+      "title": "Drink heavily and lose the purse",
+      "kind": "optional",
+      "steps": [
+        "In the bar menu choose DRINK HEAVILY."
+      ],
+      "expect": [
+        "The game prints 'YOU HAD A GREAT TIME UNTIL YOU ALL PASSED OUT. YOUR PURSE IS MISSING.'",
+        "The party loses all money and 50% of light items, and loses stealth."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0xac57 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.podal-plaza.buccaneer-looted-twice",
+      "title": "Beat and loot the buccaneer a second time",
+      "kind": "quirk",
+      "steps": [
+        "Beat the buccaneer at The Pitt and take his Long Sword +1 and Chain Mail +1.",
+        "Repeat the encounter as the original script allows."
+      ],
+      "expect": [
+        "The buccaneer can be beaten and looted a second time: a second Long Sword +1 and Chain Mail +1."
+      ],
+      "branches": [],
+      "fights": [
+        "1 4TH LVL FIGHTER (#41) each time."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §5 Scripting, Podal Plaza (digest): 'The buccaneer can be beaten and looted twice.'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not give the steps that re-arm the encounter (it says the buccaneer text is shown on 'first entry'). A test author must find the trigger in the ECL 18 script."
+    },
+    {
+      "id": "acceptance.podal-plaza.shrine",
+      "title": "Read the desecrated shrine",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 5 (13,8)."
+      ],
+      "expect": [
+        "The game prints 'THIS IS A SMALL SHRINE. SYMBOLS OF BANE HAVE REPLACED THOSE OF ILMATER.'"
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 5 at (13,8)."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "game text ECL1.DAX block 18 at 0xaea1 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says only 'shrine text'; the string is from block 18 and its attachment to (13,8) is by content."
+    },
+    {
+      "id": "acceptance.podal-plaza.orc-priest-attack",
+      "title": "Attack the robed orc",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 6 (14,8). The game prints 'A ROBED ORC IS SITTING HERE. WHAT DO YOU DO?' with LEAVE / GREET / ATTACK.",
+        "Choose ATTACK and win."
+      ],
+      "expect": [
+        "Combat: 1 ORC LEADER (#5), morale 90, distance 1.",
+        "Loot: 6 Leather Holy Symbols."
+      ],
+      "branches": [
+        "LEAVE: no effect described.",
+        "GREET: see orc-priest-recruiting and orc-priest-greet-undisguised."
+      ],
+      "fights": [
+        "1 ORC LEADER (#5), morale 90, distance 1."
+      ],
+      "data": [
+        "Loot: 6 Leather Holy Symbols (a Leather Holy Symbol admits the party to the Temple of Bane, §3.10).",
+        "Location 6 at (14,8)."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0xaeed, 0xaf11 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.13 numbers the minor temple of Bane 1, the Pit 2, the temple of Il-Mater 3 and the auction 4; [P] numbers the auction 1, The Pitt 2, the Ilmater temple 4, the shrine 5 and the orc priest 6."
+      ],
+      "coveredBy": [],
+      "notes": "The digest's '6 Leather Holy Symbols' is read as six items. XP is not given."
+    },
+    {
+      "id": "acceptance.podal-plaza.orc-priest-recruiting",
+      "title": "Greet the robed orc, accept, and return in two hours",
+      "kind": "optional",
+      "steps": [
+        "Off the mission, or on the mission and disguised, choose GREET at location 6.",
+        "The game prints 'THE ORC SMILES CROOKEDLY.'GREETINGS FROM BANE.' then either 'WE ARE RECRUITING CREATURES FOR OUR TEMPLE TO THE NORTHEAST. ARE YOU INTERESTED?'' or 'WE ARE HIRING CREATURES TO RECOVER OUR TEMPLE. ARE YOU INTERESTED?'' with YES / NO.",
+        "Answer YES: ''MEET HERE IN TWO HOURS. YOU MAY MEET HIGH PRIEST MACE.' HE ESCORTS YOU OUT.'",
+        "Wait two hours of game time and return."
+      ],
+      "expect": [
+        "On return the game prints 'MANY CREATURES HAVE GATHERED. THE ROBED ORC STANDS AND CALLS OUT,'FIRST, TO SHOW YOUR LOYALTIES, KILL THE UNBELIEVERS.' HE POINTS AT YOUR GROUP.'",
+        "Combat: 8 ORC, 3 OGRE, 1 ORC LEADER, morale 50, distance 1.",
+        "Loot: 6 Leather Holy Symbols."
+      ],
+      "branches": [
+        "NO: ''IF YOU CHANGE YOUR MIND, RETURN IN TWO HOURS.' HE ESCORTS YOU OUT.'"
+      ],
+      "fights": [
+        "8 ORC + 3 OGRE + 1 ORC LEADER, morale 50, distance 1."
+      ],
+      "data": [
+        "Return delay: 2 hours."
+      ],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0xaf4f, 0xaf80, 0xafc1, 0xafdc, 0xb016, 0xb07c, 0xb0ce (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.13: recruited only 'if the party is on mission and disguised'; if 'they are not on mission, they will have to fight'. [P]: a recruiting pitch unless on the mission and undisguised.",
+        "Location numbers differ: Clue Book p.13 numbers the minor temple of Bane 1, the Pit 2, the temple of Il-Mater 3 and the auction 4; [P] numbers the auction 1, The Pitt 2, the Ilmater temple 4, the shrine 5 and the orc priest 6."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say which condition selects the 'TEMPLE TO THE NORTHEAST' pitch versus the 'RECOVER OUR TEMPLE' pitch; by content the second fits a state where the Temple of Bane has been retaken, but that is not stated. Whether returning after answering NO gives the same fight is not stated."
+    },
+    {
+      "id": "acceptance.podal-plaza.orc-priest-greet-undisguised",
+      "title": "Greet the robed orc on the mission without a disguise",
+      "kind": "optional",
+      "steps": [
+        "Hold commission #4, enter by striding boldly or after losing stealth, and choose GREET at location 6."
+      ],
+      "expect": [
+        "Combat starts at once instead of the recruiting pitch.",
+        "Loot after the fight: 6 Leather Holy Symbols."
+      ],
+      "branches": [],
+      "fights": [
+        "1 ORC LEADER (#5), morale 90, distance 1 (the digest lists this composition under Attack; it says only 'combat' for this branch)."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.6 (digest)",
+        "Clue Book p.13-14",
+        "game text ECL1.DAX block 18 at 0xaf11 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.13: 'If the party is not disguised, their disguise is penetrated ... they will have to fight the minions of Bane stationed here.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not give the composition for this branch explicitly, and does not say how a sneaking party is treated."
+    }
+  ]
+}

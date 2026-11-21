@@ -1,0 +1,882 @@
+{
+  "schema": 1,
+  "id": "acceptance.wilderness",
+  "title": "Wilderness",
+  "guideSection": "3.11",
+  "scripts": [
+    "ECL 25",
+    "ECL 26",
+    "ECL 27",
+    "ECL 19"
+  ],
+  "commission": null,
+  "prerequisites": [
+    "The party is on the overland map (by boat from the New Phlan dock, or through a city-edge exit).",
+    "Rule scenarios need fixed dice and a known Party Strength (PS).",
+    "Commission #13 is held for the Zhentil envoy scenario; commission #12 for the Buccaneer Base scenario.",
+    "XP figures assume a party of exactly six.",
+    "No party level is stated for the wilderness in the digest; the Clue Book calls the West the toughest region."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.wilderness.travel-time",
+      "title": "Spend 12 hours per overland square",
+      "kind": "rule",
+      "steps": [
+        "On the wilderness map note the game clock, move one square, and read the clock again."
+      ],
+      "expect": [
+        "The clock has advanced 12 hours.",
+        "Natural healing and spell durations run on that clock (1 HP per 24 hours)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Overland move: 12 hours per square.",
+        "Boat trips from the New Phlan dock take no game time."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "[P] §4 Time and resting (digest)",
+        "[P] §3.0 boat rules (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.wilderness.region-by-x",
+      "title": "Draw encounters from the region set by the X coordinate",
+      "kind": "rule",
+      "steps": [
+        "Force a random encounter at X=15 and at X=16; at X=28 and at X=29.",
+        "Record which table the monster comes from."
+      ],
+      "expect": [
+        "X 2 to 15 uses the West table (script ECL 25); X 16 to 28 the Central table (ECL 26); X 29 to 41 the East table (ECL 27)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "West X=2-15; Central X=16-28; East X=29-41."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.21-26"
+      ],
+      "disagreements": [
+        "Coordinates: the Clue Book uses per-region coordinates (Nomad Camp 12,11; Sorcerer's Island 6,16; Phlan 12,27; Kobold Caves 6,15; Lizard Keep 11,8); [P] uses global X ((25,11), (19,16), (25,27), (32,15), (37,8)). They agree after adding 13 (Central) or 26 (East); Western points match exactly."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives the X ranges; that each region is its own script block follows from the three blocks' separate encounter text. No Y bounds are given."
+    },
+    {
+      "id": "acceptance.wilderness.encounter-chance",
+      "title": "Roll the 5% encounter chance per move",
+      "kind": "rule",
+      "steps": [
+        "Move one square on the overland map with fixed dice set to hit the 5% chance.",
+        "With the follow-up roll set to 1 to 20 of 21, then to 21 of 21."
+      ],
+      "expect": [
+        "5% per move: an encounter fires.",
+        "20 in 21 of those are a monster group from the region table; 1 in 21 is a lair entrance (see file 12).",
+        "A monster group opens with one of: 'YOU SPOT A GROUP OF <monsters>'; 'YOU ARE SURPRISED BY A GROUP OF <monsters>.'; 'YOU SURPRISE A GROUP OF <monsters>.'; 'SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF <monsters>.', followed by the encounter menu."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Encounter: 5% per move; 20/21 monsters, 1/21 lair."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "game text ECL6.DAX block 25 at 0xa128, 0xa172, 0xa1c7, 0xa216 (src/audio/voice-master-manifest.json)",
+        "game text ECL7.DAX block 26 at 0xa15c, 0xa1a6, 0xa1f7, 0xa242 (src/audio/voice-master-manifest.json)",
+        "game text ECL8.DAX block 27 at 0x9f1c, 0x9f66, 0x9fb7, 0xa002 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.25: near the Kobold Caves 'the closer you get to them the more likely you are to be attacked by kobold patrols'; [P] gives a flat 5% per move plus the fixed fight at the caves."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifyPodalFromCouncil (walks (20,29) to (24,28) and answers a merchant encounter with Parley)"
+      ],
+      "notes": "The four openings correspond to neither side surprised, party surprised, monsters surprised and both surprised, by their wording."
+    },
+    {
+      "id": "acceptance.wilderness.forced-encounter",
+      "title": "Force an encounter by pushing into the Moonsea",
+      "kind": "rule",
+      "steps": [
+        "Stand on a coast square with the Moonsea to the south and hold Down against the water."
+      ],
+      "expect": [
+        "Encounter rolls keep being made although the party does not move, so an encounter is eventually forced."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §4 Random encounters (digest): 'an encounter is forced by holding Up against a wall, or Down into the Moonsea on the wilderness map'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the blocked move also costs 12 hours."
+    },
+    {
+      "id": "acceptance.wilderness.wait-and-flee",
+      "title": "Use Wait and Flee under each surprise state",
+      "kind": "rule",
+      "steps": [
+        "With fixed dice produce the four surprise states and choose Wait in each.",
+        "Repeat choosing Flee in each."
+      ],
+      "expect": [
+        "Wait avoids combat only if the party is unsurprised and the monsters are surprised.",
+        "Flee works only if neither side is surprised.",
+        "In every other state the choice leads to combat."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.11 (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not give the text shown when Wait or Flee fails or succeeds on the overland map."
+    },
+    {
+      "id": "acceptance.wilderness.parley",
+      "title": "Parley with an overland group",
+      "kind": "rule",
+      "steps": [
+        "In a monster encounter choose Parley and an attitude; with fixed dice produce totals of at most 99, 100 to 139, and 140 or more.",
+        "Parley with a group whose receptiveness is 0 and with one whose receptiveness is 50."
+      ],
+      "expect": [
+        "Total = receptiveness + attitude modifier + Charisma modifier + 1d31.",
+        "99 or less: attack. The game text has 'YOU HAVE INSULTED THE <monsters>. THE <monsters> ATTACK YOU IMMEDIATELY!'",
+        "100 to 139: 'YOU CONVINCE THE <monsters> THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.'",
+        "140 or more: 'THE <monsters> FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.'",
+        "Receptiveness 0: always hostile. Receptiveness 50: always friendly; the game text has 'THE <monsters> GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE <monsters> THEN LEAVE AND BID YOU GOOD DAY.'",
+        "Attitude modifiers Haughty/Sly/Nice/Meek/Abusive: West 19/9/49/-1/29; Central 29/29/29/4/59; East 19/19/4/4/29."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Attitude modifiers per region as listed."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.21-22",
+        "game text ECL6.DAX block 25 at 0xa2fe, 0xa308, 0xa34e, 0xa362, 0xa391, 0xa3ad, 0xa3b7, 0xa3d0, 0xa3da, 0xa405 (src/audio/voice-master-manifest.json)",
+        "game text ECL7.DAX block 26 at 0xa330, 0xa38a, 0xa3df, 0xa402 (src/audio/voice-master-manifest.json)",
+        "game text ECL8.DAX block 27 at 0xa0f0, 0xa14a, 0xa19f, 0xa1c2 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.21: 'If you want to avoid combat with intelligent nasty encounters in all three wilderness areas, choose Parlay and then choose Abusive.' [P]'s modifiers make Abusive best in Central (59) and East (29) but Nice best in the West (49 against 29).",
+        "Spelling: the Central block prints 'PLESANTRIES'; West and East print 'PLEASANTRIES'."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifyPodalFromCouncil (parleys with merchants in the Central region)"
+      ],
+      "notes": "The digest quotes only the 100-139 and 140+ lines; pairing 'YOU HAVE INSULTED' with the attack result and 'EXCHANGE PLEASANTRIES' with receptiveness 50 is by content. 'Receptiveness' is the parley figure in each table row."
+    },
+    {
+      "id": "acceptance.wilderness.group-size",
+      "title": "Size an overland group from Party Strength",
+      "kind": "rule",
+      "steps": [
+        "With fixed dice drive the three size outcomes for one monster type and record the count."
+      ],
+      "expect": [
+        "Base = PS / the monster's divisor.",
+        "1 in 6: no further reduction; 3 in 6: divided by 2; 2 in 6: divided by 3. Minimum 1."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.11 (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest's wording is 'then 1/6 none, 3/6 ÷2, 2/6 ÷3 (minimum 1)'; 'none' is read as no reduction. Rounding is not stated."
+    },
+    {
+      "id": "acceptance.wilderness.resting",
+      "title": "Rest on the overland map",
+      "kind": "rule",
+      "steps": [
+        "Encamp on an ordinary overland square and rest for several 8-hour periods with fixed dice."
+      ],
+      "expect": [
+        "Each 8 hours there is a 10% chance of an encounter; it is always a monster group, never a lair."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Rest interruption: 10% per 8 hours."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.21-22"
+      ],
+      "disagreements": [
+        "Clue Book p.21: 'In each wilderness, your party has a fair chance to rest ... it is not a bad idea to simply encamp in the middle of the wilderness and rest up.' Consistent."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.wilderness.west-table",
+      "title": "Roll every row of the West table",
+      "kind": "rule",
+      "steps": [
+        "At X 2 to 15 force encounters with the table roll set to each row in turn."
+      ],
+      "expect": [
+        "Frequencies out of 19, with divisor, morale, receptiveness and movement: QUICKLINGS 2, 4, 60, 10, 96; WILD BOAR 3, 4, 60, 0, 15; GIANT MANTIS 1, 10, 60, 0, 12; TIGER 3, 6, 60, 0, 12; THRI-KREEN 2, 10, 60, 30, 18; AHNKHEG 1, 8, 60, 0, 12; CENTAUR 2, 4, 60, 50, 18; CORPORAL 2, 2, 80, 10, 6; 1ST LVL THIEF 1, 2, 40, 10, 12; GIANT SNAKE 2, 8, 60, 0, 15.",
+        "CORPORAL groups have a reduction figure of 10 that adds an extra CORPORAL; 1ST LVL THIEF groups have a figure of 40 that adds a 6TH LVL THIEF.",
+        "Surprise quirks: quicklings cannot be surprised; a giant mantis surprises the party on 1 to 5; tigers and corporals are surprised only on a 1."
+      ],
+      "branches": [],
+      "fights": [
+        "Any West row, sized by Party Strength."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.21-22",
+        "game text ECL6.DAX block 25 at 0xa128, 0xa13e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.21 lists Quicklings, Wild Boars, Giant Mantis, Tigers, Thri-Kreen, Anhkegs, Centaurs, Giant Snakes, 'Zentarian Patrols', Thieves and Buccaneers; [P]'s table has CORPORAL and 1ST LVL THIEF and no buccaneers.",
+        "Spelling: [P] monster name AHNKHEG; the game text prints 'ANHKHEGS'; the Clue Book 'Anhkegs'."
+      ],
+      "coveredBy": [],
+      "notes": "The digest's '(reduction 10 → extra CORPORAL)' and '(40 → 6TH LVL THIEF)' are not explained; the leader rule must be read from the script. A movement of 96 for QUICKLINGS is as the digest gives it. The surprise die size is not stated."
+    },
+    {
+      "id": "acceptance.wilderness.central-table",
+      "title": "Roll every row of the Central table",
+      "kind": "rule",
+      "steps": [
+        "At X 16 to 28 force encounters with the table roll set to each row in turn."
+      ],
+      "expect": [
+        "Frequencies out of 18, with divisor, morale, receptiveness and movement: KOBOLD (#123) 4, 1, 40, 30, 6 (figure 40 adds KOBOLD LEADER); DISPLACER BEAST 2, 6, 60, 0, 15; DRIDER 1, 7, 60, 1, 12; STIRGE 3, 2, 60, 0, 18; LIZARDMAN 3, 3, 50, 20, 6; BANDIT 1, 2, 60, 20, 9 (figure 20 adds AIDES); NOMAD 2, 1, 60, 50, 9 (figure 30 adds AIDES); MERCHANT 2, 1, 0, 50, 9 (figure 30 adds AIDES).",
+        "NOMAD and MERCHANT (receptiveness 50) are always friendly in a parley."
+      ],
+      "branches": [],
+      "fights": [
+        "Any Central row, sized by Party Strength."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.23-24",
+        "game text ECL7.DAX block 26 at 0xa15c, 0xa172 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.23 lists the same eight types: Kobolds, Displacer Beasts, Driders, Stirges, Lizard Men, Bandits, Nomads, Merchants. Agrees."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifyPodalFromCouncil (meets merchants between (20,29) and (24,28))"
+      ],
+      "notes": "The parenthesised figures are unexplained in the digest. [P] §5 Adaptational: displacer beasts are not displaced and are Lawful Good; driders do not penalise the save."
+    },
+    {
+      "id": "acceptance.wilderness.east-table",
+      "title": "Roll every row of the East table",
+      "kind": "rule",
+      "steps": [
+        "At X 29 to 41 force encounters with the table roll set to each row in turn."
+      ],
+      "expect": [
+        "Frequencies out of 20, with divisor, morale, receptiveness and movement: KOBOLD 4, 1, 40, 30, 6; GNOLL 3, 2, 50, 20, 9; LIZARDMAN 3, 3, 60, 20, 6; GIANT LIZARD 2, 4, 50, 0, 15; HIPPOGRIFF 2, 4, 70, 0, 18; WYVERN 1, 8, 70, 0, 24; TROLL 2, 7, 60, 10, 12; PHASE SPIDER 1, 6, 70, 0, 31; MINOTAUR 2, 7, 70, 10, 12."
+      ],
+      "branches": [],
+      "fights": [
+        "Any East row, sized by Party Strength."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.25-26",
+        "game text ECL8.DAX block 27 at 0x9f1c, 0x9f32 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.25 lists Kobolds, Lizard Men, Gnolls, Giant Lizards, Hippogriffs, Wyvern, Trolls and Phase Spiders; it does not list Minotaurs, which [P]'s table has."
+      ],
+      "coveredBy": [],
+      "notes": "[P] §5 Adaptational: trolls stay down only if all damage dealt to them was fire or acid, and start regenerating 3 minutes after damage."
+    },
+    {
+      "id": "acceptance.wilderness.point-a-phlan",
+      "title": "Walk over Phlan at (25,27)",
+      "kind": "rule",
+      "steps": [
+        "On the overland map walk onto (25,27) and off again."
+      ],
+      "expect": [
+        "No menu or event fires: the square can be walked over freely."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Point a: (25,27)."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.23-24"
+      ],
+      "disagreements": [
+        "Coordinates: the Clue Book uses per-region coordinates (Nomad Camp 12,11; Sorcerer's Island 6,16; Phlan 12,27; Kobold Caves 6,15; Lizard Keep 11,8); [P] uses global X ((25,11), (19,16), (25,27), (32,15), (37,8)). They agree after adding 13 (Central) or 26 (East); Western points match exactly."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.wilderness.point-b-east-edge",
+      "title": "Use the eastern-edge menu at (26,27)",
+      "kind": "rule",
+      "steps": [
+        "Walk onto (26,27). The game prints 'YOU ARE ON THE EASTERN EDGE OF THE CITY. THERE ARE NORTH AND SOUTH ENTRANCES INTO THE CITY AND A SMALL BOAT THAT YOU CAN TAKE TO THE CIVILISED AREA. WHICH ROUTE WILL YOU TAKE?' with NORTH / SOUTH / BOAT / LEAVE.",
+        "Take each option in separate runs."
+      ],
+      "expect": [
+        "NORTH: Kovel Mansion (15,4).",
+        "SOUTH: Wealthy Area (15,4).",
+        "BOAT: Civilized Area (15,1).",
+        "LEAVE: stay on the overland map."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Point b: (26,27)."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "game text ECL7.DAX block 26 at 0x9d26, 0x9daf (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Parleyed into the Temple of Bane and reloaded the party with the Dust of Disappearance:' (asserts the menu at (26,27) and takes SOUTH)"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.wilderness.point-c-north-edge",
+      "title": "Use the north-edge menu at (25,26) and (26,26)",
+      "kind": "rule",
+      "steps": [
+        "Walk onto (25,26), and in another run (26,26). The game prints 'YOU ARE ON THE NORTH EDGE OF THE CITY. WILL YOU ENTER THE NORTHERN CITY GATES OR ENTER THE GRAVEYARD?' with CITY / GRAVEYARD / LEAVE.",
+        "Take each option."
+      ],
+      "expect": [
+        "CITY: Kovel Mansion (4,0).",
+        "GRAVEYARD: Valhingen Graveyard (0,4).",
+        "LEAVE: stay on the overland map."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Point c: (25,26) and (26,26)."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "game text ECL7.DAX block 26 at 0x9c65, 0x9cb5 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.wilderness.point-d-west-edge",
+      "title": "Use the western-edge menu at (24,28)",
+      "kind": "rule",
+      "steps": [
+        "Walk onto (24,28). The game prints 'YOU ARE ON THE WESTERN EDGE OF THE CITY. THERE ARE TWO ENTERANCES INTO THE CITY, A NORTH ENTRANCE AND A SOUTH ENTRANCE. WHICH ENTRANCE WILL YOU TAKE?' with NORTH / SOUTH / LEAVE.",
+        "Take each option."
+      ],
+      "expect": [
+        "NORTH: Podal Plaza (0,4).",
+        "SOUTH: Textile House (0,4).",
+        "LEAVE: stay on the overland map."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Point d: (24,28)."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "game text ECL7.DAX block 26 at 0x9e46, 0x9ebb (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifyPodalFromCouncil (asserts 'western edge of the city ... north south leave' and takes NORTH)"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.wilderness.point-e-boats",
+      "title": "Take the boats back from (20,29) and (35,29)",
+      "kind": "rule",
+      "steps": [
+        "Walk onto (20,29). The game prints 'THERE IS A BOAT HERE THAT WILL TAKE YOU BACK TO THE CIVILISED SECTION OF PHLAN. WILL YOU TAKE IT?' with TAKE BOAT / STAY.",
+        "Walk onto (35,29). The game prints 'THERE IS A BOAT DOCKED HERE THAT WILL RETURN YOU TO THE CIVILIZED SECTION OF PHLAN. WILL YOU TAKE IT?' with TAKE BOAT / STAY.",
+        "Choose TAKE BOAT at each."
+      ],
+      "expect": [
+        "The party arrives in the Civilized Area at (15,1).",
+        "STAY: remain on the overland map."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Point e: (20,29) and (35,29).",
+        "From the dock: 'W'est lands at (20,29), 'E'ast at (35,29); 1 platinum per trip after the first."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "[P] §3.0 boat rules (digest)",
+        "game text ECL7.DAX block 26 at 0xa037, 0xa084 (src/audio/voice-master-manifest.json)",
+        "game text ECL8.DAX block 27 at 0x9de7, 0x9e37 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Spelling differs between blocks: 'CIVILISED' (block 26) and 'CIVILIZED' (block 27)."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifyPodalFromCouncil (lands at (20,29) from the west ferry; asserts 'take boat stay' on the way back)"
+      ],
+      "notes": "Assigning the block 26 string to (20,29) and the block 27 string to (35,29) follows from the X ranges."
+    },
+    {
+      "id": "acceptance.wilderness.point-f-rowboat",
+      "title": "Find the hidden rowboat at (19,14)",
+      "kind": "rule",
+      "steps": [
+        "Walk onto (19,14). The game prints 'YOU HAVE FOUND A ROWBOAT HIDDEN AMOUNGST THE REEDS. WILL YOU TAKE IT TO THE PYRAMID?' with YES / NO.",
+        "Answer YES."
+      ],
+      "expect": [
+        "The party is carried to the island with the pyramid (point g at (19,16)).",
+        "NO: stay at (19,14)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Point f: (19,14)."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.23-24",
+        "game text ECL7.DAX block 26 at 0x9f22, 0x9f65 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Coordinates: the Clue Book uses per-region coordinates (Nomad Camp 12,11; Sorcerer's Island 6,16; Phlan 12,27; Kobold Caves 6,15; Lizard Keep 11,8); [P] uses global X ((25,11), (19,16), (25,27), (32,15), (37,8)). They agree after adding 13 (Central) or 26 (East); Western points match exactly."
+      ],
+      "coveredBy": [],
+      "notes": "The digest says only 'Hidden rowboat → island'; the landing square is not given."
+    },
+    {
+      "id": "acceptance.wilderness.point-g-pyramid",
+      "title": "Enter or turn back at the pyramid (19,16)",
+      "kind": "rule",
+      "steps": [
+        "At (19,16) the game prints 'YOU ARE IN FRONT OF A MAGNIFICENT PYRAMID. YOU HAVE FOUND A SECRET DOOR THAT LEADS INTO THE PYRAMID. WHAT WILL YOU DO?' with ENTER / GO BACK.",
+        "Take each option."
+      ],
+      "expect": [
+        "ENTER: Yarash's Pyramid Level 1 at (15,0).",
+        "GO BACK: the party returns off the island."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Point g: (19,16).",
+        "Clue Book: Sorcerer's Island at 6,16 in Central coordinates."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.23-24",
+        "game text ECL7.DAX block 26 at 0x9f99, 0x9ff6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Coordinates: the Clue Book uses per-region coordinates (Nomad Camp 12,11; Sorcerer's Island 6,16; Phlan 12,27; Kobold Caves 6,15; Lizard Keep 11,8); [P] uses global X ((25,11), (19,16), (25,27), (32,15), (37,8)). They agree after adding 13 (Central) or 26 (East); Western points match exactly."
+      ],
+      "coveredBy": [],
+      "notes": "Where GO BACK puts the party is not given. Block 26 also holds 'AS YOU LEAVE THE SORCERER'S PYRAMID BEHIND YOU CAN SEE THAT THE LAND IS ALREADY BEGINNING TO RECOVER FROM THE ALCHEMICAL POLLUTION CAUSED BY THE PYRAMID.' (0xae8f), which belongs to the pyramid's completion (§3.15)."
+    },
+    {
+      "id": "acceptance.wilderness.point-h-nomad-camp",
+      "title": "Enter the Nomad Camp at (25,11)",
+      "kind": "rule",
+      "steps": [
+        "Walk onto (25,11). The game prints 'YOU HAVE STUMBLED UPON A LARGE NOMAD CAMP. WILL YOU ENTER IT?' with ENTER / LEAVE.",
+        "Choose ENTER."
+      ],
+      "expect": [
+        "The party arrives in the Nomad Camp at (1,14).",
+        "LEAVE: stay on the overland map."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Point h: (25,11).",
+        "Clue Book: Nomad Camp at 12,11 in Central coordinates; 'visible at all times'."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.23-24",
+        "game text ECL7.DAX block 26 at 0x9c05, 0x9c37 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Coordinates: the Clue Book uses per-region coordinates (Nomad Camp 12,11; Sorcerer's Island 6,16; Phlan 12,27; Kobold Caves 6,15; Lizard Keep 11,8); [P] uses global X ((25,11), (19,16), (25,27), (32,15), (37,8)). They agree after adding 13 (Central) or 26 (East); Western points match exactly."
+      ],
+      "coveredBy": [],
+      "notes": "Block 26 also has 'YOU FIND A RECENTLY ABBANDONED CAMP.' (0x9bc4); the digest's §3.11 does not say when it replaces the camp prompt."
+    },
+    {
+      "id": "acceptance.wilderness.point-i-zhentil-without-mission",
+      "title": "Approach the Zhentil outpost without the diplomatic mission",
+      "kind": "optional",
+      "steps": [
+        "Without commission #13, walk onto (3,32).",
+        "The game prints 'AS YOU APPROACH THE KEEP, A GROUP OF ARMED MEN ON HORESBACK RIDE OUT TO MEET YOU. THEIR LEADER SAYS 'YOU ARE TRESSPASSING ON PRIVATE LAND; LEAVE NOW OR FACE THE CONSQUENCES!'' with STAY / LEAVE.",
+        "Choose STAY; in another run LEAVE."
+      ],
+      "expect": [
+        "STAY: combat with 12 CORPORAL (#54); 92 XP per character.",
+        "LEAVE: no fight; the outpost is not entered.",
+        "The outpost cannot be entered without the mission."
+      ],
+      "branches": [],
+      "fights": [
+        "12 CORPORAL (#54), 92 XP."
+      ],
+      "data": [
+        "Point i: (3,32)."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.21-22",
+        "game text ECL6.DAX block 25 at 0x9fb6, 0xa03d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.21: 'can only be entered after the party has received the commission to deliver the diplomatic papers.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether winning the fight opens the outpost (it says entry is 'only with the diplomatic mission')."
+    },
+    {
+      "id": "acceptance.wilderness.point-i-zhentil-with-mission",
+      "title": "Enter the Zhentil outpost as envoys",
+      "kind": "rule",
+      "steps": [
+        "Holding commission #13, walk onto (3,32).",
+        "The game prints 'A GROUP OF MEN ON HORSEBACK RIDE OUT TO MEET YOU. THEIR LEADER SAYS, 'ARE YOU THE DIPLOMATIC ENVOYS FROM NEW PHLAN?' WHAT WILL YOU SAY?' with YES / NO.",
+        "Answer YES; in another run NO."
+      ],
+      "expect": [
+        "YES: 'THE RIDERS ESCORT YOU INTO THE OUTPOST.' and the party arrives in the Zhentil Outpost at (7,0).",
+        "NO: 'AFTER SAYING NO, THE RIDERS RETURN TO THE OUTPOST. BEFORE LEAVING, THEIR LEADER SAYS, 'YOU ARE TRESSPASSING ON PRIVATE LAND. I ADVISE YOU TO LEAVE.''"
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Point i: (3,32) → Zhentil Outpost (7,0)."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "game text ECL6.DAX block 25 at 0x9e7d, 0x9ee7, 0x9f02, 0x9f7a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Verified the three Zhentil tour discoveries in order and after reloading.' (starts at (3,31) facing west and answers the envoy prompt with y)"
+      ],
+      "notes": "The digest's §3.11 gives only the destination; the YES/NO prompt is from block 25. Block 25 also has 'A GROUP OF ARMED GUARDS RIDE BY.' (0x9e27) with no trigger described in the digest."
+    },
+    {
+      "id": "acceptance.wilderness.point-j-ankhegs",
+      "title": "Be ambushed by two ankhegs at (8,24)",
+      "kind": "optional",
+      "steps": [
+        "Walk onto (8,24) for the first time.",
+        "The game prints 'AS YOU WALK THROUGH THIS AREA TWO ANHKHEGS ERUPT FROM THE GROUND BENEATH YOU.'",
+        "Win, then walk onto (8,24) again."
+      ],
+      "expect": [
+        "Combat: 2 AHNKHEG, morale 90, distance 1; 143 XP per character.",
+        "The second visit triggers nothing (first visit only)."
+      ],
+      "branches": [],
+      "fights": [
+        "2 AHNKHEG, morale 90, distance 1, 143 XP."
+      ],
+      "data": [
+        "Point j: (8,24)."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "game text ECL6.DAX block 25 at 0x9ccf (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Spelling: [P] AHNKHEG; game text 'ANHKHEGS'."
+      ],
+      "coveredBy": [],
+      "notes": "[P] §5 Technical: the AHNKHEG's acid is not typed as acid."
+    },
+    {
+      "id": "acceptance.wilderness.point-k-dragon-cave-entry",
+      "title": "Find the cave at (10,9) and answer the magic mouth",
+      "kind": "optional",
+      "steps": [
+        "Walk onto (10,9). The game prints 'AS YOU HIKE THROUGH THE MOUNTAINS YOU SEE A LARGE CAVE.' 'WHAT WILL YOU DO?' with ENTER CAVE / IGNORE CAVE.",
+        "Choose ENTER CAVE: 'YOU ENTER THE CAVE.'",
+        "The game prints 'AS YOU ARE ENTERING THE CAVE, A MAGIC MOUTH APPEARS ON ONE OF THE WALLS. IN A BOOMING VOICE IT SAYS, 'WHO ENTERS THE HOME OF DIOGENES? SPEAK NOW AND DECLARE YOUR INTENT!'' with STATE NAME AND INTENT / LEAVE.",
+        "Choose STATE NAME AND INTENT."
+      ],
+      "expect": [
+        "The game prints 'WHAT WILL YOU SAY IS YOUR REASON FOR BEING HERE?' and the vertical menu titled DRAGON'S CAVE: ASK DRAGON FOR ADVICE / CHALLENGE EVIL LEADER OF OLD PHLAN / PLEDGE PARTY TO DRAGON'S SERVICE / OFFER A GIFT.",
+        "IGNORE CAVE or LEAVE: the party is back on the overland map with nothing changed."
+      ],
+      "branches": [
+        "Advice, pledge, gift: see point-k-dragon-quest.",
+        "Challenge: see point-k-dragon-challenge-apologize and point-k-dragon-slay."
+      ],
+      "fights": [],
+      "data": [
+        "Point k: (10,9) (the Clue Book gives the same: 'Dragon Den Pass at 10,9').",
+        "Tavern Tale 23: a silver dragon in the Dragonspine Mountains who helps travellers (Adventurer's Journal p.33-34).",
+        "Journal entry 56: a note that a dragon lives in the Dragonspine Mountains to the northwest (Adventurer's Journal p.32).",
+        "Dragon's name: Diogenes."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.21-22",
+        "Adventurer's Journal p.33-34 (tavern tale 23), p.32 (entry 56)",
+        "game text ECL6.DAX block 25 at 0x9c3e, 0x9c6b, 0x9c7c, 0x9ca3 (src/audio/voice-master-manifest.json)",
+        "game text ECL6.DAX block 19 at 0x999c, 0x9a20, 0x9a4a, 0x9a75 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.21: 'The silver dragon never comes up as a mission, but is mentioned in a Tavern Tale.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "Block 25 also has two sighting texts, 'OFF IN THE DISTANCE YOU SEE A LARGE DRAGON FLYING THROUGH THE AIR. AS YOU WATCH, HE SWOOPS DOWN BEHIND A MOUNTAIN AND DISAPPEARS.' (0x9b3d) and 'AS YOU HIKE THROUGH THE MOUNTAINS, A LARGE DRAGON FLYS ABOVE YOU. IT CIRCLES THEN SWOOPS DOWN AND LANDS IN FRONT OF A CAVE. IT DISAPPEARS INTO A CAVE.' (0x9bbf); the digest gives no squares or conditions for them. The dragon's den is script ECL 19 (game text ECL6.DAX block 19)."
+    },
+    {
+      "id": "acceptance.wilderness.point-k-dragon-quest",
+      "title": "Ask for advice, pledge service or offer a gift",
+      "kind": "optional",
+      "steps": [
+        "At the DRAGON'S CAVE menu choose ASK DRAGON FOR ADVICE; in other runs PLEDGE PARTY TO DRAGON'S SERVICE and OFFER A GIFT."
+      ],
+      "expect": [
+        "Advice: 'THE CHARACTERS HEAR A LOUD FLAPPING NOISE AND THEN A WARM RUSH OF AIR HITS THEIR FACES. STANDING BEFORE YOU NOW IS A GREAT SILVER DRAGON. HE SAYS, 'YOU ARE WISE TO SEEK MY COUNCIL AND I CAN HELP YOU...'' then ''FAR TO THE EAST THERE IS A LARGE KOBOLD COMPLEX. THERE IS A SILVER BOTTLE OF GREAT POWER THERE THAT WILL HELP YOU ON YOUR QUEST. RETRIEVE THAT BOTTLE THEN RETURN AND I WILL SEND YOU ON ANOTHER QUEST.''",
+        "Pledge: 'YOU HEAR A GREAT FLAPPING SOUND. ... A LARGE SILVER DRAGON STANDS BEFORE YOU. IN A BOOMING VOICE IT SAYS...' then ''I ACCEPT YOUR PLEDGE. FOR YOUR FIRST DUTY, I COMMAND YOU TO RECOVER A POWERFUL MAGICAL BOTTLE FROM A KOBOLD SETTLEMENT IN THE HILLS FAR TO THE EAST. THEN RETURN TO ME AND I SHALL GIVE YOU ANOTHER TASK.''",
+        "Gift: 'THE CHARACTERS HEAR A LOUD FLAPPING NOISE AND THEN FEEL A WARM JET OF AIR HIT THEIR FACES. A HUGE SILVER DRAGON FLIES DOWN TO MEET THEM.' then 'THE DRAGON LANDS, LOOKS THE PARTY OVER THEN SAYS 'YOU HAVE NOTHING THAT INTRESTS ME. IF YOU WISH TO APEASE ME THEN GO EAST AND DESTROY THE KOBOLD COMMUNITY THERE.'' and ''THERE YOU SHALL FIND A MAGICAL BOTTLE WHICH WILL HELP YOU IN CLEANSING OLD PHLAN OF ITS EVIL!''",
+        "Each ends with 'AFTER SPEAKING, THE DRAGON FLYS THROUGH AN OPENNING IN THE CEILING OF THE CAVE. YOU EXIT THE CAVE TO CONTINUE YOUR QUEST.' and the party back on the overland map.",
+        "No fight, no item, no XP. No gift is taken from the party."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Quest: recover the bottle from the Kobold Caves to the east (point l at (32,15))."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.21-22",
+        "game text ECL6.DAX block 19 at 0xa145, 0xa1e5, 0x9aef, 0x9b70, 0x9c11, 0xa288, 0xa2f6, 0xa378 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] (digest) says all three choices ask for the silver bottle 'and come back for another quest'; in the game text the gift branch says only to destroy the kobold community and find the bottle, with no request to return.",
+        "The dragon's lines call it a 'SILVER BOTTLE'; the Kobold Caves text says 'YOU SEE A BRASS BOTTLE JAMMED INTO A CRACK HERE.' (ECL8.DAX block 13 at 0xa520)."
+      ],
+      "coveredBy": [],
+      "notes": "Which run prints the 'AFTER SPEAKING' closing line is assumed for all three by its position after the pledge text; the digest does not say. The digest does not say whether the menu can be used again on a later visit before the bottle is found."
+    },
+    {
+      "id": "acceptance.wilderness.point-k-dragon-challenge-apologize",
+      "title": "Challenge the 'evil leader' and apologize",
+      "kind": "optional",
+      "steps": [
+        "At the DRAGON'S CAVE menu choose CHALLENGE EVIL LEADER OF OLD PHLAN.",
+        "The game prints 'YOU HEAR A ROAR THEN A GREAT FLAPPING SOUND. A STRONG RUSH OF AIR BATTERS THE PARTY AS A LARGE SILVER DRAGON LANDS BEFORE THE ADVENTURERS. IN A BOOMING VOICE IT SAYS...' and ''YOU FOOLS. I AM A GOOD SILVER DRAGON NOT THE EVIL LEADER OF PHLAN. DON'T YOU KNOW THAT WE METALLIC DRAGONS ARE GOOD CREATURES?' WHAT WILL YOU DO?' with APOLOGIZE / SLAY DRAGON.",
+        "Choose APOLOGIZE."
+      ],
+      "expect": [
+        "'AFTER HEARING YOUR APOLOGY THE DRAGON SAYS, 'THOUGH YOU ARE FOOLISH I BELIEVE YOUR ACTS ARE NOBLE. I WILL HELP YOU WITH YOUR QUEST TO CLEANSE THE CITY OF PHLAN FROM EVIL.'' and 'FAR TO THE EAST THERE IS A LARGE KOBOLD COMMUNITY. THEY HAVE POSSESION OF A POWERFUL SILVER BOTTLE. THIS BOTTLE WILL HELP YOU RID THE CITY OF ITS UNDEAD PROBLEM. GET THE BOTTLE THEN RETURN TO ME.'",
+        "The result is the same as asking for advice: the bottle quest is given and no harm is done."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "game text ECL6.DAX block 19 at 0x9c80, 0x9d07, 0x9d7a, 0x9da0, 0x9e28 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.wilderness.point-k-dragon-slay",
+      "title": "Try to slay the dragon, follow him and attack",
+      "kind": "optional",
+      "steps": [
+        "After the challenge choose SLAY DRAGON.",
+        "The game prints 'AS YOU READY YOUR WEAPONS TO ATTACK. THE DRAGON TAKES FLIGHT AND ROARS, 'EVIL CREATURES, BEGONE FROM MY LAIR.' HE THEN FLIES UP THROUGH A HOLE IN THE CEILING.' and 'YOU MAY EASILY FOLLOW THE DRAGON BY CLIMBING UP A WALL AND THEN THROUGH THE HOLE IN THE CEILING. WHAT WILL YOU DO?' with FOLLOW DRAGON / LEAVE. Choose FOLLOW DRAGON.",
+        "The game prints 'YOU CLIMB TO THE SECOND LEVEL OF THE DRAGON'S DEN. THERE IS THE DRAGON WAITING FOR YOU. HE LOOKS EXTREMELY MAD! WHAT WILL YOU DO?' with ATTACK / LEAVE. Choose ATTACK."
+      ],
+      "expect": [
+        "'YOU TRY TO ATTACK THE DRAGON BUT SEEM TO BE FROZEN IN TIME. THE DRAGON THROWS A FIREBALL IN THE MIDDLE OF THE PARTY AND THEN DISAPPEARS. YOU HAVE A STRANGE FEELING THAT YOU JUST MADE A BIG MISTAKE.'",
+        "Every party member saves (vs breath, per [P]) or takes 11d6 damage.",
+        "'AFTER RECOVERING FROM THE FIREBALL YOU SEARCH THE REST OF THE LAIR AND FIND NOTHING OF INTREST.'",
+        "No combat screen is entered; the dragon cannot be fought or killed."
+      ],
+      "branches": [
+        "LEAVE at either prompt: the party leaves unharmed after the dragon has gone."
+      ],
+      "fights": [],
+      "data": [
+        "Damage: 11d6 to everyone, save vs breath."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "[P] §7 item 28 (digest)",
+        "Clue Book p.21-22",
+        "game text ECL6.DAX block 19 at 0x9ec4, 0x9f43, 0x9f9d, 0x9fc1, 0xa027, 0xa046, 0xa0ea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: Slay → Follow → Attack → 'save vs breath or 11d6'; the game text calls it a fireball and says the party is 'FROZEN IN TIME'; [GB]: 'you'll just get hit by a fireball and then have to leave'; Clue Book p.22: 'Do not attack the dragon because he is overbearing. Especially, do not attack him twice.'"
+      ],
+      "coveredBy": [],
+      "notes": "Whether a successful save halves or negates is not stated. Block 19 also has 'YOU ENTER THE ENORMOUS CAVE, SEARCH IT AND FIND NOTHING OF INTREST. YOU THEN LEAVE.' (0x992c), which by its wording is what later visits show once the dragon is gone; the digest does not state the condition or whether the bottle quest is lost."
+    },
+    {
+      "id": "acceptance.wilderness.point-k-dragon-return-with-bottle",
+      "title": "Return to Diogenes with the bottle",
+      "kind": "optional",
+      "steps": [
+        "Recover the bottle from the Kobold Caves (§3.14) and enter the cave at (10,9) again."
+      ],
+      "expect": [
+        "'AS YOU ENTER THE CAVE YOU ARE GREETED BY DIOGENES, THE SILVER DRAGON. HE SAYS 'I SEE YOU HAVE RECOVERED THE SILVER BOTTLE FROM THE KOBOLD CAVES. I CONGRADULATE YOU.''",
+        "''THAT BOTTLE CONTAINS A POWERFUL EFREET WHO WAS SUMMONED TO KILL VAMPIRES. HE WILL BE A VALUABLE ALLY IN OLD PHLAN. IN VALHINGEN GRAVEYARD THERE IS A VAMPIRE.''",
+        "''WHEN YOU MEET THE VAMPIRE USE THE BOTTLE AND YOU MAY HAVE A CHANCE IN DEFEATING HIM. I WISH YOU LUCK.' AFTER SPEAKING DIOGENES FLIES THROUGH A HOLE IN THE CEILING AND DISSAPPEARS.'",
+        "No item or XP is given; no further quest is offered."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "game text ECL6.DAX block 19 at 0xa3c7, 0xa44c, 0xa4cc (src/audio/voice-master-manifest.json)",
+        "[P] §3.11 (digest)",
+        "game text ECL8.DAX block 13 at 0xa520, 0xa633 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] §3.11 (digest) does not describe the return visit; it says the dragon will have 'another quest', and the game text gives only advice about the vampire.",
+        "'SILVER BOTTLE' here against 'BRASS BOTTLE' in the Kobold Caves text."
+      ],
+      "coveredBy": [],
+      "notes": "This scenario rests on the game text alone. Whether the return speech requires the bottle in inventory or a flag, and whether it requires having spoken to the dragon first, must be read from the ECL 19 script."
+    },
+    {
+      "id": "acceptance.wilderness.point-l-kobold-caves",
+      "title": "Fight the kobold horde at the caves and pick an entrance",
+      "kind": "optional",
+      "steps": [
+        "Before the Kobold Caves are cleared, walk onto (32,15).",
+        "The game prints 'A SCREAMING HORDE OF KOBOLDS ATTACKS THE PARTY.' Win.",
+        "The game prints 'YOU FIND TWO CAVES; A SMALL, WELL-HIDDEN CAVE AND A LARGER, MORE OBVIOUS CAVE. WHAT CAVE WILL YOU ENTER?' or 'YOU SEE A SMALL GROUP OF KOBOLDS ENTERING A SMALL, CONCEALED CAVE. A LARGER, MORE NOTICEABLE CAVE LIES JUST EAST OF THE SMALL HIDDEN, CAVE. WHAT CAVE WILL YOU ENTER?' with LARGE / SMALL / EXIT.",
+        "Leave and walk onto (32,15) again."
+      ],
+      "expect": [
+        "Combat: 25 KOBOLD + 5 KOBOLD LEADER, morale 50, on every approach until the caves are cleared.",
+        "LARGE: Kobold Caves (10,0). SMALL: Kobold Caves (6,0). EXIT: stay on the overland map."
+      ],
+      "branches": [],
+      "fights": [
+        "25 KOBOLD + 5 KOBOLD LEADER, morale 50; repeats on every approach before clearing."
+      ],
+      "data": [
+        "Point l: (32,15).",
+        "Clue Book: Kobold Caves at 6,15 in East coordinates."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.25-26",
+        "game text ECL8.DAX block 27 at 0x9c29, 0x9c89, 0x9d03, 0x9d85 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Coordinates: the Clue Book uses per-region coordinates (Nomad Camp 12,11; Sorcerer's Island 6,16; Phlan 12,27; Kobold Caves 6,15; Lizard Keep 11,8); [P] uses global X ((25,11), (19,16), (25,27), (32,15), (37,8)). They agree after adding 13 (Central) or 26 (East); Western points match exactly.",
+        "[P] §7 item 25: [P] recommends the Large entrance; [GB] and [SP] the Small; the Clue Book says the small cave is the warren and the large leads to the wyvern lair."
+      ],
+      "coveredBy": [],
+      "notes": "Which of the two cave prompts is shown when is not stated. XP for the horde is not given."
+    },
+    {
+      "id": "acceptance.wilderness.point-m-lizardman-keep",
+      "title": "Enter the Lizardman Keep at (37,8)",
+      "kind": "rule",
+      "steps": [
+        "Walk onto (37,8). The game prints 'YOU FIND A RUINED CASTLE SURROUNDED BY QUICKSAND. AN OLD WORN DRAWBRIDGE IS THE ONLY SAFE WAY ACROSS THE QUAGMIRE. WILL YOU ENTER THE RUINED CASTLE?' with ENTER / LEAVE.",
+        "Choose ENTER."
+      ],
+      "expect": [
+        "The party arrives in the Lizardman Keep at (8,14).",
+        "LEAVE: stay on the overland map."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Point m: (37,8).",
+        "Clue Book: Lizard Man Keep at 11,8 in East coordinates."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "Clue Book p.25-26",
+        "game text ECL8.DAX block 27 at 0x9b71, 0x9be6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Coordinates: the Clue Book uses per-region coordinates (Nomad Camp 12,11; Sorcerer's Island 6,16; Phlan 12,27; Kobold Caves 6,15; Lizard Keep 11,8); [P] uses global X ((25,11), (19,16), (25,27), (32,15), (37,8)). They agree after adding 13 (Central) or 26 (East); Western points match exactly."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.wilderness.point-n-buccaneer-base",
+      "title": "Find the Buccaneer Base only while commission #12 is open",
+      "kind": "rule",
+      "steps": [
+        "Before accepting commission #12, walk onto (12,31).",
+        "After accepting #12, walk onto (12,31). The game prints 'YOU HAVE REACHED THE BUCCANEER BASE. A BAND OF BUCCANEERS RIDE OUT TO ESCORT YOU IN. WHAT WILL YOU DO?' with ENTER / LEAVE. Choose ENTER.",
+        "After the Bivant rescue is resolved, walk onto (12,31) again."
+      ],
+      "expect": [
+        "Before #12: the base is not shown on the map and nothing happens.",
+        "With #12 open: ENTER puts the party in the Buccaneer Base at (0,8).",
+        "After it is resolved: no re-entry."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Point n: (12,31) → Buccaneer Base (0,8)."
+      ],
+      "sources": [
+        "[P] §3.11 (digest)",
+        "[P] §7 item 29 (digest)",
+        "Clue Book p.21-22",
+        "game text ECL6.DAX block 25 at 0x9da5, 0x9df6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "When the base appears: [P] only after you accept #12; [GB] possibly after reading the notice on Yarash's desk, or after receiving the quest; Clue Book p.21 'only shows up after the party has received the commission to rescue the councilman's son'."
+      ],
+      "coveredBy": [],
+      "notes": "Block 25 also has 'A SMALL CARAVAN OF SLAVERS RIDE BY YOU TOWARD THE BUCCANEER BASE.' (0x9d49); the digest gives no trigger for it."
+    }
+  ]
+}

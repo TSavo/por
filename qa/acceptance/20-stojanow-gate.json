@@ -1,0 +1,784 @@
+{
+  "schema": 1,
+  "id": "acceptance.stojanow-gate",
+  "title": "Stojanow Gate",
+  "guideSection": "3.20",
+  "scripts": [
+    "ECL 9"
+  ],
+  "commission": "Commission #14",
+  "prerequisites": [
+    "Commission #14 accepted from Lord Urslingen (needs the #13 reward collected).",
+    "At least 265 gold for the wagon (250) and the toll (15), or the will to kill the trader.",
+    "Arrive in daytime if the wagon is wanted.",
+    "Knock memorized if the gate is to be forced.",
+    "Game text for this area is ECL2.DAX block 9; the clerk's and councilman's lines are ECL3.DAX block 8."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.stojanow-gate.accept-commission-14",
+      "title": "Receive Commission #14 from Lord Urslingen",
+      "kind": "main",
+      "steps": [
+        "After collecting the #13 reward, visit the council clerk. She prints: LORD URSLINGEN WISHES URGENTLY TO SPEAK WITH YOU. GO THROUGH THE SOUTH DOOR OF THE TRAITOR CADORNA'S OLD QUARTERS.'",
+        "Go to the Head Councilman's office (City Hall location 32).",
+        "The game prints: 'THANK YOU FOR COMING. I MUST BE BRIEF FOR OUR NEED IS URGENT. OUR ONE CHANCE TO DEFEAT THE ENEMY IS THROUGH AN ASSAULT ON THE CASTLE. TO DO THIS, WE MUST FIRST SECURE STOJANOW GATE.",
+        "The game prints: 'THE GATE IS TOO STRONG TO BE TAKEN BY STORM. A SMALL BAND MUST SLIP INSIDE AND HOLD UNTIL RELIEVED. YOU ARE THE BEST AND THE BRAVEST. THE COUNCIL HAS INSTRUCTED ME TO ENTRUST THE TASK TO YOU.'"
+      ],
+      "expect": [
+        "Commission #14 is held by the party."
+      ],
+      "branches": [
+        "Before the #13 reward: location 32 is not available and the clerk does not send the party there."
+      ],
+      "fights": [],
+      "data": [
+        "City Hall location 32: Head Councilman Werner von Urslingen.",
+        "Commission #14 needs #13.",
+        "Journal Entry 47 (p.29-30): notes that the hobgoblins moved out of Valjevo Castle and that Stojanow Gate is held by bugbears and ettins; it is found at Textile House location 17."
+      ],
+      "sources": [
+        "[P] digest §3.0 (location 32; commission table)",
+        "[P] digest §3.20",
+        "Adventurer's Journal p.29-30 (entry 47)",
+        "game text ECL3.DAX block 8 at 0xae3b, 0xb169, 0xb1fa (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The gate can be attacked without the commission (digest §3: most missions can be done even if not suggested, and are still rewarded). qa/findings.json 'commissions-never-asserted' says some commissions are asserted by no replay."
+    },
+    {
+      "id": "acceptance.stojanow-gate.arrive-from-podal-plaza",
+      "title": "Arrive from Podal Plaza and see the gate",
+      "kind": "main",
+      "steps": [
+        "Leave Podal Plaza by exit E4.",
+        "The party is in the Stojanow Gate block, south of the wall.",
+        "Walk north until the gate description prints: BEFORE YOU IS STOJANOW GATE. THIS ANCIENT EDIFICE IS BUILT ACROSS THE BEND OF THE RIVER, THUS ISOLATING THE OLD TOWN AND THE CASTLE FROM THE REST OF THE CITY., then THE MAIN WALL RISES 30 FEET WHILE THE TWO WATCHTOWER RISE TO 50 FEET. LOUNGING AROUND THE ENTRANCE ARE A GROUP OF BUGBEARS., then BEFORE THE GATE YOU CAN MAKE OUT A MAN WITH A WAGON OF GOODS WHO IS TALKING TO TWO OF THE BUGBEARS. THE MAN HANDS SOMETHING TO THE BUGBEARS AND THE GATES OPEN."
+      ],
+      "expect": [
+        "The party is in the gate block; exit E1 leads back to Podal Plaza and exit E2 leads to Valjevo Castle, south-west quadrant."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Podal Plaza exit E4 leads here.",
+        "E1 = Podal Plaza; E2 = Valjevo Castle SW quadrant.",
+        "The replay arrives at 4,15 facing north."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "[P] digest §3.6 (Podal Plaza exits)",
+        "game text ECL2.DAX block 9 at 0xa9d9, 0xaa57, 0xaae4 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCampaignCastleApproach (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The digest gives no coordinates for E1, E2 or the arrival square; the replay asserts '4,15 n' on arrival. The digest calls location 4 'gate text'; the three description strings are assumed to be that text. The replay does not assert them."
+    },
+    {
+      "id": "acceptance.stojanow-gate.buy-the-wagon",
+      "title": "Location 9: buy the wagon for 250 gold",
+      "kind": "main",
+      "steps": [
+        "In daytime, with at least 250 gold, walk to location 9. The game prints: A MAN DRIVING A WAGON FULL OF FOOD AND EQUIPMENT STARTS TO DRIVE PAST YOU, GOING NORTH. and shows the encounter menu.",
+        "Parley. The game prints: 'WHY SURE I'LL SELL YOU MY WAGON. ALL IT'LL COST YOU IS 250 GOLD PIECES. HOW ABOUT IT?'",
+        "Try to haggle. The game prints: 'SORRY, THAT'S MY FINAL OFFER. TAKE IT OR LEAVE IT. with the menu TAKE IT / LEAVE IT.",
+        "Choose TAKE IT. The game prints: 'PLEASURE DOING BUSINESS WITH YOU. HERE'S YOUR WAGON.', then 'OH, BY THE WAY. BETTER BEWARE OF THE GUARDS. EVER SINCE THE GIANTS MOVED INTO THE CASTLE AREA, BUGBEARS HAVE BEEN STUCK GUARDING THE GATE. AND THEY HATE IT.', then 'NOT ONLY THAT THEY'RE AFRAID OF THEM ETTIN. MAKES 'EM REAL JUMPY. WOULDN'T GIVE 'EM NO BACK TALK IF I WERE YOU.'"
+      ],
+      "expect": [
+        "The party's money drops by 250 gold.",
+        "The party has the wagon (a flag, used at location 5).",
+        "The trader does not appear again on this visit."
+      ],
+      "branches": [
+        "TAKE IT with 250 gold: wagon bought.",
+        "LEAVE IT: no wagon.",
+        "Not enough money: 'SORRY, YOU DON'T GOT THE MONEY, FRIEND. WELL SEE YOU AROUND.",
+        "Kill him: wagon taken with no penalty (separate scenario).",
+        "Night: the trader is not there."
+      ],
+      "fights": [],
+      "data": [
+        "Price 250 gold, no haggling.",
+        "Daytime only; once per visit."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "Clue Book p.43-44",
+        "game text ECL2.DAX block 9 at 0xadd9, 0xae2e, 0xae61, 0xaeaf, 0xaed9, 0xaf0a, 0xaf3a, 0xafb8, 0xb021, 0x99f1 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: 'daytime only'. Clue Book p.43: 'During daylight hours you can meet a merchant here'. The replay in tools/verify-fresh-party.mjs carries the comment 'The trader walks this road before 14:00' and, when it arrives at 05:00 or later, rests until 02:00 before meeting him. The three do not agree on the hours.",
+        "Clue Book p.43-44 numbers the map differently from [P]; the numbers do not line up. Clue Book location 1 = the merchant; [P] location 9."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for location 9, no exact hours, and does not say which menu choice opens the sale (Parley is assumed). The block also holds YOU DON'T HAVE ENOUGH MONEY! (0x99f1), a general string. A test author must take the time window from the script; the digest's smithy window in §3.21 (0:00-14:59) uses the same kind of clock test."
+    },
+    {
+      "id": "acceptance.stojanow-gate.kill-the-trader",
+      "title": "Location 9: kill the trader for the wagon",
+      "kind": "optional",
+      "steps": [
+        "At location 9, when the trader's encounter menu shows, choose Combat.",
+        "The game prints: YOU QUICKLY KILL THE TRADER AND GRAB HIS WAGON."
+      ],
+      "expect": [
+        "The party has the wagon.",
+        "No money is spent and there is no penalty: no fight screen, no change to the bugbears' attitude."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "No penalty for killing him."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "game text ECL2.DAX block 9 at 0xb056 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCampaignCastleApproach (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The replay presses Combat at the 'combat wait flee parlay' menu and asserts 'grab his wagon'."
+    },
+    {
+      "id": "acceptance.stojanow-gate.pass-the-bugbears",
+      "title": "Location 5: pay 15 gold and pass through the gate",
+      "kind": "main",
+      "steps": [
+        "With the wagon, the bugbears alive and not suspicious, approach the gate from the south to location 5.",
+        "With the pass roll forced to succeed, the game prints: A BUGBEAR WALKS UP TO YOU. 'OKAY, LETS HAVE THE 15 GOLD.' DO YOU PAY HIM?",
+        "Answer YES. The game prints: THE BUGBEAR TAKES THE MONEY AND THE GATE OPENS. YOU PROCEED THROUGH."
+      ],
+      "expect": [
+        "The party's money drops by 15 gold.",
+        "The party stands at location 5a, (8,5), north of the gate.",
+        "The bugbears and both tower garrisons are still alive."
+      ],
+      "branches": [
+        "Roll succeeds, pay: moved to (8,5).",
+        "Roll succeeds, refuse: reroll (see refuse-to-pay).",
+        "Roll fails: 'HEY, WAIT A MINUTE. THEY ARE IMPOSTERS! ...' (see caught-as-impostors).",
+        "No wagon: the digest does not describe this case."
+      ],
+      "fights": [],
+      "data": [
+        "Toll 15 gold.",
+        "Destination 5a = (8,5)."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "Clue Book p.43-44",
+        "game text ECL2.DAX block 9 at 0xaba1, 0xac4b (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.43-44 numbers the map differently from [P]; the numbers do not line up. Clue Book location 2 = Bugbear Patrol Area: 'If you are disguised and the bugbears don't see through your disguise, you may move through the gate freely.' It does not mention the 15 gold toll."
+      ],
+      "coveredBy": [
+        "verifyCampaignCastleApproach (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The replay asserts 'do you pay him', answers y, and asserts '8,5 n ... gate opens'. The digest gives no coordinates for location 5 itself and does not say what happens at 5 without the wagon."
+    },
+    {
+      "id": "acceptance.stojanow-gate.pass-roll-odds",
+      "title": "The pass roll depends on the bugbears' attitude",
+      "kind": "rule",
+      "steps": [
+        "With the wagon and live bugbears, approach location 5 in each attitude state: not suspicious, less suspicious, more suspicious, hostile.",
+        "Approach location 5 from the north side."
+      ],
+      "expect": [
+        "Success chance: 90% not suspicious, 80% less suspicious, 70% more suspicious, 0% hostile.",
+        "Coming from the north: 0%.",
+        "With fixed dice a roll just under the threshold passes and one just over fails in each state."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Pass roll: 0% hostile or from the north; 70% more suspicious; 80% less suspicious; 90% not suspicious.",
+        "Four attitude states: not suspicious, less suspicious, more suspicious, hostile."
+      ],
+      "sources": [
+        "[P] digest §3.20"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest names the four states but not the full transition table. Known transitions: the wall warnings at location 3 escalate; location 4 lowers 'more suspicious' to 'less suspicious'; refusing the toll makes them hostile; being caught as impostors changes nothing."
+    },
+    {
+      "id": "acceptance.stojanow-gate.refuse-to-pay",
+      "title": "Refusing the toll makes the bugbears hostile",
+      "kind": "quirk",
+      "steps": [
+        "At location 5, after 'OKAY, LETS HAVE THE 15 GOLD.' DO YOU PAY HIM?, answer NO.",
+        "With the reroll forced to succeed, the game prints: 'ALL RIGHT, GET OUT OF HERE THEN. COME BACK WHEN YOU'VE LEARNED THE RULES.'",
+        "Approach location 5 again."
+      ],
+      "expect": [
+        "The bugbears' state is now hostile, so the pass roll is 0% from then on.",
+        "No money was taken."
+      ],
+      "branches": [
+        "Reroll succeeds: sent away and the bugbears turn hostile.",
+        "Reroll fails: not described by the digest."
+      ],
+      "fights": [],
+      "data": [
+        "Digest §5: 'Refusing to pay makes the bugbears outright hostile.'"
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "[P] digest §5 (Scripting, Stojanow Gate)",
+        "game text ECL2.DAX block 9 at 0xabf6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "A polite send-off that leaves the guards hostile is the documented bug; a faithful port keeps it. The digest does not say what a failed reroll does (presumably the impostor branch)."
+    },
+    {
+      "id": "acceptance.stojanow-gate.caught-as-impostors",
+      "title": "Being caught as impostors does not change the bugbears' state",
+      "kind": "quirk",
+      "steps": [
+        "With the wagon, approach location 5 with the pass roll forced to fail.",
+        "The game prints: 'HEY, WAIT A MINUTE. THEY ARE IMPOSTERS! ALL RIGHT, THROW DOWN YOUR WEAPONS!' and offers FLEE / SURRENDER / ATTACK.",
+        "Choose FLEE.",
+        "Approach location 5 again with the pass roll forced to succeed."
+      ],
+      "expect": [
+        "The first approach behaves as if the bugbears were hostile.",
+        "Their stored state is unchanged, so the second approach offers the toll again."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Digest §5: 'Being caught as impostors does not change their state.'"
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "[P] digest §5 (Scripting, Stojanow Gate)",
+        "game text ECL2.DAX block 9 at 0xacbb, 0xa75d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The menu FLEE / SURRENDER / ATTACK (0xa75d) is the one the digest gives for the hostile wall confrontation; it is assumed to follow the impostor text as well. Fleeing moves the party to (current X, 14)."
+    },
+    {
+      "id": "acceptance.stojanow-gate.west-tower",
+      "title": "Location 1: surprise the west tower garrison",
+      "kind": "main",
+      "steps": [
+        "North of the gate, walk to location 1 at (4,7). The game prints: YOU OVERHEAR THE MAGE TELL HIS COMPANION, 'HOW MUCH LONGER MUST WE WAIT BEFORE ASSAULTING PHLAN. I AM EAGER TO BECOME A BARON.' The encounter menu reads: THEY SEEM UNAWARE OF YOU.",
+        "Choose Combat.",
+        "Win the fight."
+      ],
+      "expect": [
+        "The alarm is set off (inert here; see the alarm quirk).",
+        "The party attacks with surprise.",
+        "Enemy: 1 5TH LVL MU (#89), 1 AIDES, 3 ETTIN.",
+        "Each character gains 1371 XP.",
+        "The west tower garrison is dead."
+      ],
+      "branches": [
+        "Flee: the party withdraws; no fight.",
+        "Advance: the party moves closer without attacking.",
+        "Combat or Parley: alarm, then the surprise attack."
+      ],
+      "fights": [
+        "1 5TH LVL MU (#89), 1 AIDES, 3 ETTIN; party has surprise; 1371 XP."
+      ],
+      "data": [
+        "Location 1 = (4,7), west tower."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "Clue Book p.43-44",
+        "game text ECL2.DAX block 9 at 0xa1d8, 0xa23f, 0xb159, 0xb1b0, 0x9be9 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.43-44 numbers the map differently from [P]; the numbers do not line up. Clue Book location 6 = West Tower: 'If the guards in the tower sound the alarm during the fight, you will meet the guards from the other tower as you leave.' [P] has no such follow-up fight when the bugbears are alive."
+      ],
+      "coveredBy": [],
+      "notes": "The block also holds YOU ENTER A GUARD ROOM. THERE ARE TABLES, CHAIRS, AND BEDS HERE. ALL BUT TWO OF THE BEDS ARE 14 FEET LONG! (0xb159), THERE ARE TWO HUMANS AND THREE ETTIN IN THE ROOM. (0xb1b0) and stair prompts DO YOU WANT TO GO DOWNSTAIRS? / DO YOU WANT TO GO UPSTAIRS? (0xa0c8, 0xa0e5); the digest places none of them. The digest does not say what Advance leads to. Morale is not given for the tower fights."
+    },
+    {
+      "id": "acceptance.stojanow-gate.east-tower",
+      "title": "Location 2: surprise the east tower garrison",
+      "kind": "main",
+      "steps": [
+        "North of the gate, walk to location 2 at (11,7). The game prints: YOU OVERHEAR THE FIGHTER TELL THE MAGE, 'YOU BETTER WATCH YOUR TALK. THE LAST GUY WHO GAVE THE BOSS LIP WAS THROWN THROUGH THE TRAPDOOR TO THE MEDUSA!' The encounter menu reads: THEY SEEM UNAWARE OF YOU.",
+        "Choose Combat.",
+        "Win the fight."
+      ],
+      "expect": [
+        "Enemy: 1 LEVEL 6 MU (#24), 1 AIDES, 3 ETTIN.",
+        "Each character gains 1521 XP.",
+        "The LEVEL 6 MU carries a Ring of Protection +2.",
+        "The east tower garrison is dead."
+      ],
+      "branches": [
+        "Flee or Advance: no fight yet.",
+        "Combat or Parley: alarm, then the surprise attack."
+      ],
+      "fights": [
+        "1 LEVEL 6 MU (#24) [Ring of Protection +2], 1 AIDES, 3 ETTIN; party has surprise; 1521 XP."
+      ],
+      "data": [
+        "Location 2 = (11,7), east tower.",
+        "Clue for the Inner Tower: the trap door to the medusa."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "Clue Book p.43-44",
+        "game text ECL2.DAX block 9 at 0xa2f9, 0xa372 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.43-44 numbers the map differently from [P]; the numbers do not line up. Clue Book location 7 = East Tower."
+      ],
+      "coveredBy": [],
+      "notes": "When the second tower falls with the bugbears alive, the block's YOU HAVE SLAIN THE GARRISON. NOW IF YOU CAN BUT SLAY THE OUTSIDE GUARDS QUICKLY BEFORE THE ENEMY ARRIVES THE GATE WILL BE YOURS! (0xa625) is the fitting text; the digest does not quote it."
+    },
+    {
+      "id": "acceptance.stojanow-gate.bugbears-from-the-north",
+      "title": "Location 8: fight the bugbears from the north and take the gate",
+      "kind": "main",
+      "steps": [
+        "With both tower garrisons dead and the bugbears alive, approach the gate from the north at location 8.",
+        "The encounter menu reads: BUGBEARS WERE WAITING ON THE OTHER SIDE OF THE GATE.",
+        "Choose anything except Flee. Fight and win.",
+        "The game prints: YOU HAVE TAKEN THE GATE! YOU OPEN THE GREAT PORTALS AS 20 HUMAN AND DEMI-HUMAN GUARDS IMMEDIATELY TAKE POSSESSION OF THE GUARD TOWERS."
+      ],
+      "expect": [
+        "Enemy: 15 BUGBEAR, Morale 60.",
+        "Each character gains 533 XP.",
+        "The block is cleared."
+      ],
+      "branches": [
+        "Combat, Wait or Parley: the fight.",
+        "Flee: the game crashes (see the crash quirk)."
+      ],
+      "fights": [
+        "15 BUGBEAR, Morale 60, 533 XP."
+      ],
+      "data": [
+        "Clear condition: the bugbear patrol and both towers' guards."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "Clue Book p.43-44",
+        "game text ECL2.DAX block 9 at 0xad1f, 0xa692, 0xa625 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.43-44 numbers the map differently from [P]; the numbers do not line up. Clue Book location 4 = Northern Gate: 'If you got past the bugbears in disguise and fought the guards in the towers, then the bugbears will fight you here when you try to pass through the gate on your way home.' Agrees with [P] location 8."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for location 8."
+    },
+    {
+      "id": "acceptance.stojanow-gate.flee-bugbears-crash",
+      "title": "Fleeing the bugbears at location 8 crashes the game",
+      "kind": "quirk",
+      "steps": [
+        "With both towers dead and the bugbears alive, approach location 8 from the north.",
+        "At the menu under BUGBEARS WERE WAITING ON THE OTHER SIDE OF THE GATE. choose Flee."
+      ],
+      "expect": [
+        "The original game crashes."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Digest: 'Flee crashes the game.' Digest §5: 'Fleeing the bugbears at 8 crashes the game.'"
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "[P] digest §5 (Scripting, Stojanow Gate)",
+        "game text ECL2.DAX block 9 at 0xad1f (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not describe the crash (freeze, garbage, exit to DOS). The QA owner must decide what the port shows; a test author should first record what the original bytes do in the port's interpreter and assert that, not a repaired flee."
+    },
+    {
+      "id": "acceptance.stojanow-gate.towers-after-bugbears",
+      "title": "Location 13: with the bugbears dead, both garrisons attack together",
+      "kind": "main",
+      "steps": [
+        "Kill the bugbear patrol first (attack at the wall confrontation or at the gate) while both towers are alive.",
+        "Open the gate and walk to location 13.",
+        "The game prints: MONSTERS ARE CHARGING TOWARD YOU FROM THE FAR TOWER. AT THE SAME TIME MONSTERS BURST ON YOU FROM THE TOWER NEXT TO YOU.",
+        "Fight and win. The game prints: YOU HAVE TAKEN THE GATE! YOU OPEN THE GREAT PORTALS AS 20 HUMAN AND DEMI-HUMAN GUARDS IMMEDIATELY TAKE POSSESSION OF THE GUARD TOWERS."
+      ],
+      "expect": [
+        "Enemy: 2 LEVEL 6 MU, 2 AIDES, 6 ETTIN.",
+        "Each character gains 3042 XP.",
+        "The block is cleared."
+      ],
+      "branches": [],
+      "fights": [
+        "2 LEVEL 6 MU, 2 AIDES, 6 ETTIN; 3042 XP."
+      ],
+      "data": [
+        "Location 13: combined tower fight."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "Clue Book p.43-44",
+        "game text ECL2.DAX block 9 at 0xa485, 0xa4ec, 0xa51e, 0xa558, 0xa692, 0xb092, 0xb0cc (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.43-44 numbers the map differently from [P]; the numbers do not line up. Clue Book location 5: 'If you fought the bugbears and have opened both gates then the ettin guards from both tows will fight you here.'",
+        "[P] gives 2 LEVEL 6 MU for the combined fight although the west tower alone holds a 5TH LVL MU (#89), not a LEVEL 6 MU."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for 13. The block has three variants of the charge text (0xa485 both towers, 0xa4ec the tower next to you, 0xa51e the far tower) and A GROUP OF MONSTERS IS WAITING ON THE OTHER SIDE OF THE WALL / THEY RUSH TOWARD YOU (0xb092, 0xb0cc); the digest does not say which prints when."
+    },
+    {
+      "id": "acceptance.stojanow-gate.towers-fight-ignores-dead-tower",
+      "title": "The combined tower fight includes a tower that is already dead",
+      "kind": "quirk",
+      "steps": [
+        "Kill one tower garrison (location 1 or 2) by surprise, then kill the bugbear patrol.",
+        "Walk to location 13."
+      ],
+      "expect": [
+        "The fight still fields 2 LEVEL 6 MU, 2 AIDES, 6 ETTIN (3042 XP), as if both towers were alive.",
+        "Winning clears the block."
+      ],
+      "branches": [],
+      "fights": [
+        "2 LEVEL 6 MU, 2 AIDES, 6 ETTIN; 3042 XP."
+      ],
+      "data": [
+        "Digest: 'even if one tower is already dead (a bug)'. Digest §5: 'Tower-guard fight at 13 includes both towers.'"
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "[P] digest §5 (Scripting, Stojanow Gate)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest's trigger is 'the bugbears dead and towers alive'; how the script treats one dead tower is the bug. It does not say which text variant prints."
+    },
+    {
+      "id": "acceptance.stojanow-gate.wall-warnings",
+      "title": "Location 3: the wall warnings escalate",
+      "kind": "optional",
+      "steps": [
+        "With the bugbears alive and not suspicious, step next to the wall at location 3. The game prints: A VOICE FROM THE TOWER YELLS 'STAY AWAY FROM THE WALL!'",
+        "Step away and back. The game prints: A VOICE YELLS DOWN, 'WE SAID STAY AWAY FROM THE WALL. THAT INCLUDES THE TOWER!'",
+        "Do it again. The game prints: THE GROUP OF BUGBEARS COME OVER, 'WE WARNED YOU! WHAT'S THE MATTER? CAN'T YOU UNDERSTAND COMMON? I GUESS I'LL HAVE TO TEACH YOU.' THE LEADER SWINGS AT YOU. with the menu ATTACK / TAKE THE PUNCH.",
+        "Choose TAKE THE PUNCH. The game prints: 'NOW BEAT IT BEFORE WE GET SERIOUS.'",
+        "Do it once more. The game prints: A GROUP OF BUGBEARS APPROACH. 'THROW DOWN YOUR WEAPONS!' with the menu FLEE / SURRENDER / ATTACK."
+      ],
+      "expect": [
+        "Each visit raises the bugbears' attitude one state toward hostile.",
+        "TAKE THE PUNCH costs one character 1d3 hit points.",
+        "In the hostile state the party is offered FLEE / SURRENDER / ATTACK."
+      ],
+      "branches": [
+        "ATTACK at the punch or at the hostile confrontation: fight the 15 BUGBEAR (Morale 60, 533 XP).",
+        "TAKE THE PUNCH: 1d3 damage and sent away.",
+        "FLEE: moved to (current X, 14).",
+        "SURRENDER: lose all money and 20% of light items (separate scenario)."
+      ],
+      "fights": [
+        "15 BUGBEAR, Morale 60, 533 XP, if the party attacks."
+      ],
+      "data": [
+        "Punch damage 1d3."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "Clue Book p.43-44",
+        "game text ECL2.DAX block 9 at 0xa82f, 0xa863, 0xa8ad, 0xa92b, 0xa959, 0xa730, 0xa75d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.43: 'The second time you are adjacent to the wall, they will send the bugbears after you. If you don't resist the bugbears they will only do minimal damage to you and send you on your way.' [P] has two shouted warnings before the bugbears come."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not give coordinates for the wall squares (location 3 is a set of squares), which character takes the punch, or how each warning maps to the four attitude states."
+    },
+    {
+      "id": "acceptance.stojanow-gate.surrender-to-bugbears",
+      "title": "Surrendering to hostile bugbears",
+      "kind": "optional",
+      "steps": [
+        "With the bugbears hostile, trigger the confrontation: A GROUP OF BUGBEARS APPROACH. 'THROW DOWN YOUR WEAPONS!'",
+        "Choose SURRENDER. The game prints: THE BUGBEARS STRIP YOU OF ANYTHING REMOTELY VALUABLE AND SEND YOU ON YOUR WAY."
+      ],
+      "expect": [
+        "The party loses all its money.",
+        "The party loses 20% of its light items."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Surrender: all money and 20% of light items."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "[P] digest §5 (Other documented quirks: item theft)",
+        "game text ECL2.DAX block 9 at 0xa730, 0xa75d, 0xa7b8 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest §5 says ECL opcode 28 (ROB) handles the item chance incorrectly during iteration, and that item theft happens only from tavern pickpockets, the Kobold Caves, bribes and surrenders; putting the heaviest items at the top of the inventory reduces theft. 'Light items' is not defined in §3.20. With fixed dice a runner can compare the inventory before and after."
+    },
+    {
+      "id": "acceptance.stojanow-gate.tower-arrows",
+      "title": "Arrows from the towers once the bugbears are dead",
+      "kind": "optional",
+      "steps": [
+        "Kill the bugbears while both towers are alive.",
+        "Step next to the wall at location 3. The game prints: FROM ARROW SLITS IN THE TOWER ARE SHOT A COUPLE ARROWS."
+      ],
+      "expect": [
+        "Two arrow attacks are made at THAC0 16 for 1d6 damage each."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "2 arrows, THAC0 16, 1d6."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "game text ECL2.DAX block 9 at 0xa981 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say who is targeted."
+    },
+    {
+      "id": "acceptance.stojanow-gate.gate-text-lowers-suspicion",
+      "title": "Location 4: reading the gate lowers suspicion one step",
+      "kind": "rule",
+      "steps": [
+        "Raise the bugbears to 'more suspicious' with the wall warnings.",
+        "Walk to location 4 and read the gate text.",
+        "Approach location 5 with the wagon and a pass roll of 75 on a 1-100 scale."
+      ],
+      "expect": [
+        "The state is now 'less suspicious' with no message.",
+        "The roll of 75 passes (80% threshold) where it would have failed at 70%."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Visiting location 4 reduces 'more suspicious' to 'less suspicious' silently."
+      ],
+      "sources": [
+        "[P] digest §3.20"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say how the percent roll is scaled; the 75 is an example for a test author to adapt. No coordinates for location 4."
+    },
+    {
+      "id": "acceptance.stojanow-gate.force-the-gate",
+      "title": "Locations 7 and 12: forcing the gate",
+      "kind": "optional",
+      "steps": [
+        "With the towers alive and the gate unopened, stand at the south gate, location 7.",
+        "Try Pick with a thief: it fails. Try Bash: it is hard. Cast Knock: it opens.",
+        "When the gate is tried while unopened and the towers are alive, the game prints: FROM THE TOP OF THE GATE COMES A VOLLEY OF ROCKS.",
+        "From the north side, at location 12, bash the gate."
+      ],
+      "expect": [
+        "The south gate cannot be picked; Knock always works.",
+        "The rock volley is 16 attacks at THAC0 17 for 1d6 each.",
+        "From the north side (location 12) the gate is easy to bash."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 7: hard to bash, cannot be picked, Knock always works.",
+        "Rocks: 16 attacks, THAC0 17, 1d6.",
+        "Location 12: easy from the north side."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "Clue Book p.43-44",
+        "game text ECL2.DAX block 9 at 0xa129 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.43-44 numbers the map differently from [P]; the numbers do not line up. Clue Book location 3 (Southern Gate): 'either massive strength or a knock spell is required to open the gates. If you try to break down the gate, the guards will throw boulders at you.' and location 4 (Northern Gate) says the same of the north gate; [P] says the north side is easy."
+      ],
+      "coveredBy": [],
+      "notes": "Digest §5: Strength 19-25 cannot bash easy doors (a bug). The digest does not say exactly which action draws the rocks (each attempt or only failures)."
+    },
+    {
+      "id": "acceptance.stojanow-gate.gate-alarm-is-inert",
+      "title": "The alarm set off at the gate does nothing",
+      "kind": "quirk",
+      "steps": [
+        "Attack a tower garrison with Combat or Parley so that the alarm is set off. The block's alarm text is AN ALARM STARTS RINGING!",
+        "Walk around north of the gate for an hour of game time, in search mode, with the encounter roll forced to succeed.",
+        "Rest north of the gate."
+      ],
+      "expect": [
+        "No patrol appears.",
+        "Resting is not interrupted.",
+        "The Valjevo alarm is not active when the party enters the castle."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Digest: 'Setting off the alarm here does nothing (a bug).' Digest §5: 'The gate alarm is inert.'"
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "[P] digest §5 (Scripting, Stojanow Gate)",
+        "game text ECL2.DAX block 9 at 0x9be9, 0x9bc8 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: the alarm set off here is inert. Clue Book p.43: 'One of your fights may set off the alarm. Angry patrols will flood the north side of the block. The alarm only lasts for an hour, however. You can hide in a tower and rest out the alarm.'"
+      ],
+      "coveredBy": [],
+      "notes": "A faithful port follows the game, which [P] read from the script; the Clue Book describes the intent. The digest does not say whether the alarm text is printed."
+    },
+    {
+      "id": "acceptance.stojanow-gate.valjevo-alarm-patrols",
+      "title": "Patrols and unsafe rest north of the gate while the Valjevo alarm is active",
+      "kind": "rule",
+      "steps": [
+        "Set off the alarm inside Valjevo Castle, then walk back into the gate block within the alarm's duration.",
+        "Walk north of the gate with the encounter roll forced to succeed. The game prints: YOU SEE A [group]. THE LEADER SEES YOU. 'THAT'S THEM!' or shows the menu 'WHAT ARE YOU DOING HERE?' THE LEADER ADVANCES.",
+        "Rest north of the gate with the interrupt roll forced to succeed.",
+        "Walk and rest south of the gate."
+      ],
+      "expect": [
+        "North of the gate: random patrols occur and rest is interrupted at 17% per 5 minutes.",
+        "South of the gate: no random encounters.",
+        "With no Valjevo alarm: no random encounters anywhere in the block."
+      ],
+      "branches": [],
+      "fights": [
+        "Castle patrol (digest §3.21): 1 6TH LVL FIGHTER (#75) + 5 HILL GIANT, Morale 60, 3380 XP."
+      ],
+      "data": [
+        "Rest during the Valjevo alarm: 17% per 5 minutes north of the gate.",
+        "Patrol prompts in the block: 'ALL RIGHT, THEN. WHAT IS TODAY'S PASSWORD?'; 'I'M SORRY, SIR, THERE'S AN ALERT. ON WHOSE AUTHORITY ARE YOU HERE?'; WITH A NOD OF THE HEAD YOU ARE LEFT ALONE.; 'WHAT? I THINK THESE SCUM ARE IMPOSTERS!'; 'WELL BOYS, I THINK WE HAVE THE INTRUDERS HERE. GET THEM!'",
+        "Passwords (digest §3.21): Meek + HARASH; Haughty or Abusive + TYRANTHRAXUS."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "[P] digest §3.21 (alarm; patrol parley rules)",
+        "game text ECL2.DAX block 9 at 0x9de5, 0x9e01, 0x9e24, 0x9e73, 0x9ec9, 0x9ef8, 0x9f31, 0x9f4f, 0x9f85, 0x9fab, 0x9fcf (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "§3.20 does not give the patrol's composition or odds in this block; the castle figures from §3.21 are assumed to apply (1 in 21, 1 in 3 in search mode). The block carries the same patrol dialogue as the castle scripts."
+    },
+    {
+      "id": "acceptance.stojanow-gate.resting",
+      "title": "Resting is safe unless the Valjevo alarm is active",
+      "kind": "rule",
+      "steps": [
+        "With no Valjevo alarm active, rest for 24 hours south of the gate, then north of the gate."
+      ],
+      "expect": [
+        "Neither rest is interrupted."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Resting is safe anywhere unless the Valjevo alarm is active."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "Clue Book p.43-44"
+      ],
+      "disagreements": [
+        "[P]: 'Resting is safe anywhere unless the Valjevo alarm is active'. Clue Book p.43: 'You can rest on the south side of the gate so long as you are not adjacent to the wall or in the bugbear patrol area. You can also rest in a tower after defeating the inhabitants.'"
+      ],
+      "coveredBy": [],
+      "notes": "A runner should also rest next to the wall and inside a live tower to see which source the game follows."
+    },
+    {
+      "id": "acceptance.stojanow-gate.fleeing-square",
+      "title": "Fleeing a fight moves the party to row 14",
+      "kind": "rule",
+      "steps": [
+        "Stand at a known (X,Y) in the block, start a fight (for example attack the bugbears) and flee from combat.",
+        "Read the party position."
+      ],
+      "expect": [
+        "The party stands at (X,14), with X unchanged."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Fleeing moves the party to (current X, 14)."
+      ],
+      "sources": [
+        "[P] digest §3.20"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Row 14 is south of the gate; the digest does not say whether fleeing a fight north of the gate also crosses it."
+    },
+    {
+      "id": "acceptance.stojanow-gate.clear-and-reward",
+      "title": "Clear the gate and collect the Commission #14 reward",
+      "kind": "main",
+      "steps": [
+        "Kill the bugbear patrol and both tower garrisons, in either order.",
+        "The game prints: YOU HAVE TAKEN THE GATE! YOU OPEN THE GREAT PORTALS AS 20 HUMAN AND DEMI-HUMAN GUARDS IMMEDIATELY TAKE POSSESSION OF THE GUARD TOWERS.",
+        "Return to the council clerk. During the reward check she prints: YOUR TAKING THE GATE WILL ENABLE OUR FORCES TO ASSAULT THE ENEMY STRONGHOLD. RETURN THERE TO LEAD THE ATTACK., then HERE IS YOUR REWARD.'",
+        "Visit the clerk again for commissions. She prints: YOU ARE SUMMONED TO A SPECIAL COUNCIL MEETING. YOU ARE TO BE AWARDED A VALUABLE COMMISSION. THE CITY GUARDS WILL SHOW YOU THE WAY.'"
+      ],
+      "expect": [
+        "The block is cleared.",
+        "Reward: 10 jewelry; each character gains 3666 XP.",
+        "City Hall location 33 (council chambers) becomes available and Commission #15 can be given."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Reward #14: 10 jewelry (3666 XP).",
+        "Commission #15 needs #14."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "[P] digest §3.0 (commission table; location 33)",
+        "Clue Book p.43-44",
+        "game text ECL2.DAX block 9 at 0xa692 (src/audio/voice-master-manifest.json)",
+        "game text ECL3.DAX block 8 at 0xa3cb, 0x9eea, 0xaec6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.44: 'Guards from the city of Phlan will rush up and make sure the gate is held open.' Agrees with the game text."
+      ],
+      "coveredBy": [],
+      "notes": "No replay clears the gate or asserts this reward: verifyCampaignCastleApproach passes through with the wagon and goes on to the castle."
+    },
+    {
+      "id": "acceptance.stojanow-gate.through-to-the-castle",
+      "title": "Pass north through the block to Valjevo Castle",
+      "kind": "main",
+      "steps": [
+        "From (8,5), north of the gate, walk north to exit E2.",
+        "Leave by E2."
+      ],
+      "expect": [
+        "The party is in Valjevo Castle, south-west quadrant."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "E2 leads to Valjevo Castle SW quadrant."
+      ],
+      "sources": [
+        "[P] digest §3.20",
+        "[P] digest §3.21"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCampaignCastleApproach (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The replay walks from 8,5 to the castle and saves there without fighting the towers. The digest gives no coordinates for E2."
+    }
+  ]
+}

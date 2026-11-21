@@ -1,0 +1,406 @@
+{
+  "schema": 1,
+  "id": "acceptance.temple-of-bane",
+  "title": "Temple of Bane",
+  "guideSection": "3.10",
+  "scripts": [
+    "ECL 24"
+  ],
+  "commission": "Commission #6",
+  "prerequisites": [
+    "Commission #6: the clerk has summoned the party to Bishop Braccio and Dirten has been offered at Civilized 5 (10,5).",
+    "The party can reach the temple through Wealthy Area exit E3.",
+    "For automatic admission the party has met a four-orc black-hand patrol in the Wealthy Area without fighting it; otherwise it carries a Leather Holy Symbol.",
+    "XP figures assume 7 characters (Dirten in the party), per [P] §3.9.",
+    "No party level is stated for this area in the digest."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.temple-of-bane.accept-commission",
+      "title": "Report to Bishop Braccio and take Dirten along",
+      "kind": "main",
+      "steps": [
+        "Speak to the clerk until she says 'YOU ARE SUMMONED BY THE BISHOP OF BRACCIO OF TYR. REPORT TO HIM AT TYR'S TEMPLE.'",
+        "Go to Civilized 5 (10,5); before the summons a guard bars entry.",
+        "The game prints 'YOU ARE USHERED INTO THE BISHOP'S STUDY. BISHOP BRACCIO SPEAKS, 'ALLOW ME TO INTRODUCE DIRTEN, PRIEST OF ILMAR.' and ''HE IS BOUND TO RECOVER THE TEMPLE WHICH HAS BEEN DESECRATED TO BANE. GO WITH HIM ACROSS THE RIVER AND HELP HIM TO CLEANSE THE TEMPLE. IN PAYMENT, YOU MAY KEEP THE HIDDEN TREASURES.''",
+        "Accept Dirten ('WILL YOU ACCOMPANY DIRTEN?')."
+      ],
+      "expect": [
+        "DIRTEN (#107), morale 99, joins the party as an NPC.",
+        "Commission #6 is held. The clerk asks only once."
+      ],
+      "branches": [
+        "Returning later without Dirten: 'YOU ARE USHERED INTO THE STUDY WHERE DIRTEN WAITS. 'I AM ABOUT TO JOURNEY TO THE TEMPLE, WILL YOU COME WITH ME?'' (game text; the digest does not describe the refusal)."
+      ],
+      "fights": [],
+      "data": [
+        "Civilized 5 at (10,5).",
+        "NPC: DIRTEN (#107), morale 99."
+      ],
+      "sources": [
+        "[P] §3.0 Civilized 5 and clerk commission list (digest)",
+        "Clue Book p.17-18",
+        "game text ECL3.DAX block 0 at 0x9eba, 0x9f1e, 0x9fb8, 0xa014 (src/audio/voice-master-manifest.json)",
+        "game text ECL3.DAX block 8 at 0xaac9 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Dirten: [P] DIRTEN (#107), Lawful Good Human Cleric, leaves after the Mace battle; Clue Book p.17 'Dirtan, a 6th-level gnome cleric' who 'will remain at the temple to begin the rebuilding'; [SP] 'Dristan, a 6th level gnome cleric'; [NES] 'Level 5 Cleric', human. The game text spells it DIRTEN.",
+        "God's name: the game text says 'PRIEST OF ILMAR'; the Podal Plaza text and [P] say Ilmater; the Clue Book says Il-Mater."
+      ],
+      "coveredBy": [],
+      "notes": "A free party slot is implied for Dirten; the digest does not say what happens with a full party."
+    },
+    {
+      "id": "acceptance.temple-of-bane.enter-after-peaceful-patrol",
+      "title": "Be admitted automatically after meeting a patrol peacefully",
+      "kind": "main",
+      "steps": [
+        "Having met a four-orc black-hand patrol non-violently in the Wealthy Area, go through Wealthy E3 to the temple entrance (location 4); the existing replay stands at (2,7).",
+        "The game prints 'YOU STAND IN FRONT OF THE ENTRANCE TO A LARGE SHADOWY TEMPLE. AN OLD BLIND DECREPIT ORC STANDS OUTSIDE WITH EIGHT ORC GUARDS.' and 'AS YOU APPROACH THEY MOVE, ALLOWING YOU ENTRANCE INTO THE TEMPLE.'"
+      ],
+      "expect": [
+        "No search and no fight; the party may walk in.",
+        "Mace is now letting the party search: no random encounters occur in the central temple."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Entrance seen by the replay at (2,7), facing south."
+      ],
+      "sources": [
+        "[P] §3.10 (digest)",
+        "[P] §7 item 22 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0xa424, 0xa595 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Getting in: [P] automatic entry after a non-violent patrol meeting, otherwise a symbol search or a fight; [GB] 'The orcs always let us through, whether we had the symbols or not.'; Clue Book p.18 'If you have it, he lets you inside. If you don't, he calls the temple guards.'",
+        "The digest labels the entrance 'E2 [location 4]' while saying the route is 'Wealthy E3 → Temple'."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Parleyed into the Temple of Bane and reloaded the party with the Dust of Disappearance:' (asserts '2,7 s ... allowing you entrance into the temple')"
+      ],
+      "notes": "[P] calls the automatic admission a trap: Mace wants the party to find his treasure."
+    },
+    {
+      "id": "acceptance.temple-of-bane.enter-with-holy-symbol",
+      "title": "Let the blind orc find a Leather Holy Symbol",
+      "kind": "main",
+      "steps": [
+        "Without a peaceful patrol meeting, carry a Leather Holy Symbol to the entrance.",
+        "The game prints the entrance text and 'THE AGED ORC COMES GRASPING TOWARD YOU. WILL YOU LET HIM TOUCH YOU?' with LET HIM TOUCH YOU / BACK OFF / ATTACK. Choose LET HIM TOUCH YOU."
+      ],
+      "expect": [
+        "'THE OLD BLIND ORC PAWS THE CHARACTERS LOOKING FOR SOMETHING. FINDING THE LEATHER HOLY SYMBOL, HE SMILES THEN GRUNTS 'WELCOME TO THE TEMPLE OF BANE, SUPREME GOD OF THE REALMS.''",
+        "The party is admitted without a fight."
+      ],
+      "branches": [
+        "No symbol: see enter-without-symbol.",
+        "BACK OFF: see enter-back-off."
+      ],
+      "fights": [],
+      "data": [
+        "Item: Leather Holy Symbol (from the four-orc patrol or the Podal Plaza orc priest)."
+      ],
+      "sources": [
+        "[P] §3.10 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0xa424, 0xa491, 0xa4cf, 0xa6d4 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.17-18 numbers the mansion entrances 1, hidden treasures 2, goblin slaves 3, mansion guards 4, manor guards 5, the orc bedroom 6, the orc jail 7, the temple entrance 8, the temple's hidden treasures 9 and the altar 10; [P] uses M and 1 to 12 in the Wealthy Area and 1 to 3, 4 and 7 in the temple."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.temple-of-bane.enter-without-symbol",
+      "title": "Let the blind orc search a party with no symbol",
+      "kind": "optional",
+      "steps": [
+        "Without a peaceful patrol meeting and without a Leather Holy Symbol, choose LET HIM TOUCH YOU.",
+        "Win the fight."
+      ],
+      "expect": [
+        "'THE OLD BLIND ORC PAWS THE PARTY AS IF LOOKING FOR SOMETHING. AFTER A CAREFULL PAWING, HE BACKS AWAY AND YELLS 'GUARDS, IN THE NAME OF BANE, KILL THESE UNBELIEVERS!''",
+        "Combat: 8 ORC (#4), morale 99, 18 XP per character."
+      ],
+      "branches": [],
+      "fights": [
+        "8 ORC (#4), morale 99, 18 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.10 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0xa5d7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the party may enter freely after winning."
+    },
+    {
+      "id": "acceptance.temple-of-bane.enter-back-off",
+      "title": "Back away from the blind orc twice, or attack",
+      "kind": "optional",
+      "steps": [
+        "At the entrance choose BACK OFF.",
+        "The game prints 'AS YOU BACK AWAY THE BLIND ORC SAYS, 'I MUST CHECK IF YOU ARE WORTHY TO ENTER THE TEMPLE OF BANE, DO NEED NOT BE AFRAID.'' with LET HIM CHECK / BACK OFF AGAIN / ATTACK.",
+        "Choose BACK OFF AGAIN. In another run choose ATTACK."
+      ],
+      "expect": [
+        "BACK OFF AGAIN: 'AS YOU BACK AWAY AGAIN THE OLD BLIND ORC IS CONVINCED YOU ARE NOT WORSHIPPERS. HE GRUNTS AN ORDER TO ATTACK.' and combat.",
+        "ATTACK: combat.",
+        "Combat is 8 ORC (#4), morale 99, 18 XP per character."
+      ],
+      "branches": [
+        "LET HIM CHECK: as LET HIM TOUCH YOU."
+      ],
+      "fights": [
+        "8 ORC (#4), morale 99, 18 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.10 (digest)",
+        "game text ECL1.DAX block 24 at 0xa502, 0xa560, 0xa65b (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest compresses these branches into 'Otherwise you fight 8 ORC'; the menus and strings are from block 24."
+    },
+    {
+      "id": "acceptance.temple-of-bane.trap-door-treasures",
+      "title": "Find the hidden trap doors at 1, 2 and 3",
+      "kind": "main",
+      "steps": [
+        "Inside the temple, with search mode on, walk onto locations 1, 2 and 3 in turn (the existing replay finds location 2 at (9,12)).",
+        "At each the game prints 'ON THE FLOOR YOU FIND A TRAP DOOR. WILL YOU OPEN IT?' with OPEN TRAPDOOR / LEAVE TRAPDOOR. Choose OPEN TRAPDOOR and take everything."
+      ],
+      "expect": [
+        "1 (342 XP per character): Clerical scroll (Animate Dead, Cause Disease, Prayer); Clerical scroll (Snake Charm, Silence 15' Radius, Bless); MU scroll (Fireball, Ray of Enfeeblement, Stinking Cloud).",
+        "2 (800 XP): Potion of Giant Strength, Potion of Healing, Potion of Speed, Wand of Magic Missiles (20 charges), Dust of Disappearance.",
+        "3 (457 XP): Hand Axe +1, Dagger +1, Hammer +1, Mace +1, Morning Star +1, Scimitar +1, Spear +1, Short Sword +1.",
+        "The first two finds trigger nothing. The third find triggers Mace (see mace-on-third-treasure)."
+      ],
+      "branches": [
+        "LEAVE TRAPDOOR: nothing is taken."
+      ],
+      "fights": [],
+      "data": [
+        "[SP] places the trap doors at 5-5, 9-12 and 12-9.",
+        "The replay opens the 800 XP cache (potions, wand, dust) at (9,12)."
+      ],
+      "sources": [
+        "[P] §3.10 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0xa865, 0xa890 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.17-18 numbers the mansion entrances 1, hidden treasures 2, goblin slaves 3, mansion guards 4, manor guards 5, the orc bedroom 6, the orc jail 7, the temple entrance 8, the temple's hidden treasures 9 and the altar 10; [P] uses M and 1 to 12 in the Wealthy Area and 1 to 3, 4 and 7 in the temple.",
+        "Clue Book p.18: 'Change to Search Mode as you enter the temple.' Agrees with [P]."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Parleyed into the Temple of Bane and reloaded the party with the Dust of Disappearance:' (asserts '9,12 s ... open trapdoor leave trapdoor' and 'receives 800 experience points')"
+      ],
+      "notes": "The digest does not map [P]'s numbers 1 and 3 to [SP]'s coordinates; only 2 = (9,12) is confirmed by the replay. [P] advises saving the Dust of Disappearance for Tyranthraxus. XP assumes the party size used in §3.9 to 3.10 (7 with Dirten)."
+    },
+    {
+      "id": "acceptance.temple-of-bane.mace-on-third-treasure",
+      "title": "Trigger Mace by taking the third treasure",
+      "kind": "main",
+      "steps": [
+        "Open the third of the three trap doors.",
+        "The game prints 'THE MINUTE YOU FIND THE TREASURE A LARGE GROUP OF ORCS CHARGE THROUGH THE TEMPLE DOORS. LEADING THEM IS A HALF-ORC WHO IS SCREAMING 'KILL! KILL, THESE SCUM WHO WOULD STEAL FROM OUR TEMPLE.''",
+        "Win the fight."
+      ],
+      "expect": [
+        "Combat: MACE (#33), 30 ORC (#4), 20 ORC (#44, elite archers), 5 ORC LEADER; morale 99; 256 XP per character.",
+        "Loot: Mace +1 (carried by Mace).",
+        "The game prints 'ON THE DEAD BODY OF THE HALF-ORC CLERIC YOU FIND A PIECE OF PAPER. YOU PUT THE PAPER IN YOUR JOURNAL UNDER ENTRY 25.'",
+        "If Dirten is in the party: 'DIRTEN SAYS, 'THANK YOU FOR HELPING US REGAIN OUR TEMPLE. I MUST STAY HERE NOW. I BID YOU FAREWELL.'' and he leaves the party.",
+        "The Temple of Bane is cleared."
+      ],
+      "branches": [],
+      "fights": [
+        "MACE (#33) + 30 ORC (#4) + 20 ORC (#44) + 5 ORC LEADER, morale 99, 256 XP."
+      ],
+      "data": [
+        "Journal entry 25: the Boss's notice to a priest of Bane about the graveyard (Adventurer's Journal p.21-22).",
+        "Loot: Mace +1."
+      ],
+      "sources": [
+        "[P] §3.10 (digest)",
+        "Clue Book p.17-18",
+        "Adventurer's Journal p.21-22 (entry 25)",
+        "game text ECL1.DAX block 24 at 0xab06, 0xabce, 0xac73 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Dirten: [P] DIRTEN (#107), Lawful Good Human Cleric, leaves after the Mace battle; Clue Book p.17 'Dirtan, a 6th-level gnome cleric' who 'will remain at the temple to begin the rebuilding'; [SP] 'Dristan, a 6th level gnome cleric'; [NES] 'Level 5 Cleric', human. The game text spells it DIRTEN.",
+        "Clue Book p.18: 'Once you find the third treasure, Mace and his followers attack.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "XP assumes 7 characters."
+    },
+    {
+      "id": "acceptance.temple-of-bane.mace-on-leaving",
+      "title": "Trigger Mace by trying to leave",
+      "kind": "main",
+      "steps": [
+        "After being let in, try to leave the temple before finding all three treasures.",
+        "The game prints 'AS YOU EXIT THE TEMPLE YOU ARE ATTACKED BY A VERY LARGE GROUP OF ORCS. LEADING THEM IS A HALF-ORC WHO IS SCREAMING 'KILL! KILL, THE UNBELIEVING TOADS. KILL THEM OR SUFFER MY WRATH!''"
+      ],
+      "expect": [
+        "The same battle as in mace-on-third-treasure, with the same loot, journal entry 25 and Dirten's farewell."
+      ],
+      "branches": [],
+      "fights": [
+        "MACE (#33) + 30 ORC (#4) + 20 ORC (#44) + 5 ORC LEADER, morale 99, 256 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.10 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0xaa6e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.18: 'You will be attacked here as you leave the temple if you leave before finding all three treasures or defiling the altar.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "The treasures not yet found: the digest does not say whether they remain available after the battle."
+    },
+    {
+      "id": "acceptance.temple-of-bane.mace-on-destroying-altar",
+      "title": "Trigger Mace by destroying the altar",
+      "kind": "main",
+      "steps": [
+        "Walk to the altar at location 7. The game prints 'IN FRONT OF YOU IS AN ALTAR THAT IS SMEARED WITH BLOOD AND COVERED WITH CRUDE BLACK HAND PRINTS. WHAT WILL YOU DO?' with DESTROY ALTAR / LEAVE IT.",
+        "Choose DESTROY ALTAR before Mace has been fought.",
+        "The game prints 'AS YOU DESTROY THE ALTAR, THE TEMPLE DOORS FLY OPEN AND A SCREAMING HORDE OF ORCS LED BY A HALF-ORC CLERIC ATTACK. YOU TURN TO FACE THEM.'"
+      ],
+      "expect": [
+        "The same battle as in mace-on-third-treasure.",
+        "The orcs' morale is 99, the same as in the other two triggers: the altar gives no extra morale."
+      ],
+      "branches": [
+        "LEAVE IT: nothing happens."
+      ],
+      "fights": [
+        "MACE (#33) + 30 ORC (#4) + 20 ORC (#44) + 5 ORC LEADER, morale 99, 256 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.10 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0xa8bb, 0xa915, 0xa946 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.18: 'If you defile the altar, Mace and his followers will become enraged and attack with fanatical morale.' [P]: 'The altar gives the orcs no extra morale, despite the clue book.'",
+        "Location numbers differ: Clue Book p.17-18 numbers the mansion entrances 1, hidden treasures 2, goblin slaves 3, mansion guards 4, manor guards 5, the orc bedroom 6, the orc jail 7, the temple entrance 8, the temple's hidden treasures 9 and the altar 10; [P] uses M and 1 to 12 in the Wealthy Area and 1 to 3, 4 and 7 in the temple."
+      ],
+      "coveredBy": [],
+      "notes": "No coordinates are given for the altar."
+    },
+    {
+      "id": "acceptance.temple-of-bane.altar-after-mace",
+      "title": "Destroy the altar after Mace is dead",
+      "kind": "optional",
+      "steps": [
+        "After the Mace battle, return to the altar and choose DESTROY ALTAR.",
+        "Visit the square again."
+      ],
+      "expect": [
+        "The game prints 'YOU DESTROY THE EVIL ALTAR AND THE UNEASY FEELING LEAVES YOU.'",
+        "On the next visit: 'THE REMAINS OF AN EVIL ALTAR ARE NEARBY.'",
+        "No fight occurs."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "game text ECL1.DAX block 24 at 0xa9d0, 0xaa0b (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The digest (§3.10) does not mention this outcome; it exists only in the game text."
+      ],
+      "coveredBy": [],
+      "notes": "That these two strings belong to the post-Mace state is inferred from their wording; the script should be read to confirm the condition."
+    },
+    {
+      "id": "acceptance.temple-of-bane.clear-condition",
+      "title": "Check the clear condition and its effect on encounters",
+      "kind": "rule",
+      "steps": [
+        "Defeat Mace with Dirten in the party; in another run defeat Mace without him.",
+        "Afterwards walk and rest in the temple and (if the M fight is also won) in the Wealthy Area."
+      ],
+      "expect": [
+        "Defeating Mace clears the Temple of Bane, with or without Dirten.",
+        "Before clearing, random encounters in the temple follow the Wealthy Area table and rules, except none occur in the central temple while Mace is letting the party search.",
+        "Once both blocks are cleared, random encounters stop and rest is safe in both."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.10 (digest)",
+        "[P] §3.9 (digest)",
+        "Clue Book p.17-18"
+      ],
+      "disagreements": [
+        "Clue Book p.18 Finale requires both the mansion fight and Mace's defeat for both blocks; [P] clears each block by its own fight."
+      ],
+      "coveredBy": [],
+      "notes": "The bounds of the 'central temple' are not given in the digest."
+    },
+    {
+      "id": "acceptance.temple-of-bane.keep-dirten",
+      "title": "Keep Dirten by clearing the temple without him",
+      "kind": "quirk",
+      "steps": [
+        "Have Dirten join, then remove him from the active party (for example at a training hall) before the Mace battle.",
+        "Defeat Mace without Dirten in the party.",
+        "Add Dirten back."
+      ],
+      "expect": [
+        "Dirten's farewell is never triggered; he stays available permanently."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.10 (digest)"
+      ],
+      "disagreements": [
+        "Dirten: [P] DIRTEN (#107), Lawful Good Human Cleric, leaves after the Mace battle; Clue Book p.17 'Dirtan, a 6th-level gnome cleric' who 'will remain at the temple to begin the rebuilding'; [SP] 'Dristan, a 6th level gnome cleric'; [NES] 'Level 5 Cleric', human. The game text spells it DIRTEN."
+      ],
+      "coveredBy": [],
+      "notes": "The digest states only: 'you can keep Dirten permanently by not having him in the party when the temple is cleared.' The removal method is not given; the training-hall Remove is the mechanism §5 describes for other exploits."
+    },
+    {
+      "id": "acceptance.temple-of-bane.commission-result",
+      "title": "Report commission #6 and get praise only",
+      "kind": "main",
+      "steps": [
+        "After the Mace battle return to New Phlan and speak to the council clerk."
+      ],
+      "expect": [
+        "The reward for #6 is praise only: no money, gems or XP. The party keeps the temple items.",
+        "Unlike other clerk rewards, this one does not cancel city-guard anger.",
+        "Commission #6 is not one of the ten tracker quests."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.0 clerk commission list and Civilized 29 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL3.DAX block 0 at 0x9f1e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.17: Braccio offers Dirtan's help 'if your party will help clear the temple and find the lost artifacts of Il-Mater'; the game text: 'IN PAYMENT, YOU MAY KEEP THE HIDDEN TREASURES.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not quote the clerk's praise text, and the block 8 clerk strings found by keyword do not include an obvious one for this commission."
+    }
+  ]
+}

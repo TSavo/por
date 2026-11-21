@@ -1,0 +1,391 @@
+{
+  "schema": 1,
+  "id": "acceptance.kutos-well",
+  "title": "Kuto's Well",
+  "guideSection": "3.3",
+  "scripts": [
+    "ECL 29"
+  ],
+  "commission": null,
+  "prerequisites": [
+    "Reachable from the Slums (exit E2), Podal Plaza or Mendor's Library; no commission is needed.",
+    "No party level is stated by [P]; it lists the area after the Slums and Sokal Keep.",
+    "XP figures assume exactly six characters."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.kutos-well.exits",
+      "title": "Enter Kuto's Well and use its four exits",
+      "kind": "optional",
+      "steps": [
+        "Enter from the Slums (Slums exit E2); the party arrives at Kuto's Well E1.",
+        "Walk the open plaza. The game prints 'YOU WANDER IN THE PLAZA NEAR KUTO'S WELL.'",
+        "Stand next to the well. The game prints 'YOU ARE JUST <SOUTH|WEST|NORTH|EAST> OF KUTO'S WELL.'",
+        "Face the well at (7,7). The game prints 'BEFORE YOU LIES KUTO'S WELL. IT IS A SOURCE OF WATER IN ALL SEASONS.'",
+        "Leave by E2 to Podal Plaza, by E3 to Mendor's Library, by E1 back to the Slums."
+      ],
+      "expect": [
+        "E1 -> Slums, E2 -> Podal Plaza, E3 -> Mendor's Library, E4 (7,7) -> Catacombs (7,7)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "E4 the well at (7,7)"
+      ],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0xaece, 0x9b25, 0x9b07, 0x9b0f, 0x9b16, 0x9b1e, 0x9b44, 0x9acc (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives coordinates only for E4. It does not say on which squares each plaza line prints. Mendor's Library's door from this side is locked (see acceptance.mendors-library)."
+    },
+    {
+      "id": "acceptance.kutos-well.well-guards-two-waves",
+      "title": "Try to enter the well and beat both kobold waves",
+      "kind": "main",
+      "steps": [
+        "Walk toward the well to climb in. Norris's kobold patrol attacks automatically, most likely at location 3, sometimes at 2 or 4.",
+        "Fight 6 KOBOLD (#0) and 3 KOBOLD LEADER (#1).",
+        "After the win a second, identical wave attacks at once: 6 KOBOLD (#0) and 3 KOBOLD LEADER (#1).",
+        "Win the second fight."
+      ],
+      "expect": [
+        "Each wave gives each character 16 XP.",
+        "After both waves the well can be entered."
+      ],
+      "branches": [],
+      "fights": [
+        "Wave 1: 6 KOBOLD (#0) + 3 KOBOLD LEADER (#1), Morale 67, 16 XP",
+        "Wave 2: identical"
+      ],
+      "data": [
+        "Locations 2, 3, 4 (no coordinates in the digest)"
+      ],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0xa2ab, 0xa2e9, 0xa355, 0xa380 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.9-10 locations 2 and 3"
+      ],
+      "disagreements": [
+        "Clue Book p.9: 'the kobold guards and a set of reinforcements from within the well attack'; [P]: a fight 'then an identical second wave'. Same event; the Clue Book says where the second wave comes from.",
+        "Clue Book p.9-10 uses one numbering (1-9) across the well plaza and the catacombs; [P] uses 2/3/4, 20, 21, 22 above ground and 6, 9-13 below. The numbers do not line up."
+      ],
+      "coveredBy": [],
+      "notes": "The game text has four lines for this event: 'YOU STUMBLE ON SOME WAITING KOBOLDS!', 'MONSTERS FROM THE SURROUNDING BUILDINGS ATTACK YOU.', 'A BAND OF KOBOLDS CLIMBS FROM THE WELL AND ATTACKS.' and 'A BAND OF KOBOLDS CLIMBS FROM THE WELL BEHIND YOU AND ATTACKS.' The digest does not say which prints for which wave or position; read it from the script. 'Likely at 3, sometimes at 2/4' is a probability the digest does not quantify. The digest does not say whether the guards return on a later visit."
+    },
+    {
+      "id": "acceptance.kutos-well.searching-triggers-the-guards",
+      "title": "Search near the well and get attacked",
+      "kind": "rule",
+      "steps": [
+        "Turn search mode on and step onto location 2, 3 or 4 (or search there)."
+      ],
+      "expect": [
+        "The kobold guard attack always fires when the party searches there: 6 KOBOLD (#0) + 3 KOBOLD LEADER (#1), then the second wave.",
+        "Without searching and without trying to enter the well, the guards leave the party alone."
+      ],
+      "branches": [],
+      "fights": [
+        "6 KOBOLD (#0) + 3 KOBOLD LEADER (#1), Morale 67, 16 XP, twice"
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md)",
+        "Clue Book p.9-10 storyline ('So long as creatures don't search the area for Norris' hideout or attempt to enter the well, Norris' troops don't give them any trouble') and location 2"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "'Always if you search' is from [P]; the Clue Book says searching 'near any of these buildings' or 'adjacent to the well' triggers it."
+    },
+    {
+      "id": "acceptance.kutos-well.climb-down-the-well",
+      "title": "Climb down the well into the catacombs",
+      "kind": "main",
+      "steps": [
+        "At the well (7,7), after the guards are beaten, the game prints 'RUNGS ARE SET IN THE SIDES OF THE WELL WALL. DO YOU WANT TO CLIMB DOWN?' with YES / NO.",
+        "Choose YES. The game prints 'YOU SLOWLY CLIMB DOWN THE SLIPPERY RUNGS.'"
+      ],
+      "expect": [
+        "The party is in the catacombs at E1 (7,7)."
+      ],
+      "branches": [
+        "NO: the party stays above ground."
+      ],
+      "fights": [],
+      "data": [
+        "E4 (7,7) -> Catacombs E1 (7,7)",
+        "Tavern Tale 3 (Adventurer's Journal p.33-34): wells give access to hidden dens and underground passages",
+        "Slums rumour: '... THE GANG IS OPERATING FROM THE CATACOMBS BY THE WELL...' (ECL2.DAX block 20 at 0xa5aa)"
+      ],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0xae4a, 0xae8d (src/audio/voice-master-manifest.json)",
+        "Clue Book p.9-10 location 3",
+        "Adventurer's Journal p.33-34 tale 3"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kutos-well.sickly-kobolds",
+      "title": "Meet the sickly kobolds at location 20",
+      "kind": "optional",
+      "steps": [
+        "Walk the buildings at location 20; each visit has a 1 in 21 chance. The game prints 'YOU SPOT A SMALL BAND OF SICKLY KOBOLDS CAREFULLY PICKING ITS WAY THROUGH THE RUBBLE. WHEN THEY SPOT YOU, THEY STOP AND STARE IN SURPRISE.' with the encounter text 'THE KOBOLDS ARE TRYING TO SNEAK OFF.'",
+        "Choose Parley. The game prints 'THE KOBOLDS FAWN ON YOU PATHETICALLY. 'PLEASE, OH PLEASE NOBLE ONES, DON'T HURT US,' THEY BEG. 'WE WERE SENT ON A SCOUTING MISSION BY OUR KING. RUMORS OF A WONDROUS POOL CAME TO HIM IN HIS LAIR.' then 'WE ARE ALL THAT REMAINS OF THE MIGHTY BAND THAT WAS SENT WEST TO TEST THE TALES. WE MEAN YOU NO HARM. WE ONLY SEEK TO RETURN TO OUR FAMILIES.' (WHAT DO YOU DO?)' with the menu RELEASE THEM? / FIGHT? / QUESTION THEM?",
+        "Choose QUESTION THEM?. The game prints 'THE KOBOLDS COLLAPSE INTO A PATHETIC, MEWING HEAP. 'PLEASE, OH PLEASE DON'T HURT US,' THEY WAIL. 'WE KNOW NOTHING. WE ARE POOR LOST SOULS LOOKING FOR OUR HOMES.' (WHAT DO YOU DO?)' with the menu RELEASE THEM? / FIGHT THEM?",
+        "Choose RELEASE THEM?. The game prints 'THE KOBOLDS SCAMPER QUICKLY AWAY. JUST BEFORE PASSING OUT OF SIGHT, ONE TURNS AND RAISES HIS HAND IN A GESTURE, AS IF TO WAVE FAREWELL.'"
+      ],
+      "expect": [
+        "Releasing them ends the encounter with no fight and no reward."
+      ],
+      "branches": [
+        "Combat (or FIGHT? / FIGHT THEM?): 2 KOBOLD + 4 KOBOLD LEADER, Morale 25."
+      ],
+      "fights": [
+        "2 KOBOLD + 4 KOBOLD LEADER, Morale 25; XP not given"
+      ],
+      "data": [
+        "Chance 1 in 21"
+      ],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0xa687, 0xa6f7, 0xa773, 0xa80e, 0xa88c, 0xa8be, 0xa949, 0xa972 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.9-10 location 1"
+      ],
+      "disagreements": [
+        "Clue Book p.9-10 uses one numbering (1-9) across the well plaza and the catacombs; [P] uses 2/3/4, 20, 21, 22 above ground and 6, 9-13 below. The numbers do not line up. Clue Book: sickly kobolds are 1; [P]: 20."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives only the Combat and Parley outcomes and quotes the first plea; the RELEASE / QUESTION menus and their texts are from the game text. It gives no coordinates, no XP, and does not say whether the encounter can repeat. With fixed dice a runner can assert the 1-in-21 roll."
+    },
+    {
+      "id": "acceptance.kutos-well.lizardman-patrol",
+      "title": "Beat the lizardman patrol at location 21",
+      "kind": "optional",
+      "steps": [
+        "Walk to (7,13). The game prints 'A LIZARDMAN LEADS A PACK OF GIANT LIZARDS ON PATROL BEFORE A DOOR THAT HAS BEEN NAILED CLOSED. SEEING YOU, THE MONSTERS ATTACK!'",
+        "Fight 1 LIZARDMAN (#57) and 4 GIANT LIZARD (#59).",
+        "Win."
+      ],
+      "expect": [
+        "Each character gains 99 XP."
+      ],
+      "branches": [],
+      "fights": [
+        "1 LIZARDMAN (#57) + 4 GIANT LIZARD (#59), Morale 75, 99 XP"
+      ],
+      "data": [
+        "Location 21 at (7,13)"
+      ],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0xa9f7 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.9-10 location 4"
+      ],
+      "disagreements": [
+        "Clue Book p.9-10 uses one numbering (1-9) across the well plaza and the catacombs; [P] uses 2/3/4, 20, 21, 22 above ground and 6, 9-13 below. The numbers do not line up. Clue Book: the patrol is 4; [P]: 21."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kutos-well.woman-on-the-rug",
+      "title": "Open the nailed door, hear the woman and take her treasure",
+      "kind": "optional",
+      "steps": [
+        "After the patrol, face the door south of (7,13). The game prints 'THE DOOR HAS BEEN NAILED SHUT. WILL YOU FORCE IT OPEN?' Choose YES; the game prints 'THE DOOR IS FREED.'",
+        "Enter location 22 at (7,14). The game prints 'A WIDE-EYED WOMAN IS SEATED ON A RUG. AT YOUR ENTRY, SHE STANDS. 'GREETINGS BOLD ONES, I HAVE LONG AWAITED YOUR COMING. MY TIME HERE IS SHORT FOR THE WORLD ENTERS A NEW AGE.' then 'AN EVIL SPIRIT FROM AN UNHOLY POOL GUIDES YOUR ENEMIES. IT HIDES BEHIND A FAIR COUNTENANCE. BE NOT DECEIVED.' WITH THAT, THE WOMAN IS GONE.'",
+        "Search. The game prints 'BENEATH A RUG YOU FIND A COMPARTMENT CONTAINING ARMS AND ARMOR. DO YOU TAKE THEM?' Choose YES."
+      ],
+      "expect": [
+        "The party gains Banded Mail +1, Quarter Staff +1 and Bracers AC 4.",
+        "Each character gains 533 XP.",
+        "The woman does not appear again."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 22 at (7,14)",
+        "Banded Mail +1, Quarter Staff +1, Bracers AC 4 (533 XP)"
+      ],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0xaa9c, 0xaacd, 0xaaff, 0xab8a, 0xac16 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.9-10 location 5"
+      ],
+      "disagreements": [
+        "Clue Book p.9 calls her 'A hag on a rug'; [P] 'the woman'; the game text 'A WIDE-EYED WOMAN'.",
+        "Clue Book p.9-10 uses one numbering (1-9) across the well plaza and the catacombs; [P] uses 2/3/4, 20, 21, 22 above ground and 6, 9-13 below. The numbers do not line up. Clue Book: she is 5; [P]: 22."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not mention the nailed door prompt; it is from the game text and its position (between 21 and 22) is inferred from the patrol line 'BEFORE A DOOR THAT HAS BEEN NAILED CLOSED'. The digest does not say what happens on answering NO, or whether a failed force is possible."
+    },
+    {
+      "id": "acceptance.kutos-well.random-encounter-budget",
+      "title": "Random encounters: exactly 10, with stated odds and types",
+      "kind": "rule",
+      "steps": [
+        "Walk the area with search mode off; each step rolls 1 in 11.",
+        "Turn search mode on; each step rolls 3 in 11.",
+        "Fight until 10 random encounters are beaten, then keep walking."
+      ],
+      "expect": [
+        "Base monster count equals Party Strength.",
+        "Types: KOBOLD (#0) at the base count plus 3 KOBOLD LEADER, Morale 50; LIZARDMAN (#57) at the count divided by 8, Morale 90; GNOLL (#73) at the count divided by 6, Morale 75.",
+        "After the 10th beaten encounter no random encounter occurs.",
+        "When the party is surprised the game prints 'YOU ARE SURPRISED BY ...'."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "10 random encounters",
+        "1 in 11; 3 in 11 searching",
+        "Lizardmen PS/8, gnolls PS/6"
+      ],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0xa47a, 0xa500, 0xa56b, 0xa5c4, 0xa627 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not give the odds between the three types or the rounding of the divisions. With fixed dice a runner can assert each roll."
+    },
+    {
+      "id": "acceptance.kutos-well.parley",
+      "title": "Random encounters: parley score and the 'Boss's orders' result",
+      "kind": "rule",
+      "steps": [
+        "In a random encounter choose Parley and an attitude.",
+        "Score = base + 1d31 + Charisma reaction modifier; base is 9 Haughty, 19 Sly, Nice or Meek, 29 Abusive.",
+        "Reach 95 or more."
+      ],
+      "expect": [
+        "At 95 or more the game prints ''WE HAVE TO KEEP THIS AREA FREE OF INTRUDERS -- BOSS'S ORDERS. WE'LL LET YOU GO THIS TIME. BUT IF YOU COME BACK, YOU'LL FACE BIG TROUBLE.' THE MONSTERS LEAVE.' and no combat follows.",
+        "Below that the game prints 'YOU HAVE OFFENDED THE <monsters> THEY ATTACK.' and combat starts."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Base 9 / 19 / 19 / 19 / 29"
+      ],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0xad96, 0xae15, 0xae2d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives only the >=95 result; that every lower score ends in the 'OFFENDED' attack is inferred from the only other parley text in the block. As in the Slums, base + 1d31 tops out at 60 before the Charisma modifier, whose size the digest does not give. The digest does not say whether a talked-away encounter counts toward the 10."
+    },
+    {
+      "id": "acceptance.kutos-well.resting",
+      "title": "Rest rules above ground",
+      "kind": "rule",
+      "steps": [
+        "Rest above ground before 10 random encounters are beaten; each hour rolls a 12% chance of interruption.",
+        "Beat Norris in the catacombs, return above ground and rest with random encounters remaining; the rest can still be interrupted.",
+        "Beat all 10 random encounters and rest; no interruption."
+      ],
+      "expect": [
+        "Unsafe until all 10 random encounters are beaten: 12% per hour.",
+        "Beating Norris does not make the plaza safe.",
+        "Safe once the 10 are beaten."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "12% per hour"
+      ],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md)",
+        "Clue Book p.9-10 'Where You Can Rest'",
+        "digest §7 item 13"
+      ],
+      "disagreements": [
+        "[P]: unsafe until the 10 random encounters are beaten, 'contrary to what the clue book claims'. Clue Book p.9: 'You cannot rest in or under Kuto's well until you have defeated Norris the Gray. After Norris has been defeated, you can rest in the catacombs beneath Kuto's Well.' The Clue Book sentence, read literally, promises safe rest only in the catacombs, which [P] also grants."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kutos-well.rest-interrupt-monsters-surprised",
+      "title": "Rest interruptions arrive with the monsters surprised",
+      "kind": "quirk",
+      "steps": [
+        "Rest in the unsafe plaza until an interruption fires.",
+        "Read the encounter state."
+      ],
+      "expect": [
+        "The interrupting monsters are the surprised side, not the resting party."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md) ('the monsters arrive surprised (a bug)')",
+        "[P] §5 Scripting: Kuto's Well (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "A faithful port must reproduce this. The digest does not give the composition of the interrupting group or whether the fight counts toward the 10."
+    },
+    {
+      "id": "acceptance.kutos-well.flee-squares",
+      "title": "Fleeing puts the party on one of eight squares",
+      "kind": "rule",
+      "steps": [
+        "Flee from an encounter or combat above ground.",
+        "Read the party position."
+      ],
+      "expect": [
+        "The party is at one of (13,12), (2,9), (11,3), (1,1), (13,7), (1,14), (10,13), (6,5)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "(13,12)",
+        "(2,9)",
+        "(11,3)",
+        "(1,1)",
+        "(13,7)",
+        "(1,14)",
+        "(10,13)",
+        "(6,5)"
+      ],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kutos-well.no-reward-for-clearing",
+      "title": "Clearing Kuto's Well pays nothing by itself",
+      "kind": "rule",
+      "steps": [
+        "Beat all 10 random encounters without beating Norris.",
+        "Visit the council clerk in New Phlan."
+      ],
+      "expect": [
+        "The clerk pays no reward for clearing Kuto's Well.",
+        "The only clerk payment tied to this area is the Norris bonus (see acceptance.kutos-well-catacombs)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.3 (qa/research/guides-digest.md) ('Clearing: no reward')",
+        "Clue Book p.9-10 storyline and Finale",
+        "digest §7 item 14"
+      ],
+      "disagreements": [
+        "[P]: no reward for clearing; the Norris reward is separate. Clue Book p.9: 'after the players clear the area they will get the standard reward for clearing the block'; p.10 Finale: 'Once Norris The Gray has been defeated ... collect your reward for clearing the block.' [SP]: 'Defeating Norris clears the block.'"
+      ],
+      "coveredBy": [],
+      "notes": "The game text for the clerk has a dedicated Norris line ('THE COUNCIL HAS AWARDED A BONUS FOR YOUR ELIMINATING NORRIS THE GRAY.', ECL3.DAX block 8 at 0x9f77) and a generic 'THERE IS A REWARD FOR CLEARING THE <area>' line (0x9e4a); whether Kuto's Well is ever an <area> there must be read from the script."
+    }
+  ]
+}

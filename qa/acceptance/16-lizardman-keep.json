@@ -1,0 +1,672 @@
+{
+  "schema": 1,
+  "id": "acceptance.lizardman-keep",
+  "title": "Lizardman Keep",
+  "guideSection": "3.16",
+  "scripts": [
+    "ECL 16"
+  ],
+  "commission": "Commission #11",
+  "prerequisites": [
+    "The party can reach the wilderness map and fixed point m, global wilderness (37,8) (digest §3.11).",
+    "Commission #11 (Lizardmen) need not have been offered to complete the area and be paid (digest §3.0).",
+    "For the friend-word route: the party freed the three shackled lizardmen at Pyramid Level 3 location 24 (file 15, scenario free-the-shackled-lizardmen) and knows the word SAVIOR (Journal Entry 35).",
+    "No spell or magic item power works anywhere in the area; the party must be able to fight without them.",
+    "The digest states no party level. The first catacomb entry is 10 GIANT LIZARD at -4 to hit and damage for the party."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.lizardman-keep.enter-from-wilderness",
+      "title": "Enter the keep from wilderness point m",
+      "kind": "main",
+      "steps": [
+        "On the wilderness map walk onto (37,8). The game prints \"YOU FIND A RUINED CASTLE SURROUNDED BY QUICKSAND. AN OLD WORN DRAWBRIDGE IS THE ONLY SAFE WAY ACROSS THE QUAGMIRE. WILL YOU ENTER THE RUINED CASTLE?\" with ENTER / LEAVE.",
+        "Choose ENTER."
+      ],
+      "expect": [
+        "The party is on the Lizardman Keep map (ECL 16) at (8,14).",
+        "The game prints \"YOU SENSE AN ANTI-MAGIC SHELL AROUND YOU.\"."
+      ],
+      "branches": [
+        "LEAVE: stay on the wilderness map."
+      ],
+      "fights": [],
+      "data": [
+        "m = (37,8) in [P]'s global coordinates; Clue Book 'Lizard Keep 11,8' in East-region coordinates (add 26 to X, digest §7 item 37). Entry square (8,14)."
+      ],
+      "sources": [
+        "[P] §3.11 fixed point m",
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36",
+        "digest §7 item 37",
+        "game text ECL8.DAX block 27 at 0x9b71, 0x9be6 (src/audio/voice-master-manifest.json)",
+        "game text ECL8.DAX block 16 at 0x9c22 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "When the anti-magic line prints (on entry, or on the first cast attempt) is not stated in the digest; it is placed here because it is the block's only anti-magic text."
+    },
+    {
+      "id": "acceptance.lizardman-keep.exit-and-moat",
+      "title": "Leave by exit E1; the moat blocks other edges",
+      "kind": "rule",
+      "steps": [
+        "Walk onto exit E1 ([P] location 15) and confirm leaving.",
+        "In a second run walk toward the moat at the map edge."
+      ],
+      "expect": [
+        "E1 returns the party to the wilderness map at (37,8).",
+        "At the moat the game prints \"AHEAD OF YOU IS A MOAT FILLED WITH SLUDGE AND THORNS. YOU CANNOT PROCEED BECAUSE THE MUD WOULD SURELY DRAG YOU DOWN TO YOUR DEATH.\" and the party does not move."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "E1 = [P] location 15, the exit."
+      ],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 16 at 0x9c53 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says 'E1 [location 15] is the exit' without coordinates; the entry square is (8,14). The moat text is from the game text only. The return square (37,8) is inferred from the entry point."
+    },
+    {
+      "id": "acceptance.lizardman-keep.anti-magic",
+      "title": "Anti-magic over the whole area",
+      "kind": "rule",
+      "steps": [
+        "Anywhere on the surface or in the catacombs, outside combat, try to cast a memorized spell.",
+        "In combat, try to cast a spell and try to use a wand or other charged item."
+      ],
+      "expect": [
+        "No spell takes effect anywhere in the area, in or out of combat.",
+        "No item power takes effect either (digest: 'no spells, not even from items')."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say what the interface shows on an attempt (option missing, or cast with no effect), or whether a spell or charge is consumed. It also does not say whether spell effects already active on entry are suppressed. Clue Book: 'a powerful wizard placed a field that restricts spell casting over the keep'."
+    },
+    {
+      "id": "acceptance.lizardman-keep.resting",
+      "title": "Resting is always safe",
+      "kind": "rule",
+      "steps": [
+        "Encamp and rest on the surface and in the catacombs, before and after the fights."
+      ],
+      "expect": [
+        "Rest is never interrupted anywhere in the area.",
+        "Spells can be memorized while resting but still cannot be cast inside the area."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: 'Resting is always safe.' Clue Book: 'Your party can rest anywhere in the keep.' The second expectation combines this with the anti-magic rule; memorization itself is not addressed by the digest."
+    },
+    {
+      "id": "acceptance.lizardman-keep.old-lizardman-friend-word",
+      "title": "Give the friend-word SAVIOR and record Entry 31",
+      "kind": "main",
+      "steps": [
+        "Having freed the shackled lizardmen in the pyramid, enter the first of locations 1 (4,3), 3 or 10. The game prints \"AN OLD LIZARDMAN APPEARS BEFORE YOU, HAND RAISED IN A GESTURE OF PEACE.\" with the encounter menu (\"HE LOOKS AT YOU PATIENTLY.\").",
+        "Choose Parley. The game prints \"A GROUP OF HUMANS WERE DESCRIBED TO ME BY THREE OF OUR PEOPLE WHOM THEY RESCUED. IF YOU ARE THEY YOU WILL HAVE BEEN SHOWN OUR TRIBAL FRIEND-WORD.\" and \"WHAT IS IT?\".",
+        "Type SAVIOR. The game prints \"DO YOU REALLY MEAN SAVIOR ?\"; confirm.",
+        "The game prints \"THE OLD LIZARD MAN RECOGNIZES THE WORD AND HIS LIPS PART IN A TOOTHY GRIN. YOU ALL GATHER CLOSE AS HE BEGINS HIS STORY.\" and \"ONE OF YOU BUSILY SCRIBBLE IT INTO THE JOURNAL AS ENTRY 31.\".",
+        "The game prints \"FROM NEARBY A GROUP OF LIZARD MEN APPEAR. ONE LARGER THAN THE REST MOVES TO THE FRONT, 'YOUR TIME IS THROUGH OLD ONE. YOUR CLAWS ARE BLUNT.'\" and \"'FACE ME OR FIND SOME FOOL TO CHAMPION YOU!' THE OLD LIZARD MAN TURNS TO YOU AND SAYS, 'OUR CAUSE IS ONE. WILL YOU CHAMPION ME?'\" with YES / NO."
+      ],
+      "expect": [
+        "The text names Journal Entry 31 (old lizardman's speech about Drythh, Adventurer's Journal p.23).",
+        "No fight has occurred; the champion question is on screen."
+      ],
+      "branches": [
+        "Combat at the first menu: scenario kill-the-old-lizardman.",
+        "Wrong word: scenario wrong-friend-word.",
+        "YES: scenario champion-duel-won. NO: scenario champion-declined."
+      ],
+      "fights": [],
+      "data": [
+        "Friend-word: SAVIOR. Journal Entry 31, p.23. 1 = (4,3)."
+      ],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36",
+        "Adventurer's Journal p.23 (entry 31), p.24 (entry 35)",
+        "[P] §3.15 (location 24)",
+        "digest §7 item 30",
+        "game text ECL8.DAX block 16 at 0x9f0f, 0x9f49, 0xa049, 0xa0bd, 0xa0cf, 0xa184, 0xa1e3, 0xa217, 0xa287, 0x9a4a, 0xa320 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book: 'If the party freed the lizard men on the second level of Sorcerers Island and received the friend word SAVIOR they will be met by the old lizard man chieftain'; [P] puts the freed lizardmen on Pyramid Level 3 (digest §7 item 30).",
+        "The Journal's entry 35 draws the word as two runes and a path symbol; only the Clue Book and the guides spell SAVIOR."
+      ],
+      "coveredBy": [],
+      "notes": "Open question the digest does not answer: whether the old lizardman appears for a party that never freed the lizardmen, and whether typing SAVIOR works without the pyramid flag. [P]'s step list makes the pyramid a prerequisite and the Clue Book makes his appearance conditional on it; the old man's own text ('IF YOU ARE THEY ...') reads as if he appears regardless. Test both orders and record the result. The digest does not say whether the answer is case-sensitive. The script also holds \"PLEASE, BE SERIOUS.\", whose trigger is not documented."
+    },
+    {
+      "id": "acceptance.lizardman-keep.kill-the-old-lizardman",
+      "title": "Attack the old lizardman",
+      "kind": "optional",
+      "steps": [
+        "At the old lizardman's encounter menu choose Combat.",
+        "The game prints \"YOU LASH OUT WITH YOUR WEAPON DEALING ONE SWIFT, DEADLY BLOW. THE OLD LIZARD MAN TOTTERS FOR A MOMENT WITH A SURPRISED LOOK ON HIS FACE, AND THEN COLLAPSES.\"."
+      ],
+      "expect": [
+        "The old lizardman is dead without a combat screen.",
+        "The normal fight for the location entered follows: 2 LIZARDMAN + 1 GIANT LIZARD at 1, 3 GIANT LIZARD at 3, or the javelin ambush and 20 LIZARDMAN + 4 GIANT LIZARD at 10.",
+        "The duel route is closed; the area can then be cleared only by kills (scenario clear-by-kills)."
+      ],
+      "branches": [],
+      "fights": [
+        "As the location's own fight (see scenarios location-1-fight, location-3-fight, location-10-ambush)."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 16 at 0x9f8d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: '\"C\"ombat -> he dies and the location's fight follows.' The third expectation is an inference: with the old man dead nobody asks for a champion."
+    },
+    {
+      "id": "acceptance.lizardman-keep.wrong-friend-word",
+      "title": "Give a wrong friend-word",
+      "kind": "optional",
+      "steps": [
+        "At \"WHAT IS IT?\" type any word other than SAVIOR and confirm.",
+        "The game prints \"'YOU ARE NOT THEY WHO RESCUED MY CHILDREN, BUT ARE MURDEROUS PIRATES! THEN YOU ARE NOT SAFE HERE!' HE DISAPPEARS WITH AMAZING SPEED INTO THE WILDERNESS AROUND YOU.\".",
+        "Combat: 2 LIZARDMAN + 1 GIANT LIZARD. Win it."
+      ],
+      "expect": [
+        "Each character gains 53 XP.",
+        "The old lizardman is gone; the duel is not offered."
+      ],
+      "branches": [],
+      "fights": [
+        "2 LIZARDMAN + 1 GIANT LIZARD, 53 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 16 at 0xa0bd, 0xa102, 0xa673, 0xa619 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The announcement for this fight is probably \"SUDDENLY YOU ARE ATTACKED BY TWO LIZARD MEN AND A GIANT LIZARD!\" (the block has a second wording, \"2 LIZARD MEN AND A GIANT LIZARD CHARGE AT YOU.\", for the plain location-1 fight); the digest does not say which. Whether the old man can be met again after a wrong word is not stated."
+    },
+    {
+      "id": "acceptance.lizardman-keep.wrong-word-fight-at-3-and-10",
+      "title": "Wrong word at 3 or 10 still gives the location-1 fight",
+      "kind": "quirk",
+      "steps": [
+        "Enter location 3 first (not 1), meet the old lizardman there, parley and give a wrong word.",
+        "Repeat in a second run entering location 10 first."
+      ],
+      "expect": [
+        "In both runs the fight that follows is location 1's: 2 LIZARDMAN + 1 GIANT LIZARD (53 XP), not 3 GIANT LIZARD (location 3) and not the javelin ambush with 20 LIZARDMAN + 4 GIANT LIZARD (location 10)."
+      ],
+      "branches": [],
+      "fights": [
+        "2 LIZARDMAN + 1 GIANT LIZARD, 53 XP, at locations 3 and 10."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "digest §5 Scripting: 'Lizardman Keep: a wrong friend-word gives the location-1 fight at 3 and 10'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "A bug of the original that the port must reproduce. The digest does not say whether the location's own fight (3 or 10) still occurs on a later visit."
+    },
+    {
+      "id": "acceptance.lizardman-keep.champion-duel-won",
+      "title": "Champion the old chief and win the duel with Drythh",
+      "kind": "main",
+      "steps": [
+        "At the champion question choose YES and pick a champion.",
+        "Combat: the champion alone against DRYTHH (#95). Win it.",
+        "The game prints \"SEEING THEIR LEADER FALL, THE OTHER LIZARD MEN WITHDRAW. THE OLD LIZARD MAN TURNS TO YOU, 'YOU HAVE DONE ME GREAT SERVICE. REST ASSURED THAT MY PEOPLE WILL NOT JOIN TYRANTHRAXUS.'\" and \"'STILL MY PEOPLE STILL ARE HOSTILE TO STRANGERS. I THINK IT IS BEST IF YOU LEAVE.' HE TURNS AND DISAPPEARS INTO THE WILDERNESS.\"."
+      ],
+      "expect": [
+        "The area is flagged complete ('Mission complete').",
+        "The party can still walk the catacombs and loot the pools; those fights occur as normal.",
+        "Commission #11 can be collected (scenario commission-11-reward)."
+      ],
+      "branches": [
+        "Lose the duel: scenario champion-duel-lost.",
+        "NO: scenario champion-declined."
+      ],
+      "fights": [
+        "One-on-one: DRYTHH (#95). XP not given for the duel alone."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36",
+        "game text ECL8.DAX block 16 at 0xa368, 0xa3f6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The duel is fought under the area's anti-magic. The digest does not say how the champion is selected (active character or a prompt) or give Drythh's statistics. The treasure at 16 (3,8) must be searched before the duel."
+    },
+    {
+      "id": "acceptance.lizardman-keep.champion-duel-lost",
+      "title": "Lose the duel",
+      "kind": "optional",
+      "steps": [
+        "Choose YES, and let DRYTHH defeat the champion.",
+        "The game prints \"DRYTHH TURNS TO HIS CONFIDENT FOLLOWERS, 'KILL THEM!'\".",
+        "Combat: DRYTHH (#95) + 12 LIZARDMAN."
+      ],
+      "expect": [
+        "The fight is DRYTHH (#95) + 12 LIZARDMAN, the same as declining.",
+        "Winning it gives 218 XP per character."
+      ],
+      "branches": [],
+      "fights": [
+        "DRYTHH (#95) + 12 LIZARDMAN, 218 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 16 at 0xa464 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: 'Lose -> same as \"N\"o.' It does not say whether the fallen champion takes part, or whether winning this fight completes the mission (the stated clear conditions are the duel or 40 kills, and only catacomb fights and the fight at 10 count toward kills)."
+    },
+    {
+      "id": "acceptance.lizardman-keep.champion-declined",
+      "title": "Refuse to champion the old chief",
+      "kind": "optional",
+      "steps": [
+        "At the champion question choose NO.",
+        "The game prints \"'THEN I MUST FIGHT HIM MYSELF.' THE COMBAT IS EXTREMELY SHORT IN DURATION. WHEN IT IS FINISHED DRYTHH TURNS TO HIS FOLLOWERS, 'KILL THEM!'\".",
+        "Combat: DRYTHH (#95) + 12 LIZARDMAN. Win it."
+      ],
+      "expect": [
+        "Each character gains 218 XP.",
+        "The old lizardman is dead (the text: 'THE COMBAT IS EXTREMELY SHORT IN DURATION')."
+      ],
+      "branches": [],
+      "fights": [
+        "DRYTHH (#95) + 12 LIZARDMAN, 218 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 16 at 0xa493 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether killing Drythh in this group fight counts as 'win the duel' for the clear condition. A test should read the clear flag after this fight and record it."
+    },
+    {
+      "id": "acceptance.lizardman-keep.location-1-fight",
+      "title": "Location 1 without the friend-word",
+      "kind": "optional",
+      "steps": [
+        "Without the friend-word route in play, enter location 1 (4,3). The game prints \"YOU ENTER A BUILDING WHOSE WALLS ARE MORE OR LESS INTACT, THOUGH THE ROOF HAS FALLEN IN. RUBBLE MAKES PASSAGE DIFFICULT.\" and \"2 LIZARD MEN AND A GIANT LIZARD CHARGE AT YOU.\".",
+        "Combat: 2 LIZARDMAN + 1 GIANT LIZARD. Win it."
+      ],
+      "expect": [
+        "Each character gains 53 XP."
+      ],
+      "branches": [],
+      "fights": [
+        "2 LIZARDMAN + 1 GIANT LIZARD, 53 XP."
+      ],
+      "data": [
+        "1 = (4,3)."
+      ],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36",
+        "game text ECL8.DAX block 16 at 0xa57a, 0xa619 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The pairing of room descriptions with [P]'s numbers is read from the order of the game text (building with fallen roof -> 2 lizard men and a giant lizard = 1; central keep -> javelins = 10; L-shaped building -> 3 giant lizards = 3); the digest gives coordinates only for 1 (4,3) and 16 (3,8). This fight is on the surface, so it does not count toward the 40 kills."
+    },
+    {
+      "id": "acceptance.lizardman-keep.location-3-fight",
+      "title": "Location 3 without the friend-word",
+      "kind": "optional",
+      "steps": [
+        "Enter location 3. The game prints \"YOU HAVE ENTERED AN L-SHAPED BUILDING. IT IS REASONALBLY INTACT... THERE ARE EVEN PORTIONS OF ROOF OVERHEAD!\" and \"3 GIANT LIZARDS CHARGE TOWARD YOU.\".",
+        "Combat: 3 GIANT LIZARD. Win it."
+      ],
+      "expect": [
+        "Each character gains 62 XP."
+      ],
+      "branches": [],
+      "fights": [
+        "3 GIANT LIZARD, 62 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36",
+        "The Clue Book numbers this map differently from [P] (its 1-6 are holes to the catacombs, 7 stairs, 8 the ambush, 9 the giant lizards' building)",
+        "game text ECL8.DAX block 16 at 0xa879, 0xa90f, 0xa962 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The pairing of room descriptions with [P]'s numbers is read from the order of the game text (building with fallen roof -> 2 lizard men and a giant lizard = 1; central keep -> javelins = 10; L-shaped building -> 3 giant lizards = 3); the digest gives coordinates only for 1 (4,3) and 16 (3,8). A surprise variant of the announcement exists: \"SUDDENLY 3 GIANT LIZARDS APPEAR FROM BEHIND A MOUND OF RUBBLE. YOU FREEZE A MOMENT AS THEY CHARGE YOU!\". Per the digest's bug note, killing these giant lizards does not reduce the 10 met on first entering the catacombs."
+    },
+    {
+      "id": "acceptance.lizardman-keep.location-10-ambush",
+      "title": "Location 10: javelin ambush and the 20-lizardman fight",
+      "kind": "main",
+      "steps": [
+        "Enter location 10. The game prints \"YOU ENTER THE REMAINS OF THE CENTRAL KEEP. THE CEILING AND WALLS HAVE COLLAPSED TO THE POINT WHERE THE INTERIOR IS CHOKED WITH RUBBLE.\", \"SUDDENLY LIZARD MEN JUMP UP FROM WHERE THEY WERE HIDING AND THROW JAVELINS AT YOU.\" and \"AT THE SAME TIME GIANT LIZARDS CHARGE OUT OF HIDDEN TUNNELS.\".",
+        "Javelin volley: attacks at THAC0 18 for 1d6 each.",
+        "Combat: 20 LIZARDMAN + 4 GIANT LIZARD, Morale 60. Win it."
+      ],
+      "expect": [
+        "Each character gains 409 XP.",
+        "In this fight the party has -3 to hit and -2 movement.",
+        "The 20 lizardmen count toward the 40-kill clear condition (this is the only surface fight that does)."
+      ],
+      "branches": [],
+      "fights": [
+        "Javelins THAC0 18, 1d6; then 20 LIZARDMAN + 4 GIANT LIZARD, Morale 60, 409 XP; party at -3 to hit and -2 movement."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36",
+        "The Clue Book numbers this map differently from [P] (its 1-6 are holes to the catacombs, 7 stairs, 8 the ambush, 9 the giant lizards' building)",
+        "game text ECL8.DAX block 16 at 0xa703, 0xa7bd, 0xa805 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The pairing of room descriptions with [P]'s numbers is read from the order of the game text (building with fallen roof -> 2 lizard men and a giant lizard = 1; central keep -> javelins = 10; L-shaped building -> 3 giant lizards = 3); the digest gives coordinates only for 1 (4,3) and 16 (3,8). The digest does not give the number of javelin attacks. Listed as main because it is the largest block of the 40 kills needed on the no-duel route; on the duel route it is optional."
+    },
+    {
+      "id": "acceptance.lizardman-keep.find-catacomb-passages",
+      "title": "Find the passages Ea-Eg between surface and catacombs",
+      "kind": "main",
+      "steps": [
+        "On the surface, with search mode on, walk onto a passage square. The game prints \"SEARCHING THROUGH THE RUBBLE\" or \"SEARCHING THROUGH THE SWAMP\" followed by \"YOU FIND A HIDDEN TUNNEL LEADING DOWN. DO YOU TAKE IT?\" with YES / NO.",
+        "At the stairs the game prints \"YOU FIND AN OLD AND PARTIALLY BLOCKED SET OF STAIRS LEADING DOWN INTO THE DARK. DO YOU TAKE THEM?\".",
+        "Choose YES.",
+        "In the catacombs, at the matching square, the game prints \"YOU FIND A SET OF STAIRS LEADING UP.\" or \"THE TUNNEL BEGINS TO SLOPE UP.\" with \"DO YOU GO UP?\"."
+      ],
+      "expect": [
+        "YES moves the party between the surface map and the catacombs at the linked square.",
+        "With search mode off, a hidden tunnel square on the surface may give no prompt (digest: 'on the surface you may need to search for them')."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Seven passages Ea-Eg. Clue Book: six holes (1-6) and one stairway (7)."
+      ],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36",
+        "game text ECL8.DAX block 16 at 0x9ceb, 0x9e8c, 0x9e95, 0x9d14, 0x9e3c, 0xa9d0, 0xa9f2, 0xaa0c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for Ea-Eg and does not say which need searching. The Clue Book's six holes plus one stair equals seven, matching Ea-Eg."
+    },
+    {
+      "id": "acceptance.lizardman-keep.first-catacomb-entry",
+      "title": "First entry to the catacombs: ten giant lizards",
+      "kind": "main",
+      "steps": [
+        "Take any passage down for the first time. The game prints \"YOU ARE NO LONGER GOING DOWN. SUDDENLY YOU HEAR A NOISE. THERE ARE GIANT LIZARDS CHARGING! THERE IS NO TIME TO REACT. COMBAT IS UPON YOU!\".",
+        "Combat: 10 GIANT LIZARD, Morale 100. Win it.",
+        "Go up and come down again."
+      ],
+      "expect": [
+        "Each character gains 206 XP.",
+        "During the fight the party has -4 to hit and -4 damage, and humans, half-elves and elves have -2 movement.",
+        "The fight does not repeat on later entries."
+      ],
+      "branches": [],
+      "fights": [
+        "10 GIANT LIZARD, Morale 100, 206 XP; party -4 to hit and damage; humans, half-elves and elves -2 movement."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36",
+        "game text ECL8.DAX block 16 at 0x9da9 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Count: Clue Book 'The first time you enter the catacombs, all remaining giant lizards attack'; [P]: always 10, 'The intended reduction for lizards killed on the surface does not happen.'"
+      ],
+      "coveredBy": [],
+      "notes": "Dwarves, gnomes and halflings keep full movement by the digest's wording. 'Does not repeat' follows from 'First entry'."
+    },
+    {
+      "id": "acceptance.lizardman-keep.giant-lizard-count-quirk",
+      "title": "Giant-lizard count never decreases",
+      "kind": "quirk",
+      "steps": [
+        "On the surface kill the giant lizards at location 1 (1), location 3 (3) and location 10 (4).",
+        "Then enter the catacombs for the first time and count the enemies."
+      ],
+      "expect": [
+        "The fight is still 10 GIANT LIZARD, not 2."
+      ],
+      "branches": [],
+      "fights": [
+        "10 GIANT LIZARD regardless of surface kills."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "digest §5 Scripting: 'the giant-lizard count never decreases'",
+        "Clue Book p.35-36"
+      ],
+      "disagreements": [
+        "Clue Book: 'all remaining giant lizards attack' (implies a reduction); [P]: the reduction is intended but does not happen."
+      ],
+      "coveredBy": [],
+      "notes": "A bug of the original that the port must reproduce. Entering the catacombs marks 1, 3 and 10 as visited, so this order (surface first) is the only one in which all three surface fights happen."
+    },
+    {
+      "id": "acceptance.lizardman-keep.catacomb-entry-marks-locations-visited",
+      "title": "Entering the catacombs marks 1, 3 and 10 as visited",
+      "kind": "rule",
+      "steps": [
+        "Enter the catacombs before visiting locations 1, 3 and 10.",
+        "Return to the surface and enter locations 1, 3 and 10."
+      ],
+      "expect": [
+        "None of the three locations triggers its event: no old lizardman, no fights, no javelin ambush.",
+        "The duel route and the 20 lizardmen at 10 are therefore lost for this game; with 50 lizardmen in total and 20 of them at 10, at most 30 remain to be killed in the catacombs, short of the 40 needed."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: 'Entering the catacombs also marks locations 1, 3 and 10 as visited, so visit those first.' The second expectation is arithmetic on the digest's figures (50 lizardmen, 20 at location 10, clear at 40) and assumes the 12 with Drythh are part of the 50; if it holds, this order makes the area impossible to clear. Record the clear flag after killing everything in the catacombs to confirm."
+    },
+    {
+      "id": "acceptance.lizardman-keep.pool-ambush",
+      "title": "Lizardmen ambush from a pool",
+      "kind": "main",
+      "steps": [
+        "In the catacombs walk next to a pool (P1-P8) for the first time while lizardmen remain. The game prints \"A GROUP OF LIZARD MEN SLITHER OUT OF THE WATER AND THROW JAVELINS AT YOU.\".",
+        "Javelins: attacks at THAC0 16 for 1d6.",
+        "If the party is surprised the game prints \"BEFORE YOU CAN REACT THEY TURN AND DIVE BACK INTO THE WATER.\"; otherwise \"THEY TURN TO DIVE BACK IN THE WATER.\" and the party can engage: \"BEFORE THEY CAN RETURN TO THE WATER YOU ENGAGE THEM. THEY TURN AND FIGHT FANATICALLY.\".",
+        "Combat: 5 LIZARDMAN. Win it."
+      ],
+      "expect": [
+        "The first time at each pool the lizardmen surprise the party automatically.",
+        "In the fight the party has -4 to hit and -2 movement.",
+        "The 5 kills count toward the 40-kill clear condition."
+      ],
+      "branches": [],
+      "fights": [
+        "5 LIZARDMAN per pool; javelins THAC0 16, 1d6; party -4 to hit, -2 movement; XP for the fight alone not given."
+      ],
+      "data": [
+        "Pools P1-P8."
+      ],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36",
+        "game text ECL8.DAX block 16 at 0xaa7c, 0xab49, 0xaaf5, 0xab7e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no pool coordinates, no morale, and no number of javelins. It says the ambush happens 'While lizardmen remain'; with 50 lizardmen and 8 pools not every pool can have its own 5 after other fights. The mapping of the three 'dive back' lines to surprised or unsurprised is read from their wording."
+    },
+    {
+      "id": "acceptance.lizardman-keep.pool-dive-too-early",
+      "title": "Dive into a pool whose lizardmen are not beaten",
+      "kind": "optional",
+      "steps": [
+        "Stand at a pool whose lizardmen have not been defeated. The game prints \"YOU ARE IN FRONT OF A DEEP POOL OF WATER. DO YOU WISH TO DIVE IN AND SEARCH IT?\". Choose YES.",
+        "The game prints \"YOU DIVE INTO THE POOL AND BEGIN TO SEARCH BY TOUCH. SUDDENLY BEFORE YOUR CLOUDED VISION YOU SEE SOME LIZARD MEN...\" and \"YOU MANAGE TO GET OUT OF THE POOL BEFORE THEY FINISH YOU OFF.\"."
+      ],
+      "expect": [
+        "The party suffers 5 attacks at THAC0 12 for 2d2 each, then 5 more at THAC0 12 for 1d8 each.",
+        "No treasure is found."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "5 attacks THAC0 12, 2d2; then 5 attacks THAC0 12, 1d8."
+      ],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36",
+        "game text ECL8.DAX block 16 at 0xac60, 0xacb1, 0xad22 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book: 'Until you have eliminated the lizard men that guard a pool, it is very dangerous to swim in the pool looking for loot.' 'No treasure is found' is inferred. The digest does not say how the attacks are spread across characters."
+    },
+    {
+      "id": "acceptance.lizardman-keep.pool-treasures",
+      "title": "Search the pools after beating their lizardmen",
+      "kind": "optional",
+      "steps": [
+        "After defeating a pool's lizardmen, dive in (YES at the pool prompt). The game prints \"YOU FIND SOME TREASURE.\".",
+        "Do this at each of P1-P8, then dive a second time into one of them."
+      ],
+      "expect": [
+        "P1, P2, P3, P7, P8 each give 1 gem, 1000 gold and 1000 silver (216 XP per character).",
+        "P4, P5, P6 each give the same plus a Shield +2 (350 XP per character).",
+        "A second dive prints \"YOU SEARCH UNTIL YOU FEEL THE PULSE POUNDING IN YOUR EARS. NOTHING IS FOUND. WITH THAT YOU RESURFACE.\" and gives nothing."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "P1/P2/P3/P7/P8: 216 XP, 1 gem, 1000 gold, 1000 silver. P4/P5/P6: add Shield +2 (350 XP)."
+      ],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36",
+        "game text ECL8.DAX block 16 at 0xad78, 0xadbe (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest's wording 'P4/P5/P6 add a Shield +2 (350 XP)' is read as 350 XP total for those pools. That would mean three Shield +2 in all. The empty-dive line is paired with a second search by its wording."
+    },
+    {
+      "id": "acceptance.lizardman-keep.location-16-treasure",
+      "title": "Search location 16 before the duel",
+      "kind": "optional",
+      "steps": [
+        "Before resolving the duel, walk to location 16 (3,8) and search. The game prints \"YOU FIND SOME TREASURE!\".",
+        "In a second run, win the duel first and then search (3,8)."
+      ],
+      "expect": [
+        "Before the duel: 1 jewelry, 1 gem and 1000 gold; each character gains 575 XP.",
+        "After the duel: nothing is found."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "16 = (3,8). 1 jewelry, 1 gem, 1000 gold (575 XP)."
+      ],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 16 at 0x9ec8 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: 'search (before the duel)'. The second expectation follows from that parenthesis; the digest does not explain why the treasure is lost."
+    },
+    {
+      "id": "acceptance.lizardman-keep.clear-by-kills",
+      "title": "Clear the area by killing 40 of the 50 lizardmen",
+      "kind": "main",
+      "steps": [
+        "Without winning the duel, fight the 20 LIZARDMAN at location 10, then the catacomb fights (pool groups of 5, and DRYTHH + 12 LIZARDMAN if it occurs in the catacombs).",
+        "Track LIZARDMAN killed in fights that count: catacomb fights and the fight at 10 only.",
+        "After the fight that brings the count to 40 or more, read the area's clear flag."
+      ],
+      "expect": [
+        "The area is flagged complete once at least 40 lizardmen are dead in counted fights.",
+        "Lizardmen killed at location 1 (or in the wrong-word fight) do not count."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Clear: duel won, or >= 40 of 50 lizardmen killed; only catacomb fights and the 20-lizardman fight at 10 count."
+      ],
+      "sources": [
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36"
+      ],
+      "disagreements": [
+        "Clue Book: 'After either dueling the young warrior or defeating the entire compound of lizard men'; [P]: 40 of 50, in counted fights only."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say where the Drythh + 12 fight is counted (it is triggered at a surface location, the first of 1, 3 or 10), nor whether fled or surrendered lizardmen count. Giant lizards never count."
+    },
+    {
+      "id": "acceptance.lizardman-keep.commission-11-reward",
+      "title": "Collect the Commission #11 reward",
+      "kind": "main",
+      "steps": [
+        "Complete the area (duel won, or 40 counted kills) and leave by E1.",
+        "Return to New Phlan City Hall and speak to the council clerk at location 29 (5,5)."
+      ],
+      "expect": [
+        "The clerk pays 5 jewelry, 15 gems and 50 gold, and each character gains 2466 XP.",
+        "The quest tracker advances by one (#11 is one of the ten tracker quests)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Reward: 5 jewelry, 15 gems, 50 gold (2466 XP).",
+        "Adventurer's Journal prints Proclamation CCI (lizard men to the east, p.13-15)."
+      ],
+      "sources": [
+        "[P] §3.0 clerk commission list",
+        "[P] §3.16 (qa/research/guides-digest.md)",
+        "Clue Book p.35-36",
+        "Adventurer's Journal p.13-15"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The clerk's wording is not in the digest. Tavern Tale 5 (castle of gold east of Phlan, Journal p.33-34) is a rumour and not tied to this area by any source read."
+    }
+  ]
+}

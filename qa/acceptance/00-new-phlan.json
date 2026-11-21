@@ -1,0 +1,2102 @@
+{
+  "schema": 1,
+  "id": "acceptance.new-phlan",
+  "title": "New Phlan (Civilized Area)",
+  "guideSection": "3.0",
+  "scripts": [
+    "ECL 0",
+    "ECL 8",
+    "ECL 11"
+  ],
+  "commission": null,
+  "prerequisites": [
+    "A party has been created (up to six characters) and the game started; the GOG code wheel accepts any answer.",
+    "No commission is needed to be here; this is the hub every other area returns to.",
+    "Scenarios about later states name their own preconditions (Sokal Keep cleared, Yarash defeated, tracker count, Party Strength, town anger).",
+    "XP figures assume exactly six characters.",
+    "Shops and City Hall are open by day only: dawn 00:00, dusk 14:00."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.new-phlan.code-wheel-accepts-anything",
+      "title": "Pass the code wheel with any answer",
+      "kind": "rule",
+      "steps": [
+        "Start the game. The copy-protection question appears (an Espruar rune, a Dethek rune and a path).",
+        "Type any text, including a wrong word, and confirm."
+      ],
+      "expect": [
+        "The game continues to the main menu whatever was typed.",
+        "One random number is drawn to pick the question (Random(13)) before any other game dice."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "13 six-letter words in START.EXE, from 'BEWARE' to 'WYVERN'"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "[P] §4 mechanics (qa/research/guides-digest.md) UI and files: copy protection",
+        "qa/research/code-wheel.md",
+        "qa/research/version-1.3-differences.md"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "1.3-specific: in the GOG program the branch after the comparison is patched so every answer is accepted (qa/research/code-wheel.md). The extra Random(13) draw shifts every later die by one relative to the first release (qa/research/version-1.3-differences.md); replays with fixed dice depend on it. [P] lists copy-protection removal among patches that should not be applied; here the shipped GOG binary is the reference, so 'accept anything' is the faithful behaviour for Classic."
+    },
+    {
+      "id": "acceptance.new-phlan.rolfs-tour",
+      "title": "Follow Rolf's guided tour",
+      "kind": "main",
+      "steps": [
+        "Start a new game with a party. The party appears at E1 (15,1).",
+        "The game prints ''GREETINGS, COURAGEOUS ONES, I AM ROLF, APPOINTED BY THE COUNCIL TO INTRODUCE NEWCOMERS TO THE FAIR CITY OF PHLAN. IF YOU WILL ACCOMPANY ME, I WILL START THE TOUR.''",
+        "''YOU NOW FACE AN ENTRANCE TO THE TEMPLE OF TYR. THERE ARE THREE TEMPLES IN PHLAN: TYR'S, SUNE'S, AND TEMPUS. TYR'S IS THE LARGEST AND HOUSES BISHOP BRACCIO. IF YOU WILL TURN AROUND NOW, ''",
+        "''YOU WILL SEE THE ENTRANCE TO THE PASSENGER DOCK AREA WE JUST DEPARTED. FEW SHIPS DARE THE PERILOUS PASSAGE HERE, BUT THE COUNCIL IS DEVELOPING A PLAN TO OPEN UP THE SEA LANES. PLEASE FOLLOW ME.''",
+        "''BEHIND THESE DOORS ARE THE SPECIAL TRAINING SCHOOLS WHERE ADVENTURERS INCREASE THEIR SKILLS. LET US NOW GO TO THE CITY'S MOST IMPORTANT BUILDING.''",
+        "''WE ARE JUST OUTSIDE THE CITY HALL. PROCLAMATIONS ARE POSTED ON THESE WALLS. INSIDE, THE CITY CLERK AWARDS THE COUNCIL'S COMMISSIONS. COMMISSIONS ARE THE QUICKEST WAY TO FAME AND FORTUNE.''",
+        "''ON YOUR RIGHT IS ONE OF THE ENTRANCE'S TO SUNE'S TEMPLE. AS WITH ALL PHLAN'S TEMPLES, VARIOUS CLERICAL SERVICES ARE OFFERED INSIDE. ON YOUR LEFT IS AN ENTRANCE TO THE CITY PARK.''",
+        "''BEYOND THIS GATE ARE THE MONSTER-RIDDEN AREAS OF THE OLD CITY WE ARE SLOWLY PREPARING FOR SETTLEMENT. THE COUNCIL OFFERS A GENEROUS REWARD TO THOSE WHO CLEAR AREAS OF MONSTERS.'",
+        "''OUR TOUR IS ENDED. AGAIN, LET ME URGE YOU TO APPLY TO THE CITY CLERK FOR A COMMISSION. GOOD-BYE AND GOOD FORTUNE.' (YOU ARE ON YOUR OWN NOW)'"
+      ],
+      "expect": [
+        "The tour ends with the party at E2 (0,4), the gate to the Slums.",
+        "The eight texts print in the order above.",
+        "The tour does not repeat on a later entry to New Phlan."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Start E1 (15,1)",
+        "Tour ends at E2 (0,4)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0xb0b6, 0xb1c2, 0xb257, 0xb2f3, 0xb36a, 0xb400, 0xb48f, 0xb51c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyFreshSlumsVictory (milestone 'Created six characters, completed Rolf's tour, saved and reloaded, and entered the Slums.')",
+        "verifyOpeningReload"
+      ],
+      "notes": "The digest says only 'a brief guided tour, which will end at E2'. It does not say whether the player moves the party or is carried, or whether the tour can be declined; the text order is the script order. [P]'s suggested first steps after the tour: buy melee weapons, armor and shields; stay at an inn to memorize spells; visit the clerk. Taverns are dangerous for new characters."
+    },
+    {
+      "id": "acceptance.new-phlan.first-commissions-reachable",
+      "title": "At the start only the Slums and Sokal Keep are offered and reachable",
+      "kind": "main",
+      "steps": [
+        "Right after the tour visit the council clerk at City Hall 29 (5,5).",
+        "She prints ''BEFORE I CAN OFFER ANY COMMISSIONS, I MUST SEE IF YOU ARE DUE A CURRENT REWARD.' then 'THE CLERK SHUFFLES THROUGH HER PAPERS. 'ON THE MATTER OF COMMISSION,' SHE SAYS, 'I CAN OFFER THE FOLLOWING: ''",
+        "She lists 'THE SLUMS IMMEDIATELY TO OUR WEST NEED TO BE CLEARED OF MONSTERS.'' and 'SOKAL KEEP ON THORN ISLAND MUST BE CLEARED.''",
+        "Go to the dock at (11,1): the only boat goes to Sokal Keep."
+      ],
+      "expect": [
+        "The Slums and Sokal Keep commissions are mentioned.",
+        "The Slums (west gate) and Sokal Keep (boat) are the only areas reachable without passing through another hostile block."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0x9bb8, 0xa7a4, 0xa8b6, 0xa8f7 (src/audio/voice-master-manifest.json)",
+        "game text ECL3.DAX block 0 at 0x9d54 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] says 'At first only the Slums and Sokal Keep commissions are mentioned' and also that the clerk 'offers the first three unresolved commissions on her list'. The third on the list is #3 (books). Whether the first visit lists two or three offers must be read from the script."
+      ],
+      "coveredBy": [
+        "verifySokalArrival (milestone 'Heard the council's commissions, took the boat to Sokal Keep and reloaded the arrival in slot A.')"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.new-phlan.training-halls",
+      "title": "Train a character at the right hall for 1000 gold",
+      "kind": "main",
+      "steps": [
+        "Enter the training complex. The game prints 'NOTICES FOR TEACHERS AND STUDENTS ARE POSTED ON THE WALLS. A NOTE DIRECTS MAGIC USERS AND CLERICS TO GO NORTH AND FIGHTERS AND 'ROGUES' TO GO EAST.'",
+        "Further signs: 'A SIGN ON THE WALL DIRECTS MAGIC USERS TO GO THROUGH THE EAST DOOR AND CLERICS TO GO THROUGH THE WEST DOOR.'; 'A SIGN ON THE NORTH DOOR READS 'FIGHTERS'.'; 'A SIGN ON THE NORTH DOOR READS 'ROGUES'.'",
+        "Enter a hall: cleric HC (5,0), magic-user HM (7,0), fighter HF (8,0), thief HT (9,0). The trainer says ''WE TRAIN ONLY <class> HERE. DO YOU WANT TO TRAIN?'' with YES / NO.",
+        "Choose YES with a character of that class who has enough XP for the next level and 1000 gold (200 platinum)."
+      ],
+      "expect": [
+        "The character gains exactly one level.",
+        "1000 gold (or 200 platinum) is deducted.",
+        "XP beyond the next threshold is cut to 1 below the level after.",
+        "A character of another class, or without the XP, is not trained."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "HC (5,0), HM (7,0), HF (8,0), HT (9,0)",
+        "Cost 1000 gold",
+        "Level 2 thresholds: cleric 1,501; fighter 2,001; magic-user 2,501; thief 1,251",
+        "Hit dice: cleric d8, fighter d10, magic-user d4, thief d6"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "[P] §4 mechanics (qa/research/guides-digest.md) Training and XP thresholds",
+        "game text ECL3.DAX block 11 at 0x9a74, 0x9af8, 0x9f66, 0x9fe5, 0xa00e, 0xa021 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 locations 6-9"
+      ],
+      "disagreements": [
+        "Clue Book p.3-4 numbers New Phlan 1-24 (for example 3 Temple of Tyr, 5 Dueling & Hiring Hall, 12 City Hall entrance, 13 Clerk, 19 Inns, 20 Taverns); [P] uses different numbers (2 dock, 5 Braccio, 6 Tyr, 7 Sune, 14 hall, 24 Tempus, 26-34 City Hall). The numbers do not line up."
+      ],
+      "coveredBy": [
+        "verifyFighterTrainingJournal",
+        "milestone 'Trained Darkstar to level 2, paid for lodging, and reloaded Magic Missile memorized.'"
+      ],
+      "notes": "Refusal texts for the wrong class or too little XP or money are engine messages not in the script text; the digest does not quote them. Platinum is accepted wherever gold is asked ([P] §4)."
+    },
+    {
+      "id": "acceptance.new-phlan.training-hall-exploits",
+      "title": "Training-hall save and roster exploits",
+      "kind": "quirk",
+      "steps": [
+        "Re-roll hit points: at a training hall Save, train, Drop everyone, Load; the level-up hit points are rolled again.",
+        "Duplicate items: Remove one character, Save, create a dummy, trade items to the dummy, Remove the dummy, Drop everyone else, Load the save, Add the dummy back.",
+        "Restart with characters: Remove everyone, Quit, restart, Add; the characters keep XP, items and money."
+      ],
+      "expect": [
+        "Each sequence works as described: a different hit-point roll after reload (with different dice), two copies of the traded items, and a fresh game world with the old characters."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §5 quirks (qa/research/guides-digest.md) Exploits 2, 4, 5",
+        "[P] §4 mechanics (qa/research/guides-digest.md) UI and files ('Loading is only possible from the main menu, or after dropping everyone at a training hall'; 'Loading a save deletes any characters previously Removed')"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "These are properties of the roster and save system that surface at the halls. A faithful port must not block them. With fixed dice the hit-point re-roll gives the same result; the runner must vary the dice to observe a change."
+    },
+    {
+      "id": "acceptance.new-phlan.inn-rest",
+      "title": "Rest at an inn for 1 platinum",
+      "kind": "main",
+      "steps": [
+        "Enter an inn (IN). The innkeeper says ''IT WILL COST YOU 1 PLATINUM PIECE TO REST HERE. DO YOU WANT TO STAY?''",
+        "Choose YES with a character who holds at least 1 platinum.",
+        "Rest for as long as wished, memorizing spells."
+      ],
+      "expect": [
+        "1 platinum is deducted for the whole party.",
+        "The rest is never interrupted.",
+        "Spells chosen are memorized; hit points heal at 1 per 24 hours."
+      ],
+      "branches": [
+        "Payer has too little: 'YOU DON'T HAVE ENOUGH PLATINUM.'",
+        "Payer cannot pay: 'THAT PERSON WON'T PAY.' (trigger not described in the digest; likely an NPC as payer)."
+      ],
+      "fights": [],
+      "data": [
+        "1 platinum per stay",
+        "Natural healing 1 HP per 24 hours"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "[P] §4 mechanics (qa/research/guides-digest.md) Time and resting",
+        "game text ECL3.DAX block 0 at 0xa15c, 0xa1cc, 0xa20d (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 'Where You Can Rest' and location 19"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "milestone 'Trained Darkstar to level 2, paid for lodging, and reloaded Magic Missile memorized.'"
+      ],
+      "notes": "The digest gives no coordinates for the inns."
+    },
+    {
+      "id": "acceptance.new-phlan.inn-denied-but-can-rest",
+      "title": "Rest at an inn while the town refuses service",
+      "kind": "quirk",
+      "steps": [
+        "Fight the city guard so that service is refused.",
+        "Enter an inn. The game prints ''DUE TO YOUR VICIOUS ATTACK ON THOSE WHO PROTECT US, WE REFUSE YOU ALL SERVICE.''",
+        "Rest anyway."
+      ],
+      "expect": [
+        "The refusal text is shown, yet the party can still rest at the inn without interruption."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) ('If the town is angry you are told you are denied service, but you can still rest (a bug)')",
+        "[P] §5 quirks (qa/research/guides-digest.md) Scripting: Civilized",
+        "game text ECL3.DAX block 0 at 0xae1a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Faithful-port behaviour. The digest does not say whether the platinum is still charged."
+    },
+    {
+      "id": "acceptance.new-phlan.shops",
+      "title": "Buy from the four kinds of shop by day",
+      "kind": "main",
+      "steps": [
+        "By day enter the arms and armor shop (SA): 'THE SHOP SPECIALIZES IN ARMS AND ARMOR. 'CAN I SHOW YOU OUR WARES?''",
+        "Enter the general store (SG): 'THE SHOPKEEPER GREETS YOU AND OFFERS YOU ITEMS FOR SALE. 'CAN I SHOW YOU SOMETHING?''",
+        "Enter the jeweler (SJ) at (8,10): 'THE SHOPKEEPER OFFERS JEWELRY FOR SALE. 'CAN I SHOW YOU SOMETHING?''",
+        "Enter the silver shop (SS): 'THE SHOP SELLS SILVER ITEMS. 'WOULD YOU LIKE TO SEE OUR SELECTION?''",
+        "Buy an item, sell an item, and have an item identified."
+      ],
+      "expect": [
+        "General store stock: mirrors, holy symbols, flasks of oil, vials of holy water.",
+        "Silver shop stock: silver weapons and armor, and the Fine Composite Long Bow at 25000 gold.",
+        "Selling pays half of value; arrows and bolts 5%. Sale proceeds are converted to platinum and the gold remainder is lost.",
+        "Identification costs 200 gold."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "SJ at (8,10)",
+        "Fine Composite Long Bow 25000 gold",
+        "Identify 200 gold",
+        "Sell at half value; arrows and bolts 5%"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "[P] §4 mechanics (qa/research/guides-digest.md) Money, encumbrance and shops",
+        "game text ECL3.DAX block 0 at 0xa8d3, 0xa24b, 0xa84c, 0xa964 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 locations 21-24",
+        "digest §7 items 17 and 18"
+      ],
+      "disagreements": [
+        "Holy symbol: [P] the Wooden Holy Symbol of Tyr (or a mirror) repels vampires and 'The holy symbols of Sune and Tempus have no function'; Clue Book p.4 'The wooden holy symbol of Tempus is a good buy because ... his symbol will repel vampires' (digest §7 item 17).",
+        "Jewelry value: [P] 100-11999 gold; Clue Book p.4 '75-50,000 gold pieces' (digest §7 item 18).",
+        "Silver shop: Clue Book p.4 adds 'silver jewelry'; [P] lists silver weapons, armor and the bow.",
+        "Clue Book p.3-4 numbers New Phlan 1-24 (for example 3 Temple of Tyr, 5 Dueling & Hiring Hall, 12 City Hall entrance, 13 Clerk, 19 Inns, 20 Taverns); [P] uses different numbers (2 dock, 5 Braccio, 6 Tyr, 7 Sune, 14 hall, 24 Tempus, 26-34 City Hall). The numbers do not line up."
+      ],
+      "coveredBy": [
+        "verifyFreshSlumsVictory (milestone 'Bought and readied hand axes and chain mail for all six fighters, then verified the gear after reloading slot B.')",
+        "verifyGoblinLootSale",
+        "milestone 'Bought and readied a long bow and arrows in New Phlan, then verified both after reload.'"
+      ],
+      "notes": "The digest gives coordinates only for the jeweler and for one arms-shop door (9,14). Shops are open by day only: dawn 00:00, dusk 14:00 ([P] §4). [P] §5: coin totals over 65535 gold (13107 pp) can be lost in a transaction."
+    },
+    {
+      "id": "acceptance.new-phlan.arms-shop-door-works-at-night",
+      "title": "The arms shop door at (9,14) works at night",
+      "kind": "quirk",
+      "steps": [
+        "Wait until night (after 14:00).",
+        "Walk through the arms shop door at (9,14)."
+      ],
+      "expect": [
+        "The shop opens and trades as by day.",
+        "No 'THE DOOR IS LOCKED' prompt and no city watch."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Door at (9,14)",
+        "Dusk 14:00, dawn 00:00"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) ('The door at (9,14) works at night (a bug)')",
+        "[P] §5 quirks (qa/research/guides-digest.md) Scripting: Civilized"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Faithful-port behaviour; the other shop doors are locked at night."
+    },
+    {
+      "id": "acceptance.new-phlan.temples",
+      "title": "Visit the three temples",
+      "kind": "main",
+      "steps": [
+        "Enter the Temple of Tyr (location 6): 'THE PRIESTS OF TYR WELCOME YOU TO THE TEMPLE.'",
+        "Enter the Temple of Sune (location 7): 'YOU ARE WELCOMED BY PRIESTESS JOY OF SUNE.'",
+        "Enter the Temple of Tempus (location 24): 'THE PRIESTS OF TEMPUS BID YOU WELCOME.'",
+        "Each asks '' DO YOU SEEK HEALING?''. Choose YES to open the healing services; NO prints 'THEN YOU MUST LEAVE.'"
+      ],
+      "expect": [
+        "Each temple offers the temple services menu.",
+        "All three offer the same services at the same prices (Clue Book)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Tyr (6), Sune (7), Tempus (24) are [P] location numbers, not coordinates"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0xa078, 0xa0d0, 0xa9ef, 0xaa13, 0xaa38 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 locations 3, 10, 18"
+      ],
+      "disagreements": [
+        "Clue Book p.3-4 numbers New Phlan 1-24 (for example 3 Temple of Tyr, 5 Dueling & Hiring Hall, 12 City Hall entrance, 13 Clerk, 19 Inns, 20 Taverns); [P] uses different numbers (2 dock, 5 Braccio, 6 Tyr, 7 Sune, 14 hall, 24 Tempus, 26-34 City Hall). The numbers do not line up."
+      ],
+      "coveredBy": [
+        "verifySokalTempleHealing (asserts /do you seek healing/; milestone 'Returned to New Phlan and verified Brin's paid temple healing after reloading slot G.')",
+        "verifySokalTempleRecovery (milestone 'Raised and healed Brin, readied his mace, and reloaded at the Temple of Tyr:')"
+      ],
+      "notes": "The digest gives no temple prices or coordinates. [P] §5 notes relevant to temple services: Raise Dead never fails, works on elves, and can drive Constitution down to 0."
+    },
+    {
+      "id": "acceptance.new-phlan.dock-before-sokal",
+      "title": "Dock before Sokal Keep is cleared: one free destination",
+      "kind": "main",
+      "steps": [
+        "Walk toward the dock; the game prints 'TO THE NORTH IS THE PASSENGER DOCK.'",
+        "At the dock (location 2, (11,1)) the harbor master says ''BY ORDER OF THE CITY COUNCIL,' THE HARBOR MASTER SAYS, 'THE ONLY BOAT OUT IS GOING TO SOKAL KEEP. YOU CAN CATCH IT AT THE END OF THE PIER.''",
+        "Board. The game prints 'YOU BOARD A BOAT.'"
+      ],
+      "expect": [
+        "No destination menu is shown.",
+        "No money is charged.",
+        "The party arrives at Sokal Keep; the game clock does not advance."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Dock at (11,1)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0x9de8, 0x9d54, 0x9bc2 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 locations 1-2"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifySokalArrival"
+      ],
+      "notes": "The digest does not give the square where the 'PASSENGER DOCK' line prints."
+    },
+    {
+      "id": "acceptance.new-phlan.dock-after-sokal",
+      "title": "Dock after Sokal Keep is cleared: four destinations at 1 platinum",
+      "kind": "main",
+      "steps": [
+        "After Sokal Keep is cleared, go to the dock at (11,1).",
+        "The harbor master says 'THE HARBOR MASTER TELLS YOU BOATS LEAVE FOR THE WEST, THE EAST, SOKAL KEEP, AND THE NORTH SIDE OF THE BAY. 'ROUND TRIP PASSAGE IS 1 PLATINUM PIECE. WHAT PASSAGE CAN I SELL YOU?'' with the menu SOKAL / EAST / WEST / BAY / NONE.",
+        "Choose a destination. He says ''CATCH THE BOAT AT THE END OF THE PIER.''",
+        "Board: 'YOU BOARD A BOAT.'"
+      ],
+      "expect": [
+        "1 platinum is deducted per trip.",
+        "SOKAL -> Sokal Keep (8,14); EAST -> wilderness (35,29); WEST -> wilderness (20,29); BAY -> north side of the bay (26,27).",
+        "The game clock does not advance during a boat trip.",
+        "NONE: no charge, the party stays."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Sokal Keep (8,14)",
+        "East wilderness (35,29)",
+        "West wilderness (20,29)",
+        "North side of the Bay (26,27)",
+        "1 platinum per trip"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0x9c67, 0x9cf0, 0x9d2f, 0x9bc2 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 locations 1-2",
+        "Clue Book p.8 Finale"
+      ],
+      "disagreements": [
+        "Price wording: game text 'ROUND TRIP PASSAGE IS 1 PLATINUM PIECE'; [P] 'each trip costs 1 platinum'. Whether the return leg is charged again must be read from the scripts of the destination areas.",
+        "Clue Book p.3: after Sokal Keep 'you may also take the boat into the wilderness to the east or to the west'; it omits the bay there, but p.8 lists 'the West, the North Bay, or the East'."
+      ],
+      "coveredBy": [],
+      "notes": "Overland travel costs 12 hours per square ([P] §4), so 'no game time' for boats is observable on the clock. The digest does not say what happens with less than 1 platinum."
+    },
+    {
+      "id": "acceptance.new-phlan.river-text-before-and-after-yarash",
+      "title": "The river text changes after Yarash is defeated",
+      "kind": "main",
+      "steps": [
+        "Before Yarash is defeated walk to location 8 at (1,0). The game prints 'YOU WALK NEAR THE POISONOUS BARREN RIVER.'",
+        "After Yarash is defeated (commission #10) walk to (1,0). The game prints 'YOU WALK NEAR THE BEAUTIFUL STOJANOW RIVER.'"
+      ],
+      "expect": [
+        "The text is selected by the Yarash-defeated state."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 8 at (1,0)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0xa0f7, 0xa113, 0xa129 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says 'after Yarash is defeated'; whether the switch is on defeating him or on collecting the #10 reward is not stated. The clerk's reward line spells the river 'STOJONOW' (ECL3.DAX block 8 at 0xa20b) while this text spells it 'STOJANOW'; keep both as found."
+    },
+    {
+      "id": "acceptance.new-phlan.gate-to-the-unsettled-areas",
+      "title": "The west gate text and the watch taking Cadorna's treasure",
+      "kind": "optional",
+      "steps": [
+        "Walk to the west gate E2 (0,4). The game prints 'YOU ARE BY THE GATEWAY TO THE UNSETTLED AREAS. THE CITY WATCH EYES YOU SUSPICIOUSLY.'",
+        "Enter New Phlan carrying Cadorna's treasure from the Textile House. The game prints 'THE CITY WATCH STOPS YOU AND REMOVES CADORNA'S TREASURE FROM YOUR KEEPING. THEY TELL YOU YOUR REWARD WAITS WITH THE CITY CLERK.'"
+      ],
+      "expect": [
+        "The gate text prints at the gate.",
+        "With the treasure, it is removed from the party and the #5 reward becomes due at the clerk."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "game text ECL3.DAX block 0 at 0xaad5, 0xab27 (src/audio/voice-master-manifest.json)",
+        "[P] §3.0 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "milestone 'Returned from the Textile House via the west ferry, handed off the sealed box, and collected the council reward.'"
+      ],
+      "notes": "Neither text is in digest §3.0; both are from the game text. The conditions for the treasure hand-off (sealed or opened box, which entrance) belong to the Textile House area (§3.7) and are specified there, not here."
+    },
+    {
+      "id": "acceptance.new-phlan.flee-squares",
+      "title": "Fleeing puts the party on one of four squares",
+      "kind": "rule",
+      "steps": [
+        "Flee from the city guard or another New Phlan encounter (the Run choice).",
+        "Read the party position."
+      ],
+      "expect": [
+        "The party is at one of (3,11), (10,10), (2,0), (12,3)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "(3,11)",
+        "(10,10)",
+        "(2,0)",
+        "(12,3)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "[P] describes Run as going 'to a random location'; the four flee squares are the stated candidates."
+    },
+    {
+      "id": "acceptance.new-phlan.guard-trigger-resting-outside",
+      "title": "Rest in the street and get rousted by the city watch",
+      "kind": "rule",
+      "steps": [
+        "Encamp and rest anywhere in New Phlan outside an inn.",
+        "The game prints 'YOU ARE ROUSTED BY THE CITY WATCH AND TOLD TO MOVE ALONG. WHAT DO YOU DO?' with the menu GO / STAY (ECL 0) or GO / FIGHT (ECL 11, the training and hall block)."
+      ],
+      "expect": [
+        "GO: the party moves on with no fight.",
+        "STAY or FIGHT: the city guard fight starts (see guard-fight)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) trigger (1)",
+        "game text ECL3.DAX block 0 at 0x9a9d, 0x9ad7 (src/audio/voice-master-manifest.json)",
+        "game text ECL3.DAX block 11 at 0x99c2, 0x99fc (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 notes"
+      ],
+      "disagreements": [
+        "Menu: [P] gives the choice as 'R'un or 'S'tay; the game text for this trigger is GO / STAY (block 0) and GO / FIGHT (block 11). STAY / RUN is the menu of the brawl and break-in triggers."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether GO moves the party to a flee square or simply ends the rest."
+    },
+    {
+      "id": "acceptance.new-phlan.guard-trigger-closed-building",
+      "title": "Break into a shop or City Hall at night",
+      "kind": "rule",
+      "steps": [
+        "At night (after 14:00) walk into a shop door or a City Hall building.",
+        "The game prints 'THE DOOR IS LOCKED. DO YOU WANT TO BREAK IN?' Choose YES.",
+        "The game prints 'THE CITY WATCH RESPONDS TO THE NOISE. DO YOU STAY TO FIGHT THEM OR RUN AWAY?' with the menu STAY / RUN."
+      ],
+      "expect": [
+        "NO at the door: nothing happens.",
+        "STAY: the city guard fight.",
+        "RUN: the party is put on a random flee square."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) trigger (3)",
+        "game text ECL3.DAX block 0 at 0x99af, 0xad86, 0xadc3 (src/audio/voice-master-manifest.json)",
+        "game text ECL3.DAX block 8 at 0x9964 (src/audio/voice-master-manifest.json) ('THE WAY IS BLOCKED.')",
+        "Clue Book p.3-4 notes"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether a successful break-in opens the shop. 'THE WAY IS BLOCKED.' in the City Hall block (0x9964) is the likely night message there; its trigger is not described in the digest."
+    },
+    {
+      "id": "acceptance.new-phlan.guard-trigger-forcing-braccio",
+      "title": "Force past the temple guards to Bishop Braccio",
+      "kind": "rule",
+      "steps": [
+        "Before commission #6 is offered, walk to location 5 at (10,5).",
+        "The game prints 'THE TEMPLE GUARDS INFORM YOU THAT THE BISHOP IS NOT RECEIVING VISITORS AT THIS TIME. WHAT DO YOU DO?' with the menu LEAVE / FORCE YOUR WAY PAST.",
+        "Choose FORCE YOUR WAY PAST."
+      ],
+      "expect": [
+        "LEAVE: nothing happens.",
+        "FORCE YOUR WAY PAST: the city guard responds (Run or Stay and fight)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 5 at (10,5)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) trigger (2) and location 5",
+        "game text ECL3.DAX block 0 at 0x9e2e, 0x9e7d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.new-phlan.guard-trigger-mad-man",
+      "title": "The MAD MAN attacks citizens",
+      "kind": "rule",
+      "steps": [
+        "Enter New Phlan with the MAD MAN (#25) from Mendor's Library in the party.",
+        "At random the game prints 'THE MAD MAN SUDDENLY BEGINS TO SCREAM AND ATTACK EVERYONE WITHIN ARM'S REACH.'",
+        "The city guard responds."
+      ],
+      "expect": [
+        "The guard choice (Run, or Stay and fight) is offered.",
+        "Elsewhere a priest says 'AN AGED PRIEST APPROACHES, POINTING AT THE MAD MAN, HE SPEAKS, 'THAT MAN URGENTLY NEEDS OUR CARE. DROP HIM FROM YOUR PARTY OR HE WILL BRING YOU TO GRIEF. WE WILL CARE FOR HIM.''"
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) trigger (5)",
+        "game text ECL3.DAX block 0 at 0xaf9b, 0xafe0 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.11 location 6"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives neither the odds of the outburst nor where the priest appears; the priest's text is from the game text only."
+    },
+    {
+      "id": "acceptance.new-phlan.guard-fight",
+      "title": "Stay and fight the city guard",
+      "kind": "optional",
+      "steps": [
+        "Trigger the city watch and choose to stay.",
+        "Fight 2 LEVEL 3 MU (#94), 12 6TH LEVEL FIGHTER (#84), 12 AIDES (#53) and 12 NOMAD (#40).",
+        "Win."
+      ],
+      "expect": [
+        "Each character gains 5609 XP.",
+        "The town is now angry: all shops and temples refuse service (see service-refused-until-rewarded)."
+      ],
+      "branches": [],
+      "fights": [
+        "2 LEVEL 3 MU (#94), 12 6TH LEVEL FIGHTER (#84), 12 AIDES (#53), 12 NOMAD (#40); Morale 50; 5609 XP"
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "Clue Book p.3-4 notes ('If you fight any of these guards, you will be unable to buy anything in the shops or temples until you complete a mission')"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether merely starting the fight, or winning it, sets the anger."
+    },
+    {
+      "id": "acceptance.new-phlan.guard-run",
+      "title": "Run from the city watch",
+      "kind": "optional",
+      "steps": [
+        "Trigger the city watch and choose to run."
+      ],
+      "expect": [
+        "The party is placed on a random flee square: (3,11), (10,10), (2,0) or (12,3).",
+        "No fight; the town does not become angry."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "'The town does not become angry' follows from [P] tying the anger to 'after fighting the guard'."
+    },
+    {
+      "id": "acceptance.new-phlan.service-refused-until-rewarded",
+      "title": "After fighting the guard, service is refused until a commission is rewarded",
+      "kind": "rule",
+      "steps": [
+        "After fighting the city guard, enter a shop and a temple.",
+        "Each prints ''DUE TO YOUR VICIOUS ATTACK ON THOSE WHO PROTECT US, WE REFUSE YOU ALL SERVICE.''",
+        "Collect any commission reward from the clerk (other than Braccio's #6).",
+        "Enter the shop and temple again."
+      ],
+      "expect": [
+        "While angry, no shop sells or buys and no temple heals.",
+        "After a clerk reward the shops and temples serve normally.",
+        "The #6 (Braccio) reward does not cancel the anger."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0xae1a (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 notes"
+      ],
+      "disagreements": [
+        "Scope: [P] 'all shops and temples refuse service until you are rewarded for a commission'; Clue Book p.3 'unable to buy anything in the shops or temples until you complete a mission'. [P] ties the pardon to collecting the reward, the Clue Book to completing the mission."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether training halls, the hiring hall or the dock also refuse. Inns show the refusal but still let the party rest (see inn-denied-but-can-rest)."
+    },
+    {
+      "id": "acceptance.new-phlan.tempus-attacks-while-unforgiven",
+      "title": "The Temple of Tempus attacks an unforgiven party",
+      "kind": "optional",
+      "steps": [
+        "While the town is angry, enter the Temple of Tempus.",
+        "The game prints 'YOU ATTACKED THE CITY WATCH, YOU WON'T BEAT US SO EASILY!'",
+        "Fight 12 7TH LVL CLERIC (#83), 20 4TH LVL FIGHTER (#41) and 20 8TH LVL FIGHTER (#85).",
+        "Leave and enter again while still unforgiven."
+      ],
+      "expect": [
+        "The fight happens on every entry while unforgiven."
+      ],
+      "branches": [],
+      "fights": [
+        "12 7TH LVL CLERIC (#83), 20 4TH LVL FIGHTER (#41), 20 8TH LVL FIGHTER (#85); Morale 99; XP not given"
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0xaa7c (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 notes ('the temple of Tempus is guarded by its own temple guards')"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.new-phlan.city-hall-guards",
+      "title": "Fight the City Hall guards at location 34",
+      "kind": "optional",
+      "steps": [
+        "Without the #15 summons, walk to location 34 at (4,6) in City Hall.",
+        "The game prints 'YOU ARE INTERCEPTED BY THE COUNCIL GUARD. 'HALT. YOUR PRESENCE IS NOT AUTHORIZED. LEAVE.' DO YOU LEAVE?' with YES / NO.",
+        "Choose NO. Fight 3 LEVEL 3 MU (#94), 6 AIDES (#53), 5 8TH LVL FIGHTER (#85) and [PS] CORPORAL (#54).",
+        "Win. The game prints 'THE REMAINING GUARDS DECIDE TO LEAVE YOU ALONE.'",
+        "Leave City Hall and return to (4,6)."
+      ],
+      "expect": [
+        "YES: the party is turned back with no fight.",
+        "The guards respawn: the intercept happens again on a later visit.",
+        "Fighting them counts as fighting guards: service is refused until a commission is rewarded."
+      ],
+      "branches": [],
+      "fights": [
+        "3 LEVEL 3 MU (#94), 6 AIDES (#53), 5 8TH LVL FIGHTER (#85), [PS] CORPORAL (#54); Morale 99; XP not given. The number of CORPORALs equals Party Strength."
+      ],
+      "data": [
+        "Location 34 at (4,6)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0xb3e1, 0xb496, 0xb555 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 notes ('The chambers of the city council are guarded by the council guards')"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "'[PS] CORPORAL' is read as a count equal to Party Strength; the digest does not spell that out. That fighting the council guard sets the same anger is stated by the Clue Book ('If you fight any of these guards') and not separately by [P]."
+    },
+    {
+      "id": "acceptance.new-phlan.guard-loot-exploit",
+      "title": "Kill the guards for loot, then clear the anger with a reward",
+      "kind": "quirk",
+      "steps": [
+        "Hold a completed but uncollected commission.",
+        "Fight and beat the city guard or the City Hall guards.",
+        "Take the loot; an 8TH LVL FIGHTER carries a Ring of Protection +3.",
+        "Collect the commission reward from the clerk."
+      ],
+      "expect": [
+        "The guards' items can be looted.",
+        "After the reward, shops and temples serve again."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "8TH LVL FIGHTER (#85): Ring of Protection +3"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) Exploit"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest names only the ring as an example of 'good loot'. A test should assert the ring on a looted 8TH LVL FIGHTER and the pardon, not a full loot table."
+    },
+    {
+      "id": "acceptance.new-phlan.tolerance-after-winning-the-game",
+      "title": "After victory, some offences may be tolerated",
+      "kind": "rule",
+      "steps": [
+        "Win the game (defeat Tyranthraxus).",
+        "Rest outside an inn; force the way to Braccio's office; enter a closed shop."
+      ],
+      "expect": [
+        "[P]: triggers (1)-(3) 'may be tolerated after you have won the game'."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "[P] §6 Victory (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says 'may be', so it is not checkable as written: a test author must read the victory-flag checks in the ECL 0 script to decide which of the three stop calling the watch. Recorded so the behaviour is not forgotten."
+    },
+    {
+      "id": "acceptance.new-phlan.tavern-pickpocket",
+      "title": "Tavern: the pickpocket",
+      "kind": "rule",
+      "steps": [
+        "Enter a tavern (TA). The game prints 'YOU ARE IN A TAVERN. THE AIR IS FILLED WITH SMOKE AND GOSSIP. PEOPLE ARE GAMBLING AT THE TABLES.'",
+        "With chance 26 in 256 a pickpocket strikes.",
+        "Half the time the party notices: 'YOU FEEL A LIGHT TOUCH ON YOUR PURSE. DO YOU IGNORE IT OR GRAB THE OFFENDING HAND?' with the menu IGNORE / GRAB.",
+        "Otherwise: 'YOU REALIZE YOU HAVE BEEN VICTIMIZED BY A PICKPOCKET.'"
+      ],
+      "expect": [
+        "Robbed: the whole party loses 20% of its money and 5% of its light items.",
+        "GRAB: a tavern brawl starts (see tavern-brawl).",
+        "Noticing happens 1 time in 2."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "26 in 256",
+        "20% of money, 5% of light items",
+        "caught 1 in 2"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0xa2d7, 0xa351, 0xa393, 0xa3b8 (src/audio/voice-master-manifest.json)",
+        "[P] §5 quirks (qa/research/guides-digest.md) (theft protection; item theft sources; opcode 28 ROB bug)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say what IGNORE does (whether the theft then succeeds) or whether GRAB prevents the loss. [P] §5: heavy items at the top of the inventory reduce item theft; opcode 28 mishandles the item chance while iterating; keep both. With fixed dice all three rolls can be asserted."
+    },
+    {
+      "id": "acceptance.new-phlan.tavern-gamble",
+      "title": "Tavern: gamble on the top",
+      "kind": "rule",
+      "steps": [
+        "In the tavern the game asks 'DOES ANYONE WANT TO GAMBLE?' Choose YES and pick a character.",
+        "The game prints ''THE GAME WORKS LIKE THIS. WE SPIN THIS TOP. IF THE GREEN SIDE COMES UP, YOU GET DOUBLE YOUR MONEY BACK. IF A BLUE SIDE COMES UP, YOU GET YOUR MONEY BACK. IF A RED SIDE COMES UP, YOU LOSE.''",
+        "It shows 'YOU HAVE <n> PP.' and asks 'HOW MANY PLATINUM PIECES WILL YOU WAGER? (HOUSE LIMIT IS 1000)'.",
+        "Enter a wager. One of: 'IT'S GREEN. YOU GET DOUBLE YOUR MONEY BACK.' / 'IT'S BLUE. YOU WIN.' / 'RED. SORRY, YOU LOSE.'",
+        "The game asks 'WILL YOU GO AGAIN?'"
+      ],
+      "expect": [
+        "Red 30%: the wager is lost.",
+        "Green 20%: profit equal to the wager.",
+        "Blue (the remaining 50%): the wager is returned.",
+        "No brawl can happen on a visit where someone gambled.",
+        "A wager above 1000 or above the character's platinum: 'I CAN'T ACCEPT THAT WAGER.'"
+      ],
+      "branches": [
+        "A character in bad shape cannot play: 'NO ONE IS WILLING TO GAMBLE WITH SOMEONE WHO LOOKS THAT BAD.' (exact condition not in the digest)."
+      ],
+      "fights": [],
+      "data": [
+        "30% red, 20% green",
+        "House limit 1000 platinum"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0xa3eb, 0xa45b, 0xa51a, 0xa528, 0xa532, 0xa59a, 0xa5d5, 0xa5ec, 0xa60d, 0xa647, 0xa67b (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 location 20"
+      ],
+      "disagreements": [
+        "Blue: the rules text says 'IF A BLUE SIDE COMES UP, YOU GET YOUR MONEY BACK' but the result line reads 'IT'S BLUE. YOU WIN.' [P] gives only red 30% and green 20%, which leaves 50% for blue with no gain."
+      ],
+      "coveredBy": [],
+      "notes": "With fixed dice the colour can be asserted against the platinum change. The reasons for 'I CAN'T ACCEPT THAT WAGER.' are inferred from the house-limit prompt; the digest does not list them."
+    },
+    {
+      "id": "acceptance.new-phlan.tavern-tales",
+      "title": "Tavern: overhear one of 23 tales",
+      "kind": "rule",
+      "steps": [
+        "In the tavern the game prints 'YOU OVERHEAR TAVERN TALE <n>'.",
+        "Repeat visits and record the numbers."
+      ],
+      "expect": [
+        "n is always between 1 and 23.",
+        "Tale 24 is never announced in 1.3.",
+        "Only the number is shown; the tale text is printed in the Adventurer's Journal p.33-34, not on screen."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Useful tales per [P]: 1 (wizard's castle ruins in a swamp far to the northeast), 3 (wells give access to hidden dens and underground passages), 8 (the graveyard is controlled by a powerful undead), 23 (silver dragon in the Dragonspine Mountains who helps travellers); 9 (manuscript dated 1977 GUE) for breaking the fourth wall",
+        "All 23 tales: Adventurer's Journal p.33-34 (summaries in NOTES.md)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0xa413, 0xa438 (src/audio/voice-master-manifest.json)",
+        "Adventurer's Journal p.33-34",
+        "qa/research/version-1.3-differences.md",
+        "Clue Book: Tavern Tale 23 is the silver dragon (digest [CB])"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "1.3-specific: the first release drew 1-24 and could announce a non-existent Tale 24; 1.3 draws 1-23 (qa/research/version-1.3-differences.md: operand RANDOM 17 -> RANDOM 16 at script address a429). The digest does not say how often a tale is heard per visit or how it combines with the pickpocket and brawl rolls."
+    },
+    {
+      "id": "acceptance.new-phlan.tavern-brawl",
+      "title": "Tavern: the drunken brawl",
+      "kind": "rule",
+      "steps": [
+        "Visit a tavern without gambling; a brawl starts 1 time in 4 (or always after GRAB on a pickpocket).",
+        "The game prints 'A DRUNKEN BRAWL BREAKS OUT. YOU ARE CAUGHT IN THE MIDDLE.'",
+        "Roll 1d2, +1 if Party Strength is 25 or more, +2 if 51 or more. Starting at that number, fight 11 of each of three consecutive groups from the list in data.",
+        "13 allies join the party's side; 1d4 picks their type.",
+        "Win. The game prints 'THE CITY WATCH CHARGES IN. DO YOU RUN AWAY OR STAY TO CONFRONT THEM?' with the menu STAY / RUN."
+      ],
+      "expect": [
+        "Enemies: 33 in three groups of 11, Morale 50.",
+        "13 allies fight for the party.",
+        "Winning gives no items.",
+        "After the win the city watch confronts the party: STAY leads to the city guard fight, RUN to a flee square."
+      ],
+      "branches": [],
+      "fights": [
+        "11 each of three consecutive entries starting at 1d2 (+1 at PS>=25, +2 at PS>=51): 1 NOMAD (#40), 2 1ST LVL THIEF (#45), 3 CORPORAL (#54), 4 AIDES (#53), 5 4TH LVL FIGHTER (#41), 6 6TH LVL THIEF (#51); Morale 50; 13 allies"
+      ],
+      "data": [
+        "Brawl 1 in 4 if nobody gambled",
+        "Start index 1-4"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0xa6a0, 0xa7e2, 0xa818 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 location 20 ('brawls (which are worth experience points)')",
+        "qa/research/version-1.3-differences.md"
+      ],
+      "disagreements": [
+        "Clue Book p.4: brawls 'are worth experience points'; [P]: 'If you win you get no items, and then the city guard confront you'. [P] does not give the brawl's XP.",
+        "[P] counts 'tavern brawling' as city-guard trigger (4); the game text shows the watch arriving only after the brawl ('THE CITY WATCH CHARGES IN')."
+      ],
+      "coveredBy": [],
+      "notes": "1.3-specific: the brawl script ends with GOTO a609 where the first release had EXIT (qa/research/version-1.3-differences.md). Address a609 sits just before the gambling 'WILL YOU GO AGAIN?' print (0xa60d in the manifest's numbering); what the player sees after the brawl in 1.3 has not been decoded in the repository notes and must be read from the script. Do not assert the first-release ending. The digest does not say which ally types the 1d4 selects. Maximum start index is 4 (2+2), so groups 4-6 at the top."
+    },
+    {
+      "id": "acceptance.new-phlan.proclamations-by-tracker",
+      "title": "Read the proclamations at the City Hall entrance",
+      "kind": "main",
+      "steps": [
+        "Walk to the City Hall entrance (location 26). The game prints 'YOU ARE OUTSIDE THE CITY HALL. THE CITY CLERK WAITS INSIDE TO AWARD COMMISSIONS.'",
+        "The game prints 'PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE' followed by the current proclamation numbers.",
+        "With 0 tracker quests the line is 'PROCLAMATIONS LXIV, LXXVIII, CIX, AND LIX.'",
+        "With 1 to 10 tracker quests the line is 'PROCLAMATION <numeral>' (or the pair for 2 quests), per the table in data.",
+        "Complete tracker quests one at a time and re-read the wall after each."
+      ],
+      "expect": [
+        "The numerals shown match the row for the current tracker count.",
+        "Each numeral is a proclamation printed in the Adventurer's Journal p.13-15."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "0 tracker quests: LXIV (Valhingen Graveyard information); LXXVIII (Valhingen Graveyard information); CIX (rescue force for Taimalg-the-Invincible, lost in Valhingen); LIX (clear any block)",
+        "1 tracker quests: CI (Sokal Keep)",
+        "2 tracker quests: CXXVI (books and tomes); CX (special commission, 'political sensitivity')",
+        "3 tracker quests: CXXXIV (Kovel mansion thieves)",
+        "4 tracker quests: CLIV (bounty per undead plus an enchanted item for Valhingen)",
+        "5 tracker quests: CXIV (heir of House Bivant)",
+        "6 tracker quests: CCIV (kobolds)",
+        "7 tracker quests: CXXIX (Stojanow river poisoning)",
+        "8 tracker quests: CCI (lizard men to the east)",
+        "9 tracker quests: CXIV (heir of House Bivant)",
+        "10 tracker quests: LIX (clear any block)",
+        "Journal proclamations never posted per [P]'s table: CXX (pirates' stronghold in the Twilight Marsh), CLVI (rescue the Duchess of Melvaunt from ogres), CLXX (insect men west of New Phlan), CXC (hobgoblins gathering), CCXIV (nomads)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) proclamation table",
+        "game text ECL3.DAX block 0 at 0xabd2, 0xac22, 0xac8a, 0xac96, 0xac9b (src/audio/voice-master-manifest.json)",
+        "Adventurer's Journal p.13-15 (18 proclamations)",
+        "[P] §6: 'The proclamation after 10 quests is LIX' (digest)"
+      ],
+      "disagreements": [
+        "Coverage: the Journal prints 18 proclamations; [P]'s table posts only 13 distinct ones and never CXX, CLVI, CLXX, CXC or CCXIV.",
+        "Repeats: [P]'s table lists LIX at 0 and at 10 quests, and CXIV at 5 and at 9. A repeated CXIV at 9 may be a transcription slip for one of the five never-posted numerals (the Journal's CCXIV differs from CXIV by a leading 'C'); the digest gives no evidence either way.",
+        "Order vs content: CXIV (heir of Bivant) is posted at 5 quests, but commission #12 (the heir) is twelfth on the clerk's list; CCIV (kobolds) is posted at 6 and CCI (lizard men) at 8, while nomads (commission #8, Journal CCXIV) are never posted. The wall and the clerk's list are not in step in [P].",
+        "Clue Book p.3-4 numbers New Phlan 1-24 (for example 3 Temple of Tyr, 5 Dueling & Hiring Hall, 12 City Hall entrance, 13 Clerk, 19 Inns, 20 Taverns); [P] uses different numbers (2 dock, 5 Braccio, 6 Tyr, 7 Sune, 14 hall, 24 Tempus, 26-34 City Hall). The numbers do not line up. Clue Book: entrance is 12; [P]: 26."
+      ],
+      "coveredBy": [],
+      "notes": "Only row 0 is confirmed by the game text ('PROCLAMATIONS LXIV, LXXVIII, CIX, AND LIX.' at 0xac9b). Rows 1-10 are built at run time from 'PROCLAMATION' + a numeral (0xac8a, 0xac96), so the manifest cannot confirm them: read the numeral table from the script and compare it with [P] before asserting rows 5 and 9. The 2-quest row has two numerals but the script's stem is singular; the exact wording is not known from the digest. The digest gives no coordinates for location 26."
+    },
+    {
+      "id": "acceptance.new-phlan.skullcrusher-leaves",
+      "title": "Skullcrusher leaves the party at the City Hall entrance",
+      "kind": "optional",
+      "steps": [
+        "Arrive at location 26 with Skullcrusher (from the Textile House) in the party.",
+        "The game prints 'SKULLCRUSHER SPEAKS, 'I MUST GO TO MY MASTER NOW.'' and 'HE LEAVES.'"
+      ],
+      "expect": [
+        "Skullcrusher is removed from the party."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0xad29, 0xad6c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifySkullcrusherRecruitment (recruitment only; his departure is not asserted)"
+      ],
+      "notes": "How Skullcrusher is recruited belongs to the Textile House area (§3.7)."
+    },
+    {
+      "id": "acceptance.new-phlan.city-hall-entry-hall",
+      "title": "Enter City Hall and see the guarded door",
+      "kind": "main",
+      "steps": [
+        "Enter City Hall by day. The game prints 'YOU ENTER THE CITY HALL. AS YOU FACE DOWN THE HALLWAY, YOU SEE A GUARDED DOOR.'",
+        "Walk to the clerk's door. The game prints 'YOU ARE OUTSIDE THE CLERK'S OFFICE. GUARDS POSTED AROUND A DOOR IN THE SOUTH WALL WATCH YOU CLOSELY.'"
+      ],
+      "expect": [
+        "Both texts print on the way to location 29 (5,5)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "game text ECL3.DAX block 8 at 0x9a7d, 0x9b3c (src/audio/voice-master-manifest.json)",
+        "[P] §3.0 (qa/research/guides-digest.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Neither text is in the digest; the squares where they print must come from the script. City Hall is open by day only ([P] §4)."
+    },
+    {
+      "id": "acceptance.new-phlan.cadorna-confronts-you",
+      "title": "Cadorna confronts a party that opened his treasure",
+      "kind": "optional",
+      "steps": [
+        "Open the Cadorna treasure box in an obvious way (Textile House), then walk to location 27 at (4,4).",
+        "The game prints 'COUNCILMAN CADORNA CONFRONTS YOU. 'YOU HAVE TAKEN MY FAMILY TREASURE. I DON'T FORGET SUCH THINGS.' HE STRIDES OFF.'"
+      ],
+      "expect": [
+        "The text prints only if the box was opened in an obvious way.",
+        "No fight."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 27 at (4,4)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0x9ada (src/audio/voice-master-manifest.json)",
+        "digest §7 item 15"
+      ],
+      "disagreements": [
+        "Opening the box: [GB] 'you won't get a reward'; [P] you get the contents, 1943 XP and Cadorna's anger, the #5 reward not explicitly denied; Clue Book: the clerk pays only if the box was not 'obviously' opened (digest §7 item 15)."
+      ],
+      "coveredBy": [
+        "milestone 'Returned with the opened box and reloaded Cadorna's unpaid outcome.'"
+      ],
+      "notes": "The existing replay's milestone calls the opened-box result 'Cadorna's unpaid outcome', which sides with [GB] and the Clue Book on the #5 reward. What counts as 'obvious' is defined in the Textile House section, not here. The digest does not say whether the confrontation repeats."
+    },
+    {
+      "id": "acceptance.new-phlan.clerk-offers-three",
+      "title": "The clerk checks rewards, then offers the first three unresolved commissions",
+      "kind": "main",
+      "steps": [
+        "Enter location 29 at (5,5). The clerk says 'AT YOUR ENTRY, THE COUNCIL CLERK BEGINS LOOKING THROUGH A STACK OF PAPERS. 'BEFORE I CAN OFFER ANY COMMISSIONS, I MUST SEE IF YOU ARE DUE A CURRENT REWARD.'",
+        "Any rewards due are paid first, each with 'THE CLERK SPEAKS. '' ... 'HERE IS YOUR REWARD.''",
+        "Then 'THE CLERK SHUFFLES THROUGH HER PAPERS. 'ON THE MATTER OF COMMISSION,' SHE SAYS, 'I CAN OFFER THE FOLLOWING: '' and up to three offers, in list order, skipping resolved ones and ones whose prerequisite is unmet.",
+        "She ends with ''THESE ARE ALL OF THE COMMISSIONS CURRENTLY AVAILABLE.''",
+        "Leave and come straight back: she says ''BACK SO SOON? I CAN ONLY REPEAT THE EARLIER OFFERS: ''"
+      ],
+      "expect": [
+        "At most three commissions are offered per visit, the first three unresolved on the fixed list of 15.",
+        "Rewards are paid before offers.",
+        "A mission completed without having been offered is still rewarded ('In most cases')."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 29 at (5,5)",
+        "Prerequisites per [P]: #5 needs #2; #7 needs #2; #12 must be offered and needs #2; #13 needs #5; #14 needs #13; #15 needs #14; #4 must be offered first; #6 is asked only once"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0x9bb8, 0x9d51, 0x9eea, 0xa7a4, 0xa80f, 0xaf4b (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 notes and location 13",
+        "digest §7 item 16"
+      ],
+      "disagreements": [
+        "Order of offers: [GB] after 2 quests -> Cadorna, after 3 -> Braccio, about a dozen -> Cadorna's chambers; [P] the first three unresolved commissions from a fixed list, #5 needs #2 (digest §7 item 16).",
+        "Clue Book p.3: 'she will describe several commissions'; [P]: exactly the first three unresolved.",
+        "Clue Book p.3-4 numbers New Phlan 1-24 (for example 3 Temple of Tyr, 5 Dueling & Hiring Hall, 12 City Hall entrance, 13 Clerk, 19 Inns, 20 Taverns); [P] uses different numbers (2 dock, 5 Braccio, 6 Tyr, 7 Sune, 14 hall, 24 Tempus, 26-34 City Hall). The numbers do not line up. Clue Book: clerk is 13; [P]: 29."
+      ],
+      "coveredBy": [
+        "verifySokalArrival",
+        "verifySokalRestoredCouncil (milestone 'Heard and tracked the Sokal commission, then returned to Thorn Island:')",
+        "verifyPodalFromCouncil"
+      ],
+      "notes": "[P] names the clerk Sasha only 'in later games'; the game text calls her 'THE COUNCIL CLERK'. The digest does not say whether a commission with an unmet prerequisite is skipped or blocks the list; 'skipping' above is the reading that fits 'first three unresolved' plus the prerequisites, and must be confirmed in the script. What triggers 'BACK SO SOON?' (same visit, or no change in state) is not stated."
+    },
+    {
+      "id": "acceptance.new-phlan.junior-councilman-cadorna",
+      "title": "Junior Councilman's office: barred, then Cadorna's commission",
+      "kind": "main",
+      "steps": [
+        "Before commission #5 is offered, walk to location 30 at (6,5): a guard bars the way.",
+        "After the clerk says 'JUNIOR COUNCILMAN CADORNA HAS A SPECIAL COMMISSION FOR YOU. HIS CHAMBERS ARE THROUGH THE EAST DOOR.'', enter (6,5).",
+        "Cadorna says ''WHEN OLD PHLAN WAS OVERRUN, A FAMILY TREASURE WAS HIDDEN IN THE WESTERN BUILDING OF THE TEXTILE COMPLEX.' then ''THE FAITHFUL SERVANT SENT TO FETCH IT NEVER RETURNED. THE COMPLEX IS JUST SOUTH OF PODOL PLAZA. BRING THE TREASURE TO ME AND YOU WILL BE WELL REWARDED.''"
+      ],
+      "expect": [
+        "Entry is refused until #5 is offered.",
+        "After the speech commission #5 is accepted."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 30 at (6,5)",
+        "#5 requires #2"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0xaa52, 0xaf96, 0xafec, 0x9964 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 location 14"
+      ],
+      "disagreements": [
+        "Spelling: Cadorna's game text says 'PODOL PLAZA'; the clerk's game text and [P] say 'Podal Plaza'. Keep each as found.",
+        "Clue Book p.3-4 numbers New Phlan 1-24 (for example 3 Temple of Tyr, 5 Dueling & Hiring Hall, 12 City Hall entrance, 13 Clerk, 19 Inns, 20 Taverns); [P] uses different numbers (2 dock, 5 Braccio, 6 Tyr, 7 Sune, 14 hall, 24 Tempus, 26-34 City Hall). The numbers do not line up."
+      ],
+      "coveredBy": [
+        "verifyPodalFromCouncil (milestone 'Verified the Podal Plaza exchange, council reward, and Textile House commission after reload.')"
+      ],
+      "notes": "The digest does not quote the guard's refusal; 'THE WAY IS BLOCKED.' (0x9964) is the likely text. The speaker's name is not in the game text of the speech; [P] names him Porphyrys Cadorna."
+    },
+    {
+      "id": "acceptance.new-phlan.senior-councilman-zhentil-packet",
+      "title": "Senior Councilman's office: barred, then the Zhentil packet",
+      "kind": "main",
+      "steps": [
+        "Before commission #13 is offered, walk to location 31 at (5,6): entry is barred.",
+        "After the clerk says 'LORD CADORNA HAS A DELICATE DIPLOMATIC MISSION THAT REQUIRES YOUR PARTICULAR SKILLS. YOU ARE SUMMONED TO HIS CHAMBERS. GO THROUGH THE SOUTH DOOR.'', enter (5,6).",
+        "Cadorna says ''IT IS IMPERATIVE THAT A MESSAGE BE DELIVERED TO THE ZHENTIL OUTPOST TO THE WEST. I AM SENDING YOU AS DIPLOMATIC ENVOYS.' then ''WHEN YOU GET TO ZHENTIAL KEEP, PRESENT THIS PACKET TO ITS COMMANDANT. DO NOT BREAK THE SEALS OR YOU WILL BE SEIZED AS SPIES.''",
+        "Look for the packet in the inventories and try to open it."
+      ],
+      "expect": [
+        "Entry is refused until #13 is offered.",
+        "The party holds the packet as a quest state; it cannot be opened."
+      ],
+      "branches": [
+        "If the party already learned at Valjevo Castle location 26 that Cadorna is a traitor, the clerk gives #13 directly: 'WE NEED YOU TO DELIVER A MESSAGE TO THE ZHENTIL KEEP TO THE WEST. BE CAREFUL, THE TRAITOR CADORNA MAY HAVE TAMPERED WITH THE MESSAGE PACKET BEFORE HE FLED.'' and this office is not used."
+      ],
+      "fights": [],
+      "data": [
+        "Location 31 at (5,6)",
+        "#13 needs #5"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0xad2d, 0xada6, 0xb088, 0xb0ea (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 location 15"
+      ],
+      "disagreements": [
+        "Clue Book p.3-4 numbers New Phlan 1-24 (for example 3 Temple of Tyr, 5 Dueling & Hiring Hall, 12 City Hall entrance, 13 Clerk, 19 Inns, 20 Taverns); [P] uses different numbers (2 dock, 5 Braccio, 6 Tyr, 7 Sune, 14 hall, 24 Tempus, 26-34 City Hall). The numbers do not line up."
+      ],
+      "coveredBy": [],
+      "notes": "Game text spells 'ZHENTIAL KEEP' in the second paragraph; keep as found. The digest does not say whether the packet is an inventory item; 'You cannot open the packet' is all it states."
+    },
+    {
+      "id": "acceptance.new-phlan.head-councilman-urslingen",
+      "title": "Head Councilman's office: Urslingen and Stojanow Gate",
+      "kind": "main",
+      "steps": [
+        "Before the #13 reward is collected, location 32 is not available.",
+        "After the #13 reward the clerk says 'LORD URSLINGEN WISHES URGENTLY TO SPEAK WITH YOU. GO THROUGH THE SOUTH DOOR OF THE TRAITOR CADORNA'S OLD QUARTERS.''",
+        "Go through Cadorna's old office (31) and its south door to location 32.",
+        "Urslingen says ''THANK YOU FOR COMING. I MUST BE BRIEF FOR OUR NEED IS URGENT. OUR ONE CHANCE TO DEFEAT THE ENEMY IS THROUGH AN ASSAULT ON THE CASTLE. TO DO THIS, WE MUST FIRST SECURE STOJANOW GATE.' then ''THE GATE IS TOO STRONG TO BE TAKEN BY STORM. A SMALL BAND MUST SLIP INSIDE AND HOLD UNTIL RELIEVED. YOU ARE THE BEST AND THE BRAVEST. THE COUNCIL HAS INSTRUCTED ME TO ENTRUST THE TASK TO YOU.''"
+      ],
+      "expect": [
+        "Location 32 opens only after the #13 reward.",
+        "After the speech commission #14 is accepted."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 32 (no coordinates in the digest)",
+        "#14 needs #13"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0xae3b, 0xb169, 0xb1fa (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 location 16",
+        "Adventurer's Journal p.27 entry 38 (facts and rumours on Werner von Urslingen)"
+      ],
+      "disagreements": [
+        "Clue Book p.3-4 numbers New Phlan 1-24 (for example 3 Temple of Tyr, 5 Dueling & Hiring Hall, 12 City Hall entrance, 13 Clerk, 19 Inns, 20 Taverns); [P] uses different numbers (2 dock, 5 Braccio, 6 Tyr, 7 Sune, 14 hall, 24 Tempus, 26-34 City Hall). The numbers do not line up."
+      ],
+      "coveredBy": [],
+      "notes": "[P] names him Werner von Urslingen; the game text says 'LORD URSLINGEN'."
+    },
+    {
+      "id": "acceptance.new-phlan.council-chambers-eberhard",
+      "title": "Council chambers: the assault on Valjevo Castle",
+      "kind": "main",
+      "steps": [
+        "Before the #14 reward is collected, location 33 is not available and the guards at 34 (4,6) bar the way.",
+        "After the #14 reward the clerk says 'YOU ARE SUMMONED TO A SPECIAL COUNCIL MEETING. YOU ARE TO BE AWARDED A VALUABLE COMMISSION. THE CITY GUARDS WILL SHOW YOU THE WAY.''",
+        "Walk to (4,6). The game prints 'THE GUARD CAPTAIN STEPS FORWARD. 'PLEASE LET US SHOW YOU THE WAY.''",
+        "In the chambers: 'IN THE COUNCIL CHAMBERS, THE ENTIRE CITY COUNCIL IS WAITING FOR YOU. THE LORD HIGH MAYOR, ULRICH EBERHARD, SPEAKS: 'OUR FORCES ARE MARSHALLED FOR THE ASSAULT ON VALJEVO CASTLE.' then ''IT IS THE UNANIMOUS REQUEST OF THE COUNCIL THAT YOU LEAD THE ATTACK. YOUR SKILL AND BRAVERY HAVE WON THE ADMIRATION OF ALL PHLAN. WE LOOK TO YOU TO HELP US WIN OUR FREEDOM.''"
+      ],
+      "expect": [
+        "Location 33 opens only after the #14 reward.",
+        "With the summons the guards at 34 escort the party instead of intercepting it.",
+        "After the speech commission #15 is accepted."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 33 (no coordinates in the digest)",
+        "Location 34 at (4,6)",
+        "#15 needs #14"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0xaec6, 0xb4c7, 0xb2aa, 0xb335 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 location 17",
+        "Adventurer's Journal p.21 entry 23 (facts and rumours on Ulrich Eberhard)"
+      ],
+      "disagreements": [
+        "Clue Book p.3-4 numbers New Phlan 1-24 (for example 3 Temple of Tyr, 5 Dueling & Hiring Hall, 12 City Hall entrance, 13 Clerk, 19 Inns, 20 Taverns); [P] uses different numbers (2 dock, 5 Braccio, 6 Tyr, 7 Sune, 14 hall, 24 Tempus, 26-34 City Hall). The numbers do not line up."
+      ],
+      "coveredBy": [],
+      "notes": "The link between the guard captain's line (0xb4c7) and the #15 summons is inferred from the clerk's 'THE CITY GUARDS WILL SHOW YOU THE WAY'; the digest says only that 34's guards 'bar the way'."
+    },
+    {
+      "id": "acceptance.new-phlan.bishop-braccio-and-dirten",
+      "title": "Bishop Braccio's study: barred, then Dirten joins",
+      "kind": "main",
+      "steps": [
+        "Before commission #6 is offered, the temple guards at location 5 (10,5) refuse entry (LEAVE / FORCE YOUR WAY PAST).",
+        "After the clerk says 'YOU ARE SUMMONED BY THE BISHOP OF BRACCIO OF TYR. REPORT TO HIM AT TYR'S TEMPLE.'', go to (10,5).",
+        "The game prints 'YOU ARE USHERED INTO THE BISHOP'S STUDY. BISHOP BRACCIO SPEAKS, 'ALLOW ME TO INTRODUCE DIRTEN, PRIEST OF ILMAR.' then ''HE IS BOUND TO RECOVER THE TEMPLE WHICH HAS BEEN DESECRATED TO BANE. GO WITH HIM ACROSS THE RIVER AND HELP HIM TO CLEANSE THE TEMPLE. IN PAYMENT, YOU MAY KEEP THE HIDDEN TREASURES.'' and ''WILL YOU ACCOMPANY DIRTEN?''",
+        "Choose YES."
+      ],
+      "expect": [
+        "DIRTEN (#107), Morale 99, joins the party as an NPC.",
+        "Commission #6 is accepted."
+      ],
+      "branches": [
+        "Party full: ''YOUR PARTY IS TOO LARGE TO JOIN AT THIS TIME. RETURN WHEN IT IS SMALLER.''",
+        "Return later without Dirten: 'YOU ARE USHERED INTO THE STUDY WHERE DIRTEN WAITS. 'I AM ABOUT TO JOURNEY TO THE TEMPLE, WILL YOU COME WITH ME?''",
+        "Force the way in before #6: the city guard responds (see guard-trigger-forcing-braccio)."
+      ],
+      "fights": [],
+      "data": [
+        "Location 5 at (10,5)",
+        "DIRTEN (#107), Morale 99",
+        "#6 is asked only once"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 0 at 0x9e2e, 0x9eba, 0x9f1e, 0xa014, 0x9fb8, 0xaeb0 (src/audio/voice-master-manifest.json)",
+        "game text ECL3.DAX block 8 at 0xaac9 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 location 4",
+        "Clue Book p.17",
+        "digest §7 item 4",
+        "Adventurer's Journal p.31 entry 51 (facts and rumours on Bishop Braccio)"
+      ],
+      "disagreements": [
+        "Dirten: [P] DIRTEN (#107), Lawful Good Human Cleric; Clue Book p.17 'Dirtan, a 6th-level gnome cleric'; [SP] 'Dristan'; [NES] 'Level 5 Cleric', human (digest §7 item 4). Game text: 'DIRTEN, PRIEST OF ILMAR'.",
+        "The clerk's game text reads 'THE BISHOP OF BRACCIO OF TYR' (sic).",
+        "Clue Book p.3-4 numbers New Phlan 1-24 (for example 3 Temple of Tyr, 5 Dueling & Hiring Hall, 12 City Hall entrance, 13 Clerk, 19 Inns, 20 Taverns); [P] uses different numbers (2 dock, 5 Braccio, 6 Tyr, 7 Sune, 14 hall, 24 Tempus, 26-34 City Hall). The numbers do not line up."
+      ],
+      "coveredBy": [],
+      "notes": "The 'asked only once' rule for #6 means a refusal may close the offer at the clerk; the digest does not say whether Dirten's own 'WILL YOU COME WITH ME?' remains available after a NO."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-01-clear-the-slums",
+      "title": "Commission #1: Clear the Slums",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #1 with the line 'THE SLUMS IMMEDIATELY TO OUR WEST NEED TO BE CLEARED OF MONSTERS.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'YOUR CLEARING OF THE SLUM AREAS PERMITS US TO EXPAND.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 1 jewelry, 50 platinum, 250 gold.",
+        "Each of six characters gains 450 XP.",
+        "The quest tracker advances by one.",
+        "Any city-guard anger is cancelled.",
+        "Commission #1 no longer appears among the clerk's offers."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Commission #1",
+        "Reward: 1 jewelry, 50 platinum, 250 gold (450 XP per character)",
+        "Tracker quest: yes"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xa8b6, 0xa4a6, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Details: acceptance.slums. XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-02-clear-sokal-keep",
+      "title": "Commission #2: Clear Sokal Keep",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #2 with the line 'SOKAL KEEP ON THORN ISLAND MUST BE CLEARED.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'WITH SOKAL KEEP IN OUR HANDS, WE CAN USE BOATS TO BYPASS THE BARREN RIVER.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 3 jewelry, 250 platinum.",
+        "Each of six characters gains 1308 XP.",
+        "The quest tracker advances by one.",
+        "Any city-guard anger is cancelled.",
+        "Commission #2 no longer appears among the clerk's offers."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Commission #2",
+        "Reward: 3 jewelry, 250 platinum (1308 XP per character)",
+        "Tracker quest: yes"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xa8f7, 0x9fb8, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCampaignSokal (milestone 'Cleared Sokal Keep with the original party and collected the council reward:')"
+      ],
+      "notes": "[P] words it 'of its spectral guardians'. Details: acceptance.sokal-keep. XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-03-books-maps-and-tomes",
+      "title": "Commission #3: Return books, maps and tomes",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #3 with the line 'THE COUNCIL IS OFFERING A REWARD FOR BOOKS, MAPS, TOMES, ETC. WHICH PROVIDE USEFUL INFORMATION ABOUT PHLAN BEFORE THE FALL. THE REWARD IS TIED TO THE VALUE OF THE INFORMATION.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She pays the reward (the exact line is not identified in the digest)."
+      ],
+      "expect": [
+        "Reward: 200 platinum, 250 gold.",
+        "Each of six characters gains 208 XP.",
+        "The quest tracker does not advance.",
+        "Any city-guard anger is cancelled.",
+        "Commission #3 no longer appears among the clerk's offers."
+      ],
+      "branches": [
+        "Resolved by clearing Mendor's Library (basilisk and spectre), not by books."
+      ],
+      "fights": [],
+      "data": [
+        "Commission #3",
+        "Reward: 200 platinum, 250 gold (208 XP per character)",
+        "Tracker quest: no"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xa927, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "[P]: 'In some versions … never resolve this … [problem] with v1.0'. v1.0 only: do not require the unresolvable state in 1.3. The reward line is not identified in the digest. Details: acceptance.mendors-library. XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-04-podal-plaza-auction",
+      "title": "Commission #4: Discover the Podal Plaza auction item",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #4 with the line 'A WEAPON OF GREAT POWER IS TO BE AUCTIONED TO OUR ENEMIES. THIS AUCTION IS TO BE HELD IN PODAL PLAZA. FIND OUT WHAT THE WEAPON IS AND RETURN.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'YOUR SUCCESS AT PODAL PLAZA IS NOTED.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 200 platinum, 250 gold.",
+        "Each of six characters gains 208 XP.",
+        "The quest tracker advances by one.",
+        "Any city-guard anger is cancelled.",
+        "Commission #4 no longer appears among the clerk's offers."
+      ],
+      "branches": [
+        "Must be offered first. 'If you make a mistake, this mission may be permanently unresolvable.'"
+      ],
+      "fights": [],
+      "data": [
+        "Commission #4",
+        "Reward: 200 platinum, 250 gold (208 XP per character)",
+        "Tracker quest: yes"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xa9bb, 0xa15a, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyPodalFromCouncil (milestone 'Verified the Podal Plaza exchange, council reward, and Textile House commission after reload.')"
+      ],
+      "notes": "The same amounts are paid for clearing Podal Plaza, and the line 'YOUR SUCCESS AT PODAL PLAZA IS NOTED.' could belong to either; confirm in the script. Unlike most commissions this one is not rewarded unless it was offered. XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-05-cadorna-family-treasure",
+      "title": "Commission #5: Speak to Junior Councilman Cadorna (family treasure)",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #5 with the line 'JUNIOR COUNCILMAN CADORNA HAS A SPECIAL COMMISSION FOR YOU. HIS CHAMBERS ARE THROUGH THE EAST DOOR.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'COUNCILMAN CADORNA LEFT THIS PAYMENT FOR SOME SERVICE YOU HAD RENDERED.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 20 gems.",
+        "Each of six characters gains 833 XP.",
+        "The quest tracker does not advance.",
+        "Any city-guard anger is cancelled.",
+        "Commission #5 no longer appears among the clerk's offers."
+      ],
+      "branches": [
+        "Requires #2."
+      ],
+      "fights": [],
+      "data": [
+        "Commission #5",
+        "Reward: 20 gems (833 XP per character)",
+        "Tracker quest: no"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xaa52, 0xa389, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "milestone 'Returned from the Textile House via the west ferry, handed off the sealed box, and collected the council reward.'"
+      ],
+      "notes": "See digest §7 item 15 for what happens if the box was opened. XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-06-bishop-braccio",
+      "title": "Commission #6: Speak to Bishop Braccio (Temple of Bane)",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #6 with the line 'YOU ARE SUMMONED BY THE BISHOP OF BRACCIO OF TYR. REPORT TO HIM AT TYR'S TEMPLE.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'CONGRATULATIONS, YOU MAY KEEP ALL YOU FOUND IN THE TEMPLE OF BANE AS A REWARD.'' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: praise only; the party keeps the temple items.",
+        "No XP and no money are paid.",
+        "The quest tracker does not advance.",
+        "City-guard anger is NOT cancelled by this reward.",
+        "Commission #6 no longer appears among the clerk's offers."
+      ],
+      "branches": [
+        "Asked only once. This reward does NOT cancel city-guard anger."
+      ],
+      "fights": [],
+      "data": [
+        "Commission #6",
+        "Reward: praise only; the party keeps the temple items",
+        "Tracker quest: no"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xaac9, 0xa4dc, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "No money or XP is paid by the clerk. XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-07-kovel-mansion",
+      "title": "Commission #7: Clear Kovel Mansion",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #7 with the line 'A LARGE GROUP OF THIEVES OPERATES OUT OF THE OLD KOVEL MANSION. THE COUNCIL WILL PAY TO HAVE THEM CLEANED OUT.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'THE COUNCIL WAS PLEASED BY THE ELIMINATION OF THE THIEVES IN KOVEL MANSION.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 3 gems, 80 platinum.",
+        "Each of six characters gains 191 XP.",
+        "The quest tracker advances by one.",
+        "Any city-guard anger is cancelled.",
+        "Commission #7 no longer appears among the clerk's offers."
+      ],
+      "branches": [
+        "Requires #2."
+      ],
+      "fights": [],
+      "data": [
+        "Commission #7",
+        "Reward: 3 gems, 80 platinum (191 XP per character)",
+        "Tracker quest: yes"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xab26, 0xa1c5, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-08-nomads",
+      "title": "Commission #8: Stop the nomads joining the enemy",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #8 with the line 'FIND THE NOMADS AND STOP THEM FROM JOINING FORCES WITH OUR ENEMIES.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'WE WERE MUCH RELIEVED BY THE NEWS YOU BRING FROM THE NOMAD CAMP.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 2 jewelry, 6 gems.",
+        "Each of six characters gains 983 XP.",
+        "The quest tracker advances by one.",
+        "Any city-guard anger is cancelled.",
+        "Commission #8 no longer appears among the clerk's offers."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Commission #8",
+        "Reward: 2 jewelry, 6 gems (983 XP per character)",
+        "Tracker quest: yes"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xab89, 0xa34c, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-09-kobolds",
+      "title": "Commission #9: Stop the kobolds joining the enemy",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #9 with the line 'A LARGE TRIBE OF KOBOLDS IS BEING RECRUITED BY THE ENEMY. MAKE SURE THEY DON'T JOIN THE ENEMY FORCES.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'THIS LOSS OF THE KOBOLD FORCES WILL BE A MAJOR BLOW TO THE ENEMY.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 25 gems.",
+        "Each of six characters gains 1041 XP.",
+        "The quest tracker advances by one.",
+        "Any city-guard anger is cancelled.",
+        "Commission #9 no longer appears among the clerk's offers."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Commission #9",
+        "Reward: 25 gems (1041 XP per character)",
+        "Tracker quest: yes"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xabcb, 0xa30e, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-10-stojanow-river-pollution",
+      "title": "Commission #10: End the Stojanow River pollution",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #10 with the line 'FIND THE SOURCE OF THE RIVER'S POLLUTION AND END IT.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'WITH THE CLEARING OF THE STOJONOW RIVER, WE CAN OPEN UP THE HINTERLANDS FOR TRADE.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 15 jewelry, 250 platinum.",
+        "Each of six characters gains 5708 XP.",
+        "The quest tracker advances by one.",
+        "Any city-guard anger is cancelled.",
+        "Commission #10 no longer appears among the clerk's offers."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Commission #10",
+        "Reward: 15 jewelry, 250 platinum (5708 XP per character)",
+        "Tracker quest: yes"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xac2c, 0xa20b, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Game text spells 'STOJONOW' here. After this the river text at (1,0) changes. XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-11-lizardmen",
+      "title": "Commission #11: Stop the lizardmen joining the enemy",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #11 with the line 'A TRIBE OF LIZARDMEN IS PREPARING TO JOIN THE ENEMY. PREVENT THIS.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'YOUR ELIMINATION OF THE LIZARDMEN MENACE HAS GREATLY IMPROVED OUR STRATEGIC POSITION.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 5 jewelry, 15 gems, 50 gold.",
+        "Each of six characters gains 2466 XP.",
+        "The quest tracker advances by one.",
+        "Any city-guard anger is cancelled.",
+        "Commission #11 no longer appears among the clerk's offers."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Commission #11",
+        "Reward: 5 jewelry, 15 gems, 50 gold (2466 XP per character)",
+        "Tracker quest: yes"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xac63, 0xa2c1, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-12-heir-of-bivant",
+      "title": "Commission #12: Rescue the heir of Bivant",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #12 with the line 'THE HEIR TO THE HOUSE OF BIVANT MUST BE RESCUED. WE WILL PAY GENEROUSLY FOR HIS SAFE RETURN.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'BIVANT WAS DELIGHTED WITH THE CHILD'S RESCUE. THEY LEFT SOME TRINKETS FOR YOU.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 5 jewelry, 25 gems, Two-Handed Sword +1, +3 Vs. Undead, 4 Clerical Scroll (Restoration, Restoration).",
+        "Each of six characters gains 3208 XP.",
+        "The quest tracker does not advance.",
+        "Any city-guard anger is cancelled.",
+        "Commission #12 no longer appears among the clerk's offers."
+      ],
+      "branches": [
+        "Must be offered; needs #2. On failure the clerk says ''BY THE WAY, YOUR BUNGLING THE BIVANT RESCUE HAS COST US.'' (0x9e88) and pays nothing for it."
+      ],
+      "fights": [],
+      "data": [
+        "Commission #12",
+        "Reward: 5 jewelry, 25 gems, Two-Handed Sword +1, +3 Vs. Undead, 4 Clerical Scroll (Restoration, Restoration) (3208 XP per character)",
+        "Tracker quest: no"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xacb0, 0xa027, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "[P] §3.17: the Buccaneer Base appears only after #12 is accepted (digest §7 item 29). XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-13-zhentil-keep-mission",
+      "title": "Commission #13: Deliver the message to Zhentil Keep",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #13 with the line 'LORD CADORNA HAS A DELICATE DIPLOMATIC MISSION THAT REQUIRES YOUR PARTICULAR SKILLS. YOU ARE SUMMONED TO HIS CHAMBERS. GO THROUGH THE SOUTH DOOR.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'WE WERE PLEASANTLY SURPRISED THAT YOU COMPLETED YOUR MISSION SO SWIFTLY. CADORNA WAS WAGERING YOUR RETURN WOULD BE MUCH DELAYED.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 5 jewelry, 7 gems.",
+        "Each of six characters gains 2125 XP.",
+        "The quest tracker does not advance.",
+        "Any city-guard anger is cancelled.",
+        "Commission #13 no longer appears among the clerk's offers."
+      ],
+      "branches": [
+        "Needs #5. Offered through Senior Councilman Cadorna, or directly (0xada6) if the party learned at Valjevo Castle location 26 that Cadorna is a traitor."
+      ],
+      "fights": [],
+      "data": [
+        "Commission #13",
+        "Reward: 5 jewelry, 7 gems (2125 XP per character)",
+        "Tracker quest: no"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xad2d, 0xa256, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "With the reward the clerk says 'PORPHYRYS CADORNA IS A TRAITOR TO THE CITY. IF YOU FIND HIM, KILL HIM.'' (0xa520). [P]: a bounty is 'mentioned but none is actually paid'; the later line 'THE COUNCIL HAS NOTED THE PASSING OF THE TRAITOR CADORNA.'' (0xa55e) pays nothing. XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-14-stojanow-gate",
+      "title": "Commission #14: Capture Stojanow Gate",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #14 with the line 'LORD URSLINGEN WISHES URGENTLY TO SPEAK WITH YOU. GO THROUGH THE SOUTH DOOR OF THE TRAITOR CADORNA'S OLD QUARTERS.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'YOUR TAKING THE GATE WILL ENABLE OUR FORCES TO ASSAULT THE ENEMY STRONGHOLD. RETURN THERE TO LEAD THE ATTACK.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 10 jewelry.",
+        "Each of six characters gains 3666 XP.",
+        "The quest tracker does not advance.",
+        "Any city-guard anger is cancelled.",
+        "Commission #14 no longer appears among the clerk's offers."
+      ],
+      "branches": [
+        "Needs #13."
+      ],
+      "fights": [],
+      "data": [
+        "Commission #14",
+        "Reward: 10 jewelry (3666 XP per character)",
+        "Tracker quest: no"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xae3b, 0xa3cb, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "qa/findings.json 'commissions-never-asserted' lists commission-gate as asserted by no replay. XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.commission-15-valjevo-castle-and-tyranthraxus",
+      "title": "Commission #15: Assault Valjevo Castle and defeat Tyranthraxus",
+      "kind": "main",
+      "steps": [
+        "The clerk offers commission #15 with the line 'YOU ARE SUMMONED TO A SPECIAL COUNCIL MEETING. YOU ARE TO BE AWARDED A VALUABLE COMMISSION. THE CITY GUARDS WILL SHOW YOU THE WAY.'",
+        "Complete the mission.",
+        "Return to the clerk at City Hall 29 (5,5).",
+        "She prints 'CONGRATULATIONS! YOUR QUEST IS OVER! TYRANTHRAXUS IS DEFEATED! PHLAN IS FREE! IF YOU WISH, YOU MAY CONTINUE TO HELP US CLEAR ANY REMAINING MONSTERS. ALL PHLAN SALUTES YOU!' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 100 jewelry, 200 gems.",
+        "Each of six characters gains 45000 XP.",
+        "The quest tracker does not advance.",
+        "Any city-guard anger is cancelled.",
+        "Commission #15 no longer appears among the clerk's offers."
+      ],
+      "branches": [
+        "Needs #14."
+      ],
+      "fights": [],
+      "data": [
+        "Commission #15",
+        "Reward: 100 jewelry, 200 gems (45000 XP per character)",
+        "Tracker quest: no"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) clerk commission table",
+        "game text ECL3.DAX block 8 at 0xaec6, 0xa421, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCastleEnding (milestone 'Defeated the original Tyranthraxus, collected the council reward, and reloaded the completed campaign.')"
+      ],
+      "notes": "[CB]: 'you receive the recently recovered Crown Jewels of Ancient Phlan'; [GB]: 'over 250,000 experience points' (45000 x 6). Play continues afterwards. [P]: nothing stops a party going straight to the final confrontation from the start. XP assumes a party of exactly six (coin XP: gold 1, platinum 5, gem 250, jewelry 2200, divided by party size and rounded down)."
+    },
+    {
+      "id": "acceptance.new-phlan.valhingen-only-asked",
+      "title": "Special Valhingen commission: only asked at PS 19-36",
+      "kind": "main",
+      "steps": [
+        "Reach Party Strength 19-36 with at least 4 tracker quests done and visit the clerk.",
+        "She says 'PUTTING DOWN THE PAPERS, SHE SAYS, 'I MUST BRING TO YOUR ATTENTION THE FOLLOWING CONCERNING VALHINGEN GRAVEYARD: '' followed by a graveyard paragraph."
+      ],
+      "expect": [
+        "The graveyard is brought up but no formal offer and no item is given.",
+        "With PS below 19 or fewer than 4 tracker quests the graveyard is not mentioned."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Requires PS >= 19 and at least 4 tracker quests",
+        "PS 19-36: asked only",
+        "Graveyard paragraphs in the game text: 'THE UNDEAD ARE CROSSING THE RIVER IN HORDES AND KILLING OR CARRYING OFF OUR SETTLERS. THE COUNCIL DEMANDS THESE ATTACKS BE STOPPED. A GENEROUS REWARD IS OFFERED.'' and 'UNDEAD FROM THE GRAVEYARD HAVE GROWN MORE DANGEROUS THAN ALL OF THE OTHER FORCES WHICH CONFRONT US.'",
+        "Proclamations LXIV and LXXVIII (Valhingen Graveyard information), CIX (rescue force for Taimalg-the-Invincible), CX (special commission, 'political sensitivity'), CLIV (bounty per undead plus an enchanted item): Adventurer's Journal p.13-15"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) special Valhingen commission",
+        "game text ECL3.DAX block 8 at 0xa5c2, 0xa62a, 0xa6ac (src/audio/voice-master-manifest.json)",
+        "Adventurer's Journal p.13-15"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say which of the two paragraphs is the 'asked only' text and which precedes the formal offer; read it from the script. Party Strength (PS) is the engine's party-power number; NPCs raise it ([P] §4). qa/findings.json lists commission-graveyard as asserted by no replay."
+    },
+    {
+      "id": "acceptance.new-phlan.valhingen-formal-offer",
+      "title": "Special Valhingen commission: formal offer at PS 37+",
+      "kind": "main",
+      "steps": [
+        "Reach Party Strength 37 or more with at least 4 tracker quests and visit the clerk.",
+        "She says ''I HAVE BEEN AUTHORIZED TO GIVE YOU AN ENCHANTED WEAPON IF YOU ACCEPT THE COMMISSION TO END THE GRAVEYARD MENACE. DO YOU ACCEPT?'' with YES / NO.",
+        "Choose YES. She says ''EXCELLENT.''"
+      ],
+      "expect": [
+        "The party receives a Two-Handed Sword +1, +3 Vs. Undead and 4 Clerical Scroll (Restoration, Restoration).",
+        "Each character gains 333 XP.",
+        "The Valhingen commission is accepted."
+      ],
+      "branches": [
+        "NO: no items; whether the offer repeats on the next visit is not stated in the digest."
+      ],
+      "fights": [],
+      "data": [
+        "PS >= 37",
+        "Two-Handed Sword +1, +3 Vs. Undead; 4 Clerical Scroll (Restoration, Restoration) (333 XP)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0xa6fe, 0xa773 (src/audio/voice-master-manifest.json)",
+        "Adventurer's Journal p.13-15 proclamation CLIV"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "'4 Clerical Scroll (Restoration, Restoration)' is the digest's wording: four scrolls each holding Restoration twice. The same items appear in the #12 reward."
+    },
+    {
+      "id": "acceptance.new-phlan.valhingen-kill-score-payouts",
+      "title": "Special Valhingen commission: bounty per undead destroyed",
+      "kind": "main",
+      "steps": [
+        "Destroy undead in Valhingen Graveyard so the kill score rises, then visit the clerk.",
+        "She says ''WE HAVE BEEN INFORMED YOU HAVE ELIMINATED SOME UNDEAD FROM THE GRAVEYARD.' and pays."
+      ],
+      "expect": [
+        "1 gold per new Skeleton point.",
+        "1 platinum per new Zombie point.",
+        "1 gem per new Wight point.",
+        "1 jewelry per new Spectre point.",
+        "Points already paid are not paid again."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Skeleton point = 1 gold; Zombie point = 1 platinum; Wight point = 1 gem; Spectre point = 1 jewelry"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0x9cc7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "How points are scored per monster is defined in the Valhingen section (§3.19), not here. The digest does not say whether the payout needs the commission to have been formally accepted."
+    },
+    {
+      "id": "acceptance.new-phlan.valhingen-final-reward",
+      "title": "Special Valhingen commission: final reward",
+      "kind": "main",
+      "steps": [
+        "End the graveyard menace (Valhingen Graveyard complete) and visit the clerk.",
+        "She prints 'THE COUNCIL HAS VOTED A SPECIAL PRIZE FOR ENDING THE GRAVEYARD MENACE.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 25 jewelry and 15 gems; each character gains 9791 XP.",
+        "The quest tracker advances by one (Valhingen is one of the ten tracker quests).",
+        "Any city-guard anger is cancelled."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "25 jewelry, 15 gems (9791 XP)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0xa183, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "9791 XP = (25 x 2200 + 15 x 250) / 6. [P]: Valhingen 'should be one of the last quests you undertake' because it scales with Party Strength."
+    },
+    {
+      "id": "acceptance.new-phlan.reward-norris-the-gray",
+      "title": "Clerk reward: Defeat Norris the Gray",
+      "kind": "optional",
+      "steps": [
+        "Beat Norris the Gray in the Kuto's Well catacombs and visit the clerk.",
+        "She prints 'THE COUNCIL HAS AWARDED A BONUS FOR YOUR ELIMINATING NORRIS THE GRAY.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 200 platinum, 250 gold; each character gains 208 XP.",
+        "The quest tracker advances by one."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "200 pp, 250 gold (208 XP)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) other clerk rewards",
+        "game text ECL3.DAX block 8 at 0x9f77, 0x9eea (src/audio/voice-master-manifest.json)",
+        "Clue Book p.9-10"
+      ],
+      "disagreements": [
+        "[P]: a Norris reward, no reward for clearing Kuto's Well; Clue Book p.9: 'the standard reward for clearing the block' (digest §7 item 14)."
+      ],
+      "coveredBy": [],
+      "notes": "Details: acceptance.kutos-well-catacombs."
+    },
+    {
+      "id": "acceptance.new-phlan.reward-library-books",
+      "title": "Clerk reward: library book bounties",
+      "kind": "optional",
+      "steps": [
+        "Bring books from Mendor's Library to the clerk.",
+        "For each named book she prints its line and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Fyerdetha's Discourses on Power: 80 platinum (66 XP).",
+        "Urgund's Description of Darkness: 90 platinum (75 XP).",
+        "The Grand Historian's Records of the Arts of War: 120 platinum (100 XP).",
+        "The History of the North: 110 platinum (91 XP).",
+        "Lex Geographica: 100 platinum (83 XP).",
+        "The first of any other library book: 1 gold (0 XP)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Clerk lines: 'WE FIND THESE DISCOURSES VALUABLE.' / 'THE COUNCIL WILL BE AMUSED BY THE DESCRIPTIONS.' / 'THESE MAPS SHOULD HELP US TO LOCATE SEVERAL LEGENDARY BUILDINGS.' / 'THESE HISTORIES CONTAIN MUCH USEFUL INFORMATION.' / 'THE RECORDS PROVIDE INSIGHTS INTO MUCH THAT WAS PUZZLING.' / 'THIS MATERIAL IS OF SMALL VALUE.'"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) other clerk rewards",
+        "game text ECL3.DAX block 8 at 0xa06d, 0xa08b, 0xa0b3, 0xa0e7, 0xa10f, 0xa13e (src/audio/voice-master-manifest.json)",
+        "digest §7 item 9",
+        "Adventurer's Journal p.13-15 proclamation CXXVI (books and tomes)"
+      ],
+      "disagreements": [
+        "[P]: 80/90/120/110/100 platinum and 1 gold for the first other book; [GB]: '9 books… each… around 500 total experience and 100 platinum' (digest §7 item 9)."
+      ],
+      "coveredBy": [],
+      "notes": "Which line goes with which book is matched by wording, not stated in the digest. Details: acceptance.mendors-library."
+    },
+    {
+      "id": "acceptance.new-phlan.reward-block-clearing",
+      "title": "Clerk reward: clearing Podal Plaza, the Textile House and the Wealthy Area",
+      "kind": "optional",
+      "steps": [
+        "Clear one of the three blocks and visit the clerk.",
+        "She prints ''THERE IS A REWARD FOR CLEARING THE <area>' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Podal Plaza: 200 platinum, 250 gold (208 XP). Not possible while commission #4 is offered but unresolved.",
+        "Textile House: 200 platinum, 250 gold (208 XP).",
+        "Wealthy Area: 3 gems, 99 platinum, 250 gold (249 XP)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Podal Plaza 200 pp + 250 gold (208 XP)",
+        "Textile House 200 pp + 250 gold (208 XP)",
+        "Wealthy Area 3 gems + 99 pp + 250 gold (249 XP)",
+        "Proclamation LIX (Adventurer's Journal p.13-15: clear any block)"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) other clerk rewards",
+        "game text ECL3.DAX block 8 at 0x9e4a, 0x9e68, 0x9ffd, 0xa15a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Two further clerk lines exist: 'YOU HAVE CLEARED THE AREA NEXT TO THE EVIL TEMPLE.' (0x9ffd), which fits the Wealthy Area (the block beside the Temple of Bane), and 'YOUR SUCCESS AT PODAL PLAZA IS NOTED.' (0xa15a). Which reward each line belongs to is not in the digest; confirm in the script. These block rewards are not among the ten tracker quests. 249 XP = (750 + 495 + 250) / 6."
+    },
+    {
+      "id": "acceptance.new-phlan.quest-tracker-ten-quests",
+      "title": "Exactly ten quests advance the tracker",
+      "kind": "rule",
+      "steps": [
+        "Collect each clerk reward in turn and read the tracker (via the proclamation shown at location 26) after each."
+      ],
+      "expect": [
+        "The tracker advances for: #1 Slums, #2 Sokal Keep, #4 Podal Plaza auction, #7 Kovel Mansion, #8 Nomads, #9 Kobolds, #10 Stojanow River, #11 Lizardmen, the Valhingen special commission, and Norris the Gray.",
+        "It does not advance for #3, #5, #6, #12, #13, #14, #15, book bounties or block-clearing rewards.",
+        "The tracker value selects the proclamation at 26 and gates the Valhingen offer (at least 4)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Tracker quests: #1, #2, #4, #7, #8, #9, #10, #11, Valhingen, Norris"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md) ('The ten quests that advance the tracker')"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the tracker moves when the quest is completed or when its reward is collected; the proclamation table says 'quests completed'. Read the counter's write site from the script."
+    },
+    {
+      "id": "acceptance.new-phlan.hall-duel",
+      "title": "Duel a clone at the adventurers' hall",
+      "kind": "optional",
+      "steps": [
+        "Enter hall 14. The game prints 'THE ROOM IS FILLED WITH DUELING PAIRS.'",
+        "The arena master says 'THE ARENA MASTER ASKS IF YOU WISH TO DUEL. 'THE DUELS ARE EVENLY MATCHED AND NORMALLY NOT TO THE DEATH. DO YOU DUEL?'' Choose YES and pick a character.",
+        "Fight a clone of the chosen character, one against one.",
+        "Win."
+      ],
+      "expect": [
+        "The winner gains 100 XP per hit die (100 x level for a player character).",
+        "The opponent has the chosen character's own statistics and gear."
+      ],
+      "branches": [
+        "A duel that cannot be set up: 'I CANNOT ARRANGE SUCH A DUEL.' (condition not in the digest).",
+        "[GB]: to duel again 'you'll have to leave the building and then return'."
+      ],
+      "fights": [
+        "One clone of the chosen character; 100 XP per hit die"
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "[P] §4 mechanics (qa/research/guides-digest.md) ('A duel is worth 100 XP per hit die')",
+        "game text ECL3.DAX block 11 at 0x9bbe, 0x9c05, 0x9c8b (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 location 5",
+        "digest §7 item 34"
+      ],
+      "disagreements": [
+        "[P]: 100 XP per hit die, against a clone; [GB]: '100X the character level… you'll have to leave the building and then return' to duel again. These agree for player characters (digest §7 item 34).",
+        "Clue Book p.3-4 numbers New Phlan 1-24 (for example 3 Temple of Tyr, 5 Dueling & Hiring Hall, 12 City Hall entrance, 13 Clerk, 19 Inns, 20 Taverns); [P] uses different numbers (2 dock, 5 Braccio, 6 Tyr, 7 Sune, 14 hall, 24 Tempus, 26-34 City Hall). The numbers do not line up. Clue Book: hall is 5; [P]: 14."
+      ],
+      "coveredBy": [
+        "milestone 'Won a New Phlan arena duel and reloaded Alda with the earned 100 XP.'",
+        "milestone 'Won an arena duel with the recovered party and reloaded Alda's earned 100 XP.'"
+      ],
+      "notes": "[P] §5: elves keep their sleep and charm resistance against the clone's spells, but the clone does not get them. Characters must be 'Okay' at the end of a battle to receive XP ([P] §4). The digest gives no coordinates for hall 14."
+    },
+    {
+      "id": "acceptance.new-phlan.hall-hiring",
+      "title": "Hire an NPC at the adventurers' hall",
+      "kind": "optional",
+      "steps": [
+        "Enter hall 14 with fewer than the maximum party size. The game asks ''DO YOU SEEK A PARTNER FOR YOUR ADVENTURING?'' Choose YES.",
+        "An NPC is offered: ''THERE IS A FINE <type> WHO WILL JOIN YOU FOR <share>. IS THIS ACCEPTABLE?''",
+        "Choose YES to hire, or NO: ''WOULD YOU LIKE TO CONSIDER SOMEONE ELSE?''",
+        "When none are left: ''THERE IS NO ONE WHO WILL GO WITH YOU.''",
+        "Leave the map, re-enter and ask again."
+      ],
+      "expect": [
+        "Between 0 and 7 NPCs are available per visit, drawn with the odds in data (out of 48).",
+        "The pool is refreshed every time the party re-enters the map.",
+        "A level-1 party can hire: level 2 is not required.",
+        "A hired NPC joins the party, raises Party Strength, acts on its own in combat and checks morale."
+      ],
+      "branches": [
+        "Party full: ''YOUR PARTY IS TOO LARGE TO JOIN AT THIS TIME. RETURN WHEN IT IS SMALLER.''"
+      ],
+      "fights": [],
+      "data": [
+        "SWORDSMAN (#36): L3 Fighter, LE, Morale 65, odds 6/48, claims 3 shares, takes 3",
+        "WARRIOR (#103): L2 Fighter, LE, Morale 55, odds 10/48, claims 1, takes 1",
+        "ACOLYTE (#108): L1 Cleric, NG, Morale 50, odds 4/48, claims 1, takes 1",
+        "HERO (#109): L4 Fighter, LE, Morale 80, odds 5/48, claims 4 plus items, takes 4; Plate Mail +1",
+        "THEURGIST (#110): L4 Magic-User, TN, Morale 85, odds 4/48, claims 4 plus items, takes 7; Ring of Protection +1",
+        "ROBBER (#111): L4 Thief, CN, Morale 70, odds 6/48, claims 3 plus items, takes 7; Leather Armor +1",
+        "CURATE (#112): L4 Cleric, LG, Morale 75, odds 5/48, claims 3 plus items, takes 7",
+        "EVOKER (#122): L2 Magic-User, TN, Morale 60, odds 8/48, claims 2, takes 7"
+      ],
+      "sources": [
+        "[P] §3.0 (qa/research/guides-digest.md)",
+        "[P] §4 mechanics (qa/research/guides-digest.md) NPCs (hall 14)",
+        "game text ECL3.DAX block 11 at 0x9cba, 0x9eab, 0x9ebf, 0x9ed8, 0x9f23, 0x9d61, 0xa0d5 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.3-4 location 5",
+        "digest §7 item 5"
+      ],
+      "disagreements": [
+        "Level 2: [GB] 'You won't be able to hire henchmen until you hit level 2'; [P] 'You are not required to reach level 2 before they appear, which the clue book claims'; the digest's author did not find that claim in the Clue Book text (digest §7 item 5), and Clue Book p.3 location 5 does not state it.",
+        "Shares: Clue Book p.3 'Hired NPCs receive a cut of the treasure before the players ever get their hands on it'; [P] 'NPCs never actually take items' and the share actually taken differs from the share claimed for THEURGIST, ROBBER, CURATE and EVOKER."
+      ],
+      "coveredBy": [
+        "verifySokalEvokerRecruitment (milestone 'Hired an evoker and verified his two memorized Sleep spells after reloading slot H.')",
+        "milestone 'Hired a Theurgist and Curate, blessed the party, won the courtyard fight, and reloaded with the drum silenced.'",
+        "milestone 'Recruited the Warrior and Theurgist and verified the full courtyard combat replay:'"
+      ],
+      "notes": "The odds total 48 across the eight types. How the count 0-7 is drawn is not given. With fixed dice a runner can assert which NPCs are offered. The digest gives no coordinates for hall 14."
+    },
+    {
+      "id": "acceptance.new-phlan.npc-shares-and-quirks",
+      "title": "Hired NPCs: claimed share, actual share and documented defects",
+      "kind": "quirk",
+      "steps": [
+        "Hire a THEURGIST, ROBBER, CURATE or EVOKER and note the share quoted in the offer.",
+        "Win a fight with coin treasure and compare the NPC's cut with the quote.",
+        "Win a fight with item treasure.",
+        "Try to take an item from a conscious NPC; then from one who is down."
+      ],
+      "expect": [
+        "The share actually taken is 7 for THEURGIST, ROBBER, CURATE and EVOKER, whatever was quoted (4, 3, 3 and 2).",
+        "SWORDSMAN, WARRIOR, ACOLYTE and HERO take what they quote (3, 1, 1, 4).",
+        "NPCs never actually take items, even those whose offer claims items.",
+        "Items can be taken from an NPC only while it is down.",
+        "The ACOLYTE's race is 'Monster' and he has 0 XP, so he can be 'M'odified."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "SWORDSMAN (#36): L3 Fighter, LE, Morale 65, odds 6/48, claims 3 shares, takes 3",
+        "WARRIOR (#103): L2 Fighter, LE, Morale 55, odds 10/48, claims 1, takes 1",
+        "ACOLYTE (#108): L1 Cleric, NG, Morale 50, odds 4/48, claims 1, takes 1",
+        "HERO (#109): L4 Fighter, LE, Morale 80, odds 5/48, claims 4 plus items, takes 4; Plate Mail +1",
+        "THEURGIST (#110): L4 Magic-User, TN, Morale 85, odds 4/48, claims 4 plus items, takes 7; Ring of Protection +1",
+        "ROBBER (#111): L4 Thief, CN, Morale 70, odds 6/48, claims 3 plus items, takes 7; Leather Armor +1",
+        "CURATE (#112): L4 Cleric, LG, Morale 75, odds 5/48, claims 3 plus items, takes 7",
+        "EVOKER (#122): L2 Magic-User, TN, Morale 60, odds 8/48, claims 2, takes 7"
+      ],
+      "sources": [
+        "[P] §4 mechanics (qa/research/guides-digest.md) NPCs (hall 14)",
+        "[P] §5 quirks (qa/research/guides-digest.md) Technical (ACOLYTE; 'Removing a charm may not restore a hired NPC'); Other ('NPC magic-users fireballing your own party is more likely in v1.0 than in v1.3')"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not define the unit of a 'share' (shares of how many); read the division from the engine. NPC magic-users fireballing the party is 'more likely in v1.0 than in v1.3': do not require v1.0 frequency. Evil NPCs betray the party at the end and NPCs cannot be transferred to later games ([P] §4); those belong to the endgame files."
+    }
+  ]
+}

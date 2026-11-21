@@ -1,0 +1,362 @@
+{
+  "schema": 1,
+  "id": "acceptance.kutos-well-catacombs",
+  "title": "Kuto's Well Catacombs",
+  "guideSection": "3.4",
+  "scripts": [
+    "ECL 29"
+  ],
+  "commission": "Clerk reward: Defeat Norris the Gray",
+  "prerequisites": [
+    "The two kobold guard waves at the well are beaten and the party has climbed down at Kuto's Well (7,7).",
+    "No commission is required; the clerk pays the Norris bonus unasked.",
+    "XP figures assume exactly six characters."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.kutos-well-catacombs.enter-the-catacombs",
+      "title": "Arrive in the catacombs",
+      "kind": "main",
+      "steps": [
+        "Climb down the well at Kuto's Well (7,7).",
+        "The party is at catacombs E1 (7,7).",
+        "Walk into the first chamber. The game prints 'YOU PASS INTO HIDDEN CATACOMBS. THIS LARGE ROOM IS DIMLY LIT BY SPUTTERING TORCHES. THROUGH THE SMOKE YOU SEE CURTAINS HUNG TO COVER DOORWAYS.'",
+        "Walk for many steps with and without search mode."
+      ],
+      "expect": [
+        "No random encounter ever occurs in the catacombs."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "E1 (7,7)"
+      ],
+      "sources": [
+        "[P] §3.4 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0xa018 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.9-10 location 6"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not give the square on which the 'HIDDEN CATACOMBS' text prints."
+    },
+    {
+      "id": "acceptance.kutos-well-catacombs.climb-back-up",
+      "title": "Climb back up the well",
+      "kind": "main",
+      "steps": [
+        "Return to the foot of the well. The game prints 'JUST ABOVE THE WATERLINE, A SECRET DOOR HAS BEEN LEFT AJAR IN THE SOUTH WALL OF THE WELL. DO YOU WANT TO CLIMB UP THE RUNGS?' with YES / NO.",
+        "Choose YES. The game prints 'YOU MAKE THE LONG, ARDUOUS CLIMB UP THE WELL.'"
+      ],
+      "expect": [
+        "The party is above ground at Kuto's Well (7,7)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "game text ECL8.DAX block 29 at 0xa1da, 0xa245 (src/audio/voice-master-manifest.json)",
+        "[P] §3.4 (qa/research/guides-digest.md)",
+        "Clue Book p.9-10 location 6"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest describes only the way in; the exit prompt is from the game text."
+    },
+    {
+      "id": "acceptance.kutos-well-catacombs.arrow-ambush-location-9",
+      "title": "Take the kobold volley at location 9",
+      "kind": "main",
+      "steps": [
+        "While Norris is alive, step onto location 9.",
+        "The game prints 'SOME MOVEMENT OCCURS IN THE ROOM'S FAR CORNER AND THEN A VOLLEY OF ARROWS TEARS INTO THE GROUP.'",
+        "Four arrow attacks are rolled against the party, each with THAC0 21 for 1d6 damage."
+      ],
+      "expect": [
+        "Up to four hits of 1d6 are applied to party members.",
+        "No combat screen opens and the archers cannot be attacked."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "4 attacks, THAC0 21, 1d6 each"
+      ],
+      "sources": [
+        "[P] §3.4 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0xa0ae (src/audio/voice-master-manifest.json)",
+        "Clue Book p.9-10 location 7"
+      ],
+      "disagreements": [
+        "Clue Book p.9-10 uses one numbering (1-9) across the well plaza and the catacombs; [P] uses 2/3/4, 20, 21, 22 above ground and 6, 9-13 below. The numbers do not line up. Clue Book: kobold archers are 7; [P]: 9/10/11."
+      ],
+      "coveredBy": [],
+      "notes": "The pairing of 0xa0ae with location 9 (the four-attack volley) and 0xa173 with 10 and 11 (one arrow) follows the wording ('VOLLEY' against 'AN ARROW'); confirm in the script. Game text 0x9b7c 'A RAIN OF ARROWS POURS OVER YOU.' is a third arrow line whose trigger the digest does not describe. The digest gives no coordinates for 9, 10 or 11 and does not say how targets are chosen or whether the trap repeats on each entry."
+    },
+    {
+      "id": "acceptance.kutos-well-catacombs.arrow-ambush-locations-10-11",
+      "title": "Take the single arrow at locations 10 and 11",
+      "kind": "main",
+      "steps": [
+        "While Norris is alive, step onto location 10, then location 11.",
+        "At each the game prints 'THROUGH THE SMOKE AND DARKNESS, A DIMLY SEEN FIGURE FIRES AN ARROW INTO THE PARTY. THE FIGURE FADES AWAY.'",
+        "One arrow attack is rolled each time: THAC0 21, 1d6."
+      ],
+      "expect": [
+        "At most one hit of 1d6 per location."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "1 attack each, THAC0 21, 1d6"
+      ],
+      "sources": [
+        "[P] §3.4 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0xa173 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.9-10 location 7"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "See arrow-ambush-location-9 for the text pairing caveat."
+    },
+    {
+      "id": "acceptance.kutos-well-catacombs.arrows-stop-after-norris",
+      "title": "The archers stop once Norris is dead",
+      "kind": "rule",
+      "steps": [
+        "Beat Norris.",
+        "Walk over locations 9, 10 and 11."
+      ],
+      "expect": [
+        "No arrow text prints and no damage is dealt."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.4 (qa/research/guides-digest.md) ('while Norris lives, kobolds shoot arrows')",
+        "Clue Book p.9-10 location 7 'until Norris The Gray has been defeated'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kutos-well-catacombs.secret-door-location-6",
+      "title": "Detect and use the secret door at location 6",
+      "kind": "optional",
+      "steps": [
+        "Walk past location 6 without detecting the door; the wall cannot be passed.",
+        "Detect it (search). The game prints 'YOU FIND A SECRET DOOR IN THE <direction>'.",
+        "Walk through the door."
+      ],
+      "expect": [
+        "The door is usable only once detected."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.4 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0x9cf6, 0x9d10 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.9-10 uses one numbering (1-9) across the well plaza and the catacombs; [P] uses 2/3/4, 20, 21, 22 above ground and 6, 9-13 below. The numbers do not line up. Clue Book's 6 is the bottom of the well; [P]'s 6 is the secret door."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for the door, no detection odds, and does not say what it connects. The direction word is filled in by the script."
+    },
+    {
+      "id": "acceptance.kutos-well-catacombs.norris-fight",
+      "title": "Fight and beat Norris the Gray",
+      "kind": "main",
+      "steps": [
+        "Reach whichever location-12 square comes first. The game prints 'YOU ARE SURROUNDED BY THE BANDIT BAND OF THE INFAMOUS NORRIS THE GRAY. 'YOU DARE TO INVADE MY HALLS?', HE SNARLS. 'SURRENDER OR DIE!'' then 'WHAT DO YOU DO?' with the menu SURRENDER / FIGHT.",
+        "Choose FIGHT. Fight NORRIS THE GRAY (#32), 5 LIZARDMAN (#57) and 9 KOBOLD LEADER (#1).",
+        "Win. The game prints 'ON THE LEADER'S BODY, YOU FIND A CURIOUS MESSAGE THAT YOU PLACE IN YOUR JOURNAL AS ENTRY 50.'",
+        "The game prints 'YOU HAVE DEFEATED THE DREADED BANDIT GANG AND RID PHLAN OF A GREAT EVIL. THE HONEST SETTLERS WILL CHEER YOUR DEEDS!' then 'YOU HAVE ALSO TAKEN POSSESSION OF A HIDEOUT IN WHICH YOU MAY REST UNDISTURBED FROM THE RIGORS OF YOUR QUESTING.'"
+      ],
+      "expect": [
+        "Each character gains 208 XP.",
+        "Norris's Long Sword +1 is in the treasure.",
+        "Journal Entry 50 is recorded.",
+        "Norris is flagged dead: the arrow traps stop, resting in the catacombs is safe, and the clerk's Norris bonus is due."
+      ],
+      "branches": [
+        "SURRENDER: see norris-surrender."
+      ],
+      "fights": [
+        "NORRIS THE GRAY (#32), 5 LIZARDMAN (#57), 9 KOBOLD LEADER (#1); Morale 70; 208 XP"
+      ],
+      "data": [
+        "Journal Entry 50 (Adventurer's Journal p.30: the Boss's orders to Norris and Norris's unsent reply)",
+        "Long Sword +1"
+      ],
+      "sources": [
+        "[P] §3.4 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0x9d34, 0x9da1, 0x9db0, 0x9e08, 0x9e54, 0x9eb2 (src/audio/voice-master-manifest.json)",
+        "Adventurer's Journal p.30 entry 50",
+        "Clue Book p.9-10 location 8"
+      ],
+      "disagreements": [
+        "Digest §3.4 prints the quote 'You have defeated the dreaded bandit gang and rid Phlan of a great evil…' next to Journal Entry 50 as if it were the entry. The game text shows it is a separate on-screen victory message (0x9e54), and the Journal's entry 50 is the Boss's orders plus Norris's reply.",
+        "Clue Book p.9-10 uses one numbering (1-9) across the well plaza and the catacombs; [P] uses 2/3/4, 20, 21, 22 above ground and 6, 9-13 below. The numbers do not line up. Clue Book: Norris is 8; [P]: 12."
+      ],
+      "coveredBy": [],
+      "notes": "[P]: Norris meets the party at whichever location-12 square it reaches first; the digest gives no coordinates. Adventurer's Journal entry 5 (p.17, treasure under Kuto's Well with a lever and trap) is not cited by the digest; the Journal warns some entries are false, so do not build a step on it."
+    },
+    {
+      "id": "acceptance.kutos-well-catacombs.norris-surrender",
+      "title": "Surrender to Norris",
+      "kind": "optional",
+      "steps": [
+        "At Norris's demand choose SURRENDER.",
+        "The game prints 'YOU ARE STRIPPED OF ALL VALUABLES AND BLINDFOLDED. THE BANDITS RELEASE YOU SOMEWHERE ABOVE GROUND.'"
+      ],
+      "expect": [
+        "The party loses all money and all light items, plus some heavy items.",
+        "The party is moved above ground into Kuto's Well.",
+        "Norris is still alive."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.4 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0x9f1b (src/audio/voice-master-manifest.json)",
+        "[P] §5: item theft sources include surrenders; ECL opcode 28 (ROB) bug (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say where above ground the party is placed, or which heavy items are lost. [P] §5: opcode 28 (ROB) mishandles the item chance while iterating, and heavy items at the top of the inventory are protected; keep both."
+    },
+    {
+      "id": "acceptance.kutos-well-catacombs.rest-before-norris-is-an-ambush",
+      "title": "Resting before Norris is dead brings him to you",
+      "kind": "rule",
+      "steps": [
+        "Enter the catacombs with Norris alive and rest.",
+        "Norris ambushes the party with the same demand as at location 12 (SURRENDER / FIGHT)."
+      ],
+      "expect": [
+        "Rest is not completed.",
+        "The Norris encounter starts wherever the party is."
+      ],
+      "branches": [],
+      "fights": [
+        "As at 12: NORRIS THE GRAY (#32), 5 LIZARDMAN (#57), 9 KOBOLD LEADER (#1), Morale 70"
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.4 (qa/research/guides-digest.md) ('before that, he ambushes you as at 12')"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the ambush is certain on the first rest or rolled per interval."
+    },
+    {
+      "id": "acceptance.kutos-well-catacombs.rest-safe-after-norris",
+      "title": "Rest safely in the catacombs once Norris is dead",
+      "kind": "rule",
+      "steps": [
+        "Beat Norris.",
+        "Rest anywhere in the catacombs for any length of time."
+      ],
+      "expect": [
+        "The rest is never interrupted."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.4 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0x9eb2 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.9-10 'Where You Can Rest'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "All three sources agree on the catacombs. They disagree only about the plaza above (see acceptance.kutos-well resting)."
+    },
+    {
+      "id": "acceptance.kutos-well-catacombs.norris-hoard",
+      "title": "Take Norris's hoard at location 13",
+      "kind": "main",
+      "steps": [
+        "After beating Norris and without leaving the Kuto's Well area, walk to (13,1).",
+        "The game prints 'YOU HAVE FOUND THE BANDIT'S TREASURE. DO YOU TAKE IT?' Choose YES.",
+        "The game prints 'YOU GRAB THE LOOT.'"
+      ],
+      "expect": [
+        "The party gains 20 gems, 92 gold and 2300 silver.",
+        "Each character gains 867 XP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 13 at (13,1)",
+        "20 gems, 92 gold, 2300 silver (867 XP)"
+      ],
+      "sources": [
+        "[P] §3.4 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 29 at 0x9fa6, 0x9fd6 (src/audio/voice-master-manifest.json)",
+        "Clue Book p.9-10 location 9 'Search this area to find Norris The Gray's loot'"
+      ],
+      "disagreements": [
+        "Clue Book p.9-10 uses one numbering (1-9) across the well plaza and the catacombs; [P] uses 2/3/4, 20, 21, 22 above ground and 6, 9-13 below. The numbers do not line up. Clue Book: the loot is 9 and must be searched for; [P]: 13 at (13,1), no search mentioned."
+      ],
+      "coveredBy": [],
+      "notes": "867 XP = (20 x 250 + 92 + 2300 x 0.05) / 6, rounded down. 2300 silver weighs 230 lb at 10 coins per pound, so encumbrance may change movement. The digest does not say whether the hoard is present before Norris is beaten."
+    },
+    {
+      "id": "acceptance.kutos-well-catacombs.hoard-vanishes-if-you-leave",
+      "title": "The hoard vanishes if you leave before claiming it",
+      "kind": "quirk",
+      "steps": [
+        "Beat Norris but do not take the hoard.",
+        "Leave the Kuto's Well area (to the Slums, Podal Plaza or the Library).",
+        "Return to (13,1)."
+      ],
+      "expect": [
+        "The hoard is gone; no treasure prompt appears."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.4 (qa/research/guides-digest.md) ('It vanishes if you leave the Kuto's Well area unclaimed after beating Norris')",
+        "[P] §5 Scripting: Kuto's Catacombs (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "A faithful port must reproduce this. The digest does not say whether climbing to the plaza above (same ECL 29 area) is safe; it says 'leave the Kuto's Well area', so the literal reading is that only leaving ECL 29 loses it."
+    },
+    {
+      "id": "acceptance.kutos-well-catacombs.clerk-norris-bonus",
+      "title": "Collect the Norris bonus from the council clerk",
+      "kind": "main",
+      "steps": [
+        "With Norris beaten, go to the council clerk at New Phlan City Hall 29 (5,5).",
+        "She prints 'THE COUNCIL HAS AWARDED A BONUS FOR YOUR ELIMINATING NORRIS THE GRAY.' and 'HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "Reward: 200 platinum and 250 gold; each character gains 208 XP.",
+        "The quest tracker advances by one (Norris is one of the ten tracker quests).",
+        "Any city-guard anger is cancelled."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "200 pp, 250 gold (208 XP)"
+      ],
+      "sources": [
+        "[P] §3.0 'Other clerk rewards' and tracker list (digest)",
+        "[P] §3.4 (qa/research/guides-digest.md)",
+        "game text ECL3.DAX block 8 at 0x9f77, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: a specific Norris bonus, and no reward for clearing Kuto's Well. Clue Book p.9-10: 'the standard reward for clearing the block' after Norris (digest §7 item 14). The amounts are the same as [P]'s block-clearing rewards for Podal Plaza and the Textile House (200 pp, 250 gold); the game's own line calls it 'A BONUS FOR YOUR ELIMINATING NORRIS THE GRAY'."
+      ],
+      "coveredBy": [],
+      "notes": "208 XP = (200 x 5 + 250) / 6. There is no commission for this; the clerk never offers it."
+    }
+  ]
+}

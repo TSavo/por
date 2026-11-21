@@ -1,0 +1,883 @@
+{
+  "schema": 1,
+  "id": "acceptance.cadorna-textile-house",
+  "title": "Cadorna Textile House",
+  "guideSection": "3.7",
+  "scripts": [
+    "ECL 2"
+  ],
+  "commission": "Commission #5",
+  "prerequisites": [
+    "Commission #2 (Sokal Keep) is rewarded; commission #5 requires it.",
+    "Commission #5 has been offered and Cadorna has given his speech at Civilized 30 (6,5). Restal's offers require it.",
+    "A thief is in the party for the well scenarios.",
+    "A free party slot is needed to recruit Skullcrusher.",
+    "XP figures assume a party of exactly six.",
+    "No party level is stated for this area in the digest."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.cadorna-textile-house.accept-commission",
+      "title": "Take commission #5 from Junior Councilman Cadorna",
+      "kind": "main",
+      "steps": [
+        "With commission #2 (Sokal Keep) rewarded, speak to the clerk at Civilized 29 (5,5) until she says 'JUNIOR COUNCILMAN CADORNA HAS A SPECIAL COMMISSION FOR YOU. HIS CHAMBERS ARE THROUGH THE EAST DOOR.'",
+        "Enter the Junior Councilman's office, Civilized 30 (6,5); before the offer a guard bars the way.",
+        "Cadorna says ''WHEN OLD PHLAN WAS OVERRUN, A FAMILY TREASURE WAS HIDDEN IN THE WESTERN BUILDING OF THE TEXTILE COMPLEX.' and ''THE FAITHFUL SERVANT SENT TO FETCH IT NEVER RETURNED. THE COMPLEX IS JUST SOUTH OF PODOL PLAZA. BRING THE TREASURE TO ME AND YOU WILL BE WELL REWARDED.''"
+      ],
+      "expect": [
+        "Commission #5 is held.",
+        "Restal's offer at the well and the guided entry become available."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Commission #5 requires #2 ([P] §3.0).",
+        "Civilized 30 at (6,5)."
+      ],
+      "sources": [
+        "[P] §3.0 (digest): Civilized 29, 30 and the clerk commission list",
+        "Clue Book p.15-16",
+        "game text ECL3.DAX block 8 at 0xaa52, 0xaf96, 0xafec (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Spelling: Cadorna's text says 'PODOL PLAZA'; the clerk's reward text says 'PODAL PLAZA'."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifyPodalFromCouncil (asserts 'family treasure was hidden in the western building')"
+      ],
+      "notes": "The Clue Book says Cadorna 'will pay generously for the return of both items' (the servant and the treasure); [P] lists a reward only for the box."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.exits",
+      "title": "Use each exit of the block",
+      "kind": "rule",
+      "steps": [
+        "Leave by E1; the party arrives in Mendor's Library.",
+        "Leave by E2; the party arrives in Podal Plaza.",
+        "Leave by E3; the party arrives on the wilderness map at (24,28).",
+        "From wilderness (24,28) choose SOUTH; the party arrives in the Textile House at (0,4)."
+      ],
+      "expect": [
+        "Each exit leads to the map named."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "E3 → Wilderness (24,28).",
+        "Wilderness d SOUTH → Textile House (0,4)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "[P] §3.11 fixed point d (digest)",
+        "game text ECL7.DAX block 26 at 0x9e46, 0x9ebb (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "No coordinates are given for E1 to E3."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.courtyard-drum-fight",
+      "title": "Enter the courtyard and win the drum fight",
+      "kind": "main",
+      "steps": [
+        "Without having been guided in by the thieves, enter the courtyard (location 1) for the first time; the existing replay triggers it at (4,10).",
+        "The game prints 'YOU ARE ENTERING A WEEDY, GARBAGE STREWN COURTYARD. A DRUM BEGINS TO BEAT AND HOBGOBLINS ATTACK.'",
+        "Win the fight."
+      ],
+      "expect": [
+        "Combat: 12 HOBGOBLIN + 2 HOBGOBLIN LDR; 63 XP per character (party of six).",
+        "Afterwards the game prints 'THINGS SEEM STRANGELY QUIET. THE DRUM HAS FADED TO SILENCE.'",
+        "The fight does not recur on later entries."
+      ],
+      "branches": [
+        "Guided in by Restal: this fight is skipped (see well-guided-entry)."
+      ],
+      "fights": [
+        "12 HOBGOBLIN + 2 HOBGOBLIN LDR, 63 XP."
+      ],
+      "data": [
+        "Courtyard trigger square seen by the replay: (4,10)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "game text ECL4.DAX block 2 at 0x9c36, 0x9cac (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifyUninterruptedCourtyard",
+        "tools/verify-fresh-party.mjs milestone 'Won both Textile House entrance battles with original combat and reloaded the courtyard checkpoint:'"
+      ],
+      "notes": "The digest numbers this location 1 without coordinates. When the 'DRUM HAS FADED' line is printed (right after the fight or on re-entry) is not stated in the digest."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.well-non-thief-falls",
+      "title": "Send a non-thief down the well",
+      "kind": "rule",
+      "steps": [
+        "Walk to location 24 (1,3). The game prints 'ON THE WELL IS A NOTE,'THIEVES ONLY.' THE WELL HAS NO RUNGS OR ROPE AND SEEMS VERY DEEP. ONLY A SKILLFUL CLIMBER COULD SURVIVE THE DESCENT. WHAT DO YOU DO?' with LEAVE / CLIMB DOWN.",
+        "Choose CLIMB DOWN and select a character who is not a thief."
+      ],
+      "expect": [
+        "The game prints 'YOU BEGIN A LONG FALL.' and 'YOU HIT AN UNYIELDING STONE FLOOR.'",
+        "The character takes 15d6 damage.",
+        "Restal expels the party: the game text has 'HE POINTS HIS RING AT YOU AND YOU RISE UP AND OUT THE WELL.'"
+      ],
+      "branches": [
+        "LEAVE: nothing happens.",
+        "A thief: see well-thief-without-mission and well-guided-entry."
+      ],
+      "fights": [],
+      "data": [
+        "Fall damage: 15d6.",
+        "Location 24 at (1,3)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Clue Book p.15-16",
+        "game text ECL4.DAX block 2 at 0xabd3, 0xac4b, 0xac8a, 0xacd7, 0xad90, 0xb0e6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.15-16 numbers the dry well 1 (guided entry 1a), barracks 2, Grishnak 3, Skullcrusher 4, the carving 5, baby hobgoblins 6, the dead hobgoblin 7, the secret-door hint 8 and the ogre 9; [P] numbers the well 24 (24a), Grishnak 18, Skullcrusher 17, the hint 20 and the ogre 21.",
+        "Clue Book p.15: 'will fall, taking a lot of damage'; [P]: 15d6."
+      ],
+      "coveredBy": [],
+      "notes": "The game text also has 'THAT ONE IS NOT WELL ENOUGH TO CLIMB.' (an unfit character cannot be chosen) and 'FROM AN ARCHWAY AT THE BOTTOM COME ARROWS.'; the digest mentions neither, so the arrows' trigger and damage are unknown."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.well-feather-falling-fails",
+      "title": "Fall down the well wearing a Ring of Feather Falling",
+      "kind": "quirk",
+      "steps": [
+        "Equip a Ring of Feather Falling on a non-thief (one is found at Wealthy Area location 3).",
+        "At the well choose CLIMB DOWN with that character."
+      ],
+      "expect": [
+        "The character still takes the 15d6 fall damage; the ring does not help."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "[P] §5 Scripting, Textile House (digest): 'The Ring of Feather Falling fails in the well.'",
+        "game text ECL4.DAX block 2 at 0xad41, 0xadd7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The block 2 text contains 'YOU FLOAT DOWN THE WELL.' and 'YOUR FRIEND FLOATS OUT OF THE WELL.', so a floating path exists in the script; [P] says the ring does not trigger it."
+      ],
+      "coveredBy": [],
+      "notes": "Faithful behaviour is the bug. Whether any state reaches 'YOU FLOAT DOWN THE WELL.' is not stated in the digest."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.well-thief-without-mission",
+      "title": "Climb down as a thief without Cadorna's mission",
+      "kind": "optional",
+      "steps": [
+        "Without commission #5, choose CLIMB DOWN with a thief and pass the Climb Walls roll (fixed dice)."
+      ],
+      "expect": [
+        "The thief reaches the bottom unhurt.",
+        "Restal expels the party from the well; no offer is made."
+      ],
+      "branches": [
+        "Climb Walls roll fails: the thief falls like a non-thief (the digest says only that a thief 'makes a Climb Walls roll')."
+      ],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Clue Book p.15-16",
+        "game text ECL4.DAX block 2 at 0xadfa, 0xae1d, 0xb0e6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.15: a thief must have 'removed any armor heavier than leather'; [P] does not mention armor."
+      ],
+      "coveredBy": [],
+      "notes": "The digest: 'Restal expels you unless you climbed down successfully and hold Cadorna's mission.' The game text 'HERE IS A LAUGHING THIEF.' and 'AN OLD THIEF STANDS HERE.'WELCOME TO MY GUILD. I AM RESTAL.' HE BOWS LOW.' exist; which is shown in this branch is not stated."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.well-guided-entry",
+      "title": "Accept Restal's guided entry and skip the courtyard",
+      "kind": "optional",
+      "steps": [
+        "Hold commission #5. At the well choose CLIMB DOWN with a thief and pass the Climb Walls roll.",
+        "Restal says ''YOU ARE SEEKING THE TEXTILE HOUSE. WE CAN GET YOU IN UNSEEN AND POSSIBLY HELP YOU WITH THE TREASURE. INTERESTED?'' with YES / NO. Answer YES.",
+        "The game prints 'A ROPE IS TOSSED UP AND THE REST OF THE PARTY COMES DOWN. THE OLD THIEF SAYS 'OUR RULES REQUIRE YOU TO BE BLINDFOLDED IN OUR GUILD HOUSE, OKAY?'' with YES / NO. Answer YES.",
+        "The game prints 'YOU ARE BLINDFOLDED AND TAKEN ON A LONG, TWISTING WALK, THEN UP A LADDER.'ONLY MEET US AT THE MAIN WELL.''"
+      ],
+      "expect": [
+        "The party stands at 24a (6,11).",
+        "The courtyard drum fight at location 1 never occurs."
+      ],
+      "branches": [
+        "NO to the offer or to the blindfold: ''THE OLD THIEF LAUGHS, 'PERHAPS WE SHALL MEET AGAIN.'' is in the game text; the digest does not describe the refusal."
+      ],
+      "fights": [],
+      "data": [
+        "24a at (6,11).",
+        "Restal is the guild master (Clue Book: he has a ring of telekinesis)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Clue Book p.15-16",
+        "game text ECL4.DAX block 2 at 0xaf4b, 0xafa4, 0xafbf, 0xb02e, 0xb049, 0xaf12 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.15-16 numbers the dry well 1 (guided entry 1a), barracks 2, Grishnak 3, Skullcrusher 4, the carving 5, baby hobgoblins 6, the dead hobgoblin 7, the secret-door hint 8 and the ogre 9; [P] numbers the well 24 (24a), Grishnak 18, Skullcrusher 17, the hint 20 and the ogre 21."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Verified Restal's two blindfold outcomes and reloaded the party's hidden route clue.' (asserts '6,11 n ... only meet us at the main well')"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.grishnak",
+      "title": "Defeat Grishnak and take the Brass Key",
+      "kind": "main",
+      "steps": [
+        "Walk to location 18 (the replay meets Grishnak from (2,12) and from (3,11)).",
+        "The game prints 'YOU ARE IN A LARGE ROOM WHICH SERVES AS A CRUDE TEMPLE, AND CAUSES A VAGUE FEELING OF DISQUIET.' and 'ATOP A SMALL BONE ALTAR, STANDS AN ANCIENT, HOBGOBLIN. SHE SCREAMS 'I AM THE MIGHTY GRISHNAK! YOU HAVE INTERRUPTED MY UNHOLY RITES! FEEL MY INFERNAL WRATH!''",
+        "Win the fight and take all loot."
+      ],
+      "expect": [
+        "Combat: GRISHNAK (#28), 12 HOBGOBLIN, 3 HOBGOBLIN LDR; morale 100; 353 XP per character.",
+        "Loot: Cursed Necklace, Brass Key, Potion of Healing, MU Scroll (Reduce, Detect Invisibility, Fireball), MU Scroll (Burning Hands, Mirror Image, Blink), Stone Statuette (useless).",
+        "On a later visit the room prints 'THIS ROOM HAS HAD BLOOD SMEARED ON THE FLOOR AND WALLS IN A RITUAL, UNHOLY MANNER.'"
+      ],
+      "branches": [],
+      "fights": [
+        "GRISHNAK (#28) + 12 HOBGOBLIN + 3 HOBGOBLIN LDR, morale 100, 353 XP."
+      ],
+      "data": [
+        "Key item: Brass Key (the only way to free Skullcrusher)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Clue Book p.15-16",
+        "game text ECL4.DAX block 2 at 0xa614, 0xa66a, 0xa729 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.15-16 numbers the dry well 1 (guided entry 1a), barracks 2, Grishnak 3, Skullcrusher 4, the carving 5, baby hobgoblins 6, the dead hobgoblin 7, the secret-door hint 8 and the ogre 9; [P] numbers the well 24 (24a), Grishnak 18, Skullcrusher 17, the hint 20 and the ogre 21.",
+        "The digest gives no coordinates for 18; the replay sees the text at (2,12) and (3,11)."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Won the prison fight, reloaded the captive's key objective, and reached Grishnak's temple.'",
+        "tools/verify-fresh-party.mjs milestone 'Healed the party, cast Sleep on Grishnak, and reached the original defeat screen.' (a loss, not a win)"
+      ],
+      "notes": "No existing replay wins this fight; one reaches the defeat screen. The pairing of the 'BLOOD SMEARED' line with the post-fight room is by content, not stated in the digest. [P] §5 Technical: racial to-hit bonuses fail against monster #28."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.skullcrusher-without-key",
+      "title": "Try to free Skullcrusher without the Brass Key",
+      "kind": "optional",
+      "steps": [
+        "Without the Brass Key walk to location 17 (2,15).",
+        "The game prints 'YOU ARE IN A VERY SMALL, DARK ROOM.' and 'A MUSCULAR MAN LOCKED IN CHAINS LIES HERE. NEAR HIM IS A PAGE THAT YOU PLACE IN YOUR JOURNAL UNDER ENTRY 47.'",
+        "At 'WHAT DO YOU DO WITH THE MAN?' (FREE / ATTACK / PARLAY / LEAVE) choose FREE, then at 'HOW WILL YOU FREE HIM?' try UNLOCK, PICK LOCK and BREAK CHAINS in turn."
+      ],
+      "expect": [
+        "UNLOCK: 'YOU HAVE NO KEY TO UNLOCK THE PADLOCKS.'",
+        "PICK LOCK: 'NO ONE IS ABLE TO PICK ALL THE PADLOCKS.'",
+        "BREAK CHAINS: 'DESPITE GREAT EFFORT, THE CHAINS HOLD.'",
+        "He stays chained. Journal entry 47 is recorded."
+      ],
+      "branches": [
+        "PARLAY while chained: the game text has ''WHATS YOUR PROBLEM?'', ''DON'T TRY TO FOOL ME.' HE GROWLS.', ''I ALMOST KILLED THE LEADER OF THESE SCUMMY HOBGOBLINS, BUT THE REST JUMPED ME!'', ''FREE ME AND I'LL HELP YOU.'' and ''WORDS DON'T BREAK CHAINS!' HE SNARLS.'; the digest does not map them to attitudes.",
+        "ATTACK: 'THE MAN DIES A CRUEL DEATH.' (game text; not described in the digest)."
+      ],
+      "fights": [],
+      "data": [
+        "Journal entry 47: notes that the hobgoblins moved out of Valjevo Castle and on the Stojanow Gate bugbears and ettins (Adventurer's Journal p.29-30).",
+        "Location 17 at (2,15)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Clue Book p.15-16",
+        "Adventurer's Journal p.29-30 (entry 47)",
+        "game text ECL4.DAX block 2 at 0xa109, 0xa147, 0xa19f, 0xa1b7, 0xa1f2, 0xa206, 0xa247, 0xa29f, 0xa2c4, 0xa2e8, 0xa338, 0xa350, 0xa372, 0xa3b6, 0xa3d3 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.15-16 numbers the dry well 1 (guided entry 1a), barracks 2, Grishnak 3, Skullcrusher 4, the carving 5, baby hobgoblins 6, the dead hobgoblin 7, the secret-door hint 8 and the ogre 9; [P] numbers the well 24 (24a), Grishnak 18, Skullcrusher 17, the hint 20 and the ogre 21."
+      ],
+      "coveredBy": [],
+      "notes": "[P]: 'Only the Brass Key frees him.' The game strings confirm that picking and breaking always fail."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.skullcrusher-recruited",
+      "title": "Free Skullcrusher with the Brass Key and recruit him",
+      "kind": "main",
+      "steps": [
+        "Holding the Brass Key, at location 17 (2,15) choose FREE then UNLOCK.",
+        "The game prints 'THE BRASS KEY YOU FOUND OPENS ALL OF THE PADLOCKS.' then 'THERE IS A FREE MAN HERE. WHAT DO YOU DO?' with ATTACK / WAIT / FLEE / PARLAY / LEAVE.",
+        "Choose PARLAY with any attitude except Abusive.",
+        "He says ''THANKS FOR FREEING ME. I'M LORD CADORNA'S SERVANT.' and the game asks 'ADD HIM TO YOUR PARTY?' YES / NO. Answer YES (with a free party slot)."
+      ],
+      "expect": [
+        "He says ''GREAT! MY NAME IS SKULLCRUSHER. THERE'S A SECRET DOOR TO THE SOUTHEAST. THAT'S WHERE I MET THE HOBGOBLIN LEADER.''",
+        "SKULLCRUSHER joins the party as an NPC with morale 100.",
+        "The replay sees him listed with 39 hit points, a long sword, banded mail and a shield."
+      ],
+      "branches": [
+        "Abusive: ''I DON'T LIKE YOUR TONE.''; he does not join (see skullcrusher-refused).",
+        "NO: ''OH WELL.' HE LEAVES.'",
+        "Party full: 'THERE IS NO ROOM IN YOUR PARTY FOR HIM.'",
+        "WAIT: 'THE MAN WAITS IMPATIENTLY.'",
+        "FLEE: 'YOU FLEE THE ROOM.'"
+      ],
+      "fights": [],
+      "data": [
+        "NPC: SKULLCRUSHER, morale 100; [P] gives his monster number as '#28 [sic]', the same as GRISHNAK."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Clue Book p.15-16",
+        "game text ECL4.DAX block 2 at 0xa26c, 0xa3fc, 0xa41e, 0xa473, 0xa48e, 0xa4d2, 0xa500, 0xa514, 0xa53a, 0xa55f, 0xa5d2, 0xa5f2 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.16 writes 'Skull Crusher' once and 'Skullcrusher' elsewhere.",
+        "[P] numbers both GRISHNAK and SKULLCRUSHER #28 and flags it '[sic]'."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifySkullcrusherRecruitment",
+        "tools/verify-fresh-party.mjs milestone 'With the key supplied in a controlled copy, recruited Skullcrusher, reloaded his clue, and reached the ogre chief.'"
+      ],
+      "notes": "The replay supplies the Brass Key in a controlled save copy rather than winning it from Grishnak. [P] §5 Technical: racial to-hit bonuses fail against #28."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.skullcrusher-refused",
+      "title": "Free Skullcrusher and fail to recruit him",
+      "kind": "optional",
+      "steps": [
+        "Free him with the Brass Key, then run three cases: PARLAY Abusive; PARLAY otherwise and answer NO; PARLAY otherwise with a full party."
+      ],
+      "expect": [
+        "Abusive: ''I DON'T LIKE YOUR TONE.''",
+        "NO: ''OH WELL.' HE LEAVES.'",
+        "Full party: 'THERE IS NO ROOM IN YOUR PARTY FOR HIM.'",
+        "In each case Skullcrusher is not in the party."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "game text ECL4.DAX block 2 at 0xa5d2, 0xa5f2, 0xa53a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says only 'parley with anything but Abusive'. Whether he can be recruited on a later visit after any of these is not stated."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.secret-door-hint",
+      "title": "Hear Skullcrusher point out the secret door",
+      "kind": "main",
+      "steps": [
+        "With Skullcrusher in the party walk to location 20 (11,14)."
+      ],
+      "expect": [
+        "The game prints ''IN THE EAST WALL IS THE SECRET DOOR.' SAYS SKULLCRUSHER.'IF WE GO THROUGH WE CAN SURPRISE THEM.''",
+        "The secret door in the east wall leads to location 21 (12,14)."
+      ],
+      "branches": [
+        "Without Skullcrusher: no hint is printed (the digest gives the line only 'with Skullcrusher present')."
+      ],
+      "fights": [],
+      "data": [
+        "Location 20 at (11,14); location 21 at (12,14)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Clue Book p.15-16",
+        "game text ECL4.DAX block 2 at 0xa77f (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.15-16 numbers the dry well 1 (guided entry 1a), barracks 2, Grishnak 3, Skullcrusher 4, the carving 5, baby hobgoblins 6, the dead hobgoblin 7, the secret-door hint 8 and the ogre 9; [P] numbers the well 24 (24a), Grishnak 18, Skullcrusher 17, the hint 20 and the ogre 21."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifySkullcrusherRecruitment (asserts '11,14 e ... in the east wall is the secret door')"
+      ],
+      "notes": "The hint promises surprise; the digest does not say the ogre fight is affected by the route taken."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.ogre-chief",
+      "title": "Kill the ogre chief and find the sealed iron box",
+      "kind": "main",
+      "steps": [
+        "Enter location 21 (12,14). The game prints 'THIS ROOM IS DIMLY LIT WITH GUTTERING TORCHES.', 'YOU SEE THE CHIEF OF THE HOBGOBLINS, A HUGE OGRE. AS YOU ENTER, HE RISES TO HIS FULL, TEN FEET OF HEIGHT; HIS HEAD WREATHED IN THE FLICKERING SHADOWS.' and ''PUNY CREATURES,' HE BELLOWS.'I ALLOWED YOU TO TOY WITH MY MINIONS, BUT NOW I'LL CRUSH THE LIFE FROM YOUR LIMBS.''",
+        "Win the fight.",
+        "The game prints 'YOU FIND AN IRON BOX, ACROSS THE LOCK IS THE SEAL OF THE FAMILY OF CADORNA. OPENING THE BOX WILL DAMAGE THE SEAL BEYOND REPAIR. WHAT DO YOU DO?' with OPEN IT / TAKE IT UNOPENED."
+      ],
+      "expect": [
+        "Combat: 1 OGRE, 18 HOBGOBLIN, 4 HOBGOBLIN LDR; morale 100; distance 1; 132 XP per character.",
+        "The ogre is dead: the south-central zone stops producing the fixed hobgoblin group, and the tenth random encounter becomes available."
+      ],
+      "branches": [
+        "TAKE IT UNOPENED: see box-returned-sealed and restal-reseal.",
+        "OPEN IT: see box-opened-by-party."
+      ],
+      "fights": [
+        "1 OGRE + 18 HOBGOBLIN + 4 HOBGOBLIN LDR, morale 100, distance 1, 132 XP."
+      ],
+      "data": [
+        "Location 21 at (12,14)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Clue Book p.15-16",
+        "game text ECL4.DAX block 2 at 0xa7e2, 0xa80f, 0xa887, 0xa911, 0xa980 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.15-16 numbers the dry well 1 (guided entry 1a), barracks 2, Grishnak 3, Skullcrusher 4, the carving 5, baby hobgoblins 6, the dead hobgoblin 7, the secret-door hint 8 and the ogre 9; [P] numbers the well 24 (24a), Grishnak 18, Skullcrusher 17, the hint 20 and the ogre 21."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs verifySkullcrusherRecruitment (reaches (12,14) and asserts 'chief of the hobgoblins, a huge ogre'; does not win the fight)"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.box-returned-sealed",
+      "title": "Carry the unopened box to New Phlan and collect commission #5",
+      "kind": "main",
+      "steps": [
+        "At the box prompt choose TAKE IT UNOPENED.",
+        "Return to New Phlan and pass Civilized exit E2.",
+        "The game prints 'THE CITY WATCH STOPS YOU AND REMOVES CADORNA'S TREASURE FROM YOUR KEEPING. THEY TELL YOU YOUR REWARD WAITS WITH THE CITY CLERK.'",
+        "Speak to the council clerk."
+      ],
+      "expect": [
+        "The box is removed from the party.",
+        "The clerk's text includes 'COUNCILMAN CADORNA LEFT THIS PAYMENT FOR SOME SERVICE YOU HAD RENDERED.'",
+        "Reward: 20 gems; 833 XP per character.",
+        "Commission #5 is complete (it is not one of the ten tracker quests; it unlocks #13)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Reward for #5: 20 gems (833 XP)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "[P] §3.0 clerk commission list (digest)",
+        "Clue Book p.15-16",
+        "game text ECL3.DAX block 0 at 0xab27 (src/audio/voice-master-manifest.json)",
+        "game text ECL3.DAX block 8 at 0xa389 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.16: 'If the characters didn't obviously open the box, then the clerk will give them a reward.' Agrees."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Returned from the Textile House via the west ferry, handed off the sealed box, and collected the council reward.'"
+      ],
+      "notes": "The digest says the watch takes the box at 'Civilized E2'; the replay returns by the west ferry. Whether the box is an inventory item or a flag is not stated. Pairing the 'LEFT THIS PAYMENT' clerk line with #5 is by content."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.box-opened-by-party",
+      "title": "Open the box yourself and face Cadorna",
+      "kind": "main",
+      "steps": [
+        "At the box prompt choose OPEN IT.",
+        "Return to New Phlan and walk to Civilized 27 (4,4)."
+      ],
+      "expect": [
+        "On opening: 1943 XP per character; 4 jewelry, 8 gems, 400 platinum, 20 silver, 450 copper, four pieces of item jewelry, Gauntlets of Ogre Power.",
+        "At Civilized 27 the game prints 'COUNCILMAN CADORNA CONFRONTS YOU. 'YOU HAVE TAKEN MY FAMILY TREASURE. I DON'T FORGET SUCH THINGS.' HE STRIDES OFF.'"
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Contents: 4 jewelry, 8 gems, 400 pp, 20 sp, 450 cp, four item jewelry, Gauntlets of Ogre Power; 1943 XP.",
+        "Civilized 27 at (4,4)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "[P] §3.0 Civilized 27 (digest)",
+        "[P] §7 item 15 (digest)",
+        "Clue Book p.15-16",
+        "game text ECL3.DAX block 8 at 0x9ada (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Reward after opening: [GB] 'you won't get a reward'; [P] does not explicitly deny the #5 reward; Clue Book p.16: the clerk pays only if the box was not 'obviously' opened, otherwise 'Cadorna will meet them at the entrance to the city hall and threaten them'.",
+        "Place of the confrontation: [P] Civilized 27 (4,4); Clue Book 'at the entrance to the city hall'."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Returned with the opened box and reloaded Cadorna's unpaid outcome.'"
+      ],
+      "notes": "The replay treats the opened box as unpaid. 'Four pieces of item jewelry' is the digest's wording; the item names are not given."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.restal-reseal",
+      "title": "Have Restal open and reseal the box for half",
+      "kind": "optional",
+      "steps": [
+        "Take the box unopened, return to the well (location 24) and climb down with a thief.",
+        "Restal says ''WE CAN DUPLICATE THE SEAL ON THAT CHEST -- FOR HALF THE TREASURE -- NO ONE WILL EVER KNOW. INTERESTED?'' with YES / NO. Answer YES.",
+        "Then take the box to New Phlan and the clerk."
+      ],
+      "expect": [
+        "The party receives 2 jewelry, 4 gems, 200 platinum, four item jewelry and the Gauntlets of Ogre Power; 1200 XP per character.",
+        "The box still counts as sealed: the clerk pays the #5 reward of 20 gems (833 XP) and Cadorna does not confront the party."
+      ],
+      "branches": [
+        "NO: ''THE OLD THIEF LAUGHS, 'PERHAPS WE SHALL MEET AGAIN.''; the box stays sealed and whole."
+      ],
+      "fights": [],
+      "data": [
+        "Half share: 2 jewelry, 4 gems, 200 pp, four item jewelry, Gauntlets of Ogre Power (1200 XP)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Clue Book p.15-16",
+        "game text ECL4.DAX block 2 at 0xae87, 0xaed8, 0xaf12 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.15: the offer is made 'after it has recovered Cadorna's treasure (and not broken the seal)'. Agrees with [P]."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Verified Restal's reseal offer, accept and decline, and reloaded the resealed chest clue.' (asserts 'receives 1200 experience points')"
+      ],
+      "notes": "The replay's checkpoint description reads 'a slot C at Restal's well with a broken seal and Textile House commission', which sits oddly with the Clue Book's 'not broken the seal'; check the save before reusing it. The halved list keeps all four item jewelry and the gauntlets, as the digest states."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.restal-reopens-box",
+      "title": "Make Restal open the box more than once",
+      "kind": "quirk",
+      "steps": [
+        "Have Restal open and reseal the box (accept the offer).",
+        "Leave the Textile House map and come straight back without returning to New Phlan.",
+        "Climb down the well again and accept the offer again."
+      ],
+      "expect": [
+        "The opened flag was reset on leaving the map: Restal makes the offer again and pays the half share again (another 1200 XP per character).",
+        "Only returning to New Phlan marks the quest complete and ends the loop."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "[P] §5 Scripting, Textile House (digest): 'Restal can open the box more than once.'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "An exploit of the original that a faithful port must allow. The digest does not say which neighbouring map is enough (any map change, per 'leave the map and come straight back')."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.barracks",
+      "title": "Meet the barracks garrison",
+      "kind": "optional",
+      "steps": [
+        "Enter location 2. The game prints 'THIS CAVERNOUS BUILDING SERVES AS A BARRACKS.' and the encounter menu 'YOU ENCOUNTER HOBGOBLINS!'.",
+        "Run two cases: choose Flee; choose anything else."
+      ],
+      "expect": [
+        "Flee: no fight ('THE HOBGOBLINS GIVE CHASE, BUT YOU ESCAPE.').",
+        "Anything else: combat with 14 HOBGOBLIN + 3 HOBGOBLIN LDR; 76 XP per character ('THE HOBGOBLINS RESPOND WITH A PIERCING BATTLE CRY!')."
+      ],
+      "branches": [],
+      "fights": [
+        "14 HOBGOBLIN + 3 HOBGOBLIN LDR, 76 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Clue Book p.15-16",
+        "game text ECL4.DAX block 2 at 0x9d2f, 0xa9d5, 0xaa1c, 0xaae3 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.15-16 numbers the dry well 1 (guided entry 1a), barracks 2, Grishnak 3, Skullcrusher 4, the carving 5, baby hobgoblins 6, the dead hobgoblin 7, the secret-door hint 8 and the ogre 9; [P] numbers the well 24 (24a), Grishnak 18, Skullcrusher 17, the hint 20 and the ogre 21."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for location 2. The pairing of the encounter-menu strings with this room is by content; the same strings may serve the zone encounters."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.respawning-guards",
+      "title": "Fight the respawning group at location 5",
+      "kind": "rule",
+      "steps": [
+        "Enter location 5 (2,8) and win the fight.",
+        "Leave and enter (2,8) again."
+      ],
+      "expect": [
+        "First entry: 10 HOBGOBLIN + 2 HOBGOBLIN LDR; 54 XP per character.",
+        "The group is there again on re-entry (it respawns)."
+      ],
+      "branches": [],
+      "fights": [
+        "10 HOBGOBLIN + 2 HOBGOBLIN LDR, 54 XP, each time."
+      ],
+      "data": [
+        "Location 5 at (2,8)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Won the prison fight, reloaded the captive's key objective, and reached Grishnak's temple.'"
+      ],
+      "notes": "The digest says 'respawns' without saying what re-arms it (re-entering the square, the room or the map). The replay's 'prison fight' may be this fight or location 8; the replay does not name the location."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.location-8-guards",
+      "title": "Fight the group at location 8",
+      "kind": "optional",
+      "steps": [
+        "Enter location 8 and win the fight."
+      ],
+      "expect": [
+        "Combat: 12 HOBGOBLIN + 2 HOBGOBLIN LDR; 63 XP per character."
+      ],
+      "branches": [],
+      "fights": [
+        "12 HOBGOBLIN + 2 HOBGOBLIN LDR, 63 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.7 (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "No coordinates or text are given in the digest."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.diary-page",
+      "title": "Find the diary page (journal entry 11)",
+      "kind": "optional",
+      "steps": [
+        "Enter any square marked 23 for the first time."
+      ],
+      "expect": [
+        "The game prints 'YOU FIND A PAGE FROM A DIARY AND PLACE IT IN YOUR JOURNAL UNDER ENTRY 11.'",
+        "Entering another 23 square later prints nothing: the page is found only at the first such square entered."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Journal entry 11: a page about undead from Valhingen and the Boss (Adventurer's Journal p.18-19)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Adventurer's Journal p.18-19 (entry 11)",
+        "game text ECL4.DAX block 2 at 0xab6d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for the 23 squares."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.flavor-rooms",
+      "title": "Read the flavor text rooms",
+      "kind": "optional",
+      "steps": [
+        "Visit locations 6, 7, 12, 13, 14, 15, 16 and 19.",
+        "At the dead hobgoblin choose from SEARCH / DESTROY / LEAVE."
+      ],
+      "expect": [
+        "Block 2 prints these room texts: 'YOU ARE APPALLED BY THE STENCH IN THIS DAMP BUILDING.'; 'YOU ARE IN A DETERIORATED BUILDING.'; 'WHEN YOU ENTER, A FEW FADED, MOTHEATEN TAPESTRIES FLUTTER MOURNFULLY.'; 'SEVERAL BABY HOBGOBLINS FLEE, SCREAMING IN FEAR!'; 'THE FLOOR IS SLIPPERY FROM DUNG AND REEKS OF URINE.'; ''SKULLCRUSHER WAS HERE' IS CARVED INTO THE NORTH WALL.'; 'GRAFFITI COVERS THE WALLS IN MEANINGLESS ABANDON.'; 'YOU CAN BARELY SEE A DARK OBJECT TO THE WEST.'; 'YOU SEE A DEAD HOBGOBLIN WITH ITS HEAD CRUSHED. WRITTEN IN BLOOD IS A MESSAGE: 'SKULLCRUSHER WAS HERE.''; 'A SIMPLE KITCHEN, A FEW CLAY BOWLS ADORN THE FLOOR.'; 'THE REMAINS OF A SMOKING FIRE.'; 'BREAD AND MEAT LIE ABOUT, AS WELL AS PIECES OF HUMAN ANATOMY.'",
+        "With Skullcrusher in the party the carving adds 'SKULLCRUSHER PROUDLY POINTS OUT HIS HANDIWORK.' and the body adds 'SKULLCRUSHER LAUGHS AND CRACKS HIS KNUCKLES.'",
+        "Body: SEARCH prints 'YOU FIND NOTHING OF ANY VALUE.'; DESTROY prints 'YOU DESTROY EVERYTHING OF VALUE.'",
+        "None of these rooms starts a fight or gives treasure."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "The replay sees the carving text at (6,14) facing east."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Clue Book p.15-16",
+        "game text ECL4.DAX block 2 at 0x9d73, 0x9dad, 0x9dda, 0x9e30, 0x9e61, 0x9e8c, 0x9ec4, 0x9ef4, 0x9f3b, 0x9f6a, 0x9fca, 0x9ff2, 0xa00b, 0xa035, 0xa053, 0xa07d, 0xa0ae, 0xa0d1 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.15-16 numbers the dry well 1 (guided entry 1a), barracks 2, Grishnak 3, Skullcrusher 4, the carving 5, baby hobgoblins 6, the dead hobgoblin 7, the secret-door hint 8 and the ogre 9; [P] numbers the well 24 (24a), Grishnak 18, Skullcrusher 17, the hint 20 and the ogre 21."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Healed Alda, found Skullcrusher's mark, and verified both after reloading.' (asserts '6,14 e ... skullcrusher was here ... north wall')"
+      ],
+      "notes": "The digest lists the eight location numbers only as 'flavor text' and does not map numbers to strings or coordinates; the strings above are all the room descriptions in block 2 that the other scenarios do not use."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.random-encounters",
+      "title": "Roll the ten fixed random encounters",
+      "kind": "rule",
+      "steps": [
+        "Outside the south-central hobgoblin zone, walk until an encounter fires (1 in 31 per step; 1 in 6 in search mode).",
+        "With fixed dice drive rolls across the table and record the group met and the running count."
+      ],
+      "expect": [
+        "The encounter is chosen by 1d11 + the number already fought: 1-4 → 8 POISONOUS FROG (52 XP); 5-8 → 3 LARGE SCORPION + 1 HUGE SCORPION (64 XP); 9-13 → 5 GHOUL + 1 WIGHT (180 XP); 14-18 → 10 SKELETON + 8 ZOMBIE + 1 WIGHT (200 XP); 19 or more → the hobgoblin group.",
+        "There are 10 such encounters in total; the tenth appears only after the ogre at 21 is dead.",
+        "Opening lines: 'EVIL LOOKING FROGS BOIL UP FROM BELOW.'; 'SCORPIONS APPROACH HUNGRILY.'; 'SOME GHOULS DECIDE TO ADD YOU TO THEIR MENU.'; 'A SKELETAL FORCE SPOTS YOU AND ATTACKS.'; 'HOBGOBLINS CHARGE SCREAMING.'"
+      ],
+      "branches": [],
+      "fights": [
+        "8 POISONOUS FROG (52 XP).",
+        "3 LARGE SCORPION + 1 HUGE SCORPION (64 XP).",
+        "5 GHOUL + 1 WIGHT (180 XP).",
+        "10 SKELETON + 8 ZOMBIE + 1 WIGHT (200 XP).",
+        "8 HOBGOBLIN + 1 HOBGOBLIN LDR (morale 60, distance 2, 40 XP)."
+      ],
+      "data": [
+        "Chance: 1 in 31 per step, 1 in 6 in search mode."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "game text ECL4.DAX block 2 at 0x9abe, 0x9b04, 0x9b49, 0x9b9e, 0x9bef (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Slums gossip (ECL2.DAX block 20 at 0xb55d): ''STAY AWAY FROM THE TEXTILE HOUSE. THE UNDEAD ARE GOING CRAZY UP THERE.'' Consistent with the ghoul, wight, skeleton and zombie rows."
+      ],
+      "coveredBy": [],
+      "notes": "With 1d11 + count, a roll of 19+ is reachable only once at least 8 have been fought. The digest does not say whether a '19+ hobgoblin group' result counts as one of the ten. [P] §5 Adaptational: scorpions count as snakes."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.hobgoblin-zone",
+      "title": "Meet the fixed hobgoblin group in the south-central zone",
+      "kind": "rule",
+      "steps": [
+        "Before the ogre at 21 is dead, walk in the south-central hobgoblin zone until an encounter fires.",
+        "Repeat after killing the ogre."
+      ],
+      "expect": [
+        "Before the ogre dies every encounter here is 8 HOBGOBLIN + 1 HOBGOBLIN LDR; morale 60; distance 2; 40 XP per character.",
+        "These fights do not count toward the ten.",
+        "After the ogre is dead the zone uses the normal table."
+      ],
+      "branches": [],
+      "fights": [
+        "8 HOBGOBLIN + 1 HOBGOBLIN LDR, morale 60, distance 2, 40 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "game text ECL4.DAX block 2 at 0x9b04, 0xa9d5 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not give the zone's bounds. A runner needs them from the ECL 2 script."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.fleeing-squares",
+      "title": "Flee and land on a listed square",
+      "kind": "rule",
+      "steps": [
+        "Flee successfully from a hobgoblin group; read the party position.",
+        "Flee successfully from any other random group; read the party position."
+      ],
+      "expect": [
+        "From hobgoblins the party lands on one of (4,11), (8,8), (4,14), (12,13).",
+        "From anything else the party lands on (4,2) or (12,2)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Hobgoblin flee squares: (4,11), (8,8), (4,14), (12,13).",
+        "Other flee squares: (4,2), (12,2)."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "game text ECL4.DAX block 2 at 0xaae3, 0x9cdd (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say how the square is chosen. The string 'YOU ARE CHASED OUT INTO THE STREETS.' is in block 2; its trigger is not described in the digest."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.flight-after-victory",
+      "title": "Flee a counted fight and still get credit",
+      "kind": "quirk",
+      "steps": [
+        "Start one of the ten counted random encounters, flee it, and read the encounter counter."
+      ],
+      "expect": [
+        "The counter has advanced: victory is credited before flight is checked."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §5 Scripting, Textile House (digest): 'Flight is checked after victory is credited.'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest states the ordering only; the counter effect is the reading of that line."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.resting",
+      "title": "Rest before and after the block is safe",
+      "kind": "rule",
+      "steps": [
+        "Encamp and rest before the block is cleared, over many hours with fixed dice.",
+        "Encamp and rest after the block is cleared."
+      ],
+      "expect": [
+        "Before clearing: 6% chance per hour of an interruption.",
+        "After clearing: no encounter interrupts the rest."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Rest interruption: 6% per hour until safe."
+      ],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "Clue Book p.15-16"
+      ],
+      "disagreements": [
+        "Clue Book p.15: 'Once you have defeated the ogre leader (#9) and 10 random encounters, the block is cleared and you can rest anywhere.'"
+      ],
+      "coveredBy": [],
+      "notes": "See quirk rest-disturbed-by-nothing."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.rest-disturbed-by-nothing",
+      "title": "Have a safe rest interrupted by nothing",
+      "kind": "quirk",
+      "steps": [
+        "After the block is cleared, rest with fixed dice set so the interruption roll succeeds."
+      ],
+      "expect": [
+        "The rest is interrupted but no monsters appear: safe rest can still be 'disturbed by nothing'."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "[P] §5 Scripting, Textile House (digest): 'Safe rest can still be interrupted.'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no screen text for the empty interruption; block 2 has a blank PRINTCLEAR at 0x99b2 that may be it, but that is not established."
+    },
+    {
+      "id": "acceptance.cadorna-textile-house.clear-the-block",
+      "title": "Clear the block and collect the clerk's reward",
+      "kind": "optional",
+      "steps": [
+        "Win all 10 counted random encounters and kill the ogre at 21.",
+        "Keep walking until another random-encounter roll occurs.",
+        "Return to the council clerk."
+      ],
+      "expect": [
+        "The block is marked cleared only when a random-encounter roll occurs after both conditions hold.",
+        "Clerk reward 'Clear the Textile House': 200 platinum, 250 gold (208 XP per character)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.7 (digest)",
+        "[P] §3.0 other clerk rewards (digest)",
+        "[P] §5 Scripting, Textile House (digest): 'The block counter is only checked when a random-encounter roll occurs.'",
+        "Clue Book p.15-16"
+      ],
+      "disagreements": [
+        "Clue Book p.15 states the condition as the ogre plus 10 random encounters and does not mention the extra roll."
+      ],
+      "coveredBy": [],
+      "notes": "The delayed check is a script quirk a faithful port must keep: a runner should assert the block is not yet cleared immediately after the last required fight."
+    }
+  ]
+}

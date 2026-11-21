@@ -1,0 +1,2499 @@
+{
+  "schema": 1,
+  "id": "acceptance.mechanics",
+  "title": "Mechanics",
+  "guideSection": "4",
+  "scripts": [],
+  "commission": null,
+  "prerequisites": [
+    "Version 1.3 (GOG) program and data.",
+    "A runner that can fix the dice stream and read character records, party, inventory, money, flags, position and the game clock.",
+    "Rules here are not tied to one area; where an area is named it is only a convenient place to observe the rule."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.mechanics.creation.starting-gold",
+      "title": "Check starting gold by class",
+      "kind": "rule",
+      "steps": [
+        "From the party menu Create one character of each single class: cleric, fighter, magic-user, thief. Keep each.",
+        "Create one multi-class character (for example a half-elf fighter/magic-user).",
+        "View each character and read the money line."
+      ],
+      "expect": [
+        "Cleric gold = 3d6 x 10 (30 to 180).",
+        "Fighter gold = 5d4 x 10 (50 to 200).",
+        "Magic-user gold = 2d4 x 10 (20 to 80).",
+        "Thief gold = 2d6 x 10 (20 to 120).",
+        "The multi-class character's gold is the average of its classes' rolls."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "cleric 3d6x10",
+        "fighter 5d4x10",
+        "magic-user 2d4x10",
+        "thief 2d6x10"
+      ],
+      "sources": [
+        "[P] digest §4 Character creation and stats"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The runner reads the character record (stats, HP, money, XP, level) after each action; dice are fixed so each roll is known. The digest does not say how the average is rounded; record what the original does."
+    },
+    {
+      "id": "acceptance.mechanics.creation.level-1-hp",
+      "title": "Check the level 1 hit point floor",
+      "kind": "rule",
+      "steps": [
+        "Create many level 1 characters of each class with Constitution 7 to 14 (no HP modifier).",
+        "Read maximum HP of each."
+      ],
+      "expect": [
+        "No level 1 hit die roll is below 2/3 of the die's sides (the digest's words: 'the minimum roll is 2/3 of the die's sides'), before Constitution modifiers.",
+        "Hit dice are cleric d8, fighter d10, magic-user d4, thief d6."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "minimum roll = 2/3 of the die's sides"
+      ],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "[P] digest §4 Training and XP thresholds"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The runner reads the character record (stats, HP, money, XP, level) after each action; dice are fixed so each roll is known. The digest gives no rounding (2/3 of 10 = 6.67, of 8 = 5.33, of 4 = 2.67); do not assume one, measure it on the original."
+    },
+    {
+      "id": "acceptance.mechanics.creation.modify",
+      "title": "Modify a character only while it has 0 XP",
+      "kind": "rule",
+      "steps": [
+        "Create a character. At the party menu choose Modify and change an ability score. The change is accepted.",
+        "Lower a score below the race's listed minimum (for example a dwarf's Constitution below 12). The game accepts it.",
+        "Lower a class's prime requisite below what was needed to roll that class. The game accepts it.",
+        "Give the character any XP (win one fight), return to a training hall and choose Modify for that character."
+      ],
+      "expect": [
+        "At 0 XP Modify works on every score.",
+        "Scores can go below the racial minimum (documented bug).",
+        "Class minima are checked only when the character is first rolled.",
+        "With XP above 0 Modify is refused."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54",
+        "[P] digest §5 Technical: 'Stats can be lowered below minimum'"
+      ],
+      "disagreements": [
+        "[P]: allowed while the character has 0 XP. Clue Book p.54: 'not after he has gone up a level'. These differ for a level 1 character that has earned XP."
+      ],
+      "coveredBy": [],
+      "notes": "qa/inventory/classic.json lists classic.menu.drop-modify-add with no check. The exact refusal text is not in the digest. See also acceptance.quirks.technical.stats-below-minimum."
+    },
+    {
+      "id": "acceptance.mechanics.creation.race-human",
+      "title": "Create a Human: ranges, modifiers and classes",
+      "kind": "rule",
+      "steps": [
+        "At character creation pick Human. Note the classes offered.",
+        "Roll male and female characters repeatedly with fixed dice covering the lowest and highest rolls. Read each ability score.",
+        "Use Modify to raise and lower each score until the game stops."
+      ],
+      "expect": [
+        "Strength range: male 3-18(00), female 3-18(50).",
+        "Other ranges: all others 3-18.",
+        "Roll modifiers: none.",
+        "Classes offered: cleric, fighter, magic-user, thief; no multi-class; dual-class is not implemented."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Str 3-18(00) / 3-18(50)",
+        "all others 3-18",
+        "none",
+        "cleric, fighter, magic-user, thief; no multi-class; dual-class is not implemented"
+      ],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The runner reads the character record (stats, HP, money, XP, level) after each action; dice are fixed so each roll is known. Exceptional Strength (18/xx) is rolled for fighters only. "
+    },
+    {
+      "id": "acceptance.mechanics.creation.race-dwarf",
+      "title": "Create a Dwarf: ranges, modifiers and classes",
+      "kind": "rule",
+      "steps": [
+        "At character creation pick Dwarf. Note the classes offered.",
+        "Roll male and female characters repeatedly with fixed dice covering the lowest and highest rolls. Read each ability score.",
+        "Use Modify to raise and lower each score until the game stops."
+      ],
+      "expect": [
+        "Strength range: male 8-18(99), female 8-17.",
+        "Other ranges: Int 3-18, Wis 3-18, Dex 3-17, Con 12-19, Cha 3-16.",
+        "Roll modifiers: Con +1, Cha -1.",
+        "Classes offered: fighter, thief, fighter/thief."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Str 8-18(99) / 8-17",
+        "Int 3-18, Wis 3-18, Dex 3-17, Con 12-19, Cha 3-16",
+        "Con +1, Cha -1",
+        "fighter, thief, fighter/thief"
+      ],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The runner reads the character record (stats, HP, money, XP, level) after each action; dice are fixed so each roll is known. Exceptional Strength (18/xx) is rolled for fighters only. Only NPC dwarves can be clerics."
+    },
+    {
+      "id": "acceptance.mechanics.creation.race-elf",
+      "title": "Create a Elf: ranges, modifiers and classes",
+      "kind": "rule",
+      "steps": [
+        "At character creation pick Elf. Note the classes offered.",
+        "Roll male and female characters repeatedly with fixed dice covering the lowest and highest rolls. Read each ability score.",
+        "Use Modify to raise and lower each score until the game stops."
+      ],
+      "expect": [
+        "Strength range: male 3-18(75), female 3-16.",
+        "Other ranges: Int 8-18, Wis 3-18, Dex 7-19, Con 6-18, Cha 8-18.",
+        "Roll modifiers: Dex +1, Con -1 (Con can still be Modified to 18).",
+        "Classes offered: fighter, magic-user, thief and any combination of those three."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Str 3-18(75) / 3-16",
+        "Int 8-18, Wis 3-18, Dex 7-19, Con 6-18, Cha 8-18",
+        "Dex +1, Con -1 (Con can still be Modified to 18)",
+        "fighter, magic-user, thief and any combination of those three"
+      ],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The runner reads the character record (stats, HP, money, XP, level) after each action; dice are fixed so each roll is known. Exceptional Strength (18/xx) is rolled for fighters only. Only NPC elves can be clerics."
+    },
+    {
+      "id": "acceptance.mechanics.creation.race-gnome",
+      "title": "Create a Gnome: ranges, modifiers and classes",
+      "kind": "rule",
+      "steps": [
+        "At character creation pick Gnome. Note the classes offered.",
+        "Roll male and female characters repeatedly with fixed dice covering the lowest and highest rolls. Read each ability score.",
+        "Use Modify to raise and lower each score until the game stops."
+      ],
+      "expect": [
+        "Strength range: male 6-18(50), female 6-15.",
+        "Other ranges: Int 7-18, Wis 3-18, Dex 3-18, Con 8-18, Cha 3-18.",
+        "Roll modifiers: none.",
+        "Classes offered: fighter, thief, fighter/thief."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Str 6-18(50) / 6-15",
+        "Int 7-18, Wis 3-18, Dex 3-18, Con 8-18, Cha 3-18",
+        "none",
+        "fighter, thief, fighter/thief"
+      ],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The runner reads the character record (stats, HP, money, XP, level) after each action; dice are fixed so each roll is known. Exceptional Strength (18/xx) is rolled for fighters only. "
+    },
+    {
+      "id": "acceptance.mechanics.creation.race-half-elf",
+      "title": "Create a Half-Elf: ranges, modifiers and classes",
+      "kind": "rule",
+      "steps": [
+        "At character creation pick Half-Elf. Note the classes offered.",
+        "Roll male and female characters repeatedly with fixed dice covering the lowest and highest rolls. Read each ability score.",
+        "Use Modify to raise and lower each score until the game stops."
+      ],
+      "expect": [
+        "Strength range: male 3-18(90), female 3-17.",
+        "Other ranges: Int 4-18, Wis 3-18, Dex 6-18, Con 6-18, Cha 3-18.",
+        "Roll modifiers: none.",
+        "Classes offered: cleric, fighter, magic-user, thief, C/F, C/MU, F/MU, F/T, MU/T, C/F/MU, F/MU/T."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Str 3-18(90) / 3-17",
+        "Int 4-18, Wis 3-18, Dex 6-18, Con 6-18, Cha 3-18",
+        "none",
+        "cleric, fighter, magic-user, thief, C/F, C/MU, F/MU, F/T, MU/T, C/F/MU, F/MU/T"
+      ],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The runner reads the character record (stats, HP, money, XP, level) after each action; dice are fixed so each roll is known. Exceptional Strength (18/xx) is rolled for fighters only. "
+    },
+    {
+      "id": "acceptance.mechanics.creation.race-halfling",
+      "title": "Create a Halfling: ranges, modifiers and classes",
+      "kind": "rule",
+      "steps": [
+        "At character creation pick Halfling. Note the classes offered.",
+        "Roll male and female characters repeatedly with fixed dice covering the lowest and highest rolls. Read each ability score.",
+        "Use Modify to raise and lower each score until the game stops."
+      ],
+      "expect": [
+        "Strength range: male 6-17, female 6-14.",
+        "Other ranges: Int 6-18, Wis 3-17, Dex 8-18, Con 10-18, Cha 3-18.",
+        "Roll modifiers: Str -1, Dex +1.",
+        "Classes offered: fighter, thief, fighter/thief."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Str 6-17 / 6-14",
+        "Int 6-18, Wis 3-17, Dex 8-18, Con 10-18, Cha 3-18",
+        "Str -1, Dex +1",
+        "fighter, thief, fighter/thief"
+      ],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The runner reads the character record (stats, HP, money, XP, level) after each action; dice are fixed so each roll is known. Exceptional Strength (18/xx) is rolled for fighters only. "
+    },
+    {
+      "id": "acceptance.mechanics.creation.class-and-alignment-limits",
+      "title": "Check class and alignment restrictions",
+      "kind": "rule",
+      "steps": [
+        "Create a thief of each race and step through the alignment list.",
+        "Step through the class list for every race.",
+        "Look for any dual-class option on a human."
+      ],
+      "expect": [
+        "A thief (single or multi-class) is never offered lawful good or chaotic good.",
+        "Paladin and ranger cannot be created.",
+        "Humans get no multi-class and no dual-class option.",
+        "Only humans and half-elves can be created as clerics."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54",
+        "digest §7 item 36"
+      ],
+      "disagreements": [
+        "qa/inventory/classic.json classic.menu.creation-race says '7 races' and creation-class '8 classes and 9 multiclasses' (strings in the program); the digest lists 6 playable races and 4 classes. Which seventh race and which extra classes those strings name was not checked here; the digest only notes that the ACOLYTE's race is 'Monster'."
+      ],
+      "coveredBy": [],
+      "notes": "Clue Book p.53 agrees: 'Only two races can add clerical abilities to your party, humans and half-elves.' True-neutral clerics are allowed (digest §5 Adaptational)."
+    },
+    {
+      "id": "acceptance.mechanics.creation.level-caps",
+      "title": "Check the game's level caps",
+      "kind": "rule",
+      "steps": [
+        "Give a human of each class enough XP for the level after the cap and train repeatedly in New Phlan (1000 gold each time)."
+      ],
+      "expect": [
+        "Cleric stops at level 6, fighter at 8, magic-user at 6, thief at 9.",
+        "Training past the cap is refused."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "cleric 6",
+        "fighter 8",
+        "magic-user 6",
+        "thief 9"
+      ],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "[P] digest §4 Training and XP thresholds",
+        "Clue Book p.53-54"
+      ],
+      "disagreements": [
+        "Clue Book p.53 says human fighters have 'unlimited maximum level'; [P] gives a hard cap of 8 in this game. Clue Book agrees on cleric 6 and magic-user 6."
+      ],
+      "coveredBy": [],
+      "notes": "The refusal text is not in the digest. qa/inventory/classic.json classic.menu.training: 'class and experience refusals', no check."
+    },
+    {
+      "id": "acceptance.mechanics.creation.racial-level-limits",
+      "title": "Check racial level limits",
+      "kind": "rule",
+      "steps": [
+        "For each non-human race and class in the table, raise XP past the limit and try to train.",
+        "Repeat with Strength (fighter) or Intelligence (magic-user) at 16, 17 and 18.",
+        "Repeat for a dwarf fighter with Strength raised by a buff (Enlarge or gauntlets) before training."
+      ],
+      "expect": [
+        "Dwarf fighter 7/8/9 at Str <=16/17/18.",
+        "Elf fighter 5/6/7; elf magic-user 9/10/11 at Int <=16/17/18 (above the game cap of 6, so never reached).",
+        "Gnome fighter 5 (Str <=17) or 6 (Str 18).",
+        "Half-elf fighter 6/7/8; magic-user 6/7/8; cleric 5.",
+        "Halfling fighter 4/5/6.",
+        "Thieves have no racial limit.",
+        "A Strength buff active at training raises the limit used."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.53 agrees that half-elf clerics 'can only reach 5th level' and that 'all races have unlimited advancement as thieves'. Limits above the game caps (cleric 6, fighter 8, magic-user 6, thief 9) cannot be observed."
+    },
+    {
+      "id": "acceptance.mechanics.creation.elf-sleep-charm-resistance",
+      "title": "Check elf and half-elf resistance to Sleep and Charm",
+      "kind": "rule",
+      "steps": [
+        "Have an enemy caster (or a duel clone, see acceptance.quirks.other.elf-resistance-vs-clone) cast Sleep and Charm Person at an elf, a half-elf and a human with fixed dice.",
+        "Let a ghoul hit the elf."
+      ],
+      "expect": [
+        "Elf: 90% chance the spell is resisted outright; if not resisted, the saving throw still applies (Charm).",
+        "Half-elf: 30% resistance.",
+        "Human: no resistance.",
+        "The elf is never paralysed by a ghoul's touch."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "elf 90%",
+        "half-elf 30%"
+      ],
+      "sources": [
+        "[P] digest §4 Character creation and stats"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Observable from the combat message and the target's status. The digest does not give the resisted-spell message text."
+    },
+    {
+      "id": "acceptance.mechanics.creation.secret-door-chance",
+      "title": "Check elf and half-elf secret door detection",
+      "kind": "rule",
+      "steps": [
+        "With an elf or half-elf in the party walk past a secret door with Search off, then with Search on, with fixed dice.",
+        "Repeat with a party that has neither race."
+      ],
+      "expect": [
+        "Search on: found on 1 in 3.",
+        "Search off: found on 1 in 6.",
+        "The digest gives these odds for elves and half-elves only."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "1 in 3 searching",
+        "1 in 6 otherwise"
+      ],
+      "sources": [
+        "[P] digest §4 Character creation and stats"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say what other races get, nor which die is rolled; record the original's behaviour."
+    },
+    {
+      "id": "acceptance.mechanics.creation.racial-combat-bonuses",
+      "title": "Check dwarf, gnome, halfling and elf combat bonuses",
+      "kind": "rule",
+      "steps": [
+        "Roll saving throws vs poison (and paralysis and death, see the quirk) for a dwarf, gnome and halfling at several Constitution values.",
+        "Attack orcs, goblins and kobolds with a dwarf, a gnome and a human of equal THAC0 with fixed dice.",
+        "Have a large melee monster (ogre) attack a dwarf and a human of equal AC.",
+        "Attack with an elf using short sword, long sword, a bow, and the Fine Composite Long Bow."
+      ],
+      "expect": [
+        "Dwarf, gnome, halfling: save bonus of Con/3.5.",
+        "Dwarf: +1 to hit orcs and goblins, except monsters #2, #7 and #28.",
+        "Gnome: +1 to hit kobolds and goblins, except #2.",
+        "Dwarf and gnome: 4 points better AC against large melee foes.",
+        "Elf: +1 to hit with short sword, long sword and bows, but not the Fine Composite Long Bow."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "#2 GOBLIN GUARD (per digest §3.1)",
+        "save bonus = Con/3.5"
+      ],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "[P] digest §5 Technical"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say how Con/3.5 is rounded. The exceptions are documented bugs; see acceptance.quirks.technical.racial-to-hit-gaps and acceptance.quirks.technical.con-save-bonus-scope."
+    },
+    {
+      "id": "acceptance.mechanics.creation.thief-skill-racial-adjustments",
+      "title": "Check thief skill adjustments by race",
+      "kind": "rule",
+      "steps": [
+        "Create a level 1 thief of each race with Dexterity in the no-adjustment band.",
+        "View the character's thief skills (or read them from the record)."
+      ],
+      "expect": [
+        "Dwarf: Open Locks +10, Find/Remove Traps +15, Climb Walls -10, Read Languages -5.",
+        "Elf: Pick Pockets +5, Open Locks -5, Move Silently +5, Hide in Shadows +10, Hear Noise +5.",
+        "Gnome: Open Locks +5, Find/Remove Traps +10, Move Silently +5, Hide in Shadows +5, Hear Noise +10, Climb Walls -15.",
+        "Half-elf: Pick Pockets +10, Hide in Shadows +5.",
+        "Halfling: Pick Pockets +5, Open Locks +5, Find/Remove Traps +5, Move Silently +10, Hide in Shadows +15, Hear Noise +5, Climb Walls -15, Read Languages -5."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Character creation and stats (§7.7.4 table)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives the adjustments but not the base thief skill table by level, so only differences from a human thief of the same level and Dexterity can be asserted. Thief skills 'do not update promptly' (digest §5 Technical)."
+    },
+    {
+      "id": "acceptance.mechanics.stats.strength-table",
+      "title": "Check the Strength table",
+      "kind": "rule",
+      "steps": [
+        "Set a fighter's Strength to each listed value. Read to-hit and damage from attack rolls with fixed dice, and find the carrying capacity by adding coins until movement drops.",
+        "Create a non-fighter with Strength 18."
+      ],
+      "expect": [
+        "3: -3 hit, -1 damage, 162 coins.",
+        "8-11: 0/0/512.",
+        "16: 0/+1/862.",
+        "17: +1/+1/1012.",
+        "18: +1/+2/1262.",
+        "18/01-50: +1/+3/1512.",
+        "18/51-75: +2/+3/1762.",
+        "18/76-90: +2/+4/2012.",
+        "18/91-99: +2/+5/2512.",
+        "18/00: +3/+6/3512.",
+        "19-25: up to +7/+14/15512.",
+        "Only fighters roll exceptional Strength."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest lists only these rows (not 4-7, 12-15 or each of 19-25) and gives no door-bash numbers ('on the same table'). Strength 19-25 cannot bash an easy door: see acceptance.quirks.technical.strength-19-25-bash."
+    },
+    {
+      "id": "acceptance.mechanics.stats.wisdom-bonus-spells",
+      "title": "Check cleric bonus spells from Wisdom",
+      "kind": "rule",
+      "steps": [
+        "Create clerics with Wisdom 12, 13, 15, 17 and 18 and raise them to the level that opens each spell level.",
+        "Open Memorize and read the spells allowed per level."
+      ],
+      "expect": [
+        "Wis 13-14: +1 first-level spell.",
+        "Wis 15-16: +1 second-level.",
+        "Wis 17: +1 third-level.",
+        "Wis 18: +1 fourth-level (no fourth-level cleric spells exist at the level 6 cap).",
+        "A cleric with Wisdom below 13 never fails a spell (digest §5 Adaptational)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54"
+      ],
+      "disagreements": [
+        "Clue Book p.54: 'Clerics need a wisdom of 17 or better to get the maximum number of spells.' [P] also lists a Wisdom 18 bonus, which cannot be used below level 7."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the bonuses are cumulative; AD&D makes them cumulative but that is not stated, so measure it."
+    },
+    {
+      "id": "acceptance.mechanics.stats.dexterity-table",
+      "title": "Check Dexterity adjustments",
+      "kind": "rule",
+      "steps": [
+        "Set Dexterity to 14, 15, 16, 17, 18. Read AC on the character sheet and the missile to-hit and initiative from fixed-dice rolls.",
+        "Read a thief's Pick Pockets at Dex 10 and Open Locks at Dex 16."
+      ],
+      "expect": [
+        "15: reaction/missile 0, AC -1.",
+        "16: +1, AC -2.",
+        "17: +2, AC -3.",
+        "18: +3, AC -4.",
+        "Thief Pick Pockets at Dex 10 is adjusted by -19%.",
+        "Thief Open Locks at Dex 16 is adjusted by -5%."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54",
+        "[P] digest §5 Adaptational"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.54 agrees: +1 AC per point over 14 and +1 missile THAC0 per point over 15. The -19% and -5% values are typos in the game's table that must be kept."
+    },
+    {
+      "id": "acceptance.mechanics.stats.constitution-table",
+      "title": "Check Constitution hit point bonus",
+      "kind": "rule",
+      "steps": [
+        "Level up fighters and non-fighters at Con 14, 15, 16, 17, 18 with fixed dice and read HP gained.",
+        "Set Con 20 and rest; read HP each hour."
+      ],
+      "expect": [
+        "Per level: Con 15 +1, 16 +2, 17 +3, 18 +4.",
+        "Warriors do not get +5 at Con 19-20.",
+        "Con 22 gives +7 (warrior) or +5 (others); Con 0 gives +8.",
+        "Con 20 and above regenerates 1 HP per hour per point over 19.",
+        "Only Con 4-18 behaves as the rules say."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54",
+        "[P] digest §5 Technical"
+      ],
+      "disagreements": [
+        "Clue Book p.54: 'All characters need a constitution of 16 or better, and Fighter types need a constitution of 18' for the maximum HP bonus. The digest's table does not state that non-fighters stop at +2; the Clue Book implies it."
+      ],
+      "coveredBy": [],
+      "notes": "Abnormal values are exploits: see acceptance.quirks.exploit.abnormal-constitution."
+    },
+    {
+      "id": "acceptance.mechanics.stats.charisma-reaction",
+      "title": "Check the Charisma reaction adjustment",
+      "kind": "rule",
+      "steps": [
+        "Make the active character one with Charisma 3, 8, 13, 15, 16, 17, 18 in turn and Parley the same fixed-dice encounter.",
+        "Read the parley outcome band reached."
+      ],
+      "expect": [
+        "Adjustment: Cha 3 = 0, 8-12 = 25, 13 = 30, 15 = 40, 16 = 50, 17 = 55, 18-25 = 60.",
+        "The parley score moves by exactly that amount (see the per-area parley formulas, for example acceptance.slums)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest omits Cha 4-7 and 14. Clue Book p.54: 'The party's spokesman needs a charisma of 18 to get the maximum reaction bonus.'"
+    },
+    {
+      "id": "acceptance.mechanics.stats.xp-bonus",
+      "title": "Check the 10% XP bonus",
+      "kind": "rule",
+      "steps": [
+        "Take two single-class fighters, one with Strength 16 and one with Strength 15, and a multi-class character with prime requisites of 16+.",
+        "Win the same fight with each as the only character and read XP gained."
+      ],
+      "expect": [
+        "Single-class with prime requisite >= 16: XP gained is 10% higher.",
+        "Prime requisite 15: no bonus.",
+        "Multi-class: no bonus."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Character creation and stats",
+        "Clue Book p.53-54"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.54 agrees for magic-users: 'an Intelligence of at least 16 to get their experience bonus'. Rounding is not stated."
+    },
+    {
+      "id": "acceptance.mechanics.training.rules",
+      "title": "Train one level at a time for 1000 gold in New Phlan",
+      "kind": "rule",
+      "steps": [
+        "With a character holding enough XP for two levels, enter the matching training hall in New Phlan: cleric (5,0), magic-user (7,0), fighter (8,0), thief (9,0).",
+        "The trainer says \"'WE TRAIN ONLY <class> HERE. DO YOU WANT TO TRAIN?'\". Answer YES and Train the character.",
+        "Read money, level and XP. Try to train in the wrong class's hall."
+      ],
+      "expect": [
+        "1000 gold (or 200 platinum) is taken.",
+        "The character gains exactly one level.",
+        "XP above the next threshold is cut to 1 below the level after the new one.",
+        "Training is class-specific and only in New Phlan."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "HC (5,0)",
+        "HM (7,0)",
+        "HF (8,0)",
+        "HT (9,0)",
+        "1000 gold = 200 platinum"
+      ],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds",
+        "[P] digest §3.0 Fixed locations",
+        "game text ECL3.DAX block 11 at 0xa00e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyFighterTrainingJournal",
+        "milestone 'Trained Darkstar to level 2, paid for lodging, and reloaded Magic Missile memorized.'"
+      ],
+      "notes": "The digest does not say whether the XP cut happens when XP is awarded or at training. STING mode's J trains for free (see ui.sting-mode)."
+    },
+    {
+      "id": "acceptance.mechanics.training.multiclass",
+      "title": "Check multi-class XP split and level-up hit points",
+      "kind": "rule",
+      "steps": [
+        "Win a fight worth a known XP amount with a two-class and a three-class character.",
+        "Train one class of a multi-class character with fixed dice and read HP gained."
+      ],
+      "expect": [
+        "XP is split evenly between the classes and rounded down.",
+        "HP gained = (die + all classes' Con modifiers) / number of classes, rounded down, minimum 1."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds",
+        "[P] digest §5 Technical: 'Multi-class Constitution HP bonus is wrong after level 1'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "This formula is the documented bug (all classes' Con modifiers are added before dividing). See acceptance.quirks.technical.multiclass-con-hp."
+    },
+    {
+      "id": "acceptance.mechanics.training.xp-table-cleric",
+      "title": "Check the cleric XP thresholds",
+      "kind": "rule",
+      "steps": [
+        "For each level in the table give a single-class cleric exactly one XP less than the threshold and try to train: refused.",
+        "Add 1 XP and train: accepted."
+      ],
+      "expect": [
+        "Level 2: 1,501 XP.",
+        "Level 3: 3,001 XP.",
+        "Level 4: 6,001 XP.",
+        "Level 5: 13,001 XP.",
+        "Level 6: 27,501 XP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "L2 1,501",
+        "L3 3,001",
+        "L4 6,001",
+        "L5 13,001",
+        "L6 27,501"
+      ],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds",
+        "Adventurer's Journal p.35-36 (appendix, as transcribed in NOTES.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Journal appendix tables match the digest (NOTES.md). The refusal text is not in the digest."
+    },
+    {
+      "id": "acceptance.mechanics.training.xp-table-fighter",
+      "title": "Check the fighter XP thresholds",
+      "kind": "rule",
+      "steps": [
+        "For each level in the table give a single-class fighter exactly one XP less than the threshold and try to train: refused.",
+        "Add 1 XP and train: accepted."
+      ],
+      "expect": [
+        "Level 2: 2,001 XP.",
+        "Level 3: 4,001 XP.",
+        "Level 4: 8,001 XP.",
+        "Level 5: 18,001 XP.",
+        "Level 6: 35,001 XP.",
+        "Level 7: 70,001 XP.",
+        "Level 8: 125,001 XP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "L2 2,001",
+        "L3 4,001",
+        "L4 8,001",
+        "L5 18,001",
+        "L6 35,001",
+        "L7 70,001",
+        "L8 125,001"
+      ],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds",
+        "Adventurer's Journal p.35-36 (appendix, as transcribed in NOTES.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Journal appendix tables match the digest (NOTES.md). The refusal text is not in the digest."
+    },
+    {
+      "id": "acceptance.mechanics.training.xp-table-magic-user",
+      "title": "Check the magic-user XP thresholds",
+      "kind": "rule",
+      "steps": [
+        "For each level in the table give a single-class magic-user exactly one XP less than the threshold and try to train: refused.",
+        "Add 1 XP and train: accepted."
+      ],
+      "expect": [
+        "Level 2: 2,501 XP.",
+        "Level 3: 5,001 XP.",
+        "Level 4: 10,001 XP.",
+        "Level 5: 22,501 XP.",
+        "Level 6: 40,001 XP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "L2 2,501",
+        "L3 5,001",
+        "L4 10,001",
+        "L5 22,501",
+        "L6 40,001"
+      ],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds",
+        "Adventurer's Journal p.35-36 (appendix, as transcribed in NOTES.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Journal appendix tables match the digest (NOTES.md). The refusal text is not in the digest."
+    },
+    {
+      "id": "acceptance.mechanics.training.xp-table-thief",
+      "title": "Check the thief XP thresholds",
+      "kind": "rule",
+      "steps": [
+        "For each level in the table give a single-class thief exactly one XP less than the threshold and try to train: refused.",
+        "Add 1 XP and train: accepted."
+      ],
+      "expect": [
+        "Level 2: 1,251 XP.",
+        "Level 3: 2,501 XP.",
+        "Level 4: 5,001 XP.",
+        "Level 5: 10,001 XP.",
+        "Level 6: 20,001 XP.",
+        "Level 7: 42,501 XP.",
+        "Level 8: 70,001 XP.",
+        "Level 9: 110,001 XP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "L2 1,251",
+        "L3 2,501",
+        "L4 5,001",
+        "L5 10,001",
+        "L6 20,001",
+        "L7 42,501",
+        "L8 70,001",
+        "L9 110,001"
+      ],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds",
+        "Adventurer's Journal p.35-36 (appendix, as transcribed in NOTES.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Journal appendix tables match the digest (NOTES.md). The refusal text is not in the digest."
+    },
+    {
+      "id": "acceptance.mechanics.training.hit-dice",
+      "title": "Check hit dice by class",
+      "kind": "rule",
+      "steps": [
+        "Train each single class once with Con 10 and fixed dice at minimum and maximum; read HP gained."
+      ],
+      "expect": [
+        "Cleric gains 1-8, fighter 1-10, magic-user 1-4, thief 1-6."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "cleric d8",
+        "fighter d10",
+        "magic-user d4",
+        "thief d6"
+      ],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The level 1 floor (2/3 of the die) applies to creation only as far as the digest states."
+    },
+    {
+      "id": "acceptance.mechanics.training.spells-per-day-cleric",
+      "title": "Check cleric spells per day",
+      "kind": "rule",
+      "steps": [
+        "With a Wisdom 12 cleric at each level 1-6 open Encamp, Magic, Memorize and read the remaining spells by level."
+      ],
+      "expect": [
+        "L1: 1.",
+        "L2: 2.",
+        "L3: 2/1.",
+        "L4: 3/2.",
+        "L5: 3/3/1.",
+        "L6: 3/3/2."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds",
+        "Clue Book p.55 (Memorizing Spells)",
+        "Adventurer's Journal p.35-36 (appendix, as transcribed in NOTES.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Add Wisdom bonus spells for Wisdom 13+ (stats.wisdom-bonus-spells). Clue Book p.55 describes the Memorize flow: the computer 'displays the number of remaining spells your character can memorize by level'."
+    },
+    {
+      "id": "acceptance.mechanics.training.spells-per-day-magic-user",
+      "title": "Check magic-user spells per day",
+      "kind": "rule",
+      "steps": [
+        "With a magic-user at each level 1-6 open Encamp, Magic, Memorize and read the remaining spells by level."
+      ],
+      "expect": [
+        "L1: 1.",
+        "L2: 2.",
+        "L3: 2/1.",
+        "L4: 3/2.",
+        "L5: 4/2/1.",
+        "L6: 4/2/2."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds",
+        "Clue Book p.55 (Memorizing Spells)",
+        "Adventurer's Journal p.35-36 (appendix, as transcribed in NOTES.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.mechanics.training.fighter-attacks-and-sweep",
+      "title": "Check fighter extra attacks and sweeps",
+      "kind": "rule",
+      "steps": [
+        "With a level 7 fighter attack in melee for four rounds and count attacks per round.",
+        "With a level 2 fighter attack a group of adjacent 0-HD foes (kobolds) and count attacks.",
+        "Repeat the sweep with a hired NPC fighter."
+      ],
+      "expect": [
+        "From level 7: 2 melee attacks every other round.",
+        "From level 2: a sweep against 0-HD foes.",
+        "Sweeps are for PC races only."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not give the number of sweep attacks or which round gets the extra attack."
+    },
+    {
+      "id": "acceptance.mechanics.training.xp-needs-okay-status",
+      "title": "Only characters who are Okay get battle XP",
+      "kind": "rule",
+      "steps": [
+        "Win a fight with one character unconscious and one dead.",
+        "Read each character's XP before and after."
+      ],
+      "expect": [
+        "Characters whose status is Okay at the end of the battle gain XP.",
+        "Unconscious, dying and dead characters gain none."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the XP is still divided by the full party size."
+    },
+    {
+      "id": "acceptance.mechanics.training.duel-xp",
+      "title": "A duel pays 100 XP per hit die",
+      "kind": "rule",
+      "steps": [
+        "Enter the adventurers' hall (hall 14) in New Phlan. The text reads 'THE ROOM IS FILLED WITH DUELING PAIRS.'",
+        "\"THE ARENA MASTER ASKS IF YOU WISH TO DUEL. 'THE DUELS ARE EVENLY MATCHED AND NORMALLY NOT TO THE DEATH. DO YOU DUEL?'\" Answer YES and pick a character.",
+        "Fight the clone of that character and win."
+      ],
+      "expect": [
+        "The opponent is a clone of the chosen character.",
+        "The winner gains 100 XP per hit die (a level 1 character gains 100)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds",
+        "[P] digest §3.0 Hall 14",
+        "digest §7 item 34",
+        "game text ECL3.DAX block 11 at 0x9bbe (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[GB]: '100X the character level… you'll have to leave the building and then return' to duel again. [P] does not mention a need to leave."
+      ],
+      "coveredBy": [
+        "milestone 'Won a New Phlan arena duel and reloaded Alda with the earned 100 XP.'"
+      ],
+      "notes": "Game text also has 'I CANNOT ARRANGE SUCH A DUEL.' (block 11 at 0x9c8b); the digest does not say when it appears. See not-in-the-guides.md."
+    },
+    {
+      "id": "acceptance.mechanics.training.magic-item-xp",
+      "title": "Magic items are worth 400 XP per plus",
+      "kind": "rule",
+      "steps": [
+        "Win a fixed fight whose treasure is one +1 item (for example Slums location 2, Leather Armor +1) and Take it.",
+        "Compare XP gained with the monster XP alone."
+      ],
+      "expect": [
+        "Each plus on a magic item taken adds 400 XP, divided by party size and rounded down."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no rule for magic items without a plus (potions, scrolls, wands) and does not say whether the XP is given on Take or on finding. Not fully checkable as written."
+    },
+    {
+      "id": "acceptance.mechanics.training.coin-xp",
+      "title": "Check XP from coins, gems and jewelry",
+      "kind": "rule",
+      "steps": [
+        "Take a treasure with known counts of each coin type, gems and jewelry with a party of six, then with a party of one.",
+        "Read XP gained."
+      ],
+      "expect": [
+        "Per piece: copper 0.005, silver 0.05, electrum 0.5, gold 1, platinum 5, gem 250, jewelry 2200.",
+        "The total is divided by party size and rounded down."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "cp 0.005",
+        "sp 0.05",
+        "ep 0.5",
+        "gp 1",
+        "pp 5",
+        "gem 250",
+        "jewelry 2200"
+      ],
+      "sources": [
+        "[P] digest §4 Training and XP thresholds"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Cross-check: clerk reward #2 is 3 jewelry + 250 pp = 6600 + 1250 = 7850; / 6 = 1308, matching digest §3.0."
+    },
+    {
+      "id": "acceptance.mechanics.combat.thac0-by-level",
+      "title": "Check THAC0 by class and level",
+      "kind": "rule",
+      "steps": [
+        "For each class at each level 1-9 (within the caps) attack a target of known AC with no modifiers and fixed d20 rolls either side of the needed number."
+      ],
+      "expect": [
+        "Cleric: 20 20 20 18 18 18 (levels 1-6; table continues 16 16 16).",
+        "Warrior: 20 19 18 17 16 15 14 13 (levels 1-8; 12 at 9).",
+        "Magic-user: 20 at levels 1-5, 19 at 6.",
+        "Thief: 20 at levels 1-4, 19 at 5-8, 16 at 9."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Run with fixed dice so every d20, d6 and d100 is known; read the combat message line and the combatants' HP and status. Rows past the level caps apply to NPCs and monsters only."
+    },
+    {
+      "id": "acceptance.mechanics.combat.thac0-modifiers",
+      "title": "Check to-hit modifiers",
+      "kind": "rule",
+      "steps": [
+        "Fire a magic bow with magic arrows; fire at medium and long range; attack an invisible target; backstab with a thief; attack under Bless, Curse, Prayer, Cause Blindness and Bestow Curse. Use fixed d20 rolls at the boundary each time."
+      ],
+      "expect": [
+        "Magic launcher and ammunition bonuses add together.",
+        "Medium range +2 to THAC0, long range +5.",
+        "Invisible target +4.",
+        "Backstab -2.",
+        "Bless -1, Curse +1, Prayer -1 for the party and +1 for foes, Cause Blindness +4, Bestow Curse +4."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas",
+        "Clue Book p.59-62"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Run with fixed dice so every d20, d6 and d100 is known; read the combat message line and the combatants' HP and status. Clue Book p.59 adds backstab damage multipliers the digest's §4 does not list: thief level 1-4 double, 5-8 triple, 9+ quadruple. Clue Book p.62: Prayer improves 'THACO, Damage, and Saving Throws by 1' and Protection From Evil improves 'AC and Saving Throws by 2'."
+    },
+    {
+      "id": "acceptance.mechanics.combat.ac-order",
+      "title": "Check the order in which Armor Class is built",
+      "kind": "rule",
+      "steps": [
+        "Equip and cast in turn and read AC on the character sheet after each: armor; magic armor; Ring of Protection with and without magic armor; shield; Shield spell; Cloak of Displacement; Cursed Necklace; change Dexterity; then in combat be attacked from behind, while blind, under Protection from Evil, and while coughing in a Stinking Cloud."
+      ],
+      "expect": [
+        "Start at 10, then armor, then the magic armor plus.",
+        "A Ring of Protection counts only if no magic armor is worn.",
+        "Shield gives 1 plus its plus.",
+        "The Shield spell sets AC to 3.",
+        "Cloak of Displacement -2; Cursed Necklace +5; then Dexterity.",
+        "Dwarf or gnome against a large foe: -4.",
+        "From behind +2; blind +4; Protection from Evil -2; Stinking Cloud coughing +4."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas",
+        "[P] digest §5 Adaptational: 'The Shield spell gives a fixed AC 3'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Situational terms (behind, blind, large foe) do not show on the sheet; observe them by the d20 roll needed to hit. Losing the Dexterity bonus also removes Dexterity penalties (digest §5 Adaptational)."
+    },
+    {
+      "id": "acceptance.mechanics.combat.to-hit",
+      "title": "Check the to-hit roll",
+      "kind": "rule",
+      "steps": [
+        "Attack with THAC0 T against AC A using fixed d20 rolls of 1, T-A-1, T-A, 20.",
+        "Attack a sleeping (helpless) target.",
+        "Attack a target wearing a Cloak of Displacement as the first attack of the fight.",
+        "Roll a natural 20 with a damage die of known value."
+      ],
+      "expect": [
+        "Hit when d20 >= THAC0 - AC.",
+        "A natural 1 always misses; a natural 20 always hits.",
+        "A helpless target is hit automatically and set to -5 HP.",
+        "The first attack of the combat against a displaced target misses.",
+        "A natural 20 does normal damage: there are no critical hits."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas",
+        "Clue Book p.61"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Run with fixed dice so every d20, d6 and d100 is known; read the combat message line and the combatants' HP and status. Clue Book p.61 agrees in outline: 'A single melee or missile attack can kill, once a target is helpless.'"
+    },
+    {
+      "id": "acceptance.mechanics.combat.saving-throws",
+      "title": "Check the saving throw tables",
+      "kind": "rule",
+      "steps": [
+        "For each class and level band force a save of each type with fixed d20 rolls one below and at the listed number, then with 1 and 20."
+      ],
+      "expect": [
+        "Cleric 1-3: 10/13/14/16/15 (P/P/D, petrify, RSW, breath, spell). Cleric 4-6: 9/12/13/15/14.",
+        "Fighter 0: 16/17/18/20/19. Fighter 1-2: 14/15/16/17/17. Fighter 3-4: 13/14/15/16/16. Fighter 5-6: 11/12/13/13/14. Fighter 7-8: 10/11/12/12/13.",
+        "Magic-user 1-5: 14/13/11/15/12. Magic-user 6-10: 13/11/9/13/10.",
+        "Thief 1-4: 13/12/14/16/15. Thief 5-8: 12/11/12/15/13.",
+        "A natural 1 always fails; a natural 20 always succeeds."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Run with fixed dice so every d20, d6 and d100 is known; read the combat message line and the combatants' HP and status. The digest has no row for thief 9 and does not say which class a multi-class character saves as."
+    },
+    {
+      "id": "acceptance.mechanics.combat.hp-and-death",
+      "title": "Check unconsciousness, bleeding and death",
+      "kind": "rule",
+      "steps": [
+        "Reduce a character to exactly 0 HP, to -3, and to -10 in separate fights.",
+        "Leave the -3 character alone for several rounds; then Bandage them from another character's combat menu.",
+        "Win a fight with a character at -5."
+      ],
+      "expect": [
+        "0 HP or less: unconscious.",
+        "-1 to -9: loses 1 HP each round until Bandaged, cured, or the fight is won.",
+        "-10: dead."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Status words on the sheet are the observable. qa/inventory/classic.json lists '9 character statuses' and the combat menu 'Guard Delay Quit Bandage Speed'; the digest does not list the status names."
+    },
+    {
+      "id": "acceptance.mechanics.combat.flee-loses-disabled",
+      "title": "Fleeing a battle loses disabled characters",
+      "kind": "rule",
+      "steps": [
+        "Start a fight, let one character fall unconscious, then move every other character off the edge of the map.",
+        "View the party after combat."
+      ],
+      "expect": [
+        "The disabled character left behind is permanently gone from the party."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas",
+        "Clue Book p.60"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.60 agrees: 'the troops that have fallen are lost forever.'"
+    },
+    {
+      "id": "acceptance.mechanics.combat.surprise",
+      "title": "Check surprise",
+      "kind": "rule",
+      "steps": [
+        "Trigger a random encounter with fixed d6 rolls for each side: (1,5), (5,2), (2,2), (4,4).",
+        "Read the encounter text and the first round's order."
+      ],
+      "expect": [
+        "Each side rolls d6; a 1 or 2 surprises the other side.",
+        "The surprised side loses 6 initiative."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas",
+        "[P] digest §5 Technical (ECL opcodes 22 and 23 apply the wrong modifiers)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest's wording 'each side rolls d6; 1-2 surprises the other' is ambiguous about whose roll is whose; fix it against the original. Scripted modifiers are bugged: see acceptance.quirks.technical.ecl-surprise-opcodes. Area files give exceptions (for example quicklings cannot be surprised)."
+    },
+    {
+      "id": "acceptance.mechanics.combat.initiative",
+      "title": "Check initiative and Delay",
+      "kind": "rule",
+      "steps": [
+        "Start a fight with fixed d6 and d100 rolls arranged to tie a character with a monster.",
+        "Choose Delay on one character."
+      ],
+      "expect": [
+        "Initiative = d6 + Dexterity modifier, minimum 1.",
+        "Initiative 0 means no action that round.",
+        "Ties are broken by d100; monsters win remaining ties.",
+        "Delay sets the character's initiative to 1."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Run with fixed dice so every d20, d6 and d100 is known; read the combat message line and the combatants' HP and status. Haste and Slow do not affect initiative (digest §5 Adaptational)."
+    },
+    {
+      "id": "acceptance.mechanics.combat.casting-time",
+      "title": "Check casting time and interruption",
+      "kind": "rule",
+      "steps": [
+        "Cast a spell with a known tabletop casting time and have an enemy with higher initiative deal 1 damage to the caster before the spell goes off."
+      ],
+      "expect": [
+        "Casting time = tabletop segments / 3, rounded down.",
+        "Any damage, even 1 point, interrupts the spell; it is lost."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas",
+        "Clue Book p.58, p.61"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.61 says Magic Missile 'is fast and cannot be interrupted'. The digest's per-spell casting times are in [P] §8, which the digest does not reproduce, so individual times are not checkable from it."
+    },
+    {
+      "id": "acceptance.mechanics.combat.morale",
+      "title": "Check morale breaks and surrender",
+      "kind": "rule",
+      "steps": [
+        "Fight a group with a listed Morale M (area files give M per fight). Damage them until they have lost just under and just over the threshold share of total HP, ending a round each time.",
+        "Repeat under Bless, under Curse, and with a charmed monster.",
+        "Repeat against monsters with Intelligence below 6 and 6 or above."
+      ],
+      "expect": [
+        "Monsters break once they have lost that percentage of their total HP; the check is made between rounds.",
+        "Bless +5, Curse -5, charmed = 100.",
+        "Broken monsters surrender only if Intelligence >= 6; otherwise they run.",
+        "An encounter with no morale value defined reuses the previous encounter's value."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest's sentence is terse: confirm on the original whether Morale M means 'break after losing M%' or the reverse, and whose Bless/Curse shifts it. Clue Book p.59: fast enemies 'attempt to run away when their morale breaks'."
+    },
+    {
+      "id": "acceptance.mechanics.combat.turning-undead",
+      "title": "Check turning undead",
+      "kind": "rule",
+      "steps": [
+        "With a cleric of each level 1-6 choose Turn against each undead type with fixed d20 rolls one below and at the listed number.",
+        "Try to Turn a second time in the same combat."
+      ],
+      "expect": [
+        "Skeleton: 10, 7, 4, T, T, D (cleric level 1-6).",
+        "Zombie: 13, 10, 7, T, T, D.",
+        "Ghoul: 16, 13, 10, 4, T, T.",
+        "Wight: 20, 19, 16, 10, 7, 4.",
+        "Spectre: not possible until level 5 (20), 16 at level 6.",
+        "Vampire: 20 at level 6 only.",
+        "A success turns 1d12 undead; T is automatic; D destroys; D* destroys 6+1d6.",
+        "Turned undead run away rather than vanish.",
+        "Only one attempt per combat."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas",
+        "Adventurer's Journal p.35-36 (appendix, as transcribed in NOTES.md)",
+        "Clue Book p.53"
+      ],
+      "disagreements": [
+        "The Journal appendix lists a minimum cleric level for wraith (3rd) and mummy (4th); the digest's table has no wraith or mummy rows.",
+        "The digest's table shows 'D' but defines 'D*' without using it."
+      ],
+      "coveredBy": [],
+      "notes": "Journal minimum levels agree for the rows the digest has: skeleton/zombie/ghoul/wight 1st, spectre 5th, vampire 6th. Clue Book p.53: a level 6 cleric 'can even destroy skeletons and zombies'."
+    },
+    {
+      "id": "acceptance.mechanics.combat.party-strength",
+      "title": "Check Party Strength",
+      "kind": "rule",
+      "steps": [
+        "Build parties with known levels, AC, THAC0 and current HP. Trigger a scaled encounter (for example the New Phlan tavern brawl thresholds PS >= 25 and >= 51, or the Valhingen commission offer at PS >= 19 and >= 37) on each side of a threshold."
+      ],
+      "expect": [
+        "Per character: 0.4 x cleric level + 0.8 x magic-user level + 0.5 per AC point below 0 + 0.5 per THAC0 point below 21 + 0.1 x current HP, rounded down; summed over the party.",
+        "A new level 1 party is about 15; a strong late party is 120+.",
+        "Hired NPCs count."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas",
+        "[P] digest §4 NPCs (hall 14)",
+        "Clue Book p.54"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "PS is not shown on screen; it is read through thresholds or from script opcode 1D PARTY STRENGTH (qa/inventory/classic.json: 18 uses). Clue Book p.54: the computer 'modifies the number of monsters in an encounter' and 'characters with very high ability scores look to the computer like high level adventurers'; the digest's formula has no ability-score term except through AC, THAC0 and HP."
+    },
+    {
+      "id": "acceptance.mechanics.combat.arena-limits",
+      "title": "Check combat map limits",
+      "kind": "rule",
+      "steps": [
+        "Start the largest scripted fight available with a full party plus two NPCs.",
+        "Count combatants and scroll the view.",
+        "Let a fight run past 256 rounds (auto-combat against a helpless foe that cannot be reached)."
+      ],
+      "expect": [
+        "The map is 25 x 50 squares with a 7 x 7 view.",
+        "At most 72 combatants: 8 characters and 64 monsters. Scripts never send more than 56 monsters.",
+        "Foes spawn in front of the party; those that do not fit are dropped.",
+        "The round counter is 8 bits; odd behaviour may appear from round 257."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says only that bugs 'can appear' from round 257 and does not describe them; record what the original does."
+    },
+    {
+      "id": "acceptance.mechanics.combat.movement",
+      "title": "Check movement cost",
+      "kind": "rule",
+      "steps": [
+        "With a character of movement 12 walk straight, then diagonally, counting squares until movement runs out."
+      ],
+      "expect": [
+        "A straight step costs 1; a diagonal step costs 1.5.",
+        "Each square is 10 ft."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.mechanics.combat.fleeing",
+      "title": "Check fleeing from combat and from the encounter menu",
+      "kind": "rule",
+      "steps": [
+        "In combat move a character off the map edge with no enemy in sight.",
+        "Repeat with an enemy in sight that is slower, equal and faster, with fixed dice.",
+        "At an encounter menu choose Flee with a party whose slowest member is slower and faster than the monsters."
+      ],
+      "expect": [
+        "No enemy in sight: flight always succeeds.",
+        "Faster than every enemy: 100%. Tied: 50%. Any enemy faster: 0%.",
+        "Encounter-menu Flee compares the party's slowest member with a per-monster constant; there is no 50% roll."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Combat formulas",
+        "Clue Book p.60"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.60 agrees per character: enemy faster, 'will not be allowed to exit'; equal, 'an even chance'; faster, 'automatically exit'. It adds that unreadying heavy armor raises movement. Area files list the squares the party lands on after fleeing."
+    },
+    {
+      "id": "acceptance.mechanics.spells.memorising",
+      "title": "Check memorisation time",
+      "kind": "rule",
+      "steps": [
+        "Encamp. Choose Magic, Memorize and pick one first-level spell; open Rest and read the time preset on the clock.",
+        "Repeat with one second-level, one third-level, and a mix.",
+        "Cast a spell from the Encamp menu and from the adventure Cast command; read the game clock before and after."
+      ],
+      "expect": [
+        "Time = 15 minutes per spell level, plus a base of 4 hours if the highest level is 1-2, or 6 hours if it is 3-4.",
+        "Memorising is possible only while Encamped.",
+        "Casting outside combat takes no game time."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells",
+        "Clue Book p.55"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.55: the Rest clock shows 'the minimum time necessary to memorize all the spells you have picked', and interrupted rest may leave spells unmemorised. The digest does not say how the base applies to a mix beyond the two bands."
+    },
+    {
+      "id": "acceptance.mechanics.spells.magic-user-spellbook",
+      "title": "Check a new magic-user's spells and learning",
+      "kind": "rule",
+      "steps": [
+        "Create a magic-user and open Memorize.",
+        "Train to level 2 and note the spell choice offered.",
+        "Scribe a spell from a scroll at camp."
+      ],
+      "expect": [
+        "A new magic-user knows Detect Magic, Read Magic, Shield and Sleep.",
+        "One new spell is picked per level gained.",
+        "Scrolls can be scribed into the book.",
+        "There is no Intelligence roll to learn a spell."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells",
+        "[P] digest §5 Adaptational"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "milestone 'Trained Darkstar to level 2, paid for lodging, and reloaded Magic Missile memorized.'"
+      ],
+      "notes": "qa/inventory/classic.json: camp Magic menu is 'Cast Memorize Scribe Display Rest'."
+    },
+    {
+      "id": "acceptance.mechanics.spells.roster",
+      "title": "Check the spell roster",
+      "kind": "rule",
+      "steps": [
+        "With a level 6 cleric and a level 6 magic-user holding every spell, page through Memorize and compare with the list."
+      ],
+      "expect": [
+        "Cleric level 1: Bless, Curse, Cure Light Wounds, Cause Light Wounds, Detect Magic, Protection From Evil, Protection From Good.",
+        "Cleric level 2: Find Traps, Hold Person, Resist Fire, Silence 15' Radius, Slow Poison, Snake Charm, Spiritual Hammer.",
+        "Cleric level 3: Animate Dead, Cure Blindness, Cause Blindness, Cure Disease, Cause Disease, Dispel Magic, Prayer, Remove Curse, Bestow Curse.",
+        "Cleric level 7: Restoration, from scrolls only.",
+        "Magic-user level 1: Burning Hands, Charm Person, Detect Magic, Enlarge, Reduce, Friends, Magic Missile, Protection From Evil, Protection From Good, Read Magic, Shield, Shocking Grasp, Sleep.",
+        "Magic-user level 2: Detect Invisibility, Invisibility, Knock, Mirror Image, Ray of Enfeeblement, Stinking Cloud, Strength.",
+        "Magic-user level 3: Blink, Dispel Magic, Fireball, Haste, Hold Person, Invisibility 10' Radius, Lightning Bolt, Protection From Evil 10' Radius, Protection From Good 10' Radius, Protection From Normal Missiles, Slow."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells",
+        "Clue Book p.63-64 (Spell Parameters Chart)",
+        "qa/inventory/classic.json classic.content.spells"
+      ],
+      "disagreements": [
+        "The digest names the spell levels but not the spells ('in [P] §8'); the names here come from the Clue Book chart, whose OCR is noisy, so a name may be missing or misread.",
+        "qa/inventory/classic.json counts 56 spells; the names legible in the Clue Book OCR come to 54 plus Restoration. The difference is not explained by any source read (an OCR loss in the first-level cleric list is possible)."
+      ],
+      "coveredBy": [],
+      "notes": "Animate Dead 'exists only in this game' ([P]). Ranges, areas, durations and AI priority are in [P] §8 and are not in the digest, so they are not checkable from it. Clue Book p.63-64 gives ranges and durations but the OCR columns are scrambled."
+    },
+    {
+      "id": "acceptance.mechanics.spells.sleep",
+      "title": "Check Sleep",
+      "kind": "rule",
+      "steps": [
+        "Cast Sleep on groups of known hit dice with fixed 4d4 rolls: many 1-HD monsters, a 5-HD monster of a monster race, a 5th-level human, a 6-HD monster.",
+        "Count targets put to sleep."
+      ],
+      "expect": [
+        "Affects 4d4 HD-points in a diameter of 3 (at most 9 targets).",
+        "No saving throw.",
+        "6+ HD or level is never affected.",
+        "A 5-HD target costs 10 points if it is a monster race, otherwise 20."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells",
+        "Clue Book p.61",
+        "digest §7 item 19",
+        "[P] digest §5 Other documented quirks"
+      ],
+      "disagreements": [
+        "Clue Book p.61: 'Once your heroes reach 5th level, they are immune to sleep'. [P]: only 6+ HD or level is immune; 5 HD can still be affected."
+      ],
+      "coveredBy": [],
+      "notes": "Range is 3+4 per level, not 3+1 (acceptance.quirks.other.sleep-range). The digest does not give the point cost below 5 HD."
+    },
+    {
+      "id": "acceptance.mechanics.spells.hold-person",
+      "title": "Check Hold Person",
+      "kind": "rule",
+      "steps": [
+        "Cast the cleric and the magic-user version, choosing 1, 2, 3 and (magic-user) 4 targets, with fixed saves."
+      ],
+      "expect": [
+        "Cleric version: up to 3 targets, saves at -1 / -2.",
+        "Magic-user version: up to 4 targets, saves at -1 / -3.",
+        "The save used is vs spell (documented bug)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells",
+        "Clue Book p.58, p.61"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.61 agrees on 3 (clerical) and 4 (magic user) targets. The digest gives two penalty numbers per version without saying which target count each applies to; do not guess."
+    },
+    {
+      "id": "acceptance.mechanics.spells.stinking-cloud",
+      "title": "Check Stinking Cloud",
+      "kind": "rule",
+      "steps": [
+        "Cast Stinking Cloud at range 3 and try range 4.",
+        "Have targets fail and pass the save with fixed dice."
+      ],
+      "expect": [
+        "Area 2 x 2 squares; range 3.",
+        "A failed save leaves the target helpless for 1d4+1 rounds.",
+        "A creature coughing in the cloud has AC worse by 4 (see combat.ac-order)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells",
+        "[P] digest §4 Combat formulas",
+        "Clue Book p.61"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.61 agrees on the 2 by 2 area and 'very short range'. [P] notes Stinking Cloud 'may work on undead in some non-IBM versions' (digest §7 platform notes); the IBM behaviour on undead is not stated outright."
+    },
+    {
+      "id": "acceptance.mechanics.spells.fireball",
+      "title": "Check Fireball",
+      "kind": "rule",
+      "steps": [
+        "Cast Fireball from a level 5 and a level 6 magic-user outdoors (no walls on the combat map) and indoors.",
+        "Count squares affected and read damage with fixed dice."
+      ],
+      "expect": [
+        "Damage is (caster level)d6.",
+        "Diameter 5 outdoors, 7 indoors."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells",
+        "Clue Book p.61"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.61 agrees: 3 square radius 'when the combat map includes walls', 2 square radius in the open. Save for half is the Clue Book's general rule (p.60), not stated in the digest."
+    },
+    {
+      "id": "acceptance.mechanics.spells.lightning-bolt",
+      "title": "Check Lightning Bolt",
+      "kind": "rule",
+      "steps": [
+        "Cast Lightning Bolt along an open line, then at a target standing next to a wall."
+      ],
+      "expect": [
+        "The bolt is 8 squares long.",
+        "On hitting a wall it rebounds toward the caster, and can hit the same target twice."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells",
+        "Clue Book p.62"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.62: 'a lightning bolt always rebounds toward the caster; it does not follow the angle of the wall'."
+    },
+    {
+      "id": "acceptance.mechanics.spells.enlarge",
+      "title": "Check Enlarge",
+      "kind": "rule",
+      "steps": [
+        "Cast Enlarge on a Strength 10 character from a magic-user of each level 1-6 and read Strength on the sheet.",
+        "Cast Reduce on a normal and on an Enlarged character."
+      ],
+      "expect": [
+        "Caster level 1 gives Strength 18, rising one column per level to 18(00) at level 6.",
+        "Reduce only dispels Enlarge."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells",
+        "Clue Book p.62",
+        "[P] digest §5 Adaptational"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.62 agrees and adds that Enlarge 'doesn't help a character who is already strong'."
+    },
+    {
+      "id": "acceptance.mechanics.spells.haste-ages",
+      "title": "Haste ages its targets",
+      "kind": "rule",
+      "steps": [
+        "Read each character's age. Cast Haste on the party. Read ages again."
+      ],
+      "expect": [
+        "Each target is 1 year older."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "There are no aging penalties and no death from old age (digest §5 Adaptational). The character sheet shows movement adjusted the wrong way under Haste: acceptance.quirks.technical.haste-slow-display."
+    },
+    {
+      "id": "acceptance.mechanics.spells.knock",
+      "title": "Knock always opens a lock when offered",
+      "kind": "rule",
+      "steps": [
+        "Walk into a locked door with a magic-user who has Knock memorised. The door menu offers Knock.",
+        "Choose it."
+      ],
+      "expect": [
+        "The lock opens every time.",
+        "The option only works if the spell is actually memorised."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells",
+        "Clue Book p.62",
+        "digest §7 item 11"
+      ],
+      "disagreements": [
+        "Clue Book p.62 also says Dispel Magic removes 'locking spells on doors'; [P] does not say this.",
+        "On the library and temple locks: [P] a thief can never pick them; [GB] thieves 'have to be higher than level 4'; [SP] 'bashing, picking, or knock'; Clue Book 'wizard-locked doors'."
+      ],
+      "coveredBy": [],
+      "notes": "[P]'s wording: 'if you have this option and you actually have the spell memorized, it always works'. qa/inventory/classic.json: door menu 'Locked, Bash, Pick, Knock'."
+    },
+    {
+      "id": "acceptance.mechanics.spells.mirror-image",
+      "title": "Mirror Image does not stop physical attacks",
+      "kind": "rule",
+      "steps": [
+        "Cast Mirror Image on a magic-user. Let an enemy attack in melee with a fixed d20 that hits; then have an enemy target a spell at the caster."
+      ],
+      "expect": [
+        "The melee hit lands on the caster as if there were no images.",
+        "The images work only against targeted spells."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells",
+        "[P] digest §5 Technical"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Documented bug to keep; see acceptance.quirks.technical.mirror-image."
+    },
+    {
+      "id": "acceptance.mechanics.temple.services",
+      "title": "Check temple service prices",
+      "kind": "rule",
+      "steps": [
+        "Enter a New Phlan temple (Tyr, Sune or Tempus). The priest asks \"' DO YOU SEEK HEALING?'\". Choose Heal and read the list and each price.",
+        "Buy Cure Light Wounds for a wounded character and read money and HP."
+      ],
+      "expect": [
+        "Cure Blindness 1000, Cure Disease 1000, Cure Light Wounds 100, Cure Serious Wounds 350, Cure Critical Wounds 600, Neutralize Poison 1000, Raise Dead 5500, Remove Curse 3500, Stone to Flesh 2000 (gold).",
+        "Heal, Restoration and Resurrection are not offered.",
+        "Platinum is accepted for gold prices."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "9 services"
+      ],
+      "sources": [
+        "[P] digest §4 Spells (Temple services)",
+        "Clue Book p.56",
+        "game text ECL3.DAX block 0 (src/audio/voice-master-manifest.json)",
+        "qa/inventory/classic.json classic.menu.temple"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifySokalTempleHealing"
+      ],
+      "notes": "qa/inventory/classic.json agrees on '9 cures'. Clue Book p.56 describes poison death: neutralize poison then raise dead, or Slow Poison first. Temples refuse service after a fight with the city watch: \"'DUE TO YOUR VICIOUS ATTACK ON THOSE WHO PROTECT US, WE REFUSE YOU ALL SERVICE.'\" (see acceptance.new-phlan)."
+    },
+    {
+      "id": "acceptance.mechanics.temple.raise-dead",
+      "title": "Check temple Raise Dead",
+      "kind": "rule",
+      "steps": [
+        "Bring a dead human and a dead elf to a temple and pay 5500 gold for Raise Dead on each.",
+        "Read Constitution and maximum HP before and after."
+      ],
+      "expect": [
+        "Raise Dead never fails.",
+        "It works on elves.",
+        "It always costs 1 Constitution and can lower maximum HP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Spells (Temple services)",
+        "[P] digest §5 Adaptational",
+        "[P] digest §5 Other documented quirks"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Repeated raising can drive Constitution to 0: acceptance.quirks.other.raise-dead-con-zero."
+    },
+    {
+      "id": "acceptance.mechanics.time.day-and-night",
+      "title": "Check the day cycle and opening hours",
+      "kind": "rule",
+      "steps": [
+        "Read the clock. Rest or walk until 13:59 and enter a New Phlan shop and City Hall; then at 14:00 or later try again."
+      ],
+      "expect": [
+        "Dawn is 00:00 and dusk is 14:00 every day.",
+        "Shops and City Hall are open by day only; at night \"THE DOOR IS LOCKED. DO YOU WANT TO BREAK IN?\" is shown."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Time and resting",
+        "game text ECL3.DAX block 0 at 0x99af (src/audio/voice-master-manifest.json)",
+        "[P] digest §3.0 City guard"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Breaking in is a city-guard trigger. The arms shop door at (9,14) works at night (documented bug: acceptance.quirks.scripting.civilized-shop-door-at-night). The link between 14:00 and the locked-door text is from the digest; the text's address is from the game-text file."
+    },
+    {
+      "id": "acceptance.mechanics.time.move-costs",
+      "title": "Check the time cost of actions",
+      "kind": "rule",
+      "steps": [
+        "Read the clock. Step forward one square; turn; use Look; step one square on the wilderness map. Read the clock after each."
+      ],
+      "expect": [
+        "One square forward = 1 minute.",
+        "Look = 10 minutes.",
+        "Turning is free.",
+        "One overland square = 12 hours."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Time and resting",
+        "[P] digest §3.11"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Boat trips from the New Phlan dock take no game time (digest §3.0)."
+    },
+    {
+      "id": "acceptance.mechanics.time.natural-healing",
+      "title": "Check natural healing",
+      "kind": "rule",
+      "steps": [
+        "With a wounded character Rest for 23 hours 59 minutes, then for 24 hours, in a safe place. Read HP."
+      ],
+      "expect": [
+        "A character heals 1 HP per 24 hours of rest."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Time and resting",
+        "Clue Book p.56"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.56 agrees: 'rest for a full day so that each character can heal one HP'. Con 20+ regenerates hourly (stats.constitution-table)."
+    },
+    {
+      "id": "acceptance.mechanics.time.calendar",
+      "title": "Check the calendar limit",
+      "kind": "rule",
+      "steps": [
+        "Read the game clock's year field at the start.",
+        "Advance the clock to the 256-year limit (by editing game state in the runner) and take one step."
+      ],
+      "expect": [
+        "The engine tracks 256 years.",
+        "After that, each minute of game time ages every character 1 year.",
+        "The game is set early in 1358 DR."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Time and resting",
+        "[P] digest §5 Technical: 'No aging until 256 years'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Reaching 256 years by play is impractical; a runner must set the clock. The digest does not say whether 1358 DR is shown anywhere on screen."
+    },
+    {
+      "id": "acceptance.mechanics.money.coin-conversion",
+      "title": "Check coin values",
+      "kind": "rule",
+      "steps": [
+        "In a shop buy an item priced in gold with a character holding only copper, then only silver, electrum, platinum.",
+        "Read the coins left."
+      ],
+      "expect": [
+        "10 cp = 1 sp; 20 sp = 1 gp; 2 ep = 1 gp; 1 pp = 5 gp.",
+        "Platinum is accepted wherever gold is asked."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Money, encumbrance and shops",
+        "Adventurer's Journal p.35-36 (appendix, as transcribed in NOTES.md)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Journal appendix agrees: '200 cp = 20 sp = 2 ep = 1 gp = 1/5 pp'. qa/inventory/classic.json lists '7 coin types' (the five coins plus gems and jewelry)."
+    },
+    {
+      "id": "acceptance.mechanics.money.encumbrance",
+      "title": "Check weight and movement",
+      "kind": "rule",
+      "steps": [
+        "Read a character's carrying capacity from the Strength table. Add coins until just under, then 1, 257 and 513 over the limit; read movement each time.",
+        "Repeat while wearing Plate Mail."
+      ],
+      "expect": [
+        "10 coins, gems or jewelry weigh 1 lb.",
+        "1-256 coins over: movement 9. 257-512 over: 6. 513-988 over: 3.",
+        "Actual movement is the better of this and the armor's limit."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Money, encumbrance and shops",
+        "[P] digest §4 Character creation and stats (Strength)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "'The better of' is the digest's wording; it reads oddly (one would expect the worse). Measure on the original. The digest gives no rule beyond 988 coins over."
+    },
+    {
+      "id": "acceptance.mechanics.money.inventory-limits",
+      "title": "Check inventory limits",
+      "kind": "rule",
+      "steps": [
+        "Fill a character with 16 items and try to take a 17th.",
+        "Ready three magic rings."
+      ],
+      "expect": [
+        "16 item slots per character.",
+        "At most 2 magic rings can be readied."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Money, encumbrance and shops"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Refusal texts are not in the digest."
+    },
+    {
+      "id": "acceptance.mechanics.money.selling",
+      "title": "Check shop sale prices",
+      "kind": "rule",
+      "steps": [
+        "Sell a Long Sword (worth 15 gold), a bundle of arrows and an item whose half value is not a multiple of 5 gold.",
+        "Read money before and after."
+      ],
+      "expect": [
+        "Shops pay half of value.",
+        "Arrows and bolts sell for 5%.",
+        "The payment is made in platinum and the gold remainder is lost."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Money, encumbrance and shops",
+        "[P] digest §5 Technical: 'sale remainders are lost'"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyGoblinLootSale"
+      ],
+      "notes": "Coin totals over 65535 gold can be lost in a transaction: acceptance.quirks.technical.coin-overflow."
+    },
+    {
+      "id": "acceptance.mechanics.money.identification",
+      "title": "Identify an item for 200 gold",
+      "kind": "rule",
+      "steps": [
+        "In a shop View an unidentified magic item and choose Id.",
+        "Read money and the item name."
+      ],
+      "expect": [
+        "200 gold is taken and the item is identified."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Money, encumbrance and shops",
+        "qa/inventory/classic.json classic.menu.items (Ready Use Trade Drop Halve Join Sell Id)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.mechanics.money.gems",
+      "title": "Check gem appraisal",
+      "kind": "rule",
+      "steps": [
+        "In a shop choose Appraise on gems with fixed d100 rolls 25, 26, 50, 51, 70, 71, 90, 91, 99, 100.",
+        "Choose Keep on one gem, then try to sell it later."
+      ],
+      "expect": [
+        "d100 1-25: 10 gold; 26-50: 50; 51-70: 100; 71-90: 500; 91-99: 1000; 100: 5000.",
+        "A gem kept after appraisal becomes an ordinary item that sells at half value."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Money, encumbrance and shops",
+        "qa/inventory/classic.json classic.menu.appraise (Sell Keep)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.mechanics.money.jewelry",
+      "title": "Check jewelry appraisal",
+      "kind": "rule",
+      "steps": [
+        "Appraise jewelry with fixed d100 rolls at each band edge and fixed value rolls at minimum and maximum."
+      ],
+      "expect": [
+        "d100 1-10: 100-999; 11-20: 200-1199; 21-40: 300-1799; 41-50: 500-2999; 51-70: 1000-5999; 71-90: 2000-7999; 91-100: 2000-11999 gold.",
+        "Kept jewelry later sells at half value."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Money, encumbrance and shops",
+        "digest §7 item 18"
+      ],
+      "disagreements": [
+        "[P]: 100-11999 gold. Clue Book: '75-50,000 gold pieces' (as quoted in digest §7 item 18; not found in the pp.53-64 OCR)."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.mechanics.money.base-items",
+      "title": "Check base item values and armor",
+      "kind": "rule",
+      "steps": [
+        "In the arms shop View a Long Sword, Banded Mail, Plate Mail and Padded Armor; ready each armor and read AC and movement.",
+        "View the Fine Composite Long Bow in the silver shop and fire it with a Strength 18/00 fighter."
+      ],
+      "expect": [
+        "Long Sword: weight 60 coins, value 15, damage 1d8 / 1d12.",
+        "Fine Composite Long Bow: value 25000; adds the Strength damage bonus to arrows.",
+        "Banded Mail: AC bonus 6 (AC 4), movement 9.",
+        "Plate Mail: AC bonus 7 (AC 3), movement 6.",
+        "Padded Armor allows movement 12."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Money, encumbrance and shops",
+        "Adventurer's Journal p.35-36 (appendix, as transcribed in NOTES.md)",
+        "[P] digest §3.0 (SS shop)"
+      ],
+      "disagreements": [
+        "Padded armor: the game gives movement 12; the Journal appendix prints AC 8, move 9. [P] calls the 12 a bug ('it should be 9').",
+        "The digest writes 'Banded Mail AC 6' and 'Plate Mail AC 7'; the Journal prints AC 4 and AC 3. These agree if the digest's figures are the amount subtracted from 10."
+      ],
+      "coveredBy": [],
+      "notes": "The full weapon and armor tables are in [P] §9.2 and are not in the digest; only these examples are checkable."
+    },
+    {
+      "id": "acceptance.mechanics.money.random-magic-items",
+      "title": "Random magic item generation follows the v1.3 tables",
+      "kind": "rule",
+      "steps": [
+        "Take a treasure the area files mark as 'random magic item' with several fixed dice seeds."
+      ],
+      "expect": [
+        "Items come from the v1.3 generation tables.",
+        "The Wand of Lightning cannot be rolled; some rolls give nameless items (see acceptance.quirks.other.random-item-glitches)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Money, encumbrance and shops",
+        "[P] digest §5 Other documented quirks"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "NOT checkable from the digest: it only says the tables are 'documented in full in §9.4' of [P] and 'known to work differently in v1.0'. A test needs the tables from [P] or from the original's data."
+    },
+    {
+      "id": "acceptance.mechanics.npcs.availability",
+      "title": "Hire from the adventurers' hall at level 1",
+      "kind": "rule",
+      "steps": [
+        "With a new level 1 party enter hall 14 in New Phlan. The text asks \"'DO YOU SEEK A PARTNER FOR YOUR ADVENTURING?'\". Answer YES.",
+        "Step through the candidates: \"'THERE IS A FINE <type> WHO WILL JOIN YOU FOR <share>. IS THIS ACCEPTABLE?'\" then \"'WOULD YOU LIKE TO CONSIDER SOMEONE ELSE?'\".",
+        "Leave the map, re-enter and ask again."
+      ],
+      "expect": [
+        "Between 0 and 7 NPCs are on offer; with none: \"'THERE IS NO ONE WHO WILL GO WITH YOU.'\"",
+        "The list is rolled again every time the map is re-entered.",
+        "A level 1 party can hire."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 NPCs (hall 14)",
+        "digest §7 item 5",
+        "game text ECL3.DAX block 11 at 0x9eab (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[GB]: 'You won't be able to hire henchmen until you hit level 2.' [P]: no level requirement, and says the clue book claims one. The digest's author did not find that claim in the Clue Book OCR; it is not in pp.53-64 either."
+      ],
+      "coveredBy": [
+        "verifySokalEvokerRecruitment"
+      ],
+      "notes": "With a full party the hall says \"'YOUR PARTY IS TOO LARGE TO JOIN AT THIS TIME. RETURN WHEN IT IS SMALLER.'\" (block 11 at 0xa0d5); the digest does not mention this."
+    },
+    {
+      "id": "acceptance.mechanics.npcs.roster-odds",
+      "title": "Check the hall's NPC types and odds",
+      "kind": "rule",
+      "steps": [
+        "Re-enter hall 14 many times with a recorded dice stream and tally the types offered.",
+        "Hire each type once and View it."
+      ],
+      "expect": [
+        "Odds out of 48: SWORDSMAN 6, WARRIOR 10, ACOLYTE 4, HERO 5, THEURGIST 4, ROBBER 6, CURATE 5, EVOKER 8.",
+        "SWORDSMAN (#36) L3 fighter LE morale 65. WARRIOR (#103) L2 fighter LE 55. ACOLYTE (#108) L1 cleric NG 50. HERO (#109) L4 fighter LE 80, Plate Mail +1.",
+        "THEURGIST (#110) L4 magic-user TN 85, Ring of Protection +1. ROBBER (#111) L4 thief CN 70, Leather Armor +1. CURATE (#112) L4 cleric LG 75. EVOKER (#122) L2 magic-user TN 60."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 NPCs (hall 14)",
+        "qa/inventory/classic.json classic.content.hirelings (8 hireling types)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say how the number offered (0-7) is rolled or whether a type can repeat. The ACOLYTE's race is 'Monster' with 0 XP, so he can be Modified: acceptance.quirks.technical.acolyte-modify."
+    },
+    {
+      "id": "acceptance.mechanics.npcs.shares",
+      "title": "Check the share an NPC claims and takes",
+      "kind": "rule",
+      "steps": [
+        "Hire each type and note the share named in the offer text.",
+        "Win a fight with known coin treasure and read how much the NPC keeps."
+      ],
+      "expect": [
+        "Claimed: SWORDSMAN 3, WARRIOR 1, ACOLYTE 1, HERO 4 plus items, THEURGIST 4 plus items, ROBBER 3 plus items, CURATE 3 plus items, EVOKER 2.",
+        "Actually taken: SWORDSMAN 3, WARRIOR 1, ACOLYTE 1, HERO 4, THEURGIST 7, ROBBER 7, CURATE 7, EVOKER 7.",
+        "NPCs never actually take items."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 NPCs (hall 14)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives the numbers without units ('share'); confirm on the original what a share is of."
+    },
+    {
+      "id": "acceptance.mechanics.npcs.rules",
+      "title": "Check hired NPC behaviour",
+      "kind": "rule",
+      "steps": [
+        "Hire an NPC and enter combat; try to control it. Try to Trade items from it while it is up, then after it is knocked down.",
+        "Check Party Strength-scaled encounters before and after hiring.",
+        "Keep an evil NPC (SWORDSMAN, WARRIOR or HERO) to the final battle."
+      ],
+      "expect": [
+        "The player cannot control NPCs in combat.",
+        "Items can be taken from an NPC only while it is down.",
+        "NPCs raise Party Strength and check morale.",
+        "Evil NPCs betray the party at the end.",
+        "NPCs cannot be transferred to later games."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 NPCs (hall 14)",
+        "digest §6 Transfer",
+        "Clue Book p.61"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.61: attacking a charmed enemy makes 'NPCs in your party' turn on you. The digest says only 'betray you at the end' and gives no trigger or text here; 'cannot transfer' is stated but the digest gives no screen to observe it on. Removing a charm may not restore a hired NPC (acceptance.quirks.technical.charm-npc)."
+    },
+    {
+      "id": "acceptance.mechanics.random.forcing",
+      "title": "Force random encounters against a wall",
+      "kind": "rule",
+      "steps": [
+        "In an area with random encounters left, face a wall and hold Up; count key presses until an encounter with fixed dice.",
+        "On the wilderness map stand on the coast and hold Down into the Moonsea."
+      ],
+      "expect": [
+        "Each blocked step still makes a random-encounter roll, so encounters arrive without moving.",
+        "On the wilderness map the same works moving into the Moonsea."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Random encounters"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Per-area odds and clear counts are in the area files (15 in the Slums, 10 at Kuto's Well, 10 at Podal Plaza). The digest does not say whether a blocked step costs game time."
+    },
+    {
+      "id": "acceptance.mechanics.random.dead-end-limits-spawn",
+      "title": "A dead end limits how many monsters spawn",
+      "kind": "rule",
+      "steps": [
+        "Stand in a dead-end corridor facing the wall, with the exit behind, and force a random encounter of a known size.",
+        "Count the monsters placed."
+      ],
+      "expect": [
+        "Monsters spawn in front of the party only; those that do not fit on the combat map are dropped, so fewer appear than the script asked for."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 Random encounters",
+        "[P] digest §4 Combat formulas (Combat arena)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not give numbers; the observable is 'fewer than requested'."
+    },
+    {
+      "id": "acceptance.mechanics.ui.area-search-save",
+      "title": "Check Area, Search and Save",
+      "kind": "rule",
+      "steps": [
+        "On the exploration menu press A (Area). Press S (Search) twice and read the indicator.",
+        "Choose Encamp, then Save, and read the slots offered. Save to slot J."
+      ],
+      "expect": [
+        "Area shows the automap where one exists; it is unreliable.",
+        "Search toggles on and off.",
+        "Save offers slots A to J."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 UI and files",
+        "qa/inventory/classic.json classic.menu.explore, classic.menu.save-load"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyOpeningReload"
+      ],
+      "notes": "qa/inventory/classic.json: save-load gap 'Slots A to D only' are exercised. The digest does not say in what way Area is unreliable. Areas with no automap are named in the area files."
+    },
+    {
+      "id": "acceptance.mechanics.ui.load-rules",
+      "title": "Loading is possible only from the main menu or with an empty party",
+      "kind": "rule",
+      "steps": [
+        "While adventuring look for any Load command (exploration menu, Encamp).",
+        "Enter a training hall; with characters in the party choose Load; then Drop every character and choose Load."
+      ],
+      "expect": [
+        "No Load exists while adventuring.",
+        "Load works from the opening party menu, or at a training hall after dropping everyone."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 UI and files"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyOpeningReload"
+      ],
+      "notes": "The digest does not give the refusal text when Load is chosen with a party present."
+    },
+    {
+      "id": "acceptance.mechanics.ui.load-deletes-removed",
+      "title": "Loading a save deletes previously Removed characters",
+      "kind": "rule",
+      "steps": [
+        "At a training hall Remove character X (written to disk). Without saving the game afterwards, load an older save game.",
+        "Choose Add and look for X."
+      ],
+      "expect": [
+        "Characters Removed before the load are deleted by loading a save."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 UI and files"
+      ],
+      "disagreements": [
+        "This reads against digest §5 exploit 2 (duplicating items), where a dummy is Removed, a save is Loaded and the dummy is then Added back. The digest does not reconcile the two; the order of Save and Remove may be what matters. Establish on the original."
+      ],
+      "coveredBy": [],
+      "notes": "Treat as unverified until measured."
+    },
+    {
+      "id": "acceptance.mechanics.ui.combat-keys",
+      "title": "Check combat control keys",
+      "kind": "rule",
+      "steps": [
+        "In combat press Alt-Q; watch every character act on its own. Press Space while a character moves.",
+        "Choose Guard for one character and Quit for another."
+      ],
+      "expect": [
+        "Alt-Q sets auto-combat for all characters.",
+        "Space returns manual control.",
+        "Guard ('G') is offered on the second combat menu.",
+        "Quit forfeits the character's turn."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 UI and files",
+        "Clue Book p.55-56 (Quick Combat)",
+        "qa/inventory/classic.json classic.menu.combat-1, classic.menu.combat-2"
+      ],
+      "disagreements": [
+        "Clue Book p.55: 'You may put all characters into quick combat by typing 'Q' during any character's turn' and 'M' toggles 'Magic On' / 'Magic Off'. [P] says Alt-Q and does not mention the M toggle."
+      ],
+      "coveredBy": [],
+      "notes": "qa/findings.json input-original-control-keys-dropped (open): the port's page drops every Ctrl combination, Tab and key auto-repeat; check that Alt combinations reach the game."
+    },
+    {
+      "id": "acceptance.mechanics.ui.pool-cfg",
+      "title": "Check POOL.CFG",
+      "kind": "rule",
+      "steps": [
+        "Read POOL.CFG as the game sees it.",
+        "Change line 1 and line 2 and restart."
+      ],
+      "expect": [
+        "Line 1 graphics: C, E or T.",
+        "Line 2 sound: P, T or S.",
+        "Lines 3 and 4: game and save directories, each with drive letter and trailing backslash.",
+        "Line 5 intro: F or N."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 UI and files",
+        "qa/research/version-1.3-differences.md"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "qa/research/version-1.3-differences.md: POOL.CFG differs between builds and 'the port sets the paths itself'. The digest does not expand the letters. 1.3 has no Tandy music (BRIEF.md, NOTES.md)."
+    },
+    {
+      "id": "acceptance.mechanics.ui.save-file-sizes",
+      "title": "Check save file formats",
+      "kind": "rule",
+      "steps": [
+        "Save a game to slot A with a full party and list the files written with their sizes.",
+        "Bar a door (if the area allows), save, load, and look at the door."
+      ],
+      "expect": [
+        "CHRDAT?#.SAV holds a 285-byte character record.",
+        ".ITM files hold 63-byte item records; .SPC files hold 9-byte effect records.",
+        "SAVGAM?.DAT is 13,137 bytes and contains the whole current ECL script.",
+        "Barred-door state is not saved."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 UI and files",
+        "qa/findings.json saves-across-versions"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "qa/findings.json saves-across-versions (open) measured the same sizes in both builds and warns that a save carries the current area's script, so saves from the earlier build are untested on 1.3. The digest does not say how a door becomes barred."
+    },
+    {
+      "id": "acceptance.mechanics.ui.copy-protection",
+      "title": "Check the code-wheel prompt",
+      "kind": "rule",
+      "steps": [
+        "Start the game without STING. The code-wheel question appears after the title.",
+        "Type a wrong word and press Enter.",
+        "Type nothing and press Enter."
+      ],
+      "expect": [
+        "Classic (GOG 1.3): any answer is accepted and the game continues.",
+        "The 13 six-letter words in START.EXE run from 'BEWARE' to 'WYVERN'."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "13 words",
+        "BEWARE",
+        "WYVERN"
+      ],
+      "sources": [
+        "[P] digest §4 UI and files",
+        "qa/findings.json classic-copy-protection",
+        "qa/research/version-1.3-differences.md",
+        "Clue Book p.56 (Translation Wheel)",
+        "[P] digest §3.0 Opening sequence"
+      ],
+      "disagreements": [
+        "[P] documents a working check; the GOG 1.3 program has the branch patched so any answer passes (qa/findings.json classic-copy-protection). Owner's ruling 2026-11-21: Classic does what GOG does; Enhanced shows the wheel and enforces it."
+      ],
+      "coveredBy": [],
+      "notes": "qa/findings.json classic-copy-protection is open: still to establish why the first release also accepts Enter in the port, and what the original does after wrong answers when the check is live. 1.3 draws one random number (Random(13)) to pick the question, which shifts the dice stream by one draw (version-1.3-differences.md). Copy protection removal is one of the seven optional [P] patches not to apply (acceptance.quirks.other.optional-patches-not-applied); the GOG patch is in the shipped program, not applied by the port."
+    },
+    {
+      "id": "acceptance.mechanics.ui.sting-mode",
+      "title": "Check STING cheat mode",
+      "kind": "rule",
+      "steps": [
+        "Launch the original with the argument STING.",
+        "In play press Ctrl-C; Ctrl-D; in combat Alt-X; in a training hall J.",
+        "Launch without STING and press J at the party menu."
+      ],
+      "expect": [
+        "With STING: the intro and copy protection are skipped.",
+        "Ctrl-C quits; Ctrl-D toggles the hit-point debug display; Alt-X wins the current combat; J trains for free in a hall.",
+        "Without STING, J does nothing."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "start STING",
+        "Ctrl-C",
+        "Ctrl-D",
+        "Alt-X",
+        "J"
+      ],
+      "sources": [
+        "[P] digest §4 UI and files",
+        "qa/findings.json classic-sting-mode",
+        "qa/findings.json input-original-control-keys-dropped",
+        "qa/inventory/classic.json classic.menu.party-menu, classic.menu.ctrl-keys"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "qa/findings.json classic-sting-mode (open): decide whether the port exposes STING, and check that J does nothing at the party menu without it; the party menu's key set includes J. input-original-control-keys-dropped (open): the key routine (START.EXE image 26f8) acts on Ctrl-S (sound on and off), Ctrl-D and Ctrl-C, and the page drops every Ctrl combination. Ctrl-S is not in the digest."
+    },
+    {
+      "id": "acceptance.mechanics.ui.version-on-credits",
+      "title": "Check the version shown on the credits",
+      "kind": "rule",
+      "steps": [
+        "Start the game and watch the credits screen that reads 'Game Created By: SSI Special Projects'."
+      ],
+      "expect": [
+        "Version 1.3 shows 'version 1.3' under that line.",
+        "A build that shows no version is v1.0."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] digest §4 UI and files",
+        "qa/research/version-1.3-differences.md",
+        "qa/findings.json guides-describe-v1-3, target-version-1-3"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "qa/research/version-1.3-differences.md: 1.3 reads 'version 1.3' after 'SSI Special Projects'; the build the port ran at the time shows nothing. qa/findings.json guides-describe-v1-3 and target-version-1-3 are open. Exact capitalisation of the version string should be read from the 1.3 program."
+    }
+  ]
+}

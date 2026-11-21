@@ -1,0 +1,1286 @@
+{
+  "schema": 1,
+  "id": "acceptance.valhingen-graveyard",
+  "title": "Valhingen Graveyard",
+  "guideSection": "3.19",
+  "scripts": [
+    "ECL 10"
+  ],
+  "commission": "Special Valhingen commission",
+  "prerequisites": [
+    "Party can reach the wilderness squares (25,26)/(26,26) outside the city gates.",
+    "For the commission: Party Strength 37 or more and at least 4 tracker quests done, and the clerk's offer accepted (Two-Handed Sword +1, +3 Vs. Undead and 4 Restoration scrolls in hand).",
+    "[P] assumes a late-game party: magical weapons, Restoration scrolls, mirrors or a Wooden Holy Symbol of Tyr readied against the vampire's gaze.",
+    "Optional: the Efreeti Bottle from Kobold Caves location 12.",
+    "Game text for this area is ECL4.DAX block 10; the clerk's lines are ECL3.DAX block 8."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.valhingen-graveyard.accept-commission",
+      "title": "Accept the special Valhingen commission from the clerk",
+      "kind": "main",
+      "steps": [
+        "With Party Strength (PS) of 37 or more and at least 4 quests on the quest tracker, enter the council clerk's office in City Hall.",
+        "After the reward check the clerk prints: PUTTING DOWN THE PAPERS, SHE SAYS, 'I MUST BRING TO YOUR ATTENTION THE FOLLOWING CONCERNING VALHINGEN GRAVEYARD: '.",
+        "The game prints: 'I HAVE BEEN AUTHORIZED TO GIVE YOU AN ENCHANTED WEAPON IF YOU ACCEPT THE COMMISSION TO END THE GRAVEYARD MENACE. DO YOU ACCEPT?' with a YES/NO menu.",
+        "Choose YES. The game prints: 'EXCELLENT.'"
+      ],
+      "expect": [
+        "The party receives a Two-Handed Sword +1, +3 Vs. Undead and 4 Clerical Scroll (Restoration, Restoration).",
+        "Each character gains 333 XP (digest gives XP per character)."
+      ],
+      "branches": [
+        "PS below 19 or fewer than 4 tracker quests: the clerk does not raise the graveyard.",
+        "PS 19 to 36 with 4 tracker quests: the party is only asked; no formal offer and no items.",
+        "PS 37 or more: formal offer; YES gives the sword and scrolls."
+      ],
+      "fights": [],
+      "data": [
+        "Thresholds: PS >= 19 and >= 4 tracker quests to be asked; PS >= 37 for the formal offer.",
+        "Tracker quests: #1, #2, #4, #7, #8, #9, #10, #11, Valhingen, Norris.",
+        "Reward on accepting: Two-Handed Sword +1, +3 Vs. Undead; 4 Clerical Scroll (Restoration, Restoration); 333 XP.",
+        "Proclamations about the graveyard: LXIV, LXXVIII, CIX (rescue force for Taimalg-the-Invincible, lost in Valhingen), CLIV (bounty per undead plus an enchanted item).",
+        "Tavern tale 8: the graveyard is controlled by a powerful undead."
+      ],
+      "sources": [
+        "[P] digest §3.0 (Special Valhingen commission)",
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "Adventurer's Journal p.13-15 (proclamations LXIV, LXXVIII, CIX, CLIV)",
+        "Adventurer's Journal p.33-34 (tavern tale 8)",
+        "game text ECL3.DAX block 8 at 0xa5c2, 0xa62a, 0xa6ac, 0xa6fe, 0xa773 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: 'Two-Handed Sword +1, +3 Vs. Undead and 4 Clerical Scroll (Restoration, Restoration)'. Clue Book p.41: 'a two-handed sword +1/+3 vs. undead and several scrolls with restoration spells'. Same items; the Clue Book gives no count."
+      ],
+      "coveredBy": [],
+      "notes": "The block holds two briefing texts: 0xa62a (THE UNDEAD ARE CROSSING THE RIVER IN HORDES ... A GENEROUS REWARD IS OFFERED.') and 0xa6ac (UNDEAD FROM THE GRAVEYARD HAVE GROWN MORE DANGEROUS THAN ALL OF THE OTHER FORCES WHICH CONFRONT US.). The digest does not say which PS band prints which; a test author must read the script to bind them. The digest's commission table gives the same sword and scrolls as part of the #12 reward. [P] advises doing the graveyard late because it scales with PS. The graveyard can be entered without the commission (digest §3: most missions can be done even if not suggested)."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.enter-and-leave",
+      "title": "Enter from the wilderness and leave by the east exit",
+      "kind": "main",
+      "steps": [
+        "In the wilderness stand on (25,26) or (26,26). The game offers the City gates or the Graveyard.",
+        "Choose G (Graveyard). The party is placed at (0,4) in Valhingen Graveyard.",
+        "The game prints THE SKY DARKENS., then FIERCE GUSTS OF WIND HOWL PAST AND THE GROUND SHAKES AS PEALS OF THUNDER ROCK THE LAND. THE SWIRLING MURK HIDES WHAT LIES AHEAD., then UNTIL AN EXPLOSION OF LIGHTNING REVEALS THE NIGHTMARE SCENE OF A GRAVEYARD TURNED UPSIDE DOWN.",
+        "Walk to exit E, location 1, and step out."
+      ],
+      "expect": [
+        "After entering, the party stands at (0,4) in the graveyard.",
+        "After leaving by E the party stands on wilderness square (26,26)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Wilderness squares (25,26) and (26,26): C = City gates (Kovel (4,0)), G = Graveyard (Valhingen (0,4)).",
+        "Arrival (0,4).",
+        "Exit E = location 1 leads to wilderness (26,26)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "[P] digest §3.11 (wilderness fixed point c)",
+        "game text ECL4.DAX block 10 at 0x9ba5, 0x9bbf, 0x9c45 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not give the coordinates of exit E inside the graveyard, and does not quote the entry text; the three entry strings are the first prints in the block and are assumed to be the arrival text. Leaving matters for three rules: the unit counts are recomputed on entry, spectre 22 can be lost (see the spectre-22 quirk), and the second vampire fight depends on whether the party ever left."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.party-strength-scaling",
+      "title": "Undead counts scale with Party Strength on entry",
+      "kind": "rule",
+      "steps": [
+        "Build a party with a known PS (per character: 0.4 x cleric level + 0.8 x magic-user level + 0.5 per point of AC below 0 + 0.5 per point of THAC0 below 21 + 0.1 x current HP, rounded down; summed over the party).",
+        "Enter the graveyard with no previous kill scores. Read the three counts from game state.",
+        "Leave, unequip armor and weapons so PS drops, re-enter, and read the counts again."
+      ],
+      "expect": [
+        "Skeleton count = PS/2 minus the previous skeleton kill score.",
+        "Zombie count = PS/4 minus the previous zombie kill score.",
+        "Wight count = PS/8 minus the previous wight kill score.",
+        "The second entry, at lower PS, gives lower counts.",
+        "The fight at location 20 fields exactly [wight count] WIGHT."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Skeleton = PS/2 - score; Zombie = PS/4 - score; Wight = PS/8 - score.",
+        "Mummies at location 19 = PS/16, minimum 1.",
+        "Rest ghouls = PS divided by 1d3.",
+        "All monsters in the graveyard have Morale 101."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "[P] digest §4 (Party Strength)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says the counts are 'mostly computed on entry' without saying which part is not, and gives no rounding rule for the divisions. A test author must take both from the script. The digest says a late-game party 'may find 15+' wights at location 20."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.kill-score-payouts",
+      "title": "Clerk pays per point of kill score",
+      "kind": "rule",
+      "steps": [
+        "With the commission accepted, earn kill-score points in the graveyard (for example beat one random skeleton fight and the spectre at location 15).",
+        "Return to the council clerk. During the reward check the clerk prints: 'WE HAVE BEEN INFORMED YOU HAVE ELIMINATED SOME UNDEAD FROM THE GRAVEYARD.",
+        "Read the party's money, gems and jewelry before and after.",
+        "Visit the clerk again without earning new points."
+      ],
+      "expect": [
+        "The clerk pays 1 gold per new Skeleton point, 1 platinum per new Zombie point, 1 gem per new Wight point and 1 jewelry per new Spectre point.",
+        "The second visit pays nothing for points already paid.",
+        "Each kill score stops at 254."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Skeleton score: 1 per random skeleton; 5 for spectre 15; 5 for the vampire.",
+        "Zombie score: 1 per random zombie; 5 for spectre 18; 5 for the vampire.",
+        "Wight score: 1 per random wight; 1 per wight at location 20; 5 for spectre 22; 5 for the vampire.",
+        "Spectre score: 1 each at locations 15, 18, 22, 23; 5 for the vampire.",
+        "Each score is capped at 254.",
+        "Proclamation CLIV: bounty per undead plus an enchanted item for Valhingen."
+      ],
+      "sources": [
+        "[P] digest §3.0 (Special Valhingen commission)",
+        "[P] digest §3.19",
+        "Adventurer's Journal p.13-15 (proclamation CLIV)",
+        "game text ECL3.DAX block 8 at 0x9cc7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the skeletons in the set fights at 4, 5, 13 or the zombies at 7, 8, 16 score, only 'random' ones and the wights at 20. It does not say whether 'the vampire' means the first or the second defeat, nor whether the payout needs the commission to be accepted. A runner with fixed dice should compare the four payouts against the four score deltas read from game state."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.random-skeleton-zone",
+      "title": "Random encounters in the skeleton zone",
+      "kind": "rule",
+      "steps": [
+        "Walk in the skeleton zone (the area near the entrance) while the skeleton count is above zero.",
+        "With the encounter roll forced to succeed, a skeleton encounter starts."
+      ],
+      "expect": [
+        "The chance is 20% per check.",
+        "Each skeleton killed in a random fight adds 1 to the skeleton kill score.",
+        "With dice forced to fail, no encounter occurs."
+      ],
+      "branches": [],
+      "fights": [
+        "Random skeleton fight: SKELETON, number not given by the digest; Morale 101."
+      ],
+      "data": [
+        "Skeleton zone: 20%.",
+        "Encounter strings in the block: SKELETONS SILENTLY ATTACK. (0x9cf0); YOU ARE NOTICED. (0xb523); YOU FIND SOME UNDEAD. (0xb536)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0x9cf0, 0xb523, 0xb536 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives the 20% chance but not the unit of the check (per step is assumed elsewhere in the digest), the zone boundaries, the group size, or a search-mode figure for skeletons (it gives 40% only for zombies and wights). SKELETONS SILENTLY ATTACK. sits at the head of the skeleton section of the block; the digest does not bind it to the random fight. Clue Book p.41: 'Skeletons wander the area near the entrance.'"
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.random-zombie-zone",
+      "title": "Random encounters in the zombie zone",
+      "kind": "rule",
+      "steps": [
+        "Walk in the zombie zone while the zombie count is above zero, first in normal mode, then in search mode.",
+        "With the encounter roll forced to succeed, a zombie encounter starts."
+      ],
+      "expect": [
+        "The chance is 20% per check, 40% in search mode.",
+        "Each zombie killed in a random fight adds 1 to the zombie kill score."
+      ],
+      "branches": [],
+      "fights": [
+        "Random zombie fight: ZOMBIE, number not given by the digest; Morale 101."
+      ],
+      "data": [
+        "Zombie zone: 20%, or 40% in search mode.",
+        "String in the zombie section of the block: LUMBERING FIGURES REACH FOR YOU. (0x9f24)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0x9f24 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41: 'Zombies wander around building 11'; its building 11 is the mummy crypt on its own numbering. [P] ties the zombie zone to its locations 7, 8, 16 and 18. Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up."
+      ],
+      "coveredBy": [],
+      "notes": "Zone boundaries and group size are not in the digest. LUMBERING FIGURES REACH FOR YOU. is assumed to be the random zombie text from its position in the block."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.random-wight-zone",
+      "title": "Random encounters in the wight zone",
+      "kind": "rule",
+      "steps": [
+        "Walk in the wight zone while the wight count is above zero, first in normal mode, then in search mode.",
+        "With the encounter roll forced to succeed, read the composition of the enemy group."
+      ],
+      "expect": [
+        "The chance is 20% per check, 40% in search mode.",
+        "The group holds up to 4 WIGHT, plus 4 ZOMBIE per wight, plus one extra group: 40% 2 JUJU ZOMBIE, 40% 2 GHOUL, 20% 1 MUMMY.",
+        "Each wight killed in a random fight adds 1 to the wight kill score."
+      ],
+      "branches": [],
+      "fights": [
+        "Random wight fight: up to 4 WIGHT + 4 x wights ZOMBIE + one of (40% 2 JUJU ZOMBIE, 40% 2 GHOUL, 20% 1 MUMMY); Morale 101."
+      ],
+      "data": [
+        "Wight zone: 20% / 40% in search mode.",
+        "String in the wight section of the block: DARK, BENT CREATURES RUSH SWIFTLY AT YOU. (0xa11e)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xa11e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41: 'Wights wander the area around building 18'; on the Clue Book numbering 18 is the vampire's coffin. Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say how the 'up to 4' is chosen (presumably limited by the wight count) or whether the zombies in this group score. Zone boundaries are not given."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.encounter-flee-and-parley",
+      "title": "Fleeing and parleying with random undead",
+      "kind": "rule",
+      "steps": [
+        "Start a random encounter in which the party sneaked up on the undead. Choose Flee.",
+        "Start a random encounter in which the party did not sneak up. Choose Flee with a party whose slowest movement is known.",
+        "Start a random encounter and choose Parley."
+      ],
+      "expect": [
+        "If the party sneaked up on them, the undead flee first.",
+        "Otherwise flight is decided by party movement against 6 for zombies, or against 12 for the others.",
+        "Parley either loses the party's surprise or starts combat. The block holds THEY DON'T LISTEN."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Flee: undead flee first if surprised; else movement vs 6 (zombies) or 12.",
+        "Parley: lose surprise or combat."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "game text ECL4.DAX block 10 at 0xb4e9, 0xb549, 0xb58c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest quotes 'managed to sneak up on' but not the screen text for the undead fleeing, and does not say which of the two parley results applies when. THEY DON'T LISTEN. is assumed to be the parley result."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.rest-interrupted-by-ghouls",
+      "title": "Resting is unsafe until the graveyard is cleared",
+      "kind": "rule",
+      "steps": [
+        "Before the second vampire defeat, encamp anywhere in the graveyard and rest.",
+        "With the interrupt roll forced to succeed on the first 5-minute check, the rest is interrupted.",
+        "After the graveyard is cleared, rest again."
+      ],
+      "expect": [
+        "Before clearing: 4% chance per 5 minutes of rest. The interrupting group is GHOUL, PS divided by 1d3 of them.",
+        "The game prints: A PACK OF HUNGRY GHOULS LOPES TOWARD YOU.",
+        "After clearing: the rest completes without interruption."
+      ],
+      "branches": [],
+      "fights": [
+        "Rest interrupt: PS / 1d3 GHOUL; Morale 101."
+      ],
+      "data": [
+        "4% per 5 minutes.",
+        "PS / 1d3 GHOUL."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xb384 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book p.42 agrees: 'your party can not rest anywhere in the graveyard until it is cleared.' The digest lists no safe room and says the final zone has no random encounters; it does not say whether the rest interrupt also stops there."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.flee-squares",
+      "title": "Fleeing a fight moves the party to a fixed square",
+      "kind": "rule",
+      "steps": [
+        "Start a set fight in the graveyard and flee from combat.",
+        "Read the party position afterwards."
+      ],
+      "expect": [
+        "The party stands on one of (1,6), (1,9), (7,4), (14,6), (14,9)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Flee squares: (1,6), (1,9), (7,4), (14,6), (14,9)."
+      ],
+      "sources": [
+        "[P] digest §3.19"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest lists the five squares but not which fight or zone sends the party to which square. A test author must map them from the script."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.skeleton-claws",
+      "title": "Location 3: claws rise from the soil",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 3 at (6,4).",
+        "The game prints: CLAWS RISE FROM THE SOIL AND ATTEMPT TO DRAG YOU DOWN.",
+        "A skeleton random combat starts."
+      ],
+      "expect": [
+        "A fight against skeletons of the random-encounter kind; kills count 1 each to the skeleton score."
+      ],
+      "branches": [],
+      "fights": [
+        "Skeleton random combat; Morale 101."
+      ],
+      "data": [
+        "Location 3 = (6,4)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0x9d2c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 1: 'Skeletal Hands erupt from a grave and attack.' = [P] location 3."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether this repeats or what happens when the skeleton count is zero."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.skeleton-enclave",
+      "title": "Location 4: 15 skeletons",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 4 at (5,6).",
+        "Fight and win."
+      ],
+      "expect": [
+        "The enemy group is 15 SKELETON.",
+        "Each character gains 47 XP.",
+        "The fight does not recur (location marked * in the digest)."
+      ],
+      "branches": [],
+      "fights": [
+        "15 SKELETON, Morale 101, 47 XP."
+      ],
+      "data": [
+        "Location 4 = (5,6)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0x9d91 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 2: 'Skeletons guard this mausoleum.'"
+      ],
+      "coveredBy": [],
+      "notes": "The block prints THE ENCLAVE IS GUARDED BY A SKELETON ARMY! (0x9d91) just before the giant skeleton text; it is assumed to belong to this location. The digest marks locations with * without defining the mark in §3.19; it is read here as a one-time event."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.giant-skeleton-chest",
+      "title": "Location 5: giant skeleton and the marble chest",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 5 at (7,6). The game prints: YOU FIND A GIANT SKELETON, and AND ITS RETAINERS. when skeletons accompany it.",
+        "Win the fight.",
+        "Search. The game prints: YOU FIND A MARBLE CHEST. OPEN IT? Answer YES and take everything."
+      ],
+      "expect": [
+        "Enemy: 1 GIANT SKELETON (#22), plus skeletons only if the skeleton count is 17 or more.",
+        "Treasure: 12 jewelry, 10 gems, 69 gold, 28 silver, 4 Clerical Scrolls (Restoration, Restoration).",
+        "Each character gains 5095 XP."
+      ],
+      "branches": [
+        "Skeleton count 17 or more: the giant skeleton has skeleton retainers.",
+        "Skeleton count 16 or less: it fights alone."
+      ],
+      "fights": [
+        "GIANT SKELETON (#22) + skeletons if the count is >= 17; Morale 101."
+      ],
+      "data": [
+        "Location 5 = (7,6).",
+        "Chest: 12 jewelry, 10 gems, 69 gold, 28 silver, 4 Clerical Scrolls (Restoration, Restoration); 5095 XP."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0x9df8, 0x9e19, 0x9e78 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 3: 'A giant skeleton helps guard this mausoleum. Search after the fight to find its treasure.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not give the number of retainers, and attaches the 5095 XP to the location without splitting fight XP from treasure XP."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.skeleton-tower",
+      "title": "Locations 13 and 14: the skeleton tower and its fumes",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 13 at (1,12). The game prints: A TOWER STANDS CLEARLY ABOVE ALL CRYPTS IN THE AREA. HUGE PILES OF HUMAN BONES ARE STREWN ABOUT., then A SMALL ARMY OF SKELETONS RUSHES FROM THE TOWER.",
+        "Win the fight against 30 SKELETON.",
+        "Step to location 14 at (1,13). The game prints: NOXIOUS FUMES TEAR AT YOUR THROAT AS YOU CRUNCH THROUGH PILES OF DRIED BONES."
+      ],
+      "expect": [
+        "Location 13: each character gains 95 XP; the fight does not recur.",
+        "Location 14: every character saves vs poison; each who fails takes 10 damage."
+      ],
+      "branches": [],
+      "fights": [
+        "30 SKELETON, Morale 101, 95 XP."
+      ],
+      "data": [
+        "Location 13 = (1,12).",
+        "Location 14 = (1,13): save vs poison or 10 damage, everyone."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xa3f6, 0xa465, 0xa4ba, 0xa501 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 6 'Skeletons guard this tower' and 7 'This room is filled with poison gas' = [P] 13 and 14."
+      ],
+      "coveredBy": [],
+      "notes": "The block also prints NOXIOUS FUMES POUR FROM THE TOWER DOORWAY, MAKING IT IMPOSSIBLE TO SEE INSIDE. (0xa4ba); the digest does not say where. The digest does not say whether the gas at 14 repeats on each visit."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.skeleton-spectre",
+      "title": "Location 15: the spectre creating skeletons",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 15 at (0,15). The encounter menu reads: YOU SURPRISE A SHADOWY FORM CREATING NEW SKELETONS.",
+        "Fight and win. Take the treasure.",
+        "Leave the square and come back while the skeleton count is still above zero.",
+        "Bring the skeleton count to zero, beat the spectre, and come back again."
+      ],
+      "expect": [
+        "Enemy: 1 SPECTRE. Each character gains 2234 XP.",
+        "Treasure: 3 jewelry, 555 pp, 2000 gold.",
+        "Skeleton score +5 and spectre score +1.",
+        "While the skeleton count is nonzero the spectre is there again on return.",
+        "Once the count is zero it does not come back."
+      ],
+      "branches": [
+        "Skeleton count nonzero: the spectre respawns.",
+        "Skeleton count zero: the spectre stays dead."
+      ],
+      "fights": [
+        "1 SPECTRE, Morale 101, 2234 XP."
+      ],
+      "data": [
+        "Location 15 = (0,15).",
+        "3 jewelry, 555 pp, 2000 gold."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xa576 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 8: 'A spectre creating skeletons is here.'",
+        "[P]: 'It respawns while the skeleton count is nonzero.' Clue Book p.41: 'Kill all creatures of a type and eliminate the spectre ... and that creature will disappear for a time. But if the graveyard is not cleared, the spectre and his creations will return.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the treasure and the score points are given again on each respawn, or what triggers the respawn (leaving the square, leaving the graveyard, time). Spectres drain levels; the party holds Restoration scrolls for that."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.zombie-stairs",
+      "title": "Location 7: 25 zombies",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 7 at (10,15). The game prints: ZOMBIES SHUFFLE DOWN THE STAIRS!",
+        "Fight and win."
+      ],
+      "expect": [
+        "Enemy: 25 ZOMBIE.",
+        "Each character gains 166 XP.",
+        "The fight does not recur."
+      ],
+      "branches": [],
+      "fights": [
+        "25 ZOMBIE, Morale 101, 166 XP."
+      ],
+      "data": [
+        "Location 7 = (10,15)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0x9f5b (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 9: 'Zombies mull around outside this mausoleum.'"
+      ],
+      "coveredBy": [],
+      "notes": "ZOMBIES SHUFFLE DOWN THE STAIRS! is bound to this location from its position before the juju zombie text; the digest does not quote it."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.juju-zombie",
+      "title": "Location 8: the juju zombie and its hoard",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 8 at (9,15). The game prints: A ZOMBIE WITH GRAY, LEATHERY-HARD SKIN GAZES AT YOU WITH HATE-FILLED EYES.",
+        "Win the fight.",
+        "The game prints: VARIOUS OBJECTS ARE SCATTERED ABOUT. WILL YOU PICK THEM UP? Answer YES."
+      ],
+      "expect": [
+        "Enemy: 1 JUJU ZOMBIE (#29), plus 15 ZOMBIE if the zombie count is 16 or more.",
+        "Loot: 110 gold, 290 silver, Wand of Lightning Bolt (3 charges), Potion of Healing, 2 Clerical Scrolls (Restoration, Restoration).",
+        "Each character gains 1020 XP."
+      ],
+      "branches": [
+        "Zombie count 16 or more: 15 ZOMBIE join.",
+        "Zombie count 15 or less: the juju zombie fights alone."
+      ],
+      "fights": [
+        "JUJU ZOMBIE (#29) (+15 ZOMBIE if the count is >= 16); Morale 101."
+      ],
+      "data": [
+        "Location 8 = (9,15).",
+        "Wand of Lightning Bolt (3 charges)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0x9fb4, 0xa04b (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 10: 'A ju-ju zombie helps guard this mausoleum. Search after the fight to find its treasure.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest's §5 says the Wands of Fireball and Lightning Bolt allow a save vs spell (a bug to keep)."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.zombie-tower",
+      "title": "Location 16: 15 zombies at the zombie tower",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 16 at (5,9). The game prints: ALL AROUND THE TOWER, PILES OF HAIR AND FUR COVER THE AREA., then THE TOWER DOOR SWINGS OPEN AND A SMALL ARMY OF ZOMBIES SHUFFLES OUT. THE DOOR CLOSES WITH A CLAMOR OF LOCKS FALLING INTO PLACE.",
+        "Fight and win."
+      ],
+      "expect": [
+        "Enemy: 15 ZOMBIE.",
+        "Each character gains 100 XP.",
+        "The fight does not recur."
+      ],
+      "branches": [],
+      "fights": [
+        "15 ZOMBIE, Morale 101, 100 XP."
+      ],
+      "data": [
+        "Location 16 = (5,9)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xa63a, 0xa67a, 0xa701 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 4: 'Zombies guard this tower.'"
+      ],
+      "coveredBy": [],
+      "notes": "The block also prints THE CHAMBER IS FILLED WITH USELESS CLOTHING AND RUSTING ARMOR. (0xa701) between this fight and the spectre; the digest has no location 17 and does not place the text."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.zombie-spectre",
+      "title": "Location 18: the spectre creating zombies",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 18 at (4,10). The encounter menu reads: IN A CHAMBER FILLED WITH RUINED PARCHMENTS, YOU SURPRISE A SHAPE THAT IS CREATING ZOMBIES.",
+        "Fight and win. Take the treasure.",
+        "Return while the zombie count is above zero, then again after it reaches zero."
+      ],
+      "expect": [
+        "Enemy: 1 SPECTRE. Each character gains 1516 XP.",
+        "Treasure: 13 gems, 542 pp, 1111 gold.",
+        "Zombie score +5 and spectre score +1.",
+        "The spectre respawns while the zombie count is nonzero and not after."
+      ],
+      "branches": [
+        "Zombie count nonzero: respawns.",
+        "Zombie count zero: stays dead."
+      ],
+      "fights": [
+        "1 SPECTRE, Morale 101, 1516 XP."
+      ],
+      "data": [
+        "Location 18 = (4,10).",
+        "13 gems, 542 pp, 1111 gold."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xa757 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 5: 'A spectre creating zombies is here.'"
+      ],
+      "coveredBy": [],
+      "notes": "Same open points as the skeleton spectre: the digest does not say whether treasure and score repeat on a respawn."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.wight-tower",
+      "title": "Location 20: the wights at the static tower",
+      "kind": "optional",
+      "steps": [
+        "Note the wight count from game state.",
+        "Walk to location 20 at (9,5). The game prints: THE AIR AROUND THE TOWER IS CHARGED WITH STATIC ELECTRICITY AND BALL LIGHTNING., then WIGHTS APPEAR FROM BEHIND THE TOWER.",
+        "Fight and win. Do not leave the graveyard before beating spectre 22."
+      ],
+      "expect": [
+        "The enemy group is exactly [wight count] WIGHT.",
+        "Wight score rises by 1 per wight killed here.",
+        "The fight does not recur."
+      ],
+      "branches": [],
+      "fights": [
+        "[Wight Count] WIGHT, Morale 101. XP not given (depends on the count)."
+      ],
+      "data": [
+        "Location 20 = (9,5).",
+        "[P]: 'a late-game party may find 15+'."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xa8a4, 0xa904 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 12: 'Wights guard this tower.'"
+      ],
+      "coveredBy": [],
+      "notes": "This is the 'first wight fight' of the spectre-22 bug if it is the first one fought. The block prints, after this text, WRITTEN ON THE DOOR (IN THE COMMON TONGUE) IS: 'DO NOT OPEN THIS DOOR. A GREAT EVIL HAS BEEN LAID TO REST HERE.' (0xa959) and THERE ARE LARGE SILVER HOLY SYMBOLS UP AND DOWN THE CRACK IN THE DOORWAY. (0xa9b9); the digest places neither."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.wight-spectre",
+      "title": "Locations 21 and 22: the shock trap and the spectre summoning wights",
+      "kind": "main",
+      "steps": [
+        "Without having left the graveyard since the first wight fight, walk to location 21 at (9,6). The game prints: THE LOWER CHAMBER IS FILLED WITH GLASS AND FUR OBJECTS OF ALL TYPES., then A SHARP CRACK SPLITS THE AIR AND YOU ARE STUNG.",
+        "Step to location 22 at (9,7). The encounter menu reads: YOU SURPRISE A FIGURE AS IT SUMMONS A WIGHT.",
+        "Fight and win. Take the treasure."
+      ],
+      "expect": [
+        "Location 21: every character saves vs rod/staff/wand; each who fails takes 4 damage.",
+        "Location 22: 1 SPECTRE; each character gains 2234 XP; treasure 3 jewelry, 555 pp, 2000 gold.",
+        "Wight score +5 and spectre score +1.",
+        "The flag for spectre 22 is set; with spectre 23 it opens the wall at location 29 and enables the mage at 26."
+      ],
+      "branches": [],
+      "fights": [
+        "1 SPECTRE, Morale 101, 2234 XP."
+      ],
+      "data": [
+        "Location 21 = (9,6): save vs rod/staff/wand or 4.",
+        "Location 22 = (9,7): 3 jewelry, 555 pp, 2000 gold."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xa9f4, 0xaa32, 0xaa97 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 13: 'A spectre creating wights inhabits this building.'; its location 19 says 'You must defeat the spectres at # 13 and # 16 to enter this room', which matches [P]'s 22 and 23."
+      ],
+      "coveredBy": [],
+      "notes": "Needed to finish: the wall at 29 requires spectres 22 and 23. The digest gives no respawn rule for spectre 22 (it gives one for 15 and 18 only)."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.spectre-22-never-triggers",
+      "title": "Leaving after the first wight fight can lose spectre 22",
+      "kind": "quirk",
+      "steps": [
+        "Fight a wight fight (for example location 20).",
+        "Leave the graveyard by exit E before visiting location 22.",
+        "Re-enter and walk to location 22 at (9,7)."
+      ],
+      "expect": [
+        "Spectre 22 may never trigger, so the wall at 29 cannot be opened and the graveyard cannot be cleared on that save."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "[P]: 'Do not leave the graveyard between your first wight fight and spectre 22, or 22 may never trigger (a bug).'"
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "[P] digest §5 (Scripting, Valhingen)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says 'may', and does not give the exact condition (it probably turns on the wight count being recomputed on entry against the wight kill score). A test author must derive the precise condition from the script before asserting this; a faithful port must not repair it."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.wraith-crypt",
+      "title": "Location 12: the wraith guarding the paladin",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 12 at (15,8). The game prints: IN THE CHAMBER IS A SINGLE CRYPT. FLOATING ABOVE THE CRYPT IS A WRAITH. 'I AM THE PROTECTOR OF THE PALADIN. I GUARD HIS REMAINS FOR ALL ETERNITY. LEAVE OR SUFFER.' WHAT DO YOU DO? with the menu LEAVE / STAY.",
+        "Choose STAY. Fight the wraith and win.",
+        "The game prints: IN THE CRYPT LIES THE FULLY-EQUIPPED BODY OF A MIGHTY WARRIOR. DO YOU STRIP THE BODY? Answer YES."
+      ],
+      "expect": [
+        "Enemy: 1 WRAITH (#21); each character gains 119 XP.",
+        "Loot: Hammer +3, Sling of Seeking +2, Potion of Extra Healing, Clerical Scroll (Restoration x2), MU Scroll (Slow, Hold Person, Invisibility 10' Radius).",
+        "Each character gains 600 XP for the loot."
+      ],
+      "branches": [
+        "LEAVE: no fight; the party walks away.",
+        "STAY: WRAITH (#21), then the body can be stripped."
+      ],
+      "fights": [
+        "1 WRAITH (#21), Morale 101, 119 XP."
+      ],
+      "data": [
+        "Location 12 = (15,8).",
+        "Hammer +3; Sling of Seeking +2; Potion of Extra Healing; Clerical Scroll (Restoration x2); MU Scroll (Slow, Hold Person, Invisibility 10' Radius); 600 XP."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xa28c, 0xa318, 0xa37d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 15: 'A wraith helps guard this mausoleum.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the offer repeats after LEAVE or after answering NO to stripping the body. See the treasure-swap quirk: this is the loot the game gives here."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.dragon-fighter-spirits",
+      "title": "Location 10: the spirits of those who fought the dragons",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 10 at (15,6). The game prints: YOU STAND BEFORE A HUGE TOWER. THE SINGLE ENTRANCE IS LOCKED AND STRONGLY BUILT., then WARNING VOICES CRY FROM WITHIN. 'WE ARE THE SPIRITS OF THOSE WHO FOUGHT THE DRAGONS. LEAVE US OR DIE.', then DO YOU LEAVE?",
+        "Answer NO. The game prints: YOU ARE ATTACKED BY WIGHTS."
+      ],
+      "expect": [
+        "Staying starts a wight random combat with 4 wights.",
+        "Answering YES ends the event with no fight."
+      ],
+      "branches": [
+        "Leave: nothing happens.",
+        "Stay: a 4-wight random combat."
+      ],
+      "fights": [
+        "Wight random combat with 4 WIGHT (with the zombies and extra group of the wight-zone table); Morale 101."
+      ],
+      "data": [
+        "Location 10 = (15,6)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xa158, 0xa19b, 0xa1f0, 0xa232 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 14: 'Wights guard this mausoleum.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest calls it 'a 4-wight random combat' without saying whether the wight count limits it or whether these kills score as random wights. This can be the 'first wight fight' of the spectre-22 bug."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.mummy-crypt",
+      "title": "Location 19: the mummies",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 19 at (9,11). The game prints: WITH SLOW, OMINOUS CREAKS, MUMMIES OPEN THEIR SARCOPHOGI.",
+        "Fight and win."
+      ],
+      "expect": [
+        "The enemy group is PS divided by 16 MUMMY, minimum 1.",
+        "There is no treasure."
+      ],
+      "branches": [],
+      "fights": [
+        "PS/16 (minimum 1) MUMMY, Morale 101. XP not given."
+      ],
+      "data": [
+        "Location 19 = (9,11).",
+        "Mummy fire vulnerability is coded as 'magical OR fire' (digest §5).",
+        "The mummy fear aura ignores the opponent ratio (+1 save bonus with a party of 6+) (digest §5)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "[P] digest §5 (Technical; Adaptational)",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xa83d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 11: 'Mummies inhabit this crypt. The mummy's fear aura can paralyze characters.'"
+      ],
+      "coveredBy": [],
+      "notes": "[P] says avoid it. The digest does not mark this location one-time and does not say whether it repeats. The game text spells SARCOPHOGI."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.brass-door-spectres",
+      "title": "Location 23: two spectres at the brass doors",
+      "kind": "main",
+      "steps": [
+        "Walk to location 23 at (9,1). The game prints: IN THE ENTRY IS SET A HUGE PAIR OF BRASS DOORS., then SHADOWY FORMS FLOW FROM BETWEEN THE DOORS AND ATTACK.",
+        "Fight and win."
+      ],
+      "expect": [
+        "Enemy: 2 SPECTRE; each character gains 676 XP.",
+        "Spectre score +1.",
+        "The flag for spectre 23 is set."
+      ],
+      "branches": [],
+      "fights": [
+        "2 SPECTRE, Morale 101, 676 XP."
+      ],
+      "data": [
+        "Location 23 = (9,1).",
+        "Final zone: no random encounters."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xab66, 0xab9c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 16: 'Spectres guard this crypt.'"
+      ],
+      "coveredBy": [],
+      "notes": "The kill-score table says '1 each at 15, 18, 22, 23' although two spectres are fought here."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.knight-gifts",
+      "title": "Location 24: the knight's gifts",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 24 at (8,2). The game prints: IN THE MIDDLE OF A DOOR IS A PANEL OF A POWERFUL KNIGHT FIGHTING SEVERAL UNDEAD., then A VOICE SPEAKS, 'COME, MY BRAVE ADVENTURERS. YOU MUST TAKE MY GIFTS TO BETTER FIGHT THE EVIL THAT HAS COME TO THE CITY.', then FROM THE MAGICALLY-LIT TOMB OF A BRAVE KNIGHT, A BODY RISES FROM ITS RESTING PLACE TO LAY WEAPONS BEFORE THE PARTY.",
+        "Take everything.",
+        "Have a character who is not lawful good ready the Plate Mail +2 or the Long Sword +2."
+      ],
+      "expect": [
+        "Treasure: Plate Mail +2, Long Sword +2, Ring of Fire Resistance, Shield +1, 4 Clerical Scrolls (Restoration x2).",
+        "Each character gains 800 XP.",
+        "A character who is not lawful good takes 15 damage on equipping the Plate Mail +2 or the Long Sword +2; a lawful good character takes none.",
+        "There is no fight."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 24 = (8,2).",
+        "Plate Mail +2 and Long Sword +2: lawful good only; anyone else equipping takes 15."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xac12, 0xac5a, 0xacbc (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 17: 'A gallant knight and his treasure are buried here.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest says 'anyone else equipping it takes 15' right after naming both the armor and the sword; it is read here as applying to both items. It does not say whether the item stays equipped. One-time event."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.treasure-swap-12-24",
+      "title": "The treasures at 12 and 24 are swapped",
+      "kind": "quirk",
+      "steps": [
+        "Take the loot at location 12 (15,8) after the wraith.",
+        "Take the gifts at location 24 (8,2)."
+      ],
+      "expect": [
+        "Location 12, the paladin's crypt with 'the fully-equipped body of a mighty warrior', yields Hammer +3, Sling of Seeking +2, Potion of Extra Healing, a Restoration scroll and an MU scroll.",
+        "Location 24, where a knight lays 'weapons before the party', yields Plate Mail +2, Long Sword +2 (lawful good only), Ring of Fire Resistance, Shield +1 and Restoration scrolls.",
+        "The port gives exactly these lists at these locations and does not exchange them."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Digest §5: 'Valhingen: the treasures at 12 and 24 are swapped'."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "[P] digest §5 (Scripting, Valhingen)",
+        "game text ECL4.DAX block 10 at 0xa28c, 0xa37d, 0xacbc (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest's per-location lists in §3.19 are taken as what the game gives; §5 only says the two are swapped relative to the intent (the lawful-good plate and sword suit the paladin's crypt). A faithful port keeps the original assignment."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.coffin-read-scroll",
+      "title": "Location 25: the coffin and the scroll (Journal Entry 43)",
+      "kind": "main",
+      "steps": [
+        "Walk to location 25 at (12,4). The game prints: INSIDE THE RUINS OF A BLACK MARBLE CRYPT IS A COFFIN FILLED WITH DUST. AMONG THE PILES OF DUST ARE SEVERAL BROKEN CROSSES, VIALS OF SPILLED HOLY WATER, AND A SCROLL.",
+        "The game asks: DO YOU READ THE SCROLL? Answer YES. The game prints: THE SCROLL IS PLACED IN YOUR JOURNAL AS ENTRY 43.",
+        "The game asks: DO YOU WANT TO DO ANYTHING WITH THE COFFIN? Answer YES. The game prints: WHAT DO YOU WANT TO DO TO IT? with the menu EXAMINE / SANCTIFY / OVERTURN.",
+        "Choose SANCTIFY. The game prints: YOU SCATTER THE DUST AND PLACE WHAT HOLY ITEMS YOU CAN SPARE INSIDE."
+      ],
+      "expect": [
+        "Journal Entry 43 is cited (Adventurer's Journal p.28: a scroll about Aramalg and Sarasim against the Valhingen vampire).",
+        "The coffin is flagged sanctified; the second vampire fight will be the weakened one."
+      ],
+      "branches": [
+        "EXAMINE: the game prints YOU FIND NOTHING.",
+        "SANCTIFY: the coffin is sanctified; second fight is VAMPIRE (#105) alone at 1/3 HP.",
+        "OVERTURN: the game prints THE COFFIN MAKES A MESS ON THE FLOOR. and nothing else changes.",
+        "Do nothing: the second fight depends only on whether the party ever left the graveyard."
+      ],
+      "fights": [],
+      "data": [
+        "Location 25 = (12,4).",
+        "Journal Entry 43 (Journal p.28).",
+        "Menu: EXAMINE / SANCTIFY / OVERTURN."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "Adventurer's Journal p.28 (entry 43)",
+        "game text ECL4.DAX block 10 at 0xaf0e, 0xaf92, 0xafb7, 0xafe3, 0xb017, 0xb030, 0xb05d, 0xb06e, 0xb0ab (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: sanctifying matters; 'overturn' does nothing. [GB] (digest §7 item 20): 'this doesn't seem to do anything.'",
+        "Clue Book p.41: 'Find and destroy the vampire's coffin, defeat the vampire in his lair, trail him back to his destroyed coffin'. [P]: the choice that counts is Sanctify, not destruction.",
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 18: 'The vampire's coffin is here.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest lists this as step 3 of the final zone. It does not say whether sanctifying consumes holy water or a holy symbol from inventory (the text says 'what holy items you can spare'), nor whether the menu can be used more than once."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.coffin-overturn",
+      "title": "Overturning the coffin does nothing",
+      "kind": "optional",
+      "steps": [
+        "At location 25 (12,4) choose OVERTURN. The game prints: THE COFFIN MAKES A MESS ON THE FLOOR.",
+        "Leave the graveyard and re-enter, beat the vampire at 28, and return to 25."
+      ],
+      "expect": [
+        "The second fight is VAMPIRE (#23) + 15 WOLF, the same as with an untouched coffin."
+      ],
+      "branches": [],
+      "fights": [
+        "VAMPIRE (#23) + 15 WOLF, 941 XP."
+      ],
+      "data": [
+        "OVERTURN has no effect on the second fight."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "game text ECL4.DAX block 10 at 0xb0ab (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The party must have left the graveyard at some point for this to distinguish Overturn from Sanctify, because never leaving also gives the weakened vampire."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.mage-joins-and-betrays",
+      "title": "Location 26: let the mage join; he betrays the party",
+      "kind": "optional",
+      "steps": [
+        "After beating spectres 22 and 23 and before beating the vampire, walk to location 26 at (8,9). The game prints: YOU ARE APPROACHED BY A MAN CLAD IN MYSTIC ROBES., then 'HAIL, NOBLE ADVENTURERS,' HE CALLS. 'I WOULD ASK YOU TO HELP ME END THIS FOUL UNDEAD CURSE.', then DO YOU LET HIM JOIN THE PARTY OR SEND HIM AWAY? with the menu LET HIM JOIN / SEND HIM AWAY.",
+        "Choose LET HIM JOIN. The game prints: 'THE UNDEAD ARE CONTROLLED BY A VAMPIRE WHO LURKS IN THE NORTHEAST CORNER OF THE GRAVEYARD,' THE MAN SAYS.",
+        "Start the next fight."
+      ],
+      "expect": [
+        "LEVEL 6 MU (#24) is added to the party.",
+        "In the next fight he fights against the party.",
+        "If Charm Person was cast on him he stays on the party's side."
+      ],
+      "branches": [
+        "Let him join, party has room: he joins and betrays in the next fight.",
+        "Let him join, party full: the game prints YOUR PARTY IS TOO LARGE FOR ME TO JOIN.",
+        "Let him join and charm him: he is truly friendly.",
+        "Send him away: he attacks (separate scenario)."
+      ],
+      "fights": [
+        "LEVEL 6 MU (#24) turns on the party in the next fight."
+      ],
+      "data": [
+        "Location 26 = (8,9).",
+        "Available only after spectres 22 and 23 and before the vampire.",
+        "With him in the party the game can print THE MYSTIC MAN SPEAKS, 'THE VAMPIRE IS BEHIND THE NORTHERN WALL.' (0xb3eb)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xad54, 0xad80, 0xadcd, 0xadf4, 0xae2e, 0xae8d, 0xb3eb (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: the LEVEL 6 MU (#24) is at Valhingen 26 in the DOS version. [NES] (digest §7 item 21): 'This NPC is an NES exclusive, as he is not in the other ports.' The game text block has his lines, which supports [P].",
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 20: 'An evil magic user will offer to help you here. If he joins your party he will turn on you and fight for the vampire.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say what follows YOUR PARTY IS TOO LARGE FOR ME TO JOIN. (0xae8d), nor where 0xb3eb is printed (location 29 is the north wall). 'The next fight' is the digest's wording; it does not restrict it to the vampire fight."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.mage-sent-away",
+      "title": "Location 26: send the mage away and fight him",
+      "kind": "optional",
+      "steps": [
+        "At location 26 (8,9) choose SEND HIM AWAY. The game prints: 'THEN DIE YOU SCUM,' THE MAN SPITS.",
+        "Fight and win."
+      ],
+      "expect": [
+        "Enemy: 1 LEVEL 6 MU (#24).",
+        "Each character gains 181 XP.",
+        "He carries a Ring of Protection +2."
+      ],
+      "branches": [],
+      "fights": [
+        "1 LEVEL 6 MU (#24), Morale 101, 181 XP; Ring of Protection +2."
+      ],
+      "data": [
+        "Ring of Protection +2."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "game text ECL4.DAX block 10 at 0xadf4, 0xaeb5 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The same monster, LEVEL 6 MU (#24) with a Ring of Protection +2, appears in the east tower of Stojanow Gate."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.north-wall",
+      "title": "Location 29: walk through the north wall",
+      "kind": "main",
+      "steps": [
+        "With spectres 22 and 23 beaten, walk to location 29 at (15,1) and step north into the wall.",
+        "Repeat on a save where spectre 22 or 23 is still alive."
+      ],
+      "expect": [
+        "With both spectres beaten the party passes through the wall toward location 28 at (14,0).",
+        "With either spectre alive the wall is solid."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 29 = (15,1).",
+        "Requires spectres 22 and 23 beaten."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "game text ECL4.DAX block 10 at 0xb3eb (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 19: 'The vampire is here. You must defeat the spectres at # 13 and # 16 to enter this room.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no screen text for passing the wall. With the mage in the party the game prints THE MYSTIC MAN SPEAKS, 'THE VAMPIRE IS BEHIND THE NORTHERN WALL.' (0xb3eb), presumably here."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.vampire-lair",
+      "title": "Location 28: the vampire and three wolves",
+      "kind": "main",
+      "steps": [
+        "Walk to location 28 at (14,0). The game prints: THE CHAMBER LIGHTS UP TO REVEAL A TALL, PALE MAN WITH VERY WHITE TEETH.",
+        "Fight and win. The game prints: THE VAMPIRE TURNS INTO A VAPOR CLOUD AND FLOATS AWAY.",
+        "Search. The game prints: YOU FIND THE VAMPIRE'S TREASURE TROVE. DO YOU TAKE IT? Answer YES."
+      ],
+      "expect": [
+        "Enemy: 1 VAMPIRE (#23) + 3 WOLF; each character gains 763 XP.",
+        "Treasure: 12 gems, 9000 gold, Wand of Magic Missiles (33), 3 Potion of Healing, Shield +1, 5 Clerical Scrolls (Restoration x2); each character gains 3133 XP.",
+        "The vampire is now at location 25; the graveyard is not yet cleared.",
+        "The mage at 26 is no longer offered."
+      ],
+      "branches": [],
+      "fights": [
+        "1 VAMPIRE (#23) + 3 WOLF, Morale 101, 763 XP."
+      ],
+      "data": [
+        "Location 28 = (14,0).",
+        "Wand of Magic Missiles (33 charges).",
+        "5 Clerical Scrolls (Restoration x2).",
+        "Journal p.35-36: a cleric must be 6th level to turn a vampire."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "Adventurer's Journal p.35-36 (turn undead table)",
+        "game text ECL4.DAX block 10 at 0xb192, 0xb1f6, 0xb2e6, 0xb322 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.41-42 numbers the map differently from [P]; the numbers do not line up. Clue Book location 19 is the vampire's room."
+      ],
+      "coveredBy": [],
+      "notes": "The block prints WOODEN STAIRS LEAD INTO A PIT. DO YOU GO DOWN? (0xb192) just before the vampire's text; the digest does not mention the stairs, so a test author must check whether this prompt gates the fight. Vampires drain levels. The digest does not say which kill-score points ('5 for the vampire') are credited at this defeat and which at the second."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.efreeti-bottle",
+      "title": "An unopened Efreeti Bottle releases an efreeti on the party's side",
+      "kind": "optional",
+      "steps": [
+        "Carry the Efreeti Bottle from Kobold Caves location 12 (obtained by answering No to 'Are you, perchance, vampires?').",
+        "Start the vampire fight at location 28.",
+        "After the fight check the inventory.",
+        "Start the second vampire fight at 25."
+      ],
+      "expect": [
+        "EFREETI (#70) appears in the fight at 28 on the party's side.",
+        "The bottle is still in the inventory afterwards.",
+        "He does not appear in the second fight, because he appears only once."
+      ],
+      "branches": [
+        "Bottle carried at the first fight: the efreeti helps there and not at the second.",
+        "Bottle not carried at the first fight but carried at the second: 'The efreeti still helps if not yet used.'",
+        "No bottle: no efreeti."
+      ],
+      "fights": [
+        "EFREETI (#70) as an ally. Digest §5: efreeti cannot cast spells."
+      ],
+      "data": [
+        "Efreeti Bottle (Kobold Caves location 12, digest §3.14).",
+        "EFREETI (#70) is the ally; the hostile one in the Kobold Caves is EFREETI (#124)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "[P] digest §3.14 (Kobold Caves 12)",
+        "[P] digest §5 (Adaptational)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says 'An Efreeti Bottle that was never opened'; in §3.14 the bottle is taken after pulling the stopper and answering No, so 'never opened' is not explained. A test author must find the flag in the script. No screen text for the efreeti's arrival is in the digest or the block."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.vampire-gaze-protection",
+      "title": "Mirrors or a Wooden Holy Symbol of Tyr block the charming gaze",
+      "kind": "rule",
+      "steps": [
+        "Fight the vampire with one character who has a mirror readied, one with a Wooden Holy Symbol of Tyr readied, and one with neither.",
+        "Force the vampire's gaze to target each in turn with the saving throw forced to fail."
+      ],
+      "expect": [
+        "The characters with a readied mirror or a readied Wooden Holy Symbol of Tyr are not charmed.",
+        "The unprotected character is charmed.",
+        "Holy symbols of Sune and Tempus have no function."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Protective items: mirror (equipped); Wooden Holy Symbol of Tyr (equipped).",
+        "Sold at the general store SG in New Phlan (digest §3.0)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "[P] digest §7 item 17",
+        "Clue Book p.3-4"
+      ],
+      "disagreements": [
+        "[P]: the Wooden Holy Symbol of Tyr (or a mirror); 'The holy symbols of Sune and Tempus have no function.' Clue Book p.3-4: 'The wooden holy symbol of Tempus is a good buy because Tempus is a lawful good god and his symbol will repel vampires.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest says 'Equipped mirrors'. It does not give the gaze's save or frequency."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.second-vampire-weakened",
+      "title": "Back at 25: the vampire alone at one third hit points",
+      "kind": "main",
+      "steps": [
+        "Either sanctify the coffin at 25 before the first fight, or never leave the graveyard from first entry to this point.",
+        "Beat the vampire at 28, then walk back to location 25 at (12,4). The game prints: YOU ARE IN THE DUSTY REMAINS OF A BLACK MARBLE CRYPT., then THERE IS A VAMPIRE HERE.",
+        "Fight and win."
+      ],
+      "expect": [
+        "Enemy: 1 VAMPIRE (#105) alone, at one third of his hit points.",
+        "Each character gains 663 XP.",
+        "The graveyard is cleared: all remaining undead and treasure are removed."
+      ],
+      "branches": [
+        "Sanctified or never left: VAMPIRE (#105) alone at 1/3 HP (663 XP).",
+        "Otherwise: VAMPIRE (#23) + 15 WOLF (941 XP)."
+      ],
+      "fights": [
+        "1 VAMPIRE (#105) at 1/3 HP, Morale 101, 663 XP."
+      ],
+      "data": [
+        "Location 25 = (12,4).",
+        "Second defeat = cleared."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "Clue Book p.41-42",
+        "[P] digest §7 item 20",
+        "game text ECL4.DAX block 10 at 0xb0cb, 0xb10d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: the vampire returns alone at 1/3 HP if the coffin was sanctified or the party never left. [GB]: sanctifying 'doesn't seem to do anything.'"
+      ],
+      "coveredBy": [],
+      "notes": "Two separate conditions give this fight; test each alone (sanctified but left; not sanctified and never left). Whether loading a save counts as leaving is not stated."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.second-vampire-with-wolves",
+      "title": "Back at 25: the vampire with fifteen wolves",
+      "kind": "main",
+      "steps": [
+        "Do not sanctify the coffin, and leave and re-enter the graveyard at least once.",
+        "Beat the vampire at 28, then walk back to location 25 at (12,4). The game prints: THERE IS A VAMPIRE HERE.",
+        "Fight and win."
+      ],
+      "expect": [
+        "Enemy: 1 VAMPIRE (#23) + 15 WOLF.",
+        "Each character gains 941 XP.",
+        "The graveyard is cleared."
+      ],
+      "branches": [],
+      "fights": [
+        "1 VAMPIRE (#23) + 15 WOLF, Morale 101, 941 XP."
+      ],
+      "data": [
+        "Location 25 = (12,4)."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "game text ECL4.DAX block 10 at 0xb0cb, 0xb10d (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The efreeti helps here if the bottle is carried and he has not yet appeared."
+    },
+    {
+      "id": "acceptance.valhingen-graveyard.cleared-and-final-reward",
+      "title": "Cleared graveyard and the council's special prize",
+      "kind": "main",
+      "steps": [
+        "After the second vampire defeat walk through locations that held undead or treasure not yet taken (for example 19, 12, 5).",
+        "Rest in the graveyard.",
+        "Return to the council clerk in New Phlan. During the reward check the clerk prints: THE COUNCIL HAS VOTED A SPECIAL PRIZE FOR ENDING THE GRAVEYARD MENACE., then HERE IS YOUR REWARD.'"
+      ],
+      "expect": [
+        "No undead and no treasure remain anywhere in the graveyard; no random encounters occur.",
+        "Resting is not interrupted.",
+        "The clerk gives 25 jewelry and 15 gems; each character gains 9791 XP.",
+        "The quest tracker advances by one (Valhingen is one of the ten tracker quests)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Final reward: 25 jewelry, 15 gems (9791 XP).",
+        "Clear condition: second defeat of the vampire."
+      ],
+      "sources": [
+        "[P] digest §3.19",
+        "[P] digest §3.0 (Special Valhingen commission; tracker quests)",
+        "Clue Book p.41-42",
+        "game text ECL3.DAX block 8 at 0xa183, 0x9eea (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.42: 'Once you have killed the vampire BOTH times, the graveyard will be cleared.' Agrees with [P]."
+      ],
+      "coveredBy": [],
+      "notes": "'Emptied of all remaining undead and treasure' means unclaimed loot is lost; take everything first. The digest does not say whether the final reward needs the commission to have been formally accepted, or whether outstanding kill-score payouts are still paid afterwards."
+    }
+  ]
+}

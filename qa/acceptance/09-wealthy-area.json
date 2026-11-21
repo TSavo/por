@@ -1,0 +1,516 @@
+{
+  "schema": 1,
+  "id": "acceptance.wealthy-area",
+  "title": "Wealthy Area",
+  "guideSection": "3.9",
+  "scripts": [
+    "ECL 24"
+  ],
+  "commission": "Clerk reward: Clear the Wealthy Area",
+  "prerequisites": [
+    "The party can reach the block: dock → Bay → South, or wilderness (26,27) SOUTH (arrive at (15,4)), or from Kovel Mansion E3.",
+    "The mansion fight at M has not yet been fought.",
+    "XP figures in this area assume 7 characters (Dirten in the party), per [P].",
+    "No commission is needed; the clerk pays a clearance reward.",
+    "No party level is stated for this area in the digest."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.wealthy-area.getting-there-and-exits",
+      "title": "Reach the Wealthy Area and use each exit",
+      "kind": "rule",
+      "steps": [
+        "In New Phlan take the dock boat to the north side of the Bay; arrive on the wilderness map at (26,27).",
+        "At the menu 'YOU ARE ON THE EASTERN EDGE OF THE CITY. ...' (NORTH / SOUTH / BOAT / LEAVE) choose SOUTH.",
+        "The party arrives in the Wealthy Area at (15,4).",
+        "Leave by E1 (arrive wilderness (26,27)), by E2 (arrive Kovel Mansion), by E3 (arrive Temple of Bane)."
+      ],
+      "expect": [
+        "Each route leads to the place named."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Dock → Bay → South.",
+        "Wilderness b (26,27) SOUTH → Wealthy Area (15,4)."
+      ],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "[P] §3.11 fixed point b (digest)",
+        "game text ECL7.DAX block 26 at 0x9d26, 0x9daf (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Parleyed into the Temple of Bane and reloaded the party with the Dust of Disappearance:' (asserts the (26,27) menu, takes SOUTH)"
+      ],
+      "notes": "Exit coordinates inside the block are not given. The Wealthy Area and the Temple of Bane share script ECL 24."
+    },
+    {
+      "id": "acceptance.wealthy-area.black-hand-patrol-talk",
+      "title": "Meet the four-orc patrol and part without a fight",
+      "kind": "main",
+      "steps": [
+        "Walk until a random encounter fires (1 in 20 per step; 1 in 6 in search mode) with dice set for the 40% special patrol.",
+        "The game prints 'YOU SEE A GROUP OF FOUR ORCS WHOSE SHIELDS BEAR A BLACK HAND ON A RED FIELD. THEY CAUTIOSLY LOOK YOU OVER.' and, after <RETURN>, the encounter menu 'THE ORCS READY THEIR SPEARS'.",
+        "Choose Parley and run each attitude."
+      ],
+      "expect": [
+        "No surprise roll is made for this patrol.",
+        "Haughty or Abusive: 'IN A DEEP THREATENING VOICE ONE OF THE ORCS SAYS 'YOU MOLES BETTER WATCH YOUR STEP OR YOU SHALL FEEL THE WRATH OF BANE!' AFTER SAYING THIS HE SPITS AND LEAVES.'",
+        "Nice or Meek: 'THE ORCS YELL OUT, 'WE HAVE ORDERS TO CHECK OUT SUSPICIOUS INDIVIDUALS, BUT YOUSE GUYS LOOK HARMLESS ENOUGH.' AFTER TALKING THE FOUR ORCS WANDER AWAY.'",
+        "Sly: 'ONE OF THE ORCS SAYS, 'OH, YEAH YOUSE THEM GUYS WHO KNOW WHERE DE TREASURE IS. WE NOT SUPPOSED TO KILL YOU YET.' THE ORCS THEN WANDER AWAY.'",
+        "The patrol counts as 'encountered non-violently': the Temple of Bane admits the party automatically, and the mansion fight at M has 20 orcs instead of 10."
+      ],
+      "branches": [
+        "Anything other than fighting them (including Wait or Flee) also counts as encountered non-violently.",
+        "Combat: see black-hand-patrol-killed."
+      ],
+      "fights": [],
+      "data": [
+        "Patrol odds: 40% of random encounters here."
+      ],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "game text ECL1.DAX block 24 at 0xae26, 0xae7a, 0xaea2, 0xb2bb, 0xb334, 0xb3b3 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] quotes 'You see a group of four orcs'; the game text continues 'THEY CAUTIOSLY LOOK YOU OVER.' (misspelled in the game)."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Parleyed into the Temple of Bane and reloaded the party with the Dust of Disappearance:' (meets the patrol at (5,3), parleys Nice, asserts 'after talking the four orcs wander away')"
+      ],
+      "notes": "The 'non-violently' rule is attributed in the digest to the guide's v1.40 changelog. Marked main because it is the route [P] uses to enter the temple."
+    },
+    {
+      "id": "acceptance.wealthy-area.black-hand-patrol-killed",
+      "title": "Fight and kill the four-orc patrol",
+      "kind": "optional",
+      "steps": [
+        "Meet the special patrol and choose Combat. Win."
+      ],
+      "expect": [
+        "Combat with four orcs; they fight only if forced.",
+        "Loot: 6 Leather Holy Symbol.",
+        "The patrol does not count as encountered non-violently."
+      ],
+      "branches": [],
+      "fights": [
+        "4 orcs (the patrol). Morale and XP are not given."
+      ],
+      "data": [
+        "Loot: 6 Leather Holy Symbol."
+      ],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0xaea2 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.18: 'You can get a leather holy symbol off of many of the encounters in the wealthy block and off of the wandering patrols.' [P] names only this patrol (and the Podal Plaza orc priest) as sources."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether a patrol met peacefully earlier and killed later undoes the non-violent flag."
+    },
+    {
+      "id": "acceptance.wealthy-area.random-encounter-table",
+      "title": "Roll the ordinary random encounters",
+      "kind": "rule",
+      "steps": [
+        "With dice set for a non-patrol encounter (60% of encounters), drive each row and record monster and count.",
+        "Record which opening is shown: 'YOU SPOT A GROUP OF <monsters>.' with 'THE MONSTERS STAND READY'; 'YOU ARE SURPRISED BY <monsters>.'; 'YOU SPOT A GROUP OF <monsters>.' with 'YOU HAVE SURPRISED THEM.'; 'YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF <monsters>.' with 'THEY ARE AS SURPRISED AS YOU.'"
+      ],
+      "expect": [
+        "Chance: 1 in 20 per step, or 1 in 6 in search mode, until both the Wealthy Area and the Temple of Bane are cleared.",
+        "Rows (share of all encounters): 20% GOBLIN GUARD (divisor 1, morale 50, parley mod 20); 20% ORC (divisor 1, morale 55, parley mod 10); 10% HOBGOBLIN (divisor 2, morale 60, parley mod 10); 10% OGRE (divisor 6, morale 80, parley mod 0).",
+        "Count = PS / divisor (minimum 4), then 60% of the time divided by 3, 30% divided by 2, 10% unchanged; capped at 56 minus leaders.",
+        "Digest columns 'Leaders at' / 'Leader multiple': GOBLIN GUARD 40 / 5; ORC 30 / 4; HOBGOBLIN 20 / 3; OGRE 11 / 1 (OGRE LEADER)."
+      ],
+      "branches": [],
+      "fights": [
+        "GOBLIN GUARD, ORC, HOBGOBLIN or OGRE groups sized by Party Strength."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "game text ECL1.DAX block 24 at 0xadbf, 0xadd9, 0xaf0c, 0xaf35, 0xaf4f, 0xafb9, 0xafe7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest's columns 'Leaders at' and 'Leader multiple' are not defined (threshold and leader count, or one leader per N monsters); a test author must read the script before asserting leader counts. The four rows sum to 60%, matching the 40% patrol."
+    },
+    {
+      "id": "acceptance.wealthy-area.random-parley",
+      "title": "Parley with an ordinary random group",
+      "kind": "rule",
+      "steps": [
+        "In an ordinary random encounter choose Parley; with fixed dice produce totals of at most 74, 75 to 99, 100 to 139, and 140 or more."
+      ],
+      "expect": [
+        "Total = 4 (Meek) or 29 (Haughty, Sly, Nice) or 59 (Abusive) + 1d31 + Charisma + the group's parley modifier.",
+        "74 or less: 'THE MONSTERS SCREAM 'OH YEAH, WELL I GUESS WERE JUST GONNA HAVE TO TEACH YOUSE GUYS A LESSON OR TWO' THEY RUSH FOWARD TO ATTACK.'",
+        "75 to 99: ''GET OUTA HERE BEFORE WE MAKE YOU LEAVE' THE MONSTERS YELL. 'AND YOU WONT COME BACK IF YOU KNOW WHATS GOOD FER YA' THE MONSTERS THEN LEAVE.'",
+        "100 to 139: ''WE GOTTA KEEP ALL YOU NONBELIVERS OUTA HERE' THE MONSTERS SAY AS THEY BEGIN TO LEAVE. 'SO HIT THE ROAD YA BUMS.' THE MONSTERS TURN AND LEAVE.'",
+        "140 or more: 'YOU INTIMIDATE THE MONSTERS SO MUCH THEY RUN AWAY!'"
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0xb10f, 0xb147, 0xb1c5, 0xb236 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.21 (wilderness advice): to avoid 'intelligent nasty encounters ... choose Parlay and then choose Abusive'. Consistent with Abusive being worth 59 here."
+      ],
+      "coveredBy": [],
+      "notes": "The digest writes '+ Charisma' (not 'Charisma modifier') for this table; whether the raw score or a modifier is meant is not stated."
+    },
+    {
+      "id": "acceptance.wealthy-area.resting",
+      "title": "Rest before both blocks are cleared",
+      "kind": "rule",
+      "steps": [
+        "Encamp and rest in the Wealthy Area before both it and the Temple of Bane are cleared, over several 20-minute ticks with fixed dice.",
+        "Repeat after both are cleared."
+      ],
+      "expect": [
+        "Before: 50% chance per 20 minutes of 'WHILE IN CAMP YOU ARE SUDDENLY ATTACKED BY ORCS.' and combat with 10 ORC (23 XP per character).",
+        "After both blocks are cleared: rest is safe."
+      ],
+      "branches": [],
+      "fights": [
+        "10 ORC, 23 XP."
+      ],
+      "data": [
+        "Rest interruption: 50% per 20 minutes."
+      ],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0xb66b (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.17: 'Until you clear both blocks it is unsafe to rest anywhere in either block.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.wealthy-area.mansion-fight",
+      "title": "Win the mansion fight at an M square and clear the block",
+      "kind": "main",
+      "steps": [
+        "Enter any mansion square marked M. (The game prints 'YOU STAND OUTSIDE A LARGE MANSION. ON THE WALLS OF THE MANSION ARE CRUDE BLACK HAND PRINTS.' outside.)",
+        "Carrying no Leather Holy Symbol: 'AS YOU ENTER THE BUILDING YOU SEE A LARGE GROUP OF FOUL ORCS. THEY SNARL AT YOU AND ATTACK!'",
+        "Win the fight."
+      ],
+      "expect": [
+        "Combat: 10 ORC, morale 99, 23 XP per character; or 20 ORC, 46 XP, if the party met the four-orc patrol and let it live.",
+        "The Wealthy Area is cleared by this fight alone.",
+        "There is only one such fight; the other M squares are then empty."
+      ],
+      "branches": [
+        "With a Leather Holy Symbol: see mansion-fight-with-symbol."
+      ],
+      "fights": [
+        "10 ORC (morale 99, 23 XP) or 20 ORC (morale 99, 46 XP)."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0x9a31, 0xa112 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.17-18 numbers the mansion entrances 1, hidden treasures 2, goblin slaves 3, mansion guards 4, manor guards 5, the orc bedroom 6, the orc jail 7, the temple entrance 8, the temple's hidden treasures 9 and the altar 10; [P] uses M and 1 to 12 in the Wealthy Area and 1 to 3, 4 and 7 in the temple.",
+        "Clear condition: [P] says the Wealthy Area is cleared by the M fight; Clue Book p.18 Finale: 'Both blocks are cleared after you win the fight as you enter the mansion (#1) and defeat Mace's followers at the temple.'",
+        "Clue Book p.17: 'There is only one set of guards.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "XP in §3.9 is stated for 7 characters (Dirten in the party). M-square coordinates are not given. Pairing the 'OUTSIDE A LARGE MANSION' string with the approach to M is by content."
+    },
+    {
+      "id": "acceptance.wealthy-area.mansion-fight-with-symbol",
+      "title": "Enter the mansion carrying a Leather Holy Symbol",
+      "kind": "optional",
+      "steps": [
+        "Carry a Leather Holy Symbol and enter an M square.",
+        "The game prints 'AS YOU ENTER THE BUILDING YOU SEE A LARGE GROUP OF ORCS WHO ARE SURPRISED THAT YOU'RE HERE. WITH CONFUSED LOOKS ON THEIR FACES THEY STARE AT YOU' and an encounter menu.",
+        "Run two cases: run away; any other choice."
+      ],
+      "expect": [
+        "Running away avoids the fight (and the block stays uncleared).",
+        "Any other choice ends in the same combat (10 or 20 ORC, morale 99)."
+      ],
+      "branches": [],
+      "fights": [
+        "10 or 20 ORC, morale 99."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "game text ECL1.DAX block 24 at 0x9a7d, 0x9aed (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest: 'with one they act surprised, but anything except running away still ends in combat.'"
+    },
+    {
+      "id": "acceptance.wealthy-area.search-treasures",
+      "title": "Find the four search-mode treasures",
+      "kind": "optional",
+      "steps": [
+        "Turn search mode on before entering each of locations 1, 2, 3 and 4.",
+        "1: 'YOU ARE IN A ROOM FILLED WITH RUBBLE AND WASTE.' 'IN THE RUBBLE YOU SPOT A BEAUTIFUL TAPESTRY. WILL YOU TAKE IT?' TAKE / LEAVE.",
+        "2: 'YOU ARE IN THE REMAINS OF A ONCE GREAT DINING ROOM. FURNITURE LIES BURNED AND BROKEN THROUGHOUT THE ROOM.' 'UNDERNEATH A BROKEN TABLE YOU FIND A CRUSHED SKELETON. IT HAS SOME JEWELRY ON IT; WILL YOU TAKE IT?' TAKE / LEAVE.",
+        "3: 'BEFORE YOU IS A GREAT HALL. THE FLOOR IS LITTERED WITH ORC TRASH AND THE WALLS HAVE CRUDE BLACK HANDS PAINTED ON THEM.' 'YOU FIND A TRAP DOOR. WILL YOU OPEN IT?' OPEN / LEAVE.",
+        "4: 'YOU ARE IN A ROOM THAT IS FILLED WITH THE DEAD BODIES OF THE ORC'S PREVIOUS VICTIMS.' 'ADMIST THE BODIES YOU FIND SOME JEWELRY. WILL YOU TAKE IT?' TAKE / LEAVE."
+      ],
+      "expect": [
+        "1: a tapestry.",
+        "2: 3 jewelry; 942 XP per character.",
+        "3: Clerical Scroll (Animate Dead, Cure Blindness), Potion of Extra Healing, Ring of Feather Falling; 285 XP.",
+        "4: 3 jewelry; 942 XP; offered on the first entry only.",
+        "Entering without search mode shows only the room description, with no find."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0x9b85, 0x9bcb, 0x9bff, 0x9c40, 0x9cb4, 0x9d02, 0x9d4a, 0x9dd1, 0x9df2, 0x9e2d, 0x9e96, 0x9ec6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.17-18 numbers the mansion entrances 1, hidden treasures 2, goblin slaves 3, mansion guards 4, manor guards 5, the orc bedroom 6, the orc jail 7, the temple entrance 8, the temple's hidden treasures 9 and the altar 10; [P] uses M and 1 to 12 in the Wealthy Area and 1 to 3, 4 and 7 in the temple.",
+        "Clue Book p.17: 'After fighting the mansion guards, choose Search Mode and search these rooms.' [P]: search mode must be on when entering; it does not require the guards to be beaten first."
+      ],
+      "coveredBy": [],
+      "notes": "XP assumes 7 characters. Coordinates for 1 to 4 are not given; the pairing of the four strings with locations 1 to 4 follows script order and content. The tapestry's value is not given."
+    },
+    {
+      "id": "acceptance.wealthy-area.treasure-4-one-chance",
+      "title": "Miss the treasure at 4 by entering without search mode",
+      "kind": "quirk",
+      "steps": [
+        "Enter location 4 for the first time with search mode off.",
+        "Leave, turn search mode on and enter location 4 again."
+      ],
+      "expect": [
+        "The jewelry prompt is never offered: there is only one chance at the treasure at 4."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "[P] §5 Scripting, Wealthy Area (digest): 'only one chance at the treasure at 4'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether choosing LEAVE at the prompt on the first entry also forfeits it."
+    },
+    {
+      "id": "acceptance.wealthy-area.escort-fight-entry-53",
+      "title": "Beat the ogre's squad and find journal entry 53",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 6 (6,8). The game prints 'AS YOU ENTER THE ROOM YOU SEE SIX ORCS LED BY A LARGE OGRE. THEY LUNGE FOWARD AND ATTACK.'",
+        "Win the fight."
+      ],
+      "expect": [
+        "Combat: 6 ORC + 1 OGRE, morale 80, 42 XP per character.",
+        "The game prints 'YOU FIND A PIECE OF PAPER ON THE FLOOR IN THE ROOM. YOU PLACE IT IN YOUR JOURNAL UNDER ENTRY 53'."
+      ],
+      "branches": [],
+      "fights": [
+        "6 ORC + 1 OGRE, morale 80, 42 XP."
+      ],
+      "data": [
+        "Journal entry 53: a tally: priests 1, acolytes 4, ogres 1, hobgoblins 40, orcs 90, goblin slaves 20 (Adventurer's Journal p.31).",
+        "Location 6 at (6,8)."
+      ],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "Adventurer's Journal p.31 (entry 53)",
+        "game text ECL1.DAX block 24 at 0x9f1e, 0x9f8f (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.17-18 numbers the mansion entrances 1, hidden treasures 2, goblin slaves 3, mansion guards 4, manor guards 5, the orc bedroom 6, the orc jail 7, the temple entrance 8, the temple's hidden treasures 9 and the altar 10; [P] uses M and 1 to 12 in the Wealthy Area and 1 to 3, 4 and 7 in the temple."
+      ],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Verified Entry 53 after the Temple of Bane escort fight, after reload, and across save slots.' (ends at (6,8))"
+      ],
+      "notes": "XP assumes 7 characters. The replay labels this room as inside the Temple of Bane; the digest lists it under the Wealthy Area. Both are ECL 24."
+    },
+    {
+      "id": "acceptance.wealthy-area.goblin-slaves",
+      "title": "Free or kill the goblin slaves",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 7 (14,8). The game prints 'IN THIS ROOM ARE SOME GOBLIN SLAVES THAT ARE COWERING IN THE CORNER. THEY ALL SCREAM 'PLEASE DON'T KILL US.' WHAT WILL YOU DO?' with KILL THEM / LET THEM GO.",
+        "Run both choices."
+      ],
+      "expect": [
+        "LET THEM GO: 'YOU LET THE GOBLINS GO. AS THEY LEAVE ONE OF THEM SAYS 'TO ENTER THE TEMPLE YOU NEED A HOLY SYMBOL OF BANE.''",
+        "KILL THEM: 'YOU COLDLY KILL THE DEFENCELESS GOBLINS.' No clue is given."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 7 at (14,8)."
+      ],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0x9ff9, 0xa05c, 0xa082, 0xa0b0 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.17-18 numbers the mansion entrances 1, hidden treasures 2, goblin slaves 3, mansion guards 4, manor guards 5, the orc bedroom 6, the orc jail 7, the temple entrance 8, the temple's hidden treasures 9 and the altar 10; [P] uses M and 1 to 12 in the Wealthy Area and 1 to 3, 4 and 7 in the temple."
+      ],
+      "coveredBy": [],
+      "notes": "The digest describes only the Let go branch. No XP or alignment effect is given for killing them."
+    },
+    {
+      "id": "acceptance.wealthy-area.manor-guards",
+      "title": "Fight the manor guards at location 9",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 9 (8,12). The game prints 'YOU ENTER INTO A FILTHY ROOM. EIGHT ORC GUARDS ATTACK YOU IMMEDIATELY.'",
+        "Win the fight."
+      ],
+      "expect": [
+        "Combat: 6 ORC + 2 ORC LEADER; 29 XP per character."
+      ],
+      "branches": [],
+      "fights": [
+        "6 ORC + 2 ORC LEADER, 29 XP."
+      ],
+      "data": [
+        "Location 9 at (8,12)."
+      ],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0xa179 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.17-18 numbers the mansion entrances 1, hidden treasures 2, goblin slaves 3, mansion guards 4, manor guards 5, the orc bedroom 6, the orc jail 7, the temple entrance 8, the temple's hidden treasures 9 and the altar 10; [P] uses M and 1 to 12 in the Wealthy Area and 1 to 3, 4 and 7 in the temple."
+      ],
+      "coveredBy": [],
+      "notes": "XP assumes 7 characters. Pairing the 'EIGHT ORC GUARDS' string with location 9 is by the count (6 + 2)."
+    },
+    {
+      "id": "acceptance.wealthy-area.orc-beds",
+      "title": "Search the hay beds at location 10",
+      "kind": "optional",
+      "steps": [
+        "Enter location 10. The game prints 'YOU ENTER A ROOM THAT HAS SOME CRUDE HAY BEDS. WHAT WILL YOU DO?' with SEARCH THE BEDS / LEAVE THEM.",
+        "Choose SEARCH THE BEDS."
+      ],
+      "expect": [
+        "'AS YOU SEARCH THE BEDS A GROUP OF ORCS COMES INTO THE ROOM. THEY ATTACK IMMEDIATELY.' Combat: 8 ORC; 18 XP per character.",
+        "After the fight: 'YOU FINISH SEARCHING THE BEDS BUT YOU FIND NOTHING BUT LICE AND HAIR.'",
+        "A later search: 'YOU SEARCH THE BEDS BUT FIND NOTHING.'",
+        "LEAVE THEM: no fight."
+      ],
+      "branches": [],
+      "fights": [
+        "8 ORC, 18 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0xa1f1, 0xa224, 0xa269, 0xa2cf, 0xa30a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.17-18 numbers the mansion entrances 1, hidden treasures 2, goblin slaves 3, mansion guards 4, manor guards 5, the orc bedroom 6, the orc jail 7, the temple entrance 8, the temple's hidden treasures 9 and the altar 10; [P] uses M and 1 to 12 in the Wealthy Area and 1 to 3, 4 and 7 in the temple.",
+        "Clue Book p.18: 'Don't search the beds or the beds' owners will return and attack you.' Agrees."
+      ],
+      "coveredBy": [],
+      "notes": "XP assumes 7 characters. No coordinates are given for location 10."
+    },
+    {
+      "id": "acceptance.wealthy-area.jail-message",
+      "title": "Read the scratched message in the cell",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 12 (5,15)."
+      ],
+      "expect": [
+        "The game prints 'YOU ENTER A ROOM THAT HAS BEEN COVERTED INTO A CELL.', 'ON THE WALL HERE IS A POORLY SCRATCHED OUT MESSAGE. YOU CAN BARELEY MAKE OUT THE WORDS' and ''NORTH WALL. RI T FRONT GLAS . SE'' (as the manifest has it).",
+        "Nothing else happens; the message is a false clue."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 12 at (5,15).",
+        "Message as [P] gives it: 'North wall. Ri  t front glas . Se'."
+      ],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "Clue Book p.17-18",
+        "game text ECL1.DAX block 24 at 0xa33e, 0xa36c, 0xa3b2 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.17-18 numbers the mansion entrances 1, hidden treasures 2, goblin slaves 3, mansion guards 4, manor guards 5, the orc bedroom 6, the orc jail 7, the temple entrance 8, the temple's hidden treasures 9 and the altar 10; [P] uses M and 1 to 12 in the Wealthy Area and 1 to 3, 4 and 7 in the temple.",
+        "Clue Book p.18: 'Orc Jail: There is a false clue here.' Agrees.",
+        "Spacing: [P] has two spaces in 'Ri  t'; src/audio/voice-master-manifest.json has 'RI T' with one. The manifest may have collapsed a space."
+      ],
+      "coveredBy": [],
+      "notes": "Compare the message against the original screen, not the manifest, because of the spacing doubt."
+    },
+    {
+      "id": "acceptance.wealthy-area.crash-south-of-4-15",
+      "title": "Move south from (4,15)",
+      "kind": "quirk",
+      "steps": [
+        "Stand at (4,15) and move south."
+      ],
+      "expect": [
+        "The original game crashes."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Crash square: (4,15), moving south."
+      ],
+      "sources": [
+        "[P] §3.9 (digest)",
+        "[P] §5 Scripting, Wealthy Area (digest): 'moving south from (4,15) crashes'"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "A port cannot literally crash; the acceptance question is what the port does instead, and that is a decision for the QA owner. The digest does not say whether this holds in v1.3 specifically or how the square is reached."
+    },
+    {
+      "id": "acceptance.wealthy-area.clerk-reward",
+      "title": "Collect the clerk's reward for clearing the Wealthy Area",
+      "kind": "main",
+      "steps": [
+        "After winning the mansion fight at M, return to the council clerk."
+      ],
+      "expect": [
+        "Reward 'Clear the Wealthy Area': 3 gems, 99 platinum, 250 gold; 249 XP per character.",
+        "Random encounters and unsafe rest continue here until the Temple of Bane is also cleared."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Reward: 3 gems, 99 pp, 250 gold (249 XP)."
+      ],
+      "sources": [
+        "[P] §3.0 other clerk rewards (digest)",
+        "[P] §3.9 (digest)",
+        "Clue Book p.17-18"
+      ],
+      "disagreements": [
+        "Clue Book p.18 ties clearing to both the mansion fight and Mace's defeat; [P] pays the Wealthy Area reward for the M fight alone."
+      ],
+      "coveredBy": [],
+      "notes": "Not one of the ten tracker quests. The digest does not give the clerk's text for this reward."
+    }
+  ]
+}

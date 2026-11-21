@@ -1,0 +1,767 @@
+{
+  "schema": 1,
+  "id": "acceptance.kovel-mansion",
+  "title": "Kovel Mansion",
+  "guideSection": "3.8",
+  "scripts": [
+    "ECL 14"
+  ],
+  "commission": "Commission #7",
+  "prerequisites": [
+    "Commission #2 (Sokal Keep) is rewarded; commission #7 requires it.",
+    "The party can reach the mansion: dock → Bay → North, or wilderness (26,27) NORTH, or wilderness (25,26)/(26,26) CITY.",
+    "A thief (Find/Remove Traps) or a Detect Traps spell is needed for the detect-and-disarm scenarios; Knock for the cabinet branch.",
+    "The kill count starts at 0 for the scenarios that depend on it.",
+    "XP figures assume a party of exactly six.",
+    "No party level is stated for this area in the digest."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.kovel-mansion.getting-there-and-exits",
+      "title": "Reach the mansion and use each exit",
+      "kind": "rule",
+      "steps": [
+        "In New Phlan take the dock boat and choose the north side of the Bay; the party arrives on the wilderness map at (26,27).",
+        "The game prints 'YOU ARE ON THE EASTERN EDGE OF THE CITY. THERE ARE NORTH AND SOUTH ENTRANCES INTO THE CITY AND A SMALL BOAT THAT YOU CAN TAKE TO THE CIVILISED AREA. WHICH ROUTE WILL YOU TAKE?' with NORTH / SOUTH / BOAT / LEAVE. Choose NORTH.",
+        "The party arrives in Kovel Mansion at (15,4).",
+        "Leave by E1 (arrive wilderness (26,27)), by E2 (arrive wilderness (26,26)), and by E3 (arrive in the Wealthy Area).",
+        "From wilderness (25,26) or (26,26) choose CITY at the north-edge menu; the party arrives in Kovel Mansion at (4,0)."
+      ],
+      "expect": [
+        "Each route leads to the square named."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Dock → Bay → North.",
+        "Wilderness b (26,27) NORTH → Kovel (15,4).",
+        "Wilderness c (25,26)/(26,26) CITY → Kovel (4,0).",
+        "E1 → (26,27); E2 → (26,26); E3 → Wealthy Area."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "[P] §3.0 boat destinations and §3.11 fixed points b, c (digest)",
+        "game text ECL7.DAX block 26 at 0x9c65, 0x9cb5, 0x9d26, 0x9daf (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Coordinates of E1 to E3 inside the mansion are not given."
+    },
+    {
+      "id": "acceptance.kovel-mansion.accept-commission",
+      "title": "Take commission #7 from the clerk",
+      "kind": "main",
+      "steps": [
+        "With commission #2 (Sokal Keep) rewarded, speak to the clerk until she says 'A LARGE GROUP OF THIEVES OPERATES OUT OF THE OLD KOVEL MANSION. THE COUNCIL WILL PAY TO HAVE THEM CLEANED OUT.'"
+      ],
+      "expect": [
+        "Commission #7 is held."
+      ],
+      "branches": [
+        "Not offered: [P] says most missions can be done and rewarded without being told of them; commission #7 is not listed as an exception."
+      ],
+      "fights": [],
+      "data": [
+        "Commission #7 requires #2.",
+        "Proclamation CXXXIV (Kovel mansion thieves) is posted at 3 completed quests ([P] §3.0 table; Adventurer's Journal p.13-15)."
+      ],
+      "sources": [
+        "[P] §3.0 clerk commission list and proclamation table (digest)",
+        "Adventurer's Journal p.13-15 (proclamation CXXXIV)",
+        "game text ECL3.DAX block 8 at 0xab26 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kovel-mansion.no-random-encounters",
+      "title": "Walk the mansion without random encounters",
+      "kind": "rule",
+      "steps": [
+        "Walk squares that are not B, T, C or numbered, in normal and search mode, for a long fixed-dice run."
+      ],
+      "expect": [
+        "No random encounter occurs anywhere in the block."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20"
+      ],
+      "disagreements": [
+        "Clue Book p.19: 'you can be ambushed by pairs of thieves at any time. Until you have dealt with all the thieves, they will continue'. [P]: no random encounters; ambushes happen on the fixed B squares, by a single thief."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kovel-mansion.rest-sling-bullets",
+      "title": "Rest before the block is cleared",
+      "kind": "rule",
+      "steps": [
+        "Before the block is cleared, encamp and rest."
+      ],
+      "expect": [
+        "The game prints 'WHILE IN CAMP YOU ARE SUDDENLY ATTACKED BY THREE THIEVES WITH SLINGS. THEY LAUNCH THEIR BULLETS AT THE PARTY AND THEN RUN, DISAPPERING FROM SIGHT.'",
+        "Three sling bullets are resolved against the party: THAC0 10, 1d4+1 each.",
+        "No combat follows.",
+        "After the block is cleared, rest is not disturbed."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Sling bullets: 3, THAC0 10, 1d4+1."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "game text ECL3.DAX block 14 at 0xb4f3 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.19: 'You cannot rest in Kovel mansion until all the thieves there have been cleared out.' [P]: you can try, and take three sling bullets."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the rest is cancelled or how often the attack repeats."
+    },
+    {
+      "id": "acceptance.kovel-mansion.b-square-backstab",
+      "title": "Get backstabbed on a B square",
+      "kind": "rule",
+      "steps": [
+        "With fewer than 12 kills, step on a B square with fixed dice set so the 30% backstab check succeeds.",
+        "Repeat with 12 or more kills."
+      ],
+      "expect": [
+        "The game prints 'AS YOU ENTER THE ROOM A THIEF WITH A SWORD COMES OUT OF NOWHERE, BACKSTABS A PARTY MEMBER THEN DISAPPEARS THROUGH THE WALL.'",
+        "The attack is rolled at THAC0 -10 for 2d8 (3d8 once kills are 12 or more).",
+        "The chance is 30%, or 35% once kills are 12 or more.",
+        "No retaliation is possible and the kill count does not change."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Backstab: 30% (35% at kills >= 12); THAC0 -10; 2d8 (3d8 at kills >= 12)."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "game text ECL3.DAX block 14 at 0x9b70, 0x9c20 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "B-square coordinates and their numbering are not in the digest. Whether B squares stay active after the block is cleared is not stated (the Clue Book says the ambushes continue 'until you have dealt with all the thieves')."
+    },
+    {
+      "id": "acceptance.kovel-mansion.b-square-no-repeat",
+      "title": "Never take two backstabs in a row from the same-numbered B",
+      "kind": "rule",
+      "steps": [
+        "Take a backstab on a B square.",
+        "Step on a B square with the same number again with dice set for a backstab."
+      ],
+      "expect": [
+        "No backstab occurs from the same-numbered B as the previous backstab; the thief is caught instead."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.8 (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says only 'A backstab cannot come from the same-numbered B as the previous backstab.' That the caught-thief branch runs instead is the reading of 'Otherwise you catch the thief'."
+    },
+    {
+      "id": "acceptance.kovel-mansion.b-square-caught-thief",
+      "title": "Catch the B-square thief and attack or release him",
+      "kind": "rule",
+      "steps": [
+        "Step on a B square with dice set so the backstab check fails.",
+        "The game prints 'AS YOU ENTER THE ROOM A THIEF WITH A SWORD COMES OUT OF NOWHERE. HE TRIES TO ATTACK THE PARTY BUT YOU STOP HIM. WHAT WILL YOU DO?' with ATTACK HIM / LET HIM GO.",
+        "Run both choices; run ATTACK HIM again with 18 or more kills."
+      ],
+      "expect": [
+        "ATTACK HIM: combat with 1 1ST LVL THIEF (#45), morale 30; winning adds 1 kill.",
+        "With 18 or more kills the opponent is 1 6TH LVL THIEF (#51) instead.",
+        "LET HIM GO: no fight; kills unchanged."
+      ],
+      "branches": [
+        "Attack → +1 kill.",
+        "Let go → nothing."
+      ],
+      "fights": [
+        "1 1ST LVL THIEF (#45), morale 30.",
+        "1 6TH LVL THIEF (#51), morale 30, once kills >= 18."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "game text ECL3.DAX block 14 at 0x9b70, 0x9bc4, 0x9bfa (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.19 speaks of 'pairs of thieves'; [P] and the game text have a single thief."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kovel-mansion.traps",
+      "title": "Trigger each of the three trap kinds",
+      "kind": "rule",
+      "steps": [
+        "Walk onto T3, T5, T6 or T8 without detecting the trap.",
+        "Walk onto T4 without detecting the trap.",
+        "Walk onto T7 without detecting the trap.",
+        "Repeat in search mode with a thief: the game prints 'YOUR PARTY DETECTS A TRAP!' (or 'YOUR MAGIC DETECTS A TRAP!' under Detect Traps), 'WHAT DO YOU WANT TO DO?' with AVOID TRAP / DISARM TRAP; a successful disarm prints 'YOU DEACTIVATE THE TRAP'."
+      ],
+      "expect": [
+        "T3, T5, T6, T8: 'A SCYTHING BLADE DROPS ACROSS THE DOORWAY, DAMAGING ONE OF THE CHARACTERS.' One attack at THAC0 0 for 1d6.",
+        "T4: 'THE PARTY HEARS THE CRACKING OF GLASS. A POISONOUS GAS FILLS THE AIR!' 1d3 damage; a save vs poison negates.",
+        "T7: 'AFTER THE PARTY ENTERS THE ROOM A NET LACED WITH SHARP BLADES FALLS ON THE PARTY.' 1d6 damage; a save vs spell negates."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Scything blade: THAC0 0, 1d6.",
+        "Gas: 1d3, save vs poison.",
+        "Bladed net: 1d6, save vs spell."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "game text ECL3.DAX block 14 at 0x9a5c, 0x9aa4, 0x9ae9, 0xb3e9, 0xb405, 0xb41d, 0xb432, 0xb481 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.19: 'Always move in Search Mode ... a thief (wearing no armor heavier than leather) has a chance to deal with them.' [P] mentions detection only at location 14."
+      ],
+      "coveredBy": [],
+      "notes": "T1 and T2 are not listed in the digest. Trap coordinates are not given. The detect/disarm strings are in block 14; the digest ties them explicitly only to location 14, so their use on T squares is the Clue Book's claim. Whether gas and net hit every member is not stated for T4/T7."
+    },
+    {
+      "id": "acceptance.kovel-mansion.loot-room-9",
+      "title": "Take the loot at location 9",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 9 (10,9). The game prints 'PILED HERE IS VARIOUS LOOT. THERE IS A WIDE VARIETY OF NICK NACKS FROM TARNISHED BRONZE CANDLESTICKS TO ONE OR TWO USEFUL ITEMS.'",
+        "Take everything."
+      ],
+      "expect": [
+        "Loot: Short Sword +2, Leather Armor +4; 400 XP per character."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 9 at (10,9)."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "game text ECL3.DAX block 14 at 0x9cee (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.19-20 numbers the first ambush 1, the pair of thieves 2, the split 3, the single thief 4, the big ambush 5, information 6 and 9, the old thief 7, loot 8 and 12, the caskets 10, the cabinet 11 and a clue 13; [P] uses 9 to 20, B, C1, C2 and T3 to T8."
+      ],
+      "coveredBy": [],
+      "notes": "Pairing the 'PILED HERE IS VARIOUS LOOT' string with location 9 is by content."
+    },
+    {
+      "id": "acceptance.kovel-mansion.cabinets-10",
+      "title": "Open the three cabinets at location 10",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 10 (14,10). The game prints 'IN FRONT OF YOU ARE THREE CABINETS. WHICH ONE WILL YOU EXAMINE?' with A / B / C / LEAVE.",
+        "For a locked cabinet the game prints 'IT IS LOCKED. HOW WILL YOU OPEN THE LOCK?' with PICK / BREAK / CAST KNOCK / LEAVE.",
+        "Open A, B and C."
+      ],
+      "expect": [
+        "A: 'INSIDE THE CABINET YOU FIND SOME FILES. YOU STUFF THE PAPERS INTO YOUR JOURNAL UNDER ENTRIES 23 AND 14.'",
+        "B: 'INSIDE THE CABINET YOU FIND FIFTEEN SACKS FILLED WITH SILVER PIECES.' 1500 silver; 12 XP per character.",
+        "C: 'INSIDE THE CABINET YOU FIND EIGHTEEN SACKS FILLED WITH GOLD PIECES.' 1800 gold; 300 XP per character. C has a needle trap: THAC0 -20, 1d8.",
+        "An emptied cabinet prints 'THIS CABINET IS EMPTY.'"
+      ],
+      "branches": [
+        "PICK success: 'YOU PICK THE LOCK!'; failure: 'YOU TRY TO PICK THE LOCK BUT IT IS TOO COMPLEX FOR YOU TO PICK. YOU FAIL MISERABLY.'; a second try: 'YOU HAVE ALREADY TRIED TO PICK THIS LOCK AND HAVE FOUND THAT IT IS TOO COMPLEX FOR YOU TO HANDLE.'",
+        "BREAK: 'WITH ONE MIGHTY SWING YOU SMASH OPEN THE LOCK MAKING ENOUGH NOISE TO WAKE THE DEAD.'",
+        "CAST KNOCK: '<name> CASTS A KNOCK SPELL AND OPENS THE LOCK.' or 'NO ONE IN THE PARTY HAS THE KNOCK SPELL! HOW WILL YOU OPEN THE LOCK?'",
+        "C trap, failed disarm: 'AS YOU TRY TO DEACTIVATE THE TRAP YOU MANAGE TO SET IT OFF. A LARGE NEEDLE SHOOTS OUT OF A HIDDEN COMPARTMENT HITTING A PARTY MEMBER.'; avoided: 'YOU AVOID THE TRAP BY NOT OPENNING THE CABINET.'"
+      ],
+      "fights": [],
+      "data": [
+        "Journal entry 23: facts and rumours on Ulrich Eberhard (Adventurer's Journal p.21).",
+        "Journal entry 14: facts and rumours on Porphyrys Cadorna (Adventurer's Journal p.19).",
+        "Location 10 at (14,10)."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "Adventurer's Journal p.19 (entry 14), p.21 (entry 23)",
+        "game text ECL3.DAX block 14 at 0x9d73, 0x9da6, 0x9e12, 0x9e74, 0x9e97, 0x9ede, 0x9f2a, 0x9faa, 0x9fc5, 0xa016, 0xa066, 0xa0bd, 0xa0f5, 0xa17c, 0xa1d0, 0xa248 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.19-20 numbers the first ambush 1, the pair of thieves 2, the split 3, the single thief 4, the big ambush 5, information 6 and 9, the old thief 7, loot 8 and 12, the caskets 10, the cabinet 11 and a clue 13; [P] uses 9 to 20, B, C1, C2 and T3 to T8."
+      ],
+      "coveredBy": [],
+      "notes": "The digest says 'three locked cabinets' without saying which of PICK, BREAK and KNOCK work on which cabinet, or whether breaking has a consequence ('ENOUGH NOISE TO WAKE THE DEAD')."
+    },
+    {
+      "id": "acceptance.kovel-mansion.tapestries-11",
+      "title": "Find the tapestries at location 11",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 11 (14,14)."
+      ],
+      "expect": [
+        "The game prints 'YOU SEE A WIDE COLLECTION OF RUGS AND TAPESTRIES. TWO OF THEM LOOK EXTRAORDINARY WHILE THE OTHERS LOOK AVERAGE.'",
+        "Treasure: 26 huge tapestries and 2 fine tapestries."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Location 11 at (14,14)."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "game text ECL3.DAX block 14 at 0xa282 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no XP or item names beyond 'huge' and 'fine'."
+    },
+    {
+      "id": "acceptance.kovel-mansion.scroll-cabinet-12",
+      "title": "Open the trapped scroll cabinet at location 12",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 12 (3,13). The game prints 'IN FRONT OF YOU IS A WOODEN CABINET. WHAT WILL YOU DO?' with EXAMINE THE CABINET / LEAVE IT.",
+        "Examine it and open it."
+      ],
+      "expect": [
+        "The game prints 'YOU FIND A WIDE VARIETY OF SCROLLS IN SCROLL CASES.'",
+        "Loot (666 XP per character): MU scroll (Fireball, Haste, Hold Person); MU scroll (Blink, Ray of Enfeeblement, Slow); Cleric scroll (Hold Person, Cure Blindness, Bestow Curse); Cleric scroll (Prayer, Remove Curse, Animate Dead); MU scroll (Reduce, Detect Invisibility, Fireball); MU scroll (Burning Hands, Mirror Image, Blink).",
+        "Trap: if it goes off, everyone saves vs poison or takes 2d6; text 'AS YOU ATTEMPT TO DISARM THE TRAP, IT GOES OFF IN YOUR FACE! A CLOUD OF POISONOUS YELLOW GAS FILLS THE ROOM.'",
+        "Afterwards: 'THIS CABINET IS EMPTY.'"
+      ],
+      "branches": [
+        "Avoid: 'YOU AVOID THE TRAP BY NOT OPENING THE CABINET!'"
+      ],
+      "fights": [],
+      "data": [
+        "Location 12 at (3,13).",
+        "Trap: save vs poison or 2d6 to everyone."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "game text ECL3.DAX block 14 at 0xa30d, 0xa33a, 0xa398, 0xa3e2, 0xa3fa, 0xa45f (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.19-20 numbers the first ambush 1, the pair of thieves 2, the split 3, the single thief 4, the big ambush 5, information 6 and 9, the old thief 7, loot 8 and 12, the caskets 10, the cabinet 11 and a clue 13; [P] uses 9 to 20, B, C1, C2 and T3 to T8.",
+        "[P] lists 'Hold Person' on a magic-user scroll and 'Fireball' twice; recorded as the digest gives it."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kovel-mansion.caskets-13",
+      "title": "Search the four caskets at location 13",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 13 (6,7). The game prints 'BEFORE YOU IS A TABLE WITH FOUR SMALL CASKETS ON TOP OF IT. WHAT WILL YOU DO?' with SEARCH A CASKET / LEAVE, then 'WHICH CASKET WILL YOU SEARCH?' with A / B / C / D.",
+        "Search each casket."
+      ],
+      "expect": [
+        "A: 12 gems (500 XP); needle trap 1d4, save vs poison. Text 'YOU FIND A POUCH OF SMALL GEMS.'; trap text 'AS YOU ATTEMPT TO DEACTIVATE THE TRAP YOU SET IT OFF. A POSIONED NEEDLE SHOOTS OUT AND PLUNGES INTO A PARTY MEMBER.'",
+        "B: 1 jewelry (366 XP); dart trap 1d3. Text 'INSIDE THE CASKET IS A VARIETY OF GOLD CHAINS, PENDANTS AND JEWELRY.'; trap text 'AS YOU EXAMINE THE CASKET A TRAP GOES OFF. A DART SHOOTS OUT AND HITS ONE OF THE PARTY MEMBERS.'",
+        "C: 3 gems (125 XP); powder trap 1d6 to everyone, save vs poison. Text 'INSIDE THE CASKET ARE SOME BEAUTIFUL GEMS.'; trap text 'AS YOU SEARCH THE CASKET, YOU ACCIDENTLY SET OFF A TRAP. A NOXIOUS POWDER SPRAYS INTO THE AIR DAMAGING THE PARTY.'",
+        "D: 20 gems (833 XP); 12 darts, THAC0 10, 1d4 each. Text 'THE CASKET IS FILLED WITH TINY PEARLS!'; trap text 'AS YOU SEARCH THE CASKET YOU TRIGGER A TRAP. FROM A SECRET COMPARTMENT IN THE WALL, A SHOWER OF DARTS RAINS DOWN UPON THE PARTY.'",
+        "A searched casket prints 'THIS CASKET IS EMPTY.'"
+      ],
+      "branches": [
+        "Avoid a detected trap: 'YOU AVOID THE TRAP BY NOT OPENING THE CASKET.'"
+      ],
+      "fights": [],
+      "data": [
+        "Location 13 at (6,7)."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "game text ECL3.DAX block 14 at 0xa48a, 0xa4c8, 0xa4ee, 0xa507, 0xa56a, 0xa59c, 0xa606, 0xa66f, 0xa6bc, 0xa756, 0xa790, 0xa82f, 0xa86f, 0xa8e3 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.19-20 numbers the first ambush 1, the pair of thieves 2, the split 3, the single thief 4, the big ambush 5, information 6 and 9, the old thief 7, loot 8 and 12, the caskets 10, the cabinet 11 and a clue 13; [P] uses 9 to 20, B, C1, C2 and T3 to T8.",
+        "The digest calls the caskets 'trapped, locked'; block 14 has no lock prompt next to the casket strings."
+      ],
+      "coveredBy": [],
+      "notes": "The pairing of treasure strings to caskets A to D follows the order of the strings in the script and the trap descriptions; the digest does not quote them."
+    },
+    {
+      "id": "acceptance.kovel-mansion.weapons-pile-disarmed",
+      "title": "Detect and disarm the trap on the pile of arms",
+      "kind": "main",
+      "steps": [
+        "Walk to location 14 (3,4). The game prints 'INSIDE THIS ROOM YOU FIND A LARGE PILE OF WEAPONS AND SHIELDS. THEY APPEAR TO BE IN GOOD CONDITION AND OF FINE QUALITY. WHAT WILL YOU DO?' with TAKE SOME / SEARCH THEM / LEAVE THEM.",
+        "Choose SEARCH THEM with a thief (Find/Remove Traps) or under a Detect Traps spell: 'YOUR PARTY DETECTS A TRAP!' or 'YOUR MAGIC DETECTS A TRAP!', then AVOID TRAP / DISARM TRAP.",
+        "Choose DISARM TRAP and make the roll succeed: 'YOU DEACTIVATE THE TRAP'.",
+        "Take the pile."
+      ],
+      "expect": [
+        "No ambush occurs.",
+        "Loot (600 XP per character): 2 Dagger +1, Hammer +1, Morning Star +1, Scimitar +1, Short Sword +1, Shield +2, Chain Mail +1, Broad Sword -2.",
+        "The kill count is unchanged."
+      ],
+      "branches": [
+        "LEAVE THEM: 'YOU LEAVE THE WEAPONS ALONE.'",
+        "AVOID TRAP: 'YOU BYPASS THE TRAP BY NOT FOOLING WITH ANY OF THE WEAPONS.'",
+        "Disarm fails or TAKE SOME: see weapons-pile-ambush."
+      ],
+      "fights": [],
+      "data": [
+        "Location 14 at (3,4)."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "game text ECL3.DAX block 14 at 0xa908, 0xa974, 0xa9d2, 0xab8e, 0xb3e9, 0xb405, 0xb432, 0xb481 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.19-20 numbers the first ambush 1, the pair of thieves 2, the split 3, the single thief 4, the big ambush 5, information 6 and 9, the old thief 7, loot 8 and 12, the caskets 10, the cabinet 11 and a clue 13; [P] uses 9 to 20, B, C1, C2 and T3 to T8."
+      ],
+      "coveredBy": [],
+      "notes": "[P]'s recommended order starts here, but with the ambush (for its +5 kills), not the disarm."
+    },
+    {
+      "id": "acceptance.kovel-mansion.weapons-pile-ambush",
+      "title": "Take the pile and fight the ambush at 0 to 7 kills",
+      "kind": "main",
+      "steps": [
+        "With 0 to 7 kills, at location 14 choose TAKE SOME (or fail the disarm).",
+        "The game prints 'AS YOU NEAR THE PILE OF WEAPONS AN AWFUL SMELLING CLOUD OF GAS FORMS. THIS FOUL SMELLING GAS STUNS THE PARTY ALLOWING A GROUP OF THIEVES TO JUMP OUT OF THE SHADOWS AND ATTACK AT WILL!'",
+        "Win the fight."
+      ],
+      "expect": [
+        "Combat: 5 6TH LVL THIEF.",
+        "Kills increase by 5 (the bonus applies when the fight starts with 0 to 15 kills).",
+        "Loot as in weapons-pile-disarmed (600 XP per character)."
+      ],
+      "branches": [],
+      "fights": [
+        "5 6TH LVL THIEF (0 to 7 kills)."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "game text ECL3.DAX block 14 at 0xaa2b (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.19 location 1: 'About half the thieves in the guild have prepared an ambush in this room.' [P]: five thieves here, credited as 5 kills; the larger ambush is at 16."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not give XP for the ambush fight itself, nor whether the gas 'stun' has a mechanical effect."
+    },
+    {
+      "id": "acceptance.kovel-mansion.weapons-pile-ambush-scaling",
+      "title": "Check the ambush composition at 8 to 12 and at 18 or more kills",
+      "kind": "rule",
+      "steps": [
+        "Set kills to each of 8, 10 and 12 and trigger the ambush at location 14.",
+        "Set kills to 18 or more and take the pile."
+      ],
+      "expect": [
+        "8 to 12 kills: (kills - 7) 1ST LVL THIEF + (12 - kills) 6TH LVL THIEF. At 8: 1 + 4. At 10: 3 + 2. At 12: 5 + 0.",
+        "A fight started with 0 to 15 kills adds 5 kills.",
+        "18 or more kills: no ambush; the game prints 'AS YOU NEAR THE PILE OF WEAPONS AN EXTREMELY BAD SMELLING GAS FILLS THE ROOM. THE SMELL IS DISGUSTING BUT HARMLESS ENOUGH.'",
+        "The loot is the same in every case (600 XP)."
+      ],
+      "branches": [],
+      "fights": [
+        "(kills-7) 1ST LVL THIEF + (12-kills) 6TH LVL THIEF for kills 8..12."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "game text ECL3.DAX block 14 at 0xaa2b, 0xabc3 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Pairing the 'HARMLESS ENOUGH' text with the 18+ case is by content. Setting the kill count needs a prepared save or script-variable access; the digest names no variable."
+    },
+    {
+      "id": "acceptance.kovel-mansion.weapons-pile-underflow",
+      "title": "Trigger the ambush at 13 to 17 kills",
+      "kind": "quirk",
+      "steps": [
+        "With 13 to 17 kills, at location 14 take the pile or fail the disarm."
+      ],
+      "expect": [
+        "The ambush size is miscalculated: [P] calls it 'undefined behaviour (underflow or stale pointer)'. A faithful port must produce what the original script and engine produce for these counts."
+      ],
+      "branches": [],
+      "fights": [
+        "Composition undefined in the sources."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "[P] §5 Scripting, Kovel Mansion (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say what the player actually sees (a huge group, a stale group from the previous fight, or none). This cannot be made exact from the sources at hand; the expected result has to be measured on the original 1.3 executable."
+    },
+    {
+      "id": "acceptance.kovel-mansion.two-thieves-chase",
+      "title": "Chase the two thieves from location 15",
+      "kind": "main",
+      "steps": [
+        "Walk to location 15 (6,5). The game prints 'AS YOU ENTER THE ROOM TWO THIEVES COME OUT OF NOWHERE AND ATTACK THE PARTY. THEY FAIL MISERABLY AND RUN OUT THE EAST DOOR. WILL YOU CHASE THEM?' with YES / NO. Answer YES.",
+        "At C1 (9,8) the game prints 'AS YOU ENTER THIS ROOM THE TWO THIEVES SPLIT; ONE GOING THROUGH THE EAST DOOR, THE OTHER GOING THROUGH THE SOUTH. WHICH PATH WILL YOU TAKE?' with SOUTH / EAST / DON'T FOLLOW."
+      ],
+      "expect": [
+        "The party is at C1 (9,8) with the three-way choice.",
+        "The thieves' failed attack does no damage."
+      ],
+      "branches": [
+        "EAST: see lone-thief-c2.",
+        "SOUTH: see big-ambush-16.",
+        "NO or DON'T FOLLOW: the chase ends; nothing else is described."
+      ],
+      "fights": [],
+      "data": [
+        "Location 15 at (6,5); C1 at (9,8); C2 at (13,5)."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "game text ECL3.DAX block 14 at 0xac4c, 0xacbc, 0xad23, 0xad8f (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.19-20 numbers the first ambush 1, the pair of thieves 2, the split 3, the single thief 4, the big ambush 5, information 6 and 9, the old thief 7, loot 8 and 12, the caskets 10, the cabinet 11 and a clue 13; [P] uses 9 to 20, B, C1, C2 and T3 to T8.",
+        "Clue Book p.19 location 3: 'If you follow the thief to the left, you will end up at 4. If you follow the thief going straight ahead, you will end up at 5.' The game offers SOUTH and EAST; [P]: East → the single thief, South → the ambush."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether the party is moved to C1 automatically on YES or must walk there."
+    },
+    {
+      "id": "acceptance.kovel-mansion.lone-thief-c2",
+      "title": "Follow the thief east to C2",
+      "kind": "optional",
+      "steps": [
+        "At C1 choose EAST; the party reaches C2 (13,5).",
+        "The game prints 'YOU HAVE CAUGHT ONE OF THE THIEVES. THE THIEF BEGS FOR MERCY AND SAYS, 'I AM THE GUILD MASTER. IF YOU RELEASE ME, MY THIEVES WILL NO LONGER ATTACK YOU!' WHAT WILL YOU DO?' with ATTACK / RELEASE.",
+        "Run both choices."
+      ],
+      "expect": [
+        "ATTACK: combat with a single thief as on a B square (1 1ST LVL THIEF, or 1 6TH LVL THIEF once kills are 18 or more; morale 30); winning adds 1 kill and the fight counts toward the 21.",
+        "RELEASE: 'AFTER YOU RELEASE HIM THE THIEF SLOWLY WALKS TOWARD THE FAR DOOR THANKING YOU ALL THE WAY. PARTWAY THROUGH THE DOOR HE SAYS, 'SUCKERS', THEN SPRINTS AWAY.' Kills unchanged; the thieves keep attacking."
+      ],
+      "branches": [],
+      "fights": [
+        "1 1ST LVL THIEF (#45) or 1 6TH LVL THIEF (#51), morale 30."
+      ],
+      "data": [
+        "C2 at (13,5)."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "game text ECL3.DAX block 14 at 0xadd4, 0xae59, 0xae7a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] (digest) says C2 is 'a single thief handled like a B'; the game text has its own dialogue in which the thief claims to be the guild master and offers a truce. The digest does not mention the claim.",
+        "Clue Book p.20 location 4: 'Here, you corner a single thief.'"
+      ],
+      "coveredBy": [],
+      "notes": "That releasing him changes nothing follows from the 'SUCKERS' line; the digest does not state it."
+    },
+    {
+      "id": "acceptance.kovel-mansion.big-ambush-16",
+      "title": "Follow the thief south into the ambush at 16",
+      "kind": "main",
+      "steps": [
+        "At C1 choose SOUTH (or walk into location 16).",
+        "The game prints 'AS YOU ENTER THE ROOM YOU ARE AMBUSHED BY SOME THIEVES.'",
+        "Win the fight."
+      ],
+      "expect": [
+        "Combat: 15 1ST LVL THIEF + 3 6TH LVL THIEF; morale 60; 263 XP per character.",
+        "Kills increase by 15, not 18."
+      ],
+      "branches": [],
+      "fights": [
+        "15 1ST LVL THIEF + 3 6TH LVL THIEF, morale 60, 263 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "game text ECL3.DAX block 14 at 0xaf19 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.19-20 numbers the first ambush 1, the pair of thieves 2, the split 3, the single thief 4, the big ambush 5, information 6 and 9, the old thief 7, loot 8 and 12, the caskets 10, the cabinet 11 and a clue 13; [P] uses 9 to 20, B, C1, C2 and T3 to T8.",
+        "Clue Book p.20 location 5: 'most of the remainder of the thieves ... will include the leaders of the guild and will be more powerful than the first attack.' Agrees in substance."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for 16."
+    },
+    {
+      "id": "acceptance.kovel-mansion.big-ambush-persists",
+      "title": "Meet the ambush at 16 again after the block is cleared",
+      "kind": "quirk",
+      "steps": [
+        "Clear the block (21 kills) without having visited 16, or after having fought there.",
+        "Enter location 16."
+      ],
+      "expect": [
+        "The ambush of 15 1ST LVL THIEF + 3 6TH LVL THIEF still occurs: it 'persists even after the block is cleared'."
+      ],
+      "branches": [],
+      "fights": [
+        "15 1ST LVL THIEF + 3 6TH LVL THIEF, morale 60, 263 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.8 (digest)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not say whether 'persists' means the fight repeats on every entry or only that it is still available once after clearing."
+    },
+    {
+      "id": "acceptance.kovel-mansion.files-17",
+      "title": "Find the guild files at location 17",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 17 (8,14)."
+      ],
+      "expect": [
+        "The game prints 'ON THE FLOOR HERE YOU FIND SOME IMPORTANT LOOKING FILES. YOU STUFF THE FILES INTO YOUR JOURNAL UNDER ENTRIES 38 AND 51.'"
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Journal entry 38: facts and rumours on Werner von Urslingen (Adventurer's Journal p.27).",
+        "Journal entry 51: facts and rumours on Bishop Braccio (Adventurer's Journal p.31).",
+        "Location 17 at (8,14)."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Adventurer's Journal p.27 (entry 38), p.31 (entry 51)",
+        "game text ECL3.DAX block 14 at 0xaf8e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "tools/verify-fresh-party.mjs milestone 'Verified Kovel files Entries 38 and 51 survive reload and stay with the slot that found them.'"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kovel-mansion.jail-18",
+      "title": "Fight the thugs in the jail and take the old thief's papers",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 18 (10,12). The game prints 'YOU ENTER A ROOM THAT HAS BEEN CONVERTED TO A JAIL. THERE ARE TEN YOUNG THUGS BEATING AN OLDER THIEF TO DEATH. ONCE YOU ENTER THEY STOP AND ATTACK YOU.'",
+        "Win the fight."
+      ],
+      "expect": [
+        "Combat: 10 1ST LVL THIEF; 23 XP per character.",
+        "The game prints 'YOU RUSH TO HELP THE OLD THIEF BUT IT'S TOO LATE. BEFORE HE DIES HE SAYS, 'THE BOSS HAS ALLIES EVERYWHERE. TAKE THESE PAPERS. THEY MAY HELP.' HE THEN DIES.' and 'YOU COPY THE PAPERS INTO YOUR JOURNAL UNDER JOURNAL ENTRY 48.'",
+        "The kill count does not change: this fight does not count toward the 21.",
+        "On a later visit: 'YOU ARE IN A ROOM THAT HAS BEEN CONVERTED TO A JAIL CELL. IT IS EMPTY.'"
+      ],
+      "branches": [],
+      "fights": [
+        "10 1ST LVL THIEF, 23 XP; does not count."
+      ],
+      "data": [
+        "Journal entry 48: facts and rumours on the Boss (Adventurer's Journal p.30).",
+        "Location 18 at (10,12)."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Clue Book p.19-20",
+        "Adventurer's Journal p.30 (entry 48)",
+        "game text ECL3.DAX block 14 at 0xb007, 0xb051, 0xb0ed, 0xb16c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Location numbers differ: Clue Book p.19-20 numbers the first ambush 1, the pair of thieves 2, the split 3, the single thief 4, the big ambush 5, information 6 and 9, the old thief 7, loot 8 and 12, the caskets 10, the cabinet 11 and a clue 13; [P] uses 9 to 20, B, C1, C2 and T3 to T8.",
+        "Clue Book p.20 location 7 calls the attackers 'some of the Boss' men'; [P] lists them as 10 1ST LVL THIEF."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kovel-mansion.castle-maps-19-20",
+      "title": "Copy the two castle maze maps",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 19 (5,14).",
+        "Walk to location 20 (4,5)."
+      ],
+      "expect": [
+        "19: 'ON A NEARBY WALL IS A SLATE. DRAWN ON THE SLATE IS A COMPLEX MAZE WITH THE WORDS 'NW CASTLE' UNDER IT. YOU COPY THE CASTLE INTO YOUR JOURNAL UNDER JOURNAL ENTRY 41.'",
+        "20: 'ON THE FLOOR IS A CRUDE MAP. IT IS A MAP OF A COMPLEX MAZE WITH THE WORDS 'NE CASTLE' UNDER IT. YOU TAKE THE MAP AND PUT IT IN YOUR JOURNAL UNDER JOURNAL ENTRY 29.'"
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Journal entry 41: a clean maze map (Adventurer's Journal p.27).",
+        "Journal entry 29: a clean maze map (Adventurer's Journal p.23).",
+        "Location 19 at (5,14); location 20 at (4,5)."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "Adventurer's Journal p.23 (entry 29), p.27 (entry 41)",
+        "game text ECL3.DAX block 14 at 0xb1b9, 0xb255 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kovel-mansion.clear-the-mansion",
+      "title": "Kill 21 thieves by the recommended order and collect commission #7",
+      "kind": "main",
+      "steps": [
+        "From 0 kills, trigger and win the ambush at location 14 (+5 kills).",
+        "Go to 15, chase, choose SOUTH at C1 and win the ambush at 16 (+15 kills; total 20).",
+        "Win one more counting thief fight: a B-square thief (attack him) or the thief at C2 (+1; total 21).",
+        "Return to the council clerk."
+      ],
+      "expect": [
+        "At 21 kills in counting fights the block is cleared; resting is safe.",
+        "Counting fights are only the B ambushes, location 14, C2 (via 15) and 16. The jail fight at 18 does not count.",
+        "The clerk's text includes 'THE COUNCIL WAS PLEASED BY THE ELIMINATION OF THE THIEVES IN KOVEL MANSION.'",
+        "Reward: 3 gems, 80 platinum; 191 XP per character.",
+        "The quest tracker advances by one (commission #7 is one of the ten tracker quests)."
+      ],
+      "branches": [],
+      "fights": [
+        "Location 14: 5 6TH LVL THIEF.",
+        "Location 16: 15 1ST LVL THIEF + 3 6TH LVL THIEF, morale 60, 263 XP.",
+        "One single thief, morale 30."
+      ],
+      "data": [
+        "Clear condition: 21 kills.",
+        "Reward for #7: 3 gems, 80 pp (191 XP)."
+      ],
+      "sources": [
+        "[P] §3.8 (digest)",
+        "[P] §3.0 clerk commission list (digest)",
+        "Clue Book p.19-20",
+        "game text ECL3.DAX block 8 at 0xa1c5 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.20: 'After the last of the thieves has been defeated, the mansion is clear.' [P] gives the exact threshold of 21 counted kills.",
+        "At 20 kills the final single thief is a 6TH LVL THIEF (kills >= 18), by [P]'s own rule."
+      ],
+      "coveredBy": [],
+      "notes": "The 14 → 16 → one more order is [P]'s recommendation. The digest does not say what the player sees at the moment the block clears."
+    }
+  ]
+}

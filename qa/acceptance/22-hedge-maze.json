@@ -1,0 +1,588 @@
+{
+  "schema": 1,
+  "id": "acceptance.hedge-maze",
+  "title": "Hedge Maze",
+  "guideSection": "3.22",
+  "scripts": [
+    "ECL 5"
+  ],
+  "commission": "Commission #15",
+  "prerequisites": [
+    "Party is inside the castle wall, having passed the hedge gate E6 (password RHODIA, or the gate forced or opened).",
+    "Commission #15 held (not required to enter).",
+    "State carried in from the castle matters: disguise, alarm, 'stole from the altar', 'forced the gate'.",
+    "Game text for this area is ECL5.DAX block 5."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.hedge-maze.cut-through-a-hedge",
+      "title": "Cutting through a hedge risks 201 damage",
+      "kind": "rule",
+      "steps": [
+        "Inside the maze walk into a hedge. The game prints: THERE IS A HEDGE WITH POISONOUS THORNS IN THAT DIRECTION. DO YOU WANT TO TRY TO CUT THROUGH?",
+        "Answer YES. The party moves through the hedge.",
+        "With the saving throw forced to fail, the game prints: AS YOU SLICE THROUGH SOMEONE IS PRICKED BY A THORN.",
+        "Cast Slow Poison or Neutralize Poison on the victim."
+      ],
+      "expect": [
+        "Each step through a hedge picks one random character, who saves vs poison or takes 201 damage.",
+        "On a successful save nobody is hurt.",
+        "The damage is not a poison effect: Slow Poison and Neutralize Poison do nothing for the victim.",
+        "Answering NO leaves the party where it was."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "201 damage; save vs poison; one random character per hedge step."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "Clue Book p.49-50",
+        "game text ECL5.DAX block 5 at 0x9b4b, 0x9b99 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.45 calls it 'a maze of poisonous hedges'; [P] says the 201 damage 'is not treated as poison for Slow Poison or Neutralize Poison'."
+      ],
+      "coveredBy": [
+        "verifyCampaignTower (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The replay asserts the prompt 'hedge with poisonous thorns ... try to cut through', answers y and continues; it does not assert the save or the damage. The digest does not say whether a victim of the 201 damage ends 'dead' or 'dying'. Digest §5: the Constitution poison-save bonus applies."
+    },
+    {
+      "id": "acceptance.hedge-maze.alarm-giant-snakes",
+      "title": "Giant snakes roam the maze during the alarm",
+      "kind": "rule",
+      "steps": [
+        "With the castle alarm on, walk in the maze outside locations 1, 2 and 5, in normal mode and then in search mode, with the encounter roll forced to succeed.",
+        "The encounter menu reads: YOU SEE GIANT SNAKES.",
+        "Choose Parley.",
+        "Repeat with the alarm off."
+      ],
+      "expect": [
+        "Alarm on: 1 in 21 per check, 1 in 3 in search mode, for 4 GIANT SNAKE.",
+        "Parley leads to combat.",
+        "Alarm off: no random encounters.",
+        "Inside locations 1, 2 and 5: none."
+      ],
+      "branches": [],
+      "fights": [
+        "4 GIANT SNAKE; XP not given."
+      ],
+      "data": [
+        "1 in 21; 1 in 3 in search mode; 4 GIANT SNAKE."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "Clue Book p.49-50",
+        "game text ECL5.DAX block 5 at 0xabf4, 0x99be, 0x99e0 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.50: 'When the alarm goes off giant snakes are released into the maze. One hour later the maze is cleared.' [P] ties the snakes to the alarm, which it says lasts 60-120 minutes."
+      ],
+      "coveredBy": [],
+      "notes": "The alarm rules are in §3.21. The digest does not say whether the snakes stop when the alarm ends or are removed, as the Clue Book says."
+    },
+    {
+      "id": "acceptance.hedge-maze.resting",
+      "title": "Resting in the maze",
+      "kind": "rule",
+      "steps": [
+        "With the alarm off, rest anywhere in the maze.",
+        "With the alarm on, rest at locations 1, 2 and 5, then in an open maze square with the interrupt roll forced to succeed."
+      ],
+      "expect": [
+        "Alarm off: no interruption.",
+        "Alarm on at 1, 2, 5: no interruption.",
+        "Alarm on elsewhere: 17% per 5 minutes."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Safe: locations 1, 2, 5. Elsewhere 17% per 5 minutes while the alarm is on."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "Clue Book p.49-50"
+      ],
+      "disagreements": [
+        "[P]: safe at 1, 2, 5. Clue Book p.50: 'You can rest in either Tower (#4,5) after you deal with the encounter that is there.' The Clue Book numbers differ from [P]'s and it names two places, not three."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say whether 1, 2 and 5 are safe before their encounters are dealt with."
+    },
+    {
+      "id": "acceptance.hedge-maze.teleporters",
+      "title": "Teleporters send the party to one of the other three at random",
+      "kind": "rule",
+      "steps": [
+        "Step onto a teleporter square. The game prints: YOU FEEL A SUDDEN DISORIENTATION.",
+        "Read the party position. Repeat with the random roll forced to each value."
+      ],
+      "expect": [
+        "The party arrives at one of the other three teleporters, never the one it entered.",
+        "Each forced roll value maps to a different destination."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Four teleporters (TP); destination random among the other three."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "Clue Book p.49-50",
+        "game text ECL5.DAX block 5 at 0x9c95 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for the teleporters. Clue Book p.45: 'The maze is dotted with teleporters'. A test author must take the four squares from the map data."
+    },
+    {
+      "id": "acceptance.hedge-maze.fastest-route",
+      "title": "Fastest route to the Inner Tower",
+      "kind": "main",
+      "steps": [
+        "Enter the maze by the north-west entrance with RHODIA.",
+        "Walk to (10,14) and cut through the eastern hedge wall there, answering YES to the hedge prompt.",
+        "Continue to the Inner Tower entrance."
+      ],
+      "expect": [
+        "The party reaches the Inner Tower (ECL 7) having crossed exactly one hedge.",
+        "At most one character has had to save vs poison."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "[P] fastest route: NW entrance, cut the eastern hedge wall at (10,14).",
+        "Cadorna's hint (castle location 13): 'I KNOW THE WAY THROUGH THE HEDGE... LEFT RIGHT RIGHT...'"
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "[P] digest §3.21 (location 13)",
+        "game text ECL5.DAX block 5 at 0x9b4b, 0xa098, 0xa19c, 0xa1ca (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] says 'enter by the NW entrance'; the replay's comment says it enters 'through its west gate' and cuts 'one hedge to reach the tower stairs on the southeast side of this quadrant'. Clue Book p.45 says the wall has 'two main gates on the southeast and northwest sides'."
+      ],
+      "coveredBy": [
+        "verifyCampaignTower (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The replay walks a fixed key sequence, cuts one hedge and reaches stairs, then a secret door; it does not assert the coordinate (10,14). The digest gives no step-by-step path, no coordinates for the entrances or the tower door, and does not explain 'left right right'. The gate prompt strings also exist in this block (0xa098 and following)."
+    },
+    {
+      "id": "acceptance.hedge-maze.al-hyam-notes",
+      "title": "Location 1: threaten Al-Hyam Dazid twice for his notes (Journal Entry 30)",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 1 in the NW at (5,4). The encounter menu reads: YOU SEE A HARMLESS, MIDDLE AGED MAN.",
+        "Threaten him. The game prints: 'WAIT! I WAS JUST A MAGE SEARCHING FOR KNOWLEDGE WHEN TYRANTHRAXUS CAPTURED ME. I'VE BEEN FORCED TO WORK FOR HIM. SPARE ME AND I WILL LEAVE, NEVER TO RETURN!' with the menu LET HIM GO / ATTACK HIM.",
+        "Choose ATTACK HIM. The game prints: 'WAIT! PLEASE! I'LL GIVE YOU ALL MY NOTES! HERE THEY ARE!' with the menu LET HIM GO / ATTACK HIM.",
+        "Choose LET HIM GO. The game prints: HE QUICKLY LEAVES. YOU ARE LEFT WITH THE NOTES OF AL-HYAM DHAZID, WHICH TELL QUITE A LOT ABOUT THE POOL OF RADIANCE. YOU COPY THEM INTO YOUR JOURNAL AS ENTRY 30."
+      ],
+      "expect": [
+        "Journal Entry 30 is cited (Adventurer's Journal p.23: notes 1-3 on Tyranthraxus and the Pool).",
+        "No fight; Al-Hyam is gone."
+      ],
+      "branches": [
+        "Threaten, then LET HIM GO at the first menu: HE SCRAMBLES OUT THE DOOR. No notes.",
+        "Threaten, ATTACK HIM, then LET HIM GO: the notes and Entry 30.",
+        "ATTACK HIM at the second menu: the fight (separate scenario)."
+      ],
+      "fights": [],
+      "data": [
+        "Location 1 NW = (5,4).",
+        "Journal Entry 30 (p.23).",
+        "Spelling: the game text has AL-HYAM DHAZID; the monster name per [P] is AL-HYAM DAZID (#86)."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "[P] digest §7 item 32",
+        "Adventurer's Journal p.23 (entry 30)",
+        "game text ECL5.DAX block 5 at 0xa256, 0xa2a4, 0xa31e, 0xa341, 0xa370, 0xa3b6, 0xa3da (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: 'threaten him twice'. [GB]: 'If you attack him but then decide to let him go, he'll give you his notes'. The game text fits both: the first threat brings the plea, ATTACK HIM brings the offer of notes, LET HIM GO delivers them."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say which encounter-menu choice counts as the first threat (Combat is assumed). The Clue Book's maze page has no location text beyond the rest note. Digest §5: Al-Hyam Dazid also appears at Zhentil Keep, 'which he should not'; the digest does not say whether meeting or killing him there changes this encounter."
+    },
+    {
+      "id": "acceptance.hedge-maze.al-hyam-fight",
+      "title": "Location 1: kill Al-Hyam Dazid",
+      "kind": "optional",
+      "steps": [
+        "At location 1 (5,4) threaten him and choose ATTACK HIM at both menus.",
+        "Fight and win. Take the loot."
+      ],
+      "expect": [
+        "Enemy: AL-HYAM DAZID (#86); each character gains 1423 XP.",
+        "Loot: Bracers AC 3, Ring of Fire Resistance, Wand of Lightning (20).",
+        "Journal Entry 30 is not given."
+      ],
+      "branches": [],
+      "fights": [
+        "AL-HYAM DAZID (#86), 1423 XP."
+      ],
+      "data": [
+        "Bracers AC 3; Ring of Fire Resistance; Wand of Lightning (20 charges)."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "game text ECL5.DAX block 5 at 0xa370 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest's 'Attack -> AL-HYAM DAZID (#86)' does not say whether the notes can also be looted; they are assumed lost. The block prints YOU GO UPSTAIRS. (0xa467) right after his text; the digest does not mention stairs here. Digest §5: the Wand of Lightning cannot be rolled as a random item, and wands of lightning allow a save vs spell."
+    },
+    {
+      "id": "acceptance.hedge-maze.frog-giants-no-and-leave",
+      "title": "Location 2: answer No to the giants and leave",
+      "kind": "optional",
+      "steps": [
+        "With no altar theft and either no alarm or a disguise, walk to location 2 in the SE at (10,11). The game prints: THIS TOWER IS OCCUPIED BY FOUR GIANTS. AS YOU COME IN THEY ARE IN THE MIDST OF AN ARGUMENT. THE BIGGEST ONE TURNS TO YOU AND SAYS, 'THEM LOOK SMART. THEM TELL US.', then 'FROGS AND TOADS NOT SAME THING. THEY NOT SAME, THEY DIF... THEY NOT SAME! ME RIGHT?' with the menu YES / NO / ATTACK / LEAVE.",
+        "Choose NO. The game prints: AS THE OTHER GIANTS BURST INTO HOWLS OF LAUGHTER THE ONE WHO TALKED TO YOU TURNS RED AND SAYS, 'YOU LIE! YOU LIE TO MAKE ME FOOL! I SMASH YOU!', then BEFORE HE CAN ATTACK THE OTHERS GRAB HIM AND SAY, 'YOU BETTER GO LITTLE MEN. with the menu STAY / LEAVE.",
+        "Choose LEAVE."
+      ],
+      "expect": [
+        "No fight; the party is outside the tower."
+      ],
+      "branches": [
+        "YES: the others pick up their clubs and all four fight the party.",
+        "NO then LEAVE: no fight.",
+        "NO then STAY: 'OH WELL. CAN'T LET HERDREK HAVE ALL FUN.' THEY PICK UP THEIR CLUBS AND ATTACK.",
+        "ATTACK: 4 FIRE GIANT (5136 XP).",
+        "LEAVE at the first menu: AS YOU QUICKLY LEAVE THE ROOM, YOU HEAR ONE OF THE GIANTS SAY, 'AH, US RIGHT. THEM JUST AFRAID TO SAY 'CAUSE KNOW YOU SMASH 'EM.' THE ARGUMENT RESUMES."
+      ],
+      "fights": [],
+      "data": [
+        "Location 2 SE = (10,11).",
+        "The giant's name: HERDREK."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "Clue Book p.49-50",
+        "game text ECL5.DAX block 5 at 0xa4be, 0xa540, 0xa583, 0xa627, 0xa69a, 0xa6d6, 0xa5ae (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] lists three answers (Attack, Yes, No). The game menu has four: YES / NO / ATTACK / LEAVE; the first-menu LEAVE and its text are not in the digest."
+      ],
+      "coveredBy": [],
+      "notes": "This is a safe rest spot per [P]. The digest phrases the question as 'whether frogs and toads are the same thing'; on screen the giant asserts they are not and asks 'ME RIGHT?', so YES agrees with him."
+    },
+    {
+      "id": "acceptance.hedge-maze.frog-giants-fights",
+      "title": "Location 2: the answers that end in a fight",
+      "kind": "optional",
+      "steps": [
+        "At location 2 choose YES. The game prints: AS THE GIANT TURNS IN TRIUMPH TO HIS COMPANIONS, THE OTHERS PICK UP THEIR CLUBS. 'WHAT THEY KNOW? WE KNOCK DUMB LITTLE MEN'S BRAINS OUT!', then 'YOU NO HURT THEM. THEM MY BUDDIES!' THEY ARGUE FOR A LITTLE BIT AND THEN ONE SAYS, 'HEY, WHAT WE FIGHTING FOR? IT'S ALL FAULT OF THEM!' 'YEH!' THEY TURN AND ATTACK YOU.",
+        "On another run choose NO, then STAY. The game prints: 'OH WELL. CAN'T LET HERDREK HAVE ALL FUN.' THEY PICK UP THEIR CLUBS AND ATTACK.",
+        "On another run choose ATTACK."
+      ],
+      "expect": [
+        "Each path ends in a fight with 4 FIRE GIANT; each character gains 5136 XP."
+      ],
+      "branches": [],
+      "fights": [
+        "4 FIRE GIANT, 5136 XP."
+      ],
+      "data": [
+        "YES = fight; NO + STAY = fight; ATTACK = fight."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "game text ECL5.DAX block 5 at 0xa6f3, 0xa761, 0xa7e7, 0xa583 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives the 5136 XP under Attack; the same four giants are assumed for the other two paths. It does not say whether the party or the giants get surprise on any path."
+    },
+    {
+      "id": "acceptance.hedge-maze.frog-giants-hostile-on-sight",
+      "title": "Location 2: the giants attack at once",
+      "kind": "optional",
+      "steps": [
+        "After stealing from the Bane altar enter location 2. The game prints: YOU SEE FOUR GIANTS. 'HEY, THEM THE GUYS WHAT STEAL FROM LORD BANE. GET 'EM!'",
+        "On another run enter with the alarm on and no disguise. The game prints: YOU SEE FOUR GIANTS. 'THEM THE NOT BELONG HERE! GET THEM!"
+      ],
+      "expect": [
+        "The fight starts with no question asked: 4 FIRE GIANT."
+      ],
+      "branches": [],
+      "fights": [
+        "4 FIRE GIANT, 5136 XP."
+      ],
+      "data": [
+        "Immediate attack if the party stole from the altar, or the alarm is on and the party is undisguised."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "game text ECL5.DAX block 5 at 0xa84d, 0xa88e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Alarm on with a disguise, or no alarm without one, gives the frog question."
+    },
+    {
+      "id": "acceptance.hedge-maze.hill-giants-authority",
+      "title": "Location 3: three hill giants and the authority of Tyranthraxus",
+      "kind": "optional",
+      "steps": [
+        "In disguise walk to location 3. The game prints THREE GIANTS STEP UP TO YOU. or YOU SURPRISE THREE GIANTS! The menu reads: THEY HOLD THEIR WEAPONS READY.",
+        "Parley Haughty (repeat with Abusive). The game prints: 'OH, YEAH? WHO SEND YOU?'",
+        "Type TYRANTHRAXUS. The game prints: 'OH, WE SORRY! JUST DOING JOB! PLEASE NO TELL? WE LET YOU... WE STAY AT POST. MAKE SURE NO ONE GO BY!'"
+      ],
+      "expect": [
+        "The party passes with no fight."
+      ],
+      "branches": [
+        "Haughty or Abusive + TYRANTHRAXUS: pass.",
+        "Haughty or Abusive + another name: 'WHO HIM? OH WELL HE NO CAN HELP YOU NOW!' and a fight.",
+        "Other attitudes: the password trap (separate scenario).",
+        "Combat: 3 HILL GIANT."
+      ],
+      "fights": [
+        "3 HILL GIANT; XP not given."
+      ],
+      "data": [
+        "Authority: TYRANTHRAXUS."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "game text ECL5.DAX block 5 at 0x9d57, 0x9d73, 0x9d8b, 0x9e6a, 0x9e9a, 0x9eee (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for location 3 and only the successful path. The wrong-name line is taken from the game text."
+    },
+    {
+      "id": "acceptance.hedge-maze.hill-giants-no-password",
+      "title": "Location 3: there is no password",
+      "kind": "optional",
+      "steps": [
+        "At location 3 Parley with an attitude other than Haughty or Abusive. The game prints: 'ALL RIGHT, THEN. WHAT TODAY'S PASSWORD?'",
+        "Type HARASH. The game prints: 'WRONG! GUESS AGAIN!",
+        "Type any word. The game prints: 'WRONG! THERE IS NO PASSWORD! HA! HA! HA!' THE GIANTS ATTACK."
+      ],
+      "expect": [
+        "A fight with 3 HILL GIANT follows whatever is typed."
+      ],
+      "branches": [],
+      "fights": [
+        "3 HILL GIANT; XP not given."
+      ],
+      "data": [
+        "No password works at this post; only the authority TYRANTHRAXUS with Haughty or Abusive."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "game text ECL5.DAX block 5 at 0x9de6, 0x9e1f, 0x9e35 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "This branch is not in the digest; it is read from the game text block and must be confirmed against the script (which attitudes lead here, and whether HARASH is truly rejected). The digest's silence on Meek + HARASH at this post is consistent with it."
+    },
+    {
+      "id": "acceptance.hedge-maze.false-tyranthraxus-fight",
+      "title": "Location 5: fight the false Tyranthraxus",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 5 at (3,1). The game prints: YOU ENTER A CHAMBER WHICH IS LAVISHLY APPOINTED WITH HANGINGS, CARPETS AND FURNITURE. SITTING ON A THRONE IS A POWERFUL LOOKING MAN CLAD IN BARBARIC SPLENDOR., then 'WHAT IS YOUR BUSINESS WITH TYRANTHRAXUS, LORD OF PHLAN?' and the encounter menu.",
+        "Choose Combat (or Wait). Fight and win. Take the loot."
+      ],
+      "expect": [
+        "Enemy: TYRANITHRAXUS (#92) + 2 6TH LVL THIEF (#93); each character gains 1701 XP.",
+        "Loot: Long Sword +5, Ring of Protection +3, Gauntlets of Ogre Power, 1 jewelry, 8 gems.",
+        "The alarm starts and the disguise is lost."
+      ],
+      "branches": [
+        "Combat or Wait: fight, alarm, disguise lost.",
+        "Flee: alarm.",
+        "Parley Haughty: 'ARROGANT KNAVE FEEL THE POWER OF TYRANTHRAXUS!' then the fight, disguise kept.",
+        "Parley Sly: 'BOY, THIS CROWN IS HEAVY. OH, WELL IT'S A LIVING. WHAT DOES TYRANTHRAXUS WAN... OOPS! GET THEM! then the fight, disguise kept.",
+        "Parley Nice or Meek: 'BEGONE OR FEEL THE WRATH AND POWER OF TYRANTHRAXUS!' DO YOU LEAVE? (separate scenario).",
+        "Parley Abusive: the Party Strength check (separate scenarios)."
+      ],
+      "fights": [
+        "TYRANITHRAXUS [sic] (#92) + 2 6TH LVL THIEF (#93), 1701 XP."
+      ],
+      "data": [
+        "Location 5 = (3,1) (the digest labels it SE).",
+        "Long Sword +5; Ring of Protection +3; Gauntlets of Ogre Power; 1 jewelry; 8 gems.",
+        "Monster name is spelled TYRANITHRAXUS in the game."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "Clue Book p.51-52",
+        "game text ECL5.DAX block 5 at 0xa8cf, 0xa95a, 0xa98a, 0xaae5, 0xab10 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] puts the false Tyranthraxus at Hedge Maze location 5 (ECL 5). Clue Book p.51 lists him under the Inner Tower, Lower Level, location 1: 'This is the throne room of the false human Tyranthraxus and his guards.' His text is in the maze script (ECL5.DAX block 5).",
+        "Clue Book p.51: 'If you choose parlay, you can avoid a fight.' [P]: Haughty and Sly parley lead to combat."
+      ],
+      "coveredBy": [],
+      "notes": "The digest's '5 SE (3,1)' is odd: it labels (3,1) south-east while it labels (5,4) north-west and (10,11) south-east. The Clue Book's placement in the tower's lower level, and the YOU GO UPSTAIRS. string in this block, suggest the coordinate is on the tower's lower-level map handled by this script. A test author must settle the square from the map data. This is a safe rest spot per [P]."
+    },
+    {
+      "id": "acceptance.hedge-maze.false-tyranthraxus-flee-or-leave",
+      "title": "Location 5: fleeing or being dismissed sets off the alarm",
+      "kind": "optional",
+      "steps": [
+        "At location 5 choose Flee.",
+        "On another run Parley Nice (repeat with Meek). The game prints: 'BEGONE OR FEEL THE WRATH AND POWER OF TYRANTHRAXUS!' DO YOU LEAVE?",
+        "Answer YES."
+      ],
+      "expect": [
+        "Flee: the alarm starts.",
+        "Nice or Meek, then leaving: the alarm starts."
+      ],
+      "branches": [
+        "Leave: alarm.",
+        "Do not leave: THEN FEEL MY WRATH! and the fight."
+      ],
+      "fights": [
+        "If the party stays: TYRANITHRAXUS (#92) + 2 6TH LVL THIEF (#93), 1701 XP."
+      ],
+      "data": [
+        "Flee = alarm. Nice/Meek + leave = alarm."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "Clue Book p.51-52",
+        "game text ECL5.DAX block 5 at 0xab5f, 0xab9e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.51: 'If you are Meek or nice, you are given the option to leave.' It does not mention the alarm that [P] says follows."
+      ],
+      "coveredBy": [],
+      "notes": "THEN FEEL MY WRATH! is taken from the game text as the result of answering NO; the digest does not describe that answer or say whether the disguise is lost on these paths."
+    },
+    {
+      "id": "acceptance.hedge-maze.false-tyranthraxus-confesses",
+      "title": "Location 5: Abusive with low Party Strength makes him confess",
+      "kind": "quirk",
+      "steps": [
+        "Arrange the party so that Party Strength plus the speaker's Charisma modifier is below 85 (for example by unequipping gear).",
+        "At location 5 Parley Abusive. The game prints: HE SEEMS TO COLLAPSE. 'ALL RIGHT. I'M NOT TYRANTHRAXUS. HE JUST HIRED ME TO IMPERSONATE HIM. IT'S NOT A BAD LIFE, BUT, HEY! I CAN TELL WHICH WAY THE WIND'S BLOWING.', then 'JUST LET ME GO, OKAY?",
+        "Let him go. The game prints: HE RUNS OUT OF THE HALL. THERE IS TREASURE ALL ABOUT.",
+        "Take the treasure."
+      ],
+      "expect": [
+        "He confesses when PS + Charisma modifier is less than 85.",
+        "Letting him go gives his treasure with no fight.",
+        "No alarm; the disguise is kept."
+      ],
+      "branches": [
+        "Less than 85: confession; let him go for the treasure.",
+        "85 or more: same as Haughty: the fight (separate scenario)."
+      ],
+      "fights": [],
+      "data": [
+        "Threshold 85 on PS + Charisma modifier; below it he confesses.",
+        "Digest §5: 'the false Tyranthraxus Abusive check is inverted.'"
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "[P] digest §5 (Scripting, Hedge Maze)",
+        "[P] digest §4 (Party Strength)",
+        "Clue Book p.51-52",
+        "game text ECL5.DAX block 5 at 0xa9f3, 0xaa76, 0xaa93 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book p.51: 'If you are Abusive, he may give up or fight.' Agrees, without the threshold."
+      ],
+      "coveredBy": [],
+      "notes": "[P] notes the logic is backwards: the weaker party frightens him. A faithful port keeps the inversion. The digest does not define 'Charisma modifier' here, say whose Charisma is used, list what 'his treasure' holds on this path (the fight loot is assumed), or say what refusing to let him go does."
+    },
+    {
+      "id": "acceptance.hedge-maze.false-tyranthraxus-abusive-strong",
+      "title": "Location 5: Abusive with high Party Strength gets a fight",
+      "kind": "quirk",
+      "steps": [
+        "Arrange the party so that Party Strength plus the Charisma modifier is 85 or more.",
+        "At location 5 Parley Abusive. The game prints: 'ARROGANT KNAVE FEEL THE POWER OF TYRANTHRAXUS!'",
+        "Fight and win."
+      ],
+      "expect": [
+        "The result is the same as Haughty: combat with TYRANITHRAXUS (#92) + 2 6TH LVL THIEF (#93), and the disguise is kept."
+      ],
+      "branches": [],
+      "fights": [
+        "TYRANITHRAXUS (#92) + 2 6TH LVL THIEF (#93), 1701 XP."
+      ],
+      "data": [
+        "85 or more: same as Haughty."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "[P] digest §5 (Scripting, Hedge Maze)",
+        "game text ECL5.DAX block 5 at 0xaae5 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Test both sides of the boundary: 84 confesses, 85 fights. The digest says Haughty and Sly combat does not lose the disguise; whether the alarm starts on these paths is not stated."
+    },
+    {
+      "id": "acceptance.hedge-maze.troll-tower",
+      "title": "Location 6: eight trolls",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 6 in the NE at (10,4). The game prints: YOU HAVE ENTERED THE REMAINS OF A TOWER. The encounter menu reads YOU SEE A PACK OF TROLLS. or YOU SEE A PACK OF TROLLS. THEY SEEM UNAWARE OF YOU.",
+        "Fight and win, finishing each troll with fire or acid.",
+        "On another run choose Flee."
+      ],
+      "expect": [
+        "Enemy: 8 TROLL; each character gains 1084 XP.",
+        "Flee avoids the fight."
+      ],
+      "branches": [
+        "Flee: no fight.",
+        "Anything else: 8 TROLL."
+      ],
+      "fights": [
+        "8 TROLL, 1084 XP."
+      ],
+      "data": [
+        "Location 6 NE = (10,4).",
+        "Digest §5: trolls stay down only if all damage dealt to them was fire or acid; they start regenerating 3 minutes after damage."
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "[P] digest §5 (Adaptational)",
+        "game text ECL5.DAX block 5 at 0x9f3b, 0x9f71, 0x9fb4, 0xa013 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The block also has A PACK OF TROLLS CHARGE FROM WHERE THEY WERE HIDING. (0xa013); the digest does not say when (perhaps after a flee or on return). The digest does not list any treasure here."
+    },
+    {
+      "id": "acceptance.hedge-maze.unlisted-location-4-and-exits",
+      "title": "Entrances, the tower door and the unlisted location 4",
+      "kind": "main",
+      "steps": [
+        "From inside the maze walk to a gate square. The game shows: A DEEP VOICE CALLS DOWN, 'WHAT IS THE PASSWORD?' with GIVE THE PASSWORD / FORCE THE GATE OPEN.",
+        "Give RHODIA. The game prints: 'ALL RIGHT, THEN. PASS!' AND WITH THAT THE GATES SWING OPEN AND YOU PASS THROUGH THE GATE.",
+        "Walk to the Inner Tower entrance and enter."
+      ],
+      "expect": [
+        "The gate lets the party through to the castle quadrant.",
+        "Entering the tower places the party in the Inner Tower (ECL 7) at its exit E1."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Inner Tower E1 leads to the Hedge Maze (digest §3.23).",
+        "Gate lines in this block: 'HEY, THAT'S THEM GUYS WHO TRIED TO BUST IN!'; 'THIEF! YOU STOLE FROM LORD BANE!'; A VOLLEY OF BOULDERS ARE THROWN AT YOU...; 'HAH! HAH! YOU'RE DUMB! THAT'S NOT THE PASSWORD!'"
+      ],
+      "sources": [
+        "[P] digest §3.22",
+        "[P] digest §3.21 (E6)",
+        "[P] digest §3.23",
+        "game text ECL5.DAX block 5 at 0xa098, 0xa0f0, 0xa12a, 0xa16a, 0xa19c, 0xa1ca, 0xa21c (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [
+        "verifyCampaignTower (tools/verify-fresh-party.mjs)"
+      ],
+      "notes": "The digest's §3.22 lists locations 1, 2, 3, 5 and 6 and no location 4, gives no coordinates for the two gates or the tower door, and does not say whether the gate challenges a party leaving the maze. The gate rules (wrong password, forcing, boulders 12 attacks THAC0 12 2d6) are in §3.21 under E6 and are specified in acceptance.valjevo-castle. The replay enters by the gate with rhodia and reaches the tower stairs."
+    }
+  ]
+}

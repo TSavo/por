@@ -1,0 +1,907 @@
+{
+  "schema": 1,
+  "id": "acceptance.kobold-caves",
+  "title": "Kobold Caves",
+  "guideSection": "3.14",
+  "scripts": [
+    "ECL 13"
+  ],
+  "commission": "Commission #9",
+  "prerequisites": [
+    "The party can reach the wilderness map and fixed point l, global wilderness (32,15) (digest §3.11).",
+    "Commission #9 (Kobolds) need not have been offered to clear the area and be paid (digest §3.0).",
+    "The digest states no party level. The throne room is three consecutive fights with no rest, the first with 4 TROLL, 35 KOBOLD and 11 KOBOLD LEADER.",
+    "For the efreeti-bottle side quest: the silver dragon Diogenes at wilderness point k (10,9) asks for the bottle; visiting him first is optional.",
+    "For trap scenarios: a thief with Find/Remove Traps, or a caster with Detect Traps, unless the scenario says otherwise."
+  ],
+  "scenarios": [
+    {
+      "id": "acceptance.kobold-caves.approach-fight",
+      "title": "Fight the kobold horde at the cave mouth",
+      "kind": "main",
+      "steps": [
+        "On the wilderness map walk onto (32,15) while the caves are not yet cleared. The game prints \"A SCREAMING HORDE OF KOBOLDS ATTACKS THE PARTY.\".",
+        "Combat: 25 KOBOLD + 5 KOBOLD LEADER, Morale 50. Win it.",
+        "Leave (32,15) and walk onto it again before clearing the caves."
+      ],
+      "expect": [
+        "The same 25 KOBOLD + 5 KOBOLD LEADER fight occurs on every approach until the caves are cleared.",
+        "After the area is cleared (scenario king-dead-area-cleared) an approach produces no horde fight."
+      ],
+      "branches": [],
+      "fights": [
+        "25 KOBOLD + 5 KOBOLD LEADER, Morale 50; XP not given."
+      ],
+      "data": [
+        "Wilderness point l = (32,15) in [P]'s global coordinates; Clue Book 'Kobold Caves 6,15' in East-region coordinates (add 26 to X, digest §7 item 37)."
+      ],
+      "sources": [
+        "[P] §3.11 fixed point l",
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "digest §7 item 37",
+        "game text ECL8.DAX block 27 at 0x9c29 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: 'Every approach before they are cleared: 25 KOBOLD + 5 KOBOLD LEADER'; Clue Book: 'they may be attacked by a kobold patrol' (may, not always)."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no XP for this fight."
+    },
+    {
+      "id": "acceptance.kobold-caves.choose-entrance",
+      "title": "Choose the Large or the Small cave",
+      "kind": "main",
+      "steps": [
+        "After the approach fight the game prints one of \"YOU FIND TWO CAVES; A SMALL, WELL-HIDDEN CAVE AND A LARGER, MORE OBVIOUS CAVE. WHAT CAVE WILL YOU ENTER?\" or \"YOU SEE A SMALL GROUP OF KOBOLDS ENTERING A SMALL, CONCEALED CAVE. A LARGER, MORE NOTICEABLE CAVE LIES JUST EAST OF THE SMALL HIDDEN, CAVE. WHAT CAVE WILL YOU ENTER?\" with the menu LARGE / SMALL / EXIT.",
+        "Case 1: choose LARGE.",
+        "Case 2: choose SMALL.",
+        "Case 3: choose EXIT."
+      ],
+      "expect": [
+        "Case 1: the party is on the Kobold Caves map at (10,0).",
+        "Case 2: the party is on the Kobold Caves map at (6,0).",
+        "Case 3: the party stays on the wilderness map."
+      ],
+      "branches": [
+        "LARGE: wyvern lair side; the drunken kobold at 6 (12,9) can be met only on this route.",
+        "SMALL: kobold warren side; pit trap at location 1 (6,13) lies on this route."
+      ],
+      "fights": [],
+      "data": [
+        "Large entrance -> (10,0). Small entrance -> (6,0)."
+      ],
+      "sources": [
+        "[P] §3.11 fixed point l",
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "digest §7 item 25",
+        "game text ECL8.DAX block 27 at 0x9c89, 0x9d03, 0x9d85 (src/audio/voice-master-manifest.json)",
+        "game text ECL8.DAX block 13 at 0x99c1 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Recommended entrance: [P] Large ('it avoids the trap at location 1'); [GB] and [SP] Small (digest §7 item 25).",
+        "Clue Book: 'The small cave is the entrance to the cavern where the kobolds live. The large cave leads to a wyvern lair adjacent to the kobold caves.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say which of the two prompt texts prints when. The arrival squares (10,0) and (6,0) are from the digest's wilderness table; the in-cave locations listed for the two routes have y between 9 and 14, so check the arrival squares against the map data before relying on them. Leaving the caves prompts \"DO YOU WANT TO LEAVE?\" (YES / NO)."
+    },
+    {
+      "id": "acceptance.kobold-caves.cave-combat-penalties",
+      "title": "Combat penalties in fights against only kobolds",
+      "kind": "rule",
+      "steps": [
+        "Inside the caves start any fight whose enemies are only KOBOLD and KOBOLD LEADER (for example the random encounter).",
+        "Read a party member's THAC0 and movement in combat and compare with the values outside the caves.",
+        "Start a fight that includes another monster type (for example throne wave 1 with TROLL) and read the same values."
+      ],
+      "expect": [
+        "Kobold-only fight: each party member has -2 THAC0 and -2 movement, and the kobolds have +2 to hit.",
+        "Mixed fight: the penalties do not apply (the digest limits them to 'fights against only kobolds and kobold leaders')."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "-2 THAC0, -2 movement for the party; +2 to hit for kobolds."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30"
+      ],
+      "disagreements": [
+        "[P]: '-2 THAC0 and -2 movement, and the kobolds get +2 to hit'; Clue Book: combat in the low caves 'reduces character's Movement, AC, and Damage'."
+      ],
+      "coveredBy": [],
+      "notes": "The second expectation is an inference from the digest's wording 'only kobolds and kobold leaders'; the digest does not separately state that mixed fights are unpenalised."
+    },
+    {
+      "id": "acceptance.kobold-caves.traps-rule",
+      "title": "Finding and bypassing traps",
+      "kind": "rule",
+      "steps": [
+        "Case 1: walk onto a trap square (1, 4 or 5) while a kobold is escorting the party (truce kobold or drunken kobold).",
+        "Case 2: with search mode on and a thief in the party, walk onto a trap square. On a successful Find/Remove Traps roll the game prints \"YOU FIND A TRAP, BUT THE TUNNEL IS TOO NARROW TO AVOID IT.\" with DISARM IT / GO ON / LEAVE. Choose DISARM IT.",
+        "Case 3: with Detect Traps active walk onto a trap square.",
+        "Case 4: with search mode off, no Detect Traps and no escort, walk onto a trap square."
+      ],
+      "expect": [
+        "Case 1: the trap is bypassed automatically; no damage, no trap text.",
+        "Case 2: a second thief roll decides the disarm. Success prints the matching line: \"YOU DISARM A DEADFALL TRAP.\", \"YOU DISARM A NET TRAP.\" or \"YOU DISARM A SPIKE TRAP.\"; for the pit, \"YOU CROSS OVER A PIT.\".",
+        "Case 3: the trap is found without a thief roll.",
+        "Case 4: the trap goes off (see the trap scenarios)."
+      ],
+      "branches": [
+        "GO ON: walk into the found trap.",
+        "LEAVE: step back."
+      ],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "game text ECL8.DAX block 13 at 0xae1a, 0xae4d, 0x9d5c, 0x9e1f, 0x9e86, 0x9b04 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book: traps are found 'by moving in search mode' and 'a thief (wearing no armor heavier than leather) has a chance to disarm them'; [P] says found 'with Detect Traps, or in search mode with a thief's Find/Remove Traps roll, then bypassed with another roll' and does not mention the armor condition."
+      ],
+      "coveredBy": [],
+      "notes": "With fixed dice a runner can force each roll. The digest does not give the pairing of 'YOU CROSS OVER A PIT' with a disarm; it is the only pit-bypass line in the block."
+    },
+    {
+      "id": "acceptance.kobold-caves.random-encounters",
+      "title": "Random encounter odds",
+      "kind": "rule",
+      "steps": [
+        "Walk the cave corridors in search mode before the throne fight; count steps and encounters.",
+        "Repeat with search mode off.",
+        "Repeat after the throne fight at 9."
+      ],
+      "expect": [
+        "Chance per check is 1 in X with X = 21 in search mode, 61 with search mode off, 121 in search mode after the throne fight, 161 with search off after the throne fight.",
+        "Each encounter is 15 KOBOLD + 3 KOBOLD LEADER, Morale 30. Script text for the event: \"KOBOLDS SEEM TO BOIL UP FROM NOWHERE.\"."
+      ],
+      "branches": [],
+      "fights": [
+        "15 KOBOLD + 3 KOBOLD LEADER, Morale 30."
+      ],
+      "data": [
+        "X = 21, +40 if not in search mode, +100 after the throne fight at 9."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 13 at 0xb3d1 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: '1 in X, where X = 21, +40 if not in search mode, +100 after the throne fight at 9.' The digest does not say whether the check is per step or per time unit, nor whether encounters stop after the area is cleared. With fixed dice a runner can assert the die size used for the roll."
+    },
+    {
+      "id": "acceptance.kobold-caves.resting",
+      "title": "Resting rules",
+      "kind": "rule",
+      "steps": [
+        "Case 1: enter by the Large cave and rest in the large cavern before fighting the wyvern.",
+        "Case 2: after the wyvern fight and before the throne waves are beaten, try to rest.",
+        "Case 3: after beating all three throne waves, rest for 8 hours."
+      ],
+      "expect": [
+        "Case 1: rest is allowed.",
+        "Case 2: rest is not allowed.",
+        "Case 3: rest is allowed; each 8 hours carries a 5% chance of \"KOBOLDS APPEAR AND BOMBARD YOU WITH ROCKS.\": 7 rock attacks at THAC0 10 for 1d4+1 each."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Rock attack: 7 attacks, THAC0 10, 1d4+1; 5% per 8 hours."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "game text ECL8.DAX block 13 at 0xb467 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Clue Book: 'After fighting the waves of Kobolds in the throne room, you can rest long enough to memorize spells' and 'If you enter the large cave, you can rest before you fight the wyvern'; [P] adds the 5% rock attack and limits pre-wyvern rest to the large cavern."
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say what the game shows when rest is refused in case 2, or whether the Small-cave side can ever be rested in before the throne fight."
+    },
+    {
+      "id": "acceptance.kobold-caves.flee-squares",
+      "title": "Where a fleeing party ends up",
+      "kind": "rule",
+      "steps": [
+        "Flee a combat inside the caves with the whole party and read the party's position."
+      ],
+      "expect": [
+        "The party is on one of the digest's flee squares: (0,12), (6,12), (1,14), (9,11), (7,10) or (6,11).",
+        "Script text for an escape: \"THE KOBOLDS CHASE FOR A WHILE, BUT YOU ESCAPE.\"."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Flee squares: (0,12), (6,12), (1,14), (9,11), (7,10), (6,11)."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 13 at 0xb34a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest lists six squares under 'Fleeing' without saying which fight sends the party to which square. A test can assert membership in the set only."
+    },
+    {
+      "id": "acceptance.kobold-caves.wyvern-climb",
+      "title": "Climb the slope and fight the wyvern (locations 16 and 17)",
+      "kind": "main",
+      "steps": [
+        "Enter by the Large cave and walk to location 16 (13,9). The game prints \"THERE IS A STEEP RUBBLED SLOPE. WILL YOU GO UP?\" with YES / NO.",
+        "Choose YES while the wyvern is alive. The game prints \"YOU DISLODGE A NUMBER OF ROCKS.\" and \"THE NOISE HAS DISTURBED SOMETHING. WITH A BEATING OF WINGS, A HUGE BEAST LANDS UPON YOU.\".",
+        "Combat: 1 WYVERN, Morale 100; the party is surprised. Win it."
+      ],
+      "expect": [
+        "Each character gains 224 XP.",
+        "The wyvern does not appear again; climbing at 16 afterwards gives no surprise attack.",
+        "After this fight, resting in the large cavern is no longer allowed until the throne waves are beaten (scenario resting)."
+      ],
+      "branches": [
+        "Reaching the wyvern's own square (location 17) without the climb ambush: \"BEFORE YOU LIES A HUGE WYVERN. IT RISES UP AND CHARGES.\" and the same fight without surprise."
+      ],
+      "fights": [
+        "Location 17: 1 WYVERN, Morale 100, 224 XP. At 16 it surprises the party if still alive."
+      ],
+      "data": [
+        "16 = (13,9). The digest gives no coordinates for 17."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "Location numbers: the Clue Book numbers this map differently from [P]: Clue Book 7 = 'You may meet the wyvern while you wander here'.",
+        "game text ECL8.DAX block 13 at 0xa998, 0xa9ed, 0xaa17, 0xaaa0, 0xa952 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P] fixes the ambush at the climb (16) and the wyvern at 17; the Clue Book says only 'You may meet the wyvern while you wander here' (its location 7)."
+      ],
+      "coveredBy": [],
+      "notes": "The opposite direction prints \"YOU TUMBLE DOWN A STEEP, LOOSE SLOPE, MAKING A LOUD CLATTER.\". The digest does not say whether descending also triggers the wyvern."
+    },
+    {
+      "id": "acceptance.kobold-caves.wyvern-nest-treasure",
+      "title": "Loot the wyvern's nest (location 26)",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 26 (14,6). The game prints \"AMONGST A NEST OF LOGS YOU FIND SOME TREASURE.\".",
+        "Take everything."
+      ],
+      "expect": [
+        "The treasure is 2 jewelry, 2 gems, 1000 gold, 500 electrum, 1000 silver and 2 random magic items.",
+        "Each character gains between 1166 and 1833 XP, depending on the two random items.",
+        "A second visit finds nothing."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "26 = (14,6). 2 jewelry, 2 gems, 1000 gold, 500 electrum, 1000 silver, 2 random magic items (1166-1833 XP)."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "Location numbers: the Clue Book numbers this map differently from [P]: Clue Book 8 = 'The wyvern's nest, with its treasure'.",
+        "digest §7 item 26",
+        "game text ECL8.DAX block 13 at 0xad13 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: '2 random magic items'; [GB]: 'military fork +1 and a short sword +1' (one random outcome; digest §7 item 26)."
+      ],
+      "coveredBy": [],
+      "notes": "The two magic items are random; with fixed dice the item roll is reproducible. 'A second visit finds nothing' is implied by a one-time treasure; the digest does not state it."
+    },
+    {
+      "id": "acceptance.kobold-caves.drunken-kobold-escort",
+      "title": "Wake the drunken kobold and be led to the king",
+      "kind": "main",
+      "steps": [
+        "Having entered by the Large cave, walk to location 6 (12,9). The game prints \"A DRUNKEN KOBOLD LIES HERE.\" with SLIP PAST / WAKE IT / KILL IT.",
+        "Choose WAKE IT. The game prints \"HE LOOKS CONFUSED,'OH, THE ENVOYS. DO YOU WISH AN ESCORT TO THE KING?'\" with YES / NO / KILL IT.",
+        "Choose YES. The game prints \"'THEN FOLLOW ME.'\".",
+        "Follow the kobold. Traps on the way are bypassed automatically.",
+        "At location 6a (7,5) the game prints \"THE KOBOLD CALLS OUT,'THE ENVOYS ARE HERE, GREAT KING.' AN AGED VOICE REPLIES 'SEND THEM FORWARD.' YOUR GUIDE, HOWEVER, HAS FALLEN INTO A STUPOR.\"."
+      ],
+      "expect": [
+        "The party is at (7,5), outside the throne room, with no fight on the way.",
+        "The party enters the throne room as 'guests of the king' (digest); the throne scene follows (scenario throne-room-three-waves)."
+      ],
+      "branches": [
+        "SLIP PAST: \"YOU SLIP BY WITH EASE.\"; the kobold stays asleep.",
+        "KILL IT (either menu): \"THE KOBOLD DIES.\".",
+        "NO at the escort offer: \"THE KOBOLD PROMPTLY RETURNS TO SLEEP.\"."
+      ],
+      "fights": [],
+      "data": [
+        "6 = (12,9), reachable only from the Large entrance. 6a = (7,5)."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "Location numbers: the Clue Book numbers this map differently from [P]: Clue Book 6 = 'If you enter from the wyvern cave, you meet a drunken kobold who will take you to the king'.",
+        "game text ECL8.DAX block 13 at 0x9eb6, 0x9ed2, 0x9f15, 0x9f51, 0x9f77, 0xb16b, 0x9f00, 0x9fb1, 0x9f91 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says the kobold is at 6 on the 'Large-entrance route only'; it does not say what a Small-entrance party sees at (12,9). Being 'guests' does not prevent the throne fight: the envoys denounce the party there."
+    },
+    {
+      "id": "acceptance.kobold-caves.truce-kobold-agree",
+      "title": "Accept the truce kobold's offer (location 3)",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 3 (8,12). The game prints \"A KOBOLD APPROACHES WAVING A WHITE FLAG.\" and \"THE KOBOLD BOWS AND SAYS,'YOU ARE QUITE DANGEROUS, WE WILL PAY FOR A TRUCE.'\" with AGREE / REFUSE / KILL IT.",
+        "Choose AGREE. The game prints \"'I AM TO ESCORT YOU TO OUR TREASURE.'\" with FOLLOW / REFUSE / KILL IT.",
+        "Choose FOLLOW. On the way the game prints \"THE KOBOLD PAUSES, IDLY TAPS THE WALL, THEN PROCEEDS.\" and \"A BOULDER BLOCKS OFF THE PASSAGE. USING A LEVER, THE KOBOLD DISLODGES IT AND PROCEEDS. DO YOU?\" (YES / NO). Choose YES.",
+        "The game prints \"YOU CLAMBER NOISILY DOWN A SLOPE OF RUBBLE.\", \"AT THE BOTTOM THE KOBOLD DIVES BENEATH SOME RUBBLE.\" and \"'JUST AROUND THE CORNER IS OUR TREASURE. TAKE WHAT YOU WISH AND LEAVE US. GOOD DAY.'\" with LET IT GO / KILL IT."
+      ],
+      "expect": [
+        "Traps passed while escorted do not go off.",
+        "The party ends at the destination the escort leads to; record the square (see disagreements)."
+      ],
+      "branches": [
+        "NO at the boulder: \"THE KOBOLD DISAPPEARS BEYOND THE BOULDER.\".",
+        "REFUSE at either menu: scenario truce-kobold-refuse."
+      ],
+      "fights": [],
+      "data": [
+        "3 = (8,12)."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "digest §7 item 24",
+        "game text ECL8.DAX block 13 at 0x9b90, 0x9bb5, 0x9bf5, 0x9c1f, 0x9c42, 0xaf93, 0xafc3, 0xb04b, 0xb07b, 0xb0b0, 0xb0f6, 0xb028 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "Destination: [P] 'Agree -> led to 6' (the drunken kobold's square, (12,9)); [GB]/[CB] 'he leads you to the wyvern cave' (digest §7 item 24).",
+        "The game text has the kobold lead the party noisily down a rubble slope and then dive under rubble, saying the treasure is 'JUST AROUND THE CORNER', which matches the Clue Book's wyvern-cave reading (the wyvern is woken by noise on the slope at 16)."
+      ],
+      "coveredBy": [],
+      "notes": "Location 6 (12,9) and the climb at 16 (13,9) are adjacent, so the two sources may describe the same end point. Assert the end square from the script, not from either guide."
+    },
+    {
+      "id": "acceptance.kobold-caves.truce-kobold-refuse",
+      "title": "Refuse the truce: deadfall and ambush",
+      "kind": "optional",
+      "steps": [
+        "At location 3 (8,12) choose REFUSE. The game prints \"THE KOBOLD RETREATS, THEN STRIKES THE WALL.\", \"THE ROOF COLLAPSES.\" and \"BEFORE YOU RECOVER, KOBOLDS ARRIVE.\".",
+        "Each character saves vs petrification.",
+        "Combat: 20 KOBOLD, Morale 25; the party is surprised."
+      ],
+      "expect": [
+        "Every character who fails the save takes 2d6 damage; those who save take none.",
+        "The fight is 20 KOBOLD at Morale 25 with the party surprised."
+      ],
+      "branches": [
+        "KILL IT: the game prints \"THE KOBOLD CRIES OUT, 'I'LL NOT GO ALONE!'\"; the digest does not describe this option separately."
+      ],
+      "fights": [
+        "20 KOBOLD, Morale 25, party surprised; XP not given."
+      ],
+      "data": [
+        "Deadfall: 2d6, save vs petrification negates."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "game text ECL8.DAX block 13 at 0x9c70, 0x9ce1, 0x9d05, 0x9c9f, 0x9d7b (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book: 'If you don't follow him, you are hit with a dead fall trap.' The digest covers only Agree and Refuse; the KILL IT outcome (the deadfall, by the text) is not confirmed. The static description of the square is \"TIMBERS LINE THE WALLS HERE. A BOULDER BLOCKS THE FAR END.\"."
+    },
+    {
+      "id": "acceptance.kobold-caves.pit-trap",
+      "title": "Fall into the water pit (location 1)",
+      "kind": "optional",
+      "steps": [
+        "Enter by the Small cave and walk onto location 1 (6,13) with search mode off and no escort.",
+        "The game prints \"<character name> FALLS INTO A POOL OF WATER.\" and \"SOME ITEMS WERE LOST RECOVERING <character name>\".",
+        "Compare the party's money and inventories before and after."
+      ],
+      "expect": [
+        "One character falls in.",
+        "The party loses 20% of its money and 20% of its light items."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "1 = (6,13). Loss: 20% of money and light items."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "digest §5 Other documented quirks: 'Item theft comes only from tavern pickpockets, the Kobold Caves, bribes and surrenders.'",
+        "game text ECL8.DAX block 13 at 0x9abb, 0x9ad7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest does not define 'light items' here or say how the falling character is chosen. Per digest §5 the item-loss opcode (ECL 28, ROB) 'handles the item chance incorrectly during iteration'; a faithful port keeps that behaviour, so assert the money loss exactly and record the item loss."
+    },
+    {
+      "id": "acceptance.kobold-caves.mine-tailings-entry-42",
+      "title": "Search the tailings for Journal Entry 42 (location 2)",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 2 (6,11) and search.",
+        "The game prints \"YOU FIND A PILE OF MINE TAILINGS.\", \"IN IT IS A KOBOLD'S CRUDE DRAWING.\" and \"YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY 42.\"."
+      ],
+      "expect": [
+        "The text names Journal Entry 42 (sketch of kobold caves and beast lair, Adventurer's Journal p.27)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "2 = (6,11). Journal Entry 42, p.27."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "Adventurer's Journal p.27 (entry 42)",
+        "game text ECL8.DAX block 13 at 0x9b26, 0x9b50, 0xb512, 0x9b71 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: 'search the tailings'; Clue Book location 2: 'Here you find a discarded map showing the connection between the kobold cave and the wyvern cave' (no search mentioned)."
+      ],
+      "coveredBy": [],
+      "notes": ""
+    },
+    {
+      "id": "acceptance.kobold-caves.net-trap",
+      "title": "Net trap and ambush (location 4)",
+      "kind": "optional",
+      "steps": [
+        "Walk onto location 4 (10,9) with the trap unfound. The game prints \"A NET ENTANGLES YOU.\".",
+        "Combat: 20 KOBOLD; the party is surprised."
+      ],
+      "expect": [
+        "The fight starts with the party surprised by 20 KOBOLD."
+      ],
+      "branches": [],
+      "fights": [
+        "20 KOBOLD, party surprised; morale and XP not given."
+      ],
+      "data": [
+        "4 = (10,9)."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "game text ECL8.DAX block 13 at 0x9dd4 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Digest: 'net trap -> 20 KOBOLD surprise you.' Morale is not given for this fight (location 3's ambush is Morale 25)."
+    },
+    {
+      "id": "acceptance.kobold-caves.spike-trap",
+      "title": "Spike trap (location 5)",
+      "kind": "optional",
+      "steps": [
+        "Walk onto location 5 (11,9) with the trap unfound. The game prints \"SPIKES SPRING OUT AND IMPALE YOU.\".",
+        "One character saves vs death."
+      ],
+      "expect": [
+        "One character takes 2d4 damage unless the save vs death succeeds."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "5 = (11,9). 2d4 to one character, save vs death."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "game text ECL8.DAX block 13 at 0x9e57 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "[P]: '2d4 to one character'; Clue Book: 'A Spike Trap hits the party.'"
+      ],
+      "coveredBy": [],
+      "notes": "The digest does not say how the victim is chosen."
+    },
+    {
+      "id": "acceptance.kobold-caves.throne-room-three-waves",
+      "title": "Beat the three throne-room waves (location 9)",
+      "kind": "main",
+      "steps": [
+        "Enter the throne room at location 9. The game prints \"BEFORE YOU IS A HORDE OF KOBOLDS. BEHIND THEM ARE TWO MEN AND AN ANCIENT KOBOLD ON A WOODEN THRONE.\" and \"ONE SAYS,'THESE MEN ARE ENEMIES. DEFEAT THEM AND MY LORD SHALL BE MOST GENEROUS.' THE KING LOOKS AT HIM, AND THEN AT YOU. HE SMILES AND SCREAMS, 'KILL THEM!'\".",
+        "Wave 1: 4 TROLL, 35 KOBOLD, 11 KOBOLD LEADER, Morale 70. Win it.",
+        "Ballista volley: \"THE KING, FROTHING AT THE MOUTH, CRIES, 'USE THE SECRET WEAPONS.' BALLISTA APPEAR AND FIRE.\"; 7 attacks at THAC0 3 for 2d6 each.",
+        "Wave 2: 5 WILD BOAR, 45 KOBOLD, 8 KOBOLD LEADER, Morale 60. Win it.",
+        "Ballista volley again, then \"THE MEN SNEER AT THE KING AND ONE SAYS,'LET US SHOW YOU HOW WARRIORS FIGHT.'\".",
+        "Wave 3: 2 ENVOY (#87), 2 TROLL, 2 WILD BOAR, 8 KOBOLD, Morale 100. Win it.",
+        "The game prints \"THE KING HAS ESCAPED DURING THE FIGHT.\"."
+      ],
+      "expect": [
+        "XP per character: 618 for wave 1, 212 for wave 2, 767 for wave 3.",
+        "Each Envoy drops a Two-Handed Sword +2 (two in total).",
+        "No rest is possible between waves; the party's HP and spells carry from one wave to the next.",
+        "The king is gone from the throne room; random encounters drop to 1 in (X + 100) and resting becomes possible (scenarios random-encounters, resting)."
+      ],
+      "branches": [
+        "Between waves the king offers surrender: scenario throne-room-surrender.",
+        "Fleeing and returning: the script has \"THE TWO ENVOYS WAIT AT THE THRONE. THEY SMILE. 'A REMATCH THEN. PREPARE FOR DEATH.'\"; the digest does not describe it."
+      ],
+      "fights": [
+        "Wave 1: 4 TROLL, 35 KOBOLD, 11 KOBOLD LEADER, Morale 70, 618 XP.",
+        "Wave 2: 5 WILD BOAR, 45 KOBOLD, 8 KOBOLD LEADER, Morale 60, 212 XP.",
+        "Wave 3: 2 ENVOY (#87), 2 TROLL, 2 WILD BOAR, 8 KOBOLD, Morale 100, 767 XP.",
+        "Ballista between waves: 7 attacks, THAC0 3, 2d6."
+      ],
+      "data": [
+        "Two-Handed Sword +2 on each ENVOY (#87)."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "Location numbers: the Clue Book numbers this map differently from [P]: Clue Book 11 = throne room.",
+        "game text ECL8.DAX block 13 at 0xa02c, 0xa07f, 0xa15c, 0xa1f0, 0xa2bb, 0xa230, 0x9fd4, 0xa2f7 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for 9. On approach the script prints \"YOU HEAR THE VOICES OF HUMANS AND KOBOLDS.\" and has \"KOBOLDS BLOCK ALL THE EXITS.\". Clue Book tip: 'Continue Combat' for a round or two at the end of a wave to cast healing. The cave penalties do not apply to these mixed waves if the rule is read literally."
+    },
+    {
+      "id": "acceptance.kobold-caves.throne-room-surrender",
+      "title": "Surrender in the throne room",
+      "kind": "optional",
+      "steps": [
+        "After a wave the game prints \"THE KING CALLS OUT,'YOU SEEM VALUABLE. SURRENDER OR DIE.'\" or, after a ballista volley, \"THE BALLISTA ARE RELOADED. THE KING CALLS OUT,'DEATH OR IMPRISONMENT.'\", each with SURRENDER / FIGHT.",
+        "Choose SURRENDER. The game prints \"THE KOBOLDS HERD YOU TOWARD YOUR PRISON. SOME NAB BITS OF YOUR EQUIPMENT AND LEAVE.\" and \"YOU ARE THROWN INTO A CELL BEREFT OF EQUIPMENT.\"."
+      ],
+      "expect": [
+        "The party loses equipment (digest §5: item theft occurs in the Kobold Caves and in surrenders).",
+        "The party is placed in a prison cell.",
+        "Choosing FIGHT instead starts the next wave."
+      ],
+      "branches": [
+        "SURRENDER: imprisonment and item loss.",
+        "FIGHT: next wave."
+      ],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "digest §5 Other documented quirks (item theft sources)",
+        "Clue Book p.29-30",
+        "game text ECL8.DAX block 13 at 0xa310, 0xa363, 0xa342, 0xb1f2, 0xb4ae, 0xb294 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The digest's §3.14 does not mention the surrender offers at all; they exist in the game text."
+      ],
+      "coveredBy": [],
+      "notes": "Grounded in the game text and one line of digest §5 only. Which items are taken, which cell the party lands in (location 15 (0,0) is Fatima's cell) and how the party gets out are not in any source read. The line \"A WOMAN APPEARS BEFORE YOU.'I AM THE PRINCESS FATIMA, AID ME IN THIS BATTLE.'\" suggests Fatima can intervene; do not assert it without reading the script."
+    },
+    {
+      "id": "acceptance.kobold-caves.kings-guards",
+      "title": "Defeat the king's guards (location 20)",
+      "kind": "main",
+      "steps": [
+        "After the throne waves, find the secret door (\"YOU FIND A SECRET DOOR IN THE NORTH WALL.\") and walk to location 20. The game prints \"YOU REACH THE KING'S QUARTERS AND CONFRONT HIS GUARDS.\".",
+        "Combat: 3 TROLL, 3 WILD BOAR, 20 KOBOLD, 4 KOBOLD LEADER, Morale 100. Win it."
+      ],
+      "expect": [
+        "Each character gains 522 XP."
+      ],
+      "branches": [],
+      "fights": [
+        "Location 20: '3 TROLL (#1) [sic]', 3 WILD BOAR, 20 KOBOLD, 4 KOBOLD LEADER, Morale 100, 522 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "Location numbers: the Clue Book numbers this map differently from [P]: Clue Book 12 = 'You will battle the king's guard in this room'.",
+        "game text ECL8.DAX block 13 at 0xa431, 0xa463 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest marks the troll's monster id '#1' with [sic]: [P] prints an id that looks wrong for a troll (the Slums table uses TROLL (#31)). Assert the name TROLL and count 3; read the id from the script. The link between the secret-door line and location 20 is an inference; the digest gives no coordinates for 20."
+    },
+    {
+      "id": "acceptance.kobold-caves.king-dead-area-cleared",
+      "title": "Find the dead king; the area is cleared (location 11)",
+      "kind": "main",
+      "steps": [
+        "Walk to location 11 (10,1). The game prints \"THE KING, PANICKED, HAS FALLEN INTO HIS OWN SPIKED PIT AND DIED.\"."
+      ],
+      "expect": [
+        "The Kobold Caves are flagged cleared.",
+        "On the wilderness map, approaching (32,15) no longer triggers the 25 KOBOLD + 5 KOBOLD LEADER fight.",
+        "Commission #9 can be collected (scenario commission-9-reward)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "11 = (10,1). Clear condition: 'visit location 11'."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "Location numbers: the Clue Book numbers this map differently from [P]: Clue Book 13 = 'Here you discover the fate of the kobold king'.",
+        "game text ECL8.DAX block 13 at 0xa4c9 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest states the clear condition as visiting location 11 and nothing else. It does not say whether the square shows the king's body if the throne waves were never fought; a test for that order should record what the script does."
+    },
+    {
+      "id": "acceptance.kobold-caves.kobold-treasure-trove",
+      "title": "Loot the kobold treasure (location 27)",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 27 (13,1). The game prints \"STREWN ACROSS THE FLOOR IS THE ACCUMULATED WEALTH OF THE KOBOLD COMMUNITY.\".",
+        "Take everything."
+      ],
+      "expect": [
+        "The treasure is 2 jewelry, 6 gems, 50000 copper, a MU Scroll (Charm Person, Protection from Evil, Strength) and a MU Scroll (Friends, Invisibility, Protection from Normal Missiles).",
+        "Each character gains 1158 XP."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "27 = (13,1). Scroll contents exactly as the digest lists them."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "Location numbers: the Clue Book numbers this map differently from [P]: Clue Book 15 = 'the huge kobold treasure trove'.",
+        "game text ECL8.DAX block 13 at 0xad5e (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "50000 copper is heavy; the digest gives the encumbrance rules in §4. Journal entry 2 (kobold treasure whisper, p.16) is not cited by the digest."
+    },
+    {
+      "id": "acceptance.kobold-caves.efreeti-bottle-truth",
+      "title": "Take the Efreeti Bottle by telling the truth (location 12)",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 12 (12,0) and search. The game prints \"YOU SEE A BRASS BOTTLE JAMMED INTO A CRACK HERE.\" with LEAVE IT / PULL IT OUT.",
+        "Choose PULL IT OUT. The game prints \"AS YOU PULL, THE STOPPER COMES LOOSE AND SMOKE BILLOWS OUT, FORMING INTO A GIANT, REDDISH HUMANOID.\" and \"'I AM THE EFREETI SAMIR AHWAHL. YOU ARE NOT MY MASTER. ARE YOU, PERCHANCE, VAMPIRES?'\" with YES / NO / ATTACK IT.",
+        "Choose NO. The game prints \"'FOOLS, SUMMON ME ONLY WHEN A VAMPIRE IS NEAR OR FACE MY WRATH.' HE RETURNS TO THE BOTTLE.\".",
+        "Take the bottle."
+      ],
+      "expect": [
+        "A character's inventory holds the item Efreeti Bottle.",
+        "Each character gains 666 XP.",
+        "No combat occurs."
+      ],
+      "branches": [
+        "YES: scenario efreeti-bottle-lie.",
+        "LEAVE IT: nothing happens; the bottle stays."
+      ],
+      "fights": [],
+      "data": [
+        "12 = (12,0). Item name: Efreeti Bottle. Efreeti's name in the text: SAMIR AHWAHL."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "Location numbers: the Clue Book numbers this map differently from [P]: Clue Book 14 = efreeti bottle.",
+        "[P] §3.19 (Valhingen location 28)",
+        "game text ECL8.DAX block 13 at 0xa520, 0xa54b, 0xa570, 0xa5c5, 0xa60c, 0xa633 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The cave text calls it 'A BRASS BOTTLE'; the dragon's text (ECL6 block 19) calls it a 'SILVER BOTTLE'; the inventory item per [P] is 'Efreeti Bottle'."
+      ],
+      "coveredBy": [],
+      "notes": "Per digest §3.19 the bottle matters only if 'never opened' afterwards: at the vampire fight it releases EFREETI (#70) on the party's side once, without consuming the bottle. The digest does not describe the ATTACK IT option."
+    },
+    {
+      "id": "acceptance.kobold-caves.efreeti-bottle-lie",
+      "title": "Claim to be vampires and fight the efreeti",
+      "kind": "optional",
+      "steps": [
+        "At the efreeti's question choose YES. The game prints \"'DIE HAPPY FIENDS, YOUR DEATHS SHALL BE MY FREEDOM.'\".",
+        "Combat: 1 EFREETI (#124), Morale 100. Win it."
+      ],
+      "expect": [
+        "Each character gains 454 XP.",
+        "The party does not obtain the Efreeti Bottle on this branch (the digest lists the bottle only under the No branch)."
+      ],
+      "branches": [],
+      "fights": [
+        "1 EFREETI (#124), Morale 100, 454 XP."
+      ],
+      "data": [],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "digest §5 Adaptational: 'Efreeti cannot cast spells.'",
+        "game text ECL8.DAX block 13 at 0xa69a (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book: 'Lie and he'll attack you. Tell the truth and he'll help you in a later fight.' Whether the bottle can still be taken after killing the efreeti is not stated. The efreeti casts no spells (digest §5)."
+    },
+    {
+      "id": "acceptance.kobold-caves.wall-map-entry-28",
+      "title": "Read the barracks wall map (location 13)",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 13. The game prints \"YOU ARE IN A CRUDE BARRACKS. ON ONE WALL IS A CRUDE MAP.\" and \"YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY 28.\"."
+      ],
+      "expect": [
+        "The text names Journal Entry 28 (map burned into animal skin, Adventurer's Journal p.22)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Journal Entry 28, p.22."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Adventurer's Journal p.22 (entry 28)",
+        "Clue Book p.29-30",
+        "game text ECL8.DAX block 13 at 0xa6e2, 0xb512, 0xa713 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The game text describes 'A CRUDE MAP' on a wall; the Journal's entry 28 is described in NOTES.md as a 'map burned into animal skin'."
+      ],
+      "coveredBy": [],
+      "notes": "The digest gives no coordinates for 13. The Clue Book's location 16 reads 'A clue' (OCR: 'A due') and may be this square; that match is not confirmed."
+    },
+    {
+      "id": "acceptance.kobold-caves.princess-fatima",
+      "title": "Meet Princess Fatima (locations 14 and 15)",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 14 (1,3). The game prints \"YOU HEAR MUFFLED SOUNDS AND TURN TO INVESTIGATE.\", \"IN THIS ROOM IS A YOUNG WOMAN IN BARBARIAN FINERY. SHE DROPS A KOBOLD SHE WAS STRANGLING WHEN SHE SEES YOU.\", \"'I AM PRINCESS FATIMA.' THE PRINCESS CONTINUES.\" and \"YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY 16.\".",
+        "The game prints \"SHE OFFERS TO JOIN YOUR BAND.\" with YES / NO / ATTACK HER.",
+        "Case 1: choose YES with a free party slot.",
+        "Case 2: choose YES with a full party.",
+        "Case 3: choose NO.",
+        "Case 4: choose ATTACK HER.",
+        "Walk to location 15 (0,0): \"THIS WAS A PRISON CELL. BROKEN BINDINGS AND SIX DEAD KOBOLDS ARE STREWN ON THE FLOOR.\"."
+      ],
+      "expect": [
+        "The text names Journal Entry 16 (nomad princess's speech, Adventurer's Journal p.19-20).",
+        "Case 1: PRINCESS FATIMA (#104) is in the party as an NPC. When the party leaves the map she leaves: \"THE PRINCESS SAYS,'I SHALL GO MY OWN WAY NOW, BUT YOU WILL ALWAYS BE REMEMBERED. GOOD HUNTING.'\".",
+        "Case 2: the game prints \"'YOUR GROUP IS TOO LARGE.'\" and she does not join.",
+        "Case 3: the game prints \"SHE SMILES.'SO I SHALL CUT MY OWN WAY OUT. GOOD HUNTING.' SHE LEAVES.\".",
+        "Case 4: combat against PRINCESS FATIMA (#104), Morale 100."
+      ],
+      "branches": [],
+      "fights": [
+        "PRINCESS FATIMA (#104), Morale 100; XP not given."
+      ],
+      "data": [
+        "14 = (1,3); 15 = (0,0), her cell. Journal Entry 16, p.19-20."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "Adventurer's Journal p.19-20 (entry 16)",
+        "Location numbers: the Clue Book numbers this map differently from [P]: Clue Book 10 = prison with Princess Fatima.",
+        "game text ECL8.DAX block 13 at 0xa733, 0xa775, 0xa7cd, 0xb512, 0xa7f8, 0xa802, 0xa81f, 0xa8f5, 0x9a39, 0xa879, 0xa894 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The pairing of case 2 and case 3 with their lines is read from the text, not from the digest, which says only 'Accept or attack ... She leaves when you leave the map.' Clue Book: 'She will fight fanatically against the kobolds and will join your band if you wish.' Tavern Tale 14 (ogres to the east holding a princess, Journal p.33-34) is a different rumour."
+    },
+    {
+      "id": "acceptance.kobold-caves.crippled-kobold-entry-20",
+      "title": "Give water to the crippled kobold (location 18)",
+      "kind": "optional",
+      "steps": [
+        "Walk to location 18 (15,3) and search. The game prints \"HIDDEN IN A NARROW CREVICE IS AN OLD CRIPPLED KOBOLD. IT CROAKS WEAKLY FOR WATER.\" with GIVE IT WATER / THREATEN IT / KILL IT.",
+        "Choose GIVE IT WATER. The game prints \"WHEN YOU GIVE IT WATER, IT CRAWLS OUT AND TELLS YOU ITS TALE.\" and \"YOU RECORD IT IN YOUR JOURNAL UNDER ENTRY 20.\".",
+        "The game prints \"AFTER IT IS DONE, IT LEAVES.\" with LET IT LEAVE / KILL IT."
+      ],
+      "expect": [
+        "The text names Journal Entry 20 (kobold's story about 'drunken Ferd', the king's son, Adventurer's Journal p.20).",
+        "LET IT LEAVE prints \"THE KOBOLD RETREATS AROUND A BEND.\"; KILL IT prints \"YOU CUT DOWN THE KOBOLD.\"."
+      ],
+      "branches": [
+        "THREATEN IT and KILL IT at the first menu: not described by the digest."
+      ],
+      "fights": [],
+      "data": [
+        "18 = (15,3). Journal Entry 20, p.20."
+      ],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "Adventurer's Journal p.20 (entry 20)",
+        "Location numbers: the Clue Book numbers this map differently from [P]: Clue Book 9 = crippled kobold.",
+        "game text ECL8.DAX block 13 at 0xaaf7, 0xab41, 0xab75, 0xb512, 0xabaa, 0xabb4, 0xabd0, 0xabf5, 0xac13 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Without searching the kobold is not found (digest: 'search -> crippled kobold')."
+    },
+    {
+      "id": "acceptance.kobold-caves.flavor-rooms",
+      "title": "Flavor squares 19, 21 and 22",
+      "kind": "optional",
+      "steps": [
+        "Walk through locations 19, 21 and 22."
+      ],
+      "expect": [
+        "Each prints one description and nothing else happens. The block's description lines are: \"THIS IS THE LIVING AREAS. FEMALE AND CHILD KOBOLDS FLEE.\", \"RATS ARE HUNG HERE TO AGE. MOLDY ROOTS LIE IN PILES.\", \"HERE CRUDE TABLES, LITTERED WITH BONES, ARE SCATTERED AROUND.\" and \"A RUINED BALLISTA LIES HERE.\"."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [],
+      "sources": [
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "game text ECL8.DAX block 13 at 0xac36, 0xac72, 0xacab, 0xacf2 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "The digest says only '19, 21, 22: flavor' with no coordinates and no text. There are four description lines for three numbered squares; which line belongs to which number (and where the fourth prints) must be read from the script."
+    },
+    {
+      "id": "acceptance.kobold-caves.dragon-bottle-quest",
+      "title": "Efreeti bottle side quest for the silver dragon",
+      "kind": "optional",
+      "steps": [
+        "At wilderness point k (10,9) enter the dragon's cave. The game prints \"AS YOU ARE ENTERING THE CAVE, A MAGIC MOUTH APPEARS ON ONE OF THE WALLS. IN A BOOMING VOICE IT SAYS, 'WHO ENTERS THE HOME OF DIOGENES? SPEAK NOW AND DECLARE YOUR INTENT!'\"; choose STATE NAME AND INTENT, then ASK DRAGON FOR ADVICE.",
+        "The game prints \"THE CHARACTERS HEAR A LOUD FLAPPING NOISE AND THEN A WARM RUSH OF AIR HITS THEIR FACES. STANDING BEFORE YOU NOW IS A GREAT SILVER DRAGON. HE SAYS, 'YOU ARE WISE TO SEEK MY COUNCIL AND I CAN HELP YOU...'\" and \"'FAR TO THE EAST THERE IS A LARGE KOBOLD COMPLEX. THERE IS A SILVER BOTTLE OF GREAT POWER THERE THAT WILL HELP YOU ON YOUR QUEST. RETRIEVE THAT BOTTLE THEN RETURN AND I WILL SEND YOU ON ANOTHER QUEST.'\".",
+        "Obtain the Efreeti Bottle (scenario efreeti-bottle-truth).",
+        "Return to (10,9) and enter the cave with the bottle in inventory."
+      ],
+      "expect": [
+        "On return the game prints \"AS YOU ENTER THE CAVE YOU ARE GREETED BY DIOGENES, THE SILVER DRAGON. HE SAYS 'I SEE YOU HAVE RECOVERED THE SILVER BOTTLE FROM THE KOBOLD CAVES. I CONGRADULATE YOU.'\", \"'THAT BOTTLE CONTAINS A POWERFUL EFREET WHO WAS SUMMONED TO KILL VAMPIRES. HE WILL BE A VALUABLE ALLY IN OLD PHLAN. IN VALHINGEN GRAVEYARD THERE IS A VAMPIRE.'\" and \"'WHEN YOU MEET THE VAMPIRE USE THE BOTTLE AND YOU MAY HAVE A CHANCE IN DEFEATING HIM. I WISH YOU LUCK.' AFTER SPEAKING DIOGENES FLIES THROUGH A HOLE IN THE CEILING AND DISSAPPEARS.\".",
+        "The party still holds the Efreeti Bottle afterwards."
+      ],
+      "branches": [
+        "PLEDGE PARTY TO DRAGON'S SERVICE: \"'I ACCEPT YOUR PLEDGE. FOR YOUR FIRST DUTY, I COMMAND YOU TO RECOVER A POWERFUL MAGICAL BOTTLE FROM A KOBOLD SETTLEMENT IN THE HILLS FAR TO THE EAST. THEN RETURN TO ME AND I SHALL GIVE YOU ANOTHER TASK.'\".",
+        "OFFER A GIFT: \"THE DRAGON LANDS, LOOKS THE PARTY OVER THEN SAYS 'YOU HAVE NOTHING THAT INTRESTS ME. IF YOU WISH TO APEASE ME THEN GO EAST AND DESTROY THE KOBOLD COMMUNITY THERE.'\" (he asks the party to 'DESTROY THE KOBOLD COMMUNITY').",
+        "CHALLENGE EVIL LEADER OF OLD PHLAN then APOLOGIZE: same request (digest §3.11)."
+      ],
+      "fights": [],
+      "data": [
+        "Dragon's cave: wilderness (10,9), ECL 19. Tavern Tale 23 (silver dragon in the Dragonspine Mountains who helps travellers, Journal p.33-34)."
+      ],
+      "sources": [
+        "[P] §3.11 (silver dragon at k)",
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "[P] §3.19",
+        "Adventurer's Journal p.33-34 (tavern tale 23)",
+        "Clue Book p.21-22",
+        "game text ECL6.DAX block 19 at 0x999c, 0xa145, 0xa1e5, 0xa3c7, 0xa44c, 0xa4cc, 0x9b70, 0xa2f6 (src/audio/voice-master-manifest.json)"
+      ],
+      "disagreements": [
+        "The dragon promises 'RETURN AND I WILL SEND YOU ON ANOTHER QUEST'; the return text gives advice about the Valhingen vampire and no further quest. The digest says 'come back for another quest' and describes no reward.",
+        "The dragon calls the bottle 'SILVER'; the cave text calls it 'BRASS'."
+      ],
+      "coveredBy": [],
+      "notes": "The dragon's cave belongs to the wilderness file; this scenario covers only the bottle hand-in. The digest does not describe the return visit at all: the return text is from the game text only, and no XP or item reward is documented."
+    },
+    {
+      "id": "acceptance.kobold-caves.commission-9-reward",
+      "title": "Collect the Commission #9 reward",
+      "kind": "main",
+      "steps": [
+        "Clear the area (visit location 11 at (10,1)).",
+        "Leave the caves, return to New Phlan City Hall and speak to the council clerk at location 29 (5,5)."
+      ],
+      "expect": [
+        "The clerk pays 25 gems and each character gains 1041 XP.",
+        "The quest tracker advances by one (#9 is one of the ten tracker quests)."
+      ],
+      "branches": [],
+      "fights": [],
+      "data": [
+        "Reward: 25 gems (1041 XP).",
+        "Adventurer's Journal prints Proclamation CCIV (kobolds, p.13-15) and Tavern Tale 22 (kobold fortress at the western tip of the great swamp, p.33-34)."
+      ],
+      "sources": [
+        "[P] §3.0 clerk commission list",
+        "[P] §3.14 (qa/research/guides-digest.md)",
+        "Clue Book p.29-30",
+        "Adventurer's Journal p.13-15, p.33-34"
+      ],
+      "disagreements": [],
+      "coveredBy": [],
+      "notes": "Clue Book finale: 'When you confirm the death of the kobold king at #13, you will have broken the power of the kobolds' (its 13 is [P]'s 11). The clerk's wording is not in the digest."
+    }
+  ]
+}
