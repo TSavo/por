@@ -7733,20 +7733,6 @@ try {
     const knows = id => frame.journal?.leads.some(lead => lead.id === id);
     const evidence = "scene-illustration:area:4:ecl:9a5a:caller:b00a";
     const moonsea = "scene-illustration:area:4:ecl:9a5a:caller:b106";
-    await advance("up");
-    await advance("j");
-    assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
-    if (castleRecordsDecline || castleRecordsRevisit) {
-      for (const key of ["j", "n"]) await advance(key);
-      assert.ok(![evidence, moonsea].includes(frame.portrait));
-      await advance("j");
-      assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
-      if (castleRecordsRevisit) {
-        for (const key of ["j", "down", "up", "down", "up", "j"]) await advance(key);
-        assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
-      }
-    }
-    if (!castleRecordsDecline) {
     const recordsRoom = "scene-illustration:area:4:ecl:9a2c:caller:af7c";
     async function verifyRecordsIllustration(id, caption, filename) {
       assert.equal(frame.portrait, id);
@@ -7759,8 +7745,22 @@ try {
       const shot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, filename), Buffer.from(shot.data, "base64"));
     }
-      for (const key of ["j", "y"]) await advance(key);
+    await advance("up");
     await verifyRecordsIllustration(recordsRoom, /buildingfullofrecords.*spendhoursreading/i, "valjevo-records-room.png");
+    await advance("j");
+    assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
+    if (castleRecordsDecline || castleRecordsRevisit) {
+      for (const key of ["j", "n"]) await advance(key);
+      assert.ok(![recordsRoom, evidence, moonsea].includes(frame.portrait));
+      await advance("j");
+      assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
+      if (castleRecordsRevisit) {
+        for (const key of ["j", "down", "up", "down", "up", "j"]) await advance(key);
+        assert.ok(knows("castle-records-room") && !knows("castle-records-thay") && !knows("castle-records-moonsea"));
+      }
+    }
+    if (!castleRecordsDecline) {
+      for (const key of ["j", "y"]) await advance(key);
       assert.equal(frame.portrait, evidence);
       await waitFor("the Enhanced Red Wizards evidence", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelector('.encounter-portrait[src="/art/${evidence}"]')?.naturalWidth === 352`));
