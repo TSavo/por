@@ -2141,6 +2141,12 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:22:ecl:a32f:PIC7.DAX:61:0:0", prompt: /THEYFLYTOWARDYOU/i,
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:61:0:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ["tyrmor-stirge-surprise", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "down"]).flat(), "up"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:a213:cue:stirge-roost", prompt: /YOUSURPRISELARGEINSECTSWITHRUSTYREDFEATHERS/i,
+    finalPhaseCapture: "tyrmor-stirge-surprise.png",
+    continuation: { inputs: ["enter", "down"], portrait: "portrait:area:22:ecl:a32f:PIC7.DAX:61:0:0", prompt: /THEYFLYTOWARDYOU/i },
+  }],
   ["tyrmor-prison-stirge-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "down"]).flat(), "up", "enter", "down", "q", "q", "q"],
     portraitStops: {
