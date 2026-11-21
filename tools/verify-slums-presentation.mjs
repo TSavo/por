@@ -1810,6 +1810,14 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "textile-faded-tapestries.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YOUENCOUNTERHOBGOBLINS.*COMBATWAITFLEEPARLAY/i },
   }],
+  ["textile-graffiti-room", {
+    slot: "B", inputs: ["up"],
+    portraitStops: { 0: null },
+    portrait: "scene-illustration:area:2:ecl:abd2:caller:a9d5:cue:graffiti-room",
+    prompt: /GRAFFITICOVERSTHEWALLSINMEANINGLESSABANDON/i,
+    finalPhaseCapture: "textile-graffiti-room.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YOUENCOUNTERHOBGOBLINS.*COMBATWAITFLEEPARLAY/i },
+  }],
   ["textile-skullcrusher-wall-mark", {
     slot: "J", inputs: ["left", "up", "right", "up", "up", "up", "up", "left", "up"],
     portraitStops: { 7: null, 8: null },
@@ -8904,7 +8912,7 @@ try {
         document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
-      if (routeName === "textile-faded-tapestries") {
+      if (["textile-faded-tapestries", "textile-graffiti-room"].includes(routeName)) {
         assert.deepEqual(frame.encounter, [48, 32, "encounter:area:2:SPRIT4.DAX:6:0:0", 48, 80]);
         await waitForExplorationViewport();
       }
