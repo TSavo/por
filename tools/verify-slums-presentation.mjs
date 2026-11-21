@@ -28,7 +28,6 @@ const giantPatrol = routeName === "valjevo-giant-patrol";
 const dungeonSentry = routeName === "valjevo-dungeon-sentry";
 const castleChaplain = routeName === "valjevo-bane-chaplain";
 const conjurerPrompts = new Map([
-  ["valhingen-conjurer-skeleton", /CREATINGNEWSKELETONS/i],
   ["valhingen-conjurer-zombie", /CREATINGZOMBIES/i],
   ["valhingen-conjurer-wight", /SUMMONSAWIGHT/i],
 ]);
@@ -493,6 +492,12 @@ const encounterRoutes = new Map([
       [48, 32, "encounter:area:10:SPRIT4.DAX:20:0:0", 40, 80],
     ],
     dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:20:0:0", prompt: /WIGHTSAPPEARFROMBEHINDTHETOWER/i },
+  }],
+  ["valhingen-conjurer-skeleton", {
+    slot: "A", inputs: ["up", "enter"],
+    placement: [56, 32, "encounter:area:10:ecl:a5bb:SPRIT4.DAX:17:0:0", 32, 80],
+    requireWebGL: true,
+    dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /CREATINGNEWSKELETONS/i },
   }],
   ["valhingen-spectre-approach-near", {
     slot: "A", inputs: ["up", "enter"],
