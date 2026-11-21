@@ -10400,6 +10400,17 @@ try {
       await switchBothWays();
       const capture = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "bane-captive-goblins.png"), Buffer.from(capture.data, "base64"));
+      const pleading = "portrait:area:31:ecl:a076:PIC1.DAX:2:1:0";
+      for (let tick = 0; tick < 18 && frame.portrait !== pleading; tick++) {
+        await advance("z");
+        assert.ok(!frame.classicPortrait);
+      }
+      assert.equal(frame.portrait, pleading);
+      await waitFor("the captive goblins' pleading pose", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${pleading}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const pleadingShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-captive-goblins-pleading.png"), Buffer.from(pleadingShot.data, "base64"));
     } else if (baneGate || baneSymbol) {
       assert.equal(frame.portrait, "portrait:area:24:PIC1.DAX:4:0:0");
       await waitFor("the temple gatekeeper portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
