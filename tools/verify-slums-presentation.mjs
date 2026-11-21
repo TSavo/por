@@ -472,7 +472,9 @@ const encounterRoutes = new Map([
   }],
   ["textile-hobgoblin-approach", {
     slot: "B", inputs: ["up", "enter"],
-    placement: [48, 32, "encounter:area:2:SPRIT4.DAX:6:0:0", 48, 80],
+    placement: [48, 32, "encounter:area:2:ecl:abd2:caller:9c8b:SPRIT4.DAX:6:0:0", 48, 80],
+    approachSequence: [[48, 32, "encounter:area:2:ecl:9c36:SPRIT4.DAX:6:0:0", 48, 80]],
+    battleStart: { input: "enter", prompt: /ADRUMBEGINSTOBEATANDHOBGOBLINSATTACK.*ABATTLEBEGINS/i },
   }],
   ["sokal-poison-frog-approach", {
     slot: "C", inputs: ["up", "enter"],
