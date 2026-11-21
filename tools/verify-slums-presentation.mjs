@@ -10869,9 +10869,7 @@ try {
       "up", "up", "up", "up", "up", "enter", ...Array(26).fill("up"), "c", "enter", "m", "down",
     ];
     assert.equal(frame.tiles.length, 121, "Every tile at the city gate needs a replacement");
-    await waitFor("the assembled New Phlan gate", () => run(`state.sequence === ${frame.sequence} &&
-      document.querySelectorAll("#tile-art img").length === 121 &&
-      [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
+    await waitForExplorationViewport();
     const cityGate = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "new-phlan-gate.png"), Buffer.from(cityGate.data, "base64"));
     for (const key of route) {
@@ -10882,36 +10880,23 @@ try {
         encounter = true;
       }
       if (frame.portrait && !portrait) {
-        assert.equal(frame.portrait, "portrait:PIC2.DAX:0:0:0");
+        assert.equal(frame.portrait, "portrait:area:20:ecl:9e02:PIC2.DAX:0:0:0");
         assert.equal(frame.tiles.length, 0);
         await waitFor("the kobold portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
         await switchBothWays();
         portrait = true;
       }
       if (frame.tileInventory?.[0]?.[2].startsWith("tile:0:") && frame.tiles.length) {
+        assert.ok(frame.perspective && (frame.scenery || frame.exploration?.area === 0));
+        await verifyTiledView(0, new Set());
         cityTiles += frame.tiles.length;
-        await waitFor("New Phlan entrance tiles", () => run(`state.sequence === ${frame.sequence} &&
-          document.querySelectorAll("#tile-art img").length === ${frame.tiles.length} &&
-          [...document.querySelectorAll("#tile-art img")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
       }
       if (!frame.tileInventory?.[0]?.[2].startsWith("tile:20:")) continue;
       routeTiles.push(frame.tileInventory);
-      assert.equal(frame.tiles.length, 121);
-      assert.deepEqual(frame.tiles, frame.tileInventory.map(([x, y, id]) => [x, y, id]));
+      assert.ok(frame.perspective && frame.scenery);
+      views += await verifyTiledView(20, new Set());
       tileLayouts.add(JSON.stringify(frame.tiles));
-      await waitFor("121 individual tiles", () => run(`(() => {
-        if (state.sequence !== ${frame.sequence}) return false;
-        const tiles = [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")];
-        const expected = ${JSON.stringify(frame.tiles)};
-        return tiles.length === expected.length && tiles.every((tile, index) => {
-          const [x, y, id] = expected[index];
-          return tile.naturalWidth === 32 && tile.naturalHeight === 32 &&
-            tile.getAttribute("src") === "/art/" + id &&
-            Math.abs(parseFloat(tile.style.left) - x / 3.2) < 0.001 &&
-            Math.abs(parseFloat(tile.style.top) - y / 2) < 0.001;
-        });
-      })()`));
-      if (++views !== 3) continue;
+      if (views !== 3) continue;
 
       await waitFor("the loaded web font", () => run(`Array.from(document.fonts)
         .some(font => font.family.includes("Game Web Font") && font.status === "loaded")`));
@@ -10919,13 +10904,13 @@ try {
         await command("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: false });
         assert.ok(await run(`(() => {
           const screen = document.querySelector("#screen").getBoundingClientRect();
-          const tile = document.querySelector("#tile-art img");
-          const rect = tile.getBoundingClientRect();
+          const viewport = document.querySelector("#tile-art .street-viewport");
+          const rect = viewport.getBoundingClientRect();
           const glyph = document.querySelector("#game-text span");
-          return getComputedStyle(tile).imageRendering === "pixelated" &&
-            Math.abs(rect.width - screen.width * .025) < 1 && Math.abs(rect.height - screen.height * .04) < 1 &&
-            Math.abs(rect.left - screen.left - screen.width * .075) < 1 &&
-            Math.abs(rect.top - screen.top - screen.height * .12) < 1 &&
+          return Math.abs(rect.width - screen.width * .375) < 1 &&
+            Math.abs(rect.height - screen.height * .60) < 1 &&
+            Math.abs(rect.left - screen.left - screen.width * .025) < 1 &&
+            Math.abs(rect.top - screen.top - screen.height * .04) < 1 &&
             getComputedStyle(glyph).fontFamily.includes("Game Web Font");
         })()`), `Overlay alignment and web font at ${width}px`);
         await switchBothWays();
@@ -10957,16 +10942,18 @@ try {
         Math.abs(parseFloat(glyph.style.left) - (cell % 40) * 2.5) < 0.01 && glyph.textContent === String.fromCharCode(char) &&
         getComputedStyle(glyph).color === "rgb(" + state.textColors[color].join(", ") + ")"));
     })()`);
-    const koboldPlacements = frame.combatArt.filter(([, , id]) => id === "combat:CPIC2.DAX:0");
-    assert.ok(koboldPlacements.some((placement) => placement[3]) && koboldPlacements.some((placement) => !placement[3]));
-    await waitFor("the mirrored 4× combat sprite", () => run(`[...document.querySelectorAll('.combat-sprite[src="/art/combat:CPIC2.DAX:0"]')]
+    const koboldArt = "combat:area:20:CPIC2.DAX:0:ecl:b1bb";
+    const koboldPlacements = frame.combatArt.filter(([, , id]) => id === koboldArt);
+    assert.ok(koboldPlacements.some((placement) => placement[3]) && koboldPlacements.some((placement) => !placement[3]),
+      `Expected both kobold facings in ${JSON.stringify(frame.combatArt)}`);
+    await waitFor("the mirrored 4× combat sprite", () => run(`[...document.querySelectorAll('.combat-sprite[src="/art/${koboldArt}"]')]
       .some(image => image.naturalWidth === 96 && image.style.transform === "scaleX(-1)")`));
     for (const width of [430, 1100]) {
       await command("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: false });
       await waitFor(`kobold combat artwork aligned at ${width}px`, () => run(`(() => {
         if (state.sequence !== ${frame.sequence}) return false;
         const screen = document.querySelector("#screen").getBoundingClientRect();
-        const sprites = [...document.querySelectorAll('.combat-sprite[src="/art/combat:CPIC2.DAX:0"]')];
+        const sprites = [...document.querySelectorAll('.combat-sprite[src="/art/${koboldArt}"]')];
         const placements = ${JSON.stringify(koboldPlacements)};
         return sprites.length === placements.length && placements.every(([x, y, , reflected]) => sprites.some(image => {
           const rect = image.getBoundingClientRect();
@@ -10982,25 +10969,29 @@ try {
       await waitFor(`original menu colors at ${width}px`, menuColors);
     }
     await waitFor("Chrome to display the final combat frame", () => run(`state.ready && state.sequence === ${frame.sequence}`));
-    assert.deepEqual(await run(`(() => {
+    const koboldFallback = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true, expression: `(async () => {
       const live = state;
-      const screen = document.querySelector("#screen");
       const layer = document.querySelector("#tile-art");
       try {
-        state = { ...live };
-        showScreen();
-        layer.querySelector(".combat-sprite").dispatchEvent(new Event("error"));
-        const restoresGuest = layer.hidden && document.querySelector("#game-text").hidden &&
-          screen.getAttribute("src") === "data:image/png;base64," + live.frame;
-        state = { ...live };
-        showScreen();
-        return { restoresGuest, resumesEnhancements: !layer.hidden &&
-          Boolean(layer.querySelector(".combat-sprite")) };
+        const [first, ...others] = live.combatArt;
+        const missing = [...first];
+        missing[2] = "combat:missing-kobold-test";
+        state = { ...live, combatArt: [missing, ...others] };
+        await showScreen();
+        const preservesBattle = Boolean(layer.querySelector(".sprite-fallback")) &&
+          !layer.hidden && !document.querySelector("#game-text").hidden &&
+          layer.querySelectorAll(".combat-sprite").length === others.length;
+        state = live;
+        await showScreen();
+        return { preservesBattle, resumesEnhancements: !layer.hidden &&
+          layer.querySelectorAll(".combat-sprite").length === live.combatArt.length };
       } finally {
         state = live;
-        showScreen();
+        await showScreen();
       }
-    })()`), { restoresGuest: true, resumesEnhancements: true });
+    })()` });
+    assert.deepEqual(koboldFallback.result.value, { preservesBattle: true, resumesEnhancements: true },
+      koboldFallback.exceptionDetails?.text);
     await command("Input.dispatchKeyEvent", { type: "keyDown", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
     await command("Input.dispatchKeyEvent", { type: "keyUp", modifiers: 1, code: "KeyQ", key: "q", windowsVirtualKeyCode: 81 });
     await waitFor("the guest frame after Alt+Q", async () => {

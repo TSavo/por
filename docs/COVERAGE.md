@@ -160,6 +160,10 @@ the west gate and saves in the Slums at (15,4), in slot C.
 The replay reloads C, wins the kobold encounter through the original combat
 menus, shares the coins, and saves to slot D. After reloading D it checks
 that all six fighters are present and that Alda retained 5 XP and 11 copper.
+The `kobolds` Chrome presentation replay checks the New Phlan gate and Slums
+walk in WebGL, with the original tile inventory checked independently.
+It measures the viewport and web fonts at narrow and wide browser sizes,
+then checks the encounter art, combat sprite facings, and original menu colors.
 
 Run `npm run verify:campaign-opening -- "PATH_TO_CHROME"` to exercise that
 opening in Enhanced mode in headless Chrome. It starts with an empty save
