@@ -777,16 +777,22 @@ const tallIconCoverage = combatHeads.filter(({ id }) => id >= 64 && id <= 77)
   })));
 const defaultHumanIconCoverage = tallIconCoverage.filter(({ head }) => head === 64);
 const encounterArtByPixels = new Map<string, { id: string; preview: string }[]>();
+const portraitArtByBlockAndPixels = new Map<string, { id: string; preview: string }[]>();
 function framePixelSignature(width: number, height: number, pixels: Uint8Array) {
   return `${width}×${height}:${createHash("sha256").update(pixels).digest("hex")}`;
 }
 for (const { id, source, preview } of replacements) {
-  if (!encounterKey.test(id) || !source) continue;
+  if (!source) continue;
+  const encounter = encounterKey.test(id);
+  const portrait = id.startsWith("portrait:") && source.archive.startsWith("PIC") && !source.transform;
+  if (!encounter && !portrait) continue;
   const picture = classicPicture(source.archive, source.directoryIndex, source.member);
   const signature = framePixelSignature(picture.width, picture.height, frameSlice(picture, source.frame));
-  const candidates = encounterArtByPixels.get(signature) ?? [];
+  const index = encounter ? encounterArtByPixels : portraitArtByBlockAndPixels;
+  const key = encounter ? signature : `${source.archive}:${source.directoryIndex}:${signature}`;
+  const candidates = index.get(key) ?? [];
   candidates.push({ id, preview });
-  encounterArtByPixels.set(signature, candidates);
+  index.set(key, candidates);
 }
 const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\d+|RANDCOM|COMSPR)\.DAX$/.test(file))
   .map(({ file, entries }) => {
@@ -855,7 +861,11 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\
       const encounterCandidates = file.startsWith("SPRIT")
         ? encounterArtByPixels.get(pixelSignature) ?? []
         : [];
-      return { ...source, preview, pixelSignature, uniform: pixels.every(color => color === pixels[0]), scopedCandidates, encounterCandidates };
+      const uniform = pixels.every(color => color === pixels[0]);
+      const portraitCandidates = file.startsWith("PIC") && !uniform
+        ? portraitArtByBlockAndPixels.get(`${file}:${source.directoryIndex}:${pixelSignature}`) ?? []
+        : [];
+      return { ...source, preview, pixelSignature, uniform, scopedCandidates, encounterCandidates, portraitCandidates };
     });
     return { file, frames, matched: frames - unlinkedFrames.length, pixelMatchedFrames, unlinkedFrames: remainingFrames };
   }).filter(({ frames }) => frames > 0);
@@ -867,7 +877,8 @@ const encounterTotals = encounterCoverage.reduce((total, row) => ({
   uniformUnlinked: total.uniformUnlinked + row.unlinkedFrames.filter(({ uniform }) => uniform).length,
   withScopedCandidates: total.withScopedCandidates + row.unlinkedFrames.filter(({ scopedCandidates }) => scopedCandidates.length).length,
   withEncounterCandidates: total.withEncounterCandidates + row.unlinkedFrames.filter(({ encounterCandidates }) => encounterCandidates.length).length,
-}), { frames: 0, matched: 0, matchedByPixels: 0, remaining: 0, uniformUnlinked: 0, withScopedCandidates: 0, withEncounterCandidates: 0 });
+  withPortraitCandidates: total.withPortraitCandidates + row.unlinkedFrames.filter(({ portraitCandidates }) => portraitCandidates.length).length,
+}), { frames: 0, matched: 0, matchedByPixels: 0, remaining: 0, uniformUnlinked: 0, withScopedCandidates: 0, withEncounterCandidates: 0, withPortraitCandidates: 0 });
 const unlinkedScriptPictures = scriptReferences.flatMap(reference => {
   const [archive] = reference.candidates;
   if (!archive || reference.candidates.length !== 1) return [];
@@ -1003,12 +1014,13 @@ ${composedPictureReferences.map(({ file, script, address, selectedHead, nearbyTe
 <p>${encounterTotals.uniformUnlinked} unlinked frames are solid-color images.</p>
 ${encounterTotals.withScopedCandidates ? `<p>${encounterTotals.withScopedCandidates} unlinked combat frames have identical source pixels in an encounter with replacement art. Verify the actor and encounter before reusing those sprites.</p>` : ""}
 ${encounterTotals.withEncounterCandidates ? `<p>${encounterTotals.withEncounterCandidates} unlinked encounter frames have identical source pixels in another frame with Enhanced art. Verify the actor, distance, and placement before reusing it.</p>` : ""}
+${encounterTotals.withPortraitCandidates ? `<p>${encounterTotals.withPortraitCandidates} unlinked portrait frames repeat pixels from a member of the same archive block with Enhanced art. Verify the complete animated portrait and scene before reusing it.</p>` : ""}
 <p>Each source ID contains the archive, block ID, member, and zero-based frame number. Open a frame to see it at its native dimensions. Some archive frames may have no verified in-game use.</p>
 ${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({ file, unlinkedFrames }) =>
   `<details id="unlinked-archive-${escape(file)}"><summary>${escape(file)} · ${unlinkedFrames.length}</summary>
   <table class="coverage-table"><thead><tr><th>Source ID</th><th>Block</th><th>4× target</th><th>Preview</th></tr></thead><tbody>
-  ${unlinkedFrames.map(({ id, block, width, height, preview, uniform, scopedCandidates, encounterCandidates }) => {
-    const candidates = [...scopedCandidates, ...encounterCandidates];
+  ${unlinkedFrames.map(({ id, block, width, height, preview, uniform, scopedCandidates, encounterCandidates, portraitCandidates }) => {
+    const candidates = [...scopedCandidates, ...encounterCandidates, ...portraitCandidates];
     return `<tr><th scope="row"><code>${escape(id)}</code></th><td>${block}</td><td>${width}×${height}</td>
     <td><a href="${escape(preview)}" target="_blank" rel="noopener">Source frame</a>${uniform ? " · Solid color" : ""}
     ${candidates.length ? `<details><summary>Reuse candidates (${candidates.length})</summary>${
