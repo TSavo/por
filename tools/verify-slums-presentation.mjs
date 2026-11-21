@@ -868,6 +868,13 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "stojanow-fighter-barracks-alarm.png",
     continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i, clearsPortrait: true },
   }],
+  ["stojanow-medusa-trapdoor-warning", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portrait: "scene-illustration:area:9:ecl:9c63:caller:a372", prompt: /WATCHYOURTALK.*THROWNTHROUGHTHETRAPDOORTOTHEMEDUSA/i,
+    journalLead: "stojanow-medusa-trapdoor", journalLeadAtDiscovery: true,
+    finalPhaseCapture: "stojanow-medusa-trapdoor-warning.png",
+    continuation: { inputs: ["enter", "enter"], portrait: "portrait:HEAD2.DAX:11:BODY2.DAX:2", prompt: /THEYSEEMUNAWAREOFYOU/i },
+  }],
   ["stojanow-bugbear-alarm", {
     slot: "A",
     inputs: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left", "up",
