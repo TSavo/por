@@ -659,6 +659,11 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["swamp-drythh-followers-wait-early", {
+    slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter", "enter", "z"],
+    portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:1:0", prompt: /COMBATWAITFLEEPARLAY/i,
+    continuation: { inputs: ["w"], portrait: "portrait:area:16:ecl:a560:PIC8.DAX:57:1:0", prompt: /ABATTLEBEGINS/i },
+  }],
   ["swamp-drythh-followers-wait-phase", {
     slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter", "enter", "z", "z"],
     portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:2:0", prompt: /COMBATWAITFLEEPARLAY/i,
@@ -2154,6 +2159,11 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-thri-kreen-two-guards-phase-4.png",
     continuation: { inputs: ["a"], portrait: "portrait:area:25:ecl:a9a6:PIC6.DAX:118:4:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ...[1, 3, 5].map(member => [`sokal-ceiling-insects-combat-phase-${member}`, {
+    slot: "C", inputs: ["up", "enter", "enter", ...Array(member + 1).fill("q")],
+    portrait: `portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:${member}:0`, prompt: /THEINTERIORISOVERRUNWITHINSECTS/i,
+    continuation: { inputs: ["enter"], portrait: `portrait:area:21:ecl:aed4:PIC4.DAX:18:${member}:0`, prompt: /ABATTLEBEGINS/i },
+  }]),
   ["sokal-ceiling-insects-phases", {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
     portraitStops: {
