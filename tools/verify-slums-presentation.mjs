@@ -1790,6 +1790,20 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-churned-earth.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["wild-cave-exit-passage", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:25:ecl:ab18:cue:exit-passage",
+    prompt: /YOUHAVEFOUNDAPASSAGEWHICHLEADSOUTSIDE/i,
+    finalPhaseCapture: "wild-cave-exit-passage.png",
+    continuation: { inputs: ["s"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["wild-cave-exit-passage-leave", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:25:ecl:ab18:cue:exit-passage",
+    prompt: /YOUHAVEFOUNDAPASSAGEWHICHLEADSOUTSIDE/i,
+    finalPhaseCapture: "wild-cave-exit-passage.png",
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /YOUHAVEFOUNDAPASSAGEWHICHLEADSOUTSIDE/i },
+  }],
   ["wild-cave-shed-skin", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:25:ecl:a857:cue:shed-snake-skin",

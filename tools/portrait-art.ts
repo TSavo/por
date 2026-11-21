@@ -728,6 +728,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:25:ecl:a737:cue:dwarf-remains", "LYINGONTHEGROUNDHEREARETHEDISSOLVINGREMAINSOFADWARF"],
   ["scene-illustration:area:25:ecl:a75b:cue:churned-earth", "THEGROUNDHEREISSOFTANDFRESHLYCHURNED"],
   ["scene-illustration:area:25:ecl:a75c:cue:churned-earth", "THEGROUNDHEREISSOFTANDFRESHLYCHURNED"],
+  ["scene-illustration:area:25:ecl:ab00:cue:exit-passage", "YOUHAVEFOUNDAPASSAGEWHICHLEADSOUTSIDE"],
+  ["scene-illustration:area:25:ecl:ab18:cue:exit-passage", "YOUHAVEFOUNDAPASSAGEWHICHLEADSOUTSIDE"],
   ["scene-illustration:area:25:ecl:a856:cue:shed-snake-skin", "LYINGONTHEFLOORISALARGE,SHEDDEDSNAKESKIN"],
   ["scene-illustration:area:25:ecl:a857:cue:shed-snake-skin", "LYINGONTHEFLOORISALARGE,SHEDDEDSNAKESKIN"],
   ["scene-illustration:area:25:ecl:a906", "AGIANTSNAKEFALLSONTOPOFTHEPARTY"],
