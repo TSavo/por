@@ -7702,7 +7702,8 @@ try {
       assert.ok(knows("castle-records-thay") && !knows("castle-records-moonsea"));
       assert.match(frame.journal.objective.nextStep, /continue reading the Valjevo records/i);
       for (const key of ["j", "enter"]) await advance(key);
-      assert.ok(![recordsRoom, evidence, moonsea].includes(frame.portrait));
+      const horde = "scene-illustration:area:4:ecl:9a5a:caller:b087";
+      await verifyRecordsIllustration(horde, /unsophisticatedhordeofillorganizedunhumans/i, "valjevo-records-first-horde.png");
       await advance("enter");
       assert.equal(frame.portrait, moonsea);
       await waitFor("the Moonsea conquest report", () => run(`state.sequence === ${frame.sequence} &&
