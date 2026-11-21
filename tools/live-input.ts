@@ -289,10 +289,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         else if (x === 13 && y === 12) illustrationScope = "scene-illustration:area:4:ecl:9ed5:caller:ac70";
       }
       // Yarash's secret doors share a caption routine across rooms.
-      if (area === 23 && explorationPosition?.x === 9 && explorationPosition.y === 12 &&
-          (scriptKey === "scene-illustration:area:23:ecl:9add:caller:9ab5" ||
-           scriptKey === "scene-illustration:area:23:ecl:9a04:caller:9c23")) {
-        illustrationScope = `${scriptKey}:cue:lab-door`;
+      if (area === 23 && explorationPosition?.y === 12) {
+        const { x } = explorationPosition;
+        if ((x === 9 && scriptKey === "scene-illustration:area:23:ecl:9add:caller:9ab5") ||
+            (x === 11 && scriptKey === "scene-illustration:area:23:ecl:9b07:caller:9ab5") ||
+            ((x === 9 || x === 10) && scriptKey === "scene-illustration:area:23:ecl:9a04:caller:9c23")) {
+          illustrationScope = `${scriptKey}:cue:lab-door`;
+        }
       }
       const illustration = scene ? undefined : matchScriptIllustration(illustrationScope, illustrationText, portraitKeys);
       let picture = scene ? undefined : illustration ??
