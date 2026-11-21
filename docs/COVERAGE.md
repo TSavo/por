@@ -3816,6 +3816,9 @@ encounter and parlay menus. The matcher recognizes the original base
 portrait with its XOR animation deltas at both script cursors. Chrome
 verified both menus and display switching from a controlled checkpoint
 that selects the neutral roaming zombie branch.
+The attack-warning pause has four separately illustrated moon-and-cloud
+phases. Chrome matches each of the five original viewport states to its
+own Enhanced frame and verifies display switching without save changes.
 The same Parlay menu retains the Enhanced wight and skeleton portraits.
 Chrome verified the stance choices and display switching for both
 from controlled roaming checkpoints.

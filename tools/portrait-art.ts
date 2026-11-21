@@ -4,7 +4,7 @@ import { decodePicture, frameSlice, pictureMembers } from "../src/lib/picture.js
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
 const pictureKey = /^portrait:(PIC\d+\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
-const roamingZombieAnimationKey = /^portrait:area:10:ecl:(?:b56c|b58c):PIC4\.DAX:35:0:0$/;
+const roamingZombieAnimationKey = /^portrait:area:10:ecl:(?:b56c|b58c|b695:caller:9f43):PIC4\.DAX:35:[0-4]:0$/;
 export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(HEAD\d+\.DAX):(\d{1,3}):(BODY\d+\.DAX):(\d{1,3})$/;
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
@@ -424,6 +424,7 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
   const classicHeads = new Map<string, string[]>();
   const classicBodies = new Map<string, string[]>();
   const archiveCache = new Map<string, ReturnType<typeof parseDax>>();
+  const installed = new Set(keys);
   function entry(archive: string, id: string) {
     const file = files.get(archive);
     if (!root || !file) return;
@@ -472,16 +473,25 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
     if (!record) continue;
     const picture = decodePicture(record.data);
     if (picture.width !== size || picture.height !== size || Number(frame) >= picture.itemCount) continue;
-    const base = frameSlice(picture, Number(frame));
-    register(base, key);
-    if (roamingZombieAnimationKey.test(key) && record.selector === 1) {
-      // The guest XORs one animation delta onto the base portrait.
-      for (const member of members.slice(1)) {
-        if (member.selector !== record.selector) continue;
-        const delta = decodePicture(member.data);
-        if (delta.width !== size || delta.height !== size || delta.itemCount !== 1) continue;
-        register(base.map((pixel, index) => pixel ^ delta.pixels[index]!), key);
-      }
+    const pixels = frameSlice(picture, Number(frame));
+    if (!roamingZombieAnimationKey.test(key) || record.selector !== 1) {
+      register(pixels, key);
+      continue;
+    }
+    // The roaming portrait has one base and four native XOR changes.
+    const base = decodePicture(members[0]!.data);
+    if (base.width !== size || base.height !== size || base.itemCount !== 1) continue;
+    const phaseKey = (phase: number) => key.replace(/:\d+:0$/, `:${phase}:0`);
+    if (Number(member) > 0) {
+      register(base.pixels.map((pixel, index) => pixel ^ pixels[index]!), key);
+      continue;
+    }
+    register(pixels, key);
+    for (const [phase, deltaRecord] of members.entries()) {
+      if (phase === 0 || installed.has(phaseKey(phase)) || deltaRecord.selector !== record.selector) continue;
+      const delta = decodePicture(deltaRecord.data);
+      if (delta.width !== size || delta.height !== size || delta.itemCount !== 1) continue;
+      register(pixels.map((pixel, index) => pixel ^ delta.pixels[index]!), key);
     }
   }
   if (report) {

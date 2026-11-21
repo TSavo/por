@@ -4086,6 +4086,7 @@ routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload",
 routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 routes.push("kuto-wide-manual-aim");
+routes.push("valhingen-zombie-roam-animation");
 const sokalCourtyardNote = routeName === "sokal-courtyard-note";
 routes.push("sokal-courtyard-note");
 const wideManualAim = routeName === "kuto-wide-manual-aim";
@@ -6456,6 +6457,24 @@ try {
     assert.deepEqual(entries?.toSorted(), [27, 33, 40, 49, 56].map(number => `river-yarash-paper-${number}`));
     await switchBothWays();
     console.log("Verified all five Yarash papers after reloading slot A.");
+  } else if (routeName === "valhingen-zombie-roam-animation") {
+    const phases = new Set();
+    for (let input = 0; input < 36 && phases.size < 5; input++) {
+      await advance(input % 2 === 0 ? "up" : "down");
+      const id = frame.portrait;
+      const match = /^portrait:area:10:ecl:b695:caller:9f43:PIC4\.DAX:35:([0-4]):0$/.exec(id ?? "");
+      if (!match || phases.has(match[1])) continue;
+      await waitFor(`the roaming zombie portrait phase ${match[1]}`, () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, `valhingen-zombie-phase-${match[1]}.png`), Buffer.from(shot.data, "base64"));
+      phases.add(match[1]);
+    }
+    assert.deepEqual([...phases].sort(), ["0", "1", "2", "3", "4"]);
+    await switchBothWays();
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified all five native roaming zombie portrait phases in Chrome:", directory);
   } else if (sokalCourtyardNote) {
     const note = "scene-illustration:area:21:ecl:a720";
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
