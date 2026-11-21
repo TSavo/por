@@ -2234,6 +2234,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "valjevo-tyranthraxus-appraisal-phase-2.png",
     continuation: { inputs: ["enter", "enter", ...Array(6).fill("a")], portrait: "portrait:area:7:ecl:a803:PIC5.DAX:66:2:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ...[0, 1, 3, 4].map((member, index) => [`tyrmor-prison-displacer-combat-phase-${member}`, {
+    slot: "B", inputs: ["s", ...Array.from({ length: 27 }, () => ["up", "enter", "down"]).flat(),
+      "up", "enter", "enter", "down", "up", ...Array(index).fill("q")],
+    portrait: `portrait:area:22:ecl:a2f9:PIC7.DAX:68:${member}:0`, prompt: /ONELICKSITSLIPS/i,
+    continuation: { inputs: ["c"], portrait: `portrait:area:22:ecl:a36f:PIC7.DAX:68:${member}:0`, prompt: /ABATTLEBEGINS/i },
+  }]),
   ["tyrmor-prison-displacer-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 27 }, () => ["up", "enter", "down"]).flat(),
       "up", "enter", "enter", "down", "up", "q", "q", "q", "q"],
