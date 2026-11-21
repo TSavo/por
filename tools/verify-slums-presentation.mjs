@@ -1219,6 +1219,12 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:27:PIC8.DAX:73:0:0", prompt: /SOMEGNOLLSANDTROLLS/i,
   }],
+  ["kuto-bandit-cache", {
+    slot: "J", inputs: ["up"],
+    portrait: "scene-illustration:area:29:ecl:af80:caller:9fd6",
+    prompt: /YOUHAVEFOUNDTHEBANDIT.STREASURE.*DOYOUTAKEIT/i,
+    journalLead: "kuto-bandit-treasure",
+  }],
   ["kuto-well-waterline", {
     slot: "J", inputs: ["up", "y", "enter", "enter"],
     portraitStops: { 1: null, 2: null },
@@ -4022,12 +4028,13 @@ const declineDirten = routeName === "braccio-dirten-briefing" && option === "--d
 const declineRestal = restalGuide && option === "--decline";
 const declineKoboldGuide = routeName === "kobold-cave-guide" && option === "--decline";
 const declineFatima = princessFatima && option === "--decline";
+const declineKutoCache = routeName === "kuto-bandit-cache" && option === "--decline";
 const declineCryptScroll = ["valhingen-crypt-scroll", "valhingen-crypt-scroll-reload"].includes(routeName) && option === "--decline";
 const fightNorris = norrisSurrender && option === "--fight";
 const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "--refuse-to-leave";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
   ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
-  declineDirten || declineRestal || declineKoboldGuide || declineFatima || declineCryptScroll ||
+  declineDirten || declineRestal || declineKoboldGuide || declineFatima || declineCryptScroll || declineKutoCache ||
   declineValjevoDisguise || fightNorris || refuseNomadDismissal, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
@@ -6656,6 +6663,13 @@ try {
         assert.match(frame.journal.objective.nextStep, /confront the king.*at the throne/i);
       }
       await advance("j");
+    }
+    if (routeName === "kuto-bandit-cache") {
+      assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""), /DOYOUTAKEIT\?YESNO/i);
+      await advance(declineKutoCache ? "n" : "y");
+      assert.equal(frame.portrait, undefined);
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
+        declineKutoCache ? /AREACASTVIEWENCAMP/i : /THEPARTYHASFOUNDTREASURE.*RECEIVES867EXPERIENCEPOINTS/i);
     }
     if (routeName === "kuto-well-waterline") {
       assert.deepEqual(readFileSync(saved), originalSave);
