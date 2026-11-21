@@ -148,6 +148,12 @@ The unshielded steel flail uses a 96×96 ready and strike pair with
 matching material masks. The `valjevo-party-flail` Chrome replay checks
 both poses at the same battlefield position and verifies that a custom
 color changes only the selected material without changing transparency.
+Kuto's gnoll-watch portrait now includes the first animation phase from
+`PIC8.DAX` block 73, member 1. The replay selected the gnoll roster and
+then used the original Advance and idle inputs. Chrome witnessed the
+composed phase at ECL `a64b` and confirmed the existing base portrait
+returns between cycles.
+
 **Unlinked source frames** lists the individual unlinked PIC, SPRIT, and
 CPIC frames by archive, directory index, member, and frame. Each entry
 includes its 4× dimensions and links to the local source sheet. The JSON
