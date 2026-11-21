@@ -6202,11 +6202,20 @@ try {
     await advance("j");
     assert.equal(frame.journal?.leads.some(({ id }) => id === scrollLead), !declineCryptScroll);
     assert.ok(!frame.journal?.leads.some(({ id }) => id === "graveyard-crypt-sanctified"));
-    for (const key of ["j", "y", "s", "j"]) await advance(key);
+    for (const key of ["j", "y", "s"]) await advance(key);
+    const sanctification = "scene-illustration:area:10:ecl:b0ab";
+    assert.equal(frame.portrait, sanctification);
+    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /YOUSCATTERTHEDUSTANDPLACEWHATHOLYITEMSYOUCANSPAREINSIDE/i);
+    await waitFor("the crypt sanctification illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${sanctification}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "graveyard-crypt-sanctified"));
     assert.equal(frame.journal.leads.some(({ id }) => id === scrollLead), !declineCryptScroll);
     assert.deepEqual(readFileSync(saved), originalSave);
-    for (const key of ["j", "e", "enter", "s", "s", "a"]) await advance(key);
+    for (const key of ["j", "e"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    for (const key of ["enter", "s", "s", "a"]) await advance(key);
     const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
     assert.ok(known.has("graveyard-crypt-sanctified"));
     assert.equal(known.has(scrollLead), !declineCryptScroll);
