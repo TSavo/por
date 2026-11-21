@@ -770,6 +770,14 @@ const illustrationRoutes = new Map([
     journalLead: "swamp-friend-word-charge", journalLeadAtDiscovery: true,
     continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i, portrait: "scene-illustration:area:16:ecl:a6ce:cue:ruin-defenders-charge" },
   }],
+  ["swamp-ruin-defenders-surprise", {
+    slot: "A", inputs: ["up", "b", "enter", "enter"],
+    portraitStops: { 3: "scene-illustration:area:16:ecl:a6c6:cue:ruin-defenders-surprise" },
+    portrait: "scene-illustration:area:16:ecl:a6ce:cue:ruin-defenders-surprise",
+    prompt: /SUDDENLYYOUAREATTACKEDBYTWOLIZARDMENANDAGIANTLIZARD.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "swamp-ruin-defenders-surprise.png",
+    continuation: { inputs: ["enter"], prompt: /HITPOINTS\d+AC/i, clearsPortrait: true },
+  }],
   ["swamp-ruin-defenders-battle-opening", {
     slot: "A", inputs: ["up", "b", "p", "c"],
     portraitStops: { 3: "scene-illustration:area:16:ecl:a65a" },

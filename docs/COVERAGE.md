@@ -3313,6 +3313,10 @@ Chrome verifies the reflected strike and its eight-point damage report.
 
 The swamp ruin defenders use a charging lizardfolk sprite and a group
 illustration. Chrome verifies the anchor and the transition into parlay.
+The surprise-attack replay selects the original surprise branch in a
+controlled test and shows an illustration of the attack from the rubble.
+The normal charge and surprise presentations carry their own art through
+battle entry. Both clear the illustration when combat starts.
 The fresh-party icon editor regression covers 18 native editor frames.
 
 Drythh and his followers use a distinct approach sprite and group
