@@ -793,7 +793,8 @@ function matchEquivalentPortraitDeltas(file: string, directoryIndex: number, mem
     const source = replacementsById.get(global)?.source;
     if (source && source.block === block?.id && source.member > 0 && source.frame === 0 && !source.transform) {
       const original = archives.find(archive => archive.file === source.archive)?.entries[source.directoryIndex]?.pictures;
-      if (original?.[0]?.selector === metadata[0].selector && original?.[source.member]?.selector === metadata[member].selector) {
+      // Selectors can repeat the same XOR delta at different animation steps.
+      if (original?.[0]?.selector === metadata[0].selector && original?.[source.member]?.selector !== undefined) {
         const sourceBase = classicPicture(source.archive, source.directoryIndex, 0);
         const sourceDelta = classicPicture(source.archive, source.directoryIndex, source.member);
         if (base.x === sourceBase.x && base.y === sourceBase.y &&
