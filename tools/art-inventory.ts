@@ -528,6 +528,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["valjevo-laundry-spokeswoman.png", ["The half-orc woman steps forward to address the party", "Her companions remain behind her in the same laundry"]],
   ["valjevo-altar-crossed-swords.png", ["Two separate swords cross in the niche behind the altar", "Both swords remain in place while the player decides whether to take them"]],
   ["valjevo-forge-workshop.png", ["A human smith and three fire giants work on the armor together", "Weapons and spare armor are piled clear of the work area"]],
+  ["valjevo-genheeris-at-desk.png", ["A middle-aged man in robes looks up from his desk", "Unusual furnishings suggest a wealthy merchant's apartment"]],
   ["valhingen-coffin-sanctification.png", ["Dust is being brushed from the black marble coffin", "Holy items are being placed inside it"]],
   ["valjevo-tyranthraxus-reveal.png", ["An ancient bronze dragon with prominent swept-back horns", "The glowing pool at the base of the dragon"]],
   ["valjevo-tyranthraxus-offer.png", ["Tyranthraxus addresses the party across the pool", "The party is visible as the audience for the offer"]],
