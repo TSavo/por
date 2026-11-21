@@ -273,6 +273,14 @@ export const code = resolve({
   randomize: { "1.0": { segment: 0x5bb, at: 0x68cb }, "1.3": { segment: 0xaf8, at: 0xc1c7 } },
 });
 
+/** Version 1.3 passes the selected question into its native line input. */
+export const startupInput = resolve({
+  codeWheel: {
+    "1.0": undefined,
+    "1.3": { beforeRead: { slice: 2, at: 0x2fd }, afterRead: { slice: 2, at: 0x302 }, questionOffset: -0x2a },
+  },
+});
+
 /** The segment a code position runs in, or undefined while its overlay slice is not loaded. */
 export function codeSegment(where: Where): number | undefined {
   return "segment" in where ? where.segment : loadedSlices.find(({ index }) => index === where.slice)?.loadPara;

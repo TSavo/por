@@ -230,6 +230,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     }
     return pixels;
   }
+  let codeWheelQuestion: number | undefined;
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
     durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }) => {
     const native = screen;
@@ -522,6 +523,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         panelFrame: scene ? undefined : matchPanelFrame(screen),
         tileInventory,
         textColors: enhancedPalette,
+        codeWheelQuestion,
         automaticCombat: automaticCombat || undefined,
         developerVictoryAvailable: !leads && developerVictoryAvailable || undefined,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
@@ -955,6 +957,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     enterDiskMenu: () => { diskMenuDepth++; },
     leaveDiskMenu: () => { diskMenuDepth--; },
     setScene: (id: string | undefined) => { scene = id; },
+    setCodeWheelQuestion: (question: number | undefined) => { codeWheelQuestion = question; },
     tracked: () => trackedId,
     restoreTracked: (id: string | undefined) => { trackedId = id; },
   };

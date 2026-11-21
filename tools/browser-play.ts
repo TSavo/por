@@ -176,6 +176,7 @@ interface FrameState extends ExplorationFrame {
   frame?: string;
   enhancedFrame?: string;
   scene?: string;
+  codeWheelQuestion?: number;
   portrait?: string;
   characterSheet?: CharacterSheetPart[];
   classicPortrait?: boolean;

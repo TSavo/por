@@ -20,7 +20,7 @@ import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { callTrace, exeByImage, farCall, farCallObservers, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
-import { behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit } from "../src/runtime/bindings.js";
+import { behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, startupInput } from "../src/runtime/bindings.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 
@@ -79,12 +79,17 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const captureCombatEffectUnderlay = input?.captureCombatEffectUnderlay;
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const captureBattleTerrain = input?.captureBattleTerrain;
-  if (capturePresentationDelay || capturePerspective || traceBattleDraw || captureBattleTerrain) {
+  const codeWheel = input && process.env.POR_BROWSER_PLAY === "1" ? startupInput.codeWheel : undefined;
+  if (capturePresentationDelay || capturePerspective || traceBattleDraw || captureBattleTerrain || codeWheel) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
     // Above the pause routine's return address sit its argument, its saved BP and its own return address.
     const deathReturnDepth = 8;
     cpu.tick = function (at) {
+      if (codeWheel && isAt(this, at, codeWheel.beforeRead)) {
+        input?.setCodeWheelQuestion(this.read8(this.ss, (this.bp + codeWheel.questionOffset) & 0xffff));
+      }
+      if (codeWheel && isAt(this, at, codeWheel.afterRead)) input?.setCodeWheelQuestion(undefined);
       // The first-person draw has finished writing the viewport.
       if (capturePerspective && isAt(this, at, code.viewportDrawn)) {
         capturePerspective(this, returnsTo(this, 0, code.localSceneryResumes));
