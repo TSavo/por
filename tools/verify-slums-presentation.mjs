@@ -2017,6 +2017,7 @@ const illustrationRoutes = new Map([
     prompt: /THECHAMBERLIGHTSUPTOREVEALATALL,PALEMANWITHVERYWHITETEETH/i,
     phaseCaptures: { 13: "valhingen-vampire-chamber-phase-1.png" },
     finalPhaseCapture: "valhingen-vampire-chamber-phase-2.png",
+    continuation: { inputs: ["enter"], portrait: "portrait:area:10:ecl:b271:PIC4.DAX:23:2:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valhingen-skeleton-roam-phases", {
     slot: "A", inputs: ["up", "down", "a", "a", ...Array(14).fill("q")],
