@@ -3040,6 +3040,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "mendor-rotted-chamber.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["mendor-shattered-study", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:15:ecl:ab4c:cue:shattered-study", prompt: /THISROOMWASONCEASTUDY/i,
+    finalPhaseCapture: "mendor-shattered-study.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["mendor-fresco-room", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:15:ecl:a738:cue:fresco-room", prompt: /FRESCOESONTHEWALLSOFLEARNEDMENANDTHEHEAVENLYPATRONS/i,

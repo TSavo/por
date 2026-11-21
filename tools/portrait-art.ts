@@ -458,6 +458,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:15:ecl:9c24:cue:overgrown-garden", "THEPLEASANTPONDHASBECOMEASWAMP"],
   ["scene-illustration:area:15:ecl:a69f:cue:rotted-chamber", "ROTTEDFURNITUREANDBENCHES"],
   ["scene-illustration:area:15:ecl:a6aa:cue:rotted-chamber", "ROTTEDFURNITUREANDBENCHES"],
+  ["scene-illustration:area:15:ecl:ab45:cue:shattered-study", "THISROOMWASONCEASTUDY"],
+  ["scene-illustration:area:15:ecl:ab4c:cue:shattered-study", "THISROOMWASONCEASTUDY"],
   ["scene-illustration:area:15:ecl:a731:cue:fresco-room", "FRESCOESONTHEWALLSOFLEARNEDMENANDTHEHEAVENLYPATRONS"],
   ["scene-illustration:area:15:ecl:a738:cue:fresco-room", "FRESCOESONTHEWALLSOFLEARNEDMENANDTHEHEAVENLYPATRONS"],
   ["scene-illustration:area:15:ecl:a79f:cue:ruined-scriptorium", "ROWSOFWRITINGTABLESANDHIGHSTOOLS"],
