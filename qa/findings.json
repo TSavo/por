@@ -196,7 +196,7 @@
       "id": "classic-tavern-tale-24",
       "class": "classic",
       "title": "Our build can announce Tavern Tale 24, which does not exist",
-      "detail": "New Phlan's tavern code draws 1 to 24. Version 1.3 draws 1 to 23, matching the 23 tales in the Adventurer's Journal.",
+      "detail": "New Phlan's tavern code draws 1 to 24. Version 1.3 draws 1 to 23, matching the 23 tales in the Adventurer's Journal. Version 1.3 picks from 23 tales (RANDOM 16 at a429 where the first release has RANDOM 17), so this is specific to the first release.",
       "source": "qa/research/version-1.3-differences.md.",
       "status": "open"
     },
@@ -204,7 +204,7 @@
       "id": "target-version-1-3",
       "class": "release",
       "title": "Translate version 1.3 and make it the game the port runs",
-      "detail": "Owner decision on 2026-11-21. Version 1.3 is what GOG sells and what the walkthrough documents. 73% of our procedures are the same or nearly the same in it, the scripts differ in one place, and the data is identical. The work: translator support for EXEPACK and the FBOV overlay file, a named table of every code and data address the host uses, and the same checks passing on 1.3. Hard requirement from the owner: the narration and artwork work must carry over intact. Measured: of 8,063 artwork keys, 4,023 are keyed by pixels and 2,160 by data files, both identical in 1.3; 1,880 are keyed by script position, and only 60 of those are New Phlan positions after the edit and must move by 3. Of 1,432 narration units, 35 touch the 49 New Phlan source events after the edit; the 1,745 recordings themselves do not change. The journal's 333 text triggers match the game's own words, which are identical. Sound is part of the requirement: the 1.3 sound driver code and most of its data differ from the earlier program, so the 20 Classic events must be decoded, rendered and verified again. Progress is measured by `npm run qa:version-1.3`, which counted 1,044 left on 2026-11-21.",
+      "detail": "Owner decision on 2026-11-21. Version 1.3 is what GOG sells and what the walkthrough documents. 73% of our procedures are the same or nearly the same in it, the scripts differ in one place, and the data is identical. The work: translator support for EXEPACK and the FBOV overlay file, a named table of every code and data address the host uses, and the same checks passing on 1.3. Hard requirement from the owner: the narration and artwork work must carry over intact. Measured: of 8,063 artwork keys, 4,023 are keyed by pixels and 2,160 by data files, both identical in 1.3; 1,880 are keyed by script position, and only 60 of those are New Phlan positions after the edit and must move by 3. Of 1,432 narration units, 35 touch the 49 New Phlan source events after the edit; the 1,745 recordings themselves do not change. The journal's 333 text triggers match the game's own words, which are identical. Sound is part of the requirement: the 1.3 sound driver code and most of its data differ from the earlier program, so the 20 Classic events must be decoded, rendered and verified again. Progress is measured by `npm run qa:version-1.3`, which counted 1,044 left on 2026-11-21. On 2026-11-21 npm run qa:version-1.3 exited 0: 846 procedures translated, all artwork keys and narration units working, the sound exact, and ten checks passing on 1.3 including the full campaign. Still to do: make 1.3 the default and retire the first release.",
       "source": "qa/research/version-1.3-differences.md.",
       "status": "open"
     },
@@ -222,7 +222,7 @@
       "id": "saves-across-versions",
       "class": "release",
       "title": "Saves made on the earlier build have not been tried on version 1.3",
-      "detail": "The save layout looks the same: SAVGAM is 13,137 bytes in both, and character, item and effect records are 285, 63 and 9 bytes in both. But a save carries a copy of the current area's script, so one made in New Phlan holds the earlier script, and it may hold addresses into the program's data. Loading an earlier save on 1.3 is untested. The 1,045 presentation replays start from checkpoint saves made on the earlier build, and those saves are not in the repository, so they will have to be made again on 1.3 in any case.",
+      "detail": "The save layout looks the same: SAVGAM is 13,137 bytes in both, and character, item and effect records are 285, 63 and 9 bytes in both. But a save carries a copy of the current area's script, so one made in New Phlan holds the earlier script, and it may hold addresses into the program's data. Loading an earlier save on 1.3 is untested. The 1,045 presentation replays start from checkpoint saves made on the earlier build, and those saves are not in the repository, so they will have to be made again on 1.3 in any case. Checked on 2026-11-21: a slot saved by the first release at the Slums gate loads on 1.3, the party walks, labels a tile, saves and reloads (qa/fixtures/first-release-slums-gate, run by npm run qa:version-1.3).",
       "source": "Side-agent note on 2026-11-21; sizes measured the same day.",
       "status": "open"
     },

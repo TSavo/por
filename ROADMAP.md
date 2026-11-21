@@ -143,14 +143,19 @@ Done, as measured on 2026-11-21:
 - The original sound: the renderer matches the 1.3 driver exactly, and the
   events 1.3 can play give the same output as before, so the Classic sound
   files are unchanged.
-- `npm run verify`, `npm run verify:input` and the campaign opening pass
-  on 1.3.
+- `npm run verify`, `npm run verify:input`, the voice and narration checks,
+  the campaign opening, the map and journal check, a load of a first-release
+  save, and the full campaign replay all pass on 1.3.
+
+On 2026-11-21 `npm run qa:version-1.3` exited 0 with nothing left: it ran
+all ten checks on 1.3 itself, the full campaign replay in Chrome included
+([the output](qa/evidence/version-1.3-measure-2026-11-21.txt)).
+[How replays are driven](docs/REPLAYS.md) explains what changed to make the
+campaign key lists work on both builds.
 
 Left:
 
-- The full campaign replay on 1.3. Its key lists were recorded on the
-  first release and some depend on dice, which differ between the builds.
-- Switch the default to 1.3 once it passes, and retire the first release.
+- Switch the default to 1.3 and retire the first release.
 - The code wheel. The 1.3 program accepts any word: its check is patched
   out. Classic keeps that. Enhanced shows the wheel on screen as part of
   the game and enforces the answer again.

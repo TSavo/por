@@ -1,0 +1,23 @@
+npm run qa:version-1.3, run on 2026-11-21 at commit c5410f2b, macOS, headless Chrome.
+
+part                                         done     of   left
+Procedures translated                         846    846      0   171 resident, 675 in 35 overlay slices
+Artwork keys that work on 1.3                8141   8141      0   1958 are keyed by script position; 0 do not land on the same instruction in 1.3
+Narration units that work on 1.3             1432   1432      0   2025 of 2025 source events land on the same instruction in 1.3
+Original sound events exact against 1.3        20     20      0   events 2 to 21, PC speaker and Tandy, against the original interrupt routine under Unicorn
+Host addresses named and mapped for 1.3        91     91      0   0 raw addresses remain in 12 host files
+Checks passing on 1.3, run now                 10     10      0   verify: pass; verify:input: pass; verify:translation-reproducible:1.3: pass; verify-voice-master: pass; verify-narration-generation: pass; verify-narration-runtime: pass; verify:campaign-opening: pass; verify:map-journal: pass; a save from the first release loads and plays on 1.3: pass; verify:campaign --full: pass
+
+0 left before the port runs version 1.3 with all authored work intact
+exit 0
+
+check 1/10: verify ... pass in 40 s
+check 2/10: verify:input ... pass in 12 s
+check 3/10: verify:translation-reproducible:1.3 ... pass in 17 s
+check 4/10: verify-voice-master ... pass in 2 s
+check 5/10: verify-narration-generation ... pass in 4 s
+check 6/10: verify-narration-runtime ... pass in 2 s
+check 7/10: verify:campaign-opening ... pass in 456 s
+check 8/10: verify:map-journal ... pass in 71 s
+check 9/10: a save from the first release loads and plays on 1.3 ... pass in 73 s
+check 10/10: verify:campaign --full ... pass in 1117 s
