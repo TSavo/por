@@ -4241,7 +4241,7 @@ try {
   });
   await command("Page.navigate", { url: origin });
   await waitFor("the game display", () => run('document.querySelector("#screen")?.naturalWidth === 320'));
-  if (patrolCombat || orcs || combatPose?.manualPolling || illustration?.manualPolling ||
+  if (patrolCombat || courtyard || orcs || combatPose?.manualPolling || illustration?.manualPolling ||
     routeName === "slums-mage-orc-ready" || routeName === "slums-mage-orc-leader") {
     // This replay steps every combat pause explicitly through advance().
     await run(`(() => {
@@ -10504,19 +10504,8 @@ try {
       }
       if (!frame.tileInventory?.length) continue;
       if (landing && frame.tileInventory.every(([, , , indices]) => /^0+$/.test(indices))) continue;
-      if (patrolCombat) {
-        views += await verifyTiledView(21, seen);
-      } else {
-        views++;
-        assert.deepEqual(frame.tiles, frame.tileInventory.map(([x, y, id]) => [x, y, id]), `Step ${step} (${key})`);
-        for (const [, , id] of frame.tiles) {
-          assert.match(id, /^tile:21:/);
-          seen.add(id);
-        }
-        await waitFor("121 assembled Sokal tiles", () => run(`state.sequence === ${frame.sequence} &&
-          document.querySelectorAll("#tile-art img:not(.encounter-sprite)").length === 121 &&
-          [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")].every(img => img.naturalWidth === 32 && img.naturalHeight === 32)`));
-      }
+      assert.ok(frame.perspective && frame.scenery, `Missing Sokal WebGL camera at step ${step} (${key})`);
+      views += await verifyTiledView(21, seen);
       if ((courtyard && step === route.length - 2) ||
           (landing && !courtyard && (step === 0 || step === 21 || step === route.length - 1)) || (!landing && (step === 2 || step === 9))) {
         if (step === (landing ? 0 : 2)) await switchBothWays();
@@ -10549,7 +10538,7 @@ try {
       await advance("n");
       assert.notEqual(frame.portrait, cache);
     }
-    assert.equal(views, courtyard ? 25 : patrolCombat ? 18 : landing ? 19 : 10);
+    assert.equal(views, courtyard ? 23 : landing ? 18 : 10);
     assert.equal(seen.size, courtyard ? 56 : landing ? 49 : 12);
     console.log(`Verified ${seen.size} ${routeName} patterns across ${views} views. Captures: ${directory}`);
     if (manualParty) {

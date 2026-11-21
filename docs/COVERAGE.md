@@ -2147,6 +2147,11 @@ The `sokal-smithy` browser route loads a party at `10,10 N` in slot C and
 checks the 96×96 poison frog crouch and lunge in live combat. It switches
 presentation before the attack and checks that the selected save stays intact.
 
+The Sokal landing, armory, patrol, and courtyard Chrome replays require
+the live WebGL viewport wherever they compare the native scenery tile
+inventory. They cover 18 landing views, 10 armory views, 18 patrol views,
+and 23 courtyard views.
+
 The `sokal-patrol-combat` Chrome replay checks the two diagonal wall tips
 and the chipped sill return where the diagonal meets the lower wall. All
 three 32×32 masonry PNGs load at their guest coordinates as the battlefield
