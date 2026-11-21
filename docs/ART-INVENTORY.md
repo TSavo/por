@@ -316,6 +316,12 @@ Chrome checked the writing stand and figure over WebGL and continued
 through the potion directions. The standard study route uses the
 middle distance.
 
+The Slums grain-sack troll has two additional distance replacements for
+`SPRIT2.DAX` block 31, members 1 and 2. Controlled replays changed the
+original near draw at ECL `b077` to middle and far. The native draw
+matched the 24x65 and 24x49 cels at (56,32). Chrome confirmed both
+replacements on the corridor floor. The stock replay still uses near.
+
 The Stojanow wagon trader has middle and far replacements for
 `SPRIT2.DAX` block 12, members 1 and 2. Two controlled replays changed
 the first draw at ECL `ae4c` and matched the original 24x65 and 8x49
