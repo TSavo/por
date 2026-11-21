@@ -113,12 +113,13 @@ uniform frames, seven combat frames with scoped reuse candidates, and
 38 encounter frames whose pixels match art bound to another frame.
 That report left 38 scoped portrait equivalents in the unlinked list.
 The current report lists verified composed matches separately.
-The seven combat rows are the ready and strike pairs for `CPIC1.DAX` actor
+That earlier report's seven combat rows were the ready and strike pairs for `CPIC1.DAX` actor
 11, `CPIC4.DAX` actor 14, and `CPIC6.DAX` actor 13, plus `CPIC6.DAX` actor
 14's strike pose. All seven have pixel-identical twins with Enhanced
 bindings in other contexts. The script audit found a live load for the
 last actor, Al-Hyam at Zhentil Keep. The captured wand attack draws his
-ready pose, so the strike row remains unverified in play.
+ready pose. The Zhentil strike now has a scoped binding from `44a1af39`.
+Its live strike animation still needs verification.
 The inventory at `3e12955d` loads 7,344 validated replacement mappings
 from 6,721 PNG files, including 135 distinct scripted illustrations.
 Its 30 unambiguous script picture references with unlinked art point to
@@ -773,6 +774,11 @@ The Tyrmor priest replay observed the `CPIC7.DAX` copy of 13/141 and uses
 the scoped priest art for that encounter. Other encounters assign different
 characters to identical stock pixels. The six rows remain unlinked pending
 a native encounter with the corresponding source and actor.
+
+The GOG 1.3 inventory at `8aa6f260` separately checks 156 ready and strike
+poses for 78 named monster records. It reports 152 directly linked poses
+and four global matches, all four for the hobgoblin leader in banks 1
+and 4. This check establishes matching artwork for each named pose.
 
 ### GOG 1.3 encounter sprite archive audit
 
