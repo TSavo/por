@@ -3181,6 +3181,8 @@
     "tile:20:30a49411e45f51c307970357ef283ec90c8288afb7742c70b4d71bbe9f705f82": "mendor-ruin-crossing-terrain-30a49411e45f.png",
     "combat:area:3:CPIC5.DAX:11:ecl:9e98": "valjevo-outer-patrol-captain-stand.png",
     "combat:area:3:CPIC5.DAX:139:ecl:9e98": "valjevo-outer-patrol-captain-strike.png",
+    "portrait:area:20:ecl:b6df:caller:abd5:PIC2.DAX:6:1:0": "slums-monster-council-phase-1.png",
+    "portrait:area:20:ecl:b6df:caller:abd5:PIC2.DAX:6:2:0": "slums-monster-council-phase-2.png",
     "portrait:area:20:PIC2.DAX:6:0:0": "slums-hobgoblin-ringleader-dialogue.png",
     "combat:area:3:CPIC5.DAX:55:ecl:9e98": "valjevo-outer-patrol-giant-stand.png",
     "combat:area:3:CPIC5.DAX:183:ecl:9e98": "valjevo-outer-patrol-giant-strike.png",

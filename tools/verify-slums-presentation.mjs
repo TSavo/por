@@ -1639,6 +1639,17 @@ const illustrationRoutes = new Map([
     approachSequence: [[48, 32, "encounter:area:26:ecl:a944:SPRIT7.DAX:57:0:0", 48, 80]],
     portrait: "portrait:area:26:ecl:a981:PIC7.DAX:57:0:0", prompt: /INSIDETHISHUTAREFOURLIZARDMEN/i,
   }],
+  ["slums-monster-council-phases", {
+    slot: "B", inputs: ["up", "enter", "enter", ...Array(18).fill("q")],
+    portraitStops: {
+      3: "portrait:area:20:PIC2.DAX:6:0:0",
+      13: "portrait:area:20:ecl:b6df:caller:abd5:PIC2.DAX:6:2:0",
+    },
+    portrait: "portrait:area:20:ecl:b6df:caller:abd5:PIC2.DAX:6:1:0",
+    prompt: /YOUINTRUDEONAGATHERINGOFMONSTERLEADERS/i,
+    phaseCaptures: { 13: "slums-monster-council-phase-2.png" },
+    finalPhaseCapture: "slums-monster-council-phase-1.png",
+  }],
   ["tyranthraxus-appraisal-phases", {
     slot: "B", inputs: ["right", "up", "up", "up", "up", "enter", "enter", "enter", ...Array(9).fill("q")],
     portraitStops: {
