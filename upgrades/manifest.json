@@ -1511,6 +1511,8 @@
     "encounter:area:4:ecl:b167:SPRIT5.DAX:22:2:0": "valjevo-records-scribe-far.png",
     "portrait:area:20:ecl:af6d:PIC2.DAX:6:0:0": "slums-potion-booth-ambush.png",
     "scene-illustration:area:20:ecl:b042": "slums-ohlo-package-handoff.png",
+    "scene-illustration:area:20:ecl:af3c": "slums-potion-merchant-flees.png",
+    "scene-illustration:area:20:ecl:af4d": "slums-potion-merchant-flees.png",
     "scene-illustration:area:20:ecl:b05c": "slums-ohlo-package-handoff.png",
     "combat:area:16:CPIC8.DAX:57:ecl:a560": "swamp-drythh-warband-ready.png",
     "combat:area:16:CPIC8.DAX:185:ecl:a560": "swamp-drythh-warband-strike.png",
