@@ -616,7 +616,8 @@ const encounterRoutes = new Map([
   }],
   ["valjevo-troll-approach", {
     slot: "B", inputs: ["up", "b"],
-    placement: [48, 32, "encounter:area:5:SPRIT5.DAX:31:0:0", 40, 80],
+    placement: [48, 32, "encounter:area:5:ecl:9ff9:SPRIT5.DAX:31:0:0", 40, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:5:PIC5.DAX:31:0:0", prompt: /YOUSEEAPACKOFTROLLS.*THEYSEEMUNAWAREOFYOU/i },
   }],
 ]);
 const encounterRoute = encounterRoutes.get(routeName);
