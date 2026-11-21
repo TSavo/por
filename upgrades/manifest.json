@@ -4138,6 +4138,8 @@
     "portrait:area:25:ecl:aaa4:PIC6.DAX:118:0:0": "wild-cave-thri-kreen-treasure-room.png",
     "portrait:area:25:ecl:aab8:PIC6.DAX:118:0:0": "wild-cave-thri-kreen-treasure-room.png",
     "portrait:area:27:PIC8.DAX:73:0:0": "wild-cave-gnoll-dialogue.png",
+    "portrait:area:27:ecl:a75d:PIC8.DAX:73:0:0": "wild-cave-gnoll-troll-warband.png",
+    "portrait:area:27:ecl:a765:PIC8.DAX:73:0:0": "wild-cave-gnoll-troll-warband.png",
     "combat:area:31:CPIC1.DAX:5": "bane-orc-veteran-stand.png",
     "combat:area:31:CPIC1.DAX:133": "bane-orc-veteran-strike.png",
     "tile:16:58aef8f26084a2aca7cc4f541ba0f78ee369e284686f8f6b89ccb7c228377477": "lizard-sunken-wet-joins-58aef8f26084.png",

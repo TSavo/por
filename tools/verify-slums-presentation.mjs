@@ -1665,8 +1665,11 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i, portrait: "portrait:area:25:ecl:aab8:PIC6.DAX:118:0:0" },
   }],
   ["wild-cave-gnoll-dialogue", {
-    slot: "B", inputs: ["up", "enter", "enter"],
-    portrait: "portrait:area:27:PIC8.DAX:73:0:0", prompt: /SOMEGNOLLSANDTROLLS/i,
+    slot: "B", inputs: ["up", "enter", "enter", "enter"],
+    portraitStops: { 3: "portrait:area:27:ecl:a75d:PIC8.DAX:73:0:0" },
+    portrait: "portrait:area:27:ecl:a765:PIC8.DAX:73:0:0", prompt: /SOMEGNOLLSANDTROLLS.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "wild-cave-gnoll-troll-warband.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
   ["kuto-bandit-cache", {
     slot: "J", inputs: ["up"],
