@@ -545,6 +545,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["new-phlan-rolf-city-hall.png", ["Proclamations visibly fastened to the exterior wall", "The City Hall entrance reads at gameplay size"]],
   ["new-phlan-rolf-sune-and-park.png", ["Sune’s temple entrance on the right", "An open gate into the city park on the left"]],
   ["new-phlan-rolf-old-city-gate.png", ["The gate frames the entrance from a maintained street", "Ruined Old City buildings are visible beyond the passage"]],
+  ["kuto-well-descent-decision.png", ["The party looks down from the rim of the well", "Metal rungs are visible along the shaft wall", "The hidden door remains out of view before descent"]],
   ["kuto-well-waterline-door.png", ["The inside of a well with climbable rungs", "A secret door ajar above the waterline"]],
   ["kuto-bandit-treasure-cache.png", ["The treasure is visibly stashed in the catacombs", "The cache is still in place while the party decides whether to take it"]],
   ["mendor-philosophy-stacks.png", ["Old books on shelves", "A readable Philosophy sign over the entrance"]],
