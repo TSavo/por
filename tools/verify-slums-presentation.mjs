@@ -79,11 +79,11 @@ const encounterRoutes = new Map([
     slot: "B",
     requireTiledApproach: false,
     inputs: [...Array.from({ length: 3 }, () => ["up", "enter", "down", "up", "down"]).flat(), "up", "enter"],
-    placement: [48, 32, "encounter:area:29:SPRIT8.DAX:0:0:0", 40, 80],
+    placement: [48, 32, "encounter:area:29:ecl:a684:SPRIT8.DAX:0:0:0", 40, 80],
     approachSequence: [
       [56, 32, "encounter:area:29:ecl:a683:SPRIT8.DAX:0:1:0", 24, 65],
       [56, 32, "encounter:area:29:ecl:a684:SPRIT8.DAX:0:1:0", 24, 65],
-      [48, 32, "encounter:area:29:SPRIT8.DAX:0:0:0", 40, 80],
+      [48, 32, "encounter:area:29:ecl:a684:SPRIT8.DAX:0:0:0", 40, 80],
     ],
     dialogue: {
       key: "down", portrait: "portrait:area:29:PIC8.DAX:0:0:0",
