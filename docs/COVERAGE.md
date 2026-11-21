@@ -4199,6 +4199,11 @@ checkpoint. A Chrome replay loaded the fresh party’s slot I, verified
 the retained clue across both display modes, and compared the save
 byte for byte after switching.
 
+The Sokal courtyard Chrome replay also checks the empty hall artwork
+from a controlled checkpoint with the courtyard battle flag set. The
+illustration stays visible while turning in the hall and clears to
+WebGL exploration on leaving at (8,4) facing north.
+
 Enhanced Manual Aim shows its targeting reticle over occupied squares.
 A controlled Buccaneer Chrome replay checked ordinary Aim and moving
 Manual Aim between allies and enemies, followed by Escape cleanup.
