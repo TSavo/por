@@ -936,7 +936,7 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:25:ecl:a0ea",
     prompt: /FROZENINTIME.*THEDRAGONTHROWSAFIREBALLINTHEMIDDLEOFTHEPARTY/i,
     journalLead: "diogenes-fireball", journalLeadAtDiscovery: true,
-    continuation: { inputs: ["enter"], portrait: "portrait:PIC6.DAX:117:0:0", prompt: /DIES/i },
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:25:ecl:a0ea:cue:diogenes-fireball-casualties", prompt: /DIES/i },
   }],
   ["diogenes-gift", {
     slot: "A", inputs: ["up", "enter", "e", "enter", "s", "enter", "end", "end", "end", ...Array(5).fill("enter")],
@@ -8056,6 +8056,10 @@ try {
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
+      if (routeName === "diogenes-upper-ledge-fireball") {
+        const casualtyShot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "diogenes-fireball-casualties.png"), Buffer.from(casualtyShot.data, "base64"));
+      }
       if (routeName === "valjevo-altar-curse") {
         const impactShot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "valjevo-altar-curse-impact.png"), Buffer.from(impactShot.data, "base64"));
