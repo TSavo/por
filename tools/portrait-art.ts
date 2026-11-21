@@ -420,6 +420,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:6:ecl:9c44:cue:forge-heat", "THESMITHYWIPESHISBROWANDSAYS"],
   ["scene-illustration:area:3:ecl:9f7e:caller:9e79", "WITHANODOFTHEHEADYOUARELEFTALONE"],
   ["scene-illustration:area:3:ecl:9bf8:cue:giant-patrol-passage", "WITHANODOFTHEHEADYOUARELEFTALONE"],
+  ["scene-illustration:area:3:ecl:ad5e:cue:password-sentries-alarm", "ANALARMSTARTSRINGING"],
+  ["scene-illustration:area:3:ecl:ad5f:cue:password-sentries-alarm", "ANALARMSTARTSRINGING"],
   ["scene-illustration:area:4:ecl:9ed5:caller:a08a", "WITHANODOFTHEHEADYOUARELEFTALONE"],
   ["scene-illustration:area:4:ecl:9ed5:caller:ac70", "WITHANODOFTHEHEADYOUARELEFTALONE"],
   ["scene-illustration:area:4:ecl:9a5a:caller:ab81", "SIXSCRIBESBUSILYWRITINGDOWNTHEREPORTSOFACOUPLEOFOFFICERS"],

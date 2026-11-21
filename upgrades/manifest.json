@@ -1896,6 +1896,8 @@
     "encounter:area:3:ecl:a815:SPRIT5.DAX:55:1:0": "valjevo-barracks-waking-giants-pair-middle.png",
     "portrait:area:3:ecl:a815:PIC5.DAX:55:0:0": "valjevo-barracks-waking-giants-dialogue.png",
     "portrait:area:3:ecl:ac1e:PIC5.DAX:55:0:0": "valjevo-password-giant-sentries.png",
+    "scene-illustration:area:3:ecl:ad5e:cue:password-sentries-alarm": "valjevo-password-sentries-alarm.png",
+    "scene-illustration:area:3:ecl:ad5f:cue:password-sentries-alarm": "valjevo-password-sentries-alarm.png",
     "portrait:area:3:ecl:ac3b:PIC5.DAX:55:0:0": "valjevo-password-giant-sentries.png",
     "portrait:area:3:ecl:ac6b:PIC5.DAX:55:0:0": "valjevo-password-giant-threat.png",
     "portrait:area:3:ecl:acbe:PIC5.DAX:55:0:0": "valjevo-password-giant-sentries.png",

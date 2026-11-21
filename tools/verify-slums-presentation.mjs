@@ -1724,6 +1724,16 @@ const illustrationRoutes = new Map([
     approachSequence: [[40, 32, "encounter:area:3:ecl:abe6:SPRIT5.DAX:55:0:0", 48, 80]],
     requireTiledApproach: false,
   }],
+  ["valjevo-password-sentries-alarm", {
+    slot: "B", inputs: ["up", "enter", "c", "enter"],
+    portraitStops: {
+      2: "portrait:area:3:ecl:ac1e:PIC5.DAX:55:0:0",
+      3: "scene-illustration:area:3:ecl:ad5e:cue:password-sentries-alarm",
+    },
+    portrait: "scene-illustration:area:3:ecl:ad5f:cue:password-sentries-alarm", prompt: /ANALARMSTARTSRINGING.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "valjevo-password-sentries-alarm.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /MOVEVIEWAIMUSEQUICKDONE/i },
+  }],
   ["valjevo-messenger-dialogue", {
     slot: "B", inputs: ["up", "b", "up", "enter", "enter", "p", "n"],
     portrait: "portrait:HEAD5.DAX:70:BODY5.DAX:8", prompt: /IJUSTGOTBACKFROMTHENORTH/i,
