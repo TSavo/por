@@ -2838,12 +2838,10 @@ using 63 tile patterns. The route turns inside the room, walks out, checks
 both ends of the north passage, and returns to (6,1) facing south.
 Switching modes preserves the save.
 
-The canal-room replay also measures the enhanced picture boundary in
-Chrome at 375, 768, and 1100 pixels wide. It checks the 4:3 display ratio,
-every tile join, and all four edges of the picture panel.
-The same replay requests one unavailable tile PNG on the last view.
-Chrome keeps the other 120 enhanced tiles, the first-person panel, and
-the enhanced font. The original pixels fill the affected tile position.
+The canal-room replay also measures the WebGL viewport in Chrome at
+375, 768, and 1100 pixels wide. It checks the 4:3 display ratio and that
+the canvas fills all four edges of the picture opening. The 2,904 tile
+placements are checked separately against the native inventory.
 
 The `new-phlan-arena-quick` route starts from the council checkpoint at
 (6,5) facing east and uses Alda for the arena duel. Chrome checks the attack
