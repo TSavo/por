@@ -7682,7 +7682,22 @@ try {
     console.log("Verified that Valjevo records enter the journal only when read.");
   } else if (scriptorium || mazeWatch || giantPatrol) {
     if (giantPatrol) for (const key of ["s", "enter", "up", "enter", "enter"]) await advance(key);
-    for (const key of ["up", "enter"]) await advance(key);
+    await advance("up");
+    const scribes = "scene-illustration:area:4:ecl:9a5a:caller:ab81";
+    if (scriptorium) {
+      assert.equal(frame.portrait, scribes);
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
+        /sixscribesbusilywritingdownthereportsofacoupleofofficers/i);
+      await waitFor("the illustrated Scriptorium arrival", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${scribes}"]')?.naturalWidth === 352 &&
+        document.querySelector('.encounter-portrait[src="/art/${scribes}"]')?.naturalHeight === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      const arrival = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "valjevo-scriptorium-scribes.png"), Buffer.from(arrival.data, "base64"));
+    }
+    await advance("enter");
+    assert.notEqual(frame.portrait, scribes);
     if (mazeWatch) {
       assert.deepEqual(frame.encounter, [48, 32, "encounter:area:4:SPRIT5.DAX:16:0:0", 40, 80]);
       await waitFor("the maze watch approach sprite", () => run(
