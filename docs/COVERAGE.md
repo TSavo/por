@@ -1951,14 +1951,19 @@ the new full-panel illustrations at their original encounter prompts.
 strike poses during that same battle. `kobold-cave-envoys-rematch` and
 `valjevo-messenger-dialogue` verify the new illustrations at the
 original rematch and friendly parlay prompts.
-`valhingen-zombie-stairs` checks the staircase illustration at the
-original zombie prompt, including panel fit and mode switching.
+`valhingen-zombie-stairs` checks the staircase illustration and all four
+idle poses at the original zombie prompt. It verifies the panel fit and
+checks that switching display modes preserves the prompt.
 `sokal-undead-patrol-dialogue` checks the patrol illustration at its
-original prompt. `new-phlan-proclamation-walk` checks six redrawn City
+original prompt. The landing and courtyard replays exercise the mixed
+skeleton and zombie patrol across its six original cursor and distance
+combinations. Chrome verifies the sprite placement and the return to the
+original patrol dialogue. `new-phlan-proclamation-walk` checks six redrawn City
 Hall and garden tiles across 15 live views and 1,815 placements.
 `new-phlan-north-avenue` checks 20 redrawn shrine and street tiles across
-15 live views. `valhingen-grave-claws` and `valhingen-skeleton-enclave`
-check original prompts, panel fit, and state-preserving switches.
+15 live views. `valhingen-grave-claws` checks five distinct poses during
+the original grave prompt. That route and `valhingen-skeleton-enclave`
+check panel fit and state-preserving display switches.
 `valjevo-medusa-dialogue` verifies the charging Medusa at the original
 precombat prompt, with full panel fit and mode switching.
 `sokal-ceiling-insects` checks the swarm illustration at the original
