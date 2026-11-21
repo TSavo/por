@@ -39,7 +39,10 @@ ordinary play and which start from controlled saves.
   slot C. Use `--from-sokal-courtyard <slot-C>` to continue from that save.
   The party speaks to Ferran, returns by boat, and claims the Sokal Keep
   commission reward at City Hall. Slot H preserves the reward and the journal
-  turn-in.
+  turn-in. The party sells the reward jewelry to pay for healing and two
+  resurrections, then rests at the New Phlan lodging. Use
+  `--from-sokal-council <slot-H>` to replay recovery and reload all six
+  original fighters in slot E.
 - The Encamp journal tracks witnessed clues and the selected commission in
   the active save slot. The art inventory tracks individual replacements,
   placement metadata, and observed gaps. [Art inventory](docs/ART-INVENTORY.md)

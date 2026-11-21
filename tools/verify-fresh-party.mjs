@@ -15,8 +15,8 @@ const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker or --from-sokal-council with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, or --replay-leg with a recorded leg directory.");
 }
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
@@ -1566,6 +1566,44 @@ async function verifySokalCourtyardAftermath() {
   console.log("Turned in Sokal Keep and reloaded the original council reward:", resolve(saveDir, "H.json"));
 }
 
+async function verifySokalCouncilRecovery() {
+  const lightWounds = ["h", "end", "end", "h",
+    (text) => assert.match(text, /cure light wounds will only cost 100 gold pieces/), "y", "e"];
+  const raiseDead = ["h", ...Array(6).fill("end"), "h",
+    (text) => assert.match(text, /raise dead will only cost 5500 gold pieces/), "y", "e"];
+  const restedParty = /alda 2 16.*brin -1 9.*cora 2 14.*dorn 2 11.*enna 2 14.*fenn 1 9.*curate 2 26.*6,12 w/;
+  const recovered = await replay(loadSlot("2368"), "85000000", [
+    (text) => assert.match(text, /enna 2 12.*5,5 e/),
+    "right", "right", "up", "right", "up", "up", "enter", "enter", "right", ...Array(6).fill("up"),
+    "left", "up", "right", "up", "right", "up", "enter", "enter", "y",
+    (text) => assert.match(text, /heal view pool appraise exit/),
+    ...Array(5).fill("end"), "a", (text) => assert.match(text, /enna.*3 pieces of jewelry.*appraise/),
+    "j", "s", "j", "s", "j", "s", "p",
+    ...Array(4).fill("home"), ...lightWounds, "end", ...raiseDead,
+    (text) => assert.match(text, /alda 2 1.*brin -1 1/),
+    "end", ...lightWounds, "end", ...lightWounds,
+    "end", "end", ...raiseDead, ...lightWounds,
+    (text) => assert.match(text, /fenn 1 [1-9] theurgist/),
+    "end", "end", ...lightWounds, "s", ["e", /11,3 s.*area cast view encamp/, 5],
+    "right", "right", "up", "left", "up", "left", "up", "right", ...Array(7).fill("up"),
+    "left", ...Array(8).fill("up"), "left", ...Array(4).fill("up"), "right", "up", "right", "up", "enter",
+    (text) => assert.match(text, /6,12 w.*1 platinum piece to rest here/),
+    "y", "end", "enter", "enter", "r", "y", ...Array(20).fill("i"), "r",
+    ["n", /camping save view magic rest alter exit journal/, 120],
+    (text) => assert.match(text, restedParty), "s", "s", "e",
+  ]);
+  assert.match(visibleText(recovered), /quit to dos/);
+  await replay(loadSlot("1265"), "85000000", [
+    (text) => assert.match(text, restedParty),
+    "j", (_text, frame) => {
+      const { leads } = frame.journal;
+      assert.ok(leads.some(({ id }) => id === "phlan-paid-rest"));
+      assert.ok(leads.some(({ id, status }) => id === "commission-sokal" && status === "turned-in"));
+    },
+  ]);
+  console.log("Reunited all six original fighters and reloaded after paid lodging:", resolve(saveDir, "E.json"));
+}
+
 if (campaign && campaignOption === "--from-sokal") {
   copyFileSync(campaignInput, join(saveDir, "A.json"));
   await verifySokalArrival();
@@ -1604,6 +1642,13 @@ if (campaign && ["--from-sokal-trained", "--from-sokal-courtyard"].includes(camp
   copyFileSync(campaignInput, join(saveDir, trained ? "J.json" : "C.json"));
   if (trained) await verifyTrainedSokalCourtyard();
   await verifySokalCourtyardAftermath();
+  await verifySokalCouncilRecovery();
+  process.exit(0);
+}
+
+if (campaign && campaignOption === "--from-sokal-council") {
+  copyFileSync(campaignInput, join(saveDir, "H.json"));
+  await verifySokalCouncilRecovery();
   process.exit(0);
 }
 
