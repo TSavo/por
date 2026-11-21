@@ -2136,6 +2136,7 @@ const illustrationRoutes = new Map([
     prompt: /THEREARETWOTHRI.KREENHERE.*THEYBLOCKTHEPASSAGEWITHTHEIRBODIES/i,
     phaseCaptures: { 12: "wild-cave-thri-kreen-two-guards-phase-1.png", 13: "wild-cave-thri-kreen-two-guards-phase-2.png", 14: "wild-cave-thri-kreen-two-guards-phase-3.png" },
     finalPhaseCapture: "wild-cave-thri-kreen-two-guards-phase-4.png",
+    continuation: { inputs: ["a"], portrait: "portrait:area:25:ecl:a9a6:PIC6.DAX:118:4:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["sokal-ceiling-insects-phases", {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
@@ -2223,6 +2224,11 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 9: "valhingen-wight-roam-phase-1.png" },
     finalPhaseCapture: "valhingen-wight-roam-phase-2.png",
     continuation: { inputs: ["c"], portrait: "portrait:area:10:ecl:b5c7:PIC4.DAX:20:2:0", prompt: /ABATTLEBEGINS/i },
+  }],
+  ["pyramid-lizardfolk-patrol-combat-phase", {
+    slot: "A", inputs: ["up", "enter", "enter", "enter", "q", "q", "q", "enter", "q", "c"],
+    portrait: "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:3:0", prompt: /MUTILATINGSCUM.*BUTYOUWILLDIEFIRST/i,
+    continuation: { inputs: ["enter"], portrait: "portrait:area:23:ecl:9ffe:PIC7.DAX:57:3:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["pyramid-lizardfolk-patrol-phases", {
     slot: "A", inputs: ["up", "enter", "enter", "enter", "q", "q", "q", "enter", "q"],

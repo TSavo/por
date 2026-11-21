@@ -7,6 +7,8 @@ const pictureKey = /^portrait:(PIC\d+\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
 const roamingZombieAnimationKey = /^portrait:area:10:ecl:(?:b56c|b58c|b695:caller:9f43):PIC4\.DAX:35:[0-4]:0$/;
 const riverLizardfolkDeltaKey = /^portrait:area:23:ecl:9f04:PIC7\.DAX:57:[1-3]:0$/;
 const verifiedPortraitDeltaKeys = new Set([
+  "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:3:0",
+  "portrait:area:23:ecl:9ffe:PIC7.DAX:57:3:0",
   "portrait:area:13:ecl:9c5e:PIC8.DAX:0:2:0",
   "portrait:area:23:ecl:aa03:PIC7.DAX:57:1:0",
   "portrait:area:23:ecl:aa03:PIC7.DAX:57:2:0",
@@ -233,6 +235,7 @@ const verifiedPortraitDeltaKeys = new Set([
   "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0",
   "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0",
   "portrait:area:25:ecl:a991:PIC6.DAX:118:4:0",
+  "portrait:area:25:ecl:a9a6:PIC6.DAX:118:4:0",
   "portrait:area:24:ecl:af84:PIC1.DAX:8:1:0",
   "portrait:area:24:ecl:af84:PIC1.DAX:8:2:0",
   "portrait:area:21:ecl:ae31:caller:a613:PIC4.DAX:18:1:0",
