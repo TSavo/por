@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { appendFileSync, readFileSync, readdirSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
-import { join, resolve } from "node:path";
+import { join } from "node:path";
 import { requireBrowserGameRoot } from "./gamedata.js";
 import { loadCombatMaterialMasks, loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
@@ -35,17 +35,10 @@ const streetRenderer = readFileSync(new URL("./new-phlan-webgl.js", import.meta.
 const wheelPage = readFileSync(new URL("./code-wheel.html", import.meta.url));
 const wheelScript = readFileSync(new URL("./code-wheel.js", import.meta.url));
 const wheelLayout = readFileSync(new URL("../src/codewheel/wheel.json", import.meta.url));
-const runeDirectory = process.env.POR_CODEWHEEL_REFERENCE ??
-  resolve(gameRoot, "../../codewheel/runes");
-const wheelRunes = new Map<string, string>();
-try {
-  for (const name of readdirSync(runeDirectory)) {
-    const match = /^(espruar|dethek)-piece(\d{2})-[A-Za-z0-9]+\.png$/.exec(name);
-    if (match) wheelRunes.set(`${match[1]}-${match[2]}`, join(runeDirectory, name));
-  }
-} catch {
-  // The game can still run without an external copy of the wheel.
-}
+const runeDirectory = new URL("../upgrades/codewheel/", import.meta.url);
+const wheelRunes = new Map(readdirSync(runeDirectory)
+  .filter(name => /^(espruar|dethek)-\d{2}\.png$/.test(name))
+  .map(name => [name.slice(0, -4), new URL(name, runeDirectory)]));
 const wheelArt = new Set([
   "background", "outer-disc", "inner-disc", "espruar-translate-tab", "dethek-translate-tab",
   "path-dashes", "path-dash-dot-dot", "path-dots",

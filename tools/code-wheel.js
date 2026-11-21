@@ -28,7 +28,7 @@ async function start() {
   const pictures = new Map(ids.map(id => [id, image(id)]));
   await Promise.all([...pictures].map(async ([id, picture]) => {
     try { await picture.decode(); }
-    catch { throw new Error(`Cannot load ${id}. Supply the original rune files using POR_CODEWHEEL_REFERENCE.`); }
+    catch { throw new Error(`Cannot load the code-wheel image for ${id}.`); }
   }));
   const labels = new Map([
     ["espruar", "Espruar rune"], ["dethek", "Dethek rune"], ["path", ""],
@@ -50,7 +50,6 @@ async function start() {
       context.save();
       context.translate(x, y);
       context.rotate(radians(slot));
-      if (!id.endsWith("-tab")) context.globalCompositeOperation = "screen";
       context.drawImage(picture, -width / 2, -height / 2, width, height);
       context.restore();
     });
