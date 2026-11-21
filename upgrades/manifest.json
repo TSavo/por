@@ -2455,6 +2455,7 @@
     "portrait:area:26:ecl:aa06:PIC7.DAX:57:0:0": "old-phlan-large-lizardfolk-dialogue.png",
     "portrait:area:26:ecl:aa07:PIC7.DAX:57:0:0": "old-phlan-large-lizardfolk-dialogue.png",
     "combat:area:28:CPIC6.DAX:14:ecl:a2a7": "valjevo-al-hyam-ready.png",
+    "combat:area:28:CPIC6.DAX:142:ecl:a2a7": "zhentil-al-hyam-strike.png",
     "combat:area:28:CPIC6.DAX:16:ecl:a2a7": "zhentil-commandant-combat-ready.png",
     "combat:area:28:CPIC6.DAX:144:ecl:a2a7": "zhentil-commandant-combat-strike.png",
     "combat:area:5:CPIC5.DAX:14:ecl:a3a8": "valjevo-al-hyam-ready.png",
