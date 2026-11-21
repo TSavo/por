@@ -5502,7 +5502,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(sokalCourtyardNote ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
-    POR_INPUT_COMPAT: "discard-poll-prompt", POR_CLOCK: "fixed",
+    POR_INPUT_COMPAT: moonseaTravel ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
@@ -5814,7 +5814,7 @@ try {
     await waitFor("the drawbridge illustration", () => run(`state.sequence === ${frame.sequence} &&
       !activeTravel && document.querySelector("#travel-map").hidden &&
       document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
-    for (const key of ["e", "enter"]) await advance(key);
+    await advance("e");
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ANTI-MAGICSHELL/i);
     await advance("enter");
     assert.ok(frame.exploration && !frame.overlandMap);
