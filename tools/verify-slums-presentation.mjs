@@ -3434,6 +3434,22 @@ const illustrationRoutes = new Map([
     approachSequence: [[48, 32, "encounter:area:1:SPRIT6.DAX:16:0:0", 40, 80]],
     portrait: "portrait:area:1:HEAD6.DAX:9:BODY6.DAX:5", prompt: /CAPTAINLOOKSYOUOVER/i,
   }],
+  ["mendor-fighter-warning", {
+    slot: "B", inputs: ["up", "enter", "enter", "w"],
+    portraitStops: { 3: "portrait:area:15:PIC2.DAX:25:0:0" },
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:a8e2:cue:fighter-warning",
+    prompt: /THEMANSCREAMSWHILEFROTHINGATTHEMOUTH/i,
+    finalPhaseCapture: "mendor-fighter-warning.png",
+    continuation: { inputs: ["enter"], portrait: "portrait:area:15:PIC2.DAX:25:0:0",
+      prompt: /COMBATWAITFLEEPARLAYIGNORE/i },
+  }],
+  ["mendor-fighter-warning-parlay", {
+    slot: "B", inputs: ["up", "enter", "enter", "p", "n"],
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:a91b:cue:fighter-warning",
+    prompt: /THEMANSCREAMSWHILEFROTHINGATTHEMOUTH/i,
+    continuation: { inputs: ["enter"], portrait: "portrait:area:15:PIC2.DAX:25:0:0",
+      prompt: /DOYOUTAKEPITYANDINVITEHIMTOGOWITHYOU/i },
+  }],
   ["mendor-fighter-dialogue", {
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:15:PIC2.DAX:25:0:0", prompt: /YOUFINDAFIGHTERWITHBATTEREDARMOR/i,
