@@ -24,6 +24,13 @@ import { ovl07_0353 } from "../src/translated/ovl07.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 
+// The browser server reads frames from this process's stdout pipe. Node writes
+// to a pipe asynchronously on macOS and Linux, and this process blocks reading
+// the next key before a large frame is flushed. Blocking writes keep each
+// frame ahead of the read that waits for its answer.
+(process.stdout as unknown as { _handle?: { setBlocking?: (blocking: boolean) => void } })
+  ._handle?.setBlocking?.(true);
+
 const root = findGameRoot();
 if (!root) throw new Error("Pool of Radiance game data not found");
 const gameFiles = mountValjevoWallPieces(readdirSync(root, { recursive: true, encoding: "utf8" })
