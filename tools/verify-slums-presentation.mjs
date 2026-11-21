@@ -2354,6 +2354,17 @@ const illustrationRoutes = new Map([
     prompt: /ASYOUHIKETHROUGHTHEMOUNTAINS,ALARGEDRAGONFLYSABOVEYOU/i,
     finalPhaseCapture: "diogenes-mountain-sighting-phase-1.png",
   }],
+  ["wild-grove-western-stench", {
+    slot: "A", inputs: ["up", "enter", "enter", "z", "z", "z", "a", "enter"],
+    portraitStops: {
+      3: "portrait:area:26:PIC7.DAX:0:0:0",
+      6: "portrait:area:26:ecl:a7b4:PIC7.DAX:0:2:0",
+      7: "scene-illustration:area:26:ecl:a88e:cue:western-stench",
+    },
+    portrait: "scene-illustration:area:26:ecl:a88e:cue:western-stench",
+    prompt: /ANAWFULSTENCHISCOMINGFROMTHEWEST/i, finalPhaseCapture: "lizard-wilds-western-stench.png",
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["valjevo-sleeping-giant-phases", {
     slot: "B", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:3:ecl:a6c8:PIC5.DAX:56:0:0", prompt: /SLEEPINGGIANTS/i,
@@ -8381,6 +8392,10 @@ try {
         document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
+      if (routeName === "wild-grove-western-stench") {
+        assert.ok(!frame.classicPortrait);
+        await waitForExplorationViewport();
+      }
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
       if (routeName === "diogenes-upper-ledge-fireball") {
         const casualtyShot = await command("Page.captureScreenshot", { format: "png" });
