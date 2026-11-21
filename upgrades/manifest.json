@@ -60,6 +60,8 @@
     "scene-illustration:area:13:ecl:b01c:caller:af11:cue:truce-boulder": "kobold-truce-boulder.png",
     "scene-illustration:area:13:ecl:b04a:caller:af11:cue:truce-boulder-departure": "kobold-truce-boulder-departure.png",
     "scene-illustration:area:13:ecl:b04b:cue:truce-boulder-departure": "kobold-truce-boulder-departure.png",
+    "scene-illustration:area:13:ecl:9fb0:cue:guide-asleep": "kobold-cave-guide-asleep-again.png",
+    "scene-illustration:area:13:ecl:9fb1:cue:guide-asleep": "kobold-cave-guide-asleep-again.png",
     "scene-illustration:area:13:ecl:a453": "kobold-king-secret-door.png",
     "scene-illustration:area:13:ecl:a45a": "kobold-king-secret-door.png",
     "scene-illustration:area:13:ecl:af3c:caller:b137": "kobold-guide-wall-tap.png",

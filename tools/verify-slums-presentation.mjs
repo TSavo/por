@@ -9697,7 +9697,20 @@ try {
     await advance("j");
     assert.ok(knowsOffer());
     if (declineKoboldGuide) {
-      for (const key of ["j", "n", "j"]) await advance(key);
+      await advance("j");
+      await advance("n");
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /THEKOBOLDPROMPTLYRETURNSTOSLEEP/i);
+      const asleep = "scene-illustration:area:13:ecl:9fb1:cue:guide-asleep";
+      assert.equal(frame.portrait, asleep);
+      await waitFor("the kobold back asleep", () => run(`
+        state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${asleep}"]')?.naturalWidth === 352
+      `));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "kobold-cave-guide-asleep-again.png"), Buffer.from(shot.data, "base64"));
+      await advance("j");
       const clues = new Set(frame.journal.leads.map(({ id }) => id));
       assert.ok(clues.has("kobold-guide-asleep") && !clues.has("kobold-guide-follow") && !clues.has("kobold-guide-arrived"));
       assert.match(frame.journal.objective.nextStep, /guide went back to sleep.*another way to the king/i);
