@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import type { NativeExploration } from "./native-exploration.js";
 
-type Artwork = ReadonlyMap<string, { reflected?: boolean }>;
+type Artwork = ReadonlyMap<string, { file?: string; reflected?: boolean }>;
 type Material = { key: string; reflected?: boolean; pixels?: number[] };
 
 /** Generate surfaces from the active native glyph bank, including alternate levels. */
@@ -42,9 +42,15 @@ export function buildExplorationMaterials(native: NativeExploration & { area: nu
     }
     // Older entries fingerprint the glyph over a backdrop. Use those
     // when there is no replacement fingerprinted from the glyph itself.
-    const matches = [native.skyColor, native.groundColor, 0].map(background =>
-      texture(Buffer.from([...pixels].map((color, i) => mask[i] ? color : background))));
-    const art = matches.find(candidate => !candidate.pixels) ?? cutout;
+    const matches = new Map<string, Material>();
+    for (const background of new Set([native.skyColor, native.groundColor, 0])) {
+      const candidate = texture(Buffer.from([...pixels].map((color, i) => mask[i] ? color : background)));
+      const source = artwork.get(candidate.key);
+      if (source) matches.set(JSON.stringify([source.file ?? candidate.key, Boolean(source.reflected)]), candidate);
+    }
+    // Backdrop matches may belong to different contextual redraws of the
+    // same foreground. Only use a redraw if the visible glyph identifies it.
+    const art = matches.size === 1 ? [...matches.values()][0]! : cutout;
     partsBySymbol.set(symbol, { art, mask, status: art.pixels ? "native" : "composited" });
   }
   const wallFaces = Array.from({ length: 15 }, (_, type) => {
