@@ -1875,6 +1875,21 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "zhentil-envoy-riders-escort.png",
     continuation: { inputs: ["enter", "up"], clearsPortrait: true, prompt: /YOUAREBEINGESCORTEDINTOZHENTILOUTPOST/i },
   }],
+  ["zhentil-inner-wall", {
+    slot: "A", inputs: ["down", "enter", "y", "enter", "enter", "enter"],
+    portraitStops: { 2: "portrait:PIC6.DAX:33:0:0", 3: "scene-illustration:area:25:ecl:b6a0:cue:zhentil-envoy-riders-escort" },
+    portrait: "scene-illustration:area:25:ecl:b624:caller:9bd9:cue:zhentil-inner-wall",
+    prompt: /LARGEINNERWALLAROUNDTHECENTRALKEEP.*MENENTERINGANDLEAVINGBARRACKS/i,
+    finalPhaseCapture: "zhentil-inner-wall.png",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:25:ecl:b624:caller:9bfc:cue:zhentil-led-to-central-keep", prompt: /YOUARELEDTOWARDTHECENTRALKEEP/i },
+  }],
+  ["zhentil-led-to-central-keep", {
+    slot: "A", inputs: ["down", "enter", "y", "enter", "enter", "enter", "enter"],
+    portrait: "scene-illustration:area:25:ecl:b624:caller:9bfc:cue:zhentil-led-to-central-keep",
+    prompt: /YOUARELEDTOWARDTHECENTRALKEEP/i,
+    finalPhaseCapture: "zhentil-led-to-central-keep.png",
+    continuation: { inputs: ["enter", "enter"], portrait: "portrait:PIC6.DAX:50:0:0", prompt: /YOUAREINSIDETHECOMMANDANT'SOFFICE/i },
+  }],
   ["western-mounted-guards", {
     slot: "A", inputs: ["down"],
     portrait: "scene-illustration:area:25:ecl:adce:cue:western-mounted-guards",
