@@ -53,6 +53,10 @@ ordinary play and which start from controlled saves.
 - `--from-textile-commission <slot-A>` resumes that party, wins the scorpion
   and hobgoblin courtyard battles with original combat, and reloads the
   cleared courtyard in slot D.
+- `--from-bane-preparation <slot-A>` takes the same party through the eastern
+  city gate, parleys with the orc patrol, and opens the temple's hidden
+  cache. Slot D reloads with the Dust of Disappearance and the other items
+  from that cache in Alda's inventory.
 - The Encamp journal tracks witnessed clues and the selected commission in
   the active save slot. The art inventory tracks individual replacements,
   placement metadata, and observed gaps. [Art inventory](docs/ART-INVENTORY.md)

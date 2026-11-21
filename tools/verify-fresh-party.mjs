@@ -15,8 +15,8 @@ const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--from-sokal-lodging", "--from-textile-commission", "--from-castle-ending", "--from-castle-guards", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with slot D, --from-sokal or --from-textile-commission with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker or --from-sokal-council with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, --from-sokal-lodging with slot E, --from-castle-ending or --from-castle-guards with slot B, or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--from-sokal-lodging", "--from-textile-commission", "--from-bane-preparation", "--from-castle-ending", "--from-castle-guards", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with slot D, --from-sokal, --from-textile-commission, or --from-bane-preparation with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker or --from-sokal-council with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, --from-sokal-lodging with slot E, --from-castle-ending or --from-castle-guards with slot B, or --replay-leg with a recorded leg directory.");
 }
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
@@ -1674,6 +1674,13 @@ if (campaign && campaignOption === "--from-sokal-lodging") {
   process.exit(0);
 }
 
+const councilToWestFerry = [
+  "right", "right", "up", "up", "right", "up", "up", "enter", "enter",
+  "right", ...Array(6).fill("up"), "left", "up", "right", "up", "left", "up",
+  "enter", "enter", "w", "enter", "enter", "right", ...Array(4).fill("up"),
+  "enter", "enter", "enter", "s", "enter", "enter",
+];
+
 if (campaign && campaignOption === "--from-textile-commission") {
   copyFileSync(campaignInput, join(saveDir, "A.json"));
   const ready = /alda 2 16.*brin -1 9.*cora 2 14.*dorn 2 11.*enna 2 14.*fenn 1 9.*curate 2 26/;
@@ -1684,10 +1691,7 @@ if (campaign && campaignOption === "--from-textile-commission") {
       assert.match(text, /6,5 e/);
     },
     // West ferry, south from the city edge, and into the Textile House at night.
-    "right", "right", "up", "up", "right", "up", "up", "enter", "enter",
-    "right", ...Array(6).fill("up"), "left", "up", "right", "up", "left", "up",
-    "enter", "enter", "w", "enter", "enter", "right", ...Array(4).fill("up"),
-    "enter", "enter", "enter", "s", "enter", "enter", "up", ...Array(4).fill("right"),
+    ...councilToWestFerry, "up", ...Array(4).fill("right"),
     "enter", "s", ...Array(7).fill("enter"), "q", "alt-m",
     (text) => assert.match(text, /0,4 w/),
     "e", "s", "s", "b", "n", "e",
@@ -1713,6 +1717,52 @@ if (campaign && campaignOption === "--from-textile-commission") {
     },
   ]);
   console.log("Won both Textile House entrance battles with original combat and reloaded the courtyard checkpoint:", resolve(saveDir, "D.json"));
+  process.exit(0);
+}
+
+if (campaign && campaignOption === "--from-bane-preparation") {
+  copyFileSync(campaignInput, join(saveDir, "A.json"));
+  const dust = /alda's items.*no potion no potion no potion no wand no dust/;
+  const treasure = await replay(loadSlot("1e61"), "85000000", [
+    (text) => {
+      expectParty(text);
+      assert.match(text, /6,5 e/);
+    },
+    ...councilToWestFerry,
+    "up", "right", "right", "right", "up", "right", "right", "enter", "right", "enter",
+    (text) => assert.match(text, /26,27 e.*eastern edge of the city.*north south boat leave/),
+    "s", "enter", "enter", ...Array(15).fill("up"), "enter",
+    (text) => assert.match(text, /0,4 w/),
+    "e", "s", "s", "b", "n", "e", "up", "enter", "enter",
+    "up", "right", "up", "up", "left", ...Array(8).fill("up"), "left", "up",
+    (text) => assert.match(text, /5,3 s.*four orcs whose shields bear a black hand/),
+    "enter", "enter", "p", "n", "enter",
+    (text) => assert.match(text, /after talking the four orcs wander away/),
+    "right", "up", "left", "up", "right", "up", "left", "up", "right", "up", "left",
+    "up", "up", "enter", "enter",
+    (text) => assert.match(text, /2,7 s.*allowing you entrance into the temple/),
+    "left", "up", "enter", "enter", "up", "up", "right", "up", "up",
+    "left", ...Array(4).fill("up"), "right", "up", "up",
+    (text) => assert.match(text, /9,11 s/),
+    "e", "s", "s", "c", "n", "e",
+    "s", "up", (text) => assert.match(text, /9,12 s.*open trapdoor leave trapdoor/),
+    ...Array(4).fill("l"), "o", "enter",
+    (text) => assert.match(text, /receives 800 experience points/),
+    "enter", "enter", "t", "i",
+    (text) => assert.match(text, /loot potion potion potion wand dust/),
+    "t", "t", "t", "t", "t", "e", "e", "e", "n", "s", "v", "i",
+    (text) => assert.match(text, dust),
+    "e", "e", "e", "s", "s", "d",
+  ]);
+  assert.match(visibleText(treasure), /quit to dos/);
+  await replay(loadSlot("2064"), "85000000", [
+    (text) => {
+      expectParty(text);
+      assert.match(text, /9,12 s/);
+    },
+    "v", "i", (text) => assert.match(text, dust),
+  ]);
+  console.log("Parleyed into the Temple of Bane and reloaded the party with the Dust of Disappearance:", resolve(saveDir, "D.json"));
   process.exit(0);
 }
 
