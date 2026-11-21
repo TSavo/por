@@ -841,6 +841,16 @@ for (const { id, source, preview } of replacements) {
   candidates.push({ id, preview });
   index.set(key, candidates);
 }
+const picBlocksByHash = new Map<string, { archive: string; block: number; directoryIndex: number }[]>();
+for (const { file, entries } of archives) {
+  if (!/^PIC\d+\.DAX$/.test(file)) continue;
+  for (const { id, directoryIndex, sha256, pictures } of entries) {
+    if (!pictures) continue;
+    const blocks = picBlocksByHash.get(sha256) ?? [];
+    blocks.push({ archive: file, block: id, directoryIndex });
+    picBlocksByHash.set(sha256, blocks);
+  }
+}
 const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\d+|RANDCOM|COMSPR)\.DAX$/.test(file))
   .map(({ file, entries }) => {
     let frames = 0;
@@ -937,8 +947,10 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\
           if (match === id) scopedPortraitCandidates.push(id);
         }
       }
+      const duplicatePicBlocks = file.startsWith("PIC") ? picBlocksByHash.get(entries[source.directoryIndex]!.sha256)
+        ?.filter(({ archive, directoryIndex }) => archive !== file || directoryIndex !== source.directoryIndex) : undefined;
       return { ...source, preview, pixelSignature, uniform, scopedCandidates, encounterCandidates, portraitCandidates,
-        scopedPortraitCandidates };
+        scopedPortraitCandidates, duplicatePicBlocks: duplicatePicBlocks?.length ? duplicatePicBlocks : undefined };
     });
     return {
       file, frames, matched: frames - unlinkedFrames.length,
@@ -1115,10 +1127,15 @@ ${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({
   `<details id="unlinked-archive-${escape(file)}"><summary>${escape(file)} · ${unlinkedFrames.length}</summary>
   <table class="coverage-table"><thead><tr><th>Source ID</th><th>Block</th><th>4× target</th><th>Preview</th></tr></thead><tbody>
   ${unlinkedFrames.map(({ id, block, width, height, preview, uniform, scopedCandidates, encounterCandidates, portraitCandidates,
-    scopedPortraitCandidates }) => {
+    scopedPortraitCandidates, duplicatePicBlocks }) => {
     const candidates = [...scopedCandidates, ...encounterCandidates, ...portraitCandidates];
     return `<tr><th scope="row"><code>${escape(id)}</code></th><td>${block}</td><td>${width}×${height}</td>
     <td><a href="${escape(preview)}" target="_blank" rel="noopener">Source frame</a>${uniform ? " · Solid color" : ""}
+    ${duplicatePicBlocks?.length ? `<details><summary>Byte-identical PIC blocks</summary>
+      <p>Archive provenance only. This does not establish a draw in play.</p>
+      ${duplicatePicBlocks.map(({ archive, block, directoryIndex }) =>
+        `<div><code>${escape(archive)} #${block}</code> · Directory index ${directoryIndex}</div>`).join("")}
+    </details>` : ""}
     ${candidates.length ? `<details><summary>Reuse candidates (${candidates.length})</summary>${
       candidates.map(({ id, preview }) => `<div><a href="${escape(preview)}"><code>${escape(id)}</code></a>${scopedPortraitCandidates.includes(id) ? " · Matches composed portrait in this scope" : ""}</div>`).join("")
     }</details>` : ""}</td></tr>`;
