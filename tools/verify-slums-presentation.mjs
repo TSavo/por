@@ -843,6 +843,30 @@ const illustrationRoutes = new Map([
     journalLead: "commission-bottle-vampire", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /WHENYOUMEETTHEVAMPIREUSETHEBOTTLE/i },
   }],
+  ["podal-auction-opening-phases", {
+    slot: "I", inputs: ["up", "enter", ...Array(11).fill("z")],
+    portraitStops: {
+      2: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:0:0",
+      6: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:1:0",
+      7: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:2:0",
+      9: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:3:0",
+      10: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:4:0",
+    },
+    portrait: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:5:0",
+    prompt: /THEAUCTIONEERCRIES.*WELCOMETOTHISAUCTION/i,
+  }],
+  ["podal-auction-high-bid-phases", {
+    slot: "I", inputs: ["up", ...Array(4).fill("enter"), ...Array(11).fill("z")],
+    portraitStops: {
+      5: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:0:0",
+      9: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:1:0",
+      10: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:2:0",
+      12: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:3:0",
+      13: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:4:0",
+    },
+    portrait: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:5:0",
+    prompt: /THEBIDDINGESCALATESTO5,000GOLDPIECES.*NEXTTOANOGRE/i,
+  }],
   ["podal-auction-wand-exchange", {
     slot: "I", inputs: ["up", ...Array(5).fill("enter"), "end", "enter", "enter", ...Array(11).fill("z")],
     portraitStops: {
