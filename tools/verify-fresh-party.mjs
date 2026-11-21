@@ -15,8 +15,8 @@ const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--from-sokal-lodging", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker or --from-sokal-council with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, --from-sokal-lodging with slot E, or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--from-sokal-lodging", "--from-castle-ending", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker or --from-sokal-council with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, --from-sokal-lodging with slot E, --from-castle-ending with slot B, or --replay-leg with a recorded leg directory.");
 }
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
@@ -2761,11 +2761,12 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
   process.exit(0);
 }
 
-if (process.argv[2] === "--castle-ending-checkpoint") {
-  const saveAtWestGate = process.argv[4] === "--save-at-west-gate";
-  assert.ok(!process.argv[4] || saveAtWestGate, "Expected --save-at-west-gate.");
-  assert.ok(process.argv[3], "Pass a save outside Tyranthraxus's audience hall with the assault assigned.");
-  copyFileSync(process.argv[3], join(saveDir, "B.json"));
+if (process.argv[2] === "--castle-ending-checkpoint" || campaign && campaignOption === "--from-castle-ending") {
+  const source = campaign ? campaignInput : process.argv[3];
+  const saveAtWestGate = !campaign && process.argv[4] === "--save-at-west-gate";
+  assert.ok(campaign || !process.argv[4] || saveAtWestGate, "Expected --save-at-west-gate.");
+  assert.ok(source, "Pass a save outside Tyranthraxus's audience hall with the assault assigned.");
+  copyFileSync(source, join(saveDir, "B.json"));
   const checkCastle = (status) => (_text, frame) => {
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-castle")?.status, status);
   };

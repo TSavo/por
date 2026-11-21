@@ -13,8 +13,9 @@ ordinary play and which start from controlled saves.
   route uses the original menus and saves. The full unedited campaign
   through the final council reward still needs a continuous replay.
 - The original Tyranthraxus fight and City Hall finale have been replayed
-  from a controlled party. The ending reward, a completed save reload,
-  and Classic/Enhanced switching in Chrome have separate verification.
+  in Enhanced Chrome from a controlled party. With the prepared party outside
+  the audience hall, use `--from-castle-ending <slot-B>` to replay the fight,
+  collect the council reward, and reload the journal ending.
 - `npm run verify:campaign-opening -- <chrome-executable>` runs the opening
   in Enhanced Chrome from an empty save directory through the first Slums
   victory and reload. Each leg carries forward the party earned in play and
