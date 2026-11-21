@@ -775,13 +775,13 @@ const tallIconCoverage = combatHeads.filter(({ id }) => id >= 64 && id <= 77)
   })));
 const defaultHumanIconCoverage = tallIconCoverage.filter(({ head }) => head === 64);
 const encounterArtByPixels = new Map<string, { id: string; preview: string }[]>();
-function encounterSignature(width: number, height: number, pixels: Uint8Array) {
+function framePixelSignature(width: number, height: number, pixels: Uint8Array) {
   return `${width}×${height}:${createHash("sha256").update(pixels).digest("hex")}`;
 }
 for (const { id, source, preview } of replacements) {
   if (!encounterKey.test(id) || !source) continue;
   const picture = classicPicture(source.archive, source.directoryIndex, source.member);
-  const signature = encounterSignature(picture.width, picture.height, frameSlice(picture, source.frame));
+  const signature = framePixelSignature(picture.width, picture.height, frameSlice(picture, source.frame));
   const candidates = encounterArtByPixels.get(signature) ?? [];
   candidates.push({ id, preview });
   encounterArtByPixels.set(signature, candidates);
@@ -849,10 +849,11 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\
           .filter(({ id }) => id.startsWith("combat:area:"))
           .map(({ id, preview }) => ({ id, preview }))
         : [];
+      const pixelSignature = framePixelSignature(picture.width, picture.height, pixels);
       const encounterCandidates = file.startsWith("SPRIT")
-        ? encounterArtByPixels.get(encounterSignature(picture.width, picture.height, pixels)) ?? []
+        ? encounterArtByPixels.get(pixelSignature) ?? []
         : [];
-      return { ...source, preview, uniform: pixels.every(color => color === pixels[0]), scopedCandidates, encounterCandidates };
+      return { ...source, preview, pixelSignature, uniform: pixels.every(color => color === pixels[0]), scopedCandidates, encounterCandidates };
     });
     return { file, frames, matched: frames - unlinkedFrames.length, pixelMatchedFrames, unlinkedFrames: remainingFrames };
   }).filter(({ frames }) => frames > 0);
@@ -888,15 +889,17 @@ const encounterFamilies = [
   { label: "Combat poses", prefix: "CPIC" },
   { label: "Battlefield props", prefix: "RANDCOM" },
   { label: "Combat effects and selection frames", prefix: "COMSPR" },
-].map(({ label, prefix }) => ({
-  label,
-  ...encounterCoverage.filter(({ file }) => file.startsWith(prefix)).reduce((total, row) => ({
+].map(({ label, prefix }) => {
+  const rows = encounterCoverage.filter(({ file }) => file.startsWith(prefix));
+  const distinctUnlinked = new Set(rows.flatMap(row => row.unlinkedFrames.map(frame => frame.pixelSignature))).size;
+  const totals = rows.reduce((total, row) => ({
     frames: total.frames + row.frames,
     linked: total.linked + row.matched,
     exact: total.exact + row.pixelMatchedFrames.length,
     unlinked: total.unlinked + row.unlinkedFrames.length,
-  }), { frames: 0, linked: 0, exact: 0, unlinked: 0 }),
-}));
+  }), { frames: 0, linked: 0, exact: 0, unlinked: 0 });
+  return { label, ...totals, distinctUnlinked };
+});
 writeFileSync(join(output, "index.html"), `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pool of Radiance art inventory</title><style>
 body{font:16px system-ui;background:#181715;color:#f3e9d6;margin:2rem auto;padding:0 1rem;max-width:1200px}
@@ -966,9 +969,10 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
 <details id="archive-coverage"><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} linked · ${encounterTotals.matchedByPixels} exact matches · ${encounterTotals.remaining} unlinked</summary>
 <p>An area-specific replacement counts once for the source frame. Exact matches use replacements the browser's global portrait or combat matcher already finds. Composite portraits are listed under Runtime artwork.</p>
 ${reflectedEffectCount ? `<p>${reflectedEffectCount} reflected combat effect replacements share the source frames counted below.</p>` : ""}
-<table class="coverage-table"><thead><tr><th>Art family</th><th>Source frames</th><th>Linked</th><th>Exact matches</th><th>Unlinked</th></tr></thead><tbody>
-${encounterFamilies.map(({ label, frames, linked, exact, unlinked }) =>
-  `<tr><th scope="row">${label}</th><td>${frames}</td><td>${linked}</td><td>${exact}</td><td>${unlinked}</td></tr>`).join("")}
+<p>Distinct unlinked bitmaps count identical pixels and dimensions once per art family. Each scene still needs its own placement and context checked.</p>
+<table class="coverage-table"><thead><tr><th>Art family</th><th>Source frames</th><th>Linked</th><th>Exact matches</th><th>Unlinked</th><th>Distinct unlinked bitmaps</th></tr></thead><tbody>
+${encounterFamilies.map(({ label, frames, linked, exact, unlinked, distinctUnlinked }) =>
+  `<tr><th scope="row">${label}</th><td>${frames}</td><td>${linked}</td><td>${exact}</td><td>${unlinked}</td><td>${distinctUnlinked}</td></tr>`).join("")}
 </tbody></table>
 <table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>Linked</th><th>Exact matches</th><th>Unlinked</th></tr></thead><tbody>
 ${encounterCoverage.map(({ file, frames, matched, pixelMatchedFrames, unlinkedFrames }) =>
