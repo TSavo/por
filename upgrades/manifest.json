@@ -4784,6 +4784,8 @@
     "tile:31:5489a60945a1c69e6349b1dbbbfa55e6e0f2a04200f80cb2d4297b8177cee54c": "bane-inner-wing-terrain-5489a60945a1.png",
     "tile:31:297ae58620a76aff7e45afd3c6c147f02104a51cd0202ea310ca5b2f4777faad": "bane-inner-wing-terrain-297ae58620a7.png",
     "portrait:area:23:PIC7.DAX:57:0:0": "pyramid-lizardfolk-vats.png",
+    "scene-illustration:area:23:ecl:9e5c:cue:five-lizardfolk": "pyramid-lizardfolk-patrol-sighting.png",
+    "scene-illustration:area:23:ecl:9a04:caller:9e60:cue:five-lizardfolk": "pyramid-lizardfolk-patrol-sighting.png",
     "portrait:area:23:ecl:a232:PIC7.DAX:57:0:0": "yarash-three-vat-ambush.png",
     "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:0:0": "yarash-three-vat-ambush.png",
     "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:1:0": "yarash-vats-tail-rise.png",

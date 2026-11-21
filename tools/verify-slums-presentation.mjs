@@ -2504,6 +2504,12 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["p"], portrait: "portrait:area:23:ecl:9f2a:PIC7.DAX:57:3:0",
       prompt: /THEYAREWARY,BUTNOTHOSTILE.*HAUGHTYSLYNICEMEEKABUSIVE/i },
   }],
+  ["pyramid-lizardfolk-patrol-sighting", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:23:ecl:9a04:caller:9e60:cue:five-lizardfolk", prompt: /YOUSEEAGROUPOFFIVELIZARDMEN.*THEYHISSATYOU/i,
+    finalPhaseCapture: "pyramid-lizardfolk-patrol-sighting.png",
+    continuation: { inputs: ["enter", "enter", "enter"], portrait: "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0", prompt: /THEYAREWARY,BUTNOTHOSTILE/i },
+  }],
   ["pyramid-lizardfolk-patrol", {
     slot: "A", inputs: ["up", "enter", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:0:0", 48, 80]],
