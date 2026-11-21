@@ -4073,6 +4073,8 @@ routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload",
 routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 routes.push("kuto-wide-manual-aim");
+const sokalCourtyardNote = routeName === "sokal-courtyard-note";
+routes.push("sokal-courtyard-note");
 const wideManualAim = routeName === "kuto-wide-manual-aim";
 const reflectedEffect = {
   "new-phlan-council-reflected-effects": {
@@ -4193,7 +4195,7 @@ const sokalDiaryReload = routeName === "sokal-floorboard-diary-reload";
 const diarySlot = sokalDiaryReload ? /^(?:SAVE\\)?SAVGAM([A-J])\.DAT$/.exec(
   JSON.parse(readFileSync(checkpoint, "utf8")).name)?.[1] : undefined;
 if (sokalDiaryReload) assert.ok(diarySlot, "The Sokal diary checkpoint must name a DOS save slot");
-const saveSlot = diarySlot ?? (routeName === "kuto-well-waterline-reload" ? "J" :
+const saveSlot = diarySlot ?? (sokalCourtyardNote ? "I" : routeName === "kuto-well-waterline-reload" ? "J" :
   alHyamReload || ["valjevo-records-reload", "kobold-escort-arrival-reload"].includes(routeName) ? "C" :
   routeName === "textile-return-art" || councilFinale ? "D" :
   partyDefeatEffect || mageWand || stinkingCloud || koboldKingDoor || koboldKingFall || koboldReturn || traderReload ||
@@ -4252,6 +4254,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_PREGEN_PARTY: "0", POR_TRACE_TILES: "1", POR_BOOT_KEY_FILE: "",
     POR_TRACE_BATTLE_TILES: dragon || routeName === "lizardfolk-battle-wall" ? "1" : browserEnvironment.POR_TRACE_BATTLE_TILES,
     POR_BOOT_KEYS: freshRolf ? "31000000:1c0d,45000000:2e63" : "31000000:1c0d,45000000:266c,52000000:" + boot,
+    ...(sokalCourtyardNote ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
   },
   stdio: ["ignore", "ignore", "inherit"],
@@ -6440,6 +6443,42 @@ try {
     assert.deepEqual(entries?.toSorted(), [27, 33, 40, 49, 56].map(number => `river-yarash-paper-${number}`));
     await switchBothWays();
     console.log("Verified all five Yarash papers after reloading slot A.");
+  } else if (sokalCourtyardNote) {
+    const note = "scene-illustration:area:21:ecl:a720";
+    const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+    await run(`const sendSokalKey = send; send = key => key === ":poll" ? undefined : sendSokalKey(key);`);
+    const step = async key => {
+      await waitFor("the settled Sokal frame", () => run(`state.sequence === ${frame.sequence} &&
+        !animationFrame && renderingSequence !== state.sequence`));
+      await advance(key);
+    };
+    for (const key of ["up", "right", "enter", "enter", "enter", "enter", "space"]) await step(key);
+    assert.equal(frame.developerVictoryAvailable, true);
+    await step(":win-combat");
+    for (let turn = 0; turn < 40 && !/ONAHOBGOBLINBODY.*ENTRY57/i.test(text()); turn++) {
+      const visible = text();
+      if (/ContinueBattle:YesNo|StillTreasureLeft/i.test(visible)) await step("n");
+      else if (/ViewTakePoolShareExit/i.test(visible)) await step("e");
+      else if (/GuardDelayQuitSpeedExit/i.test(visible)) await step("g");
+      else if (/MoveViewAim/i.test(visible)) await step("d");
+      else if (/Move\/Attack/i.test(visible)) await step("escape");
+      else await step(/Hitpoints/i.test(visible) ? "space" : "enter");
+    }
+    assert.match(text(), /ONAHOBGOBLINBODY.*ENTRY57/i);
+    assert.equal(frame.portrait, note);
+    await waitFor("the Sokal courtyard note illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${note}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "sokal-courtyard-note.png"), Buffer.from(shot.data, "base64"));
+    await switchBothWays();
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-courtyard-note"));
+    await advance("j");
+    await advance("up");
+    assert.notEqual(frame.portrait, note);
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the Sokal courtyard note after a controlled victory in Chrome:", directory);
   } else if (sokalDiaryReload) {
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-haunt-diary"));

@@ -9,6 +9,8 @@ export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 export const scriptIllustrations = new Map<string, string | RegExp>([
+  ["scene-illustration:area:21:ecl:a719", "ONAHOBGOBLINBODY"],
+  ["scene-illustration:area:21:ecl:a720", "ONAHOBGOBLINBODY"],
   ["scene-illustration:area:13:ecl:a453", "YOUFINDASECRETDOORINTHENORTHWALL"],
   ["scene-illustration:area:13:ecl:a45a", "YOUFINDASECRETDOORINTHENORTHWALL"],
   ["scene-illustration:area:0:ecl:b365:caller:b18c", "BEHINDTHESEDOORSARETHESPECIALTRAININGSCHOOLS"],

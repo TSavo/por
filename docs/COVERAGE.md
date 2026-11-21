@@ -4205,6 +4205,12 @@ from a controlled checkpoint with the courtyard battle flag set. The
 illustration stays visible while turning in the hall and clears to
 WebGL exploration on leaving at (8,4) facing north.
 
+The `sokal-courtyard-note` replay uses the opt-in developer victory
+command on a copy of the fresh party’s slot I. The original combat
+cleanup and treasure menus lead to the Entry 57 discovery. Chrome checks
+the note illustration, the journal entry, and that the art clears when
+the party moves on.
+
 Enhanced Manual Aim shows its targeting reticle over occupied squares.
 A controlled Buccaneer Chrome replay checked ordinary Aim and moving
 Manual Aim between allies and enemies, followed by Escape cleanup.
