@@ -1859,6 +1859,22 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "buccaneer-slaver-caravan.png",
     continuation: { inputs: ["up"], clearsPortrait: true, prompt: /CASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["zhentil-envoy-riders-decline", {
+    slot: "A", inputs: ["down", "enter", "n"],
+    portraitStops: { 2: "portrait:PIC6.DAX:33:0:0" },
+    portrait: "scene-illustration:area:25:ecl:adc9:cue:zhentil-envoy-riders-decline",
+    prompt: /AFTERSAYINGNO,THERIDERSRETURNTOTHEOUTPOST/i,
+    finalPhaseCapture: "zhentil-envoy-riders-decline.png",
+    continuation: { inputs: ["enter", "up"], portrait: "scene-illustration:area:25:ecl:adce:cue:western-mounted-guards", prompt: /AGROUPOFARMEDGUARDSRIDEBY/i },
+  }],
+  ["zhentil-envoy-riders-escort", {
+    slot: "A", inputs: ["down", "enter", "y"],
+    portraitStops: { 2: "portrait:PIC6.DAX:33:0:0" },
+    portrait: "scene-illustration:area:25:ecl:b6a0:cue:zhentil-envoy-riders-escort",
+    prompt: /THERIDERSESCORTYOUINTOTHEOUTPOST/i,
+    finalPhaseCapture: "zhentil-envoy-riders-escort.png",
+    continuation: { inputs: ["enter", "up"], clearsPortrait: true, prompt: /YOUAREBEINGESCORTEDINTOZHENTILOUTPOST/i },
+  }],
   ["western-mounted-guards", {
     slot: "A", inputs: ["down"],
     portrait: "scene-illustration:area:25:ecl:adce:cue:western-mounted-guards",
