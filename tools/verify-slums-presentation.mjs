@@ -554,19 +554,28 @@ const encounterRoutes = new Map([
     slot: "A", inputs: ["up", "enter"],
     placement: [56, 32, "encounter:area:10:ecl:a5bb:SPRIT4.DAX:17:0:0", 32, 80],
     requireWebGL: true,
-    dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /CREATINGNEWSKELETONS/i },
+    dialogue: {
+      key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /CREATINGNEWSKELETONS/i,
+      heldPortrait: "portrait:area:10:ecl:a5bb:PIC4.DAX:17:1:0",
+    },
   }],
   ["valhingen-conjurer-zombie", {
     slot: "A", inputs: ["up", "enter"],
     placement: [56, 32, "encounter:area:10:ecl:a7b9:SPRIT4.DAX:17:0:0", 32, 80],
     requireWebGL: true,
-    dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /CREATINGZOMBIES/i },
+    dialogue: {
+      key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /CREATINGZOMBIES/i,
+      heldPortrait: "portrait:area:10:ecl:a7b9:PIC4.DAX:17:1:0",
+    },
   }],
   ["valhingen-conjurer-wight", {
     slot: "A", inputs: ["up", "enter"],
     placement: [56, 32, "encounter:area:10:ecl:aad6:SPRIT4.DAX:17:0:0", 32, 80],
     requireWebGL: true,
-    dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /SUMMONSAWIGHT/i },
+    dialogue: {
+      key: "enter", portrait: "portrait:PIC4.DAX:17:0:0", prompt: /SUMMONSAWIGHT/i,
+      heldPortrait: "portrait:area:10:ecl:aad6:PIC4.DAX:17:1:0",
+    },
   }],
   ["valhingen-spectre-approach-near", {
     slot: "A", inputs: ["up", "enter"],
