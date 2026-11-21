@@ -1421,6 +1421,13 @@ const illustrationRoutes = new Map([
     requireTiledApproach: false,
     portrait: "portrait:area:10:ecl:a022:PIC4.DAX:35:0:0", prompt: /AZOMBIEWITHGRAY,LEATHERY.HARDSKIN/i,
   }],
+  ["valhingen-crypt-overturn", {
+    slot: "A", inputs: ["up", "down", "up", "enter", "n", "y", "o"],
+    portraitStops: { 6: "scene-illustration:area:10:ecl:b04e" },
+    portrait: "scene-illustration:area:10:ecl:b0cb",
+    prompt: /THECOFFINMAKESAMESSONTHEFLOOR/i,
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["valhingen-vampire-stairs-decline", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:10:ecl:b6c6:caller:b1bd",
@@ -6716,6 +6723,14 @@ try {
     await verifyPortraitPanel();
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
+    if (routeName === "valhingen-crypt-overturn") {
+      const overturnShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "valhingen-coffin-overturned.png"), Buffer.from(overturnShot.data, "base64"));
+      await advance("j");
+      assert.ok(frame.journal);
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "graveyard-crypt-scroll" || id === "graveyard-crypt-sanctified"));
+      await advance("j");
     }
     if (routeName === "valjevo-altar-curse") {
       const curseShot = await command("Page.captureScreenshot", { format: "png" });
