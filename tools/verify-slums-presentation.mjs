@@ -1220,6 +1220,18 @@ const illustrationRoutes = new Map([
     portrait: "portrait:HEAD3.DAX:24:BODY3.DAX:32", prompt: /THECOUNCILCLERKBEGINS/i,
     verifyImageSwap: true,
   }],
+  ["new-phlan-proclamations-initial", {
+    slot: "B", inputs: ["up", "enter"], portraitStops: { 1: null },
+    portrait: "scene-illustration:area:0:ecl:acbf",
+    prompt: /PROCLAMATIONSAREPOSTEDONTHEWALLS.*PROCLAMATIONSLXIV,LXXVIII,CIX,ANDLIX/i,
+    proclamations: ["lxiv", "lxxviii", "cix", "lix"],
+  }],
+  ["new-phlan-proclamations-later", {
+    slot: "B", inputs: ["up", "enter"], portraitStops: { 1: null },
+    portrait: "scene-illustration:area:0:ecl:ac9b",
+    prompt: /PROCLAMATIONSAREPOSTEDONTHEWALLS.*PROCLAMATIONCI\./i,
+    proclamations: ["ci"],
+  }],
   ["new-phlan-rolf-tour", {
     slot: "A", inputs: [],
     portrait: "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9", prompt: /IAMROLF/i,
@@ -6594,6 +6606,23 @@ try {
     await verifyPortraitPanel();
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
+    if (illustration.proclamations) {
+      const noticeShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, routeName + ".png"), Buffer.from(noticeShot.data, "base64"));
+      await advance("j");
+      assert.ok(frame.journal);
+      for (const numeral of illustration.proclamations) {
+        assert.ok(frame.journal.leads.some(lead => lead.id === "proclamation-" + numeral));
+      }
+      for (const key of ["j", "l"]) await advance(key);
+      assert.equal(frame.portrait, undefined);
+      await waitForExplorationViewport();
+      await advance("up");
+      assert.equal(frame.portrait, undefined);
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /4,4S/i);
+      await waitForExplorationViewport();
+      console.log("Verified the proclamation journal entries and return to play in Chrome:", directory);
     }
     if (routeName === "bane-gate-direct-attack") {
       await switchBothWays(frame.frame);
