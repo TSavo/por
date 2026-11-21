@@ -24,9 +24,12 @@ ordinary play and which start from controlled saves.
   the earned equipment in slot F and speaks with the barracks spirits to recover
   the defenders’ diary and five gems. The party returns to New Phlan to
   restore the six fighters, replace their spent weapons, and hire an evoker.
-  Slot J reloads the rearmed party beyond Sokal Keep’s undead patrol. Resume with
+  Slot J reloads the rearmed party beyond Sokal Keep’s undead patrol. The
+  party takes the west passage and reloads outside the courtyard in slot I.
+  Resume with
   `--from-slums <slot-D>`, `--from-sokal <slot-A>`, `--from-sokal-armory <slot-F>`,
-  `--from-temple <slot-G>`, or `--from-evoker <slot-H>`. Use `--replay-leg <directory>`
+  `--from-temple <slot-G>`, `--from-evoker <slot-H>`, or
+  `--from-sokal-patrol <slot-J>`. Use `--replay-leg <directory>`
   to rerun a recorded leg independently in Chrome and compare its final frame.
 - The Encamp journal tracks witnessed clues and the selected commission in
   the active save slot. The art inventory tracks individual replacements,

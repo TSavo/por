@@ -15,8 +15,8 @@ const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker with slot H, or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker with slot H, --from-sokal-patrol with slot J, or --replay-leg with a recorded leg directory.");
 }
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
@@ -1424,6 +1424,7 @@ async function verifySokalNextChapter() {
   await verifySokalTempleHealing();
   await verifySokalEvokerRecruitment();
   await verifySokalEvokerReturn();
+  await verifySokalCourtyardStaging();
 }
 
 const evokerFerryRoute = [
@@ -1458,6 +1459,29 @@ async function verifySokalEvokerReturn() {
   console.log("Returned to Sokal with the evoker and reloaded beyond the undead patrol:", resolve(saveDir, "J.json"));
 }
 
+async function verifySokalCourtyardStaging() {
+  const patrolPrompt = text => assert.match(text, /do you give the password\?/);
+  const patrolPasses = text => assert.match(text, /the undead leave/);
+  const staged = await replay(loadSlot("246a"), "85000000", [
+    text => assert.match(text, /evoker 9 6.*10,10 n/),
+    "right", "right", "up", "right", ...Array(6).fill("up"),
+    patrolPrompt, "y", patrolPasses,
+    "up", "right", ...Array(6).fill("up"), "right", "right",
+    patrolPrompt, "y", patrolPasses,
+    "right", "up", text => assert.match(text, /6,5 e.*area cast view encamp/),
+    "e", "s", "s", "i",
+  ]);
+  assert.match(visibleText(staged), /quit to dos/);
+  await replay(loadSlot("1769"), "85000000", [
+    text => assert.match(text, /alda 4 6.*brin 1 6.*cora 4 6.*dorn 4 8.*enna 3 6.*fenn 3 8.*evoker 9 6.*6,5 e/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-haunt-diary"));
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ambush"));
+    },
+  ]);
+  console.log("Reloaded the equipped party on the west approach to the Sokal courtyard:", resolve(saveDir, "I.json"));
+}
+
 if (campaign && campaignOption === "--from-sokal") {
   copyFileSync(campaignInput, join(saveDir, "A.json"));
   await verifySokalArrival();
@@ -1482,6 +1506,12 @@ if (campaign && campaignOption === "--from-temple") {
 if (campaign && campaignOption === "--from-evoker") {
   copyFileSync(campaignInput, join(saveDir, "H.json"));
   await verifySokalEvokerReturn();
+  process.exit(0);
+}
+
+if (campaign && campaignOption === "--from-sokal-patrol") {
+  copyFileSync(campaignInput, join(saveDir, "J.json"));
+  await verifySokalCourtyardStaging();
   process.exit(0);
 }
 
