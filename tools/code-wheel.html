@@ -18,11 +18,12 @@
   a{color:inherit}
 </style>
 <main>
-  <a href="/">Return to game</a>
+  <a id="return" href="/">Return to game</a>
   <h1>Translation wheel</h1>
   <p>Turn the inner disc until the Dethek rune sits inside the matching Espruar rune. Read the indicated path from the centre outward.</p>
+  <p id="answer-instructions" hidden>Type the code word and press Enter.</p>
   <div class="controls">
-    <label for="question">Question</label>
+    <label id="question-label" for="question">Question</label>
     <select id="question"></select>
     <button id="left" type="button" aria-label="Rotate inner disc counterclockwise">←</button>
     <button id="right" type="button" aria-label="Rotate inner disc clockwise">→</button>

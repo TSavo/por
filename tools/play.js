@@ -1,4 +1,6 @@
 const screen = document.querySelector("#screen");
+const bootWheel = document.querySelector("#boot-wheel");
+let wheelStartup = false;
 const tileArt = document.querySelector("#tile-art");
 const gameText = document.querySelector("#game-text");
 const journal = document.querySelector("#journal");
@@ -1269,9 +1271,13 @@ async function send(key) {
   posting = true;
   const sequence = state.sequence;
   try {
+    const startWheel = enhanced && state.codeWheelAvailable && state.scene === "scene:title" && !wheelStartup;
+    const headers = { "X-POR-Frame": String(sequence) };
+    if (startWheel) headers["X-POR-Code-Wheel"] = "enhanced";
     const result = await fetch("/key", {
-      method: "POST", headers: { "X-POR-Frame": String(sequence) }, body: key,
+      method: "POST", headers, body: startWheel ? "backspace" : key,
     });
+    if (startWheel && result.ok) wheelStartup = true;
     if (state.sequence === sequence && (result.ok || result.status === 409)) state.ready = false;
     return result.ok;
   } catch {
@@ -1291,6 +1297,14 @@ async function poll() {
     const changed = next.sequence !== state.sequence;
     if (changed) state = next;
     else Object.assign(state, next);
+    const showWheel = wheelStartup && Number.isInteger(state.codeWheelQuestion) && !state.stopped;
+    if (showWheel) {
+      const url = `/code-wheel?challenge=1&question=${state.codeWheelQuestion + 1}`;
+      if (bootWheel.getAttribute("src") !== url) bootWheel.src = url;
+    }
+    const restoreGameFocus = !showWheel && document.activeElement === bootWheel;
+    bootWheel.hidden = !showWheel;
+    if (restoreGameFocus) screen.focus({ preventScroll: true });
     closeJournal.disabled = !state.ready || Boolean(state.stopped);
     autoTrack.disabled = closeJournal.disabled;
     mapToggle.disabled = !state.exploration && !(enhanced && state.travel && travelArtEnabled && travelArtReady);
@@ -1378,6 +1392,14 @@ window.addEventListener("keydown", (event) => {
   const advancingCoveredPrint = currentVoice?.dataset.queuedNarration === "true" && ["Enter", " "].includes(event.key);
   if (currentVoice && event.key !== "F10" && !advancingCoveredPrint) stopVoice();
   if (event.repeat || event.ctrlKey || event.metaKey) return;
+  if (!bootWheel.hidden && event.key !== "F10") {
+    const key = wheelKey(event.key);
+    if (key) {
+      event.preventDefault();
+      void send(key);
+    }
+    return;
+  }
   if (activeTravel && (event.key === "Escape" || keypadDirections[event.code] || commands[event.key] || /^[a-z0-9]$/i.test(event.key))) {
     if (event.key === "Escape" || !waitingForFerryPayer(activeTravel)) {
       activeTravel = undefined;
@@ -1435,5 +1457,14 @@ window.addEventListener("keydown", (event) => {
   if (!key) return;
   event.preventDefault();
   void send(key.toLowerCase() === "j" ? `key ${key}` : key);
+});
+function wheelKey(key) {
+  return key === "Enter" ? "enter" : key === "Backspace" ? "backspace" :
+    typeof key === "string" && /^[a-z0-9]$/i.test(key) ? `key ${key}` : undefined;
+}
+window.addEventListener("message", ({ source, origin, data }) => {
+  if (bootWheel.hidden || source !== bootWheel.contentWindow || origin !== location.origin) return;
+  const key = wheelKey(data?.codeWheelKey);
+  if (key) void send(key);
 });
 void poll();

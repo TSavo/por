@@ -106,15 +106,29 @@ async function start() {
     draw();
   };
   layout.questions.forEach(({ number }) => question.add(new Option(String(number + 1), number)));
-  const initial = Number(new URLSearchParams(location.search).get("question"));
+  const query = new URLSearchParams(location.search);
+  const challenge = query.get("challenge") === "1" && window.parent !== window;
+  const initial = Number(query.get("question"));
   if (Number.isInteger(initial) && initial >= 1 && initial <= layout.questions.length) question.value = initial - 1;
+  if (challenge) {
+    document.querySelector("#return").hidden = true;
+    document.querySelector("#question-label").hidden = true;
+    question.hidden = true;
+    document.querySelector("#answer-instructions").hidden = false;
+  }
   question.addEventListener("change", selectQuestion);
   document.querySelector("#left").addEventListener("click", () => rotate(-1));
   document.querySelector("#right").addEventListener("click", () => rotate(1));
   window.addEventListener("keydown", event => {
-    if (event.target === question || !["ArrowLeft", "ArrowRight"].includes(event.key)) return;
-    event.preventDefault();
-    rotate(event.key === "ArrowLeft" ? -1 : 1);
+    if (event.target === question || event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (["ArrowLeft", "ArrowRight"].includes(event.key)) {
+      event.preventDefault();
+      rotate(event.key === "ArrowLeft" ? -1 : 1);
+    } else if (challenge && (["Enter", "Backspace"].includes(event.key) || /^[a-z0-9]$/i.test(event.key))) {
+      if (event.key === "Enter" && event.target instanceof HTMLButtonElement) return;
+      event.preventDefault();
+      window.parent.postMessage({ codeWheelKey: event.key }, location.origin);
+    }
   });
   selectQuestion();
   document.querySelector("#clues").hidden = false;
