@@ -6523,6 +6523,7 @@
     "tile:24:fa92d68c379f3fe2612e175f7a880b123e87499c44662ba1734679bbc357f66d": "bane-gate-terrain-fa92d68c379f.png",
     "portrait:area:18:PIC1.DAX:4:0:0": "podal-shrine-recruiter.png",
     "portrait:area:18:ecl:af2a:PIC1.DAX:4:2:0": "podal-shrine-recruiter-hand-lowered.png",
+    "portrait:area:18:ecl:af2a:PIC1.DAX:4:1:0": "podal-shrine-recruiter-hand-mid.png",
     "portrait:area:24:PIC1.DAX:4:0:0": "bane-temple-gatekeeper.png",
     "portrait:area:24:ecl:aba7:PIC1.DAX:4:0:0": "bane-temple-exit-retaliation-dialogue.png",
     "portrait:area:24:ecl:abbd:PIC1.DAX:4:0:0": "bane-temple-exit-retaliation-dialogue.png",
