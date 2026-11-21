@@ -4271,7 +4271,7 @@ try {
   });
   await command("Page.navigate", { url: origin });
   await waitFor("the game display", () => run('document.querySelector("#screen")?.naturalWidth === 320'));
-  if (patrolCombat || courtyard || orcs || combatPose?.manualPolling || illustration?.manualPolling ||
+  if (patrolCombat || courtyard || orcs || goblins || combatPose?.manualPolling || illustration?.manualPolling ||
     routeName === "slums-mage-orc-ready" || routeName === "slums-mage-orc-leader") {
     // This replay steps every combat pause explicitly through advance().
     await run(`(() => {
@@ -8842,7 +8842,7 @@ try {
     ];
     for (const key of route) await advance(key);
     const guard = "combat:area:20:CPIC2.DAX:2";
-    const leader = "combat:area:20:CPIC2.DAX:3";
+    const leader = "combat:area:20:CPIC2.DAX:3:ecl:9f08";
     const strike = "combat:area:20:CPIC2.DAX:130";
     const present = id => frame.combatArt.some(placement => placement[2] === id);
     const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")]
