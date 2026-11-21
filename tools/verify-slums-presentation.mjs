@@ -2205,6 +2205,7 @@ const illustrationRoutes = new Map([
     prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS/i,
     phaseCaptures: { 9: "valhingen-wight-roam-phase-1.png" },
     finalPhaseCapture: "valhingen-wight-roam-phase-2.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:10:ecl:b5c7:PIC4.DAX:20:2:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["pyramid-lizardfolk-patrol-phases", {
     slot: "A", inputs: ["up", "enter", "enter", "enter", "q", "q", "q", "enter", "q"],
