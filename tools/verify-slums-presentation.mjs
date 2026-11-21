@@ -547,11 +547,11 @@ const encounterRoutes = new Map([
   }],
   ["stojanow-bugbear-approach", {
     slot: "A", inputs: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left"],
-    placement: [56, 32, "encounter:area:9:SPRIT2.DAX:63:0:0", 24, 73],
+    placement: [56, 32, "encounter:area:9:ecl:991e:caller:a8ad:SPRIT2.DAX:63:0:0", 24, 73],
     approachSequence: [
       [56, 32, "encounter:area:9:SPRIT2.DAX:63:2:0", 24, 57],
       [56, 32, "encounter:area:9:SPRIT2.DAX:63:1:0", 24, 65],
-      [56, 32, "encounter:area:9:SPRIT2.DAX:63:0:0", 24, 73],
+      [56, 32, "encounter:area:9:ecl:991e:caller:a8ad:SPRIT2.DAX:63:0:0", 24, 73],
     ],
     dialogue: { key: "up", portrait: "portrait:area:9:PIC2.DAX:63:0:0", prompt: /THELEADERSWINGSATYOU/i },
   }],
@@ -3850,19 +3850,19 @@ const environmentRoutes = new Map([
     walk: ["up", "left", ...Array(6).fill("up"), "right", "up", "b", "up", "up", "right", "up", "left", "up"],
   }],
   ["stojanow-gate", {
-    slot: "A", area: 9, views: 12, patterns: 40,
+    slot: "A", area: 9, views: 9, patterns: 40,
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left"],
-    finalEncounter: [56, 32, "encounter:area:9:SPRIT2.DAX:63:0:0", 24, 73],
+    finalEncounter: [56, 32, "encounter:area:9:ecl:991e:caller:a8ad:SPRIT2.DAX:63:0:0", 24, 73],
   }],
   ["stojanow-west", {
-    slot: "A", area: 9, views: 15, patterns: 43,
+    slot: "A", area: 9, views: 12, patterns: 43,
     walk: ["up", "up", "up", "enter", "enter", "up", "left", "up", "up", "up", "right", "up", "up", "right"],
-    finalEncounter: [56, 32, "encounter:area:9:SPRIT2.DAX:63:0:0", 24, 73],
+    finalEncounter: [56, 32, "encounter:area:9:ecl:991b:caller:a8ad:SPRIT2.DAX:63:0:0", 24, 73],
   }],
   ["stojanow-east", {
-    slot: "A", area: 9, views: 12, patterns: 40,
+    slot: "A", area: 9, views: 9, patterns: 40,
     walk: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "up"],
-    finalEncounter: [56, 32, "encounter:area:9:SPRIT2.DAX:63:0:0", 24, 73],
+    finalEncounter: [56, 32, "encounter:area:9:ecl:991e:caller:a8ad:SPRIT2.DAX:63:0:0", 24, 73],
   }],
 ]);
 const freshRolf = routeName === "new-phlan-rolf-approach";
@@ -5147,7 +5147,7 @@ try {
     const area = environment.area ?? 2;
     const actor = environment.sceneryOnly ? undefined
       : area === 10 ? "encounter:area:10:SPRIT4.DAX:34:0:0"
-      : area === 9 ? "encounter:area:9:SPRIT2.DAX:63:0:0" : undefined;
+      : area === 9 ? environment.finalEncounter?.[2] ?? "encounter:area:9:SPRIT2.DAX:63:0:0" : undefined;
     const patterns = new Set();
     const transition = environment.transition;
     let views = await verifyTiledView(area, patterns);
