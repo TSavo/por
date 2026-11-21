@@ -2396,6 +2396,20 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-elven-remains.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-steep-slope", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:13:ecl:a9ce:cue:steep-slope",
+    prompt: /THEREISASTEEPRUBBLEDSLOPE.WILLYOUGOUP/i,
+    finalPhaseCapture: "kobold-cave-steep-slope.png",
+    continuation: { inputs: ["n"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["kobold-cave-steep-slope-climb", {
+    slot: "B", inputs: ["up", "n", "up"],
+    portrait: "scene-illustration:area:13:ecl:a9ce:cue:steep-slope",
+    prompt: /THEREISASTEEPRUBBLEDSLOPE.WILLYOUGOUP/i,
+    continuation: { inputs: ["y", "enter"], clearsPortrait: true,
+      prompt: /AHUGEBEASTLANDSUPONYOU/i },
+  }],
   ["kobold-cave-pit-fall", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:13:ecl:b511:caller:9ad7:cue:pit-fall",

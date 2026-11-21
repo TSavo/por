@@ -455,6 +455,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:13:ecl:9e73:cue:spike-trap", "SPIKESSPRINGOUTANDIMPALEYOU"],
   ["scene-illustration:area:13:ecl:9e86:cue:spike-trap", "SPIKESSPRINGOUTANDIMPALEYOU"],
   ["scene-illustration:area:13:ecl:9e7f:cue:spike-trap", "SPIKESSPRINGOUTANDIMPALEYOU"],
+  ["scene-illustration:area:13:ecl:a9bf:cue:steep-slope", "THEREISASTEEPRUBBLEDSLOPE"],
+  ["scene-illustration:area:13:ecl:a9ce:cue:steep-slope", "THEREISASTEEPRUBBLEDSLOPE"],
   ["scene-illustration:area:13:ecl:a453", "YOUFINDASECRETDOORINTHENORTHWALL"],
   ["scene-illustration:area:13:ecl:a45a", "YOUFINDASECRETDOORINTHENORTHWALL"],
   ["scene-illustration:area:0:ecl:b365:caller:b18c", "BEHINDTHESEDOORSARETHESPECIALTRAININGSCHOOLS"],
