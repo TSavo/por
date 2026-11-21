@@ -1946,6 +1946,7 @@ const illustrationRoutes = new Map([
     prompt: /YOUFINDAFIGHTERWITHBATTEREDARMORANDWILDEYES/i,
     phaseCaptures: { 6: "mendor-fighter-phase-2.png", 8: "mendor-fighter-phase-3.png", 9: "mendor-fighter-phase-4.png" },
     finalPhaseCapture: "mendor-fighter-phase-1.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:15:ecl:aafb:PIC2.DAX:25:1:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["slums-grain-sack-phases", {
     slot: "B", inputs: ["up", "enter", "enter", ...Array(23).fill("q")],
@@ -2168,6 +2169,7 @@ const illustrationRoutes = new Map([
     prompt: /ONELICKSITSLIPS/i,
     phaseCaptures: { 88: "tyrmor-prison-displacer-phase-1.png", 89: "tyrmor-prison-displacer-phase-3.png", 90: "tyrmor-prison-displacer-phase-4.png" },
     finalPhaseCapture: "tyrmor-prison-displacer-phase-2.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:68:2:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["diogenes-silver-dragon-phases", {
     slot: "A", inputs: ["up", "enter", "e", "enter", "s", "enter", "enter", "enter", ...Array(21).fill("q")],
