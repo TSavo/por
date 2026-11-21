@@ -350,6 +350,12 @@ block 37, member 2. A controlled replay changed the draw at ECL
 (56,32). Chrome displayed it on the street over WebGL before the
 existing dialogue. The standard route draws the near sprite.
 
+The Valjevo messenger has a middle replacement for `SPRIT5.DAX`
+block 11, member 1. The south and west entries into the sitting
+room both draw the original 24x65 sprite at (56,32) at ECL `9f47`.
+Chrome displayed the replacement over WebGL in both directions and
+continued through the existing near pose and messenger dialogue.
+
 The swamp giant lizard has separate middle and far sprites from
 `SPRIT8.DAX` block 59, members 1 and 2. Controlled Chrome replays drew
 the 192×260 and 160×228 sprites at (48,32) and continued to the enhanced
