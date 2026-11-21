@@ -952,6 +952,18 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:18:ecl:b240:caller:a7f0:PIC1.DAX:16:5:0",
     prompt: /THEMONSTERSLOOKAROUNDFORASCAPEGOAT/i,
   }],
+  ["podal-auction-raised-bid-phases", {
+    slot: "I", inputs: ["up", ...Array(6).fill("enter"), ...Array(11).fill("z")],
+    portraitStops: {
+      7: "portrait:area:18:ecl:b240:caller:a8af:PIC1.DAX:16:0:0",
+      11: "portrait:area:18:ecl:b240:caller:a8af:PIC1.DAX:16:1:0",
+      12: "portrait:area:18:ecl:b240:caller:a8af:PIC1.DAX:16:2:0",
+      14: "portrait:area:18:ecl:b240:caller:a8af:PIC1.DAX:16:3:0",
+      15: "portrait:area:18:ecl:b240:caller:a8af:PIC1.DAX:16:4:0",
+    },
+    portrait: "portrait:area:18:ecl:b240:caller:a8af:PIC1.DAX:16:5:0",
+    prompt: /YOUUPTHEBID.*MONSTERSNEARBYTURN,STARE,GRUMBLE,ANDTURNAWAY/i,
+  }],
   ["podal-auction-wand-exchange", {
     slot: "I", inputs: ["up", ...Array(5).fill("enter"), "end", "enter", "enter", ...Array(11).fill("z")],
     portraitStops: {
