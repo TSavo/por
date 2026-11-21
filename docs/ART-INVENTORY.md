@@ -323,6 +323,13 @@ sprites at (56,32) and (64,32). Chrome displayed each replacement
 over WebGL before continuing to the wagon offer. The standard
 route draws the near sprite.
 
+Genheeris and the Scriptorium officer have distinct far replacements
+for `SPRIT5.DAX` block 24, member 2. Two controlled replays changed the
+first draw at ECL `a1d7` and `ac23` and matched the original 48x57
+sprite at (64,24). Chrome showed each far pose over WebGL before
+continuing to the nearer pose and dialogue. The standard routes use
+middle and near distances.
+
 The swamp giant lizard has separate middle and far sprites from
 `SPRIT8.DAX` block 59, members 1 and 2. Controlled Chrome replays drew
 the 192×260 and 160×228 sprites at (48,32) and continued to the enhanced
