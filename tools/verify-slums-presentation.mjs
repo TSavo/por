@@ -1642,6 +1642,11 @@ const illustrationRoutes = new Map([
     journalLead: "textile-prisoner-left", journalLeadAtDiscovery: true,
     continuation: { inputs: ["up"], clearsPortrait: true, prompt: /YOUAREINAVERYSMALL,DARKROOM/i },
   }],
+  ["podal-goblin-patrol-portrait-phase", {
+    slot: "I", inputs: ["up", "up", "up", "left", "up", "up", "left", "up", "up", "left", "up", "up", "enter"],
+    portrait: "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0", prompt: /THEMONSTERSSTANDREADY/i,
+    idlePortraits: ["portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0"],
+  }],
   ["textile-skullcrusher-wall-mark", {
     slot: "J", inputs: ["left", "up", "right", "up", "up", "up", "up", "left", "up"],
     portraitStops: { 7: null, 8: null },
