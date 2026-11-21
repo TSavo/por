@@ -3343,7 +3343,7 @@ const environmentRoutes = new Map([
     walk: ["left", "right", "up", "up", "right", "up", "left", "up"],
   }],
   ["new-phlan-canal-room", {
-    slot: "A", area: 0, views: 24, patterns: 63, sceneryOnly: true, requireWebGL: true,
+    slot: "A", area: 0, views: 24, patterns: 63, sceneryOnly: true,
     walk: ["left", "right", "up", "up", "right", "up", "left", "up", "right", "up", "right", "up", "left", "up",
       "right", "right", "up", "up", "left", "left", "up", "right", "up"],
   }],
@@ -3356,7 +3356,7 @@ const environmentRoutes = new Map([
     walk: ["left", "up", "up", "left", "up", "up", "right", "up"],
   }],
   ["new-phlan-canal-south-bank", {
-    slot: "A", area: 8, views: 9, patterns: 48, sceneryOnly: true, requireWebGL: true,
+    slot: "A", area: 8, views: 9, patterns: 48, sceneryOnly: true,
     walk: ["up", "up", "left", "up", "right", "up", "right", "up"],
   }],
   ["new-phlan-east-terrace", {
@@ -3776,7 +3776,7 @@ const environmentRoutes = new Map([
     finalEncounter: [48, 32, "encounter:area:29:SPRIT8.DAX:0:0:0", 40, 80],
   }],
   ["stojanow-riverwalk", {
-    slot: "A", area: 9, views: 13, patterns: 50, sceneryOnly: true, requireWebGL: true,
+    slot: "A", area: 9, views: 13, patterns: 50, sceneryOnly: true,
     walk: ["left", ...Array(4).fill("up"), "right", "up", "up", "right", "up", "up", "left", "up"],
   }],
   ["pyramid-cistern-loop", {
@@ -4437,13 +4437,9 @@ try {
       assert.ok(id.startsWith(`tile:${area}:`), id);
       patterns.add(id);
     }
-    if (frame.perspective && (frame.scenery || frame.exploration?.area === 0)) {
-      await waitForExplorationViewport();
-      return 1;
-    }
-    assert.ok(!environment?.requireWebGL, `Missing WebGL camera data in ${routeName}`);
-    await waitFor("the guest view without camera data", () => run(`state.sequence === ${frame.sequence} &&
-      document.querySelector("#tile-art .perspective-backdrop")?.isConnected`));
+    assert.ok(frame.perspective && (frame.scenery || frame.exploration?.area === 0),
+      `Missing WebGL camera data in ${routeName}`);
+    await waitForExplorationViewport();
     return 1;
   }
 

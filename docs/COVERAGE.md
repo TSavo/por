@@ -2860,6 +2860,9 @@ The canal-room replay also measures the WebGL viewport in Chrome at
 375, 768, and 1100 pixels wide. It checks the 4:3 display ratio and that
 the canvas fills all four edges of the picture opening. The 2,904 tile
 placements are checked separately against the native inventory.
+Routes using the shared scenery verifier require a live WebGL viewport
+for each counted scenery view. The native inventory check still compares
+all tile IDs and positions.
 
 The `new-phlan-arena-quick` route starts from the council checkpoint at
 (6,5) facing east and uses Alda for the arena duel. Chrome checks the attack
