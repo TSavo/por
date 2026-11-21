@@ -6741,17 +6741,6 @@ try {
             await verifyPortraitPanel();
           }
         }
-        if (routeName === "valjevo-altar-crossed-swords" && interimPortrait) {
-          assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
-            /NEARITISTHEOFFERINGBOXWITHSOMECHANGEINIT.*DOYOUTAKEIT/i);
-          await switchBothWays(frame.frame);
-          const offeringShot = await command("Page.captureScreenshot", { format: "png" });
-          writeFileSync(resolve(directory, "valjevo-altar-offering-box.png"), Buffer.from(offeringShot.data, "base64"));
-        }
-        if (routeName === "kuto-well-waterline" && interimPortrait) {
-          assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
-            /RUNGSARESETINTHESIDESOFTHEWELLWALL\.DOYOUWANTTOCLIMBDOWN/i);
-          assert.ok(!frame.journal?.leads.some(({ id }) => id === "kuto-well-waterline-door"));
         if (routeName === "stojanow-ettin-guardroom" && interimPortrait) {
           const captions = [
             /ALLBUTTWOOFTHEBEDSARE14FEETLONG/i,
@@ -6776,6 +6765,17 @@ try {
             writeFileSync(resolve(directory, "valjevo-tyranthraxus-party-vote.png"), Buffer.from(voteShot.data, "base64"));
           }
         }
+        if (routeName === "valjevo-altar-crossed-swords" && interimPortrait) {
+          assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+            /NEARITISTHEOFFERINGBOXWITHSOMECHANGEINIT.*DOYOUTAKEIT/i);
+          await switchBothWays(frame.frame);
+          const offeringShot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, "valjevo-altar-offering-box.png"), Buffer.from(offeringShot.data, "base64"));
+        }
+        if (routeName === "kuto-well-waterline" && interimPortrait) {
+          assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+            /RUNGSARESETINTHESIDESOFTHEWELLWALL\.DOYOUWANTTOCLIMBDOWN/i);
+          assert.ok(!frame.journal?.leads.some(({ id }) => id === "kuto-well-waterline-door"));
           await switchBothWays(frame.frame);
           const wellDescentShot = await command("Page.captureScreenshot", { format: "png" });
           writeFileSync(resolve(directory, "kuto-well-descent-decision.png"), Buffer.from(wellDescentShot.data, "base64"));
