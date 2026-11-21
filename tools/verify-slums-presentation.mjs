@@ -1833,6 +1833,14 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "textile-graffiti-room.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YOUENCOUNTERHOBGOBLINS.*COMBATWAITFLEEPARLAY/i },
   }],
+  ["textile-crude-temple", {
+    slot: "B", inputs: ["up", "down", "up"],
+    portraitStops: { 0: null, 1: "scene-illustration:area:2:ecl:a76b", 2: "scene-illustration:area:2:ecl:a76b" },
+    portrait: "scene-illustration:area:2:ecl:abd2:caller:a663",
+    prompt: /YOUAREINALARGEROOMWHICHSERVESASACRUDETEMPLE.*VAGUEFEELINGOFDISQUIET/i,
+    phaseCaptures: { 1: "textile-ritual-room.png" }, finalPhaseCapture: "textile-crude-temple.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YOUAREINALARGEROOMWHICHSERVESASACRUDETEMPLE/i },
+  }],
   ["textile-skullcrusher-wall-mark", {
     slot: "J", inputs: ["left", "up", "right", "up", "up", "up", "up", "left", "up"],
     portraitStops: { 7: null, 8: null },
@@ -8944,6 +8952,10 @@ try {
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (["textile-faded-tapestries", "textile-graffiti-room"].includes(routeName)) {
         assert.deepEqual(frame.encounter, [48, 32, "encounter:area:2:SPRIT4.DAX:6:0:0", 48, 80]);
+        await waitForExplorationViewport();
+      }
+      if (routeName === "textile-crude-temple") {
+        assert.deepEqual(frame.encounter, [48, 32, "encounter:area:2:ecl:a66a:SPRIT4.DAX:6:0:0", 48, 80]);
         await waitForExplorationViewport();
       }
       if (routeName === "wild-grove-western-stench") {
