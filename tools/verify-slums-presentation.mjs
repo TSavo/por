@@ -130,9 +130,9 @@ const encounterRoutes = new Map([
     dialogue: { key: "enter", portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:0:0", prompt: /COMBATWAITFLEEPARLAY/i },
   }],
   ["swamp-ruin-defenders", {
-    slot: "A", inputs: ["up", "enter"],
+    slot: "A", inputs: ["up", "up"],
     placement: [48, 32, "encounter:area:16:ecl:a65a:SPRIT8.DAX:57:0:0", 48, 80],
-    dialogue: { key: "enter", portrait: "portrait:area:16:ecl:a65a:PIC8.DAX:57:0:0", prompt: /2LIZARDMENANDAGIANTLIZARDCHARGEATYOU/i },
+    dialogue: { key: "enter", portrait: "scene-illustration:area:16:ecl:a65a", prompt: /2LIZARDMENANDAGIANTLIZARDCHARGEATYOU/i },
   }],
   ["kobold-net-trap", {
     slot: "B", inputs: ["up", "enter"],
