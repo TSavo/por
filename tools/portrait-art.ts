@@ -5,6 +5,7 @@ import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 
 const pictureKey = /^portrait:(PIC\d+\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
 const roamingZombieAnimationKey = /^portrait:area:10:ecl:(?:b56c|b58c|b695:caller:9f43):PIC4\.DAX:35:[0-4]:0$/;
+const riverLizardfolkDeltaKey = /^portrait:area:23:ecl:9f04:PIC7\.DAX:57:[1-3]:0$/;
 const unscopedPortraitDeltas = new Set([
   "portrait:PIC3.DAX:29:1:0",
   "portrait:PIC7.DAX:45:1:0",
@@ -479,7 +480,7 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
     const picture = decodePicture(record.data);
     if (picture.width !== size || picture.height !== size || Number(frame) >= picture.itemCount) continue;
     const pixels = frameSlice(picture, Number(frame));
-    if (!roamingZombieAnimationKey.test(key) && !unscopedPortraitDeltas.has(key)) {
+    if (!roamingZombieAnimationKey.test(key) && !riverLizardfolkDeltaKey.test(key) && !unscopedPortraitDeltas.has(key)) {
       register(pixels, key);
       continue;
     }
