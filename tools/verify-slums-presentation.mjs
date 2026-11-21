@@ -286,10 +286,6 @@ const encounterRoutes = new Map([
     placement: [48, 32, "encounter:area:31:SPRIT1.DAX:2:0:0", 48, 80],
     dialogue: { key: "enter", portrait: "portrait:area:31:PIC1.DAX:2:0:0", prompt: /GOBLIN/i },
   }],
-  ["bane-orc-guardroom-approach", {
-    slot: "A", inputs: ["up", "enter"],
-    placement: [48, 32, "encounter:area:31:SPRIT1.DAX:4:0:0", 40, 80],
-  }],
   ["valjevo-bane-chaplain-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [48, 32, "encounter:area:6:SPRIT5.DAX:29:0:0", 40, 80],
@@ -559,6 +555,7 @@ const encounterRoutes = new Map([
       [56, 32, "encounter:area:31:SPRIT1.DAX:4:1:0", 32, 65],
       [48, 32, "encounter:area:31:SPRIT1.DAX:4:0:0", 40, 80],
     ],
+    requireWebGL: true,
     dialogue: { key: "enter", portrait: "portrait:area:31:PIC1.DAX:4:0:0", prompt: /ALARGEGROUPOFFOULORCS/i },
   }],
   ["kobold-cave-wyvern-approach", {
