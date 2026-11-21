@@ -4701,6 +4701,10 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified the Sokal reward and newly heard commissions after loading slot A.");
   } else if (freshRolf) {
+    const captureTour = async (name) => {
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, name), Buffer.from(shot.data, "base64"));
+    };
     for (const key of ["enter", "enter", "enter", "enter", "enter", "y", "t", "s", "t",
       "enter", "k", "e", "y", "a", "a", "e", "b", "enter"]) await advance(key);
     assert.equal(await verifyTiledView(0, new Set()), 1);
@@ -4733,6 +4737,7 @@ try {
     assert.deepEqual(await run("window.rolfFrames"), frames);
     await waitFor("the completed approach at the input prompt", () => run("!animationFrame"));
     assert.equal(await verifyTiledView(0, new Set()), 1);
+    await captureTour("rolf-approach.png");
     const missingApproach = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true, expression: `(async () => {
       const original = state;
       const image = document.querySelector(".encounter-sprite");
@@ -4755,6 +4760,7 @@ try {
     assert.equal(frame.portrait, "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9");
     await waitFor("Rolf portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await verifyPortraitPanel();
+    await captureTour("rolf-dialogue.png");
     const rolfDialogue = frame;
     await advance("j");
     assert.ok(frame.journal?.objective.nextStep);
@@ -4795,6 +4801,7 @@ try {
     await waitFor("the enhanced council guard", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelector('.encounter-portrait[src="/art/${councilGuard}"]')?.naturalWidth === 352`));
     await verifyPortraitPanel();
+    await captureTour("council-guard.png");
     await advance("y");
     assert.equal(frame.portrait, undefined);
     assert.equal(frame.classicPortrait, false);
