@@ -878,11 +878,13 @@ The browser verifier exposes `stojanow-gate`, `stojanow-west`,
 The `stojanow-wall-warning` replay from that save verifies the tower
 warning, the bugbear confrontation, and the decision to take the punch.
 The 352×352 warning illustration shows the tower guard above the gate.
-Chrome checks that it clears on the next step, before the bugbear approach.
+Chrome checks that it clears on the next step and that all three bugbear
+approach distances play over WebGL.
 The journal records each event only after the party sees it. The route
 checks the confrontation portrait and the separate dismissal illustration,
-then confirms the return to all 121 scenery placements when the party
-moves away. The Attack replay takes the party into combat instead.
+then confirms the return to WebGL scenery and the original 121-tile
+inventory when the party moves away and after a cold reload. The Attack
+replay takes the party into combat instead.
 The original approach draws far, middle, and near bugbear sprites in
 that order. Chrome checks all three Enhanced assets at (56,32), each
 over the complete scenery layer, before the confrontation portrait.

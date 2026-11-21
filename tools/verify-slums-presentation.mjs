@@ -8896,6 +8896,7 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified that Valhingen's arrival storm does not repeat after a cold reload.");
   } else if (routeName === "stojanow-wall-warning-reload") {
+    assert.ok(frame.perspective && frame.scenery);
     assert.equal(await verifyTiledView(9, new Set()), 1);
     await advance("j");
     const leads = new Set(frame.journal?.leads.map(({ id }) => id));
@@ -8930,7 +8931,7 @@ try {
         if (id !== undefined && image.naturalWidth === 96 && image.naturalHeight === [292, 260, 228][Number(id)] &&
             Math.abs(parseFloat(image.style.left) - ${(8 + (56 - 24) * 120 / 88) / 3.2}) < .001 &&
             Math.abs(parseFloat(image.style.top) - ${(8 + (32 - 24) * 120 / 88) / 2}) < .001 &&
-            layer.querySelector(".street-viewport, .perspective-backdrop")) {
+            layer.querySelector(".street-viewport")) {
           window.bugbearDistances.add(id);
         }
       }).observe(layer, { childList: true });`);
