@@ -3447,8 +3447,21 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["up", "enter", "enter", "p", "n"],
     portrait: "scene-illustration:area:15:ecl:99b5:caller:a91b:cue:fighter-warning",
     prompt: /THEMANSCREAMSWHILEFROTHINGATTHEMOUTH/i,
-    continuation: { inputs: ["enter"], portrait: "portrait:area:15:PIC2.DAX:25:0:0",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:15:ecl:9987:caller:a967:cue:fighter-invitation",
       prompt: /DOYOUTAKEPITYANDINVITEHIMTOGOWITHYOU/i },
+  }],
+  ["mendor-fighter-recruitment", {
+    slot: "B", inputs: ["up", "enter", "enter", "p", "n", "enter", "y", "y"],
+    portraitStops: {
+      5: "scene-illustration:area:15:ecl:99b5:caller:a91b:cue:fighter-warning",
+      6: "scene-illustration:area:15:ecl:9987:caller:a967:cue:fighter-invitation",
+      7: "scene-illustration:area:15:ecl:9987:caller:a9bd:cue:fighter-invitation",
+    },
+    phaseCaptures: { 6: "mendor-fighter-invitation.png", 7: "mendor-fighter-insist.png" },
+    portrait: "scene-illustration:area:15:ecl:9aeb:cue:fighter-joins",
+    prompt: /(?=.*HESTANDSUP,MUTTERINGTOHIMSELF,ANDJOINSYOU)(?=.*MADMAN)/i,
+    finalPhaseCapture: "mendor-fighter-joins.png",
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /MADMAN/i },
   }],
   ["mendor-fighter-dialogue", {
     slot: "B", inputs: ["up", "enter", "enter"],
