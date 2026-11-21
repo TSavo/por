@@ -904,6 +904,30 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:18:ecl:b240:caller:a3dc:PIC1.DAX:16:5:0",
     prompt: /THEBIDDINGESCALATESTO5,000GOLDPIECES.*NEXTTOANOGRE/i,
   }],
+  ["podal-auction-darkness-phases", {
+    slot: "I", inputs: ["up", ...Array(7).fill("enter"), ...Array(11).fill("z")],
+    portraitStops: {
+      8: "portrait:area:18:ecl:b240:caller:a49c:PIC1.DAX:16:0:0",
+      12: "portrait:area:18:ecl:b240:caller:a49c:PIC1.DAX:16:1:0",
+      13: "portrait:area:18:ecl:b240:caller:a49c:PIC1.DAX:16:2:0",
+      15: "portrait:area:18:ecl:b240:caller:a49c:PIC1.DAX:16:3:0",
+      16: "portrait:area:18:ecl:b240:caller:a49c:PIC1.DAX:16:4:0",
+    },
+    portrait: "portrait:area:18:ecl:b240:caller:a49c:PIC1.DAX:16:5:0",
+    prompt: /THEAUCTIONEER'SBLOCKISENVELOPEDINDARKNESS/i,
+  }],
+  ["podal-auction-tackled-ogre-phases", {
+    slot: "I", inputs: ["up", ...Array(10).fill("enter"), ...Array(11).fill("z")],
+    portraitStops: {
+      11: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:0:0",
+      15: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:1:0",
+      16: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:2:0",
+      18: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:3:0",
+      19: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:4:0",
+    },
+    portrait: "portrait:area:18:ecl:b240:caller:a566:PIC1.DAX:16:5:0",
+    prompt: /THEOGREISTACKLEDANDSEARCHED/i,
+  }],
   ["podal-auction-wand-exchange", {
     slot: "I", inputs: ["up", ...Array(5).fill("enter"), "end", "enter", "enter", ...Array(11).fill("z")],
     portraitStops: {
