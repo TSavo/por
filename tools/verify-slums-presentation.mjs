@@ -1275,6 +1275,18 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:14:ecl:9eb8:caller:a171:cue:three-cabinets",
     prompt: /HOWWILLYOUOPENTHELOCK/i,
   }],
+  ...[
+    ["silver", "a13f", ["up", "b", "b", "enter", "enter"]],
+    ["gold", "a1c6", ["up", "c", "o", "enter", "b", "enter", "enter"]],
+  ].map(([metal, cursor, inputs]) => [`kovel-cabinet-${metal}-reward`, {
+    slot: "A", inputs,
+    portrait: `portrait:area:14:ecl:${cursor}:PIC1.DAX:1:0:0`,
+    prompt: /VIEW.*POOL.*SHARE/i,
+    idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:${cursor}:PIC1.DAX:1:${phase}:0`),
+    finalPhaseCapture: `kovel-cabinet-${metal}-reward.png`,
+    continuation: { inputs: ["e", "n"], portrait: "scene-illustration:area:14:ecl:9dbb:cue:three-cabinets",
+      prompt: /WHICHONEWILLYOUEXAMINE/i },
+  }]),
   ["kovel-scroll-cabinet", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:14:ecl:a359:cue:wooden-cabinet",
