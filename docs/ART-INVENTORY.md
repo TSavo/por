@@ -742,6 +742,40 @@ the scoped priest art for that encounter. Other encounters assign different
 characters to identical stock pixels. The six rows remain unlinked pending
 a native encounter with the corresponding source and actor.
 
+### GOG 1.3 encounter sprite archive audit
+
+The inventory refreshed after the Kovel tapestry work counted 33 unlinked
+`SPRIT` frame rows. Twenty-seven are nonuniform. The remaining six are
+identical uniform 88-by-88 cels: `SPRIT6.DAX` blocks 10, 67, 74, and 119,
+and `SPRIT8.DAX` blocks 113 and 116. The six share decoded pixel SHA-256
+`ad0f7f9197b5b43549fa37f98743ad635df67190b0ad816d0a3d8313073a1d8c`.
+They contribute six archive rows and one uniform pixel pattern.
+
+The following five nonuniform groups contain three distance cels each.
+The GOG 1.3 disassembly audit checked literal encounter art selectors
+in `SETUP MONSTER` and `ENCOUNTER MENU` and the variable selectors backed
+by the tables below. The values are the original table bytes read from
+the corresponding ECL blocks.
+
+| Archive and block | Checked selectors and live provenance |
+| --- | --- |
+| `SPRIT1.DAX` 9 | Podal area 18 table `b269` contains 2, 2, 4, 4, 6, 8. The shared Temple of Bane area 24/31 script uses tables `b60f` and `b613`, both with 2, 4, 6, 8. |
+| `SPRIT3.DAX` 13 | The New Phlan and Kobold Cave bank audit found no literal encounter art selector for 13. All three cels have exact matches in the witnessed bank 6 and 7 copies in areas 28 and 22. |
+| `SPRIT6.DAX` 4 and 121 | Buccaneer Wilds area 25 table `ae77` contains 10, 120, 74, 119, 118, 65, 67, 16, 11, 16, 60. All three wyvern cels have exact matches in `SPRIT8.DAX` 121, witnessed in areas 13 and 27. |
+| `SPRIT7.DAX` 16 | Lizard Wilds area 26 table `b0c0` contains 0, 68, 69, 61, 57, 15, 11, 12. Zhentil area 22 tables `a58d` and `a59a` select other IDs. |
+
+The other 12 nonuniform cels are `SPRIT2.DAX` blocks 1, 55, and 71,
+and `SPRIT8.DAX` block 19. The audited Slums orc/goblin selector table
+contains 0, 2, and 4. The inspected giant approach uses bank 5 for 55,
+and the identified Stojanow use of 71 is a combat cel. The direct art
+selector for 19 in the audited Podal script uses bank 1. The inspected
+area 27 and area 29 encounter tables do not select bank 8 block 19.
+
+These checks cover the listed scripts and selector tables. Live draws
+of the unlinked source rows remain unverified. An equal pixel pattern
+in a different bank gives a comparison candidate. A replacement still
+needs a native draw to establish its archive, distance, and placement.
+
 The generated `inventory.json` includes `encounterFamilies`, the same
 source-frame breakdown shown in the HTML inventory. Each family reports
 direct links, exact pixel matches, and unlinked frames. These counts
