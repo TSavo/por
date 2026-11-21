@@ -723,6 +723,15 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-black-hand-emissary-departure.png",
     continuation: { inputs: ["up"], clearsPortrait: true, prompt: /^(?!.*HESPITSANDLEAVES).*NAMEACHP/i },
   }],
+  ["bane-black-hand-emissary-dismissal", {
+    slot: "A",
+    inputs: [...Array.from({ length: 50 }, () => ["up", "down"]).flat(),
+      "up", "enter", "enter", "enter", "p", "n", "n"],
+    portrait: "scene-illustration:area:24:ecl:b0b5:cue:emissary-dismissal",
+    prompt: /YOUSEGUYSLOOKHARMLESSENOUGH.*THEFOURORCSWANDERAWAY/i,
+    finalPhaseCapture: "bane-black-hand-emissary-dismissal.png",
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /^(?!.*FOURORCSWANDERAWAY).*NAMEACHP.*15,4E/i },
+  }],
   ["stojanow-ettin-guardroom", {
     slot: "A",
     inputs: ["up", "enter", "enter", "enter", "enter"],

@@ -761,6 +761,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:24:ecl:b0b5", "FINDINGTHELEATHERHOLYSYMBOL,HESMILESTHENGRUNTS"],
   ["scene-illustration:area:24:ecl:b0b5:cue:emissary-departure", "HESPITSANDLEAVES"],
   ["scene-illustration:area:24:ecl:b3af:caller:ad99:cue:emissary-departure", "HESPITSANDLEAVES"],
+  ["scene-illustration:area:24:ecl:b0b5:cue:emissary-dismissal", "YOUSEGUYSLOOKHARMLESSENOUGH"],
+  ["scene-illustration:area:24:ecl:b330:caller:ad99:cue:emissary-dismissal", "YOUSEGUYSLOOKHARMLESSENOUGH"],
   ["scene-illustration:area:24:ecl:a9c2", "ASYOUDESTROYTHEALTAR,THETEMPLEDOORSFLYOPEN"],
   ["scene-illustration:area:24:ecl:a92f", "SMEAREDWITHBLOODANDCOVEREDWITHCRUDEBLACKHANDPRINTS"],
   ["scene-illustration:area:28:ecl:a74e", "ATDUSKAGUARDCOMESBYTOESCORTYOUTODINNER"],
