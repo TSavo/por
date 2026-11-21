@@ -7935,10 +7935,13 @@
     "encounter:area:10:SPRIT4.DAX:23:1:0": { "area": 10, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:10:SPRIT4.DAX:34:0:0": { "area": 10, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:SPRIT2.DAX:24:1:0": { "area": 20, "x": 56, "y": 32, "width": 24, "height": 65, "flatBackground": [0, 6] },
-    "encounter:SPRIT4.DAX:34:0:0": {
     "encounter:area:21:ecl:9dbd:SPRIT4.DAX:34:0:0": { "area": 21, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:0:0": { "area": 21, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:0:0": { "area": 21, "x": 48, "y": 32, "width": 40, "height": 80 },
+    "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:1:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:1:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:2:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 49 },
+    "encounter:SPRIT4.DAX:34:0:0": {
       "area": 21,
       "x": 48,
       "y": 32,
@@ -7946,8 +7949,6 @@
       "height": 80
     },
     "encounter:SPRIT4.DAX:34:1:0": {
-    "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:1:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 65 },
-    "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:1:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 65 },
       "area": 21,
       "x": 56,
       "y": 32,
@@ -7955,7 +7956,6 @@
       "height": 65
     },
     "encounter:SPRIT4.DAX:34:2:0": {
-    "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:2:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 49 },
       "area": 21,
       "x": 56,
       "y": 32,
