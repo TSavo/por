@@ -750,6 +750,14 @@ const illustrationRoutes = new Map([
     prompt: /YOUAREINFRONTOFADEEPPOOLOFWATER.*DIVEINANDSEARCHIT/i,
     continuation: { inputs: ["n"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["swamp-pool-lizardfolk-ambush", {
+    slot: "A", inputs: ["s", "up", "up", "y", "enter", "up", "up", "left", "up", "up", "y"],
+    portraitStops: { 10: "scene-illustration:area:16:ecl:9a59:caller:aca3" },
+    portrait: "scene-illustration:area:16:ecl:ad17:cue:pool-lizardfolk",
+    prompt: /YOUDIVEINTOTHEPOOL.*SUDDENLYBEFOREYOURCLOUDEDVISIONYOUSEESOMELIZARDMEN/i,
+    finalPhaseCapture: "swamp-pool-lizardfolk-ambush.png",
+    continuation: { inputs: ["enter"], prompt: /HITFOR\d+POINTSOFDAMAGE/i, clearsPortrait: true },
+  }],
   ["swamp-underwater-cache", {
     slot: "A", inputs: ["up", "up", "left", "up", "up", "y"],
     portraitStops: { 5: "scene-illustration:area:16:ecl:9a59:caller:aca3" },
