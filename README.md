@@ -1,10 +1,15 @@
 # Pool of Radiance
 
-A browser port of SSI's 1988 Turbo Pascal game. Game procedures are translated instruction by instruction from `START.EXE` and `GAME.OVR` (`TPOV` overlays). The player supports Classic EGA and Enhanced artwork, with an illustrated atlas and a journal that tracks the party's discoveries. See [docs/PORT.md](docs/PORT.md) and [docs/COVERAGE.md](docs/COVERAGE.md).
+A browser port of SSI's 1988 Turbo Pascal game. Game procedures are translated instruction by instruction from `START.EXE` and `GAME.OVR`. The player supports Classic EGA and Enhanced artwork, with an illustrated atlas and a journal that tracks the party's discoveries. See [docs/PORT.md](docs/PORT.md) and [docs/COVERAGE.md](docs/COVERAGE.md).
 
 Supply your own complete set of original DOS game files. Unpack them so
 `START.EXE`, `GAME.OVR`, and the `*.DAX` files are in the same folder.
 `gamedata/` is gitignored.
+
+The port runs two builds of the game and picks the right translation from
+`GAME.OVR`: version 1.3, which is the one GOG sells (its `POOLRAD` folder),
+and the first release, which shows no version on its credits screen. Saved
+games, artwork, narration and the journal work on both.
 
 ## Run it
 
