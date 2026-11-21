@@ -41,6 +41,16 @@ const arenaMasterDistances = [
 const harborWatchApproach = ["e", "e", "r", "h", ...Array(8).fill("i"), "r", "enter"];
 const harborWatchBattle = [...harborWatchApproach, "s", "enter", "enter"];
 const encounterRoutes = new Map([
+  ["valjevo-barracks-waking-giants", {
+    slot: "B", inputs: ["up", "enter"], requireWebGL: true,
+    placement: [48, 32, "encounter:area:3:ecl:a815:SPRIT5.DAX:55:1:0", 32, 73],
+    closer: [40, 32, "encounter:area:3:ecl:a815:SPRIT5.DAX:55:0:0", 48, 80],
+    dialogue: {
+      key: "enter", portrait: "portrait:area:3:ecl:a815:PIC5.DAX:55:0:0",
+      prompt: /YOUSEESOMEGIANTSSTRUGGLINGOUTOFBED/i,
+    },
+    battleStart: { input: "c", prompt: /ABATTLEBEGINS/i },
+  }],
   ["bane-temple-exit-retaliation", {
     slot: "A", inputs: ["up", "up", "enter"],
     placement: [48, 32, "encounter:area:24:ecl:aa6e:SPRIT1.DAX:4:0:0", 40, 80],
