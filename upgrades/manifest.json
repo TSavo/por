@@ -4436,6 +4436,8 @@
     "portrait:PIC8.DAX:70:0:0": "kobold-cave-efreeti-dialogue.png",
     "encounter:area:13:SPRIT8.DAX:70:0:0": "kobold-cave-efreeti-approach.png",
     "encounter:area:13:SPRIT8.DAX:121:0:0": "kobold-cave-wyvern-approach.png",
+    "portrait:area:13:ecl:a624:PIC8.DAX:70:1:0": "kobold-cave-efreeti-fire-left.png",
+    "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0": "kobold-cave-efreeti-fire-right.png",
     "encounter:area:13:ecl:aacf:SPRIT8.DAX:121:0:0": "kobold-cave-wyvern-charging.png",
     "encounter:area:13:SPRIT8.DAX:121:1:0": "kobold-cave-wyvern-mid.png",
     "encounter:area:13:ecl:aacd:SPRIT8.DAX:121:1:0": "kobold-cave-wyvern-rising.png",

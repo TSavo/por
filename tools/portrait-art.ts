@@ -7,6 +7,8 @@ const pictureKey = /^portrait:(PIC\d+\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
 const roamingZombieAnimationKey = /^portrait:area:10:ecl:(?:b56c|b58c|b695:caller:9f43):PIC4\.DAX:35:[0-4]:0$/;
 const riverLizardfolkDeltaKey = /^portrait:area:23:ecl:9f04:PIC7\.DAX:57:[1-3]:0$/;
 const verifiedPortraitDeltaKeys = new Set([
+  "portrait:area:13:ecl:a624:PIC8.DAX:70:1:0",
+  "portrait:area:13:ecl:a624:PIC8.DAX:70:2:0",
   "portrait:PIC3.DAX:29:1:0",
   "portrait:PIC7.DAX:45:1:0",
   "portrait:PIC7.DAX:45:2:0",

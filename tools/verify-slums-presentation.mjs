@@ -7627,6 +7627,20 @@ try {
     await switchBothWays();
     await advance("j");
     assert.ok(knows("kobold-efreeti") && !knows("kobold-efreeti-warning"));
+    for (const member of [1, 2]) {
+      await advance("z");
+      const phase = `portrait:area:13:ecl:a624:PIC8.DAX:70:${member}:0`;
+      assert.equal(frame.portrait, phase);
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
+        /IAMTHEEFREETISAMIRAHWAHL.*AREYOU,PERCHANCE,VAMPIRES/i);
+      await waitFor("the efreeti fire phase", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${phase}"]')?.naturalWidth === 352`));
+      await switchBothWays();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, `kobold-cave-efreeti-fire-${member}.png`), Buffer.from(shot.data, "base64"));
+    }
+    await advance("z");
+    assert.equal(frame.portrait, "portrait:PIC8.DAX:70:0:0");
     for (const key of ["j", "n", "j"]) await advance(key);
     assert.ok(knows("kobold-efreeti-warning"));
     console.log("Verified the efreeti portrait and witnessed warning in Chrome.");
