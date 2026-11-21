@@ -15,8 +15,8 @@ const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-evoker", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-evoker with slot H, or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker with slot H, or --replay-leg with a recorded leg directory.");
 }
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
@@ -93,10 +93,12 @@ async function replayActions(frame, actions, stopAt, send) {
   for (const action of actions) {
     if (Array.isArray(action)) {
       const [command, until, limit] = action;
-      for (let attempt = 0; attempt < limit && !until.test(visibleText(frame)); attempt++) {
+      const reached = typeof until === "function" ? until : (current) => until.test(visibleText(current));
+      for (let attempt = 0; attempt < limit && !reached(frame); attempt++) {
         frame = await send(command);
       }
-      assert.match(visibleText(frame), until);
+      if (typeof until === "function") assert.ok(reached(frame), `Could not select the expected row with ${command}: ${visibleText(frame)}`);
+      else assert.match(visibleText(frame), until);
       continue;
     }
     const key = typeof action === "function" ? action(visibleText(frame), frame) : action;
@@ -1307,8 +1309,54 @@ async function verifySokalTempleHealing() {
     : "Returned to New Phlan and verified Brin's paid temple healing after reloading slot G.");
 }
 
+function selectEquipment(item, readyPrefix = "") {
+  const expected = (readyPrefix + item).replaceAll(" ", "").toLowerCase();
+  return ["end", (frame) => frame.text
+    // The guest paints the active stock or inventory row white.
+    .filter(([cell, , color]) => color === 15 && cell >= 4 * 40 && cell < 23 * 40 && cell % 40 < 28)
+    .sort(([a], [b]) => a - b)
+    .map(([, character]) => String.fromCharCode(character)).join("").toLowerCase() === expected, 20];
+}
+
+async function verifySokalRearm() {
+  const weapons = ["long sword", "long sword", "mace", "long sword", "long sword", "long sword"];
+  const fighterEquipment = names.flatMap((name, index) => {
+    const needsWeapon = name !== "brin" && name !== "cora";
+    const needsShield = name !== "brin";
+    const weapon = weapons[index];
+    return [
+      ...(index ? ["end"] : []),
+      ...(needsWeapon ? ["b", "n", selectEquipment(weapon), "b", "e"] : []),
+      ...(needsShield ? ["b", "n", "n", selectEquipment("shield"), "b", "e"] : []),
+      "v", "i", "i",
+      ...(needsWeapon ? [selectEquipment(weapon, "no"), "r"] : []),
+      ...(needsShield ? [selectEquipment("shield", "no"), "r"] : []),
+      (text) => {
+        assert.ok(text.includes(`${name}'s items`));
+        assert.ok(text.includes(`yes ${weapon}`), `${name} has not readied ${weapon}`);
+        assert.ok(text.includes("yes shield"), `${name} has not readied a shield`);
+      },
+      "e", "e", "e",
+    ];
+  });
+  const armed = await replay(loadSlot("2267"), "85000000", [
+    (text) => assert.match(text, /alda 5 6.*brin 1 6.*11,3 s/),
+    "right", "right", "up", "left", "up", "left", "up", "right", "up", "up", "up", "left",
+    ...Array(8).fill("up"), "left", "up", "y", "y",
+    ...fighterEquipment, "e",
+    "left", "left", "up", "right", ...Array(8).fill("up"),
+    "right", "up", "up", "up", "left", "up", "right", "up", "right", "up",
+    (text) => assert.match(text, /alda 4 6.*brin 1 6.*cora 4 6.*dorn 4 8.*enna 3 6.*fenn 3 8.*11,3 s/),
+    "enter", (text) => assert.match(text, /do you seek healing/), "y", "e", "e", "s", "s", "g",
+  ]);
+  assert.match(visibleText(armed), /quit to dos/);
+  console.log("Bought and readied four long swords and five shields before the return to Sokal Keep.");
+}
+
 async function verifySokalEvokerRecruitment() {
+  if (campaign) await verifySokalRearm();
   const recruitSave = await replay(loadSlot("2267"), "85000000", [
+    (text) => { if (campaign) assert.match(text, /alda 4 6.*brin 1 6.*cora 4 6.*dorn 4 8.*enna 3 6.*fenn 3 8.*11,3 s/); },
     "right", "right", "up", "left", "up", "right", "up", "up", "left", "up",
     "enter", "enter", "enter", "n",
     "left", "up", "right", "up", "up", "up", "enter", "enter", "n",
@@ -1381,6 +1429,13 @@ if (campaign && campaignOption === "--from-sokal") {
 if (campaign && campaignOption === "--from-sokal-armory") {
   copyFileSync(campaignInput, join(saveDir, "F.json"));
   await verifySokalNextChapter();
+  process.exit(0);
+}
+
+if (campaign && campaignOption === "--from-temple") {
+  copyFileSync(campaignInput, join(saveDir, "G.json"));
+  await verifySokalEvokerRecruitment();
+  await verifySokalEvokerReturn();
   process.exit(0);
 }
 
