@@ -15,8 +15,8 @@ const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with a slot D checkpoint or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with slot D, --from-sokal with slot A, or --replay-leg with a recorded leg directory.");
 }
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
@@ -139,6 +139,14 @@ function expectParty(text) {
 
 function loadSlot(key) {
   return `31000000:1c0d,45000000:266c,52000000:${key}`;
+}
+
+if (campaign && campaignOption === "--from-sokal") {
+  copyFileSync(campaignInput, join(saveDir, "A.json"));
+  await verifySokalArrival();
+  await verifySokalKeep();
+  console.log("Enhanced Chrome campaign verified through the Sokal Keep armory:", resolve(saveDir, "F.json"));
+  process.exit(0);
 }
 
 async function verifySokalSmithy(checkpoint) {
@@ -2726,127 +2734,143 @@ const hearCouncil = [
   (text) => assert.match(text, /sokal keep on thorn island must be cleared/),
   "enter", "enter",
 ];
-const checkSokal = (_text, frame) => {
+function checkSokal(_text, frame) {
   const leads = frame.journal?.leads ?? [];
   assert.ok(leads.some((lead) => lead.id === "commission-sokal"));
   assert.ok(leads.some((lead) => lead.id === "sokal-arrival"));
   assert.ok(leads.some((lead) => lead.id === "commission-ohlo" && lead.status === "turned-in"));
-};
+}
+
+async function verifySokalArrival() {
+  await replay(loadSlot("1e61"), "85000000", [
+    (text) => {
+      expectParty(text);
+      assert.match(text, /8,14 n/);
+    },
+    "j", checkSokal,
+  ]);
+}
+
 const sokalSave = await replay(loadSlotJ, "85000000", [
   ...backToNewPhlan, ...hearCouncil, ...takeBoat,
   "j", checkSokal, "j", "e", "s", "s", "a",
 ]);
 assert.match(visibleText(sokalSave), /quit to dos/);
-await replay(loadSlotA, "85000000", [
-  (text) => {
-    expectParty(text);
-    assert.match(text, /8,14 n/);
-  },
-  "j", checkSokal,
-]);
+await verifySokalArrival();
 console.log("Heard the council's commissions, took the boat to Sokal Keep and reloaded the arrival in slot A.");
+async function verifySokalKeep() {
+  const loadSlotA = loadSlot("1e61");
+  const loadSlotB = loadSlot("3062");
+  const loadSlotC = loadSlot("2e63");
+  const loadSlotD = loadSlot("2064");
+  const loadSlotE = loadSlot("1265");
+  const loadSlotF = loadSlot("2166");
+
+  const parchmentSave = await replay(loadSlotA, "85000000", [
+    "up", (text) => assert.match(text, /gates of sokal keep.*west rises a mound of reeds/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-reeds"));
+      assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-parchment"));
+    }, "j",
+    "left", "up", "up", "enter", "enter",
+    (text) => assert.match(text, /what do you do\?.*leave search attack talk/),
+    "end", "enter",
+    (text) => assert.match(text, /crumbling parchment scroll/),
+    "enter",
+    (text, frame) => {
+      assert.match(text, /last part is eaten away/);
+      assert.ok(!frame.text.some(([cell]) => cell % 40 >= 1 && cell % 40 < 16 &&
+        Math.floor(cell / 40) >= 1 && Math.floor(cell / 40) < 16));
+    },
+    "enter", "enter",
+    "e", "s", "s", "b",
+  ]);
+  assert.match(visibleText(parchmentSave), /quit to dos/);
+  await replay(loadSlotB, "85000000", [
+    (text) => assert.match(text, /6,13 w/),
+    "j", (_text, frame) => {
+      checkSokal("", frame);
+      assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-parchment"));
+      assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-pale-form"));
+    },
+  ]);
+  console.log("Searched the reeds, found the parchment and verified its journal entry after reloading slot B.");
+  const patrolSave = await replay(loadSlotB, "85000000", [
+    "right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "left",
+    (text) => assert.match(text, /pack of undead suddenly appears.*parlay/),
+    "p", "n", ..."shestni", "enter",
+    (text) => assert.match(text, /the undead leave/),
+    "e", "s", "s", "c",
+  ]);
+  assert.match(visibleText(patrolSave), /quit to dos/);
+  await replay(loadSlotC, "85000000", [
+    (text) => assert.match(text, /10,10 n/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-parchment"));
+      assert.ok(frame.journal.leads.some((lead) => lead.id === "sokal-patrol-passed"));
+      assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-pale-form"));
+    },
+  ]);
+  console.log("Passed the undead patrol in Sokal Keep and verified the journal after reloading slot C.");
+  const armorySave = await replay(loadSlotC, "85000000", [
+    "up", "up", "up", "right", "up", "up", "up", "b",
+    (text) => assert.match(text, /do you give the password/),
+    "y", (text) => assert.match(text, /the undead leave/),
+    "up", "left", "up", "right", "up", "left",
+    (text) => assert.match(text, /croaking rises in volume/),
+    "w", "enter", ...Array(81).fill("q"),
+    (text) => assert.match(text, /continue battle/),
+    "n", (text) => assert.match(text, /party has won.*receives 31 experience points/),
+    "enter", "enter", "e", "n", "left", "up",
+    (text) => assert.match(text, /14,5 n.*keep's old armory/),
+    "enter", "enter", "e", "s", "s", "d",
+  ]);
+  assert.match(visibleText(armorySave), /quit to dos/);
+  await replay(loadSlotD, "85000000", [
+    (text) => {
+      expectParty(text);
+      assert.match(text, /14,5 n/);
+    },
+    "j", (_text, frame) => {
+      assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-old-armory"));
+      assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-armory"));
+    },
+  ]);
+  console.log("Passed a second undead patrol, won the frog encounter and reloaded in Sokal's old armory.");
+  if (!campaign) await verifySokalSmithy(join(saveDir, "D.json"));
+  await verifySokalArmory(saveDir);
+  const readiedArmoryGear = await replay(loadSlotE, "85000000", [
+    (text) => assert.match(text, /12,0 n/),
+    "j", (_text, frame) => {
+      assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-hidden-armory"));
+      assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-ferran"));
+    }, "j",
+    "end", "v", "i", "i",
+    (text) => assert.match(text, /brin's items.*shield.*long sword.*mace/),
+    "end", "r", "end", "r", "end", "end", "t", "end", "enter",
+    "e",
+    (text) => assert.match(text, /brin.*ac 1.*thac0 19.*damage 1d8\+1.*weapon long sword/),
+    "e", "end", "v", "i", "end", "r", "e",
+    (text) => assert.match(text, /cora.*thac0 18.*damage 1d6\+3.*weapon mace/),
+    "e", "e", "s", "s", "f",
+  ]);
+  assert.match(visibleText(readiedArmoryGear), /quit to dos/);
+  await replay(loadSlotF, "85000000", [
+    "end", "v", "i",
+    (text) => assert.match(text, /brin's items.*yes shield.*yes long sword/),
+    "e", "e", "end", "v", "i",
+    (text) => assert.match(text, /cora's items.*yes mace/),
+  ]);
+  console.log("Found the hidden armory, collected its equipment, and verified Brin's inventory after reloading slot E.");
+  console.log("Readied Brin's sword and shield, traded the mace to Cora, and verified both loadouts after reloading slot F.");
+}
+
+await verifySokalKeep();
 if (campaign) {
-  console.log("Enhanced Chrome campaign verified through Sokal Keep arrival:", resolve(saveDir, "A.json"));
+  console.log("Enhanced Chrome campaign verified through the Sokal Keep armory:", resolve(saveDir, "F.json"));
   process.exit(0);
 }
 
-const parchmentSave = await replay(loadSlotA, "85000000", [
-  "up", (text) => assert.match(text, /gates of sokal keep.*west rises a mound of reeds/),
-  "j", (_text, frame) => {
-    assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-reeds"));
-    assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-parchment"));
-  }, "j",
-  "left", "up", "up", "enter", "enter",
-  (text) => assert.match(text, /what do you do\?.*leave search attack talk/),
-  "end", "enter",
-  (text) => assert.match(text, /crumbling parchment scroll/),
-  "enter",
-  (text, frame) => {
-    assert.match(text, /last part is eaten away/);
-    assert.ok(!frame.text.some(([cell]) => cell % 40 >= 1 && cell % 40 < 16 &&
-      Math.floor(cell / 40) >= 1 && Math.floor(cell / 40) < 16));
-  },
-  "enter", "enter",
-  "e", "s", "s", "b",
-]);
-assert.match(visibleText(parchmentSave), /quit to dos/);
-await replay(loadSlotB, "85000000", [
-  (text) => assert.match(text, /6,13 w/),
-  "j", (_text, frame) => {
-    checkSokal("", frame);
-    assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-parchment"));
-    assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-pale-form"));
-  },
-]);
-console.log("Searched the reeds, found the parchment and verified its journal entry after reloading slot B.");
-const patrolSave = await replay(loadSlotB, "85000000", [
-  "right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "left",
-  (text) => assert.match(text, /pack of undead suddenly appears.*parlay/),
-  "p", "n", ..."shestni", "enter",
-  (text) => assert.match(text, /the undead leave/),
-  "e", "s", "s", "c",
-]);
-assert.match(visibleText(patrolSave), /quit to dos/);
-await replay(loadSlotC, "85000000", [
-  (text) => assert.match(text, /10,10 n/),
-  "j", (_text, frame) => {
-    assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-parchment"));
-    assert.ok(frame.journal.leads.some((lead) => lead.id === "sokal-patrol-passed"));
-    assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-pale-form"));
-  },
-]);
-console.log("Passed the undead patrol in Sokal Keep and verified the journal after reloading slot C.");
-const armorySave = await replay(loadSlotC, "85000000", [
-  "up", "up", "up", "right", "up", "up", "up", "b",
-  (text) => assert.match(text, /do you give the password/),
-  "y", (text) => assert.match(text, /the undead leave/),
-  "up", "left", "up", "right", "up", "left",
-  (text) => assert.match(text, /croaking rises in volume/),
-  "w", "enter", ...Array(81).fill("q"),
-  (text) => assert.match(text, /continue battle/),
-  "n", (text) => assert.match(text, /party has won.*receives 31 experience points/),
-  "enter", "enter", "e", "n", "left", "up",
-  (text) => assert.match(text, /14,5 n.*keep's old armory/),
-  "enter", "enter", "e", "s", "s", "d",
-]);
-assert.match(visibleText(armorySave), /quit to dos/);
-await replay(loadSlotD, "85000000", [
-  (text) => {
-    expectParty(text);
-    assert.match(text, /14,5 n/);
-  },
-  "j", (_text, frame) => {
-    assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-old-armory"));
-    assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-armory"));
-  },
-]);
-console.log("Passed a second undead patrol, won the frog encounter and reloaded in Sokal's old armory.");
-await verifySokalSmithy(join(saveDir, "D.json"));
-await verifySokalArmory(saveDir);
-const readiedArmoryGear = await replay(loadSlotE, "85000000", [
-  (text) => assert.match(text, /12,0 n/),
-  "j", (_text, frame) => {
-    assert.ok(frame.journal?.leads.some((lead) => lead.id === "sokal-hidden-armory"));
-    assert.ok(!frame.journal.leads.some((lead) => lead.id === "sokal-ferran"));
-  }, "j",
-  "end", "v", "i", "i",
-  (text) => assert.match(text, /brin's items.*shield.*long sword.*mace/),
-  "end", "r", "end", "r", "end", "end", "t", "end", "enter",
-  "e",
-  (text) => assert.match(text, /brin.*ac 1.*thac0 19.*damage 1d8\+1.*weapon long sword/),
-  "e", "end", "v", "i", "end", "r", "e",
-  (text) => assert.match(text, /cora.*thac0 18.*damage 1d6\+3.*weapon mace/),
-  "e", "e", "s", "s", "f",
-]);
-assert.match(visibleText(readiedArmoryGear), /quit to dos/);
-await replay(loadSlotF, "85000000", [
-  "end", "v", "i",
-  (text) => assert.match(text, /brin's items.*yes shield.*yes long sword/),
-  "e", "e", "end", "v", "i",
-  (text) => assert.match(text, /cora's items.*yes mace/),
-]);
-console.log("Found the hidden armory, collected its equipment, and verified Brin's inventory after reloading slot E.");
-console.log("Readied Brin's sword and shield, traded the mace to Cora, and verified both loadouts after reloading slot F.");
 const templeSave = await replay(loadSlotF, "85000000", [
   ...armoryToTemple,
   ...Array(4).fill("home"), "h", "end", "end", "h",

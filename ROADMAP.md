@@ -19,10 +19,11 @@ ordinary play and which start from controlled saves.
   in Enhanced Chrome from an empty save directory through the first Slums
   victory and reload. Each leg carries forward the party earned in play and
   keeps its input saves and key recording under `out/campaign-*`.
-- `npm run verify:campaign -- <chrome-executable>` continues that party through
-  Ohlo’s commission and the voyage to Sokal Keep. Use `--from-slums <slot-D>`
-  to resume from the opening run’s victory save, or `--replay-leg <directory>`
-  to rerun a recorded leg independently in Chrome and compare its final frame.
+- `npm run verify:campaign -- <chrome-executable>` continues the party through
+  Ohlo’s commission, the voyage to Sokal Keep, and the hidden armory. It reloads
+  the earned equipment in slot F. Use `--from-slums <slot-D>` or
+  `--from-sokal <slot-A>` to resume, or `--replay-leg <directory>` to rerun a
+  recorded leg independently in Chrome and compare its final frame.
 - The Encamp journal tracks witnessed clues and the selected commission in
   the active save slot. The art inventory tracks individual replacements,
   placement metadata, and observed gaps. [Art inventory](docs/ART-INVENTORY.md)
