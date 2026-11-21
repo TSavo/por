@@ -599,6 +599,12 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["bane-rubble-tapestry", {
+    slot: "A", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:31:ecl:9c10",
+    prompt: /INTHERUBBLEYOUSPOTABEAUTIFULTAPESTRY\.WILLYOUTAKEIT/i,
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["bane-dining-room-jewelry", {
     slot: "A", inputs: ["s", "up", "enter"],
     portraitStops: { 2: "scene-illustration:area:31:ecl:9d02" },
@@ -6682,6 +6688,10 @@ try {
     await verifyPortraitPanel();
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
+    if (routeName === "bane-rubble-tapestry") {
+      const tapestryShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-rubble-tapestry.png"), Buffer.from(tapestryShot.data, "base64"));
     }
     if (routeName === "bane-dining-room-jewelry") {
       const jewelryShot = await command("Page.captureScreenshot", { format: "png" });
