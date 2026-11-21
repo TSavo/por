@@ -151,6 +151,9 @@ Left:
 - The full campaign replay on 1.3. Its key lists were recorded on the
   first release and some depend on dice, which differ between the builds.
 - Switch the default to 1.3 once it passes, and retire the first release.
+- The code wheel. The 1.3 program accepts any word: its check is patched
+  out. Classic keeps that. Enhanced shows the wheel on screen as part of
+  the game and enforces the answer again.
 - Check the whole game against 1.3 and the walkthrough. The differences in
   behaviour found so far are in the research note.
 
