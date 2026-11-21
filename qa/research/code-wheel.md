@@ -50,11 +50,27 @@ the cardboard wheel. It holds no picture of a whole wheel: it builds its window 
 tiles are extracted to `por-assets/gog-1.3/codewheel-art/`: 70 rune tiles (40 by 40), 3 path
 styles (160 by 8), 3 window backgrounds (650 by 510), a contact sheet and a manifest.
 
+## The physical wheel
+
+Found on 2026-11-21: scans of both discs and a full transcription, at
+https://www.oldgames.sk/en/copy-protection/pool-of-radiance-translation-wheel, now in
+`por-assets/codewheel/` and, restructured, in `src/codewheel/wheel.json`.
+
+- 36 positions on each disc: 35 runes and one "TRANSLATE FROM" tab. That is why GOG ships 70 rune tiles.
+- Six rings of 36 letters on the back (Espruar) disc. The innermost ring is the alphabet and the digits.
+- Three paths of six windows on the front (Dethek) disc, each a spiral: the window over each ring
+  is two positions further round than the one inside it.
+- Each path gives the same 36 words, in alphabetical order by first character: AXEIAX, BEWARE,
+  COPPER, DRAGON, EFREET, FRIEND, GOOGLE, HARASH and so on to 0SOMAS. The game asks 13 of them.
+- Checked: the page's rune pictures match the game's 13 prompt glyph pairs pixel for pixel, and
+  `npm run verify:code-wheel` reads the game's word for all 13 questions.
+- Two transcriptions disagree on two words the game never asks: OPTAWA and 8OASIS here, OTTAWA
+  and 80ASIS in Andrew Schultz's replica. The enlarged scan shows a P in the first.
+- Fan sources say the unpatched game allows three tries and then exits to DOS with "Sorry, that's
+  incorrect", and that `START STING` skips the check. Not tested against the game.
+
 ## Not yet established
 
-- Which rune tile corresponds to which glyph code in the game's table, and which tile set
-  belongs to which ring of the wheel.
-- The full contents of the physical wheel. The game asks 13 questions; the wheel has more
-  positions than that.
-- What the unpatched game does after a wrong answer.
+- Which of GOG's redrawn tiles is which rune. Not needed now: the scan's runes are named by position.
+- What the unpatched game does after a wrong answer, tested rather than reported.
 - Why the first release also accepts any answer in the port.
