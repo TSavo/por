@@ -5911,14 +5911,24 @@ try {
       await advance("space");
       assert.equal(frame.portrait, restPortrait);
       await advance("n");
-      assert.equal(frame.portrait, undefined);
+      const warCries = "scene-illustration:area:17:ecl:9da2:caller:9c82";
+      assert.equal(frame.portrait, warCries);
       assert.match(visibleText(), /18:29.*THESOUNDOFWARCRIES/i);
+      await waitFor("the war-cries artwork", () => run(
+        'state.sequence === ' + frame.sequence +
+        ' && document.querySelector(\'.encounter-portrait[src="/art/' + warCries + '"]\')?.naturalWidth === 352'));
+      await verifyPortraitPanel();
+      const warCriesShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "nomad-war-cries.png"), Buffer.from(warCriesShot.data, "base64"));
+      await switchBothWays();
       await advance("j");
       assert.ok(frame.journal.leads.some(({ id }) => id === "nomad-war-cries"));
       assert.ok(!frame.journal.leads.some(({ id }) => id === "nomad-kobold-attack"));
     }
     if (raid) {
-      for (const key of ["j", "enter", "enter", "j"]) await advance(key);
+      for (const key of ["j", "enter", "enter"]) await advance(key);
+      assert.equal(frame.portrait, undefined, "The war-cries illustration clears when the attackers are identified");
+      await advance("j");
       assert.ok(frame.journal.leads.some(({ id }) => id === "nomad-kobold-attack"));
       for (const key of ["j", "enter"]) await advance(key);
       assert.match(visibleText(), /COMBATWAITFLEEADVANCE/i);
