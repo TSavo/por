@@ -109,4 +109,4 @@ Every place where the sources disagree is recorded once in `qa/disagreements.jso
 `npm run qa:disagreements` from the `disagreements` notes in these files and from
 `qa/disagreements-manual.json`. Each entry names the scenarios that carry it and has a status:
 `open` until the game itself has been used to settle it, then `settled`, with what the game does
-and how that was established. On 2026-11-21 it holds 391 entries, all open.
+and how that was established. `npm run qa:disagreements` prints how many are open and how many settled.

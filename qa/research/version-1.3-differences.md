@@ -81,7 +81,7 @@ Measured on 2026-11-21 with the port running version 1.3. Each line corrects or 
 
 ### The script edit
 
-- The three bytes are not at `0xa42d`. They are at `a692`: New Phlan's tavern brawl ends with `GOTO a609` where the first release has `EXIT`. The instruction is three bytes longer, so the 370 later instructions of that script sit three bytes further on. Every one of them has the same opcode as before.
+- The three bytes are not at `0xa42d`. They are at `a692`, the last instruction of the tavern's refused wager ("I CAN'T ACCEPT THAT WAGER."): `GOTO a609` where the first release has `EXIT`. So 1.3 goes on to "WILL YOU GO AGAIN?" and the first release leaves the tavern script. The brawl starts at the next instruction and is the same in both. (An earlier version of this note called the edit the brawl's ending; `npm run acceptance:new-phlan` plays the refused wager.) The instruction is three bytes longer, so the 370 later instructions of that script sit three bytes further on. Every one of them has the same opcode as before.
 - The instruction at `a429` differs in an operand only: `RANDOM 17` in the first release, `RANDOM 16` in 1.3. The first release picks from 24 tavern tales, 1.3 from 23.
 - Nothing was renamed. The host converts a script position it reads from the running game to the first release's numbering (`src/runtime/bindings.ts`), and all 8,076 artwork keys and 1,432 narration units land on the same instruction in 1.3. With the conversion off, 60 keys and 27 units fail.
 
@@ -99,7 +99,7 @@ Measured on 2026-11-21 with the port running version 1.3. Each line corrects or 
 | Display pages | Text is stored to the visible page and to a second page | Both page variables point at the visible page, so each glyph row is stored twice |
 | Tandy title theme and battle music | Requested by the game (sound events 13 and 14) | Never requested, on any hardware |
 | Tavern tales | 24 | 23 |
-| Brawl ending in New Phlan's tavern | `EXIT` | `GOTO a609` |
+| After a refused wager in New Phlan's tavern | `EXIT`: the visit ends | `GOTO a609`: "WILL YOU GO AGAIN?" |
 | Save directory | From `POOL.CFG` | From `POOL.CFG`; the store release ships its install directory there, so the port sets the paths itself |
 
 The dice differ by exactly one draw. After the title, 1.3 draws one random number to pick its code-wheel question (`Random(13)` in overlay slice 2), and the first release does not. From the same seed, every later number 1.3 draws is the one the first release draws next. Measured with `POR_TRACE_DICE=1` over the first campaign leg: 1,221 draws in the first release, 1,222 in 1.3, and the same callers and ranges in the same order once that one draw is set aside.
