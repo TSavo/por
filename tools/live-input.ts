@@ -39,6 +39,7 @@ export interface PresentationAnimationFrame {
   text: [number, number, number][];
   perspective?: boolean;
   nativeScenery?: NativeExploration & { area: number };
+  exploration?: { area: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number };
   overlandMap?: boolean;
   encounter?: EncounterPlacement;
   tiles?: TilePlacement[];
@@ -146,7 +147,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let nonblockingPoll = false;
   let activeEcl: number;
   let harborTicket: SokalQuay["ticket"] = "none";
-  let explorationPosition: { area: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number } | undefined;
+  let explorationPosition: PresentationAnimationFrame["exploration"];
   let battleCursor: number | undefined;
   let portraitCaller: number | undefined;
 
@@ -159,6 +160,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     portraitCaller = segment === 0 ? undefined : cpu.read16(segment, offset);
   }
   let drawnPerspective: { pixels: Buffer; localEcl?: number; native?: NativeExploration } | undefined;
+  let lastLocalPerspective: typeof drawnPerspective;
   let priorPerspectiveDraw: Buffer | undefined;
   let previousPerspective: { area: number; pixels: Buffer } | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
@@ -206,11 +208,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   } : undefined);
   const traceTiles = process.env.POR_TRACE_TILES === "1";
   const traceBattleTiles = process.env.POR_TRACE_BATTLE_TILES === "1";
-  function perspectivePixels() {
+  function perspectivePixels(frame = screen) {
     const pixels = Buffer.alloc(88 * 88);
     for (let row = 0; row < 88; row++) {
-      const start = (24 + row) * screen.width + 24;
-      pixels.set(screen.pixels.subarray(start, start + 88), row * 88);
+      const start = (24 + row) * frame.width + 24;
+      pixels.set(frame.pixels.subarray(start, start + 88), row * 88);
     }
     return pixels;
   }
@@ -326,7 +328,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         if ((area === 26 || area === 27) && nativeDraw?.localEcl === 0) tileArea = 0;
         perspective = Boolean(encounter || exploration || nativeDraw ||
           (previousPerspective?.area === area && previousPerspective.pixels.equals(pixels)));
-        const native = nativeDraw ?? (drawnPerspective?.localEcl === tileArea ? drawnPerspective : undefined);
+        let native = nativeDraw ?? (drawnPerspective?.localEcl === tileArea ? drawnPerspective : undefined);
+        // The actor blit replaces the viewport capture but does not carry camera metadata.
+        // Reuse the camera only if removing the actor restores the entire native view.
+        if (!native?.native && encounter && lastLocalPerspective && lastLocalPerspective.localEcl === tileArea &&
+            lastLocalPerspective.pixels.equals(perspectivePixels(enhanced))) {
+          native = lastLocalPerspective;
+        }
         if (perspective && native?.native) {
           const { localEcl } = native;
           // The first destination view can precede the update to the party's area record.
@@ -491,7 +499,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           text: state.text, combatArt: effect ? combat : attack ?? [], combatSelections: state.combatSelections,
           combatEffect: state.combatEffect,
           battleTiles, panelFrame: state.panelFrame, perspective,
-          nativeScenery: state.nativeScenery, overlandMap: state.overlandMap, encounter, tiles, durationMs });
+          nativeScenery: state.nativeScenery, exploration: state.exploration,
+          overlandMap: state.overlandMap, encounter, tiles, durationMs });
       } else {
         console.log(`POR_FRAME ${JSON.stringify({ ...state,
           animation: animation.length ? animation.splice(0) : undefined })}`);
@@ -683,6 +692,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (drawnPerspective && !drawnPerspective.pixels.equals(pixels)) priorPerspectiveDraw = drawnPerspective.pixels;
       drawnPerspective = { pixels, localEcl: localScenery ? cpu.read8(0x740, 0x82a2) : undefined,
         native: localScenery ? captureNativeExploration(cpu) : undefined };
+      if (drawnPerspective.native) lastLocalPerspective = drawnPerspective;
     } : undefined,
     captureCombatEffectUnderlay: browser && effectKeys.length ? (cpu: Cpu) => {
       pendingEffect = undefined;

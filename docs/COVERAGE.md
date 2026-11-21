@@ -2161,6 +2161,11 @@ position, facing, and four-cell selection. The test toggles classic and
 enhanced in both scenes and checks the guest frame and save stay the same.
 The controlled fixture `out/castle-hall-approach-B.json` passed the replay
 at `937b969a`, including 30 Enhanced battlefield tile patterns.
+
+Chrome presentation replays leave WebGL enabled during Enhanced play.
+Exploration checks require the WebGL canvas when camera data is available
+and continue to validate the guest's tile inventory independently. Classic
+display switches and original fallback presentations still have checks.
 The same replay checks the 192×192 bite at its position in the live
 combat animation and confirms that the enhanced combat panel shows the hit
 and then the fire damage as separate reports. With

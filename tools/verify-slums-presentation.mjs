@@ -307,6 +307,7 @@ const encounterRoutes = new Map([
       [56, 32, "encounter:area:10:SPRIT4.DAX:114:1:0", 24, 65],
       [48, 32, "encounter:area:10:SPRIT4.DAX:114:0:0", 40, 80],
     ],
+    requireWebGL: true,
     dialogue: { key: "enter", portrait: "portrait:PIC4.DAX:114:0:0", prompt: /MUMMIESOPENTHEIRSARCOPH/i },
   }],
   ["kuto-norris-approach", {
@@ -505,10 +506,6 @@ const encounterRoutes = new Map([
       [56, 32, "encounter:area:10:SPRIT4.DAX:17:2:0", 16, 49],
       [56, 32, "encounter:area:10:SPRIT4.DAX:17:1:0", 24, 65],
     ],
-  }],
-  ["valhingen-mummy-approach", {
-    slot: "A", inputs: ["up", "enter"],
-    placement: [48, 32, "encounter:area:10:SPRIT4.DAX:114:0:0", 40, 80],
   }],
   ["valjevo-giant-snake-approach", {
     slot: "B", inputs: ["s", "up", "up", "y", "enter", "enter"],
@@ -4032,7 +4029,7 @@ const classicPortrait = option === "--classic-portrait" &&
   ["buccaneer-approach", "new-phlan-south-shop-exit"].includes(routeName);
 const southShopkeeper = "portrait:HEAD3.DAX:42:BODY3.DAX:9";
 const ogreApproachOnly = ogre && option === "--approach-only";
-const verifyHallsWebGL = halls && option === "--webgl";
+const verifyHallsWebGL = halls;
 const verifyApproachTravel = outskirts && option === "--map-travel";
 const verifyDistrictTravel = outskirts && option === "--map-destination";
 const declineValjevoDisguise = routeName === "valjevo-disguise-offer" && option === "--decline";
@@ -4045,7 +4042,7 @@ const declineCryptScroll = ["valhingen-crypt-scroll", "valhingen-crypt-scroll-re
 const fightNorris = norrisSurrender && option === "--fight";
 const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "--refuse-to-leave";
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
-  ogreApproachOnly || councilFinale || verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
+  ogreApproachOnly || councilFinale || (halls && option === "--webgl") || verifyApproachTravel || verifyDistrictTravel ||
   declineDirten || declineRestal || declineKoboldGuide || declineFatima || declineCryptScroll || declineKutoCache ||
   declineValjevoDisguise || fightNorris || refuseNomadDismissal, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
@@ -4303,26 +4300,20 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
-  const verifyDefaultWebGL = moonseaTravel || sokalTravel || valjevoTravel || travelDestination || questLockedTravel ||
-    verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel || genheeris ||
-    ["new-phlan-rolf-tour", "lizardfolk-battle-wall", "valjevo-dragon-loot"].includes(routeName);
-  if (!verifyDefaultWebGL) {
-    // The tile replays verify individual PNG placements.
-    await run(`document.querySelector('#street-toggle[aria-pressed="true"]')?.click()`);
-  }
   function waitForExplorationViewport() {
     const source = JSON.stringify(`data:image/png;base64,${frame.enhancedFrame}`);
     return waitFor("the default WebGL exploration viewport", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelector("#screen").src === ${source} &&
-      document.querySelector(".street-viewport")?.isConnected`));
+      document.querySelector("#tile-art:not([hidden]) .street-viewport")?.isConnected`));
   }
-  function observeApproach(approachSequence, requireTiles = true) {
+  function observeApproach(approachSequence, requireScenery = true, requireWebGL = false) {
     return run(`(() => {
       window.observedApproach = new Set();
       const layer = document.querySelector("#tile-art");
       function recordApproach() {
         const img = layer.querySelector(".encounter-sprite");
-        if (!img || (${requireTiles} && layer.querySelectorAll(".terrain-tile").length !== 121)) return;
+        const scenerySelector = ${JSON.stringify(requireWebGL ? ".street-viewport" : ".street-viewport, .perspective-backdrop")};
+        if (!img || ((${requireScenery} || ${requireWebGL}) && !layer.querySelector(scenerySelector))) return;
         for (const [x, y, id, w, h] of ${JSON.stringify(approachSequence)}) {
           const left = (8 + (x - 24) * 120 / 88) / 3.2;
           const top = (8 + (y - 24) * 120 / 88) / 2;
@@ -4351,6 +4342,10 @@ try {
     for (const [, , id] of expected) {
       assert.ok(id.startsWith(`tile:${area}:`), id);
       patterns.add(id);
+    }
+    if (frame.perspective && (frame.scenery || frame.exploration?.area === 0) && !frame.journal) {
+      await waitForExplorationViewport();
+      return 1;
     }
     await waitFor("121 individually anchored 4× tiles", () => run(`(() => {
       if (state.sequence !== ${frame.sequence}) return false;
@@ -4607,7 +4602,7 @@ try {
         const id = image?.getAttribute("src");
         if (!id?.startsWith(${JSON.stringify("/art/" + approach)})) return;
         const frame = [id, image.naturalWidth, image.naturalHeight,
-          document.querySelectorAll(".terrain-tile").length,
+          Boolean(document.querySelector(".street-viewport")),
           Boolean(document.querySelector(".encounter-portrait"))];
         if (window.rolfFrames.at(-1)?.[0] !== id) window.rolfFrames.push(frame);
       }).observe(document.querySelector("#tile-art"), { childList: true });
@@ -4620,9 +4615,9 @@ try {
       [56, 32, approach + "0:0", 24, 80],
     ]);
     const frames = [
-      ["/art/" + approach + "2:0", 32, 196, 121, false],
-      ["/art/" + approach + "1:0", 96, 260, 121, false],
-      ["/art/" + approach + "0:0", 96, 320, 121, false],
+      ["/art/" + approach + "2:0", 32, 196, true, false],
+      ["/art/" + approach + "1:0", 96, 260, true, false],
+      ["/art/" + approach + "0:0", 96, 320, true, false],
     ];
     await waitFor("Rolf's three approach sprites", () => run("window.rolfFrames.length === 3"));
     assert.deepEqual(await run("window.rolfFrames"), frames);
@@ -4638,7 +4633,7 @@ try {
         await showScreen();
         const fallback = document.querySelector(".sprite-fallback");
         return fallback?.style.backgroundImage.includes(original.frame) && geometry(fallback) === geometry(image) &&
-          document.querySelectorAll(".terrain-tile").length === 121 && !document.querySelector("#game-text").hidden;
+          Boolean(document.querySelector(".street-viewport")) && !document.querySelector("#game-text").hidden;
       } finally {
         state = original;
         await showScreen();
@@ -4712,7 +4707,7 @@ try {
     assert.equal(frame.perspective, true);
     const captureDoorway = async (name) => {
       await waitFor("the enhanced street without a portrait at the doorway", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelectorAll(".terrain-tile").length === 121 &&
+        document.querySelector(".street-viewport")?.isConnected &&
         !document.querySelector(".encounter-portrait")`));
       assert.ok(await run(`(() => {
         const context = document.querySelector("canvas.panel-frame")?.getContext("2d");
@@ -5260,7 +5255,7 @@ try {
     }
     if (routeName === "buccaneer-pens") {
       assert.equal(frame.perspective, true, "The animal-pen menu should keep the first-person picture");
-      await waitFor("outer picture panel at the animal pens", () => run('Boolean(document.querySelector(".perspective-backdrop"))'));
+      await waitForExplorationViewport();
       await waitFor("the Enhanced menu font", () => run(`[...document.fonts]
         .some(font => font.family.includes("Game Web Font") && font.status === "loaded")`));
       assert.ok(await run(`(() => {
@@ -5302,7 +5297,7 @@ try {
       assert.equal(frame.perspective, true, "The locked-gate prompt should keep the first-person picture");
       assert.deepEqual(frame.tiles, approachTiles, "Opening the locked-gate prompt should keep the scenery tiles");
       await switchBothWays();
-      await waitFor("outer picture panel at the locked gate", () => run('Boolean(document.querySelector(".perspective-backdrop"))'));
+      await waitForExplorationViewport();
       for (const key of ["b", "enter", "j"]) await advance(key);
       assert.ok(hasLead("rescue-inside-pen"));
       assert.ok(!hasLead("rescue-heir-freed"));
@@ -5326,16 +5321,13 @@ try {
       assert.match(text, /6,1S/i);
       const checkCanalGeometry = () => run(`(() => {
         const screen = document.querySelector("#screen").getBoundingClientRect();
-        const panel = document.querySelector(".perspective-backdrop").getBoundingClientRect();
-        const tiles = [...document.querySelectorAll(".terrain-tile")].map(tile => tile.getBoundingClientRect());
+        const panel = document.querySelector(".street-viewport").getBoundingClientRect();
         const near = (a, b) => Math.abs(a - b) < 0.05;
-        return near(screen.width, screen.height * 4 / 3) && tiles.length === 121 && tiles.every((tile, i) =>
-          (i % 11 === 0 ? near(tile.left, panel.left) : tiles[i - 1].right >= tile.left) &&
-          (i % 11 !== 10 || near(tile.right, panel.right)) &&
-          (i < 11 ? near(tile.top, panel.top) : tiles[i - 11].bottom >= tile.top) &&
-          (i < 110 || near(tile.bottom, panel.bottom)));
+        return near(screen.width, screen.height * 4 / 3) && near(panel.width, screen.width * .375) &&
+          near(panel.height, screen.height * .6) && near(panel.left, screen.left + screen.width * .025) &&
+          near(panel.top, screen.top + screen.height * .04);
       })()`);
-      assert.ok(await checkCanalGeometry(), "Tiles should cover internal seams and stop at the picture edge");
+      assert.ok(await checkCanalGeometry(), "The WebGL viewport should fill the picture opening");
       for (const width of [375, 768, 1100]) {
         await command("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: false });
         assert.ok(await checkCanalGeometry(), `Canal geometry and aspect ratio at ${width}px`);
@@ -5350,15 +5342,14 @@ try {
         try {
           await showScreen();
           return !document.querySelector("#game-text").hidden && !document.querySelector("#tile-art").hidden &&
-            Boolean(document.querySelector(".perspective-backdrop")) &&
-            document.querySelectorAll(".terrain-tile").length === 120 &&
+            Boolean(document.querySelector(".street-viewport")) &&
             !document.querySelector('img[src="/art/' + missing + '"]');
         } finally {
           state = original;
           await showScreen();
         }
       })()` });
-      assert.equal(result.result.value, true, result.exceptionDetails?.text ?? "A missing tile should preserve the enhanced view");
+      assert.equal(result.result.value, true, result.exceptionDetails?.text ?? "A missing 2D tile should preserve the WebGL view");
     }
     if (routeName === "nomad-camp-rim") {
       await waitFor("all three enhanced Nomad sentry distances", () => run("window.observedApproach.size === 3"));
@@ -5461,7 +5452,7 @@ try {
     }
   } else if (encounterRoute) {
     const approachSequence = encounterRoute.transient ? [encounterRoute.placement] : encounterRoute.approachSequence;
-    if (approachSequence) await observeApproach(approachSequence, encounterRoute.requireTiledApproach);
+    if (approachSequence) await observeApproach(approachSequence, encounterRoute.requireTiledApproach, encounterRoute.requireWebGL);
     const terrainPatterns = new Set();
     let terrainViews = 0;
     const terrain = encounterRoute.terrain;
@@ -5490,6 +5481,11 @@ try {
       await switchBothWays();
     } else {
       await verifyApproach(encounterRoute.placement);
+      if (encounterRoute.requireWebGL) {
+        await waitForExplorationViewport();
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `${routeName}-webgl.png`), Buffer.from(shot.data, "base64"));
+      }
     }
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
@@ -5693,10 +5689,7 @@ try {
         assert.equal(frame.portrait, undefined);
         assert.equal(frame.perspective, true);
         assert.equal(frame.tiles.length, 121);
-        await waitFor("enhanced scripted scenery", () => run(`
-          state.sequence === ${frame.sequence} &&
-          [...document.querySelectorAll(".terrain-tile")].filter(image => image.naturalWidth === 32).length === 121
-        `));
+        await waitForExplorationViewport();
       }
       await verifyScriptedView();
       for (let stop = 0; stop < 6; stop++) {
@@ -7564,6 +7557,7 @@ try {
       await advance("enter");
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /GENHEERIS/i);
       assert.equal(frame.portrait, undefined);
+      await waitForExplorationViewport();
       await advance("j");
       assert.ok(knows("castle-genheeris-deal"));
       assert.match(frame.journal.objective.nextStep, /Tyranthraxus's audience hall.*Genheeris/i);
@@ -8585,7 +8579,7 @@ try {
         if (id !== undefined && image.naturalWidth === 96 && image.naturalHeight === [292, 260, 228][Number(id)] &&
             Math.abs(parseFloat(image.style.left) - ${(8 + (56 - 24) * 120 / 88) / 3.2}) < .001 &&
             Math.abs(parseFloat(image.style.top) - ${(8 + (32 - 24) * 120 / 88) / 2}) < .001 &&
-            layer.querySelectorAll(".terrain-tile").length === 121) {
+            layer.querySelector(".street-viewport, .perspective-backdrop")) {
           window.bugbearDistances.add(id);
         }
       }).observe(layer, { childList: true });`);
@@ -8868,13 +8862,8 @@ try {
           writeFileSync(resolve(directory, `textile-return-view-${views}.png`), Buffer.from(shot.data, "base64"));
         }
       }
-      for (const [x, y, id] of frame.tiles.filter(([, , id]) => mirrors.has(id))) {
-        await waitFor("the reflected 32×32 Textile House tile", () => run(`
-          state.sequence === ${frame.sequence} && [...document.querySelectorAll(".terrain-tile")].some(img =>
-            img.getAttribute("src") === ${JSON.stringify("/art/" + id)} &&
-            img.naturalWidth === 32 && img.naturalHeight === 32 && img.style.transform === "scaleX(-1)" &&
-            Math.abs(parseFloat(img.style.left) - ${(8 + (x - 24) * 120 / 88) / 3.2}) < .001 &&
-            Math.abs(parseFloat(img.style.top) - ${(8 + (y - 24) * 120 / 88) / 2}) < .001)`));
+      for (const [, , id] of frame.tiles.filter(([, , id]) => mirrors.has(id))) {
+        assert.ok(frame.reflectedTiles.includes(id), `${id} should retain its reflection metadata`);
         observed.add(id);
       }
     }
