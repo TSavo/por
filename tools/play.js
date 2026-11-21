@@ -678,7 +678,8 @@ async function loadStreetAtlas(materialId) {
   ]);
   const {atlas, skyUrl} = await module.createNewPhlanAtlas(materials, art => `/art/${art.key}`, false, state.textColors);
   const layout = materials.layout ?? (materialId === "phlan" ? "phlan" : "local");
-  return {materialId, module, atlas, skyUrl, walls: materials.walls, layout};
+  const wallRows = Object.fromEntries(materials.wallFaces.map(({type, rows = 8}) => [type, rows]));
+  return {materialId, module, atlas, skyUrl, walls: materials.walls, layout, wallRows};
 }
 
 function makeViewportCanvas(className, width, height) {
@@ -740,7 +741,7 @@ function ensureStreetViewport(surface) {
       return [a >> 4, a & 15, b >> 4, b & 15];
     }) : streetAtlas.walls;
     if (!walls) return;
-    const renderer = streetAtlas.module.createNewPhlanViewport(canvas, walls, streetAtlas.atlas, streetAtlas.layout);
+    const renderer = streetAtlas.module.createNewPhlanViewport(canvas, walls, streetAtlas.atlas, streetAtlas.layout, streetAtlas.wallRows);
     streetViewport = {canvas, renderer, materialId, packed};
   }
   return streetViewport;

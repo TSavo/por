@@ -5554,6 +5554,19 @@ try {
       await verifyApproach(encounterRoute.placement);
       if (encounterRoute.requireWebGL) {
         await waitForExplorationViewport();
+        if (routeName === "swamp-giant-lizard-approach") {
+          const side = await run(`(() => {
+            const canvas = document.querySelector(".street-viewport");
+            const gl = canvas.getContext("webgl");
+            const pixel = new Uint8Array(4);
+            return [.8, .08].map(height => {
+              gl.readPixels(Math.floor(canvas.width * .05), Math.floor(canvas.height * height),
+                1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixel);
+              return pixel[3];
+            });
+          })()`);
+          assert.deepEqual(side, [0, 255], "The low side wall should leave sky above solid ground");
+        }
         if (routeName === "valhingen-conjurer-skeleton") {
           assert.equal(frame.scenery.mapId, 10);
           const response = await fetch(`${origin}/exploration-materials/${frame.scenery.materialId}`);

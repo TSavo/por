@@ -1,4 +1,4 @@
-export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
+export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan", wallRows = {}) {
     const gl = canvas.getContext("webgl", { antialias: true, preserveDrawingBuffer: true });
     if (!gl)
         throw new Error("WebGL is unavailable");
@@ -133,11 +133,13 @@ export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
             walls[z * 16 + x].forEach((type, side) => {
                 if (!type || (layout === "phlan" && type === 14 && x >= 12 && z < 8))
                     return;
+                const rows = wallRows[type] ?? 8;
+                if (rows === 0) return;
                 const [sx, sz, ex, ez] = step[side];
                 const ax = x + sx, az = z + sz, bx = x + ex, bz = z + ez;
                 const axis = sx === ex ? 1 : 0;
                 const isGate = layout === "phlan" && type === 1 && (ax === 0 || ax === 13);
-                const height = isGate ? 1.52 : 1.19;
+                const height = (isGate ? 1.52 : 1.19) * rows / 8;
                 const lit = axis ? .25 : .92;
                 const dx = (bx - ax) * .027, dz = (bz - az) * .027;
                 const ox = -dz, oz = dx;
