@@ -35,11 +35,16 @@ export function buildExplorationMaterials(native: NativeExploration & { area: nu
       partsBySymbol.set(symbol, { art, status: art.pixels ? "native" : "exact" });
       continue;
     }
-    // Match complete native backdrop composites to the existing manifest,
-    // then remove the backdrop to keep the actual wall silhouette.
+    const cutout = texture(pixels, true);
+    if (!cutout.pixels) {
+      partsBySymbol.set(symbol, { art: cutout, mask, status: "exact" });
+      continue;
+    }
+    // Older entries fingerprint the glyph over a backdrop. Use those
+    // when there is no replacement fingerprinted from the glyph itself.
     const matches = [native.skyColor, native.groundColor, 0].map(background =>
       texture(Buffer.from([...pixels].map((color, i) => mask[i] ? color : background))));
-    const art = matches.find(candidate => !candidate.pixels) ?? texture(pixels, true);
+    const art = matches.find(candidate => !candidate.pixels) ?? cutout;
     partsBySymbol.set(symbol, { art, mask, status: art.pixels ? "native" : "composited" });
   }
   const wallFaces = Array.from({ length: 15 }, (_, type) => {
