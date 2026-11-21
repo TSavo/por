@@ -98,17 +98,19 @@ def likeness():
         from PIL import Image
     except ImportError:
         return "likeness not checked: Pillow is not installed"
-    grid = (48, 24)
+    grid = (64, 32)
 
     def shape(file, lit):
         image = Image.open(file).convert("RGBA")
         mask = Image.new("L", image.size, 0)
         mask.putdata([255 if lit(pixel) else 0 for pixel in image.get_flattened_data()]
                      if hasattr(image, "get_flattened_data") else [255 if lit(pixel) else 0 for pixel in image.getdata()])
-        box = mask.getbbox()
-        if box is None:
+        if mask.getbbox() is None:
             return None
-        small = mask.crop(box).resize(grid, Image.BILINEAR).point(lambda value: 255 if value > 100 else 0)
+        # The whole picture is compared, not the glyph cut out and stretched: a tile frames its
+        # rune the way the reference does. Stretching a narrow rune to fill the grid made two
+        # different upright strokes look alike.
+        small = mask.resize(grid, Image.BILINEAR).point(lambda value: 255 if value > 100 else 0)
         # Thicken by one cell, so the weight of a stroke counts for little.
         cells = small.load()
         return frozenset((x, y) for y in range(grid[1]) for x in range(grid[0])
