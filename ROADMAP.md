@@ -153,9 +153,19 @@ all ten checks on 1.3 itself, the full campaign replay in Chrome included
 [How replays are driven](docs/REPLAYS.md) explains what changed to make the
 campaign key lists work on both builds.
 
+It passed a second time the same day, run in the main checkout at a later
+commit ([the output](qa/evidence/version-1.3-measure-2026-11-21-second-run.txt)).
+
+**Version 1.3 is the version the port targets.** The port runs whichever
+build is in the game directory, so there is no switch to flip: new checks
+and the walkthrough acceptance tests are written against 1.3, and the first
+release stays only as a second build to compare with.
+
 Left:
 
-- Switch the default to 1.3 and retire the first release.
+- Retire the first release once nothing depends on it: the `src/translated`
+  copy, its column in `src/runtime/bindings.ts`, and the checks' first-release
+  paths.
 - The code wheel. The 1.3 program accepts any word: its check is patched
   out. Classic keeps that. Enhanced shows the wheel on screen as part of
   the game and enforces the answer again.

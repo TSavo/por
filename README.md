@@ -6,9 +6,9 @@ Supply your own complete set of original DOS game files. Unpack them so
 `START.EXE`, `GAME.OVR`, and the `*.DAX` files are in the same folder.
 `gamedata/` is gitignored.
 
-The port runs two builds of the game and picks the right translation from
-`GAME.OVR`: version 1.3, which is the one GOG sells (its `POOLRAD` folder),
-and the first release, which shows no version on its credits screen. Saved
+The port targets version 1.3, the one GOG sells: use its `POOLRAD` folder.
+It also runs the first release, which shows no version on its credits
+screen, and picks the right translation from `GAME.OVR`. Saved
 games, artwork, narration and the journal work on both.
 
 ## Run it

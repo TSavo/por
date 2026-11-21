@@ -1,0 +1,24 @@
+npm run qa:version-1.3, run in the main checkout on 2026-11-21, started at commit 043d97f4, macOS, headless Chrome.
+Commits that landed during the run changed artwork, documents, the QA lists and the code wheel tools, not the game runtime or the checks.
+
+part                                         done     of   left
+Procedures translated                         846    846      0   171 resident, 675 in 35 overlay slices
+Artwork keys that work on 1.3                8172   8172      0   1989 are keyed by script position; 0 do not land on the same instruction in 1.3
+Narration units that work on 1.3             1432   1432      0   2025 of 2025 source events land on the same instruction in 1.3
+Original sound events exact against 1.3        20     20      0   events 2 to 21, PC speaker and Tandy, against the original interrupt routine under Unicorn
+Host addresses named and mapped for 1.3        91     91      0   0 raw addresses remain in 12 host files
+Checks passing on 1.3, run now                 10     10      0   verify: pass; verify:input: pass; verify:translation-reproducible:1.3: pass; verify-voice-master: pass; verify-narration-generation: pass; verify-narration-runtime: pass; verify:campaign-opening: pass; verify:map-journal: pass; a save from the first release loads and plays on 1.3: pass; verify:campaign --full: pass
+
+0 left before the port runs version 1.3 with all authored work intact
+exit 0
+
+check 1/10: verify ... pass in 31 s
+check 2/10: verify:input ... pass in 9 s
+check 3/10: verify:translation-reproducible:1.3 ... pass in 13 s
+check 4/10: verify-voice-master ... pass in 1 s
+check 5/10: verify-narration-generation ... pass in 3 s
+check 6/10: verify-narration-runtime ... pass in 1 s
+check 7/10: verify:campaign-opening ... pass in 416 s
+check 8/10: verify:map-journal ... pass in 53 s
+check 9/10: a save from the first release loads and plays on 1.3 ... pass in 44 s
+check 10/10: verify:campaign --full ... pass in 1011 s
