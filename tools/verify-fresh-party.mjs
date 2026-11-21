@@ -1319,6 +1319,7 @@ async function verifySokalTempleHealing() {
         const { leads } = frame.journal;
         assert.ok(leads.some(({ id }) => id === "sokal-haunt-floorboard"));
         assert.ok(leads.some(({ id }) => id === "sokal-haunt-diary"));
+        assert.match(frame.journal.objective.nextStep, /^Read journal entry 3/);
       }, "j",
       "end", "v", (text) => assert.match(text, /brin.*gems 5/), "e",
       "left", "up", "up", "left", "up", "right", ...Array(8).fill("up"),
