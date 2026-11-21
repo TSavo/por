@@ -6836,6 +6836,19 @@ try {
         const { layout, wallFaces } = await materialResponse.json();
         assert.equal(layout, "phlan");
         assert.ok(wallFaces.every(({ parts }) => parts.every(({ status }) => status !== "reconstructed")));
+        assert.ok(await run(`(() => {
+          window.innLostCanvas = document.querySelector(".street-viewport");
+          const loss = window.innLostCanvas.getContext("webgl").getExtension("WEBGL_lose_context");
+          if (!loss) return false;
+          loss.loseContext();
+          return true;
+        })()`));
+        await waitFor("a rebuilt inn street viewport", () => run(`(() => {
+          const canvas = document.querySelector(".street-viewport");
+          return state.sequence === ${frame.sequence} && canvas && canvas !== window.innLostCanvas &&
+            !canvas.getContext("webgl").isContextLost();
+        })()`));
+        await waitForExplorationViewport();
         const streetShot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "new-phlan-innkeeper-exit-webgl.png"), Buffer.from(streetShot.data, "base64"));
       }

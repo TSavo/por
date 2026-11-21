@@ -687,7 +687,11 @@ function makeViewportCanvas(className, width, height) {
   canvas.width = width;
   canvas.height = height;
   canvas.addEventListener("webglcontextlost", () => {
-    disableStreetPreview(new Error("The WebGL context was lost"));
+    // Resources in the lost context cannot be reused. Keep the decoded
+    // materials and rebuild only the viewport that owned the context.
+    if (streetViewport?.canvas === canvas) streetViewport = undefined;
+    else if (overlandViewport?.canvas === canvas) overlandViewport = undefined;
+    else return;
     void showScreen();
   }, {once: true});
   return canvas;
@@ -1008,8 +1012,9 @@ async function showScreen() {
   let overland;
   const streetScene = showArt && !streetUnavailable && explorationSurface(view);
   if (streetScene) {
+    let viewport;
     try {
-      const viewport = ensureStreetViewport(streetScene);
+      viewport = ensureStreetViewport(streetScene);
       if (viewport && streetScene.materialId === "overland") overland = viewport;
       else if (viewport) {
         viewport.renderer.draw(streetScene);
@@ -1020,6 +1025,7 @@ async function showScreen() {
         return;
       }
     } catch (error) {
+      if (viewport?.canvas.getContext("webgl")?.isContextLost()) return;
       disableStreetPreview(error);
     }
   }
@@ -1139,6 +1145,7 @@ async function showScreen() {
     if (overland) {
       try { overland.renderer.draw(nextFrame); }
       catch (error) {
+        if (overland.canvas.getContext("webgl")?.isContextLost()) return;
         failedSurfaces.add("overland");
         decodedLayers.splice(decodedLayers.indexOf(overland.canvas),1);
         console.warn(error);
