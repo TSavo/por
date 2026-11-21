@@ -4304,6 +4304,7 @@ try {
     [3, ["b3ff", /wearejustoutsidethecityhall.*proclamationsarepostedonthesewalls/i, "new-phlan-rolf-city-hall.png"]],
     [4, ["b48e", /onyourright.*tosune'stemple.*onyourleftisanentrancetothecitypark/i, "new-phlan-rolf-sune-and-park.png"]],
     [5, ["b51c", /beyondthisgatearethemonster.riddenareasoftheoldcity.*counciloffersagenerousreward/i, "new-phlan-rolf-old-city-gate.png"]],
+    [6, ["b58e", /ourtourisended.*youareonyourownnow/i, "new-phlan-rolf-farewell.png"]],
   ]);
   async function verifyRolfLandmark(stop) {
     const [caller, caption, screenshot] = rolfLandmarks.get(stop);
@@ -6869,7 +6870,7 @@ try {
         }
         await advance("enter");
         assert.equal(frame.portrait, undefined);
-        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ourtourisended.*youareonyourownnow/i);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /areacastviewencamp/i);
         await waitForExplorationViewport();
         console.log("Verified the illustrated tour stops and the return to WebGL:", directory);
       }
