@@ -622,8 +622,8 @@ const encounterRoutes = new Map([
     slot: "A", inputs: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left"],
     placement: [56, 32, "encounter:area:9:ecl:991e:caller:a8ad:SPRIT2.DAX:63:0:0", 24, 73],
     approachSequence: [
-      [56, 32, "encounter:area:9:SPRIT2.DAX:63:2:0", 24, 57],
-      [56, 32, "encounter:area:9:SPRIT2.DAX:63:1:0", 24, 65],
+      [56, 32, "encounter:area:9:ecl:991b:caller:a8ad:SPRIT2.DAX:63:2:0", 24, 57],
+      [56, 32, "encounter:area:9:ecl:991c:caller:a8ad:SPRIT2.DAX:63:1:0", 24, 65],
       [56, 32, "encounter:area:9:ecl:991e:caller:a8ad:SPRIT2.DAX:63:0:0", 24, 73],
     ],
     dialogue: { key: "up", portrait: "portrait:area:9:PIC2.DAX:63:0:0", prompt: /THELEADERSWINGSATYOU/i },
