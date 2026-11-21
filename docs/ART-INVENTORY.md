@@ -316,6 +316,13 @@ Chrome checked the writing stand and figure over WebGL and continued
 through the potion directions. The standard study route uses the
 middle distance.
 
+The Stojanow wagon trader has middle and far replacements for
+`SPRIT2.DAX` block 12, members 1 and 2. Two controlled replays changed
+the first draw at ECL `ae4c` and matched the original 24x65 and 8x49
+sprites at (56,32) and (64,32). Chrome displayed each replacement
+over WebGL before continuing to the wagon offer. The standard
+route draws the near sprite.
+
 The swamp giant lizard has separate middle and far sprites from
 `SPRIT8.DAX` block 59, members 1 and 2. Controlled Chrome replays drew
 the 192×260 and 160×228 sprites at (48,32) and continued to the enhanced
