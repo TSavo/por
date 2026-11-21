@@ -659,6 +659,17 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["swamp-drythh-followers-wait-phase", {
+    slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter", "enter", "z", "z"],
+    portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:2:0", prompt: /COMBATWAITFLEEPARLAY/i,
+    continuation: { inputs: ["w"], portrait: "portrait:area:16:ecl:a560:PIC8.DAX:57:2:0", prompt: /ABATTLEBEGINS/i },
+  }],
+  ...[2, 3].map(member => [`pyramid-vats-combat-phase-${member}`, {
+    slot: "A", inputs: ["s", "up", "enter", "enter", ...Array(member + 1).fill("z")],
+    portrait: `portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:${member}:0`,
+    prompt: /POKINGAROUNDINTHEVATS/i,
+    continuation: { inputs: ["enter"], portrait: `portrait:area:23:ecl:a23f:PIC7.DAX:57:${member}:0`, prompt: /ABATTLEBEGINS/i },
+  }]),
   ["slums-orc-papers-portrait-phase", {
     slot: "B", inputs: ["up", "enter", "enter", ...Array(9).fill("z")],
     portraitStops: { 3: "portrait:area:20:PIC2.DAX:4:0:0" },
