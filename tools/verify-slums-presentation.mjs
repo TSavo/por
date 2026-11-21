@@ -7393,8 +7393,17 @@ try {
     assert.ok(frame.journal && !knows("castle-genheeris-orders"));
     assert.doesNotMatch(frame.journal.objective.nextStep, /phase 2 of Plan A/i);
     const castleObjective = frame.journal.objective.nextStep;
-    await advance("j");
-    for (const key of ["up", "enter", "enter"]) await advance(key);
+    for (const key of ["j", "up"]) await advance(key);
+    const genheerisAtDesk = "scene-illustration:area:7:ecl:995f:caller:a170";
+    assert.equal(frame.portrait, genheerisAtDesk);
+    assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+      /ECCENTRICMERCHANT.*MANINROBESLOOKSUPFROMADESK/i);
+    await waitFor("Genheeris looking up from his desk", () => run(
+      `document.querySelector('.encounter-portrait[src="/art/${genheerisAtDesk}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays();
+    for (const key of ["enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
     for (const placement of [
       [56, 32, "encounter:area:7:SPRIT5.DAX:24:1:0", 24, 65],
       [48, 32, "encounter:area:7:SPRIT5.DAX:24:0:0", 32, 73],
