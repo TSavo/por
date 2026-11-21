@@ -618,8 +618,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         return;
       }
       if (!inCampMenu && diskMenuDepth === 0 && command.toLowerCase() === "j") {
-        // The original appraisal menu uses J for Jewelry.
-        if (!/^APPRAISE:.*JEWELRY/.test(menuText(visibleGameText()))) {
+        const menu = menuText(visibleGameText());
+        // These original menus already assign J to a game action.
+        if (!/^APPRAISE:.*JEWELRY/.test(menu) && !menu.includes("JOINTYRANTHRAXUS")) {
           openJournal();
           showFrame(undefined, undefined, false, automaticCombat);
           continue;

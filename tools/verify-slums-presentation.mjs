@@ -2193,6 +2193,17 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "tyrmor-prison-drider-phase-7.png",
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:69:7:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ["tyranthraxus-join-vote", {
+    slot: "B", inputs: ["right", "up", "up", "up", "up", "enter", "enter", "enter",
+      ...Array(9).fill("q"), "enter", "enter", ...Array(6).fill("j")],
+    portraitStops: {
+      18: "portrait:area:7:ecl:995f:caller:a718:PIC5.DAX:66:2:0",
+      19: "portrait:area:7:ecl:a768:PIC5.DAX:66:2:0",
+    },
+    portrait: "portrait:area:7:ecl:a803:PIC5.DAX:66:2:0",
+    prompt: /ABATTLEBEGINS/i,
+    continuation: { inputs: ["enter"], prompt: /THEPARTYHASBEENDESTROYED/i, clearsPortrait: true },
+  }],
   ["tyranthraxus-appraisal-phases", {
     slot: "B", inputs: ["right", "up", "up", "up", "up", "enter", "enter", "enter", ...Array(9).fill("q")],
     portraitStops: {
