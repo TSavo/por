@@ -5756,6 +5756,11 @@ const valhingenBrassDoorBattle = {
   afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
 };
 const controlledBattleIllustrations = new Map([
+  ["textile-drum-silenced", {
+    slot: "B", inputs: ["up", "enter", "enter", "enter"],
+    portrait: "scene-illustration:area:2:ecl:9cdd",
+    caption: /8,10N.*THINGSSEEMSTRANGELYQUIET.*THEDRUMHASFADEDTOSILENCE/i,
+  }],
   ["sokal-courtyard-note", {
     slot: "I", inputs: ["up", "right", "enter", "enter", "enter", "enter", "space"],
     portrait: "scene-illustration:area:21:ecl:a720",
@@ -8307,6 +8312,17 @@ try {
       await step("enter");
       assert.match(text(), /VIEWTAKEPOOLEXIT/i);
       assert.equal(frame.portrait, "portrait:PIC1.DAX:1:0:0");
+    } else if (routeName === "textile-drum-silenced") {
+      await step("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-courtyard-cleared"));
+      await step("j");
+      await step("down");
+      assert.equal(frame.portrait, portrait);
+      assert.match(text(), /THEDRUMHASFADEDTOSILENCE/i);
+      await step("up");
+      assert.equal(frame.portrait, undefined);
+      assert.match(text(), /8,11S.*AREACASTVIEWENCAMP/i);
+      await waitForExplorationViewport();
     } else if (routeName === "zhentil-garrison-aftermath") {
       const plate = await fetch(`${origin}/art/${portrait}`);
       assert.ok(plate.ok);
