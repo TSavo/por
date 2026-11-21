@@ -691,6 +691,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:21:ecl:ac46", "THECITYFELLLONGAGO"],
   ["scene-illustration:area:21:ecl:a9f3", "THISWASONCETHECHAPELOFTHEKEEP"],
   ["scene-illustration:area:21:ecl:a9fa", "THISWASONCETHECHAPELOFTHEKEEP"],
+  ["scene-illustration:area:21:ecl:a25a:cue:looted-barracks", "THISBUILDINGISFILLEDWITHBROKENANDSPLINTEREDWOOD"],
+  ["scene-illustration:area:21:ecl:a26f:cue:looted-barracks", "THISBUILDINGISFILLEDWITHBROKENANDSPLINTEREDWOOD"],
   ["scene-illustration:area:21:ecl:aacf", "SAD-FACEDMANWAVERSANDFADESAWAY"],
   ["scene-illustration:area:21:ecl:aad3", "SAD-FACEDMANWAVERSANDFADESAWAY"],
   ["scene-illustration:area:21:ecl:abbd", "THESPIRITMOANSASITFADESAWAY"],

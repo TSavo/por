@@ -3043,6 +3043,8 @@
     "tile:10:70cf5321fb0f76167bdde5cbb3e7ecc29607f3e1c9b3bf1bf7574740d372ec9a": "graveyard-slate-final-joins-70cf5321fb0f.png",
     "portrait:area:21:PIC4.DAX:17:0:0": "sokal-barracks-ghosts-dialogue.png",
     "portrait:area:21:ecl:a316:PIC4.DAX:17:1:0": "sokal-barracks-ghosts-phase-1.png",
+    "scene-illustration:area:21:ecl:a25a:cue:looted-barracks": "sokal-barracks-ghosts-phase-1.png",
+    "scene-illustration:area:21:ecl:a26f:cue:looted-barracks": "sokal-barracks-ghosts-phase-1.png",
     "portrait:area:21:ecl:a316:PIC4.DAX:17:2:0": "sokal-barracks-ghosts-phase-2.png",
     "portrait:area:21:ecl:a361:PIC4.DAX:17:2:0": "sokal-barracks-ghosts-phase-2.png",
     "portrait:area:21:ecl:a388:PIC4.DAX:17:2:0": "sokal-barracks-ghosts-phase-2.png",

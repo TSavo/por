@@ -1745,6 +1745,13 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9", prompt: /IAMROLF/i,
     continuation: { inputs: ["enter"], prompt: /YOUNOWFACEANENTRANCETOTHETEMPLEOFTYR/i, portrait: "scene-illustration:area:0:ecl:af3f:caller:b256" },
   }],
+  ["sokal-looted-barracks", {
+    slot: "C", inputs: ["up"],
+    portrait: "scene-illustration:area:21:ecl:a26f:cue:looted-barracks",
+    prompt: /THISBUILDINGISFILLEDWITHBROKENANDSPLINTEREDWOOD.*EVERYTHINGHASBEENWELLLOOTED/i,
+    finalPhaseCapture: "sokal-looted-barracks.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["sokal-barracks-ghost-phases", {
     slot: "C", inputs: ["up", "enter", "a", "a", "q", "q", "q"],
     portraitStops: { 4: "portrait:area:21:PIC4.DAX:17:0:0" },
