@@ -1765,6 +1765,7 @@ const illustrationRoutes = new Map([
       10: "valhingen-grave-claws-phase-4.png",
     },
     finalPhaseCapture: "valhingen-grave-claws-phase-7.png",
+    continuation: { inputs: ["enter"], portrait: "portrait:area:10:ecl:b5c7:PIC4.DAX:11:7:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["kobold-white-flag-escort-phase", {
     slot: "B", inputs: ["up", "enter", "enter", "enter", "z", "z", "a"],
@@ -1926,6 +1927,7 @@ const illustrationRoutes = new Map([
     prompt: /EVILLOOKINGFROGSBOILUPFROMBELOW/i,
     phaseCaptures: { 15: "textile-poison-frogs-phase-2.png" },
     finalPhaseCapture: "textile-poison-frogs-phase-1.png",
+    continuation: { inputs: ["enter"], portrait: "portrait:area:2:ecl:9aeb:PIC4.DAX:37:1:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valjevo-dungeon-kitchen-phases", {
     slot: "B", inputs: ["j", "j", "up", "enter", ...Array(9).fill("q")],
