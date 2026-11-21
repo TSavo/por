@@ -155,6 +155,10 @@ campaign key lists work on both builds.
 
 It passed a second time the same day, run in the main checkout at a later
 commit ([the output](qa/evidence/version-1.3-measure-2026-11-21-second-run.txt)).
+A third run, at commit `ee03d282` on a checkout that did not change during
+the run, passed all 13 checks the measure now holds, the code wheel checks
+and the New Phlan acceptance tests among them
+([the output](qa/evidence/version-1.3-measure-2026-11-21-third-run.txt)).
 
 **Version 1.3 is the version the port targets.** The port runs whichever
 build is in the game directory, so there is no switch to flip: new checks
