@@ -96,6 +96,8 @@ const defaultAudioPreferences = { hardware: "pc-speaker", master: 0.8, effects: 
 let audioPreferences = defaultAudioPreferences;
 try { audioPreferences = { ...defaultAudioPreferences, ...JSON.parse(localStorage.getItem("por.audio.v1") ?? "{}") }; } catch {}
 let currentEffect;
+let enhancedScorePlaying = false;
+let titleCueStarted = false;
 let lastSoundId = null;
 let blockedEffect;
 let voiceManifest = { lines: [] };
@@ -171,6 +173,7 @@ function stopEffect() {
   currentEffect.pause();
   currentEffect.removeAttribute("src");
   currentEffect = undefined;
+  enhancedScorePlaying = false;
   blockedEffect = undefined;
   visibilityPausedEffect = undefined;
 }
@@ -178,15 +181,29 @@ function stopEffect() {
 function playSound(sound) {
   if (sound.index === 0 || sound.index === 0xff) { stopEffect(); return; }
   if (sound.index < 1 || sound.index > 20 || audioPreferences.hardware === "silent") return;
-  stopEffect();
   const entry = soundManifest.events.find((candidate) => candidate.index === sound.index);
-  const source = enhanced && entry?.enhancedFile ? `/enhanced-audio/${entry.enhancedFile}`
+  const replacement = enhanced && entry?.enhancedFile;
+  if (sound.enhancedOnly && !replacement) return;
+  if (sound.index === 13 && replacement && !sound.enhancedOnly) return;
+  stopEffect();
+  const source = replacement ? `/enhanced-audio/${replacement}`
     : `/audio/${audioPreferences.hardware}-${String(sound.index).padStart(2, "0")}.wav`;
   const effect = new Audio(source);
   effect.volume = audioPreferences.muted ? 0 : audioPreferences.master * audioPreferences.effects;
-  effect.loop = [13, 14, 15].includes(sound.index);
+  effect.loop = !replacement && (entry?.loop ?? [13, 14, 15].includes(sound.index));
+  enhancedScorePlaying = Boolean(replacement && entry.kind === "score");
   currentEffect = effect;
   effect.play().then(() => { blockedEffect = undefined; }).catch(() => { if (currentEffect === effect) blockedEffect = sound; });
+}
+
+function playTitleCue() {
+  if (!enhanced || (state.scene !== "scene:title" && state.scene !== "scene:publisher")) {
+    titleCueStarted = false;
+    return;
+  }
+  if (titleCueStarted || audioPreferences.hardware === "silent" || !soundManifest.events.some(entry => entry.index === 13 && entry.enhancedFile)) return;
+  titleCueStarted = true;
+  playSound({ index: 13, enhancedOnly: true });
 }
 
 function playPendingSounds() {
@@ -212,7 +229,10 @@ function resumeBlockedAudio() {
 
 syncAudioControls();
 fetch("/voice-manifest.json").then((response) => response.json()).then((manifest) => { voiceManifest = manifest; }).catch(() => {});
-fetch("/sound-manifest.json").then((response) => response.json()).then((manifest) => { soundManifest = manifest; }).catch(() => {});
+fetch("/sound-manifest.json").then((response) => response.json()).then((manifest) => {
+  soundManifest = manifest;
+  playTitleCue();
+}).catch(() => {});
 fetch("/geography-model.json").then((response) => response.json()).then((model) => {
   geographyModel = model;
   if (!automap.hidden && mapMode === "region") renderAutomap();
@@ -235,7 +255,11 @@ for (const key of ["hardware", "master", "effects", "dialogue", "narration", "mu
   audioControls[key].addEventListener("input", () => {
     audioPreferences = { ...audioPreferences, [key]: key === "muted"
       ? audioControls[key].checked : key === "hardware" ? audioControls[key].value : Number(audioControls[key].value) };
-    if (key === "hardware") stopEffect();
+    if (key === "hardware") {
+      stopEffect();
+      titleCueStarted = false;
+      playTitleCue();
+    }
     saveAudioPreferences();
   });
 }
@@ -375,6 +399,8 @@ function togglePresentation() {
   if (!enhanced && !automap.hidden) toggleAutomap();
   if (enhanced) rememberExploration();
   if (!enhanced) stopVoice();
+  if (!enhanced && enhancedScorePlaying) stopEffect();
+  playTitleCue();
   if (animationFrame) {
     // Let the new presentation finish decoding before timing the frame again.
     clearTimeout(animationTimer);
@@ -1265,6 +1291,7 @@ async function poll() {
     followTravel();
     if (renderingSequence === undefined) renderTravelMap();
     playPendingSounds();
+    playTitleCue();
     playPendingVoice();
     playPendingNarration();
     status.textContent = state.stopped ?? state.notice ??

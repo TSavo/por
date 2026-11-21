@@ -159,10 +159,13 @@ On November 18, 2026, Chrome verified Enhanced activation,
 subtitle playback, the independent audio controls, and state-preserving return
 to Classic while audio was playing.
 
-Enhanced effects use optional `enhancedFile` entries on that same original event
-manifest. The browser selects the replacement only in Enhanced mode; otherwise it
-uses the selected Classic hardware WAV. Missing or unavailable Enhanced files
-therefore fall back without changing the original trigger.
+Enhanced effects and music use `enhancedFile` entries on the original event
+manifest. The browser uses the selected hardware WAV for Classic playback.
+The approved ElevenLabs Music title theme and battle entrance play once in
+Enhanced. The title cue starts during the title sequence or when Enhanced is
+selected there. The battle cue starts at the original battle entrance, including
+with a PC Beeper guest. The original Tandy cue loops are used for Classic
+playback.
 
 Replacement effects are generated with ElevenLabs Sound Effects v3, not local
 procedural synthesis. `src/audio/enhanced-sounds.json` is the production prompt
@@ -180,6 +183,6 @@ Tandy traces are converted to VGM register streams and canonical WAV with the
 validated libvgm SN76489/SN76496 core. PC-speaker assets are rendered from the
 original PIT divisors and gate transitions. Classic plays these verified assets
 with PC Beeper, Tandy, and Silent choices according to the original replacement
-rules. Enhanced substitutes approved modern effects through the same stable
-event IDs. Dialogue and narration remain Enhanced-only layers and never change
+rules. Enhanced uses approved effects and music with the same event IDs.
+Dialogue and narration remain Enhanced-only layers and never change
 ECL or campaign state.

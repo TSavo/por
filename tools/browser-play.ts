@@ -178,7 +178,7 @@ let saveSlotEvent = 0;
 let saveSlotAction: "load" | "save" | undefined;
 let lastDiagnostic = "";
 let soundId = 0;
-const sounds: Array<{ id: number; index: number; mode: number; step: number }> = [];
+const sounds: Array<{ id: number; index: number; mode: number; step: number; enhancedOnly?: boolean }> = [];
 let textId = 0;
 const messages: Array<{ id: number; step: number; message: string }> = [];
 let narrationId = 0;
@@ -252,8 +252,9 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
       saveSlotEvent++;
     }
   } else if (line.startsWith("POR_SOUND ")) {
-    const sound = JSON.parse(line.slice("POR_SOUND ".length)) as { index: number; mode: number; step: number };
-    sounds.push({ id: ++soundId, index: sound.index, mode: sound.mode, step: sound.step });
+    const sound = JSON.parse(line.slice("POR_SOUND ".length)) as { index: number; mode: number; step: number; enhancedOnly?: boolean };
+    sounds.push({ id: ++soundId, index: sound.index, mode: sound.mode, step: sound.step,
+      ...(sound.enhancedOnly ? { enhancedOnly: true } : {}) });
     if (sounds.length > 64) sounds.shift();
   } else if (line.startsWith("POR_TEXT ")) {
     const text = JSON.parse(line.slice("POR_TEXT ".length)) as { step: number; message: string; fromEclText?: boolean };
@@ -331,8 +332,10 @@ const server = createServer(async (req, res) => {
     }
   } else if (req.method === "GET" && req.url?.startsWith("/enhanced-audio/") && enhancedSoundFiles.has(req.url.slice(16))) {
     try {
-      const wav = readFileSync(join(enhancedAudioDirectory, req.url.slice(16)));
-      res.writeHead(200, { "content-type": "audio/wav", "content-length": wav.length }).end(wav);
+      const file = req.url.slice(16);
+      const audio = readFileSync(join(enhancedAudioDirectory, file));
+      const contentType = file.endsWith(".mp3") ? "audio/mpeg" : "audio/wav";
+      res.writeHead(200, { "content-type": contentType, "content-length": audio.length }).end(audio);
     } catch {
       res.writeHead(404).end();
     }

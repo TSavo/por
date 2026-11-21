@@ -3,7 +3,7 @@ import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 interface OriginalEvent {
-  id: string; index: number; reachable?: boolean; enhancedFile?: string;
+  id: string; index: number; kind: string; reachable?: boolean; enhancedFile?: string;
 }
 interface QueueItem { id?: string; output: string; text: string }
 
@@ -19,6 +19,7 @@ const reachable = events.filter(event => event.reachable !== false && event.inde
 const originalRows = events.map(event => ({
   id: event.id,
   index: event.index,
+  kind: event.kind,
   reachable: reachable.includes(event),
   pcSpeakerWav: existsSync(join(assets, "original", `pc-speaker-${String(event.index).padStart(2, "0")}.wav`)),
   tandyVgm: existsSync(join(assets, "original", `tandy-${String(event.index).padStart(2, "0")}.vgm`)),
@@ -68,9 +69,14 @@ const report = {
     missing: missingClassic,
   },
   enhancedEffects: {
-    approvedReplacements: originalRows.filter(row => row.enhancedReplacement).length,
-    faithfulFallbacks: originalRows.filter(row => row.reachable && row.enhancedFallback).map(row => row.id),
-    missing: missingEnhanced,
+    approvedReplacements: originalRows.filter(row => row.kind === "effect" && row.enhancedReplacement).length,
+    faithfulFallbacks: originalRows.filter(row => row.kind === "effect" && row.reachable && row.enhancedFallback).map(row => row.id),
+    missing: missingEnhanced.filter(row => row.kind === "effect"),
+  },
+  enhancedMusic: {
+    approvedReplacements: originalRows.filter(row => row.kind === "score" && row.enhancedReplacement).length,
+    faithfulFallbacks: originalRows.filter(row => row.kind === "score" && row.reachable && row.enhancedFallback).map(row => row.id),
+    missing: missingEnhanced.filter(row => row.kind === "score"),
   },
   narration: {
     sourceEvents: master.counts.sourceEvents,

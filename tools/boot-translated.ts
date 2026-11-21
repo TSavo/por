@@ -309,9 +309,16 @@ adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || browserSound || liveAt 
   : undefined;
 if (input && process.env.POR_BROWSER_PLAY === "1") {
   const title = loadedSlices.find((slice) => slice.index === 1);
+  const combat = loadedSlices.find((slice) => slice.index === 10);
   const observe = farCallObservers.get(cpu);
   farCallObservers.set(cpu, (segment, offset) => {
     observe?.(segment, offset);
+    // The clear before the battle music branch runs in every hardware mode.
+    // The original dispatcher already emits event 14 for a Tandy guest.
+    if (cpu.cs === combat?.loadPara && cpu.ip === 0x1f26 && segment === 0x198 && offset === 0x2f) {
+      const mode = cpu.read8(cpu.ds, 0x52d2);
+      if (mode !== 0) console.log(`POR_SOUND ${JSON.stringify({ index: 14, mode, step: cpu.steps, enhancedOnly: true })}`);
+    }
     if (!title || cpu.cs !== title.loadPara) return;
     if (segment === 0x18e && offset === 0x5c) {
       if (cpu.ip === 0x675) input.setScene("scene:publisher");

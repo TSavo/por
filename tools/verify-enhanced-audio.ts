@@ -59,4 +59,16 @@ for (const effect of plan.effects) {
     assert(!original.enhancedStatus?.startsWith("approved-"), `${effect.id} approved master is missing`);
   }
 }
-console.log(`verified ElevenLabs plan for ${plan.effects.length} effects and ${present.length} approved master(s)`);
+const scores = originals.events.filter(event => event.kind === "score" && event.reachable);
+assert.deepEqual(scores.map(({ index }) => index).sort((a, b) => a - b), [13, 14]);
+for (const score of scores) {
+  assert.equal(score.enhancedStatus, "approved-elevenlabs-music");
+  const file = score.enhancedFile;
+  assert(file && file.endsWith(".mp3"), `${score.id} has no approved music file`);
+  const mp3 = readFileSync(resolve(directory, file));
+  assert(mp3.subarray(0, 3).toString("ascii") === "ID3" || (mp3[0] === 0xff && (mp3[1]! & 0xe0) === 0xe0),
+    `${score.id} is not an MP3`);
+  assert.equal(createHash("sha256").update(mp3).digest("hex"), score.enhancedSha256,
+    `${score.id} hash does not match approved master`);
+}
+console.log(`verified ${present.length} approved effects and ${scores.length} approved music cues`);
