@@ -880,6 +880,12 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:21:ecl:ae31:caller:a573", prompt: /BENEATHAFLOORBOARD.*JOURNALASENTRY3/i,
     continuation: { inputs: ["enter"], prompt: /DOYOUTAKETHEGEMS.*YesNo/i, portrait: "scene-illustration:area:21:ecl:ae41:caller:a58a" },
   }],
+  ["sokal-courtyard-aftermath", {
+    slot: "C", inputs: ["up"], portraitStops: { 0: null },
+    portrait: "scene-illustration:area:21:ecl:a762",
+    prompt: /THEHALLISEMPTY,SAVEFORSIGNSOFARECENTBATTLE/i,
+    continuation: { inputs: ["enter", "right"], prompt: /THEHALLISEMPTY,SAVEFORSIGNSOFARECENTBATTLE/i },
+  }],
   ["sokal-chapel-arrival", {
     slot: "F", inputs: ["left", "up", "left", "up", "left", "up", "right", "up", "up"],
     portrait: "scene-illustration:area:21:ecl:a9fa",
@@ -6901,6 +6907,15 @@ try {
       }
       if (routeName === "valhingen-vampire-stairs-decline") {
         await waitForExplorationViewport();
+      }
+      if (routeName === "sokal-courtyard-aftermath") {
+        const hallShot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "sokal-courtyard-hall-aftermath.png"), Buffer.from(hallShot.data, "base64"));
+        await advance("up");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /8,4N/i);
+        await waitForExplorationViewport();
+        console.log("Verified the Sokal courtyard aftermath and return to WebGL:", directory);
       }
       if (routeName === "sokal-chapel-arrival") {
         await waitForExplorationViewport();
