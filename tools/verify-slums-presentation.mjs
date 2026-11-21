@@ -2342,6 +2342,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "tyrmor-priest-sighting.png",
     continuation: { inputs: ["enter", "a", "a"], portrait: "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30", prompt: /RAISESHISHANDINBENEDICTION/i },
   }],
+  ...[[0, 0], [1, 2], [2, 5]].map(([member, holds]) => [`wild-cave-wyvern-hoard-${member}`, {
+    slot: "B", inputs: ["up", "enter", "enter", ...Array(holds).fill("z")],
+    portrait: `portrait:area:27:ecl:a3b4:PIC1.DAX:1:${member}:0`, prompt: /VIEW.*POOL.*SHARE/i,
+    finalPhaseCapture: `wild-cave-wyvern-hoard-${member}.png`,
+    continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /VIEWENCAMPSEARCHLOOK/i },
+  }]),
   ["wild-cave-bone-chamber", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:27:ecl:a537:cue:bone-chamber", prompt: /THISROOMISFILLEDWITHHUMANBONES/i,
