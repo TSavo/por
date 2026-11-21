@@ -609,6 +609,9 @@ preserves the prompt. The journal directs the party to Share and Exit
 while the reward is pending. The replay saves the turn-in
 to slot C through the original menus. Reloading that browser-produced slot
 C with `castle-ending` restores the completed journal objective.
+The controlled west-gate fixture `out/fresh-party-lYc83O/D.json` also
+passed both Chrome replays at `eb75918c`. Use the slot C path printed by
+the finale replay for the cold reload.
 
 A controlled training replay sent the six-character party to the schools
 from a Slums save. It followed the posted directions north and entered the
