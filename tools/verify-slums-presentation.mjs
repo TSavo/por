@@ -1227,6 +1227,13 @@ const illustrationRoutes = new Map([
     journalLead: "textile-diary-page", journalLeadAtDiscovery: true,
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["kovel-scroll-cabinet", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:14:ecl:a359:cue:wooden-cabinet",
+    prompt: /INFRONTOFYOUISAWOODENCABINET/i,
+    finalPhaseCapture: "kovel-wooden-cabinet.png",
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /(?:AREACASTVIEWENCAMP|3,13W)/i },
+  }],
   ["valhingen-lower-tower-static", {
     slot: "A", inputs: ["s", "up", "left", "up"],
     portraitStops: { 1: null, 2: null, 3: null },
