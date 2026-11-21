@@ -2163,6 +2163,12 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:0:0:0", prompt: /ONELICKSITSLIPS/i,
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:0:0:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ["tyrmor-kobold-surprise", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 4 }, () => ["up", "down"]).flat(), "up"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:a213:cue:hungry-kobolds", prompt: /YOUSURPRISESOMEHUNGRYLOOKINGKOBOLDS/i,
+    finalPhaseCapture: "tyrmor-kobold-surprise.png",
+    continuation: { inputs: ["enter", "down", "up"], portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:0:0:0", prompt: /ONELICKSITSLIPS/i },
+  }],
   ["tyrmor-prison-kobolds-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 4 }, () => ["up", "down"]).flat(), "up", "enter", "down", "up", "q", "q", "q"],
     portraitStops: {

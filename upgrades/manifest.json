@@ -2315,6 +2315,8 @@
     "combat:area:23:CPIC7.DAX:185:ecl:ab35": "yarash-pump-prisoner-strike.png",
     "encounter:area:22:ecl:a2f9:SPRIT7.DAX:0:0:0": "tyrmor-prison-kobolds-approach.png",
     "portrait:area:22:ecl:a2f9:PIC7.DAX:0:0:0": "tyrmor-prison-kobolds-dialogue.png",
+    "scene-illustration:area:22:ecl:a20f:cue:hungry-kobolds": "tyrmor-kobold-surprise.png",
+    "scene-illustration:area:22:ecl:9a06:caller:a213:cue:hungry-kobolds": "tyrmor-kobold-surprise.png",
     "portrait:area:22:ecl:a36f:PIC7.DAX:0:0:0": "tyrmor-prison-kobolds-dialogue.png",
     "tile:26:f71b3a59f7fdbb3626d058662618f92bbd31ce180199c49f0c93cf6d48ded849": "waystone-boundary-terrain-f71b3a59f7fd.png",
     "tile:26:7e64f65215bf03eb66a5190a961b38b35a96160a772a5e6e738304cf5c96ce3f": "waystone-boundary-terrain-7e64f65215bf.png",
