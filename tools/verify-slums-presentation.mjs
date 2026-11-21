@@ -9147,6 +9147,25 @@ try {
       const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")].some(img => img.src.endsWith(${JSON.stringify(id)}) &&
         img.naturalWidth === 96 && img.naturalHeight === 192 &&
         parseFloat(img.style.width) === 7.5 && parseFloat(img.style.height) === 24)`);
+    const eastDoor = "scene-illustration:area:2:ecl:abd2:caller:a7cf";
+    assert.equal(frame.portrait, eastDoor);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
+      /11,14E.*intheeastwallisthesecretdoor.*saysskullcrusher/i);
+    await waitFor("Skullcrusher showing the concealed east door", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${eastDoor}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait[src="/art/${eastDoor}"]')?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const eastDoorShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "textile-skullcrusher-east-door.png"), Buffer.from(eastDoorShot.data, "base64"));
+    await advance("j");
+    assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-east-wall"));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-ogre-chief"));
+    assert.match(frame.journal.objective.nextStep, /use search.*through the wall/i);
+    for (const key of ["j", "enter"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    await waitForExplorationViewport();
+    for (const key of ["s", "up", "enter"]) await advance(key);
       await waitFor("the rectangular ogre standing sprite", () => displayed(idle));
       await switchBothWays();
       const strikePlacement = () => frame.animation?.flatMap(shot => shot.combatArt ?? []).find(([, , id]) => id === attack);
