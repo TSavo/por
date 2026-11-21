@@ -1268,6 +1268,22 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kovel-casket-gems.png",
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /6,7W/i },
   }],
+  ["kovel-casket-jewelry", {
+    slot: "A", inputs: ["up", "enter", "s", "b", "enter", "b", "enter", "enter"],
+    portraitStops: { 4: "scene-illustration:area:14:ecl:a713", 5: null, 6: null, 7: null },
+    portrait: "portrait:area:14:ecl:a6b8:PIC1.DAX:1:0:0",
+    prompt: /VIEW.*POOL.*SHARE/i,
+    idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:a6b8:PIC1.DAX:1:${phase}:0`),
+    finalPhaseCapture: "kovel-casket-jewelry.png",
+    continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /6,7W/i },
+  }],
+  ["kovel-casket-dart", {
+    slot: "A", inputs: ["up", "enter", "s", "b"],
+    portrait: "scene-illustration:area:14:ecl:a713",
+    prompt: /ADARTSHOOTSOUTANDHITSONEOFTHEPARTYMEMBERS/i,
+    finalPhaseCapture: "kovel-casket-dart.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HOWWILLYOUOPENTHELOCK/i },
+  }],
   ["kovel-tapestry-reward", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portraitStops: { 1: null, 2: null },
