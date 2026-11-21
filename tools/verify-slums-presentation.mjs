@@ -790,13 +790,17 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["y"], prompt: /THEPARTYHASFOUNDTREASURE/i, clearsPortrait: true },
   }],
   ["valjevo-giant-barracks-password-list", {
-    slot: "B", inputs: ["up", "enter", "enter", "a", "a", "p", "h"],
-    portraitStops: { 6: "portrait:area:4:PIC5.DAX:56:0:0" },
-    portrait: "scene-illustration:area:4:ecl:9a5a:caller:a442",
-    prompt: /THISPAPERHASTHEPASSWORDS/i,
+    slot: "B", inputs: ["up", "enter", "enter", "a", "a", "p", "h", "enter"],
+    portraitStops: {
+      6: "portrait:area:4:PIC5.DAX:56:0:0",
+      7: "scene-illustration:area:4:ecl:9a5a:caller:a442",
+    },
+    portrait: "scene-illustration:area:4:ecl:9a5a:caller:a49f",
+    prompt: /TODAY'SPASSWORDIS.*THEGATEPASSWORDIS/i,
+    finalPhaseCapture: "valjevo-giant-barracks-password-reading.png",
     continuation: {
       inputs: ["enter"], portrait: "portrait:area:4:PIC5.DAX:56:0:0",
-      prompt: /TODAY'SPASSWORDIS.*THEGATEPASSWORDIS/i,
+      prompt: /^(?!.*TODAY'SPASSWORDIS).*NAMEACHP/i,
     },
   }],
   ["valjevo-disguise-offer", {
