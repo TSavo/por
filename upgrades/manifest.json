@@ -2322,6 +2322,8 @@
     "portrait:area:22:ecl:a2f9:PIC7.DAX:68:3:0": "tyrmor-prison-displacer-phase-3.png",
     "portrait:area:22:ecl:a2f9:PIC7.DAX:68:4:0": "tyrmor-prison-displacer-phase-4.png",
     "portrait:area:22:ecl:a2f9:PIC7.DAX:68:0:0": "tyrmor-prison-displacer-dialogue.png",
+    "scene-illustration:area:22:ecl:a20f:cue:displacer-ambush": "tyrmor-displacer-surprise.png",
+    "scene-illustration:area:22:ecl:9a06:caller:a213:cue:displacer-ambush": "tyrmor-displacer-surprise.png",
     "tile:20:73f6e7f279141546a9e3ce407ed1f7b44359863cba76f14459bb4147e068ef87": "slums-worn-courtyard-73f6e7f27914.png",
     "tile:20:202aefe6bbb76257e5a3fdb4ec8e2a102ef8ab28a63b1d507be1d284589ab202": "slums-worn-courtyard-202aefe6bbb7.png",
     "tile:20:1352286f7dddf65efce52c789476c7e917ecdd98d1c1ca9ab2dde1e4964caefe": "slums-worn-courtyard-1352286f7ddd.png",
