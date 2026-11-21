@@ -4289,13 +4289,25 @@ try {
     }
   }
 
-  async function verifyRolfTrainingSchools() {
-    const schools = "scene-illustration:area:0:ecl:af3f:caller:b369";
-    assert.equal(frame.portrait, schools);
-    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /BEHINDTHESEDOORSARETHESPECIALTRAININGSCHOOLS/i);
-    await waitFor("Rolf's training schools illustration", () => run(`state.sequence === ${frame.sequence} &&
-      document.querySelector('.encounter-portrait[src="/art/${schools}"]')?.naturalWidth === 352`));
+  const rolfLandmarks = new Map([
+    [1, ["b2f2", /entrancetothepassengerdockarea.*fewshipsdaretheperilouspassage/i, "new-phlan-rolf-passenger-dock.png"]],
+    [2, ["b369", /behindthesedoorsarethespecialtrainingschools/i]],
+    [3, ["b3ff", /wearejustoutsidethecityhall.*proclamationsarepostedonthesewalls/i, "new-phlan-rolf-city-hall.png"]],
+  ]);
+  async function verifyRolfLandmark(stop) {
+    const [caller, caption, screenshot] = rolfLandmarks.get(stop);
+    const portrait = "scene-illustration:area:0:ecl:af3f:caller:" + caller;
+    assert.equal(frame.portrait, portrait);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), caption);
+    await waitFor("the illustrated tour stop", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalHeight === 352`));
     await verifyPortraitPanel();
+    if (screenshot) {
+      await switchBothWays(frame.frame);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, screenshot), Buffer.from(shot.data, "base64"));
+    }
   }
 
   async function verifyPortraitPanel() {
@@ -4693,8 +4705,8 @@ try {
     await verifyPortraitPanel();
     for (let stop = 1; stop < 7; stop++) {
       await advance("enter");
-      if (stop === 2) {
-        await verifyRolfTrainingSchools();
+      if (rolfLandmarks.has(stop)) {
+        await verifyRolfLandmark(stop);
         continue;
       }
       assert.equal(frame.portrait, undefined);
@@ -6764,16 +6776,15 @@ try {
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /10,12W/i);
       }
       if (routeName === "new-phlan-rolf-tour") {
+        for (const stop of rolfLandmarks.keys()) {
+          await advance("enter");
+          await verifyRolfLandmark(stop);
+        }
         await advance("enter");
         assert.equal(frame.portrait, undefined);
-        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ENTRANCETOTHEPASSENGERDOCKAREA/i);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /TOSUNE'STEMPLE.*ENTRANCETOTHECITYPARK/i);
         await waitForExplorationViewport();
-        await advance("enter");
-        await verifyRolfTrainingSchools();
-        await advance("enter");
-        assert.equal(frame.portrait, undefined);
-        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /WEAREJUSTOUTSIDETHECITYHALL/i);
-        await waitForExplorationViewport();
+        console.log("Verified the illustrated tour stops and the return to WebGL:", directory);
       }
       if (routeName === "kuto-well-waterline") {
         assert.equal(frame.exploration?.mapId, 32);
