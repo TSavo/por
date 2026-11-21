@@ -1080,6 +1080,7 @@ async function showScreen() {
       if (aimMenu && highlighted) tile.classList.add("combat-aimed");
       if (perspective && id === view.encounter?.[2]) {
         const scale = 120 / 88;
+        if (streetCanvas) y += view.encounter[5] ?? 0;
         x = 8 + (x - 24) * scale;
         y = 8 + (y - 24) * scale;
         width = (width ?? 8) * scale;

@@ -10,16 +10,17 @@ const legacyAnchors = new Map<string, EncounterAnchor>([
   ["encounter:SPRIT2.DAX:0:1:0", { area: 20, x: 56, y: 32, width: 24, height: 65 }],
   ["encounter:SPRIT2.DAX:0:2:0", { area: 20, x: 56, y: 32, width: 24, height: 57 }],
 ]);
-export type EncounterPlacement = [x: number, y: number, key: string, width: number, height: number];
+export type EncounterPlacement = [x: number, y: number, key: string, width: number, height: number, webglYOffset?: number];
 
 export function encounterAnchor(key: string, configured?: EncounterAnchor) {
   const anchor = configured ?? legacyAnchors.get(key);
   const match = encounterKey.exec(key);
   if (!match || !anchor) return;
-  const { area, x, y, width, height, flatBackground } = anchor;
+  const { area, x, y, width, height, flatBackground, webglYOffset = 0 } = anchor;
   if ([area, x, y, width, height].every(Number.isInteger) && area >= 0 && area <= 255 &&
       (match[1] === undefined || Number(match[1]) === area) &&
       x >= 0 && y >= 0 && width > 0 && height > 0 && x + width <= 320 && y + height <= 200 &&
+      Number.isInteger(webglYOffset) && y + webglYOffset >= 0 && y + webglYOffset + height <= 200 &&
       (flatBackground === undefined || (Array.isArray(flatBackground) && flatBackground.length === 2 &&
         flatBackground.every(index => Number.isInteger(index) && index >= 0 && index < 16)))) return anchor;
 }
@@ -141,7 +142,9 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>,
       } else {
         return;
       }
-      return [x, y, key, width, height];
+      const placement: EncounterPlacement = [x, y, key, width, height];
+      if (anchor.webglYOffset) placement.push(anchor.webglYOffset);
+      return placement;
     }
     if (unmatchedScope && cursor !== undefined) {
       traceUnmatchedScope?.(unmatchedScope.key, unmatchedScope.anchor, cursor, caller);

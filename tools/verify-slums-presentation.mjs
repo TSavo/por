@@ -472,7 +472,8 @@ const encounterRoutes = new Map([
   }],
   ["sokal-poison-frog-approach", {
     slot: "C", inputs: ["up", "enter"],
-    placement: [48, 32, "encounter:area:21:SPRIT4.DAX:37:1:0", 40, 57],
+    placement: [48, 32, "encounter:area:21:SPRIT4.DAX:37:1:0", 40, 57, 7],
+    requireWebGL: true,
   }],
   ["valhingen-wight-approach", {
     slot: "A", inputs: ["up", "b"],
@@ -5471,7 +5472,7 @@ try {
     }
     async function verifyApproach(placement) {
       assert.deepEqual(frame.encounter, placement);
-      const [x, y, id, width, height] = placement;
+      const [x, y, id, width, height, webglYOffset = 0] = placement;
       const scale = 120 / 88;
       await waitFor("the enhanced approach sprite at its guest anchor", () => run(`(() => {
         const image = document.querySelector(".encounter-sprite");
@@ -5479,7 +5480,7 @@ try {
           image?.getAttribute("src") === ${JSON.stringify("/art/" + id)} &&
           image.naturalWidth === ${width * 4} && image.naturalHeight === ${height * 4} &&
           Math.abs(parseFloat(image.style.left) - ${(8 + (x - 24) * scale) / 3.2}) < .001 &&
-          Math.abs(parseFloat(image.style.top) - ${(8 + (y - 24) * scale) / 2}) < .001;
+          Math.abs(parseFloat(image.style.top) - ${(8 + (y + webglYOffset - 24) * scale) / 2}) < .001;
       })()`));
       await switchBothWays();
     }

@@ -32,6 +32,7 @@ export interface EncounterAnchor {
   y: number;
   width: number;
   height: number;
+  webglYOffset?: number;
   flatBackground?: [number, number];
 }
 

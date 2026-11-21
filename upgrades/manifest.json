@@ -7608,7 +7608,7 @@
     "encounter:area:2:ecl:abd2:caller:9c8b:SPRIT4.DAX:6:0:0": { "area": 2, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:2:ecl:9c9b:SPRIT4.DAX:6:0:0": { "area": 2, "x": 48, "y": 32, "width": 48, "height": 80 },
     "encounter:area:2:ecl:a66a:SPRIT4.DAX:6:0:0": { "area": 2, "x": 48, "y": 32, "width": 48, "height": 80 },
-    "encounter:area:21:SPRIT4.DAX:37:1:0": { "area": 21, "x": 48, "y": 32, "width": 40, "height": 57 },
+    "encounter:area:21:SPRIT4.DAX:37:1:0": { "area": 21, "x": 48, "y": 32, "width": 40, "height": 57, "webglYOffset": 7 },
     "encounter:area:10:SPRIT4.DAX:20:0:0": { "area": 10, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:area:10:SPRIT4.DAX:20:1:0": { "area": 10, "x": 56, "y": 32, "width": 24, "height": 65 },
     "encounter:area:10:SPRIT4.DAX:20:2:0": { "area": 10, "x": 64, "y": 32, "width": 16, "height": 49 },
