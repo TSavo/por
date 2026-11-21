@@ -4697,7 +4697,9 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
   declineSmithyHammer || declineValjevoDisguise || fightNorris || refuseNomadDismissal, "Option does not apply to this route");
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
-const directory = mkdtempSync(resolve("out", "slums-presentation-"));
+const outputDirectory = resolve(process.env.POR_PRESENTATION_OUTPUT_DIR || "out");
+mkdirSync(outputDirectory, { recursive: true });
+const directory = mkdtempSync(resolve(outputDirectory, "slums-presentation-"));
 const slot = (wideManualAim || norrisSurrenderReload ? "J" : routeName === "tyrmor-journal-reload" ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
