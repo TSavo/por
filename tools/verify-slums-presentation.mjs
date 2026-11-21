@@ -6548,11 +6548,22 @@ try {
         await advance("enter");
         assert.equal(frame.portrait, "scene-illustration:area:7:ecl:995f:caller:a8b2");
         assert.match(text(), /tyranthraxushasfinallybeendefeated.*youleavethecastle/i);
-        for (let page = 0; page < 4; page++) await advance("enter");
+        await advance("enter");
+        const homecoming = "scene-illustration:area:7:ecl:9b18:cue:phlan-homecoming";
+        assert.equal(frame.portrait, homecoming);
+        assert.match(text(), /finallyyouenterthecivilizedareaofphlan/i);
+        await waitFor("the Phlan homecoming illustration", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${homecoming}"]')?.naturalWidth === 352 &&
+          document.querySelector('.encounter-portrait[src="/art/${homecoming}"]')?.naturalHeight === 352`));
+        await verifyPortraitPanel();
+        await switchBothWays(frame.frame);
+        const arrival = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "valjevo-phlan-homecoming.png"), Buffer.from(arrival.data, "base64"));
+        for (let page = 0; page < 3; page++) await advance("enter");
         assert.equal(frame.portrait, undefined);
         assert.match(text(), /gatewaytotheunsettledareas/i);
         await waitForExplorationViewport();
-        console.log("Verified the spirit's recall, castle departure and WebGL return to Phlan:", directory);
+        console.log("Verified the spirit's recall, castle departure, Phlan homecoming and WebGL return to play:", directory);
       }
       if (routeName === "valjevo-disguise-offer") {
         const disguise = () => frame.journal?.leads.find(({ id }) => id === "castle-disguise");
