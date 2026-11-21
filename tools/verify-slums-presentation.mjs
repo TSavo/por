@@ -403,7 +403,7 @@ const encounterRoutes = new Map([
   }],
   ["old-phlan-lizard-patrol-approach", {
     slot: "B", inputs: ["up", "enter"],
-    placement: [48, 32, "encounter:area:29:SPRIT8.DAX:57:0:0", 48, 80],
+    placement: [48, 32, "encounter:area:29:ecl:a9f7:SPRIT8.DAX:57:0:0", 48, 80],
     dialogue: { key: "enter", portrait: "portrait:area:29:PIC8.DAX:57:0:0", prompt: /ALIZARDMANLEADSAPACKOFGIANTLIZARDS/i },
   }],
   ["bane-ogre-approach", {
