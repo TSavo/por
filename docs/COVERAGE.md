@@ -160,6 +160,13 @@ the west gate and saves in the Slums at (15,4), in slot C.
 The replay reloads C, wins the kobold encounter through the original combat
 menus, shares the coins, and saves to slot D. After reloading D it checks
 that all six fighters are present and that Alda retained 5 XP and 11 copper.
+
+Run `npm run verify:campaign-opening -- "PATH_TO_CHROME"` to exercise that
+opening in Enhanced mode in headless Chrome. It starts with an empty save
+directory and carries the guest-created saves between runner restarts. The
+output directory contains the saves, guest input logs, and server output for
+each leg. This route stops after the kobold victory and slot D reload.
+
 A separate route from the Slums gate reaches the orc outpost at (13,1)
 and wins through Quick without watchdog recovery. The treasure screen
 awards 154 XP, and reloading confirms Enna has 169 total XP and the
