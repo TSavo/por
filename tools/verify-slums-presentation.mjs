@@ -1577,6 +1577,15 @@ const illustrationRoutes = new Map([
       prompt: /GUARDS,INTHENAMEOFBANE,KILLTHESEUNBELIEVERS/i,
     },
   }],
+  ["bane-mansion-wall-message", {
+    slot: "A", inputs: ["up", "up", "left", "up", "up", "right", "up"],
+    portraitStops: { 4: "scene-illustration:area:31:ecl:b0b5:cue:mansion-prison-cell", 5: null },
+    portrait: "scene-illustration:area:31:ecl:b0b5:cue:mansion-scratched-wall",
+    prompt: /POORLYSCRATCHEDOUTMESSAGE.*NORTHWALL\.RITFRONTGLAS\.SE/i,
+    phaseCaptures: { 4: "bane-mansion-prison-cell.png" }, finalPhaseCapture: "bane-mansion-scratched-wall.png",
+    journalLead: "bane-cell-scratched-message", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["right", "up"], clearsPortrait: true, prompt: /(?=.*5,14N).*AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["bane-hay-bunk-room", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:31:ecl:a242:cue:hay-bunk-room", prompt: /CRUDEHAYBEDS\.WHATWILLYOUDO/i,
@@ -7817,6 +7826,11 @@ try {
         if (phaseCapture) {
           const phaseShot = await command("Page.captureScreenshot", { format: "png" });
           writeFileSync(resolve(directory, phaseCapture), Buffer.from(phaseShot.data, "base64"));
+        }
+        if (routeName === "bane-mansion-wall-message" && index === 4) {
+          await advance("j");
+          assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === "bane-cell-scratched-message"));
+          await advance("j");
         }
         if (routeName === "pyramid-lizardfolk-patrol-phases" && (index === 6 || index === 7)) {
           assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
