@@ -418,8 +418,8 @@ const encounterRoutes = new Map([
   }],
   ["bane-ogre-approach", {
     slot: "A", inputs: ["up", "enter"],
-    placement: [48, 32, "encounter:area:31:SPRIT1.DAX:8:0:0", 40, 73],
-    dialogue: { key: "enter", portrait: "portrait:area:31:PIC1.DAX:8:0:0", prompt: /SIXORCSLEDBYALARGEOGRE/i },
+    placement: [48, 32, "encounter:area:31:ecl:9f1e:SPRIT1.DAX:8:0:0", 40, 73],
+    dialogue: { key: "enter", portrait: "portrait:area:31:ecl:9f6d:PIC1.DAX:8:0:0", prompt: /SIXORCSLEDBYALARGEOGRE/i },
   }],
   ["valhingen-zombie-approach", {
     slot: "A", inputs: ["up", "enter"],
@@ -1477,7 +1477,9 @@ const illustrationRoutes = new Map([
   }],
   ["bane-ogre-led-guards", {
     slot: "A", inputs: ["up", "enter", "enter"],
-    portrait: "portrait:area:31:PIC1.DAX:8:0:0", prompt: /SIXORCSLEDBYALARGEOGRE/i,
+    approachStops: { 2: [48, 32, "encounter:area:31:ecl:9f1e:SPRIT1.DAX:8:0:0", 40, 73] },
+    portrait: "portrait:area:31:ecl:9f6d:PIC1.DAX:8:0:0", prompt: /SIXORCSLEDBYALARGEOGRE/i,
+    continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i, portrait: "portrait:area:31:ecl:9f7b:PIC1.DAX:8:0:0" },
   }],
   ["stojanow-tower-charge", {
     slot: "A", inputs: ["up", "enter", "enter"],
