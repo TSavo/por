@@ -1247,6 +1247,18 @@ const illustrationRoutes = new Map([
     idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:9d66:PIC1.DAX:1:${phase}:0`),
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /10,9N/i },
   }],
+  ["kovel-casket-needle", {
+    slot: "A", inputs: ["up", "enter", "s", "a"],
+    portraitStops: {
+      1: "scene-illustration:area:14:ecl:a4e2",
+      2: "scene-illustration:area:14:ecl:a4e2",
+      3: "scene-illustration:area:14:ecl:a519",
+    },
+    portrait: "scene-illustration:area:14:ecl:a602",
+    prompt: /APOSIONEDNEEDLESHOOTSOUTANDPLUNGESINTOAPARTYMEMBER/i,
+    finalPhaseCapture: "kovel-casket-needle.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HOWWILLYOUOPENTHELOCK/i },
+  }],
   ["kovel-tapestry-reward", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portraitStops: { 1: null, 2: null },
