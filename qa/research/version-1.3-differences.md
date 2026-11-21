@@ -59,3 +59,18 @@ The largest unmatched code in ours is in slices 25 and 26 (shared party utilitie
 - The translator needs an EXEPACK unpack step and the `FBOV` header length. The stub scan already fits.
 - Script-level bindings (narration, scene art, journal flags) carry over unchanged, except New Phlan positions after `0xa42d`, which move by 3.
 - Every binding to a code address or a data-segment address has moved. For the 763 matched procedures the old and new addresses can be paired from the match, and data addresses can be paired from the operands of matched instructions.
+
+## What carries over, measured
+
+The narration and artwork must not be lost. Almost none of it is tied to anything that moves.
+
+| Work | Keyed by | Count | Effect of moving to 1.3 |
+| --- | --- | ---: | --- |
+| Tiles and battlefield tiles | Pixel hash | 4,023 keys | None. The art data is identical. |
+| Combat sprites, effects, character sheet | Data file and block | 2,160 keys | None. |
+| Portraits, illustrations, scoped sprites | Script position | 1,880 keys | 60 are New Phlan positions after `0xa42d` and move by 3. The other 1,820 are unchanged. |
+| Narration units | Script position | 1,432 units | 35 touch New Phlan events after the edit and move by 3. The other 1,397 are unchanged. |
+| Narration recordings | File | 1,745 files | None. |
+| Journal leads | The game's own text | 333 triggers | None. The text is identical. |
+
+The 60 keys are 22 scene illustrations, 24 combat scopes, 9 portraits and 5 encounter sprites. Moving them is a mechanical rename, and the checks that validate every art mapping and every narration unit against the game data will confirm it.
