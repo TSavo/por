@@ -494,6 +494,8 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
 const sceneReviewRequirements = new Map<string, string[]>([
   ["yarash-torture-chamber.png", ["An assortment of torture implements", "A large central table", "Visible metal restraints"]],
   ["yarash-alchemical-laboratory.png", ["Shelves lining the wall", "Flasks and bottles of alchemical preparations"]],
+  ["yarash-vat-emergence-approach.png", ["One mutant lizardman is visibly climbing out of a vat"]],
+  ["yarash-three-vat-ambush.png", ["Three mutant lizardmen emerge from three separate vats"]],
   ["stojanow-gate-first-sight.png", ["A wide view of Stojanow Gate at the river bend"]],
   ["stojanow-gate-bugbear-lookouts.png", ["Bugbears visibly lounging at the entrance", "A main wall below two taller watchtowers"]],
   ["stojanow-passing-wagon.png", ["A driver and moving wagon", "A visible load of food and equipment", "The road leading toward the gate"]],
