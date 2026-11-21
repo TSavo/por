@@ -196,8 +196,11 @@ const encounterRoutes = new Map([
   }],
   ["slums-orc-clash", {
     slot: "B", inputs: ["up", "enter"],
-    placement: [48, 32, "encounter:SPRIT2.DAX:4:0:0", 40, 80],
-    dialogue: { key: "enter", portrait: "portrait:area:20:PIC2.DAX:4:0:0", prompt: /ORC|GUARDSRUNTOINTERCEPTYOU/i },
+    placement: [48, 32, "encounter:area:20:ecl:ab58:SPRIT2.DAX:4:0:0", 40, 80],
+    dialogue: {
+      key: "enter", portrait: "portrait:area:20:PIC2.DAX:4:0:0", prompt: /GUARDSRUNTOINTERCEPTYOU/i,
+      heldPortrait: "portrait:area:20:ecl:b6df:caller:ab75:PIC2.DAX:4:2:0",
+    },
   }],
   ["slums-goblin-lesson-approach", {
     slot: "B", inputs: ["up", "enter"],
@@ -5872,7 +5875,7 @@ try {
       await advance("j");
     }
     const dialogueSteps = encounterRoute.dialogueSteps ?? (encounterRoute.dialogue ? [encounterRoute.dialogue] : []);
-    for (const { key, keys = [key], portrait, prompt } of dialogueSteps) {
+    for (const { key, keys = [key], portrait, prompt, heldPortrait } of dialogueSteps) {
       for (const input of keys) await advance(input);
       assert.equal(frame.encounter, undefined);
       assert.equal(frame.portrait, portrait);
@@ -5886,6 +5889,16 @@ try {
           image.naturalWidth === 352 && image.naturalHeight === 352;
       })()`));
       await verifyPortraitPanel();
+      if (heldPortrait) {
+        for (let i = 0; i < 30 && frame.portrait !== heldPortrait; i++) await advance("z");
+        assert.equal(frame.portrait, heldPortrait);
+        await waitFor("the enhanced held dialogue pose", () => run(`state.sequence === ${frame.sequence} &&
+          [...document.querySelectorAll(".encounter-portrait")].some(image =>
+            image.getAttribute("src") === ${JSON.stringify("/art/" + heldPortrait)} && image.naturalWidth === 352)`));
+        await verifyPortraitPanel();
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `${routeName}-held-portrait.png`), Buffer.from(shot.data, "base64"));
+      }
       await switchBothWays();
     }
     if (encounterRoute.battleStart) {
