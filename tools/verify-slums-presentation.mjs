@@ -2375,6 +2375,19 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-elven-remains.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-pit-fall", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:13:ecl:b511:caller:9ad7:cue:pit-fall",
+    prompt: /FALLSINTOAPOOLOFWATER/i, finalPhaseCapture: "kobold-cave-pit-fall.png",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:13:ecl:9b04:cue:pit-recovery",
+      prompt: /SOMEITEMSWERELOSTRECOVERING/i },
+  }],
+  ["kobold-cave-pit-recovery", {
+    slot: "B", inputs: ["up", "enter"],
+    portrait: "scene-illustration:area:13:ecl:9b04:cue:pit-recovery",
+    prompt: /SOMEITEMSWERELOSTRECOVERING/i, finalPhaseCapture: "kobold-cave-pit-recovery.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["kobold-cave-dining-room", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:13:ecl:ace3:cue:dining-room", prompt: /HERECRUDETABLES,LITTEREDWITHBONES/i,
