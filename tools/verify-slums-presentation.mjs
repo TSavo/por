@@ -595,6 +595,13 @@ const illustrationRoutes = new Map([
     prompt: /BEHINDTHEALTERARETWOCROSSEDSWORDS.*DOYOUTAKETHEM/i,
     continuation: { inputs: ["y"], prompt: /EACHCHARACTERRECEIVES400EXPERIENCEPOINTS/i, clearsPortrait: true },
   }],
+  ["valjevo-dungeon-armory", {
+    slot: "B", inputs: ["up", "enter"],
+    portraitStops: { 1: "scene-illustration:area:4:ecl:9a5a:caller:a6de" },
+    portrait: "scene-illustration:area:4:ecl:9a2c:caller:a704",
+    prompt: /DOYOUWANTTOTAKEANYTHING/i,
+    continuation: { inputs: ["y"], prompt: /THEPARTYHASFOUNDTREASURE/i, clearsPortrait: true },
+  }],
   ["valjevo-giant-barracks-password-list", {
     slot: "B", inputs: ["up", "enter", "enter", "a", "a", "p", "h"],
     portraitStops: { 6: "portrait:area:4:PIC5.DAX:56:0:0" },

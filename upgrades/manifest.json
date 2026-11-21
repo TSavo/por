@@ -4027,6 +4027,8 @@
     "combat:area:25:CPIC6.DAX:118": "wild-cave-thri-kreen-stand.png",
     "combat:area:25:CPIC6.DAX:246": "wild-cave-thri-kreen-strike.png",
     "portrait:area:28:HEAD6.DAX:57:BODY6.DAX:6": "zhentil-quarters-guard-dialogue.png",
+    "scene-illustration:area:4:ecl:9a5a:caller:a6de": "valjevo-dungeon-armory.png",
+    "scene-illustration:area:4:ecl:9a2c:caller:a704": "valjevo-dungeon-armory.png",
     "scene-illustration:area:4:ecl:9a5a:caller:a442": "valjevo-giant-barracks-password-list.png",
     "portrait:area:4:PIC5.DAX:56:0:0": "valjevo-fire-giant-dialogue.png",
     "tile:16:6fdeadbca28fcf72a52e5b6c3090d589d272630354b8e9baa59fc9980cff0bf9": "lizard-southwest-trail-terrain-6fdeadbca28f.png",
