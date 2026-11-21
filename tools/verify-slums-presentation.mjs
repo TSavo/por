@@ -3046,6 +3046,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "mendor-shattered-study.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["mendor-study-cell", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:15:ecl:acb5:cue:study-cell", prompt: /LITTLEMORETHANABENCHANDASMALLDESK/i,
+    finalPhaseCapture: "mendor-study-cell.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["mendor-fresco-room", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:15:ecl:a738:cue:fresco-room", prompt: /FRESCOESONTHEWALLSOFLEARNEDMENANDTHEHEAVENLYPATRONS/i,
