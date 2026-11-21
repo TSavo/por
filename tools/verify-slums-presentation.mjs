@@ -1740,6 +1740,21 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 7: "bane-hidden-treasure-phase-1.png" },
     finalPhaseCapture: "bane-hidden-treasure-phase-2.png",
   }],
+  ["valjevo-dragon-loot-phases", {
+    slot: "B", manualPolling: true,
+    inputs: ["right", ...Array(4).fill("up"), ...Array(5).fill("enter"), ...Array(6).fill("a"),
+      "enter", "enter", ...Array(33).fill("q"), "n", "enter", "enter", "q", "q", "q"],
+    portraitStops: {
+      54: "portrait:area:7:ecl:a803:PIC1.DAX:1:0:0",
+      55: "portrait:area:7:ecl:a803:PIC1.DAX:1:1:0",
+    },
+    portrait: "portrait:area:7:ecl:a803:PIC1.DAX:1:2:0",
+    prompt: /View.*Exit/i,
+    phaseCaptures: { 55: "valjevo-dragon-loot-phase-1.png" },
+    finalPhaseCapture: "valjevo-dragon-loot-phase-2.png",
+    continuation: { inputs: ["e"], portrait: "scene-illustration:area:7:ecl:a82d",
+      prompt: /THESPIRITOFTYRANTHRAXUSFLARESUP/i },
+  }],
   ["sokal-ceiling-insects-phases", {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
     portraitStops: {
