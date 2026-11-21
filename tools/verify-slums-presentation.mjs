@@ -1383,6 +1383,13 @@ const illustrationRoutes = new Map([
     requireTiledApproach: false,
     portrait: "portrait:area:10:ecl:a022:PIC4.DAX:35:0:0", prompt: /AZOMBIEWITHGRAY,LEATHERY.HARDSKIN/i,
   }],
+  ["valhingen-vampire-stairs-decline", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:10:ecl:b6c6:caller:b1bd",
+    prompt: /WOODENSTAIRSLEADINTOAPIT.*DOYOUGODOWN/i,
+    journalLead: "graveyard-vampire-stairs", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["n"], prompt: /15,0E.*AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["valhingen-vampire-chamber", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
@@ -6879,6 +6886,9 @@ try {
         const streetShot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "new-phlan-innkeeper-exit-webgl.png"), Buffer.from(streetShot.data, "base64"));
       }
+      if (routeName === "valhingen-vampire-stairs-decline") {
+        await waitForExplorationViewport();
+      }
       if (routeName === "sokal-chapel-arrival") {
         await waitForExplorationViewport();
         for (const key of ["up", "up", "left", "up", "right", "up", "right", "up", "left", "up", "enter"]) await advance(key);
@@ -10260,10 +10270,24 @@ try {
     const tracksBottle = frame.journal.trackedId === "commission-bottle-vampire";
     if (tracksBottle) assert.doesNotMatch(frame.journal.objective.nextStep, /wooden stairs/i);
     assert.ok(!frame.journal.leads.some(({ id }) => id === stairs));
-    for (const key of ["j", "up", "enter", "j"]) await advance(key);
+    await advance("j");
+    await waitForExplorationViewport();
+    for (const key of ["up", "enter"]) await advance(key);
+    const woodenStairs = "scene-illustration:area:10:ecl:b6c6:caller:b1bd";
+    assert.equal(frame.portrait, woodenStairs);
+    assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+      /WOODENSTAIRSLEADINTOAPIT.*DOYOUGODOWN/i);
+    await waitFor("the wooden stairs into the pit", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${woodenStairs}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    const woodenStairsShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "valhingen-vampire-wooden-stairs.png"), Buffer.from(woodenStairsShot.data, "base64"));
+    await switchBothWays(frame.frame);
+    await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === stairs));
     if (tracksBottle) assert.match(frame.journal.objective.nextStep, /wooden stairs.*choose Yes/i);
     for (const key of ["j", "y", "enter"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
     const encounter = "encounter:area:10:SPRIT4.DAX:23:0:0";
     assert.deepEqual(frame.encounter, [56, 32, encounter, 32, 80]);
     await waitFor("the vampire at the crypt threshold", () => run('document.querySelector(".encounter-sprite")?.naturalHeight === 320'));
