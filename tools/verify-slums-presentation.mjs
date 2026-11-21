@@ -206,7 +206,8 @@ const encounterRoutes = new Map([
   }],
   ["swamp-giant-lizard-approach", {
     slot: "A", inputs: ["up", "enter"],
-    placement: [32, 32, "encounter:area:16:SPRIT8.DAX:59:0:0", 80, 80],
+    placement: [32, 32, "encounter:area:16:ecl:a947:SPRIT8.DAX:59:0:0", 80, 80],
+    requireWebGL: true,
     dialogue: { key: "enter", portrait: "portrait:area:16:PIC8.DAX:59:0:0", prompt: /3GIANTLIZARDSCHARGETOWARDYOU/i },
   }],
   ["wild-cave-wyvern-approach", {
@@ -3502,7 +3503,7 @@ const environmentRoutes = new Map([
   ["lizardfolk-southwest-trail", {
     slot: "A", area: 16, views: 15, patterns: 51, sceneryOnly: true,
     walk: ["left", "up", "up", "up", "up", "right", "up", "up", "left", "up", "up", "right", "up", "right"],
-    finalEncounter: [32, 32, "encounter:area:16:SPRIT8.DAX:59:0:0", 80, 80],
+    finalEncounter: [32, 32, "encounter:area:16:ecl:a947:SPRIT8.DAX:59:0:0", 80, 80],
   }],
   ["new-phlan-west-garden-lanes", {
     slot: "B", area: 0, views: 17, patterns: 70, sceneryOnly: true,
