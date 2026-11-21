@@ -1914,6 +1914,12 @@ const illustrationRoutes = new Map([
     approachStops: { 22: [48, 32, "encounter:area:22:ecl:a2c3:SPRIT7.DAX:15:0:0", 40, 73] },
     portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:57:BODY7.DAX:6", prompt: /THEYSMILEATYOU/i,
   }],
+  ["tyrmor-human-fighters-surprise", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 12 }, () => ["up", "down"]).flat(), "up"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:a213:cue:human-fighters", prompt: /YOUARESURPRISEDBYABANDOFHUMANFIGHTERS/i,
+    finalPhaseCapture: "tyrmor-human-fighters-surprise.png",
+    continuation: { inputs: ["enter", "down"], portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:54:BODY7.DAX:6", prompt: /THEYSMILEATYOU/i },
+  }],
   ["tyrmor-prison-human-fighters-dialogue", {
     slot: "B", inputs: ["s", ...Array.from({ length: 12 }, () => ["up", "down"]).flat(), "up", "enter", "down"],
     approachStops: { 27: [48, 32, "encounter:area:22:ecl:a2c3:SPRIT7.DAX:15:0:0", 40, 73] },
