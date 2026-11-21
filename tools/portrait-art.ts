@@ -493,6 +493,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:9:ecl:acb7", "THEBUGBEARTAKESTHEMONEYANDTHEGATEOPENS"],
   ["scene-illustration:area:9:ecl:9c63:caller:ae22", "AMANDRIVINGAWAGONFULLOFFOODANDEQUIPMENT"],
   ["scene-illustration:area:9:ecl:a977", "NOWBEATITBEFOREWEGETSERIOUS"],
+  ["scene-illustration:area:9:ecl:a7f6", "THEBUGBEARSSTRIPYOUOFANYTHINGREMOTELYVALUABLE"],
+  ["scene-illustration:area:9:ecl:a0a7:cue:bugbear-confiscation", "THEBUGBEARSSTRIPYOUOFANYTHINGREMOTELYVALUABLE"],
   ["scene-illustration:area:9:ecl:a0a7:cue:bugbear-dismissal", "NOWBEATITBEFOREWEGETSERIOUS"],
   ["scene-illustration:area:9:ecl:a7a2:cue:bugbear-alarm", "ANALARMSTARTSRINGING"],
   ["scene-illustration:area:9:ecl:a7a3:cue:bugbear-alarm", "ANALARMSTARTSRINGING"],

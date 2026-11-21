@@ -2805,6 +2805,8 @@
     "scene-illustration:area:9:ecl:9c63:caller:aabb": "stojanow-gate-bugbear-lookouts.png",
     "scene-illustration:area:9:ecl:a863": "stojanow-tower-voice-warning.png",
     "scene-illustration:area:9:ecl:a977": "stojanow-bugbears-dismissal.png",
+    "scene-illustration:area:9:ecl:a7f6": "stojanow-bugbear-confiscation.png",
+    "scene-illustration:area:9:ecl:a0a7:cue:bugbear-confiscation": "stojanow-bugbear-confiscation.png",
     "scene-illustration:area:9:ecl:a0a7:cue:bugbear-dismissal": "stojanow-bugbears-dismissal.png",
     "scene-illustration:area:9:ecl:a7a2:cue:bugbear-alarm": "stojanow-bugbear-alarm.png",
     "scene-illustration:area:9:ecl:a7a3:cue:bugbear-alarm": "stojanow-bugbear-alarm.png",
