@@ -3012,6 +3012,8 @@
     "encounter:area:29:ecl:a683:SPRIT8.DAX:0:1:0": "old-phlan-kobold-scouts-approach-middle.png",
     "encounter:area:29:ecl:a684:SPRIT8.DAX:0:1:0": "old-phlan-kobold-scouts-approach-middle.png",
     "portrait:area:29:PIC8.DAX:0:0:0": "old-phlan-kobold-scouts-dialogue.png",
+    "portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:1:0": "old-phlan-kobold-scouts-dialogue-phase-1.png",
+    "portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:2:0": "old-phlan-kobold-scouts-dialogue-phase-2.png",
     "portrait:area:29:ecl:a64b:PIC8.DAX:0:0:0": "kuto-ruins-kobold-watch-dialogue.png",
     "portrait:area:29:ecl:ad71:PIC8.DAX:0:0:0": "kuto-ruins-kobold-watch-dialogue.png",
     "portrait:area:29:ecl:a524:PIC8.DAX:0:0:0": "kuto-ruins-kobold-watch-dialogue.png",

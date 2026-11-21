@@ -78,6 +78,7 @@ const encounterRoutes = new Map([
     dialogue: {
       key: "down", portrait: "portrait:area:29:PIC8.DAX:0:0:0",
       prompt: /ASMALLBANDOFSICKLYKOBOLDS/i,
+      heldPortraits: ["portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:1:0", "portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:2:0"],
     },
   }],
   ["buccaneer-pen-guard-gate", {
@@ -6176,7 +6177,7 @@ try {
       await advance("j");
     }
     const dialogueSteps = encounterRoute.dialogueSteps ?? (encounterRoute.dialogue ? [encounterRoute.dialogue] : []);
-    for (const { key, keys = [key], portrait, prompt, heldPortrait } of dialogueSteps) {
+    for (const { key, keys = [key], portrait, prompt, heldPortrait, heldPortraits } of dialogueSteps) {
       for (const input of keys) await advance(input);
       assert.equal(frame.encounter, undefined);
       assert.equal(frame.portrait, portrait);
@@ -6190,15 +6191,21 @@ try {
           image.naturalWidth === 352 && image.naturalHeight === 352;
       })()`));
       await verifyPortraitPanel();
-      if (heldPortrait) {
-        for (let i = 0; i < 30 && frame.portrait !== heldPortrait; i++) await advance("z");
-        assert.equal(frame.portrait, heldPortrait);
-        await waitFor("the enhanced held dialogue pose", () => run(`state.sequence === ${frame.sequence} &&
-          [...document.querySelectorAll(".encounter-portrait")].some(image =>
-            image.getAttribute("src") === ${JSON.stringify("/art/" + heldPortrait)} && image.naturalWidth === 352)`));
-        await verifyPortraitPanel();
-        const shot = await command("Page.captureScreenshot", { format: "png" });
-        writeFileSync(resolve(directory, `${routeName}-held-portrait.png`), Buffer.from(shot.data, "base64"));
+      if (heldPortrait || heldPortraits) {
+        const remaining = new Map((heldPortraits ?? [heldPortrait]).map((id, index) => [id, index + 1]));
+        for (let i = 0; i < 30 && remaining.size; i++) {
+          await advance("z");
+          const phase = remaining.get(frame.portrait);
+          if (!remaining.delete(frame.portrait)) continue;
+          await waitFor("the enhanced held dialogue pose", () => run(`state.sequence === ${frame.sequence} &&
+            [...document.querySelectorAll(".encounter-portrait")].some(image =>
+              image.getAttribute("src") === ${JSON.stringify("/art/" + frame.portrait)} && image.naturalWidth === 352)`));
+          await verifyPortraitPanel();
+          const shot = await command("Page.captureScreenshot", { format: "png" });
+          const suffix = heldPortraits ? `-${phase}` : "";
+          writeFileSync(resolve(directory, `${routeName}-held-portrait${suffix}.png`), Buffer.from(shot.data, "base64"));
+        }
+        assert.deepEqual([...remaining.keys()], []);
       }
       await switchBothWays();
     }
