@@ -1331,6 +1331,13 @@ const illustrationRoutes = new Map([
     portrait: "portrait:HEAD5.DAX:70:BODY5.DAX:8", prompt: /IJUSTGOTBACKFROMTHENORTH/i,
     approachSequence: [[40, 32, "encounter:area:7:ecl:9f47:SPRIT5.DAX:11:0:0", 48, 80]],
   }],
+  ["sokal-undead-patrol-rejects-word", {
+    slot: "C", inputs: [...Array(5).fill("up"), "enter", "enter", "p", "n", ..."zzz", "enter"],
+    portraitStops: { 7: "portrait:area:21:PIC4.DAX:34:0:0" },
+    portrait: "portrait:area:21:ecl:aeab:PIC4.DAX:34:0:0",
+    prompt: /THEYDIDN'TLIKETHATWORD/i,
+    journalLead: "sokal-patrol-rejected-word",
+  }],
   ["sokal-undead-patrol-dialogue", {
     slot: "C", inputs: [...Array(5).fill("up"), "enter", "enter"],
     portrait: "portrait:area:21:PIC4.DAX:34:0:0", prompt: /APACKOFUNDEADSUDDENLYAPPEARS/i,
@@ -6382,10 +6389,17 @@ try {
     console.log("Verified the wagon deal and both warnings after reloading slot B in Chrome.");
   } else if (illustration) {
     const { inputs, portrait, prompt, continuation, journalLead, approachSequence } = illustration;
+    let alreadyPassedPatrol;
     if (approachSequence) await observeApproach(approachSequence, illustration.requireTiledApproach);
     if (journalLead) {
       await advance("j");
       assert.ok(frame.journal && !frame.journal.leads.some(({ id }) => id === journalLead));
+      await advance("j");
+    }
+    if (routeName === "sokal-undead-patrol-rejects-word") {
+      await waitForExplorationViewport();
+      await advance("j");
+      alreadyPassedPatrol = frame.journal.leads.some(({ id }) => id === "sokal-patrol-passed");
       await advance("j");
     }
     if (routeName === "sokal-ferran-farewell") {
@@ -6535,6 +6549,21 @@ try {
     await verifyPortraitPanel();
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
+    if (routeName === "sokal-undead-patrol-rejects-word") {
+      await switchBothWays(frame.frame);
+      const rejectedWordShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "sokal-undead-patrol-rejects-word.png"), Buffer.from(rejectedWordShot.data, "base64"));
+      await advance("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-patrol-rejected-word"));
+      assert.equal(frame.journal?.leads.some(({ id }) => id === "sokal-patrol-passed"), alreadyPassedPatrol);
+      for (const key of ["j", "enter"]) await advance(key);
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ABATTLEBEGINS/i);
+      await advance("enter");
+      assert.equal(frame.portrait, undefined);
+      const enemies = frame.combatArt.map(([, , id]) => id);
+      assert.ok(enemies.some(id => /:CPIC4\.DAX:34(?::|$)/.test(id)));
+      assert.ok(enemies.some(id => /:CPIC4\.DAX:35(?::|$)/.test(id)));
     }
     if (routeName === "sokal-pale-form-wrong-word") {
       await switchBothWays(frame.frame);
