@@ -274,6 +274,13 @@ from middle to far at ECL `ac22` and matched the native 32x57 sprite at
 existing near sprite and dialogue. The unchanged route uses middle and
 near distances.
 
+The Valhingen mummy has a far replacement for `SPRIT4.DAX` block 114,
+member 2. A controlled replay changed the first draw distance at ECL
+`a83c` from middle to far and matched the original 24x49 sprite at
+(56,32). Chrome displayed the replacement over WebGL at the end of the
+burial corridor and continued to the existing near sprite and dialogue.
+The unchanged route uses middle and near distances.
+
 The swamp giant lizard has separate middle and far sprites from
 `SPRIT8.DAX` block 59, members 1 and 2. Controlled Chrome replays drew
 the 192×260 and 160×228 sprites at (48,32) and continued to the enhanced
