@@ -1827,6 +1827,17 @@ const illustrationRoutes = new Map([
     prompt: /THEYFLYTOWARDYOU/i,
     finalPhaseCapture: "tyrmor-prison-stirge-phase-1.png",
   }],
+  ["tyrmor-prison-kobolds-phases", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 4 }, () => ["up", "down"]).flat(), "up", "enter", "down", "up", "q", "q", "q"],
+    portraitStops: {
+      13: "portrait:area:22:ecl:a2f9:PIC7.DAX:0:0:0",
+      15: "portrait:area:22:ecl:a2f9:PIC7.DAX:0:1:0",
+    },
+    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:0:2:0",
+    prompt: /ONELICKSITSLIPS/i,
+    phaseCaptures: { 15: "tyrmor-prison-kobolds-phase-1.png" },
+    finalPhaseCapture: "tyrmor-prison-kobolds-phase-2.png",
+  }],
   ["sokal-ceiling-insects-phases", {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
     portraitStops: {
