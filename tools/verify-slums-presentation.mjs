@@ -3034,6 +3034,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "mendor-overgrown-garden.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["mendor-rotted-chamber", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:15:ecl:a6aa:cue:rotted-chamber", prompt: /ROTTEDFURNITUREANDBENCHES/i,
+    finalPhaseCapture: "mendor-rotted-chamber.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["mendor-fresco-room", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:15:ecl:a738:cue:fresco-room", prompt: /FRESCOESONTHEWALLSOFLEARNEDMENANDTHEHEAVENLYPATRONS/i,
