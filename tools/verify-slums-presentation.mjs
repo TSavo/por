@@ -2301,6 +2301,21 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "tyrmor-priest-sighting.png",
     continuation: { inputs: ["enter", "a", "a"], portrait: "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30", prompt: /RAISESHISHANDINBENEDICTION/i },
   }],
+  ["tyrmor-portal-rocks", {
+    slot: "B", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:a016:cue:scattered-rocks",
+    prompt: /YOUSEEROCKSSCATTEREDABOUTTHESMOOTHFLAGSTONES/i,
+    finalPhaseCapture: "tyrmor-portal-rocks.png",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:22:ecl:a0c9:cue:strange-tingle",
+      prompt: /YOUFEELASTRANGETINGLE.*THROWAROCK/i },
+  }],
+  ["tyrmor-portal-thrown-rock", {
+    slot: "B", inputs: ["s", "up", "enter", "t"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:a116:cue:thrown-rock",
+    prompt: /YOUTHROWAROCK.SUDDENLYITDISAPPEARSWITHAFLASH/i,
+    finalPhaseCapture: "tyrmor-portal-thrown-rock.png",
+    continuation: { inputs: ["enter", "g"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["tyrmor-teleport-flash", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:22:ecl:9a06:caller:a151:cue:teleport-flash", prompt: /THEREISAFLASH.*FINDYOURSELVES.*ELSEWHERE/i,
