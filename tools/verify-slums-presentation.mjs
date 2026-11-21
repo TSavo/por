@@ -5742,7 +5742,7 @@ routes.push("textile-return-art", "moonsea-lizardman-travel", "moonsea-sokal-fre
   ...districtTravel.keys(), ...atlasRoutes.keys());
 routes.push("stojanow-wall-warning", "stojanow-wall-warning-reload");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
-routes.push("kobold-king-treasury", "kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
+routes.push("kobold-cave-efreeti-bottle-loot", "kobold-king-treasury", "kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
@@ -9454,6 +9454,32 @@ try {
     for (const key of ["j", "n", "j"]) await advance(key);
     assert.ok(knows("kobold-efreeti-warning"));
     console.log("Verified the efreeti portrait and witnessed warning in Chrome.");
+  } else if (routeName === "kobold-cave-efreeti-bottle-loot") {
+    const text = () => frame.text.toSorted(([left], [right]) => left - right)
+      .map(([, char]) => String.fromCharCode(char)).join("");
+    for (const key of ["s", "up", "p", "enter", "enter", "n"]) await advance(key);
+    assert.match(text(), /THEPARTYHASFOUNDTREASURE/i);
+    await advance("enter");
+    if (/PRESS<ENTER>.*TOCONTINUE/i.test(text())) await advance("enter");
+    assert.match(text(), /VIEW.*TAKE.*POOL.*EXIT/i);
+    const bottle = "portrait:area:13:ecl:a693:PIC1.DAX:1:0:0";
+    assert.equal(frame.portrait, bottle);
+    await waitFor("the freed Efreeti Bottle", () => run(`
+      state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${bottle}"]')?.naturalWidth === 352
+    `));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "kobold-cave-efreeti-bottle-loot.png"), Buffer.from(shot.data, "base64"));
+    await advance("t");
+    assert.match(text(), /LOOT.*EFREETIBOTTLE/i);
+    await advance("enter");
+    assert.match(text(), /VIEWPOOLEXIT/i);
+    await advance("e");
+    assert.equal(frame.portrait, undefined);
+    assert.match(text(), /AREACASTVIEWENCAMPSEARCHLOOK/i);
+    console.log("Verified the illustrated Efreeti Bottle reward, pickup, and return to exploration in Chrome.");
   } else if (routeName === "kobold-king-treasury") {
     const text = () => frame.text.toSorted(([left], [right]) => left - right)
       .map(([, char]) => String.fromCharCode(char)).join("");
