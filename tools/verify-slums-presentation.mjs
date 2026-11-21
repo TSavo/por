@@ -1336,6 +1336,12 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:21:ecl:ae31:caller:a573", prompt: /BENEATHAFLOORBOARD.*JOURNALASENTRY3/i,
     continuation: { inputs: ["enter"], prompt: /DOYOUTAKETHEGEMS.*YesNo/i, portrait: "scene-illustration:area:21:ecl:ae41:caller:a58a" },
   }],
+  ["sokal-moldy-stable", {
+    slot: "C", inputs: ["up"],
+    portrait: "scene-illustration:area:21:ecl:9f88:cue:moldy-stable", prompt: /UNWHOLESOMEMOLDANDFUNGICOVER/i,
+    finalPhaseCapture: "sokal-moldy-stable.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["sokal-smithy-hammer", {
     slot: "D", inputs: ["right", "right", "up", "left", "up", "s", "l"], portraitStops: { 6: null },
     portrait: "scene-illustration:area:21:ecl:ae41:caller:a18d",
