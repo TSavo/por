@@ -3429,6 +3429,21 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "mendor-ruined-desk.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["mendor-garden-slime", {
+    slot: "B",
+    inputs: ["up", "enter", ...Array(2).fill(["down", "up", "down", "up", "enter"]).flat(),
+      "down", "up", "down", "up"],
+    portraitStops: {
+      1: "scene-illustration:area:15:ecl:9c24:cue:overgrown-garden",
+      11: "scene-illustration:area:15:ecl:9ccf:cue:slime-avoidance",
+    },
+    phaseCaptures: { 11: "mendor-garden-slime-avoidance.png" },
+    portrait: "scene-illustration:area:15:ecl:9d3c:cue:slime-contact",
+    prompt: /QUICKLY,YOUSCRAPEITOFF.*ISHITFOR\d+POINTSOFDAMAGE/i,
+    finalPhaseCapture: "mendor-garden-slime-contact.png",
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:15:ecl:9d62:cue:slime-avoidance",
+      prompt: /YOUNOWCAREFULLYAVOIDTHEGREENSLIME/i },
+  }],
   ["mendor-overgrown-garden", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:15:ecl:9c24:cue:overgrown-garden", prompt: /THEPLEASANTPONDHASBECOMEASWAMP/i,
