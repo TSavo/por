@@ -2475,6 +2475,15 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 13: "slums-monster-council-phase-2.png" },
     finalPhaseCapture: "slums-monster-council-phase-1.png",
   }],
+  ["textile-ghoul-battle-entry", {
+    slot: "B", inputs: ["s", "up", "up", "down", "up", "down", "enter"],
+    portraitStops: { 6: null },
+    approachStops: { 6: [56, 32, "encounter:area:2:SPRIT4.DAX:72:2:0", 24, 57] },
+    portrait: "scene-illustration:area:2:ecl:9bd6",
+    prompt: /SOMEGHOULSDECIDETOADDYOUTOTHEIRMENU.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "textile-ghoul-battle-entry.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /GHOULHITPOINTS10AC6/i },
+  }],
   ["textile-poison-frog-phases", {
     slot: "B", inputs: ["s", "up", "up", "down", "up", "down", "enter", "q"],
     portrait: "portrait:area:2:PIC4.DAX:37:0:0",
