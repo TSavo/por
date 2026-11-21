@@ -5295,12 +5295,21 @@ try {
       if (repeatStampede) assert.match(frame.journal.objective.nextStep, /release them again if offered/);
       else assert.ok(!hasLead("rescue-stampede"));
       await advance("j");
-      const pensScenery = frame.tiles;
       await advance("r");
-      assert.equal(frame.perspective, true, "The release acknowledgement should retain the full scenery");
-      assert.deepEqual(frame.tiles, pensScenery);
-      await switchBothWays();
-      for (const key of ["enter", "j"]) await advance(key);
+      const animalStampede = "scene-illustration:area:1:ecl:b5f7:caller:b3eb";
+      assert.equal(frame.portrait, animalStampede);
+      assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+        /ASSOONASYOUOPENTHEGATETHEANIMALSINSIDECHARGEOUT.*THEYSTAMPEDEACROSSTHECOMPOUND/i);
+      await waitFor("the animals stampeding out of their pens", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${animalStampede}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const stampedeShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "buccaneer-animals-stampede.png"), Buffer.from(stampedeShot.data, "base64"));
+      await switchBothWays(frame.frame);
+      await advance("enter");
+      assert.equal(frame.portrait, undefined);
+      await waitForExplorationViewport();
+      await advance("j");
       assert.ok(hasLead("rescue-stampede"));
       if (repeatStampede) assert.match(frame.journal.objective.nextStep, /while the guards are rounding up/);
       assert.ok(!hasLead("rescue-inside-pen"));
