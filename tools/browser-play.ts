@@ -223,8 +223,8 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
       }
     }
     sequence++;
-    if (portraitTrace && frame.classicPortraitSources?.length) {
-      const { classicPortraitArea: area, classicPortraitCursor: cursor, classicPortraitCaller: caller, classicPortraitSources: sources } = frame;
+    if (portraitTrace && frame.classicPortrait) {
+      const { classicPortraitArea: area, classicPortraitCursor: cursor, classicPortraitCaller: caller, classicPortraitSources: sources = [] } = frame;
       const signature = JSON.stringify([area, cursor, caller, sources]);
       if (!tracedPortraits.has(signature)) {
         try {

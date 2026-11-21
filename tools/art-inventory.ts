@@ -208,7 +208,7 @@ for (const path of tracePaths) {
     if (!Array.isArray(record) && record.type === "portrait-fallback") {
       const { area, cursor, caller, dialogue, sources, sequence } = record;
       if (sequence !== undefined && Number.isInteger(sequence) && Array.isArray(sources) &&
-          sources.length && sources.every(id => typeof id === "string" && portraitKey.test(id))) {
+          sources.every(id => typeof id === "string" && portraitKey.test(id))) {
         observedPortraitFallbacks.push({ area: Number.isInteger(area) ? area : undefined,
           cursor: cursor !== undefined && Number.isInteger(cursor) && cursor >= 0 && cursor <= 0xffff ? cursor : undefined,
           caller: caller !== undefined && Number.isInteger(caller) && caller >= 0 && caller <= 0xffff ? caller : undefined,
@@ -875,7 +875,7 @@ ${observedPortraitFallbacks.length ? `<details><summary>Observed portrait fallba
 <table class="coverage-table"><thead><tr><th>Area</th><th>ECL cursor</th><th>Caller</th><th>Source candidates</th><th>Linked candidates now</th><th>Dialogue</th><th>Trace frame</th></tr></thead><tbody>
 ${portraitFallbackCoverage.map(({ area, cursor, caller, dialogue, sources, linkedCandidates, sequence, trace }) =>
   `<tr><td>${area ?? "Unknown"}</td><td>${cursor?.toString(16).padStart(4, "0") ?? "—"}</td><td>${caller?.toString(16).padStart(4, "0") ?? "—"}</td>
-  <td>${sources.map(id => `<code>${escape(id)}</code>`).join("<br>")}</td>
+  <td>${sources.map(id => `<code>${escape(id)}</code>`).join("<br>") || "Unidentified source"}</td>
   <td>${linkedCandidates.map(id => `<code>${escape(id)}</code>`).join("<br>") || "None"}</td><td>${escape(dialogue ?? "")}</td>
   <td>${escape(trace)} #${sequence}</td></tr>`).join("")}
 </tbody></table></details>` : ""}

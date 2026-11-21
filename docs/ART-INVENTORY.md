@@ -35,9 +35,10 @@ blank viewport the game draws between scenes. Use a fresh trace
 file for each route and keep the captures outside version control.
 
 Set `POR_PORTRAIT_TRACE_FILE` to capture the first occurrence of each
-identified portrait fallback per area in a browser session. Pass that
+portrait fallback per script context in a browser session. Pass that
 JSONL or NDJSON file alongside any tile traces. The gallery lists the observed
 fallbacks with their candidate source IDs, area, and browser frame number.
+It also shows the script context and dialogue for fallbacks whose source is unidentified.
 
 At Buccaneer Base, choosing **Punch Merchant** at Bivant's pen and
 stepping forward brings up a dedicated 352×352 guard illustration at
