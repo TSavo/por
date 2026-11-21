@@ -7745,7 +7745,8 @@ try {
     assert.ok(knows("castle-kitchen-slip"));
     assert.match(frame.journal.objective.nextStep, /press Enter to read the slip/i);
     for (const key of ["j", "enter"]) await advance(key);
-    assert.equal(frame.portrait, undefined);
+    const readingSlip = "scene-illustration:area:4:ecl:9a5a:caller:a973";
+    assert.equal(frame.portrait, readingSlip);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /YOULOOKATTHEWRITING/i);
     for (let index = 0; index < 4; index++) await advance("enter");
     await advance("j");
