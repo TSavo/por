@@ -219,6 +219,14 @@
       "resolution": "The DOS clock starts at the player's time of day when the game is played (POR_CLOCK=real, the default for npm run play) and at noon for replays and checks (POR_CLOCK=fixed). The verify chain checks the seed the game's own Randomize stores in each mode."
     },
     {
+      "id": "saves-across-versions",
+      "class": "release",
+      "title": "Saves made on the earlier build have not been tried on version 1.3",
+      "detail": "The save layout looks the same: SAVGAM is 13,137 bytes in both, and character, item and effect records are 285, 63 and 9 bytes in both. But a save carries a copy of the current area's script, so one made in New Phlan holds the earlier script, and it may hold addresses into the program's data. Loading an earlier save on 1.3 is untested. The 1,045 presentation replays start from checkpoint saves made on the earlier build, and those saves are not in the repository, so they will have to be made again on 1.3 in any case.",
+      "source": "Side-agent note on 2026-11-21; sizes measured the same day.",
+      "status": "open"
+    },
+    {
       "id": "translation-crt-delay",
       "class": "classic",
       "title": "Crt.Delay ends after one pass",

@@ -155,7 +155,8 @@ rows.push(["Host addresses named and mapped for 1.3", named, named + rawAddresse
   `${rawAddresses} raw addresses remain in ${hostFiles.length} host files`]);
 
 // 4. The checks that must pass on 1.3. Each records its result in qa/version-1.3-checks.json when it is run on 1.3.
-const required = ["verify", "verify:input", "verify:translation-reproducible", "verify:campaign-opening", "verify:campaign --full", "verify:map-journal"];
+const required = ["verify", "verify:input", "verify:translation-reproducible", "verify:campaign-opening", "verify:campaign --full", "verify:map-journal",
+  "a save from the earlier build loads"];
 const resultsPath = new URL("../qa/version-1.3-checks.json", import.meta.url);
 const results = existsSync(resultsPath) ? JSON.parse(readFileSync(resultsPath, "utf8")) as Record<string, string> : {};
 rows.push(["Checks passing on 1.3", required.filter(name => results[name] === "pass").length, required.length, required.join(", ")]);
