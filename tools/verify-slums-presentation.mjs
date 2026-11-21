@@ -7765,11 +7765,26 @@ try {
     assert.ok(!known.has("rescue-heir-freed") && !known.has("rescue-heir-left-behind"));
     console.log("Verified the peaceful Bivant handoff and purchase clue in Chrome. Native save:", saved);
   } else if (routeName === "buccaneer-bivant-escort-combat") {
-    for (const key of ["up", "enter", "g", "right", "up", "right", "up", "up", "up"]) await advance(key);
+    const interception = [
+      [56, 32, "encounter:area:1:ecl:9abb:SPRIT6.DAX:16:2:0", 16, 49],
+      [56, 32, "encounter:area:1:ecl:9abc:SPRIT6.DAX:16:1:0", 24, 65],
+      [48, 32, "encounter:area:1:ecl:9abe:SPRIT6.DAX:16:0:0", 40, 80],
+    ];
+    await observeApproach(interception, true, true);
+    for (const key of ["up", "enter", "g", "right", "up", "right", "up", "up"]) await advance(key);
+    assert.deepEqual(frame.animation?.flatMap(({ encounter }) => encounter ? [encounter] : []), interception);
+    await waitFor("all three Bivant escort distances over WebGL", () => run("window.observedApproach.size === 3"));
+    assert.deepEqual(await run("[...window.observedApproach]"), interception.map(([, , id]) => id));
+    const approach = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "bivant-escort-approach.png"), Buffer.from(approach.data, "base64"));
+    await advance("up");
     const dialogue = frame.text.toSorted(([a], [b]) => a - b)
       .map(([, character]) => String.fromCharCode(character)).join("").replace(/\s/g, "");
     assert.match(dialogue, /SOMEOFTHEGUARDSSPOTYOUWITHTHEBOY/i);
     for (const key of ["up", "up", "up", "enter", "enter", "enter"]) await advance(key);
+    assert.equal(frame.encounter, undefined);
+    await waitFor("the Bivant escort approach to clear on battle entry", () => run(`
+      state.sequence === ${frame.sequence} && !document.querySelector(".encounter-sprite")`));
     const ready = "combat:area:1:CPIC6.DAX:11:ecl:9b02";
     const guards = frame.combatArt.filter(([, , id]) => id === ready);
     assert.equal(guards.length, 19);
