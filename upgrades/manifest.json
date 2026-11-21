@@ -3170,6 +3170,8 @@
     "tile:1:5489a60945a1c69e6349b1dbbbfa55e6e0f2a04200f80cb2d4297b8177cee54c": "buccaneer-hardpack-joins-5489a60945a1.png",
     "tile:1:297ae58620a76aff7e45afd3c6c147f02104a51cd0202ea310ca5b2f4777faad": "buccaneer-hardpack-joins-297ae58620a7.png",
     "tile:1:9e23ea0fdb7a101530a3d4837088cd9fdd4a85e01ff96b422ec027b486078ffe": "buccaneer-hardpack-joins-9e23ea0fdb7a.png",
+    "scene-illustration:area:20:ecl:a24d": "slums-ohlo-rope-guild-directions.png",
+    "scene-illustration:area:20:ecl:b6df:caller:a251": "slums-ohlo-rope-guild-directions.png",
     "encounter:area:20:SPRIT2.DAX:24:1:0": "slums-ohlo-study-approach.png",
     "tile:1:89df930146c0d4434aa212d21c4e003dc235845c653f9907dcaf99bc2949f43b": "buccaneer-shell-hardpack-89df930146c0.png",
     "tile:1:de88ae2fda80902fc7a533c464374cdda40c8d748ac5a6e0ee32c004b1349170": "buccaneer-shell-hardpack-de88ae2fda80.png",

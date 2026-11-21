@@ -249,8 +249,10 @@ const encounterRoutes = new Map([
     slot: "B", inputs: ["up", "b", "b"],
     placement: [56, 32, "encounter:area:20:SPRIT2.DAX:24:1:0", 24, 65],
     approachSteps: [{
-      inputs: ["t", "n", "a"], placement: [56, 32, "encounter:area:20:SPRIT2.DAX:24:1:0", 24, 65],
+      inputs: ["t", "n"], placement: [56, 32, "encounter:area:20:SPRIT2.DAX:24:1:0", 24, 65],
     }],
+    dialogue: { key: "a", portrait: "scene-illustration:area:20:ecl:b6df:caller:a251",
+      prompt: /ITWAITSINABOOTHINTHEOLDROPEGUILD.*SPEAKMYNAME,OHLO/i },
     acceptedCommission: "commission-ohlo",
   }],
   ["yarash-study", {
@@ -5508,6 +5510,11 @@ try {
       assert.deepEqual(frame.tileInventory, terrain);
       await verifyApproach(placement);
     }
+    if (encounterRoute.acceptedCommission) {
+      await advance("j");
+      assert.notEqual(frame.journal?.leads.find(({ id }) => id === encounterRoute.acceptedCommission)?.status, "accepted");
+      await advance("j");
+    }
     const dialogueSteps = encounterRoute.dialogueSteps ?? (encounterRoute.dialogue ? [encounterRoute.dialogue] : []);
     for (const { key, keys = [key], portrait, prompt } of dialogueSteps) {
       for (const input of keys) await advance(input);
@@ -5541,6 +5548,11 @@ try {
       await advance("j");
       assert.equal(frame.journal?.leads.find(({ id }) => id === encounterRoute.acceptedCommission)?.status, "accepted");
       await advance("j");
+      if (routeName === "slums-ohlo-study-approach") {
+        await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /14,10E/i);
+      }
     }
     console.log(`Verified ${routeName} source frame, screen anchor, and mode switching in Chrome.`);
   } else if (routeName === "lizardfolk-battle-wall") {
