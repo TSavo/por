@@ -126,6 +126,7 @@ let travelExpanded = false;
 let activeTravel;
 const failedSurfaces = new Set();
 const skyByArea = {16: "swamp", 24: "bane", 28: "zhentil"};
+const streetSkyByArea = {...skyByArea, 7: "valjevo"};
 let discoveredMaps = {};
 let discoveredMapSlot;
 let geographyModel = { areas: [] };
@@ -711,7 +712,7 @@ function ensureStreetViewport(surface) {
     streetViewport?.renderer.dispose();
     streetViewport = undefined;
     canvas.style.setProperty("--sky-texture", `url("${streetAtlas.skyUrl}")`);
-    const sky = skyByArea[surface.area];
+    const sky = streetSkyByArea[surface.area];
     if (sky) canvas.dataset.sky = sky;
     else delete canvas.dataset.sky;
     const bytes = packed && atob(packed);

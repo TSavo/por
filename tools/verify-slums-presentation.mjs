@@ -9806,8 +9806,13 @@ try {
       if (!verifyHallsWebGL) return verifyTiledView(area, patterns);
       if (!frame.perspective) return 0;
       assert.equal(frame.scenery?.area, area);
-      sceneryAreas.add(frame.scenery.area);
       await waitForExplorationViewport();
+      if (!sceneryAreas.has(area)) {
+        if (area === 7) assert.equal(await run('document.querySelector(".street-viewport")?.dataset.sky'), "valjevo");
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `castle-halls-webgl-area-${area}.png`), Buffer.from(shot.data, "base64"));
+        sceneryAreas.add(area);
+      }
       return 1;
     }
     let views = await verifyHallView(20);
@@ -9847,6 +9852,7 @@ try {
     await switchBothWays();
     if (halls) {
       console.log(`Verified enhanced Valjevo hall views and the dragon dialogue${verifyHallsWebGL ? " with default WebGL exploration" : ""}.`);
+      if (verifyHallsWebGL) console.log("WebGL exploration captures:", directory);
     } else {
       const partyArt = new Set(["combat:party:73:93", "combat:party:73:81", "combat:party:69:90", "combat:party:0:3",
         "combat:party:2:5", "combat:party:74:88"]);
