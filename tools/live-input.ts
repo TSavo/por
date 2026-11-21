@@ -267,7 +267,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         ? glyphs.filter(([cell]) => cell < 640).sort(([a], [b]) => a - b)
           .map(([, character]) => String.fromCharCode(character)).join("").toUpperCase()
         : dialogue;
-      const picture = scene ? undefined : matchScriptIllustration(scriptKey, illustrationText, portraitKeys) ??
+      // The maze watch and Scriptorium guards finish the nod at the same ECL cursor.
+      const mazeWatchPassage = area === 4 && battleCursor === 0x9b63 &&
+        explorationPosition?.x === 4 && explorationPosition.y === 2;
+      const illustrationScope = mazeWatchPassage ? "scene-illustration:area:4:ecl:9ed5:caller:a08a" : scriptKey;
+      const picture = scene ? undefined : matchScriptIllustration(illustrationScope, illustrationText, portraitKeys) ??
         arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);
       const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;

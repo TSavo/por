@@ -7972,7 +7972,21 @@ try {
     for (const key of scriptoriumAuthority ? "tyranthraxus" : "harash") await advance(key);
     await advance("enter");
     assert.match(dialogue(), /WITHANODOFTHEHEADYOUARELEFTALONE/i);
-    assert.equal(frame.portrait, undefined);
+    if (mazeWatch) {
+      const mazeWatchPassage = "scene-illustration:area:4:ecl:9ed5:caller:a08a";
+      assert.equal(frame.portrait, mazeWatchPassage);
+      await waitFor("the maze watch stepping aside", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${mazeWatchPassage}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const mazePassageShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "valjevo-maze-watch-peaceful-passage.png"), Buffer.from(mazePassageShot.data, "base64"));
+      await switchBothWays(frame.frame);
+      await advance("up");
+      assert.equal(frame.portrait, undefined);
+      await waitForExplorationViewport();
+    } else {
+      assert.equal(frame.portrait, undefined);
+    }
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log(`Verified the guard portrait and peaceful passage on ${routeName} in Chrome.`);
   } else if (dungeonKitchen) {
