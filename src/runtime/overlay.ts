@@ -1,4 +1,5 @@
 import type { Cpu } from "../cpu/machine.js";
+import { loadExecutable } from "../lib/exepack.js";
 import { setStubDispatch, type FarFn } from "./far.js";
 
 /**
@@ -44,9 +45,9 @@ let pendingModules: SliceModule[] = [];
 
 export function installProgram(m: Cpu, exeFile: Uint8Array, ovr: Uint8Array): { cs: number; ip: number; ss: number; sp: number } {
   if (exeFile[0] !== 0x4d || exeFile[1] !== 0x5a) throw new Error("START.EXE is not an MZ file");
-  const headerParas = exeFile[8]! | (exeFile[9]! << 8);
-  const headerBytes = headerParas * 16;
-  const image = exeFile.subarray(headerBytes);
+  // Version 1.3 ships packed with EXEPACK. Either way the program goes in as it sits in memory.
+  const program = loadExecutable(exeFile);
+  const image = program.image;
   m.mem.set(image, 0);
 
   const modules = new Map(pendingModules.map((s) => [s.fileOffset, s]));
@@ -86,10 +87,7 @@ export function installProgram(m: Cpu, exeFile: Uint8Array, ovr: Uint8Array): { 
     para += Math.ceil(codeBytes / 16);
   }
 
-  const ip = exeFile[0x14]! | (exeFile[0x15]! << 8);
-  const cs = exeFile[0x16]! | (exeFile[0x17]! << 8);
-  const sp = exeFile[0x10]! | (exeFile[0x11]! << 8);
-  const ss = exeFile[0x0e]! | (exeFile[0x0f]! << 8);
+  const { cs, ip, ss, sp } = program;
   return { cs, ip, ss, sp };
 }
 

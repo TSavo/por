@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { loadExecutable } from "./exepack.js";
+import { loadExecutable } from "../src/lib/exepack.js";
 
 /** What differs between builds for finding their procedures. */
 export const gameVersions = {
