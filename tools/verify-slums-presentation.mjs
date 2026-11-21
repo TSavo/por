@@ -1454,14 +1454,28 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7", prompt: /GO.*STAY/i,
   }],
   ["lizard-wilds-kobold-prisoners", {
-    slot: "A", inputs: ["up", "enter", "enter"],
-    portrait: "portrait:area:26:PIC7.DAX:0:0:0", prompt: /RELEASEUS/i,
+    slot: "A", inputs: ["up", "enter", "enter", "z", "z", "z"],
+    portraitStops: {
+      3: "portrait:area:26:PIC7.DAX:0:0:0",
+      5: "portrait:area:26:ecl:a7b4:PIC7.DAX:0:1:0",
+    },
+    portrait: "portrait:area:26:ecl:a7b4:PIC7.DAX:0:2:0", prompt: /RELEASEUS/i,
+    phaseCaptures: { 5: "lizard-wilds-kobold-prisoners-phase-1.png" },
+    finalPhaseCapture: "lizard-wilds-kobold-prisoners-phase-2.png",
     continuation: { inputs: ["r"], prompt: /WATCHOUTFORTHEMUTANTLIZARDMEN.*THENRUNOUTTHEDOOR/i, portrait: "scene-illustration:area:26:ecl:a842" },
     journalLead: "lizard-wilds-mutant-warning",
   }],
   ["lizard-wilds-pool-dialogue", {
-    slot: "A", inputs: ["up", "a", "enter"],
-    portrait: "portrait:area:26:PIC7.DAX:57:0:0", prompt: /LIZARDMENSWIMMINGINTHEPOOL/i,
+    slot: "A", inputs: ["up", "a", "enter", ...Array(20).fill("z")],
+    portraitStops: {
+      3: "portrait:area:26:PIC7.DAX:57:0:0",
+      6: "portrait:area:26:ecl:ad46:caller:a6a0:PIC7.DAX:57:2:0",
+      7: "portrait:area:26:ecl:ad46:caller:a6a0:PIC7.DAX:57:3:0",
+    },
+    portrait: "portrait:area:26:ecl:ad46:caller:a6a0:PIC7.DAX:57:1:0", prompt: /LIZARDMENSWIMMINGINTHEPOOL/i,
+    phaseCaptures: { 6: "lizard-wilds-pool-phase-2.png", 7: "lizard-wilds-pool-phase-3.png" },
+    finalPhaseCapture: "lizard-wilds-pool-phase-1.png",
+    continuation: { inputs: ["enter"], portrait: "portrait:area:26:ecl:a6a9:PIC7.DAX:57:1:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["wild-cave-giant-snake-dialogue", {
     slot: "A", inputs: ["up", "enter"],
@@ -1632,15 +1646,21 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "valhingen-grave-claws-phase-7.png",
   }],
   ["kobold-white-flag-envoy", {
-    slot: "B", inputs: ["up", "enter", "enter"],
+    slot: "B", inputs: ["up", "enter", "enter", "enter", ...Array(22).fill("z")],
     approachSequence: [
       [56, 32, "encounter:area:13:ecl:9b8a:SPRIT8.DAX:0:1:0", 24, 65],
       [56, 32, "encounter:area:13:ecl:9bb1:SPRIT8.DAX:0:1:0", 24, 65],
       [56, 32, "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:1:0", 24, 65],
       [48, 32, "encounter:area:13:ecl:9bb2:SPRIT8.DAX:0:0:0", 40, 80],
     ],
-    portrait: "portrait:area:13:ecl:9c10:PIC8.DAX:0:0:0", prompt: /WEWILLPAYFORATRUCE/i,
-    continuation: { inputs: ["a"], portrait: "portrait:area:13:ecl:9c5e:PIC8.DAX:0:0:0", prompt: /IAMTOESCORTYOUTOOURTREASURE/i },
+    portraitStops: {
+      3: "portrait:area:13:ecl:9c10:PIC8.DAX:0:0:0",
+      6: "portrait:area:13:ecl:9c10:PIC8.DAX:0:2:0",
+    },
+    portrait: "portrait:area:13:ecl:9c10:PIC8.DAX:0:1:0", prompt: /WEWILLPAYFORATRUCE/i,
+    phaseCaptures: { 6: "kobold-white-flag-envoy-phase-2.png" },
+    finalPhaseCapture: "kobold-white-flag-envoy-phase-1.png",
+    continuation: { inputs: ["a"], portrait: "portrait:area:13:ecl:9c5e:PIC8.DAX:0:1:0", prompt: /IAMTOESCORTYOUTOOURTREASURE/i },
   }],
   ["kobold-throne-first-audience", {
     slot: "B", inputs: ["up", "enter", "enter", "enter"],
