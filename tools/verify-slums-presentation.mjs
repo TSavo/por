@@ -633,6 +633,18 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["bane-black-hand-emissary-phases", {
+    slot: "A",
+    inputs: [...Array.from({ length: 50 }, () => ["up", "down"]).flat(), "up", "enter", "enter",
+      ...Array(24).fill("z"), "p"],
+    portraitStops: {
+      103: "portrait:area:24:ecl:aeda:PIC1.DAX:4:0:0",
+      112: "portrait:area:24:ecl:aeda:caller:ad99:PIC1.DAX:4:2:0",
+    },
+    portrait: "portrait:area:24:ecl:b2ac:caller:ad99:PIC1.DAX:4:2:0",
+    prompt: /THEORCSREADYTHEIRSPEARS.*HAUGHTYSLYNICEMEEKABUSIVE/i,
+    continuation: { inputs: ["a"], clearsPortrait: true, prompt: /FEELTHEWRATHOFBANE/i },
+  }],
   ["stojanow-ettin-guardroom", {
     slot: "A",
     inputs: ["up", "enter", "enter", "enter", "enter"],
