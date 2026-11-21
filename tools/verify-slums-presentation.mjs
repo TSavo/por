@@ -2308,16 +2308,20 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "slums-monster-council-phase-1.png",
   }],
   ["textile-poison-frog-phases", {
-    slot: "B", inputs: ["s", "up", "up", "down", "up", "down", "enter", ...Array(17).fill("q")],
-    portraitStops: {
-      7: "portrait:area:2:PIC4.DAX:37:0:0",
-      15: "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:2:0",
-    },
-    portrait: "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+    slot: "B", inputs: ["s", "up", "up", "down", "up", "down", "enter", "q"],
+    portrait: "portrait:area:2:PIC4.DAX:37:0:0",
     prompt: /EVILLOOKINGFROGSBOILUPFROMBELOW/i,
-    phaseCaptures: { 15: "textile-poison-frogs-phase-2.png" },
-    finalPhaseCapture: "textile-poison-frogs-phase-1.png",
-    continuation: { inputs: ["enter"], portrait: "portrait:area:2:ecl:9aeb:PIC4.DAX:37:1:0", prompt: /ABATTLEBEGINS/i },
+    idlePortraits: [
+      "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+      "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:2:0",
+    ],
+    continuation: {
+      inputs: ["enter"], prompt: /ABATTLEBEGINS/i,
+      portraits: [
+        "portrait:area:2:ecl:9aeb:PIC4.DAX:37:1:0",
+        "portrait:area:2:ecl:9aeb:PIC4.DAX:37:2:0",
+      ],
+    },
   }],
   ["valjevo-dungeon-kitchen-phases", {
     slot: "B", inputs: ["j", "j", "up", "enter", ...Array(9).fill("q")],
@@ -8407,9 +8411,11 @@ try {
         await advance("j");
       }
       for (const key of continuation.inputs) await advance(key);
-      const nextPortrait = continuation.clearsPortrait ? undefined : continuation.portrait ?? portrait;
+      const nextPortrait = continuation.portraits ? frame.portrait :
+        continuation.clearsPortrait ? undefined : continuation.portrait ?? portrait;
+      if (continuation.portraits) assert.ok(continuation.portraits.includes(nextPortrait));
       assert.equal(frame.portrait, nextPortrait);
-      if (continuation.portrait) await waitFor("the enhanced continuation portrait", () => run(`
+      if (continuation.portrait || continuation.portraits) await waitFor("the enhanced continuation portrait", () => run(`
         document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
