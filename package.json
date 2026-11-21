@@ -12,6 +12,7 @@
     "verify:map-journal": "node tools/verify-map-journal.mjs",
     "verify:input": "node tools/verify-input.mjs",
     "verify:code-wheel": "python tools/verify-code-wheel.py",
+    "verify:code-wheel-screen": "node tools/verify-code-wheel-screen.mjs",
     "qa:inventory": "tsx tools/qa-inventory.ts",
     "qa:version-1.3": "tsx tools/qa-version-1.3.ts",
     "qa:disagreements": "tsx tools/qa-disagreements.ts",
