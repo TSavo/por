@@ -9792,9 +9792,9 @@ try {
       "right", "up", "b", "enter", "enter", "enter", "enter", "enter",
     ];
     for (const key of route) await advance(key);
-    const guard = "combat:area:20:CPIC2.DAX:2";
+    const guard = "combat:area:20:CPIC2.DAX:2:ecl:9f08";
     const leader = "combat:area:20:CPIC2.DAX:3:ecl:9f08";
-    const strike = "combat:area:20:CPIC2.DAX:130";
+    const strike = "combat:area:20:CPIC2.DAX:130:ecl:9f08";
     const present = id => frame.combatArt.some(placement => placement[2] === id);
     const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")]
       .some(img => img.src.endsWith(${JSON.stringify(id)}) && img.naturalWidth === 96 && img.naturalHeight === 96)`);

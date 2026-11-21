@@ -1473,6 +1473,8 @@
     "scene-illustration:area:21:ecl:ae31:caller:ace3": "sokal-ferran-mendor-histories.png",
     "portrait:area:21:ecl:ae31:caller:ad9e:PIC4.DAX:19:0:0": "sokal-ferran-farewell.png",
     "portrait:area:21:ecl:ae31:caller:a4f3:PIC4.DAX:17:0:0": "sokal-barracks-diary-clue.png",
+    "combat:area:20:CPIC2.DAX:2:ecl:9f08": "slums-goblin-infantry-ready.png",
+    "combat:area:20:CPIC2.DAX:130:ecl:9f08": "slums-goblin-infantry-strike.png",
     "combat:area:20:CPIC2.DAX:3:ecl:9f08": "slums-goblin-instructor-ready.png",
     "combat:area:20:CPIC2.DAX:131:ecl:9f08": "slums-goblin-instructor-strike.png",
     "portrait:area:18:ecl:b240:caller:a79b:PIC1.DAX:16:0:0": "podal-auction-overheard.png",
