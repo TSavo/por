@@ -9236,12 +9236,20 @@ try {
     assert.ok(knows("river-fountain") && !knows("river-equipment-destroyed"));
     assert.match(frame.journal.objective.nextStep, /Destroy the Equipment/);
     for (const key of ["j", "enter", "enter", "d"]) await advance(key);
-    assert.notEqual(frame.portrait, "scene-illustration:area:23:ecl:9a04:caller:a855");
+    const shutdown = "scene-illustration:area:23:ecl:9bef";
+    assert.equal(frame.portrait, shutdown);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /YOUHAVEDESTROYEDTHELASTPIECEOFEQUIPMENT/i);
+    await waitFor("the destroyed fountain equipment illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${shutdown}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
     await advance("j");
     assert.ok(knows("river-equipment-destroyed") && !knows("river-recovery"));
     assert.equal(frame.journal.leads.find(({ id }) => id === "commission-river")?.status, "ready-to-report");
     assert.match(frame.journal.objective.nextStep, /council clerk/);
-    for (const key of ["j", "e", "s", "s", "a"]) await advance(key);
+    for (const key of ["j", "e"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    for (const key of ["s", "s", "a"]) await advance(key);
     const completed = JSON.parse(readFileSync(saved, "utf8"));
     assert.equal(completed.leads.find(({ id }) => id === "commission-river")?.status, "ready-to-report");
     assert.ok(completed.leads.some(({ id }) => id === "river-equipment-destroyed"));
