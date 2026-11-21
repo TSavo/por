@@ -1,4 +1,4 @@
-"""Check the code wheel layout in src/codewheel/wheel.json.
+"""Check the code wheel layout and Enhanced PNGs.
 
     python tools/verify-code-wheel.py           check the layout
     python tools/verify-code-wheel.py --words   also print the word at every position of every path
@@ -11,10 +11,13 @@ the outer disc's ring r at position (w - dethek + espruar) mod 36. Read from the
 The 13 questions are the ones in the version 1.3 program (qa/research/code-wheel.md). Every one
 must read the word the program expects.
 """
-import json, sys
+import json
+import struct
+import sys
 from pathlib import Path
 
-wheel = json.loads((Path(__file__).resolve().parents[1] / "src" / "codewheel" / "wheel.json").read_text())
+root = Path(__file__).resolve().parents[1]
+wheel = json.loads((root / "src" / "codewheel" / "wheel.json").read_text())
 N = wheel["positions"]
 # The words in the game's own table, in the order the game numbers them.
 GAME = ["BEWARE", "ZOMBIE", "NOTNOW", "COPPER", "DRAGON", "EFREET", "FRIEND", "JUNGLE", "KNIGHT", "SAVIOR",
@@ -50,9 +53,38 @@ if len(wheel["questions"]) != len(GAME):
 words = {path: [read(turn, 0, path) for turn in range(N)] for path in PATHS}
 if len({frozenset(found) for found in words.values()}) != 1 or len(set(words[PATHS[0]])) != N:
     problems.append("the three paths should give the same 36 different words")
+else:
+    first_path = words[PATHS[0]]
+    for path in PATHS[1:]:
+        start = words[path].index(first_path[0])
+        if words[path][start:] + words[path][:start] != first_path:
+            problems.append(f"{path} does not read the words in the same cyclic order")
+
+art = {
+    "outer-disc": (2048, 2048),
+    "inner-disc": (2048, 2048),
+    "background": (2048, 1280),
+    **{f"path-{path}": (512, 64) for path in PATHS},
+}
+for disc, alphabet in (("outer", "espruar"), ("inner", "dethek")):
+    art[f"{alphabet}-translate-tab"] = (512, 256)
+    art.update({id: (32, 32) for id in wheel[disc]["runes"] if id != "translate-tab"})
+art_dir = root / "upgrades" / "codewheel"
+for unexpected in sorted({file.stem for file in art_dir.glob("*.png")} - art.keys()):
+    problems.append(f"unexpected code wheel PNG: {unexpected}.png")
+for id, size in art.items():
+    file = art_dir / f"{id}.png"
+    if not file.is_file():
+        problems.append(f"missing code wheel PNG: {file.name}")
+        continue
+    with file.open("rb") as stream:
+        header = stream.read(29)
+    if (len(header) != 29 or header[:16] != b"\x89PNG\r\n\x1a\n\x00\x00\x00\x0dIHDR"
+            or struct.unpack(">II", header[16:24]) != size or header[25] != 6):
+        problems.append(f"{file.name} must be a {size[0]}×{size[1]} RGBA PNG")
 if problems:
     raise SystemExit("\n".join(problems))
 if "--words" in sys.argv:
     for path in PATHS:
         print(f"{path}: {' '.join(words[path])}")
-print(f"verified the code wheel: all {len(GAME)} of the game's questions read their word, and each path gives the same {N} words")
+print(f"verified the code wheel: {len(GAME)} questions, {N} words in the same order on all paths, {len(art)} PNGs")

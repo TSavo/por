@@ -12,8 +12,8 @@ The facts about the original are in [qa/research/code-wheel.md](../qa/research/c
 
 Two discs, one on top of the other, each with 36 positions, 10 degrees apart.
 
-- **Outer disc.** 36 Espruar runes around its rim. Inside the rim, six rings of 36 letters.
-- **Inner disc.** Smaller, turns on the same centre. 36 Dethek runes around its rim, and three
+- **Outer disc.** 35 Espruar runes and a translate tab around its rim. Inside the rim, six rings of 36 letters.
+- **Inner disc.** Smaller, turns on the same centre. 35 Dethek runes, a translate tab, and three
   paths. A path is a line of six windows running from the centre outward, one window over each
   letter ring. The three paths are marked the way the game draws them: dashes, dash-dot-dot, dots.
 
@@ -66,8 +66,8 @@ In `por-assets/gog-1.3/codewheel-art/`: GOG's 70 redrawn rune tiles and their co
 | 11 | VULCAN | `espruar-15` | `dethek-07` | dots |
 | 12 | WYVERN | `espruar-11` | `dethek-26` | dashes |
 
-Questions 2 and 12 use the same Espruar rune. The player matches the wheel against what the
-game's prompt shows, so these 12 Espruar and 13 Dethek runes above all must stay recognisable.
+Questions 2 and 12 use the same Espruar rune. The Enhanced challenge prompt uses the same rune
+tiles as the wheel so players can match them reliably. Classic keeps the game's own glyphs.
 
 ## Artwork to make
 
@@ -76,15 +76,15 @@ They go in `upgrades/codewheel/`, named by slot.
 
 ### Runes: 70 pieces
 
-One picture per rune, 512 by 256 (the runes are wider than tall), the rune centred with clear
+One picture per rune, 32 by 32, the rune centred with clear
 space around it, transparent background, upright. The page turns each to sit on its rim.
 
 - **35 Espruar runes:** `espruar-00.png` to `espruar-35.png`, without 26, which is the tab.
 - **35 Dethek runes:** `dethek-00.png` to `dethek-35.png`, without 04, which is the tab.
 
-Each must be the rune in its reference picture in `por-assets/codewheel/runes/`, redrawn, not
-reinvented. Espruar is the Elvish script, flowing and curved; Dethek is the Dwarvish one, cut in
-straight strokes.
+Each Enhanced tile uses the corresponding physical slot from `por-assets/codewheel/runes/`.
+Use flowing, curved forms for Espruar and straight, cut strokes for Dethek. The Enhanced challenge
+prompt and the wheel rim use the same tile for a given slot so the player can match the pair.
 
 ### Tabs and path marks: 5 pieces
 
@@ -108,18 +108,20 @@ Follow the scans for the look of the discs: printed card, two discs joined at th
 
 ## Geometry the page uses
 
-Fractions of the outer disc's radius, measured from the centre. Position 0 is at the top and
-positions run clockwise.
+Fractions of the outer disc's radius, measured from the centre of the 822 × 822 scans. Position 0
+is at the top and positions run clockwise. The outer scan has a radius of about 410 pixels and the
+inner disc has a radius of about 356 pixels on the same scan scale.
 
 | Part | From | To |
 | --- | ---: | ---: |
-| Letter rings 1 (innermost) to 6 | 0.20 | 0.56, six equal bands |
-| Inner disc edge | | 0.62 |
-| Dethek runes, on the inner disc | 0.56 | 0.62 |
-| Espruar runes, on the outer disc | 0.86 | 0.98 |
+| Letter ring centres 1 (innermost) to 6 | 0.36 | 0.69, at roughly 0.065 intervals |
+| Inner disc edge | | 0.87 |
+| Dethek rim band | 0.73 | 0.87 |
+| Espruar rim band | 0.82 | 1.00 |
 
-The letter rings lie under the inner disc and show only through its windows. These fractions are
-a starting point and have not been measured from the scans yet; the page will follow the scans.
+The letter rings lie under the inner disc and show only through its windows. The inner disc
+overlaps the inside of the Espruar rim band, so centre the Espruar marks near 0.94 and the Dethek
+marks near 0.80.
 
 ## Not built yet
 
