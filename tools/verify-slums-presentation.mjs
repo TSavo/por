@@ -7843,6 +7843,19 @@ try {
       assert.notEqual(frame.portrait, note);
       await step("enter");
       assert.match(text(), /YOUHAVEALSOTAKENPOSSESSIONOFAHIDEOUT.*RESTUNDISTURBED/i);
+      const hideout = "scene-illustration:area:29:ecl:9f1a";
+      assert.equal(frame.portrait, hideout);
+      await waitFor("the hideout illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${hideout}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const hideoutShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "kuto-norris-hideout.png"), Buffer.from(hideoutShot.data, "base64"));
+      await switchBothWays();
+      await step("down");
+      await step("up");
+      assert.notEqual(frame.portrait, hideout);
+      assert.match(text(), /5,4N/i);
+      await waitForExplorationViewport();
     } else {
       await advance("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-courtyard-note"));
