@@ -3058,6 +3058,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "mendor-buried-book.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /DOYOUTAKEIT/i },
   }],
+  ["mendor-gold-foil", {
+    slot: "B", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:9962:cue:gold-foil", prompt: /YOUFINDABOXWHICHCONTAINSGOLDFOIL/i,
+    finalPhaseCapture: "mendor-gold-foil.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /DOYOUTAKEIT/i },
+  }],
   ["mendor-fresco-room", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:15:ecl:a738:cue:fresco-room", prompt: /FRESCOESONTHEWALLSOFLEARNEDMENANDTHEHEAVENLYPATRONS/i,
