@@ -1327,7 +1327,7 @@ const illustrationRoutes = new Map([
   ["valjevo-audience-bodyguards", {
     slot: "B", inputs: ["right", "up", "up", "enter", "enter", "enter"],
     requireTiledApproach: false,
-    approachSequence: [[48, 32, "encounter:area:7:SPRIT5.DAX:16:0:0", 40, 80]],
+    approachSequence: [[48, 32, "encounter:area:7:ecl:a5d8:SPRIT5.DAX:16:0:0", 40, 80]],
     portrait: "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1",
     prompt: /TWOGUARDSMOVETOBARYOURPATH.*GUARDS.KILLTHESEPESTS/i,
   }],
