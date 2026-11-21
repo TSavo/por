@@ -537,6 +537,8 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["valhingen-paladin-crypt.png", ["The warrior lies in an open stone coffin", "The helmet and full armor are readable at gameplay size"]],
   ["buccaneer-captain-arrives.png", ["Four chainmail guards are visible", "One guard enters through the doorway with the captain"]],
   ["buccaneer-captain-draws-sword.png", ["The captain has his sword drawn", "A guard behind him responds to the call to attack"]],
+  ["buccaneer-captain-defeated.png", ["The fallen captain is recognizable from his clothing in the preceding scenes", "His sword lies loose on the floor"]],
+  ["sokal-moldy-stable.png", ["Stall partitions identify the building as a stable", "Visible mold and fungi cover the decaying interior"]],
   ["yarash-torture-chamber.png", ["An assortment of torture implements", "A large central table", "Visible metal restraints"]],
   ["yarash-alchemical-laboratory.png", ["Shelves lining the wall", "Flasks and bottles of alchemical preparations"]],
   ["yarash-vat-emergence-approach.png", ["One mutant lizardman is visibly climbing out of a vat"]],
