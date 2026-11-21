@@ -795,6 +795,14 @@ const illustrationRoutes = new Map([
       inputs: ["b", "p"], portrait: "scene-illustration:area:16:ecl:a65a", prompt: /2LIZARDMENANDAGIANTLIZARDCHARGEATYOU/i,
     },
   }],
+  ["swamp-giant-lizard-surprise", {
+    slot: "A", inputs: ["up", "b", "enter", "enter"],
+    portraitStops: { 3: "scene-illustration:area:16:ecl:a9cc:cue:giant-lizard-surprise" },
+    portrait: "scene-illustration:area:16:ecl:a6ce:cue:giant-lizard-surprise",
+    prompt: /3GIANTLIZARDSAPPEARFROMBEHINDAMOUNDOFRUBBLE.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "swamp-giant-lizard-surprise.png",
+    continuation: { inputs: ["enter"], prompt: /HITPOINTS\d+AC/i, clearsPortrait: true },
+  }],
   ["swamp-ruin-defenders-surprise", {
     slot: "A", inputs: ["up", "b", "enter", "enter"],
     portraitStops: { 3: "scene-illustration:area:16:ecl:a6c6:cue:ruin-defenders-surprise" },
