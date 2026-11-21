@@ -599,6 +599,12 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["bane-hidden-trapdoor", {
+    slot: "A", inputs: ["right", "up", "right", "s", "up"],
+    portrait: "scene-illustration:area:24:ecl:a8af:caller:a847",
+    prompt: /ONTHEFLOORYOUFINDATRAPDOOR\.WILLYOUOPENIT\?/i,
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["swamp-friend-word-charge", {
     slot: "A", inputs: ["up", "b", "p", "enter", ..."wrong", "enter", "y"],
     portrait: "scene-illustration:area:16:ecl:a65a",
@@ -6662,6 +6668,12 @@ try {
     await verifyPortraitPanel();
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
+    if (routeName === "bane-hidden-trapdoor") {
+      assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+        /OPENTRAPDOORLEAVETRAPDOOR/i);
+      const trapdoorShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-hidden-trapdoor.png"), Buffer.from(trapdoorShot.data, "base64"));
     }
     if (illustration.proclamations) {
       const noticeShot = await command("Page.captureScreenshot", { format: "png" });
