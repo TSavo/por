@@ -324,8 +324,8 @@ const encounterRoutes = new Map([
   }],
   ["pyramid-vats-lizard-approach", {
     slot: "A", inputs: ["s", "up", "enter"],
-    placement: [48, 32, "encounter:area:23:SPRIT7.DAX:57:0:0", 48, 80],
-    dialogue: { key: "enter", portrait: "portrait:area:23:PIC7.DAX:57:0:0", prompt: /POKINGAROUNDINTHEVATS/i },
+    placement: [48, 32, "encounter:area:23:ecl:a1b9:SPRIT7.DAX:57:0:0", 48, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:0:0", prompt: /POKINGAROUNDINTHEVATS/i },
   }],
   ["stojanow-patrol-fighter-approach", {
     slot: "A", inputs: ["up", "enter"],
@@ -6719,11 +6719,16 @@ try {
     console.log(`Verified ${routeName} illustration, panel fit, and mode switching in Chrome.`);
   } else if (routeName === "pyramid-lizardfolk-vats") {
     for (const key of ["s", "up", "enter", "enter"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:area:23:PIC7.DAX:57:0:0");
+    assert.equal(frame.portrait, "portrait:area:23:ecl:9a04:caller:a236:PIC7.DAX:57:0:0");
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /POKINGAROUNDINTHEVATS/i);
     await waitFor("the vat ambush illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    console.log("Verified the Yarash vat ambush illustration in Chrome.");
+    await advance("enter");
+    assert.equal(frame.portrait, "portrait:area:23:ecl:a23f:PIC7.DAX:57:0:0");
+    await advance("enter");
+    assert.equal(frame.portrait, undefined);
+    assert.equal(frame.combatArt.filter(([, , id]) => id === "combat:area:23:CPIC7.DAX:57:ecl:a23f").length, 3);
+    console.log("Verified the Yarash vat ambush illustration and three combatants in Chrome.");
   } else if (routeName === "kobold-cave-efreeti-dialogue") {
     const knows = id => frame.journal?.leads.some(lead => lead.id === id);
     for (const key of ["s", "up", "p", "enter", "enter"]) await advance(key);
