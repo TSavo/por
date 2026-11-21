@@ -770,6 +770,13 @@ const illustrationRoutes = new Map([
     journalLead: "swamp-friend-word-charge", journalLeadAtDiscovery: true,
     continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i, portrait: "scene-illustration:area:16:ecl:a6ce:cue:ruin-defenders-charge" },
   }],
+  ["swamp-central-keep-rubble", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:16:ecl:a6f2:cue:central-keep-rubble",
+    prompt: /YOUENTERTHEREMAINSOFTHECENTRALKEEP.*THECEILINGANDWALLSHAVECOLLAPSED.*THEINTERIORISCHOKEDWITHRUBBLE/i,
+    finalPhaseCapture: "swamp-central-keep-rubble.png",
+    continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i, clearsPortrait: true },
+  }],
   ["swamp-roofless-ruin", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:16:ecl:a65a:cue:roofless-ruin",
