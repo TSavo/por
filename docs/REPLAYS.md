@@ -38,9 +38,10 @@ instructions have passed since the last key.
 The campaign key lists were written against the first release under the
 old rule. To move them to version 1.3, the campaign was run once on the
 first release with recording, and then on 1.3 following that record. The
-records now in the repository are the ones the 1.3 run itself wrote. On
-2026-11-21 both builds produced the same records for all 11 legs, 1,003
-prompts.
+records now in the repository are the ones the 1.3 run itself wrote: 11
+legs, 1,003 prompts. On 2026-11-21 the two builds produced identical
+records for 10 of the 11 legs. In the first leg, 1.3 makes one more print
+call during character creation, so its counts run one ahead from there.
 
 ## The legacy extra presses
 
