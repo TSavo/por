@@ -10,7 +10,7 @@ import { encounterAnchor, encounterKey } from "./encounter-art.js";
 import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 import { encodePng, pngDimensions } from "./png.js";
 import { loadCombatMaterialMasks, loadUpgradeArt, type ArtworkLoadIssue } from "./upgrade-art.js";
-import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, matchScriptIllustration, portraitKey, scriptIllustrations } from "./portrait-art.js";
+import { characterSheetPartKey, compositePortraitKey, loadPortraitArt, matchScriptIllustration, portraitKey, scriptIllustrations, usesPortraitDelta } from "./portrait-art.js";
 import { combatEffectKey, transformCombatEffectPixels, combatSelectionKey, isCombatExtent, loadCombatArtMatcher, monsterCombatKey, partyCombatKey, randomCombatKey } from "./combat-art.js";
 
 const families = [
@@ -778,6 +778,33 @@ const tallIconCoverage = combatHeads.filter(({ id }) => id >= 64 && id <= 77)
 const defaultHumanIconCoverage = tallIconCoverage.filter(({ head }) => head === 64);
 const encounterArtByPixels = new Map<string, { id: string; preview: string }[]>();
 const portraitArtByBlockAndPixels = new Map<string, { id: string; preview: string }[]>();
+function matchEquivalentPortraitDeltas(file: string, directoryIndex: number, member: number, frame: number) {
+  if (member === 0 || frame !== 0) return [];
+  const key = `${file}:${directoryIndex}`;
+  const knownPhases = (replacementsByBlock.get(key) ?? []).filter(({ id, source }) =>
+    usesPortraitDelta(id) && source && source.member > 0 && source.frame === 0 && !source.transform);
+  if (!knownPhases.length) return [];
+  const metadata = archives.find(archive => archive.file === file)?.entries[directoryIndex]?.pictures;
+  if (metadata?.[0]?.selector === undefined || metadata[member]?.selector === undefined) return [];
+  const base = classicPicture(file, directoryIndex, 0);
+  const delta = classicPicture(file, directoryIndex, member);
+  if (base.width !== 88 || base.height !== 88 || delta.width !== 88 || delta.height !== 88 ||
+      base.itemCount !== 1 || delta.itemCount !== 1 || base.x !== delta.x || base.y !== delta.y) return [];
+  const restoresBase = delta.pixels.every(color => color === 0);
+  portraitFrame.blit(base.pixels.map((pixel, index) => pixel ^ delta.pixels[index]!), 88, 88, 24, 24);
+  const matches = new Set<string>();
+  for (const { id } of knownPhases) {
+    const [, area, cursor, caller] = /^portrait:area:(\d+):ecl:([a-f0-9]{4})(?::caller:([a-f0-9]{4}))?:/.exec(id) ?? [];
+    if (area === undefined || cursor === undefined) continue;
+    const match = matchPortrait(portraitFrame, Number(area), Number.parseInt(cursor, 16),
+      caller === undefined ? undefined : Number.parseInt(caller, 16));
+    if (typeof match !== "string") continue;
+    const source = replacementsById.get(match)?.source;
+    if (source?.archive !== file || source.directoryIndex !== directoryIndex || source.frame !== 0) continue;
+    if (restoresBase ? source.member === 0 : match === id) matches.add(match);
+  }
+  return [...matches];
+}
 function framePixelSignature(width: number, height: number, pixels: Uint8Array) {
   return `${width}×${height}:${createHash("sha256").update(pixels).digest("hex")}`;
 }
@@ -810,15 +837,23 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\
         })).filter(({ frame }) => !linked.has(`${member}:${frame}`));
       });
     });
-    const pixelMatchedFrames = unlinkedFrames.flatMap(source => {
+    const exactMatches = unlinkedFrames.flatMap(source => {
       const width = source.width / artScale, height = source.height / artScale;
       let replacement: string | undefined;
       let reflected: boolean | undefined;
+      let equivalentPortraits: string[] | undefined;
       if (file.startsWith("PIC") && width === 88 && height === 88) {
         const picture = classicPicture(file, source.directoryIndex, source.member);
         portraitFrame.blit(frameSlice(picture, source.frame), width, height, 24, 24);
         const match = matchPortrait(portraitFrame);
         if (typeof match === "string") replacement = match;
+        if (!replacement) {
+          const equivalents = matchEquivalentPortraitDeltas(file, source.directoryIndex, source.member, source.frame);
+          if (equivalents.length) {
+            equivalentPortraits = equivalents;
+            replacement = equivalents[0];
+          }
+        }
       } else if (file.startsWith("CPIC") && isCombatExtent(width, height)) {
         const picture = classicPicture(file, source.directoryIndex, source.member);
         const pixels = frameSlice(picture, source.frame);
@@ -839,9 +874,9 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\
           if (exact) [, , replacement, reflected] = match;
         }
       }
-      return replacement ? [{ ...source, replacement, reflected, replacementPreview: replacementsById.get(replacement)!.preview }] : [];
+      return replacement ? [{ ...source, replacement, reflected, equivalentPortraits, replacementPreview: replacementsById.get(replacement)!.preview }] : [];
     });
-    const pixelMatchedIds = new Set(pixelMatchedFrames.map(({ id }) => id));
+    const pixelMatchedIds = new Set(exactMatches.map(({ id }) => id));
     const remainingFrames = unlinkedFrames.filter(({ id }) => !pixelMatchedIds.has(id)).map(source => {
       const picture = classicPicture(file, source.directoryIndex, source.member);
       const pixels = frameSlice(picture, source.frame);
@@ -882,12 +917,18 @@ const encounterCoverage = archives.filter(({ file }) => /^(?:(?:PIC|SPRIT|CPIC)\
       return { ...source, preview, pixelSignature, uniform, scopedCandidates, encounterCandidates, portraitCandidates,
         scopedPortraitCandidates };
     });
-    return { file, frames, matched: frames - unlinkedFrames.length, pixelMatchedFrames, unlinkedFrames: remainingFrames };
+    return {
+      file, frames, matched: frames - unlinkedFrames.length,
+      pixelMatchedFrames: exactMatches.filter(match => !match.equivalentPortraits),
+      composedPortraitMatches: exactMatches.filter(match => match.equivalentPortraits),
+      unlinkedFrames: remainingFrames,
+    };
   }).filter(({ frames }) => frames > 0);
 const encounterTotals = encounterCoverage.reduce((total, row) => ({
   frames: total.frames + row.frames,
   matched: total.matched + row.matched,
   matchedByPixels: total.matchedByPixels + row.pixelMatchedFrames.length,
+  matchedByComposedPortrait: total.matchedByComposedPortrait + row.composedPortraitMatches.length,
   remaining: total.remaining + row.unlinkedFrames.length,
   uniformUnlinked: total.uniformUnlinked + row.unlinkedFrames.filter(({ uniform }) => uniform).length,
   withScopedCandidates: total.withScopedCandidates + row.unlinkedFrames.filter(({ scopedCandidates }) => scopedCandidates.length).length,
@@ -895,7 +936,7 @@ const encounterTotals = encounterCoverage.reduce((total, row) => ({
   withPortraitCandidates: total.withPortraitCandidates + row.unlinkedFrames.filter(({ portraitCandidates }) => portraitCandidates.length).length,
   withScopedPortraitMatches: total.withScopedPortraitMatches +
     row.unlinkedFrames.filter(({ scopedPortraitCandidates }) => scopedPortraitCandidates.length).length,
-}), { frames: 0, matched: 0, matchedByPixels: 0, remaining: 0, uniformUnlinked: 0, withScopedCandidates: 0,
+}), { frames: 0, matched: 0, matchedByPixels: 0, matchedByComposedPortrait: 0, remaining: 0, uniformUnlinked: 0, withScopedCandidates: 0,
   withEncounterCandidates: 0, withPortraitCandidates: 0, withScopedPortraitMatches: 0 });
 const unlinkedScriptPictures = scriptReferences.flatMap(reference => {
   const [archive] = reference.candidates;
@@ -927,8 +968,9 @@ const encounterFamilies = [
     frames: total.frames + row.frames,
     linked: total.linked + row.matched,
     exact: total.exact + row.pixelMatchedFrames.length,
+    composed: total.composed + row.composedPortraitMatches.length,
     unlinked: total.unlinked + row.unlinkedFrames.length,
-  }), { frames: 0, linked: 0, exact: 0, unlinked: 0 });
+  }), { frames: 0, linked: 0, exact: 0, composed: 0, unlinked: 0 });
   return { label, ...totals, distinctUnlinked };
 });
 writeFileSync(join(output, "index.html"), `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -946,7 +988,7 @@ figcaption{margin-bottom:.5rem}figure p{font-size:.85rem;color:#d6c9b4}img{image
 .coverage-table{border-collapse:collapse;margin:.75rem 0}.coverage-table th,.coverage-table td{padding:.25rem .75rem;text-align:right;border-bottom:1px solid #514738}
 </style><h1>Pool of Radiance art inventory</h1>
 <p><strong>${replacements.length} loaded replacement entries</strong> · ${loadedPngs} PNG files · ${archives.length} source archives</p>
-<p><a href="#archive-coverage">Archive coverage</a> · <strong>${encounterTotals.matched + encounterTotals.matchedByPixels} of ${encounterTotals.frames} source frames covered</strong> · ${encounterTotals.remaining} unlinked</p>
+<p><a href="#archive-coverage">Archive coverage</a> · <strong>${encounterTotals.frames - encounterTotals.remaining} of ${encounterTotals.frames} source frames covered</strong> · ${encounterTotals.remaining} unlinked</p>
 ${scriptedScenePngs ? `<p><a href="#scripted-scene-illustrations">Scripted scene illustrations</a> · <strong>${scriptedScenePngs} distinct PNGs</strong></p>` : ""}
 ${artworkLoadIssues.length ? `<details><summary>${artworkLoadIssues.length} artwork loading issues</summary><ul>${
   artworkLoadIssues.map(({ manifest, id, reason }) =>
@@ -997,22 +1039,28 @@ ${explorationCoverage.map(({ area, captured, matched }) => {
   return `<tr><th scope="row">${area}</th><td>${captured}</td><td>${matched}</td><td>${gap}</td></tr>`;
 }).join("")}
 </tbody></table></details>` : ""}
-<details id="archive-coverage"><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} linked · ${encounterTotals.matchedByPixels} exact matches · ${encounterTotals.remaining} unlinked</summary>
-<p>An area-specific replacement counts once for the source frame. Exact matches use replacements the browser's global portrait or combat matcher already finds. Composite portraits are listed under Runtime artwork.</p>
+<details id="archive-coverage"><summary>Scene, encounter, and combat archives · ${encounterTotals.matched} linked · ${encounterTotals.matchedByPixels} global exact · ${encounterTotals.matchedByComposedPortrait} composed equivalents · ${encounterTotals.remaining} unlinked</summary>
+<p>An area-specific replacement counts once for the source frame. Global exact matches use the unscoped browser matcher. Composed equivalents use the portrait matcher in a verified animation scope. Route traces record which frames the guest draws. Head/body portraits are listed under Runtime artwork.</p>
 ${reflectedEffectCount ? `<p>${reflectedEffectCount} reflected combat effect replacements share the source frames counted below.</p>` : ""}
 <p>Distinct unlinked bitmaps count identical pixels and dimensions once per art family. Each scene still needs its own placement and context checked.</p>
-<table class="coverage-table"><thead><tr><th>Art family</th><th>Source frames</th><th>Linked</th><th>Exact matches</th><th>Unlinked</th><th>Distinct unlinked bitmaps</th></tr></thead><tbody>
-${encounterFamilies.map(({ label, frames, linked, exact, unlinked, distinctUnlinked }) =>
-  `<tr><th scope="row">${label}</th><td>${frames}</td><td>${linked}</td><td>${exact}</td><td>${unlinked}</td><td>${distinctUnlinked}</td></tr>`).join("")}
+<table class="coverage-table"><thead><tr><th>Art family</th><th>Source frames</th><th>Linked</th><th>Global exact</th><th>Composed equivalents</th><th>Unlinked</th><th>Distinct unlinked bitmaps</th></tr></thead><tbody>
+${encounterFamilies.map(({ label, frames, linked, exact, composed, unlinked, distinctUnlinked }) =>
+  `<tr><th scope="row">${label}</th><td>${frames}</td><td>${linked}</td><td>${exact}</td><td>${composed}</td><td>${unlinked}</td><td>${distinctUnlinked}</td></tr>`).join("")}
 </tbody></table>
-<table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>Linked</th><th>Exact matches</th><th>Unlinked</th></tr></thead><tbody>
-${encounterCoverage.map(({ file, frames, matched, pixelMatchedFrames, unlinkedFrames }) =>
-  `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${pixelMatchedFrames.length}</td><td>${unlinkedFrames.length ? `<a href="#unlinked-archive-${escape(file)}">${unlinkedFrames.length}</a>` : "0"}</td></tr>`).join("")}
+<table class="coverage-table"><thead><tr><th>Archive</th><th>Source frames</th><th>Linked</th><th>Global exact</th><th>Composed equivalents</th><th>Unlinked</th></tr></thead><tbody>
+${encounterCoverage.map(({ file, frames, matched, pixelMatchedFrames, composedPortraitMatches, unlinkedFrames }) =>
+  `<tr><th scope="row">${escape(file)}</th><td>${frames}</td><td>${matched}</td><td>${pixelMatchedFrames.length}</td><td>${composedPortraitMatches.length}</td><td>${unlinkedFrames.length ? `<a href="#unlinked-archive-${escape(file)}">${unlinkedFrames.length}</a>` : "0"}</td></tr>`).join("")}
 </tbody></table></details>
-<details><summary>Exact portrait and combat matches · ${encounterTotals.matchedByPixels}</summary>
+<details><summary>Global exact portrait and combat matches · ${encounterTotals.matchedByPixels}</summary>
 <table class="coverage-table"><thead><tr><th>Source ID</th><th>Replacement ID</th><th>Preview</th></tr></thead><tbody>
 ${encounterCoverage.flatMap(({ pixelMatchedFrames }) => pixelMatchedFrames).map(({ id, replacement, replacementPreview, reflected }) =>
   `<tr><th scope="row"><code>${escape(id)}</code></th><td><code>${escape(replacement)}</code>${reflected ? " · mirrored" : ""}</td><td><a href="${escape(replacementPreview)}">Enhanced PNG</a></td></tr>`).join("")}
+</tbody></table></details>
+<details><summary>Composed portrait equivalents · ${encounterTotals.matchedByComposedPortrait}</summary>
+<table class="coverage-table"><thead><tr><th>Source ID</th><th>Existing replacement IDs</th></tr></thead><tbody>
+${encounterCoverage.flatMap(({ composedPortraitMatches }) => composedPortraitMatches).map(({ id, equivalentPortraits }) =>
+  `<tr><th scope="row"><code>${escape(id)}</code></th><td>${equivalentPortraits!.map(key =>
+    `<div><a href="${escape(replacementsById.get(key)!.preview)}"><code>${escape(key)}</code></a></div>`).join("")}</td></tr>`).join("")}
 </tbody></table></details>
 ${unlinkedScriptPictures.length ? `<details id="unlinked-script-pictures"><summary>Unlinked pictures referenced by scripts · ${unlinkedScriptFrames.size} distinct frames across ${unlinkedScriptPictures.length} references</summary>
 <p>${unlinkedScriptFirstMemberCount} first-member frames and ${unlinkedScriptFrames.size - unlinkedScriptFirstMemberCount} secondary-member frames. Secondary members can be animation fragments applied to the base picture. Replay the scene to confirm which images appear.</p>

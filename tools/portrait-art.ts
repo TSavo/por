@@ -320,6 +320,10 @@ const verifiedPortraitDeltaKeys = new Set([
 ]);
 export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(HEAD\d+\.DAX):(\d{1,3}):(BODY\d+\.DAX):(\d{1,3})$/;
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
+export function usesPortraitDelta(key: string) {
+  return roamingZombieAnimationKey.test(key) || riverLizardfolkDeltaKey.test(key) || verifiedPortraitDeltaKeys.has(key);
+}
+
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:23:ecl:a469:cue:password-sign", "SIXDWARVISHRUNES"],
@@ -928,7 +932,7 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
     const picture = decodePicture(record.data);
     if (picture.width !== size || picture.height !== size || Number(frame) >= picture.itemCount) continue;
     const pixels = frameSlice(picture, Number(frame));
-    if (!roamingZombieAnimationKey.test(key) && !riverLizardfolkDeltaKey.test(key) && !verifiedPortraitDeltaKeys.has(key)) {
+    if (!usesPortraitDelta(key)) {
       register(pixels, key);
       continue;
     }
