@@ -42,7 +42,9 @@ ordinary play and which start from controlled saves.
   turn-in. The party sells the reward jewelry to pay for healing and two
   resurrections, then rests at the New Phlan lodging. Use
   `--from-sokal-council <slot-H>` to replay recovery and reload all six
-  original fighters in slot E.
+  original fighters in slot E. Use `--from-sokal-lodging <slot-E>` to
+  replay the Podal Plaza auction, report the exchange to City Hall, and
+  reload Cadorna's Textile House commission in slot A.
 - The Encamp journal tracks witnessed clues and the selected commission in
   the active save slot. The art inventory tracks individual replacements,
   placement metadata, and observed gaps. [Art inventory](docs/ART-INVENTORY.md)

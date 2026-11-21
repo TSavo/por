@@ -15,8 +15,8 @@ const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker or --from-sokal-council with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--from-sokal-lodging", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker or --from-sokal-council with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, --from-sokal-lodging with slot E, or --replay-leg with a recorded leg directory.");
 }
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
@@ -412,7 +412,7 @@ async function verifyFighterTrainingJournal() {
   console.log("Verified the fighter trainer's directions are discovered in play and retained after reloading slot H.");
 }
 
-async function verifyPodalFromCouncil(continuation) {
+async function verifyPodalFromCouncil(continuation, fromLodging = false) {
   const load = loadSlot;
   const checkAuction = (status) => (_text, frame) =>
     assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-auction")?.status, status);
@@ -428,7 +428,11 @@ async function verifyPodalFromCouncil(continuation) {
     }, "j"] : []),
     "w", ...payerSelection, "enter", "enter", "right", ...Array(4).fill("up"), "enter", "enter", "enter", "s",
     (text) => assert.match(text, /20,29 e/),
-    "enter", "enter", "up", ...Array(4).fill("right"), "enter",
+    "enter", "enter", "up", ...Array(12).fill(text => {
+      if (/merchants.*combat wait flee parlay/.test(text)) return "p";
+      assert.doesNotMatch(text, /combat wait flee parlay/);
+      if (!/24,28 e/.test(text)) return "right";
+    }), "enter",
     (text) => assert.match(text, /western edge of the city.*north south leave/),
   ];
   const westboundFromJunction = (verifyAuction = false) => [
@@ -438,8 +442,8 @@ async function verifyPodalFromCouncil(continuation) {
     "right", "up", "up", "enter", "enter", "right", ...Array(6).fill("up"),
     ...westboundFromJunction(verifyAuction),
   ];
-  const arrival = await replay(load("2368"), "85000000", [
-    (text) => assert.match(text, /5,5 e/),
+  const arrival = await replay(load(fromLodging ? "1265" : "2368"), "85000000", [
+    (text) => assert.match(text, fromLodging ? /6,12 w/ : /5,5 e/),
     "j", checkAuction("accepted"), (_text, frame) => {
       assert.ok(!frame.journal.leads.some(({ id }) => id.startsWith("auction-")));
       const index = frame.journal.leads.filter(({ status }) => status && status !== "turned-in")
@@ -447,7 +451,11 @@ async function verifyPodalFromCouncil(continuation) {
       assert.ok(index >= 0);
       return `track ${index + 1}`;
     }, "j",
-    "right", "right", "up", ...westboundToGate(true),
+    ...(fromLodging ? [
+      "right", "right", "up", "left", "up", "left", ...Array(4).fill("up"),
+      "right", ...Array(8).fill("up"), "right", ...Array(7).fill("up"),
+      ...westboundFromJunction(true),
+    ] : ["right", "right", "up", ...westboundToGate(true)]),
     "n", "enter", "enter",
     (text) => assert.match(text, /the plaza ahead is crowded with monsters.*disguise/),
     "j", (_text, frame) => {
@@ -459,8 +467,15 @@ async function verifyPodalFromCouncil(continuation) {
     "end", "enter", "enter", "enter", "e", "s", "s", "i",
   ]);
   assert.match(visibleText(arrival), /0,4 w.*quit to dos/);
+  const walkPodalStreet = (position) => Array(24).fill(text => {
+    if (/who are you.*haughty sly nice/.test(text)) return "s";
+    assert.doesNotMatch(text, /settlers! kill them|a battle begins/);
+    if (!position.test(text)) return "up";
+  });
   const reachAuction = [
-    "right", "right", ...Array(7).fill("up"), "right", "up", "up", "enter",
+    "right", "right", ...walkPodalStreet(/7,4 e.*area cast view encamp/),
+    (text) => assert.match(text, /7,4 e/),
+    "right", ...walkPodalStreet(/7,6 s.*area cast view encamp/), "enter",
     (text) => assert.match(text, /the auctioneer cries/),
   ];
   const plazaSave = readFileSync(join(saveDir, "I.json"));
@@ -518,15 +533,15 @@ async function verifyPodalFromCouncil(continuation) {
   assert.match(visibleText(result), /quit to dos/);
   const cadornaSave = await replay(load("246a"), "85000000", [
     "j", checkAuction("ready-to-report"), checkExchange, "j",
-    "right", "right", "up", "up", "left", ...Array(8).fill("up"), "enter", "enter",
+    "right", "right", "up", "up", "left", ...walkPodalStreet(/0,4 w.*area cast view encamp/),
+    (text) => assert.match(text, /0,4 w/), "up", "enter", "enter",
     "l", ...Array(4).fill("left"), "down", "enter",
     (text) => assert.match(text, /take boat stay/),
     "t", "enter", "enter", "enter", ...Array(4).fill("up"),
     "left", "up", "right", "up", "left", "up", "right", ...Array(6).fill("up"),
     "left", "up", "up", "left", "up", "left", "up", "up", "enter",
     (text) => assert.match(text, /your success at podal plaza is noted/),
-    "enter",
-    (text) => assert.match(text, /each character receives \d+ experience points/),
+    ["enter", /each character receives \d+ experience points/, 4],
     "enter", "enter", "s", "e", "n", ...Array(8).fill("enter"), "j", checkAuction("turned-in"), "j",
     "up", "up",
     (text) => assert.match(text, /family treasure was hidden in the western building/),
@@ -1643,12 +1658,19 @@ if (campaign && ["--from-sokal-trained", "--from-sokal-courtyard"].includes(camp
   if (trained) await verifyTrainedSokalCourtyard();
   await verifySokalCourtyardAftermath();
   await verifySokalCouncilRecovery();
+  await verifyPodalFromCouncil("--auction-only", true);
   process.exit(0);
 }
 
 if (campaign && campaignOption === "--from-sokal-council") {
   copyFileSync(campaignInput, join(saveDir, "H.json"));
   await verifySokalCouncilRecovery();
+  process.exit(0);
+}
+
+if (campaign && campaignOption === "--from-sokal-lodging") {
+  copyFileSync(campaignInput, join(saveDir, "E.json"));
+  await verifyPodalFromCouncil("--auction-only", true);
   process.exit(0);
 }
 
