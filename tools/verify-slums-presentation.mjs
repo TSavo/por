@@ -6718,8 +6718,32 @@ try {
         const declinedRoomShot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "new-phlan-innkeeper-declined.png"), Buffer.from(declinedRoomShot.data, "base64"));
         await switchBothWays(frame.frame);
-        for (const key of ["down", "up"]) await advance(key);
+        await advance("down");
+        await waitFor("the frame before re-entering the inn street view", () => run(
+          `state.sequence === ${frame.sequence} && renderingSequence === undefined`));
+        await run(`(() => {
+          const fetchOriginal = window.fetch;
+          window.innFrameBeforeLoading = screen.src;
+          window.innLayerBeforeLoading = document.querySelector("#tile-art").firstElementChild;
+          const gate = new Promise(resolve => { window.releaseInnMaterials = resolve; });
+          streetAtlas = undefined;
+          window.fetch = async (url, options) => {
+            if (typeof url === "string" && url.startsWith("/exploration-materials/")) {
+              window.fetch = fetchOriginal;
+              window.innMaterialsPending = true;
+              await gate;
+            }
+            return fetchOriginal(url, options);
+          };
+        })()`);
+        await advance("up");
         assert.equal(frame.portrait, undefined);
+        await waitFor("the delayed inn street atlas", () => run(
+          `state.sequence === ${frame.sequence} && window.innMaterialsPending`));
+        assert.ok(await run(`screen.src === window.innFrameBeforeLoading &&
+          document.querySelector("#tile-art").firstElementChild === window.innLayerBeforeLoading &&
+          renderingSequence === state.sequence`));
+        await run("window.releaseInnMaterials()");
         await waitForExplorationViewport();
         assert.match(frame.scenery.materialId, /^[0-9a-f]{64}$/);
         const materialResponse = await fetch(`${origin}/exploration-materials/${frame.scenery.materialId}`);

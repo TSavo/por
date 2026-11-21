@@ -1018,6 +1018,10 @@ async function showScreen() {
       else if (viewport) {
         viewport.renderer.draw(streetScene);
         streetCanvas = viewport.canvas;
+      } else if (streetScene.materialId === "overland" ? overlandLoading : streetLoading) {
+        // The pending viewport will redraw when its assets settle. Keep the
+        // complete previous view visible in the meantime.
+        return;
       }
     } catch (error) {
       disableStreetPreview(error);
