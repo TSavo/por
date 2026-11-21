@@ -9683,10 +9683,31 @@ try {
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "river-equipment-destroyed"));
     assert.equal(knowsRecovery(), false);
-    for (const key of ["j", "right", "right", "up", "enter", "j"]) await advance(key);
+    for (const key of ["j", "right", "right", "up"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    await advance("enter");
+    const recovery = "scene-illustration:area:22:ecl:ad46:caller:af09";
+    assert.equal(frame.portrait, recovery);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
+      /asyouleavethesorcerer'spyramid.*thelandisalreadybeginningtorecoverfromthealchemicalpollution/i);
+    await waitFor("the recovering river illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${recovery}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait[src="/art/${recovery}"]')?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const recoveryShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "pyramid-river-recovery.png"), Buffer.from(recoveryShot.data, "base64"));
+    await advance("j");
     assert.ok(knowsRecovery());
     assert.match(frame.journal.objective.nextStep, /Barren River.*east.*south.*landing.*Take Boat.*council clerk/i);
-    for (const key of ["j", "enter", "enter", "g", "enter", "e", "s", "s", "a"]) await advance(key);
+    for (const key of ["j", "enter"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /20,17N/i);
+    await waitFor("the river scene to clear", () => run(`state.sequence === ${frame.sequence} &&
+      !document.querySelector(".encounter-portrait")`));
+    await advance("enter");
+    assert.equal(frame.portrait, "portrait:PIC7.DAX:36:0:0");
+    for (const key of ["g", "enter", "e", "s", "s", "a"]) await advance(key);
     const exited = JSON.parse(readFileSync(saved, "utf8"));
     assert.ok(exited.leads.some(({ id }) => id === "river-recovery"));
     console.log("Verified the original pyramid exit and saved the witnessed river recovery. Saved:", saved);
