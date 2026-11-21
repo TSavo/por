@@ -659,6 +659,11 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["swamp-drythh-followers-wait-base", {
+    slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter", "enter"],
+    portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:0:0", prompt: /COMBATWAITFLEEPARLAY/i,
+    continuation: { inputs: ["w"], portrait: "portrait:area:16:ecl:a560:PIC8.DAX:57:0:0", prompt: /ABATTLEBEGINS/i },
+  }],
   ["swamp-drythh-followers-wait-early", {
     slot: "A", inputs: ["up", "b", "p", "enter", ..."savior", "enter", "y", "enter", "enter", "n", "enter", "enter", "enter", "z"],
     portrait: "portrait:area:16:ecl:a535:PIC8.DAX:57:1:0", prompt: /COMBATWAITFLEEPARLAY/i,
@@ -2070,6 +2075,11 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "valjevo-medusa-phase-7.png",
     continuation: { inputs: ["c"], portrait: "portrait:area:7:ecl:9e3e:PIC5.DAX:49:7:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ["tyrmor-prison-stirge-combat-base", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "down"]).flat(), "up", "enter", "down", "q", "q"],
+    portrait: "portrait:area:22:ecl:a32f:PIC7.DAX:61:0:0", prompt: /THEYFLYTOWARDYOU/i,
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:61:0:0", prompt: /ABATTLEBEGINS/i },
+  }],
   ["tyrmor-prison-stirge-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "down"]).flat(), "up", "enter", "down", "q", "q", "q"],
     portraitStops: {
@@ -2081,6 +2091,11 @@ const illustrationRoutes = new Map([
     prompt: /THEYFLYTOWARDYOU/i,
     finalPhaseCapture: "tyrmor-prison-stirge-phase-1.png",
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:61:1:0", prompt: /ABATTLEBEGINS/i },
+  }],
+  ["tyrmor-prison-kobolds-combat-first", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 4 }, () => ["up", "down"]).flat(), "up", "enter", "down", "up", "q", "q"],
+    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:0:1:0", prompt: /ONELICKSITSLIPS/i,
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:0:1:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-prison-kobolds-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 4 }, () => ["up", "down"]).flat(), "up", "enter", "down", "up", "q", "q", "q"],
