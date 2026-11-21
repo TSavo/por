@@ -10407,23 +10407,26 @@ try {
       document.querySelector('.encounter-portrait[src="/art/${overview}"]')?.naturalWidth === 352`));
     await verifyPortraitPanel();
     await switchBothWays();
-    const penPhases = new Map([1, 2, 3, 4].map(member =>
-      [overview.replace(/:0:0$/, `:${member}:0`), member]));
-    for (let input = 0; input < 16 && (penPhases.size || frame.portrait !== overview); input++) {
-      await advance("z");
-      const penPhase = frame.portrait;
-      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /PENFORHOLDINGSLAVES/i);
-      const member = penPhases.get(penPhase);
-      if (member === undefined) continue;
-      await waitFor("the captive pen animation phase", () => run(`state.sequence === ${frame.sequence} &&
-        document.querySelector('.encounter-portrait[src="/art/${penPhase}"]')?.naturalWidth === 352`));
-      await verifyPortraitPanel();
-      const shot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, `buccaneer-captive-pen-phase-${member}.png`), Buffer.from(shot.data, "base64"));
-      penPhases.delete(penPhase);
+    async function verifyPenAnimation(portrait, caption, filename) {
+      const phases = new Map([1, 2, 3, 4].map(member =>
+        [portrait.replace(/:0:0$/, `:${member}:0`), member]));
+      for (let input = 0; input < 24 && (phases.size || frame.portrait !== portrait); input++) {
+        await advance("z");
+        const phase = frame.portrait;
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), caption);
+        const member = phases.get(phase);
+        if (member === undefined) continue;
+        await waitFor(`the ${filename} animation phase`, () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${phase}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `${filename}-phase-${member}.png`), Buffer.from(shot.data, "base64"));
+        phases.delete(phase);
+      }
+      assert.deepEqual([...phases.keys()], []);
+      assert.equal(frame.portrait, portrait);
     }
-    assert.equal(penPhases.size, 0);
-    assert.equal(frame.portrait, overview);
+    await verifyPenAnimation(overview, /PENFORHOLDINGSLAVES/i, "buccaneer-captive-pen");
     await advance("j");
     assert.ok(frame.journal.leads.some(({ id }) => id === "rescue-slave-pen"));
     assert.ok(!frame.journal.leads.some(({ id }) => id === "rescue-identified-heir"));
@@ -10436,6 +10439,7 @@ try {
     await waitFor("the Bivant heir identification", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelector('.encounter-portrait[src="/art/${identification}"]')?.naturalWidth === 352`));
     await verifyPortraitPanel();
+    await verifyPenAnimation(identification, /HEART-SHAPEDBIRTHMARKONHISLEFTSHOULDER/i, "buccaneer-bivant-identification");
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-identified-heir"));
     assert.match(frame.journal.objective.nextStep, /Choose Rescue Boy/);
