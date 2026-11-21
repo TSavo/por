@@ -4693,6 +4693,8 @@
     "tile:18:2edd110cf91808f0a5ee3278775fb06c10f1fe395dc8428421ed98467575cecf": "podal-south-arcade-terrain-2edd110cf918.png",
     "tile:18:93eec02f48227e4eef2a0087cb562c7a4c3389d1f66ec9bd9e1837a1f203600e": "podal-south-arcade-terrain-93eec02f4822.png",
     "portrait:PIC5.DAX:55:0:0": "valjevo-hill-giant-dialogue.png",
+    "portrait:area:3:ecl:a3d0:PIC5.DAX:55:0:0": "valjevo-apartment-giants-dialogue.png",
+    "portrait:area:3:ecl:a44a:PIC5.DAX:55:0:0": "valjevo-apartment-giants-dialogue.png",
     "tile:16:784649fd6bb508accc7db1173bed5ad60547301a43cab64de04fa3b995eee5c8": "lizard-east-bank-terrain-784649fd6bb5.png",
     "tile:16:6f73ff25190335af564679d65a7f6cee7abee3ebd8ada434a3b4e50e7c33d5cc": "lizard-east-bank-terrain-6f73ff251903.png",
     "tile:16:2ffe4dfefbf0fc2efe851667d574d76965974c3c994f3b200afe6ce4ae7def6b": "lizard-east-bank-terrain-2ffe4dfefbf0.png",

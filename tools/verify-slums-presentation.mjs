@@ -1712,7 +1712,9 @@ const illustrationRoutes = new Map([
   }],
   ["valjevo-apartment-giants-approach", {
     slot: "B", inputs: ["up", "up", "enter", "enter"],
-    portrait: "portrait:PIC5.DAX:55:0:0", prompt: /THEGIANTSSTANDINFRONTOFYOULOOKINGSUSPICIOUS/i,
+    portrait: "portrait:area:3:ecl:a3d0:PIC5.DAX:55:0:0", prompt: /THEGIANTSSTANDINFRONTOFYOULOOKINGSUSPICIOUS/i,
+    finalPhaseCapture: "valjevo-apartment-giants-dialogue.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:3:ecl:a44a:PIC5.DAX:55:0:0", prompt: /ABATTLEBEGINS/i },
     approachSequence: [[40, 32, "encounter:area:3:ecl:a3d0:SPRIT5.DAX:55:0:0", 48, 80]],
     requireTiledApproach: false,
   }],
