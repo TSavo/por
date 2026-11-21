@@ -1981,6 +1981,8 @@
     "encounter:area:1:ecl:9abe:SPRIT6.DAX:16:0:0": "buccaneer-escort-interception-approach.png",
     "portrait:area:1:ecl:9b01:HEAD6.DAX:6:BODY6.DAX:3": "buccaneer-escort-interception-dialogue.png",
     "portrait:area:1:ecl:b52f:PIC6.DAX:42:0:0": "buccaneer-bivant-rescue.png",
+    "scene-illustration:area:1:ecl:b57a:cue:bivant-leaves-pen": "buccaneer-bivant-leaves-pen.png",
+    "scene-illustration:area:1:ecl:b5a5:cue:bivant-leaves-pen": "buccaneer-bivant-leaves-pen.png",
     "portrait:area:1:ecl:9e62:PIC6.DAX:42:0:0": "buccaneer-captive-pen-overview.png",
     "portrait:area:1:ecl:b5f7:caller:9e66:PIC6.DAX:42:0:0": "buccaneer-captive-pen-overview.png",
     "portrait:area:1:ecl:b5f7:caller:9e66:PIC6.DAX:42:1:0": "buccaneer-captive-pen-reaching.png",

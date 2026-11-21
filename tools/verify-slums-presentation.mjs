@@ -9379,7 +9379,20 @@ try {
       [48, 32, "encounter:area:1:ecl:9abe:SPRIT6.DAX:16:0:0", 40, 80],
     ];
     await observeApproach(interception, true, true);
-    for (const key of ["up", "enter", "g", "right", "up", "right", "up", "up"]) await advance(key);
+    for (const key of ["up", "enter", "g"]) await advance(key);
+    const rescueExit = "scene-illustration:area:1:ecl:b5a5:cue:bivant-leaves-pen";
+    assert.equal(frame.portrait, rescueExit);
+    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""),
+      /YOUTAKETHEYOUNGBOYANDLEAVE.*THEOTHERSLAVESALSORUNOUTTHESLAVEPEN/i);
+    await waitFor("the illustrated exit from the slave pen", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${rescueExit}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const exitShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "bivant-leaves-pen.png"), Buffer.from(exitShot.data, "base64"));
+    for (const key of ["right", "up"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
+    for (const key of ["right", "up", "up"]) await advance(key);
     assert.deepEqual(frame.animation?.flatMap(({ encounter }) => encounter ? [encounter] : []), interception);
     await waitFor("all three Bivant escort distances over WebGL", () => run("window.observedApproach.size === 3"));
     assert.deepEqual(await run("[...window.observedApproach]"), interception.map(([, , id]) => id));
