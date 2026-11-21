@@ -32,6 +32,13 @@ Press **F10** or select **Enhanced display** to use replacement art where
 available and the web font for game text. Both display modes share the
 running game and save slots.
 
+Enhanced exploration uses WebGL by default. In an exploration view,
+**3D view** switches between WebGL and the 2D tile view. Story illustrations
+and combat use their own presentation. The local server loads the browser
+code at startup. After updating the checkout, save through Encamp and
+restart `npm run play` to serve the new code. Reloading Chrome alone
+continues to use the code loaded by the running server.
+
 Use **Map** to open the current area map. In Enhanced mode on the
 Moonsea overland map, select an available landmark to follow its route.
 Select **Phlan** to choose among available district approaches. Along the
