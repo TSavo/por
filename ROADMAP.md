@@ -123,6 +123,15 @@ it. [The measured differences](qa/research/version-1.3-differences.md): the
 data is identical, 28 of 29 scripts are identical, and 608 of our 831
 procedures are the same or nearly the same.
 
+**Goal:** the port runs version 1.3, passes every check the current build
+passes, and all authored work carries over intact: artwork, narration,
+sound, the journal, fast travel and the maps. Then the whole game is checked
+against 1.3 and the walkthrough. `npm run qa:version-1.3` counts what is
+left in each part and fails while anything is left. On 2026-11-21 it counts
+1,044: 788 procedures to translate, 83 artwork keys and 35 narration units
+to move, 20 sound events to verify again, 112 host addresses to name and
+map, and 6 checks to pass.
+
 - Teach the translator EXEPACK and the `FBOV` overlay file, and generate
   the 1.3 translation beside the current one.
 - Move every code and data address the host uses into one named table, and
@@ -131,6 +140,9 @@ procedures are the same or nearly the same.
   the campaign replays, and `npm run verify:map-journal`.
 - Move New Phlan's script-keyed narration and art by the three bytes 1.3
   adds after `0xa42d`.
+- Decode the 1.3 sound driver, render its 20 events, and check them against
+  the original bytes again. The driver and most of its data differ from the
+  earlier program, so the Classic WAV files have to be made again.
 - Switch to 1.3 once it passes, and retire the early build.
 
 ### Translation

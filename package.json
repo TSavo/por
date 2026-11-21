@@ -12,6 +12,7 @@
     "verify:map-journal": "node tools/verify-map-journal.mjs",
     "verify:input": "node tools/verify-input.mjs",
     "qa:inventory": "tsx tools/qa-inventory.ts",
+    "qa:version-1.3": "tsx tools/qa-version-1.3.ts",
     "preview:new-phlan": "tsx tools/new-phlan-3d-prototype.ts",
     "typecheck": "tsc --noEmit",
     "tools": "tsx tools/cli.ts",
