@@ -122,9 +122,13 @@ function checkBrowserArtPacks(): void {
   const zombieKeys = [0xb56c, 0xb58c].map(cursor => `portrait:area:10:ecl:${cursor.toString(16)}:PIC4.DAX:35:0:0`);
   for (const key of zombieKeys) deepStrictEqual(declared.has(key), true);
   const matchZombie = loadPortraitArt(zombieKeys, false, root);
-  for (const delta of deltas) {
+  const matchClassicPortrait = loadPortraitArt([], true, root);
+  deepStrictEqual(matchClassicPortrait(new Frame(320, 200)), undefined);
+  for (const [index, delta] of deltas.entries()) {
     const screen = new Frame(320, 200);
     screen.blit(base.map((pixel, index) => pixel ^ delta[index]!), 88, 88, 24, 24);
+    const sources = matchClassicPortrait(screen);
+    ok(Array.isArray(sources) && sources.includes(`portrait:PIC4.DAX:35:${index + 1}:0`));
     deepStrictEqual(matchZombie(screen, 10, 0xb56c), zombieKeys[0]);
     deepStrictEqual(matchZombie(screen, 10, 0xb58c), zombieKeys[1]);
     deepStrictEqual(matchZombie(screen, 10, 0xb695), undefined);

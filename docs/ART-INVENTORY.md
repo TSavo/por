@@ -38,6 +38,9 @@ Set `POR_PORTRAIT_TRACE_FILE` to capture the first occurrence of each
 portrait fallback per script context in a browser session. Pass that
 JSONL or NDJSON file alongside any tile traces. The gallery lists the observed
 fallbacks with their candidate source IDs, area, and browser frame number.
+Candidate IDs can identify an animation member when XORing it with its
+compatible base exactly matches the native viewport. A candidate still
+needs an Enhanced binding and a replay in the observed scene.
 It also shows the script context and dialogue for fallbacks whose source is unidentified.
 
 At Buccaneer Base, choosing **Punch Merchant** at Bivant's pen and

@@ -519,6 +519,14 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
     }
   }
   if (includeClassic) {
+    function registerClassicSource(pixels: Uint8Array, source: string) {
+      // Cleared viewports and solid-color placeholders are not portraits.
+      if (pixels.every(color => color === pixels[0])) return;
+      const signature = Buffer.from(pixels).toString("base64");
+      const sources = classicSources.get(signature) ?? [];
+      if (!sources.includes(source)) sources.push(source);
+      classicSources.set(signature, sources);
+    }
     for (const [name, file] of files) {
       if (/^(?:HEAD|BODY)\d+\.DAX$/.test(name)) {
         const head = name.startsWith("HEAD");
@@ -536,18 +544,22 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
       }
       if (!/^PIC\d+\.DAX$/.test(name)) continue;
       for (const { id, data } of archiveData(file).entries) {
-        for (const [memberIndex, member] of pictureMembers(data).entries()) {
+        const members = pictureMembers(data);
+        const baseRecord = members[0];
+        const base = members.length > 1 && baseRecord?.selector !== undefined ? decodePicture(baseRecord.data) : undefined;
+        for (const [memberIndex, member] of members.entries()) {
           const picture = decodePicture(member.data);
           if (picture.width !== size || picture.height !== size) continue;
           for (let frame = 0; frame < picture.itemCount; frame++) {
-            const pixels = frameSlice(picture, frame);
-            // Solid-color records are placeholders, and can also match a
-            // cleared perspective pane in the original menus.
-            if (pixels.every((color) => color === pixels[0])) continue;
-            const signature = Buffer.from(pixels).toString("base64");
-            const sources = classicSources.get(signature) ?? [];
-            sources.push(`portrait:${name}:${id}:${memberIndex}:${frame}`);
-            classicSources.set(signature, sources);
+            registerClassicSource(frameSlice(picture, frame), `portrait:${name}:${id}:${memberIndex}:${frame}`);
+          }
+          if (memberIndex > 0 && base && member.selector === baseRecord?.selector &&
+              base.width === size && base.height === size && base.itemCount === 1 && picture.itemCount === 1 &&
+              base.x === picture.x && base.y === picture.y && picture.pixels.some(Boolean)) {
+            // A compatible member can be a change XORed into the base.
+            // Report the source only if the complete native viewport matches.
+            registerClassicSource(base.pixels.map((pixel, index) => pixel ^ picture.pixels[index]!),
+              `portrait:${name}:${id}:${memberIndex}:0`);
           }
         }
       }
