@@ -2061,6 +2061,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "tyrmor-priest-sighting.png",
     continuation: { inputs: ["enter", "a", "a"], portrait: "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30", prompt: /RAISESHISHANDINBENEDICTION/i },
   }],
+  ["tyrmor-teleport-flash", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:a151:cue:teleport-flash", prompt: /THEREISAFLASH.*FINDYOURSELVES.*ELSEWHERE/i,
+    finalPhaseCapture: "tyrmor-teleport-flash.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /NAMEACHP.*AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["tyrmor-prison-priest", {
     slot: "B", inputs: ["up", "enter", "a", "a"],
     approachStops: {
