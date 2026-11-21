@@ -854,6 +854,13 @@ const illustrationRoutes = new Map([
     prompt: /THEBUGBEARTAKESTHEMONEYANDTHEGATEOPENS.*YOUPROCEEDTHROUGH/i,
     continuation: { inputs: ["enter", "up"], prompt: /8,4N.*AREACASTVIEWENCAMP|AREACASTVIEWENCAMP.*8,4N/i, clearsPortrait: true },
   }],
+  ["stojanow-mage-barracks-alarm", {
+    slot: "A", inputs: ["up", "enter", "enter", "enter", "enter", "c"],
+    portraitStops: { 5: "portrait:HEAD2.DAX:52:BODY2.DAX:31" },
+    portrait: "scene-illustration:area:9:ecl:a2a5:cue:mage-barracks-alarm", prompt: /ANALARMSTARTSRINGING/i,
+    finalPhaseCapture: "stojanow-mage-barracks-alarm.png",
+    continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i, clearsPortrait: true },
+  }],
   ["stojanow-fighter-barracks-alarm", {
     slot: "A", inputs: ["up", "enter", "enter", "enter", "enter", "c"],
     portraitStops: { 5: "portrait:HEAD2.DAX:11:BODY2.DAX:2" },
