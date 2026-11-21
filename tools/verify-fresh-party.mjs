@@ -15,8 +15,8 @@ const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--from-sokal-lodging", "--from-textile-commission", "--from-castle-ending", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with slot D, --from-sokal or --from-textile-commission with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker or --from-sokal-council with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, --from-sokal-lodging with slot E, --from-castle-ending with slot B, or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--from-sokal-lodging", "--from-textile-commission", "--from-castle-ending", "--from-castle-guards", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with slot D, --from-sokal or --from-textile-commission with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker or --from-sokal-council with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, --from-sokal-lodging with slot E, --from-castle-ending or --from-castle-guards with slot B, or --replay-leg with a recorded leg directory.");
 }
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
@@ -2803,7 +2803,8 @@ if (["--textile-sealed-return-checkpoint", "--textile-opened-return-checkpoint"]
   process.exit(0);
 }
 
-if (process.argv[2] === "--castle-ending-checkpoint" || campaign && campaignOption === "--from-castle-ending") {
+const fromCastleGuards = campaign && campaignOption === "--from-castle-guards";
+if (process.argv[2] === "--castle-ending-checkpoint" || campaign && campaignOption === "--from-castle-ending" || fromCastleGuards) {
   const source = campaign ? campaignInput : process.argv[3];
   const saveAtWestGate = !campaign && process.argv[4] === "--save-at-west-gate";
   assert.ok(campaign || !process.argv[4] || saveAtWestGate, "Expected --save-at-west-gate.");
@@ -2815,31 +2816,50 @@ if (process.argv[2] === "--castle-ending-checkpoint" || campaign && campaignOpti
   const victoryLead = "castle-tyranthraxus-defeated";
   await replay(loadSlot("3062"), "85000000", [
     "j", (_text, frame) => assert.ok(!frame.journal.leads.some(({ id }) => id === victoryLead)), "j",
-    "right", ...Array(4).fill("up"),
-    (text) => assert.match(text, /audience hall of tyranthraxus/),
-    ...Array(5).fill("enter"),
-    (text) => assert.match(text, /how do you vote.*attack join tyranthraxus/),
-    ...Array(6).fill("a"), "enter", "enter", "q",
+    ...(fromCastleGuards ? [
+      "up", (text) => assert.match(text, /go down these stairs/), "y",
+      (text) => assert.match(text, /audience hall of tyranthraxus/),
+      "enter", "enter", "enter", "c", "enter",
+      (text) => assert.match(text, /8th lvl fighter hitpoints/),
+      ":win-combat", ["q", /continue battle:yes no/, 30], "n",
+      (text) => assert.match(text, /the party has won.*experience points/),
+      "enter", "enter", "enter", "s", "e", "n", "enter", "enter", "enter",
+      (text) => assert.match(text, /how do you vote.*attack join tyranthraxus/),
+      ["a", /a battle begins/, 8], "a",
+    ] : [
+      "right", ...Array(4).fill("up"),
+      (text) => assert.match(text, /audience hall of tyranthraxus/),
+      ...Array(5).fill("enter"),
+      (text) => assert.match(text, /how do you vote.*attack join tyranthraxus/),
+      ...Array(6).fill("a"), "enter", "enter", "q",
+    ]),
     (text) => assert.match(text, /tyrani?thraxus hitpoints 80 ac -4/),
-    ...Array(32).fill("q"),
+    ...(fromCastleGuards ? [":win-combat"] : Array(32).fill("q")),
     (text) => assert.match(text, /continue battle:yes no/),
-    "n", (text) => assert.match(text, /the party has won.*receives 917 experience points/),
+    "n", (text) => assert.match(text, fromCastleGuards
+      ? /the party has won.*receives \d+ experience points/
+      : /the party has won.*receives 917 experience points/),
     "enter", "enter", "e", ...Array(9).fill("enter"),
     (text) => assert.match(text, /0,4 e.*gateway to the unsettled areas/),
-    "j", checkCastle("ready-to-report"), (_text, frame) => {
+    ...(fromCastleGuards ? [] : ["j", checkCastle("ready-to-report"), (_text, frame) => {
       assert.ok(frame.journal.leads.some(({ id }) => id === victoryLead));
       assert.match(frame.journal.objective.nextStep, /east from the west gate.*south into City Hall.*council clerk/i);
-    }, "j",
+    }, "j"]),
     ...(saveAtWestGate ? ["e", "s", "s", "d"] : [
       "up", "up", "up", "enter", "up", "right", "up", "enter", "enter", "enter",
       "up", "left", "up", "up", "enter",
       (text) => assert.match(text, /your quest is over.*tyranthraxus is defeated.*phlan is free/),
-      "enter", (text) => assert.match(text, /receives 67500 experience points/),
-      "enter", "enter", "j", checkCastle("reward-pending"), "j", "s", "e",
-      ...Array(4).fill("enter"), "j", checkCastle("turned-in"), "j",
+      "enter", (text) => assert.match(text, fromCastleGuards
+        ? /receives \d+ experience points/
+        : /receives 67500 experience points/),
+      "enter", "enter",
+      ...(fromCastleGuards ? [] : ["j", checkCastle("reward-pending"), "j"]),
+      "s", "e",
+      ...(fromCastleGuards ? ["n", "enter", "enter"] : Array(4).fill("enter")),
+      "j", checkCastle("turned-in"), "j",
       "e", "s", "s", "c",
     ]),
-  ]);
+  ], saveDir, undefined, fromCastleGuards);
   if (saveAtWestGate) {
     console.log("Saved after defeating Tyranthraxus and returning to New Phlan:", join(saveDir, "D.json"));
     process.exit(0);
@@ -2873,7 +2893,9 @@ if (process.argv[2] === "--castle-ending-checkpoint" || campaign && campaignOpti
     },
   ]);
   assert.deepEqual(readFileSync(completedSave), completedSnapshot);
-  console.log("Defeated the original Tyranthraxus, collected the council reward, and reloaded the completed campaign.");
+  console.log(fromCastleGuards
+    ? "Used developer victory on the castle guards and Tyranthraxus, collected the council reward, and reloaded the ending."
+    : "Defeated the original Tyranthraxus, collected the council reward, and reloaded the completed campaign.");
   console.log(`Verified the journal saved to slot D with ${trackedAfterEnding ?? "automatic tracking"} selected.`);
   process.exit(0);
 }

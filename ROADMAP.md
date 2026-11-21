@@ -16,6 +16,10 @@ ordinary play and which start from controlled saves.
   in Enhanced Chrome from a controlled party. With the prepared party outside
   the audience hall, use `--from-castle-ending <slot-B>` to replay the fight,
   collect the council reward, and reload the journal ending.
+- The campaign party reached Tyranthraxus's tower through Stojanow Gate
+  and the hedge maze with developer combat enabled. From the save at the
+  stairs to the audience hall, `--from-castle-guards <slot-B>` replays both
+  victories, the council reward, and the reload with “Phlan is free.”
 - `npm run verify:campaign-opening -- <chrome-executable>` runs the opening
   in Enhanced Chrome from an empty save directory through the first Slums
   victory and reload. Each leg carries forward the party earned in play and
