@@ -1,6 +1,6 @@
 # New Phlan 3D prototype
 
-Enhanced browser play uses WebGL by default for exploration. The 3D view
+Enhanced browser play uses WebGL for exploration. The renderer
 reads the camera and wall layout from the active game map, including level
 changes and walls changed by scripts. It uses existing enhanced textures
 where they match and the native wall art on individual surfaces without a
@@ -9,9 +9,6 @@ the [interactive Moonsea illustration](MAP-CONCEPTS.md) and shows the
 overhead WebGL view during movement. Encounter sprites remain
 over the scenery, and portraits, combat, the journal, and Classic retain
 their existing presentation.
-
-The **3D view** button switches back to the enhanced tile view for the
-current tab. The browser also uses that view if WebGL or an asset fails.
 
 ## Compare the renderers
 

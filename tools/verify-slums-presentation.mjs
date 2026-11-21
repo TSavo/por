@@ -4297,6 +4297,7 @@ try {
   }
 
   await run('document.querySelector("#presentation").click()');
+  assert.equal(await run('Boolean(document.querySelector("#street-toggle"))'), false);
   function waitForExplorationViewport() {
     const source = JSON.stringify(`data:image/png;base64,${frame.enhancedFrame}`);
     return waitFor("the default WebGL exploration viewport", () => run(`state.sequence === ${frame.sequence} &&
@@ -4340,24 +4341,12 @@ try {
       assert.ok(id.startsWith(`tile:${area}:`), id);
       patterns.add(id);
     }
-    if (frame.perspective && (frame.scenery || frame.exploration?.area === 0) && !frame.journal) {
+    if (frame.perspective && (frame.scenery || frame.exploration?.area === 0)) {
       await waitForExplorationViewport();
       return 1;
     }
-    await waitFor("121 individually anchored 4× tiles", () => run(`(() => {
-      if (state.sequence !== ${frame.sequence}) return false;
-      const tiles = [...document.querySelectorAll("#tile-art img:not(.encounter-sprite)")];
-      const expected = ${JSON.stringify(expected)};
-      return tiles.length === expected.length && expected.every(([x, y, id], index) => {
-        const image = tiles[index];
-        const left = (8 + (x - 24) * 120 / 88) / 3.2;
-        const top = (8 + (y - 24) * 120 / 88) / 2;
-        return image.getAttribute("src") === "/art/" + id &&
-          image.naturalWidth === 32 && image.naturalHeight === 32 &&
-          Math.abs(parseFloat(image.style.left) - left) < .001 &&
-          Math.abs(parseFloat(image.style.top) - top) < .001;
-      });
-    })()`));
+    await waitFor("the guest view without camera data", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector("#tile-art .perspective-backdrop")?.isConnected`));
     return 1;
   }
 
@@ -4720,7 +4709,7 @@ try {
     assert.ok(frame.journal?.objective.nextStep);
     assert.deepEqual(frame.tiles, doorway.tiles);
     await waitFor("enhanced doorway behind the open journal", () => run(`state.sequence === ${frame.sequence} &&
-      !document.querySelector("#journal").hidden && document.querySelectorAll(".terrain-tile").length === 121`));
+      !document.querySelector("#journal").hidden && document.querySelector(".street-viewport")?.isConnected`));
     await switchBothWays();
     await advance("j");
     assert.equal(frame.journal, undefined);
@@ -5330,23 +5319,6 @@ try {
         assert.ok(await checkCanalGeometry(), `Canal geometry and aspect ratio at ${width}px`);
       }
       await command("Emulation.clearDeviceMetricsOverride");
-      // Simulate a single unavailable PNG in an otherwise valid live view.
-      const result = await command("Runtime.evaluate", { awaitPromise: true, returnByValue: true, expression: `(async () => {
-        const original = state;
-        const missing = "tile:missing-canal-test";
-        const [x, y] = original.tiles[0];
-        state = { ...original, tiles: [[x, y, missing], ...original.tiles.slice(1)] };
-        try {
-          await showScreen();
-          return !document.querySelector("#game-text").hidden && !document.querySelector("#tile-art").hidden &&
-            Boolean(document.querySelector(".street-viewport")) &&
-            !document.querySelector('img[src="/art/' + missing + '"]');
-        } finally {
-          state = original;
-          await showScreen();
-        }
-      })()` });
-      assert.equal(result.result.value, true, result.exceptionDetails?.text ?? "A missing 2D tile should preserve the WebGL view");
     }
     if (routeName === "nomad-camp-rim") {
       await waitFor("all three enhanced Nomad sentry distances", () => run("window.observedApproach.size === 3"));

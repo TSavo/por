@@ -29,7 +29,7 @@ const phlanLandmark = travelMap.querySelector('[data-destination="phlan"]');
 const phlanApproaches = document.querySelector("#phlan-approaches");
 const approachButtons = [...phlanApproaches.querySelectorAll("[data-approach]")];
 const presentation = document.querySelector("#presentation");
-const streetToggle = document.querySelector("#street-toggle");
+const travelArtToggle = document.querySelector("#travel-art-toggle");
 const audioToggle = document.querySelector("#audio-toggle");
 const partyMaterialColors = [
   [0, 0, 0], [0, 0, 170], [0, 170, 0], [0, 170, 170],
@@ -112,7 +112,6 @@ let state = { sequence: -1 };
 let posting = false;
 let quickPollAfter = 0;
 let enhanced = false;
-let streetEnabled = true;
 let streetUnavailable = false;
 let streetLoading;
 let streetViewport;
@@ -125,8 +124,7 @@ let travelArtReady = false;
 let travelExpanded = false;
 let activeTravel;
 const failedSurfaces = new Set();
-const skyByArea = {16: "swamp", 24: "bane", 28: "zhentil"};
-const streetSkyByArea = {...skyByArea, 7: "valjevo"};
+const streetSkyByArea = {7: "valjevo", 16: "swamp", 24: "bane", 28: "zhentil"};
 let discoveredMaps = {};
 let discoveredMapSlot;
 let geographyModel = { areas: [] };
@@ -388,7 +386,7 @@ function togglePresentation() {
 
 function explorationSurface(view) {
   if (view.art || view.portrait || view.classicPortrait || view.characterSheet ||
-    view.combatArt?.length || view.battleTiles?.length || view.journal) return;
+    view.combatArt?.length || view.battleTiles?.length) return;
   if (view.overlandMap) return { materialId: "overland" };
   if (!view.perspective) return;
   if (view.scenery) return view.scenery;
@@ -411,10 +409,8 @@ function renderTravelMap(view = animationFrame ?? state) {
   const visible = illustrated && travelArtEnabled && !activeTravel && !animationFrame && view.travel;
   if (!visible && travelExpanded) setTravelExpanded(false);
   travelMap.hidden = !visible;
-  streetToggle.hidden = !enhanced || !explorationSurface(state);
-  streetToggle.textContent = illustrated ? "Travel art" : streetUnavailable ? "3D unavailable" : "3D view";
-  streetToggle.disabled = !illustrated && streetUnavailable;
-  streetToggle.setAttribute("aria-pressed", String(illustrated ? travelArtEnabled : streetEnabled));
+  travelArtToggle.hidden = !illustrated;
+  travelArtToggle.setAttribute("aria-pressed", String(travelArtEnabled));
   const routes = visible && state.ready && !state.stopped ? view.travel.routes : {};
   for (const landmark of travelLandmarks) {
     const enabled = Boolean(phlanApproaches.hidden && routes[landmark.dataset.destination]);
@@ -637,14 +633,10 @@ function followTravel() {
 }
 
 function disableStreetPreview(error) {
-  streetEnabled = false;
   streetUnavailable = true;
   streetViewport?.renderer.dispose();
   streetViewport = undefined;
-  streetToggle.setAttribute("aria-pressed", "false");
-  streetToggle.textContent = "3D unavailable";
-  streetToggle.title = error instanceof Error ? error.message : "The 3D renderer could not start";
-  streetToggle.disabled = true;
+  console.warn("WebGL exploration is unavailable", error);
 }
 
 function rendererModule() {
@@ -728,14 +720,13 @@ function ensureStreetViewport(surface) {
   return streetViewport;
 }
 
-streetToggle.addEventListener("click", () => {
-  if (!enhanced) return;
-  if (state.overlandMap && travelArtReady) travelArtEnabled = !travelArtEnabled;
-  else streetEnabled = !streetEnabled;
+travelArtToggle.addEventListener("click", () => {
+  if (!enhanced || !state.overlandMap || !travelArtReady) return;
+  travelArtEnabled = !travelArtEnabled;
   activeTravel = undefined;
   renderTravelMap();
   void showScreen();
-  if (document.activeElement === streetToggle) screen.focus({preventScroll:true});
+  if (document.activeElement === travelArtToggle) screen.focus({preventScroll:true});
 });
 
 function rememberExploration() {
@@ -993,7 +984,7 @@ async function showScreen() {
   let layers = [];
   let streetCanvas;
   let overland;
-  const streetScene = showArt && streetEnabled && explorationSurface(view);
+  const streetScene = showArt && !streetUnavailable && explorationSurface(view);
   if (streetScene) {
     try {
       const viewport = ensureStreetViewport(streetScene);
@@ -1008,8 +999,7 @@ async function showScreen() {
   }
   const selectionArt = (view.combatSelections ?? []).map(([x, y, id]) =>
     [x, y, id, undefined, manualAimOnCell, 24, 24]);
-  const placements = [...(streetCanvas ? [] : view.tiles ?? []), ...(view.battleTiles ?? []), ...selectionArt,
-    ...(view.combatArt ?? [])];
+  const placements = [...(view.battleTiles ?? []), ...selectionArt, ...(view.combatArt ?? [])];
   if (view.combatEffect) placements.push([...view.combatEffect, undefined, undefined, 24, 24]);
   if (view.characterSheet) {
     const [head, body] = view.characterSheet;
@@ -1032,18 +1022,6 @@ async function showScreen() {
     layers.push(...placements.map(([x, y, id, reflected, highlighted, width, height]) => {
       const tile = document.createElement("img");
       tile.alt = "";
-      const terrain = id.startsWith("tile:");
-      // Interior tiles overlap by half a CSS pixel to cover rounding seams.
-      // The final column and row stop at the edge of the picture panel.
-      const overlapRight = terrain && x < 104;
-      const overlapBottom = terrain && y < 104;
-      if (terrain) tile.classList.add("terrain-tile");
-      const sky = terrain && skyByArea[Number(id.split(":", 2)[1])];
-      if (sky) {
-        tile.dataset.sky = sky;
-        // Align the sky across all eleven rows. The gradient travels 80 guest pixels.
-        tile.style.backgroundPositionY = `${((y - 24) / 80) * 100}%`;
-      }
       if (id === view.portrait) tile.className = councilVictoryAward ? "reward-illustration" : "encounter-portrait";
       if (id.startsWith("character-sheet:")) tile.className = "character-sheet-part";
       if (id === view.encounter?.[2]) {
@@ -1074,7 +1052,7 @@ async function showScreen() {
         tile.dataset.partyPalette = id;
       }
       if (aimMenu && highlighted) tile.classList.add("combat-aimed");
-      if (perspective && (terrain || id === view.encounter?.[2])) {
+      if (perspective && id === view.encounter?.[2]) {
         const scale = 120 / 88;
         x = 8 + (x - 24) * scale;
         y = 8 + (y - 24) * scale;
@@ -1082,10 +1060,10 @@ async function showScreen() {
         height = (height ?? 8) * scale;
       }
       if (width !== undefined && height !== undefined) {
-        tile.style.width = overlapRight ? `calc(${width / 3.2}% + 0.5px)` : `${width / 3.2}%`;
-        tile.style.height = overlapBottom ? `calc(${height / 2}% + 0.5px)` : `${height / 2}%`;
+        tile.style.width = `${width / 3.2}%`;
+        tile.style.height = `${height / 2}%`;
       }
-      if (reflected || (terrain && state.reflectedTiles?.includes(id))) tile.style.transform = "scaleX(-1)";
+      if (reflected) tile.style.transform = "scaleX(-1)";
       tile.style.left = `${x / 3.2}%`;
       tile.style.top = `${y / 2}%`;
       tile.src = `/art/${id}`;
@@ -1118,8 +1096,7 @@ async function showScreen() {
         }
         return layer;
       } catch (error) {
-        // Terrain remains in the enhanced framebuffer underneath its PNGs.
-        if (layer.matches(".terrain-tile, .battle-tile, .combat-selection, .reward-illustration")) return null;
+        if (layer.matches(".battle-tile, .combat-selection, .reward-illustration")) return null;
         if (layer.matches(".combat-effect")) return spriteBackdrop(layer);
         if (layer.matches(".encounter-portrait")) return pictureBackdrop();
         if (layer.matches(".combat-sprite")) return spriteBackdrop(layer);
