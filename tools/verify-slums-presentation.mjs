@@ -1270,6 +1270,11 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:14:ecl:9eb8:caller:a171:cue:three-cabinets",
     prompt: /ITISLOCKED\.HOWWILLYOUOPENTHELOCK/i,
   }],
+  ["kovel-three-cabinets-needle", {
+    slot: "A", inputs: ["up", "c", "o", "enter"],
+    portrait: "scene-illustration:area:14:ecl:9eb8:caller:a171:cue:three-cabinets",
+    prompt: /HOWWILLYOUOPENTHELOCK/i,
+  }],
   ["kovel-scroll-cabinet", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:14:ecl:a359:cue:wooden-cabinet",
@@ -8443,6 +8448,17 @@ try {
     } else {
       for (const [index, key] of inputs.entries()) {
         const interimPortrait = illustration.portraitStops?.[index];
+        if (routeName === "kovel-three-cabinets-needle" && index === 2) {
+          const needle = "scene-illustration:area:14:ecl:a238:cue:cabinet-needle";
+          assert.ok(frame.animation?.some(phase => phase.portrait === needle &&
+            /ALARGENEEDLESHOOTSOUT/i.test(phase.text.toSorted(([a], [b]) => a - b)
+              .map(([, char]) => String.fromCharCode(char)).join(""))));
+          await waitFor("the needle trap portrait", () => run(`
+            animationFrame?.portrait === "${needle}" &&
+            document.querySelector('.encounter-portrait[src="/art/${needle}"]')?.naturalWidth === 352`));
+          const shot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, "kovel-cabinet-needle.png"), Buffer.from(shot.data, "base64"));
+        }
         if (interimPortrait !== undefined) {
           assert.equal(frame.portrait, interimPortrait ?? undefined);
           if (interimPortrait) {

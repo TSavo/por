@@ -797,6 +797,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:14:ecl:9eb8:caller:a0ea:cue:three-cabinets", "HOWWILLYOUOPENTHELOCK"],
   ["scene-illustration:area:14:ecl:9e97:caller:a171:cue:three-cabinets", "HOWWILLYOUOPENTHELOCK"],
   ["scene-illustration:area:14:ecl:9eb8:caller:a171:cue:three-cabinets", "HOWWILLYOUOPENTHELOCK"],
+  ["scene-illustration:area:14:ecl:a238:cue:cabinet-needle", "HITTINGAPARTYMEMBER"],
   ["scene-illustration:area:14:ecl:a359:cue:wooden-cabinet", "INFRONTOFYOUISAWOODENCABINET"],
   ["scene-illustration:area:14:ecl:9e97:caller:a38d:cue:cabinet-lock", "HOWWILLYOUOPENTHELOCK"],
   ["scene-illustration:area:14:ecl:9eb8:caller:a38d:cue:cabinet-lock", "HOWWILLYOUOPENTHELOCK"],

@@ -35,6 +35,7 @@ const travelRoadAreas = new Set([0, 2, 9, 18]);
 const travelRoadArrivals = new Map([[0, [8, 11, 20, 21]], [2, [15]], [9, [6]], [18, [9, 29]]]);
 const travelRoadScripts = new Set([...travelRoadAreas, ...[...travelRoadArrivals.values()].flat()]);
 export interface PresentationAnimationFrame {
+  portrait?: string;
   frame: string;
   enhancedFrame: string;
   combatArt: CombatArtPlacement[];
@@ -236,7 +237,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let codeWheelQuestion: number | undefined;
   let codeWheelAttempt: number | undefined;
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
-    durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }) => {
+    durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }, captureIllustration = false) => {
     const native = screen;
     const presentation = effect?.clean ?? native;
     if (browser) {
@@ -303,6 +304,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       const illustration = scene ? undefined : matchScriptIllustration(illustrationScope, illustrationText, portraitKeys);
+      if (captureIllustration && (!illustration || animation.at(-1)?.portrait === illustration)) return;
       let picture = scene ? undefined : illustration ??
         arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
@@ -536,13 +538,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
           trackedId: trackedJournalObjective(leads, trackedId) },
       };
-      if (attack || captureApproach || effect) {
+      if (attack || captureApproach || effect || captureIllustration) {
         if (animation.length >= 12) {
           const flight = animation.findIndex(flightFrame);
           if (flight < 0) return;
           animation.splice(flight, 1);
         }
-        animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame,
+        animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame, portrait: captureIllustration ? portrait : undefined,
           text: state.text, combatArt: effect ? combat : attack ?? [], combatSelections: state.combatSelections,
           combatEffect: state.combatEffect,
           battleTiles, panelFrame: state.panelFrame, perspective,
@@ -932,6 +934,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       if (animation.length >= 12 && !animation.some(flightFrame)) return;
       captureEclContext(cpu);
+      // The cabinet needle caption can clear within a single input.
+      if (area === 14 && battleCursor === 0xa238) {
+        showFrame(undefined, undefined, false, false, 1200, undefined, true);
+        return;
+      }
       const battlefield = hasBattlefieldBorder(screen);
       const placements = combatArt(screen, undefined, area, battleCursor, battlefield ? battleTerrain : undefined);
       const attacks = placements.filter(([, , key]) => attackKeys.has(key) || attackKeys.has(partyRecolorKey.exec(key)?.[1] ?? ""));
