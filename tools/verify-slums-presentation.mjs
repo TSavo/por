@@ -2534,6 +2534,13 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-elven-remains.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-efreeti-threat", {
+    slot: "A", inputs: ["s", "up", "p", "enter", "enter", "y"],
+    portrait: "scene-illustration:area:13:ecl:a6d3:cue:efreeti-threat",
+    prompt: /DIEHAPPYFIENDS,YOURDEATHSSHALLBEMYFREEDOM.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "kobold-cave-efreeti-threat.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["kobold-cave-brass-bottle", {
     slot: "A", inputs: ["s", "up"],
     portrait: "scene-illustration:area:13:ecl:a564:cue:brass-bottle",
