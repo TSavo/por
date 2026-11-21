@@ -2354,6 +2354,13 @@ const illustrationRoutes = new Map([
     prompt: /ASYOUHIKETHROUGHTHEMOUNTAINS,ALARGEDRAGONFLYSABOVEYOU/i,
     finalPhaseCapture: "diogenes-mountain-sighting-phase-1.png",
   }],
+  ["valjevo-sleeping-giant-phases", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    portrait: "portrait:area:3:ecl:a6c8:PIC5.DAX:56:0:0", prompt: /SLEEPINGGIANTS/i,
+    idlePortraits: [1, 3].map(phase => `portrait:area:3:ecl:a6c8:PIC5.DAX:56:${phase}:0`),
+    continuation: { inputs: ["a"], portrait: "scene-illustration:area:3:ecl:9a5a:caller:a732:cue:waking-fire-giants",
+      prompt: /LOOSEBOARDCREAKS.*GIANTSGETTOTHEIRFEET/i },
+  }],
   ["valjevo-bucket-trap-giant-phases", {
     slot: "B", inputs: ["up", ...Array(4).fill("enter"), ...Array(4).fill("q")],
     portraitStops: {
