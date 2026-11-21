@@ -17,7 +17,7 @@ A first set of artwork is in `upgrades/codewheel/`. Reviewed against the referen
 | `path-dashes.png`, `path-dash-dot-dot.png`, `path-dots.png` | Accepted. They are the game's three marks in the new style. |
 | `background.png` | Accepted. |
 | `outer-disc.png`, `inner-disc.png` | Accepted as blanks for the page to draw on. |
-| `espruar-translate-tab.png`, `dethek-translate-tab.png` | Redo as a pair: the two are in different styles (a serif face on brown, a pixel face on purple). Follow the tabs on the scans. |
+| `espruar-translate-tab.png`, `dethek-translate-tab.png` | Matching pixel-art plaques with the scan's respective labels, TRANSLATE FROM DETHEK and TRANSLATE FROM ESPRUAR. |
 | The 70 runes, `espruar-NN.png` and `dethek-NN.png` | **Rejected. Redo all 70.** |
 
 **What is wrong with the runes.** They are new shapes, not the wheel's runes. Slot `espruar-05`
