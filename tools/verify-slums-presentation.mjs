@@ -1351,6 +1351,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "sokal-moldy-stable.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["sokal-fungus-room", {
+    slot: "C", inputs: ["up"],
+    portrait: "scene-illustration:area:21:ecl:9fd1:cue:fungus-room", prompt: /THICKCARPETOFFUNGUS/i,
+    finalPhaseCapture: "sokal-fungus-room.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["sokal-smithy-hammer", {
     slot: "D", inputs: ["right", "right", "up", "left", "up", "s", "l"], portraitStops: { 6: null },
     portrait: "scene-illustration:area:21:ecl:ae41:caller:a18d",

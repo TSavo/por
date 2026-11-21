@@ -730,6 +730,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:21:ecl:a9fa", "THISWASONCETHECHAPELOFTHEKEEP"],
   ["scene-illustration:area:21:ecl:9f81:cue:moldy-stable", "UNWHOLESOMEMOLDANDFUNGICOVER"],
   ["scene-illustration:area:21:ecl:9f88:cue:moldy-stable", "UNWHOLESOMEMOLDANDFUNGICOVER"],
+  ["scene-illustration:area:21:ecl:9fca:cue:fungus-room", "THICKCARPETOFFUNGUS"],
+  ["scene-illustration:area:21:ecl:9fd1:cue:fungus-room", "THICKCARPETOFFUNGUS"],
   ["scene-illustration:area:21:ecl:a25a:cue:looted-barracks", "THISBUILDINGISFILLEDWITHBROKENANDSPLINTEREDWOOD"],
   ["scene-illustration:area:21:ecl:a26f:cue:looted-barracks", "THISBUILDINGISFILLEDWITHBROKENANDSPLINTEREDWOOD"],
   ["scene-illustration:area:21:ecl:aacf", "SAD-FACEDMANWAVERSANDFADESAWAY"],
