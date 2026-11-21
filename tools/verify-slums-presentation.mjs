@@ -2297,6 +2297,13 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["f"], portrait: "scene-illustration:area:13:ecl:b511:caller:afc2",
       prompt: /THEKOBOLDPAUSES/i },
   }],
+  ["kobold-white-flag-refusal", {
+    slot: "B", inputs: ["up", "enter", "enter", "enter", "z", "z", "a", "r"],
+    portrait: "scene-illustration:area:13:ecl:b511:caller:9c98:cue:envoy-strikes-wall",
+    prompt: /THEKOBOLDRETREATS,THENSTRIKESTHEWALL/i,
+    finalPhaseCapture: "kobold-white-flag-strikes-wall.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /POINTSOFDAMAGE/i },
+  }],
   ["kobold-white-flag-boulder", {
     slot: "B", inputs: ["up", "enter", "enter", "enter", "z", "z", "a", "f", "enter", "enter", "n"],
     portraitStops: { 10: "scene-illustration:area:13:ecl:b01c:caller:af11:cue:truce-boulder" },
