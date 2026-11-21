@@ -6953,8 +6953,14 @@
     "tile:21:b505a5db5557ee2f019256d5b39e70aaeaa91433d73e896784e9962672192f85": "sokal-far-postern.png",
     "tile:21:8737539068992377d622a86a6ab259387e19fc5a846d63a4b75effc2a06fae8c": "sokal-far-postern-jamb.png",
     "encounter:SPRIT4.DAX:34:0:0": "sokal-undead-patrol-near.png",
+    "encounter:area:21:ecl:9dbd:SPRIT4.DAX:34:0:0": "sokal-mixed-undead-patrol-near.png",
+    "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:0:0": "sokal-mixed-undead-patrol-near.png",
+    "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:0:0": "sokal-mixed-undead-patrol-near.png",
     "encounter:SPRIT4.DAX:34:1:0": "sokal-undead-patrol-middle.png",
+    "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:1:0": "sokal-mixed-undead-patrol-middle.png",
+    "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:1:0": "sokal-mixed-undead-patrol-middle.png",
     "encounter:SPRIT4.DAX:34:2:0": "sokal-undead-patrol-far.png",
+    "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:2:0": "sokal-mixed-undead-patrol-far.png",
     "combat:CPIC4.DAX:34": "sokal-skeleton-guard.png",
     "combat:area:2:CPIC4.DAX:34:ecl:9b85": "textile-ambush-skeleton-ready.png",
     "combat:area:2:CPIC4.DAX:162:ecl:9b85": "textile-ambush-skeleton-strike.png",
@@ -7930,6 +7936,9 @@
     "encounter:area:10:SPRIT4.DAX:34:0:0": { "area": 10, "x": 48, "y": 32, "width": 40, "height": 80 },
     "encounter:SPRIT2.DAX:24:1:0": { "area": 20, "x": 56, "y": 32, "width": 24, "height": 65, "flatBackground": [0, 6] },
     "encounter:SPRIT4.DAX:34:0:0": {
+    "encounter:area:21:ecl:9dbd:SPRIT4.DAX:34:0:0": { "area": 21, "x": 48, "y": 32, "width": 40, "height": 80 },
+    "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:0:0": { "area": 21, "x": 48, "y": 32, "width": 40, "height": 80 },
+    "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:0:0": { "area": 21, "x": 48, "y": 32, "width": 40, "height": 80 },
       "area": 21,
       "x": 48,
       "y": 32,
@@ -7937,6 +7946,8 @@
       "height": 80
     },
     "encounter:SPRIT4.DAX:34:1:0": {
+    "encounter:area:21:ecl:9dbb:SPRIT4.DAX:34:1:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 65 },
+    "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:1:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 65 },
       "area": 21,
       "x": 56,
       "y": 32,
@@ -7944,6 +7955,7 @@
       "height": 65
     },
     "encounter:SPRIT4.DAX:34:2:0": {
+    "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:2:0": { "area": 21, "x": 56, "y": 32, "width": 24, "height": 49 },
       "area": 21,
       "x": 56,
       "y": 32,
