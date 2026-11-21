@@ -1607,6 +1607,36 @@ const illustrationRoutes = new Map([
     approachSequence: [[48, 32, "encounter:area:26:ecl:a944:SPRIT7.DAX:57:0:0", 48, 80]],
     portrait: "portrait:area:26:ecl:a981:PIC7.DAX:57:0:0", prompt: /INSIDETHISHUTAREFOURLIZARDMEN/i,
   }],
+  ["diogenes-silver-dragon-phases", {
+    slot: "A", inputs: ["up", "enter", "e", "enter", "s", "enter", "enter", "enter", ...Array(14).fill("q")],
+    portraitStops: {
+      8: "portrait:PIC6.DAX:117:0:0",
+      17: "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:1:0",
+      20: "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:2:0",
+    },
+    portrait: "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:3:0",
+    prompt: /STANDINGBEFOREYOUNOWISAGREATSILVERDRAGON/i,
+    phaseCaptures: { 17: "diogenes-silver-dragon-phase-1.png", 20: "diogenes-silver-dragon-phase-2.png" },
+    finalPhaseCapture: "diogenes-silver-dragon-phase-3.png",
+  }],
+  ["tyrmor-prison-minotaur-phases", {
+    slot: "B", inputs: ["s", "up", "down", "up", "down", "up", "down", "up", "enter", "down", "up", ...Array(5).fill("q")],
+    portraitStops: { 11: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:0:0" },
+    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:1:0",
+    prompt: /ONELICKSITSLIPS/i,
+    finalPhaseCapture: "tyrmor-prison-minotaur-phase-1.png",
+  }],
+  ["valhingen-wight-roam-phases", {
+    slot: "A", inputs: ["up", "down", "up", ...Array(7).fill("q")],
+    portraitStops: {
+      3: "portrait:area:10:ecl:b50b:PIC4.DAX:20:0:0",
+      9: "portrait:area:10:ecl:b50b:PIC4.DAX:20:1:0",
+    },
+    portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:20:2:0",
+    prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMEWIGHTS/i,
+    phaseCaptures: { 9: "valhingen-wight-roam-phase-1.png" },
+    finalPhaseCapture: "valhingen-wight-roam-phase-2.png",
+  }],
   ["pyramid-lizardfolk-patrol-phases", {
     slot: "A", inputs: ["up", "enter", "enter", "enter", "q", "q", "q", "enter", "q"],
     portraitStops: {
@@ -6694,6 +6724,11 @@ try {
       await waitFor("the previous frame", () => run(`document.querySelector("#screen").src === ${JSON.stringify(prior)}`));
       await run(`(() => {
         const decode = HTMLImageElement.prototype.decode;
+        const phaseCapture = illustration.phaseCaptures?.[index];
+        if (phaseCapture) {
+          const phaseShot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, phaseCapture), Buffer.from(phaseShot.data, "base64"));
+        }
         HTMLImageElement.prototype.decode = function () {
           if (this.getAttribute("src") !== ${JSON.stringify("/art/" + portrait)}) return decode.call(this);
           return new Promise(resolve => {
@@ -6819,6 +6854,10 @@ try {
         }
         if (routeName === "yarash-alchemical-laboratory" && index === 5) {
           const text = frame.text.toSorted(([a], [b]) => a - b)
+    if (illustration.finalPhaseCapture) {
+      const phaseShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, illustration.finalPhaseCapture), Buffer.from(phaseShot.data, "base64"));
+    }
             .map(([, character]) => String.fromCharCode(character)).join("");
           assert.match(text, /ASSORTMENTOFTORTUREINSTR?UMENTS.*ALARGETABLEWITHMETALRESTRAINTS/i);
           const images = await Promise.all([interimPortrait, portrait].map(async id => {
