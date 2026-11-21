@@ -528,6 +528,8 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
         `<small>${escape(archive)} #${block} · member ${member}, frame ${frame}</small>`).join("") + "</details>" : "") + "</div>";
 }
 const sceneReviewRequirements = new Map<string, string[]>([
+  ["bane-hidden-trapdoor.png", ["A closed trapdoor lies flush with the stone floor", "The metal pull ring and hinges are visible at gameplay size", "The chamber beneath the door remains hidden"]],
+  ["sokal-courtyard-hall-aftermath.png", ["The hall is empty", "Broken furnishings and discarded weapons show signs of a recent fight"]],
   ["valhingen-vampire-wooden-stairs.png", ["Wooden stairs descending into an open pit", "The stairhead and first treads are readable at gameplay size", "No creature is visible before the party chooses to descend"]],
   ["yarash-torture-chamber.png", ["An assortment of torture implements", "A large central table", "Visible metal restraints"]],
   ["yarash-alchemical-laboratory.png", ["Shelves lining the wall", "Flasks and bottles of alchemical preparations"]],
@@ -995,7 +997,7 @@ ${composedPictureReferences.map(({ file, script, address, selectedHead, nearbyTe
 <p>${encounterTotals.uniformUnlinked} unlinked frames are solid-color images.</p>
 ${encounterTotals.withScopedCandidates ? `<p>${encounterTotals.withScopedCandidates} unlinked combat frames have identical source pixels in an encounter with replacement art. Verify the actor and encounter before reusing those sprites.</p>` : ""}
 ${encounterTotals.withEncounterCandidates ? `<p>${encounterTotals.withEncounterCandidates} unlinked encounter frames have identical source pixels in another frame with Enhanced art. Verify the actor, distance, and placement before reusing it.</p>` : ""}
-<p>Each source ID contains the archive, directory entry, member, and zero-based frame number. Open a frame to see it at its native dimensions. Some archive frames may have no verified in-game use.</p>
+<p>Each source ID contains the archive, block ID, member, and zero-based frame number. Open a frame to see it at its native dimensions. Some archive frames may have no verified in-game use.</p>
 ${encounterCoverage.filter(({ unlinkedFrames }) => unlinkedFrames.length).map(({ file, unlinkedFrames }) =>
   `<details id="unlinked-archive-${escape(file)}"><summary>${escape(file)} · ${unlinkedFrames.length}</summary>
   <table class="coverage-table"><thead><tr><th>Source ID</th><th>Block</th><th>4× target</th><th>Preview</th></tr></thead><tbody>
