@@ -2379,6 +2379,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kobold-cave-pantry.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-tailings-drawing", {
+    slot: "B", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:13:ecl:9b78:cue:tailings-drawing", prompt: /KOBOLD'SCRUDEDRAWING/i,
+    finalPhaseCapture: "kobold-cave-tailings-drawing.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["tyrmor-portal-rocks", {
     slot: "B", inputs: ["s", "up"],
     portrait: "scene-illustration:area:22:ecl:9a06:caller:a016:cue:scattered-rocks",
