@@ -2006,6 +2006,7 @@
     "portrait:area:1:ecl:b5f7:caller:9f20:PIC6.DAX:42:4:0": "buccaneer-pen-merchant-phase-4.png",
     "portrait:area:1:ecl:9f5d:PIC6.DAX:42:0:0": "buccaneer-pen-merchant.png",
     "scene-illustration:area:1:ecl:a001": "buccaneer-punch-merchant-guards.png",
+    "scene-illustration:area:1:ecl:9fef:cue:merchant-guards": "buccaneer-punch-merchant-guards.png",
     "scene-illustration:area:1:ecl:af88": "buccaneer-bivant-purchase-escort.png",
     "scene-illustration:area:1:ecl:b5a5": "buccaneer-bivant-purchase-escort.png",
     "scene-illustration:area:1:ecl:9a57:caller:99ce:cue:animals-recaptured": "buccaneer-animals-recaptured.png",

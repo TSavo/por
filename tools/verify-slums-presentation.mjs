@@ -3006,6 +3006,12 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:1:HEAD6.DAX:10:BODY6.DAX:9", prompt: /WANTTOBUYAPASSTOSEETHECAPTAIN/i,
   }],
+  ["buccaneer-merchant-guards-first-draw", {
+    slot: "A", inputs: ["down", "up", "left", "up", "right", "up", ...Array(4).fill("enter"), "right", "enter"],
+    portrait: "scene-illustration:area:1:ecl:9fef:cue:merchant-guards", prompt: /THEMERCHANTYELLSFORHISGUARDSANDTHEYCOMERUNNING/i,
+    finalPhaseCapture: "buccaneer-merchant-guards-first-draw.png",
+    continuation: { inputs: ["z"], portrait: "scene-illustration:area:1:ecl:a001", prompt: /THEMERCHANTYELLSFORHISGUARDSANDTHEYCOMERUNNING/i },
+  }],
   ["buccaneer-captain-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:1:SPRIT6.DAX:16:0:0", 40, 80]],
