@@ -1227,6 +1227,15 @@ const illustrationRoutes = new Map([
     journalLead: "textile-diary-page", journalLeadAtDiscovery: true,
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["kovel-tapestry-reward", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    portraitStops: { 1: null, 2: null },
+    portrait: "portrait:area:14:ecl:a2ec:PIC1.DAX:1:0:0",
+    prompt: /VIEW.*POOL.*EXIT/i,
+    idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:a2ec:PIC1.DAX:1:${phase}:0`),
+    finalPhaseCapture: "kovel-tapestry-reward.png",
+    continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /14,14S/i },
+  }],
   ["kovel-scroll-cabinet", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:14:ecl:a359:cue:wooden-cabinet",
