@@ -1718,6 +1718,28 @@ const illustrationRoutes = new Map([
     prompt: /ASYOUHIKETHROUGHTHEMOUNTAINS,ALARGEDRAGONFLYSABOVEYOU/i,
     finalPhaseCapture: "diogenes-mountain-sighting-phase-1.png",
   }],
+  ["valjevo-bucket-trap-giant-phases", {
+    slot: "B", inputs: ["up", ...Array(4).fill("enter"), ...Array(4).fill("q")],
+    portraitStops: {
+      5: "portrait:area:3:PIC5.DAX:56:0:0",
+      7: "portrait:area:3:ecl:a662:PIC5.DAX:56:1:0",
+    },
+    portrait: "portrait:area:3:ecl:a662:PIC5.DAX:56:3:0",
+    prompt: /THEGIANTSWHOPLACEDTHEBUCKETTHERECHARGE/i,
+    phaseCaptures: { 7: "valjevo-bucket-trap-giants-phase-1.png" },
+    finalPhaseCapture: "valjevo-bucket-trap-giants-phase-3.png",
+  }],
+  ["bane-hidden-treasure-phases", {
+    slot: "A", inputs: ["s", "enter", "up", "o", "enter", "enter", "q", "q", "q"],
+    portraitStops: {
+      6: "portrait:PIC1.DAX:1:0:0",
+      7: "portrait:area:24:ecl:aa47:PIC1.DAX:1:1:0",
+    },
+    portrait: "portrait:area:24:ecl:aa47:PIC1.DAX:1:2:0",
+    prompt: /View.*PoolExit/i,
+    phaseCaptures: { 7: "bane-hidden-treasure-phase-1.png" },
+    finalPhaseCapture: "bane-hidden-treasure-phase-2.png",
+  }],
   ["sokal-ceiling-insects-phases", {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
     portraitStops: {
