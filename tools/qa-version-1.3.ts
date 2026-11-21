@@ -31,8 +31,14 @@ rows.push(["Procedures translated", coverage.total - coverage.missing.length, co
 
 // 2. Script-keyed work: a script position carries over when the script bytes around it are the same in 1.3.
 const catalog = JSON.parse(readFileSync(new URL("../src/maps/area-catalog.json", import.meta.url), "utf8")) as
-  { areas: { id: number; scriptArchive: string }[] };
-const archiveOf = new Map(catalog.areas.map(({ id, scriptArchive }) => [id, scriptArchive]));
+  { areas: { id: number; scriptArchive: string; maps: { id: number }[] }[] };
+const scriptForArea = new Map(catalog.areas.map(area => [area.id, area]));
+for (const area of catalog.areas) {
+  for (const map of area.maps) {
+    // Secondary maps retain their parent ECL script after LOAD FILES.
+    if (!scriptForArea.has(map.id)) scriptForArea.set(map.id, area);
+  }
+}
 const scripts = new Map<string, Uint8Array>();
 const script = (root: string, archive: string, block: number) => {
   const key = `${root}:${archive}:${block}`;
@@ -83,8 +89,8 @@ for (const manifest of ["upgrades/manifest.json", "upgrades/slums/manifest.json"
     const addresses = [...key.matchAll(/:(?:ecl|caller):([0-9a-f]{4})/g)].map(match => Number.parseInt(match[1]!, 16));
     if (!addresses.length || area === undefined) { artCarried++; continue; }
     artScript++;
-    const archive = archiveOf.get(Number(area));
-    if (archive && addresses.every(address => carries(archive, Number(area), address))) artCarried++;
+    const owner = scriptForArea.get(Number(area));
+    if (owner && addresses.every(address => carries(owner.scriptArchive, owner.id, address))) artCarried++;
     else artMoved.push(key);
   }
 }
