@@ -1274,6 +1274,21 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["up", "c", "o", "enter"],
     portrait: "scene-illustration:area:14:ecl:9eb8:caller:a171:cue:three-cabinets",
     prompt: /HOWWILLYOUOPENTHELOCK/i,
+    transientPortraits: { 2: {
+      id: "scene-illustration:area:14:ecl:a238:cue:cabinet-needle",
+      prompt: /ALARGENEEDLESHOOTSOUT/i, screenshot: "kovel-cabinet-needle.png",
+    } },
+  }],
+  ["kovel-three-cabinets-files", {
+    slot: "A", inputs: ["up", "a", "b"],
+    portraitStops: { 2: "scene-illustration:area:14:ecl:9eb8:caller:9e07:cue:three-cabinets" },
+    portrait: "scene-illustration:area:14:ecl:9dbb:cue:three-cabinets",
+    prompt: /WHICHONEWILLYOUEXAMINE/i,
+    transientPortraits: { 3: {
+      id: "scene-illustration:area:14:ecl:9e63:cue:cabinet-files",
+      prompt: /INSIDETHECABINETYOUFINDSOMEFILES.*UNDERENTRIES23AND14/i, screenshot: "kovel-cabinet-files.png",
+    } },
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /14,10N/i },
   }],
   ...[
     ["silver", "a13f", ["up", "b", "b", "enter", "enter"]],
@@ -8485,17 +8500,6 @@ try {
     } else {
       for (const [index, key] of inputs.entries()) {
         const interimPortrait = illustration.portraitStops?.[index];
-        if (routeName === "kovel-three-cabinets-needle" && index === 2) {
-          const needle = "scene-illustration:area:14:ecl:a238:cue:cabinet-needle";
-          assert.ok(frame.animation?.some(phase => phase.portrait === needle &&
-            /ALARGENEEDLESHOOTSOUT/i.test(phase.text.toSorted(([a], [b]) => a - b)
-              .map(([, char]) => String.fromCharCode(char)).join(""))));
-          await waitFor("the needle trap portrait", () => run(`
-            animationFrame?.portrait === "${needle}" &&
-            document.querySelector('.encounter-portrait[src="/art/${needle}"]')?.naturalWidth === 352`));
-          const shot = await command("Page.captureScreenshot", { format: "png" });
-          writeFileSync(resolve(directory, "kovel-cabinet-needle.png"), Buffer.from(shot.data, "base64"));
-        }
         if (interimPortrait !== undefined) {
           assert.equal(frame.portrait, interimPortrait ?? undefined);
           if (interimPortrait) {
@@ -8646,6 +8650,17 @@ try {
           }
         }
         await advance(key);
+        const transient = illustration.transientPortraits?.[index + 1];
+        if (transient) {
+          assert.ok(frame.animation?.some(phase => phase.portrait === transient.id &&
+            transient.prompt.test(phase.text.toSorted(([a], [b]) => a - b)
+              .map(([, char]) => String.fromCharCode(char)).join(""))));
+          await waitFor("the transient illustration", () => run(`
+            animationFrame?.portrait === "${transient.id}" &&
+            document.querySelector('.encounter-portrait[src="/art/${transient.id}"]')?.naturalWidth === 352`));
+          const shot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, transient.screenshot), Buffer.from(shot.data, "base64"));
+        }
       }
     }
     assert.equal(frame.portrait, portrait);

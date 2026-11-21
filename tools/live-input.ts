@@ -934,8 +934,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       if (animation.length >= 12 && !animation.some(flightFrame)) return;
       captureEclContext(cpu);
-      // The cabinet needle caption can clear within a single input.
-      if (area === 14 && battleCursor === 0xa238) {
+      // These cabinet captions can clear within a single input.
+      if (area === 14 && (battleCursor === 0xa238 || battleCursor === 0x9e63)) {
         showFrame(undefined, undefined, false, false, 1200, undefined, true);
         return;
       }
