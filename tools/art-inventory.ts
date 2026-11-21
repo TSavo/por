@@ -528,6 +528,7 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
         `<small>${escape(archive)} #${block} · member ${member}, frame ${frame}</small>`).join("") + "</details>" : "") + "</div>";
 }
 const sceneReviewRequirements = new Map<string, string[]>([
+  ["valhingen-vampire-wooden-stairs.png", ["Wooden stairs descending into an open pit", "The stairhead and first treads are readable at gameplay size", "No creature is visible before the party chooses to descend"]],
   ["yarash-torture-chamber.png", ["An assortment of torture implements", "A large central table", "Visible metal restraints"]],
   ["yarash-alchemical-laboratory.png", ["Shelves lining the wall", "Flasks and bottles of alchemical preparations"]],
   ["yarash-vat-emergence-approach.png", ["One mutant lizardman is visibly climbing out of a vat"]],
