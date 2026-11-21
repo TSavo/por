@@ -212,6 +212,7 @@ const encounterRoutes = new Map([
   ["wild-cave-wyvern-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [24, 32, "encounter:area:27:SPRIT8.DAX:121:0:0", 88, 80],
+    requireWebGL: true,
     terrain: { area: 27, views: 3, patterns: 17 },
     approachSequence: [
       [56, 32, "encounter:area:27:SPRIT8.DAX:121:2:0", 32, 49],
