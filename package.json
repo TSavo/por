@@ -15,6 +15,7 @@
     "qa:inventory": "tsx tools/qa-inventory.ts",
     "qa:version-1.3": "tsx tools/qa-version-1.3.ts",
     "qa:disagreements": "tsx tools/qa-disagreements.ts",
+    "qa:acceptance": "tsx tools/qa-acceptance.ts",
     "preview:new-phlan": "tsx tools/new-phlan-3d-prototype.ts",
     "typecheck": "tsc --noEmit",
     "tools": "tsx tools/cli.ts",
