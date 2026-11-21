@@ -1962,11 +1962,18 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:6:BODY7.DAX:8", prompt: /THEYSMILEATYOU/i,
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:HEAD7.DAX:6:BODY7.DAX:8", prompt: /ABATTLEBEGINS/i },
   }],
+  ["tyrmor-dwarven-fighters-surprise", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 5 }, () => ["up", "enter", "down"]).flat(), "up", "enter"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:a213:cue:dwarven-fighters", prompt: /YOUSURPRISEDWARVENFIGHTERS/i,
+    finalPhaseCapture: "tyrmor-dwarven-fighters-surprise.png",
+    continuation: { inputs: ["enter", "down"], portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:13:BODY7.DAX:6", prompt: /THEYSMILEATYOU/i },
+  }],
   ["tyrmor-prison-dwarves-dialogue", {
     slot: "B", inputs: ["s", ...Array.from({ length: 5 }, () => ["up", "enter", "down"]).flat(),
       "up", "enter", "enter", "down"],
     approachStops: { 19: [48, 32, "encounter:area:22:ecl:a2c3:SPRIT7.DAX:13:0:0", 40, 73] },
     portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:13:BODY7.DAX:6", prompt: /THEYSMILEATYOU/i,
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:HEAD7.DAX:13:BODY7.DAX:6", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-elf-sighting", {
     slot: "B", inputs: ["s", ...Array.from({ length: 11 }, () => ["up", "down"]).flat(), "up"],
@@ -2022,6 +2029,12 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:57:0:0", prompt: /ONELICKSITSLIPS/i,
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:57:0:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ["tyrmor-priest-sighting", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:9ce3:cue:human-priest", prompt: /YOUSEEAHUMANPRIEST/i,
+    finalPhaseCapture: "tyrmor-priest-sighting.png",
+    continuation: { inputs: ["enter", "a", "a"], portrait: "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30", prompt: /RAISESHISHANDINBENEDICTION/i },
+  }],
   ["tyrmor-prison-priest", {
     slot: "B", inputs: ["up", "enter", "a", "a"],
     approachStops: {
@@ -2029,6 +2042,7 @@ const illustrationRoutes = new Map([
       3: [56, 32, "encounter:area:22:ecl:9d3b:SPRIT7.DAX:12:0:0", 24, 80],
     },
     portrait: "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30", prompt: /RAISESHISHANDINBENEDICTION/i,
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:HEAD7.DAX:16:BODY7.DAX:30", prompt: /ABATTLEBEGINS/i },
   }],
   ["old-phlan-mutant-hut", {
     slot: "A", inputs: ["up", "enter", "enter", "z"],
