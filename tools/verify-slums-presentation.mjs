@@ -1933,11 +1933,18 @@ const illustrationRoutes = new Map([
     approachStops: { 27: [48, 32, "encounter:area:22:ecl:a2c3:SPRIT7.DAX:15:0:0", 40, 73] },
     portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:54:BODY7.DAX:6", prompt: /THEYSMILEATYOU/i,
   }],
+  ["tyrmor-thieves-surprise", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "enter", "down"]).flat(), "up", "enter"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:a213:cue:gaunt-thieves", prompt: /YOUARESURPRISEDBYSOMEGAUNTMENINPOORLYFITTINGLEATHER/i,
+    finalPhaseCapture: "tyrmor-thieves-surprise.png",
+    continuation: { inputs: ["enter", "down"], portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:6:BODY7.DAX:8", prompt: /THEYSMILEATYOU/i },
+  }],
   ["tyrmor-prison-thieves-dialogue", {
     slot: "B", inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "enter", "down"]).flat(),
       "up", "enter", "enter", "down"],
     approachSequence: [[40, 32, "encounter:area:22:ecl:a2c3:SPRIT7.DAX:11:0:0", 48, 80]],
     portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:6:BODY7.DAX:8", prompt: /THEYSMILEATYOU/i,
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:HEAD7.DAX:6:BODY7.DAX:8", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-prison-dwarves-dialogue", {
     slot: "B", inputs: ["s", ...Array.from({ length: 5 }, () => ["up", "enter", "down"]).flat(),
