@@ -85,10 +85,27 @@ records the Slums and Sokal Keep transitions.
 5. The automap reveals these regions from actual player movement; it does not
    reveal the complete illustration at the beginning of the game.
 
+## Computed exits
+
+`npm run area-catalog` runs each exit selector from the original game data
+through the translated ECL interpreter. The catalog records the destination
+and the facing, exit row, or current map that selected it.
+
+| Exit | Script result |
+| --- | --- |
+| Valjevo Castle, area 3 | North and east select area 4. South and west select area 6. |
+| Valjevo Castle, area 6 | South selects Stojanow Gate. The other facings select area 3. |
+| Stojanow Gate | Row 0 selects Valjevo area 6. Rows 1 through 15 select Podol Plaza. |
+| Mendor’s Library | North selects Kuto’s Well. West selects the Textile House. The east and south table entries point to New Phlan. |
+| Temple of Bane | The exterior’s east exit loads the interior map. The interior’s west exit reloads the exterior. From the interior, north selects Kovel Mansion and east selects the middle wilderness. The other selectors return 255, for which the game has no area block. |
+| Kuto’s Well | East selects the Slums, south selects Mendor’s Library, and west selects Podol Plaza. The north table entry points to Buccaneer Base. |
+
+The Library’s east and south entries and Kuto’s north entry are confirmed
+script outputs under controlled inputs. A normal walking route to those
+selectors still needs confirmation before the entries can inform travel routing.
+
 ## Remaining evidence work
 
-The six computed `NEW ECL` sites in `area-catalog.json` must be resolved to
-their possible destinations. The official City of Phlan and Area Near Phlan
-overview maps should then be traced into coarse coast, river, road, forest,
-swamp, hill, and mountain shapes. That pass should adjust only the schematic
-positions and confidence labels; the extracted area identities remain stable.
+Trace the official City of Phlan and Area Near Phlan overview maps into
+coarse coastline, river, road, forest, swamp, hill, and mountain shapes to
+refine the schematic positions and confidence labels.

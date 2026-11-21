@@ -3,6 +3,7 @@
   "generatedFrom": "original Pool of Radiance GEO and ECL DAX blocks",
   "sources": {
     "geometryAndTransitions": "original game data installed locally",
+    "computedTransitions": "original exit selectors run through the translated ECL interpreter with controlled map positions",
     "areaNames": "official Pool of Radiance clue book and Adventurer's Journal",
     "crossCheck": "https://wish-goldbox.readthedocs.io/en/latest/api/generated/goldbox.areas.html"
   },
@@ -16,9 +17,7 @@
   "missingScriptIds": [
     12
   ],
-  "unreferencedAreas": [
-    4
-  ],
+  "unreferencedAreas": [],
   "areas": [
     {
       "id": 0,
@@ -202,7 +201,38 @@
         "dynamic": [
           {
             "address": "0x9aa2",
-            "instruction": "9aa2  NEW ECL          mem 0x6e79"
+            "instruction": "9aa2  NEW ECL          mem 0x6e79",
+            "selectorEntry": "0x9a89",
+            "scriptTargets": [
+              4,
+              6
+            ],
+            "cases": [
+              {
+                "when": {
+                  "facing": "north"
+                },
+                "targetAreaId": 4
+              },
+              {
+                "when": {
+                  "facing": "east"
+                },
+                "targetAreaId": 4
+              },
+              {
+                "when": {
+                  "facing": "south"
+                },
+                "targetAreaId": 6
+              },
+              {
+                "when": {
+                  "facing": "west"
+                },
+                "targetAreaId": 6
+              }
+            ]
           }
         ]
       },
@@ -390,7 +420,38 @@
         "dynamic": [
           {
             "address": "0x9b95",
-            "instruction": "9b95  NEW ECL          mem 0x6e79"
+            "instruction": "9b95  NEW ECL          mem 0x6e79",
+            "selectorEntry": "0x9b5a",
+            "scriptTargets": [
+              3,
+              9
+            ],
+            "cases": [
+              {
+                "when": {
+                  "facing": "north"
+                },
+                "targetAreaId": 3
+              },
+              {
+                "when": {
+                  "facing": "east"
+                },
+                "targetAreaId": 3
+              },
+              {
+                "when": {
+                  "facing": "south"
+                },
+                "targetAreaId": 9
+              },
+              {
+                "when": {
+                  "facing": "west"
+                },
+                "targetAreaId": 3
+              }
+            ]
           }
         ]
       },
@@ -516,7 +577,32 @@
         "dynamic": [
           {
             "address": "0x9ca0",
-            "instruction": "9ca0  NEW ECL          mem 0x6e79"
+            "instruction": "9ca0  NEW ECL          mem 0x6e79",
+            "selectorEntry": "0x9c68",
+            "scriptTargets": [
+              6,
+              18
+            ],
+            "cases": [
+              {
+                "when": {
+                  "exitRows": [
+                    0,
+                    0
+                  ]
+                },
+                "targetAreaId": 6
+              },
+              {
+                "when": {
+                  "exitRows": [
+                    1,
+                    15
+                  ]
+                },
+                "targetAreaId": 18
+              }
+            ]
           }
         ]
       },
@@ -715,7 +801,39 @@
         "dynamic": [
           {
             "address": "0x9b03",
-            "instruction": "9b03  NEW ECL          mem 0x6e7f"
+            "instruction": "9b03  NEW ECL          mem 0x6e7f",
+            "selectorEntry": "0x9aeb",
+            "scriptTargets": [
+              0,
+              2,
+              29
+            ],
+            "cases": [
+              {
+                "when": {
+                  "facing": "north"
+                },
+                "targetAreaId": 29
+              },
+              {
+                "when": {
+                  "facing": "east"
+                },
+                "targetAreaId": 0
+              },
+              {
+                "when": {
+                  "facing": "south"
+                },
+                "targetAreaId": 0
+              },
+              {
+                "when": {
+                  "facing": "west"
+                },
+                "targetAreaId": 2
+              }
+            ]
           }
         ]
       },
@@ -1156,7 +1274,74 @@
         "dynamic": [
           {
             "address": "0x99a3",
-            "instruction": "99a3  NEW ECL          mem 0x6e7d"
+            "instruction": "99a3  NEW ECL          mem 0x6e7d",
+            "selectorEntry": "0x992e",
+            "scriptTargets": [
+              14,
+              26
+            ],
+            "cases": [
+              {
+                "when": {
+                  "facing": "north",
+                  "fromMapId": 24
+                },
+                "missingAreaId": 255
+              },
+              {
+                "when": {
+                  "facing": "east",
+                  "fromMapId": 24
+                },
+                "loadsMapId": 31,
+                "sameArea": true
+              },
+              {
+                "when": {
+                  "facing": "south",
+                  "fromMapId": 24
+                },
+                "missingAreaId": 255
+              },
+              {
+                "when": {
+                  "facing": "west",
+                  "fromMapId": 24
+                },
+                "missingAreaId": 255
+              },
+              {
+                "when": {
+                  "facing": "north",
+                  "fromMapId": 31
+                },
+                "targetAreaId": 14,
+                "loadsMapId": 14
+              },
+              {
+                "when": {
+                  "facing": "east",
+                  "fromMapId": 31
+                },
+                "targetAreaId": 26,
+                "loadsMapId": 26
+              },
+              {
+                "when": {
+                  "facing": "south",
+                  "fromMapId": 31
+                },
+                "missingAreaId": 255
+              },
+              {
+                "when": {
+                  "facing": "west",
+                  "fromMapId": 31
+                },
+                "loadsMapId": 24,
+                "sameArea": true
+              }
+            ]
           }
         ]
       },
@@ -1504,7 +1689,40 @@
         "dynamic": [
           {
             "address": "0x9947",
-            "instruction": "9947  NEW ECL          mem 0x6e82"
+            "instruction": "9947  NEW ECL          mem 0x6e82",
+            "selectorEntry": "0x9918",
+            "scriptTargets": [
+              1,
+              15,
+              18,
+              20
+            ],
+            "cases": [
+              {
+                "when": {
+                  "facing": "north"
+                },
+                "targetAreaId": 1
+              },
+              {
+                "when": {
+                  "facing": "east"
+                },
+                "targetAreaId": 20
+              },
+              {
+                "when": {
+                  "facing": "south"
+                },
+                "targetAreaId": 15
+              },
+              {
+                "when": {
+                  "facing": "west"
+                },
+                "targetAreaId": 18
+              }
+            ]
           }
         ]
       },

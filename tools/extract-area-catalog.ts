@@ -4,6 +4,7 @@ import { parseDax } from "../src/lib/dax.js";
 import { disassemble, formatInstruction, scriptFromBlock, type Operand } from "../src/lib/ecl.js";
 import { parseGeo, type GeoMap } from "../src/lib/world.js";
 import { requireBrowserGameRoot } from "./gamedata.js";
+import { traceComputedAreaExits } from "./trace-computed-area-exits.js";
 
 type Arrival = { x: number; y: number; facing?: number };
 type AreaMetadata = { name?: string; confidence: "confirmed" | "probable" | "unknown"; geos: number[];
@@ -77,12 +78,16 @@ for(const archive of readdirSync(root).filter(name=>/^GEO\d+\.DAX$/i.test(name))
   for(const entry of parseDax(archive,new Uint8Array(readFileSync(join(root,archive)))).entries)
     if(entry.rawSize===0x402) geoBlocks.set(entry.id,{archive,map:parseGeo(entry.data,entry.id)});
 
-const scripts=new Map<number,{archive:string;instructions:ReturnType<typeof disassemble>["instructions"]}>();
+const scripts=new Map<number,{archive:string;data:ReturnType<typeof scriptFromBlock>;instructions:ReturnType<typeof disassemble>["instructions"]}>();
 for(const archive of readdirSync(root).filter(name=>/^ECL\d+\.DAX$/i.test(name)).sort())
   for(const entry of parseDax(archive,new Uint8Array(readFileSync(join(root,archive)))).entries) {
-    try { scripts.set(entry.id,{archive,instructions:disassemble(scriptFromBlock(entry.data)).instructions}); } catch {}
+    try {
+      const data=scriptFromBlock(entry.data);
+      scripts.set(entry.id,{archive,data,instructions:disassemble(data).instructions});
+    } catch {}
   }
 
+const traceComputedExit=traceComputedAreaExits(root,new Set(scripts.keys()));
 const areas=[...scripts].sort(([a],[b])=>a-b).map(([id,script])=>{
   const meta=metadata[id]??{confidence:"unknown",geos:[],region:"remote"};
   const newEcl=script.instructions.filter(inst=>inst.opcode===0x20);
@@ -91,7 +96,8 @@ const areas=[...scripts].sort(([a],[b])=>a-b).map(([id,script])=>{
   }));
   const staticTargets=[...new Set(newEcl.map(inst=>immediate(inst.operands[0])).filter((v):v is number=>v!==undefined))].sort((a,b)=>a-b);
   const dynamicTransitions=newEcl.filter(inst=>immediate(inst.operands[0])===undefined).map(inst=>({
-    address:`0x${inst.address.toString(16)}`, instruction:formatInstruction(inst)
+    address:`0x${inst.address.toString(16)}`, instruction:formatInstruction(inst),
+    ...traceComputedExit(id,script.archive,script.data,inst.address)
   }));
   return { id, hexId:`0x${id.toString(16).padStart(2,"0")}`, name:meta.name??null, nameConfidence:meta.confidence,
     region:meta.region, scriptArchive:script.archive, maps:meta.geos.map(geo=>{
@@ -100,10 +106,14 @@ const areas=[...scripts].sort(([a],[b])=>a-b).map(([id,script])=>{
     transitions:{ staticTargets, dynamic:dynamicTransitions }, geoLoads };
 });
 
-const referencedTargets=new Set(areas.flatMap(area=>area.transitions.staticTargets));
+const referencedTargets=new Set(areas.flatMap(({ transitions })=>[
+  ...transitions.staticTargets,
+  ...transitions.dynamic.flatMap(exit=>exit.scriptTargets),
+]));
 const catalog={ schema:1, generatedFrom:"original Pool of Radiance GEO and ECL DAX blocks",
   sources:{
     geometryAndTransitions:"original game data installed locally",
+    computedTransitions:"original exit selectors run through the translated ECL interpreter with controlled map positions",
     areaNames:"official Pool of Radiance clue book and Adventurer's Journal",
     crossCheck:"https://wish-goldbox.readthedocs.io/en/latest/api/generated/goldbox.areas.html"
   },
