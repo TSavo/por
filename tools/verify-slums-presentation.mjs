@@ -1172,7 +1172,10 @@ const illustrationRoutes = new Map([
   ["new-phlan-innkeeper", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:0:HEAD3.DAX:45:BODY3.DAX:24", prompt: /ITWILLCOSTYOU1PLATINUMPIECETORESTHERE/i,
-    continuation: { inputs: ["n"], prompt: /THENYOUMUSTLEAVE/i, clearsPortrait: true },
+    continuation: {
+      inputs: ["n"], prompt: /THENYOUMUSTLEAVE/i,
+      portrait: "scene-illustration:area:0:ecl:aa63",
+    },
   }],
   ["new-phlan-tavern-spinner", {
     slot: "A", inputs: ["up", "enter", "y"],
@@ -6644,6 +6647,16 @@ try {
         assert.match(text(), /gatewaytotheunsettledareas/i);
         await waitForExplorationViewport();
         console.log("Verified the spirit's recall, castle departure, Phlan homecoming and WebGL return to play:", directory);
+      }
+      if (routeName === "new-phlan-innkeeper") {
+        const declinedRoomShot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "new-phlan-innkeeper-declined.png"), Buffer.from(declinedRoomShot.data, "base64"));
+        await switchBothWays(frame.frame);
+        for (const key of ["down", "up"]) await advance(key);
+        assert.equal(frame.portrait, undefined);
+        await waitForExplorationViewport();
+        const streetShot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "new-phlan-innkeeper-exit-webgl.png"), Buffer.from(streetShot.data, "base64"));
       }
       if (routeName === "sokal-ferran-rejects-lie") {
         await waitForExplorationViewport();
