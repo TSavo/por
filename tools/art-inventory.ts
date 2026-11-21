@@ -497,6 +497,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["stojanow-gate-first-sight.png", ["A wide view of Stojanow Gate at the river bend"]],
   ["stojanow-gate-bugbear-lookouts.png", ["Bugbears visibly lounging at the entrance", "A main wall below two taller watchtowers"]],
   ["stojanow-passing-wagon.png", ["A driver and moving wagon", "A visible load of food and equipment", "The road leading toward the gate"]],
+  ["stojanow-trader-gate-warning.png", ["The trader leans in to warn the party", "Bugbear guards can be seen at the gate he indicates"]],
   ["new-phlan-rolf-temple-tyr.png", ["Rolf gestures toward a recognizable temple entrance", "The temple door and the steps leading to it are clearly visible"]],
   ["new-phlan-rolf-training-schools.png", ["Rolf points out the doors leading into the training schools", "Visible practice equipment gives the entrances context"]],
   ["kuto-well-waterline-door.png", ["The inside of a well with climbable rungs", "A secret door ajar above the waterline"]],
