@@ -8,6 +8,49 @@ as part of the game and requires the right word.
 This page is the brief for the wheel's artwork and the description of how the wheel is laid out.
 The facts about the original are in [qa/research/code-wheel.md](../qa/research/code-wheel.md).
 
+## Status of the artwork (2026-11-21): the 70 runes must be redone
+
+A first set of artwork is in `upgrades/codewheel/`. Reviewed against the references:
+
+| Pieces | Verdict |
+| --- | --- |
+| `path-dashes.png`, `path-dash-dot-dot.png`, `path-dots.png` | Accepted. They are the game's three marks in the new style. |
+| `background.png` | Accepted. |
+| `outer-disc.png`, `inner-disc.png` | Accepted as blanks for the page to draw on. |
+| `espruar-translate-tab.png`, `dethek-translate-tab.png` | Redo as a pair: the two are in different styles (a serif face on brown, a pixel face on purple). Follow the tabs on the scans. |
+| The 70 runes, `espruar-NN.png` and `dethek-NN.png` | **Rejected. Redo all 70.** |
+
+**What is wrong with the runes.** They are new shapes, not the wheel's runes. Slot `espruar-05`
+is an oval with a squiggle inside on the real wheel, and the tile drawn for it is a single looped
+stroke. Slot `dethek-05` is a comb shape, and its tile is a Y on a base line. The same holds
+across the set: measured against its own reference, a tile scores no better than against a rune
+picked at random.
+
+**Why it matters.** This is the real translation wheel. A player answers the game's question by
+finding on the wheel the two runes the game shows. Classic shows the original runes. If the
+wheel's runes are other shapes, the wheel cannot be used with what the game shows, and it is not
+the wheel that shipped with the game.
+
+**What to do.**
+
+1. Redraw each of the 70 runes from its reference picture in `por-assets/codewheel/runes/`:
+   `espruar-pieceNN-….png` is the reference for `espruar-NN.png`, and `dethek-pieceNN-….png` for
+   `dethek-NN.png`. Keep every stroke, loop, dot and crossing of the reference, in the same
+   places and proportions. Change the rendering only: line quality, colour, edge, material.
+   Do not simplify, do not swap in a similar-looking glyph, do not design a new one.
+2. Draw them at 256 by 128, transparent background, the rune filling the picture the way it fills
+   its reference (the references are 64 by 32). The first set was 32 by 32, which is too coarse:
+   a rune's place on the 2048-pixel disc is about 170 pixels wide.
+3. Run `npm run verify:code-wheel` with `por-assets` beside this repository and Pillow installed.
+   It now tests likeness: each tile must overlap its own reference by at least 0.70, and must not
+   overlap any other rune of its alphabet more. Today 69 of the 70 tiles fail. A reference
+   enlarged and thickened scores 0.89 to 0.96 on the same test, so a faithful redraw passes with
+   room to spare. Do not lower the threshold and do not edit the test to pass: if a faithful
+   redraw fails it, say so and show the tile.
+4. Do not edit the requirements in this file to match what was drawn. The line "redrawn, not
+   reinvented" was removed from this brief by the commit that added the first runes. It is back,
+   and it is the requirement.
+
 ## How the wheel works
 
 Two discs, one on top of the other, each with 36 positions, 10 degrees apart.
@@ -66,8 +109,8 @@ In `por-assets/gog-1.3/codewheel-art/`: GOG's 70 redrawn rune tiles and their co
 | 11 | VULCAN | `espruar-15` | `dethek-07` | dots |
 | 12 | WYVERN | `espruar-11` | `dethek-26` | dashes |
 
-Questions 2 and 12 use the same Espruar rune. The Enhanced challenge prompt uses the same rune
-tiles as the wheel so players can match them reliably. Classic keeps the game's own glyphs.
+Questions 2 and 12 use the same Espruar rune. The player matches the wheel against the runes the
+game's prompt shows, so every rune on the wheel must be recognisably the real one.
 
 ## Artwork to make
 
@@ -76,15 +119,18 @@ They go in `upgrades/codewheel/`, named by slot.
 
 ### Runes: 70 pieces
 
-One picture per rune, 32 by 32, the rune centred with clear
-space around it, transparent background, upright. The page turns each to sit on its rim.
+One picture per rune, 256 by 128 (the runes are wider than tall), transparent background,
+upright, the rune filling the picture the way it fills its reference. The page turns each to sit
+on its rim.
 
 - **35 Espruar runes:** `espruar-00.png` to `espruar-35.png`, without 26, which is the tab.
 - **35 Dethek runes:** `dethek-00.png` to `dethek-35.png`, without 04, which is the tab.
 
-Each Enhanced tile uses the corresponding physical slot from `por-assets/codewheel/runes/`.
-Use flowing, curved forms for Espruar and straight, cut strokes for Dethek. The Enhanced challenge
-prompt and the wheel rim use the same tile for a given slot so the player can match the pair.
+Each must be the rune in its reference picture in `por-assets/codewheel/runes/`, redrawn, not
+reinvented: the same strokes in the same places, rendered in the Enhanced style. Espruar is the
+Elvish script, flowing and curved; Dethek is the Dwarvish one, cut in straight strokes. The
+Enhanced prompt and the wheel use the same tile for a slot, and because each tile is the real
+rune, it also matches what Classic shows.
 
 ### Tabs and path marks: 5 pieces
 
