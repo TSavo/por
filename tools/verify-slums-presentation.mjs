@@ -880,6 +880,18 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:18:ecl:b240:caller:a30c:PIC1.DAX:16:5:0",
     prompt: /THEAUCTIONEERCRIES.*WELCOMETOTHISAUCTION/i,
   }],
+  ["podal-auction-wand-or-staff", {
+    slot: "I", inputs: ["up", "enter", "enter", ...Array(11).fill("z")],
+    portraitStops: {
+      3: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:0:0",
+      7: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:1:0",
+      8: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:2:0",
+      10: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:3:0",
+      11: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:4:0",
+    },
+    portrait: "portrait:area:18:ecl:b240:caller:a333:PIC1.DAX:16:5:0",
+    prompt: /THEAUCTIONEERHASEITHERAWANDORSTAFF/i,
+  }],
   ["podal-auction-high-bid-phases", {
     slot: "I", inputs: ["up", ...Array(4).fill("enter"), ...Array(11).fill("z")],
     portraitStops: {
