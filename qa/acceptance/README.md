@@ -102,3 +102,11 @@ A replay cannot assert these digest items as the digest states them. Where a sce
 - **Statements without a location or text.** Several flavour rooms are listed by number only ("4, 10, 11", "19, 21, 22"). Where the game-text file did not settle the text, the scenario says the digest is vague.
 - **Strategy advice.** Recommended tactics (for example the troll fight at Slums 20, spell preparation before Tyranthraxus) are in `notes`, not asserted.
 - **Tavern tale and journal texts.** The game prints only the number. A scenario can assert only the number; the text itself is in the printed Journal.
+
+## The register of disagreements
+
+Every place where the sources disagree is recorded once in `qa/disagreements.json`, built by
+`npm run qa:disagreements` from the `disagreements` notes in these files and from
+`qa/disagreements-manual.json`. Each entry names the scenarios that carry it and has a status:
+`open` until the game itself has been used to settle it, then `settled`, with what the game does
+and how that was established. On 2026-11-21 it holds 391 entries, all open.
