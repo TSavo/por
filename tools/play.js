@@ -1346,9 +1346,9 @@ window.addEventListener("keydown", (event) => {
     }
   }
   if (event.altKey) {
-    if (!event.shiftKey && event.code === "KeyQ" && !state.journal) {
+    if (!event.shiftKey && !state.journal && (event.code === "KeyQ" || event.code === "KeyM")) {
       event.preventDefault();
-      void send("alt-q");
+      void send(event.code === "KeyQ" ? "alt-q" : "alt-m");
     }
     return;
   }
