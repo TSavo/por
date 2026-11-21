@@ -2749,6 +2749,7 @@ const illustrationRoutes = new Map([
       [48, 32, "encounter:area:10:SPRIT4.DAX:34:0:0", 40, 80],
     ],
     portrait: "portrait:area:10:PIC4.DAX:34:0:0", prompt: /THEENCLAVEISGUARDEDBYASKELETONARMY/i,
+    idlePortraits: [1, 2, 3].map(phase => `portrait:area:10:ecl:b695:caller:9db8:PIC4.DAX:34:${phase}:0`),
   }],
   ["sokal-ceiling-insects", {
     slot: "C", inputs: ["up", "enter", "enter"],
@@ -2931,6 +2932,7 @@ const illustrationRoutes = new Map([
   ["valhingen-tower-wight-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:PIC4.DAX:20:0:0", prompt: /WIGHTSAPPEARFROMBEHINDTHETOWER/i,
+    idlePortraits: [1, 2].map(phase => `portrait:area:10:ecl:b695:caller:a92b:PIC4.DAX:20:${phase}:0`),
   }],
   ["valhingen-paladin-wraith-dialogue", {
     slot: "A", inputs: ["up", "b"],
