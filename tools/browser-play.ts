@@ -329,7 +329,7 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(page);
   } else if (req.method === "GET" && req.url === "/play.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(script);
-  } else if (req.method === "GET" && req.url === "/code-wheel") {
+  } else if (req.method === "GET" && /^\/code-wheel(?:\?|$)/.test(req.url ?? "")) {
     res.setHeader("content-security-policy", "default-src 'self'; style-src 'unsafe-inline'");
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(wheelPage);
   } else if (req.method === "GET" && req.url === "/code-wheel.js") {

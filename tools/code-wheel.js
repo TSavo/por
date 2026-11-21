@@ -110,6 +110,7 @@ async function start() {
   const initial = Number(query.get("question"));
   if (Number.isInteger(initial) && initial >= 1 && initial <= layout.questions.length) question.value = initial - 1;
   if (challenge) {
+    document.body.classList.add("boot-challenge");
     document.querySelector("#return").hidden = true;
     document.querySelector("#question-label").hidden = true;
     question.hidden = true;

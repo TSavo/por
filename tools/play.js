@@ -989,7 +989,8 @@ async function showScreen() {
   const render = ++screenRender;
   renderingSequence = state.sequence;
   const view = animationFrame ?? state;
-  const useEnhanced = enhanced && !failedEnhancedFrames.has(view);
+  // The wheel prompt uses a custom DOS font whose glyph codes are not letters.
+  const useEnhanced = enhanced && !Number.isInteger(view.codeWheelQuestion) && !failedEnhancedFrames.has(view);
   const frame = useEnhanced ? view.enhancedFrame ?? view.frame : view.frame;
   const sceneArt = useEnhanced && !failedSceneArt.has(view) && view.art;
   const source = sceneArt || `data:image/png;base64,${frame}`;
@@ -1304,6 +1305,7 @@ async function poll() {
     }
     const restoreGameFocus = !showWheel && document.activeElement === bootWheel;
     bootWheel.hidden = !showWheel;
+    document.documentElement.classList.toggle("code-wheel-open", showWheel);
     if (restoreGameFocus) screen.focus({ preventScroll: true });
     closeJournal.disabled = !state.ready || Boolean(state.stopped);
     autoTrack.disabled = closeJournal.disabled;

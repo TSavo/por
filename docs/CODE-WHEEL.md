@@ -144,7 +144,9 @@ The letter rings lie under the inner disc and show only through its windows. The
 overlaps the inside of the Espruar rim band, so centre the Espruar marks near 0.94 and the Dethek
 marks near 0.80.
 
-## Not built yet
+## Browser startup
 
-The page that shows the wheel, turning it, and refusing a wrong word in Enhanced. Until the new
-artwork exists the page will use the game's own runes enlarged.
+Enable Enhanced at the GOG 1.3 title screen to open the wheel with the native question selected.
+Turn its inner disc with the arrow keys or buttons, then type the word and press Enter. The game
+draws a new question after a wrong answer and exits after the third wrong answer. Classic keeps
+GOG's startup behavior.
