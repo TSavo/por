@@ -585,13 +585,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       } else console.log("Choose a number from the journal's active objectives.");
     }
   };
-  const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
+  let keyQueue: BiosKey[] | undefined;
+  const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean, legacyFlush = false): void => {
+    keyQueue = keys;
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
     // The game empties its keyboard buffer before it draws a new screen (FlushKeys) and after
     // each key it reads (GetKey). Those polls only discard type-ahead. On DOS they find
     // nothing and return at once, so the player is never asked for a key there.
-    const atDiscardPoll = !blocking &&
-      (returnsTo(cpu, 0, code.flushPollResumes) || returnsTo(cpu, 0, code.drainPollResumes));
+    const atDiscardPoll = legacyFlush || (!blocking &&
+      (returnsTo(cpu, 0, code.flushPollResumes) || returnsTo(cpu, 0, code.drainPollResumes)));
     if (atDiscardPoll && !promptAtDiscardPolls) return;
     const battlePoll = !blocking && isAt(cpu, cpu.ip, code.keyPressedPoll) && hasBattlefieldBorder(screen);
     const combatMenu = developerCombat ? menuText(visibleGameText()) : "";
@@ -692,6 +694,17 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   return {
     requestKey,
+    /**
+     * The legacy key lists hold presses that the first release's FlushKeys used to swallow under
+     * POR_INPUT_COMPAT. Version 1.3's FlushKeys discards nothing, so the runner calls this where the
+     * game calls FlushKeys, and the press that the first release would have dropped is dropped here.
+     */
+    legacyFlush(cpu: Cpu): void {
+      if (!promptAtDiscardPolls || !keyQueue) return;
+      const waiting = keyQueue.length;
+      requestKey(cpu, keyQueue, false, true);
+      keyQueue.length = waiting;
+    },
     captureEncounterDraw: browser && (nativeEncounterDirectory || hasEncounterArtwork) ? (cpu: Cpu) => {
       const captureAnimation = hasEncounterArtwork && animation.length < 12;
       if (scene || area === undefined || (!nativeEncounterDirectory && !captureAnimation)) return;

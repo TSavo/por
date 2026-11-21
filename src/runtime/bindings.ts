@@ -177,6 +177,11 @@ export const behaviour = resolve({
    * Version 1.3 never asks for it, on any hardware.
    */
   startsBattleMusicOnTandy: { "1.0": true, "1.3": false },
+  /**
+   * The first release's FlushKeys reads and drops every waiting key before a new screen.
+   * In version 1.3 the routine returns at once: its first instruction jumps over the loop.
+   */
+  flushKeysDiscardsTypeAhead: { "1.0": true, "1.3": false },
 });
 
 /** A position in the program's code: in an overlay slice, or in the resident program by image offset. */

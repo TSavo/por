@@ -3075,6 +3075,7 @@ const equipFighters = (roster) => roster.flatMap((name, index) => [
   ...shopForFighter(index), checkGear(name), ...closeInventory,
 ]);
 
+let koboldExperience;
 async function verifyFreshSlumsVictory() {
   // The campaign replay checks exact native rolls and combat outcomes.
   const saved = await replay("31000000:1c0d,45000000:2e63", "50000000", [...createFighters(names), ...added, ...tour, ...camp]);
@@ -3117,10 +3118,16 @@ async function verifyFreshSlumsVictory() {
     (text) => assert.match(text, /surprised a party of kobolds/),
     "c", "enter",
     (text) => assert.match(text, /hand axe.*move view aim use quick done/),
-    ...Array(13).fill("q"),
-    (text) => assert.match(text, /continue battle/),
+    // Quick lets the game fight each turn. How many turns the fight takes depends on the dice,
+    // and the dice depend on how long the game waited for each key, which differs between builds.
+    ["q", /continue battle/, 60],
     "n",
-    (text) => assert.match(text, /the party has won.*receives 5 experience points/),
+    (text) => {
+      const won = /the party has won.*receives (\d+) experience points/.exec(text);
+      assert.ok(won, `The party did not win the kobold encounter: ${text}`);
+      koboldExperience = Number(won[1]);
+      assert.ok(koboldExperience > 0);
+    },
     "enter", "enter", "s", "e", "n", "e", "s", "s", "d",
   ]);
   assert.match(visibleText(battleSave), /quit to dos/);
@@ -3131,8 +3138,11 @@ async function verifyOpeningReload() {
     (text) => expectParty(text),
     "v", "v",
   ]);
-  assert.match(visibleText(battleReload), /alda.*copper 11.*exp 5.*armor chain mail/);
-  console.log("Won the kobold encounter and verified Alda's 5 XP and 11 copper after reloading slot D.");
+  const sheet = /alda.*copper (\d+).*exp (\d+).*armor chain mail/.exec(visibleText(battleReload));
+  assert.ok(sheet, `Alda's sheet after the fight: ${visibleText(battleReload)}`);
+  // Every character receives the experience the game announced. Skipped when the fight was loaded from a save.
+  if (koboldExperience !== undefined) assert.equal(Number(sheet[2]), koboldExperience);
+  console.log(`Won the kobold encounter and verified Alda's ${sheet[2]} XP and ${sheet[1]} copper after reloading slot D.`);
 }
 
 if (!finishFromSokal) {

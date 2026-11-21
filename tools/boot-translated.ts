@@ -292,6 +292,13 @@ if (input && process.env.POR_BROWSER_PLAY === "1") {
     if (isFar(segment, offset, far.flushKeys) && isAt(cpu, cpu.ip, code.titleDone)) input.setScene(undefined);
   });
 }
+if (input && !behaviour.flushKeysDiscardsTypeAhead) {
+  const observe = farCallObservers.get(cpu);
+  farCallObservers.set(cpu, (segment, offset) => {
+    observe?.(segment, offset);
+    if (isFar(segment, offset, far.flushKeys)) input.legacyFlush(cpu);
+  });
+}
 const boot = (cpu as Cpu & { boot: { cs: number; ip: number; ss: number; sp: number } }).boot;
 console.log(
   `image entry ${boot.cs.toString(16)}:${boot.ip.toString(16)} ss ${boot.ss.toString(16)} sp ${boot.sp.toString(16)} slices ${loadedSlices.length}`,
