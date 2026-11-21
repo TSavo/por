@@ -2262,6 +2262,15 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["f"], portrait: "scene-illustration:area:13:ecl:b511:caller:afc2",
       prompt: /THEKOBOLDPAUSES/i },
   }],
+  ["kobold-white-flag-boulder", {
+    slot: "B", inputs: ["up", "enter", "enter", "enter", "z", "z", "a", "f", "enter", "enter", "n"],
+    portraitStops: { 10: "scene-illustration:area:13:ecl:b01c:caller:af11:cue:truce-boulder" },
+    phaseCaptures: { 10: "kobold-truce-boulder.png" },
+    portrait: "scene-illustration:area:13:ecl:b04b:cue:truce-boulder-departure",
+    prompt: /THEKOBOLDDISAPPEARSBEYONDTHEBOULDER/i,
+    finalPhaseCapture: "kobold-truce-boulder-departure.png",
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["kobold-white-flag-envoy", {
     slot: "B", inputs: ["up", "enter", "enter", "enter", ...Array(22).fill("z")],
     approachSequence: [
