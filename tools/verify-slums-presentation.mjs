@@ -176,7 +176,7 @@ const encounterRoutes = new Map([
   }],
   ["podal-pitt-monster-patrons", {
     slot: "I", inputs: ["up", "enter"],
-    placement: [48, 32, "encounter:area:18:SPRIT1.DAX:2:0:0", 48, 80],
+    placement: [48, 32, "encounter:area:18:ecl:ab2c:SPRIT1.DAX:2:0:0", 48, 80],
     dialogue: { key: "enter", portrait: "portrait:area:18:PIC1.DAX:2:0:0", prompt: /THECREATURESIGNOREYOUFORTHEMOMENT/i },
   }],
   ["wild-cave-rearing-snake-approach", {
