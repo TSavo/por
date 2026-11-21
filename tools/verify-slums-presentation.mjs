@@ -9418,7 +9418,20 @@ try {
     if (!reload) {
       assert.ok(!frame.journal.leads.some(({ id }) => id === defeat));
       assert.match(frame.journal.objective.nextStep, /Defeat the king's guards/);
-      for (const key of ["j", "up", "j"]) await advance(key);
+      await advance("j");
+      await advance("up");
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /HASFALLENINTOHISOWNSPIKEDPITANDDIED/i);
+      const portrait = "scene-illustration:area:13:ecl:a509:cue:king-fall";
+      assert.equal(frame.portrait, portrait);
+      await waitFor("the king's fall illustration", () => run(`
+        state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352
+      `));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "kobold-king-fall.png"), Buffer.from(shot.data, "base64"));
+      await advance("j");
     }
     assert.ok(frame.journal.leads.some(({ id }) => id === defeat));
     assert.equal(frame.journal.leads.find(({ id }) => id === "commission-kobolds")?.status, "ready-to-report");
@@ -9483,6 +9496,8 @@ try {
       await switchBothWays();
       console.log("Verified the kobold report objective after reload and four enhanced views beyond the pit.");
     } else {
+      await advance("l");
+      assert.equal(frame.portrait, undefined);
       for (const key of ["e", "s", "s", "b"]) await advance(key);
       const savedResult = JSON.parse(readFileSync(saved, "utf8"));
       assert.equal(savedResult.tracked, "commission-kobolds");
