@@ -1585,6 +1585,15 @@ const illustrationRoutes = new Map([
       prompt: /GUARDS,INTHENAMEOFBANE,KILLTHESEUNBELIEVERS/i,
     },
   }],
+  ["textile-skullcrusher-wall-mark", {
+    slot: "J", inputs: ["left", "up", "right", "up", "up", "up", "up", "left", "up"],
+    portraitStops: { 7: null, 8: null },
+    portrait: "scene-illustration:area:2:ecl:9ec4:cue:skullcrusher-mark",
+    prompt: /SKULLCRUSHERWASHERE.ISCARVEDINTOTHENORTHWALL/i,
+    finalPhaseCapture: "textile-skullcrusher-wall-mark.png",
+    journalLead: "textile-skullcrusher-mark", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["right", "up"], clearsPortrait: true, prompt: /(?=.*6,15S).*AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["bane-mansion-wall-message", {
     slot: "A", inputs: ["up", "up", "left", "up", "up", "right", "up"],
     portraitStops: { 4: "scene-illustration:area:31:ecl:b0b5:cue:mansion-prison-cell", 5: null },
