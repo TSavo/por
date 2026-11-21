@@ -1790,6 +1790,14 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "textile-skullcrusher-body.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /WHATDOYOUDOWITHTHEBODY.*SEARCHDESTROYLEAVE/i },
   }],
+  ["textile-faded-tapestries", {
+    slot: "B", inputs: ["up"],
+    portraitStops: { 0: null },
+    portrait: "scene-illustration:area:2:ecl:abd2:caller:a9d5",
+    prompt: /MOTHEATENTAPESTRIESFLUTTERMOURNFULLY/i,
+    finalPhaseCapture: "textile-faded-tapestries.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /YOUENCOUNTERHOBGOBLINS.*COMBATWAITFLEEPARLAY/i },
+  }],
   ["textile-skullcrusher-wall-mark", {
     slot: "J", inputs: ["left", "up", "right", "up", "up", "up", "up", "left", "up"],
     portraitStops: { 7: null, 8: null },
@@ -8875,6 +8883,10 @@ try {
         document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
+      if (routeName === "textile-faded-tapestries") {
+        assert.deepEqual(frame.encounter, [48, 32, "encounter:area:2:SPRIT4.DAX:6:0:0", 48, 80]);
+        await waitForExplorationViewport();
+      }
       if (routeName === "wild-grove-western-stench") {
         assert.ok(!frame.classicPortrait);
         await waitForExplorationViewport();
