@@ -770,6 +770,15 @@ const illustrationRoutes = new Map([
     journalLead: "swamp-friend-word-charge", journalLeadAtDiscovery: true,
     continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i, portrait: "scene-illustration:area:16:ecl:a6ce:cue:ruin-defenders-charge" },
   }],
+  ["swamp-roofless-ruin", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:16:ecl:a65a:cue:roofless-ruin",
+    prompt: /WALLSAREMOREORLESSINTACT.*ROOFHASFALLENIN.*RUBBLEMAKESPASSAGEDIFFICULT/i,
+    finalPhaseCapture: "swamp-roofless-ruin.png",
+    continuation: {
+      inputs: ["b", "p"], portrait: "scene-illustration:area:16:ecl:a65a", prompt: /2LIZARDMENANDAGIANTLIZARDCHARGEATYOU/i,
+    },
+  }],
   ["swamp-ruin-defenders-surprise", {
     slot: "A", inputs: ["up", "b", "enter", "enter"],
     portraitStops: { 3: "scene-illustration:area:16:ecl:a6c6:cue:ruin-defenders-surprise" },

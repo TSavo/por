@@ -277,9 +277,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         if (x === 4 && y === 2) illustrationScope = "scene-illustration:area:4:ecl:9ed5:caller:a08a";
         else if (x === 13 && y === 12) illustrationScope = "scene-illustration:area:4:ecl:9ed5:caller:ac70";
       }
-      const picture = scene ? undefined : matchScriptIllustration(illustrationScope, illustrationText, portraitKeys) ??
+      const illustration = scene ? undefined : matchScriptIllustration(illustrationScope, illustrationText, portraitKeys);
+      let picture = scene ? undefined : illustration ??
         arrivalPicture ?? portraitArt(screen, area, portraitCursor, pictureCaller);
-      const portrait = typeof picture === "string" ? picture : undefined;
       const characterSheet = !scene && !picture ? characterSheetArt(screen) : undefined;
       const enhanced = new Frame(presentation.width, presentation.height);
       enhanced.pixels.set(presentation.pixels);
@@ -289,8 +289,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           enhanced.pixels.fill(0, start, start + width);
         }
       }
-      const encounter = encounterArt(presentation, enhanced, !scene && picture === undefined ? area : undefined,
+      // The next encounter can be drawn while the guest still shows the room description.
+      const rooflessRuin = illustration?.endsWith(":cue:roofless-ruin");
+      const encounter = encounterArt(presentation, enhanced, !scene && (picture === undefined || rooflessRuin) ? area : undefined,
         !captureApproach, battleCursor, [drawnPerspective?.pixels, priorPerspectiveDraw], portraitCaller);
+      if (rooflessRuin && encounter) picture = undefined;
+      const portrait = typeof picture === "string" ? picture : undefined;
       if (captureApproach) {
         // The guest may change script scope while the same actor cel remains on screen.
         const unscopedApproach = lastApproach?.replace(/:ecl:[a-f0-9]{4}(?::caller:[a-f0-9]{4})?(?=:SPRIT)/, "");

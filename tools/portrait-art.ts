@@ -519,6 +519,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:16:ecl:9a59:caller:ad91", "YOUFINDSOMETREASURE"],
   ["scene-illustration:area:16:ecl:9d41", "SEARCHINGTHROUGHTHERUBBLEYOUFINDAHIDDENTUNNELLEADINGDOWN"],
   ["scene-illustration:area:16:ecl:9a59:caller:9d45", "SEARCHINGTHROUGHTHERUBBLEYOUFINDAHIDDENTUNNELLEADINGDOWN"],
+  ["scene-illustration:area:16:ecl:a5d7:cue:roofless-ruin", "THOUGHTHEROOFHASFALLENIN"],
+  ["scene-illustration:area:16:ecl:a65a:cue:roofless-ruin", "THOUGHTHEROOFHASFALLENIN"],
   ["scene-illustration:area:16:ecl:a65a", "2LIZARDMENANDAGIANTLIZARDCHARGEATYOU"],
   ["scene-illustration:area:16:ecl:a6a6:cue:ruin-defenders-surprise", "SUDDENLYYOUAREATTACKEDBYTWOLIZARDMEN"],
   ["scene-illustration:area:16:ecl:a6a7:cue:ruin-defenders-surprise", "SUDDENLYYOUAREATTACKEDBYTWOLIZARDMEN"],

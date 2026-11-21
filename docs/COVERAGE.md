@@ -3313,6 +3313,9 @@ Chrome verifies the reflected strike and its eight-point damage report.
 
 The swamp ruin defenders use a charging lizardfolk sprite and a group
 illustration. Chrome verifies the anchor and the transition into parlay.
+The roofless ruin illustration follows the entrance narration. When the
+native approach sprite appears while the same caption is still visible,
+the sprite takes over the viewport at its original position.
 The surprise-attack replay selects the original surprise branch in a
 controlled test and shows an illustration of the attack from the rubble.
 The normal charge and surprise presentations carry their own art through
