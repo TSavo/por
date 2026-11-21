@@ -280,7 +280,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const encounter = encounterArt(presentation, enhanced, !scene && picture === undefined ? area : undefined,
         !captureApproach, battleCursor, [drawnPerspective?.pixels, priorPerspectiveDraw], portraitCaller);
       if (captureApproach) {
-        if (!encounter || encounter[2] === lastApproach) return;
+        // The guest may change script scope while the same actor cel remains on screen.
+        const unscopedApproach = lastApproach?.replace(/:ecl:[a-f0-9]{4}(?::caller:[a-f0-9]{4})?(?=:SPRIT)/, "");
+        if (!encounter || encounter[2] === lastApproach || encounter[2] === unscopedApproach) return;
         lastApproach = encounter[2];
       }
       const tiles: [number, number, string][] = [];

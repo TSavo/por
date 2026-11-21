@@ -3735,8 +3735,8 @@ const environmentRoutes = new Map([
     walk: [...Array(4).fill("up"), "left", "up", "up"],
     approachSequence: [
       [56, 32, "encounter:area:17:SPRIT7.DAX:11:2:0", 16, 49],
-      [56, 32, "encounter:area:17:SPRIT7.DAX:11:1:0", 24, 65],
-      [40, 32, "encounter:area:17:SPRIT7.DAX:11:0:0", 48, 80],
+      [56, 32, "encounter:area:17:ecl:9dd6:caller:a289:SPRIT7.DAX:11:1:0", 24, 65],
+      [40, 32, "encounter:area:17:ecl:9dd6:caller:a2e8:SPRIT7.DAX:11:0:0", 48, 80],
     ],
   }],
   ["overland-graveyard-arrival", {
@@ -5351,8 +5351,9 @@ try {
     }
     if (routeName === "nomad-camp-rim") {
       await waitFor("all three enhanced Nomad sentry distances", () => run("window.observedApproach.size === 3"));
+      assert.deepEqual(frame.animation?.flatMap(({ encounter }) => encounter ? [encounter] : []), environment.approachSequence);
       assert.deepEqual(await run("[...window.observedApproach]"), environment.approachSequence.map(([, , id]) => id));
-      const sentry = "encounter:area:17:SPRIT7.DAX:11:0:0";
+      const sentry = "encounter:area:17:ecl:9dd6:caller:a2e8:SPRIT7.DAX:11:0:0";
       assert.deepEqual(frame.encounter, [40, 32, sentry, 48, 80]);
       const text = frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
       assert.match(text, /ALLTHENOMADSHOLDTHEIRSWORDSATTHEREADY/i);
@@ -5370,7 +5371,7 @@ try {
       const choice = frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
       assert.match(choice, /THENOMADSWAITFORYOUTOMAKETHEFIRSTMOVE.*COMBATWAITFLEEPARLAY/i);
       await advance("p");
-      assert.equal(frame.portrait, "portrait:HEAD7.DAX:74:BODY7.DAX:30");
+      assert.equal(frame.portrait, "portrait:area:17:ecl:9da2:caller:a416:HEAD7.DAX:74:BODY7.DAX:30");
       await waitFor("the enhanced Nomad headman after Parlay", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
     }
