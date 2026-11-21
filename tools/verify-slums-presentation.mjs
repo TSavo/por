@@ -1240,6 +1240,7 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:14:ecl:9ae8:caller:9a4f",
     prompt: /THEPARTYHEARSTHECRACKINGOFGLASS.*APOISONOUSGASFILLSTHEAIR/i,
     finalPhaseCapture: "kovel-room-gas.png",
+    continuation: { inputs: ["enter", "enter", "l"], clearsPortrait: true, prompt: /VIEWENCAMP.*LOOK.*13,11N/i },
   }],
   ["kovel-tarnished-loot", {
     slot: "A", inputs: ["up", "enter", "enter"],
