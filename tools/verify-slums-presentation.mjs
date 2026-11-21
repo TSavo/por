@@ -1320,6 +1320,24 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:0:HEAD3.DAX:8:BODY3.DAX:9", prompt: /IAMROLF/i,
     continuation: { inputs: ["enter"], prompt: /YOUNOWFACEANENTRANCETOTHETEMPLEOFTYR/i, portrait: "scene-illustration:area:0:ecl:af3f:caller:b256" },
   }],
+  ["sokal-barracks-ghost-phases", {
+    slot: "C", inputs: ["up", "enter", "a", "a", "q", "q", "q"],
+    portraitStops: { 4: "portrait:area:21:PIC4.DAX:17:0:0" },
+    portrait: "portrait:area:21:ecl:a316:PIC4.DAX:17:1:0",
+    prompt: /GHOSTLYSHAPESSCREECHOUTADREADFULKEENINGHOWL/i,
+    finalPhaseCapture: "sokal-barracks-ghosts-phase-1.png",
+  }],
+  ["sokal-keep-departure-ferry-phases", {
+    slot: "C", inputs: ["up", "up", "enter", "y", "enter", ...Array(19).fill("q")],
+    portraitStops: {
+      5: "portrait:area:21:PIC4.DAX:41:0:0",
+      16: "portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:1:0",
+    },
+    portrait: "portrait:area:21:ecl:ae31:caller:9977:PIC4.DAX:41:2:0",
+    prompt: /YOUBOARDABOAT/i,
+    phaseCaptures: { 16: "sokal-keep-departure-ferry-phase-1.png" },
+    finalPhaseCapture: "sokal-keep-departure-ferry-phase-2.png",
+  }],
   ["sokal-keep-departure-ferry", {
     slot: "C", inputs: ["up", "up", "enter", "y", "enter"],
     portrait: "portrait:area:21:PIC4.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
@@ -1622,16 +1640,17 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:26:ecl:a981:PIC7.DAX:57:0:0", prompt: /INSIDETHISHUTAREFOURLIZARDMEN/i,
   }],
   ["diogenes-silver-dragon-phases", {
-    slot: "A", inputs: ["up", "enter", "e", "enter", "s", "enter", "enter", "enter", ...Array(14).fill("q")],
+    slot: "A", inputs: ["up", "enter", "e", "enter", "s", "enter", "enter", "enter", ...Array(21).fill("q")],
     portraitStops: {
       8: "portrait:PIC6.DAX:117:0:0",
       17: "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:1:0",
       20: "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:2:0",
+      22: "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:3:0",
     },
-    portrait: "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:3:0",
+    portrait: "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:4:0",
     prompt: /STANDINGBEFOREYOUNOWISAGREATSILVERDRAGON/i,
-    phaseCaptures: { 17: "diogenes-silver-dragon-phase-1.png", 20: "diogenes-silver-dragon-phase-2.png" },
-    finalPhaseCapture: "diogenes-silver-dragon-phase-3.png",
+    phaseCaptures: { 17: "diogenes-silver-dragon-phase-1.png", 20: "diogenes-silver-dragon-phase-2.png", 22: "diogenes-silver-dragon-phase-3.png" },
+    finalPhaseCapture: "diogenes-silver-dragon-phase-4.png",
   }],
   ["tyrmor-prison-minotaur-phases", {
     slot: "B", inputs: ["s", "up", "down", "up", "down", "up", "down", "up", "enter", "down", "up", ...Array(5).fill("q")],
