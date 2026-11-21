@@ -1653,6 +1653,37 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 13: "slums-monster-council-phase-2.png" },
     finalPhaseCapture: "slums-monster-council-phase-1.png",
   }],
+  ["textile-poison-frog-phases", {
+    slot: "B", inputs: ["s", "up", "up", "down", "up", "down", "enter", ...Array(17).fill("q")],
+    portraitStops: {
+      7: "portrait:area:2:PIC4.DAX:37:0:0",
+      15: "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:2:0",
+    },
+    portrait: "portrait:area:2:ecl:abd2:caller:9ae2:PIC4.DAX:37:1:0",
+    prompt: /EVILLOOKINGFROGSBOILUPFROMBELOW/i,
+    phaseCaptures: { 15: "textile-poison-frogs-phase-2.png" },
+    finalPhaseCapture: "textile-poison-frogs-phase-1.png",
+  }],
+  ["valjevo-dungeon-kitchen-phases", {
+    slot: "B", inputs: ["j", "j", "up", "enter", ...Array(9).fill("q")],
+    portraitStops: { 4: "portrait:PIC5.DAX:73:0:0" },
+    portrait: "portrait:area:4:ecl:9a5a:caller:a7a7:PIC5.DAX:73:1:0",
+    prompt: /YOUENTERAROOMTHATREEKSOFSMOKEANDBURNEDFOOD/i,
+    finalPhaseCapture: "valjevo-dungeon-kitchen-phase-1.png",
+  }],
+  ["mendor-fighter-phases", {
+    slot: "B", inputs: ["up", "enter", "enter", ...Array(12).fill("q")],
+    portraitStops: {
+      3: "portrait:area:15:PIC2.DAX:25:0:0",
+      6: "portrait:area:15:ecl:a85b:PIC2.DAX:25:2:0",
+      8: "portrait:area:15:ecl:a85b:PIC2.DAX:25:3:0",
+      9: "portrait:area:15:ecl:a85b:PIC2.DAX:25:4:0",
+    },
+    portrait: "portrait:area:15:ecl:a85b:PIC2.DAX:25:1:0",
+    prompt: /YOUFINDAFIGHTERWITHBATTEREDARMORANDWILDEYES/i,
+    phaseCaptures: { 6: "mendor-fighter-phase-2.png", 8: "mendor-fighter-phase-3.png", 9: "mendor-fighter-phase-4.png" },
+    finalPhaseCapture: "mendor-fighter-phase-1.png",
+  }],
   ["sokal-ceiling-insects-phases", {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
     portraitStops: {
