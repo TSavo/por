@@ -314,6 +314,8 @@ export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 export const scriptIllustrations = new Map<string, string | RegExp>([
+  ["scene-illustration:area:22:ecl:a20f", "YOUSURPRISEVISCIOUSLOOKINGDRIDERS"],
+  ["scene-illustration:area:22:ecl:9a06:caller:a213", "YOUSURPRISEVISCIOUSLOOKINGDRIDERS"],
   ["scene-illustration:area:9:ecl:a36e", "YOUOVERHEARTHEFIGHTERTELLTHEMAGE"],
   ["scene-illustration:area:9:ecl:9c63:caller:a372", "YOUOVERHEARTHEFIGHTERTELLTHEMAGE"],
   ["scene-illustration:area:9:ecl:a4e2:cue:dual-tower-ambush", "MONSTERSARECHARGINGTOWARDYOUFROMTHEFARTOWER"],

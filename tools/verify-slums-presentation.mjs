@@ -2263,6 +2263,12 @@ const illustrationRoutes = new Map([
     portrait: `portrait:area:22:ecl:a2f9:PIC7.DAX:69:${member}:0`, prompt: /ONELICKSITSLIPS/i,
     continuation: { inputs: ["c"], portrait: `portrait:area:22:ecl:a36f:PIC7.DAX:69:${member}:0`, prompt: /ABATTLEBEGINS/i },
   }]),
+  ["tyrmor-drider-surprise", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 26 }, () => ["up", "enter", "down"]).flat(), "up", "enter"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:a213", prompt: /YOUSURPRISEVISCIOUSLOOKINGDRIDERS/i,
+    finalPhaseCapture: "tyrmor-drider-surprise.png",
+    continuation: { inputs: ["enter", "down", "up"], portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:69:0:0", prompt: /ONELICKSITSLIPS/i },
+  }],
   ["tyrmor-prison-drider-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 26 }, () => ["up", "enter", "down"]).flat(),
       "up", "enter", "enter", "down", "up", ...Array(9).fill("q")],
