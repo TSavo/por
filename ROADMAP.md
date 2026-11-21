@@ -114,6 +114,25 @@ which start from controlled saves. [Audio](docs/AUDIO.md) and the
 - **Check the release from a clean checkout** with no `por-assets`
   directory beside it, in both display modes.
 
+### Version 1.3
+
+The port runs an early build with no version on its credits screen. Version
+1.3 is what GOG sells and what the Stephen S. Lee walkthrough documents, and
+it is archived in `por-assets/gog-1.3`. The plan is to translate 1.3 and run
+it. [The measured differences](qa/research/version-1.3-differences.md): the
+data is identical, 28 of 29 scripts are identical, and 608 of our 831
+procedures are the same or nearly the same.
+
+- Teach the translator EXEPACK and the `FBOV` overlay file, and generate
+  the 1.3 translation beside the current one.
+- Move every code and data address the host uses into one named table, and
+  fill in the 1.3 addresses from the procedure match.
+- Pass the same checks on 1.3: `npm run verify`, `npm run verify:input`,
+  the campaign replays, and `npm run verify:map-journal`.
+- Move New Phlan's script-keyed narration and art by the three bytes 1.3
+  adds after `0xa42d`.
+- Switch to 1.3 once it passes, and retire the early build.
+
 ### Translation
 
 - `Crt.Delay` ends after one pass. The generator leaves the flags off one
