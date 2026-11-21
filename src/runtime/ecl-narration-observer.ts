@@ -1,5 +1,6 @@
 import type { Cpu } from "../cpu/machine.js";
 import type { NarrationTrigger, RuntimeNarrationManifest } from "./narration.js";
+import { data } from "./bindings.js";
 
 interface SourcePart { operandIndex: number; kind: string; rawText?: string; address?: string }
 interface SourceEvent {
@@ -55,8 +56,8 @@ export class EclNarrationObserver {
   }
 
   observe(cpu: Cpu): EclNarrationEvent | undefined {
-    const archive = `ECL${cpu.read8(cpu.ds, 0x52d4)}.DAX`;
-    const block = cpu.read8(cpu.ds, 0x82a2);
+    const archive = `ECL${cpu.read8(cpu.ds, data.eclArchive)}.DAX`;
+    const block = cpu.read8(cpu.ds, data.eclBlock);
     if (this.archive !== archive || this.block !== block) {
       this.archive = archive;
       this.block = block;
@@ -64,14 +65,14 @@ export class EclNarrationObserver {
     }
     this.pendingMenu = undefined;
     this.pendingDynamicMenu = undefined;
-    const addressNumber = cpu.read16(cpu.ds, 0x494e);
+    const addressNumber = cpu.read16(cpu.ds, data.eclCursor);
     const address = `0x${addressNumber.toString(16).padStart(4, "0")}`;
     const event = this.eventsByLocation.get(`${archive}:${block}:${address}`);
     if (!event) return undefined;
     const expectedOpcode = opcodeForInstruction[event.source.instruction];
     if (expectedOpcode === undefined) return undefined;
-    const bufferOffset = cpu.read16(cpu.ds, 0x493f);
-    const bufferSegment = cpu.read16(cpu.ds, 0x4941);
+    const bufferOffset = cpu.read16(cpu.ds, data.eclCode);
+    const bufferSegment = cpu.read16(cpu.ds, data.eclCode + 2);
     const opcodeOffset = (bufferOffset + addressNumber + 0x6700) & 0xffff;
     if (cpu.read8(bufferSegment, opcodeOffset) !== expectedOpcode) return undefined;
 
@@ -216,10 +217,10 @@ export class EclNarrationObserver {
 
   // ECL variable addresses index words, while scripts index bytes.
   private eclStorage(cpu: Cpu, address: number): { segment: number; offset: number; stride: number } {
-    const region: [number, number, number] | undefined = address >= 0x4900 && address <= 0x4cff ? [0x4933, 0x6e00, 2]
-      : address >= 0x6b00 && address <= 0x6eff ? [0x4937, 0x2a00, 2]
-      : address >= 0x9700 && address <= 0x98ff ? [0x493b, -0x2e00, 2]
-      : address >= 0x9900 && address <= 0xb6ff ? [0x493f, 0x6700, 1]
+    const region: [number, number, number] | undefined = address >= 0x4900 && address <= 0x4cff ? [data.eclGlobals, 0x6e00, 2]
+      : address >= 0x6b00 && address <= 0x6eff ? [data.eclStrings, 0x2a00, 2]
+      : address >= 0x9700 && address <= 0x98ff ? [data.eclLocals, -0x2e00, 2]
+      : address >= 0x9900 && address <= 0xb6ff ? [data.eclCode, 0x6700, 1]
       : undefined;
     if (!region) return { segment: cpu.ds, offset: address, stride: 1 };
     const [pointer, bias, stride] = region;
@@ -231,7 +232,7 @@ export class EclNarrationObserver {
   }
 
   private readEclValue(cpu: Cpu, address: number): number {
-    if (address >= 0xc04b && address <= 0xc04d) return cpu.read8(cpu.ds, 0x6a0b + address - 0xc04b);
+    if (address >= 0xc04b && address <= 0xc04d) return cpu.read8(cpu.ds, data.cameraX + address - 0xc04b);
     const { segment, offset, stride } = this.eclStorage(cpu, address);
     return stride === 2 ? cpu.read16(segment, offset) : cpu.read8(segment, offset);
   }

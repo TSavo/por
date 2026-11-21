@@ -31,14 +31,15 @@ export async function translationCoverage(root: string, version: GameVersion): P
   // The overlay stub segments, read the way src/runtime/overlay.ts reads them.
   const slices: { fileOffset: number; codeBytes: number }[] = [];
   const seen = new Set<number>();
-  let residentStart = 0;
+  // Resident code lies outside the stub segments. Version 1.3 has resident units between them.
+  const stubs: [number, number][] = [];
   for (let i = 0; i + 32 < image.length; i += 16) {
     if (image[i] !== 0xcd || image[i + 1] !== 0x3f) continue;
     const fileOffset = word(i + 4) | (word(i + 6) << 16), codeBytes = word(i + 8), relocBytes = word(i + 10), entries = word(i + 12);
     if (entries < 1 || entries > 512 || codeBytes < 1) continue;
     if (fileOffset < 4 || fileOffset + codeBytes + relocBytes > overlays.length) continue;
-    // Resident code follows the last stub segment: a 32-byte header and five bytes per entry.
-    residentStart = Math.max(residentStart, (i + 0x20 + entries * 5 + 15) & ~15);
+    // A stub segment is a 32-byte header and five bytes per entry.
+    stubs.push([i, (i + 0x20 + entries * 5 + 15) & ~15]);
     if (seen.has(fileOffset)) continue;
     seen.add(fileOffset);
     slices.push({ fileOffset, codeBytes });
@@ -53,7 +54,8 @@ export async function translationCoverage(root: string, version: GameVersion): P
     if (module?.SLICE) translatedSlices.set(module.SLICE.fileOffset, module.procs);
   }
   const missing: string[] = [];
-  const resident = prologues(image, residentStart, dataSegment * 16);
+  const resident = prologues(image, stubs[0]?.[0] ?? 0, dataSegment * 16)
+    .filter(offset => !stubs.some(([from, to]) => offset >= from && offset < to));
   for (const offset of resident) {
     if (!residentProcs?.has(offset)) missing.push(`START.EXE image ${offset.toString(16).padStart(5, "0")}`);
   }

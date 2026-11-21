@@ -2,6 +2,7 @@ import type { Cpu } from "../cpu/machine.js";
 import { farCallObservers } from "./far.js";
 import type { LoadedSlice } from "./overlay.js";
 import { commissions } from "./commission-journal.js";
+import { code, data, eclGlobalOffset, far, isFar } from "./bindings.js";
 
 const libraryRecords = [
   { entry: 7, title: "Fyerdetha's Discourses on Power", rewardFlag: 0x4aaa, reportCue: "WE FIND THESE DISCOURSES VALUABLE" },
@@ -55,14 +56,13 @@ kovelObjectives.set("kovel-thief-ambush-cleared", "Continue searching the mansio
 /** Observe the Pascal strings actually sent to the guest's text display. */
 export function observeAdventureLog(cpu: Cpu, slice: LoadedSlice, trainer?: LoadedSlice,
   onMessage?: (message: string) => void): () => string {
-  if (slice.index !== 3) throw new Error("The PoR adventure log requires overlay slice 3");
+  if (slice.index !== code.eclLoop.slice) throw new Error("The PoR adventure log requires the script overlay");
   const chunks: string[] = [];
   farCallObservers.set(cpu, (seg, off) => {
-    if (seg !== 0x198) return;
-    const adventureMessage = off === 0x39 && cpu.cs === slice.loadPara;
+    const adventureMessage = isFar(seg, off, far.print) && cpu.cs === slice.loadPara;
     // The trainer reports fee and experience refusals through the colored text entry.
-    const trainingMessage = off === 0x5c && cpu.cs === trainer?.loadPara &&
-      [0x2a02, 0x2ce1].includes(cpu.read16(cpu.ss, cpu.sp));
+    const trainingMessage = isFar(seg, off, far.printColoured) && cpu.cs === trainer?.loadPara &&
+      [code.trainerRefusedA.at, code.trainerRefusedB.at].includes(cpu.read16(cpu.ss, cpu.sp));
     if (!adventureMessage && !trainingMessage) return;
     const argument = cpu.sp + (trainingMessage ? 6 : 4);
     const offset = cpu.read16(cpu.ss, argument);
@@ -544,7 +544,7 @@ export function journalInventoryLeads(cpu: Cpu, known: readonly JournalLead[], d
   const pointer = (segment: number, offset: number): number =>
     (cpu.read16(segment, offset + 2) << 16) | cpu.read16(segment, offset);
   const visited = new Set<number>();
-  for (let actor = pointer(dataSegment, 0x5cf4); actor && !visited.has(actor);) {
+  for (let actor = pointer(dataSegment, data.combatRoster); actor && !visited.has(actor);) {
     visited.add(actor);
     const segment = actor >>> 16;
     const offset = actor & 0xffff;
@@ -567,18 +567,18 @@ export function journalInventoryLeads(cpu: Cpu, known: readonly JournalLead[], d
 }
 
 export function kovelJournalTransition(cpu: Cpu, dataSegment: number): number | undefined {
-  if (cpu.read8(dataSegment, 0x82a2) !== 14) return;
-  const cursor = cpu.read16(dataSegment, 0x494e);
+  if (cpu.read8(dataSegment, data.eclBlock) !== 14) return;
+  const cursor = cpu.read16(dataSegment, data.eclCursor);
   // The original COMBAT and EXIT instructions leave the cursor at these addresses.
   if (cursor === 0x9c92 || cursor === 0xb359) return cursor;
 }
 
 export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegment: number): JournalLead[] {
   // ovl07:0E4C–0E57 resolves global ECL addresses through DS:4933.
-  const base = cpu.read16(dataSegment, 0x4933);
-  const segment = cpu.read16(dataSegment, 0x4935);
+  const base = cpu.read16(dataSegment, data.eclGlobals);
+  const segment = cpu.read16(dataSegment, data.eclGlobals + 2);
   if ((base | segment) === 0) return [];
-  const global = (address: number) => cpu.read16(segment, base + 0x6e00 + address * 2);
+  const global = (address: number) => cpu.read16(segment, base + eclGlobalOffset(address));
   const progress: JournalLead[] = [];
   const disguise = known.find(({ id }) => id === "castle-disguise");
   if (disguise) {
@@ -589,12 +589,12 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
   }
   const kovelTransition = kovelJournalTransition(cpu, dataSegment);
   // Podal's entry menu stores the chosen approach in the local crowd state.
-  if (cpu.read8(dataSegment, 0x82a2) === 18 && global(0x4a35) !== 0 &&
+  if (cpu.read8(dataSegment, data.eclBlock) === 18 && global(0x4a35) !== 0 &&
       known.some(({ id }) => id === "auction-plaza-entry")) {
     progress.push({ id: "auction-plaza-approach-chosen", title: "An approach to the auction",
       detail: "The party chose how to cross the crowd at Podal Plaza." });
   }
-  if (global(progressAddresses.sokal!) === 254 && cpu.read8(dataSegment, 0x82a2) === 0 &&
+  if (global(progressAddresses.sokal!) === 254 && cpu.read8(dataSegment, data.eclBlock) === 0 &&
       known.some(({ id }) => id === "sokal-return-pier")) {
     progress.push({ id: "sokal-back-in-phlan", title: "Back in New Phlan",
       detail: "The party returned to New Phlan with the Sokal Keep report." });
@@ -609,11 +609,11 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     progress.push({ id: "sokal-armory-opened", title: "Hidden armory treasure opened",
       detail: "The party opened the equipment cache in the hidden armory." });
   }
-  if (cpu.read8(dataSegment, 0x82a2) === 27 && known.some(({ id }) => id === "kobold-king-fell")) {
+  if (cpu.read8(dataSegment, data.eclBlock) === 27 && known.some(({ id }) => id === "kobold-king-fell")) {
     progress.push({ id: "kobold-caves-left", title: "Out of the kobold caves",
       detail: "The party returned to the overland route after the king fell." });
   }
-  if (cpu.read8(dataSegment, 0x82a2) === 13 && global(0x4a0b) === 2 && known.some(({ id }) => id === "kobold-king-escaped")) {
+  if (cpu.read8(dataSegment, data.eclBlock) === 13 && global(0x4a0b) === 2 && known.some(({ id }) => id === "kobold-king-escaped")) {
     progress.push({ id: "kobold-king-secret-door", title: "Secret door in the north wall",
       detail: "The party found a hidden door in the kobold caves after the king escaped." });
   }
@@ -630,7 +630,7 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     }
   }
   // Other ECL scripts reuse this variable for unrelated local events.
-  if (cpu.read8(dataSegment, 0x82a2) === 14 && global(0x4a19) === 1 && known.some(({ id }) => id === "kovel-thief-ambush")) {
+  if (cpu.read8(dataSegment, data.eclBlock) === 14 && global(0x4a19) === 1 && known.some(({ id }) => id === "kovel-thief-ambush")) {
     progress.push({ id: "kovel-thief-ambush-cleared", title: "Mansion ambush cleared",
       detail: "The party defeated the thieves who set the ambush." });
   }
@@ -705,7 +705,7 @@ export function questProgress(cpu: Cpu, known: readonly JournalLead[], dataSegme
     }
     if (commission.id === "textile" && value < 254) {
       const box = global(0x4ac8);
-      if (box === 1 && cpu.read8(dataSegment, 0x82a2) === 2 &&
+      if (box === 1 && cpu.read8(dataSegment, data.eclBlock) === 2 &&
           known.some(lead => lead.id === id && lead.textileBox === "opened") &&
           known.some(lead => lead.id === "textile-restal-seal-offer")) {
         progress.push({ id: "textile-restal-seal-replaced", title: "Restal replaced Cadorna's seal",

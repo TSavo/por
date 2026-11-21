@@ -16,6 +16,7 @@ import { loadCharacterSheetArt, loadPortraitArt, matchScriptIllustration } from 
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 import { canWinDeveloperCombat, developerVictoryCommand, winDeveloperCombat } from "./developer-combat.js";
 import type { Automap, ExploredPosition } from "./automap.js";
+import { code, data, eclGlobalOffset, isAt, returnsTo, segment as unit } from "../src/runtime/bindings.js";
 
 const controls: Record<string, number> = {
   enter: 0x1c0d, escape: 0x011b, up: 0x4800, down: 0x5000, left: 0x4b00, right: 0x4d00,
@@ -157,11 +158,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let portraitCaller: number | undefined;
 
   function captureEclContext(cpu: Cpu) {
-    const dataSegment = 0x740;
-    battleCursor = cpu.read16(dataSegment, 0x494e);
+    const dataSegment = unit.data;
+    battleCursor = cpu.read16(dataSegment, data.eclCursor);
     // The original ECL interpreter stores its active return word through DS:6d36.
-    const offset = cpu.read16(dataSegment, 0x6d36);
-    const segment = cpu.read16(dataSegment, 0x6d38);
+    const offset = cpu.read16(dataSegment, data.eclReturn);
+    const segment = cpu.read16(dataSegment, data.eclReturn + 2);
     portraitCaller = segment === 0 ? undefined : cpu.read16(segment, offset);
   }
   let drawnPerspective: { pixels: Buffer; localEcl?: number; native?: NativeExploration } | undefined;
@@ -584,51 +585,51 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
-    // The game empties its keyboard buffer before it draws a new screen (26b:f6) and after
-    // each key it reads (26b:48). Those polls only discard type-ahead. On DOS they find
+    // The game empties its keyboard buffer before it draws a new screen (FlushKeys) and after
+    // each key it reads (GetKey). Those polls only discard type-ahead. On DOS they find
     // nothing and return at once, so the player is never asked for a key there.
-    const atDiscardPoll = !blocking && cpu.read16(cpu.ss, (cpu.sp + 2) & 0xffff) === 0x26b &&
-      [0x27b1, 0x278b].includes(cpu.read16(cpu.ss, cpu.sp));
+    const atDiscardPoll = !blocking &&
+      (returnsTo(cpu, 0, code.flushPollResumes) || returnsTo(cpu, 0, code.drainPollResumes));
     if (atDiscardPoll && !promptAtDiscardPolls) return;
-    const battlePoll = !blocking && cpu.cs === 0x512 && cpu.ip === 0x5423 && hasBattlefieldBorder(screen);
+    const battlePoll = !blocking && isAt(cpu, cpu.ip, code.keyPressedPoll) && hasBattlefieldBorder(screen);
     const combatMenu = developerCombat ? menuText(visibleGameText()) : "";
     // Combat can pause on a hostile's first turn before the party gets a menu.
     developerVictoryAvailable = developerCombat && canWinDeveloperCombat(cpu) &&
       ((battlePoll && combatMenu === "") || (combatMenu.startsWith("MOVEVIEWAIM") && hasBattlefieldBorder(screen)));
-    const kovelTransition = kovelJournalTransition(cpu, 0x740);
+    const kovelTransition = kovelJournalTransition(cpu, unit.data);
     if (kovelTransition !== undefined && kovelTransition !== previousKovelTransition) journal();
     previousKovelTransition = kovelTransition;
     let automaticCombat = false;
     if (browser) {
-      const segment = cpu.read16(0x740, 0x4935);
-      const offset = cpu.read16(0x740, 0x4933);
+      const segment = cpu.read16(unit.data, data.eclGlobals + 2);
+      const offset = cpu.read16(unit.data, data.eclGlobals);
       travelPosition = captureOverlandTravel(cpu, segment, offset);
-      activeEcl = cpu.read8(0x740, 0x82a2);
+      activeEcl = cpu.read8(unit.data, data.eclBlock);
       // Map and sector loads can yield before the next menu is drawn.
-      nonblockingPoll = !blocking && cpu.cs === 0x512 && cpu.ip === 0x5423;
+      nonblockingPoll = !blocking && isAt(cpu, cpu.ip, code.keyPressedPoll);
       // ECL 0 sets a ticket flag and a separate boat destination.
-      const harborFlag = (address: number) => cpu.read16(segment, offset + 0x6e00 + address * 2);
+      const harborFlag = (address: number) => cpu.read16(segment, offset + eclGlobalOffset(address));
       harborTicket = segment && harborFlag(0x4a01) === 1 ? harborFlag(0x4ac4) === 0 ? "sokal" : "other" : "none";
-      area = segment || offset ? cpu.read16(segment, offset + 0x1e4) : undefined;
+      area = segment || offset ? cpu.read16(segment, offset + eclGlobalOffset(0x49f2)) : undefined;
       // Valjevo draws the dungeon hedge before copying the selected ECL
       // back to the area record. Other transition art uses the record's scope.
       if (area === 5 && activeEcl === 3) area = 3;
       const positionArea = area;
       explorationPosition = (segment || offset) && positionArea !== undefined ? {
         area: positionArea,
-        x: cpu.read16(segment, offset + 0x1e0),
-        y: cpu.read16(segment, offset + 0x1e2),
-        facing: cpu.read8(cpu.ds, 0x6a0d) & 7,
+        x: cpu.read16(segment, offset + eclGlobalOffset(0x49f0)),
+        y: cpu.read16(segment, offset + eclGlobalOffset(0x49f1)),
+        facing: cpu.read8(cpu.ds, data.facing) & 7,
         // The native viewport reads these camera bytes during movement and
         // load. The area record can lag behind on the first frame of a save.
-        ...(positionArea === 0 ? { cameraX: cpu.read8(cpu.ds, 0x6a0b), cameraY: cpu.read8(cpu.ds, 0x6a0c) } : {}),
+        ...(positionArea === 0 ? { cameraX: cpu.read8(cpu.ds, data.cameraX), cameraY: cpu.read8(cpu.ds, data.cameraY) } : {}),
       } : undefined;
       // The ECL interpreter suspends at this cursor while the battle runs.
       captureEclContext(cpu);
       if (battlePoll) {
         // Original combat turn code (ovl08:0252, 02a0) stores the active actor and tests its Quick flag.
-        const actorOffset = cpu.read16(0x740, 0x5cf0);
-        const actorSegment = cpu.read16(0x740, 0x5cf2);
+        const actorOffset = cpu.read16(unit.data, data.actor);
+        const actorSegment = cpu.read16(unit.data, data.actor + 2);
         const menu = menuText(visibleGameText());
         automaticCombat = (!menu || menu.startsWith("MOVE/ATTACK,")) &&
           (actorOffset !== 0 || actorSegment !== 0) &&
@@ -722,12 +723,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const y = 8 + row * 8;
       // Overlay 36's blitter and viewport copy use a far pointer to the
       // offscreen picture. Each eight-pixel group stores four plane bytes.
-      const offset = cpu.read16(cpu.ds, 0x4980);
-      const segment = cpu.read16(cpu.ds, 0x4982);
+      const offset = cpu.read16(cpu.ds, data.offscreen);
+      const segment = cpu.read16(cpu.ds, data.offscreen + 2);
       const width = cpu.read16(segment, offset + 2);
       if (width < column + 3 || cpu.read16(segment, offset) < row * 8 + 24) return;
       const stride = width * 4;
-      const planeMasks = Array.from({ length: 4 }, (_, plane) => cpu.read8(cpu.ds, 0x260a + plane) & 15);
+      const planeMasks = Array.from({ length: 4 }, (_, plane) => cpu.read8(cpu.ds, data.planeMasks + plane) & 15);
       for (let dy = 0; dy < 24; dy++) {
         const start = (y + dy) * screen.width + x;
         for (let group = 0; group < 3; group++) {
@@ -760,7 +761,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     capturePerspective: browser ? (cpu: Cpu, localScenery: boolean) => {
       const pixels = perspectivePixels();
       if (drawnPerspective && !drawnPerspective.pixels.equals(pixels)) priorPerspectiveDraw = drawnPerspective.pixels;
-      drawnPerspective = { pixels, localEcl: localScenery ? cpu.read8(0x740, 0x82a2) : undefined,
+      drawnPerspective = { pixels, localEcl: localScenery ? cpu.read8(unit.data, data.eclBlock) : undefined,
         native: localScenery ? captureNativeExploration(cpu) : undefined };
       if (drawnPerspective.native) lastLocalPerspective = drawnPerspective;
     } : undefined,
@@ -773,7 +774,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const width = cpu.read16(segment, offset + 2);
       if (argument(8) !== 5 || row > 18 || column > 18 || width < column + 3 ||
           cpu.read16(segment, offset) < row * 8 + 24) return;
-      const planeMasks = Array.from({ length: 4 }, (_, plane) => cpu.read8(cpu.ds, 0x260a + plane) & 15);
+      const planeMasks = Array.from({ length: 4 }, (_, plane) => cpu.read8(cpu.ds, data.planeMasks + plane) & 15);
       const background = new Uint8Array(24 * 24);
       for (let dy = 0; dy < 24; dy++) {
         for (let group = 0; group < 3; group++) {

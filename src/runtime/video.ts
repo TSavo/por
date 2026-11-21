@@ -2,6 +2,7 @@ import { Frame } from "../lib/ega.js";
 import type { Cpu } from "../cpu/machine.js";
 import { currentObjective, type JournalLead } from "./adventure-log.js";
 import { loadedSlices } from "./overlay.js";
+import { code, isAt } from "./bindings.js";
 
 /**
  * BIOS int 10h for the calls Pool of Radiance actually makes.
@@ -50,7 +51,6 @@ function publishVideoMode(cpu: Cpu): void {
 export function attachPlanarVideo(cpu: Cpu): void {
   const start = 0xa0000;
   const end = start + 0x10000;
-  const glyphSegment = loadedSlices.find((slice) => slice.index === 37)?.loadPara;
   publishVideoMode(cpu);
   const readOtherPort = cpu.onPortIn;
   cpu.onPortIn = (port) => {
@@ -104,7 +104,7 @@ export function attachPlanarVideo(cpu: Cpu): void {
     }
     if (offset < 8000) {
       const cell = Math.floor(offset / 320) * 40 + offset % 40;
-      const glyphWrite = cpu.cs === glyphSegment && (cpu.ip === 0x2aa || cpu.ip === 0x2dd);
+      const glyphWrite = isAt(cpu, cpu.ip, code.glyphStoreA) || isAt(cpu, cpu.ip, code.glyphStoreB);
       if (!glyphWrite) gameText.delete(cell);
       else if (cpu.read8(cpu.ss, cpu.bp - 0xf) === 7 && cpu.read8(cpu.ss, cpu.bp - 0xc) === 3) {
         const character = cpu.read8(cpu.ss, cpu.bp + 8);

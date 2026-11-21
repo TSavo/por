@@ -24,8 +24,9 @@ def load(d, packed):
         if not (1 <= n <= 512 and code >= 1) or off < 4 or off + code + rel > len(ovr) or off in seen: continue
         seen.add(off); stubs.append((off, code, rel, n, i))
     stubs.sort()
-    last = max(s[4] for s in stubs); n = [s for s in stubs if s[4] == last][0][3]
-    return img, ovr, stubs, (last + 0x20 + n * 5 + 15) & ~15
+    # Resident code lies outside the stub segments; version 1.3 has resident units between them.
+    spans = [(i, (i + 0x20 + n * 5 + 15) & ~15) for off, code, rel, n, i in stubs]
+    return img, ovr, stubs, spans
 
 num = re.compile(r'0x[0-9a-f]+|\b\d+\b')
 def shape(ins):
@@ -38,8 +39,9 @@ def shape(ins):
     op = re.sub(r'\[(?:(?:[a-z]{2}):)?0x[0-9a-f]+\]', '[A]', op)
     return m + ' ' + num.sub(repl, op)
 
-def procs(b, lo, hi, unit):
-    P = [i for i in range(lo, hi - 2) if b[i] == 0x55 and b[i + 1:i + 3] in (b'\x89\xe5', b'\x8b\xec')]
+def procs(b, lo, hi, unit, skip=()):
+    P = [i for i in range(lo, hi - 2) if b[i] == 0x55 and b[i + 1:i + 3] in (b'\x89\xe5', b'\x8b\xec')
+         and not any(f <= i < t for f, t in skip)]
     out = []
     for a, e in zip(P, P[1:] + [hi]):
         ins = []
@@ -54,8 +56,8 @@ def procs(b, lo, hi, unit):
     return out
 
 def allprocs(d, packed):
-    img, ovr, stubs, start = load(d, packed)
-    out = procs(img, start, len(img), 'exe')
+    img, ovr, stubs, spans = load(d, packed)
+    out = procs(img, min(f for f, t in spans), len(img), 'exe', spans)
     for idx, (off, code, rel, n, i) in enumerate(stubs): out += procs(ovr[off:off + code], 0, code, idx)
     return out, img
 
@@ -104,7 +106,7 @@ def locate(unit, address):
 
 # Data addresses and far targets, voted from aligned identical instructions of every similar pair.
 data = collections.defaultdict(collections.Counter); far = collections.defaultdict(collections.Counter)
-mem = re.compile(r'\[(?:(?:ds|es|ss|cs):)?(0x[0-9a-f]+)\]')
+mem = re.compile(r'\[(?:(?:ds|es|ss|cs):)?(?:[a-z]{2} \+ )*(0x[0-9a-f]{3,})\]')
 for p in A:
     if len(p['ins']) < 6: continue
     q, score = counterpart(p)

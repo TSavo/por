@@ -2,6 +2,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Cpu } from "../src/cpu/machine.js";
 import { parseDax } from "../src/lib/dax.js";
+import { loadExecutable } from "../src/lib/exepack.js";
+import { data, eclGlobalOffset, segment as unit } from "../src/runtime/bindings.js";
 
 const width = 44;
 const height = 36;
@@ -16,13 +18,13 @@ type Step = Position & { key: string; arrival?: { approach: PhlanApproach; key: 
 
 /** Positions and quest flags used by the original overland scripts. */
 export function captureOverlandTravel(cpu: Cpu, segment: number, offset: number): TravelState | undefined {
-  const sector = cpu.read8(0x740, 0x495b) - 2;
+  const sector = cpu.read8(unit.data, data.sector) - 2;
   if (!sectors[sector] || !segment) return;
-  const global = (address: number) => cpu.read16(segment, offset + 0x6e00 + address * 2);
+  const global = (address: number) => cpu.read16(segment, offset + eclGlobalOffset(address));
   // Wilderness encounter interiors reuse the world ECL and its menu.
   if (global(0x4a9e) === 255) return;
-  const x = cpu.read16(segment, offset + 0x186) + sectors[sector].offset;
-  const y = cpu.read16(segment, offset + 0x188);
+  const x = cpu.read16(segment, offset + eclGlobalOffset(0x49c3)) + sectors[sector].offset;
+  const y = cpu.read16(segment, offset + eclGlobalOffset(0x49c4));
   if (x < 2 || x >= width - 2 || y < 2 || y >= height) return;
   return { x, y, sector, nomads: global(0x4a0f) === 0,
     buccaneers: global(0x4a8c) === 255 && global(0x4aa9) === 0,
@@ -115,10 +117,10 @@ const entranceCells = new Set(Object.values(landmarks).flat().map(([x, y]) => ce
 const phlanCrossroads = new Set([...eastApproach, ...westApproach].map(([x, y]) => cell(x, y)));
 
 export function loadOverlandTravel(root: string) {
-  // OVL28 reads the world terrain table at DS:35E2. It is initialized by START.EXE.
-  const exe = readFileSync(join(root, "START.EXE"));
-  const mapOffset = exe.readUInt16LE(8) * 16 + 0x7400 + 0x35e2;
-  const terrain = exe.subarray(mapOffset, mapOffset + width * height);
+  // The overland overlay reads the world terrain table from the data segment. START.EXE initializes it.
+  const { image } = loadExecutable(new Uint8Array(readFileSync(join(root, "START.EXE"))));
+  const mapOffset = unit.data * 16 + data.overlandTerrain;
+  const terrain = image.subarray(mapOffset, mapOffset + width * height);
   const nativeBarrier = new Set([0x4e, 0x7e, 0x7f, 0x80, 0x82, 0x83, 0x84, 0xa8, 0xa9, 0xaa, 0xab, 0xac,
     0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xbc, 0xdd, 0xde, 0xe1, 0xe2, 0xe3, 0xe4, 0xe5, 0xe6, 0xe7, 0xe8, 0xe9, 0xf5,
     0x66, 0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x72]);

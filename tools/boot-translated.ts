@@ -18,10 +18,9 @@ import { liveInput } from "./live-input.js";
 import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
-import { callTrace, disposeHits, dosAssigns, farCall, farCallObservers, getmemRing, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
+import { callTrace, farCall, farCallObservers, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
-import { registerTranslated } from "../src/translated/register.js";
-import { ovl07_0353 } from "../src/translated/ovl07.js";
+import { code, codeSegment, data, far, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit } from "../src/runtime/bindings.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 
@@ -39,7 +38,9 @@ const gameFiles = mountValjevoWallPieces(readdirSync(root, { recursive: true, en
   .map((name) => ({ name, data: new Uint8Array(readFileSync(join(root, name))) })));
 const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles) : gameFiles;
 
-registerTranslated();
+const overlayFile = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
+if (!overlayFile) throw new Error("GAME.OVR is required");
+await loadTranslation(overlayFile.data);
 
 const replayPath = process.env.POR_BOOT_KEY_FILE;
 const replayKeys = replayPath ? readFileSync(replayPath, "utf8").trim() : "";
@@ -64,53 +65,42 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const capturePerspective = input?.capturePerspective;
   const captureEncounterDraw = input?.captureEncounterDraw;
   const captureCombatEffectUnderlay = input?.captureCombatEffectUnderlay;
-  const combatEffectSegment = captureCombatEffectUnderlay && loadedSlices.find(({ index }) => index === 25)?.loadPara;
-  const deathEffectSegment = captureCombatEffectUnderlay && loadedSlices.find(({ index }) => index === 32)?.loadPara;
-  const deathDelaySegment = captureCombatEffectUnderlay && loadedSlices.find(({ index }) => index === 37)?.loadPara;
-  const encounterSegment = captureEncounterDraw && loadedSlices.find(({ index }) => index === 29)?.loadPara;
-  const viewportSegment = capturePerspective && loadedSlices.find(({ index }) => index === 36)?.loadPara;
-  const localScenerySegment = capturePerspective && loadedSlices.find(({ index }) => index === 30)?.loadPara;
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
   const captureBattleTerrain = input?.captureBattleTerrain;
-  const terrainDrawSegment = traceBattleDraw || captureBattleTerrain
-    ? loadedSlices.find(({ index }) => index === 33)?.loadPara : undefined;
-  if (capturePresentationDelay || viewportSegment !== undefined || terrainDrawSegment !== undefined) {
+  if (capturePresentationDelay || capturePerspective || traceBattleDraw || captureBattleTerrain) {
     const tick = cpu.tick;
     const terrainDraws = new Set<string>();
+    // Above the pause routine's return address sit its argument, its saved BP and its own return address.
+    const deathReturnDepth = 8;
     cpu.tick = function (at) {
-      // The overlay's first-person draw has finished writing the viewport.
-      if (at === 0x1eb9 && this.cs === viewportSegment) {
-        const localScenery = this.read16(this.ss, this.sp) === 0x0610 &&
-          this.read16(this.ss, (this.sp + 2) & 0xffff) === localScenerySegment;
-        capturePerspective?.(this, localScenery);
+      // The first-person draw has finished writing the viewport.
+      if (capturePerspective && isAt(this, at, code.viewportDrawn)) {
+        capturePerspective(this, returnsTo(this, 0, code.localSceneryResumes));
       }
-      // Overlay 25 draws projectiles and impacts into the offscreen picture,
-      // flips the visible buffer, and then enters the original EGA delay.
-      if (this.steps >= liveStep &&
-          ((this.cs === combatEffectSegment && (at === 0x1d27 || at === 0x1fea || at === 0x2169)) ||
-           (this.cs === deathEffectSegment && at === 0x0f33))) captureCombatEffectUnderlay?.(this);
-      if (at === 0x53d3 && this.cs === 0x512 && this.steps >= liveStep) {
-        const returnOffset = this.read16(this.ss, this.sp);
-        const returnSegment = this.read16(this.ss, (this.sp + 2) & 0xffff);
-        const projectileDelay = returnSegment === combatEffectSegment &&
-          (returnOffset === 0x1d3c || returnOffset === 0x2005 || returnOffset === 0x217c);
-        // Overlay 32 displays the defeated unit's marker and pauses through overlay 37.
-        const deathDelay = returnSegment === deathDelaySegment && returnOffset === 0x0c96 &&
-          this.read16(this.ss, (this.sp + 8) & 0xffff) === 0x100b &&
-          this.read16(this.ss, (this.sp + 10) & 0xffff) === deathEffectSegment;
+      // The combat effect code draws projectiles and impacts into the offscreen
+      // picture, flips the visible buffer, and then enters the original EGA delay.
+      if (captureCombatEffectUnderlay && this.steps >= liveStep &&
+          (isAt(this, at, code.effectShownA) || isAt(this, at, code.effectShownB) || isAt(this, at, code.effectShownC) ||
+           isAt(this, at, code.deathShown))) captureCombatEffectUnderlay(this);
+      if (isAt(this, at, code.delayLoop) && this.steps >= liveStep) {
+        const projectileDelay = captureCombatEffectUnderlay !== undefined &&
+          (returnsTo(this, 0, code.effectPausedA) || returnsTo(this, 0, code.effectPausedB) || returnsTo(this, 0, code.effectPausedC));
+        // The death routine displays the defeated unit's marker and pauses through the pause routine.
+        const deathDelay = captureCombatEffectUnderlay !== undefined &&
+          returnsTo(this, 0, code.pauseResumes) && returnsTo(this, deathReturnDepth, code.deathResumes);
         const effectDelay = projectileDelay || deathDelay;
         capturePresentationDelay?.(this, effectDelay);
       }
       // Some approach sequences refresh several native distances between inputs.
-      if (at === 0x078a && this.cs === encounterSegment && this.steps >= liveStep) captureEncounterDraw?.(this);
+      if (captureEncounterDraw && isAt(this, at, code.encounterDrawn) && this.steps >= liveStep) captureEncounterDraw(this);
       // The terrain routine writes to the guest's offscreen EGA surface.
-      if (at === 0x014d && this.cs === terrainDrawSegment && this.steps >= liveStep && captureBattleTerrain &&
-          this.read8(this.ds, 0x497e) === 1 && this.read8(this.ss, (this.sp + 4) & 0xffff) === 1) {
+      if (captureBattleTerrain && isAt(this, at, code.terrainDrawn) && this.steps >= liveStep &&
+          this.read8(this.ds, data.offscreenDraw) === 1 && this.read8(this.ss, (this.sp + 4) & 0xffff) === 1) {
         captureBattleTerrain(this, this.read8(this.ss, (this.sp + 10) & 0xffff),
           this.read8(this.ss, (this.sp + 8) & 0xffff), this.read8(this.ss, (this.sp + 6) & 0xffff));
       }
       // The far entry draws a frame from one of the two SQRPACI blocks.
-      if (traceBattleDraw && at === 0x00f1 && this.cs === terrainDrawSegment && this.steps >= liveStep) {
+      if (traceBattleDraw && isAt(this, at, code.terrainEntry) && this.steps >= liveStep) {
         const argument = (offset: number) => this.read8(this.ss, (this.sp + offset) & 0xffff);
         const signed = (value: number) => (value << 24) >> 24;
         const x = signed(argument(10)), y = signed(argument(8)), picture = argument(6), flags = argument(4);
@@ -156,9 +146,6 @@ function report(label: string, error: unknown): void {
   if (picture.trim()) console.log(picture);
   mkdirSync("out", { recursive: true });
   if (label.startsWith("entry")) writeFileSync(join("out", "por-boot.png"), encodePng(screen));
-  if (disposeHits.length) console.log(`  dispose:\n    ${disposeHits.join("\n    ")}`);
-  if (dosAssigns.length) console.log(`  assign:\n    ${dosAssigns.join("\n    ")}`);
-  if (getmemRing.length) console.log(`  getmem:\n    ${getmemRing.join("\n    ")}`);
   if (writes.length) console.log(`  writes of 9a50:\n    ${writes.join("\n    ")}`);
   console.log(`  sp range ${spMin.toString(16)}..${spMax.toString(16)}`);
   if (cpu.spJumps.length) console.log(`  sp jumps:\n    ${cpu.spJumps.join("\n    ")}`);
@@ -170,7 +157,7 @@ let transcriptStart = 0;
 const profilePath = process.env.POR_JOURNAL_PROFILE;
 const updateJournal = openJournalProfile(profilePath);
 const journal = (transcript = adventureLog?.() ?? ""): JournalLead[] =>
-  updateJournal(transcript.slice(transcriptStart), (known) => questProgress(cpu, known, 0x740));
+  updateJournal(transcript.slice(transcriptStart), (known) => questProgress(cpu, known, unit.data));
 const liveAt = process.env.POR_LIVE_AT;
 const liveStep = Number(liveAt);
 if (liveAt !== undefined && (!Number.isSafeInteger(liveStep) || liveStep < 0)) {
@@ -185,7 +172,7 @@ if (recording) {
 const automap = liveAt === undefined ? undefined : openAutomap(root);
 const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
   const known = journal();
-  return [...known, ...journalInventoryLeads(cpu, known, 0x740)];
+  return [...known, ...journalInventoryLeads(cpu, known, unit.data)];
 }, recording, automap);
 const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
   join("out", "saves", createHash("sha256").update(realpathSync(root)).digest("hex").slice(0, 16)));
@@ -208,7 +195,7 @@ if (browserSound) {
       eclTextHandlers.pop();
       return;
     }
-    eclTextHandlers.push(eclTextOpcodes.has(cpu.read8(cpu.ds, 0x6d45)));
+    eclTextHandlers.push(eclTextOpcodes.has(cpu.read8(cpu.ds, data.eclOpcode)));
     const event = narration.observe(cpu);
     if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
   };
@@ -225,15 +212,17 @@ function writeSoundTrace(): void {
 }
 if (soundRecorder) process.once("exit", writeSoundTrace);
 if (input && saves) {
-  const disk = loadedSlices.find((slice) => slice.index === 17);
+  const diskSlice = code.loadGame.slice;
+  const disk = loadedSlices.find(({ index }) => index === diskSlice);
   if (!disk) throw new Error("Missing translated save overlay");
   disk.procs = new Map(disk.procs);
   // Load, save, and save-and-exit entry points in the original disk overlay.
-  for (const offset of [0x159d, 0x1ced, 0x2265]) {
-    const procedure = disk.procs.get(offset);
-    if (!procedure) throw new Error(`Missing translated save procedure ${offset.toString(16)}`);
+  for (const entry of [code.loadGame, code.saveGame, code.saveAndLeave]) {
+    const offset = entry.at;
+    const original = disk.procs.get(offset);
+    if (!original) throw new Error(`Missing translated save procedure ${offset.toString(16)}`);
     disk.procs.set(offset, (m) => {
-      const loading = offset === 0x159d;
+      const loading = entry === code.loadGame;
       const start = adventureLog?.().length ?? 0;
       let slot: { name: string; data: Uint8Array } | undefined;
       const party = new Map<string, DosFile>();
@@ -260,10 +249,10 @@ if (input && saves) {
       };
       input.enterDiskMenu();
       try {
-        procedure(m);
+        original(m);
         finish();
       } catch (error) {
-        if (offset === 0x2265 && error instanceof Error && /^dos exit \d+$/.test(error.message)) finish();
+        if (entry === code.saveAndLeave && error instanceof Error && /^dos exit \d+$/.test(error.message)) finish();
         throw error;
       } finally {
         input.leaveDiskMenu();
@@ -273,9 +262,9 @@ if (input && saves) {
     });
   }
 }
-const journalSlice = loadedSlices.find((slice) => slice.index === 3);
+const journalSlice = loadedSlices.find(({ index }) => index === code.eclLoop.slice);
 adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || browserSound || liveAt !== undefined || profilePath) && journalSlice
-  ? observeAdventureLog(cpu, journalSlice, loadedSlices.find((slice) => slice.index === 16),
+  ? observeAdventureLog(cpu, journalSlice, loadedSlices.find(({ index }) => index === code.trainerRefusedA.slice),
     (message) => {
       // Capture the seal's state before the original menu can resolve the offer.
       if (message.includes("WE CAN DUPLICATE THE SEAL ON THAT CHEST")) journal();
@@ -287,23 +276,20 @@ adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || browserSound || liveAt 
     })
   : undefined;
 if (input && process.env.POR_BROWSER_PLAY === "1") {
-  const title = loadedSlices.find((slice) => slice.index === 1);
-  const combat = loadedSlices.find((slice) => slice.index === 10);
   const observe = farCallObservers.get(cpu);
   farCallObservers.set(cpu, (segment, offset) => {
     observe?.(segment, offset);
     // The clear before the battle music branch runs in every hardware mode.
     // The original dispatcher already emits event 14 for a Tandy guest.
-    if (cpu.cs === combat?.loadPara && cpu.ip === 0x1f26 && segment === 0x198 && offset === 0x2f) {
-      const mode = cpu.read8(cpu.ds, 0x52d2);
+    if (isAt(cpu, cpu.ip, code.battleBegins) && isFar(segment, offset, far.clearText)) {
+      const mode = cpu.read8(cpu.ds, data.soundMode);
       if (mode !== 0) console.log(`POR_SOUND ${JSON.stringify({ index: 14, mode, step: cpu.steps, enhancedOnly: true })}`);
     }
-    if (!title || cpu.cs !== title.loadPara) return;
-    if (segment === 0x18e && offset === 0x5c) {
-      if (cpu.ip === 0x675) input.setScene("scene:publisher");
-      if (cpu.ip === 0x6e9) input.setScene("scene:title");
+    if (isFar(segment, offset, far.showPicture)) {
+      if (isAt(cpu, cpu.ip, code.titlePublisher)) input.setScene("scene:publisher");
+      if (isAt(cpu, cpu.ip, code.titleTitle)) input.setScene("scene:title");
     }
-    if (segment === 0x26b && offset === 0xf6 && cpu.ip === 0x7f7) input.setScene(undefined);
+    if (isFar(segment, offset, far.flushKeys) && isAt(cpu, cpu.ip, code.titleDone)) input.setScene(undefined);
   });
 }
 const boot = (cpu as Cpu & { boot: { cs: number; ip: number; ss: number; sp: number } }).boot;
@@ -335,11 +321,6 @@ try {
   console.log(rows.replace(/ +$/gm, "").split(" ").length ? rows.match(/.{80}/g)?.filter((r) => r.trim()).join("\n") : "(blank text)");
 } catch (error) {
   report("entry", error);
-  const ds = 0x740;
-  const w = (off: number) => cpu.read16(ds, off).toString(16);
-  console.log(
-    `  heap lo ${w(0x436a)}:${w(0x4368)} hi ${w(0x436e)}:${w(0x436c)} free ${w(0x4372)}:${w(0x4370)} top ${w(0x4372)}`,
-  );
   console.log(
     `  regs bx:cx ${cpu.bx.toString(16)}:${cpu.cx.toString(16)} dx:ax ${cpu.dx.toString(16)}:${cpu.ax.toString(16)} es:di ${cpu.es.toString(16)}:${cpu.di.toString(16)}`,
   );
@@ -354,30 +335,20 @@ if (adventureLog) {
   writeFileSync(join("out", "adventure-journal.png"), encodePng(journalFrame(leads)));
 }
 if (liveAt !== undefined) process.exit(0);
-const slice7 = loadedSlices.find((s) => s.index === 7);
-if (!slice7) throw new Error("slice 7 was not loaded");
+// Without a live session, also run the script loader on a fresh machine.
+const loaderSegment = codeSegment(code.eclLoad);
+if (loaderSegment === undefined) throw new Error("the script overlay was not loaded");
 const loader = fresh();
 loader.ds = 0x2000;
 loader.ss = 0x2000;
 loader.sp = 0xff00;
-loader.cs = slice7.loadPara;
+loader.cs = loaderSegment;
 loader.stepBudget = 2_000_000;
 resetFarBudget(8000);
 try {
   loader.push(0);
-  farCall(loader, slice7.headerPara, 0x20);
-  console.log("ovl07 first stub returned", loader.ax.toString(16));
+  procedure(code.eclLoad)(loader);
+  console.log("the script loader returned");
 } catch (error) {
-  report("slice7 stub 0", error);
-}
-
-loader.steps = 0;
-loader.stepBudget = 2_000_000;
-resetFarBudget(8000);
-try {
-  loader.push(0);
-  ovl07_0353(loader);
-  console.log("ovl07_0353 returned");
-} catch (error) {
-  report("ovl07_0353", error);
+  report("script loader", error);
 }
