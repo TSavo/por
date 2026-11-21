@@ -1,20 +1,17 @@
 /**
- * Execute two procedures translated from Pool of Radiance and check the result.
- * ovl07_0000 is the ECL operand fetch at the start of overlay slice 7.
- * sys5bb_16b5 is System.FillChar.
+ * Execute procedures translated from Pool of Radiance and check the result, on whichever
+ * build POR_GAMEDATA holds. The procedures are named in src/runtime/bindings.ts.
  */
 import { deepStrictEqual, ok, strictEqual } from "node:assert";
 import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { Cpu } from "../src/cpu/machine.js";
-import { ovl07_0000, ovl07_0c93 } from "../src/translated/ovl07.js";
-import "../src/translated/system5bb.js";
+import { code, data, far, loadTranslation, procedure, type Where } from "../src/runtime/bindings.js";
 import { farCall, registerFar } from "../src/runtime/far.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { noon, timeOfDay, attachDos } from "../src/runtime/dos.js";
 import { isPartyFile } from "./save-slots.js";
 import { openJournalProfile } from "./journal-profile.js";
-import { exe_056c0, exe_05e44, exe_068cb, exe_06a35 } from "../src/translated/exe.js";
 import { currentObjective, discoveredLeads, progressAddresses, questProgress, trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import { commissions } from "../src/runtime/commission-journal.js";
 import { parseDax } from "../src/lib/dax.js";
@@ -384,6 +381,16 @@ function checkValjevoWallMount(): void {
   console.log("verified Valjevo wall pixels for grouped and standalone loads");
 }
 
+// The translation of the build in POR_GAMEDATA. The overlay slices are not mounted in these checks,
+// so the script overlay's procedures come from its module.
+const gameRoot = findGameRoot();
+if (!gameRoot) throw new Error("Pool of Radiance game data not found");
+const gameVersion = await loadTranslation(new Uint8Array(readFileSync(`${gameRoot}/GAME.OVR`)));
+const scriptOverlay = await import(gameVersion === "1.3" ? "../src/translated-1.3/ovl07.js" : "../src/translated/ovl07.js") as
+  { procs: Map<number, (m: Cpu) => void> };
+const eclOperand = scriptOverlay.procs.get(code.eclOperand.at)!;
+const eclStore = scriptOverlay.procs.get(code.eclStore.at)!;
+
 function fresh(): Cpu {
   const m = new Cpu();
   m.ds = 0x2000;
@@ -399,11 +406,11 @@ function checkExplorationGlyphMask(): void {
   const wallSegment = 0x3100;
   const glyphSegment = 0x3200;
   const maskSegment = 0x3300;
-  cpu.write16(cpu.ds, 0x69bc, 0x3000); // GEO segment
-  cpu.write16(cpu.ds, 0x69b8, wallSegment);
-  cpu.write16(cpu.ds, 0x5d9a, glyphSegment);
-  cpu.write16(cpu.ds, 0x2736, 1); // Common bank begins at symbol 1
-  cpu.write8(cpu.ds, 0x69be, 11);
+  cpu.write16(cpu.ds, data.geo + 2, 0x3000); // GEO segment
+  cpu.write16(cpu.ds, data.walls + 2, wallSegment);
+  cpu.write16(cpu.ds, data.glyphBanks + 2, glyphSegment);
+  cpu.write16(cpu.ds, data.glyphBase, 1); // Common bank begins at symbol 1
+  cpu.write8(cpu.ds, data.skyColor, 11);
   cpu.write8(cpu.ds, 0x69c1, 6);
   cpu.write8(wallSegment, 54 + 7, 2); // Second glyph in first wall face
   cpu.write16(glyphSegment, 0x11, 32);
@@ -411,7 +418,7 @@ function checkExplorationGlyphMask(): void {
   cpu.write16(glyphSegment, 0x15, maskSegment);
   cpu.write8(maskSegment, 16 + 8, 0x80);
   for (const [plane, bit] of [1, 2, 4, 8].entries()) {
-    cpu.write8(cpu.ds, 0x260a + plane, bit);
+    cpu.write8(cpu.ds, data.planeMasks + plane, bit);
     cpu.write8(glyphSegment, 0x17 + 32 + plane, 0x20);
   }
   const scene = captureNativeExploration(cpu);
@@ -428,8 +435,8 @@ function checkDiceSeed(): void {
     attachDos(m, [], [], undefined, undefined, undefined, undefined, clockStart);
     m.push(m.cs);
     m.push(0);
-    exe_068cb(m);
-    return (m.read16(m.ds, 0x438c) << 16 | m.read16(m.ds, 0x438a)) >>> 0;
+    procedure(code.randomize)(m);
+    return (m.read16(m.ds, data.randSeed + 2) << 16 | m.read16(m.ds, data.randSeed)) >>> 0;
   };
   // A replay starts the clock at noon, so its dice repeat.
   if (seed() !== seed() || seed() !== seed(noon)) throw new Error("A replay's dice seed is not repeatable");
@@ -458,7 +465,7 @@ function checkVal(): void {
     m.push(errorOffset);
     m.push(m.cs);
     m.push(0);
-    exe_06a35(m);
+    procedure(code.val)(m);
     if ((m.dx << 16 | m.ax) !== expected || m.read16(m.ds, errorOffset) !== 0 || m.sp !== 0xff00) {
       throw new Error(`Turbo Pascal Val did not parse ${input} as ${expected}`);
     }
@@ -471,13 +478,13 @@ checkDiceSeed();
 
 function checkOriginalSoundTrace(): void {
   const m = fresh();
-  m.write8(m.ds, 0x52d2, 1);
+  m.write8(m.ds, data.soundMode, 1);
   const recorder = new OriginalSoundTraceRecorder(m);
-  registerFar(0x27f, 0, (cpu) => cpu.retf(2));
+  registerFar(far.sound[0]!, far.sound[1]!, (cpu) => cpu.retf(2));
   m.push(7);
   m.push(m.cs);
   m.push(0x1234);
-  farCall(m, 0x27f, 0);
+  farCall(m, far.sound[0]!, far.sound[1]!);
   m.tick(0x2000);
   m.portOut(0x43, 0xb6);
   m.tick(0x2001);
@@ -497,6 +504,7 @@ checkOriginalSoundTrace();
 
 function checkFillChar(): void {
   const m = fresh();
+  const fillChar = code.fillChar as Extract<Where, { segment: number }>;
   // FillChar(dest, count, value). Stack at entry, last push is the first read at [bx+4].
   // Caller pushes dest_seg, dest_off, count, value, then far-call pushes cs, ip.
   const seg = 0x4000;
@@ -506,12 +514,12 @@ function checkFillChar(): void {
   m.push(0x7e);
   m.push(m.cs);
   m.push(0);
-  farCall(m, 0x5bb, 0x16b5);
+  farCall(m, fillChar.segment, fillChar.at - fillChar.segment * 16);
   const bytes = [0, 1, 2, 3].map((i) => m.read8(seg, 0x10 + i));
   if (bytes.join(",") !== "126,126,126,126") {
     throw new Error(`FillChar wrote ${bytes}`);
   }
-  console.log("verified sys5bb_16b5 FillChar  START.EXE 5bb:16b5");
+  console.log("verified System.FillChar");
 }
 
 function checkOperandFetch(): void {
@@ -519,23 +527,23 @@ function checkOperandFetch(): void {
   const eclSeg = 0x5000;
   // Far pointer at DS:0x493f. Index 0x98ff, then the procedure adds 1 and 0x6700,
   // which wraps to offset 0 of this segment. See the instruction at ovl07_0000 / 0x0022.
-  m.write16(m.ds, 0x493f, 0);
-  m.write16(m.ds, 0x4941, eclSeg);
-  m.write16(m.ds, 0x494e, 0x98ff);
+  m.write16(m.ds, data.eclCode, 0);
+  m.write16(m.ds, data.eclCode + 2, eclSeg);
+  m.write16(m.ds, data.eclCursor, 0x98ff);
   m.write8(eclSeg, 0, 0x00);
   m.write8(eclSeg, 1, 0x2a);
   m.ax = 1;
   m.push(m.ax);
   m.push(m.cs);
   m.push(0);
-  ovl07_0000(m);
-  const code = m.read8(m.ds, 0x6dcb + 1);
-  const low = m.read8(m.ds, 0x6e4b + 1);
-  const index = m.read16(m.ds, 0x494e);
+  eclOperand(m);
+  const code = m.read8(m.ds, data.eclOperandCode + 1);
+  const low = m.read8(m.ds, data.eclOperandLow + 1);
+  const index = m.read16(m.ds, data.eclCursor);
   if (code !== 0x00 || low !== 0x2a || index !== 0x9902) {
     throw new Error(`operand fetch code=${code} low=${low} index=${index.toString(16)}`);
   }
-  console.log("verified ovl07_0000 ECL operand fetch  GAME.OVR slice 7 +0x0000");
+  console.log("verified the ECL operand fetch at the start of the script overlay");
 }
 
 checkFillChar();
@@ -571,15 +579,15 @@ checkCarryArithmetic();
 function checkCrtRetrace(): void {
   const m = fresh();
   attachDos(m, []);
-  m.write8(m.ds, 0x82bb, 1);
-  m.write8(m.ds, 0x82be, 7);
+  m.write8(m.ds, data.crtCheckSnow, 1);
+  m.write8(m.ds, data.crtTextAttr, 7);
   m.write8(m.es, 0x100, 0x41);
   m.si = 0x100;
   m.di = 0x101;
   m.bx = 1;
   m.stepBudget = 1000;
   m.push(0);
-  exe_056c0(m);
+  procedure(code.crtWrite)(m);
   if (m.read16(0xb800, 2) !== 0x0741 || m.steps < 100 || m.sp !== 0xff00) {
     throw new Error("Translated Crt routine did not write the character after retrace");
   }
@@ -631,8 +639,8 @@ checkPartySaveFiles();
 
 function checkSokalQuestProgress(): void {
   const m = fresh();
-  m.write16(m.ds, 0x4933, 0x20);
-  m.write16(m.ds, 0x4935, 0x5000);
+  m.write16(m.ds, data.eclGlobals, 0x20);
+  m.write16(m.ds, data.eclGlobals + 2, 0x5000);
   const offered = discoveredLeads("SOKAL KEEP ON THORN ISLAND MUST BE CLEARED.");
 
   // Run the original ECL global setter used in the keep's success branch
@@ -642,7 +650,7 @@ function checkSokalQuestProgress(): void {
     m.push(value);
     m.push(m.cs);
     m.push(0);
-    ovl07_0c93(m);
+    eclStore(m);
   };
 
   saveSokalState(254);
@@ -680,14 +688,14 @@ function checkCampaignJournal(): void {
   const rewardDispatch = council?.find(({ address, name }) => address === 0x9d63 && name === "ON GOSUB");
   if (!council || !rewardDispatch) throw new Error("Original council reward dispatch missing");
   const m = fresh();
-  m.write16(m.ds, 0x4933, 0x20);
-  m.write16(m.ds, 0x4935, 0x5000);
+  m.write16(m.ds, data.eclGlobals, 0x20);
+  m.write16(m.ds, data.eclGlobals + 2, 0x5000);
   const writeGlobal = (address: number, value: number) => {
     m.push(address);
     m.push(value);
     m.push(m.cs);
     m.push(0);
-    ovl07_0c93(m);
+    eclStore(m);
   };
   const slums = commissions.find(({ id }) => id === "slums")!;
   const slumsFlag = progressAddresses.slums!;
@@ -1134,17 +1142,17 @@ function checkCampaignJournal(): void {
     }
   }
   writeGlobal(0x4a19, 1);
-  const priorEcl = m.read8(m.ds, 0x82a2);
-  m.write8(m.ds, 0x82a2, 20);
+  const priorEcl = m.read8(m.ds, data.eclBlock);
+  m.write8(m.ds, data.eclBlock, 20);
   if (questProgress(m, kovelLeads, m.ds).some(({ id }) => id === "kovel-thief-ambush-cleared")) {
     throw new Error("The Kovel journal accepted the same variable from another area");
   }
-  m.write8(m.ds, 0x82a2, 14);
+  m.write8(m.ds, data.eclBlock, 14);
   if (!currentObjective([...kovelLeads, ...questProgress(m, kovelLeads, m.ds)], "commission-kovel").nextStep.includes("remaining thieves")) {
     throw new Error("The Kovel journal did not advance after the ambush was cleared");
   }
   writeGlobal(0x4a19, 0);
-  m.write8(m.ds, 0x82a2, priorEcl);
+  m.write8(m.ds, data.eclBlock, priorEcl);
   const koboldOffer = commissions.find(({ id }) => id === "kobolds")!.offer;
   const koboldLine = (trigger: string) => {
     const line = lines.find(text => text.replace(/\s+/g, " ").includes(trigger));
@@ -1558,7 +1566,7 @@ for (const [amount, divisor, quotient] of [[50552, 1000, 50], [200000, 1000, 200
   m.cx = divisor!;
   m.push(m.cs);
   m.push(0);
-  exe_05e44(m);
+  procedure(code.longDivide)(m);
   if (((m.dx << 16) | m.ax) !== quotient) throw new Error(`Incorrect translated long division for ${amount}`);
 }
 console.log("verified Turbo Pascal long division used by training and coin conversion");

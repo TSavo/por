@@ -106,6 +106,12 @@ export const data = resolve({
   glyphBase: { "1.0": 0x2736, "1.3": 0x2722 },
   /** The overland terrain table, 44 by 36 bytes, initialized in the program file. */
   overlandTerrain: { "1.0": 0x35e2, "1.3": 0x3648 },
+  /** The arrays the script interpreter's operand fetch fills: each operand's code, and its low byte. */
+  eclOperandCode: { "1.0": 0x6dcb, "1.3": 0x7005 },
+  eclOperandLow: { "1.0": 0x6e4b, "1.3": 0x7085 },
+  /** Crt's CheckSnow and TextAttr. */
+  crtCheckSnow: { "1.0": 0x82bb, "1.3": 0x84f3 },
+  crtTextAttr: { "1.0": 0x82be, "1.3": 0x84f6 },
   /** The random number seed. Randomize stores the DOS time here. */
   randSeed: { "1.0": 0x438a, "1.3": 0x4428 },
 });
@@ -198,6 +204,11 @@ export const code = resolve({
   eclLoad: { "1.0": { slice: 0x7, at: 0x353 }, "1.3": { slice: 0x7, at: 0x341 } },
   /** Apply damage to a combatant. */
   damageCombatant: { "1.0": { slice: 0x19, at: 0x2266 }, "1.3": { segment: 0xba, at: 0x2dc8 } },
+  /** Turbo Pascal's FillChar, Val, long division, and Crt's screen write. */
+  fillChar: { "1.0": { segment: 0x5bb, at: 0x7265 }, "1.3": { segment: 0xaf8, at: 0xc628 } },
+  val: { "1.0": { segment: 0x5bb, at: 0x6a35 }, "1.3": { segment: 0xaf8, at: 0xc331 } },
+  longDivide: { "1.0": { segment: 0x5bb, at: 0x5e44 }, "1.3": { segment: 0xaf8, at: 0xb9f6 } },
+  crtWrite: { "1.0": { segment: 0x512, at: 0x56c0 }, "1.3": { segment: 0xa40, at: 0xa9a3 } },
   /** Turbo Pascal's Randomize. */
   randomize: { "1.0": { segment: 0x5bb, at: 0x68cb }, "1.3": { segment: 0xaf8, at: 0xc1c7 } },
 });
