@@ -544,6 +544,8 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["valjevo-laundry-disguise-offer.png", ["A woman offers a bundle of clothes directly to the party", "The clothes are still in her hands while the offer awaits an answer"]],
   ["valjevo-laundry-workers-retreat.png", ["A tub and wet clothes establish the laundry", "The frightened workers have backed into a corner"]],
   ["valjevo-laundry-spokeswoman.png", ["The half-orc woman steps forward to address the party", "Her companions remain behind her in the same laundry"]],
+  ["valjevo-laundry-farewell.png", ["The spokeswoman gestures toward the door", "The folded clothes remain on the table"]],
+  ["valjevo-laundry-fitted.png", ["The laundry workers help a party member put on the disguise"]],
   ["valjevo-altar-crossed-swords.png", ["Two separate swords cross in the niche behind the altar", "Both swords remain in place while the player decides whether to take them"]],
   ["valjevo-forge-workshop.png", ["A human smith and three fire giants work on the armor together", "Weapons and spare armor are piled clear of the work area"]],
   ["valjevo-genheeris-at-desk.png", ["A middle-aged man in robes looks up from his desk", "Unusual furnishings suggest a wealthy merchant's apartment"]],
