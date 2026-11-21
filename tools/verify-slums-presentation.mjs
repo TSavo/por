@@ -968,6 +968,12 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:21:ecl:ae31:caller:a573", prompt: /BENEATHAFLOORBOARD.*JOURNALASENTRY3/i,
     continuation: { inputs: ["enter"], prompt: /DOYOUTAKETHEGEMS.*YesNo/i, portrait: "scene-illustration:area:21:ecl:ae41:caller:a58a" },
   }],
+  ["sokal-smithy-hammer", {
+    slot: "D", inputs: ["right", "right", "up", "left", "up", "s", "l"], portraitStops: { 6: null },
+    portrait: "scene-illustration:area:21:ecl:ae41:caller:a18d",
+    prompt: /WITHTHEEXCEPTIONOFONEOLDHAMMER.*DOYOUTAKEIT/i,
+    journalLead: "sokal-smithy-hammer",
+  }],
   ["sokal-courtyard-aftermath", {
     slot: "C", inputs: ["up"], portraitStops: { 0: null },
     portrait: "scene-illustration:area:21:ecl:a762",
@@ -975,12 +981,6 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter", "right"], prompt: /THEHALLISEMPTY,SAVEFORSIGNSOFARECENTBATTLE/i },
   }],
   ["sokal-chapel-arrival", {
-  ["sokal-smithy-hammer", {
-    slot: "D", inputs: ["right", "right", "up", "left", "up", "s", "l"], portraitStops: { 6: null },
-    portrait: "scene-illustration:area:21:ecl:ae41:caller:a18d",
-    prompt: /WITHTHEEXCEPTIONOFONEOLDHAMMER.*DOYOUTAKEIT/i,
-    journalLead: "sokal-smithy-hammer",
-  }],
     slot: "F", inputs: ["left", "up", "left", "up", "left", "up", "right", "up", "up"],
     portrait: "scene-illustration:area:21:ecl:a9fa",
     prompt: /CHAPELOFTHEKEEP.*DRIEDHUSKSOFTWOORCS.*ALTARDOMINATESTHESOUTHERNWALL/i,
@@ -1068,8 +1068,8 @@ const illustrationRoutes = new Map([
       3: "portrait:area:7:ecl:995f:caller:a54b:PIC5.DAX:66:0:0",
       4: null,
       5: "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
-      ...Object.fromEntries(Array.from({ length: 6 }, (_, vote) =>
       6: "portrait:area:7:ecl:995f:caller:a718:PIC5.DAX:66:0:0",
+      ...Object.fromEntries(Array.from({ length: 6 }, (_, vote) =>
         [vote + 7, "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0"])),
     },
     portrait: "portrait:area:7:ecl:a803:PIC5.DAX:66:0:0",
@@ -1258,9 +1258,10 @@ const illustrationRoutes = new Map([
   ["bane-gate-inspection-failure", {
     slot: "A", inputs: ["up", "enter", "enter", "b"],
     portrait: "portrait:area:24:ecl:a586:PIC1.DAX:4:0:0",
+    heldPortrait: "portrait:area:24:ecl:a586:PIC1.DAX:4:2:0",
     prompt: /IMUSTCHECKIFYOUAREWORTHYTOENTERTHETEMPLEOFBANE/i,
     continuation: {
-      inputs: ["l"], portrait: "portrait:area:24:ecl:a6b8:PIC1.DAX:4:0:0",
+      inputs: ["l"], portrait: "portrait:area:24:ecl:a6b8:PIC1.DAX:4:2:0",
       prompt: /GUARDS,INTHENAMEOFBANE,KILLTHESEUNBELIEVERS/i,
     },
   }],
@@ -4443,6 +4444,7 @@ const declineRestal = restalGuide && option === "--decline";
 const declineKoboldGuide = routeName === "kobold-cave-guide" && option === "--decline";
 const declineFatima = princessFatima && option === "--decline";
 const declineKutoCache = routeName === "kuto-bandit-cache" && option === "--decline";
+const declineSmithyHammer = routeName === "sokal-smithy-hammer" && option === "--decline";
 const declineCryptScroll = ["valhingen-crypt-scroll", "valhingen-crypt-scroll-reload"].includes(routeName) && option === "--decline";
 const fightNorris = norrisSurrender && option === "--fight";
 const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "--refuse-to-leave";
@@ -4450,7 +4452,6 @@ assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampe
   ogreApproachOnly || councilFinale || (halls && option === "--webgl") || verifyApproachTravel || verifyDistrictTravel ||
   declineDirten || declineRestal || declineKoboldGuide || declineFatima || declineCryptScroll || declineKutoCache ||
   declineSmithyHammer || declineValjevoDisguise || fightNorris || refuseNomadDismissal, "Option does not apply to this route");
-const declineSmithyHammer = routeName === "sokal-smithy-hammer" && option === "--decline";
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -6950,11 +6951,6 @@ try {
       await waitFor("the previous frame", () => run(`document.querySelector("#screen").src === ${JSON.stringify(prior)}`));
       await run(`(() => {
         const decode = HTMLImageElement.prototype.decode;
-        const phaseCapture = illustration.phaseCaptures?.[index];
-        if (phaseCapture) {
-          const phaseShot = await command("Page.captureScreenshot", { format: "png" });
-          writeFileSync(resolve(directory, phaseCapture), Buffer.from(phaseShot.data, "base64"));
-        }
         HTMLImageElement.prototype.decode = function () {
           if (this.getAttribute("src") !== ${JSON.stringify("/art/" + portrait)}) return decode.call(this);
           return new Promise(resolve => {
@@ -6985,12 +6981,6 @@ try {
         }
       })()`), false, "Enter should not advance a prompt whose portrait is still loading");
       await run('window.releasePortrait()');
-        if (routeName === "pyramid-lizardfolk-patrol-phases" && (index === 6 || index === 7)) {
-          assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
-            /THEYAREWARY,BUTNOTHOSTILE.*COMBATWAITFLEEPARLAY/i);
-          const patrolPhaseShot = await command("Page.captureScreenshot", { format: "png" });
-          writeFileSync(resolve(directory, `pyramid-lizardfolk-patrol-phase-${index - 5}.png`), Buffer.from(patrolPhaseShot.data, "base64"));
-        }
     } else {
       for (const [index, key] of inputs.entries()) {
         const interimPortrait = illustration.portraitStops?.[index];
@@ -7002,6 +6992,13 @@ try {
             await verifyPortraitPanel();
           }
         }
+        if (routeName === "mendor-storeroom-kobold-phases" && interimPortrait && index > 5) {
+          const caption = index < 8 ? /THEYPLEADFORMERCY/i : /WILLYOUSPARETHEM/i;
+          assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), caption);
+          if (index === 6 || index === 7) await switchBothWays(frame.frame);
+          const shot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, `mendor-storeroom-kobold-phase-${index}.png`), Buffer.from(shot.data, "base64"));
+        }
         if (routeName === "stojanow-ettin-guardroom" && interimPortrait) {
           const captions = [
             /ALLBUTTWOOFTHEBEDSARE14FEETLONG/i,
@@ -7010,13 +7007,6 @@ try {
           ];
           assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), captions[index - 1]);
           await switchBothWays(frame.frame);
-        if (routeName === "mendor-storeroom-kobold-phases" && interimPortrait && index > 5) {
-          const caption = index < 8 ? /THEYPLEADFORMERCY/i : /WILLYOUSPARETHEM/i;
-          assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), caption);
-          if (index === 6 || index === 7) await switchBothWays(frame.frame);
-          const shot = await command("Page.captureScreenshot", { format: "png" });
-          writeFileSync(resolve(directory, `mendor-storeroom-kobold-phase-${index}.png`), Buffer.from(shot.data, "base64"));
-        }
           const shot = await command("Page.captureScreenshot", { format: "png" });
           writeFileSync(resolve(directory, `stojanow-ettin-guardroom-${index}.png`), Buffer.from(shot.data, "base64"));
         }
@@ -7040,6 +7030,17 @@ try {
           const offeringShot = await command("Page.captureScreenshot", { format: "png" });
           writeFileSync(resolve(directory, "valjevo-altar-offering-box.png"), Buffer.from(offeringShot.data, "base64"));
         }
+        const phaseCapture = illustration.phaseCaptures?.[index];
+        if (phaseCapture) {
+          const phaseShot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, phaseCapture), Buffer.from(phaseShot.data, "base64"));
+        }
+        if (routeName === "pyramid-lizardfolk-patrol-phases" && (index === 6 || index === 7)) {
+          assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+            /THEYAREWARY,BUTNOTHOSTILE.*COMBATWAITFLEEPARLAY/i);
+          const patrolPhaseShot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, `pyramid-lizardfolk-patrol-phase-${index - 5}.png`), Buffer.from(patrolPhaseShot.data, "base64"));
+        }
         if (routeName === "kuto-well-waterline" && interimPortrait) {
           assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
             /RUNGSARESETINTHESIDESOFTHEWELLWALL\.DOYOUWANTTOCLIMBDOWN/i);
@@ -7049,19 +7050,6 @@ try {
           writeFileSync(resolve(directory, "kuto-well-descent-decision.png"), Buffer.from(wellDescentShot.data, "base64"));
         }
         if (routeName === "diogenes-upper-ledge-fireball" && interimPortrait) {
-        if (routeName === "tyranthraxus-battle-opening" &&
-            interimPortrait === "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0") {
-          assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
-            /howdoyouvote\?.*attackjointyranthraxus/i);
-          if (index === 7) {
-            const votePlate = await fetch(origin + "/art/" + interimPortrait);
-            assert.ok(votePlate.ok);
-            assert.deepEqual(Buffer.from(await votePlate.arrayBuffer()), readFileSync("upgrades/valjevo-tyranthraxus-party-vote.png"));
-            await switchBothWays(frame.frame);
-            const voteShot = await command("Page.captureScreenshot", { format: "png" });
-            writeFileSync(resolve(directory, "valjevo-tyranthraxus-party-vote.png"), Buffer.from(voteShot.data, "base64"));
-          }
-        }
           await advance("j");
           assert.ok(frame.journal);
           assert.ok(!frame.journal.leads.some(({ id }) => id === "diogenes-fireball"));
@@ -7087,10 +7075,6 @@ try {
         }
         if (routeName === "yarash-alchemical-laboratory" && index === 5) {
           const text = frame.text.toSorted(([a], [b]) => a - b)
-    if (illustration.finalPhaseCapture) {
-      const phaseShot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, illustration.finalPhaseCapture), Buffer.from(phaseShot.data, "base64"));
-    }
             .map(([, character]) => String.fromCharCode(character)).join("");
           assert.match(text, /ASSORTMENTOFTORTUREINSTR?UMENTS.*ALARGETABLEWITHMETALRESTRAINTS/i);
           const images = await Promise.all([interimPortrait, portrait].map(async id => {
@@ -7126,10 +7110,6 @@ try {
         }
         await advance(key);
       }
-    if (routeName === "pyramid-lizardfolk-patrol-phases") {
-      const patrolPhaseShot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, "pyramid-lizardfolk-patrol-phase-3.png"), Buffer.from(patrolPhaseShot.data, "base64"));
-    }
     }
     assert.equal(frame.portrait, portrait);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), prompt);
@@ -7140,8 +7120,27 @@ try {
     })()`));
     await switchBothWays();
     await verifyPortraitPanel();
+    if (illustration.heldPortrait) {
+      const held = illustration.heldPortrait;
+      for (let i = 0; i < 30 && frame.portrait !== held; i++) await advance("z");
+      assert.equal(frame.portrait, held);
+      await waitFor("the enhanced held illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${held}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, `${routeName}-held-portrait.png`), Buffer.from(shot.data, "base64"));
+    }
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
+    if (illustration.finalPhaseCapture) {
+      const phaseShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, illustration.finalPhaseCapture), Buffer.from(phaseShot.data, "base64"));
+    }
+    if (routeName === "pyramid-lizardfolk-patrol-phases") {
+      const patrolPhaseShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "pyramid-lizardfolk-patrol-phase-3.png"), Buffer.from(patrolPhaseShot.data, "base64"));
     }
     if (routeName === "swamp-deep-pool" || routeName === "swamp-underwater-cache") {
       const poolShot = await command("Page.captureScreenshot", { format: "png" });
@@ -7217,17 +7216,6 @@ try {
       assert.ok(enemies.some(id => /:CPIC4\.DAX:34(?::|$)/.test(id)));
       assert.ok(enemies.some(id => /:CPIC4\.DAX:35(?::|$)/.test(id)));
     }
-    if (routeName === "sokal-chapel-arrival") {
-      await switchBothWays(frame.frame);
-      const chapelArrivalShot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, "sokal-chapel-remains-and-altar.png"), Buffer.from(chapelArrivalShot.data, "base64"));
-      await advance("j");
-      assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-chapel"));
-      assert.ok(!frame.journal?.leads.some(({ id }) => ["sokal-pale-form", "sokal-ferran"].includes(id)));
-      await advance("j");
-    }
-    if (routeName === "sokal-pale-form-arrival") {
-      await switchBothWays(frame.frame);
     if (routeName === "sokal-smithy-hammer") {
       const hammerShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "sokal-smithy-old-hammer.png"), Buffer.from(hammerShot.data, "base64"));
@@ -7249,6 +7237,17 @@ try {
       }
       console.log("Verified choice and journal for the old smithy hammer in Chrome:", directory);
     }
+    if (routeName === "sokal-chapel-arrival") {
+      await switchBothWays(frame.frame);
+      const chapelArrivalShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "sokal-chapel-remains-and-altar.png"), Buffer.from(chapelArrivalShot.data, "base64"));
+      await advance("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-chapel"));
+      assert.ok(!frame.journal?.leads.some(({ id }) => ["sokal-pale-form", "sokal-ferran"].includes(id)));
+      await advance("j");
+    }
+    if (routeName === "sokal-pale-form-arrival") {
+      await switchBothWays(frame.frame);
       const risingFormShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "sokal-pale-form-rises.png"), Buffer.from(risingFormShot.data, "base64"));
       await advance("j");
@@ -7350,6 +7349,14 @@ try {
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
+      if (routeName === "bane-gate-inspection-failure") {
+        await advance("z");
+        const battlePortrait = "portrait:area:24:ecl:a6bf:PIC1.DAX:4:2:0";
+        assert.equal(frame.portrait, battlePortrait);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ABATTLEBEGINS/i);
+        await waitFor("the gatekeeper portrait at battle entry", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${battlePortrait}"]')?.naturalWidth === 352`));
+      }
       if (routeName === "valjevo-dragon-loot") {
         const text = () => frame.text.map(([, char]) => String.fromCharCode(char)).join("");
         for (let page = 0; page < 2; page++) {
@@ -7755,8 +7762,6 @@ try {
     assert.equal(frame.portrait, "portrait:PIC8.DAX:70:0:0");
     await waitFor("the efreeti dialogue illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
     await switchBothWays();
-    await advance("j");
-    assert.ok(knows("kobold-efreeti") && !knows("kobold-efreeti-warning"));
     for (const member of [1, 2]) {
       await advance("z");
       const phase = `portrait:area:13:ecl:a624:PIC8.DAX:70:${member}:0`;
@@ -7771,6 +7776,8 @@ try {
     }
     await advance("z");
     assert.equal(frame.portrait, "portrait:PIC8.DAX:70:0:0");
+    await advance("j");
+    assert.ok(knows("kobold-efreeti") && !knows("kobold-efreeti-warning"));
     for (const key of ["j", "n", "j"]) await advance(key);
     assert.ok(knows("kobold-efreeti-warning"));
     console.log("Verified the efreeti portrait and witnessed warning in Chrome.");
@@ -9522,23 +9529,6 @@ try {
     const route = ["enter", "right", "right", "up", "right", "up", "left", "up", "b", "right", "up", "b",
       ...Array(5).fill("up"), "right", "up", "left", "up", "up", "enter", "s", "up", "enter"];
     for (const key of route) await advance(key);
-    const approach = "encounter:area:2:SPRIT4.DAX:6:1:0";
-    assert.deepEqual(frame.encounter, [56, 32, approach, 24, 65]);
-    assert.equal(await verifyTiledView(2, new Set()), 1);
-    await waitFor("the enhanced ogre chief approach", () => run(`state.sequence === ${frame.sequence} &&
-      [...document.querySelectorAll(".encounter-sprite")].some(image =>
-        image.getAttribute("src") === ${JSON.stringify("/art/" + approach)} &&
-        image.naturalWidth === 96 && image.naturalHeight === 260)`));
-    await switchBothWays();
-    console.log("Verified the enhanced ogre chief over the Textile House scenery after the secret door.");
-    if (!ogreApproachOnly) {
-      for (let prompt = 0; prompt < 5; prompt++) await advance("enter");
-      const standing = () => frame.combatArt.find(([, , id]) => id === idle);
-      for (let turn = 0; turn < 8 && !standing(); turn++) await advance("q");
-      assert.deepEqual(standing()?.slice(5), [24, 48]);
-      const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")].some(img => img.src.endsWith(${JSON.stringify(id)}) &&
-        img.naturalWidth === 96 && img.naturalHeight === 192 &&
-        parseFloat(img.style.width) === 7.5 && parseFloat(img.style.height) === 24)`);
     const eastDoor = "scene-illustration:area:2:ecl:abd2:caller:a7cf";
     assert.equal(frame.portrait, eastDoor);
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
@@ -9558,6 +9548,23 @@ try {
     assert.equal(frame.portrait, undefined);
     await waitForExplorationViewport();
     for (const key of ["s", "up", "enter"]) await advance(key);
+    const approach = "encounter:area:2:SPRIT4.DAX:6:1:0";
+    assert.deepEqual(frame.encounter, [56, 32, approach, 24, 65]);
+    assert.equal(await verifyTiledView(2, new Set()), 1);
+    await waitFor("the enhanced ogre chief approach", () => run(`state.sequence === ${frame.sequence} &&
+      [...document.querySelectorAll(".encounter-sprite")].some(image =>
+        image.getAttribute("src") === ${JSON.stringify("/art/" + approach)} &&
+        image.naturalWidth === 96 && image.naturalHeight === 260)`));
+    await switchBothWays();
+    console.log("Verified the enhanced ogre chief over the Textile House scenery after the secret door.");
+    if (!ogreApproachOnly) {
+      for (let prompt = 0; prompt < 5; prompt++) await advance("enter");
+      const standing = () => frame.combatArt.find(([, , id]) => id === idle);
+      for (let turn = 0; turn < 8 && !standing(); turn++) await advance("q");
+      assert.deepEqual(standing()?.slice(5), [24, 48]);
+      const displayed = id => run(`[...document.querySelectorAll(".combat-sprite")].some(img => img.src.endsWith(${JSON.stringify(id)}) &&
+        img.naturalWidth === 96 && img.naturalHeight === 192 &&
+        parseFloat(img.style.width) === 7.5 && parseFloat(img.style.height) === 24)`);
       await waitFor("the rectangular ogre standing sprite", () => displayed(idle));
       await switchBothWays();
       const strikePlacement = () => frame.animation?.flatMap(shot => shot.combatArt ?? []).find(([, , id]) => id === attack);
@@ -9622,7 +9629,6 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified that Valhingen's arrival storm does not repeat after a cold reload.");
   } else if (routeName === "stojanow-wall-warning-reload") {
-    assert.ok(frame.perspective && frame.scenery);
     assert.equal(await verifyTiledView(9, new Set()), 1);
     await advance("j");
     const leads = new Set(frame.journal?.leads.map(({ id }) => id));
@@ -9630,6 +9636,7 @@ try {
     assert.ok(!leads.has("gate-bugbear-ambush"), "The party has only seen the outside confrontation");
     await switchBothWays();
     await advance("j");
+    assert.ok(frame.perspective && frame.scenery);
     assert.equal(await verifyTiledView(9, new Set()), 1);
     console.log("Verified the Stojanow clues and enhanced scenery after reloading the native save.");
   } else if (routeName === "stojanow-wall-warning") {
@@ -10122,6 +10129,18 @@ try {
     if (classicPortrait) {
       assert.equal(frame.classicPortrait, true);
       assert.equal(frame.portrait, undefined);
+      assert.ok(frame.classicPortraitSources?.includes("portrait:PIC6.DAX:39:0:0"));
+      await waitFor("classic portrait filling the Enhanced panel", () => run(`(() => {
+        const layer = document.querySelector("#tile-art").getBoundingClientRect();
+        const portrait = document.querySelector(".perspective-backdrop")?.getBoundingClientRect();
+        return portrait && Math.abs(portrait.width - layer.width * 120 / 320) < 1 &&
+          Math.abs(portrait.height - layer.height * 120 / 200) < 1;
+      })()`));
+    } else {
+      assert.equal(frame.portrait, "portrait:PIC6.DAX:39:0:0");
+      await waitFor("the mounted escort illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    }
+    await switchBothWays();
     if (!classicPortrait) {
       const escortPhase = "portrait:area:25:ecl:9e08:PIC6.DAX:39:1:0";
       for (const key of ["z", "z"]) await advance(key);
@@ -10136,18 +10155,6 @@ try {
       for (const key of ["z", "z"]) await advance(key);
       assert.equal(frame.portrait, "portrait:PIC6.DAX:39:0:0");
     }
-      assert.ok(frame.classicPortraitSources?.includes("portrait:PIC6.DAX:39:0:0"));
-      await waitFor("classic portrait filling the Enhanced panel", () => run(`(() => {
-        const layer = document.querySelector("#tile-art").getBoundingClientRect();
-        const portrait = document.querySelector(".perspective-backdrop")?.getBoundingClientRect();
-        return portrait && Math.abs(portrait.width - layer.width * 120 / 320) < 1 &&
-          Math.abs(portrait.height - layer.height * 120 / 200) < 1;
-      })()`));
-    } else {
-      assert.equal(frame.portrait, "portrait:PIC6.DAX:39:0:0");
-      await waitFor("the mounted escort illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
-    }
-    await switchBothWays();
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === base));
     assert.ok(!frame.journal.leads.some(({ id }) => id === "rescue-identified-heir"));
@@ -10167,19 +10174,6 @@ try {
       document.querySelector('.encounter-portrait[src="/art/${overview}"]')?.naturalWidth === 352`));
     await verifyPortraitPanel();
     await switchBothWays();
-    await advance("j");
-    assert.ok(frame.journal.leads.some(({ id }) => id === "rescue-slave-pen"));
-    assert.ok(!frame.journal.leads.some(({ id }) => id === "rescue-identified-heir"));
-    assert.match(frame.journal.objective.nextStep, /Look among the prisoners/);
-    for (const key of ["j", "enter"]) await advance(key);
-    const identification = "portrait:area:1:ecl:b5f7:caller:9eda:PIC6.DAX:42:0:0";
-    assert.equal(frame.portrait, identification);
-    assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join(""),
-      /HEART-SHAPEDBIRTHMARKONHISLEFTSHOULDER.*MERCHANTAPPROACHESYOU/i);
-    await waitFor("the Bivant heir identification", () => run(`state.sequence === ${frame.sequence} &&
-      document.querySelector('.encounter-portrait[src="/art/${identification}"]')?.naturalWidth === 352`));
-    await verifyPortraitPanel();
-    await advance("j");
     const penPhases = new Map([1, 2, 3, 4].map(member =>
       [overview.replace(/:0:0$/, `:${member}:0`), member]));
     for (let input = 0; input < 16 && (penPhases.size || frame.portrait !== overview); input++) {
@@ -10197,6 +10191,19 @@ try {
     }
     assert.equal(penPhases.size, 0);
     assert.equal(frame.portrait, overview);
+    await advance("j");
+    assert.ok(frame.journal.leads.some(({ id }) => id === "rescue-slave-pen"));
+    assert.ok(!frame.journal.leads.some(({ id }) => id === "rescue-identified-heir"));
+    assert.match(frame.journal.objective.nextStep, /Look among the prisoners/);
+    for (const key of ["j", "enter"]) await advance(key);
+    const identification = "portrait:area:1:ecl:b5f7:caller:9eda:PIC6.DAX:42:0:0";
+    assert.equal(frame.portrait, identification);
+    assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, character]) => String.fromCharCode(character)).join(""),
+      /HEART-SHAPEDBIRTHMARKONHISLEFTSHOULDER.*MERCHANTAPPROACHESYOU/i);
+    await waitFor("the Bivant heir identification", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${identification}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-identified-heir"));
     assert.match(frame.journal.objective.nextStep, /Choose Rescue Boy/);
     for (const key of ["j", "enter"]) await advance(key);
@@ -10803,7 +10810,6 @@ try {
   } else if (envoyEscape) {
     for (const key of ["right", "right", "up", "left", "up", "up", "right", "up", "up", "up", "left",
       "up", "up", "up", "up", "up"]) await advance(key);
-    await advance("j");
     const wallDecision = "scene-illustration:area:28:ecl:b4f0";
     assert.equal(frame.portrait, wallDecision);
     assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
@@ -10814,6 +10820,7 @@ try {
     const wallDecisionShot = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, "zhentil-climbable-wall.png"), Buffer.from(wallDecisionShot.data, "base64"));
     await switchBothWays(frame.frame);
+    await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "zhentil-climbable-wall"));
     assert.ok(!frame.journal.leads.some(({ id }) => id === "zhentil-envoy-left"));
     const commission = "commission-zhentil";
