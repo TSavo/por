@@ -2406,6 +2406,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kobold-cave-tailings-drawing.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-spike-trap", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:13:ecl:9e7f:cue:spike-trap", prompt: /SPIKESSPRINGOUTANDIMPALEYOU/i,
+    finalPhaseCapture: "kobold-cave-spike-trap.png",
+    continuation: { inputs: ["enter", "down", "up"], clearsPortrait: true, prompt: /VIEWENCAMP.*LOOK/i },
+  }],
   ["tyrmor-portal-rocks", {
     slot: "B", inputs: ["s", "up"],
     portrait: "scene-illustration:area:22:ecl:9a06:caller:a016:cue:scattered-rocks",
