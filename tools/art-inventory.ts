@@ -503,6 +503,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["new-phlan-rolf-temple-tyr.png", ["Rolf gestures toward a recognizable temple entrance", "The temple door and the steps leading to it are clearly visible"]],
   ["new-phlan-rolf-training-schools.png", ["Rolf points out the doors leading into the training schools", "Visible practice equipment gives the entrances context"]],
   ["kuto-well-waterline-door.png", ["The inside of a well with climbable rungs", "A secret door ajar above the waterline"]],
+  ["kuto-bandit-treasure-cache.png", ["The treasure is visibly stashed in the catacombs", "The cache is still in place while the party decides whether to take it"]],
   ["mendor-philosophy-stacks.png", ["Old books on shelves", "A readable Philosophy sign over the entrance"]],
   ["mendor-history-stacks-arrival.png", ["Old books on shelves", "A readable History sign over the entrance"]],
   ["mendor-rhetoric-stacks-arrival.png", ["Old books on shelves", "A readable Rhetoric sign over the entrance"]],
