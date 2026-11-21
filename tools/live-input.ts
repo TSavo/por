@@ -934,8 +934,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       if (animation.length >= 12 && !animation.some(flightFrame)) return;
       captureEclContext(cpu);
-      // These cabinet captions can clear within a single input.
-      if (area === 14 && (battleCursor === 0xa238 || battleCursor === 0x9e63)) {
+      // These Kovel captions can clear within a single input.
+      if (area === 14 && (battleCursor === 0xa238 || battleCursor === 0x9e63 || battleCursor === 0x9d52)) {
         showFrame(undefined, undefined, false, false, 1200, undefined, true);
         return;
       }

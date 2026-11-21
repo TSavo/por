@@ -1235,6 +1235,18 @@ const illustrationRoutes = new Map([
     continuation: { inputs: [choice], clearsPortrait: true,
       prompt: choice === "y" ? /FOUND.*TREASURE.*533.*EXPERIENCEPOINTS/i : /AREACASTVIEWENCAMP/i },
   }]),
+  ["kovel-tarnished-loot", {
+    slot: "A", inputs: ["up", "enter", "enter"],
+    transientPortraits: { 1: {
+      id: "scene-illustration:area:14:ecl:9d52:cue:tarnished-loot",
+      prompt: /TARNISHEDBRONZECANDLESTICKS.*USEFULITEMS/i, screenshot: "kovel-tarnished-loot-discovery.png",
+    } },
+    portraitStops: { 1: null, 2: null },
+    portrait: "portrait:area:14:ecl:9d66:PIC1.DAX:1:0:0",
+    prompt: /VIEW.*POOL/i,
+    idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:9d66:PIC1.DAX:1:${phase}:0`),
+    continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /10,9N/i },
+  }],
   ["kovel-tapestry-reward", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portraitStops: { 1: null, 2: null },
