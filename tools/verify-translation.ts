@@ -6,7 +6,8 @@ import { deepStrictEqual, ok, strictEqual } from "node:assert";
 import { readFileSync } from "node:fs";
 import ts from "typescript";
 import { Cpu } from "../src/cpu/machine.js";
-import { code, data, far, loadTranslation, procedure, type Where } from "../src/runtime/bindings.js";
+import { loadExecutable } from "../src/lib/exepack.js";
+import { code, data, far, loadTranslation, previousRandomSeed, procedure, type Where } from "../src/runtime/bindings.js";
 import { farCall, registerFar } from "../src/runtime/far.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { noon, timeOfDay, attachDos } from "../src/runtime/dos.js";
@@ -448,7 +449,23 @@ function checkDiceSeed(): void {
   const evening = timeOfDay(new Date(2026, 10, 21, 20, 45, 5, 990));
   if (seed(morning) !== ((30 << 8 | 25) << 16 | (8 << 8 | 15)) >>> 0) throw new Error("The seed does not carry the time of day");
   if (seed(morning) === seed(evening) || seed(morning) === seed(noon)) throw new Error("Different start times gave the same dice seed");
-  console.log("verified the dice seed repeats for replays and follows the time of day for play");
+  // Stepping a seed back and running the game's own generator step returns the seed.
+  // The step reads its multiplier from the program's code segment, so the program is loaded.
+  const program = loadExecutable(new Uint8Array(readFileSync(`${gameRoot}/START.EXE`))).image;
+  for (const start of [0x0c00, 0, 1, 0xffffffff, 0x12345678]) {
+    const m = fresh();
+    m.mem.set(program);
+    m.cs = (code.nextRandom as Extract<Where, { segment: number }>).segment;
+    m.ds = m.ss = 0x8000;
+    const before = previousRandomSeed(start);
+    m.write16(m.ds, data.randSeed, before & 0xffff);
+    m.write16(m.ds, data.randSeed + 2, before >>> 16);
+    m.push(0);
+    procedure(code.nextRandom)(m);
+    const after = (m.read16(m.ds, data.randSeed + 2) << 16 | m.read16(m.ds, data.randSeed)) >>> 0;
+    if (after !== start >>> 0) throw new Error(`The seed before ${start.toString(16)} steps to ${after.toString(16)}`);
+  }
+  console.log("verified the dice seed repeats for replays, follows the time of day for play, and steps back exactly");
 }
 
 function checkVal(): void {

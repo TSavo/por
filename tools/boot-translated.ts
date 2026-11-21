@@ -18,9 +18,9 @@ import { liveInput } from "./live-input.js";
 import { openJournalProfile } from "./journal-profile.js";
 import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
-import { callTrace, farCall, farCallObservers, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
+import { callTrace, exeByImage, farCall, farCallObservers, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
-import { behaviour, code, codeSegment, data, far, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit } from "../src/runtime/bindings.js";
+import { behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit } from "../src/runtime/bindings.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 
@@ -41,6 +41,18 @@ const files = process.env.POR_PREGEN_PARTY === "1" ? stagePregenParty(gameFiles)
 const overlayFile = files.find((f) => f.name.toUpperCase() === "GAME.OVR");
 if (!overlayFile) throw new Error("GAME.OVR is required");
 await loadTranslation(overlayFile.data);
+if (process.env.POR_CLOCK !== "real" && behaviour.extraStartupDraws > 0) {
+  // A replay starts every build on the same dice. This build draws extra numbers before play
+  // begins, so its seed starts that many steps earlier and play begins where the first release's does.
+  const randomize = procedure(code.randomize);
+  exeByImage.set(code.randomize.at, (m) => {
+    randomize(m);
+    let seed = (m.read16(m.ds, data.randSeed + 2) << 16 | m.read16(m.ds, data.randSeed)) >>> 0;
+    for (let draw = 0; draw < behaviour.extraStartupDraws; draw++) seed = previousRandomSeed(seed);
+    m.write16(m.ds, data.randSeed, seed & 0xffff);
+    m.write16(m.ds, data.randSeed + 2, seed >>> 16);
+  });
+}
 
 const replayPath = process.env.POR_BOOT_KEY_FILE;
 const replayKeys = replayPath ? readFileSync(replayPath, "utf8").trim() : "";
@@ -112,6 +124,20 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
           terrainDraws.add(draw);
           console.error(`POR_BATTLE_DRAW ${draw}`);
         }
+      }
+      tick.call(this, at);
+    };
+  }
+  if (process.env.POR_TRACE_DICE === "1") {
+    // One line for every random number the game draws: who asked, and the range.
+    // The caller is named by overlay slice and offset, or by resident segment and offset.
+    const tick = cpu.tick;
+    cpu.tick = function (at) {
+      if (isAt(this, at, code.nextRandom)) {
+        const offset = this.read16(this.ss, (this.sp + 2) & 0xffff), segment = this.read16(this.ss, (this.sp + 4) & 0xffff);
+        const slice = loadedSlices.find(({ loadPara }) => loadPara === segment);
+        const caller = slice ? `slice ${slice.index}+${offset.toString(16)}` : `${segment.toString(16)}:${offset.toString(16)}`;
+        console.error(`POR_DICE ${this.steps} ${caller} range ${this.read16(this.ss, (this.sp + 6) & 0xffff)}`);
       }
       tick.call(this, at);
     };

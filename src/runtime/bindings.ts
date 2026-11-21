@@ -182,7 +182,19 @@ export const behaviour = resolve({
    * In version 1.3 the routine returns at once: its first instruction jumps over the loop.
    */
   flushKeysDiscardsTypeAhead: { "1.0": true, "1.3": false },
+  /**
+   * Random numbers the program draws at start-up that the first release does not.
+   * Version 1.3 draws one, after the title, to pick its code-wheel question.
+   * That one draw is the whole difference between the two builds' dice.
+   */
+  extraStartupDraws: { "1.0": 0, "1.3": 1 },
 });
+
+/** The seed that comes before `seed` in Turbo Pascal's generator, whose step is seed * 0x08088405 + 1. */
+export function previousRandomSeed(seed: number): number {
+  // 0xd94fa8cd is the inverse of 0x08088405 modulo 2^32.
+  return Math.imul((seed - 1) | 0, 0xd94fa8cd | 0) >>> 0;
+}
 
 /** A position in the program's code: in an overlay slice, or in the resident program by image offset. */
 export type Where = { slice: number; at: number } | { segment: number; at: number };
@@ -253,6 +265,8 @@ export const code = resolve({
   val: { "1.0": { segment: 0x5bb, at: 0x6a35 }, "1.3": { segment: 0xaf8, at: 0xc331 } },
   longDivide: { "1.0": { segment: 0x5bb, at: 0x5e44 }, "1.3": { segment: 0xaf8, at: 0xb9f6 } },
   crtWrite: { "1.0": { segment: 0x512, at: 0x56c0 }, "1.3": { segment: 0xa40, at: 0xa9a3 } },
+  /** The step of Turbo Pascal's random number generator, which Random calls for every number drawn. */
+  nextRandom: { "1.0": { segment: 0x5bb, at: 0x6893 }, "1.3": { segment: 0xaf8, at: 0xc18f } },
   /** Turbo Pascal's Randomize. */
   randomize: { "1.0": { segment: 0x5bb, at: 0x68cb }, "1.3": { segment: 0xaf8, at: 0xc1c7 } },
 });

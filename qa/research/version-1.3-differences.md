@@ -102,7 +102,11 @@ Measured on 2026-11-21 with the port running version 1.3. Each line corrects or 
 | Brawl ending in New Phlan's tavern | `EXIT` | `GOTO a609` |
 | Save directory | From `POOL.CFG` | From `POOL.CFG`; the store release ships its install directory there, so the port sets the paths itself |
 
-The dice also differ for the same list of key presses. The seed is the same. The game draws random numbers while it waits for a key, and the two programs take different numbers of steps between waits. The first character rolled is the same in both; later ones differ.
+The dice differ by exactly one draw. After the title, 1.3 draws one random number to pick its code-wheel question (`Random(13)` in overlay slice 2), and the first release does not. From the same seed, every later number 1.3 draws is the one the first release draws next. Measured with `POR_TRACE_DICE=1` over the first campaign leg: 1,221 draws in the first release, 1,222 in 1.3, and the same callers and ranges in the same order once that one draw is set aside.
+
+A replay (`POR_CLOCK=fixed`) therefore starts 1.3's seed one generator step earlier, so play begins on the same dice in both builds. With that, the 118 screens of the first campaign leg show the same text in both. A played game takes its seed from the time of day, as before.
+
+An earlier version of this note said the dice depend on how long the game waits for a key. That was a guess, and the trace showed it was wrong.
 
 ### Sound
 
