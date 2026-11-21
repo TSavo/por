@@ -93,6 +93,8 @@ PROFILES = {
         # MemAvail and MaxAvail load a routine's offset into BX and call through it. Each routine
         # is a loop entered at its test, so its code starts before its entry: entry -> first byte.
         "entries_inside": {0xB231: 0xB221, 0xB251: 0xB23D},
+        # GOG disabled the code-wheel rejection by replacing this two-byte jump with NOPs.
+        "code_wheel_branch": (2, 0x32C),
     },
 }
 PROFILE = PROFILES["1.0"]
@@ -812,6 +814,15 @@ def render_proc(blob: bytes, start: int, end: int, fn: str, comment: str, names:
     for insn in body:
         nxt = insn.address + insn.size
         instruction = emit_insn(insn, nxt, names, nxt in addrs, addrs)
+        if (branch := PROFILE.get("code_wheel_branch")) and fn == "ovl02_00fd" and insn.address == branch[1]:
+            condition = f"        ip = !m.zf ? 0x330 : 0x{nxt:x};"
+            # Classic still executes both of the original GOG NOPs. Enhanced allows the
+            # translated conditional jump to reach the guest's own retry and exit.
+            at = instruction.index(condition)
+            instruction[at:at + 1] = [
+                "        if (m.enforceCodeWheel && !m.zf) ip = 0x330;",
+                "        else { m.tick(0x32d); ip = 0x32e; }",
+            ]
         ecl_loop, ecl_dispatch = PROFILE["ecl_loop"]
         if fn == ecl_loop and f"        nearCall(m, 0x{ecl_dispatch:x});" in instruction:
             # The ECL loop has fetched its opcode and still points at its first byte.
@@ -1053,6 +1064,13 @@ def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
     ovr_done = 0
     for index, s in enumerate(all_stubs):
         blob = OVR[s["off"] : s["off"] + s["code"]]
+        if (branch := PROFILE.get("code_wheel_branch")) and index == branch[0]:
+            at = branch[1]
+            if blob[at : at + 4] != bytes.fromhex("90 90 EB 25"):
+                raise ValueError("Unexpected version 1.3 code-wheel branch bytes")
+            # Decode the earlier release's jump to include the intact retry block in the CFG.
+            # The source game files are untouched, and render_proc gates the emitted jump.
+            blob = blob[:at] + bytes.fromhex("75 02") + blob[at + 2 :]
         anch = prologues(blob)
         found = close_entries(blob, anch, anch)
         ovr_total += len(anch)

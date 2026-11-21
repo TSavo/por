@@ -52,6 +52,13 @@ export function ovl02_00fd(m: Cpu): void {
         ip = true ? 0x10d : 0x10a;
         break;
       }
+      case 0x10a: {
+        // 010a: inc byte ptr [bp - 0x2b]
+        m.tick(0x10a);
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -43) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -43) & 0xffff, r); m.cf = saved; }
+        ip = 0x10d;
+        break;
+      }
       case 0x10d: {
         // 010d: mov ax, 0xd
         m.tick(0x10d);
@@ -1870,23 +1877,118 @@ export function ovl02_00fd(m: Cpu): void {
         break;
       }
       case 0x32c: {
-        // 032c: nop 
+        // 032c: jne 0x330
         m.tick(0x32c);
-        void 0;
-        ip = 0x32d;
-        break;
-      }
-      case 0x32d: {
-        // 032d: nop 
-        m.tick(0x32d);
-        void 0;
-        ip = 0x32e;
+        if (m.enforceCodeWheel && !m.zf) ip = 0x330;
+        else { m.tick(0x32d); ip = 0x32e; }
         break;
       }
       case 0x32e: {
         // 032e: jmp 0x355
         m.tick(0x32e);
         ip = true ? 0x355 : 0x330;
+        break;
+      }
+      case 0x330: {
+        // 0330: lea di, [bp - 0x44]
+        m.tick(0x330);
+        m.di = (m.bp + -68) & 0xffff;
+        ip = 0x333;
+        break;
+      }
+      case 0x333: {
+        // 0333: push ss
+        m.tick(0x333);
+        m.push(m.ss);
+        ip = 0x334;
+        break;
+      }
+      case 0x334: {
+        // 0334: push di
+        m.tick(0x334);
+        m.push(m.di);
+        ip = 0x335;
+        break;
+      }
+      case 0x335: {
+        // 0335: mov di, 0xe4
+        m.tick(0x335);
+        m.di = 228 & 0xffff;
+        ip = 0x338;
+        break;
+      }
+      case 0x338: {
+        // 0338: push cs
+        m.tick(0x338);
+        m.push(m.cs);
+        ip = 0x339;
+        break;
+      }
+      case 0x339: {
+        // 0339: push di
+        m.tick(0x339);
+        m.push(m.di);
+        ip = 0x33a;
+        break;
+      }
+      case 0x33a: {
+        // 033a: lcall 0xaf8, 0xb0b
+        m.tick(0x33a);
+        m.push(m.cs);
+        m.push(0x33f);
+        farCall(m, 0xaf8, 0xb0b);
+        ip = 0x33f;
+        break;
+      }
+      case 0x33f: {
+        // 033f: mov al, 0xe
+        m.tick(0x33f);
+        m.al = 14 & 0xff;
+        ip = 0x341;
+        break;
+      }
+      case 0x341: {
+        // 0341: push ax
+        m.tick(0x341);
+        m.push(m.ax);
+        ip = 0x342;
+        break;
+      }
+      case 0x342: {
+        // 0342: lcall 0x709, 0xd68
+        m.tick(0x342);
+        m.push(m.cs);
+        m.push(0x347);
+        farCall(m, 0x709, 0xd68);
+        ip = 0x347;
+        break;
+      }
+      case 0x347: {
+        // 0347: cmp byte ptr [bp - 0x2b], 3
+        m.tick(0x347);
+        m.setSubFlags(8, m.read8(m.ss, (m.bp + -43) & 0xffff), 3);
+        ip = 0x34b;
+        break;
+      }
+      case 0x34b: {
+        // 034b: je 0x350
+        m.tick(0x34b);
+        ip = m.zf ? 0x350 : 0x34d;
+        break;
+      }
+      case 0x34d: {
+        // 034d: jmp 0x10a
+        m.tick(0x34d);
+        ip = true ? 0x10a : 0x350;
+        break;
+      }
+      case 0x350: {
+        // 0350: lcall 0x899, 0
+        m.tick(0x350);
+        m.push(m.cs);
+        m.push(0x355);
+        farCall(m, 0x899, 0x0);
+        ip = 0x355;
         break;
       }
       case 0x355: {

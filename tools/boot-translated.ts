@@ -87,7 +87,10 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
     const deathReturnDepth = 8;
     cpu.tick = function (at) {
       if (codeWheel && isAt(this, at, codeWheel.beforeRead)) {
-        input?.setCodeWheelQuestion(this.read8(this.ss, (this.bp + codeWheel.questionOffset) & 0xffff));
+        input?.setCodeWheelQuestion(
+          this.read8(this.ss, (this.bp + codeWheel.questionOffset) & 0xffff),
+          this.read8(this.ss, (this.bp + codeWheel.attemptOffset) & 0xffff),
+        );
       }
       if (codeWheel && isAt(this, at, codeWheel.afterRead)) input?.setCodeWheelQuestion(undefined);
       // The first-person draw has finished writing the viewport.

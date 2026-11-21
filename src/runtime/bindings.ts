@@ -277,7 +277,10 @@ export const code = resolve({
 export const startupInput = resolve({
   codeWheel: {
     "1.0": undefined,
-    "1.3": { beforeRead: { slice: 2, at: 0x2fd }, afterRead: { slice: 2, at: 0x302 }, questionOffset: -0x2a },
+    "1.3": {
+      beforeRead: { slice: 2, at: 0x2fd }, afterRead: { slice: 2, at: 0x302 },
+      questionOffset: -0x2a, attemptOffset: -0x2b,
+    },
   },
 });
 

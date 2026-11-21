@@ -231,6 +231,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     return pixels;
   }
   let codeWheelQuestion: number | undefined;
+  let codeWheelAttempt: number | undefined;
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
     durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }) => {
     const native = screen;
@@ -524,6 +525,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         tileInventory,
         textColors: enhancedPalette,
         codeWheelQuestion,
+        codeWheelAttempt,
         automaticCombat: automaticCombat || undefined,
         developerVictoryAvailable: !leads && developerVictoryAvailable || undefined,
         journal: leads && { objective: currentObjective(leads, trackedId), leads,
@@ -713,7 +715,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       const developerVictory = command === developerVictoryCommand && developerVictoryAvailable;
-      const gameCommand = developerVictory ? "alt-q" : command.startsWith("key ") ? command.slice(4) : command || "enter";
+      const enableCodeWheel = command === ":enable-code-wheel";
+      const gameCommand = enableCodeWheel ? "backspace" : developerVictory ? "alt-q"
+        : command.startsWith("key ") ? command.slice(4) : command || "enter";
       const key = getKey(gameCommand);
       if (key === undefined) {
         console.log("Enter a letter, digit, arrow name, home, pageup, end, pagedown, enter, space, escape, tab, or backspace.");
@@ -732,6 +736,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         if (traceKeys) console.error(`POR_KEY ${JSON.stringify(command)} dropped`);
         return requestKey(cpu, keys, blocking);
       }
+      if (enableCodeWheel) cpu.enforceCodeWheel = true;
       keys.push({ step: cpu.steps, word: key });
       // Animated travel on Rolf's tour can exceed 30 million instructions
       // between keyboard reads.
@@ -957,7 +962,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     enterDiskMenu: () => { diskMenuDepth++; },
     leaveDiskMenu: () => { diskMenuDepth--; },
     setScene: (id: string | undefined) => { scene = id; },
-    setCodeWheelQuestion: (question: number | undefined) => { codeWheelQuestion = question; },
+    setCodeWheelQuestion: (question: number | undefined, attempt?: number) => {
+      codeWheelQuestion = question;
+      codeWheelAttempt = attempt;
+    },
     tracked: () => trackedId,
     restoreTracked: (id: string | undefined) => { trackedId = id; },
   };

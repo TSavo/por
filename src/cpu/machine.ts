@@ -31,6 +31,7 @@ export class Cpu {
   stepBudget = 0;
   onStepBudgetExceeded?: () => void;
   onEclInstruction?: (entering: boolean) => void;
+  enforceCodeWheel = false;
   ip = 0;
 
   tick(at: number): void {

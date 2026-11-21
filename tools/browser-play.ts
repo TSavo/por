@@ -39,6 +39,7 @@ const runeDirectory = new URL("../upgrades/codewheel/", import.meta.url);
 const wheelRunes = new Map(readdirSync(runeDirectory)
   .filter(name => /^(espruar|dethek)-\d{2}\.png$/.test(name))
   .map(name => [name.slice(0, -4), new URL(name, runeDirectory)]));
+const codeWheelAvailable = gameBuild === "1.3" && wheelRunes.size === 70;
 const wheelArt = new Set([
   "background", "outer-disc", "inner-disc", "espruar-translate-tab", "dethek-translate-tab",
   "path-dashes", "path-dash-dot-dot", "path-dots",
@@ -170,6 +171,7 @@ interface FrameState extends ExplorationFrame {
   enhancedFrame?: string;
   scene?: string;
   codeWheelQuestion?: number;
+  codeWheelAttempt?: number;
   portrait?: string;
   characterSheet?: CharacterSheetPart[];
   classicPortrait?: boolean;
@@ -308,7 +310,14 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
 });
 runner.on("error", (error) => { stopped = error.message; });
 runner.stdin.on("error", (error) => { stopped ??= error.message; });
-runner.on("close", (code) => { stopped ??= lastDiagnostic || `Game stopped (exit ${code}).`; });
+runner.on("close", (code) => {
+  stopped ??= lastDiagnostic || `Game stopped (exit ${code}).`;
+  if (frame.codeWheelQuestion !== undefined) {
+    delete frame.codeWheelQuestion;
+    delete frame.codeWheelAttempt;
+    sequence++;
+  }
+});
 
 const server = createServer(async (req, res) => {
   res.setHeader("cache-control", "no-store");
@@ -440,7 +449,7 @@ const server = createServer(async (req, res) => {
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
       ...snapshot, sounds, soundId, messages, textId, narrations, narrationId, automapRevision,
-      sequence, ready, saveSlot: saveSlot ?? null, saveSlotEvent, saveSlotAction: saveSlotAction ?? null,
+      sequence, ready, codeWheelAvailable, saveSlot: saveSlot ?? null, saveSlotEvent, saveSlotAction: saveSlotAction ?? null,
       stopped: stopped ?? null, notice: notice ?? null,
     }));
   } else if (req.method === "POST" && req.url === "/key") {
@@ -474,9 +483,12 @@ const server = createServer(async (req, res) => {
       res.writeHead(400).end();
       return;
     }
+    const enableCodeWheel = req.headers["x-por-code-wheel"] === "enhanced" && codeWheelAvailable &&
+      command === "backspace" && expected === String(sequence) &&
+      (frame.scene === "scene:title" || frame.scene === "scene:publisher");
     ready = false;
     notice = undefined;
-    runner.stdin.write((track ? `track ${track[1]}` : command) + "\n");
+    runner.stdin.write((enableCodeWheel ? ":enable-code-wheel" : track ? `track ${track[1]}` : command) + "\n");
     res.writeHead(204).end();
   } else {
     res.writeHead(404).end();
