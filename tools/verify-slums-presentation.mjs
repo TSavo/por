@@ -4305,7 +4305,7 @@ try {
   await run('document.querySelector("#presentation").click()');
   const verifyDefaultWebGL = moonseaTravel || sokalTravel || valjevoTravel || travelDestination || questLockedTravel ||
     verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel || genheeris ||
-    ["new-phlan-rolf-tour", "lizardfolk-battle-wall"].includes(routeName);
+    ["new-phlan-rolf-tour", "lizardfolk-battle-wall", "valjevo-dragon-loot"].includes(routeName);
   if (!verifyDefaultWebGL) {
     // The tile replays verify individual PNG placements.
     await run(`document.querySelector('#street-toggle[aria-pressed="true"]')?.click()`);
@@ -6555,6 +6555,35 @@ try {
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
       if (!continuation.clearsPortrait) await verifyPortraitPanel();
+      if (routeName === "valjevo-dragon-loot") {
+        const text = () => frame.text.map(([, char]) => String.fromCharCode(char)).join("");
+        for (let page = 0; page < 3; page++) {
+          await advance("enter");
+          assert.equal(frame.portrait, nextPortrait);
+        }
+        assert.match(text(), /youhavebutslainthebodyipossessed/i);
+
+        await advance("enter");
+        const recall = "scene-illustration:area:7:ecl:a82d:cue:pool-recall";
+        assert.equal(frame.portrait, recall);
+        assert.match(text(), /nolordbane!.*donotcallmebackthroughthepool!/i);
+        await waitFor("the spirit's recall through the Pool", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${recall}"]')?.naturalWidth === 352 &&
+          document.querySelector('.encounter-portrait[src="/art/${recall}"]')?.naturalHeight === 352`));
+        await verifyPortraitPanel();
+        await switchBothWays(frame.frame);
+        const recallShot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "valjevo-pool-recall.png"), Buffer.from(recallShot.data, "base64"));
+
+        await advance("enter");
+        assert.equal(frame.portrait, "scene-illustration:area:7:ecl:995f:caller:a8b2");
+        assert.match(text(), /tyranthraxushasfinallybeendefeated.*youleavethecastle/i);
+        for (let page = 0; page < 4; page++) await advance("enter");
+        assert.equal(frame.portrait, undefined);
+        assert.match(text(), /gatewaytotheunsettledareas/i);
+        await waitForExplorationViewport();
+        console.log("Verified the spirit's recall, castle departure and WebGL return to Phlan:", directory);
+      }
       if (routeName === "valjevo-disguise-offer") {
         const disguise = () => frame.journal?.leads.find(({ id }) => id === "castle-disguise");
         await advance("j");
