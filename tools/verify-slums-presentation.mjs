@@ -214,7 +214,12 @@ const encounterRoutes = new Map([
     slot: "A", inputs: ["up", "enter"],
     placement: [32, 32, "encounter:area:16:ecl:a947:SPRIT8.DAX:59:0:0", 80, 80],
     requireWebGL: true,
-    dialogue: { key: "enter", portrait: "portrait:area:16:PIC8.DAX:59:0:0", prompt: /3GIANTLIZARDSCHARGETOWARDYOU/i },
+    dialogueSteps: [{
+      key: "enter", portrait: "portrait:area:16:PIC8.DAX:59:0:0", prompt: /3GIANTLIZARDSCHARGETOWARDYOU/i,
+    }, {
+      keys: ["z", "z", "z"], portrait: "portrait:area:16:ecl:a947:PIC8.DAX:59:1:0",
+      prompt: /3GIANTLIZARDSCHARGETOWARDYOU/i,
+    }],
   }],
   ["wild-cave-wyvern-approach", {
     slot: "B", inputs: ["up", "enter"],
@@ -10135,6 +10140,23 @@ try {
       document.querySelector('.encounter-portrait[src="/art/${identification}"]')?.naturalWidth === 352`));
     await verifyPortraitPanel();
     await advance("j");
+    const penPhases = new Map([1, 2, 3, 4].map(member =>
+      [overview.replace(/:0:0$/, `:${member}:0`), member]));
+    for (let input = 0; input < 16 && (penPhases.size || frame.portrait !== overview); input++) {
+      await advance("z");
+      const penPhase = frame.portrait;
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /PENFORHOLDINGSLAVES/i);
+      const member = penPhases.get(penPhase);
+      if (member === undefined) continue;
+      await waitFor("the captive pen animation phase", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${penPhase}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, `buccaneer-captive-pen-phase-${member}.png`), Buffer.from(shot.data, "base64"));
+      penPhases.delete(penPhase);
+    }
+    assert.equal(penPhases.size, 0);
+    assert.equal(frame.portrait, overview);
     assert.ok(frame.journal?.leads.some(({ id }) => id === "rescue-identified-heir"));
     assert.match(frame.journal.objective.nextStep, /Choose Rescue Boy/);
     for (const key of ["j", "enter"]) await advance(key);
