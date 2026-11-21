@@ -1492,6 +1492,15 @@ const illustrationRoutes = new Map([
     journalLead: "mendor-stacks-mathematics", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["mendor-fyerdetha-discourses", {
+    slot: "B", inputs: ["left", "s", "up", "enter", "down", "up"],
+    portraitStops: { 3: "scene-illustration:area:15:ecl:99b5:caller:9de1", 4: null },
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:9962:cue:fyerdetha-discourses",
+    prompt: /YOUFINDFYERDETHA.*DISCOURSESONPOWER.*ENTRY7/i,
+    finalPhaseCapture: "mendor-fyerdetha-discourses.png",
+    continuation: { inputs: ["enter"], prompt: /DOYOUTAKEIT/i, clearsPortrait: true },
+    book: 7,
+  }],
   ["mendor-history-of-the-north-discovery", {
     slot: "B", inputs: ["s", "up", "enter", "left", "up", "up"],
     portraitStops: { 2: "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:history-stacks", 3: null },
