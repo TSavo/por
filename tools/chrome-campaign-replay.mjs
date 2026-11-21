@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
-import { copyFileSync, createWriteStream, mkdirSync, readFileSync, readdirSync } from "node:fs";
+import { appendFileSync, copyFileSync, createWriteStream, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { createServer } from "node:net";
 import { join, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
@@ -14,13 +14,20 @@ async function freePort() {
   return port;
 }
 
+export function copyCampaignSaves(from, to) {
+  for (const file of readdirSync(from).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name))) {
+    copyFileSync(join(from, file), join(to, file));
+  }
+}
+
 export async function openChromeCampaignLeg({ chromePath, directory, checkpointDir, bootKeys, startAt }) {
   mkdirSync(directory);
-  // The guest overwrites slots during a campaign. Keep every leg's input saves
-  // beside its BIOS recording so it can be replayed with the same state later.
-  for (const file of readdirSync(checkpointDir).filter((name) => /^(?:[A-J]|roster)\.json$/.test(name))) {
-    copyFileSync(join(checkpointDir, file), join(directory, file));
-  }
+  // The guest overwrites slots during a campaign. Preserve the input saves
+  // and commands for each leg, including host-side journal commands.
+  copyCampaignSaves(checkpointDir, directory);
+  writeFileSync(join(directory, "boot.json"), JSON.stringify({ bootKeys, startAt }) + "\n");
+  const commands = join(directory, "commands.jsonl");
+  writeFileSync(commands, "");
   const log = createWriteStream(join(directory, "runner.log"));
   const port = await freePort();
   const origin = `http://127.0.0.1:${port}`;
@@ -133,6 +140,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
           if (sent === false) throw new Error("The game server rejected the input");
           return sent;
         })()`));
+        appendFileSync(commands, JSON.stringify(key) + "\n");
       },
       close,
     };

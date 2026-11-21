@@ -1,18 +1,25 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { appendFileSync, copyFileSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { createInterface } from "node:readline";
 import { tsImport } from "tsx/esm/api";
-import { openChromeCampaignLeg } from "./chrome-campaign-replay.mjs";
+import { copyCampaignSaves, openChromeCampaignLeg } from "./chrome-campaign-replay.mjs";
 
 const names = ["alda", "brin", "cora", "dorn", "enna", "fenn"];
 const createCharacterFromBoot = ["enter", "enter", "enter", "c"];
 const campaignOpening = process.argv[2] === "--campaign-opening";
+const campaign = process.argv[2] === "--campaign";
+const campaignChrome = campaignOpening || campaign;
 const chromePath = process.argv[3];
-if (campaignOpening) assert.ok(chromePath, "Pass the path to Chrome after --campaign-opening.");
+const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
+if (campaignChrome) {
+  assert.ok(chromePath, "Pass the path to Chrome.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with a slot D checkpoint or --replay-leg with a recorded leg directory.");
+}
 mkdirSync("out", { recursive: true });
-const saveDir = mkdtempSync(join("out", campaignOpening ? "campaign-" : "fresh-party-"));
+const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
 const tileTrace = process.env.POR_TRACE_TILES === "1" ? resolve(saveDir, "tile-inventory.jsonl") : undefined;
 const tileFrames = tileTrace && join(saveDir, "tile-frames");
 if (tileFrames) mkdirSync(tileFrames);
@@ -20,15 +27,17 @@ let tracedFrames = 0;
 let campaignLeg = 0;
 
 async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopAt) {
-  if (campaignOpening) {
+  if (campaignChrome) {
     const directory = resolve(saveDir, `leg-${++campaignLeg}`);
     const chrome = await openChromeCampaignLeg({ chromePath, directory, checkpointDir: resolve(checkpointDir), bootKeys, startAt });
     try {
       const initial = await chrome.nextFrame();
-      return await replayActions(initial, actions, stopAt, async (command) => {
+      const finalFrame = await replayActions(initial, actions, stopAt, async (command) => {
         await chrome.send(command);
         return chrome.nextFrame();
       });
+      writeFileSync(join(directory, "end-frame.json"), JSON.stringify(finalFrame) + "\n");
+      return finalFrame;
     } catch (error) {
       throw new Error(`Chrome campaign leg ${campaignLeg} failed. Diagnostics in ${directory}`, { cause: error });
     } finally {
@@ -96,6 +105,22 @@ async function replayActions(frame, actions, stopAt, send) {
     if (stopAt?.test(visibleText(frame))) break;
   }
   return frame;
+}
+
+if (campaign && campaignOption === "--replay-leg") {
+  const { bootKeys, startAt } = JSON.parse(readFileSync(join(campaignInput, "boot.json"), "utf8"));
+  const commands = readFileSync(join(campaignInput, "commands.jsonl"), "utf8").trim().split(/\r?\n/)
+    .filter(Boolean).map((line) => JSON.parse(line));
+  copyCampaignSaves(campaignInput, saveDir);
+  const actual = await replay(bootKeys, startAt, commands);
+  const expectedPath = join(campaignInput, "end-frame.json");
+  if (existsSync(expectedPath)) {
+    const expected = JSON.parse(readFileSync(expectedPath, "utf8"));
+    assert.deepEqual(actual, expected);
+    console.log("Recorded Chrome leg reproduced the original final frame and journal.");
+  } else console.log("Replayed the recorded input prefix. The source leg has no verified final frame.");
+  console.log("Replay artifacts:", resolve(saveDir));
+  process.exit(0);
 }
 
 process.on("exit", () => {
@@ -2482,20 +2507,10 @@ const createFighters = (roster) => roster.flatMap((name, index) => [
 const added = ["a", "a", ...names.slice(1).flatMap(() => ["end", "a"])];
 const tour = ["b", "enter", "enter", "enter", "y", ...Array(8).fill("enter")];
 const camp = ["e", "s", "s", "a"];
-// The campaign replay checks exact native rolls and combat outcomes.
-const saved = await replay("31000000:1c0d,45000000:2e63", "50000000", [...createFighters(names), ...added, ...tour, ...camp]);
-const savedText = visibleText(saved);
-expectParty(savedText);
-assert.match(savedText, /quit to dos/);
-const slot = JSON.parse(readFileSync(join(saveDir, "A.json"), "utf8"));
-assert.equal(Object.keys(slot.party).filter((name) => /\.SAV$/.test(name)).length, names.length);
-
 const loadSlotA = "31000000:1c0d,45000000:266c,52000000:1e61";
-const reloaded = await replay(loadSlotA, "85000000", ["up", "enter", "enter"]);
-const reloadedText = visibleText(reloaded);
-expectParty(reloadedText);
-assert.match(reloadedText, /15,4 w/);
-assert.match(reloadedText, /slums of phlan/);
+const loadSlotB = "31000000:1c0d,45000000:266c,52000000:3062";
+const loadSlotC = "31000000:1c0d,45000000:266c,52000000:2e63";
+const loadSlotD = "31000000:1c0d,45000000:266c,52000000:2064";
 const shopRoute = [
   "right", "right", "up", "up", "up", "enter", "right", ...Array(7).fill("up"),
   "left", ...Array(5).fill("up"), "y", "y",
@@ -2514,43 +2529,61 @@ const equipFighters = (roster) => roster.flatMap((name, index) => [
   ...(index ? ["end"] : []),
   ...shopForFighter(index), checkGear(name), ...closeInventory,
 ]);
-const saveEquipment = ["e", "e", "s", "s", "b"];
-const equippedSave = await replay(loadSlotA, "85000000", [...shopRoute, ...equipFighters(names), ...saveEquipment]);
-assert.match(visibleText(equippedSave), /quit to dos/);
-const equippedSlot = JSON.parse(readFileSync(join(saveDir, "B.json"), "utf8"));
-for (const index of names.keys()) assert.ok(equippedSlot.party[`SAVE\\CHRDATB${index + 1}.ITM`]);
 
-const loadSlotB = "31000000:1c0d,45000000:266c,52000000:3062";
-const verifyReloadedGear = [
-  "v", ...names.flatMap((name, index) => [
-    ...(index ? ["end"] : []),
-    "v", "i", "i", checkGear(name), "e", "e",
-  ]),
-];
-const slumsSave = await replay(loadSlotB, "85000000", [
-  ...verifyReloadedGear, ...returnToSlums, "e", "s", "s", "c",
-]);
-assert.match(visibleText(slumsSave), /quit to dos/);
-const slumsSlot = JSON.parse(readFileSync(join(saveDir, "C.json"), "utf8"));
-for (const index of names.keys()) assert.ok(slumsSlot.party[`SAVE\\CHRDATC${index + 1}.ITM`]);
-console.log("Created six characters, completed Rolf's tour, saved and reloaded, and entered the Slums.");
-console.log("Bought and readied hand axes and chain mail for all six fighters, then verified the gear after reloading slot B.");
-console.log("Returned to the Slums with the equipped party and saved at the gate in slot C.");
+async function verifyFreshSlumsVictory() {
+  // The campaign replay checks exact native rolls and combat outcomes.
+  const saved = await replay("31000000:1c0d,45000000:2e63", "50000000", [...createFighters(names), ...added, ...tour, ...camp]);
+  const savedText = visibleText(saved);
+  expectParty(savedText);
+  assert.match(savedText, /quit to dos/);
+  const slot = JSON.parse(readFileSync(join(saveDir, "A.json"), "utf8"));
+  assert.equal(Object.keys(slot.party).filter((name) => /\.SAV$/.test(name)).length, names.length);
 
-const loadSlotC = "31000000:1c0d,45000000:266c,52000000:2e63";
-const battleSave = await replay(loadSlotC, "85000000", [
-  ...Array(24).fill("up"),
-  (text) => assert.match(text, /surprised a party of kobolds/),
-  "c", "enter",
-  (text) => assert.match(text, /hand axe.*move view aim use quick done/),
-  ...Array(13).fill("q"),
-  (text) => assert.match(text, /continue battle/),
-  "n",
-  (text) => assert.match(text, /the party has won.*receives 5 experience points/),
-  "enter", "enter", "s", "e", "n", "e", "s", "s", "d",
-]);
-assert.match(visibleText(battleSave), /quit to dos/);
-const loadSlotD = "31000000:1c0d,45000000:266c,52000000:2064";
+  const reloaded = await replay(loadSlotA, "85000000", ["up", "enter", "enter"]);
+  const reloadedText = visibleText(reloaded);
+  expectParty(reloadedText);
+  assert.match(reloadedText, /15,4 w/);
+  assert.match(reloadedText, /slums of phlan/);
+
+  const saveEquipment = ["e", "e", "s", "s", "b"];
+  const equippedSave = await replay(loadSlotA, "85000000", [...shopRoute, ...equipFighters(names), ...saveEquipment]);
+  assert.match(visibleText(equippedSave), /quit to dos/);
+  const equippedSlot = JSON.parse(readFileSync(join(saveDir, "B.json"), "utf8"));
+  for (const index of names.keys()) assert.ok(equippedSlot.party[`SAVE\\CHRDATB${index + 1}.ITM`]);
+
+  const verifyReloadedGear = [
+    "v", ...names.flatMap((name, index) => [
+      ...(index ? ["end"] : []),
+      "v", "i", "i", checkGear(name), "e", "e",
+    ]),
+  ];
+  const slumsSave = await replay(loadSlotB, "85000000", [
+    ...verifyReloadedGear, ...returnToSlums, "e", "s", "s", "c",
+  ]);
+  assert.match(visibleText(slumsSave), /quit to dos/);
+  const slumsSlot = JSON.parse(readFileSync(join(saveDir, "C.json"), "utf8"));
+  for (const index of names.keys()) assert.ok(slumsSlot.party[`SAVE\\CHRDATC${index + 1}.ITM`]);
+  console.log("Created six characters, completed Rolf's tour, saved and reloaded, and entered the Slums.");
+  console.log("Bought and readied hand axes and chain mail for all six fighters, then verified the gear after reloading slot B.");
+  console.log("Returned to the Slums with the equipped party and saved at the gate in slot C.");
+
+  const battleSave = await replay(loadSlotC, "85000000", [
+    ...Array(24).fill("up"),
+    (text) => assert.match(text, /surprised a party of kobolds/),
+    "c", "enter",
+    (text) => assert.match(text, /hand axe.*move view aim use quick done/),
+    ...Array(13).fill("q"),
+    (text) => assert.match(text, /continue battle/),
+    "n",
+    (text) => assert.match(text, /the party has won.*receives 5 experience points/),
+    "enter", "enter", "s", "e", "n", "e", "s", "s", "d",
+  ]);
+  assert.match(visibleText(battleSave), /quit to dos/);
+}
+
+if (campaign && campaignOption === "--from-slums") copyFileSync(campaignInput, join(saveDir, "D.json"));
+else await verifyFreshSlumsVictory();
+
 const battleReload = await replay(loadSlotD, "85000000", [
   (text) => expectParty(text),
   "v", "v",
@@ -2712,6 +2745,10 @@ await replay(loadSlotA, "85000000", [
   "j", checkSokal,
 ]);
 console.log("Heard the council's commissions, took the boat to Sokal Keep and reloaded the arrival in slot A.");
+if (campaign) {
+  console.log("Enhanced Chrome campaign verified through Sokal Keep arrival:", resolve(saveDir, "A.json"));
+  process.exit(0);
+}
 
 const parchmentSave = await replay(loadSlotA, "85000000", [
   "up", (text) => assert.match(text, /gates of sokal keep.*west rises a mound of reeds/),

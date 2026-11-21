@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "npm run play",
     "play": "tsx tools/browser-play.ts",
+    "verify:campaign": "node tools/verify-fresh-party.mjs --campaign",
     "verify:campaign-opening": "node tools/verify-fresh-party.mjs --campaign-opening",
     "preview:new-phlan": "tsx tools/new-phlan-3d-prototype.ts",
     "typecheck": "tsc --noEmit",
