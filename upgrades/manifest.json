@@ -4985,6 +4985,8 @@
     "tile:22:e0a3abc3b4a8d171ac804ef60ea102f382d0189b8cd2be1c2a616fc8c2e8d86a": "pyramid-upper-paving-e0a3abc3b4a8.png",
     "portrait:area:24:ecl:aa47:PIC1.DAX:1:1:0": "bane-hidden-treasure-phase-1.png",
     "portrait:area:24:ecl:aa47:PIC1.DAX:1:2:0": "bane-hidden-treasure-phase-2.png",
+    "portrait:PIC1.DAX:1:1:0": "bane-hidden-treasure-phase-1.png",
+    "portrait:PIC1.DAX:1:2:0": "bane-hidden-treasure-phase-2.png",
     "portrait:PIC1.DAX:1:0:0": "bane-hidden-treasure.png",
     "tile:1:337ac73dee881e4d542ef0d47f9ecdd845db5d205e754751ab97dd05a78e89b6": "buccaneer-shell-hardpack-337ac73dee88.png",
     "tile:1:5fde7285fe42ddb3b64315612431ad9f7524b1c7f059fdb5442ac168b2f15e79": "buccaneer-shell-hardpack-5fde7285fe42.png",

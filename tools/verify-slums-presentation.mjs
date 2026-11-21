@@ -1924,6 +1924,13 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-gnoll-troll-warband.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
+  ["kuto-bandit-cache-treasure-phases", {
+    slot: "J", inputs: ["up", "y", "enter", "enter"],
+    portraitStops: { 1: "scene-illustration:area:29:ecl:af80:caller:9fd6", 2: null },
+    portrait: "portrait:PIC1.DAX:1:0:0",
+    prompt: /View.*PoolShare/i,
+    idlePortraits: [1, 2].map(phase => `portrait:PIC1.DAX:1:${phase}:0`),
+  }],
   ["kuto-bandit-cache", {
     slot: "J", inputs: ["up"],
     portrait: "scene-illustration:area:29:ecl:af80:caller:9fd6",
