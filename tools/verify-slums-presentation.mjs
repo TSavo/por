@@ -880,6 +880,16 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:21:ecl:ae31:caller:a573", prompt: /BENEATHAFLOORBOARD.*JOURNALASENTRY3/i,
     continuation: { inputs: ["enter"], prompt: /DOYOUTAKETHEGEMS.*YesNo/i, portrait: "scene-illustration:area:21:ecl:ae41:caller:a58a" },
   }],
+  ["sokal-pale-form-arrival", {
+    slot: "F", inputs: ["up", "enter"],
+    portrait: "portrait:area:21:ecl:aa3e:PIC4.DAX:19:0:0",
+    prompt: /APALEFORMRISESBEFOREYOU/i,
+    journalLead: "sokal-pale-form", journalLeadAtDiscovery: true,
+    continuation: {
+      inputs: ["n"], portrait: "portrait:area:21:ecl:aa84:PIC4.DAX:19:0:0",
+      prompt: /WHATDOYOUSAY.*TYPEASINGLEWORD/i,
+    },
+  }],
   ["sokal-pale-form-wrong-word", {
     slot: "F", inputs: ["up", "enter", "p", "n", ..."zzz", "enter"],
     portrait: "scene-illustration:area:21:ecl:aad3",
@@ -897,6 +907,7 @@ const illustrationRoutes = new Map([
   ["sokal-ferran-farewell", {
     slot: "F", inputs: ["up", "enter", "p", "n", "l", "u", "x", "enter", "t", "enter", "enter"],
     portraitStops: {
+      8: "portrait:PIC4.DAX:19:0:0",
       9: "scene-illustration:area:21:ecl:ae31:caller:ac4a",
       10: "scene-illustration:area:21:ecl:ae31:caller:ace3",
     },
@@ -6509,7 +6520,7 @@ try {
           assert.ok(!frame.journal.leads.some(({ id }) => id === "diogenes-fireball"));
           await advance("j");
         }
-        if (routeName === "sokal-ferran-farewell" && interimPortrait) {
+        if (routeName === "sokal-ferran-farewell" && interimPortrait?.startsWith("scene-illustration:")) {
           await advance("j");
           assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-phlan-fall"));
           assert.equal(frame.journal.leads.some(({ id }) => id === "sokal-mendor"), interimPortrait.endsWith(":ace3"));
@@ -6599,6 +6610,16 @@ try {
       const enemies = frame.combatArt.map(([, , id]) => id);
       assert.ok(enemies.some(id => /:CPIC4\.DAX:34(?::|$)/.test(id)));
       assert.ok(enemies.some(id => /:CPIC4\.DAX:35(?::|$)/.test(id)));
+    }
+    if (routeName === "sokal-pale-form-arrival") {
+      await switchBothWays(frame.frame);
+      const risingFormShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "sokal-pale-form-rises.png"), Buffer.from(risingFormShot.data, "base64"));
+      await advance("j");
+      assert.ok(!frame.journal.leads.some(({ id }) => id === "sokal-ferran"));
+      await advance("j");
+      await advance("p");
+      assert.equal(frame.portrait, "portrait:area:21:ecl:aa5e:PIC4.DAX:19:0:0");
     }
     if (routeName === "sokal-pale-form-wrong-word") {
       await switchBothWays(frame.frame);
