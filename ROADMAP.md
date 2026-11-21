@@ -21,9 +21,10 @@ ordinary play and which start from controlled saves.
   keeps its input saves and key recording under `out/campaign-*`.
 - `npm run verify:campaign -- <chrome-executable>` continues the party through
   Ohlo’s commission, the voyage to Sokal Keep, and the hidden armory. It reloads
-  the earned equipment in slot F, then returns to New Phlan to restore the
-  six fighters, replace their spent weapons, and hire an evoker. Slot J
-  reloads the rearmed party beyond Sokal Keep’s undead patrol. Resume with
+  the earned equipment in slot F and speaks with the barracks spirits to recover
+  the defenders’ diary and five gems. The party returns to New Phlan to
+  restore the six fighters, replace their spent weapons, and hire an evoker.
+  Slot J reloads the rearmed party beyond Sokal Keep’s undead patrol. Resume with
   `--from-slums <slot-D>`, `--from-sokal <slot-A>`, `--from-sokal-armory <slot-F>`,
   `--from-temple <slot-G>`, or `--from-evoker <slot-H>`. Use `--replay-leg <directory>`
   to rerun a recorded leg independently in Chrome and compare its final frame.
