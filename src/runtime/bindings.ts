@@ -112,6 +112,8 @@ export const data = resolve({
   /** Crt's CheckSnow and TextAttr. */
   crtCheckSnow: { "1.0": 0x82bb, "1.3": 0x84f3 },
   crtTextAttr: { "1.0": 0x82be, "1.3": 0x84f6 },
+  /** Version 1.3 only: the time, as a 32-bit count, after which an open menu answers by itself. Zero is no limit. */
+  menuTimeLimit: { "1.0": undefined, "1.3": 0x6b2e },
   /** The random number seed. Randomize stores the DOS time here. */
   randSeed: { "1.0": 0x438a, "1.3": 0x4428 },
 });
@@ -225,6 +227,12 @@ export const code = resolve({
   delayLoop: { "1.0": { segment: 0x512, at: 0x53d3 }, "1.3": { segment: 0xa40, at: 0xa6b0 } },
   /** The BIOS keyboard poll inside Crt.KeyPressed. */
   keyPressedPoll: { "1.0": { segment: 0x512, at: 0x5423 }, "1.3": { segment: 0xa40, at: 0xa706 } },
+  /**
+   * Where the menu routine resumes after its keyboard poll. The routine loops on this poll,
+   * animating the picture beside the menu, until a key arrives: the one place where the game
+   * waits for the player with a poll.
+   */
+  menuPollResumes: { "1.0": { slice: 0x1a, at: 0x2cd }, "1.3": { slice: 0x19, at: 0x56b } },
   /** Where FlushKeys and GetKey resume after a poll whose only purpose is to discard keys. */
   flushPollResumes: { "1.0": { segment: 0x26b, at: 0x27b1 }, "1.3": { segment: 0x899, at: 0x8aa1 } },
   drainPollResumes: { "1.0": { segment: 0x26b, at: 0x278b }, "1.3": { segment: 0x899, at: 0x8a79 } },

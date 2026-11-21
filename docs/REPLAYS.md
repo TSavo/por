@@ -57,4 +57,21 @@ extra presses.
 random number after the title that the first release does not, to pick its
 code-wheel question, so a replay starts 1.3's seed one step earlier and
 play begins on the same dice in both builds. `POR_TRACE_DICE=1` logs every
-draw.
+draw: who asked, the range, and the number drawn
+(`POR_DICE <step> <caller> range <n> value <v>`).
+
+## What a frame says about the prompt
+
+Each frame the runner sends carries `prompt`, `"read"` or `"poll"`: whether
+the game asked with a blocking read or only looked whether a key is down.
+In play nearly every prompt is a poll, because the game's menu routine
+itself waits by polling. So the frame also carries `awaitsKey`, true at a
+blocking read and at the poll inside that menu routine: there the game goes
+no further until a key arrives. Any other poll comes from code that carries
+on by itself (a fight being played out, a rest, a pause), and
+`:travel-poll` answers it with no key. `tools/acceptance/harness.mjs` waits
+on `awaitsKey` and compares no screens.
+
+A frame's `exploration` gives the square the game has the party on, the
+one its status line prints. `POR_WATCH_ECL=4abb,4a80` adds the values of
+those script variables to each frame as `scriptVariables`.

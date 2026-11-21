@@ -137,18 +137,31 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
     };
   }
   if (process.env.POR_TRACE_DICE === "1") {
-    // One line for every random number the game draws: who asked, and the range.
+    // One line for every random number the game draws: who asked, the range, and the number drawn.
     // The caller is named by overlay slice and offset, or by resident segment and offset.
+    // The number is read from AX after the game's own Random has returned; nothing is written.
     const tick = cpu.tick;
+    let pending: string | undefined;
+    const report = (value?: number) => {
+      if (pending !== undefined) console.error(value === undefined ? pending : `${pending} value ${value}`);
+      pending = undefined;
+    };
     cpu.tick = function (at) {
       if (isAt(this, at, code.nextRandom)) {
+        // A draw that did not come through Random(n) is reported without a value, before the next one.
+        report();
         const offset = this.read16(this.ss, (this.sp + 2) & 0xffff), segment = this.read16(this.ss, (this.sp + 4) & 0xffff);
         const slice = loadedSlices.find(({ loadPara }) => loadPara === segment);
         const caller = slice ? `slice ${slice.index}+${offset.toString(16)}` : `${segment.toString(16)}:${offset.toString(16)}`;
-        console.error(`POR_DICE ${this.steps} ${caller} range ${this.read16(this.ss, (this.sp + 6) & 0xffff)}`);
+        pending = `POR_DICE ${this.steps} ${caller} range ${this.read16(this.ss, (this.sp + 6) & 0xffff)}`;
       }
       tick.call(this, at);
     };
+    const random = procedure(code.random);
+    exeByImage.set(code.random.at, (m) => {
+      random(m);
+      report(m.ax);
+    });
   }
   const keys = [...scheduledKeys];
   attachDos(cpu, mountedFiles, keys, requestKey && ((blocking) => requestKey(cpu, keys, blocking)),

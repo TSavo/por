@@ -144,6 +144,17 @@ function hasBattlefieldBorder(frame: Frame): boolean {
     pixel(177, 88) === 12 && pixel(178, 88) === 4;
 }
 
+/**
+ * True while the menu routine is counting down to a default answer. Version 1.3's menu routine
+ * compares the time since it opened with a 32-bit limit and answers for the player once a
+ * positive limit has passed; the first release has no such limit.
+ */
+function menuTimeLimit(cpu: Cpu): boolean {
+  if (data.menuTimeLimit === undefined) return false;
+  const limit = (cpu.read16(unit.data, data.menuTimeLimit + 2) << 16 | cpu.read16(unit.data, data.menuTimeLimit)) | 0;
+  return limit > 0;
+}
+
 /** Terminal control for the translated runner. Journal input stays on the host. */
 export function liveInput(startAt: number, journal: () => JournalLead[], recording?: string, automap?: Automap) {
   let nextPrompt = startAt;
@@ -153,6 +164,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let area: number | undefined;
   let travelPosition: TravelState | undefined;
   let nonblockingPoll = false;
+  // What the game was doing when it asked for the key behind the frame being reported.
+  let promptKind: "read" | "poll" | undefined;
+  let awaitsKey = false;
+  // Where the game itself has the party standing, when that is a square of a 16 by 16 map.
+  let livePosition: { x: number; y: number } | undefined;
   let developerVictoryAvailable = false;
   let activeEcl: number;
   let harborTicket: SokalQuay["ticket"] = "none";
@@ -182,6 +198,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   // They set this until each is re-recorded with one press per input.
   const promptAtDiscardPolls = process.env.POR_INPUT_COMPAT === "discard-poll-prompt";
   const traceKeys = process.env.POR_TRACE_KEYS === "1";
+  // POR_WATCH_ECL=4abb,4a80 makes each frame report the value of those script variables. Only the
+  // variables the scripts keep in the saved game (0x4900 to 0x4cff) can be watched. Read only.
+  const watchedVariables = (process.env.POR_WATCH_ECL ?? "").split(",").filter(Boolean).map((text) => {
+    const address = Number.parseInt(text, 16);
+    if (!/^[0-9a-f]{4}$/i.test(text) || address < 0x4900 || address > 0x4cff) throw new Error(`POR_WATCH_ECL takes script variables from 4900 to 4cff, not ${text}`);
+    return address;
+  });
+  let scriptVariables: Record<string, number> | undefined;
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
@@ -488,8 +512,13 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const quay = activeEcl === 0 && nativeScenery?.mapId === 0 && nativeScenery.y === 1 &&
         nativeScenery.x >= 11 && nativeScenery.x <= 15 && menu === "AREACASTVIEWENCAMPSEARCHLOOK" && isQuayDialogue(dialogue)
         ? { x: nativeScenery.x, facing: nativeScenery.facing, ticket: harborTicket } : undefined;
-      const explored = arrivalPosition ?? (perspective && explorationPosition?.area === tileArea
-        ? explorationPosition : undefined);
+      // Script variables 0x49f0 and 0x49f1 hold the square the party stood on before its last
+      // command: the game's exploration loop copies the live position into them just before it
+      // carries out each command, so that a script can send the party back. After a move they are
+      // one square behind until the next command. The frame reports the live position, which is
+      // also what the game draws from and prints in its status line.
+      const explored = arrivalPosition ?? (perspective && explorationPosition && explorationPosition.area === tileArea
+        ? { ...explorationPosition, ...livePosition } : undefined);
       // The map id and walls come from the map the guest drew, as the journal comes from its text.
       const mapped = explored && automap ? automap.locate(explored, nativeScenery) : explored;
       const state = {
@@ -498,6 +527,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         scene,
         // Present while the game is inside its code-wheel routine, waiting for the word.
         codeWheel,
+        // "read": the game has stopped in a blocking keyboard read and goes no further without a key.
+        // "poll": the game only looked whether a key is down and carries on by itself if none is.
+        prompt: promptKind,
+        // True when the game goes no further until a key arrives: at a blocking read, and at the
+        // poll inside its menu routine, which loops on that poll for as long as the menu is up.
+        // Every other poll is one look at the keyboard from code that carries on without a key.
+        awaitsKey: awaitsKey || undefined,
+        // With POR_WATCH_ECL: the watched script variables, by address in hexadecimal.
+        scriptVariables,
         text,
         portrait,
         characterSheet,
@@ -665,10 +703,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const harborFlag = (address: number) => cpu.read16(segment, offset + eclGlobalOffset(address));
       harborTicket = segment && harborFlag(0x4a01) === 1 ? harborFlag(0x4ac4) === 0 ? "sokal" : "other" : "none";
       area = segment || offset ? cpu.read16(segment, offset + eclGlobalOffset(0x49f2)) : undefined;
+      scriptVariables = watchedVariables.length && (segment || offset)
+        ? Object.fromEntries(watchedVariables.map((address) => [address.toString(16), cpu.read16(segment, offset + eclGlobalOffset(address))]))
+        : undefined;
       // Valjevo draws the dungeon hedge before copying the selected ECL
       // back to the area record. Other transition art uses the record's scope.
       if (area === 5 && activeEcl === 3) area = 3;
       const positionArea = area;
+      const liveX = cpu.read8(cpu.ds, data.cameraX), liveY = cpu.read8(cpu.ds, data.cameraY);
+      livePosition = liveX < 16 && liveY < 16 ? { x: liveX, y: liveY } : undefined;
       explorationPosition = (segment || offset) && positionArea !== undefined ? {
         area: positionArea,
         x: cpu.read16(segment, offset + eclGlobalOffset(0x49f0)),
@@ -692,6 +735,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     }
     if (scheduleOut) appendFileSync(scheduleOut, JSON.stringify({ kind, at: progress() }) + "\n");
     prompts++;
+    promptKind = kind === "read" ? "read" : "poll";
+    awaitsKey = kind === "read" || (kind === "poll" && returnsTo(cpu, 0, code.menuPollResumes) && !menuTimeLimit(cpu));
     showFrame(undefined, undefined, false, automaticCombat);
     while (true) {
       if (!browser) process.stdout.write("Game [J journal, :quit, key]> ");

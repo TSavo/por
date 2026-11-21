@@ -344,7 +344,7 @@ async function typeNumber(game, number) {
 
 /**
  * acceptance.new-phlan.tavern-gamble and acceptance.new-phlan.tavern-tales, in the tavern at (10,8).
- * Runs with the dice trace on: the trace names the range of every draw.
+ * Runs with the dice trace on: the trace names the range of every draw and the number drawn.
  */
 async function tavern() {
   const game = await newParty({ env: { POR_TRACE_DICE: "1" } });
@@ -382,7 +382,10 @@ async function tavern() {
         if (!(result in spins)) game.fail(`The spin gave a result this test does not know: ${result}`);
         // The spin is one draw from ten numbers. The script (ECL3.DAX block 0 at a58d) makes 8 and 9
         // green, 3 to 7 blue and 0 to 2 red: 20%, 50% and 30%.
-        assert.deepEqual((await game.dice()).slice(draws).map(({ range }) => range), [10], "A spin is one draw from ten numbers.");
+        const spin = (await game.dice()).slice(draws);
+        assert.deepEqual(spin.map(({ range }) => range), [10], "A spin is one draw from ten numbers.");
+        const colour = spin[0].value >= 8 ? "IT'S GREEN. YOU GET DOUBLE YOUR MONEY BACK." : spin[0].value >= 3 ? "IT'S BLUE. YOU WIN." : "RED. SORRY, YOU LOSE.";
+        assert.equal(result, colour, `The number drawn was ${spin[0].value}: the top must show its colour.`);
         purse += spins[result] * wager;
         outcomes.add(result);
       }
@@ -416,7 +419,9 @@ async function tavern() {
       assert.deepEqual(shown, [`YOU OVERHEAR TAVERN TALE ${number}`], "The game shows the tale's number and no text of the tale.");
       assert.ok(/^\d+$/.test(number) && +number >= 1 && +number <= 23, `Tavern tale ${number} is not one of the 23 in the Adventurer's Journal.`);
       // The tale is the first draw after the answer, from 23 numbers (0 to 22), plus one: never 24.
-      assert.equal((await game.dice())[draws]?.range, 23, "The tale number is drawn from 23 numbers.");
+      const draw = (await game.dice())[draws];
+      assert.equal(draw?.range, 23, "The tale number is drawn from 23 numbers.");
+      assert.equal(+number, draw.value + 1, "The tale heard is the number drawn plus one.");
       tales.push(+number);
       await game.press("enter");
       if (/A DRUNKEN BRAWL BREAKS OUT/.test(game.text())) break;
