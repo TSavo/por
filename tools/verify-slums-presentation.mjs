@@ -1639,6 +1639,31 @@ const illustrationRoutes = new Map([
     approachSequence: [[48, 32, "encounter:area:26:ecl:a944:SPRIT7.DAX:57:0:0", 48, 80]],
     portrait: "portrait:area:26:ecl:a981:PIC7.DAX:57:0:0", prompt: /INSIDETHISHUTAREFOURLIZARDMEN/i,
   }],
+  ["tyranthraxus-appraisal-phases", {
+    slot: "B", inputs: ["right", "up", "up", "up", "up", "enter", "enter", "enter", ...Array(9).fill("q")],
+    portraitStops: {
+      8: "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0",
+      16: "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:1:0",
+    },
+    portrait: "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:2:0",
+    prompt: /THEDRAGONLOOKSATYOUWITHINTEREST/i,
+    phaseCaptures: { 16: "valjevo-tyranthraxus-appraisal-phase-1.png" },
+    finalPhaseCapture: "valjevo-tyranthraxus-appraisal-phase-2.png",
+  }],
+  ["tyrmor-prison-displacer-phases", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 27 }, () => ["up", "enter", "down"]).flat(),
+      "up", "enter", "enter", "down", "up", "q", "q", "q", "q"],
+    portraitStops: {
+      87: "portrait:area:22:ecl:a2f9:PIC7.DAX:68:0:0",
+      88: "portrait:area:22:ecl:a2f9:PIC7.DAX:68:1:0",
+      89: "portrait:area:22:ecl:a2f9:PIC7.DAX:68:3:0",
+      90: "portrait:area:22:ecl:a2f9:PIC7.DAX:68:4:0",
+    },
+    portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:68:2:0",
+    prompt: /ONELICKSITSLIPS/i,
+    phaseCaptures: { 88: "tyrmor-prison-displacer-phase-1.png", 89: "tyrmor-prison-displacer-phase-3.png", 90: "tyrmor-prison-displacer-phase-4.png" },
+    finalPhaseCapture: "tyrmor-prison-displacer-phase-2.png",
+  }],
   ["diogenes-silver-dragon-phases", {
     slot: "A", inputs: ["up", "enter", "e", "enter", "s", "enter", "enter", "enter", ...Array(21).fill("q")],
     portraitStops: {
