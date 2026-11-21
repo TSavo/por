@@ -2354,6 +2354,12 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:0:0", prompt: /ONELICKSITSLIPS/i,
     continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:62:0:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ["tyrmor-minotaur-surprise", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 3 }, () => ["up", "down"]).flat(), "up"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:a213:cue:minotaur-ambush", prompt: /YOUARESURPRISEDBYSOMELARGEBULLHEADEDMEN/i,
+    finalPhaseCapture: "tyrmor-minotaur-surprise.png",
+    continuation: { inputs: ["enter", "down", "up"], portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:0:0", prompt: /ONELICKSITSLIPS/i },
+  }],
   ["tyrmor-prison-minotaur-phases", {
     slot: "B", inputs: ["s", "up", "down", "up", "down", "up", "down", "up", "enter", "down", "up", ...Array(5).fill("q")],
     portraitStops: { 11: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:0:0" },
