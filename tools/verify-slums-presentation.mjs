@@ -192,7 +192,10 @@ const encounterRoutes = new Map([
   ["podal-shrine-recruiter-approach", {
     slot: "I", inputs: ["up", "up"],
     placement: [48, 32, "encounter:area:18:SPRIT1.DAX:4:0:0", 40, 80],
-    dialogue: { key: "enter", portrait: "portrait:area:18:PIC1.DAX:4:0:0", prompt: /AROBEDORCISSITTINGHERE/i },
+    dialogue: {
+      key: "enter", portrait: "portrait:area:18:PIC1.DAX:4:0:0", prompt: /AROBEDORCISSITTINGHERE/i,
+      heldPortrait: "portrait:area:18:ecl:af2a:PIC1.DAX:4:2:0",
+    },
   }],
   ["slums-orc-clash", {
     slot: "B", inputs: ["up", "enter"],
