@@ -8464,6 +8464,22 @@ try {
       await waitForExplorationViewport();
       await step("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "kovel-prisoner-papers"));
+      await step("j");
+      for (const key of ["down", "up", "down", "up"]) await step(key);
+      assert.match(text(), /CONVERTEDTOAJAILCELL.*ITISEMPTY/i);
+      const emptyJail = "scene-illustration:area:14:ecl:b359:cue:empty-jail";
+      assert.equal(frame.portrait, emptyJail);
+      await waitFor("the empty jail illustration", () => run(`
+        state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${emptyJail}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays();
+      const emptyJailShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "kovel-empty-jail.png"), Buffer.from(emptyJailShot.data, "base64"));
+      await step("down");
+      await step("up");
+      assert.equal(frame.portrait, undefined);
+      await waitForExplorationViewport();
     } else if (routeName === "textile-drum-silenced") {
       await step("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-courtyard-cleared"));
