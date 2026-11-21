@@ -5867,6 +5867,11 @@ const valhingenBrassDoorBattle = {
   afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
 };
 const controlledBattleIllustrations = new Map([
+  ["kovel-jail-papers", {
+    slot: "A", inputs: ["up", "enter", "enter", "enter"],
+    portrait: "portrait:area:14:ecl:b38b:caller:b16c:HEAD3.DAX:16:BODY3.DAX:8",
+    caption: /THEBOSSHASALLIESEVERYWHERE.*TAKETHESEPAPERS/i,
+  }],
   ["textile-drum-silenced", {
     slot: "B", inputs: ["up", "enter", "enter", "enter"],
     portrait: "scene-illustration:area:2:ecl:9cdd",
@@ -8423,6 +8428,14 @@ try {
       await step("enter");
       assert.match(text(), /VIEWTAKEPOOLEXIT/i);
       assert.equal(frame.portrait, "portrait:PIC1.DAX:1:0:0");
+    } else if (routeName === "kovel-jail-papers") {
+      await step("enter");
+      assert.match(text(), /YOUCOPYTHEPAPERSINTOYOURJOURNALUNDERJOURNALENTRY48/i);
+      await step("enter");
+      assert.equal(frame.portrait, undefined);
+      await waitForExplorationViewport();
+      await step("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === "kovel-prisoner-papers"));
     } else if (routeName === "textile-drum-silenced") {
       await step("j");
       assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-courtyard-cleared"));
