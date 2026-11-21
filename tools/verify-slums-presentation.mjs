@@ -633,6 +633,22 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["slums-orc-papers-portrait-phase", {
+    slot: "B", inputs: ["up", "enter", "enter", ...Array(9).fill("z")],
+    portraitStops: { 3: "portrait:area:20:PIC2.DAX:4:0:0" },
+    portrait: "portrait:area:20:ecl:b6df:caller:9e51:PIC2.DAX:4:2:0",
+    prompt: /SEVERALORCSAREARGUINGOVERSOMEPAPERS/i,
+    continuation: { inputs: ["enter"], portrait: "portrait:area:20:ecl:9e6d:PIC2.DAX:4:2:0",
+      prompt: /ABATTLEBEGINS/i },
+  }],
+  ["slums-orc-home-portrait-phase", {
+    slot: "B", inputs: ["up", "enter", "enter", ...Array(9).fill("z")],
+    portraitStops: { 3: "portrait:area:20:PIC2.DAX:4:0:0" },
+    portrait: "portrait:area:20:ecl:b6df:caller:a9e5:PIC2.DAX:4:2:0",
+    prompt: /HOWDAREYOUBREAKINTOOURHOME/i,
+    continuation: { inputs: ["enter"], portrait: "portrait:area:20:ecl:aa02:PIC2.DAX:4:2:0",
+      prompt: /ABATTLEBEGINS/i },
+  }],
   ["bane-black-hand-emissary-phases", {
     slot: "A",
     inputs: [...Array.from({ length: 50 }, () => ["up", "down"]).flat(), "up", "enter", "enter",
