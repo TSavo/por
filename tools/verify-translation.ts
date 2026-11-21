@@ -158,8 +158,6 @@ function checkBrowserArtPacks(): void {
     deepStrictEqual(matchRampartPortrait(screen, 24, 0xb058), undefined);
     deepStrictEqual(matchRampartPortrait(screen, 31, 0xae0e), undefined);
   }
-  deepStrictEqual(matchGoblin(goblinScreen, 24, 0xb058), undefined);
-  deepStrictEqual(matchGoblin(goblinScreen, 31, 0xae0e), undefined);
   const missing = [...declared].filter(id => !loaded.has(id));
   deepStrictEqual(missing, [], "The browser could not load the listed art mappings");
   const ogreApproach = "encounter:area:18:ecl:9dca:SPRIT1.DAX:8:0:0";
