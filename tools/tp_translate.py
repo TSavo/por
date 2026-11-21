@@ -67,6 +67,20 @@ def prologues(blob: bytes) -> list[int]:
     return out
 
 
+# The program's data segment. Resident code ends where it begins.
+DATA_SEGMENT = 0x740
+# START.EXE image offset of `dec dx` in Crt.Delay. See render_proc.
+CRT_DELAY_DEC_DX = 0x53D8
+
+def library_prologues(blob: bytes) -> list[int]:
+    """`push bp; mov bp, sp` as the assembler-written library units encode it (55 8B EC).
+
+    Compiled Pascal uses 55 89 E5, which `prologues` finds. Library routines can fall
+    through into one another, so these offsets start procedures but do not end them.
+    """
+    return [i for i in range(len(blob) - 2) if blob[i : i + 3] == b"\x55\x8b\xec"]
+
+
 JUMPS = {
     "jmp", "je", "jne", "jb", "jae", "jbe", "ja", "jl", "jge", "jle", "jg",
     "js", "jns", "jo", "jno", "jp", "jnp", "jcxz", "loop", "loope", "loopne",
@@ -90,7 +104,7 @@ def cfg_insns(blob: bytes, start: int, end: int) -> list:
             found[insn.address] = insn
             nxt = insn.address + insn.size
             mn = "cbw" if insn.mnemonic == "cwde" else insn.mnemonic
-            if mn in ("ret", "retf", "iret", "hlt"):
+            if mn in ("ret", "retf", "iret", "hlt") or (mn == "ljmp" and "[" in insn.op_str):
                 break
             if mn in JUMPS:
                 if insn.op_str.startswith("0x") or insn.op_str.lstrip("-").isdigit():
@@ -434,6 +448,13 @@ def emit_insn(insn, next_ip: int, proc_name: dict[int, str], falls: bool = True,
         else:
             lines.append("        return;")
         lines.append("      }")
+    elif mn == "ljmp" and len(parts) == 1 and "[" in parts[0]:
+        # A far jump pushes nothing. The target's retf returns to this procedure's caller.
+        seg, off = parse_mem(parts[0])
+        lines.append(f"        {{ const base = {off}; const tgt = m.read16({seg}, base); const tseg = m.read16({seg}, (base + 2) & 0xffff);")
+        lines.append(f"        farCall(m, tseg, tgt); }}")
+        lines.append("        return;")
+        lines.append("      }")
     elif mn == "retf":
         n = imm(parts[0]) if parts else 0
         lines.append(f"        m.retf({n});")
@@ -730,7 +751,7 @@ def render_proc(blob: bytes, start: int, end: int, fn: str, comment: str, names:
     if not body:
         raise ValueError(f"{fn} decoded no instructions")
     reached = any(i.mnemonic in ("retf", "ret", "iret") for i in body)
-    if not reached and body[-1].mnemonic not in ("call", "lcall", "int", "jmp"):
+    if not reached and body[-1].mnemonic not in ("call", "lcall", "int", "jmp", "ljmp"):
         raise ValueError(f"{fn} did not reach ret ({body[-1].mnemonic})")
     lines = [
         f"/** {comment} */",
@@ -748,6 +769,13 @@ def render_proc(blob: bytes, start: int, end: int, fn: str, comment: str, names:
             call = instruction.index("        nearCall(m, 0x32df);")
             instruction.insert(call + 1, "        m.onEclInstruction?.(false);")
             instruction.insert(call, "        m.onEclInstruction?.(true);")
+        if fn.startswith("exe_") and insn.address == CRT_DELAY_DEC_DX:
+            # Crt.Delay counts milliseconds in DX. The emulated BIOS tick is too fast for
+            # Crt's calibration, which stores zero and would make each millisecond a
+            # 65,536-pass loop. Leaving the flags alone ends the delay after one pass.
+            # Remove this once the tick cadence and the recorded input tapes are recalibrated.
+            flags = "        { const saved = m.cf; m.dx = m.setSubFlags(16, m.dx, 1); m.cf = saved; }"
+            instruction[instruction.index(flags)] = "        m.dx = (m.dx - 1) & 0xffff;"
         lines.extend(instruction)
     lines += [
         "      default:",
@@ -836,11 +864,50 @@ def emit_unit(blob: bytes, spans: list[tuple[int, int, str, str]]) -> tuple[str,
 
 
 def main() -> None:
-    global EXE, OVR, IMG
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("game_dir", nargs="?", type=Path, help="directory containing START.EXE and GAME.OVR")
     parser.add_argument("--output", type=Path, help="directory for generated TypeScript and coverage")
+    parser.add_argument("--check", action="store_true",
+                        help="regenerate into a temporary directory and fail if src/translated differs")
     args = parser.parse_args()
+    if args.check:
+        import tempfile
+
+        if args.output:
+            parser.error("--check writes to a temporary directory; do not pass --output")
+        with tempfile.TemporaryDirectory() as scratch:
+            args.check = False
+            args.output = Path(scratch)
+            generate(parser, args)
+            raise SystemExit(compare(Path(scratch), ROOT / "src" / "translated"))
+    generate(parser, args)
+
+
+def compare(fresh: Path, checked_in: Path) -> int:
+    """Report generated files that differ from the checked-in translation."""
+    import difflib
+
+    stale = []
+    names = sorted({p.name for p in fresh.glob("*.ts")} | {p.name for p in checked_in.glob("*.ts")})
+    for name in names:
+        a = (checked_in / name).read_text().splitlines() if (checked_in / name).exists() else []
+        b = (fresh / name).read_text().splitlines() if (fresh / name).exists() else []
+        if a != b:
+            lines = sum(1 for line in difflib.unified_diff(a, b, lineterm="", n=0)
+                        if line[:1] in "+-" and not line.startswith(("+++", "---")))
+            stale.append((name, lines))
+    if not stale:
+        print(f"src/translated matches the generator ({len(names)} files)")
+        return 0
+    print(f"{len(stale)} of {len(names)} files in src/translated differ from the generator:")
+    for name, lines in stale:
+        print(f"  {name}: {lines} changed lines")
+    print("Change tools/tp_translate.py and run `npm run translate`. Do not edit src/translated.")
+    return 1
+
+
+def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
+    global EXE, OVR, IMG
     root = args.game_dir or Path(os.environ.get("POR_GAMEDATA") or ROOT / "gamedata")
     candidates = [root, *sorted(path for path in root.iterdir() if path.is_dir())] if root.is_dir() else []
     for candidate in candidates:
@@ -886,7 +953,8 @@ def main() -> None:
         mounts.append(f"  {{ ...s{index}, procs: p{index} }},")
 
     exe_prologues = prologues(IMG)
-    seeds = set(exe_prologues)
+    exe_library = [p for p in library_prologues(IMG) if p < DATA_SEGMENT * 16]
+    seeds = set(exe_prologues) | set(exe_library)
     seeds.add(0x5BB0)
     for i in range(len(IMG) - 1):
         if IMG[i] == 0x8B and IMG[i + 1] == 0xDC:
@@ -973,16 +1041,17 @@ export function registerTranslated(): void {
     (report_dir / "translation-coverage.md").write_text(
         f"""# Translation coverage
 
-A procedure counts as found when it starts with `push bp; mov bp, sp` (`55 89 E5` or `55 8B EC`).
+A procedure counts as found when it starts with `push bp; mov bp, sp`, or when a translated procedure calls it directly.
+Compiled Pascal encodes the prologue as `55 89 E5`. The assembler-written library units encode it as `55 8B EC`.
 Translated means `tools/tp_translate.py` emitted it with no unsupported instruction.
-Verified means a test ran it and checked a result. The entry point at image `0x6` is translated in addition to the prologue count.
+Verified means a test ran it alone and checked the bytes it wrote. The entry point at image `0x6` is translated in addition to the procedure count.
 
 | Unit | Procedures | Translated | Verified |
 | --- | ---: | ---: | ---: |
-| START.EXE resident prologues | {len(exe_found)} | {len(exe_regs)} (includes entry) | 1 (FillChar, `sys5bb_16b5`) |
+| START.EXE resident procedures | {len(exe_found)} | {len(exe_regs)} (includes entry) | 1 (FillChar, `sys5bb_16b5`) |
 | GAME.OVR slices | {ovr_total} | {ovr_done} | 1 (`ovl07_0000`, ECL operand fetch) |
 | System unit, non-prologue | {len(sys_targets)} | {len(sys_regs)} | 1 (FillChar) |
-| **Total prologues** | **{len(exe_found) + ovr_total}** | **{ovr_done + len([r for r in exe_regs if r[0] != 6])}** | **2** |
+| **Total procedures** | **{len(exe_found) + ovr_total}** | **{ovr_done + len([r for r in exe_regs if r[0] != 6])}** | **2** |
 
 | Slice | File offset | Found | Translated |
 | --- | --- | ---: | ---: |

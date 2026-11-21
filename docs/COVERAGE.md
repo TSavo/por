@@ -6,16 +6,40 @@ References below to the former watchdog and its environment variables
 describe historical replay diagnostics. Current replays use the standard
 runtime and verify the guest's battle outcome directly.
 
-A procedure counts as found when it starts with `push bp; mov bp, sp` (`55 89 E5` or `55 8B EC`).
+A procedure counts as found when it starts with `push bp; mov bp, sp`, or when a translated procedure calls it directly.
+Compiled Pascal encodes the prologue as `55 89 E5`. The assembler-written library units encode it as `55 8B EC`.
 Translated means `tools/tp_translate.py` emitted it with no unsupported instruction.
-Verified means a test ran it and checked a result. The entry point at image `0x6` is translated in addition to the prologue count.
+Verified means a test ran it alone and checked the bytes it wrote. The entry point at image `0x6` is translated in addition to the procedure count.
 
 | Unit | Procedures | Translated | Verified |
 | --- | ---: | ---: | ---: |
-| START.EXE resident prologues | 211 | 212 (includes entry) | 1 (FillChar, `sys5bb_16b5`) |
+| START.EXE resident procedures | 230 | 231 (includes entry) | 1 (FillChar, `sys5bb_16b5`) |
 | GAME.OVR slices | 758 | 758 | 1 (`ovl07_0000`, ECL operand fetch) |
 | System unit, non-prologue | 12 | 12 | 1 (FillChar) |
-| **Total prologues** | **969** | **969** | **2** |
+| **Total procedures** | **988** | **988** | **2** |
+
+Two checks keep this table true. `npm run verify` fails while any prologue in
+`START.EXE` or `GAME.OVR` lacks a translated procedure. It finds 831
+prologues: 73 resident and 758 in the overlays.
+`npm run verify:translation-reproducible` regenerates the translation and
+fails if `src/translated` differs from the generator. It needs Python with
+capstone. Change the generator and run `npm run translate`. Do not edit
+`src/translated`.
+
+Translated instructions cover 212,293 of the 223,317 code bytes in the
+overlay slices. The rest is string and set constants, apart from two
+unreachable two-byte jumps. In `START.EXE`, the resident code runs from image
+`0x1a10` to the data segment at `0x7400`. Its untranslated bytes are the
+sound driver's tables and timer interrupt handler, which
+`src/audio/original-driver.ts` decodes, and library routines that have no
+prologue and no direct caller.
+
+The generator keeps one deliberate deviation. `dec dx` at image `0x53d8`
+counts milliseconds in `Crt.Delay`, and it is emitted without flags, so a
+delay ends after one pass. The emulated BIOS tick is too fast for Crt's
+calibration, which stores zero. With the flags restored, each millisecond
+becomes a 65,536-pass loop and the recorded input tapes lose their timing.
+The exception is named `CRT_DELAY_DEC_DX` in the generator.
 
 | Slice | File offset | Found | Translated |
 | --- | --- | ---: | ---: |

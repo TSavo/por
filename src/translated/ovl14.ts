@@ -4341,7 +4341,7 @@ export function ovl14_05d1(m: Cpu): void {
       case 0x5f4: {
         // 05f4: inc byte ptr [bp - 2]
         m.tick(0x5f4);
-        { const a = m.read8(m.ss, (m.bp + -2) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -2) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -2) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -2) & 0xffff, r); m.cf = saved; }
         ip = 0x5f7;
         break;
       }

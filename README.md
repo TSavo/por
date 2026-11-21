@@ -57,6 +57,7 @@ it checks `./gamedata`, including layouts such as `gamedata/pool`.
 ```bash
 npm run translate -- --output out/translated  # requires Python and capstone
 npm run verify           # verify translated routines, art assets, and audio
+npm run verify:translation-reproducible  # src/translated matches the generator; requires Python and capstone
 npm run selftest
 npm run tools -- list
 npm run tools -- extract          # out/dax/<file>/<id>.bin

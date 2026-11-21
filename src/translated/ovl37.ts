@@ -578,7 +578,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0xc3: {
         // 00c3: inc byte ptr [bp - 1]
         m.tick(0xc3);
-        { const a = m.read8(m.ss, (m.bp + -1) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -1) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -1) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -1) & 0xffff, r); m.cf = saved; }
         ip = 0xc6;
         break;
       }
@@ -708,7 +708,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0xf6: {
         // 00f6: inc byte ptr [bp - 0xf]
         m.tick(0xf6);
-        { const a = m.read8(m.ss, (m.bp + -15) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -15) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -15) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -15) & 0xffff, r); m.cf = saved; }
         ip = 0xf9;
         break;
       }
@@ -749,7 +749,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0x108: {
         // 0108: inc byte ptr [bp - 0xc]
         m.tick(0x108);
-        { const a = m.read8(m.ss, (m.bp + -12) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -12) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -12) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -12) & 0xffff, r); m.cf = saved; }
         ip = 0x10b;
         break;
       }
@@ -1083,7 +1083,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0x181: {
         // 0181: inc word ptr [bp - 6]
         m.tick(0x181);
-        { const a = m.read16(m.ss, (m.bp + -6) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -6) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ss, (m.bp + -6) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -6) & 0xffff, r); m.cf = saved; }
         ip = 0x184;
         break;
       }
@@ -1124,7 +1124,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0x193: {
         // 0193: inc byte ptr [bp - 0xc]
         m.tick(0x193);
-        { const a = m.read8(m.ss, (m.bp + -12) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -12) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -12) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -12) & 0xffff, r); m.cf = saved; }
         ip = 0x196;
         break;
       }
@@ -1458,14 +1458,14 @@ export function ovl37_006d(m: Cpu): void {
       case 0x20c: {
         // 020c: inc word ptr [bp - 6]
         m.tick(0x20c);
-        { const a = m.read16(m.ss, (m.bp + -6) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -6) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ss, (m.bp + -6) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -6) & 0xffff, r); m.cf = saved; }
         ip = 0x20f;
         break;
       }
       case 0x20f: {
         // 020f: inc word ptr [bp - 4]
         m.tick(0x20f);
-        { const a = m.read16(m.ss, (m.bp + -4) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -4) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ss, (m.bp + -4) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -4) & 0xffff, r); m.cf = saved; }
         ip = 0x212;
         break;
       }
@@ -1627,7 +1627,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0x24c: {
         // 024c: inc byte ptr [bp - 0xf]
         m.tick(0x24c);
-        { const a = m.read8(m.ss, (m.bp + -15) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -15) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -15) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -15) & 0xffff, r); m.cf = saved; }
         ip = 0x24f;
         break;
       }
@@ -1647,7 +1647,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0x255: {
         // 0255: inc byte ptr [bp - 0xc]
         m.tick(0x255);
-        { const a = m.read8(m.ss, (m.bp + -12) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -12) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -12) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -12) & 0xffff, r); m.cf = saved; }
         ip = 0x258;
         break;
       }
@@ -2267,7 +2267,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0x335: {
         // 0335: inc byte ptr [bp - 0xf]
         m.tick(0x335);
-        { const a = m.read8(m.ss, (m.bp + -15) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -15) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -15) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -15) & 0xffff, r); m.cf = saved; }
         ip = 0x338;
         break;
       }
@@ -2287,7 +2287,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0x33e: {
         // 033e: inc byte ptr [bp - 0xe]
         m.tick(0x33e);
-        { const a = m.read8(m.ss, (m.bp + -14) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -14) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -14) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -14) & 0xffff, r); m.cf = saved; }
         ip = 0x341;
         break;
       }
@@ -2314,7 +2314,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0x34b: {
         // 034b: inc byte ptr [bp - 0xc]
         m.tick(0x34b);
-        { const a = m.read8(m.ss, (m.bp + -12) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -12) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -12) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -12) & 0xffff, r); m.cf = saved; }
         ip = 0x34e;
         break;
       }
@@ -3093,7 +3093,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0x46a: {
         // 046a: inc word ptr [bp - 4]
         m.tick(0x46a);
-        { const a = m.read16(m.ss, (m.bp + -4) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -4) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ss, (m.bp + -4) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -4) & 0xffff, r); m.cf = saved; }
         ip = 0x46d;
         break;
       }
@@ -3119,7 +3119,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0x476: {
         // 0476: inc word ptr [bp - 6]
         m.tick(0x476);
-        { const a = m.read16(m.ss, (m.bp + -6) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -6) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ss, (m.bp + -6) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -6) & 0xffff, r); m.cf = saved; }
         ip = 0x479;
         break;
       }
@@ -3145,7 +3145,7 @@ export function ovl37_006d(m: Cpu): void {
       case 0x482: {
         // 0482: inc byte ptr [bp + 0x10]
         m.tick(0x482);
-        { const a = m.read8(m.ss, (m.bp + 16) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + 16) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + 16) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + 16) & 0xffff, r); m.cf = saved; }
         ip = 0x485;
         break;
       }
@@ -3590,7 +3590,7 @@ export function ovl37_04d3(m: Cpu): void {
       case 0x51a: {
         // 051a: inc byte ptr [bp - 0x102]
         m.tick(0x51a);
-        { const a = m.read8(m.ss, (m.bp + -258) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -258) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -258) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -258) & 0xffff, r); m.cf = saved; }
         ip = 0x51e;
         break;
       }
@@ -3717,7 +3717,7 @@ export function ovl37_04d3(m: Cpu): void {
       case 0x541: {
         // 0541: inc byte ptr [bp + 0xe]
         m.tick(0x541);
-        { const a = m.read8(m.ss, (m.bp + 14) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + 14) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + 14) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + 14) & 0xffff, r); m.cf = saved; }
         ip = 0x544;
         break;
       }
@@ -4028,14 +4028,14 @@ export function ovl37_0554(m: Cpu): void {
       case 0x5b2: {
         // 05b2: inc byte ptr ss:[di - 0x103]
         m.tick(0x5b2);
-        { const a = m.read8(m.ss, (m.di + -259) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.di + -259) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.di + -259) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.di + -259) & 0xffff, r); m.cf = saved; }
         ip = 0x5b7;
         break;
       }
       case 0x5b7: {
         // 05b7: inc byte ptr [0x5d82]
         m.tick(0x5b7);
-        { const a = m.read8(m.ds, (23938) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ds, (23938) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ds, (23938) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ds, (23938) & 0xffff, r); m.cf = saved; }
         ip = 0x5bb;
         break;
       }
@@ -4182,7 +4182,7 @@ export function ovl37_05c3(m: Cpu): void {
       case 0x5f2: {
         // 05f2: inc byte ptr ss:[di - 0x103]
         m.tick(0x5f2);
-        { const a = m.read8(m.ss, (m.di + -259) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.di + -259) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.di + -259) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.di + -259) & 0xffff, r); m.cf = saved; }
         ip = 0x5f7;
         break;
       }
@@ -4835,7 +4835,7 @@ export function ovl37_0619(m: Cpu): void {
       case 0x705: {
         // 0705: inc byte ptr [bp - 0x104]
         m.tick(0x705);
-        { const a = m.read8(m.ss, (m.bp + -260) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -260) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -260) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -260) & 0xffff, r); m.cf = saved; }
         ip = 0x709;
         break;
       }
@@ -5017,7 +5017,7 @@ export function ovl37_0619(m: Cpu): void {
       case 0x74c: {
         // 074c: inc byte ptr [bp - 0x104]
         m.tick(0x74c);
-        { const a = m.read8(m.ss, (m.bp + -260) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -260) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -260) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -260) & 0xffff, r); m.cf = saved; }
         ip = 0x750;
         break;
       }
@@ -5241,7 +5241,7 @@ export function ovl37_0619(m: Cpu): void {
       case 0x79d: {
         // 079d: inc byte ptr [bp - 0x104]
         m.tick(0x79d);
-        { const a = m.read8(m.ss, (m.bp + -260) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -260) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -260) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -260) & 0xffff, r); m.cf = saved; }
         ip = 0x7a1;
         break;
       }
@@ -5502,7 +5502,7 @@ export function ovl37_0619(m: Cpu): void {
       case 0x7fd: {
         // 07fd: dec byte ptr [bp - 0x104]
         m.tick(0x7fd);
-        { const a = m.read8(m.ss, (m.bp + -260) & 0xffff); const r = m.setSubFlags(8, a, 1); const cf = m.cf; m.write8(m.ss, (m.bp + -260) & 0xffff, r); m.cf = cf; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -260) & 0xffff); const r = m.setSubFlags(8, a, 1); m.write8(m.ss, (m.bp + -260) & 0xffff, r); m.cf = saved; }
         ip = 0x801;
         break;
       }
@@ -5545,7 +5545,7 @@ export function ovl37_0619(m: Cpu): void {
       case 0x80c: {
         // 080c: inc byte ptr [0x5d83]
         m.tick(0x80c);
-        { const a = m.read8(m.ds, (23939) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ds, (23939) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ds, (23939) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ds, (23939) & 0xffff, r); m.cf = saved; }
         ip = 0x810;
         break;
       }
@@ -5912,7 +5912,7 @@ export function ovl37_0619(m: Cpu): void {
       case 0x88a: {
         // 088a: inc byte ptr [0x5d83]
         m.tick(0x88a);
-        { const a = m.read8(m.ds, (23939) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ds, (23939) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ds, (23939) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ds, (23939) & 0xffff, r); m.cf = saved; }
         ip = 0x88e;
         break;
       }
@@ -6423,7 +6423,7 @@ export function ovl37_0894(m: Cpu): void {
       case 0x92f: {
         // 092f: inc byte ptr [bp - 0x2a]
         m.tick(0x92f);
-        { const a = m.read8(m.ss, (m.bp + -42) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -42) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -42) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -42) & 0xffff, r); m.cf = saved; }
         ip = 0x932;
         break;
       }
@@ -6771,7 +6771,7 @@ export function ovl37_0894(m: Cpu): void {
       case 0x99a: {
         // 099a: dec byte ptr [bp - 0x2a]
         m.tick(0x99a);
-        { const a = m.read8(m.ss, (m.bp + -42) & 0xffff); const r = m.setSubFlags(8, a, 1); const cf = m.cf; m.write8(m.ss, (m.bp + -42) & 0xffff, r); m.cf = cf; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -42) & 0xffff); const r = m.setSubFlags(8, a, 1); m.write8(m.ss, (m.bp + -42) & 0xffff, r); m.cf = saved; }
         ip = 0x99d;
         break;
       }
@@ -6928,7 +6928,7 @@ export function ovl37_0894(m: Cpu): void {
       case 0x9d3: {
         // 09d3: inc byte ptr [bp - 0x2a]
         m.tick(0x9d3);
-        { const a = m.read8(m.ss, (m.bp + -42) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -42) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -42) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -42) & 0xffff, r); m.cf = saved; }
         ip = 0x9d6;
         break;
       }
@@ -9629,7 +9629,7 @@ export function ovl37_0c9a(m: Cpu): void {
       case 0xcea: {
         // 0cea: inc word ptr [bp - 0xa]
         m.tick(0xcea);
-        { const a = m.read16(m.ss, (m.bp + -10) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -10) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ss, (m.bp + -10) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -10) & 0xffff, r); m.cf = saved; }
         ip = 0xced;
         break;
       }
@@ -10349,7 +10349,7 @@ export function ovl37_0c9a(m: Cpu): void {
       case 0xdd2: {
         // 0dd2: inc word ptr [bp - 0xa]
         m.tick(0xdd2);
-        { const a = m.read16(m.ss, (m.bp + -10) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -10) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ss, (m.bp + -10) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -10) & 0xffff, r); m.cf = saved; }
         ip = 0xdd5;
         break;
       }

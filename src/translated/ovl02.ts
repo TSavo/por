@@ -55,7 +55,7 @@ export function ovl02_00fd(m: Cpu): void {
       case 0x10a: {
         // 010a: inc byte ptr [bp - 0x2b]
         m.tick(0x10a);
-        { const a = m.read8(m.ss, (m.bp + -43) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -43) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -43) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -43) & 0xffff, r); m.cf = saved; }
         ip = 0x10d;
         break;
       }

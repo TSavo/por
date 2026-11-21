@@ -1440,7 +1440,7 @@ export function ovl29_00a8(m: Cpu): void {
       case 0x1d2: {
         // 01d2: inc word ptr [bp - 0x11]
         m.tick(0x1d2);
-        { const a = m.read16(m.ss, (m.bp + -17) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -17) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ss, (m.bp + -17) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -17) & 0xffff, r); m.cf = saved; }
         ip = 0x1d5;
         break;
       }
@@ -1521,7 +1521,7 @@ export function ovl29_00a8(m: Cpu): void {
       case 0x1f5: {
         // 01f5: inc byte ptr [bp - 0x12]
         m.tick(0x1f5);
-        { const a = m.read8(m.ss, (m.bp + -18) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -18) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -18) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -18) & 0xffff, r); m.cf = saved; }
         ip = 0x1f8;
         break;
       }
@@ -2673,7 +2673,7 @@ export function ovl29_00a8(m: Cpu): void {
       case 0x384: {
         // 0384: inc word ptr [bp - 0x1e]
         m.tick(0x384);
-        { const a = m.read16(m.ss, (m.bp + -30) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -30) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ss, (m.bp + -30) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -30) & 0xffff, r); m.cf = saved; }
         ip = 0x387;
         break;
       }
@@ -3378,7 +3378,7 @@ export function ovl29_045a(m: Cpu): void {
       case 0x47e: {
         // 047e: inc byte ptr [0x6e8d]
         m.tick(0x47e);
-        { const a = m.read8(m.ds, (28301) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ds, (28301) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ds, (28301) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ds, (28301) & 0xffff, r); m.cf = saved; }
         ip = 0x482;
         break;
       }

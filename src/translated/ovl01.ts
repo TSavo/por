@@ -4850,7 +4850,7 @@ export function ovl01_0600(m: Cpu): void {
       case 0x75d: {
         // 075d: inc byte ptr [bp - 9]
         m.tick(0x75d);
-        { const a = m.read8(m.ss, (m.bp + -9) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -9) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -9) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -9) & 0xffff, r); m.cf = saved; }
         ip = 0x760;
         break;
       }

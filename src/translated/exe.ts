@@ -1040,28 +1040,28 @@ export function exe_01500(m: Cpu): void {
       case 0x1506: {
         // 1506: dec byte ptr [bp + 0xe]
         m.tick(0x1506);
-        { const a = m.read8(m.ss, (m.bp + 14) & 0xffff); const r = m.setSubFlags(8, a, 1); const cf = m.cf; m.write8(m.ss, (m.bp + 14) & 0xffff, r); m.cf = cf; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + 14) & 0xffff); const r = m.setSubFlags(8, a, 1); m.write8(m.ss, (m.bp + 14) & 0xffff, r); m.cf = saved; }
         ip = 0x1509;
         break;
       }
       case 0x1509: {
         // 1509: dec byte ptr [bp + 0xc]
         m.tick(0x1509);
-        { const a = m.read8(m.ss, (m.bp + 12) & 0xffff); const r = m.setSubFlags(8, a, 1); const cf = m.cf; m.write8(m.ss, (m.bp + 12) & 0xffff, r); m.cf = cf; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + 12) & 0xffff); const r = m.setSubFlags(8, a, 1); m.write8(m.ss, (m.bp + 12) & 0xffff, r); m.cf = saved; }
         ip = 0x150c;
         break;
       }
       case 0x150c: {
         // 150c: inc byte ptr [bp + 0xa]
         m.tick(0x150c);
-        { const a = m.read8(m.ss, (m.bp + 10) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + 10) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + 10) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + 10) & 0xffff, r); m.cf = saved; }
         ip = 0x150f;
         break;
       }
       case 0x150f: {
         // 150f: inc byte ptr [bp + 8]
         m.tick(0x150f);
-        { const a = m.read8(m.ss, (m.bp + 8) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + 8) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + 8) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + 8) & 0xffff, r); m.cf = saved; }
         ip = 0x1512;
         break;
       }
@@ -1529,7 +1529,7 @@ export function exe_01500(m: Cpu): void {
       case 0x15a1: {
         // 15a1: inc byte ptr [bp - 1]
         m.tick(0x15a1);
-        { const a = m.read8(m.ss, (m.bp + -1) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -1) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -1) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -1) & 0xffff, r); m.cf = saved; }
         ip = 0x15a4;
         break;
       }
@@ -1803,7 +1803,7 @@ export function exe_01500(m: Cpu): void {
       case 0x15f7: {
         // 15f7: inc byte ptr [bp - 1]
         m.tick(0x15f7);
-        { const a = m.read8(m.ss, (m.bp + -1) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -1) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -1) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -1) & 0xffff, r); m.cf = saved; }
         ip = 0x15fa;
         break;
       }
@@ -2267,7 +2267,7 @@ export function exe_01638(m: Cpu): void {
       case 0x1688: {
         // 1688: inc word ptr [bp - 0xa]
         m.tick(0x1688);
-        { const a = m.read16(m.ss, (m.bp + -10) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -10) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ss, (m.bp + -10) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -10) & 0xffff, r); m.cf = saved; }
         ip = 0x168b;
         break;
       }
@@ -2987,7 +2987,7 @@ export function exe_01638(m: Cpu): void {
       case 0x1770: {
         // 1770: inc word ptr [bp - 0xa]
         m.tick(0x1770);
-        { const a = m.read16(m.ss, (m.bp + -10) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -10) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ss, (m.bp + -10) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -10) & 0xffff, r); m.cf = saved; }
         ip = 0x1773;
         break;
       }
@@ -6830,7 +6830,7 @@ export function exe_01e71(m: Cpu): void {
       case 0x1eaa: {
         // 1eaa: inc byte ptr [bp - 0x102]
         m.tick(0x1eaa);
-        { const a = m.read8(m.ss, (m.bp + -258) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -258) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -258) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -258) & 0xffff, r); m.cf = saved; }
         ip = 0x1eae;
         break;
       }
@@ -6943,7 +6943,7 @@ export function exe_01e71(m: Cpu): void {
       case 0x1ece: {
         // 1ece: inc byte ptr [bp + 0xe]
         m.tick(0x1ece);
-        { const a = m.read8(m.ss, (m.bp + 14) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + 14) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + 14) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + 14) & 0xffff, r); m.cf = saved; }
         ip = 0x1ed1;
         break;
       }
@@ -8767,7 +8767,7 @@ export function exe_020c4(m: Cpu): void {
       case 0x2126: {
         // 2126: inc byte ptr [bp - 0x203]
         m.tick(0x2126);
-        { const a = m.read8(m.ss, (m.bp + -515) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -515) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -515) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -515) & 0xffff, r); m.cf = saved; }
         ip = 0x212a;
         break;
       }
@@ -9190,7 +9190,7 @@ export function exe_02193(m: Cpu): void {
       case 0x21b5: {
         // 21b5: inc byte ptr [bp - 0x101]
         m.tick(0x21b5);
-        { const a = m.read8(m.ss, (m.bp + -257) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -257) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -257) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -257) & 0xffff, r); m.cf = saved; }
         ip = 0x21b9;
         break;
       }
@@ -9546,7 +9546,7 @@ export function exe_02193(m: Cpu): void {
       case 0x2235: {
         // 2235: inc byte ptr [bp - 0x101]
         m.tick(0x2235);
-        { const a = m.read8(m.ss, (m.bp + -257) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -257) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -257) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -257) & 0xffff, r); m.cf = saved; }
         ip = 0x2239;
         break;
       }
@@ -15110,7 +15110,7 @@ export function exe_04cd6(m: Cpu): void {
       case 0x4d35: {
         // 4d35: dec byte ptr cs:[0xa9]
         m.tick(0x4d35);
-        { const a = m.read8(m.cs, (169) & 0xffff); const r = m.setSubFlags(8, a, 1); const cf = m.cf; m.write8(m.cs, (169) & 0xffff, r); m.cf = cf; }
+        { const saved = m.cf; const a = m.read8(m.cs, (169) & 0xffff); const r = m.setSubFlags(8, a, 1); m.write8(m.cs, (169) & 0xffff, r); m.cf = saved; }
         ip = 0x4d3a;
         break;
       }
@@ -15418,7 +15418,7 @@ export function exe_04d49(m: Cpu): void {
       case 0x4da8: {
         // 4da8: dec byte ptr cs:[0xa9]
         m.tick(0x4da8);
-        { const a = m.read8(m.cs, (169) & 0xffff); const r = m.setSubFlags(8, a, 1); const cf = m.cf; m.write8(m.cs, (169) & 0xffff, r); m.cf = cf; }
+        { const saved = m.cf; const a = m.read8(m.cs, (169) & 0xffff); const r = m.setSubFlags(8, a, 1); m.write8(m.cs, (169) & 0xffff, r); m.cf = saved; }
         ip = 0x4dad;
         break;
       }
@@ -16588,7 +16588,7 @@ export function exe_04e9d(m: Cpu): void {
       case 0x4f09: {
         // 4f09: inc word ptr [bp - 7]
         m.tick(0x4f09);
-        { const a = m.read16(m.ss, (m.bp + -7) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -7) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ss, (m.bp + -7) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ss, (m.bp + -7) & 0xffff, r); m.cf = saved; }
         ip = 0x4f0c;
         break;
       }
@@ -17877,6 +17877,407 @@ export function exe_0504b(m: Cpu): void {
   }
 }
 
+/** START.EXE image 0x5088. */
+export function exe_05088(m: Cpu): void {
+  let ip = 0x5088;
+  while (true) {
+    switch (ip) {
+      case 0x5088: {
+        // 5088: push bp
+        m.tick(0x5088);
+        m.push(m.bp);
+        ip = 0x5089;
+        break;
+      }
+      case 0x5089: {
+        // 5089: mov bp, sp
+        m.tick(0x5089);
+        m.bp = m.sp;
+        ip = 0x508b;
+        break;
+      }
+      case 0x508b: {
+        // 508b: les di, ptr [bp + 0x10]
+        m.tick(0x508b);
+        { const base = (m.bp + 16) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x508e;
+        break;
+      }
+      case 0x508e: {
+        // 508e: cld 
+        m.tick(0x508e);
+        m.df = false;
+        ip = 0x508f;
+        break;
+      }
+      case 0x508f: {
+        // 508f: stosw word ptr es:[di], ax
+        m.tick(0x508f);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x5090;
+        break;
+      }
+      case 0x5090: {
+        // 5090: mov ax, bx
+        m.tick(0x5090);
+        m.ax = m.bx;
+        ip = 0x5092;
+        break;
+      }
+      case 0x5092: {
+        // 5092: stosw word ptr es:[di], ax
+        m.tick(0x5092);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x5093;
+        break;
+      }
+      case 0x5093: {
+        // 5093: mov ax, cx
+        m.tick(0x5093);
+        m.ax = m.cx;
+        ip = 0x5095;
+        break;
+      }
+      case 0x5095: {
+        // 5095: stosw word ptr es:[di], ax
+        m.tick(0x5095);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x5096;
+        break;
+      }
+      case 0x5096: {
+        // 5096: mov ax, dx
+        m.tick(0x5096);
+        m.ax = m.dx;
+        ip = 0x5098;
+        break;
+      }
+      case 0x5098: {
+        // 5098: stosw word ptr es:[di], ax
+        m.tick(0x5098);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x5099;
+        break;
+      }
+      case 0x5099: {
+        // 5099: pop ax
+        m.tick(0x5099);
+        m.ax = m.pop();
+        ip = 0x509a;
+        break;
+      }
+      case 0x509a: {
+        // 509a: stosw word ptr es:[di], ax
+        m.tick(0x509a);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x509b;
+        break;
+      }
+      case 0x509b: {
+        // 509b: mov ax, si
+        m.tick(0x509b);
+        m.ax = m.si;
+        ip = 0x509d;
+        break;
+      }
+      case 0x509d: {
+        // 509d: stosw word ptr es:[di], ax
+        m.tick(0x509d);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x509e;
+        break;
+      }
+      case 0x509e: {
+        // 509e: pop ax
+        m.tick(0x509e);
+        m.ax = m.pop();
+        ip = 0x509f;
+        break;
+      }
+      case 0x509f: {
+        // 509f: stosw word ptr es:[di], ax
+        m.tick(0x509f);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x50a0;
+        break;
+      }
+      case 0x50a0: {
+        // 50a0: mov ax, ds
+        m.tick(0x50a0);
+        m.ax = m.ds;
+        ip = 0x50a2;
+        break;
+      }
+      case 0x50a2: {
+        // 50a2: stosw word ptr es:[di], ax
+        m.tick(0x50a2);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x50a3;
+        break;
+      }
+      case 0x50a3: {
+        // 50a3: pop ax
+        m.tick(0x50a3);
+        m.ax = m.pop();
+        ip = 0x50a4;
+        break;
+      }
+      case 0x50a4: {
+        // 50a4: stosw word ptr es:[di], ax
+        m.tick(0x50a4);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x50a5;
+        break;
+      }
+      case 0x50a5: {
+        // 50a5: pop ax
+        m.tick(0x50a5);
+        m.ax = m.pop();
+        ip = 0x50a6;
+        break;
+      }
+      case 0x50a6: {
+        // 50a6: stosw word ptr es:[di], ax
+        m.tick(0x50a6);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x50a7;
+        break;
+      }
+      case 0x50a7: {
+        // 50a7: pop ds
+        m.tick(0x50a7);
+        m.ds = m.pop();
+        ip = 0x50a8;
+        break;
+      }
+      case 0x50a8: {
+        // 50a8: pop bp
+        m.tick(0x50a8);
+        m.bp = m.pop();
+        ip = 0x50a9;
+        break;
+      }
+      case 0x50a9: {
+        // 50a9: retf 6
+        m.tick(0x50a9);
+        m.retf(6);
+        return;
+      }
+      default:
+        throw new Error(`exe_05088 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x50ac. */
+export function exe_050ac(m: Cpu): void {
+  let ip = 0x50ac;
+  while (true) {
+    switch (ip) {
+      case 0x50ac: {
+        // 50ac: push bp
+        m.tick(0x50ac);
+        m.push(m.bp);
+        ip = 0x50ad;
+        break;
+      }
+      case 0x50ad: {
+        // 50ad: mov bp, sp
+        m.tick(0x50ad);
+        m.bp = m.sp;
+        ip = 0x50af;
+        break;
+      }
+      case 0x50af: {
+        // 50af: mov ah, 0x2a
+        m.tick(0x50af);
+        m.ah = 42 & 0xff;
+        ip = 0x50b1;
+        break;
+      }
+      case 0x50b1: {
+        // 50b1: int 0x21
+        m.tick(0x50b1);
+        m.intr(33);
+        ip = 0x50b3;
+        break;
+      }
+      case 0x50b3: {
+        // 50b3: xor ah, ah
+        m.tick(0x50b3);
+        m.ah = 0; m.setLogicFlags(8, 0);
+        ip = 0x50b5;
+        break;
+      }
+      case 0x50b5: {
+        // 50b5: les di, ptr [bp + 6]
+        m.tick(0x50b5);
+        { const base = (m.bp + 6) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x50b8;
+        break;
+      }
+      case 0x50b8: {
+        // 50b8: stosw word ptr es:[di], ax
+        m.tick(0x50b8);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x50b9;
+        break;
+      }
+      case 0x50b9: {
+        // 50b9: mov al, dl
+        m.tick(0x50b9);
+        m.al = m.dl;
+        ip = 0x50bb;
+        break;
+      }
+      case 0x50bb: {
+        // 50bb: les di, ptr [bp + 0xa]
+        m.tick(0x50bb);
+        { const base = (m.bp + 10) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x50be;
+        break;
+      }
+      case 0x50be: {
+        // 50be: stosw word ptr es:[di], ax
+        m.tick(0x50be);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x50bf;
+        break;
+      }
+      case 0x50bf: {
+        // 50bf: mov al, dh
+        m.tick(0x50bf);
+        m.al = m.dh;
+        ip = 0x50c1;
+        break;
+      }
+      case 0x50c1: {
+        // 50c1: les di, ptr [bp + 0xe]
+        m.tick(0x50c1);
+        { const base = (m.bp + 14) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x50c4;
+        break;
+      }
+      case 0x50c4: {
+        // 50c4: stosw word ptr es:[di], ax
+        m.tick(0x50c4);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x50c5;
+        break;
+      }
+      case 0x50c5: {
+        // 50c5: xchg cx, ax
+        m.tick(0x50c5);
+        { const t = m.cx; m.cx = m.ax; m.ax = t; }
+        ip = 0x50c6;
+        break;
+      }
+      case 0x50c6: {
+        // 50c6: les di, ptr [bp + 0x12]
+        m.tick(0x50c6);
+        { const base = (m.bp + 18) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x50c9;
+        break;
+      }
+      case 0x50c9: {
+        // 50c9: stosw word ptr es:[di], ax
+        m.tick(0x50c9);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x50ca;
+        break;
+      }
+      case 0x50ca: {
+        // 50ca: pop bp
+        m.tick(0x50ca);
+        m.bp = m.pop();
+        ip = 0x50cb;
+        break;
+      }
+      case 0x50cb: {
+        // 50cb: retf 0x10
+        m.tick(0x50cb);
+        m.retf(16);
+        return;
+      }
+      default:
+        throw new Error(`exe_050ac ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x50ce. */
+export function exe_050ce(m: Cpu): void {
+  let ip = 0x50ce;
+  while (true) {
+    switch (ip) {
+      case 0x50ce: {
+        // 50ce: push bp
+        m.tick(0x50ce);
+        m.push(m.bp);
+        ip = 0x50cf;
+        break;
+      }
+      case 0x50cf: {
+        // 50cf: mov bp, sp
+        m.tick(0x50cf);
+        m.bp = m.sp;
+        ip = 0x50d1;
+        break;
+      }
+      case 0x50d1: {
+        // 50d1: mov cx, word ptr [bp + 0xa]
+        m.tick(0x50d1);
+        m.cx = m.read16(m.ss, (m.bp + 10) & 0xffff);
+        ip = 0x50d4;
+        break;
+      }
+      case 0x50d4: {
+        // 50d4: mov dh, byte ptr [bp + 8]
+        m.tick(0x50d4);
+        m.dh = m.read8(m.ss, (m.bp + 8) & 0xffff);
+        ip = 0x50d7;
+        break;
+      }
+      case 0x50d7: {
+        // 50d7: mov dl, byte ptr [bp + 6]
+        m.tick(0x50d7);
+        m.dl = m.read8(m.ss, (m.bp + 6) & 0xffff);
+        ip = 0x50da;
+        break;
+      }
+      case 0x50da: {
+        // 50da: mov ah, 0x2b
+        m.tick(0x50da);
+        m.ah = 43 & 0xff;
+        ip = 0x50dc;
+        break;
+      }
+      case 0x50dc: {
+        // 50dc: int 0x21
+        m.tick(0x50dc);
+        m.intr(33);
+        ip = 0x50de;
+        break;
+      }
+      case 0x50de: {
+        // 50de: pop bp
+        m.tick(0x50de);
+        m.bp = m.pop();
+        ip = 0x50df;
+        break;
+      }
+      case 0x50df: {
+        // 50df: retf 6
+        m.tick(0x50df);
+        m.retf(6);
+        return;
+      }
+      default:
+        throw new Error(`exe_050ce ip ${ip.toString(16)}`);
+    }
+  }
+}
+
 /** START.EXE image 0x50e2. */
 export function exe_050e2(m: Cpu): void {
   let ip = 0x50e2;
@@ -18016,6 +18417,86 @@ export function exe_050e2(m: Cpu): void {
       }
       default:
         throw new Error(`exe_050e2 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x5107. */
+export function exe_05107(m: Cpu): void {
+  let ip = 0x5107;
+  while (true) {
+    switch (ip) {
+      case 0x5107: {
+        // 5107: push bp
+        m.tick(0x5107);
+        m.push(m.bp);
+        ip = 0x5108;
+        break;
+      }
+      case 0x5108: {
+        // 5108: mov bp, sp
+        m.tick(0x5108);
+        m.bp = m.sp;
+        ip = 0x510a;
+        break;
+      }
+      case 0x510a: {
+        // 510a: mov ch, byte ptr [bp + 0xc]
+        m.tick(0x510a);
+        m.ch = m.read8(m.ss, (m.bp + 12) & 0xffff);
+        ip = 0x510d;
+        break;
+      }
+      case 0x510d: {
+        // 510d: mov cl, byte ptr [bp + 0xa]
+        m.tick(0x510d);
+        m.cl = m.read8(m.ss, (m.bp + 10) & 0xffff);
+        ip = 0x5110;
+        break;
+      }
+      case 0x5110: {
+        // 5110: mov dh, byte ptr [bp + 8]
+        m.tick(0x5110);
+        m.dh = m.read8(m.ss, (m.bp + 8) & 0xffff);
+        ip = 0x5113;
+        break;
+      }
+      case 0x5113: {
+        // 5113: mov dl, byte ptr [bp + 6]
+        m.tick(0x5113);
+        m.dl = m.read8(m.ss, (m.bp + 6) & 0xffff);
+        ip = 0x5116;
+        break;
+      }
+      case 0x5116: {
+        // 5116: mov ah, 0x2d
+        m.tick(0x5116);
+        m.ah = 45 & 0xff;
+        ip = 0x5118;
+        break;
+      }
+      case 0x5118: {
+        // 5118: int 0x21
+        m.tick(0x5118);
+        m.intr(33);
+        ip = 0x511a;
+        break;
+      }
+      case 0x511a: {
+        // 511a: pop bp
+        m.tick(0x511a);
+        m.bp = m.pop();
+        ip = 0x511b;
+        break;
+      }
+      case 0x511b: {
+        // 511b: retf 8
+        m.tick(0x511b);
+        m.retf(8);
+        return;
+      }
+      default:
+        throw new Error(`exe_05107 ip ${ip.toString(16)}`);
     }
   }
 }
@@ -20329,6 +20810,536 @@ export function exe_05479(m: Cpu): void {
       }
       default:
         throw new Error(`exe_05479 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x54b1. */
+export function exe_054b1(m: Cpu): void {
+  let ip = 0x54b1;
+  while (true) {
+    switch (ip) {
+      case 0x54b1: {
+        // 54b1: push bp
+        m.tick(0x54b1);
+        m.push(m.bp);
+        ip = 0x54b2;
+        break;
+      }
+      case 0x54b2: {
+        // 54b2: mov bp, sp
+        m.tick(0x54b2);
+        m.bp = m.sp;
+        ip = 0x54b4;
+        break;
+      }
+      case 0x54b4: {
+        // 54b4: les di, ptr [bp + 6]
+        m.tick(0x54b4);
+        { const base = (m.bp + 6) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x54b7;
+        break;
+      }
+      case 0x54b7: {
+        // 54b7: mov dx, word ptr es:[di + 4]
+        m.tick(0x54b7);
+        m.dx = m.read16(m.es, (m.di + 4) & 0xffff);
+        ip = 0x54bb;
+        break;
+      }
+      case 0x54bb: {
+        // 54bb: dec dx
+        m.tick(0x54bb);
+        { const saved = m.cf; m.dx = m.setSubFlags(16, m.dx, 1); m.cf = saved; }
+        ip = 0x54bc;
+        break;
+      }
+      case 0x54bc: {
+        // 54bc: dec dx
+        m.tick(0x54bc);
+        { const saved = m.cf; m.dx = m.setSubFlags(16, m.dx, 1); m.cf = saved; }
+        ip = 0x54bd;
+        break;
+      }
+      case 0x54bd: {
+        // 54bd: mov si, word ptr es:[di + 8]
+        m.tick(0x54bd);
+        m.si = m.read16(m.es, (m.di + 8) & 0xffff);
+        ip = 0x54c1;
+        break;
+      }
+      case 0x54c1: {
+        // 54c1: les di, ptr es:[di + 0xc]
+        m.tick(0x54c1);
+        { const base = (m.di + 12) & 0xffff; m.di = m.read16(m.es, base); m.es = m.read16(m.es, (base + 2) & 0xffff); }
+        ip = 0x54c5;
+        break;
+      }
+      case 0x54c5: {
+        // 54c5: xor bx, bx
+        m.tick(0x54c5);
+        m.bx = 0; m.setLogicFlags(16, 0);
+        ip = 0x54c7;
+        break;
+      }
+      case 0x54c7: {
+        // 54c7: mov byte ptr [0x82c9], 0
+        m.tick(0x54c7);
+        m.write8(m.ds, (33481) & 0xffff, 0);
+        ip = 0x54cc;
+        break;
+      }
+      case 0x54cc: {
+        // 54cc: push cs
+        m.tick(0x54cc);
+        m.push(m.cs);
+        ip = 0x54cd;
+        break;
+      }
+      case 0x54cd: {
+        // 54cd: call 0x542c
+        m.tick(0x54cd);
+        m.push(0x54d0);
+        nearCall(m, 0x542c);
+        ip = 0x54d0;
+        break;
+      }
+      case 0x54d0: {
+        // 54d0: mov cx, 1
+        m.tick(0x54d0);
+        m.cx = 1 & 0xffff;
+        ip = 0x54d3;
+        break;
+      }
+      case 0x54d3: {
+        // 54d3: cmp al, 8
+        m.tick(0x54d3);
+        m.setSubFlags(8, m.al, 8);
+        ip = 0x54d5;
+        break;
+      }
+      case 0x54d5: {
+        // 54d5: je 0x550b
+        m.tick(0x54d5);
+        ip = m.zf ? 0x550b : 0x54d7;
+        break;
+      }
+      case 0x54d7: {
+        // 54d7: cmp al, 0x13
+        m.tick(0x54d7);
+        m.setSubFlags(8, m.al, 19);
+        ip = 0x54d9;
+        break;
+      }
+      case 0x54d9: {
+        // 54d9: je 0x550b
+        m.tick(0x54d9);
+        ip = m.zf ? 0x550b : 0x54db;
+        break;
+      }
+      case 0x54db: {
+        // 54db: cmp al, 4
+        m.tick(0x54db);
+        m.setSubFlags(8, m.al, 4);
+        ip = 0x54dd;
+        break;
+      }
+      case 0x54dd: {
+        // 54dd: je 0x5523
+        m.tick(0x54dd);
+        ip = m.zf ? 0x5523 : 0x54df;
+        break;
+      }
+      case 0x54df: {
+        // 54df: dec cx
+        m.tick(0x54df);
+        { const saved = m.cf; m.cx = m.setSubFlags(16, m.cx, 1); m.cf = saved; }
+        ip = 0x54e0;
+        break;
+      }
+      case 0x54e0: {
+        // 54e0: cmp al, 0x1b
+        m.tick(0x54e0);
+        m.setSubFlags(8, m.al, 27);
+        ip = 0x54e2;
+        break;
+      }
+      case 0x54e2: {
+        // 54e2: je 0x550b
+        m.tick(0x54e2);
+        ip = m.zf ? 0x550b : 0x54e4;
+        break;
+      }
+      case 0x54e4: {
+        // 54e4: cmp al, 1
+        m.tick(0x54e4);
+        m.setSubFlags(8, m.al, 1);
+        ip = 0x54e6;
+        break;
+      }
+      case 0x54e6: {
+        // 54e6: je 0x550b
+        m.tick(0x54e6);
+        ip = m.zf ? 0x550b : 0x54e8;
+        break;
+      }
+      case 0x54e8: {
+        // 54e8: cmp al, 6
+        m.tick(0x54e8);
+        m.setSubFlags(8, m.al, 6);
+        ip = 0x54ea;
+        break;
+      }
+      case 0x54ea: {
+        // 54ea: je 0x5523
+        m.tick(0x54ea);
+        ip = m.zf ? 0x5523 : 0x54ec;
+        break;
+      }
+      case 0x54ec: {
+        // 54ec: cmp al, 0x1a
+        m.tick(0x54ec);
+        m.setSubFlags(8, m.al, 26);
+        ip = 0x54ee;
+        break;
+      }
+      case 0x54ee: {
+        // 54ee: je 0x5536
+        m.tick(0x54ee);
+        ip = m.zf ? 0x5536 : 0x54f0;
+        break;
+      }
+      case 0x54f0: {
+        // 54f0: cmp al, 0xd
+        m.tick(0x54f0);
+        m.setSubFlags(8, m.al, 13);
+        ip = 0x54f2;
+        break;
+      }
+      case 0x54f2: {
+        // 54f2: je 0x5543
+        m.tick(0x54f2);
+        ip = m.zf ? 0x5543 : 0x54f4;
+        break;
+      }
+      case 0x54f4: {
+        // 54f4: cmp al, 0x20
+        m.tick(0x54f4);
+        m.setSubFlags(8, m.al, 32);
+        ip = 0x54f6;
+        break;
+      }
+      case 0x54f6: {
+        // 54f6: jb 0x54c7
+        m.tick(0x54f6);
+        ip = m.cf ? 0x54c7 : 0x54f8;
+        break;
+      }
+      case 0x54f8: {
+        // 54f8: cmp bx, dx
+        m.tick(0x54f8);
+        m.setSubFlags(16, m.bx, m.dx);
+        ip = 0x54fa;
+        break;
+      }
+      case 0x54fa: {
+        // 54fa: je 0x54c7
+        m.tick(0x54fa);
+        ip = m.zf ? 0x54c7 : 0x54fc;
+        break;
+      }
+      case 0x54fc: {
+        // 54fc: mov byte ptr es:[bx + di], al
+        m.tick(0x54fc);
+        m.write8(m.es, (m.bx + m.di) & 0xffff, m.al);
+        ip = 0x54ff;
+        break;
+      }
+      case 0x54ff: {
+        // 54ff: inc bx
+        m.tick(0x54ff);
+        { const saved = m.cf; m.bx = m.setAddFlags(16, m.bx, 1); m.cf = saved; }
+        ip = 0x5500;
+        break;
+      }
+      case 0x5500: {
+        // 5500: call 0x559b
+        m.tick(0x5500);
+        m.push(0x5503);
+        nearCall(m, 0x559b);
+        ip = 0x5503;
+        break;
+      }
+      case 0x5503: {
+        // 5503: cmp bx, si
+        m.tick(0x5503);
+        m.setSubFlags(16, m.bx, m.si);
+        ip = 0x5505;
+        break;
+      }
+      case 0x5505: {
+        // 5505: jbe 0x54c7
+        m.tick(0x5505);
+        ip = m.cf || m.zf ? 0x54c7 : 0x5507;
+        break;
+      }
+      case 0x5507: {
+        // 5507: mov si, bx
+        m.tick(0x5507);
+        m.si = m.bx;
+        ip = 0x5509;
+        break;
+      }
+      case 0x5509: {
+        // 5509: jmp 0x54c7
+        m.tick(0x5509);
+        ip = true ? 0x54c7 : 0x550b;
+        break;
+      }
+      case 0x550b: {
+        // 550b: or bx, bx
+        m.tick(0x550b);
+        m.bx = (m.bx | m.bx) & 0xffff; m.setLogicFlags(16, m.bx);
+        ip = 0x550d;
+        break;
+      }
+      case 0x550d: {
+        // 550d: je 0x54c7
+        m.tick(0x550d);
+        ip = m.zf ? 0x54c7 : 0x550f;
+        break;
+      }
+      case 0x550f: {
+        // 550f: mov al, 8
+        m.tick(0x550f);
+        m.al = 8 & 0xff;
+        ip = 0x5511;
+        break;
+      }
+      case 0x5511: {
+        // 5511: call 0x559b
+        m.tick(0x5511);
+        m.push(0x5514);
+        nearCall(m, 0x559b);
+        ip = 0x5514;
+        break;
+      }
+      case 0x5514: {
+        // 5514: mov al, 0x20
+        m.tick(0x5514);
+        m.al = 32 & 0xff;
+        ip = 0x5516;
+        break;
+      }
+      case 0x5516: {
+        // 5516: call 0x559b
+        m.tick(0x5516);
+        m.push(0x5519);
+        nearCall(m, 0x559b);
+        ip = 0x5519;
+        break;
+      }
+      case 0x5519: {
+        // 5519: mov al, 8
+        m.tick(0x5519);
+        m.al = 8 & 0xff;
+        ip = 0x551b;
+        break;
+      }
+      case 0x551b: {
+        // 551b: call 0x559b
+        m.tick(0x551b);
+        m.push(0x551e);
+        nearCall(m, 0x559b);
+        ip = 0x551e;
+        break;
+      }
+      case 0x551e: {
+        // 551e: dec bx
+        m.tick(0x551e);
+        { const saved = m.cf; m.bx = m.setSubFlags(16, m.bx, 1); m.cf = saved; }
+        ip = 0x551f;
+        break;
+      }
+      case 0x551f: {
+        // 551f: loop 0x550b
+        m.tick(0x551f);
+        m.cx = (m.cx - 1) & 0xffff;
+        ip = m.cx !== 0 && (true) ? 0x550b : 0x5521;
+        break;
+      }
+      case 0x5521: {
+        // 5521: jmp 0x54c7
+        m.tick(0x5521);
+        ip = true ? 0x54c7 : 0x5523;
+        break;
+      }
+      case 0x5523: {
+        // 5523: cmp bx, si
+        m.tick(0x5523);
+        m.setSubFlags(16, m.bx, m.si);
+        ip = 0x5525;
+        break;
+      }
+      case 0x5525: {
+        // 5525: je 0x54c7
+        m.tick(0x5525);
+        ip = m.zf ? 0x54c7 : 0x5527;
+        break;
+      }
+      case 0x5527: {
+        // 5527: mov al, byte ptr es:[bx + di]
+        m.tick(0x5527);
+        m.al = m.read8(m.es, (m.bx + m.di) & 0xffff);
+        ip = 0x552a;
+        break;
+      }
+      case 0x552a: {
+        // 552a: cmp al, 0x20
+        m.tick(0x552a);
+        m.setSubFlags(8, m.al, 32);
+        ip = 0x552c;
+        break;
+      }
+      case 0x552c: {
+        // 552c: jb 0x54c7
+        m.tick(0x552c);
+        ip = m.cf ? 0x54c7 : 0x552e;
+        break;
+      }
+      case 0x552e: {
+        // 552e: call 0x559b
+        m.tick(0x552e);
+        m.push(0x5531);
+        nearCall(m, 0x559b);
+        ip = 0x5531;
+        break;
+      }
+      case 0x5531: {
+        // 5531: inc bx
+        m.tick(0x5531);
+        { const saved = m.cf; m.bx = m.setAddFlags(16, m.bx, 1); m.cf = saved; }
+        ip = 0x5532;
+        break;
+      }
+      case 0x5532: {
+        // 5532: loop 0x5523
+        m.tick(0x5532);
+        m.cx = (m.cx - 1) & 0xffff;
+        ip = m.cx !== 0 && (true) ? 0x5523 : 0x5534;
+        break;
+      }
+      case 0x5534: {
+        // 5534: jmp 0x54c7
+        m.tick(0x5534);
+        ip = true ? 0x54c7 : 0x5536;
+        break;
+      }
+      case 0x5536: {
+        // 5536: cmp byte ptr [0x82b9], 0
+        m.tick(0x5536);
+        m.setSubFlags(8, m.read8(m.ds, (33465) & 0xffff), 0);
+        ip = 0x553b;
+        break;
+      }
+      case 0x553b: {
+        // 553b: je 0x54c7
+        m.tick(0x553b);
+        ip = m.zf ? 0x54c7 : 0x553d;
+        break;
+      }
+      case 0x553d: {
+        // 553d: mov byte ptr es:[bx + di], al
+        m.tick(0x553d);
+        m.write8(m.es, (m.bx + m.di) & 0xffff, m.al);
+        ip = 0x5540;
+        break;
+      }
+      case 0x5540: {
+        // 5540: inc bx
+        m.tick(0x5540);
+        { const saved = m.cf; m.bx = m.setAddFlags(16, m.bx, 1); m.cf = saved; }
+        ip = 0x5541;
+        break;
+      }
+      case 0x5541: {
+        // 5541: jmp 0x554d
+        m.tick(0x5541);
+        ip = true ? 0x554d : 0x5543;
+        break;
+      }
+      case 0x5543: {
+        // 5543: call 0x5594
+        m.tick(0x5543);
+        m.push(0x5546);
+        nearCall(m, 0x5594);
+        ip = 0x5546;
+        break;
+      }
+      case 0x5546: {
+        // 5546: mov word ptr es:[bx + di], 0xa0d
+        m.tick(0x5546);
+        m.write16(m.es, (m.bx + m.di) & 0xffff, 2573);
+        ip = 0x554b;
+        break;
+      }
+      case 0x554b: {
+        // 554b: inc bx
+        m.tick(0x554b);
+        { const saved = m.cf; m.bx = m.setAddFlags(16, m.bx, 1); m.cf = saved; }
+        ip = 0x554c;
+        break;
+      }
+      case 0x554c: {
+        // 554c: inc bx
+        m.tick(0x554c);
+        { const saved = m.cf; m.bx = m.setAddFlags(16, m.bx, 1); m.cf = saved; }
+        ip = 0x554d;
+        break;
+      }
+      case 0x554d: {
+        // 554d: les di, ptr [bp + 6]
+        m.tick(0x554d);
+        { const base = (m.bp + 6) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x5550;
+        break;
+      }
+      case 0x5550: {
+        // 5550: xor ax, ax
+        m.tick(0x5550);
+        m.ax = 0; m.setLogicFlags(16, 0);
+        ip = 0x5552;
+        break;
+      }
+      case 0x5552: {
+        // 5552: mov word ptr es:[di + 8], ax
+        m.tick(0x5552);
+        m.write16(m.es, (m.di + 8) & 0xffff, m.ax);
+        ip = 0x5556;
+        break;
+      }
+      case 0x5556: {
+        // 5556: mov word ptr es:[di + 0xa], bx
+        m.tick(0x5556);
+        m.write16(m.es, (m.di + 10) & 0xffff, m.bx);
+        ip = 0x555a;
+        break;
+      }
+      case 0x555a: {
+        // 555a: pop bp
+        m.tick(0x555a);
+        m.bp = m.pop();
+        ip = 0x555b;
+        break;
+      }
+      case 0x555b: {
+        // 555b: retf 4
+        m.tick(0x555b);
+        m.retf(4);
+        return;
+      }
+      default:
+        throw new Error(`exe_054b1 ip ${ip.toString(16)}`);
     }
   }
 }
@@ -23871,6 +24882,1515 @@ export function exe_058dc(m: Cpu): void {
   }
 }
 
+/** START.EXE image 0x58f0. */
+export function exe_058f0(m: Cpu): void {
+  let ip = 0x58f0;
+  while (true) {
+    switch (ip) {
+      case 0x58f0: {
+        // 58f0: push bp
+        m.tick(0x58f0);
+        m.push(m.bp);
+        ip = 0x58f1;
+        break;
+      }
+      case 0x58f1: {
+        // 58f1: mov bp, sp
+        m.tick(0x58f1);
+        m.bp = m.sp;
+        ip = 0x58f3;
+        break;
+      }
+      case 0x58f3: {
+        // 58f3: cmp word ptr [0x4364], 0
+        m.tick(0x58f3);
+        m.setSubFlags(16, m.read16(m.ds, (17252) & 0xffff), 0);
+        ip = 0x58f8;
+        break;
+      }
+      case 0x58f8: {
+        // 58f8: je 0x591a
+        m.tick(0x58f8);
+        ip = m.zf ? 0x591a : 0x58fa;
+        break;
+      }
+      case 0x58fa: {
+        // 58fa: mov ax, word ptr [0x435c]
+        m.tick(0x58fa);
+        m.ax = m.read16(m.ds, (17244) & 0xffff);
+        ip = 0x58fd;
+        break;
+      }
+      case 0x58fd: {
+        // 58fd: mov word ptr [0x435e], ax
+        m.tick(0x58fd);
+        m.write16(m.ds, (17246) & 0xffff, m.ax);
+        ip = 0x5900;
+        break;
+      }
+      case 0x5900: {
+        // 5900: mov ax, word ptr [0x4362]
+        m.tick(0x5900);
+        m.ax = m.read16(m.ds, (17250) & 0xffff);
+        ip = 0x5903;
+        break;
+      }
+      case 0x5903: {
+        // 5903: jmp 0x590e
+        m.tick(0x5903);
+        ip = true ? 0x590e : 0x5905;
+        break;
+      }
+      case 0x5905: {
+        // 5905: mov es, ax
+        m.tick(0x5905);
+        m.es = m.ax;
+        ip = 0x5907;
+        break;
+      }
+      case 0x5907: {
+        // 5907: call 0x5b53
+        m.tick(0x5907);
+        m.push(0x590a);
+        nearCall(m, 0x5b53);
+        ip = 0x590a;
+        break;
+      }
+      case 0x590a: {
+        // 590a: mov ax, word ptr es:[0x14]
+        m.tick(0x590a);
+        m.ax = m.read16(m.es, (20) & 0xffff);
+        ip = 0x590e;
+        break;
+      }
+      case 0x590e: {
+        // 590e: or ax, ax
+        m.tick(0x590e);
+        m.ax = (m.ax | m.ax) & 0xffff; m.setLogicFlags(16, m.ax);
+        ip = 0x5910;
+        break;
+      }
+      case 0x5910: {
+        // 5910: jne 0x5905
+        m.tick(0x5910);
+        ip = !m.zf ? 0x5905 : 0x5912;
+        break;
+      }
+      case 0x5912: {
+        // 5912: mov word ptr [0x4362], ax
+        m.tick(0x5912);
+        m.write16(m.ds, (17250) & 0xffff, m.ax);
+        ip = 0x5915;
+        break;
+      }
+      case 0x5915: {
+        // 5915: mov word ptr [0x82cc], ax
+        m.tick(0x5915);
+        m.write16(m.ds, (33484) & 0xffff, m.ax);
+        ip = 0x5918;
+        break;
+      }
+      case 0x5918: {
+        // 5918: pop bp
+        m.tick(0x5918);
+        m.bp = m.pop();
+        ip = 0x5919;
+        break;
+      }
+      case 0x5919: {
+        // 5919: retf 
+        m.tick(0x5919);
+        m.retf(0);
+        return;
+      }
+      case 0x591a: {
+        // 591a: mov ax, 0xffff
+        m.tick(0x591a);
+        m.ax = 65535 & 0xffff;
+        ip = 0x591d;
+        break;
+      }
+      case 0x591d: {
+        // 591d: jmp 0x5915
+        m.tick(0x591d);
+        ip = true ? 0x5915 : 0x591f;
+        break;
+      }
+      default:
+        throw new Error(`exe_058f0 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x5993. */
+export function exe_05993(m: Cpu): void {
+  let ip = 0x5993;
+  while (true) {
+    switch (ip) {
+      case 0x5993: {
+        // 5993: push bp
+        m.tick(0x5993);
+        m.push(m.bp);
+        ip = 0x5994;
+        break;
+      }
+      case 0x5994: {
+        // 5994: mov bp, sp
+        m.tick(0x5994);
+        m.bp = m.sp;
+        ip = 0x5996;
+        break;
+      }
+      case 0x5996: {
+        // 5996: push ax
+        m.tick(0x5996);
+        m.push(m.ax);
+        ip = 0x5997;
+        break;
+      }
+      case 0x5997: {
+        // 5997: push bx
+        m.tick(0x5997);
+        m.push(m.bx);
+        ip = 0x5998;
+        break;
+      }
+      case 0x5998: {
+        // 5998: push cx
+        m.tick(0x5998);
+        m.push(m.cx);
+        ip = 0x5999;
+        break;
+      }
+      case 0x5999: {
+        // 5999: push dx
+        m.tick(0x5999);
+        m.push(m.dx);
+        ip = 0x599a;
+        break;
+      }
+      case 0x599a: {
+        // 599a: push si
+        m.tick(0x599a);
+        m.push(m.si);
+        ip = 0x599b;
+        break;
+      }
+      case 0x599b: {
+        // 599b: push di
+        m.tick(0x599b);
+        m.push(m.di);
+        ip = 0x599c;
+        break;
+      }
+      case 0x599c: {
+        // 599c: push ds
+        m.tick(0x599c);
+        m.push(m.ds);
+        ip = 0x599d;
+        break;
+      }
+      case 0x599d: {
+        // 599d: push es
+        m.tick(0x599d);
+        m.push(m.es);
+        ip = 0x599e;
+        break;
+      }
+      case 0x599e: {
+        // 599e: pushf 
+        m.tick(0x599e);
+        m.push((m.cf ? 1 : 0) | (m.pf ? 4 : 0) | (m.zf ? 0x40 : 0) | (m.sf ? 0x80 : 0) | (m.of ? 0x800 : 0) | 2);
+        ip = 0x599f;
+        break;
+      }
+      case 0x599f: {
+        // 599f: mov ax, 0x740
+        m.tick(0x599f);
+        m.ax = 1856 & 0xffff;
+        ip = 0x59a2;
+        break;
+      }
+      case 0x59a2: {
+        // 59a2: mov ds, ax
+        m.tick(0x59a2);
+        m.ds = m.ax;
+        ip = 0x59a4;
+        break;
+      }
+      case 0x59a4: {
+        // 59a4: les bx, ptr cs:[0xf]
+        m.tick(0x59a4);
+        { const base = (15) & 0xffff; m.bx = m.read16(m.cs, base); m.es = m.read16(m.cs, (base + 2) & 0xffff); }
+        ip = 0x59a9;
+        break;
+      }
+      case 0x59a9: {
+        // 59a9: mov ax, word ptr es:[bx]
+        m.tick(0x59a9);
+        m.ax = m.read16(m.es, (m.bx) & 0xffff);
+        ip = 0x59ac;
+        break;
+      }
+      case 0x59ac: {
+        // 59ac: mov word ptr cs:[0xf], ax
+        m.tick(0x59ac);
+        m.write16(m.cs, (15) & 0xffff, m.ax);
+        ip = 0x59b0;
+        break;
+      }
+      case 0x59b0: {
+        // 59b0: cmp bx, 2
+        m.tick(0x59b0);
+        m.setSubFlags(16, m.bx, 2);
+        ip = 0x59b3;
+        break;
+      }
+      case 0x59b3: {
+        // 59b3: jne 0x59b8
+        m.tick(0x59b3);
+        ip = !m.zf ? 0x59b8 : 0x59b5;
+        break;
+      }
+      case 0x59b5: {
+        // 59b5: mov bp, word ptr [bp]
+        m.tick(0x59b5);
+        m.bp = m.read16(m.ss, (m.bp) & 0xffff);
+        ip = 0x59b8;
+        break;
+      }
+      case 0x59b8: {
+        // 59b8: call 0x59e4
+        m.tick(0x59b8);
+        m.push(0x59bb);
+        nearCall(m, 0x59e4);
+        ip = 0x59bb;
+        break;
+      }
+      case 0x59bb: {
+        // 59bb: les bx, ptr cs:[0xf]
+        m.tick(0x59bb);
+        { const base = (15) & 0xffff; m.bx = m.read16(m.cs, base); m.es = m.read16(m.cs, (base + 2) & 0xffff); }
+        ip = 0x59c0;
+        break;
+      }
+      case 0x59c0: {
+        // 59c0: mov ax, word ptr es:[0x10]
+        m.tick(0x59c0);
+        m.ax = m.read16(m.es, (16) & 0xffff);
+        ip = 0x59c4;
+        break;
+      }
+      case 0x59c4: {
+        // 59c4: mov word ptr cs:[0x11], ax
+        m.tick(0x59c4);
+        m.write16(m.cs, (17) & 0xffff, m.ax);
+        ip = 0x59c8;
+        break;
+      }
+      case 0x59c8: {
+        // 59c8: mov ax, word ptr [0x4358]
+        m.tick(0x59c8);
+        m.ax = m.read16(m.ds, (17240) & 0xffff);
+        ip = 0x59cb;
+        break;
+      }
+      case 0x59cb: {
+        // 59cb: or ax, word ptr [0x435a]
+        m.tick(0x59cb);
+        m.ax = (m.ax | m.read16(m.ds, (17242) & 0xffff)) & 0xffff; m.setLogicFlags(16, m.ax);
+        ip = 0x59cf;
+        break;
+      }
+      case 0x59cf: {
+        // 59cf: je 0x59d5
+        m.tick(0x59cf);
+        ip = m.zf ? 0x59d5 : 0x59d1;
+        break;
+      }
+      case 0x59d1: {
+        // 59d1: lcall [0x4358]
+        m.tick(0x59d1);
+        { const base = (17240) & 0xffff; const tgt = m.read16(m.ds, base); const tseg = m.read16(m.ds, (base + 2) & 0xffff);
+        m.push(m.cs);
+        m.push(0x59d5);
+        farCall(m, tseg, tgt); }
+        ip = 0x59d5;
+        break;
+      }
+      case 0x59d5: {
+        // 59d5: popf 
+        m.tick(0x59d5);
+        { const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.of = (f & 0x800) !== 0; }
+        ip = 0x59d6;
+        break;
+      }
+      case 0x59d6: {
+        // 59d6: pop es
+        m.tick(0x59d6);
+        m.es = m.pop();
+        ip = 0x59d7;
+        break;
+      }
+      case 0x59d7: {
+        // 59d7: pop ds
+        m.tick(0x59d7);
+        m.ds = m.pop();
+        ip = 0x59d8;
+        break;
+      }
+      case 0x59d8: {
+        // 59d8: pop di
+        m.tick(0x59d8);
+        m.di = m.pop();
+        ip = 0x59d9;
+        break;
+      }
+      case 0x59d9: {
+        // 59d9: pop si
+        m.tick(0x59d9);
+        m.si = m.pop();
+        ip = 0x59da;
+        break;
+      }
+      case 0x59da: {
+        // 59da: pop dx
+        m.tick(0x59da);
+        m.dx = m.pop();
+        ip = 0x59db;
+        break;
+      }
+      case 0x59db: {
+        // 59db: pop cx
+        m.tick(0x59db);
+        m.cx = m.pop();
+        ip = 0x59dc;
+        break;
+      }
+      case 0x59dc: {
+        // 59dc: pop bx
+        m.tick(0x59dc);
+        m.bx = m.pop();
+        ip = 0x59dd;
+        break;
+      }
+      case 0x59dd: {
+        // 59dd: pop ax
+        m.tick(0x59dd);
+        m.ax = m.pop();
+        ip = 0x59de;
+        break;
+      }
+      case 0x59de: {
+        // 59de: pop bp
+        m.tick(0x59de);
+        m.bp = m.pop();
+        ip = 0x59df;
+        break;
+      }
+      case 0x59df: {
+        // 59df: ljmp cs:[0xf]
+        m.tick(0x59df);
+        { const base = (15) & 0xffff; const tgt = m.read16(m.cs, base); const tseg = m.read16(m.cs, (base + 2) & 0xffff);
+        farCall(m, tseg, tgt); }
+        return;
+      }
+      default:
+        throw new Error(`exe_05993 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x59e4. */
+export function exe_059e4(m: Cpu): void {
+  let ip = 0x59e4;
+  while (true) {
+    switch (ip) {
+      case 0x59e4: {
+        // 59e4: push es
+        m.tick(0x59e4);
+        m.push(m.es);
+        ip = 0x59e5;
+        break;
+      }
+      case 0x59e5: {
+        // 59e5: push bx
+        m.tick(0x59e5);
+        m.push(m.bx);
+        ip = 0x59e6;
+        break;
+      }
+      case 0x59e6: {
+        // 59e6: call 0x5a9c
+        m.tick(0x59e6);
+        m.push(0x59e9);
+        nearCall(m, 0x5a9c);
+        ip = 0x59e9;
+        break;
+      }
+      case 0x59e9: {
+        // 59e9: mov dx, word ptr es:[0xa]
+        m.tick(0x59e9);
+        m.dx = m.read16(m.es, (10) & 0xffff);
+        ip = 0x59ee;
+        break;
+      }
+      case 0x59ee: {
+        // 59ee: add dx, 0xf
+        m.tick(0x59ee);
+        m.dx = m.setAddFlags(16, m.dx, 15);
+        ip = 0x59f1;
+        break;
+      }
+      case 0x59f1: {
+        // 59f1: mov cl, 4
+        m.tick(0x59f1);
+        m.cl = 4 & 0xff;
+        ip = 0x59f3;
+        break;
+      }
+      case 0x59f3: {
+        // 59f3: shr dx, cl
+        m.tick(0x59f3);
+        { const n = m.cl & 31; if (n) { m.cf = ((m.dx >>> (n - 1)) & 1) !== 0; m.dx = (m.dx >>> n) & 0xffff; m.zf = m.dx === 0; m.sf = (m.dx & 0x8000) !== 0; } }
+        ip = 0x59f5;
+        break;
+      }
+      case 0x59f5: {
+        // 59f5: add dx, ax
+        m.tick(0x59f5);
+        m.dx = m.setAddFlags(16, m.dx, m.ax);
+        ip = 0x59f7;
+        break;
+      }
+      case 0x59f7: {
+        // 59f7: mov ax, word ptr [0x4362]
+        m.tick(0x59f7);
+        m.ax = m.read16(m.ds, (17250) & 0xffff);
+        ip = 0x59fa;
+        break;
+      }
+      case 0x59fa: {
+        // 59fa: or ax, ax
+        m.tick(0x59fa);
+        m.ax = (m.ax | m.ax) & 0xffff; m.setLogicFlags(16, m.ax);
+        ip = 0x59fc;
+        break;
+      }
+      case 0x59fc: {
+        // 59fc: je 0x5a77
+        m.tick(0x59fc);
+        ip = m.zf ? 0x5a77 : 0x59fe;
+        break;
+      }
+      case 0x59fe: {
+        // 59fe: mov es, ax
+        m.tick(0x59fe);
+        m.es = m.ax;
+        ip = 0x5a00;
+        break;
+      }
+      case 0x5a00: {
+        // 5a00: mov ax, word ptr es:[0x10]
+        m.tick(0x5a00);
+        m.ax = m.read16(m.es, (16) & 0xffff);
+        ip = 0x5a04;
+        break;
+      }
+      case 0x5a04: {
+        // 5a04: sub ax, word ptr [0x435e]
+        m.tick(0x5a04);
+        m.ax = m.setSubFlags(16, m.ax, m.read16(m.ds, (17246) & 0xffff));
+        ip = 0x5a08;
+        break;
+      }
+      case 0x5a08: {
+        // 5a08: jae 0x5a11
+        m.tick(0x5a08);
+        ip = !m.cf ? 0x5a11 : 0x5a0a;
+        break;
+      }
+      case 0x5a0a: {
+        // 5a0a: mov ax, word ptr [0x4360]
+        m.tick(0x5a0a);
+        m.ax = m.read16(m.ds, (17248) & 0xffff);
+        ip = 0x5a0d;
+        break;
+      }
+      case 0x5a0d: {
+        // 5a0d: sub ax, word ptr [0x435e]
+        m.tick(0x5a0d);
+        m.ax = m.setSubFlags(16, m.ax, m.read16(m.ds, (17246) & 0xffff));
+        ip = 0x5a11;
+        break;
+      }
+      case 0x5a11: {
+        // 5a11: sub dx, ax
+        m.tick(0x5a11);
+        m.dx = m.setSubFlags(16, m.dx, m.ax);
+        ip = 0x5a13;
+        break;
+      }
+      case 0x5a13: {
+        // 5a13: jbe 0x5a77
+        m.tick(0x5a13);
+        ip = m.cf || m.zf ? 0x5a77 : 0x5a15;
+        break;
+      }
+      case 0x5a15: {
+        // 5a15: mov es, word ptr [0x4362]
+        m.tick(0x5a15);
+        m.es = m.read16(m.ds, (17250) & 0xffff);
+        ip = 0x5a19;
+        break;
+      }
+      case 0x5a19: {
+        // 5a19: mov ax, word ptr es:[0x14]
+        m.tick(0x5a19);
+        m.ax = m.read16(m.es, (20) & 0xffff);
+        ip = 0x5a1d;
+        break;
+      }
+      case 0x5a1d: {
+        // 5a1d: mov word ptr [0x4362], ax
+        m.tick(0x5a1d);
+        m.write16(m.ds, (17250) & 0xffff, m.ax);
+        ip = 0x5a20;
+        break;
+      }
+      case 0x5a20: {
+        // 5a20: push dx
+        m.tick(0x5a20);
+        m.push(m.dx);
+        ip = 0x5a21;
+        break;
+      }
+      case 0x5a21: {
+        // 5a21: call 0x5b53
+        m.tick(0x5a21);
+        m.push(0x5a24);
+        nearCall(m, 0x5b53);
+        ip = 0x5a24;
+        break;
+      }
+      case 0x5a24: {
+        // 5a24: call 0x5a9c
+        m.tick(0x5a24);
+        m.push(0x5a27);
+        nearCall(m, 0x5a9c);
+        ip = 0x5a27;
+        break;
+      }
+      case 0x5a27: {
+        // 5a27: pop dx
+        m.tick(0x5a27);
+        m.dx = m.pop();
+        ip = 0x5a28;
+        break;
+      }
+      case 0x5a28: {
+        // 5a28: sub dx, ax
+        m.tick(0x5a28);
+        m.dx = m.setSubFlags(16, m.dx, m.ax);
+        ip = 0x5a2a;
+        break;
+      }
+      case 0x5a2a: {
+        // 5a2a: ja 0x5a15
+        m.tick(0x5a2a);
+        ip = !m.cf && !m.zf ? 0x5a15 : 0x5a2c;
+        break;
+      }
+      case 0x5a2c: {
+        // 5a2c: mov ax, word ptr [0x4362]
+        m.tick(0x5a2c);
+        m.ax = m.read16(m.ds, (17250) & 0xffff);
+        ip = 0x5a2f;
+        break;
+      }
+      case 0x5a2f: {
+        // 5a2f: or ax, ax
+        m.tick(0x5a2f);
+        m.ax = (m.ax | m.ax) & 0xffff; m.setLogicFlags(16, m.ax);
+        ip = 0x5a31;
+        break;
+      }
+      case 0x5a31: {
+        // 5a31: je 0x5a71
+        m.tick(0x5a31);
+        ip = m.zf ? 0x5a71 : 0x5a33;
+        break;
+      }
+      case 0x5a33: {
+        // 5a33: mov es, ax
+        m.tick(0x5a33);
+        m.es = m.ax;
+        ip = 0x5a35;
+        break;
+      }
+      case 0x5a35: {
+        // 5a35: mov dx, word ptr es:[0x10]
+        m.tick(0x5a35);
+        m.dx = m.read16(m.es, (16) & 0xffff);
+        ip = 0x5a3a;
+        break;
+      }
+      case 0x5a3a: {
+        // 5a3a: cmp dx, word ptr [0x435e]
+        m.tick(0x5a3a);
+        m.setSubFlags(16, m.dx, m.read16(m.ds, (17246) & 0xffff));
+        ip = 0x5a3e;
+        break;
+      }
+      case 0x5a3e: {
+        // 5a3e: ja 0x5a77
+        m.tick(0x5a3e);
+        ip = !m.cf && !m.zf ? 0x5a77 : 0x5a40;
+        break;
+      }
+      case 0x5a40: {
+        // 5a40: xor cx, cx
+        m.tick(0x5a40);
+        m.cx = 0; m.setLogicFlags(16, 0);
+        ip = 0x5a42;
+        break;
+      }
+      case 0x5a42: {
+        // 5a42: inc cx
+        m.tick(0x5a42);
+        { const saved = m.cf; m.cx = m.setAddFlags(16, m.cx, 1); m.cf = saved; }
+        ip = 0x5a43;
+        break;
+      }
+      case 0x5a43: {
+        // 5a43: push ax
+        m.tick(0x5a43);
+        m.push(m.ax);
+        ip = 0x5a44;
+        break;
+      }
+      case 0x5a44: {
+        // 5a44: mov es, ax
+        m.tick(0x5a44);
+        m.es = m.ax;
+        ip = 0x5a46;
+        break;
+      }
+      case 0x5a46: {
+        // 5a46: mov ax, word ptr es:[0x14]
+        m.tick(0x5a46);
+        m.ax = m.read16(m.es, (20) & 0xffff);
+        ip = 0x5a4a;
+        break;
+      }
+      case 0x5a4a: {
+        // 5a4a: or ax, ax
+        m.tick(0x5a4a);
+        m.ax = (m.ax | m.ax) & 0xffff; m.setLogicFlags(16, m.ax);
+        ip = 0x5a4c;
+        break;
+      }
+      case 0x5a4c: {
+        // 5a4c: jne 0x5a42
+        m.tick(0x5a4c);
+        ip = !m.zf ? 0x5a42 : 0x5a4e;
+        break;
+      }
+      case 0x5a4e: {
+        // 5a4e: mov word ptr [0x4362], ax
+        m.tick(0x5a4e);
+        m.write16(m.ds, (17250) & 0xffff, m.ax);
+        ip = 0x5a51;
+        break;
+      }
+      case 0x5a51: {
+        // 5a51: mov ax, word ptr [0x4360]
+        m.tick(0x5a51);
+        m.ax = m.read16(m.ds, (17248) & 0xffff);
+        ip = 0x5a54;
+        break;
+      }
+      case 0x5a54: {
+        // 5a54: mov word ptr [0x435e], ax
+        m.tick(0x5a54);
+        m.write16(m.ds, (17246) & 0xffff, m.ax);
+        ip = 0x5a57;
+        break;
+      }
+      case 0x5a57: {
+        // 5a57: pop es
+        m.tick(0x5a57);
+        m.es = m.pop();
+        ip = 0x5a58;
+        break;
+      }
+      case 0x5a58: {
+        // 5a58: push cx
+        m.tick(0x5a58);
+        m.push(m.cx);
+        ip = 0x5a59;
+        break;
+      }
+      case 0x5a59: {
+        // 5a59: mov ax, word ptr [0x4362]
+        m.tick(0x5a59);
+        m.ax = m.read16(m.ds, (17250) & 0xffff);
+        ip = 0x5a5c;
+        break;
+      }
+      case 0x5a5c: {
+        // 5a5c: mov word ptr es:[0x14], ax
+        m.tick(0x5a5c);
+        m.write16(m.es, (20) & 0xffff, m.ax);
+        ip = 0x5a60;
+        break;
+      }
+      case 0x5a60: {
+        // 5a60: mov word ptr [0x4362], es
+        m.tick(0x5a60);
+        m.write16(m.ds, (17250) & 0xffff, m.es);
+        ip = 0x5a64;
+        break;
+      }
+      case 0x5a64: {
+        // 5a64: call 0x5a9c
+        m.tick(0x5a64);
+        m.push(0x5a67);
+        nearCall(m, 0x5a9c);
+        ip = 0x5a67;
+        break;
+      }
+      case 0x5a67: {
+        // 5a67: sub word ptr [0x435e], ax
+        m.tick(0x5a67);
+        { const a = m.read16(m.ds, (17246) & 0xffff); const r = m.setSubFlags(16, a, m.ax); m.write16(m.ds, (17246) & 0xffff, r); }
+        ip = 0x5a6b;
+        break;
+      }
+      case 0x5a6b: {
+        // 5a6b: call 0x5b05
+        m.tick(0x5a6b);
+        m.push(0x5a6e);
+        nearCall(m, 0x5b05);
+        ip = 0x5a6e;
+        break;
+      }
+      case 0x5a6e: {
+        // 5a6e: pop cx
+        m.tick(0x5a6e);
+        m.cx = m.pop();
+        ip = 0x5a6f;
+        break;
+      }
+      case 0x5a6f: {
+        // 5a6f: loop 0x5a57
+        m.tick(0x5a6f);
+        m.cx = (m.cx - 1) & 0xffff;
+        ip = m.cx !== 0 && (true) ? 0x5a57 : 0x5a71;
+        break;
+      }
+      case 0x5a71: {
+        // 5a71: mov ax, word ptr [0x435c]
+        m.tick(0x5a71);
+        m.ax = m.read16(m.ds, (17244) & 0xffff);
+        ip = 0x5a74;
+        break;
+      }
+      case 0x5a74: {
+        // 5a74: mov word ptr [0x435e], ax
+        m.tick(0x5a74);
+        m.write16(m.ds, (17246) & 0xffff, m.ax);
+        ip = 0x5a77;
+        break;
+      }
+      case 0x5a77: {
+        // 5a77: pop bx
+        m.tick(0x5a77);
+        m.bx = m.pop();
+        ip = 0x5a78;
+        break;
+      }
+      case 0x5a78: {
+        // 5a78: pop es
+        m.tick(0x5a78);
+        m.es = m.pop();
+        ip = 0x5a79;
+        break;
+      }
+      case 0x5a79: {
+        // 5a79: call 0x5aa8
+        m.tick(0x5a79);
+        m.push(0x5a7c);
+        nearCall(m, 0x5aa8);
+        ip = 0x5a7c;
+        break;
+      }
+      case 0x5a7c: {
+        // 5a7c: call 0x5a9c
+        m.tick(0x5a7c);
+        m.push(0x5a7f);
+        nearCall(m, 0x5a9c);
+        ip = 0x5a7f;
+        break;
+      }
+      case 0x5a7f: {
+        // 5a7f: add word ptr [0x435e], ax
+        m.tick(0x5a7f);
+        { const a = m.read16(m.ds, (17246) & 0xffff); const r = m.setAddFlags(16, a, m.ax); m.write16(m.ds, (17246) & 0xffff, r); }
+        ip = 0x5a83;
+        break;
+      }
+      case 0x5a83: {
+        // 5a83: push ds
+        m.tick(0x5a83);
+        m.push(m.ds);
+        ip = 0x5a84;
+        break;
+      }
+      case 0x5a84: {
+        // 5a84: mov bx, 0x4362
+        m.tick(0x5a84);
+        m.bx = 17250 & 0xffff;
+        ip = 0x5a87;
+        break;
+      }
+      case 0x5a87: {
+        // 5a87: mov ax, word ptr [bx]
+        m.tick(0x5a87);
+        m.ax = m.read16(m.ds, (m.bx) & 0xffff);
+        ip = 0x5a89;
+        break;
+      }
+      case 0x5a89: {
+        // 5a89: or ax, ax
+        m.tick(0x5a89);
+        m.ax = (m.ax | m.ax) & 0xffff; m.setLogicFlags(16, m.ax);
+        ip = 0x5a8b;
+        break;
+      }
+      case 0x5a8b: {
+        // 5a8b: je 0x5a94
+        m.tick(0x5a8b);
+        ip = m.zf ? 0x5a94 : 0x5a8d;
+        break;
+      }
+      case 0x5a8d: {
+        // 5a8d: mov ds, ax
+        m.tick(0x5a8d);
+        m.ds = m.ax;
+        ip = 0x5a8f;
+        break;
+      }
+      case 0x5a8f: {
+        // 5a8f: mov bx, 0x14
+        m.tick(0x5a8f);
+        m.bx = 20 & 0xffff;
+        ip = 0x5a92;
+        break;
+      }
+      case 0x5a92: {
+        // 5a92: jmp 0x5a87
+        m.tick(0x5a92);
+        ip = true ? 0x5a87 : 0x5a94;
+        break;
+      }
+      case 0x5a94: {
+        // 5a94: mov word ptr [bx], es
+        m.tick(0x5a94);
+        m.write16(m.ds, (m.bx) & 0xffff, m.es);
+        ip = 0x5a96;
+        break;
+      }
+      case 0x5a96: {
+        // 5a96: mov word ptr es:[0x14], ax
+        m.tick(0x5a96);
+        m.write16(m.es, (20) & 0xffff, m.ax);
+        ip = 0x5a9a;
+        break;
+      }
+      case 0x5a9a: {
+        // 5a9a: pop ds
+        m.tick(0x5a9a);
+        m.ds = m.pop();
+        ip = 0x5a9b;
+        break;
+      }
+      case 0x5a9b: {
+        // 5a9b: ret 
+        m.tick(0x5a9b);
+        m.retn(0);
+        return;
+      }
+      default:
+        throw new Error(`exe_059e4 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x5a9c. */
+export function exe_05a9c(m: Cpu): void {
+  let ip = 0x5a9c;
+  while (true) {
+    switch (ip) {
+      case 0x5a9c: {
+        // 5a9c: mov ax, word ptr es:[8]
+        m.tick(0x5a9c);
+        m.ax = m.read16(m.es, (8) & 0xffff);
+        ip = 0x5aa0;
+        break;
+      }
+      case 0x5aa0: {
+        // 5aa0: add ax, 0xf
+        m.tick(0x5aa0);
+        m.ax = m.setAddFlags(16, m.ax, 15);
+        ip = 0x5aa3;
+        break;
+      }
+      case 0x5aa3: {
+        // 5aa3: mov cl, 4
+        m.tick(0x5aa3);
+        m.cl = 4 & 0xff;
+        ip = 0x5aa5;
+        break;
+      }
+      case 0x5aa5: {
+        // 5aa5: shr ax, cl
+        m.tick(0x5aa5);
+        { const n = m.cl & 31; if (n) { m.cf = ((m.ax >>> (n - 1)) & 1) !== 0; m.ax = (m.ax >>> n) & 0xffff; m.zf = m.ax === 0; m.sf = (m.ax & 0x8000) !== 0; } }
+        ip = 0x5aa7;
+        break;
+      }
+      case 0x5aa7: {
+        // 5aa7: ret 
+        m.tick(0x5aa7);
+        m.retn(0);
+        return;
+      }
+      default:
+        throw new Error(`exe_05a9c ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x5b05. */
+export function exe_05b05(m: Cpu): void {
+  let ip = 0x5b05;
+  while (true) {
+    switch (ip) {
+      case 0x5b05: {
+        // 5b05: push bp
+        m.tick(0x5b05);
+        m.push(m.bp);
+        ip = 0x5b06;
+        break;
+      }
+      case 0x5b06: {
+        // 5b06: mov ax, word ptr [0x435e]
+        m.tick(0x5b06);
+        m.ax = m.read16(m.ds, (17246) & 0xffff);
+        ip = 0x5b09;
+        break;
+      }
+      case 0x5b09: {
+        // 5b09: mov dx, word ptr es:[0x10]
+        m.tick(0x5b09);
+        m.dx = m.read16(m.es, (16) & 0xffff);
+        ip = 0x5b0e;
+        break;
+      }
+      case 0x5b0e: {
+        // 5b0e: mov word ptr es:[0x10], ax
+        m.tick(0x5b0e);
+        m.write16(m.es, (16) & 0xffff, m.ax);
+        ip = 0x5b12;
+        break;
+      }
+      case 0x5b12: {
+        // 5b12: jmp 0x5b17
+        m.tick(0x5b12);
+        ip = true ? 0x5b17 : 0x5b14;
+        break;
+      }
+      case 0x5b14: {
+        // 5b14: mov bp, word ptr [bp]
+        m.tick(0x5b14);
+        m.bp = m.read16(m.ss, (m.bp) & 0xffff);
+        ip = 0x5b17;
+        break;
+      }
+      case 0x5b17: {
+        // 5b17: or bp, bp
+        m.tick(0x5b17);
+        m.bp = (m.bp | m.bp) & 0xffff; m.setLogicFlags(16, m.bp);
+        ip = 0x5b19;
+        break;
+      }
+      case 0x5b19: {
+        // 5b19: je 0x5b25
+        m.tick(0x5b19);
+        ip = m.zf ? 0x5b25 : 0x5b1b;
+        break;
+      }
+      case 0x5b1b: {
+        // 5b1b: cmp dx, word ptr [bp + 4]
+        m.tick(0x5b1b);
+        m.setSubFlags(16, m.dx, m.read16(m.ss, (m.bp + 4) & 0xffff));
+        ip = 0x5b1e;
+        break;
+      }
+      case 0x5b1e: {
+        // 5b1e: jne 0x5b14
+        m.tick(0x5b1e);
+        ip = !m.zf ? 0x5b14 : 0x5b20;
+        break;
+      }
+      case 0x5b20: {
+        // 5b20: mov word ptr [bp + 4], ax
+        m.tick(0x5b20);
+        m.write16(m.ss, (m.bp + 4) & 0xffff, m.ax);
+        ip = 0x5b23;
+        break;
+      }
+      case 0x5b23: {
+        // 5b23: jmp 0x5b14
+        m.tick(0x5b23);
+        ip = true ? 0x5b14 : 0x5b25;
+        break;
+      }
+      case 0x5b25: {
+        // 5b25: pop bp
+        m.tick(0x5b25);
+        m.bp = m.pop();
+        ip = 0x5b26;
+        break;
+      }
+      case 0x5b26: {
+        // 5b26: mov cx, word ptr es:[8]
+        m.tick(0x5b26);
+        m.cx = m.read16(m.es, (8) & 0xffff);
+        ip = 0x5b2b;
+        break;
+      }
+      case 0x5b2b: {
+        // 5b2b: push ds
+        m.tick(0x5b2b);
+        m.push(m.ds);
+        ip = 0x5b2c;
+        break;
+      }
+      case 0x5b2c: {
+        // 5b2c: push es
+        m.tick(0x5b2c);
+        m.push(m.es);
+        ip = 0x5b2d;
+        break;
+      }
+      case 0x5b2d: {
+        // 5b2d: mov ds, dx
+        m.tick(0x5b2d);
+        m.ds = m.dx;
+        ip = 0x5b2f;
+        break;
+      }
+      case 0x5b2f: {
+        // 5b2f: mov es, ax
+        m.tick(0x5b2f);
+        m.es = m.ax;
+        ip = 0x5b31;
+        break;
+      }
+      case 0x5b31: {
+        // 5b31: mov si, cx
+        m.tick(0x5b31);
+        m.si = m.cx;
+        ip = 0x5b33;
+        break;
+      }
+      case 0x5b33: {
+        // 5b33: mov di, cx
+        m.tick(0x5b33);
+        m.di = m.cx;
+        ip = 0x5b35;
+        break;
+      }
+      case 0x5b35: {
+        // 5b35: std 
+        m.tick(0x5b35);
+        m.df = true;
+        ip = 0x5b36;
+        break;
+      }
+      case 0x5b36: {
+        // 5b36: dec si
+        m.tick(0x5b36);
+        { const saved = m.cf; m.si = m.setSubFlags(16, m.si, 1); m.cf = saved; }
+        ip = 0x5b37;
+        break;
+      }
+      case 0x5b37: {
+        // 5b37: dec di
+        m.tick(0x5b37);
+        { const saved = m.cf; m.di = m.setSubFlags(16, m.di, 1); m.cf = saved; }
+        ip = 0x5b38;
+        break;
+      }
+      case 0x5b38: {
+        // 5b38: shr cx, 1
+        m.tick(0x5b38);
+        { m.cf = (m.cx & 1) !== 0; m.cx = (m.cx >>> 1) & 0xffff; m.zf = m.cx === 0; m.sf = false; }
+        ip = 0x5b3a;
+        break;
+      }
+      case 0x5b3a: {
+        // 5b3a: jae 0x5b3d
+        m.tick(0x5b3a);
+        ip = !m.cf ? 0x5b3d : 0x5b3c;
+        break;
+      }
+      case 0x5b3c: {
+        // 5b3c: movsb byte ptr es:[di], byte ptr [si]
+        m.tick(0x5b3c);
+        m.write8(m.es, m.di, m.read8(m.ds, m.si)); m.si = (m.si + (m.df ? -1 : 1)) & 0xffff; m.di = (m.di + (m.df ? -1 : 1)) & 0xffff;
+        ip = 0x5b3d;
+        break;
+      }
+      case 0x5b3d: {
+        // 5b3d: dec si
+        m.tick(0x5b3d);
+        { const saved = m.cf; m.si = m.setSubFlags(16, m.si, 1); m.cf = saved; }
+        ip = 0x5b3e;
+        break;
+      }
+      case 0x5b3e: {
+        // 5b3e: dec di
+        m.tick(0x5b3e);
+        { const saved = m.cf; m.di = m.setSubFlags(16, m.di, 1); m.cf = saved; }
+        ip = 0x5b3f;
+        break;
+      }
+      case 0x5b3f: {
+        // 5b3f: rep movsw word ptr es:[di], word ptr [si]
+        m.tick(0x5b3f);
+        while (m.cx) { m.write16(m.es, m.di, m.read16(m.ds, m.si)); m.si = (m.si + (m.df ? -2 : 2)) & 0xffff; m.di = (m.di + (m.df ? -2 : 2)) & 0xffff; m.cx = (m.cx - 1) & 0xffff; }
+        ip = 0x5b41;
+        break;
+      }
+      case 0x5b41: {
+        // 5b41: pop es
+        m.tick(0x5b41);
+        m.es = m.pop();
+        ip = 0x5b42;
+        break;
+      }
+      case 0x5b42: {
+        // 5b42: pop ds
+        m.tick(0x5b42);
+        m.ds = m.pop();
+        ip = 0x5b43;
+        break;
+      }
+      case 0x5b43: {
+        // 5b43: mov cx, word ptr es:[0xc]
+        m.tick(0x5b43);
+        m.cx = m.read16(m.es, (12) & 0xffff);
+        ip = 0x5b48;
+        break;
+      }
+      case 0x5b48: {
+        // 5b48: mov di, 0x23
+        m.tick(0x5b48);
+        m.di = 35 & 0xffff;
+        ip = 0x5b4b;
+        break;
+      }
+      case 0x5b4b: {
+        // 5b4b: cld 
+        m.tick(0x5b4b);
+        m.df = false;
+        ip = 0x5b4c;
+        break;
+      }
+      case 0x5b4c: {
+        // 5b4c: stosw word ptr es:[di], ax
+        m.tick(0x5b4c);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x5b4d;
+        break;
+      }
+      case 0x5b4d: {
+        // 5b4d: add di, 3
+        m.tick(0x5b4d);
+        m.di = m.setAddFlags(16, m.di, 3);
+        ip = 0x5b50;
+        break;
+      }
+      case 0x5b50: {
+        // 5b50: loop 0x5b4c
+        m.tick(0x5b50);
+        m.cx = (m.cx - 1) & 0xffff;
+        ip = m.cx !== 0 && (true) ? 0x5b4c : 0x5b52;
+        break;
+      }
+      case 0x5b52: {
+        // 5b52: ret 
+        m.tick(0x5b52);
+        m.retn(0);
+        return;
+      }
+      default:
+        throw new Error(`exe_05b05 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x5b53. */
+export function exe_05b53(m: Cpu): void {
+  let ip = 0x5b53;
+  while (true) {
+    switch (ip) {
+      case 0x5b53: {
+        // 5b53: push bp
+        m.tick(0x5b53);
+        m.push(m.bp);
+        ip = 0x5b54;
+        break;
+      }
+      case 0x5b54: {
+        // 5b54: xor ax, ax
+        m.tick(0x5b54);
+        m.ax = 0; m.setLogicFlags(16, 0);
+        ip = 0x5b56;
+        break;
+      }
+      case 0x5b56: {
+        // 5b56: xchg word ptr es:[0x10], ax
+        m.tick(0x5b56);
+        { const t = m.read16(m.es, (16) & 0xffff); m.write16(m.es, (16) & 0xffff, m.ax); m.ax = t; }
+        ip = 0x5b5b;
+        break;
+      }
+      case 0x5b5b: {
+        // 5b5b: jmp 0x5b60
+        m.tick(0x5b5b);
+        ip = true ? 0x5b60 : 0x5b5d;
+        break;
+      }
+      case 0x5b5d: {
+        // 5b5d: mov bp, word ptr [bp]
+        m.tick(0x5b5d);
+        m.bp = m.read16(m.ss, (m.bp) & 0xffff);
+        ip = 0x5b60;
+        break;
+      }
+      case 0x5b60: {
+        // 5b60: or bp, bp
+        m.tick(0x5b60);
+        m.bp = (m.bp | m.bp) & 0xffff; m.setLogicFlags(16, m.bp);
+        ip = 0x5b62;
+        break;
+      }
+      case 0x5b62: {
+        // 5b62: je 0x5b69
+        m.tick(0x5b62);
+        ip = m.zf ? 0x5b69 : 0x5b64;
+        break;
+      }
+      case 0x5b64: {
+        // 5b64: cmp ax, word ptr [bp + 4]
+        m.tick(0x5b64);
+        m.setSubFlags(16, m.ax, m.read16(m.ss, (m.bp + 4) & 0xffff));
+        ip = 0x5b67;
+        break;
+      }
+      case 0x5b67: {
+        // 5b67: jne 0x5b5d
+        m.tick(0x5b67);
+        ip = !m.zf ? 0x5b5d : 0x5b69;
+        break;
+      }
+      case 0x5b69: {
+        // 5b69: mov word ptr es:[0x12], bp
+        m.tick(0x5b69);
+        m.write16(m.es, (18) & 0xffff, m.bp);
+        ip = 0x5b6e;
+        break;
+      }
+      case 0x5b6e: {
+        // 5b6e: or bp, bp
+        m.tick(0x5b6e);
+        m.bp = (m.bp | m.bp) & 0xffff; m.setLogicFlags(16, m.bp);
+        ip = 0x5b70;
+        break;
+      }
+      case 0x5b70: {
+        // 5b70: je 0x5b90
+        m.tick(0x5b70);
+        ip = m.zf ? 0x5b90 : 0x5b72;
+        break;
+      }
+      case 0x5b72: {
+        // 5b72: mov bx, word ptr [bp + 2]
+        m.tick(0x5b72);
+        m.bx = m.read16(m.ss, (m.bp + 2) & 0xffff);
+        ip = 0x5b75;
+        break;
+      }
+      case 0x5b75: {
+        // 5b75: mov word ptr es:[2], bx
+        m.tick(0x5b75);
+        m.write16(m.es, (2) & 0xffff, m.bx);
+        ip = 0x5b7a;
+        break;
+      }
+      case 0x5b7a: {
+        // 5b7a: mov word ptr [bp + 2], 0
+        m.tick(0x5b7a);
+        m.write16(m.ss, (m.bp + 2) & 0xffff, 0);
+        ip = 0x5b7f;
+        break;
+      }
+      case 0x5b7f: {
+        // 5b7f: mov word ptr [bp + 4], es
+        m.tick(0x5b7f);
+        m.write16(m.ss, (m.bp + 4) & 0xffff, m.es);
+        ip = 0x5b82;
+        break;
+      }
+      case 0x5b82: {
+        // 5b82: mov bp, word ptr [bp]
+        m.tick(0x5b82);
+        m.bp = m.read16(m.ss, (m.bp) & 0xffff);
+        ip = 0x5b85;
+        break;
+      }
+      case 0x5b85: {
+        // 5b85: or bp, bp
+        m.tick(0x5b85);
+        m.bp = (m.bp | m.bp) & 0xffff; m.setLogicFlags(16, m.bp);
+        ip = 0x5b87;
+        break;
+      }
+      case 0x5b87: {
+        // 5b87: je 0x5b90
+        m.tick(0x5b87);
+        ip = m.zf ? 0x5b90 : 0x5b89;
+        break;
+      }
+      case 0x5b89: {
+        // 5b89: cmp ax, word ptr [bp + 4]
+        m.tick(0x5b89);
+        m.setSubFlags(16, m.ax, m.read16(m.ss, (m.bp + 4) & 0xffff));
+        ip = 0x5b8c;
+        break;
+      }
+      case 0x5b8c: {
+        // 5b8c: jne 0x5b82
+        m.tick(0x5b8c);
+        ip = !m.zf ? 0x5b82 : 0x5b8e;
+        break;
+      }
+      case 0x5b8e: {
+        // 5b8e: jmp 0x5b7f
+        m.tick(0x5b8e);
+        ip = true ? 0x5b7f : 0x5b90;
+        break;
+      }
+      case 0x5b90: {
+        // 5b90: pop bp
+        m.tick(0x5b90);
+        m.bp = m.pop();
+        ip = 0x5b91;
+        break;
+      }
+      case 0x5b91: {
+        // 5b91: mov cx, word ptr es:[0xc]
+        m.tick(0x5b91);
+        m.cx = m.read16(m.es, (12) & 0xffff);
+        ip = 0x5b96;
+        break;
+      }
+      case 0x5b96: {
+        // 5b96: mov di, 0x20
+        m.tick(0x5b96);
+        m.di = 32 & 0xffff;
+        ip = 0x5b99;
+        break;
+      }
+      case 0x5b99: {
+        // 5b99: cld 
+        m.tick(0x5b99);
+        m.df = false;
+        ip = 0x5b9a;
+        break;
+      }
+      case 0x5b9a: {
+        // 5b9a: mov dx, word ptr es:[di + 1]
+        m.tick(0x5b9a);
+        m.dx = m.read16(m.es, (m.di + 1) & 0xffff);
+        ip = 0x5b9e;
+        break;
+      }
+      case 0x5b9e: {
+        // 5b9e: mov ax, 0x3fcd
+        m.tick(0x5b9e);
+        m.ax = 16333 & 0xffff;
+        ip = 0x5ba1;
+        break;
+      }
+      case 0x5ba1: {
+        // 5ba1: stosw word ptr es:[di], ax
+        m.tick(0x5ba1);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x5ba2;
+        break;
+      }
+      case 0x5ba2: {
+        // 5ba2: mov ax, dx
+        m.tick(0x5ba2);
+        m.ax = m.dx;
+        ip = 0x5ba4;
+        break;
+      }
+      case 0x5ba4: {
+        // 5ba4: stosw word ptr es:[di], ax
+        m.tick(0x5ba4);
+        m.write16(m.es, m.di, m.ax); m.di = (m.di + (m.df ? -2 : 2)) & 0xffff;
+        ip = 0x5ba5;
+        break;
+      }
+      case 0x5ba5: {
+        // 5ba5: xor al, al
+        m.tick(0x5ba5);
+        m.al = 0; m.setLogicFlags(8, 0);
+        ip = 0x5ba7;
+        break;
+      }
+      case 0x5ba7: {
+        // 5ba7: stosb byte ptr es:[di], al
+        m.tick(0x5ba7);
+        m.write8(m.es, m.di, m.al); m.di = (m.di + (m.df ? -1 : 1)) & 0xffff;
+        ip = 0x5ba8;
+        break;
+      }
+      case 0x5ba8: {
+        // 5ba8: loop 0x5b9a
+        m.tick(0x5ba8);
+        m.cx = (m.cx - 1) & 0xffff;
+        ip = m.cx !== 0 && (true) ? 0x5b9a : 0x5baa;
+        break;
+      }
+      case 0x5baa: {
+        // 5baa: ret 
+        m.tick(0x5baa);
+        m.retn(0);
+        return;
+      }
+      default:
+        throw new Error(`exe_05b53 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
 /** START.EXE image 0x5bb0. */
 export function exe_05bb0(m: Cpu): void {
   let ip = 0x5bb0;
@@ -26644,7 +29164,7 @@ export function exe_05e44(m: Cpu): void {
       case 0x5e87: {
         // 5e87: dec bp
         m.tick(0x5e87);
-        { const carry = m.cf; m.bp = m.setSubFlags(16, m.bp, 1); m.cf = carry; }
+        { const saved = m.cf; m.bp = m.setSubFlags(16, m.bp, 1); m.cf = saved; }
         ip = 0x5e88;
         break;
       }
@@ -33213,7 +35733,7 @@ export function exe_06687(m: Cpu): void {
       case 0x66d0: {
         // 66d0: dec bp
         m.tick(0x66d0);
-        { const carry = m.cf; m.bp = m.setSubFlags(16, m.bp, 1); m.cf = carry; }
+        { const saved = m.cf; m.bp = m.setSubFlags(16, m.bp, 1); m.cf = saved; }
         ip = 0x66d1;
         break;
       }
@@ -37262,7 +39782,7 @@ export function exe_06b7b(m: Cpu): void {
       case 0x6b92: {
         // 6b92: inc word ptr [di]
         m.tick(0x6b92);
-        { const a = m.read16(m.ds, (m.di) & 0xffff); const saved = m.cf; const r = m.setAddFlags(16, a, 1); m.write16(m.ds, (m.di) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read16(m.ds, (m.di) & 0xffff); const r = m.setAddFlags(16, a, 1); m.write16(m.ds, (m.di) & 0xffff, r); m.cf = saved; }
         ip = 0x6b94;
         break;
       }
@@ -40159,6 +42679,304 @@ export function exe_06e7a(m: Cpu): void {
   }
 }
 
+/** START.EXE image 0x6eb8. */
+export function exe_06eb8(m: Cpu): void {
+  let ip = 0x6eb8;
+  while (true) {
+    switch (ip) {
+      case 0x6eb8: {
+        // 6eb8: push bp
+        m.tick(0x6eb8);
+        m.push(m.bp);
+        ip = 0x6eb9;
+        break;
+      }
+      case 0x6eb9: {
+        // 6eb9: mov bp, sp
+        m.tick(0x6eb9);
+        m.bp = m.sp;
+        ip = 0x6ebb;
+        break;
+      }
+      case 0x6ebb: {
+        // 6ebb: sub sp, 0x20
+        m.tick(0x6ebb);
+        m.sp = (m.sp - 32) & 0xffff;
+        ip = 0x6ebe;
+        break;
+      }
+      case 0x6ebe: {
+        // 6ebe: les di, ptr [bp + 6]
+        m.tick(0x6ebe);
+        { const base = (m.bp + 6) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x6ec1;
+        break;
+      }
+      case 0x6ec1: {
+        // 6ec1: push es
+        m.tick(0x6ec1);
+        m.push(m.es);
+        ip = 0x6ec2;
+        break;
+      }
+      case 0x6ec2: {
+        // 6ec2: push di
+        m.tick(0x6ec2);
+        m.push(m.di);
+        ip = 0x6ec3;
+        break;
+      }
+      case 0x6ec3: {
+        // 6ec3: call 0x6ce5
+        m.tick(0x6ec3);
+        m.push(0x6ec6);
+        nearCall(m, 0x6ce5);
+        ip = 0x6ec6;
+        break;
+      }
+      case 0x6ec6: {
+        // 6ec6: mov si, 0
+        m.tick(0x6ec6);
+        m.si = 0 & 0xffff;
+        ip = 0x6ec9;
+        break;
+      }
+      case 0x6ec9: {
+        // 6ec9: jne 0x6eec
+        m.tick(0x6ec9);
+        ip = !m.zf ? 0x6eec : 0x6ecb;
+        break;
+      }
+      case 0x6ecb: {
+        // 6ecb: call 0x6d09
+        m.tick(0x6ecb);
+        m.push(0x6ece);
+        nearCall(m, 0x6d09);
+        ip = 0x6ece;
+        break;
+      }
+      case 0x6ece: {
+        // 6ece: cmp al, 0x1a
+        m.tick(0x6ece);
+        m.setSubFlags(8, m.al, 26);
+        ip = 0x6ed0;
+        break;
+      }
+      case 0x6ed0: {
+        // 6ed0: je 0x6eec
+        m.tick(0x6ed0);
+        ip = m.zf ? 0x6eec : 0x6ed2;
+        break;
+      }
+      case 0x6ed2: {
+        // 6ed2: cmp al, 0x20
+        m.tick(0x6ed2);
+        m.setSubFlags(8, m.al, 32);
+        ip = 0x6ed4;
+        break;
+      }
+      case 0x6ed4: {
+        // 6ed4: ja 0x6ed9
+        m.tick(0x6ed4);
+        ip = !m.cf && !m.zf ? 0x6ed9 : 0x6ed6;
+        break;
+      }
+      case 0x6ed6: {
+        // 6ed6: inc bx
+        m.tick(0x6ed6);
+        { const saved = m.cf; m.bx = m.setAddFlags(16, m.bx, 1); m.cf = saved; }
+        ip = 0x6ed7;
+        break;
+      }
+      case 0x6ed7: {
+        // 6ed7: jmp 0x6ecb
+        m.tick(0x6ed7);
+        ip = true ? 0x6ecb : 0x6ed9;
+        break;
+      }
+      case 0x6ed9: {
+        // 6ed9: call 0x6d09
+        m.tick(0x6ed9);
+        m.push(0x6edc);
+        nearCall(m, 0x6d09);
+        ip = 0x6edc;
+        break;
+      }
+      case 0x6edc: {
+        // 6edc: cmp al, 0x20
+        m.tick(0x6edc);
+        m.setSubFlags(8, m.al, 32);
+        ip = 0x6ede;
+        break;
+      }
+      case 0x6ede: {
+        // 6ede: jbe 0x6eec
+        m.tick(0x6ede);
+        ip = m.cf || m.zf ? 0x6eec : 0x6ee0;
+        break;
+      }
+      case 0x6ee0: {
+        // 6ee0: inc bx
+        m.tick(0x6ee0);
+        { const saved = m.cf; m.bx = m.setAddFlags(16, m.bx, 1); m.cf = saved; }
+        ip = 0x6ee1;
+        break;
+      }
+      case 0x6ee1: {
+        // 6ee1: cmp si, 0x20
+        m.tick(0x6ee1);
+        m.setSubFlags(16, m.si, 32);
+        ip = 0x6ee4;
+        break;
+      }
+      case 0x6ee4: {
+        // 6ee4: je 0x6ed9
+        m.tick(0x6ee4);
+        ip = m.zf ? 0x6ed9 : 0x6ee6;
+        break;
+      }
+      case 0x6ee6: {
+        // 6ee6: mov byte ptr [bp + si - 0x20], al
+        m.tick(0x6ee6);
+        m.write8(m.ss, (m.bp + m.si + -32) & 0xffff, m.al);
+        ip = 0x6ee9;
+        break;
+      }
+      case 0x6ee9: {
+        // 6ee9: inc si
+        m.tick(0x6ee9);
+        { const saved = m.cf; m.si = m.setAddFlags(16, m.si, 1); m.cf = saved; }
+        ip = 0x6eea;
+        break;
+      }
+      case 0x6eea: {
+        // 6eea: jmp 0x6ed9
+        m.tick(0x6eea);
+        ip = true ? 0x6ed9 : 0x6eec;
+        break;
+      }
+      case 0x6eec: {
+        // 6eec: pop di
+        m.tick(0x6eec);
+        m.di = m.pop();
+        ip = 0x6eed;
+        break;
+      }
+      case 0x6eed: {
+        // 6eed: pop es
+        m.tick(0x6eed);
+        m.es = m.pop();
+        ip = 0x6eee;
+        break;
+      }
+      case 0x6eee: {
+        // 6eee: mov word ptr es:[di + 8], bx
+        m.tick(0x6eee);
+        m.write16(m.es, (m.di + 8) & 0xffff, m.bx);
+        ip = 0x6ef2;
+        break;
+      }
+      case 0x6ef2: {
+        // 6ef2: mov cx, si
+        m.tick(0x6ef2);
+        m.cx = m.si;
+        ip = 0x6ef4;
+        break;
+      }
+      case 0x6ef4: {
+        // 6ef4: jcxz 0x6f08
+        m.tick(0x6ef4);
+        ip = m.cx === 0 ? 0x6f08 : 0x6ef6;
+        break;
+      }
+      case 0x6ef6: {
+        // 6ef6: lea di, [bp - 0x20]
+        m.tick(0x6ef6);
+        m.di = (m.bp + -32) & 0xffff;
+        ip = 0x6ef9;
+        break;
+      }
+      case 0x6ef9: {
+        // 6ef9: push ss
+        m.tick(0x6ef9);
+        m.push(m.ss);
+        ip = 0x6efa;
+        break;
+      }
+      case 0x6efa: {
+        // 6efa: pop es
+        m.tick(0x6efa);
+        m.es = m.pop();
+        ip = 0x6efb;
+        break;
+      }
+      case 0x6efb: {
+        // 6efb: call 0x6952
+        m.tick(0x6efb);
+        m.push(0x6efe);
+        nearCall(m, 0x6952);
+        ip = 0x6efe;
+        break;
+      }
+      case 0x6efe: {
+        // 6efe: jb 0x6f02
+        m.tick(0x6efe);
+        ip = m.cf ? 0x6f02 : 0x6f00;
+        break;
+      }
+      case 0x6f00: {
+        // 6f00: jcxz 0x6f0c
+        m.tick(0x6f00);
+        ip = m.cx === 0 ? 0x6f0c : 0x6f02;
+        break;
+      }
+      case 0x6f02: {
+        // 6f02: mov word ptr [0x4388], 0x6a
+        m.tick(0x6f02);
+        m.write16(m.ds, (17288) & 0xffff, 106);
+        ip = 0x6f08;
+        break;
+      }
+      case 0x6f08: {
+        // 6f08: xor ax, ax
+        m.tick(0x6f08);
+        m.ax = 0; m.setLogicFlags(16, 0);
+        ip = 0x6f0a;
+        break;
+      }
+      case 0x6f0a: {
+        // 6f0a: mov dx, ax
+        m.tick(0x6f0a);
+        m.dx = m.ax;
+        ip = 0x6f0c;
+        break;
+      }
+      case 0x6f0c: {
+        // 6f0c: mov sp, bp
+        m.tick(0x6f0c);
+        m.sp = m.bp;
+        ip = 0x6f0e;
+        break;
+      }
+      case 0x6f0e: {
+        // 6f0e: pop bp
+        m.tick(0x6f0e);
+        m.bp = m.pop();
+        ip = 0x6f0f;
+        break;
+      }
+      case 0x6f0f: {
+        // 6f0f: retf 
+        m.tick(0x6f0f);
+        m.retf(0);
+        return;
+      }
+      default:
+        throw new Error(`exe_06eb8 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
 /** START.EXE image 0x6f10. */
 export function exe_06f10(m: Cpu): void {
   let ip = 0x6f10;
@@ -41513,6 +44331,263 @@ export function exe_06fd6(m: Cpu): void {
   }
 }
 
+/** START.EXE image 0x6fdc. */
+export function exe_06fdc(m: Cpu): void {
+  let ip = 0x6fdc;
+  while (true) {
+    switch (ip) {
+      case 0x6fdc: {
+        // 6fdc: push bp
+        m.tick(0x6fdc);
+        m.push(m.bp);
+        ip = 0x6fdd;
+        break;
+      }
+      case 0x6fdd: {
+        // 6fdd: mov bp, sp
+        m.tick(0x6fdd);
+        m.bp = m.sp;
+        ip = 0x6fdf;
+        break;
+      }
+      case 0x6fdf: {
+        // 6fdf: les di, ptr [bp + 8]
+        m.tick(0x6fdf);
+        { const base = (m.bp + 8) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x6fe2;
+        break;
+      }
+      case 0x6fe2: {
+        // 6fe2: cmp word ptr es:[di + 2], 0xd7b0
+        m.tick(0x6fe2);
+        m.setSubFlags(16, m.read16(m.es, (m.di + 2) & 0xffff), 55216);
+        ip = 0x6fe8;
+        break;
+      }
+      case 0x6fe8: {
+        // 6fe8: je 0x7004
+        m.tick(0x6fe8);
+        ip = m.zf ? 0x7004 : 0x6fea;
+        break;
+      }
+      case 0x6fea: {
+        // 6fea: cmp word ptr es:[di + 2], 0xd7b3
+        m.tick(0x6fea);
+        m.setSubFlags(16, m.read16(m.es, (m.di + 2) & 0xffff), 55219);
+        ip = 0x6ff0;
+        break;
+      }
+      case 0x6ff0: {
+        // 6ff0: je 0x6ffa
+        m.tick(0x6ff0);
+        ip = m.zf ? 0x6ffa : 0x6ff2;
+        break;
+      }
+      case 0x6ff2: {
+        // 6ff2: mov word ptr [0x4388], 0x66
+        m.tick(0x6ff2);
+        m.write16(m.ds, (17288) & 0xffff, 102);
+        ip = 0x6ff8;
+        break;
+      }
+      case 0x6ff8: {
+        // 6ff8: jmp 0x702e
+        m.tick(0x6ff8);
+        ip = true ? 0x702e : 0x6ffa;
+        break;
+      }
+      case 0x6ffa: {
+        // 6ffa: push ax
+        m.tick(0x6ffa);
+        m.push(m.ax);
+        ip = 0x6ffb;
+        break;
+      }
+      case 0x6ffb: {
+        // 6ffb: push dx
+        m.tick(0x6ffb);
+        m.push(m.dx);
+        ip = 0x6ffc;
+        break;
+      }
+      case 0x6ffc: {
+        // 6ffc: push es
+        m.tick(0x6ffc);
+        m.push(m.es);
+        ip = 0x6ffd;
+        break;
+      }
+      case 0x6ffd: {
+        // 6ffd: push di
+        m.tick(0x6ffd);
+        m.push(m.di);
+        ip = 0x6ffe;
+        break;
+      }
+      case 0x6ffe: {
+        // 6ffe: push cs
+        m.tick(0x6ffe);
+        m.push(m.cs);
+        ip = 0x6fff;
+        break;
+      }
+      case 0x6fff: {
+        // 6fff: call 0x704e
+        m.tick(0x6fff);
+        m.push(0x7002);
+        nearCall(m, 0x704e);
+        ip = 0x7002;
+        break;
+      }
+      case 0x7002: {
+        // 7002: pop dx
+        m.tick(0x7002);
+        m.dx = m.pop();
+        ip = 0x7003;
+        break;
+      }
+      case 0x7003: {
+        // 7003: pop ax
+        m.tick(0x7003);
+        m.ax = m.pop();
+        ip = 0x7004;
+        break;
+      }
+      case 0x7004: {
+        // 7004: cmp byte ptr es:[di + 0x30], 0
+        m.tick(0x7004);
+        m.setSubFlags(8, m.read8(m.es, (m.di + 48) & 0xffff), 0);
+        ip = 0x7009;
+        break;
+      }
+      case 0x7009: {
+        // 7009: je 0x701d
+        m.tick(0x7009);
+        ip = m.zf ? 0x701d : 0x700b;
+        break;
+      }
+      case 0x700b: {
+        // 700b: push ds
+        m.tick(0x700b);
+        m.push(m.ds);
+        ip = 0x700c;
+        break;
+      }
+      case 0x700c: {
+        // 700c: lea dx, [di + 0x30]
+        m.tick(0x700c);
+        m.dx = (m.di + 48) & 0xffff;
+        ip = 0x700f;
+        break;
+      }
+      case 0x700f: {
+        // 700f: push es
+        m.tick(0x700f);
+        m.push(m.es);
+        ip = 0x7010;
+        break;
+      }
+      case 0x7010: {
+        // 7010: pop ds
+        m.tick(0x7010);
+        m.ds = m.pop();
+        ip = 0x7011;
+        break;
+      }
+      case 0x7011: {
+        // 7011: xor cx, cx
+        m.tick(0x7011);
+        m.cx = 0; m.setLogicFlags(16, 0);
+        ip = 0x7013;
+        break;
+      }
+      case 0x7013: {
+        // 7013: int 0x21
+        m.tick(0x7013);
+        m.intr(33);
+        ip = 0x7015;
+        break;
+      }
+      case 0x7015: {
+        // 7015: pop ds
+        m.tick(0x7015);
+        m.ds = m.pop();
+        ip = 0x7016;
+        break;
+      }
+      case 0x7016: {
+        // 7016: jae 0x701e
+        m.tick(0x7016);
+        ip = !m.cf ? 0x701e : 0x7018;
+        break;
+      }
+      case 0x7018: {
+        // 7018: mov word ptr [0x4388], ax
+        m.tick(0x7018);
+        m.write16(m.ds, (17288) & 0xffff, m.ax);
+        ip = 0x701b;
+        break;
+      }
+      case 0x701b: {
+        // 701b: jmp 0x702e
+        m.tick(0x701b);
+        ip = true ? 0x702e : 0x701d;
+        break;
+      }
+      case 0x701d: {
+        // 701d: xchg dx, ax
+        m.tick(0x701d);
+        { const t = m.dx; m.dx = m.ax; m.ax = t; }
+        ip = 0x701e;
+        break;
+      }
+      case 0x701e: {
+        // 701e: mov word ptr es:[di + 2], 0xd7b3
+        m.tick(0x701e);
+        m.write16(m.es, (m.di + 2) & 0xffff, 55219);
+        ip = 0x7024;
+        break;
+      }
+      case 0x7024: {
+        // 7024: mov word ptr es:[di], ax
+        m.tick(0x7024);
+        m.write16(m.es, (m.di) & 0xffff, m.ax);
+        ip = 0x7027;
+        break;
+      }
+      case 0x7027: {
+        // 7027: mov ax, word ptr [bp + 6]
+        m.tick(0x7027);
+        m.ax = m.read16(m.ss, (m.bp + 6) & 0xffff);
+        ip = 0x702a;
+        break;
+      }
+      case 0x702a: {
+        // 702a: mov word ptr es:[di + 4], ax
+        m.tick(0x702a);
+        m.write16(m.es, (m.di + 4) & 0xffff, m.ax);
+        ip = 0x702e;
+        break;
+      }
+      case 0x702e: {
+        // 702e: pop bp
+        m.tick(0x702e);
+        m.bp = m.pop();
+        ip = 0x702f;
+        break;
+      }
+      case 0x702f: {
+        // 702f: retf 6
+        m.tick(0x702f);
+        m.retf(6);
+        return;
+      }
+      default:
+        throw new Error(`exe_06fdc ip ${ip.toString(16)}`);
+    }
+  }
+}
+
 /** START.EXE image 0x7032. */
 export function exe_07032(m: Cpu): void {
   let ip = 0x7032;
@@ -41731,6 +44806,154 @@ export function exe_07073(m: Cpu): void {
       }
       default:
         throw new Error(`exe_07073 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x708e. */
+export function exe_0708e(m: Cpu): void {
+  let ip = 0x708e;
+  while (true) {
+    switch (ip) {
+      case 0x708e: {
+        // 708e: push bp
+        m.tick(0x708e);
+        m.push(m.bp);
+        ip = 0x708f;
+        break;
+      }
+      case 0x708f: {
+        // 708f: mov bp, sp
+        m.tick(0x708f);
+        m.bp = m.sp;
+        ip = 0x7091;
+        break;
+      }
+      case 0x7091: {
+        // 7091: les di, ptr [bp + 0xa]
+        m.tick(0x7091);
+        { const base = (m.bp + 10) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x7094;
+        break;
+      }
+      case 0x7094: {
+        // 7094: call 0x7073
+        m.tick(0x7094);
+        m.push(0x7097);
+        nearCall(m, 0x7073);
+        ip = 0x7097;
+        break;
+      }
+      case 0x7097: {
+        // 7097: jne 0x70b4
+        m.tick(0x7097);
+        ip = !m.zf ? 0x70b4 : 0x7099;
+        break;
+      }
+      case 0x7099: {
+        // 7099: push ds
+        m.tick(0x7099);
+        m.push(m.ds);
+        ip = 0x709a;
+        break;
+      }
+      case 0x709a: {
+        // 709a: push dx
+        m.tick(0x709a);
+        m.push(m.dx);
+        ip = 0x709b;
+        break;
+      }
+      case 0x709b: {
+        // 709b: lds dx, ptr [bp + 6]
+        m.tick(0x709b);
+        { const base = (m.bp + 6) & 0xffff; m.dx = m.read16(m.ss, base); m.ds = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x709e;
+        break;
+      }
+      case 0x709e: {
+        // 709e: mov cx, word ptr es:[di + 4]
+        m.tick(0x709e);
+        m.cx = m.read16(m.es, (m.di + 4) & 0xffff);
+        ip = 0x70a2;
+        break;
+      }
+      case 0x70a2: {
+        // 70a2: mov bx, word ptr es:[di]
+        m.tick(0x70a2);
+        m.bx = m.read16(m.es, (m.di) & 0xffff);
+        ip = 0x70a5;
+        break;
+      }
+      case 0x70a5: {
+        // 70a5: int 0x21
+        m.tick(0x70a5);
+        m.intr(33);
+        ip = 0x70a7;
+        break;
+      }
+      case 0x70a7: {
+        // 70a7: pop dx
+        m.tick(0x70a7);
+        m.dx = m.pop();
+        ip = 0x70a8;
+        break;
+      }
+      case 0x70a8: {
+        // 70a8: pop ds
+        m.tick(0x70a8);
+        m.ds = m.pop();
+        ip = 0x70a9;
+        break;
+      }
+      case 0x70a9: {
+        // 70a9: jb 0x70b1
+        m.tick(0x70a9);
+        ip = m.cf ? 0x70b1 : 0x70ab;
+        break;
+      }
+      case 0x70ab: {
+        // 70ab: cmp ax, cx
+        m.tick(0x70ab);
+        m.setSubFlags(16, m.ax, m.cx);
+        ip = 0x70ad;
+        break;
+      }
+      case 0x70ad: {
+        // 70ad: je 0x70b4
+        m.tick(0x70ad);
+        ip = m.zf ? 0x70b4 : 0x70af;
+        break;
+      }
+      case 0x70af: {
+        // 70af: mov ax, dx
+        m.tick(0x70af);
+        m.ax = m.dx;
+        ip = 0x70b1;
+        break;
+      }
+      case 0x70b1: {
+        // 70b1: mov word ptr [0x4388], ax
+        m.tick(0x70b1);
+        m.write16(m.ds, (17288) & 0xffff, m.ax);
+        ip = 0x70b4;
+        break;
+      }
+      case 0x70b4: {
+        // 70b4: pop bp
+        m.tick(0x70b4);
+        m.bp = m.pop();
+        ip = 0x70b5;
+        break;
+      }
+      case 0x70b5: {
+        // 70b5: retf 4
+        m.tick(0x70b5);
+        m.retf(4);
+        return;
+      }
+      default:
+        throw new Error(`exe_0708e ip ${ip.toString(16)}`);
     }
   }
 }
@@ -42335,6 +45558,289 @@ export function exe_070bf(m: Cpu): void {
   }
 }
 
+/** START.EXE image 0x70c4. */
+export function exe_070c4(m: Cpu): void {
+  let ip = 0x70c4;
+  while (true) {
+    switch (ip) {
+      case 0x70c4: {
+        // 70c4: push bp
+        m.tick(0x70c4);
+        m.push(m.bp);
+        ip = 0x70c5;
+        break;
+      }
+      case 0x70c5: {
+        // 70c5: mov bp, sp
+        m.tick(0x70c5);
+        m.bp = m.sp;
+        ip = 0x70c7;
+        break;
+      }
+      case 0x70c7: {
+        // 70c7: les di, ptr [bp + 0x10]
+        m.tick(0x70c7);
+        { const base = (m.bp + 16) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x70ca;
+        break;
+      }
+      case 0x70ca: {
+        // 70ca: call 0x7073
+        m.tick(0x70ca);
+        m.push(0x70cd);
+        nearCall(m, 0x7073);
+        ip = 0x70cd;
+        break;
+      }
+      case 0x70cd: {
+        // 70cd: jne 0x710e
+        m.tick(0x70cd);
+        ip = !m.zf ? 0x710e : 0x70cf;
+        break;
+      }
+      case 0x70cf: {
+        // 70cf: mov ax, word ptr [bp + 0xa]
+        m.tick(0x70cf);
+        m.ax = m.read16(m.ss, (m.bp + 10) & 0xffff);
+        ip = 0x70d2;
+        break;
+      }
+      case 0x70d2: {
+        // 70d2: or ax, ax
+        m.tick(0x70d2);
+        m.ax = (m.ax | m.ax) & 0xffff; m.setLogicFlags(16, m.ax);
+        ip = 0x70d4;
+        break;
+      }
+      case 0x70d4: {
+        // 70d4: je 0x70f2
+        m.tick(0x70d4);
+        ip = m.zf ? 0x70f2 : 0x70d6;
+        break;
+      }
+      case 0x70d6: {
+        // 70d6: push ds
+        m.tick(0x70d6);
+        m.push(m.ds);
+        ip = 0x70d7;
+        break;
+      }
+      case 0x70d7: {
+        // 70d7: push cx
+        m.tick(0x70d7);
+        m.push(m.cx);
+        ip = 0x70d8;
+        break;
+      }
+      case 0x70d8: {
+        // 70d8: mul word ptr es:[di + 4]
+        m.tick(0x70d8);
+        { const r = m.ax * (m.read16(m.es, (m.di + 4) & 0xffff)); m.ax = r & 0xffff; m.dx = (r >>> 16) & 0xffff; m.cf = m.of = m.dx !== 0; }
+        ip = 0x70dc;
+        break;
+      }
+      case 0x70dc: {
+        // 70dc: mov cx, ax
+        m.tick(0x70dc);
+        m.cx = m.ax;
+        ip = 0x70de;
+        break;
+      }
+      case 0x70de: {
+        // 70de: lds dx, ptr [bp + 0xc]
+        m.tick(0x70de);
+        { const base = (m.bp + 12) & 0xffff; m.dx = m.read16(m.ss, base); m.ds = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x70e1;
+        break;
+      }
+      case 0x70e1: {
+        // 70e1: mov ah, bl
+        m.tick(0x70e1);
+        m.ah = m.bl;
+        ip = 0x70e3;
+        break;
+      }
+      case 0x70e3: {
+        // 70e3: mov bx, word ptr es:[di]
+        m.tick(0x70e3);
+        m.bx = m.read16(m.es, (m.di) & 0xffff);
+        ip = 0x70e6;
+        break;
+      }
+      case 0x70e6: {
+        // 70e6: int 0x21
+        m.tick(0x70e6);
+        m.intr(33);
+        ip = 0x70e8;
+        break;
+      }
+      case 0x70e8: {
+        // 70e8: pop cx
+        m.tick(0x70e8);
+        m.cx = m.pop();
+        ip = 0x70e9;
+        break;
+      }
+      case 0x70e9: {
+        // 70e9: pop ds
+        m.tick(0x70e9);
+        m.ds = m.pop();
+        ip = 0x70ea;
+        break;
+      }
+      case 0x70ea: {
+        // 70ea: jb 0x710b
+        m.tick(0x70ea);
+        ip = m.cf ? 0x710b : 0x70ec;
+        break;
+      }
+      case 0x70ec: {
+        // 70ec: xor dx, dx
+        m.tick(0x70ec);
+        m.dx = 0; m.setLogicFlags(16, 0);
+        ip = 0x70ee;
+        break;
+      }
+      case 0x70ee: {
+        // 70ee: div word ptr es:[di + 4]
+        m.tick(0x70ee);
+        { const d = m.read16(m.es, (m.di + 4) & 0xffff); if (!d) throw new Error('div0'); const n = (m.dx << 16) | m.ax; m.ax = Math.floor(n / d) & 0xffff; m.dx = (n % d) & 0xffff; }
+        ip = 0x70f2;
+        break;
+      }
+      case 0x70f2: {
+        // 70f2: les di, ptr [bp + 6]
+        m.tick(0x70f2);
+        { const base = (m.bp + 6) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x70f5;
+        break;
+      }
+      case 0x70f5: {
+        // 70f5: mov dx, es
+        m.tick(0x70f5);
+        m.dx = m.es;
+        ip = 0x70f7;
+        break;
+      }
+      case 0x70f7: {
+        // 70f7: or dx, di
+        m.tick(0x70f7);
+        m.dx = (m.dx | m.di) & 0xffff; m.setLogicFlags(16, m.dx);
+        ip = 0x70f9;
+        break;
+      }
+      case 0x70f9: {
+        // 70f9: je 0x7100
+        m.tick(0x70f9);
+        ip = m.zf ? 0x7100 : 0x70fb;
+        break;
+      }
+      case 0x70fb: {
+        // 70fb: mov word ptr es:[di], ax
+        m.tick(0x70fb);
+        m.write16(m.es, (m.di) & 0xffff, m.ax);
+        ip = 0x70fe;
+        break;
+      }
+      case 0x70fe: {
+        // 70fe: jmp 0x711c
+        m.tick(0x70fe);
+        ip = true ? 0x711c : 0x7100;
+        break;
+      }
+      case 0x7100: {
+        // 7100: cmp ax, word ptr [bp + 0xa]
+        m.tick(0x7100);
+        m.setSubFlags(16, m.ax, m.read16(m.ss, (m.bp + 10) & 0xffff));
+        ip = 0x7103;
+        break;
+      }
+      case 0x7103: {
+        // 7103: je 0x711c
+        m.tick(0x7103);
+        ip = m.zf ? 0x711c : 0x7105;
+        break;
+      }
+      case 0x7105: {
+        // 7105: mov word ptr [0x4388], cx
+        m.tick(0x7105);
+        m.write16(m.ds, (17288) & 0xffff, m.cx);
+        ip = 0x7109;
+        break;
+      }
+      case 0x7109: {
+        // 7109: jmp 0x711c
+        m.tick(0x7109);
+        ip = true ? 0x711c : 0x710b;
+        break;
+      }
+      case 0x710b: {
+        // 710b: mov word ptr [0x4388], ax
+        m.tick(0x710b);
+        m.write16(m.ds, (17288) & 0xffff, m.ax);
+        ip = 0x710e;
+        break;
+      }
+      case 0x710e: {
+        // 710e: les di, ptr [bp + 6]
+        m.tick(0x710e);
+        { const base = (m.bp + 6) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x7111;
+        break;
+      }
+      case 0x7111: {
+        // 7111: mov dx, es
+        m.tick(0x7111);
+        m.dx = m.es;
+        ip = 0x7113;
+        break;
+      }
+      case 0x7113: {
+        // 7113: or dx, di
+        m.tick(0x7113);
+        m.dx = (m.dx | m.di) & 0xffff; m.setLogicFlags(16, m.dx);
+        ip = 0x7115;
+        break;
+      }
+      case 0x7115: {
+        // 7115: je 0x711c
+        m.tick(0x7115);
+        ip = m.zf ? 0x711c : 0x7117;
+        break;
+      }
+      case 0x7117: {
+        // 7117: xor ax, ax
+        m.tick(0x7117);
+        m.ax = 0; m.setLogicFlags(16, 0);
+        ip = 0x7119;
+        break;
+      }
+      case 0x7119: {
+        // 7119: mov word ptr es:[di], ax
+        m.tick(0x7119);
+        m.write16(m.es, (m.di) & 0xffff, m.ax);
+        ip = 0x711c;
+        break;
+      }
+      case 0x711c: {
+        // 711c: pop bp
+        m.tick(0x711c);
+        m.bp = m.pop();
+        ip = 0x711d;
+        break;
+      }
+      case 0x711d: {
+        // 711d: retf 0xe
+        m.tick(0x711d);
+        m.retf(14);
+        return;
+      }
+      default:
+        throw new Error(`exe_070c4 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
 /** START.EXE image 0x7120. */
 export function exe_07120(m: Cpu): void {
   let ip = 0x7120;
@@ -42928,6 +46434,306 @@ export function exe_071dc(m: Cpu): void {
       }
       default:
         throw new Error(`exe_071dc ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x71f3. */
+export function exe_071f3(m: Cpu): void {
+  let ip = 0x71f3;
+  while (true) {
+    switch (ip) {
+      case 0x71f3: {
+        // 71f3: push bp
+        m.tick(0x71f3);
+        m.push(m.bp);
+        ip = 0x71f4;
+        break;
+      }
+      case 0x71f4: {
+        // 71f4: mov bp, sp
+        m.tick(0x71f4);
+        m.bp = m.sp;
+        ip = 0x71f6;
+        break;
+      }
+      case 0x71f6: {
+        // 71f6: sub sp, 0x50
+        m.tick(0x71f6);
+        m.sp = (m.sp - 80) & 0xffff;
+        ip = 0x71f9;
+        break;
+      }
+      case 0x71f9: {
+        // 71f9: push ds
+        m.tick(0x71f9);
+        m.push(m.ds);
+        ip = 0x71fa;
+        break;
+      }
+      case 0x71fa: {
+        // 71fa: lds si, ptr [bp + 6]
+        m.tick(0x71fa);
+        { const base = (m.bp + 6) & 0xffff; m.si = m.read16(m.ss, base); m.ds = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x71fd;
+        break;
+      }
+      case 0x71fd: {
+        // 71fd: lea di, [bp - 0x50]
+        m.tick(0x71fd);
+        m.di = (m.bp + -80) & 0xffff;
+        ip = 0x7200;
+        break;
+      }
+      case 0x7200: {
+        // 7200: push ss
+        m.tick(0x7200);
+        m.push(m.ss);
+        ip = 0x7201;
+        break;
+      }
+      case 0x7201: {
+        // 7201: pop es
+        m.tick(0x7201);
+        m.es = m.pop();
+        ip = 0x7202;
+        break;
+      }
+      case 0x7202: {
+        // 7202: cld 
+        m.tick(0x7202);
+        m.df = false;
+        ip = 0x7203;
+        break;
+      }
+      case 0x7203: {
+        // 7203: lodsb al, byte ptr [si]
+        m.tick(0x7203);
+        m.al = m.read8(m.ds, m.si); m.si = (m.si + (m.df ? -1 : 1)) & 0xffff;
+        ip = 0x7204;
+        break;
+      }
+      case 0x7204: {
+        // 7204: cmp al, 0x4f
+        m.tick(0x7204);
+        m.setSubFlags(8, m.al, 79);
+        ip = 0x7206;
+        break;
+      }
+      case 0x7206: {
+        // 7206: jbe 0x720a
+        m.tick(0x7206);
+        ip = m.cf || m.zf ? 0x720a : 0x7208;
+        break;
+      }
+      case 0x7208: {
+        // 7208: mov al, 0x4f
+        m.tick(0x7208);
+        m.al = 79 & 0xff;
+        ip = 0x720a;
+        break;
+      }
+      case 0x720a: {
+        // 720a: mov cl, al
+        m.tick(0x720a);
+        m.cl = m.al;
+        ip = 0x720c;
+        break;
+      }
+      case 0x720c: {
+        // 720c: xor ch, ch
+        m.tick(0x720c);
+        m.ch = 0; m.setLogicFlags(8, 0);
+        ip = 0x720e;
+        break;
+      }
+      case 0x720e: {
+        // 720e: rep movsb byte ptr es:[di], byte ptr [si]
+        m.tick(0x720e);
+        while (m.cx) { m.write8(m.es, m.di, m.read8(m.ds, m.si)); m.si = (m.si + (m.df ? -1 : 1)) & 0xffff; m.di = (m.di + (m.df ? -1 : 1)) & 0xffff; m.cx = (m.cx - 1) & 0xffff; }
+        ip = 0x7210;
+        break;
+      }
+      case 0x7210: {
+        // 7210: xor al, al
+        m.tick(0x7210);
+        m.al = 0; m.setLogicFlags(8, 0);
+        ip = 0x7212;
+        break;
+      }
+      case 0x7212: {
+        // 7212: stosb byte ptr es:[di], al
+        m.tick(0x7212);
+        m.write8(m.es, m.di, m.al); m.di = (m.di + (m.df ? -1 : 1)) & 0xffff;
+        ip = 0x7213;
+        break;
+      }
+      case 0x7213: {
+        // 7213: lds dx, ptr [bp + 0xa]
+        m.tick(0x7213);
+        { const base = (m.bp + 10) & 0xffff; m.dx = m.read16(m.ss, base); m.ds = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x7216;
+        break;
+      }
+      case 0x7216: {
+        // 7216: add dx, 0x30
+        m.tick(0x7216);
+        m.dx = m.setAddFlags(16, m.dx, 48);
+        ip = 0x7219;
+        break;
+      }
+      case 0x7219: {
+        // 7219: lea di, [bp - 0x50]
+        m.tick(0x7219);
+        m.di = (m.bp + -80) & 0xffff;
+        ip = 0x721c;
+        break;
+      }
+      case 0x721c: {
+        // 721c: mov ah, 0x56
+        m.tick(0x721c);
+        m.ah = 86 & 0xff;
+        ip = 0x721e;
+        break;
+      }
+      case 0x721e: {
+        // 721e: int 0x21
+        m.tick(0x721e);
+        m.intr(33);
+        ip = 0x7220;
+        break;
+      }
+      case 0x7220: {
+        // 7220: pop ds
+        m.tick(0x7220);
+        m.ds = m.pop();
+        ip = 0x7221;
+        break;
+      }
+      case 0x7221: {
+        // 7221: jae 0x7228
+        m.tick(0x7221);
+        ip = !m.cf ? 0x7228 : 0x7223;
+        break;
+      }
+      case 0x7223: {
+        // 7223: mov word ptr [0x4388], ax
+        m.tick(0x7223);
+        m.write16(m.ds, (17288) & 0xffff, m.ax);
+        ip = 0x7226;
+        break;
+      }
+      case 0x7226: {
+        // 7226: jmp 0x723c
+        m.tick(0x7226);
+        ip = true ? 0x723c : 0x7228;
+        break;
+      }
+      case 0x7228: {
+        // 7228: push ds
+        m.tick(0x7228);
+        m.push(m.ds);
+        ip = 0x7229;
+        break;
+      }
+      case 0x7229: {
+        // 7229: lea si, [bp - 0x50]
+        m.tick(0x7229);
+        m.si = (m.bp + -80) & 0xffff;
+        ip = 0x722c;
+        break;
+      }
+      case 0x722c: {
+        // 722c: push ss
+        m.tick(0x722c);
+        m.push(m.ss);
+        ip = 0x722d;
+        break;
+      }
+      case 0x722d: {
+        // 722d: pop ds
+        m.tick(0x722d);
+        m.ds = m.pop();
+        ip = 0x722e;
+        break;
+      }
+      case 0x722e: {
+        // 722e: les di, ptr [bp + 0xa]
+        m.tick(0x722e);
+        { const base = (m.bp + 10) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x7231;
+        break;
+      }
+      case 0x7231: {
+        // 7231: add di, 0x30
+        m.tick(0x7231);
+        m.di = m.setAddFlags(16, m.di, 48);
+        ip = 0x7234;
+        break;
+      }
+      case 0x7234: {
+        // 7234: cld 
+        m.tick(0x7234);
+        m.df = false;
+        ip = 0x7235;
+        break;
+      }
+      case 0x7235: {
+        // 7235: lodsb al, byte ptr [si]
+        m.tick(0x7235);
+        m.al = m.read8(m.ds, m.si); m.si = (m.si + (m.df ? -1 : 1)) & 0xffff;
+        ip = 0x7236;
+        break;
+      }
+      case 0x7236: {
+        // 7236: stosb byte ptr es:[di], al
+        m.tick(0x7236);
+        m.write8(m.es, m.di, m.al); m.di = (m.di + (m.df ? -1 : 1)) & 0xffff;
+        ip = 0x7237;
+        break;
+      }
+      case 0x7237: {
+        // 7237: or al, al
+        m.tick(0x7237);
+        m.al = m.al | m.al; m.setLogicFlags(8, m.al);
+        ip = 0x7239;
+        break;
+      }
+      case 0x7239: {
+        // 7239: jne 0x7235
+        m.tick(0x7239);
+        ip = !m.zf ? 0x7235 : 0x723b;
+        break;
+      }
+      case 0x723b: {
+        // 723b: pop ds
+        m.tick(0x723b);
+        m.ds = m.pop();
+        ip = 0x723c;
+        break;
+      }
+      case 0x723c: {
+        // 723c: mov sp, bp
+        m.tick(0x723c);
+        m.sp = m.bp;
+        ip = 0x723e;
+        break;
+      }
+      case 0x723e: {
+        // 723e: pop bp
+        m.tick(0x723e);
+        m.bp = m.pop();
+        ip = 0x723f;
+        break;
+      }
+      case 0x723f: {
+        // 723f: retf 8
+        m.tick(0x723f);
+        m.retf(8);
+        return;
+      }
+      default:
+        throw new Error(`exe_071f3 ip ${ip.toString(16)}`);
     }
   }
 }
@@ -43556,6 +47362,489 @@ export function exe_072cf(m: Cpu): void {
   }
 }
 
+/** START.EXE image 0x7301. */
+export function exe_07301(m: Cpu): void {
+  let ip = 0x7301;
+  while (true) {
+    switch (ip) {
+      case 0x7301: {
+        // 7301: push bp
+        m.tick(0x7301);
+        m.push(m.bp);
+        ip = 0x7302;
+        break;
+      }
+      case 0x7302: {
+        // 7302: mov bp, sp
+        m.tick(0x7302);
+        m.bp = m.sp;
+        ip = 0x7304;
+        break;
+      }
+      case 0x7304: {
+        // 7304: sub sp, 0x80
+        m.tick(0x7304);
+        m.sp = (m.sp - 128) & 0xffff;
+        ip = 0x7308;
+        break;
+      }
+      case 0x7308: {
+        // 7308: push ds
+        m.tick(0x7308);
+        m.push(m.ds);
+        ip = 0x7309;
+        break;
+      }
+      case 0x7309: {
+        // 7309: lea si, [bp - 0x80]
+        m.tick(0x7309);
+        m.si = (m.bp + -128) & 0xffff;
+        ip = 0x730c;
+        break;
+      }
+      case 0x730c: {
+        // 730c: push ss
+        m.tick(0x730c);
+        m.push(m.ss);
+        ip = 0x730d;
+        break;
+      }
+      case 0x730d: {
+        // 730d: pop ds
+        m.tick(0x730d);
+        m.ds = m.pop();
+        ip = 0x730e;
+        break;
+      }
+      case 0x730e: {
+        // 730e: mov al, byte ptr [bp + 0xc]
+        m.tick(0x730e);
+        m.al = m.read8(m.ss, (m.bp + 12) & 0xffff);
+        ip = 0x7311;
+        break;
+      }
+      case 0x7311: {
+        // 7311: or al, al
+        m.tick(0x7311);
+        m.al = m.al | m.al; m.setLogicFlags(8, m.al);
+        ip = 0x7313;
+        break;
+      }
+      case 0x7313: {
+        // 7313: jne 0x731b
+        m.tick(0x7313);
+        ip = !m.zf ? 0x731b : 0x7315;
+        break;
+      }
+      case 0x7315: {
+        // 7315: mov ah, 0x19
+        m.tick(0x7315);
+        m.ah = 25 & 0xff;
+        ip = 0x7317;
+        break;
+      }
+      case 0x7317: {
+        // 7317: int 0x21
+        m.tick(0x7317);
+        m.intr(33);
+        ip = 0x7319;
+        break;
+      }
+      case 0x7319: {
+        // 7319: inc al
+        m.tick(0x7319);
+        { const saved = m.cf; m.al = m.setAddFlags(8, m.al, 1); m.cf = saved; }
+        ip = 0x731b;
+        break;
+      }
+      case 0x731b: {
+        // 731b: mov dl, al
+        m.tick(0x731b);
+        m.dl = m.al;
+        ip = 0x731d;
+        break;
+      }
+      case 0x731d: {
+        // 731d: add al, 0x40
+        m.tick(0x731d);
+        m.al = m.setAddFlags(8, m.al, 64);
+        ip = 0x731f;
+        break;
+      }
+      case 0x731f: {
+        // 731f: mov byte ptr [si], al
+        m.tick(0x731f);
+        m.write8(m.ds, (m.si) & 0xffff, m.al);
+        ip = 0x7321;
+        break;
+      }
+      case 0x7321: {
+        // 7321: inc si
+        m.tick(0x7321);
+        { const saved = m.cf; m.si = m.setAddFlags(16, m.si, 1); m.cf = saved; }
+        ip = 0x7322;
+        break;
+      }
+      case 0x7322: {
+        // 7322: mov word ptr [si], 0x5c3a
+        m.tick(0x7322);
+        m.write16(m.ds, (m.si) & 0xffff, 23610);
+        ip = 0x7326;
+        break;
+      }
+      case 0x7326: {
+        // 7326: inc si
+        m.tick(0x7326);
+        { const saved = m.cf; m.si = m.setAddFlags(16, m.si, 1); m.cf = saved; }
+        ip = 0x7327;
+        break;
+      }
+      case 0x7327: {
+        // 7327: inc si
+        m.tick(0x7327);
+        { const saved = m.cf; m.si = m.setAddFlags(16, m.si, 1); m.cf = saved; }
+        ip = 0x7328;
+        break;
+      }
+      case 0x7328: {
+        // 7328: mov ah, 0x47
+        m.tick(0x7328);
+        m.ah = 71 & 0xff;
+        ip = 0x732a;
+        break;
+      }
+      case 0x732a: {
+        // 732a: int 0x21
+        m.tick(0x732a);
+        m.intr(33);
+        ip = 0x732c;
+        break;
+      }
+      case 0x732c: {
+        // 732c: jae 0x7331
+        m.tick(0x732c);
+        ip = !m.cf ? 0x7331 : 0x732e;
+        break;
+      }
+      case 0x732e: {
+        // 732e: mov byte ptr [si], 0
+        m.tick(0x732e);
+        m.write8(m.ds, (m.si) & 0xffff, 0);
+        ip = 0x7331;
+        break;
+      }
+      case 0x7331: {
+        // 7331: lea si, [bp - 0x80]
+        m.tick(0x7331);
+        m.si = (m.bp + -128) & 0xffff;
+        ip = 0x7334;
+        break;
+      }
+      case 0x7334: {
+        // 7334: les di, ptr [bp + 8]
+        m.tick(0x7334);
+        { const base = (m.bp + 8) & 0xffff; m.di = m.read16(m.ss, base); m.es = m.read16(m.ss, (base + 2) & 0xffff); }
+        ip = 0x7337;
+        break;
+      }
+      case 0x7337: {
+        // 7337: mov cx, word ptr [bp + 6]
+        m.tick(0x7337);
+        m.cx = m.read16(m.ss, (m.bp + 6) & 0xffff);
+        ip = 0x733a;
+        break;
+      }
+      case 0x733a: {
+        // 733a: xor bx, bx
+        m.tick(0x733a);
+        m.bx = 0; m.setLogicFlags(16, 0);
+        ip = 0x733c;
+        break;
+      }
+      case 0x733c: {
+        // 733c: cld 
+        m.tick(0x733c);
+        m.df = false;
+        ip = 0x733d;
+        break;
+      }
+      case 0x733d: {
+        // 733d: lodsb al, byte ptr [si]
+        m.tick(0x733d);
+        m.al = m.read8(m.ds, m.si); m.si = (m.si + (m.df ? -1 : 1)) & 0xffff;
+        ip = 0x733e;
+        break;
+      }
+      case 0x733e: {
+        // 733e: or al, al
+        m.tick(0x733e);
+        m.al = m.al | m.al; m.setLogicFlags(8, m.al);
+        ip = 0x7340;
+        break;
+      }
+      case 0x7340: {
+        // 7340: je 0x7348
+        m.tick(0x7340);
+        ip = m.zf ? 0x7348 : 0x7342;
+        break;
+      }
+      case 0x7342: {
+        // 7342: inc bx
+        m.tick(0x7342);
+        { const saved = m.cf; m.bx = m.setAddFlags(16, m.bx, 1); m.cf = saved; }
+        ip = 0x7343;
+        break;
+      }
+      case 0x7343: {
+        // 7343: mov byte ptr es:[bx + di], al
+        m.tick(0x7343);
+        m.write8(m.es, (m.bx + m.di) & 0xffff, m.al);
+        ip = 0x7346;
+        break;
+      }
+      case 0x7346: {
+        // 7346: loop 0x733d
+        m.tick(0x7346);
+        m.cx = (m.cx - 1) & 0xffff;
+        ip = m.cx !== 0 && (true) ? 0x733d : 0x7348;
+        break;
+      }
+      case 0x7348: {
+        // 7348: mov byte ptr es:[di], bl
+        m.tick(0x7348);
+        m.write8(m.es, (m.di) & 0xffff, m.bl);
+        ip = 0x734b;
+        break;
+      }
+      case 0x734b: {
+        // 734b: pop ds
+        m.tick(0x734b);
+        m.ds = m.pop();
+        ip = 0x734c;
+        break;
+      }
+      case 0x734c: {
+        // 734c: mov sp, bp
+        m.tick(0x734c);
+        m.sp = m.bp;
+        ip = 0x734e;
+        break;
+      }
+      case 0x734e: {
+        // 734e: pop bp
+        m.tick(0x734e);
+        m.bp = m.pop();
+        ip = 0x734f;
+        break;
+      }
+      case 0x734f: {
+        // 734f: retf 8
+        m.tick(0x734f);
+        m.retf(8);
+        return;
+      }
+      default:
+        throw new Error(`exe_07301 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x7352. */
+export function exe_07352(m: Cpu): void {
+  let ip = 0x7352;
+  while (true) {
+    switch (ip) {
+      case 0x7352: {
+        // 7352: push bp
+        m.tick(0x7352);
+        m.push(m.bp);
+        ip = 0x7353;
+        break;
+      }
+      case 0x7353: {
+        // 7353: mov bp, sp
+        m.tick(0x7353);
+        m.bp = m.sp;
+        ip = 0x7355;
+        break;
+      }
+      case 0x7355: {
+        // 7355: sub sp, 0x80
+        m.tick(0x7355);
+        m.sp = (m.sp - 128) & 0xffff;
+        ip = 0x7359;
+        break;
+      }
+      case 0x7359: {
+        // 7359: call 0x73bd
+        m.tick(0x7359);
+        m.push(0x735c);
+        nearCall(m, 0x73bd);
+        ip = 0x735c;
+        break;
+      }
+      case 0x735c: {
+        // 735c: mov ax, word ptr [bp - 0x80]
+        m.tick(0x735c);
+        m.ax = m.read16(m.ss, (m.bp + -128) & 0xffff);
+        ip = 0x735f;
+        break;
+      }
+      case 0x735f: {
+        // 735f: or al, al
+        m.tick(0x735f);
+        m.al = m.al | m.al; m.setLogicFlags(8, m.al);
+        ip = 0x7361;
+        break;
+      }
+      case 0x7361: {
+        // 7361: je 0x738d
+        m.tick(0x7361);
+        ip = m.zf ? 0x738d : 0x7363;
+        break;
+      }
+      case 0x7363: {
+        // 7363: cmp ah, 0x3a
+        m.tick(0x7363);
+        m.setSubFlags(8, m.ah, 58);
+        ip = 0x7366;
+        break;
+      }
+      case 0x7366: {
+        // 7366: jne 0x7388
+        m.tick(0x7366);
+        ip = !m.zf ? 0x7388 : 0x7368;
+        break;
+      }
+      case 0x7368: {
+        // 7368: and al, 0xdf
+        m.tick(0x7368);
+        m.al &= 223; m.setLogicFlags(8, m.al);
+        ip = 0x736a;
+        break;
+      }
+      case 0x736a: {
+        // 736a: sub al, 0x41
+        m.tick(0x736a);
+        m.al = m.setSubFlags(8, m.al, 65);
+        ip = 0x736c;
+        break;
+      }
+      case 0x736c: {
+        // 736c: mov dl, al
+        m.tick(0x736c);
+        m.dl = m.al;
+        ip = 0x736e;
+        break;
+      }
+      case 0x736e: {
+        // 736e: mov ah, 0xe
+        m.tick(0x736e);
+        m.ah = 14 & 0xff;
+        ip = 0x7370;
+        break;
+      }
+      case 0x7370: {
+        // 7370: int 0x21
+        m.tick(0x7370);
+        m.intr(33);
+        ip = 0x7372;
+        break;
+      }
+      case 0x7372: {
+        // 7372: mov ah, 0x19
+        m.tick(0x7372);
+        m.ah = 25 & 0xff;
+        ip = 0x7374;
+        break;
+      }
+      case 0x7374: {
+        // 7374: int 0x21
+        m.tick(0x7374);
+        m.intr(33);
+        ip = 0x7376;
+        break;
+      }
+      case 0x7376: {
+        // 7376: cmp al, dl
+        m.tick(0x7376);
+        m.setSubFlags(8, m.al, m.dl);
+        ip = 0x7378;
+        break;
+      }
+      case 0x7378: {
+        // 7378: je 0x7382
+        m.tick(0x7378);
+        ip = m.zf ? 0x7382 : 0x737a;
+        break;
+      }
+      case 0x737a: {
+        // 737a: mov word ptr [0x4388], 0xf
+        m.tick(0x737a);
+        m.write16(m.ds, (17288) & 0xffff, 15);
+        ip = 0x7380;
+        break;
+      }
+      case 0x7380: {
+        // 7380: jmp 0x738d
+        m.tick(0x7380);
+        ip = true ? 0x738d : 0x7382;
+        break;
+      }
+      case 0x7382: {
+        // 7382: cmp byte ptr [bp - 0x7e], 0
+        m.tick(0x7382);
+        m.setSubFlags(8, m.read8(m.ss, (m.bp + -126) & 0xffff), 0);
+        ip = 0x7386;
+        break;
+      }
+      case 0x7386: {
+        // 7386: je 0x738d
+        m.tick(0x7386);
+        ip = m.zf ? 0x738d : 0x7388;
+        break;
+      }
+      case 0x7388: {
+        // 7388: mov ah, 0x3b
+        m.tick(0x7388);
+        m.ah = 59 & 0xff;
+        ip = 0x738a;
+        break;
+      }
+      case 0x738a: {
+        // 738a: call 0x73d8
+        m.tick(0x738a);
+        m.push(0x738d);
+        nearCall(m, 0x73d8);
+        ip = 0x738d;
+        break;
+      }
+      case 0x738d: {
+        // 738d: mov sp, bp
+        m.tick(0x738d);
+        m.sp = m.bp;
+        ip = 0x738f;
+        break;
+      }
+      case 0x738f: {
+        // 738f: pop bp
+        m.tick(0x738f);
+        m.bp = m.pop();
+        ip = 0x7390;
+        break;
+      }
+      case 0x7390: {
+        // 7390: retf 4
+        m.tick(0x7390);
+        m.retf(4);
+        return;
+      }
+      default:
+        throw new Error(`exe_07352 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
 /** START.EXE image 0x7393. */
 export function exe_07393(m: Cpu): void {
   let ip = 0x7393;
@@ -43627,6 +47916,81 @@ export function exe_07393(m: Cpu): void {
       }
       default:
         throw new Error(`exe_07393 ip ${ip.toString(16)}`);
+    }
+  }
+}
+
+/** START.EXE image 0x73a8. */
+export function exe_073a8(m: Cpu): void {
+  let ip = 0x73a8;
+  while (true) {
+    switch (ip) {
+      case 0x73a8: {
+        // 73a8: push bp
+        m.tick(0x73a8);
+        m.push(m.bp);
+        ip = 0x73a9;
+        break;
+      }
+      case 0x73a9: {
+        // 73a9: mov bp, sp
+        m.tick(0x73a9);
+        m.bp = m.sp;
+        ip = 0x73ab;
+        break;
+      }
+      case 0x73ab: {
+        // 73ab: sub sp, 0x80
+        m.tick(0x73ab);
+        m.sp = (m.sp - 128) & 0xffff;
+        ip = 0x73af;
+        break;
+      }
+      case 0x73af: {
+        // 73af: call 0x73bd
+        m.tick(0x73af);
+        m.push(0x73b2);
+        nearCall(m, 0x73bd);
+        ip = 0x73b2;
+        break;
+      }
+      case 0x73b2: {
+        // 73b2: mov ah, 0x3a
+        m.tick(0x73b2);
+        m.ah = 58 & 0xff;
+        ip = 0x73b4;
+        break;
+      }
+      case 0x73b4: {
+        // 73b4: call 0x73d8
+        m.tick(0x73b4);
+        m.push(0x73b7);
+        nearCall(m, 0x73d8);
+        ip = 0x73b7;
+        break;
+      }
+      case 0x73b7: {
+        // 73b7: mov sp, bp
+        m.tick(0x73b7);
+        m.sp = m.bp;
+        ip = 0x73b9;
+        break;
+      }
+      case 0x73b9: {
+        // 73b9: pop bp
+        m.tick(0x73b9);
+        m.bp = m.pop();
+        ip = 0x73ba;
+        break;
+      }
+      case 0x73ba: {
+        // 73ba: retf 4
+        m.tick(0x73ba);
+        m.retf(4);
+        return;
+      }
+      default:
+        throw new Error(`exe_073a8 ip ${ip.toString(16)}`);
     }
   }
 }
@@ -43946,7 +48310,11 @@ near.set(0x500b, exe_0500b);
 near.set(0x5020, exe_05020);
 near.set(0x5030, exe_05030);
 near.set(0x504b, exe_0504b);
+near.set(0x5088, exe_05088);
+near.set(0x50ac, exe_050ac);
+near.set(0x50ce, exe_050ce);
 near.set(0x50e2, exe_050e2);
+near.set(0x5107, exe_05107);
 near.set(0x5120, exe_05120);
 near.set(0x5150, exe_05150);
 near.set(0x51b9, exe_051b9);
@@ -43964,6 +48332,7 @@ near.set(0x541a, exe_0541a);
 near.set(0x542c, exe_0542c);
 near.set(0x544e, exe_0544e);
 near.set(0x5479, exe_05479);
+near.set(0x54b1, exe_054b1);
 near.set(0x555e, exe_0555e);
 near.set(0x558a, exe_0558a);
 near.set(0x558f, exe_0558f);
@@ -43983,6 +48352,12 @@ near.set(0x580a, exe_0580a);
 near.set(0x5861, exe_05861);
 near.set(0x5879, exe_05879);
 near.set(0x58dc, exe_058dc);
+near.set(0x58f0, exe_058f0);
+near.set(0x5993, exe_05993);
+near.set(0x59e4, exe_059e4);
+near.set(0x5a9c, exe_05a9c);
+near.set(0x5b05, exe_05b05);
+near.set(0x5b53, exe_05b53);
 near.set(0x5bb0, exe_05bb0);
 near.set(0x5c81, exe_05c81);
 near.set(0x5c88, exe_05c88);
@@ -44083,27 +48458,35 @@ near.set(0x6df7, exe_06df7);
 near.set(0x6e15, exe_06e15);
 near.set(0x6e42, exe_06e42);
 near.set(0x6e7a, exe_06e7a);
+near.set(0x6eb8, exe_06eb8);
 near.set(0x6f10, exe_06f10);
 near.set(0x6f65, exe_06f65);
 near.set(0x6f67, exe_06f67);
 near.set(0x6f9f, exe_06f9f);
 near.set(0x6fcd, exe_06fcd);
 near.set(0x6fd6, exe_06fd6);
+near.set(0x6fdc, exe_06fdc);
 near.set(0x7032, exe_07032);
 near.set(0x704e, exe_0704e);
 near.set(0x7073, exe_07073);
+near.set(0x708e, exe_0708e);
 near.set(0x70b8, exe_070b8);
 near.set(0x70bf, exe_070bf);
+near.set(0x70c4, exe_070c4);
 near.set(0x7120, exe_07120);
 near.set(0x7150, exe_07150);
 near.set(0x7182, exe_07182);
 near.set(0x7197, exe_07197);
 near.set(0x71dc, exe_071dc);
+near.set(0x71f3, exe_071f3);
 near.set(0x7242, exe_07242);
 near.set(0x7265, exe_07265);
 near.set(0x7279, exe_07279);
 near.set(0x72cf, exe_072cf);
+near.set(0x7301, exe_07301);
+near.set(0x7352, exe_07352);
 near.set(0x7393, exe_07393);
+near.set(0x73a8, exe_073a8);
 near.set(0x73bd, exe_073bd);
 near.set(0x73d8, exe_073d8);
 near.set(0x73e7, exe_073e7);

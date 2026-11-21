@@ -62,7 +62,7 @@ export function ovl28_0000(m: Cpu): void {
       case 0x10: {
         // 0010: inc byte ptr [bp - 8]
         m.tick(0x10);
-        { const a = m.read8(m.ss, (m.bp + -8) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -8) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -8) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -8) & 0xffff, r); m.cf = saved; }
         ip = 0x13;
         break;
       }
@@ -89,7 +89,7 @@ export function ovl28_0000(m: Cpu): void {
       case 0x1d: {
         // 001d: inc byte ptr [bp - 7]
         m.tick(0x1d);
-        { const a = m.read8(m.ss, (m.bp + -7) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -7) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -7) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -7) & 0xffff, r); m.cf = saved; }
         ip = 0x20;
         break;
       }
@@ -256,7 +256,7 @@ export function ovl28_0000(m: Cpu): void {
       case 0x59: {
         // 0059: inc byte ptr [bp - 3]
         m.tick(0x59);
-        { const a = m.read8(m.ss, (m.bp + -3) & 0xffff); const saved = m.cf; const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -3) & 0xffff, r); m.cf = saved; }
+        { const saved = m.cf; const a = m.read8(m.ss, (m.bp + -3) & 0xffff); const r = m.setAddFlags(8, a, 1); m.write8(m.ss, (m.bp + -3) & 0xffff, r); m.cf = saved; }
         ip = 0x5c;
         break;
       }
