@@ -47,5 +47,12 @@ export function buildExplorationMaterials(native: NativeExploration & { area: nu
   }));
   const ground = texture(Buffer.alloc(64, native.groundColor));
   const sky = texture(Buffer.alloc(64, native.skyColor));
-  return { wallFaces, ground, sky, materialOverrides: [] };
+  const materialOverrides: { type: number; art: Material; crop: [number, number, number, number] }[] = [];
+  if (native.area === 10 && native.mapId === 10) {
+    // Valhingen's solid west wall uses several perspective-specific slate and path joins.
+    // Use the flat slate portion of the existing crypt tile across the WebGL face.
+    const key = "tile:10:a24fa37ba247373627bc3757d2e05f7a630cca2d6b3f0dd17e10b6c16e5d0ac0";
+    if (artwork.has(key)) materialOverrides.push({ type: 4, art: { key }, crop: [0, 0, 16, 32] });
+  }
+  return { wallFaces, ground, sky, materialOverrides };
 }
