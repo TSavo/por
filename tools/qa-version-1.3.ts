@@ -1,6 +1,6 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { delimiter, dirname, join, resolve } from "node:path";
 import { originalDriverLayout, renderOriginalSoundDriver } from "../src/audio/original-driver.js";
 import { loadExecutable } from "../src/lib/exepack.js";
 import { parseDax } from "../src/lib/dax.js";
@@ -114,7 +114,7 @@ rows.push(["Narration units that work on 1.3", unitsCarried, narration.units.len
 // 3. The original sound. The renderer must reproduce what the original 1.3 interrupt routine writes to
 // the sound hardware. Each event from 2 to 21 is rendered here and compared, write for write, with the
 // original bytes run under Unicorn. This needs Python with the unicorn package (POR_PYTHON).
-const python = process.env.POR_PYTHON ?? "python3";
+const python = process.env.POR_PYTHON ?? (process.platform === "win32" ? "python" : "python3");
 const output = resolve("out", "qa-version-1.3");
 mkdirSync(output, { recursive: true });
 const { image } = loadExecutable(file(target, "START.EXE"));
@@ -157,10 +157,12 @@ rows.push(["Host addresses named and mapped for 1.3", named, named + rawAddresse
 // 5. The checks, run now on version 1.3. Nothing here is read from an earlier run.
 // The Chrome checks need POR_CHROME. --skip-checks leaves them out and counts them as not passed.
 const chrome = process.env.POR_CHROME ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+const npmEntry = process.platform === "win32" ? process.env.npm_execpath ??
+  join(dirname(process.execPath), "node_modules", "npm", "bin", "npm-cli.js") : undefined;
 const environment = { ...process.env, POR_GAMEDATA: target, POR_CAMPAIGN_OUTPUT_DIR: output,
   POR_AUDIO_DIR: process.env.POR_AUDIO_DIR ?? resolve("..", "por-assets", "original"),
   // The package scripts call `python`. Put the chosen interpreter's directory first.
-  PATH: python.includes("/") ? `${dirname(python)}:${process.env.PATH}` : process.env.PATH };
+  PATH: dirname(python) !== "." ? `${dirname(python)}${delimiter}${process.env.PATH ?? ""}` : process.env.PATH };
 let openingDirectory: string | undefined;
 const checks: { name: string; command: () => string[] }[] = [
   { name: "verify", command: () => ["npm", "run", "-s", "verify"] },
@@ -182,9 +184,10 @@ for (const [index, check] of checks.entries()) {
   const started = Date.now();
   process.stderr.write(`check ${index + 1}/${checks.length}: ${check.name} ... `);
   const [program, ...parameters] = check.command();
-  const run = spawnSync(program!, parameters, { encoding: "utf8", env: environment, maxBuffer: 256 * 1024 * 1024 });
+  const command = program === "npm" && npmEntry ? [process.execPath, npmEntry, ...parameters] : [program!, ...parameters];
+  const run = spawnSync(command[0]!, command.slice(1), { encoding: "utf8", env: environment, maxBuffer: 256 * 1024 * 1024 });
   const log = join(output, `${check.name.replace(/[^a-z0-9.]+/gi, "-")}.log`);
-  writeFileSync(log, `${run.stdout ?? ""}\n${run.stderr ?? ""}`);
+  writeFileSync(log, `${run.stdout ?? ""}\n${run.stderr ?? ""}${run.error ? `\n${run.error.message}\n` : ""}`);
   results[check.name] = run.status === 0 ? "pass" : "fail";
   if (check.name === "verify:campaign-opening") {
     openingDirectory = /campaign opening complete: (.+)$/m.exec(run.stdout ?? "")?.[1]?.trim();
