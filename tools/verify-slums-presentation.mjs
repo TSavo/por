@@ -3012,6 +3012,15 @@ const illustrationRoutes = new Map([
     slot: "A", inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", "enter", "enter"],
     portrait: "portrait:PIC4.DAX:72:0:0", prompt: /APACKOFHUNGRYGHOULSLOPESTOWARDYOU/i,
   }],
+  ["valhingen-shadow-beyond-brass-doors", {
+    slot: "A", inputs: ["left", "up", "up", "left", "up", "enter"],
+    portraitStops: { 5: "scene-illustration:area:10:ecl:abce" },
+    phaseCaptures: { 5: "valhingen-shadow-beyond-brass-doors.png" },
+    portrait: "scene-illustration:area:10:ecl:abd8",
+    prompt: /SHADOWYFORMSFLOWFROMBETWEENTHEDOORSANDATTACK.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "valhingen-shadow-beyond-brass-doors-battle-prompt.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS\d+AC\d+.*MOVEVIEWAIM/i },
+  }],
   ["valhingen-tower-wight-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:PIC4.DAX:20:0:0", prompt: /WIGHTSAPPEARFROMBEHINDTHETOWER/i,
