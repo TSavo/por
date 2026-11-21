@@ -2155,6 +2155,7 @@ const illustrationRoutes = new Map([
     prompt: /THEINTERIORISOVERRUNWITHINSECTS/i,
     phaseCaptures: { 5: "sokal-ceiling-insects-phase-1.png", 7: "sokal-ceiling-insects-phase-3.png", 9: "sokal-ceiling-insects-phase-5.png" },
     finalPhaseCapture: "sokal-ceiling-insects-phase-6.png",
+    continuation: { inputs: ["enter"], portrait: "portrait:area:21:ecl:aed4:PIC4.DAX:18:6:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-prison-drider-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 26 }, () => ["up", "enter", "down"]).flat(),
