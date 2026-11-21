@@ -8334,7 +8334,13 @@ try {
         assert.ok(!frame.journal.leads.some(({ id }) => id === "diogenes-lair-empty"));
         for (const key of ["j", "enter"]) await advance(key);
         assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /AFTERRECOVERINGFROMTHEFIREBALLYOUSEARCHTHERESTOFTHELAIR/i);
-        assert.notEqual(frame.portrait, portrait);
+        const emptyLair = "scene-illustration:area:19:ecl:aeeb:cue:diogenes-lair-empty";
+        assert.equal(frame.portrait, emptyLair);
+        await waitFor("the empty lair illustration", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${emptyLair}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        const emptyLairShot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, "diogenes-lair-empty-search.png"), Buffer.from(emptyLairShot.data, "base64"));
         await advance("j");
         assert.ok(frame.journal?.leads.some(({ id }) => id === "diogenes-lair-empty"));
       }
@@ -8389,7 +8395,9 @@ try {
     }
     if (routeName === "diogenes-upper-ledge-fireball") {
       assert.deepEqual(readFileSync(saved), originalSave);
-      for (const key of ["enter", "enter", "i", "e", "enter", "s", "s", "a"]) await advance(key);
+      for (const key of ["enter", "enter"]) await advance(key);
+      assert.notEqual(frame.portrait, "scene-illustration:area:19:ecl:aeeb:cue:diogenes-lair-empty");
+      for (const key of ["i", "e", "enter", "s", "s", "a"]) await advance(key);
       const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
       assert.ok(known.has("diogenes-fireball") && known.has("diogenes-lair-empty"));
       console.log("Native save after searching Diogenes's lair:", saved);
