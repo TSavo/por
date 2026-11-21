@@ -1756,6 +1756,43 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["e"], portrait: "scene-illustration:area:7:ecl:a82d",
       prompt: /THESPIRITOFTYRANTHRAXUSFLARESUP/i },
   }],
+  ["valhingen-vampire-reveal-phases", {
+    slot: "A", inputs: ["j", "j", "up", "enter", "j", "j", "y", "enter", "enter", ...Array(5).fill("q")],
+    portraitStops: {
+      9: "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:0:0",
+      13: "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:1:0",
+    },
+    portrait: "portrait:area:10:ecl:b695:caller:b23b:PIC4.DAX:23:2:0",
+    prompt: /THECHAMBERLIGHTSUPTOREVEALATALL,PALEMANWITHVERYWHITETEETH/i,
+    phaseCaptures: { 13: "valhingen-vampire-chamber-phase-1.png" },
+    finalPhaseCapture: "valhingen-vampire-chamber-phase-2.png",
+  }],
+  ["valhingen-skeleton-roam-phases", {
+    slot: "A", inputs: ["up", "down", "a", "a", ...Array(14).fill("q")],
+    portraitStops: {
+      4: "portrait:area:10:ecl:b50b:PIC4.DAX:34:0:0",
+      12: "portrait:area:10:ecl:b50b:PIC4.DAX:34:2:0",
+      13: "portrait:area:10:ecl:b50b:PIC4.DAX:34:3:0",
+    },
+    portrait: "portrait:area:10:ecl:b50b:PIC4.DAX:34:1:0",
+    prompt: /YOUHAVEMANAGEDTOSNEAKUPONSOMESKELETONS/i,
+    phaseCaptures: { 12: "valhingen-skeleton-roam-phase-2.png", 13: "valhingen-skeleton-roam-phase-3.png" },
+    finalPhaseCapture: "valhingen-skeleton-roam-phase-1.png",
+  }],
+  ["valjevo-medusa-phases", {
+    slot: "B", inputs: ["up", "enter", "enter", "enter", ...Array(9).fill("q")],
+    portraitStops: {
+      4: "portrait:area:7:PIC5.DAX:49:0:0",
+      6: "portrait:area:7:ecl:9e1a:PIC5.DAX:49:1:0",
+      7: "portrait:area:7:ecl:9e1a:PIC5.DAX:49:2:0",
+      8: "portrait:area:7:ecl:9e1a:PIC5.DAX:49:3:0",
+      10: "portrait:area:7:ecl:9e1a:PIC5.DAX:49:4:0",
+    },
+    portrait: "portrait:area:7:ecl:9e1a:PIC5.DAX:49:7:0",
+    prompt: /AMEDUSACOMESRUNNINGTOWARDYOU/i,
+    phaseCaptures: { 6: "valjevo-medusa-phase-1.png", 7: "valjevo-medusa-phase-2.png", 8: "valjevo-medusa-phase-3.png", 10: "valjevo-medusa-phase-4.png" },
+    finalPhaseCapture: "valjevo-medusa-phase-7.png",
+  }],
   ["sokal-ceiling-insects-phases", {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
     portraitStops: {
