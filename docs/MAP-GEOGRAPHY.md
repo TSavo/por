@@ -100,12 +100,13 @@ and the facing, exit row, or current map that selected it.
 | Temple of Bane | The exterior’s east exit loads the interior map. The interior’s west exit reloads the exterior. From the interior, north selects Kovel Mansion and east selects the middle wilderness. The other selectors return 255, for which the game has no area block. |
 | Kuto’s Well | East selects the Slums, south selects Mendor’s Library, and west selects Podol Plaza. The north table entry points to Buccaneer Base. |
 
-The Library’s east and south entries and Kuto’s north entry are confirmed
-script outputs under controlled inputs. A normal walking route to those
-selectors still needs confirmation before the entries can inform travel routing.
+The Library’s east and south entries and Kuto’s north entry are unused during
+ordinary walking. Running the original forward-movement routine against every
+square on those three edges found zero crossings. Keyboard replays from
+district saves stopped at Library (15, 1) facing east, Library (1, 15) facing
+south, and Kuto (4, 0) facing north.
 
-## Remaining evidence work
-
-Trace the official City of Phlan and Area Near Phlan overview maps into
-coarse coastline, river, road, forest, swamp, hill, and mountain shapes to
-refine the schematic positions and confidence labels.
+Kuto’s Catacombs (GEO 32) share the surface exit script. The playable passages
+are walled off from the empty north perimeter. Following walkable tiles from
+the well and the bandit-cache checkpoint reached row 1 at the closest. A
+keyboard replay stopped at (12, 1) facing north.
