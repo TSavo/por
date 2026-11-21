@@ -7550,6 +7550,14 @@ try {
       assert.match(frame.journal.objective.nextStep, /Use Search in the throne room/);
       for (const key of ["j", "s", "up"]) await advance(key);
       assert.match(frame.text.map(([, c]) => String.fromCharCode(c)).join(""), /YOUFINDASECRETDOORINTHENORTHWALL/i);
+      const discovery = "scene-illustration:area:13:ecl:a45a";
+      assert.equal(frame.portrait, discovery);
+      await waitFor("the kobold secret door illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${discovery}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "kobold-king-secret-door.png"), Buffer.from(shot.data, "base64"));
+      await switchBothWays();
       await advance("j");
     }
     assert.ok(frame.journal.leads.some(({ id }) => id === door));

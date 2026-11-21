@@ -5,6 +5,8 @@
     "tile:2:e72fa1b970a7a57da4b47b9424a4bf6de3409c4e806938cf3902596d8e1159ea"
   ],
   "assets": {
+    "scene-illustration:area:13:ecl:a453": "kobold-king-secret-door.png",
+    "scene-illustration:area:13:ecl:a45a": "kobold-king-secret-door.png",
     "scene-illustration:area:13:ecl:af3c:caller:b137": "kobold-guide-wall-tap.png",
     "scene-illustration:area:13:ecl:af5e:caller:b137": "kobold-guide-wall-tap.png",
     "scene-illustration:area:13:ecl:afbe:caller:b153": "kobold-guide-wall-tap.png",
