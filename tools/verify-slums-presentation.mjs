@@ -625,6 +625,13 @@ const illustrationRoutes = new Map([
     journalLead: "swamp-friend-word-charge", journalLeadAtDiscovery: true,
     continuation: { inputs: ["c"], prompt: /ABATTLEBEGINS/i, clearsPortrait: true },
   }],
+  ["valjevo-altar-curse", {
+    slot: "B", inputs: ["up", "y", "enter", "enter", "s", "e"],
+    portraitStops: { 1: "scene-illustration:area:6:ecl:9ae6:caller:a7ab", 2: null },
+    portrait: "scene-illustration:area:6:ecl:9b14:caller:a809",
+    prompt: /THEREISAFEELINGOFSOMETHINGIMMENSEANDEVILSTARINGDOWNATYOU/i,
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITFOR16POINTSOFDAMAGE/i },
+  }],
   ["valjevo-altar-crossed-swords", {
     slot: "B", inputs: ["up", "n"],
     portraitStops: { 1: "scene-illustration:area:6:ecl:9ae6:caller:a7ab" },
@@ -6709,6 +6716,10 @@ try {
     await verifyPortraitPanel();
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
+    if (routeName === "valjevo-altar-curse") {
+      const curseShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "valjevo-altar-curse.png"), Buffer.from(curseShot.data, "base64"));
     }
     if (routeName === "bane-rubble-tapestry") {
       const tapestryShot = await command("Page.captureScreenshot", { format: "png" });
