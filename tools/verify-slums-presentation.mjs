@@ -1228,8 +1228,11 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
   ["yarash-alchemical-laboratory", {
+    // Start at (11, 12) facing west with the secret door undiscovered.
     slot: "A", inputs: ["up", "up", "enter", "left", "up", "enter", "right"],
     portraitStops: { 5: "scene-illustration:area:23:ecl:9a04:caller:a08a", 6: "scene-illustration:area:23:ecl:a0fd" },
+    phaseCaptures: { 5: "yarash-torture-chamber.png" },
+    finalPhaseCapture: "yarash-alchemical-laboratory.png",
     portrait: "scene-illustration:area:23:ecl:a0fd", prompt: /THEWALLSARELINEDWITHFLASKSANDBOTTLES.*ALCHEMICALNATURE/i,
     journalLead: "river-alchemical-laboratory", journalLeadAtDiscovery: true,
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
