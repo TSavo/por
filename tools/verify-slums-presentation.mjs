@@ -2322,6 +2322,16 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "valhingen-wight-roam-phase-2.png",
     continuation: { inputs: ["c"], portrait: "portrait:area:10:ecl:b5c7:PIC4.DAX:20:2:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ...[[0, 0], [1, 2], [2, 3]].map(([member, holds]) => [`pyramid-lizardfolk-patrol-combat-phase-${member}`, {
+    slot: "A", inputs: ["up", "enter", "enter", "enter", ...Array(holds).fill("q"), "c"],
+    portrait: `portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:${member}:0`, prompt: /MUTILATINGSCUM.*BUTYOUWILLDIEFIRST/i,
+    continuation: { inputs: ["enter"], portrait: `portrait:area:23:ecl:9ffe:PIC7.DAX:57:${member}:0`, prompt: /ABATTLEBEGINS/i },
+  }]),
+  ...[[0, 0], [1, 2], [2, 3]].map(([member, holds]) => [`pyramid-lizardfolk-patrol-parlay-phase-${member}`, {
+    slot: "A", inputs: ["up", "enter", "enter", "enter", ...Array(holds).fill("q")],
+    portrait: `portrait:area:23:ecl:9f04:PIC7.DAX:57:${member}:0`, prompt: /THEYAREWARY,BUTNOTHOSTILE/i,
+    continuation: { inputs: ["p"], portrait: `portrait:area:23:ecl:9f2a:PIC7.DAX:57:${member}:0`, prompt: /HAUGHTYSLYNICEMEEKABUSIVE/i },
+  }]),
   ["pyramid-lizardfolk-patrol-combat-phase", {
     slot: "A", inputs: ["up", "enter", "enter", "enter", "q", "q", "q", "enter", "q", "c"],
     portrait: "portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:3:0", prompt: /MUTILATINGSCUM.*BUTYOUWILLDIEFIRST/i,
