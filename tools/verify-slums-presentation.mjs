@@ -1777,6 +1777,14 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:18:ecl:9dca:PIC1.DAX:2:0:0", prompt: /THEMONSTERSSTANDREADY/i,
     idlePortraits: ["portrait:area:18:ecl:9dca:PIC1.DAX:2:1:0"],
   }],
+  ["textile-skullcrusher-body", {
+    slot: "B", inputs: ["up"],
+    portraitStops: { 0: null },
+    portrait: "scene-illustration:area:2:ecl:abd2:caller:9ff2",
+    prompt: /YOUSEEADEADHOBGOBLINWITHITSHEADCRUSHED.*SKULLCRUSHERWASHERE/i,
+    finalPhaseCapture: "textile-skullcrusher-body.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /WHATDOYOUDOWITHTHEBODY.*SEARCHDESTROYLEAVE/i },
+  }],
   ["textile-skullcrusher-wall-mark", {
     slot: "J", inputs: ["left", "up", "right", "up", "up", "up", "up", "left", "up"],
     portraitStops: { 7: null, 8: null },
