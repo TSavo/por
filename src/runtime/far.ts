@@ -1,5 +1,5 @@
 import type { Cpu } from "../cpu/machine.js";
-import { code, codeSegment, data, far, isFar, segment } from "./bindings.js";
+import { data, far, isFar, segment } from "./bindings.js";
 
 /**
  * Far-call dispatch for translated Turbo Pascal.
@@ -14,9 +14,9 @@ export const farTable = new Map<string, FarFn>();
 export const exeByImage = new Map<number, FarFn>();
 export const callTrace: string[] = [];
 /**
- * How far the game has got, counted in things both builds do identically: dice drawn, and calls
- * the game makes into the text unit (every line, number and menu it draws). Calls the text code
- * makes to itself are left out: the first release routes them through far calls and 1.3 does not. A replay uses it to say when
+ * How far the game has got, counted in things both builds do identically: dice drawn, and the
+ * game's calls to print a string, print one in colour, or clear the text window. Other calls into
+ * the text unit are not counted: the first release makes thousands that 1.3 makes as near calls. A replay uses it to say when
  * a key is pressed, where a count of executed instructions would differ from build to build.
  * Sound requests are not counted: the builds differ in them.
  */
@@ -68,7 +68,9 @@ export function farCall(m: Cpu, seg: number, off: number): void {
   const label = farKey(seg, off);
   farCallObservers.get(m)?.(seg, off);
   if (isFar(seg, off, far.random)) gameProgress.dice++;
-  else if (seg === segment.text && m.cs !== seg && m.cs !== codeSegment(code.glyphStoreA)) gameProgress.text++;
+  else if (seg === segment.text && (isFar(seg, off, far.print) || isFar(seg, off, far.printColoured) || isFar(seg, off, far.clearText))) {
+    gameProgress.text++;
+  }
   if (isFar(seg, off, far.sound)) {
     originalSoundCallObservers.get(m)?.({
       step: m.steps,
