@@ -1959,6 +1959,7 @@ const illustrationRoutes = new Map([
     prompt: /SOMEMONSTERSARETOSSINGASACKOFGRAIN/i,
     phaseCaptures: { 11: "slums-grain-sack-ambush-phase-4.png", 14: "slums-grain-sack-ambush-phase-2.png", 15: "slums-grain-sack-ambush-phase-1.png" },
     finalPhaseCapture: "slums-grain-sack-ambush-phase-3.png",
+    continuation: { inputs: ["enter"], portrait: "portrait:area:20:ecl:b10d:PIC2.DAX:31:3:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["diogenes-mountain-sighting-phases", {
     slot: "A", inputs: ["up", "enter", "q", "q"],
