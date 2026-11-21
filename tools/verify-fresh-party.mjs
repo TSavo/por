@@ -3119,7 +3119,7 @@ async function verifyFreshSlumsVictory() {
     (text) => assert.match(text, /surprised a party of kobolds/),
     "c", "enter",
     (text) => assert.match(text, /hand axe.*move view aim use quick done/),
-    ...Array(13).fill("q"),
+    ["q", /continue battle|the party has been destroyed/, 200],
     (text) => assert.match(text, /continue battle/),
     "n",
     (text) => assert.match(text, /the party has won.*receives 5 experience points/),
