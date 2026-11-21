@@ -520,6 +520,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["podal-auction-crowd-disperses.png", ["The monsters are visibly turning away and dispersing", "The empty auction rostrum and plaza establish the same location"]],
   ["sokal-elven-parchment.png", ["The scout's remains beside an open pouch", "A crumbling parchment scroll clearly visible in the pouch"]],
   ["swamp-castle-drawbridge.png", ["A movable timber span across quicksand", "Lift chains attached to the deck"]],
+  ["swamp-castle-anti-magic-shell.png", ["The party senses a distortion at the castle entrance", "The effect reads as a barrier around the party"]],
   ["swamp-ruin-defenders-approach.png", ["Two standing lizardmen and one giant lizard are distinguishable in the original approach placement"]],
   ["diogenes-upper-ledge-fireball.png", ["A fireball erupting amid the party", "Diogenes disappearing from the encounter"]],
   ["kovel-ne-map-discovery.png", ["A crude map on the floor", "A visibly branching maze", "The label NE CASTLE is readable"]],
@@ -580,6 +581,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["lizard-wilds-kobold-release.png", ["Freed kobolds run out through the doorway", "One calls a warning back to the party", "Open shackles show the earlier confinement"]],
   ["lizard-wilds-displacer-pair-approach.png", ["Two separate displacer beasts are readable at the original sprite position"]],
   ["lizard-wilds-displacer-pair-dialogue.png", ["Two displacer beasts flank the woodland path", "Their silhouettes and colors carry through from the approach"]],
+  ["lizard-wilds-stirge-approach.png", ["Several stirges follow the lead flyer", "The swarm is legible over the WebGL woodland approach"]],
   ["pyramid-pump-prisoners-hostile.png", ["The prisoners hurl barrels of contaminant", "The party is visible in the path of the splash"]],
 ]);
 
