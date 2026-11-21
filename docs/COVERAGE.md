@@ -2159,6 +2159,8 @@ window tiles, and the illustration of Tyranthraxus rising from the Pool. It then
 the 352×352 dialogue portrait and 192×192 combat sprite, including the sprite's
 position, facing, and four-cell selection. The test toggles classic and
 enhanced in both scenes and checks the guest frame and save stay the same.
+The controlled fixture `out/castle-hall-approach-B.json` passed the replay
+at `937b969a`, including 30 Enhanced battlefield tile patterns.
 The same replay checks the 192×192 bite at its position in the live
 combat animation and confirms that the enhanced combat panel shows the hit
 and then the fire damage as separate reports. With
