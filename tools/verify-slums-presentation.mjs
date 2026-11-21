@@ -1234,6 +1234,14 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kovel-wooden-cabinet.png",
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /(?:AREACASTVIEWENCAMP|3,13W)/i },
   }],
+  ["kovel-scroll-cabinet-trap", {
+    slot: "A", inputs: ["up", "e", "o"],
+    portraitStops: { 1: "scene-illustration:area:14:ecl:a359:cue:wooden-cabinet" },
+    portrait: "scene-illustration:area:14:ecl:a45b:cue:cabinet-gas",
+    prompt: /ISHITFOR\d+POINTSOFDAMAGE/i,
+    finalPhaseCapture: "kovel-cabinet-gas.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ITISLOCKED\.HOWWILLYOUOPENTHELOCK/i },
+  }],
   ["valhingen-lower-tower-static", {
     slot: "A", inputs: ["s", "up", "left", "up"],
     portraitStops: { 1: null, 2: null, 3: null },
