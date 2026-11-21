@@ -540,6 +540,8 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["wild-cave-bone-chamber.png", ["Human skulls and bones occupy most of the chamber", "The cave passage is still readable behind the foreground remains"]],
   ["wild-cave-elven-remains.png", ["Several fallen figures lie on the cave ledges", "Clothing and abandoned equipment distinguish this discovery from the bone-filled chamber"]],
   ["kovel-four-caskets.png", ["Exactly four small, closed caskets sit on one table", "All four caskets remain individually readable at gameplay size"]],
+  ["kovel-casket-needle.png", ["A single needle springs out of one of the four small caskets", "The recoiling hand makes the trap readable at gameplay size"]],
+  ["kovel-casket-gems.png", ["A pouch of small gems rests inside one opened casket", "The pouch and loose stones remain readable at gameplay size"]],
   ["kovel-weapon-pile.png", ["Weapons and shields are piled together", "The bright, intact blades and shield faces convey their good condition"]],
   ["kovel-weapon-gas-ambush.png", ["The same shields identify the armory behind the gas cloud", "Thieves emerge from the shadows while the foreground party recoils"]],
   ["kovel-wooden-cabinet.png", ["The closed wooden doors and brass latch are visible", "The cabinet's contents remain concealed at the choice and lock prompts"]],
