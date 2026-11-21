@@ -2334,6 +2334,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "tyrmor-priest-sighting.png",
     continuation: { inputs: ["enter", "a", "a"], portrait: "portrait:area:22:ecl:9d3b:HEAD7.DAX:16:BODY7.DAX:30", prompt: /RAISESHISHANDINBENEDICTION/i },
   }],
+  ["wild-cave-bone-chamber", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:27:ecl:a537:cue:bone-chamber", prompt: /THISROOMISFILLEDWITHHUMANBONES/i,
+    finalPhaseCapture: "wild-cave-bone-chamber.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["tyrmor-portal-rocks", {
     slot: "B", inputs: ["s", "up"],
     portrait: "scene-illustration:area:22:ecl:9a06:caller:a016:cue:scattered-rocks",
