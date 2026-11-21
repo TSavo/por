@@ -2202,6 +2202,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "sokal-ceiling-insects-phase-6.png",
     continuation: { inputs: ["enter"], portrait: "portrait:area:21:ecl:aed4:PIC4.DAX:18:6:0", prompt: /ABATTLEBEGINS/i },
   }],
+  ...[[0, 0], [1, 2], [3, 4], [6, 5]].map(([member, holds]) => [`tyrmor-prison-drider-combat-phase-${member}`, {
+    slot: "B", inputs: ["s", ...Array.from({ length: 26 }, () => ["up", "enter", "down"]).flat(),
+      "up", "enter", "enter", "down", "up", ...Array(holds).fill("q")],
+    portrait: `portrait:area:22:ecl:a2f9:PIC7.DAX:69:${member}:0`, prompt: /ONELICKSITSLIPS/i,
+    continuation: { inputs: ["c"], portrait: `portrait:area:22:ecl:a36f:PIC7.DAX:69:${member}:0`, prompt: /ABATTLEBEGINS/i },
+  }]),
   ["tyrmor-prison-drider-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 26 }, () => ["up", "enter", "down"]).flat(),
       "up", "enter", "enter", "down", "up", ...Array(9).fill("q")],
