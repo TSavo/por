@@ -15,8 +15,8 @@ const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--from-sokal-lodging", "--from-castle-ending", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker or --from-sokal-council with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, --from-sokal-lodging with slot E, --from-castle-ending with slot B, or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--from-sokal-council", "--from-sokal-lodging", "--from-textile-commission", "--from-castle-ending", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with slot D, --from-sokal or --from-textile-commission with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker or --from-sokal-council with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, --from-sokal-lodging with slot E, --from-castle-ending with slot B, or --replay-leg with a recorded leg directory.");
 }
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
@@ -1671,6 +1671,48 @@ if (campaign && campaignOption === "--from-sokal-council") {
 if (campaign && campaignOption === "--from-sokal-lodging") {
   copyFileSync(campaignInput, join(saveDir, "E.json"));
   await verifyPodalFromCouncil("--auction-only", true);
+  process.exit(0);
+}
+
+if (campaign && campaignOption === "--from-textile-commission") {
+  copyFileSync(campaignInput, join(saveDir, "A.json"));
+  const ready = /alda 2 16.*brin -1 9.*cora 2 14.*dorn 2 11.*enna 2 14.*fenn 1 9.*curate 2 26/;
+  const survivors = /alda 2 9.*brin -1 1.*cora 2 0.*dorn 2 0.*enna 2 13.*fenn 1 3.*curate 2 17.*4,10 s/;
+  const cleared = await replay(loadSlot("1e61"), "85000000", [
+    (text) => {
+      assert.match(text, ready);
+      assert.match(text, /6,5 e/);
+    },
+    // West ferry, south from the city edge, and into the Textile House at night.
+    "right", "right", "up", "up", "right", "up", "up", "enter", "enter",
+    "right", ...Array(6).fill("up"), "left", "up", "right", "up", "left", "up",
+    "enter", "enter", "w", "enter", "enter", "right", ...Array(4).fill("up"),
+    "enter", "enter", "enter", "s", "enter", "enter", "up", ...Array(4).fill("right"),
+    "enter", "s", ...Array(7).fill("enter"), "q", "alt-m",
+    (text) => assert.match(text, /0,4 w/),
+    "e", "s", "s", "b", "n", "e",
+    "right", "right", "up", "up", "right", "up", "left", "up", "up", "right",
+    ...Array(5).fill("up"), "left",
+    (text) => assert.match(text, /4,7 s.*scorpions approach hungrily/),
+    "enter", "enter", "q", "alt-m", ["q", /continue battle:yes no/, 100], "n",
+    (text) => assert.match(text, /the party has won.*53 experience points/),
+    "enter", "enter", "e", "n", "e", "s", "s", "c", "n", "e",
+    "up", "up", "up", "left",
+    (text) => assert.match(text, /4,10 s.*a drum begins to beat and hobgoblins attack/),
+    "enter", "enter", "q", "alt-m", ["q", /continue battle:yes no/, 145], "n", "enter",
+    (text) => assert.match(text, /the party has won.*54 experience points/),
+    "enter", "enter", "s", "e", "n",
+    (text) => assert.match(text, /the drum has faded to silence/),
+    "e", "s", "s", "d",
+  ]);
+  assert.match(visibleText(cleared), /quit to dos/);
+  await replay(loadSlot("2064"), "85000000", [
+    (text) => assert.match(text, survivors),
+    "j", (_text, frame) => {
+      assert.equal(frame.journal.leads.find(({ id }) => id === "commission-textile")?.status, "accepted");
+    },
+  ]);
+  console.log("Won both Textile House entrance battles with original combat and reloaded the courtyard checkpoint:", resolve(saveDir, "D.json"));
   process.exit(0);
 }
 

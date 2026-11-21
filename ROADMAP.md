@@ -46,6 +46,9 @@ ordinary play and which start from controlled saves.
   original fighters in slot E. Use `--from-sokal-lodging <slot-E>` to
   replay the Podal Plaza auction, report the exchange to City Hall, and
   reload Cadorna's Textile House commission in slot A.
+- `--from-textile-commission <slot-A>` resumes that party, wins the scorpion
+  and hobgoblin courtyard battles with original combat, and reloads the
+  cleared courtyard in slot D.
 - The Encamp journal tracks witnessed clues and the selected commission in
   the active save slot. The art inventory tracks individual replacements,
   placement metadata, and observed gaps. [Art inventory](docs/ART-INVENTORY.md)
