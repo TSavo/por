@@ -988,6 +988,8 @@ const encounterTotals = encounterCoverage.reduce((total, row) => ({
 }), { frames: 0, matched: 0, matchedByPixels: 0, matchedByComposedPortrait: 0, matchedByGlobalComposedPortrait: 0,
   remaining: 0, uniformUnlinked: 0, withScopedCandidates: 0,
   withEncounterCandidates: 0, withPortraitCandidates: 0, withScopedPortraitMatches: 0 });
+const distinctNonuniformUnlinked = new Set(encounterCoverage.flatMap(({ unlinkedFrames }) =>
+  unlinkedFrames.filter(({ uniform }) => !uniform).map(({ pixelSignature }) => pixelSignature))).size;
 const unlinkedScriptPictures = scriptReferences.flatMap(reference => {
   const [archive] = reference.candidates;
   if (!archive || reference.candidates.length !== 1) return [];
@@ -1129,7 +1131,7 @@ ${composedPictureReferences.map(({ file, script, address, selectedHead, pictureI
   `<tr><th scope="row">${escape(file)} #${script} · ${address.toString(16).padStart(4, "0")}</th><td>${selectedHead}</td><td>${pictureId}</td><td>${escape(nearbyText ?? "")}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
 <details><summary>Unlinked source frames · ${encounterTotals.remaining}</summary>
-<p>${encounterTotals.uniformUnlinked} unlinked frames are solid-color images.</p>
+<p>${encounterTotals.uniformUnlinked} unlinked frames are solid-color images. The rest contain ${distinctNonuniformUnlinked} distinct images after matching identical pixels.</p>
 ${encounterTotals.withScopedCandidates ? `<p>${encounterTotals.withScopedCandidates} unlinked combat frames have identical source pixels in an encounter with replacement art. Verify the actor and encounter before reusing those sprites.</p>` : ""}
 ${encounterTotals.withEncounterCandidates ? `<p>${encounterTotals.withEncounterCandidates} unlinked encounter frames have identical source pixels in another frame with Enhanced art. Verify the actor, distance, and placement before reusing it.</p>` : ""}
 ${encounterTotals.withPortraitCandidates ? `<p>${encounterTotals.withPortraitCandidates} unlinked portrait frames repeat pixels from a member of the same archive block with Enhanced art. Verify the complete animated portrait and scene before reusing it.</p>` : ""}
@@ -1247,7 +1249,7 @@ document.addEventListener('click', (event) => {
 });
 filter();
 </script></html>\n`);
-writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, unlinkedScriptPictures, monsterArt, monsterPoseCoverage, dwarfIconCoverage, tallIconCoverage, defaultHumanIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, encounterScopeFallbacks: encounterScopeCoverage, nativeEncounterDraws, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals, encounterFamilies, sceneReviewRequirements: Object.fromEntries(sceneReviewRequirements), embeddedVisuals: [
+writeFileSync(join(output, "inventory.json"), JSON.stringify({ artScale, archives, atlasSheets, scriptReferences, unlinkedScriptPictures, monsterArt, monsterPoseCoverage, dwarfIconCoverage, tallIconCoverage, defaultHumanIconCoverage, replacements, artworkLoadIssues, portraitMatchIssues, missingTiles, observedPortraitFallbacks: portraitFallbackCoverage, encounterScopeFallbacks: encounterScopeCoverage, nativeEncounterDraws, portraitTraceFrames, explorationCoverage, explorationTotals, battlefieldTotals, nativeBattlefieldTotals, encounterCoverage, encounterTotals: { ...encounterTotals, distinctNonuniformUnlinked }, encounterFamilies, sceneReviewRequirements: Object.fromEntries(sceneReviewRequirements), embeddedVisuals: [
   { file: "START.EXE", status: "Runtime-rendered interface and font sources require a separate audit" },
   { file: "GAME.OVR", status: "Embedded graphics and draw procedures require a separate audit" },
 ] }, null, 2) + "\n");
