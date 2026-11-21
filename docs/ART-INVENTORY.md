@@ -93,8 +93,11 @@ The seven combat rows are the ready and strike pairs for `CPIC1.DAX` actor
 bindings in other contexts. The script audit found a live load for the
 last actor, Al-Hyam at Zhentil Keep. The captured wand attack draws his
 ready pose, so the strike row remains unverified in play.
-The inventory at `30b4aed4` loads 7,269 validated replacement mappings
-from 6,678 PNG files, including 112 distinct scripted illustrations.
+The inventory at `3e12955d` loads 7,344 validated replacement mappings
+from 6,721 PNG files, including 135 distinct scripted illustrations.
+Its 30 unambiguous script picture references with unlinked art point to
+42 distinct nonuniform frames, all secondary members. Check the actual
+draw in Chrome before commissioning a replacement for one of those frames.
 The gallery header shows
 the current archive-frame and script-illustration totals. Multiple
 encounter branches can use the same source frame, and some script scenes
