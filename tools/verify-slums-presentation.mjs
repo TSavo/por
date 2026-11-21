@@ -2454,6 +2454,15 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:31:ecl:9f6d:PIC1.DAX:8:0:0", prompt: /SIXORCSLEDBYALARGEOGRE/i,
     continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i, portrait: "portrait:area:31:ecl:9f7b:PIC1.DAX:8:0:0" },
   }],
+  ["stojanow-far-tower-charge", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:9:ecl:9c63:caller:a558:cue:far-tower-charge",
+    prompt: /MONSTERSARECHARGINGTOWARDYOUFROMTHEFARTOWER\.(?!ATTHESAMETIME)/i,
+    finalPhaseCapture: "stojanow-far-tower-charge.png",
+    continuation: {
+      inputs: ["enter", "enter"], portrait: "portrait:HEAD2.DAX:11:BODY2.DAX:2", prompt: /COMBATWAITFLEEPARLAY/i,
+    },
+  }],
   ["stojanow-dual-tower-ambush", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:9:ecl:9c63:caller:a558:cue:dual-tower-ambush",
