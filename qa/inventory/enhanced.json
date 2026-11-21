@@ -925,6 +925,22 @@
           "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
         }
       ]
+    },
+    {
+      "name": "Code wheel",
+      "features": [
+        {
+          "id": "enhanced.code-wheel",
+          "title": "The translation wheel on screen, with the answer enforced",
+          "evidence": [
+            "docs/CODE-WHEEL.md; src/codewheel/wheel.json; upgrades/codewheel"
+          ],
+          "checks": [
+            "code-wheel"
+          ],
+          "gap": "The layout and the rune tiles are checked. The screen in the game and the refusal of a wrong word are being built and have no check yet."
+        }
+      ]
     }
   ]
 }

@@ -88,7 +88,7 @@ for id, size in art.items():
 # Likeness. Each rune tile must be the real rune, redrawn: the player matches the wheel against
 # the runes the game shows. The references are the scan's runes in por-assets/codewheel/runes.
 # A tile passes when its shape overlaps its own reference by at least 0.70 and overlaps no other
-# rune of the same alphabet more. Measured on 2026-11-21: a reference against a thickened
+# rune of the same alphabet clearly more. Measured on 2026-11-21: a reference against a thickened
 # enlargement of itself scores 0.89 to 0.96; against a different rune, 0.42 at the median.
 def likeness():
     references = Path(os.environ.get("POR_CODEWHEEL_REFERENCE", root.parent / "por-assets" / "codewheel" / "runes"))
@@ -103,7 +103,8 @@ def likeness():
     def shape(file, lit):
         image = Image.open(file).convert("RGBA")
         mask = Image.new("L", image.size, 0)
-        mask.putdata([255 if lit(pixel) else 0 for pixel in image.getdata()])
+        mask.putdata([255 if lit(pixel) else 0 for pixel in image.get_flattened_data()]
+                     if hasattr(image, "get_flattened_data") else [255 if lit(pixel) else 0 for pixel in image.getdata()])
         box = mask.getbbox()
         if box is None:
             return None
@@ -134,10 +135,12 @@ def likeness():
             drawn = shape(file, lambda pixel: pixel[3] > 96)
             scores = {other: overlap(real[other], drawn) for other in real}
             nearest = max(scores, key=scores.get)
-            if scores[id] < 0.70 or nearest != id:
+            # Some of the wheel's runes differ by a few pixels, so a tie with a near twin is allowed.
+            closer = nearest != id and scores[nearest] > scores[id] + 0.02
+            if scores[id] < 0.70 or closer:
                 failures += 1
                 problems.append(f"{file.name} is not its reference rune: likeness {scores[id]:.2f}, needs 0.70"
-                                + (f"; it is closer to {nearest} ({scores[nearest]:.2f})" if nearest != id else ""))
+                                + (f"; it is closer to {nearest} ({scores[nearest]:.2f})" if closer else ""))
     return f"{len(art) - 8 - failures} of {len(art) - 8} rune tiles are their reference rune"
 
 

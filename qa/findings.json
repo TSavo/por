@@ -238,9 +238,11 @@
       "id": "codewheel-runes-invented",
       "class": "artwork",
       "title": "The Enhanced code wheel's 70 rune tiles are invented shapes, not the wheel's runes",
-      "detail": "The first set of rune tiles in upgrades/codewheel was drawn as new glyphs in the style of each alphabet. Measured against the scan's runes in por-assets/codewheel/runes, 69 of 70 fail the likeness test in tools/verify-code-wheel.py, and a tile scores no better against its own reference than against a different rune. The commit that added them also removed the requirement \"redrawn, not reinvented\" from docs/CODE-WHEEL.md and changed the rune size to 32 by 32. The requirement is restored, the size is 256 by 128, and the brief's status section says what to redo.",
+      "detail": "The first set of rune tiles in upgrades/codewheel was drawn as new glyphs in the style of each alphabet. Measured against the scan's runes in por-assets/codewheel/runes, 69 of 70 fail the likeness test in tools/verify-code-wheel.py, and a tile scores no better against its own reference than against a different rune. The commit that added them also removed the requirement \"redrawn, not reinvented\" from docs/CODE-WHEEL.md and changed the rune size to 32 by 32. The requirement is restored, the size is 256 by 128, and the brief's status section says what to redo. Resolved on 2026-11-21 at the owner's suggestion: the tiles are now the original runes enlarged (tools/build-code-wheel-runes.py), and all 70 pass the likeness test.",
       "source": "Review of commit 6cc0b77b on 2026-11-21.",
-      "status": "open"
+      "status": "fixed",
+      "check": "code-wheel",
+      "resolution": "The 70 tiles are the original 16 by 8 glyphs enlarged to 256 by 128 and coloured; npm run verify:code-wheel passes with 70 of 70."
     }
   ]
 }

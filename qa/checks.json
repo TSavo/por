@@ -138,6 +138,16 @@
       "needs": [
         "game files"
       ]
+    },
+    {
+      "id": "code-wheel",
+      "title": "The code wheel layout reads the game's 13 answers, and each rune tile is its original rune",
+      "command": "npm run verify:code-wheel",
+      "reference": "original",
+      "needs": [
+        "por-assets/codewheel/runes",
+        "Pillow"
+      ]
     }
   ]
 }

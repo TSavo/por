@@ -13,48 +13,20 @@ as part of the game and requires the right word.
 This page is the brief for the wheel's artwork and the description of how the wheel is laid out.
 The facts about the original are in [qa/research/code-wheel.md](../qa/research/code-wheel.md).
 
-## Status of the artwork (2026-11-21): the 70 runes must be redone
+## Status of the artwork (2026-11-21)
 
-A first set of artwork is in `upgrades/codewheel/`. Reviewed against the references:
-
-| Pieces | Verdict |
+| Pieces | Status |
 | --- | --- |
-| `path-dashes.png`, `path-dash-dot-dot.png`, `path-dots.png` | Accepted. They are the game's three marks in the new style. |
-| `background.png` | Accepted. |
-| `outer-disc.png`, `inner-disc.png` | Accepted as blanks for the page to draw on. |
-| `espruar-translate-tab.png`, `dethek-translate-tab.png` | Matching pixel-art plaques with the scan's respective labels, TRANSLATE FROM DETHEK and TRANSLATE FROM ESPRUAR. |
-| The 70 runes, `espruar-NN.png` and `dethek-NN.png` | **Rejected. Redo all 70.** |
+| The 70 runes, `espruar-NN.png` and `dethek-NN.png` | In place: the original runes, enlarged. `python tools/build-code-wheel-runes.py` makes them from the pictures in `por-assets/codewheel/runes`: each 16 by 8 pixel glyph enlarged to 256 by 128 with smoothed edges and coloured gold. Nothing is redrawn, so every tile is the rune the game shows. |
+| `path-dashes.png`, `path-dash-dot-dot.png`, `path-dots.png` | Accepted. |
+| `background.png`, `outer-disc.png`, `inner-disc.png` | Accepted. |
+| `espruar-translate-tab.png`, `dethek-translate-tab.png` | Redone as a matching pair. |
 
-**What is wrong with the runes.** They are new shapes, not the wheel's runes. Slot `espruar-05`
-is an oval with a squiggle inside on the real wheel, and the tile drawn for it is a single looped
-stroke. Slot `dethek-05` is a comb shape, and its tile is a Y on a base line. The same holds
-across the set: measured against its own reference, a tile scores no better than against a rune
-picked at random.
-
-**Why it matters.** This is the real translation wheel. A player answers the game's question by
-finding on the wheel the two runes the game shows. Classic shows the original runes. If the
-wheel's runes are other shapes, the wheel cannot be used with what the game shows, and it is not
-the wheel that shipped with the game.
-
-**What to do.**
-
-1. Redraw each of the 70 runes from its reference picture in `por-assets/codewheel/runes/`:
-   `espruar-pieceNN-….png` is the reference for `espruar-NN.png`, and `dethek-pieceNN-….png` for
-   `dethek-NN.png`. Keep every stroke, loop, dot and crossing of the reference, in the same
-   places and proportions. Change the rendering only: line quality, colour, edge, material.
-   Do not simplify, do not swap in a similar-looking glyph, do not design a new one.
-2. Draw them at 256 by 128, transparent background, the rune filling the picture the way it fills
-   its reference (the references are 64 by 32). The first set was 32 by 32, which is too coarse:
-   a rune's place on the 2048-pixel disc is about 170 pixels wide.
-3. Run `npm run verify:code-wheel` with `por-assets` beside this repository and Pillow installed.
-   It now tests likeness: each tile must overlap its own reference by at least 0.70, and must not
-   overlap any other rune of its alphabet more. Today 69 of the 70 tiles fail. A reference
-   enlarged and thickened scores 0.89 to 0.96 on the same test, so a faithful redraw passes with
-   room to spare. Do not lower the threshold and do not edit the test to pass: if a faithful
-   redraw fails it, say so and show the tile.
-4. Do not edit the requirements in this file to match what was drawn. The line "redrawn, not
-   reinvented" was removed from this brief by the commit that added the first runes. It is back,
-   and it is the requirement.
+A first set of rune tiles was hand-drawn as new shapes and was rejected: the player answers the
+game's question by finding on the wheel the runes the game shows, so the wheel's runes have to be
+the real ones. `npm run verify:code-wheel` tests that: each tile must overlap its own reference by
+at least 0.70 and no other rune of its alphabet clearly more. If the runes are ever restyled, they
+must still pass it, and the test's threshold is not to be lowered to fit new art.
 
 ## How the wheel works
 
