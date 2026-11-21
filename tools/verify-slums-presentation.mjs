@@ -7496,7 +7496,20 @@ try {
     }
     console.log(`Verified the forge smith portrait and ${routeName} dialogue in Chrome. Capture:`, directory);
   } else if (castleChaplain) {
-    for (const key of ["up", "enter"]) await advance(key);
+    await advance("up");
+    const convertedBarracks = "scene-illustration:area:6:ecl:9b14:caller:a410";
+    assert.equal(frame.portrait, convertedBarracks);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
+      /onceabarracks.*convertedtoatempleofbane.*acrudealter/i);
+    await waitFor("the barracks converted to a chapel", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${convertedBarracks}"]')?.naturalWidth === 352 &&
+      document.querySelector('.encounter-portrait[src="/art/${convertedBarracks}"]')?.naturalHeight === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const chapelShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "valjevo-bane-barracks-chapel.png"), Buffer.from(chapelShot.data, "base64"));
+    await advance("enter");
+    assert.notEqual(frame.portrait, convertedBarracks);
     assert.deepEqual(frame.encounter, [48, 32, "encounter:area:6:SPRIT5.DAX:29:0:0", 40, 80]);
     await waitFor("the chaplain approach", () => run('document.querySelector(".encounter-sprite")?.naturalWidth === 160'));
     await switchBothWays();

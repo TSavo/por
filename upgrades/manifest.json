@@ -4503,6 +4503,7 @@
     "tile:0:79df1b8dae4f018af68d2bef802287f963249fa4f88521118c93285a05193515": "new-phlan-south-market-terrain-0-79df1b8dae4f.png",
     "tile:0:5b720a6a4fb8f83e4418b0f0f966a810b4590d0afca70948ce8f8a9253443abe": "new-phlan-street-paving-joins-0-5b720a6a4fb8.png",
     "portrait:HEAD5.DAX:14:BODY5.DAX:7": "valjevo-bane-chaplain.png",
+    "scene-illustration:area:6:ecl:9b14:caller:a410": "valjevo-bane-barracks-chapel.png",
     "combat:area:5:CPIC5.DAX:55": "valjevo-hill-giant-stand.png",
     "combat:area:5:CPIC5.DAX:183": "valjevo-hill-giant-strike.png",
     "combat:area:5:CPIC5.DAX:31": "valjevo-tower-troll-stand.png",
