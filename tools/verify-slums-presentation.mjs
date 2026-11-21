@@ -1235,6 +1235,12 @@ const illustrationRoutes = new Map([
     continuation: { inputs: [choice], clearsPortrait: true,
       prompt: choice === "y" ? /FOUND.*TREASURE.*533.*EXPERIENCEPOINTS/i : /AREACASTVIEWENCAMP/i },
   }]),
+  ["kovel-room-gas", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:14:ecl:9ae8:caller:9a4f",
+    prompt: /THEPARTYHEARSTHECRACKINGOFGLASS.*APOISONOUSGASFILLSTHEAIR/i,
+    finalPhaseCapture: "kovel-room-gas.png",
+  }],
   ["kovel-tarnished-loot", {
     slot: "A", inputs: ["up", "enter", "enter"],
     transientPortraits: { 1: {
