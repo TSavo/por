@@ -2174,6 +2174,8 @@ const illustrationRoutes = new Map([
       8: "portrait:area:23:ecl:9f04:PIC7.DAX:57:2:0",
     },
     portrait: "portrait:area:23:ecl:9f04:PIC7.DAX:57:3:0", prompt: /THEYAREWARY,BUTNOTHOSTILE/i,
+    continuation: { inputs: ["p"], portrait: "portrait:area:23:ecl:9f2a:PIC7.DAX:57:3:0",
+      prompt: /THEYAREWARY,BUTNOTHOSTILE.*HAUGHTYSLYNICEMEEKABUSIVE/i },
   }],
   ["pyramid-lizardfolk-patrol", {
     slot: "A", inputs: ["up", "enter", "enter", "enter"],
@@ -10742,8 +10744,28 @@ try {
     `));
     await verifyPortraitPanel();
     await switchBothWays();
+    if (!riverPumpingHostile) {
+      await advance("z");
+      for (const member of [1, 2, 3]) {
+        await advance("z");
+        const phase = `portrait:area:23:ecl:aa03:PIC7.DAX:57:${member}:0`;
+        assert.equal(frame.portrait, phase);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /THEYRECOILINFEAR/i);
+        await waitFor("the pumping-room prisoner animation", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${phase}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `pumping-room-prisoners-phase-${member}.png`), Buffer.from(shot.data, "base64"));
+      }
+      for (let i = 0; i < 16; i++) await advance("z");
+      assert.equal(frame.portrait, "portrait:area:23:ecl:aa03:PIC7.DAX:57:1:0");
+    }
     await advance("p");
-    assert.equal(frame.portrait, "portrait:area:23:PIC7.DAX:57:0:0");
+    const parlay = `portrait:area:23:ecl:aa20:PIC7.DAX:57:${riverPumpingHostile ? 0 : 1}:0`;
+    assert.equal(frame.portrait, parlay);
+    await waitFor("the pumping-room prisoners during Parlay", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${parlay}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
     if (riverPumpingHostile) {
       await advance("h");
       const dialogue = frame.text.toSorted(([a], [b]) => a - b)
