@@ -76,6 +76,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:6:ecl:a226", "ICAN'TTAKEANYMOREORDERSJUSTNOW"],
   ["scene-illustration:area:6:ecl:9c44", "ICAN'TTAKEANYMOREORDERSJUSTNOW"],
   ["scene-illustration:area:7:ecl:995f:caller:a170", "AMIDDLEAGEDMANINROBESLOOKSUPFROMADESK"],
+  ["scene-illustration:area:7:ecl:a321", /^GOOD\.$/],
+  ["scene-illustration:area:7:ecl:a326", /^GOOD\.$/],
   ["scene-illustration:area:7:ecl:995f:caller:a4dd", "THECEILINGHASBEENTORNAWAY"],
   ["scene-illustration:area:7:ecl:995f:caller:a8b2", "YOULEAVETHECASTLE.MOVINGTHROUGHTHESTREETS"],
   ["scene-illustration:area:7:ecl:a82d", /THESPIRITOFTYRANTHRAXUSFLARESUP|YOUHAVEBUTSLAINTHEBODYIPOSSESSED|NOLORDBANE!ICANSTILLRULEHERE/],

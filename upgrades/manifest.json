@@ -1478,6 +1478,8 @@
     "combat:area:24:CPIC1.DAX:4:ecl:b6a2": "bane-rampart-orc-patrol-ready.png",
     "combat:area:24:CPIC1.DAX:132:ecl:b6a2": "bane-rampart-orc-patrol-strike.png",
     "scene-illustration:area:7:ecl:995f:caller:a170": "valjevo-genheeris-at-desk.png",
+    "scene-illustration:area:7:ecl:a321": "valjevo-genheeris-deal-accepted.png",
+    "scene-illustration:area:7:ecl:a326": "valjevo-genheeris-deal-accepted.png",
     "portrait:area:7:ecl:a246:HEAD5.DAX:59:BODY5.DAX:31": "valjevo-genheeris-orders.png",
     "portrait:area:7:ecl:a235:HEAD5.DAX:59:BODY5.DAX:31": "valjevo-genheeris-orders.png",
     "portrait:area:17:ecl:9da2:caller:b2c4:HEAD7.DAX:74:BODY7.DAX:30": "nomad-chief-dismissal-reward.png",

@@ -4304,7 +4304,7 @@ try {
 
   await run('document.querySelector("#presentation").click()');
   const verifyDefaultWebGL = moonseaTravel || sokalTravel || valjevoTravel || travelDestination || questLockedTravel ||
-    verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel ||
+    verifyHallsWebGL || verifyApproachTravel || verifyDistrictTravel || genheeris ||
     ["new-phlan-rolf-tour", "lizardfolk-battle-wall"].includes(routeName);
   if (!verifyDefaultWebGL) {
     // The tile replays verify individual PNG placements.
@@ -7519,7 +7519,20 @@ try {
       assert.equal(frame.journal.objective.nextStep, castleObjective);
     } else {
       assert.ok(!knows("castle-genheeris-deal"));
-      for (const key of ["j", "enter", "y", "enter"]) await advance(key);
+      for (const key of ["j", "enter"]) await advance(key);
+      assert.equal(frame.portrait, "portrait:area:7:ecl:9932:caller:a30f:HEAD5.DAX:59:BODY5.DAX:31");
+      await advance("y");
+      const dealAccepted = "scene-illustration:area:7:ecl:a326";
+      assert.equal(frame.portrait, dealAccepted);
+      assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /GOOD\./i);
+      await waitFor("Genheeris sealing the bargain", () => run(
+        'state.sequence === ' + frame.sequence +
+        ' && document.querySelector(\'.encounter-portrait[src="/art/' + dealAccepted + '"]\')?.naturalWidth === 352'));
+      await verifyPortraitPanel();
+      const acceptedShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "valjevo-genheeris-deal-accepted.png"), Buffer.from(acceptedShot.data, "base64"));
+      await switchBothWays();
+      await advance("enter");
       assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /GENHEERIS/i);
       assert.equal(frame.portrait, undefined);
       await advance("j");
