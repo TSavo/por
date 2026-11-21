@@ -316,6 +316,8 @@ export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(
 export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:9:ecl:a36e", "YOUOVERHEARTHEFIGHTERTELLTHEMAGE"],
   ["scene-illustration:area:9:ecl:9c63:caller:a372", "YOUOVERHEARTHEFIGHTERTELLTHEMAGE"],
+  ["scene-illustration:area:9:ecl:a4e2:cue:dual-tower-ambush", "MONSTERSARECHARGINGTOWARDYOUFROMTHEFARTOWER"],
+  ["scene-illustration:area:9:ecl:9c63:caller:a558:cue:dual-tower-ambush", "MONSTERSBURSTONYOUFROMTHETOWERNEXTTOYOU"],
   ["scene-illustration:area:9:ecl:9bfe:caller:a29d", "ANALARMSTARTSRINGING"],
   ["scene-illustration:area:9:ecl:9c16:caller:a29d", "ANALARMSTARTSRINGING"],
   ["scene-illustration:area:9:ecl:a2a5:cue:mage-barracks-alarm", "ANALARMSTARTSRINGING"],
