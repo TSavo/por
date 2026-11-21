@@ -29,8 +29,8 @@ Use **Encamp → Save** and **Load Saved Game** to save and restore the party an
 In combat, **Home**, **Page Up**, **End**, and **Page Down** move or aim diagonally. The numeric keypad provides these keys with Num Lock off.
 
 For local testing, set `POR_DEV_COMBAT=1` before running `npm run play` and
-use a separate `POR_SAVE_DIR` for test saves. Press **Space** to leave Quick
-combat, then press **F9** at a character's **Move** menu. Choose **No** at
+use a separate `POR_SAVE_DIR` for test saves. Press **F9** when it appears
+during combat, including on an enemy's opening turn. Choose **No** at
 **Continue Battle** to collect the original encounter's rewards and continue.
 
 Press **F10** or select **Enhanced display** to use replacement art where

@@ -563,8 +563,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
+    const battlePoll = !blocking && cpu.cs === 0x512 && cpu.ip === 0x5423 && hasBattlefieldBorder(screen);
+    const combatMenu = developerCombat ? menuText(visibleGameText()) : "";
+    // Combat can pause on a hostile's first turn before the party gets a menu.
     developerVictoryAvailable = developerCombat && canWinDeveloperCombat(cpu) &&
-      hasBattlefieldBorder(screen) && menuText(visibleGameText()).startsWith("MOVEVIEWAIM");
+      ((battlePoll && combatMenu === "") || (combatMenu.startsWith("MOVEVIEWAIM") && hasBattlefieldBorder(screen)));
     const kovelTransition = kovelJournalTransition(cpu, 0x740);
     if (kovelTransition !== undefined && kovelTransition !== previousKovelTransition) journal();
     previousKovelTransition = kovelTransition;
@@ -595,7 +598,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       } : undefined;
       // The ECL interpreter suspends at this cursor while the battle runs.
       captureEclContext(cpu);
-      if (!blocking && cpu.cs === 0x512 && cpu.ip === 0x5423 && hasBattlefieldBorder(screen)) {
+      if (battlePoll) {
         // Original combat turn code (ovl08:0252, 02a0) stores the active actor and tests its Quick flag.
         const actorOffset = cpu.read16(0x740, 0x5cf0);
         const actorSegment = cpu.read16(0x740, 0x5cf2);
