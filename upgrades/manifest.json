@@ -2688,6 +2688,8 @@
     "scene-illustration:area:9:ecl:a7a3:cue:bugbear-alarm": "stojanow-bugbear-alarm.png",
     "scene-illustration:area:9:ecl:a36e": "stojanow-medusa-trapdoor-warning.png",
     "scene-illustration:area:9:ecl:9c63:caller:a372": "stojanow-medusa-trapdoor-warning.png",
+    "scene-illustration:area:9:ecl:a51a:cue:near-tower-charge": "stojanow-near-tower-charge.png",
+    "scene-illustration:area:9:ecl:9c63:caller:a558:cue:near-tower-charge": "stojanow-near-tower-charge.png",
     "scene-illustration:area:9:ecl:a548:cue:far-tower-charge": "stojanow-far-tower-charge.png",
     "scene-illustration:area:9:ecl:9c63:caller:a558:cue:far-tower-charge": "stojanow-far-tower-charge.png",
     "scene-illustration:area:9:ecl:a4e2:cue:dual-tower-ambush": "stojanow-dual-tower-ambush.png",

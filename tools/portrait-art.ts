@@ -320,6 +320,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:22:ecl:9a06:caller:a213", "YOUSURPRISEVISCIOUSLOOKINGDRIDERS"],
   ["scene-illustration:area:9:ecl:a36e", "YOUOVERHEARTHEFIGHTERTELLTHEMAGE"],
   ["scene-illustration:area:9:ecl:9c63:caller:a372", "YOUOVERHEARTHEFIGHTERTELLTHEMAGE"],
+  ["scene-illustration:area:9:ecl:a51a:cue:near-tower-charge", "MONSTERSTHUNDERDOWNTHESTEPS"],
+  ["scene-illustration:area:9:ecl:9c63:caller:a558:cue:near-tower-charge", "MONSTERSTHUNDERDOWNTHESTEPSOFTHETOWERNEXTTOYOU"],
   ["scene-illustration:area:9:ecl:a548:cue:far-tower-charge", "MONSTERSARECHARGINGTOWARDYOUFROMTHEFARTOWER"],
   ["scene-illustration:area:9:ecl:9c63:caller:a558:cue:far-tower-charge", /^MONSTERSARECHARGINGTOWARDYOUFROMTHEFARTOWER\.$/],
   ["scene-illustration:area:9:ecl:a4e2:cue:dual-tower-ambush", "MONSTERSARECHARGINGTOWARDYOUFROMTHEFARTOWER"],

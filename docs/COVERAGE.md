@@ -1776,6 +1776,11 @@ challenge, including panel fit and state-preserving mode switches.
 in the original nighttime outpost battle.
 `stojanow-plotting-mage` and `stojanow-plotting-fighter` verify both
 portraits and prove the journal gains each lead only after hearing it.
+The Stojanow tower charge replays use controlled wall-walk checkpoints.
+The two-tower, far-only, and near-only routes vary the original tower
+clearance flags and verify distinct 352×352 illustrations. All three
+return to the original encounter menu and preserve state and save bytes
+while switching display modes.
 `nomad-warrior-combat` checks the ready pose and reflected sword strike.
 `bane-ogre-led-guards` checks the ogre and orcs illustration at the
 original temple interior prompt, including panel fit and mode switching.
