@@ -8423,7 +8423,20 @@ try {
       assert.ok(knows("bane-temple-guard-check"));
       assert.match(frame.journal.objective.nextStep, baneSymbol ? /Let Him Touch You/ : /let the blind guard check/i);
     }
-    for (const key of ["j", "l", "j"]) await advance(key);
+    for (const key of ["j", "l"]) await advance(key);
+    if (baneSymbol) {
+      const recognized = "scene-illustration:area:24:ecl:b0b5";
+      assert.equal(frame.portrait, recognized);
+      assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+        /FINDINGTHELEATHERHOLYSYMBOL.*WELCOMETOTHETEMPLEOFBANE/i);
+      await waitFor("the gatekeeper recognizing the holy symbol", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${recognized}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const recognizedShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-gatekeeper-recognizes-symbol.png"), Buffer.from(recognizedShot.data, "base64"));
+      await switchBothWays(frame.frame);
+    }
+    await advance("j");
     if (baneGate) {
       assert.ok(knows("bane-temple-guards-hostile"));
       assert.ok(!knows("bane-temple-symbol") && !knows("bane-temple-admitted"));
@@ -8432,6 +8445,11 @@ try {
       assert.ok(knows("bane-temple-admitted"));
       assert.ok(!knows("bane-temple-guards-hostile") && !knows("bane-temple-symbol-carried"));
       assert.match(frame.journal.objective.nextStep, /continue into the Temple of Bane/i);
+      for (const key of ["j", "up"]) await advance(key);
+      assert.equal(frame.portrait, undefined);
+      await waitForExplorationViewport();
+      const entranceShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "bane-temple-after-admission.png"), Buffer.from(entranceShot.data, "base64"));
     } else {
       assert.ok(knows("bane-temple-symbol"));
       assert.match(frame.journal.objective.nextStep, /bring a holy symbol of bane/i);
