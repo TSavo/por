@@ -2709,6 +2709,8 @@
     "portrait:area:15:PIC2.DAX:0:0:0": "mendor-storeroom-kobolds-dialogue.png",
     "portrait:area:15:ecl:ad7b:PIC2.DAX:0:1:0": "mendor-storeroom-kobolds-pleading.png",
     "portrait:area:15:ecl:ad7b:PIC2.DAX:0:2:0": "mendor-storeroom-kobolds-explaining.png",
+    "portrait:area:15:ecl:ae94:PIC2.DAX:0:1:0": "mendor-storeroom-kobolds-pleading.png",
+    "portrait:area:15:ecl:ae94:PIC2.DAX:0:2:0": "mendor-storeroom-kobolds-explaining.png",
     "portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:1:0": "mendor-storeroom-kobolds-pleading.png",
     "portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:2:0": "mendor-storeroom-kobolds-explaining.png",
     "scene-illustration:area:15:ecl:99b5:caller:ae7b": "mendor-storeroom-kobold-map.png",

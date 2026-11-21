@@ -797,6 +797,11 @@ const illustrationRoutes = new Map([
     journalLead: "mendor-storeroom-map", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["mendor-storeroom-decline", {
+    slot: "B", inputs: ["up", ...Array(4).fill("enter"), "a", "a", "p", "a", "a", "n"],
+    portraitStops: { 8: "portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:2:0", 10: "portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:1:0" },
+    portrait: "portrait:area:15:ecl:ae94:PIC2.DAX:0:1:0", prompt: /ABATTLEBEGINS/i,
+  }],
   ["mendor-storeroom-kobold-phases", {
     slot: "B", inputs: ["up", ...Array(4).fill("enter"), "a", "a", "p", "a", "a", "y"],
     portraitStops: {

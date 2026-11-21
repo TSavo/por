@@ -83,6 +83,8 @@ const verifiedPortraitDeltaKeys = new Set([
   "portrait:area:10:ecl:b50b:PIC4.DAX:20:2:0",
   "portrait:area:15:ecl:ad7b:PIC2.DAX:0:1:0",
   "portrait:area:15:ecl:ad7b:PIC2.DAX:0:2:0",
+  "portrait:area:15:ecl:ae94:PIC2.DAX:0:1:0",
+  "portrait:area:15:ecl:ae94:PIC2.DAX:0:2:0",
   "portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:1:0",
   "portrait:area:15:ecl:9987:caller:adf9:PIC2.DAX:0:2:0",
   "portrait:area:20:ecl:b6df:caller:abd5:PIC2.DAX:6:1:0",
