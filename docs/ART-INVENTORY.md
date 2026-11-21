@@ -288,6 +288,13 @@ member 2. A controlled replay changed the first draw distance at ECL
 crypt corridor and continued to the existing near sprite and dialogue.
 The unchanged return route uses middle and near distances.
 
+The Valhingen zombie has a far replacement for `SPRIT4.DAX` block 35,
+member 2. A controlled replay changed the first draw distance at ECL
+`b6a8` and caller `9f24` from middle to far and matched the original 24x49 sprite at
+(56,32). Chrome displayed the replacement over WebGL at the end of the
+cemetery lane and continued to the existing near sprite and dialogue.
+The unchanged roaming route uses middle and near distances.
+
 The swamp giant lizard has separate middle and far sprites from
 `SPRIT8.DAX` block 59, members 1 and 2. Controlled Chrome replays drew
 the 192×260 and 160×228 sprites at (48,32) and continued to the enhanced
