@@ -24,7 +24,10 @@ export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
       depth = z;
       tileIndex = tile;
       wallU = faceU;
-      gl_Position = vec4(dot(d.xz, right) * 1.42 / aspect, d.y * 1.42 + z * .11,
+      // The native view fits the nearest wall and its floor contact inside
+      // the encounter panel. Keep that field of view for the 3D geometry.
+      const float focalLength = .60;
+      gl_Position = vec4(dot(d.xz, right) * focalLength / aspect, d.y * focalLength + z * .11,
                          z * 1.003 - .08, z);
     }
   `;
