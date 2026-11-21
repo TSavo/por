@@ -416,12 +416,12 @@ const encounterRoutes = new Map([
   }],
   ["wild-cave-thri-kreen-two-guards", {
     slot: "A", inputs: ["up", "enter"],
-    placement: [56, 32, "encounter:area:25:SPRIT6.DAX:118:0:0", 32, 73],
+    placement: [56, 32, "encounter:area:25:ecl:a936:SPRIT6.DAX:118:0:0", 32, 73],
     dialogue: { key: "enter", portrait: "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0", prompt: /THEREARETWOTHRI.KREENHERE/i },
   }],
   ["wild-cave-thri-kreen-three-warriors", {
     slot: "A", inputs: ["up", "enter"],
-    placement: [56, 32, "encounter:area:25:SPRIT6.DAX:118:0:0", 32, 73],
+    placement: [56, 32, "encounter:area:25:ecl:a9cd:SPRIT6.DAX:118:0:0", 32, 73],
     dialogueSteps: [
       { key: "enter", portrait: "portrait:area:25:ecl:aa0e:PIC6.DAX:118:0:0", prompt: /BEFOREYOUARETHREETHRI.KREENWARRIORS/i },
       { key: "z", portrait: "portrait:area:25:ecl:aa0f:PIC6.DAX:118:0:0", prompt: /ABATTLEBEGINS/i },
