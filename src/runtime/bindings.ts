@@ -147,7 +147,7 @@ export const far = resolve({
  *
  * Artwork, narration and the journal are keyed by positions in the game's ECL scripts, as the
  * first release numbers them. One script differs in version 1.3: New Phlan (ECL3.DAX block 0)
- * ends its tavern brawl with `GOTO a609` where the first release has `EXIT` at a692. The
+ * ends its tavern's refused wager with `GOTO a609` where the first release has `EXIT` at a692. The
  * instruction is three bytes longer, so every later instruction of that script sits three
  * bytes further on, and nothing else changed. (The other difference in that script, the
  * number of tavern tales at a429, changes an operand and no position.)
