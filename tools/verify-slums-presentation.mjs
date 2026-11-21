@@ -2360,6 +2360,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-elven-remains.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-dining-room", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:13:ecl:ace3:cue:dining-room", prompt: /HERECRUDETABLES,LITTEREDWITHBONES/i,
+    finalPhaseCapture: "kobold-cave-dining-room.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["tyrmor-portal-rocks", {
     slot: "B", inputs: ["s", "up"],
     portrait: "scene-illustration:area:22:ecl:9a06:caller:a016:cue:scattered-rocks",
