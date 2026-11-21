@@ -15,8 +15,8 @@ const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with slot D, --from-sokal with slot A, or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, or --replay-leg with a recorded leg directory.");
 }
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
@@ -139,14 +139,6 @@ function expectParty(text) {
 
 function loadSlot(key) {
   return `31000000:1c0d,45000000:266c,52000000:${key}`;
-}
-
-if (campaign && campaignOption === "--from-sokal") {
-  copyFileSync(campaignInput, join(saveDir, "A.json"));
-  await verifySokalArrival();
-  await verifySokalKeep();
-  console.log("Enhanced Chrome campaign verified through the Sokal Keep armory:", resolve(saveDir, "F.json"));
-  process.exit(0);
 }
 
 async function verifySokalSmithy(checkpoint) {
@@ -1277,6 +1269,74 @@ const armoryToTemple = [
   ...Array(4).fill("up"), "left", "up", "up", "y", "y",
   (text) => assert.match(text, /heal view pool appraise exit/),
 ];
+
+async function verifySokalTempleHealing() {
+  const templeSave = await replay(loadSlot("2166"), "85000000", [
+    text => assert.match(text, /12,0 n/, "Expected the earned Sokal armory save in slot F"),
+    ...armoryToTemple,
+    ...Array(4).fill("home"), "h", "end", "end", "h",
+    (text) => assert.match(text, /cure light wounds will only cost 100 gold pieces/),
+    "y", "e", "e", "e", "s", "s", "g",
+  ]);
+  assert.match(visibleText(templeSave), /quit to dos/);
+  await replay(loadSlot("2267"), "85000000", [
+    (text) => {
+      assert.match(text, /11,3 s/);
+      assert.match(text, /brin 1 6/);
+    },
+    "end", "v",
+    (text) => assert.match(text, /brin.*platinum 7.*hp 6.*weapon long sword/),
+  ]);
+  console.log("Returned to New Phlan and verified Brin's paid temple healing after reloading slot G.");
+}
+
+async function verifySokalEvokerRecruitment() {
+  const recruitSave = await replay(loadSlot("2267"), "85000000", [
+    "right", "right", "up", "left", "up", "right", "up", "up", "left", "up",
+    "enter", "enter", "enter", "n",
+    "left", "up", "right", "up", "up", "up", "enter", "enter", "n",
+    (text) => assert.match(text, /do you seek a partner for your adventuring/),
+    "y", ...Array(5).fill(["n", "y"]).flat(),
+    (text) => assert.match(text, /a fine evoker who will join you for 2 shares/),
+    "y", "n",
+    (text) => assert.match(text, /evoker 9 6.*7,1 w/),
+    "e", "s", "s", "h",
+  ]);
+  assert.match(visibleText(recruitSave), /quit to dos/);
+  await replay(loadSlot("2368"), "85000000", [
+    (text) => {
+      expectParty(text);
+      assert.match(text, /evoker 9 6.*7,1 w/);
+    },
+    ...Array(6).fill("end"), "c",
+    (text) => assert.match(text, /evoker's spells in memory.*sleep sleep/),
+    "enter",
+    (text) => assert.match(text, /sleep is a combat-only spell.*lose it/),
+    "n",
+    (text) => assert.match(text, /evoker's spells in memory.*sleep sleep/),
+  ]);
+  console.log("Hired an evoker and verified his two memorized Sleep spells after reloading slot H.");
+}
+
+async function verifySokalNextChapter() {
+  await verifySokalTempleHealing();
+  await verifySokalEvokerRecruitment();
+  console.log("Enhanced Chrome campaign verified through temple healing and evoker recruitment:", resolve(saveDir, "H.json"));
+}
+
+if (campaign && campaignOption === "--from-sokal") {
+  copyFileSync(campaignInput, join(saveDir, "A.json"));
+  await verifySokalArrival();
+  await verifySokalKeep();
+  await verifySokalNextChapter();
+  process.exit(0);
+}
+
+if (campaign && campaignOption === "--from-sokal-armory") {
+  copyFileSync(campaignInput, join(saveDir, "F.json"));
+  await verifySokalNextChapter();
+  process.exit(0);
+}
 
 async function verifySokalTempleRecovery(equipped) {
   const armoryParty = equipped
@@ -2867,26 +2927,11 @@ async function verifySokalKeep() {
 
 await verifySokalKeep();
 if (campaign) {
-  console.log("Enhanced Chrome campaign verified through the Sokal Keep armory:", resolve(saveDir, "F.json"));
+  await verifySokalNextChapter();
   process.exit(0);
 }
 
-const templeSave = await replay(loadSlotF, "85000000", [
-  ...armoryToTemple,
-  ...Array(4).fill("home"), "h", "end", "end", "h",
-  (text) => assert.match(text, /cure light wounds will only cost 100 gold pieces/),
-  "y", "e", "e", "e", "s", "s", "g",
-]);
-assert.match(visibleText(templeSave), /quit to dos/);
-await replay(loadSlotG, "85000000", [
-  (text) => {
-    assert.match(text, /11,3 s/);
-    assert.match(text, /brin 1 6/);
-  },
-  "end", "v",
-  (text) => assert.match(text, /brin.*platinum 7.*hp 6.*weapon long sword/),
-]);
-console.log("Returned to New Phlan and verified Brin's paid temple healing after reloading slot G.");
+await verifySokalTempleHealing();
 const courtyardDefeat = await replay(loadSlotG, "85000000", [
   "right", "right", "up", "up", "enter", "enter", "right", ...Array(4).fill("up"),
   ...Array(5).fill("enter"),
@@ -2911,32 +2956,7 @@ await replay(loadSlotG, "85000000", [
 ]);
 console.log("Replayed the Sokal courtyard defeat and reloaded the party and outstanding commission from slot G.");
 
-const recruitSave = await replay(loadSlotG, "85000000", [
-  "right", "right", "up", "left", "up", "right", "up", "up", "left", "up",
-  "enter", "enter", "enter", "n",
-  "left", "up", "right", "up", "up", "up", "enter", "enter", "n",
-  (text) => assert.match(text, /do you seek a partner for your adventuring/),
-  "y", ...Array(5).fill(["n", "y"]).flat(),
-  (text) => assert.match(text, /a fine evoker who will join you for 2 shares/),
-  "y", "n",
-  (text) => assert.match(text, /evoker 9 6.*7,1 w/),
-  // Slot H's earlier checkpoint has already been verified.
-  "e", "s", "s", "h",
-]);
-assert.match(visibleText(recruitSave), /quit to dos/);
-await replay(loadSlotH, "85000000", [
-  (text) => {
-    expectParty(text);
-    assert.match(text, /evoker 9 6.*7,1 w/);
-  },
-  ...Array(6).fill("end"), "c",
-  (text) => assert.match(text, /evoker's spells in memory.*sleep sleep/),
-  "enter",
-  (text) => assert.match(text, /sleep is a combat-only spell.*lose it/),
-  "n",
-  (text) => assert.match(text, /evoker's spells in memory.*sleep sleep/),
-]);
-console.log("Hired an evoker and verified his two memorized Sleep spells after reloading slot H.");
+await verifySokalEvokerRecruitment();
 const evokerTurn = await replay(loadSlotH, "85000000", [
   "right", "right", "up", "up", "left", "up", "enter", "enter", "enter", "n",
   "right", "up", "enter", "enter", "right", "up", "up", "left", "up", "left", "up",
