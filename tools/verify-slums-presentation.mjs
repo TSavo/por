@@ -1961,10 +1961,17 @@ const illustrationRoutes = new Map([
     approachStops: { 19: [48, 32, "encounter:area:22:ecl:a2c3:SPRIT7.DAX:13:0:0", 40, 73] },
     portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:13:BODY7.DAX:6", prompt: /THEYSMILEATYOU/i,
   }],
+  ["tyrmor-elf-sighting", {
+    slot: "B", inputs: ["s", ...Array.from({ length: 11 }, () => ["up", "down"]).flat(), "up"],
+    portrait: "scene-illustration:area:22:ecl:9a06:caller:a213:cue:emaciated-elves", prompt: /YOUSEEAGROUPOFEMACIATEDELVES/i,
+    finalPhaseCapture: "tyrmor-elf-sighting.png",
+    continuation: { inputs: ["enter", "down"], portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:11:BODY7.DAX:2", prompt: /THEYSMILEATYOU/i },
+  }],
   ["tyrmor-prison-elf-dialogue", {
     slot: "B", inputs: ["s", ...Array.from({ length: 11 }, () => ["up", "down"]).flat(), "up", "enter", "down"],
     approachSequence: [[48, 32, "encounter:area:22:ecl:a2c3:SPRIT7.DAX:24:0:0", 32, 73]],
     portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:11:BODY7.DAX:2", prompt: /THEYSMILEATYOU/i,
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:HEAD7.DAX:11:BODY7.DAX:2", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-prison-stirge-dialogue", {
     slot: "B", inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "down"]).flat(), "up", "enter", "down"],
