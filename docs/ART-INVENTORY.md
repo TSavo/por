@@ -330,6 +330,12 @@ sprite at (64,24). Chrome showed each far pose over WebGL before
 continuing to the nearer pose and dialogue. The standard routes use
 middle and near distances.
 
+The Mendor library spectre has middle and far replacements for
+`SPRIT2.DAX` block 17, members 1 and 2. Controlled replays changed
+the draw distance at ECL `9a3c` from both library approaches. Chrome
+displayed the distinct poses over the central doorway before continuing
+to the spectre's dialogue. The standard routes draw the near sprite.
+
 The swamp giant lizard has separate middle and far sprites from
 `SPRIT8.DAX` block 59, members 1 and 2. Controlled Chrome replays drew
 the 192×260 and 160×228 sprites at (48,32) and continued to the enhanced
