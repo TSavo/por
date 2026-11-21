@@ -2404,6 +2404,13 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-elven-remains.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-abandoned-prison-cell", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:13:ecl:a93f:cue:abandoned-prison-cell",
+    prompt: /THISWASAPRISONCELL.BROKENBINDINGSANDSIXDEADKOBOLDS/i,
+    finalPhaseCapture: "kobold-cave-abandoned-prison-cell.png",
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["kobold-cave-barracks-map", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:13:ecl:a720:cue:barracks-map",
