@@ -6,6 +6,7 @@ export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
     attribute vec3 position;
     attribute vec4 surface;
     attribute float tile;
+    attribute float faceU;
     uniform vec3 eye;
     uniform float aspect;
     uniform vec2 forward;
@@ -14,6 +15,7 @@ export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
     varying vec4 material;
     varying float depth;
     varying float tileIndex;
+    varying float wallU;
     void main() {
       vec3 d = position - eye;
       float z = dot(d.xz, forward);
@@ -21,6 +23,7 @@ export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
       material = surface;
       depth = z;
       tileIndex = tile;
+      wallU = faceU;
       gl_Position = vec4(dot(d.xz, right) * 1.42 / aspect, d.y * 1.42 + z * .11,
                          z * 1.003 - .08, z);
     }
@@ -31,6 +34,7 @@ export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
     varying vec4 material;
     varying float depth;
     varying float tileIndex;
+    varying float wallU;
     uniform sampler2D art;
     float hash(vec2 p) {
       return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
@@ -52,7 +56,8 @@ export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
     void main() {
       float floorSurface = 1.0 - step(.5, material.x);
       float axis = mix(world.x, world.z, material.y);
-      vec2 faceUV = vec2(fract(axis), 1.0-world.y/max(material.z,.1));
+      float u = wallU < 0.0 ? fract(axis) : wallU;
+      vec2 faceUV = vec2(u, 1.0-world.y/max(material.z,.1));
       vec2 groundUV = vec2(world.x,world.z) * 1.48;
       vec2 textureUV = mix(faceUV, fract(groundUV), floorSurface);
       vec4 texel = sampleArt(tileIndex, textureUV);
@@ -89,9 +94,11 @@ export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
         throw new Error(gl.getProgramInfoLog(program) ?? "");
     gl.useProgram(program);
     const vertices = [];
-    function quad(a, b, c, d, surface, tile = 0) {
-        for (const p of [a, b, c, a, c, d])
-            vertices.push(...p, ...surface, tile);
+    function quad(a, b, c, d, surface, tile = 0, direction = 0) {
+        const left = direction > 0 ? 0 : 1;
+        const right = 1 - left;
+        for (const [p, u] of [[a, left], [b, right], [c, right], [a, left], [c, right], [d, left]])
+            vertices.push(...p, ...surface, tile, direction ? u : -1);
     }
     if (layout !== "phlan") {
         quad([-5, 0, -5], [21, 0, -5], [21, 0, 21], [-5, 0, 21], [0, 0, .7, .5], 16);
@@ -125,16 +132,15 @@ export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
                     return;
                 const [sx, sz, ex, ez] = step[side];
                 const ax = x + sx, az = z + sz, bx = x + ex, bz = z + ez;
-                const seed = ((ax * 53 + az * 37 + type * 17) % 61) / 60;
                 const axis = sx === ex ? 1 : 0;
                 const isGate = layout === "phlan" && type === 1 && (ax === 0 || ax === 13);
-                const height = (isGate ? 1.52 : 1.19) + (seed - .5) * .29;
+                const height = isGate ? 1.52 : 1.19;
                 const lit = axis ? .25 : .92;
                 const dx = (bx - ax) * .027, dz = (bz - az) * .027;
                 const ox = -dz, oz = dx;
                 const color = [isGate ? 2 : 1, axis, height, lit];
                 const sign = side === 0 || side === 1 ? 1 : -1;
-                quad([ax + sign * ox, 0, az + sign * oz], [bx + sign * ox, 0, bz + sign * oz], [bx + sign * ox, height, bz + sign * oz], [ax + sign * ox, height, az + sign * oz], color, type);
+                quad([ax + sign * ox, 0, az + sign * oz], [bx + sign * ox, 0, bz + sign * oz], [bx + sign * ox, height, bz + sign * oz], [ax + sign * ox, height, az + sign * oz], color, type, sign);
                 if (isGate) {
                     const nearX = ax + sign * ox, nearZ = az + sign * oz, endX = bx + sign * ox, endZ = bz + sign * oz;
                     const leftX = nearX + (endX - nearX) * .24, leftZ = nearZ + (endZ - nearZ) * .24;
@@ -155,12 +161,15 @@ export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
     const pos = gl.getAttribLocation(program, "position");
     const mat = gl.getAttribLocation(program, "surface");
     const tile = gl.getAttribLocation(program, "tile");
+    const faceU = gl.getAttribLocation(program, "faceU");
     gl.enableVertexAttribArray(pos);
     gl.enableVertexAttribArray(mat);
     gl.enableVertexAttribArray(tile);
-    gl.vertexAttribPointer(pos, 3, gl.FLOAT, false, 32, 0);
-    gl.vertexAttribPointer(mat, 4, gl.FLOAT, false, 32, 12);
-    gl.vertexAttribPointer(tile, 1, gl.FLOAT, false, 32, 28);
+    gl.enableVertexAttribArray(faceU);
+    gl.vertexAttribPointer(pos, 3, gl.FLOAT, false, 36, 0);
+    gl.vertexAttribPointer(mat, 4, gl.FLOAT, false, 36, 12);
+    gl.vertexAttribPointer(tile, 1, gl.FLOAT, false, 36, 28);
+    gl.vertexAttribPointer(faceU, 1, gl.FLOAT, false, 36, 32);
     const texture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, atlas);
@@ -183,7 +192,7 @@ export function createNewPhlanViewport(canvas, walls, atlas, layout = "phlan") {
         gl.uniform1f(aspect, canvas.width / canvas.height);
         gl.viewport(0, 0, canvas.width, canvas.height);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-        gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 8);
+        gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 9);
         if (gl.getError() !== gl.NO_ERROR)
             throw new Error("WebGL draw failed");
       },
