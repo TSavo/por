@@ -893,6 +893,12 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter", "right"], prompt: /THEHALLISEMPTY,SAVEFORSIGNSOFARECENTBATTLE/i },
   }],
   ["sokal-chapel-arrival", {
+  ["sokal-smithy-hammer", {
+    slot: "D", inputs: ["right", "right", "up", "left", "up", "s", "l"], portraitStops: { 6: null },
+    portrait: "scene-illustration:area:21:ecl:ae41:caller:a18d",
+    prompt: /WITHTHEEXCEPTIONOFONEOLDHAMMER.*DOYOUTAKEIT/i,
+    journalLead: "sokal-smithy-hammer",
+  }],
     slot: "F", inputs: ["left", "up", "left", "up", "left", "up", "right", "up", "up"],
     portrait: "scene-illustration:area:21:ecl:a9fa",
     prompt: /CHAPELOFTHEKEEP.*DRIEDHUSKSOFTWOORCS.*ALTARDOMINATESTHESOUTHERNWALL/i,
@@ -4140,7 +4146,8 @@ const refuseNomadDismissal = routeName === "nomad-feast-decline" && option === "
 assert.ok(!option || (courtyard && (terrainOnly || manualParty)) || repeatStampede || classicPortrait ||
   ogreApproachOnly || councilFinale || (halls && option === "--webgl") || verifyApproachTravel || verifyDistrictTravel ||
   declineDirten || declineRestal || declineKoboldGuide || declineFatima || declineCryptScroll || declineKutoCache ||
-  declineValjevoDisguise || fightNorris || refuseNomadDismissal, "Option does not apply to this route");
+  declineSmithyHammer || declineValjevoDisguise || fightNorris || refuseNomadDismissal, "Option does not apply to this route");
+const declineSmithyHammer = routeName === "sokal-smithy-hammer" && option === "--decline";
 const landing = routeName === "sokal-landing" || patrolCombat || courtyard;
 mkdirSync("out", { recursive: true });
 const directory = mkdtempSync(resolve("out", "slums-presentation-"));
@@ -6726,6 +6733,27 @@ try {
     }
     if (routeName === "sokal-pale-form-arrival") {
       await switchBothWays(frame.frame);
+    if (routeName === "sokal-smithy-hammer") {
+      const hammerShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "sokal-smithy-old-hammer.png"), Buffer.from(hammerShot.data, "base64"));
+      await advance("j");
+      assert.ok(frame.journal?.leads.some(({ id }) => id === journalLead));
+      await advance("j");
+      await advance(declineSmithyHammer ? "n" : "y");
+      assert.equal(frame.portrait, undefined);
+      const text = () => frame.text.map(([, char]) => String.fromCharCode(char)).join("");
+      if (declineSmithyHammer) {
+        assert.match(text(), /AREACASTVIEWENCAMP/i);
+        await waitForExplorationViewport();
+      } else {
+        assert.match(text(), /RECEIVES80EXPERIENCEPOINTS/i);
+        for (const key of ["enter", "enter", ...Array(5).fill("end"), "t"]) await advance(key);
+        assert.match(text(), /LOOTHAMMER/i);
+        assert.equal(frame.portrait, undefined);
+        await advance("t");
+      }
+      console.log("Verified choice and journal for the old smithy hammer in Chrome:", directory);
+    }
       const risingFormShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "sokal-pale-form-rises.png"), Buffer.from(risingFormShot.data, "base64"));
       await advance("j");
