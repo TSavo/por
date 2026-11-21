@@ -4376,6 +4376,8 @@
     "encounter:area:10:ecl:a7b9:SPRIT4.DAX:17:0:0": "valhingen-zombie-conjurer-approach.png",
     "encounter:area:10:ecl:aad6:SPRIT4.DAX:17:0:0": "valhingen-wight-conjurer-approach.png",
     "portrait:PIC8.DAX:121:0:0": "kobold-cave-wyvern-dialogue.png",
+    "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0": "kobold-cave-wyvern-phase-1.png",
+    "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:2:0": "kobold-cave-wyvern-phase-2.png",
     "encounter:area:10:SPRIT4.DAX:17:1:0": "valhingen-spectre-approach.png",
     "encounter:area:10:SPRIT4.DAX:17:2:0": "valhingen-spectre-approach-far.png",
     "encounter:area:10:SPRIT4.DAX:114:0:0": "valhingen-mummy-approach.png",

@@ -14,6 +14,8 @@ const verifiedPortraitDeltaKeys = new Set([
   "portrait:PIC7.DAX:45:2:0",
   "portrait:PIC8.DAX:24:1:0",
   "portrait:PIC8.DAX:24:2:0",
+  "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:1:0",
+  "portrait:area:13:ecl:b511:caller:aad4:PIC8.DAX:121:2:0",
   "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:1:0",
   "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:2:0",
   "portrait:area:10:ecl:b50b:PIC4.DAX:20:1:0",

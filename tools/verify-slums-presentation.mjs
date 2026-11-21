@@ -6598,6 +6598,21 @@ try {
     assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
       wyvernDialogue ? /BEFOREYOULIESAHUGEWYVERN/i : /MUMMIESOPENTHEIRSARCOPHOGI/i);
     await waitFor("the enhanced encounter illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    if (wyvernDialogue) {
+      const seen = new Set();
+      for (let i = 0; i < 18 && seen.size < 2; i++) {
+        await advance("z");
+        const phase = /^portrait:area:13:ecl:b511:caller:aad4:PIC8\.DAX:121:([12]):0$/.exec(frame.portrait)?.[1];
+        if (!phase || seen.has(phase)) continue;
+        await waitFor(`the enhanced wyvern wing pose ${phase}`, () => run(
+          `state.sequence === ${frame.sequence} && [...document.querySelectorAll(".encounter-portrait")].some(
+            image => image.getAttribute("src") === ${JSON.stringify("/art/" + frame.portrait)} && image.naturalWidth === 352)`));
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `kobold-wyvern-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
+        seen.add(phase);
+      }
+      assert.deepEqual([...seen].sort(), ["1", "2"]);
+    }
     await switchBothWays();
     console.log(`Verified ${routeName} in Chrome.`);
   } else if (routeName === "yarash-desk-papers-reload") {
