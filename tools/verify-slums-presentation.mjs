@@ -1259,6 +1259,17 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["b"], portrait: "scene-illustration:area:14:ecl:9dbb:cue:three-cabinets",
       prompt: /WHICHONEWILLYOUEXAMINE/i },
   }],
+  ["kovel-three-cabinets-lock-b", {
+    slot: "A", inputs: ["up", "b"],
+    portraitStops: { 1: "scene-illustration:area:14:ecl:9dbb:cue:three-cabinets" },
+    portrait: "scene-illustration:area:14:ecl:9eb8:caller:a0ea:cue:three-cabinets",
+    prompt: /ITISLOCKED\.HOWWILLYOUOPENTHELOCK/i,
+  }],
+  ["kovel-three-cabinets-lock-c", {
+    slot: "A", inputs: ["up", "c", "o", "enter"],
+    portrait: "scene-illustration:area:14:ecl:9eb8:caller:a171:cue:three-cabinets",
+    prompt: /ITISLOCKED\.HOWWILLYOUOPENTHELOCK/i,
+  }],
   ["kovel-scroll-cabinet", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:14:ecl:a359:cue:wooden-cabinet",
