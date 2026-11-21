@@ -3028,6 +3028,12 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "mendor-ruined-desk.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["mendor-overgrown-garden", {
+    slot: "B", inputs: ["up"],
+    portrait: "scene-illustration:area:15:ecl:9c24:cue:overgrown-garden", prompt: /THEPLEASANTPONDHASBECOMEASWAMP/i,
+    finalPhaseCapture: "mendor-overgrown-garden.png",
+    continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["mendor-fresco-room", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:15:ecl:a738:cue:fresco-room", prompt: /FRESCOESONTHEWALLSOFLEARNEDMENANDTHEHEAVENLYPATRONS/i,
