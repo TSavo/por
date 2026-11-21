@@ -25,7 +25,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
   // The guest overwrites slots during a campaign. Preserve the input saves
   // and commands for each leg, including host-side journal commands.
   copyCampaignSaves(checkpointDir, directory);
-  writeFileSync(join(directory, "boot.json"), JSON.stringify({ bootKeys, startAt }) + "\n");
+  writeFileSync(join(directory, "boot.json"), JSON.stringify({ bootKeys, startAt, developerCombat }) + "\n");
   const commands = join(directory, "commands.jsonl");
   writeFileSync(commands, "");
   const log = createWriteStream(join(directory, "runner.log"));

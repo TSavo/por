@@ -26,10 +26,12 @@ if (tileFrames) mkdirSync(tileFrames);
 let tracedFrames = 0;
 let campaignLeg = 0;
 
-async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopAt) {
+async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopAt, developerCombat = false) {
   if (campaignChrome) {
     const directory = resolve(saveDir, `leg-${++campaignLeg}`);
-    const chrome = await openChromeCampaignLeg({ chromePath, directory, checkpointDir: resolve(checkpointDir), bootKeys, startAt });
+    const chrome = await openChromeCampaignLeg({
+      chromePath, directory, checkpointDir: resolve(checkpointDir), bootKeys, startAt, developerCombat,
+    });
     try {
       const initial = await chrome.nextFrame();
       const finalFrame = await replayActions(initial, actions, stopAt, async (command) => {
@@ -110,11 +112,11 @@ async function replayActions(frame, actions, stopAt, send) {
 }
 
 if (campaign && campaignOption === "--replay-leg") {
-  const { bootKeys, startAt } = JSON.parse(readFileSync(join(campaignInput, "boot.json"), "utf8"));
+  const { bootKeys, startAt, developerCombat } = JSON.parse(readFileSync(join(campaignInput, "boot.json"), "utf8"));
   const commands = readFileSync(join(campaignInput, "commands.jsonl"), "utf8").trim().split(/\r?\n/)
     .filter(Boolean).map((line) => JSON.parse(line));
   copyCampaignSaves(campaignInput, saveDir);
-  const actual = await replay(bootKeys, startAt, commands);
+  const actual = await replay(bootKeys, startAt, commands, saveDir, undefined, developerCombat === true);
   const expectedPath = join(campaignInput, "end-frame.json");
   if (existsSync(expectedPath)) {
     const expected = JSON.parse(readFileSync(expectedPath, "utf8"));
