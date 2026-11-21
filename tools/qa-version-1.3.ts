@@ -1,5 +1,8 @@
-import { existsSync, readFileSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { spawnSync } from "node:child_process";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
+import { originalDriverLayout, renderOriginalSoundDriver } from "../src/audio/original-driver.js";
+import { loadExecutable } from "../src/lib/exepack.js";
 import { parseDax } from "../src/lib/dax.js";
 import { translationCoverage } from "./translation-coverage.js";
 import { disassemble, scriptFromBlock } from "../src/lib/ecl.js";
@@ -15,8 +18,12 @@ import { findGameRoot } from "./gamedata.js";
 // journal, fast travel and the maps. This report counts what is left in each
 // part and fails while anything is left.
 //
-// Point POR_GAMEDATA at the current build and POR_GAMEDATA_1_3 at version
-// 1.3 (default: ../por-assets/gog-1.3/POOLRAD).
+// Point POR_GAMEDATA at the first release and POR_GAMEDATA_1_3 at version
+// 1.3 (default: ../por-assets/gog-1.3/POOLRAD). The report runs every check
+// itself, on 1.3, each time: about half an hour, most of it the campaign in
+// Chrome. It needs POR_CHROME, and POR_PYTHON with capstone and unicorn.
+//
+//   npm run qa:version-1.3 -- --skip-checks   the measured parts only; the checks count as not passed
 
 const found = findGameRoot();
 if (!found) throw new Error("Pool of Radiance game data not found");
@@ -104,13 +111,35 @@ const unitsCarried = narration.units.filter(unit =>
 rows.push(["Narration units that work on 1.3", unitsCarried, narration.units.length,
   `${[...eventCarries.values()].filter(Boolean).length} of ${narration.events.length} source events land on the same instruction in 1.3`]);
 
-// The original sound driver and its data are part of START.EXE and differ in 1.3. Each of the 20 events
-// has to be decoded from the 1.3 program, rendered, and checked against the original bytes again.
-const soundPath = new URL("../qa/version-1.3-sound.json", import.meta.url);
-const soundDone = existsSync(soundPath) ? (JSON.parse(readFileSync(soundPath, "utf8")) as { verifiedEvents: number }).verifiedEvents : 0;
-rows.push(["Original sound events verified from 1.3", soundDone, 20, "Classic WAV renders come from the earlier program's driver"]);
+// 3. The original sound. The renderer must reproduce what the original 1.3 interrupt routine writes to
+// the sound hardware. Each event from 2 to 21 is rendered here and compared, write for write, with the
+// original bytes run under Unicorn. This needs Python with the unicorn package (POR_PYTHON).
+const python = process.env.POR_PYTHON ?? "python3";
+const output = resolve("out", "qa-version-1.3");
+mkdirSync(output, { recursive: true });
+const { image } = loadExecutable(file(target, "START.EXE"));
+const layout = originalDriverLayout(image);
+const traces: string[] = [];
+for (const hardware of ["pc-speaker", "tandy"] as const) {
+  for (let event = 2; event <= layout.events; event++) {
+    const path = join(output, `${hardware}-${String(event).padStart(2, "0")}.json`);
+    writeFileSync(path, JSON.stringify(renderOriginalSoundDriver(image, hardware, event)));
+    traces.push(path);
+  }
+}
+const report = join(output, "sound-unicorn.json");
+rmSync(report, { force: true });
+const validation = spawnSync(python, ["tools/validate-original-driver-unicorn.py", join(target, "START.EXE"), report, ...traces],
+  { encoding: "utf8" });
+const cases = existsSync(report)
+  ? (JSON.parse(readFileSync(report, "utf8")) as { cases: { event: number; exactMatch: boolean }[] }).cases : [];
+const exactEvents = Array.from({ length: layout.events - 1 }, (_, index) => index + 2)
+  .filter(event => cases.filter(entry => entry.event === event && entry.exactMatch).length === 2).length;
+rows.push(["Original sound events exact against 1.3", exactEvents, layout.events - 1,
+  cases.length ? "events 2 to 21, PC speaker and Tandy, against the original interrupt routine under Unicorn"
+    : `the comparison did not run: ${(validation.error?.message ?? validation.stderr ?? "").trim().split("\n").at(-1)}`]);
 
-// 3. The host's address bindings. Until they live in one named table, count the raw addresses.
+// 4. The host's address bindings: no raw program address may remain in the host files.
 const table = new URL("../src/runtime/bindings.ts", import.meta.url);
 const hostFiles = ["tools/live-input.ts", "tools/boot-translated.ts", "tools/native-exploration.ts", "tools/overland-travel.ts",
   "tools/developer-combat.ts", "tools/combat-art.ts", "src/runtime/adventure-log.ts", "src/runtime/ecl-narration-observer.ts",
@@ -121,16 +150,47 @@ for (const name of hostFiles) {
   // A guest address: a memory read or write at a literal offset, or a comparison with a code position.
   rawAddresses += (source.match(/(?:read|write)(?:8|16)\([^,()]+, (?:[^,()]*\+ )?0x[0-9a-f]{3,4}\b|(?:cs|ip|at|Offset|offset|Segment|segment) === 0x[0-9a-f]{2,4}\b|loadedSlices\.find\(\(?\{? ?index ?\}?\)? => index === \d+|slice\.index === \d+/g) ?? []).length;
 }
-const named = existsSync(table) ? (readFileSync(table, "utf8").match(/"1\.3": 0x[0-9a-f]+/g) ?? []).length : 0;
+const named = (readFileSync(table, "utf8").match(/"1\.3": /g) ?? []).length;
 rows.push(["Host addresses named and mapped for 1.3", named, named + rawAddresses,
   `${rawAddresses} raw addresses remain in ${hostFiles.length} host files`]);
 
-// 4. The checks that must pass on 1.3. Each records its result in qa/version-1.3-checks.json when it is run on 1.3.
-const required = ["verify", "verify:input", "verify:translation-reproducible", "verify:campaign-opening", "verify:campaign --full", "verify:map-journal",
-  "a save from the earlier build loads"];
-const resultsPath = new URL("../qa/version-1.3-checks.json", import.meta.url);
-const results = existsSync(resultsPath) ? JSON.parse(readFileSync(resultsPath, "utf8")) as Record<string, string> : {};
-rows.push(["Checks passing on 1.3", required.filter(name => results[name] === "pass").length, required.length, required.join(", ")]);
+// 5. The checks, run now on version 1.3. Nothing here is read from an earlier run.
+// The Chrome checks need POR_CHROME. --skip-checks leaves them out and counts them as not passed.
+const chrome = process.env.POR_CHROME ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+const environment = { ...process.env, POR_GAMEDATA: target, POR_CAMPAIGN_OUTPUT_DIR: output,
+  POR_AUDIO_DIR: process.env.POR_AUDIO_DIR ?? resolve("..", "por-assets", "original"),
+  // The package scripts call `python`. Put the chosen interpreter's directory first.
+  PATH: python.includes("/") ? `${dirname(python)}:${process.env.PATH}` : process.env.PATH };
+let openingDirectory: string | undefined;
+const checks: { name: string; command: () => string[] }[] = [
+  { name: "verify", command: () => ["npm", "run", "-s", "verify"] },
+  { name: "verify:input", command: () => ["npm", "run", "-s", "verify:input"] },
+  { name: "verify:translation-reproducible:1.3", command: () => [python, "tools/tp_translate.py", target, "--game-version", "1.3", "--check"] },
+  { name: "verify:campaign-opening", command: () => ["npm", "run", "-s", "verify:campaign-opening", "--", chrome] },
+  { name: "verify:map-journal", command: () => ["npm", "run", "-s", "verify:map-journal", "--", chrome, openingDirectory ?? "missing"] },
+  { name: "a save from the first release loads and plays on 1.3",
+    command: () => ["npm", "run", "-s", "verify:map-journal", "--", chrome, resolve("qa", "fixtures", "first-release-slums-gate")] },
+  { name: "verify:campaign --full", command: () => ["npm", "run", "-s", "verify:campaign", "--", chrome, "--full"] },
+];
+const skip = process.argv.includes("--skip-checks");
+const results: Record<string, string> = {};
+for (const [index, check] of checks.entries()) {
+  if (skip) { results[check.name] = "not run"; continue; }
+  const started = Date.now();
+  process.stderr.write(`check ${index + 1}/${checks.length}: ${check.name} ... `);
+  const [program, ...parameters] = check.command();
+  const run = spawnSync(program!, parameters, { encoding: "utf8", env: environment, maxBuffer: 256 * 1024 * 1024 });
+  const log = join(output, `${check.name.replace(/[^a-z0-9.]+/gi, "-")}.log`);
+  writeFileSync(log, `${run.stdout ?? ""}\n${run.stderr ?? ""}`);
+  results[check.name] = run.status === 0 ? "pass" : "fail";
+  if (check.name === "verify:campaign-opening") {
+    openingDirectory = /campaign opening complete: (.+)$/m.exec(run.stdout ?? "")?.[1]?.trim();
+  }
+  process.stderr.write(`${results[check.name]} in ${Math.round((Date.now() - started) / 1000)} s (${log})\n`);
+}
+const passed = checks.filter(({ name }) => results[name] === "pass").length;
+rows.push(["Checks passing on 1.3, run now", passed, checks.length,
+  skip ? "not run: --skip-checks" : checks.map(({ name }) => `${name}: ${results[name]}`).join("; ")]);
 
 let left = 0;
 console.log(`${"part".padEnd(42)} ${"done".padStart(6)} ${"of".padStart(6)} ${"left".padStart(6)}`);
