@@ -2495,6 +2495,14 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-elven-remains.png",
     continuation: { inputs: ["down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-slip-past-guide", {
+    slot: "B", inputs: ["up", "enter", "enter", "s"],
+    portraitStops: { 3: "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0" },
+    portrait: "scene-illustration:area:13:ecl:9f15:cue:slip-past-guide",
+    prompt: /YOUSLIPBYWITHEASE/i,
+    finalPhaseCapture: "kobold-cave-slip-past-guide.png",
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["kobold-cave-throne-voices", {
     slot: "B", inputs: ["up", "enter", "down", "up"],
     portrait: "scene-illustration:area:13:ecl:9ffe:cue:throne-voices",
