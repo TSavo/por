@@ -6594,7 +6594,20 @@ try {
     for (const key of ["j", "e"]) await advance(key);
     assert.equal(frame.portrait, undefined);
     await waitForExplorationViewport();
-    for (const key of ["enter", "s", "s", "a"]) await advance(key);
+    await advance("enter");
+    if (declineCryptScroll) assert.equal(frame.portrait, "portrait:PIC3.DAX:29:0:0");
+    for (const key of ["s", "s"]) await advance(key);
+    if (declineCryptScroll) {
+      const campfirePhase = "portrait:PIC3.DAX:29:1:0";
+      assert.equal(frame.portrait, campfirePhase);
+      await waitFor("the second native campfire phase", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${campfirePhase}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      const campPhaseShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "campaign-campfire-flame-phase.png"), Buffer.from(campPhaseShot.data, "base64"));
+    }
+    await advance("a");
     const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
     assert.ok(known.has("graveyard-crypt-sanctified"));
     assert.equal(known.has(scrollLead), !declineCryptScroll);
