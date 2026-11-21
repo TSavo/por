@@ -850,6 +850,16 @@ const illustrationRoutes = new Map([
     prompt: /THEBUGBEARTAKESTHEMONEYANDTHEGATEOPENS.*YOUPROCEEDTHROUGH/i,
     continuation: { inputs: ["enter", "up"], prompt: /8,4N.*AREACASTVIEWENCAMP|AREACASTVIEWENCAMP.*8,4N/i, clearsPortrait: true },
   }],
+  ["stojanow-bugbear-alarm", {
+    slot: "A",
+    inputs: ["up", "up", "up", "enter", "enter", "up", "right", "up", "up", "up", "left", "up",
+      ...Array(8).fill("z"), "a", "enter"],
+    portraitStops: { 21: "scene-illustration:area:9:ecl:a7a2:cue:bugbear-alarm" },
+    portrait: "scene-illustration:area:9:ecl:a7a3:cue:bugbear-alarm",
+    prompt: /ANALARMSTARTSRINGING.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "stojanow-bugbear-alarm.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /BUGBEAR.*Hitpoints/i },
+  }],
   ["stojanow-bugbear-warning-phases", {
     slot: "A",
     inputs: [
