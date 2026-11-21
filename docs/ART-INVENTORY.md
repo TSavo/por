@@ -302,6 +302,13 @@ member 2. A controlled replay changed the first draw distance at ECL
 corridor and continued to the existing near sprite and dialogue.
 The unchanged encounter uses middle and near distances.
 
+The Valjevo barracks giants have two contextual far replacements for
+`SPRIT5.DAX` block 55, member 2. Controlled replays changed the first
+draw from middle to far at ECL `a7be` and `a815`. Both matched the
+original 24x57 sprite at (56,32). Chrome showed the corresponding
+armoring or waking pose over WebGL before each replay continued to its
+near sprite and dialogue. The standard routes use middle and near.
+
 The swamp giant lizard has separate middle and far sprites from
 `SPRIT8.DAX` block 59, members 1 and 2. Controlled Chrome replays drew
 the 192×260 and 160×228 sprites at (48,32) and continued to the enhanced
