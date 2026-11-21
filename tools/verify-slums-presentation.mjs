@@ -777,6 +777,15 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "swamp-central-keep-rubble.png",
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i, clearsPortrait: true },
   }],
+  ["swamp-l-shaped-ruin", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:16:ecl:a947:cue:l-shaped-ruin",
+    prompt: /YOUHAVEENTEREDANL-SHAPEDBUILDING.*THEREAREEVENPORTIONSOFROOFOVERHEAD/i,
+    finalPhaseCapture: "swamp-l-shaped-ruin.png",
+    continuation: {
+      inputs: ["enter", "enter"], portrait: "portrait:area:16:PIC8.DAX:59:0:0", prompt: /3GIANTLIZARDSCHARGETOWARDYOU/i,
+    },
+  }],
   ["swamp-roofless-ruin", {
     slot: "A", inputs: ["up"],
     portrait: "scene-illustration:area:16:ecl:a65a:cue:roofless-ruin",

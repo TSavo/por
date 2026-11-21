@@ -529,6 +529,8 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:16:ecl:9a59:caller:9d45", "SEARCHINGTHROUGHTHERUBBLEYOUFINDAHIDDENTUNNELLEADINGDOWN"],
   ["scene-illustration:area:16:ecl:a76b:cue:central-keep-rubble", "YOUENTERTHEREMAINSOFTHECENTRALKEEP"],
   ["scene-illustration:area:16:ecl:a6f2:cue:central-keep-rubble", "THEINTERIORISCHOKEDWITHRUBBLE"],
+  ["scene-illustration:area:16:ecl:a8cd:cue:l-shaped-ruin", "YOUHAVEENTEREDANL-SHAPEDBUILDING"],
+  ["scene-illustration:area:16:ecl:a947:cue:l-shaped-ruin", "THEREAREEVENPORTIONSOFROOFOVERHEAD"],
   ["scene-illustration:area:16:ecl:a5d7:cue:roofless-ruin", "THOUGHTHEROOFHASFALLENIN"],
   ["scene-illustration:area:16:ecl:a65a:cue:roofless-ruin", "THOUGHTHEROOFHASFALLENIN"],
   ["scene-illustration:area:16:ecl:a65a", "2LIZARDMENANDAGIANTLIZARDCHARGEATYOU"],

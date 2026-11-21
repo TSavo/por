@@ -290,10 +290,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         }
       }
       // The next encounter can be drawn while the guest still shows the room description.
-      const rooflessRuin = illustration?.endsWith(":cue:roofless-ruin");
-      const encounter = encounterArt(presentation, enhanced, !scene && (picture === undefined || rooflessRuin) ? area : undefined,
+      const entranceIllustration = /:cue:(?:roofless-ruin|l-shaped-ruin)$/.test(illustration ?? "");
+      const encounter = encounterArt(presentation, enhanced, !scene && (picture === undefined || entranceIllustration) ? area : undefined,
         !captureApproach, battleCursor, [drawnPerspective?.pixels, priorPerspectiveDraw], portraitCaller);
-      if (rooflessRuin && encounter) picture = undefined;
+      if (entranceIllustration && encounter) picture = undefined;
       const portrait = typeof picture === "string" ? picture : undefined;
       if (captureApproach) {
         // The guest may change script scope while the same actor cel remains on screen.
