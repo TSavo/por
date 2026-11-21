@@ -5479,6 +5479,10 @@ routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 routes.push("kuto-wide-manual-aim");
 routes.push("valhingen-zombie-roam-animation");
+const valhingenBrassDoorBattle = {
+  slot: "A", inputs: ["left", "up", "up", "left", "up", "enter", "enter"],
+  afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
+};
 const controlledBattleIllustrations = new Map([
   ["sokal-courtyard-note", {
     slot: "I", inputs: ["up", "right", "enter", "enter", "enter", "enter", "space"],
@@ -5496,11 +5500,16 @@ const controlledBattleIllustrations = new Map([
     caption: /INTHECRYPTLIESTHEFULLY-EQUIPPEDBODYOFAMIGHTYWARRIOR.*DOYOUSTRIPTHEBODY/i,
   }],
   ["valhingen-knight-gift", {
-    slot: "A", inputs: ["left", "up", "up", "left", "up", "enter", "enter"],
-    afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
+    ...valhingenBrassDoorBattle,
     walk: ["left", "s", "up", "up", "up", "right", "up", "right", "up", "up"],
     portrait: "scene-illustration:area:10:ecl:b695:caller:acbc",
     caption: /8,2N.*COME,MYBRAVEADVENTURERS.*YOUMUSTTAKEMYGIFTSTOBETTERFIGHTTHEEVIL/i,
+  }],
+  ["valhingen-knight-door-relief", {
+    ...valhingenBrassDoorBattle,
+    walk: ["up", "down", "up"],
+    portrait: "scene-illustration:area:10:ecl:ac52",
+    caption: /9,1E.*INTHEMIDDLEOFADOORISAPANELOFAPOWERFULKNIGHTFIGHTINGSEVERALUNDEAD/i,
   }],
 ]);
 const controlledBattleIllustration = controlledBattleIllustrations.get(routeName);
@@ -8017,6 +8026,12 @@ try {
       await step("enter");
       assert.match(text(), /VIEWTAKEPOOLEXIT/i);
       assert.equal(frame.portrait, "portrait:PIC1.DAX:1:0:0");
+    } else if (routeName === "valhingen-knight-door-relief") {
+      await step("right");
+      await step("up");
+      assert.equal(frame.portrait, undefined);
+      assert.match(text(), /9,2S.*AREACASTVIEWENCAMP/i);
+      await waitForExplorationViewport();
     } else if (routeName === "valhingen-paladin-crypt") {
       await step("n");
       assert.equal(frame.portrait, undefined);
