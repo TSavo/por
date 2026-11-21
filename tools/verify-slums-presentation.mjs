@@ -1268,6 +1268,21 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kovel-casket-gems.png",
     continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /6,7W/i },
   }],
+  ["kovel-casket-c-gems", {
+    slot: "A", inputs: ["up", "enter", "s", "c", "enter", "enter", "b", "enter", "enter"],
+    portraitStops: {
+      1: "scene-illustration:area:14:ecl:a4e2",
+      3: "scene-illustration:area:14:ecl:a519",
+      4: "scene-illustration:area:14:ecl:a7f5",
+      5: null, 7: null, 8: null,
+    },
+    phaseCaptures: { 4: "kovel-casket-c-powder.png" },
+    portrait: "portrait:area:14:ecl:a78c:PIC1.DAX:1:0:0",
+    prompt: /VIEW.*POOL.*SHARE/i,
+    idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:a78c:PIC1.DAX:1:${phase}:0`),
+    finalPhaseCapture: "kovel-casket-c-gems.png",
+    continuation: { inputs: ["e", "n"], clearsPortrait: true, prompt: /6,7W/i },
+  }],
   ["kovel-casket-jewelry", {
     slot: "A", inputs: ["up", "enter", "s", "b", "enter", "b", "enter", "enter"],
     portraitStops: { 4: "scene-illustration:area:14:ecl:a713", 5: null, 6: null, 7: null },
