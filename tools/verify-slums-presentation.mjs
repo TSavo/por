@@ -595,6 +595,16 @@ const illustrationRoutes = new Map([
     prompt: /BEHINDTHEALTERARETWOCROSSEDSWORDS.*DOYOUTAKETHEM/i,
     continuation: { inputs: ["y"], prompt: /EACHCHARACTERRECEIVES400EXPERIENCEPOINTS/i, clearsPortrait: true },
   }],
+  ["valjevo-giant-barracks-password-list", {
+    slot: "B", inputs: ["up", "enter", "enter", "a", "a", "p", "h"],
+    portraitStops: { 6: "portrait:area:4:PIC5.DAX:56:0:0" },
+    portrait: "scene-illustration:area:4:ecl:9a5a:caller:a442",
+    prompt: /THISPAPERHASTHEPASSWORDS/i,
+    continuation: {
+      inputs: ["enter"], portrait: "portrait:area:4:PIC5.DAX:56:0:0",
+      prompt: /TODAY'SPASSWORDIS.*THEGATEPASSWORDIS/i,
+    },
+  }],
   ["valjevo-disguise-offer", {
     slot: "B", inputs: ["up", "enter", "n"],
     portraitStops: {
