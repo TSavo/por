@@ -11,7 +11,7 @@ const selectedIndex = onlyArg === undefined ? undefined : Number(onlyArg);
 const batch = process.argv.find((arg) => arg.startsWith("--batch="))?.split("=")[1] ??
   new Date().toISOString().replaceAll(":", "-").replace(/\.\d{3}Z$/, "Z");
 const outputArg = process.argv.find((arg) => !arg.startsWith("--") && arg !== process.argv[0] && arg !== process.argv[1]);
-const output = resolve(outputArg ?? "../por-assets/enhanced", "candidates", batch);
+const output = resolve(outputArg ?? "audio/enhanced", "candidates", batch);
 const key = process.env.ELEVENLABS_API_KEY;
 
 if (!generate) {

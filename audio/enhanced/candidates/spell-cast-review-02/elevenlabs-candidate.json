@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "spell-cast-review-02",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.spell-cast",
+      "index": 2,
+      "file": "por-spell-cast-spell-cast-review-02.wav",
+      "intendedMasterFile": "por-spell-cast.wav",
+      "prompt": "One brief, gentle magical shimmer.",
+      "promptSha256": "066a67262170067777991409bc887554bd065afd5240e6a724099d6381dff627",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.9,
+      "requestedSeconds": 1.15,
+      "returnedSeconds": 2.24,
+      "referenceSeconds": 1.15,
+      "characterCost": "13",
+      "generatedAt": "2026-11-19T01:58:57.310Z",
+      "sha256": "09aa3e4c4c7b0b489cb84b930f57f2a770d9f5447f187fbeb97de3f3b8ad68dc"
+    }
+  ]
+}

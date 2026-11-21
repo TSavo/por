@@ -68,9 +68,9 @@ const enhancedSoundFiles = new Set((JSON.parse(soundManifest.toString("utf8")) a
   { events: { enhancedFile?: string }[] }).events.flatMap(({ enhancedFile }) => enhancedFile ? [enhancedFile] : []));
 const upgrades = process.env.POR_UPGRADES_DIR ?? "upgrades";
 const audioDirectory = process.env.POR_AUDIO_DIR ?? join("..", "por-assets", "original");
-const voiceDirectory = process.env.POR_VOICE_DIR ?? join("..", "por-assets", "voices");
-const assetDirectory = process.env.POR_ASSETS_DIR ?? join("..", "por-assets");
-const enhancedAudioDirectory = process.env.POR_ENHANCED_AUDIO_DIR ?? join("..", "por-assets", "enhanced");
+const voiceDirectory = process.env.POR_VOICE_DIR ?? join("audio", "voices");
+const assetDirectory = process.env.POR_ASSETS_DIR ?? "audio";
+const enhancedAudioDirectory = process.env.POR_ENHANCED_AUDIO_DIR ?? join("audio", "enhanced");
 const gameFont = (() => {
   for (const path of new Set([join(upgrades, "font.woff2"), join("upgrades", "font.woff2")])) {
     try {

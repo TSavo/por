@@ -5,7 +5,7 @@ interface EventEntry { id: string; index: number; kind: string; loop: boolean; e
 const manifest = JSON.parse(readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url), "utf8")) as
   { events: EventEntry[]; verification: Record<string, string> };
 const assets = resolve(process.env.POR_AUDIO_DIR ?? "../por-assets/original");
-const enhanced = resolve(process.env.POR_ENHANCED_AUDIO_DIR ?? "../por-assets/enhanced");
+const enhanced = resolve(process.env.POR_ENHANCED_AUDIO_DIR ?? "audio/enhanced");
 const rows = manifest.events.map((event) => ({
   ...event,
   pcWav: existsSync(resolve(assets, `pc-speaker-${String(event.index).padStart(2, "0")}.wav`)),

@@ -14,7 +14,7 @@
       ],
       "condition": "0x6e7e == 1",
       "dynamicValue": "1",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v01-1.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v01-1.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 1",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -28,7 +28,7 @@
       ],
       "condition": "0x6e7e == 2",
       "dynamicValue": "2",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v02-2.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v02-2.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 2",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -42,7 +42,7 @@
       ],
       "condition": "0x6e7e == 3",
       "dynamicValue": "3",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v03-3.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v03-3.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 3",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -56,7 +56,7 @@
       ],
       "condition": "0x6e7e == 4",
       "dynamicValue": "4",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v04-4.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v04-4.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 4",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -70,7 +70,7 @@
       ],
       "condition": "0x6e7e == 5",
       "dynamicValue": "5",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v05-5.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v05-5.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 5",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -84,7 +84,7 @@
       ],
       "condition": "0x6e7e == 6",
       "dynamicValue": "6",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v06-6.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v06-6.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 6",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -98,7 +98,7 @@
       ],
       "condition": "0x6e7e == 7",
       "dynamicValue": "7",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v07-7.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v07-7.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 7",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -112,7 +112,7 @@
       ],
       "condition": "0x6e7e == 8",
       "dynamicValue": "8",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v08-8.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v08-8.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 8",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -126,7 +126,7 @@
       ],
       "condition": "0x6e7e == 9",
       "dynamicValue": "9",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v09-9.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v09-9.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 9",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -140,7 +140,7 @@
       ],
       "condition": "0x6e7e == 10",
       "dynamicValue": "10",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v10-10.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v10-10.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 10",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -154,7 +154,7 @@
       ],
       "condition": "0x6e7e == 11",
       "dynamicValue": "11",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v11-11.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v11-11.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 11",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -168,7 +168,7 @@
       ],
       "condition": "0x6e7e == 12",
       "dynamicValue": "12",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v12-12.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v12-12.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 12",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -182,7 +182,7 @@
       ],
       "condition": "0x6e7e == 13",
       "dynamicValue": "13",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v13-13.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v13-13.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 13",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -196,7 +196,7 @@
       ],
       "condition": "0x6e7e == 14",
       "dynamicValue": "14",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v14-14.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v14-14.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 14",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -210,7 +210,7 @@
       ],
       "condition": "0x6e7e == 15",
       "dynamicValue": "15",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v15-15.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v15-15.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 15",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -224,7 +224,7 @@
       ],
       "condition": "0x6e7e == 16",
       "dynamicValue": "16",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v16-16.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v16-16.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 16",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -238,7 +238,7 @@
       ],
       "condition": "0x6e7e == 17",
       "dynamicValue": "17",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v17-17.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v17-17.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 17",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -252,7 +252,7 @@
       ],
       "condition": "0x6e7e == 18",
       "dynamicValue": "18",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v18-18.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v18-18.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 18",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -266,7 +266,7 @@
       ],
       "condition": "0x6e7e == 19",
       "dynamicValue": "19",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v19-19.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v19-19.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 19",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -280,7 +280,7 @@
       ],
       "condition": "0x6e7e == 20",
       "dynamicValue": "20",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v20-20.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v20-20.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 20",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -294,7 +294,7 @@
       ],
       "condition": "0x6e7e == 21",
       "dynamicValue": "21",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v21-21.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v21-21.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 21",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -308,7 +308,7 @@
       ],
       "condition": "0x6e7e == 22",
       "dynamicValue": "22",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v22-22.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v22-22.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 22",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -322,7 +322,7 @@
       ],
       "condition": "0x6e7e == 23",
       "dynamicValue": "23",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v23-23.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v23-23.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 23",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -336,7 +336,7 @@
       ],
       "condition": "0x6e7e == 24",
       "dynamicValue": "24",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v24-24.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-a413-a438-v24-24.mp3",
       "text": "YOU OVERHEAR TAVERN TALE 24",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -351,7 +351,7 @@
       ],
       "condition": "0x985e == \"CI.\"",
       "dynamicValue": "CI.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v01-ci.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v01-ci.mp3",
       "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCI.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -366,7 +366,7 @@
       ],
       "condition": "0x985e == \"CXXVI AND CX.\"",
       "dynamicValue": "CXXVI AND CX.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v02-cxxvi-and-cx.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v02-cxxvi-and-cx.mp3",
       "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCXXVI AND CX.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -381,7 +381,7 @@
       ],
       "condition": "0x985e == \"CXXXIV.\"",
       "dynamicValue": "CXXXIV.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v03-cxxxiv.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v03-cxxxiv.mp3",
       "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCXXXIV.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -396,7 +396,7 @@
       ],
       "condition": "0x985e == \"CLIV.\"",
       "dynamicValue": "CLIV.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v04-cliv.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v04-cliv.mp3",
       "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCLIV.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -411,7 +411,7 @@
       ],
       "condition": "0x985e == \"CXIV.\"",
       "dynamicValue": "CXIV.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v05-cxiv.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v05-cxiv.mp3",
       "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCXIV.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -426,7 +426,7 @@
       ],
       "condition": "0x985e == \"CCIV.\"",
       "dynamicValue": "CCIV.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v06-cciv.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v06-cciv.mp3",
       "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCCIV.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -441,7 +441,7 @@
       ],
       "condition": "0x985e == \"CXXIX.\"",
       "dynamicValue": "CXXIX.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v07-cxxix.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v07-cxxix.mp3",
       "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCXXIX.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -456,7 +456,7 @@
       ],
       "condition": "0x985e == \"CCI.\"",
       "dynamicValue": "CCI.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v08-cci.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b0-ac22-ac8a-ac96-v08-cci.mp3",
       "text": "PROCLAMATIONS ARE POSTED ON THE WALLS, IN YOUR JOURNAL YOU NOTE PROCLAMATIONCCI.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -470,7 +470,7 @@
       ],
       "condition": "0x9890 == \"LIBRARY.'\"",
       "dynamicValue": "LIBRARY.'",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b8-9e4a-9e68-v01-library.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b8-9e4a-9e68-v01-library.mp3",
       "text": "'THERE IS A REWARD FOR CLEARING THE LIBRARY.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -484,7 +484,7 @@
       ],
       "condition": "0x9890 == \"PODAL PLAZA.'\"",
       "dynamicValue": "PODAL PLAZA.'",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b8-9e4a-9e68-v02-podal-plaza.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b8-9e4a-9e68-v02-podal-plaza.mp3",
       "text": "'THERE IS A REWARD FOR CLEARING THE PODAL PLAZA.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -498,7 +498,7 @@
       ],
       "condition": "0x9890 == \"CADORNA TEXTILE HOUSE.'\"",
       "dynamicValue": "CADORNA TEXTILE HOUSE.'",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b8-9e4a-9e68-v03-cadorna-textile-house.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b8-9e4a-9e68-v03-cadorna-textile-house.mp3",
       "text": "'THERE IS A REWARD FOR CLEARING THE CADORNA TEXTILE HOUSE.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -513,7 +513,7 @@
       ],
       "condition": "0x982c == \"FIGHTERS \"",
       "dynamicValue": "FIGHTERS ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v01-fighters.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v01-fighters.mp3",
       "text": "'WE TRAIN ONLY FIGHTERS HERE. DO YOU WANT TO TRAIN?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -528,7 +528,7 @@
       ],
       "condition": "0x982c == \"THIEVES \"",
       "dynamicValue": "THIEVES ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v02-thieves.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-a00e-a021-v02-thieves.mp3",
       "text": "'WE TRAIN ONLY THIEVES HERE. DO YOU WANT TO TRAIN?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -545,7 +545,7 @@
       ],
       "condition": "companion candidate index 0x6e7a == 0",
       "dynamicValue": "ACOLYTE",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v01-acolyte.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v01-acolyte.mp3",
       "text": "'THERE IS A FINE ACOLYTE WHO WILL JOIN YOU FOR 1 SHARE. IS THIS ACCEPTABLE?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -562,7 +562,7 @@
       ],
       "condition": "companion candidate index 0x6e7a == 1",
       "dynamicValue": "WARRIOR",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v02-warrior.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v02-warrior.mp3",
       "text": "'THERE IS A FINE WARRIOR WHO WILL JOIN YOU FOR 1 SHARE. IS THIS ACCEPTABLE?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -579,7 +579,7 @@
       ],
       "condition": "companion candidate index 0x6e7a == 2",
       "dynamicValue": "EVOKER",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v03-evoker.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v03-evoker.mp3",
       "text": "'THERE IS A FINE EVOKER WHO WILL JOIN YOU FOR 2 SHARES. IS THIS ACCEPTABLE?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -596,7 +596,7 @@
       ],
       "condition": "companion candidate index 0x6e7a == 3",
       "dynamicValue": "SWORDSMAN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v04-swordsman.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v04-swordsman.mp3",
       "text": "'THERE IS A FINE SWORDSMAN WHO WILL JOIN YOU FOR 3 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -613,7 +613,7 @@
       ],
       "condition": "companion candidate index 0x6e7a == 4",
       "dynamicValue": "ROBBER",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v05-robber.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v05-robber.mp3",
       "text": "'THERE IS A FINE ROBBER WHO WILL JOIN YOU FOR 3 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -630,7 +630,7 @@
       ],
       "condition": "companion candidate index 0x6e7a == 5",
       "dynamicValue": "CURATE",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v06-curate.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v06-curate.mp3",
       "text": "'THERE IS A FINE CURATE WHO WILL JOIN YOU FOR 3 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -647,7 +647,7 @@
       ],
       "condition": "companion candidate index 0x6e7a == 6",
       "dynamicValue": "HERO",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v07-hero.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v07-hero.mp3",
       "text": "'THERE IS A FINE HERO WHO WILL JOIN YOU FOR 4 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -664,7 +664,7 @@
       ],
       "condition": "companion candidate index 0x6e7a == 7",
       "dynamicValue": "THEURGIST",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v08-theurgist.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl3-b11-9eab-9ed8-v08-theurgist.mp3",
       "text": "'THERE IS A FINE THEURGIST WHO WILL JOIN YOU FOR 4 SHARES PLUS A PICK OF SPECIAL ITEMS. IS THIS ACCEPTABLE?'",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -679,7 +679,7 @@
       ],
       "condition": "0x9890 == \" KOBOLDS. \"",
       "dynamicValue": " KOBOLDS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9c2a-9c43-9c5c-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9c2a-9c43-9c5c-v01-kobolds.mp3",
       "text": "YOU ARE SURPRISED BY A BUGBEAR LEADING A PARTY OF KOBOLDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -694,7 +694,7 @@
       ],
       "condition": "0x9890 == \" GOBLINS. \"",
       "dynamicValue": " GOBLINS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9c2a-9c43-9c5c-v02-goblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9c2a-9c43-9c5c-v02-goblins.mp3",
       "text": "YOU ARE SURPRISED BY A BUGBEAR LEADING A PARTY OF GOBLINS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -709,7 +709,7 @@
       ],
       "condition": "0x9890 == \" ORCS. \"",
       "dynamicValue": " ORCS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9c2a-9c43-9c5c-v03-orcs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9c2a-9c43-9c5c-v03-orcs.mp3",
       "text": "YOU ARE SURPRISED BY A BUGBEAR LEADING A PARTY OF ORCS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -725,7 +725,7 @@
       ],
       "condition": "0x9890 == \" KOBOLDS. \"",
       "dynamicValue": " KOBOLDS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-b25a-b276-b286-b292-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-b25a-b276-b286-b292-v01-kobolds.mp3",
       "text": "YOU ARE CONVERSING WITH A BUGBEAR LEADING A PARTY OF KOBOLDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -741,7 +741,7 @@
       ],
       "condition": "0x9890 == \" GOBLINS. \"",
       "dynamicValue": " GOBLINS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-b25a-b276-b286-b292-v02-goblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-b25a-b276-b286-b292-v02-goblins.mp3",
       "text": "YOU ARE CONVERSING WITH A BUGBEAR LEADING A PARTY OF GOBLINS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -757,7 +757,7 @@
       ],
       "condition": "0x9890 == \" ORCS. \"",
       "dynamicValue": " ORCS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-b25a-b276-b286-b292-v03-orcs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-b25a-b276-b286-b292-v03-orcs.mp3",
       "text": "YOU ARE CONVERSING WITH A BUGBEAR LEADING A PARTY OF ORCS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -772,7 +772,7 @@
       ],
       "condition": "0x9890 == \" KOBOLDS. \"",
       "dynamicValue": " KOBOLDS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-b65b-b66d-b671-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-b65b-b66d-b671-v01-kobolds.mp3",
       "text": "YOU HAVE ANGERED THE KOBOLDS. THEY ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -787,7 +787,7 @@
       ],
       "condition": "0x9890 == \" GOBLINS. \"",
       "dynamicValue": " GOBLINS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-b65b-b66d-b671-v02-goblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-b65b-b66d-b671-v02-goblins.mp3",
       "text": "YOU HAVE ANGERED THE GOBLINS. THEY ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -802,7 +802,7 @@
       ],
       "condition": "0x9890 == \" ORCS. \"",
       "dynamicValue": " ORCS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-b65b-b66d-b671-v03-orcs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-b65b-b66d-b671-v03-orcs.mp3",
       "text": "YOU HAVE ANGERED THE ORCS. THEY ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -815,7 +815,7 @@
       ],
       "condition": "0x982c == \"THE SPECTRE HAS NOTICED YOU.\"",
       "dynamicValue": "THE SPECTRE HAS NOTICED YOU.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-a5d7-v01-the-spectre-has-noticed-you.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-a5d7-v01-the-spectre-has-noticed-you.mp3",
       "text": "THE SPECTRE HAS NOTICED YOU.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -828,7 +828,7 @@
       ],
       "condition": "0x982c == \" SKELETONS.\"",
       "dynamicValue": " SKELETONS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-a5d7-v02-skeletons.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-a5d7-v02-skeletons.mp3",
       "text": "SKELETONS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -841,7 +841,7 @@
       ],
       "condition": "0x982c == \" ZOMBIES.\"",
       "dynamicValue": " ZOMBIES.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-a5d7-v03-zombies.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-a5d7-v03-zombies.mp3",
       "text": "ZOMBIES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -854,7 +854,7 @@
       ],
       "condition": "0x982c == \" WIGHTS.\"",
       "dynamicValue": " WIGHTS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-a5d7-v04-wights.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-a5d7-v04-wights.mp3",
       "text": "WIGHTS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -867,7 +867,7 @@
       ],
       "condition": "0x982c == \"THE SPECTRE HAS NOTICED YOU.\"",
       "dynamicValue": "THE SPECTRE HAS NOTICED YOU.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-a7d5-v01-the-spectre-has-noticed-you.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-a7d5-v01-the-spectre-has-noticed-you.mp3",
       "text": "THE SPECTRE HAS NOTICED YOU.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -880,7 +880,7 @@
       ],
       "condition": "0x982c == \" SKELETONS.\"",
       "dynamicValue": " SKELETONS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-a7d5-v02-skeletons.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-a7d5-v02-skeletons.mp3",
       "text": "SKELETONS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -893,7 +893,7 @@
       ],
       "condition": "0x982c == \" ZOMBIES.\"",
       "dynamicValue": " ZOMBIES.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-a7d5-v03-zombies.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-a7d5-v03-zombies.mp3",
       "text": "ZOMBIES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -906,7 +906,7 @@
       ],
       "condition": "0x982c == \" WIGHTS.\"",
       "dynamicValue": " WIGHTS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-a7d5-v04-wights.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-a7d5-v04-wights.mp3",
       "text": "WIGHTS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -919,7 +919,7 @@
       ],
       "condition": "0x982c == \"THE SPECTRE HAS NOTICED YOU.\"",
       "dynamicValue": "THE SPECTRE HAS NOTICED YOU.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-aaf2-v01-the-spectre-has-noticed-you.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-aaf2-v01-the-spectre-has-noticed-you.mp3",
       "text": "THE SPECTRE HAS NOTICED YOU.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -932,7 +932,7 @@
       ],
       "condition": "0x982c == \" SKELETONS.\"",
       "dynamicValue": " SKELETONS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-aaf2-v02-skeletons.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-aaf2-v02-skeletons.mp3",
       "text": "SKELETONS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -945,7 +945,7 @@
       ],
       "condition": "0x982c == \" ZOMBIES.\"",
       "dynamicValue": " ZOMBIES.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-aaf2-v03-zombies.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-aaf2-v03-zombies.mp3",
       "text": "ZOMBIES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -958,7 +958,7 @@
       ],
       "condition": "0x982c == \" WIGHTS.\"",
       "dynamicValue": " WIGHTS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-aaf2-v04-wights.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-aaf2-v04-wights.mp3",
       "text": "WIGHTS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -972,7 +972,7 @@
       ],
       "condition": "0x980e == \"A PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
       "dynamicValue": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl5-b3-9cb7-9cbb-v01-a-patrol-of-giants-led-by-a-human-fighter.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl5-b3-9cb7-9cbb-v01-a-patrol-of-giants-led-by-a-human-fighter.mp3",
       "text": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -986,7 +986,7 @@
       ],
       "condition": "0x980e == \"A PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
       "dynamicValue": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl5-b4-9c0c-9c10-v01-a-patrol-of-giants-led-by-a-human-fighter.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl5-b4-9c0c-9c10-v01-a-patrol-of-giants-led-by-a-human-fighter.mp3",
       "text": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -1000,7 +1000,7 @@
       ],
       "condition": "0x980e == \"A PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
       "dynamicValue": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl5-b6-a90c-a910-v01-a-patrol-of-giants-led-by-a-human-fighter.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl5-b6-a90c-a910-v01-a-patrol-of-giants-led-by-a-human-fighter.mp3",
       "text": "A PATROL OF GIANTS LED BY A HUMAN FIGHTER SURPRISES YOU.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -1014,7 +1014,7 @@
       ],
       "condition": "0x982c == \"QUICKLINGS\"",
       "dynamicValue": "QUICKLINGS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v01-quicklings.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v01-quicklings.mp3",
       "text": "YOU SPOT A GROUP OF QUICKLINGS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1028,7 +1028,7 @@
       ],
       "condition": "0x982c == \"WILD BOARS\"",
       "dynamicValue": "WILD BOARS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v02-wild-boars.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v02-wild-boars.mp3",
       "text": "YOU SPOT A GROUP OF WILD BOARS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1042,7 +1042,7 @@
       ],
       "condition": "0x982c == \"GIANT MANTIS\"",
       "dynamicValue": "GIANT MANTIS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v03-giant-mantis.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v03-giant-mantis.mp3",
       "text": "YOU SPOT A GROUP OF GIANT MANTIS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1056,7 +1056,7 @@
       ],
       "condition": "0x982c == \"TIGERS\"",
       "dynamicValue": "TIGERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v04-tigers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v04-tigers.mp3",
       "text": "YOU SPOT A GROUP OF TIGERS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1070,7 +1070,7 @@
       ],
       "condition": "0x982c == \"THRI-KREENS\"",
       "dynamicValue": "THRI-KREENS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v05-thri-kreens.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v05-thri-kreens.mp3",
       "text": "YOU SPOT A GROUP OF THRI-KREENS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1084,7 +1084,7 @@
       ],
       "condition": "0x982c == \"ANHKHEG\"",
       "dynamicValue": "ANHKHEG",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v06-anhkheg.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v06-anhkheg.mp3",
       "text": "YOU SPOT A GROUP OF ANHKHEG",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1098,7 +1098,7 @@
       ],
       "condition": "0x982c == \"CENTAURS\"",
       "dynamicValue": "CENTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v07-centaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v07-centaurs.mp3",
       "text": "YOU SPOT A GROUP OF CENTAURS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1112,7 +1112,7 @@
       ],
       "condition": "0x982c == \"SOLDIERS\"",
       "dynamicValue": "SOLDIERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v08-soldiers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v08-soldiers.mp3",
       "text": "YOU SPOT A GROUP OF SOLDIERS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1126,7 +1126,7 @@
       ],
       "condition": "0x982c == \"THIEVES\"",
       "dynamicValue": "THIEVES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v09-thieves.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v09-thieves.mp3",
       "text": "YOU SPOT A GROUP OF THIEVES",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1140,7 +1140,7 @@
       ],
       "condition": "0x982c == \"BUCCANEERS\"",
       "dynamicValue": "BUCCANEERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v10-buccaneers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v10-buccaneers.mp3",
       "text": "YOU SPOT A GROUP OF BUCCANEERS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1154,7 +1154,7 @@
       ],
       "condition": "0x982c == \"GIANT SNAKES\"",
       "dynamicValue": "GIANT SNAKES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v11-giant-snakes.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a128-a13a-v11-giant-snakes.mp3",
       "text": "YOU SPOT A GROUP OF GIANT SNAKES",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1169,7 +1169,7 @@
       ],
       "condition": "0x982c == \"QUICKLINGS\"",
       "dynamicValue": "QUICKLINGS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v01-quicklings.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v01-quicklings.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF QUICKLINGS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1184,7 +1184,7 @@
       ],
       "condition": "0x982c == \"WILD BOARS\"",
       "dynamicValue": "WILD BOARS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v02-wild-boars.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v02-wild-boars.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF WILD BOARS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1199,7 +1199,7 @@
       ],
       "condition": "0x982c == \"GIANT MANTIS\"",
       "dynamicValue": "GIANT MANTIS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v03-giant-mantis.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v03-giant-mantis.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF GIANT MANTIS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1214,7 +1214,7 @@
       ],
       "condition": "0x982c == \"TIGERS\"",
       "dynamicValue": "TIGERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v04-tigers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v04-tigers.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF TIGERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1229,7 +1229,7 @@
       ],
       "condition": "0x982c == \"THRI-KREENS\"",
       "dynamicValue": "THRI-KREENS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v05-thri-kreens.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v05-thri-kreens.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF THRI-KREENS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1244,7 +1244,7 @@
       ],
       "condition": "0x982c == \"ANHKHEG\"",
       "dynamicValue": "ANHKHEG",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v06-anhkheg.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v06-anhkheg.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF ANHKHEG.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1259,7 +1259,7 @@
       ],
       "condition": "0x982c == \"CENTAURS\"",
       "dynamicValue": "CENTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v07-centaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v07-centaurs.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF CENTAURS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1274,7 +1274,7 @@
       ],
       "condition": "0x982c == \"SOLDIERS\"",
       "dynamicValue": "SOLDIERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v08-soldiers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v08-soldiers.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF SOLDIERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1289,7 +1289,7 @@
       ],
       "condition": "0x982c == \"THIEVES\"",
       "dynamicValue": "THIEVES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v09-thieves.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v09-thieves.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF THIEVES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1304,7 +1304,7 @@
       ],
       "condition": "0x982c == \"BUCCANEERS\"",
       "dynamicValue": "BUCCANEERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v10-buccaneers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v10-buccaneers.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF BUCCANEERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1319,7 +1319,7 @@
       ],
       "condition": "0x982c == \"GIANT SNAKES\"",
       "dynamicValue": "GIANT SNAKES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v11-giant-snakes.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a172-a18d-a191-v11-giant-snakes.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF GIANT SNAKES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1334,7 +1334,7 @@
       ],
       "condition": "0x982c == \"QUICKLINGS\"",
       "dynamicValue": "QUICKLINGS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v01-quicklings.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v01-quicklings.mp3",
       "text": "YOU SURPRISE A GROUP OF QUICKLINGS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1349,7 +1349,7 @@
       ],
       "condition": "0x982c == \"WILD BOARS\"",
       "dynamicValue": "WILD BOARS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v02-wild-boars.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v02-wild-boars.mp3",
       "text": "YOU SURPRISE A GROUP OF WILD BOARS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1364,7 +1364,7 @@
       ],
       "condition": "0x982c == \"GIANT MANTIS\"",
       "dynamicValue": "GIANT MANTIS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v03-giant-mantis.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v03-giant-mantis.mp3",
       "text": "YOU SURPRISE A GROUP OF GIANT MANTIS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1379,7 +1379,7 @@
       ],
       "condition": "0x982c == \"TIGERS\"",
       "dynamicValue": "TIGERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v04-tigers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v04-tigers.mp3",
       "text": "YOU SURPRISE A GROUP OF TIGERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1394,7 +1394,7 @@
       ],
       "condition": "0x982c == \"THRI-KREENS\"",
       "dynamicValue": "THRI-KREENS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v05-thri-kreens.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v05-thri-kreens.mp3",
       "text": "YOU SURPRISE A GROUP OF THRI-KREENS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1409,7 +1409,7 @@
       ],
       "condition": "0x982c == \"ANHKHEG\"",
       "dynamicValue": "ANHKHEG",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v06-anhkheg.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v06-anhkheg.mp3",
       "text": "YOU SURPRISE A GROUP OF ANHKHEG.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1424,7 +1424,7 @@
       ],
       "condition": "0x982c == \"CENTAURS\"",
       "dynamicValue": "CENTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v07-centaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v07-centaurs.mp3",
       "text": "YOU SURPRISE A GROUP OF CENTAURS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1439,7 +1439,7 @@
       ],
       "condition": "0x982c == \"SOLDIERS\"",
       "dynamicValue": "SOLDIERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v08-soldiers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v08-soldiers.mp3",
       "text": "YOU SURPRISE A GROUP OF SOLDIERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1454,7 +1454,7 @@
       ],
       "condition": "0x982c == \"THIEVES\"",
       "dynamicValue": "THIEVES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v09-thieves.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v09-thieves.mp3",
       "text": "YOU SURPRISE A GROUP OF THIEVES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1469,7 +1469,7 @@
       ],
       "condition": "0x982c == \"BUCCANEERS\"",
       "dynamicValue": "BUCCANEERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v10-buccaneers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v10-buccaneers.mp3",
       "text": "YOU SURPRISE A GROUP OF BUCCANEERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1484,7 +1484,7 @@
       ],
       "condition": "0x982c == \"GIANT SNAKES\"",
       "dynamicValue": "GIANT SNAKES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v11-giant-snakes.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a1c7-a1dc-a1e0-v11-giant-snakes.mp3",
       "text": "YOU SURPRISE A GROUP OF GIANT SNAKES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1499,7 +1499,7 @@
       ],
       "condition": "0x982c == \"QUICKLINGS\"",
       "dynamicValue": "QUICKLINGS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v01-quicklings.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v01-quicklings.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF QUICKLINGS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1514,7 +1514,7 @@
       ],
       "condition": "0x982c == \"WILD BOARS\"",
       "dynamicValue": "WILD BOARS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v02-wild-boars.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v02-wild-boars.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF WILD BOARS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1529,7 +1529,7 @@
       ],
       "condition": "0x982c == \"GIANT MANTIS\"",
       "dynamicValue": "GIANT MANTIS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v03-giant-mantis.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v03-giant-mantis.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF GIANT MANTIS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1544,7 +1544,7 @@
       ],
       "condition": "0x982c == \"TIGERS\"",
       "dynamicValue": "TIGERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v04-tigers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v04-tigers.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF TIGERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1559,7 +1559,7 @@
       ],
       "condition": "0x982c == \"THRI-KREENS\"",
       "dynamicValue": "THRI-KREENS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v05-thri-kreens.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v05-thri-kreens.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF THRI-KREENS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1574,7 +1574,7 @@
       ],
       "condition": "0x982c == \"ANHKHEG\"",
       "dynamicValue": "ANHKHEG",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v06-anhkheg.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v06-anhkheg.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF ANHKHEG.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1589,7 +1589,7 @@
       ],
       "condition": "0x982c == \"CENTAURS\"",
       "dynamicValue": "CENTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v07-centaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v07-centaurs.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF CENTAURS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1604,7 +1604,7 @@
       ],
       "condition": "0x982c == \"SOLDIERS\"",
       "dynamicValue": "SOLDIERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v08-soldiers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v08-soldiers.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF SOLDIERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1619,7 +1619,7 @@
       ],
       "condition": "0x982c == \"THIEVES\"",
       "dynamicValue": "THIEVES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v09-thieves.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v09-thieves.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF THIEVES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1634,7 +1634,7 @@
       ],
       "condition": "0x982c == \"BUCCANEERS\"",
       "dynamicValue": "BUCCANEERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v10-buccaneers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v10-buccaneers.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF BUCCANEERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1649,7 +1649,7 @@
       ],
       "condition": "0x982c == \"GIANT SNAKES\"",
       "dynamicValue": "GIANT SNAKES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v11-giant-snakes.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a216-a23c-a240-v11-giant-snakes.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF GIANT SNAKES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1664,7 +1664,7 @@
       ],
       "condition": "0x982c == \"QUICKLINGS\"",
       "dynamicValue": "QUICKLINGS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v01-quicklings.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v01-quicklings.mp3",
       "text": "THE QUICKLINGS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1679,7 +1679,7 @@
       ],
       "condition": "0x982c == \"WILD BOARS\"",
       "dynamicValue": "WILD BOARS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v02-wild-boars.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v02-wild-boars.mp3",
       "text": "THE WILD BOARS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1694,7 +1694,7 @@
       ],
       "condition": "0x982c == \"GIANT MANTIS\"",
       "dynamicValue": "GIANT MANTIS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v03-giant-mantis.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v03-giant-mantis.mp3",
       "text": "THE GIANT MANTIS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1709,7 +1709,7 @@
       ],
       "condition": "0x982c == \"TIGERS\"",
       "dynamicValue": "TIGERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v04-tigers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v04-tigers.mp3",
       "text": "THE TIGERS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1724,7 +1724,7 @@
       ],
       "condition": "0x982c == \"THRI-KREENS\"",
       "dynamicValue": "THRI-KREENS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v05-thri-kreens.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v05-thri-kreens.mp3",
       "text": "THE THRI-KREENS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1739,7 +1739,7 @@
       ],
       "condition": "0x982c == \"ANHKHEG\"",
       "dynamicValue": "ANHKHEG",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v06-anhkheg.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v06-anhkheg.mp3",
       "text": "THE ANHKHEG FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1754,7 +1754,7 @@
       ],
       "condition": "0x982c == \"CENTAURS\"",
       "dynamicValue": "CENTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v07-centaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v07-centaurs.mp3",
       "text": "THE CENTAURS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1769,7 +1769,7 @@
       ],
       "condition": "0x982c == \"SOLDIERS\"",
       "dynamicValue": "SOLDIERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v08-soldiers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v08-soldiers.mp3",
       "text": "THE SOLDIERS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1784,7 +1784,7 @@
       ],
       "condition": "0x982c == \"THIEVES\"",
       "dynamicValue": "THIEVES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v09-thieves.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v09-thieves.mp3",
       "text": "THE THIEVES FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1799,7 +1799,7 @@
       ],
       "condition": "0x982c == \"BUCCANEERS\"",
       "dynamicValue": "BUCCANEERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v10-buccaneers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v10-buccaneers.mp3",
       "text": "THE BUCCANEERS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1814,7 +1814,7 @@
       ],
       "condition": "0x982c == \"GIANT SNAKES\"",
       "dynamicValue": "GIANT SNAKES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v11-giant-snakes.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a2fe-a304-a308-v11-giant-snakes.mp3",
       "text": "THE GIANT SNAKES FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1829,7 +1829,7 @@
       ],
       "condition": "0x982c == \"QUICKLINGS\"",
       "dynamicValue": "QUICKLINGS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v01-quicklings.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v01-quicklings.mp3",
       "text": "YOU CONVINCE THE QUICKLINGS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1844,7 +1844,7 @@
       ],
       "condition": "0x982c == \"WILD BOARS\"",
       "dynamicValue": "WILD BOARS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v02-wild-boars.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v02-wild-boars.mp3",
       "text": "YOU CONVINCE THE WILD BOARS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1859,7 +1859,7 @@
       ],
       "condition": "0x982c == \"GIANT MANTIS\"",
       "dynamicValue": "GIANT MANTIS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v03-giant-mantis.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v03-giant-mantis.mp3",
       "text": "YOU CONVINCE THE GIANT MANTIS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1874,7 +1874,7 @@
       ],
       "condition": "0x982c == \"TIGERS\"",
       "dynamicValue": "TIGERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v04-tigers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v04-tigers.mp3",
       "text": "YOU CONVINCE THE TIGERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1889,7 +1889,7 @@
       ],
       "condition": "0x982c == \"THRI-KREENS\"",
       "dynamicValue": "THRI-KREENS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v05-thri-kreens.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v05-thri-kreens.mp3",
       "text": "YOU CONVINCE THE THRI-KREENS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1904,7 +1904,7 @@
       ],
       "condition": "0x982c == \"ANHKHEG\"",
       "dynamicValue": "ANHKHEG",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v06-anhkheg.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v06-anhkheg.mp3",
       "text": "YOU CONVINCE THE ANHKHEG THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1919,7 +1919,7 @@
       ],
       "condition": "0x982c == \"CENTAURS\"",
       "dynamicValue": "CENTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v07-centaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v07-centaurs.mp3",
       "text": "YOU CONVINCE THE CENTAURS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1934,7 +1934,7 @@
       ],
       "condition": "0x982c == \"SOLDIERS\"",
       "dynamicValue": "SOLDIERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v08-soldiers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v08-soldiers.mp3",
       "text": "YOU CONVINCE THE SOLDIERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1949,7 +1949,7 @@
       ],
       "condition": "0x982c == \"THIEVES\"",
       "dynamicValue": "THIEVES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v09-thieves.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v09-thieves.mp3",
       "text": "YOU CONVINCE THE THIEVES THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1964,7 +1964,7 @@
       ],
       "condition": "0x982c == \"BUCCANEERS\"",
       "dynamicValue": "BUCCANEERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v10-buccaneers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v10-buccaneers.mp3",
       "text": "YOU CONVINCE THE BUCCANEERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1979,7 +1979,7 @@
       ],
       "condition": "0x982c == \"GIANT SNAKES\"",
       "dynamicValue": "GIANT SNAKES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v11-giant-snakes.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a34e-a35e-a362-v11-giant-snakes.mp3",
       "text": "YOU CONVINCE THE GIANT SNAKES THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -1997,7 +1997,7 @@
       ],
       "condition": "0x982c == \"QUICKLINGS\"",
       "dynamicValue": "QUICKLINGS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v01-quicklings.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v01-quicklings.mp3",
       "text": "YOU HAVE INSULTED THE QUICKLINGS. THE QUICKLINGS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2015,7 +2015,7 @@
       ],
       "condition": "0x982c == \"WILD BOARS\"",
       "dynamicValue": "WILD BOARS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v02-wild-boars.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v02-wild-boars.mp3",
       "text": "YOU HAVE INSULTED THE WILD BOARS. THE WILD BOARS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2033,7 +2033,7 @@
       ],
       "condition": "0x982c == \"GIANT MANTIS\"",
       "dynamicValue": "GIANT MANTIS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v03-giant-mantis.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v03-giant-mantis.mp3",
       "text": "YOU HAVE INSULTED THE GIANT MANTIS. THE GIANT MANTIS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2051,7 +2051,7 @@
       ],
       "condition": "0x982c == \"TIGERS\"",
       "dynamicValue": "TIGERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v04-tigers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v04-tigers.mp3",
       "text": "YOU HAVE INSULTED THE TIGERS. THE TIGERS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2069,7 +2069,7 @@
       ],
       "condition": "0x982c == \"THRI-KREENS\"",
       "dynamicValue": "THRI-KREENS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v05-thri-kreens.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v05-thri-kreens.mp3",
       "text": "YOU HAVE INSULTED THE THRI-KREENS. THE THRI-KREENS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2087,7 +2087,7 @@
       ],
       "condition": "0x982c == \"ANHKHEG\"",
       "dynamicValue": "ANHKHEG",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v06-anhkheg.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v06-anhkheg.mp3",
       "text": "YOU HAVE INSULTED THE ANHKHEG. THE ANHKHEG ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2105,7 +2105,7 @@
       ],
       "condition": "0x982c == \"CENTAURS\"",
       "dynamicValue": "CENTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v07-centaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v07-centaurs.mp3",
       "text": "YOU HAVE INSULTED THE CENTAURS. THE CENTAURS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2123,7 +2123,7 @@
       ],
       "condition": "0x982c == \"SOLDIERS\"",
       "dynamicValue": "SOLDIERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v08-soldiers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v08-soldiers.mp3",
       "text": "YOU HAVE INSULTED THE SOLDIERS. THE SOLDIERS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2141,7 +2141,7 @@
       ],
       "condition": "0x982c == \"THIEVES\"",
       "dynamicValue": "THIEVES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v09-thieves.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v09-thieves.mp3",
       "text": "YOU HAVE INSULTED THE THIEVES. THE THIEVES ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2159,7 +2159,7 @@
       ],
       "condition": "0x982c == \"BUCCANEERS\"",
       "dynamicValue": "BUCCANEERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v10-buccaneers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v10-buccaneers.mp3",
       "text": "YOU HAVE INSULTED THE BUCCANEERS. THE BUCCANEERS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2177,7 +2177,7 @@
       ],
       "condition": "0x982c == \"GIANT SNAKES\"",
       "dynamicValue": "GIANT SNAKES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v11-giant-snakes.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a391-a3a5-a3a9-a3ad-a3b3-a3b7-v11-giant-snakes.mp3",
       "text": "YOU HAVE INSULTED THE GIANT SNAKES. THE GIANT SNAKES ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2194,7 +2194,7 @@
       ],
       "condition": "0x982c == \"QUICKLINGS\"",
       "dynamicValue": "QUICKLINGS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v01-quicklings.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v01-quicklings.mp3",
       "text": "THE QUICKLINGS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE QUICKLINGS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2211,7 +2211,7 @@
       ],
       "condition": "0x982c == \"WILD BOARS\"",
       "dynamicValue": "WILD BOARS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v02-wild-boars.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v02-wild-boars.mp3",
       "text": "THE WILD BOARS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE WILD BOARS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2228,7 +2228,7 @@
       ],
       "condition": "0x982c == \"GIANT MANTIS\"",
       "dynamicValue": "GIANT MANTIS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v03-giant-mantis.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v03-giant-mantis.mp3",
       "text": "THE GIANT MANTIS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE GIANT MANTIS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2245,7 +2245,7 @@
       ],
       "condition": "0x982c == \"TIGERS\"",
       "dynamicValue": "TIGERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v04-tigers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v04-tigers.mp3",
       "text": "THE TIGERS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE TIGERS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2262,7 +2262,7 @@
       ],
       "condition": "0x982c == \"THRI-KREENS\"",
       "dynamicValue": "THRI-KREENS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v05-thri-kreens.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v05-thri-kreens.mp3",
       "text": "THE THRI-KREENS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE THRI-KREENS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2279,7 +2279,7 @@
       ],
       "condition": "0x982c == \"ANHKHEG\"",
       "dynamicValue": "ANHKHEG",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v06-anhkheg.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v06-anhkheg.mp3",
       "text": "THE ANHKHEG GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE ANHKHEG THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2296,7 +2296,7 @@
       ],
       "condition": "0x982c == \"CENTAURS\"",
       "dynamicValue": "CENTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v07-centaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v07-centaurs.mp3",
       "text": "THE CENTAURS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE CENTAURS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2313,7 +2313,7 @@
       ],
       "condition": "0x982c == \"SOLDIERS\"",
       "dynamicValue": "SOLDIERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v08-soldiers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v08-soldiers.mp3",
       "text": "THE SOLDIERS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE SOLDIERS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2330,7 +2330,7 @@
       ],
       "condition": "0x982c == \"THIEVES\"",
       "dynamicValue": "THIEVES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v09-thieves.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v09-thieves.mp3",
       "text": "THE THIEVES GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE THIEVES THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2347,7 +2347,7 @@
       ],
       "condition": "0x982c == \"BUCCANEERS\"",
       "dynamicValue": "BUCCANEERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v10-buccaneers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v10-buccaneers.mp3",
       "text": "THE BUCCANEERS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE BUCCANEERS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2364,7 +2364,7 @@
       ],
       "condition": "0x982c == \"GIANT SNAKES\"",
       "dynamicValue": "GIANT SNAKES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v11-giant-snakes.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl6-b25-a3d0-a3d6-a3da-a401-a405-v11-giant-snakes.mp3",
       "text": "THE GIANT SNAKES GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE GIANT SNAKES THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -2378,7 +2378,7 @@
       ],
       "condition": "0x9809 == \" A BAND OF HUMAN FIGHTERS.\"",
       "dynamicValue": " A BAND OF HUMAN FIGHTERS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v01-a-band-of-human-fighters.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v01-a-band-of-human-fighters.mp3",
       "text": "YOU SEE A BAND OF HUMAN FIGHTERS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2392,7 +2392,7 @@
       ],
       "condition": "0x9809 == \" DISPLACER BEASTS.\"",
       "dynamicValue": " DISPLACER BEASTS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v02-displacer-beasts.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v02-displacer-beasts.mp3",
       "text": "YOU SEE DISPLACER BEASTS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2406,7 +2406,7 @@
       ],
       "condition": "0x9809 == \" DWARVEN FIGHTERS.\"",
       "dynamicValue": " DWARVEN FIGHTERS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v03-dwarven-fighters.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v03-dwarven-fighters.mp3",
       "text": "YOU SEE DWARVEN FIGHTERS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2420,7 +2420,7 @@
       ],
       "condition": "0x9809 == \" A TRIO OF LIZARD MEN.\"",
       "dynamicValue": " A TRIO OF LIZARD MEN.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v04-a-trio-of-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v04-a-trio-of-lizard-men.mp3",
       "text": "YOU SEE A TRIO OF LIZARD MEN.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2434,7 +2434,7 @@
       ],
       "condition": "0x9809 == \" VISCIOUS LOOKING DRIDERS.\"",
       "dynamicValue": " VISCIOUS LOOKING DRIDERS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v05-viscious-looking-driders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v05-viscious-looking-driders.mp3",
       "text": "YOU SEE VISCIOUS LOOKING DRIDERS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2448,7 +2448,7 @@
       ],
       "condition": "0x9809 == \" SOME GAUNT MEN IN POORLY FITTING LEATHER.\"",
       "dynamicValue": " SOME GAUNT MEN IN POORLY FITTING LEATHER.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v06-some-gaunt-men-in-poorly-fitting-leather.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v06-some-gaunt-men-in-poorly-fitting-leather.mp3",
       "text": "YOU SEE SOME GAUNT MEN IN POORLY FITTING LEATHER.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2462,7 +2462,7 @@
       ],
       "condition": "0x9809 == \" LARGE INSECTS WITH RUSTY RED FEATHERS.\"",
       "dynamicValue": " LARGE INSECTS WITH RUSTY RED FEATHERS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v07-large-insects-with-rusty-red-feathers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v07-large-insects-with-rusty-red-feathers.mp3",
       "text": "YOU SEE LARGE INSECTS WITH RUSTY RED FEATHERS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2476,7 +2476,7 @@
       ],
       "condition": "0x9809 == \" SOME LARGE BULL HEADED MEN.\"",
       "dynamicValue": " SOME LARGE BULL HEADED MEN.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v08-some-large-bull-headed-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v08-some-large-bull-headed-men.mp3",
       "text": "YOU SEE SOME LARGE BULL HEADED MEN.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2490,7 +2490,7 @@
       ],
       "condition": "0x9809 == \" A GROUP OF EMACIATED ELVES.\"",
       "dynamicValue": " A GROUP OF EMACIATED ELVES.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v09-a-group-of-emaciated-elves.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v09-a-group-of-emaciated-elves.mp3",
       "text": "YOU SEE A GROUP OF EMACIATED ELVES.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2504,7 +2504,7 @@
       ],
       "condition": "0x9809 == \" SOME HUNGRY LOOKING KOBOLDS.\"",
       "dynamicValue": " SOME HUNGRY LOOKING KOBOLDS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v10-some-hungry-looking-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a222-a20b-v10-some-hungry-looking-kobolds.mp3",
       "text": "YOU SEE SOME HUNGRY LOOKING KOBOLDS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2518,7 +2518,7 @@
       ],
       "condition": "0x9809 == \" A BAND OF HUMAN FIGHTERS.\"",
       "dynamicValue": " A BAND OF HUMAN FIGHTERS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v01-a-band-of-human-fighters.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v01-a-band-of-human-fighters.mp3",
       "text": "YOU ARE SURPRISED BY A BAND OF HUMAN FIGHTERS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2532,7 +2532,7 @@
       ],
       "condition": "0x9809 == \" DISPLACER BEASTS.\"",
       "dynamicValue": " DISPLACER BEASTS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v02-displacer-beasts.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v02-displacer-beasts.mp3",
       "text": "YOU ARE SURPRISED BY DISPLACER BEASTS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2546,7 +2546,7 @@
       ],
       "condition": "0x9809 == \" DWARVEN FIGHTERS.\"",
       "dynamicValue": " DWARVEN FIGHTERS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v03-dwarven-fighters.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v03-dwarven-fighters.mp3",
       "text": "YOU ARE SURPRISED BY DWARVEN FIGHTERS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2560,7 +2560,7 @@
       ],
       "condition": "0x9809 == \" A TRIO OF LIZARD MEN.\"",
       "dynamicValue": " A TRIO OF LIZARD MEN.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v04-a-trio-of-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v04-a-trio-of-lizard-men.mp3",
       "text": "YOU ARE SURPRISED BY A TRIO OF LIZARD MEN.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2574,7 +2574,7 @@
       ],
       "condition": "0x9809 == \" VISCIOUS LOOKING DRIDERS.\"",
       "dynamicValue": " VISCIOUS LOOKING DRIDERS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v05-viscious-looking-driders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v05-viscious-looking-driders.mp3",
       "text": "YOU ARE SURPRISED BY VISCIOUS LOOKING DRIDERS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2588,7 +2588,7 @@
       ],
       "condition": "0x9809 == \" SOME GAUNT MEN IN POORLY FITTING LEATHER.\"",
       "dynamicValue": " SOME GAUNT MEN IN POORLY FITTING LEATHER.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v06-some-gaunt-men-in-poorly-fitting-leather.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v06-some-gaunt-men-in-poorly-fitting-leather.mp3",
       "text": "YOU ARE SURPRISED BY SOME GAUNT MEN IN POORLY FITTING LEATHER.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2602,7 +2602,7 @@
       ],
       "condition": "0x9809 == \" LARGE INSECTS WITH RUSTY RED FEATHERS.\"",
       "dynamicValue": " LARGE INSECTS WITH RUSTY RED FEATHERS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v07-large-insects-with-rusty-red-feathers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v07-large-insects-with-rusty-red-feathers.mp3",
       "text": "YOU ARE SURPRISED BY LARGE INSECTS WITH RUSTY RED FEATHERS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2616,7 +2616,7 @@
       ],
       "condition": "0x9809 == \" SOME LARGE BULL HEADED MEN.\"",
       "dynamicValue": " SOME LARGE BULL HEADED MEN.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v08-some-large-bull-headed-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v08-some-large-bull-headed-men.mp3",
       "text": "YOU ARE SURPRISED BY SOME LARGE BULL HEADED MEN.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2630,7 +2630,7 @@
       ],
       "condition": "0x9809 == \" A GROUP OF EMACIATED ELVES.\"",
       "dynamicValue": " A GROUP OF EMACIATED ELVES.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v09-a-group-of-emaciated-elves.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v09-a-group-of-emaciated-elves.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF EMACIATED ELVES.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2644,7 +2644,7 @@
       ],
       "condition": "0x9809 == \" SOME HUNGRY LOOKING KOBOLDS.\"",
       "dynamicValue": " SOME HUNGRY LOOKING KOBOLDS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v10-some-hungry-looking-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a22c-a20b-v10-some-hungry-looking-kobolds.mp3",
       "text": "YOU ARE SURPRISED BY SOME HUNGRY LOOKING KOBOLDS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2658,7 +2658,7 @@
       ],
       "condition": "0x9809 == \" A BAND OF HUMAN FIGHTERS.\"",
       "dynamicValue": " A BAND OF HUMAN FIGHTERS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v01-a-band-of-human-fighters.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v01-a-band-of-human-fighters.mp3",
       "text": "YOU SURPRISE A BAND OF HUMAN FIGHTERS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2672,7 +2672,7 @@
       ],
       "condition": "0x9809 == \" DISPLACER BEASTS.\"",
       "dynamicValue": " DISPLACER BEASTS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v02-displacer-beasts.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v02-displacer-beasts.mp3",
       "text": "YOU SURPRISE DISPLACER BEASTS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2686,7 +2686,7 @@
       ],
       "condition": "0x9809 == \" DWARVEN FIGHTERS.\"",
       "dynamicValue": " DWARVEN FIGHTERS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v03-dwarven-fighters.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v03-dwarven-fighters.mp3",
       "text": "YOU SURPRISE DWARVEN FIGHTERS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2700,7 +2700,7 @@
       ],
       "condition": "0x9809 == \" A TRIO OF LIZARD MEN.\"",
       "dynamicValue": " A TRIO OF LIZARD MEN.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v04-a-trio-of-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v04-a-trio-of-lizard-men.mp3",
       "text": "YOU SURPRISE A TRIO OF LIZARD MEN.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2714,7 +2714,7 @@
       ],
       "condition": "0x9809 == \" VISCIOUS LOOKING DRIDERS.\"",
       "dynamicValue": " VISCIOUS LOOKING DRIDERS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v05-viscious-looking-driders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v05-viscious-looking-driders.mp3",
       "text": "YOU SURPRISE VISCIOUS LOOKING DRIDERS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2728,7 +2728,7 @@
       ],
       "condition": "0x9809 == \" SOME GAUNT MEN IN POORLY FITTING LEATHER.\"",
       "dynamicValue": " SOME GAUNT MEN IN POORLY FITTING LEATHER.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v06-some-gaunt-men-in-poorly-fitting-leather.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v06-some-gaunt-men-in-poorly-fitting-leather.mp3",
       "text": "YOU SURPRISE SOME GAUNT MEN IN POORLY FITTING LEATHER.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2742,7 +2742,7 @@
       ],
       "condition": "0x9809 == \" LARGE INSECTS WITH RUSTY RED FEATHERS.\"",
       "dynamicValue": " LARGE INSECTS WITH RUSTY RED FEATHERS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v07-large-insects-with-rusty-red-feathers.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v07-large-insects-with-rusty-red-feathers.mp3",
       "text": "YOU SURPRISE LARGE INSECTS WITH RUSTY RED FEATHERS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2756,7 +2756,7 @@
       ],
       "condition": "0x9809 == \" SOME LARGE BULL HEADED MEN.\"",
       "dynamicValue": " SOME LARGE BULL HEADED MEN.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v08-some-large-bull-headed-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v08-some-large-bull-headed-men.mp3",
       "text": "YOU SURPRISE SOME LARGE BULL HEADED MEN.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2770,7 +2770,7 @@
       ],
       "condition": "0x9809 == \" A GROUP OF EMACIATED ELVES.\"",
       "dynamicValue": " A GROUP OF EMACIATED ELVES.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v09-a-group-of-emaciated-elves.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v09-a-group-of-emaciated-elves.mp3",
       "text": "YOU SURPRISE A GROUP OF EMACIATED ELVES.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2784,7 +2784,7 @@
       ],
       "condition": "0x9809 == \" SOME HUNGRY LOOKING KOBOLDS.\"",
       "dynamicValue": " SOME HUNGRY LOOKING KOBOLDS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v10-some-hungry-looking-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b22-a24e-a20b-v10-some-hungry-looking-kobolds.mp3",
       "text": "YOU SURPRISE SOME HUNGRY LOOKING KOBOLDS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2798,7 +2798,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v01-kobolds.mp3",
       "text": "YOU SPOT A GROUP OF KOBOLDS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2812,7 +2812,7 @@
       ],
       "condition": "0x982c == \"DISPLACER BEASTS\"",
       "dynamicValue": "DISPLACER BEASTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v02-displacer-beasts.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v02-displacer-beasts.mp3",
       "text": "YOU SPOT A GROUP OF DISPLACER BEASTS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2826,7 +2826,7 @@
       ],
       "condition": "0x982c == \"DRIDERS\"",
       "dynamicValue": "DRIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v03-driders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v03-driders.mp3",
       "text": "YOU SPOT A GROUP OF DRIDERS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2840,7 +2840,7 @@
       ],
       "condition": "0x982c == \"STIRGES\"",
       "dynamicValue": "STIRGES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v04-stirges.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v04-stirges.mp3",
       "text": "YOU SPOT A GROUP OF STIRGES",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2854,7 +2854,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v05-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v05-lizard-men.mp3",
       "text": "YOU SPOT A GROUP OF LIZARD MEN",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2868,7 +2868,7 @@
       ],
       "condition": "0x982c == \"BANDITS\"",
       "dynamicValue": "BANDITS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v06-bandits.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v06-bandits.mp3",
       "text": "YOU SPOT A GROUP OF BANDITS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2882,7 +2882,7 @@
       ],
       "condition": "0x982c == \"NOMADS\"",
       "dynamicValue": "NOMADS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v07-nomads.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v07-nomads.mp3",
       "text": "YOU SPOT A GROUP OF NOMADS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2896,7 +2896,7 @@
       ],
       "condition": "0x982c == \"MERCHANTS\"",
       "dynamicValue": "MERCHANTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v08-merchants.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a15c-a16e-v08-merchants.mp3",
       "text": "YOU SPOT A GROUP OF MERCHANTS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2910,7 +2910,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v01-kobolds.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF KOBOLDS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2924,7 +2924,7 @@
       ],
       "condition": "0x982c == \"DISPLACER BEASTS\"",
       "dynamicValue": "DISPLACER BEASTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v02-displacer-beasts.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v02-displacer-beasts.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF DISPLACER BEASTS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2938,7 +2938,7 @@
       ],
       "condition": "0x982c == \"DRIDERS\"",
       "dynamicValue": "DRIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v03-driders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v03-driders.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF DRIDERS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2952,7 +2952,7 @@
       ],
       "condition": "0x982c == \"STIRGES\"",
       "dynamicValue": "STIRGES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v04-stirges.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v04-stirges.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF STIRGES",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2966,7 +2966,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v05-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v05-lizard-men.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF LIZARD MEN",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2980,7 +2980,7 @@
       ],
       "condition": "0x982c == \"BANDITS\"",
       "dynamicValue": "BANDITS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v06-bandits.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v06-bandits.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF BANDITS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -2994,7 +2994,7 @@
       ],
       "condition": "0x982c == \"NOMADS\"",
       "dynamicValue": "NOMADS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v07-nomads.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v07-nomads.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF NOMADS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3008,7 +3008,7 @@
       ],
       "condition": "0x982c == \"MERCHANTS\"",
       "dynamicValue": "MERCHANTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v08-merchants.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1a6-a1c1-v08-merchants.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF MERCHANTS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3022,7 +3022,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v01-kobolds.mp3",
       "text": "YOU SURPRISE A GROUP OF KOBOLDS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3036,7 +3036,7 @@
       ],
       "condition": "0x982c == \"DISPLACER BEASTS\"",
       "dynamicValue": "DISPLACER BEASTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v02-displacer-beasts.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v02-displacer-beasts.mp3",
       "text": "YOU SURPRISE A GROUP OF DISPLACER BEASTS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3050,7 +3050,7 @@
       ],
       "condition": "0x982c == \"DRIDERS\"",
       "dynamicValue": "DRIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v03-driders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v03-driders.mp3",
       "text": "YOU SURPRISE A GROUP OF DRIDERS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3064,7 +3064,7 @@
       ],
       "condition": "0x982c == \"STIRGES\"",
       "dynamicValue": "STIRGES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v04-stirges.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v04-stirges.mp3",
       "text": "YOU SURPRISE A GROUP OF STIRGES",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3078,7 +3078,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v05-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v05-lizard-men.mp3",
       "text": "YOU SURPRISE A GROUP OF LIZARD MEN",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3092,7 +3092,7 @@
       ],
       "condition": "0x982c == \"BANDITS\"",
       "dynamicValue": "BANDITS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v06-bandits.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v06-bandits.mp3",
       "text": "YOU SURPRISE A GROUP OF BANDITS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3106,7 +3106,7 @@
       ],
       "condition": "0x982c == \"NOMADS\"",
       "dynamicValue": "NOMADS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v07-nomads.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v07-nomads.mp3",
       "text": "YOU SURPRISE A GROUP OF NOMADS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3120,7 +3120,7 @@
       ],
       "condition": "0x982c == \"MERCHANTS\"",
       "dynamicValue": "MERCHANTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v08-merchants.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a1f7-a20c-v08-merchants.mp3",
       "text": "YOU SURPRISE A GROUP OF MERCHANTS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3134,7 +3134,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v01-kobolds.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF KOBOLDS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3148,7 +3148,7 @@
       ],
       "condition": "0x982c == \"DISPLACER BEASTS\"",
       "dynamicValue": "DISPLACER BEASTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v02-displacer-beasts.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v02-displacer-beasts.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF DISPLACER BEASTS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3162,7 +3162,7 @@
       ],
       "condition": "0x982c == \"DRIDERS\"",
       "dynamicValue": "DRIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v03-driders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v03-driders.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF DRIDERS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3176,7 +3176,7 @@
       ],
       "condition": "0x982c == \"STIRGES\"",
       "dynamicValue": "STIRGES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v04-stirges.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v04-stirges.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF STIRGES",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3190,7 +3190,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v05-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v05-lizard-men.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF LIZARD MEN",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3204,7 +3204,7 @@
       ],
       "condition": "0x982c == \"BANDITS\"",
       "dynamicValue": "BANDITS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v06-bandits.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v06-bandits.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF BANDITS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3218,7 +3218,7 @@
       ],
       "condition": "0x982c == \"NOMADS\"",
       "dynamicValue": "NOMADS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v07-nomads.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v07-nomads.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF NOMADS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3232,7 +3232,7 @@
       ],
       "condition": "0x982c == \"MERCHANTS\"",
       "dynamicValue": "MERCHANTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v08-merchants.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a242-a268-v08-merchants.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF MERCHANTS",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3247,7 +3247,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v01-kobolds.mp3",
       "text": "THE KOBOLDS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3262,7 +3262,7 @@
       ],
       "condition": "0x982c == \"DISPLACER BEASTS\"",
       "dynamicValue": "DISPLACER BEASTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v02-displacer-beasts.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v02-displacer-beasts.mp3",
       "text": "THE DISPLACER BEASTS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3277,7 +3277,7 @@
       ],
       "condition": "0x982c == \"DRIDERS\"",
       "dynamicValue": "DRIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v03-driders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v03-driders.mp3",
       "text": "THE DRIDERS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3292,7 +3292,7 @@
       ],
       "condition": "0x982c == \"STIRGES\"",
       "dynamicValue": "STIRGES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v04-stirges.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v04-stirges.mp3",
       "text": "THE STIRGES FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3307,7 +3307,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v05-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v05-lizard-men.mp3",
       "text": "THE LIZARD MEN FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3322,7 +3322,7 @@
       ],
       "condition": "0x982c == \"BANDITS\"",
       "dynamicValue": "BANDITS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v06-bandits.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v06-bandits.mp3",
       "text": "THE BANDITS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3337,7 +3337,7 @@
       ],
       "condition": "0x982c == \"NOMADS\"",
       "dynamicValue": "NOMADS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v07-nomads.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v07-nomads.mp3",
       "text": "THE NOMADS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3352,7 +3352,7 @@
       ],
       "condition": "0x982c == \"MERCHANTS\"",
       "dynamicValue": "MERCHANTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v08-merchants.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a326-a330-v08-merchants.mp3",
       "text": "THE MERCHANTS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3367,7 +3367,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v01-kobolds.mp3",
       "text": "YOU CONVINCE THE KOBOLDS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3382,7 +3382,7 @@
       ],
       "condition": "0x982c == \"DISPLACER BEASTS\"",
       "dynamicValue": "DISPLACER BEASTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v02-displacer-beasts.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v02-displacer-beasts.mp3",
       "text": "YOU CONVINCE THE DISPLACER BEASTS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3397,7 +3397,7 @@
       ],
       "condition": "0x982c == \"DRIDERS\"",
       "dynamicValue": "DRIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v03-driders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v03-driders.mp3",
       "text": "YOU CONVINCE THE DRIDERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3412,7 +3412,7 @@
       ],
       "condition": "0x982c == \"STIRGES\"",
       "dynamicValue": "STIRGES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v04-stirges.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v04-stirges.mp3",
       "text": "YOU CONVINCE THE STIRGES THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3427,7 +3427,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v05-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v05-lizard-men.mp3",
       "text": "YOU CONVINCE THE LIZARD MEN THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3442,7 +3442,7 @@
       ],
       "condition": "0x982c == \"BANDITS\"",
       "dynamicValue": "BANDITS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v06-bandits.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v06-bandits.mp3",
       "text": "YOU CONVINCE THE BANDITS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3457,7 +3457,7 @@
       ],
       "condition": "0x982c == \"NOMADS\"",
       "dynamicValue": "NOMADS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v07-nomads.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v07-nomads.mp3",
       "text": "YOU CONVINCE THE NOMADS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3472,7 +3472,7 @@
       ],
       "condition": "0x982c == \"MERCHANTS\"",
       "dynamicValue": "MERCHANTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v08-merchants.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a376-a38a-v08-merchants.mp3",
       "text": "YOU CONVINCE THE MERCHANTS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3490,7 +3490,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v01-kobolds.mp3",
       "text": "YOU HAVE INSULTED THE KOBOLDS. THE KOBOLDS ATTACK YOU IMMEDIATELY!",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -3508,7 +3508,7 @@
       ],
       "condition": "0x982c == \"DISPLACER BEASTS\"",
       "dynamicValue": "DISPLACER BEASTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v02-displacer-beasts.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v02-displacer-beasts.mp3",
       "text": "YOU HAVE INSULTED THE DISPLACER BEASTS. THE DISPLACER BEASTS ATTACK YOU IMMEDIATELY!",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -3526,7 +3526,7 @@
       ],
       "condition": "0x982c == \"DRIDERS\"",
       "dynamicValue": "DRIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v03-driders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v03-driders.mp3",
       "text": "YOU HAVE INSULTED THE DRIDERS. THE DRIDERS ATTACK YOU IMMEDIATELY!",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -3544,7 +3544,7 @@
       ],
       "condition": "0x982c == \"STIRGES\"",
       "dynamicValue": "STIRGES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v04-stirges.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v04-stirges.mp3",
       "text": "YOU HAVE INSULTED THE STIRGES. THE STIRGES ATTACK YOU IMMEDIATELY!",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -3562,7 +3562,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v05-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v05-lizard-men.mp3",
       "text": "YOU HAVE INSULTED THE LIZARD MEN. THE LIZARD MEN ATTACK YOU IMMEDIATELY!",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -3580,7 +3580,7 @@
       ],
       "condition": "0x982c == \"BANDITS\"",
       "dynamicValue": "BANDITS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v06-bandits.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v06-bandits.mp3",
       "text": "YOU HAVE INSULTED THE BANDITS. THE BANDITS ATTACK YOU IMMEDIATELY!",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -3598,7 +3598,7 @@
       ],
       "condition": "0x982c == \"NOMADS\"",
       "dynamicValue": "NOMADS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v07-nomads.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v07-nomads.mp3",
       "text": "YOU HAVE INSULTED THE NOMADS. THE NOMADS ATTACK YOU IMMEDIATELY!",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -3616,7 +3616,7 @@
       ],
       "condition": "0x982c == \"MERCHANTS\"",
       "dynamicValue": "MERCHANTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v08-merchants.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3b9-a3df-v08-merchants.mp3",
       "text": "YOU HAVE INSULTED THE MERCHANTS. THE MERCHANTS ATTACK YOU IMMEDIATELY!",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -3633,7 +3633,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v01-kobolds.mp3",
       "text": "THE KOBOLDS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE KOBOLDS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3650,7 +3650,7 @@
       ],
       "condition": "0x982c == \"DISPLACER BEASTS\"",
       "dynamicValue": "DISPLACER BEASTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v02-displacer-beasts.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v02-displacer-beasts.mp3",
       "text": "THE DISPLACER BEASTS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE DISPLACER BEASTS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3667,7 +3667,7 @@
       ],
       "condition": "0x982c == \"DRIDERS\"",
       "dynamicValue": "DRIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v03-driders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v03-driders.mp3",
       "text": "THE DRIDERS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE DRIDERS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3684,7 +3684,7 @@
       ],
       "condition": "0x982c == \"STIRGES\"",
       "dynamicValue": "STIRGES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v04-stirges.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v04-stirges.mp3",
       "text": "THE STIRGES GREET YOU AND YOU EXCHANGE PLESANTRIES. THE STIRGES THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3701,7 +3701,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v05-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v05-lizard-men.mp3",
       "text": "THE LIZARD MEN GREET YOU AND YOU EXCHANGE PLESANTRIES. THE LIZARD MEN THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3718,7 +3718,7 @@
       ],
       "condition": "0x982c == \"BANDITS\"",
       "dynamicValue": "BANDITS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v06-bandits.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v06-bandits.mp3",
       "text": "THE BANDITS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE BANDITS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3735,7 +3735,7 @@
       ],
       "condition": "0x982c == \"NOMADS\"",
       "dynamicValue": "NOMADS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v07-nomads.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v07-nomads.mp3",
       "text": "THE NOMADS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE NOMADS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3752,7 +3752,7 @@
       ],
       "condition": "0x982c == \"MERCHANTS\"",
       "dynamicValue": "MERCHANTS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v08-merchants.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl7-b26-a3f8-a42c-v08-merchants.mp3",
       "text": "THE MERCHANTS GREET YOU AND YOU EXCHANGE PLESANTRIES. THE MERCHANTS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -3766,7 +3766,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v01-kobolds.mp3",
       "text": "YOU SPOT A GROUP OF KOBOLDS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3780,7 +3780,7 @@
       ],
       "condition": "0x982c == \"GNOLLS\"",
       "dynamicValue": "GNOLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v02-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v02-gnolls.mp3",
       "text": "YOU SPOT A GROUP OF GNOLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3794,7 +3794,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v03-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v03-lizard-men.mp3",
       "text": "YOU SPOT A GROUP OF LIZARD MEN",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3808,7 +3808,7 @@
       ],
       "condition": "0x982c == \"GIANT LIZARDS\"",
       "dynamicValue": "GIANT LIZARDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v04-giant-lizards.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v04-giant-lizards.mp3",
       "text": "YOU SPOT A GROUP OF GIANT LIZARDS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3822,7 +3822,7 @@
       ],
       "condition": "0x982c == \"HIPPOGRIFFS\"",
       "dynamicValue": "HIPPOGRIFFS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v05-hippogriffs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v05-hippogriffs.mp3",
       "text": "YOU SPOT A GROUP OF HIPPOGRIFFS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3836,7 +3836,7 @@
       ],
       "condition": "0x982c == \"WYVERNS\"",
       "dynamicValue": "WYVERNS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v06-wyverns.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v06-wyverns.mp3",
       "text": "YOU SPOT A GROUP OF WYVERNS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3850,7 +3850,7 @@
       ],
       "condition": "0x982c == \"TROLLS\"",
       "dynamicValue": "TROLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v07-trolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v07-trolls.mp3",
       "text": "YOU SPOT A GROUP OF TROLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3864,7 +3864,7 @@
       ],
       "condition": "0x982c == \"PHASE SPIDERS\"",
       "dynamicValue": "PHASE SPIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v08-phase-spiders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v08-phase-spiders.mp3",
       "text": "YOU SPOT A GROUP OF PHASE SPIDERS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3878,7 +3878,7 @@
       ],
       "condition": "0x982c == \"MINOTAURS\"",
       "dynamicValue": "MINOTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v09-minotaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f1c-9f2e-v09-minotaurs.mp3",
       "text": "YOU SPOT A GROUP OF MINOTAURS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3892,7 +3892,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v01-kobolds.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF KOBOLDS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3906,7 +3906,7 @@
       ],
       "condition": "0x982c == \"GNOLLS\"",
       "dynamicValue": "GNOLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v02-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v02-gnolls.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF GNOLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3920,7 +3920,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v03-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v03-lizard-men.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF LIZARD MEN",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3934,7 +3934,7 @@
       ],
       "condition": "0x982c == \"GIANT LIZARDS\"",
       "dynamicValue": "GIANT LIZARDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v04-giant-lizards.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v04-giant-lizards.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF GIANT LIZARDS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3948,7 +3948,7 @@
       ],
       "condition": "0x982c == \"HIPPOGRIFFS\"",
       "dynamicValue": "HIPPOGRIFFS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v05-hippogriffs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v05-hippogriffs.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF HIPPOGRIFFS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3962,7 +3962,7 @@
       ],
       "condition": "0x982c == \"WYVERNS\"",
       "dynamicValue": "WYVERNS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v06-wyverns.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v06-wyverns.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF WYVERNS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3976,7 +3976,7 @@
       ],
       "condition": "0x982c == \"TROLLS\"",
       "dynamicValue": "TROLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v07-trolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v07-trolls.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF TROLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -3990,7 +3990,7 @@
       ],
       "condition": "0x982c == \"PHASE SPIDERS\"",
       "dynamicValue": "PHASE SPIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v08-phase-spiders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v08-phase-spiders.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF PHASE SPIDERS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4004,7 +4004,7 @@
       ],
       "condition": "0x982c == \"MINOTAURS\"",
       "dynamicValue": "MINOTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v09-minotaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9f66-9f81-v09-minotaurs.mp3",
       "text": "YOU ARE SURPRISED BY A GROUP OF MINOTAURS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4018,7 +4018,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v01-kobolds.mp3",
       "text": "YOU SURPRISE A GROUP OF KOBOLDS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4032,7 +4032,7 @@
       ],
       "condition": "0x982c == \"GNOLLS\"",
       "dynamicValue": "GNOLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v02-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v02-gnolls.mp3",
       "text": "YOU SURPRISE A GROUP OF GNOLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4046,7 +4046,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v03-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v03-lizard-men.mp3",
       "text": "YOU SURPRISE A GROUP OF LIZARD MEN",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4060,7 +4060,7 @@
       ],
       "condition": "0x982c == \"GIANT LIZARDS\"",
       "dynamicValue": "GIANT LIZARDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v04-giant-lizards.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v04-giant-lizards.mp3",
       "text": "YOU SURPRISE A GROUP OF GIANT LIZARDS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4074,7 +4074,7 @@
       ],
       "condition": "0x982c == \"HIPPOGRIFFS\"",
       "dynamicValue": "HIPPOGRIFFS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v05-hippogriffs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v05-hippogriffs.mp3",
       "text": "YOU SURPRISE A GROUP OF HIPPOGRIFFS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4088,7 +4088,7 @@
       ],
       "condition": "0x982c == \"WYVERNS\"",
       "dynamicValue": "WYVERNS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v06-wyverns.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v06-wyverns.mp3",
       "text": "YOU SURPRISE A GROUP OF WYVERNS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4102,7 +4102,7 @@
       ],
       "condition": "0x982c == \"TROLLS\"",
       "dynamicValue": "TROLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v07-trolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v07-trolls.mp3",
       "text": "YOU SURPRISE A GROUP OF TROLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4116,7 +4116,7 @@
       ],
       "condition": "0x982c == \"PHASE SPIDERS\"",
       "dynamicValue": "PHASE SPIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v08-phase-spiders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v08-phase-spiders.mp3",
       "text": "YOU SURPRISE A GROUP OF PHASE SPIDERS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4130,7 +4130,7 @@
       ],
       "condition": "0x982c == \"MINOTAURS\"",
       "dynamicValue": "MINOTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v09-minotaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-9fb7-9fcc-v09-minotaurs.mp3",
       "text": "YOU SURPRISE A GROUP OF MINOTAURS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4144,7 +4144,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v01-kobolds.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF KOBOLDS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4158,7 +4158,7 @@
       ],
       "condition": "0x982c == \"GNOLLS\"",
       "dynamicValue": "GNOLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v02-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v02-gnolls.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF GNOLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4172,7 +4172,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v03-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v03-lizard-men.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF LIZARD MEN",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4186,7 +4186,7 @@
       ],
       "condition": "0x982c == \"GIANT LIZARDS\"",
       "dynamicValue": "GIANT LIZARDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v04-giant-lizards.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v04-giant-lizards.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF GIANT LIZARDS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4200,7 +4200,7 @@
       ],
       "condition": "0x982c == \"HIPPOGRIFFS\"",
       "dynamicValue": "HIPPOGRIFFS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v05-hippogriffs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v05-hippogriffs.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF HIPPOGRIFFS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4214,7 +4214,7 @@
       ],
       "condition": "0x982c == \"WYVERNS\"",
       "dynamicValue": "WYVERNS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v06-wyverns.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v06-wyverns.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF WYVERNS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4228,7 +4228,7 @@
       ],
       "condition": "0x982c == \"TROLLS\"",
       "dynamicValue": "TROLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v07-trolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v07-trolls.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF TROLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4242,7 +4242,7 @@
       ],
       "condition": "0x982c == \"PHASE SPIDERS\"",
       "dynamicValue": "PHASE SPIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v08-phase-spiders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v08-phase-spiders.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF PHASE SPIDERS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4256,7 +4256,7 @@
       ],
       "condition": "0x982c == \"MINOTAURS\"",
       "dynamicValue": "MINOTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v09-minotaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a002-a028-v09-minotaurs.mp3",
       "text": "SUDDENLY YOU ARE FACE TO FACE WITH A GROUP OF MINOTAURS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4271,7 +4271,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v01-kobolds.mp3",
       "text": "THE KOBOLDS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4286,7 +4286,7 @@
       ],
       "condition": "0x982c == \"GNOLLS\"",
       "dynamicValue": "GNOLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v02-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v02-gnolls.mp3",
       "text": "THE GNOLLS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4301,7 +4301,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v03-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v03-lizard-men.mp3",
       "text": "THE LIZARD MEN FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4316,7 +4316,7 @@
       ],
       "condition": "0x982c == \"GIANT LIZARDS\"",
       "dynamicValue": "GIANT LIZARDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v04-giant-lizards.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v04-giant-lizards.mp3",
       "text": "THE GIANT LIZARDS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4331,7 +4331,7 @@
       ],
       "condition": "0x982c == \"HIPPOGRIFFS\"",
       "dynamicValue": "HIPPOGRIFFS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v05-hippogriffs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v05-hippogriffs.mp3",
       "text": "THE HIPPOGRIFFS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4346,7 +4346,7 @@
       ],
       "condition": "0x982c == \"WYVERNS\"",
       "dynamicValue": "WYVERNS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v06-wyverns.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v06-wyverns.mp3",
       "text": "THE WYVERNS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4361,7 +4361,7 @@
       ],
       "condition": "0x982c == \"TROLLS\"",
       "dynamicValue": "TROLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v07-trolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v07-trolls.mp3",
       "text": "THE TROLLS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4376,7 +4376,7 @@
       ],
       "condition": "0x982c == \"PHASE SPIDERS\"",
       "dynamicValue": "PHASE SPIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v08-phase-spiders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v08-phase-spiders.mp3",
       "text": "THE PHASE SPIDERS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4391,7 +4391,7 @@
       ],
       "condition": "0x982c == \"MINOTAURS\"",
       "dynamicValue": "MINOTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v09-minotaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a0e6-a0ec-a0f0-v09-minotaurs.mp3",
       "text": "THE MINOTAURS FALL FOR YOUR SPARKLING PERSONALITY AND WANDER AWAY WITHOUT A FIGHT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4406,7 +4406,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v01-kobolds.mp3",
       "text": "YOU CONVINCE THE KOBOLDS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4421,7 +4421,7 @@
       ],
       "condition": "0x982c == \"GNOLLS\"",
       "dynamicValue": "GNOLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v02-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v02-gnolls.mp3",
       "text": "YOU CONVINCE THE GNOLLS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4436,7 +4436,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v03-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v03-lizard-men.mp3",
       "text": "YOU CONVINCE THE LIZARD MEN THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4451,7 +4451,7 @@
       ],
       "condition": "0x982c == \"GIANT LIZARDS\"",
       "dynamicValue": "GIANT LIZARDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v04-giant-lizards.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v04-giant-lizards.mp3",
       "text": "YOU CONVINCE THE GIANT LIZARDS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4466,7 +4466,7 @@
       ],
       "condition": "0x982c == \"HIPPOGRIFFS\"",
       "dynamicValue": "HIPPOGRIFFS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v05-hippogriffs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v05-hippogriffs.mp3",
       "text": "YOU CONVINCE THE HIPPOGRIFFS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4481,7 +4481,7 @@
       ],
       "condition": "0x982c == \"WYVERNS\"",
       "dynamicValue": "WYVERNS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v06-wyverns.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v06-wyverns.mp3",
       "text": "YOU CONVINCE THE WYVERNS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4496,7 +4496,7 @@
       ],
       "condition": "0x982c == \"TROLLS\"",
       "dynamicValue": "TROLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v07-trolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v07-trolls.mp3",
       "text": "YOU CONVINCE THE TROLLS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4511,7 +4511,7 @@
       ],
       "condition": "0x982c == \"PHASE SPIDERS\"",
       "dynamicValue": "PHASE SPIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v08-phase-spiders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v08-phase-spiders.mp3",
       "text": "YOU CONVINCE THE PHASE SPIDERS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4526,7 +4526,7 @@
       ],
       "condition": "0x982c == \"MINOTAURS\"",
       "dynamicValue": "MINOTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v09-minotaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a136-a146-a14a-v09-minotaurs.mp3",
       "text": "YOU CONVINCE THE MINOTAURS THAT COMBAT IS NOT NECESSARY AND YOU GO ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4544,7 +4544,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v01-kobolds.mp3",
       "text": "YOU HAVE INSULTED THE KOBOLDS. THE KOBOLDS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4562,7 +4562,7 @@
       ],
       "condition": "0x982c == \"GNOLLS\"",
       "dynamicValue": "GNOLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v02-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v02-gnolls.mp3",
       "text": "YOU HAVE INSULTED THE GNOLLS. THE GNOLLS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4580,7 +4580,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v03-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v03-lizard-men.mp3",
       "text": "YOU HAVE INSULTED THE LIZARD MEN. THE LIZARD MEN ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4598,7 +4598,7 @@
       ],
       "condition": "0x982c == \"GIANT LIZARDS\"",
       "dynamicValue": "GIANT LIZARDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v04-giant-lizards.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v04-giant-lizards.mp3",
       "text": "YOU HAVE INSULTED THE GIANT LIZARDS. THE GIANT LIZARDS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4616,7 +4616,7 @@
       ],
       "condition": "0x982c == \"HIPPOGRIFFS\"",
       "dynamicValue": "HIPPOGRIFFS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v05-hippogriffs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v05-hippogriffs.mp3",
       "text": "YOU HAVE INSULTED THE HIPPOGRIFFS. THE HIPPOGRIFFS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4634,7 +4634,7 @@
       ],
       "condition": "0x982c == \"WYVERNS\"",
       "dynamicValue": "WYVERNS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v06-wyverns.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v06-wyverns.mp3",
       "text": "YOU HAVE INSULTED THE WYVERNS. THE WYVERNS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4652,7 +4652,7 @@
       ],
       "condition": "0x982c == \"TROLLS\"",
       "dynamicValue": "TROLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v07-trolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v07-trolls.mp3",
       "text": "YOU HAVE INSULTED THE TROLLS. THE TROLLS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4670,7 +4670,7 @@
       ],
       "condition": "0x982c == \"PHASE SPIDERS\"",
       "dynamicValue": "PHASE SPIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v08-phase-spiders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v08-phase-spiders.mp3",
       "text": "YOU HAVE INSULTED THE PHASE SPIDERS. THE PHASE SPIDERS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4688,7 +4688,7 @@
       ],
       "condition": "0x982c == \"MINOTAURS\"",
       "dynamicValue": "MINOTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v09-minotaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a179-a18d-a191-a195-a19b-a19f-v09-minotaurs.mp3",
       "text": "YOU HAVE INSULTED THE MINOTAURS. THE MINOTAURS ATTACK YOU IMMEDIATELY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4705,7 +4705,7 @@
       ],
       "condition": "0x982c == \"KOBOLDS\"",
       "dynamicValue": "KOBOLDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v01-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v01-kobolds.mp3",
       "text": "THE KOBOLDS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE KOBOLDS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4722,7 +4722,7 @@
       ],
       "condition": "0x982c == \"GNOLLS\"",
       "dynamicValue": "GNOLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v02-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v02-gnolls.mp3",
       "text": "THE GNOLLS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE GNOLLS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4739,7 +4739,7 @@
       ],
       "condition": "0x982c == \"LIZARD MEN\"",
       "dynamicValue": "LIZARD MEN",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v03-lizard-men.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v03-lizard-men.mp3",
       "text": "THE LIZARD MEN GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE LIZARD MEN THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4756,7 +4756,7 @@
       ],
       "condition": "0x982c == \"GIANT LIZARDS\"",
       "dynamicValue": "GIANT LIZARDS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v04-giant-lizards.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v04-giant-lizards.mp3",
       "text": "THE GIANT LIZARDS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE GIANT LIZARDS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4773,7 +4773,7 @@
       ],
       "condition": "0x982c == \"HIPPOGRIFFS\"",
       "dynamicValue": "HIPPOGRIFFS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v05-hippogriffs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v05-hippogriffs.mp3",
       "text": "THE HIPPOGRIFFS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE HIPPOGRIFFS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4790,7 +4790,7 @@
       ],
       "condition": "0x982c == \"WYVERNS\"",
       "dynamicValue": "WYVERNS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v06-wyverns.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v06-wyverns.mp3",
       "text": "THE WYVERNS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE WYVERNS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4807,7 +4807,7 @@
       ],
       "condition": "0x982c == \"TROLLS\"",
       "dynamicValue": "TROLLS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v07-trolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v07-trolls.mp3",
       "text": "THE TROLLS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE TROLLS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4824,7 +4824,7 @@
       ],
       "condition": "0x982c == \"PHASE SPIDERS\"",
       "dynamicValue": "PHASE SPIDERS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v08-phase-spiders.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v08-phase-spiders.mp3",
       "text": "THE PHASE SPIDERS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE PHASE SPIDERS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4841,7 +4841,7 @@
       ],
       "condition": "0x982c == \"MINOTAURS\"",
       "dynamicValue": "MINOTAURS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v09-minotaurs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b27-a1b8-a1be-a1c2-a1e9-a1ed-v09-minotaurs.mp3",
       "text": "THE MINOTAURS GREET YOU AND YOU EXCHANGE PLEASANTRIES. THE MINOTAURS THEN LEAVE AND BID YOU GOOD DAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4855,7 +4855,7 @@
       ],
       "condition": "0x9890 == \"GNOLLS \"",
       "dynamicValue": "GNOLLS ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a47a-a48d-v01-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a47a-a48d-v01-gnolls.mp3",
       "text": "YOU ARE SURPRISED BY GNOLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4869,7 +4869,7 @@
       ],
       "condition": "0x9890 == \"KOBOLDS. \"",
       "dynamicValue": "KOBOLDS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a47a-a48d-v02-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a47a-a48d-v02-kobolds.mp3",
       "text": "YOU ARE SURPRISED BY KOBOLDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4883,7 +4883,7 @@
       ],
       "condition": "0x9890 == \"LIZARDMEN. \"",
       "dynamicValue": "LIZARDMEN. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a47a-a48d-v03-lizardmen.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a47a-a48d-v03-lizardmen.mp3",
       "text": "YOU ARE SURPRISED BY LIZARDMEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4898,7 +4898,7 @@
       ],
       "condition": "0x9890 == \"GNOLLS \"",
       "dynamicValue": "GNOLLS ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-ae15-ae29-ae2d-v01-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-ae15-ae29-ae2d-v01-gnolls.mp3",
       "text": "YOU HAVE OFFENDED THE GNOLLS THEY ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4913,7 +4913,7 @@
       ],
       "condition": "0x9890 == \"KOBOLDS. \"",
       "dynamicValue": "KOBOLDS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-ae15-ae29-ae2d-v02-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-ae15-ae29-ae2d-v02-kobolds.mp3",
       "text": "YOU HAVE OFFENDED THE KOBOLDS. THEY ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4928,7 +4928,7 @@
       ],
       "condition": "0x9890 == \"LIZARDMEN. \"",
       "dynamicValue": "LIZARDMEN. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-ae15-ae29-ae2d-v03-lizardmen.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-ae15-ae29-ae2d-v03-lizardmen.mp3",
       "text": "YOU HAVE OFFENDED THE LIZARDMEN. THEY ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4941,7 +4941,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0x9cc5 == \"YOU ARE BEING APPROACHED BY SOME ANGRY KOBOLDS. \"",
       "dynamicValue": "YOU ARE BEING APPROACHED BY SOME ANGRY KOBOLDS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9cc5-runtime-text-v01-you-are-being-approached-by-some-angry-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9cc5-runtime-text-v01-you-are-being-approached-by-some-angry-kobolds.mp3",
       "text": "YOU ARE BEING APPROACHED BY SOME ANGRY KOBOLDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4954,7 +4954,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0x9cc5 == \"YOU ARE BEING APPROACHED BY SOME ANGRY GOBLINS. \"",
       "dynamicValue": "YOU ARE BEING APPROACHED BY SOME ANGRY GOBLINS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9cc5-runtime-text-v02-you-are-being-approached-by-some-angry-goblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9cc5-runtime-text-v02-you-are-being-approached-by-some-angry-goblins.mp3",
       "text": "YOU ARE BEING APPROACHED BY SOME ANGRY GOBLINS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4967,7 +4967,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0x9cc5 == \"YOU ARE BEING APPROACHED BY SOME ANGRY ORCS. \"",
       "dynamicValue": "YOU ARE BEING APPROACHED BY SOME ANGRY ORCS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9cc5-runtime-text-v03-you-are-being-approached-by-some-angry-orcs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9cc5-runtime-text-v03-you-are-being-approached-by-some-angry-orcs.mp3",
       "text": "YOU ARE BEING APPROACHED BY SOME ANGRY ORCS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4980,7 +4980,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0x9d1d == \"YOU BUMP INTO SOME  KOBOLDS. \"",
       "dynamicValue": "YOU BUMP INTO SOME  KOBOLDS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9d1d-runtime-text-v01-you-bump-into-some-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9d1d-runtime-text-v01-you-bump-into-some-kobolds.mp3",
       "text": "YOU BUMP INTO SOME KOBOLDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -4993,7 +4993,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0x9d1d == \"YOU BUMP INTO SOME  GOBLINS. \"",
       "dynamicValue": "YOU BUMP INTO SOME  GOBLINS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9d1d-runtime-text-v02-you-bump-into-some-goblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9d1d-runtime-text-v02-you-bump-into-some-goblins.mp3",
       "text": "YOU BUMP INTO SOME GOBLINS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5006,7 +5006,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0x9d1d == \"YOU BUMP INTO SOME  ORCS. \"",
       "dynamicValue": "YOU BUMP INTO SOME  ORCS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9d1d-runtime-text-v03-you-bump-into-some-orcs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9d1d-runtime-text-v03-you-bump-into-some-orcs.mp3",
       "text": "YOU BUMP INTO SOME ORCS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5019,7 +5019,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0x9d7e == \"YOU SPY A GROUP OF SEEDY-LOOKING  KOBOLDS. \"",
       "dynamicValue": "YOU SPY A GROUP OF SEEDY-LOOKING  KOBOLDS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9d7e-runtime-text-v01-you-spy-a-group-of-seedy-looking-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9d7e-runtime-text-v01-you-spy-a-group-of-seedy-looking-kobolds.mp3",
       "text": "YOU SPY A GROUP OF SEEDY-LOOKING KOBOLDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5032,7 +5032,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0x9d7e == \"YOU SPY A GROUP OF SEEDY-LOOKING  GOBLINS. \"",
       "dynamicValue": "YOU SPY A GROUP OF SEEDY-LOOKING  GOBLINS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9d7e-runtime-text-v02-you-spy-a-group-of-seedy-looking-goblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9d7e-runtime-text-v02-you-spy-a-group-of-seedy-looking-goblins.mp3",
       "text": "YOU SPY A GROUP OF SEEDY-LOOKING GOBLINS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5045,7 +5045,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0x9d7e == \"YOU SPY A GROUP OF SEEDY-LOOKING  ORCS. \"",
       "dynamicValue": "YOU SPY A GROUP OF SEEDY-LOOKING  ORCS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9d7e-runtime-text-v03-you-spy-a-group-of-seedy-looking-orcs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9d7e-runtime-text-v03-you-spy-a-group-of-seedy-looking-orcs.mp3",
       "text": "YOU SPY A GROUP OF SEEDY-LOOKING ORCS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5058,7 +5058,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0x9dde == \"YOU HAVE SURPRISED A PARTY OF  KOBOLDS. \"",
       "dynamicValue": "YOU HAVE SURPRISED A PARTY OF  KOBOLDS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v01-you-have-surprised-a-party-of-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v01-you-have-surprised-a-party-of-kobolds.mp3",
       "text": "YOU HAVE SURPRISED A PARTY OF KOBOLDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene",
       "aliases": [
@@ -5079,7 +5079,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0x9dde == \"YOU HAVE SURPRISED A PARTY OF  GOBLINS. \"",
       "dynamicValue": "YOU HAVE SURPRISED A PARTY OF  GOBLINS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v02-you-have-surprised-a-party-of-goblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v02-you-have-surprised-a-party-of-goblins.mp3",
       "text": "YOU HAVE SURPRISED A PARTY OF GOBLINS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5092,7 +5092,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0x9dde == \"YOU HAVE SURPRISED A PARTY OF  ORCS. \"",
       "dynamicValue": "YOU HAVE SURPRISED A PARTY OF  ORCS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v03-you-have-surprised-a-party-of-orcs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b20-9dde-runtime-text-v03-you-have-surprised-a-party-of-orcs.mp3",
       "text": "YOU HAVE SURPRISED A PARTY OF ORCS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5105,7 +5105,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xb4e9 == \"YOU HAVE MANAGED TO SNEAK UP ON SOME SKELETONS.\"",
       "dynamicValue": "YOU HAVE MANAGED TO SNEAK UP ON SOME SKELETONS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-b4e9-runtime-text-v01-you-have-managed-to-sneak-up-on-some-skeletons.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-b4e9-runtime-text-v01-you-have-managed-to-sneak-up-on-some-skeletons.mp3",
       "text": "YOU HAVE MANAGED TO SNEAK UP ON SOME SKELETONS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5118,7 +5118,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xb4e9 == \"YOU HAVE MANAGED TO SNEAK UP ON SOME ZOMBIES.\"",
       "dynamicValue": "YOU HAVE MANAGED TO SNEAK UP ON SOME ZOMBIES.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-b4e9-runtime-text-v02-you-have-managed-to-sneak-up-on-some-zombies.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-b4e9-runtime-text-v02-you-have-managed-to-sneak-up-on-some-zombies.mp3",
       "text": "YOU HAVE MANAGED TO SNEAK UP ON SOME ZOMBIES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5131,7 +5131,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xb4e9 == \"YOU HAVE MANAGED TO SNEAK UP ON SOME WIGHTS.\"",
       "dynamicValue": "YOU HAVE MANAGED TO SNEAK UP ON SOME WIGHTS.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl4-b10-b4e9-runtime-text-v03-you-have-managed-to-sneak-up-on-some-wights.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl4-b10-b4e9-runtime-text-v03-you-have-managed-to-sneak-up-on-some-wights.mp3",
       "text": "YOU HAVE MANAGED TO SNEAK UP ON SOME WIGHTS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5144,7 +5144,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xa500 == \"YOU SEE SOME BLOODTHIRSTY GNOLLS \"",
       "dynamicValue": "YOU SEE SOME BLOODTHIRSTY GNOLLS ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a500-runtime-text-v01-you-see-some-bloodthirsty-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a500-runtime-text-v01-you-see-some-bloodthirsty-gnolls.mp3",
       "text": "YOU SEE SOME BLOODTHIRSTY GNOLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5157,7 +5157,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xa500 == \"YOU SEE SOME BLOODTHIRSTY KOBOLDS. \"",
       "dynamicValue": "YOU SEE SOME BLOODTHIRSTY KOBOLDS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a500-runtime-text-v02-you-see-some-bloodthirsty-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a500-runtime-text-v02-you-see-some-bloodthirsty-kobolds.mp3",
       "text": "YOU SEE SOME BLOODTHIRSTY KOBOLDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5170,7 +5170,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xa500 == \"YOU SEE SOME BLOODTHIRSTY LIZARDMEN. \"",
       "dynamicValue": "YOU SEE SOME BLOODTHIRSTY LIZARDMEN. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a500-runtime-text-v03-you-see-some-bloodthirsty-lizardmen.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a500-runtime-text-v03-you-see-some-bloodthirsty-lizardmen.mp3",
       "text": "YOU SEE SOME BLOODTHIRSTY LIZARDMEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5183,7 +5183,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xa56b == \"YOU ARE SUDDENLY FACE TO FACE WITH ARMED GNOLLS \"",
       "dynamicValue": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED GNOLLS ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a56b-runtime-text-v01-you-are-suddenly-face-to-face-with-armed-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a56b-runtime-text-v01-you-are-suddenly-face-to-face-with-armed-gnolls.mp3",
       "text": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED GNOLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5196,7 +5196,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xa56b == \"YOU ARE SUDDENLY FACE TO FACE WITH ARMED KOBOLDS. \"",
       "dynamicValue": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED KOBOLDS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a56b-runtime-text-v02-you-are-suddenly-face-to-face-with-armed-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a56b-runtime-text-v02-you-are-suddenly-face-to-face-with-armed-kobolds.mp3",
       "text": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED KOBOLDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5209,7 +5209,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xa56b == \"YOU ARE SUDDENLY FACE TO FACE WITH ARMED LIZARDMEN. \"",
       "dynamicValue": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED LIZARDMEN. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a56b-runtime-text-v03-you-are-suddenly-face-to-face-with-armed-lizardmen.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a56b-runtime-text-v03-you-are-suddenly-face-to-face-with-armed-lizardmen.mp3",
       "text": "YOU ARE SUDDENLY FACE TO FACE WITH ARMED LIZARDMEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5222,7 +5222,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xa5c4 == \"YOU ARE BEING AVOIDED BY SOME GNOLLS \"",
       "dynamicValue": "YOU ARE BEING AVOIDED BY SOME GNOLLS ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a5c4-runtime-text-v01-you-are-being-avoided-by-some-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a5c4-runtime-text-v01-you-are-being-avoided-by-some-gnolls.mp3",
       "text": "YOU ARE BEING AVOIDED BY SOME GNOLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5235,7 +5235,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xa5c4 == \"YOU ARE BEING AVOIDED BY SOME KOBOLDS. \"",
       "dynamicValue": "YOU ARE BEING AVOIDED BY SOME KOBOLDS. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a5c4-runtime-text-v02-you-are-being-avoided-by-some-kobolds.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a5c4-runtime-text-v02-you-are-being-avoided-by-some-kobolds.mp3",
       "text": "YOU ARE BEING AVOIDED BY SOME KOBOLDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5248,7 +5248,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xa5c4 == \"YOU ARE BEING AVOIDED BY SOME LIZARDMEN. \"",
       "dynamicValue": "YOU ARE BEING AVOIDED BY SOME LIZARDMEN. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a5c4-runtime-text-v03-you-are-being-avoided-by-some-lizardmen.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a5c4-runtime-text-v03-you-are-being-avoided-by-some-lizardmen.mp3",
       "text": "YOU ARE BEING AVOIDED BY SOME LIZARDMEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5261,7 +5261,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xa627 == \"YOU HAVE SURPRISED A PARTY OF GNOLLS \"",
       "dynamicValue": "YOU HAVE SURPRISED A PARTY OF GNOLLS ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a627-runtime-text-v01-you-have-surprised-a-party-of-gnolls.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a627-runtime-text-v01-you-have-surprised-a-party-of-gnolls.mp3",
       "text": "YOU HAVE SURPRISED A PARTY OF GNOLLS",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5274,7 +5274,7 @@
       ],
       "condition": "rendered encounter operand 9 at 0xa627 == \"YOU HAVE SURPRISED A PARTY OF LIZARDMEN. \"",
       "dynamicValue": "YOU HAVE SURPRISED A PARTY OF LIZARDMEN. ",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-a627-runtime-text-v03-you-have-surprised-a-party-of-lizardmen.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-a627-runtime-text-v03-you-have-surprised-a-party-of-lizardmen.mp3",
       "text": "YOU HAVE SURPRISED A PARTY OF LIZARDMEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5289,7 +5289,7 @@
       ],
       "condition": "0x9800 == \" GOBLINS\"",
       "dynamicValue": " GOBLINS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v01-goblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v01-goblins.mp3",
       "text": "Some goblins rush to attack.",
       "direction": "measured dramatic fantasy narration"
     },
@@ -5304,7 +5304,7 @@
       ],
       "condition": "0x9800 == \" ORCS\"",
       "dynamicValue": " ORCS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v02-orcs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v02-orcs.mp3",
       "text": "Some orcs rush to attack.",
       "direction": "measured dramatic fantasy narration"
     },
@@ -5319,7 +5319,7 @@
       ],
       "condition": "0x9800 == \" HOBGOBLINS\"",
       "dynamicValue": " HOBGOBLINS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v03-hobgoblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v03-hobgoblins.mp3",
       "text": "Some hobgoblins rush to attack.",
       "direction": "measured dramatic fantasy narration"
     },
@@ -5334,7 +5334,7 @@
       ],
       "condition": "0x9800 == \" OGRES\"",
       "dynamicValue": " OGRES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v04-ogres.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b18-a0ab-a0af-a0b3-v04-ogres.mp3",
       "text": "Some ogres rush to attack.",
       "direction": "measured dramatic fantasy narration"
     },
@@ -5349,7 +5349,7 @@
       ],
       "condition": "0x9800 == \" GOBLINS\"",
       "dynamicValue": " GOBLINS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a105-a117-a11b-v01-goblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b18-a105-a117-a11b-v01-goblins.mp3",
       "text": "YOU SPOT A GROUP OF GOBLINS.",
       "direction": "measured dramatic fantasy narration",
       "aliases": [
@@ -5378,7 +5378,7 @@
       ],
       "condition": "0x9800 == \" ORCS\"",
       "dynamicValue": " ORCS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a105-a117-a11b-v02-orcs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b18-a105-a117-a11b-v02-orcs.mp3",
       "text": "YOU SPOT A GROUP OF ORCS.",
       "direction": "measured dramatic fantasy narration",
       "aliases": [
@@ -5407,7 +5407,7 @@
       ],
       "condition": "0x9800 == \" HOBGOBLINS\"",
       "dynamicValue": " HOBGOBLINS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a105-a117-a11b-v03-hobgoblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b18-a105-a117-a11b-v03-hobgoblins.mp3",
       "text": "YOU SPOT A GROUP OF HOBGOBLINS.",
       "direction": "measured dramatic fantasy narration",
       "aliases": [
@@ -5436,7 +5436,7 @@
       ],
       "condition": "0x9800 == \" OGRES\"",
       "dynamicValue": " OGRES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b18-a105-a117-a11b-v04-ogres.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b18-a105-a117-a11b-v04-ogres.mp3",
       "text": "YOU SPOT A GROUP OF OGRES.",
       "direction": "measured dramatic fantasy narration",
       "aliases": [
@@ -5465,7 +5465,7 @@
       ],
       "condition": "0x9800 == \"GOBLINS\"",
       "dynamicValue": "GOBLINS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-af0c-af1f-af23-v01-goblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b24-af0c-af1f-af23-v01-goblins.mp3",
       "text": "YOU ARE SURPRISED BY GOBLINS.",
       "direction": "measured dramatic fantasy narration"
     },
@@ -5480,7 +5480,7 @@
       ],
       "condition": "0x9800 == \"ORCS\"",
       "dynamicValue": "ORCS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-af0c-af1f-af23-v02-orcs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b24-af0c-af1f-af23-v02-orcs.mp3",
       "text": "YOU ARE SURPRISED BY ORCS.",
       "direction": "measured dramatic fantasy narration"
     },
@@ -5495,7 +5495,7 @@
       ],
       "condition": "0x9800 == \"HOBGOBLINS\"",
       "dynamicValue": "HOBGOBLINS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-af0c-af1f-af23-v03-hobgoblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b24-af0c-af1f-af23-v03-hobgoblins.mp3",
       "text": "YOU ARE SURPRISED BY HOBGOBLINS.",
       "direction": "measured dramatic fantasy narration"
     },
@@ -5510,7 +5510,7 @@
       ],
       "condition": "0x9800 == \"OGRES\"",
       "dynamicValue": "OGRES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-af0c-af1f-af23-v04-ogres.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b24-af0c-af1f-af23-v04-ogres.mp3",
       "text": "YOU ARE SURPRISED BY OGRES.",
       "direction": "measured dramatic fantasy narration"
     },
@@ -5525,7 +5525,7 @@
       ],
       "condition": "0x9800 == \"GOBLINS\"",
       "dynamicValue": "GOBLINS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-afb9-afdf-afe3-v01-goblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b24-afb9-afdf-afe3-v01-goblins.mp3",
       "text": "YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF GOBLINS.",
       "direction": "measured dramatic fantasy narration"
     },
@@ -5540,7 +5540,7 @@
       ],
       "condition": "0x9800 == \"ORCS\"",
       "dynamicValue": "ORCS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-afb9-afdf-afe3-v02-orcs.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b24-afb9-afdf-afe3-v02-orcs.mp3",
       "text": "YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF ORCS.",
       "direction": "measured dramatic fantasy narration"
     },
@@ -5555,7 +5555,7 @@
       ],
       "condition": "0x9800 == \"HOBGOBLINS\"",
       "dynamicValue": "HOBGOBLINS",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-afb9-afdf-afe3-v03-hobgoblins.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b24-afb9-afdf-afe3-v03-hobgoblins.mp3",
       "text": "YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF HOBGOBLINS.",
       "direction": "measured dramatic fantasy narration"
     },
@@ -5570,7 +5570,7 @@
       ],
       "condition": "0x9800 == \"OGRES\"",
       "dynamicValue": "OGRES",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl1-b24-afb9-afdf-afe3-v04-ogres.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl1-b24-afb9-afdf-afe3-v04-ogres.mp3",
       "text": "YOU ARE SUDDENLY FACE TO FACE WITH A GROUP OF OGRES.",
       "direction": "measured dramatic fantasy narration"
     },
@@ -5585,7 +5585,7 @@
       ],
       "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
       "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl2-b9-9de5-9def-9e01-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl2-b9-9de5-9def-9e01-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
       "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER SEES YOU. 'THAT'S THEM!'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -5600,7 +5600,7 @@
       ],
       "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
       "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl5-b3-9d1f-9d3b-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl5-b3-9d1f-9d3b-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
       "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER YELLS 'SACRILEGIOUS SCUM!'",
       "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
       "aliases": [
@@ -5629,7 +5629,7 @@
       ],
       "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
       "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl5-b3-9d1f-9d6e-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl5-b3-9d1f-9d6e-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
       "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER. THE LEADER SEES YOU. 'THAT'S THEM!'",
       "direction": "Expressive fantasy narration with a clear same-narrator character performance for quoted speech",
       "aliases": [
@@ -5657,7 +5657,7 @@
       ],
       "condition": "0x980f == \" PATROL OF GIANTS LED BY A HUMAN FIGHTER\"",
       "dynamicValue": " PATROL OF GIANTS LED BY A HUMAN FIGHTER",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl5-b3-9de2-9dec-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl5-b3-9de2-9dec-v01-patrol-of-giants-led-by-a-human-fighter.mp3",
       "text": "YOU SEE A PATROL OF GIANTS LED BY A HUMAN FIGHTER",
       "direction": "Measured expressive fantasy narration appropriate to the scene",
       "aliases": [
@@ -5685,7 +5685,7 @@
       ],
       "condition": "0x982c == \"SOUTH WALL.\"",
       "dynamicValue": "SOUTH WALL.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-9cf6-9d10-v01-south-wall.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-9cf6-9d10-v01-south-wall.mp3",
       "text": "YOU FIND A SECRET DOOR IN THE SOUTH WALL.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -5699,7 +5699,7 @@
       ],
       "condition": "0x982c == \"NORTH WALL.\"",
       "dynamicValue": "NORTH WALL.",
-      "output": "../por-assets/voices/narration/dynamic-resolved/ecl8-b29-9cf6-9d10-v02-north-wall.mp3",
+      "output": "audio/voices/narration/dynamic-resolved/ecl8-b29-9cf6-9d10-v02-north-wall.mp3",
       "text": "YOU FIND A SECRET DOOR IN THE NORTH WALL.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     }

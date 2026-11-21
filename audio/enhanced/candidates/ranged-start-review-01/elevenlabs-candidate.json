@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "ranged-start-review-01",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.ranged-start",
+      "index": 6,
+      "file": "por-ranged-start-ranged-start-review-01.wav",
+      "intendedMasterFile": "por-ranged-start.wav",
+      "prompt": "One arrow fired from a wooden bow.",
+      "promptSha256": "a6307ffbe0070dbf8d47a2a377d6ed1656f8c3fc12e50902e3f2428272edc4a8",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.9,
+      "requestedSeconds": 0.62,
+      "returnedSeconds": 1.2,
+      "referenceSeconds": 0.62,
+      "characterCost": "7",
+      "generatedAt": "2026-11-19T00:15:06.135Z",
+      "sha256": "1f14be3367fda8d5265b90d59a407075509e4b23cba8aa37ec1eb801f933e3b9"
+    }
+  ]
+}

@@ -12,7 +12,7 @@ const candidateArg = process.argv.find((argument) => argument.startsWith("--cand
 const candidateNumber = Number(candidateArg);
 const save = process.argv.includes("--save");
 const batchPath = resolve(process.argv.find((argument, index) => index > 1 && !argument.startsWith("--")) ??
-  "../por-assets/voices/candidates/narrator-design-review-01/narrator-previews.json");
+  "audio/voices/candidates/narrator-design-review-01/narrator-previews.json");
 const designPath = new URL("../src/audio/narrator-voice-design.json", import.meta.url);
 const batch = JSON.parse(readFileSync(batchPath, "utf8")) as PreviewBatch;
 const design = JSON.parse(readFileSync(designPath, "utf8")) as NarratorDesign;

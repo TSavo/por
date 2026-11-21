@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v3",
+  "sourceFormat": "mp3_44100_128",
+  "canonicalFormat": "wav_pcm_s16le_44100_mono",
+  "savedVoiceId": "9UwacDmdjpXy5tUGJhDA",
+  "text": "This was once the chapel of the keep. Inside the doorway are the dried husks of two orcs, their faces twisted with terror. A large altar dominates the southern wall. Beyond the ruined halls, the road lies silent beneath a cold and watchful sky. The company moves onward with measured steps, uncertain what waits beyond the next ancient door.",
+  "sampleRate": 44100,
+  "seconds": 24.974126984126983,
+  "sha256": "152a33f9409ef20cebc5d96d24375ed7af5ad422d26b1a7133610c97b80945a2",
+  "generatedAt": "2026-11-19T03:27:02.183Z"
+}

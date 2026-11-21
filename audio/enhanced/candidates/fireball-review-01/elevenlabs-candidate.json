@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "fireball-review-01",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.fireball-cue",
+      "index": 11,
+      "file": "por-fireball-cue-fireball-review-01.wav",
+      "intendedMasterFile": "por-fireball-cue.wav",
+      "prompt": "One magical fireball igniting and flying away.",
+      "promptSha256": "4de0e821e60921d400f24a45e8e06a6987102dcfb0a971489ba7c744cc81459a",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.9,
+      "requestedSeconds": 1.86,
+      "returnedSeconds": 3.68,
+      "referenceSeconds": 1.86,
+      "characterCost": "20",
+      "generatedAt": "2026-11-19T01:38:20.022Z",
+      "sha256": "9b049f881480b4d15fc5d61d9f7840c2718f9a5e0e17478768f2e8b0a46b1e70"
+    }
+  ]
+}

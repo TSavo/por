@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "provider": "ElevenLabs",
+  "model": "eleven_v4",
+  "voiceId": "9UwacDmdjpXy5tUGJhDA",
+  "textSha256": "9b30196f72abb6494bf869f1b34f04eb656591b837703381a532971ed956cb2e",
+  "audioSha256": "947d61709f7165ca42e9cdc1b9afeaadfde6cfe8430b15e2b393cfd95d462dc8",
+  "bytes": 35569,
+  "generatedAt": "2026-11-19T04:48:25.117Z"
+}

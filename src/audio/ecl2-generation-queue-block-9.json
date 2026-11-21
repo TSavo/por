@@ -11,7 +11,7 @@
         "por.review.ecl-2.block-9.at-9f31",
         "por.review.ecl-2.block-9.at-9f4f"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-9f31-9f4f.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-9f31-9f4f.mp3",
       "text": "'I'M SORRY, SIR, THERE'S AN ALERT. ON WHOSE AUTHORITY ARE YOU HERE?'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -21,7 +21,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-99f1"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-99f1.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-99f1.mp3",
       "text": "YOU DON'T HAVE ENOUGH MONEY!",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -31,7 +31,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-9bc8"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-9bc8.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-9bc8.mp3",
       "text": "AN ALARM IS SOUNDING.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -41,7 +41,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-9be9"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-9be9.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-9be9.mp3",
       "text": "AN ALARM STARTS RINGING!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -51,7 +51,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-9c17"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-9c17.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-9c17.mp3",
       "text": "DO YOU TAKE IT?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -61,7 +61,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-9e24"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-9e24-operand-9.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-9e24-operand-9.mp3",
       "text": "THEY ADVANCE, WEAPONS READY",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -71,7 +71,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-9e73"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-9e73-operand-9.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-9e73-operand-9.mp3",
       "text": "'WHAT ARE YOU DOING HERE?'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -81,7 +81,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-9e73"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-9e73-operand-10.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-9e73-operand-10.mp3",
       "text": "THE LEADER ADVANCES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -91,7 +91,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-9ec9"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-9ec9.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-9ec9.mp3",
       "text": "WHAT ARE YOU DOING HERE?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -101,7 +101,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-9ef8"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-9ef8.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-9ef8.mp3",
       "text": "'ALL RIGHT, THEN. WHAT IS TODAY'S PASSWORD?'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -111,7 +111,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-9f85"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-9f85.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-9f85.mp3",
       "text": "'WHAT? I THINK THESE SCUM ARE IMPOSTERS!'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -121,7 +121,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-9fab"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-9fab.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-9fab.mp3",
       "text": "WITH A NOD OF THE HEAD YOU ARE LEFT ALONE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -131,7 +131,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-9fcf"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-9fcf.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-9fcf.mp3",
       "text": "'WELL BOYS, I THINK WE HAVE THE INTRUDERS HERE. GET THEM!'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -141,7 +141,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a0c8"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a0c8.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a0c8.mp3",
       "text": "DO YOU WANT TO GO DOWNSTAIRS?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -151,7 +151,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a0e5"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a0e5.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a0e5.mp3",
       "text": "DO YOU WANT TO GO UPSTAIRS?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -161,7 +161,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a129"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a129.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a129.mp3",
       "text": "FROM THE TOP OF THE GATE COMES A VOLLEY OF ROCKS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -171,7 +171,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a1d8"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a1d8.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a1d8.mp3",
       "text": "YOU OVERHEAR THE MAGE TELL HIS COMPANION, 'HOW MUCH LONGER MUST WE WAIT BEFORE ASSAULTING PHLAN. I AM EAGER TO BECOME A BARON.'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -181,7 +181,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a23f"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a23f-operand-9.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a23f-operand-9.mp3",
       "text": "THEY SEEM UNAWARE OF YOU.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -191,7 +191,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a2f9"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a2f9.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a2f9.mp3",
       "text": "YOU OVERHEAR THE FIGHTER TELL THE MAGE, 'YOU BETTER WATCH YOUR TALK. THE LAST GUY WHO GAVE THE BOSS LIP WAS THROWN THROUGH THE TRAPDOOR TO THE MEDUSA!'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -201,7 +201,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a372"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a372-operand-9.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a372-operand-9.mp3",
       "text": "THEY SEEM UNAWARE OF YOU.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -211,7 +211,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a485"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a485.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a485.mp3",
       "text": "MONSTERS ARE CHARGING TOWARD YOU FROM THE FAR TOWER. AT THE SAME TIME MONSTERS BURST ON YOU FROM THE TOWER NEXT TO YOU.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -221,7 +221,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a4ec"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a4ec.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a4ec.mp3",
       "text": "MONSTERS THUNDER DOWN THE STEPS OF THE TOWER NEXT TO YOU.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -231,7 +231,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a51e"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a51e.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a51e.mp3",
       "text": "MONSTERS ARE CHARGING TOWARD YOU FROM THE FAR TOWER.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -241,7 +241,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a625"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a625.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a625.mp3",
       "text": "YOU HAVE SLAIN THE GARRISON. NOW IF YOU CAN BUT SLAY THE OUTSIDE GUARDS QUICKLY BEFORE THE ENEMY ARRIVES THE GATE WILL BE YOURS!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -251,7 +251,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a692"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a692.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a692.mp3",
       "text": "YOU HAVE TAKEN THE GATE! YOU OPEN THE GREAT PORTALS AS 20  HUMAN AND DEMI-HUMAN GUARDS IMMEDIATELY TAKE POSSESSION OF THE GUARD TOWERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -261,7 +261,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a730"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a730.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a730.mp3",
       "text": "A GROUP OF BUGBEARS APPROACH. 'THROW DOWN YOUR WEAPONS!'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -271,7 +271,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a7b8"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a7b8.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a7b8.mp3",
       "text": "THE BUGBEARS STRIP YOU OF ANYTHING REMOTELY VALUABLE AND SEND YOU ON YOUR WAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -281,7 +281,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a82f"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a82f.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a82f.mp3",
       "text": "A VOICE FROM THE TOWER YELLS 'STAY AWAY FROM THE WALL!'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -291,7 +291,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a863"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a863.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a863.mp3",
       "text": "A VOICE YELLS DOWN, 'WE SAID STAY AWAY FROM THE WALL. THAT INCLUDES THE TOWER!'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -301,7 +301,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a8ad"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a8ad.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a8ad.mp3",
       "text": "THE GROUP OF BUGBEARS COME OVER, 'WE WARNED YOU! WHAT'S THE MATTER? CAN'T YOU UNDERSTAND COMMON? I GUESS I'LL HAVE TO TEACH YOU.' THE LEADER SWINGS AT YOU.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -311,7 +311,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a959"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a959.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a959.mp3",
       "text": "'NOW BEAT IT BEFORE WE GET SERIOUS.'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -321,7 +321,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a981"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a981.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a981.mp3",
       "text": "FROM ARROW SLITS IN THE TOWER ARE SHOT A COUPLE ARROWS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -331,7 +331,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-a9d9"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-a9d9.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-a9d9.mp3",
       "text": "BEFORE YOU IS STOJANOW GATE. THIS ANCIENT EDIFICE IS BUILT ACROSS THE BEND OF THE RIVER, THUS ISOLATING THE OLD TOWN AND THE CASTLE FROM THE REST OF THE CITY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -341,7 +341,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-aa57"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-aa57.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-aa57.mp3",
       "text": "THE MAIN WALL RISES 30 FEET WHILE THE TWO WATCHTOWER RISE TO 50 FEET. LOUNGING AROUND THE ENTRANCE ARE A GROUP OF BUGBEARS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -351,7 +351,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-aae4"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-aae4.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-aae4.mp3",
       "text": "BEFORE THE GATE YOU CAN MAKE OUT A MAN WITH A WAGON OF GOODS WHO IS TALKING TO TWO OF THE BUGBEARS. THE MAN HANDS SOMETHING TO THE BUGBEARS AND THE GATES OPEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -361,7 +361,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-aba1"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-aba1.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-aba1.mp3",
       "text": "A BUGBEAR WALKS UP TO YOU. 'OKAY, LETS HAVE THE 15 GOLD.' DO YOU PAY HIM?",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -371,7 +371,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-abf6"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-abf6.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-abf6.mp3",
       "text": "'ALL RIGHT, GET OUT OF HERE THEN. COME BACK WHEN YOU'VE LEARNED THE RULES.'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -381,7 +381,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-ac4b"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-ac4b.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-ac4b.mp3",
       "text": "THE BUGBEAR TAKES THE MONEY AND THE GATE OPENS. YOU PROCEED THROUGH.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -391,7 +391,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-acbb"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-acbb.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-acbb.mp3",
       "text": "'HEY, WAIT A MINUTE. THEY ARE IMPOSTERS! ALL RIGHT, THROW DOWN YOUR WEAPONS!'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -401,7 +401,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-ad1f"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-ad1f-operand-9.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-ad1f-operand-9.mp3",
       "text": "BUGBEARS WERE WAITING ON THE OTHER SIDE OF THE GATE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -411,7 +411,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-add9"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-add9.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-add9.mp3",
       "text": "A MAN DRIVING A WAGON FULL OF FOOD AND EQUIPMENT STARTS TO DRIVE PAST YOU, GOING NORTH.",
       "direction": "consistent narrator-performed character: stojanow-wagon-trader; retain narrator identity for attribution"
     },
@@ -421,7 +421,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-ae61"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-ae61.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-ae61.mp3",
       "text": "'WHY SURE I'LL SELL YOU MY WAGON. ALL IT'LL COST YOU IS 250 GOLD PIECES. HOW ABOUT IT?'",
       "direction": "consistent narrator-performed character: stojanow-wagon-trader; retain narrator identity for attribution"
     },
@@ -431,7 +431,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-aeaf"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-aeaf.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-aeaf.mp3",
       "text": "'SORRY, THAT'S MY FINAL OFFER. TAKE IT OR LEAVE IT.",
       "direction": "consistent narrator-performed character: stojanow-wagon-trader; retain narrator identity for attribution"
     },
@@ -441,7 +441,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-af0a"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-af0a.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-af0a.mp3",
       "text": "'PLEASURE DOING BUSINESS WITH YOU. HERE'S YOUR WAGON.'",
       "direction": "consistent narrator-performed character: stojanow-wagon-trader; retain narrator identity for attribution"
     },
@@ -451,7 +451,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-af3a"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-af3a.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-af3a.mp3",
       "text": "'OH, BY THE WAY. BETTER BEWARE OF THE GUARDS. EVER SINCE THE GIANTS MOVED INTO THE CASTLE AREA, BUGBEARS HAVE BEEN STUCK GUARDING THE GATE. AND THEY HATE IT.'",
       "direction": "consistent narrator-performed character: stojanow-wagon-trader; retain narrator identity for attribution"
     },
@@ -461,7 +461,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-afb8"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-afb8.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-afb8.mp3",
       "text": "'NOT ONLY THAT THEY'RE AFRAID OF THEM ETTIN. MAKES 'EM REAL JUMPY. WOULDN'T GIVE 'EM NO BACK TALK IF I WERE YOU.'",
       "direction": "consistent narrator-performed character: stojanow-wagon-trader; retain narrator identity for attribution"
     },
@@ -471,7 +471,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-b021"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-b021.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-b021.mp3",
       "text": "'SORRY, YOU DON'T GOT THE MONEY, FRIEND. WELL SEE YOU AROUND.",
       "direction": "consistent narrator-performed character: stojanow-wagon-trader; retain narrator identity for attribution"
     },
@@ -481,7 +481,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-b056"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-b056.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-b056.mp3",
       "text": "YOU QUICKLY KILL THE TRADER AND GRAB HIS WAGON.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -491,7 +491,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-b092"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-b092.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-b092.mp3",
       "text": "A GROUP OF MONSTERS IS WAITING ON THE OTHER SIDE OF THE WALL",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -501,7 +501,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-b0cc"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-b0cc-operand-9.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-b0cc-operand-9.mp3",
       "text": "THEY RUSH TOWARD YOU",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -511,7 +511,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-b159"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-b159.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-b159.mp3",
       "text": "YOU ENTER A GUARD ROOM. THERE ARE TABLES, CHAIRS, AND BEDS HERE. ALL BUT TWO OF THE BEDS ARE 14 FEET LONG!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -521,7 +521,7 @@
       "coveredSourceIds": [
         "por.review.ecl-2.block-9.at-b1b0"
       ],
-      "output": "../por-assets/voices/narration/ecl2/block-9/ecl2-b9-b1b0.mp3",
+      "output": "audio/voices/narration/ecl2/block-9/ecl2-b9-b1b0.mp3",
       "text": "THERE ARE TWO HUMANS AND THREE ETTIN IN THE ROOM.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     }

@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "step-review-05",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.step",
+      "index": 10,
+      "file": "por-step-step-review-05.wav",
+      "intendedMasterFile": "por-step.wav",
+      "prompt": "One loud leather boot heel striking a stone floor. A single dry footstep impact with one transient and no second sound.",
+      "promptSha256": "4d2a0b811d2f13a873085537c38d11bdbac77b84aeb61397643a8b59a08f0b88",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.9,
+      "requestedSeconds": 0.5,
+      "returnedSeconds": 0.96,
+      "referenceSeconds": 0.16,
+      "characterCost": "6",
+      "generatedAt": "2026-11-18T23:50:26.235Z",
+      "sha256": "de26849dc0f4c5f588db6d2429ee2ccb9dd638d4432a1fb56971a427102d187e"
+    }
+  ]
+}

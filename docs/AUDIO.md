@@ -29,9 +29,22 @@ npx tsx tools/boot-translated.ts
 ```
 
 The trace schema records the original event index, selected sound mode, caller,
-and hardware writes. Generated traces, VGM intermediates, WAV masters, and other
-derived audio belong in `TSavo/por-assets`. Only generators, manifests, tests, and
-documentation belong in this repository.
+and hardware writes.
+
+## Where audio lives
+
+This repository ships without the original game. Everything authored for the
+port is here, and everything derived from the DOS files is in `TSavo/por-assets`.
+
+| Audio | Location | Used by |
+| --- | --- | --- |
+| Enhanced effects and music cues | `audio/enhanced/` in this repository | Enhanced |
+| Narration recordings and transcripts | `audio/voices/` in this repository | Enhanced |
+| Original sound traces, PC-speaker WAV masters, Tandy VGM and WAV masters | `original/` and `traces/` in `TSavo/por-assets` | Classic |
+
+Classic playback reads the original renders from `../por-assets/original`, or
+from the directory named by `POR_AUDIO_DIR`. `POR_ENHANCED_AUDIO_DIR`,
+`POR_VOICE_DIR`, and `POR_ASSETS_DIR` override the Enhanced locations.
 
 ## Original driver format
 

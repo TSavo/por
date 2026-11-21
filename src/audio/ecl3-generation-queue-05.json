@@ -8,7 +8,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-a59c"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-a59c.mp3",
+      "output": "audio/voices/narration/ecl3/b14-a59c.mp3",
       "text": "AS YOU ATTEMPT TO DEACTIVATE THE TRAP YOU SET IT OFF. A POSIONED NEEDLE SHOOTS OUT AND PLUNGES INTO A PARTY MEMBER.",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -18,7 +18,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-a606"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-a606.mp3",
+      "output": "audio/voices/narration/ecl3/b14-a606.mp3",
       "text": "YOU AVOID THE TRAP BY NOT OPENING THE CASKET.",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -28,7 +28,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-a66f"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-a66f.mp3",
+      "output": "audio/voices/narration/ecl3/b14-a66f.mp3",
       "text": "INSIDE THE CASKET IS A VARIETY OF GOLD CHAINS, PENDANTS AND JEWELRY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -38,7 +38,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-a6bc"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-a6bc.mp3",
+      "output": "audio/voices/narration/ecl3/b14-a6bc.mp3",
       "text": "AS YOU EXAMINE THE CASKET A TRAP GOES OFF. A DART SHOOTS OUT AND HITS ONE OF THE PARTY MEMBERS.",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -48,7 +48,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-a756"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-a756.mp3",
+      "output": "audio/voices/narration/ecl3/b14-a756.mp3",
       "text": "INSIDE THE CASKET ARE SOME BEAUTIFUL GEMS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -58,7 +58,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-a790"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-a790.mp3",
+      "output": "audio/voices/narration/ecl3/b14-a790.mp3",
       "text": "AS YOU SEARCH THE CASKET, YOU ACCIDENTLY SET OFF A TRAP. A NOXIOUS POWDER SPRAYS INTO THE AIR DAMAGING THE PARTY.",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -68,7 +68,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-a82f"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-a82f.mp3",
+      "output": "audio/voices/narration/ecl3/b14-a82f.mp3",
       "text": "THE CASKET IS FILLED WITH TINY PEARLS!",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -78,7 +78,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-a86f"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-a86f.mp3",
+      "output": "audio/voices/narration/ecl3/b14-a86f.mp3",
       "text": "AS YOU SEARCH THE CASKET YOU TRIGGER A TRAP. FROM A SECRET COMPARTMENT IN THE WALL, A SHOWER OF DARTS RAINS DOWN UPON THE PARTY.",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -88,7 +88,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-a8e3"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-a8e3.mp3",
+      "output": "audio/voices/narration/ecl3/b14-a8e3.mp3",
       "text": "THIS CASKET IS EMPTY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -98,7 +98,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-a908"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-a908.mp3",
+      "output": "audio/voices/narration/ecl3/b14-a908.mp3",
       "text": "INSIDE THIS ROOM YOU FIND A LARGE PILE OF WEAPONS AND SHIELDS. THEY APPEAR TO BE IN GOOD CONDITION AND OF FINE QUALITY. WHAT WILL YOU DO?",
       "direction": "Clear measured fantasy narration, ending with a direct question"
     },
@@ -108,7 +108,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-a9d2"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-a9d2.mp3",
+      "output": "audio/voices/narration/ecl3/b14-a9d2.mp3",
       "text": "YOU LEAVE THE WEAPONS ALONE.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -118,7 +118,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-aa2b"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-aa2b.mp3",
+      "output": "audio/voices/narration/ecl3/b14-aa2b.mp3",
       "text": "AS YOU NEAR THE PILE OF WEAPONS AN AWFUL SMELLING CLOUD OF GAS FORMS. THIS FOUL SMELLING GAS STUNS THE PARTY ALLOWING A GROUP OF THIEVES TO JUMP OUT OF THE SHADOWS AND ATTACK AT WILL!",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -128,7 +128,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-ab8e"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-ab8e.mp3",
+      "output": "audio/voices/narration/ecl3/b14-ab8e.mp3",
       "text": "YOU BYPASS THE TRAP BY NOT FOOLING WITH ANY OF THE WEAPONS.",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -138,7 +138,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-abc3"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-abc3.mp3",
+      "output": "audio/voices/narration/ecl3/b14-abc3.mp3",
       "text": "AS YOU NEAR THE PILE OF WEAPONS AN EXTREMELY BAD SMELLING GAS FILLS THE ROOM. THE SMELL IS DISGUSTING BUT HARMLESS ENOUGH.",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -148,7 +148,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-ac4c"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-ac4c.mp3",
+      "output": "audio/voices/narration/ecl3/b14-ac4c.mp3",
       "text": "AS YOU ENTER THE ROOM TWO THIEVES COME OUT OF NOWHERE AND ATTACK THE PARTY. THEY FAIL MISERABLY AND RUN OUT THE EAST DOOR. WILL YOU CHASE THEM?",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -158,7 +158,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-ad23"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-ad23.mp3",
+      "output": "audio/voices/narration/ecl3/b14-ad23.mp3",
       "text": "AS YOU ENTER THIS ROOM THE TWO THIEVES SPLIT; ONE GOING THROUGH THE EAST DOOR, THE OTHER GOING THROUGH THE SOUTH. WHICH PATH WILL YOU TAKE?",
       "direction": "Clear measured fantasy narration, ending with a direct question"
     },
@@ -168,7 +168,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-add4"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-add4.mp3",
+      "output": "audio/voices/narration/ecl3/b14-add4.mp3",
       "text": "YOU HAVE CAUGHT ONE OF THE THIEVES. THE THIEF BEGS FOR MERCY AND SAYS, 'I AM THE GUILD MASTER. IF YOU RELEASE ME, MY THIEVES WILL NO LONGER ATTACK YOU!' WHAT WILL YOU DO?",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -178,7 +178,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-ae7a"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-ae7a.mp3",
+      "output": "audio/voices/narration/ecl3/b14-ae7a.mp3",
       "text": "AFTER YOU RELEASE HIM THE THIEF SLOWLY WALKS TOWARD THE FAR DOOR THANKING YOU ALL THE WAY. PARTWAY THROUGH THE DOOR HE SAYS, 'SUCKERS', THEN SPRINTS AWAY.",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -188,7 +188,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-af19"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-af19.mp3",
+      "output": "audio/voices/narration/ecl3/b14-af19.mp3",
       "text": "AS YOU ENTER THE ROOM YOU ARE AMBUSHED BY SOME THIEVES.",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -198,7 +198,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-af8e"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-af8e.mp3",
+      "output": "audio/voices/narration/ecl3/b14-af8e.mp3",
       "text": "ON THE FLOOR HERE YOU FIND SOME IMPORTANT LOOKING FILES. YOU STUFF THE FILES INTO YOUR JOURNAL UNDER ENTRIES 38 AND 51.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -208,7 +208,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-b007"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-b007.mp3",
+      "output": "audio/voices/narration/ecl3/b14-b007.mp3",
       "text": "YOU ARE IN A ROOM THAT HAS BEEN CONVERTED TO A JAIL CELL. IT IS EMPTY.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -218,7 +218,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-b051"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-b051.mp3",
+      "output": "audio/voices/narration/ecl3/b14-b051.mp3",
       "text": "YOU ENTER A ROOM THAT HAS BEEN CONVERTED TO A JAIL. THERE ARE TEN YOUNG THUGS BEATING AN OLDER THIEF TO DEATH. ONCE YOU ENTER THEY STOP AND ATTACK YOU.",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -228,7 +228,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-b0ed"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-b0ed.mp3",
+      "output": "audio/voices/narration/ecl3/b14-b0ed.mp3",
       "text": "YOU RUSH TO HELP THE OLD THIEF BUT IT'S TOO LATE. BEFORE HE DIES HE SAYS, 'THE BOSS HAS ALLIES EVERYWHERE. TAKE THESE PAPERS. THEY MAY HELP.' HE THEN DIES.",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -238,7 +238,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-b16c"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-b16c.mp3",
+      "output": "audio/voices/narration/ecl3/b14-b16c.mp3",
       "text": "YOU COPY THE PAPERS INTO YOUR JOURNAL UNDER JOURNAL ENTRY 48.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -248,7 +248,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-b1b9"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-b1b9.mp3",
+      "output": "audio/voices/narration/ecl3/b14-b1b9.mp3",
       "text": "ON A NEARBY WALL IS A SLATE. DRAWN ON THE SLATE IS A COMPLEX MAZE WITH THE WORDS 'NW CASTLE' UNDER IT. YOU COPY THE CASTLE INTO YOUR JOURNAL UNDER JOURNAL ENTRY 41.",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -258,7 +258,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-b255"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-b255.mp3",
+      "output": "audio/voices/narration/ecl3/b14-b255.mp3",
       "text": "ON THE FLOOR IS A CRUDE MAP. IT IS A MAP OF A COMPLEX MAZE WITH THE WORDS 'NE CASTLE' UNDER IT. YOU TAKE THE MAP AND PUT IT IN YOUR JOURNAL UNDER JOURNAL ENTRY 29.",
       "direction": "Measured fantasy narration with a clear same-narrator character performance for quoted speech"
     },
@@ -268,7 +268,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-b3e9"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-b3e9.mp3",
+      "output": "audio/voices/narration/ecl3/b14-b3e9.mp3",
       "text": "YOUR MAGIC DETECTS A TRAP!",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -278,7 +278,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-b405"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-b405.mp3",
+      "output": "audio/voices/narration/ecl3/b14-b405.mp3",
       "text": "YOUR PARTY DETECTS A TRAP!",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -288,7 +288,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-b41d"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-b41d.mp3",
+      "output": "audio/voices/narration/ecl3/b14-b41d.mp3",
       "text": "WHAT DO YOU WANT TO DO?",
       "direction": "Clear measured fantasy narration, ending with a direct question"
     },
@@ -298,7 +298,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-b481"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-b481.mp3",
+      "output": "audio/voices/narration/ecl3/b14-b481.mp3",
       "text": "YOU DEACTIVATE THE TRAP",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     },
@@ -308,7 +308,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-14.at-b4f3"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b14-b4f3.mp3",
+      "output": "audio/voices/narration/ecl3/b14-b4f3.mp3",
       "text": "WHILE IN CAMP YOU ARE SUDDENLY ATTACKED BY THREE THIEVES WITH SLINGS. THEY LAUNCH THEIR BULLETS AT THE PARTY AND THEN RUN, DISAPPERING FROM SIGHT.",
       "direction": "Urgent dramatic fantasy narration with clear action and danger"
     }

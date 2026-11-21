@@ -10,11 +10,11 @@ const byAddress = new Map(extraction.events
   .filter(event => event.source.archive === "ECL4.DAX" && event.source.block === 21)
   .map(event => [event.source.address.slice(2), event]));
 const initial: QueueItem[] = [
-  { output: "../por-assets/voices/narration/sokal-keep/ecl4-b21-9cf0.mp3", text: "YOU STAND BELOW THE ROTTING REMAINS OF THE ONCE-MIGHTY GATES OF SOKAL KEEP.", direction: "ominous, measured fantasy narration" },
-  { output: "../por-assets/voices/narration/sokal-keep/ecl4-b21-9d3a.mp3", text: "ECHOING FOOTSTEPS ARE DIMLY HEARD WITHIN THE KEEP. TO THE WEST RISES A MOUND OF REEDS.", direction: "quiet, ominous fantasy narration" },
-  { output: "../por-assets/voices/narration/sokal-keep/ecl4-b21-9dc9.mp3", text: "AN UNDEAD PATROL CONFRONTS YOU. DO YOU GIVE THE PASSWORD?", direction: "tense, ominous fantasy narration" },
-  { output: "../por-assets/voices/narration/sokal-keep/ecl4-b21-9eb8.mp3", text: "THE UNDEAD LEAVE.", direction: "brief, measured fantasy narration" },
-  { output: "../por-assets/voices/narration/sokal-keep/ecl4-b21-9ecc.mp3", text: "THEY DIDN'T LIKE THAT WORD.", direction: "dry, ominous fantasy narration" }
+  { output: "audio/voices/narration/sokal-keep/ecl4-b21-9cf0.mp3", text: "YOU STAND BELOW THE ROTTING REMAINS OF THE ONCE-MIGHTY GATES OF SOKAL KEEP.", direction: "ominous, measured fantasy narration" },
+  { output: "audio/voices/narration/sokal-keep/ecl4-b21-9d3a.mp3", text: "ECHOING FOOTSTEPS ARE DIMLY HEARD WITHIN THE KEEP. TO THE WEST RISES A MOUND OF REEDS.", direction: "quiet, ominous fantasy narration" },
+  { output: "audio/voices/narration/sokal-keep/ecl4-b21-9dc9.mp3", text: "AN UNDEAD PATROL CONFRONTS YOU. DO YOU GIVE THE PASSWORD?", direction: "tense, ominous fantasy narration" },
+  { output: "audio/voices/narration/sokal-keep/ecl4-b21-9eb8.mp3", text: "THE UNDEAD LEAVE.", direction: "brief, measured fantasy narration" },
+  { output: "audio/voices/narration/sokal-keep/ecl4-b21-9ecc.mp3", text: "THEY DIDN'T LIKE THAT WORD.", direction: "dry, ominous fantasy narration" }
 ];
 const queued = [1, 2, 3, 4].flatMap(index => {
   const queue = JSON.parse(readFileSync(new URL(`../src/audio/sokal-generation-queue-0${index}.json`, import.meta.url), "utf8")) as Queue;

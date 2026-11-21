@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, statSync, writeFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 
 interface InventoryLine { id: string; text: string; classification: string; suggestedDelivery: string; speaker: string | null;
   reviewStatus: string; assetStatus: string }
@@ -15,8 +15,9 @@ const manifest = JSON.parse(readFileSync(new URL("../src/audio/voices.json", imp
   { lines: AssetLine[] };
 const dispositions = JSON.parse(readFileSync(new URL("../src/audio/voice-dispositions.json", import.meta.url), "utf8")) as
   { counts: Record<string, number> };
-const voiceDirectory = resolve(process.env.POR_VOICE_DIR ?? "../por-assets/voices");
-const output = resolve(process.argv[2] ?? "../por-assets/inventory/voice-coverage.json");
+const voiceDirectory = resolve(process.env.POR_VOICE_DIR ?? "audio/voices");
+const output = resolve(process.argv[2] ?? "out/voice-coverage.json");
+mkdirSync(dirname(output), { recursive: true });
 
 const assets = manifest.lines.map((line) => {
   const path = resolve(voiceDirectory, line.file);

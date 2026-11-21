@@ -11,7 +11,7 @@
         "por.review.ecl-6.block-25.at-9c3e",
         "por.review.ecl-6.block-25.at-9c6b"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-9c3e-9c6b.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-9c3e-9c6b.mp3",
       "text": "AS YOU HIKE THROUGH THE MOUNTAINS YOU SEE A LARGE CAVE. WHAT WILL YOU DO?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -21,7 +21,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-9b3d"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-9b3d.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-9b3d.mp3",
       "text": "OFF IN THE DISTANCE YOU SEE A LARGE DRAGON FLYING THROUGH THE AIR. AS YOU WATCH, HE SWOOPS DOWN BEHIND A MOUNTAIN AND DISAPPEARS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -31,7 +31,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-9bbf"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-9bbf.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-9bbf.mp3",
       "text": "AS YOU HIKE THROUGH THE MOUNTAINS, A LARGE DRAGON FLYS ABOVE YOU. IT CIRCLES THEN SWOOPS DOWN AND LANDS IN FRONT OF A CAVE. IT DISAPPEARS INTO A CAVE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -41,7 +41,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-9ca3"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-9ca3.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-9ca3.mp3",
       "text": "YOU ENTER THE CAVE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -51,7 +51,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-9ccf"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-9ccf.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-9ccf.mp3",
       "text": "AS YOU WALK THROUGH THIS AREA TWO ANHKHEGS ERUPT FROM THE GROUND BENEATH YOU.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -61,7 +61,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-9d49"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-9d49.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-9d49.mp3",
       "text": "A SMALL CARAVAN OF SLAVERS RIDE BY YOU TOWARD THE BUCCANEER BASE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -71,7 +71,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-9da5"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-9da5.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-9da5.mp3",
       "text": "YOU HAVE REACHED THE BUCCANEER BASE. A BAND OF BUCCANEERS RIDE OUT TO ESCORT YOU IN. WHAT WILL YOU DO?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -81,7 +81,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-9e27"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-9e27.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-9e27.mp3",
       "text": "A GROUP OF ARMED GUARDS RIDE BY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -91,7 +91,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-9e7d"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-9e7d.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-9e7d.mp3",
       "text": "A GROUP OF MEN ON HORSEBACK RIDE OUT TO MEET YOU. THEIR LEADER SAYS, 'ARE YOU THE DIPLOMATIC ENVOYS FROM NEW PHLAN?' WHAT WILL YOU SAY?",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -101,7 +101,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-9f02"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-9f02.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-9f02.mp3",
       "text": "AFTER SAYING NO, THE RIDERS RETURN TO THE OUTPOST. BEFORE LEAVING, THEIR LEADER SAYS, 'YOU ARE TRESSPASSING ON PRIVATE LAND. I ADVISE YOU TO LEAVE.'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -111,7 +111,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-9f7a"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-9f7a.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-9f7a.mp3",
       "text": "THE RIDERS ESCORT YOU INTO THE OUTPOST.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -121,7 +121,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-9fb6"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-9fb6.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-9fb6.mp3",
       "text": "AS YOU APPROACH THE KEEP, A GROUP OF ARMED MEN ON HORESBACK RIDE OUT TO MEET YOU. THEIR LEADER SAYS 'YOU ARE TRESSPASSING ON PRIVATE LAND; LEAVE NOW OR FACE THE CONSQUENCES!'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -131,7 +131,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a425"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a425.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a425.mp3",
       "text": "YOU HAVE FOUND A SMALL DARK CAVE. WILL YOU ENTER?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -141,7 +141,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a565"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a565.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a565.mp3",
       "text": "OUT OF THE SHADOWS, TWO LARGE WILD BOARS CHARGE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -151,7 +151,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a5b1"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a5b1.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a5b1.mp3",
       "text": "NEAR YOU IS A LARGE, WILD BOAR SOW FEEDING HER YOUNG. AS YOU NEAR SHE GROWLS A WARNING TO STAY AWAY. WHAT WILL YOU DO?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -161,7 +161,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a62e"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a62e.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a62e.mp3",
       "text": "AS YOU APPROACH HER HAIR BRISTLES AND SHE ATTACKS!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -171,7 +171,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a699"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a699.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a699.mp3",
       "text": "AT THE END OF THE PASSAGEWAY ARE THREE LARGE WILD BOARS. THEY CHARGE AT YOU AND ATTACK!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -181,7 +181,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a6f1"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a6f1.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a6f1.mp3",
       "text": "LYING ON THE GROUND HERE ARE THE DISSOLVING REMAINS OF A DWARF. HE IS COVERED IN ACID.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -191,7 +191,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a737"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a737.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a737.mp3",
       "text": "THE GROUND HERE IS SOFT AND FRESHLY CHURNED.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -201,7 +201,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a767"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a767.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a767.mp3",
       "text": "THE REMAINS OF SEVERAL OF THE ANHKHEG'S VICTIM. ADMIST THE DEBRIS IS SOME TREASURE.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -211,7 +211,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a7db"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a7db.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a7db.mp3",
       "text": "FROM THE SOUTH, A LARGE ANHKHEG LUNGES OUT AND ATTACKS THE PARTY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -221,7 +221,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a82d"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a82d.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a82d.mp3",
       "text": "LYING ON THE FLOOR IS A LARGE, SHEDDED SNAKE SKIN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -231,7 +231,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a869"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a869.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a869.mp3",
       "text": "A GIGANTIC SNAKE LIES IN FRONT OF YOU. IT REARS AND ATTACKS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -241,7 +241,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a8d0"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a8d0.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a8d0.mp3",
       "text": "AS YOU WALK INTO THIS ROOM A GIANT SNAKE FALLS ON TOP OF THE PARTY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -251,7 +251,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a936"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a936.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a936.mp3",
       "text": "THERE ARE TWO THRI-KREEN HERE. THEY BLOCK THE PASSAGE WITH THEIR BODIES. WHAT WILL YOU DO?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -261,7 +261,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-a9cd"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-a9cd.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-a9cd.mp3",
       "text": "BEFORE YOU ARE THREE THRI-KREEN WARRIORS. THEY ATTACK YOU IMMEDIATELY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -271,7 +271,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-aa36"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-aa36.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-aa36.mp3",
       "text": "YOU ENTER A CAVE ROOM WITH FOUR THRI-KREEN WARRIORS IN IT. ON THE FLOOR IS A CHEST WITH TREASURE IN IT. AS YOU ENTER THEY ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -281,7 +281,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-25.at-aacd"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-25/ecl6-b25-aacd.mp3",
+      "output": "audio/voices/narration/ecl6/block-25/ecl6-b25-aacd.mp3",
       "text": "YOU HAVE FOUND A PASSAGE WHICH LEADS OUTSIDE. WILL YOU TAKE IT?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     }

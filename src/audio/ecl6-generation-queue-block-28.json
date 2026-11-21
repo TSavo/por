@@ -19,7 +19,7 @@
         "por.review.ecl-6.block-28.at-9e0e",
         "por.review.ecl-6.block-28.at-9e57"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-9a85-9b78-9bda-9c00-9c46-9ce0-9d55-9da7-9e0e-9e57-escorted-tour.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-9a85-9b78-9bda-9c00-9c46-9ce0-9d55-9da7-9e0e-9e57-escorted-tour.mp3",
       "text": "YOU ARE BEING ESCORTED INTO ZHENTIL OUTPOST. FROM HERE YOU SEE A LARGE INNER WALL AROUND THE CENTRAL KEEP. THIS AREA IS BUSY WITH MEN ENTERING AND LEAVING BARRACKS. YOU ARE LED TOWARD THE CENTRAL KEEP. YOU ARE INSIDE THE COMMANDANT'S OFFICE. HE GREETS YOU AND YOU HAND HIM THE PAPERS. AFTER SKIMMING THROUGH THE PAPERS THE COMMANDANT SAYS, 'I WELCOME YOU AND HOPE YOU WILL JOIN ME FOR DINNER TONIGHT.' HE TELLS A GUARD TO GIVE YOU A TOUR OF THE OUTPOST. THE GUARD GIVING THE TOUR SAYS 'HERE YOU SEE ONE OF OUR FINE BARRACKS. THERE ARE SIX OF THESE HERE AND EACH CAN HOLD OVER A 100 MEN.' 'HERE YOU SEE ONE OF OUR FINE WATCH TOWERS WHICH WERE BUILT BY THE FINEST STONE MASONS IN THE LAND.' 'FROM HERE YOU CAN ALSO SEE OUR SOLIDLY BUILT OUTSIDE WALL. THIS WALL HAS SURVIVED MANY ATTACKS, INCLUDING ONE FROM A DRAGON.' THE GUARD SAYS 'THAT CONCLUDES THE TOUR. I WILL SHOW YOU TO YOUR QUARTERS.' THE GUARD SAYS 'HERE ARE YOUR QUARTERS. DO NOT LEAVE THIS AREA.' HE THEN LEAVES.",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -31,7 +31,7 @@
         "por.review.ecl-6.block-28.at-a74e",
         "por.review.ecl-6.block-28.at-a7c2"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a6eb-a74e-a7c2.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a6eb-a74e-a7c2.mp3",
       "text": "AT DUSK A GUARD COMES BY TO ESCORT YOU TO DINNER. YOU ARRIVE AT THE OFFICERS MESS AND ARE SEATED WITH THE COMMANDANT AND HIS ADVISORS. A FINE MEAL OF ROAST BOAR IS SERVED WITH A HEARTY RED WINE. THE COMMANDANT TURNS TO ONE OF THE CHARACTERS AND SAYS, 'SO, HOWS EVERYTHING IN PHLAN?' WHAT WILL YOU TALK ABOUT?",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -42,7 +42,7 @@
         "por.review.ecl-6.block-28.at-ad53",
         "por.review.ecl-6.block-28.at-ade4"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-ad53-ade4.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-ad53-ade4.mp3",
       "text": "AS YOU TALK ABOUT OLD PHLAN'S INHABITANTS THE COMMANDANT SAYS 'I KNOW A LEGEND ABOUT A FIRE BEING CALLED TIRANTIKUS. I BELIEVE, THAT TIRANTIKUS AND TYRANTHRAXUS ARE ONE AND THE SAME'. YOU CONTINUE TO TALK ABOUT OLD PHLAN AND THE COMMANDANT SAYS 'IS NEW PHLAN HAVING ANY TROUBLE WITH TYRANTHRAXUS?'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -52,7 +52,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-9a0a"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-9a0a.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-9a0a.mp3",
       "text": "THERE IS GREAT CONFUSION AS THE GUARDS RUN TO THEIR POSTS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -62,7 +62,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-9a49"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-9a49.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-9a49.mp3",
       "text": "SOME GUARDS SPOT YOU AND ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -72,7 +72,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-9ec8"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-9ec8.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-9ec8.mp3",
       "text": "THERE ARE FOUR GUARDS HERE. THEIR LEADER SAYS, 'YOU ARE RESTRICTED TO YOUR QUARTERS. RETURN TO THEM NOW.' WHAT WILL YOU DO?",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -82,7 +82,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-9f54"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-9f54.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-9f54.mp3",
       "text": "YOU GO BACK TO YOUR QUARTERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -92,7 +92,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-9f87"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-9f87.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-9f87.mp3",
       "text": "YOU'VE ANGERED THE GUARDS. THEY DEMAND THAT YOU RETURN TO YOUR QUARTERS. WHAT WILL YOU DO?",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -102,7 +102,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a002"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a002.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a002.mp3",
       "text": "YOU ATTACK THE GUARDS. THE GUARDS SOUND AN ALARM AND ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -112,7 +112,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a068"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a068.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a068.mp3",
       "text": "YOU TRY TO FLEE BUT ARE STOPPED BY SOME GUARDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -122,7 +122,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a09a"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a09a.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a09a.mp3",
       "text": "MORE GUARDS COMMING RUNNING TOWARD YOU. THEIR LEADER YELLS 'SURRENDER OR DIE!' WHAT WILL YOU DO?",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -132,7 +132,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a109"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a109.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a109.mp3",
       "text": "YOU SURRENDER. THEY STRIP YOU OF ALL POSSESSIONS AND TOSS YOU OUT INTO THE WILDERNESS.'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -142,7 +142,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a19f"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a19f.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a19f.mp3",
       "text": "MORE GUARDS RUSH UP TO ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -152,7 +152,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a1d5"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a1d5.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a1d5.mp3",
       "text": "A LARGE GROUP OF MEN LED BY A DWARF RUNS FOWARD TO ATTACK",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -162,7 +162,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a243"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a243.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a243.mp3",
       "text": "A LARGE GROUP OF MEN LED BY THE COMMANDANT RUSH FOWARD AND ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -172,7 +172,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a2b2"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a2b2.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a2b2.mp3",
       "text": "AFTER KILLING THE COMMANDANT THE REST OF THE OUTPOST EITHER SURRENDERS OR RUNS AWAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -182,7 +182,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a327"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a327.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a327.mp3",
       "text": "YOU RUN FOR YOUR LIVES AS THE GARRISON CHASES BEHIND YOU. YOU RUN FOR THE FRONT GATE BUT ARE STOPPED BY SOME GUARDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -192,7 +192,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a396"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a396.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a396.mp3",
       "text": "YOU ESCAPE FROM THE OUTPOST.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -202,7 +202,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a3b2"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a3b2.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a3b2.mp3",
       "text": "YOU TRY TO RUN BUT ARE CAUGHT. YOU ARE CAPTURED, STRIPPED AND TOSSED OUT INTO THE WILDERNESS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -212,7 +212,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a41c"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a41c.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a41c.mp3",
       "text": "IT IS NIGHT AND YOU ARE IN YOUR QUARTERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -222,7 +222,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a48c"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a48c.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a48c.mp3",
       "text": "YOU ARE ATTACKED BY FOUR GUARDS IN YOUR SLEEP",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -232,7 +232,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a4d0"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a4d0.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a4d0.mp3",
       "text": "YOU WAIT IN YOUR ROOM FOR ABOUT TWO HOURS WHEN SUDDENLY FOUR ARMED GUARDS BURST IN AND ATTACK YOU.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -242,7 +242,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a55c"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a55c.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a55c.mp3",
       "text": "YOU RUN INTO SOME MORE GUARDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -252,7 +252,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a57a"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a57a.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a57a.mp3",
       "text": "AS YOU DEFEAT THE GUARDS SOME MORE MEN RUN IN AND ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -262,7 +262,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a5d0"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a5d0.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a5d0.mp3",
       "text": "AN ALARM GOES OFF IN THE DISTANCE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -272,7 +272,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a5f7"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a5f7.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a5f7.mp3",
       "text": "YOU MANAGE TO RUN AWAY AND HIDE. YOU HEAR AN ALARM IN THE DISTANCE AS GUARDS ARE ISSUING OUT OF BARRACKS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -282,7 +282,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a664"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a664.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a664.mp3",
       "text": "YOU ARE IN YOUR QUARTERS. WILL YOU WALK AROUND OR WILL YOU JUST RELAX UNTIL DINNER?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -292,7 +292,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a84e"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a84e.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a84e.mp3",
       "text": "ARE YOU GOING TO TALK ABOUT NEW OR OLD PHLAN?",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -302,7 +302,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a89a"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a89a.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a89a.mp3",
       "text": "THE CONVERSATION BEGINS TO DIE DOWN. THE COMMANDANT STARTS A CONVERSATION BY SAYING 'WELL, ARE YOU HAVING MUCH TROUBLE WITH THE CREATURES FROM OLD PHLAN?'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -312,7 +312,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a93b"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a93b.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a93b.mp3",
       "text": "THE CONVERSATION COMPLETELY DIES AND EVERYONE IS STARING AT EACH OTHER. THE COMMANDANT EXCUSES HIMSELF AND LEAVES. A GUARD TAKES YOU BACK TO YOUR QUARTERS.",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -322,7 +322,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-a9b8"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-a9b8.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-a9b8.mp3",
       "text": "THE COMMANDANT SAYS 'I EXPECT THERE WOULD BE TROUBLE; I'VE HEARD TYRANTHRAXUS IS A POWERFUL FIRE DEMON. YOUR CITY'S DEFENCES MUST BE QUITE STRONG, HOW STRONG ARE THEY?'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -332,7 +332,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-aa70"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-aa70.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-aa70.mp3",
       "text": "THE COMMANDANT IS SURPRISED THAT YOUR CITY IS HAVING NO TROUBLE WITH TYRANTHRAXUS. HE THEN SAYS, 'YOUR TOWN DEFENSES MUST BE STRONG IN ORDER TO HANDLE HIM. HOW STRONG ARE THEY?'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -342,7 +342,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-ab41"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-ab41.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-ab41.mp3",
       "text": "AS YOU TALK ABOUT NEW PHLAN THE COMMANDANT LISTENS CAREFULLY. THE COMMANDANT SAYS 'IS IT TRUE THAT THE REAL POWER IN NEW PHLAN IS BISHOP BRACCIO?'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -352,7 +352,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-abdb"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-abdb.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-abdb.mp3",
       "text": "YOU SAY THAT BISHOP BRACCIO IS THE REAL POWER IN PHLAN AND THE COMMANDANT RESPONDS BY SAYING 'PHLAN MUST BE A CITY OF FOOLS IF A BISHOP OF TYR HAS POWER!'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -362,7 +362,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-ac56"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-ac56.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-ac56.mp3",
       "text": "YOU SAY THAT BISHOP BRACCIO IS NOT THE REAL POWER IN PHLAN AND THE COMMANDANT RESPONDS BY SAYING 'THE CITIZENS OF PHLAN ARE WISE TO NOT FOLLOW AN IDIOT FROM THE TEMPLE OF TYR!'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -372,7 +372,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-ace1"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-ace1.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-ace1.mp3",
       "text": "YOU SAY THAT YOU DON'T KNOW ANYTHING ABOUT THAT MATTER AND THE COMMANDANT RESPONDS BY SAYING 'YES, OF COURSE YOU DON'T.'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -382,7 +382,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-ae7e"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-ae7e.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-ae7e.mp3",
       "text": "ONE OF THE COMMANDANT'S ADVISORS ASKS YOU IF YOU'VE HEARD OF ANY UNIQUE MAGICAL ITEMS OR PLACES?",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -392,7 +392,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-af12"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-af12.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-af12.mp3",
       "text": "AS YOU MENTION POLITICS THE COMMANDANT SAYS 'I'VE HEARD THAT PHLAN'S TOWN COUNCIL IS CORRUPT, SPECIFICALLY ULRICH EBERHARD. IS THIS TRUE?",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -402,7 +402,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-afa5"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-afa5.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-afa5.mp3",
       "text": "YOU SAY THAT ULRICH EBERHARD IS CORRUPT AND HE RESPONDS BY SAYING 'I WOULD ADVISE YOU TO BE CAREFUL WHEN DEALING WITH THE TOWN COUNCIL.'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -412,7 +412,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b012"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b012.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b012.mp3",
       "text": "YOU SAY THAT ULRICH EBERHARD IS A LOYAL HONEST MAN. THE COMMANDANT SMIRKS AND SAYS 'YES, OF COURSE HE IS.'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -422,7 +422,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b06a"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b06a.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b06a.mp3",
       "text": "YOU TELL THE COMMANDANT THAT NEW PHLAN'S FORCES ARE STRONG. HE SEEMS IMPRESSED, AND SAYS 'IT SOUNDS LIKE YOUR CITY CAN HANDLE THAT FIRE DEMON TYRANTHRAXUS'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -432,7 +432,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b0e6"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b0e6.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b0e6.mp3",
       "text": "YOU TELL THE COMMANDANT THAT NEW PHLAN'S FORCES ARE CAPABLE. HE LOOKS AT YOU AND SAYS, 'I HOPE, FOR YOUR SAKE, THAT YOUR CITY'S FORCES CAN DEFEND THEMSELVES FROM TYRANTHRAXUS'S HORDE.'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -442,7 +442,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b178"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b178.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b178.mp3",
       "text": "YOU TELL THE COMMANDANT THAT NEW PHLAN'S FORCES ARE WEAK. HE SMILES AND SAYS, 'I HOPE THAT PHLAN CAN DEFEND ITSELF.'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -452,7 +452,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b1d7"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b1d7.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b1d7.mp3",
       "text": "AS YOU DON'T ANSWER THE LAST QUESTION THE COMMANDANT SMILES SLIGHTLY AND SAYS, 'I SEE THAT YOU ARE NOT FOOLISH AND LOOSE TONGUED.'",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -462,7 +462,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b240"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b240.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b240.mp3",
       "text": "YOU MAKE UP STORIES ABOUT WONDERFUL MAGICAL ITEMS AND PLACES. YOU CAPTIVATE EVERYONE SITTING AROUND YOU.",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -472,7 +472,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b296"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b296.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b296.mp3",
       "text": "AS YOU MENTION THE POOL OF RADIANCE THE COMMANDANT TELLS YOU A STORY ABOUT THAT VERY POOL. YOU ENJOY THE STORY AND COPY IT INTO YOUR JOURNAL UNDER ENTRY 46.",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -482,7 +482,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b322"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b322.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b322.mp3",
       "text": "YOU CONTINUE YOUR CONVERSATION WITH THE COMMANDANT. WHAT WILL BE YOUR NEXT TOPIC OF DISSCUSION?",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -492,7 +492,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b37a"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b37a.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b37a.mp3",
       "text": "THE CONVERSATION GOES STALE AND THE COMMANDANT EXCUSES HIMSELF FROM THE TABLE. YOU ARE ESCORTED BACK TO YOUR QUARTERS.",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -502,7 +502,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b3db"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b3db.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b3db.mp3",
       "text": "YOU TALK A LITTLE WHILE LONGER THEN THE COMMANDANT STATES THAT HE HAS OTHER DUTIES TO ATTEND TO. HE BIDS YOU GOOD NIGHT.",
       "direction": "perform the Zhentil commandant consistently: controlled, cordial, probing, and politically calculating; retain narrator identity for narration"
     },
@@ -512,7 +512,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b48b"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b48b.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b48b.mp3",
       "text": "YOU ARRIVE BACK AT YOUR QUARTERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -522,7 +522,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b4ac"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b4ac.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b4ac.mp3",
       "text": "THE WALL IS CLIMBABLE HERE, WILL YOU SCALE OVER IT?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -532,7 +532,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b4fc"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b4fc.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b4fc.mp3",
       "text": "YOU CLIMB OVER THE WALL AND LEAVE THE OUTPOST.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -542,7 +542,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b542"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b542.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b542.mp3",
       "text": "THE COMMOTION ALLOWS YOU TO GET TO THE FRONT GATE!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -552,7 +552,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b580"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b580.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b580.mp3",
       "text": "OUT OF THE COMMOTION A GROUP OF GUARDS ATTACK THE PARTY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -562,7 +562,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-28.at-b5cb"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-28/ecl6-b28-b5cb.mp3",
+      "output": "audio/voices/narration/ecl6/block-28/ecl6-b28-b5cb.mp3",
       "text": "YOU ARE NEAR THE FRONT GATE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     }

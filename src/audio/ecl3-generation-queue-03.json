@@ -8,7 +8,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a10f"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a10f.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a10f.mp3",
       "text": "THE RECORDS PROVIDE INSIGHTS INTO MUCH THAT WAS PUZZLING.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -18,7 +18,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a13e"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a13e.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a13e.mp3",
       "text": "THIS MATERIAL IS OF SMALL VALUE.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -28,7 +28,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a15a"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a15a.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a15a.mp3",
       "text": "YOUR SUCCESS AT PODAL PLAZA IS NOTED.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -38,7 +38,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a183"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a183.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a183.mp3",
       "text": "THE COUNCIL HAS VOTED A SPECIAL PRIZE FOR ENDING THE GRAVEYARD MENACE.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -48,7 +48,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a1c5"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a1c5.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a1c5.mp3",
       "text": "THE COUNCIL WAS PLEASED BY THE ELIMINATION OF THE THIEVES IN KOVEL MANSION.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -58,7 +58,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a20b"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a20b.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a20b.mp3",
       "text": "WITH THE CLEARING OF THE STOJONOW RIVER, WE CAN OPEN UP THE HINTERLANDS FOR TRADE.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -68,7 +68,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a256"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a256.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a256.mp3",
       "text": "WE WERE PLEASANTLY SURPRISED THAT YOU COMPLETED YOUR MISSION SO SWIFTLY. CADORNA WAS WAGERING YOUR RETURN WOULD BE MUCH DELAYED.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -78,7 +78,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a2c1"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a2c1.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a2c1.mp3",
       "text": "YOUR ELIMINATION OF THE LIZARDMEN MENACE HAS GREATLY IMPROVED OUR STRATEGIC POSITION.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -88,7 +88,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a30e"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a30e.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a30e.mp3",
       "text": "THIS LOSS OF THE KOBOLD FORCES WILL BE A MAJOR BLOW TO THE ENEMY.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -98,7 +98,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a34c"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a34c.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a34c.mp3",
       "text": "WE WERE MUCH RELIEVED BY THE NEWS YOU BRING FROM THE NOMAD CAMP.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -108,7 +108,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a389"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a389.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a389.mp3",
       "text": "COUNCILMAN CADORNA LEFT THIS PAYMENT FOR SOME SERVICE YOU HAD RENDERED.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -118,7 +118,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a3cb"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a3cb.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a3cb.mp3",
       "text": "YOUR TAKING THE GATE WILL ENABLE OUR FORCES TO ASSAULT THE ENEMY STRONGHOLD. RETURN THERE TO LEAD THE ATTACK.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -128,7 +128,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a421"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a421.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a421.mp3",
       "text": "CONGRATULATIONS! YOUR QUEST IS OVER! TYRANTHRAXUS IS DEFEATED! PHLAN IS FREE! IF YOU WISH, YOU MAY CONTINUE TO HELP US CLEAR ANY REMAINING MONSTERS. ALL PHLAN SALUTES YOU!",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -138,7 +138,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a4a6"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a4a6.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a4a6.mp3",
       "text": "YOUR CLEARING OF THE SLUM AREAS PERMITS US TO EXPAND.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -148,7 +148,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a4dc"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a4dc.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a4dc.mp3",
       "text": "CONGRATULATIONS, YOU MAY KEEP ALL YOU FOUND IN THE TEMPLE OF BANE AS A REWARD.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -158,7 +158,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a520"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a520.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a520.mp3",
       "text": "PORPHYRYS CADORNA IS A TRAITOR TO THE CITY. IF YOU FIND HIM, KILL HIM.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -168,7 +168,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a55e"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a55e.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a55e.mp3",
       "text": "THE COUNCIL HAS NOTED THE PASSING OF THE TRAITOR CADORNA.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -178,7 +178,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a6ac"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a6ac.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a6ac.mp3",
       "text": "UNDEAD FROM THE GRAVEYARD HAVE GROWN MORE DANGEROUS THAN ALL OF THE OTHER FORCES WHICH CONFRONT US.",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -188,7 +188,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a6fe"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a6fe.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a6fe.mp3",
       "text": "'I HAVE BEEN AUTHORIZED TO GIVE YOU AN ENCHANTED WEAPON IF YOU ACCEPT THE COMMISSION TO END THE GRAVEYARD MENACE. DO YOU ACCEPT?'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -198,7 +198,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a773"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a773.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a773.mp3",
       "text": "'EXCELLENT.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -208,7 +208,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a7a4"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a7a4.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a7a4.mp3",
       "text": "THE CLERK SHUFFLES THROUGH HER PAPERS. 'ON THE MATTER OF COMMISSION,' SHE SAYS, 'I CAN OFFER THE FOLLOWING: '",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -218,7 +218,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a80f"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a80f.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a80f.mp3",
       "text": "'BACK SO SOON? I CAN ONLY REPEAT THE EARLIER OFFERS: '",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -228,7 +228,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a8b6"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a8b6.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a8b6.mp3",
       "text": "THE SLUMS IMMEDIATELY TO OUR WEST NEED TO BE CLEARED OF MONSTERS.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -238,7 +238,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a8f7"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a8f7.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a8f7.mp3",
       "text": "SOKAL KEEP ON THORN ISLAND MUST BE CLEARED.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -248,7 +248,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a927"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a927.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a927.mp3",
       "text": "THE COUNCIL IS OFFERING A REWARD FOR BOOKS, MAPS, TOMES, ETC. WHICH PROVIDE USEFUL INFORMATION ABOUT PHLAN BEFORE THE FALL. THE REWARD IS TIED TO THE VALUE OF THE INFORMATION.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -258,7 +258,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-a9bb"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-a9bb.mp3",
+      "output": "audio/voices/narration/ecl3/b8-a9bb.mp3",
       "text": "A WEAPON OF GREAT POWER IS TO BE AUCTIONED TO OUR ENEMIES. THIS AUCTION IS TO BE HELD IN PODAL PLAZA. FIND OUT WHAT THE WEAPON IS AND RETURN.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -268,7 +268,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-aa52"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-aa52.mp3",
+      "output": "audio/voices/narration/ecl3/b8-aa52.mp3",
       "text": "JUNIOR COUNCILMAN CADORNA HAS A SPECIAL COMMISSION FOR YOU. HIS CHAMBERS ARE THROUGH THE EAST DOOR.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -278,7 +278,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-aac9"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-aac9.mp3",
+      "output": "audio/voices/narration/ecl3/b8-aac9.mp3",
       "text": "YOU ARE SUMMONED BY THE BISHOP OF BRACCIO OF TYR. REPORT TO HIM AT TYR'S TEMPLE.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -288,7 +288,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-ab26"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-ab26.mp3",
+      "output": "audio/voices/narration/ecl3/b8-ab26.mp3",
       "text": "A LARGE GROUP OF THIEVES OPERATES OUT OF THE OLD KOVEL MANSION. THE COUNCIL WILL PAY TO HAVE THEM CLEANED OUT.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -298,7 +298,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-ab89"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-ab89.mp3",
+      "output": "audio/voices/narration/ecl3/b8-ab89.mp3",
       "text": "FIND THE NOMADS AND STOP THEM FROM JOINING FORCES WITH OUR ENEMIES.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -308,7 +308,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-abcb"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-abcb.mp3",
+      "output": "audio/voices/narration/ecl3/b8-abcb.mp3",
       "text": "A LARGE TRIBE OF KOBOLDS IS BEING RECRUITED BY THE ENEMY. MAKE SURE THEY DON'T JOIN THE ENEMY FORCES.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -318,7 +318,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-ac2c"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-ac2c.mp3",
+      "output": "audio/voices/narration/ecl3/b8-ac2c.mp3",
       "text": "FIND THE SOURCE OF THE RIVER'S POLLUTION AND END IT.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -328,7 +328,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-ac63"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-ac63.mp3",
+      "output": "audio/voices/narration/ecl3/b8-ac63.mp3",
       "text": "A TRIBE OF LIZARDMEN IS PREPARING TO JOIN THE ENEMY. PREVENT THIS.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -338,7 +338,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-acb0"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-acb0.mp3",
+      "output": "audio/voices/narration/ecl3/b8-acb0.mp3",
       "text": "THE HEIR TO THE HOUSE OF BIVANT MUST BE RESCUED. WE WILL PAY GENEROUSLY FOR HIS SAFE RETURN.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -348,7 +348,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-ad2d"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-ad2d.mp3",
+      "output": "audio/voices/narration/ecl3/b8-ad2d.mp3",
       "text": "LORD CADORNA HAS A DELICATE DIPLOMATIC MISSION THAT REQUIRES YOUR PARTICULAR SKILLS. YOU ARE SUMMONED TO HIS CHAMBERS. GO THROUGH THE SOUTH DOOR.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -358,7 +358,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-ada6"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-ada6.mp3",
+      "output": "audio/voices/narration/ecl3/b8-ada6.mp3",
       "text": "WE NEED YOU TO DELIVER A MESSAGE TO THE ZHENTIL KEEP TO THE WEST. BE CAREFUL, THE TRAITOR CADORNA MAY HAVE TAMPERED WITH THE MESSAGE PACKET BEFORE HE FLED.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -368,7 +368,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-ae3b"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-ae3b.mp3",
+      "output": "audio/voices/narration/ecl3/b8-ae3b.mp3",
       "text": "LORD URSLINGEN WISHES URGENTLY TO SPEAK WITH YOU. GO THROUGH THE SOUTH DOOR OF THE TRAITOR CADORNA'S OLD QUARTERS.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -378,7 +378,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-aec6"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-aec6.mp3",
+      "output": "audio/voices/narration/ecl3/b8-aec6.mp3",
       "text": "YOU ARE SUMMONED TO A SPECIAL COUNCIL MEETING. YOU ARE TO BE AWARDED A VALUABLE COMMISSION. THE CITY GUARDS WILL SHOW YOU THE WAY.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -388,7 +388,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-af4b"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-af4b.mp3",
+      "output": "audio/voices/narration/ecl3/b8-af4b.mp3",
       "text": "'THESE ARE ALL OF THE COMMISSIONS CURRENTLY AVAILABLE.'",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     },
@@ -398,7 +398,7 @@
       "coveredSourceIds": [
         "por.review.ecl-3.block-8.at-b3e1"
       ],
-      "output": "../por-assets/voices/narration/ecl3/b8-b3e1.mp3",
+      "output": "audio/voices/narration/ecl3/b8-b3e1.mp3",
       "text": "YOU ARE INTERCEPTED BY THE COUNCIL GUARD. 'HALT. YOUR PRESENCE IS NOT AUTHORIZED. LEAVE.' DO YOU LEAVE?",
       "direction": "Measured civic fantasy narration; perform quoted council speech with formal authority while preserving the narrator identity"
     }

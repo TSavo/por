@@ -8,7 +8,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a08a"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a08a.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a08a.mp3",
       "text": "THE WALLS ARE LINED WITH FLASKS AND BOTTLES CONTAINING POWDERS, OILS, OINTMENTS, AND DRAUGHTS. THESE ARE SURELY OF AN ALCHEMICAL NATURE.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -18,7 +18,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a10b"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a10b.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a10b.mp3",
       "text": "YOU HAVE ENTERED A ROOM FILLED WITH LARGE VATS WITH THE SAME OILY BLACK STUFF THAT FLOWS FROM THE FOUNTAIN. THE CHAMBER STINKS. ON THE WALLS ARE SHELVES OF BOTTLES AND FLASKS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -28,7 +28,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a1cb"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a1cb.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a1cb.mp3",
       "text": "AS YOU ARE POKING AROUND IN THE VATS, A PAIN CRAZED LIZARD MAN SURFACES AND ATTACKS YOU! TWO OTHERS QUICKLY JOIN HIM FROM OTHER VATS.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -38,7 +38,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a262"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a262.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a262.mp3",
       "text": "YOU HAVE ENTERED WHAT LOOKS LIKE AN ORDINARY ALCHEMISTS LAB... RECENTLY USED.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -48,7 +48,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a2bf"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a2bf.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a2bf.mp3",
       "text": "YOU FIND A NOTEBOOK. A TYPICAL ENTRY READS, 'SUBJECT 213: PROGRESSING WELL, SCARS HEALING, UNABLE TO TALK YET. SUBJECT 214: DIED WHEN TREATED, FAILED AGAIN...'",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -58,7 +58,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a408"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a408.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a408.mp3",
       "text": "YOU SEE A SIGN OVER THE DOOR IN FRONT OF YOU. IT SAYS, 'DON'T FORGET THE PASSWORD'. THIS IS FOLLOWED BY SIX DWARVISH RUNES...",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -68,7 +68,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a480"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a480.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a480.mp3",
       "text": "YOU QUICKLY TRANSLATE THEM AND SAY...?",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -78,7 +78,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a4da"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a4da.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a4da.mp3",
       "text": "SUDDENLY A HIDDEN DOOR BURSTS OPEN AND A HORRIBLE MONSTER BURSTS FORTH SHOUTING 'KIAIAIAIAIAIAIAI!' IT WADES INTO YOU TEARING YOU APART WITH 3-INCH LONG CLAWS.",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -88,7 +88,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a718"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a718.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a718.mp3",
       "text": "YOU HEAR A WHINING FROM THE PIPES THE BLACK LIQUID IS BUBBLING. HOWEVER, NOT ALL THE EQUIPMENT IS YET DESTROYED.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -98,7 +98,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a7ee"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a7ee.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a7ee.mp3",
       "text": "YOU RUN FOR THE EXIT. AS YOU SLAM THE DOOR BEHIND YOU, YOU HEAR AN ENORMOUS EXPLOSION. THE EQUIPMENT IS NOW CERTAINLY DESTROYED.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -108,7 +108,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a859"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a859.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a859.mp3",
       "text": "YOU START TO RUN FOR THE EXIT... YOU DON'T MAKE IT.",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -118,7 +118,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a88b"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a88b.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a88b.mp3",
       "text": "THERE IS AN ENORMOUS EXPLOSION! BITS OF PIPE AND OTHER PLUMBING FIXTURES FLY IN ALL DIRECTIONS.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -128,7 +128,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-aa29"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-aa29.mp3",
+      "output": "audio/voices/narration/ecl7/b23-aa29.mp3",
       "text": "AS YOU FREE THEM THEY TELL YOU ALL ABOUT WHAT YARASH IS DOING AND HOW YOU CAN GET HELP FROM THEIR TRIBE IN THE SWAMP. YOU COPY ALL THEY SAY AS ENTRY 35 OF YOUR JOURNAL.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -138,7 +138,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-aabb"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-aabb.mp3",
+      "output": "audio/voices/narration/ecl7/b23-aabb.mp3",
       "text": "THE LIZARD MEN'S FEAR CHANGES TO RAGE AND THEY THROW THEIR BARRELS OF CONTAMINANT ON THE PARTY.",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -148,7 +148,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-ab68"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-ab68.mp3",
+      "output": "audio/voices/narration/ecl7/b23-ab68.mp3",
       "text": "AN ANCIENT MAGE LOOKS UP FROM HIS STUDIES, 'AH, GOOD, I NEED MORE SPECIMENS AS CONTROLS.' HE TURNS TO HIS MUTATED GUARDS, 'SUBDUE THEM!'",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -158,7 +158,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-ace7"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-ace7.mp3",
+      "output": "audio/voices/narration/ecl7/b23-ace7.mp3",
       "text": "CHANGE TO WHAT SETTING?",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -168,7 +168,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-9bc4"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-9bc4.mp3",
+      "output": "audio/voices/narration/ecl7/b26-9bc4.mp3",
       "text": "YOU FIND A RECENTLY ABBANDONED CAMP.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -178,7 +178,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-9c05"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-9c05.mp3",
+      "output": "audio/voices/narration/ecl7/b26-9c05.mp3",
       "text": "YOU HAVE STUMBLED UPON A LARGE NOMAD CAMP. WILL YOU ENTER IT?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -188,7 +188,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-9c65"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-9c65.mp3",
+      "output": "audio/voices/narration/ecl7/b26-9c65.mp3",
       "text": "YOU ARE ON THE NORTH EDGE OF THE CITY. WILL YOU ENTER THE NORTHERN CITY GATES OR ENTER THE GRAVEYARD?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -198,7 +198,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-9d26"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-9d26.mp3",
+      "output": "audio/voices/narration/ecl7/b26-9d26.mp3",
       "text": "YOU ARE ON THE EASTERN EDGE OF THE CITY. THERE ARE NORTH AND SOUTH ENTRANCES INTO THE CITY AND A SMALL BOAT THAT YOU CAN TAKE TO THE CIVILISED AREA. WHICH ROUTE WILL YOU TAKE?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -208,7 +208,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-9e46"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-9e46.mp3",
+      "output": "audio/voices/narration/ecl7/b26-9e46.mp3",
       "text": "YOU ARE ON THE WESTERN EDGE OF THE CITY. THERE ARE TWO ENTERANCES INTO THE CITY, A NORTH ENTRANCE AND A SOUTH ENTRANCE. WHICH ENTRANCE WILL YOU TAKE?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -218,7 +218,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-9f22"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-9f22.mp3",
+      "output": "audio/voices/narration/ecl7/b26-9f22.mp3",
       "text": "YOU HAVE FOUND A ROWBOAT HIDDEN AMOUNGST THE REEDS. WILL YOU TAKE IT TO THE PYRAMID?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -228,7 +228,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-9f99"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-9f99.mp3",
+      "output": "audio/voices/narration/ecl7/b26-9f99.mp3",
       "text": "YOU ARE IN FRONT OF A MAGNIFICENT PYRAMID. YOU HAVE FOUND A SECRET DOOR THAT LEADS INTO THE PYRAMID. WHAT WILL YOU DO?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -238,7 +238,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a037"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a037.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a037.mp3",
       "text": "THERE IS A BOAT HERE THAT WILL TAKE YOU BACK TO THE CIVILISED SECTION OF PHLAN. WILL YOU TAKE IT?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -248,7 +248,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a45d"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a45d.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a45d.mp3",
       "text": "YOU HAVE FOUND A SMALL WOODED GROVE. WILL YOU ENTER?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -258,7 +258,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a4a6"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a4a6.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a4a6.mp3",
       "text": "YOU HAVE FOUND SOME RUINED HUTS. WILL YOU INVESTIGATE?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -268,7 +268,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a5c2"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a5c2.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a5c2.mp3",
       "text": "YOU ARE AT THE EDGE OF THE GROVE.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -278,7 +278,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a5ea"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a5ea.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a5ea.mp3",
       "text": "NEAR YOU IS A POOL OF WATER. SOMEONE OR THING IS SPLASHING IN THE POOL. WILL YOU APPROACH THE POOL?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -288,7 +288,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a660"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a660.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a660.mp3",
       "text": "YOU SEE SOME LIZARD MEN SWIMMING IN THE POOL. UPON SEEING YOU THEY ATTACK!",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -298,7 +298,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a6c5"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a6c5.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a6c5.mp3",
       "text": "AS YOU WALK THROUGH THE TRESS YOU ARE AMBUSHED BY TWO DISPLACER BEASTS.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -308,7 +308,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a729"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a729.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a729.mp3",
       "text": "AS YOU ENTER THE ROOM YOU SEE FOUR KOBOLDS CHAINED TO THE WALL. ONE OF THEM SAYS 'RELEASE US, OR THE LIZARD MEN WILL EAT US!' WHAT WILL YOU DO?",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -318,7 +318,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a7c3"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a7c3.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a7c3.mp3",
       "text": "YOU RELEASE THE KOBOLDS AND THEY THANK YOU. ONE OF THEM SAYS, 'WATCH OUT FOR THE MUTANT LIZARD MEN, THEY'RE KILLERS!' THEY THEN RUN OUT THE DOOR.",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -328,7 +328,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a842"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a842.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a842.mp3",
       "text": "YOU COLDLY KILL THE DEFENSELESS KOBOLDS.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -338,7 +338,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a86c"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a86c.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a86c.mp3",
       "text": "AN AWFUL STENCH IS COMING FROM THE WEST.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -348,7 +348,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a8a0"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a8a0.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a8a0.mp3",
       "text": "YOU ENTER A HUT THAT IS COVERED IN FILTH. STANDING IN A POOL OF BLACK MUCK ARE TWO HORRIBLY MUTATED LIZARD MEN. THEY LUNGE OUT AND ATTACK THE PARTY.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -358,7 +358,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a944"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a944.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a944.mp3",
       "text": "INSIDE THIS HUT ARE FOUR LIZARD MEN. THEY ATTACK YOU IMMEDIATELY.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -368,7 +368,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-a9a9"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-a9a9.mp3",
+      "output": "audio/voices/narration/ecl7/b26-a9a9.mp3",
       "text": "IN THIS ROOM THERE ARE FOUR LARGE LIZARD MEN. AS YOU ENTER ONE OF THEM YELLS 'KILL' AND THEY ATTACK.",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -378,7 +378,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-aa34"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-aa34.mp3",
+      "output": "audio/voices/narration/ecl7/b26-aa34.mp3",
       "text": "A SWARM OF STIRGES SWOOPS DOWN AND ATTACKS THE PARTY!",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -388,7 +388,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-aa9a"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-aa9a.mp3",
+      "output": "audio/voices/narration/ecl7/b26-aa9a.mp3",
       "text": "YOU ARE ABOUT TO LEAVE THIS AREA. DO YOU WANT TO RETURN?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -398,7 +398,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-26.at-ae8f"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b26-ae8f.mp3",
+      "output": "audio/voices/narration/ecl7/b26-ae8f.mp3",
       "text": "AS YOU LEAVE THE SORCERER'S PYRAMID BEHIND YOU CAN SEE THAT THE LAND IS ALREADY BEGINNING TO RECOVER FROM THE ALCHEMICAL POLLUTION CAUSED BY THE PYRAMID.",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     }

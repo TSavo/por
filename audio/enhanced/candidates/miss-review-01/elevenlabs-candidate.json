@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "miss-review-01",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.miss",
+      "index": 9,
+      "file": "por-miss-miss-review-01.wav",
+      "intendedMasterFile": "por-miss.wav",
+      "prompt": "One weapon swinging through empty air.",
+      "promptSha256": "d9054dcd79fa495077d2214abf77a2c9f9a4180c20dd26d17370e425cb10cedd",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.9,
+      "requestedSeconds": 0.5,
+      "returnedSeconds": 0.96,
+      "referenceSeconds": 0.42,
+      "characterCost": "6",
+      "generatedAt": "2026-11-19T01:34:22.163Z",
+      "sha256": "4d2be58825c7b9057b01b6ed6ff53af6e7b0abe065ee6f715890374d411d55f3"
+    }
+  ]
+}

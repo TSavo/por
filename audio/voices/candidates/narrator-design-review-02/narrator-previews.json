@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "batch": "review-02",
+  "status": "owner-selected",
+  "endpoint": "https://api.elevenlabs.io/v1/text-to-voice/design?output_format=mp3_44100_128",
+  "model": "eleven_ttv_v3",
+  "voiceDescription": "Native American English. Male, 45–60. Excellent studio quality. Persona: a master fantasy audiobook storyteller performing an adventure for an intimate audience. A rich, low, resonant baritone with clear diction and natural authority. Highly expressive rather than restrained or monotone: varied pitch, rhythm, emphasis, and emotional color; able to move from ominous scene-setting into wonder, urgency, warmth, and distinct character delivery while remaining recognizably the same narrator. Dramatic and alive, never a movie-trailer announcer and never flat.",
+  "previewText": "[Ominous, vivid narration] This was once the chapel of the keep. Inside the doorway are the dried husks of two orcs, their faces twisted with terror. A large altar dominates the southern wall. [With startled awe] The shape speaks. [As a weary, haunted spirit; deeper and more intimate] 'I am the life form of Ferran Martinez, bound with the undead spirits of all who die within these walls to guard the keep. Tell me, has the city been freed?'",
+  "parameters": {
+    "guidanceScale": 8,
+    "loudness": 0.5,
+    "seed": null,
+    "previewCount": 3
+  },
+  "generatedAt": "2026-11-19T03:22:26.257Z",
+  "previews": [
+    {
+      "candidate": 1,
+      "file": "narrator-preview-1.mp3",
+      "generatedVoiceId": "Ux53XPxl9ViBqirSfyO4",
+      "mediaType": "audio/mpeg",
+      "durationSeconds": 28.5284375,
+      "language": "en",
+      "sha256": "99e8b54e99a43ebcb2240d7a40ac812c93d17833f8b32072009b3c4e09585968"
+    },
+    {
+      "candidate": 2,
+      "file": "narrator-preview-2.mp3",
+      "generatedVoiceId": "sKdEcsKDduWZX26e3pC1",
+      "mediaType": "audio/mpeg",
+      "durationSeconds": 28.1888125,
+      "language": "en",
+      "sha256": "266a38bb915de383a58ddaa6476381a463a25a7ac65ab9faab3b2a9c5d3e7935"
+    },
+    {
+      "candidate": 3,
+      "file": "narrator-preview-3.mp3",
+      "generatedVoiceId": "9UwacDmdjpXy5tUGJhDA",
+      "mediaType": "audio/mpeg",
+      "durationSeconds": 28.7635625,
+      "language": "en",
+      "sha256": "d7f43e02478ad9660dcab57353695b3caf11b08c15033f5b4a094acae6e5fe06"
+    }
+  ]
+}

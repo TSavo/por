@@ -16,7 +16,7 @@ const generate = process.argv.includes("--generate");
 const outputArg = process.argv.find((argument, index) => index > 1 && !argument.startsWith("--"));
 const batch = process.argv.find((argument) => argument.startsWith("--batch="))?.split("=")[1] ??
   new Date().toISOString().replaceAll(":", "-").replace(/\.\d{3}Z$/, "Z");
-const output = resolve(outputArg ?? "../por-assets/voices/candidates", `narrator-design-${batch}`);
+const output = resolve(outputArg ?? "audio/voices/candidates", `narrator-design-${batch}`);
 const key = process.env.ELEVENLABS_API_KEY;
 
 console.log(`Voice description:\n${manifest.voiceDescription}\n\nPreview text:\n${manifest.previewText}`);

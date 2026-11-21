@@ -102,7 +102,7 @@ function walkFiles(directory: string, found: string[]) {
     else if (extname(name).toLowerCase() === ".mp3" || extname(name).toLowerCase() === ".txt") found.push(path);
   }
 }
-const narrationRoot = resolve(root, "../por-assets/voices/narration");
+const narrationRoot = resolve(root, "audio/voices/narration");
 const tracked = new Set(expected.flatMap(item => [item.absoluteOutput.toLowerCase(), item.absoluteTranscript.toLowerCase()]));
 const narrationFiles: string[] = [];
 walkFiles(narrationRoot, narrationFiles);

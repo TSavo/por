@@ -12,7 +12,7 @@
         "por.review.ecl-6.block-1.at-9e66",
         "por.review.ecl-6.block-1.at-9eda"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-9dcb-9e66-9eda.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-9dcb-9e66-9eda.mp3",
       "text": "YOU ARE JUST OUTSIDE A PEN FOR HOLDING SLAVES. THE PEOPLE HERE ARE WORN AND BEATEN, DESTINED TO A LIFE OF SLAVERY. AROUND THE PEN THERE ARE MANY GUARDS AND SLEAZY MERCHANTS LOOKING AT THE SLAVES. YOU SEE A BOY THAT HAS A HEART-SHAPED BIRTHMARK ON HIS LEFT SHOULDER. AS YOU STARE AT THE BOY, A SLEAZY FAT MERCHANT APPROACHES YOU AND SAYS ... 'THAT YOUNG BOY WILL BRING A GOOD PRICE AT ZHENTIL KEEP. I THINK I SHALL BUY HIM.'",
       "direction": "perform the slave merchant consistently: oily, avaricious, cowardly, and unpleasant; retain narrator identity for narration"
     },
@@ -23,7 +23,7 @@
         "por.review.ecl-6.block-1.at-a00d",
         "por.review.ecl-6.block-1.at-a0a0"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a00d-a0a0.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a00d-a0a0.mp3",
       "text": "AFTER YOU DEFEAT THE GUARDS YOU SEE A CROWD HAS FORMED. FROM WITHIN THE CROWD A LARGE MAN IN GLEAMING CHAIN MAIL STEPS OUT. HE SAYS 'THAT WAS AMUSING BUT DO NOT CAUSE ANYMORE TROUBLE!' THE MAN THEN LEAVES AND BEFORE YOU IS THE SLEAZY MERCHANT. HE BEGS FORGIVENESS THEN WIMPERS AWAY.",
       "direction": "perform the slave merchant consistently: oily, avaricious, cowardly, and unpleasant; retain narrator identity for narration"
     },
@@ -34,7 +34,7 @@
         "por.review.ecl-6.block-1.at-a562",
         "por.review.ecl-6.block-1.at-a5fb"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a562-a5fb.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a562-a5fb.mp3",
       "text": "THE SLAVES CHEER YOUR VICTORY. A LARGE GROUP OF BUCCANEERS STANDS IN DISBELIEF. THE BUCCANEERS PART AS A LARGE MAN IN GLEAMING CHAIN MAIL STEPS FORTH. THE SLAVES FALL SILENT. THE CAPTAIN SAYS 'YOU HAVE FOUGHT WELL. YOU MAY RANSOM YOURSELVES OR DIE!' WHAT WILL YOU DO?",
       "direction": "perform the Buccaneer Captain consistently: large, commanding, battle-hardened, and confident; retain narrator identity for attribution"
     },
@@ -45,7 +45,7 @@
         "por.review.ecl-6.block-1.at-ac44",
         "por.review.ecl-6.block-1.at-acca"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-ac44-acca.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-ac44-acca.mp3",
       "text": "YOU ENTER A ROOM WITH FOUR GUARDS IN GLEAMING CHAIN MAIL. AS YOU ENTER, ONE OF THEM GOES THROUGH THE SOUTH DOOR AND RETURNS WITH THE BUCCANEER CAPTAIN. THE CAPTAIN LOOKS YOU OVER AND SAYS 'WHAT DO YOU WANT?'",
       "direction": "perform the Buccaneer Captain consistently: large, commanding, battle-hardened, and confident; retain narrator identity for attribution"
     },
@@ -56,7 +56,7 @@
         "por.review.ecl-6.block-1.at-aedf",
         "por.review.ecl-6.block-1.at-af52"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-aedf-af52.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-aedf-af52.mp3",
       "text": "THE CAPTAIN SAYS 'YOU HAVE MADE A GOOD DEAL.' AFTER TALKING THE CAPTAIN MAKES A MOTION AND THE BOY IS BROUGHT TO YOU. THE CAPTAIN THEN LEAVES THE ROOM AND YOU ARE ESCORTED BACK OUTSIDE.",
       "direction": "perform the Buccaneer Captain consistently: large, commanding, battle-hardened, and confident; retain narrator identity for attribution"
     },
@@ -67,7 +67,7 @@
         "por.review.ecl-6.block-1.at-b39c",
         "por.review.ecl-6.block-1.at-b3f6"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b39c-b3f6-first-release.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b39c-b3f6-first-release.mp3",
       "text": "AS SOON AS YOU OPEN THE GATE THE ANIMALS INSIDE CHARGE OUT. THEY STAMPEDE ACROSS THE COMPOUND. THERE IS MASS CONFUSION AS THE ANIMALS RUN AROUND THE COMPOUND. GUARDS ARE LEAVING THEIR POSTS IN ORDER TO CONTROL THE ANIMALS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -77,7 +77,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b39c"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b39c-already-released.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b39c-already-released.mp3",
       "text": "AS SOON AS YOU OPEN THE GATE THE ANIMALS INSIDE CHARGE OUT. THEY STAMPEDE ACROSS THE COMPOUND.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -87,7 +87,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-997c"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-997c.mp3",
       "text": "ANIMALS ARE RUNNING ALL OVER THE COMPOUND.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -97,7 +97,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-9a3c"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-9a3c.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-9a3c.mp3",
       "text": "THE ANIMALS HAVE BEEN CAPTURED.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -107,7 +107,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-9ad7"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-9ad7.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-9ad7.mp3",
       "text": "SOME OF THE GUARDS SPOT YOU WITH THE BOY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -117,7 +117,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-9b1a"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-9b1a.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-9b1a.mp3",
       "text": "AN ALARM GOES OFF IN THE DISTANCE. YOUR ONLY HOPE IS TO RUN FOR THE FRONT GATE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -127,7 +127,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-9b81"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-9b81.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-9b81.mp3",
       "text": "ANOTHER WAVE OF MEN ATTACK YOU.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -137,7 +137,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-9bcf"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-9bcf.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-9bcf.mp3",
       "text": "YOU ARE JUST INSIDE THE MAIN GATE OF THE BUCCANEER'S BASE. YOU ARE BEING TAKEN TO THE CENTER OF THE BASE WHERE THE MERCHANTS MAKE CAMP.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -147,7 +147,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-9ca5"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-9ca5.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-9ca5.mp3",
       "text": "YOU ARE NEAR THE MAIN GATE TO THE COMPOUND. SOME BUCCANEERS STAND GUARD NEAR THE ENTRANCE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -157,7 +157,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-9cee"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-9cee.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-9cee.mp3",
       "text": "YOU ARE AT THE MAIN GATE TO THE COMPOUND.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -167,7 +167,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-9d2f"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-9d2f.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-9d2f.mp3",
       "text": "SOME GUARDS RUSH FOWARD AND ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -177,7 +177,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-9d74"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-9d74.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-9d74.mp3",
       "text": "YOU ARE IN THE MERCHANTS' CAMP AREA.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -187,7 +187,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-9f6f"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-9f6f.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-9f6f.mp3",
       "text": "YOU PUNCH THE MERCHANT IN THE NOSE AND HE FALLS TO THE GROUND, BADLY BLEEDING. THE MERCHANT YELLS FOR HIS GUARDS AND THEY COME RUNNING.",
       "direction": "perform the slave merchant consistently: oily, avaricious, cowardly, and unpleasant; retain narrator identity for narration"
     },
@@ -197,7 +197,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a0f1"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a0f1.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a0f1.mp3",
       "text": "YOU RUN AWAY FROM THE BATTLE BACK TO THE MERCHANT'S AREA. FROM BEHIND YOU HEAR PEOPLE CALLING YOU NAMES LIKE 'PANSY' AND 'WIMP.'",
       "direction": "perform the slave merchant consistently: oily, avaricious, cowardly, and unpleasant; retain narrator identity for narration"
     },
@@ -207,7 +207,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a169"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a169.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a169.mp3",
       "text": "YOU AGREE WITH THE MERCHANT THAT THE YOUNG BOY IS VALUABLE. THE MERCHANT LAUGHS THEN SAYS 'YOU'LL HAVE TO OUTBID ME FOR THE WAIF.' THE SLEAZY MERCHANT THEN WALKS AWAY.",
       "direction": "perform the slave merchant consistently: oily, avaricious, cowardly, and unpleasant; retain narrator identity for narration"
     },
@@ -217,7 +217,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a1ef"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a1ef.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a1ef.mp3",
       "text": "YOU IGNORE THE SLEAZY MERCHANT AND CONCENTRATE ON RESCUING THE BOY.",
       "direction": "perform the slave merchant consistently: oily, avaricious, cowardly, and unpleasant; retain narrator identity for narration"
     },
@@ -227,7 +227,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a27c"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a27c.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a27c.mp3",
       "text": "YOU MOVE THROUGH THE CROWD NONCHALANTLY UNTIL YOU ARE NEAR THE FRONT GATE OF THE SLAVE PEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -237,7 +237,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a2f2"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a2f2.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a2f2.mp3",
       "text": "YOU ARE NEAR THE FRONT GATE TO THE SLAVE PEN. TWO GUARDS GUARD THE DOOR. WHAT WILL YOU DO?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -247,7 +247,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a36e"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a36e.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a36e.mp3",
       "text": "YOU ATTACK THE GUARDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -257,7 +257,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a3b7"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a3b7.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a3b7.mp3",
       "text": "YOU TRY TO RUN FROM THE GUARDS BUT ARE CUT OFF BY NEW ARRIVALS. THE YOUNG BOY IS SLOWING YOU DOWN. IF YOU RUN AGAIN YOU WILL LEAVE HIM BEHIND.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -267,7 +267,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a452"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a452.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a452.mp3",
       "text": "AFTER DEFEATING THE FIRST WAVE OF BUCCANEERS, YOU SEE ANOTHER WAVE FORMING IN THE DISTANCE. WITH A LOUD ROAR THEY ATTACK YOU IN FULL FORCE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -277,7 +277,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a4e8"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a4e8.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a4e8.mp3",
       "text": "AFTER DEFEATING THE LAST, WAVE YOU SEE ANOTHER WAVE ATTACK FROM THE SOUTH OF THE COMPOUND.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -287,7 +287,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a667"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a667.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a667.mp3",
       "text": "THE CAPTAIN SAYS 'YOU HAVE CHOSEN WISELY.' SOME OF THE BUCCANEERS COME FORWARD AND STRIP YOU OF SOME OF YOUR ITEMS AND MONEY. THEY ESCORT YOU OUT OF THE COMPOUND.",
       "direction": "perform the Buccaneer Captain consistently: large, commanding, battle-hardened, and confident; retain narrator identity for attribution"
     },
@@ -297,7 +297,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a6f0"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a6f0.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a6f0.mp3",
       "text": "YOU THROW CAUTION TO THE WIND AND ATTACK. THE CAPTAIN SMILES AND THEN RUSHES TO BATTLE.",
       "direction": "perform the Buccaneer Captain consistently: large, commanding, battle-hardened, and confident; retain narrator identity for attribution"
     },
@@ -307,7 +307,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a75d"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a75d.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a75d.mp3",
       "text": "AFTER DEFEATING THE LAST OF THE BUCCANNEERS THE REST SURRENDER OR FLEE. YOU RESCUE THE SLAVES AND CAPTURE THE FORT.",
       "direction": "perform the Buccaneer Captain consistently: large, commanding, battle-hardened, and confident; retain narrator identity for attribution"
     },
@@ -317,7 +317,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a7d4"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a7d4.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a7d4.mp3",
       "text": "THE LAST OF THE BUCCANNEERS FORM INTO A FINAL WAVE AND ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -327,7 +327,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a811"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a811.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a811.mp3",
       "text": "YOU RUN FROM THE BATTLE AND OUT THE OUTPOST GATE. THE YOUNG BOY COULD NOT KEEP UP AND WAS LEFT BEHIND.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -337,7 +337,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a872"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a872.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a872.mp3",
       "text": "YOU TRY TO SNEAK UP PAST THE GUARDS BUT THEY ARE TOO ALERT. YOU CANNOT GET BY THE GUARDS INTO THE SLAVE PEN. WHAT WILL YOU DO?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -347,7 +347,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a8f9"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a8f9.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a8f9.mp3",
       "text": "YOU ARE JUST OUTSIDE THE SLAVE PEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -357,7 +357,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a93c"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a93c.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a93c.mp3",
       "text": "YOU ARE JUST OUTSIDE THE SLAVE PEN. AMOUNG THE SLAVES IS A YOUNG BOY WITH A HEART-SHAPED BIRTHMARK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -367,7 +367,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a994"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a994.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a994.mp3",
       "text": "YOU ARE JUST OUTSIDE AN UNGUARDED SLAVE PEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -377,7 +377,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-a9bc"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-a9bc.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-a9bc.mp3",
       "text": "AS YOU APPROACH THE CAPTAIN'S QUARTERS THE ELITE GUARDS SOUND AN ALARM AND GUARDS RUSH FORTH AND ATTACK.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -387,7 +387,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-aa4b"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-aa4b.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-aa4b.mp3",
       "text": "STANDING IN FRONT OF THE DOOR ARE TWO LARGE GUARDS. ONE OF THEM SAYS 'DO YOU HAVE A PASS TO SEE THE CAPTAIN?' WHAT WILL YOU DO?",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -397,7 +397,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-aae3"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-aae3.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-aae3.mp3",
       "text": "YOU OFFER THE GUARDS SOME MONEY BUT THEY REFUSE. ONE OF THE GUARDS SAYS 'GET OTTA' HERE YA SCUM'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -407,7 +407,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-ab68"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-ab68.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-ab68.mp3",
       "text": "YOU KILL THE GUARDS BUT ARE CAUGHT DOING IT. A LARGE GROUP OF GUARDS RUN TOWARD YOU AND ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -417,7 +417,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-abc5"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-abc5.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-abc5.mp3",
       "text": "THE GUARDS LOOK AT YOUR PASS AND LET YOU PASS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -427,7 +427,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-abef"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-abef.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-abef.mp3",
       "text": "YOU DO NOT HAVE A PASS TO SHOW THE GUARDS!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -437,7 +437,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-ad28"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-ad28.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-ad28.mp3",
       "text": "YOU DRAW YOUR WEAPONS AND ATTACK. THE CAPTAIN DRAWS HIS SWORD AND YELLS FOR HIS GUARDS TO ATTACK!",
       "direction": "perform the Buccaneer Captain consistently: large, commanding, battle-hardened, and confident; retain narrator identity for attribution"
     },
@@ -447,7 +447,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-ad96"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-ad96.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-ad96.mp3",
       "text": "YOU KILL THE CAPTAIN.",
       "direction": "perform the Buccaneer Captain consistently: large, commanding, battle-hardened, and confident; retain narrator identity for attribution"
     },
@@ -457,7 +457,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-adc9"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-adc9.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-adc9.mp3",
       "text": "YOU HAVE RUN OUTSIDE THE CAPTAINS QUARTERS. AN ALARM GOES OFF IN THE DISTANCE. YOU SEE A LARGE GROUP OF ANGRY BUCCANEERS CHARGING TOWARD YOU!",
       "direction": "perform the Buccaneer Captain consistently: large, commanding, battle-hardened, and confident; retain narrator identity for attribution"
     },
@@ -467,7 +467,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-ae3c"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-ae3c.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-ae3c.mp3",
       "text": "YOU MENTION THE YOUNG BOY IN THE SLAVE PEN AND THE CAPTAIN SEEMS INTERESTED. HE SAYS 'I CAN LET YOU BUY THE YOUNG BOY BUT IT WILL COST YOU ALOT!' WHAT WILL YOU DO?",
       "direction": "perform the Buccaneer Captain consistently: large, commanding, battle-hardened, and confident; retain narrator identity for attribution"
     },
@@ -477,7 +477,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-afc5"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-afc5.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-afc5.mp3",
       "text": "THERE IS A SEEDY LITTLE MAN HERE WHO WHISPERS 'PSSST, BUDDY. WANT TO BUY A PASS TO SEE THE CAPTAIN?'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -487,7 +487,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b034"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b034.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b034.mp3",
       "text": "YOU BUY THE PASS. THE SEEDY LITTLE MAN DISAPPEARS AROUND A CORNER.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -497,7 +497,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b0b1"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b0b1.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b0b1.mp3",
       "text": "YOU HAVE ENTERED ONE OF THE GUARD TOWERS. INSIDE ARE FOUR BUCCANEERS. ONE OF THEM SAYS 'THIS IS A RESTRICTED AREA, LEAVE NOW!' WHAT WILL YOU DO?",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -507,7 +507,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b142"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b142.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b142.mp3",
       "text": "THE TOWER GUARDS ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -517,7 +517,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b15b"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b15b.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b15b.mp3",
       "text": "YOU ATTACK THE TOWER GUARDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -527,7 +527,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b1b4"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b1b4.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b1b4.mp3",
       "text": "YOU ENTER A BARRACKS FILED WITH TWENTY BUCCANEERS. ONE OF THE BUCCANEERS SAYS 'THIS AREA IS OFF LIMITS. LEAVE NOW.' WHAT WILL YOU DO?",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -537,7 +537,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b23c"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b23c.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b23c.mp3",
       "text": "THE GUARDS IN THE BARRACKS ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -547,7 +547,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b25d"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b25d.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b25d.mp3",
       "text": "YOU ATTACK THE BUCCANEERS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -557,7 +557,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b292"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b292.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b292.mp3",
       "text": "YOU ENTER AN EMPTY BARRACKS. IT SEEMS MOST OF THE MEN ARE OUTSIDE CHASING THE ANIMALS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -567,7 +567,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b2db"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b2db.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b2db.mp3",
       "text": "YOU ARE NEAR A DENSLY PACKED ANIMAL PEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -577,7 +577,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b300"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b300.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b300.mp3",
       "text": "YOU ARE JUST OUTSIDE SOME EMPTY ANIMAL PENS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -587,7 +587,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b333"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b333.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b333.mp3",
       "text": "YOU ARE AT THE GATE TO THE ANIMAL PENS. THE ANIMALS ARE RESTLESS. WHAT WILL YOU DO?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -597,7 +597,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b463"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b463.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b463.mp3",
       "text": "YOU ARE NEAR AN OPEN DOOR TO THE ANIMAL PENS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -607,7 +607,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b4a2"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b4a2.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b4a2.mp3",
       "text": "YOU ARE NEAR THE GATE TO THE SLAVE PEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -617,7 +617,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b4db"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b4db.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b4db.mp3",
       "text": "YOU ARE IN THE SLAVE PEN. STANDING NEAR YOU IS THE YOUNG BOY. WHAT WILL YOU DO?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -627,7 +627,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b53b"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b53b.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b53b.mp3",
       "text": "YOU TAKE THE YOUNG BOY AND LEAVE. THE OTHER SLAVES ALSO RUN OUT THE SLAVE PEN.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -637,7 +637,7 @@
       "coveredSourceIds": [
         "por.review.ecl-6.block-1.at-b664"
       ],
-      "output": "../por-assets/voices/narration/ecl6/block-1/ecl6-b1-b664.mp3",
+      "output": "audio/voices/narration/ecl6/block-1/ecl6-b1-b664.mp3",
       "text": "A GUARD COMES BY AND SAYS 'IF YOU WISH TO CAMP, GO TO THE MERCHANTS AREA!'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     }

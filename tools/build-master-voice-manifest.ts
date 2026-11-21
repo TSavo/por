@@ -127,9 +127,9 @@ const addUnit = (archive: string, unit: ReviewUnit) => {
     text: item.text,
     direction: item.direction,
     model: "eleven_v4",
-    asset: item.output.replace(/^\.\.\/por-assets\//, "")
+    asset: item.output.replace(/^audio\//, "")
   }));
-  const asset = unit.asset ?? queued?.output.replace(/^\.\.\/por-assets\//, "");
+  const asset = unit.asset ?? queued?.output.replace(/^audio\//, "");
   const sourceParts = unit.rawSourceTexts ?? unit.sourceTextParts ?? unit.sourceTexts ?? unit.coveredSourceIds.map(sourceId => {
     const event = extractionById.get(sourceId)!;
     return { sourceId, rawText: event.rawLiteralText, outputParts: event.outputParts, sourceDigest: event.sourceDigest };

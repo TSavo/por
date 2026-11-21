@@ -169,7 +169,7 @@ for (const block of [9, 15, 20]) {
     id: unit.id,
     triggerSourceId: unit.triggerSourceId,
     coveredSourceIds: unit.coveredSourceIds,
-    output: `../por-assets/voices/narration/ecl2/block-${block}/${unit.id}.mp3`,
+    output: `audio/voices/narration/ecl2/block-${block}/${unit.id}.mp3`,
     text: unit.spokenText,
     direction: unit.direction
   }));

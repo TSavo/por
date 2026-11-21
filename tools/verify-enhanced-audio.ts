@@ -38,7 +38,7 @@ for (const effect of plan.effects) {
     original.enhancedStatus ?? ""));
 }
 
-const directory = resolve(process.env.POR_ENHANCED_AUDIO_DIR ?? "../por-assets/enhanced");
+const directory = resolve(process.env.POR_ENHANCED_AUDIO_DIR ?? "audio/enhanced");
 const present = plan.effects.filter(({ file }) => existsSync(resolve(directory, file)));
 for (const effect of plan.effects) {
   const original = reachableEffects.find(({ index }) => index === effect.index)!;

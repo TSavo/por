@@ -10,7 +10,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-9b71"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-9b71.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-9b71.mp3",
       "text": "YOU FIND A RUINED CASTLE SURROUNDED BY QUICKSAND. AN OLD WORN DRAWBRIDGE IS THE ONLY SAFE WAY ACROSS THE QUAGMIRE. WILL YOU ENTER THE RUINED CASTLE?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -20,7 +20,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-9c29"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-9c29.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-9c29.mp3",
       "text": "A SCREAMING HORDE OF KOBOLDS ATTACKS THE PARTY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -30,7 +30,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-9c89"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-9c89.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-9c89.mp3",
       "text": "YOU FIND TWO CAVES; A SMALL, WELL-HIDDEN CAVE AND A LARGER, MORE OBVIOUS CAVE. WHAT CAVE WILL YOU ENTER?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -40,7 +40,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-9d03"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-9d03.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-9d03.mp3",
       "text": "YOU SEE A SMALL GROUP OF KOBOLDS ENTERING A SMALL, CONCEALED CAVE. A LARGER, MORE NOTICEABLE CAVE LIES JUST EAST OF THE SMALL HIDDEN, CAVE. WHAT CAVE WILL YOU ENTER?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -50,7 +50,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-9de7"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-9de7.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-9de7.mp3",
       "text": "THERE IS A BOAT DOCKED HERE THAT WILL RETURN YOU TO THE CIVILIZED SECTION OF PHLAN. WILL YOU TAKE IT?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -60,7 +60,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a20d"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a20d.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a20d.mp3",
       "text": "YOU HAVE FOUND A SMALL, DARK CAVE. WILL YOU ENTER?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -70,7 +70,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a341"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a341.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a341.mp3",
       "text": "LYING HERE ARE THE PARTIALLY EATEN REMAINS OF A HALFING.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -80,7 +80,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a37e"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a37e.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a37e.mp3",
       "text": "YOU HAVE FOUND THE WYVERN'S TREASURE!",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -90,7 +90,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a3d2"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a3d2.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a3d2.mp3",
       "text": "YOU HAVE STUMBLED ACROSS A FEROCIOUS WYVERN. IT CHARGES AND ATTACKS!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -100,7 +100,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a457"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a457.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a457.mp3",
       "text": "A TERRIBLE WYVERN CHARGES TO ATTACK THE PARTY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -110,7 +110,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a4cb"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a4cb.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a4cb.mp3",
       "text": "FOUR GIANT LIZARDS RUN UP AND ATTACK THE PARTY!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -120,7 +120,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a516"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a516.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a516.mp3",
       "text": "THIS ROOM IS FILLED WITH HUMAN BONES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -130,7 +130,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a549"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a549.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a549.mp3",
       "text": "YOU ENTER A CHAMBER WITH FOUR GIANT LIZARDS AND TWO MINOTAURS. THE MINOTAURS ORDER THE LIZARDS TO ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -140,7 +140,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a5d2"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a5d2.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a5d2.mp3",
       "text": "YOU HAVE FOUND SOME TREASURE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -150,7 +150,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a61d"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a61d.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a61d.mp3",
       "text": "GUARDING THIS CHAMBER ARE TWO GIANT LIZARDS. AS YOU APPROACH, THEY ATTACK.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -160,7 +160,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a694"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a694.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a694.mp3",
       "text": "YOU ARE ATTACKED BY SOME GNOLLS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -170,7 +170,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a6da"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a6da.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a6da.mp3",
       "text": "IN THIS ROOM ARE THE HORRID REMAINS OF SOME ELVES.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -180,7 +180,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a717"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a717.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a717.mp3",
       "text": "IN THIS ROOM ARE SOME GNOLLS AND TROLLS. THEY ATTACK YOU IMMEDIATELY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -190,7 +190,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a79d"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a79d.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a79d.mp3",
       "text": "YOU ARE ATTACKED BY A GROUP OF MAD KOBOLDS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -200,7 +200,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-27.at-a7f7"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-27/ecl8-b27-a7f7.mp3",
+      "output": "audio/voices/narration/ecl8/block-27/ecl8-b27-a7f7.mp3",
       "text": "YOU FIND A PASSAGEWAY GOING OUT. WHAT WILL YOU DO?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     }

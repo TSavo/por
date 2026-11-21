@@ -12,7 +12,7 @@
         "por.review.ecl-8.block-29.at-9b07",
         "por.review.ecl-8.block-29.at-9b44"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-9b25-9b07-9b44-south.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-9b25-9b07-9b44-south.mp3",
       "text": "YOU ARE JUST SOUTH OF KUTO'S WELL.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -24,7 +24,7 @@
         "por.review.ecl-8.block-29.at-9b0f",
         "por.review.ecl-8.block-29.at-9b44"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-9b25-9b0f-9b44-west.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-9b25-9b0f-9b44-west.mp3",
       "text": "YOU ARE JUST WEST OF KUTO'S WELL.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -36,7 +36,7 @@
         "por.review.ecl-8.block-29.at-9b16",
         "por.review.ecl-8.block-29.at-9b44"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-9b25-9b16-9b44-north.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-9b25-9b16-9b44-north.mp3",
       "text": "YOU ARE JUST NORTH OF KUTO'S WELL.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -48,7 +48,7 @@
         "por.review.ecl-8.block-29.at-9b1e",
         "por.review.ecl-8.block-29.at-9b44"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-9b25-9b1e-9b44-east.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-9b25-9b1e-9b44-east.mp3",
       "text": "YOU ARE JUST EAST OF KUTO'S WELL.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -59,7 +59,7 @@
         "por.review.ecl-8.block-29.at-9e54",
         "por.review.ecl-8.block-29.at-9eb2"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-9e54-9eb2.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-9e54-9eb2.mp3",
       "text": "YOU HAVE DEFEATED THE DREADED BANDIT GANG AND RID PHLAN OF A GREAT EVIL. THE HONEST SETTLERS WILL CHEER YOUR DEEDS! YOU HAVE ALSO TAKEN POSSESSION OF A HIDEOUT IN WHICH YOU MAY REST UNDISTURBED FROM THE RIGORS OF YOUR QUESTING.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -70,7 +70,7 @@
         "por.review.ecl-8.block-29.at-a773",
         "por.review.ecl-8.block-29.at-a80e"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a773-a80e.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a773-a80e.mp3",
       "text": "THE KOBOLDS FAWN ON YOU PATHETICALLY. 'PLEASE, OH PLEASE NOBLE ONES, DON'T HURT US,' THEY BEG. 'WE WERE SENT ON A SCOUTING MISSION BY OUR KING. RUMORS OF A WONDROUS POOL CAME TO HIM IN HIS LAIR. WE ARE ALL THAT REMAINS OF THE MIGHTY BAND THAT WAS SENT WEST TO TEST THE TALES. WE MEAN YOU NO HARM. WE ONLY SEEK TO RETURN TO OUR FAMILIES.'",
       "direction": "perform the sickly kobold scouts as a frightened, pleading group; retain narrator identity for narration"
     },
@@ -80,7 +80,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a8be"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a8be.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a8be.mp3",
       "text": "THE KOBOLDS COLLAPSE INTO A PATHETIC, MEWING HEAP. 'PLEASE, OH PLEASE DON'T HURT US,' THEY WAIL. 'WE KNOW NOTHING. WE ARE POOR LOST SOULS LOOKING FOR OUR HOMES.'",
       "direction": "perform the sickly kobold scouts as a frightened, pleading group; retain narrator identity for narration"
     },
@@ -91,7 +91,7 @@
         "por.review.ecl-8.block-29.at-aaff",
         "por.review.ecl-8.block-29.at-ab8a"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-aaff-ab8a.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-aaff-ab8a.mp3",
       "text": "A WIDE-EYED WOMAN IS SEATED ON A RUG. AT YOUR ENTRY, SHE STANDS. 'GREETINGS BOLD ONES, I HAVE LONG AWAITED YOUR COMING. MY TIME HERE IS SHORT FOR THE WORLD ENTERS A NEW AGE. AN EVIL SPIRIT FROM AN UNHOLY POOL GUIDES YOUR ENEMIES. IT HIDES BEHIND A FAIR COUNTENANCE. BE NOT DECEIVED.' WITH THAT, THE WOMAN IS GONE.",
       "direction": "perform the prophetic woman as solemn, urgent, and otherworldly; retain narrator identity for narration"
     },
@@ -101,7 +101,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-9acc"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-9acc.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-9acc.mp3",
       "text": "BEFORE YOU LIES KUTO'S WELL. IT IS A SOURCE OF WATER IN ALL SEASONS.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -111,7 +111,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-9b7c"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-9b7c.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-9b7c.mp3",
       "text": "A RAIN OF ARROWS POURS OVER YOU.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -121,7 +121,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-9d34"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-9d34.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-9d34.mp3",
       "text": "YOU ARE SURROUNDED BY THE BANDIT BAND OF THE INFAMOUS NORRIS THE GRAY. 'YOU DARE TO INVADE MY HALLS?', HE SNARLS. 'SURRENDER OR DIE!'",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -131,7 +131,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-9e08"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-9e08.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-9e08.mp3",
       "text": "ON THE LEADER'S BODY, YOU FIND A CURIOUS MESSAGE THAT YOU PLACE IN YOUR JOURNAL AS ENTRY 50.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -141,7 +141,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-9f1b"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-9f1b.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-9f1b.mp3",
       "text": "YOU ARE STRIPPED OF ALL VALUABLES AND BLINDFOLDED. THE BANDITS RELEASE YOU SOMEWHERE ABOVE GROUND.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -151,7 +151,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-9fa6"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-9fa6.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-9fa6.mp3",
       "text": "YOU HAVE FOUND THE BANDIT'S TREASURE. DO YOU TAKE IT?",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -161,7 +161,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-9fd6"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-9fd6.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-9fd6.mp3",
       "text": "YOU GRAB THE LOOT.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -171,7 +171,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a018"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a018.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a018.mp3",
       "text": "YOU PASS INTO HIDDEN CATACOMBS. THIS LARGE ROOM IS DIMLY LIT BY SPUTTERING TORCHES. THROUGH THE SMOKE YOU SEE CURTAINS HUNG TO COVER DOORWAYS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -181,7 +181,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a0ae"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a0ae.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a0ae.mp3",
       "text": "SOME MOVEMENT OCCURS IN THE ROOM'S FAR CORNER AND THEN A VOLLEY OF ARROWS TEARS INTO THE GROUP.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -191,7 +191,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a173"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a173.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a173.mp3",
       "text": "THROUGH THE SMOKE AND DARKNESS, A DIMLY SEEN FIGURE FIRES AN ARROW INTO THE PARTY. THE FIGURE FADES AWAY.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -201,7 +201,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a1da"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a1da.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a1da.mp3",
       "text": "JUST ABOVE THE WATERLINE, A SECRET DOOR HAS BEEN LEFT AJAR IN THE SOUTH WALL OF THE WELL. DO YOU WANT TO CLIMB UP THE RUNGS?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -211,7 +211,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a245"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a245.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a245.mp3",
       "text": "YOU MAKE THE LONG, ARDUOUS CLIMB UP THE WELL.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -221,7 +221,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a2ab"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a2ab.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a2ab.mp3",
       "text": "YOU STUMBLE ON SOME WAITING KOBOLDS!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -231,7 +231,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a2e9"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a2e9.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a2e9.mp3",
       "text": "MONSTERS FROM THE SURROUNDING BUILDINGS ATTACK YOU.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -241,7 +241,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a355"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a355.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a355.mp3",
       "text": "A BAND OF KOBOLDS CLIMBS FROM THE WELL AND ATTACKS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -251,7 +251,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a380"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a380.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a380.mp3",
       "text": "A BAND OF KOBOLDS CLIMBS FROM THE WELL BEHIND YOU AND ATTACKS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -261,7 +261,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a687"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a687.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a687.mp3",
       "text": "YOU SPOT A SMALL BAND OF SICKLY KOBOLDS CAREFULLY PICKING ITS WAY THROUGH THE RUBBLE. WHEN THEY SPOT YOU, THEY STOP AND STARE IN SURPRISE.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -271,7 +271,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a6f7"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a6f7-operand-9.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a6f7-operand-9.mp3",
       "text": "THE KOBOLDS ARE TRYING TO SNEAK OFF.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -281,7 +281,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a972"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a972.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a972.mp3",
       "text": "THE KOBOLDS SCAMPER QUICKLY AWAY. JUST BEFORE PASSING OUT OF SIGHT, ONE TURNS AND RAISES HIS HAND IN A GESTURE, AS IF TO WAVE FAREWELL.",
       "direction": "perform the sickly kobold scouts as a frightened, pleading group; retain narrator identity for narration"
     },
@@ -291,7 +291,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-a9f7"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-a9f7.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-a9f7.mp3",
       "text": "A LIZARDMAN LEADS A PACK OF GIANT LIZARDS ON PATROL BEFORE A DOOR THAT HAS BEEN NAILED CLOSED. SEEING YOU, THE MONSTERS ATTACK!",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -301,7 +301,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-aa9c"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-aa9c.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-aa9c.mp3",
       "text": "THE DOOR HAS BEEN NAILED SHUT. WILL YOU FORCE IT OPEN?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -311,7 +311,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-aacd"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-aacd.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-aacd.mp3",
       "text": "THE DOOR IS FREED.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -321,7 +321,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-ac16"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-ac16.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-ac16.mp3",
       "text": "BENEATH A RUG YOU FIND A COMPARTMENT CONTAINING ARMS AND ARMOR. DO YOU TAKE THEM?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -331,7 +331,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-ad96"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-ad96.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-ad96.mp3",
       "text": "'WE HAVE TO KEEP THIS AREA FREE OF INTRUDERS -- BOSS'S ORDERS. WE'LL LET YOU GO THIS TIME. BUT IF YOU COME BACK, YOU'LL FACE BIG TROUBLE.' THE MONSTERS LEAVE.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     },
@@ -341,7 +341,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-ae4a"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-ae4a.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-ae4a.mp3",
       "text": "RUNGS ARE SET IN THE SIDES OF THE WELL WALL. DO YOU WANT TO CLIMB DOWN?",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -351,7 +351,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-ae8d"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-ae8d.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-ae8d.mp3",
       "text": "YOU SLOWLY CLIMB DOWN THE SLIPPERY RUNGS.",
       "direction": "measured, expressive fantasy narration appropriate to the scene"
     },
@@ -361,7 +361,7 @@
       "coveredSourceIds": [
         "por.review.ecl-8.block-29.at-aece"
       ],
-      "output": "../por-assets/voices/narration/ecl8/block-29/ecl8-b29-aece.mp3",
+      "output": "audio/voices/narration/ecl8/block-29/ecl8-b29-aece.mp3",
       "text": "YOU WANDER IN THE PLAZA NEAR KUTO'S WELL.",
       "direction": "expressive fantasy narration; perform quoted dialogue distinctly while remaining the same narrator"
     }

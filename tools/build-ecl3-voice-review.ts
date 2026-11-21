@@ -145,7 +145,7 @@ for (let index = 0; index < eligible.length; index += chunkSize) {
     unitId: unit.id,
     triggerSourceId: unit.triggerSourceId,
     coveredSourceIds: unit.coveredSourceIds,
-    output: `../por-assets/voices/narration/ecl3/${String(unit.id).replace("por.voice.ecl3.", "")}.mp3`,
+    output: `audio/voices/narration/ecl3/${String(unit.id).replace("por.voice.ecl3.", "")}.mp3`,
     text: unit.spokenText,
     direction: unit.direction
   })) };

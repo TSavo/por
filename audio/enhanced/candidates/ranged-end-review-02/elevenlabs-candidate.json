@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "ranged-end-review-02",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.ranged-end",
+      "index": 12,
+      "file": "por-ranged-end-ranged-end-review-02.wav",
+      "intendedMasterFile": "por-ranged-end.wav",
+      "prompt": "One loud arrow striking a wooden target.",
+      "promptSha256": "14b8be7eae9a8485712654678d0d09df2e0566d5f1257322262c3281f4ca05ae",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.9,
+      "requestedSeconds": 0.5,
+      "returnedSeconds": 0.96,
+      "referenceSeconds": 0.3,
+      "characterCost": "6",
+      "generatedAt": "2026-11-19T01:44:02.365Z",
+      "sha256": "1645a37f296430452e9ba7974fdc8672d1dddd8b311064a1026e10a8ac00ab7f"
+    }
+  ]
+}

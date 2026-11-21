@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "step-review-04",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.step",
+      "index": 10,
+      "file": "por-step-step-review-04.wav",
+      "intendedMasterFile": "por-step.wav",
+      "prompt": "One loud, unmistakable boot footstep on stone: a hard leather sole hits the floor in one sharp, weighty clack. Isolated single impact, no walking sequence.",
+      "promptSha256": "b8b4f419bd0cee9553dce5b2a4adf12d5956d1c43d222f84596da44da7188def",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.55,
+      "requestedSeconds": 0.5,
+      "returnedSeconds": 0.96,
+      "referenceSeconds": 0.16,
+      "characterCost": "6",
+      "generatedAt": "2026-11-18T23:49:54.481Z",
+      "sha256": "acff41b16dfef86574b74175e05fff36c4b93e17786f2f077df82e322515dae4"
+    }
+  ]
+}

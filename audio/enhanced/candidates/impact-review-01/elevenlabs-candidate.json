@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "impact-review-01",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.impact",
+      "index": 7,
+      "file": "por-impact-impact-review-01.wav",
+      "intendedMasterFile": "por-impact.wav",
+      "prompt": "One solid weapon impact.",
+      "promptSha256": "9bd4946d0089453a855f50bc292c3a84823203ac8522a29e6228c6cc1bf1ee93",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.9,
+      "requestedSeconds": 0.5,
+      "returnedSeconds": 0.96,
+      "referenceSeconds": 0.38,
+      "characterCost": "6",
+      "generatedAt": "2026-11-19T00:23:45.018Z",
+      "sha256": "8b13e9a6b94d4734006bb7d921b6814eac00920d8498eb414ee7752c3f7056cb"
+    }
+  ]
+}

@@ -103,7 +103,7 @@ const review = { schema: 1, archive: "ECL6.DAX", reviewMethod: "manual prose, di
 ], events: classifications, narrationUnits: units };
 writeFileSync(new URL("../src/audio/ecl6-voice-review.json", import.meta.url), `${JSON.stringify(review, null, 2)}\n`);
 for (const block of [1, 19, 25, 28]) {
-  const items = ready.filter(unit => unit.block === block).map(unit => ({ id: unit.id, triggerSourceId: unit.triggerSourceId, coveredSourceIds: unit.coveredSourceIds, output: `../por-assets/voices/narration/ecl6/block-${block}/${unit.id}.mp3`, text: unit.spokenText, direction: unit.direction }));
+  const items = ready.filter(unit => unit.block === block).map(unit => ({ id: unit.id, triggerSourceId: unit.triggerSourceId, coveredSourceIds: unit.coveredSourceIds, output: `audio/voices/narration/ecl6/block-${block}/${unit.id}.mp3`, text: unit.spokenText, direction: unit.direction }));
   writeFileSync(new URL(`../src/audio/ecl6-generation-queue-block-${block}.json`, import.meta.url), `${JSON.stringify({ schema: 1, model: "eleven_v4", archive: "ECL6.DAX", block, items }, null, 2)}\n`);
 }
 console.log(JSON.stringify({ events: classifications.length, units: units.length, ready: ready.length, unresolved: unresolved.length, unclassified: classifications.filter(event => !event.classification).length }, null, 2));

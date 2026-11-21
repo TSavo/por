@@ -211,7 +211,7 @@ const generationItems = variantFamilies.flatMap(([unitId, variants]) => {
       coveredSourceIds,
       condition,
       dynamicValue: value,
-      output: `../por-assets/voices/narration/dynamic-resolved/${unitId.replace(/^por\.voice\./, "").replace(/\./g, "-")}-v${suffix}.mp3`,
+      output: `audio/voices/narration/dynamic-resolved/${unitId.replace(/^por\.voice\./, "").replace(/\./g, "-")}-v${suffix}.mp3`,
       text,
       direction,
       aliases

@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "lightning-review-01",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.lightning",
+      "index": 8,
+      "file": "por-lightning-lightning-review-01.wav",
+      "intendedMasterFile": "por-lightning.wav",
+      "prompt": "One powerful magical lightning strike.",
+      "promptSha256": "2bae4f6fa3169d4bd0ea32911b85ebcf37956d78ef69d885ab8040375f1a9ea7",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.9,
+      "requestedSeconds": 2.62,
+      "returnedSeconds": 5.2,
+      "referenceSeconds": 2.62,
+      "characterCost": "29",
+      "generatedAt": "2026-11-19T01:32:16.964Z",
+      "sha256": "0522d19c0c6a2fc0905db0bb0fce58525c2cb7835cdd9900ee6762d8775f2f7a"
+    }
+  ]
+}

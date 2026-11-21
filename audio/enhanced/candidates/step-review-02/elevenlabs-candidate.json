@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "step-review-02",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.step",
+      "index": 10,
+      "file": "por-step-step-review-02.wav",
+      "intendedMasterFile": "por-step.wav",
+      "prompt": "One clearly recognizable human footstep: the heel of a leather boot strikes a stone floor, immediately followed by the sole planting with a short, solid thump. One step only, close and dry.",
+      "promptSha256": "ec05373c51f67d3c6bc0994dafe647db6ad76a833a5620f1fd53d376be6fcdd9",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.55,
+      "requestedSeconds": 0.5,
+      "returnedSeconds": 0.96,
+      "referenceSeconds": 0.16,
+      "characterCost": "6",
+      "generatedAt": "2026-11-18T23:48:57.974Z",
+      "sha256": "816593f81ba164639a619699a79416c7c8e371287886941e8cb66d0ec5f221e1"
+    }
+  ]
+}

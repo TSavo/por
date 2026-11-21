@@ -14,7 +14,7 @@ const generate = process.argv.includes("--generate");
 const designPath = new URL("../src/audio/narrator-voice-design.json", import.meta.url);
 const design = JSON.parse(readFileSync(designPath, "utf8")) as NarratorDesign;
 const output = resolve(process.argv.find((argument, index) => index > 1 && !argument.startsWith("--")) ??
-  "../por-assets/voices/narrator-anchor.wav");
+  "audio/voices/narrator-anchor.wav");
 console.log(anchorText);
 if (!generate) {
   console.log("Dry run only. Anchor generation requires a selected saved voice, --generate, and ELEVENLABS_API_KEY.");

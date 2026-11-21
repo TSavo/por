@@ -9,7 +9,8 @@ interface QueueItem { id?: string; output: string; text: string }
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const audio = join(root, "src", "audio");
-const assets = resolve(root, "../por-assets");
+const assets = join(root, "audio");
+const classic = resolve(process.env.POR_AUDIO_DIR ?? join(root, "..", "por-assets", "original"));
 const original = JSON.parse(readFileSync(join(audio, "original-sounds.json"), "utf8"));
 const master = JSON.parse(readFileSync(join(audio, "voice-master-manifest.json"), "utf8"));
 const voices = JSON.parse(readFileSync(join(audio, "voices.json"), "utf8"));
@@ -21,9 +22,9 @@ const originalRows = events.map(event => ({
   index: event.index,
   kind: event.kind,
   reachable: reachable.includes(event),
-  pcSpeakerWav: existsSync(join(assets, "original", `pc-speaker-${String(event.index).padStart(2, "0")}.wav`)),
-  tandyVgm: existsSync(join(assets, "original", `tandy-${String(event.index).padStart(2, "0")}.vgm`)),
-  tandyWav: existsSync(join(assets, "original", `tandy-${String(event.index).padStart(2, "0")}.wav`)),
+  pcSpeakerWav: existsSync(join(classic, `pc-speaker-${String(event.index).padStart(2, "0")}.wav`)),
+  tandyVgm: existsSync(join(classic, `tandy-${String(event.index).padStart(2, "0")}.vgm`)),
+  tandyWav: existsSync(join(classic, `tandy-${String(event.index).padStart(2, "0")}.wav`)),
   enhancedReplacement: event.enhancedFile ? existsSync(join(assets, "enhanced", event.enhancedFile)) : false,
   enhancedFallback: !event.enhancedFile,
 }));

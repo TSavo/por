@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "step-review-03",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.step",
+      "index": 10,
+      "file": "por-step-step-review-03.wav",
+      "intendedMasterFile": "por-step.wav",
+      "prompt": "One leather boot lands flat on a stone floor in a single compact impact. Exactly one footfall with one clear transient, close and dry.",
+      "promptSha256": "d7ec89ebef6d8fa4fb3ba121e6333317a3f67e5184d63c1021489fb476d34b30",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.55,
+      "requestedSeconds": 0.5,
+      "returnedSeconds": 0.96,
+      "referenceSeconds": 0.16,
+      "characterCost": "6",
+      "generatedAt": "2026-11-18T23:49:24.006Z",
+      "sha256": "36986a432cb2d8b21fd04156c5a7ddfffc8d21aedace3835af3cfb55ba88832a"
+    }
+  ]
+}

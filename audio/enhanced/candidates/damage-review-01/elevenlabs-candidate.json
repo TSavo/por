@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "damage-review-01",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.damage",
+      "index": 3,
+      "file": "por-damage-damage-review-01.wav",
+      "intendedMasterFile": "por-damage.wav",
+      "prompt": "One short, solid combat hit against leather armor, with a single weighty impact. No weapon swing, voice, echo, or metal ringing.",
+      "promptSha256": "b85b252c2ef57aa74efbb32f62af89d71fce347ca0c9cb544693dc364fe3b9c3",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.9,
+      "requestedSeconds": 0.5,
+      "returnedSeconds": 0.96,
+      "referenceSeconds": 0.34,
+      "characterCost": "6",
+      "generatedAt": "2026-11-18T23:53:03.647Z",
+      "sha256": "eb7699029e189bc80656207b3f7f344cec7ecb5e88313691794cc441225f74d0"
+    }
+  ]
+}

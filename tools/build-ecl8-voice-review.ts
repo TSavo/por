@@ -118,7 +118,7 @@ const review = { schema: 1, archive: "ECL8.DAX", reviewMethod: "manual prose, di
 ], events: classifications, narrationUnits: units };
 writeFileSync(new URL("../src/audio/ecl8-voice-review.json", import.meta.url), `${JSON.stringify(review, null, 2)}\n`);
 for (const block of [13, 16, 27, 29]) {
-  const items = ready.filter(unit => unit.block === block).map(unit => ({ id: unit.id, triggerSourceId: unit.triggerSourceId, coveredSourceIds: unit.coveredSourceIds, output: `../por-assets/voices/narration/ecl8/block-${block}/${unit.id}.mp3`, text: unit.spokenText, direction: unit.direction }));
+  const items = ready.filter(unit => unit.block === block).map(unit => ({ id: unit.id, triggerSourceId: unit.triggerSourceId, coveredSourceIds: unit.coveredSourceIds, output: `audio/voices/narration/ecl8/block-${block}/${unit.id}.mp3`, text: unit.spokenText, direction: unit.direction }));
   writeFileSync(new URL(`../src/audio/ecl8-generation-queue-block-${block}.json`, import.meta.url), `${JSON.stringify({ schema: 1, model: "eleven_v4", archive: "ECL8.DAX", block, items }, null, 2)}\n`);
 }
 const allClassified = classifications.every(event => event.classification);

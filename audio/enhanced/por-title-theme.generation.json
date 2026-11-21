@@ -1,0 +1,62 @@
+{
+  "provider": "ElevenLabs Music",
+  "endpoint": "https://api.elevenlabs.io/v1/music?output_format=mp3_48000_192",
+  "request": {
+    "model_id": "music_v2_5",
+    "composition_plan": {
+      "chunks": [
+        {
+          "text": "[Title Theme]",
+          "duration_ms": 25000,
+          "positive_styles": [
+            "original instrumental medieval fantasy title cue",
+            "intimate chamber orchestra",
+            "D minor",
+            "96 BPM",
+            "4/4",
+            "clear first-beat harp and cello",
+            "memorable French horn melody",
+            "bassoon and violas answer the horn",
+            "stately and mysterious",
+            "each phrase leads toward a definite closing cadence"
+          ],
+          "negative_styles": [
+            "vocals",
+            "choir",
+            "lyrics",
+            "spoken word",
+            "sound effects",
+            "new notes in the final decay",
+            "abrupt ending"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Final Cadence and Decay]",
+          "duration_ms": 5000,
+          "positive_styles": [
+            "brief dominant-to-tonic closing cadence at the start of this section",
+            "final D minor chord by the first second of this section",
+            "instruments release together after the final chord",
+            "hold the natural acoustic room decay for three seconds and end in silence",
+            "one final chord and no new musical phrase",
+            "complete standalone ending"
+          ],
+          "negative_styles": [
+            "vocals",
+            "choir",
+            "lyrics",
+            "spoken word",
+            "sound effects",
+            "new notes in the final decay",
+            "abrupt ending"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    }
+  },
+  "songId": "8oJygpyFHNovCp0LFzop",
+  "sha256": "8c0a2e4c14206b4809632ef803447203f55e395b0391b81b0e3779c87954be72",
+  "bytes": 720620
+}

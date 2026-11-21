@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "step-review-01",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.step",
+      "index": 10,
+      "file": "por-step-step-review-01.wav",
+      "intendedMasterFile": "por-step.wav",
+      "prompt": "One isolated, restrained footstep from a worn leather adventurer's boot landing on dry stone flagging: a compact heel impact, soft sole contact, and a faint scrape of grit. Close and dry, with no room echo, armor jingle, or additional footsteps.",
+      "promptSha256": "edd6b9747b7e2440e7620f1d7ca4ad5a797d08b181d82d3e203570851a6fce00",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.55,
+      "requestedSeconds": 0.5,
+      "returnedSeconds": 0.96,
+      "referenceSeconds": 0.16,
+      "characterCost": "6",
+      "generatedAt": "2026-11-18T23:48:07.342Z",
+      "sha256": "87c52b0261278b621798495591ce8131018b1b7c51fb0972ebd977fa480893f2"
+    }
+  ]
+}

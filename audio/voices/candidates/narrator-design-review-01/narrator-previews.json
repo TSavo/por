@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "batch": "review-01",
+  "status": "awaiting-owner-selection",
+  "endpoint": "https://api.elevenlabs.io/v1/text-to-voice/design?output_format=mp3_44100_128",
+  "model": "eleven_ttv_v3",
+  "voiceDescription": "Native American English. Male, 45–60. Excellent studio quality. Persona: seasoned fantasy storyteller. Emotion: dramatic, mysterious, authoritative, but restrained. A low, resonant baritone with clear diction, measured natural pacing, and warm, controlled intensity. He should carry dark medieval fantasy narration naturally without sounding like a movie-trailer announcer.",
+  "previewText": "This was once the chapel of the keep. Inside the doorway are the dried husks of two orcs, their faces twisted with terror. A large altar dominates the southern wall. The shape speaks, 'I am the life form of Ferran Martinez, bound with the undead spirits of all who die within these walls to guard the keep. Tell me, has the city been freed?'",
+  "parameters": {
+    "guidanceScale": 25,
+    "loudness": 0.5,
+    "seed": null,
+    "previewCount": 3
+  },
+  "generatedAt": "2026-11-19T03:19:50.284Z",
+  "previews": [
+    {
+      "candidate": 1,
+      "file": "narrator-preview-1.mp3",
+      "generatedVoiceId": "qSflafiKdivKcwZJevns",
+      "mediaType": "audio/mpeg",
+      "durationSeconds": 25.237,
+      "language": "en",
+      "sha256": "8ae3592431e0d9675fdbd7b85db9e1be1d6e65dee23ccee6e42b1b8d7fe380ba"
+    },
+    {
+      "candidate": 2,
+      "file": "narrator-preview-2.mp3",
+      "generatedVoiceId": "mJZoYkeU2rTxYus6lbJP",
+      "mediaType": "audio/mpeg",
+      "durationSeconds": 23.80025,
+      "language": "en",
+      "sha256": "723067a609d2dc5f56e98248b687f9f9446e05b27206822824ea37c873904766"
+    },
+    {
+      "candidate": 3,
+      "file": "narrator-preview-3.mp3",
+      "generatedVoiceId": "DBl5OMPvi7giQrGu1UKA",
+      "mediaType": "audio/mpeg",
+      "durationSeconds": 23.4084375,
+      "language": "en",
+      "sha256": "3483982453ae7caa519993b792f4f899fb9881fbe435d3938a441fea2822d1a9"
+    }
+  ]
+}

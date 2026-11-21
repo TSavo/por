@@ -155,7 +155,7 @@ for (let index = 0; index < eligible.length; index += 40) {
   const number = String(index / 40 + 1).padStart(2, "0");
   const queue = { model: "eleven_v4", sourceReview: "src/audio/ecl5-voice-review.json", items: eligible.slice(index, index + 40).map(unit => ({
     unitId: unit.id, triggerSourceId: unit.triggerSourceId, coveredSourceIds: unit.coveredSourceIds,
-    output: `../por-assets/voices/narration/ecl5/${String(unit.id).replace("por.voice.ecl5.", "")}.mp3`, text: unit.spokenText, direction: unit.direction })) };
+    output: `audio/voices/narration/ecl5/${String(unit.id).replace("por.voice.ecl5.", "")}.mp3`, text: unit.spokenText, direction: unit.direction })) };
   writeFileSync(new URL(`../src/audio/ecl5-generation-queue-${number}.json`, import.meta.url), `${JSON.stringify(queue, null, 2)}\n`);
 }
 console.log(JSON.stringify(review.counts));

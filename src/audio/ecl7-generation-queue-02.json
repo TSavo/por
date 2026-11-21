@@ -8,7 +8,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-9e76"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-9e76-operand-9.mp3",
+      "output": "audio/voices/narration/ecl7/b23-9e76-operand-9.mp3",
       "text": "THEY ARE WARY, BUT NOT HOSTILE.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -18,7 +18,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-9e76"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-9e76-operand-10.mp3",
+      "output": "audio/voices/narration/ecl7/b23-9e76-operand-10.mp3",
       "text": "STANDING READY THEIR LEADER SAYS 'YOU MUST BE THE SERVANTS OF YARASH!'",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -28,7 +28,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-9e76"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-9e76-operand-11.mp3",
+      "output": "audio/voices/narration/ecl7/b23-9e76-operand-11.mp3",
       "text": "THEIR LEADER SAYS 'FOUL SERVANTS OF YARASH!'",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -38,7 +38,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a9d6"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a9d6-operand-9.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a9d6-operand-9.mp3",
       "text": "THEY RECOIL IN FEAR",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -48,7 +48,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-9b55"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-9b55.mp3",
+      "output": "audio/voices/narration/ecl7/b17-9b55.mp3",
       "text": "THERE IS NOWHERE LEFT TO RETREAT. YOU MUST FIGHT.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -58,7 +58,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-9df2"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-9df2.mp3",
+      "output": "audio/voices/narration/ecl7/b17-9df2.mp3",
       "text": "THIS DIRECTION WILL TAKE YOU BACK INTO THE WILDERNESS. DO YOU STILL WANT TO GO THIS WAY?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -68,7 +68,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-9f31"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-9f31.mp3",
+      "output": "audio/voices/narration/ecl7/b17-9f31.mp3",
       "text": "YOU TRIP ON A WIRE TO THE ACCOMPANIMENT OF BELLS TINKLING. AFTER A MOMENT THERE IS A COMMOTION AHEAD OF YOU.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -78,7 +78,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-9fb3"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-9fb3.mp3",
+      "output": "audio/voices/narration/ecl7/b17-9fb3.mp3",
       "text": "YOU CHARGE INTO A GROUP OF SCRUFFY LOOKING NOMADS.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -88,7 +88,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-a045"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-a045.mp3",
+      "output": "audio/voices/narration/ecl7/b17-a045.mp3",
       "text": "A GROUP OF NOMADS SPOT YOU. THEY SHOUT AND CHARGE. AS THEY COME CLOSER THEIR NUMBERS SWELL WITH ARRIVALS.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -98,7 +98,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-a0ae"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-a0ae.mp3",
+      "output": "audio/voices/narration/ecl7/b17-a0ae.mp3",
       "text": "THE HEROIC DEATHS OF THOSE YOU HAVE JUST BATTLED HAS BOUGHT TIME FOR THE HEADMAN TO RALLY HIS PEOPLE. WITH A TREMENDOUS CRY HE LEADS HIS TRIBE INTO BATTLE.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -108,7 +108,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-a3a9"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-a3a9.mp3",
+      "output": "audio/voices/narration/ecl7/b17-a3a9.mp3",
       "text": "THE BIGGEST, MEANEST, DIRTIEST NOMAD PUSHES HIS WAY TO THE FRONT OF THE CROWD. FIVE OTHER NOMADS STAND AROUND HIM AS IF TO PROTECT HIM.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -118,7 +118,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-a4af"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-a4af.mp3",
+      "output": "audio/voices/narration/ecl7/b17-a4af.mp3",
       "text": "'THEN YOU MUST LEAVE US,' HE RESPONDS WITH AS MUCH DIGNITY AS HE CAN MUSTER. DO YOU LEAVE?",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -128,7 +128,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-a4ff"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-a4ff.mp3",
+      "output": "audio/voices/narration/ecl7/b17-a4ff.mp3",
       "text": "'YOUR INSULTS ARE TOO MANY! KILL THEM!'",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -138,7 +138,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-a98e"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-a98e.mp3",
+      "output": "audio/voices/narration/ecl7/b17-a98e.mp3",
       "text": "A GUARD APPEARS BEFORE YOU, 'YOU MUST HAVE MADE A MISTAKE. ALLOW ME TO ESCORT YOU TO YOUR LODGING.'",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -148,7 +148,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-ab21"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-ab21.mp3",
+      "output": "audio/voices/narration/ecl7/b17-ab21.mp3",
       "text": "THE HEADMAN COMES TO YOU AND SAYS, 'ABOUT MY REQUEST OF LAST NIGHT, WHAT IS YOUR DECISION?'",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -158,7 +158,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-ab8b"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-ab8b.mp3",
+      "output": "audio/voices/narration/ecl7/b17-ab8b.mp3",
       "text": "LOOKING DISAPPOINTED THE HEADMAN SAYS, 'GOOD LUCK IN YOUR TRAVELS.'",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -168,7 +168,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-abc5"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-abc5.mp3",
+      "output": "audio/voices/narration/ecl7/b17-abc5.mp3",
       "text": "'I AND MY PEOPLE THANK YOU. AND KNOW THAT WE HAVE HONOR. YOU SHALL BE RICHLY REWARDED FOR YOUR GENEROUS AID.'",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -178,7 +178,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-ac1e"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-ac1e.mp3",
+      "output": "audio/voices/narration/ecl7/b17-ac1e.mp3",
       "text": "'YOU MAY WANDER AS YOU WILL OR YOU MAY STAY HERE AND REST AND STUDY. FORGIVE ME, I MUST SEE TO MY PEOPLE.' HE LEAVES.",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -188,7 +188,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-ae6a"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-ae6a.mp3",
+      "output": "audio/voices/narration/ecl7/b17-ae6a.mp3",
       "text": "THE SOUND OF WAR CRIES DRAWS YOU OUT OF THE HUT.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -198,7 +198,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-aed6"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-aed6.mp3",
+      "output": "audio/voices/narration/ecl7/b17-aed6.mp3",
       "text": "A HORDE OF KOBOLDS IS ATTACKING THE CAMP. A LONE SENTRY CHARGES BUT IS QUICKLY CUT DOWN. A FAMILY EMERGES FROM A HUT AND CHARGES THE KOBOLDS.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -208,7 +208,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-afcf"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-afcf.mp3",
+      "output": "audio/voices/narration/ecl7/b17-afcf.mp3",
       "text": "AHEAD YOU SEE A LARGE GROUP OF KOBOLDS ENGAGED IN MELEE WITH SOME NOMADS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -218,7 +218,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-b018"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-b018.mp3",
+      "output": "audio/voices/narration/ecl7/b17-b018.mp3",
       "text": "THE NOMADS SEE YOU AND SHOUT, 'THE FILTHY TRAITORS! GET THEM!' THE KOBOLDS, SEEING AN OPPORTUNITY, JOIN WITH THEM.",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -228,7 +228,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-b30f"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-b30f.mp3",
+      "output": "audio/voices/narration/ecl7/b17-b30f.mp3",
       "text": "'THEN LET US DO IT!'",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -238,7 +238,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-b4a2"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-b4a2.mp3",
+      "output": "audio/voices/narration/ecl7/b17-b4a2.mp3",
       "text": "A HORDE OF KOBOLDS IS ATTACKING THE CAMP.",
       "direction": "Urgent dramatic fantasy narration with clear danger and action"
     },
@@ -248,7 +248,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-b4eb"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-b4eb.mp3",
+      "output": "audio/voices/narration/ecl7/b17-b4eb.mp3",
       "text": "ADVANCING ON YOU IS A LARGE BAND OF KOBOLDS WITH BLOOD LUST IN THEIR EYES.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -258,7 +258,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-b53f"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-b53f.mp3",
+      "output": "audio/voices/narration/ecl7/b17-b53f.mp3",
       "text": "YOU SEE A HUGE GROUP OF KOBOLDS MOVING RELUNCTANTLY FORWARD UNDER THE CURSES OF THEIR LEADER.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -268,7 +268,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-17.at-b5b1"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b17-b5b1.mp3",
+      "output": "audio/voices/narration/ecl7/b17-b5b1.mp3",
       "text": "JUST AS YOU THINK YOURSELVES FREE OF DANGER, THE HEADMAN, HIS SHAMAN AND GUARDS ATTACK WITH CRIES OF 'FOUL TRAITORS!' AT THE SAME TIME KOBOLDS ATTACK.",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -278,7 +278,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-22.at-999c"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b22-999c.mp3",
+      "output": "audio/voices/narration/ecl7/b22-999c.mp3",
       "text": "AS YOU MOVE THROUGH THE ROOM THERE IS A FLASH, AND YOU SUDDENLY FIND YOURSELVES ELSEWHERE.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -288,7 +288,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-22.at-9cca"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b22-9cca.mp3",
+      "output": "audio/voices/narration/ecl7/b22-9cca.mp3",
       "text": "YOU SEE A HUMAN PRIEST.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -298,7 +298,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-22.at-9d7e"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b22-9d7e.mp3",
+      "output": "audio/voices/narration/ecl7/b22-9d7e.mp3",
       "text": "I HAVE A SECRET. I HAVE CHISELED ALMOST ALL THE WAY THROUGH TO THE OUTSIDE. BUT I NO LONGER HAVE THE STRENGTH TO BREAK THROUGH. WILL YOU TRY?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -308,7 +308,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-22.at-9df4"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b22-9df4.mp3",
+      "output": "audio/voices/narration/ecl7/b22-9df4.mp3",
       "text": "YOU BREAK THROUGH. THE PRIEST TEARFULLY THANKS YOU AND GOES THROUGH THE HOLE.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -318,7 +318,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-22.at-9e43"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b22-9e43.mp3",
+      "output": "audio/voices/narration/ecl7/b22-9e43.mp3",
       "text": "THERE IS A HOLE IN THE WALL THAT LEADS TO THE OUTSIDE. DO YOU GO THROUGH IT?",
       "direction": "Clear measured fantasy narration ending with a direct question"
     },
@@ -328,7 +328,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-22.at-9e96"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b22-9e96.mp3",
+      "output": "audio/voices/narration/ecl7/b22-9e96.mp3",
       "text": "PEACE BROTHER. YOU, TOO, ARE ONE OF MY FLOCK. I HAVE BUT RECENTLY PRAYED FOR ANOTHER OF MY FLOCK AND MAY PRAY NO MORE.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -338,7 +338,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-22.at-a0e6"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b22-a0e6.mp3",
+      "output": "audio/voices/narration/ecl7/b22-a0e6.mp3",
       "text": "YOU THROW A ROCK. SUDDENLY IT DISAPPEARS WITH A FLASH!",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -348,7 +348,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-999c"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-999c.mp3",
+      "output": "audio/voices/narration/ecl7/b23-999c.mp3",
       "text": "AS YOU MOVE THROUGH THE ROOM THERE IS A FLASH AND YOU SUDDENLY FIND YOURSELF ELSEWHERE.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -358,7 +358,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-9d76"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-9d76.mp3",
+      "output": "audio/voices/narration/ecl7/b23-9d76.mp3",
       "text": "YOU THROW A ROCK. SUDDENLY IT DISAPPEARS WITH A FLASH!",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -368,7 +368,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-9e31"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-9e31.mp3",
+      "output": "audio/voices/narration/ecl7/b23-9e31.mp3",
       "text": "YOU SEE A GROUP OF FIVE LIZARD MEN. THEY HISS AT YOU.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     },
@@ -378,7 +378,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-9f3f"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-9f3f.mp3",
+      "output": "audio/voices/narration/ecl7/b23-9f3f.mp3",
       "text": "'SINCE YOU ARE NOT THE SERVANTS OF YARASH, WE WILL NOT KILL YOU. THE ENEMY OF MY ENEMY IS NOT MY ENEMY!'",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -388,7 +388,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-9f94"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-9f94.mp3",
+      "output": "audio/voices/narration/ecl7/b23-9f94.mp3",
       "text": "'MUTILATING SCUM! WE WILL DIE BEFORE WE LET YOU TWIST US AS YOU HAVE OUR OTHER PEOPLE! BUT YOU WILL DIE FIRST!'",
       "direction": "Expressive fantasy narration with a distinct same-narrator character performance for quoted speech"
     },
@@ -398,7 +398,7 @@
       "coveredSourceIds": [
         "por.review.ecl-7.block-23.at-a01e"
       ],
-      "output": "../por-assets/voices/narration/ecl7/b23-a01e.mp3",
+      "output": "audio/voices/narration/ecl7/b23-a01e.mp3",
       "text": "YOU HAVE ENTERED A ROOM FILLED WITH A HORRIBLE ASSORTMENT OF TORTURE INSTUMENTS. IN THE CENTER IS A LARGE TABLE WITH METAL RESTRAINTS.",
       "direction": "Measured expressive fantasy narration appropriate to the scene"
     }

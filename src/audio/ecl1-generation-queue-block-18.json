@@ -8,7 +8,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9c54"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9c54.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9c54.mp3",
       "text": "THEY YELL 'SETTLERS! KILL THEM!'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -18,7 +18,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9c85"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9c85.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9c85.mp3",
       "text": "'OH, YOU'RE HERE FOR THE BOSS.'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -28,7 +28,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9cba"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9cba.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9cba.mp3",
       "text": "THEY GRUMBLE AND MOVE ON.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -38,7 +38,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9d37"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9d37.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9d37.mp3",
       "text": "YOUR PARTY SLIPS PAST THEM.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -48,7 +48,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9d53"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9d53.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9d53.mp3",
       "text": "YOU STOP, AND THEY MOVE ON.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -58,7 +58,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9e23"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9e23.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9e23.mp3",
       "text": "THE PARTY RUNS AND ESCAPES.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -68,7 +68,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9e82"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9e82.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9e82.mp3",
       "text": "YOUR COVER IS BLOWN.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -78,7 +78,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9ef8"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9ef8.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9ef8.mp3",
       "text": "'WE'LL LET YOU OFF THIS TIME.' THE MONSTERS SCUTTLE AWAY.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -88,7 +88,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9f35"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9f35.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9f35.mp3",
       "text": "'MOVE IT, TROLL-BAIT!' THEY SNARL AND MOVE OFF.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -98,7 +98,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9f60"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9f60.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9f60.mp3",
       "text": "'WE'RE GONNA HAVE TA TEACH YOU A LESSON!'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -108,7 +108,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a2b4"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a2b4.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a2b4.mp3",
       "text": "THE AUCTIONEER CRIES 'CREATURES OF ALL AGES, WELCOME TO THIS AUCTION FOR AN ITEM BOTH MAGICAL AND POWERFUL!'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -118,7 +118,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a30c"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a30c.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a30c.mp3",
       "text": "THE AUCTIONEER HAS EITHER A WAND OR STAFF.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -128,7 +128,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a38a"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a38a.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a38a.mp3",
       "text": "THE BIDDING ESCALATES TO 5,000 GOLD PIECES -- HIGH BID FROM A MAN IN PLAIN CLOTHES, NEXT TO AN OGRE.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -138,7 +138,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a459"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a459.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a459.mp3",
       "text": "THE MAN THEN SPEAKS A WORD AND THE AUCTIONEER'S BLOCK IS ENVELOPED IN DARKNESS.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -148,7 +148,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a49c"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a49c.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a49c.mp3",
       "text": "THERE IS MASS CONFUSION. SUDDENLY, THE OGRE SPRINTS FROM THE DARKNESS.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -158,7 +158,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a52d"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a52d.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a52d.mp3",
       "text": "THE OGRE IS TACKLED AND SEARCHED. HE DOESN'T HAVE THE ITEM ON HIM.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -168,7 +168,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a5c0"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a5c0.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a5c0.mp3",
       "text": "'GARWIN, I'LL GET YOU!' CRIES THE AUCTIONEER. HOWEVER, THE MAN HAS ESCAPED IN THE CONFUSION.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -178,7 +178,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a60c"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a60c.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a60c.mp3",
       "text": "'GOING... GOING... GONE!' THE AUCTIONEER CRIES.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -188,7 +188,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a637"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a637.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a637.mp3",
       "text": "A MAN AND OGRE EXCHANGE THE WAND AND A LARGE BAG, THEN DISAPPEAR INTO THE CROWD.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -198,7 +198,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a6b4"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a6b4.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a6b4.mp3",
       "text": "THE AUCTION ENDS. YOU DON'T SEE WHO BOUGHT THE ITEM.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -208,7 +208,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a713"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a713.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a713.mp3",
       "text": "YOU NOW SEE THE WAND ISN'T A MAJOR ARTIFACT, IT'S ONLY A WAND OF FEAR!",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -218,7 +218,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a761"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a761.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a761.mp3",
       "text": "'IT'S A WAND OF ILLUMINATION. WHO CARES, I SEE IN THE DARK ANYWAY!'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -228,7 +228,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a79f"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a79f.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a79f.mp3",
       "text": "'IT'S A STAFF OF COMMAND. I COULD HAVE MY OWN ARMY!'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -238,7 +238,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a7f0"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a7f0.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a7f0.mp3",
       "text": "'THE AUCTION IS CANCELLED!' YELLS THE AUCTIONEER AS HE FLEES.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -248,7 +248,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a839"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a839.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a839.mp3",
       "text": "THE AUCTION OVER, THE MONSTERS GRUMBLE AND TURN AWAY.'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -258,7 +258,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a9ac"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a9ac.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a9ac.mp3",
       "text": "THAT ONE IS UNACCEPTABLE. CHOOSE ANOTHER.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -268,7 +268,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a9f0"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a9f0.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a9f0.mp3",
       "text": "THE BATTLE IS OVER, THE PATRONS RETURN TO DRINKING.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -278,7 +278,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-aa28"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-aa28.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-aa28.mp3",
       "text": "THE BUCCANEER SMILES.'THAT IS SUFFICIENT PAYMENT.' HE LEAVES.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -288,7 +288,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-aa6a"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-aa6a.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-aa6a.mp3",
       "text": "YOUR ACTIONS ANGER THE PATRONS AND THEY ATTACK.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -298,7 +298,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-aad0"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-aad0.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-aad0.mp3",
       "text": "'A TENTH OF YOUR MONEY THEN.'DO YOU ACCEPT?",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -308,7 +308,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-ab2c"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-ab2c.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-ab2c.mp3",
       "text": "THE CREATURES IGNORE YOU FOR THE MOMENT.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -318,7 +318,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-abb5"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-abb5.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-abb5.mp3",
       "text": "MONSTERS INSULT YOUR ABILITIES AND PARENTAGE.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -328,7 +328,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-ac57"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-ac57.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-ac57.mp3",
       "text": "YOU HAD A GREAT TIME UNTIL YOU ALL PASSED OUT. YOUR PURSE IS MISSING.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -338,7 +338,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-acaf"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-acaf.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-acaf.mp3",
       "text": "YOUR ACTIONS TRIGGER A FREE FOR ALL.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -348,7 +348,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-ad4d"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-ad4d.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-ad4d.mp3",
       "text": "THE BAR LOOKS LIKE IT WAS DESTROYED BY EXPERTS.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -358,7 +358,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-ad81"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-ad81.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-ad81.mp3",
       "text": "OVER THIS DOOR IS A CRUDE SIGN SAYING, 'THE PITT.'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -368,7 +368,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-adb6"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-adb6.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-adb6.mp3",
       "text": "THIS IS A HIDDEN TEMPLE OF ILMATER. YOU FEEL SAFE HERE.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -378,7 +378,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-adec"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-adec.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-adec.mp3",
       "text": "A YOUNG WOMAN COMES FORWARD 'WE PROVIDE HELP FOR THOSE WHO CAN REACH US. ARE YOU IN NEED OF HEALING?",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -388,7 +388,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-ae5d"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-ae5d.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-ae5d.mp3",
       "text": "'YOU CAN REST HERE AS LONG AS YOU WISH.' SHE THEN LEAVES.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -398,7 +398,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-aea1"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-aea1.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-aea1.mp3",
       "text": "THIS IS A SMALL SHRINE. SYMBOLS OF BANE HAVE REPLACED THOSE OF ILMATER.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -408,7 +408,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-aeed"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-aeed.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-aeed.mp3",
       "text": "A ROBED ORC IS SITTING HERE. WHAT DO YOU DO?",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -418,7 +418,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-b016"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-b016.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-b016.mp3",
       "text": "'MEET HERE IN TWO HOURS. YOU MAY MEET HIGH PRIEST MACE.' HE ESCORTS YOU OUT.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -428,7 +428,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-b07c"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-b07c.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-b07c.mp3",
       "text": "'IF YOU CHANGE YOUR MIND, RETURN IN TWO HOURS.' HE ESCORTS YOU OUT.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -438,7 +438,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-b0ce"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-b0ce.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-b0ce.mp3",
       "text": "MANY CREATURES HAVE GATHERED. THE ROBED ORC STANDS AND CALLS OUT,'FIRST, TO SHOW YOUR LOYALTIES, KILL THE UNBELIEVERS.' HE POINTS AT YOUR GROUP.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -448,7 +448,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-b1c3"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-b1c3.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-b1c3.mp3",
       "text": "AN ABANDONED SHOP. BROKEN SHELVES ARE ALL THAT REMAIN.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -458,7 +458,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-b1fb"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-b1fb.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-b1fb.mp3",
       "text": "A DECAYED BUILDING LEFT TO THE RATS.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -468,7 +468,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9a36"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9a36-prompt.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9a36-prompt.mp3",
       "text": "THE PLAZA AHEAD IS CROWDED WITH MONSTERS. HOW WILL YOU PROCEDE?",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -478,7 +478,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9d86"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9d86-ready.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9d86-ready.mp3",
       "text": "THE MONSTERS STAND READY",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -488,7 +488,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-9d86"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9d86-prepare.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9d86-prepare.mp3",
       "text": "THE MONSTERS PREPARE",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -498,7 +498,7 @@
       "sourceIds": [
         "por.review.ecl-1.block-18.at-a90d"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a90d-story.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a90d-story.mp3",
       "text": "HE GLARES AT YOU,'ONE OF YOU SHALL PAY FOR THIS INSULT. WHO WILL IT BE?'",
       "direction": "tense fantasy narration; perform the drunk buccaneer's challenge with offended menace",
       "performedCharacterId": "drunk-buccaneer"
@@ -509,7 +509,7 @@
         "por.review.ecl-1.block-18.at-9b9a",
         "por.review.ecl-1.block-18.at-9c19"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9b9a-9c19.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9b9a-9c19.mp3",
       "text": "THEY GLARE AT YOUR PARTY, AND DEMAND, 'WHO ARE YOU?'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -520,7 +520,7 @@
         "por.review.ecl-1.block-18.at-9b9a",
         "por.review.ecl-1.block-18.at-9ce6"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9b9a-9ce6.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9b9a-9ce6.mp3",
       "text": "THEY GLARE AT YOUR PARTY, AND WALK ON.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -531,7 +531,7 @@
         "por.review.ecl-1.block-18.at-9b9a",
         "por.review.ecl-1.block-18.at-9cf6"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9b9a-9cf6.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9b9a-9cf6.mp3",
       "text": "THEY GLARE AT YOUR PARTY, LAUGH TO THEMSELVES AND WALK ON.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -542,7 +542,7 @@
         "por.review.ecl-1.block-18.at-9bb5",
         "por.review.ecl-1.block-18.at-9c19"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9bb5-9c19.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9bb5-9c19.mp3",
       "text": "THEY CHECK OUT YOUR PARTY, AND DEMAND, 'WHO ARE YOU?'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -553,7 +553,7 @@
         "por.review.ecl-1.block-18.at-9bb5",
         "por.review.ecl-1.block-18.at-9ce6"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9bb5-9ce6.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9bb5-9ce6.mp3",
       "text": "THEY CHECK OUT YOUR PARTY, AND WALK ON.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -564,7 +564,7 @@
         "por.review.ecl-1.block-18.at-9bb5",
         "por.review.ecl-1.block-18.at-9cf6"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-9bb5-9cf6.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-9bb5-9cf6.mp3",
       "text": "THEY CHECK OUT YOUR PARTY, LAUGH TO THEMSELVES AND WALK ON.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -575,7 +575,7 @@
         "por.review.ecl-1.block-18.at-a422",
         "por.review.ecl-1.block-18.at-a7d1"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a422-a7d1.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a422-a7d1.mp3",
       "text": "YOU UP THE BID. MONSTERS NEARBY TURN, STARE, AND YELL 'SETTLERS! KILL THEM!'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -586,7 +586,7 @@
         "por.review.ecl-1.block-18.at-a422",
         "por.review.ecl-1.block-18.at-a896"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a422-a896.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a422-a896.mp3",
       "text": "YOU UP THE BID. MONSTERS NEARBY TURN, STARE,GRUMBLE, AND TURN AWAY.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -597,7 +597,7 @@
         "por.review.ecl-1.block-18.at-a566",
         "por.review.ecl-1.block-18.at-a7d1"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a566-a7d1.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a566-a7d1.mp3",
       "text": "THE MONSTERS LOOK AROUND FOR A SCAPEGOAT. THEIR EYES FALL UPON YOUR PARTY, THEN THEY  AND YELL 'SETTLERS! KILL THEM!'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -608,7 +608,7 @@
         "por.review.ecl-1.block-18.at-a566",
         "por.review.ecl-1.block-18.at-a896"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a566-a896.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a566-a896.mp3",
       "text": "THE MONSTERS LOOK AROUND FOR A SCAPEGOAT. THEIR EYES FALL UPON YOUR PARTY, THEN THEY GRUMBLE, AND TURN AWAY.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -619,7 +619,7 @@
         "por.review.ecl-1.block-18.at-a67a",
         "por.review.ecl-1.block-18.at-a7d1"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a67a-a7d1.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a67a-a7d1.mp3",
       "text": "AS YOU MOVE AWAY THE MONSTERS GLANCE YOUR WAY,  AND YELL 'SETTLERS! KILL THEM!'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -630,7 +630,7 @@
         "por.review.ecl-1.block-18.at-a67a",
         "por.review.ecl-1.block-18.at-a896"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a67a-a896.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a67a-a896.mp3",
       "text": "AS YOU MOVE AWAY THE MONSTERS GLANCE YOUR WAY, GRUMBLE, AND TURN AWAY.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -641,7 +641,7 @@
         "por.review.ecl-1.block-18.at-a6e2",
         "por.review.ecl-1.block-18.at-a7d1"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a6e2-a7d1.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a6e2-a7d1.mp3",
       "text": "THE MONSTERS SHOOT YOU ANGRY LOOKS,  AND YELL 'SETTLERS! KILL THEM!'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -652,7 +652,7 @@
         "por.review.ecl-1.block-18.at-a6e2",
         "por.review.ecl-1.block-18.at-a896"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a6e2-a896.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a6e2-a896.mp3",
       "text": "THE MONSTERS SHOOT YOU ANGRY LOOKS, GRUMBLE, AND TURN AWAY.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -663,7 +663,7 @@
         "por.review.ecl-1.block-18.at-a8bb",
         "por.review.ecl-1.block-18.at-a8e5"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-a8bb-a8e5.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-a8bb-a8e5.mp3",
       "text": "YOU HAVE ENTERED A CROWDED TAVERN.YOU OPENED THE DOOR INTO A DRUNK BUCCANEER.",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": null
@@ -674,7 +674,7 @@
         "por.review.ecl-1.block-18.at-af4f",
         "por.review.ecl-1.block-18.at-af80"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-af4f-af80.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-af4f-af80.mp3",
       "text": "THE ORC SMILES CROOKEDLY.'GREETINGS FROM BANE. WE ARE RECRUITING CREATURES FOR OUR TEMPLE TO THE NORTHEAST. ARE YOU INTERESTED?'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": "bane-recruiter"
@@ -685,7 +685,7 @@
         "por.review.ecl-1.block-18.at-af4f",
         "por.review.ecl-1.block-18.at-afdc"
       ],
-      "output": "../por-assets/voices/narration/ecl1/block-18/ecl1-b18-af4f-afdc.mp3",
+      "output": "audio/voices/narration/ecl1/block-18/ecl1-b18-af4f-afdc.mp3",
       "text": "THE ORC SMILES CROOKEDLY.'GREETINGS FROM BANE. WE ARE HIRING CREATURES TO RECOVER OUR TEMPLE. ARE YOU INTERESTED?'",
       "direction": "measured dramatic fantasy narration",
       "performedCharacterId": "bane-recruiter"

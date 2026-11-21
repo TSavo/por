@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "downed-review-05",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.downed",
+      "index": 5,
+      "file": "por-downed-downed-review-05.wav",
+      "intendedMasterFile": "por-downed.wav",
+      "prompt": "One close-miked heavy thud at full volume, immediate attack and quick stop.",
+      "promptSha256": "4646bc1b00f3b25af63844cff1203ea0fd2d7f49f5af93b3c6a551e88f5c0745",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.9,
+      "requestedSeconds": 0.75,
+      "returnedSeconds": 1.44,
+      "referenceSeconds": 0.75,
+      "characterCost": "8",
+      "generatedAt": "2026-11-19T00:08:29.467Z",
+      "sha256": "be6d482d8093eedc56a2d4daef758fc25a6d6ff14d7bfc76943d31aea559eee5"
+    }
+  ]
+}

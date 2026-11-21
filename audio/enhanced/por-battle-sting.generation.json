@@ -1,0 +1,60 @@
+{
+  "provider": "ElevenLabs Music",
+  "endpoint": "https://api.elevenlabs.io/v1/music?output_format=mp3_48000_192",
+  "request": {
+    "model_id": "music_v2_5",
+    "composition_plan": {
+      "chunks": [
+        {
+          "text": "[Combat Entrance]",
+          "duration_ms": 5000,
+          "positive_styles": [
+            "original instrumental medieval fantasy combat entrance cue",
+            "immediate low horn and timpani accent on the first frame",
+            "urgent three-note brass motif with tight cello and viola accents",
+            "D minor",
+            "120 BPM",
+            "chamber orchestra",
+            "brief decisive stinger",
+            "building toward a strong final tonic accent",
+            "clear dry opening"
+          ],
+          "negative_styles": [
+            "vocals",
+            "choir",
+            "lyrics",
+            "spoken word",
+            "sound effects",
+            "new notes in the final decay",
+            "abrupt ending"
+          ],
+          "context_adherence": "high"
+        },
+        {
+          "text": "[Final Hit and Decay]",
+          "duration_ms": 3000,
+          "positive_styles": [
+            "one emphatic resolved D minor chord on the first beat of this section",
+            "stop the string pulse at that final chord",
+            "release the note and let the orchestral resonance decay for the rest of the section",
+            "silence after the decay",
+            "complete standalone ending"
+          ],
+          "negative_styles": [
+            "vocals",
+            "choir",
+            "lyrics",
+            "spoken word",
+            "sound effects",
+            "new notes in the final decay",
+            "abrupt ending"
+          ],
+          "context_adherence": "high"
+        }
+      ]
+    }
+  },
+  "songId": "Ng1M9mufUsnxBryDWpIH",
+  "sha256": "123dd6062890c9ea011a8468d18490a85b9a335270a6e71278802ad6de65e362",
+  "bytes": 193004
+}

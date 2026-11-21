@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "batch": "status-review-01",
+  "promoted": false,
+  "effects": [
+    {
+      "id": "por.original.status-effect",
+      "index": 4,
+      "file": "por-status-effect-status-review-01.wav",
+      "intendedMasterFile": "por-status-effect.wav",
+      "prompt": "One brief magical status-effect pulse: a bright glassy shimmer that swells and resolves cleanly. No melody, voice, impact, or background ambience.",
+      "promptSha256": "1c1450d546a1725f4656e09799894c19c755108569647a33761f0fa4122d291b",
+      "model": "eleven_text_to_sound_v3",
+      "outputFormat": "pcm_44100",
+      "promptInfluence": 0.9,
+      "requestedSeconds": 1.12,
+      "returnedSeconds": 2.24,
+      "referenceSeconds": 1.12,
+      "characterCost": "12",
+      "generatedAt": "2026-11-18T23:55:07.384Z",
+      "sha256": "bb0c38e99a31cda1a0f39fff3286b20e741165ad4b354beedce38eb018e67c61"
+    }
+  ]
+}
