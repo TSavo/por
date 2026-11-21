@@ -11785,7 +11785,17 @@ try {
       .map(([, char]) => String.fromCharCode(char)).join("");
     for (const key of ["up", "enter"]) await advance(key);
     assert.match(textOf(frame), /CONVERTEDTOAJAIL/i);
+    const confrontation = "scene-illustration:area:14:ecl:b0cf";
+    assert.equal(frame.portrait, confrontation);
+    await waitFor("the jail confrontation illustration", () => run(`
+      state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${confrontation}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays();
+    const jailShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "kovel-jail-confrontation.png"), Buffer.from(jailShot.data, "base64"));
     for (const key of ["enter", "enter"]) await advance(key);
+    assert.equal(frame.portrait, undefined);
     assert.match(textOf(frame), /1STLVLTHIEF.*HITPOINTS/i);
     assert.equal(frame.automaticCombat, true);
     const manual = await waitFor("the party's first manual turn without pressing Q", async () => {
