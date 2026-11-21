@@ -2081,6 +2081,18 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 11: "valhingen-mummy-sarcophagi-phase-2.png" },
     finalPhaseCapture: "valhingen-mummy-sarcophagi-phase-1.png",
   }],
+  ["old-phlan-lizard-patrol-combat-phase-2", {
+    slot: "B", inputs: ["up", "enter", "enter", ...Array(17).fill("z")],
+    portrait: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:2:0",
+    prompt: /SEEINGYOU,THEMONSTERSATTACK/i,
+    continuation: { inputs: ["enter"], portrait: "portrait:area:29:ecl:aa7a:PIC8.DAX:57:2:0", prompt: /ABATTLEBEGINS/i },
+  }],
+  ["old-phlan-lizard-patrol-combat-phase-3", {
+    slot: "B", inputs: ["up", "enter", "enter", ...Array(18).fill("z")],
+    portrait: "portrait:area:29:ecl:af2f:caller:aa5e:PIC8.DAX:57:3:0",
+    prompt: /SEEINGYOU,THEMONSTERSATTACK/i,
+    continuation: { inputs: ["enter"], portrait: "portrait:area:29:ecl:aa7a:PIC8.DAX:57:3:0", prompt: /ABATTLEBEGINS/i },
+  }],
   ["old-phlan-lizard-patrol-phases", {
     slot: "B", inputs: ["up", "enter", "enter", ...Array(16).fill("z")],
     portraitStops: {
@@ -2148,6 +2160,7 @@ const illustrationRoutes = new Map([
     prompt: /ONELICKSITSLIPS/i,
     phaseCaptures: { 86: "tyrmor-prison-drider-phase-1.png", 88: "tyrmor-prison-drider-phase-3.png", 89: "tyrmor-prison-drider-phase-6.png" },
     finalPhaseCapture: "tyrmor-prison-drider-phase-7.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:69:7:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyranthraxus-appraisal-phases", {
     slot: "B", inputs: ["right", "up", "up", "up", "up", "enter", "enter", "enter", ...Array(9).fill("q")],
@@ -2194,6 +2207,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:22:ecl:a2f9:PIC7.DAX:62:1:0",
     prompt: /ONELICKSITSLIPS/i,
     finalPhaseCapture: "tyrmor-prison-minotaur-phase-1.png",
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:PIC7.DAX:62:1:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["valhingen-wight-roam-phases", {
     slot: "A", inputs: ["up", "down", "up", ...Array(7).fill("q")],
