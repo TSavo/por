@@ -2562,6 +2562,20 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:23:ecl:9d56:cue:strange-tingle", prompt: /FEELASTRANGETINGLE.*GOBACKMOVEONTHROWAROCK/i,
     continuation: { inputs: ["g"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["pyramid-password-door-trap", {
+    slot: "A", inputs: ["up", "enter", "a", "enter", "y"],
+    portraitStops: { 1: "scene-illustration:area:23:ecl:9a04:caller:a479:cue:password-sign", 3: "scene-illustration:area:23:ecl:a4a7:cue:password-entry", 4: null },
+    phaseCaptures: { 1: "pyramid-password-sign.png" },
+    portrait: "scene-illustration:area:23:ecl:9a04:caller:a559:cue:password-door-trap", prompt: /AHIDDENDOORBURSTSOPEN.*LONGCLAWS/i,
+    finalPhaseCapture: "pyramid-password-door-trap.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /DIES.*PRESSANYKEYTOCONTINUE/i },
+  }],
+  ["pyramid-password-door-correct", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:23:ecl:9a04:caller:a479:cue:password-sign", prompt: /DON'?TFORGETTHEPASSWORD.*SIXDWARVISHRUNES/i,
+    continuation: { inputs: ["enter", "n", "n", "o", "k", "n", "o", "k", "enter", "y"],
+      clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["pyramid-lizardfolk-patrol", {
     slot: "A", inputs: ["up", "enter", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:0:0", 48, 80]],
