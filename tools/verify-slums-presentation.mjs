@@ -417,7 +417,7 @@ const encounterRoutes = new Map([
   ["wild-cave-thri-kreen-two-guards", {
     slot: "A", inputs: ["up", "enter"],
     placement: [56, 32, "encounter:area:25:SPRIT6.DAX:118:0:0", 32, 73],
-    dialogue: { key: "enter", portrait: "portrait:area:25:PIC6.DAX:118:0:0", prompt: /THEREARETWOTHRI.KREENHERE/i },
+    dialogue: { key: "enter", portrait: "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0", prompt: /THEREARETWOTHRI.KREENHERE/i },
   }],
   ["wild-cave-thri-kreen-three-warriors", {
     slot: "A", inputs: ["up", "enter"],
@@ -2092,6 +2092,19 @@ const illustrationRoutes = new Map([
     prompt: /YOUSEEAPACKOFTROLLS.*THEYSEEMUNAWAREOFYOU/i,
     phaseCaptures: { 11: "valjevo-tower-troll-phase-4.png", 14: "valjevo-tower-troll-phase-2.png", 15: "valjevo-tower-troll-phase-1.png" },
     finalPhaseCapture: "valjevo-tower-troll-phase-3.png",
+  }],
+  ["wild-cave-thri-kreen-two-guards-phases", {
+    slot: "A", inputs: ["up", "enter", "enter", ...Array(12).fill("z")],
+    portraitStops: {
+      3: "portrait:area:25:ecl:a991:PIC6.DAX:118:0:0",
+      12: "portrait:area:25:ecl:a991:PIC6.DAX:118:1:0",
+      13: "portrait:area:25:ecl:a991:PIC6.DAX:118:2:0",
+      14: "portrait:area:25:ecl:a991:PIC6.DAX:118:3:0",
+    },
+    portrait: "portrait:area:25:ecl:a991:PIC6.DAX:118:4:0",
+    prompt: /THEREARETWOTHRI.KREENHERE.*THEYBLOCKTHEPASSAGEWITHTHEIRBODIES/i,
+    phaseCaptures: { 12: "wild-cave-thri-kreen-two-guards-phase-1.png", 13: "wild-cave-thri-kreen-two-guards-phase-2.png", 14: "wild-cave-thri-kreen-two-guards-phase-3.png" },
+    finalPhaseCapture: "wild-cave-thri-kreen-two-guards-phase-4.png",
   }],
   ["sokal-ceiling-insects-phases", {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
