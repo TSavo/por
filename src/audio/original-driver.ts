@@ -15,7 +15,45 @@ export interface OriginalSoundRender {
   writes: OriginalSoundPortWrite[];
 }
 
-const RESIDENT_IMAGE_BASE = 0x27f0;
+/**
+ * Where a build keeps its resident sound driver, as offsets in the driver's segment.
+ * The first release reads a note's length from a table and stores two bytes per note.
+ * Version 1.3 stores the length as a third byte, and only a note for channel 0 starts a tone.
+ */
+export interface OriginalDriverLayout {
+  version: "1.0" | "1.3";
+  /** Image offset of the driver's segment. */
+  base: number;
+  /** Offset of the routine the game calls to play an event. */
+  entry: number;
+  /** Events in each table. */
+  events: number;
+  stateBase: Record<OriginalSoundHardware, number>;
+  eventTable: Record<OriginalSoundHardware, number>;
+  frequencyTable: Record<OriginalSoundHardware, number>;
+  /** The note length table of the first release. */
+  durationTable?: number;
+}
+
+export const originalDriverLayouts: OriginalDriverLayout[] = [
+  { version: "1.0", base: 0x27f0, entry: 0, events: 20, durationTable: 0x00ba,
+    stateBase: { "pc-speaker": 0x00d9, tandy: 0x0273 }, eventTable: { "pc-speaker": 0x040b, tandy: 0x04ab },
+    frequencyTable: { "pc-speaker": 0x0259, tandy: 0x03f3 } },
+  { version: "1.3", base: 0x8ae0, entry: 0xdc, events: 21,
+    stateBase: { "pc-speaker": 0x022d, tandy: 0x03c7 }, eventTable: { "pc-speaker": 0x055f, tandy: 0x0607 },
+    frequencyTable: { "pc-speaker": 0x03ad, tandy: 0x0547 } },
+];
+
+/** The driver layout of a load image: the one whose entry routine is where the layout says. */
+export function originalDriverLayout(image: Uint8Array): OriginalDriverLayout {
+  // Both entry routines begin `push bp; mov bp, sp; cmp byte ptr [sound mode], 2`.
+  const entry = [0x55, 0x89, 0xe5, 0x80, 0x3e];
+  const found = originalDriverLayouts.find((layout) =>
+    entry.every((value, index) => image[layout.base + layout.entry + index] === value));
+  if (!found) throw new Error("START.EXE does not hold a sound driver this port knows");
+  return found;
+}
+
 const RECORD_SIZE = 0x30;
 const PIT_INPUT_HZ = 1_193_182;
 const TIMER_DIVISOR = 0x13b1;
@@ -23,20 +61,21 @@ const TIMER_DIVISOR = 0x13b1;
 const u16 = (value: number) => value & 0xffff;
 const s16 = (value: number) => (value << 16) >> 16;
 
-/** Execute the original resident sound bytecode directly from an unrelocated START.EXE image. */
+/** Execute the original resident sound bytecode directly from an unrelocated START.EXE load image. */
 export function renderOriginalSoundDriver(image: Uint8Array, hardware: OriginalSoundHardware,
   event: number, maxTicks = 60 * 240): OriginalSoundRender {
-  if (!Number.isInteger(event) || event < 1 || event > 20) throw new Error("Original sound event must be 1..20");
+  const layout = originalDriverLayout(image);
+  if (!Number.isInteger(event) || event < 1 || event > layout.events) throw new Error(`Original sound event must be 1..${layout.events}`);
   const memory = new Uint8Array(0x10000);
-  memory.set(image.subarray(RESIDENT_IMAGE_BASE, RESIDENT_IMAGE_BASE + memory.length));
+  memory.set(image.subarray(layout.base, layout.base + memory.length));
   const view = new DataView(memory.buffer);
   const byte = (offset: number) => memory[u16(offset)]!;
   const setByte = (offset: number, value: number) => { memory[u16(offset)] = value & 0xff; };
   const word = (offset: number) => view.getUint16(u16(offset), true);
   const setWord = (offset: number, value: number) => view.setUint16(u16(offset), u16(value), true);
-  const stateBase = hardware === "pc-speaker" ? 0x00d9 : 0x0273;
-  const eventTable = hardware === "pc-speaker" ? 0x040b : 0x04ab;
-  const frequencyTable = hardware === "pc-speaker" ? 0x0259 : 0x03f3;
+  const stateBase = layout.stateBase[hardware];
+  const eventTable = layout.eventTable[hardware];
+  const frequencyTable = layout.frequencyTable[hardware];
   const entries = Array.from({ length: 4 }, (_, channel) => word(eventTable + (event - 1) * 8 + channel * 2));
   for (let channel = 0; channel < 4; channel++) {
     const record = stateBase + channel * RECORD_SIZE;
@@ -63,15 +102,19 @@ export function renderOriginalSoundDriver(image: Uint8Array, hardware: OriginalS
     for (let guard = 0; guard < 4096; guard++) {
       const opcode = byte(cursor++);
       if (opcode < 0xfa) {
-        const target = stateBase + (opcode >>> 5) * RECORD_SIZE;
-        const tempo = byte(record + 0x0e) || 1;
-        const duration = tempo * byte(0x00ba + (opcode & 0x1f));
+        const channel = opcode >>> 5;
+        const target = stateBase + channel * RECORD_SIZE;
+        const inlineLength = layout.durationTable === undefined;
+        const tempo = byte(record + 0x0e);
+        const duration = inlineLength
+          ? (tempo > 1 ? tempo * byte(cursor + 1) : byte(cursor + 1))
+          : (tempo || 1) * byte(layout.durationTable! + (opcode & 0x1f));
         setWord(record, duration);
         const noteByte = byte(cursor);
         let note = noteByte & 0x7f;
-        if (note !== 0x7f) {
+        if (note !== 0x7f && (!inlineLength || channel === 0)) {
           setWord(target, duration);
-          setWord(target + 0x14, duration - word(target + 0x10));
+          setWord(target + 0x14, inlineLength ? duration : duration - word(target + 0x10));
           note = u16(note + word(target + 0x12));
           setWord(target + 0x18, 0);
           setWord(target + 0x1a, 1);
@@ -81,7 +124,7 @@ export function renderOriginalSoundDriver(image: Uint8Array, hardware: OriginalS
           setWord(target + 4, divisor);
           setWord(target + 8, divisor);
         }
-        cursor++;
+        cursor += inlineLength ? 2 : 1;
         if ((noteByte & 0x80) === 0) continue;
         setWord(originalRecord + 2, cursor);
         return;

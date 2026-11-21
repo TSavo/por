@@ -211,6 +211,8 @@ function playSound(sound) {
   const entry = soundManifest.events.find((candidate) => candidate.index === sound.index);
   const replacement = enhanced && entry?.enhancedFile;
   if (sound.enhancedOnly && !replacement) return;
+  // The server marks events whose Classic file does not belong to the running build.
+  if (!replacement && entry?.classic === false) return;
   if (sound.index === 13 && replacement && !sound.enhancedOnly) return;
   stopEffect();
   const source = replacement ? `/enhanced-audio/${replacement}`

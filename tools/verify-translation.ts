@@ -29,6 +29,17 @@ import { loadEncounterArt } from "./encounter-art.js";
 import { captureNativeExploration } from "./native-exploration.js";
 import { buildExplorationMaterials } from "./exploration-materials.js";
 
+// The translation of the build in POR_GAMEDATA. The overlay slices are not mounted in these checks,
+// so the script overlay's procedures come from its module.
+const gameRoot = findGameRoot();
+if (!gameRoot) throw new Error("Pool of Radiance game data not found");
+const gameVersion = await loadTranslation(new Uint8Array(readFileSync(`${gameRoot}/GAME.OVR`)));
+const scriptOverlay = await import(gameVersion === "1.3" ? "../src/translated-1.3/ovl07.js" : "../src/translated/ovl07.js") as
+  { procs: Map<number, (m: Cpu) => void> };
+const eclOperand = scriptOverlay.procs.get(code.eclOperand.at)!;
+const eclStore = scriptOverlay.procs.get(code.eclStore.at)!;
+
+
 function checkBrowserArtPacks(): void {
   const png = Buffer.from(encodePng(new Frame(32, 32)));
   deepStrictEqual(pngDimensions(png), { width: 32, height: 32 });
@@ -380,16 +391,6 @@ function checkValjevoWallMount(): void {
   }
   console.log("verified Valjevo wall pixels for grouped and standalone loads");
 }
-
-// The translation of the build in POR_GAMEDATA. The overlay slices are not mounted in these checks,
-// so the script overlay's procedures come from its module.
-const gameRoot = findGameRoot();
-if (!gameRoot) throw new Error("Pool of Radiance game data not found");
-const gameVersion = await loadTranslation(new Uint8Array(readFileSync(`${gameRoot}/GAME.OVR`)));
-const scriptOverlay = await import(gameVersion === "1.3" ? "../src/translated-1.3/ovl07.js" : "../src/translated/ovl07.js") as
-  { procs: Map<number, (m: Cpu) => void> };
-const eclOperand = scriptOverlay.procs.get(code.eclOperand.at)!;
-const eclStore = scriptOverlay.procs.get(code.eclStore.at)!;
 
 function fresh(): Cpu {
   const m = new Cpu();

@@ -70,7 +70,7 @@ export const data = resolve({
   offscreenDraw: { "1.0": 0x497e, "1.3": 0x4a1e },
   /** Pointer to the offscreen picture. */
   offscreen: { "1.0": 0x4980, "1.3": 0x4a20 },
-  /** Sound hardware: 0 is the PC speaker, other values are Tandy. */
+  /** Sound hardware: 0 is Tandy, 1 is the PC speaker, 2 is silent. */
   soundMode: { "1.0": 0x52d2, "1.3": 0x5372 },
   /** The number in the name of the loaded ECL archive. */
   eclArchive: { "1.0": 0x52d4, "1.3": 0x5376 },
@@ -138,6 +138,15 @@ export const far = resolve({
   flushKeys: { "1.0": [0x26b, 0xf6], "1.3": [0x899, 0x104] },
   /** Play a sound event. */
   sound: { "1.0": [0x27f, 0x0], "1.3": [0x8ae, 0xdc] },
+});
+
+/** What the game itself does, where the builds differ in behaviour. */
+export const behaviour = resolve({
+  /**
+   * The first release starts battle music (sound event 14) on Tandy hardware.
+   * Version 1.3 never asks for it, on any hardware.
+   */
+  startsBattleMusicOnTandy: { "1.0": true, "1.3": false },
 });
 
 /** A position in the program's code: in an overlay slice, or in the resident program by image offset. */

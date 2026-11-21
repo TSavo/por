@@ -20,7 +20,7 @@ import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { callTrace, farCall, farCallObservers, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installProgram, loadedSlices } from "../src/runtime/overlay.js";
-import { code, codeSegment, data, far, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit } from "../src/runtime/bindings.js";
+import { behaviour, code, codeSegment, data, far, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit } from "../src/runtime/bindings.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 
@@ -280,10 +280,10 @@ if (input && process.env.POR_BROWSER_PLAY === "1") {
   farCallObservers.set(cpu, (segment, offset) => {
     observe?.(segment, offset);
     // The clear before the battle music branch runs in every hardware mode.
-    // The original dispatcher already emits event 14 for a Tandy guest.
+    // Where the game itself asks for event 14, on Tandy in the first release, it is not sent twice.
     if (isAt(cpu, cpu.ip, code.battleBegins) && isFar(segment, offset, far.clearText)) {
       const mode = cpu.read8(cpu.ds, data.soundMode);
-      if (mode !== 0) console.log(`POR_SOUND ${JSON.stringify({ index: 14, mode, step: cpu.steps, enhancedOnly: true })}`);
+      if (mode !== 0 || !behaviour.startsBattleMusicOnTandy) console.log(`POR_SOUND ${JSON.stringify({ index: 14, mode, step: cpu.steps, enhancedOnly: true })}`);
     }
     if (isFar(segment, offset, far.showPicture)) {
       if (isAt(cpu, cpu.ip, code.titlePublisher)) input.setScene("scene:publisher");

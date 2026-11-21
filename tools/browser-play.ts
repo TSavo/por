@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { detectGameVersion, useGameVersion } from "../src/runtime/bindings.js";
 import { createHash } from "node:crypto";
 import { appendFileSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
@@ -24,6 +25,9 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) {
 }
 const origin = `http://127.0.0.1:${port}`;
 const gameRoot = requireBrowserGameRoot();
+// Everything the server reads from the program depends on which build the directory holds.
+const gameBuild = detectGameVersion(new Uint8Array(readFileSync(join(gameRoot, "GAME.OVR"))));
+useGameVersion(gameBuild);
 const planTravel = loadOverlandTravel(gameRoot);
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
@@ -51,7 +55,15 @@ for (const event of parsedNarrationManifest.events) {
     exactTextNarrations.set(text, [...(exactTextNarrations.get(text) ?? []), unit]);
   }
 }
-const soundManifest = readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url));
+// The manifest lists the sound events of the first release. Version 1.3 replaced the driver's
+// events above 12 with other sounds and never asks for them, so the rendered Classic files
+// for those events do not belong to it.
+const soundManifest = Buffer.from(JSON.stringify((() => {
+  const manifest = JSON.parse(readFileSync(new URL("../src/audio/original-sounds.json", import.meta.url), "utf8")) as
+    { events: { index: number; classic?: boolean }[] };
+  if (gameBuild === "1.3") for (const event of manifest.events) if (event.index > 12) event.classic = false;
+  return manifest;
+})()));
 const geographyModel = readFileSync(new URL("../src/maps/geography-model.json", import.meta.url));
 const atlasManifest = readFileSync(new URL("../src/maps/atlas.json", import.meta.url));
 const atlasSheets = JSON.parse(atlasManifest.toString("utf8")) as { file: string; areas: number[]; mapId?: number }[];
