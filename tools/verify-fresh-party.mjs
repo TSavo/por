@@ -15,8 +15,8 @@ const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-evoker", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-evoker with slot H, or --replay-leg with a recorded leg directory.");
 }
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
@@ -1271,23 +1271,40 @@ const armoryToTemple = [
 ];
 
 async function verifySokalTempleHealing() {
-  const templeSave = await replay(loadSlot("2166"), "85000000", [
-    text => assert.match(text, /12,0 n/, "Expected the earned Sokal armory save in slot F"),
-    ...armoryToTemple,
-    ...Array(4).fill("home"), "h", "end", "end", "h",
+  const cureLightWounds = ["h", "end", "end", "h",
     (text) => assert.match(text, /cure light wounds will only cost 100 gold pieces/),
-    "y", "e", "e", "e", "s", "s", "g",
+    "y", "e",
+  ];
+  const recoverCampaignParty = [
+    (text) => assert.match(text, /alda 5 0.*brin 1 4/),
+    // Sell Alda's earned jewel and pool the proceeds with the party's coins.
+    ...Array(5).fill("home"), "a", "j",
+    (text) => assert.match(text, /alda.*the jewel is valued at 5279 gp.*sell keep/),
+    "s", "p", "h", ...Array(6).fill("end"), "h",
+    (text) => assert.match(text, /alda.*raise dead will only cost 5500 gold pieces/),
+    "y", "e", (text) => assert.match(text, /alda 5 1/),
+    ...cureLightWounds, "end", ...cureLightWounds, "end", "end", ...cureLightWounds,
+    (text) => assert.match(text, /alda 5 6.*brin 1 6.*dorn 5 8/),
+    "s",
+  ];
+  const templeSave = await replay(loadSlot("2166"), "85000000", [
+    (text) => assert.match(text, /12,0 n/, "Expected the earned Sokal armory save in slot F"),
+    ...armoryToTemple,
+    ...(campaign ? recoverCampaignParty : [...Array(4).fill("home"), ...cureLightWounds]),
+    "e", "e", "s", "s", "g",
   ]);
   assert.match(visibleText(templeSave), /quit to dos/);
   await replay(loadSlot("2267"), "85000000", [
     (text) => {
       assert.match(text, /11,3 s/);
       assert.match(text, /brin 1 6/);
+      if (campaign) assert.match(text, /alda 5 6.*brin 1 6.*cora 5 6.*dorn 5 8.*enna 4 6.*fenn 4 8/);
     },
     "end", "v",
-    (text) => assert.match(text, /brin.*platinum 7.*hp 6.*weapon long sword/),
+    (text) => assert.match(text, campaign ? /brin.*hp 6.*weapon long sword/ : /brin.*platinum 7.*hp 6.*weapon long sword/),
   ]);
-  console.log("Returned to New Phlan and verified Brin's paid temple healing after reloading slot G.");
+  console.log(campaign ? "Sold Alda's jewel, raised him, and reloaded all six fighters at full health."
+    : "Returned to New Phlan and verified Brin's paid temple healing after reloading slot G.");
 }
 
 async function verifySokalEvokerRecruitment() {
@@ -1321,7 +1338,36 @@ async function verifySokalEvokerRecruitment() {
 async function verifySokalNextChapter() {
   await verifySokalTempleHealing();
   await verifySokalEvokerRecruitment();
-  console.log("Enhanced Chrome campaign verified through temple healing and evoker recruitment:", resolve(saveDir, "H.json"));
+  await verifySokalEvokerReturn();
+}
+
+const evokerFerryRoute = [
+  "right", "right", "up", "up", "left", "up", "enter", "enter", "enter", "n",
+  "right", "up", "enter", "enter", "right", "up", "up", "left", "up", "left", "up",
+  "enter", "enter", "right", ...Array(4).fill("up"), ...Array(5).fill("enter"),
+  (text) => assert.match(text, /evoker 9 6.*8,14 n/),
+];
+const evokerPatrolRoute = [
+  "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "enter",
+  "p", "n", ..."shestni", "enter",
+  (text) => assert.match(text, /the undead leave/),
+];
+
+async function verifySokalEvokerReturn() {
+  const landing = await replay(loadSlot("2368"), "85000000", [
+    ...evokerFerryRoute, "e", "s", "s", "i",
+  ]);
+  assert.match(visibleText(landing), /quit to dos/);
+  const afterPatrol = await replay(loadSlot("1769"), "85000000", [
+    (text) => assert.match(text, /evoker 9 6.*8,14 n/),
+    ...evokerPatrolRoute, "enter", "e", "s", "s", "j",
+  ]);
+  assert.match(visibleText(afterPatrol), /quit to dos/);
+  await replay(loadSlot("246a"), "85000000", [
+    (text) => assert.match(text, /evoker 9 6/),
+    "j", (_text, frame) => assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-patrol-passed")),
+  ]);
+  console.log("Returned to Sokal with the evoker and reloaded beyond the undead patrol:", resolve(saveDir, "J.json"));
 }
 
 if (campaign && campaignOption === "--from-sokal") {
@@ -1335,6 +1381,12 @@ if (campaign && campaignOption === "--from-sokal") {
 if (campaign && campaignOption === "--from-sokal-armory") {
   copyFileSync(campaignInput, join(saveDir, "F.json"));
   await verifySokalNextChapter();
+  process.exit(0);
+}
+
+if (campaign && campaignOption === "--from-evoker") {
+  copyFileSync(campaignInput, join(saveDir, "H.json"));
+  await verifySokalEvokerReturn();
   process.exit(0);
 }
 
@@ -2958,13 +3010,7 @@ console.log("Replayed the Sokal courtyard defeat and reloaded the party and outs
 
 await verifySokalEvokerRecruitment();
 const evokerTurn = await replay(loadSlotH, "85000000", [
-  "right", "right", "up", "up", "left", "up", "enter", "enter", "enter", "n",
-  "right", "up", "enter", "enter", "right", "up", "up", "left", "up", "left", "up",
-  "enter", "enter", "right", ...Array(4).fill("up"), ...Array(5).fill("enter"),
-  (text) => assert.match(text, /evoker 9 6.*8,14 n/),
-  "up", "up", "up", "right", "up", "up", "left", "up", "up", "left", "enter",
-  "p", "n", ..."shestni", "enter",
-  (text) => assert.match(text, /the undead leave/),
+  ...evokerFerryRoute, ...evokerPatrolRoute,
   "up", "left", ...Array(6).fill("up"), "enter", "y",
   "up", "enter", "enter", "y", "left", "up", "up", "enter", "y", "up", "enter",
   (text) => assert.match(text, /large force of orcs and hobgoblins rushes you/),

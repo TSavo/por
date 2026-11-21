@@ -22,8 +22,9 @@ ordinary play and which start from controlled saves.
 - `npm run verify:campaign -- <chrome-executable>` continues the party through
   Ohlo’s commission, the voyage to Sokal Keep, and the hidden armory. It reloads
   the earned equipment in slot F, then returns to New Phlan for temple healing
-  and evoker recruitment. Use `--from-slums <slot-D>`, `--from-sokal <slot-A>`,
-  or `--from-sokal-armory <slot-F>` to resume. Use `--replay-leg <directory>`
+  and evoker recruitment, then reloads the party beyond the undead patrol at
+  Sokal Keep. Resume with `--from-slums <slot-D>`, `--from-sokal <slot-A>`,
+  `--from-sokal-armory <slot-F>`, or `--from-evoker <slot-H>`. Use `--replay-leg <directory>`
   to rerun a recorded leg independently in Chrome and compare its final frame.
 - The Encamp journal tracks witnessed clues and the selected commission in
   the active save slot. The art inventory tracks individual replacements,
