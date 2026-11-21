@@ -528,6 +528,7 @@ function replacementPreview({ id, preview, classicPreview, width, height, placem
         `<small>${escape(archive)} #${block} · member ${member}, frame ${frame}</small>`).join("") + "</details>" : "") + "</div>";
 }
 const sceneReviewRequirements = new Map<string, string[]>([
+  ["valjevo-broken-statues.png", ["Several broken statues fill the room", "A head lies apart from its stone torso", "The frightened expression reads at gameplay size"]],
   ["bane-hidden-trapdoor.png", ["A closed trapdoor lies flush with the stone floor", "The metal pull ring and hinges are visible at gameplay size", "The chamber beneath the door remains hidden"]],
   ["sokal-courtyard-hall-aftermath.png", ["The hall is empty", "Broken furnishings and discarded weapons show signs of a recent fight"]],
   ["valhingen-vampire-wooden-stairs.png", ["Wooden stairs descending into an open pit", "The stairhead and first treads are readable at gameplay size", "No creature is visible before the party chooses to descend"]],

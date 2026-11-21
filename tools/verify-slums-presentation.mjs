@@ -452,7 +452,7 @@ const encounterRoutes = new Map([
     closerKey: "enter",
   }],
   ["valjevo-medusa-approach", {
-    slot: "B", inputs: ["up", "enter", "enter"],
+    slot: "B", inputs: ["enter"],
     placement: [48, 32, "encounter:area:7:SPRIT5.DAX:49:0:0", 48, 80],
     dialogue: { key: "enter", portrait: "portrait:area:7:PIC5.DAX:49:0:0", prompt: /AMEDUSACOMESRUNNINGTOWARDYOU/i },
   }],
@@ -5592,6 +5592,20 @@ try {
     let terrainViews = 0;
     const terrain = encounterRoute.terrain;
     if (terrain) terrainViews += await verifyTiledView(terrain.area, terrainPatterns);
+    if (routeName === "valjevo-medusa-approach") {
+      await advance("up");
+      const statues = "scene-illustration:area:7:ecl:995f:caller:9dd1";
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /ROOMFILLEDWITHBROKENSTATUES/i);
+      assert.equal(frame.portrait, statues);
+      await waitFor("the broken statues illustration", () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${statues}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "valjevo-broken-statues.png"), Buffer.from(shot.data, "base64"));
+      await switchBothWays();
+      await advance("enter");
+      assert.equal(frame.portrait, undefined);
+    }
     for (const key of encounterRoute.inputs) {
       await advance(key);
       if (terrain) terrainViews += await verifyTiledView(terrain.area, terrainPatterns);
