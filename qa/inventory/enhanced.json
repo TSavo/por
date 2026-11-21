@@ -1,0 +1,924 @@
+{
+  "schema": 1,
+  "mode": "enhanced",
+  "groups": [
+    {
+      "name": "Display",
+      "features": [
+        {
+          "id": "enhanced.toggle",
+          "title": "Display toggle by F10 or button; Classic 8:5, Enhanced 4:3; starts in Classic",
+          "evidence": [
+            "tools/play.js; tools/play.html"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign runs in Enhanced only. Switching both ways is checked in presentation replays. Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.palette",
+          "title": "Enhanced palette re-encoding of the game frame",
+          "evidence": [
+            "tools/live-input.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.text",
+          "title": "Game text redrawn in the web font on the 40 by 25 grid",
+          "evidence": [
+            "tools/play.js; src/runtime/video.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.panel-frame",
+          "title": "Panel frame redrawn as wooden rails and studs",
+          "evidence": [
+            "tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.expanded-panel",
+          "title": "Expanded pictures fill the outer panel with no original inner frame showing",
+          "evidence": [
+            "tools/play.js"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Checked for a few doorway routes only. Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.title-art",
+          "title": "Title and publisher scene art",
+          "evidence": [
+            "tools/boot-translated.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.webgl",
+          "title": "WebGL first-person view built from the live map, walls and glyphs",
+          "evidence": [
+            "tools/new-phlan-webgl.js; tools/native-exploration.ts; tools/exploration-materials.ts"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "Rendered throughout the campaign replay, but the picture is not checked."
+        },
+        {
+          "id": "enhanced.webgl-phlan",
+          "title": "New Phlan harbor layout: water, piers, pilings, gate arch",
+          "evidence": [
+            "tools/new-phlan-webgl.js; tools/new-phlan-3d-materials.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.webgl-fallback",
+          "title": "Fallbacks when WebGL or materials fail, and context-loss rebuild",
+          "evidence": [
+            "tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.overland-view",
+          "title": "Overland overhead view",
+          "evidence": [
+            "tools/new-phlan-webgl.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.tiles",
+          "title": "3,940 exploration tile replacements used as wall textures",
+          "evidence": [
+            "upgrades/manifest.json"
+          ],
+          "checks": [
+            "translation-unit"
+          ],
+          "gap": "The files load and validate. Whether each appears in play is not checked."
+        },
+        {
+          "id": "enhanced.encounter-sprites",
+          "title": "Encounter approach sprites at three distances with background restore",
+          "evidence": [
+            "tools/encounter-art.ts"
+          ],
+          "checks": [
+            "translation-unit"
+          ],
+          "gap": "Assets validate. Placement in play is covered scene by scene. Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.portraits",
+          "title": "Portraits: 788 keys with area, script and caller scopes",
+          "evidence": [
+            "tools/portrait-art.ts"
+          ],
+          "checks": [
+            "translation-unit"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.portrait-animation",
+          "title": "Animated portraits: every phase plays as a loop",
+          "evidence": [
+            "tools/portrait-art.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.illustrations",
+          "title": "485 scripted scene illustrations chosen by script position and dialogue cue",
+          "evidence": [
+            "tools/portrait-art.ts; tools/live-input.ts"
+          ],
+          "checks": [
+            "translation-unit"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.character-sheet",
+          "title": "Character sheet head and body art",
+          "evidence": [
+            "tools/portrait-art.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.combat-sprites",
+          "title": "Combat sprites: monsters and party, ready and strike, both facings, large actors",
+          "evidence": [
+            "tools/combat-art.ts"
+          ],
+          "checks": [
+            "translation-unit"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.combat-recolor",
+          "title": "Party sprite recolouring from 1,600 material masks",
+          "evidence": [
+            "tools/combat-art.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.battle-tiles",
+          "title": "Battlefield tiles",
+          "evidence": [
+            "tools/live-input.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.combat-selection",
+          "title": "Selection frames and the aim reticle",
+          "evidence": [
+            "tools/live-input.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.combat-effects",
+          "title": "Combat effects and projectiles; animation queue limits and durations",
+          "evidence": [
+            "tools/live-input.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.combat-messages",
+          "title": "Every combat message is shown",
+          "evidence": [
+            "tools/live-input.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.auto-combat",
+          "title": "Quick combat advances by itself in both modes",
+          "evidence": [
+            "tools/live-input.ts; tools/play.js"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "Used by the campaign replay; not checked on its own."
+        }
+      ]
+    },
+    {
+      "name": "Audio and narration",
+      "features": [
+        {
+          "id": "enhanced.classic-hardware",
+          "title": "Classic sound: PC Beeper, Tandy or Silent, from the reproduced WAV files",
+          "evidence": [
+            "tools/play.js; por-assets/original"
+          ],
+          "checks": [
+            "original-audio",
+            "sound-driver-unicorn"
+          ],
+          "gap": "The renders are proven against the original driver. Playback in the page is not checked."
+        },
+        {
+          "id": "enhanced.effects",
+          "title": "11 Enhanced effects replace the original events",
+          "evidence": [
+            "src/audio/original-sounds.json"
+          ],
+          "checks": [
+            "enhanced-audio"
+          ],
+          "gap": "Files verified. Playback in the page is not checked."
+        },
+        {
+          "id": "enhanced.music",
+          "title": "Title theme and battle sting",
+          "evidence": [
+            "tools/play.js; tools/boot-translated.ts"
+          ],
+          "checks": [
+            "enhanced-audio"
+          ],
+          "gap": "Files verified. The cue triggers are not checked."
+        },
+        {
+          "id": "enhanced.volume",
+          "title": "Master, Effects, Dialogue and Narration sliders, Mute, saved in the browser",
+          "evidence": [
+            "tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.autoplay",
+          "title": "Blocked audio resumes on the next key; a hidden tab pauses audio",
+          "evidence": [
+            "tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.narration-script",
+          "title": "Narration triggered by script position: 1,432 units, 69 variant families, 43 selectors",
+          "evidence": [
+            "src/runtime/ecl-narration-observer.ts; src/runtime/narration.ts"
+          ],
+          "checks": [
+            "voice-master",
+            "narration-generation",
+            "narration-runtime"
+          ],
+          "gap": "Selection logic and files are verified. How many units trigger in real play is not measured."
+        },
+        {
+          "id": "enhanced.narration-town",
+          "title": "Town dialogue matched by its exact text",
+          "evidence": [
+            "tools/browser-play.ts"
+          ],
+          "checks": [
+            "narration-runtime"
+          ],
+          "gap": "Rolf's tour only."
+        },
+        {
+          "id": "enhanced.narration-rules",
+          "title": "Queueing, Enter advances covered text without cutting the recording, any other key stops it, Classic is silent",
+          "evidence": [
+            "tools/play.js"
+          ],
+          "checks": [
+            "narration-runtime"
+          ],
+          "gap": "Runtime rules are unit-checked. The page's key handling is not."
+        }
+      ]
+    },
+    {
+      "name": "Journal",
+      "features": [
+        {
+          "id": "enhanced.journal-open",
+          "title": "Journal opens in Enhanced by J or the Journal button and never alters the game's menus",
+          "evidence": [
+            "tools/play.js; tools/live-input.ts"
+          ],
+          "checks": [
+            "map-journal"
+          ]
+        },
+        {
+          "id": "enhanced.journal-leads",
+          "title": "About 300 leads raised from the game's own text",
+          "evidence": [
+            "src/runtime/adventure-log.ts"
+          ],
+          "checks": [
+            "translation-unit",
+            "campaign-full"
+          ],
+          "gap": "20 commission definitions and 16 flags are checked. Most leads are raised only on routes the campaign does not play."
+        },
+        {
+          "id": "enhanced.journal-objective",
+          "title": "Current objective and its next step (209 branches)",
+          "evidence": [
+            "src/runtime/adventure-log.ts"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "A handful of branches are asserted."
+        },
+        {
+          "id": "enhanced.journal-tracking",
+          "title": "Track, automatic tracking, and tracking redirects",
+          "evidence": [
+            "src/runtime/adventure-log.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.journal-inventory",
+          "title": "Leads that depend on items the party carries",
+          "evidence": [
+            "src/runtime/adventure-log.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.journal-save",
+          "title": "Leads and the tracked quest are saved and restored with the slot",
+          "evidence": [
+            "tools/save-slots.ts"
+          ],
+          "checks": [
+            "campaign-full",
+            "map-journal"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Maps",
+      "features": [
+        {
+          "id": "enhanced.automap",
+          "title": "Local map recorded by the runner, per area and per floor",
+          "evidence": [
+            "tools/automap.ts"
+          ],
+          "checks": [
+            "automap",
+            "map-journal"
+          ]
+        },
+        {
+          "id": "enhanced.automap-labels",
+          "title": "Map labels on the current tile",
+          "evidence": [
+            "tools/automap.ts; tools/play.js"
+          ],
+          "checks": [
+            "automap",
+            "map-journal"
+          ]
+        },
+        {
+          "id": "enhanced.automap-save",
+          "title": "The map is saved and restored with the slot",
+          "evidence": [
+            "tools/save-slots.ts"
+          ],
+          "checks": [
+            "automap",
+            "map-journal"
+          ]
+        },
+        {
+          "id": "enhanced.automap-migration",
+          "title": "A map kept by an older browser is handed over once",
+          "evidence": [
+            "tools/play.js; tools/automap.ts"
+          ],
+          "checks": [
+            "automap"
+          ],
+          "gap": "The merge is unit-checked. The hand-over from a browser is not."
+        },
+        {
+          "id": "enhanced.region-map",
+          "title": "Region map of visited areas",
+          "evidence": [
+            "tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.atlas",
+          "title": "19 atlas plates, shown for areas reached, with automatic selection",
+          "evidence": [
+            "src/maps/atlas.json; tools/play.js"
+          ],
+          "checks": [
+            "translation-unit"
+          ],
+          "gap": "The plates load. Selection is checked for two floors. Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.map-key",
+          "title": "M opens the map only where the game does not use M",
+          "evidence": [
+            "tools/play.js"
+          ],
+          "checks": []
+        }
+      ]
+    },
+    {
+      "name": "Fast travel",
+      "features": [
+        {
+          "id": "enhanced.travel-map",
+          "title": "Moonsea travel map artwork and its 11 landmarks",
+          "evidence": [
+            "tools/play.html; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-routes",
+          "title": "Routes planned over the original terrain table, with quest gates",
+          "evidence": [
+            "tools/overland-travel.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-phlan",
+          "title": "Phlan chooser: 12 districts and 5 entrances",
+          "evidence": [
+            "tools/play.html; tools/overland-travel.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-roads",
+          "title": "City road waypoints for 7 destinations",
+          "evidence": [
+            "tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-sokal",
+          "title": "Sokal ferry: free passage, fare, payer, boarding",
+          "evidence": [
+            "tools/play.js; tools/overland-travel.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-stops",
+          "title": "Travel stops at any prompt, encounter or unexpected position, and on Escape",
+          "evidence": [
+            "tools/play.js"
+          ],
+          "checks": []
+        }
+      ]
+    },
+    {
+      "name": "Fast travel destinations",
+      "features": [
+        {
+          "id": "enhanced.travel-to.diogenes",
+          "title": "Fast travel reaches diogenes",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.zhentil",
+          "title": "Fast travel reaches zhentil",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.buccaneers",
+          "title": "Fast travel reaches buccaneers",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.valjevo",
+          "title": "Fast travel reaches valjevo",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.graveyard",
+          "title": "Fast travel reaches graveyard",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.nomads",
+          "title": "Fast travel reaches nomads",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.kobolds",
+          "title": "Fast travel reaches kobolds",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.lizardmen",
+          "title": "Fast travel reaches lizardmen",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.island",
+          "title": "Fast travel reaches island",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.sokal",
+          "title": "Fast travel reaches sokal",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.newPhlan",
+          "title": "Fast travel reaches newPhlan",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.cityHall",
+          "title": "Fast travel reaches cityHall",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.trainingHall",
+          "title": "Fast travel reaches trainingHall",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.slums",
+          "title": "Fast travel reaches slums",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.kovelMansion",
+          "title": "Fast travel reaches kovelMansion",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.templeOfBane",
+          "title": "Fast travel reaches templeOfBane",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.podolPlaza",
+          "title": "Fast travel reaches podolPlaza",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.kutoWell",
+          "title": "Fast travel reaches kutoWell",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.textileHouse",
+          "title": "Fast travel reaches textileHouse",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.mendorLibrary",
+          "title": "Fast travel reaches mendorLibrary",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.travel-to.stojanow",
+          "title": "Fast travel reaches stojanow",
+          "evidence": [
+            "tools/overland-travel.ts; tools/play.js"
+          ],
+          "checks": []
+        }
+      ]
+    },
+    {
+      "name": "Host behaviour",
+      "features": [
+        {
+          "id": "enhanced.save-slots",
+          "title": "Save slots A to J with roster and companion files",
+          "evidence": [
+            "tools/save-slots.ts"
+          ],
+          "checks": [
+            "translation-unit",
+            "campaign-full"
+          ]
+        },
+        {
+          "id": "enhanced.dos-export",
+          "title": "Export a slot as original DOS save files",
+          "evidence": [
+            "tools/export-dos-save.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.keyboard",
+          "title": "Key mapping: arrows, keypad, diagonals, Alt-Q, Alt-M",
+          "evidence": [
+            "tools/play.js; tools/live-input.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.one-press",
+          "title": "One key press is one input: no press is spent on a pause",
+          "evidence": [
+            "tools/live-input.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.developer-combat",
+          "title": "Developer victory is available only when enabled",
+          "evidence": [
+            "tools/developer-combat.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.no-guest-writes",
+          "title": "The host never writes to the game's memory outside an explicit list",
+          "evidence": [
+            "tools/boot-translated.ts; tools/live-input.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "enhanced.wall-piece-mount",
+          "title": "The Valjevo wall pieces mounted into the game data at start",
+          "evidence": [
+            "tools/gamedata.ts"
+          ],
+          "checks": [
+            "translation-unit"
+          ],
+          "gap": "The pixels are checked. Why the original needs no such mount is not established."
+        },
+        {
+          "id": "enhanced.modes-identical",
+          "title": "Classic and Enhanced produce identical game state for the same inputs",
+          "evidence": [
+            "tools/play.js"
+          ],
+          "checks": []
+        }
+      ]
+    },
+    {
+      "name": "Hard-coded scenes",
+      "features": [
+        {
+          "id": "enhanced.scene.rune-parchment",
+          "title": "Rune parchment keeps its picture-area runes",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.auction-outcomes",
+          "title": "Podol auction outcomes that share a pause",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.zhentil-dinner",
+          "title": "Zhentil dinner topics that share a pause",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.council-reward",
+          "title": "Council reward and finale share a portrait pause",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.cave-revisits",
+          "title": "Dragonfly and kobold cave first sight against revisit",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.cadorna-pleas",
+          "title": "Cadorna's pleas and aftermath in Valjevo",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.bane-ambush",
+          "title": "Bane treasure and exit ambushes",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.dragon-arrival",
+          "title": "Bronze dragon arrival portrait",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.maze-watch",
+          "title": "Maze watch and Scriptorium guards",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.ruin-entrances",
+          "title": "Roofless and L-shaped ruin entrances",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.area-boundaries",
+          "title": "Podol, Nomad and ferry views drawn before the area record changes",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.valjevo-hedge",
+          "title": "Valjevo hedge drawn under the dungeon script",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.wand-pose",
+          "title": "Slums mage wand pose",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.zombie-deltas",
+          "title": "Roaming zombie and river lizardfolk animation members",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        },
+        {
+          "id": "enhanced.scene.portrait-deltas",
+          "title": "305 verified portrait animation members",
+          "evidence": [
+            "tools/live-input.ts; tools/portrait-art.ts"
+          ],
+          "checks": [
+            "presentation-replays"
+          ],
+          "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
+        }
+      ]
+    }
+  ]
+}

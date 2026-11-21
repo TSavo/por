@@ -1,0 +1,1870 @@
+{
+  "schema": 1,
+  "mode": "classic",
+  "groups": [
+    {
+      "name": "Overlay slices",
+      "features": [
+        {
+          "id": "classic.slice-00",
+          "title": "Overlay slice 0: Save reminder",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl00.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-01",
+          "title": "Overlay slice 1: Title and credits",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl01.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-02",
+          "title": "Overlay slice 2: Copy protection (translation wheel)",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl02.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-03",
+          "title": "Overlay slice 3: Script interpreter, encounters, exploration loop",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl03.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-04",
+          "title": "Overlay slice 4: Temple",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl04.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-05",
+          "title": "Overlay slice 5: Combat outcome and treasure",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl05.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-06",
+          "title": "Overlay slice 6: Shop",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl06.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-07",
+          "title": "Overlay slice 7: Script loader and variables",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl07.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-08",
+          "title": "Overlay slice 8: Player combat turn",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl08.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-09",
+          "title": "Overlay slice 9: Monster and Quick combat",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl09.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-10",
+          "title": "Overlay slice 10: Battle setup",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl10.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-11",
+          "title": "Overlay slice 11: Resource loading at startup",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl11.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-12",
+          "title": "Overlay slice 12: Special attacks and effect handlers",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl12.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-13",
+          "title": "Overlay slice 13: Attack resolution and targeting",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl13.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-14",
+          "title": "Overlay slice 14: Movement and doors",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl14.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-15",
+          "title": "Overlay slice 15: Encamp",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl15.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-16",
+          "title": "Overlay slice 16: Party menu, character creation, training",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl16.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-17",
+          "title": "Overlay slice 17: Disk: save, load, character files",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl17.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-18",
+          "title": "Overlay slice 18: Endgame",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl18.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-19",
+          "title": "Overlay slice 19: Character sheet and items",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl19.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-20",
+          "title": "Overlay slice 20: Rest and time",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl20.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-21",
+          "title": "Overlay slice 21: Money and treasure",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl21.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-22",
+          "title": "Overlay slice 22: Spellcasting",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl22.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-23",
+          "title": "Overlay slice 23: Derived character stats",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl23.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-24",
+          "title": "Overlay slice 24: Damage and status",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl24.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-25",
+          "title": "Overlay slice 25: Shared party and combat utilities",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl25.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-26",
+          "title": "Overlay slice 26: List and Yes/No menus",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl26.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-27",
+          "title": "Overlay slice 27: View redraw",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl27.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-28",
+          "title": "Overlay slice 28: Overland map draw",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl28.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-29",
+          "title": "Overlay slice 29: Encounter sprites and portraits",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl29.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-30",
+          "title": "Overlay slice 30: 3D map and walls",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl30.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-31",
+          "title": "Overlay slice 31: Attack-effect iteration",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl31.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-32",
+          "title": "Overlay slice 32: Combat visual effects",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl32.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-33",
+          "title": "Overlay slice 33: Combat map and icons",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl33.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-35",
+          "title": "Overlay slice 35: 8x8 tile sets",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl35.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-36",
+          "title": "Overlay slice 36: EGA blitter",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl36.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        },
+        {
+          "id": "classic.slice-37",
+          "title": "Overlay slice 37: Text, font, key wait",
+          "evidence": [
+            "docs/overlays.json; src/translated/ovl37.ts"
+          ],
+          "checks": [
+            "translation-coverage",
+            "translation-reproducible"
+          ],
+          "gap": "Translated and reproducible. No check yet compares each instruction with the original bytes, and behaviour is exercised only where a replay passes."
+        }
+      ]
+    },
+    {
+      "name": "Script opcodes",
+      "features": [
+        {
+          "id": "classic.ecl.op-00",
+          "title": "Script opcode 00 EXIT (1114 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-01",
+          "title": "Script opcode 01 GOTO (1871 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-02",
+          "title": "Script opcode 02 GOSUB (926 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-03",
+          "title": "Script opcode 03 COMPARE (1511 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-04",
+          "title": "Script opcode 04 ADD (318 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-05",
+          "title": "Script opcode 05 SUB (78 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-06",
+          "title": "Script opcode 06 DIV (30 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-07",
+          "title": "Script opcode 07 MUL (12 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-08",
+          "title": "Script opcode 08 RANDOM (144 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-09",
+          "title": "Script opcode 09 SAVE (2338 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-0a",
+          "title": "Script opcode 0A LOAD CHARACTER (36 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-0b",
+          "title": "Script opcode 0B LOAD MONSTER (329 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-0c",
+          "title": "Script opcode 0C SETUP MONSTER (187 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-0d",
+          "title": "Script opcode 0D APPROACH (99 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-0e",
+          "title": "Script opcode 0E PICTURE (135 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-0f",
+          "title": "Script opcode 0F INPUT NUMBER (2 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-10",
+          "title": "Script opcode 10 INPUT STRING (20 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-11",
+          "title": "Script opcode 11 PRINT (291 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-12",
+          "title": "Script opcode 12 PRINTCLEAR (1400 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-13",
+          "title": "Script opcode 13 RETURN (440 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-14",
+          "title": "Script opcode 14 COMPARE AND (66 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-15",
+          "title": "Script opcode 15 VERTICAL MENU (15 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-16",
+          "title": "Script opcode 16 IF = (688 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-17",
+          "title": "Script opcode 17 IF <> (635 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-18",
+          "title": "Script opcode 18 IF < (181 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-19",
+          "title": "Script opcode 19 IF > (282 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-1a",
+          "title": "Script opcode 1A IF <= (25 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-1b",
+          "title": "Script opcode 1B IF >= (128 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-1c",
+          "title": "Script opcode 1C CLEAR MONSTERS (251 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-1d",
+          "title": "Script opcode 1D PARTY STRENGTH (18 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-1e",
+          "title": "Script opcode 1E CHECK PARTY (4 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-20",
+          "title": "Script opcode 20 NEW ECL (79 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-21",
+          "title": "Script opcode 21 LOAD FILES (61 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-22",
+          "title": "Script opcode 22 PARTY SURPRISE (22 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-23",
+          "title": "Script opcode 23 SURPRISE (22 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-24",
+          "title": "Script opcode 24 COMBAT (also shop and temple) (244 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-25",
+          "title": "Script opcode 25 ON GOTO (427 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-26",
+          "title": "Script opcode 26 ON GOSUB (37 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-27",
+          "title": "Script opcode 27 TREASURE (77 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-28",
+          "title": "Script opcode 28 ROB (14 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-29",
+          "title": "Script opcode 29 ENCOUNTER MENU (94 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-2a",
+          "title": "Script opcode 2A GET TABLE (271 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-2b",
+          "title": "Script opcode 2B HORIZONTAL MENU (205 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-2c",
+          "title": "Script opcode 2C PARLAY (41 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-2d",
+          "title": "Script opcode 2D CALL (178 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-2e",
+          "title": "Script opcode 2E DAMAGE (48 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-2f",
+          "title": "Script opcode 2F AND (356 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-30",
+          "title": "Script opcode 30 OR (207 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-31",
+          "title": "Script opcode 31 SPRITE OFF (56 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-32",
+          "title": "Script opcode 32 FIND ITEM (7 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-33",
+          "title": "Script opcode 33 PRINT RETURN (20 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-34",
+          "title": "Script opcode 34 ECL CLOCK (1 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-35",
+          "title": "Script opcode 35 SAVE TABLE (17 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-36",
+          "title": "Script opcode 36 ADD NPC (8 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-37",
+          "title": "Script opcode 37 LOAD PIECES (35 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-38",
+          "title": "Script opcode 38 PROGRAM (party menu, finale, camp) (4 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-39",
+          "title": "Script opcode 39 WHO (11 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-3a",
+          "title": "Script opcode 3A DELAY (187 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-3b",
+          "title": "Script opcode 3B SPELL (1 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-3c",
+          "title": "Script opcode 3C PROTECTION (12 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.ecl.op-3d",
+          "title": "Script opcode 3D CLEAR BOX (27 uses in the scripts)",
+          "evidence": [
+            "GAME.OVR slice 3 dispatch at 32df; src/translated/ovl03.ts"
+          ],
+          "checks": []
+        }
+      ]
+    },
+    {
+      "name": "Menus and commands",
+      "features": [
+        {
+          "id": "classic.menu.title",
+          "title": "Title, credits and publisher screens",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.party-menu",
+          "title": "Party menu: Create, Drop, Modify, Train, View, Add, Remove, Load, Save, Begin Adventuring, Exit (keys C D M T V A R L S B E J)",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": [
+            "campaign-opening"
+          ],
+          "gap": "Create, Add and Begin Adventuring only."
+        },
+        {
+          "id": "classic.menu.creation-race",
+          "title": "Character creation: 7 races",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": [
+            "campaign-opening"
+          ],
+          "gap": "Only dwarves are created."
+        },
+        {
+          "id": "classic.menu.creation-class",
+          "title": "Character creation: 8 classes and 9 multiclasses",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": [
+            "campaign-opening"
+          ],
+          "gap": "Only fighters are created."
+        },
+        {
+          "id": "classic.menu.creation-alignment",
+          "title": "Character creation: 9 alignments, 2 genders, name entry, Keep this character",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": [
+            "campaign-opening"
+          ],
+          "gap": "One alignment and one gender."
+        },
+        {
+          "id": "classic.menu.icon-editor",
+          "title": "Combat icon editor: Parts, colours, Size, Head, Weapon, Body, Shield, Arm, Leg",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.drop-modify-add",
+          "title": "Drop, Modify and Add character flows",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.training",
+          "title": "Training: 1000 gp, class and experience refusals",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.explore",
+          "title": "Exploration menu: Area Cast View Encamp Search Look",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": [
+            "campaign-opening"
+          ],
+          "gap": "Encamp and movement only."
+        },
+        {
+          "id": "classic.menu.explore-overland",
+          "title": "Overland menu: Cast View Encamp Search Look",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.doors",
+          "title": "Doors: Locked, Bash, Pick, Knock",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.camp",
+          "title": "Camp menu: Save View Magic Rest Alter Exit",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.camp-magic",
+          "title": "Camp Magic: Cast Memorize Scribe Display Rest",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.camp-rest",
+          "title": "Rest: days, hours, minutes, interruption",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.camp-alter",
+          "title": "Alter: Order Drop Speed Icon Pics",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.view",
+          "title": "View: Items Spells Trade Drop",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.items",
+          "title": "Item commands: Ready Use Trade Drop Halve Join Sell Id",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.combat-1",
+          "title": "Combat menu: Move View Aim Use Cast Turn Quick Done",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.combat-2",
+          "title": "Combat menu: Guard Delay Quit Bandage Speed",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.combat-aim",
+          "title": "Aim: Target Next Prev Manual Center",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.encounter",
+          "title": "Encounter menu: Combat Wait Flee Parlay / Advance",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.parlay",
+          "title": "Parlay attitudes: Haughty Sly Nice Meek Abusive",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.temple",
+          "title": "Temple: Heal View Take Pool Share Appraise, 9 cures",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.shop",
+          "title": "Shop: Buy View Take Pool Share Appraise",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.treasure",
+          "title": "After combat: Money Items, View Take Pool Share, Detect",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.appraise",
+          "title": "Appraise gems and jewelry: Sell Keep",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.save-load",
+          "title": "Save and load: slots A to J",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": [
+            "campaign-opening"
+          ],
+          "gap": "Slots A to D only."
+        },
+        {
+          "id": "classic.menu.death-ending",
+          "title": "Party death and the ending",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.scripted-horizontal",
+          "title": "125 distinct scripted horizontal menus",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.scripted-vertical",
+          "title": "14 distinct scripted vertical menus",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.menu.ctrl-keys",
+          "title": "Ctrl-S, Ctrl-D and Ctrl-C in the key routine",
+          "evidence": [
+            "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
+          ],
+          "checks": []
+        }
+      ]
+    },
+    {
+      "name": "Areas",
+      "features": [
+        {
+          "id": "classic.area-00",
+          "title": "Area 0: New Phlan (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+        },
+        {
+          "id": "classic.area-01",
+          "title": "Area 1: Buccaneer Base (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-02",
+          "title": "Area 2: Cadorna Textile House (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-03",
+          "title": "Area 3: Valjevo Castle 3 (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+        },
+        {
+          "id": "classic.area-04",
+          "title": "Area 4: Valjevo Castle 4 (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+        },
+        {
+          "id": "classic.area-05",
+          "title": "Area 5: Valjevo Castle 5 (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+        },
+        {
+          "id": "classic.area-06",
+          "title": "Area 6: Valjevo Castle 6 (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+        },
+        {
+          "id": "classic.area-07",
+          "title": "Area 7: Valjevo Castle 7 (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+        },
+        {
+          "id": "classic.area-08",
+          "title": "Area 8: City Hall (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+        },
+        {
+          "id": "classic.area-09",
+          "title": "Area 9: Stojanow Gate (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+        },
+        {
+          "id": "classic.area-10",
+          "title": "Area 10: Valhingen Graveyard (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-11",
+          "title": "Area 11: Training Hall (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+        },
+        {
+          "id": "classic.area-13",
+          "title": "Area 13: Kobold Caves (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-14",
+          "title": "Area 14: Kovel Mansion (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-15",
+          "title": "Area 15: Mendor's Library (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-16",
+          "title": "Area 16: Lizardman Keep (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-17",
+          "title": "Area 17: Nomad Camp (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-18",
+          "title": "Area 18: Podol Plaza (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+        },
+        {
+          "id": "classic.area-19",
+          "title": "Area 19: Cave of Diogenes (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-20",
+          "title": "Area 20: Slums (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+        },
+        {
+          "id": "classic.area-21",
+          "title": "Area 21: Sokal Keep (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+        },
+        {
+          "id": "classic.area-22",
+          "title": "Area 22: Yarash's Pyramid 22 (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-23",
+          "title": "Area 23: Yarash's Pyramid 23 (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-24",
+          "title": "Area 24: Temple of Bane (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-25",
+          "title": "Area 25: Wilderness West (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-26",
+          "title": "Area 26: Wilderness Middle (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-27",
+          "title": "Area 27: Wilderness East (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-28",
+          "title": "Area 28: Zhentil Keep Outpost (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.area-29",
+          "title": "Area 29: Kuto's Well (script, map, every event)",
+          "evidence": [
+            "src/maps/area-catalog.json"
+          ],
+          "checks": []
+        }
+      ]
+    },
+    {
+      "name": "Commissions",
+      "features": [
+        {
+          "id": "classic.commission.slums",
+          "title": "Commission: slums",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "Played on one route, partly with the developer victory command."
+        },
+        {
+          "id": "classic.commission.sokal",
+          "title": "Commission: sokal",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "Played on one route, partly with the developer victory command."
+        },
+        {
+          "id": "classic.commission.records",
+          "title": "Commission: records",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.auction",
+          "title": "Commission: auction",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.textile",
+          "title": "Commission: textile",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.bane",
+          "title": "Commission: bane",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.kovel",
+          "title": "Commission: kovel",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.nomads",
+          "title": "Commission: nomads",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.kobolds",
+          "title": "Commission: kobolds",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.river",
+          "title": "Commission: river",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.lizardmen",
+          "title": "Commission: lizardmen",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.rescue",
+          "title": "Commission: rescue",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.zhentil",
+          "title": "Commission: zhentil",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.graveyard",
+          "title": "Commission: graveyard",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.gate",
+          "title": "Commission: gate",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "Played on one route, partly with the developer victory command."
+        },
+        {
+          "id": "classic.commission.castle",
+          "title": "Commission: castle",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "Played on one route, partly with the developer victory command."
+        },
+        {
+          "id": "classic.commission.cadorna",
+          "title": "Commission: cadorna",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.ohlo",
+          "title": "Commission: ohlo",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": [
+            "campaign-full"
+          ],
+          "gap": "Played on one route, partly with the developer victory command."
+        },
+        {
+          "id": "classic.commission.bottle",
+          "title": "Commission: bottle",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.commission.bottle-vampire",
+          "title": "Commission: bottle-vampire",
+          "evidence": [
+            "src/runtime/commission-journal.ts"
+          ],
+          "checks": []
+        }
+      ]
+    },
+    {
+      "name": "Content tables",
+      "features": [
+        {
+          "id": "classic.content.monsters",
+          "title": "172 monster records, 103 distinct names, in MON1-8CHA.DAX",
+          "evidence": [
+            "Original data files; research pass 2026-11-21"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.content.items",
+          "title": "128 item types and about 250 item-name words",
+          "evidence": [
+            "Original data files; research pass 2026-11-21"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.content.spells",
+          "title": "56 spells and their effects",
+          "evidence": [
+            "Original data files; research pass 2026-11-21"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.content.hirelings",
+          "title": "8 hireling types",
+          "evidence": [
+            "Original data files; research pass 2026-11-21"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.content.statuses",
+          "title": "9 character statuses and 7 coin types",
+          "evidence": [
+            "Original data files; research pass 2026-11-21"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.content.tavern-tales",
+          "title": "Tavern tales 1 to 24 (numbers only; the text was in the printed journal)",
+          "evidence": [
+            "Original data files; research pass 2026-11-21"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.content.journal-entries",
+          "title": "26 journal entry numbers referenced by the scripts (text was in the printed journal)",
+          "evidence": [
+            "Original data files; research pass 2026-11-21"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.content.sound-events",
+          "title": "20 original sound events",
+          "evidence": [
+            "Original data files; research pass 2026-11-21"
+          ],
+          "checks": [
+            "original-audio",
+            "sound-driver-unicorn"
+          ]
+        },
+        {
+          "id": "classic.content.wall-sets",
+          "title": "38 wall sets and 45 tile sets",
+          "evidence": [
+            "Original data files; research pass 2026-11-21"
+          ],
+          "checks": []
+        }
+      ]
+    },
+    {
+      "name": "Platform services",
+      "features": [
+        {
+          "id": "classic.platform.dos-files",
+          "title": "DOS file calls: create, open, close, read, write, delete, seek",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": [
+            "translation-unit"
+          ],
+          "gap": "One narrow unit check. Not checked against the hardware specification as a whole."
+        },
+        {
+          "id": "classic.platform.dos-console",
+          "title": "DOS console output",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.platform.dos-clock",
+          "title": "DOS date and time (fixed date, deterministic time)",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.platform.dos-memory",
+          "title": "DOS memory allocation (never freed)",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.platform.dos-misc",
+          "title": "DOS version, drive, vectors, directory calls",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.platform.bios-video-mode",
+          "title": "BIOS video: mode, cursor, write character",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": [
+            "translation-unit"
+          ],
+          "gap": "One narrow unit check. Not checked against the hardware specification as a whole."
+        },
+        {
+          "id": "classic.platform.bios-video-palette",
+          "title": "BIOS video: palette registers (ignored today)",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.platform.bios-video-page",
+          "title": "BIOS video: display page (ignored today)",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.platform.bios-keyboard",
+          "title": "BIOS keyboard: poll, read, shift state",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.platform.ega-planes",
+          "title": "EGA planar memory, sequencer and graphics controller",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": [
+            "translation-unit"
+          ],
+          "gap": "One narrow unit check. Not checked against the hardware specification as a whole."
+        },
+        {
+          "id": "classic.platform.timer",
+          "title": "BIOS tick and Crt.Delay",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.platform.sound-ports",
+          "title": "PIT, speaker and Tandy sound ports",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": []
+        },
+        {
+          "id": "classic.platform.overlay-loading",
+          "title": "Overlay loading in place of int 3Fh",
+          "evidence": [
+            "src/runtime/dos.ts, video.ts, intr.ts, overlay.ts; src/cpu/machine.ts"
+          ],
+          "checks": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "checks": [
+    {
+      "id": "translation-coverage",
+      "title": "Every original procedure has a translation",
+      "command": "tsx tools/verify-translation-coverage.ts",
+      "reference": "original",
+      "needs": [
+        "game files"
+      ]
+    },
+    {
+      "id": "translation-reproducible",
+      "title": "src/translated matches the generator",
+      "command": "npm run verify:translation-reproducible",
+      "reference": "original",
+      "needs": [
+        "game files",
+        "python + capstone"
+      ]
+    },
+    {
+      "id": "translation-unit",
+      "title": "Runtime, journal, wall and art-pack checks",
+      "command": "tsx tools/verify-translation.ts",
+      "reference": "self",
+      "needs": [
+        "game files"
+      ]
+    },
+    {
+      "id": "original-audio",
+      "title": "All 20 sound events render through the decoded driver",
+      "command": "tsx tools/verify-original-audio.ts",
+      "reference": "game-data",
+      "needs": [
+        "game files"
+      ]
+    },
+    {
+      "id": "sound-driver-unicorn",
+      "title": "Decoded sound driver matches the original bytes run under Unicorn",
+      "command": "python tools/validate-original-driver-unicorn.py",
+      "reference": "original",
+      "needs": [
+        "game files",
+        "python + unicorn",
+        "traces in por-assets"
+      ]
+    },
+    {
+      "id": "enhanced-audio",
+      "title": "Approved Enhanced effects and music cues are present and well formed",
+      "command": "tsx tools/verify-enhanced-audio.ts",
+      "reference": "self",
+      "needs": []
+    },
+    {
+      "id": "voice-master",
+      "title": "Every text event is classified into a narration unit",
+      "command": "npm run verify-voice-master",
+      "reference": "game-data",
+      "needs": []
+    },
+    {
+      "id": "narration-generation",
+      "title": "Every queued narration recording exists with its exact transcript",
+      "command": "npm run verify-narration-generation",
+      "reference": "self",
+      "needs": []
+    },
+    {
+      "id": "narration-runtime",
+      "title": "Narration trigger selection, variants, queueing and Classic gating",
+      "command": "npm run verify-narration-runtime",
+      "reference": "game-data",
+      "needs": [
+        "game files"
+      ]
+    },
+    {
+      "id": "automap",
+      "title": "The discovered map records tiles, keeps labels and round-trips through a save slot",
+      "command": "tsx tools/verify-automap.ts",
+      "reference": "game-data",
+      "needs": [
+        "game files"
+      ]
+    },
+    {
+      "id": "map-journal",
+      "title": "Map save and reload, the original Camp menu, and the Enhanced-only journal key, in Chrome",
+      "command": "npm run verify:map-journal",
+      "reference": "recorded-play",
+      "needs": [
+        "game files",
+        "Chrome",
+        "a campaign-opening directory"
+      ]
+    },
+    {
+      "id": "campaign-opening",
+      "title": "Character creation to the first Slums victory, in Enhanced Chrome",
+      "command": "npm run verify:campaign-opening",
+      "reference": "recorded-play",
+      "needs": [
+        "game files",
+        "Chrome"
+      ]
+    },
+    {
+      "id": "campaign-full",
+      "title": "Character creation to the final council reward, in Enhanced Chrome",
+      "command": "npm run verify:campaign",
+      "reference": "recorded-play",
+      "needs": [
+        "game files",
+        "Chrome"
+      ]
+    },
+    {
+      "id": "presentation-replays",
+      "title": "Per-scene Enhanced presentation replays",
+      "command": "node tools/verify-slums-presentation.mjs",
+      "reference": "recorded-play",
+      "needs": [
+        "game files",
+        "Chrome",
+        "checkpoint saves that are not in the repository"
+      ]
+    }
+  ]
+}

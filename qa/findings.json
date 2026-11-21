@@ -1,0 +1,198 @@
+{
+  "schema": 1,
+  "note": "Every fault the QA owner knows about. A finding stays open until a named check proves the fix. `npm run qa:inventory` counts the open ones.",
+  "findings": [
+    {
+      "id": "input-extra-key-press",
+      "class": "input",
+      "title": "A key press is spent on a pause the original would end by itself",
+      "detail": "The game empties its keyboard buffer before drawing a new screen (FlushKeys, START.EXE 26b:f6) and after each key (26b:48). The runner blocks at those polls and waits for the player. The key it receives is discarded, so the player presses again. Seen as B twice at Begin Adventuring, E twice for Encamp, and an extra Enter when leaving an area.",
+      "source": "Owner report, reproduced with a key trace on 2026-11-21.",
+      "status": "open"
+    },
+    {
+      "id": "input-replays-mask-extra-presses",
+      "class": "checks",
+      "title": "The replays press a key until the screen changes, which hides swallowed keys",
+      "detail": "tools/verify-fresh-party.mjs uses [key, until, limit] actions, and tools/verify-slums-presentation.mjs has `if still on the area menu, press E again`. An acceptance step must press once and assert.",
+      "source": "Code reading.",
+      "status": "open"
+    },
+    {
+      "id": "input-j-swallowed-enhanced",
+      "class": "input",
+      "title": "In Enhanced, lowercase j opens the journal where the game wants the letter",
+      "detail": "Typing a character name, and the party menu, whose key set is C D M T V A R L S B E J. The runner only exempts jewelry appraisal, Join Tyranthraxus and the disk menus.",
+      "source": "Side-agent note and code reading. Not yet reproduced in play.",
+      "status": "open"
+    },
+    {
+      "id": "input-m-swallowed-enhanced",
+      "class": "input",
+      "title": "In Enhanced, lowercase m opens the map and never reaches the game",
+      "detail": "Move in combat, Magic in the Camp menu, Mins in Rest, and Modify at the party menu all use M. tools/play.js toggles the map first.",
+      "source": "Code reading. Not yet reproduced in play.",
+      "status": "open"
+    },
+    {
+      "id": "input-original-control-keys-dropped",
+      "class": "input",
+      "title": "The original's Ctrl key commands never reach the game",
+      "detail": "The game's key routine (START.EXE image 26f8) acts on Ctrl-S (sound on and off), Ctrl-D and Ctrl-C. The page drops every Ctrl combination. Tab and key auto-repeat are dropped too, and the numeric keypad can never send digits.",
+      "source": "Code reading.",
+      "status": "open"
+    },
+    {
+      "id": "input-phantom-enter",
+      "class": "input",
+      "title": "A blocking key read with nothing queued returns Enter",
+      "detail": "src/runtime/dos.ts answers 0x1c0d when no key is waiting. In live play the runner always supplies a key first, so this only fires before the live step. It still needs a check that it cannot fire in play.",
+      "source": "Code reading.",
+      "status": "open"
+    },
+    {
+      "id": "display-portrait-in-portrait",
+      "class": "enhanced-display",
+      "title": "A portrait sometimes shows inside another portrait",
+      "detail": "Mechanism not yet established. 47 Enhanced portrait and illustration PNGs contain transparent pixels, which let the original picture show through; whether that is the cause is unproven.",
+      "source": "Owner report.",
+      "status": "open"
+    },
+    {
+      "id": "display-animated-portraits-loop",
+      "class": "enhanced-display",
+      "title": "Every frame of an animated portrait must play as a loop in Chrome",
+      "detail": "Replacement art exists for three- and four-frame animations. The bar is that it looks right in Chrome, not that it matches the original's frame timing.",
+      "source": "Owner requirement.",
+      "status": "open"
+    },
+    {
+      "id": "combat-messages-shown",
+      "class": "classic",
+      "title": "Every combat message must appear",
+      "detail": "Combat messages went missing in the past. Believed fixed, never proven.",
+      "source": "Owner report.",
+      "status": "open"
+    },
+    {
+      "id": "classic-palette-changes-ignored",
+      "class": "classic",
+      "title": "The original's palette changes are ignored",
+      "detail": "int 10h AH=10h has no case in src/runtime/video.ts. The game calls it from the title sequence and from combat effects (START.EXE image 4f59, slices 1 and 32). Display-page selection (AH=05h) is ignored too.",
+      "source": "Research pass over the platform layer.",
+      "status": "open"
+    },
+    {
+      "id": "classic-sound-not-in-release",
+      "class": "release",
+      "title": "The reproduced Classic sound WAV files are not in this repository",
+      "detail": "They are in TSavo/por-assets under original/. A release of this repository alone is silent in Classic.",
+      "source": "Owner reminder and code reading.",
+      "status": "open"
+    },
+    {
+      "id": "classic-copy-protection",
+      "class": "classic",
+      "title": "Establish what the port does with the translation-wheel check",
+      "detail": "GAME.OVR slice 2 asks for a code word from the printed wheel. The campaign replay never types one. Either the check is not reached, or the supplied game files skip it. A player without the wheel must not be blocked.",
+      "source": "Research pass.",
+      "status": "open"
+    },
+    {
+      "id": "classic-unhandled-dos-calls",
+      "class": "classic",
+      "title": "Three DOS calls in the translated code would stop the game if reached",
+      "detail": "Set Date, Set Time and Rename (int 21h AH=2Bh, 2Dh, 56h). No translated caller was found.",
+      "source": "Research pass.",
+      "status": "open"
+    },
+    {
+      "id": "audio-silent-hardware-mutes-enhanced",
+      "class": "enhanced-audio",
+      "title": "Choosing Silent for Classic hardware also silences Enhanced effects",
+      "detail": "tools/play.js returns before checking for an Enhanced replacement.",
+      "source": "Research pass.",
+      "status": "open"
+    },
+    {
+      "id": "audio-dialogue-slider-unused",
+      "class": "enhanced-audio",
+      "title": "The Dialogue volume slider controls nothing",
+      "detail": "Every voice line and queued clip is typed narration.",
+      "source": "Research pass.",
+      "status": "open"
+    },
+    {
+      "id": "audio-voice-content-type",
+      "class": "enhanced-audio",
+      "title": "The Rolf tour MP3 files are served as audio/wav",
+      "detail": "tools/browser-play.ts /voice/ route.",
+      "source": "Research pass.",
+      "status": "open"
+    },
+    {
+      "id": "display-character-sheet-fallback",
+      "class": "enhanced-display",
+      "title": "A failed character-sheet image drops the whole frame to Classic",
+      "detail": "The character-sheet-part layer is not in the page's handled fallback list.",
+      "source": "Research pass.",
+      "status": "open"
+    },
+    {
+      "id": "docs-stale",
+      "class": "docs",
+      "title": "Documents that no longer match the code",
+      "detail": "upgrades/README.md describes a viewport key the loader rejects and a 59-tile Slums pack. README.md says the keypad needs Num Lock off. docs/ecl.md and src/lib/ecl.ts give the Curse of the Azure Bonds opcode table; the real dispatch handles 0x00 to 0x3D except 0x1F. docs/AUDIO.md says 1,745 recordings where the manifest has 1,739 files.",
+      "source": "Research passes.",
+      "status": "open"
+    },
+    {
+      "id": "guides-describe-v1-3",
+      "class": "acceptance",
+      "title": "The walkthrough describes game version 1.3; the supplied files are version 1.1",
+      "detail": "The Stephen S. Lee guide (v2.00, 2026-04-02) is written for IBM v1.3 and says the scripts changed between v1.1 and v1.2 without listing how. Every scripted step taken from the guide has to be confirmed against the v1.1 scripts before it becomes an assertion.",
+      "source": "Guide research, qa/research/guides-digest.md.",
+      "status": "open"
+    },
+    {
+      "id": "classic-sting-mode",
+      "class": "classic",
+      "title": "The original's STING start-up mode is part of the program",
+      "detail": "Launching the original with the argument STING enables Ctrl-C quit, Ctrl-D hit-point debug, Alt-X win combat and J to train for free, and skips the intro and copy protection. That explains the J in the party menu's key set. Decide whether the port exposes it, and check that J does nothing at the party menu without it.",
+      "source": "Guide research and the strings in START.EXE.",
+      "status": "open"
+    },
+    {
+      "id": "checkpoints-not-in-repo",
+      "class": "checks",
+      "title": "1,045 presentation replays need checkpoint saves that are not in the repository",
+      "detail": "Only new-phlan-rolf-approach runs from a fresh game. No code maps a replay to the command that produces its checkpoint.",
+      "source": "qa/research/existing-checks.md.",
+      "status": "open"
+    },
+    {
+      "id": "no-check-against-original",
+      "class": "checks",
+      "title": "No check compares the translated game's behaviour with the original program",
+      "detail": "Every replay compares against expectations the port wrote, the original data files, or its own earlier recording. The one check that runs original code covers the sound driver only.",
+      "source": "qa/research/existing-checks.md.",
+      "status": "open"
+    },
+    {
+      "id": "commissions-never-asserted",
+      "class": "checks",
+      "title": "Three commissions are asserted by no replay",
+      "detail": "commission-graveyard, commission-gate and commission-cadorna. The full campaign replay asserts only sokal and castle.",
+      "source": "qa/research/existing-checks.md.",
+      "status": "open"
+    },
+    {
+      "id": "translation-crt-delay",
+      "class": "classic",
+      "title": "Crt.Delay ends after one pass",
+      "detail": "A named exception in the generator. The owner ruled on 2026-11-21 that timing is not a QA priority for a turn-based game.",
+      "source": "This session.",
+      "status": "accepted"
+    }
+  ]
+}
