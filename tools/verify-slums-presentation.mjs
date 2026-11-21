@@ -1062,7 +1062,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:9:ecl:9c63:HEAD2.DAX:5:BODY2.DAX:9",
     prompt: /PLEASUREDOINGBUSINESSWITHYOU/i,
     journalLead: "gate-trader-guard-warning",
-    continuation: { inputs: ["enter"], prompt: /BUGBEARSHAVEBEENSTUCKGUARDINGTHEGATE/i },
+    continuation: { inputs: ["enter"], portrait: "scene-illustration:area:9:ecl:9c63:caller:afb8", prompt: /BUGBEARSHAVEBEENSTUCKGUARDINGTHEGATE/i },
   }],
   ["zhentil-dwarf-charge", {
     slot: "A", inputs: ["up", "enter"],
@@ -6627,7 +6627,14 @@ try {
       }
       if (routeName === "stojanow-wagon-handover") {
         assert.ok(!frame.journal.leads.some(({ id }) => id === "gate-trader-ettin-warning"));
-        for (const key of ["j", "enter", "j"]) await advance(key);
+        for (const key of ["j", "enter"]) await advance(key);
+        const ettinWarning = "scene-illustration:area:9:ecl:9c63:caller:b014";
+        assert.equal(frame.portrait, ettinWarning);
+        assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /THEY'REAFRAIDOFTHEMETTIN/i);
+        await waitFor("the trader's warning about the ettin", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${ettinWarning}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        await advance("j");
         assert.ok(frame.journal?.leads.some(({ id }) => id === "gate-trader-ettin-warning"));
       }
       if (routeName === "podal-auction-ogre-searched") {
@@ -6657,7 +6664,9 @@ try {
     }
     if (routeName === "stojanow-wagon-handover") {
       assert.deepEqual(readFileSync(saved), originalSave);
-      for (const key of ["enter", "e", "enter", "s", "s", "b"]) await advance(key);
+      await advance("enter");
+      assert.equal(frame.portrait, undefined);
+      for (const key of ["e", "enter", "s", "s", "b"]) await advance(key);
       const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
       assert.ok(traderJournalLeads.every(id => known.has(id)));
       console.log("Native save after the wagon purchase:", saved);
