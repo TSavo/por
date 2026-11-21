@@ -362,6 +362,7 @@ const encounterRoutes = new Map([
   ["wild-cave-gnoll-approach", {
     slot: "B", inputs: ["up", "enter"],
     placement: [40, 32, "encounter:area:27:SPRIT8.DAX:73:0:0", 56, 80],
+    requireWebGL: true,
     terrain: { area: 27, views: 3, patterns: 17 },
     dialogue: { key: "enter", portrait: "portrait:area:27:PIC8.DAX:73:0:0", prompt: /SOMEGNOLLSANDTROLLS/i },
   }],
