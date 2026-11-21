@@ -8147,13 +8147,21 @@ try {
     assert.ok(knows("bane-defiled-altar") && !knows("bane-altar-ambush"));
     assert.match(frame.journal.objective.nextStep, /Choose Destroy Altar/);
     for (const key of ["j", "d"]) await advance(key);
-    assert.notEqual(frame.portrait, decision);
+    const destruction = "scene-illustration:area:24:ecl:a9c2";
+    assert.equal(frame.portrait, destruction);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
+      /ASYOUDESTROYTHEALTAR,THETEMPLEDOORSFLYOPEN.*HALF-ORCCLERICATTACK/i);
+    await waitFor("the shattered altar illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${destruction}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
     await advance("j");
     assert.ok(knows("bane-altar-ambush") && !knows("bane-cleric-dispatch"));
     assert.match(frame.journal.objective.nextStep, /Defeat the half-orc cleric/);
     assert.notEqual(frame.journal.leads.find(({ id }) => id === "commission-bane")?.status, "ready-to-report");
     for (const key of ["j", "enter"]) await advance(key);
     await waitFor("all three altar ambush poses", () => run("window.observedApproach.size === 3"));
+    assert.notEqual(frame.portrait, destruction);
     for (const key of ["enter", "enter", "enter", "q"]) await advance(key);
     const cleric = "combat:area:24:CPIC1.DAX:33";
     assert.ok(frame.combatArt.some(([, , id]) => id === cleric));
