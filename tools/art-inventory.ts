@@ -536,6 +536,7 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["valhingen-vampire-wooden-stairs.png", ["Wooden stairs descending into an open pit", "The stairhead and first treads are readable at gameplay size", "No creature is visible before the party chooses to descend"]],
   ["valhingen-paladin-crypt.png", ["The warrior lies in an open stone coffin", "The helmet and full armor are readable at gameplay size"]],
   ["valhingen-knight-door-relief.png", ["A knight fights several undead", "The figures are visibly carved into the door panel"]],
+  ["valhingen-glass-and-fur-static.png", ["Glass vessels and fur objects occupy the same chamber", "A visible spark arcs toward the party's outstretched hand"]],
   ["wild-cave-bone-chamber.png", ["Human skulls and bones occupy most of the chamber", "The cave passage is still readable behind the foreground remains"]],
   ["wild-cave-elven-remains.png", ["Several fallen figures lie on the cave ledges", "Clothing and abandoned equipment distinguish this discovery from the bone-filled chamber"]],
   ["kovel-four-caskets.png", ["Exactly four small, closed caskets sit on one table", "All four caskets remain individually readable at gameplay size"]],

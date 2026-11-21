@@ -1227,6 +1227,14 @@ const illustrationRoutes = new Map([
     journalLead: "textile-diary-page", journalLeadAtDiscovery: true,
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["valhingen-lower-tower-static", {
+    slot: "A", inputs: ["s", "up", "left", "up"],
+    portraitStops: { 1: null, 2: null, 3: null },
+    portrait: "scene-illustration:area:10:ecl:b695:caller:aa5f",
+    prompt: /THELOWERCHAMBERISFILLEDWITHGLASSANDFUROBJECTSOFALLTYPES.*ASHARPCRACKSPLITSTHEAIRANDYOUARESTUNG/i,
+    finalPhaseCapture: "valhingen-glass-and-fur-static.png",
+    continuation: { inputs: ["enter", "enter", "right", "right", "up"], prompt: /9,5N/, clearsPortrait: true },
+  }],
   ["yarash-alchemical-laboratory", {
     // Start at (11, 12) facing west with the secret door undiscovered.
     slot: "A", inputs: ["up", "up", "enter", "left", "up", "enter", "right"],
