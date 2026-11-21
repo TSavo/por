@@ -33,6 +33,13 @@ ordinary play and which start from controlled saves.
   `--from-temple <slot-G>`, `--from-evoker <slot-H>`, or
   `--from-sokal-patrol <slot-J>`. Use `--replay-leg <directory>`
   to rerun a recorded leg independently in Chrome and compare its final frame.
+- `--from-sokal-trained <slot-J>` resumes with the six trained fighters and
+  their two recruits beyond the Sokal patrol. The party wins the courtyard
+  battle with the original Quick combat and reloads the courtyard note in
+  slot C. Use `--from-sokal-courtyard <slot-C>` to continue from that save.
+  The party speaks to Ferran, returns by boat, and claims the Sokal Keep
+  commission reward at City Hall. Slot H preserves the reward and the journal
+  turn-in.
 - The Encamp journal tracks witnessed clues and the selected commission in
   the active save slot. The art inventory tracks individual replacements,
   placement metadata, and observed gaps. [Art inventory](docs/ART-INVENTORY.md)

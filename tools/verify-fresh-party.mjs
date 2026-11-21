@@ -15,8 +15,8 @@ const chromePath = process.argv[3];
 const [campaignOption, campaignInput, extraArgument] = process.argv.slice(4);
 if (campaignChrome) {
   assert.ok(chromePath, "Pass the path to Chrome.");
-  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
-    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker with slot H, --from-sokal-patrol with slot J, or --replay-leg with a recorded leg directory.");
+  assert.ok(!campaignOption || campaign && ["--from-slums", "--from-sokal", "--from-sokal-armory", "--from-temple", "--from-evoker", "--from-sokal-patrol", "--from-sokal-trained", "--from-sokal-courtyard", "--replay-leg"].includes(campaignOption) && campaignInput && !extraArgument,
+    "Expected --from-slums with slot D, --from-sokal with slot A, --from-sokal-armory with slot F, --from-temple with slot G, --from-evoker with slot H, --from-sokal-patrol or --from-sokal-trained with slot J, --from-sokal-courtyard with slot C, or --replay-leg with a recorded leg directory.");
 }
 mkdirSync("out", { recursive: true });
 const saveDir = mkdtempSync(join("out", campaignChrome ? "campaign-" : "fresh-party-"));
@@ -1494,6 +1494,78 @@ async function verifySokalCourtyardStaging() {
   console.log("Verified the courtyard ambush enters native combat with Brin's earned gear.");
 }
 
+async function verifyTrainedSokalCourtyard() {
+  console.log("Replaying the original courtyard battle in Enhanced Chrome:", resolve(saveDir));
+  const victory = await replay(loadSlot("246a"), "85000000", [
+    (text) => {
+      expectParty(text);
+      assert.match(text, /alda 2 16.*brin -1 9.*fenn 2 11.*theurgist 8 13.*curate 2 26.*9,11 e/);
+    },
+    "up", "left", ...Array(7).fill("up"), "enter", "y", "right", "left", "up", "up", "left", "up",
+    (text) => assert.match(text, /9,5 w/),
+    ...Array(7).fill("end"), "c", (text) => assert.match(text, /curate's spells in memory.*bless bless/),
+    ...Array(8).fill("home"), "enter", "e",
+    "up", ...Array(5).fill("enter"), (text) => assert.match(text, /brin hitpoints 9 ac -1 long sword/),
+    // Run original Quick combat with spellcasting enabled.
+    "q", "alt-m", ["q", /continue battle:yes no|the party has been destroyed/, 1500],
+    (text) => assert.match(text, /continue battle:yes no/),
+    "n", (text) => assert.match(text, /the party has won.*receives 648 experience points/),
+    "enter", "enter", "e", "n", (text) => assert.match(text, /on a hobgoblin body.*as entry 57/),
+    "e", "s", "s", "c",
+  ]);
+  assert.match(visibleText(victory), /quit to dos/);
+  console.log("Won Sokal Keep's courtyard fight and saved the party:", resolve(saveDir, "C.json"));
+}
+
+async function verifySokalCourtyardAftermath() {
+  const ferran = await replay(loadSlot("2e63"), "85000000", [
+    (text) => assert.match(text, /alda 2 0.*enna 2 12.*curate 2 0.*8,5 w/),
+    "j", (_text, frame) => assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-courtyard-note")), "j",
+    "left", "up", "up", "up", "left", "up", "right", "up", "right", "up", "left", "up", "enter",
+    (text) => assert.match(text, /8,10 s.*a pale form rises before you/),
+    "p", "n", ..."lux", "enter", (text) => assert.match(text, /ferran martinez.*tell the truth/),
+    "t", "enter", "enter", "enter", (text) => assert.match(text, /samosud.*ferran fades away/),
+    "j", (_text, frame) => assert.ok(frame.journal.leads.some(({ id }) => id === "sokal-ferran")), "j",
+    "e", "s", "s", "g",
+  ]);
+  assert.match(visibleText(ferran), /quit to dos/);
+  console.log("Reloaded the courtyard victory, spoke to Ferran, and saved the party:", resolve(saveDir, "G.json"));
+
+  const checkSokal = (status) => (_text, frame) => {
+    assert.equal(frame.journal.leads.find(({ id }) => id === "commission-sokal")?.status, status);
+  };
+  const council = await replay(loadSlot("2267"), "85000000", [
+    (text) => assert.match(text, /8,10 s/),
+    "j", checkSokal("ready-to-report"), "j",
+    "left", "left", "up", "right", "up", "left", "up", "left", "up", "right", "up", "up", "up",
+    "right", "up", "up", "right", ...Array(5).fill("up"),
+    (text) => assert.match(text, /10,8 s.*pack of undead/),
+    "p", "n", ..."samosud", "enter", (text) => assert.match(text, /the undead leave/),
+    "up", "up", "enter", "enter", "y", "up", "up", "right", "up", "up", "left",
+    "up", "up", "enter", "enter", "y", ...Array(4).fill("up"),
+    (text) => assert.match(text, /8,15 s.*take a boat back to phlan/),
+    "enter", "y", ...Array(4).fill("enter"), (text) => assert.match(text, /15,1 w/),
+    ...Array(4).fill("up"), "left", "up", "right", "up", "left", "up", "right",
+    ...Array(6).fill("up"), "left", "up", "up", "left", "up", "left", "up", "up", "enter", "enter",
+    (text) => assert.match(text, /receives 7850 experience points/),
+    "enter", "enter", (text) => assert.match(text, /view take pool share exit/),
+    "j", checkSokal("reward-pending"), "j",
+    // Give the platinum and jewelry to Enna, who can bring them to the temple.
+    ...Array(4).fill("end"), "t", (text) => assert.match(text, /platinum 250 jewelry 3/),
+    "end", "enter", "3", "enter", "p", "enter", ..."250", "enter", "e",
+    ["enter", /area cast view encamp/, 12], "j", checkSokal("turned-in"), "j",
+    "e", "s", "s", "h",
+  ]);
+  assert.match(visibleText(council), /quit to dos/);
+  await replay(loadSlot("2368"), "85000000", [
+    (text) => assert.match(text, /enna 2 12.*5,5 e/),
+    "j", checkSokal("turned-in"), "j",
+    ...Array(4).fill("end"), "v",
+    (text) => assert.match(text, /enna.*jewelry 3.*platinum 389.*exp 12423/),
+  ]);
+  console.log("Turned in Sokal Keep and reloaded the original council reward:", resolve(saveDir, "H.json"));
+}
+
 if (campaign && campaignOption === "--from-sokal") {
   copyFileSync(campaignInput, join(saveDir, "A.json"));
   await verifySokalArrival();
@@ -1524,6 +1596,14 @@ if (campaign && campaignOption === "--from-evoker") {
 if (campaign && campaignOption === "--from-sokal-patrol") {
   copyFileSync(campaignInput, join(saveDir, "J.json"));
   await verifySokalCourtyardStaging();
+  process.exit(0);
+}
+
+if (campaign && ["--from-sokal-trained", "--from-sokal-courtyard"].includes(campaignOption)) {
+  const trained = campaignOption === "--from-sokal-trained";
+  copyFileSync(campaignInput, join(saveDir, trained ? "J.json" : "C.json"));
+  if (trained) await verifyTrainedSokalCourtyard();
+  await verifySokalCourtyardAftermath();
   process.exit(0);
 }
 
