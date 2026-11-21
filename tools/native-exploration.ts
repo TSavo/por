@@ -43,12 +43,20 @@ export function captureNativeExploration(cpu: Cpu): NativeExploration | undefine
     const size = cpu.read16(segment, offset + 0x11);
     if (!segment || size !== 32 || index < 0 || index >= 70) continue;
     const bitmap = offset + 0x17 + index * size;
+    const maskOffset = cpu.read16(segment, offset + 0x13);
+    const maskSegment = cpu.read16(segment, offset + 0x15);
+    const hasMask = maskOffset !== 0 || maskSegment !== 0;
+    const maskBitmap = maskOffset + index * (size / 4);
     const pixels = Buffer.alloc(64);
     for (let row = 0; row < 8; row++) {
       const planes = planeMasks.map((_, plane) => cpu.read8(segment, bitmap + row * 4 + plane));
+      // Overlay 36's EGA blit uses one mask byte for all four planes.
+      // Transparent color 13 otherwise reads as black in the color bitmap.
+      const transparent = hasMask ? cpu.read8(maskSegment, maskBitmap + row) : 0;
       for (let x = 0; x < 8; x++) {
         const bit = 0x80 >> x;
-        pixels[row * 8 + x] = planes.reduce((color, bits, plane) => color | (bits & bit ? planeMasks[plane]! : 0), 0);
+        pixels[row * 8 + x] = (transparent & bit) ? 13 :
+          planes.reduce((color, bits, plane) => color | (bits & bit ? planeMasks[plane]! : 0), 0);
       }
     }
     glyphs[symbol] = pixels.toString("hex");

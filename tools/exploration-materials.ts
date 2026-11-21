@@ -61,7 +61,7 @@ export function buildExplorationMaterials(native: NativeExploration & { area: nu
       const symbolsInRow = symbols.slice(row * 7, row * 7 + 7);
       const backdrop = Buffer.alloc(64, color).toString("hex");
       return symbolsInRow.length === 7 &&
-        symbolsInRow.every(symbol => symbol === 0 ||
+        symbolsInRow.every(symbol => partsBySymbol.get(symbol)?.status === "transparent" ||
           native.glyphs[symbol] === backdrop || native.glyphs[symbol] === black);
     }
     let firstRow = 0;

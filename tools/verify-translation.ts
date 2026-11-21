@@ -29,6 +29,8 @@ import { combatHighlightPixel, loadCombatArtMatcher, loadCombatEffects, randomCo
 import { loadOverlandTravel } from "./overland-travel.js";
 import { loadPortraitArt, matchScriptIllustration, scriptIllustrations } from "./portrait-art.js";
 import { loadEncounterArt } from "./encounter-art.js";
+import { captureNativeExploration } from "./native-exploration.js";
+import { buildExplorationMaterials } from "./exploration-materials.js";
 
 function checkBrowserArtPacks(): void {
   const png = Buffer.from(encodePng(new Frame(32, 32)));
@@ -381,6 +383,33 @@ function fresh(): Cpu {
   m.cs = 0x3000;
   m.sp = 0xff00;
   return m;
+}
+
+function checkExplorationGlyphMask(): void {
+  const cpu = fresh();
+  const wallSegment = 0x3100;
+  const glyphSegment = 0x3200;
+  const maskSegment = 0x3300;
+  cpu.write16(cpu.ds, 0x69bc, 0x3000); // GEO segment
+  cpu.write16(cpu.ds, 0x69b8, wallSegment);
+  cpu.write16(cpu.ds, 0x5d9a, glyphSegment);
+  cpu.write16(cpu.ds, 0x2736, 1); // Common bank begins at symbol 1
+  cpu.write8(cpu.ds, 0x69be, 11);
+  cpu.write8(cpu.ds, 0x69c1, 6);
+  cpu.write8(wallSegment, 54 + 7, 2); // Second glyph in first wall face
+  cpu.write16(glyphSegment, 0x11, 32);
+  cpu.write16(glyphSegment, 0x13, 16);
+  cpu.write16(glyphSegment, 0x15, maskSegment);
+  cpu.write8(maskSegment, 16 + 8, 0x80);
+  for (const [plane, bit] of [1, 2, 4, 8].entries()) {
+    cpu.write8(cpu.ds, 0x260a + plane, bit);
+    cpu.write8(glyphSegment, 0x17 + 32 + plane, 0x20);
+  }
+  const scene = captureNativeExploration(cpu);
+  ok(scene);
+  strictEqual(scene.glyphs[2]?.slice(0, 6), "0d000f", "Mask keeps see-through, black and white separate");
+  const face = buildExplorationMaterials({ ...scene, area: 0 }, new Map()).wallFaces[0]!;
+  deepStrictEqual(face.parts[0]?.art?.pixels?.slice(0, 3), [16, 0, 15]);
 }
 
 function checkVal(): void {
@@ -1503,5 +1532,6 @@ for (const [amount, divisor, quotient] of [[50552, 1000, 50], [200000, 1000, 200
 console.log("verified Turbo Pascal long division used by training and coin conversion");
 checkCampaignJournal();
 checkValjevoWallMount();
+checkExplorationGlyphMask();
 checkBrowserArtPacks();
 console.log("translation checks passed");
