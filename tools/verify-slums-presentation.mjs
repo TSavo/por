@@ -9611,8 +9611,8 @@ try {
     console.log("Verified the illustrated cave choice in Chrome.", directory);
   } else if (baneAltar) {
     const approachSequence = [
-      [64, 32, "encounter:area:24:SPRIT1.DAX:4:2:0", 16, 49],
-      [56, 32, "encounter:area:24:SPRIT1.DAX:4:1:0", 32, 65],
+      [64, 32, "encounter:area:24:ecl:b603:caller:a9c6:SPRIT1.DAX:4:2:0", 16, 49],
+      [56, 32, "encounter:area:24:ecl:b603:caller:a9c6:SPRIT1.DAX:4:1:0", 32, 65],
       [48, 32, "encounter:area:24:ecl:b605:SPRIT1.DAX:4:0:0", 40, 80],
     ];
     await observeApproach(approachSequence);
