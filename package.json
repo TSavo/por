@@ -9,6 +9,7 @@
     "play": "tsx tools/browser-play.ts",
     "verify:campaign": "node tools/verify-fresh-party.mjs --campaign",
     "verify:campaign-opening": "node tools/verify-fresh-party.mjs --campaign-opening",
+    "verify:map-journal": "node tools/verify-map-journal.mjs",
     "preview:new-phlan": "tsx tools/new-phlan-3d-prototype.ts",
     "typecheck": "tsc --noEmit",
     "tools": "tsx tools/cli.ts",
@@ -35,7 +36,7 @@
     "voice-coverage": "tsx tools/voice-coverage.ts",
     "translate": "python tools/tp_translate.py",
     "verify:translation-reproducible": "python tools/tp_translate.py --check",
-    "verify": "tsx tools/verify-translation-coverage.ts && tsx tools/verify-translation.ts && tsx tools/verify-original-audio.ts && tsx tools/verify-enhanced-audio.ts && tsx tools/verify-voice.ts"
+    "verify": "tsx tools/verify-translation-coverage.ts && tsx tools/verify-translation.ts && tsx tools/verify-automap.ts && tsx tools/verify-original-audio.ts && tsx tools/verify-enhanced-audio.ts && tsx tools/verify-voice.ts"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

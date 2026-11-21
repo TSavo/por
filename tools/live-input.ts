@@ -15,6 +15,7 @@ import { combatEffectFlightFamily, loadCombatEffects, combatHighlightPixel, load
 import { loadCharacterSheetArt, loadPortraitArt, matchScriptIllustration } from "./portrait-art.js";
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 import { canWinDeveloperCombat, developerVictoryCommand, winDeveloperCombat } from "./developer-combat.js";
+import type { Automap, ExploredPosition } from "./automap.js";
 
 const controls: Record<string, number> = {
   enter: 0x1c0d, escape: 0x011b, up: 0x4800, down: 0x5000, left: 0x4b00, right: 0x4d00,
@@ -40,7 +41,7 @@ export interface PresentationAnimationFrame {
   text: [number, number, number][];
   perspective?: boolean;
   nativeScenery?: NativeExploration & { area: number };
-  exploration?: { area: number; x: number; y: number; facing: number; cameraX?: number; cameraY?: number };
+  exploration?: ExploredPosition;
   overlandMap?: boolean;
   encounter?: EncounterPlacement;
   tiles?: TilePlacement[];
@@ -139,7 +140,7 @@ function hasBattlefieldBorder(frame: Frame): boolean {
 }
 
 /** Terminal control for the translated runner. Journal input stays on the host. */
-export function liveInput(startAt: number, journal: () => JournalLead[], recording?: string) {
+export function liveInput(startAt: number, journal: () => JournalLead[], recording?: string, automap?: Automap) {
   let nextPrompt = startAt;
   let trackedId: string | undefined;
   let scene: string | undefined;
@@ -150,6 +151,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let activeEcl: number;
   let harborTicket: SokalQuay["ticket"] = "none";
   let explorationPosition: PresentationAnimationFrame["exploration"];
+  let mappedPosition: ExploredPosition | undefined;
+  let sentAutomap = -1;
   let battleCursor: number | undefined;
   let portraitCaller: number | undefined;
 
@@ -461,6 +464,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const quay = activeEcl === 0 && nativeScenery?.mapId === 0 && nativeScenery.y === 1 &&
         nativeScenery.x >= 11 && nativeScenery.x <= 15 && menu === "AREACASTVIEWENCAMPSEARCHLOOK" && isQuayDialogue(dialogue)
         ? { x: nativeScenery.x, facing: nativeScenery.facing, ticket: harborTicket } : undefined;
+      const explored = arrivalPosition ?? (perspective && explorationPosition?.area === tileArea
+        ? explorationPosition : undefined);
+      // The map id and walls come from the map the guest drew, as the journal comes from its text.
+      const mapped = explored && automap ? automap.locate(explored, nativeScenery) : explored;
       const state = {
         frame: Buffer.from(encodePng(native)).toString("base64"),
         enhancedFrame: Buffer.from(encodePng(enhanced, enhancedPalette)).toString("base64"),
@@ -487,8 +494,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             identifyPhlanPrompt(dialogue) !== undefined) ||
           isSokalBoatHandoff(dialogue, activeEcl, harborTicket)) || undefined,
         nativeScenery,
-        exploration: arrivalPosition ?? (perspective && explorationPosition?.area === tileArea
-          ? explorationPosition : undefined),
+        exploration: mapped,
         encounter,
         tiles,
         combatArt: combat,
@@ -517,6 +523,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           nativeScenery: state.nativeScenery, exploration: state.exploration,
           overlandMap: state.overlandMap, encounter, tiles, durationMs });
       } else {
+        mappedPosition = mapped;
+        if (automap) {
+          if (mapped) automap.record(mapped);
+          if (automap.revision !== sentAutomap) {
+            sentAutomap = automap.revision;
+            console.log(`POR_AUTOMAP ${JSON.stringify({ revision: sentAutomap, maps: automap.snapshot() })}`);
+          }
+        }
         console.log(`POR_FRAME ${JSON.stringify({ ...state,
           animation: animation.length ? animation.splice(0) : undefined })}`);
         lastAttack = "";
@@ -540,7 +554,6 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       console.log(`${number}${lead.title}\n  ${lead.detail}`);
     }
   };
-  let inCampMenu = false;
   let diskMenuDepth = 0;
   let previousKovelTransition: number | undefined;
   const openJournal = () => {
@@ -621,7 +634,18 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         nextPrompt = cpu.steps + 1_000_000;
         return;
       }
-      if (!inCampMenu && diskMenuDepth === 0 && command.toLowerCase() === "j") {
+      if (command.startsWith(":map-label")) {
+        if (mappedPosition) automap?.label(mappedPosition, command.slice(":map-label".length));
+        showFrame(undefined, undefined, false, automaticCombat);
+        continue;
+      }
+      if (command.startsWith(":automap-import ")) {
+        try { automap?.adopt(JSON.parse(command.slice(":automap-import ".length))); }
+        catch { /* An unreadable browser copy is ignored. */ }
+        showFrame(undefined, undefined, false, automaticCombat);
+        continue;
+      }
+      if (diskMenuDepth === 0 && command.toLowerCase() === "j") {
         const menu = menuText(visibleGameText());
         // These original menus already assign J to a game action.
         if (!/^APPRAISE:.*JEWELRY/.test(menu) && !menu.includes("JOINTYRANTHRAXUS")) {
@@ -853,7 +877,6 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       lastAttack = signature;
     } : undefined,
     openJournal,
-    setCampMenu: (active: boolean) => { inCampMenu = active; },
     enterDiskMenu: () => { diskMenuDepth++; },
     leaveDiskMenu: () => { diskMenuDepth--; },
     setScene: (id: string | undefined) => { scene = id; },

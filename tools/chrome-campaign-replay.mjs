@@ -147,6 +147,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
         appendFileSync(commands, JSON.stringify(key) + "\n");
       },
       close,
+      evaluate,
     };
   } catch (error) {
     await close();

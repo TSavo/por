@@ -29,6 +29,7 @@ const phlanLandmark = travelMap.querySelector('[data-destination="phlan"]');
 const phlanApproaches = document.querySelector("#phlan-approaches");
 const approachButtons = [...phlanApproaches.querySelectorAll("[data-approach]")];
 const presentation = document.querySelector("#presentation");
+const journalToggle = document.querySelector("#journal-toggle");
 const travelArtToggle = document.querySelector("#travel-art-toggle");
 const audioToggle = document.querySelector("#audio-toggle");
 const partyMaterialColors = [
@@ -126,21 +127,48 @@ let travelArtReady = false;
 let travelExpanded = false;
 let activeTravel;
 const failedSurfaces = new Set();
+// The game runner records the discovered map and keeps it in the save slot.
 let discoveredMaps = {};
-let discoveredMapSlot;
+let automapRevision;
+let automapLoading = false;
+let legacyAutomapPending = false;
 let geographyModel = { areas: [] };
 let atlas = [];
 let mapMode = "local";
-let lastSaveSlotEvent = 0;
-function automapStorageKey(slot = state.saveSlot) { return `por.automap.v2.${slot ?? "unsaved"}`; }
-function loadDiscoveredMaps(slot = state.saveSlot) {
-  discoveredMapSlot = slot ?? null;
-  const stored = localStorage.getItem(automapStorageKey(slot)) ??
-    (slot == null ? localStorage.getItem("por.automap.v1") : null);
-  try { discoveredMaps = JSON.parse(stored ?? "{}"); }
-  catch { discoveredMaps = {}; }
+async function syncAutomap() {
+  if (automapLoading || state.automapRevision === undefined || state.automapRevision === automapRevision) return;
+  automapLoading = true;
+  try {
+    const { revision, maps } = await (await fetch("/automap.json")).json();
+    discoveredMaps = maps;
+    automapRevision = revision;
+    if (!automap.hidden) renderAutomap();
+  } catch {
+    // The next poll asks again.
+  } finally {
+    automapLoading = false;
+  }
 }
-loadDiscoveredMaps(null);
+
+// Earlier versions kept the map in this browser. Hand a loaded slot's copy to the runner once.
+function offerLegacyAutomap() {
+  const slot = state.saveSlot;
+  if (legacyAutomapPending || !slot || state.saveSlotAction !== "load" || !state.ready || posting ||
+    state.stopped || state.journal) return;
+  const moved = `por.automap.moved.${slot}`;
+  let stored;
+  try {
+    if (localStorage.getItem(moved)) return;
+    stored = localStorage.getItem(`por.automap.v2.${slot}`);
+  } catch { return; }
+  if (!stored) return;
+  legacyAutomapPending = true;
+  fetch("/automap", { method: "POST", body: stored }).then(response => {
+    if (!response.ok) return;
+    localStorage.setItem(moved, "1");
+    state.ready = false;
+  }).catch(() => {}).finally(() => { legacyAutomapPending = false; });
+}
 const areaNames = {
   0: "New Phlan", 3: "Valjevo Castle", 5: "Valjevo Castle",
   17: "Nomad Camp", 18: "Podal Plaza", 26: "West Overland", 27: "East Overland",
@@ -395,8 +423,8 @@ function togglePresentation() {
   presentation.setAttribute("aria-pressed", String(enhanced));
   mapToggle.hidden = !enhanced;
   renderTravelMap();
+  journalToggle.hidden = !enhanced;
   if (!enhanced && !automap.hidden) toggleAutomap();
-  if (enhanced) rememberExploration();
   if (!enhanced) stopVoice();
   if (!enhanced && enhancedScorePlaying) stopEffect();
   playTitleCue();
@@ -756,27 +784,6 @@ travelArtToggle.addEventListener("click", () => {
   if (document.activeElement === travelArtToggle) screen.focus({preventScroll:true});
 });
 
-function rememberExploration() {
-  if (!enhanced || !state.exploration) return;
-  if (state.saveSlotEvent > lastSaveSlotEvent) {
-    lastSaveSlotEvent = state.saveSlotEvent;
-    if (state.saveSlotAction === "save") {
-      localStorage.setItem(automapStorageKey(state.saveSlot), JSON.stringify(discoveredMaps));
-      discoveredMapSlot = state.saveSlot;
-    } else loadDiscoveredMaps(state.saveSlot);
-  } else if ((state.saveSlot ?? null) !== discoveredMapSlot) loadDiscoveredMaps(state.saveSlot);
-  const { area, mapId, x, y, facing, walls } = state.exploration;
-  const areaMap = discoveredMaps[area] ??= { cells: {} };
-  const map = mapId === undefined ? areaMap : (areaMap.floors ??= {})[mapId] ??= { cells: {} };
-  if (walls && x >= 0 && x <= 15 && y >= 0 && y <= 15) {
-    const key = `${x},${y}`;
-    map.cells[key] = { ...map.cells[key], x, y, walls };
-    map.position = { x, y, facing };
-  }
-  localStorage.setItem(automapStorageKey(), JSON.stringify(discoveredMaps));
-  if (!automap.hidden) renderAutomap();
-}
-
 function discoveredLocalMap({ area, mapId }) {
   const map = discoveredMaps[area];
   return mapId === undefined ? map : map?.floors?.[mapId];
@@ -908,10 +915,9 @@ function markCurrentLocation() {
   const current = discoveredLocalMap(position)?.cells?.[`${position.x},${position.y}`];
   const label = window.prompt("Map label", current?.label ?? "");
   if (label === null || !current) return;
-  const clean = label.replace(/\s+/g, " ").trim().slice(0, 40);
-  if (clean) current.label = clean; else delete current.label;
-  localStorage.setItem(automapStorageKey(), JSON.stringify(discoveredMaps));
-  renderAutomap();
+  const clean = label.replace(/[^\x20-\x7e]/g, " ").replace(/\s+/g, " ").trim().slice(0, 40);
+  // The runner labels the tile and saves it with the slot.
+  void send(clean ? `:map-label ${clean}` : ":map-label");
 }
 
 function toggleAutomap() {
@@ -1285,8 +1291,10 @@ async function poll() {
     closeJournal.disabled = !state.ready || Boolean(state.stopped);
     autoTrack.disabled = closeJournal.disabled;
     mapToggle.disabled = !state.exploration && !(enhanced && state.travel && travelArtEnabled && travelArtReady);
+    journalToggle.disabled = closeJournal.disabled;
+    void syncAutomap();
+    offerLegacyAutomap();
     if (changed) {
-      rememberExploration();
       renderJournal();
       playAnimation();
       if (state.automaticCombat) {
@@ -1327,6 +1335,10 @@ const keypadDirections = {
   Numpad7: "home", Numpad8: "up", Numpad9: "pageup",
 };
 closeJournal.addEventListener("click", () => send("j"));
+journalToggle.addEventListener("click", () => {
+  void send("j");
+  if (journal.hidden) screen.focus({ preventScroll: true });
+});
 autoTrack.addEventListener("click", () => send("track auto"));
 presentation.addEventListener("click", () => {
   togglePresentation();
@@ -1389,7 +1401,8 @@ window.addEventListener("keydown", (event) => {
     return;
   }
   if (event.target instanceof HTMLButtonElement && ["Enter", " "].includes(event.key)) return;
-  if (event.key.toLowerCase() === "j" && !event.shiftKey) {
+  // In Classic, J reaches the original game like any other key.
+  if (event.key.toLowerCase() === "j" && !event.shiftKey && (enhanced || state.journal)) {
     event.preventDefault();
     void send("j");
     return;
@@ -1401,6 +1414,6 @@ window.addEventListener("keydown", (event) => {
   const key = keypadDirections[event.code] ?? commands[event.key] ?? (/^[a-z0-9]$/i.test(event.key) ? event.key : null);
   if (!key) return;
   event.preventDefault();
-  void send(key === "J" ? "key J" : key);
+  void send(key.toLowerCase() === "j" ? `key ${key}` : key);
 });
 void poll();

@@ -3,6 +3,7 @@ import { mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node
 import { join } from "node:path";
 import { trackedJournalObjective, type JournalLead } from "../src/runtime/adventure-log.js";
 import type { DosFile } from "../src/runtime/dos.js";
+import type { AutomapData } from "./automap.js";
 
 interface Slot {
   version: 1;
@@ -11,6 +12,8 @@ interface Slot {
   leads: JournalLead[];
   tracked?: string;
   party?: Record<string, string>;
+  /** The tiles the party had discovered when it saved. */
+  automap?: AutomapData;
 }
 
 export function saveSlotLetter(name: string): string | undefined {
@@ -96,7 +99,8 @@ export function openSaveSlots(directory: string) {
       if (!slot?.party) return;
       return Object.entries(slot.party).map(([filename, data]) => ({ name: savePath(filename), data: Buffer.from(data, "base64") }));
     },
-    save(name: string, data: Uint8Array, leads: JournalLead[], tracked: string | undefined, party: DosFile[]) {
+    save(name: string, data: Uint8Array, leads: JournalLead[], tracked: string | undefined, party: DosFile[],
+      automap?: AutomapData) {
       const letter = saveSlotLetter(name);
       if (!letter) throw new Error(`Invalid Pool of Radiance save filename ${name}`);
       const slot: Slot = {
@@ -104,6 +108,7 @@ export function openSaveSlots(directory: string) {
         tracked: trackedJournalObjective(leads, tracked),
         party: Object.fromEntries(party.filter((file) => isPartyFile(file.name, letter))
           .map((file) => [file.name, Buffer.from(file.data).toString("base64")])),
+        ...(automap ? { automap } : {}),
       };
       writeRecord(directory, letter, slot);
       slots.set(letter, slot);

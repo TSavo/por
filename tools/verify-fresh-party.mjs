@@ -1609,7 +1609,7 @@ async function verifySokalCouncilRecovery() {
     "left", ...Array(8).fill("up"), "left", ...Array(4).fill("up"), "right", "up", "right", "up", "enter",
     (text) => assert.match(text, /6,12 w.*1 platinum piece to rest here/),
     "y", "end", "enter", "enter", "r", "y", ...Array(20).fill("i"), "r",
-    ["n", /camping save view magic rest alter exit journal/, 120],
+    ["n", /camp: save view magic rest alter exit(?! journal)/, 120],
     (text) => assert.match(text, restedParty), "s", "s", "e",
   ]);
   assert.match(visibleText(recovered), /quit to dos/);
@@ -3241,7 +3241,7 @@ async function verifyCampaignCastleApproach() {
     () => hoursUntilWagon ? "h" : undefined,
     ...Array.from({ length: 21 }, (_, hour) => () => hour < hoursUntilWagon ? "i" : undefined),
     () => hoursUntilWagon ? "r" : undefined,
-    ["n", (frame) => !hoursUntilWagon || /camping save view magic rest alter exit journal/.test(visibleText(frame)), 8],
+    ["n", (frame) => !hoursUntilWagon || /camp: save view magic rest alter exit(?! journal)/.test(visibleText(frame)), 8],
     () => hoursUntilWagon ? "e" : undefined,
     "up", ["enter", /combat wait flee parlay/, 6], "c",
     (text) => assert.match(text, /grab his wagon/),

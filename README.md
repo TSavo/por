@@ -22,9 +22,9 @@ In PowerShell:
 $env:POR_GAMEDATA = 'C:\Games\pool'
 ```
 
-Open [the local game](http://127.0.0.1:43124) to play the translated game. In the game screen, choose **Encamp → Journal** to see what the party knows. **J** also opens the journal during play. Select **Track** next to a quest to make it the current objective. Press **J** or **Escape** to return to play.
+Open [the local game](http://127.0.0.1:43124) to play the translated game. In Enhanced display, press **J** or select **Journal** to see what the party knows. Select **Track** next to a quest to make it the current objective. Press **J** or **Escape** to return to play. Classic display leaves the original menus and the **J** key to the game.
 
-Use **Encamp → Save** and **Load Saved Game** to save and restore the party and its journal in the same slot. The runner stores slots under `out/saves/` for each game-data directory. Set `POR_SAVE_DIR` to select a different folder.
+Use **Encamp → Save** and **Load Saved Game** to save and restore the party, its journal, and its discovered map in the same slot. The runner stores slots under `out/saves/` for each game-data directory. Set `POR_SAVE_DIR` to select a different folder.
 
 In combat, **Home**, **Page Up**, **End**, and **Page Down** move or aim diagonally. The numeric keypad provides these keys with Num Lock off.
 

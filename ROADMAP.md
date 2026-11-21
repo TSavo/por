@@ -92,8 +92,8 @@ which start from controlled saves. [Audio](docs/AUDIO.md) and the
   city gate, parleys with the orc patrol, and opens the temple's hidden
   cache. Slot D reloads with the Dust of Disappearance and the other items
   from that cache in Alda's inventory.
-- The Encamp journal tracks witnessed clues and the selected commission in
-  the active save slot.
+- The journal tracks witnessed clues and the selected commission in the
+  active save slot. The slot also holds the party's discovered map.
 
 ## Open work
 

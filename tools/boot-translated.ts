@@ -7,6 +7,7 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readdirSync, readFileSync, realpathSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { Cpu } from "../src/cpu/machine.js";
+import { openAutomap } from "./automap.js";
 import { attachDos, consoleText, dosLog, type BiosKey, type DosFile, type DosFileClosed } from "../src/runtime/dos.js";
 import { intrCounts } from "../src/runtime/intr.js";
 import { journalFrame, screen, videoSummary } from "../src/runtime/video.js";
@@ -180,10 +181,11 @@ if (recording) {
   const prefix = scheduledKeys.map(({ step, word }) => `${step}:${word.toString(16).padStart(4, "0")}\n`).join("");
   writeFileSync(recording, prefix, { flag: "wx" });
 }
+const automap = liveAt === undefined ? undefined : openAutomap(root);
 const input = liveAt === undefined ? undefined : liveInput(liveStep, () => {
   const known = journal();
   return [...known, ...journalInventoryLeads(cpu, known, 0x740)];
-}, recording);
+}, recording, automap);
 const saves = input && openSaveSlots(process.env.POR_SAVE_DIR ??
   join("out", "saves", createHash("sha256").update(realpathSync(root)).digest("hex").slice(0, 16)));
 const rosterClosed: DosFileClosed = (name, data, written) => { if (written) saves?.saveRoster(name, data); };
@@ -249,8 +251,9 @@ if (input && saves) {
           transcriptStart = start;
           updateJournal.restore(saved?.leads ?? []);
           input.restoreTracked(saved?.tracked);
+          automap?.restore(saved?.automap);
         } else {
-          saves.save(slot.name, slot.data, journal(), input.tracked(), [...party.values()]);
+          saves.save(slot.name, slot.data, journal(), input.tracked(), [...party.values()], automap?.snapshot());
         }
         if (letter) console.log(`POR_SAVE_SLOT ${loading ? "load" : "save"} ${letter}`);
       };
@@ -265,38 +268,6 @@ if (input && saves) {
         input.leaveDiskMenu();
         slotClosed = previous;
         loadingSlot = wasLoading;
-      }
-    });
-  }
-}
-if (input) {
-  const camp = loadedSlices.find((slice) => slice.index === 15);
-  const menus = loadedSlices.find((slice) => slice.index === 26);
-  const select = menus?.procs.get(0xe4);
-  const address = 0x791c;
-  const prefixOffset = 0x1e31;
-  const menu = Buffer.from("Save View Magic Rest Alter Exit", "ascii");
-  const prefix = Buffer.from("Camp: ", "ascii");
-  if (camp && menus && select && cpu.mem[address] === menu.length &&
-      menu.every((byte, i) => cpu.mem[address + i + 1] === byte) &&
-      cpu.read8(camp.loadPara, prefixOffset) === prefix.length &&
-      prefix.every((byte, i) => cpu.read8(camp.loadPara, prefixOffset + i + 1) === byte)) {
-    const extended = Buffer.from(`${menu.toString()} Journal`, "ascii");
-    cpu.mem[address] = extended.length;
-    cpu.mem.set(extended, address + 1);
-    // The six-character Camp prefix would clip the last choice on the 40-column row.
-    cpu.write8(camp.loadPara, prefixOffset, 0);
-    menus.procs = new Map(menus.procs);
-    menus.procs.set(0xe4, (m) => {
-      const fromCamp = m.read16(m.ss, m.sp) === 0x1efa && m.read16(m.ss, m.sp + 2) === camp.loadPara;
-      if (!fromCamp) { select(m); return; }
-      input.setCampMenu(true);
-      try {
-        select(m);
-        // The shared selector returns the initial of the chosen item in AL.
-        if (m.al === 0x4a) input.openJournal();
-      } finally {
-        input.setCampMenu(false);
       }
     });
   }

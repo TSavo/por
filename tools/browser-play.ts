@@ -1,6 +1,6 @@
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
-import { appendFileSync, readdirSync, readFileSync } from "node:fs";
+import { appendFileSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { createInterface } from "node:readline";
 import { join } from "node:path";
@@ -13,8 +13,6 @@ import { partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { characterSheetPartKey, portraitKey, scriptIllustrations, type CharacterSheetPart } from "./portrait-art.js";
 import type { EncounterPlacement } from "./encounter-art.js";
 import { NarrationCatalog, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
-import { parseDax } from "../src/lib/dax.js";
-import { parseGeo } from "../src/lib/world.js";
 import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
 import { buildExplorationMaterials } from "./exploration-materials.js";
 import type { NativeExploration } from "./native-exploration.js";
@@ -27,12 +25,6 @@ if (!Number.isInteger(port) || port < 1 || port > 65535) {
 const origin = `http://127.0.0.1:${port}`;
 const gameRoot = requireBrowserGameRoot();
 const planTravel = loadOverlandTravel(gameRoot);
-const geometry = new Map<number, ReturnType<typeof parseGeo>>();
-for (const name of readdirSync(gameRoot).filter(name => /^GEO\d+\.DAX$/i.test(name))) {
-  for (const entry of parseDax(name, new Uint8Array(readFileSync(join(gameRoot, name)))).entries) {
-    if (entry.rawSize === 0x402) geometry.set(entry.id, parseGeo(entry.data, entry.id));
-  }
-}
 const page = readFileSync(new URL("./play.html", import.meta.url));
 const script = readFileSync(new URL("./play.js", import.meta.url));
 const streetRenderer = readFileSync(new URL("./new-phlan-webgl.js", import.meta.url));
@@ -192,6 +184,8 @@ let soundId = 0;
 const sounds: Array<{ id: number; index: number; mode: number; step: number; enhancedOnly?: boolean }> = [];
 let textId = 0;
 const messages: Array<{ id: number; step: number; message: string }> = [];
+let automap = '{"revision":-1,"maps":{}}';
+let automapRevision = -1;
 let narrationId = 0;
 const narrations: Array<{ id: number; step: number; unitId: string; variantId?: string;
   sourceId: string; coveredSourceIds: string[]; asset: string; text: string }> = [];
@@ -205,21 +199,6 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
     }
     prepareScenery(frame);
     frame.animation?.forEach(prepareScenery);
-    const position = frame.exploration;
-    if (position) {
-      const scenery = frame.scenery;
-      if (scenery?.area === position.area && scenery.mapId !== undefined &&
-        atlasSheets.some(sheet => sheet.mapId === scenery.mapId && sheet.areas.includes(position.area))) {
-        const { mapId, x, y, facing, walls } = scenery;
-        const bytes = Buffer.from(walls, "base64");
-        const cell = y * 16 + x;
-        const northEast = bytes[cell]!, southWest = bytes[cell + 256]!;
-        Object.assign(position, { mapId, x, y, facing,
-          walls: [northEast >> 4, northEast & 15, southWest >> 4, southWest & 15] });
-      } else if (position.x >= 0 && position.x < 16 && position.y >= 0 && position.y < 16) {
-        position.walls = geometry.get(position.area)?.cells[position.y * 16 + position.x]?.wall;
-      }
-    }
     // A cleared viewport between scenes has no terrain to inventory.
     if (tileTrace && frame.tileInventory?.some(([, , , indices]) => /[1-9a-f]/i.test(indices))) {
       const trace = JSON.stringify(frame.tileInventory);
@@ -253,6 +232,10 @@ createInterface({ input: runner.stdout }).on("line", (line) => {
       }
     }
     ready = true;
+  } else if (line.startsWith("POR_AUTOMAP ")) {
+    // The runner owns the discovered map and stores it in the save slot.
+    automap = line.slice("POR_AUTOMAP ".length);
+    automapRevision = (JSON.parse(automap) as { revision: number }).revision;
   } else if (line.startsWith("POR_NOTICE ")) {
     notice = line.slice("POR_NOTICE ".length);
   } else if (line.startsWith("POR_SAVE_SLOT ")) {
@@ -330,6 +313,26 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(soundManifest);
   } else if (req.method === "GET" && req.url === "/geography-model.json") {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(geographyModel);
+  } else if (req.method === "GET" && req.url === "/automap.json") {
+    res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(automap);
+  } else if (req.method === "POST" && req.url === "/automap") {
+    // A map kept by an older browser, offered once for the loaded slot.
+    if (req.headers.origin !== origin) { res.writeHead(403).end(); return; }
+    let body = "";
+    try {
+      for await (const chunk of req) {
+        body += chunk.toString("utf8");
+        if (body.length > 2_000_000) { res.writeHead(413).end(); return; }
+      }
+    } catch {
+      return;
+    }
+    let maps: unknown;
+    try { maps = JSON.parse(body); } catch { res.writeHead(400).end(); return; }
+    if (!ready || stopped || frame.journal || !maps || typeof maps !== "object") { res.writeHead(409).end(); return; }
+    ready = false;
+    runner.stdin.write(`:automap-import ${JSON.stringify(maps)}\n`);
+    res.writeHead(204).end();
   } else if (req.method === "GET" && req.url === "/atlas.json") {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(atlasManifest);
   } else if (req.method === "GET" && req.url?.startsWith("/atlas/") && atlasFiles.has(req.url.slice(7))) {
@@ -392,7 +395,7 @@ const server = createServer(async (req, res) => {
       art: frame.scene && artwork.has(frame.scene) ? `/art/${frame.scene}` : undefined,
     };
     res.writeHead(200, { "content-type": "application/json" }).end(JSON.stringify({
-      ...snapshot, sounds, soundId, messages, textId, narrations, narrationId,
+      ...snapshot, sounds, soundId, messages, textId, narrations, narrationId, automapRevision,
       sequence, ready, saveSlot: saveSlot ?? null, saveSlotEvent, saveSlotAction: saveSlotAction ?? null,
       stopped: stopped ?? null, notice: notice ?? null,
     }));
@@ -402,7 +405,7 @@ const server = createServer(async (req, res) => {
     try {
       for await (const chunk of req) {
         command += chunk.toString("utf8");
-        if (command.length > 16) { res.writeHead(400).end(); return; }
+        if (command.length > 64) { res.writeHead(400).end(); return; }
       }
     } catch {
       return;
@@ -419,8 +422,10 @@ const server = createServer(async (req, res) => {
       command === ":travel-poll" && frame.travelPolling);
     const validDeveloperVictory = command === developerVictoryCommand && expected === String(sequence) &&
       frame.developerVictoryAvailable;
+    const validLabel = /^:map-label(?: [\x20-\x7e]{0,40})?$/.test(command) && Boolean(frame.exploration);
+    if (command.length > 16 && !validLabel) { res.writeHead(400).end(); return; }
     const gameKey = command.startsWith("key ") ? command.slice(4) : command;
-    if ((!validTrack && !validPoll && !validDeveloperVictory && getKey(gameKey) === undefined) ||
+    if ((!validTrack && !validPoll && !validDeveloperVictory && !validLabel && getKey(gameKey) === undefined) ||
         (frame.journal && command.toLowerCase() !== "j" && !validTrack)) {
       res.writeHead(400).end();
       return;

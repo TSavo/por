@@ -6125,7 +6125,7 @@ try {
     if (/AREACASTVIEWENCAMP/i.test(textOf(frame))) await advance("e");
     const campMenu = ({ text }) => text.toSorted(([a], [b]) => a - b)
       .map(([, char]) => String.fromCharCode(char)).join("").replace(/\s/g, "");
-    assert.match(campMenu(frame), /SAVEVIEWMAGICRESTALTEREXITJOURNAL/i);
+    assert.match(campMenu(frame), /CAMP:SAVEVIEWMAGICRESTALTEREXIT(?!JOURNAL)/i);
     await advance("j");
     assert.ok(frame.journal?.objective.nextStep);
     await waitFor("the journal from the Encamp menu", () => run(`state.sequence === ${frame.sequence} &&
@@ -6137,7 +6137,7 @@ try {
     }
     await advance("j");
     assert.equal(frame.journal, undefined);
-    assert.match(campMenu(frame), /SAVEVIEWMAGICRESTALTEREXITJOURNAL/i);
+    assert.match(campMenu(frame), /CAMP:SAVEVIEWMAGICRESTALTEREXIT(?!JOURNAL)/i);
     await advance("e");
     assert.match(textOf(frame), /AREACASTVIEWENCAMP/i);
     assert.equal(await verifyTiledView(0, patterns), 1);

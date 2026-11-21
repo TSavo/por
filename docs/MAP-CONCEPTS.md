@@ -13,6 +13,14 @@ plates for areas reached by the current party. Select a plate or click the
 image to open it at full size. The Local view tracks explored tiles and
 player landmarks.
 
+The game runner records the Local view. Each time the party stands on a
+tile, it stores that tile's walls from the map the original game drew.
+**Mark location** labels the current tile. The map is saved in the slot
+beside the journal, so loading a slot restores the map as it was at that
+save, in any browser. Earlier versions kept the map in the browser. When
+a slot is loaded, the page hands that browser copy to the runner once,
+and the runner adds any tiles the slot does not already have.
+
 The Atlas includes New Phlan, Phlan, Valjevo Castle, and the approved Moonsea
 regional illustration. Four additional plates use ImageGen with the regional
 illustration as the ink, watercolor, and palette reference:

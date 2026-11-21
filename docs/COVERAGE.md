@@ -128,9 +128,11 @@ $env:POR_LIVE_AT = '500000000'
 npx tsx tools/boot-translated.ts
 ```
 
-The translated Encamp menu includes **Journal**. Press `j` while camped to
-select it through the guest menu. Closing the journal returns to the camp menu.
-Outside camp, `j` opens it as a shortcut. The runner prints its
+The journal is drawn by the host. The original Camp menu is unchanged, and
+the runner never writes the journal into the guest. Press `j` to open it, in
+camp or while exploring. In the browser the page sends `j` as a journal
+command only in Enhanced display. In Classic it sends the key to the game.
+Closing the journal returns to the same game screen. The runner prints its
 leads and updates `out/por-live.png` with the current game or journal frame.
 While the journal is open, type `track N` to follow a numbered objective.
 The original save and load menus accept `j` for slot J. Chrome verified
