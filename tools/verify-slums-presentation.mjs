@@ -441,6 +441,7 @@ const encounterRoutes = new Map([
   ["valhingen-ghoul-approach", {
     slot: "A", inputs: ["e", "enter", "r", "y", ...Array(10).fill("i"), "r", "enter"],
     placement: [48, 32, "encounter:area:10:SPRIT4.DAX:72:0:0", 40, 73],
+    requireWebGL: true,
     approachSequence: [
       [56, 32, "encounter:area:10:SPRIT4.DAX:72:2:0", 24, 57],
       [56, 32, "encounter:area:10:SPRIT4.DAX:72:1:0", 24, 65],
