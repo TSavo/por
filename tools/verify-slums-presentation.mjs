@@ -1240,11 +1240,14 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:14:ecl:a45b:cue:cabinet-gas",
     prompt: /ISHITFOR\d+POINTSOFDAMAGE/i,
     finalPhaseCapture: "kovel-cabinet-gas.png",
-    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ITISLOCKED\.HOWWILLYOUOPENTHELOCK/i },
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:14:ecl:9eb8:caller:a38d:cue:cabinet-lock",
+      prompt: /ITISLOCKED\.HOWWILLYOUOPENTHELOCK/i,
+    },
   }],
   ["kovel-scroll-cabinet-loot", {
     slot: "A", inputs: ["up", "e", "o", "enter", "b", "enter", "enter"],
-    portraitStops: { 4: null, 5: null },
+    portraitStops: { 4: "scene-illustration:area:14:ecl:9eb8:caller:a38d:cue:cabinet-lock", 5: null },
     portrait: "portrait:area:14:ecl:a3d5:PIC1.DAX:1:0:0",
     prompt: /VIEW.*POOL.*EXIT/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:a3d5:PIC1.DAX:1:${phase}:0`),
