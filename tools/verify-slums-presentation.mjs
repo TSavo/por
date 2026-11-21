@@ -377,7 +377,7 @@ const encounterRoutes = new Map([
   }],
   ["wild-grove-pool-lizard-approach", {
     slot: "A", inputs: ["up", "a"],
-    placement: [48, 32, "encounter:area:26:SPRIT7.DAX:57:0:0", 48, 80],
+    placement: [48, 32, "encounter:area:26:ecl:a660:SPRIT7.DAX:57:0:0", 48, 80],
     dialogue: { key: "enter", portrait: "portrait:area:26:PIC7.DAX:57:0:0", prompt: /LIZARDMENSWIMMINGINTHEPOOL/i },
   }],
   ["wild-grove-captive-kobold-approach", {
