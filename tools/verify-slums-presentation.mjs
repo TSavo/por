@@ -618,6 +618,12 @@ const illustrationRoutes = new Map([
     prompt: /ONTHEFLOORYOUFINDATRAPDOOR\.WILLYOUOPENIT\?/i,
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["swamp-hidden-tunnel", {
+    slot: "A", inputs: ["s", "up", "up"],
+    portrait: "scene-illustration:area:16:ecl:9a59:caller:9d45",
+    prompt: /SEARCHINGTHROUGHTHERUBBLEYOUFINDAHIDDENTUNNELLEADINGDOWN.*DOYOUTAKEIT/i,
+    continuation: { inputs: ["n"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["swamp-friend-word-charge", {
     slot: "A", inputs: ["up", "b", "p", "enter", ..."wrong", "enter", "y"],
     portrait: "scene-illustration:area:16:ecl:a65a",
@@ -6723,6 +6729,10 @@ try {
     await verifyPortraitPanel();
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
+    if (routeName === "swamp-hidden-tunnel") {
+      const tunnelShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "swamp-hidden-tunnel-entrance.png"), Buffer.from(tunnelShot.data, "base64"));
     }
     if (routeName === "valhingen-crypt-overturn") {
       const overturnShot = await command("Page.captureScreenshot", { format: "png" });
