@@ -135,6 +135,28 @@
     #automap .region-label { fill: #fff0ca; font: 2.25px Georgia, serif; text-anchor: middle; paint-order: stroke; stroke: #2b2118; stroke-width: .55px; stroke-linejoin: round; }
     #automap .terrain-label { fill: #3c3829; opacity: .7; font: italic 2.1px Georgia, serif; letter-spacing: .15px; }
     #automap .map-compass { fill: #362b1e; font: 4px Georgia, serif; text-anchor: middle; }
+    #code-wheel { position: absolute; inset: 0; z-index: 3; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+      align-items: center; background: #17120d url(/code-wheel/background.png) center / cover; color: #f4ead5; overflow: hidden; }
+    #code-wheel[hidden], #wheel[hidden], #wheel-panel[hidden], #wheel-ended[hidden] { display: none; }
+    #wheel { width: 100%; aspect-ratio: 1; touch-action: none; cursor: grab; }
+    #wheel canvas { display: block; width: 100%; height: 100%; }
+    #wheel.turning { cursor: grabbing; }
+    #wheel-panel { align-self: stretch; display: grid; align-content: center; justify-items: center; gap: 1.2cqw; padding: 1.5cqw;
+      background: #17120d; font: 1.9cqw / 1.25 Georgia, serif; text-align: center; }
+    #wheel-panel h2 { margin: 0; font-size: 2.6cqw; }
+    #wheel-panel p { margin: 0; }
+    #wheel-question { display: grid; gap: .8cqw; justify-items: center; width: 100%; }
+    #wheel-question img { display: block; height: 6cqw; max-width: 100%; object-fit: contain; image-rendering: pixelated; }
+    #wheel-question #wheel-path { height: 2.4cqw; }
+    /* The rune pictures are light strokes on black. On the dark panel only the strokes show. */
+    #wheel-espruar, #wheel-dethek { mix-blend-mode: screen; }
+    #wheel-word { display: block; min-height: 1.3em; min-width: 7ch; padding: .2em .4em; border-bottom: 2px solid #c7a36a;
+      font: 600 3cqw / 1.3 ui-monospace, monospace; letter-spacing: .15em; }
+    #wheel-message { min-height: 2.5em; color: #ffb09d; }
+    #wheel-help { font-size: 1.5cqw; color: #cbbd9f; }
+    #wheel-ended { grid-column: 1 / -1; display: grid; place-content: center; gap: 1rem; padding: 2rem;
+      background: #17120de6; text-align: center; font: 1.25rem / 1.4 Georgia, serif; }
+    #wheel-ended p { margin: 0; }
     #objective { border-left: 3px solid #edca79; padding-left: 12px; }
     #objective p, li p { margin: .35rem 0 .75rem; }
     ul { list-style: none; padding: 0; }
@@ -252,6 +274,28 @@
             </div>
           </details>
         </section>
+      </section>
+      <section id="code-wheel" aria-label="Translation wheel" hidden>
+        <div id="wheel" role="img" aria-label="The translation wheel. The inner disc turns.">
+          <canvas id="wheel-canvas" width="900" height="900"></canvas>
+        </div>
+        <div id="wheel-panel">
+          <h2>Translation wheel</h2>
+          <p>Match these runes and read the word under this path, from the inside out.</p>
+          <div id="wheel-question">
+            <img id="wheel-espruar" alt="Espruar rune, on the outer disc">
+            <img id="wheel-dethek" alt="Dethek rune, on the inner disc">
+            <img id="wheel-path" alt="Path">
+          </div>
+          <p>INPUT THE CODE WORD:</p>
+          <output id="wheel-word" aria-label="Code word"></output>
+          <p id="wheel-message" role="alert"></p>
+          <p id="wheel-help">Left and Right, the mouse wheel or a drag turn the inner disc. Type the word and press Enter.</p>
+        </div>
+        <div id="wheel-ended" role="alert" hidden>
+          <p>Sorry, that's incorrect.</p>
+          <p>That was the third wrong word, and the game has ended. Reload the page to start again.</p>
+        </div>
       </section>
       <section id="journal" aria-label="Adventure journal" hidden>
         <h2>Adventure journal</h2>

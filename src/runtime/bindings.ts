@@ -271,6 +271,15 @@ export const code = resolve({
   nextRandom: { "1.0": { segment: 0x5bb, at: 0x6893 }, "1.3": { segment: 0xaf8, at: 0xc18f } },
   /** Turbo Pascal's Randomize. */
   randomize: { "1.0": { segment: 0x5bb, at: 0x68cb }, "1.3": { segment: 0xaf8, at: 0xc1c7 } },
+  /** Turbo Pascal's Random(n) as a procedure: the same entry as `far.random`. */
+  random: { "1.0": { segment: 0x5bb, at: 0x6844 }, "1.3": { segment: 0xaf8, at: 0xc140 } },
+  /**
+   * The code-wheel routine, which both builds keep at the same place in overlay slice 2: its
+   * entry, and where it resumes after Random(13) with the question's number in AL. A wrong
+   * answer in the first release jumps back to before that call, so it draws again.
+   */
+  codeWheel: { "1.0": { slice: 0x2, at: 0xfd }, "1.3": { slice: 0x2, at: 0xfd } },
+  codeWheelQuestionDrawn: { "1.0": { slice: 0x2, at: 0x116 }, "1.3": { slice: 0x2, at: 0x116 } },
 });
 
 /** Version 1.3 passes the selected question into its native line input. */

@@ -28,6 +28,8 @@ const controls: Record<string, number> = {
 const scanRows = ["1234567890", "qwertyuiop", "asdfghjkl", "zxcvbnm"];
 const firstScans = [2, 16, 30, 44];
 const liveIdleBudget = 150_000_000;
+/** The code-wheel question the game is asking: its number in the game's table, and its entry in wheel.json. */
+export interface CodeWheelQuestion { number: number; espruar: string; dethek: string; path: string }
 const overlandArrivalAreas = new Set([0, 2, 10, 14, 18, 24, 31]);
 const travelRoadAreas = new Set([0, 2, 9, 18]);
 const travelRoadArrivals = new Map([[0, [8, 11, 20, 21]], [2, [15]], [9, [6]], [18, [9, 29]]]);
@@ -146,6 +148,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let nextPrompt = startAt;
   let trackedId: string | undefined;
   let scene: string | undefined;
+  let codeWheel: CodeWheelQuestion | undefined;
   let area: number | undefined;
   let travelPosition: TravelState | undefined;
   let nonblockingPoll = false;
@@ -491,6 +494,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         frame: Buffer.from(encodePng(native)).toString("base64"),
         enhancedFrame: Buffer.from(encodePng(enhanced, enhancedPalette)).toString("base64"),
         scene,
+        // Present while the game is inside its code-wheel routine, waiting for the word.
+        codeWheel,
         text,
         portrait,
         characterSheet,
@@ -966,6 +971,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       codeWheelQuestion = question;
       codeWheelAttempt = attempt;
     },
+    setCodeWheel: (question: CodeWheelQuestion | undefined) => { codeWheel = question; },
     tracked: () => trackedId,
     restoreTracked: (id: string | undefined) => { trackedId = id; },
   };

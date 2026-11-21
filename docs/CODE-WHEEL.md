@@ -1,7 +1,8 @@
 # The Enhanced code wheel
 
 The browser's `/code-wheel` page uses the packaged images of the original runes and the recovered
-layout. The standalone page lets players turn the wheel and read the letters.
+layout. The standalone page lets players turn the wheel and read the letters. The game page shows the same wheel at the start-up
+prompt in Enhanced display: see "The wheel at start-up" below.
 
 The original game shipped with a cardboard translation wheel. At start-up the game shows an
 Espruar rune, a Dethek rune and a path, and asks for the word found on the wheel. The version 1.3
@@ -144,9 +145,19 @@ The letter rings lie under the inner disc and show only through its windows. The
 overlaps the inside of the Espruar rim band, so centre the Espruar marks near 0.94 and the Dethek
 marks near 0.80.
 
-## Browser startup
+## The wheel at start-up
 
-Enable Enhanced at the GOG 1.3 title screen to open the wheel with the native question selected.
-Turn its inner disc with the arrow keys or buttons, then type the word and press Enter. The game
-draws a new question after a wrong answer and exits after the third wrong answer. Classic keeps
-GOG's startup behavior.
+While the game asks its question, the runner's frame state carries `codeWheel`: the question's
+number and its Espruar slot, Dethek slot and path. The runner learns the number from the
+`Random(13)` call the game's code-wheel routine makes, and writes nothing to the game.
+
+- **Classic** shows the game's own prompt and the game takes any word.
+- **Enhanced** covers the prompt with the wheel, drawn by the same code as the `/code-wheel`
+  page (`tools/code-wheel-draw.js`), beside the question's two runes and its path mark. Left and
+  Right, the mouse wheel or a drag turn the inner disc one position at a time. Typed letters
+  enter the word and Enter submits it. The right word is passed to the game as typed keys. A
+  wrong word shows "Sorry, that's incorrect." and a new question, as the first release's program
+  does, and the third wrong word ends the session until the page is reloaded. The game itself
+  still holds the one question it drew: the new question lives on the page.
+
+`npm run verify:code-wheel-screen -- <chrome-executable>` checks all of this on version 1.3.

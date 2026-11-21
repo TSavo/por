@@ -296,6 +296,29 @@ if (input && saves) {
     });
   }
 }
+if (input) {
+  // The frame state names the code-wheel question while the game asks it. The game picks the
+  // question with Random(13) inside its code-wheel routine, and the number Random returns is the
+  // question's place in the game's table. Nothing here writes to the game's memory.
+  const wheel = JSON.parse(readFileSync(new URL("../src/codewheel/wheel.json", import.meta.url), "utf8")) as
+    { questions: { number: number; espruar: string; dethek: string; path: string }[] };
+  const wheelSlice = loadedSlices.find(({ index }) => index === code.codeWheel.slice);
+  const ask = wheelSlice?.procs.get(code.codeWheel.at);
+  if (wheelSlice && ask) {
+    wheelSlice.procs = new Map(wheelSlice.procs);
+    wheelSlice.procs.set(code.codeWheel.at, (m) => {
+      try { ask(m); } finally { input.setCodeWheel(undefined); }
+    });
+    const random = procedure(code.random);
+    exeByImage.set(code.random.at, (m) => {
+      const forWheel = returnsTo(m, 0, code.codeWheelQuestionDrawn);
+      random(m);
+      if (!forWheel) return;
+      const question = wheel.questions.find(({ number }) => number === m.ax);
+      input.setCodeWheel(question && { number: question.number, espruar: question.espruar, dethek: question.dethek, path: question.path });
+    });
+  }
+}
 const journalSlice = loadedSlices.find(({ index }) => index === code.eclLoop.slice);
 adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || browserSound || liveAt !== undefined || profilePath) && journalSlice
   ? observeAdventureLog(cpu, journalSlice, loadedSlices.find(({ index }) => index === code.trainerRefusedA.slice),

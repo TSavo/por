@@ -8,7 +8,7 @@ import { join } from "node:path";
 import { requireBrowserGameRoot } from "./gamedata.js";
 import { loadCombatMaterialMasks, loadUpgradeArt } from "./upgrade-art.js";
 import { isOpenObjective, type JournalLead, type JournalObjective } from "../src/runtime/adventure-log.js";
-import { getKey, type PanelFrameStamp, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
+import { getKey, type CodeWheelQuestion, type PanelFrameStamp, type PresentationAnimationFrame, type TileInventoryCell } from "./live-input.js";
 import { developerVictoryCommand } from "./developer-combat.js";
 import { partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { characterSheetPartKey, portraitKey, scriptIllustrations, type CharacterSheetPart } from "./portrait-art.js";
@@ -34,6 +34,7 @@ const script = readFileSync(new URL("./play.js", import.meta.url));
 const streetRenderer = readFileSync(new URL("./new-phlan-webgl.js", import.meta.url));
 const wheelPage = readFileSync(new URL("./code-wheel.html", import.meta.url));
 const wheelScript = readFileSync(new URL("./code-wheel.js", import.meta.url));
+const wheelDrawing = readFileSync(new URL("./code-wheel-draw.js", import.meta.url));
 const wheelLayout = readFileSync(new URL("../src/codewheel/wheel.json", import.meta.url));
 const runeDirectory = new URL("../upgrades/codewheel/", import.meta.url);
 const wheelRunes = new Map(readdirSync(runeDirectory)
@@ -172,6 +173,7 @@ interface FrameState extends ExplorationFrame {
   scene?: string;
   codeWheelQuestion?: number;
   codeWheelAttempt?: number;
+  codeWheel?: CodeWheelQuestion;
   portrait?: string;
   characterSheet?: CharacterSheetPart[];
   classicPortrait?: boolean;
@@ -334,6 +336,9 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/html; charset=utf-8" }).end(wheelPage);
   } else if (req.method === "GET" && req.url === "/code-wheel.js") {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(wheelScript);
+  } else if (req.method === "GET" && req.url === "/code-wheel-draw.js") {
+    // The wheel's drawing, which the standalone page and the game page share.
+    res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(wheelDrawing);
   } else if (req.method === "GET" && req.url === "/code-wheel/layout") {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(wheelLayout);
   } else if (req.method === "GET" && /^\/code-wheel\/[a-z0-9-]+\.png$/.test(req.url ?? "")) {

@@ -438,6 +438,7 @@ function togglePresentation() {
     animationTimer = undefined;
   }
   showScreen();
+  renderCodeWheel();
   playPendingVoice();
 }
 
@@ -1263,7 +1264,227 @@ function renderJournal() {
   if (focusedLead) (restoredFocus ?? closeJournal).focus({ preventScroll: true });
 }
 
+// The Enhanced code wheel.
+//
+// While the game asks its code-wheel question, Enhanced display shows the whole translation
+// wheel and takes the word itself. Classic display shows the game's own prompt, and the game
+// takes any word, as the version 1.3 program does.
+//
+// What Enhanced enforces is what the first release's program does (overlay slice 2): after a
+// wrong word it prints "Sorry, that's incorrect." and asks again, drawing a new question with
+// Random(13) each time, and on the third wrong word it leaves the program. Version 1.3 has the
+// same code with the branch after the comparison replaced by a jump to the routine's exit.
+//
+// None of this changes the game. The game still holds the one question it drew. A new question
+// after a wrong word is drawn here, on the page, and the game is sent a word only once it is right.
+const codeWheel = {
+  /** src/codewheel/wheel.json. */
+  data: undefined,
+  /** The question the Enhanced prompt is asking: an entry of `data.questions`. */
+  question: undefined,
+  /** How many positions the inner disc is turned clockwise, 0 to 35. */
+  turn: 0,
+  /** While the disc is being dragged, how far it is from `turn`, in positions and fractions. */
+  dragged: 0,
+  /** Draws the wheel, once its pictures are loaded. */
+  paint: undefined,
+  word: "",
+  tries: 0,
+  /** True after the third wrong word. Nothing more reaches the game until the page is reloaded. */
+  ended: false,
+  /** False only in the check that shows the wrong-word test failing without enforcement. */
+  enforce: true,
+  /** Characters typed into the game's own input line, which happens in Classic display. */
+  forwarded: 0,
+  /** True while keys are on their way to the game. */
+  busy: false,
+  message: "",
+};
+const codeWheelTries = 3;
+const codeWheelLetters = 6;
+const wheelSection = document.querySelector("#code-wheel");
+const wheel = document.querySelector("#wheel");
+const wheelCanvas = document.querySelector("#wheel-canvas");
+// The wheel is drawn by the code the standalone /code-wheel page uses.
+void import("/code-wheel-draw.js").then(async ({ loadCodeWheel, wheelPainter }) => {
+  const { layout, pictures } = await loadCodeWheel();
+  codeWheel.paint = wheelPainter(wheelCanvas, layout, pictures);
+  codeWheel.data = layout;
+  renderCodeWheel();
+}).catch(() => { /* Without the wheel's layout the game's own prompt stays in view. */ });
+
+function codeWheelShown() {
+  return codeWheel.ended || Boolean(enhanced && state.codeWheel && codeWheel.data && !state.journal);
+}
+
+/** The address of the picture for a slot of one disc. Each disc has one slot that is its tab. */
+function codeWheelArt(disc, slot) {
+  return `/code-wheel/${slot === "translate-tab" ? `${disc}-translate-tab` : slot}.png`;
+}
+
+/**
+ * The word the wheel gives for a question. With the inner disc turned so the question's Dethek
+ * rune sits against its Espruar rune, each window of the path shows one letter of the outer
+ * disc; the word is those letters from the innermost ring outward.
+ */
+function codeWheelWord(question) {
+  const { outer, inner, positions } = codeWheel.data;
+  const espruar = outer.runes.indexOf(question.espruar), dethek = inner.runes.indexOf(question.dethek);
+  const path = inner.paths.find(({ id }) => id === question.path);
+  return path.windows.map((window, ring) =>
+    outer.rings[ring][(((window - dethek + espruar) % positions) + positions) % positions]).join("");
+}
+
+/** Draw the wheel, if it has changed since it was last drawn. */
+function paintCodeWheel() {
+  const turn = codeWheel.turn + codeWheel.dragged, path = codeWheel.question?.path;
+  if (!codeWheel.paint || codeWheel.painted === `${turn} ${path}`) return;
+  codeWheel.paint(turn, path);
+  codeWheel.painted = `${turn} ${path}`;
+}
+
+function turnCodeWheel(positions) {
+  const all = codeWheel.data.positions;
+  codeWheel.turn = (((codeWheel.turn + positions) % all) + all) % all;
+  paintCodeWheel();
+}
+
+function renderCodeWheel() {
+  if (!state.codeWheel && !codeWheel.ended) {
+    // The prompt is over. The next one starts afresh.
+    Object.assign(codeWheel, { question: undefined, word: "", tries: 0, forwarded: 0, message: "" });
+  } else if (state.codeWheel && !codeWheel.question && codeWheel.data) {
+    codeWheel.question = codeWheel.data.questions.find(({ number }) => number === state.codeWheel.number);
+  }
+  const shown = codeWheelShown();
+  wheelSection.hidden = !shown;
+  if (!shown) return;
+  document.querySelector("#wheel-ended").hidden = !codeWheel.ended;
+  wheel.hidden = codeWheel.ended;
+  document.querySelector("#wheel-panel").hidden = codeWheel.ended;
+  if (codeWheel.ended || !codeWheel.question) return;
+  paintCodeWheel();
+  const { espruar, dethek, path } = codeWheel.question;
+  for (const [id, source] of [["#wheel-espruar", codeWheelArt("espruar", espruar)],
+    ["#wheel-dethek", codeWheelArt("dethek", dethek)], ["#wheel-path", `/code-wheel/path-${path}.png`]]) {
+    const image = document.querySelector(id);
+    if (image.getAttribute("src") === source) continue;
+    image.src = source;
+  }
+  document.querySelector("#wheel-word").textContent = codeWheel.word;
+  document.querySelector("#wheel-message").textContent = codeWheel.message;
+}
+
+/** Give the game one key, once it is waiting for one, and wait until it has taken it. */
+async function sendToGameInTurn(key) {
+  const deadline = performance.now() + 15_000;
+  const wait = () => new Promise(done => setTimeout(done, 40));
+  while (performance.now() < deadline && !state.stopped) {
+    const sequence = state.sequence;
+    if (state.ready && !posting && renderingSequence === undefined && await send(key)) {
+      while (state.sequence === sequence && performance.now() < deadline && !state.stopped) await wait();
+      return state.sequence !== sequence;
+    }
+    await wait();
+  }
+  return false;
+}
+
+async function sendKeysToGame(keys) {
+  codeWheel.busy = true;
+  try {
+    for (const key of keys) if (!await sendToGameInTurn(key)) return false;
+    return true;
+  } finally {
+    codeWheel.busy = false;
+  }
+}
+
+async function submitCodeWord() {
+  const typed = codeWheel.word;
+  if (!typed) return;
+  // Whatever was typed into the game's own input line in Classic display is rubbed out first.
+  const rubOut = Array(codeWheel.forwarded).fill("backspace");
+  if (!codeWheel.enforce || typed.toUpperCase() === codeWheelWord(codeWheel.question)) {
+    codeWheel.message = "";
+    renderCodeWheel();
+    // The game reads the word as typed keys and then Enter, and goes on.
+    await sendKeysToGame([...rubOut, ...[...typed.toLowerCase()].map(letter => letter === "j" ? "key j" : letter), "enter"]);
+    return;
+  }
+  codeWheel.tries++;
+  codeWheel.word = "";
+  codeWheel.message = "Sorry, that's incorrect.";
+  if (codeWheel.tries >= codeWheelTries) {
+    codeWheel.ended = true;
+  } else {
+    // The first release draws a new question for each try.
+    const { questions } = codeWheel.data;
+    codeWheel.question = questions[Math.floor(Math.random() * questions.length)];
+  }
+  renderCodeWheel();
+  if (rubOut.length && !codeWheel.ended) {
+    await sendKeysToGame(rubOut);
+    codeWheel.forwarded = 0;
+  }
+}
+
+/** A key pressed while the wheel is in view. Returns true when the wheel took it. */
+function codeWheelKey(event) {
+  if (event.target instanceof HTMLButtonElement && ["Enter", " "].includes(event.key)) return false;
+  const turning = event.key === "ArrowLeft" || event.key === "ArrowRight";
+  const letter = /^[a-z0-9]$/i.test(event.key);
+  // No other key reaches the game's input line from here. F10 still changes the display.
+  if (!turning && !letter && event.key !== "Backspace" && event.key !== "Enter") return event.key !== "F10";
+  event.preventDefault();
+  if (codeWheel.ended || codeWheel.busy || !codeWheel.question) return true;
+  if (turning) turnCodeWheel(event.key === "ArrowLeft" ? -1 : 1);
+  else if (event.key === "Backspace") codeWheel.word = codeWheel.word.slice(0, -1);
+  else if (event.key === "Enter") { if (!event.repeat) void submitCodeWord(); }
+  else if (!event.repeat && codeWheel.word.length < codeWheelLetters) codeWheel.word += event.key.toUpperCase();
+  if (!turning) renderCodeWheel();
+  return true;
+}
+
+{
+  // Dragging turns the inner disc with the pointer, and it settles on the nearest position.
+  let drag;
+  const pointerAngle = event => {
+    const box = wheel.getBoundingClientRect();
+    return Math.atan2(event.clientY - box.top - box.height / 2, event.clientX - box.left - box.width / 2) * 180 / Math.PI;
+  };
+  wheel.addEventListener("pointerdown", event => {
+    if (codeWheel.busy) return;
+    drag = { last: pointerAngle(event), turned: 0 };
+    wheel.setPointerCapture(event.pointerId);
+    wheel.classList.add("turning");
+  });
+  wheel.addEventListener("pointermove", event => {
+    if (!drag) return;
+    const now = pointerAngle(event);
+    // Add up small steps, so a drag across the left side does not jump a whole turn.
+    drag.turned += ((now - drag.last + 540) % 360) - 180;
+    drag.last = now;
+    codeWheel.dragged = drag.turned / 10;
+    paintCodeWheel();
+  });
+  const release = () => {
+    if (!drag) return;
+    wheel.classList.remove("turning");
+    codeWheel.dragged = 0;
+    turnCodeWheel(Math.round(drag.turned / 10));
+    drag = undefined;
+  };
+  wheel.addEventListener("pointerup", release);
+  wheel.addEventListener("pointercancel", release);
+  wheel.addEventListener("wheel", event => {
+    event.preventDefault();
+    if (!codeWheel.busy && event.deltaY) turnCodeWheel(Math.sign(event.deltaY));
+  }, { passive: false });
+}
+
 async function send(key) {
+  if (codeWheel.ended) return;
   if (!state.ready || posting || state.stopped || renderingSequence === state.sequence) return;
   if (animationFrame) {
     finishAnimation();
@@ -1272,7 +1493,10 @@ async function send(key) {
   posting = true;
   const sequence = state.sequence;
   try {
-    const startWheel = enhanced && state.codeWheelAvailable && state.scene === "scene:title" && !wheelStartup;
+    // On this branch the page checks the word and shows the wheel over the game picture, so the
+    // game's own check and the wheel frame below the picture are never switched on. Their code
+    // is kept so the two approaches can be compared.
+    const startWheel = false;
     const headers = { "X-POR-Frame": String(sequence) };
     if (startWheel) headers["X-POR-Code-Wheel"] = "enhanced";
     const result = await fetch("/key", {
@@ -1280,6 +1504,11 @@ async function send(key) {
     });
     if (startWheel && result.ok) wheelStartup = true;
     if (state.sequence === sequence && (result.ok || result.status === 409)) state.ready = false;
+    if (result.ok && state.codeWheel) {
+      // Keep count of what the game's own input line holds while it asks for the code word.
+      if (key === "backspace") codeWheel.forwarded = Math.max(0, codeWheel.forwarded - 1);
+      else if (/^(?:key )?[a-z0-9]$/i.test(key)) codeWheel.forwarded++;
+    }
     return result.ok;
   } catch {
     status.textContent = "Waiting for the local game runner…";
@@ -1313,6 +1542,7 @@ async function poll() {
     journalToggle.disabled = closeJournal.disabled;
     void syncAutomap();
     offerLegacyAutomap();
+    renderCodeWheel();
     if (changed) {
       renderJournal();
       playAnimation();
@@ -1331,6 +1561,8 @@ async function poll() {
     playPendingVoice();
     playPendingNarration();
     status.textContent = state.stopped ?? state.notice ??
+      (codeWheel.ended ? "The game has ended. Reload the page to start again." : undefined) ??
+      (codeWheelShown() ? "Left and Right turn the inner disc. Type the code word and press Enter." : undefined) ??
       (waitingForFerryPayer(activeTravel) ? "Choose who pays 1 platinum for Sokal Keep. Esc to stop travel." : undefined) ??
       (activeTravel && `Traveling toward ${activeTravel.label}… Esc to stop.`) ??
       (!travelMap.hidden && state.ready ? "Select a highlighted destination or use the arrow keys." : undefined) ??
@@ -1393,6 +1625,9 @@ window.addEventListener("keydown", (event) => {
   if (event.key !== "F10" && event.target instanceof HTMLElement && event.target.closest("#audio-settings")) return;
   const advancingCoveredPrint = currentVoice?.dataset.queuedNarration === "true" && ["Enter", " "].includes(event.key);
   if (currentVoice && event.key !== "F10" && !advancingCoveredPrint) stopVoice();
+  // While the Enhanced code wheel is in view it takes the arrows, the word and Enter.
+  // A held arrow keeps turning the disc.
+  if (codeWheelShown() && !event.ctrlKey && !event.metaKey && !event.altKey && codeWheelKey(event)) return;
   if (event.repeat || event.ctrlKey || event.metaKey) return;
   if (!bootWheel.hidden && event.key !== "F10") {
     const key = wheelKey(event.key);
