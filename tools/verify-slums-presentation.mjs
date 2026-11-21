@@ -7679,7 +7679,20 @@ try {
       }
     }
     if (!castleRecordsDecline) {
+    const recordsRoom = "scene-illustration:area:4:ecl:9a2c:caller:af7c";
+    async function verifyRecordsIllustration(id, caption, filename) {
+      assert.equal(frame.portrait, id);
+      assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), caption);
+      await waitFor("the Valjevo records illustration " + id, () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalWidth === 352 &&
+        document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalHeight === 352`));
+      await verifyPortraitPanel();
+      await switchBothWays(frame.frame);
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, filename), Buffer.from(shot.data, "base64"));
+    }
       for (const key of ["j", "y"]) await advance(key);
+    await verifyRecordsIllustration(recordsRoom, /buildingfullofrecords.*spendhoursreading/i, "valjevo-records-room.png");
       assert.equal(frame.portrait, evidence);
       await waitFor("the Enhanced Red Wizards evidence", () => run(`state.sequence === ${frame.sequence} &&
         document.querySelector('.encounter-portrait[src="/art/${evidence}"]')?.naturalWidth === 352`));
@@ -7689,7 +7702,7 @@ try {
       assert.ok(knows("castle-records-thay") && !knows("castle-records-moonsea"));
       assert.match(frame.journal.objective.nextStep, /continue reading the Valjevo records/i);
       for (const key of ["j", "enter"]) await advance(key);
-      assert.ok(![evidence, moonsea].includes(frame.portrait));
+      assert.ok(![recordsRoom, evidence, moonsea].includes(frame.portrait));
       await advance("enter");
       assert.equal(frame.portrait, moonsea);
       await waitFor("the Moonsea conquest report", () => run(`state.sequence === ${frame.sequence} &&

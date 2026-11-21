@@ -96,6 +96,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:7:ecl:a82d", /THESPIRITOFTYRANTHRAXUSFLARESUP|YOUHAVEBUTSLAINTHEBODYIPOSSESSED/],
   ["scene-illustration:area:7:ecl:a82d:cue:pool-recall", "DONOTCALLMEBACKTHROUGHTHEPOOL!"],
   ["scene-illustration:area:4:ecl:9a5a:caller:b00a", "THEREDWIZARDSOFTHAYAREALLIEDTOTYRANTHRAXUS"],
+  ["scene-illustration:area:4:ecl:9a2c:caller:af7c", "YOUAREINABUILDINGFULLOFRECORDS"],
   ["scene-illustration:area:4:ecl:b006", "YOUFINDEVIDENCETHATTHEREDWIZARDSOFTHAY"],
   ["scene-illustration:area:4:ecl:b102", "HISULTIMATEGOALISTOCONQUERALLLANDS"],
   ["scene-illustration:area:4:ecl:9a5a:caller:b106", "HISULTIMATEGOALISTOCONQUERALLLANDSSOUTHOFTHEMOONSEA"],
