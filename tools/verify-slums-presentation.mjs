@@ -1617,6 +1617,22 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["right"], portrait: "portrait:area:1:ecl:a35b:HEAD6.DAX:6:BODY6.DAX:3",
       prompt: /TWOGUARDSGUARDTHEDOOR.*WHATWILLYOUDO/i },
   }],
+  ["textile-skullcrusher-dismissal", {
+    slot: "E",
+    inputs: ["enter", "right", "right", "up", "right", "right", "up", "b", "enter", "enter",
+      "f", "u", "enter", "p", "n", "enter", "n"],
+    portraitStops: {
+      10: "portrait:HEAD4.DAX:32:BODY4.DAX:3",
+      12: "scene-illustration:area:2:ecl:abd2:caller:a3fc:cue:skullcrusher-key",
+      15: "scene-illustration:area:2:ecl:abd2:caller:a500:cue:skullcrusher-freed",
+      16: "scene-illustration:area:2:ecl:a523:cue:skullcrusher-freed",
+    },
+    phaseCaptures: { 12: "textile-skullcrusher-brass-key.png", 15: "textile-skullcrusher-freed.png" },
+    portrait: "scene-illustration:area:2:ecl:a5f2:cue:skullcrusher-leaves",
+    prompt: /OHWELL.*HELEAVES/i, finalPhaseCapture: "textile-skullcrusher-leaves.png",
+    journalLead: "textile-prisoner-left", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["up"], clearsPortrait: true, prompt: /YOUAREINAVERYSMALL,DARKROOM/i },
+  }],
   ["textile-skullcrusher-wall-mark", {
     slot: "J", inputs: ["left", "up", "right", "up", "up", "up", "up", "left", "up"],
     portraitStops: { 7: null, 8: null },
@@ -7951,6 +7967,12 @@ try {
           assert.ok(frame.journal?.leads.some(({ id, rescueDistractionActive }) =>
             id === "rescue-stampede" && rescueDistractionActive));
           assert.ok(!frame.journal.leads.some(({ id }) => id === "rescue-animals-recaptured"));
+          await advance("j");
+        }
+        if (routeName === "textile-skullcrusher-dismissal" && index === 16) {
+          await advance("j");
+          assert.ok(frame.journal?.leads.some(({ id }) => id === "textile-prisoner-freed"));
+          assert.ok(!frame.journal.leads.some(({ id }) => id === "textile-prisoner-left"));
           await advance("j");
         }
         if (routeName === "bane-mansion-wall-message" && index === 4) {
