@@ -82,7 +82,10 @@ for (const row of rows) console.log(row);
 console.log(`\n${total} features: ${total - open - partial} covered, ${partial} partly covered, ${open} open`);
 const original = checks.filter(({ reference }) => reference === "original").length;
 console.log(`${checks.length} checks, ${original} of them compare against the original program`);
-const findings = read<{ findings: { id: string; title: string; status: string }[] }>(new URL("findings.json", root)).findings;
+const findings = read<{ findings: { id: string; title: string; status: string; check?: string }[] }>(new URL("findings.json", root)).findings;
+for (const finding of findings) {
+  if (finding.status === "fixed" && !checkIds.has(finding.check ?? "")) problems.push(`finding ${finding.id} is marked fixed without a known check`);
+}
 const openFindings = findings.filter(({ status }) => status === "open");
 console.log(`${findings.length} findings: ${openFindings.length} open`);
 if (listOpen) console.log(`\nOpen findings:\n  ${openFindings.map(({ id, title }) => `${id}  ${title}`).join("\n  ")}`);

@@ -55,6 +55,8 @@ async function replay(bootKeys, startAt, actions, checkpointDir = saveDir, stopA
     env: {
       ...process.env, POR_PREGEN_PARTY: "0", POR_BROWSER_PLAY: "1", POR_SAVE_DIR: checkpointDir,
       POR_BOOT_KEY_FILE: "", POR_BOOT_KEYS: bootKeys, POR_LIVE_AT: startAt, POR_BOOT_STEPS: "450000000",
+      // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
+      POR_INPUT_COMPAT: "discard-poll-prompt",
     },
     stdio: ["pipe", "pipe", "inherit"],
   });

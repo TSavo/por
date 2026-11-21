@@ -8,13 +8,15 @@
       "title": "A key press is spent on a pause the original would end by itself",
       "detail": "The game empties its keyboard buffer before drawing a new screen (FlushKeys, START.EXE 26b:f6) and after each key (26b:48). The runner blocks at those polls and waits for the player. The key it receives is discarded, so the player presses again. Seen as B twice at Begin Adventuring, E twice for Encamp, and an extra Enter when leaving an area.",
       "source": "Owner report, reproduced with a key trace on 2026-11-21.",
-      "status": "open"
+      "status": "fixed",
+      "check": "input",
+      "resolution": "The runner no longer asks the player for a key at the game's discard polls (tools/live-input.ts). Under the old behaviour the full campaign replay had 101 of 992 key presses thrown away."
     },
     {
       "id": "input-replays-mask-extra-presses",
       "class": "checks",
       "title": "The replays press a key until the screen changes, which hides swallowed keys",
-      "detail": "tools/verify-fresh-party.mjs uses [key, until, limit] actions, and tools/verify-slums-presentation.mjs has `if still on the area menu, press E again`. An acceptance step must press once and assert.",
+      "detail": "tools/verify-fresh-party.mjs uses [key, until, limit] actions, and tools/verify-slums-presentation.mjs has `if still on the area menu, press E again`. An acceptance step must press once and assert. Measured on 2026-11-21: 101 discarded presses across the 11 legs of the full campaign replay. The older harnesses now set POR_INPUT_COMPAT=discard-poll-prompt and stay on the old input mode until each replay is re-recorded with one press per input. The presentation replays are unmeasured.",
       "source": "Code reading.",
       "status": "open"
     },
@@ -24,7 +26,9 @@
       "title": "In Enhanced, lowercase j opens the journal where the game wants the letter",
       "detail": "Typing a character name, and the party menu, whose key set is C D M T V A R L S B E J. The runner only exempts jewelry appraisal, Join Tyranthraxus and the disk menus.",
       "source": "Side-agent note and code reading. Not yet reproduced in play.",
-      "status": "open"
+      "status": "fixed",
+      "check": "map-journal",
+      "resolution": "The page takes J as the journal shortcut only at the exploration and Camp menus, which do not use J. Elsewhere the key goes to the game. Name entry itself is not yet exercised by a check."
     },
     {
       "id": "input-m-swallowed-enhanced",
@@ -32,7 +36,9 @@
       "title": "In Enhanced, lowercase m opens the map and never reaches the game",
       "detail": "Move in combat, Magic in the Camp menu, Mins in Rest, and Modify at the party menu all use M. tools/play.js toggles the map first.",
       "source": "Code reading. Not yet reproduced in play.",
-      "status": "open"
+      "status": "fixed",
+      "check": "map-journal",
+      "resolution": "The page takes M as the map shortcut only at the exploration menus. At the Camp menu M opens Magic. Move in combat is not yet exercised by a check."
     },
     {
       "id": "input-original-control-keys-dropped",
@@ -149,8 +155,8 @@
     {
       "id": "guides-describe-v1-3",
       "class": "acceptance",
-      "title": "The walkthrough describes game version 1.3; the supplied files are version 1.1",
-      "detail": "The Stephen S. Lee guide (v2.00, 2026-04-02) is written for IBM v1.3 and says the scripts changed between v1.1 and v1.2 without listing how. Every scripted step taken from the guide has to be confirmed against the v1.1 scripts before it becomes an assertion.",
+      "title": "The walkthrough describes version 1.3; the supplied program is an earlier build",
+      "detail": "The Stephen S. Lee guide (v2.00, 2026-04-02) is written for IBM v1.3. Compared with a v1.3 copy (Internet Archive POR_POR), all 113 shared data files are identical and 28 of 29 script blocks are identical. The New Phlan script (ECL3 block 0) is 3 bytes longer in v1.3. START.EXE and GAME.OVR differ, and v1.3 uses a different overlay format. Our credits show no version, which the guide says means v1.0. So scripted steps apply except for one New Phlan edit still to be located, and every engine-level claim in the guide must be confirmed against our program.",
       "source": "Guide research, qa/research/guides-digest.md.",
       "status": "open"
     },

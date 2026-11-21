@@ -170,6 +170,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let previousPerspective: { area: number; pixels: Buffer } | undefined;
   const browser = process.env.POR_BROWSER_PLAY === "1";
   const developerCombat = process.env.POR_DEV_COMBAT === "1";
+  // Replays recorded before 2026-11-21 answered the game's discard polls with a key press.
+  // They set this until each is re-recorded with one press per input.
+  const promptAtDiscardPolls = process.env.POR_INPUT_COMPAT === "discard-poll-prompt";
+  const traceKeys = process.env.POR_TRACE_KEYS === "1";
   const tileKeys = new Set((process.env.POR_TILE_ART_KEYS ?? "").split(",").filter(Boolean));
   const battleTileKeys = new Set((process.env.POR_BATTLE_TILE_KEYS ?? "").split(",").filter(Boolean));
   const traceBattleDraw = process.env.POR_TRACE_BATTLE_DRAW === "1";
@@ -580,6 +584,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   };
   const requestKey = (cpu: Cpu, keys: BiosKey[], blocking: boolean): void => {
     if (cpu.steps < startAt || keys.length || (!blocking && cpu.steps < nextPrompt)) return;
+    // The game empties its keyboard buffer before it draws a new screen (26b:f6) and after
+    // each key it reads (26b:48). Those polls only discard type-ahead. On DOS they find
+    // nothing and return at once, so the player is never asked for a key there.
+    const atDiscardPoll = !blocking && cpu.read16(cpu.ss, (cpu.sp + 2) & 0xffff) === 0x26b &&
+      [0x27b1, 0x278b].includes(cpu.read16(cpu.ss, cpu.sp));
+    if (atDiscardPoll && !promptAtDiscardPolls) return;
     const battlePoll = !blocking && cpu.cs === 0x512 && cpu.ip === 0x5423 && hasBattlefieldBorder(screen);
     const combatMenu = developerCombat ? menuText(visibleGameText()) : "";
     // Combat can pause on a hostile's first turn before the party gets a menu.
@@ -665,6 +675,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const defeated = winDeveloperCombat(cpu);
         console.error(`POR_DEVELOPER_VICTORY ${defeated} hostiles`);
       }
+      // With POR_TRACE_KEYS=1, say where each key went. A key given at a discard poll is thrown away.
+      if (traceKeys) console.error(`POR_KEY ${JSON.stringify(command)}${atDiscardPoll ? " discarded" : ""}`);
       if (recording) appendFileSync(recording, `${cpu.steps}:${key.toString(16).padStart(4, "0")}\n`);
       keys.push({ step: cpu.steps, word: key });
       // Animated travel on Rolf's tour can exceed 30 million instructions

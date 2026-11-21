@@ -22,7 +22,7 @@ for (const f of readdirSync(source).filter(n => /^(?:[A-J]|roster)\.json$/.test(
 const text = f => { const c = Array(1000).fill(" "); for (const [cell, ch] of f.text) c[cell] = String.fromCharCode(ch); return c.join("").replace(/ +/g, " "); };
 const load = key => `31000000:1c0d,45000000:266c,52000000:${key}`;
 async function leg(name, key, body) {
-  const chrome = await openChromeCampaignLeg({ chromePath, directory: join(dir, name), checkpointDir: saves, bootKeys: load(key), startAt: "85000000" });
+  const chrome = await openChromeCampaignLeg({ chromePath, directory: join(dir, name), checkpointDir: saves, bootKeys: load(key), startAt: "85000000", inputCompat: "" });
   try {
     let frame = await chrome.nextFrame();
     const step = async k => { await chrome.send(k); frame = await chrome.nextFrame(); return frame; };
@@ -30,12 +30,16 @@ async function leg(name, key, body) {
       for (let i = 0; i < 100 && (automapRevision === undefined || automapRevision !== state.automapRevision); i++) await new Promise(r => setTimeout(r, 50));
       return JSON.stringify({ revision: automapRevision, want: state.automapRevision, maps: discoveredMaps, here: state.exploration });
     })()`));
-    await body({ chrome, step, maps, frame: () => frame });
+    const keydown = key => chrome.evaluate(`window.dispatchEvent(new KeyboardEvent("keydown", {
+      key: ${JSON.stringify(key)}, code: ${JSON.stringify(key.length === 1 ? "Key" + key.toUpperCase() : key)}, bubbles: true, cancelable: true }))`);
+    // A real key press that reaches the game produces a new frame.
+    const type = async key => { await keydown(key); frame = await chrome.nextFrame(); return frame; };
+    await body({ chrome, step, maps, keydown, type, frame: () => frame });
   } finally { await chrome.close(); }
 }
 const cells = m => Object.values(m.maps).reduce((n, a) => n + Object.keys(a.cells).length + Object.values(a.floors ?? {}).reduce((k, f) => k + Object.keys(f.cells).length, 0), 0);
 let savedHere;
-await leg("first", "2e63", async ({ chrome, step, maps, frame }) => {
+await leg("first", "2e63", async ({ chrome, step, maps, keydown, type, frame }) => {
   assert.match(text(frame()), /Area Cast View Encamp/i, text(frame()));
   let m = await maps();
   assert.equal(m.revision, m.want);
@@ -54,9 +58,27 @@ await leg("first", "2e63", async ({ chrome, step, maps, frame }) => {
   const floor = m.here.mapId === undefined ? m.maps[m.here.area] : m.maps[m.here.area].floors[m.here.mapId];
   assert.equal(floor.cells[`${m.here.x},${m.here.y}`].label, "Slums gate");
   savedHere = m.here;
+  // The exploration menu does not use M, so M opens the map there and sends the game nothing.
+  const exploring = await chrome.evaluate("state.sequence");
+  await keydown("m");
+  assert.equal(await chrome.evaluate('document.querySelector("#automap").hidden'), false, "M opens the map while exploring");
+  await keydown("Escape");
+  assert.equal(await chrome.evaluate('document.querySelector("#automap").hidden'), true);
+  assert.equal(await chrome.evaluate("state.sequence"), exploring, "Opening the map sends the game no key");
+  // One press of E opens the Camp menu.
   await step("e");
-  if (/Area Cast View Encamp/i.test(text(frame()))) await step("e");
   assert.match(text(frame()), /Camp: Save View Magic Rest Alter Exit/);
+  // The Camp menu uses M for Magic, so M goes to the game.
+  await type("m");
+  assert.match(text(frame()), /Cast Memorize Scribe Display Rest Exit/, `M should open Magic: ${text(frame())}`);
+  assert.equal(await chrome.evaluate('document.querySelector("#automap").hidden'), true, "M must not open the map in camp");
+  await step("e");
+  assert.match(text(frame()), /Camp: Save View Magic Rest Alter Exit/);
+  // The Camp menu does not use J, so a real J key opens the journal.
+  await type("j");
+  assert.ok(frame().journal, "J opens the journal from camp");
+  await type("j");
+  assert.equal(frame().journal, undefined);
   assert.doesNotMatch(text(frame()), /Journal/i, "The original Camp menu is unchanged");
   await step("j"); assert.ok(frame().journal, "J opens the journal from camp in Enhanced");
   await step("j"); assert.equal(frame().journal, undefined);

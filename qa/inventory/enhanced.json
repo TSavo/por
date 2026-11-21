@@ -445,7 +445,10 @@
           "evidence": [
             "tools/play.js"
           ],
-          "checks": []
+          "checks": [
+            "map-journal"
+          ],
+          "gap": "Checked at the exploration and Camp menus. Move in combat is not yet checked."
         }
       ]
     },
@@ -711,7 +714,10 @@
           "evidence": [
             "tools/live-input.ts"
           ],
-          "checks": []
+          "checks": [
+            "input"
+          ],
+          "gap": "Checked on the opening route. Combat, shops and dialogue pauses are not yet pressed once and asserted."
         },
         {
           "id": "enhanced.developer-combat",

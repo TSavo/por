@@ -1324,6 +1324,22 @@ async function poll() {
   setTimeout(poll, 100);
 }
 
+// J and M belong to the game wherever it reads letters: Move, Magic, Mins, a typed name,
+// jewelry, Join. The journal and map shortcuts apply only at these original command
+// menus, and only for a letter the menu does not use. The buttons work everywhere.
+const hostShortcutMenus = new Set([
+  "Area Cast View Encamp Search Look",
+  "Cast View Encamp Search Look",
+  "Camp: Save View Magic Rest Alter Exit",
+]);
+function hostShortcutFree(letter) {
+  const row = Array(40).fill(" ");
+  for (const [cell, character] of state.text ?? []) if (cell >= 960) row[cell - 960] = String.fromCharCode(character);
+  const menu = row.join("").replace(/\s+/g, " ").trim();
+  return hostShortcutMenus.has(menu) &&
+    !menu.split(" ").some(word => word[0].toLowerCase() === letter);
+}
+
 const commands = {
   ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right",
   Home: "home", PageUp: "pageup", End: "end", PageDown: "pagedown",
@@ -1383,7 +1399,8 @@ window.addEventListener("keydown", (event) => {
     void send(":win-combat");
     return;
   }
-  if (enhanced && event.key.toLowerCase() === "m" && !event.shiftKey) {
+  if (enhanced && event.key.toLowerCase() === "m" && !event.shiftKey &&
+      (!automap.hidden || travelExpanded || !travelMap.hidden || hostShortcutFree("m"))) {
     event.preventDefault();
     toggleAutomap();
     return;
@@ -1402,7 +1419,7 @@ window.addEventListener("keydown", (event) => {
   }
   if (event.target instanceof HTMLButtonElement && ["Enter", " "].includes(event.key)) return;
   // In Classic, J reaches the original game like any other key.
-  if (event.key.toLowerCase() === "j" && !event.shiftKey && (enhanced || state.journal)) {
+  if (event.key.toLowerCase() === "j" && !event.shiftKey && (state.journal || enhanced && hostShortcutFree("j"))) {
     event.preventDefault();
     void send("j");
     return;

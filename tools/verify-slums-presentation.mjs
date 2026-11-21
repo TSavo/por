@@ -5462,6 +5462,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_BOOT_KEYS: freshRolf ? "31000000:1c0d,45000000:2e63" : "31000000:1c0d,45000000:266c,52000000:" + boot,
     ...(sokalCourtyardNote ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
+    // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
+    POR_INPUT_COMPAT: "discard-poll-prompt",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });

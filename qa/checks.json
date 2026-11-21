@@ -129,6 +129,15 @@
         "Chrome",
         "checkpoint saves that are not in the repository"
       ]
+    },
+    {
+      "id": "input",
+      "title": "One key press is one input, from the party menu through Begin Adventuring, Camp, Save and Search",
+      "command": "npm run verify:input",
+      "reference": "game-data",
+      "needs": [
+        "game files"
+      ]
     }
   ]
 }

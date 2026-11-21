@@ -20,7 +20,11 @@ export function copyCampaignSaves(from, to) {
   }
 }
 
-export async function openChromeCampaignLeg({ chromePath, directory, checkpointDir, bootKeys, startAt, developerCombat = false }) {
+// `inputCompat` keeps replays recorded before 2026-11-21 working. Until then a key press was
+// spent each time the game emptied its keyboard buffer, and their key lists include those
+// presses. Pass "" for a replay that presses each key once.
+export async function openChromeCampaignLeg({ chromePath, directory, checkpointDir, bootKeys, startAt, developerCombat = false,
+  inputCompat = "discard-poll-prompt" }) {
   mkdirSync(directory);
   // The guest overwrites slots during a campaign. Preserve the input saves
   // and commands for each leg, including host-side journal commands.
@@ -38,6 +42,7 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
       POR_DEV_COMBAT: developerCombat ? "1" : "0",
       POR_JOURNAL_PROFILE: "", POR_PREGEN_PARTY: "0", POR_BOOT_KEY_FILE: "", POR_BOOT_KEYS: bootKeys,
       POR_LIVE_AT: startAt, POR_BOOT_STEPS: "450000000", POR_RECORD_KEYS: join(directory, "keys.txt"),
+      POR_INPUT_COMPAT: inputCompat,
     },
     stdio: ["ignore", "pipe", "pipe"], windowsHide: true,
   });
