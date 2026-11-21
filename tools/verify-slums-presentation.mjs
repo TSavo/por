@@ -2404,11 +2404,11 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["n"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
   ["kobold-cave-steep-slope-climb", {
-    slot: "B", inputs: ["up", "n", "up"],
-    portrait: "scene-illustration:area:13:ecl:a9ce:cue:steep-slope",
-    prompt: /THEREISASTEEPRUBBLEDSLOPE.WILLYOUGOUP/i,
-    continuation: { inputs: ["y", "enter"], clearsPortrait: true,
-      prompt: /AHUGEBEASTLANDSUPONYOU/i },
+    slot: "B", inputs: ["up", "n", "up", "y", "enter"],
+    portraitStops: { 3: "scene-illustration:area:13:ecl:a9ce:cue:steep-slope" },
+    portrait: "scene-illustration:area:13:ecl:aa70:cue:wyvern-ambush",
+    prompt: /AHUGEBEASTLANDSUPONYOU/i,
+    finalPhaseCapture: "kobold-cave-wyvern-ambush.png",
   }],
   ["kobold-cave-pit-fall", {
     slot: "B", inputs: ["up"],
