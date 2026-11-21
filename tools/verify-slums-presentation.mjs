@@ -393,8 +393,8 @@ const encounterRoutes = new Map([
   }],
   ["lizard-wilds-displacer-approach", {
     slot: "A", inputs: ["up", "enter"],
-    placement: [40, 32, "encounter:area:26:SPRIT7.DAX:68:0:0", 64, 80],
-    dialogue: { key: "enter", portrait: "portrait:area:26:PIC7.DAX:68:0:0", prompt: /AMBUSHEDBYTWODISPLACERBEASTS/i },
+    placement: [40, 32, "encounter:area:26:ecl:a6c5:SPRIT7.DAX:68:0:0", 64, 80],
+    dialogue: { key: "enter", portrait: "portrait:area:26:ecl:a70c:PIC7.DAX:68:0:0", prompt: /AMBUSHEDBYTWODISPLACERBEASTS/i },
   }],
   ["lizard-wilds-stirge-approach", {
     slot: "A", inputs: ["up", "enter"],
@@ -1215,7 +1215,9 @@ const illustrationRoutes = new Map([
   }],
   ["lizard-wilds-displacer-dialogue", {
     slot: "A", inputs: ["up", "enter", "enter"],
-    portrait: "portrait:area:26:PIC7.DAX:68:0:0", prompt: /AMBUSHEDBYTWODISPLACERBEASTS/i,
+    approachStops: { 2: [40, 32, "encounter:area:26:ecl:a6c5:SPRIT7.DAX:68:0:0", 64, 80] },
+    portrait: "portrait:area:26:ecl:a70c:PIC7.DAX:68:0:0", prompt: /AMBUSHEDBYTWODISPLACERBEASTS/i,
+    continuation: { inputs: ["enter"], prompt: /ABATTLEBEGINS/i, portrait: "portrait:area:26:ecl:a70d:PIC7.DAX:68:0:0" },
   }],
   ["old-phlan-lizard-patrol", {
     slot: "B", inputs: ["up", "enter", "enter"],
