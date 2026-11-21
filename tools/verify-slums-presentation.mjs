@@ -2182,6 +2182,7 @@ const illustrationRoutes = new Map([
     prompt: /THEDRAGONLOOKSATYOUWITHINTEREST/i,
     phaseCaptures: { 16: "valjevo-tyranthraxus-appraisal-phase-1.png" },
     finalPhaseCapture: "valjevo-tyranthraxus-appraisal-phase-2.png",
+    continuation: { inputs: ["enter", "enter", ...Array(6).fill("a")], portrait: "portrait:area:7:ecl:a803:PIC5.DAX:66:2:0", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-prison-displacer-phases", {
     slot: "B", inputs: ["s", ...Array.from({ length: 27 }, () => ["up", "enter", "down"]).flat(),
