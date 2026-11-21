@@ -6272,12 +6272,14 @@ try {
       await checkScrollPortrait("b695:caller:afe3", /THESCROLLISPLACEDINYOURJOURNALASENTRY43/i, true);
       await advance("enter");
     }
-    assert.equal(frame.portrait, undefined);
-    assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /DOYOUWANTTODOANYTHINGWITHTHECOFFIN/i);
+    await checkScrollPortrait("b6c6:caller:b00b", /DOYOUWANTTODOANYTHINGWITHTHECOFFIN/i, !declineCryptScroll,
+      "valhingen-coffin-inspection.png");
     await advance("j");
     assert.equal(frame.journal?.leads.some(({ id }) => id === scrollLead), !declineCryptScroll);
     assert.ok(!frame.journal?.leads.some(({ id }) => id === "graveyard-crypt-sanctified"));
-    for (const key of ["j", "y", "s"]) await advance(key);
+    for (const key of ["j", "y"]) await advance(key);
+    await checkScrollPortrait("b04e", /WHATDOYOUWANTTODOTOIT.*ExamineSanctifyOverturn/i, !declineCryptScroll);
+    await advance("s");
     const sanctification = "scene-illustration:area:10:ecl:b0ab";
     assert.equal(frame.portrait, sanctification);
     assert.match(frame.text.map(([, character]) => String.fromCharCode(character)).join(""), /YOUSCATTERTHEDUSTANDPLACEWHATHOLYITEMSYOUCANSPAREINSIDE/i);
@@ -6290,6 +6292,7 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
     for (const key of ["j", "e"]) await advance(key);
     assert.equal(frame.portrait, undefined);
+    await waitForExplorationViewport();
     for (const key of ["enter", "s", "s", "a"]) await advance(key);
     const known = new Set(JSON.parse(readFileSync(saved, "utf8")).leads.map(({ id }) => id));
     assert.ok(known.has("graveyard-crypt-sanctified"));
