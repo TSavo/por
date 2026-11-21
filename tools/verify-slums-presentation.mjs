@@ -6456,7 +6456,15 @@ try {
     assert.match(text, /YOUHAVESTUMBLEDUPONALARGENOMADCAMP/i);
     assert.match(text, /ENTER.*LEAVE/i);
     await waitFor("the Nomad Camp approach illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    const walkingNomad = "portrait:area:26:ecl:9c49:PIC7.DAX:30:1:0";
+    for (let i = 0; i < 12 && frame.portrait !== walkingNomad; i++) await advance("z");
+    assert.equal(frame.portrait, walkingNomad);
+    await waitFor("the Nomad Camp approach motion", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${walkingNomad}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
     await switchBothWays();
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "nomad-camp-approach-walker.png"), Buffer.from(shot.data, "base64"));
     await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "nomad-camp-found"));
     await advance("j");

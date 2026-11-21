@@ -5570,6 +5570,7 @@
     "tile:18:f08f5d405196df228b0f4f6cb5937799da56badb58ba6ff58a9903bb9b1ca142": "podal-west-arch-terrain-f08f5d405196.png",
     "tile:18:f5d7a245e0ac6784eeda9b1dc97243367e0de6bd450be85234f7e4e22cbd3dae": "podal-west-arch-terrain-f5d7a245e0ac.png",
     "portrait:area:26:PIC7.DAX:30:0:0": "nomad-camp-approach.png",
+    "portrait:area:26:ecl:9c49:PIC7.DAX:30:1:0": "nomad-camp-approach-walker.png",
     "tile:17:0316d132d878d17dbcad716bec6e2789691b18da73d6132b375348becbe253c6": "nomad-camp-approach-terrain-0316d132d878.png",
     "tile:17:04965ef289d022bfe25f38161bd23a55528f2682e495ac349494bd7ac38ac481": "nomad-sand-joins-04965ef289d0.png",
     "tile:17:10f6b452be277678196ad1a0ec4699e6e915a7b170d8a985f51a748486f7f126": "nomad-camp-approach-terrain-10f6b452be27.png",
