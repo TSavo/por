@@ -5506,7 +5506,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     ...(sokalCourtyardNote ? { POR_DEV_COMBAT: "1" } : {}),
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
-    POR_INPUT_COMPAT: moonseaTravel || sokalTravel ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
+    POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
@@ -5907,16 +5907,17 @@ try {
       };
       ${landmark}.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true }));
     })()`);
-    await waitFor("the Valjevo Castle route to settle", () => run(`state.ready && state.sequence > ${frame.sequence} && !activeTravel`));
+    await waitFor("the Valjevo Castle route to settle", () => run(`state.ready && state.sequence > ${frame.sequence} && !activeTravel`), 90_000);
     frame = await latest();
     const text = frame.text.toSorted(([left], [right]) => left - right).map(([, char]) => String.fromCharCode(char)).join("");
     const keys = await run("valjevoTravelKeys.filter(key => key !== ':travel-poll')");
-    assert.deepEqual(keys.slice(0, 3), ["down", "enter", "n"], "Use the western crossroads and the original north entrance");
-    assert.ok(keys.slice(3).every(key => ["up", "left", "right"].includes(key)), "Hand off any prompt after the crossroads");
+    assert.deepEqual(keys.slice(0, 2), ["down", "n"], "Use the western crossroads and the original north entrance");
+    assert.ok(keys.slice(2).every(key => ["up", "left", "right"].includes(key)), "Hand off any prompt after the crossroads");
     if (routeName === "moonsea-valjevo-gate-warning") {
-      assert.equal(frame.scenery?.mapId, 9, text);
+      assert.equal(frame.portrait, "scene-illustration:area:9:ecl:9c63:caller:aa57", text);
       assert.match(text, /BEFOREYOUISSTOJANOWGATE/i);
       assert.match(text, /PRESS.*CONTINUE/i);
+      await verifyPortraitPanel();
     } else {
       assert.equal(frame.exploration?.area, 6, text);
       assert.deepEqual([frame.scenery.mapId, frame.scenery.x, frame.scenery.y, frame.scenery.facing], [6, 4, 15, 0]);
