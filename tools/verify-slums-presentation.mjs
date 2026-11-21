@@ -10108,6 +10108,16 @@ try {
     for (const key of ["right", "right", "up", "left", "up", "up", "right", "up", "up", "up", "left",
       "up", "up", "up", "up", "up"]) await advance(key);
     await advance("j");
+    const wallDecision = "scene-illustration:area:28:ecl:b4f0";
+    assert.equal(frame.portrait, wallDecision);
+    assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+      /THEWALLISCLIMBABLEHERE,WILLYOUSCALEOVERIT/i);
+    await waitFor("the Zhentil wall decision illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${wallDecision}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    const wallDecisionShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "zhentil-climbable-wall.png"), Buffer.from(wallDecisionShot.data, "base64"));
+    await switchBothWays(frame.frame);
     assert.ok(frame.journal?.leads.some(({ id }) => id === "zhentil-climbable-wall"));
     assert.ok(!frame.journal.leads.some(({ id }) => id === "zhentil-envoy-left"));
     const commission = "commission-zhentil";
