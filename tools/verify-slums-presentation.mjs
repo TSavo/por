@@ -618,6 +618,19 @@ const illustrationRoutes = new Map([
     prompt: /ONTHEFLOORYOUFINDATRAPDOOR\.WILLYOUOPENIT\?/i,
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["swamp-deep-pool", {
+    slot: "A", inputs: ["up", "up", "left", "up", "up"],
+    portrait: "scene-illustration:area:16:ecl:9a59:caller:aca3",
+    prompt: /YOUAREINFRONTOFADEEPPOOLOFWATER.*DIVEINANDSEARCHIT/i,
+    continuation: { inputs: ["n"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["swamp-underwater-cache", {
+    slot: "A", inputs: ["up", "up", "left", "up", "up", "y"],
+    portraitStops: { 5: "scene-illustration:area:16:ecl:9a59:caller:aca3" },
+    portrait: "scene-illustration:area:16:ecl:9a59:caller:ad91",
+    prompt: /YOUFINDSOMETREASURE.*DOYOUTAKEIT/i,
+    continuation: { inputs: ["n"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["swamp-hidden-tunnel", {
     slot: "A", inputs: ["s", "up", "up"],
     portrait: "scene-illustration:area:16:ecl:9a59:caller:9d45",
@@ -6768,6 +6781,10 @@ try {
     await verifyPortraitPanel();
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
+    }
+    if (routeName === "swamp-deep-pool" || routeName === "swamp-underwater-cache") {
+      const poolShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, routeName + ".png"), Buffer.from(poolShot.data, "base64"));
     }
     if (routeName === "swamp-hidden-tunnel") {
       const tunnelShot = await command("Page.captureScreenshot", { format: "png" });
