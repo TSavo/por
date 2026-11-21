@@ -160,6 +160,26 @@ returns between cycles.
 CPIC frames by archive, directory index, member, and frame. Each entry
 includes its 4× dimensions and links to the local source sheet. The JSON
 includes these entries in `encounterCoverage[].unlinkedFrames`.
+
+The GOG 1.3 PIC audit after the Kovel tapestry update counted 34 unlinked
+source rows with 26 distinct pixel signatures and no unlinked literal
+script picture selections. Of the 34 rows, 20 have a byte-identical block
+in another bank. Ten of those rows are the two five-member copies of
+block 51 in PIC7 and PIC8, with no native viewport draw established.
+The other ten are PIC2 block 17 (two rows), PIC6 block 35 (five), and
+PIC8 block 120 (three). The proven alternate-bank appearances use PIC4
+for the Valhingen spectre and zombies and PIC6 for the Western Cave boar
+sow. The shared bytes establish provenance for the unlinked rows, while
+their own use remains unverified.
+
+The remaining 14 rows have no byte-identical block in another PIC bank.
+A comparison against 1,282 saved viewport captures from candidate routes
+and the Valhingen conjurer found no newly witnessed uncovered raster.
+The Valhingen ghoul's base image also matches two combinations of XOR
+members exactly, so those matching patterns do not establish extra
+animation phases. These observations leave the archive coverage counts
+unchanged.
+
 **Unlinked pictures referenced by scripts** lists literal `PICTURE`
 instructions with a single archive candidate and at least one unlinked
 frame with visible detail. The table includes the ECL address, nearby
