@@ -759,6 +759,22 @@ const illustrationRoutes = new Map([
     prompt: /THEBUGBEARTAKESTHEMONEYANDTHEGATEOPENS.*YOUPROCEEDTHROUGH/i,
     continuation: { inputs: ["enter", "up"], prompt: /8,4N.*AREACASTVIEWENCAMP|AREACASTVIEWENCAMP.*8,4N/i, clearsPortrait: true },
   }],
+  ["stojanow-bugbear-warning-phases", {
+    slot: "A",
+    inputs: [
+      "up", "up", "up", "enter", "enter", "p", "n", "t", "enter", "enter", "enter",
+      "up", "up", "enter", "enter", "up", "right", "up", "up", "enter", "y", "enter",
+      ...Array(16).fill("z"), "y", "t", "enter",
+    ],
+    portraitStops: {
+      18: "portrait:area:9:PIC2.DAX:63:0:0",
+      29: "portrait:area:9:ecl:a945:PIC2.DAX:63:2:0",
+      39: "portrait:area:9:ecl:a945:PIC2.DAX:63:1:0",
+      40: "portrait:area:9:ecl:a959:PIC2.DAX:63:1:0",
+    },
+    portrait: "scene-illustration:area:9:ecl:a0a7:cue:bugbear-dismissal",
+    prompt: /NOWBEATITBEFOREWEGETSERIOUS/i,
+  }],
   ["diogenes-upper-ledge-fireball", {
     slot: "A", inputs: [
       "up", "enter", "e", "enter", "s", "enter", "end", "enter", "enter", "enter", "s", "enter", "f", "a",
@@ -7137,6 +7153,12 @@ try {
               document.querySelector('.encounter-portrait[src="/art/${interimPortrait}"]')?.naturalWidth === 352`));
             await verifyPortraitPanel();
           }
+        }
+        if (routeName === "stojanow-bugbear-warning-phases" && interimPortrait && index > 18) {
+          assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /THELEADERSWINGSATYOU/i);
+          await switchBothWays(frame.frame);
+          const shot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, `stojanow-bugbear-warning-phase-${index}.png`), Buffer.from(shot.data, "base64"));
         }
         if (routeName === "mendor-storeroom-kobold-phases" && interimPortrait && index > 5) {
           const caption = index < 8 ? /THEYPLEADFORMERCY/i : /WILLYOUSPARETHEM/i;
