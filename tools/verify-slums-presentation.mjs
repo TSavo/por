@@ -10041,6 +10041,20 @@ try {
       return image?.naturalWidth === 352 && image?.naturalHeight === 352;
     })()`));
     await verifyPortraitPanel();
+    const drawbridgePhases = new Set();
+    for (let i = 0; i < 12 && drawbridgePhases.size < 2; i++) {
+      await advance("z");
+      const id = frame.portrait;
+      const phase = /^portrait:PIC8\.DAX:24:([12]):0$/.exec(id ?? "")?.[1];
+      if (!phase || drawbridgePhases.has(phase)) continue;
+      await waitFor(`the swamp drawbridge phase ${phase}`, () => run(`state.sequence === ${frame.sequence} &&
+        document.querySelector('.encounter-portrait[src="/art/${id}"]')?.naturalWidth === 352`));
+      await verifyPortraitPanel();
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, `swamp-castle-drawbridge-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
+      drawbridgePhases.add(phase);
+    }
+    assert.deepEqual([...drawbridgePhases].sort(), ["1", "2"]);
     await switchBothWays();
     await advance("j");
     assert.ok(knows("swamp-drawbridge") && !knows("swamp-anti-magic"));

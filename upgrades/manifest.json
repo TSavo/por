@@ -6292,6 +6292,8 @@
     "portrait:PIC6.DAX:50:0:0": "zhentil-commandant-portrait.png",
     "encounter:area:16:SPRIT8.DAX:57:0:0": "swamp-lizardfolk-elder.png",
     "portrait:PIC8.DAX:24:0:0": "swamp-castle-drawbridge.png",
+    "portrait:PIC8.DAX:24:1:0": "swamp-castle-drawbridge-phase-1.png",
+    "portrait:PIC8.DAX:24:2:0": "swamp-castle-drawbridge-phase-2.png",
     "combat:area:16:CPIC8.DAX:57": "swamp-lizardfolk-combat.png",
     "combat:area:16:CPIC8.DAX:185": "swamp-lizardfolk-strike.png",
     "battle-tile:1cf917b914de0e3719d768bdc14ab30a74b8286045e5e1264d799e829fc5108a": "swamp-duel-wall-broken-coping.png",
