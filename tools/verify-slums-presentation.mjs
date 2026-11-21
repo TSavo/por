@@ -9811,11 +9811,24 @@ try {
       return 1;
     }
     let views = await verifyHallView(20);
+    const openRoof = "scene-illustration:area:7:ecl:995f:caller:a4dd";
     const reveal = "portrait:area:7:ecl:995f:caller:a54b:PIC5.DAX:66:0:0";
+    let openRoofViews = 0;
     let sawReveal = false;
     for (const key of route) {
       await advance(key);
+      if (frame.portrait === openRoof) {
+        assert.ok(!sawReveal);
+        assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+          /THECEILINGHASBEENTORNAWAY.*OPENTOTHESKY/i);
+        await waitFor("the ruined audience hall open to the sky", () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${openRoof}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        await switchBothWays();
+        openRoofViews++;
+      }
       if (frame.portrait === reveal) {
+        assert.ok(openRoofViews > 0);
         await waitFor("Tyranthraxus rising from the Pool", () => run(`state.sequence === ${frame.sequence} &&
           document.querySelector('.encounter-portrait[src="/art/${reveal}"]')?.naturalWidth === 352`));
         await verifyPortraitPanel();
@@ -9825,7 +9838,8 @@ try {
       views += await verifyHallView(views >= (halls ? 2 : 3) ? 7 : 20);
     }
     assert.ok(sawReveal);
-    assert.equal(views, halls ? 4 : 7);
+    assert.equal(openRoofViews, halls ? 1 : 3);
+    assert.equal(views, halls ? 3 : 4);
     if (verifyHallsWebGL) assert.deepEqual([...sceneryAreas], [20, 7]);
     assert.equal(frame.portrait, "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0");
     await waitFor("the dragon dialogue portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
