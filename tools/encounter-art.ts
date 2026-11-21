@@ -38,7 +38,7 @@ export function encounterPixels(archive: ReturnType<typeof parseDax>, key: strin
 }
 
 export function loadEncounterArt(placements: Record<string, EncounterAnchor>,
-  traceUnmatchedScope?: (key: string, anchor: EncounterAnchor, cursor: number) => void) {
+  traceUnmatchedScope?: (key: string, anchor: EncounterAnchor, cursor: number, caller?: number) => void) {
   const root = Object.keys(placements).length ? findGameRoot() : null;
   const files = new Map(root ? listGameFiles(root).map((file) => [file.toUpperCase(), file]) : []);
   const archives = new Map<string, ReturnType<typeof parseDax>>();
@@ -74,8 +74,9 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>,
     }
     let unmatchedScope: { key: string; anchor: EncounterAnchor } | undefined;
     for (const { key, anchor, pixels, cursor: expectedCursor, caller: expectedCaller } of patterns) {
-      if (anchor.area !== area || (expectedCaller !== undefined && expectedCaller !== caller)) continue;
-      const scopeMatches = expectedCursor === undefined || expectedCursor === cursor;
+      if (anchor.area !== area) continue;
+      const scopeMatches = (expectedCursor === undefined || expectedCursor === cursor) &&
+        (expectedCaller === undefined || expectedCaller === caller);
       if (!scopeMatches && (!traceUnmatchedScope || cursor === undefined || unmatchedScope)) continue;
       const { x, y, width, height } = anchor;
       const address = (i: number) => (y + Math.floor(i / width)) * screen.width + x + i % width;
@@ -143,7 +144,7 @@ export function loadEncounterArt(placements: Record<string, EncounterAnchor>,
       return [x, y, key, width, height];
     }
     if (unmatchedScope && cursor !== undefined) {
-      traceUnmatchedScope?.(unmatchedScope.key, unmatchedScope.anchor, cursor);
+      traceUnmatchedScope?.(unmatchedScope.key, unmatchedScope.anchor, cursor, caller);
     }
     if (rememberBackground) background = screen.pixels.slice();
   };

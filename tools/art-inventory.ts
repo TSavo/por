@@ -182,7 +182,7 @@ type TraceRecord = { cells?: TraceCell[]; type?: string; picture?: number; area?
 const capturedTiles = new Map<string, { x: number; y: number; trace: string; frame: number; pixels: Buffer }>();
 const nativeBattleTiles = new Map<string, Set<number>>();
 const observedPortraitFallbacks: { area?: number; cursor?: number; caller?: number; dialogue?: string; sources: string[]; sequence: number; trace: string }[] = [];
-const encounterScopeFallbacks: { key: string; anchor: EncounterAnchor; cursor: number; trace: string }[] = [];
+const encounterScopeFallbacks: { key: string; anchor: EncounterAnchor; cursor: number; caller?: number; trace: string }[] = [];
 const portraitTraceFrames: { area: number; sources: string[]; frame: number; trace: string }[] = [];
 const matchTracePortrait = tracePaths.length ? loadPortraitArt([], true, gameData) : undefined;
 for (const path of tracePaths) {
@@ -195,11 +195,13 @@ for (const path of tracePaths) {
   const frames: (TraceCell[] | TraceRecord)[] = parsed;
   for (const [frame, record] of frames.entries()) {
     if (!Array.isArray(record) && record.type === "encounter-scope-fallback") {
-      const { key, cursor, anchor } = record;
+      const { key, cursor, caller, anchor } = record;
       if (typeof key === "string" && encounterKey.exec(key)?.[2] &&
           cursor !== undefined && Number.isInteger(cursor) && cursor >= 0 && cursor <= 0xffff &&
           anchor && encounterAnchor(key, anchor)) {
-        encounterScopeFallbacks.push({ key, cursor, anchor, trace: path });
+        const observedCaller = caller !== undefined && Number.isInteger(caller) && caller >= 0 && caller <= 0xffff
+          ? caller : undefined;
+        encounterScopeFallbacks.push({ key, cursor, caller: observedCaller, anchor, trace: path });
       }
       continue;
     }
@@ -257,7 +259,13 @@ const artworkLoadIssues: ArtworkLoadIssue[] = [];
 const artwork = loadUpgradeArt(undefined, gameData, issue => artworkLoadIssues.push(issue));
 const materialMasks = loadCombatMaterialMasks(artwork);
 const encounterScopeCoverage = encounterScopeFallbacks.map(observation => {
-  const proposedKey = observation.key.replace(/:ecl:[a-f0-9]{4}:/, `:ecl:${observation.cursor.toString(16).padStart(4, "0")}:`);
+  const cursorScope = `:ecl:${observation.cursor.toString(16).padStart(4, "0")}:`;
+  const cursorKey = observation.key.replace(/:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?/, cursorScope);
+  const sourceCaller = encounterKey.exec(observation.key)?.[3];
+  const caller = observation.caller?.toString(16).padStart(4, "0") ?? sourceCaller;
+  const callerKey = caller === undefined ? undefined : cursorKey.replace(cursorScope, `${cursorScope}caller:${caller}:`);
+  const proposedKey = callerKey && (artwork.has(callerKey) || (!artwork.has(cursorKey) && sourceCaller !== undefined))
+    ? callerKey : cursorKey;
   const configured = artwork.get(proposedKey)?.encounter;
   const { area, x, y, width, height } = observation.anchor;
   const placementMatches = configured?.area === area && configured.x === x && configured.y === y &&

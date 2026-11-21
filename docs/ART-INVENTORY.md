@@ -53,8 +53,8 @@ Buccaneer sprites and match guards drawn over battlefield terrain.
 Set `POR_ENCOUNTER_TRACE_FILE` to a fresh JSONL path to diagnose approach
 sprites. The trace records when the original sprite's pixels match an
 installed encounter sprite in the same area but no binding matches the
-current script cursor. Each record includes the matching asset ID,
-original anchor and dimensions, and the cursor seen in play. This only
+current script cursor and caller. Each record includes the matching asset ID,
+original anchor and dimensions, and the cursor and caller seen in play. This only
 checks sprites with an installed placement to compare against.
 
 The Valhingen stair ambush and single-zombie trap share a near sprite and

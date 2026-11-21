@@ -192,12 +192,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let nativeEncounterSession: string | undefined;
   const tracedNativeEncounters = new Set<string>();
   const tracedEncounterScopes = new Set<string>();
-  const encounterArt = loadEncounterArt(encounterPlacements, encounterTrace ? (key, anchor, cursor) => {
+  const encounterArt = loadEncounterArt(encounterPlacements, encounterTrace ? (key, anchor, cursor, caller) => {
     if (!encounterTrace) return;
-    const scope = `${key}:${cursor}`;
+    const scope = `${key}:${cursor}:${caller}`;
     if (tracedEncounterScopes.has(scope)) return;
     try {
-      appendFileSync(encounterTrace, JSON.stringify({ type: "encounter-scope-fallback", key, anchor, cursor }) + "\n");
+      appendFileSync(encounterTrace, JSON.stringify({ type: "encounter-scope-fallback", key, anchor, cursor, caller }) + "\n");
       tracedEncounterScopes.add(scope);
     } catch (error) {
       console.error("Cannot write encounter scope trace", error);
