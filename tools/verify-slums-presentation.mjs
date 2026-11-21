@@ -627,7 +627,7 @@ const illustrationRoutes = new Map([
   }],
   ["valjevo-altar-crossed-swords", {
     slot: "B", inputs: ["up", "n"],
-    portraitStops: { 1: null },
+    portraitStops: { 1: "scene-illustration:area:6:ecl:9ae6:caller:a7ab" },
     portrait: "scene-illustration:area:6:ecl:9ae6:caller:a855",
     prompt: /BEHINDTHEALTERARETWOCROSSEDSWORDS.*DOYOUTAKETHEM/i,
     continuation: { inputs: ["y"], prompt: /EACHCHARACTERRECEIVES400EXPERIENCEPOINTS/i, clearsPortrait: true },
@@ -6593,6 +6593,13 @@ try {
               document.querySelector('.encounter-portrait[src="/art/${interimPortrait}"]')?.naturalWidth === 352`));
             await verifyPortraitPanel();
           }
+        }
+        if (routeName === "valjevo-altar-crossed-swords" && interimPortrait) {
+          assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+            /NEARITISTHEOFFERINGBOXWITHSOMECHANGEINIT.*DOYOUTAKEIT/i);
+          await switchBothWays(frame.frame);
+          const offeringShot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, "valjevo-altar-offering-box.png"), Buffer.from(offeringShot.data, "base64"));
         }
         if (routeName === "kuto-well-waterline" && interimPortrait) {
           assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
