@@ -1401,8 +1401,14 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["enter", "enter", "enter"], prompt: /15,1W/i, clearsPortrait: true },
   }],
   ["new-phlan-outbound-ferry", {
-    slot: "A", inputs: ["up", "enter"],
-    portrait: "portrait:area:0:PIC3.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
+    slot: "A", inputs: ["up", "enter", ...Array(19).fill("z")],
+    portraitStops: {
+      2: "portrait:area:0:PIC3.DAX:41:0:0",
+      13: "portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:1:0",
+    },
+    phaseCaptures: { 13: "new-phlan-outbound-ferry-phase-1.png" },
+    finalPhaseCapture: "new-phlan-outbound-ferry-phase-2.png",
+    portrait: "portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:2:0", prompt: /YOUBOARDABOAT/i,
   }],
   ["new-phlan-harbor-city-watch", {
     slot: "A", inputs: harborWatchApproach,
