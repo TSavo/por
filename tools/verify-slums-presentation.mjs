@@ -1569,8 +1569,15 @@ const illustrationRoutes = new Map([
       prompt: /GUARDS,INTHENAMEOFBANE,KILLTHESEUNBELIEVERS/i,
     },
   }],
+  ["bane-hay-bunk-room", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:31:ecl:a242:cue:hay-bunk-room", prompt: /CRUDEHAYBEDS\.WHATWILLYOUDO/i,
+    finalPhaseCapture: "bane-hay-bunk-room.png",
+    continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["bane-hay-bunk-ambush", {
     slot: "A", inputs: ["up", "enter", "s", "enter"],
+    portraitStops: { 1: "scene-illustration:area:31:ecl:a242:cue:hay-bunk-room", 3: "scene-illustration:area:31:ecl:a269:cue:hay-bunk-room" },
     portrait: "portrait:area:31:ecl:a2b4:PIC1.DAX:4:0:0",
     prompt: /ASYOUSEARCHTHEBEDSAGROUPOFORCSCOMESINTOTHEROOM/i,
     continuation: {
