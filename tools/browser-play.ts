@@ -81,8 +81,12 @@ const gameFont = (() => {
 })();
 const artwork = loadUpgradeArt(undefined, gameRoot);
 const materialMasks = loadCombatMaterialMasks(artwork);
-let streetMaterials: string | undefined;
+let streetMaterials: ReturnType<typeof buildNewPhlanMaterials> | undefined;
 const localMaterialSets = new Map<string, string>();
+function newPhlanMaterials() {
+  return streetMaterials ??= buildNewPhlanMaterials(gameRoot, new Map(
+    [...artwork].map(([key, art]) => [key, { file: art.path, reflected: Boolean(art.reflected) }])));
+}
 type ExplorationFrame = {
   nativeScenery?: NativeExploration & { area: number };
   scenery?: Pick<NativeExploration, "x" | "y" | "facing" | "walls" | "mapId"> & { materialId: string; area: number };
@@ -94,11 +98,16 @@ function prepareScenery(view: ExplorationFrame) {
   if (!native) return;
   delete view.nativeScenery;
   const { x, y, facing, walls, area, mapId } = native;
-  const materialId = area === 0 ? "phlan" : createHash("sha256")
-    .update(JSON.stringify([area,native.frontSlots,native.glyphs,native.skyColor,native.groundColor])).digest("hex");
-  if (area !== 0 && !localMaterialSets.has(materialId)) {
+  const harbor = area === 0 && mapId === 0;
+  const materialId = createHash("sha256")
+    .update(JSON.stringify([area,harbor,native.frontSlots,native.glyphs,native.skyColor,native.groundColor])).digest("hex");
+  if (!localMaterialSets.has(materialId)) {
     if (localMaterialSets.size >= 32) localMaterialSets.delete(localMaterialSets.keys().next().value!);
-    localMaterialSets.set(materialId, JSON.stringify(buildExplorationMaterials(native, artwork)));
+    const materials = buildExplorationMaterials(native, artwork);
+    if (harbor) {
+      const { water, dockPiling } = newPhlanMaterials();
+      localMaterialSets.set(materialId, JSON.stringify({ ...materials, water, dockPiling, layout: "phlan" }));
+    } else localMaterialSets.set(materialId, JSON.stringify(materials));
   }
   view.scenery = { x, y, facing, walls, materialId, area, mapId };
 }
@@ -304,9 +313,7 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(streetRenderer);
   } else if (req.method === "GET" && req.url === "/exploration-materials/phlan") {
     try {
-      streetMaterials ??= JSON.stringify(buildNewPhlanMaterials(gameRoot, new Map(
-        [...artwork].map(([key, art]) => [key, { file: art.path, reflected: Boolean(art.reflected) }]))));
-      res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(streetMaterials);
+      res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(JSON.stringify(newPhlanMaterials()));
     } catch (error) {
       console.error("Cannot prepare New Phlan 3D materials", error);
       res.writeHead(503).end();

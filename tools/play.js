@@ -678,7 +678,8 @@ async function loadStreetAtlas(materialId) {
     }),
   ]);
   const {atlas, skyUrl} = await module.createNewPhlanAtlas(materials, art => `/art/${art.key}`, false, state.textColors);
-  return {materialId, module, atlas, skyUrl, walls: materials.walls};
+  const layout = materials.layout ?? (materialId === "phlan" ? "phlan" : "local");
+  return {materialId, module, atlas, skyUrl, walls: materials.walls, layout};
 }
 
 function makeViewportCanvas(className, width, height) {
@@ -739,8 +740,7 @@ function ensureStreetViewport(surface) {
       return [a >> 4, a & 15, b >> 4, b & 15];
     }) : streetAtlas.walls;
     if (!walls) return;
-    const renderer = streetAtlas.module.createNewPhlanViewport(canvas, walls, streetAtlas.atlas,
-      materialId === "phlan" ? "phlan" : "local");
+    const renderer = streetAtlas.module.createNewPhlanViewport(canvas, walls, streetAtlas.atlas, streetAtlas.layout);
     streetViewport = {canvas, renderer, materialId, packed};
   }
   return streetViewport;

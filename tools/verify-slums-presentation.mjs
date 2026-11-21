@@ -6668,6 +6668,12 @@ try {
         for (const key of ["down", "up"]) await advance(key);
         assert.equal(frame.portrait, undefined);
         await waitForExplorationViewport();
+        assert.match(frame.scenery.materialId, /^[0-9a-f]{64}$/);
+        const materialResponse = await fetch(`${origin}/exploration-materials/${frame.scenery.materialId}`);
+        assert.ok(materialResponse.ok);
+        const { layout, wallFaces } = await materialResponse.json();
+        assert.equal(layout, "phlan");
+        assert.ok(wallFaces.every(({ parts }) => parts.every(({ status }) => status !== "reconstructed")));
         const streetShot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "new-phlan-innkeeper-exit-webgl.png"), Buffer.from(streetShot.data, "base64"));
       }
