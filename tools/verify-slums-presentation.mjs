@@ -1539,8 +1539,22 @@ const illustrationRoutes = new Map([
     continuation: { inputs: ["y"], prompt: /THEPARTYHASFOUNDTREASURE/i, clearsPortrait: true },
   }],
   ["valhingen-grave-claws", {
-    slot: "A", inputs: ["up", "enter", "enter"],
-    portrait: "portrait:area:10:PIC4.DAX:11:0:0", prompt: /CLAWSRISEFROMTHESOIL/i,
+    slot: "A", inputs: ["up", "enter", "enter", ...Array(10).fill("z")],
+    portraitStops: {
+      3: "portrait:area:10:PIC4.DAX:11:0:0",
+      7: "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:1:0",
+      8: "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:2:0",
+      9: "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:3:0",
+      10: "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:4:0",
+    },
+    portrait: "portrait:area:10:ecl:b695:caller:9d5c:PIC4.DAX:11:7:0", prompt: /CLAWSRISEFROMTHESOIL/i,
+    phaseCaptures: {
+      7: "valhingen-grave-claws-phase-1.png",
+      8: "valhingen-grave-claws-phase-2.png",
+      9: "valhingen-grave-claws-phase-3.png",
+      10: "valhingen-grave-claws-phase-4.png",
+    },
+    finalPhaseCapture: "valhingen-grave-claws-phase-7.png",
   }],
   ["kobold-white-flag-envoy", {
     slot: "B", inputs: ["up", "enter", "enter"],
