@@ -1766,6 +1766,15 @@ const illustrationRoutes = new Map([
     },
     finalPhaseCapture: "valhingen-grave-claws-phase-7.png",
   }],
+  ["kobold-white-flag-escort-phase", {
+    slot: "B", inputs: ["up", "enter", "enter", "enter", "z", "z", "a"],
+    portraitStops: {
+      6: "portrait:area:13:ecl:9c10:PIC8.DAX:0:2:0",
+    },
+    portrait: "portrait:area:13:ecl:9c5e:PIC8.DAX:0:2:0", prompt: /IAMTOESCORTYOUTOOURTREASURE.*FOLLOWREFUSEKILLIT/i,
+    continuation: { inputs: ["f"], portrait: "scene-illustration:area:13:ecl:b511:caller:afc2",
+      prompt: /THEKOBOLDPAUSES/i },
+  }],
   ["kobold-white-flag-envoy", {
     slot: "B", inputs: ["up", "enter", "enter", "enter", ...Array(22).fill("z")],
     approachSequence: [

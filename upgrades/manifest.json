@@ -2197,6 +2197,7 @@
     "portrait:area:13:ecl:9c10:PIC8.DAX:0:1:0": "kobold-white-flag-envoy-hand-near.png",
     "portrait:area:13:ecl:9c10:PIC8.DAX:0:2:0": "kobold-white-flag-envoy-hand-low.png",
     "portrait:area:13:ecl:9c5e:PIC8.DAX:0:1:0": "kobold-white-flag-envoy-hand-near.png",
+    "portrait:area:13:ecl:9c5e:PIC8.DAX:0:2:0": "kobold-white-flag-envoy-hand-low.png",
     "combat:area:2:CPIC2.DAX:7:ecl:a900": "textile-hobgoblin-archer-ready.png",
     "combat:area:2:CPIC2.DAX:135:ecl:a900": "textile-hobgoblin-archer-strike.png",
     "combat:area:2:CPIC4.DAX:37:ecl:9aeb": "textile-poison-frog-combat-ready.png",
