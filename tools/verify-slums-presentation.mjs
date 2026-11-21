@@ -879,6 +879,13 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:21:ecl:ae31:caller:a573", prompt: /BENEATHAFLOORBOARD.*JOURNALASENTRY3/i,
     continuation: { inputs: ["enter"], prompt: /DOYOUTAKETHEGEMS.*YesNo/i, portrait: "scene-illustration:area:21:ecl:ae41:caller:a58a" },
   }],
+  ["sokal-pale-form-wrong-word", {
+    slot: "F", inputs: ["up", "enter", "p", "n", ..."zzz", "enter"],
+    portrait: "scene-illustration:area:21:ecl:aad3",
+    prompt: /THEOUTLINEOFASAD-FACEDMANWAVERSANDFADESAWAY/i,
+    journalLead: "sokal-pale-form-wrong-word", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["left", "up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["sokal-ferran-rejects-lie", {
     slot: "F", inputs: ["up", "enter", "p", "n", ..."lux", "enter", "l"],
     portrait: "scene-illustration:area:21:ecl:abc7",
@@ -6516,6 +6523,11 @@ try {
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
     }
+    if (routeName === "sokal-pale-form-wrong-word") {
+      await switchBothWays(frame.frame);
+      const paleFormShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "sokal-pale-form-wrong-word.png"), Buffer.from(paleFormShot.data, "base64"));
+    }
     if (routeName === "sokal-ferran-rejects-lie") {
       const ferranShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, "sokal-ferran-rejects-lie.png"), Buffer.from(ferranShot.data, "base64"));
@@ -6657,6 +6669,13 @@ try {
         await waitForExplorationViewport();
         const streetShot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "new-phlan-innkeeper-exit-webgl.png"), Buffer.from(streetShot.data, "base64"));
+      }
+      if (routeName === "sokal-pale-form-wrong-word") {
+        await waitForExplorationViewport();
+        await advance("j");
+        assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-pale-form-wrong-word"));
+        assert.ok(!frame.journal?.leads.some(({ id }) => ["sokal-ferran", "sokal-ferran-lie", "sokal-departure"].includes(id)));
+        await advance("j");
       }
       if (routeName === "sokal-ferran-rejects-lie") {
         await waitForExplorationViewport();
