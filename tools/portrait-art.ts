@@ -314,6 +314,14 @@ export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
 export const scriptIllustrations = new Map<string, string | RegExp>([
+  ["scene-illustration:area:23:ecl:9c7f:cue:scattered-rocks", "YOUSEEROCKSSCATTEREDABOUTTHESMOOTHFLAGSTONES"],
+  ["scene-illustration:area:23:ecl:9a04:caller:9c83:cue:scattered-rocks", "YOUSEEROCKSSCATTEREDABOUTTHESMOOTHFLAGSTONES"],
+  ["scene-illustration:area:23:ecl:9d35:cue:strange-tingle", "YOUFEELASTRANGETINGLE"],
+  ["scene-illustration:area:23:ecl:9d56:cue:strange-tingle", "YOUFEELASTRANGETINGLE"],
+  ["scene-illustration:area:23:ecl:9da2:cue:throw-a-rock", "YOUTHROWAROCK.SUDDENLYITDISAPPEARSWITHAFLASH"],
+  ["scene-illustration:area:23:ecl:9d56:cue:throw-a-rock", "YOUTHROWAROCK.SUDDENLYITDISAPPEARSWITHAFLASH"],
+  ["scene-illustration:area:23:ecl:99e1:caller:9ca1:cue:teleport-flash", "YOUSUDDENLYFINDYOURSELFELSEWHERE"],
+  ["scene-illustration:area:23:ecl:9a04:caller:9ca1:cue:teleport-flash", "YOUSUDDENLYFINDYOURSELFELSEWHERE"],
   ["scene-illustration:area:22:ecl:99e3:caller:a151:cue:teleport-flash", "ANDYOUSUDDENLYFINDYOURSELVES"],
   ["scene-illustration:area:22:ecl:9a06:caller:a151:cue:teleport-flash", "ANDYOUSUDDENLYFINDYOURSELVES"],
   ["scene-illustration:area:23:ecl:9e5c:cue:five-lizardfolk", "YOUSEEAGROUPOFFIVELIZARDMEN"],

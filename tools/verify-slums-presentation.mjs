@@ -2540,6 +2540,19 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "pyramid-lizardfolk-patrol-sighting.png",
     continuation: { inputs: ["enter", "enter", "enter"], portrait: "portrait:area:23:ecl:9f04:PIC7.DAX:57:0:0", prompt: /THEYAREWARY,BUTNOTHOSTILE/i },
   }],
+  ["pyramid-teleport-room", {
+    slot: "A", inputs: ["s", "up", "enter", "t", "m"],
+    portraitStops: { 2: "scene-illustration:area:23:ecl:9a04:caller:9c83:cue:scattered-rocks", 3: "scene-illustration:area:23:ecl:9d56:cue:strange-tingle", 4: "scene-illustration:area:23:ecl:9d56:cue:throw-a-rock" },
+    phaseCaptures: { 2: "pyramid-teleport-room-rocks.png", 4: "pyramid-teleport-room-throw.png" },
+    portrait: "scene-illustration:area:23:ecl:9a04:caller:9ca1:cue:teleport-flash", prompt: /THEREISAFLASH.*FINDYOURSELFELSEWHERE/i,
+    finalPhaseCapture: "pyramid-teleport-room-flash.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
+  ["pyramid-teleport-room-go-back", {
+    slot: "A", inputs: ["s", "up", "enter"],
+    portrait: "scene-illustration:area:23:ecl:9d56:cue:strange-tingle", prompt: /FEELASTRANGETINGLE.*GOBACKMOVEONTHROWAROCK/i,
+    continuation: { inputs: ["g"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["pyramid-lizardfolk-patrol", {
     slot: "A", inputs: ["up", "enter", "enter", "enter"],
     approachSequence: [[48, 32, "encounter:area:23:ecl:9f04:SPRIT7.DAX:57:0:0", 48, 80]],
