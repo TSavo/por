@@ -642,6 +642,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
             writeFileSync(join(nativeEncounterSession, file), encodePng(screen));
             appendFileSync(join(nativeEncounterSession, "observations.jsonl"), JSON.stringify({
               type: "native-encounter-draw", file, area, cursor: battleCursor, caller: portraitCaller,
+              viewportHash: digest,
               replacement: captureAnimation || !hasEncounterArtwork ? replacement ?? null : undefined,
             }) + "\n");
             tracedNativeEncounters.add(signature);

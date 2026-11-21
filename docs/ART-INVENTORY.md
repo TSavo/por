@@ -76,6 +76,11 @@ had no match. A missing field means matching was skipped when the
 animation queue was full.
 Pass `observations.jsonl` to the inventory to see unmatched draws first,
 with links to their PNG captures and any replacement selected at capture time.
+Pass both the original capture and a retest to see which gaps have been
+verified since the first capture. The inventory requires the same area,
+script cursor, caller, and native viewport fingerprint, plus an installed
+replacement confirmed by the retest. Older traces without fingerprints
+still show their original results.
 
 The captured gaps show coordinates, trace frame, and matching 8×8 atlas
 frames where available. Identical atlas pixels can occur in several banks

@@ -178,12 +178,12 @@ for (const { file: archive, entries } of archives) {
   }
 }
 type TraceCell = [x: number, y: number, id: string, pixels?: string];
-type TraceRecord = { cells?: TraceCell[]; type?: string; picture?: number; area?: number; cursor?: number; caller?: number; dialogue?: string; sources?: string[]; sequence?: number; key?: string; anchor?: EncounterAnchor; file?: string; replacement?: string | null };
+type TraceRecord = { cells?: TraceCell[]; type?: string; picture?: number; area?: number; cursor?: number; caller?: number; dialogue?: string; sources?: string[]; sequence?: number; key?: string; anchor?: EncounterAnchor; file?: string; replacement?: string | null; viewportHash?: string };
 const capturedTiles = new Map<string, { x: number; y: number; trace: string; frame: number; pixels: Buffer }>();
 const nativeBattleTiles = new Map<string, Set<number>>();
 const observedPortraitFallbacks: { area?: number; cursor?: number; caller?: number; dialogue?: string; sources: string[]; sequence: number; trace: string }[] = [];
 const encounterScopeFallbacks: { key: string; anchor: EncounterAnchor; cursor: number; caller?: number; trace: string }[] = [];
-const nativeEncounterDraws: { area: number; cursor?: number; caller?: number; replacement?: string | null; file: string; preview?: string; trace: string }[] = [];
+const nativeEncounterDraws: { area: number; cursor?: number; caller?: number; replacement?: string | null; viewportHash?: string; verifiedReplacement?: string; file: string; preview?: string; trace: string }[] = [];
 const portraitTraceFrames: { area: number; sources: string[]; frame: number; trace: string }[] = [];
 const matchTracePortrait = tracePaths.length ? loadPortraitArt([], true, gameData) : undefined;
 for (const path of tracePaths) {
@@ -197,13 +197,14 @@ for (const path of tracePaths) {
   for (const [frame, record] of frames.entries()) {
     if (!Array.isArray(record) && (record.type === "native-encounter-draw" ||
         (record.type === undefined && basename(path) === "observations.jsonl"))) {
-      const { area, cursor, caller, file, replacement } = record;
+      const { area, cursor, caller, file, replacement, viewportHash } = record;
       if (area !== undefined && Number.isInteger(area) && typeof file === "string" && /^\d+-(?:[a-f0-9]{4}|unknown)-\d+\.png$/.test(file) &&
           (replacement === undefined || replacement === null || (typeof replacement === "string" && encounterKey.test(replacement)))) {
         const source = join(dirname(path), file);
         const preview = existsSync(source) ? `frames/native-encounter-${nativeEncounterDraws.length}.png` : undefined;
         if (preview) copyFileSync(source, join(output, preview));
-        nativeEncounterDraws.push({ area, cursor, caller, file, preview, replacement, trace: path });
+        nativeEncounterDraws.push({ area, cursor, caller, file, preview, replacement, trace: path,
+          viewportHash: typeof viewportHash === "string" && /^[a-f0-9]{64}$/.test(viewportHash) ? viewportHash : undefined });
       }
       continue;
     }
@@ -286,8 +287,28 @@ const encounterScopeCoverage = encounterScopeFallbacks.map(observation => {
   return { ...observation, proposedKey, linked: configured !== undefined, placementMatches };
 }).sort((a, b) => Number(a.placementMatches) - Number(b.placementMatches));
 const unresolvedEncounterScopes = new Set(encounterScopeCoverage.filter(({ placementMatches }) => !placementMatches).map(({ proposedKey }) => proposedKey));
-const unmatchedNativeDraws = nativeEncounterDraws.filter(({ replacement }) => replacement === null).length;
-nativeEncounterDraws.sort((a, b) => Number(b.replacement === null) - Number(a.replacement === null));
+function nativeDrawKey({ area, cursor, caller, viewportHash }: typeof nativeEncounterDraws[number]) {
+  if (cursor === undefined || !viewportHash) return;
+  return JSON.stringify([area, cursor, caller, viewportHash]);
+}
+const verifiedNativeDraws = new Map<string, Set<string>>();
+for (const draw of nativeEncounterDraws) {
+  const key = nativeDrawKey(draw);
+  if (!key || !draw.replacement || !artwork.has(draw.replacement)) continue;
+  const verified = verifiedNativeDraws.get(key) ?? new Set<string>();
+  verified.add(draw.replacement);
+  verifiedNativeDraws.set(key, verified);
+}
+for (const draw of nativeEncounterDraws) {
+  if (draw.replacement !== null) continue;
+  const key = nativeDrawKey(draw);
+  const verified = key && verifiedNativeDraws.get(key);
+  if (verified && verified.size === 1) draw.verifiedReplacement = [...verified][0];
+}
+const isUnmatchedNativeDraw = ({ replacement, verifiedReplacement }: typeof nativeEncounterDraws[number]) =>
+  replacement === null && !verifiedReplacement;
+const unmatchedNativeDraws = nativeEncounterDraws.filter(isUnmatchedNativeDraw).length;
+nativeEncounterDraws.sort((a, b) => Number(isUnmatchedNativeDraw(b)) - Number(isUnmatchedNativeDraw(a)));
 const installedIllustrations = [...artwork.keys()].filter(id => scriptIllustrations.has(id));
 const portraitFallbackCoverage = observedPortraitFallbacks.map(fallback => {
   const { area, cursor, caller, dialogue, sources } = fallback;
@@ -904,11 +925,12 @@ ${portraitFallbackCoverage.map(({ area, cursor, caller, dialogue, sources, linke
   <td>${linkedCandidates.map(id => `<code>${escape(id)}</code>`).join("<br>") || "None"}</td><td>${escape(dialogue ?? "")}</td>
   <td>${escape(trace)} #${sequence}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
-${nativeEncounterDraws.length ? `<details><summary>Observed native encounter draws · ${unmatchedNativeDraws} without a match · ${nativeEncounterDraws.length} observations</summary>
-<table class="coverage-table"><thead><tr><th>Area</th><th>ECL cursor</th><th>Caller</th><th>Replacement at capture</th><th>Native capture</th></tr></thead><tbody>
-${nativeEncounterDraws.map(({ area, cursor, caller, replacement, file, preview, trace }) =>
+${nativeEncounterDraws.length ? `<details><summary>Observed native encounter draws · ${unmatchedNativeDraws} without a verified match · ${nativeEncounterDraws.length} observations</summary>
+<table class="coverage-table"><thead><tr><th>Area</th><th>ECL cursor</th><th>Caller</th><th>Replacement at capture</th><th>Verified in another capture</th><th>Native capture</th></tr></thead><tbody>
+${nativeEncounterDraws.map(({ area, cursor, caller, replacement, verifiedReplacement, file, preview, trace }) =>
   `<tr><td>${area}</td><td>${cursor?.toString(16).padStart(4, "0") ?? "—"}</td><td>${caller?.toString(16).padStart(4, "0") ?? "—"}</td>
   <td>${replacement === null ? "No match" : replacement ? `<code>${escape(replacement)}</code>` : "Matching skipped"}</td>
+  <td>${verifiedReplacement ? `<code>${escape(verifiedReplacement)}</code>` : "—"}</td>
   <td>${preview ? `<a href="${preview}">${escape(file)}</a>` : escape(file)}<br>${escape(trace)}</td></tr>`).join("")}
 </tbody></table></details>` : ""}
 ${encounterScopeCoverage.length ? `<details><summary>Encounter scope gaps · IDs to review (${unresolvedEncounterScopes.size}) · Observations (${encounterScopeCoverage.length})</summary>
