@@ -61,4 +61,7 @@ export function tpIntr(m: Cpu): void {
   m.retf(6);
 }
 
-registerFar(0x504, 0xb, tpIntr);
+/** Stand in for Turbo Pascal's Intr at its address in this build of the program. */
+export function registerIntr(segment: number, offset: number): void {
+  registerFar(segment, offset, tpIntr);
+}

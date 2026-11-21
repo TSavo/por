@@ -39,6 +39,8 @@
     "voice-coverage": "tsx tools/voice-coverage.ts",
     "translate": "python tools/tp_translate.py",
     "verify:translation-reproducible": "python tools/tp_translate.py --check",
+    "translate:1.3": "python tools/tp_translate.py ../por-assets/gog-1.3/POOLRAD --game-version 1.3",
+    "verify:translation-reproducible:1.3": "python tools/tp_translate.py ../por-assets/gog-1.3/POOLRAD --game-version 1.3 --check",
     "verify": "tsx tools/verify-translation-coverage.ts && tsx tools/verify-translation.ts && tsx tools/verify-automap.ts && node tools/verify-input.mjs && tsx tools/verify-original-audio.ts && tsx tools/verify-enhanced-audio.ts && tsx tools/verify-voice.ts"
   },
   "devDependencies": {

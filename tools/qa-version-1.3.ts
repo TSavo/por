@@ -1,7 +1,7 @@
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { parseDax } from "../src/lib/dax.js";
-import { loadExecutable } from "./exepack.js";
+import { translationCoverage } from "./translation-coverage.js";
 import { findGameRoot } from "./gamedata.js";
 
 // The move to version 1.3, measured.
@@ -25,40 +25,9 @@ const file = (root: string, name: string) => new Uint8Array(readFileSync(join(ro
 const rows: [part: string, done: number, total: number, note: string][] = [];
 
 // 1. Translation: every procedure in the 1.3 program needs a translated counterpart.
-const { image, packed } = loadExecutable(file(target, "START.EXE"));
-const overlays = file(target, "GAME.OVR");
-const prologues = (code: Uint8Array, from: number, to: number) => {
-  let count = 0;
-  for (let i = from; i + 2 < to; i++) {
-    if (code[i] === 0x55 && ((code[i + 1] === 0x89 && code[i + 2] === 0xe5) || (code[i + 1] === 0x8b && code[i + 2] === 0xec))) count++;
-  }
-  return count;
-};
-let residentStart = 0;
-let procedures = 0;
-let slices = 0;
-const seen = new Set<number>();
-const word = (i: number) => image[i]! | (image[i + 1]! << 8);
-for (let i = 0; i + 32 < image.length; i += 16) {
-  if (image[i] !== 0xcd || image[i + 1] !== 0x3f) continue;
-  const offset = word(i + 4) | (word(i + 6) << 16), code = word(i + 8), relocation = word(i + 10), entries = word(i + 12);
-  if (entries < 1 || entries > 512 || code < 1 || offset < 4 || offset + code + relocation > overlays.length) continue;
-  residentStart = Math.max(residentStart, (i + 0x20 + entries * 5 + 15) & ~15);
-  if (seen.has(offset)) continue;
-  seen.add(offset);
-  slices++;
-  procedures += prologues(overlays.subarray(offset, offset + code), 0, code);
-}
-procedures += prologues(image, residentStart, image.length);
-const translatedDirectory = new URL("../src/translated-1.3/", import.meta.url);
-let translated = 0;
-if (existsSync(translatedDirectory)) {
-  for (const name of readdirSync(translatedDirectory).filter(name => name.endsWith(".ts"))) {
-    translated += (readFileSync(new URL(name, translatedDirectory), "utf8").match(/^export function (?:exe|ovl\d\d)_[0-9a-f]+\(/gm) ?? []).length;
-  }
-}
-rows.push(["Procedures translated", Math.min(translated, procedures), procedures,
-  `${packed ? "EXEPACK" : "unpacked"} program, ${slices} overlay slices`]);
+const coverage = await translationCoverage(target, "1.3");
+rows.push(["Procedures translated", coverage.total - coverage.missing.length, coverage.total,
+  `${coverage.resident} resident, ${coverage.total - coverage.resident} in ${coverage.slices} overlay slices`]);
 
 // 2. Script-keyed work: a script position carries over when the script bytes around it are the same in 1.3.
 const catalog = JSON.parse(readFileSync(new URL("../src/maps/area-catalog.json", import.meta.url), "utf8")) as

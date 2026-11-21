@@ -24,13 +24,15 @@ REG8 = {"al", "ah", "cl", "ch", "dl", "dh", "bl", "bh"}
 SEG = {"es", "cs", "ss", "ds"}
 
 
-def stubs() -> list[dict]:
+def stubs(source: bytes | None = None) -> list[dict]:
+    """Overlay stub segments. `source` is the file for an unpacked program, or the unpacked image."""
+    source = EXE if source is None else source
     found = []
     seen = set()
-    for i in range(len(EXE) - 32):
-        if EXE[i : i + 2] != b"\xcd\x3f":
+    for i in range(len(source) - 32):
+        if source[i : i + 2] != b"\xcd\x3f":
             continue
-        memswap, fileoff, codesize, relsize, nentries, prev = struct.unpack_from("<HIHHHH", EXE, i + 2)
+        memswap, fileoff, codesize, relsize, nentries, prev = struct.unpack_from("<HIHHHH", source, i + 2)
         if not (1 <= nentries <= 512 and 1 <= codesize <= 0xFFF0):
             continue
         if fileoff < 4 or fileoff + codesize + relsize > len(OVR):
@@ -67,10 +69,31 @@ def prologues(blob: bytes) -> list[int]:
     return out
 
 
-# The program's data segment. Resident code ends where it begins.
-DATA_SEGMENT = 0x740
-# START.EXE image offset of `dec dx` in Crt.Delay. See render_proc.
-CRT_DELAY_DEC_DX = 0x53D8
+# What differs between builds of the program. Each value was read from that build.
+#   data_segment     The program's data segment. Resident code ends where it begins.
+#   system_init      Image offset of the System unit's start-up code, the first call the entry makes.
+#   crt_delay_dec_dx Image offset of `dec dx` in Crt.Delay. See render_proc.
+#   ecl_loop         The script interpreter's loop and the dispatch routine it calls for each instruction.
+#   intr             Turbo Pascal's Intr, which src/runtime/intr.ts stands in for.
+#   system           Segment and offsets of System routines emitted on their own, if any.
+PROFILES = {
+    "1.0": {
+        "directory": "translated", "overlay_magic": b"TPOV",
+        "data_segment": 0x740, "system_init": 0x5BB0, "crt_delay_dec_dx": 0x53D8,
+        "ecl_loop": ("ovl03_35db", 0x32DF), "intr": (0x504, 0xB),
+        "system": (0x5BB, [0x0, 0xD1, 0x16B5, 0x1692, 0x634, 0x6C1, 0x64E, 0x1508, 0x364, 0xD8, 0xE3A, 0xD28]),
+    },
+    "1.3": {
+        "directory": "translated-1.3", "overlay_magic": b"FBOV",
+        "data_segment": 0xC7C, "system_init": 0xAF80, "crt_delay_dec_dx": 0xA6B7,
+        "ecl_loop": ("ovl03_3171", 0x2F2D), "intr": (0xA32, 0xB),
+        "system": None,
+        # MemAvail and MaxAvail load a routine's offset into BX and call through it.
+        "register_call_targets": [0xB231, 0xB251],
+    },
+}
+PROFILE = PROFILES["1.0"]
+SURVEY: list[str] | None = None
 
 def library_prologues(blob: bytes) -> list[int]:
     """`push bp; mov bp, sp` as the assembler-written library units encode it (55 8B EC).
@@ -399,6 +422,22 @@ def emit_insn(insn, next_ip: int, proc_name: dict[int, str], falls: bool = True,
         lines.append("        m.cx = (m.cx - 1) & 0xffff;")
         lines.append(f"        ip = m.cx !== 0 && ({extra}) ? 0x{target:x} : 0x{next_ip:x};")
         lines.append("        break;")
+        lines.append("      }")
+    elif mn == "call" and parts[0] in REG16:
+        # A near call through a register. The register holds an offset in the current segment.
+        lines.append(f"        m.push(0x{next_ip:x});")
+        lines.append(f"        nearCall(m, NEAR_BASE + m.{parts[0]});")
+        if falls:
+            lines.append(f"        ip = 0x{next_ip:x};")
+            lines.append("        break;")
+        else:
+            lines.append("        return;")
+        lines.append("      }")
+    elif mn == "iret":
+        # An interrupt return pops the return address and then the flags.
+        lines.append("        m.retf(0);")
+        lines.append("        { const f = m.pop(); m.cf = (f & 1) !== 0; m.pf = (f & 4) !== 0; m.zf = (f & 0x40) !== 0; m.sf = (f & 0x80) !== 0; m.of = (f & 0x800) !== 0; }")
+        lines.append("        return;")
         lines.append("      }")
     elif mn == "call":
         target = imm(parts[0])
@@ -764,12 +803,15 @@ def render_proc(blob: bytes, start: int, end: int, fn: str, comment: str, names:
     for insn in body:
         nxt = insn.address + insn.size
         instruction = emit_insn(insn, nxt, names, nxt in addrs, addrs)
-        if fn == "ovl03_35db" and insn.address == 0x360f:
+        ecl_loop, ecl_dispatch = PROFILE["ecl_loop"]
+        if fn == ecl_loop and f"        nearCall(m, 0x{ecl_dispatch:x});" in instruction:
             # The ECL loop has fetched its opcode and still points at its first byte.
-            call = instruction.index("        nearCall(m, 0x32df);")
+            call = instruction.index(f"        nearCall(m, 0x{ecl_dispatch:x});")
             instruction.insert(call + 1, "        m.onEclInstruction?.(false);")
             instruction.insert(call, "        m.onEclInstruction?.(true);")
-        if fn.startswith("exe_") and insn.address == CRT_DELAY_DEC_DX:
+        near_base = "(m.cs << 4) + " if fn.startswith("exe_") else ""
+        instruction = [line.replace("NEAR_BASE + ", near_base) for line in instruction]
+        if fn.startswith("exe_") and insn.address == PROFILE["crt_delay_dec_dx"]:
             # Crt.Delay counts milliseconds in DX. The emulated BIOS tick is too fast for
             # Crt's calibration, which stores zero and would make each millisecond a
             # 65,536-pass loop. Leaving the flags alone ends the delay after one pass.
@@ -857,7 +899,14 @@ def emit_unit(blob: bytes, spans: list[tuple[int, int, str, str]]) -> tuple[str,
     body: list[str] = []
     regs: list[tuple[int, str]] = []
     for start, end, name, comment in spans:
-        body.append(render_proc(blob, start, end, name, comment, {}))
+        try:
+            body.append(render_proc(blob, start, end, name, comment, {}))
+        except ValueError as error:
+            if SURVEY is None:
+                raise
+            # With --survey, list everything the translator cannot emit yet and keep going.
+            SURVEY.append(f"{name}: {error}")
+            continue
         regs.append((start, name))
     tail = "\n".join(f"near.set(0x{off:x}, {name});" for off, name in regs)
     return "\n".join(body) + "\n" + tail + "\n", regs
@@ -867,6 +916,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("game_dir", nargs="?", type=Path, help="directory containing START.EXE and GAME.OVR")
     parser.add_argument("--output", type=Path, help="directory for generated TypeScript and coverage")
+    parser.add_argument("--game-version", choices=sorted(PROFILES), default="1.0",
+                        help="which build of the program the game directory holds")
+    parser.add_argument("--survey", action="store_true",
+                        help="list every procedure the translator cannot emit yet, and why, instead of stopping at the first")
     parser.add_argument("--check", action="store_true",
                         help="regenerate into a temporary directory and fail if src/translated differs")
     args = parser.parse_args()
@@ -879,7 +932,7 @@ def main() -> None:
             args.check = False
             args.output = Path(scratch)
             generate(parser, args)
-            raise SystemExit(compare(Path(scratch), ROOT / "src" / "translated"))
+            raise SystemExit(compare(Path(scratch), ROOT / "src" / PROFILES[args.game_version]["directory"]))
     generate(parser, args)
 
 
@@ -907,7 +960,9 @@ def compare(fresh: Path, checked_in: Path) -> int:
 
 
 def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
-    global EXE, OVR, IMG
+    global EXE, OVR, IMG, PROFILE, SURVEY
+    PROFILE = PROFILES[args.game_version]
+    SURVEY = [] if args.survey else None
     root = args.game_dir or Path(os.environ.get("POR_GAMEDATA") or ROOT / "gamedata")
     candidates = [root, *sorted(path for path in root.iterdir() if path.is_dir())] if root.is_dir() else []
     for candidate in candidates:
@@ -918,13 +973,21 @@ def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
             break
     else:
         parser.error(f"START.EXE and GAME.OVR were not found under {root}")
-    if len(EXE) < 28 or EXE[:2] != b"MZ" or OVR[:4] != b"TPOV":
-        parser.error("expected an MZ executable and a TPOV overlay file")
-    IMG = EXE[struct.unpack_from("<H", EXE, 8)[0] * 16 :]
-    out_dir = args.output or ROOT / "src" / "translated"
+    if len(EXE) < 28 or EXE[:2] != b"MZ" or OVR[:4] != PROFILE["overlay_magic"]:
+        parser.error(f"expected an MZ executable and a {PROFILE['overlay_magic'].decode()} overlay file for version {args.game_version}")
+    if b"Packed file is corrupt" in EXE:
+        # The stub scan and the translation need the program as it sits in memory.
+        import exepack
+
+        IMG = exepack.unpack(EXE)[0]
+        packed = True
+    else:
+        IMG = EXE[struct.unpack_from("<H", EXE, 8)[0] * 16 :]
+        packed = False
+    out_dir = args.output or ROOT / "src" / PROFILE["directory"]
     out_dir.mkdir(parents=True, exist_ok=True)
-    all_stubs = stubs()
-    header_bytes = struct.unpack_from("<H", EXE, 8)[0] * 16
+    all_stubs = stubs(IMG if packed else None)
+    header_bytes = 0 if packed else struct.unpack_from("<H", EXE, 8)[0] * 16
     rows: list[str] = []
     imports: list[str] = []
     mounts: list[str] = []
@@ -953,9 +1016,10 @@ def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
         mounts.append(f"  {{ ...s{index}, procs: p{index} }},")
 
     exe_prologues = prologues(IMG)
-    exe_library = [p for p in library_prologues(IMG) if p < DATA_SEGMENT * 16]
+    exe_library = [p for p in library_prologues(IMG) if p < PROFILE["data_segment"] * 16]
     seeds = set(exe_prologues) | set(exe_library)
-    seeds.add(0x5BB0)
+    seeds.add(PROFILE["system_init"])
+    seeds.update(PROFILE.get("register_call_targets", []))
     for i in range(len(IMG) - 1):
         if IMG[i] == 0x8B and IMG[i + 1] == 0xDC:
             seeds.add(i)
@@ -983,7 +1047,7 @@ def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
             take_far(blob, a, b)
     for a, b in zip(exe_prologues, exe_prologues[1:] + [len(IMG)]):
         take_far(IMG, a, b)
-    take_far(IMG, 0x5BB0, 0x5BB0 + 0x200)
+    take_far(IMG, PROFILE["system_init"], PROFILE["system_init"] + 0x200)
     exe_found = close_entries(IMG, sorted(seeds), exe_prologues)
     exe_spans = []
     for a in exe_found:
@@ -996,14 +1060,16 @@ def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
     exe_text, exe_regs = emit_unit(IMG, exe_spans)
     (out_dir / "exe.ts").write_text(EXE_HEADER + exe_text)
 
-    sys_targets = [0x0, 0xD1, 0x16B5, 0x1692, 0x634, 0x6C1, 0x64E, 0x1508, 0x364, 0xD8, 0xE3A, 0xD28]
-    base = 0x5BB * 16
-    seg_img = IMG[base : base + 0x8000]
-    sys_spans = []
-    for t in sys_targets:
-        sys_spans.append((t, min(t + 0x600, len(seg_img)), f"sys5bb_{t:04x}", f"System unit 0x5bb:0x{t:04x}."))
-    sys_body, sys_regs = emit_unit(seg_img, sys_spans)
-    sys_header = """// Generated by tools/tp_translate.py from START.EXE segment 0x5BB.
+    sys_regs: list[tuple[int, str]] = []
+    if PROFILE["system"]:
+        system_segment, sys_targets = PROFILE["system"]
+        base = system_segment * 16
+        seg_img = IMG[base : base + 0x8000]
+        sys_spans = []
+        for t in sys_targets:
+            sys_spans.append((t, min(t + 0x600, len(seg_img)), f"sys5bb_{t:04x}", f"System unit 0x5bb:0x{t:04x}."))
+        sys_body, sys_regs = emit_unit(seg_img, sys_spans)
+        sys_header = """// Generated by tools/tp_translate.py from START.EXE segment 0x5BB.
 // Non-prologue System routines (FillChar, Move, strings, BlockRead).
 
 import type { Cpu } from "../cpu/machine.js";
@@ -1017,17 +1083,19 @@ export function nearCall(m: Cpu, addr: number): void {
   fn(m);
 }
 """
-    footer = "\n".join(f"registerFar(0x5bb, 0x{off:x}, {name});" for off, name in sys_regs)
-    (out_dir / "system5bb.ts").write_text(sys_header + sys_body + footer + "\n")
+        footer = "\n".join(f"registerFar(0x5bb, 0x{off:x}, {name});" for off, name in sys_regs)
+        (out_dir / "system5bb.ts").write_text(sys_header + sys_body + footer + "\n")
 
-    reg = "\n".join(imports) + """
-import "./system5bb.js";
-import "../runtime/intr.js";
-import { procs as exeProcs } from "./exe.js";
-import { installExeProcs } from "../runtime/far.js";
-import { mountSlices, type SliceModule } from "../runtime/overlay.js";
+    intr_segment, intr_offset = PROFILE["intr"]
+    reg = "\n".join(imports) + ("""
+import "./system5bb.js";""" if PROFILE["system"] else "") + f"""
+import {{ registerIntr }} from "../runtime/intr.js";
+import {{ procs as exeProcs }} from "./exe.js";
+import {{ installExeProcs }} from "../runtime/far.js";
+import {{ mountSlices, type SliceModule }} from "../runtime/overlay.js";
 
-export function registerTranslated(): void {
+export function registerTranslated(): void {{
+  registerIntr(0x{intr_segment:x}, 0x{intr_offset:x});
   installExeProcs(exeProcs);
   mountSlices([
 """ + "\n".join(mounts) + """
@@ -1050,7 +1118,7 @@ Verified means a test ran it alone and checked the bytes it wrote. The entry poi
 | --- | ---: | ---: | ---: |
 | START.EXE resident procedures | {len(exe_found)} | {len(exe_regs)} (includes entry) | 1 (FillChar, `sys5bb_16b5`) |
 | GAME.OVR slices | {ovr_total} | {ovr_done} | 1 (`ovl07_0000`, ECL operand fetch) |
-| System unit, non-prologue | {len(sys_targets)} | {len(sys_regs)} | 1 (FillChar) |
+| System unit, non-prologue | {len(sys_regs)} | {len(sys_regs)} | 1 (FillChar) |
 | **Total procedures** | **{len(exe_found) + ovr_total}** | **{ovr_done + len([r for r in exe_regs if r[0] != 6])}** | **2** |
 
 | Slice | File offset | Found | Translated |
@@ -1063,6 +1131,11 @@ Verified means a test ran it alone and checked the bytes it wrote. The entry poi
 """
     )
     print(f"overlays {ovr_done}/{ovr_total} exe {len(exe_regs)} system {len(sys_regs)}")
+    if SURVEY:
+        print(f"{len(SURVEY)} procedures could not be emitted:")
+        for line in SURVEY:
+            print(f"  {line}")
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

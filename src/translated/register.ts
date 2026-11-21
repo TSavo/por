@@ -38,12 +38,13 @@ import { procs as p35, SLICE as s35 } from "./ovl35.js";
 import { procs as p36, SLICE as s36 } from "./ovl36.js";
 import { procs as p37, SLICE as s37 } from "./ovl37.js";
 import "./system5bb.js";
-import "../runtime/intr.js";
+import { registerIntr } from "../runtime/intr.js";
 import { procs as exeProcs } from "./exe.js";
 import { installExeProcs } from "../runtime/far.js";
 import { mountSlices, type SliceModule } from "../runtime/overlay.js";
 
 export function registerTranslated(): void {
+  registerIntr(0x504, 0xb);
   installExeProcs(exeProcs);
   mountSlices([
   { ...s0, procs: p0 },
