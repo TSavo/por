@@ -1917,6 +1917,19 @@ const illustrationRoutes = new Map([
     phaseCaptures: { 5: "old-phlan-lizard-patrol-phase-1.png", 6: "old-phlan-lizard-patrol-phase-2.png" },
     finalPhaseCapture: "old-phlan-lizard-patrol-phase-3.png",
   }],
+  ["valjevo-tower-troll-phases", {
+    slot: "B", inputs: ["up", "b", "up", ...Array(23).fill("q")],
+    portraitStops: {
+      3: "portrait:area:5:PIC5.DAX:31:0:0",
+      11: "portrait:area:5:ecl:9ff9:PIC5.DAX:31:4:0",
+      14: "portrait:area:5:ecl:9ff9:PIC5.DAX:31:2:0",
+      15: "portrait:area:5:ecl:9ff9:PIC5.DAX:31:1:0",
+    },
+    portrait: "portrait:area:5:ecl:9ff9:PIC5.DAX:31:3:0",
+    prompt: /YOUSEEAPACKOFTROLLS.*THEYSEEMUNAWAREOFYOU/i,
+    phaseCaptures: { 11: "valjevo-tower-troll-phase-4.png", 14: "valjevo-tower-troll-phase-2.png", 15: "valjevo-tower-troll-phase-1.png" },
+    finalPhaseCapture: "valjevo-tower-troll-phase-3.png",
+  }],
   ["sokal-ceiling-insects-phases", {
     slot: "C", inputs: ["up", "enter", "enter", ...Array(7).fill("q")],
     portraitStops: {
