@@ -158,6 +158,15 @@
         "game data",
         "Chrome"
       ]
+    },
+    {
+      "id": "acceptance-new-phlan",
+      "title": "New Phlan walkthrough scenarios on the game itself: Rolf's tour, City Hall and the clerk, the dock, the temples, the tavern and the city watch",
+      "command": "npm run acceptance:new-phlan",
+      "reference": "game-data",
+      "needs": [
+        "game files"
+      ]
     }
   ]
 }

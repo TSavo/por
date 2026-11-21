@@ -79,7 +79,8 @@
         "verifyFreshSlumsVictory (milestone 'Created six characters, completed Rolf's tour, saved and reloaded, and entered the Slums.')",
         "verifyOpeningReload"
       ],
-      "notes": "The digest says only 'a brief guided tour, which will end at E2'. It does not say whether the player moves the party or is carried, or whether the tour can be declined; the text order is the script order. [P]'s suggested first steps after the tour: buy melee weapons, armor and shields; stay at an inn to memorize spells; visit the clerk. Taverns are dangerous for new characters."
+      "check": "acceptance-new-phlan",
+      "notes": "The digest says only 'a brief guided tour, which will end at E2'. It does not say whether the player moves the party or is carried, or whether the tour can be declined; the text order is the script order. [P]'s suggested first steps after the tour: buy melee weapons, armor and shields; stay at an inn to memorize spells; visit the clerk. Taverns are dangerous for new characters. Established by npm run acceptance:new-phlan: the player does not move the party and cannot decline; each text waits for Return and the game carries the party from (15,1) to (0,4). 'Does not repeat' is proved twice: coming back out of City Hall (which reloads the New Phlan script) and loading a game saved after the tour. The script starts the tour only while its flag is unset (ECL3.DAX block 0 at 9b40: COMPARE 0x4ac5, 1; IF < GOTO b071, which sets 0x4ac5 to 1)."
     },
     {
       "id": "acceptance.new-phlan.first-commissions-reachable",
@@ -88,11 +89,12 @@
       "steps": [
         "Right after the tour visit the council clerk at City Hall 29 (5,5).",
         "She prints ''BEFORE I CAN OFFER ANY COMMISSIONS, I MUST SEE IF YOU ARE DUE A CURRENT REWARD.' then 'THE CLERK SHUFFLES THROUGH HER PAPERS. 'ON THE MATTER OF COMMISSION,' SHE SAYS, 'I CAN OFFER THE FOLLOWING: ''",
-        "She lists 'THE SLUMS IMMEDIATELY TO OUR WEST NEED TO BE CLEARED OF MONSTERS.'' and 'SOKAL KEEP ON THORN ISLAND MUST BE CLEARED.''",
-        "Go to the dock at (11,1): the only boat goes to Sokal Keep."
+        "She lists 'THE SLUMS IMMEDIATELY TO OUR WEST NEED TO BE CLEARED OF MONSTERS.'', 'SOKAL KEEP ON THORN ISLAND MUST BE CLEARED.'' and third 'THE COUNCIL IS OFFERING A REWARD FOR BOOKS, MAPS, TOMES, ETC. WHICH PROVIDE USEFUL INFORMATION ABOUT PHLAN BEFORE THE FALL. THE REWARD IS TIED TO THE VALUE OF THE INFORMATION.'', then ''THESE ARE ALL OF THE COMMISSIONS CURRENTLY AVAILABLE.''",
+        "Go to the dock at (11,1): the only boat goes to Sokal Keep.",
+        "Walk west out of the gate at (0,4): the game prints 'YOU HAVE ENTERED THE MONSTER-CRAWLING SLUMS OF PHLAN. SMALL, UGLY THINGS SCURRY FROM BENEATH YOUR FEET. IN THE DISTANCE, AN ALARM SOUNDS.'"
       ],
       "expect": [
-        "The Slums and Sokal Keep commissions are mentioned.",
+        "The first visit offers three commissions: the Slums, Sokal Keep and, third, the reward for books (commission #3).",
         "The Slums (west gate) and Sokal Keep (boat) are the only areas reachable without passing through another hostile block."
       ],
       "branches": [],
@@ -109,7 +111,8 @@
       "coveredBy": [
         "verifySokalArrival (milestone 'Heard the council's commissions, took the boat to Sokal Keep and reloaded the arrival in slot A.')"
       ],
-      "notes": ""
+      "check": "acceptance-new-phlan",
+      "notes": "Corrected from the game (npm run acceptance:new-phlan): the first visit lists three offers, not two. The clerk's loop offers commissions in list order until three have been offered (ECL3.DAX block 8 at a845: COMPARE 0x4a05, 2; IF > GOTO af4b), and #3 (books) is unresolved at the start. 'Only areas reachable' is proved as the two ways out: one step west of the gate is the Slums, and the harbor master offers one boat, which lands at Sokal Keep; the New Phlan script leaves town nowhere else before Sokal Keep is cleared (block 0: NEW ECL 20 at 9962 for walking off the map, NEW ECL 21 at 9bf1 for the boat)."
     },
     {
       "id": "acceptance.new-phlan.training-halls",
@@ -255,7 +258,10 @@
         "SJ at (8,10)",
         "Fine Composite Long Bow 25000 gold",
         "Identify 200 gold",
-        "Sell at half value; arrows and bolts 5%"
+        "Sell at half value; arrows and bolts 5%",
+        "Doors the test uses: general store entered at (9,10) from (10,10); silver shop at (11,10) from (11,9)",
+        "General store list as the game shows it (gold): Brass Mirror 10, Silver Mirror 20, 1 Flask of Oil 1, Wooden Holy Symbol Of Tyr 1, Iron Holy Symbol Of Tempus 2, Silver Holy Symbol Of Sune 50, 1 Holy Water vial 25",
+        "Silver shop list as the game shows it (gold): Silver Mace 80, Silver Bastard Sword 250, Silver Broad Sword 100, Silver Long Sword 150, Silver Short Sword 80, Silver Two-Handed Sword 300, 1 Silver Dagger 20, 20 Silver Arrows 20, 1 Silver Quarrel 20, Silver Chain Mail 750, Silver Plate Mail 4000, Silver Ring 90, Fine Composite Long Bow 25000"
       ],
       "sources": [
         "[P] §3.0 (qa/research/guides-digest.md)",
@@ -275,7 +281,7 @@
         "verifyGoblinLootSale",
         "milestone 'Bought and readied a long bow and arrows in New Phlan, then verified both after reload.'"
       ],
-      "notes": "The digest gives coordinates only for the jeweler and for one arms-shop door (9,14). Shops are open by day only: dawn 00:00, dusk 14:00 ([P] §4). [P] §5: coin totals over 65535 gold (13107 pp) can be lost in a transaction."
+      "notes": "The digest gives coordinates only for the jeweler and for one arms-shop door (9,14). Shops are open by day only: dawn 00:00, dusk 14:00 ([P] §4). [P] §5: coin totals over 65535 gold (13107 pp) can be lost in a transaction. npm run acceptance:new-phlan walks the general store and the silver shop and asserts their greetings and stock (first two expectations); buying, selling and identifying are not yet tested, so the scenario stays open."
     },
     {
       "id": "acceptance.new-phlan.arms-shop-door-works-at-night",
@@ -320,7 +326,9 @@
       "branches": [],
       "fights": [],
       "data": [
-        "Tyr (6), Sune (7), Tempus (24) are [P] location numbers, not coordinates"
+        "Tyr (6), Sune (7), Tempus (24) are [P] location numbers, not coordinates",
+        "Doors the test uses: Sune entered at (1,3) from (1,4); Tyr at (11,3) from (11,2); Tempus at (0,12) from (0,11)",
+        "Each temple's Heal list, with prices in gold as the game states them: Cure Blindness 1000, Cure Disease 1000, Cure Light Wounds 100, Cure Serious Wounds 350, Cure Critical Wounds 600, Neutralize Poison 1000, Raise Dead 5500, Remove Curse 3500, Stone to Flesh 2000"
       ],
       "sources": [
         "[P] §3.0 (qa/research/guides-digest.md)",
@@ -334,7 +342,8 @@
         "verifySokalTempleHealing (asserts /do you seek healing/; milestone 'Returned to New Phlan and verified Brin's paid temple healing after reloading slot G.')",
         "verifySokalTempleRecovery (milestone 'Raised and healed Brin, readied his mace, and reloaded at the Temple of Tyr:')"
       ],
-      "notes": "The digest gives no temple prices or coordinates. [P] §5 notes relevant to temple services: Raise Dead never fails, works on elves, and can drive Constitution down to 0."
+      "check": "acceptance-new-phlan",
+      "notes": "The digest gives no temple prices or coordinates. [P] §5 notes relevant to temple services: Raise Dead never fails, works on elves, and can drive Constitution down to 0. Established by npm run acceptance:new-phlan: NO prints 'THEN YOU MUST LEAVE.' and puts the party back on the square outside the door. YES opens the menu 'Heal View Pool Appraise Exit'; Heal lists nine cures, and each names its price before asking 'pay for cure' (a healthy character is first asked 'cast cure anyway'). All three temples list the same nine at the same prices, which are the ones in acceptance.mechanics.temple.services. Nothing is bought."
     },
     {
       "id": "acceptance.new-phlan.dock-before-sokal",
@@ -364,7 +373,8 @@
       "coveredBy": [
         "verifySokalArrival"
       ],
-      "notes": "The digest does not give the square where the 'PASSENGER DOCK' line prints."
+      "check": "acceptance-new-phlan",
+      "notes": "The digest does not give the square where the 'PASSENGER DOCK' line prints. Established by npm run acceptance:new-phlan: 'TO THE NORTH IS THE PASSENGER DOCK.' prints on (11,2). On arrival the game prints 'THE BOAT DISEMBARKS YOU AT SOKAL KEEP.' The clock shows only the one minute of the step onto the pier's end square (15,1); the crossing itself adds nothing. No character's coins change."
     },
     {
       "id": "acceptance.new-phlan.dock-after-sokal",
@@ -477,7 +487,7 @@
       ],
       "disagreements": [],
       "coveredBy": [],
-      "notes": "[P] describes Run as going 'to a random location'; the four flee squares are the stated candidates."
+      "notes": "[P] describes Run as going 'to a random location'; the four flee squares are the stated candidates. The four squares are the script's table (ECL3.DAX block 0, x at b61a: 3, 10, 2, 12; y at b61e: 11, 10, 0, 3), with a random facing (aef7). See guard-trigger-closed-building for a run that ended one square beyond (3,11)."
     },
     {
       "id": "acceptance.new-phlan.guard-trigger-resting-outside",
@@ -504,7 +514,8 @@
         "Menu: [P] gives the choice as 'R'un or 'S'tay; the game text for this trigger is GO / STAY (block 0) and GO / FIGHT (block 11). STAY / RUN is the menu of the brawl and break-in triggers."
       ],
       "coveredBy": [],
-      "notes": "The digest does not say whether GO moves the party to a flee square or simply ends the rest."
+      "check": "acceptance-new-phlan",
+      "notes": "The digest does not say whether GO moves the party to a flee square or simply ends the rest. Established by npm run acceptance:new-phlan: the game's menus are 'Go Stay' in the streets and 'Go Fight' in the training block. GO ends the encounter with the party awake on the square where it camped, unhurt, the rest cut short; it is not moved to a flee square. STAY and FIGHT start a fight (the test stops at the first combat menu). Resting outside an inn always brings the watch: the script sets the interruption chance to 101 (block 0 at 9a7f, block 11 at 9996) unless an inn was paid."
     },
     {
       "id": "acceptance.new-phlan.guard-trigger-closed-building",
@@ -531,7 +542,7 @@
       ],
       "disagreements": [],
       "coveredBy": [],
-      "notes": "The digest does not say whether a successful break-in opens the shop. 'THE WAY IS BLOCKED.' in the City Hall block (0x9964) is the likely night message there; its trigger is not described in the digest."
+      "notes": "The digest does not say whether a successful break-in opens the shop. 'THE WAY IS BLOCKED.' in the City Hall block (0x9964) is the likely night message there; its trigger is not described in the digest. Seen in the port on 2026-11-21, not yet in a test: at night, stepping from (10,10) west into the general store door gives the prompt; NO leaves the party where it is; YES then RUN put the party on (3,12) facing south, one square south of the flee square (3,11). The script does not cancel the interrupted step on this path (block 0 sets 0x6dc9 to 255 only for NO, at 99e4), so the step may be carried out from the flee square in the new facing. Whether the original does the same has not been checked; do not assert the end square until it has."
     },
     {
       "id": "acceptance.new-phlan.guard-trigger-forcing-braccio",
@@ -814,7 +825,7 @@
         "Green 20%: profit equal to the wager.",
         "Blue (the remaining 50%): the wager is returned.",
         "No brawl can happen on a visit where someone gambled.",
-        "A wager above 1000 or above the character's platinum: 'I CAN'T ACCEPT THAT WAGER.'"
+        "A wager of 0, above 1000, or above the character's platinum: 'I CAN'T ACCEPT THAT WAGER.', and in version 1.3 the game then asks 'WILL YOU GO AGAIN?'"
       ],
       "branches": [
         "A character in bad shape cannot play: 'NO ONE IS WILLING TO GAMBLE WITH SOMEONE WHO LOOKS THAT BAD.' (exact condition not in the digest)."
@@ -833,7 +844,8 @@
         "Blue: the rules text says 'IF A BLUE SIDE COMES UP, YOU GET YOUR MONEY BACK' but the result line reads 'IT'S BLUE. YOU WIN.' [P] gives only red 30% and green 20%, which leaves 50% for blue with no gain."
       ],
       "coveredBy": [],
-      "notes": "With fixed dice the colour can be asserted against the platinum change. The reasons for 'I CAN'T ACCEPT THAT WAGER.' are inferred from the house-limit prompt; the digest does not list them."
+      "check": "acceptance-new-phlan",
+      "notes": "Established by npm run acceptance:new-phlan with the dice trace: the three refusals are in the script (ECL3.DAX block 0 at a56a to a589: wager above the platinum held, above 1000, or 0), and a refused wager draws no die. A spin is one draw from ten numbers (RANDOM 9 at a58d): 8 and 9 are green, 3 to 7 blue, 0 to 2 red, which is 20%, 50% and 30%. Green adds the wager to the gambler's platinum, blue leaves it unchanged although the line reads 'YOU WIN', red takes the wager; the test follows 'YOU HAVE <n> PP.' round by round and reads the character sheet at the end. Declining another spin ends the visit with no tale and no brawl (a643 GOTO ae6d). 1.3-specific: after 'I CAN'T ACCEPT THAT WAGER.' the script goes on to 'WILL YOU GO AGAIN?' (a692 GOTO a609); the first release has EXIT there and leaves the tavern script. This instruction, not the brawl, is the three-byte edit in qa/research/version-1.3-differences.md."
     },
     {
       "id": "acceptance.new-phlan.tavern-tales",
@@ -863,7 +875,8 @@
       ],
       "disagreements": [],
       "coveredBy": [],
-      "notes": "1.3-specific: the first release drew 1-24 and could announce a non-existent Tale 24; 1.3 draws 1-23 (qa/research/version-1.3-differences.md: operand RANDOM 17 -> RANDOM 16 at script address a429). The digest does not say how often a tale is heard per visit or how it combines with the pickpocket and brawl rolls."
+      "check": "acceptance-new-phlan",
+      "notes": "1.3-specific: the first release drew 1-24 and could announce a non-existent Tale 24; 1.3 draws 1-23 (qa/research/version-1.3-differences.md: operand RANDOM 17 -> RANDOM 16 at script address a429). The digest does not say how often a tale is heard per visit or how it combines with the pickpocket and brawl rolls. Established by npm run acceptance:new-phlan with the dice trace: on a visit where nobody gambles the party always overhears one tale (a407 to a438). The number is the first draw after the answer, from 23 numbers, plus one (RANDOM 22 at a429; the first release has RANDOM 23), so 24 cannot come up. After the tale one draw in four starts the brawl (a440: RANDOM 3, value 1). The pickpocket roll comes first on every entry (a328)."
     },
     {
       "id": "acceptance.new-phlan.tavern-brawl",
@@ -901,7 +914,7 @@
         "[P] counts 'tavern brawling' as city-guard trigger (4); the game text shows the watch arriving only after the brawl ('THE CITY WATCH CHARGES IN')."
       ],
       "coveredBy": [],
-      "notes": "1.3-specific: the brawl script ends with GOTO a609 where the first release had EXIT (qa/research/version-1.3-differences.md). Address a609 sits just before the gambling 'WILL YOU GO AGAIN?' print (0xa60d in the manifest's numbering); what the player sees after the brawl in 1.3 has not been decoded in the repository notes and must be read from the script. Do not assert the first-release ending. The digest does not say which ally types the 1d4 selects. Maximum start index is 4 (2+2), so groups 4-6 at the top."
+      "notes": "Corrected from the script (src/lib/ecl.ts on ECL3.DAX block 0 of both releases): the brawl is the same in 1.3 and the first release. The instruction that differs, at a692, is the last one of the refused wager ('I CAN'T ACCEPT THAT WAGER.': EXIT in the first release, GOTO a609 in 1.3); the brawl starts at the instruction after it (a696 in 1.3, a693 in the first release). After a won brawl both releases print 'THE CITY WATCH CHARGES IN.' with STAY / RUN (a7e5); a7d6 tests the result of the fight first and can go straight to the flee squares. The digest does not say which ally types the 1d4 selects. Maximum start index is 4 (2+2), so groups 4-6 at the top."
     },
     {
       "id": "acceptance.new-phlan.proclamations-by-tracker",
@@ -947,7 +960,7 @@
         "Clue Book p.3-4 numbers New Phlan 1-24 (for example 3 Temple of Tyr, 5 Dueling & Hiring Hall, 12 City Hall entrance, 13 Clerk, 19 Inns, 20 Taverns); [P] uses different numbers (2 dock, 5 Braccio, 6 Tyr, 7 Sune, 14 hall, 24 Tempus, 26-34 City Hall). The numbers do not line up. Clue Book: entrance is 12; [P]: 26."
       ],
       "coveredBy": [],
-      "notes": "Only row 0 is confirmed by the game text ('PROCLAMATIONS LXIV, LXXVIII, CIX, AND LIX.' at 0xac9b). Rows 1-10 are built at run time from 'PROCLAMATION' + a numeral (0xac8a, 0xac96), so the manifest cannot confirm them: read the numeral table from the script and compare it with [P] before asserting rows 5 and 9. The 2-quest row has two numerals but the script's stem is singular; the exact wording is not known from the digest. The digest gives no coordinates for location 26."
+      "notes": "Only row 0 is confirmed by the game text ('PROCLAMATIONS LXIV, LXXVIII, CIX, AND LIX.' at 0xac9b). Rows 1-10 are built at run time from 'PROCLAMATION' + a numeral (0xac8a, 0xac96), so the manifest cannot confirm them: read the numeral table from the script and compare it with [P] before asserting rows 5 and 9. The 2-quest row has two numerals but the script's stem is singular; the exact wording is not known from the digest. The digest gives no coordinates for location 26. Read from the script (ECL3.DAX block 0 at ac58 to ad2b): tracker 0 prints 'PROCLAMATIONS LXIV, LXXVIII, CIX, AND LIX.'; 1 to 9 print 'PROCLAMATION' followed by CI. / CXXVI AND CX. / CXXXIV. / CLIV. / CXIV. / CCIV. / CXXIX. / CCI. / CXIV.; 10 or more leaves the preset 'LIX.' (aba0). That is [P]'s table, repeats included, and the 2-quest wording is 'PROCLAMATIONCXXVI AND CX.' as the script builds it (no space is stored after the stem; check the screen before asserting spacing). npm run acceptance:new-phlan asserts row 0 on the wall, read from (3,4) facing the west door of City Hall."
     },
     {
       "id": "acceptance.new-phlan.skullcrusher-leaves",
@@ -993,7 +1006,8 @@
       ],
       "disagreements": [],
       "coveredBy": [],
-      "notes": "Neither text is in the digest; the squares where they print must come from the script. City Hall is open by day only ([P] §4)."
+      "check": "acceptance-new-phlan",
+      "notes": "Neither text is in the digest; the squares where they print must come from the script. City Hall is open by day only ([P] §4). Established by npm run acceptance:new-phlan: the first text prints on entering the door square (4,4), where the game turns the party to face south (ECL3.DAX block 8 at 9a68), and the second on (4,5), the square west of the clerk at (5,5)."
     },
     {
       "id": "acceptance.new-phlan.cadorna-confronts-you",
@@ -1034,7 +1048,7 @@
         "Any rewards due are paid first, each with 'THE CLERK SPEAKS. '' ... 'HERE IS YOUR REWARD.''",
         "Then 'THE CLERK SHUFFLES THROUGH HER PAPERS. 'ON THE MATTER OF COMMISSION,' SHE SAYS, 'I CAN OFFER THE FOLLOWING: '' and up to three offers, in list order, skipping resolved ones and ones whose prerequisite is unmet.",
         "She ends with ''THESE ARE ALL OF THE COMMISSIONS CURRENTLY AVAILABLE.''",
-        "Leave and come straight back: she says ''BACK SO SOON? I CAN ONLY REPEAT THE EARLIER OFFERS: ''"
+        "Leave the office (step west to (4,5)) and come straight back: she says ''BACK SO SOON? I CAN ONLY REPEAT THE EARLIER OFFERS: '' and then only ''THESE ARE ALL OF THE COMMISSIONS CURRENTLY AVAILABLE.'': no offer is named again."
       ],
       "expect": [
         "At most three commissions are offered per visit, the first three unresolved on the fixed list of 15.",
@@ -1063,7 +1077,7 @@
         "verifySokalRestoredCouncil (milestone 'Heard and tracked the Sokal commission, then returned to Thorn Island:')",
         "verifyPodalFromCouncil"
       ],
-      "notes": "[P] names the clerk Sasha only 'in later games'; the game text calls her 'THE COUNCIL CLERK'. The digest does not say whether a commission with an unmet prerequisite is skipped or blocks the list; 'skipping' above is the reading that fits 'first three unresolved' plus the prerequisites, and must be confirmed in the script. What triggers 'BACK SO SOON?' (same visit, or no change in state) is not stated."
+      "notes": "[P] names the clerk Sasha only 'in later games'; the game text calls her 'THE COUNCIL CLERK'. The digest does not say whether a commission with an unmet prerequisite is skipped or blocks the list; 'skipping' above is the reading that fits 'first three unresolved' plus the prerequisites, and must be confirmed in the script. What triggers 'BACK SO SOON?' (same visit, or no change in state) is not stated. Corrected from the game (npm run acceptance:new-phlan, which walks this part but does not prove the scenario): 'BACK SO SOON?' is the clerk's answer on any later entry to (5,5) during the same stay in City Hall (her visited flag 0x4a01, block 8 at 9ba1), and she then repeats nothing, because the count of offers made (0x4a05) is still 3 and the loop ends at once (a845). The first visit offered exactly three. Skipping is confirmed in the script: a resolved commission or one whose condition fails jumps to the next list entry without counting (a89e)."
     },
     {
       "id": "acceptance.new-phlan.junior-councilman-cadorna",

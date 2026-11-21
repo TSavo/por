@@ -1225,9 +1225,10 @@
             "src/maps/area-catalog.json"
           ],
           "checks": [
-            "campaign-full"
+            "campaign-full",
+            "acceptance-new-phlan"
           ],
-          "gap": "The campaign replay crosses this area on one route. Its other events and branches are not exercised."
+          "gap": "The campaign replay crosses this area on one route, and the New Phlan acceptance check proves the walkthrough scenarios that name it in qa/acceptance/00-new-phlan.json. Its other events and branches are not exercised."
         },
         {
           "id": "classic.area-01",

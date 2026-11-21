@@ -9,8 +9,9 @@
       "scenarios": [
         "acceptance.new-phlan.first-commissions-reachable"
       ],
-      "status": "open",
-      "origin": "acceptance"
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "The game offers three on the first visit: the Slums, Sokal Keep, then the reward for books (#3). Established by npm run acceptance:new-phlan, which reads the clerk's texts in order, and by the script: she offers in list order until three have been offered (ECL3.DAX block 8 at a845)."
     },
     {
       "id": "disagreement.050a0c3e52",
@@ -56,8 +57,9 @@
       "scenarios": [
         "acceptance.new-phlan.shops"
       ],
-      "status": "open",
-      "origin": "acceptance"
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "The silver shop's list holds one piece of jewelry, 'Silver Ring' at 90 gold, beside the silver weapons, the two silver armors and the Fine Composite Long Bow at 25000. Both sources are right; [P]'s summary leaves the ring out. Established by npm run acceptance:new-phlan, which reads the shop's Buy list."
     },
     {
       "id": "disagreement.fef058c68e",
@@ -86,8 +88,9 @@
       "scenarios": [
         "acceptance.new-phlan.guard-trigger-resting-outside"
       ],
-      "status": "open",
-      "origin": "acceptance"
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "The game's menu for this trigger is 'Go Stay' in the streets and 'Go Fight' in the training block; [P]'s Run / Stay is the menu of the other triggers. Established by npm run acceptance:new-phlan, which reads both menus and takes both choices."
     },
     {
       "id": "disagreement.d85676ac9b",
@@ -106,8 +109,9 @@
       "scenarios": [
         "acceptance.new-phlan.tavern-gamble"
       ],
-      "status": "open",
-      "origin": "acceptance"
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "Blue returns the wager and nothing more: the gambler's platinum is unchanged, although the line reads 'IT'S BLUE. YOU WIN.' The spin is one draw from ten numbers: 8 and 9 green, 3 to 7 blue, 0 to 2 red (ECL3.DAX block 0 at a58d to a5ff), so blue is 50%. Established by npm run acceptance:new-phlan, which follows the platinum through green, blue and red spins with the dice trace on."
     },
     {
       "id": "disagreement.9fa028800f",
@@ -136,8 +140,9 @@
       "scenarios": [
         "acceptance.new-phlan.proclamations-by-tracker"
       ],
-      "status": "open",
-      "origin": "acceptance"
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "The game's table is [P]'s table. ECL3.DAX block 0 at ac58 to ad2b holds, for tracker counts 1 to 9: CI; CXXVI AND CX; CXXXIV; CLIV; CXIV; CCIV; CXXIX; CCI; CXIV; a count of 0 prints LXIV, LXXVIII, CIX AND LIX and a count of 10 or more prints LIX. Established by disassembling the script with src/lib/ecl.ts; npm run acceptance:new-phlan reads the row for 0 on the wall. So the game posts 13 distinct numerals and never CXX, CLVI, CLXX, CXC or CCXIV: the Journal prints five proclamations the game never refers to."
     },
     {
       "id": "disagreement.b1cdc8807e",
@@ -146,8 +151,9 @@
       "scenarios": [
         "acceptance.new-phlan.proclamations-by-tracker"
       ],
-      "status": "open",
-      "origin": "acceptance"
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "The game's table is [P]'s table. ECL3.DAX block 0 at ac58 to ad2b holds, for tracker counts 1 to 9: CI; CXXVI AND CX; CXXXIV; CLIV; CXIV; CCIV; CXXIX; CCI; CXIV; a count of 0 prints LXIV, LXXVIII, CIX AND LIX and a count of 10 or more prints LIX. Established by disassembling the script with src/lib/ecl.ts; npm run acceptance:new-phlan reads the row for 0 on the wall. The repeats are the game's own: CXIV at 5 and at 9, LIX at 0 and at 10. It is not a transcription slip in [P]."
     },
     {
       "id": "disagreement.9892aee93c",
@@ -156,8 +162,9 @@
       "scenarios": [
         "acceptance.new-phlan.proclamations-by-tracker"
       ],
-      "status": "open",
-      "origin": "acceptance"
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "The game's table is [P]'s table. ECL3.DAX block 0 at ac58 to ad2b holds, for tracker counts 1 to 9: CI; CXXVI AND CX; CXXXIV; CLIV; CXIV; CCIV; CXXIX; CCI; CXIV; a count of 0 prints LXIV, LXXVIII, CIX AND LIX and a count of 10 or more prints LIX. Established by disassembling the script with src/lib/ecl.ts; npm run acceptance:new-phlan reads the row for 0 on the wall. The wall and the clerk's list are out of step in the game itself, as [P] records."
     },
     {
       "id": "disagreement.8d499de9e3",
@@ -196,8 +203,9 @@
       "scenarios": [
         "acceptance.new-phlan.clerk-offers-three"
       ],
-      "status": "open",
-      "origin": "acceptance"
+      "status": "settled",
+      "origin": "acceptance",
+      "resolution": "The game offers at most three per visit, in list order, skipping resolved or unavailable ones without counting them (ECL3.DAX block 8 at a845 and a89e). npm run acceptance:new-phlan sees exactly three on the first visit. [P] is exact; the Clue Book's 'several' is the same thing said loosely."
     },
     {
       "id": "disagreement.7eb6a37828",
