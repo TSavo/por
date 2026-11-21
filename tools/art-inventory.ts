@@ -545,6 +545,8 @@ const sceneReviewRequirements = new Map<string, string[]>([
   ["kovel-wooden-cabinet.png", ["The closed wooden doors and brass latch are visible", "The cabinet's contents remain concealed at the choice and lock prompts"]],
   ["kovel-cabinet-gas.png", ["Yellow gas pours from the latch of the same cabinet", "The cabinet remains recognizable during the damage report"]],
   ["kovel-open-scroll-cabinet.png", ["The same cabinet is open and its shelves hold scroll cases", "The picture leaves the treasure menu legible"]],
+  ["kuto-seer-rug-compartment.png", ["The folded-back rug reveals a compartment in the floor", "Weapons and armor are visible inside the compartment"]],
+  ["kobold-cave-wyvern-ambush.png", ["A large winged beast is landing on the slope", "Airborne rubble connects the ambush to the preceding climb"]],
   ["buccaneer-captain-arrives.png", ["Four chainmail guards are visible", "One guard enters through the doorway with the captain"]],
   ["buccaneer-captain-draws-sword.png", ["The captain has his sword drawn", "A guard behind him responds to the call to attack"]],
   ["buccaneer-captain-defeated.png", ["The fallen captain is recognizable from his clothing in the preceding scenes", "His sword lies loose on the floor"]],

@@ -1227,6 +1227,14 @@ const illustrationRoutes = new Map([
     journalLead: "textile-diary-page", journalLeadAtDiscovery: true,
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ...["n", "y"].map(choice => [`kuto-seer-rug-${choice === "y" ? "take" : "leave"}`, {
+    slot: "B", inputs: ["up", "enter", "enter", "s", "l"],
+    portrait: "scene-illustration:area:29:ecl:af80:caller:ac5b",
+    prompt: /BENEATHARUGYOUFINDACOMPARTMENTCONTAININGARMSANDARMOR.*DOYOUTAKETHEM/i,
+    finalPhaseCapture: "kuto-seer-rug-compartment.png",
+    continuation: { inputs: [choice], clearsPortrait: true,
+      prompt: choice === "y" ? /FOUND.*TREASURE.*533.*EXPERIENCEPOINTS/i : /AREACASTVIEWENCAMP/i },
+  }]),
   ["kovel-tapestry-reward", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portraitStops: { 1: null, 2: null },
