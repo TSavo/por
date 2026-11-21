@@ -6374,11 +6374,27 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
   } else if (ferry) {
     for (const key of ["down", "enter"]) await advance(key);
-    assert.equal(frame.portrait, "portrait:PIC8.DAX:41:0:0");
+    const riverFerry = routeName === "phlan-ferry-river";
+    assert.equal(frame.portrait, riverFerry ? "portrait:area:26:ecl:a098:PIC7.DAX:41:0:0" : "portrait:PIC8.DAX:41:0:0");
     const text = frame.text.map(([, character]) => String.fromCharCode(character)).join("");
     assert.match(text, ferry.prompt);
     assert.match(text, /TAKEBOAT.*STAY/i);
     await waitFor("the Phlan ferry illustration", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
+    if (riverFerry) {
+      const phases = new Set();
+      for (let i = 0; i < 30 && phases.size < 2; i++) {
+        await advance("z");
+        const phase = /^portrait:area:26:ecl:a098:PIC7\.DAX:41:([12]):0$/.exec(frame.portrait)?.[1];
+        if (!phase || phases.has(phase)) continue;
+        await waitFor(`the river ferry phase ${phase}`, () => run(`state.sequence === ${frame.sequence} &&
+          document.querySelector('.encounter-portrait[src="/art/${frame.portrait}"]')?.naturalWidth === 352`));
+        await verifyPortraitPanel();
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `river-sector-return-ferry-phase-${phase}.png`), Buffer.from(shot.data, "base64"));
+        phases.add(phase);
+      }
+      assert.deepEqual([...phases].sort(), ["1", "2"]);
+    }
     await switchBothWays();
     await advance("t");
     const patterns = new Set();

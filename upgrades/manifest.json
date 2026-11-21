@@ -1964,6 +1964,8 @@
     "encounter:area:25:ecl:a204:SPRIT6.DAX:74:1:0": "buccaneer-wilds-mantis-approach-middle.png",
     "encounter:area:25:ecl:a264:SPRIT6.DAX:74:1:0": "buccaneer-wilds-mantis-approach-middle.png",
     "portrait:area:26:ecl:a098:PIC7.DAX:41:0:0": "river-sector-return-ferry.png",
+    "portrait:area:26:ecl:a098:PIC7.DAX:41:1:0": "river-sector-return-ferry-phase-1.png",
+    "portrait:area:26:ecl:a098:PIC7.DAX:41:2:0": "river-sector-return-ferry-phase-2.png",
     "portrait:area:26:ecl:9ccf:PIC7.DAX:40:0:0": "phlan-north-crossroads.png",
     "portrait:area:26:ecl:9dcc:PIC7.DAX:40:0:0": "phlan-east-crossroads.png",
     "portrait:area:26:ecl:9ed3:PIC7.DAX:40:0:0": "phlan-west-crossroads.png",
