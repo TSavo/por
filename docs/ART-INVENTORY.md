@@ -336,6 +336,14 @@ the draw distance at ECL `9a3c` from both library approaches. Chrome
 displayed the distinct poses over the central doorway before continuing
 to the spectre's dialogue. The standard routes draw the near sprite.
 
+The Textile House street scorpion has a far replacement for
+`SPRIT4.DAX` block 18, member 2. A controlled replay changed
+the draw at ECL `9be9` from middle to far and matched the original
+32x57 sprite at (48,32). It appeared at the end of the street in
+Chrome over WebGL and cleared before the native battle opened. The
+standard street replay draws the middle sprite, and the courtyard
+replay draws the near sprite.
+
 The swamp giant lizard has separate middle and far sprites from
 `SPRIT8.DAX` block 59, members 1 and 2. Controlled Chrome replays drew
 the 192×260 and 160×228 sprites at (48,32) and continued to the enhanced
