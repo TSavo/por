@@ -599,6 +599,18 @@ const sokalPatrolDeparture = ["up", "enter", "p", "n", ..."lux", "enter", "t", "
   "right", "up", "up", "right", ...Array(5).fill("up"), "p", "n", ..."samosud", "enter"];
 
 const illustrationRoutes = new Map([
+  ["stojanow-ettin-guardroom", {
+    slot: "A",
+    inputs: ["up", "enter", "enter", "enter", "enter"],
+    portraitStops: {
+      1: "scene-illustration:area:9:ecl:9c63:caller:a1ba",
+      2: "scene-illustration:area:9:ecl:9c63:caller:a1d2",
+      3: "scene-illustration:area:9:ecl:9c63:caller:a23f",
+      4: null,
+    },
+    portrait: "portrait:HEAD2.DAX:52:BODY2.DAX:31",
+    prompt: /THEYSEEMUNAWAREOFYOU.*COMBATWAITFLEEPARLAY/i,
+  }],
   ["bane-rubble-tapestry", {
     slot: "A", inputs: ["s", "up"],
     portrait: "scene-illustration:area:31:ecl:9c10",
@@ -6723,6 +6735,30 @@ try {
           assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
             /RUNGSARESETINTHESIDESOFTHEWELLWALL\.DOYOUWANTTOCLIMBDOWN/i);
           assert.ok(!frame.journal?.leads.some(({ id }) => id === "kuto-well-waterline-door"));
+        if (routeName === "stojanow-ettin-guardroom" && interimPortrait) {
+          const captions = [
+            /ALLBUTTWOOFTHEBEDSARE14FEETLONG/i,
+            /THEREARETWOHUMANSANDTHREEETTININTHEROOM/i,
+            /YOUOVERHEARTHEMAGETELLHISCOMPANION.*IAMEAGERTOBECOMEABARON/i,
+          ];
+          assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), captions[index - 1]);
+          await switchBothWays(frame.frame);
+          const shot = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, `stojanow-ettin-guardroom-${index}.png`), Buffer.from(shot.data, "base64"));
+        }
+        if (routeName === "tyranthraxus-battle-opening" &&
+            interimPortrait === "portrait:area:7:ecl:a768:PIC5.DAX:66:0:0") {
+          assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""),
+            /howdoyouvote\?.*attackjointyranthraxus/i);
+          if (index === 7) {
+            const votePlate = await fetch(origin + "/art/" + interimPortrait);
+            assert.ok(votePlate.ok);
+            assert.deepEqual(Buffer.from(await votePlate.arrayBuffer()), readFileSync("upgrades/valjevo-tyranthraxus-party-vote.png"));
+            await switchBothWays(frame.frame);
+            const voteShot = await command("Page.captureScreenshot", { format: "png" });
+            writeFileSync(resolve(directory, "valjevo-tyranthraxus-party-vote.png"), Buffer.from(voteShot.data, "base64"));
+          }
+        }
           await switchBothWays(frame.frame);
           const wellDescentShot = await command("Page.captureScreenshot", { format: "png" });
           writeFileSync(resolve(directory, "kuto-well-descent-decision.png"), Buffer.from(wellDescentShot.data, "base64"));
