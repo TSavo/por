@@ -53,7 +53,7 @@ export function captureNativeExploration(cpu: Cpu): NativeExploration | undefine
     }
     glyphs[symbol] = pixels.toString("hex");
   }
-  // The native backdrop fills behind the transparent portions of the glyphs.
+  // Overlay 30's backdrop draw reads the top and bottom fill colors here.
   return { x, y, facing, mapId, walls: walls.toString("base64"), frontSlots: slots.toString("base64"), glyphs,
-    skyColor: 11, groundColor: 6 };
+    skyColor: cpu.read8(ds, 0x69be) & 15, groundColor: cpu.read8(ds, 0x69c1) & 15 };
 }
