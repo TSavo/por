@@ -868,6 +868,13 @@ const illustrationRoutes = new Map([
     portrait: "scene-illustration:area:21:ecl:ae31:caller:a573", prompt: /BENEATHAFLOORBOARD.*JOURNALASENTRY3/i,
     continuation: { inputs: ["enter"], prompt: /DOYOUTAKETHEGEMS.*YesNo/i, portrait: "scene-illustration:area:21:ecl:ae41:caller:a58a" },
   }],
+  ["sokal-ferran-rejects-lie", {
+    slot: "F", inputs: ["up", "enter", "p", "n", ..."lux", "enter", "l"],
+    portrait: "scene-illustration:area:21:ecl:abc7",
+    prompt: /YOULIE.*SPIRITMOANSASITFADESAWAY/i,
+    journalLead: "sokal-ferran-lie", journalLeadAtDiscovery: true,
+    continuation: { inputs: ["left", "up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
+  }],
   ["sokal-ferran-farewell", {
     slot: "F", inputs: ["up", "enter", "p", "n", "l", "u", "x", "enter", "t", "enter", "enter"],
     portraitStops: {
@@ -6462,6 +6469,10 @@ try {
     if (approachSequence) {
       assert.deepEqual(await run("[...window.observedApproach]"), approachSequence.map(([, , id]) => id));
     }
+    if (routeName === "sokal-ferran-rejects-lie") {
+      const ferranShot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "sokal-ferran-rejects-lie.png"), Buffer.from(ferranShot.data, "base64"));
+    }
     if (routeName === "new-phlan-tavern-brawl") {
       for (let page = 0; page < 2; page++) {
         await advance("enter");
@@ -6589,6 +6600,13 @@ try {
         assert.match(text(), /gatewaytotheunsettledareas/i);
         await waitForExplorationViewport();
         console.log("Verified the spirit's recall, castle departure, Phlan homecoming and WebGL return to play:", directory);
+      }
+      if (routeName === "sokal-ferran-rejects-lie") {
+        await waitForExplorationViewport();
+        await advance("j");
+        assert.ok(frame.journal?.leads.some(({ id }) => id === "sokal-ferran-lie"));
+        assert.ok(!frame.journal?.leads.some(({ id }) => id === "sokal-departure"));
+        await advance("j");
       }
       if (routeName === "textile-skullcrusher-chained") {
         const lockedShot = await command("Page.captureScreenshot", { format: "png" });
