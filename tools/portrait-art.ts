@@ -6,10 +6,16 @@ import { findGameRoot, listGameFiles, readGameFile } from "./gamedata.js";
 const pictureKey = /^portrait:(PIC\d+\.DAX):(\d{1,3}):(\d{1,3}):(\d{1,3})$/;
 const roamingZombieAnimationKey = /^portrait:area:10:ecl:(?:b56c|b58c|b695:caller:9f43):PIC4\.DAX:35:[0-4]:0$/;
 const riverLizardfolkDeltaKey = /^portrait:area:23:ecl:9f04:PIC7\.DAX:57:[1-3]:0$/;
-const unscopedPortraitDeltas = new Set([
+const verifiedPortraitDeltaKeys = new Set([
   "portrait:PIC3.DAX:29:1:0",
   "portrait:PIC7.DAX:45:1:0",
   "portrait:PIC7.DAX:45:2:0",
+  "portrait:area:10:ecl:b50b:PIC4.DAX:20:1:0",
+  "portrait:area:10:ecl:b50b:PIC4.DAX:20:2:0",
+  "portrait:area:22:ecl:a2f9:PIC7.DAX:62:1:0",
+  "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:1:0",
+  "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:2:0",
+  "portrait:area:25:ecl:a58b:caller:a1e5:PIC6.DAX:117:3:0",
 ]);
 export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(HEAD\d+\.DAX):(\d{1,3}):(BODY\d+\.DAX):(\d{1,3})$/;
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
@@ -486,21 +492,22 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
     const picture = decodePicture(record.data);
     if (picture.width !== size || picture.height !== size || Number(frame) >= picture.itemCount) continue;
     const pixels = frameSlice(picture, Number(frame));
-    if (!roamingZombieAnimationKey.test(key) && !riverLizardfolkDeltaKey.test(key) && !unscopedPortraitDeltas.has(key)) {
+    if (!roamingZombieAnimationKey.test(key) && !riverLizardfolkDeltaKey.test(key) && !verifiedPortraitDeltaKeys.has(key)) {
       register(pixels, key);
       continue;
     }
     // These native portraits redraw by XORing a change onto the first member.
     const baseRecord = members[0]!;
-    if (record.selector === undefined || record.selector !== baseRecord.selector) continue;
-    const phaseKey = (phase: number) => key.replace(/:\d+:0$/, `:${phase}:0`);
+    if (record.selector === undefined || baseRecord.selector === undefined) continue;
     if (Number(member) > 0) {
       const base = decodePicture(baseRecord.data);
-      if (base.width !== size || base.height !== size || base.itemCount !== 1) continue;
+      if (base.width !== size || base.height !== size || base.itemCount !== 1 || picture.itemCount !== 1 ||
+          base.x !== picture.x || base.y !== picture.y) continue;
       register(base.pixels.map((pixel, index) => pixel ^ pixels[index]!), key);
       continue;
     }
     register(pixels, key);
+    const phaseKey = (phase: number) => key.replace(/:\d+:0$/, `:${phase}:0`);
     for (const [phase, deltaRecord] of members.entries()) {
       if (phase === 0 || installed.has(phaseKey(phase)) || deltaRecord.selector !== record.selector) continue;
       const delta = decodePicture(deltaRecord.data);
@@ -553,7 +560,7 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
           for (let frame = 0; frame < picture.itemCount; frame++) {
             registerClassicSource(frameSlice(picture, frame), `portrait:${name}:${id}:${memberIndex}:${frame}`);
           }
-          if (memberIndex > 0 && base && member.selector === baseRecord?.selector &&
+          if (memberIndex > 0 && base && member.selector !== undefined &&
               base.width === size && base.height === size && base.itemCount === 1 && picture.itemCount === 1 &&
               base.x === picture.x && base.y === picture.y && picture.pixels.some(Boolean)) {
             // A compatible member can be a change XORed into the base.
