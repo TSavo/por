@@ -1946,6 +1946,7 @@ const illustrationRoutes = new Map([
       "up", "enter", "enter", "down"],
     approachStops: { 22: [48, 32, "encounter:area:22:ecl:a2c3:SPRIT7.DAX:15:0:0", 40, 73] },
     portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:57:BODY7.DAX:6", prompt: /THEYSMILEATYOU/i,
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:HEAD7.DAX:57:BODY7.DAX:6", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-human-fighters-surprise", {
     slot: "B", inputs: ["s", ...Array.from({ length: 12 }, () => ["up", "down"]).flat(), "up"],
@@ -1957,6 +1958,7 @@ const illustrationRoutes = new Map([
     slot: "B", inputs: ["s", ...Array.from({ length: 12 }, () => ["up", "down"]).flat(), "up", "enter", "down"],
     approachStops: { 27: [48, 32, "encounter:area:22:ecl:a2c3:SPRIT7.DAX:15:0:0", 40, 73] },
     portrait: "portrait:area:22:ecl:a2c3:HEAD7.DAX:54:BODY7.DAX:6", prompt: /THEYSMILEATYOU/i,
+    continuation: { inputs: ["c"], portrait: "portrait:area:22:ecl:a36f:HEAD7.DAX:54:BODY7.DAX:6", prompt: /ABATTLEBEGINS/i },
   }],
   ["tyrmor-thieves-surprise", {
     slot: "B", inputs: ["s", ...Array.from({ length: 9 }, () => ["up", "enter", "down"]).flat(), "up", "enter"],
