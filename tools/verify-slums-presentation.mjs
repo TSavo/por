@@ -9736,7 +9736,22 @@ try {
       return next.ready && next.journal?.trackedId === commission && next;
     });
     assert.match(frame.journal.objective.nextStep, /Climb Over Wall/);
-    for (const key of ["j", "c", "enter", "j"]) await advance(key);
+    for (const key of ["j", "c"]) await advance(key);
+    const wallEscape = "scene-illustration:area:28:ecl:aeeb";
+    assert.equal(frame.portrait, wallEscape);
+    assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+      /YOUCLIMBOVERTHEWALLANDLEAVETHEOUTPOST/i);
+    await waitFor("the Zhentil wall escape illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${wallEscape}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    const wallShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "zhentil-climb-wall-escape.png"), Buffer.from(wallShot.data, "base64"));
+    await switchBothWays(frame.frame);
+    await advance("enter");
+    assert.equal(frame.portrait, undefined);
+    await waitFor("the overland WebGL view outside Zhentil", () => run(`state.sequence === ${frame.sequence} &&
+      Boolean(document.querySelector("#tile-art:not([hidden]) .overland-viewport"))`));
+    await advance("j");
     assert.ok(frame.journal?.leads.some(({ id }) => id === "zhentil-envoy-left"));
     assert.equal(frame.journal.leads.find(({ id }) => id === commission)?.status, "ready-to-report");
     assert.match(frame.journal.objective.nextStep, /council clerk/);
