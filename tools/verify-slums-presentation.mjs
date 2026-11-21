@@ -353,14 +353,14 @@ const encounterRoutes = new Map([
   }],
   ["wild-cave-lizard-charge", {
     slot: "B", inputs: ["up", "enter"],
-    placement: [32, 32, "encounter:area:27:SPRIT8.DAX:59:0:0", 80, 80],
+    placement: [32, 32, "encounter:area:27:ecl:a4ca:SPRIT8.DAX:59:0:0", 80, 80],
     terrain: { area: 27, views: 3, patterns: 17 },
     approachSequence: [
-      [48, 32, "encounter:area:27:SPRIT8.DAX:59:2:0", 40, 57],
-      [48, 32, "encounter:area:27:SPRIT8.DAX:59:1:0", 48, 65],
-      [32, 32, "encounter:area:27:SPRIT8.DAX:59:0:0", 80, 80],
+      [48, 32, "encounter:area:27:ecl:a4c9:SPRIT8.DAX:59:2:0", 40, 57],
+      [48, 32, "encounter:area:27:ecl:a4c9:SPRIT8.DAX:59:1:0", 48, 65],
+      [32, 32, "encounter:area:27:ecl:a4ca:SPRIT8.DAX:59:0:0", 80, 80],
     ],
-    dialogue: { key: "enter", portrait: "portrait:area:27:PIC8.DAX:59:0:0", prompt: /FOURGIANTLIZARDSRUNUPANDATTACKTHEPARTY/i },
+    dialogue: { key: "enter", portrait: "portrait:area:27:ecl:a500:PIC8.DAX:59:0:0", prompt: /FOURGIANTLIZARDSRUNUPANDATTACKTHEPARTY/i },
   }],
   ["wild-cave-gnoll-approach", {
     slot: "B", inputs: ["up", "enter"],
