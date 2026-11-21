@@ -106,7 +106,10 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
   try {
     const debuggerPort = await waitFor("Chrome's debug port", () => {
       try { return readFileSync(join(profile, "DevToolsActivePort"), "utf8").split(/\r?\n/)[0]; }
-      catch (error) { if (error.code !== "ENOENT") throw error; }
+      catch (error) {
+        // Chrome can briefly lock this file while publishing the debug port.
+        if (error.code !== "ENOENT" && error.code !== "EBUSY") throw error;
+      }
     });
     const pages = await fetch(`http://127.0.0.1:${debuggerPort}/json/list`).then((response) => response.json());
     socket = new WebSocket(pages.find(({ type }) => type === "page").webSocketDebuggerUrl);
