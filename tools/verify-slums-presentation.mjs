@@ -3483,6 +3483,13 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:15:PIC2.DAX:25:0:0", prompt: /YOUFINDAFIGHTERWITHBATTEREDARMOR/i,
     continuation: { inputs: ["i"], portrait: "scene-illustration:area:15:ecl:9aeb", prompt: /HESCRAMBLESTOHISFEETANDFLEESTHEROOM/i },
   }],
+  ["mendor-floorboard-jar", {
+    slot: "B", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:15:ecl:99b5:caller:9962:cue:floorboard-jar",
+    prompt: /YOUSEEAJARUNDERTHEFLOORBOARDS/i,
+    finalPhaseCapture: "mendor-floorboard-jar.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /DOYOUTAKEIT/i },
+  }],
   ["mendor-ruined-desk", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:15:ecl:99c7:cue:ruined-desk", prompt: /HUMANBONESLIESCATTEREDABOUTADESK/i,
@@ -5853,7 +5860,7 @@ routes.push("textile-return-art", "moonsea-lizardman-travel", "moonsea-sokal-fre
   ...districtTravel.keys(), ...atlasRoutes.keys());
 routes.push("stojanow-wall-warning", "stojanow-wall-warning-reload");
 routes.push("kobold-cave-escort", "kobold-king-door", "kobold-king-door-reload");
-routes.push("mendor-manual-loot", "kobold-cave-efreeti-bottle-loot", "kobold-king-treasury", "kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
+routes.push("mendor-floorboard-jar-loot", "mendor-manual-loot", "kobold-cave-efreeti-bottle-loot", "kobold-king-treasury", "kobold-king-fall", "kobold-king-fall-reload", "kobold-king-return-throne", "kobold-king-leave-caves", "kobold-king-reward");
 routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier", "kobold-king-return-council-reload");
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
@@ -6026,7 +6033,7 @@ mkdirSync("out", { recursive: true });
 const outputDirectory = resolve(process.env.POR_PRESENTATION_OUTPUT_DIR || "out");
 mkdirSync(outputDirectory, { recursive: true });
 const directory = mkdtempSync(resolve(outputDirectory, "slums-presentation-"));
-const slot = (wideManualAim || norrisSurrenderReload ? "J" : (routeName === "tyrmor-journal-reload" || routeName === "kobold-king-treasury" || routeName === "mendor-manual-loot") ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
+const slot = (wideManualAim || norrisSurrenderReload ? "J" : (routeName === "tyrmor-journal-reload" || routeName === "kobold-king-treasury" || routeName === "mendor-manual-loot" || routeName === "mendor-floorboard-jar-loot") ? "B" : undefined) ?? atlasRoute?.slot ?? environment?.slot ?? ferry?.slot ?? encounterRoute?.slot ?? illustration?.slot ?? combatPose?.slot ?? reflectedEffect?.slot ?? (landing || norrisSurrender ? "J" : armory ? "D" : altar || plaza || infirmary || shrine || shrineReturn ? "I" : ogre ? "H" : dragon || halls || towerReload || dungeonSave || dungeonReload || falseTyranthraxus || alHyam || captiveCadorna || captiveReload || dungeonKitchen || scriptorium || mazeWatch || giantPatrol || dungeonSentry || castleChaplain || forgeSmith || castleRecords || castleScribe || castleReports || castleReportsReload || genheeris || assault || mystic || stojanow || trader || koboldCave || koboldGuide || princessFatima || mendorStacks || routeName === "slums-fortune" || routeName === "slums-potion-booth" || routeName.startsWith("old-phlan-seer") ? "B" : orcs || ending || smithy || sokalScout || restalGuide ? "C" : "A");
 const koboldKingDoor = routeName.startsWith("kobold-king-door");
 const koboldThroneReturn = routeName === "kobold-king-return-throne";
 const koboldCaveExit = routeName === "kobold-king-leave-caves";
@@ -9586,13 +9593,20 @@ try {
     for (const key of ["j", "n", "j"]) await advance(key);
     assert.ok(knows("kobold-efreeti-warning"));
     console.log("Verified the efreeti portrait and witnessed warning in Chrome.");
-  } else if (routeName === "kobold-cave-efreeti-bottle-loot" || routeName === "mendor-manual-loot") {
-    const manual = routeName === "mendor-manual-loot";
+  } else if (["kobold-cave-efreeti-bottle-loot", "mendor-manual-loot", "mendor-floorboard-jar-loot"].includes(routeName)) {
+    const rewards = {
+      "kobold-cave-efreeti-bottle-loot": ["portrait:area:13:ecl:a693:PIC1.DAX:1:0:0", "EFREETIBOTTLE", 1],
+      "mendor-manual-loot": ["portrait:area:15:ecl:ab92:PIC1.DAX:1:0:0", "MANUAL", 1,
+        "scene-illustration:area:15:ecl:99b5:caller:9962:cue:buried-book"],
+      "mendor-floorboard-jar-loot": ["portrait:area:15:ecl:a659:PIC1.DAX:1:0:0", "POTION", 3,
+        "scene-illustration:area:15:ecl:99b5:caller:9962:cue:floorboard-jar"],
+    };
+    const [portrait, item, count, discovery] = rewards[routeName];
     const text = () => frame.text.toSorted(([left], [right]) => left - right)
       .map(([, char]) => String.fromCharCode(char)).join("");
-    if (manual) {
+    if (discovery) {
       for (const key of ["s", "up"]) await advance(key);
-      assert.equal(frame.portrait, "scene-illustration:area:15:ecl:99b5:caller:9962:cue:buried-book");
+      assert.equal(frame.portrait, discovery);
       await advance("enter");
       assert.match(text(), /DOYOUTAKEIT/i);
       await advance("y");
@@ -9603,7 +9617,6 @@ try {
     await advance("enter");
     if (/PRESS<ENTER>.*TOCONTINUE/i.test(text())) await advance("enter");
     assert.match(text(), /VIEW.*TAKE.*POOL.*EXIT/i);
-    const portrait = manual ? "portrait:area:15:ecl:ab92:PIC1.DAX:1:0:0" : "portrait:area:13:ecl:a693:PIC1.DAX:1:0:0";
     assert.equal(frame.portrait, portrait);
     await waitFor("the illustrated reward", () => run(`
       state.sequence === ${frame.sequence} &&
@@ -9614,8 +9627,11 @@ try {
     const shot = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, routeName + ".png"), Buffer.from(shot.data, "base64"));
     await advance("t");
-    assert.match(text(), manual ? /LOOT.*MANUAL/i : /LOOT.*EFREETIBOTTLE/i);
-    await advance("enter");
+    for (let remaining = count; remaining > 0; remaining--) {
+      const loot = text().split(/LOOT/i).at(-1);
+      assert.equal([...loot.matchAll(new RegExp(item, "gi"))].length, remaining);
+      await advance("enter");
+    }
     assert.match(text(), /VIEWPOOLEXIT/i);
     await advance("e");
     assert.equal(frame.portrait, undefined);
