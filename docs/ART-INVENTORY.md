@@ -98,10 +98,12 @@ archive contents. The live routes establish which frames are drawn.
 **Global exact portrait and combat matches** lists original frames whose pixels
 already resolve to Enhanced artwork through the browser's matchers.
 **Composed portrait equivalents** lists compatible base-plus-delta frames
-that resolve to existing artwork in registered animation scopes. The
-`encounterCoverage[].composedPortraitMatches` entries include repeated deltas
-and empty deltas that reproduce the base. Replay a scene to establish
-which archive members the guest draws.
+that resolve to existing artwork. Scoped matches appear in
+`encounterCoverage[].composedPortraitMatches` and include repeated deltas
+and empty deltas that reproduce the base. Identical base and delta pairs
+that resolve through a global binding appear in `globalComposedPortraitMatches`.
+The campfire banks share one global flame phase. Chrome verified it in
+the Slums and Tyrmor through the original Encamp menu.
 Source IDs use the DAX block number, member, and frame. The JSON keeps the
 archive directory index separately for decoding the preview.
 The inventory at `722fa445` reports 833 source frames, including 26
