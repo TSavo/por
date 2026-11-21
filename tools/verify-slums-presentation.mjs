@@ -5520,6 +5520,12 @@ const controlledBattleIllustrations = new Map([
     portrait: "scene-illustration:area:10:ecl:ac52",
     caption: /9,1E.*INTHEMIDDLEOFADOORISAPANELOFAPOWERFULKNIGHTFIGHTINGSEVERALUNDEAD/i,
   }],
+  ["zhentil-garrison-aftermath", {
+    slot: "A", inputs: ["up", ...Array(5).fill("enter")],
+    reinforcements: [/ALARGEGROUPOFMENLEDBYTHECOMMANDANTRUSHFOWARDANDATTACK/i],
+    portrait: "scene-illustration:area:28:ecl:b5ec:cue:garrison-aftermath",
+    caption: /4,1N.*AFTERKILLINGTHECOMMANDANTTHERESTOFTHEOUTPOSTEITHERSURRENDERSORRUNSAWAY/i,
+  }],
 ]);
 const controlledBattleIllustration = controlledBattleIllustrations.get(routeName);
 routes.push(...controlledBattleIllustrations.keys());
@@ -7978,7 +7984,7 @@ try {
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified all five native roaming zombie portrait phases in Chrome:", directory);
   } else if (controlledBattleIllustration) {
-    const { inputs, portrait, caption, afterBattle = caption, walk = [] } = controlledBattleIllustration;
+    const { inputs, portrait, caption, afterBattle = caption, walk = [], reinforcements = [] } = controlledBattleIllustration;
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
     await run(`const sendCombatNoteKey = send; send = key => key === ":poll" ? undefined : sendCombatNoteKey(key);`);
     const step = async key => {
@@ -7987,18 +7993,21 @@ try {
       await advance(key);
     };
     for (const key of inputs) await step(key);
-    assert.equal(frame.developerVictoryAvailable, true);
-    await step(":win-combat");
-    for (let turn = 0; turn < 40 && !afterBattle.test(text()); turn++) {
-      const visible = text();
-      if (/ContinueBattle:YesNo|StillTreasureLeft/i.test(visible)) await step("n");
-      else if (/ViewTakePool(?:Share)?Exit/i.test(visible)) await step("e");
-      else if (/GuardDelayQuitSpeedExit/i.test(visible)) await step("g");
-      else if (/MoveViewAim/i.test(visible)) await step("d");
-      else if (/Move\/Attack/i.test(visible)) await step("escape");
-      else await step(/Hitpoints/i.test(visible) ? "space" : "enter");
+    for (const ending of [...reinforcements, afterBattle]) {
+      for (let prompt = 0; prompt < 15 && !frame.developerVictoryAvailable; prompt++) await step("enter");
+      assert.equal(frame.developerVictoryAvailable, true);
+      await step(":win-combat");
+      for (let turn = 0; turn < 40 && !ending.test(text()); turn++) {
+        const visible = text();
+        if (/ContinueBattle:YesNo|StillTreasureLeft/i.test(visible)) await step("n");
+        else if (/ViewTakePool(?:Share)?Exit/i.test(visible)) await step("e");
+        else if (/GuardDelayQuitSpeedExit/i.test(visible)) await step("g");
+        else if (/MoveViewAim/i.test(visible)) await step("d");
+        else if (/Move\/Attack/i.test(visible)) await step("escape");
+        else await step(/Hitpoints/i.test(visible) ? "space" : "enter");
+      }
+      assert.match(text(), ending);
     }
-    assert.match(text(), afterBattle);
     for (const key of walk) await step(key);
     assert.match(text(), caption);
     assert.equal(frame.portrait, portrait);
@@ -8035,6 +8044,15 @@ try {
       await step("enter");
       assert.match(text(), /VIEWTAKEPOOLEXIT/i);
       assert.equal(frame.portrait, "portrait:PIC1.DAX:1:0:0");
+    } else if (routeName === "zhentil-garrison-aftermath") {
+      const plate = await fetch(`${origin}/art/${portrait}`);
+      assert.ok(plate.ok);
+      assert.deepEqual(Buffer.from(await plate.arrayBuffer()), readFileSync("upgrades/zhentil-garrison-aftermath.png"));
+      await step("down");
+      await step("up");
+      assert.equal(frame.portrait, undefined);
+      assert.match(text(), /4,2S.*AREACASTVIEWENCAMP/i);
+      await waitForExplorationViewport();
     } else if (routeName === "valhingen-knight-door-relief") {
       await step("right");
       await step("up");
