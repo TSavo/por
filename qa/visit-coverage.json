@@ -256,6 +256,22 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "walk-commission-5-reward (qa/fixtures/walk-commission-5-reward, game/)": {
+   "areas": [
+    0,
+    2,
+    8,
+    26
+   ],
+   "commissions": [
+    "auction",
+    "sokal",
+    "textile"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
