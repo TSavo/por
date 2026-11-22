@@ -210,7 +210,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let livePosition: { x: number; y: number } | undefined;
   let developerVictoryAvailable = false;
   let activeEcl: number;
-  let gameMode: number;
+  let nativeOverland = false;
   let harborTicket: SokalQuay["ticket"] = "none";
   let explorationPosition: PresentationAnimationFrame["exploration"];
   let mappedPosition: ExploredPosition | undefined;
@@ -228,7 +228,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
 
   function captureEclContext(cpu: Cpu) {
     const dataSegment = unit.data;
-    gameMode = cpu.read8(dataSegment, data.gameState);
+    const gameMode = cpu.read8(dataSegment, data.gameState);
     nativeBattleActive = standalone && gameMode === 5;
     // Artwork is keyed by script positions in the first release's numbering.
     // The numbering is that of the script in memory, which a loaded game can bring from the other release.
@@ -240,6 +240,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     finalCouncilReward = false;
     baneCacheCue = undefined;
     const archive = cpu.read8(dataSegment, data.eclArchive), block = cpu.read8(dataSegment, data.eclBlock);
+    // A pause can show the overland map before the next keyboard poll updates the
+    // host's cached area and travel position. Read the same guest state as the draw.
+    nativeOverland = gameMode === 3 && block >= 25 && block <= 27 && captureOverlandTravel(cpu,
+      cpu.read16(dataSegment, data.eclGlobals + 2), cpu.read16(dataSegment, data.eclGlobals)) !== undefined;
     // The script waits for the typed word between "WHAT IS IT?" (a0bd) and "DO YOU REALLY MEAN" (a0cf).
     friendWordPrompt = archive === 8 && block === 16 && battleCursor > 0xa0bd && battleCursor <= 0xa0cf;
     const councilPayout = archive === 3 && block === 8 && battleCursor === 0x9f3f && portraitCaller === 0x9a4a;
@@ -595,7 +599,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const tileInventory: TileInventoryCell[] | undefined = traceTiles ? [] : undefined;
       const overlandScript = activeEcl >= 25 && activeEcl <= 27;
       // A wilderness approach keeps the map while the guest changes to the encounter menu.
-      const overlandEncounter = gameMode === 3 && overlandScript && travelPosition !== undefined &&
+      const overlandEncounter = nativeOverland &&
         (encounter !== undefined || menu === "COMBATWAITFLEEPARLAY");
       const phlanArrival = overlandScript ? identifyPhlanPrompt(dialogue, menu) : undefined;
       const sokalPrompt = activeEcl === 0 ? identifySokalPrompt(dialogue, menu, harborTicket) : undefined;
@@ -613,7 +617,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // guest is still on the overland screen, its menu hidden or replaced. Bundled data draws that screen
       // with blank pixels, which equal the blank scenery the guest drew last, so the pixels cannot tell
       // the map from a first-person view; the guest's own state can.
-      const overlandPrompt = gameMode === 3 && overlandScript && travelPosition !== undefined && !exploration && !iconEditor;
+      const overlandPrompt = nativeOverland && !exploration && !iconEditor;
       const overlandMap = overlandMenu || overlandEncounter || overlandPrompt;
       let perspective = false;
       let tileArea = area;
