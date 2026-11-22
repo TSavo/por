@@ -84,13 +84,15 @@ const encounterRoutes = new Map([
     placement: [48, 32, "encounter:area:29:ecl:a684:SPRIT8.DAX:0:0:0", 40, 80],
     approachSequence: [
       [56, 32, "encounter:area:29:ecl:a683:SPRIT8.DAX:0:1:0", 24, 65],
-      [56, 32, "encounter:area:29:ecl:a684:SPRIT8.DAX:0:1:0", 24, 65],
       [48, 32, "encounter:area:29:ecl:a684:SPRIT8.DAX:0:0:0", 40, 80],
     ],
     dialogue: {
       key: "down", portrait: "portrait:area:29:PIC8.DAX:0:0:0",
       prompt: /ASMALLBANDOFSICKLYKOBOLDS/i,
-      heldPortraitLoop: 3,
+      heldPortraitLoop: [
+        "portrait:area:29:PIC8.DAX:0:0:0",
+        ...[1, 2, 1].map(member => `portrait:area:29:ecl:af2f:caller:a6f7:PIC8.DAX:0:${member}:0`),
+      ],
     },
   }],
   ["buccaneer-pen-guard-gate", {

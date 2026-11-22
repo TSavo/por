@@ -15,7 +15,7 @@
         "route": "wild-cave-charging-lizard-dialogue",
         "data": "original",
         "portrait": "portrait:area:27:ecl:a501:PIC8.DAX:59:0:0",
-        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "rendererSha256": "a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06",
         "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "artSha256": "a211f90be83faec3332fd05bee60b4c8103b8fa6290ed1d34424b17b81a7d4aa"
       },
@@ -24,7 +24,7 @@
         "route": "wild-cave-charging-lizard-dialogue",
         "data": "port",
         "portrait": "portrait:area:27:ecl:a501:PIC8.DAX:59:0:0",
-        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "rendererSha256": "a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06",
         "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
         "artSha256": "a211f90be83faec3332fd05bee60b4c8103b8fa6290ed1d34424b17b81a7d4aa"
       }
