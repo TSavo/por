@@ -137,6 +137,8 @@ function mergePlayback(path: string): void {
   let leg = "";
   for (const line of lines) {
     if (line.t === "playback") { leg = line.leg; count.legs++; continue; }
+    // verify:narration-playback gives the player lines of its own to press keys over. They are no unit's.
+    if (!unitById.has(line.unitId)) continue;
     count.lines++;
     const verdict = playbackVerdict(line);
     const key = `${run} | ${leg} | ${line.id} | ${line.unitId}`;

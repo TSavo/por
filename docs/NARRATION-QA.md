@@ -107,8 +107,14 @@ The owner's design, from the manifest's policy and the page's key handling:
 - Audio attaches only to the trigger, covered prints do not retrigger, and the next narration
   queues after the current one (`policy` in `src/audio/voice-master-manifest.json`).
 - Enter or Space while a narration unit is sounding leaves it sounding: the press moves to the
-  next print, which is usually one the unit covers. Any other key stops the voice and empties the
-  queue (`keydown` in `tools/play.js`).
+  next print, which is usually one the unit covers.
+- Any other key ends the line only if the game acts on it. The page notes the screen when the key
+  goes to the game and ends the voice when the game's next frame differs (`keydown`, `send` and
+  `poll` in `tools/play.js`); the lines that were waiting at the key press go with it, and a
+  narration the game sends for the new screen plays next. A key that is never sent to the game
+  (Shift, the page's own M for the map) or that the game ignores (an arrow at "Press
+  <enter>/<return> to continue") leaves the narration and its queue alone. Until 2026-11-21 any
+  such key stopped the voice and emptied the queue.
 
 So the measure reads a line's end like this:
 

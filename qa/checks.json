@@ -216,7 +216,7 @@
     },
     {
       "id": "narration-playback",
-      "title": "Rolf's tour in Chrome, keys pressed as a player presses them, read from the page's playback log: each of the eight units started once, ran in real time to its full length with one artwork on screen, was not spoken twice, none overlapped, a covered print started nothing; Enter over a line let it run on and the next one wait; another key stopped it at once",
+      "title": "Rolf's tour in Chrome, keys pressed as a player presses them, read from the page's playback log: each of the eight units started once, at once, ran in real time to its full length with its passage's own artwork on screen from start to end, none overlapped; Enter over a sounding line lets it run on and the next ones wait their turn; a key the game ignores leaves the line and its queue alone; a key the game acts on ends it",
       "command": "npm run verify:narration-playback",
       "reference": "recorded-play",
       "needs": [

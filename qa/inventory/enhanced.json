@@ -318,7 +318,7 @@
             "narration-coverage",
             "narration-playback"
           ],
-          "gap": "The measure counts a unit only when Chrome's audio element played its recording to the end, and lists lines cut off, never started or overlapping; most units are still unplayed: see the table. Replays press through the page's send(), so their lines play late and prove only that a recording runs to its end. The direct check waits for each line on Rolf's tour only, and is red: the tour's passages have two recordings on one print (qa/findings.json, narration-rolf-tour-spoken-twice)."
+          "gap": "The measure counts a unit only when Chrome's audio element played its recording to the end, and lists lines cut off, never started or overlapping; most units are still unplayed: see the table. Replays press through the page's send(), so they prove only that a recording runs to its end. The direct check waits for each line on Rolf's tour only, and is red on a real defect: each line is spoken, and finished, before the frame with its passage and picture reaches the page (qa/findings.json, narration-sent-seconds-before-its-picture). The tour has no covered prints, so that a covered print starts nothing is not shown in Chrome."
         },
         {
           "id": "enhanced.narration-dynamic-variants",
