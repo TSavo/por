@@ -126,6 +126,34 @@ const places = [
     },
   },
   {
+    // No runes on screen here: the printed Journal's Entry 35 gives the tribal friend-word as an
+    // Espruar rune, a Dethek rune and the dashes path (SAVIOR, the wheel's question 9). The runner marks
+    // the prompt (codeWheelHint) and the wheel comes up with those runes on its card.
+    id: "friend-word", title: "The Lizardman Keep, the old lizard man's friend-word (Journal Entry 35)", script: ["ecl-8", 16],
+    runeInstructions: [], passage: ["a049", "a0bd"], words: [],
+    // Location 1 is (4,3). The old lizard man comes only to a party that freed his people (bit 1 of 4a52, ECL8 16 at 9f01).
+    travel: { archive: 8, block: 16, x: 4, y: 4, facing: 0, set: { 0x4a52: 1 } },
+    async reach(game) {
+      await game.key("ArrowUp");
+      await game.expect(/OLD LIZARDMAN APPEARS/, "The old lizard man meets the party at (4,3)");
+      for (let presses = 0; presses < 8 && !/\bParlay\b/i.test(await game.screenText()); presses++) await game.key("Enter");
+      await game.key("p");
+      for (let presses = 0; presses < 8 && !/WHAT IS IT\?/.test(await game.screenText()); presses++) {
+        await game.key(/HAUGHTY|SLY|NICE|MEEK|ABUSIVE/i.test(await game.screenText()) ? "n" : "Enter");
+      }
+      await game.expect(/WHAT IS IT\?/, "The old lizard man asks for the friend-word");
+    },
+    async answer(game) {
+      const card = await game.page('typeof codeWheel === "object" && codeWheel.question ? codeWheel.question.number : null');
+      assert.equal(card, 9, "The wheel's card shows Journal Entry 35's runes and path (question 9)");
+      await game.type("savior");
+      await game.key("Enter");
+      await game.expect(/DO YOU REALLY MEAN/, "The game asks to confirm the word");
+      await game.key("y");
+      await game.expect(/RECOGNIZES THE WORD/, "SAVIOR, read from the wheel, is accepted");
+    },
+  },
+  {
     id: "pyramid", title: "Yarash's pyramid, the sign over the door", script: ["ecl-7", 23],
     runeInstructions: ["a46a"], passage: ["a408", "a480"],
     words: [written("dethek", "NOKNOK", 21, 1)],
@@ -387,6 +415,8 @@ for (const place of places) {
     const printedFrom = [];
     const game = {
       screenText,
+      /** The page, for a place that checks the wheel's own state. */
+      page,
       /** A real key press on the page, given once the page has dealt with the one before. */
       async key(name) {
         await until("the page to be ready for a key", settled);
