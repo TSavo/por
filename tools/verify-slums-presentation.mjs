@@ -2754,6 +2754,16 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kobold-cave-steep-slope.png",
     continuation: { inputs: ["n"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-rubble-tumble", {
+    slot: "A", inputs: ["up"],
+    portrait: "scene-illustration:area:13:ecl:b511:caller:a986:cue:rubble-tumble",
+    prompt: /YOUTUMBLEDOWNASTEEP,LOOSESLOPE,MAKINGALOUDCLATTER/i,
+    finalPhaseCapture: "kobold-cave-rubble-tumble.png",
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:13:ecl:aa6d:cue:wyvern-ambush",
+      prompt: /THENOISEHASDISTURBEDSOMETHING.*AHUGEBEASTLANDSUPONYOU/i,
+    },
+  }],
   ["kobold-cave-steep-slope-climb", {
     slot: "B", inputs: ["up", "n", "up", "y", "enter"],
     portraitStops: { 3: "scene-illustration:area:13:ecl:a9ce:cue:steep-slope" },
