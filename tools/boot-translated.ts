@@ -93,6 +93,8 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const nativeCombat = input?.nativeCombat;
   const nativePicture = input?.nativePicture;
   const picturePresentation = nativePicture ? code.pictureMemberPresented : undefined;
+  const traceHeldPortrait = input?.traceHeldPortrait;
+  const heldPortraitClock = traceHeldPortrait ? code.heldPortraitClock : undefined;
   const headLoaded = nativePicture ? code.portraitHeadLoaded : undefined;
   const bodyLoaded = nativePicture ? code.portraitBodyLoaded : undefined;
   const portraitPresentation = nativePicture ? code.composedPortraitPresented : undefined;
@@ -127,8 +129,9 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         }
       }
       if (picturePresentation && at === picturePresentation.at && isAt(this, at, picturePresentation)) {
-        nativePicture?.presented(this);
+        input?.captureNativePicture?.(this);
       }
+      if (heldPortraitClock && at === heldPortraitClock.at && isAt(this, at, heldPortraitClock)) traceHeldPortrait?.(this);
       // The helper's own frame is still up here: its return address is the caller's.
       if (pictureLoop && at === code.pictureMemberPresented.at && isAt(this, at, code.pictureMemberPresented) &&
           this.read16(this.ss, (this.bp + 2) & 0xffff) === pictureLoop.at &&

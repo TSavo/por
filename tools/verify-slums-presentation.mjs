@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
+import { createHash } from "node:crypto";
 import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
@@ -7373,6 +7374,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
   stdio: ["ignore", "ignore", "inherit"],
 });
 let chrome;
+const heldPortraitEvidenceFile = process.env.POR_HELD_PORTRAIT_CHROME_TRACE;
+const heldPortraitEvidence = [];
 class GuestStopped extends Error {}
 
 async function latest() {
@@ -7589,6 +7592,32 @@ try {
       return Buffer.from(await response.arrayBuffer()).toString("base64");
     }));
     assert.equal(new Set(images).size, uniquePhases.length, "Every loop phase should display distinct artwork");
+    if (heldPortraitEvidenceFile) {
+      await run(`(() => {
+        const paints = [];
+        window.heldPortraitPaints = paints;
+        const first = performance.now();
+        function sample(now) {
+          if (state.sequence !== ${held.sequence} || now - first > 30000) return;
+          const image = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
+          if (image?.complete && image.naturalWidth === 352 && image.getBoundingClientRect().width > 0) {
+            const key = new URL(image.src).pathname.slice(5);
+            if (key !== paints.at(-1)?.key) paints.push({ key, atMs: now - first });
+          }
+          if (paints.length < ${2 * count + 2}) requestAnimationFrame(sample);
+        }
+        requestAnimationFrame(sample);
+      })()`);
+      const paints = await waitFor("two visible cycles at the held portrait", () =>
+        run(`window.heldPortraitPaints.length >= ${2 * count + 2} && window.heldPortraitPaints`));
+      heldPortraitEvidence.push({
+        route: routeName, data: held.classicAvailable === false ? "port" : "original",
+        portrait: held.portrait, paints,
+        sha256: Object.fromEntries(uniquePhases.map((path, index) => [
+          new URL(path).pathname.slice(5), createHash("sha256").update(images[index], "base64").digest("hex"),
+        ])),
+      });
+    }
     if (screenshotPrefix) {
       for (const [index, phase] of uniquePhases.entries()) {
         // A one-refresh transition is verified by the observer above.
@@ -15941,6 +15970,10 @@ try {
   }
   if (environmentTrace && existsSync(environmentTrace)) console.log("Environment tile trace:", environmentTrace);
   if (battleFrame) console.log(`Battlefield artwork trace (${battleFrame} frames):`, battleTrace);
+  if (heldPortraitEvidenceFile) {
+    assert.ok(heldPortraitEvidence.length, "The replay did not visit a held portrait loop");
+    writeFileSync(heldPortraitEvidenceFile, JSON.stringify(heldPortraitEvidence, null, 2) + "\n");
+  }
 } finally {
   socket?.close();
   chrome?.kill();

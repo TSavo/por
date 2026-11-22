@@ -363,6 +363,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   }
   const nativePicture = browser && standalone && pictures && (portraitKeys.length || characterSheetKeys.length)
     ? observeNativePictureArt(new Set(portraitKeys), new Set(characterSheetKeys), pictures, perspectivePixels) : undefined;
+  const heldPortraitTrace = browser ? process.env.POR_HELD_PORTRAIT_TRACE : undefined;
+  const pictureObserver = nativePicture ?? (heldPortraitTrace
+    ? observeNativePictureArt(new Set(), new Set(), pictures ?? [], perspectivePixels) : undefined);
+  let lastPortraitDraw: ReturnType<NonNullable<typeof pictureObserver>["presented"]>;
   const nativeEncounter = browser && standalone && pictures && hasEncounterArtwork
     ? observeNativeEncounterArt(encounterPlacements, perspectivePixels, pictures) : undefined;
   let codeWheelQuestion: number | undefined;
@@ -1099,7 +1103,25 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     nativeCombat,
     nativeSelection,
     nativeBattleTerrain,
-    nativePicture,
+    nativePicture: pictureObserver,
+    captureNativePicture: pictureObserver ? (cpu: Cpu) => {
+      lastPortraitDraw = pictureObserver.presented(cpu);
+    } : undefined,
+    traceHeldPortrait: heldPortraitTrace ? (cpu: Cpu) => {
+      if (!lastPortraitDraw) return;
+      const segment = cpu.read16(unit.data, data.eclGlobals + 2);
+      if (!segment) return;
+      const offset = cpu.read16(unit.data, data.eclGlobals);
+      const cursor = authoredScriptPosition(cpu, cpu.read16(unit.data, data.eclCursor));
+      const callerSegment = cpu.read16(unit.data, data.eclReturn + 2);
+      const caller = callerSegment ? authoredScriptPosition(cpu,
+        cpu.read16(callerSegment, cpu.read16(unit.data, data.eclReturn))) : undefined;
+      appendFileSync(heldPortraitTrace, JSON.stringify({
+        area: cpu.read16(segment, offset + eclGlobalOffset(0x49f2)), cursor, caller,
+        ...lastPortraitDraw, finishedAtMs: (cpu.dx * 65536 + cpu.ax) * 10,
+        viewport: createHash("sha256").update(perspectivePixels()).digest("hex"),
+      }) + "\n");
+    } : undefined,
     nativeEncounter,
     nativeEffects,
     resetBattleTerrain() {

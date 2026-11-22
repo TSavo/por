@@ -167,3 +167,22 @@ Saves from the first release are not a supported player feature. A replay for 1.
 Run `node tools/verify-slums-presentation.mjs <checkpoint> <chrome> lizardman-keep-west-approach` with the local GOG 1.3 `parallel-lizard-lower-43421-A.json` checkpoint. Despite its filename, the party starts on the surface, map 16.
 
 The route walks and turns through ten distinct surface views. Chrome checked all 121 fallback cell bindings per sampled frame, the live WebGL viewport, and display switching against both bundled 1.3 data and the original GOG 1.3 files. The final exploration viewport matched pixel for pixel. The catacomb descent and map 30 require a separate replay.
+
+## Held portrait timing
+
+Set `POR_HELD_PORTRAIT_TRACE` to a new JSONL path before running a GOG 1.3
+checkpoint replay. At a held menu the runner waits for the next command.
+Send `:travel-poll` to the runner pipe to let the native menu poll
+without a key. The trace records each completed member, its guest clock,
+the area and script position, and a hash of the visible viewport.
+Use `node --import tsx tools/read-held-portrait-trace.ts <trace.jsonl>`
+to extract cycles seen twice. The trace contains hashes and timing only.
+
+Run the corresponding presentation replay with
+`POR_HELD_PORTRAIT_CHROME_TRACE` set to an output JSON path. Run once
+with `POR_GAME_SOURCE=original` and the GOG 1.3 files, and once with
+`POR_GAME_SOURCE=port`. A passing replay records two decoded cycles
+sampled at browser refreshes during the same guest input wait. Save
+the native cycle output as JSON and compare the three files with
+`node --import tsx tools/verify-held-portrait-paint.ts <native cycles.json> <scene> <original Chrome.json> <port Chrome.json>`.
+The two held-menu traces are independent of the Enhanced timing table.

@@ -125,9 +125,10 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
       if (holds.get(`${picture.archive}:${picture.block}:${picture.member}`) === "previous" && visible && "picture" in visible &&
           visible.picture.archive === picture.archive && visible.picture.block === picture.block && visible.pixels.equals(pixels)) {
         visible.mark = viewportMark();
-        return;
+        return picture;
       }
       visible = { picture, pixels, mark: viewportMark() };
+      return picture;
     },
     partLoaded(cpu: Cpu, isHead: boolean) {
       const slot = isHead ? data.portraitHead : data.portraitBody;

@@ -318,6 +318,8 @@ export const code = resolve({
   pictureMemberRelease: { "1.0": { slice: 0x1d, at: 0x495 }, "1.3": { slice: 0x1c, at: 0x4ca } },
   /** The animated picture helper returns after presenting one selected member. */
   pictureMemberPresented: { "1.0": { slice: 0x1d, at: 0x4c }, "1.3": { slice: 0x1c, at: 0x4c } },
+  /** The held-menu routine reads the DOS clock after finishing an animation member. */
+  heldPortraitClock: { "1.0": undefined, "1.3": { slice: 25, at: 0x52a } },
   /**
    * Where the castle ending's animation loop (slice 18 procedure 6 in 1.3) resumes after the helper
    * above has drawn a frame. The loop plays the FINAL pictures of Tyranthraxus leaving through the
