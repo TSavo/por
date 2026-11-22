@@ -88,7 +88,7 @@ const portraitLoops = [
   ["portrait:area:4:ecl:a36b:PIC5.DAX:56:", [0, 1, 0, 3], "portrait:area:4:PIC5.DAX:56:0:0",
     /^(?=.*(?:THEGIANTSLOOKUPATYOU|GETEM))(?=.*COMBATWAITFLEEPARLAY)|GETLOSTWIMP.*BEATITBEATTHEMGETIT/i, [210, 210, 210, 210]],
   ["portrait:area:4:ecl:a289:PIC5.DAX:56:", [0, 1, 0, 3], undefined,
-    /^(?!.*ABATTLEBEGINS).*THEYCOMERUNNINGTOWARDYOU.*COMBATWAITFLEEPARLAY/i, [210, 210, 210, 210]],
+    /^(?!.*ABATTLEBEGINS)(?=.*THEYCOMERUNNINGTOWARDYOU)(?=.*COMBATWAITFLEEPARLAY)/i, [210, 210, 210, 210]],
   ["portrait:area:4:ecl:9a5a:caller:a7a7:PIC5.DAX:73:", 2, "portrait:PIC5.DAX:73:0:0",
     /YOUENTERAROOMTHATREEKSOFSMOKEANDBURNEDFOOD/i, [1510, 510]],
   ["portrait:area:4:ecl:9a5a:caller:a862:PIC5.DAX:73:", 2, undefined,
