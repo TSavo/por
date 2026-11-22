@@ -763,9 +763,9 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
       if (pauseLog) {
         const source = setting("POR_GAME_SOURCE") === "port" ? "port" : "original";
         const walk = setting("POR_PAUSE_WALK") ?? basename(process.argv[1] ?? "harness");
-        for (const { returns, via, rows, message, shown, missing, pageHad } of pauses) {
+        for (const { returns, via, rows, message, shown, missing, pageHad, host } of pauses) {
           if (!message.length) continue;
-          appendFileSync(pauseLog, JSON.stringify({ walk, source, returns, via, text: rows, shown, ...(shown ? {} : { missing, pageHad }) }) + "\n");
+          appendFileSync(pauseLog, JSON.stringify({ walk, source, returns, via, text: rows, shown, ...(shown ? {} : { missing, pageHad, host }) }) + "\n");
         }
       }
     },

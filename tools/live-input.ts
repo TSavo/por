@@ -323,6 +323,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let approachClipMs = 0;
   /** The text of the last frame put in the animation or sent to the page. */
   let presentedText = "";
+  /** What capturePresentationDelay last did with a pause, for POR_TRACE_PAUSES (#81). */
+  let pauseOutcome = "";
   let immediateStrike: { signature: string; clip: PresentationAnimationFrame } | undefined;
   // The palette registers as the last picture sent to the page showed them, the last picture held in
   // colours the game set for a pause, and the screen's write mark when the game last set a colour (#82).
@@ -1361,9 +1363,11 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // game speed times 225 ms, where it held each for 120 ms (#129).
       // Only while the screen is still that picture: once the game has drawn something else, the
       // pause holds that (#164).
+      pauseOutcome = "nothing";
       if (pauseMs !== undefined && approachClip && animation.at(-1) === approachClip && presentedText === JSON.stringify(visibleGameText())) {
         approachClipMs += pauseMs;
         approachClip.durationMs = approachClipMs;
+        pauseOutcome = "held the last picture";
         return;
       }
       const draw = effectDelay ? pendingEffect : undefined;
@@ -1373,9 +1377,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         // before the game next asks for a key. Without this frame the player never sees it.
         captureEclContext(cpu);
         showFrame(undefined, undefined, false, false, messageMs, undefined, false, "status");
+        pauseOutcome = "status";
         return;
       }
-      if (scene) return;
+      if (scene) {
+        pauseOutcome = "scene";
+        return;
+      }
+      if (draw) pauseOutcome = "effect";
       if (draw) {
         const { x, y, background } = draw;
         const key = draw.key ?? matchCombatEffect(screen, x, y, background);
@@ -1450,7 +1459,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         .sort(([a], [b]) => a - b);
       const report = reportGlyphs.map(([cell, char]) => `${cell}:${char}`).join(",");
       const newReport = report.length > 0 && report !== lastCombatReport;
-      if (queueFull && !newReport) return;
+      if (queueFull && !newReport) {
+        pauseOutcome = "queue full";
+        return;
+      }
       // These captions can clear within a single input.
       const kovelIllustration = area === 14 && (battleCursor === 0xa238 || battleCursor === 0x9e63 ||
         battleCursor === 0x9d52 || battleCursor === 0xa2d9 || battleCursor === 0xa585 || battleCursor === 0xa6a5 ||
@@ -1462,6 +1474,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         (portraitCaller === 0xa891 || portraitCaller === 0x9a4a);
       if (!queueFull && (kovelIllustration || mendorReading || koboldTruce || councilClosing)) {
         showFrame(undefined, undefined, false, false, 1200, undefined, true);
+        pauseOutcome = "illustration";
         return;
       }
       const placements = combatPlacements(battlefield);
@@ -1484,9 +1497,12 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
               ? [x, y, wandPose, reflected, selected, width, height] : placement;
           }) : placements;
         showFrame(undefined, actionArt, false, false, 1000, undefined, false, "combat");
+        pauseOutcome = "report";
       } else if (signature && signature !== lastAttack) {
         showFrame(undefined, placements);
+        pauseOutcome = "strike";
       } else if (!signature && !report && area !== undefined) {
+        pauseOutcome = "approach";
         const before = animation.length;
         showFrame(undefined, undefined, true);
         // Whatever else a pause outside a fight leaves on screen (the party walked on between the
@@ -1494,6 +1510,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         // stands, for as long as the game pauses, unless the page has it already (#164, #81).
         if (animation.length === before && pauseMs !== undefined && !battlefield && presentedText !== JSON.stringify(visibleGameText())) {
           showFrame(undefined, undefined, false, false, pauseMs, undefined, false, "picture");
+          pauseOutcome = "picture";
           // A further pause on the same screen holds it longer, as for an approach.
           approachClip = animation.at(-1);
           approachClipMs = pauseMs;
@@ -1502,6 +1519,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       lastCombatReport = report;
       lastAttack = signature;
     } : undefined,
+    /** What the last pause led to: a picture for the page, a held one, or nothing (POR_TRACE_PAUSES). */
+    pauseOutcome: () => pauseOutcome,
     openJournal,
     enterDiskMenu: () => { diskMenuDepth++; },
     leaveDiskMenu: () => { diskMenuDepth--; },
