@@ -442,11 +442,20 @@ function checkExplorationGlyphMask(): void {
   for (const [source, destination] of [[29, 18], [22, 23], [23, 22]] as const) {
     const sourceKey = `tile:${source}:${tile.hash}`;
     const destinationKey = `tile:${destination}:${tile.hash}`;
-    const transitionArtwork = new Map([[sourceKey, { file: "source.png" }], [destinationKey, { file: "destination.png" }]]);
+    const skyHash = sha256(Buffer.alloc(64, scene.skyColor));
+    const groundHash = sha256(Buffer.alloc(64, scene.groundColor));
+    const transitionArtwork = new Map([sourceKey, destinationKey,
+      `tile:${source}:${skyHash}`, `tile:${destination}:${skyHash}`,
+      `tile:${source}:${groundHash}`, `tile:${destination}:${groundHash}`,
+    ].map(key => [key, { file: key }] as const));
     const arrival = buildExplorationMaterials({ ...scene, area: source, mapId: destination }, transitionArtwork);
     strictEqual(arrival.wallFaces[0]?.parts[0]?.art?.key, destinationKey, "The destination map uses its own art during the handoff");
     const departure = buildExplorationMaterials({ ...scene, area: source, mapId: source }, transitionArtwork);
     strictEqual(departure.wallFaces[0]?.parts[0]?.art?.key, sourceKey, "The source map uses its own art before the handoff");
+    strictEqual(arrival.sky.key, `tile:${destination}:${skyHash}`, "The destination supplies the arrival sky");
+    strictEqual(arrival.ground.key, `tile:${destination}:${groundHash}`, "The destination supplies the arrival ground");
+    strictEqual(departure.sky.key, `tile:${source}:${skyHash}`, "The source supplies the departure sky");
+    strictEqual(departure.ground.key, `tile:${source}:${groundHash}`, "The source supplies the departure ground");
   }
 }
 
