@@ -168,6 +168,21 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "visit-mendors-library (qa/fixtures/visit-mendors-library, game/)": {
+   "areas": [
+    0,
+    2,
+    8,
+    15,
+    26
+   ],
+   "commissions": [
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
