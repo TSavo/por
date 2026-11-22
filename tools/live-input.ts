@@ -1021,7 +1021,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const width = cpu.read16(segment, offset + 2);
       if (argument(8) !== 5 || row > 18 || column > 18 || width < column + 3 ||
           cpu.read16(segment, offset) < row * 8 + 24) return;
-      const key = scratchPicture ? nativeEffects?.draw(argument(10)) : undefined;
+      const key = scratchPicture ? nativeEffects?.draw(argument(10))
+        : nativeEffects?.drawDirect(cpu, argument(4), argument(6), argument(10));
       if (nativeEffects && !key) return;
       const planeMasks = Array.from({ length: 4 }, (_, plane) => cpu.read8(cpu.ds, data.planeMasks + plane) & 15);
       const background = new Uint8Array(24 * 24);

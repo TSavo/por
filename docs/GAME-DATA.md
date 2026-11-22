@@ -148,8 +148,9 @@ cells and its return to the active actor when Manual Aim closes.
 
 Standalone projectile and impact art follows the guest's COMSPR loads,
 scratch-frame copies and draw coordinates. The oil-flask Chrome replay
-checks all four art variants and removal after the attack in both data
-modes. Death markers still use the original pixel matcher.
+checks all four art variants and the defeat marker in both data modes.
+Standalone identifies the marker by its source pointer in the combat
+picture cache. Both effects clear after playback.
 
 In standalone mode, the PIC animation loader supplies the archive, block and
 member for each native picture allocation. The renderer resolves existing

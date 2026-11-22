@@ -1,4 +1,5 @@
 import type { Cpu } from "../src/cpu/machine.js";
+import { data } from "../src/runtime/bindings.js";
 
 // These authored variants have the same source pixels as the mirrored blocks.
 const mirrorAliases = new Map<number, string>([
@@ -32,6 +33,17 @@ export function observeNativeCombatEffects(art: ReadonlySet<string>) {
       if (art.has(key)) scratch.set(frame, key);
     },
     draw(frame: number) { return scratch.get(frame); },
+    drawDirect(cpu: Cpu, offset: number, segment: number, frame: number) {
+      if (frame !== 0 || (!offset && !segment)) return;
+      for (const [slot, ready] of slots) {
+        for (let pose = 0; pose < 2; pose++) {
+          const pointer = data.combatPictureSlots + slot * 8 + pose * 4;
+          if (cpu.read16(cpu.ds, pointer) !== offset || cpu.read16(cpu.ds, pointer + 2) !== segment) continue;
+          const key = `combat-effect:COMSPR.DAX:${ready + pose * 128}`;
+          return art.has(key) ? key : undefined;
+        }
+      }
+    },
     reset() { scratch.clear(); },
   };
 }

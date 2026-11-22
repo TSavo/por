@@ -7035,7 +7035,7 @@ routes.push("new-phlan-council-reflected-effects", "textile-reflected-arrow");
 const partyDefeatEffect = routeName === "valjevo-party-defeat-effect";
 const defeatEffect = partyDefeatEffect || routeName === "buccaneer-pen-defeat-effect";
 const projectile = {
-  "buccaneer-oil-flask": { phases: ["4", "4:flip-x", "4:transpose", "132"], damage: 10, quickTurns: 1 },
+  "buccaneer-oil-flask": { phases: ["4", "4:flip-x", "4:transpose", "132"], damage: 10, quickTurns: 1, death: [104, 104] },
   "buccaneer-sling-shot": { phases: ["8", "136"], damage: 5 },
   "buccaneer-arrow-down": { phases: ["128"], damage: 3, archer: "ALDA",
     inputs: ["m", "pageup", "right", "enter", "a", "n", "n", "t"], launch: [80, 56], landing: [80, 104] },
@@ -8114,6 +8114,12 @@ try {
       const ids = projectile.phases.map(phase => `combat-effect:COMSPR.DAX:${phase}`);
       const flight = (frame.animation ?? []).filter(({ combatEffect }) => ids.includes(combatEffect?.[2]));
       const placements = flight.map(({ combatEffect }) => combatEffect);
+      const deathKey = "combat-effect:COMSPR.DAX:11";
+      const death = projectile.death ? (frame.animation ?? []).filter(({ combatEffect }) => combatEffect?.[2] === deathKey) : [];
+      if (projectile.death) {
+        assert.deepEqual(death.map(({ combatEffect }) => combatEffect), [[...projectile.death, deathKey]]);
+        assert.equal(death[0].durationMs, 110);
+      }
       assert.equal(frame.combatEffect, undefined);
       assert.equal(placements.length, 6);
       assert.deepEqual(placements[0], [...(projectile.launch ?? [56, 56]), ids[0]]);
@@ -8127,7 +8133,7 @@ try {
       if (!projectile.archer) assert.ok(reports.some(text => /BUCCANEERGOESDOWNANDISDYING/i.test(text)));
       await waitFor("the projectile playback and cleanup", () => run(`state.sequence === ${frame.sequence} &&
         !animationFrame && !document.querySelector(".combat-effect") &&
-        ${JSON.stringify(placements)}.every(([x, y, id]) => window.observedEffects.some(effect =>
+        ${JSON.stringify([...placements, ...death.map(({ combatEffect }) => combatEffect)])}.every(([x, y, id]) => window.observedEffects.some(effect =>
           effect.source === "/art/" + id && Math.abs(effect.left - x / 3.2) < 0.01 &&
           Math.abs(effect.top - y / 2) < 0.01 && effect.aboveActors))`));
       await switchBothWays(frame.frame);
