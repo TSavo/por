@@ -2,28 +2,28 @@
  "schema": 2,
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",
  "done": "The confirmed worklist is clear when npm run verify:art-worklist reports 0 remaining and no invalid tile artwork. The artwork is done when, as well, nothing is left under notEstablished.",
- "remaining": 2178,
+ "remaining": 2172,
  "totals": {
-  "Remaining, all kinds": 2178,
-  "First-person cells to do": 2178,
-  "  of which one stored tile": 478,
+  "Remaining, all kinds": 2172,
+  "First-person cells to do": 2172,
+  "  of which one stored tile": 472,
   "  of which one tile over a solid colour": 232,
   "  of which plain sky or ground": 0,
   "  of which several tiles together": 1468,
   "  of which the same pixels already have art of yours in another area": 791,
   "Battlefield cells to do": 0,
-  "Tile keys in the manifests": 4003,
-  "  accounted for by the tool": 3858,
+  "Tile keys in the manifests": 4038,
+  "  accounted for by the tool": 3893,
   "Battlefield keys in the manifests": 83,
   "  that are one stored cell of a battlefield picture": 78,
   "Stored 8 by 8 tiles": 3016,
   "  blank": 9,
   "  distinct pictures among the rest": 1333,
-  "  with art in some area, alone or over a solid colour": 2293,
-  "  without (the catalogue's 720 when it was written)": 714,
+  "  with art in some area, alone or over a solid colour": 2299,
+  "  without (the catalogue's 720 when it was written)": 708,
   "    of those, no map can show": 447,
   "    of those, shown only together with other tiles, never alone": 10,
-  "    of those, shown alone in some area": 257
+  "    of those, shown alone in some area": 251
  },
  "notEstablished": {
   "first-person cells that show a sky or ground colour no existing artwork of the area shows": 4060,
@@ -88,15 +88,15 @@
    "area": 2,
    "name": "Cadorna Textile House",
    "established": true,
-   "why": "all 259 cells that have artwork are among the cells the tool works out",
+   "why": "all 278 cells that have artwork are among the cells the tool works out",
    "maps": [
     2
    ],
    "wallSets": [
     "WALLDEF4 block 1 (tiles 8X8D4 block 1), block 3 (tiles 8X8D4 block 3), block 20 (tiles 8X8D4 block 20)"
    ],
-   "existingKeys": 259,
-   "existingKeysAccountedFor": 259,
+   "existingKeys": 278,
+   "existingKeysAccountedFor": 278,
    "existingKeysOnlyAsArrivalViews": 5,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 580,
@@ -105,7 +105,8 @@
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 179,
     "cells of the overhead area view, which no existing artwork of the area confirms": 19
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 19
   },
   {
    "area": 3,
@@ -402,24 +403,25 @@
    "area": 10,
    "name": "Valhingen Graveyard",
    "established": true,
-   "why": "all 419 cells that have artwork are among the cells the tool works out",
+   "why": "all 435 cells that have artwork are among the cells the tool works out",
    "maps": [
     10
    ],
    "wallSets": [
     "WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)"
    ],
-   "existingKeys": 419,
-   "existingKeysAccountedFor": 419,
+   "existingKeys": 435,
+   "existingKeysAccountedFor": 435,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
    "cellsTheViewsCanShow": 2452,
-   "cellsWithArt": 419,
-   "toDo": 471,
+   "cellsWithArt": 425,
+   "toDo": 465,
    "notEstablished": {
     "cells that show a sky or ground colour no existing artwork of the area shows": 1543,
     "cells of the overhead area view, which no existing artwork of the area confirms": 19
-   }
+   },
+   "existingKeysOnlyAsWallMaterials": 10
   },
   {
    "area": 11,
@@ -23611,29 +23613,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:10:3294d1228c282d717bba853b99084c6e11e9bf41159982a6969ad9bae7ed6189",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 212",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:212:67",
-   "description": "8X8D4 block 212 tile 67, shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 8,
-    "y": 4,
-    "facing": "east",
-    "column": 4,
-    "row": 7
-   },
-   "views": 36,
-   "drawnIn": [],
-   "why": "drawn in 36 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:10:3322958172d0b30c8d9fb328e276e8eb42f9f550e6a6675e5482bf26ac1db46b",
    "width": 32,
    "height": 32,
@@ -24301,29 +24280,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:10:5ab3e92e7ad47e6456ff517db6fac3f65d2f7b1a884d2739b0acfa346c54550e",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 212",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:212:66",
-   "description": "8X8D4 block 212 tile 66, shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 8,
-    "y": 4,
-    "facing": "east",
-    "column": 5,
-    "row": 6
-   },
-   "views": 12,
-   "drawnIn": [],
-   "why": "drawn in 12 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:10:5c65a76301e67a8418be9aa2bf81575aeb8be47e34837d446cd6042f5b3e798c",
    "width": 32,
    "height": 32,
@@ -24804,29 +24760,6 @@
    "views": 2,
    "drawnIn": [],
    "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:7544b26a5fa5846175ee352b9ae0722f90a0446696005757e252e838b6a8e443",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 212",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:212:53",
-   "description": "8X8D4 block 212 tile 53, shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 8,
-    "y": 3,
-    "facing": "east",
-    "column": 10,
-    "row": 7
-   },
-   "views": 16,
-   "drawnIn": [],
-   "why": "drawn in 16 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -25428,29 +25361,6 @@
   },
   {
    "kind": "first-person cell",
-   "key": "tile:10:8c4c97968d37745643ee968139de07bc5a54899d8cc073311ae5e2f7fd3d0b37",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 212",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:212:50",
-   "description": "8X8D4 block 212 tile 50, shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 8,
-    "y": 4,
-    "facing": "east",
-    "column": 4,
-    "row": 6
-   },
-   "views": 12,
-   "drawnIn": [],
-   "why": "drawn in 12 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
    "key": "tile:10:8d02cb32dce1a61446e794f01ff1c51581aa8100be9e1a06ed9f36dae5a3c8d4",
    "width": 32,
    "height": 32,
@@ -25471,29 +25381,6 @@
    "views": 2,
    "drawnIn": [],
    "why": "drawn in 2 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:8df9faea40ec43521411de53d0b5dc56a5098b33e20d0f0215e851d184e0b034",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 212",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:212:24",
-   "description": "8X8D4 block 212 tile 24, shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 0,
-    "y": 4,
-    "facing": "west",
-    "column": 5,
-    "row": 6
-   },
-   "views": 13,
-   "drawnIn": [],
-   "why": "drawn in 13 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",
@@ -25632,29 +25519,6 @@
    "views": 1,
    "drawnIn": [],
    "why": "drawn in 1 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
-  },
-  {
-   "kind": "first-person cell",
-   "key": "tile:10:92ae0e39135b8cf9631ffa677eaa652a3be312cd4767132fc0f9f3e24f8cfc9c",
-   "width": 32,
-   "height": 32,
-   "area": 10,
-   "areaName": "Valhingen Graveyard",
-   "group": "tile set 8X8D4 block 212",
-   "what": "one stored tile",
-   "composition": "-|8X8D4.DAX:212:51",
-   "description": "8X8D4 block 212 tile 51, shown in area 10 (Valhingen Graveyard)",
-   "seenAt": {
-    "map": 10,
-    "x": 8,
-    "y": 4,
-    "facing": "east",
-    "column": 6,
-    "row": 6
-   },
-   "views": 12,
-   "drawnIn": [],
-   "why": "drawn in 12 views of map 10 (WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20)) from squares connected to ones the existing artwork covers"
   },
   {
    "kind": "first-person cell",

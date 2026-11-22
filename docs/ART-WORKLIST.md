@@ -1,6 +1,6 @@
 # Artwork worklist
 
-**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 2178 confirmed cells awaiting art now.**
+**The artwork is done when `npm run verify:art-worklist` reports 0 remaining and nothing is left under "Not established". It reports 2172 confirmed cells awaiting art now.**
 
 This file is written by `npm run art:worklist`. Do not edit it or `qa/art-worklist.json` by hand: add art, run the tool, commit what it writes.
 
@@ -48,26 +48,26 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 
 | What | Count |
 | --- | ---: |
-| Remaining, all kinds | 2178 |
-| First-person cells to do | 2178 |
-|   of which one stored tile | 478 |
+| Remaining, all kinds | 2172 |
+| First-person cells to do | 2172 |
+|   of which one stored tile | 472 |
 |   of which one tile over a solid colour | 232 |
 |   of which plain sky or ground | 0 |
 |   of which several tiles together | 1468 |
 |   of which the same pixels already have art of yours in another area | 791 |
 | Battlefield cells to do | 0 |
-| Tile keys in the manifests | 4003 |
-|   accounted for by the tool | 3858 |
+| Tile keys in the manifests | 4038 |
+|   accounted for by the tool | 3893 |
 | Battlefield keys in the manifests | 83 |
 |   that are one stored cell of a battlefield picture | 78 |
 | Stored 8 by 8 tiles | 3016 |
 |   blank | 9 |
 |   distinct pictures among the rest | 1333 |
-|   with art in some area, alone or over a solid colour | 2293 |
-|   without (the catalogue's 720 when it was written) | 714 |
+|   with art in some area, alone or over a solid colour | 2299 |
+|   without (the catalogue's 720 when it was written) | 708 |
 |     of those, no map can show | 447 |
 |     of those, shown only together with other tiles, never alone | 10 |
-|     of those, shown alone in some area | 257 |
+|     of those, shown alone in some area | 251 |
 
 ## Where each area stands
 
@@ -75,7 +75,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | ---: | --- | --- | ---: | ---: | ---: | ---: |
 | 0 | New Phlan | yes | 406 | 248 | 60 | 261 of 261 (3 as first views of the next area, 10 as WebGL wall materials) |
 | 1 | Buccaneer Base | yes | 385 | 129 | 52 | 129 of 129 |
-| 2 | Cadorna Textile House | yes | 580 | 254 | 128 | 259 of 259 (5 as first views of the next area) |
+| 2 | Cadorna Textile House | yes | 580 | 254 | 128 | 278 of 278 (5 as first views of the next area, 19 as WebGL wall materials) |
 | 3 | Valjevo Castle | not yet | 300 | 74 |  | 74 of 81 |
 | 4 | Valjevo Castle | yes | 320 | 59 | 58 | 59 of 59 |
 | 5 | Valjevo Castle | not yet | 393 | 49 |  | 51 of 110 (2 as first views of the next area) |
@@ -83,7 +83,7 @@ and its unaccounted keys are in `qa/art-worklist.json` under `areas[].unaccounte
 | 7 | Valjevo Castle, the Pool | not yet | 269 | 33 |  | 73 of 131 (40 as first views of the next area) |
 | 8 | Phlan City Hall | yes | 405 | 163 | 129 | 173 of 173 (10 as WebGL wall materials) |
 | 9 | Stojanow Gate | yes | 287 | 117 | 33 | 117 of 117 |
-| 10 | Valhingen Graveyard | yes | 2452 | 419 | 471 | 419 of 419 |
+| 10 | Valhingen Graveyard | yes | 2452 | 425 | 465 | 435 of 435 (10 as WebGL wall materials) |
 | 11 | The Training Hall | yes | 405 | 67 | 109 | 67 of 67 |
 | 13 | The Kobold Caves | yes | 313 | 144 | 67 | 144 of 144 |
 | 14 | Kovel Mansion | yes | 150 | 64 | 22 | 64 of 64 |
@@ -834,7 +834,7 @@ Map 9; WALLDEF2 block 1 (tiles 8X8D2 block 1), block 9 (tiles 8X8D2 block 9), bl
 | `tile:9:fed653b0ff0e32ccdaa436eeb765c6e973f9ade944cc7dba817de9ac9abca22b` | 8X8D2 block 23 tile 27 | map 9, square (15,0) facing north, column 9 row 9 | `mendor-library-waterfront-terrain-fed653b0ff0e.png` (area 15, 17) |
 | `tile:9:ff6a32fbbb4c5d2972bfd9d1a8d7dcefc5def433b2ed312ea71dae297a9665eb` | 8X8D2 block 23 tile 46 over 8X8D2 block 9 tile 15 | map 9, square (0,4) facing south, column 6 row 5 |  |
 
-### Area 10: Valhingen Graveyard (471)
+### Area 10: Valhingen Graveyard (465)
 
 Map 10; WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 block 212), block 20 (tiles 8X8D4 block 20).
 
@@ -1091,7 +1091,7 @@ Map 10; WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 b
 | `tile:10:fdb24207f5be23db3688470db1ad589cacf0fb8778fc78a2a5653f625c89113c` | 8X8D4 block 211 tile 19 over 8X8D4 block 211 tile 19 over 8X8D4 block 212 tile 20 over the ground colour 8 | map 10, square (0,6) facing north, column 4 row 6 |  |
 | `tile:10:ffc8f4633202dca2a7d341ae34ae6f13a2bf805294d4d8332fb759535560ad34` | 8X8D4 block 211 tile 55 over the ground colour 8 | map 10, square (7,6) facing south, column 6 row 6 |  |
 
-#### tile set 8X8D4 block 212 (233)
+#### tile set 8X8D4 block 212 (227)
 
 | Key (PNG 32x32) | What it is | See it at | Same pixels as |
 | --- | --- | --- | --- |
@@ -1133,7 +1133,6 @@ Map 10; WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 b
 | `tile:10:31810b7b0c46b2cc56dbc5b3a44e4583f68bcb9fd7b2026183fec557e5466e34` | 8X8D4 block 212 tile 13 over 8X8D1 block 203 tile 22 over the ground colour 8 | map 10, square (6,8) facing west, column 0 row 7 |  |
 | `tile:10:318eb3d6954352359590e7015593000ea716c065bf962b896dfbb0ee83f25768` | 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D1 block 203 tile 15 over the ground colour 8 | map 10, square (5,9) facing west, column 8 row 8 |  |
 | `tile:10:31c4d5c993170f2c33012c476646595eeb37c6face6f65c1c65ce7ef409147d7` | 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 36 over sky colour 14 | map 10, square (7,1) facing south, column 4 row 4 |  |
-| `tile:10:3294d1228c282d717bba853b99084c6e11e9bf41159982a6969ad9bae7ed6189` | 8X8D4 block 212 tile 67 | map 10, square (8,4) facing east, column 4 row 7 |  |
 | `tile:10:3322958172d0b30c8d9fb328e276e8eb42f9f550e6a6675e5482bf26ac1db46b` | 8X8D4 block 212 tile 13 over 8X8D4 block 211 tile 14 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 8) | map 10, square (7,9) facing west, column 7 row 5 |  |
 | `tile:10:3342e268312130a2264dcd1ea84d8747230ec1d2d29414e9d3c0539e05126323` | 8X8D4 block 212 tile 10 over 8X8D4 block 211 tile 19 over the ground colour 8 | map 10, square (6,9) facing west, column 7 row 6 |  |
 | `tile:10:360b4a5ca99751e040f460a59402ba8f0a6a75d8ebef467a5b473c1c836ec190` | 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 20 tile 61 over sky colour 0 | map 10, square (7,2) facing north, column 2 row 3 |  |
@@ -1163,7 +1162,6 @@ Map 10; WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 b
 | `tile:10:59354017a634891a6015b4e8524a0f0e1f837377c76521587daf8a4ff2048eb0` | 8X8D4 block 212 tile 10 over 8X8D4 block 212 tile 6 over sky colour 0 | map 10, square (5,8) facing west, column 0 row 2 |  |
 | `tile:10:5968a801211119698ad1e02b0c3a3b86e613510af0c386e92fe046401160864d` | 8X8D4 block 212 tile 6 over 8X8D4 block 212 tile 6 over 8X8D1 block 203 tile 17 over sky colour 14 | map 10, square (8,5) facing west, column 2 row 2 |  |
 | `tile:10:5a6df4a6eec6eb0be76c7af3ead3c6dbca96ed836d5792788164c25da3447026` | 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 30 | map 10, square (4,9) facing east, column 7 row 5 |  |
-| `tile:10:5ab3e92e7ad47e6456ff517db6fac3f65d2f7b1a884d2739b0acfa346c54550e` | 8X8D4 block 212 tile 66 | map 10, square (8,4) facing east, column 5 row 6 |  |
 | `tile:10:5c65a76301e67a8418be9aa2bf81575aeb8be47e34837d446cd6042f5b3e798c` | 8X8D4 block 212 tile 10 over 8X8D1 block 203 tile 39 | map 10, square (7,2) facing west, column 9 row 6 |  |
 | `tile:10:5f3b6d78194598d40c861fbc3a0b1f68d155c2fb3b42e6ae90b789a513da2ebc` | 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 40 | map 10, square (14,3) facing south, column 8 row 4 |  |
 | `tile:10:61f85e711453385d7d12d493081367c3510d7054958a21c4df1dab11e55a8a4d` | 8X8D4 block 212 tile 12 over 8X8D4 block 20 tile 47 over the ground colour 8 | map 10, square (7,4) facing south, column 3 row 6 |  |
@@ -1185,7 +1183,6 @@ Map 10; WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 b
 | `tile:10:709499737786a9fa46cf4e8848f12b908c5366309418aaf44cc784426b096905` | 8X8D4 block 212 tile 14 over 8X8D4 block 20 tile 49 over the ground colour 8 | map 10, square (7,4) facing south, column 2 row 6 |  |
 | `tile:10:7095a8a3e75b6f319045aa15c5bb8c3a1f85a31acd998fe5e65a25f57c4a11a8` | 8X8D4 block 212 tile 36 over sky colour 14 | map 10, square (11,0) facing west, column 1 row 4 |  |
 | `tile:10:72c44ba54d1235dd9f8ee7c326c5399158835560b7f9d8e5dd12c80a082ab528` | 8X8D4 block 212 tile 11 over 8X8D1 block 203 tile 17 over sky colour 0 | map 10, square (9,8) facing north, column 1 row 4 |  |
-| `tile:10:7544b26a5fa5846175ee352b9ae0722f90a0446696005757e252e838b6a8e443` | 8X8D4 block 212 tile 53 | map 10, square (8,3) facing east, column 10 row 7 |  |
 | `tile:10:759cb0abc026bc5416f98948e50f8325b28556a17c1d64f113b7937f7d707e5a` | 8X8D4 block 212 tile 10 over 8X8D4 block 211 tile 11 over 8X8D4 block 211 tile 16 over the ground colour 8 | map 10, square (6,9) facing west, column 9 row 6 |  |
 | `tile:10:769ec77baa08df3c952a4a0dadd6e0569c0099630ed61b1d453c071b431a0e57` | 8X8D4 block 212 tile 7 over 8X8D1 block 203 tile 34 over the ground colour 8 | map 10, square (7,4) facing east, column 9 row 6 |  |
 | `tile:10:77610852e169d0701edffcdae86005e122d6ab44f5c91a6e7426fdcfa98c45b5` | 8X8D4 block 212 tile 10 over 8X8D4 block 212 tile 41 | map 10, square (14,3) facing west, column 0 row 4 |  |
@@ -1212,16 +1209,13 @@ Map 10; WALLDEF4 block 21 (tiles 8X8D4 block 211), block 21 set 2 (tiles 8X8D4 b
 | `tile:10:8b1644c5c7ea2d1a02ae3dc19ab8654a366392569b714e6b24bf058ee81ddf71` | 8X8D4 block 212 tile 11 over sky colour 14 | map 10, square (0,0) facing north, column 1 row 2 |  |
 | `tile:10:8bc38b425fb8cc89437bacded4a984f5a2edf012c663b5276e0aae7eda5ac2af` | 8X8D4 block 212 tile 6 over 8X8D4 block 212 tile 6 over 8X8D4 block 20 tile 33 over sky colour 0 | map 10, square (7,3) facing north, column 4 row 4 |  |
 | `tile:10:8bc7da26686517149f3ef8f0b5a62d4728c0ec673431cdbd0c5cd2b4fe577f8c` | 8X8D4 block 212 tile 11 over 8X8D4 block 212 tile 46 | map 10, square (5,9) facing south, column 10 row 8 |  |
-| `tile:10:8c4c97968d37745643ee968139de07bc5a54899d8cc073311ae5e2f7fd3d0b37` | 8X8D4 block 212 tile 50 | map 10, square (8,4) facing east, column 4 row 6 |  |
 | `tile:10:8d02cb32dce1a61446e794f01ff1c51581aa8100be9e1a06ed9f36dae5a3c8d4` | 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 211 tile 7 | map 10, square (5,9) facing north, column 3 row 5 |  |
-| `tile:10:8df9faea40ec43521411de53d0b5dc56a5098b33e20d0f0215e851d184e0b034` | 8X8D4 block 212 tile 24 | map 10, square (0,4) facing west, column 5 row 6 |  |
 | `tile:10:8e40d4bff6e8e4bfe9f7136ecd988c5547a1afa5065a09553692ebbd46e69043` | 8X8D4 block 212 tile 11 over 8X8D1 block 203 tile 29 | map 10, square (9,8) facing north, column 1 row 5 |  |
 | `tile:10:8e79d6381975e872b2f6e1819fec1aab47dd78de679fe5bf9993f23c3f9b195c` | 8X8D4 block 212 tile 13 over 8X8D4 block 212 tile 48 | map 10, square (5,9) facing south, column 9 row 2 |  |
 | `tile:10:8e823043d5e41447c091f87dee14e559c9caecbcb8d8e953ec3651ae210f5df4` | 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 41 | map 10, square (7,5) facing east, column 8 row 4 |  |
 | `tile:10:8f7f7684187eabdd4d55e68707a4f8a49b55d94970effec8f951b1da8cbd3a30` | 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 11 over sky colour 0 | map 10, square (4,9) facing east, column 3 row 4 |  |
 | `tile:10:9123aa42feea7fdf37aa107e066ae4bc56d9dd4ab5f0c50f44e51497a1b2830d` | 8X8D4 block 212 tile 69 over 8X8D1 block 203 tile 12 | map 10, square (0,3) facing west, column 0 row 2 |  |
 | `tile:10:920971853aa69551bb64c88a6e2f1bac1053a605c3303f85849d85bd962d6a1b` | 8X8D4 block 212 tile 15 over 8X8D4 block 20 tile 33 over the horizon row (three rows of sky 0, one of 0, two of 8, two of ground 8) | map 10, square (6,3) facing south, column 1 row 5 |  |
-| `tile:10:92ae0e39135b8cf9631ffa677eaa652a3be312cd4767132fc0f9f3e24f8cfc9c` | 8X8D4 block 212 tile 51 | map 10, square (8,4) facing east, column 6 row 6 |  |
 | `tile:10:93307f402d66f9a70d624f6c42fa366fe0fdc04d9ee1848ae668fae51e9876e8` | 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 20 tile 32 over sky colour 0 | map 10, square (7,2) facing north, column 3 row 4 |  |
 | `tile:10:938fdc20bf6cbe189f27ec1a1a5af2e75743acc1be498db1482d701611cc7d60` | 8X8D4 block 212 tile 14 over 8X8D4 block 212 tile 46 | map 10, square (14,3) facing west, column 0 row 5 |  |
 | `tile:10:953d4c603f38251d1c88de07f18186c89dc5186774fd69ad2e49caf13576960a` | 8X8D4 block 212 tile 7 over 8X8D4 block 212 tile 7 over 8X8D4 block 20 tile 61 over sky colour 14 | map 10, square (7,2) facing north, column 2 row 3 |  |
