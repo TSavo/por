@@ -1,6 +1,25 @@
 
-                       BRIN
 
-                       Hitpoints 6
+                 Name            AC  HP
 
-                       AC 3
+                 ALDA             5   6
+                 BRIN             3   6
+                 CORA             5   2
+                 DORN             5   8
+                 ENNA             4   6
+                 FENN             4   8
+
+
+
+
+
+                 4,10 S 14:36
+
+ THINGS SEEM STRANGELY QUIET. THE DRUM
+ HAS FADED TO SILENCE.
+
+
+
+
+
+Area Cast View Encamp Search Look

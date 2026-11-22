@@ -24,10 +24,12 @@ Phlan at (25,27) to the city's western edge at (24,28), where it takes the South
 Textile House at (0,4). There it turns east, looks round in all four directions at (4,4), walks round
 to the corridor at (4,5), where scorpions approach (Combat, won with the developer's command, CORA
 left with 2 hit points, nothing to take), and walks south to the courtyard at (4,10), where a drum
-beats and the hobgoblins attack. The walk ends in that fight, after the developer's win (during a
-hobgoblin's own turn) and one more poll. There the runner used to offer the win a second time and stop
-when it was taken (#136); `npm run verify:developer-combat` plays this walk to that win and requires
-the fight to come to its end with the runner still going.
+beats and the hobgoblins attack. The fight is won with the developer's command (during a hobgoblin's
+own turn); the party plays on until Continue Battle (No), views a sheet at the treasure, takes nothing,
+and looks round in all four directions at (4,10): "THINGS SEEM STRANGELY QUIET. THE DRUM HAS FADED TO
+SILENCE." 93 commands. After that win the runner used to offer the win a second time and stop when it
+was taken (#136); `npm run verify:developer-combat` plays this walk to that win and requires the fight
+to come to its end with the runner still going.
 
 `POR_PARITY_ONLY=leg POR_PARITY_LEG=qa/fixtures/visit-textile-house npm run verify:port-parity`
 plays it once from the 1.3 files and once from `game/` and compares the Enhanced artwork of every frame.
