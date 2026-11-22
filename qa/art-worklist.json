@@ -12,8 +12,8 @@
  },
  "enhancedFallbacks": {
   "frames": 0,
-  "presented": 463,
-  "walks": 5,
+  "presented": 641,
+  "walks": 7,
   "recordedWalks": 30,
   "missingWalks": [
    "campaign-castle-approach-leg",
@@ -33,16 +33,14 @@
    "campaign-sokal-leg",
    "campaign-tower-leg",
    "visit-kobold-caves",
-   "visit-lizardman-keep",
    "visit-textile-house",
    "visit-valhingen-graveyard",
    "visit-valjevo-area-4",
-   "visit-yarashs-pyramid",
    "walk-commission-5-reward",
    "walk-commission-5-taken",
    "walk-textile-house-cleared"
   ],
-  "runs": 5,
+  "runs": 7,
   "keys": []
  },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",

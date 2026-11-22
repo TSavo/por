@@ -6,6 +6,11 @@
    "frames": [],
    "fixtureSha256": "8a9b65366bac7ae08488bc690c74d480550bfd880eed1589e5cea3e093e6b9ea"
   },
+  "visit-lizardman-keep": {
+   "presented": 100,
+   "frames": [],
+   "fixtureSha256": "e0727945707165514114a574c10fb353110ae44f64a9a2ddc8ab37166aa0e003"
+  },
   "visit-mendors-library": {
    "presented": 101,
    "frames": [],
@@ -20,6 +25,11 @@
    "presented": 87,
    "frames": [],
    "fixtureSha256": "52989ae9c40f2cd3d78a8623d9c1b5e256dcbd6cfcb2fba2db4b74b25a054a52"
+  },
+  "visit-yarashs-pyramid": {
+   "presented": 78,
+   "frames": [],
+   "fixtureSha256": "d1d53cb1de05e616850117aa700abeb23697d16d67fe7d1078a0dabd1950ec00"
   },
   "wilderness-walk": {
    "presented": 163,
