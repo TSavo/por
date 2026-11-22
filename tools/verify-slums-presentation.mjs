@@ -1453,6 +1453,7 @@ const illustrationRoutes = new Map([
     portrait: `portrait:area:14:ecl:${cursor}:PIC1.DAX:1:0:0`,
     prompt: /VIEW.*POOL.*SHARE/i,
     idlePortraits: [1, 2].map(phase => `portrait:area:14:ecl:${cursor}:PIC1.DAX:1:${phase}:0`),
+    heldPortraitLoop: 3,
     finalPhaseCapture: `kovel-cabinet-${metal}-reward.png`,
     continuation: { inputs: ["e", "n"], portrait: "scene-illustration:area:14:ecl:9dbb:cue:three-cabinets",
       prompt: /WHICHONEWILLYOUEXAMINE/i },
