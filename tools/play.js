@@ -1136,6 +1136,7 @@ const portraitLoops = [
   ["portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:", 3, "portrait:area:0:PIC3.DAX:41:0:0",
     /YOUBOARDABOAT/i],
   ["portrait:area:18:ecl:9dca:PIC1.DAX:2:", 2],
+  ["portrait:area:25:ecl:a622:PIC6.DAX:120:", 3],
   ["portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:", 3],
   ["portrait:area:10:ecl:b695:caller:9f7a:PIC4.DAX:35:", 5, "portrait:area:10:PIC4.DAX:35:0:0",
     /ZOMBIESSHUFFLEDOWNTHESTAIRS/i],

@@ -438,23 +438,13 @@ const encounterRoutes = new Map([
     placement: [48, 32, "encounter:area:25:ecl:a5b1:SPRIT6.DAX:120:0:0", 40, 80],
     dialogueSteps: [{
       keys: ["enter"], portrait: "portrait:area:25:ecl:a622:PIC6.DAX:120:0:0",
+      heldPortraitLoop: 3,
       prompt: /WILDBOARSOWFEEDINGHERYOUNG/i,
-    }, {
-      keys: Array(8).fill("z"), portrait: "portrait:area:25:ecl:a622:PIC6.DAX:120:2:0",
-      prompt: /WILDBOARSOWFEEDINGHERYOUNG/i,
-    }, {
-      keys: Array(10).fill("z"), portrait: "portrait:area:25:ecl:a622:PIC6.DAX:120:1:0",
-      prompt: /WILDBOARSOWFEEDINGHERYOUNG/i,
-    }, {
-      keys: ["z"], portrait: "portrait:area:25:ecl:a622:PIC6.DAX:120:2:0",
-      prompt: /WILDBOARSOWFEEDINGHERYOUNG/i,
-    }, {
-      keys: ["a"], portrait: "portrait:area:25:ecl:a66b:PIC6.DAX:120:2:0",
-      prompt: /HAIRBRISTLESANDSHEATTACKS/i,
     }],
     battleStart: {
-      input: "enter", portrait: "portrait:area:25:ecl:a66c:PIC6.DAX:120:2:0",
-      prompt: /ABATTLEBEGINS/i,
+      input: "a", portrait: "portrait:area:25:ecl:a66c:PIC6.DAX:120:0:0",
+      screenshot: "wild-cave-boar-sow-battle-start.png",
+      prompt: /(?=.*HAIRBRISTLESANDSHEATTACKS).*ABATTLEBEGINS/i,
     },
   }],
   ["lizard-wilds-displacer-approach", {
@@ -7473,7 +7463,7 @@ try {
     })()`), "Enhanced portrait should fill the outer picture panel over an opaque backdrop");
   }
 
-  async function verifyHeldPortraitLoop(count) {
+  async function verifyHeldPortraitLoop(count, screenshotPrefix) {
     const held = await latest();
     await run(`(() => {
       window.heldPortraitPhases = [];
@@ -7497,6 +7487,16 @@ try {
       return Buffer.from(await response.arrayBuffer()).toString("base64");
     }));
     assert.equal(new Set(images).size, count, "Every loop phase should display distinct artwork");
+    if (screenshotPrefix) {
+      for (const [index, phase] of cycle.slice(0, count).entries()) {
+        await waitFor("the loaded portrait phase", () => run(`(() => {
+          const image = document.querySelector(".encounter-portrait");
+          return image?.src === ${JSON.stringify(phase)} && image.complete && image.naturalWidth === 352;
+        })()`));
+        const shot = await command("Page.captureScreenshot", { format: "png" });
+        writeFileSync(resolve(directory, `${screenshotPrefix}-loop-${index}.png`), Buffer.from(shot.data, "base64"));
+      }
+    }
     assert.deepEqual(await latest(), held);
   }
 
@@ -8883,7 +8883,7 @@ try {
       await advance("j");
     }
     const dialogueSteps = encounterRoute.dialogueSteps ?? (encounterRoute.dialogue ? [encounterRoute.dialogue] : []);
-    for (const { key, keys = [key], portrait, prompt, heldPortrait, heldPortraits, capture } of dialogueSteps) {
+    for (const { key, keys = [key], portrait, prompt, heldPortrait, heldPortraits, heldPortraitLoop, capture } of dialogueSteps) {
       for (const input of keys) await advance(input);
       assert.equal(frame.encounter, undefined);
       assert.equal(frame.portrait, portrait);
@@ -8897,6 +8897,7 @@ try {
           image.naturalWidth === 352 && image.naturalHeight === 352;
       })()`));
       await verifyPortraitPanel();
+      if (heldPortraitLoop) await verifyHeldPortraitLoop(heldPortraitLoop, routeName);
       if (capture) {
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, `${routeName}-dialogue.png`), Buffer.from(shot.data, "base64"));
