@@ -2690,6 +2690,14 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "council-cadorna-south-door.png",
     continuation: { inputs: ["enter"], prompt: /THESEAREALLOFTHECOMMISSIONSCURRENTLYAVAILABLE/i, clearsPortrait: true },
   }],
+  ["council-cadorna-passing", {
+    slot: "A", inputs: councilClerkApproach,
+    portrait: "scene-illustration:area:8:ecl:b5c3:caller:a591:cue:cadorna-passing",
+    prompt: /THECOUNCILHASNOTEDTHEPASSINGOFTHETRAITORCADORNA/i,
+    finalPhaseCapture: "council-cadorna-passing.png",
+    continuation: { inputs: ["enter"], prompt: /THECLERKSHUFFLESTHROUGHHERPAPERS/i,
+      portrait: "scene-illustration:area:8:ecl:b5c3:caller:a83f:cue:commission-papers" },
+  }],
   ["council-cadorna-traitor-proclamation", {
     slot: "A", inputs: councilClerkApproach,
     portrait: "scene-illustration:area:8:ecl:b5c3:caller:a55d:cue:cadorna-traitor-proclamation",

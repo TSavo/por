@@ -4328,6 +4328,10 @@ It checks the original urgent instruction to go through the south door of
 Cadorna's old quarters, the separate clerk illustration, and the return to
 exploration.
 
+The **council-cadorna-passing** replay loads a Council save with the original
+posthumous acknowledgment pending. It checks that the clerk records Cadorna's
+death before returning to the commission papers.
+
 The **council-cadorna-traitor-proclamation** replay uses the same controlled
 Council save as the Zhentil dispatch. It verifies the clerk's accusation of
 Cadorna with its own illustration before the commission papers appear.
