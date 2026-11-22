@@ -24,6 +24,7 @@ import { behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFa
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 import { standaloneTrace } from "./standalone-trace.js";
+import { narrationLedger } from "./narration-ledger.js";
 
 // The browser server reads frames from this process's stdout pipe. Node writes
 // to a pipe asynchronously on macOS and Linux, and this process blocks reading
@@ -241,6 +242,8 @@ const eclTextHandlers: boolean[] = [];
 if (browserSound) {
   const manifest = JSON.parse(readFileSync(new URL("../src/audio/voice-master-manifest.json", import.meta.url), "utf8")) as ObserverManifest;
   const narration = new EclNarrationObserver(manifest);
+  // POR_NARRATION_LEDGER: record every narration decision. Observes only.
+  narrationLedger?.observe(narration, manifest);
   cpu.onEclInstruction = entering => {
     if (!entering) {
       eclTextHandlers.pop();
@@ -348,6 +351,7 @@ adventureLog = (process.env.POR_ADVENTURE_LOG === "1" || browserSound || liveAt 
       if (!browserSound) return;
       const fromEclText = eclTextHandlers.at(-1) === true;
       console.log(`POR_TEXT ${JSON.stringify({ step: cpu.steps, message, fromEclText })}`);
+      narrationLedger?.text(cpu.steps, message, fromEclText);
       const event = fromEclText ? narrationObserver?.observeRenderedText(cpu, message) : undefined;
       if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
     })

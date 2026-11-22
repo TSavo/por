@@ -102,6 +102,31 @@ export class NarrationCatalog {
   }
 }
 
+/** Text as the play server compares it: runs of white space collapsed, upper case. */
+export const normalizeSpeech = (text: string): string => text.replace(/\s+/g, " ").trim().toUpperCase();
+
+/**
+ * Units that text drawn outside the scripts can start, by that text. Only a unit with one
+ * recording qualifies, and the caller narrates only when exactly one unit has the text.
+ */
+export function exactTextNarrations<Unit extends RuntimeNarrationUnit>(manifest: {
+  units: Unit[]; events: { sourceId: string; normalizedText: string }[];
+}): Map<string, Unit[]> {
+  const unitsByTrigger = new Map<string, Unit[]>();
+  for (const unit of manifest.units)
+    unitsByTrigger.set(unit.triggerSourceId, [...(unitsByTrigger.get(unit.triggerSourceId) ?? []), unit]);
+  const byText = new Map<string, Unit[]>();
+  for (const event of manifest.events) {
+    const text = normalizeSpeech(event.normalizedText);
+    if (!text) continue;
+    for (const unit of unitsByTrigger.get(event.sourceId) ?? []) {
+      if (!unit.asset || (unit.runtimeVariants?.length ?? 0) > 0) continue;
+      byText.set(text, [...(byText.get(text) ?? []), unit]);
+    }
+  }
+  return byText;
+}
+
 /** Small deterministic queue used by adapters that play one narration clip at a time. */
 export class NarrationQueue<T> {
   private pending: T[] = [];

@@ -19,6 +19,7 @@ import { canWinDeveloperCombat, developerVictoryCommand, winDeveloperCombat } fr
 import type { Automap, ExploredPosition } from "./automap.js";
 import { authoredScriptPosition, code, data, eclGlobalOffset, isAt, returnsTo, segment as unit } from "../src/runtime/bindings.js";
 import { standaloneTrace } from "./standalone-trace.js";
+import { narrationLedger } from "./narration-ledger.js";
 
 const controls: Record<string, number> = {
   enter: 0x1c0d, escape: 0x011b, up: 0x4800, down: 0x5000, left: 0x4b00, right: 0x4d00,
@@ -612,6 +613,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         perspective, nativeScenery,
         encounter: encounter?.[2], combatArt: combat.length, battleTiles, combatSelections, panelFrame: state.panelFrame,
       });
+      // POR_NARRATION_LEDGER: the artwork this frame resolved, for pairing with the narration. Observes only.
+      narrationLedger?.frame({ awaitsKey: awaitsKey && !(attack || captureApproach || effect || captureIllustration), scene, portrait, encounter: encounter?.[2],
+        classicPortrait: Array.isArray(picture) ? { area, cursor: portraitCursor, caller: pictureCaller } : undefined });
       if (attack || captureApproach || effect || captureIllustration) {
         if (animation.length >= 12) {
           const flight = animation.findIndex(flightFrame);

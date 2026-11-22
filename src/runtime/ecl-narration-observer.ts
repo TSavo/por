@@ -19,6 +19,54 @@ export interface EclNarrationEvent extends NarrationTrigger {
   step: number;
 }
 
+/**
+ * One decision of the observer, reported to `onDecision` when a listener is attached.
+ * It describes what the observer did and changes none of it. tools/narration-ledger.ts
+ * writes these to the narration ledger (docs/NARRATION-QA.md).
+ */
+export interface NarrationDecision {
+  kind:
+    /** The script reached a text instruction of the manifest; `event` is what the observer returned. */
+    | "event"
+    /** The script reached a manifest position but the instruction there is not the one the manifest names. */
+    | "opcode-mismatch"
+    /** A selector's passage printed and its narration waits for a later print to show the branch. */
+    | "selector-deferred"
+    /** A selector waits for the menu instruction it belongs to to draw one of its texts. */
+    | "selector-awaits-render"
+    /** A selector chose a unit; `event` is the narration. */
+    | "selector-resolved"
+    /** A selector chose a case the manifest marks as silent. */
+    | "selector-silent-by-design"
+    /** A selector read its value and no case matched it. */
+    | "selector-unmatched"
+    /** A selector that waited for a menu text was still waiting when the next instruction began. */
+    | "selector-unrendered"
+    /** A deferred selector was still waiting when the script block changed. */
+    | "selector-dropped"
+    /** An encounter menu with variants waits for the game to draw its text. */
+    | "variant-awaits-render"
+    /** An encounter menu with variants: the slot's value is not one of the variants. */
+    | "variant-unmatched"
+    /** An encounter menu with variants drew the expected text; `event` is the narration. */
+    | "variant-rendered"
+    /** An encounter menu with variants was still waiting for its text when the next instruction began. */
+    | "variant-unrendered";
+  /** The source event the script reached, or the selector's trigger when the selector is the subject. */
+  sourceId: string;
+  archive: string;
+  block: number;
+  step: number;
+  event?: EclNarrationEvent;
+  /** The selector's trigger source event. */
+  trigger?: string;
+  /** The step at which the selector began to wait. */
+  since?: number;
+  /** The slot a variant condition or a selector tested, and the value read from it. */
+  slot?: string;
+  value?: string | number;
+}
+
 const opcodeForInstruction: Record<string, number> = {
   PRINT: 0x11,
   PRINTCLEAR: 0x12,
@@ -44,6 +92,24 @@ export class EclNarrationObserver {
   private readonly deferred: StaticSelector[] = [];
   private pendingMenu: { selector: StaticSelector; event: SourceEvent } | undefined;
   private pendingDynamicMenu: { event: EclNarrationEvent; text: string } | undefined;
+  private readonly deferredSince = new Map<string, number>();
+  private selectorValue: string | number | undefined;
+  /** Receives every decision. Observes only: nothing the observer returns depends on it. */
+  onDecision: ((decision: NarrationDecision) => void) | undefined;
+
+  private decide(cpu: Cpu, kind: NarrationDecision["kind"], sourceId: string, detail: Partial<NarrationDecision> = {}): void {
+    this.onDecision?.({ kind, sourceId, archive: this.archive ?? "", block: this.block ?? -1, step: cpu.steps, ...detail });
+  }
+
+  /** The selectors still waiting, for a ledger written when the run ends. */
+  waiting(): { trigger: string; since: number | undefined }[] {
+    return this.deferred.map(({ triggerSourceId }) => ({ trigger: triggerSourceId, since: this.deferredSince.get(triggerSourceId) }));
+  }
+
+  /** The slot whose value selects among a unit's variants, as the observer reads it. */
+  variantSlot(unitId: string): string | undefined {
+    return this.unitDynamicPart(this.manifest.units.find(unit => unit.id === unitId))?.address;
+  }
 
   constructor(readonly manifest: ObserverManifest) {
     for (const event of manifest.events) {
@@ -59,9 +125,17 @@ export class EclNarrationObserver {
     const archive = `ECL${cpu.read8(cpu.ds, data.eclArchive)}.DAX`;
     const block = cpu.read8(cpu.ds, data.eclBlock);
     if (this.archive !== archive || this.block !== block) {
+      for (const { triggerSourceId } of this.deferred)
+        this.decide(cpu, "selector-dropped", triggerSourceId, { trigger: triggerSourceId, since: this.deferredSince.get(triggerSourceId) });
       this.archive = archive;
       this.block = block;
       this.deferred.length = 0;
+    }
+    if (this.pendingMenu) this.decide(cpu, "selector-unrendered", this.pendingMenu.event.sourceId, { trigger: this.pendingMenu.selector.triggerSourceId });
+    if (this.pendingDynamicMenu) {
+      const { event: waiting, text } = this.pendingDynamicMenu;
+      const slot = waiting.unitId ? this.variantSlot(waiting.unitId) : undefined;
+      this.decide(cpu, "variant-unrendered", waiting.sourceId, { value: text, ...(slot ? { slot } : {}) });
     }
     this.pendingMenu = undefined;
     this.pendingDynamicMenu = undefined;
@@ -75,7 +149,10 @@ export class EclNarrationObserver {
     const bufferOffset = cpu.read16(cpu.ds, data.eclCode);
     const bufferSegment = cpu.read16(cpu.ds, data.eclCode + 2);
     const opcodeOffset = (bufferOffset + addressNumber + 0x6700) & 0xffff;
-    if (cpu.read8(bufferSegment, opcodeOffset) !== expectedOpcode) return undefined;
+    if (cpu.read8(bufferSegment, opcodeOffset) !== expectedOpcode) {
+      this.decide(cpu, "opcode-mismatch", event.sourceId, { value: cpu.read8(bufferSegment, opcodeOffset) });
+      return undefined;
+    }
 
     // An opening print whose branch is not yet knowable is deliberately silent.
     // The first mapped covered source resolves and consumes it exactly once.
@@ -84,7 +161,11 @@ export class EclNarrationObserver {
       const selected = this.selectBySource(pending, event.sourceId);
       if (selected) {
         this.deferred.splice(index, 1);
-        return this.makeEvent(cpu, this.eventsById.get(pending.triggerSourceId)!, selected);
+        const resolved = this.makeEvent(cpu, this.eventsById.get(pending.triggerSourceId)!, selected);
+        const since = this.deferredSince.get(pending.triggerSourceId);
+        this.decide(cpu, "selector-resolved", event.sourceId, { event: resolved, trigger: pending.triggerSourceId,
+          ...(since === undefined ? {} : { since }) });
+        return resolved;
       }
     }
 
@@ -92,16 +173,33 @@ export class EclNarrationObserver {
     if (staticSelector) {
       const mode = staticSelector.playback ?? staticSelector.resolution;
       if (mode === "defer-until-covered-source" || mode === "deferred-covered-source") {
-        if (!this.deferred.some(item => item.triggerSourceId === staticSelector.triggerSourceId)) this.deferred.push(staticSelector);
+        if (!this.deferred.some(item => item.triggerSourceId === staticSelector.triggerSourceId)) {
+          this.deferred.push(staticSelector);
+          this.deferredSince.set(staticSelector.triggerSourceId, cpu.steps);
+        }
+        const since = this.deferredSince.get(staticSelector.triggerSourceId);
+        this.decide(cpu, "selector-deferred", event.sourceId, { trigger: staticSelector.triggerSourceId,
+          ...(since === undefined ? {} : { since }) });
         return undefined;
       }
       if (mode === "defer-until-command-render" || mode === "during-trigger" || mode === "during-instruction") {
         this.pendingMenu = { selector: staticSelector, event };
+        this.decide(cpu, "selector-awaits-render", event.sourceId, { trigger: staticSelector.triggerSourceId });
         return undefined;
       }
+      this.selectorValue = undefined;
       const selected = this.selectFromCpu(cpu, staticSelector);
-      if (!selected || selected.action === "none") return undefined;
-      return this.makeEvent(cpu, event, selected);
+      const tested = this.selectorValue === undefined ? {} : { value: this.selectorValue };
+      if (!selected || selected.action === "none") {
+        this.decide(cpu, selected ? "selector-silent-by-design" : "selector-unmatched", event.sourceId,
+          { trigger: staticSelector.triggerSourceId, ...tested });
+        return undefined;
+      }
+      const chosen = this.makeEvent(cpu, event, selected);
+      const slot = chosen.unitId ? this.variantSlot(chosen.unitId) : undefined;
+      this.decide(cpu, "selector-resolved", event.sourceId, { event: chosen, trigger: staticSelector.triggerSourceId, ...tested,
+        ...(slot ? { slot } : {}) });
+      return chosen;
     }
 
     const candidates = this.unitsByTrigger.get(event.sourceId) ?? [];
@@ -115,13 +213,15 @@ export class EclNarrationObserver {
           text: this.normalizeMenuText(dynamicValue)
         };
       }
+      this.decide(cpu, this.pendingDynamicMenu ? "variant-awaits-render" : "variant-unmatched", event.sourceId,
+        { ...(part?.address ? { slot: part.address } : {}), ...(dynamicValue === undefined ? {} : { value: dynamicValue }) });
       return undefined;
     }
     const literalOperands = event.outputParts.filter(part => part.kind === "literal" && part.rawText?.trim());
     const spoken = candidates.length === 1 ? candidates[0]!.spokenText.trim() : "";
     const matchingOperands = literalOperands.filter(part => spoken && part.rawText?.trim() === spoken);
     const operand = matchingOperands.length === 1 ? matchingOperands[0]!.operandIndex : undefined;
-    return {
+    const reached: EclNarrationEvent = {
       sourceId: event.sourceId,
       ...(candidates.length === 1 ? { unitId: candidates[0]!.id } : {}),
       ...(dynamicValue !== undefined ? { dynamicValue } : {}),
@@ -131,6 +231,12 @@ export class EclNarrationObserver {
       ...(operand !== undefined ? { operand, sourceOperandId: `${event.sourceId}.operand-${operand}` } : {}),
       step: cpu.steps
     };
+    if (this.onDecision) {
+      const slot = candidate ? this.variantSlot(candidate.id) : undefined;
+      this.decide(cpu, "event", event.sourceId, { event: reached, ...(slot ? { slot } : {}),
+        ...(dynamicValue === undefined ? {} : { value: dynamicValue }) });
+    }
+    return reached;
   }
 
   /** Called by ENCOUNTER MENU when it emits one of its decoded literal operands. */
@@ -140,8 +246,13 @@ export class EclNarrationObserver {
     const selected = this.selectByValue(pending.selector, operandIndex);
     if (!selected) return undefined;
     this.pendingMenu = undefined;
-    if (selected.action === "none") return undefined;
-    return this.makeEvent(cpu, pending.event, selected, operandIndex);
+    if (selected.action === "none") {
+      this.decide(cpu, "selector-silent-by-design", pending.event.sourceId, { trigger: pending.selector.triggerSourceId, value: operandIndex });
+      return undefined;
+    }
+    const chosen = this.makeEvent(cpu, pending.event, selected, operandIndex);
+    this.decide(cpu, "selector-resolved", pending.event.sourceId, { event: chosen, trigger: pending.selector.triggerSourceId, value: operandIndex });
+    return chosen;
   }
 
   /** Resolve an ENCOUNTER MENU from the message the original game actually drew. */
@@ -150,7 +261,11 @@ export class EclNarrationObserver {
     if (this.pendingDynamicMenu?.text === rendered) {
       const { event } = this.pendingDynamicMenu;
       this.pendingDynamicMenu = undefined;
-      return { ...event, step: cpu.steps };
+      const drawn = { ...event, step: cpu.steps };
+      const slot = event.unitId ? this.variantSlot(event.unitId) : undefined;
+      this.decide(cpu, "variant-rendered", event.sourceId, { event: drawn, ...(slot ? { slot } : {}),
+        ...(event.dynamicValue === undefined ? {} : { value: event.dynamicValue }) });
+      return drawn;
     }
     const pending = this.pendingMenu;
     if (!pending) return undefined;
@@ -193,8 +308,10 @@ export class EclNarrationObserver {
     } else if (descriptor.kind === "memoryComparison") {
       const left = this.readEclValue(cpu, this.hex(descriptor.leftAddress));
       const right = this.readEclValue(cpu, this.hex(descriptor.rightAddress));
+      this.selectorValue = `${left} against ${right}`;
       return entries.find((entry: any) => entry.when?.operator === "<=" ? left <= right : entry.when?.operator === ">" ? left > right : false);
     }
+    this.selectorValue = value;
     return entries.find((entry: any) => this.conditionMatches(cpu, entry.when ?? entry, value));
   }
 
@@ -243,6 +360,13 @@ export class EclNarrationObserver {
   }
 
   private readUnitDynamicValue(cpu: Cpu, unit: ObserverManifest["units"][number] | undefined): string | undefined {
+    const part = this.unitDynamicPart(unit);
+    if (!part?.address) return undefined;
+    return part.kind === "dynamic-string" ? this.readEclString(cpu, part.address) : String(this.readEclValue(cpu, this.hex(part.address)));
+  }
+
+  /** The one changing output part that tells a unit's variants apart, when there is exactly one such slot. */
+  private unitDynamicPart(unit: ObserverManifest["units"][number] | undefined): SourcePart | undefined {
     if (!unit?.runtimeVariants?.length) return undefined;
     const parts = unit.coveredSourceIds.flatMap(id => (this.eventsById.get(id)?.outputParts ?? [])
       .filter(part => part.kind === "dynamic-string" || part.kind === "dynamic-value"));
@@ -251,7 +375,7 @@ export class EclNarrationObserver {
     const selectors = strings.length ? strings : parts;
     const [part] = selectors;
     if (!part?.address || selectors.some(other => other.address !== part.address)) return undefined;
-    return part.kind === "dynamic-string" ? this.readEclString(cpu, part.address) : String(this.readEclValue(cpu, this.hex(part.address)));
+    return part;
   }
 
   private readEclString(cpu: Cpu, address: string): string {

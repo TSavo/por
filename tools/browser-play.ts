@@ -13,7 +13,7 @@ import { developerVictoryCommand } from "./developer-combat.js";
 import { partyRecolorKey, type CombatArtPlacement } from "./combat-art.js";
 import { characterSheetPartKey, portraitKey, scriptIllustrations, type CharacterSheetPart } from "./portrait-art.js";
 import type { EncounterPlacement } from "./encounter-art.js";
-import { NarrationCatalog, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
+import { exactTextNarrations as exactTextUnits, NarrationCatalog, normalizeSpeech, type NarrationTrigger, type RuntimeNarrationManifest } from "../src/runtime/narration.js";
 import { buildNewPhlanMaterials } from "./new-phlan-3d-materials.js";
 import { buildExplorationMaterials } from "./exploration-materials.js";
 import type { NativeExploration } from "./native-exploration.js";
@@ -54,20 +54,8 @@ const parsedNarrationManifest = JSON.parse(narrationManifest.toString("utf8")) a
 };
 const narrationCatalog = new NarrationCatalog(parsedNarrationManifest);
 const narrationFiles = narrationCatalog.assetFiles();
-const normalizeSpeech = (text: string) => text.replace(/\s+/g, " ").trim().toUpperCase();
 const explicitVoiceMatches = parsedVoiceManifest.lines.flatMap(line => line.match ? [normalizeSpeech(line.match)] : []);
-const unitsByTrigger = new Map<string, typeof parsedNarrationManifest.units>();
-for (const unit of parsedNarrationManifest.units)
-  unitsByTrigger.set(unit.triggerSourceId, [...(unitsByTrigger.get(unit.triggerSourceId) ?? []), unit]);
-const exactTextNarrations = new Map<string, typeof parsedNarrationManifest.units>();
-for (const event of parsedNarrationManifest.events) {
-  const text = normalizeSpeech(event.normalizedText);
-  if (!text) continue;
-  for (const unit of unitsByTrigger.get(event.sourceId) ?? []) {
-    if (!unit.asset || (unit.runtimeVariants?.length ?? 0) > 0) continue;
-    exactTextNarrations.set(text, [...(exactTextNarrations.get(text) ?? []), unit]);
-  }
-}
+const exactTextNarrations = exactTextUnits(parsedNarrationManifest);
 // The manifest lists the sound events of the first release. Version 1.3 replaced the driver's
 // events above 12 with other sounds and never asks for them, so the rendered Classic files
 // for those events do not belong to it.
