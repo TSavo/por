@@ -29,8 +29,18 @@ const argument = (name, fallback) => {
   const at = process.argv.indexOf(name);
   return at >= 0 ? process.argv[at + 1] : fallback;
 };
-const [saves, slot] = process.argv.slice(2);
-if (!saves || !/^[A-J]$/i.test(slot ?? "")) throw new Error("Usage: narration-walk.mjs <save directory> <slot A-J> [--minutes N] [--seed N] [--run NAME] [--record-leg DIRECTORY]");
+// --from-leg DIRECTORY: start where a recorded walk ends (qa/fixtures/visit-*, walk-*): load its saves,
+// boot as it booted, replay its commands at its recorded moments, then walk from there. The areas the
+// campaign's saves cannot walk to (the city beyond the Slums is reached over the wilderness map) are
+// reached this way. Reloading after a death replays the leg again.
+const fromLeg = argument("--from-leg") && resolve(argument("--from-leg"));
+const legBoot = fromLeg && JSON.parse(readFileSync(join(fromLeg, "boot.json"), "utf8"));
+const legCommands = fromLeg ? readFileSync(join(fromLeg, "commands.jsonl"), "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line)) : [];
+const [saves, slot] = fromLeg ? [fromLeg, "L"] : process.argv.slice(2);
+if (!saves || !/^[A-J]$/i.test(slot ?? "") && !fromLeg) {
+  throw new Error("Usage: narration-walk.mjs <save directory> <slot A-J> | --from-leg <directory> [--minutes N] [--seed N] [--run NAME] [--record-leg DIRECTORY]");
+}
+if (fromLeg && process.argv.includes("--record-leg")) throw new Error("--from-leg and --record-leg cannot be used together.");
 const minutes = Number(argument("--minutes", "30"));
 let seed = Number(argument("--seed", "1")) >>> 0;
 const run = argument("--run", `${slot.toUpperCase()}-${seed}`);
@@ -92,12 +102,23 @@ async function begin() {
     writeFileSync(join(nextLeg, "boot.json"), JSON.stringify(boot) + "\n");
     writeFileSync(commands, "");
   }
+  const start = legBoot ?? boot;
   game = await startGame({ pregen: false, saves: copy, seconds: minutes * 60 + 300,
-    env: { POR_BOOT_KEYS: boot.bootKeys, POR_LIVE_AT: boot.startAt, POR_INPUT_COMPAT: boot.inputCompat,
-      POR_DEV_COMBAT: boot.developerCombat ? "1" : "0",
+    env: { POR_BOOT_KEYS: start.bootKeys, POR_LIVE_AT: start.startAt, POR_INPUT_COMPAT: start.inputCompat ?? "",
+      POR_DEV_COMBAT: "1",
       POR_NARRATION_LEDGER: ledger, POR_NARRATION_RUN: process.env.POR_NARRATION_RUN ?? `walk-${run}`,
       ...(nextLeg ? { POR_PROMPT_SCHEDULE_IN: "", POR_PROMPT_SCHEDULE_OUT: join(nextLeg, "prompts.jsonl") } : {}),
+      ...(fromLeg ? { POR_PROMPT_SCHEDULE_IN: join(fromLeg, "prompts.jsonl") } : {}),
     } });
+  if (fromLeg) {
+    // The recorded leg's own keys, at its own moments: the party ends where the recording ended.
+    for (const command of legCommands) {
+      if (!(await game.send(command))) game.fail(`The recorded leg's ${JSON.stringify(command)} was refused.`);
+    }
+    game.byHand = true;
+    log(`replayed ${legCommands.length} commands of ${fromLeg}`);
+    return;
+  }
   leg = nextLeg;
   if (commands) {
     const send = game.send;
