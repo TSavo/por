@@ -9,7 +9,7 @@
    "heard": 66
   },
   "acceptance-new-phlan": {
-   "ledger": "acceptance-new-phlan-clerk-guard-final.jsonl",
+   "ledger": "acceptance-new-phlan-city-hall-entrance.jsonl",
    "games": 7,
    "decisions": 521,
    "heard": 106
@@ -594,10 +594,9 @@
   "por.voice.ecl3.b8-9a7d": {
    "run": "acceptance-new-phlan",
    "step": 99819512,
-   "withoutArt": {
-    "run": "acceptance-new-phlan",
-    "step": 99819512,
-    "showing": "no picture"
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:0:ecl:9a4f"
    }
   },
   "por.voice.ecl3.b8-9b3c": {
@@ -831,18 +830,5 @@
    "unitId": "por.voice.ecl7.b23-9a70-9afa"
   }
  },
- "silent": {
-  "covered-without-trigger | por.review.ecl-3.block-0.at-aa13 | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-3.block-0.at-aa13",
-   "archive": "ECL3.DAX",
-   "block": 0,
-   "runs": {
-    "acceptance-new-phlan": {
-     "count": 4,
-     "step": 91147744
-    }
-   }
-  }
- }
+ "silent": {}
 }
