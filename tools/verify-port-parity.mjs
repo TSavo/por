@@ -264,7 +264,8 @@ for (const { name, start, walk } of walks) {
         const id = `${name} | ${left.screen} | ${prefix}${kind}`;
         const finding = findings.get(id) ?? { walk: name, screen: left.screen, kind: `${prefix}${kind}`, frames: [], missing: new Set(), extra: new Set() };
         if (!finding.frames.length) {
-          finding.first = { frame: index, menu: left.menu };
+          // The whole value of that kind on the first frame from each source, for reading the difference in place.
+          finding.first = { frame: index, menu: left.menu, original: was, port: is };
           mkdirSync(outDirectory, { recursive: true });
           const stem = join(outDirectory, `${name}-${index}`);
           writeFileSync(`${stem}-original-classic.png`, Buffer.from(left.picture.classic, "base64"));
