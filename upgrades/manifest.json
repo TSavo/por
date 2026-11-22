@@ -1514,6 +1514,8 @@
     "scene-illustration:area:9:ecl:a0a7:cue:bugbear-toll-refused": "stojanow-bugbear-toll-refused.png",
     "scene-illustration:area:9:ecl:acb7": "stojanow-bugbear-gate-payment.png",
     "scene-illustration:area:9:ecl:9c63:caller:ae22": "stojanow-passing-wagon.png",
+    "scene-illustration:area:9:ecl:aea6:cue:wagon-first-offer": "stojanow-wagon-first-offer.png",
+    "scene-illustration:area:9:ecl:9c35:caller:aeaa:cue:wagon-first-offer": "stojanow-wagon-first-offer.png",
     "portrait:area:9:ecl:aeef:HEAD2.DAX:5:BODY2.DAX:9": "stojanow-wagon-final-offer.png",
     "scene-illustration:area:9:ecl:afb4": "stojanow-trader-gate-warning.png",
     "scene-illustration:area:9:ecl:9c63:caller:afb8": "stojanow-trader-gate-warning.png",

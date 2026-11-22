@@ -12346,11 +12346,27 @@ try {
     writeFileSync(resolve(directory, "stojanow-passing-wagon.png"), Buffer.from(passingWagonShot.data, "base64"));
     await advance("enter");
     assert.equal(frame.portrait, undefined);
-    for (const key of ["enter", "p"]) await advance(key);
+    await advance("enter");
     assert.equal(frame.portrait, "portrait:HEAD2.DAX:5:BODY2.DAX:9");
-    await waitFor("the wagon trader portrait", () => run('document.querySelector(".encounter-portrait")?.naturalWidth === 352'));
-    await switchBothWays();
-    console.log("Verified the wagon trader portrait and state-preserving switches.");
+    await advance("p");
+    const firstOffer = "scene-illustration:area:9:ecl:9c35:caller:aeaa:cue:wagon-first-offer";
+    assert.equal(frame.portrait, firstOffer);
+    assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /COSTYOUIS250GOLDPIECES/i);
+    await waitFor("the trader's first offer", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${firstOffer}"]')?.naturalWidth === 352`));
+    const offerResponse = await fetch(`${origin}/art/${firstOffer}`);
+    assert.ok(offerResponse.ok);
+    assert.deepEqual(Buffer.from(await offerResponse.arrayBuffer()), readFileSync("upgrades/stojanow-wagon-first-offer.png"));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const offerShot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "stojanow-wagon-first-offer.png"), Buffer.from(offerShot.data, "base64"));
+    await advance("n");
+    assert.equal(frame.portrait, "portrait:area:9:ecl:aeef:HEAD2.DAX:5:BODY2.DAX:9");
+    await advance("l");
+    assert.equal(frame.portrait, undefined);
+    await waitForExplorationViewport();
+    console.log("Verified the wagon trader's first offer, final offer, and return to exploration.");
   } else if (stojanow) {
     for (const key of ["up", "enter"]) await advance(key);
     assert.equal(frame.portrait, "portrait:HEAD3.DAX:16:BODY3.DAX:7");

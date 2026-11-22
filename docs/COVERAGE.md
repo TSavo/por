@@ -929,9 +929,11 @@ It saves the outcome to slot B through Encamp. Use the printed slot B
 path with `stojanow-wall-warning-reload` to verify that all three clues
 and the Enhanced view return after loading. The original slot A remains
 byte-for-byte intact.
-The `stojanow-trader` route uses a controlled daylight slot B at `4,15 N`
-and verifies the new wagon trader portrait in the parley. Use `armorer` with slot A
-at the New Phlan west gate (`0,4 W`).
+The `stojanow-trader` route uses a controlled daylight slot B at `4,15 N`.
+GOG 1.3 Chrome checks the passing wagon, the trader's first 250-gold offer
+and its picture, then the final offer and the return to exploration after
+leaving the deal. Use `armorer` with slot A at the New Phlan west gate
+(`0,4 W`).
 
 
 The Zhentil journal follows the packet seal instructions, mounted patrol,
