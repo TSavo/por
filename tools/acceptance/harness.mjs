@@ -279,6 +279,9 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
     },
     stdio: ["pipe", "pipe", "pipe"],
   });
+  // A key written after the runner has ended (the game exits to DOS when the whole party is killed)
+  // fails with EPIPE. The next read says the game stopped, with its report: the write's error adds nothing.
+  runner.stdin.on("error", () => {});
   let errors = "";
   let discarded = 0;
   const texts = [];

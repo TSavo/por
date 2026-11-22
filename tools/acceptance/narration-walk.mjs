@@ -161,7 +161,10 @@ async function resolveScreen(limit = 120) {
     const menu = game.menu();
     const text = game.text();
     if (exploring.test(text)) return true;
-    if ((/Create New Character|Exit to DOS/.test(text) && /Load Saved Game/.test(text)) || /party has been destroyed/.test(text)) {
+    // The party destroyed: by the script ("The monsters rejoice"), or in a fight ("The entire party is
+    // killed!", after which the game exits to DOS).
+    if ((/Create New Character|Exit to DOS/.test(text) && /Load Saved Game/.test(text)) ||
+        /party has been destroyed|entire party is killed/i.test(text)) {
       log(`the game ended: ${text.replace(/\s+/g, " ").trim().slice(0, 120)}`);
       return false;
     }
@@ -303,6 +306,13 @@ try {
       if (++errors > 8) throw error;
       log(`recovered: ${error.message.split("\n")[0]}`);
       appendFileSync(ledger.replace(/\.jsonl$/, ".error.txt"), `${error.stack}\n${screenText(game.frame)}\n`);
+      // The runner ended (the game went back to DOS): start it again from the saved slot.
+      if (/The game stopped/.test(error.message)) {
+        if (++deaths > 8) break;
+        log(`the game ended: loading slot ${slot.toUpperCase()} again`);
+        closeGame();
+        await begin();
+      }
       if (!(await resolveScreen())) break;
     }
     if (elapsed() - lastReport >= 60) {
