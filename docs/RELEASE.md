@@ -210,7 +210,14 @@ not exist before the run.
   and `D:\Pool of Radiance` (132.5 GB) turned **Next** on; `E:\` (a drive's root) kept it off. Next led
   to **Choose Components** (the game, and the desktop shortcut) with **Install**; Cancel closed it.
   So the player can choose the drive, but NSIS refuses a drive only when the files alone do not fit:
-  with 834 MB free C: would have been accepted and filled.
+  with 834 MB free C: would have been accepted and filled (#94).
+- Fixed in `windows-installer.nsi` (#94): Next stays on, and leaving the directory page for a drive
+  with less free space than the game's files and 256 MB more (`SPARE_MB`) shows *Pool of Radiance
+  needs N MB free on C:, and C: has M MB* and stays on the page; a silent install to such a drive exits
+  2 before writing anything. Checked on Battleaxe with a small stage built with `-DSPARE_MB=1000`:
+  with its pages, Next on C: (784 MB free) showed "needs 1000 MB free on C:, and C: has 784 MB", OK
+  returned to the page, and `E:\por-release-test\room-check-gui` went on to *Choose Components*;
+  silent, `/D=C:\por-room-check` exited 2 in a second and left no folder, `/D=E:\…` exited 0.
 
 ## Known gaps
 
