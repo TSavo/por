@@ -387,7 +387,8 @@ const verifiedPortraitDeltaKeys = new Set([
 export const compositePortraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(HEAD\d+\.DAX):(\d{1,3}):(BODY\d+\.DAX):(\d{1,3})$/;
 export const portraitKey = /^portrait:(?:area:\d{1,3}:(?:ecl:[a-f0-9]{4}:(?:caller:[a-f0-9]{4}:)?)?)?(?:PIC\d+\.DAX:\d{1,3}:\d{1,3}:\d{1,3}|HEAD\d+\.DAX:\d{1,3}:BODY\d+\.DAX:\d{1,3})$/;
 export function usesPortraitDelta(key: string) {
-  return roamingZombieAnimationKey.test(key) || riverLizardfolkDeltaKey.test(key) || verifiedPortraitDeltaKeys.has(key);
+  return /^portrait:PIC[78]\.DAX:51:[0-4]:0$/.test(key) || roamingZombieAnimationKey.test(key) ||
+    riverLizardfolkDeltaKey.test(key) || verifiedPortraitDeltaKeys.has(key);
 }
 
 export const characterSheetPartKey = /^character-sheet:((HEAD|BODY)[1-8]\.DAX):(\d{1,3})$/;
@@ -1587,6 +1588,7 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
   const files = new Map(root ? listGameFiles(root).map((file) => [file.toUpperCase(), file]) : []);
   const patterns = new Map<string, string | null>();
   const registered = new Map<string, string[]>();
+  const matchedKeys = new Set<string>();
   const classicSources = new Map<string, string[]>();
   const classicHeads = new Map<string, string[]>();
   const classicBodies = new Map<string, string[]>();
@@ -1607,6 +1609,13 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
   }
   function register(pixels: Uint8Array, key: string) {
     if (!pixels.some(Boolean)) return;
+    if (report) matchedKeys.add(key);
+    // The two archives contain the same block, and members 1 and 3 share one delta and PNG.
+    const aliases = /^portrait:PIC[78]\.DAX:51:([0-4]):0$/.exec(key);
+    if (aliases) {
+      const first = `portrait:PIC7.DAX:51:${aliases[1] === "3" ? "1" : aliases[1]}:0`;
+      if (installed.has(first)) key = first;
+    }
     const [, area, cursor, caller] = areaPortraitKey.exec(key) ?? [];
     const scope = [area, cursor, caller].flatMap(part => part === undefined ? [] : [part + ":"]).join("");
     const signature = scope + Buffer.from(pixels).toString("base64");
@@ -1665,9 +1674,8 @@ export function loadPortraitArt(keys: string[], includeClassic = false,
     }
   }
   if (report) {
-    const matched = new Set([...registered.values()].flat());
     for (const key of keys) {
-      if (!matched.has(key)) report(key, "No usable 88×88 original portrait frame for this ID.");
+      if (!matchedKeys.has(key)) report(key, "No usable 88×88 original portrait frame for this ID.");
     }
     for (const ids of registered.values()) {
       if (ids.length < 2) continue;
