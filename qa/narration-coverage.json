@@ -120,7 +120,13 @@
    "ledger": "walk-kobold-1.jsonl",
    "games": 1,
    "decisions": 244,
-   "heard": 78
+   "heard": 88
+  },
+  "walk-kobold-1-v13": {
+   "ledger": "walk-kobold-1-v13.jsonl",
+   "games": 1,
+   "decisions": 244,
+   "heard": 88
   },
   "walk-kovel-1": {
    "ledger": "walk-kovel-1.jsonl",
@@ -136,6 +142,12 @@
   },
   "walk-lizardman-1": {
    "ledger": "walk-lizardman-1.jsonl",
+   "games": 3,
+   "decisions": 390,
+   "heard": 129
+  },
+  "walk-lizardman-1-v13": {
+   "ledger": "walk-lizardman-1-v13.jsonl",
    "games": 3,
    "decisions": 390,
    "heard": 129
@@ -216,7 +228,13 @@
    "ledger": "walk-valhingen-1.jsonl",
    "games": 1,
    "decisions": 208,
-   "heard": 20
+   "heard": 21
+  },
+  "walk-valhingen-1-v13": {
+   "ledger": "walk-valhingen-1-v13.jsonl",
+   "games": 1,
+   "decisions": 208,
+   "heard": 21
   },
   "walk-valjevo-g1": {
    "ledger": "walk-valjevo-g1.jsonl",
@@ -268,6 +286,12 @@
   },
   "walk-wilderness-1": {
    "ledger": "walk-wilderness-1.jsonl",
+   "games": 1,
+   "decisions": 145,
+   "heard": 23
+  },
+  "walk-wilderness-1-v13": {
+   "ledger": "walk-wilderness-1-v13.jsonl",
    "games": 1,
    "decisions": 145,
    "heard": 23
@@ -919,6 +943,14 @@
     "key": "scene-illustration:area:9:ecl:9c63:caller:a1d2"
    }
   },
+  "ecl4-b10-9bbf": {
+   "run": "walk-valhingen-1",
+   "step": 111633502,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:26:ecl:b695:caller:9c27"
+   }
+  },
   "ecl4-b10-9c45": {
    "run": "walk-valhingen-1",
    "step": 112689880,
@@ -1256,6 +1288,14 @@
     "showing": "no picture"
    }
   },
+  "ecl6-b25-9bbf-9c6b": {
+   "run": "walk-wilderness-1",
+   "step": 148261674,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:25:ecl:9c97:PIC6.DAX:32:0:0"
+   }
+  },
   "ecl6-b25-9c3e-9c6b": {
    "run": "walk-wilderness-1",
    "step": 160150759,
@@ -1318,6 +1358,22 @@
    "art": {
     "kind": "portrait",
     "key": "portrait:area:13:ecl:9c10:PIC8.DAX:0:0:0"
+   }
+  },
+  "ecl8-b13-9c9f": {
+   "run": "walk-kobold-1",
+   "step": 1844318316,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
+   }
+  },
+  "ecl8-b13-9ce1-9d05": {
+   "run": "walk-kobold-1",
+   "step": 1845031698,
+   "art": {
+    "kind": "view",
+    "key": "the first-person view"
    }
   },
   "ecl8-b13-9d7b": {
@@ -1521,6 +1577,14 @@
     "key": "portrait:area:13:PIC8.DAX:0:0:0"
    }
   },
+  "ecl8-b13-b49e": {
+   "run": "walk-kobold-1",
+   "step": 669270047,
+   "art": {
+    "kind": "portrait",
+    "key": "portrait:area:13:ecl:9ef1:PIC8.DAX:0:0:0"
+   }
+  },
   "ecl8-b16-9c22": {
    "run": "walk-lizardman-1",
    "step": 152107947,
@@ -1583,6 +1647,11 @@
    "art": {
     "kind": "view",
     "key": "the first-person view"
+   },
+   "withoutArt": {
+    "run": "walk-lizardman-1-v13",
+    "step": 164605608,
+    "showing": "the original picture"
    }
   },
   "ecl8-b16-a879": {
@@ -1601,6 +1670,14 @@
     "key": "encounter:area:16:ecl:a947:SPRIT8.DAX:59:0:0"
    }
   },
+  "ecl8-b16-a9d0-aa0c": {
+   "run": "walk-lizardman-1",
+   "step": 350187114,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:16:ecl:9a59:caller:aa24:cue:stairs-up"
+   }
+  },
   "ecl8-b16-aa7c": {
    "run": "walk-lizardman-1",
    "step": 394960420,
@@ -1609,9 +1686,9 @@
     "key": "the first-person view"
    },
    "withoutArt": {
-    "run": "walk-lizardman-1",
-    "step": 506375780,
-    "showing": "no picture"
+    "run": "walk-lizardman-1-v13",
+    "step": 401824155,
+    "showing": "the original picture"
    }
   },
   "ecl8-b16-aaf5-operand-9": {
@@ -1620,6 +1697,11 @@
    "art": {
     "kind": "view",
     "key": "the first-person view"
+   },
+   "withoutArt": {
+    "run": "walk-lizardman-1-v13",
+    "step": 488649195,
+    "showing": "the original picture"
    }
   },
   "ecl8-b16-ab49": {
@@ -4566,92 +4648,7 @@
    "value": 2
   }
  },
- "silent": {
-  "covered-without-trigger | por.review.ecl-4.block-10.at-9bbf | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-4.block-10.at-9bbf",
-   "archive": "ECL4.DAX",
-   "block": 10,
-   "runs": {
-    "walk-valhingen-1": {
-     "count": 1,
-     "step": 111633502
-    }
-   }
-  },
-  "covered-without-trigger | por.review.ecl-6.block-25.at-9c6b | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-6.block-25.at-9c6b",
-   "archive": "ECL6.DAX",
-   "block": 25,
-   "runs": {
-    "walk-wilderness-1": {
-     "count": 1,
-     "step": 148541047
-    }
-   }
-  },
-  "covered-without-trigger | por.review.ecl-8.block-13.at-9c9f | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-8.block-13.at-9c9f",
-   "archive": "ECL8.DAX",
-   "block": 13,
-   "runs": {
-    "walk-kobold-1": {
-     "count": 1,
-     "step": 1844318316
-    }
-   }
-  },
-  "covered-without-trigger | por.review.ecl-8.block-13.at-9ce1 | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-8.block-13.at-9ce1",
-   "archive": "ECL8.DAX",
-   "block": 13,
-   "runs": {
-    "walk-kobold-1": {
-     "count": 1,
-     "step": 1845031698
-    }
-   }
-  },
-  "covered-without-trigger | por.review.ecl-8.block-13.at-9d05 | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-8.block-13.at-9d05",
-   "archive": "ECL8.DAX",
-   "block": 13,
-   "runs": {
-    "walk-kobold-1": {
-     "count": 1,
-     "step": 1849091458
-    }
-   }
-  },
-  "covered-without-trigger | por.review.ecl-8.block-13.at-b49e | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-8.block-13.at-b49e",
-   "archive": "ECL8.DAX",
-   "block": 13,
-   "runs": {
-    "walk-kobold-1": {
-     "count": 8,
-     "step": 669270047
-    }
-   }
-  },
-  "covered-without-trigger | por.review.ecl-8.block-16.at-aa0c | ": {
-   "kind": "covered-without-trigger",
-   "sourceId": "por.review.ecl-8.block-16.at-aa0c",
-   "archive": "ECL8.DAX",
-   "block": 16,
-   "runs": {
-    "walk-lizardman-1": {
-     "count": 4,
-     "step": 350255391
-    }
-   }
-  }
- },
+ "silent": {},
  "playback": {
   "runs": {
    "campaign-full": {
