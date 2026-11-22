@@ -116,6 +116,15 @@ too, never into the install:
 
 Uninstalling leaves them.
 
+### Saves from the first release
+
+Not supported, by the owner's ruling of 2026-11-21 (#95): there are no legacy saves to support, and no check
+loads one. What is known: SAVGAM is 13,137 bytes and character, item and effect records are 285, 63 and 9
+bytes in both releases, and a slot saved by the first release at the Slums gate
+(`qa/fixtures/first-release-slums-gate`) loaded on 1.3 on 2026-11-21 (party walked, labelled a tile, saved,
+reloaded). A save also carries a copy of the current area's script, so an area saved on the first release
+holds the first release's script; that case was not compared byte by byte.
+
 ## Signing
 
 None of the packages is signed by a developer yet.
