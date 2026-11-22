@@ -1,19 +1,21 @@
 import assert from "node:assert/strict";
-import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { writeFileSync } from "node:fs";
+import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { openChromeCampaignLeg } from "./chrome-campaign-replay.mjs";
 
-const [chromePath] = process.argv.slice(2);
-assert.ok(chromePath, "Usage: node tools/verify-character-sheet-fallback.mjs <Chrome executable>");
-const root = mkdtempSync(join(tmpdir(), "por-character-sheet-"));
+const [chromePath, captureParent] = process.argv.slice(2);
+assert.ok(chromePath, "Usage: node tools/verify-character-sheet-fallback.mjs <Chrome executable> [capture directory]");
+const root = await mkdtemp(join(captureParent ?? tmpdir(), "por-character-sheet-"));
 const checkpointDir = join(root, "saves");
-mkdirSync(checkpointDir);
-const chrome = await openChromeCampaignLeg({
-  chromePath, directory: join(root, "capture"), checkpointDir,
-  bootKeys: "", startAt: "24000000", inputCompat: "",
-});
+let chrome;
 try {
+  await mkdir(checkpointDir);
+  chrome = await openChromeCampaignLeg({
+    chromePath, directory: join(root, "capture"), checkpointDir,
+    bootKeys: "", startAt: "24000000", inputCompat: "",
+  });
   await chrome.nextFrame();
   for (const key of ["enter", "enter", "enter", "c", ...Array(5).fill("enter"), "y", ..."test", "enter"]) {
     await chrome.send(key);
@@ -32,7 +34,7 @@ try {
   assert.equal(before.parts.length, 2);
   assert.equal(before.rendered, 2);
   assert.match(before.text, /male\s*dwarf/i);
-  writeFileSync(join(root, "complete.png"), await chrome.screenshot());
+  if (captureParent) writeFileSync(join(root, "complete.png"), await chrome.screenshot());
   for (const missing of [0, 1]) {
     const view = await chrome.evaluate(`(async () => {
       const original = state;
@@ -57,7 +59,7 @@ try {
         state = original;
       }
     })()`);
-    writeFileSync(join(root, `missing-${missing}.png`), await chrome.screenshot());
+    if (captureParent) writeFileSync(join(root, `missing-${missing}.png`), await chrome.screenshot());
     assert.deepEqual(view, {
       text: before.text, showsEnhancedText: true, usesEnhancedFrame: true, parts: 0,
       fallback: before.classicAvailable ? ["70%", "4%", "27.5%", "44%"] : null,
@@ -68,7 +70,18 @@ try {
   await chrome.send("h");
   await chrome.nextFrame();
   assert.equal(await chrome.evaluate('document.querySelectorAll(".character-sheet-part").length'), 2);
-  console.log(`Verified the character sheet stays Enhanced with a missing head or body. Captures: ${root}`);
+  console.log("Verified the character sheet stays Enhanced with a missing head or body.");
 } finally {
-  await chrome.close();
+  try {
+    await chrome?.close();
+  } finally {
+    // Give Chrome time to release its profile files on Windows.
+    const options = { recursive: true, force: true, maxRetries: 10, retryDelay: 100 };
+    if (captureParent) {
+      await rm(join(root, "capture", "chrome"), options);
+      console.log(`Captures: ${root}`);
+    } else {
+      await rm(root, options);
+    }
+  }
 }
