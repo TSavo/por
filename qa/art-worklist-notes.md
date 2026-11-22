@@ -11,3 +11,5 @@ Whoever maintains `tools/art-worklist.ts` reads this file and fixes the tool. Do
 
 ## Notes
 
+- `tile:20:e3186849c39595898dc81456768972ec3ccb4e6dfd818445b630fc0799fea169` was observed at screen cell (40, 64) in the Enhanced `castle-halls` replay from the controlled `castle-hall-approach-B.json` fixture. That view draws the Valjevo threshold while the save still reports area 20. The same fingerprint is installed in area 7 for `valjevo-hall-threshold`. Keep the area-20 alias for that controlled replay pending verification of the natural transition.
+
