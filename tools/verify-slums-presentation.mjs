@@ -6044,6 +6044,11 @@ const valhingenBrassDoorBattle = {
   afterBattle: /9,1W.*AREACASTVIEWENCAMPSEARCHLOOK/i,
 };
 const controlledBattleIllustrations = new Map([
+  ["bane-cleric-dispatch", {
+    slot: "A", inputs: ["up", "d", "enter", "enter", "enter", "enter"],
+    portrait: "scene-illustration:area:24:ecl:b0b5:cue:cleric-dispatch",
+    caption: /ONTHEDEADBODYOFTHEHALF-ORCCLERIC.*ENTRY25/i,
+  }],
   ["mendor-basilisk-loot", {
     slot: "B", inputs: ["s", "up", "enter", "enter", "c", "enter"],
     portrait: "portrait:area:15:ecl:a5a3:PIC1.DAX:1:0:0",
@@ -8633,6 +8638,14 @@ try {
       await step("enter");
       assert.match(text(), /VIEWTAKEPOOLEXIT/i);
       assert.equal(frame.portrait, "portrait:PIC1.DAX:1:0:0");
+    } else if (routeName === "bane-cleric-dispatch") {
+      await step("j");
+      assert.match(frame.journal?.leads.find(({ id }) => id === "bane-cleric-dispatch")?.detail ?? "", /entry 25/i);
+      assert.equal(frame.journal?.leads.find(({ id }) => id === "commission-bane")?.status, "ready-to-report");
+      await step("j");
+      await step("l");
+      assert.equal(frame.portrait, undefined);
+      await waitForExplorationViewport();
     } else if (routeName === "mendor-basilisk-loot") {
       await step("t");
       assert.match(text(), /LOOTHANDAXEPOTIONPOTIONCLOAKCLERICALSCROLLWITH2SPELLS/i);
