@@ -425,7 +425,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         dialogue === "YOUAREOUTSIDETHECITYHALL.THECITYCLERKWAITSINSIDETOAWARDCOMMISSIONS." ||
         dialogue === "YOUAREBYTHEGATEWAYTOTHEUNSETTLEDAREAS.THECITYWATCHEYESYOUSUSPICIOUSLY.");
       // Landmark and arrival illustrations can cover a native view used for navigation.
-      const illustratedExploration = illustration !== undefined && (harborRoadSign ||
+      const illustratedExploration = illustration !== undefined && (exploration || harborRoadSign ||
         illustration === "scene-illustration:area:0:ecl:9b68" ||
         illustration === "scene-illustration:area:0:ecl:ae31:caller:9ad2");
       if (area !== undefined && !scene && !overlandMap && !iconEditor && (picture === undefined || illustratedExploration) && !battlefield) {

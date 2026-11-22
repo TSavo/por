@@ -3,7 +3,7 @@
  "about": "What play has heard of the narration. Written by `npm run qa:narration -- --merge <ledgers>`; see docs/NARRATION-QA.md.",
  "runs": {
   "acceptance-narration-dynamic": {
-   "ledger": "acceptance-narration-dynamic-duels-final.jsonl",
+   "ledger": "acceptance-narration-dynamic-north-junction.jsonl",
    "games": 3,
    "decisions": 350,
    "heard": 66
@@ -430,10 +430,9 @@
   "por.voice.ecl3.b11-9af8": {
    "run": "acceptance-narration-dynamic",
    "step": 153929865,
-   "withoutArt": {
-    "run": "acceptance-narration-dynamic",
-    "step": 153929865,
-    "showing": "no picture"
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:11:ecl:9b56"
    }
   },
   "por.voice.ecl3.b11-9bbe": {
