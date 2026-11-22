@@ -2467,6 +2467,19 @@ const illustrationRoutes = new Map([
     portrait: "portrait:PIC4.DAX:20:0:0",
     prompt: /STATICELECTRICITYANDBALLLIGHTNING.*WIGHTSAPPEARFROMBEHINDTHETOWER/i,
   }],
+  ["valhingen-zombie-tower", {
+    slot: "A", inputs: ["l", "enter", "enter", "enter"],
+    portraitStops: {
+      1: "scene-illustration:area:10:ecl:b6a8:caller:a676:cue:zombie-tower-exterior",
+      2: null,
+      3: "portrait:area:10:PIC4.DAX:35:0:0",
+    },
+    phaseCaptures: { 1: "valhingen-zombie-tower-exterior.png" },
+    approachStops: { 2: [56, 32, "encounter:area:10:SPRIT4.DAX:35:0:0", 32, 80] },
+    portrait: "scene-illustration:area:10:ecl:b5c7:cue:zombie-tower-attack",
+    prompt: /THETOWERDOORSWINGSOPENANDASMALLARMYOFZOMBIESSHUFFLESOUT.*LOCKSFALLINGINTOPLACE/i,
+    finalPhaseCapture: "valhingen-zombie-tower-attack.png",
+  }],
   ["valhingen-marble-chest", {
     slot: "A", inputs: ["l"],
     portrait: "scene-illustration:area:10:ecl:b6c6:caller:9e99",
