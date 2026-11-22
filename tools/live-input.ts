@@ -68,6 +68,7 @@ export interface PresentationAnimationFrame {
   approach?: boolean;
   /** True for the screen held in colours the game set for a pause (the title's flash): Classic plays it, Enhanced does not (#82). */
   classicOnly?: boolean;
+  enhancedOnly?: boolean;
 }
 type TilePlacement = [x: number, y: number, key: string];
 export type { PanelFrameStamp } from "../src/runtime/video.js";
@@ -404,7 +405,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
     return attacks.length ? JSON.stringify(attacks) : "";
   }
   const showFrame = (leads?: JournalLead[], attack?: CombatArtPlacement[], captureApproach = false, automaticCombat = false,
-    durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }, captureIllustration = false,
+    durationMs?: number, effect?: { placement: TilePlacement; clean: Frame }, captureIllustration: boolean | string = false,
     message?: "status" | "combat" | "picture" | "palette") => {
     const native = screen;
     const presentation = effect?.clean ?? native;
@@ -505,7 +506,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
       const illustration = scene || wellLookAway || towerLookAway || barracksFloorNote ||
         (councilRewardScreen && !finalCouncilReward)
-        ? undefined : matchScriptIllustration(illustrationScope, illustrationText, portraitKeys);
+        ? undefined : matchScriptIllustration(
+          typeof captureIllustration === "string" ? captureIllustration : illustrationScope, illustrationText, portraitKeys);
       if (captureIllustration && (!illustration || animation.at(-1)?.portrait === illustration)) return;
       const menu = menuText(text);
       // The overland map shares the native viewport blit and omits Area.
@@ -908,7 +910,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           combatEffect: state.combatEffect,
           battleTiles, battleProps, panelFrame: state.panelFrame, perspective,
           nativeScenery: state.nativeScenery, exploration: state.exploration,
-          overlandMap: state.overlandMap, encounter, tiles, durationMs });
+          overlandMap: state.overlandMap, encounter, tiles, durationMs,
+          enhancedOnly: typeof captureIllustration === "string" || undefined });
       } else {
         mappedPosition = mapped;
         if (automap) {
@@ -1367,6 +1370,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       captureEclContext(cpu);
       showFrame(undefined, undefined, false, false, ms, undefined, false, "palette");
       paletteClip = animation.at(-1);
+    } : undefined,
+    captureCompletedScriptText: browser ? (cpu: Cpu) => {
+      // ECL7 block 26 clears the abandoned camp caption before its next keyboard prompt.
+      // The loaded wilderness script still owns the caption when the party leaves the inhabited camp.
+      const scope = "scene-illustration:area:26:ecl:9be2";
+      if (!portraitKeys.includes(scope) || cpu.read8(unit.data, data.eclArchive) !== 7 ||
+          cpu.read8(unit.data, data.eclBlock) !== 26) return;
+      const cursor = authoredScriptPosition(cpu, cpu.read16(unit.data, data.eclCursor), unit.data);
+      if (cursor === 0x9be2) showFrame(undefined, undefined, false, false, 1200, undefined, scope);
     } : undefined,
     capturePresentationDelay: browser ? (cpu: Cpu, effectDelay = false, messageMs?: number, pauseMs?: number) => {
       // The game pauses on the encounter picture it just drew (DELAY between APPROACHes, Rolf's

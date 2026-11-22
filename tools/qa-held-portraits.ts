@@ -106,6 +106,9 @@ const promptId = (cursor: string, caller: string | null) => caller ? `${cursor}/
 // Exact reviewed revisions that preserve the held portrait paint and timing code.
 // This covers narration logging, the wilderness atlas, settings, and Classic palette-only clips.
 const previousRendererProof = new Map<string, string>([
+  // Classic skips the new Enhanced-only abandoned camp clip. Existing clips keep their filters.
+  ["c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+    "db6e5267e6521bc9737d197ed4eca705e396fdc5a1e0f4253f6bff07487724d0"],
   // The Slums secret cache uses the existing full-screen reward layout.
   ["db6e5267e6521bc9737d197ed4eca705e396fdc5a1e0f4253f6bff07487724d0",
     "4a5ce4805ccc29ba0770cc0246dc6e35173ba6e789188d5e2500bced96a31584"],

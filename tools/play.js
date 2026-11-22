@@ -615,10 +615,10 @@ function playPendingNarration() {
 
 // When the last batch of an animation the game plays by itself arrived, or the key that began it was sent.
 let selfPlayingBatchAt;
-/** The clips of this frame the presentation plays: the screen held in the game's own palette (#82) is Classic's alone. */
+/** The clips each mode can show, including Classic palette holds and Enhanced illustrations. */
 function presentedClips() {
   const frames = state.animation ?? [];
-  return enhanced ? frames.filter(frame => !frame.classicOnly) : frames;
+  return frames.filter(frame => enhanced ? !frame.classicOnly : !frame.enhancedOnly);
 }
 function playAnimation(continues = false) {
   let frames = presentedClips();

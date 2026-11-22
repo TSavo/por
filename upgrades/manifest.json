@@ -9249,6 +9249,8 @@
     "portrait:area:25:ecl:a58b:caller:9f43:PIC6.DAX:117:0:0": "diogenes-cave-flight.png",
     "portrait:area:25:ecl:9fb5:PIC6.DAX:117:0:0": "diogenes-cave-flight.png",
     "portrait:area:25:ecl:a03a:PIC6.DAX:117:0:0": "diogenes-upper-ledge.png",
+    "scene-illustration:area:25:ecl:adce": "wilderness-distant-dragon.png",
+    "scene-illustration:area:26:ecl:9be2": "wilderness-abandoned-camp.png",
     "scene-illustration:area:25:ecl:a0ea": "diogenes-upper-ledge-fireball.png",
     "scene-illustration:area:25:ecl:a0ea:cue:diogenes-fireball-casualties": "diogenes-fireball-casualties.png",
     "scene-illustration:area:25:ecl:a135:cue:diogenes-lair-empty": "diogenes-lair-empty-search.png",

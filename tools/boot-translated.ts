@@ -428,7 +428,7 @@ if (browserSound) {
 if (narrationObserver || tracePictureProducer) {
   cpu.onEclInstruction = entering => {
     if (!entering) {
-      eclTextHandlers.pop();
+      if (eclTextHandlers.pop()) input?.captureCompletedScriptText?.(cpu);
       eclPictureProducers.pop();
       return;
     }
