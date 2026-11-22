@@ -133,6 +133,9 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       if (pictureLoop && at === code.pictureMemberPresented.at && isAt(this, at, code.pictureMemberPresented) &&
           this.read16(this.ss, (this.bp + 2) & 0xffff) === pictureLoop.at &&
           this.read16(this.ss, (this.bp + 4) & 0xffff) === codeSegment(pictureLoop)) input?.presentPictureLoop?.(this);
+      if (pictureLoop && code.pictureLoopEnds && at === code.pictureLoopEnds.at && isAt(this, at, code.pictureLoopEnds)) {
+        input?.presentPictureLoopEnd?.(this);
+      }
       if (headLoaded && at === headLoaded.at && isAt(this, at, headLoaded)) nativePicture?.partLoaded(this, true);
       if (bodyLoaded && at === bodyLoaded.at && isAt(this, at, bodyLoaded)) nativePicture?.partLoaded(this, false);
       if (portraitPresentation && at === portraitPresentation.at && isAt(this, at, portraitPresentation)) {

@@ -181,6 +181,8 @@ const areaNames = {
 let animationFrame;
 let animationTimer;
 let advanceAnimation;
+// The clips still to play. The next batch of an animation the game plays by itself joins the end.
+let animationQueue = [];
 let screenRender = 0;
 let renderingSequence;
 const failedSceneArt = new WeakSet();
@@ -358,6 +360,7 @@ function finishAnimation() {
   animationTimer = undefined;
   advanceAnimation = undefined;
   animationFrame = undefined;
+  animationQueue = [];
 }
 
 // The narration playback log: what the page was told to narrate and what the audio element then
@@ -523,16 +526,35 @@ function playPendingNarration() {
   }
 }
 
-function playAnimation() {
+// When the last batch of an animation the game plays by itself arrived, or the key that began it was sent.
+let selfPlayingBatchAt;
+function playAnimation(continues = false) {
+  let frames = state.animation ?? [];
+  if (state.presentationPolling || continues) {
+    // The runner draws such an animation several times slower than the original showed it (its DOS
+    // clock moves one hundredth per reading). Each batch is therefore spread over the time the last
+    // one took to arrive, up to a second a picture, so the poses keep moving while the next batch is
+    // drawn, rather than playing at once and holding the last pose for seconds (#125). The game's own
+    // timing is untouched.
+    const now = performance.now();
+    const spread = frames.length ? Math.min(1000, (now - (selfPlayingBatchAt ?? now)) / frames.length) : 0;
+    selfPlayingBatchAt = state.presentationPolling ? now : undefined;
+    frames = frames.map(frame => ({ ...frame, durationMs: Math.max(frame.durationMs ?? 120, spread) }));
+  }
+  // The game's next batch of an animation it plays by itself (#121) follows the clips still playing,
+  // so the pictures run on while the game draws the batch after (#125).
+  if (continues && advanceAnimation) {
+    animationQueue.push(...frames);
+    return;
+  }
   finishAnimation();
-  const frames = state.animation ?? [];
   if (!frames.length) {
     void showScreen();
     return;
   }
-  let index = 0;
+  animationQueue = [...frames];
   advanceAnimation = () => {
-    animationFrame = frames[index++];
+    animationFrame = animationQueue.shift();
     if (!animationFrame) finishAnimation();
     void showScreen();
   };
@@ -1976,11 +1998,13 @@ async function send(key) {
   if (endsVoice && currentVoice) {
     pendingVoiceStop = { voice: currentVoice, reason: endsVoice, frame: state.frame, queued: [...narrationQueue] };
   }
-  if (animationFrame) {
+  // Asking for more of an animation the game plays by itself leaves the clips playing (#125).
+  if (animationFrame && !(key === ":poll" && state.presentationPolling)) {
     finishAnimation();
     showScreen();
   }
   posting = true;
+  if (!(key === ":poll" && state.presentationPolling)) selfPlayingBatchAt = performance.now();
   const sequence = state.sequence;
   try {
     // On this branch the page checks the word and shows the wheel over the game picture, so the
@@ -2032,6 +2056,8 @@ async function poll() {
     if (lastTextId === null) lastTextId = next.textId ?? 0;
     if (lastNarrationId === null) lastNarrationId = next.narrationId ?? 0;
     const changed = next.sequence !== state.sequence;
+    // A frame that follows one of an animation the game plays by itself carries the clips after it.
+    const continuesAnimation = changed && Boolean(state.presentationPolling);
     if (changed) state = next;
     else Object.assign(state, next);
     settlePresentation();
@@ -2066,15 +2092,17 @@ async function poll() {
     }
     if (changed) {
       renderJournal();
-      playAnimation();
+      playAnimation(continuesAnimation);
       if (state.automaticCombat || state.presentationPolling) {
         quickPollAfter = performance.now() + 160 +
           (state.animation ?? []).reduce((total, frame) => total + (frame.durationMs ?? 120), 0);
       }
     }
-    // A fight the computer plays, or an animation the game plays by itself (#121): once the page has
-    // shown what came, it asks for more.
-    if ((state.automaticCombat || state.presentationPolling) && !state.journal && !codeWheelTool() && state.ready && !animationFrame && performance.now() >= quickPollAfter) {
+    // A fight the computer plays: once the page has shown what came, it asks for more. An animation
+    // the game plays by itself (#121): the page asks at once, so the game draws the next batch while
+    // this one plays (#125).
+    const shown = !animationFrame && performance.now() >= quickPollAfter;
+    if ((state.automaticCombat && shown || state.presentationPolling) && !state.journal && !codeWheelTool() && state.ready) {
       void send(":poll");
     }
     followTravel();

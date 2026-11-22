@@ -10708,15 +10708,19 @@ try {
         await run(`(() => {
           const prefix = "/art/portrait:area:7:FINAL5.DAX:";
           window.finalePoses = [];
+          window.finalePaintTimes = [];
           window.observeFinale = true;
-          function sample() {
+          function sample(now) {
             if (!window.observeFinale) return;
             const image = document.querySelector("#tile-art:not([hidden]) .encounter-portrait");
             if (image?.complete && image.naturalWidth === 352 && image.getClientRects().length) {
               const path = decodeURIComponent(new URL(image.src).pathname);
               if (path.startsWith(prefix)) {
                 const pose = path.slice(prefix.length);
-                if (window.finalePoses.at(-1) !== pose) window.finalePoses.push(pose);
+                if (window.finalePoses.at(-1) !== pose) {
+                  window.finalePoses.push(pose);
+                  window.finalePaintTimes.push(now);
+                }
               }
             }
             requestAnimationFrame(sample);
@@ -10858,6 +10862,11 @@ try {
         const expected = [[2, 4], [7, 6]].flatMap(([block, members]) =>
           Array.from({ length: 15 * members }, (_, index) => `${block}:${index % members}:0`));
         writeFileSync(resolve(directory, "valjevo-finale-poses.json"), JSON.stringify(poses));
+        // How long the panel held each pose before the next one was painted (#125).
+        const paintTimes = await run("window.finalePaintTimes");
+        const holds = paintTimes.slice(1).map((at, index) => at - paintTimes[index]);
+        writeFileSync(resolve(directory, "valjevo-finale-paint-ms.json"), JSON.stringify(holds.map(Math.round)));
+        console.log(`Finale pose paints: longest hold ${Math.round(Math.max(...holds))} ms, ${holds.filter(hold => hold > 1000).length} holds over 1 s`);
         assert.deepEqual(poses, expected, "Chrome should paint every finale pose in native order");
         await verifyPortraitPanel();
         await switchBothWays(frame.frame);

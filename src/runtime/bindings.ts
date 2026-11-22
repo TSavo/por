@@ -325,6 +325,8 @@ export const code = resolve({
    * as they are drawn (#121). Not located in the first release.
    */
   pictureLoopResumes: { "1.0": undefined, "1.3": { slice: 0x12, at: 0x93 } },
+  /** Where that loop has played its last cycle and releases the pictures (#125). */
+  pictureLoopEnds: { "1.0": undefined, "1.3": { slice: 0x12, at: 0x104 } },
   /** The composed portrait loader records the loaded piece's block ID. */
   portraitHeadLoaded: { "1.0": { slice: 0x1d, at: 0x60b }, "1.3": { slice: 0x1c, at: 0x640 } },
   portraitBodyLoaded: { "1.0": { slice: 0x1d, at: 0x654 }, "1.3": { slice: 0x1c, at: 0x689 } },

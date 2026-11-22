@@ -302,6 +302,20 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let pictureLoopPasses = 0;
   let pictureLoopClip: PresentationAnimationFrame | undefined;
   let immediateStrike: { signature: string; clip: PresentationAnimationFrame } | undefined;
+  /** Send the pictures captured so far in a frame the page plays, and wait until it asks for more. */
+  const handOverPictureLoop = () => {
+    presentationPolling = true;
+    awaitsKey = false;
+    showFrame();
+    presentationPolling = false;
+    pictureLoopClip = undefined;
+    for (;;) {
+      const command = readCommand();
+      if (command === undefined || command === ":quit") throw new Error("Live session closed");
+      if (command === ":poll" || command === ":travel-poll") return;
+      console.log("Enter a letter, digit, arrow name: the game is playing an animation and takes no key now.");
+    }
+  };
   let lastAttack = "";
   let lastCombatReport = "";
   let lastApproach: string | undefined;
@@ -1158,6 +1172,18 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
      * one DOS clock hundredth). A dozen clips go to the page in a frame it plays and then answers
      * with ":poll", as for a fight the computer plays; the game's own timing is untouched.
      */
+    /**
+     * The loop has played its last cycle (#125). The pictures still held here go to the page now,
+     * not with the next prompt, which can come seconds later.
+     */
+    presentPictureLoopEnd: browser ? (cpu: Cpu) => {
+      if (cpu.steps < startAt || !pictureLoopClip) return;
+      pictureLoopClip.durationMs = Math.max(10, pictureLoopPasses * 10);
+      pictureLoopPasses = 0;
+      pictureLoopShown = undefined;
+      captureEclContext(cpu);
+      handOverPictureLoop();
+    } : undefined,
     presentPictureLoop: browser ? (cpu: Cpu) => {
       if (cpu.steps < startAt) return;
       pictureLoopPasses++;
@@ -1172,19 +1198,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       if (pictureLoopClip) pictureLoopClip.durationMs = pictureLoopPasses * 10;
       pictureLoopPasses = 0;
       captureEclContext(cpu);
-      if (animation.length >= 12) {
-        presentationPolling = true;
-        awaitsKey = false;
-        showFrame();
-        presentationPolling = false;
-        pictureLoopClip = undefined;
-        for (;;) {
-          const command = readCommand();
-          if (command === undefined || command === ":quit") throw new Error("Live session closed");
-          if (command === ":poll" || command === ":travel-poll") break;
-          console.log("Enter a letter, digit, arrow name: the game is playing an animation and takes no key now.");
-        }
-      }
+      if (animation.length >= 12) handOverPictureLoop();
       showFrame(undefined, undefined, false, false, 100, undefined, false, "picture");
       pictureLoopClip = animation.at(-1);
       // Enhanced shows the pose drawn for this member where there is one (tools/portrait-art.ts endingPortraitKey).
