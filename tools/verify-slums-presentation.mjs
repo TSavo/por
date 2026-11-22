@@ -683,6 +683,14 @@ const stojanowTollApproach = [
 const councilClerkApproach = ["right", "right", "up", "right", "right", "up", "enter", "enter"];
 
 const illustrationRoutes = new Map([
+  ["new-phlan-city-hall-entrance", {
+    slot: "A", inputs: ["right", "right", "up", "up", "up", "enter", "up"],
+    portrait: "scene-illustration:area:0:ecl:9a4f",
+    heldPortrait: "scene-illustration:area:0:ecl:9a4f",
+    prompt: /YOUENTERTHECITYHALL.*YOUSEEAGUARDEDDOOR/i,
+    continuation: { inputs: ["up"], portrait: "scene-illustration:area:8:ecl:9b8a:caller:9a4a",
+      prompt: /OUTSIDETHECLERK.SOFFICE.*GUARDSPOSTEDAROUNDADOORINTHESOUTHWALL/i, screenshot: "new-phlan-clerk-office-guards.png" },
+  }],
   ["new-phlan-clerk-office-guards", {
     slot: "A", inputs: ["right", "right", "up", "up", "up", "enter", "up", "up"],
     portrait: "scene-illustration:area:8:ecl:9b8a:caller:9a4a",
@@ -6863,7 +6871,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_LIVE_AT: freshRolf ? "50000000" : "85000000", POR_BOOT_STEPS: "450000000",
     // These key lists include the presses the game used to discard. See tools/verify-input.mjs.
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ||
-      ["slums-first-arrival", "new-phlan-clerk-office-guards"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
+      ["slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
