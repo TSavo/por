@@ -9121,8 +9121,19 @@ try {
     assert.deepEqual([...phases].sort(), ["0", "1", "2", "3", "4"]);
     await verifyHeldPortraitLoop(5);
     await switchBothWays();
+    await advance("enter");
+    const attack = "scene-illustration:area:10:ecl:b5c7:cue:zombie-patrol-attack";
+    assert.equal(frame.portrait, attack);
+    const text = frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+    assert.match(text, /LUMBERINGFIGURESREACHFORYOU.*ABATTLEBEGINS/i);
+    await waitFor("the roaming zombie battle opening", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${attack}"]')?.naturalWidth === 352`));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "valhingen-zombie-patrol-attack.png"), Buffer.from(shot.data, "base64"));
     assert.deepEqual(readFileSync(saved), originalSave);
-    console.log("Verified all five native roaming zombie portrait phases in Chrome:", directory);
+    console.log("Verified all five native roaming zombie portrait phases and the battle opening in Chrome:", directory);
   } else if (controlledBattleIllustration) {
     const { inputs, portrait, caption, afterBattle = caption, walk = [], reinforcements = [] } = controlledBattleIllustration;
     const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
