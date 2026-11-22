@@ -100,3 +100,51 @@ export function parseDax(name: string, bytes: Uint8Array): DaxFile {
 export function entryById(file: DaxFile, id: number): DaxEntry | undefined {
   return file.entries.find((e) => e.id === id);
 }
+
+/**
+ * Pack bytes as a run stream the game's own loader reads. Literal runs stop at 64 bytes and
+ * repeats at 127, which the guest's signed-byte counter holds.
+ */
+export function encodeRuns(data: Uint8Array): Uint8Array {
+  const out: number[] = [];
+  let at = 0;
+  let literal = -1;
+  while (at < data.length) {
+    let run = 1;
+    while (run < 127 && at + run < data.length && data[at + run] === data[at]) run++;
+    if (run >= 3) {
+      out.push(256 - run, data[at]!);
+      at += run;
+      literal = -1;
+      continue;
+    }
+    if (literal < 0 || out[literal]! === 63) {
+      literal = out.length;
+      out.push(-1);
+    }
+    out[literal]!++;
+    out.push(data[at++]!);
+  }
+  return Uint8Array.from(out);
+}
+
+/** Build a DAX container from records, in the order given. */
+export function buildDax(records: readonly { id: number; data: Uint8Array }[]): Uint8Array {
+  const packed = records.map(({ id, data }) => ({ id, rawSize: data.length, compressed: encodeRuns(data) }));
+  const directorySize = packed.length * 9;
+  const bytes = new Uint8Array(2 + directorySize + packed.reduce((size, { compressed }) => size + compressed.length, 0));
+  const view = new DataView(bytes.buffer);
+  view.setUint16(0, directorySize, true);
+  let offset = 0;
+  for (const [index, { id, rawSize, compressed }] of packed.entries()) {
+    const at = 2 + index * 9;
+    if (rawSize > 0xffff || compressed.length > 0xffff) throw new Error(`DAX record ${id} is too large to pack`);
+    view.setUint8(at, id);
+    view.setUint32(at + 1, offset, true);
+    view.setUint16(at + 5, rawSize, true);
+    view.setUint16(at + 7, compressed.length, true);
+    bytes.set(compressed, 2 + directorySize + offset);
+    offset += compressed.length;
+  }
+  return bytes;
+}

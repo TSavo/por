@@ -1,0 +1,355 @@
+{
+ "format": "pool-of-radiance-game-data",
+ "formatVersion": 1,
+ "kind": "scripts",
+ "records": [
+  {
+   "file": "ECL1.DAX",
+   "block": 18,
+   "position": 0,
+   "kind": "script",
+   "bytes": 6550,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 0,
+    "length": 6550
+   }
+  },
+  {
+   "file": "ECL1.DAX",
+   "block": 24,
+   "position": 1,
+   "kind": "script",
+   "bytes": 7656,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 6550,
+    "length": 7656
+   }
+  },
+  {
+   "file": "ECL2.DAX",
+   "block": 9,
+   "position": 0,
+   "kind": "script",
+   "bytes": 6367,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 14206,
+    "length": 6367
+   }
+  },
+  {
+   "file": "ECL2.DAX",
+   "block": 15,
+   "position": 1,
+   "kind": "script",
+   "bytes": 5548,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 20573,
+    "length": 5548
+   }
+  },
+  {
+   "file": "ECL2.DAX",
+   "block": 20,
+   "position": 2,
+   "kind": "script",
+   "bytes": 7679,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 26121,
+    "length": 7679
+   }
+  },
+  {
+   "file": "ECL3.DAX",
+   "block": 0,
+   "position": 0,
+   "kind": "script",
+   "bytes": 7473,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 33800,
+    "length": 7473
+   }
+  },
+  {
+   "file": "ECL3.DAX",
+   "block": 8,
+   "position": 1,
+   "kind": "script",
+   "bytes": 7500,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 41273,
+    "length": 7500
+   }
+  },
+  {
+   "file": "ECL3.DAX",
+   "block": 11,
+   "position": 2,
+   "kind": "script",
+   "bytes": 2171,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 48773,
+    "length": 2171
+   }
+  },
+  {
+   "file": "ECL3.DAX",
+   "block": 14,
+   "position": 3,
+   "kind": "script",
+   "bytes": 7332,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 50944,
+    "length": 7332
+   }
+  },
+  {
+   "file": "ECL4.DAX",
+   "block": 2,
+   "position": 0,
+   "kind": "script",
+   "bytes": 6170,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 58276,
+    "length": 6170
+   }
+  },
+  {
+   "file": "ECL4.DAX",
+   "block": 10,
+   "position": 1,
+   "kind": "script",
+   "bytes": 7672,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 64446,
+    "length": 7672
+   }
+  },
+  {
+   "file": "ECL4.DAX",
+   "block": 21,
+   "position": 2,
+   "kind": "script",
+   "bytes": 5710,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 72118,
+    "length": 5710
+   }
+  },
+  {
+   "file": "ECL5.DAX",
+   "block": 3,
+   "position": 0,
+   "kind": "script",
+   "bytes": 6800,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 77828,
+    "length": 6800
+   }
+  },
+  {
+   "file": "ECL5.DAX",
+   "block": 4,
+   "position": 1,
+   "kind": "script",
+   "bytes": 6627,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 84628,
+    "length": 6627
+   }
+  },
+  {
+   "file": "ECL5.DAX",
+   "block": 5,
+   "position": 2,
+   "kind": "script",
+   "bytes": 4943,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 91255,
+    "length": 4943
+   }
+  },
+  {
+   "file": "ECL5.DAX",
+   "block": 6,
+   "position": 3,
+   "kind": "script",
+   "bytes": 4859,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 96198,
+    "length": 4859
+   }
+  },
+  {
+   "file": "ECL5.DAX",
+   "block": 7,
+   "position": 4,
+   "kind": "script",
+   "bytes": 4105,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 101057,
+    "length": 4105
+   }
+  },
+  {
+   "file": "ECL6.DAX",
+   "block": 1,
+   "position": 0,
+   "kind": "script",
+   "bytes": 7673,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 105162,
+    "length": 7673
+   }
+  },
+  {
+   "file": "ECL6.DAX",
+   "block": 19,
+   "position": 1,
+   "kind": "script",
+   "bytes": 3236,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 112835,
+    "length": 3236
+   }
+  },
+  {
+   "file": "ECL6.DAX",
+   "block": 25,
+   "position": 2,
+   "kind": "script",
+   "bytes": 5652,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 116071,
+    "length": 5652
+   }
+  },
+  {
+   "file": "ECL6.DAX",
+   "block": 28,
+   "position": 3,
+   "kind": "script",
+   "bytes": 7669,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 121723,
+    "length": 7669
+   }
+  },
+  {
+   "file": "ECL7.DAX",
+   "block": 17,
+   "position": 0,
+   "kind": "script",
+   "bytes": 7603,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 129392,
+    "length": 7603
+   }
+  },
+  {
+   "file": "ECL7.DAX",
+   "block": 22,
+   "position": 1,
+   "kind": "script",
+   "bytes": 3400,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 136995,
+    "length": 3400
+   }
+  },
+  {
+   "file": "ECL7.DAX",
+   "block": 23,
+   "position": 2,
+   "kind": "script",
+   "bytes": 5640,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 140395,
+    "length": 5640
+   }
+  },
+  {
+   "file": "ECL7.DAX",
+   "block": 26,
+   "position": 3,
+   "kind": "script",
+   "bytes": 6569,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 146035,
+    "length": 6569
+   }
+  },
+  {
+   "file": "ECL8.DAX",
+   "block": 13,
+   "position": 0,
+   "kind": "script",
+   "bytes": 7313,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 152604,
+    "length": 7313
+   }
+  },
+  {
+   "file": "ECL8.DAX",
+   "block": 16,
+   "position": 1,
+   "kind": "script",
+   "bytes": 5394,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 159917,
+    "length": 5394
+   }
+  },
+  {
+   "file": "ECL8.DAX",
+   "block": 27,
+   "position": 2,
+   "kind": "script",
+   "bytes": 5079,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 165311,
+    "length": 5079
+   }
+  },
+  {
+   "file": "ECL8.DAX",
+   "block": 29,
+   "position": 3,
+   "kind": "script",
+   "bytes": 5875,
+   "blob": {
+    "file": "content/scripts.bin",
+    "offset": 170390,
+    "length": 5875
+   }
+  }
+ ]
+}

@@ -1,0 +1,89 @@
+{
+ "format": "pool-of-radiance-game-data",
+ "formatVersion": 1,
+ "gameVersion": "1.3",
+ "program": "program.json",
+ "content": [
+  "content/characters.json",
+  "content/config.json",
+  "content/items.json",
+  "content/maps.json",
+  "content/monsters.json",
+  "content/saved-games.json",
+  "content/scripts.json",
+  "content/walls.json"
+ ],
+ "pictures": "pictures.json",
+ "files": [
+  {
+   "path": "content/characters.json",
+   "bytes": 15635,
+   "sha256": "5312c392339b8ac9dac2bd407307a32487c4a2e29f2b3022cf4a7f8d159fd0e1"
+  },
+  {
+   "path": "content/config.json",
+   "bytes": 250,
+   "sha256": "37c6cf99ab8a0b4099b9018d7447299dddc12187e3c1f353039d3084be06faea"
+  },
+  {
+   "path": "content/items.json",
+   "bytes": 58930,
+   "sha256": "a7e4bcff81698ce8259c16a32279d096f2034aadac1cf904fa8aa540c80eb0f7"
+  },
+  {
+   "path": "content/maps.json",
+   "bytes": 82914,
+   "sha256": "5f6c0b96aa3ccaf2525d36e2b9a7614bc84fb90570e889ce58083712d052b4ae"
+  },
+  {
+   "path": "content/monsters.json",
+   "bytes": 194456,
+   "sha256": "9d075b1c74cee5348acc0f2dbac37432bd98a32d28d8cd2600fdbc105da56660"
+  },
+  {
+   "path": "content/saved-games.bin",
+   "bytes": 26274,
+   "sha256": "1258e3d83e1e1bd992bdff0069ae33893d5a1194bdcf10d95b29645a555bebf2"
+  },
+  {
+   "path": "content/saved-games.json",
+   "bytes": 456,
+   "sha256": "c0086e871cbf9ea2e6fd8e3de4a60591e9533ad60af75344c76b9cd344706ba3"
+  },
+  {
+   "path": "content/scripts.bin",
+   "bytes": 176265,
+   "sha256": "3745e7ea11840e2c48472b15b1c273b3daf4793ac52f7a631dd06994b58205e9"
+  },
+  {
+   "path": "content/scripts.json",
+   "bytes": 5842,
+   "sha256": "0ec5caaa56eca25acbf5183df3f139a494188d6b87928b420cfbc1b8596561c5"
+  },
+  {
+   "path": "content/walls.json",
+   "bytes": 72854,
+   "sha256": "02c112d5b73d679cc0d8b079586b2d07283b81c7085608611868070bfc99ac75"
+  },
+  {
+   "path": "pictures.json",
+   "bytes": 283633,
+   "sha256": "ea46e51e3e20c2e3806f31958b6b51558936a5bb9a4ab3f1c458dfcd0e259e48"
+  },
+  {
+   "path": "program.json",
+   "bytes": 38046,
+   "sha256": "4b6fe0bc2e93697aa401f78d8c061a38380fdd51d505765fc362191f7ce54876"
+  },
+  {
+   "path": "program/image.bin",
+   "bytes": 68592,
+   "sha256": "dee7dadbff34d82cfdd7b36354ace618f9112661333af21b82dce92b61a1f615"
+  },
+  {
+   "path": "program/overlays.bin",
+   "bytes": 197641,
+   "sha256": "c7a40d53ed322a2e1a2c9b19efc58a898df160e133f12a32f278bda0de8fbbbd"
+  }
+ ]
+}

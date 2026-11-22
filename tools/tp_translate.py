@@ -103,6 +103,20 @@ SURVEY: list[str] | None = None
 INSTRUCTIONS: list[list[tuple[int, int]]] | None = None
 # Procedures whose entry is not their first byte: name -> entry address.
 ENTRY_INSIDE: dict[str, int] = {}
+# With --instruction-map: unit name -> emitted procedures and the byte ranges of their instructions.
+INSTRUCTION_MAP: dict[str, list[dict]] | None = None
+MAP_UNIT = ""
+
+
+def byte_ranges(instructions: list) -> list[list[int]]:
+    """Half-open byte ranges covered by decoded instructions, merged where they touch."""
+    ranges: list[list[int]] = []
+    for insn in sorted(instructions, key=lambda i: i.address):
+        if ranges and insn.address <= ranges[-1][1]:
+            ranges[-1][1] = max(ranges[-1][1], insn.address + insn.size)
+        else:
+            ranges.append([insn.address, insn.address + insn.size])
+    return ranges
 
 def library_prologues(blob: bytes) -> list[int]:
     """`push bp; mov bp, sp` as the assembler-written library units encode it (55 8B EC).
@@ -979,6 +993,16 @@ def emit_unit(blob: bytes, spans: list[tuple[int, int, str, str]]) -> tuple[str,
             continue
         regs.append((ENTRY_INSIDE.get(name, start), name))
     registered = {name for _, name in regs}
+    if INSTRUCTION_MAP is not None:
+        listed = INSTRUCTION_MAP.setdefault(MAP_UNIT, [])
+        for start, _, name, _ in spans:
+            if name in registered:
+                listed.append({"name": name, "start": start, "ranges": byte_ranges(functions[name])})
+        for target, destination in redirects.items():
+            # An entry that is only a jump into translated code is emitted as that one instruction.
+            if destination in entries or shared.get(destination) in registered:
+                insn = next(decoder.disasm(blob[target:target + 15], target, count=1))
+                listed.append({"name": f"jump_{target:05x}", "start": target, "ranges": byte_ranges([insn])})
     tail = "\n".join([
         *(f"near.set(0x{off:x}, {name});" for off, name in regs),
         *(f"near.set(0x{target:x}, m => {owner}(m, 0x{target:x}));"
@@ -1002,7 +1026,27 @@ def main() -> None:
     parser.add_argument("--data-map", type=Path,
                         help="also write, as JSON, which bytes of the program image and of each overlay slice "
                              "are instructions the translator emitted; every other byte is data or unclassified")
+    parser.add_argument("--instruction-map", type=Path, metavar="FILE",
+                        help="write, as JSON, the byte ranges of every instruction of every emitted procedure. "
+                             "The TypeScript goes to --output, or to a temporary directory: src/ is not touched")
     args = parser.parse_args()
+    if args.instruction_map:
+        import json
+        import tempfile
+
+        global INSTRUCTION_MAP
+        if args.check:
+            parser.error("--instruction-map and --check are separate runs")
+        INSTRUCTION_MAP = {}
+        with tempfile.TemporaryDirectory() as scratch:
+            args.output = args.output or Path(scratch)
+            generate(parser, args)
+        units = {
+            unit: sorted(procedures, key=lambda procedure: (procedure["start"], procedure["name"]))
+            for unit, procedures in sorted(INSTRUCTION_MAP.items())
+        }
+        args.instruction_map.write_text(json.dumps({"gameVersion": args.game_version, "units": units}, indent=1) + "\n")
+        return
     if args.check:
         import tempfile
 
@@ -1042,7 +1086,7 @@ def compare(fresh: Path, checked_in: Path) -> int:
 
 
 def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
-    global EXE, OVR, IMG, PROFILE, SURVEY, INSTRUCTIONS
+    global EXE, OVR, IMG, PROFILE, SURVEY, INSTRUCTIONS, MAP_UNIT
     PROFILE = PROFILES[args.game_version]
     SURVEY = [] if args.survey else None
     INSTRUCTIONS = [] if args.data_map else None
@@ -1093,6 +1137,7 @@ def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
         for a in found:
             b = bound_end(len(blob), a, anch)
             spans.append((a, b, f"ovl{index:02d}_{a:04x}", f"GAME.OVR slice {index} ovr+0x{s['off']:x} procedure 0x{a:04x}."))
+        MAP_UNIT = f"ovl{index:02d}"
         text, regs = emit_unit(blob, spans) if spans else ("", [])
         if INSTRUCTIONS is not None:
             slice_map.append({"index": index, "fileOffset": s["off"], "codeBytes": s["code"], "relocationBytes": s["rel"],
@@ -1157,6 +1202,7 @@ def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
         # Startup falls into the program frame at 0xfb (push bp). That frame is
         # not a separate procedure, so the entry has to run through the halt call.
         exe_spans.insert(0, (6, 0x160, "exe_00006", "START.EXE entry at image 0x6, through System.Halt."))
+    MAP_UNIT = "exe"
     exe_text, exe_regs = emit_unit(IMG, exe_spans)
     image_instructions = INSTRUCTIONS.pop() if INSTRUCTIONS is not None else []
     (out_dir / "exe.ts").write_text(EXE_HEADER + exe_text)
@@ -1169,6 +1215,7 @@ def generate(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
         sys_spans = []
         for t in sys_targets:
             sys_spans.append((t, min(t + 0x600, len(seg_img)), f"sys5bb_{t:04x}", f"System unit 0x5bb:0x{t:04x}."))
+        MAP_UNIT = "system5bb"
         sys_body, sys_regs = emit_unit(seg_img, sys_spans)
         if INSTRUCTIONS is not None:
             image_instructions = sorted(set(image_instructions) | {(base + at, size) for at, size in INSTRUCTIONS.pop()})

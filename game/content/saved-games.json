@@ -1,0 +1,27 @@
+{
+ "format": "pool-of-radiance-game-data",
+ "formatVersion": 1,
+ "kind": "saved-games",
+ "records": [
+  {
+   "file": "SAVGAMA.DAT",
+   "kind": "saved-game",
+   "bytes": 13137,
+   "blob": {
+    "file": "content/saved-games.bin",
+    "offset": 0,
+    "length": 13137
+   }
+  },
+  {
+   "file": "SAVGAMJ.DAT",
+   "kind": "saved-game",
+   "bytes": 13137,
+   "blob": {
+    "file": "content/saved-games.bin",
+    "offset": 13137,
+    "length": 13137
+   }
+  }
+ ]
+}

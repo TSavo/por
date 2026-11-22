@@ -1,0 +1,19 @@
+{
+ "format": "pool-of-radiance-game-data",
+ "formatVersion": 1,
+ "kind": "config",
+ "records": [
+  {
+   "file": "POOL.CFG",
+   "kind": "configuration",
+   "bytes": 22,
+   "lines": [
+    "E",
+    "P",
+    ".\\",
+    ".\\SAVE\\",
+    "F"
+   ]
+  }
+ ]
+}
