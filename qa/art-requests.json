@@ -32,6 +32,14 @@
       "what": "Before more one-off portrait fixes (#80): build the count of every place the game cycles picture members while it holds a prompt (scene position, block, members, order, holds, from the scripts and the game's own picture routine), with verified = a passing Chrome check from both data sources that the page paints them in that order at those holds. Print verified / total and R, name each unverified place, stay red while R > 0, and show the number here through npm run art:worklist. Issue #131.",
       "asked": "The owner, 2026-11-22: \"I want to understand why we missed the portrait work on the first pass. How did our art inventory not account for that? And what else are we still missing?\"",
       "done": null
+    },
+    {
+      "id": "enhanced-fallback-count",
+      "key": "instrument:enhanced-fallbacks",
+      "file": "a tool and npm script (yours to name), its number at the top of docs/ART-WORKLIST.md",
+      "what": "Count every frame, over every recorded walk and replay, where Enhanced falls back to the original's picture (classicPortrait, the frame's own pixels, any Classic fallback): from game/ each one is a blank view. Show fallbacks / distinct keys as art to draw, red while any is left. Issue #142; #140 and #141 are the first two.",
+      "asked": "The owner, 2026-11-22: \"what else are we still missing?\" (found by the off-route walks of #130)",
+      "done": null
     }
   ]
 }
