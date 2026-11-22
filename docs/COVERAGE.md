@@ -4322,6 +4322,11 @@ The `council-bivant-offer` replay marks the lizardfolk commission
 fulfilled in a controlled slot. It checks the original rescue request,
 the new illustration of the missing heir, and the return to exploration
 on GOG 1.3.
+The **council-zhentil-packet** replay loads a Council save with Cadorna already
+gone. It checks that the alternate Zhentil Keep dispatch illustrates the
+clerk examining the sealed packet while the original warning leaves tampering
+uncertain. Continuing clears the illustration and restores exploration.
+
 The `council-cadorna-south-referral` replay checks Cadorna's later
 summons through the south door for a diplomatic mission. With the rescue
 commission already complete, Chrome verifies the original direction and
