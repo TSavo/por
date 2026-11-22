@@ -22,7 +22,7 @@ for (const file of readdirSync(fixture).filter(name => /^(?:[A-J]|roster)\.json$
 
 const chrome = await openChromeCampaignLeg({
   chromePath, directory: join(output, "leg"), checkpointDir: saves,
-  ...boot, schedule: join(fixture, "prompts.jsonl"),
+  ...boot, traceEnhancedFallbacks: true, schedule: join(fixture, "prompts.jsonl"),
 });
 const evidence = {};
 let frame;
@@ -72,7 +72,15 @@ async function verifyHold(name, expectedCaption, portrait) {
 try {
   frame = await chrome.nextFrame();
   data = await chrome.evaluate('state.classicAvailable === false ? "port" : "original"');
-  for (const key of commands.slice(0, 25)) await press(key);
+  for (const key of commands.slice(0, 7)) await press(key);
+  await verifyHold("bodyguards", /TWOGUARDSMOVETOBARYOURPATH.*GUARDS.KILLTHESEPESTS/i,
+    "portrait:area:7:ecl:a5d8:HEAD5.DAX:12:BODY5.DAX:1");
+  assert.equal(commands[7], "c");
+  await press("c");
+  await verifyHold("bodyguards-battle-notice", /TWOGUARDSMOVETOBARYOURPATH.*ABATTLEBEGINS/i,
+    "portrait:area:7:ecl:a615:HEAD5.DAX:12:BODY5.DAX:1");
+  assert.equal(evidence.bodyguards.artSha256, evidence["bodyguards-battle-notice"].artSha256);
+  for (const key of commands.slice(8, 25)) await press(key);
   await verifyHold("appraisal", /THEDRAGONLOOKSATYOUWITHINTEREST/i, "portrait:area:7:ecl:995f:caller:a6a7:PIC5.DAX:66:0:0");
   await press("enter");
   await verifyHold("offer", /IFYOUJOINMEIWILLMAKEYOUTHECOMMANDERS/i, "portrait:area:7:ecl:995f:caller:a718:PIC5.DAX:66:0:0");
