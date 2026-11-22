@@ -34,3 +34,11 @@ Whoever maintains `tools/art-worklist.ts` reads this file and fixes the tool. Do
 
 - Both paired Pool stair routes retain scope 7 on map 3 only at `(13,15,W)`, and the next turn proceeds into scope 5. Both bank variants are accounted for at that position. The local mounted bank also persists throughout normal map 7 play. The map 7 captures observe outside sky 0 and covered sky 15 under both banks.
 - The middle wilderness sets covered code 11 at `a576` only on the first grove arrival, at `(2,3)`, `(10,13)` or `(13,6)`. All three squares are open. The reload at `b14d` sets code 8, and native paired movement at a roofed square confirms covered sky 0. The one remaining roof-11 foliage composite cannot appear at its covered pose.
+
+- The scope 5 Pool route draws only the covered landing at `(5,7)` in both mounted wall banks, with sky 15, horizon line 15, band 7 and ground 6. Stepping through the landing invokes scope 7 before it draws the Pool interior. That handoff accounts for the 67 previously listed scope 5 Pool-floor candidates. The separate scope 5 teleport routes into maps 4 and 6 keep scope 5 and the loaded bank on normal gallery movement.
+
+- The gray ground and horizon keys under scope 26 came from the Valhingen entrance artwork in commit `585a87e4`, when the first Valhingen draw retained the previous script area. They cannot confirm ground 8 on physical wilderness map 26. A paired walk from Valhingen to the Nomad camp confirms the next first-person draw resets the old backdrop there. Ground 8 in the ordinary middle wilderness remains unestablished pending a direct replay.
+
+- The southeast outer halls include a second reachable component, and the paired route into physical map 4 keeps scope 3 and the borrowed wall bank across multiple steps. Those two bank-specific fallback placements use the corresponding authored scope 5 textures. A paired chapel north exit enters physical map 3 under scope 6 before scope 3 takes over. That arrival still uses the local Valjevo bank.
+
+- The mounted Pool tile bindings `tile:7:4a4a7ef1663a` and `tile:7:51f8f4e98ba6` (fingerprint prefixes) match exact native geometry in the northwest ward. A normal route to the standing positions `(3,2)` and `(2,2)` has yet to be reproduced. The artwork is installed and these traversals remain open for route verification.

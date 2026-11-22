@@ -163,7 +163,7 @@ interface Context {
   slots: WallSlots;
   wallArchive?: number;
   arrivalFrom?: number;
-  camera?: readonly [x: number, y: number, facing: number];
+  camera?: readonly [x: number, y: number, facing?: number];
 }
 interface AreaReport {
   area: number;
@@ -227,12 +227,13 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
   const slumsWalls = world.scripts.filter((script) => script.archive === 2)
     .flatMap((script) => script.wallSlots).find((slots) => slots.operands.join() === "2,4,1");
   if (slumsWalls) {
-    const borrowedMaps = [[3, [3]], [5, [3, 4, 5, 6, 7]], [7, [7, 3]]] as const;
+    const borrowedMaps = [[3, [3, 4]], [5, [3, 4, 5, 6, 7]], [7, [7, 3]]] as const;
     for (const [area, maps] of borrowedMaps) {
       const script = world.scripts.find((candidate) => candidate.area === area && candidate.archive === 5);
       if (!script) continue;
       for (const map of maps) {
-        const camera = area === 7 && map === 3 ? [13, 15, 6] as const : undefined;
+        const camera = area === 7 && map === 3 ? [13, 15, 6] as const
+          : area === 5 && map === 7 ? [5, 7] as const : undefined;
         if (world.maps.has(`5:${map}`)) own.push({ label: area, script, map, slots: slumsWalls, wallArchive: 2, camera });
       }
     }
@@ -241,7 +242,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
   const stairTraveler = world.scripts.find((script) => script.area === 5 && script.archive === 5);
   const valjevoWalls = stairTraveler?.wallSlots.find((slots) => slots.operands.join() === "24,25,1");
   if (stairTraveler && valjevoWalls && world.maps.has("5:7")) {
-    own.push({ label: 5, script: stairTraveler, map: 7, slots: valjevoWalls });
+    own.push({ label: 5, script: stairTraveler, map: 7, slots: valjevoWalls, camera: [5, 7] });
   }
   // NEW ECL keeps the old area number until the new script's first turn (ovl03 0x0bd1 and 0x3387), so
   // the first view of the area it starts is drawn, and keyed, under the number of the area left.
@@ -288,19 +289,20 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       : valjevo && context.map === 6 ? [[14, 4]] as const
       : valjevo && context.map === 7 ? [[5, 6]] as const : undefined;
     const camera = context.camera;
+    const poolLanding = auditReachability && context.script.area === 5 && context.map === 7;
     const playable = camera ? new Set([camera[1] * 16 + camera[0]])
       : starts && reachable(map, starts.map(([x, y]) => y * 16 + x), context.script.area);
-    const groundAllowed = (ground: number, shaft: boolean) => (!kuto && !auditedPalette) || ground === 6 || (shaft && ground === 1);
+    const groundAllowed = (ground: number, shaft: boolean) => (!kuto && !auditedPalette && !poolLanding) || ground === 6 || (shaft && ground === 1);
     const lowerValues = (shaft: boolean) => lowers.filter(({ line, band, ground }) =>
       groundAllowed(ground, shaft) && (!kuto || (line === 0 && band === (lowerWell ? 8 : 7)))
-      && (!(auditedPalette || podolPlaza) || (line === 15 && band === 7)));
+      && (!(auditedPalette || podolPlaza || poolLanding) || (line === 15 && band === 7)));
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {
         if (playable && !playable.has(y * 16 + x)) continue;
         const roofed = covered(map, x, y);
         const shaft = lowerWell && x === 7 && y === 7;
         for (const facing of [0, 2, 4, 6]) {
-          if (camera && facing !== camera[2]) continue;
+          if (camera?.[2] !== undefined && facing !== camera[2]) continue;
           const stacks = viewCells(view, x, y, facing);
           const mine = new Set<Agg>();
           let walls = false;
@@ -339,6 +341,7 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const hashesOf = new Map<Agg, Map<string, string | undefined>>();
     const skies = (roofed: boolean) => {
       if (lizardKeep) return lizardCellar ? [0] : [0, 11];
+      if (poolLanding) return [15];
       if (middleWilderness && roofed) return [0];
       if (valjevo && context.map === 7) return roofed ? [15] : [0];
       if (mendorLibrary || valjevo) return roofed ? [15] : [0, 11];
@@ -459,8 +462,13 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
 
     // Backdrops the existing artwork confirms: a cell with art that only one backdrop can make.
     const confirmed = new Set<Backdrop>(["-"]);
+    // These two scope 26 keys were authored for the Valhingen arrival while
+    // the script area still reports 26. They establish nothing about map 26's ground.
+    const graveyardArrivalBackdrops = label === 26 ? new Set([
+      cells.cell("g8", []).hash, cells.cell("h0.0.8.8", []).hash,
+    ]) : undefined;
     for (const [hash, list] of seen) {
-      if (!have.has(hash)) continue;
+      if (!have.has(hash) || graveyardArrivalBackdrops?.has(hash)) continue;
       const backdrops = new Set(list.filter((entry) => !entry.areaView).map((entry) => entry.cell.backdrop));
       if (backdrops.size === 1) confirmed.add([...backdrops][0]!);
     }
