@@ -8082,6 +8082,7 @@ try {
     assert.equal(stack[0]?.[2], cloud);
     assert.match(stack[1]?.[2] ?? "", /^combat:party:/);
     assert.deepEqual(cells(frame), []);
+    await waitFor("the settled combat result in Chrome", () => run(`state.sequence === ${frame.sequence}`));
     await run(`finishAnimation(); animationFrame = ${JSON.stringify(choking)}; showScreen();`);
     await waitFor("all four Enhanced cloud tiles", () => run(`${JSON.stringify(placements)}.every(([x, y]) =>
       [...document.querySelectorAll('.combat-sprite[src="/art/${cloud}"]')].some(image => image.naturalWidth === 96 &&
