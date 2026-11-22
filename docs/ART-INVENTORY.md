@@ -914,7 +914,10 @@ keyed by enhanced PNG filename for batch review.
 
 For Yarash's first room description, require a visible assortment of torture
 implements, a central table, and readable metal restraints. The alchemical
-bottles belong on the next page, which describes them. For Stojanow's second
+bottles belong on the next page, which describes them. The `yarash-alchemical-laboratory` and
+`yarash-alchemical-laboratory-from-door` GOG 1.3 Chrome replays both verified
+the torture caption, full panel and distinct laboratory page. The live
+image shows the table, chained metal cuffs and wall implements. For Stojanow's second
 gate caption, require bugbears visibly lounging by the entrance, with the
 wall and taller twin watchtowers still recognizable behind them.
 The `stojanow-merchant-gate` replay captures this exact caption before

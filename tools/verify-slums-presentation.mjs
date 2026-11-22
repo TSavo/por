@@ -1517,6 +1517,7 @@ const illustrationRoutes = new Map([
       6: "scene-illustration:area:23:ecl:a0fd",
     },
     phaseCaptures: { 2: "yarash-laboratory-secret-door-left.png", 5: "yarash-torture-chamber.png" },
+    phasePrompts: { 5: /ASSORTMENTOFTORTUREINSTR?UMENTS.*LARGETABLEWITHMETALRESTRAINTS/i },
     finalPhaseCapture: "yarash-alchemical-laboratory.png",
     portrait: "scene-illustration:area:23:ecl:a0fd", prompt: /THEWALLSARELINEDWITHFLASKSANDBOTTLES.*ALCHEMICALNATURE/i,
     journalLead: "river-alchemical-laboratory", journalLeadAtDiscovery: true,
@@ -1532,6 +1533,7 @@ const illustrationRoutes = new Map([
       4: "scene-illustration:area:23:ecl:a0fd",
     },
     phaseCaptures: { 1: "yarash-laboratory-secret-door.png", 3: "yarash-torture-chamber.png" },
+    phasePrompts: { 3: /ASSORTMENTOFTORTUREINSTR?UMENTS.*LARGETABLEWITHMETALRESTRAINTS/i },
     portrait: "scene-illustration:area:23:ecl:a0fd", prompt: /THEWALLSARELINEDWITHFLASKSANDBOTTLES.*ALCHEMICALNATURE/i,
     finalPhaseCapture: "yarash-alchemical-laboratory.png",
     continuation: { inputs: ["up"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
@@ -9388,6 +9390,8 @@ try {
       await run('window.releasePortrait()');
     } else {
       for (const [index, key] of inputs.entries()) {
+        const phasePrompt = illustration.phasePrompts?.[index];
+        if (phasePrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), phasePrompt);
         const interimPortrait = illustration.portraitStops?.[index];
         if (interimPortrait !== undefined) {
           assert.equal(frame.portrait, interimPortrait ?? undefined);
