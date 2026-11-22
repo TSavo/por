@@ -725,6 +725,7 @@ const bucketTrapLoop = [
   "portrait:area:3:PIC5.DAX:56:0:0", "portrait:area:3:ecl:a662:PIC5.DAX:56:1:0",
   "portrait:area:3:PIC5.DAX:56:0:0", "portrait:area:3:ecl:a662:PIC5.DAX:56:3:0",
 ];
+const valjevoKitchenMenu = /WHATDOYOUDO\?KILLTHEOVERSEERANDFREETHESLAVESGOBACKOUTSIDETALKTOTHEOVERSEER/i;
 const illustrationRoutes = new Map([
   ["pyramid-vats-mutants-loop", {
     slot: "A", inputs: ["s", "up"],
@@ -3942,7 +3943,13 @@ const illustrationRoutes = new Map([
     portrait: "portrait:PIC5.DAX:73:0:0",
     prompt: /YOUENTERAROOMTHATREEKSOFSMOKEANDBURNEDFOOD/i,
     heldPortraitLoop: ["portrait:PIC5.DAX:73:0:0", "portrait:area:4:ecl:9a5a:caller:a7a7:PIC5.DAX:73:1:0"],
-    continuation: { inputs: ["enter"], portrait: "portrait:PIC5.DAX:73:0:0", prompt: /WHATDOYOUDOKILLTHEOVERSEER/i },
+    continuation: { inputs: ["enter"], portrait: "portrait:PIC5.DAX:73:0:0", prompt: valjevoKitchenMenu },
+  }],
+  ["valjevo-dungeon-kitchen-choice", {
+    slot: "B", inputs: ["up", "enter"],
+    portrait: "portrait:PIC5.DAX:73:0:0",
+    prompt: valjevoKitchenMenu,
+    staticPortraitMenu: true,
   }],
   ["valjevo-dungeon-kitchen-rescue-loop", {
     slot: "B", inputs: ["up", "enter", "enter"],
@@ -3956,7 +3963,7 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:4:ecl:9a5a:caller:aa89:PIC5.DAX:73:0:0",
     prompt: /THEOVERSEERTURNSTOWARDYOUBLUDGEONINHAND/i,
     heldPortraitLoop: [0, 1].map(member => `portrait:area:4:ecl:9a5a:caller:aa89:PIC5.DAX:73:${member}:0`),
-    continuation: { inputs: ["enter"], portrait: "portrait:PIC5.DAX:73:0:0", prompt: /WHATDOYOUDOKILLTHEOVERSEER/i },
+    continuation: { inputs: ["enter"], portrait: "portrait:PIC5.DAX:73:0:0", prompt: valjevoKitchenMenu },
   }],
   ["valjevo-dungeon-kitchen-oil-loop", {
     slot: "B", inputs: ["up", "enter", "end", "end", "enter", "enter", "end", "end", "enter"],
@@ -7631,6 +7638,7 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
       routeName === "valhingen-skeleton-roaming-ambush-loop" ||
       routeName === "old-phlan-lizard-patrol-phases" || routeName === "valjevo-tower-troll-phases" ||
       routeName === "valjevo-street-giants-loop" ||
+      routeName === "valjevo-dungeon-kitchen-choice" ||
       /^valjevo-dungeon-kitchen-(entry|rescue|warning|oil)-loop$/.test(routeName) ||
       routeName === "lizard-wilds-kobold-prisoners" || routeName === "lizard-wilds-pool-dialogue" ||
       routeName === "mendor-storeroom-kobold-phases" || routeName === "mendor-storeroom-mercy-loop" ||
@@ -7842,11 +7850,11 @@ try {
     })()`), "Enhanced portrait should fill the outer picture panel over an opaque backdrop");
   }
 
-  async function verifyStaticPortrait(portrait, expectedCaption) {
+  async function verifyStaticPortrait(portrait, expectedCaption, expectsContinue = true) {
     assert.ok(portrait && frame.awaitsKey);
     const caption = frame.text.toSorted(([a], [b]) => a - b).map(([, ch]) => String.fromCharCode(ch)).join("");
     assert.match(caption, expectedCaption);
-    assert.match(caption, /PRESS<ENTER>\/<RETURN>TOCONTINUE/i);
+    if (expectsContinue) assert.match(caption, /PRESS<ENTER>\/<RETURN>TOCONTINUE/i);
     assert.doesNotMatch(caption, /ABATTLEBEGINS/i);
     const portraitPath = JSON.stringify("/art/" + portrait);
     await waitFor("the held static illustration", () => run(`(() => {
@@ -11015,6 +11023,7 @@ try {
       assert.deepEqual([...phases.keys()], []);
     }
     if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop);
+    if (illustration.staticPortraitMenu) await verifyStaticPortrait(portrait, prompt, false);
     if (illustration.oneShotProducer) {
       await waitFor("the single portrait before combat", () => run(`
         state.sequence === ${frame.sequence} && !animationFrame &&

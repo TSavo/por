@@ -54,14 +54,18 @@ interface StaticPortraitVariant {
   checkpoint: string;
   portrait: string;
   native: {
-    drawCursor: string;
-    members?: number[];
-    composed?: ScriptSite["composedPortrait"];
     heldCaption: string;
     idlePolls: number;
     panelSamples: { idlePolls: number; sha256: string }[];
+  } & ({
+    inheritedFrom?: never;
+    drawCursor: string;
+    members?: number[];
+    composed?: ScriptSite["composedPortrait"];
     battlePanelSha256: string;
-  };
+  } | {
+    inheritedFrom: string;
+  });
   chrome?: { original: StaticPortraitChromeProof; port: StaticPortraitChromeProof };
 }
 
@@ -251,21 +255,31 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     const { caption, checkpoint, portrait, native, chrome } = variant;
     const expectedCaption = normalizeCaption(caption);
     if (!normalizeCaption(native.heldCaption).includes(expectedCaption)) return "native evidence has a different caption";
-    if (native.drawCursor !== site.next && !site.approachSites.includes(native.drawCursor)) {
-      return "native draw cursor no longer matches the measured producer";
-    }
     const samples = native.panelSamples;
     const panel = samples[0]?.sha256;
-    const sourceMatches = site.composedPortrait
-      ? native.members === undefined && isDeepStrictEqual(native.composed, site.composedPortrait)
-      : native.composed === undefined && isDeepStrictEqual(native.members, [0]);
-    if (!sourceMatches) return "native evidence has a different picture source or selector";
     if (!panel || !/^[a-f0-9]{64}$/.test(panel) ||
         native.idlePolls <= 0 || samples[0]?.idlePolls !== 0 || samples.at(-1)?.idlePolls !== native.idlePolls ||
         samples.some((sample, index) => sample.sha256 !== panel ||
-          (index > 0 && sample.idlePolls <= samples[index - 1]!.idlePolls)) ||
-        native.battlePanelSha256 !== panel) {
-      return "native samples must hold the selected picture through the prompt and battle notice";
+          (index > 0 && sample.idlePolls <= samples[index - 1]!.idlePolls))) {
+      return "native samples must hold the same picture through the prompt";
+    }
+    if (native.inheritedFrom !== undefined) {
+      const producer = scriptSiteId(site);
+      const source = inventory.scenes.find(scene => scene.id === native.inheritedFrom && scene.producer === producer);
+      const verified = scenes.some(scene => scene.id === native.inheritedFrom && scene.producer === producer && scene.verified);
+      if (!verified || source?.chrome?.original.portrait !== portrait || source.chrome.port.portrait !== portrait ||
+          !source.poses.some(pose => pose.member === 0 && pose.viewport === panel)) {
+        return "retained static portrait must match the first member of a verified scene from the same producer";
+      }
+    } else {
+      if (native.drawCursor !== site.next && !site.approachSites.includes(native.drawCursor)) {
+        return "native draw cursor no longer matches the measured producer";
+      }
+      const sourceMatches = site.composedPortrait
+        ? native.members === undefined && isDeepStrictEqual(native.composed, site.composedPortrait)
+        : native.composed === undefined && isDeepStrictEqual(native.members, [0]);
+      if (!sourceMatches) return "native evidence has a different picture source or selector";
+      if (native.battlePanelSha256 !== panel) return "native battle notice must retain the selected picture";
     }
     const fixture = path("qa", "fixtures", checkpoint);
     const image = assets.get(portrait);
@@ -315,7 +329,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     const illustration = (key: string) => key === scope || key.startsWith(scope + ":cue:");
     const scoped = (key: string) => illustration(key) || key === nativeBase;
     const observedVariants = variants.map(variant => {
-      const reason = scoped(variant.portrait) ? staticPortraitProblem(site, variant) : "static portrait belongs to a different prompt";
+      const reason = scoped(variant.portrait) || variant.native.inheritedFrom !== undefined
+        ? staticPortraitProblem(site, variant) : "static portrait belongs to a different prompt";
       return { id: variant.portrait, producer, verified: reason === null, reason, remainingCues: undefined };
     });
     // One caller can choose multiple cue illustrations. Every registered cue needs its own proof.

@@ -11,11 +11,14 @@ press advances to the damage notice.
 
 The GOG 1.3 trace identifies ECL5.DAX block 4 producer `a728` and PIC5.DAX
 block 73 at `9a5a/a7a7`, `9a5a/a862`, `9a5a/aa89`, and `9a5a/aad4`.
-All four prompts repeat members 0 and 1,
-holding them for 1510 ms and 510 ms respectively.
+All four prompts repeat members 0 and 1, holding them for 1510 ms and 510 ms
+respectively. The choice menu at `a7f8` keeps member 0 over its entire hold.
+The original viewport samples at 0, 1, 9, 25 and 64 idle polls matched member
+0 after the entrance, warning and damage screens.
 
 Run `node tools/verify-slums-presentation.mjs qa/fixtures/valjevo-kitchen-portraits/B.json <chrome> <route>`
 with `POR_GAME_SOURCE=original` and `POR_GAME_SOURCE=port`. Use the routes
 `valjevo-dungeon-kitchen-entry-loop`, `valjevo-dungeon-kitchen-rescue-loop`,
-`valjevo-dungeon-kitchen-warning-loop`, and `valjevo-dungeon-kitchen-oil-loop`.
+`valjevo-dungeon-kitchen-warning-loop`, `valjevo-dungeon-kitchen-oil-loop`, and
+`valjevo-dungeon-kitchen-choice`.
 Set `POR_HELD_PORTRAIT_CHROME_TRACE` to capture the painted sequences.
