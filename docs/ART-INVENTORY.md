@@ -882,8 +882,10 @@ GOG 1.3 the overland viewport calls it from overlay `0x1b` at `01e1`,
 and battlefield drawing calls it from overlay `0x1f`. The Moonsea
 Lizardman Keep replay drew 41 distinct overland slot IDs, including 37
 from slots 40 and higher. The wyvern replay drew eight combat slot IDs,
-all between 3 and 39. Both replays passed in Chrome. Keep slot evidence
-from the overland replay separate from evidence of use in a fight.
+all between 3 and 39. Both replays passed in Chrome. The route coverage
+report filters overland draw and pixel records from the battlefield
+section. A mixed-log check preserved all eight wyvern sources and all
+25 covered combat cell patterns.
 
 Enable both trace variables on the same replay and redirect its output
 to a UTF-8 log. Add `--battle-draws=PATH_TO_LOG` to the report command

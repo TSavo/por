@@ -49,6 +49,7 @@ interface BattlefieldDraw {
   archive: "SQRPACI.DAX";
   block: number;
   frame: number;
+  surface?: "overland" | "combat";
 }
 const drawFrames = new Map<string, {
   archive: string;
@@ -62,13 +63,14 @@ if (drawLog) {
   const lines = drawLines.filter((line) => line.startsWith(prefix));
   if (!lines.length) throw new Error("The draw log contains no terrain draws");
   for (const line of lines) {
-    const { x, y, picture, flags, archive, block, frame } = JSON.parse(line.slice(prefix.length)) as BattlefieldDraw;
+    const { x, y, picture, flags, archive, block, frame, surface } = JSON.parse(line.slice(prefix.length)) as BattlefieldDraw;
     if (archive !== "SQRPACI.DAX" || ![x, y, picture, flags, block, frame].every(Number.isInteger) ||
         picture < 0 || picture > 255 || flags < 0 || flags > 255 ||
         x < -128 || x > 127 || y < -128 || y > 127 ||
         block !== ((picture & 0x80) ? 2 : 1) || frame !== (picture & 0x7f)) {
       throw new Error(`Invalid terrain draw: ${line}`);
     }
+    if (surface === "overland") continue;
     const key = `${archive}:${block}:${frame}`;
     const source = drawFrames.get(key) ?? { archive, block, frame, placements: [] };
     if (!source.placements.some((position) => position.x === x && position.y === y && position.flags === flags)) {
@@ -179,9 +181,10 @@ if (randomRecord) for (let frame = 0; frame < 6; frame++) {
   if (pixels?.some(Boolean)) randomPictures.set(Buffer.from(pixels).toString("hex"), frame);
 }
 for (const line of drawLines.filter(line => line.startsWith(terrainPrefix))) {
-  const { picture, cells } = JSON.parse(line.slice(terrainPrefix.length)) as {
-    picture: number; cells: [number, number, string, string][];
+  const { picture, cells, surface } = JSON.parse(line.slice(terrainPrefix.length)) as {
+    picture: number; cells: [number, number, string, string][]; surface?: BattlefieldDraw["surface"];
   };
+  if (surface === "overland") continue;
   const block = picture & 0x80 ? 2 : 1, frame = picture & 0x7f;
   const id = `SQRPACI.DAX:${block}:${frame}`;
   if (!Number.isInteger(picture) || picture < 0 || picture > 255 || !drawFrames.has(id)) {

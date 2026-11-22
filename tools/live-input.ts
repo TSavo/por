@@ -1001,7 +1001,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       capturedTerrainKeys.clear();
       battleTerrain?.pixels.fill(0);
     },
-    captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
+    captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number, surface: "overland" | "combat") => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;
       const x = 8 + column * 8;
       const y = 8 + row * 8;
@@ -1037,7 +1037,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           if (!nativeBattleTerrain) capturedTerrainKeys.set((y + dy) * screen.width + x + dx, key);
           if (traceBattleDraw && pixels.some(Boolean)) cells.push([dx, dy, key, pixels.toString("hex")]);
         }
-        const draw = JSON.stringify({ picture, cells });
+        const draw = JSON.stringify({ picture, surface, cells });
         if (cells.length && !tracedBattleTerrain.has(draw)) {
           tracedBattleTerrain.add(draw);
           console.error(`POR_BATTLE_TERRAIN ${draw}`);

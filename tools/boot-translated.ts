@@ -182,7 +182,8 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
         nativeSelection?.overwriteTile(column, row);
         nativeBattleTerrain?.draw(column, row, picture);
         if (captureBattleTerrain && this.read8(this.ss, (this.sp + 4) & 0xffff) === 1) {
-          captureBattleTerrain(this, column, row, picture);
+          const overland = traceBattleDraw && returnsTo(this, 0, code.overlandTerrainDrawResumes);
+          captureBattleTerrain(this, column, row, picture, overland ? "overland" : "combat");
         }
       }
       // The far entry draws a frame from one of the two SQRPACI blocks.
