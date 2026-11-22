@@ -3236,6 +3236,15 @@
     "tile:9:ff6a32fbbb4c5d2972bfd9d1a8d7dcefc5def433b2ed312ea71dae297a9665eb"
   ],
   "assets": {
+    "battle-tile:bdc9bd36ac7f258351c81a3155a19ea5837b6ef164074f0189d876a5ec17f920": "wildcom-oak-0.png",
+    "battle-tile:5d8e0280c700a1030278972fba6cf67e018773e19f5b6fdece667cebf22592fd": "wildcom-oak-1.png",
+    "battle-tile:bb50cd7276c60819b494898f3b63ea5ee44eaacd43b007a98991339a93727db1": "wildcom-oak-2.png",
+    "battle-tile:5549bb216e1186088d2a498ad980e02695dc35f9ed720e1c6009671cb3c93cb7": "wildcom-oak-3.png",
+    "battle-tile:f031c256493a25481d9939ed673cde0e014d4f7d664670cb95f517a4309139a7": "wildcom-oak-4.png",
+    "battle-tile:18e92d1d9b56efd5f315e270fb2514ef4e580e78e4f1dcdf6fc9b0d4345b0a50": "wildcom-oak-5.png",
+    "battle-tile:02444ee06c98ae12f818312b43f973031be3d07169ba405e3011e4e08c089001": "wildcom-oak-6.png",
+    "battle-tile:9a6ec1fbc20664084aa29da0da4f468ee3ffe86a39a11764c8c4129c3970055c": "wildcom-oak-7.png",
+    "battle-tile:66454214f7b6801ef0e6f3e8445315b0df0d71d6314987742a6863725bd76ffe": "wildcom-oak-8.png",
     "tile:20:10fd0886e0431e57ec7e17a59570792e1059f5f7157405b493ce265199ed86da": "zhentil-overhead-wall-e.png",
     "tile:20:17aecfacb0ac862291feba2cc4407aa3def3b3919f56e9de997aa729e34681a3": "zhentil-overhead-wall-s.png",
     "tile:20:219379cc4da98bf424f77258bb2a0a640f2b73f11a6515fa36e60ffbbea8699f": "zhentil-overhead-party-n.png",
