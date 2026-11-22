@@ -785,6 +785,14 @@ const illustrationRoutes = new Map([
     prompt: /JEWELRYONIT;WILLYOUTAKEIT/i,
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["bane-south-trapdoor", {
+    slot: "A",
+    inputs: ["up", "up", "up", "up", "right", "up", "up", "up", "left", "up", "up", "up", "up", "right", "up", "s", "up"],
+    portrait: "scene-illustration:area:24:ecl:a8af:caller:a802",
+    prompt: /9,12S.*ONTHEFLOORYOUFINDATRAPDOOR\.WILLYOUOPENIT\?/i,
+    finalPhaseCapture: "bane-south-trapdoor.png",
+    continuation: { inputs: ["o", "enter", "enter"], portrait: "portrait:PIC1.DAX:1:0:0", prompt: /VIEW.*POOL.*EXIT/i },
+  }],
   ["bane-hidden-trapdoor", {
     slot: "A", inputs: ["right", "up", "right", "s", "up"],
     portrait: "scene-illustration:area:24:ecl:a8af:caller:a847",
