@@ -6249,6 +6249,19 @@ const environmentRoutes = new Map([
     slot: "A", area: 0, views: 9, patterns: 59, sceneryOnly: true,
     walk: ["up", "enter", "n", "enter", "left", "up", "right", "up"],
   }],
+  // Start after 14:00. City Hall's fixture is inside at (4,5) facing south.
+  // The Training Hall fixture starts outside in New Phlan at (5,1) facing west.
+  ["city-hall-night-sky", {
+    // The first exterior view retains City Hall in both modes. The next
+    // east-facing view keeps that scope only with the original game files.
+    slot: "A", nightExit: { area: 8, x: 4, y: 3, patterns: 3 },
+    walk: ["left", "left", "up", "up", "right", "right", "right"],
+  }],
+  ["training-hall-night-sky", {
+    slot: "A", nightExit: { area: 11, x: 5, y: 2, patterns: 8 },
+    walk: ["left", "up", "left", "up", "enter", "left", "left", "up", "right", "right", "right",
+      "left", "up", "right", "up", "right", "right", "right"],
+  }],
   ["new-phlan-tavern-back-exit", {
     slot: "A", area: 0, views: 9, patterns: 49, sceneryOnly: true,
     walk: ["up", "enter", "n", "enter", "right", "up", "left", "up"],
@@ -8426,6 +8439,30 @@ try {
     assert.equal(new Set(cells.map(([, , key]) => key)).size, 20);
     writeFileSync(resolve(directory, "slums-native-area-cells.json"), JSON.stringify(cells));
     console.log("Verified the native Slums Area command and return to WebGL:", directory);
+  } else if (environment?.nightExit) {
+    const { area, x, y, patterns } = environment.nightExit;
+    const art = JSON.parse(readFileSync("upgrades/manifest.json", "utf8")).assets;
+    const newSky = new Set(Object.keys(art).filter(key => art[key].startsWith(`confirmed-sky-${area}-`)));
+    const seen = new Set();
+    for (const key of environment.walk) {
+      await advance(key);
+      if (frame.exploration?.x !== x || frame.exploration?.y !== y || frame.portrait) continue;
+      const placed = new Set(frame.tiles.map(([left, top, id]) => `${left},${top},${id}`));
+      for (const [left, top, id] of frame.tileInventory ?? []) {
+        if (!newSky.has(id)) continue;
+        assert.ok(placed.has(`${left},${top},${id}`), `Missing ${id} at (${left}, ${top})`);
+        seen.add(id);
+      }
+    }
+    assert.deepEqual([frame.exploration?.x, frame.exploration?.y], [x, y]);
+    assert.ok(seen.size >= patterns, `Saw ${seen.size} of ${patterns} expected night-sky patterns`);
+    assert.ok(seen.has(`tile:${area}:d20d585641c6d76d5fdd15d21d1f0fe0f6663d6aded22bc96508569ac0bd84f7`),
+      "The exit must draw the new night horizon");
+    await waitForExplorationViewport();
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, `${routeName}.png`), Buffer.from(shot.data, "base64"));
+    await switchBothWays();
+    console.log(`Verified ${seen.size} confirmed night-sky patterns in ${routeName}:`, directory);
   } else if (environment) {
     const area = environment.area ?? 2;
     const actor = environment.sceneryOnly ? undefined
