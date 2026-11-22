@@ -25,6 +25,10 @@ those replacements beside their original blocks. The **Runtime artwork**
 category groups tile IDs and other replacements that have no single archive
 block. The JSON lists the replacement IDs, PNG dimensions, and any
 configured encounter anchors.
+Run `npm run verify:art-files` to check that every Enhanced manifest reference
+exists in the committed Git tree, even if a local ignored PNG is present.
+Pass a commit or branch after `--` to check a different revision.
+
 The browser and inventory both check each PNG's dimensions and chunk
 checksums. A truncated or corrupt export does not count as a replacement.
 When a live illustration falls back to classic art, the browser's
