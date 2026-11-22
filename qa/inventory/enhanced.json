@@ -123,7 +123,8 @@
             "tools/portrait-art.ts"
           ],
           "checks": [
-            "translation-unit"
+            "translation-unit",
+            "script-positions"
           ],
           "gap": "Covered by presentation replays that need checkpoint saves not in the repository."
         },
@@ -280,7 +281,8 @@
           "checks": [
             "voice-master",
             "narration-generation",
-            "narration-runtime"
+            "narration-runtime",
+            "script-positions"
           ],
           "gap": "Selection logic and files are verified. How many units trigger in real play is not measured."
         },

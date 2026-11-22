@@ -75,3 +75,13 @@ on `awaitsKey` and compares no screens.
 A frame's `exploration` gives the square the game has the party on, the
 one its status line prints. `POR_WATCH_ECL=4abb,4a80` adds the values of
 those script variables to each frame as `scriptVariables`.
+
+## Script positions on GOG 1.3 (2026-11-21)
+
+A saved game holds a copy of its area's script. A checkpoint the first release saved, loaded on 1.3, runs the first release's script for that area, so the positions there are not moved. Only New Phlan's script differs between the releases (three bytes longer in 1.3 from `a692` on).
+
+The host reads which release's script is in memory and reports the first release's numbering in both cases. So do not add artwork or narration keys three lower for New Phlan. The ones added in 6341e1fe, c7138408, d96dddc3 and 4337e20c (`ae66`, `a99b`, `a9cc`, `aa47`, `aa60`, `af3c`) are no longer reported and can be retired by whoever owns those replays, with the route `new-phlan-outbound-ferry-13`, which requires `af3c` and will now see `af3f`.
+
+Saves from the first release are not a supported player feature. A replay for 1.3 should make its checkpoint on 1.3.
+
+`npm run verify:script-positions` checks this on whichever build `POR_GAMEDATA` holds: it plays to New Phlan's silver shop from a new game and from a New Phlan save of each release, and requires the first release's portrait keys and narration event.

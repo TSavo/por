@@ -17,7 +17,7 @@ import { loadCharacterSheetArt, loadPortraitArt, matchScriptIllustration } from 
 import { loadEncounterArt, type EncounterPlacement } from "./encounter-art.js";
 import { canWinDeveloperCombat, developerVictoryCommand, winDeveloperCombat } from "./developer-combat.js";
 import type { Automap, ExploredPosition } from "./automap.js";
-import { authoredScriptAddress, code, data, eclGlobalOffset, isAt, returnsTo, segment as unit } from "../src/runtime/bindings.js";
+import { authoredScriptPosition, code, data, eclGlobalOffset, isAt, returnsTo, segment as unit } from "../src/runtime/bindings.js";
 
 const controls: Record<string, number> = {
   enter: 0x1c0d, escape: 0x011b, up: 0x4800, down: 0x5000, left: 0x4b00, right: 0x4d00,
@@ -182,13 +182,14 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   function captureEclContext(cpu: Cpu) {
     const dataSegment = unit.data;
     // Artwork is keyed by script positions in the first release's numbering.
-    const archive = cpu.read8(dataSegment, data.eclArchive), block = cpu.read8(dataSegment, data.eclBlock);
-    battleCursor = authoredScriptAddress(archive, block, cpu.read16(dataSegment, data.eclCursor));
+    // The numbering is that of the script in memory, which a loaded game can bring from the other release.
+    battleCursor = authoredScriptPosition(cpu, cpu.read16(dataSegment, data.eclCursor));
     // The original ECL interpreter stores its active return word through a pointer in its data.
     const offset = cpu.read16(dataSegment, data.eclReturn);
     const segment = cpu.read16(dataSegment, data.eclReturn + 2);
-    portraitCaller = segment === 0 ? undefined : authoredScriptAddress(archive, block, cpu.read16(segment, offset));
+    portraitCaller = segment === 0 ? undefined : authoredScriptPosition(cpu, cpu.read16(segment, offset));
     finalCouncilReward = false;
+    const archive = cpu.read8(dataSegment, data.eclArchive), block = cpu.read8(dataSegment, data.eclBlock);
     if (archive === 3 && block === 8 && battleCursor === 0x9f3f && portraitCaller === 0x9a4a) {
       // The Council shares this treasure routine across rewards. Its 6E79 selector
       // is 20 for the castle finale and resides in the ECL string-variable region.

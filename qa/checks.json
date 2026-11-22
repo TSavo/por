@@ -176,6 +176,15 @@
       "needs": [
         "game files"
       ]
+    },
+    {
+      "id": "script-positions",
+      "title": "Artwork and narration keys the running game reports at New Phlan's silver shop are the first release's, from a new game and from a New Phlan save of each release",
+      "command": "npm run verify:script-positions",
+      "reference": "game-data",
+      "needs": [
+        "game files"
+      ]
     }
   ]
 }

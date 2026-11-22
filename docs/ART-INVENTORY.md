@@ -1,5 +1,17 @@
 # Original DOS art inventory
 
+> **Artwork keys on GOG 1.3 (2026-11-21).** If a New Phlan picture is missing on 1.3 and the
+> key the runner reports is three lower than the first release's (`ae66` for `ae69`, `a9cc` for
+> `a9cf`, and so on), the cause was a checkpoint saved by the first release: a saved game carries
+> a copy of its area's script, so 1.3 was running the first release's New Phlan script. That is
+> fixed in the runner: it now reads which release's script is in memory and reports the first
+> release's key in both cases. **Do not add keys three lower any more.** The ones added in the
+> "Restore … on GOG 1.3" commits are now unused, and the `-13` routes that require them
+> (for example `new-phlan-outbound-ferry-13`) will report the original key instead: retire those
+> routes and use the plain ones, which now pass on 1.3 from the same checkpoints.
+> `npm run verify:script-positions` checks this. See docs/REPLAYS.md.
+
+
 Run `npx tsx tools/art-inventory.ts` with the original game files installed.
 The command accepts an optional game-data directory and output directory. It
 writes `index.html`, `inventory.json`, and a `sheets/` directory to
@@ -152,15 +164,18 @@ shop, the silver shop, and the priests of Tempus. Each still selects
 the same head and body. Browser replays check which art appears at
 each prompt; matching inventory records establish the shared asset set.
 The GOG 1.3 Chrome replays confirmed the jeweler, armorer, and Temple
-of Tempus portraits. The silver shop originally showed the generic
-jeweler art under 1.3 because its dedicated art was bound only to the
-1.0 dialogue and shop cursors. Both sets of cursors now select the same
-silver merchant PNG, verified in Chrome through the buy menu on each
-edition.
-The Bishop Braccio-to-Dirten handoff exposed another shifted dialogue
-cursor in the same bank. Chrome verified that the distinct invitation
-illustration appears after Dirten's introduction in both editions and
-that the journal learns the invitation from the native dialogue.
+of Tempus portraits. The silver shop and Dirten's invitation showed the
+wrong art in those replays, at cursors three lower than the first
+release's (`ae66`, `a99b`, `a9cc`). The cause was the replays' saved
+game, not 1.3's script: a save holds a copy of its area's script, so a
+slot the first release saved in New Phlan runs the first release's
+script on 1.3, and the host subtracted three from positions that had
+not moved. The host now reads which release's script is in memory, so
+the duplicate keys added for those cursors (and for `aa47`, `aa60` and
+`af3c`) are no longer reported and can be retired by whoever owns those
+replays. `npm run verify:script-positions` requires the first release's
+silver shop keys from a new game and from a New Phlan save of each
+release, on both builds.
 For example, the `new-phlan-rolf-approach` Chrome replay starts with a
 fresh party and checks the enhanced dock, Rolf's approach and all seven
 tour stops, and the return to scenery after the City Hall guard. This

@@ -156,22 +156,63 @@ export const far = resolve({
  *
  * The host converts a position it reads from the running game to the first release's
  * numbering once, where it reads it. Everything keyed by script position then works unchanged.
+ *
+ * Which numbering applies is a fact about the script in memory, not about the program. A saved
+ * game holds a copy of the current area's script (the whole block, at offset 0x1401 of SAVGAM),
+ * and loading it puts that copy back. So a game saved in New Phlan by the first release and
+ * loaded on 1.3 runs the first release's script, in the first release's numbering, and the
+ * other way round, until the party next enters that area and the game reads the script from its
+ * files again. The host therefore reads the edited instruction in memory to learn which
+ * release's script is loaded (`npm run verify:script-positions` plays all three cases).
+ *
+ * The table below carries, for each script that differs, the byte to compare. Today that is one
+ * script, and one byte at its one edit tells the two copies apart. The other 28 scripts are byte
+ * for byte the same in both releases, so for them it does not matter which copy is loaded. A
+ * further script that differs needs an entry in each column here; `npm run qa:version-1.3` counts
+ * the scripts that differ.
  */
-const movedScripts: PerVersion<{ archive: number; block: number; from: number; by: number }[]> = {
-  "1.0": [],
-  "1.3": [{ archive: 3, block: 0, from: 0xa693, by: 3 }],
+const movedScripts: PerVersion<{ archive: number; block: number; from: number; by: number; edit: number; opcode: number }[]> = {
+  // `edit` is the instruction the releases disagree on, and `opcode` what this release has there:
+  // EXIT in the first release, GOTO in 1.3.
+  "1.0": [{ archive: 3, block: 0, from: 0xa693, by: 0, edit: 0xa692, opcode: 0x00 }],
+  "1.3": [{ archive: 3, block: 0, from: 0xa693, by: 3, edit: 0xa692, opcode: 0x01 }],
 };
 
-/** The first release's number for a script position read from the running build. */
+/** The first release's number for a script position given in `build`'s numbering. */
 export function authoredScriptAddress(archive: number, block: number, address: number, build: GameVersion = version): number {
   const moved = movedScripts[build].find((entry) => entry.archive === archive && entry.block === block);
   return moved && address >= moved.from + moved.by ? address - moved.by : address;
 }
 
-/** Where the running build keeps a script position given in the first release's numbering. */
+/** Where `build`'s script keeps a position given in the first release's numbering. */
 export function runningScriptAddress(archive: number, block: number, address: number, build: GameVersion = version): number {
   const moved = movedScripts[build].find((entry) => entry.archive === archive && entry.block === block);
   return moved && address >= moved.from ? address + moved.by : address;
+}
+
+/**
+ * Which release's copy of the current script is in memory. It is the running build's own, except
+ * after loading a game the other release saved in an area whose script differs.
+ */
+export function loadedScriptRelease(cpu: Cpu, dataSegment: number = segment.data): GameVersion {
+  const archive = cpu.read8(dataSegment, data.eclArchive), block = cpu.read8(dataSegment, data.eclBlock);
+  const offset = cpu.read16(dataSegment, data.eclCode), codeSegment = cpu.read16(dataSegment, data.eclCode + 2);
+  for (const build of Object.keys(movedScripts) as GameVersion[]) {
+    const moved = movedScripts[build].find((entry) => entry.archive === archive && entry.block === block);
+    // Script address `a` is the byte at a + 0x6700 from the script buffer's pointer.
+    if (moved && cpu.read8(codeSegment, (offset + moved.edit + 0x6700) & 0xffff) === moved.opcode) return build;
+  }
+  return version;
+}
+
+/** The first release's number for a position read from the script in memory. */
+export function authoredScriptPosition(cpu: Cpu, address: number, dataSegment: number = segment.data): number {
+  return authoredScriptAddress(cpu.read8(dataSegment, data.eclArchive), cpu.read8(dataSegment, data.eclBlock), address, loadedScriptRelease(cpu, dataSegment));
+}
+
+/** Where the script in memory keeps a position given in the first release's numbering. */
+export function runningScriptPosition(cpu: Cpu, address: number, dataSegment: number = segment.data): number {
+  return runningScriptAddress(cpu.read8(dataSegment, data.eclArchive), cpu.read8(dataSegment, data.eclBlock), address, loadedScriptRelease(cpu, dataSegment));
 }
 
 /** What the game itself does, where the builds differ in behaviour. */

@@ -173,6 +173,8 @@ const checks: { name: string; command: () => string[] }[] = [
   { name: "verify-narration-runtime", command: () => ["npm", "run", "-s", "verify-narration-runtime"] },
   { name: "verify:code-wheel", command: () => [python, "tools/verify-code-wheel.py"] },
   { name: "acceptance:new-phlan", command: () => ["npm", "run", "-s", "acceptance:new-phlan"] },
+  // The row "Artwork keys that work on 1.3" compares the two script files. This one plays the game.
+  { name: "verify:script-positions", command: () => ["npm", "run", "-s", "verify:script-positions"] },
   { name: "verify:code-wheel-screen", command: () => ["npm", "run", "-s", "verify:code-wheel-screen", "--", chrome] },
   { name: "verify:campaign-opening", command: () => ["npm", "run", "-s", "verify:campaign-opening", "--", chrome] },
   { name: "verify:map-journal", command: () => ["npm", "run", "-s", "verify:map-journal", "--", chrome, openingDirectory ?? "missing"] },

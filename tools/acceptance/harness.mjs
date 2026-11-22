@@ -172,6 +172,7 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
   let errors = "";
   let discarded = 0;
   const texts = [];
+  const narrations = [];
   const dice = [];
   createInterface({ input: runner.stderr }).on("line", (line) => {
     const draw = /^POR_DICE \d+ (.+) range (\d+)(?: value (\d+))?$/.exec(line);
@@ -188,6 +189,8 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
     saves: directory,
     /** Every string the game has printed through its script text routine, in order. */
     printed: texts,
+    /** Every narration event the runner has reported, in order: { sourceId, ... } as the narration observer names it. */
+    narrated: narrations,
     /**
      * With env POR_TRACE_DICE=1: every random number the game has drawn so far, as
      * { caller, range, value }: who asked, for a number from 0 to range - 1, and the number the
@@ -233,6 +236,7 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
           return true;
         }
         if (value.startsWith("POR_TEXT ")) texts.push(JSON.parse(value.slice("POR_TEXT ".length)).message);
+        if (value.startsWith("POR_NARRATION ")) narrations.push(JSON.parse(value.slice("POR_NARRATION ".length)));
         if (refusal.test(value)) return false;
       }
     },

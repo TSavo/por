@@ -85,6 +85,27 @@ Measured on 2026-11-21 with the port running version 1.3. Each line corrects or 
 - The instruction at `a429` differs in an operand only: `RANDOM 17` in the first release, `RANDOM 16` in 1.3. The first release picks from 24 tavern tales, 1.3 from 23.
 - Nothing was renamed. The host converts a script position it reads from the running game to the first release's numbering (`src/runtime/bindings.ts`), and all 8,076 artwork keys and 1,432 narration units land on the same instruction in 1.3. With the conversion off, 60 keys and 27 units fail.
 
+### A saved game carries its area's script
+
+Measured on 2026-11-21 with the acceptance harness, after Chrome replays on 1.3 reported New Phlan artwork keys three lower than the first release's.
+
+- `SAVGAM` holds the whole script block of the area the party is in, at offset `0x1401`. Loading a slot puts that copy in memory. The first release's New Phlan save holds its 7,470-byte block; 1.3's holds its 7,473-byte block.
+- So a slot the first release saved in New Phlan, loaded on 1.3, runs the first release's script: `EXIT` at `a692`, 24 tavern tales, and no positions moved. It stays until the party leaves New Phlan and comes back, when the game reads the script from its files. Measured: the byte at `a692` is `00` after loading, and `01` after one step into the Slums and one step back.
+- The host chose the numbering by the running program, so it subtracted three from positions that had not moved. At the silver shop on 1.3:
+
+| Start | Cursor and caller the game holds | Byte at `a692` | Reported before the fix |
+| --- | --- | --- | --- |
+| New game | `ae6c`, `a9a1`; menu `a9d2` | `01` | `ae69`, `a99e`; `a9cf` (right) |
+| First release's save | `ae69`, `a99e`; menu `a9cf` | `00` | `ae66`, `a99b`; `a9cc` (wrong) |
+
+- The first release failed the other way with a 1.3 save: it reported `ae6c`, `a9a1` and `a9d2` unconverted. Narration failed with the artwork: the shop's greeting at `a964` was not reported.
+- The host now reads the instruction at `a692` in memory to learn which release's script is loaded, and converts by that (`loadedScriptRelease` in `src/runtime/bindings.ts`). Only this script differs between the releases, so one byte decides; a further differing script needs its own entry in that table.
+- `npm run verify:script-positions` plays to the silver shop from a new game, from the first release's New Phlan save and from 1.3's (`qa/fixtures/new-phlan-first-release`, `qa/fixtures/new-phlan-version-1.3`), and requires the first release's two portrait keys and the greeting's narration event each time. Before the fix it failed on both builds, each on the other release's save; it passes on both.
+- The "Artwork keys that work on 1.3" row of `npm run qa:version-1.3` compares the two script files and does not run the game, which is why it did not see this.
+- Do not add keys three lower for New Phlan. The ones added for these replays (`ae66`, `a99b`, `a9cc`, `aa47`, `aa60`, `af3c` in commits 6341e1fe, c7138408, d96dddc3 and 4337e20c, and the route `new-phlan-outbound-ferry-13`) are no longer reported and can be retired by whoever owns those replays.
+- Saves from the first release are not a supported player feature (owner, 2026-11-21). This matters for replays, whose checkpoints were made on the first release; a replay for 1.3 should make its checkpoint on 1.3. No conversion of saved games on load was built.
+- Not established: whether a save holds script return addresses. None was seen: the first instructions after loading had no caller.
+
 ### The program
 
 - 846 procedures, not 788: 171 resident and 675 in 35 overlay slices. The first count missed resident code that sits between the overlay stub segments.
