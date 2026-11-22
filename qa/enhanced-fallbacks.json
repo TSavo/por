@@ -71,6 +71,11 @@
    "frames": [],
    "fixtureSha256": "99509cc19d144fe15d67ce4b0e86a32b20c7481a37d53dad78d19ed93f2f3909"
   },
+  "castle-guards": {
+   "presented": 5,
+   "frames": [],
+   "fixtureSha256": "02b1f5b93af91077e9a28097a2838bb80b1d6235c6ac2ea7de83944d954e5cf2"
+  },
   "narration/campaign-f": {
    "presented": 145,
    "frames": [],
@@ -131,6 +136,11 @@
    "frames": [],
    "fixtureSha256": "d1d53cb1de05e616850117aa700abeb23697d16d67fe7d1078a0dabd1950ec00"
   },
+  "walk-clerk-offers-bivant": {
+   "presented": 154,
+   "frames": [],
+   "fixtureSha256": "a0f66436ae5c1ebbd6dc73d56b3d09a26ce72834751dc8f7577198b3b0b4cfa1"
+  },
   "walk-clerk-pays-three": {
    "presented": 117,
    "frames": [],
@@ -156,10 +166,20 @@
    "frames": [],
    "fixtureSha256": "666a28491f4c2b16c9d6b396ed1b9a37a043c8e70166942589389fdad6916f2f"
   },
+  "walk-library-cleared": {
+   "presented": 221,
+   "frames": [],
+   "fixtureSha256": "ce75903ba702e4a51c26248f43c5ac90c9704251127ba40ac71cf362fbca53c6"
+  },
   "walk-library-locked-temple": {
    "presented": 400,
    "frames": [],
    "fixtureSha256": "031ab6e4267e2dfd789af9961836cbad59f85e8b5d8d32324234dfd40c3bd9af"
+  },
+  "walk-new-phlan-training": {
+   "presented": 866,
+   "frames": [],
+   "fixtureSha256": "950ee36757348c14752b5c0469e72447d15663fa5cc8ff16088d5847075ebfee"
   },
   "walk-textile-house-cleared": {
    "presented": 171,

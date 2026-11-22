@@ -12,14 +12,11 @@
  },
  "enhancedFallbacks": {
   "frames": 0,
-  "presented": 4704,
-  "walks": 34,
-  "recordedWalks": 39,
+  "presented": 5950,
+  "walks": 38,
+  "recordedWalks": 40,
   "missingWalks": [
-   "castle-guards",
-   "walk-clerk-offers-bivant",
-   "walk-library-cleared",
-   "walk-new-phlan-training",
+   "podal-clerk",
    "walk-yarash-pyramid"
   ],
   "aliasedWalks": [
@@ -32,7 +29,7 @@
     "receipt": "campaign-full/leg-9"
    }
   ],
-  "runs": 34,
+  "runs": 38,
   "additionalReplays": 2,
   "keys": []
  },
