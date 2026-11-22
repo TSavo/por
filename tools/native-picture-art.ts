@@ -11,6 +11,7 @@ interface PictureMember {
   archive: string;
   block: number;
   member: number;
+  producer?: string;
 }
 
 interface PortraitPart {
@@ -84,7 +85,7 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
   };
 
   return {
-    load(cpu: Cpu) {
+    load(cpu: Cpu, producer?: string) {
       const word = (displacement: number) => cpu.read16(cpu.ss, (cpu.bp + displacement) & 0xffff);
       const offset = cpu.read16(cpu.ss, (cpu.sp + 4) & 0xffff);
       const segment = cpu.read16(cpu.ss, (cpu.sp + 6) & 0xffff);
@@ -101,7 +102,7 @@ export function observeNativePictureArt(art: ReadonlySet<string>, sheetArt: Read
       const bank = cpu.read8(cpu.ds, data.eclArchive);
       if (bank < 1 || bank > 8) return;
       const member = (word(-0x12) & 0xff) - 1;
-      if (member >= 0) members.set(address, { archive: `PIC${bank}.DAX`, block: word(12) & 0xff, member });
+      if (member >= 0) members.set(address, { archive: `PIC${bank}.DAX`, block: word(12) & 0xff, member, producer });
     },
     release(cpu: Cpu) {
       const offset = cpu.read16(cpu.ss, (cpu.sp + 4) & 0xffff);

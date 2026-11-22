@@ -9,6 +9,7 @@ interface Draw {
   member: number;
   finishedAtMs: number;
   viewport: string;
+  producer?: string;
 }
 
 interface Pose {
@@ -42,14 +43,15 @@ function findCycle(draws: Draw[]) {
   }
 }
 
-const paths = process.argv.slice(2);
-if (!paths.length) throw new Error("Usage: node --import tsx tools/read-held-portrait-trace.ts <native trace.jsonl> [...]");
-const scenes = new Map<string, Pose[][]>();
+const withProducers = process.argv.includes("--with-producers");
+const paths = process.argv.slice(2).filter(arg => arg !== "--with-producers");
+if (!paths.length) throw new Error("Usage: node --import tsx tools/read-held-portrait-trace.ts [--with-producers] <native trace.jsonl> [...]");
+const scenes = new Map<string, { producer?: string; poses: Pose[] }[]>();
 for (const path of paths) {
   const draws = readFileSync(path, "utf8").trim().split(/\r?\n/).filter(Boolean).map(line => JSON.parse(line) as Draw);
   let run: Draw[] = [];
   for (const draw of draws) {
-    if (run.length && sceneId(draw) !== sceneId(run[0]!)) {
+    if (run.length && (sceneId(draw) !== sceneId(run[0]!) || draw.producer !== run[0]!.producer)) {
       addRun(run);
       run = [];
     }
@@ -63,9 +65,12 @@ function addRun(run: Draw[]) {
   if (!poses) return;
   const id = sceneId(run[0]!);
   const cycles = scenes.get(id) ?? [];
-  if (!cycles.some(cycle => JSON.stringify(cycle) === JSON.stringify(poses))) cycles.push(poses);
+  const cycle = { producer: withProducers ? run[0]!.producer : undefined, poses };
+  if (!cycles.some(existing => JSON.stringify(existing) === JSON.stringify(cycle))) cycles.push(cycle);
   scenes.set(id, cycles);
 }
 
-console.log(JSON.stringify(Object.fromEntries([...scenes].sort(([a], [b]) => a.localeCompare(b))), null, 2));
+const entries = [...scenes].sort(([a], [b]) => a.localeCompare(b))
+  .map(([id, cycles]) => [id, withProducers ? cycles : cycles.map(cycle => cycle.poses)]);
+console.log(JSON.stringify(Object.fromEntries(entries), null, 2));
 if (!scenes.size) process.exitCode = 1;

@@ -177,6 +177,9 @@ without a key. The trace records each completed member, its guest clock,
 the area and script position, and a hash of the visible viewport.
 Use `node --import tsx tools/read-held-portrait-trace.ts <trace.jsonl>`
 to extract cycles seen twice. The trace contains hashes and timing only.
+Add `--with-producers` to include the ECL instruction that loaded each
+cycle's picture members. Record that producer with the poses when multiple
+instructions can reach the same prompt with the same picture.
 
 Run the corresponding presentation replay with
 `POR_HELD_PORTRAIT_CHROME_TRACE` set to an output JSON path. Run once

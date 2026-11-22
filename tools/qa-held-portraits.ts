@@ -6,7 +6,7 @@ import { heldPortraitDiscovery } from "./discover-held-portraits.js";
 import { verifyHeldPortraitPaint, type ChromeProof, type Pose } from "./verify-held-portrait-paint.js";
 
 interface HeldPortraitInventory {
-  scenes: { id: string; poses: Pose[]; chrome?: { original: ChromeProof; port: ChromeProof } }[];
+  scenes: { id: string; producer?: string; poses: Pose[]; chrome?: { original: ChromeProof; port: ChromeProof } }[];
 }
 
 type ScriptSite = typeof heldPortraitDiscovery.eclCandidates[number];
@@ -25,8 +25,8 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
       if (id.startsWith("portrait:")) assets.set(id, path(dirname(name), file));
     }
   }
-  const scenes = inventory.scenes.map(({ id, poses, chrome }) => {
-    const result = (reason: string | null) => ({ id, verified: reason === null, reason });
+  const scenes = inventory.scenes.map(({ id, producer, poses, chrome }) => {
+    const result = (reason: string | null) => ({ id, producer, verified: reason === null, reason });
     if (!chrome) return result("paired Chrome evidence is missing");
     try {
       for (const proof of [chrome.original, chrome.port]) {
@@ -51,7 +51,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
     if (!scope) throw new Error(`Invalid held portrait scene ${scene.id}`);
     const [, area, cursor, caller, archive, block] = scope;
     const prompt = promptId(cursor!, caller ?? null);
-    const matches = eclCandidates.filter(site => site.scriptBlock === Number(area) &&
+    const matches = eclCandidates.filter(site => (scene.producer ? scriptSiteId(site) === scene.producer : site.scriptBlock === Number(area)) &&
       site.pictureArchive === archive && (site.block === null || site.block === Number(block)) &&
       site.promptCandidates.some(lead => promptId(lead.next, lead.caller) === prompt));
     // A shared scene key alone cannot identify which of two loads supplied the picture.

@@ -20,7 +20,7 @@ import { stagePregenParty } from "./pregen-party.js";
 import { isPartyFile, openSaveSlots, saveSlotLetter } from "./save-slots.js";
 import { callTrace, exeByImage, farCall, farCallObservers, resetFarBudget, spMax, spMin } from "../src/runtime/far.js";
 import { installImage, installProgram, loadedSlices } from "../src/runtime/overlay.js";
-import { behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, panelFrameDraw, startupInput } from "../src/runtime/bindings.js";
+import { authoredScriptPosition, behaviour, code, codeSegment, data, far, previousRandomSeed, isAt, isFar, loadTranslation, procedure, returnsTo, segment as unit, panelFrameDraw, startupInput } from "../src/runtime/bindings.js";
 import { OriginalSoundTraceRecorder } from "../src/runtime/sound-trace.js";
 import { EclNarrationObserver, eclTextOpcodes, type ObserverManifest } from "../src/runtime/ecl-narration-observer.js";
 import { standaloneTrace } from "./standalone-trace.js";
@@ -365,21 +365,39 @@ const soundTracePath = process.env.POR_SOUND_TRACE;
 const browserSound = process.env.POR_BROWSER_PLAY === "1";
 let narrationObserver: EclNarrationObserver | undefined;
 const eclTextHandlers: boolean[] = [];
+const tracePictureProducer = input?.traceHeldPortrait !== undefined;
+const eclPictureProducers: (string | undefined)[] = [];
 if (browserSound) {
   const manifest = JSON.parse(readFileSync(fromPortRoot("src", "audio", "voice-master-manifest.json"), "utf8")) as ObserverManifest;
   const narration = new EclNarrationObserver(manifest);
   // POR_NARRATION_LEDGER: record every narration decision. Observes only.
   narrationLedger?.observe(narration, manifest);
+  narrationObserver = narration;
+}
+if (narrationObserver || tracePictureProducer) {
   cpu.onEclInstruction = entering => {
     if (!entering) {
       eclTextHandlers.pop();
+      eclPictureProducers.pop();
       return;
     }
-    eclTextHandlers.push(eclTextOpcodes.has(cpu.read8(cpu.ds, data.eclOpcode)));
-    const event = narration.observe(cpu);
+    const opcode = cpu.read8(cpu.ds, data.eclOpcode);
+    if (tracePictureProducer) {
+      let producer: string | undefined;
+      // SETUP MONSTER, PICTURE and ENCOUNTER MENU can supply the held portrait.
+      if (opcode === 0x0c || opcode === 0x0e || opcode === 0x29) {
+        const archive = cpu.read8(cpu.ds, data.eclArchive);
+        const block = cpu.read8(cpu.ds, data.eclBlock);
+        const cursor = authoredScriptPosition(cpu, cpu.read16(cpu.ds, data.eclCursor), cpu.ds);
+        producer = `ECL${archive}.DAX:${block}:${cursor.toString(16).padStart(4, "0")}`;
+      }
+      eclPictureProducers.push(producer);
+    }
+    if (!narrationObserver) return;
+    eclTextHandlers.push(eclTextOpcodes.has(opcode));
+    const event = narrationObserver.observe(cpu);
     if (event) console.log(`POR_NARRATION ${JSON.stringify(event)}`);
   };
-  narrationObserver = narration;
 }
 const soundRecorder = soundTracePath || browserSound ? new OriginalSoundTraceRecorder(cpu, browserSound
   ? (call) => {
@@ -487,7 +505,7 @@ if (input && process.env.POR_BROWSER_PLAY === "1") {
   farCallObservers.set(cpu, (segment, offset) => {
     observe?.(segment, offset);
     if ((input.nativePicture || input.nativeEncounter) && isAt(cpu, cpu.ip, code.pictureMember)) {
-      input.nativePicture?.load(cpu);
+      input.nativePicture?.load(cpu, eclPictureProducers.at(-1));
       input.nativeEncounter?.load(cpu);
     }
     if (input.nativeEncounter && isAt(cpu, cpu.ip, code.encounterPictureDraw)) input.nativeEncounter.draw(cpu);
