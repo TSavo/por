@@ -12,12 +12,10 @@
  },
  "enhancedFallbacks": {
   "frames": 0,
-  "presented": 5955,
-  "walks": 39,
+  "presented": 6344,
+  "walks": 40,
   "recordedWalks": 40,
-  "missingWalks": [
-   "walk-yarash-pyramid"
-  ],
+  "missingWalks": [],
   "aliasedWalks": [
    {
     "walk": "campaign-sokal-leg",
@@ -28,7 +26,7 @@
     "receipt": "campaign-full/leg-9"
    }
   ],
-  "runs": 39,
+  "runs": 40,
   "additionalReplays": 2,
   "keys": []
  },
