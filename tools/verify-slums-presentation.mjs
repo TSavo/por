@@ -2525,6 +2525,19 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kobold-truce-boulder-departure.png",
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-white-flag-rubble", {
+    slot: "B", inputs: ["up", "enter", "enter", "enter", "z", "z", "a", "f", "enter", "enter", "y"],
+    portraitStops: { 10: "scene-illustration:area:13:ecl:b01c:caller:af11:cue:truce-boulder" },
+    transientPortraits: { 11: [
+      { id: "scene-illustration:area:13:ecl:b06f:caller:af11:cue:truce-descent",
+        prompt: /YOUCLAMBERNOISILYDOWNASLOPEOFRUBBLE/i, screenshot: "kobold-truce-rubble-descent.png" },
+      { id: "scene-illustration:area:13:ecl:b0a5:caller:af11:cue:envoy-dives",
+        prompt: /ATTHEBOTTOMTHEKOBOLDDIVESBENEATHSOMERUBBLE/i, screenshot: "kobold-truce-envoy-dives.png" },
+    ] },
+    portrait: "scene-illustration:area:13:ecl:aa6d:caller:af11:cue:wyvern-ambush",
+    prompt: /THENOISEHASDISTURBEDSOMETHING.*AHUGEBEASTLANDSUPONYOU/i,
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /THENOISEHASDISTURBEDSOMETHING/i },
+  }],
   ["kobold-white-flag-envoy", {
     slot: "B", inputs: ["up", "enter", "enter", "enter", ...Array(22).fill("z")],
     approachSequence: [
@@ -9100,8 +9113,7 @@ try {
           }
         }
         await advance(key);
-        const transient = illustration.transientPortraits?.[index + 1];
-        if (transient) {
+        for (const transient of [].concat(illustration.transientPortraits?.[index + 1] ?? [])) {
           assert.ok(frame.animation?.some(phase => phase.portrait === transient.id &&
             transient.prompt.test(phase.text.toSorted(([a], [b]) => a - b)
               .map(([, char]) => String.fromCharCode(char)).join(""))));
@@ -9386,6 +9398,10 @@ try {
         document.querySelector('.encounter-portrait[src="/art/${nextPortrait}"]')?.naturalWidth === 352
       `));
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
+      if (routeName === "kobold-white-flag-rubble") {
+        assert.deepEqual(frame.encounter, [24, 32, "encounter:area:13:SPRIT8.DAX:121:0:0", 88, 80]);
+        await waitForExplorationViewport();
+      }
       if (["textile-faded-tapestries", "textile-graffiti-room"].includes(routeName)) {
         assert.deepEqual(frame.encounter, [48, 32, "encounter:area:2:SPRIT4.DAX:6:0:0", 48, 80]);
         await waitForExplorationViewport();
