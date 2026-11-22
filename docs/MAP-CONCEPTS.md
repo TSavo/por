@@ -44,7 +44,12 @@ explored tiles and markings separately from the surface. The Kobold Caves
 plate shows the hillside approaches, with the Local view recording the
 tunnels as the party explores them.
 
-In Enhanced overland play, the Moonsea plate also serves as the travel map.
+In Enhanced overland play, the Moonsea plate also serves as the travel map,
+and it replaces the game's own overland view entirely: it stays on screen
+while a route is walked and at overland prompts, and gives way only to a
+picture the game shows there (an encounter, a portrait, a scene). The
+original overland tiles (SQRPACI beyond the 40 battlefield frames) are never
+shown in Enhanced and need no artwork.
 Available destinations glow on hover or keyboard focus. Click one or press
 Enter while focused to walk there using the original game controls. Travel
 stops at encounters and story prompts. **Sokal Keep** takes the original
