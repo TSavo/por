@@ -299,6 +299,8 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
       if (lizardKeep) return lizardCellar ? [0] : [0, 11];
       if (mendorLibrary) return roofed ? [15] : [0, 11];
       const possible = roofed ? context.script.sky.covered : context.script.sky.open;
+      // Paired native captures of the Podol healer route show canopy colour 12.
+      if (roofed && context.script.area === 18 && context.map === 18) return [...new Set([...possible, 12])];
       return possible.filter((sky) => !kuto || sky === 0 || sky === 11 || (!lowerWell && sky === 12));
     };
     const backdropsOf = (agg: Agg): Backdrop[] => !agg.open ? ["-"]
