@@ -1021,6 +1021,142 @@
       }
     },
     {
+      "id": "area:13:ecl:b511:caller:aa75:PIC8.DAX:121",
+      "producer": "ECL8.DAX:13:aa66",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 410,
+          "viewport": "58227a6946536932920d0ca38ce488ca8b552452054ed88b50653a67bb9a0b16"
+        },
+        {
+          "member": 1,
+          "durationMs": 310,
+          "viewport": "5e017ad0021f9ddbaaaa1cd2501266bdcc1fb2aa3ed987f8e580d9d84efb1ca1"
+        },
+        {
+          "member": 2,
+          "durationMs": 310,
+          "viewport": "a657bc385e9b2edeeed6292065973aa3cc8982d90dc7d73a85299c6ac856aaf4"
+        },
+        {
+          "member": 3,
+          "durationMs": 210,
+          "viewport": "5e017ad0021f9ddbaaaa1cd2501266bdcc1fb2aa3ed987f8e580d9d84efb1ca1"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "kobold-cave-wyvern-ambush-loop",
+          "data": "original",
+          "rendererSha256": "a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06",
+          "bindingSha256": "845160173645104af4d90ae87598ac1b3bafc002a02351f1228fb62d4e53c7d4",
+          "portrait": "scene-illustration:area:13:ecl:b511:caller:aa75:cue:wyvern-ambush",
+          "paints": [
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:1:0",
+              "atMs": 12.100000000000364
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:2:0",
+              "atMs": 245.60000000000036
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:1:0",
+              "atMs": 545.5
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:0:0",
+              "atMs": 762.1000000000004
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:1:0",
+              "atMs": 1162.2000000000007
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:2:0",
+              "atMs": 1478.7999999999993
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:1:0",
+              "atMs": 1795.3999999999996
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:0:0",
+              "atMs": 1995.3999999999996
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:1:0",
+              "atMs": 2412.1000000000004
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:2:0",
+              "atMs": 2712
+            }
+          ],
+          "sha256": {
+            "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:1:0": "e84d3c4b5224766ded0491fc7101c5c8f44bf502f530fe68e08b8b98970490b8",
+            "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:2:0": "4ad28910104cc37a7477fceb7f7cfa1d8ed3d223b3418bf3f7f4bf0564cb73c6",
+            "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:0:0": "faef389335dea4cea9ef46a8648b978c0fc6aee2c714992ecc152bf7d12c5d8a"
+          }
+        },
+        "port": {
+          "route": "kobold-cave-wyvern-ambush-loop",
+          "data": "port",
+          "rendererSha256": "a25fa97665544a065cee8986d0cf43dc3e5cebeb91ef17d5734051a801fb1d06",
+          "bindingSha256": "845160173645104af4d90ae87598ac1b3bafc002a02351f1228fb62d4e53c7d4",
+          "portrait": "scene-illustration:area:13:ecl:b511:caller:aa75:cue:wyvern-ambush",
+          "paints": [
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:1:0",
+              "atMs": 2.300000023841676
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:2:0",
+              "atMs": 252.30000002384168
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:1:0",
+              "atMs": 569.0000000238415
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:0:0",
+              "atMs": 769.0000000238415
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:1:0",
+              "atMs": 1185.6000000238419
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:2:0",
+              "atMs": 1485.6000000238419
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:1:0",
+              "atMs": 1802.2000000238422
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:0:0",
+              "atMs": 2018.900000023842
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:1:0",
+              "atMs": 2419.0000000238415
+            },
+            {
+              "key": "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:2:0",
+              "atMs": 2735.5000000238415
+            }
+          ],
+          "sha256": {
+            "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:1:0": "e84d3c4b5224766ded0491fc7101c5c8f44bf502f530fe68e08b8b98970490b8",
+            "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:2:0": "4ad28910104cc37a7477fceb7f7cfa1d8ed3d223b3418bf3f7f4bf0564cb73c6",
+            "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:0:0": "faef389335dea4cea9ef46a8648b978c0fc6aee2c714992ecc152bf7d12c5d8a"
+          }
+        }
+      }
+    },
+    {
       "id": "area:13:ecl:b511:caller:aad4:PIC8.DAX:121",
       "producer": "ECL8.DAX:13:aa99",
       "poses": [

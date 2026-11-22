@@ -4100,6 +4100,19 @@ const illustrationRoutes = new Map([
       retainPose: true,
     },
   }],
+  ["kobold-cave-wyvern-ambush-loop", {
+    slot: "A", inputs: ["up", "y"],
+    settleInputs: ["enter", "enter"],
+    portraitStops: { 1: "scene-illustration:area:13:ecl:a9ce:cue:steep-slope" },
+    portrait: "scene-illustration:area:13:ecl:b511:caller:aa75:cue:wyvern-ambush",
+    prompt: /THENOISEHASDISTURBEDSOMETHING.*AHUGEBEASTLANDSUPONYOU.*PRESS.*CONTINUE/i,
+    heldPortraitLoop: [0, 1, 2, 1].map(member => `portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:${member}:0`),
+    continuation: {
+      inputs: ["enter"], portrait: "scene-illustration:area:13:ecl:aa8a:cue:wyvern-ambush", prompt: /ABATTLEBEGINS/i,
+      pressOnPortrait: "portrait:area:13:ecl:b511:caller:aa75:PIC8.DAX:121:2:0", retainPose: true,
+      screenshot: "kobold-cave-wyvern-ambush-battle-notice.png",
+    },
+  }],
   ["valhingen-mummy-sarcophagi-attack", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "portrait:PIC4.DAX:114:0:0", prompt: /MUMMIESOPENTHEIRSARCOPHOGI/i,
@@ -10712,6 +10725,10 @@ try {
           writeFileSync(resolve(directory, transient.screenshot), Buffer.from(shot.data, "base64"));
         }
       }
+    }
+    for (const key of illustration.settleInputs ?? []) {
+      if (frame.portrait === portrait) break;
+      await advance(key);
     }
     if (illustration.alternatePortrait && frame.portrait === illustration.alternatePortrait) {
       portrait = illustration.alternatePortrait;
