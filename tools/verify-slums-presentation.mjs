@@ -2497,14 +2497,17 @@ const illustrationRoutes = new Map([
     continuation,
   }]),
   ["valhingen-skeleton-tower-bones", {
-    slot: "A", inputs: ["l"],
-    portrait: "scene-illustration:area:10:ecl:b695:caller:a446",
-    prompt: /ATOWERSTANDSCLEARLYABOVEALLCRYPTS.*HUGEPILESOFHUMANBONES/i,
-    finalPhaseCapture: "valhingen-skeleton-tower-bone-heaps.png",
-    continuation: {
-      inputs: ["enter", "enter"], portrait: "portrait:area:10:PIC4.DAX:34:0:0",
-      prompt: /ASMALLARMYOFSKELETONSRUSHESFROMTHETOWER/i,
+    slot: "A", inputs: ["l", "enter", "enter", "enter"],
+    portraitStops: {
+      1: "scene-illustration:area:10:ecl:b695:caller:a446",
+      2: null,
+      3: "scene-illustration:area:10:ecl:b695:caller:a490",
     },
+    phaseCaptures: { 1: "valhingen-skeleton-tower-bone-heaps.png" },
+    approachStops: { 2: [48, 32, "encounter:area:10:SPRIT4.DAX:34:0:0", 40, 80] },
+    portrait: "scene-illustration:area:10:ecl:b5c7:cue:skeleton-tower-rush",
+    prompt: /ASMALLARMYOFSKELETONSRUSHESFROMTHETOWER.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "valhingen-skeleton-tower-rush.png",
   }],
   ["valhingen-skeleton-tower-fumes", {
     slot: "A", inputs: ["l", "enter", "up"],
