@@ -60,7 +60,7 @@
       "id": "display-portrait-in-portrait",
       "class": "enhanced-display",
       "title": "A portrait sometimes shows inside another portrait",
-      "detail": "Mechanism not yet established. 47 Enhanced portrait and illustration PNGs contain transparent pixels, which let the original picture show through; whether that is the cause is unproven.",
+      "detail": "The Enhanced portrait layer has had an opaque backdrop since 9f9098dd. The GOG 1.3 Rhetoric stacks replay verified panel geometry and display switching, with identical picture pixels before and after the change. The reported Zhentil overnight ambush still needs a live reproduction: the short replay with zhentil-quarters-A.json returned to exploration at 6,0 E, and the envoy replay with parallel-cadorna-envoy-A.json stopped before its first expected portrait.",
       "source": "Owner report.",
       "status": "open"
     },
