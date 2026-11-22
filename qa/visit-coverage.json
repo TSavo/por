@@ -79,6 +79,25 @@
    "traces": [
     "visits.jsonl"
    ]
+  },
+  "parity start (fresh start to the New Phlan opening, both sources)": {
+   "areas": [
+    0
+   ],
+   "commissions": [],
+   "traces": [
+    "trace-parity-start.jsonl"
+   ]
+  },
+  "parity slums (guide party, inn to the Slums' orcs, both sources)": {
+   "areas": [
+    0,
+    20
+   ],
+   "commissions": [],
+   "traces": [
+    "trace-parity-slums.jsonl"
+   ]
   }
  }
 }
