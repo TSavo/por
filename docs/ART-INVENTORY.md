@@ -5,10 +5,8 @@
 > `a9cf`, and so on), the cause was a checkpoint saved by the first release: a saved game carries
 > a copy of its area's script, so 1.3 was running the first release's New Phlan script. That is
 > fixed in the runner: it now reads which release's script is in memory and reports the first
-> release's key in both cases. **Do not add keys three lower any more.** The ones added in the
-> "Restore … on GOG 1.3" commits are now unused, and the `-13` routes that require them
-> (for example `new-phlan-outbound-ferry-13`) will report the original key instead: retire those
-> routes and use the plain ones, which now pass on 1.3 from the same checkpoints.
+> release's key in both cases. The temporary alternate keys and version-specific
+> artwork replay routes have been removed. Use the same artwork routes for both editions.
 > `npm run verify:script-positions` checks this. See docs/REPLAYS.md.
 
 
@@ -171,9 +169,7 @@ game, not 1.3's script: a save holds a copy of its area's script, so a
 slot the first release saved in New Phlan runs the first release's
 script on 1.3, and the host subtracted three from positions that had
 not moved. The host now reads which release's script is in memory, so
-the duplicate keys added for those cursors (and for `aa47`, `aa60` and
-`af3c`) are no longer reported and can be retired by whoever owns those
-replays. `npm run verify:script-positions` requires the first release's
+the temporary duplicate keys have been removed. `npm run verify:script-positions` requires the first release's
 silver shop keys from a new game and from a New Phlan save of each
 release, on both builds.
 For example, the `new-phlan-rolf-approach` Chrome replay starts with a

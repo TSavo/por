@@ -2771,10 +2771,10 @@ encounters use the same artwork with mappings for their own sprite IDs.
 
 `new-phlan-rolf-tour` checks the opening portrait and its removal
 at the Temple of Tyr stop. `new-phlan-outbound-ferry` checks boarding
-in New Phlan on DOS 1.0. Run `new-phlan-outbound-ferry-13` for GOG 1.3
-using the same slot A at `11,2 N` before speaking to the harbor master.
-Both replays get the free Sokal ticket, walk to the pier, observe both
-Enhanced animation phases, and continue to the Sokal landing caption.
+in New Phlan on both DOS editions. Start from slot A at `11,2 N`
+before speaking to the harbor master. The replay gets the free Sokal
+ticket, walks to the pier, observes both Enhanced animation phases,
+and continues to the Sokal landing caption.
 `sokal-keep-departure-ferry-phases` checks boarding at the keep, the two
 Enhanced animation phases as they appear, and the return to New Phlan.
 It passed on both DOS editions using the same slot C fixture. These

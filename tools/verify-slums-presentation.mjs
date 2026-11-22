@@ -2096,21 +2096,18 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:0:HEAD3.DAX:45:BODY3.DAX:24", prompt: /ITWILLCOSTYOU1PLATINUMPIECETORESTHERE/i,
     continuation: {
       inputs: ["n"], prompt: /THENYOUMUSTLEAVE/i,
-      portraits: ["scene-illustration:area:0:ecl:aa63", "scene-illustration:area:0:ecl:aa60"],
+      portrait: "scene-illustration:area:0:ecl:aa63",
     },
   }],
   ["new-phlan-tempus-watch-challenge", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:0:ecl:aab8:HEAD3.DAX:57:BODY3.DAX:1",
-    alternatePortrait: "portrait:area:0:ecl:aac4:HEAD3.DAX:57:BODY3.DAX:1",
+    alternatePortrait: "portrait:area:0:ecl:aac7:HEAD3.DAX:57:BODY3.DAX:1",
     prompt: /YOUATTACKEDTHECITYWATCH/i,
     finalPhaseCapture: "new-phlan-tempus-watch-challenge.png",
     continuation: {
       inputs: ["enter"], prompt: /ABATTLEBEGINS/i,
-      portraits: [
-        "portrait:area:0:ecl:aac7:HEAD3.DAX:57:BODY3.DAX:1",
-        "portrait:area:0:ecl:aac4:HEAD3.DAX:57:BODY3.DAX:1",
-      ],
+      portrait: "portrait:area:0:ecl:aac7:HEAD3.DAX:57:BODY3.DAX:1",
     },
   }],
   ["new-phlan-tavern-spinner", {
@@ -2132,14 +2129,12 @@ const illustrationRoutes = new Map([
   ["new-phlan-proclamations-initial", {
     slot: "B", inputs: ["up", "enter"], portraitStops: { 1: null },
     portrait: "scene-illustration:area:0:ecl:acbf",
-    alternatePortrait: "scene-illustration:area:0:ecl:acbc",
     prompt: /PROCLAMATIONSAREPOSTEDONTHEWALLS.*PROCLAMATIONSLXIV,LXXVIII,CIX,ANDLIX/i,
     proclamations: ["lxiv", "lxxviii", "cix", "lix"],
   }],
   ["new-phlan-proclamations-later", {
     slot: "B", inputs: ["up", "enter"], portraitStops: { 1: null },
     portrait: "scene-illustration:area:0:ecl:ac9b",
-    alternatePortrait: "scene-illustration:area:0:ecl:ac98",
     prompt: /PROCLAMATIONSAREPOSTEDONTHEWALLS.*PROCLAMATIONCI\./i,
     proclamations: ["ci"],
   }],
@@ -2174,21 +2169,21 @@ const illustrationRoutes = new Map([
     portrait: "portrait:area:21:PIC4.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
     continuation: { inputs: ["enter", "enter", "enter"], prompt: /15,1W/i, clearsPortrait: true },
   }],
-  ...[["new-phlan-outbound-ferry", "af3f"], ["new-phlan-outbound-ferry-13", "af3c"]].map(([route, cursor]) => [route, {
+  ["new-phlan-outbound-ferry", {
     slot: "A", inputs: ["up", "enter", "enter", "right", "up", "up", "up", "up", "enter"],
     portraitStops: {
       2: "portrait:area:0:HEAD3.DAX:16:BODY3.DAX:7",
     },
     portrait: "portrait:area:0:PIC3.DAX:41:0:0", prompt: /YOUBOARDABOAT/i,
-    idlePortraits: [1, 2].map(phase => `portrait:area:0:ecl:${cursor}:caller:9bd6:PIC3.DAX:41:${phase}:0`),
+    idlePortraits: [1, 2].map(phase => `portrait:area:0:ecl:af3f:caller:9bd6:PIC3.DAX:41:${phase}:0`),
     continuation: { inputs: ["enter", "enter"], clearsPortrait: true, prompt: /BOATDISEMBARKSYOUATSOKALKEEP/i },
-  }]),
-  ...[["new-phlan-harbor-city-watch", "af4d"], ["new-phlan-harbor-city-watch-13", "af4a"]].map(([route, cursor]) => [route, {
+  }],
+  ["new-phlan-harbor-city-watch", {
     slot: "A", inputs: harborWatchApproach,
     requireTiledApproach: false,
-    approachSequence: [[48, 32, `encounter:area:0:ecl:${cursor}:SPRIT3.DAX:27:0:0`, 40, 80]],
+    approachSequence: [[48, 32, "encounter:area:0:ecl:af4d:SPRIT3.DAX:27:0:0", 40, 80]],
     portrait: "portrait:area:0:HEAD3.DAX:9:BODY3.DAX:7", prompt: /GO.*STAY/i,
-  }]),
+  }],
   ["lizard-wilds-kobold-prisoners", {
     slot: "A", inputs: ["up", "enter", "enter", "z", "z", "z"],
     portraitStops: {
@@ -3626,12 +3621,8 @@ const illustrationRoutes = new Map([
   ["new-phlan-silver-shop", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:0:ecl:ae69:caller:a99e:HEAD3.DAX:63:BODY3.DAX:34", prompt: /THESHOPSELLSSILVERITEMS/i,
-    alternatePortrait: "portrait:area:0:ecl:ae66:caller:a99b:HEAD3.DAX:63:BODY3.DAX:34",
     continuation: {
-      inputs: ["y"], portraits: [
-        "portrait:area:0:ecl:a9cf:HEAD3.DAX:63:BODY3.DAX:34",
-        "portrait:area:0:ecl:a9cc:HEAD3.DAX:63:BODY3.DAX:34",
-      ],
+      inputs: ["y"], portrait: "portrait:area:0:ecl:a9cf:HEAD3.DAX:63:BODY3.DAX:34",
       prompt: /BUYVIEWPOOLAPPRAISEEXIT/i,
     },
   }],
@@ -4602,26 +4593,21 @@ const combatPoseRoutes = new Map([
     width: 96, height: 96, strikeReflected: false,
     inputs: harborWatchBattle,
   }],
-  ["new-phlan-harbor-watch-fighter-13", {
-    slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:ae06", strike: "combat:area:0:CPIC3.DAX:144:ecl:ae06",
-    width: 96, height: 96, strikeReflected: false,
-    inputs: harborWatchBattle,
-  }],
   ["new-phlan-harbor-watch-aide", {
     slot: "A", stand: "combat:area:0:CPIC3.DAX:11:ecl:ae09", strike: "combat:area:0:CPIC3.DAX:139:ecl:ae09",
     width: 96, height: 96, strikeReflected: false,
     inputs: [...harborWatchBattle, ...Array(18).fill("q")],
   }],
-  ["new-phlan-harbor-watch-aide-ready-13", {
-    slot: "A", stand: "combat:area:0:CPIC3.DAX:11:ecl:ae06",
+  ["new-phlan-harbor-watch-aide-ready", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:11:ecl:ae09",
     width: 96, height: 96, readyPrompt: /NOMADHITPOINTS.*LONGBOW/i, strikeInputs: [],
     inputs: [...harborWatchBattle, ...Array(18).fill("q")],
   }],
-  ...[["", "ae09"], ["-13", "ae06"]].map(([suffix, cursor]) => [`new-phlan-harbor-watch-auxiliary${suffix}`, {
-    slot: "A", stand: `combat:area:0:CPIC3.DAX:15:ecl:${cursor}`, strike: `combat:area:0:CPIC3.DAX:143:ecl:${cursor}`,
+  ["new-phlan-harbor-watch-auxiliary", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:15:ecl:ae09", strike: "combat:area:0:CPIC3.DAX:143:ecl:ae09",
     width: 96, height: 96, strikeReflected: false,
     inputs: [...harborWatchBattle, "q"],
-  }]),
+  }],
   ["new-phlan-watch-fighter", {
     slot: "A", stand: "combat:area:11:CPIC3.DAX:11:ecl:a07a", strike: "combat:area:11:CPIC3.DAX:139:ecl:a07a",
     width: 96, height: 96, strikeReflected: true,
@@ -4800,19 +4786,19 @@ const combatPoseRoutes = new Map([
     width: 96, height: 96, readyPrompt: /7THLVLCLERIC/i,
     inputs: ["up", "enter", "enter", ...Array(19).fill("q")],
   }],
-  ...[["tempus-temple-line-fighter-ready", "aac7"], ["tempus-temple-line-fighter-ready-13", "aac4"]].map(([route, cursor]) => [route, {
-    slot: "A", stand: `combat:area:0:CPIC3.DAX:11:ecl:${cursor}`, width: 96, height: 96,
+  ["tempus-temple-line-fighter-ready", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:11:ecl:aac7", width: 96, height: 96,
     readyPrompt: /4THLVLFIGHTER/i, strikeInputs: [],
     inputs: ["up", "enter", "enter", ...Array(4).fill("q")],
-  }]),
+  }],
   ["tempus-temple-captain-ready", {
     slot: "A", stand: "combat:area:0:CPIC3.DAX:16:ecl:aac7", strike: "combat:area:0:CPIC3.DAX:144:ecl:aac7",
     width: 96, height: 96,
     readyPrompt: /8THLVLFIGHTER/i, strikeInputs: [],
     inputs: ["up", "enter", "enter", ...Array(6).fill("q")],
   }],
-  ["new-phlan-tavern-brawl-ready-13", {
-    slot: "A", stand: "combat:area:0:CPIC3.DAX:15:ecl:a7d0", standCount: 7,
+  ["new-phlan-tavern-brawl-ready", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:15:ecl:a7d3", standCount: 7,
     width: 96, height: 96, readyPrompt: /AIDESHITPOINTS/i, strikeInputs: [],
     inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter")],
   }],
@@ -6184,14 +6170,14 @@ const controlledBattleIllustrations = new Map([
     portrait: "scene-illustration:area:24:ecl:b0b5:cue:cleric-dispatch",
     caption: /ONTHEDEADBODYOFTHEHALF-ORCCLERIC.*ENTRY25/i,
   }],
-  ...[["new-phlan-tavern-watch-arrival", "a828"], ["new-phlan-tavern-watch-arrival-13", "a825"]].map(([route, cursor]) => [route, {
+  ["new-phlan-tavern-watch-arrival", {
     slot: "A", inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter")],
-    portrait: `scene-illustration:area:0:ecl:${cursor}:cue:tavern-watch-arrival`,
+    portrait: "scene-illustration:area:0:ecl:a828:cue:tavern-watch-arrival",
     caption: /THECITYWATCHCHARGESIN.*DOYOURUNAWAYORSTAY/i,
-  }]),
-  ["new-phlan-tavern-watch-stay-13", {
+  }],
+  ["new-phlan-tavern-watch-stay", {
     slot: "A", inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter")],
-    portrait: "scene-illustration:area:0:ecl:a825:cue:tavern-watch-arrival",
+    portrait: "scene-illustration:area:0:ecl:a828:cue:tavern-watch-arrival",
     caption: /THECITYWATCHCHARGESIN.*DOYOURUNAWAYORSTAY/i,
   }],
   ["mendor-basilisk-loot", {
@@ -8106,18 +8092,18 @@ try {
     }
     if (readyPrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), readyPrompt);
     const readyPlacements = standInAnimation ? frame.animation?.flatMap(({ combatArt }) => combatArt ?? []) : frame.combatArt;
-    if (routeName === "new-phlan-tavern-brawl-ready-13") {
-      const patrons = "combat:area:0:CPIC3.DAX:11:ecl:a7d0";
+    if (routeName === "new-phlan-tavern-brawl-ready") {
+      const patrons = "combat:area:0:CPIC3.DAX:11:ecl:a7d3";
       assert.equal(readyPlacements?.filter(([, , id]) => id === patrons).length, 5);
       await waitFor("the five tavern patrons in Chrome", () => run(`state.sequence === ${frame.sequence} &&
         [...document.querySelectorAll('.combat-sprite[src="/art/${patrons}"]')]
           .filter(sprite => sprite.naturalWidth === 96 && sprite.naturalHeight === 96).length === 5`));
       const shot = await command("Page.captureScreenshot", { format: "png" });
-      writeFileSync(resolve(directory, "new-phlan-tavern-brawl-ready-13.png"), Buffer.from(shot.data, "base64"));
+      writeFileSync(resolve(directory, "new-phlan-tavern-brawl-ready.png"), Buffer.from(shot.data, "base64"));
     }
-    if (routeName === "tempus-temple-line-fighter-ready-13") {
+    if (routeName === "tempus-temple-line-fighter-ready") {
       for (const block of [12, 16]) {
-        const id = `combat:area:0:CPIC3.DAX:${block}:ecl:aac4`;
+        const id = `combat:area:0:CPIC3.DAX:${block}:ecl:aac7`;
         assert.ok(readyPlacements?.some(([, , asset]) => asset === id), `Missing Tempus Watch ready pose ${id}`);
         await waitFor("the Tempus Watch ready pose in Chrome", () => run(`state.sequence === ${frame.sequence} &&
           document.querySelector('.combat-sprite[src="/art/${id}"]')?.naturalWidth === 96`));
@@ -8662,11 +8648,8 @@ try {
       document.querySelector(".encounter-portrait")?.naturalWidth === 352`));
     await switchBothWays();
     await advance("enter");
-    const invitation = frame.portrait;
-    assert.ok([
-      "portrait:area:0:ecl:ae69:HEAD3.DAX:0:BODY3.DAX:4",
-      "portrait:area:0:ecl:ae66:HEAD3.DAX:0:BODY3.DAX:4",
-    ].includes(invitation), `Expected the scoped Dirten invitation, got ${invitation}`);
+    const invitation = "portrait:area:0:ecl:ae69:HEAD3.DAX:0:BODY3.DAX:4";
+    assert.equal(frame.portrait, invitation);
     await waitFor("Dirten's invitation illustration", () => run(`state.sequence === ${frame.sequence} &&
       document.querySelector('.encounter-portrait[src="/art/${invitation}"]')?.naturalWidth === 352`));
     await verifyPortraitPanel();
@@ -8780,9 +8763,9 @@ try {
     const shot = await command("Page.captureScreenshot", { format: "png" });
     writeFileSync(resolve(directory, `${routeName}.png`), Buffer.from(shot.data, "base64"));
     await switchBothWays();
-    if (routeName === "new-phlan-tavern-watch-stay-13") {
+    if (routeName === "new-phlan-tavern-watch-stay") {
       await step("s");
-      const reinforcements = "portrait:area:0:ecl:add0:HEAD3.DAX:9:BODY3.DAX:7";
+      const reinforcements = "portrait:area:0:ecl:add3:HEAD3.DAX:9:BODY3.DAX:7";
       assert.match(text(), /THECITYWATCHRESPONDSTOTHENOISE/i);
       assert.equal(frame.portrait, reinforcements);
       await waitFor("the Watch reinforcements portrait", () => run(`state.sequence === ${frame.sequence} &&
@@ -8794,7 +8777,7 @@ try {
       for (let prompt = 0; prompt < 10 && !frame.developerVictoryAvailable; prompt++) await step("enter");
       assert.equal(frame.developerVictoryAvailable, true);
       assert.equal(frame.portrait, undefined);
-      assert.ok(frame.combatArt?.some(([, , id]) => id.endsWith(":ecl:ae06")));
+      assert.ok(frame.combatArt?.some(([, , id]) => id.endsWith(":ecl:ae09")));
     } else if (routeName.startsWith("new-phlan-tavern-watch-arrival")) {
       await step("r");
       assert.notEqual(frame.portrait, portrait);
@@ -13746,8 +13729,8 @@ try {
     for (const [step, key] of walkToCouncil.entries()) {
       await advance(key);
       if (step === 3) {
-        const proclamations = frame.portrait;
-        assert.ok(["scene-illustration:area:0:ecl:acbf", "scene-illustration:area:0:ecl:acbc"].includes(proclamations));
+        const proclamations = "scene-illustration:area:0:ecl:acbf";
+        assert.equal(frame.portrait, proclamations);
         assert.match(text(), /PROCLAMATIONSAREPOSTEDONTHEWALLS/i);
         await waitFor("the posted proclamations illustration", () => run(`state.sequence === ${frame.sequence} &&
           document.querySelector('.encounter-portrait[src="/art/${proclamations}"]')?.naturalWidth === 352`));
