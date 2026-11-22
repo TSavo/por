@@ -167,7 +167,8 @@ Five walks:
   orcs' fight at (13,1).
 - `sokal`: the ready-made party after Rolf's tour, City Hall and the clerk, the
   passenger dock, the boat, and the arrival at Sokal Keep, looking round in all
-  four directions (81 frames; all agreed on 2026-11-22).
+  four directions, then the reeds' square, the way into the keep and the undead
+  patrol's parlay (104 frames; all agreed on 2026-11-22 after #169).
 
 - `kuto`: Kuto's Well (area 29), which the campaign never enters (#130): from the guide's
   party in the Slums (`qa/fixtures/guide-party-slums-eight-set-fights/`, slot D), into the

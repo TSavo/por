@@ -290,18 +290,26 @@ async function sokalKeep(game, screen) {
   await readOn(game);
   screen("Sokal Keep arrival");
   for (let turn = 0; turn < 4; turn++) await game.press("right");
-  // Into the keep by the campaign's own keys (verifySokalKeep in tools/verify-fresh-party.mjs): the
-  // gates, the reeds and the parchment in runes, then the undead patrol, answered with its password.
-  // The keys the campaign uses from here (verifySokalKeep). For the ready-made party they bring it
-  // to the gates and west to the reeds' square, 6,13, where the reeds' menu and the parchment that the
-  // campaign's party finds do not come (measured 2026-11-22); the rest walk on through the keep, and
-  // the patrol's password is typed only if a parlay is offered. Both runs get the same keys.
+  // Into the keep by the campaign's route (verifySokalKeep in tools/verify-fresh-party.mjs): the gates,
+  // the reeds' square, then on through the keep to the undead patrol, answered with its password.
+  // Both runs get the same keys. The ready-made party's own keys, each measured to change the screen
+  // (2026-11-22, #169): at the reeds' square, 6,13, Enter shows the reeds' "WHAT DO YOU DO?" and a
+  // second Enter leaves it for the exploration menu, where End changes the picture and text. The campaign's
+  // four further Enters, for the parchment its party searches out, change nothing there, so they are
+  // not pressed. The patrol meets this party earlier on the route, at 8,12; the route's keys after it
+  // change nothing at its menu, so the walk goes to the parlay as soon as the patrol is there.
   game.expect(/8,14 N/, "The boat leaves the party at Sokal Keep's gate, 8,14 facing north.");
   screen("Sokal Keep: the gates and the reeds' square");
   await game.press("up", /GATES OF SOKAL KEEP.*WEST RISES A MOUND OF REEDS/s, "One step north shows the gates and the reeds.");
-  for (const key of ["left", "up", "up", "enter", "enter", "end", "enter", "enter", "enter", "enter"]) await game.press(key);
+  for (const key of ["left", "up", "up"]) await game.press(key);
+  await game.press("enter", /WHAT DO YOU DO\?/, "Enter on the reeds' text shows the reeds' menu.");
+  await game.press("enter", exploring, "Enter leaves the reeds' menu.");
+  await game.press("end");
   screen("Sokal Keep: on through the keep");
-  for (const key of ["right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "left"]) await game.press(key);
+  for (const key of ["right", "right", "up", "up", "left", "up", "up", "right", "up", "up", "left", "up", "up", "left"]) {
+    if (/parlay/i.test(game.text())) break;
+    await game.press(key);
+  }
   if (/parlay/i.test(game.text())) {
     await game.press("p");
     await game.press("n");
