@@ -2,6 +2,7 @@ import { appendFileSync, mkdtempSync, readFileSync, readSync, writeFileSync } fr
 import { join } from "node:path";
 import { captureNativeExploration, type NativeExploration } from "./native-exploration.js";
 import { observeNativeCombatArt } from "./native-combat-art.js";
+import { nativeSelectionKey, observeNativeCombatSelection } from "./native-combat-selection.js";
 import { captureOverlandTravel, identifyPhlanPrompt, identifySokalPrompt, isQuayDialogue, isSokalBoatHandoff,
   type SokalQuay, type TravelState } from "./overland-travel.js";
 import { createHash } from "node:crypto";
@@ -242,6 +243,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   const battleTerrain = browser && (battleTileKeys.size || traceBattleDraw) ? new Frame(screen.width, screen.height) : undefined;
   const tracedBattleTerrain = new Set<string>();
   const selectionKeys = new Set((process.env.POR_COMBAT_SELECTION_KEYS ?? "").split(",").filter(Boolean));
+  const nativeSelection = browser && standalone && code.combatSelectionDrawResumes ? observeNativeCombatSelection() : undefined;
   const effectKeys = (process.env.POR_COMBAT_EFFECT_KEYS ?? "").split(",").filter(Boolean);
   const matchCombatEffect = loadCombatEffects(effectKeys);
   const isHoldEffect = (key: string) => /:(?:9|137)(?::flip-x)?$/.test(key);
@@ -503,31 +505,47 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const offset = Math.floor(cell / 40) * 8 * presentation.width + x;
         for (let y = 0; y < 8; y++) enhanced.pixels.fill(0, offset + y * presentation.width, offset + y * presentation.width + 8);
       }
-      const aimCell = battlefield && menu.replace(/\s/g, "").startsWith("(USECURSORKEYS)")
-        ? manualAimCell(presentation) : undefined;
+      const nativeMarkers = battlefield && !scene ? nativeSelection?.placements() : undefined;
+      let aimCell: [number, number] | undefined;
+      if (battlefield && menu.replace(/\s/g, "").startsWith("(USECURSORKEYS)")) {
+        const [marker] = nativeMarkers ?? [];
+        aimCell = nativeSelection ? marker && [marker[0], marker[1]] : manualAimCell(presentation);
+      }
       const combat = attack || (!scene && !perspective)
         ? [
           ...combatArt(presentation, enhanced, area, battleCursor, battlefield ? battleTerrain : undefined, iconEditor, aimCell),
           ...(battlefield ? nativeCombat?.placements(presentation, area, battleCursor) ?? [] : []),
         ] : [];
-      const combatSelections: TilePlacement[] = [];
-      for (const [x, y, , , highlighted, width = 24, height = 24] of attack ?? combat) {
-        if (!highlighted || width % 24 || height % 24) continue;
-        const corner = presentation.get(x, y);
-        const block = corner === 15 ? 25 : iconEditor && corner === 7 ? 153 : undefined;
-        const key = `combat-selection:COMSPR.DAX:${block}`;
-        if (!selectionKeys.has(key)) continue;
-        for (let dy = 0; dy < height; dy += 24) {
-          for (let dx = 0; dx < width; dx += 24) combatSelections.push([x + dx, y + dy, key]);
+      const combatSelections: TilePlacement[] = nativeMarkers && selectionKeys.has(nativeSelectionKey) ? nativeMarkers : [];
+      let attackArt = attack;
+      if (nativeMarkers) {
+        const selected = ([left, top, , , , width = 24, height = 24]: CombatArtPlacement) =>
+          nativeMarkers.some(([x, y]) => x >= left && x < left + width && y >= top && y < top + height);
+        for (const actor of combat) actor[4] = selected(actor);
+        if (attackArt) {
+          attackArt = attackArt.map((actor): CombatArtPlacement => {
+            const [x, y, key, reflected, , width, height] = actor;
+            return [x, y, key, reflected, selected(actor), width, height];
+          });
+        }
+      } else if (!nativeSelection || iconEditor) {
+        for (const [x, y, , , highlighted, width = 24, height = 24] of attack ?? combat) {
+          if (!highlighted || width % 24 || height % 24) continue;
+          const corner = presentation.get(x, y);
+          const block = corner === 15 ? 25 : iconEditor && corner === 7 ? 153 : undefined;
+          const key = `combat-selection:COMSPR.DAX:${block}`;
+          if (!selectionKeys.has(key)) continue;
+          for (let dy = 0; dy < height; dy += 24) {
+            for (let dx = 0; dx < width; dx += 24) combatSelections.push([x + dx, y + dy, key]);
+          }
         }
       }
-      const activeSelection = "combat-selection:COMSPR.DAX:25";
-      if (aimCell && !combatSelections.length && selectionKeys.has(activeSelection)) {
+      if (!nativeSelection && aimCell && !combatSelections.length && selectionKeys.has(nativeSelectionKey)) {
         const [x, y] = aimCell;
         const largeActor = combat.some(([left, top, , , , width = 24, height = 24]) =>
           (width > 24 || height > 24) && x >= left && x + 24 <= left + width && y >= top && y + 24 <= top + height);
         if (largeActor || isEmptyAimCell(presentation, x, y)) {
-          combatSelections.push([x, y, activeSelection]);
+          combatSelections.push([x, y, nativeSelectionKey]);
           // Manual Aim can place the native bevel where there is no unit.
           for (let row = 0; row < 24; row++) {
             const start = (y + row) * enhanced.width + x;
@@ -542,10 +560,15 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
         const pixels = Buffer.alloc(64);
         const selectedActors = battleTileInventory ? combat.filter(([, , , , highlighted]) => highlighted) : [];
         const selectionCells = new Set<number>();
+        for (const [x, y] of nativeMarkers ?? []) {
+          for (let row = 0; row < 24; row += 8) {
+            for (let column = 0; column < 24; column += 8) selectionCells.add((y + row) * presentation.width + x + column);
+          }
+        }
         // Combat terrain appears within the guest's left-hand battle panel.
         for (let y = 8; y < 176; y += 8) {
           for (let x = 8; x < 176; x += 8) {
-            if (battleTileInventory && x <= 152 && y <= 152 && presentation.get(x, y) === 15) {
+            if (battleTileInventory && !nativeSelection && x <= 152 && y <= 152 && presentation.get(x, y) === 15) {
               let borderMatches = true;
               for (let offset = 0; offset < 24 && borderMatches; offset++) {
                 borderMatches = presentation.get(x + offset, y) === combatHighlightPixel(offset, 0) &&
@@ -668,7 +691,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
           animation.splice(flight, 1);
         }
         animation.push({ frame: state.frame, enhancedFrame: state.enhancedFrame, portrait: captureIllustration ? portrait : undefined,
-          text: state.text, combatArt: effect ? combat : attack ?? [], combatSelections: state.combatSelections,
+          text: state.text, combatArt: effect ? combat : attackArt ?? [], combatSelections: state.combatSelections,
           combatEffect: state.combatEffect,
           battleTiles, panelFrame: state.panelFrame, perspective,
           nativeScenery: state.nativeScenery, exploration: state.exploration,
@@ -924,6 +947,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       }
     } : undefined,
     nativeCombat,
+    nativeSelection,
     captureBattleTerrain: battleTerrain ? (cpu: Cpu, column: number, row: number, picture: number) => {
       if (column > 18 || row > 18 || column % 3 || row % 3) return;
       const x = 8 + column * 8;

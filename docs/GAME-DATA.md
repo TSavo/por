@@ -133,7 +133,10 @@ Standalone party sprites use the head, body, size and palette from the
 native combatant record at the same draw call. The browser applies the
 native palette through the existing Enhanced material masks where
 available. The `kobold-envoy-party-icon-strike` Chrome replay checks
-both party poses. Selection borders still depend on source pixels.
+both party poses. Standalone uses the guest's COMSPR draw coordinates for combat
+selection borders and replaces them on terrain redraw. The
+`buccaneer-native-manual-aim` Chrome replay checks the border on occupied and empty
+cells and its return to the active actor when Manual Aim closes.
 
 Ordinary portrait matching has a similar source-pixel dependency. With
 `POR_GAME_SOURCE=port` at `220d2236`, the GOG 1.3 Chrome

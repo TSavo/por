@@ -6925,7 +6925,7 @@ routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload",
 routes.push("assault-council-chamber", "assault-summons", "stojanow-gate-rocks");
 routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
-routes.push("kuto-wide-manual-aim");
+routes.push("kuto-wide-manual-aim", "buccaneer-native-manual-aim");
 routes.push("valhingen-zombie-roam-animation");
 const valhingenBrassDoorBattle = {
   slot: "A", inputs: ["left", "up", "up", "left", "up", "enter", "enter"],
@@ -8014,6 +8014,32 @@ try {
     writeFileSync(resolve(directory, "kuto-clipped-manual-aim.png"), Buffer.from(clippedShot.data, "base64"));
     assert.deepEqual(readFileSync(saved), originalSave);
     console.log("Verified both halves of the giant lizard in Manual Aim in Chrome:", proof);
+  } else if (routeName === "buccaneer-native-manual-aim") {
+    const marker = "combat-selection:COMSPR.DAX:25";
+    const text = () => frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join("");
+    const inputs = ["up", "up", "enter", "enter", "a", "enter", "enter", "q", "q", "a", "m", "a", "m"];
+    for (const key of inputs) await advance(key);
+    assert.match(text(), /USECURSORKEYS/i);
+    assert.deepEqual(frame.combatSelections, [[56, 80, marker]]);
+    await advance("pageup");
+    assert.deepEqual(frame.combatSelections, [[80, 56, marker]]);
+    for (const [key, x, y] of [["right", 104, 56], ["up", 104, 32], ["up", 104, 8], ["left", 80, 8]]) {
+      await advance(key);
+      assert.deepEqual(frame.combatSelections, [[x, y, marker]]);
+      assert.ok(!frame.combatArt.some(([, , , , selected]) => selected));
+      await waitFor("the Enhanced cursor on an empty cell", () => run(`
+        state.sequence === ${frame.sequence} && !animationFrame &&
+        [...document.querySelectorAll('.combat-selection[src="/art/${marker}"]')].some(image =>
+          image.naturalWidth === 96 && Math.abs(parseFloat(image.style.left) - ${x / 3.2}) < 0.01 &&
+          Math.abs(parseFloat(image.style.top) - ${y / 2}) < 0.01)`));
+    }
+    const shot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "buccaneer-native-manual-aim.png"), Buffer.from(shot.data, "base64"));
+    await advance("escape");
+    assert.deepEqual(frame.combatSelections, [[56, 80, marker]]);
+    assert.match(text(), /AIM:NEXTPREVMANUALCENTEREXIT/i);
+    assert.deepEqual(readFileSync(saved), originalSave);
+    console.log("Verified the combat selector moves between occupied and empty cells and returns to the actor on Escape.");
   } else if (routeName === "buccaneer-empty-manual-aim") {
     const marker = "combat-selection:COMSPR.DAX:25";
     const inputs = ["up", "up", "enter", "enter", "a", "enter", "enter", "q", "q", "a", "m"];
