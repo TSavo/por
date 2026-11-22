@@ -100,6 +100,9 @@ and `POR_GAME_SOURCE=port`, and drops every other `POR_` setting it inherits exc
 `POR_PREGEN_PARTY`, `POR_TRACE_KEYS`, `POR_SAVE_DIR` and `POR_OPEN_BROWSER` (`0`: print the address
 only). The runner names the data it chose when it starts: `POR_GAME_DATA port <install>/game`.
 
+**Classic from the player's own files:** `original-files.json` in the player's data directory (beside `saves`), `{ "path": "<their GOG Pool of Radiance folder>" }`, or `POR_ORIGINAL_FILES`, names it; a version 1.3 folder (START.EXE, ECL1.DAX, GAME.OVR starting FBOV) is run from, so the Classic switch appears (`POR_GAME_DATA original <folder>`).
+Anything else (missing, unreadable, another release) runs from `game/` and prints one `Original files:` line saying why. Nothing of the folder enters the package.
+
 ## Where saves go
 
 In the player's own directory, which the launcher creates; the runner's other writes (`out/`) go there

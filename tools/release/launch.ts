@@ -7,15 +7,17 @@
  *   <root>/app/runner.mjs     tools/boot-translated.ts, compiled
  *   <root>/game, upgrades, audio, qa, src, tools    the port's own files
  *
- * The game always runs from the port's own data in game/. Saves and the game's other writes go to the
+ * The game runs from the port's own data in game/, or from the player's own version 1.3 files when
+ * they name them (originalFiles below), which unlocks Classic. Saves and the game's other writes go to the
  * player's own directory (userDataDirectory below). Ctrl-C, closing the terminal, or quitting the Mac
  * app stops the server and the runner. Launched again while the game runs, it opens the browser on the
  * running game instead of starting another.
  *
- *   POR_OPEN_BROWSER=0   print the address without opening a browser
+ *   POR_OPEN_BROWSER=0              print the address without opening a browser
+ *   POR_ORIGINAL_FILES=<directory>  the player's original files, in place of original-files.json
  */
 import { execFile, spawn, type ChildProcess } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { closeSync, existsSync, mkdirSync, openSync, readFileSync, readSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { request } from "node:http";
 import { createServer } from "node:net";
 import { homedir } from "node:os";
@@ -107,6 +109,47 @@ const dataDirectory = userDataDirectory();
 mkdirSync(dataDirectory, { recursive: true });
 const runningFile = join(dataDirectory, "running.json");
 
+/**
+ * The player's own original files, which unlock Classic: POR_ORIGINAL_FILES, else original-files.json in
+ * the player's data directory, `{ "path": "<their Pool of Radiance folder>" }`. The game is version 1.3,
+ * so only a version 1.3 folder is used (GAME.OVR starts with the overlay manager's FBOV). Otherwise the
+ * game runs from its own data, and one line says why. Nothing of the folder is copied anywhere.
+ */
+function originalFiles(override: string | undefined): string | undefined {
+  const instead = "the game runs from its own data, without Classic.";
+  let folder = override;
+  if (!folder) {
+    const setting = join(dataDirectory, "original-files.json");
+    if (!existsSync(setting)) return;
+    try {
+      const path = (JSON.parse(readFileSync(setting, "utf8")) as { path?: unknown }).path;
+      if (typeof path !== "string" || !path) { console.log(`Original files: ${setting} names no "path"; ${instead}`); return; }
+      folder = path;
+    } catch (error) {
+      console.log(`Original files: cannot read ${setting} (${(error as Error).message}); ${instead}`);
+      return;
+    }
+  }
+  try {
+    const names = new Map(readdirSync(folder).map((name) => [name.toUpperCase(), name]));
+    // The files the game server requires of an original directory.
+    const missing = ["START.EXE", "GAME.OVR", "ECL1.DAX"].filter((name) => !names.has(name));
+    if (missing.length) { console.log(`Original files: ${folder} has no ${missing.join(", ")}; ${instead}`); return; }
+    const overlay = Buffer.alloc(4);
+    const file = openSync(join(folder, names.get("GAME.OVR")!), "r");
+    try { readSync(file, overlay, 0, 4, 0); } finally { closeSync(file); }
+    const magic = overlay.toString("latin1");
+    if (magic !== "FBOV") {
+      console.log(`Original files: ${folder} is not version 1.3 (its GAME.OVR starts ${JSON.stringify(magic)}); ${instead}`);
+      return;
+    }
+    return folder;
+  } catch (error) {
+    console.log(`Original files: cannot read ${folder} (${(error as Error).message}); ${instead}`);
+  }
+}
+const original = originalFiles(process.env.POR_ORIGINAL_FILES);
+
 // A second launch while the game runs opens the running game.
 try {
   const running = JSON.parse(readFileSync(runningFile, "utf8")) as { pid: number; url: string };
@@ -133,10 +176,12 @@ for (const name of Object.keys(process.env)) if (name.startsWith("POR_") && !pas
 Object.assign(process.env, {
   POR_ROOT: root,
   POR_RUNNER: join(appDirectory, "runner.mjs"),
-  POR_GAME_SOURCE: "port",
+  POR_GAME_SOURCE: original ? "original" : "port",
+  ...(original ? { POR_GAMEDATA: original } : {}),
   POR_SAVE_DIR: saveDirectory,
   POR_PLAY_PORT: String(port),
 });
+if (original) console.log(`Original files: ${original} (Classic available)`);
 // The runner writes its reports to out/ where it runs. That is the player's directory, not the install.
 process.chdir(dataDirectory);
 console.log(`Pool of Radiance ${root}`);
