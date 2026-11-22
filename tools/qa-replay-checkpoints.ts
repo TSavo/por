@@ -25,7 +25,7 @@ interface Registry {
   chains: Record<string, string>;
   proved: string[];
 }
-interface Route { name: string; table: string; slot?: string }
+interface Route { name: string; table: string; slot?: string; text?: string }
 
 const source = readFileSync(verifier, "utf8");
 const lines = source.split("\n");
@@ -46,6 +46,7 @@ for (const line of lines) {
   if (!table) continue;
   const entry = /^  \["([a-z0-9][a-z0-9.-]*)", /.exec(line);
   if (entry) { add(entry[1]!, table); current = routes.get(entry[1]!); continue; }
+  if (current) current.text = (current.text ?? "") + line + "\n";
   const slot = /^\s{4}slot: "([A-J])"/.exec(line);
   if (slot && current && !current.slot) current.slot = slot[1];
 }
@@ -90,6 +91,26 @@ const proved = rows.filter(row => registry.proved.includes(row.name) && row.stat
 
 if (process.argv.includes("--json")) {
   console.log(JSON.stringify(rows));
+  process.exit(0);
+}
+if (process.argv.includes("--group")) {
+  // The start state a red route needs, as far as its table entry says: slot, area, first script cursor, first picture.
+  const state = (row: (typeof rows)[number]) => {
+    const text = (row as { text?: string }).text ?? "";
+    const area = /area:(\d+)/.exec(text)?.[1];
+    const cursor = /ecl:([a-f0-9]{4})/.exec(text)?.[1];
+    const scene = /"((?:portrait|encounter|combat|scene|tile)[:\w.-]*)"/.exec(text)?.[1]?.replace(/^(\w+):area:\d+:(?:ecl:[a-f0-9]{4}:)?/, "$1:");
+    if (!text) return `${row.slot ?? "?"} | area ? | explicit route: ${row.name.split("-").slice(0, 2).join("-")}-*`;
+    return `${row.slot ?? "?"} | area ${area ?? "?"} | cursor ${cursor ?? "?"} | ${scene ?? "no picture key"}`;
+  };
+  const groups = new Map<string, string[]>();
+  for (const row of rows.filter(r => r.status === "missing")) {
+    const key = state(row);
+    groups.set(key, [...(groups.get(key) ?? []), row.name]);
+  }
+  const ordered = [...groups].sort((a, b) => b[1].length - a[1].length);
+  console.log(`${ordered.length} distinct start states serve ${rows.filter(r => r.status === "missing").length} red routes (slot | area | script cursor | first picture), largest first:`);
+  for (const [key, names] of ordered) console.log(`${String(names.length).padStart(4)}  ${key}  e.g. ${names.slice(0, 3).join(", ")}`);
   process.exit(0);
 }
 if (process.argv.includes("--list")) {
