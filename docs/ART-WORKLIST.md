@@ -2,12 +2,12 @@
 
 ## What to do now
 
-**Held portrait animations (#131).** 25 / 235 picture sites verified (measured 34, one-shot 6). R = 210.
-The site inventory comes from static script and native picture discovery. 48 / 48 captured native prompts passed paired Chrome checks.
+**Held portrait animations (#131).** 0 / 235 picture sites verified (measured 34, one-shot 0). R = 235.
+The site inventory comes from static script and native picture discovery. 0 / 48 captured native prompts passed paired Chrome checks.
 Run `npm run verify:held-portraits` for every site and its evidence.
 
-**Enhanced fallbacks (#142).** 0 fallback frames / 0 distinct keys across 767 Chrome views.
-Recorded walks measured in Chrome with GOG 1.3: 9 / 31. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
+**Enhanced fallbacks (#142).** 0 fallback frames / 0 distinct keys across 1883 Chrome views.
+Recorded walks measured in Chrome with GOG 1.3: 18 / 31. Run `npm run verify:enhanced-fallbacks` for the captured keys and walks still to measure.
 
 **There is art to do: 2 items.**
 

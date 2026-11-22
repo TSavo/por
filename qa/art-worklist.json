@@ -1,29 +1,23 @@
 {
  "schema": 2,
  "heldPortraits": {
-  "verified": 25,
-  "oneShotsVerified": 6,
+  "verified": 0,
+  "oneShotsVerified": 0,
   "measured": 34,
   "total": 235,
   "scenesMeasured": 48,
-  "scenesVerified": 48,
+  "scenesVerified": 0,
   "unmappedScenes": 0,
-  "remaining": 210
+  "remaining": 235
  },
  "enhancedFallbacks": {
   "frames": 0,
-  "presented": 767,
-  "walks": 9,
+  "presented": 1883,
+  "walks": 18,
   "recordedWalks": 31,
   "missingWalks": [
-   "campaign-castle-approach-leg",
-   "campaign-end-leg",
-   "campaign-ending-leg",
    "campaign-full/leg-10",
    "campaign-full/leg-11",
-   "campaign-full/leg-3",
-   "campaign-full/leg-4",
-   "campaign-full/leg-5",
    "campaign-full/leg-6",
    "campaign-full/leg-7",
    "campaign-full/leg-8",
@@ -31,15 +25,12 @@
    "campaign-sokal-leg",
    "campaign-tower-leg",
    "visit-kobold-caves",
-   "visit-textile-house",
-   "visit-valhingen-graveyard",
-   "visit-valjevo-area-4",
    "walk-commission-5-reward",
    "walk-commission-5-taken",
    "walk-kovel-and-nomads",
    "walk-textile-house-cleared"
   ],
-  "runs": 9,
+  "runs": 18,
   "keys": []
  },
  "about": "Written by npm run art:worklist. Do not edit by hand. See docs/ART-WORKLIST.md.",

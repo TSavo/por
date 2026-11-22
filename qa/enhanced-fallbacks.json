@@ -26,6 +26,21 @@
    "frames": [],
    "fixtureSha256": "76d67d8640c9967fc8f80a6ae99feb654256edce1ca22c0ad1c3f46c40bf03ee"
   },
+  "campaign-full/leg-3": {
+   "presented": 202,
+   "frames": [],
+   "fixtureSha256": "0c4dc54e09cc4b411c5039a09e7724db9972c8fff5b8a1109209cc4e2d350a98"
+  },
+  "campaign-full/leg-4": {
+   "presented": 63,
+   "frames": [],
+   "fixtureSha256": "5ff4673396c6aad1f04b74c77db975028ae5bddced9e126b3b624a4122c84394"
+  },
+  "campaign-full/leg-5": {
+   "presented": 102,
+   "frames": [],
+   "fixtureSha256": "414c242df335fac34963a172dea0f93275414a699e8d2e65a59349ef23711c8d"
+  },
   "visit-kovel-mansion": {
    "presented": 58,
    "frames": [],
@@ -46,10 +61,25 @@
    "frames": [],
    "fixtureSha256": "99ad7707542c43320ccc3497bb5fc8f72f0bd72d15352fe56ebd8642b246a069"
   },
+  "visit-textile-house": {
+   "presented": 119,
+   "frames": [],
+   "fixtureSha256": "a3ef7d8860d5d015b76bb5009eaadbb6b8b67895395cc4dd4e9764e3898f47c7"
+  },
   "visit-training-hall": {
    "presented": 87,
    "frames": [],
    "fixtureSha256": "52989ae9c40f2cd3d78a8623d9c1b5e256dcbd6cfcb2fba2db4b74b25a054a52"
+  },
+  "visit-valhingen-graveyard": {
+   "presented": 62,
+   "frames": [],
+   "fixtureSha256": "0d02b6939448dbf94e14867a73fe87d4d5b2443c9e991d18d4eb993510343fc3"
+  },
+  "visit-valjevo-area-4": {
+   "presented": 109,
+   "frames": [],
+   "fixtureSha256": "a470ec72e50e65e02c7a17a413ffa8e5289b8b5c0e8465d612a20a25f81aa640"
   },
   "visit-yarashs-pyramid": {
    "presented": 78,
