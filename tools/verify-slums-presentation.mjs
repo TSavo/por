@@ -1308,16 +1308,19 @@ const illustrationRoutes = new Map([
     inputs: [
       "up", "up", "up", "enter", "enter", "p", "n", "t", "enter", "enter", "enter",
       "up", "up", "enter", "enter", "up", "right", "up", "up", "enter", "y", "enter",
-      ...Array(16).fill("z"), "y", "t", "enter",
     ],
-    portraitStops: {
-      18: "portrait:area:9:PIC2.DAX:63:0:0",
-      29: "portrait:area:9:ecl:a945:PIC2.DAX:63:2:0",
-      39: "portrait:area:9:ecl:a945:PIC2.DAX:63:1:0",
-      40: "portrait:area:9:ecl:a959:PIC2.DAX:63:1:0",
+    portraitStops: { 18: "portrait:area:9:PIC2.DAX:63:0:0" },
+    portrait: "portrait:area:9:PIC2.DAX:63:0:0",
+    prompt: /THELEADERSWINGSATYOU/i,
+    heldPortraitLoop: [
+      "portrait:area:9:PIC2.DAX:63:0:0",
+      ...[1, 2, 1].map(member => `portrait:area:9:ecl:a945:PIC2.DAX:63:${member}:0`),
+    ],
+    finalPhaseCapture: "stojanow-bugbear-warning.png",
+    continuation: {
+      inputs: ["t", "enter"], portrait: "scene-illustration:area:9:ecl:a0a7:cue:bugbear-dismissal",
+      prompt: /NOWBEATITBEFOREWEGETSERIOUS/i, screenshot: "stojanow-bugbear-warning-dismissal.png",
     },
-    portrait: "scene-illustration:area:9:ecl:a0a7:cue:bugbear-dismissal",
-    prompt: /NOWBEATITBEFOREWEGETSERIOUS/i,
   }],
   ["diogenes-upper-ledge-fireball", {
     slot: "A", inputs: [
@@ -4163,7 +4166,13 @@ const illustrationRoutes = new Map([
   ...[[0, 0], [1, 2], [2, 3]].map(([member, holds]) => [`pyramid-lizardfolk-patrol-combat-phase-${member}`, {
     slot: "A", inputs: ["up", "enter", "enter", "enter", ...Array(holds).fill("q"), "c"],
     portrait: `portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:${member}:0`, prompt: /MUTILATINGSCUM.*BUTYOUWILLDIEFIRST/i,
-    continuation: { inputs: ["enter"], portrait: `portrait:area:23:ecl:9ffe:PIC7.DAX:57:${member}:0`, prompt: /ABATTLEBEGINS/i },
+    heldPortraitLoop: member === 0
+      ? [0, 1, 2, 3].map(phase => `portrait:area:23:ecl:9a04:caller:9fef:PIC7.DAX:57:${phase}:0`)
+      : undefined,
+    continuation: {
+      inputs: ["enter"], portrait: `portrait:area:23:ecl:9ffe:PIC7.DAX:57:${member}:0`, prompt: /ABATTLEBEGINS/i,
+      screenshot: member === 0 ? "pyramid-lizardfolk-patrol-battle-start.png" : undefined,
+    },
   }]),
   ...[[0, 0], [1, 2], [2, 3]].map(([member, holds]) => [`pyramid-lizardfolk-patrol-parlay-phase-${member}`, {
     slot: "A", inputs: ["up", "enter", "enter", "enter", ...Array(holds).fill("q")],
@@ -10300,12 +10309,6 @@ try {
               document.querySelector('.encounter-portrait[src="/art/${interimPortrait}"]')?.naturalWidth === 352`));
             await verifyPortraitPanel();
           }
-        }
-        if (routeName === "stojanow-bugbear-warning-phases" && interimPortrait && index > 18) {
-          assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), /THELEADERSWINGSATYOU/i);
-          await switchBothWays(frame.frame);
-          const shot = await command("Page.captureScreenshot", { format: "png" });
-          writeFileSync(resolve(directory, `stojanow-bugbear-warning-phase-${index}.png`), Buffer.from(shot.data, "base64"));
         }
         if (routeName === "mendor-storeroom-kobold-phases" && interimPortrait && index > 5) {
           const caption = index < 8 ? /THEYPLEADFORMERCY/i : /WILLYOUSPARETHEM/i;
