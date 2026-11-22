@@ -171,6 +171,10 @@ const rules: [RegExp, (match: RegExpExecArray) => string | undefined][] = [
     let scriptArea = area;
     if (/^scene-illustration:area:19:ecl:aeeb:cue:diogenes-(?:advice-departure|bottle-departure|lair-empty)$/.test(key)) scriptArea = "25";
     if (/^scene-illustration:area:25:ecl:(?:b624:caller:(?:9d4d|9da7|9e0e|9bd9|9bfc)|b5ec|b6a0|(?:9bd5|9bf8|9c00):caller:9af6)(?::cue:|$)/.test(key)) scriptArea = "28";
+    // Valhingen's first storm panel appears before the wilderness area ID changes.
+    if (key === "scene-illustration:area:26:ecl:b695:caller:9c27") scriptArea = "10";
+    // ECL7 block 26 prints the river recovery as the party leaves the Pyramid.
+    if (/^scene-illustration:area:22:ecl:(?:af05:caller:9b05|ad46:caller:af09)$/.test(key)) scriptArea = "26";
     const missing = scope(area, cursor, caller, scriptArea);
     if (missing) return missing;
     const cue = scriptIllustrations.get(key);

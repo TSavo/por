@@ -204,6 +204,13 @@ with the displayed area already set to 19. The static audit checks the
 pause in block 25 and the retained caption in block 19.
 The replay also checks the Silver Bottle commission in the journal.
 
+The `river-exit` replay uses the local `river-exit-fixture-A.json` save.
+Chrome verified the Pyramid river recovery plate with bundled and original
+GOG 1.3 data. The illustration viewport matched pixel for pixel. Both runs
+checked display switching and saved the recovery discovery after the party
+witnessed it. The catalogue checks both river recovery keys in ECL7 block 26,
+which draws the plate while the displayed area is still 22.
+
 GOG 1.3 Chrome replays at `c5f34276` confirmed the other two area 19
 keys at the same pause. `diogenes-bottle-return` verifies the dragon's
 departure after the vampire instructions and the corresponding journal
