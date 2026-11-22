@@ -2960,7 +2960,7 @@ const illustrationRoutes = new Map([
   }],
   ["kuto-well-waterline", {
     slot: "J", inputs: ["up", "y", "enter", "enter"],
-    portraitStops: { 1: "scene-illustration:area:29:ecl:af80:caller:ae87", 2: null },
+    portraitStops: { 1: "scene-illustration:area:29:ecl:af80:caller:ae87", 2: "scene-illustration:area:29:ecl:aebd" },
     portrait: "scene-illustration:area:29:ecl:af80:caller:a23f",
     prompt: /JUSTABOVETHEWATERLINE,ASECRETDOORHASBEENLEFTAJAR.*DOYOUWANTTOCLIMBUPTHERUNGS/i,
     journalLead: "kuto-well-waterline-door", journalLeadAtDiscovery: true,
@@ -10104,13 +10104,19 @@ try {
           const patrolPhaseShot = await command("Page.captureScreenshot", { format: "png" });
           writeFileSync(resolve(directory, `pyramid-lizardfolk-patrol-phase-${index - 5}.png`), Buffer.from(patrolPhaseShot.data, "base64"));
         }
-        if (routeName === "kuto-well-waterline" && interimPortrait) {
+        if (routeName === "kuto-well-waterline" && index === 1) {
           assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
             /RUNGSARESETINTHESIDESOFTHEWELLWALL\.DOYOUWANTTOCLIMBDOWN/i);
           assert.ok(!frame.journal?.leads.some(({ id }) => id === "kuto-well-waterline-door"));
           await switchBothWays(frame.frame);
           const wellDescentShot = await command("Page.captureScreenshot", { format: "png" });
           writeFileSync(resolve(directory, "kuto-well-descent-decision.png"), Buffer.from(wellDescentShot.data, "base64"));
+        }
+        if (routeName === "kuto-well-waterline" && index === 2) {
+          assert.match(frame.text.toSorted(([a], [b]) => a - b).map(([, char]) => String.fromCharCode(char)).join(""),
+            /YOUSLOWLYCLIMBDOWNTHESLIPPERYRUNGS/i);
+          const descent = await command("Page.captureScreenshot", { format: "png" });
+          writeFileSync(resolve(directory, "kuto-well-descend.png"), Buffer.from(descent.data, "base64"));
         }
         if (routeName === "diogenes-upper-ledge-fireball" && interimPortrait) {
           await advance("j");
