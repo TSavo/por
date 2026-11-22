@@ -9245,6 +9245,351 @@
           }
         }
       }
+    },
+    {
+      "id": "area:10:ecl:a5bb:PIC4.DAX:17",
+      "producer": "ECL4.DAX:10:a576",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 410,
+          "viewport": "cecb2765d6fd8f2c299b42dd391c1c1589e460ec6b611aa33f251653e3003cd7"
+        },
+        {
+          "member": 1,
+          "durationMs": 910,
+          "viewport": "e918ce5d91bc338220ac7036d6e509b39ef2ad1f5d5e4e8956a84966d730a56f"
+        },
+        {
+          "member": 2,
+          "durationMs": 20,
+          "viewport": "a13b32899f8cfd287da3f5de380357805aab1368792689847c330d8a94edcd37"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valhingen-conjurer-skeleton",
+          "data": "original",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "2bf5144f235e979f5e4d9d7803aef3a34bedd6032079a61e06442512851322ec",
+          "portrait": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:0:0",
+              "atMs": 6.700000035762969
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:1:0",
+              "atMs": 340.0000000357627
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:2:0",
+              "atMs": 1256.6000000357626
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:0:0",
+              "atMs": 1273.3000000357624
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:1:0",
+              "atMs": 1673.3000000357624
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:2:0",
+              "atMs": 2589.900000035763
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:0:0",
+              "atMs": 2606.500000035763
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:1:0",
+              "atMs": 3023.200000035763
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:a5bb:PIC4.DAX:17:0:0": "93d9b25e585f79f2762bf165302e86ef17ca7a967d269fc56476a2fec9ac424d",
+            "portrait:area:10:ecl:a5bb:PIC4.DAX:17:1:0": "25e8116024a977ab1c7cdbfba6813bed9d9a6129cb8fee2d9553bd8e7d0c7cd1",
+            "portrait:area:10:ecl:a5bb:PIC4.DAX:17:2:0": "46255f82b96f2840ed66804081a993546a435271e97de8832d44a2d40bbf7952"
+          }
+        },
+        "port": {
+          "route": "valhingen-conjurer-skeleton",
+          "data": "port",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "2bf5144f235e979f5e4d9d7803aef3a34bedd6032079a61e06442512851322ec",
+          "portrait": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:0:0",
+              "atMs": 5.000000023841949
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:1:0",
+              "atMs": 371.70000002384177
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:2:0",
+              "atMs": 1288.400000023842
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:0:0",
+              "atMs": 1305.000000023842
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:1:0",
+              "atMs": 1705.0000000238415
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:2:0",
+              "atMs": 2621.700000023842
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:0:0",
+              "atMs": 2638.3000000238417
+            },
+            {
+              "key": "portrait:area:10:ecl:a5bb:PIC4.DAX:17:1:0",
+              "atMs": 3054.900000023842
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:a5bb:PIC4.DAX:17:0:0": "93d9b25e585f79f2762bf165302e86ef17ca7a967d269fc56476a2fec9ac424d",
+            "portrait:area:10:ecl:a5bb:PIC4.DAX:17:1:0": "25e8116024a977ab1c7cdbfba6813bed9d9a6129cb8fee2d9553bd8e7d0c7cd1",
+            "portrait:area:10:ecl:a5bb:PIC4.DAX:17:2:0": "46255f82b96f2840ed66804081a993546a435271e97de8832d44a2d40bbf7952"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:10:ecl:a7b9:PIC4.DAX:17",
+      "producer": "ECL4.DAX:10:a757",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 410,
+          "viewport": "cecb2765d6fd8f2c299b42dd391c1c1589e460ec6b611aa33f251653e3003cd7"
+        },
+        {
+          "member": 1,
+          "durationMs": 910,
+          "viewport": "e918ce5d91bc338220ac7036d6e509b39ef2ad1f5d5e4e8956a84966d730a56f"
+        },
+        {
+          "member": 2,
+          "durationMs": 20,
+          "viewport": "a13b32899f8cfd287da3f5de380357805aab1368792689847c330d8a94edcd37"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valhingen-conjurer-zombie",
+          "data": "original",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "46bd4cafddc0e83ae98c6a4e36f427bac0461923d80d4c4a3d5c7d0fcf791bae",
+          "portrait": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0",
+              "atMs": 6.999999976158051
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:1:0",
+              "atMs": 323.6999999761583
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:2:0",
+              "atMs": 1240.2999999761578
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0",
+              "atMs": 1256.9999999761585
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:1:0",
+              "atMs": 1673.599999976158
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:2:0",
+              "atMs": 2573.599999976158
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0",
+              "atMs": 2606.899999976158
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:1:0",
+              "atMs": 3006.799999976158
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0": "760b769b21d49d48ff69c44c77d03fe2856e3fd405ff50751ce9e104273d3741",
+            "portrait:area:10:ecl:a7b9:PIC4.DAX:17:1:0": "fee668e396f337939c7dac91e2c8aec62ec62c2e284bc734e55d3d29b2af3288",
+            "portrait:area:10:ecl:a7b9:PIC4.DAX:17:2:0": "651dd559539b1da62a1b4a0c7d83bd453d9b4728518470adf38796e55e67b778"
+          }
+        },
+        "port": {
+          "route": "valhingen-conjurer-zombie",
+          "data": "port",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "46bd4cafddc0e83ae98c6a4e36f427bac0461923d80d4c4a3d5c7d0fcf791bae",
+          "portrait": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0",
+              "atMs": 11.599999999999909
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:1:0",
+              "atMs": 378.1999999999998
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:2:0",
+              "atMs": 1278.1999999999998
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0",
+              "atMs": 1294.8000000000002
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:1:0",
+              "atMs": 1711.3999999999996
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:2:0",
+              "atMs": 2628.1000000000004
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0",
+              "atMs": 2644.8
+            },
+            {
+              "key": "portrait:area:10:ecl:a7b9:PIC4.DAX:17:1:0",
+              "atMs": 3044.7
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0": "760b769b21d49d48ff69c44c77d03fe2856e3fd405ff50751ce9e104273d3741",
+            "portrait:area:10:ecl:a7b9:PIC4.DAX:17:1:0": "fee668e396f337939c7dac91e2c8aec62ec62c2e284bc734e55d3d29b2af3288",
+            "portrait:area:10:ecl:a7b9:PIC4.DAX:17:2:0": "651dd559539b1da62a1b4a0c7d83bd453d9b4728518470adf38796e55e67b778"
+          }
+        }
+      }
+    },
+    {
+      "id": "area:10:ecl:aad6:PIC4.DAX:17",
+      "producer": "ECL4.DAX:10:aa97",
+      "poses": [
+        {
+          "member": 0,
+          "durationMs": 410,
+          "viewport": "cecb2765d6fd8f2c299b42dd391c1c1589e460ec6b611aa33f251653e3003cd7"
+        },
+        {
+          "member": 1,
+          "durationMs": 910,
+          "viewport": "e918ce5d91bc338220ac7036d6e509b39ef2ad1f5d5e4e8956a84966d730a56f"
+        },
+        {
+          "member": 2,
+          "durationMs": 20,
+          "viewport": "a13b32899f8cfd287da3f5de380357805aab1368792689847c330d8a94edcd37"
+        }
+      ],
+      "chrome": {
+        "original": {
+          "route": "valhingen-conjurer-wight",
+          "data": "original",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "51f72f76fb45bb8701affa636d2bd011337196de3d3191181c47f83c15ee688c",
+          "portrait": "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0",
+              "atMs": 15.899999976158142
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:1:0",
+              "atMs": 349.29999997615823
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:2:0",
+              "atMs": 1265.8999999761581
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0",
+              "atMs": 1282.4999999761585
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:1:0",
+              "atMs": 1699.1999999761583
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:2:0",
+              "atMs": 2599.1999999761583
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0",
+              "atMs": 2615.799999976158
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:1:0",
+              "atMs": 3032.399999976158
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0": "f375e38d9431ee89a3dd32321d4b39fa94820d93df9178e106a93b3ebad550d9",
+            "portrait:area:10:ecl:aad6:PIC4.DAX:17:1:0": "65d4db6b1495cd91527b5a3fafc733cb402f07aa86b903355d8a2c6fe88e4389",
+            "portrait:area:10:ecl:aad6:PIC4.DAX:17:2:0": "d3be1fbc3268673a46eae10652f6940107799e977c9286abfbf3ddf63cb66e71"
+          }
+        },
+        "port": {
+          "route": "valhingen-conjurer-wight",
+          "data": "port",
+          "rendererSha256": "c3582f5d74fae550739186491060b39f7fcbd25c399b99de80a104f1d1f8808e",
+          "bindingSha256": "51f72f76fb45bb8701affa636d2bd011337196de3d3191181c47f83c15ee688c",
+          "portrait": "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0",
+          "paints": [
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0",
+              "atMs": -0.19999998807907104
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:1:0",
+              "atMs": 349.700000011921
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:2:0",
+              "atMs": 1249.700000011921
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0",
+              "atMs": 1283.0000000119207
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:1:0",
+              "atMs": 1683.0000000119207
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:2:0",
+              "atMs": 2599.600000011921
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0",
+              "atMs": 2616.300000011921
+            },
+            {
+              "key": "portrait:area:10:ecl:aad6:PIC4.DAX:17:1:0",
+              "atMs": 3032.9000000119213
+            }
+          ],
+          "sha256": {
+            "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0": "f375e38d9431ee89a3dd32321d4b39fa94820d93df9178e106a93b3ebad550d9",
+            "portrait:area:10:ecl:aad6:PIC4.DAX:17:1:0": "65d4db6b1495cd91527b5a3fafc733cb402f07aa86b903355d8a2c6fe88e4389",
+            "portrait:area:10:ecl:aad6:PIC4.DAX:17:2:0": "d3be1fbc3268673a46eae10652f6940107799e977c9286abfbf3ddf63cb66e71"
+          }
+        }
+      }
     }
   ],
   "sceneryPrompts": [
