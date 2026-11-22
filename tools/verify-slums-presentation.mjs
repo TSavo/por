@@ -579,7 +579,8 @@ const encounterRoutes = new Map([
     dialogue: {
       key: "enter", portrait: "portrait:area:10:ecl:a5bb:PIC4.DAX:17:0:0", prompt: /SHADOWYFORMCREATINGNEWSKELETONS/i,
       capture: true,
-      heldPortraitLoop: 2,
+      heldPortraitLoop: [0, 1, 2].map(member => `portrait:area:10:ecl:a5bb:PIC4.DAX:17:${member}:0`),
+      skipLoopCapture: "portrait:area:10:ecl:a5bb:PIC4.DAX:17:2:0",
     },
     battleStart: {
       input: "c", portrait: "scene-illustration:area:10:ecl:a5f7",
@@ -594,7 +595,8 @@ const encounterRoutes = new Map([
     dialogue: {
       key: "enter", portrait: "portrait:area:10:ecl:a7b9:PIC4.DAX:17:0:0", prompt: /RUINEDPARCHMENTS.*CREATINGZOMBIES/i,
       capture: true,
-      heldPortraitLoop: 2,
+      heldPortraitLoop: [0, 1, 2].map(member => `portrait:area:10:ecl:a7b9:PIC4.DAX:17:${member}:0`),
+      skipLoopCapture: "portrait:area:10:ecl:a7b9:PIC4.DAX:17:2:0",
     },
     battleStart: {
       input: "c", portrait: "scene-illustration:area:10:ecl:a7f5",
@@ -609,7 +611,8 @@ const encounterRoutes = new Map([
     dialogue: {
       key: "enter", portrait: "portrait:area:10:ecl:aad6:PIC4.DAX:17:0:0", prompt: /SURPRISEAFIGUREASITSUMMONSAWIGHT/i,
       capture: true,
-      heldPortraitLoop: 2,
+      heldPortraitLoop: [0, 1, 2].map(member => `portrait:area:10:ecl:aad6:PIC4.DAX:17:${member}:0`),
+      skipLoopCapture: "portrait:area:10:ecl:aad6:PIC4.DAX:17:2:0",
     },
     battleStart: {
       input: "c", portrait: "scene-illustration:area:10:ecl:ab12",

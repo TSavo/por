@@ -7,6 +7,7 @@ const towerTrollPoseOrder = [0, 1, 2, 3, 4, 3, 2, 1];
 const towerTrollPoseTimes = [1310, 20, 20, 20, 510, 110, 110, 210];
 const silverDragonPoseOrder = [0, 1, 2, 3, 4, 0, 2];
 const silverDragonPoseTimes = [1610, 510, 410, 1210, 1010, 1410, 1510];
+const conjurerPoseTimes = [410, 910, 20];
 const portraitLoops = [
   ["portrait:area:10:ecl:b695:caller:9f43:PIC4.DAX:35:", 5, undefined,
     /^(?!.*ABATTLEBEGINS).*LUMBERINGFIGURESREACHFORYOU/i, Array(5).fill(110)],
@@ -77,9 +78,12 @@ const portraitLoops = [
     /^(?!.*ABATTLEBEGINS).*CLAWSRISEFROMTHESOIL/i, [710, 210, 20, 310, 310, 230, 410]],
   ["portrait:area:10:ecl:b695:caller:a86f:PIC4.DAX:114:", 3, "portrait:PIC4.DAX:114:0:0",
     /^(?!.*ABATTLEBEGINS).*MUMMIESOPENTHEIRSARCOPHOGI/i, [1310, 110, 110]],
-  ["portrait:area:10:ecl:a5bb:PIC4.DAX:17:", 2],
-  ["portrait:area:10:ecl:a7b9:PIC4.DAX:17:", 2],
-  ["portrait:area:10:ecl:aad6:PIC4.DAX:17:", 2],
+  ["portrait:area:10:ecl:a5bb:PIC4.DAX:17:", 3, undefined,
+    /^(?!.*ABATTLEBEGINS).*SHADOWYFORMCREATINGNEWSKELETONS/i, conjurerPoseTimes],
+  ["portrait:area:10:ecl:a7b9:PIC4.DAX:17:", 3, undefined,
+    /^(?!.*ABATTLEBEGINS).*RUINEDPARCHMENTS.*CREATINGZOMBIES/i, conjurerPoseTimes],
+  ["portrait:area:10:ecl:aad6:PIC4.DAX:17:", 3, undefined,
+    /^(?!.*ABATTLEBEGINS).*SURPRISEAFIGUREASITSUMMONSAWIGHT/i, conjurerPoseTimes],
   ["portrait:area:3:ecl:a6c8:PIC5.DAX:56:", [0, 1, 0, 3], undefined, /SLEEPINGGIANTS/i, [210, 210, 210, 210]],
   // The bucket trap shares the return address, so use the waking caption's own art.
   ["portrait:area:3:ecl:a6d2:PIC5.DAX:56:", [0, 1, 0, 3], undefined,
