@@ -29,7 +29,6 @@
  },
  "notEstablished": {
   "first-person cells seen only from squares not connected to any square the existing artwork was made from": 7,
-  "first-person cells of an area whose reading is not confirmed": 40,
   "first views of an area, drawn under the number of the area just left: the tool accounts for existing keys of this kind but cannot say which square and facing each arrival shows": "not counted",
   "distinct battlefield cells of pictures no artwork shows to have been on a battlefield": 72,
   "battlefield cells that are not one stored cell (terrain drawn clipped or over other terrain)": "not counted: needs the game's battlefield builder read",
@@ -559,12 +558,10 @@
    "existingKeysAccountedFor": 22,
    "existingKeysOnlyAsArrivalViews": 0,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 42,
+   "cellsTheViewsCanShow": 22,
    "cellsWithArt": 22,
    "toDo": 0,
-   "notEstablished": {
-    "cells of an area whose reading is not confirmed": 20
-   }
+   "notEstablished": {}
   },
   {
    "area": 26,
@@ -602,12 +599,10 @@
    "existingKeysAccountedFor": 22,
    "existingKeysOnlyAsArrivalViews": 1,
    "unaccountedKeys": [],
-   "cellsTheViewsCanShow": 41,
+   "cellsTheViewsCanShow": 21,
    "cellsWithArt": 21,
    "toDo": 0,
-   "notEstablished": {
-    "cells of an area whose reading is not confirmed": 20
-   }
+   "notEstablished": {}
   },
   {
    "area": 28,
