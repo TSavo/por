@@ -1,12 +1,13 @@
 {
  "format": "pool-of-radiance-game-data",
- "formatVersion": 1,
+ "formatVersion": 2,
  "kind": "scripts",
  "records": [
   {
    "file": "ECL1.DAX",
    "block": 18,
    "position": 0,
+   "packedBytes": 6700,
    "kind": "script",
    "bytes": 6550,
    "blob": {
@@ -19,6 +20,7 @@
    "file": "ECL1.DAX",
    "block": 24,
    "position": 1,
+   "packedBytes": 7844,
    "kind": "script",
    "bytes": 7656,
    "blob": {
@@ -31,6 +33,7 @@
    "file": "ECL2.DAX",
    "block": 9,
    "position": 0,
+   "packedBytes": 6520,
    "kind": "script",
    "bytes": 6367,
    "blob": {
@@ -43,6 +46,7 @@
    "file": "ECL2.DAX",
    "block": 15,
    "position": 1,
+   "packedBytes": 5595,
    "kind": "script",
    "bytes": 5548,
    "blob": {
@@ -55,6 +59,7 @@
    "file": "ECL2.DAX",
    "block": 20,
    "position": 2,
+   "packedBytes": 7824,
    "kind": "script",
    "bytes": 7679,
    "blob": {
@@ -67,6 +72,7 @@
    "file": "ECL3.DAX",
    "block": 0,
    "position": 0,
+   "packedBytes": 7575,
    "kind": "script",
    "bytes": 7473,
    "blob": {
@@ -79,6 +85,7 @@
    "file": "ECL3.DAX",
    "block": 8,
    "position": 1,
+   "packedBytes": 7653,
    "kind": "script",
    "bytes": 7500,
    "blob": {
@@ -91,6 +98,7 @@
    "file": "ECL3.DAX",
    "block": 11,
    "position": 2,
+   "packedBytes": 2253,
    "kind": "script",
    "bytes": 2171,
    "blob": {
@@ -103,6 +111,7 @@
    "file": "ECL3.DAX",
    "block": 14,
    "position": 3,
+   "packedBytes": 7436,
    "kind": "script",
    "bytes": 7332,
    "blob": {
@@ -115,6 +124,7 @@
    "file": "ECL4.DAX",
    "block": 2,
    "position": 0,
+   "packedBytes": 6307,
    "kind": "script",
    "bytes": 6170,
    "blob": {
@@ -127,6 +137,7 @@
    "file": "ECL4.DAX",
    "block": 10,
    "position": 1,
+   "packedBytes": 7840,
    "kind": "script",
    "bytes": 7672,
    "blob": {
@@ -139,6 +150,7 @@
    "file": "ECL4.DAX",
    "block": 21,
    "position": 2,
+   "packedBytes": 5774,
    "kind": "script",
    "bytes": 5710,
    "blob": {
@@ -151,6 +163,7 @@
    "file": "ECL5.DAX",
    "block": 3,
    "position": 0,
+   "packedBytes": 6913,
    "kind": "script",
    "bytes": 6800,
    "blob": {
@@ -163,6 +176,7 @@
    "file": "ECL5.DAX",
    "block": 4,
    "position": 1,
+   "packedBytes": 6758,
    "kind": "script",
    "bytes": 6627,
    "blob": {
@@ -175,6 +189,7 @@
    "file": "ECL5.DAX",
    "block": 5,
    "position": 2,
+   "packedBytes": 5037,
    "kind": "script",
    "bytes": 4943,
    "blob": {
@@ -187,6 +202,7 @@
    "file": "ECL5.DAX",
    "block": 6,
    "position": 3,
+   "packedBytes": 4945,
    "kind": "script",
    "bytes": 4859,
    "blob": {
@@ -199,6 +215,7 @@
    "file": "ECL5.DAX",
    "block": 7,
    "position": 4,
+   "packedBytes": 4214,
    "kind": "script",
    "bytes": 4105,
    "blob": {
@@ -211,6 +228,7 @@
    "file": "ECL6.DAX",
    "block": 1,
    "position": 0,
+   "packedBytes": 7908,
    "kind": "script",
    "bytes": 7673,
    "blob": {
@@ -223,6 +241,7 @@
    "file": "ECL6.DAX",
    "block": 19,
    "position": 1,
+   "packedBytes": 3294,
    "kind": "script",
    "bytes": 3236,
    "blob": {
@@ -235,6 +254,7 @@
    "file": "ECL6.DAX",
    "block": 25,
    "position": 2,
+   "packedBytes": 5781,
    "kind": "script",
    "bytes": 5652,
    "blob": {
@@ -247,6 +267,7 @@
    "file": "ECL6.DAX",
    "block": 28,
    "position": 3,
+   "packedBytes": 7873,
    "kind": "script",
    "bytes": 7669,
    "blob": {
@@ -259,6 +280,7 @@
    "file": "ECL7.DAX",
    "block": 17,
    "position": 0,
+   "packedBytes": 7591,
    "kind": "script",
    "bytes": 7603,
    "blob": {
@@ -271,6 +293,7 @@
    "file": "ECL7.DAX",
    "block": 22,
    "position": 1,
+   "packedBytes": 3476,
    "kind": "script",
    "bytes": 3400,
    "blob": {
@@ -283,6 +306,7 @@
    "file": "ECL7.DAX",
    "block": 23,
    "position": 2,
+   "packedBytes": 5758,
    "kind": "script",
    "bytes": 5640,
    "blob": {
@@ -295,6 +319,7 @@
    "file": "ECL7.DAX",
    "block": 26,
    "position": 3,
+   "packedBytes": 6711,
    "kind": "script",
    "bytes": 6569,
    "blob": {
@@ -307,6 +332,7 @@
    "file": "ECL8.DAX",
    "block": 13,
    "position": 0,
+   "packedBytes": 7462,
    "kind": "script",
    "bytes": 7313,
    "blob": {
@@ -319,6 +345,7 @@
    "file": "ECL8.DAX",
    "block": 16,
    "position": 1,
+   "packedBytes": 5485,
    "kind": "script",
    "bytes": 5394,
    "blob": {
@@ -331,6 +358,7 @@
    "file": "ECL8.DAX",
    "block": 27,
    "position": 2,
+   "packedBytes": 5189,
    "kind": "script",
    "bytes": 5079,
    "blob": {
@@ -343,6 +371,7 @@
    "file": "ECL8.DAX",
    "block": 29,
    "position": 3,
+   "packedBytes": 5993,
    "kind": "script",
    "bytes": 5875,
    "blob": {

@@ -11,7 +11,7 @@ import type { DosFile } from "./dos.js";
  * format the game's own loaders expect. Pictures come back blank, in their original shape.
  */
 export const GAME_DATA_FORMAT = "pool-of-radiance-game-data";
-export const GAME_DATA_VERSION = 1;
+export const GAME_DATA_VERSION = 2;
 
 /** Read one file under `game/` by its path relative to that folder. */
 export type ReadGameData = (path: string) => Uint8Array;
@@ -69,6 +69,11 @@ export interface RecordIdentity {
   file: string;
   block?: number;
   position?: number;
+  /**
+   * For an archive block: its packed size in the original archive. The reader packs the block to
+   * exactly this size, so the game reads and allocates what it did from the original file.
+   */
+  packedBytes?: number;
   kind: string;
   bytes: number;
 }
@@ -102,6 +107,17 @@ export interface PictureShape {
   frames: number;
   /** Eight header bytes the game keeps with the picture. */
   field: string;
+  /**
+   * For each frame, the SHA-256 of its pixels as colour numbers, one byte a pixel, row by row:
+   * what `frameSlice(decodePicture(record))` gives. A hash names the original picture without
+   * holding it. For a set of 8 by 8 tiles this is the hash a `tile:` artwork key carries.
+   */
+  frameHashes: string[];
+  /**
+   * Battlefield terrain only: for each frame, the same hash of each 8 by 8 cell, row by row.
+   * A `battle-tile:` artwork key carries one of these.
+   */
+  cellHashes?: string[][];
 }
 
 /** A picture record: its identity and shape, and no pixels. */
@@ -238,13 +254,13 @@ export function overlayFile(program: ProgramData, read: ReadGameData): Uint8Arra
 
 /** The game's data files, re-packed for its own loaders. Archives keep their blocks in the original order. */
 export function dataFiles(data: PortGameData, read: ReadGameData): DosFile[] {
-  const archives = new Map<string, { position: number; id: number; data: Uint8Array }[]>();
+  const archives = new Map<string, { position: number; id: number; data: Uint8Array; packedBytes?: number }[]>();
   const files: DosFile[] = [];
   const add = (record: RecordIdentity, bytes: Uint8Array) => {
     if (record.block === undefined) { files.push({ name: record.file, data: bytes }); return; }
     const blocks = archives.get(record.file) ?? [];
     archives.set(record.file, blocks);
-    blocks.push({ position: record.position ?? blocks.length, id: record.block, data: bytes });
+    blocks.push({ position: record.position ?? blocks.length, id: record.block, data: bytes, packedBytes: record.packedBytes });
   };
   for (const record of data.content) add(record, contentBytes(record, read));
   for (const record of data.pictures) add(record, blankPictureBytes(record));

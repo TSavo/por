@@ -158,6 +158,33 @@ async function play(label: string, env: Record<string, string>): Promise<Play> {
   return record;
 }
 
+/** Where two saved slot files differ: which field, and for the game's bytes, how many and where. */
+function describeSave(a?: string, b?: string): string {
+  if (!a || !b) return " (present in one play only)";
+  try {
+    const x = JSON.parse(Buffer.from(a, "base64").toString("utf8")) as Record<string, unknown>;
+    const y = JSON.parse(Buffer.from(b, "base64").toString("utf8")) as Record<string, unknown>;
+    const bytes = (p: unknown, q: unknown): string => {
+      const m = Buffer.from(String(p), "base64"), n = Buffer.from(String(q), "base64");
+      const at: number[] = [];
+      for (let i = 0; i < Math.max(m.length, n.length); i++) if (m[i] !== n[i]) at.push(i);
+      return `${at.length} of ${m.length} bytes, at ${at.slice(0, 12).map((i) => `${i.toString(16)}:${m[i]?.toString(16)}/${n[i]?.toString(16)}`).join(" ")}`;
+    };
+    const parts: string[] = [];
+    for (const field of new Set([...Object.keys(x), ...Object.keys(y)])) {
+      if (JSON.stringify(x[field]) === JSON.stringify(y[field])) continue;
+      if (field === "data") parts.push(`data: ${bytes(x.data, y.data)}`);
+      else if (field === "party") {
+        const p = x.party as Record<string, string> | undefined, q = y.party as Record<string, string> | undefined;
+        for (const file of new Set([...Object.keys(p ?? {}), ...Object.keys(q ?? {})])) if (p?.[file] !== q?.[file]) parts.push(`party ${file}: ${bytes(p?.[file], q?.[file])}`);
+      } else parts.push(field);
+    }
+    return ` (${parts.join("; ")})`;
+  } catch {
+    return "";
+  }
+}
+
 /** What differs between two plays. Empty when they are the same. */
 function compare(a: Play, b: Play): string[] {
   const found: string[] = [];
@@ -168,7 +195,7 @@ function compare(a: Play, b: Play): string[] {
     else if (at >= 0) found.push(`${key}: first difference at number ${at + 1} of ${a[key].length}`);
   }
   const names = new Set([...Object.keys(a.saves), ...Object.keys(b.saves)]);
-  for (const name of names) if (a.saves[name] !== b.saves[name]) found.push(`saved file ${name} differs`);
+  for (const name of names) if (a.saves[name] !== b.saves[name]) found.push(`saved file ${name} differs${describeSave(a.saves[name], b.saves[name])}`);
   if (a.stopped !== b.stopped) found.push(`one play stopped: ${a.stopped ?? b.stopped}`);
   return found;
 }

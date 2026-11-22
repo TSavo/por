@@ -15,7 +15,7 @@ import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseDax } from "../src/lib/dax.js";
 import { loadExecutable } from "../src/lib/exepack.js";
-import { isPicture, pictureMembers } from "../src/lib/picture.js";
+import { decodePicture, frameSlice, isPicture, pictureMembers } from "../src/lib/picture.js";
 import { segment, useGameVersion } from "../src/runtime/bindings.js";
 import {
   blankPictureBytes, contentBytes, dataFiles, GAME_DATA_FORMAT, GAME_DATA_VERSION, overlayFile, overlayStub, programImage,
@@ -93,6 +93,8 @@ class Blob {
 
 /** Pictures: archives whose every record is drawn. Their pixels are not converted. */
 const PICTURE_ARCHIVE = /^(8X8D\d|BACPAC|BODY\d|CBODY|CHEAD|COMSPR|CPIC\d|DUNGCOM|FINAL\d|HEAD\d|ICON|PIC\d|RANDCOM|SPRIT\d|SQRPACI|TITLE|WILDCOM)\.DAX$/;
+/** Battlefield terrain, drawn in 8 by 8 cells. */
+const BATTLE_TERRAIN = /^(DUNGCOM|WILDCOM|RANDCOM)\.DAX$/;
 const PROGRAM_FILE = /^(START\.EXE|GAME\.OVR)$/;
 
 const pascalName = (bytes: Uint8Array): string =>
@@ -245,15 +247,31 @@ function buildProgram(original: Map<string, Uint8Array>, map: InstructionMap, ou
   return program;
 }
 
-function pictureRecord(file: string, block: number, position: number, data: Uint8Array): PictureRecord {
+function pictureRecord(file: string, block: number, position: number, packedBytes: number, data: Uint8Array): PictureRecord {
   const shape = (bytes: Uint8Array, selector?: number): PictureShape => {
     const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    // The hashes are taken with the functions the artwork lookups use on the original pictures.
+    const picture = decodePicture(bytes);
+    const frames = Array.from({ length: picture.itemCount }, (_, frame) => frameSlice(picture, frame));
+    const cells = (pixels: Uint8Array): string[] => {
+      const hashes: string[] = [];
+      for (let y = 0; y + 8 <= picture.height; y += 8) {
+        for (let x = 0; x + 8 <= picture.width; x += 8) {
+          const cell = new Uint8Array(64);
+          for (let row = 0; row < 8; row++) cell.set(pixels.subarray((y + row) * picture.width + x, (y + row) * picture.width + x + 8), row * 8);
+          hashes.push(sha256(cell));
+        }
+      }
+      return hashes;
+    };
     return {
       selector, height: view.getInt16(0, true), width: view.getInt16(2, true) * 8, x: view.getInt16(4, true), y: view.getInt16(6, true),
       frames: bytes[8]!, field: hex(bytes.subarray(9, 17)),
+      frameHashes: frames.map(sha256),
+      cellHashes: BATTLE_TERRAIN.test(file) ? frames.map(cells) : undefined,
     };
   };
-  const identity = { file, block, position, kind: "picture", bytes: data.length };
+  const identity = { file, block, position, packedBytes, kind: "picture", bytes: data.length };
   let record: PictureRecord;
   const members = isPicture(data) ? [] : pictureMembers(data);
   if (isPicture(data)) record = { ...identity, layout: "picture", pictures: [shape(data)] };
@@ -274,9 +292,9 @@ function pictureRecord(file: string, block: number, position: number, data: Uint
   return record;
 }
 
-function contentRecord(file: string, block: number | undefined, position: number | undefined, data: Uint8Array,
+function contentRecord(file: string, block: number | undefined, position: number | undefined, packedBytes: number | undefined, data: Uint8Array,
   blobs: { scripts: Blob; saves: Blob }): { group: string; record: ContentRecord } {
-  const identity = (kind: string) => ({ file, block, position, kind, bytes: data.length });
+  const identity = (kind: string) => ({ file, block, position, packedBytes, kind, bytes: data.length });
   const table = (group: string, kind: string, rowBytes: number, named = false) => {
     const split = rows(data, rowBytes);
     const names = named ? Array.from(split, (_, row) => pascalName(data.subarray(row * rowBytes))) : undefined;
@@ -333,18 +351,18 @@ export function buildGameData(gameDirectory: string, map = instructionMap(gameDi
   const blobs = { scripts: new Blob("content/scripts.bin"), saves: new Blob("content/saved-games.bin") };
   const groups = new Map<string, ContentRecord[]>();
   const pictures: PictureRecord[] = [];
-  const add = (file: string, block: number | undefined, position: number | undefined, data: Uint8Array) => {
-    const { group, record } = contentRecord(file, block, position, data, blobs);
+  const add = (file: string, block: number | undefined, position: number | undefined, packedBytes: number | undefined, data: Uint8Array) => {
+    const { group, record } = contentRecord(file, block, position, packedBytes, data, blobs);
     groups.set(group, [...(groups.get(group) ?? []), record]);
   };
   for (const [file, bytes] of original) {
     if (PROGRAM_FILE.test(file)) continue;
-    if (!file.endsWith(".DAX")) { add(file, undefined, undefined, bytes); continue; }
+    if (!file.endsWith(".DAX")) { add(file, undefined, undefined, undefined, bytes); continue; }
     const entries = parseDax(file, bytes).entries;
     if (new Set(entries.map(({ id }) => id)).size !== entries.length) throw new Error(`${file} holds two blocks with one number`);
-    for (const [position, { id, data }] of entries.entries()) {
-      if (PICTURE_ARCHIVE.test(file)) pictures.push(pictureRecord(file, id, position, data));
-      else add(file, id, position, data);
+    for (const [position, { id, data, compSize }] of entries.entries()) {
+      if (PICTURE_ARCHIVE.test(file)) pictures.push(pictureRecord(file, id, position, compSize, data));
+      else add(file, id, position, compSize, data);
     }
   }
   out.set(blobs.scripts.file, blobs.scripts.bytes());
@@ -379,6 +397,11 @@ export function buildGameData(gameDirectory: string, map = instructionMap(gameDi
     }
     const before = parseDax(file, bytes).entries, after = parseDax(file, back).entries;
     if (before.length !== after.length) throw new Error(`${file} comes back with ${after.length} blocks, not ${before.length}`);
+    // The archive comes back the same size, with the same directory: the game seeks and reads as it did.
+    const directory = 2 + before.length * 9;
+    if (back.length !== bytes.length || !same(back.subarray(0, directory), bytes.subarray(0, directory))) {
+      throw new Error(`${file} comes back with a different directory or size`);
+    }
     for (const [index, entry] of before.entries()) {
       const again = after[index]!;
       if (again.id !== entry.id || again.rawSize !== entry.rawSize) throw new Error(`${file} block ${entry.id} changed its place or size`);

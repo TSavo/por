@@ -1,12 +1,13 @@
 {
  "format": "pool-of-radiance-game-data",
- "formatVersion": 1,
+ "formatVersion": 2,
  "kind": "walls",
  "records": [
   {
    "file": "WALLDEF1.DAX",
    "block": 1,
    "position": 0,
+   "packedBytes": 697,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -23,6 +24,7 @@
    "file": "WALLDEF1.DAX",
    "block": 3,
    "position": 1,
+   "packedBytes": 787,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -39,6 +41,7 @@
    "file": "WALLDEF1.DAX",
    "block": 5,
    "position": 2,
+   "packedBytes": 634,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -55,6 +58,7 @@
    "file": "WALLDEF2.DAX",
    "block": 1,
    "position": 0,
+   "packedBytes": 697,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -71,6 +75,7 @@
    "file": "WALLDEF2.DAX",
    "block": 2,
    "position": 1,
+   "packedBytes": 671,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -87,6 +92,7 @@
    "file": "WALLDEF2.DAX",
    "block": 4,
    "position": 2,
+   "packedBytes": 782,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -103,6 +109,7 @@
    "file": "WALLDEF2.DAX",
    "block": 9,
    "position": 3,
+   "packedBytes": 668,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -119,6 +126,7 @@
    "file": "WALLDEF2.DAX",
    "block": 19,
    "position": 4,
+   "packedBytes": 698,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -135,6 +143,7 @@
    "file": "WALLDEF2.DAX",
    "block": 23,
    "position": 5,
+   "packedBytes": 472,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -151,6 +160,7 @@
    "file": "WALLDEF3.DAX",
    "block": 0,
    "position": 0,
+   "packedBytes": 2133,
    "kind": "walls",
    "bytes": 2340,
    "wallSets": [
@@ -181,6 +191,7 @@
    "file": "WALLDEF3.DAX",
    "block": 1,
    "position": 1,
+   "packedBytes": 697,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -197,6 +208,7 @@
    "file": "WALLDEF3.DAX",
    "block": 3,
    "position": 2,
+   "packedBytes": 787,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -213,6 +225,7 @@
    "file": "WALLDEF3.DAX",
    "block": 5,
    "position": 3,
+   "packedBytes": 634,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -229,6 +242,7 @@
    "file": "WALLDEF4.DAX",
    "block": 1,
    "position": 0,
+   "packedBytes": 697,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -245,6 +259,7 @@
    "file": "WALLDEF4.DAX",
    "block": 3,
    "position": 1,
+   "packedBytes": 787,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -261,6 +276,7 @@
    "file": "WALLDEF4.DAX",
    "block": 5,
    "position": 2,
+   "packedBytes": 634,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -277,6 +293,7 @@
    "file": "WALLDEF4.DAX",
    "block": 9,
    "position": 3,
+   "packedBytes": 668,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -293,6 +310,7 @@
    "file": "WALLDEF4.DAX",
    "block": 20,
    "position": 4,
+   "packedBytes": 685,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -309,6 +327,7 @@
    "file": "WALLDEF4.DAX",
    "block": 21,
    "position": 5,
+   "packedBytes": 1429,
    "kind": "walls",
    "bytes": 1560,
    "wallSets": [
@@ -332,6 +351,7 @@
    "file": "WALLDEF5.DAX",
    "block": 1,
    "position": 0,
+   "packedBytes": 697,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -348,6 +368,7 @@
    "file": "WALLDEF5.DAX",
    "block": 24,
    "position": 1,
+   "packedBytes": 1404,
    "kind": "walls",
    "bytes": 1560,
    "wallSets": [
@@ -371,6 +392,7 @@
    "file": "WALLDEF6.DAX",
    "block": 1,
    "position": 0,
+   "packedBytes": 697,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -387,6 +409,7 @@
    "file": "WALLDEF6.DAX",
    "block": 2,
    "position": 1,
+   "packedBytes": 671,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -403,6 +426,7 @@
    "file": "WALLDEF6.DAX",
    "block": 6,
    "position": 2,
+   "packedBytes": 610,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -419,6 +443,7 @@
    "file": "WALLDEF6.DAX",
    "block": 9,
    "position": 3,
+   "packedBytes": 668,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -435,6 +460,7 @@
    "file": "WALLDEF6.DAX",
    "block": 17,
    "position": 4,
+   "packedBytes": 799,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -451,6 +477,7 @@
    "file": "WALLDEF7.DAX",
    "block": 1,
    "position": 0,
+   "packedBytes": 697,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -467,6 +494,7 @@
    "file": "WALLDEF7.DAX",
    "block": 3,
    "position": 1,
+   "packedBytes": 787,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -483,6 +511,7 @@
    "file": "WALLDEF7.DAX",
    "block": 7,
    "position": 2,
+   "packedBytes": 594,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -499,6 +528,7 @@
    "file": "WALLDEF7.DAX",
    "block": 8,
    "position": 3,
+   "packedBytes": 579,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -515,6 +545,7 @@
    "file": "WALLDEF7.DAX",
    "block": 23,
    "position": 4,
+   "packedBytes": 472,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -531,6 +562,7 @@
    "file": "WALLDEF8.DAX",
    "block": 1,
    "position": 0,
+   "packedBytes": 697,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -547,6 +579,7 @@
    "file": "WALLDEF8.DAX",
    "block": 3,
    "position": 1,
+   "packedBytes": 787,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -563,6 +596,7 @@
    "file": "WALLDEF8.DAX",
    "block": 9,
    "position": 2,
+   "packedBytes": 668,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -579,6 +613,7 @@
    "file": "WALLDEF8.DAX",
    "block": 17,
    "position": 3,
+   "packedBytes": 799,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -595,6 +630,7 @@
    "file": "WALLDEF8.DAX",
    "block": 18,
    "position": 4,
+   "packedBytes": 808,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -611,6 +647,7 @@
    "file": "WALLDEF8.DAX",
    "block": 20,
    "position": 5,
+   "packedBytes": 685,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [
@@ -627,6 +664,7 @@
    "file": "WALLDEF8.DAX",
    "block": 23,
    "position": 6,
+   "packedBytes": 489,
    "kind": "walls",
    "bytes": 780,
    "wallSets": [

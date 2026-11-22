@@ -1,12 +1,13 @@
 {
  "format": "pool-of-radiance-game-data",
- "formatVersion": 1,
+ "formatVersion": 2,
  "kind": "maps",
  "records": [
   {
    "file": "GEO1.DAX",
    "block": 18,
    "position": 0,
+   "packedBytes": 934,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -89,6 +90,7 @@
    "file": "GEO1.DAX",
    "block": 24,
    "position": 1,
+   "packedBytes": 780,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -171,6 +173,7 @@
    "file": "GEO1.DAX",
    "block": 31,
    "position": 2,
+   "packedBytes": 876,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -253,6 +256,7 @@
    "file": "GEO2.DAX",
    "block": 9,
    "position": 0,
+   "packedBytes": 848,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -335,6 +339,7 @@
    "file": "GEO2.DAX",
    "block": 15,
    "position": 1,
+   "packedBytes": 784,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -417,6 +422,7 @@
    "file": "GEO2.DAX",
    "block": 20,
    "position": 2,
+   "packedBytes": 911,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -499,6 +505,7 @@
    "file": "GEO3.DAX",
    "block": 0,
    "position": 0,
+   "packedBytes": 886,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -581,6 +588,7 @@
    "file": "GEO3.DAX",
    "block": 14,
    "position": 1,
+   "packedBytes": 855,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -663,6 +671,7 @@
    "file": "GEO4.DAX",
    "block": 2,
    "position": 0,
+   "packedBytes": 970,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -745,6 +754,7 @@
    "file": "GEO4.DAX",
    "block": 10,
    "position": 1,
+   "packedBytes": 966,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -827,6 +837,7 @@
    "file": "GEO4.DAX",
    "block": 21,
    "position": 2,
+   "packedBytes": 896,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -909,6 +920,7 @@
    "file": "GEO5.DAX",
    "block": 3,
    "position": 0,
+   "packedBytes": 848,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -991,6 +1003,7 @@
    "file": "GEO5.DAX",
    "block": 4,
    "position": 1,
+   "packedBytes": 766,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -1073,6 +1086,7 @@
    "file": "GEO5.DAX",
    "block": 5,
    "position": 2,
+   "packedBytes": 832,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -1155,6 +1169,7 @@
    "file": "GEO5.DAX",
    "block": 6,
    "position": 3,
+   "packedBytes": 779,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -1237,6 +1252,7 @@
    "file": "GEO5.DAX",
    "block": 7,
    "position": 4,
+   "packedBytes": 340,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -1319,6 +1335,7 @@
    "file": "GEO6.DAX",
    "block": 1,
    "position": 0,
+   "packedBytes": 764,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -1401,6 +1418,7 @@
    "file": "GEO6.DAX",
    "block": 25,
    "position": 1,
+   "packedBytes": 634,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -1483,6 +1501,7 @@
    "file": "GEO6.DAX",
    "block": 28,
    "position": 2,
+   "packedBytes": 897,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -1565,6 +1584,7 @@
    "file": "GEO7.DAX",
    "block": 17,
    "position": 0,
+   "packedBytes": 847,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -1647,6 +1667,7 @@
    "file": "GEO7.DAX",
    "block": 22,
    "position": 1,
+   "packedBytes": 891,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -1729,6 +1750,7 @@
    "file": "GEO7.DAX",
    "block": 23,
    "position": 2,
+   "packedBytes": 687,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -1811,6 +1833,7 @@
    "file": "GEO7.DAX",
    "block": 26,
    "position": 3,
+   "packedBytes": 655,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -1893,6 +1916,7 @@
    "file": "GEO8.DAX",
    "block": 13,
    "position": 0,
+   "packedBytes": 857,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -1975,6 +1999,7 @@
    "file": "GEO8.DAX",
    "block": 16,
    "position": 1,
+   "packedBytes": 818,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -2057,6 +2082,7 @@
    "file": "GEO8.DAX",
    "block": 27,
    "position": 2,
+   "packedBytes": 685,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -2139,6 +2165,7 @@
    "file": "GEO8.DAX",
    "block": 29,
    "position": 3,
+   "packedBytes": 982,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -2221,6 +2248,7 @@
    "file": "GEO8.DAX",
    "block": 30,
    "position": 4,
+   "packedBytes": 614,
    "kind": "map",
    "bytes": 1026,
    "map": {
@@ -2303,6 +2331,7 @@
    "file": "GEO8.DAX",
    "block": 32,
    "position": 5,
+   "packedBytes": 678,
    "kind": "map",
    "bytes": 1026,
    "map": {

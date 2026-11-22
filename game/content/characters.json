@@ -1,6 +1,6 @@
 {
  "format": "pool-of-radiance-game-data",
- "formatVersion": 1,
+ "formatVersion": 2,
  "kind": "characters",
  "records": [
   {

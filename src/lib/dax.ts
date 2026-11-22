@@ -101,36 +101,89 @@ export function entryById(file: DaxFile, id: number): DaxEntry | undefined {
   return file.entries.find((e) => e.id === id);
 }
 
-/**
- * Pack bytes as a run stream the game's own loader reads. Literal runs stop at 64 bytes and
- * repeats at 127, which the guest's signed-byte counter holds.
- */
-export function encodeRuns(data: Uint8Array): Uint8Array {
-  const out: number[] = [];
+interface Run { repeat: boolean; start: number; length: number }
+
+/** The fewest runs: three or more equal bytes repeat, anything else is literal. */
+function shortestRuns(data: Uint8Array): Run[] {
+  const runs: Run[] = [];
   let at = 0;
-  let literal = -1;
   while (at < data.length) {
     let run = 1;
     while (run < 127 && at + run < data.length && data[at + run] === data[at]) run++;
+    const last = runs.at(-1);
     if (run >= 3) {
-      out.push(256 - run, data[at]!);
+      runs.push({ repeat: true, start: at, length: run });
       at += run;
-      literal = -1;
-      continue;
+    } else if (last && !last.repeat && last.length < 64) {
+      last.length++;
+      at++;
+    } else {
+      runs.push({ repeat: false, start: at++, length: 1 });
     }
-    if (literal < 0 || out[literal]! === 63) {
-      literal = out.length;
-      out.push(-1);
-    }
-    out[literal]!++;
-    out.push(data[at++]!);
   }
-  return Uint8Array.from(out);
+  return runs;
 }
 
-/** Build a DAX container from records, in the order given. */
-export function buildDax(records: readonly { id: number; data: Uint8Array }[]): Uint8Array {
-  const packed = records.map(({ id, data }) => ({ id, rawSize: data.length, compressed: encodeRuns(data) }));
+const packedSize = (runs: readonly Run[]): number => runs.reduce((size, { repeat, length }) => size + (repeat ? 2 : length + 1), 0);
+
+/**
+ * Pack bytes as a run stream the game's own loader reads. Literal runs stop at 64 bytes and
+ * repeats at 127, which the guest's signed-byte counter holds.
+ *
+ * With `length`, the stream is exactly that many bytes long: runs are split into shorter ones,
+ * which decode to the same bytes, until it is. The game allocates its read buffer from the packed
+ * size, so an archive re-packed to the original sizes leaves the game's heap as the original does.
+ */
+export function encodeRuns(data: Uint8Array, length?: number): Uint8Array {
+  let runs = shortestRuns(data);
+  if (length !== undefined) {
+    let pad = length - packedSize(runs);
+    if (pad < 0) throw new Error(`${data.length} bytes cannot be packed into ${length}`);
+    const single = (start: number): Run => ({ repeat: false, start, length: 1 });
+    const capacity = runs.reduce((sum, { repeat, length }) => sum + (repeat ? 0 : length - 1), 0);
+    // Splitting one byte off a literal run adds one byte. Taking one byte off a repeat adds two.
+    let splits = Math.min(pad, capacity);
+    if (pad > capacity && (pad - splits) % 2) {
+      if (splits) splits--;
+      else {
+        // No literal to split and an odd number to add: two bytes of a repeat become a literal, which adds three.
+        const at = runs.findIndex(({ repeat, length }) => repeat && length >= 3);
+        if (at < 0 || pad < 3) throw new Error(`${data.length} bytes cannot be packed into exactly ${length}`);
+        const { start, length: count } = runs[at]!;
+        runs.splice(at, 1, { repeat: false, start, length: 2 }, { repeat: true, start: start + 2, length: count - 2 });
+        pad -= 3;
+      }
+    }
+    let peels = (pad - splits) / 2;
+    const padded: Run[] = [];
+    for (const run of runs) {
+      const take = run.repeat ? Math.min(peels, run.length - 1) : Math.min(splits, run.length - 1);
+      if (!take) { padded.push(run); continue; }
+      if (run.repeat) peels -= take; else splits -= take;
+      for (let i = 0; i < take; i++) padded.push(single(run.start + i));
+      padded.push({ repeat: run.repeat, start: run.start + take, length: run.length - take });
+    }
+    if (peels || splits) throw new Error(`${data.length} bytes cannot be packed into as many as ${length}`);
+    runs = padded;
+  }
+  const out = new Uint8Array(packedSize(runs));
+  let at = 0;
+  for (const { repeat, start, length } of runs) {
+    if (repeat) {
+      out[at++] = 256 - length;
+      out[at++] = data[start]!;
+    } else {
+      out[at++] = length - 1;
+      out.set(data.subarray(start, start + length), at);
+      at += length;
+    }
+  }
+  return out;
+}
+
+/** Build a DAX container from records, in the order given. `packedBytes` fixes a record's packed size. */
+export function buildDax(records: readonly { id: number; data: Uint8Array; packedBytes?: number }[]): Uint8Array {
+  const packed = records.map(({ id, data, packedBytes }) => ({ id, rawSize: data.length, compressed: encodeRuns(data, packedBytes) }));
   const directorySize = packed.length * 9;
   const bytes = new Uint8Array(2 + directorySize + packed.reduce((size, { compressed }) => size + compressed.length, 0));
   const view = new DataView(bytes.buffer);

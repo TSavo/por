@@ -1,6 +1,6 @@
 {
  "format": "pool-of-radiance-game-data",
- "formatVersion": 1,
+ "formatVersion": 2,
  "gameVersion": "1.3",
  "program": "program.json",
  "content": [
@@ -18,27 +18,27 @@
   {
    "path": "content/characters.json",
    "bytes": 15635,
-   "sha256": "5312c392339b8ac9dac2bd407307a32487c4a2e29f2b3022cf4a7f8d159fd0e1"
+   "sha256": "cee143ad0264e316fef591d7b9f2fcb2f92b80cfc064891b61e51e3c0a545f01"
   },
   {
    "path": "content/config.json",
    "bytes": 250,
-   "sha256": "37c6cf99ab8a0b4099b9018d7447299dddc12187e3c1f353039d3084be06faea"
+   "sha256": "5f11140fac2c834002a2bd13e481a7e434284ac3e97b2457153c41f003d979aa"
   },
   {
    "path": "content/items.json",
-   "bytes": 58930,
-   "sha256": "a7e4bcff81698ce8259c16a32279d096f2034aadac1cf904fa8aa540c80eb0f7"
+   "bytes": 59972,
+   "sha256": "5cd45d6b30b0109513f4e996af5f06419b840e4fb3d7c250c190bd92020f1875"
   },
   {
    "path": "content/maps.json",
-   "bytes": 82914,
-   "sha256": "5f6c0b96aa3ccaf2525d36e2b9a7614bc84fb90570e889ce58083712d052b4ae"
+   "bytes": 83581,
+   "sha256": "84a0e0c723f635924a8e44b0b60e63ad3bff2f8818ab47d11804e20ac727220f"
   },
   {
    "path": "content/monsters.json",
-   "bytes": 194456,
-   "sha256": "9d075b1c74cee5348acc0f2dbac37432bd98a32d28d8cd2600fdbc105da56660"
+   "bytes": 201598,
+   "sha256": "2ee9718bf1fd6296d4506b11b2cc0dffec3968f11ed48639c174eaa3540f4b69"
   },
   {
    "path": "content/saved-games.bin",
@@ -48,7 +48,7 @@
   {
    "path": "content/saved-games.json",
    "bytes": 456,
-   "sha256": "c0086e871cbf9ea2e6fd8e3de4a60591e9533ad60af75344c76b9cd344706ba3"
+   "sha256": "06d777309b2101e0ea7a64709280d1cb362312991d76acffb5ce81f3d80c8eaa"
   },
   {
    "path": "content/scripts.bin",
@@ -57,23 +57,23 @@
   },
   {
    "path": "content/scripts.json",
-   "bytes": 5842,
-   "sha256": "0ec5caaa56eca25acbf5183df3f139a494188d6b87928b420cfbc1b8596561c5"
+   "bytes": 6538,
+   "sha256": "bdbddb218793f0aa8995af0b65688ef642c4720053ecc9162fecafc28367146e"
   },
   {
    "path": "content/walls.json",
-   "bytes": 72854,
-   "sha256": "02c112d5b73d679cc0d8b079586b2d07283b81c7085608611868070bfc99ac75"
+   "bytes": 73731,
+   "sha256": "49a9bea939b87e4f5047997d45ba0cffac29bdc43eb96c465e02c1a8b56e778a"
   },
   {
    "path": "pictures.json",
-   "bytes": 283633,
-   "sha256": "ea46e51e3e20c2e3806f31958b6b51558936a5bb9a4ab3f1c458dfcd0e259e48"
+   "bytes": 716525,
+   "sha256": "bde5433b370423a9dea56f11b71347391d5bce3b7bd88c0ff649bfe8996244d4"
   },
   {
    "path": "program.json",
    "bytes": 38046,
-   "sha256": "4b6fe0bc2e93697aa401f78d8c061a38380fdd51d505765fc362191f7ce54876"
+   "sha256": "3f377b7de74766afbbeea112fa65a428dc160ca3366f41bd435249426bf86261"
   },
   {
    "path": "program/image.bin",

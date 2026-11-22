@@ -2,7 +2,7 @@
 
 The files under `game/` are the port's own copy of everything the game needs besides the
 original pictures. They are converted from the version 1.3 files and committed, so the game
-runs with no original file present. Format name `pool-of-radiance-game-data`, format version 1.
+runs with no original file present. Format name `pool-of-radiance-game-data`, format version 2.
 
 ```
 npm run build:game-data -- <version 1.3 game directory>           write game/
@@ -103,6 +103,13 @@ picture in it the height, width, position, number of frames, eight header bytes 
 and for PIC and SPRIT members the four-byte selector. It holds no pixels. The font (8X8D1 block
 201) is listed with its size only.
 
+Each picture also carries `frameHashes`: for each frame, the SHA-256 of its pixels as colour
+numbers, one byte a pixel, row by row (`frameSlice(decodePicture(record))`, the functions the
+artwork lookups use). A hash names the original picture without holding it. For a set of 8 by 8
+tiles this is the hash a `tile:<area>:<hash>` artwork key carries when the screen cell shows that
+one tile. The battlefield terrain (DUNGCOM, WILDCOM, RANDCOM) also carries `cellHashes`: the same
+hash of each 8 by 8 cell of each frame, which a `battle-tile:<hash>` key carries.
+
 When the game asks for a picture record, the reader hands it a blank picture of that shape: the
 same headers and zero pixels.
 
@@ -115,7 +122,10 @@ reconciled.
 The game's own loaders are translated code and read `.DAX` archives through DOS. The reader
 (`loadPortGame`) therefore builds a virtual set of files for `src/runtime/dos.ts`: each archive
 re-packed from its records in the original order, with the same block numbers and decoded sizes,
-and each plain file as it was. `tools/gamedata.ts` gives host tools the same files:
+and each plain file as it was. Each record carries `packedBytes`, its packed size in the original
+archive, and is packed to exactly that size (runs are split until it is), so every archive has
+the original's size and directory. The game allocates its read buffer from the packed size; with
+the original sizes its heap, and the pointers it leaves in saved character files, are the same. `tools/gamedata.ts` gives host tools the same files:
 `listGameFiles`, `readGameFile`, `gameFiles` and `gameProgram` work on a directory in either
 form.
 
@@ -130,3 +140,31 @@ form.
 3. The same play, run once from the 1.3 files and once from `game/`, shows the same text on every
    frame, draws the same dice and writes the same saved-game bytes. It then shows the comparison
    fail on a copy of `game/` with one record changed.
+
+## The artwork catalogue
+
+`npm run verify:art-catalogue` (`tools/verify-art-catalogue.ts`) reads only `game/` and the
+artwork manifests. For every artwork key it asks whether the data in `game/` can produce that key
+from identities alone: a key that names a picture needs that archive, block, member and frame in
+`pictures.json`; a key that carries a hash needs that hash stored for a named picture; a key that
+names a script position or a cue needs the position, or the cue's text, in the area's converted
+script. It prints the count for each kind of key, lists every unreachable key in
+`out/art-catalogue.json`, and fails while any is unreachable. It also reports the other
+direction: each 8 by 8 tile and whether a 32 by 32 replacement carries its hash, and each other
+picture frame no key names.
+
+It is red today. What it measures, and what is not built yet:
+
+- A `tile:` key is the hash of an 8 by 8 cell of the first-person view as drawn. About half of
+  the keys are one stored tile, which `frameHashes` covers. The rest are cells the game composed:
+  a tile whose transparent pixels (colour 13) show the sky or ground colour, or a nearer wall's
+  tile over a farther one. Those hashes are not in `game/` yet. To store them the converter has
+  to enumerate, from the wall definitions, which tiles can overlap in a cell, and the colours
+  behind them.
+- The check takes an area's script to be the ECL block with the area's number. Areas 30, 31 and
+  32 have maps and no block of their own, so keys scoped to them count as unreachable until the
+  area-to-script table is read from the program's data.
+- The running game does not use these hashes yet. The Enhanced lookups still read original
+  pixels (`tools/upgrade-art.ts`, `tools/portrait-art.ts`, `tools/combat-art.ts`,
+  `tools/encounter-art.ts`, `tools/live-input.ts`), so from `game/`, where pictures are blank,
+  Enhanced artwork is not found.
