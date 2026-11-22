@@ -2114,6 +2114,19 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "bane-mansion-orcs-surprised-battle.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS.*MOVEVIEWAIM/i },
   }],
+  ["bane-camp-orc-ambush", {
+    slot: "A", inputs: ["e", "enter", "r", "h", ...Array(6).fill("i"), "r", "enter", "enter"],
+    portraitStops: {
+      2: "portrait:PIC3.DAX:29:0:0",
+      11: "scene-illustration:area:24:ecl:b699:cue:orc-camp-ambush",
+      12: "scene-illustration:area:24:ecl:b699:cue:orc-camp-ambush",
+    },
+    portrait: "scene-illustration:area:24:ecl:b6a2:cue:orc-camp-ambush",
+    prompt: /WHILEINCAMPYOUARESUDDENLYATTACKEDBYORCS.*ABATTLEBEGINS/i,
+    phaseCaptures: { 11: "bane-camp-orc-ambush-interruption.png" },
+    finalPhaseCapture: "bane-camp-orc-ambush-battle.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["bane-barracks-ambush", {
     slot: "A", inputs: ["up", "enter", "enter"],
     portrait: "scene-illustration:area:31:ecl:a1c8:cue:barracks-ambush",
