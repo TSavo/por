@@ -2721,6 +2721,15 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "kobold-cave-abandoned-prison-cell.png",
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["kobold-cave-old-kobold-tale", {
+    slot: "A", inputs: ["up", "l", "g"],
+    portraitStops: { 1: null, 2: "scene-illustration:area:13:ecl:ab66" },
+    phaseCaptures: { 2: "kobold-cave-old-kobold-water.png" },
+    portrait: "scene-illustration:area:13:ecl:b511:caller:abb4",
+    prompt: /WHENYOUGIVEITWATER,ITCRAWLSOUTANDTELLSYOUITSTALE.*ENTRY20/i,
+    finalPhaseCapture: "kobold-cave-old-kobold-tale.png",
+    continuation: { inputs: ["enter", "l", "down", "up"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
+  }],
   ["kobold-cave-barracks-map", {
     slot: "B", inputs: ["up"],
     portrait: "scene-illustration:area:13:ecl:a720:cue:barracks-map",
