@@ -1,8 +1,8 @@
-import { join } from "node:path";
+import { fromPortRoot } from "./port-root.js";
 
 /**
- * Where a checkout finds the Classic sounds rendered from the original game. A release has none:
- * `npm run release:build` compiles the server with tools/release/no-classic-sounds.ts in place of
- * this file, so nothing in a release names por-assets.
+ * The Classic sounds: the game's 20 sound events for the PC speaker and the Tandy chip, rendered by
+ * the port itself (audio/classic/README.md). They ship with the game. POR_AUDIO_DIR still names
+ * another directory of the same files.
  */
-export const classicSoundDirectory: string | undefined = join("..", "por-assets", "original");
+export const classicSoundDirectory: string | undefined = fromPortRoot("audio", "classic");
