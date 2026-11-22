@@ -35,11 +35,11 @@ if (flag === "--record") {
   const areas = new Set<number>(), finished = new Set<string>();
   for (const trace of traces) {
     for (const line of readFileSync(trace, "utf8").split("\n").filter(Boolean)) {
-      // An area is its script: the catalog's id is the block, in the archive the catalog names. The
-      // menus before a game is loaded leave a script of another archive in memory, which counts for none.
-      const visit = JSON.parse(line) as { archive: number; block: number; commissions: string[] };
+      // An area is its script: the catalog's id is the block, in the archive the catalog names.
+      // Game state 0 is the menus before play, where New Phlan's script is already in memory.
+      const visit = JSON.parse(line) as { archive: number; block: number; state?: number; commissions: string[] };
       const area = catalog.areas.find(({ id, scriptArchive }) => id === visit.block && scriptArchive === `ECL${visit.archive}.DAX`);
-      if (area) areas.add(area.id);
+      if (area && visit.state !== 0) areas.add(area.id);
       for (const entry of visit.commissions) {
         const [id, status] = entry.split(":");
         if (done.has(status ?? "")) finished.add(id!.replace(/^commission-/, ""));

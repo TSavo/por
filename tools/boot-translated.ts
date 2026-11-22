@@ -350,7 +350,7 @@ const requestKey = input && visitTrace ? (machine: Cpu, keys: BiosKey[], blockin
     const archive = machine.read8(unit.data, data.eclArchive), block = machine.read8(unit.data, data.eclBlock);
     const commissions = journal().filter(({ id }) => id.startsWith("commission-"))
       .map(({ id, status }) => `${id}:${status ?? ""}`).sort();
-    const visit = JSON.stringify({ archive, block, commissions });
+    const visit = JSON.stringify({ archive, block, state: machine.read8(unit.data, data.gameState), commissions });
     if (visit !== lastVisit) {
       appendFileSync(visitTrace, visit + "\n");
       lastVisit = visit;
