@@ -166,6 +166,7 @@ fresh party and checks the enhanced dock, Rolf's approach and all seven
 tour stops, and the return to scenery after the City Hall guard. This
 replay checks the artwork selected at those transitions, where a single
 archive frame count can hide a missing scene binding.
+The fresh-party route passed on DOS 1.0 and GOG 1.3 at `f8c64c84`.
 At `ab085405`, the fresh-game replay passed with
 `POR_PORTRAIT_TRACE_FILE` enabled. The fallback logger recorded no
 identified classic portrait fallbacks along that route.
