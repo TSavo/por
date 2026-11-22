@@ -3799,6 +3799,14 @@ const illustrationRoutes = new Map([
     portrait: "portrait:PIC4.DAX:21:0:0", prompt: /IAMTHEPROTECTOROFTHEPALADIN/i,
     approachSequence: [[56, 32, "encounter:area:10:SPRIT4.DAX:21:0:0", 32, 80]],
   }],
+  ["valhingen-paladin-wraith-attack", {
+    slot: "A", inputs: ["up", "b", "s"],
+    portraitStops: { 2: "portrait:PIC4.DAX:21:0:0" },
+    portrait: "scene-illustration:area:10:ecl:a354",
+    prompt: /IAMTHEPROTECTOROFTHEPALADIN.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "valhingen-paladin-wraith-attack.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /ENNAHITPOINTS6AC4HANDAXE/i },
+  }],
   ["buccaneer-guardroom-dialogue", {
     slot: "A", inputs: ["up", "enter"],
     portrait: "portrait:area:1:HEAD6.DAX:6:BODY6.DAX:3", prompt: /FOURGUARDSINGLEAMINGCHAINMAIL/i,
