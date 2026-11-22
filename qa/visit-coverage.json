@@ -1,0 +1,37 @@
+{
+ "schema": 1,
+ "note": "What each walk's runner visit trace (POR_TRACE_VISITS) saw. Written by tsx tools/visit-coverage.ts --record. Read by npm run qa:visits.",
+ "walks": {
+  "campaign (campaign-ScWmSI legs 1-11, game/)": {
+   "areas": [
+    0,
+    3,
+    5,
+    6,
+    7,
+    8,
+    9,
+    18,
+    20,
+    21,
+    26
+   ],
+   "commissions": [
+    "castle",
+    "sokal"
+   ],
+   "traces": [
+    "trace-leg-1.jsonl",
+    "trace-leg-2.jsonl",
+    "trace-leg-3.jsonl",
+    "trace-leg-4.jsonl",
+    "trace-leg-5.jsonl",
+    "trace-leg-6.jsonl",
+    "trace-leg-7.jsonl",
+    "trace-leg-8.jsonl",
+    "trace-leg-9.jsonl",
+    "trace-leg-10.jsonl"
+   ]
+  }
+ }
+}
