@@ -98,6 +98,34 @@
    "traces": [
     "trace-parity-slums.jsonl"
    ]
+  },
+  "parity sokal (campaign Slums gate to Sokal Keep and back, both sources)": {
+   "areas": [
+    0,
+    8,
+    21
+   ],
+   "commissions": [],
+   "traces": [
+    "trace-parity-sokal.jsonl"
+   ]
+  },
+  "visit-wilderness (qa/fixtures/wilderness-walk, game/)": {
+   "areas": [
+    0,
+    8,
+    17,
+    19,
+    25,
+    26,
+    27
+   ],
+   "commissions": [
+    "sokal"
+   ],
+   "traces": [
+    "visits.jsonl"
+   ]
   }
  }
 }
