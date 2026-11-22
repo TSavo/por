@@ -6178,7 +6178,7 @@ routes.push("kobold-king-return-council", "kobold-king-return-council-save-pier"
 routes.push("kovel-guild-files", "kovel-jail-enemy-turn", "kovel-castle-map-nw", "kovel-castle-map-ne", "kovel-castle-map-nw-reload", "kovel-castle-map-ne-reload");
 routes.push("kovel-chase", "kovel-chase-east", "kovel-chase-east-reload", "kovel-chase-attack", "kovel-chase-decline", "valjevo-al-hyam-reload");
 routes.push("kovel-chase-no", "valjevo-records-reload", "swamp-approach-reload", "nomad-feast-decline", "kobold-royal-ballista");
-routes.push("assault-council-chamber", "assault-summons");
+routes.push("assault-council-chamber", "assault-summons", "stojanow-gate-rocks");
 routes.push("valhingen-first-arrival-reload", "kobold-escort-arrival-reload");
 routes.push("new-phlan-council-magic-effects", "buccaneer-pen-defeat-effect", "valjevo-party-defeat-effect");
 routes.push("kuto-wide-manual-aim");
@@ -13637,6 +13637,32 @@ try {
     await advance("l");
     assert.equal(frame.portrait, undefined);
     console.log("Verified the Valhingen mystic approach, directions illustration, and state-preserving switches.");
+  } else if (routeName === "stojanow-gate-rocks") {
+    const words = () => frame.text.toSorted(([a], [b]) => a - b).map(([, c]) => String.fromCharCode(c)).join("");
+    await advance("up");
+    assert.equal(frame.exploration?.area, 9);
+    assert.match(words(), /8,7N/);
+    await advance("up");
+    const volley = "scene-illustration:area:9:ecl:9c63:caller:a155:cue:gate-rock-volley";
+    assert.match(words(), /FROMTHETOPOFTHEGATECOMESAVOLLEYOFROCKS.*Pressbuttonor<return>tocontinue/i);
+    assert.equal(frame.portrait, volley);
+    await waitFor("the gate rock volley illustration", () => run(`state.sequence === ${frame.sequence} &&
+      document.querySelector('.encounter-portrait[src="/art/${volley}"]')?.naturalWidth === 352`));
+    const response = await fetch(`${origin}/art/${volley}`);
+    assert.ok(response.ok);
+    assert.deepEqual(Buffer.from(await response.arrayBuffer()), readFileSync("upgrades/stojanow-gate-rock-volley.png"));
+    await verifyPortraitPanel();
+    await switchBothWays(frame.frame);
+    const screenshot = await command("Page.captureScreenshot", { format: "png" });
+    writeFileSync(resolve(directory, "stojanow-gate-rock-volley.png"), Buffer.from(screenshot.data, "base64"));
+    await advance("enter");
+    assert.equal(frame.portrait, undefined);
+    assert.match(words(), /[A-Z]+ishitFOR[1-9]pointsofDamage/i);
+    for (const key of ["enter", "enter", "e"]) await advance(key);
+    assert.equal(frame.exploration?.area, 9);
+    assert.match(words(), /8,7N/);
+    await waitForExplorationViewport();
+    console.log("Verified the Stojanow rock volley, native damage, and return to exploration.");
   } else if (routeName === "assault-summons") {
     const words = () => frame.text.toSorted(([a], [b]) => a - b).map(([, c]) => String.fromCharCode(c)).join("");
     for (const key of ["right", "right", "up", "right", "right", "up", "enter", "enter", "enter"]) await advance(key);

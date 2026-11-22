@@ -1011,6 +1011,10 @@ The `stojanow-riverwalk` replay starts from the native entrance save at
 new 32×32 tiles for the river rails, stonework, and covered doorway.
 The `stojanow-tower-ettin` replay starts at `4,8 N` in controlled slot A.
 Chrome checks both 96×192 combat frames and the reflected club swing.
+The `stojanow-gate-rocks` Chrome replay starts from a controlled slot A at
+`8,8 N` near the closed gate. On GOG 1.3 it checks the falling-rock
+illustration and original prompt, followed by damage reports and the
+return to WebGL exploration outside the closed gate.
 The `stojanow-gate-reward` replay starts in the City Hall district with
 Stojanow Gate ready to report. GOG 1.3 Chrome checks the clerk's illustrated
 assault directions, the 22,000 XP award, and the turned-in state saved
