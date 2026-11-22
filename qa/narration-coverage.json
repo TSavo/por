@@ -25,6 +25,42 @@
    "games": 6,
    "decisions": 112,
    "heard": 15
+  },
+  "kovel-casket-c-gems-reveal-after": {
+   "ledger": "kovel-casket-c-gems-reveal-after.jsonl",
+   "games": 2,
+   "decisions": 9,
+   "heard": 6
+  },
+  "kovel-casket-d-pearls-caption-replay": {
+   "ledger": "kovel-casket-d-pearls-caption-replay.jsonl",
+   "games": 2,
+   "decisions": 9,
+   "heard": 6
+  },
+  "kovel-casket-gems-reveal-after": {
+   "ledger": "kovel-casket-gems-reveal-after.jsonl",
+   "games": 2,
+   "decisions": 9,
+   "heard": 6
+  },
+  "kovel-casket-jewelry-reveal-after": {
+   "ledger": "kovel-casket-jewelry-reveal-after.jsonl",
+   "games": 2,
+   "decisions": 9,
+   "heard": 6
+  },
+  "kovel-tapestry-after-reveal": {
+   "ledger": "kovel-tapestry-after-reveal.jsonl",
+   "games": 2,
+   "decisions": 1,
+   "heard": 1
+  },
+  "yarash-alchemical-laboratory-3f2de014": {
+   "ledger": "yarash-alchemical-laboratory-3f2de014.jsonl",
+   "games": 2,
+   "decisions": 8,
+   "heard": 3
   }
  },
  "units": {
@@ -425,6 +461,111 @@
     "key": "portrait:HEAD3.DAX:16:BODY3.DAX:1"
    }
   },
+  "por.voice.ecl3.b14-9e74": {
+   "run": "kovel-casket-gems-reveal-after",
+   "step": 88388201,
+   "withoutArt": {
+    "run": "kovel-casket-gems-reveal-after",
+    "step": 88388201,
+    "showing": "no picture"
+   }
+  },
+  "por.voice.ecl3.b14-a066": {
+   "run": "kovel-casket-gems-reveal-after",
+   "step": 89450124,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a585"
+   }
+  },
+  "por.voice.ecl3.b14-a282": {
+   "run": "kovel-tapestry-after-reveal",
+   "step": 85472702,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a2d9"
+   }
+  },
+  "por.voice.ecl3.b14-a48a": {
+   "run": "kovel-casket-gems-reveal-after",
+   "step": 85316353,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a4e2"
+   }
+  },
+  "por.voice.ecl3.b14-a4ee": {
+   "run": "kovel-casket-gems-reveal-after",
+   "step": 87062678,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a519"
+   }
+  },
+  "por.voice.ecl3.b14-a56a": {
+   "run": "kovel-casket-gems-reveal-after",
+   "step": 89605312,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a585"
+   }
+  },
+  "por.voice.ecl3.b14-a59c": {
+   "run": "kovel-casket-gems-reveal-after",
+   "step": 88057911,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a602"
+   }
+  },
+  "por.voice.ecl3.b14-a66f": {
+   "run": "kovel-casket-jewelry-reveal-after",
+   "step": 89740573,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a6a5"
+   }
+  },
+  "por.voice.ecl3.b14-a6bc": {
+   "run": "kovel-casket-jewelry-reveal-after",
+   "step": 88057925,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a713"
+   }
+  },
+  "por.voice.ecl3.b14-a756": {
+   "run": "kovel-casket-c-gems-reveal-after",
+   "step": 90226025,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a779"
+   }
+  },
+  "por.voice.ecl3.b14-a790": {
+   "run": "kovel-casket-c-gems-reveal-after",
+   "step": 88057939,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a7f5"
+   }
+  },
+  "por.voice.ecl3.b14-a82f": {
+   "run": "kovel-casket-d-pearls-caption-replay",
+   "step": 90931720,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a84f"
+   }
+  },
+  "por.voice.ecl3.b14-a86f": {
+   "run": "kovel-casket-d-pearls-caption-replay",
+   "step": 88057953,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:14:ecl:a8df"
+   }
+  },
   "por.voice.ecl3.b8-9a7d": {
    "run": "acceptance-new-phlan",
    "step": 99819512,
@@ -502,6 +643,30 @@
     "run": "acceptance-new-phlan",
     "step": 109823999,
     "showing": "no picture"
+   }
+  },
+  "por.voice.ecl7.b23-9a70-9afa": {
+   "run": "yarash-alchemical-laboratory-3f2de014",
+   "step": 86341804,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:23:ecl:9a04:caller:9c23:cue:lab-door"
+   }
+  },
+  "por.voice.ecl7.b23-a01e": {
+   "run": "yarash-alchemical-laboratory-3f2de014",
+   "step": 89220876,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:23:ecl:9a04:caller:a08a"
+   }
+  },
+  "por.voice.ecl7.b23-a08a": {
+   "run": "yarash-alchemical-laboratory-3f2de014",
+   "step": 90006478,
+   "art": {
+    "kind": "portrait",
+    "key": "scene-illustration:area:23:ecl:a0fd"
    }
   }
  },
@@ -627,6 +792,11 @@
    "step": 95473365,
    "unitId": "por.voice.ecl3.b0-ac22-ac9b",
    "value": 0
+  },
+  "por.review.ecl-7.block-23.at-9a70": {
+   "run": "yarash-alchemical-laboratory-3f2de014",
+   "step": 86341804,
+   "unitId": "por.voice.ecl7.b23-9a70-9afa"
   }
  },
  "silent": {
