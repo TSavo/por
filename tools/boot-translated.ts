@@ -89,6 +89,9 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
   const nativeCombat = input?.nativeCombat;
   const nativePicture = input?.nativePicture;
   const picturePresentation = nativePicture ? code.pictureMemberPresented : undefined;
+  const headLoaded = nativePicture ? code.portraitHeadLoaded : undefined;
+  const bodyLoaded = nativePicture ? code.portraitBodyLoaded : undefined;
+  const portraitPresentation = nativePicture ? code.composedPortraitPresented : undefined;
   const nativeBattleTerrain = input?.nativeBattleTerrain;
   const nativeSelection = input?.nativeSelection;
   const selectionReturn = code.combatSelectionDrawResumes;
@@ -118,6 +121,11 @@ function fresh(requestKey?: (cpu: Cpu, keys: BiosKey[], blocking: boolean) => vo
       }
       if (picturePresentation && at === picturePresentation.at && isAt(this, at, picturePresentation)) {
         nativePicture?.presented(this);
+      }
+      if (headLoaded && at === headLoaded.at && isAt(this, at, headLoaded)) nativePicture?.partLoaded(this, true);
+      if (bodyLoaded && at === bodyLoaded.at && isAt(this, at, bodyLoaded)) nativePicture?.partLoaded(this, false);
+      if (portraitPresentation && at === portraitPresentation.at && isAt(this, at, portraitPresentation)) {
+        nativePicture?.composed(this);
       }
       if (codeWheel && isAt(this, at, codeWheel.beforeRead)) {
         input?.setCodeWheelQuestion(

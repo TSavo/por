@@ -163,8 +163,9 @@ member for each native picture allocation. The renderer resolves existing
 Enhanced portrait keys when the guest presents that member in the 88×88
 picture panel, including when the underlying art pixels are blank. The guest
 still draws the picture, and the observer drops its identity on release or when
-the viewport changes. The original-file renderer continues matching its native
-framebuffer. Composed portraits from HEAD and BODY are handled separately.
+the viewport changes. The portrait helper also records the HEAD and BODY
+blocks it draws together, so the standalone mode can select the existing
+composed artwork. The original-file renderer matches its native framebuffer.
 
 `tiles.json` lists each distinct tile of the 8X8D sets once, by that hash, with every place it is
 stored (`archive:block:index`). A tile that has transparent pixels (colour 13) also lists

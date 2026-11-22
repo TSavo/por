@@ -77,6 +77,9 @@ export const data = resolve({
   partyIconPaletteIndices: { "1.0": 0x3c6e, "1.3": 0x3cf6 },
   /** Pointer to the offscreen picture. */
   offscreen: { "1.0": 0x4980, "1.3": 0x4a20 },
+  /** Far pointers to the loaded pieces of a composed portrait. */
+  portraitHead: { "1.0": 0x6a5f, "1.3": 0x6b01 },
+  portraitBody: { "1.0": 0x6a64, "1.3": 0x6b06 },
   /** Sound hardware: 0 is Tandy, 1 is the PC speaker, 2 is silent. */
   soundMode: { "1.0": 0x52d2, "1.3": 0x5372 },
   /** The number in the name of the loaded ECL archive. */
@@ -307,6 +310,11 @@ export const code = resolve({
   pictureMemberRelease: { "1.0": { slice: 0x1d, at: 0x495 }, "1.3": { slice: 0x1c, at: 0x4ca } },
   /** The animated picture helper returns after presenting one selected member. */
   pictureMemberPresented: { "1.0": { slice: 0x1d, at: 0x4c }, "1.3": { slice: 0x1c, at: 0x4c } },
+  /** The composed portrait loader records the loaded piece's block ID. */
+  portraitHeadLoaded: { "1.0": { slice: 0x1d, at: 0x60b }, "1.3": { slice: 0x1c, at: 0x640 } },
+  portraitBodyLoaded: { "1.0": { slice: 0x1d, at: 0x654 }, "1.3": { slice: 0x1c, at: 0x689 } },
+  /** The guest has drawn the head and, when requested, its body. */
+  composedPortraitPresented: { "1.0": { slice: 0x1d, at: 0x6b0 }, "1.3": { slice: 0x1c, at: 0x6e5 } },
   /** The loader assigns a ready block and its strike block to a combat picture slot. */
   combatPictureLoad: { "1.0": { slice: 0x21, at: 0x1ca }, "1.3": { slice: 0x20, at: 0x1c8 } },
   /** The compositor draws a selected picture slot and pose into the battlefield. */

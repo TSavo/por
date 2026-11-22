@@ -404,7 +404,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       const menu = menuText(text);
       // The overland map shares the native viewport blit and omits Area.
       const overlandMap = menu === "CASTVIEWENCAMPSEARCHLOOK";
-      if (overlandMap || menu.startsWith("AREACASTVIEWENCAMP") || nativeBattleActive) nativePicture?.clear();
+      // The old navigation menu can still be visible during the delay before a portrait prompt.
+      if (!captureApproach && !attack && !effect && !captureIllustration && !statusMessage &&
+          (overlandMap || menu.startsWith("AREACASTVIEWENCAMP") || nativeBattleActive)) nativePicture?.clear();
       let picture = scene ? undefined : illustration ?? arrivalPicture ??
         nativePicture?.match(area, portraitCursor, pictureCaller) ??
         portraitArt(screen, area, portraitCursor, pictureCaller);
