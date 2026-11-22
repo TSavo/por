@@ -681,8 +681,25 @@ const stojanowTollApproach = [
 ];
 
 const councilClerkApproach = ["right", "right", "up", "right", "right", "up", "enter", "enter"];
+const fightersDoorApproach = ["left", "up", "right", "up", "enter", "n", "n", "up"];
 
 const illustrationRoutes = new Map([
+  ["new-phlan-training-fighters-door", {
+    slot: "A", inputs: fightersDoorApproach,
+    portrait: "scene-illustration:area:11:ecl:9f8a",
+    heldPortrait: "scene-illustration:area:11:ecl:9f8a",
+    prompt: /ASIGNONTHENORTHDOORREADS.FIGHTERS/i,
+    continuation: { inputs: ["left", "up"], portrait: "portrait:HEAD3.DAX:16:BODY3.DAX:1",
+      prompt: /WETRAINONLYFIGHTERSHERE/i },
+  }],
+  ["new-phlan-training-rogues-door", {
+    slot: "A", inputs: [...fightersDoorApproach, "up"],
+    portrait: "scene-illustration:area:11:ecl:a007",
+    heldPortrait: "scene-illustration:area:11:ecl:a007",
+    prompt: /ASIGNONTHENORTHDOORREADS.ROGUES/i,
+    continuation: { inputs: ["left", "up"], portrait: "portrait:HEAD3.DAX:16:BODY3.DAX:8",
+      prompt: /WETRAINONLYTHIEVESHERE/i },
+  }],
   ["new-phlan-training-north-junction", {
     slot: "A", inputs: ["left", "up", "up"],
     portrait: "scene-illustration:area:11:ecl:9b56",
@@ -6992,7 +7009,8 @@ const server = spawn(process.execPath, ["--import", "tsx", "tools/browser-play.t
     POR_INPUT_COMPAT: moonseaTravel || sokalTravel || valjevoTravel ||
       ["slums-first-arrival", "new-phlan-clerk-office-guards", "new-phlan-city-hall-entrance",
         "new-phlan-tavern-interior", "new-phlan-tavern-overheard-tale", "new-phlan-passenger-dock-sign",
-        "new-phlan-training-duels", "new-phlan-training-north-junction"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
+        "new-phlan-training-duels", "new-phlan-training-north-junction", "new-phlan-training-fighters-door",
+        "new-phlan-training-rogues-door"].includes(routeName) ? "" : "discard-poll-prompt", POR_CLOCK: "fixed",
   },
   stdio: ["ignore", "ignore", "inherit"],
 });
