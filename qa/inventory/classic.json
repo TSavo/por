@@ -962,9 +962,10 @@
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
           "checks": [
-            "campaign-opening"
+            "campaign-opening",
+            "acceptance-guide-party"
           ],
-          "gap": "Create, Add and Begin Adventuring only."
+          "gap": "Create, Modify, View, Add, Save, Load and Begin Adventuring. Not Drop, Remove or Exit; Train only as far as the trainer's refusal (acceptance-harness)."
         },
         {
           "id": "classic.menu.creation-race",
@@ -973,9 +974,10 @@
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
           "checks": [
-            "campaign-opening"
+            "campaign-opening",
+            "acceptance-guide-party"
           ],
-          "gap": "Only dwarves are created."
+          "gap": "Dwarf (campaign-opening); elf, half-elf and human (acceptance-guide-party). No gnome or halfling is created."
         },
         {
           "id": "classic.menu.creation-class",
@@ -984,9 +986,10 @@
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
           "checks": [
-            "campaign-opening"
+            "campaign-opening",
+            "acceptance-guide-party"
           ],
-          "gap": "Only fighters are created."
+          "gap": "Fighter (campaign-opening); cleric, fighter/magic-user, cleric/fighter/magic-user and fighter/magic-user/thief (acceptance-guide-party). The other classes and multiclasses are not created."
         },
         {
           "id": "classic.menu.creation-alignment",
@@ -995,9 +998,10 @@
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
           "checks": [
-            "campaign-opening"
+            "campaign-opening",
+            "acceptance-guide-party"
           ],
-          "gap": "One alignment and one gender."
+          "gap": "Lawful good and neutral good, both genders, name entry, Keep this character, the portrait and icon kept as offered. Seven alignments are never chosen."
         },
         {
           "id": "classic.menu.icon-editor",
@@ -1013,7 +1017,10 @@
           "evidence": [
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
-          "checks": []
+          "checks": [
+            "acceptance-guide-party"
+          ],
+          "gap": "Modify (all six scores and the hit points raised to the game's ceiling, read back with View) and Add in a chosen order. Drop is not exercised."
         },
         {
           "id": "classic.menu.training",
@@ -1072,7 +1079,8 @@
           ],
           "checks": [
             "acceptance-harness",
-            "acceptance-slums"
+            "acceptance-slums",
+            "acceptance-guide-party"
           ]
         },
         {
@@ -1178,7 +1186,8 @@
           ],
           "checks": [
             "acceptance-new-phlan",
-            "acceptance-harness"
+            "acceptance-harness",
+            "acceptance-guide-party"
           ]
         },
         {
@@ -1206,9 +1215,10 @@
             "Strings in START.EXE and GAME.OVR; see the research notes in qa/findings.json"
           ],
           "checks": [
-            "campaign-opening"
+            "campaign-opening",
+            "acceptance-guide-party"
           ],
-          "gap": "Slots A to D only."
+          "gap": "Slots A to D (campaign-opening); slot A saved in the inn's camp and loaded (acceptance-guide-party)."
         },
         {
           "id": "classic.menu.death-ending",

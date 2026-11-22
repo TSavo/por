@@ -29,6 +29,7 @@
     "acceptance:new-phlan": "node tools/acceptance/new-phlan.mjs",
     "acceptance:harness": "node tools/acceptance/harness-selftest.mjs && node tools/acceptance/party-care-selftest.mjs",
     "acceptance:slums": "node tools/acceptance/slums.mjs",
+    "acceptance:guide-party": "node tools/acceptance/guide-party.mjs",
     "acceptance:narration-dynamic": "node tools/acceptance/narration-dynamic.mjs",
     "preview:new-phlan": "tsx tools/new-phlan-3d-prototype.ts",
     "typecheck": "tsc --noEmit",

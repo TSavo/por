@@ -187,6 +187,15 @@
       ]
     },
     {
+      "id": "acceptance-guide-party",
+      "title": "The party the Lee guide tells a player to make, built from nothing through the game's own menus (Create New Character, Add, Modify to the game's ceilings, the arms shop, the inn, spells memorised, Save), each sheet read back with View, and compared with the saved game in qa/fixtures/guide-party-new-phlan",
+      "command": "npm run acceptance:guide-party",
+      "reference": "game-data",
+      "needs": [
+        "game files"
+      ]
+    },
+    {
       "id": "acceptance-narration-dynamic",
       "title": "Three dynamic narration families driven on the game itself until they fire several times, each firing required to select a variant: the tavern tale number, the four training halls, the Slums' random encounters",
       "command": "npm run acceptance:narration-dynamic",
