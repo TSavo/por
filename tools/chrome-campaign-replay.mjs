@@ -179,6 +179,12 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
       },
       close,
       evaluate,
+      /** A PNG of the page as Chrome paints it, or of `clip` ({ x, y, width, height } in page pixels). */
+      async screenshot(clip) {
+        const { data } = await command("Page.captureScreenshot",
+          { format: "png", ...(clip ? { clip: { ...clip, scale: 1 } } : {}) });
+        return Buffer.from(data, "base64");
+      },
     };
   } catch (error) {
     await close();

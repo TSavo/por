@@ -20,6 +20,7 @@
     "verify:art-worklist": "tsx tools/art-worklist.ts --verify",
     "verify:code-wheel": "python tools/verify-code-wheel.py",
     "verify:code-wheel-screen": "node tools/verify-code-wheel-screen.mjs",
+    "verify:runes-readable": "node tools/verify-runes-readable.mjs",
     "verify:narration-playback": "node tools/verify-narration-playback.mjs",
     "qa:inventory": "tsx tools/qa-inventory.ts",
     "qa:version-1.3": "tsx tools/qa-version-1.3.ts",
