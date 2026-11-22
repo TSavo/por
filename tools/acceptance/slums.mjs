@@ -1399,7 +1399,9 @@ async function throughDoor(game, heading, why) {
   await game.face(heading);
   const from = game.here();
   let bashes = 0;
-  for (let tries = 0; game.here().x === from.x && game.here().y === from.y; tries++) {
+  // Behind some doors the game shows a picture and a menu of its own, and no square: that is through, too.
+  const stillThere = () => { const now = game.here(); return now && now.x === from.x && now.y === from.y; };
+  for (let tries = 0; stillThere(); tries++) {
     if (tries >= 14) game.fail(`Fourteen tries did not open the way ${heading}: ${why}`);
     if (/Locked\. Bash Pick Exit\s*$/.test(game.menu())) { await game.press("b"); bashes++; }
     else await game.press("up");
@@ -1766,21 +1768,25 @@ async function readOn(game, limit = 8) {
 async function guideOhlo(game, state) {
   at(game, 4, 10, "The stage starts in the empty room behind the goblin guards.");
   // Out through the goblin guards' squares, north up the lane at x=2, east along y=2 and down to Ohlo's door.
-  await walkAsGuideParty(game, "WSW" + "NNNNNEENNENEENEEESSWSSSSEEEEEESS", state, "to Ohlo");
-  at(game, 15, 10, "The square east of Ohlo's room is (15,10).");
+  await walkAsGuideParty(game, "WSW" + "NNNNNEENNENEENEEESSWSSSSEEEEEESS" + "W", state, "to Ohlo");
+  at(game, 14, 10, "The square east of Ohlo's room is (14,10).");
   await tendTheHurt(game);
   assert.equal(game.variable(ohloState), 0, "Ohlo has not been met.");
+  assert.equal(game.variable(potionState), 0, "The potion has not been fetched.");
   const points = game.variable(clearPoints);
+  const randomsBefore = state.random.length;
   let mark = game.printed.length;
-  await throughDoor(game, "W", "the door west of (15,10)");
+  const ohloBashes = await throughDoor(game, "W", "the door west of (14,10)");
+  at(game, 13, 10, "Location 3 is (13,10).");
+  if (!game.printed.slice(mark).length) game.fail(`After ${ohloBashes} bashes the party stands at ${JSON.stringify(game.here())} and the game printed nothing.`);
   printedInOrder(game, mark, [ohloText], "Entering prints Ohlo's room and his 'WELL?'.");
-  game.expect(/LEAVE TALK ATTACK\s*$/, "The menu is LEAVE, TALK, ATTACK.");
+  game.expect(/LEAVE TALK ATTACK\s*$/i, "The menu is LEAVE, TALK, ATTACK.");
   await game.press("t");
   game.expect(/HAUGHTY SLY NICE MEEK ABUSIVE\s*$/i, `TALK asks for an attitude; the menu reads "${game.menu()}".`);
   mark = game.printed.length;
   await game.press("n");
   printedInOrder(game, mark, [ohloOffer], "A Nice parley brings his offer.");
-  game.expect(/ACCEPT THE COMMISSION REJECT IT\s*$/, "The menu is ACCEPT THE COMMISSION, REJECT IT.");
+  game.expect(/ACCEPT THE COMMISSION REJECT IT\s*$/i, "The menu is ACCEPT THE COMMISSION, REJECT IT.");
   mark = game.printed.length;
   await game.press("a");
   await readOn(game);
@@ -1790,11 +1796,11 @@ async function guideOhlo(game, state) {
   assert.equal(game.variable(clearPoints), points, "Accepting credits no clear point.");
   const outside = game.here();
   progress(`Ohlo: errand accepted; the party stands at ${outside.x},${outside.y} facing ${outside.facing}`);
-  assert.deepEqual([outside.x, outside.y], [15, 10], "Going back out of the door puts the party on (15,10), east of his room.");
+  assert.deepEqual([outside.x, outside.y, outside.facing], [14, 10, "E"], "Going back out of the door puts the party on (14,10), east of his room, facing east (the script at a01b).");
 
   // To the Rope Guild's entry at (6,10): north, west along y=8, up the lane at x=9, west and down the lane at x=7.
   mark = game.printed.length;
-  await walkAsGuideParty(game, "NNWWWWWWNNNNNENWWSSSSSWWWSESS", state, "to the Rope Guild");
+  await walkAsGuideParty(game, "E" + "NNWWWWWWNNNNNENWWSSSSSWWWSESS", state, "to the Rope Guild");
   at(game, 6, 10, "The square north of the guild's door is (6,10).");
   assert.equal(flat(game.printed.slice(mark).at(-1) ?? ""), guildNorth, "The square north of the guild's door says so.");
   await tendTheHurt(game);
@@ -1804,21 +1810,34 @@ async function guideOhlo(game, state) {
   await throughDoor(game, "S", "the guild's door south of (6,10)");
   at(game, 6, 11, "The guild's first square is (6,11).");
   assert.equal(flat(game.printed[mark] ?? ""), guildText, "Entering the guild prints its warning.");
-  const inGuild = async (route, label) => {
-    for (const heading of route) {
-      const before = state.random.length;
-      await walkAsGuideParty(game, heading, state, label);
-      if (state.random.length > before || hurt(game).length) await recoverHere(game, state, label);
-    }
-  };
-  await inGuild("SSSEENNESSENNEENEES", "in the Rope Guild");
+  await inGuild(game, state, "SSSEENNESSENNEENEES", "in the Rope Guild");
   at(game, 14, 12, "The square west of the booth is (14,12).");
+  assert.equal(game.variable(clearPoints) - points, state.random.length - randomsBefore, "On the way only the random fights credited clear points, one each.");
+}
+
+/** Walk a route inside the Rope Guild, resting where the party stands after each random fight: every square there has the guild's event, so a rest is safe (the script at 9a24). */
+async function inGuild(game, state, route, label) {
+  for (const heading of route) {
+    const before = state.random.length;
+    await walkAsGuideParty(game, heading, state, label);
+    if (state.random.length > before || hurt(game).length) await recoverHere(game, state, label);
+  }
+}
+
+/**
+ * Stage: the potion, from the square west of the merchant's booth in the Rope Guild. With the
+ * stage before it, proves acceptance.slums.ohlo-fetch-the-potion: the merchant and the word OHLO,
+ * the package that is no item, the way back, GIVE, and the reward. Ends rested in Ohlo's room.
+ */
+async function guidePotion(game, state) {
+  at(game, 14, 12, "The stage starts west of the booth, at (14,12).");
+  assert.equal(game.variable(ohloState), 250, "The errand is accepted.");
+  const points = game.variable(clearPoints);
   const carried = await partyItems(game);
-  mark = game.printed.length;
+  let mark = game.printed.length;
   await throughDoor(game, "E", "the booth's door east of (14,12)");
-  at(game, 15, 12, "Location 19 is (15,12).");
   printedInOrder(game, mark, [merchantText, "(WHAT DO YOU DO?)"], "The merchant hurries forward and has nothing to sell.");
-  game.expect(/LEAVE ATTACK SPEAK\s*$/, "The menu is LEAVE, ATTACK, SPEAK.");
+  game.expect(/LEAVE ATTACK SPEAK\s*$/i, "The menu is LEAVE, ATTACK, SPEAK.");
   mark = game.printed.length;
   await game.press("s");
   printedInOrder(game, mark, [merchantAsk], "SPEAK asks for a single word.");
@@ -1827,22 +1846,23 @@ async function guideOhlo(game, state) {
   await readOn(game);
   printedInOrder(game, mark, [merchantAsk, merchantPackage], "The word OHLO brings the package.");
   game.expect(exploring, "The party is free to walk.");
+  at(game, 15, 12, "Location 19, the booth, is (15,12).");
   assert.equal(game.variable(potionState), 250, "The script records the package as fetched.");
   assert.deepEqual(await partyItems(game), carried, "The package is no item: nobody carries anything new.");
   assert.equal(game.variable(clearPoints), points, "The package credits no clear point.");
 
   // Back to Ohlo the way the party came.
   await game.walk("W");
-  await inGuild(back("SSSEENNESSENNEENEES"), "out of the Rope Guild");
+  await inGuild(game, state, back("SSSEENNESSENNEENEES"), "out of the Rope Guild");
   at(game, 6, 11, "The party is back at the guild's first square.");
-  await walkAsGuideParty(game, "N" + "NNWNEEENNNNNEESSWSSSSEEEEEESS", state, "back to Ohlo");
-  at(game, 15, 10, "The square east of Ohlo's room is (15,10).");
+  await walkAsGuideParty(game, "N" + "NNWNEEENNNNNEESSWSSSSEEEEEESS" + "W", state, "back to Ohlo");
+  at(game, 14, 10, "The square east of Ohlo's room is (14,10).");
   await tendTheHurt(game);
-  const before = { exp: await experience(game) };
+  const before = { exp: await experience(game), points: game.variable(clearPoints) };
   mark = game.printed.length;
-  await throughDoor(game, "W", "the door west of (15,10)");
+  await throughDoor(game, "W", "the door west of (14,10)");
   printedInOrder(game, mark, [ohloReturn], "With the package Ohlo asks for the potion.");
-  game.expect(/GIVE ASK FOR MORE MONEY REFUSE TO GIVE\s*$/, "The menu is GIVE, ASK FOR MORE MONEY, REFUSE TO GIVE.");
+  game.expect(/GIVE ASK FOR MORE MONEY REFUSE TO GIVE\s*$/i, "The menu is GIVE, ASK FOR MORE MONEY, REFUSE TO GIVE.");
   mark = game.printed.length;
   await game.press("g");
   await readOn(game);
@@ -1852,14 +1872,14 @@ async function guideOhlo(game, state) {
   assert.equal(loot.length, 1, `The reward holds one item beside the money; the game listed ${JSON.stringify(loot)}.`);
   const gained = Object.fromEntries(Object.entries(exp).map(([name, points]) => [name, points - before.exp[name]]));
   assert.equal(flat(game.printed.at(-1) ?? ""), ohloLeave, "After the reward the party goes back out of the door.");
-  at(game, 15, 10, "The party stands east of Ohlo's room again.");
+  at(game, 14, 10, "The party stands east of Ohlo's room again.");
   assert.equal(game.variable(ohloState), 255, "The script records Ohlo as dealt with.");
   assert.equal(game.variable(potionState), 255, "The script records the potion as given.");
-  assert.equal(game.variable(clearPoints), points + 1, "Dealing with Ohlo credits exactly one clear point.");
+  assert.equal(game.variable(clearPoints), before.points + 1, "Dealing with Ohlo credits exactly one clear point.");
   // His room is silent now, and a rest there is safe.
   mark = game.printed.length;
-  await throughDoor(game, "W", "the door west of (15,10)");
-  at(game, 14, 10, "Ohlo's room, its east square, is (14,10).");
+  await throughDoor(game, "W", "the door west of (14,10)");
+  at(game, 13, 10, "Ohlo's room, its east square, is (13,10).");
   printedInOrder(game, mark, [], "Ohlo's room is silent once he has been dealt with.");
   await recoverHere(game, state, "Ohlo's room");
   state.ohlo = { loot, gained };
@@ -1867,27 +1887,27 @@ async function guideOhlo(game, state) {
 }
 
 /**
- * Stage: the random encounters still to beat, from Ohlo's room: out of his door to (15,10) and to
- * and fro between it and (15,9) with Search on, until the script has counted fifteen (0x4a80).
+ * Stage: the random encounters still to beat, from Ohlo's room: out of his door to (14,10) and to
+ * and fro between it and (15,10) with Search on, until the script has counted fifteen (0x4a80).
  */
 async function guideRandoms(game, state) {
-  at(game, 14, 10, "The stage starts in Ohlo's room.");
+  at(game, 13, 10, "The stage starts in Ohlo's room.");
   const before = { fights: game.variable(randomFights), points: game.variable(clearPoints) };
-  const fights = await fightRandoms(game, state, { out: "E", pace: "N", wanted: 15, label: "random fights" });
+  const fights = await fightRandoms(game, state, { out: "E", pace: "E", wanted: 15, label: "random fights" });
   assert.equal(game.variable(randomFights), 15, "Fifteen random encounters are beaten.");
   // Each beaten encounter is one clear point (b12a to b134), until the block is cleared at 25.
   const points = before.points + (15 - before.fights);
   assert.equal(game.variable(clearPoints), points >= 25 ? 254 : points, "Each random fight beaten credits one clear point; at 25 the script stores 254.");
-  at(game, 14, 10, "The party is back in Ohlo's room.");
+  at(game, 13, 10, "The party is back in Ohlo's room.");
   // No sixteenth: with Search on, to and fro outside meets nobody ([P]: "exactly 15").
   await game.walk("E");
   await game.press("s");
   for (let paces = 0; paces < 30; paces++) {
-    await game.step(paces % 2 ? "S" : "N");
+    await game.step(paces % 2 ? "W" : "E");
     game.expect(exploring, "No encounter meets the party once fifteen are beaten.");
   }
   await game.press("s");
-  await throughDoor(game, "W", "the door west of (15,10)");
+  await throughDoor(game, "W", "the door west of (14,10)");
   state.randoms = fights;
   progress(`random fights: ${fights.length} fought here; ${JSON.stringify(fights)}`);
 }
@@ -1897,16 +1917,16 @@ async function guideRandoms(game, state) {
  * acceptance.slums.rest-interrupts-give-clear-points: [P] §12 (the digest, Scripting: Slums),
  * "rest-interrupt encounters grant clear points even when no random encounters remain", which
  * the guide gives as the way to clear the block without the trolls at location 20. The party
- * camps on (15,10), a square with no event of its own, where each two hours of rest have a 24%
+ * camps on (14,10), a square with no event of its own, where each two hours of rest have a 24%
  * chance of an interruption (the script at 9a3c), and rests a day at a time until monsters come.
  */
 async function guideRestFight(game, state) {
-  at(game, 14, 10, "The stage starts in Ohlo's room.");
+  at(game, 13, 10, "The stage starts in Ohlo's room.");
   assert.equal(game.variable(randomFights), 15, "Fifteen random encounters are beaten: walking meets no more.");
   const before = { points: game.variable(clearPoints), fights: game.variable(randomFights) };
   assert.equal(before.points, 24, "The party has 24 clear points: every set fight but the trolls', Ohlo, and fifteen random fights.");
   await game.walk("E");
-  at(game, 15, 10, "The square east of Ohlo's room is (15,10).");
+  at(game, 14, 10, "The square east of Ohlo's room is (14,10).");
   let days = 0, fight;
   for (; !fight; days++) {
     if (days >= 12) game.fail("Twelve days of rest on an unsafe square were never interrupted.");
@@ -1940,7 +1960,7 @@ async function guideRestFight(game, state) {
   progress(`rest fight: won in ${fight.turns} turns with ${fight.cast} Sleeps, ${fight.xp} experience points, ${up} standing; printed ${JSON.stringify(fight.printed)}`);
   assert.equal(game.variable(randomFights), before.fights + 1, "The script counts the fight as a sixteenth random encounter (b12a).");
   assert.equal(game.variable(clearPoints), 254, "The fight credits the twenty-fifth clear point, and the script marks the block cleared (b6b5): the trolls were never fought.");
-  await throughDoor(game, "W", "the door west of (15,10)");
+  await throughDoor(game, "W", "the door west of (14,10)");
   await recoverHere(game, state, "Ohlo's room");
   state.restFight = { days, ...fight, up };
 }
@@ -1959,7 +1979,7 @@ async function guideReward(game, state) {
   assert.equal(game.variable(clearPoints), 254, "The block is cleared: the script has stored 254 for its clear points (b6b5).");
   assert.equal(game.variable(randomFights), 15, "Fifteen random encounters have been beaten.");
   // Out of the Slums: north, west along y=8, up the lane at x=9, east along y=2, down the lane at x=13 to the entrance.
-  const met = await walkFighting(game, "ENNWWWWWWNNNNNENEEESSSSSENNNE");
+  const met = await walkFighting(game, "EE" + "NNWWWWWWNNNNNENEEESSSSSENNNE");
   assert.equal(met, 0, "No random encounter meets the party in the cleared block.");
   at(game, 15, 4, "The Slums entrance is (15,4).");
   await game.face("E");
@@ -2075,11 +2095,12 @@ const guideStages = [
   { name: "leaders", slot: "B", run: guideLeaders, proves: ["acceptance.slums.monster-leaders"] },
   { name: "goblinguards", slot: "C", run: guideGoblinGuards, proves: ["acceptance.slums.goblin-guards-alerted"] },
   { name: "chest", slot: "D", run: guideChest, proves: ["acceptance.slums.empty-room-hidden-chest"] },
-  { name: "ohlo", slot: "E", run: guideOhlo, proves: ["acceptance.slums.ohlo-fetch-the-potion"] },
-  { name: "randoms", slot: "F", run: guideRandoms, proves: [] },
-  { name: "restfight", slot: "G", run: guideRestFight, proves: ["acceptance.slums.rest-interrupts-give-clear-points"] },
-  { name: "reward", slot: "H", run: guideReward, proves: ["acceptance.slums.clear-the-block"] },
-  { name: "trainagain", slot: "I", run: guideTrainAgain, proves: [] },
+  { name: "ohlo", slot: "E", run: guideOhlo, proves: [] },
+  { name: "potion", slot: "F", run: guidePotion, proves: ["acceptance.slums.ohlo-fetch-the-potion"] },
+  { name: "randoms", slot: "G", run: guideRandoms, proves: [] },
+  { name: "restfight", slot: "H", run: guideRestFight, proves: ["acceptance.slums.rest-interrupts-give-clear-points"] },
+  { name: "reward", slot: "I", run: guideReward, proves: ["acceptance.slums.clear-the-block"] },
+  { name: "trainagain", slot: "J", run: guideTrainAgain, proves: [] },
 ];
 /** The script variables the guide party's games report. */
 const guideWatch = [clearPoints, orcsFought, randomFights, goblinsFought, orcHomeFought, guardsFought, leadersFought, goblinGuardsFought, ohloState, potionState];
