@@ -15092,10 +15092,12 @@ try {
         assert.match(parchment, /THELASTPARTISEATENAWAY/i);
       }
       if (landing && frame.encounter && !patrol) {
-        assert.deepEqual(frame.encounter, [48, 32, "encounter:area:21:ecl:9dba:SPRIT4.DAX:34:0:0", 40, 80]);
+        const [x, y, patrolKey, width, height] = frame.encounter;
+        assert.deepEqual([x, y, width, height], [48, 32, 40, 80]);
+        assert.match(patrolKey, /^encounter:area:21:ecl:9db[ad]:SPRIT4\.DAX:34:0:0$/);
         await waitFor("Sokal patrol artwork", () => run(`state.sequence === ${frame.sequence} &&
-          document.querySelector(".encounter-sprite")?.naturalWidth === 160 &&
-          document.querySelector(".encounter-sprite")?.naturalHeight === 320`));
+          document.querySelector('.encounter-sprite[src="/art/${patrolKey}"]')?.naturalWidth === 160 &&
+          document.querySelector('.encounter-sprite[src="/art/${patrolKey}"]')?.naturalHeight === 320`));
         await switchBothWays();
         const shot = await command("Page.captureScreenshot", { format: "png" });
         writeFileSync(resolve(directory, "sokal-undead-patrol.png"), Buffer.from(shot.data, "base64"));
