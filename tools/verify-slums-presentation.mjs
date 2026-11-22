@@ -4703,6 +4703,11 @@ const combatPoseRoutes = new Map([
     readyPrompt: /8THLVLFIGHTER/i, strikeInputs: [],
     inputs: ["up", "enter", "enter", ...Array(6).fill("q")],
   }],
+  ["new-phlan-tavern-brawl-ready-13", {
+    slot: "A", stand: "combat:area:0:CPIC3.DAX:15:ecl:a7d0", standCount: 7,
+    width: 96, height: 96, readyPrompt: /AIDESHITPOINTS/i, strikeInputs: [],
+    inputs: ["up", "enter", "enter", "n", ...Array(5).fill("enter")],
+  }],
   ["new-phlan-tavern-cutpurse-combat", {
     slot: "A", stand: "combat:area:0:CPIC3.DAX:13:ecl:a7d3", strike: "combat:area:0:CPIC3.DAX:141:ecl:a7d3",
     width: 96, height: 96, readyPrompt: /1STLVLTHIEF/i, strikeInputs: ["space"], strikeReflected: true,
@@ -7972,6 +7977,15 @@ try {
     }
     if (readyPrompt) assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), readyPrompt);
     const readyPlacements = standInAnimation ? frame.animation?.flatMap(({ combatArt }) => combatArt ?? []) : frame.combatArt;
+    if (routeName === "new-phlan-tavern-brawl-ready-13") {
+      const patrons = "combat:area:0:CPIC3.DAX:11:ecl:a7d0";
+      assert.equal(readyPlacements?.filter(([, , id]) => id === patrons).length, 5);
+      await waitFor("the five tavern patrons in Chrome", () => run(`state.sequence === ${frame.sequence} &&
+        [...document.querySelectorAll('.combat-sprite[src="/art/${patrons}"]')]
+          .filter(sprite => sprite.naturalWidth === 96 && sprite.naturalHeight === 96).length === 5`));
+      const shot = await command("Page.captureScreenshot", { format: "png" });
+      writeFileSync(resolve(directory, "new-phlan-tavern-brawl-ready-13.png"), Buffer.from(shot.data, "base64"));
+    }
     if (routeName === "tempus-temple-line-fighter-ready-13") {
       for (const block of [12, 16]) {
         const id = `combat:area:0:CPIC3.DAX:${block}:ecl:aac4`;
