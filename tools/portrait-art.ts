@@ -1278,6 +1278,7 @@ export const scriptIllustrations = new Map<string, string | RegExp>([
   ["scene-illustration:area:31:ecl:9ed7:cue:victims-room", "FILLEDWITHTHEDEADBODIESOFTHEORC"],
   ["scene-illustration:area:31:ecl:b0b5:cue:victims-room", "FILLEDWITHTHEDEADBODIESOFTHEORC"],
   ["scene-illustration:area:31:ecl:aa47:cue:great-hall-cache", "VIEWTAKEPOOLEXIT"],
+  ["scene-illustration:area:31:ecl:aa47:cue:rubble-tapestry-reward", "VIEWTAKEPOOLEXIT"],
   ["scene-illustration:area:31:ecl:9df2:cue:mansion-great-hall-hatch", /BEFOREYOUISAGREATHALL.*YOUFINDATRAPDOOR/],
   ["scene-illustration:area:31:ecl:9e03:cue:mansion-great-hall-hatch", /BEFOREYOUISAGREATHALL.*YOUFINDATRAPDOOR/],
   ["scene-illustration:area:31:ecl:b0b5:cue:mansion-great-hall-hatch", /BEFOREYOUISAGREATHALL.*YOUFINDATRAPDOOR/],

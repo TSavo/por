@@ -187,7 +187,7 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
   let finalCouncilReward = false;
   let baneCacheCue: string | undefined;
   const baneCacheCues = new Map<number, string>([
-    [6, "great-hall-cache"], [8, "northern-cache"], [9, "southern-cache"], [17, "eastern-cache"],
+    [4, "rubble-tapestry-reward"], [6, "great-hall-cache"], [8, "northern-cache"], [9, "southern-cache"], [17, "eastern-cache"],
   ]);
 
   function captureEclContext(cpu: Cpu) {

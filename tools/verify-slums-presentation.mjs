@@ -905,6 +905,16 @@ const illustrationRoutes = new Map([
     prompt: /INTHERUBBLEYOUSPOTABEAUTIFULTAPESTRY\.WILLYOUTAKEIT/i,
     continuation: { inputs: ["l"], clearsPortrait: true, prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i },
   }],
+  ["bane-rubble-tapestry-reward", {
+    slot: "A", inputs: ["s", "up"],
+    portrait: "scene-illustration:area:31:ecl:9c10",
+    prompt: /INTHERUBBLEYOUSPOTABEAUTIFULTAPESTRY\.WILLYOUTAKEIT/i,
+    continuation: {
+      inputs: ["t", "enter", "enter"], portrait: "scene-illustration:area:31:ecl:aa47:cue:rubble-tapestry-reward",
+      prompt: /VIEW.*POOL/i, capture: "bane-rubble-tapestry-reward.png",
+      lootCaption: /LOOTTAPESTRYITEMS:TAKEEXIT/i,
+    },
+  }],
   ["bane-dining-room-jewelry", {
     slot: "A", inputs: ["s", "up", "enter"],
     portraitStops: { 2: "scene-illustration:area:31:ecl:9d02" },
