@@ -1525,6 +1525,16 @@ const illustrationRoutes = new Map([
     journalLead: "mendor-stacks-mathematics", journalLeadAtDiscovery: true,
     continuation: { inputs: ["enter"], prompt: /AREACASTVIEWENCAMP/i, clearsPortrait: true },
   }],
+  ["mendor-history-myths", {
+    slot: "B", inputs: ["s", "up", "enter", "left", "up", "up", "enter", "n", "left", "up"],
+    portraitStops: { 2: "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:history-stacks",
+      6: "scene-illustration:area:15:ecl:99b5:caller:9962:cue:history-of-the-north", 8: null },
+    transientPortraits: { 10: {
+      id: "scene-illustration:area:15:ecl:9956:caller:a1e6:cue:history-myths",
+      prompt: /YOUFINDVARIOUSBOOKSWHICHARESOFILLEDWITHMYTH.*FINDANYTHINGUSEFUL/i, screenshot: "mendor-history-myths.png",
+    } },
+    prompt: /AREACASTVIEWENCAMPSEARCHLOOK/i,
+  }],
   ["mendor-mathematics-essays", {
     slot: "B", inputs: ["s", "up", "enter", "down", "up"],
     portraitStops: { 2: "scene-illustration:area:15:ecl:99b5:caller:9de1:cue:mathematics-stacks", 3: null },

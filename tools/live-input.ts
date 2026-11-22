@@ -981,8 +981,8 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       captureEclContext(cpu);
       // These captions can clear within a single input.
       const kovelIllustration = area === 14 && (battleCursor === 0xa238 || battleCursor === 0x9e63 || battleCursor === 0x9d52);
-      const mendorEssays = area === 15 && battleCursor === 0x9956 && portraitCaller === 0x9f03;
-      if (kovelIllustration || mendorEssays) {
+      const mendorReading = area === 15 && battleCursor === 0x9956 && (portraitCaller === 0x9f03 || portraitCaller === 0xa1e6);
+      if (kovelIllustration || mendorReading) {
         showFrame(undefined, undefined, false, false, 1200, undefined, true);
         return;
       }
