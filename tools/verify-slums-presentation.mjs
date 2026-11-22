@@ -3052,6 +3052,30 @@ const illustrationRoutes = new Map([
     finalPhaseCapture: "wild-cave-gnoll-troll-warband.png",
     continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
   }],
+  ["wild-cave-charging-lizard-dialogue", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    oneShotProducer: "ECL8.DAX:27:a4c2",
+    portrait: "portrait:area:27:ecl:a501:PIC8.DAX:59:0:0",
+    prompt: /FOURGIANTLIZARDSRUNUPANDATTACKTHEPARTY.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "wild-cave-charging-lizards.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
+  ["wild-cave-gnoll-warband-to-combat", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    oneShotProducer: "ECL8.DAX:27:a710",
+    portrait: "portrait:area:27:ecl:a765:PIC8.DAX:73:0:0",
+    prompt: /SOMEGNOLLSANDTROLLS.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "wild-cave-gnoll-troll-warband.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
+  ["wild-cave-minotaur-orders-lizards", {
+    slot: "B", inputs: ["up", "enter", "enter"],
+    oneShotProducer: "ECL8.DAX:27:a542",
+    portrait: "scene-illustration:area:27:ecl:a5b2",
+    prompt: /FOURGIANTLIZARDSANDTWOMINOTAURS.*THEMINOTAURSORDERTHELIZARDSTOATTACK.*ABATTLEBEGINS/i,
+    finalPhaseCapture: "wild-cave-minotaur-orders-lizards.png",
+    continuation: { inputs: ["enter"], clearsPortrait: true, prompt: /HITPOINTS/i },
+  }],
   ["kuto-bandit-cache-treasure-phases", {
     slot: "J", inputs: ["up", "y", "enter", "enter"],
     portraitStops: { 1: "scene-illustration:area:29:ecl:af80:caller:9fd6", 2: null },
@@ -10666,6 +10690,30 @@ try {
       assert.deepEqual([...phases.keys()], []);
     }
     if (illustration.heldPortraitLoop) await verifyHeldPortraitLoop(illustration.heldPortraitLoop);
+    if (illustration.oneShotProducer) {
+      await waitFor("the single portrait before combat", () => run(`
+        state.sequence === ${frame.sequence} && !animationFrame &&
+        document.querySelector('.encounter-portrait[src="/art/${portrait}"]')?.naturalWidth === 352
+      `));
+      const { result } = await command("Runtime.evaluate", {
+        awaitPromise: true, returnByValue: true,
+        expression: `new Promise(resolve => {
+          const expected = ${JSON.stringify("/art/" + portrait)};
+          const start = performance.now();
+          function sample(now) {
+            if (document.querySelector(".encounter-portrait")?.getAttribute("src") !== expected) {
+              resolve(true);
+            } else if (now - start >= 1000) {
+              resolve(false);
+            } else {
+              requestAnimationFrame(sample);
+            }
+          }
+          requestAnimationFrame(sample);
+        })`,
+      });
+      assert.equal(result.value, false, "A one-shot portrait should stay on its first member until combat");
+    }
     if (illustration.finalPhaseCapture) {
       const phaseShot = await command("Page.captureScreenshot", { format: "png" });
       writeFileSync(resolve(directory, illustration.finalPhaseCapture), Buffer.from(phaseShot.data, "base64"));
@@ -10973,6 +11021,23 @@ try {
         if (departureReachedAt) console.log(`Departure picture shown ${Date.now() - departureReachedAt} ms after the game reached it`);
       }
       assert.match(frame.text.map(([, char]) => String.fromCharCode(char)).join(""), continuation.prompt);
+      if (illustration.oneShotProducer && heldPortraitEvidenceFile) {
+        assert.equal(frame.portrait, undefined);
+        const renderer = await fetch(origin + "/play.js");
+        const art = await fetch(origin + "/art/" + portrait);
+        assert.ok(renderer.ok && art.ok);
+        const { result: binding } = await command("Runtime.evaluate", {
+          expression: `portraitLoopBindings.then(module => module.portraitLoopSignature(${JSON.stringify(portrait)}))`,
+          awaitPromise: true, returnByValue: true,
+        });
+        assert.equal(typeof binding.value, "string");
+        heldPortraitEvidence.push({
+          producer: illustration.oneShotProducer, route: routeName, data: frame.classicAvailable === false ? "port" : "original", portrait,
+          rendererSha256: createHash("sha256").update((await renderer.text()).replace(/\r\n/g, "\n")).digest("hex"),
+          bindingSha256: createHash("sha256").update(binding.value).digest("hex"),
+          artSha256: createHash("sha256").update(Buffer.from(await art.arrayBuffer())).digest("hex"),
+        });
+      }
       if (routeName === "new-phlan-city-hall-exit") {
         assert.deepEqual([frame.exploration?.area, frame.scenery?.x, frame.scenery?.y], [0, 4, 3]);
         await waitForExplorationViewport();

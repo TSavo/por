@@ -10,6 +10,23 @@ interface HeldPortraitInventory {
   scenes: { id: string; producer?: string; poses: Pose[]; chrome?: { original: ChromeProof; port: ChromeProof } }[];
 }
 
+interface OneShotProof {
+  producer: string;
+  route: string;
+  data: ChromeProof["data"];
+  portrait: string;
+  rendererSha256: string;
+  bindingSha256: string;
+  artSha256: string;
+}
+
+interface OneShot {
+  producer: string;
+  combat: string;
+  native: { drawCursor: string; members: number[]; evidence: string };
+  chrome: { original: OneShotProof; port: OneShotProof };
+}
+
 type ScriptSite = typeof heldPortraitDiscovery.eclCandidates[number];
 const scriptSiteId = (site: ScriptSite) => `${site.scriptArchive}:${site.scriptBlock}:${site.address}`;
 const promptId = (cursor: string, caller: string | null) => caller ? `${cursor}/${caller}` : cursor;
@@ -19,6 +36,9 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
   const digest = (value: string | Buffer) => createHash("sha256").update(value).digest("hex");
   const renderer = digest(readFileSync(path("tools", "play.js"), "utf8").replace(/\r\n/g, "\n"));
   const inventory = JSON.parse(readFileSync(path("qa", "held-portraits.json"), "utf8")) as HeldPortraitInventory;
+  const oneShots = JSON.parse(readFileSync(path("qa", "held-portrait-one-shots.json"), "utf8")) as OneShot[];
+  const oneShotByProducer = new Map(oneShots.map(proof => [proof.producer, proof]));
+  if (oneShotByProducer.size !== oneShots.length) throw new Error("Duplicate one-shot portrait producer");
   const assets = new Map<string, string>();
   for (const name of ["upgrades/slums/manifest.json", "upgrades/manifest.json"]) {
     const manifest = JSON.parse(readFileSync(path(name), "utf8")) as { assets: Record<string, string> };
@@ -48,6 +68,29 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
   });
 
   const { eclCandidates, nativeCandidates } = heldPortraitDiscovery;
+  for (const { producer } of oneShots) {
+    if (!eclCandidates.some(site => scriptSiteId(site) === producer)) throw new Error(`Unknown one-shot portrait producer ${producer}`);
+  }
+  function oneShotProblem(site: ScriptSite, evidence: OneShot): string | null {
+    if (site.block === null || site.promptCandidates.length || site.immediateCombat !== evidence.combat) {
+      return "native script no longer leads directly to the measured fight";
+    }
+    if (evidence.native.drawCursor !== site.next && !site.approachSites.includes(evidence.native.drawCursor)) {
+      return "native draw cursor no longer matches the measured producer";
+    }
+    if (evidence.native.members.length !== 1 || evidence.native.members[0] !== 0 || !evidence.native.evidence) {
+      return "native evidence must show a single draw of member 0";
+    }
+    const { original, port } = evidence.chrome;
+    if (original.route !== port.route || original.portrait !== port.portrait) return "Chrome replays disagree";
+    for (const [data, proof] of Object.entries(evidence.chrome)) {
+      if (proof.data !== data || proof.producer !== evidence.producer || proof.rendererSha256 !== renderer ||
+          proof.bindingSha256 !== digest(portraitLoopSignature(proof.portrait))) return "Chrome proof predates the current renderer or binding";
+      const image = assets.get(proof.portrait);
+      if (!image || digest(readFileSync(image)) !== proof.artSha256) return "Chrome proof predates the current artwork";
+    }
+    return null;
+  }
   const observed = new Map<ScriptSite, { prompt: string; scene: typeof scenes[number] }[]>();
   const unmapped = [];
   for (const scene of scenes) {
@@ -70,19 +113,23 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
   }
 
   const sites = eclCandidates.map(site => {
+    const id = scriptSiteId(site);
+    const oneShot = oneShotByProducer.get(id);
+    const oneShotReason = oneShot ? oneShotProblem(site, oneShot) : null;
     const evidence = observed.get(site) ?? [];
     const prompts = [...new Set(site.promptCandidates.map(({ next, caller }) => promptId(next, caller)))];
     const unmeasured = prompts.filter(prompt => !evidence.some(entry => entry.prompt === prompt));
-    const measured = evidence.length > 0;
+    const measured = evidence.length > 0 || oneShot !== undefined;
     // A variable selector may feed several portraits into the same prompt.
     // Observing one portrait cannot discharge the other possible selections.
-    const verified = site.block !== null && measured && !unmeasured.length &&
-      evidence.every(({ scene }) => scene.verified);
+    const verified = oneShot ? oneShotReason === null : site.block !== null && evidence.length > 0 &&
+      !unmeasured.length && evidence.every(({ scene }) => scene.verified);
     return {
-      id: scriptSiteId(site),
+      id,
       source: `${site.pictureArchive}:${site.block ?? `selector ${site.selector.address?.toString(16) ?? "unknown"}`}`,
       measured, verified, unmeasured, scenes: evidence.map(({ scene }) => scene.id),
-      reason: site.block === null ? "selector unresolved" : prompts.length ? null : "no prompt lead resolved",
+      reason: oneShot ? oneShotReason ?? "single native draw, paired Chrome checks passed" :
+        site.block === null ? "selector unresolved" : prompts.length ? null : "no prompt lead resolved",
     };
   });
   for (const site of nativeCandidates.filter(({ status }) => status === "candidate")) {
@@ -93,6 +140,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
   }
   const summary = {
     verified: sites.filter(site => site.verified).length,
+    oneShotsVerified: sites.filter(site => site.verified && oneShotByProducer.has(site.id)).length,
     measured: sites.filter(site => site.measured).length,
     total: sites.length,
     scenesMeasured: scenes.length,
@@ -104,7 +152,7 @@ export function heldPortraitCoverage(root = fileURLToPath(new URL("../", import.
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const report = heldPortraitCoverage();
-  console.log(`Held portraits: ${report.verified} / ${report.total} picture sites verified (measured ${report.measured}), R = ${report.remaining}.`);
+  console.log(`Held portraits: ${report.verified} / ${report.total} picture sites verified (measured ${report.measured}, one-shot ${report.oneShotsVerified}), R = ${report.remaining}.`);
   console.log(`Native prompt evidence: ${report.scenesVerified} / ${report.scenesMeasured} captured scenes passed paired Chrome checks.`);
   if (!process.argv.includes("--summary")) {
     console.log("Picture site              Source                   Measured  Verified");

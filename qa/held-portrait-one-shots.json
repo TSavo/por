@@ -1,0 +1,95 @@
+[
+  {
+    "producer": "ECL8.DAX:27:a4c2",
+    "combat": "a500",
+    "native": {
+      "drawCursor": "a4ca",
+      "members": [
+        0
+      ],
+      "evidence": "https://github.com/TSavo/por/issues/80#issuecomment-7084066811"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL8.DAX:27:a4c2",
+        "route": "wild-cave-charging-lizard-dialogue",
+        "data": "original",
+        "portrait": "portrait:area:27:ecl:a501:PIC8.DAX:59:0:0",
+        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "a211f90be83faec3332fd05bee60b4c8103b8fa6290ed1d34424b17b81a7d4aa"
+      },
+      "port": {
+        "producer": "ECL8.DAX:27:a4c2",
+        "route": "wild-cave-charging-lizard-dialogue",
+        "data": "port",
+        "portrait": "portrait:area:27:ecl:a501:PIC8.DAX:59:0:0",
+        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "a211f90be83faec3332fd05bee60b4c8103b8fa6290ed1d34424b17b81a7d4aa"
+      }
+    }
+  },
+  {
+    "producer": "ECL8.DAX:27:a542",
+    "combat": "a5b1",
+    "native": {
+      "drawCursor": "a549",
+      "members": [
+        0
+      ],
+      "evidence": "https://github.com/TSavo/por/issues/80#issuecomment-7084066811"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL8.DAX:27:a542",
+        "route": "wild-cave-minotaur-orders-lizards",
+        "data": "original",
+        "portrait": "scene-illustration:area:27:ecl:a5b2",
+        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "444fd50907e13c1a994cb7aab4d766780740df317e27931475c1a039719c88c7"
+      },
+      "port": {
+        "producer": "ECL8.DAX:27:a542",
+        "route": "wild-cave-minotaur-orders-lizards",
+        "data": "port",
+        "portrait": "scene-illustration:area:27:ecl:a5b2",
+        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "444fd50907e13c1a994cb7aab4d766780740df317e27931475c1a039719c88c7"
+      }
+    }
+  },
+  {
+    "producer": "ECL8.DAX:27:a710",
+    "combat": "a764",
+    "native": {
+      "drawCursor": "a717",
+      "members": [
+        0
+      ],
+      "evidence": "https://github.com/TSavo/por/issues/80#issuecomment-7084066811"
+    },
+    "chrome": {
+      "original": {
+        "producer": "ECL8.DAX:27:a710",
+        "route": "wild-cave-gnoll-warband-to-combat",
+        "data": "original",
+        "portrait": "portrait:area:27:ecl:a765:PIC8.DAX:73:0:0",
+        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "561fbf7a466ab433215984d9db2a689cb0d4fed59704dd64ba9610c94263ef6f"
+      },
+      "port": {
+        "producer": "ECL8.DAX:27:a710",
+        "route": "wild-cave-gnoll-warband-to-combat",
+        "data": "port",
+        "portrait": "portrait:area:27:ecl:a765:PIC8.DAX:73:0:0",
+        "rendererSha256": "b5456b97bd58b95bb61d643df48258b33ea946d3a63c22a1c5eb5db724ad5521",
+        "bindingSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "artSha256": "561fbf7a466ab433215984d9db2a689cb0d4fed59704dd64ba9610c94263ef6f"
+      }
+    }
+  }
+]

@@ -87,6 +87,8 @@ const promptOperands = new Map([[0x15, 3], [0x2b, 2]]);
 // These instructions can clear the panel, replace the picture, start combat, or leave the script.
 const pictureBoundaries = new Set([0x0c, 0x0e, 0x20, 0x21, 0x24, 0x29, 0x2d, 0x31, 0x37, 0x38]);
 const writers = new Set([0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x2a, 0x2f, 0x30]);
+// These straight-line instructions can prepare a fight without choosing a new picture.
+const combatPrelude = new Set([0x03, 0x04, 0x08, 0x09, 0x0b, 0x0d, 0x12, 0x17, 0x1b, 0x1c]);
 
 const scripts = data.content.filter(record => /^ECL[1-8]\.DAX$/.test(record.file));
 const eclCandidates = scripts.flatMap(record => {
@@ -104,6 +106,18 @@ const eclCandidates = scripts.flatMap(record => {
     contexts.set(state.address, states);
     return true;
   });
+
+  function immediateCombatAfter(load: Instruction) {
+    let previous = load;
+    let current = instructions.get(load.next);
+    while (current && combatPrelude.has(current.opcode)) {
+      previous = current;
+      current = instructions.get(current.next);
+    }
+    // A conditional immediately before COMBAT can skip the fight.
+    return current?.opcode === 0x24 && !(previous.opcode >= 0x16 && previous.opcode <= 0x1b)
+      ? authored(current.address) : null;
+  }
 
   function selector(op: Operand) {
     const address = memory(op);
@@ -159,9 +173,10 @@ const eclCandidates = scripts.flatMap(record => {
 
     return [{
       kind: "ecl", status: "candidate", scriptArchive: record.file, scriptBlock, address: authored(load.address),
-      opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
+      next: authored(load.next), opcode, name: load.name, pictureArchive, block, selector: portrait, possiblePictures,
       ...(direct ? {} : { approachSelectors: { sprite: selector(operands[0]!), distance: selector(operands[1]!) } }),
       approachSites: [...approaches].sort(),
+      immediateCombat: scope.length && opcode === 0x0c ? immediateCombatAfter(load) : null,
       promptCandidates: [...prompts.values()].sort((a, b) => a.address.localeCompare(b.address) || (a.caller ?? "").localeCompare(b.caller ?? "")),
       uncertainties: [
         "selected-head-may-use-composed-portrait",
