@@ -238,15 +238,21 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     const lowerWell = kuto && context.map === 32;
     const lizardKeep = auditReachability && !context.arrivalFrom && context.script.area === 16 && (context.map === 16 || context.map === 30);
     const lizardCellar = lizardKeep && context.map === 30;
+    const mendorLibrary = auditReachability && !context.arrivalFrom && context.script.area === 15 && context.map === 15;
+    const audited = lizardKeep || mendorLibrary;
     // ECL16's descents enter a roofed component. Its relocations all land in
     // that component. The surface starts include the entrance and stair returns.
     const lizardStarts: readonly (readonly [number, number])[] = lizardCellar ? [[1, 7], [13, 1], [4, 15], [4, 5], [10, 4], [7, 10], [10, 8]]
       : [[8, 14], [10, 4], [9, 6], [6, 6], [3, 7], [5, 12], [7, 9], [9, 8]];
-    const playable = lizardKeep ? reachable(map, lizardStarts.map(([x, y]) => y * 16 + x), context.script.area) : undefined;
-    const groundAllowed = (ground: number, shaft: boolean) => (!kuto && !lizardKeep) || ground === 6 || (shaft && ground === 1);
+    // Library entrances and ECL15's scripted relocations cannot cross into
+    // the five sealed cells at map 15's masonry corners.
+    const libraryStarts: readonly (readonly [number, number])[] = [[1, 4], [8, 3], [14, 7], [4, 10], [7, 9], [5, 5], [9, 9], [9, 11]];
+    const starts = mendorLibrary ? libraryStarts : lizardStarts;
+    const playable = audited ? reachable(map, starts.map(([x, y]) => y * 16 + x), context.script.area) : undefined;
+    const groundAllowed = (ground: number, shaft: boolean) => (!kuto && !audited) || ground === 6 || (shaft && ground === 1);
     const lowerValues = (shaft: boolean) => lowers.filter(({ line, band, ground }) =>
       groundAllowed(ground, shaft) && (!kuto || (line === 0 && band === (lowerWell ? 8 : 7)))
-      && (!lizardKeep || (line === 15 && band === 7)));
+      && (!audited || (line === 15 && band === 7)));
     for (let y = 0; y < 16; y++) {
       for (let x = 0; x < 16; x++) {
         if (playable && !playable.has(y * 16 + x)) continue;
@@ -289,8 +295,12 @@ function firstPerson(world: WorldData, art: Map<string, Art>, cells: Cells) {
     // Each aggregate under each backdrop it can have.
     const entries = new Map<string, Entry[]>();
     const hashesOf = new Map<Agg, Map<string, string | undefined>>();
-    const skies = (roofed: boolean) => (roofed ? context.script.sky.covered : context.script.sky.open)
-      .filter((sky) => (!lizardKeep || sky === 0 || (!lizardCellar && sky === 11)) && (!kuto || sky === 0 || sky === 11 || (!lowerWell && sky === 12)));
+    const skies = (roofed: boolean) => {
+      if (lizardKeep) return lizardCellar ? [0] : [0, 11];
+      if (mendorLibrary) return roofed ? [15] : [0, 11];
+      const possible = roofed ? context.script.sky.covered : context.script.sky.open;
+      return possible.filter((sky) => !kuto || sky === 0 || sky === 11 || (!lowerWell && sky === 12));
+    };
     const backdropsOf = (agg: Agg): Backdrop[] => !agg.open ? ["-"]
       : agg.rc === 0 ? skies(agg.roofed).map(skyBack)
       : agg.rc === 2 ? world.grounds.filter(({ ground }) => groundAllowed(ground, agg.shaft)).map(({ ground }) => `g${ground}`)
