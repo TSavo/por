@@ -16,6 +16,7 @@
     "verify:code-wheel-screen": "node tools/verify-code-wheel-screen.mjs",
     "qa:inventory": "tsx tools/qa-inventory.ts",
     "qa:version-1.3": "tsx tools/qa-version-1.3.ts",
+    "qa:standalone": "tsx tools/qa-standalone.ts",
     "qa:disagreements": "tsx tools/qa-disagreements.ts",
     "qa:acceptance": "tsx tools/qa-acceptance.ts",
     "acceptance:new-phlan": "node tools/acceptance/new-phlan.mjs",

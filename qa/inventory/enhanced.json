@@ -684,6 +684,17 @@
       "name": "Host behaviour",
       "features": [
         {
+          "id": "enhanced.standalone",
+          "title": "Runs with no original file",
+          "evidence": [
+            "ROADMAP.md, The release shape; docs/STANDALONE.md"
+          ],
+          "checks": [
+            "standalone"
+          ],
+          "gap": "Not built. The runner needs START.EXE, GAME.OVR and the DAX files. The check counts what is left and fails while anything is left."
+        },
+        {
           "id": "enhanced.save-slots",
           "title": "Save slots A to J with roster and companion files",
           "evidence": [

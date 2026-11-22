@@ -185,6 +185,17 @@
       "needs": [
         "game files"
       ]
+    },
+    {
+      "id": "standalone",
+      "title": "What stands between the port and running with no original file: files, program bytes, pictures, font and sound, measured",
+      "command": "npm run qa:standalone",
+      "reference": "game-data",
+      "needs": [
+        "game files",
+        "python + capstone",
+        "Chrome"
+      ]
     }
   ]
 }
