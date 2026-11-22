@@ -16,6 +16,7 @@ games, artwork, narration and the journal work on both.
 Use Node.js 22 or newer. With the unpacked files in `gamedata/pool/`,
 run `npm ci` followed by `npm run play` from the repository root.
 To keep the files elsewhere, set `POR_GAMEDATA` first.
+`npm run release:pack` builds the installers a player downloads, which need no checkout and no files from the player: see [docs/RELEASE.md](docs/RELEASE.md).
 
 ```bash
 export POR_GAMEDATA=/path/to/pool
