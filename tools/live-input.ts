@@ -535,8 +535,9 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
               activeEcl === localEcl && travelRoadArrivals.get(area)?.includes(localEcl))) {
             const { x, y, facing } = native.native;
             arrivalPosition = { area: localEcl, x, y, facing };
+            tileArea = localEcl;
           }
-          nativeScenery = { ...native.native, area: arrivalPosition?.area ?? tileArea ?? area };
+          nativeScenery = { ...native.native, area: tileArea ?? area };
         }
         if (!leads) previousPerspective = perspective ? { area, pixels, mark: viewportMark() } : undefined;
       } else if (!leads) {
