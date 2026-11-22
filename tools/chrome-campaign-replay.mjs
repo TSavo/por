@@ -149,7 +149,9 @@ export async function openChromeCampaignLeg({ chromePath, directory, checkpointD
     await waitFor("the game server", () => fetch(origin).then((response) => response.ok, () => false));
     // The page starts in Enhanced; the checks were written for a page that starts in Classic.
     await command("Page.navigate", { url: `${origin}/?display=classic` });
-    await waitFor("the game page", () => evaluate('typeof send === "function" && document.querySelector("#screen").naturalWidth === 320'));
+    // The game's 320 by 200 picture; or, from the port's own data (no Classic), any first picture.
+    await waitFor("the game page", () => evaluate(`typeof send === "function" && (document.querySelector("#screen").naturalWidth === 320 ||
+      (state.classicAvailable === false && document.querySelector("#screen").naturalWidth > 0))`));
     await evaluate(`(() => {
       if (!enhanced) document.querySelector("#presentation").click();
       const sendKey = send;

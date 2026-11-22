@@ -161,7 +161,7 @@
     },
     {
       "id": "runes-readable",
-      "title": "Enhanced shows the game's own runes, cell for cell as Classic does, at the five places the game writes Espruar or Dethek for the player to translate; the frame names each rune; no narration covers a rune instruction; and the game takes SHESTNI, NOKNOK and RHODIA typed where it asks",
+      "title": "Enhanced shows the game's own runes, cell for cell as Classic does, at the five places the game writes Espruar or Dethek for the player to translate; the frame names each rune; no narration covers a rune instruction; and the game takes SHESTNI, NOKNOK and RHODIA typed where it asks. With POR_GAME_SOURCE=port it runs the shipped game from game/, whose font is blank, and requires the wheel's picture of each rune in its cells",
       "command": "npm run verify:runes-readable",
       "reference": "recorded-play",
       "needs": [

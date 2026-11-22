@@ -29,6 +29,13 @@
 // one script variable and the place's entry below says so. This is a question about display, not
 // about play: the level 1 party has not earned its way there.
 //
+// The shipped game. POR_GAME_SOURCE=port runs the game from the port's own data in game/, which
+// holds no original pixels: the game's font is blank, so its picture has no runes, and there is
+// no Classic display. Enhanced draws each rune from the wheel's picture of it (tools/rune-glyphs.js).
+// There 1 and 2 above become: in every cell the word should occupy, the Enhanced photograph shows
+// the wheel's picture of the word's rune, compared at the centre of each of the cell's 8 by 8
+// pixels with that picture's eight columns for the cell. 3 and 4 and the typed word are as above.
+//
 // Screenshots of both displays are written to out/runes-readable/ (not committed).
 // POR_RUNES_PLACES=sokal,pyramid runs only the places named, while working on one.
 import assert from "node:assert/strict";
@@ -38,6 +45,7 @@ import { tmpdir } from "node:os";
 import { setTimeout as delay } from "node:timers/promises";
 import { openChromeCampaignLeg } from "./chrome-campaign-replay.mjs";
 import { addReadyMadeParty, beginAdventuring, exploring, startGame } from "./acceptance/harness.mjs";
+import { RUNE_GLYPHS } from "./rune-glyphs.js";
 
 const [chromePath] = process.argv.slice(2);
 if (!chromePath) throw new Error("Usage: verify-runes-readable.mjs <chrome-executable>");
@@ -62,10 +70,20 @@ function glyphs(alphabet, word) {
     return [first, first + 1];
   });
 }
-/** A word of runes on screen: where its first glyph is, as a text cell (row * 40 + column). */
+/**
+ * A word of runes on screen: where its first glyph is, as a text cell (row * 40 + column). Each
+ * cell also names the wheel's picture of its rune and the first of the picture's sixteen columns
+ * the cell shows: an Espruar rune's two glyphs are its left and right halves, a Dethek rune's one
+ * glyph its middle.
+ */
 const written = (alphabet, word, row, column) => {
   const codes = glyphs(alphabet, word);
-  return { alphabet, word, cells: codes.map((code, index) => [row * 40 + column + index, code]) };
+  const parts = [...word].flatMap((letter) => {
+    const letterCodes = glyphs(alphabet, letter);
+    const [, picture] = RUNE_GLYPHS.find(([runeCodes]) => runeCodes.join() === letterCodes.join());
+    return letterCodes.length === 2 ? [[picture, 0], [picture, 8]] : [[picture, 4]];
+  });
+  return { alphabet, word, cells: codes.map((code, index) => [row * 40 + column + index, code, ...parts[index]]) };
 };
 
 const pressReturn = /(?:Press <enter>\/<return>|PRESS BUTTON OR <RETURN>) to continue\s*$/i;
@@ -345,6 +363,36 @@ const gameInk = (cells) => `(async () => {
 })()`;
 
 /**
+ * What the wheel's pictures put in each rune cell, for the shipped game, whose own picture has no
+ * runes. `cells` are [picture, first column]: the picture's 256 by 128 pixels are the rune's 16 by 8,
+ * and each of the cell's 64 pixels is sampled at its centre, "1" where the gold stroke is.
+ */
+const pictureInk = (cells) => `(async () => {
+  const pictures = new Map();
+  const ink = [];
+  for (const [picture, column] of ${JSON.stringify(cells)}) {
+    if (!pictures.has(picture)) {
+      const image = new Image();
+      image.src = "/code-wheel/" + picture + ".png";
+      await image.decode();
+      const canvas = document.createElement("canvas");
+      canvas.width = image.naturalWidth; canvas.height = image.naturalHeight;
+      const brush = canvas.getContext("2d");
+      brush.drawImage(image, 0, 0);
+      pictures.set(picture, { width: canvas.width, height: canvas.height, data: brush.getImageData(0, 0, canvas.width, canvas.height).data });
+    }
+    const { width, height, data } = pictures.get(picture);
+    let bits = "";
+    for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) {
+      const at = (Math.floor((y + .5) * height / 8) * width + Math.floor((column + x + .5) * width / 16)) * 4;
+      bits += data[at + 3] > 128 && data[at] > 160 ? "1" : "0";
+    }
+    ink.push(bits);
+  }
+  return ink;
+})()`;
+
+/**
  * The rune cells of a photograph of the page, where `box` is the game picture in it. The page
  * enlarges the picture by a fraction (about 1.45) and the browser places it on whole pixels, so
  * where the picture's pixels fall is known only to within a pixel. Each cell is therefore sampled
@@ -525,19 +573,27 @@ for (const place of places) {
     assert.equal(await display(), "enhanced", "The leg plays in Enhanced display");
     const frame = JSON.parse(await page(`JSON.stringify({ text: state.text, runes: state.runes ?? null,
       portrait: state.portrait ?? null, scene: state.scene ?? null, art: state.art ?? null })`));
-    const glyphInk = await page(gameInk(cells));
+    // The shipped game (game/) has no original pixels and no Classic: the runes are the wheel's pictures.
+    const shipped = await page("state.classicAvailable === false");
+    result.shipped = shipped;
+    const glyphInk = await page(shipped
+      ? pictureInk(place.words.flatMap(({ cells: wordCells }) => wordCells.map(([, , picture, column]) => [picture, column])))
+      : gameInk(cells));
     const enhancedInk = await photograph("enhanced");
-    await page('document.querySelector("#presentation").click(), undefined');
-    await until("Classic display", 'document.documentElement.dataset.presentation === "classic"');
-    const classicInk = await photograph("classic");
-    await page('document.querySelector("#presentation").click(), undefined');
-    await until("Enhanced display", 'document.documentElement.dataset.presentation === "enhanced"');
+    let classicInk = glyphInk.map(() => []);
+    if (!shipped) {
+      await page('document.querySelector("#presentation").click(), undefined');
+      await until("Classic display", 'document.documentElement.dataset.presentation === "classic"');
+      classicInk = await photograph("classic");
+      await page('document.querySelector("#presentation").click(), undefined');
+      await until("Enhanced display", 'document.documentElement.dataset.presentation === "enhanced"');
+    }
     result.picture = frame.portrait ?? frame.scene ?? frame.art;
     if (process.env.POR_RUNES_DEBUG) {
       for (const [index, cell] of cells.entries()) {
-        console.log(`cell ${cell}: the game's glyph, Classic as photographed, Enhanced as photographed`);
+        console.log(`cell ${cell}: the game's glyph (the wheel's picture, shipped), Classic as photographed, Enhanced as photographed`);
         for (let y = 0; y < 8; y++) {
-          console.log(`  ${[glyphInk[index], classicInk[index][0], enhancedInk[index][0]].map((bits) => bits.slice(y * 8, y * 8 + 8)).join("  ")}`);
+          console.log(`  ${[glyphInk[index], classicInk[index][0] ?? "-".repeat(64), enhancedInk[index][0]].map((bits) => bits.slice(y * 8, y * 8 + 8)).join("  ")}`);
         }
       }
     }
@@ -551,16 +607,16 @@ for (const place of places) {
         // A rune has at least four bright pixels, and a display shows it when its photograph
         // has the glyph's 64 pixels right but for two at most.
         if ((glyphInk[index].match(/1/g) ?? []).length < 4) faults.blank++;
-        else if (wrongPixels(glyphInk[index], classicInk[index]) > 2) faults.classic++;
+        else if (!shipped && wrongPixels(glyphInk[index], classicInk[index]) > 2) faults.classic++;
         if (wrongPixels(glyphInk[index], enhancedInk[index]) > 2) faults.differs++;
         if (letters.has(cell)) faults.letters += letters.get(cell);
         if (!named.has(cell)) faults.unnamed++;
         else if (named.get(cell) !== code) faults.wrong++;
       }
       const name = `${word} (${alphabet}, ${wordCells.length} cells)`;
-      if (faults.blank) result.problems.push(`${name}: the game's picture has no rune in ${faults.blank} of its cells, so the check is not looking where the game wrote`);
+      if (faults.blank) result.problems.push(`${name}: ${shipped ? "the wheel's picture" : "the game's picture"} has no rune in ${faults.blank} of its cells, so the check is not looking where the game wrote`);
       if (faults.classic) result.problems.push(`${name}: Classic does not show the game's rune in ${faults.classic} of its cells`);
-      if (faults.differs) result.problems.push(`${name}: Enhanced does not show the game's rune in ${faults.differs} of its cells`);
+      if (faults.differs) result.problems.push(`${name}: Enhanced does not show ${shipped ? "the wheel's picture of the rune" : "the game's rune"} in ${faults.differs} of its cells`);
       if (faults.letters) result.problems.push(`${name}: the page draws the letters "${faults.letters}" where the runes are`);
       if (faults.unnamed) result.problems.push(`${name}: the frame names no rune in ${faults.unnamed} of its cells`);
       if (faults.wrong) result.problems.push(`${name}: the frame names the wrong glyph in ${faults.wrong} of its cells`);
@@ -582,7 +638,7 @@ for (const place of places) {
     await chrome?.close();
   }
   const { problems } = result;
-  console.log(`${problems.length ? "FAIL" : "pass"}  ${place.title}${place.travel ? " [developer travel]" : ""}`);
+  console.log(`${problems.length ? "FAIL" : "pass"}  ${place.title}${place.travel ? " [developer travel]" : ""}${result.shipped ? " [the shipped game, from game/]" : ""}`);
   for (const problem of problems) console.log(`      ${problem}`);
   if (result.reached) {
     console.log(`      picture shown with the runes: ${result.picture ?? "none"}`);

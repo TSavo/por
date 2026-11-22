@@ -45,6 +45,7 @@ const streetRenderer = readFileSync(fromPortRoot("tools", "new-phlan-webgl.js"))
 const wheelPage = readFileSync(fromPortRoot("tools", "code-wheel.html"));
 const wheelScript = readFileSync(fromPortRoot("tools", "code-wheel.js"));
 const wheelDrawing = readFileSync(fromPortRoot("tools", "code-wheel-draw.js"));
+const runeGlyphs = readFileSync(fromPortRoot("tools", "rune-glyphs.js"));
 const wheelLayout = readFileSync(fromPortRoot("src", "codewheel", "wheel.json"));
 const runeDirectory = fromPortRoot("upgrades", "codewheel");
 const wheelRunes = new Map(readdirSync(runeDirectory)
@@ -373,6 +374,9 @@ const server = createServer(async (req, res) => {
   } else if (req.method === "GET" && req.url === "/code-wheel-draw.js") {
     // The wheel's drawing, which the standalone page and the game page share.
     res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(wheelDrawing);
+  } else if (req.method === "GET" && req.url === "/rune-glyphs.js") {
+    // Glyph code to the wheel's rune picture: the page draws the game's runes from it.
+    res.writeHead(200, { "content-type": "text/javascript; charset=utf-8" }).end(runeGlyphs);
   } else if (req.method === "GET" && req.url === "/code-wheel/layout") {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8" }).end(wheelLayout);
   } else if (req.method === "GET" && /^\/code-wheel\/[a-z0-9-]+\.png$/.test(req.url ?? "")) {

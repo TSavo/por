@@ -426,6 +426,10 @@ export function liveInput(startAt: number, journal: () => JournalLead[], recordi
       // Menu and battle-state changes can precede the actual viewport redraw.
       if (!captureApproach && !attack && !effect && !captureIllustration && !statusMessage &&
           overlandMap) nativePicture?.clear();
+      // Runes the game writes in the picture box (the Sokal parchment, after CLEAR BOX) take the
+      // place of its picture. The shipped game's pictures and runes are blank, so the held
+      // portrait's pixels still match the box and would otherwise stay over the runes.
+      if (runes.some(([cell]) => cell % 40 < 16 && cell < 16 * 40)) nativePicture?.clear();
       let picture = scene ? undefined : illustration ?? arrivalPicture ??
         nativePicture?.match(area, portraitCursor, pictureCaller) ??
         portraitArt(screen, area, portraitCursor, pictureCaller);

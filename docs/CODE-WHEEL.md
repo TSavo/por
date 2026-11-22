@@ -222,28 +222,41 @@ guards' list in Valjevo Castle (HARASH in Espruar, RHODIA in Dethek), the freed 
 Cadorna's slip (RHODIA), and the sign in Yarash's pyramid (NOKNOK in Dethek). The research note
 has the scripts, the screen positions and where each word is asked for.
 
-Enhanced shows those runes exactly as the game draws them: the game's own glyphs, at the game's
-positions, enlarged without smoothing, in the same place as Classic. They are never drawn as
-letters and no artwork is laid over them. The rule is one line in the host and has no list of
-places: a glyph the game draws with its rune font is not text (`visibleGameRunes` in
-`src/runtime/video.ts`), so it stays in the picture, and the frame names it (`runes`: cell,
-glyph code, colour). Before 2026-11-21 only the Sokal parchment was handled, and the guards'
-list and both slips came out partly or wholly as letters (`OPABfgABhiOP` for HARASH).
+Enhanced draws those runes from the wheel's own rune pictures, at the game's positions, so the
+runes on screen are the pictures the player turns the wheel to. The shipped game runs from the
+port's own data, whose 8 by 8 font has no pixels, so the game's picture has no runes of its own
+there. The rule has no list of places: a glyph the game draws with its rune font is not text
+(`visibleGameRunes` in `src/runtime/video.ts`), and the frame names it (`runes`: cell, glyph
+code, colour). The page (`gameRunes` in `tools/play.js`) looks the codes up in
+`tools/rune-glyphs.js`: an Espruar letter, two glyphs side by side, is one picture over its two
+cells; a Dethek letter, one glyph, is the middle of its picture in its one cell. The picture's
+gold stroke is drawn in the game's colour for the cell and its dark outline is kept, so the rune
+is the wheel's shape in the game's colour. With the player's original files the game's own rune
+is in the picture under the drawing, whose outline covers it, and Enhanced looks the same;
+Classic shows the game's picture. Where runes are written in the picture box (the Sokal
+parchment, after the script's CLEAR BOX) the host drops a held portrait, which in the shipped
+game would otherwise stay over them: its blank pixels still match the cleared box. Before
+2026-11-21 only the Sokal parchment was handled, and the guards' list and both slips came out
+partly or wholly as letters (`OPABfgABhiOP` for HARASH). Until 2026-11-22 Enhanced showed the
+game's glyphs only, so the shipped game showed no runes at all.
 
-The runes on screen are the game's 8 by 8 pixel glyphs: an Espruar letter is two of them side by
-side and a Dethek letter is one. The wheel's rune pictures (`upgrades/codewheel/`) are the
-original runes enlarged (the status table above), so the player should be comparing like with
-like. That was looked at for NOKNOK only: at the translate position N is `dethek-26` and K is
-`dethek-29`, and each is the shape the pyramid's sign shows, centred in its wider tile. Nothing
-compares every rune on screen with its tile yet.
+`npm run verify:rune-glyphs` proves the table: every one of the wheel's 70 pictures is named
+once and reads as its letter at the translate position; the game's 13 start-up questions, read
+from the program's own table, draw the pictures the wheel's questions show; the strings of the
+eight rune instructions in the scripts read LUX, SAMOSUD, SHESTNI, RHODIA, HARASH, RHODIA,
+RHODIA and NOKNOK; and, with the original files, each of the 106 glyphs of the game's rune font
+is its picture's cell pixel for pixel. Dethek W, X and Z are one glyph in the game's font and
+one rune on the wheel: "some Dethek runes have more than one translation".
 The page does not translate, and the narrator does not say the word: no recording covers a rune
 instruction.
 
-What a later change must keep: nothing may be drawn over a rune cell, an illustration at one of
-these places must not show the word in letters, and a narration line for one of these passages
-must not speak it. `npm run verify:runes-readable -- <chrome>` checks the five places in Chrome
-in both displays and types SHESTNI, NOKNOK and RHODIA where the game asks. It reaches Sokal Keep
-by play and the other four by developer travel, which its header explains.
+What a later change must keep: nothing but the rune's own picture may be drawn over a rune cell,
+an illustration at one of these places must not show the word in letters, and a narration line
+for one of these passages must not speak it. `npm run verify:runes-readable -- <chrome>` checks
+the five places in Chrome in both displays and types SHESTNI, NOKNOK and RHODIA where the game
+asks. It reaches Sokal Keep by play and the other four by developer travel, which its header
+explains. With `POR_GAME_SOURCE=port` it runs the shipped game from `game/` and requires the
+wheel's picture of each rune in its cells.
 
 ### Classic
 

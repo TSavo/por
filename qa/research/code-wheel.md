@@ -203,6 +203,30 @@ The page shows the Enhanced picture under its own lettering, so the runes appear
 positions, the game's shapes, enlarged without smoothing. The Sokal rule is gone; the general one
 covers it. Classic was never affected: it shows the game's picture.
 
+That left the shipped game without runes: it runs from the port's own data, whose font (8X8D1
+block 201) is 1,416 zero bytes, so its picture has none. Since 2026-11-22 the page draws each rune
+the frame names from the wheel's picture of it (`tools/rune-glyphs.js`), in the game's colour, in
+both the shipped game and with original files, where it covers the game's own glyph.
+
+The table from glyph code to picture, read from the font against the wheel's runes (the glyph
+drawn is font entry code + 0x40):
+
+| Runes | Glyph codes | Wheel pictures |
+| --- | --- | --- |
+| Espruar A to O | 01 02 to 1d 1e | `espruar-27` to `espruar-35`, `espruar-00` to `espruar-05` |
+| Espruar P to Z | 22 23 to 36 37 | `espruar-06` to `espruar-16` |
+| Espruar 1 to 9 | 55 56 to 65 66 | `espruar-17` to `espruar-25` |
+| Dethek A to Z | 3a to 53 | `dethek-03` down to `dethek-00`, then `dethek-35` down to `dethek-14` |
+| Dethek 1 to 8 | 68 to 6f | `dethek-13` down to `dethek-06` |
+| Dethek 9 | 6c 70 | `dethek-05` |
+
+Each Espruar picture is its two glyphs side by side; each Dethek picture holds its one glyph in
+its middle eight columns, except the 9, which is two glyphs and fills the picture. Dethek W, X and
+Z (50, 51, 53) are the same glyph in the font, and `dethek-17`, `dethek-16` and `dethek-14` are
+the same rune on the wheel. `npm run verify:rune-glyphs` proves the table against the 13
+questions and the eight rune strings, and with the original files checks all 106 glyphs against
+their pictures pixel for pixel.
+
 The new illustrations at these places do not carry the word. The pyramid's sign is painted with
 its English line only, the two Valjevo papers with scribbles, and each is in the picture box
 while the runes are in the text window below it. At Sokal no picture is shown with the runes.
@@ -246,10 +270,6 @@ that lines up the two tabs. It does not translate for the player.
   patrols and posts once the party is disguised; `npm run verify:runes-readable` shows the runes
   at the guards' list and does not go on to a patrol. LUX is likewise shown and not typed: the
   check types SHESTNI, the word the first patrol takes.
-- Whether every rune on screen matches its tile on the Enhanced wheel. Looked at for N and K of
-  NOKNOK only (`dethek-26` and `dethek-29` at the translate position, the same shapes as on the
-  pyramid's sign). `npm run verify:code-wheel` compares the tiles with the start-up question's
-  pictures, and nothing compares them with the glyphs opcode 3C draws.
 - The five places on the first release. The check runs version 1.3. The font argument is read at
   the same place in both releases' text routine, but only 1.3 was played.
 - The four places beyond Sokal Keep as a player reaches them. The check arrives by developer

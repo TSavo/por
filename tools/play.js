@@ -1415,7 +1415,7 @@ async function showScreen() {
       glyph.style.top = `${Math.floor(cell / 40) * 4}%`;
       glyph.style.color = `rgb(${state.textColors[color].join(",")})`;
       return glyph;
-    }));
+    }), ...gameRunes(view));
   }
   renderingSequence = undefined;
   holdAnimationFrame(view);
@@ -1533,6 +1533,71 @@ void import("/code-wheel-draw.js").then(async ({ loadCodeWheel, wheelPainter }) 
   codeWheel.data = layout;
   renderCodeWheel();
 }).catch(() => { /* Without the wheel's layout the game's own prompt stays in view. */ });
+
+// The runes the game writes for the player to translate (state.runes) are drawn in Enhanced from
+// the wheel's own rune pictures, so the player matches the shapes the wheel shows. The shipped
+// game's font has no pixels, so the picture has no runes of its own; with the player's original
+// files the game's rune is under the drawing, whose dark outline covers it. Each picture's gold
+// stroke is drawn in the game's colour for its cell (the wheel's pictures are gold strokes with a
+// dark outline, tools/build-code-wheel-runes.py). The table is tools/rune-glyphs.js
+// (npm run verify:rune-glyphs).
+let runePictures;
+void import("/rune-glyphs.js").then((module) => {
+  runePictures = module.runePictures;
+  if (state.runes?.length) void showScreen();
+}).catch(() => { /* Without the table the runes are what the game's picture holds. */ });
+const runeTiles = new Map();
+const RUNE_GOLD = [246, 200, 120], RUNE_OUTLINE = [92, 52, 20];
+
+/** A rune picture's pixels, loaded once. */
+function runeTile(picture) {
+  if (!runeTiles.has(picture)) runeTiles.set(picture, (async () => {
+    const image = new Image();
+    image.src = `/code-wheel/${picture}.png`;
+    await image.decode();
+    const canvas = document.createElement("canvas");
+    canvas.width = image.naturalWidth;
+    canvas.height = image.naturalHeight;
+    const brush = canvas.getContext("2d", { willReadFrequently: true });
+    brush.drawImage(image, 0, 0);
+    return brush.getImageData(0, 0, canvas.width, canvas.height);
+  })());
+  return runeTiles.get(picture);
+}
+
+/** The runes on screen, as elements of the Enhanced text layer. */
+function gameRunes(view) {
+  if (!runePictures || !view.runes?.length) return [];
+  return runePictures(view.runes).map(({ cell, width, picture, part, color }) => {
+    const rune = document.createElement("canvas");
+    rune.className = "game-rune";
+    rune.dataset.picture = picture;
+    rune.dataset.part = part;
+    Object.assign(rune.style, {
+      position: "absolute", left: `${(cell % 40) * 2.5}%`, top: `${Math.floor(cell / 40) * 4}%`,
+      width: `${width * 2.5}%`, height: "4%",
+    });
+    const fill = state.textColors[color];
+    void runeTile(picture).then((tile) => {
+      // A whole picture, or the eight of its sixteen columns this cell shows.
+      const columns = part === "all" ? tile.width : tile.width / 2;
+      const from = part === "middle" ? tile.width / 4 : part === "right" ? tile.width / 2 : 0;
+      const pixels = new ImageData(columns, tile.height);
+      for (let y = 0; y < tile.height; y++) for (let x = 0; x < columns; x++) {
+        const at = (y * tile.width + from + x) * 4, to = (y * columns + x) * 4;
+        const gold = Math.min(1, Math.max(0, (tile.data[at] - RUNE_OUTLINE[0]) / (RUNE_GOLD[0] - RUNE_OUTLINE[0])));
+        for (let channel = 0; channel < 3; channel++) {
+          pixels.data[to + channel] = RUNE_OUTLINE[channel] + (fill[channel] - RUNE_OUTLINE[channel]) * gold;
+        }
+        pixels.data[to + 3] = tile.data[at + 3];
+      }
+      rune.width = columns;
+      rune.height = tile.height;
+      rune.getContext("2d").putImageData(pixels, 0, 0);
+    }).catch(() => { /* A picture that does not load leaves its cell as the game's picture has it. */ });
+    return rune;
+  });
+}
 
 /** The game is asking its question, and the page takes the word. */
 function codeWheelAsking() {

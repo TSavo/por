@@ -49,7 +49,7 @@ applet's own `Scripts/main.scpt`, `applet.rsrc` and icon, with Node in `Contents
 | `audio/` | `voices/`: the narration, 1,755 MP3s, with 1,748 transcript `.txt` files, 849 `.json` records, one WAV and a README. `enhanced/`: the Enhanced score and sounds, 38 WAVs, 2 MP3s and 19 `.json` records. `classic/`: the Classic sounds, the game's 20 sound events for the PC speaker and for the Tandy chip (40 WAVs, 91 MB), the port's own renders of the original driver, with a README on how each was made. |
 | `src/` | The data the server and runner read: `audio/voices.json`, `audio/voice-master-manifest.json` (the narration's text), `audio/original-sounds.json`, `maps/atlas.json`, `maps/geography-model.json`, `codewheel/wheel.json`. |
 | `qa/` | `art-worklist-cells.json`, the exploration cells the server draws from the port's own data. |
-| `tools/` | The game page: `play.html`, `play.js`, `new-phlan-webgl.js`, `code-wheel.html`, `code-wheel.js`, `code-wheel-draw.js`. |
+| `tools/` | The game page: `play.html`, `play.js`, `new-phlan-webgl.js`, `code-wheel.html`, `code-wheel.js`, `code-wheel-draw.js`, `rune-glyphs.js`. |
 | Node | `Contents/MacOS/node` on the Mac, `node/node.exe` on Windows, `node/bin/node` on Linux, with Node's `LICENSE`. |
 | Start | Mac: the app itself. Windows: Start Menu and desktop shortcuts to `node\node.exe app\launch.mjs`, `pool-of-radiance.ico`, `Uninstall.exe`. Linux: `pool-of-radiance` (the start script), `pool-of-radiance.png`, `README.txt`. |
 
