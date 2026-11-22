@@ -422,15 +422,18 @@ export async function startGame({ pregen = true, saves, env = {}, seconds = 240,
      * Every key is one input: a press after which the game shows exactly what it showed before
      * (the same `look`, and nothing printed, narrated or flashed on the way) was swallowed, and
      * fails. So no loop of presses here can make up for a swallowed key by pressing again (#76).
+     * `{ mayChangeNothing: true }` is for the one kind of press where the game is meant to do
+     * nothing: Right on a Modify score already at its ceiling. A loop that relies on it must not
+     * stop at the first such press (see modifyToMaximum in tools/acceptance/party.mjs).
      */
-    async press(key, expected, why = "") {
+    async press(key, expected, why = "", { mayChangeNothing = false } = {}) {
       const before = { look: look(game.frame), printed: texts.length, narrated: narrations.length, flashed: flashed.length };
       if (!await game.send(key)) game.fail(`The runner does not know the key ${JSON.stringify(key)}.`);
       await game.settle();
       // POR_ACCEPTANCE_TRACE=1 prints every key and the screen that followed, for writing a new test.
       if (process.env.POR_ACCEPTANCE_TRACE === "1") console.error(`[${key}]\n${game.rows().map((row) => row.trimEnd()).filter(Boolean).join("\n")}`);
-      if (look(game.frame) === before.look && texts.length === before.printed && narrations.length === before.narrated &&
-        flashed.length === before.flashed) {
+      if (!mayChangeNothing && look(game.frame) === before.look && texts.length === before.printed &&
+        narrations.length === before.narrated && flashed.length === before.flashed) {
         game.fail(`${why}\nThe game swallowed ${JSON.stringify(key)}: after the press it shows what it showed before.`.trim());
       }
       if (expected &&!expected.test(game.text())) game.fail(`${why}\nAfter one press of ${key} the screen does not show ${expected}.`.trim());

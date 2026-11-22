@@ -185,7 +185,7 @@ function modifying(frame) {
 
 /**
  * From the party menu: Modify Character for `name`, and raise each field of `fields` as far as the
- * game lets it go: Right is pressed until a press no longer changes the value on screen. That is
+ * game lets it go: Right is pressed until two presses in a row no longer change the value on screen. That is
  * [P] §3.1, "You should maximize all relevant statistics before setting out (Modify character)";
  * the rule book (p.7) says Modify adjusts "ability scores and HP", and the game itself sets the
  * ceiling for the character's race, sex and classes. Returns the sheet as kept.
@@ -201,11 +201,13 @@ export async function modifyToMaximum(game, name, fields = modifiable) {
       if (moves >= modifiable.length + 1) game.fail(`Down did not bring the Modify highlight to ${field}.`);
       await game.press("down");
     }
-    for (let presses = 0; ; presses++) {
+    // At the ceiling Right changes nothing, and so would a Right the game swallowed: the score is
+    // at its ceiling once two presses in a row leave it where it was (#76).
+    for (let presses = 0, unchanged = 0; unchanged < 2; presses++) {
       if (presses >= 140) game.fail(`${field} was still rising after 140 presses.`);
       const before = String(value(field));
-      await game.press("right");
-      if (String(value(field)) === before) break;
+      await game.press("right", undefined, "", { mayChangeNothing: true });
+      unchanged = String(value(field)) === before ? unchanged + 1 : 0;
     }
   }
   const kept = fullSheet(game.frame);
