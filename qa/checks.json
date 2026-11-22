@@ -151,7 +151,7 @@
     },
     {
       "id": "code-wheel-screen",
-      "title": "The Enhanced code wheel appears at the prompt, refuses a wrong word, and Classic is unchanged",
+      "title": "The Enhanced code wheel appears at the prompt, refuses a wrong word, can be put away and brought back, opens as a tool after start-up without a key reaching the game, and Classic is unchanged",
       "command": "npm run verify:code-wheel-screen",
       "reference": "recorded-play",
       "needs": [
