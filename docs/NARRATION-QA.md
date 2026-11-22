@@ -12,9 +12,19 @@ not play the game. This measure does:
 ```
 npm run qa:narration                           the table; exit 1 while anything is left
 npm run qa:narration -- --list                 what is still unheard, by script, and every listed case
-npm run qa:narration -- --merge <ledgers...>   fold new runs into qa/narration-coverage.json
+npm run qa:narration -- --merge <files...>     fold new runs into qa/narration-coverage.json: ledgers and playback logs
 npm run acceptance:narration-dynamic           five dynamic families, driven until they fire
+npm run verify:narration-playback -- <chrome>  Rolf's tour in Chrome: every line played to its end, once, with its picture
 ```
+
+It counts in two steps, and only the second counts toward what is left:
+
+- **Selected.** The runner chose the unit at its passage and the page was told which recording to
+  play. This is the narration ledger. It proves the choice. It does not prove a sound.
+- **Played.** Chrome's audio element loaded that recording, started it, and reported its end at
+  its full length. This is the page's playback log. It also says what stopped a line that did not
+  end, whether another voice was sounding when it started, and what artwork was drawn while it
+  played.
 
 ## The ledger
 
@@ -50,8 +60,79 @@ outside the scripts, which the play server matches by its exact words) and an `o
 
 Whether a line is `heard` is decided by the same catalogue the play server uses
 (`NarrationCatalog.resolve`), so the ledger records what the page would be told to play. It does
-not prove that the browser played the file: `tools/play.js` queueing and key handling are not
-measured here.
+not prove that the browser played the file. The playback log does.
+
+## The playback log
+
+The page (`tools/play.js`) keeps one entry for every narration it is told to play, always, in
+Enhanced mode. `window.porNarrationPlayback()` returns `{ at, frame, queued, sounding, lines }`:
+the page's clock in seconds, the frame on screen, how many lines wait in the queue, how many
+voices are sounding, and the entries (the last 2,048). The log listens to the audio element and is
+told by the player when it stops a voice. It starts, stops and queues nothing.
+
+| field | meaning |
+| --- | --- |
+| `id`, `unitId`, `variantId`, `asset` | the narration, as the play server sent it |
+| `queuedAt`, `queuedFrame` | when the page was told, and the frame then on screen |
+| `behindVoiceLine` | a recording from `src/audio/voices.json` was speaking when this was queued: the page had matched it to the same text |
+| `refused` | `play()` was rejected (Chrome's autoplay rule, with no click on the page yet). The player retries on the next key or click |
+| `startedAt`, `startFrame`, `duration` | the audio element's `playing` event, and the recording's length as Chrome decoded it |
+| `artAtStart`, `artSeen`, `artAtEnd` | the Enhanced artwork key drawn (`portrait`, encounter picture or scene), or `null` for a frame with none: at the start, each change while the line sounded, and at the end. `artTimes` gives the seconds into the line of each entry of `artSeen` |
+| `startedOver` | voices still sounding when this one started. Must never appear |
+| `talkedOverBy` | a voice that started while this one was sounding. Must never appear |
+| `pauses` | times the element was paused without being stopped (the tab was hidden) |
+| `outcome` | `ended`: the element's `ended` event. `stopped`: the player stopped it. `never-started`: it was dropped before any sound. Absent: still playing or queued |
+| `reason` | for `stopped` and `never-started`: `key <key>`, `a voice line replaced it`, `switched to Classic`, `load error`, `queue cleared: <why>`, or `play() was refused ..., then <why>` |
+| `endedAt`, `endFrame`, `position` | when it ended or stopped, and the audio element's `currentTime` then |
+| `behind` | for a line dropped from the queue: the line that was playing |
+
+The Chrome harness (`tools/chrome-campaign-replay.mjs`) reads the log when a leg closes and writes
+it as `narration-playback.jsonl` in the leg's directory. When `POR_NARRATION_LEDGER` is set it also
+appends it beside the ledger as `<ledger>.playback.jsonl`: a `{"t":"playback","run","leg"}` line
+and one `{"t":"p", ...}` line per entry. `--merge` takes both kinds of file.
+
+Headless Chrome refuses `audio.play()` on a page nobody has clicked, and the harness sends keys
+through the page's `send()`, which is not a click. Until the harness passed
+`--autoplay-policy=no-user-gesture-required` every narration in every Chrome check was refused and
+none played (measured: `NotAllowedError`, `currentTime` 0 after three seconds). `--mute-audio`
+stays: it silences the output device only. The recording is still fetched, decoded and run at
+real speed, and `verify:narration-playback` requires the time from `playing` to `ended` to equal
+the recording's length.
+
+### What cut off means
+
+The owner's design, from the manifest's policy and the page's key handling:
+
+- Audio attaches only to the trigger, covered prints do not retrigger, and the next narration
+  queues after the current one (`policy` in `src/audio/voice-master-manifest.json`).
+- Enter or Space while a narration unit is sounding leaves it sounding: the press moves to the
+  next print, which is usually one the unit covers. Any other key stops the voice and empties the
+  queue (`keydown` in `tools/play.js`).
+
+So the measure reads a line's end like this:
+
+| the log says | verdict | why |
+| --- | --- | --- |
+| `ended` within 0.25s of `duration` | played to the end | |
+| `stopped`, reason `key ...` or `switched to Classic` | ended by the player | the player moved on, and the game with them. Legitimate, and not proof that the line can be heard whole |
+| `never-started`, reason `key ..., before the recording had loaded` | ended by the player | the same, in the instant before the sound |
+| `stopped` for any other reason (`a voice line replaced it`, `load error`) | **cut off** | nothing the player pressed ended it |
+| `ended` short of `duration` | **cut off** | the element gave up early |
+| `never-started` with `queue cleared: ...` | **never started** | the line waited behind another and was thrown away. The player never heard a word of it, whichever key cleared the queue |
+| `refused` and never started | **never started** | Chrome would not play it and nothing resumed it |
+| no outcome | unfinished | the run closed the page first. Not evidence either way |
+
+A cut-off or never-started line is a defect: record it in `qa/findings.json` with the unit, what
+interrupted it and the seconds lost.
+
+A replay is weak evidence here. The harness presses through `send()`, so a replay's keys never
+reach the page's key handling: no line is ever ended by a replay's key, and the lines pile up in
+the queue and play one after another, long after their passage has left the screen. A replay shows
+that a recording loads and runs to its end. It does not show that it was heard at its passage.
+The rows say which: a line that started more than a second after it was queued is counted in the
+note of the played row and listed, and the artwork row fails a line whose picture changed under it.
+Proof that a passage is heard whole, at its moment, needs a run that waits for each line, as
+`verify:narration-playback` does.
 
 ## The silent cases
 
@@ -74,19 +155,40 @@ again replaces what that run said about silent cases, so a fixed defect clears.
 
 ## The table
 
-`qa/narration-coverage.json` holds what has been heard and the run it was heard in. A unit,
-variant or selector that is not listed has not been heard.
+`qa/narration-coverage.json` holds what has been selected and played, and the run. A unit,
+variant or selector that is not listed has not been.
 
 Rows that come from play:
 
-- **Units heard at their passage** (of 1,432): a run chose the unit at its trigger.
+- **Units selected at their passage** (of 1,432): a run chose the unit at its trigger and the page
+  was told to play it. It proves the script position, the selector and the variant. It does not
+  prove that anything sounded. Its `left` is shown in brackets and is not counted in the total.
+- **Units played to the end in Chrome** (of 1,432): in some Chrome run the audio element started
+  the unit's recording and reported `ended` within 0.25s of its length. This row drives the total.
+  It proves the file loads and runs to its end in the page. It does not prove the line was in step
+  with the screen: its note counts the lines that started more than a second after they were
+  queued, and `--list` names them. It does not prove the words (that is
+  `verify-narration-generation`) or that a speaker was on (`--mute-audio`).
+- **Units cut off or never started** (must be 0): every line in a playback log that stopped early
+  or was dropped with no key from the player to explain it, by the table above. `--list` gives the
+  unit, the reason, where it stopped and the seconds lost. It counts lines, so one unit can be
+  listed more than once.
+- **Lines that started while another was still playing** (must be 0): a line whose `playing` event
+  came while another voice element was neither paused nor ended. This is observed on the audio
+  elements themselves, not read from the player's own bookkeeping.
+- **Played with their artwork on screen from start to end**: of the units played to the end, those
+  where one Enhanced artwork was drawn when the line started and no other frame replaced it before
+  the line ended. It proves a picture was there throughout. It does not compare the picture's
+  variant with the narration's variant. A unit counts once any playing of it had its artwork
+  throughout; otherwise `--list` gives what was on screen instead.
 - **Dynamic variants selected** (of 392): the variant's condition matched the game's state.
 - **Deferred selectors resolved** (of 43): play reached the selector's passage and it chose a unit
   (or its silent case).
 - **Silent cases found in play** (must be 0).
-- **Heard passages with their artwork showing**: of the units heard, those where an Enhanced
-  portrait, scene illustration or encounter picture was on screen between the narration starting
-  and the game next waiting for a key. A passage that was heard once without artwork counts as
+- **Selected passages with their artwork showing**: of the units selected, those where an Enhanced
+  portrait, scene illustration or encounter picture was on screen between the unit being selected
+  and the game next waiting for a key. This is the runner's view of the frame, not the page's, and
+  says nothing about how long the picture stayed. A passage that was selected once without artwork counts as
   without, and `--list` names it with what was showing instead: the original picture, or no
   picture (the view of the area). This row says whether artwork was there. It does not compare the
   artwork's variant with the narration's variant.
@@ -94,6 +196,11 @@ Rows that come from play:
 Rows that need no play, and must be zero:
 
 - **Recordings missing under `audio/`**: every unit and variant asset file.
+- **Units that a voices.json recording also speaks**: the page plays the recordings of
+  `src/audio/voices.json` when their phrase appears in printed text, and the runner selects the
+  unit for the same print. Where a unit's text holds such a phrase the passage is read twice:
+  the voices.json recording at once, then the unit when that has finished. In play the playback
+  log marks the unit `behindVoiceLine`.
 - **Variant conditions that overlap**: within a family every condition and every selecting value
   is distinct, so no two variants can match at once.
 - **Variant families the observer cannot select**: the observer reads one slot per family. Where
@@ -141,6 +248,9 @@ POR_NARRATION_LEDGER=$PWD/out/narration-ledgers/campaign-opening.jsonl \
   npm run verify:campaign-opening -- "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 npm run qa:narration -- --merge out/narration-ledgers/*.jsonl
 ```
+
+A Chrome run leaves `<run>.playback.jsonl` beside its ledger, so the same glob merges both. A run
+with no Chrome (the acceptance harness) selects units and plays none.
 
 The ledger path must be absolute when a check starts the runner from another directory. Give each
 kind of run its own file name: the name is the run recorded in the coverage file. Start from an

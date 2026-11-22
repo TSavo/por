@@ -9,15 +9,18 @@ import type { LedgerFrame, LedgerNarration } from "./narration-ledger.js";
 //
 //   npm run qa:narration                           the table; exit 1 while anything is left
 //   npm run qa:narration -- --list                 what is still unheard, by script, and every listed case
-//   npm run qa:narration -- --merge <ledgers...>   fold narration ledgers into qa/narration-coverage.json
+//   npm run qa:narration -- --merge <files...>     fold narration ledgers and Chrome playback logs into qa/narration-coverage.json
 //
 // The requirement: every narrated passage is narrated audibly at its moment in play, the dynamic
 // ones above all, with its picture showing. The other narration checks prove that the recordings
-// exist and say the right words. This one counts what play has actually reached: a unit counts
-// when a run of the game chose it at its passage, a variant when its condition matched the game's
-// state, a selector when it resolved. qa/narration-coverage.json holds what has been heard and
-// the run it was heard in. A ledger comes from a run with POR_NARRATION_LEDGER set
-// (tools/narration-ledger.ts). docs/NARRATION-QA.md explains every row.
+// exist and say the right words. This one counts what play has actually reached, in two steps.
+// Selected: a run of the game chose the unit at its passage (a variant when its condition matched
+// the game's state, a selector when it resolved). That comes from the runner's ledger, written
+// with POR_NARRATION_LEDGER set (tools/narration-ledger.ts), and says only what the page was told
+// to play. Played: Chrome's audio element loaded the recording and ran it to its end. That comes
+// from the page's playback log (tools/play.js), which the Chrome harness writes beside the ledger
+// as <ledger>.playback.jsonl. Only a unit played to the end counts toward the total.
+// qa/narration-coverage.json holds both. docs/NARRATION-QA.md explains every row.
 
 interface Variant { id: string; condition: string; dynamicValue: string; text: string; asset: string }
 interface Unit {
@@ -55,7 +58,37 @@ interface Coverage {
   /** Moments where narration belonged and none was chosen. Must be empty. */
   silent: Record<string, { kind: string; sourceId: string; archive: string; block: number; slot?: string;
     value?: string | number; status?: string; selector?: string; runs: Record<string, { count: number; step: number }> }>;
+  /** What Chrome's audio element did with the narrations the page was told to play. */
+  playback?: Playback;
 }
+interface Playback {
+  /** Every merged playback log, and how its lines ended. */
+  runs: Record<string, { log: string; legs: number; lines: number; toTheEnd: number; endedByPlayer: number; cutOff: number;
+    /** Still playing, or still waiting behind another line, when the run closed the page. Not evidence either way. */
+    unfinished: number; startedLate: number }>;
+  /** Units whose recording ran to its end. `waited` is the seconds between being queued and starting.
+   *  `art` is set when one Enhanced artwork was on screen from the line's start to its end. */
+  played: Record<string, { run: string; asset: string; variantId?: string; seconds: number; waited: number; art?: string;
+    /** A playing to the end during which the artwork changed or was absent: what was on screen, in order. */
+    saw?: (string | null)[] }>;
+  /** Lines that stopped before their end, or never started, with no key from the player to explain it. Must be empty. */
+  cutOff: Record<string, { run: string; leg: string; unitId: string; asset: string; what: "cut off" | "never started"; reason: string;
+    at?: number; of?: number; lost?: number; frame: number; behind?: string }>;
+  /** Lines that started while another voice was still sounding. Must be empty. */
+  overlaps: Record<string, { run: string; leg: string; unitId: string; over: (string | number)[]; frame: number }>;
+}
+/** One line of a playback log: tools/play.js writes the fields, docs/NARRATION-QA.md describes them. */
+interface PlaybackLine {
+  t: "p"; id: number; unitId: string; variantId?: string; asset: string; queuedAt: number; queuedFrame: number;
+  startedAt?: number; startFrame?: number; duration?: number; artAtStart?: string | null; artSeen?: (string | null)[]; artTimes?: number[];
+  startedOver?: (string | number)[]; talkedOverBy?: string | number; pauses?: number; refused?: string;
+  outcome?: "ended" | "stopped" | "never-started"; reason?: string; endedAt?: number; endFrame?: number; position?: number;
+  artAtEnd?: string | null; behind?: number; behindVoiceLine?: string;
+}
+/** A recording counts as played to its end when the audio element reported `ended` this close to its duration. */
+const endTolerance = 0.25;
+/** A line that started this long after it was queued waited behind another line. */
+const lateStart = 1;
 const coveragePath = new URL("qa/narration-coverage.json", root);
 const coverage: Coverage = existsSync(coveragePath) ? JSON.parse(readFileSync(coveragePath, "utf8")) as Coverage : {
   schema: 1,
@@ -67,11 +100,73 @@ const coverage: Coverage = existsSync(coveragePath) ? JSON.parse(readFileSync(co
 const mergeAt = process.argv.indexOf("--merge");
 if (mergeAt >= 0) {
   const ledgers = process.argv.slice(mergeAt + 1).filter(argument => !argument.startsWith("--"));
-  if (!ledgers.length) throw new Error("--merge needs one or more ledger files");
-  for (const ledger of ledgers) mergeLedger(ledger);
+  if (!ledgers.length) throw new Error("--merge needs one or more ledger or playback files");
+  for (const ledger of ledgers) {
+    if (/^\{"t":"playback"/.test(readFileSync(ledger, "utf8"))) mergePlayback(ledger);
+    else mergeLedger(ledger);
+  }
   const sorted = <T>(record: Record<string, T>) => Object.fromEntries(Object.entries(record).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0));
   writeFileSync(coveragePath, JSON.stringify({ ...coverage, runs: sorted(coverage.runs), units: sorted(coverage.units),
-    variants: sorted(coverage.variants), selectors: sorted(coverage.selectors), silent: sorted(coverage.silent) }, null, 1) + "\n");
+    variants: sorted(coverage.variants), selectors: sorted(coverage.selectors), silent: sorted(coverage.silent),
+    ...(coverage.playback ? { playback: { runs: sorted(coverage.playback.runs), played: sorted(coverage.playback.played),
+      cutOff: sorted(coverage.playback.cutOff), overlaps: sorted(coverage.playback.overlaps) } } : {}) }, null, 1) + "\n");
+}
+
+/** How one line of a playback log ended. The rules are argued in docs/NARRATION-QA.md, "What cut off means". */
+function playbackVerdict(line: PlaybackLine): "to the end" | "ended by the player" | "cut off" | "never started" | "unfinished" {
+  const byPlayer = /^(key |switched to Classic)/.test(line.reason ?? "");
+  if (line.outcome === "ended") return (line.position ?? 0) >= (line.duration ?? Infinity) - endTolerance ? "to the end" : "cut off";
+  if (line.outcome === "stopped") return byPlayer ? "ended by the player" : "cut off";
+  // A key in the instant before the recording loaded is the player moving on. A line dropped from
+  // the queue never reached the player at all, whoever cleared it.
+  if (line.outcome === "never-started") return byPlayer ? "ended by the player"
+    : /^queue cleared: switched to Classic/.test(line.reason ?? "") ? "ended by the player" : "never started";
+  return line.refused && line.startedAt === undefined ? "never started" : "unfinished";
+}
+
+function mergePlayback(path: string): void {
+  type Line = PlaybackLine | { t: "playback"; run: string; leg: string; at: number; frame: number; queued: number };
+  const lines = readFileSync(path, "utf8").split("\n").filter(Boolean).map(line => JSON.parse(line) as Line);
+  const run = (lines[0] as Extract<Line, { t: "playback" }>).run;
+  const playback = coverage.playback ??= { runs: {}, played: {}, cutOff: {}, overlaps: {} };
+  // A run merged again replaces what that run said about cut-off and overlapping lines.
+  for (const record of [playback.cutOff, playback.overlaps]) {
+    for (const [key, entry] of Object.entries(record)) if (entry.run === run) delete record[key];
+  }
+  const count = { legs: 0, lines: 0, toTheEnd: 0, endedByPlayer: 0, cutOff: 0, unfinished: 0, startedLate: 0 };
+  let leg = "";
+  for (const line of lines) {
+    if (line.t === "playback") { leg = line.leg; count.legs++; continue; }
+    count.lines++;
+    const verdict = playbackVerdict(line);
+    const key = `${run} | ${leg} | ${line.id} | ${line.unitId}`;
+    if (line.startedOver?.length) playback.overlaps[key] = { run, leg, unitId: line.unitId, over: line.startedOver, frame: line.startFrame ?? line.queuedFrame };
+    if (line.startedAt !== undefined && line.startedAt - line.queuedAt > lateStart) count.startedLate++;
+    if (verdict === "to the end") {
+      count.toTheEnd++;
+      const seen = line.artSeen ?? [];
+      const art = seen.length === 1 && seen[0] && line.artAtEnd === seen[0] ? seen[0] : undefined;
+      const entry = playback.played[line.unitId] ??= { run, asset: line.asset, ...(line.variantId ? { variantId: line.variantId } : {}),
+        seconds: line.duration!, waited: Math.round((line.startedAt! - line.queuedAt) * 1000) / 1000 };
+      if (art) { entry.art ??= art; delete entry.saw; }
+      else if (!entry.art) entry.saw ??= [...seen, ...(line.artAtEnd === seen.at(-1) ? [] : [line.artAtEnd ?? null])];
+    } else if (verdict === "ended by the player") count.endedByPlayer++;
+    else if (verdict === "unfinished") count.unfinished++;
+    else {
+      count.cutOff++;
+      const reason = line.outcome === "ended" ? "the audio element reported its end early"
+        : line.reason ?? (line.refused ? `play() was refused (${line.refused}) and nothing resumed it` : "unknown");
+      playback.cutOff[key] = { run, leg, unitId: line.unitId, asset: line.asset, what: verdict, reason,
+        ...(line.position === undefined ? {} : { at: Math.round(line.position * 100) / 100 }),
+        ...(line.duration === undefined ? {} : { of: line.duration }),
+        ...(line.position === undefined || line.duration === undefined ? {} : { lost: Math.round((line.duration - line.position) * 100) / 100 }),
+        frame: line.endFrame ?? line.queuedFrame,
+        ...(line.behind === undefined ? {} : { behind: lines.find((other): other is PlaybackLine => other.t === "p" && other.id === line.behind)?.unitId ?? String(line.behind) }) };
+    }
+  }
+  playback.runs[run] = { log: path.replaceAll("\\", "/").split("/").at(-1)!, ...count };
+  console.log(`merged ${path}: run ${run}, ${count.legs} legs, ${count.lines} narrations sent to Chrome: ${count.toTheEnd} played to the end, ` +
+    `${count.endedByPlayer} ended by the player, ${count.cutOff} cut off or never started, ${count.unfinished} unfinished when the page closed`);
 }
 
 function mergeLedger(path: string): void {
@@ -142,7 +237,9 @@ function mergeLedger(path: string): void {
 }
 
 // ---- the played rows ------------------------------------------------------------------------------------------------
-type Row = { part: string; done?: number; total?: number; left: number; note: string; list?: string[] };
+type Row = { part: string; done?: number; total?: number; left: number; note: string; list?: string[];
+  /** False for a row that is reported and does not count toward what is left. */
+  counted?: false };
 const rows: Row[] = [];
 const address = (sourceId: string) => /at-([0-9a-f]{4})/.exec(sourceId)?.[1] ?? "?";
 const scriptOf = (sourceId: string) => {
@@ -175,13 +272,47 @@ for (const unit of units) {
 }
 const scriptOrder = [...byScript.keys()].sort((a, b) => a.localeCompare(b, "en", { numeric: true }));
 const runNames = Object.keys(coverage.runs);
-rows.push({ part: "Units heard at their passage", done: heardUnits.length, total: units.length, left: unheard.length,
-  note: `from ${runNames.length} runs: ${runNames.join(", ") || "none"}; unheard units are in ${new Set(unheard.map(unit => scriptOf(unit.triggerSourceId))).size} scripts`,
+rows.push({ part: "Units selected at their passage", done: heardUnits.length, total: units.length, left: unheard.length, counted: false,
+  note: `the page was told to play them; not counted in the total. From ${runNames.length} runs: ${runNames.join(", ") || "none"}; ` +
+    `unselected units are in ${new Set(unheard.map(unit => scriptOf(unit.triggerSourceId))).size} scripts`,
   list: scriptOrder.flatMap(script => {
     const all = units.filter(unit => scriptOf(unit.triggerSourceId) === script);
     return [`${script}${areaName(script)}: ${all.filter(unit => coverage.units[unit.id]).length} of ${all.length} units heard`,
       ...byScript.get(script)!.map(line => `    ${line}`)];
   }) });
+// What Chrome then did, from the playback logs.
+const playback = coverage.playback ?? { runs: {}, played: {}, cutOff: {}, overlaps: {} };
+const playedUnits = units.filter(unit => playback.played[unit.id]);
+const playbackRuns = Object.values(playback.runs);
+const sum = (pick: (run: Playback["runs"][string]) => number) => playbackRuns.reduce((total, run) => total + pick(run), 0);
+const where = (unitId: string) => {
+  const unit = unitById.get(unitId);
+  return unit ? `${scriptOf(unit.triggerSourceId)} ${address(unit.triggerSourceId)} ${say(unit.spokenText || unit.runtimeVariants?.[0]?.text || "")}` : unitId;
+};
+rows.push({ part: "Units played to the end in Chrome", done: playedUnits.length, total: units.length, left: units.length - playedUnits.length,
+  note: `the audio element reported the recording's end within ${endTolerance}s of its length. From ${playbackRuns.length} playback logs holding ${sum(run => run.lines)} lines: ` +
+    `${sum(run => run.toTheEnd)} played to the end, ${sum(run => run.endedByPlayer)} ended by a key, ${sum(run => run.unfinished)} still playing or queued when the page closed; ` +
+    `${sum(run => run.startedLate)} started more than ${lateStart}s after they were queued`,
+  list: [...heardUnits.filter(unit => !playback.played[unit.id]).map(unit => `selected, not played to the end: ${where(unit.id)}`),
+    ...playedUnits.filter(unit => playback.played[unit.id]!.waited > lateStart).map(unit =>
+      `played ${playback.played[unit.id]!.waited}s after it was queued (${playback.played[unit.id]!.run}): ${where(unit.id)}`)] });
+const cutOff = Object.values(playback.cutOff);
+rows.push({ part: "Units cut off or never started (must be 0)", left: cutOff.length,
+  note: cutOff.length ? `${cutOff.filter(({ what }) => what === "cut off").length} cut off, ${cutOff.filter(({ what }) => what === "never started").length} never started, with no key from the player to end them`
+    : "no line stopped early or was dropped without a key from the player",
+  list: cutOff.map(entry => `${entry.what}: ${where(entry.unitId)}: ${entry.reason}` +
+    `${entry.at === undefined ? "" : `, at ${entry.at}s of ${entry.of}s (${entry.lost}s lost)`}` +
+    `${entry.behind ? `, waiting behind ${entry.behind}` : ""}; ${entry.run} ${entry.leg}, frame ${entry.frame}`) });
+const overlaps = Object.values(playback.overlaps);
+rows.push({ part: "Lines that started while another was still playing (must be 0)", left: overlaps.length,
+  note: overlaps.length ? "two voices sounded at once" : "no line started over another voice",
+  list: overlaps.map(entry => `${where(entry.unitId)} started over ${entry.over.join(", ")}; ${entry.run} ${entry.leg}, frame ${entry.frame}`) });
+const playedWithArt = playedUnits.filter(unit => playback.played[unit.id]!.art);
+rows.push({ part: "Played with their artwork on screen from start to end", done: playedWithArt.length, total: playedUnits.length,
+  left: playedUnits.length - playedWithArt.length,
+  note: "of the units played to the end: one Enhanced portrait, illustration or encounter picture was drawn when the line started and stayed until it ended",
+  list: playedUnits.filter(unit => !playback.played[unit.id]!.art).map(unit =>
+    `${where(unit.id)}: on screen ${(playback.played[unit.id]!.saw ?? []).map(key => key ?? "no artwork").join(" then ") || "not recorded"} (${playback.played[unit.id]!.run})`) });
 const variantsHeard = [...variantOwner.keys()].filter(id => coverage.variants[id]);
 const families = units.filter(unit => unit.runtimeVariants?.length);
 rows.push({ part: "Dynamic variants selected", done: variantsHeard.length, total: variantTotal, left: variantTotal - variantsHeard.length,
@@ -207,7 +338,7 @@ function conditionsFor(sourceId: string): string {
 }
 const withArt = heardUnits.filter(unit => coverage.units[unit.id]!.art && !coverage.units[unit.id]!.withoutArt);
 const withoutArt = heardUnits.filter(unit => !withArt.includes(unit));
-rows.push({ part: "Heard passages with their artwork showing", done: withArt.length, total: heardUnits.length, left: withoutArt.length,
+rows.push({ part: "Selected passages with their artwork showing", done: withArt.length, total: heardUnits.length, left: withoutArt.length,
   note: `artwork is an Enhanced portrait, scene illustration or encounter picture on screen before the game next waits for a key; ` +
     `${withoutArt.filter(unit => coverage.units[unit.id]!.withoutArt?.showing === "the original picture").length} showed only the original picture, ` +
     `${withoutArt.filter(unit => coverage.units[unit.id]!.withoutArt?.showing === "no picture").length} no picture`,
@@ -227,6 +358,21 @@ rows.push({ part: "Recordings missing under audio/", done: new Set(assets).size 
   left: missingAssets.length + unvoicedUnits.length, note: `${assets.length} references from ${units.length} units and ${variantTotal} variants` +
     (unvoicedUnits.length ? `; ${unvoicedUnits.length} units have neither a recording nor variants` : ""),
   list: [...missingAssets, ...unvoicedUnits.map(({ id }) => `${id}: no recording and no variants`)] });
+
+// The page also plays the recordings of src/audio/voices.json, which it matches to printed text by a
+// phrase (playPendingVoice in tools/play.js). Where such a phrase is in a unit's text, both fire on the
+// same print: the voices.json recording speaks first and the unit, queued behind it, speaks the passage
+// again. The playback log shows it in play as `behindVoiceLine`.
+const voiceLines = (JSON.parse(readFileSync(new URL("src/audio/voices.json", root), "utf8")) as { lines: { id: string; match?: string; file: string }[] }).lines;
+const speech = (text: string) => text.replace(/\s+/g, " ").toUpperCase();
+const spokenTwice = units.flatMap(unit => {
+  const text = [unit.triggerSourceId, ...unit.coveredSourceIds].map(id => speech(eventById.get(id)?.normalizedText ?? ""));
+  const line = voiceLines.find(({ match }) => match && text.some(printed => printed.includes(speech(match))));
+  return line ? [`${scriptOf(unit.triggerSourceId)} ${address(unit.triggerSourceId)} ${say(unit.spokenText)}: also spoken by ${line.id} (${line.file})`] : [];
+});
+rows.push({ part: "Units that a voices.json recording also speaks", left: spokenTwice.length,
+  note: spokenTwice.length ? "the passage is read twice: the voices.json recording first, then the unit" : "no passage has two recordings triggered by one print",
+  list: spokenTwice });
 
 // A family is told apart at run time by the value in one slot: the play server picks the variant whose
 // dynamicValue equals it. Two variants with one value, or two with one condition, can never both be chosen.
@@ -443,13 +589,14 @@ if (tales) {
 // ---- report ---------------------------------------------------------------------------------------------------------
 let left = 0;
 const cell = (value: number | undefined) => String(value ?? "").padStart(6);
-console.log(`${"part".padEnd(46)} ${"done".padStart(6)} ${"of".padStart(6)} ${"left".padStart(6)}`);
-for (const { part, done, total, left: rowLeft, note } of rows) {
-  left += rowLeft;
-  console.log(`${part.padEnd(46)} ${cell(done)} ${cell(total)} ${cell(rowLeft)}   ${note}`);
+const width = Math.max(...rows.map(({ part }) => part.length));
+console.log(`${"part".padEnd(width)} ${"done".padStart(6)} ${"of".padStart(6)} ${"left".padStart(6)}`);
+for (const { part, done, total, left: rowLeft, note, counted } of rows) {
+  if (counted !== false) left += rowLeft;
+  console.log(`${part.padEnd(width)} ${cell(done)} ${cell(total)} ${counted === false ? `(${rowLeft})`.padStart(6) : cell(rowLeft)}   ${note}`);
 }
 for (const note of notes) console.log(`\n${note}`);
-console.log(`\n${left} left before every narrated passage is proved heard in play, with its picture`);
+console.log(`\n${left} left before every narrated passage is proved played to its end in Chrome, with its picture`);
 if (process.argv.includes("--list")) {
   for (const { part, list } of rows) {
     if (!list?.length) continue;
